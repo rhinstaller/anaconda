@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-27 21:42+0100\n"
+"PO-Revision-Date: 2006-07-31 12:53+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -355,6 +355,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Kliknite 'U redu' ili odaberite drugu opciju particioniranja."
 
 #: ../autopart.py:1503
 #, python-format
@@ -846,7 +849,7 @@ msgstr "Nije moguće pristupiti datotečnom sustavu"
 #: ../fsset.py:1730
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr ""
+msgstr "Tijekom pristipanja uređaju %s kao %s, došlo je do pogreške.  Možete nastaviti s instalacijom, ali moglo bi biti problema."
 
 #: ../fsset.py:1738
 #: ../image.py:91
@@ -1100,14 +1103,16 @@ msgstr "Instalacijski prozor"
 #: ../harddrive.py:41
 #: ../image.py:143
 #: ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation images and that you have all the required media.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Ako instalirate s CD medija vjerojatno je CD medij oštećen ili CD-ROM uređaj ne može pročitati taj medij.\n"
+"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite instalacijske preslike i imate li sve potrebne medije.\n"
+"\n"
+"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../harddrive.py:68
@@ -1198,14 +1203,16 @@ msgid "Unable to access the CDROM."
 msgstr "Nije moguće pristupiti CD-ROM uređaju."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation tree contains all required packages.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Ako instalirate s CD medija vjerojatno je CD medij oštećen ili CD-ROM uređaj ne može pročitati taj medij.\n"
+"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadrži li vaše instalacijsko stablo sve potrebne pakete.\n"
+"\n"
+"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../image.py:504
@@ -1311,7 +1318,7 @@ msgstr "Unesite registracijski ključ"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Unesite registracijski ključ vaše verzije %s."
 
 #: ../packages.py:248
 msgid "Key:"
@@ -1743,7 +1750,7 @@ msgstr "Particija 'root' manja je od 250 MB, što je najčešće premalo za inst
 
 #: ../partitions.py:842
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
-msgstr ""
+msgstr "Vaša pokretačka particija ne nalazi se na jednoj od prvih četiri particija i zato se ne može upotrijebiti za pokretanje."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1864,7 +1871,7 @@ msgstr "Ovaj RAID uređaj može imati najviše %s sigurnosnih diskova. Da biste 
 
 #: ../partRequests.py:924
 msgid "Logical volume size must be larger than the volume group's physical extent size."
-msgstr ""
+msgstr "Veličina logičkog volumena mora biti veća od veličine fizičkog proširenja grupe volumena."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2159,14 +2166,16 @@ msgid "Connecting..."
 msgstr "Povezivanje..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your mirror contains all required packages, and try using a different one.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Ako instalirate s CD medija vjerojatno je CD medij oštećen ili CD-ROM uređaj ne može pročitati taj medij.\n"
+"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadržo li vaše zrcalo sve potrebne pakete ili pokušajte s upotrebom drugog zrcala.\n"
+"\n"
+"Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2377,12 +2386,9 @@ msgid "Error running transaction"
 msgstr "Pogreška tijekom prijenosa"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Naziv računala \"%s\" nije ispravno zbog sljedećeg razloga:\n"
-"\n"
-"%s"
+msgstr "Tijekom izvršavanja transakcija iz sljedećih je razloga došlo do pogrešaka: %s"
 
 #: ../yuminstall.py:475
 #: ../yuminstall.py:570
@@ -2395,9 +2401,9 @@ msgid "Retrieving installation information..."
 msgstr "Dohvaćanje podataka instalacije..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Dohvaćanje podataka instalacije..."
+msgstr "Dohvaćanje podataka instalacije za %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2542,13 +2548,12 @@ msgid "_Confirm: "
 msgstr "_Potvrdite:"
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Naziv iSCSI inicijalizatora:"
+msgstr "Neispravan naziv inicijalizatora"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Potrebno je unijeti naziv inicijatora dulji od nula znakova."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3275,12 +3280,8 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP podaci koje se unijeli neispravni su."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"Nemate aktivne mrežne uređaje. Uz zadane postavke vaš sustav neće biti u mogućnosti komunicirati putem mreže bez najmanje jednog aktivnog uređaja.\n"
-"\n"
-"NAPOMENA: Ako imate PCMCIA mrežni adapter u ovome bi trenutku bilo potrebno ostaviti ga neaktivnim. Pri ponovno pokretanju sustava adapter će biti automatski aktiviran."
+msgstr "Nemate aktivne mrežne uređaje. Uz zadane postavke vaš sustav neće biti u mogućnosti komunicirati putem mreže bez najmanje jednog aktivnog uređaja."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4002,31 +4003,31 @@ msgid "Unable to load file!"
 msgstr "Nije moguće učitati datoteku!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Neispravan naziv poslužitelja"
+msgstr "Neispravan naziv repozitorija"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Potrebno je unijeti naziv poslužitelja."
+msgstr "Potrebno je unijeti naziv repozitorija dulji od nula znakova."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Neispravna oznaka pokretanja"
+msgstr "Neispravan URL repozitorija"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Repozitoriju morate dodijeliti HTTP ili FTP URL adresu."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "Meta podatke paketa nije moguće pročitati.  Vjerojatno nedostaje datoteka izvještaja.  Provjerite je li instalacijsko stablo ispravno generirano.  %s"
+msgstr ""
+"Meta podatke paketa iz repozitorija nije moguće pročitati.  Vjerojatno nedostaje mapa podataka repozitorija.  Provjerite je li repozitorij ispravno generiran.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61
 #: ../textw/timezone_text.py:89
@@ -5104,12 +5105,12 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Potreban je registracijski ključ"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid "A registration key is required to install %s.  Please contact your support representative if you did not receive a key with your product."
-msgstr ""
+msgstr "Za instalaciju %s potreban je registracijski ključ.  U slučaju da s proizvodom niste dobili ključ, kontaktirajte svog predstavnika podrške."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5683,7 +5684,7 @@ msgstr "Neispravna CIDR maska"
 
 #: ../loader2/net.c:97
 msgid "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
-msgstr ""
+msgstr "CIDR vrijednost maske mora biti između 1 i 32 za IPv4 mreže, odnosno između 1 i 128 za IPv6 mreže"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -5732,30 +5733,28 @@ msgstr "Mrežna pogreška"
 
 #: ../loader2/net.c:539
 #: ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Tijekom brisanja odredišnih diskova došlo je do pogreške. Kloniranje nije uspjelo."
+msgstr "Tijekom konfiguriranja mrežnog sučelja došlo je do pogreške."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Upotrijebi dinamičko IP konfiguriranje (BOOTP/DHCP)"
+msgstr "Upotrijebi dinamičko IP konfiguriranje (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Omogući IPv4 podršku"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Omogući IPv6 podršku"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Izbjegni neželjena sukobljavanja paketa"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maksimiziraj vrijednosti registra za potrebe brzog mrežnog prometa"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -5768,11 +5767,11 @@ msgstr "Nedostaje protokol"
 
 #: ../loader2/net.c:754
 msgid "You must select at least one protocol (IPv4 or IPv6) for manual configuration."
-msgstr ""
+msgstr "Za ručno konfiguriranje potrebno je odabrati najmanje jedan protokol (IPv4 ili IPv6)."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Za DHCP je potrebno odabrati najmanje jedan protokol (IPv4 ili IPv6)."
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -5793,9 +5792,8 @@ msgid "Name Server:"
 msgstr "Poslužitelj naziva:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL konfiguracija"
+msgstr "Ručna TCP/IP konfiguracija"
 
 #: ../loader2/net.c:1084
 #: ../loader2/net.c:1090
@@ -5803,14 +5801,12 @@ msgid "Missing Information"
 msgstr "Nedostaje podatak"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Potrebno unijeti i valjanu IP adresu i mrežnu masku."
+msgstr "Potrebno unijeti valjanu IPv4 adresu i mrežnu masku ili CIDR prefiks."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Potrebno unijeti i valjanu IP adresu i mrežnu masku."
+msgstr "Potrebno unijeti valjanu IPv6 adresu i mrežnu masku ili aCIDR prefiks."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -5999,49 +5995,45 @@ msgid "Loading SCSI driver"
 msgstr "Učitavanje SCSI upravljačkih programa"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Dodaj _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Dodaj _iSCSI cilj"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Dodatne opcije veličina"
+msgstr "Dodatne opcije pohranjivanja"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Onemogući _dmraid uređaj"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Na koji način želite pripremiti datotečni sustav na ovoj particiji?"
+msgstr "Na koji način želite urediti konfiguraciju diska?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL repozitorija:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Naziv iSCSI inicijalizatora:</b>"
+msgstr "<b>_Naziv repozitorija</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Dodaj repozitorij"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "Navedite lokaciju s koje će biti instaliran dodatni softver. Napomena: Mora biti valjanim repozitorijem za %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Dodaj repozitorij"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6064,9 +6056,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Pregled i _uređivanje rasporeda particija"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Napredne postavke pokretačkog programa"
+msgstr "N_apredna konfiguracija pohrane"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6081,31 +6072,28 @@ msgid "_Exception details"
 msgstr "_Detalji o iznimki"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Lozinka:"
+msgstr "<b>_Lozinka:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_IP adresa cilja:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>_Broj porta:</b>"
+msgstr "<b>_Korisničko ime:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Naziv iSCSI inicijalizatora:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Parametri Chandev"
+msgstr "Konfiguriraj iSCSI parametre"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "Da biste upotrijebili iSCSI diskove potrebno je pružiti adresu vašeg iSCSI cilja i naziv iSCSI inicijatora kojeg ste konfigurirali za vaše računalo."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6129,24 +6117,23 @@ msgstr "<b>_Sučelje:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Omogući IPv_4 podršku"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Omogući IPv_6 podršku"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Omogući mrežno sučelje"
 
 #: tmp/netconfig.glade.h:10
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr ""
+msgstr "Zahtjeva aktivnu mrežnu povezanost tijekom instalacijskog postupka. Konfigurirajte mrežno sučelje."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Upotrijebi dinamičko IP konfiguriranje (BOOTP/DHCP)"
+msgstr "Upotrijebi _dinamičko IP konfiguriranje (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6163,7 +6150,7 @@ msgstr "Zadana instalacija %s obuhvaća komplet softvera primjenjivog za opću u
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "Dod_aj dodatne repozitorije softvera"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7048,88 +7035,4 @@ msgstr "Velški"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Nije moguće dodijeliti particije"
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Možete odabrati drugu opciju automatskog particioniranja, ili kliknuti "
-#~ "'Prethodno' za odabir ručnog particioniranja.\n"
-#~ "\n"
-#~ "Da biste nastavili kliknite 'U redu'."
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Instaliranje %s-%s-%s.%s.\n"
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Paket %s-%s-%s.%s nije moguće otvoriti.  Vjerojatno nedostaje neka "
-#~ "datoteka ili je paket oštećen.  Ako instalirate s CD medija vjerojatno je "
-#~ "CD medij oštećen ili CD-ROM uređaj ne može pročitati taj medij.\n"
-#~ "\n"
-#~ "Za ponovni pokušaj kliknite 'Ponovi'."
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Ako ponovo pokrenete računalo sustav će ostati u nedorečenom stanju koje "
-#~ "će vjerojatno zahtijevati ponovno instaliranje. Jeste li sigurni da "
-#~ "želite nastaviti?"
-#~ msgid "_Cancel"
-#~ msgstr "_Odustani"
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "IP adrese moraju sadržavati brojke između 1 i 255"
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI konfiguracija"
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "IP adresa nije unesena. iSCSI postavljanje bit će izostavljeno."
-#~ msgid "Target IP address:"
-#~ msgstr "IP adresa odredišta:"
-#~ msgid "Port Number:"
-#~ msgstr "Broj porta:"
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tLjuska radnog okruženja (GNOME)\n"
-#~ "\tAdministrativni alati\n"
-#~ "\tAlati konfiguriranja poslužitelja\n"
-#~ "\tWeb poslužitelj\n"
-#~ "\tPoslužitelj datoteka za Windows (SMB)\n"
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Unesite IP konfiguraciju ovog računala. Svaki bi podatak morao biti "
-#~ "unesen kao decimalno oblikovana IP adresa (npr. 1.2.3.4)."
-#~ msgid "Netmask:"
-#~ msgstr "Mrežna maska:"
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Zadani pristupnik (IP):"
-#~ msgid "Primary nameserver:"
-#~ msgstr "Primarni poslužitelj naziva:"
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI konfiguracija"
 
