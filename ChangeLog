@@ -19,6 +19,10 @@
 
 	* anaconda.spec:  Update rhpxl requirement.
 
+	* anaconda: xhwstate -> xserver.hwstate (#200755).
+	* exception.py:  Likewise.
+	* installclass.py:  Likewise.
+
 2006-07-29  Peter Jones  <pjones@redhat.com>
 
 	* loader2/method.c: fix test for http vs ftp

@@ -295,15 +295,15 @@ class BaseInstallClass:
                          desktop = None, runlevel = None):
 
         if depth:
-            availableDepths = id.xsetup.xhwstate.available_color_depths()
+            availableDepths = id.xsetup.xserver.hwstate.available_color_depths()
             if depth not in availableDepths:
                 log.warning("Requested depth %s not available, falling back "
                             "to %s" %(depth, availableDepths[-1]))
                 depth = availableDepths[-1]
-            id.xsetup.xhwstate.set_colordepth(depth)
+            id.xsetup.xserver.hwstate.set_colordepth(depth)
 
         if resolution:
-            availableRes = id.xsetup.xhwstate.available_resolutions()
+            availableRes = id.xsetup.xserver.hwstate.available_resolutions()
             if resolution not in availableRes:
                  log.warning("Requested resolution %s is not supported, "
                              "falling back to %s. To avoid this you may need "
@@ -311,13 +311,13 @@ class BaseInstallClass:
                              "the xconfig ks directive if they were not probed "
                              "correctly." %(resolution, availableRes[-1]))
 		 resolution = availableRes[-1]
-            id.xsetup.xhwstate.set_resolution(resolution)
+            id.xsetup.xserver.hwstate.set_resolution(resolution)
 
         if not resolution and not depth:
             # choose a sane default
             log.warning("resolution and depth not specified, trying to be sane")
-            id.xsetup.xhwstate.choose_sane_default()
-            
+            id.xsetup.xserver.hwstate.choose_sane_default()
+
         if desktop is not None:
             id.desktop.setDefaultDesktop(desktop)
         if runlevel is not None:
@@ -372,11 +372,11 @@ class BaseInstallClass:
                  raise RuntimeError, "Could not probe monitor and fallback failed."
 
         # shove into hw state object, force it to recompute available modes
-        id.xsetup.xhwstate.monitor = id.monitor
-        id.xsetup.xhwstate.set_monitor_name(monname)
-        id.xsetup.xhwstate.set_hsync(hsync)
-        id.xsetup.xhwstate.set_vsync(vsync)
-        id.xsetup.xhwstate.recalc_mode()
+        id.xsetup.xserver.hwstate.monitor = id.monitor
+        id.xsetup.xserver.hwstate.set_monitor_name(monname)
+        id.xsetup.xserver.hwstate.set_hsync(hsync)
+        id.xsetup.xserver.hwstate.set_vsync(vsync)
+        id.xsetup.xserver.hwstate.recalc_mode()
 
     def setVideoCard(self, id, driver = None, videoRam = None):
         import rhpxl.videocard
@@ -388,20 +388,20 @@ class BaseInstallClass:
         if db == {}:
             if driver:
                 log.warning("no drivers are available, using user value of %s" % driver)
-                id.xsetup.xhwstate.set_videocard_driver(driver)
+                id.xsetup.xserver.hwstate.set_videocard_driver(driver)
         else:
 	    if driver:
 	        if db.has_key(driver):
 		    primary.setDriver(driver)
-                    id.xsetup.xhwstate.set_videocard_name(primary.getDescription())
-                    id.xsetup.xhwstate.set_videocard_driver(driver)
+                    id.xsetup.xserver.hwstate.set_videocard_name(primary.getDescription())
+                    id.xsetup.xserver.hwstate.set_videocard_driver(driver)
                 else:
                     raise RuntimeError, "Unknown video driver specified: %s" %(driver,)
 
         if videoRam:
             # FIXME: this required casting is ugly
             primary.setVideoRam(str(videoRam))
-            id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
+            id.xsetup.xserver.hwstate.set_videocard_ram(int(videoRam))
 
 
     def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, startX = 0):
