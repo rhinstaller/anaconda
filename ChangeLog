@@ -1,3 +1,13 @@
+2006-07-31  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/ftp.c (getHostAddress): Use mygethostbyname().
+
+	* loader2/urls.c (addrToIp): Use mygethostbyname().
+
+	* loader2/urls.c (urlinstStartTransfer): Use mygethostbyname() to try
+	and determine host address family before calling ftpOpen() or
+	httpGetFileDesc().
+
 2006-07-31  Jeremy Katz  <katzj@redhat.com>
 
 	* textw/grpselect_text.py: Fix logging tracebacks

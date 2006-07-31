@@ -208,22 +208,19 @@ int ftpCommand(int sock, char * command, ...) {
 }
 
 static int getHostAddress(const char * host, void * address, int family) {
-    struct hostent * he;
-
     if (family == AF_INET) {
         if (isdigit(host[0])) {
-            if (inet_pton(AF_INET, host, (struct in_addr *)address) >= 1)
+            if (inet_pton(AF_INET, host, (struct in_addr *)address) >= 1) {
                 return 0;
-            else
-                return FTPERR_BAD_HOST_ADDR;
-        } else {
-            he = gethostbyname2(host, AF_INET);
-            if (he == NULL) {
-               errno = h_errno;
-               return FTPERR_BAD_HOSTNAME;
             } else {
-               address = he->h_addr_list[0];
-               return 0;
+                return FTPERR_BAD_HOST_ADDR;
+            }
+        } else {
+            if (mygethostbyname((char *) host, (struct in_addr *) address)) {
+                errno = h_errno;
+                return FTPERR_BAD_HOSTNAME;
+            } else {
+                return 0;
             }
         }
     } else if (family == AF_INET6) {
@@ -233,14 +230,9 @@ static int getHostAddress(const char * host, void * address, int family) {
             } else
                 return FTPERR_BAD_HOST_ADDR;
         } else {
-            he = gethostbyname2(host, AF_INET6);
-            if (he == NULL) {
-               errno = h_errno;
-               return FTPERR_BAD_HOSTNAME;
-            } else {
-               address = he->h_addr_list[0];
-               return 0;
-            }
+            /* FIXME: implement me */
+            logMessage(ERROR, "we don't have reverse DNS for IPv6 yet");
+            return FTPERR_BAD_HOSTNAME;
         }
     } else {
         return FTPERR_UNSUPPORTED_FAMILY;

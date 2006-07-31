@@ -179,9 +179,15 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
         family = AF_INET;
     else if (inet_pton(AF_INET6, ui->address, &addr6) >= 1)
         family = AF_INET6;
-    else
-        logMessage(ERROR, "cannot determine address family of %s",
-                   ui->address);
+    else {
+        /* FIXME: mygethostbyname sure needs to support IPv6 */
+        if (mygethostbyname(ui->address, &addr) == 0) {
+            family = AF_INET;
+        } else {
+            logMessage(ERROR, "cannot determine address family of %s",
+                       ui->address);
+        }
+    }
 
     if (ui->protocol == URL_METHOD_FTP) {
         ui->ftpPort = ftpOpen(ui->address, family,
@@ -235,18 +241,13 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
 }
 
 char * addrToIp(char * hostname) {
-    struct hostent *he;
     struct in_addr ad;
     struct in6_addr ad6;
     char *ret;
 
-    he = gethostbyname2(hostname, AF_INET);
-    if (he)
-        return he->h_name;
-
-    he = gethostbyname2(hostname, AF_INET6);
-    if (he)
-        return he->h_name;
+    /* FIXME: mygethostbyname needs to support IPv6 */
+    if (mygethostbyname(hostname, &ad))
+        return NULL;
 
     if ((ret = malloc(48)) == NULL)
         return hostname;
