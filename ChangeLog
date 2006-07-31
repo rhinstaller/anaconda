@@ -1,12 +1,12 @@
 2006-07-31  David Cantrell  <dcantrell@redhat.com>
 
-	* loader2/ftp.c (getHostAddress): Use mygethostbyname().
+	* loader2/ftp.c (getHostAddress): Use mygethostbyname() (BZ #200771).
 
-	* loader2/urls.c (addrToIp): Use mygethostbyname().
+	* loader2/urls.c (addrToIp): Use mygethostbyname() (BZ #200771).
 
 	* loader2/urls.c (urlinstStartTransfer): Use mygethostbyname() to try
 	and determine host address family before calling ftpOpen() or
-	httpGetFileDesc().
+	httpGetFileDesc() (BZ #200771).
 
 	* isys/dns.c: Whitespace consistency.
 
