@@ -14,6 +14,12 @@
 	* loader2/urls.c (urlinstStartTransfer): Commented out mygethostbyname()
 	call for IPv6 family for now, since it's not ready yet.
 
+	* loader2/nfsinstall.c (getFileFromNfs): More useful log message than
+	"foo bar", set client IP string correctly before calling
+	getHostandPath() (BZ #195203).
+
+	* loader2/kickstart.c (getHostandPath): Debug log messages.
+
 2006-08-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Remove DDC probing code.

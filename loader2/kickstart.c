@@ -307,10 +307,15 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
         **file = '\0';
     }
 
+    logMessage(DEBUGLVL, "getHostandPath file(1): |%s|", *file);
+
+    /* if the filename ends with / or is null, use default kickstart
+     * name of IP_ADDRESS-kickstart appended to *file
+     */
     if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
                     ((*file)[strlen(*file) - 1] == '\0'))) {
         *file = sdupprintf("%s%s-kickstart", *file, ip);
-        
+        logMessage(DEBUGLVL, "getHostandPath file(2): |%s|", *file);
     }
 }
 

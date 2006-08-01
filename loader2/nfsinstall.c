@@ -304,13 +304,18 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         } else {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             url = sdupprintf("%s:%s", ret, netCfg.dev.bootFile);
-            logMessage(INFO, "foo bar");
+            logMessage(INFO, "bootp: bootfile is %s", netCfg.dev.bootFile);
         }
     } 
-      
-    logMessage(INFO, "url is %s", url);
 
-    inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+    /* get the IP of the target system */
+    tip = &(netCfg.dev.ip);
+    if (inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip)) == NULL) {
+        logMessage(ERROR, "getFileFromNfs: no client IP information");
+        return 1;
+    }
+
+    logMessage(INFO, "url is %s", url);
     getHostandPath(url, &host, &path, ret);
 
     opts = strchr(host, ':');
