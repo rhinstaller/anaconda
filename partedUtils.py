@@ -628,7 +628,8 @@ class DiskSet:
     def startMdRaid(self):
         """Start all of the md raid devices associated with the DiskSet."""
 
-        testList = DiskSet.skippedDisks
+        testList = []
+        testList.extend(DiskSet.skippedDisks)
 
         if not rhpl.getArch() in ('s390','s390x'):
             for mp in DiskSet.mpList or []:

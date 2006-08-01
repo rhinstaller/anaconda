@@ -2,6 +2,9 @@
 
 	* dmraid.py (DmDriveCache.remove): Fix key name generation
 
+	* partedUtils.py (DiskSet.startMdRaid): fix test list so that
+	we don't accidentally append to the DiskSet.skippedList
+
 2006-08-01  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/urls.c (addrToIp): Correctly handle IP addresses passed as
