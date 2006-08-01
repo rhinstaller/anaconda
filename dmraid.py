@@ -71,10 +71,11 @@ class DmDriveCache:
             return self._addMapDevs(obj.name, members, obj)
 
     def remove(self, name):
-        if isys.cachedDrives.has_key(name):
-            obj = isys.cachedDrives[name]
-            log.debug("removing %s from isys cache" % (name,))
-            del isys.cachedDrives[name]
+        objname = "mapper/" + name
+        if  isys.cachedDrives.has_key(objname):
+            obj = isys.cachedDrives[objname]
+            log.debug("removing %s from isys cache" % (objname,))
+            del isys.cachedDrives[objname]
             if self.cache.has_key(obj.name):
                 del self.cache[obj.name][obj.name]
                 for k,v in self.cache[obj.name].items():
