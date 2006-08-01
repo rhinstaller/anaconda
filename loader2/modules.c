@@ -341,8 +341,13 @@ static int loadModule(const char * modName, struct extractedModule * path,
                      * like to take forever to enumerate.  try to 
                      * give it some time */
                     if (!strcmp(modName, "usb-storage") && !usbWasLoaded) {
+                        int slp;
                         usbWasLoaded = 1;
-                        sleepUntilUsbIsStable();
+                        for (slp = 0; slp < 10; slp++) {
+                            if (scsiDiskCount() > deviceCount) break;
+                            sleep(2);
+                        }
+                        logMessage(DEBUGLVL, "slept %d seconds", slp * 2);
                     }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();
