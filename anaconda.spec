@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.73
+Version: 11.1.0.74
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 31 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.74-1
+- Fix method=http vs method=ftp (pjones)
+- Various xconfig fixes (clumens, #200755 #200758)
+- Fix FTP/HTTP installs by hostname (dcantrel, #200771)
+- Fix command-stubs/mknod (#200820)
+
 * Fri Jul 28 2006 Peter Jones <pjones@redhat.com> - 11.1.0.73-1
 - Revert DNS changes from yesterday (dcantrel)
 - Do the backtrace initialization after analyzing args (katzj)
