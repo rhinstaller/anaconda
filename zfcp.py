@@ -114,6 +114,7 @@ class ZFCP:
         self.writeFcpSysfs(fcpdevices)
         self.writeModprobeConf(fcpdevices)
         self.writeZFCPconf(fcpdevices)
+        # XXX this should use partitions.partitionObjectsInitialize()
         isys.flushDriveDict()
         diskset.refreshDevices(intf)
         try:

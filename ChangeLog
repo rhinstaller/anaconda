@@ -1,10 +1,31 @@
 2006-08-01  Peter Jones  <pjones@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* dmraid.py (DmDriveCache.remove): Fix key name generation.
 	Fix cache add/remove key names too.
 
 	* partedUtils.py (DiskSet.startMdRaid): fix test list so that
 	we don't accidentally append to the DiskSet.skippedList
+	(DiskSet.closeDevices): stop Dm and MPath here
+	(DiskSet.openDevices): don't need to check arch and such before
+	starting Dm and MPath here; the functions we're calling do that.
+
+	* partitioning.py (partitionObjectsInitialize): eliminate duplicate
+	"shutdown" code for "DISPATCH_BACK" case.
+	Add isys.flushDriveDict() after we bring iscsi up.
+	Get rid of Dm and MPath startup, since refreshDevices does that.
+
+	* partitions.py (Partitions.__init__): refresh devices before calling
+	setFromDisk()
+	(Partitions.setFromDisk): don't call refreshDevices() here; we do it
+	just beforehand in every caller anyway.
+
+	* upgrade.py (findExistingRoots): use the diskset from the anaconda
+	class instead of a local one.
+
+	* iw/partition_gui.py (PartitionWindow.refresh): Don't rescan the disks
+	every time we change the partitioning requests.
 
 2006-08-01  David Cantrell  <dcantrell@redhat.com>
 

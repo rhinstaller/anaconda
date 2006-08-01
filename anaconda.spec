@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.74
+Version: 11.1.0.75
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug  1 2006 Peter Jones <pjones@redhat.com> - 11.1.0.75-1
+- Fix iSCSI and MultiPath coexistance
+- Don't use mygethostbyname on ipv6 yet (dcantrell)
+- Better logging on nfsinstall and kickstart (dcantrell, #195203)
+- Remove ddc probing (clumens)
+
 * Mon Jul 31 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.74-1
 - Fix method=http vs method=ftp (pjones)
 - Various xconfig fixes (clumens, #200755 #200758)
