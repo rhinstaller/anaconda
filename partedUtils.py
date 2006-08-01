@@ -872,6 +872,8 @@ class DiskSet:
 
     def closeDevices (self):
         """Close all of the disks which are open."""
+        self.stopDmRaid()
+        self.stopMPath()
         for disk in self.disks.keys():
             #self.disks[disk].close()
             del self.disks[disk]
@@ -961,13 +963,11 @@ class DiskSet:
     def openDevices (self, intf = None, initAll = 0,
                      zeroMbr = 0, clearDevs = []):
         """Open the disks on the system and skip unopenable devices."""
+
         if self.disks:
             return
-        if not rhpl.getArch() in ("s390", "s390x"):
-            if DiskSet.mpList is None:
-                self.startMPath()
-            if DiskSet.dmList is None:
-                self.startDmRaid()
+        self.startMPath()
+        self.startDmRaid()
         for drive in self.driveList():
             # ignoredisk takes precedence over clearpart (#186438).
             if drive in DiskSet.skippedDisks:

@@ -79,6 +79,7 @@ class Partitions:
         self.isKickstart = 0
 
         if diskset:
+            diskset.refreshDevices()
             self.setFromDisk(diskset)
 
 
@@ -86,9 +87,6 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
-        diskset.startMPath()
-        diskset.startDmRaid()
-        diskset.refreshDevices()
         labels = diskset.getLabels()
         drives = diskset.disks.keys()
         drives.sort()

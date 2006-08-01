@@ -85,14 +85,13 @@ def findExistingRoots(anaconda, upgradeany = 0):
             return [(anaconda.rootPath, 'ext2', "")]
         return []
 
-    diskset = partedUtils.DiskSet()
-    diskset.openDevices()
+    anaconda.id.diskset.openDevices()
     
     win = anaconda.intf.progressWindow(_("Searching"),
                               _("Searching for %s installations...") %
                               (productName,), 5)
 
-    rootparts = diskset.findExistingRootPartitions(anaconda,
+    rootparts = anaconda.id.diskset.findExistingRootPartitions(anaconda,
                                                    upgradeany = upgradeany)
     for i in range(1, 6):
         time.sleep(0.25)
@@ -101,7 +100,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
     win.pop()
 
     # close the devices to make sure we don't leave things sitting open 
-    diskset.closeDevices()
+    anaconda.id.diskset.closeDevices()
 
     # this is a hack... need to clear the skipped disk list after this
     partedUtils.DiskSet.skippedDisks = []

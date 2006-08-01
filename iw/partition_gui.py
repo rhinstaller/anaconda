@@ -984,7 +984,7 @@ class PartitionWindow(InstallWindow):
 		pass
 
         try:
-            autopart.doPartitioning(self.diskset, self.partitions)
+            autopart.doPartitioning(self.diskset, self.partitions, 0)
             rc = 0
         except PartitioningError, msg:
 	    try:

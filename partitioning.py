@@ -26,34 +26,28 @@ from partErrors import *
 from rhpl.translate import _
 
 def partitionObjectsInitialize(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        anaconda.id.diskset.closeDevices()
-        anaconda.id.iscsi.shutdown()
-        isys.flushDriveDict()
-        return
-
     # shut down all dm devices
     anaconda.id.diskset.closeDevices()
     anaconda.id.diskset.stopMdRaid()
-    anaconda.id.diskset.closeDevices()
-    anaconda.id.diskset.stopDmRaid()
-    anaconda.id.diskset.stopMPath()
+    anaconda.id.iscsi.shutdown()
 
     # clean slate about drives
     isys.flushDriveDict()
 
+    if anaconda.dir == DISPATCH_BACK:
+        return
+
     # ensure iscsi devs are up
     anaconda.id.iscsi.startup(anaconda.intf)
+
+    # pull in the new iscsi drive
+    isys.flushDriveDict()
 
     # read in drive info
     anaconda.id.diskset.refreshDevices(anaconda.intf,
             anaconda.id.partitions.reinitializeDisks,
             anaconda.id.partitions.zeroMbr,
             anaconda.id.partitions.autoClearPartDrives)
-
-    # start mpath and dmraid devices
-    anaconda.id.diskset.startMPath()
-    anaconda.id.diskset.startDmRaid()
 
     anaconda.id.diskset.checkNoDisks(anaconda.intf)
 
