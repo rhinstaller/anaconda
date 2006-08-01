@@ -207,7 +207,6 @@ def parseOptions():
     op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
                   default="800x600", nargs=1, type="string")
     op.add_option("--serial", action="store_true", default=False)
-    op.add_option("--skipddc", action="store_true", default=False)
     op.add_option("--usefbx", dest="useFBX", action="store_true", default=False)
     op.add_option("--vesa", dest="forcevesa", action="store_true", default=False)
     op.add_option("--virtpconsole")
@@ -459,10 +458,8 @@ def probeHW(opts, x_already_set, xserver):
         # Probe what is available for X and setup a hardware state
         #
         # try to probe interesting hw
-        skipddcprobe = (opts.skipddc or (x_already_set and flags.test))
         skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
-        xserver.probeHW(skipDDCProbe=skipddcprobe, skipMouseProbe=skipmouseprobe,
-                        forceVesa=opts.forcevesa)
+        xserver.probeHW(skipMouseProbe=skipmouseprobe, forceVesa=opts.forcevesa)
 
         # if the len(videocards) is zero, then let's assume we're isHeadless
         if len(xserver.videohw.videocards) == 0:
@@ -809,12 +806,7 @@ if __name__ == "__main__":
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
-        modes = rhpxl.monitor.Modes()
-
-        if iutil.getPPCMachine() == "PMac":
-            rhpxl.xhwstate.get_valid_resolution(xserver, modes, runres_override, onPMac=True)
-        else:
-            rhpxl.xhwstate.get_valid_resolution(xserver, modes, runres_override)
+        rhpxl.xhwstate.get_valid_resolution(xserver)
 
         # make sure we can write log to ramfs
         if os.access("/tmp/ramfs", os.W_OK):

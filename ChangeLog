@@ -1,3 +1,11 @@
+2006-08-01  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Remove DDC probing code.
+
+	* docs/command-line.txt:  Remove skipddc documentation.
+
+	* loader2/loader.c (parseCmdLineFlags):  Remove --skipddc parameter.
+
 2006-07-31  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

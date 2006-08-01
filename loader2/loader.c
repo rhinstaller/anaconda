@@ -704,7 +704,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             }
             else if (!strncasecmp(argv[i], "resolution=", 11) ||
                      !strncasecmp(argv[i], "lowres", 6) ||
-                     !strncasecmp(argv[i], "skipddc", 7) ||
                      !strncasecmp(argv[i], "nomount", 7) ||
                      !strncasecmp(argv[i], "vnc", 3) ||
                      !strncasecmp(argv[i], "vncconnect=", 11) ||
