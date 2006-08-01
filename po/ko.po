@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-20 14:41+1000\n"
+"PO-Revision-Date: 2006-08-01 17:30+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -120,28 +120,37 @@ msgid "unknown install method: %s"
 msgstr "알 수 없는 설치 방식: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "실린더-기반의 파티션은 주(Primary) 파티션으로 할당할 수 없습니다"
+msgstr ""
+"실린더-기반의 파티션은 주(Primary) 파티션으로 할당할 수 없습니다.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "파티션을 주(Primary) 파티션으로 할당할 수 없습니다"
+msgstr ""
+"파티션을 주(Primary) 파티션으로 할당할 수 없습니다.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "실린더-기반의 파티션을 할당할 수 없습니다"
+msgstr ""
+"실린더-기반의 파티션을 할당할 수 없습니다.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -184,10 +193,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1058
 #, python-format
@@ -420,14 +427,14 @@ msgstr ""
 "정말로 삭제하시겠습니까?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "%s-%s-%s.%s(을)를 업그레이드 합니다.\n"
+msgstr "%s(을)를 업그레이드 합니다.\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "%s 설치(_I)"
+msgstr "%s 설치\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -807,9 +814,8 @@ msgstr ""
 "<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "파일을 불러올 수 없습니다!"
+msgstr "파일 시스템을 마운트할 수 없습니다"
 
 #: ../fsset.py:1730
 #, python-format
@@ -1260,9 +1266,8 @@ msgstr ""
 "니다. "
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP 주소가 없습니다"
+msgstr "IP 주소가 없습니다."
 
 #: ../network.py:93
 #, fuzzy
@@ -1272,14 +1277,13 @@ msgid ""
 msgstr "IP 주소는 1에서 255 사이의 숫자로 지정해 주셔야 합니다."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s (은)는 잘못된 호스트명 입니다."
+msgstr "'%s' (은)는 잘못된 IPv6 주소입니다."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "인증키"
+msgstr "인증키를 입력합니다"
 
 #: ../packages.py:248
 #, python-format
@@ -1744,8 +1748,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:68
@@ -1800,8 +1803,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1824,8 +1826,7 @@ msgstr ""
 "요한 기본 용량보다 적습니다."
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 "
 "수 도 있습니다."
@@ -1886,8 +1887,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일 시스"
 "템 상에 위치해야 합니다."
@@ -1910,8 +1910,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1942,14 +1941,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:690
 #, python-format
@@ -2159,17 +2156,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
@@ -2524,8 +2518,7 @@ msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:471
 #, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "\"%s\" 호스트명은 다음과 같은 이유로 잘못되었습니다:\n"
 "\n"
@@ -2540,9 +2533,9 @@ msgid "Retrieving installation information..."
 msgstr "설치 정보를 읽고 있습니다..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "설치 정보를 읽고 있습니다..."
+msgstr "%s에 대한 설치 정보를 읽고 있습니다..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2699,8 +2692,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
+msgstr "루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
@@ -2725,13 +2717,11 @@ msgstr "데이터의 오류"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-" 선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr " 선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr "선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
@@ -3169,8 +3159,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:525
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
@@ -3179,8 +3168,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:559
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3193,8 +3181,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
@@ -3263,8 +3250,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
@@ -3649,8 +3635,7 @@ msgstr "삭제할 수 없습니다."
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
+msgstr "이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3742,16 +3727,14 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -3762,8 +3745,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4244,9 +4226,8 @@ msgid "Unable to load file!"
 msgstr "파일을 불러올 수 없습니다!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "잘못된 호스트명"
+msgstr "잘못된 리포지터리명"
 
 #: ../iw/task_gui.py:86
 #, fuzzy
@@ -4254,9 +4235,8 @@ msgid "You must provide a non-zero length repository name."
 msgstr "서버 이름을 입력해 주십시오."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "부팅할 이름의 오류"
+msgstr "잘못된 리포지터리 URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -4292,10 +4272,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4305,8 +4283,7 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4433,8 +4410,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zfcp_gui.py:24
@@ -4599,8 +4575,7 @@ msgstr ""
 "시오."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 디폴트 | 선택하기 <F4> 는 지우기 | <F12> 는 "
 "다음 화면으로 가기>"
@@ -4740,8 +4715,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "설치하시려는 패키지 그룹을 선택하세요."
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/grpselect_text.py:130
@@ -5130,10 +5104,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5445,9 +5417,8 @@ msgstr ""
 "\t게임\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -5856,10 +5827,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
@@ -5999,8 +5968,7 @@ msgstr "%s 복구 모드로 anaconda를 실행 중 입니다 - 잠시만 기다�
 #: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6118,9 +6086,8 @@ msgstr ""
 "     서버가 있는 디렉토리\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "잘못된 IP 주소"
+msgstr "잘못된 CIDR 마스크"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6181,9 +6148,8 @@ msgid "Sending request for IP information for %s..."
 msgstr "%s에 대한 IP 정보를 요청하고 있습니다..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC 암호 오류 "
+msgstr "Network 오류 "
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
 #, fuzzy
@@ -6191,9 +6157,8 @@ msgid "There was an error configuring your network interface."
 msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.   복제에 실패."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "동적 IP 주소 자동설정 사용 (BOOTP/DHCP)"
+msgstr "동적 IP 주소 설정 사용 (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -6216,9 +6181,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP 설정"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "그룹 부재"
+msgstr "프로토콜 부재"
 
 #: ../loader2/net.c:754
 msgid ""
@@ -6231,23 +6195,20 @@ msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP 주소:"
+msgstr "IPv4 주소:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP 주소:"
+msgstr "IPv6 주소:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "네임서버"
+msgstr "네임서버:"
 
 #: ../loader2/net.c:961
 #, fuzzy
@@ -6260,8 +6221,7 @@ msgstr "정보 부족"
 
 #: ../loader2/net.c:1085
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "올바른 IP 주소와 넷마스크를 입력해 주십시오."
 
 #: ../loader2/net.c:1091
@@ -6492,9 +6452,8 @@ msgid "<b>Repository _URL:</b>"
 msgstr ""
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI 개시 이름 (_N):</b>"
+msgstr "<b>리포지터리 _이름:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6549,18 +6508,16 @@ msgid "_Exception details"
 msgstr "예외 상황 정보(_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "암호(_P):"
+msgstr "<b>암호(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>목표 IP 주소(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>포트 넘버(_P):</b>"
+msgstr "<b>사용자명(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -6578,29 +6535,24 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "게이트웨이:"
+msgstr "<b>게이트웨이:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>목표 IP 주소(_T):</b>"
+msgstr "<b>IPv4 주소:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>목표 IP 주소(_T):</b>"
+msgstr "<b>IPv6 주소:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "네임서버"
+msgstr "<b>네임서버:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>포트 넘버(_P):</b>"
+msgstr "<b>인터페이스(_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6621,9 +6573,8 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "동적 IP 주소 자동설정 사용 (BOOTP/DHCP)"
+msgstr "동적 IP 설정 사용(_d) (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6785,8 +6736,7 @@ msgstr "중부시 - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"중부 시 - 인디애나 - Daviess, Dubois, Knox, Martin, Perry 와 Pulaski 국가 "
+msgstr "중부 시 - 인디애나 - Daviess, Dubois, Knox, Martin, Perry 와 Pulaski 국가 "
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6909,8 +6859,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "동부시 - 온타리오 & 퀘벡 - 대부분 지역"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
@@ -7098,10 +7047,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7404,9 +7351,8 @@ msgid "German"
 msgstr "독일어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "여유공간"
+msgstr "그리스어"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7453,9 +7399,8 @@ msgid "Malay"
 msgstr "말레이어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "말레이어"
+msgstr "말라얄람어"
 
 #. generated from lang-table
 #, fuzzy
@@ -7546,104 +7491,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "파티션을 할당할 수 없습니다"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "다른 자동 파티션 분할 옵션을 선택하시거나 '뒤로' 버튼을 클릭하여 수동 파티"
-#~ "션 하기를 선택하실 수 있습니다.\n"
-#~ "\n"
-#~ "'확인' 버튼을 누르시면, 설치를 계속 진행합니다."
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "%s-%s-%s.%s(을)를 설치합니다.\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "%s-%s-%s.%s 패키지를 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습"
-#~ "니다.  CD 매체를 사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD"
-#~ "를 읽지 못하는 것 같습니다. \n"
-#~ "\n"
-#~ "다시 시도하시려면 '재시도' 키를 누르십시오."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "지금 재부팅하시면 시스템 상태가 불안정하여 다시 설치하셔야 합니다. 그래도 "
-#~ "재부팅하시겠습니까?"
-
-#~ msgid "_Cancel"
-#~ msgstr "취소(_C)"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "IP 주소는 1에서 255 사이의 숫자로 지정해 주셔야 합니다."
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI 설정"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "입력된 IP 주소가 없습니다, iSCSI 설치를 생략합니다"
-
-#~ msgid "Target IP address:"
-#~ msgstr "목표 IP 주소:"
-
-#~ msgid "Port Number:"
-#~ msgstr "포트 넘버:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t관리 도구\n"
-#~ "\t서버 설정 도구\n"
-#~ "\t웹 서버\n"
-#~ "\tWindows 파일 서버 (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "여러분 시스템의 IP 주소를 입력해 주십시오. IP 주소의 각 항목은 십진수의 숫"
-#~ "자를 점으로 구분하여 입력하셔야 합니다 (예, 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "넷마스크:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "기본 게이트웨이 (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "1차 DNS:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI 설정"
