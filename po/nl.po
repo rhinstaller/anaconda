@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-06-30 22:20+0200\n"
+"PO-Revision-Date: 2006-08-01 21:53+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,29 +129,37 @@ msgid "unknown install method: %s"
 msgstr "Onbekende installatiemethode: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren als primaire partities"
+"Kon cylinder-gebaseerde partities niet alloceren als primaire partities.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Kon partities niet alloceren als primaire partities"
+msgstr ""
+"Kon partities niet alloceren als primaire partities.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Kon cylinder-gebaseerde partities niet alloceren"
+msgstr ""
+"Kon cylinder-gebaseerde partities niet alloceren.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -208,7 +216,7 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 "Het toevoegen van deze partitie zou te weinig schijfruimte vrijlaten voor de "
-"reeds gealloceerde logische volumes in %s."
+"reeds gealloceerde logical volumes in %s."
 
 #: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
@@ -242,7 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Gevraagde volumegroep bestaat niet"
+msgstr "Gevraagde Volume Group bestaat niet"
 
 #: ../autopart.py:1304
 #, python-format
@@ -251,13 +259,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Niet in staat volumegroup %s te vinden om te gebruiken voor %s.\n"
+"Niet in staat volume group %s te vinden om te gebruiken voor %s.\n"
 "\n"
 "Druk op 'OK' om uw systeem te herstarten."
 
 #: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Gevraagd logisch volume bestaat niet"
+msgstr "Gevraagde Logical Volume bestaat niet"
 
 #: ../autopart.py:1342
 #, python-format
@@ -266,7 +274,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Niet in staat logisch volume %s te vinden om te gebruiken voor %s.\n"
+"Niet in staat logical volume %s te vinden om te gebruiken voor %s.\n"
 "\n"
 "Druk op 'OK' om uw systeem te herstarten."
 
@@ -336,6 +344,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Druk op 'OK' om een andere partitioneringsoptie te kiezen."
 
 #: ../autopart.py:1503
 #, python-format
@@ -435,19 +446,17 @@ msgstr ""
 "Weet u zeker dat u dit wilt doen?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"%s pakketten worden vernieuwd\n"
-"\n"
+msgstr "Upgraden van %s\n"
 
 # sneltoets op de _n omdat de andere optie een _U heeft en de
 # i en de u zitten vlak naast elkaar, dus om vergissingen te
 # voorkomen...
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "%s i_nstalleren"
+msgstr "Installeren van %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -839,9 +848,8 @@ msgstr ""
 "Druk op <Enter> om uw systeem te herstarten."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Kan bestand niet laden!"
+msgstr "Niet in staat om het bestandssysteem aan te koppelen"
 
 #: ../fsset.py:1730
 #, python-format
@@ -849,6 +857,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s. U "
+"kunt verder gaan met de installatie, maar er kunnen problemen optreden."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1076,7 +1086,7 @@ msgid "Install Window"
 msgstr "Installatievenster"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1087,9 +1097,11 @@ msgid ""
 "\n"
 msgstr ""
 "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-"of misschien door een beschadigd pakket. Indien u vanaf CD-media installeert "
-"betekent dit meestal dat de CD-media beschadigd is, of dat de CD-speler de "
-"media niet goed kan lezen.\n"
+"of misschien door een beschadigd pakket. Controleer de installatie-images en "
+"controleer of u alle vereiste media hebt.\n"
+"\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
+"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1191,7 +1203,7 @@ msgid "Unable to access the CDROM."
 msgstr "Niet in staat om de CDROM te benaderen."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1202,9 +1214,11 @@ msgid ""
 "\n"
 msgstr ""
 "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-"of misschien door een beschadigd pakket. Indien u vanaf CD-media installeert "
-"betekent dit meestal dat de CD-media beschadigd is, of dat de CD-speler de "
-"media niet goed kan lezen.\n"
+"of misschien door een beschadigd pakket. Controleer of de "
+"installatiebestanden alle vereiste pakketten bevatten.\n"
+"\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden."
+"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
 "\n"
 
 #: ../image.py:504
@@ -1227,9 +1241,8 @@ msgid "Install on System"
 msgstr "Installeren op systeem"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Initialisatie"
+msgstr "Initialiseren van iSCSI initiator"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1305,35 +1318,34 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP-adres ontbreekt"
+msgstr "IP-adres ontbreekt."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP-adressen moeten bestaan uit getallen tussen 0 en 255"
+msgstr ""
+"IP-adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden door "
+"punten."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s is geen geldige computernaam."
+msgstr "'%s' is geen geldig IPv6-adres."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Encryptie sleutel"
+msgstr "Registratiesleutel invoeren"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Voer de registratiesleutel in voor uw versie van %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Sleutel:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1422,7 +1434,7 @@ msgstr "Fout bij het aankoppelen van het bestandssysteem aan %s: %s"
 
 #: ../partedUtils.py:884
 msgid "Initializing"
-msgstr "Initialisatie"
+msgstr "Initialiseren"
 
 #: ../partedUtils.py:885
 #, python-format
@@ -1487,44 +1499,44 @@ msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr "Voer een naam in voor de volumegroep."
+msgstr "Voer een naam in voor de volume group."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Volumegroepnamen mogen niet langer zijn dan 128 tekens"
+msgstr "Volume Group namen mogen niet langer zijn dan 128 tekens"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr "Fout - De volumegroepnaam %s is ongeldig."
+msgstr "Fout - De volume group naam %s is ongeldig."
 
 #: ../partIntfHelpers.py:47
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Fout - De volumegroepnaam bevat ongeldige tekens of spaties.  Geldige tekens "
+"Fout - De volume group naam bevat ongeldige tekens of spaties.  Geldige tekens "
 "zijn: letters, cijfers, '.' of '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "Voer een naam in voor het logische volume."
+msgstr "Voer een naam in voor het logical volume."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "Logische volume-namen mogen niet langer zijn dan 128 tekens"
+msgstr "Logical Volume namen mogen niet langer zijn dan 128 tekens"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "Fout - De logische volume-naam %s is ongeldig."
+msgstr "Fout - De logical volume naam %s is ongeldig."
 
 #: ../partIntfHelpers.py:71
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Fout - De logische volume-naam bevat ongeldige tekens of spaties.  Geldige "
+"Fout - De logical volume naam bevat ongeldige tekens of spaties.  Geldige "
 "tekens zijn: letters, cijfers, '.' of '_'."
 
 #: ../partIntfHelpers.py:95
@@ -1552,11 +1564,11 @@ msgstr "Deze partitie is onderdeel van een RAID-opstelling."
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Deze partitie is onderdeel van de LVM-volumegroep '%s'."
+msgstr "Deze partitie is onderdeel van de LVM volume group '%s'."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr "Deze partitie is onderdeel van een LVM-volumegroep."
+msgstr "Deze partitie is onderdeel van een LVM volume group."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
@@ -1773,14 +1785,14 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"U staat op het punt volumegroep \"%s\" te verwijderen.\n"
+"U staat op het punt volume group \"%s\" te verwijderen.\n"
 "\n"
-"ALLE logische volumes in deze volumegroep zullen verloren gaan!"
+"ALLE logical volumes in deze volume group zullen verloren gaan!"
 
 #: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "U staat op het punt om logisch volume \"%s\" te verwijderen."
+msgstr "U staat op het punt om logical volume \"%s\" te verwijderen."
 
 #: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
@@ -1857,6 +1869,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Uw opstartpartitie staat niet op een van de eerste vier partities en is dus "
+"niet opstartbaar."
 
 #: ../partitions.py:849
 msgid ""
@@ -1902,7 +1916,7 @@ msgstr "Opstartpartities mogen alleen op een RAID1-opstelling staan."
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Opstartpartities mogen niet op een logisch volume staan."
+msgstr "Opstartpartities mogen niet op een logical volume staan."
 
 #: ../partitions.py:988
 msgid ""
@@ -1941,7 +1955,7 @@ msgstr "een partitie die deel uitmaakt van een RAID-opstelling."
 
 #: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "een partitie die deel uitmaakt van een LVM-Volumegroep."
+msgstr "een partitie die deel uitmaakt van een LVM volume group."
 
 #: ../partRequests.py:249
 #, python-format
@@ -2025,6 +2039,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"De grootte van het logical volume moet groter zijn dan de physical extent van "
+"het volume group."
 
 # instellen hier beter dan bewerken of aanpassen
 #: ../rescue.py:129
@@ -2047,7 +2063,7 @@ msgstr "Netwerken instellen"
 # Interfaces hier niet vertaald
 #: ../rescue.py:200
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "Wilt u het netwerk op dit systeem opstarten?"
+msgstr "Wilt u de netwerk-interfaces op dit systeem starten?"
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
@@ -2369,7 +2385,7 @@ msgid "Connecting..."
 msgstr "Verbinden..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2380,9 +2396,11 @@ msgid ""
 "\n"
 msgstr ""
 "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-"of misschien door een beschadigd pakket. Indien u vanaf CD-media installeert "
-"betekent dit meestal dat de CD-media beschadigd is, of dat de CD-speler de "
-"media niet goed kan lezen.\n"
+"of misschien door een beschadigd pakket. Controleer of de mirror alle "
+"vereiste pakketten bevat en kies een andere mirror.\n"
+"\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden."
+"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2602,13 +2620,12 @@ msgid "Error running transaction"
 msgstr "Fout bij het uitvoeren van transactie"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"De computernaam \"%s\" is niet geldig om de volgende reden:\n"
-"\n"
-"%s"
+"Er was een fout bij het uitvoeren van uw transactie, vanwege de volgende "
+"reden(en): %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2619,9 +2636,9 @@ msgid "Retrieving installation information..."
 msgstr "Bezig met ophalen van installatie-informatie..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Bezig met ophalen van installatie-informatie..."
+msgstr "Bezig met ophalen van installatie-informatie voor %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2800,14 +2817,12 @@ msgid "_Confirm: "
 msgstr "_Bevestigen: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI-initiator naam:"
+msgstr "Ongeldige initiator-naam"
 
 #: ../iw/autopart_type.py:136
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "U moet een gebruikersnaam opgeven"
+msgstr "U moet een initiator-naam opgeven met een lengte die niet-nul is."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3127,13 +3142,13 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"De fysieke afmeting kan niet worden veranderd omdat anders de ruimte, "
-"benodigd voor de momenteel gedefinieerde logische volumes, groter wordt dan "
-"de beschikbare ruimte."
+"De grootte van het physical extent kan niet worden veranderd omdat anders de "
+"ruimte, benodigd voor de momenteel gedefinieerde logical volumes, groter "
+"wordt dan de beschikbare ruimte."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr "Aanpassing fysieke afmeting bevestigen"
+msgstr "Aanpassing Physical Extent bevestigen"
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -3143,9 +3158,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Deze verandering in de fysieke afmeting heeft tot gevolg dat de grootte van "
-"de huidige logische volume-verzoeken naar boven wordt afgerond tot een "
-"geheel aantal keren de fysieke afmeting.\n"
+"Deze verandering in de waarde van het physical extent heeft tot gevolg dat de "
+"grootte van de huidige logical volume verzoeken naar boven worden afgerond "
+"tot een geheel aantal keren de physical extent.\n"
 "\n"
 "Deze verandering zal meteen worden doorgevoerd."
 
@@ -3161,9 +3176,9 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"De fysieke afmeting kan niet worden veranderd omdat de geselecteerde waarde "
-"(%10.2f MB) groter is dan het kleinste fysieke volume (%10.2f MB) in de "
-"volumegroep."
+"De grootte van het physical extent kan niet worden veranderd omdat de "
+"geselecteerde waarde (%10.2f MB) groter is dan het kleinste physical volume "
+"(%10.2f MB) in de volume group."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -3172,9 +3187,9 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"De fysieke afmeting kan niet worden veranderd omdat de geselecteerde waarde "
-"(%10.2f MB) te groot is in vergelijking met de grootte van het kleinste "
-"fysieke volume (%10.2f MB) in de volumegroep."
+"De grootte van het physical extent kan niet worden veranderd omdat de "
+"geselecteerde waarde (%10.2f MB) te groot is in vergelijking met de grootte "
+"van het kleinste physical volume (%10.2f MB) in de volume group."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -3185,8 +3200,9 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Deze verandering in de fysieke afmeting zal een substantiële hoeveelheid "
-"ruimte verspillen op een of meer van de fysieke volumes in de volumegroep."
+"Deze verandering in de waarde van het physical extent zal een substantiële "
+"hoeveelheid ruimte verspillen op een of meer van de physical volumes in de "
+"volume group."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3195,31 +3211,31 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"De fysieke afmeting kan niet worden veranderd omdat de resulterende maximum "
-"logische volume-grootte (%10.2f MB) kleiner is dan een of meer van de "
-"huidige gedefinieerde logische volumes."
+"De grootte van het physical extent kan niet worden veranderd omdat de "
+"resulterende maximum logical volume grootte (%10.2f MB) kleiner is dan een "
+"of meer van de huidige gedefinieerde logical volumes."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
-"U kunt dit fysieke volume niet verwijderen omdat de volumegroep anders te "
-"klein zou worden om de momenteel gedefinieerde logische volumes te kunnen "
+"U kunt dit physical volume niet verwijderen omdat de volume group anders te "
+"klein zou worden om de momenteel gedefinieerde logical volumes te kunnen "
 "bevatten."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
-msgstr "Logisch Volume maken"
+msgstr "Logical Volume maken"
 
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Logisch Volume: %s bewerken"
+msgstr "Logical Volume: %s bewerken"
 
 #: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
 msgid "Edit Logical Volume"
-msgstr "Logisch Volume bewerken"
+msgstr "Logical Volume bewerken"
 
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
@@ -3247,11 +3263,11 @@ msgstr "Oorspronkelijk bestandssysteemlabel:"
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
-msgstr "_Logische volumenaam:"
+msgstr "_Logical Volume naam:"
 
 #: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
-msgstr "Logische volumenaam:"
+msgstr "Logical Volume naam:"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
@@ -3290,16 +3306,16 @@ msgstr "Het koppelpunt \"%s\" is in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
-msgstr "Ongeldige logisch volumenaam"
+msgstr "Ongeldige Logical Volume naam"
 
 #: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
-msgstr "Ongeldige logisch volumenaam"
+msgstr "Ongeldige logical volume naam"
 
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "De logisch volumenaam \"%s\" is reeds in gebruik. Kies een andere."
+msgstr "De logical volume naam \"%s\" is reeds in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
@@ -3309,9 +3325,9 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
-"maximum logische volume-grootte (%10.2f MB). Om deze limiet te verhogen kunt "
-"u meer fysieke volumes vanuit ongepartioneerde diskruimte creëren en deze "
-"toe voegen aan deze volumegroep."
+"maximum logical volume grootte (%10.2f MB). Om deze limiet te verhogen kunt "
+"u meer Physical Volumes vanuit ongepartioneerde diskruimte creëren en deze "
+"toe voegen aan deze Volume Group."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3328,9 +3344,9 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"De door u geconfigureerde logische volumes hebben %g MB nodig, maar de "
-"volumegroep heeft slechts %g MB.  U kunt, ofwel de volumegroep groter maken, "
-"of de logische volumes kleiner maken."
+"De door u geconfigureerde logical volumes hebben %g MB nodig, maar de volume "
+"group heeft slechts %g MB.  U kunt, ofwel de volume group groter maken, of de "
+"logical volumes kleiner maken."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3339,7 +3355,7 @@ msgstr "Geen vrije gleuven"
 #: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "U kunt niet meer dan %s logische volumes per volumegroep aanmaken."
+msgstr "U kunt niet meer dan %s logical volumes per volume group aanmaken."
 
 #: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
@@ -3351,18 +3367,18 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Er is in de volumegroep geen ruimte vrij om nieuwe logische volumes maken. "
-"Om een logische volume toe te voegen moet u de grootte van een of meer van "
-"de huidige logische volumes verkleinen"
+"Er is in de volume group geen ruimte vrij om nieuwe logical volumes te maken. "
+"Om een logical volume toe te voegen moet u de grootte van een of meer van "
+"de huidige logical volumes verkleinen"
 
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Weet u zeker dat u logisch volume \"%s\" wilt verwijderen?"
+msgstr "Weet u zeker dat u logical volume \"%s\" wilt verwijderen?"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
-msgstr "Ongeldige Volumegroep-naam"
+msgstr "Ongeldige Volume Group naam"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
@@ -3371,11 +3387,11 @@ msgstr "Naam in gebruik"
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "De volumegroep-naam \"%s\" is reeds in gebruik. Kies een andere."
+msgstr "De volume group naam \"%s\" is reeds in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
-msgstr "Te weinig fysieke volumes"
+msgstr "Te weinig physical volumes"
 
 #: ../iw/lvm_dialog_gui.py:953
 msgid ""
@@ -3385,40 +3401,40 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"Er is tenminste één ongebruikte fysiek volume-partitie nodig om een LVM-"
-"Volumegroep te maken.\n"
+"Er is tenminste één ongebruikte physical volume partitie nodig om een LVM"
+"Volume Group te maken.\n"
 "\n"
-"Maak een partitie of RAID-opstelling van type \"fysiek volume (LVM)\" en "
+"Maak een partitie of RAID-opstelling van type \"physical volume (LVM)\" en "
 "selecteer daarna opnieuw de \"LVM\"-optie."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
-msgstr "LVM Volumegroep maken"
+msgstr "LVM Volume Group maken"
 
 #: ../iw/lvm_dialog_gui.py:967
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "LVM Volumegroep: %s bewerken"
+msgstr "LVM Volume Group: %s bewerken"
 
 #: ../iw/lvm_dialog_gui.py:969
 msgid "Edit LVM Volume Group"
-msgstr "LVM Volumegroep bewerken"
+msgstr "LVM Volume Group bewerken"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr "_Volumegroepnaam:"
+msgstr "_Volume Group naam:"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
-msgstr "Volumegroepnaam:"
+msgstr "Volume Group naam:"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "_Fysieke omvang:"
+msgstr "_Physical Extent:"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
-msgstr "Te gebruiken fysieke volumes:"
+msgstr "Te gebruiken Physical Volumes:"
 
 #: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
@@ -3434,7 +3450,7 @@ msgstr "Totale ruimte:"
 
 #: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
-msgstr "Logisch Volumenaam"
+msgstr "Logical Volume naam"
 
 #: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
@@ -3458,7 +3474,7 @@ msgstr "_Aanpassen"
 
 #: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
-msgstr "Logische Volumes"
+msgstr "Logical Volumes"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -3588,17 +3604,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "De ingevoerde IP-informatie is ongeldig."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "U hebt geen actieve netwerkapparaten.  Uw systeem zal niet over een netwerk "
-"kunnen communiceren zonder tenminste één actief apparaat.\n"
-"\n"
-"LET OP! Als u een PCMCIA-gebaseerde netwerkadapter hebt moet u deze nu "
-"inactief laten. Wanneer u uw systeem herstart zal de adapter automatisch "
-"worden geactiveerd."
+"kunnen communiceren zonder tenminste één actief apparaat."
 
 # instellen hier beter dan bewerken of aanpassen
 #: ../iw/network_gui.py:207
@@ -3899,7 +3910,7 @@ msgstr "_Formatteren"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
-msgstr "LVM Volumegroepen"
+msgstr "LVM Volume Groups"
 
 #: ../iw/partition_gui.py:752
 msgid "RAID Devices"
@@ -4047,7 +4058,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Onderdelen van RAID-opstelling/LVM Volumegroep verbergen"
+msgstr "Onderdelen van RAID-opstelling/LVM Volume _Group verbergen"
 
 #: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
 #: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
@@ -4382,26 +4393,23 @@ msgid "Unable to load file!"
 msgstr "Kan bestand niet laden!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Ongeldige computernaam"
+msgstr "Ongeldige repository-naam"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "U moet een gebruikersnaam opgeven"
+msgstr "U moet een repository-naam opgeven met een lengte die niet-nul is."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Ongeldig bootlabel"
+msgstr "Ongeldige repository-URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "U moet een HTTP of FTP URL naar een repository opgeven."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4409,9 +4417,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Niet in staat om de metadata van het pakket te lezen. Dit kan veroorzaakt "
-"worden door het ontbreken van een repodata-map. Wees er zeker van dat uw "
-"installatieomgeving correct is samengesteld.  %s"
+"Niet in staat om de metadata van het pakket te lezen vanuit de repository. "
+"Dit kan veroorzaakt worden door het ontbreken van een repodata-map. Wees er "
+"zeker van dat uw repository correct is samengesteld.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4959,7 +4969,7 @@ msgstr "Encryptie sleutel"
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr "Netwerk-apparaat: %s"
+msgstr "Netwerkapparaat: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
@@ -5109,7 +5119,7 @@ msgstr "Eind-cylinder:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
-msgstr "Volumegroep:"
+msgstr "Volume Group:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
@@ -5190,7 +5200,7 @@ msgstr "Niet ondersteund"
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
-"LVM Volumegroepen kunnen alleen bij een grafische installatie bewerkt worden."
+"LVM Volume Groups kunnen alleen bij een grafische installatie bewerkt worden."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5234,11 +5244,11 @@ msgstr "Het maximum aantal reserves bij een RAID0 opstelling is 0."
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
-msgstr "Geen Volumegroepen"
+msgstr "Geen Volume Groups"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr "Er zijn geen volumegroepen om een logisch volume in aan te maken"
+msgstr "Er zijn geen volume groups om een logical volume in aan te maken"
 
 #: ../textw/partition_text.py:1292
 #, python-format
@@ -5247,7 +5257,7 @@ msgid ""
 "size (%10.2f MB). "
 msgstr ""
 "De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
-"maximum logische volume-grootte (%10.2f MB). "
+"maximum logical volume grootte (%10.2f MB). "
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -5256,15 +5266,15 @@ msgid ""
 "the volume group (%10.2f MB)."
 msgstr ""
 "De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
-"beschikbare grootte in de volumegroep (%10.2f MB)."
+"beschikbare grootte in de volume group (%10.2f MB)."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr "Nieuwe partitie of Logisch Volume?"
+msgstr "Nieuwe partitie of Logical Volume?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Wilt u een nieuwe partitie aanmaken of een nieuw logisch volume?"
+msgstr "Wilt u een nieuwe partitie aanmaken of een nieuw logical volume?"
 
 # werkwoord of znw?
 #: ../textw/partition_text.py:1368
@@ -5273,7 +5283,7 @@ msgstr "partitie"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
-msgstr "logisch volume"
+msgstr "logical volume"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -5607,13 +5617,12 @@ msgstr ""
 "\tSpelletjes\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Registratiesleutel vereist"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5621,6 +5630,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"Een registratiesleutel is vereist om %s te installeren. Neem contact op met "
+"uw support-vertegenwoordiger als u geen sleutel bij uw product hebt gekregen."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5888,7 +5899,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr "Module-parameters ingeven"
+msgstr "Module-parameters invoeren"
 
 #: ../loader2/driverselect.c:180
 msgid "No drivers found"
@@ -6297,15 +6308,16 @@ msgstr ""
 "      voor uw architectuur\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Ongeldige IP-informatie"
+msgstr "Ongeldig CIDR-mask"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR-mask waarde moet tussen 1 en 32 liggen voor IPv4-netwerken of tussen 1 "
+"en 128 voor IPv6-netwerken"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6357,99 +6369,90 @@ msgstr "Dynamisch IP"
 #: ../loader2/net.c:376 ../loader2/net.c:769
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Versturen van IP-informatie verzoek voor %s..."
+msgstr "Versturen van IP-informatieverzoek voor %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC-wachtwoord fout"
+msgstr "Netwerkfout"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
+msgstr "Er was een fout bij het configureren van uw netwerk-interface."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Dynamische IP-configuratie gebruiken (BOOTP/DHCP)"
+msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4-ondersteuning aanzetten"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6-ondersteuning aanzetten"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Ongewenste pakketbotsingen vermijden"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Registerwaarden voor hoge snelheid netwerkverkeer maximaliseren"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
-msgstr "TCP/IP instellen"
+msgstr "TCP/IP configureren"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Ontbrekende groep"
+msgstr "Ontbrekend protocol"
 
 #: ../loader2/net.c:754
-#, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "U moet tenminste één taal kiezen om te installeren."
+msgstr ""
+"U moet tenminste één protocol (IPv4 of IPv6) kiezen voor handmatige "
+"configuratie."
 
 #: ../loader2/net.c:764
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "U moet tenminste één taal kiezen om te installeren."
+msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP-adres:"
+msgstr "IPv4-adres:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP-adres:"
+msgstr "IPv6-adres:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Naamserver"
+msgstr "Naamserver:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL configureren"
+msgstr "Handmatige TCP/IP-configuratie"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Ontbrekende informatie"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "U moet zowel een geldig IP adres als een netmask invullen."
+msgstr ""
+"U moet zowel een geldig IPv4-adres en een netwerkmasker of CIDR-prefix "
+"invoeren."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "U moet zowel een geldig IP adres als een netmask invullen."
+msgstr "U moet zowel een geldig IPv6-adres en een CIDR-prefix invoeren."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6647,40 +6650,36 @@ msgid "Loading SCSI driver"
 msgstr "SCSI-stuurprogramma wordt geladen"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "_ZFCP LUN toevoegen"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI target toevoegen"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Extra grootte-opties"
+msgstr "Geavanceerde opslagopties"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid-apparaat uitzetten"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Hoe wilt u aan ruimte komen om te partitioneren?"
+msgstr "Hoe wilt u uw schijfconfiguratie aanpassen?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Repository _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI initiator _naam:</b>"
+msgstr "<b>Repository _naam:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Repository toevoegen"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6688,10 +6687,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Geef de locatie op waaruit uw additionele software kan worden geïnstalleerd. "
+"Let op, dit moet een geldige repository zijn voor %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "Repository _toevoegen"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6714,9 +6715,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Geavanceerde bootloader-configuratie"
+msgstr "Ge_avanceerde opslagconfiguratie"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6731,81 +6731,76 @@ msgid "_Exception details"
 msgstr "_Uitzondering details"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Wachtwoord:"
+msgstr "<b>_Wachtwoord:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>Doel IP-adres:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>_Poortnummer:</b>"
+msgstr "<b>_Gebruikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI initiator _naam:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Module-parameters"
+msgstr "iSCSI-parameters configuren"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Om iSCSI-disks te gebruiken moet u het adres van uw iSCSI target en de naam "
+"van de iSCSI initiator opgeven die u hebt geconfigureerd voor uw host."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Doel IP-adres:</b>"
+msgstr "<b>IPv4-adres:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Doel IP-adres:</b>"
+msgstr "<b>IPv6-adres:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Naamserver"
+msgstr "<b>Naamserver:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>_Poortnummer:</b>"
+msgstr "<b>_Interface:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4-ondersteuning aanzetten"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6-ondersteuning aanzetten"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Netwerk-interface aanzetten"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Dit vereist dat u een actieve netwerkconnectie hebt tijdens het "
+"installatieproces. Configureer een netwerk-interface."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Dynamische IP-configuratie gebruiken (BOOTP/DHCP)"
+msgstr "_Dynamische IP-configuratie (DHCP) gebruiken"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6832,7 +6827,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "Additionele software-repositories _toevoegen"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7592,9 +7587,8 @@ msgid "German"
 msgstr "Duits"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Beschikbaar"
+msgstr "Grieks"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7627,7 +7621,7 @@ msgstr "Japans"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7642,14 +7636,12 @@ msgid "Malay"
 msgstr "Maleisisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Maleisisch"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7661,7 +7653,7 @@ msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 # arabisch?
 #. generated from lang-table
