@@ -1,6 +1,7 @@
 2006-08-01  Peter Jones  <pjones@redhat.com>
 
-	* dmraid.py (DmDriveCache.remove): Fix key name generation
+	* dmraid.py (DmDriveCache.remove): Fix key name generation.
+	Fix cache add/remove key names too.
 
 	* partedUtils.py (DiskSet.startMdRaid): fix test list so that
 	we don't accidentally append to the DiskSet.skippedList

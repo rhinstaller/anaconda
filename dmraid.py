@@ -53,10 +53,10 @@ class DmDriveCache:
         for dev in devs:
             disk = dev.split('/')[-1]
             if isys.cachedDrives.has_key(disk):
-                self.cache.setdefault(name, {})
-                self.cache[name][name] = obj
+                self.cache.setdefault(obj.name, {})
+                self.cache[obj.name][obj.name] = obj
                 log.debug("adding %s to dm cache" % (disk,))
-                self.cache[name][disk] = isys.cachedDrives[disk]
+                self.cache[obj.name][disk] = isys.cachedDrives[disk]
                 log.debug("removing %s from isys cache" % (disk,))
                 del isys.cachedDrives[disk]
 
@@ -79,7 +79,7 @@ class DmDriveCache:
             if self.cache.has_key(obj.name):
                 del self.cache[obj.name][obj.name]
                 for k,v in self.cache[obj.name].items():
-                    log.debug("adding %s from to isys cache" % (name,))
+                    log.debug("adding %s to isys cache" % (name,))
                     isys.cachedDrives[k] = v
                 log.debug("removing %s from dm cache" % (obj,))
                 del self.cache[obj.name]
