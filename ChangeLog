@@ -1,3 +1,11 @@
+2006-08-01  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/urls.c (addrToIp): Correctly handle IP addresses passed as
+	strings to this function.
+
+	* loader2/urls.c (urlinstStartTransfer): Commented out mygethostbyname()
+	call for IPv6 family for now, since it's not ready yet.
+
 2006-08-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Remove DDC probing code.

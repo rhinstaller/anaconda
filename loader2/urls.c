@@ -180,9 +180,12 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else if (inet_pton(AF_INET6, ui->address, &addr6) >= 1)
         family = AF_INET6;
     else {
-        /* FIXME: mygethostbyname sure needs to support IPv6 */
         if (mygethostbyname(ui->address, &addr) == 0) {
             family = AF_INET;
+/*
+        } else if (mygethostbyname(ui->address, &addr6) == 0) {
+            family = AF_INET6;
+*/
         } else {
             logMessage(ERROR, "cannot determine address family of %s",
                        ui->address);
@@ -245,10 +248,6 @@ char * addrToIp(char * hostname) {
     struct in6_addr ad6;
     char *ret;
 
-    /* FIXME: mygethostbyname needs to support IPv6 */
-    if (mygethostbyname(hostname, &ad))
-        return NULL;
-
     if ((ret = malloc(48)) == NULL)
         return hostname;
 
@@ -256,6 +255,8 @@ char * addrToIp(char * hostname) {
         return ret;
     else if (inet_ntop(AF_INET6, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
         return ret;
+    else if (mygethostbyname(hostname, &ad) == 0)
+        return hostname;
     else
         return NULL;
 }
