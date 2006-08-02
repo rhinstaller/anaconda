@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.75
+Version: 11.1.0.76
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 02 2006 Chris Lumens <clumens@redhat.com> 11.1.0.76-1
+- Don't raise an exception when someone tries to delete empty space (pjones).
+- Fix X ks writing traceback (#201047).
+- Add file to describe initrd to fir LPAR installs (katzj, #197773).
+- Add libXau for s390 (katzj, #200985).
+- Sleep for disks to settle (katzj, #200589).
+
 * Tue Aug  1 2006 Peter Jones <pjones@redhat.com> - 11.1.0.75-1
 - Fix iSCSI and MultiPath coexistance
 - Don't use mygethostbyname on ipv6 yet (dcantrell)
