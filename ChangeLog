@@ -1,3 +1,10 @@
+2006-08-01  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images: Add libXau for s390 (#200985)
+
+	* loader2/modules.c: We need to sleep for the disk state to be
+	settled, not the USB stack after loading usb-storage (#200589)
+
 2006-08-01  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
