@@ -54,7 +54,7 @@ class XSetup:
 		args = args + ['--defaultdesktop', string.lower(gui)] 
 
         f.write("xconfig %s\n" % string.join(args, " "))
-        f.write("monitor %s\n" % string.join(self.getMonitorArgList(), " ")
+        f.write("monitor %s\n" % string.join(self.getMonitorArgList(), " "))
 
     def getMonitorArgList(self):
         args = []
