@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-30 10:30+0200\n"
+"PO-Revision-Date: 2006-08-02 04:53+0200\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1342,7 +1342,7 @@ msgstr "Si prega di immettere la chiave di registrazione per questa versione di 
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Chiave:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1856,6 +1856,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"La partizione di avvio non è una delle prime quattro partizioni perciò non sarà "
+"avviabile."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -2022,7 +2024,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "La dimensione del volume logico deve essere più grande dell'estensione fisica del gruppo di volumi."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2359,7 +2361,7 @@ msgid "Connecting..."
 msgstr "Collegamento..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2370,9 +2372,11 @@ msgid ""
 "\n"
 msgstr ""
 "Il file %s non puó essere aperto. Ciò é dovuto alla mancanza di un file o ad "
-"un pacchetto corrotto.  Se state installando da un CD, è possibile che il CD "
-"sia corrotto, oppure che il drive del CD non é in grado di effettuare la "
-"lettura.\n"
+"un pacchetto corrotto.   Si prega di verificare che il vostro mirror contenga tutti i "
+"pacchetti necessari, oppure provate ad utilizzarne un'altro.\n"
+"\n"
+"Se riavviate, il sistema verrà lasciato in uno stato inconsistente che richiederà "
+"la reinstallazione\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2589,12 +2593,9 @@ msgid "Error running transaction"
 msgstr "Errore nell'esecuzione della transazione"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Il nome host \"%s\" non è valido per questo motivo:\n"
-"\n"
-"%s"
+msgstr "Si è verificato un errore eseguendo la transazione, per la seguente ragione(i): %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2605,9 +2606,9 @@ msgid "Retrieving installation information..."
 msgstr "Raccolta delle informazioni d'installazione..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Raccolta delle informazioni d'installazione..."
+msgstr "Raccolta delle informazioni d'installazione per %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2786,13 +2787,12 @@ msgid "_Confirm: "
 msgstr "_Confermare:"
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Nome inizializzatore iSCSI:"
+msgstr "Nome inizializzatore non valido"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Fornire un nome di inizializzatore di lunghezza diversa da zero."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3569,17 +3569,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "Le informazioni IP inserite non sono valide."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"Non ci sono dispositivi di rete attivi. Il sistema non sarà in grado di "
-"comunicare attraverso la rete senza almeno un dispositivo attivo.\n"
-"\n"
-"NOTA: Se si dispone di un adattatore di rete PCMCIA, non è necessario "
-"attivarlo a questo punto. Al riavvio del sistema, l'adattatore verrà "
-"automaticamente attivato."
+"Non ci sono dispositivi di rete attivi.  Il sistema non sarà in grado di "
+"comunicare attraverso la rete senza almeno un dispositivo attivo."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4346,19 +4341,16 @@ msgid "Unable to load file!"
 msgstr "Impossibile caricare il file!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Hostname non valido"
+msgstr "Nome repositorio non valido"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Inserire il nome del server"
+msgstr "Fornire un nome di repositorio di lunghezza diversa da zero"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Boot label non valida"
+msgstr "Url del repositorio non valido"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
