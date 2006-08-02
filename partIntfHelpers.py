@@ -220,7 +220,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
         if partition.type & parted.PARTITION_EXTENDED:
             requestlist.deleteAllLogicalPartitions(partition)
         else:
-            raise ValueError, "Deleting a non-existent partition"
+            #raise ValueError, "Deleting a non-existent partition"
+            return 0
 
     del partition
     return 1

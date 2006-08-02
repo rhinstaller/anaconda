@@ -1,3 +1,9 @@
+2006-08-02  Peter Jones  <pjones@redhat.com>
+
+	* partIntfHellpers.py (doDeletePartitionByRequest): don't raise
+	an exception when somebody clicks delete on empty space; just
+	return 0
+
 2006-08-01  Chris Lumens  <clumens@redhat.com>
 
 	* xsetup.py:  Fix string concat traceback (#201047).
