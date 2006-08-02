@@ -48,20 +48,13 @@ class XSetup:
 	if desktop: 
 	    rl = desktop.getDefaultRunLevel() 
 	    if rl and str(rl) == '5': 
-		args = args + ['--startxonboot', ''] 
+		args = args + ['--startxonboot'] 
 	    gui = desktop.getDefaultDesktop() 
 	    if gui: 
 		args = args + ['--defaultdesktop', string.lower(gui)] 
 
-	f.write("xconfig")
-	for arg in args: 
-	    f.write(" " + arg)
-	f.write("\n")
-
-        f.write("monitor")
-        for arg in self.getMonitorArgList():
-            f.write(" " + arg)
-        f.write("\n")
+        f.write("xconfig %s\n" % string.join(args, " "))
+        f.write("monitor %s\n" % string.join(self.getMonitorArgList(), " ")
 
     def getMonitorArgList(self):
         args = []
