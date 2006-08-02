@@ -16,7 +16,6 @@
 #
 # should probably go in rhpl
 #
-import iutil
 import string
 import rhpl
 from rhpl.translate import _
@@ -34,7 +33,7 @@ class XSetup:
         self.xserver.writeConfig(filename=fn+"/xorg.conf")
 
     def writeKS(self, f, desktop=None):
-        # FIXME: we really should have at least teh startxonboot and
+        # FIXME: we really should have at least the startxonboot and
         # defaultdesktop bits on s390
         if rhpl.getArch() == "s390":
             return
@@ -53,15 +52,22 @@ class XSetup:
 	    if gui: 
 		args = args + ['--defaultdesktop', string.lower(gui)] 
 
-        f.write("xconfig %s\n" % string.join(args, " "))
-        f.write("monitor %s\n" % string.join(self.getMonitorArgList(), " "))
+        if args != []:
+            f.write("xconfig %s\n" % string.join(args, " "))
+
+        monitorArgs = self.getMonitorArgList()
+        if monitorArgs != []:
+            f.write("monitor %s\n" % string.join(monitorArgs, " "))
 
     def getMonitorArgList(self):
         args = []
         monitor = self.xserver.monitorhw
-        
-        args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
-        args = args + [ "--vsync", monitor.getMonitorVertSync() ]
+
+        if monitor.getMonitorHorizSync() is not None:
+            args += [ "--hsync", monitor.getMonitorHorizSync() ]
+
+        if monitor.getMonitorVertSync() is not None:
+            args += [ "--vsync", monitor.getMonitorVerySync() ]
 
         return args
 
