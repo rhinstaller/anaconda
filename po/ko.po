@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-02 15:28+1000\n"
+"PO-Revision-Date: 2006-08-02 17:31+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -331,6 +331,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"'확인' 버튼은 누르시면 다다른 파티션 옵션이 선택됩니다"
 
 #: ../autopart.py:1503
 #, python-format
@@ -1293,11 +1296,11 @@ msgstr "인증키를 입력합니다"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "%s 버전에 대한 인증키를 입력해 주십시오."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "키:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -2309,7 +2312,7 @@ msgid ""
 msgstr ""
 "%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다.  미러에 "
 "필요한 모든 패키지가 들어 있는지 확인하시고 다른 것을 사용해 보시기 "
-"바랍니다. \n"
+"바랍니다.\n"
 "\n"
 "재부팅하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 "
 "합니다.\n"
@@ -2713,7 +2716,7 @@ msgstr "부적절한 개시 이름:"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "개시 이름을 입력해 주십시오."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -4238,7 +4241,7 @@ msgstr "잘못된 리포지터리 URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "리포지터리에 HTTP 또는 FTP URL를 입력해 주십시오."
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -5422,7 +5425,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "인증키 필요"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -6161,19 +6164,19 @@ msgstr "동적 IP 주소 설정 사용 (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 지원 활성화"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 지원 활성화"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "원하지 않는 패킷 충돌을 피함"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "고속 네트워크 소통을 위한 최대 등록 값 "
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -6188,10 +6191,12 @@ msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"수동 설정에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 "
+"합니다."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "DHCP에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니다."
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6199,7 +6204,7 @@ msgstr "IPv4 주소:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
 msgid "IPv6 address:"
@@ -6426,7 +6431,7 @@ msgstr "_ZFCP LUN 추가"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI 목표 추가"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6434,7 +6439,7 @@ msgstr "고급 용량 옵션"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid 장치 비활성화"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
@@ -6442,7 +6447,7 @@ msgstr "드라이브 설정을 어떻게 수정하시겠습니까?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>리포지터리 _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
@@ -6450,7 +6455,7 @@ msgstr "<b>리포지터리 _이름:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "리포지터리 추가"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6458,10 +6463,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"추가 소프트웨어를 설치하실 위치를 입력해 주셔야 합니다. \n"
+"이는 반드시 %s에 대해 올바른 리포지터리여야 합니다."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "리포지터리 추가(_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6524,6 +6531,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"iSCSI 디스크를 사용하기 위해, 호스트를 위해 설정한 iSCSI 목표에 대한 주소 및 "
+"iSCSI 개시 이름을 입력해 주셔야 합니다."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6551,11 +6560,11 @@ msgstr "IPv_4 지원 활성화"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 지원 활성화"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "네트워크 인터페이스 활성화"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6565,7 +6574,7 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "동적 IP 설정 사용(_d) (DHCP)"
+msgstr "동적 IP 설정 사용(_D) (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6591,7 +6600,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "부가 소프트웨어 리포지터리 추가(_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7375,7 +7384,7 @@ msgstr "일본어"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "칸나다어"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7407,7 +7416,7 @@ msgstr "북부 소토어"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "오리야어"
 
 #. generated from lang-table
 msgid "Persian"
