@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-06-19 10:13+0530\n"
+"PO-Revision-Date: 2006-08-02 17:26+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -115,8 +115,7 @@ msgstr "अज्ञात अधिष्ठापन विधि"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"जिस अधिष्ठापन विधि को आपने निर्दिष्ट किया है, वो एनाकोंडा के द्वारा समर्थित नहीं है."
+msgstr "जिस अधिष्ठापन विधि को आपने निर्दिष्ट किया है, वो एनाकोंडा के द्वारा समर्थित नहीं है."
 
 #: ../anaconda:880
 #, c-format
@@ -124,28 +123,37 @@ msgid "unknown install method: %s"
 msgstr "अनजान अधिष्ठापन विधि: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "सिलेण्डर-आधारित विभाजनों को प्राथमिक विभाजनों की तरह बाँट नहीं सकता"
+msgstr ""
+"प्राथमिक विभाजन के रूप में बेलनाकार आधारित विभाजन संभाजित नहीं कर सकता है.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "विभाजनों को प्राथमिक विभाजनों की तरह बाँट नहीं सकता"
+msgstr ""
+"विभाजन प्राथमिक विभाजन के रूप में संभाजित नहीं कर सकता है.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "सिलेण्डर-आधारित विभाजन दे नहीं सकता"
+msgstr ""
+"सिलेण्डर-आधारित विभाजन दे नहीं सकता.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -185,8 +193,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकती."
 
 #: ../autopart.py:1058
@@ -324,6 +331,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"'ठीक' को अलग विभाजनकारी विकल्प के लिये चुनें."
 
 #: ../autopart.py:1503
 #, python-format
@@ -420,14 +430,14 @@ msgstr ""
 "क्या आप यह करने के लिए निश्चित हैं?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "%s-%s-%s.%s. का उन्नयन कर रहा है\n"
+msgstr "%s का उन्नयन कर रहा है\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "%s अधिष्ठापित करें (_I)"
+msgstr "%s अधिष्ठापित कर रहा है\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -804,9 +814,8 @@ msgstr ""
 "अपने सिस्टम को रीबूट करने के लिए <Enter> दबाएं."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "फाइल भारित करने में असमर्थ!"
+msgstr "फाइलसिस्टम आरोहित करने में असमर्थ!"
 
 #: ../fsset.py:1730
 #, python-format
@@ -814,6 +823,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"युक्ति %s के %s के रूप में आरोहन में त्रुटि पैदा हुई.  आप अधिष्ठापन जारी रख सकते हैं, "
+"लेकिन समस्या आ सकती है."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1032,7 +1043,7 @@ msgid "Install Window"
 msgstr "विंडो अधिष्ठापन"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1043,8 +1054,9 @@ msgid ""
 "\n"
 msgstr ""
 "%s फाइल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता है. "
-"यदि आप CD माध्यम से अधिष्ठापन कर रहे हैं इसका सामान्यतः अर्थ यह है कि CD माध्यम भ्रष्ट है "
-"या CD चालन माध्यम को पढ़ने में असमर्थ है.\n"
+"कृपया अपने अधिष्ठापन विंब को जांचे कि आपके पास सारे जरूरी मीडिया हैं.\n"
+"\n"
+"अगर आप रिबूट करते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जो जरूरी अधिष्ठापन का कारण बनेगा.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1144,7 +1156,7 @@ msgid "Unable to access the CDROM."
 msgstr "CDROM चलाने में असमर्थ"
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1155,8 +1167,9 @@ msgid ""
 "\n"
 msgstr ""
 "%s फाइल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता है. "
-"यदि आप CD माध्यम से अधिष्ठापन कर रहे हैं इसका सामान्यतः अर्थ यह है कि CD माध्यम भ्रष्ट है "
-"या CD चालन माध्यम को पढ़ने में असमर्थ है.\n"
+"कृपया अपने अधिष्ठापन विंब को जांचे कि आपके पास सारे जरूरी मीडिया हैं.\n"
+"\n"
+"अगर आप रिबूट करते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जो जरूरी अधिष्ठापन का कारण बनेगा.\n"
 "\n"
 
 #: ../image.py:504
@@ -1179,9 +1192,8 @@ msgid "Install on System"
 msgstr "सिस्टम पर अधिष्ठापित करें"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "प्रारंभिकीकरण कर रहा है"
+msgstr "iSCSI आरंभकर्ता का आरंभ कर रहा है"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1248,43 +1260,39 @@ msgstr "मेजबाननाम 64 या इससे कम संप्�
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "मेजबाननाम में केवल 'a-z', 'A-Z', '-', या '.' संप्रतीक हो सकता है"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP पता गुम हो गया है"
+msgstr "IP पता गुम हो रहा है"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP पता में 0 और 255 के बीच के अंक ही होना चाहिए."
+msgstr "IP पता में 0 और 255 के बीच के 4 अंक ही होना चाहिए, अवधि के द्वारा अलग."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s एक उचित मेजबाननाम नहीं है. "
+msgstr "'%s' एक उचित IPv6 पता नहीं है."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "गोपन कुंजी"
+msgstr "पंजीयन कुंजी डालें"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "%s के संस्करण के लिये पंजीयन कुंजी डालें."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "कुंजी:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1683,8 +1691,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -1732,8 +1739,7 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitioning.py:68
@@ -1785,11 +1791,10 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "आपका बूट विभाजन पहले चार विभाजन में से एक नहीं है और इसलिये बूट करने योग्य नहीं हो सकता है."
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और 50 मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है."
 
 #: ../partitions.py:869
@@ -1810,10 +1815,8 @@ msgstr ""
 "है."
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
 
 #: ../partitions.py:947
 msgid ""
@@ -1871,8 +1874,7 @@ msgstr "एक विभाजन जो LVM वॉल्यूम ग्रू�
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:252
@@ -1944,7 +1946,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "तार्किक वॉल्यूम समूह को वॉल्यूम समूह के भौतिक विस्तार से बड़ा होना चाहिये."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2139,10 +2141,8 @@ msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
 
 #: ../text.py:428
 msgid ""
@@ -2275,7 +2275,7 @@ msgid "Connecting..."
 msgstr "जोड़ रहा है..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2286,8 +2286,9 @@ msgid ""
 "\n"
 msgstr ""
 "%s फाइल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो सकता है. "
-"यदि आप CD माध्यम से अधिष्ठापन कर रहे हैं इसका सामान्यतः अर्थ यह है कि CD माध्यम भ्रष्ट है "
-"या CD चालन माध्यम को पढ़ने में असमर्थ है.\n"
+"कृपया अपने मिरर को जांचे जो सारे जरूरी संकुल को रखता है, और दूसरे अलग के प्रयोग की कोशिश करें.\n"
+"\n"
+"अगर आप रिबूट करते हैं, आपका सिस्टम असंगत स्थिति में छोड़ा जायेगा जो जरूरी अधिष्ठापन का कारण बनेगा.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2500,13 +2501,9 @@ msgid "Error running transaction"
 msgstr "लेनदेन के दौरान त्रुटि..."
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"निम्नांकित कारणों से %s मेजबाननाम उचित नहीं है:\n"
-"\n"
-"%s"
+#, python-format
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "आपके विनिमय में एक त्रुटि थी, निम्न कारणों के लिये: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2517,9 +2514,9 @@ msgid "Retrieving installation information..."
 msgstr "अधिष्ठापन जानकारी पा रहा है..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "अधिष्ठापन जानकारी पा रहा है..."
+msgstr "%s के लिये अधिष्ठापन जानकारी पा रहा है..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2691,13 +2688,12 @@ msgid "_Confirm: "
 msgstr "निश्चित करें (_C): "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI आरंभकर्ता नाम:"
+msgstr "अवैध आरंभकर्ता नाम"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "आपको जरूर गैर शून्य लंबाई आरंभकर्ता नाम देना चाहिये."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3453,16 +3449,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "आपने जो IP जानकारी दाखिल की है वह अमान्य है."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "आपके पास सक्रिय संजाल युक्तियाँ नहीं हैं. आपका सिस्टम कम से कम एक सक्रिय युक्ति के बिना, "
-"मूलभूत रूप से एक संजाल पर संचार करने में असमर्थ है.\n"
-"\n"
-"नोट: यदि आपके पास एक PCMCIA-आधारित संजाल एडाप्टर है, यहाँ पर आपको इसे निष्क्रिय "
-"छोड़ना हैं. जब आप अपने सिस्टम को रीबूट करें एडाप्टर स्वतः ही सक्रिय हो जाएगा."
+"मूलभूत रूप से एक संजाल पर संचार करने में असमर्थ है."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3717,14 +3709,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीर त्रुटि आपके निवेदित विभाजन योजना के साथ उपस्थित हैं."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से जारी होने से पहले यह त्रुटि सही किया जाना जरूरी है."
 
 #: ../iw/partition_gui.py:642
@@ -4212,26 +4202,23 @@ msgid "Unable to load file!"
 msgstr "फाइल भारित करने में असमर्थ!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "अमान्य मेजबाननाम"
+msgstr "अमान्य रिपॉजिटरी नाम"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "आप एक सर्वर नाम अवश्य दें."
+msgstr "आप जरूर एक गैर शून्य रिपॉजिटरी नाम अवश्य दें."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "अमान्य बूट लेबल"
+msgstr "अमान्य रिपॉजिटरी URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "आपको  HTTP या FTP URL को रिपॉजिटरी में दें."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4240,7 +4227,9 @@ msgid ""
 "%s"
 msgstr ""
 "संकुल मेडाडाटा पढ़ने में असमर्थ. यह गुम रिपोडाटा निर्देशिका के कारण हो सकता है.  कृपया "
-"निश्चित करें कि आप अधिष्ठापन तरू सही से उत्पन्न किया गया है.  %s"
+"निश्चित करें कि आप अधिष्ठापन तरू सही से उत्पन्न किया गया है.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4260,8 +4249,7 @@ msgstr "यह आपका वर्तमान बूट लोडर अद�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4396,8 +4384,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वैप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वैप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/zfcp_gui.py:24
@@ -4564,8 +4551,7 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> चुनें | <F2> मूलभूत चुनिये | <F4> मिटायें | <F12> अगला स्क्रीन>"
 
 #: ../textw/bootloader_text.py:387
@@ -4702,8 +4688,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "संकुल समूह चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/grpselect_text.py:130
@@ -5058,8 +5043,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5090,8 +5074,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -5405,20 +5388,19 @@ msgstr ""
 "\tखेल\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "पंजीयन कुंजी जरूरी"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "%s अधिष्ठापन में एक पंजीयन कुंजी जरूरी.  कृपया अपने समर्थन प्रतिनिधि से संपर्क करें अगर आप अपने उत्पाद के साथ एक कुंजी नहीं पाते हैं."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5716,8 +5698,7 @@ msgstr "%s चालक लोड कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:217
 msgid ""
@@ -5811,10 +5792,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s में स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
@@ -6070,9 +6049,8 @@ msgstr ""
 "       आर्किटेक्चर के लिए %s समाहित है \n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "अमान्य IP स्ट्रिंग"
+msgstr "अमान्य CIDR मास्क"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6132,31 +6110,28 @@ msgid "Sending request for IP information for %s..."
 msgstr "%s के लिए IP जानकारी के लिए निवेदन भेज रहा है..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC शब्दकूट त्रुटि"
+msgstr "संजाल त्रुटि"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "लक्ष्य चालनों को साफ करने में एक त्रुटि था. क्लोनिंग असफल."
+msgstr "आपके संजाल अंतरफलक विन्यासन में एक त्रुटि थी."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "गतिक IP विन्यास(BOOTP/DHCP) का प्रयोग करें"
+msgstr "गतिक IP विन्यास (DHCP) का प्रयोग करें"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 समर्थन सक्रिय करें"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 समर्थन सक्रिय करें"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "अवांछित पैकेट संग्रह से बचें"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
@@ -6167,9 +6142,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP का विन्यास करें"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "गुम समूह"
+msgstr "गुम प्रोटोकॉल"
 
 #: ../loader2/net.c:754
 msgid ""
@@ -6182,28 +6156,24 @@ msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP पताः"
+msgstr "IPv4 पता:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP पताः"
+msgstr "IPv6 पता:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "नामसर्वर"
+msgstr "नामसर्वर:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL विन्यास"
+msgstr "दस्ती TCP/IP विन्यास"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
@@ -6211,8 +6181,7 @@ msgstr "जानकारी गुम गई"
 
 #: ../loader2/net.c:1085
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "आप एक उचित IP पता और एक नेटमॉस्क दोनों अवश्य दाखिल करें."
 
 #: ../loader2/net.c:1091
@@ -6414,40 +6383,36 @@ msgid "Loading SCSI driver"
 msgstr "SCSI चालन भारित कर रहा है"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "_ZFCP LUN जोड़ें"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI लक्ष्य जोड़ें"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "अतिरिक्त आकार विकल्प"
+msgstr "अतिरिक्त भंडार विकल्प"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid युक्ति निष्क्रिय करें"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "इस विभाजन पर फाइल सिस्टम को किस प्रकार तैयार करना चाहते है?"
+msgstr "अपने चालन विन्यास को आप कैसे रूपांतरित करना चाहते हैं?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Repository _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI आरंभकर्ता नाम (_N):</b>"
+msgstr "<b>Repository _name:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "रिपॉजिटरी जोड़ें"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6458,7 +6423,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "रिपॉजिटरी जोड़ें (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6481,9 +6446,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "विभाजनकारी लेआउट की समीक्षा व रूपांतरण करें (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "उन्नत बूट लोडर विन्यास"
+msgstr "उन्नत भंडार विन्यास (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6498,27 +6462,24 @@ msgid "_Exception details"
 msgstr "अपवाद विवरण (_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "शब्दकूटः"
+msgstr "<b>शब्दकूट (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>लक्ष्य IP पता (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>पोर्ट संख्या (_P):</b>"
+msgstr "<b>उपयोक्तानाम (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI आरंभकर्ता नाम (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "चनडेव पैरामीटर"
+msgstr "iSCSI पैरामीटर विन्यस्त करें"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6527,41 +6488,36 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "गेटवे:"
+msgstr "<b>गेटवे:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>लक्ष्य IP पता (_T):</b>"
+msgstr "<b>IPv4 पता:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>लक्ष्य IP पता (_T):</b>"
+msgstr "<b>IPv6 पता:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "नामसर्वर"
+msgstr "<b>नामसर्वर:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>पोर्ट संख्या (_P):</b>"
+msgstr "<b>अंतरफलक (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 समर्थन सक्रिय करें"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 समर्थन सक्रिय करें"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "संजाल अंतरफलक सक्रिय करें"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6570,9 +6526,8 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "गतिक IP विन्यास(BOOTP/DHCP) का प्रयोग करें"
+msgstr "गतिक IP विन्यास (DHCP) का प्रयोग करें (_d)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6598,7 +6553,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "अतिरिक्त सॉफ्टवेयर रिपॉजिटरी जोड़ें (_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -6855,8 +6810,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "पूर्वी समय - ओंटारियो - अधिकतर जगह"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "पूर्वी समय - ओंटारियो एवं क्यूबेक - जगह जो  DST 1967-1973 को नहीं देखते"
 
 #. generated from zone.tab
@@ -7044,8 +6998,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -7349,9 +7302,8 @@ msgid "German"
 msgstr "जर्मन"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "मुक्त"
+msgstr "ग्रीक"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7383,7 +7335,7 @@ msgstr "जापानी"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "कन्नड़"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7398,14 +7350,12 @@ msgid "Malay"
 msgstr "मलय"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "मलय"
+msgstr "मलयालम"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "गुजराती"
+msgstr "मराठी"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7417,7 +7367,7 @@ msgstr "उत्तरी सोथो"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "उड़िया"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7491,104 +7441,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "विभाजनों को बाँट नहीं सकता"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "आप एक अलग स्वतः विभाजन विकल्प चुन सकते हैं, या 'पीछे' को दबा कर दस्ती रूप से विभाजन "
-#~ "चुनें.\n"
-#~ "\n"
-#~ "जारी रखने के लिए 'ठीक' दबाएँ."
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "%s-%s-%s.%s का अधिष्ठापन कर रहा है\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "%s-%s-%s.%s संकुल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण "
-#~ "हो सकता है. यदि आप CD माध्यम से अधिष्ठापन कर रहे हैं इसका सामान्यतः अर्थ यह है कि "
-#~ "CD माध्यम भ्रष्ट है या CD चालन माध्यम को पढ़ने में असमर्थ है.\n"
-#~ "\n"
-#~ "पुनःप्रयास करने के लिए 'फिर कोशिश करें' दबाएं."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "अगर आप सिस्टम रिबूट करते हैं, आपका सिस्टम एक असंगत स्थिति में छूट जायेगा जिसके लिये "
-#~ "अधिष्ठापन की जरूरत होगी. क्या आप जारी रखने की इच्छा रखते हैं?"
-
-#~ msgid "_Cancel"
-#~ msgstr "रद्द करें (_C)"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "IP पता में 1 और 255 के बीच के अंक ही होना चाहिए."
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI विन्यास"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "कोई IP पता नहीं, iSCSI सेटअप छोड़ रहा है"
-
-#~ msgid "Target IP address:"
-#~ msgstr "लक्ष्य IP पताः"
-
-#~ msgid "Port Number:"
-#~ msgstr "पोर्ट संख्या:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tडेस्कटाप शैल (GNOME)\n"
-#~ "\tप्रशासनिक उपकरण\n"
-#~ "\tसर्वर विन्यास उपकरण\n"
-#~ "\tवेब सर्वर\n"
-#~ "\tविंडोज फाइल सर्वर (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "कृपया इस मशीन के लिए IP विन्यास दाखिल करें. प्रत्येक वस्तु, बिन्दुकृत दशमलव पद्धति में"
-#~ "(उदाहरण के लिए , 1.2.3.4) एक IP पते की तरह दाखिल की जाएँ."
-
-#~ msgid "Netmask:"
-#~ msgstr "नेटमास्कः"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "मूलभूत गेटवे (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "प्राथमिक नामसर्वरः"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI विन्यास"
