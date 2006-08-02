@@ -1,3 +1,10 @@
+2006-08-02  Jeremy Katz  <katzj@redhat.com>
+
+	* bootdisk/s390x/initrd.size: Add file to describe size of initrd
+	to fix LPAR installs (#197773)
+	* bootdisk/s390x/generic.ins: Use initrd.size
+	* scripts/mk-images.s390: And include initrd.size
+
 2006-08-01  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images: Add libXau for s390 (#200985)
