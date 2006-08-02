@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.76
+Version: 11.1.0.77
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 02 2006 Paul Nasrat <pnasrat@redhat.com> 11.1.0.77-1
+- Fix pkgorder isdir check
+- Reinstate frequent rescanning of devices (clumens)
+
 * Wed Aug 02 2006 Chris Lumens <clumens@redhat.com> 11.1.0.76-1
 - Don't raise an exception when someone tries to delete empty space (pjones).
 - Fix X ks writing traceback (#201047).
