@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-02 11:15+1000\n"
+"PO-Revision-Date: 2006-08-02 15:28+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1041,7 +1041,7 @@ msgid "Install Window"
 msgstr "설치 화면"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1051,9 +1051,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s 파일 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다.  CD 매체를 "
-"사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD를 읽지 못하는 것 같"
-"습니다. \n"
+"%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다. 설치 이미지와 "
+"필요한 미디어를 모두 가지고 있는 지를 확인해 보시기 바랍니다.\n"
+"\n"
+"재부팅하시면, 시스템 상태가 불안정하게 되어 다시 설치를 해야 "
+"합니다.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1152,7 +1154,7 @@ msgid "Unable to access the CDROM."
 msgstr "CDROM을 실행하지 못했습니다"
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1162,9 +1164,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s 파일 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다.  CD 매체를 "
-"사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD를 읽지 못하는 것 같"
-"습니다. \n"
+"%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다. "
+"설치 트리에 필요한 모든 패키지가 들어있는 지를 확인해 보시기 "
+"바랍니다.\n"
+"\n"
+"재부팅하시면, 시스템 상태가 불안정하여 다시 설치하셔야 "
+"합니다.\n"
 "\n"
 
 #: ../image.py:504
@@ -1186,9 +1191,8 @@ msgid "Install on System"
 msgstr "시스템에 설치"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "초기화하고 있습니다."
+msgstr "iSCSI 개시를 초기화하고 있습니다."
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1270,11 +1274,12 @@ msgid "IP Address is missing."
 msgstr "IP 주소가 없습니다."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP 주소는 1에서 255 사이의 숫자로 지정해 주셔야 합니다."
+msgstr ""
+"IP 주소는 0에서 255 사이의 네 자리 숫자로 마침표로 구분하여 지정해 "
+"주셔야 합니다."
 
 #: ../network.py:96
 #, python-format
@@ -2292,7 +2297,7 @@ msgid "Connecting..."
 msgstr "연결 중..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2302,9 +2307,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s 파일 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다.  CD 매체를 "
-"사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD를 읽지 못하는 것 같"
-"습니다. \n"
+"%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다.  미러에 "
+"필요한 모든 패키지가 들어 있는지 확인하시고 다른 것을 사용해 보시기 "
+"바랍니다. \n"
+"\n"
+"재부팅하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 "
+"합니다.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2470,7 +2478,7 @@ msgstr "진행 중"
 
 #: ../yuminstall.py:104
 msgid "Preparing transaction from installation source..."
-msgstr "설치소스에서 전송을 준비하고 있습니다..."
+msgstr "설치소스에서 트랜잭션을 준비하고 있습니다..."
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
@@ -2517,12 +2525,9 @@ msgid "Error running transaction"
 msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"\"%s\" 호스트명은 다음과 같은 이유로 잘못되었습니다:\n"
-"\n"
-"%s"
+msgstr "트랜젝션은 다음과 같은 이유로 실행되지 않았습니다:%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2703,9 +2708,8 @@ msgid "_Confirm: "
 msgstr "확인(_C): "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI 개시 이름:"
+msgstr "부적절한 개시 이름:"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
@@ -3464,17 +3468,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "여러분이 입력하신 IP 정보는 사용될 수 없습니다."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "작동중인 네트워크 장치가 없습니다.  작동중인 장치가 최소한 한개라도 존재하지 "
-"않는다면 시스템은 네트워크 상에서 통신할 수 없습니다.\n"
-"\n"
-"주목: PCMCIA-기반 네트워크 어댑터를 가지고 계시다면, 지금 시점에서는 비활성화"
-"된 상태로 두셔야 합니다. 시스템을 재부팅하시면, 어댑터는 자동으로 활성화됩니"
-"다."
+"않는다면 시스템은 네트워크 상에서 통신할 수 없습니다."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4230,9 +4229,8 @@ msgid "Invalid Repository Name"
 msgstr "잘못된 리포지터리명"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "서버 이름을 입력해 주십시오."
+msgstr "리포지터리 이름을 입력해 주십시오."
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
