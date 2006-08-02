@@ -15,7 +15,7 @@ BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel >= 1.9, mkinitrd-devel >= 5.1.2-1
+BuildPreReq: libdhcp-devel >= 1.10, mkinitrd-devel >= 5.1.2-1
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
 Requires: kudzu > 1.2.0, yum >= 2.9.2, pirut >= 1.1.0
