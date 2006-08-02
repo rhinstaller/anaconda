@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-01 17:30+1000\n"
+"PO-Revision-Date: 2006-08-02 11:15+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4243,7 +4243,7 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4251,8 +4251,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"패키지 메터데이터를 읽지 못했습니다. repodata 디렉토리가 빠져있는 것 같습니"
-"다. 설치 트리가 정확히 생성되었는지 확인해주십시오.  %s"
+"리포지터리에서 패키지 메터데이터를 읽어오지 못했습니다. repodata 디렉토리가 "
+"빠져있는 것 같습니다. 리포지터가 정확히 생성되었는지 확인해주십시오.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -6152,9 +6154,8 @@ msgid "Network Error"
 msgstr "Network 오류 "
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.   복제에 실패."
+msgstr "네트워크 인터페이스를 설정하는 도중 오류가 발생하였습니다."
 
 #: ../loader2/net.c:675
 msgid "Use dynamic IP configuration (DHCP)"
@@ -6211,23 +6212,20 @@ msgid "Name Server:"
 msgstr "네임서버:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL 설정"
+msgstr "수동 TCP/IP 설정"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "정보 부족"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "올바른 IP 주소와 넷마스크를 입력해 주십시오."
+msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "올바른 IP 주소와 넷마스크를 입력해 주십시오."
+msgstr "올바른 IPv6 주소와 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6425,27 +6423,24 @@ msgid "Loading SCSI driver"
 msgstr "SCSI 드라이버 로딩 중"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "_ZFCP LUN 추가"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
 msgstr ""
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "추가 용량 옵션"
+msgstr "고급 용량 옵션"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "이 파티션에 설정할 파일시스템을 지정해 주십시오"
+msgstr "드라이브 설정을 어떻게 수정하시겠습니까?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6491,9 +6486,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "파티션 배치 재확인과 수정(_V)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "고급 부트로더 설정"
+msgstr "고급 용량 설정(_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6524,9 +6518,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI 개시 이름 (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev 매개변수"
+msgstr "iSCSI 매개변수 설정"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6556,7 +6549,7 @@ msgstr "<b>인터페이스(_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 지원 활성화"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
@@ -7403,9 +7396,8 @@ msgid "Malayalam"
 msgstr "말라얄람어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "구자라티"
+msgstr "마라티"
 
 #. generated from lang-table
 msgid "Norwegian"
