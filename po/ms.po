@@ -1,20 +1,20 @@
 # Anaconda Bahasa Melayu (Malay) (ms)
 # Jika takut risiko, Jangan bicara tentang Perjuangan, tetapi ramai jugak yang berjuang eh.?
 # 1. Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002.
-# 2. Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003,2004.
+# 2. Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003,2004, 2006.
 # 3. Mohd Nawawi Mohamad Jamili <nawawi@ronggeng.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-19 23:10+0800\n"
+"PO-Revision-Date: 2006-08-02 14:58+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -101,7 +101,7 @@ msgstr "Pemasangan grafik tidak ada...  Memulakan mod teks."
 
 #: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Pembolehubah DISPLAY tidak ditetapkan. Memulakan mod teks!"
 
 #: ../anaconda:877
 msgid "Unknown install method"
@@ -109,8 +109,7 @@ msgstr "Kaedah pemasangan tidak diketahui"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Anda telah menyatakan kaedah pemasangan yang tidak disokong oleh anaconda."
+msgstr "Anda telah menyatakan kaedah pemasangan yang tidak disokong oleh anaconda."
 
 #: ../anaconda:880
 #, c-format
@@ -118,30 +117,37 @@ msgid "unknown install method: %s"
 msgstr "kaedah pemasangan tidak diketahui: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"Tidak dapat memperuntukkan partisyen berasaskan-silinder sebagai partisyen "
-"utama"
+"Tidak dapat memperuntukkan partisyen berasaskan-silinder sebagai partisyen utama.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Tidak dapat memperuntukkan partisyen sebagai partisyen utama"
+msgstr ""
+"Tidak dapat memperuntukkan partisyen sebagai partisyen utama.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Tidak dapat memperuntukkan partisyen berasaskan-silinder"
+msgstr ""
+"Tidak dapat memperuntukkan partisyen berasaskan-silinder.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -185,8 +191,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Partisyen boot %s mungkin tidak memenuhi kehendak memboot untuk rekabentuk "
 "anda."
@@ -326,6 +331,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Tekan 'OK' untuk memilih pilihan mempartisyen yang lain."
 
 #: ../autopart.py:1503
 #, python-format
@@ -424,14 +432,14 @@ msgstr ""
 "Adakah anda pasti untuk melakukannya?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Mennaiktaraf %s-%s-%s.%s.\n"
+msgstr "Menaiktaraf %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Pasang %s"
+msgstr "Memasang %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -492,13 +500,12 @@ msgid "Dump Written"
 msgstr "Longgokan Ditulis"
 
 #: ../exception.py:391
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"Keadaan sistem anda telah berjaya ditulis ke liut. Sistem anda akan "
-"diulangtetap."
+"Keadaan sistem anda telah berjaya ditulis ke cakera liut. Sistem anda akan "
+"diulangmula."
 
 #: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
 #: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
@@ -1229,8 +1236,7 @@ msgstr "Namahos mesti 64 atau kurang panjang aksara."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
+msgstr "Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1264,8 +1270,9 @@ msgid "Please enter the registration key for your version of %s."
 msgstr ""
 
 #: ../packages.py:248
+#, fuzzy
 msgid "Key:"
-msgstr ""
+msgstr "Kekunci:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1602,8 +1609,7 @@ msgstr ""
 #: ../partIntfHelpers.py:404
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Anda mesti pilih sekurang-kurangnya satu cakera keras supaya %s dipasang."
+msgstr "Anda mesti pilih sekurang-kurangnya satu cakera keras supaya %s dipasang."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1723,8 +1729,7 @@ msgid "Confirm Reset"
 msgstr "Kepastian Ulangtetap"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Adakah anda pasti untuk ulangtetap jadual partisyen ke keadaan asal?"
 
 #: ../partitioning.py:68
@@ -1780,10 +1785,8 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
@@ -1803,8 +1806,7 @@ msgstr ""
 "yang dicadangkan untuk pemasangan %s normal."
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:947
@@ -1862,10 +1864,8 @@ msgstr "partisyen yang menjadi ahli kepada Kumpulan Volum LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1965,8 +1965,7 @@ msgstr "Dibatalkan"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
+msgstr "Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
@@ -2138,8 +2137,7 @@ msgid "Welcome to %s"
 msgstr "Selamat datang ke %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> untuk bantuan | <Tab> antara unsur | <Space> pilih | <F12> skrin "
 "berikutnya"
@@ -2430,13 +2428,11 @@ msgstr "Memberhentikan usaha untuk menyambung selepas 50 kali percubaan!\n"
 #: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
+msgstr "Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
 
 #: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
+msgstr "Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
 
 #: ../vnc.py:304
 msgid "Will try to connect again in 15 seconds..."
@@ -2520,8 +2516,7 @@ msgstr "Ralat melaksanakan profil perkakasan"
 
 #: ../yuminstall.py:471
 #, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Namahos \"%s\" tidak sah kerana alasan berikut:\n"
 "\n"
@@ -2578,8 +2573,7 @@ msgstr "Pemasangan Bermula"
 
 #: ../yuminstall.py:1094
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Memulakan proses pemasangan. Ini mungkin mengambil masa beberapa minit..."
+msgstr "Memulakan proses pemasangan. Ini mungkin mengambil masa beberapa minit..."
 
 #: ../yuminstall.py:1110
 #, fuzzy
@@ -3248,8 +3242,7 @@ msgstr "Tiada slot kosong"
 #: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
+msgstr "Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
 
 #: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
@@ -3769,15 +3762,12 @@ msgid "Partitioning"
 msgstr "Pempartisyenan"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Ralat ini mesti diperbaiki sebelum meneruskan pemasangan bagi %s anda."
 
 #: ../iw/partition_gui.py:642
@@ -3790,8 +3780,7 @@ msgstr "Amaran berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
-"Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
+msgstr "Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
@@ -4324,8 +4313,7 @@ msgstr "Ini akan mengemaskini pemuat but semasa anda."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Pemasang mengesan pemuat but %s kini dipasang Ã¼ada %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4465,10 +4453,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Fail swap mestilah bersaiz diantara 1 dan 2000 MB "
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
@@ -4638,8 +4624,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 #, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Ruang> pilih butang | <F2> pilih kemasukan but default | <F12> skrin "
 "berikutnya>"
@@ -4780,8 +4765,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Sila pilih resolusi yang anda ingin gunakan:"
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Ruang>,<+>,<-> pemilihan   |   <F2> Perincian Kumpulan   |   <F12> skrin "
 "berikutnya"
@@ -5047,8 +5031,7 @@ msgstr "Opsyen Sistem Fail"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
+msgstr "Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5173,10 +5156,8 @@ msgid "RAID"
 msgstr "RAD"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5904,8 +5885,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Selamat datang ke %s - Mod Menyelamat"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
 "seterusnya "
@@ -5942,8 +5922,7 @@ msgstr ""
 #: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
+msgstr "Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
 
 #: ../loader2/loader.c:348
 msgid "Updates Disk"
@@ -6300,8 +6279,9 @@ msgid "IPv4 address:"
 msgstr "Alamat IP:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+#, fuzzy
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
 #, fuzzy
@@ -6324,8 +6304,7 @@ msgstr "Maklumat Hilang"
 
 #: ../loader2/net.c:1085
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Anda mesti masukkan kedua-dua alamat IP dan netmask."
 
 #: ../loader2/net.c:1091
@@ -6773,8 +6752,7 @@ msgstr "Waktu Atlantik - New Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Waktu Atlantik - Nova Scotia (kebanyakan tempat), W Labrador, E Quebec & PEI"
+msgstr "Waktu Atlantik - Nova Scotia (kebanyakan tempat), W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6860,8 +6838,7 @@ msgstr "Waktu Tengah - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Waktu Tengah - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Waktu Tengah - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6972,8 +6949,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Waktu Timur - Ontario - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Waktu Timur - Ontario & Quebec - tempat tidak diperhati DST 1967-1973"
 
 #. generated from zone.tab
@@ -7161,8 +7137,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Waktu Piawai Gunung - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Waktu Piawai Gunung - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
@@ -7467,9 +7442,8 @@ msgid "German"
 msgstr "Jerman"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Bebas"
+msgstr "Greek"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7501,7 +7475,7 @@ msgstr "Jepun"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7516,14 +7490,12 @@ msgid "Malay"
 msgstr "Melayu"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Melayu"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7535,7 +7507,7 @@ msgstr "Sotho Utara"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7609,106 +7581,3 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Tidak dapat memperuntukkan partisyen"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Anda boleh pilih pilihan pempartisyenan automatik, atau klik 'Undur' "
-#~ "untuk memilih pempartisyenan manual.\n"
-#~ "\n"
-#~ "Tekan 'OK' untuk teruskan."
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Memasang %s-%s-%s.%s.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Pakej %s-%s-%s tidak dapat dibuka. Ini adalah kerana kehilangan fail atau "
-#~ "mungkin pakej rosak.  Jika anda memasang dari Media CD ini biasanya "
-#~ "bermaksud media CD rosak, atau pemacu CD tidak dapat membaca media.\n"
-#~ "\n"
-#~ "Tekan <return> untuk cuba lagi."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Jika anda ulangbut, sistem anda akan berada didalam keadaan tidak "
-#~ "konsisten yang mungkin memerlukan pemasangan semula. Adakah anda yakin "
-#~ "untuk meneruskan?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Batal"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "Alamat IP mesti mengandungi nombor di antara 1 dan 255"
-
-#, fuzzy
-#~ msgid "iSCSI Configuration"
-#~ msgstr "Tetapan iSCSI"
-
-#, fuzzy
-#~ msgid "Target IP address:"
-#~ msgstr "<b>_Alamat IP Sasaran:</b>"
-
-#, fuzzy
-#~ msgid "Port Number:"
-#~ msgstr "<b>Nombor _Port:</b>"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tShell desktop (GNOME)\n"
-#~ "\tAlatan Pentadbiran\n"
-#~ "\tAlatan Tetapan Pelayan\n"
-#~ "\tPelayan Web\n"
-#~ "\tPelayan Fail Windows (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Sila masukkan konfigurasi IP bagi mesin ini. Setiap item patut dimasukkan "
-#~ "sebagai alamat IP pada notasi desimal-berdot (sebagai contoh, 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Netmask:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Gateway default (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Pelayan nama utama:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "Tetapan iSCSI"
