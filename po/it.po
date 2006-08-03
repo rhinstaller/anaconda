@@ -1,10 +1,5 @@
 # translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to
-# translation of it.po to Italiano
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-#
 #
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Tullio Dovera <tdovera@redhat.it>, 2001.
@@ -15,14 +10,15 @@
 # Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005.
 # Nicolò Nepote <nepote@labinf.polito.it>, 2005.
 # Francesco Tombolini <tombo@adamantio.net>, 2006.
+# Francesco Tombolini <tombo@localhost.localdomain>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-03 06:38+0200\n"
-"Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
+"PO-Revision-Date: 2006-08-03 21:37+0200\n"
+"Last-Translator: Francesco Tombolini <tombo@localhost.localdomain>\n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6650,81 +6646,76 @@ msgid "_Exception details"
 msgstr "Dettagli _eccezione"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Password:"
+msgstr "<b>_Password:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>Indirizzo IP _Destinazione:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Numero _Porta:</b>"
+msgstr "<b>_Username:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Nome inizializzatore iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Parametri di Chandev"
+msgstr "Configurazione dei parametri iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Per usare dischi iSCSI, dovrete fornire l'indirizzo dei vostri targets iSCSI ed il nome "
+"dell'inizializzatore iSCSI che avete configurato per il vostro host."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Indirizzo IP _Destinazione:</b>"
+msgstr "<b>Indirizzo IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Indirizzo IP _Destinazione:</b>"
+msgstr "<b>Indirizzo IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Nameserver"
+msgstr "<b>Server dei nomi:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>Numero _Porta:</b>"
+msgstr "<b>_Interfaccia:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Abilitare supporto IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Abilitare supporto IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Abilitazione interfaccia di rete"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"E' necessario avere una connessione di rete attiva durante il "
+"processo d'intallazione.  Si prega di configurare l'interfaccia di rete."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Usare la configurazione IP dinamica (BOOTP/DHCP)"
+msgstr "Usare la configurazione IP dinamica (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6752,7 +6743,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Aggiungere ulteriori repositori software"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7509,9 +7500,8 @@ msgid "German"
 msgstr "Tedesco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Libero"
+msgstr "Greco"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7543,7 +7533,7 @@ msgstr "Giapponese"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7558,14 +7548,12 @@ msgid "Malay"
 msgstr "Malese"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Malese"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7577,7 +7565,7 @@ msgstr "Sotho settentrionale"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
