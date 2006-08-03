@@ -244,8 +244,13 @@ def regKeyScreen(anaconda):
         return DISPATCH_NOOP
 
     while 1:
+        if anaconda.id.instClass.regkeydesc is not None:
+            desc = _("Please enter the registration key for your version of %s.") %(productName,)
+        else:
+            desc = anaconda.id.instClass.regkeydesc
+            
         rc = anaconda.intf.entryWindow(_("Enter Registration Key"),
-                                      _("Please enter the registration key for your version of %s.") %(productName,), _("Key:"))
+                                       desc, _("Key:"))
 
         try:
             anaconda.id.instClass.handleRegKey(rc, anaconda.intf)

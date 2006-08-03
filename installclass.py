@@ -38,6 +38,7 @@ class BaseInstallClass:
     showMinimal = 1
     showLoginChoice = 0
     description = None
+    regkeydesc = None
     name = "base"
     pkgstext = ""
     # default to showing the upgrade option

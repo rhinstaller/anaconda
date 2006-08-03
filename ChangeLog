@@ -1,3 +1,10 @@
+2006-08-03  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (regKeyScreen): Use per-installclass description.
+
+	* installclass.py: Allow description for reg key to be
+	per-installclass.
+
 2006-08-03  Chris Lumens  <clumens@redhat.com>
 
 	* isys/imount.c (doPwMount):  Log why mount failed.
