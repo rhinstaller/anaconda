@@ -21,6 +21,9 @@ import network
 from yuminstall import AnacondaYumRepo
 import yum.Errors
 
+import logging
+log = logging.getLogger("anaconda")
+
 class TaskWindow(InstallWindow):
     def getNext(self):
         if self.xml.get_widget("customRadio").get_active():
@@ -106,6 +109,7 @@ class TaskWindow(InstallWindow):
             try:
                 self.backend.doRepoSetup(self.anaconda, reponame,
                                          fatalerrors = False)
+                log.info("added repository %s with with source URL %s" % (reponame, repourl))
             except yum.Errors.RepoError, e:
                 self.intf.messageWindow(_("Error"),
                       _("Unable to read package metadata from repository.  "

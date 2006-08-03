@@ -23,6 +23,8 @@
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Don't add
 	an extra slash, as urlparse gets confused easily (#210232).
 
+	* iw/task_gui.py (TaskWindow._addRepo):  Log added repos (#201212).
+
 2006-08-03  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Add libvolume_id for gfs2-utils
