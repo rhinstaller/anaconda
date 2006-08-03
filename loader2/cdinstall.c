@@ -309,9 +309,14 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
             if (!devices[i]->device)
                 continue;
 
-            logMessage(INFO,"trying to mount CD device %s",devices[i]->device);
+            logMessage(INFO,"trying to mount CD device %s", devices[i]->device);
 
-            devMakeInode(devices[i]->device, "/tmp/cdrom");
+            if (devMakeInode(devices[i]->device, "/tmp/cdrom") != 0) {
+                logMessage(ERROR, "unable to create device node for %s",
+                           devices[i]->device);
+                continue;
+            }
+
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 
                            IMOUNT_RDONLY, NULL)) {
                 if (!access("/mnt/source/images/stage2.img", R_OK) &&
@@ -335,6 +340,8 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
 
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
+                        logMessage(INFO, "mounting stage2 failed");
+
                         umount("/mnt/source");
                         if (rc == -1)
                             foundinvalid = 1;

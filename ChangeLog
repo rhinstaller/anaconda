@@ -2,6 +2,9 @@
 
 	* isys/imount.c (doPwMount):  Log why mount failed.
 
+	* loader2/cdinstall.c (setupCdrom):  Better error handling and
+	logging.
+
 2006-08-03  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Add libvolume_id for gfs2-utils
