@@ -20,6 +20,9 @@
 	* loader2/loader.c (doLoaderMain):  Don't show method menu if we're
 	installing from CD (#201108).
 
+	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Don't add
+	an extra slash, as urlparse gets confused easily (#210232).
+
 2006-08-03  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Add libvolume_id for gfs2-utils

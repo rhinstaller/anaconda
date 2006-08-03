@@ -60,9 +60,7 @@ class ReleaseNotesViewer:
 		for suffix in suffixList:
 			fn = "RELEASE-NOTES%s" % (suffix,)
 			try:
-				tmpfile = os.path.abspath("/" +
-					self.anaconda.dispatch.method.getFilename(fn,
-					destdir="/tmp", retry=0))
+				tmpfile = os.path.abspath(self.anaconda.dispatch.method.getFilename(fn, destdir="/tmp", retry=0))
 				if tmpfile is None:
 					continue
 
@@ -125,11 +123,11 @@ class ReleaseNotesViewer:
 			uri = self.getReleaseNotes()
 
 		if uri is not None:
-			if  os.access(uri, os.R_OK):
+			if os.access(uri, os.R_OK):
 				try:
 					f = self.openURI(uri)
 				except OSError:
-					log.info("Failed to open %s" % (link,))
+					self.log("Failed to open %s" % (link,))
 					return
 
 				if f is not None:
