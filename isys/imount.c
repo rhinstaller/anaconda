@@ -9,6 +9,7 @@
 
 #include "imount.h"
 #include "sundries.h"
+#include "../loader2/log.h"
 
 #define _(foo) foo
 
@@ -23,7 +24,7 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
     
     if (!strcmp(fs, "nfs")) isnfs = 1;
 
-    /*logMessage("mounting %s on %s as type %s", dev, where, fs);*/
+    /*logMessage(INFO, "mounting %s on %s as type %s", dev, where, fs);*/
 
     if (mkdirChain(where))
         return IMOUNT_ERR_ERRNO;
@@ -51,11 +52,11 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
             extra_opts = strdup(data);
 
         buf = dev;
-        /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
+        /*logMessage(INFO, "calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
 			buf, where);*/
 
         if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
-		/*logMessage("\tnfsmount returned non-zero");*/
+		/*logMessage(INFO, "\tnfsmount returned non-zero");*/
 		/*fprintf(stderr, "nfs mount failed: %s\n",
 			nfs_error());*/
 		return IMOUNT_ERR_OTHER;
@@ -69,10 +70,11 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
         mount_opt="ufstype=sun";
 #endif
 
-    /*logMessage("calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
+    /*logMessage(INFO, "calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
       flag, mount_opt);*/
     
     if (mount(buf, where, fs, flag, mount_opt)) {
+        logMessage(ERROR, "mount failed: %s", strerror(errno));
         return IMOUNT_ERR_ERRNO;
     }
 
