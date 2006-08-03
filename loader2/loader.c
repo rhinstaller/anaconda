@@ -843,7 +843,7 @@ static char *doLoaderMain(char * location,
             return url;
         else {
             rhcdfnd = 1;
-            methodNum = 0; /* FIXME: this assumes cdrom is always first */
+            methodNum = METHOD_CDROM;
         }
     }
 
@@ -919,7 +919,7 @@ static char *doLoaderMain(char * location,
 
             needed = -1;
 
-            if (loaderData->method && (methodNum != -1)) {
+            if (loaderData->method != -1 && methodNum != -1) {
                 rc = 1;
             } else {
                 /* we need to set these each time through so that we get
@@ -939,6 +939,7 @@ static char *doLoaderMain(char * location,
                                  30, 10, 20, 6, installNames, &methodNum, 
                                  _("OK"), _("Back"), NULL);
             } 
+
             if (rc && rc != 1) {
                 step = STEP_KBD;
                 dir = -1;
