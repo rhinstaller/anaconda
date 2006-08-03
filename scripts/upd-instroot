@@ -116,7 +116,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils 
+         yum-metadata-parser gfs2-utils libvolume_id
          libdhcp libnl libdhcp6client libdhcp4client"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -319,6 +319,7 @@ $LIBDIR/libglib*
 $LIBDIR/libgmodule*
 $LIBDIR/libgobject*
 $LIBDIR/libgthread*
+$LIBDIR/libvolume_id*
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
