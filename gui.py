@@ -495,7 +495,7 @@ class WaitWindow:
         rootPopBusyCursor()
 
 class ProgressWindow:
-    def __init__(self, title, text, total, updpct = 0.05):
+    def __init__(self, title, text, total, updpct = 0.05, updsecs=10):
         if flags.rootpath:
             self.window = gtk.Window()
             self.window.set_decorated(False)
@@ -508,6 +508,8 @@ class ProgressWindow:
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
         self.window.set_modal (True)
+        self.lastUpdate = int(time.time())
+        self.updsecs = updsecs
         box = gtk.VBox (False, 5)
         box.set_border_width (10)
 
@@ -529,12 +531,16 @@ class ProgressWindow:
         processEvents()
 
     def set (self, amount):
-        # only update widget if we've changed by 5%
+        # only update widget if we've changed by 5% or our timeout has
+        # expired
         curval = self.progress.get_fraction()
         newval = float (amount) / self.total
+        then = self.lastUpdate
+        now = int(time.time())
         if newval < 0.998:
-            if (newval - curval) < self.updpct and newval > curval:
+            if ((newval - curval) < self.updpct and (now-then) < self.updsecs):
                 return
+        self.lastUpdate = now
         self.progress.set_fraction (newval)
         processEvents ()
 
