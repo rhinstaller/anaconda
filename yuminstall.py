@@ -285,7 +285,7 @@ class YumSorter(yum.YumBase):
                 if dep is None:
                     dep = self._provideToPkg(req)
                     if dep is None:
-                        log.warning("Unresolvable dependancy %s in %s"
+                        log.warning("Unresolvable dependency %s in %s"
                                     %(req[0], txmbr.name))
                         continue
 
