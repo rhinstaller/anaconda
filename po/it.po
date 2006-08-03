@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-02 04:53+0200\n"
+"PO-Revision-Date: 2006-08-03 06:38+0200\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -4354,10 +4354,10 @@ msgstr "Url del repositorio non valido"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Fornire un URL HTTP o FTP ad un repositorio."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4365,9 +4365,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Non è stato possibile leggere i metadati dei pacchetti. Potrebbe essere "
-"dovuto ad una directory repodata mancante.  Controllate che il vostro albero "
-"di installazione sia stato generato correttamente.  %s"
+"Non è stato possibile leggere i metadati dal repositorio. Potrebbe essere "
+"dovuto ad una directory repodata mancante.  Si prega di controllare che il "
+"repositorio sia stato generato correttamente.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5557,13 +5559,12 @@ msgstr ""
 "\tGiochi\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Richiesta chiave di registrazione"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5571,6 +5572,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"E' necessaria una chiave di registrazione per installare %s.  Si prega di contattare il "
+"vostro rappresentante di supporto se non avete ricevuto una chiave con il vostro prodotto."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6229,15 +6232,16 @@ msgstr ""
 "      %s per l'architettura di sistema\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Stringa IP non valida"
+msgstr "Maschera CIDR non valida"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"I valori di maschera CIDR devono essere fra 1 e 32 per le reti IPv4 or tra 1 e "
+"128 per le reti IPv6"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6292,94 +6296,82 @@ msgid "Sending request for IP information for %s..."
 msgstr "Invio richiesta per le informazioni IP per %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Errore password VNC"
+msgstr "Errore di rete"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Si è verificato un errore durante la cancellazione delle unità di "
-"destinazione. Clonazione interrotta."
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Usare la configurazione IP dinamica (BOOTP/DHCP)"
+msgstr "Usare la configurazione IP dinamica (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Abilita il supporto IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Abilita il supporto IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Evitare collisioni di pacchetti non desiderate"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Massimizzare i valori di registro per l'alta velocità di traffico di rete"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Configurazione TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Gruppo mancante"
+msgstr "Protocollo mancante"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "Selezionare almeno un protocollo (IPv4 o IPv6) per la configurazione manuale."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Selezionare almeno un protocollo (IPv4 o IPv6) per il DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Indirizzo IP:"
+msgstr "Indirizzo IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Indirizzo IP:"
+msgstr "Indirizzo IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Nameserver"
+msgstr "Server dei nomi:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Configurazione di z/IPL"
+msgstr "Configurazione manuale TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Informazioni mancanti"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Immettere indirizzo IP e maschera di rete validi."
+msgstr "Immettere un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Immettere indirizzo IP e maschera di rete validi."
+msgstr "Immettere un indirizzo IPv6 valido ed un prefisso CIDR."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6577,40 +6569,36 @@ msgid "Loading SCSI driver"
 msgstr "Caricamento driver SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Aggiungere _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Aggiungere _iSCSI target"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Dimensioni opzionali aggiuntive"
+msgstr "Opzioni avanzate per lo storage"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Disabilitare dispositivo _dmraid"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Preparazione del file system su questa partizione:"
+msgstr "Come si desidera modificare la configurazione del disco?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL repositorio:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nome inizializzatore iSCSI:</b>"
+msgstr "<b>_nome repositorio:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Aggiunta repositorio"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6618,10 +6606,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Si prega di fornire la posizione da cui installare il software aggiuntivo.  Si noti che "
+"deve essere un repositorio valido per %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Aggiungere repositorio"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6644,9 +6634,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Ri_vedere e modificare lo schema di partizionamento"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Configurazione avanzata del boot loader"
+msgstr "Configurazione avanzata dello storage"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
