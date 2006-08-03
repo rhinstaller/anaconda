@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-02 17:26+0530\n"
+"PO-Revision-Date: 2006-08-03 15:30+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -6057,6 +6057,8 @@ msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR मास्क मान को जरूर 1 और 32 के बीच IPv4 संजाल के लिये या 1 और "
+"128 के बीच IPv6 संजाल के लिये होना चाहिये"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6135,7 +6137,7 @@ msgstr "अवांछित पैकेट संग्रह से बच�
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "उच्च गति संजाल परिवहन के लिये पंजीयन मान अधिकतम करें"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -6149,11 +6151,11 @@ msgstr "गुम प्रोटोकॉल"
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "आपको दस्ती विन्यास के लिये कम से कम एक प्रोटोकॉल (IPv4 या IPv6) जरूर चुनना चाहिये."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "आपको कम से कम एक प्रोटोकॉल (IPv4 या IPv6) DHCP के लिये जरूर चुनना चाहिये."
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6180,11 +6182,13 @@ msgid "Missing Information"
 msgstr "जानकारी गुम गई"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "आप एक उचित IP पता और एक नेटमॉस्क दोनों अवश्य दाखिल करें."
+msgstr "आप जरूर एक वैध IPv4 पता और संजाल मास्क या CIDR प्रत्यय डालें."
 
 #: ../loader2/net.c:1091
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgstr "आप जरूर एक IPv6 पता और aCIDR प्रत्यय डालें."
+
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "आप एक उचित IP पता और एक नेटमॉस्क दोनों अवश्य दाखिल करें."
@@ -6419,7 +6423,7 @@ msgstr "रिपॉजिटरी जोड़ें"
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "कृपया स्थान दें जहां आपका अतिरिक्त सॉफ्टवेयर अधिष्ठापित किया जा सकता है.  नोट करें कि यह जरूर %s के लिये वैध रिपॉजिटरी होना चाहिये."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6485,7 +6489,7 @@ msgstr "iSCSI पैरामीटर विन्यस्त करें"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "iSCSI डिस्क का प्रयोग करने के लिये, आपको जरूर आपका iSCSI लक्ष्य और iSCSI आरंभकर्ता देना चाहिये जिसे आपने आपके मेजबान के लिये विन्यस्त किया है."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6523,7 +6527,7 @@ msgstr "संजाल अंतरफलक सक्रिय करें"
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "इसकी जरूरत है कि आपके पास एक सक्रिय संजाल संबंधन है अधिष्ठापन प्रक्रिया के दौरान.  कृपया एक संजाल अंतरफलक विन्यस्त करें."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
