@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-02 17:32+1000\n"
+"PO-Revision-Date: 2006-08-03 10:50+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -826,6 +826,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"%s 장치를 %s로 마운트하는 도중 오류가 발생했습니다. 계속 설치하실 수 있으나, "
+"문제가 발생할 지 도 모릅니다."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1809,6 +1811,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 "
+"않습니다."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1970,6 +1974,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"논리 볼륨 용량은 볼륨 그룹의 물리적 확장 용량보다 반드시 커야 "
+"합니다."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -5433,6 +5439,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"인증키는 %s를 설치해야 합니다.  구입하신 제품에 인증키가 없을 경우 "
+"구입하신 곳의 담당자에게 연락하시기 바랍니다."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6097,6 +6105,8 @@ msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR 마스크 값은 IPv4 네트워크에 대해 1에서 32 사이의 값이거나 IPv6 네트워크에 대해 "
+"1에서 123 사이의 값이어야 합니다"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6227,7 +6237,7 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1091
-msgid "You must enter both a valid IPv6 address and a CIDR prefix."
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "올바른 IPv6 주소와 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1355
@@ -6571,6 +6581,8 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"설치되는 동안 네트워크 연결을 활성화해야 합니다. "
+"네트워크 인터페이스를 설정하시기 바랍니다."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
