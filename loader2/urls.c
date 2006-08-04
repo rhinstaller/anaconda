@@ -384,17 +384,10 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     if (ui->prefix) free(ui->prefix);
 
     /* add a slash at the start of the dir if it is missing */
-    if (*dir != '/') {
-        if ((buf = realloc(buf, strlen(dir) + 2)) == NULL) {
-            buf = strdup(dir);        /* try dir anyway */
-        } else {
-            sprintf(buf, "/%s", dir);
-        }
-        ui->prefix = strdup(buf);
-        free(buf);
-    } else {
+    if (*dir != '/')
+        asprintf(&(ui->prefix), "/%s", dir);
+    else
         ui->prefix = strdup(dir);
-    }
 
     /* Get rid of trailing /'s */
     chptr = ui->prefix + strlen(ui->prefix) - 1;
