@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-28 03:53+0200\n"
+"PO-Revision-Date: 2006-08-04 02:52+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4322,7 +4322,7 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Musisz podać URL HTTP lub FTP repozytorium."
 
 #: ../iw/task_gui.py:111
-#fuzzy, , python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4330,8 +4330,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Nie można odczytać metadanych pakietu repozytorium. Powodem może być brak "
-"folderu repodata. Upewnij się, że repozytorium zostało poprawnie utworzone.%s"
+"Nie można odczytać metadanych pakietu z repozytorium. Powodem może być brak "
+"folderu repodata. Upewnij się, że repozytorium zostało poprawnie utworzone.\n"
 "\n"
 "%s"
 
