@@ -116,7 +116,7 @@ def startNetworking(network, intf):
 
     # do lo first
     try:
-	os.system("/sbin/ifconfig lo 127.0.0.1")
+	os.system("/usr/sbin/ifconfig lo 127.0.0.1")
     except:
 	log.error("Error trying to start lo in rescue.py::startNetworking()")
 
