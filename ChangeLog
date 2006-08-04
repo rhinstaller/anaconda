@@ -1,5 +1,8 @@
 2006-08-04  Chris Lumens  <clumens@redhat.com>
 
+	* rescue.py (startNetworking):  Look for ifconfig in the right place
+	(#201372).
+
 	* loader2/urls.c (urlMainSetupPanel):  Fix traceback when trying to
 	add a leading slash to paths without one (#197403, #201243, #201367).
 
