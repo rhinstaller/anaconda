@@ -6,6 +6,10 @@
 	* loader2/urls.c (urlMainSetupPanel):  Fix traceback when trying to
 	add a leading slash to paths without one (#197403, #201243, #201367).
 
+	* loader2/loader.c (main):  Don't initialize method to a valid
+	selection, since that causes the method selection screen to never
+	appear.
+
 2006-08-03  Peter Jones  <pjones@redhat.com>
 
 	* gui.py (ProgressWindow): Make a timeout after which we update the 

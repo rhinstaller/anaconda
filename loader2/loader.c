@@ -1367,6 +1367,7 @@ int main(int argc, char ** argv) {
         openlog("loader", 0, LOG_LOCAL0);
 
     memset(&loaderData, 0, sizeof(loaderData));
+    loaderData.method = -1;
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);
