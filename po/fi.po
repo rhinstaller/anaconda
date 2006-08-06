@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-30 19:09+0300\n"
+"PO-Revision-Date: 2006-08-06 22:56+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <Laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -492,15 +492,15 @@ msgstr ""
 
 # ../packages.py:522
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Päivitetään %s-%s-%s.%s\n"
+msgstr "Päivitetään %s\n"
 
 # ../installclass.py:28
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Asenna %s"
+msgstr "Asennetaan %s\n"
 
 # ../bootloader.py:737
 #: ../bootloader.py:126
@@ -1479,17 +1479,18 @@ msgstr "IP-osoitteessa on käytettävä lukuja väliltä 0 ja 255"
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s ei ole kelpo IPv6-osoitei."
+msgstr "%s ei ole kelpo IPv6-osoite."
 
 #: ../packages.py:247
 #, fuzzy
 msgid "Enter Registration Key"
-msgstr "Salausavain"
+msgstr "Anna rekisteröintiavain"
 
 #: ../packages.py:248
 #, python-format
+#, fuzzy
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Anna rekisteröintiavain versiollesi ohjelmasta %s."
 
 #: ../packages.py:248
 msgid "Key:"
@@ -2810,7 +2811,7 @@ msgstr "Käsitellään"
 #: ../yuminstall.py:104
 #, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Valmistellaan asennusta..."
+msgstr "Valmistellaan transaktiota asennuslähteestä..."
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
@@ -2863,12 +2864,10 @@ msgid "Error running transaction"
 msgstr "Virhe transaktion suorittamisessa"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
+#, fuzzy
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Konenimi ”%s” ei kelpaa seuraavasta syystä:\n"
-"\n"
-"%s"
+msgstr "Transaktion suorittamisessa tapahtui virhe seuraavasta syystä: %s"
 
 # ../iw/partition_gui.py:1528
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
@@ -2877,15 +2876,15 @@ msgstr "Käynnistä _uudelleen"
 
 # ../packages.py:100
 #: ../yuminstall.py:638
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Luetaan pakettitietoja..."
+msgstr "Luetaan asennustietoja..."
 
 # ../packages.py:100
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
+#, fuzzy
 msgid "Retrieving installation information for %s..."
-msgstr "Luetaan pakettitietoja..."
+msgstr "Luetaan asennustietoja paketille %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2932,7 +2931,7 @@ msgstr "Asennus alkaa. Aikaa voi kulua useita minuutteja..."
 #: ../yuminstall.py:1110
 #, fuzzy
 msgid "Post Upgrade"
-msgstr "Päivitys"
+msgstr "Päivitystä täydentävä"
 
 # ../packages.py:654
 #: ../yuminstall.py:1111
@@ -6268,15 +6267,17 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel.py:49
+#, fuzzy
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Rekisteröintiavain vaaditaan"
 
 #: ../installclasses/rhel.py:50
 #, python-format
+#, fuzzy
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "%s asennus vaati rekisteröintiavaimen. Ota yhteyttä käyttötukeen jos et saanut avainta tuotteen mukana."
 
 # ../installclasses/server.py:9
 #: ../installclasses/server.py:11
@@ -6913,40 +6914,29 @@ msgstr "Asennuksen levykuvaa %s ei löydy"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "VIRHE"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"VIRHE.\n"
-"\n"
 "Tarkastetulla levyllä on virheitä. Syynä voi olla virhe tiedonsiirrossa tai "
 "rikkinäinen levy. Voit puhdista levyn ja kokeilla uudelleen. Jos virhe ei "
 "poistu, älä jatka asennusta."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "TÄSMÄÄ"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"TÄSMÄÄ.\n"
-"\n"
-"Tätä levyä voidaan käyttää asennukseen."
+msgstr "Tätä levyä voidaan käyttää asennukseen."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"VIRHE.\n"
-"\n"
-"Tarkistussummaa ei löydy ja levyä ei voida tarkastaa."
+msgstr "Tarkistussummaa ei löydy ja levyä ei voida tarkastaa."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6970,6 +6960,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Levyn tarkastus %s\n"
+"\n"
+"%s"
 
 # ../loader/loader.c:536 ../loader/loader.c:2238
 #: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
@@ -7096,9 +7089,8 @@ msgstr "Verkkoliitännän asetuksia tehtäessä tapahtui virhe."
 
 # ../loader/net.c:345
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Säädä IP-asetukset dynaamisesti (BOOTP/DHCP)"
+msgstr "Säädä IP-asetukset dynaamisesti (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -7428,13 +7420,13 @@ msgstr "Muut kokovalinnat"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Ota _dmraid-laite pois käytöstä"
 
 # ../iw/partition_gui.py:998
 #: tmp/adddrive.glade.h:5
 #, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Miten haluat valmistella tämän osion tiedostojärjestelmän?"
+msgstr "Miten haluat muokata asemakonfiguraatiota?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -7590,9 +7582,8 @@ msgstr "Asennuksen aikana tarvitaan aktiivinen verkkoyhteys. Tee verkkoliitänn�
 
 # ../loader/net.c:345
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Säädä IP-asetukset dynaamisesti (BOOTP/DHCP)"
+msgstr "Säädä IP-asetukset _dynaamisesti (DHCP)"
 
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 #: tmp/tasksel.glade.h:1
