@@ -67,7 +67,7 @@ class XSetup:
             args += [ "--hsync", monitor.getMonitorHorizSync() ]
 
         if monitor.getMonitorVertSync() is not None:
-            args += [ "--vsync", monitor.getMonitorVerySync() ]
+            args += [ "--vsync", monitor.getMonitorVertSync() ]
 
         return args
 
