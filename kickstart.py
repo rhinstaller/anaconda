@@ -155,18 +155,6 @@ class AnacondaKSHandlers(KickstartHandlers):
         self.id.instClass.setClearParts(self.id, dict["type"], drives=dict["drives"],
                                         initAll=dict["initAll"])
 
-    def doDevice(self, args):
-        KickstartHandlers.doDevice(self, args)
-
-    def doDeviceProbe(self, args):
-        KickstartHandlers.doDeviceProbe(self, args)
-
-    def doDisplayMode(self, args):
-        KickstartHandlers.doDisplayMode(self, args)
-
-    def doDriverDisk(self, args):
-        KickstartHandlers.doDriverDisk(self, args)
-
     def doFirewall(self, args):
         KickstartHandlers.doFirewall(self, args)
         dict = self.ksdata.firewall
@@ -180,9 +168,6 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doIgnoreDisk(self, args):
 	KickstartHandlers.doIgnoreDisk(self, args)
         self.id.instClass.setIgnoredDisks(self.id, self.ksdata.ignoredisk)
-
-    def doInteractive(self, args):
-        KickstartHandlers.doInteractive(self, args)
 
     def doIscsi(self, args):
         KickstartHandlers.doIscsi(self, args)
@@ -218,9 +203,6 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doLang(self, args)
         self.id.instClass.setLanguage(self.id, self.ksdata.lang)
 	self.skipSteps.append("language")
-
-    def doLangSupport(self, args):
-        KickstartHandlers.doLangSupport(self, args)
 
     def doLogicalVolume(self, args):
         KickstartHandlers.doLogicalVolume(self, args)
@@ -295,21 +277,12 @@ class AnacondaKSHandlers(KickstartHandlers):
         elif self.ksdata.logging["host"] != "":
             logger.addSysLogHandler(log, self.ksdata.logging["host"])
 
-    def doMediaCheck(self, args):
-        KickstartHandlers.doMediaCheck(self, args)
-
-    def doMethod(self, args):
-	KickstartHandlers.doMethod(self, args)
-
     def doMonitor(self, args):
         KickstartHandlers.doMonitor(self, args)
         dict = self.ksdata.monitor
         self.skipSteps.extend(["monitor", "checkmonitorok"])
         self.id.instClass.setMonitor(self.id, dict["hsync"], dict["vsync"],
                                      dict["monitor"])
-
-    def doMouse(self, args):
-        KickstartHandlers.doMouse(self, args)
 
     def doNetwork(self, args):
         KickstartHandlers.doNetwork(self, args)
@@ -496,9 +469,6 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doReboot(self, args)
         self.skipSteps.append("complete")
 
-    def doRepo(self, args):
-        KickstartHandlers.doRepo(self, args)
-
     def doRaid(self, args):
         KickstartHandlers.doRaid(self, args)
         rd = self.ksdata.raidList[-1]
@@ -577,9 +547,6 @@ class AnacondaKSHandlers(KickstartHandlers):
         self.KickstartHandlers.doSELinux(self, args)
         self.id.instClass.setSELinux(self.id, self.ksdata.selinux)
 
-    def doServices(self, args):
-        KickstartHandlers.doServices(self, args)
-
     def doSkipX(self, args):
         KickstartHandlers.doSkipX(self, args)
         self.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
@@ -598,12 +565,6 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doUpgrade(self, args):
         KickstartHandlers.doUpgrade(self, args)
         self.id.setUpgrade(True)
-
-    def doUser(self, args):
-        KickstartHandlers.doUser(self, args)
-
-    def doVnc(self, args):
-        KickstartHandlers.doVnc(self, args)
 
     def doVolumeGroup(self, args):
         KickstartHandlers.doVolumeGroup(self, args)
@@ -757,13 +718,7 @@ class AnacondaKSParser(KickstartParser):
             if self.handler.handlers[cmd] != None:
                 self.handler.currentCmd = cmd
                 self.handler.lineno = lineno
-
-                # Don't crash if pykickstart gets rebuilt with a new command
-                # before anaconda also supports it.
-                try:
-                    self.handler.handlers[cmd](cmdArgs)
-                except TypeError:
-                    log.warning("anaconda does not yet support the %s kickstart command, ignoring for now" % cmd)
+                self.handler.handlers[cmd](cmdArgs)
 
 # figure out what installclass we should base on.  if kickstart wasn't
 # an installclass and was instead a data source, this nonsense wouldn't be

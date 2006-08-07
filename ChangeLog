@@ -11,7 +11,9 @@
 	percentage if the LV is preexisting (#193341).
 
 	* kickstart.py:  Use class Anaconda in AnacondaKSHandlers so we do not
-	have to pass an instdata variable to all the handlers.
+	have to pass an instdata variable to all the handlers.  Remove
+	passthrough functions and exception handler for kickstart commands
+	which anaconda does not yet support.  This doesn't make sense anymore.
 
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
