@@ -107,6 +107,7 @@ EOF
 }
 
 makeBootImages() {
+  if [ "$kerneltag" ! "xen" ]; then
     # Because ia64 boxes use EFI there needs to be a boot.img dosfs.
     echo "making boot.img for EFI bootloader"
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
@@ -139,4 +140,15 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
+
+  else # set up the boot stuff for the xen guest kernel
+    echo "Building $KERNELARCH guest initrd.img"
+    mkdir -p $TOPDESTPATH/images/xen
+    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
+	--initrdsize 12288 \
+	--loaderbin loader \
+	--modules "$INITRDMODS"
+    [ $? = 0 ] || exit 1
+    cp $KERNELROOT/boot/efi/EFI/redhat/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
+  fi
 }

@@ -4,7 +4,13 @@
 
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.ia64 (makeBootImage): Add a first pass at
+	setting things up for Xen guests
+	* scripts/mk-images: Add kernel-xen for ia64, clean up logic a
+	little to reduce duplication
+
 	* scripts/mk-images (RAIDMODS): New raid module name (#201361)
+
 	* loader2/loader.c: Likewise.
 
 2006-08-04  Chris Lumens  <clumens@redhat.com>
