@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.78
+Version: 11.1.0.79
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.79-1
+- s390 build fix.
+
 * Mon Aug 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.78-1
 - Fix password writing for interactive kickstart installs (#201455).
 - Don't check percentage on preexisting LVs (#193341).

@@ -843,7 +843,7 @@ static char *doLoaderMain(char * location,
             return url;
         else {
             rhcdfnd = 1;
-            methodNum = METHOD_CDROM;
+            methodNum = 0;
         }
     }
 
