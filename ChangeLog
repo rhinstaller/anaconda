@@ -15,6 +15,9 @@
 	passthrough functions and exception handler for kickstart commands
 	which anaconda does not yet support.  This doesn't make sense anymore.
 
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Log repos added through
+	kickstart too.
+
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ia64 (makeBootImage): Add a first pass at
