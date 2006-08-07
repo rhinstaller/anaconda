@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.77
+Version: 11.1.0.78
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.78-1
+- Fix password writing for interactive kickstart installs (#201455).
+- Don't check percentage on preexisting LVs (#193341).
+- Log added repos (#201212).
+- Start adding things for ia64 Xen (katzj).
+- Use new raid module name (katzj, #201361).
+- Look for ifconfig in the right place during rescue mode (#201372).
+- Fix segfault in FTP and HTTP path typos (#197403, #201243, #201367).
+- Don't display the askmethod screen on CD installs (#201108).
+- Do a better job at updating mkfs percentage bar (pjones).
+- Fix finding the release notes (#201232).
+- Add libvolume_id for gfs2-utils (katzj).
+
 * Wed Aug 02 2006 Paul Nasrat <pnasrat@redhat.com> 11.1.0.77-1
 - Fix pkgorder isdir check
 - Reinstate frequent rescanning of devices (clumens)

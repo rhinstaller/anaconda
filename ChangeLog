@@ -1,5 +1,9 @@
 2006-08-07  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Bump version.
+
+2006-08-07  Chris Lumens  <clumens@redhat.com>
+
 	* xsetup.py (XSetup.getMonitorArgList):  getMonitor is very sync!
 
 	* iw/account_gui.py (AccountWindow.getNext):  Always set the password
@@ -64,7 +68,7 @@
 	installing from CD (#201108).
 
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Don't add
-	an extra slash, as urlparse gets confused easily (#210232).
+	an extra slash, as urlparse gets confused easily (#201232).
 
 	* iw/task_gui.py (TaskWindow._addRepo):  Log added repos (#201212).
 
