@@ -2,6 +2,11 @@
 
 	* xsetup.py (XSetup.getMonitorArgList):  getMonitor is very sync!
 
+	* iw/account_gui.py (AccountWindow.getNext):  Always set the password
+	field as unencrypted, so interactive kickstart installs get the right
+	value written into /etc/shadow (#201455).
+	* textw/userauth_text.py (RootPasswordWindow.__call__):  Likewise.
+
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ia64 (makeBootImage): Add a first pass at

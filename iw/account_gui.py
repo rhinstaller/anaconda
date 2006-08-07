@@ -69,6 +69,7 @@ class AccountWindow (InstallWindow):
                 passwordError()
 
         self.rootPassword["password"] = self.pw.get_text()
+        self.rootPassword["isCrypted"] = False
         return None
 
     def setFocus (self, area, data):

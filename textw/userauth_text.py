@@ -78,4 +78,5 @@ class RootPasswordWindow:
 
         screen.popWindow()
         anaconda.id.rootPassword["password"] = entry1.value()
+        anaconda.id.rootPassword["isCrypted"] = False
         return INSTALL_OK
