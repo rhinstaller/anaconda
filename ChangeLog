@@ -7,6 +7,9 @@
 	value written into /etc/shadow (#201455).
 	* textw/userauth_text.py (RootPasswordWindow.__call__):  Likewise.
 
+	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Don't check size
+	percentage if the LV is preexisting (#193341).
+
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ia64 (makeBootImage): Add a first pass at
