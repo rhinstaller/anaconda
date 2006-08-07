@@ -10,6 +10,9 @@
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Don't check size
 	percentage if the LV is preexisting (#193341).
 
+	* kickstart.py:  Use class Anaconda in AnacondaKSHandlers so we do not
+	have to pass an instdata variable to all the handlers.
+
 2006-08-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ia64 (makeBootImage): Add a first pass at

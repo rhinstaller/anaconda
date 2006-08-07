@@ -85,7 +85,7 @@ class AnacondaKSScript(Script):
             os.chmod("%s" % messages, 0600)
 
 class AnacondaKSHandlers(KickstartHandlers):
-    def __init__ (self, ksdata):
+    def __init__ (self, ksdata, anaconda):
         KickstartHandlers.__init__(self, ksdata)
         self.permanentSkipSteps = []
         self.skipSteps = []
@@ -97,29 +97,30 @@ class AnacondaKSHandlers(KickstartHandlers):
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
         self.ksID = 100000
 
+        self.id = anaconda.id
+
         self.lineno = 0
         self.currentCmd = ""
 
-    def doAuthconfig(self, id, args):
+    def doAuthconfig(self, args):
         KickstartHandlers.doAuthconfig(self, args)
-        id.auth = self.ksdata.authconfig
+        self.id.auth = self.ksdata.authconfig
 
-    def doAutoPart(self, id, args):
+    def doAutoPart(self, args):
         KickstartHandlers.doAutoPart(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        id.instClass.setDefaultPartitioning(id, doClear = 0)
+        self.id.instClass.setDefaultPartitioning(self.id, doClear = 0)
 
-        id.partitions.isKickstart = 1
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-    def doAutoStep(self, id, args):
+    def doAutoStep(self, args):
         KickstartHandlers.doAutoStep(self, args)
         flags.autostep = 1
         flags.autoscreenshot = self.ksdata.autostep["autoscreenshot"]
 
-    def doBootloader (self, id, args):
+    def doBootloader (self, args):
         KickstartHandlers.doBootloader(self, args)
         dict = self.ksdata.bootloader
 
@@ -130,67 +131,66 @@ class AnacondaKSHandlers(KickstartHandlers):
         else:
             location = dict["location"]
 
-        if dict["upgrade"] and not id.getUpgrade():
+        if dict["upgrade"] and not self.id.getUpgrade():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
         if dict["upgrade"]:
-            id.bootloader.kickstart = 1
-            id.bootloader.doUpgradeOnly = 1
+            self.id.bootloader.kickstart = 1
+            self.id.bootloader.doUpgradeOnly = 1
 
         if location is None:
             self.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
             self.showSteps.append("bootloader")
-            id.instClass.setBootloader(id, location, dict["forceLBA"],
-                                       dict["password"], dict["md5pass"],
-                                       dict["appendLine"], dict["driveorder"])
+            self.id.instClass.setBootloader(self.id, location, dict["forceLBA"],
+                                            dict["password"], dict["md5pass"],
+                                            dict["appendLine"], dict["driveorder"])
 
         self.permanentSkipSteps.extend(["upgbootloader", "bootloader",
                                         "bootloaderadvanced"])
 
-    def doClearPart(self, id, args):
+    def doClearPart(self, args):
         KickstartHandlers.doClearPart(self, args)
         dict = self.ksdata.clearpart
-        id.instClass.setClearParts(id, dict["type"], drives=dict["drives"],
-                                   initAll=dict["initAll"])
+        self.id.instClass.setClearParts(self.id, dict["type"], drives=dict["drives"],
+                                        initAll=dict["initAll"])
 
-    def doDevice(self, id, args):
+    def doDevice(self, args):
         KickstartHandlers.doDevice(self, args)
 
-    def doDeviceProbe(self, id, args):
+    def doDeviceProbe(self, args):
         KickstartHandlers.doDeviceProbe(self, args)
 
-    def doDisplayMode(self, id, args):
+    def doDisplayMode(self, args):
         KickstartHandlers.doDisplayMode(self, args)
 
-    def doDriverDisk(self, id, args):
+    def doDriverDisk(self, args):
         KickstartHandlers.doDriverDisk(self, args)
 
-    def doFirewall(self, id, args):
+    def doFirewall(self, args):
         KickstartHandlers.doFirewall(self, args)
         dict = self.ksdata.firewall
-	id.instClass.setFirewall(id, dict["enabled"], dict["trusts"],
-                                 dict["ports"])
+	self.id.instClass.setFirewall(self.id, dict["enabled"], dict["trusts"],
+                                      dict["ports"])
 
-    def doFirstboot(self, id, args):
+    def doFirstboot(self, args):
         KickstartHandlers.doFirstboot(self, args)
-        id.firstboot = self.ksdata.firstboot
+        self.id.firstboot = self.ksdata.firstboot
 
-    def doIgnoreDisk(self, id, args):
+    def doIgnoreDisk(self, args):
 	KickstartHandlers.doIgnoreDisk(self, args)
-        id.instClass.setIgnoredDisks(id, self.ksdata.ignoredisk)
+        self.id.instClass.setIgnoredDisks(self.id, self.ksdata.ignoredisk)
 
-    def doInteractive(self, id, args):
+    def doInteractive(self, args):
         KickstartHandlers.doInteractive(self, args)
 
-    def doIscsi(self, id, args):
+    def doIscsi(self, args):
         KickstartHandlers.doIscsi(self, args)
         self.skipSteps.append("iscsi")
 
-        id.iscsi.ipaddr = self.ksdata.iscsi["target"]
-        id.iscsi.port = self.ksdata.iscsi["port"]
-
-        id.iscsi.initiator = self.ksdata.iscsi["initiator"]
+        self.id.iscsi.ipaddr = self.ksdata.iscsi["target"]
+        self.id.iscsi.port = self.ksdata.iscsi["port"]
+        self.id.iscsi.initiator = self.ksdata.iscsi["initiator"]
 
         if self.ksdata.iscsi["target"]:
             ip = t = self.ksdata.iscsi["target"]
@@ -198,31 +198,31 @@ class AnacondaKSHandlers(KickstartHandlers):
             if self.ksdata.iscsi["port"]:
                 t = "%s:%s" %(t, self.ksdata.iscsi["port"])
                 port = self.ksdata.iscsi["port"]
-            id.iscsi.targets.append(t)
+            self.id.iscsi.targets.append(t)
 
             # FIXME: have to startup iscsi now so that we know the disk later
             log.info("added iscsi target: %s" %(t,))
-            id.iscsi.discoverTarget(ip, port)
-            id.iscsi.loginTarget(ip)
+            self.id.iscsi.discoverTarget(ip, port)
+            self.id.iscsi.loginTarget(ip)
 
         # FIXME: flush the drive dict so we figure drives out again
         isys.flushDriveDict()
 
-    def doKeyboard(self, id, args):
+    def doKeyboard(self, args):
         KickstartHandlers.doKeyboard(self, args)
-        id.instClass.setKeyboard(id, self.ksdata.keyboard)
-        id.keyboard.beenset = 1
+        self.id.instClass.setKeyboard(self.id, self.ksdata.keyboard)
+        self.id.keyboard.beenset = 1
 	self.skipSteps.append("keyboard")
 
-    def doLang(self, id, args):
+    def doLang(self, args):
         KickstartHandlers.doLang(self, args)
-        id.instClass.setLanguage(id, self.ksdata.lang)
+        self.id.instClass.setLanguage(self.id, self.ksdata.lang)
 	self.skipSteps.append("language")
 
-    def doLangSupport(self, id, args):
+    def doLangSupport(self, args):
         KickstartHandlers.doLangSupport(self, args)
 
-    def doLogicalVolume(self, id, args):
+    def doLogicalVolume(self, args):
         KickstartHandlers.doLogicalVolume(self, args)
         lvd = self.ksdata.lvList[-1]
 
@@ -248,7 +248,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         except KeyError:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
 
-	for areq in id.partitions.autoPartitionRequests:
+	for areq in self.id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
 		    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
@@ -282,10 +282,10 @@ class AnacondaKSHandlers(KickstartHandlers):
 	if lvd.fsopts != "":
             request.fsopts = lvd.fsopts
 
-        id.instClass.addPartRequest(id.partitions, request)
+        self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-    def doLogging(self, id, args):
+    def doLogging(self, args):
         KickstartHandlers.doLogging(self, args)
         log.setHandlersLevel(logLevelMap[self.ksdata.logging["level"]])
 
@@ -295,45 +295,45 @@ class AnacondaKSHandlers(KickstartHandlers):
         elif self.ksdata.logging["host"] != "":
             logger.addSysLogHandler(log, self.ksdata.logging["host"])
 
-    def doMediaCheck(self, id, args):
+    def doMediaCheck(self, args):
         KickstartHandlers.doMediaCheck(self, args)
 
-    def doMethod(self, id, args):
+    def doMethod(self, args):
 	KickstartHandlers.doMethod(self, args)
 
-    def doMonitor(self, id, args):
+    def doMonitor(self, args):
         KickstartHandlers.doMonitor(self, args)
         dict = self.ksdata.monitor
         self.skipSteps.extend(["monitor", "checkmonitorok"])
-        id.instClass.setMonitor(id, dict["hsync"], dict["vsync"],
-                                dict["monitor"])
+        self.id.instClass.setMonitor(self.id, dict["hsync"], dict["vsync"],
+                                     dict["monitor"])
 
-    def doMouse(self, id, args):
+    def doMouse(self, args):
         KickstartHandlers.doMouse(self, args)
 
-    def doNetwork(self, id, args):
+    def doNetwork(self, args):
         KickstartHandlers.doNetwork(self, args)
         nd = self.ksdata.network[-1]
 
         try:
-            id.instClass.setNetwork(id, nd.bootProto, nd.ip, nd.netmask,
-                                    nd.ethtool, nd.device, nd.onboot,
-                                    nd.dhcpclass, nd.essid, nd.wepkey)
+            self.id.instClass.setNetwork(self.id, nd.bootProto, nd.ip, nd.netmask,
+                                         nd.ethtool, nd.device, nd.onboot,
+                                         nd.dhcpclass, nd.essid, nd.wepkey)
         except KeyError:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
 
         if nd.hostname != "":
-            id.instClass.setHostname(id, nd.hostname, override=1)
+            self.id.instClass.setHostname(self.id, nd.hostname, override=1)
 
         if nd.nameserver != "":
-            id.instClass.setNameserver(id, nd.nameserver)
+            self.id.instClass.setNameserver(self.id, nd.nameserver)
 
         if nd.gateway != "":
-            id.instClass.setGateway(id, nd.gateway)
+            self.id.instClass.setGateway(self.id, nd.gateway)
 
         self.skipSteps.append("network")
 
-    def doMultiPath(self, id, args):
+    def doMultiPath(self, args):
         KickstartHandlers.doMPath(self, args)
 
         from partedUtils import DiskSet
@@ -359,7 +359,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                 return
         ds.startMPath()
 
-    def doDmRaid(self, id, args):
+    def doDmRaid(self, args):
         KickstartHandlers.doDmRaid(self, args)
 
         from partedUtils import DiskSet
@@ -386,7 +386,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                 return
         ds.startDmRaid()
 
-    def doPartition(self, id, args):
+    def doPartition(self, args):
         KickstartHandlers.doPartition(self, args)
         pd = self.ksdata.partitions[-1]
         uniqueID = None
@@ -426,7 +426,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             # get a sort of hackish id
             uniqueID = self.ksID
             self.ksRaidMapping[pd.mountpoint] = uniqueID
-            self.ksID = self.ksID + 1
+            self.ksID += 1
             pd.mountpoint = ""
         elif pd.mountpoint.startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
@@ -437,7 +437,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             # get a sort of hackish id
             uniqueID = self.ksID
             self.ksPVMapping[pd.mountpoint] = uniqueID
-            self.ksID = self.ksID + 1
+            self.ksID += 1
             pd.mountpoint = ""
         # XXX should we let people not do this for some reason?
         elif pd.mountpoint == "/boot/efi":
@@ -482,25 +482,24 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.uniqueID = uniqueID
         if pd.onPart != "":
             request.device = pd.onPart
-            for areq in id.partitions.autoPartitionRequests:
+            for areq in self.id.partitions.autoPartitionRequests:
                 if areq.device is not None and areq.device == pd.onPart:
 		    raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
 
         if pd.fsopts != "":
             request.fsopts = pd.fsopts
 
-        id.instClass.addPartRequest(id.partitions, request)
-        id.partitions.isKickstart = 1
+        self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-    def doReboot(self, id, args):
+    def doReboot(self, args):
         KickstartHandlers.doReboot(self, args)
         self.skipSteps.append("complete")
 
-    def doRepo(self, id, args):
+    def doRepo(self, args):
         KickstartHandlers.doRepo(self, args)
 
-    def doRaid(self, id, args):
+    def doRaid(self, args):
         KickstartHandlers.doRaid(self, args)
         rd = self.ksdata.raidList[-1]
 
@@ -518,7 +517,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             # get a sort of hackish id
             uniqueID = self.ksID
             self.ksPVMapping[rd.mountpoint] = uniqueID
-            self.ksID = self.ksID + 1
+            self.ksID += 1
             rd.mountpoint = ""
         else:
             if rd.fstype != "":
@@ -563,50 +562,50 @@ class AnacondaKSHandlers(KickstartHandlers):
         if rd.fsopts != "":
             request.fsopts = rd.fsopts
 
-        id.instClass.addPartRequest(id.partitions, request)
+        self.id.instClass.addPartRequest(self.id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-    def doRootPw(self, id, args):
+    def doRootPw(self, args):
         KickstartHandlers.doRootPw(self, args)
         dict = self.ksdata.rootpw
 
-        id.rootPassword["password"] = dict["password"]
-        id.rootPassword["isCrypted"] = dict["isCrypted"]
+        self.id.rootPassword["password"] = dict["password"]
+        self.id.rootPassword["isCrypted"] = dict["isCrypted"]
 	self.skipSteps.append("accounts")
 
-    def doSELinux(self, id, args):
-        KickstartHandlers.doSELinux(self, args)
-        id.instClass.setSELinux(id, self.ksdata.selinux)
+    def doSELinux(self, args):
+        self.KickstartHandlers.doSELinux(self, args)
+        self.id.instClass.setSELinux(self.id, self.ksdata.selinux)
 
-    def doServices(self, id, args):
+    def doServices(self, args):
         KickstartHandlers.doServices(self, args)
 
-    def doSkipX(self, id, args):
+    def doSkipX(self, args):
         KickstartHandlers.doSkipX(self, args)
         self.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
                                "monitor", "xcustom", "writexconfig"])
 
-        if id.xsetup is not None:
-            id.xsetup.skipx = 1
+        if self.id.xsetup is not None:
+            self.id.xsetup.skipx = 1
 
-    def doTimezone(self, id, args):
+    def doTimezone(self, args):
         KickstartHandlers.doTimezone(self, args)
         dict = self.ksdata.timezone
 
-	id.instClass.setTimezoneInfo(id, dict["timezone"], dict["isUtc"])
+	self.id.instClass.setTimezoneInfo(self.id, dict["timezone"], dict["isUtc"])
 	self.skipSteps.append("timezone")
 
-    def doUpgrade(self, id, args):
+    def doUpgrade(self, args):
         KickstartHandlers.doUpgrade(self, args)
-        id.setUpgrade(True)
+        self.id.setUpgrade(True)
 
-    def doUser(self, id, args):
+    def doUser(self, args):
         KickstartHandlers.doUser(self, args)
 
-    def doVnc(self, id, args):
+    def doVnc(self, args):
         KickstartHandlers.doVnc(self, args)
 
-    def doVolumeGroup(self, id, args):
+    def doVolumeGroup(self, args):
         KickstartHandlers.doVolumeGroup(self, args)
         vgd = self.ksdata.vgList[-1]
 
@@ -627,7 +626,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         # get a sort of hackish id
         uniqueID = self.ksID
         self.ksVGMapping[vgd.vgname] = uniqueID
-        self.ksID = self.ksID + 1
+        self.ksID += 1
             
         request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
                                                       physvols = pvs,
@@ -635,46 +634,46 @@ class AnacondaKSHandlers(KickstartHandlers):
                                                       format = vgd.format,
                                                       pesize = vgd.pesize)
         request.uniqueID = uniqueID
-        id.instClass.addPartRequest(id.partitions, request)
+        self.id.instClass.addPartRequest(self.id.partitions, request)
 
-    def doXConfig(self, id, args):
+    def doXConfig(self, args):
         KickstartHandlers.doXConfig(self, args)
         dict = self.ksdata.xconfig
 
-        id.instClass.configureX(id, dict["driver"], dict["videoRam"],
-                                dict["resolution"], dict["depth"],
-                                dict["startX"])
-        id.instClass.setDesktop(id, dict["defaultdesktop"])
+        self.id.instClass.configureX(self.id, dict["driver"], dict["videoRam"],
+                                     dict["resolution"], dict["depth"],
+                                     dict["startX"])
+        self.id.instClass.setDesktop(self.id, dict["defaultdesktop"])
         self.skipSteps.extend(["videocard", "monitor", "xcustom",
                                "checkmonitorok", "setsanex"])
 
-    def doZeroMbr(self, id, args):
+    def doZeroMbr(self, args):
         KickstartHandlers.doZeroMbr(self, args)
-        id.instClass.setZeroMbr(id, 1)
+        self.id.instClass.setZeroMbr(self.id, 1)
 
-    def doZFCP(self, id, args):
+    def doZFCP(self, args):
         KickstartHandlers.doZFCP(self, args)
         dict = self.ksdata.zfcp
 
-        dict["devnum"] = id.zfcp.sanitizeDeviceInput(dict["devnum"])
-        dict["fcplun"] = id.zfcp.sanitizeHexInput(dict["fcplun"])
-        dict["scsiid"] = id.zfcp.sanitizeInput(dict["scsiid"])
-        dict["scsilun"] = id.zfcp.sanitizeHexInput(dict["scsilun"])
-        dict["wwpn"] = id.zfcp.sanitizeFCPLInput(dict["wwpn"])
+        dict["devnum"] = self.id.zfcp.sanitizeDeviceInput(dict["devnum"])
+        dict["fcplun"] = self.id.zfcp.sanitizeHexInput(dict["fcplun"])
+        dict["scsiid"] = self.id.zfcp.sanitizeInput(dict["scsiid"])
+        dict["scsilun"] = self.id.zfcp.sanitizeHexInput(dict["scsilun"])
+        dict["wwpn"] = self.id.zfcp.sanitizeFCPLInput(dict["wwpn"])
 
-        if id.zfcp.checkValidDevice(dict["devnum"]) == -1:
+        if self.id.zfcp.checkValidDevice(dict["devnum"]) == -1:
             raise KickstartValueError, "Invalid devnum specified"
-        if id.zfcp.checkValidID(dict["scsiid"]) == -1:
+        if self.id.zfcp.checkValidID(dict["scsiid"]) == -1:
             raise KickstartValueError, "Invalid scsiid specified"
-        if id.zfcp.checkValid64BitHex(dict["wwpn"]) == -1:
+        if self.id.zfcp.checkValid64BitHex(dict["wwpn"]) == -1:
             raise KickstartValueError, "Invalid wwpn specified"
-        if id.zfcp.checkValidID(dict["scsilun"]) == -1:
+        if self.id.zfcp.checkValidID(dict["scsilun"]) == -1:
             raise KickstartValueError, "Invalid scsilun specified"
-        if id.zfcp.checkValid64BitHex(dict["fcplun"]) == -1:
+        if self.id.zfcp.checkValid64BitHex(dict["fcplun"]) == -1:
             raise KickstartValueError, "Invalid fcplun specified"
 
-        id.instClass.setZFCP(id, dict["devnum"], dict["scsiid"], dict["wwpn"],
-                             dict["scsilun"], dict["fcplun"])
+        self.id.instClass.setZFCP(self.id, dict["devnum"], dict["scsiid"], dict["wwpn"],
+                                  dict["scsilun"], dict["fcplun"])
         self.skipSteps.append("zfcpconfig")
 
 class VNCHandlers(KickstartHandlers):
@@ -724,8 +723,7 @@ class KickstartPreParser(KickstartParser):
         self.script["chroot"] = False
 
 class AnacondaKSParser(KickstartParser):
-    def __init__ (self, ksdata, kshandlers, id):
-        self.id = id
+    def __init__ (self, ksdata, kshandlers):
         KickstartParser.__init__(self, ksdata, kshandlers)
 
     # Map old broken Everything group to the new futuristic package globs
@@ -763,7 +761,7 @@ class AnacondaKSParser(KickstartParser):
                 # Don't crash if pykickstart gets rebuilt with a new command
                 # before anaconda also supports it.
                 try:
-                    self.handler.handlers[cmd](self.id, cmdArgs)
+                    self.handler.handlers[cmd](cmdArgs)
                 except TypeError:
                     log.warning("anaconda does not yet support the %s kickstart command, ignoring for now" % cmd)
 
@@ -882,8 +880,8 @@ class Kickstart(cobject):
 
         # now read the kickstart file for real
         self.ksdata = KickstartData()
-        self.handlers = AnacondaKSHandlers(self.ksdata)
-        self.ksparser = AnacondaKSParser(self.ksdata, self.handlers, self.id)
+        self.handlers = AnacondaKSHandlers(self.ksdata, anaconda)
+        self.ksparser = AnacondaKSParser(self.ksdata, self.handlers)
 
         try:
             self.ksparser.readKickstart(self.file)
