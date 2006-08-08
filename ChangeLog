@@ -1,3 +1,8 @@
+2006-08-08  David Cantrell  <dcantrell@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.__init__): Set self.currentMedia
+	to [] (#201722).
+	
 2006-08-08  Chris Lumens  <clumens@redhat.com>
 
 	* isys/imount.c:  Revert logMessage calls (#201707).

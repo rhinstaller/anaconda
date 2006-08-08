@@ -172,6 +172,8 @@ class UrlInstallMethod(InstallMethod):
 
         self.baseUrl = urlparse.urlunsplit((scheme,netloc,path,query,fragid))
 
+        self.currentMedia = []
+
         # FIXME: does not work
 #	# self.baseUrl points at the path which contains the 'product'
 #	# directory with the hdlist.
