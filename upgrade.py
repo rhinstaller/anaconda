@@ -42,6 +42,9 @@ upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)]
 if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386")] )
 
+if rhpl.getArch() == "ppc":
+    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64")] )
+
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
         return
