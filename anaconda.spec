@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.79
+Version: 11.1.0.80
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 08 2006 Paul Nasrat <pnasrat@redhat.com> 11.1.0.80-1
+- Blacklist e2fsprogs.ppc64 on upgrades (#200233)
+- Set self.currentMedia to [] (dcantrel, #201722).
+- Remove multiple error messages (dcantrel, #201247)
+- Revert logMessage calls (clumens, #201707)
+
 * Mon Aug 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.79-1
 - s390 build fix.
 
