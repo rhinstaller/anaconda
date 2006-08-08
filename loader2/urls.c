@@ -152,7 +152,7 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
-                         char *extraHeaders, int silentErrors) {
+                         char *extraHeaders) {
     char * buf;
     int fd;
     int family = -1;
@@ -197,32 +197,18 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                               ui->login ? ui->login : "anonymous", 
                               ui->password ? ui->password : "rhinstall@", 
                               NULL, -1);
-        if (ui->ftpPort < 0) {
-            if (!silentErrors)
-                newtWinMessage(_("Error"), _("OK"), 
-                               _("Failed to log into %s: %s"), ui->address, 
-                               ftpStrerror(ui->ftpPort, ui->protocol));
+        if (ui->ftpPort < 0)
             return -2;
-        }
 
         fd = ftpGetFileDesc(ui->ftpPort, addr6, family, buf);
         if (fd < 0) {
             close(ui->ftpPort);
-            if (!silentErrors)
-                newtWinMessage(_("Error"), _("OK"), 
-                               _("Failed to retrieve %s: %s"), buf,
-                               ftpStrerror(fd, ui->protocol));
             return -1;
         }
     } else {
         fd = httpGetFileDesc(ui->address, -1, buf, extraHeaders);
-        if (fd < 0) {
-            if (!silentErrors)
-                newtWinMessage(_("Error"), _("OK"), 
-                               _("Failed to retrieve %s: %s"), buf,
-                               ftpStrerror(fd, ui->protocol));
+        if (fd < 0)
             return -1;
-        }
     }
 
     if (!FL_CMDLINE(flags))

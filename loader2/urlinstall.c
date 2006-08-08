@@ -57,7 +57,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
         sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
     }
 
-    fd = urlinstStartTransfer(ui, filepath, ehdrs, silentErrors);
+    fd = urlinstStartTransfer(ui, filepath, ehdrs);
 
     if (fd == -2) {
         if (ehdrs) free (ehdrs);
@@ -70,15 +70,15 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
         newFile = alloca(strlen(filepath) + 20);
         sprintf(newFile, "disc1/%s", filepath);
 
-        fd = urlinstStartTransfer(ui, newFile, ehdrs, silentErrors);
+        fd = urlinstStartTransfer(ui, newFile, ehdrs);
         if (ehdrs) free (ehdrs);
 
         if (fd == -2) return 2;
         if (fd < 0) {
-            if (!silentErrors) 
+            if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"),
                                _("Unable to retrieve %s://%s/%s/%s."),
-                               (ui->protocol == URL_METHOD_FTP ? "ftp" : 
+                               (ui->protocol == URL_METHOD_FTP ? "ftp" :
                                 "http"),
                                ui->address, ui->prefix, filepath);
             return 2;
@@ -422,7 +422,7 @@ int getFileFromUrl(char * url, char * dest,
         }
     }
 	
-    fd = urlinstStartTransfer(&ui, file, ehdrs, 0);
+    fd = urlinstStartTransfer(&ui, file, ehdrs);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         if (ehdrs) free(ehdrs);

@@ -1,7 +1,16 @@
 2006-08-08  David Cantrell  <dcantrell@redhat.com>
 
-	* urlinstall.py (UrlInstallMethod.__init__): Set self.currentMedia
+	* urlinstall.py (UrlInstallMethod.__init__):  Set self.currentMedia
 	to [] (#201722).
+
+	* loader2/urlinstall.c:  Do not pass silentErrors to
+	urlinstStartTransfer() (#201247).
+
+	* loader2/urls.c:  Remove redundant download failure messages in the
+	urlinstStartTransfer() function.  Do not accept silentErrors as a
+	parameter (#201247).
+
+	* loader2/urls.h:  Prototype update for urlinstStartTransfer().
 	
 2006-08-08  Chris Lumens  <clumens@redhat.com>
 
