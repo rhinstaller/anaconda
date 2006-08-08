@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-08-07 18:26+0530\n"
+"PO-Revision-Date: 2006-08-08 14:58+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1880,7 +1880,6 @@ msgstr "மீட்பு"
 
 #: ../rescue.py:277
 #, python-format
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1892,12 +1891,13 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"மீட்பு சூழல் உங்கள் லினக்ஸ் நிறுவலைக் கண்டுபிடித்து அதை %s அடைவில் ஏற்ற முற்படுகிறது.இதன் "
-"பின் உங்கள் கணிணியில் மாற்றங்களை செய்யலாம்.இந்த செயலைச் செய்ய தொடர்க என்பதை தேர்வுசெய்யவும்."
-"கோப்பு முறைமைகளை எழுதவேண்டாம் என்பதற்கான படிக்க மட்டும் என்பதைதேர்வுசெய்க.\n"
+"மீட்பு சூழல் உங்கள் லினக்ஸ் நிறுவலைக் கண்டுபிடித்து அதை %s அடைவில் ஏற்ற "
+"முற்படுகிறது. இதன் பின் உங்கள் கணினியில் மாற்றங்களை செய்யலாம். இந்த செயலைச் "
+"செய்ய 'தொடரவும்' என்பதை தேர்வு செய்யவும். கோப்பு முறைமைகளை எழுத "
+"வேண்டாம் என்பதற்கான வாசிக்க-மட்டும் என்பதை தேர்வு செய்யவும்.\n"
 "\n"
-"இந்த செயல் ஏதாவது காரணத்தால் தடைப்பட்டால் நீக்க தவிர்'என்பதை தேர்வு செய்தால் செயல் "
-"தடைப்பட்டுஉங்களை கள் நேராக கட்டளை முறைக்கு கொண்டுச்செல்லும்.\n"
+"இந்த செயல் ஏதாவது காரணத்தால் தடைப்பட்டால் 'தவிர்'என்பதை தேர்வு செய்தால், செயல் "
+"தடைப்பட்டு நீங்கள் நேராக கட்டளை ஷெல்லுக்கு செல்லலாம்.\n"
 "\n"
 
 #: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
@@ -1922,15 +1922,14 @@ msgid "Exit"
 msgstr "வெளியேறவும்"
 
 #: ../rescue.py:346
-#, fuzzy
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"உங்கள் கணிணி அழுக்கான கோப்பு முறைமைகளைக் கொண்டுள்ளது இவற்றை ஏற்ற வேண்டாம் என்று "
-"தேர்வுசெய்துள்ளீர்கள். உங்கள் பகிர்வுகளை ஏற்ற மற்றும் fsck வுக்கான ஷெல்லை பெற ரிட்டன் விசையை "
-"அழுத்தவும். ஷெல்லிலிருந்து வெளியேறியதும் கணிணி தானாக துவங்கும்."
+"உங்கள் கணினி மோசமான கோப்பு முறைமைகளைக் கொண்டுள்ளது, இவற்றை ஏற்ற வேண்டாம் என்று "
+"தேர்வு செய்துள்ளீர்கள். உங்கள் பகிர்வுகளை ஏற்ற மற்றும் fsck வுக்கான ஷெல்லை பெற எண்டர் விசையை "
+"அழுத்தவும். ஷெல்லிலிருந்து வெளியேறியதும் கணினி தானாக துவங்கும்."
 
 #: ../rescue.py:354
 #, python-format
@@ -1955,7 +1954,6 @@ msgstr ""
 
 #: ../rescue.py:437
 #, python-format
-#, fuzzy
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -1963,11 +1961,11 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"உங்கள் சில அல்லது எல்லா முறைமைகளையும் ஏற்றும் போது தவறு ஏற்பட்டது. இவற்றில் சில %s இன்கீழ் "
-"ஏற்றப்படும்.:\n"
+"சில அல்லது அனைத்து கணினிகளையும் ஏற்றும் போது பிழை ஏற்பட்டுள்ளது. இவற்றில் "
+"சில %s இன் கீழ் ஏற்றப்படும்.:\n"
 "\n"
 "அனைத்து ஷெல்களையும் பெற <return> ஐ அழுத்தவும். ஷெல்லை விட்டு வெளியேரும் போது உங்கள் "
-"கணிணி தானகும் துவங்கும்."
+"கணினி தானாக துவங்கும்."
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
@@ -3692,9 +3690,8 @@ msgid "Partitioning Errors"
 msgstr "பகிர்தல் பிழைகள்"
 
 #: ../iw/partition_gui.py:648
-#, fuzzy
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "உங்கள் விருப்பத்தேர்வு பகிர்வுகள் மற்றும் திட்டமுறையுடன் கீழ்க்கண்ட எச்சரிக்கையும் உள்ளது. "
+msgstr "நீங்கள் கோரிய பகிர்வு திட்டமுறையுடன் பின்வரும் எச்சரிக்கைகளும் உள்ளன. "
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
