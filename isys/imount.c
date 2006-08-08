@@ -9,7 +9,6 @@
 
 #include "imount.h"
 #include "sundries.h"
-#include "../loader2/log.h"
 
 #define _(foo) foo
 
@@ -24,7 +23,7 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
     
     if (!strcmp(fs, "nfs")) isnfs = 1;
 
-    logMessage(INFO, "mounting %s on %s as type %s", dev, where, fs);
+    /*logMessage(INFO, "mounting %s on %s as type %s", dev, where, fs);*/
 
     if (mkdirChain(where))
         return IMOUNT_ERR_ERRNO;
@@ -70,11 +69,11 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
         mount_opt="ufstype=sun";
 #endif
 
-    logMessage(INFO, "calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
-      flag, mount_opt);
+    /*logMessage(INFO, "calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
+      flag, mount_opt);*/
     
     if (mount(buf, where, fs, flag, mount_opt)) {
-        logMessage(ERROR, "mount failed: %s", strerror(errno));
+        /*logMessage(ERROR, "mount failed: %s", strerror(errno));*/
         return IMOUNT_ERR_ERRNO;
     }
 
