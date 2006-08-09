@@ -666,7 +666,9 @@ if __name__ == "__main__":
     flags.mpath = opts.mpath
 
     if opts.serial:
-        flags.serial = 1
+        flags.serial = True
+    if opts.virtpconsole:
+        flags.virtpconsole = True
 
     # probing for hardware on an s390 seems silly...
     if rhpl.getArch() == "s390":
