@@ -1,3 +1,9 @@
+2006-08-09  Chris Lumens  <clumens@redhat.com>.
+
+	* iw/timezone_gui.py (TimezoneWindow.getScreen):  Only set the UTC
+	check box if it's not a kickstart install (#181737).
+	* textw/timezone_text.py (TimezoneWindow.__call__):  Likewise.
+
 2006-08-08  Jeremy Katz  <katzj@redhat.com>
 
 	Patch from Paul Schroder <pschroeder@uplogix.com> for nogr mode

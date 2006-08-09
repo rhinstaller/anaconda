@@ -105,7 +105,8 @@ class TimezoneWindow(InstallWindow):
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
 
-        self.utcCheckbox.set_active(not hasWindows(anaconda.id.bootloader))
+        if not anaconda.isKickstart:
+            self.utcCheckbox.set_active(not hasWindows(anaconda.id.bootloader))
 
         self.notebook.remove(self.vbox)
         return self.vbox

@@ -67,7 +67,7 @@ class TimezoneWindow:
 	t = TextboxReflowed(30, 
 			_("What time zone are you located in?"))
 
-        if not hasWindows(anaconda.id.bootloader):
+        if not anaconda.ksKickstart and not hasWindows(anaconda.id.bootloader):
             asUtc = True
 
 #
