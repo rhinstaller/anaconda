@@ -1045,6 +1045,9 @@ static char *doLoaderMain(char * location,
 
             logMessage(INFO, "going to do getNetConfig");
             /* populate netDev based on any kickstart data */
+            if (loaderData->ipinfo_set) {
+                netDev.preset = 1;
+            }
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);

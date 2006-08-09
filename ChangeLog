@@ -1,3 +1,13 @@
+2006-08-09  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (setupNetworkDeviceConfig): Test ipinfo_set to see if
+	we already have network configuration information (#200986).  Set the
+	dev.ipv4 and dev.ipv6 values when copying in the network config
+	info.  Set additional pump flags accordingly.
+
+	* loader2/loader.c (doLoaderMain): Set netDev.preset = 1 if we have
+	network config data already (#200986).
+
 2006-08-09  Peter Jones  <pjones@redhat.com>
 
 	* command-stubs/kudzu-probe-stub: add SATA probing
