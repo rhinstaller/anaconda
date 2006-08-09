@@ -2,9 +2,15 @@
 
 ORIGDIR=`pwd`
 DEBUG=""
+NEEDGR=yes
 
 if [ "$1" == "--debug" ]; then
     DEBUG="--debug"
+    shift
+fi
+
+if [ "$1" == "--nogr" ]; then
+    NEEDGR=""
     shift
 fi
 
@@ -33,7 +39,6 @@ else
     LIBDIR=lib
 fi
 
-NEEDGR=yes
 
 prunePackageList() {
 	PACKAGEPATH=$1
@@ -62,12 +67,12 @@ expandPackageSet() {
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
     for n in $RPMS; do 
-	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
+	[ -n "$DEBUG" ] && echo -e "\rExpanding packages..." $(basename $n)
 	if [ "$(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n)" = "tzdata" ] ; then
 	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
-	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
+	[ -n "$DEBUG" ] && echo -e "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
     pushd $PKGDEST/$LIBDIR >/dev/null 2>&1
     if [ -d obsolete/linuxthreads/ ]; then
@@ -1020,13 +1025,15 @@ for p in $DEST $DESTGR; do
 done
 
 # fixup joe links
-ln -fs jpicorc $DESTGR/etc/joe/picorc
-ln -fs jpicorc $DESTGR/etc/joe/jnanorc
-ln -fs jpicorc $DESTGR/etc/joe/nanorc
-ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
-ln -fs jmacs $DESTGR/usr/bin/emacs
-ln -fs jpico $DESTGR/usr/bin/pico
-ln -fs jpico $DESTGR/usr/bin/nano
+if [ -n "$NEEDGR" ]; then
+    ln -fs jpicorc $DESTGR/etc/joe/picorc
+    ln -fs jpicorc $DESTGR/etc/joe/jnanorc
+    ln -fs jpicorc $DESTGR/etc/joe/nanorc
+    ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
+    ln -fs jmacs $DESTGR/usr/bin/emacs
+    ln -fs jpico $DESTGR/usr/bin/pico
+    ln -fs jpico $DESTGR/usr/bin/nano
+fi
 
 # create selinux config
 if [ -e $DEST/etc/selinux/targeted ]; then
@@ -1080,15 +1087,15 @@ cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
 
 # fixup man.config to point into /mnt/sysimage for rescue
-echo "Fixing up /etc/man.config to point into /mnt/sysimage"
 if [ -n "$NEEDGR" ]; then
+    echo "Fixing up /etc/man.config to point into /mnt/sysimage"
     mv $DESTGR/etc/man.config $DESTGR/etc/man.config-old
     cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^'  > $DESTGR/etc/man.config
     rm -f $DESTGR/etc/man.config-old
 fi
 
-echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
+    echo "Running mkfontdir..."
     mkfontdir $DESTGR/usr/share/X11/fonts/*
 fi
 
@@ -1100,8 +1107,8 @@ rm -rf $DEST/etc/selinux
 mkdir $DEST/etc/selinux
 cp -r $DESTGR/etc/selinux/* $DEST/etc/selinux/
 
-echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
+    echo "Getting pango modules"
     # sick sick sick hack for pango-querymodules being -32 or -64
     mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
     /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
@@ -1128,15 +1135,15 @@ HOSTTRIPLET=`echo $canonhost | sed "s/^ppc/powerpc/"`
 
 mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
 
-echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
+    echo "Getting gtk2 input method modules"
     mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
     /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
-echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
+    echo "Getting gtk2 gdk-pixbuf loaders"
     mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
     /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
@@ -1242,8 +1249,8 @@ if [ -d $DEST/usr/share/locale ]; then
     done
 fi
 
-echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
+    echo "Creating fontconfig cache"
     /usr/sbin/chroot $DESTGR /usr/bin/fc-cache
     rm -f $DESTGR/usr/bin/fc-cache
 fi

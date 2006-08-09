@@ -15,6 +15,12 @@ if [ "$1" == "--debug" ]; then
     shift
 fi
 
+NEEDGR=yes
+if [ "$1" == "--nogr" ]; then
+    NEEDGR=""
+    shift
+fi
+
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" -o -z "$8" ]; then usage; fi
 
 PRODUCT=$6

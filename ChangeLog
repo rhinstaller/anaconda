@@ -1,3 +1,12 @@
+2006-08-08  Jeremy Katz  <katzj@redhat.com>
+
+	Patch from Paul Schroder <pschroeder@uplogix.com> for nogr mode
+	* scripts/buildinstall: Add --nogr option 
+	* scripts/mk-images: Use --nogr
+	* scripts/mk-images.x86: Only put splash image in if building a
+	graphics stage2
+	* scripts/upd-instroot: Cleanups for --nogr
+
 2006-08-08  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version

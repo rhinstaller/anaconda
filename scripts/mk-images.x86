@@ -12,17 +12,21 @@ fi
 # prepare a directory with the kernel, initrd, and various message files
 # used to populate a boot image
 prepareBootTree() {
-	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
+	(cd $BOOTDISKDIR; find . -maxdepth 1 ! -name "*.msg" ! -type d | cpio --quiet -p $MBD_BOOTTREE)
 	
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-	$IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
-	if [ $? != 0 ]; then
-	   echo $0: Failed to create splash.lss
-	   exit 1
-	fi	
-	cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
-	rm -f $MBD_BOOTTREE/syslinux-splash.png
+
+	if [ -n "$NEEDGR" ]; then
+	  $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
+	  if [ $? != 0 ]; then
+	     echo $0: Failed to create splash.lss
+	     exit 1
+	  fi	
+	  cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
+	  rm -f $MBD_BOOTTREE/syslinux-splash.png
+	fi
+
 	rm -f $MBD_BOOTTREE/memtest*
 	for file in $BOOTDISKDIR/*.msg; do
 	    filename=`basename $file`

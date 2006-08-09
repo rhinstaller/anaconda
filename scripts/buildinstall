@@ -34,6 +34,10 @@ while [ $# -gt 0 ]; do
 	    PRODUCTPATH=$2
 	    shift; shift
 	    ;;
+	--nogr)
+	    NOGRSTR="--nogr"
+	    shift
+	    ;;
 	--debug)
 	    DEBUGSTR="--debug"
 	    shift
@@ -127,7 +131,7 @@ MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
+$UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
 
 echo "Creating repository metadata..."
 createrepo -g $PRODUCTPATH/base/comps.xml -q $p
@@ -139,7 +143,7 @@ if [ -n "$PKGORDER" ]; then
 fi
 
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
+$MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
