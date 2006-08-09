@@ -1,4 +1,5 @@
 from installclass import BaseInstallClass
+import rhpl
 from rhpl.translate import N_
 from constants import *
 import os
@@ -45,25 +46,32 @@ class InstallClass(BaseInstallClass):
         return rc
 
     def handleRegKey(self, key, intf):
-        if key is None or len(key) == 0:
-            intf.messageWindow(_("Registration Key Required"),
-                               _("A registration key is required to "
-                                 "install %s.  Please contact your support "
-                                 "representative if you did not receive a "
-                                 "key with your product." %(productName,)),
-                               type = "ok", custom_icon="error")
-            raise NoKeyError
+#         if key is None or len(key) == 0:
+#             intf.messageWindow(_("Registration Key Required"),
+#                                _("A registration key is required to "
+#                                  "install %s.  Please contact your support "
+#                                  "representative if you did not receive a "
+#                                  "key with your product." %(productName,)),
+#                                type = "ok", custom_icon="error")
+#             raise NoKeyError
 
         # simple and stupid for now... if C is in the key, add Clustering
         # if V is in the key, add Virtualization.
-        if key.find("C") != -1:
-            self.repopaths["cluster"] = "Cluster"
-        if key.find("S") != -1:
-            self.repopaths["cs"] = "ClusterStorage"            
-        if key.find("V") != -1:
-            self.repopaths["virt"] = "VT"
-        if key.find("D") != -1:
-            self.repopaths["desktop"] = "Desktop"
+        if productPath == "Server":
+            if key.find("C") != -1:
+                self.repopaths["cluster"] = "Cluster"
+            if key.find("S") != -1:
+                self.repopaths["cs"] = "ClusterStorage"
+
+        if productPath == "Client":
+            if key.find("D") != -1:
+                self.repopaths["desktop"] = "Desktop"
+            if key.find("W") != -1:
+                self.repopaths["desktop"] = "Workstation"
+
+        if rhpl.getArch() in ("i386", "x86_64", "ia64"):
+            if key.find("V") != -1:
+                self.repopaths["virt"] = "VT"
 
         self.regkey = key
 
