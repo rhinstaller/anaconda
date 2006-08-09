@@ -51,6 +51,9 @@ printResults(doScan(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL))
 print "Scanning for SCSI Controllers"
 printResults(doScan(CLASS_SCSI, BUS_PCI, PROBE_ALL))
 
+print "Scanning for SATA Controllers"
+printResults(doScan(CLASS_SATA, BUS_PCI, PROBE_ALL))
+
 print "Scanning for PCMCIA Controllers"
 printResults(doScan(CLASS_SOCKET, BUS_PCI, PROBE_ALL))
 

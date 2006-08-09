@@ -1,3 +1,15 @@
+2006-08-09  Peter Jones  <pjones@redhat.com>
+
+	* command-stubs/kudzu-probe-stub: add SATA probing
+
+	* loader2/driverselect.c (chooseManualDriver): add CLASS_ATA and
+	CLASS_SATA to the DRIVER_SCSI list.
+
+	* loader2/hardware.c (detectHardware): add CLASS_ATA and CLASS_SATA
+	to the "nostorage" list.
+
+	* anaconda.spec: depend on newer kudzu
+
 2006-08-09  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py (InstallClass.handleRegKey): Add a few

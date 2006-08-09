@@ -107,7 +107,9 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
         } else if (FL_NOSTORAGE(flags) && 
                    (((*device)->type == CLASS_SCSI) || 
                     ((*device)->type == CLASS_IDE) ||
-                    ((*device)->type == CLASS_RAID))) {
+                    ((*device)->type == CLASS_RAID) ||
+                    ((*device)->type == CLASS_ATA) ||
+                    ((*device)->type == CLASS_SATA))) {
             logMessage(DEBUGLVL, "ignoring storage device %s (%s)",
                        (*device)->desc, driver);
         } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
