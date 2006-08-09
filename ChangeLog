@@ -31,6 +31,9 @@
 	check box if it's not a kickstart install (#181737).
 	* textw/timezone_text.py (TimezoneWindow.__call__):  Likewise.
 
+	* loader2/net.c (readNetConfig):  Don't try to strdup nothing
+	(#196334).
+
 2006-08-08  Jeremy Katz  <katzj@redhat.com>
 
 	Patch from Paul Schroder <pschroeder@uplogix.com> for nogr mode

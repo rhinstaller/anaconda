@@ -556,8 +556,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         logMessage(INFO, "%s is a wireless adapter", device);
         if (getWirelessConfig(cfg, device) == LOADER_BACK)
             return LOADER_BACK;
-        newCfg.essid = strdup(cfg->essid);
-        newCfg.wepkey = strdup(cfg->wepkey);
+
+        if (cfg->essid != NULL)
+            newCfg.essid = strdup(cfg->essid);
+
+        if (cfg->wepkey != NULL)
+            newCfg.wepkey = strdup(cfg->wepkey);
     } else {
         logMessage(INFO, "%s is not a wireless adapter", device);
     }
