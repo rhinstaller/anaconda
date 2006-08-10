@@ -720,22 +720,7 @@ class AnacondaKSParser(KickstartParser):
                 self.handler.lineno = lineno
                 self.handler.handlers[cmd](cmdArgs)
 
-# figure out what installclass we should base on.  if kickstart wasn't
-# an installclass and was instead a data source, this nonsense wouldn't be
-# needed
-allavail = availableClasses(showHidden = 1)
-avail = availableClasses(showHidden = 0)
-if len(avail) == 1:
-    (cname, cobject, clogo) = avail[0]
-    log.info("%s is only installclass, using for kickstart" %(cname,))
-elif len(allavail) == 1:
-    (cname, cobject, clogo) = allavail[0]
-    log.info("%s is only installclass, using for kickstart" %(cname,))
-    retval = cobject(flags.expert)
-else:
-    cobject = BaseInstallClass
-    log.info("using baseinstallclass for kickstart")
-
+cobject = getBaseInstallClass()
 
 # The anaconda kickstart processor.
 class Kickstart(cobject):

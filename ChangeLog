@@ -1,5 +1,12 @@
 2006-08-10  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (getBaseInstallClass): Add a method for finding
+	the default base install class so that I don't copy and paste the
+	code between kickstart and upgrade cases 
+	* kickstart.py (Kickstart): Use getBaseInstallClass
+	* upgradeclass.py (InstallClass): Use proper base install 
+	class (#201745)
+
 	* textw/confirm_text.py (BeginUpgradeWindow.__call__): Fix
 	traceback (#201960)
 

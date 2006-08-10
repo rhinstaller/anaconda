@@ -9,14 +9,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-from installclass import BaseInstallClass
+from installclass import getBaseInstallClass
 from rhpl.translate import N_, _
 
 import os
 import iutil
 import rhpl
 
-class InstallClass(BaseInstallClass):
+baseclass = getBaseInstallClass()
+
+class InstallClass(baseclass):
     name = N_("Upgrade Existing System")
     pixmap = "upgrade.png"
     sortPriority = 999999
@@ -65,8 +67,8 @@ class InstallClass(BaseInstallClass):
             dispatch.skipStep("upgbootloader")            
 
     def setInstallData(self, anaconda):
-        BaseInstallClass.setInstallData(self, anaconda)
+        baseclass.setInstallData(self, anaconda)
         anaconda.id.setUpgrade(True)
     
     def __init__(self, expert):
-	BaseInstallClass.__init__(self, expert)
+	baseclass.__init__(self, expert)

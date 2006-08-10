@@ -463,11 +463,6 @@ class BaseInstallClass:
     def __init__(self, expert):
 	pass
 
-# we need to be able to differentiate between this and custom
-class DefaultInstall(BaseInstallClass):
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self, expert)
-
 allClasses = []
 allClasses_hidden = []
 
@@ -549,3 +544,30 @@ def ordering(first, second):
 	return 1
 
     return 0
+
+def getBaseInstallClass():
+    # figure out what installclass we should base on. this is largely needed
+    # due to nonsense about how things like upgrades and kickstart are
+    # implemented as installclasses :/
+    allavail = availableClasses(showHidden = 1)
+    avail = availableClasses(showHidden = 0)
+    if len(avail) == 1:
+        (cname, cobject, clogo) = avail[0]
+        log.info("using only installclass %s" %(cname,))
+        return cobject
+    elif len(allavail) == 1:
+        (cname, cobject, clogo) = allavail[0]
+        log.info("using only installclass %s" %(cname,))
+        return cobject
+    else:
+        cobject = BaseInstallClass
+        log.info("using baseinstallclass as base")
+        return BaseInstallClass
+
+baseclass = getBaseInstallClass()
+
+# we need to be able to differentiate between this and custom
+class DefaultInstall(baseclass):
+    def __init__(self, expert):
+	BaseInstallClass.__init__(self, expert)
+
