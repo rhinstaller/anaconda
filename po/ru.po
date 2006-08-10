@@ -1,46 +1,24 @@
-# translation of ru.po to 
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
 # translation of ru.po to Russian
-# Leonid Kanter <leon@asplinux.ru>, 2004.
+# Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006.
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
 # Yuliya Poyarkova <ypoyarko@redhat.com>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-10 16:47+1000\n"
-"Last-Translator: Yuliya Poyarkova <ypoyarko@redhat.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2006-08-10 20:58+0300\n"
+"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
+"Language-Team:  <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -1224,9 +1202,8 @@ msgid "Install on System"
 msgstr "Установка системы"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Инициализация"
+msgstr "Инициализируется инициатор iSCSI"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1833,7 +1810,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "Ваш загрузочный раздел не является одним из четырех первых разделов, и поэотому загрузиться с него будет невозможно."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1998,7 +1975,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "Размер логического тома должен быть больше, чем размер физического экстента."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2563,12 +2540,9 @@ msgid "Error running transaction"
 msgstr "Ошибка подготовки транзакции"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Имя компьютера \"%s\" является недействительным по следующим причинам:\n"
-"\n"
-"%s"
+msgstr "При выполнении вашей транзакции произошла ошибка по следующим причинам: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -4302,11 +4276,11 @@ msgstr "Имя хранилища не может быть пустым."
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
-msgstr "Неверный адрес хранилища"
+msgstr "Неверный URL хранилища"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Вы должны указать HTTP или FTP URL этого хранилища."
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -4317,9 +4291,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Невозможно прочитать метаданные пакета. Возможная причина - отсутствие "
+"Невозможно прочитать метаданные пакета из хранилища. Возможная причина - отсутствие "
 "каталога repodata.  Убедитесь, что дерево установки сформировано "
-"правильно.  %s"
+"правильно.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5500,7 +5476,7 @@ msgstr "Необходим ключ регистрации"
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "Для установки %s необходим регистрационный ключ.  Свяжитесь со своим представителем техподдержки, если вы не получили ключ со своим продуктом."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6241,11 +6217,11 @@ msgstr "Включить поддержку IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Избегать нежалетальных коллизий пакетов"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Максимизировать значения регистров для высокоскоростного сетевого трафика"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -6496,12 +6472,11 @@ msgstr "Добавить _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "Добавить _iSCSI target"
+msgstr "Добавить устройство _iSCSI"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Доп. опции размера"
+msgstr "Дополнительные параметры накопителей"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
@@ -6552,11 +6527,11 @@ msgstr "_Что нового"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "_Просмотр и модификация разбиения разделов"
+msgstr "_Просмотр и изменение разбиения разделов"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "Дополнительная _настройка загрузчика"
+msgstr "_Дополнительная настройка накопителей"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6584,7 +6559,7 @@ msgstr "<b>_Имя пользователя:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>_Имя iSCSI Initiator:</b>"
+msgstr "<b>_Имя инициатора iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6594,7 +6569,7 @@ msgstr "Настройка параметров iSCSI"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "Чтобы использовать диски iSCSI, вы должны предоставить адрес устройства iSCSI и имя инициатора iSCSI, которое было настроено для вашего узла."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6663,7 +6638,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Добавить дополнительные хранилища пакетов"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7455,7 +7430,7 @@ msgstr "Японский"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Каннада"
 
 #. generated from lang-table
 msgid "Korean"
