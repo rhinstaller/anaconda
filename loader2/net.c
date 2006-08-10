@@ -511,7 +511,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     struct networkDeviceConfig newCfg;
     int ret;
     int i = 0;
-    char ipv4Choice, ipv6Choice;
+    static char ipv4Choice = 0, ipv6Choice = 0;
     struct in_addr addr, nm, nw;
     struct in6_addr addr6;
     struct intfconfig_s ipcomps;
@@ -661,7 +661,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
                    char * ipv4Choice, char * ipv6Choice, int methodNum) {
     int i = 0;
-    char dhcpChoice;
+    static char dhcpChoice = 0;
     char *dret = NULL;
     newtComponent f, okay, back, answer;
     newtComponent dhcpCheckbox, ipv4Checkbox, ipv6Checkbox;
@@ -673,10 +673,11 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
 
     /* UI WINDOW 1: ask for dhcp choice, ipv4 choice, ipv6 choice */
     /* DHCP checkbox */
-    if (!cfg->isDynamic) {
-        dhcpChoice = ' ';
-    } else {
-        dhcpChoice = '*';
+    if (!dhcpChoice) {
+        if (!cfg->isDynamic)
+            dhcpChoice = ' ';
+        else
+            dhcpChoice = '*';
     }
 
     dhcpCheckbox = newtCheckbox(-1, -1, 
@@ -684,15 +685,18 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                 dhcpChoice, NULL, &dhcpChoice);
 
     /* IPv4 checkbox */
-    *ipv4Choice = '*';
+    if (!*ipv4Choice)
+        *ipv4Choice = '*';
+
     ipv4Checkbox = newtCheckbox(-1, -1, _("Enable IPv4 support"),
                                 *ipv4Choice, NULL, ipv4Choice);
 
     /* IPv6 checkbox */
-    if (FL_NOIPV6(flags)) {
-        *ipv6Choice = ' ';
-    } else {
-        *ipv6Choice = '*';
+    if (!*ipv6Choice) {
+        if (FL_NOIPV6(flags))
+            *ipv6Choice = ' ';
+        else
+            *ipv6Choice = '*';
     }
 
     ipv6Checkbox = newtCheckbox(-1, -1, _("Enable IPv6 support"),
