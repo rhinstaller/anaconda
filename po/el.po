@@ -9,20 +9,21 @@
 # Dimitrios Michelinakis <dimitris@michelinakis.gr>, 2006.
 # Kostas Papadimas <pkst@gnome.org>, 2006.
 # Δημήτρης Γλέζος <dimitris@glezos.com>, 2006.
+# Kostas Papadimas <pkst@gnome.org>, 2006.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: anaconda el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-06-06 14:30+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
+"PO-Revision-Date: 2006-08-10 23:30+0300\n"
+"Last-Translator: nikos <nikosx@gmail.com>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -140,21 +141,26 @@ msgstr ""
 "κατατμήσεις"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Αδυναμία δέσμευσης κατατμήσεων ως πρωταρχικές κατατμήσεις"
+msgstr ""
+"Αδυναμία δέσμευσης κατατμήσεων ως πρωταρχικές κατατμήσεις.\n"
+"\n"
+"%s"
 
 #
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Αδυναμία δέσμευσης κατατμήσεων βασισμένων σε κυλίνδρους"
+msgstr "Αδυναμία δέσμευσης κατατμήσεων βασισμένων σε κυλίνδρους.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -440,14 +446,14 @@ msgstr ""
 "Είστε σίγουροι ότι θέλετε να το κάνετε;"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Αναβάθμιση %s-%s-%s.%s.\n"
+msgstr "Αναβάθμιση %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Εγκατάσταση %s"
+msgstr "Εγκατάσταση %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -839,9 +845,8 @@ msgstr ""
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Αδύνατη η φόρτωση αρχείου!"
+msgstr "Αδύνατη η προσάρτηση συστήματος αρχείων"
 
 #: ../fsset.py:1730
 #, python-format
@@ -1329,7 +1334,7 @@ msgstr ""
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Κλειδί:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -3387,7 +3392,7 @@ msgstr "Είστε βέβαιος πως θέλετε να Διαγράψετε 
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
-msgstr "Άκυρο Όνομα Ομάδας Τόμων"
+msgstr "Μη έγκυρο όνομα ομάδας τόμων"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
@@ -3424,7 +3429,7 @@ msgstr "Δημιουργία Ομάδας Τόμων LVM"
 #: ../iw/lvm_dialog_gui.py:967
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "Μορφοποίηση Ομάδας Τόμων: %s"
+msgstr "Μορφοποίηση ομάδας τόμων: %s"
 
 #: ../iw/lvm_dialog_gui.py:969
 msgid "Edit LVM Volume Group"
@@ -3432,7 +3437,7 @@ msgstr "Μορφοποίηση Ομάδας Τόμων"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr "Όνομα _Ομάδας Τόμων"
+msgstr "Όνομα _ομάδας τόμων"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
@@ -3440,7 +3445,7 @@ msgstr "Όνομα Ομάδας Τόμων"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "Φυσικό _Μήκος"
+msgstr "Φυσικό _μήκος"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
@@ -3452,21 +3457,21 @@ msgstr "Χρησιμοποιημένος Χώρος"
 
 #: ../iw/lvm_dialog_gui.py:1039
 msgid "Free Space:"
-msgstr "Ελεύθερος Χώρος:"
+msgstr "Ελεύθερος χώρος:"
 
 #: ../iw/lvm_dialog_gui.py:1057
 msgid "Total Space:"
-msgstr "Συνολικός Χώρος: "
+msgstr "Συνολικός χώρος: "
 
 #: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
-msgstr "Όνομα Λογικού Τόμου"
+msgstr "Όνομα λογικού τόμου"
 
 #: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
-msgstr "Σημείο Προσάρτησης"
+msgstr "Σημείο προσάρτησης"
 
 #: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
 msgid "Size (MB)"
@@ -3483,11 +3488,11 @@ msgstr "_Επεξεργασία"
 
 #: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
-msgstr "Λογικοί Τόμοι"
+msgstr "Λογικοί τόμοι"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Ρύθμιση Ποντικιού"
+msgstr "Ρύθμιση ποντικιού"
 
 #: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -3555,7 +3560,7 @@ msgstr "_Τριτεύον DNS"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
-msgstr "Ρύθμιση Δικτύου"
+msgstr "Ρύθμιση δικτύου"
 
 #: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
 #: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
@@ -3613,23 +3618,19 @@ msgid "The IP information you have entered is invalid."
 msgstr "Οι πληροφορίες για την IP που εισαγάγατε δεν είναι έγκυρες."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Δεν έχετε ενεργές συσκευές δικτύου. Το σύστημα σας δεν θα έχει την "
-"δυνατότητα επικοινωνίας μέσω δικτύου χωρίς την ύπαρξη τουλάχιστον μια ενεργή "
-"συσκευή.\n"
-"\n"
-"ΣΗΜΕΙΩΣΗ:Αν έχετε συσκευή δικτύου που είναι βασισμένη σε PCMCIA πρέπει να "
-"μην την ενεργοποιήσετε σε αυτό το στάδιο. Όταν κάνετε επανεκκίνηση του "
-"συστήματος σας η συσκευή θα ενεργοποιηθεί αυτόματα."
+"δυνατότητα επικοινωνίας μέσω δικτύου χωρίς την ύπαρξη τουλάχιστον μιας ενεργής "
+"συσκευής."
+""
 
 #: ../iw/network_gui.py:207
 #, python-format
 msgid "Edit Interface %s"
-msgstr "Επεξεργασία Διεπαφής %s"
+msgstr "Επεξεργασία διεπαφής %s"
 
 #: ../iw/network_gui.py:218
 msgid "Configure using _DHCP"
@@ -3645,7 +3646,7 @@ msgstr "Διεύθυνση _IP"
 
 #: ../iw/network_gui.py:234
 msgid "Net_mask"
-msgstr "_Μάσκα Δικτύου"
+msgstr "_Μάσκα δικτύου"
 
 #: ../iw/network_gui.py:239
 msgid "_Point to Point (IP)"
@@ -3657,11 +3658,11 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:244
 msgid "Encryption _Key"
-msgstr "_Κλειδί Κρυπτογράφησης"
+msgstr "_Κλειδί κρυπτογράφησης"
 
 #: ../iw/network_gui.py:255
 msgid "Hardware address:"
-msgstr "Διεύθυνση Υλικού:"
+msgstr "Διεύθυνση υλικού:"
 
 #: ../iw/network_gui.py:293
 #, python-format
@@ -3709,7 +3710,7 @@ msgstr "Όνομα συστήματος"
 
 #: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
-msgstr "Διάφορες Ρυθμίσεις"
+msgstr "Διάφορες ρυθμίσεις"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3773,7 +3774,7 @@ msgstr "Αυτή η ετικέτα χρησιμοποιείται ήδη από 
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr "Διπλότυπη Συσκευή"
+msgstr "Διπλότυπη συσκευή"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
@@ -3781,7 +3782,7 @@ msgstr "Αυτή η συσκευή χρησιμοποιείται ήδη από 
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
-msgstr "Αδυναμία Διαγραφής"
+msgstr "Αδυναμία διαγραφής"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
@@ -3799,7 +3800,7 @@ msgstr "Επιπλέον επιλογές μεγέθους"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "Σταθερό Μέγεθος"
+msgstr "Σταθερό μέγεθος"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
@@ -3807,7 +3808,7 @@ msgstr "Γέμισμα όλου του χώρου _μέχρι (MB):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "Γέμισμα στον μέγιστα _επιτρεπτό χώρο"
+msgstr "Γέμισμα στον μέγιστο _επιτρεπτό χώρο"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3816,16 +3817,16 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr "Προσθήκη Κατάτμησης"
+msgstr "Προσθήκη κατάτμησης"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "Επεξεργασία Κατάτμησης: /dev/%s"
+msgstr "Επεξεργασία κατάτμησης: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr "Επεξεργασία Κατάτμησης"
+msgstr "Επεξεργασία κατάτμησης"
 
 #: ../iw/partition_dialog_gui.py:301
 msgid "File System _Type:"
@@ -3841,11 +3842,11 @@ msgstr "Δίσκος:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr "_Αρχικός Κύλινδρος"
+msgstr "_Αρχικός κύλινδροςΑ"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr "_Τελικός Κύλινδρος:"
+msgstr "_Τελικός κύλινδρος:"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
@@ -4331,7 +4332,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Ο δίσκος /dev/%s  θα κλωνοποιηθεί στους ακόλουθους δίσκους:\n"
+"Ο δίσκος /dev/%s θα κλωνοποιηθεί στους ακόλουθους δίσκους:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:648
@@ -4490,7 +4491,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr "_Παράκαμψη ενημέρωσης boot loader "
+msgstr "_Παράκαμψη ενημέρωσης boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
@@ -4852,7 +4853,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Συγχαρητήρια, η  εγκατάσταση %s ολοκληρώθηκε.\n"
+"Συγχαρητήρια, η εγκατάσταση %s ολοκληρώθηκε.\n"
 "\n"
 "%s%s"
 
@@ -5654,9 +5655,8 @@ msgstr ""
 "\tΠαιχνίδια\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -6353,9 +6353,8 @@ msgstr ""
 "      περιέχει %s για την αρχιτεκτονική σας\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Μη έγκυρος αριθμός IP"
+msgstr "Μη έγκυρο CIDR·Mask"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6417,9 +6416,8 @@ msgid "Sending request for IP information for %s..."
 msgstr "Αποστολή αίτησης για πληροφορίες IP για %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Σφάλμα κωδικού VNC "
+msgstr "Σφάλμα δικτύου"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
 #, fuzzy
@@ -6428,17 +6426,16 @@ msgstr ""
 "Υπήρξε ένα σφάλμα κατά την εκκαθάριση των δίσκων. Η κλωνοποίηση απέτυχε."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Χρήση δυναμικής διαμόρφωσης IP (BOOTP/DHCP)"
+msgstr "Χρήση δυναμικής ρύθμισης IP (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Ενεργοποίηση υποστήριξης IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Ενεργοποίηση·υποστήριξης·IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
@@ -6469,19 +6466,17 @@ msgstr ""
 
 #
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Διεύθυνση IP:"
+msgstr "Διεύθυνση IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Διεύθυνση IP:"
+msgstr "Διεύθυνση IPv6:"
 
 #: ../loader2/net.c:928
 #, fuzzy
@@ -6489,9 +6484,8 @@ msgid "Name Server:"
 msgstr "Nameserver"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Ρύθμιση z/IPL"
+msgstr "Μη αυτόματη ρύθμιση TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
@@ -6712,9 +6706,8 @@ msgid "Loading SCSI driver"
 msgstr "Γίνεται φόρτωση οδηγού SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Προσθήκη _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
@@ -6728,7 +6721,7 @@ msgstr "Επιπλέον επιλογές μεγέθους"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Απενεργοποίηση συσκευής _dmraid"
 
 #: tmp/adddrive.glade.h:5
 #, fuzzy
@@ -6803,18 +6796,16 @@ msgid "_Exception details"
 msgstr "Λεπτομέρειες _εξαίρεσης"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Κωδικός:"
+msgstr "<b>_Κωδικός:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>IP Address _στόχου:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Αρι_θμός θύρας:</b>"
+msgstr "<b>_Όνομα χρήστη:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -7663,9 +7654,8 @@ msgid "German"
 msgstr "Γερμανική"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Ελεύθερο"
+msgstr "Ελληνικά"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7697,7 +7687,7 @@ msgstr "Ιαπωνική"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7731,7 +7721,7 @@ msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
