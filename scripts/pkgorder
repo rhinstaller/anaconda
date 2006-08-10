@@ -142,8 +142,10 @@ if __name__ == "__main__":
     # print out kernel related packages first
     if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
         printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "kernel-*"))
-    else:
+    elif os.path.isdir("%s/%s" %(toppath, product)):
         printMatchingPkgs("%s/%s/%s" % (toppath, product, "kernel-*"))
+    else:
+        printMatchingPkgs("%s/%s" % (toppath, "kernel-*"))        
 
     testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
     os.system("mkdir -p %s/var/lib/rpm" %(testpath,))

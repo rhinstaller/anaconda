@@ -1,5 +1,8 @@
 2006-08-10  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder: Adjust for how distill is calling pkgorder for
+	the RHEL trees (#201923) 
+
 	* partedUtils.py (productMatches): Tweak acceptable RHEL upgrade
 	matches (#201741)
 
