@@ -1,5 +1,8 @@
 2006-08-10  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (productMatches): Tweak acceptable RHEL upgrade
+	matches (#201741)
+
 	* installclass.py (getBaseInstallClass): Add a method for finding
 	the default base install class so that I don't copy and paste the
 	code between kickstart and upgrade cases 
