@@ -127,10 +127,10 @@ class Dispatcher:
         # we can not go backwards from this screen
         i = self.step - 1
         while i >= self.firstStep:
-            if not self.skipSteps.has_key(installSteps[i][0]):
-                return 1
+            if not self.stepIsDirect(i) and not self.skipSteps.has_key(installSteps[i][0]):
+                return True
             i = i - 1
-        return 0
+        return False
 
     def setStepList(self, *steps):
         # only remove non-permanently skipped steps from our skip list

@@ -1,5 +1,9 @@
 2006-08-11  Chris Lumens  <clumens@redhat.com>
 
+	* dispatch.py (Dispatch.canGoBack):  Don't enable the back button if
+	there's only non-interactive steps preceeding the current one
+	(#197766).
+
 	* iutil.py (execWithCapture):  Capture stderr output too (useful for
 	logging VNC error messages).
 
