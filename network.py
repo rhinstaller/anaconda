@@ -198,7 +198,7 @@ class Network:
             self.firstnetdevice = info["DEVICE"]
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "NETTYPE", "SUBCHANNELS", "PORTNAME", "CTCPROT",
-                        "PEERID", "ESSID", "KEY"):
+                        "PEERID", "ESSID", "KEY", "IPV6ADDR"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             if info.has_key("GATEWAY"):
@@ -354,9 +354,16 @@ class Network:
             return None
 
 	try:
-	    ip = socket.gethostbyname(self.hostname)
+            (family, socktype, proto, canonname, sockaddr) = \
+                socket.getaddrinfo(self.hostname, None, socket.AF_INET)
+            (ip, port) = sockaddr
 	except:
-	    return None
+            try:
+                (family, socktype, proto, canonname, sockaddr) = \
+                    socket.getaddrinfo(self.hostname, None, socket.AF_INET6)
+                (ip, port, flowinfo, scopeid) = sockaddr
+            except:
+	        return None
 
 	return ip
 
