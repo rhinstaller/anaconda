@@ -3,6 +3,11 @@
 	* iutil.py (execWithCapture):  Capture stderr output too (useful for
 	logging VNC error messages).
 
+	* network.py (Network.lookupHostname):  Don't clobber /etc/resolv.conf
+	during VNC installs (#201874).
+	
+	* vnc.py (startVNCServer):  Look for the right ending string.
+
 2006-08-10  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c: Remember user choices on network configuration

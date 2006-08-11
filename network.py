@@ -342,16 +342,16 @@ class Network:
                         log.error("failed to configure network device %s when "
                                   "looking up host name", dev.get('device'))
 
+            if self.isConfigured and not flags.rootpath:
+                f = open("/etc/resolv.conf", "w")
+                f.write("nameserver %s\n" % myns)
+                f.close()
+                isys.resetResolv()
+                isys.setResolvRetry(1)
+
 	if not self.isConfigured:
             log.warning("no network devices were available to look up host name")
             return None
-
-        if not flags.rootpath:
-            f = open("/etc/resolv.conf", "w")
-            f.write("nameserver %s\n" % myns)
-            f.close()
-            isys.resetResolv()
-            isys.setResolvRetry(1)
 
 	try:
 	    ip = socket.gethostbyname(self.hostname)
