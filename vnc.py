@@ -14,6 +14,7 @@
 #
 
 import os, sys, string
+import time
 from snack import *
 from constants_text import *
 from rhpl.translate import _, N_
@@ -290,7 +291,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
             if output == "":
                 stdoutLog.info(_("Connected!"))
                 break
-            elif output.startswith("connecting") and output.endswith("failed"):
+            elif output.startswith("connecting") and output.endswith("failed\n"):
 		ntries += 1
 		if ntries > 50:
 		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
