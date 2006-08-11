@@ -116,6 +116,7 @@ class ImageInstallMethod(InstallMethod):
     def __init__(self, tree, rootPath, intf):
 	InstallMethod.__init__(self, tree, rootPath, intf)
 	self.tree = tree
+	self.isoPath = tree
         self.splitmethod = True
 
 class CdromInstallMethod(ImageInstallMethod):
@@ -530,7 +531,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
         """@param method: nfsiso:/mnt/source"""
         tree = method[8:]
 	self.messageWindow = intf.messageWindow
-	self.isoPath = tree
 
 	# the tree points to the directory that holds the iso images
 	# even though we already have the main one mounted once, it's

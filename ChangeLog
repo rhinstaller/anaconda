@@ -1,5 +1,8 @@
 2006-08-11  Chris Lumens  <clumens@redhat.com>
 
+	* image.py:  Move self.isoPath into the base ImageInstallMethod class
+	(#201775).
+
 	* dispatch.py (Dispatch.canGoBack):  Don't enable the back button if
 	there's only non-interactive steps preceeding the current one
 	(#197766).
