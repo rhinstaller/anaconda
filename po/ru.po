@@ -1,3 +1,4 @@
+# translation of ru.po to 
 # translation of ru.po to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
@@ -10,14 +11,14 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-10 20:58+0300\n"
-"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
-"Language-Team:  <gnome-cyr@gnome.org>\n"
+"PO-Revision-Date: 2006-08-11 15:44+1000\n"
+"Last-Translator: Yuliya Poyarkova <ypoyarko@redhat.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:258
@@ -385,8 +386,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Автоматическое разбиение будет выполнено на основе выбранного вами типа "
-"установки. Вы также можете изменить разбиение в соответствии с вашими "
-"нуждами.\n"
+"установки. По желанию данное разбиение может быть изменено.\n"
 "\n"
 "Утилита ручного разбиения диска Disk Druid позволяет настроить разделы в "
 "интерактивном окружении. Вы можете задать типы файловых систем, точки "
@@ -397,8 +397,8 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
-"Перед тем, как программа установки выполнит автоматическое разбиение, вы "
-"должны выбрать, как будет использовано место на жестких дисках."
+"Перед тем, как программа установки выполнит автоматическое разбиение, необходимо "
+"выбрать, как будет использовано место на жестких дисках."
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
@@ -429,7 +429,7 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Вы выбрали удаление всех разделов Linux (и ВСЕХ ДАННЫХ на них ) на следующих "
+"Вы выбрали удаление всех разделов Linux (и ВСЕХ ДАННЫХ на них) на следующих "
 "устройствах:%s\n"
 "Вы уверены, что хотите удалить все разделы Linux?"
 
@@ -456,7 +456,7 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"На вашей системе не установлен ни один пакет с ядром Linux. Конфигурация "
+"В вашей системе не установлен ни один пакет с ядром Linux. Конфигурация "
 "загрузчика не будет изменена."
 
 #: ../cmdline.py:44
@@ -1217,11 +1217,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Произошла ошибка при выполнении скрипта установки пакета.  Вы можете "
-"просмотреть вывод в %s. Это фатальная ошибка, поэтому работа программы "
-"установки будет прервана.\n"
+"Произошла критическая ошибка при выполнении скрипта установки пакета.  "
+"Вы можете просмотреть вывод в %s. Работа программы установки будет прервана.\n"
 "\n"
-"Нажмите OK для перезагрузки вашей системы."
+"Нажмите OK для перезагрузки системы."
 
 #: ../kickstart.py:821 ../kickstart.py:839
 msgid "Running..."
@@ -1810,7 +1809,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr "Ваш загрузочный раздел не является одним из четырех первых разделов, и поэотому загрузиться с него будет невозможно."
+msgstr "Ваш загрузочный раздел не является одним из четырех первых разделов, поэтому загрузиться с него будет невозможно."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1876,7 +1875,7 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Выделенное вами пространство подкачки (%dM) меньше, чем объем ОЗУ (%dM) в "
+"Выделенное вами пространство подкачки (%d Mб) меньше, чем объем ОЗУ (%d Mб) в "
 "вашей системе. Это может отрицательно сказаться на производительности."
 
 #: ../partitions.py:1306
@@ -2282,7 +2281,7 @@ msgstr ""
 
 #: ../upgrade.py:327
 msgid "Absolute Symlinks"
-msgstr "Абсолютные символические ссылки "
+msgstr "Абсолютные символические ссылки"
 
 #: ../upgrade.py:338
 msgid ""
@@ -2501,7 +2500,7 @@ msgstr "конфликты файлов"
 
 #: ../yuminstall.py:433
 msgid "older package(s)"
-msgstr "старый пакет(ы)"
+msgstr "старые пакеты"
 
 #: ../yuminstall.py:434
 msgid "insufficient disk space"
