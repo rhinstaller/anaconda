@@ -1,33 +1,33 @@
-# translation of fr.po to 
+# translation of fr.po to Français
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
-# translation of fr.po to French
+# translation of fr.po to
 # Copyright (C) 2001 Red Hat, Inc.
+#
+#
 #  <>, 2006.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Audrey Simons <asimons@redhat.com>, 2003,2004.
 # Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004, 2005.
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004, 2006.
 # Thomas Canniot <thomas.canniot@laposte.net>, 2006.
-# Damien Durand <splinux@fedoraproject.org>, 2006
-#
-#
+# Damien Durand <splinux@fedoraproject.org>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-29 17:48+0100\n"
-"Last-Translator: Damien Durand <splinux@fedoraproject.org>\n"
-"Language-Team:  <fr@li.org>\n"
+"PO-Revision-Date: 2006-08-11 10:31+0200\n"
+"Last-Translator: Thomas Canniot <thomas.canniot@laposte.net>\n"
+"Language-Team: Français <fedora-trans-fr-request@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -1271,7 +1271,7 @@ msgstr ""
 #: ../kickstart.py:821
 #: ../kickstart.py:839
 msgid "Running..."
-msgstr "Exécution..."
+msgstr "Éxécution..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
@@ -1336,7 +1336,7 @@ msgstr "Entrer votre clé d'activation"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr "Veillez indiquer une clée d'enregistrement pour votre version de %s."
+msgstr "Veuillez indiquer une clée d'enregistrement pour votre version de %s."
 
 #: ../packages.py:248
 msgid "Key:"
@@ -1344,7 +1344,7 @@ msgstr "Clée : "
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
-msgstr "Avertissement ! Ceci est un logiciel pre-release !"
+msgstr "Avertissement ! Ceci est une version de test !"
 
 #: ../packages.py:279
 #, python-format
@@ -1359,15 +1359,15 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Merci d'avoir téléchargé cette version bêta de %s.\n"
+"Merci d'avoir téléchargé cette version béta de %s.\n"
 "\n"
 "Il ne s'agit pas d'une version finale et elle n'est pas destinée à être utilisée dans des systèmes de production. L'objectif de cette version est de recueillir des commentaires de la part des testeurs, et elle n'est pas adaptée à une utilisation quotidienne.\n"
 "\n"
-"Pour offrir vos commentaires, rendez-vous à l'adresse suivante :\n"
+"Pour nous faire part de vos commentaires, rendez-vous à l'adresse suivante :\n"
 "\n"
 "    %s\n"
 "\n"
-"et rédigez un rapport sous « %s ».\n"
+"et rédigez un rapport de sous « %s ».\n"
 
 #: ../packages.py:292
 msgid "_Install anyway"
@@ -2110,7 +2110,7 @@ msgstr "Recherche"
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Recherche des installations %s..."
+msgstr "Recherche des installations de %s..."
 
 #: ../upgrade.py:151
 #: ../upgrade.py:159
@@ -2189,9 +2189,9 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Le fichier-%s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu Veillez vérifier que vos dépôts contiennent tous les paquetages requis ou essayer d'en utiliser un différent.\n"
+"Le fichier-%s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu. Veuillez vérifier que vos dépôts contiennent tous les paquetages requis ou essayez d'en utiliser un différent.\n"
 "\n"
-"Si vous redémarré, votre système sera probablement dans un état de corruption et demandera une réinstallation.\n"
+"Si vous redémarrez, votre système sera probablement corrompu et demandera une réinstallation.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2474,7 +2474,7 @@ msgstr "Vérification des dépendances"
 
 #: ../yuminstall.py:1300
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Vérification des dépendances dans les paquetages sélectionnés pour l'installation."
+msgstr "Vérification des dépendances pour les paquetages sélectionnés pour l'installation."
 
 #: ../zfcp.py:29
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
@@ -2820,7 +2820,7 @@ msgstr "_Installer %s"
 
 #: ../iw/examine_gui.py:57
 msgid "Choose this option to freshly install your system. Existing software and data may be overwritten depending on your configuration choices."
-msgstr "Choisissez cette option pour installer de nouveau votre système. Les logiciels et les données existantes peuvent être écrasés selon vos choix de configuration."
+msgstr "Choisissez cette option pour faire une nouvelle installation de votre système. Les logiciels et les données existantes peuvent être écrasés selon vos choix de configuration."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -3306,9 +3306,7 @@ msgstr "Les informations IP que vous avez saisies ne sont pas valides."
 
 #: ../iw/network_gui.py:191
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"Vous n'avez activé aucun périphérique réseau. Votre système ne pourra pas communiquer dans un réseau par défaut sans qu'au moins un périphérique soit activé."
-
+msgstr "Vous n'avez activé aucun périphérique réseau. Votre système ne pourra pas communiquer dans un réseau par défaut sans qu'au moins un périphérique soit activé."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3401,7 +3399,7 @@ msgstr "Paramètres divers"
 
 #: ../iw/osbootwidget.py:43
 msgid "You can configure the boot loader to boot other operating systems. It will allow you to select an operating system to boot from the list. To add additional operating systems, which are not automatically detected, click 'Add.' To change the operating system booted by default, select 'Default' by the desired operating system."
-msgstr "Vous pouvez configurer le chargeur de démarrage pour démarrer d'autres systèmes d'exploitation. Il vous permettra de sélectionner un système d'exploitation à démarrer parmi ceux de la liste. Pour ajouter des systèmes d'exploitation qui ne sont pas sélectionnés automatiquement, cliquez sur « Ajouter ». Pour changer le système d'exploitation démarré par défaut, sélectionnez « Par défaut » à côté du système d'exploitation désiré."
+msgstr "Vous pouvez configurer le chargeur de démarrage pour démarrer d'autres systèmes d'exploitation. Il vous permettra de sélectionner un système d'exploitation à démarrer parmi ceux de la liste. Pour ajouter des systèmes d'exploitation qui ne sont pas détectés automatiquement, cliquez sur « Ajouter ». Pour changer le système d'exploitation démarré par défaut, sélectionnez « Par défaut » à côté du système d'exploitation désiré."
 
 #: ../iw/osbootwidget.py:67
 #: ../textw/bootloader_text.py:259
@@ -4869,7 +4867,7 @@ msgstr "Type de partitionnement"
 #: ../textw/partition_text.py:1518
 #: tmp/autopart.glade.h:1
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
-msgstr "L'installation requiert le partitionnement de votre disque dur. Par défaut, une structure de partitionnement est choisie qui est raisonnable pour la plupart des utilisateurs. Vous pouvez l'utiliser ou créer la votre."
+msgstr "L'installation requiert le partitionnement de votre disque dur. Par défaut, une structure de partitionnement est choisie et convient pour la plupart des utilisateurs. Vous pouvez l'utiliser ou créer la votre."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5596,7 +5594,7 @@ msgstr "Démarrage d'anaconda, en mode dépannage pour le système %s - patiente
 #: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Exécution d'anaconda, le pogramme d'installation du système %s - patientez...\n"
+msgstr "Exécution d'anaconda, le programme d'installation du système %s - veuillez patienter...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
@@ -6060,7 +6058,7 @@ msgstr "Ajouter un dépôt"
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr "Veillez fournir un emplacement ou les logiciels supplémentaires pourront être installé. Veillez noté que cette emplacement doit être un dépôt valide pour %s."
+msgstr "Veuillez indiquer un emplacement depuis lequel des logiciels supplémentaires pourront être installés. Veuillez noté que cette emplacement doit être un dépôt valide pour %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6160,7 +6158,7 @@ msgstr "Activer l'interface réseau"
 
 #: tmp/netconfig.glade.h:10
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr "Ceci requiert de posséder une connexion active durant le processus d'installation. Veillez configurer une interface réseau."
+msgstr "Ceci requiert une connexion internet ou réseau active durant le processus d'installation. Veuillez configurer une interface réseau."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -7066,91 +7064,4 @@ msgstr "Gallois"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zoulou"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Impossible d'allouer les partitions"
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Vous pouvez choisir différentes options de partitionnement automatique ou "
-#~ "cliquer sur Précédent pour sélectionner le partitionnement manuel.\n"
-#~ "\n"
-#~ "Appuyez sur OK pour continuer."
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Installation de %s-%s-%s.%s.\n"
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Le paquetage %s-%s-%s.%s ne peut pas être ouvert. Cela est du à un "
-#~ "fichier manquant ou peut-être à un paquetage corrompu. Si vous effectuez "
-#~ "l'installation à partir d'un CD-ROM, cela signifie en général que le CD-"
-#~ "ROM est corrompu ou que le lecteur de CD-ROM ne peut pas lire le "
-#~ "support.\n"
-#~ "\n"
-#~ "Cliquer sur 'Réessayer' pour essayer à nouveau."
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Si vous redémarrez l'ordinateur, votre système se trouvera dans un état "
-#~ "inconsistant qui nécessitera probablement une réinstallation. Êtes-vous "
-#~ "sûr de vouloir poursuivre ? "
-#~ msgid "_Cancel"
-#~ msgstr "_Annuler"
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "Les adresses IP doivent contenir des chiffres entre 1 et 255"
-#~ msgid "iSCSI Configuration"
-#~ msgstr "Configuration de iSCSI"
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "Aucune adresse IP saisie, configuration de iSCSI ignorée"
-#~ msgid "Target IP address:"
-#~ msgstr "Adresse IP cible :"
-#~ msgid "Port Number:"
-#~ msgstr "Numéro de port :"
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tEnvironnement de bureau (GNOME)\n"
-#~ "\tOutils d'administration\n"
-#~ "\tOutils de configuration du serveur\n"
-#~ "\tServeur Web\n"
-#~ "\tServeur de fichiers pour Windows (SMB)\n"
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Veuillez saisir la configuration IP de cette machine. Chaque élément doit "
-#~ "être saisi sous la forme d'une adresse IP en notation décimale pointée "
-#~ "(par exemple, 1.2.3.4)."
-#~ msgid "Netmask:"
-#~ msgstr "Masque réseau :"
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Passerelle par défaut (IP) :"
-#~ msgid "Primary nameserver:"
-#~ msgstr "DNS primaire :"
-#~ msgid "iSCSI configuration"
-#~ msgstr "Configuration de iSCSI"
 
