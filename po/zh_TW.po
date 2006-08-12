@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-12 10:43+1000\n"
+"PO-Revision-Date: 2006-08-12 18:43+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../anaconda:258
 msgid "Unknown Error"
-msgstr "不明的錯誤"
+msgstr "不知名錯誤"
 
 #: ../anaconda:261
 #, c-format
@@ -122,28 +122,34 @@ msgid "unknown install method: %s"
 msgstr "未知的安裝方式：%s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "無法配置磁柱為主的分割區為主要分割區"
+msgstr "無法配置磁柱為主的分割區為主要分割區。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "無法配置分割區為主要分割區"
+msgstr "無法配置分割區為主要分割區。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "無法配置磁柱為主的分割區"
+msgstr "無法配置磁柱為主的分割區。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -410,14 +416,14 @@ msgstr ""
 "您確定要繼續嗎？"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "正在升級 %s-%s-%s.%s.\n"
+msgstr "正在升級 %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "安裝 %s(_I)"
+msgstr "正在安裝 %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -780,9 +786,8 @@ msgstr ""
 "請按 <Enter> 鍵重新啟動您的系統。"
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "無法載入檔案！"
+msgstr "無法掛載檔案系統"
 
 #: ../fsset.py:1730
 #, python-format
@@ -1041,7 +1046,7 @@ msgstr ""
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
-msgstr "重試(_t)"
+msgstr "重試(_T)"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1066,7 +1071,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "上一頁(_B)"
+msgstr "上一步(_B)"
 
 #: ../image.py:133
 #, python-format
@@ -1074,7 +1079,7 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"卸載光碟時發生一個錯誤。  請確定您沒有從 shell 存取 tty2 上的 %s， 然後點選"
+"卸載光碟時發生錯誤。  請確定您沒有從 shell 存取 tty2 上的 %s， 然後點選"
 "「確定」再試一次。"
 
 #: ../image.py:163
@@ -1149,7 +1154,7 @@ msgstr "安裝到系統"
 #: ../iscsi.py:127 ../iscsi.py:128
 #, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "正在初始化磁碟"
+msgstr "正在初始化 iSCSI initiator"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1221,33 +1226,31 @@ msgstr "主機名稱只能包含 'a-z'、'A-Z'、'-' 或 '.' 等字元"
 #: ../network.py:89
 #, fuzzy
 msgid "IP Address is missing."
-msgstr "未輸入 IP 位址"
+msgstr "缺少 IP 位址"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP 位址中的號碼應介於 0 到 255 之間"
+msgstr "IP 位址必須包含四組以小數點分隔，介乎 0 到 255 之間的號碼"
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s 不是有效的主機名稱。"
+msgstr "'%s' 不是有效的 IPv6 位址。"
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "加密金鑰"
+msgstr "輸入註冊金鑰"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "請輸入您 %s 版本的註冊金鑰。"
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "金鑰："
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1390,7 +1393,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr "請輸入一個磁區群組名稱。"
+msgstr "請輸入磁區群組名稱。"
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
@@ -1415,7 +1418,7 @@ msgstr "請輸入一個邏輯磁區名稱。"
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "邏輯磁區名稱必須小於 128 個字元"
+msgstr "邏輯磁區名稱必須少於 128 個字元"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -2079,7 +2082,7 @@ msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> �
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "     <Tab>/<Alt-Tab> 移動游標  | <Space> 選取  | <F12> 下一個畫面"
+msgstr "     <Tab>/<Alt-Tab>  移動游標          | <Space>  選取     | <F12>  下一個畫面"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
@@ -2099,7 +2102,7 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"您選擇要升級的檔案系統已經掛載了。 過了這步安裝階段，您將無法回到上一頁。\n"
+"您選擇要升級的檔案系統已經掛載了。 過了這步安裝階段，將無法再來這裡。\n"
 "\n"
 
 #: ../upgrade.py:57
@@ -2108,12 +2111,12 @@ msgstr "您想要繼續升級系統嗎?"
 
 #: ../upgrade.py:94
 msgid "Searching"
-msgstr "尋找中"
+msgstr "正在搜尋"
 
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "正在尋找 %s 安裝程式..."
+msgstr "正在搜尋 %s 現有安裝..."
 
 #: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
@@ -2190,7 +2193,7 @@ msgstr ""
 
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr "無效的目錄"
+msgstr "目錄無效"
 
 #: ../upgrade.py:351
 #, python-format
@@ -2255,11 +2258,11 @@ msgstr ""
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
-msgstr "密碼:"
+msgstr "密碼："
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
-msgstr "密碼確認:"
+msgstr "密碼確認："
 
 #: ../vnc.py:100 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
@@ -2398,11 +2401,11 @@ msgstr "磁碟 inode 不足"
 
 #: ../yuminstall.py:436
 msgid "package conflicts"
-msgstr "套件相衝突"
+msgstr "套件衝突"
 
 #: ../yuminstall.py:437
 msgid "package already installed"
-msgstr "套件已經安裝"
+msgstr "已安裝套件"
 
 #: ../yuminstall.py:438
 msgid "required package"
@@ -2425,13 +2428,11 @@ msgid "Error running transaction"
 msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"由於下列的原因，主機名稱 \"%s\" 無效:\n"
-"\n"
-"%s"
+"由於下列原因，異動程序發生錯誤：%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2442,9 +2443,9 @@ msgid "Retrieving installation information..."
 msgstr "正在取得安裝資訊..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "正在取得安裝資訊..."
+msgstr "正在為 %s 取得安裝資訊..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2453,7 +2454,7 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"無法讀取有關套件的資料。可能是因為缺少了有關軟體庫的資料。請確定您的安裝樹已"
+"無法讀取套件的元資料（metadata）。可能是因為缺少了有關軟體庫的資料。請確定您的安裝樹已"
 "經正確產生。  %s"
 
 #: ../yuminstall.py:691
@@ -2530,7 +2531,7 @@ msgstr "裝置號碼"
 
 #: ../zfcp.py:32
 msgid "You have not specified a device number or the number is invalid"
-msgstr "您尚未指定裝置號碼，或裝置號碼不正確。"
+msgstr "您尚未指定裝置號碼，或該號碼不正確。"
 
 #: ../zfcp.py:34
 msgid "SCSI Id"
@@ -2538,7 +2539,7 @@ msgstr "SCSI ID"
 
 #: ../zfcp.py:35
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "您尚未指定 SCSI ID，或 SCSI ID 不正確。"
+msgstr "您尚未指定 SCSI ID，或該 ID 無效。"
 
 #: ../zfcp.py:37 ../textw/zfcp_text.py:101
 msgid "WWPN"
@@ -2546,7 +2547,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "您尚未指定 worldwide 連接埠名稱，或該名稱不正確。"
+msgstr "您尚未指定 worldwide 連接埠名稱，或該名稱無效。"
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2554,7 +2555,7 @@ msgstr "SCSI LUN"
 
 #: ../zfcp.py:41
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "您尚未指定 SCSI LUN，或該數字不正確。"
+msgstr "您尚未指定 SCSI LUN，或該號碼無效。"
 
 #: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
@@ -2562,7 +2563,7 @@ msgstr "FCP LUN"
 
 #: ../zfcp.py:44
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "您尚未指定 FCP LUN，或裝置號碼不正確"
+msgstr "您尚未指定 FCP LUN，或該號碼無效"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2610,7 +2611,7 @@ msgstr "密碼確認(_C): "
 #: ../iw/autopart_type.py:135
 #, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI 起始名稱："
+msgstr "Initiator 名稱無效"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
@@ -2746,7 +2747,7 @@ msgstr "設定進階開機管理程式選項(_O)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "安裝開機管理程式紀錄於:"
+msgstr "安裝開機管理程式紀錄於："
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
@@ -2862,7 +2863,7 @@ msgstr "升級檢視"
 #: ../iw/examine_gui.py:55
 #, python-format
 msgid "_Install %s"
-msgstr "安裝 %s(_I)"
+msgstr "安裝 %s (_I)"
 
 #: ../iw/examine_gui.py:57
 msgid ""
@@ -2891,7 +2892,7 @@ msgstr "將會升級下列已安裝的系統："
 
 #: ../iw/examine_gui.py:123
 msgid "Unknown Linux system"
-msgstr "未知的 Linux 系統"
+msgstr "不知名 Linux 系統"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
@@ -3019,7 +3020,7 @@ msgstr "原本的檔案系統類型:"
 #: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
-msgstr "不知名的類型"
+msgstr "不知名類型"
 
 #: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
 #: ../iw/raid_dialog_gui.py:314
@@ -3036,14 +3037,14 @@ msgstr "邏輯磁區名稱:"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
-msgstr "大小 (MB)(_S):"
+msgstr "大小 (MB)(_S)："
 
 #: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
 msgid "Size (MB):"
-msgstr "大小 (MB):"
+msgstr "大小 (MB)："
 
 #: ../iw/lvm_dialog_gui.py:463
 #, python-format
@@ -3181,31 +3182,31 @@ msgstr "編輯 LVM 磁區群組"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr "磁區群組名稱(_V):"
+msgstr "磁區群組名稱(_V)："
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
-msgstr "磁區群組名稱:"
+msgstr "磁區群組名稱："
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "實體容量(_P):"
+msgstr "實體容量(_P)："
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
-msgstr "要使用的實體磁區(_U):"
+msgstr "要使用的實體磁區(_U)："
 
 #: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
-msgstr "已用的空間:"
+msgstr "已用空間："
 
 #: ../iw/lvm_dialog_gui.py:1039
 msgid "Free Space:"
-msgstr "剩餘磁碟空間:"
+msgstr "剩餘空間："
 
 #: ../iw/lvm_dialog_gui.py:1057
 msgid "Total Space:"
-msgstr "全部磁碟空間:"
+msgstr "全部磁碟空間："
 
 #: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
@@ -3272,7 +3273,7 @@ msgstr "選擇系統上所使用的滑鼠。"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
-msgstr "閘道器(Gateway)"
+msgstr "閘道器（Gateway）"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:607
 msgid "Primary DNS"
@@ -3334,7 +3335,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"由於下列的原因，主機名稱 \"%s\" 無效:\n"
+"由於下列原因，主機名稱 \"%s\" 無效：\n"
 "\n"
 "%s"
 
@@ -3344,7 +3345,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"轉換為 \"%s\" 輸入的數值時發生錯誤:\n"
+"轉換為 \"%s\" 輸入的數值時發生錯誤：\n"
 "%s"
 
 #: ../iw/network_gui.py:183
@@ -3364,9 +3365,6 @@ msgid ""
 msgstr ""
 "您沒有使用中的網路裝置。  預設下，如沒有至少一個裝置在使用中， 您的系統將無法"
 "使用網路通訊。\n"
-"\n"
-"請注意: 假如您有 PCMCIA 的網路介面卡，在此您應該讓它保持未啟動的狀態。 當您重"
-"新開機後，介面卡將會自動被啟動。"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3399,7 +3397,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:244
 msgid "Encryption _Key"
-msgstr "加密金鑰（_K）"
+msgstr "加密金鑰(_K)"
 
 #: ../iw/network_gui.py:255
 msgid "Hardware address:"
@@ -3431,7 +3429,7 @@ msgstr "網路裝置"
 
 #: ../iw/network_gui.py:546
 msgid "Set the hostname:"
-msgstr "設定主機名稱:"
+msgstr "設定主機名稱："
 
 #: ../iw/network_gui.py:551
 msgid "_automatically via DHCP"
@@ -3451,7 +3449,7 @@ msgstr "主機名稱"
 
 #: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
-msgstr "其他設定"
+msgstr "雜項設定"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -4095,7 +4093,7 @@ msgstr "磁碟"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
-msgstr "遺失發行公告。\n"
+msgstr "缺少發行公告。\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
@@ -4108,17 +4106,17 @@ msgstr "無法載入檔案！"
 #: ../iw/task_gui.py:85
 #, fuzzy
 msgid "Invalid Repository Name"
-msgstr "無效的主機名稱"
+msgstr "軟體庫名稱無效"
 
 #: ../iw/task_gui.py:86
 #, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "您必須輸入一個伺服器名稱。"
+msgstr "您必須提供長度不為零的軟體庫名稱。"
 
 #: ../iw/task_gui.py:95
 #, fuzzy
 msgid "Invalid Repository URL"
-msgstr "無效的開機標籤"
+msgstr "軟體庫 URL 無效"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -4133,8 +4131,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"無法讀取有關套件的資料。可能是因為缺少了有關軟體庫的資料。請確定您的安裝樹已"
-"經正確產生。  %s"
+"無法從軟體庫讀取套件的元資料。可能是因為缺少了軟體庫資料的目錄。請確定您的安裝樹已"
+"經正確產生。\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4217,7 +4217,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr "升級 swap 分割區"
+msgstr "升級 Swap 分割區"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
@@ -4296,7 +4296,7 @@ msgstr "ZFCP 設定"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr "移除（_R）"
+msgstr "移除(_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
@@ -4466,11 +4466,11 @@ msgstr "使用 GRUB 密碼"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "開機管理程式密碼:"
+msgstr "開機管理程式密碼："
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr "密碼確認:"
+msgstr "密碼確認："
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
@@ -4489,7 +4489,7 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"按下 <Enter> 以結束安裝程式。\n"
+"按下 <Enter> 以結束安裝程序。\n"
 "\n"
 
 #: ../textw/complete_text.py:28
@@ -4564,7 +4564,7 @@ msgstr ""
 #: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:269 ../loader2/urls.c:456
 msgid "Back"
-msgstr "上一頁"
+msgstr "上一步"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4589,7 +4589,7 @@ msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一�
 
 #: ../textw/grpselect_text.py:130
 msgid "Package Group Details"
-msgstr "套件群組細節"
+msgstr "套件群組詳情"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
@@ -4617,7 +4617,7 @@ msgstr "選擇滑鼠"
 
 #: ../textw/network_text.py:28
 msgid "Invalid IP string"
-msgstr "無效的 IP 字串"
+msgstr "IP 字串無效"
 
 #: ../textw/network_text.py:29
 #, python-format
@@ -4674,7 +4674,7 @@ msgstr "%s 的網路設定"
 
 #: ../textw/network_text.py:179
 msgid "Invalid information"
-msgstr "無效的資料"
+msgstr "資料無效"
 
 #: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
@@ -4682,23 +4682,23 @@ msgstr "您必須輸入有效的 IP 位址才能繼續"
 
 #: ../textw/network_text.py:247 ../loader2/net.c:920
 msgid "Gateway:"
-msgstr "閘道器:"
+msgstr "閘道器："
 
 #: ../textw/network_text.py:256
 msgid "Primary DNS:"
-msgstr "主 DNS:"
+msgstr "主 DNS："
 
 #: ../textw/network_text.py:261
 msgid "Secondary DNS:"
-msgstr "次 DNS:"
+msgstr "次 DNS："
 
 #: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
-msgstr "第三 DNS:"
+msgstr "第三 DNS："
 
 #: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
-msgstr "其他網路設定"
+msgstr "雜項網路設定"
 
 #: ../textw/network_text.py:345
 msgid "automatically via DHCP"
@@ -4725,11 +4725,11 @@ msgstr ""
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr "無效的主機名稱"
+msgstr "主機名稱無效"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
-msgstr "您沒有指定一個主機名稱。"
+msgstr "您沒有指定主機名稱。"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
@@ -4737,11 +4737,11 @@ msgstr "必須指定一個值"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is not an integer"
-msgstr "輸入的值不是整數"
+msgstr "輸入值不是整數"
 
 #: ../textw/partition_text.py:47
 msgid "Requested value is too large"
-msgstr "輸入的值太大"
+msgstr "輸入值太大"
 
 #: ../textw/partition_text.py:101
 #, python-format
@@ -4763,63 +4763,63 @@ msgstr "確定繼續"
 
 #: ../textw/partition_text.py:270
 msgid "Mount Point:"
-msgstr "檔案系統掛載點:"
+msgstr "掛載點："
 
 #: ../textw/partition_text.py:322
 msgid "File System type:"
-msgstr "檔案系統類型:"
+msgstr "檔案系統類型："
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr "可使用的磁碟機:"
+msgstr "可使用的磁碟機："
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr "固定大小:"
+msgstr "固定大小："
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr "填滿至最大空間 (MB):"
+msgstr "填滿至最大空間 (MB)："
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
-msgstr "填滿至最大的可用空間:"
+msgstr "填滿至最大的可用空間："
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
-msgstr "啟始磁柱:"
+msgstr "啟始磁柱："
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr "結束磁柱:"
+msgstr "結束磁柱："
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
-msgstr "磁區群組:"
+msgstr "磁區群組："
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
-msgstr "RAID 類型:"
+msgstr "RAID 類型："
 
 #: ../textw/partition_text.py:517
 msgid "RAID Members:"
-msgstr "RAID 成員:"
+msgstr "RAID 成員："
 
 #: ../textw/partition_text.py:536
 msgid "Number of spares?"
-msgstr "spares 的數量？"
+msgstr "備援（spares）數量？"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
-msgstr "檔案系統類型:"
+msgstr "檔案系統類型："
 
 #: ../textw/partition_text.py:563
 msgid "File System Label:"
-msgstr "檔案系統標籤:"
+msgstr "檔案系統標籤："
 
 #: ../textw/partition_text.py:574
 msgid "File System Option:"
-msgstr "檔案系統選項:"
+msgstr "檔案系統選項："
 
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
@@ -4855,15 +4855,15 @@ msgstr "格式化時檢查是否有損壞的磁區"
 
 #: ../textw/partition_text.py:612
 msgid "Leave unchanged (preserve data)"
-msgstr "不變動 （保留資料）"
+msgstr "不變動（保留資料）"
 
 #: ../textw/partition_text.py:621
 msgid "Format as:"
-msgstr "格式化為:"
+msgstr "格式化為："
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
-msgstr "轉換成:"
+msgstr "轉換成："
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
@@ -4907,19 +4907,19 @@ msgstr "格式化分割區？"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
-msgstr "輸入的 RAID Spares 無效"
+msgstr "RAID 備援（Spares）項目無效"
 
 #: ../textw/partition_text.py:1093
 msgid "Too many spares"
-msgstr "太多備用磁碟機"
+msgstr "太多備援磁碟機"
 
 #: ../textw/partition_text.py:1094
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "RAID0 的最大 spares 值為 0。"
+msgstr "RAID0 列陣的最大備援（spares）值為 0。"
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
-msgstr "無磁區群組"
+msgstr "沒有磁區群組"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
@@ -4974,7 +4974,7 @@ msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "沒有 root 分割區"
+msgstr "沒有 Root 分割區"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
@@ -4999,11 +4999,11 @@ msgstr "您想安裝程序使用哪些磁碟機？"
 
 #: ../textw/partition_text.py:1605
 msgid "Review Partition Layout"
-msgstr "檢視分割區"
+msgstr "檢視分割區配置"
 
 #: ../textw/partition_text.py:1606
 msgid "Review and modify partitioning layout?"
-msgstr "檢視並修改分割區？"
+msgstr "檢視並修改分割區配置？"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5110,7 +5110,7 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr "剩餘磁碟空間"
+msgstr "剩餘空間"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
@@ -5122,7 +5122,7 @@ msgstr "建議大小 (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr "swap 檔案大小 (MB):"
+msgstr "Swap 檔案大小 (MB):"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
@@ -5275,9 +5275,8 @@ msgstr ""
 "\t遊戲\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -5668,7 +5667,7 @@ msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
-msgstr "選擇一個語言"
+msgstr "選擇語言"
 
 #: ../loader2/loader.c:117
 msgid "Local CDROM"
@@ -5690,7 +5689,7 @@ msgstr "更新磁片來源"
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr "你的系統有多個裝置可以當作更新磁片的來源。 您想要使用那一個？"
+msgstr "您的系統有多個裝置可以當作更新磁片的來源。 您想要使用那一個？"
 
 #: ../loader2/loader.c:346
 #, c-format
@@ -5914,9 +5913,8 @@ msgstr ""
 "      的 %s 目錄\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "無效的 IP 字串"
+msgstr "CIDR 遮罩無效"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -5974,27 +5972,24 @@ msgid "Sending request for IP information for %s..."
 msgstr "正在傳送 %s 之 IP 資訊的要求..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC 密碼錯誤"
+msgstr "網路錯誤"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "清除目的磁碟時發生錯誤。 磁碟複製失敗。"
+msgstr "設定網路界面時發生錯誤。"
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "使用動態 IP 設定 (BOOTP/DHCP)"
+msgstr "使用動態 IP 設定 (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "啟用 IPv4 支援"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "啟用 IPv6 支援"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
@@ -6011,7 +6006,7 @@ msgstr "設定 TCP/IP"
 #: ../loader2/net.c:753 ../loader2/net.c:763
 #, fuzzy
 msgid "Missing Protocol"
-msgstr "找不到群組"
+msgstr "缺少協定"
 
 #: ../loader2/net.c:754
 msgid ""
@@ -6024,47 +6019,41 @@ msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP 位址:"
+msgstr "IPv4 位址："
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP 位址:"
+msgstr "IPv6 位址："
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "名稱伺服器"
+msgstr "名稱伺服器："
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL 設定"
+msgstr "手動 TCP/IP 設定"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "您必須輸入一個有效的 IP 位址及網路遮罩"
+msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "您必須輸入一個有效的 IP 位址及網路遮罩"
+msgstr "您必須輸入有效的 IPv6 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
-msgstr "正在取得主機及網域名稱..."
+msgstr "正在決定主機及網域名稱..."
 
 #: ../loader2/net.c:1447
 #, c-format
@@ -6088,12 +6077,12 @@ msgstr "你的系統有多個網路裝置。 您想要透過那一個安裝？"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
-msgstr "NFS 伺服器名稱:"
+msgstr "NFS 伺服器名稱："
 
 #: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
 #, c-format
 msgid "%s directory:"
-msgstr "%s 安裝目錄:"
+msgstr "%s 安裝目錄："
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
@@ -6188,11 +6177,11 @@ msgstr "Web"
 
 #: ../loader2/urls.c:295
 msgid "FTP site name:"
-msgstr "FTP 站台名稱:"
+msgstr "FTP 站台名稱："
 
 #: ../loader2/urls.c:296
 msgid "Web site name:"
-msgstr "網站名稱:"
+msgstr "網站名稱："
 
 #: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
@@ -6208,11 +6197,11 @@ msgstr "HTTP 設定"
 
 #: ../loader2/urls.c:335
 msgid "You must enter a server name."
-msgstr "您必須輸入一個伺服器名稱。"
+msgstr "您必須輸入伺服器名稱。"
 
 #: ../loader2/urls.c:340
 msgid "You must enter a directory."
-msgstr "您必須輸入一個目錄名稱。"
+msgstr "您必須輸入目錄名稱。"
 
 #: ../loader2/urls.c:345
 msgid "Unknown Host"
@@ -6227,7 +6216,7 @@ msgstr "%s 不是有效的主機名稱。"
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr "如果您使用非匿名的 ftp 站台，請在下面輸入你的帳號以及密碼。"
+msgstr "如果您使用非匿名的 ftp 站台，請在下面輸入您的帳號以及密碼。"
 
 #: ../loader2/urls.c:421
 msgid ""
@@ -6237,7 +6226,7 @@ msgstr "如果您正使用 HTTP 代理伺服器，請輸入 HTTP 代理伺服器
 
 #: ../loader2/urls.c:443
 msgid "Account name:"
-msgstr "帳號名稱:"
+msgstr "帳號名稱："
 
 #: ../loader2/urls.c:466
 msgid "Further FTP Setup"
@@ -6252,40 +6241,36 @@ msgid "Loading SCSI driver"
 msgstr "正在載入 SCSI 驅動程式"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "新增 _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
 msgstr ""
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "額外的大小選項"
+msgstr "進階儲存選項"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "停用 _dmraid 裝置"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "您想要如何處理這個分割區上的檔案系統？"
+msgstr "您要如何修改您的磁碟設定？"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>軟體庫 _URL：</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI 起始名稱(_N)：</b>"
+msgstr "<b>軟體庫 名稱(_N)：</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "新增軟體庫"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6296,7 +6281,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "新增軟體庫(_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6319,9 +6304,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "檢視並修改分割區(_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "進階開機管理程式設定"
+msgstr "進階儲存設定(_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6336,27 +6320,24 @@ msgid "_Exception details"
 msgstr "例外狀況細節(_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "密碼(_P):"
+msgstr "<b>密碼(_P)：</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>目的地 IP 位址(_T)：</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>埠號(_P)：</b>"
+msgstr "<b>使用者名稱(_U)：</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI 起始名稱(_N)：</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev 參數"
+msgstr "設定 iSCSI 參數"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6365,41 +6346,36 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "閘道器:"
+msgstr "<b>閘道器：</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>目的地 IP 位址(_T)：</b>"
+msgstr "<b>IPv4 位址：</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>目的地 IP 位址(_T)：</b>"
+msgstr "<b>IPv6 位址：</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "名稱伺服器"
+msgstr "<b>名稱伺服器：</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>埠號(_P)：</b>"
+msgstr "<b>界面(_I)：</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "啟用 IPv_4 支援"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "啟用 IPv_6 支援"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "啟用網路界面"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6408,9 +6384,8 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "使用動態 IP 設定 (BOOTP/DHCP)"
+msgstr "使用動態 IP 設定 (_DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6434,7 +6409,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "新增額外軟體庫(_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7188,9 +7163,8 @@ msgid "German"
 msgstr "德語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "剩餘空間"
+msgstr "希臘文"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7237,14 +7211,12 @@ msgid "Malay"
 msgstr "馬來文"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "馬來文"
+msgstr "馬拉雅拉姆語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "古吉拉特語"
+msgstr "馬拉地語"
 
 #. generated from lang-table
 msgid "Norwegian"
