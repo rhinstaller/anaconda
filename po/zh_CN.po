@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-12 00:53+1000\n"
+"PO-Revision-Date: 2006-08-13 22:34+1000\n"
 "Last-Translator: x <x@gmail.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -190,12 +190,15 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "无法将这些分区划为主分区"
+msgstr ""
+"无法将这些分区划为主分区。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
 #, fuzzy, python-format
@@ -458,14 +461,14 @@ msgstr ""
 "是否确定要执行该项操作？"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "升级 %s-%s-%s.%s.\n"
+msgstr "升级 %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "安装 %s(_I)"
+msgstr "安装 %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -1111,14 +1114,16 @@ msgstr "安装窗口"
 #: ../harddrive.py:41
 #: ../image.py:143
 #: ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation images and that you have all the required media.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
+"无法打开文件%s 。这是由于文件遗失或者软件包损坏造成的。请检测您使用的安装镜像，确定您有所需的一切介质。\n"
+"\n"
+"您如果重起计算机，您的系统会发生冲突，这将导致您重新安装一次。\n"
 "\n"
 
 #: ../harddrive.py:68
@@ -1236,9 +1241,8 @@ msgstr "在系统上安装"
 
 #: ../iscsi.py:127
 #: ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "初始化"
+msgstr "初始化iSCSI initiator"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1309,14 +1313,13 @@ msgid "IP Address is missing."
 msgstr "缺少 IP 地址"
 
 #: ../network.py:93
-#, fuzzy
 msgid "IP Addresses must contain four numbers between 0 and 255, separated by periods."
-msgstr "IP 地址必须包含从 0 到 255 之间的数字"
+msgstr "IP 地址必须包含从 0 到 255 之间的数字，中间有间隔。"
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s 不是有效的主机名。"
+msgstr "'%s' 不是有效的IPv6地址。"
 
 #: ../packages.py:247
 msgid "Enter Registration Key"
@@ -1757,7 +1760,7 @@ msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安�
 
 #: ../partitions.py:842
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
-msgstr ""
+msgstr "您的引导区不是最初的四个分区之一，因此无法引导驱动器。"
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1877,8 +1880,9 @@ msgid "This RAID device can have a maximum of %s spares. To have more spares you
 msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:924
+#, fuzzy
 msgid "Logical volume size must be larger than the volume group's physical extent size."
-msgstr ""
+msgstr "本地分区大小一定要比物理分区大。"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2409,9 +2413,9 @@ msgid "Retrieving installation information..."
 msgstr "获取安装信息..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "获取安装信息..."
+msgstr "重新获取%s安装信息..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2562,7 +2566,7 @@ msgstr "iSCSI启动名称："
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "您必须提供一个非零长度的引导名。"
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -4034,12 +4038,12 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "您必须为存储器提供一个HTTP或FTP地址。"
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "无法读取软件包的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立了安装树。%s"
+msgstr "无法读取数据库的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立了安装树。%s"
 
 #: ../iw/timezone_gui.py:61
 #: ../textw/timezone_text.py:89
@@ -5741,9 +5745,8 @@ msgstr "正在为 %s 发送 IP 信息请求..."
 
 #: ../loader2/net.c:538
 #: ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC密码错误"
+msgstr "网络错误"
 
 #: ../loader2/net.c:539
 #: ../loader2/net.c:640
@@ -5758,15 +5761,16 @@ msgstr "使用动态 IP 配置(BOOTP/DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "启动IPv4支持"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "启动IPV6支持"
 
 #: ../loader2/net.c:700
+#, fuzzy
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "避免不必要封包碰撞"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
@@ -5778,9 +5782,8 @@ msgstr "配置 TCP/IP"
 
 #: ../loader2/net.c:753
 #: ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "缺少软件包组"
+msgstr "缺少网络协议"
 
 #: ../loader2/net.c:754
 msgid "You must select at least one protocol (IPv4 or IPv6) for manual configuration."
@@ -5788,23 +5791,21 @@ msgstr "采用手动配置，您必须至少选择一项协议（IPv4或IPv6)。
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "您必须至少为DHCP选择一项网络协议（IPv4或IPv6)。"
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP 地址："
+msgstr "IPv4 地址："
 
 #: ../loader2/net.c:846
 #: ../loader2/net.c:888
 #: tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP 地址："
+msgstr "IPv6地址："
 
 #: ../loader2/net.c:928
 #, fuzzy
@@ -6022,16 +6023,18 @@ msgid "Add _ZFCP LUN"
 msgstr "FCP LUN"
 
 #: tmp/adddrive.glade.h:2
+#, fuzzy
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "加入_iSCSI目标"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "高级存储选项"
 
 #: tmp/adddrive.glade.h:4
+#, fuzzy
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "禁止_dmraid设备"
 
 #: tmp/adddrive.glade.h:5
 #, fuzzy
@@ -6048,8 +6051,9 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>(_N)iSCSI 启动器名称:</b>"
 
 #: tmp/addrepo.glade.h:3
+#, fuzzy
 msgid "Add Repository"
-msgstr ""
+msgstr "添加软件库"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6147,19 +6151,20 @@ msgstr "<b>(_I)界面:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "启动IPv_4支持"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "启动IPv_6支持"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "启动网络界面"
 
 #: tmp/netconfig.glade.h:10
+#, fuzzy
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr ""
+msgstr "您在安装的过程中需要激活网络连接，请配置网络界面。"
 
 #: tmp/netconfig.glade.h:11
 #, fuzzy
@@ -6180,8 +6185,9 @@ msgid "The default installation of %s includes a set of  software applicable for
 msgstr "%s的默认安装包含一系列用于互联网常规应用的软件。您希望你的系统还支持其它什么样的附加功能？"
 
 #: tmp/tasksel.glade.h:5
+#, fuzzy
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "添加（_A）额外的软件库"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -6969,7 +6975,7 @@ msgstr "日语"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "<印> 埃纳德语"
 
 #. generated from lang-table
 msgid "Korean"
@@ -6984,9 +6990,8 @@ msgid "Malay"
 msgstr "马来语"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "马来语"
+msgstr "马拉雅拉姆语"
 
 #. generated from lang-table
 msgid "Marathi"
@@ -7002,7 +7007,7 @@ msgstr "北索托语"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "奥里雅语"
 
 #. generated from lang-table
 msgid "Persian"
