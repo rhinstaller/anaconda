@@ -1,3 +1,12 @@
+2006-08-14  Peter Jones  <pjones@redhat.com>
+
+	* loader2/loader.c: include selinux-devel's selinux.h
+
+	* loader2/selinux.h: don't declare setexeccon()
+
+	* loader2/selinux.c: don't define setexeccon(), libselinux.a has it
+	now.
+
 2006-08-14  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  virtpconsole is a value, not a boolean (#202450).

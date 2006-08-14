@@ -83,6 +83,7 @@
 #include "net.h"
 #include "telnetd.h"
 
+#include <selinux/selinux.h>
 #include "selinux.h"
 
 #include "../isys/imount.h"
