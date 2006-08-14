@@ -106,44 +106,41 @@ msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
 #: ../anaconda:877
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Dull Url anhysbys %s"
+msgstr ""
 
 #: ../anaconda:878
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
-"Rydych yn ceisio arsefydlu ar beiriant nas cynhelir gan y rhyddhad yma o %s."
 
 #: ../anaconda:880
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Dull Url anhysbys %s"
+msgstr ""
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Methwyd neilltuo rhaniadau sail silindr yn rhaniadau cynradd"
+msgstr ""
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Methwyd neilltuo rhaniadau yn rhaniadau cynradd"
+msgstr ""
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Methwyd neilltuo rhaniadau sail silindr"
+msgstr ""
 
 #: ../autopart.py:1019
 #, python-format
@@ -424,16 +421,14 @@ msgstr ""
 "A ydych yn sicr eich bod am wneud hyn?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"Yn uwchraddio pecynnau %s\n"
-"\n"
+msgstr "Yn uwchraddio %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Arsefydlu %s"
+msgstr ""
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -478,28 +473,22 @@ msgid "Installing %s-%s-%s... "
 msgstr "Yn arsefydlu %s-%s-%s... "
 
 #: ../constants.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
-"Digwyddodd eithriad anrhinedig. Nam yw hwn, yn fwy na thebyg. Copïwch destun "
-"cyflawn yr eithriad yma, wedyn cyflwynwch adroddiad nam manwl ar gyfer "
-"anaconda fan hyn: %s"
 
 #: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
 msgstr "Ysgrifennwyd Tomen"
 
 #: ../exception.py:391
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"Ysgrifennwyd cyflwr eich system i'r ddisg feddal yn llwyddiannus. "
-"Ailgychwynnir eich system nawr."
 
 #: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
 #: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
@@ -509,22 +498,18 @@ msgid "_Reboot"
 msgstr "_Ailgychwyn"
 
 #: ../exception.py:399 ../exception.py:416
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Ysgrifennwyd Tomen"
+msgstr ""
 
 #: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
 #: ../exception.py:408
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Ysgrifennwyd cyflwr eich system i'r ddisg feddal yn llwyddiannus. "
-"Ailgychwynnir eich system nawr."
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
@@ -635,9 +620,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1480
-#, fuzzy
 msgid "Reformat"
-msgstr "Fformat"
+msgstr "Ail-fformat"
 
 #: ../fsset.py:1484
 #, python-format
@@ -791,9 +775,8 @@ msgstr ""
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Methu llwytho ffeil!"
+msgstr ""
 
 #: ../fsset.py:1730
 #, python-format
@@ -1022,7 +1005,7 @@ msgid "Install Window"
 msgstr "Ffenestr Arsefydlu"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1032,12 +1015,6 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nid oes modd agor y pecyn %s-%s-%s. Mae hyn o achos ffeil goll neu efallai "
-"becyn llygredig.  Os ydych yn arsefydlu o gyfrwng CDd, golyga hyn gan amlaf "
-"fod y cyfrwng CDd yn llygredig, neu ni all y gyrrydd CDd ddarllen y "
-"cyfrwng.\n"
-"\n"
-"Gwasgwch <return> i geisio eto."
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
@@ -1054,9 +1031,8 @@ msgid ""
 msgstr ""
 
 #: ../harddrive.py:78 ../image.py:514
-#, fuzzy
 msgid "Re_try"
-msgstr "Ail-geisio"
+msgstr "_Ail-geisio"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1131,7 +1107,7 @@ msgid "Unable to access the CDROM."
 msgstr "Methu cyrchu'r CDROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1141,12 +1117,6 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nid oes modd agor y pecyn %s-%s-%s. Mae hyn o achos ffeil goll neu efallai "
-"becyn llygredig.  Os ydych yn arsefydlu o gyfrwng CDd, golyga hyn gan amlaf "
-"fod y cyfrwng CDd yn llygredig, neu ni all y gyrrydd CDd ddarllen y "
-"cyfrwng.\n"
-"\n"
-"Gwasgwch <return> i geisio eto."
 
 #: ../image.py:504
 #, python-format
@@ -1163,9 +1133,8 @@ msgid "Install on System"
 msgstr "Arsefydlu ar System"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Yn ymgychwyn"
+msgstr ""
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1185,9 +1154,8 @@ msgstr ""
 "Gwasgwch y botwm Iawn i ailgychwyn eich system."
 
 #: ../kickstart.py:821 ../kickstart.py:839
-#, fuzzy
 msgid "Running..."
-msgstr "Yn cysylltu..."
+msgstr "Yn rhedeg..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
@@ -1219,13 +1187,11 @@ msgid "Missing Group"
 msgstr "Grŵp Coll"
 
 #: ../kickstart.py:1009
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Fe benodoch y dylid arsefydlu'r grŵp '%s'. Nid yw'r grŵp yma'n bodoli. A "
-"hoffech barhau, neu erthylu'ch arsefydliad?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1242,26 +1208,23 @@ msgstr ""
 "Gall enw'r gwesteiwr gynnwys y nodau 'a-z', 'A-Z', '-', neu '.' yn unig."
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
 msgstr "Mae'r Cyfeiriad IP ar goll"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Rhaid i Gyfeiriadau IP gynnwys rhifau rhwng 0 a 255"
+msgstr ""
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "Nid yw %s yn enw gwesteiwr dilys."
+msgstr ""
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Allwedd Amgryptio"
+msgstr ""
 
 #: ../packages.py:248
 #, python-format
@@ -1461,13 +1424,11 @@ msgstr ""
 "ofodau.  Dyma'r nodau derbyniol: llythrennau, digidau, '.' neu '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Mae'r man gosod yn annilys.  Rhaid i fannau gosod ddechrau â '/' a ni "
-"fedrant orffen â '/', a rhaid iddynt gynnwys nodau argraffadwy a dim gofod."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2094,9 +2055,8 @@ msgid "Save"
 msgstr "Cadw"
 
 #: ../text.py:152 ../text.py:166
-#, fuzzy
 msgid "Remote"
-msgstr "Gwaredu"
+msgstr ""
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
@@ -2111,9 +2071,8 @@ msgid "Save to Remote Host"
 msgstr ""
 
 #: ../text.py:190
-#, fuzzy
 msgid "Host"
-msgstr "Enw gwesteiwr"
+msgstr ""
 
 #: ../text.py:192
 msgid "Remote path"
@@ -2286,7 +2245,7 @@ msgid "Connecting..."
 msgstr "Yn cysylltu..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2296,12 +2255,6 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nid oes modd agor y pecyn %s-%s-%s. Mae hyn o achos ffeil goll neu efallai "
-"becyn llygredig.  Os ydych yn arsefydlu o gyfrwng CDd, golyga hyn gan amlaf "
-"fod y cyfrwng CDd yn llygredig, neu ni all y gyrrydd CDd ddarllen y "
-"cyfrwng.\n"
-"\n"
-"Gwasgwch <return> i geisio eto."
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
@@ -2368,9 +2321,8 @@ msgid "The password must be at least six characters long."
 msgstr "Rhaid i'r cyfrinair fod o leiaf chwe nod o hyd."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Heb gyfrinair"
+msgstr ""
 
 #: ../vnc.py:138
 msgid ""
@@ -2467,18 +2419,16 @@ msgid "Processing"
 msgstr "Yn prosesu"
 
 #: ../yuminstall.py:104
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Yn paratoi i arsefydlu..."
+msgstr ""
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
 msgstr ""
 
 #: ../yuminstall.py:433
-#, fuzzy
 msgid "older package(s)"
-msgstr "Pecynnau Dewisol"
+msgstr ""
 
 #: ../yuminstall.py:434
 msgid "insufficient disk space"
@@ -2489,18 +2439,16 @@ msgid "insufficient disk inodes"
 msgstr ""
 
 #: ../yuminstall.py:436
-#, fuzzy
 msgid "package conflicts"
-msgstr "Rhagosodiadau Pecyn"
+msgstr ""
 
 #: ../yuminstall.py:437
 msgid "package already installed"
 msgstr ""
 
 #: ../yuminstall.py:438
-#, fuzzy
 msgid "required package"
-msgstr "Lle rhydd"
+msgstr ""
 
 #: ../yuminstall.py:439
 msgid "package for incorrect arch"
@@ -2515,42 +2463,35 @@ msgid "You need more space on the following file systems:\n"
 msgstr ""
 
 #: ../yuminstall.py:470
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Yn paratoi cyfnewidiad RPM..."
+msgstr ""
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"Nid yw'r enw gwesteiwr \"%s\" yn ddilys am y rheswm canlynol:\n"
-"\n"
-"%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
 msgstr "Ail_gychwyn"
 
 #: ../yuminstall.py:638
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Yn darllen gwybodaeth pecynnau..."
+msgstr ""
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Yn darllen gwybodaeth pecynnau..."
+msgstr ""
 
 #: ../yuminstall.py:656
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Mae sawl grŵp hanfodol ar goll o'r ffeil 'comps' yn eich coeden arsefydlu. "
-"Gwnewch yn siŵr bod eich coeden arsefydlu wedi ei gynhyrchu'n gywir."
 
 #: ../yuminstall.py:691
 msgid "Uncategorized"
@@ -2578,17 +2519,15 @@ msgid "Install Starting"
 msgstr "Arsefydliad yn Dechrau"
 
 #: ../yuminstall.py:1094
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymryd sawl munud..."
 
 #: ../yuminstall.py:1110
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Uwchraddio"
+msgstr "Wedi'r Uwchraddio"
+
 
 #: ../yuminstall.py:1111
-#, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Yn gweithredu cyfluniad wedi'r arsefydlu..."
 
@@ -2601,9 +2540,8 @@ msgid "Performing post install configuration..."
 msgstr "Yn gweithredu cyfluniad wedi'r arsefydlu..."
 
 #: ../yuminstall.py:1264
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Math Arsefydliad"
+msgstr ""
 
 #: ../yuminstall.py:1299
 msgid "Dependency Check"
@@ -2716,24 +2654,20 @@ msgid "_Confirm: "
 msgstr "Cadarn_hau: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Enw Grŵp Cyfrolau Anghyfreithlon"
+msgstr ""
 
 #: ../iw/autopart_type.py:136
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "Rhaid i chi ddarparu enw defnyddiwr"
+msgstr ""
 
 #: ../iw/autopart_type.py:158
-#, fuzzy
 msgid "Error with Data"
-msgstr "Gwall â Data"
+msgstr ""
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Gwaredu pob rhaniad ar y system yma"
+msgstr ""
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -2945,15 +2879,11 @@ msgid "Congratulations"
 msgstr "Llongyfarchiadau"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Tynnwch unrhyw gyfryngau arsefydlu a ddefnyddiwyd yn ystod y broses "
-"arsefydlu a gwasgwch y botwm \"Ailgychwyn\" i ailgychwyn eich system.\n"
-"\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -3213,15 +3143,12 @@ msgstr ""
 "yn dda."
 
 #: ../iw/lvm_dialog_gui.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"Mae'r maint gofynnol cyfredol (%10.2f MB) yn fwy nag uchafswm maint cyfrolau "
-"rhesymegol (%10.2f MB). I gynyddu'r terfyn hwn gallwch gynyddu maint Mesur "
-"Corfforol y Grŵp Cyfrolau yma."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3497,18 +3424,10 @@ msgid "The IP information you have entered is invalid."
 msgstr "Mae'r wybodaeth IP a roddoch yn annilys."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"Nid oes gennych ddyfeisiau rhwydwaith gweithredol.  Ni fydd eich system yn "
-"gallu cyfathrebu dros rwydwaith yn ragosodedig heb o leiaf un ddyfais yn "
-"weithredol.\n"
-"\n"
-"NODER: Os oes gennych addasydd rhwydwaith sail PCMCIA dylech ei adael yn "
-"anweithredol ar hyn o bryd. Pan ailgychwynnwch eich system fe gaiff yr "
-"addasydd ei weithredoli'n awtomatig."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4264,26 +4183,23 @@ msgid "Unable to load file!"
 msgstr "Methu llwytho ffeil!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Enw Gwesteiwr Annilys"
+msgstr ""
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Rhaid i chi ddarparu enw defnyddiwr"
+msgstr ""
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Label Cychwyn Annilys"
+msgstr ""
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4291,8 +4207,6 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Mae sawl grŵp hanfodol ar goll o'r ffeil 'comps' yn eich coeden arsefydlu. "
-"Gwnewch yn siŵr bod eich coeden arsefydlu wedi ei gynhyrchu'n gywir."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4625,12 +4539,9 @@ msgstr ""
 "eu cychwyn a pha label yr ydych am ddefnyddio am bob un ohonynt."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Gofodnod> dewis botwm | <F2> dewis cofnod cychwyn rhagosodedig | <F12> "
-"sgrin nesaf>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4680,15 +4591,11 @@ msgid "<Enter> to exit"
 msgstr "<Dychwelydd> i adael"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
 msgstr ""
-"Tynnwch unrhyw gyfryngau arsefydlu a ddefnyddiwyd yn ystod y broses "
-"arsefydlu a gwasgwch <Enter> i ailgychwyn eich system.\n"
-"\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
@@ -4765,9 +4672,8 @@ msgstr ""
 "Efallai byddwch am gadw'r ffeil yma i gyfeirio ati nes ymlaen."
 
 #: ../textw/grpselect_text.py:84
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Dewiswch y cydraniad yr hoffech ei ddefnyddio:"
+msgstr ""
 
 #: ../textw/grpselect_text.py:102
 msgid ""
@@ -5176,9 +5082,8 @@ msgid "Must have a / partition to install on."
 msgstr "Rhaid cael rhaniad / i arsefydlu arno."
 
 #: ../textw/partition_text.py:1516
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Math rhaniad"
+msgstr "Math Rhaniad"
 
 #: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
 msgid ""
@@ -5193,12 +5098,10 @@ msgstr ""
 "Pa yriant/yriannau ydych am ei/eu defnyddio ar gyfer yr arsefydliad yma?"
 
 #: ../textw/partition_text.py:1605
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
+msgstr "_Adolygu'r rhanaidau a grëir"
 
 #: ../textw/partition_text.py:1606
-#, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
 
@@ -5256,9 +5159,8 @@ msgid "Remaining:  "
 msgstr "Yn weddill:  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Dewis Grŵpiau Pecynnau"
+msgstr ""
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5430,9 +5332,8 @@ msgstr ""
 "arsefydlu, gan gynnwys dewis pecynnau meddalwedd â rhannu."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Fformadu"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
@@ -5443,9 +5344,8 @@ msgid "Software Development"
 msgstr ""
 
 #: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
-#, fuzzy
 msgid "Web server"
-msgstr "Gweinydd Enwau"
+msgstr "Gweinydd We"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5480,9 +5380,8 @@ msgstr ""
 "\tGêmau\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -5733,16 +5632,12 @@ msgstr ""
 "s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Rhowch unrhyw baramedrau yr hoffech eu pasio at y modwl %s, wedi'u gwahanu "
-"gan ofodau.  Os nad ydych yn gwybod pa baramedrau i'w cyflenwi, hepgorwch y "
-"sgrin yma drwy wasgu'r botwm \"Iawn\".  Gellir cael rhestr o'r dewisiadau "
-"sydd ar gael drwy wasgu'r fysell F1."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6060,14 +5955,11 @@ msgid "FAILED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"METHIANT.\n"
-"\n"
 "Mae gwallau yn y ddelwedd sydd newydd ei phrofi. Gallai hyn fod o achos "
 "lawrlwythiad llygredig, neu ddisg gwael.  Os yn berthnasol, glanhewch y "
 "ddisg a cheisiwch eto.  Os yw'r prawf hwn yn parhau i fethu, ni ddylech "
@@ -6075,39 +5967,30 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "IAWN"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"LLWYDDIANT.\n"
-"\n"
-"Mae'n iawn i arsefydlu o'r cyfrwng yma."
+msgstr "Mae'n iawn i arsefydlu o'r cyfrwng yma."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"DDIM AR GAEL.\n"
-"\n"
-"Nid oes gwybodaeth prawfswm ar gael, methu gwirio cyfrwng."
+msgstr "Nid oes gwybodaeth prawfswm ar gael, methu gwirio cyfrwng."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Canlyniad Gwirio Cyfrwng"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"o'r ddelwedd:\n"
+"%s o'r ddelwedd:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6158,9 +6041,8 @@ msgstr ""
 "      %s ar gyfer eich saernïaeth\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Llinyn IP annilys"
+msgstr ""
 
 #: ../loader2/net.c:97
 msgid ""
@@ -6221,19 +6103,16 @@ msgid "Sending request for IP information for %s..."
 msgstr "Yn anfon cais am wybodaeth IP ar gyfer %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Heb gyfrinair"
+msgstr ""
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Bu gwall wrth wagio'r gyriannau targed.  Methodd y clonio."
+msgstr ""
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Defnyddio cyflunio IP dynamig (BOOTP/DHCP)"
+msgstr "Defnyddio cyflunio IP dynamig (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -6256,60 +6135,51 @@ msgid "Configure TCP/IP"
 msgstr "Cyflunio TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Grŵp Coll"
+msgstr ""
 
 #: ../loader2/net.c:754
-#, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "Rhaid i chi ddewis o leiaf un iaith i'w harsefydlu."
+msgstr ""
 
 #: ../loader2/net.c:764
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Rhaid i chi ddewis o leiaf un iaith i'w harsefydlu."
+msgstr ""
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Cyfeiriad IP:"
+msgstr "Cyfeiriad IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Cyfeiriad IP:"
+msgstr "Cyfeiriad IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Gweinydd Enwau"
+msgstr "Gweinydd Enwau:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Cyfluniad z/IPL"
+msgstr ""
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Gwybodaeth ar Goll"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Rhaid i chi roi cyfeiriad IP dilys a masg rhwyd ill dau."
+msgstr ""
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Rhaid i chi roi cyfeiriad IP dilys a masg rhwyd ill dau."
+msgstr ""
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6347,9 +6217,8 @@ msgid "%s directory:"
 msgstr "Cyfeiriadur %s:"
 
 #: ../loader2/nfsinstall.c:55
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6508,27 +6377,24 @@ msgid "Loading SCSI driver"
 msgstr "Yn llwytho gyrrydd SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "LUN FCP"
+msgstr "Ychwanegu LUN _ZFCP"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
 msgstr ""
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Dewisiadau Maint Ychwanegol"
+msgstr ""
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Sut hoffech baratoi'r system ffeiliau ar y rhaniad yma?"
+msgstr ""
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6570,52 +6436,44 @@ msgid "_Release Notes"
 msgstr "Nodiadau _Rhyddhau"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
+msgstr ""
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Cyfluniad Cychwynnydd Uwch"
+msgstr ""
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Dewiswch y ddisg/disgiau i'w defnyddio ar gyfer yr arsefydliad yma:"
+msgstr "_Dewiswch y ddisg/disgiau i'w defnyddio ar gyfer yr arsefydliad yma:"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Digwyddodd Eithriad"
+msgstr ""
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Digwyddodd Eithriad"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Cyfrinair:"
+msgstr "<b>_Cyfrinair:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "Enw defnyddiwr"
+msgstr "<b>_Enw defnyddiwr:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Paramedrau Chandev"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6624,24 +6482,20 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Porth:"
+msgstr "<b>Porth:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "Cyfeiriad IP"
+msgstr "<b>Cyfeiriad IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "Cyfeiriad IP"
+msgstr "<b>Cyfeiriad IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Gweinydd Enwau"
+msgstr "<b>Gweinydd Enwau:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
@@ -6666,14 +6520,12 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Defnyddio cyflunio IP dynamig (BOOTP/DHCP)"
+msgstr "Defnyddio cyflunio IP dynamig (DHCP)"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Addasu"
+msgstr ""
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6694,9 +6546,8 @@ msgid "_Add additional software repositories"
 msgstr ""
 
 #: tmp/tasksel.glade.h:6
-#, fuzzy
 msgid "_Customize now"
-msgstr "Addasu"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6747,15 +6598,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Amser Iwerydd - Dn Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Amser Iwerydd - Dn Labrador"
+msgstr "Amser Iwerydd - Brunswick Newydd"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"Amser Iwerydd - Nova Scotia (rhan fwyaf o lefydd), NB, Gn Labrador, Dn "
+"Amser Iwerydd - Nova Scotia (rhan fwyaf o lefydd), Gn Labrador, Dn "
 "Cwebèc a PEI"
 
 #. generated from zone.tab
@@ -6792,9 +6641,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Gorsaf Casey, Penrhyn Bailey"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6821,9 +6669,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Amser y Canolbarth - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Amser y Canolbarth - gorllewin Nunavut"
+msgstr "Amser y Canolbarth - canolbarth Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6836,27 +6683,24 @@ msgid ""
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Amser Safonol Dwyreiniol - Indiana - Sir Starke"
+msgstr "Amser Canolbarth - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Amser y Canolbarth - Manitoba a gorllewin Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Amser y Canolbarth - Ffin Michigan - Wisconsin"
+msgstr "Amser y Canolbarth - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "Amser y Canolbarth - rhan fwyaf o lefydd"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Amser y Canolbarth - Gogledd Dakota - Sir Oliver"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6915,38 +6759,32 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Ynys y Pasg a Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Amser Safonol Dwyreiniol - dwyrain Nunavut"
+msgstr "Amser Safonol Dwyreiniol - Ynys Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Amser Dwyreiniol"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Amser Safonol Dwyreiniol - dwyrain Nunavut"
+msgstr "Amser Dwyreiniol - dwyrain Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Amser Safonol Dwyreiniol - Indiana - Sir Crawford"
+msgstr "Amser Dwyreiniol - Indiana - Sir Crawford"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Amser Safonol Dwyreiniol - Indiana - rhan fwyaf o lefydd"
+msgstr "Amser Dwyreiniol - Indiana - rhan fwyaf o lefydd"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Amser Safonol Dwyreiniol - Indiana - Sir Starke"
+msgstr "Amser Dwyreiniol - Indiana - Sir Starke"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Amser Safonol Dwyreiniol - Indiana - Sir y Swisdir"
+msgstr "Amser Dwyreiniol - Indiana - Sir y Swisdir"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6972,9 +6810,8 @@ msgstr ""
 "1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Amser Safonol Dwyreiniol - Pangnirtung, Nunavut"
+msgstr "Amser Dwyreiniol - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7327,9 +7164,8 @@ msgid "Tasmania - King Island"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - rhan fwyaf o lefydd"
+msgstr "Tasmania - rhan fwyaf o lefydd"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7348,9 +7184,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) ac Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7469,9 +7304,8 @@ msgid "German"
 msgstr "Almaeneg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Rhydd"
+msgstr ""
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7518,14 +7352,12 @@ msgid "Malay"
 msgstr "Maleisieg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Maleisieg"
+msgstr ""
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7564,14 +7396,12 @@ msgid "Russian"
 msgstr "Rwsieg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Perseg"
+msgstr ""
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Perseg"
+msgstr ""
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7613,1679 +7443,3 @@ msgstr "Cymraeg"
 msgid "Zulu"
 msgstr "Zwlŵeg"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Methwyd neilltuo rhaniadau"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Gallwch ddewis ddewisiad rhannu awtomatig gwahanol, neu glicio 'Yn Ôl' i "
-#~ "ddewis rhannu â llaw.\n"
-#~ "\n"
-#~ "Gwasgwch 'Iawn' i barhau."
-
-#~ msgid "Upgrading %s-%s-%s.%s.\n"
-#~ msgstr "Yn uwchraddio %s-%s-%s.%s.\n"
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Yn arsefydlu %s-%s-%s.%s.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Nid oes modd agor y pecyn %s-%s-%s. Mae hyn o achos ffeil goll neu "
-#~ "efallai becyn llygredig.  Os ydych yn arsefydlu o gyfrwng CDd, golyga hyn "
-#~ "gan amlaf fod y cyfrwng CDd yn llygredig, neu ni all y gyrrydd CDd "
-#~ "ddarllen y cyfrwng.\n"
-#~ "\n"
-#~ "Gwasgwch <return> i geisio eto."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Os wnewch chi ailgychwyn, bydd eich system yn anghyson, ac yn fwy na "
-#~ "thebyg bydd angen ei arsefydlu eto. Ydych chi'n siŵr eich bod am "
-#~ "ailgychwyn?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Diddymu"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "Rhaid i Gyfeiriadau IP gynnwys rhifau rhwng 1 a 255"
-
-#, fuzzy
-#~ msgid "iSCSI Configuration"
-#~ msgstr "Cyfluniad SILO"
-
-#, fuzzy
-#~ msgid "Target IP address:"
-#~ msgstr "Cyfeiriad IP:"
-
-#, fuzzy
-#~ msgid "Port Number:"
-#~ msgstr "neu ddefnyddio:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tPlisgyn penbwrdd (GNOME)\n"
-#~ "\tArfau Rheoli\n"
-#~ "\tArfau Cyflunio Gweinydd\n"
-#~ "\tGweinydd Gwe\n"
-#~ "\tGweinydd Ffeiliau Windows\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Penbwrdd Red Hat Enterprise Linux"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Rhowch gyfluniad IP y peiriant yma os gwelwch yn dda. Dylid rhoi pob "
-#~ "eitem fel cyfeiriad IP mewn nodiant degol dotiog (er enghraifft, 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Masg Rhwyd:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Porth Rhagosodedig (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Gweinydd enwau cynradd:"
-
-#, fuzzy
-#~ msgid "iSCSI configuration"
-#~ msgstr "Cyfluniad SILO"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Mae'r nodiadau rhyddhau ar goll."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Roedd y pecynnau canlynol ar gael yn y fersiwn yma ond NI'u "
-#~ "huwchraddiwyd:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Roedd y pecynnau canlynol ar gael yn y fersiwn yma ond NI'u "
-#~ "harsefydlwyd:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Yn canfod"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Yn canfod pecynnau i'w huwchraddio..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Ni all y rhaglen arsefydlu uwchraddio systemau â chronfa ddata cyn-rpm 4."
-#~ "x. Arsefydlwch y pecynnau rhestri gwallau rpm ar gyfer eich rhyddhad fel "
-#~ "y disgrifir yn y nodiadau rhyddhau ac wedyn rhedwch y drefn uwchraddio."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Digwyddodd gwall wrth ganfod y pecynnau i'w huwchraddio."
-
-#~ msgid "Installation Type"
-#~ msgstr "Math Arsefydliad"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Pa fath o system hoffech ei arsefydlu?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Addasu Pecynnau i'w Diweddaru"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Mae'r pecynnau yr ydych wedi eu harsefydlu, ac unrhyw becynnau eraill "
-#~ "maen nhw'n ddibynnol arnynt, wedi eu dewis ar gyfer eu harsefydlu. "
-#~ "Hoffech chi addasu'r set o becynnau sydd i'w diweddaru?"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Cuddio _Cymorth"
-
-#~ msgid "Show _Help"
-#~ msgstr "Dangos _Cymorth"
-
-#, fuzzy
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Dewiswch y ddisg/disgiau i'w defnyddio ar gyfer yr arsefydliad yma:"
-
-#, fuzzy
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
-
-#~ msgid "Amharic"
-#~ msgstr "Amhareg"
-
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Mae'r grŵp yma'n cynnwys yr holl becynnau sydd ar gael.  Noder bod llawer "
-#~ "rhagor o becynnau na'r holl rai yn y grwpiau pecynnau eraill ar y dudalen "
-#~ "hon yn unig."
-
-#~ msgid "Everything"
-#~ msgstr "Popeth"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Dewiswch y grŵp yma i gael y set leiaf posib o becynnau.  Yn ddefnyddiol "
-#~ "ar gyfer creu blychau bach llwybro/muriau cadarn, er enghraifft."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Amrywiol"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Rydych yn ceisio arsefydlu ar beiriant nas cynhelir gan y rhyddhad yma o %"
-#~ "s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Rhannu Awtomatig"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Rydw i am gael rhannu awtomatig:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Dewiswch y ddisg/disgiau i'w defnyddio ar gyfer yr arsefydliad yma:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Newid Cychwynnydd"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Rydych wedi dewis peidio ag arsefydlu unrhyw gychwynnydd. Argymhellir yn "
-#~ "gryf eich bod yn arsefydlu cychwynnydd os nad oes gennych angen uwch.  "
-#~ "Mae angen cychwynnydd bron bob amser i allu ailgychwyn eich system yn "
-#~ "Linux yn uniongyrchol o'r ddisg galed.\n"
-#~ "\n"
-#~ "Hoffech chi barhau, a pheidio gosod cychwynnydd?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "P_arhau heb gychwynnydd"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Dewiswch y cychwynnydd i'r cyfrifiadur ei ddefnyddio.  GRUB yw'r "
-#~ "cychwynnydd rhagosodedig, ond os nad ydych am drosysgrifo'ch cychwynnydd "
-#~ "cyfredol, dewiswch \"Peidio ag arsefydlu cychwynnydd.\"  "
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Defnyddio _GRUB yn gychwynnydd"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Peidio ag arsefydlu cychwynnydd"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Newid cychwynnydd"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Dibyniaethau heb eu Datrys"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Cyfanswm maint yr arsefydliad: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Angen"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Arsefydlu pecynnau i fodloni dibyniaethau"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "_Peidio ag arsefydlu pecynnau sydd â dibyniaethau"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "_Anwybyddu dibyniaethau pecynnau"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Yn yr amgylchedd arsefydlu rhagosodedig ceir y pecynnau yr ydym ni yn eu "
-#~ "hargymell, sy'n cynnwys:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Wedi'r arsefydlu, gellir ychwanegu neu waredu meddalwedd ychwanegol gan "
-#~ "ddefnyddio'r erfyn 'system-config-packages'.\n"
-#~ "\n"
-#~ "Os ydych yn gyfarwydd â %s, gall fod gennych becynnau penodol yr hoffech "
-#~ "eu harsefydlu, neu osgoi eu harsefydlu. Brithwch y blwch isod i addasu'ch "
-#~ "arsefydliad."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Os hoffech newid y set becynnau ragosodedig i'w harsefydlu gallwch ddewis "
-#~ "addasu hyn isod."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Arsefydlu pecynnau meddalwedd rhagosodedig"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Addasu'r pecynnau meddalwedd i'w harsefydlu"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "Pecynnau"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "Pa fath o gyfrwng sy'n cynnwys y pecynnau i'w harsefydlu?"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Mae'r amgylchedd arsefydlu rhagosodedig yn cynnwys ein dewisiad pecynnau "
-#~ "argymelledig.  Wedi'r arsefydlu, gellir ychwanegu neu waredu meddalwedd "
-#~ "ychwanegol drwy'r erfyn 'system-config-packages'.\n"
-#~ "\n"
-#~ "Serch hynny, dosberthir %s â llawer rhagor o gymwysiadau, a gallwch "
-#~ "addasu'r dewisiad o feddalwedd i'w arsefydlu os hoffech."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Dewiswch becynnau unigol"
-
-#~ msgid "Package :"
-#~ msgstr "Pecyn :"
-
-#~ msgid "Size    :"
-#~ msgstr "Maint    :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f KBeit"
-
-#~ msgid "Total size"
-#~ msgstr "Cyfanswm maint"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Dewis Pecynnau Unigol"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "  <Gofodnod>,<+>,<-> dewisiad   |   <F1> cymorth   |   <F2> disgrifiad "
-#~ "pecyn"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Dibyniaethau Pecynnau"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Mae angen pecynnau na ddewisoch ar rai o'r pecynnau y dewisoch. Os "
-#~ "dewiswch Iawn fe arsefydlir yr holl becynnau sydd eu hangen."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Arsefydlu pecynnau i fodloni dibyniaethau"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Peidio ag arsefydlu pecynnau sydd â dibyniaethau"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Anwybyddu dibyniaethau pecynnau"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Ni chanfuwyd llygoden.  Mae angen llygoden ar gyfer arsefydliad "
-#~ "graffigol.  Yn dechrau'r modd testun."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Canfuwyd llygoden math: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Yn defnyddio llygoden math: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Digwyddodd eithriad anrhinedig. Nam yw hwn, yn fwy na thebyg. Copïwch "
-#~ "destun cyflawn yr eithriad yma, neu cadwch y domen chwaliad i ddisg "
-#~ "feddal, wedyn cyflwynwch adroddiad nam manwl ar gyfer anaconda fan hyn: %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Mewngofnod Pell (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Gwasanaethwr Gwe (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Trosglwyddiad Ffeil (FTP)"
-
-#
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Gwasanaethwr Ebost (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Methu gwneud disg gychwyn feddal"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Gwna maint y modylau cnewyllyn sydd eu hangen ar eich peiriant hi'n "
-#~ "amhosibl i greu disg gychwyn sy'n ffitio ar ddisgen feddal."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Rhowch ddisg feddal i mewn"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Tynnwch unrhyw ddisgiau o'r gyrrydd disgiau meddal, a rhowch y ddisg "
-#~ "feddal sydd i gynnwys y ddisg gychwyn i mewn.\n"
-#~ "\n"
-#~ "DILËIR yr holl ddata yn ystod creu'r ddisg gychwyn."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Gwneud disg gychwyn"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Digwyddodd gwall wrth wneud y ddisg gychwyn. Sicrhewch fod yna ddisg "
-#~ "feddal yn y gyrrydd disgiau meddal cyntaf, os gwelwch yn dda."
-
-#~ msgid "Creating"
-#~ msgstr "Yn Creu"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Yn creu disg gychwyn..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Digwyddodd gwall wrth geisio gwirio'r ddisg gychwyn.  Sicrhewch fod yna "
-#~ "ddisg feddal dda yn y gyrrydd disgiau meddal cyntaf, os gwelwch yn dda."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Mae'ch disg gychwyn feddal i'w gweld yn annilys.  Mae'n bosib bod nam ar "
-#~ "y disg meddal.  Sicrhewch fod yna ddisg feddal dda yn y gyrrydd disgiau "
-#~ "meddal cyntaf, os gwelwch yn dda."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Cadw ar ddisg hyblyg"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Mae'r delweddau ISO canlynol, sydd eu hangen ar gyfer yr arsefydliad, ar "
-#~ "goll:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Ailgychwynna'r system nawr."
-
-#~ msgid "Reading"
-#~ msgstr "Yn darllen"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Methu darllen y rhestr benawdau.  Gall fod hyn o achos ffeil goll neu "
-#~ "gyfrwng gwael.  Gwasgwch <return> i geisio eto."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Methu darllen y ffeil comps.  Gall fod hyn o achos ffeil goll neu gyfrwng "
-#~ "gwael.  Gwasgwch <return> i geisio eto."
-
-#~ msgid "Installing..."
-#~ msgstr "Yn arsefydlu..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Gwall wrth Arsefydlu Pecyn"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Bu gwall wrth arsefydlu %s.  Gall hyn nodi methiant cyfrwng, diffyg lle "
-#~ "disg, a/neu broblemau caledwedd.  Mae hwn yn wall angheuol ac fe erthylir "
-#~ "eich arsefydliad.  Gwiriwch eich cyfrwng a cheisiwch eich arsefydliad "
-#~ "eto.\n"
-#~ "\n"
-#~ "Gwasgwch y botwm Iawn i ailgychwyn eich system."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Methu cyfuno'r rhestr benawdau.  Gall fod hyn o achos ffeil goll neu "
-#~ "gyfrwng gwael.  Gwasgwch <return> i geisio eto."
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Yn arsefydlu pecynnau %s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Dewiswyd y pecynnau canlynol i'w\n"
-#~ "harsefydlu'n awtomatig:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nid oes i weld fod gennych ddigon o le disg i arsefydlu'r pecynnau a "
-#~ "dewisoch. Mae angen rhagor o le arnoch ar y systemau ffeil canlynol:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Lle'n Angen"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nid oes i weld fod gennych ddigon o nodau ffeil i arsefydlu'r pecynnau a "
-#~ "dewisoch. Mae angen rhagor o nodau ffeil arnoch ar y systemau ffeil "
-#~ "canlynol:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Nodau'n Angen"
-
-#~ msgid "Disk Space"
-#~ msgstr "Lle Disg"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Mae arch y rhyddhad o %s yr ydych yn ei uwchraddio i'w weld yn %s sydd "
-#~ "ddim yn cydweddu â'ch arch a sefydlwyd eisoes sef %s.  Nid yw hyn yn "
-#~ "debygol o lwyddo.  A ydych yn sicr eich bod am barhau â'r broses "
-#~ "uwchraddio?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Mae i weld fod gan y system yma becynnau'n arsefydledig sy'n gorgyffwrdd "
-#~ "â phecynnau sydd yn rhan o %s. Gan fod y pecynnau yma'n gorgyffwrdd, gall "
-#~ "barhau â'r broses uwchraddio'u hachosi i beidio â gweithredu'n gywir, neu "
-#~ "gall achosi ansadrwydd system arall.  Gweler y nodiadau rhyddhad am fwy o "
-#~ "wybodaeth.\n"
-#~ "\n"
-#~ "A ydych am barhau â'r broses uwchraddio?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Nid oes gan y system yma ffeil /etc/redhat-release.  Mae'n bosib nad "
-#~ "system %s yw hon. Gall barhau â'r broses uwchraddio adael y system mewn "
-#~ "cyflwr annefnyddadwy.  A ydych am barhau â'r broses uwchraddio?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Cyfluniad Dilysiant"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Galluogi Cyfrineiriau _MD5"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Galluogi cyfrineiriau c_ysgod"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Galluogi N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Defnyddio _darlledu i ganfod gweinydd NIS"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "_Parth NIS"
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_Gweinydd NIS"
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Galluogi _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Defnyddio chwiliadau _TLS"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "_Gweinydd LDAP"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "DN _Gwraidd LDAP:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Galluogi _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "_Bro:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "Gweinydd _Gweinyddol:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Galluogi _Dilysiant SMB"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "_Gweinydd SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "_Grŵp gwaith SMB:"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Creu Disgen Gychwyn"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Galluoga'r ddisgen gychwyn i chi gychwyn eich system %s o ddisgen "
-#~ "feddal.  Galluoga ddisgen gychwyn i chi gychwyn eich system os beidia'ch "
-#~ "cyfluniad cychwynnir â gweithio, os dewiswch beidio ag arsefydlu "
-#~ "cychwynnydd, neu os nad yw'ch cychwynnydd trydydd person yn cynnal "
-#~ "Linux.\n"
-#~ "\n"
-#~ "Argymhellir yn gryf eich bod yn creu disgen gychwyn.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ydw, rydw i am greu disgen gychwyn"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "Nac ydw, _dydw i ddim am greu disgen gychwyn"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Dewiswch yriant i redeg fdasd arno"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Bydd fformadu'r ddyfais DASD ddewisedig yn dinistrio holl gynnwys y "
-#~ "ddyfais. A ydych wir am fformadu'r ddyfais DASD ddewisedig?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Rhannu â fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Dewiswch yriant i'w rannu â fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Anweithredol"
-
-#~ msgid "Warn"
-#~ msgstr "Rhybudd"
-
-#~ msgid "Active"
-#~ msgstr "Gweithredol"
-
-#~ msgid "Firewall"
-#~ msgstr "Mur cadarn"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Rhybudd - Dim Mur Cadarn"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Os yw'r system hon wedi'i chysylltu'n uniongyrchol i'r Rhyngrwyd neu ar "
-#~ "rwydwaith gyhoeddus fawr, argymhellir dylid cyflunio mur cadarn i "
-#~ "gynorthwyo atal cyrchiant anawdurdodedig.  Serch hynny, rydych wedi dewis "
-#~ "peidio â chyflunio mur cadarn.  Dewiswch \"Parhau\" i barhau heb fur "
-#~ "cadarn."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Cyflunio Mur Cadarn"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Parhau"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Gall fur cadarn gynorthwyo atal cyrchiant anawdurdodedig i'ch cyfrifiadur "
-#~ "o'r byd allanol.  A hoffech alluogi mur cadarn?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Dim mur cadarn"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Galluogi mur cadarn"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Gallwch ddefnyddio mur cadarn er mwyn i gyfrifiaduron eraill ddefnyddio "
-#~ "gwasanaethau penodol ar eich cyfrifiadur. Pa wasanaethau ydych chi am "
-#~ "adael i eraill eu defnyddio?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Mae Linux Diogelwch Cryfach (SELinux) yn darparu rheolaeth fwy trylwyr na "
-#~ "sydd ar gael mewn systemau Linux traddodiadol. Medrwch ei ddarparu mewn "
-#~ "cyflwr anweithredol, cyflwr sy'n eich rhybuddio am bethau y dylid eu "
-#~ "gwrthod, neu gyflwr llawn weithredol."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Galluogi SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Pob Pecyn"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Pecyn: %s\n"
-#~ "Fersiwn: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "Golwg _Coeden"
-
-#~ msgid "_Flat View"
-#~ msgstr "Golwg _Fflat"
-
-#~ msgid "_Package"
-#~ msgstr "_Pecyn"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Maint (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Cyfanswm maint: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Dewis _holl aelodau'r grŵp"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Dad-ddewis holl aelodau'r grŵp"
-
-#~ msgid "Minimal"
-#~ msgstr "Lleiaf"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Manylion ar gyfer '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Gall grŵp pecynnau gynnwys aelodau Sail a Dewisol ill dau.  Dewisir "
-#~ "pecynnau sail bob amser os yw'r grŵp pecynnau wedi'i ddewis.\n"
-#~ "\n"
-#~ "Dewiswch y pecynnau dewisol i'w harsefydlu:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Pecynnau Sail"
-
-#~ msgid "Details"
-#~ msgstr "Manylion"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Dewis pecynnau unigol"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Cloc system yn defnyddio _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Dewiswch y ddinas agosaf yn eich cylchfa amser:"
-
-#~ msgid "_Location"
-#~ msgstr "_Lleoliad"
-
-#~ msgid "Description"
-#~ msgstr "Disgrifiad"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Arsylwydd Anarchwiledig"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Addasu Cyfluniad Graffigol"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "Dyfnder _Lliw:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 Lliw (8 Did)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Lliw Uchel (16 Did)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Gwir-Liw (24 Did)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "Cydraniad _Sgrîn:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Dewiswch eich amgylchedd penbwrdd rhagosodedig:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Hwn yw'ch amgylchedd penbwrdd:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Dewiswch eich dull mewngofnodi:"
-
-#~ msgid "_Text"
-#~ msgstr "_Testun"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Graffigol"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Cyfluniad Monitor"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Heb Benodi Monitor"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Nid ydych wedi dewis math monitor.  Argymhellir eich bod yn dewis y model "
-#~ "sy'n cydweddu orau er mwyn cael yr ansawdd dangosiad uchaf posib."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Dewiswch fath monitor"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "Gan amlaf, gellir canfod y monitor yn awtomatig. Os nad yw'r gosodiadau a "
-#~ "ganfuwyd yn gywir ar gyfer y monitor, dewiswch y gosodiadau cywir."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Adfer gwerthoedd _gwreiddiol"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Cysoniad _Llorweddol:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "Cysoniad _Fertigol:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Cyfluniad Rhyngwyneb Graffigol (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Cerdyn fideo anhysbys"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Digwyddodd gwall wrth ddewis y cerdyn fideo %s. Adroddwch y gwall fan "
-#~ "hyn: %s. "
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Cerdyn fideo heb ei benodi"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Mae angen i chi ddewis cerdyn fideo cyn gall cyflunio X barhau.  Os ydych "
-#~ "am hepgor cyflunio X yn gyfangwbl dewiswch y botwm 'Hepgor Cyflunio X'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Gosodir eich system i ddefnyddio'r gyrrydd byffer ffrâm ar gyfer y System "
-#~ "Ffenestri X.  Os nad ydych am osod y System Ffenestri X, dewiswch 'Hepgor "
-#~ "Cyflunio X' isod."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Nid oes modd darganfod yn awtomatig faint o ram fideo sydd gennych.  "
-#~ "Dewiswch y maint cywir isod:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "Gan amlaf, gellir canfod y caledwedd fideo'n awtomatig. Os nad yw'r "
-#~ "gosodiadau a ganfuwyd yn gywir ar gyfer y caledwedd, dewiswch y "
-#~ "gosodiadau cywir."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "RAM cerdyn _fideo: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Hepgor Cyflunio X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Galluoga'r ddisgen gychwyn i chi gychwyn eich system %s o ddisgen "
-#~ "feddal.  Galluoga disgen gychwyn i chi gychwyn eich system os yw'ch "
-#~ "cyfluniad cychwynnydd yn peidio â gweithio.\n"
-#~ "\n"
-#~ "Argymhellir yn gryf eich bod yn creu disgen gychwyn.\n"
-#~ "\n"
-#~ "A hoffech chi greu disgen gychwyn?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Disgen Gychwyn"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Dewiswch ddisg i redeg fdasd neu dasdfmt arni"
-
-#~ msgid "Next"
-#~ msgstr "Nesaf"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Golygu Rhaniadau"
-
-#~ msgid "Format DASD"
-#~ msgstr "Fformadu DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Gosodiad Disg"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Digwyddodd gwall wrth redeg %s ar yriant %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Golyga rhedeg dasdfmt colled yr\n"
-#~ "HOLL DDATA ar yriant %s.\n"
-#~ "\n"
-#~ "A ydych wir eisiau hyn?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Digwyddodd gwall - ni chanfuwyd unrhyw ddyfeisiau dilys i greu systemau "
-#~ "ffeil newydd arnynt. Gwiriwch eich caledwedd am achos y broblem yma neu "
-#~ "ddefnyddiwch dasdfmt.\n"
-#~ "\n"
-#~ "Yn ôl i'r sgrin fdasd?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Dewiswch ddisg i redeg fdisk arni"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Galluogi mur cadarn"
-
-#~ msgid "No firewall"
-#~ msgstr "Dim mur cadarn"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Caniatáu i mewn:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Dewis Annilys"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Ni allwch addasu mur cadarn analluog."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Addasu Ffurfweddu Mur Cadarn"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Gyda mur cadarn, gallwch ddewis i eraill gael mynediad i wasanaethau "
-#~ "penodol ar eich cyfrifiadur o'u cyfrifiaduron nhw.  Caniatáu defnydd o ba "
-#~ "wasanaethau?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Linux Diogelwch Cryfach"
-
-#~ msgid "Edit User"
-#~ msgstr "Golygu Defnyddiwr"
-
-#~ msgid "Add User"
-#~ msgstr "Ychwanegu Defnyddiwr"
-
-#~ msgid "User Name"
-#~ msgstr "Enw Defnyddiwr"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Cyfrinair (gwiriwch)"
-
-#~ msgid "Full Name"
-#~ msgstr "Enw Llawn"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Enw Defnyddiwr Gwael"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr ""
-#~ "Rhaid bod enwau defnyddwyr yn cynnwys y nodau A-Z, a-z, ac 0-9 yn unig."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Enw Defnyddiwr Coll"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Rhaid i'r cyfrinair fod o leiaf 6 nod o hyd."
-
-#~ msgid "User Exists"
-#~ msgstr "Defnyddiwr yn Bodoli"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Mae'r defnyddiwr gwraidd wedi'i gyflunio eisioes. Nid oes angen i chi "
-#~ "ychwanegu'r defnyddiwr gwraidd fan hyn."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Mae'r defnyddiwr system yma wedi'i gyflunio eisioes. Nid oes angen i chi "
-#~ "ychwanegu'r defnyddiwr yma fan hyn."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Mae'r dynodiad defnyddiwr yma'n bodoli eisioes.  Dewiswch un arall."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Dylech ddefnyddio cyfrif defnyddiwr arferol ar gyfer y rhan fwyaf o "
-#~ "weithgareddau ar eich system. Drwy beidio â defnyddio'r cyfrif gwraidd yn "
-#~ "ddidaro, byddwch yn lleihau'r tebygrwydd o darfu ar gyfluniad eich system."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Gosod Cyfrif Defnyddiwr"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Pa gyfrifon eraill yr hoffech eu cael ar y system? Dylai bod gennych o "
-#~ "leiaf un cyfrif di-wraidd ar gyfer gwaith arferol, ond gall fod unrhyw "
-#~ "nifer o gyfrifon wedi'u gosod ar system aml-ddefnyddiwr."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Rhowch wybodaeth y defnyddiwr."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Newid gwybodaeth y defnyddiwr yma."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Defnyddio Cyfrineiriau Cysgodol"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Galluogi Cyfrineiriau MD5"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Galluogi NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "Parth NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "Gweinydd NIS:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Gofyn am weinydd drwy ddarlledu"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Galluogi LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "Gweinydd LDAP:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "DN Sail LDAP:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Defnyddio cysylltiadau TLS"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Galluogi Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Bro:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Gweinydd Gweinyddol:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Dyfnder Lliw"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Dewiswch y dyfnder lliw yr hoffech ei ddefnyddio:"
-
-#~ msgid "Resolution"
-#~ msgstr "Cydraniad"
-
-#~ msgid "X Customization"
-#~ msgstr "Addasiad X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Dewiswch y dyfnder lliw a'r modd fideo yr ydych am ddefnyddio ar gyfer "
-#~ "eich system. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Dyfnder Lliw:"
-
-#~ msgid "Change"
-#~ msgstr "Newid"
-
-#~ msgid "Resolution:"
-#~ msgstr "Cydraniad:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Penbwrdd Rhagosodedig:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Mewngofnod Rhagosodedig:"
-
-#~ msgid "Graphical"
-#~ msgstr "Graffigol"
-
-#~ msgid "Text"
-#~ msgstr "Testun"
-
-#~ msgid "Monitor"
-#~ msgstr "Monitor"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Dewiswch y monitor sydd wedi'i gysylltu â'ch system."
-
-#~ msgid "horizontal"
-#~ msgstr "llorweddol"
-
-#~ msgid "vertical"
-#~ msgstr "fertigol"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Cyfraddau Cysoni Annilys"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Mae'r gyfradd gysoni %s yn annilys:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Gall cyfradd gysoni ddilys fod o'r ffurf:\n"
-#~ "      31.5                   rhif unigol\n"
-#~ "    50.1-90.2                amrediad o rifau\n"
-#~ "31.5,35.0,39.3-40.0          rhestr o rifau/amrediadau\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Cyfraddau Cysoni Monitor"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Rhowch y cyfraddau cysoni ar gyfer eich monitor. \n"
-#~ "\n"
-#~ "NODER - nid yw'n angenrheidiol golygu cyfraddau cysoni â llaw fel arfer, "
-#~ "a dylid cymryd gofal i sicrhau bod y gwerthoedd a roddir yn fanwl gywir."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Cyfradd Cysoni Ll: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Cyfradd Cysoni F: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Dewiswch y monitor ar gyfer eich system.  Defnyddiwch y botwm '%s' i "
-#~ "ailosod i'r gwerthoedd archwiliedig."
-
-#~ msgid "Monitor:"
-#~ msgstr "Monitor:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Cyfradd Cysoni Ll:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Cyfradd Cysoni F:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Dewiswch fath monitor"
-
-#~ msgid "Proceed"
-#~ msgstr "Mynd Ymlaen"
-
-#~ msgid "Video Card"
-#~ msgstr "Cerdyn Fideo"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Dewiswch y cerdyn fideo sy'n bresennol yn eich system.  Dewiswch '%s' i "
-#~ "ailosod y dewisiad i'r cerdyn a ddarganfuwyd gan yr arsefydlydd yn eich "
-#~ "system."
-
-#~ msgid "Video RAM"
-#~ msgstr "RAM Fideo"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Dewiswch faint o RAM fideo sy'n bresennol ar eich cerdyn fideo.  Dewiswch "
-#~ "'%s' i ailosod y dewisiad i'r maint a ddarganfuwyd gan yr arsefydlydd ar "
-#~ "eich cerdyn."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Hepgor Cyflunio X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Cyflunio Cerdyn Fideo"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Dewiswch y cerdyn fideo a'r RAM fideo ar gyfer eich system."
-
-#~ msgid "Video Card:"
-#~ msgstr "Cerdyn Fideo:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Cerdyn anhysbys"
-
-#~ msgid "Video RAM:"
-#~ msgstr "RAM Fideo:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Os hoffech brofi cyfryngau ychwanegol, rhowch yr CDd nesaf i mewn a "
-#~ "gwasgwch \"%s\". Nid oes rhaid i chi brofi pob CDd, er ei bod hi'n "
-#~ "argymelledig eich bod yn gwneud hynny o leiaf unwaith.\n"
-#~ "\n"
-#~ "I ddechrau'r broses arsefydlu rhowch CDd #1 yn y gyriant a gwasgwch \"%s"
-#~ "\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Mae'r gwiriad cyfrwng %s yn gyflawn, a dyma'r canlyniad: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Amser Safonol Dwyreiniol - canolbarth Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Prydain Fawr"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Gogledd Iwerddon"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmania"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "gogledd-ddwyrain Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "de-orllewin Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Cynhaliaeth Ieithoedd Ychwanegol"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Dewiswch yr iaith _ragosodedig ar gyfer y system:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "Dewiswch ieithoedd _ychwanegol i'w harsefydlu ar y system:"
-
-#~ msgid "_Select All"
-#~ msgstr "_Dewis Pob Un"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Dewis Rhagosodyn yn _Unig"
-
-#~ msgid "Rese_t"
-#~ msgstr "Ail_osod"
-
-#~ msgid "Select All"
-#~ msgstr "Dewis Pob Un"
-
-#~ msgid "Reset"
-#~ msgstr "Ailosod"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr ""
-#~ "Dewiswch ieithoedd ychwanegol yr hoffech eu defnyddio ar y system yma:"
-
-#~ msgid "Language Support"
-#~ msgstr "Cynhaliaeth Iaith"
-
-#~ msgid "Default Language"
-#~ msgstr "Iaith Ragosodedig"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Dewiswch yr iaith ragosodedig ar gyfer y system yma: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (H)(C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Am wybodaeth am Gywiriadau (diweddariadau a trwsiadau namau), ymwelwch "
-#~ "â:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Am wybodaeth am ddiweddariadau awtomatig drwy Rwydwaith Red Hat, ymwelwch "
-#~ "â\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Am wybodaeth am ddefnyddio a chyflunio'r system, ymwelwch â:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "I gofrestri'r cynnyrch er cynhaliaeth, ymwelwch â:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Cyfluniad Silo"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Arsefydlu cofnod cychwyn SILO ar:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Creu ffugenw PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Gosod y ddyfais gychwyn PROM ragosodedig yn linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Paramedrau cnewyllyn"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Creu disg gychwyn"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Peidio ag arsefydlu SILO"
-
-#~ msgid "Default boot image"
-#~ msgstr "Delwedd gychwyn ragosodedig"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Creu ffugenw PROM `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Gosod dyfais gychwyn PROM ragosodedig"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Ble hoffech arsefydlu'r cychwynnydd?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Gall y rheolwr cychwyn mae Red Hat yn ei ddefnyddio gychwyn systemau "
-#~ "gweithredu eraill hefyd. Mae angen i chi ddweud wrthyf ba raniadau'r "
-#~ "hoffech fod gallu eu cychwyn a pha label yr ydych am ddefnyddio am bob un "
-#~ "ohonynt."
-
-#~ msgid "no suggestion"
-#~ msgstr "dim argymhelliad"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Defnyddio _LILO yn gychwynnydd"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Methu Newid Trefn Gyriannau ar gyfer LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Nid ydym yn cynnal newid trefn y gyriannau i'w defnyddio â LILO"
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Defnyddio Cychwynnydd LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "Arsefydlydd %s ar %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Rydych wedi dewis peidio ag arsefydlu cychwynnydd ar eich system.  Bydd "
-#~ "rhaid i chi greu disg gychwyn i cychwyn eich system â'r dewisiad yma.\n"
-#~ "\n"
-#~ "A hoffech barhau â pheidio ag arsefydlu cychwynnydd?"
-
-#~ msgid "Total"
-#~ msgstr "Cyfanswm"
-
-#~ msgid "Remaining"
-#~ msgstr "Yn Weddill"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Yn arsefydlu %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Cynnydd Pecyn: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Cyfanswm Cynnydd:   "
-
-#~ msgid "Status"
-#~ msgstr "Statws"
-
-#~ msgid "Time"
-#~ msgstr "Amser"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Cynhelir uwchraddiadau ar gyfer y fersiwn yma o %s o Red Hat Linux 6.2 "
-#~ "ymlaen yn unig.  Ymddengys bod hwn yn system henach.  A ydych am barhau "
-#~ "â'r broses uwchraddio?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tPlisgyn penbwrdd (GNOME)\n"
-#~ "\tCasgliad swyddfa (OpenOffice.org)\n"
-#~ "\tPorwr Gwe (Mozilla) \n"
-#~ "\tEbost (Evolution)\n"
-#~ "\tNegesu Chwim\n"
-#~ "\tCymhwysiadau sain a fideo\n"
-#~ "\tGêmau\n"
-#~ "\tErfynnau Rheoli\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tPlisgyn penbwrdd (GNOME)\n"
-#~ "\tCasgliad swyddfa (OpenOffice.org)\n"
-#~ "\tPorwr Gwe (Mozilla) \n"
-#~ "\tEbost (Evolution)\n"
-#~ "\tNegesu Chwim\n"
-#~ "\tCymhwysiadau sain a fideo\n"
-#~ "\tGêmau\n"
-#~ "\tErfynnau Datblygu Meddalwedd\n"
-#~ "\tErfynnau Gweinyddol\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Mesur Corfforol:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Mae Linux Diogelwch Cryfach (SELinux) yn darparu rheolyddion mynediad "
-#~ "llymach er mwyn gwella diogelwch eich system. Sut hoffech i'r gynhaliaeth "
-#~ "yma gael ei alluogi?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Analluogi SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Rhybudd am droseddau"
-
-#~ msgid "Device number:"
-#~ msgstr "Rhif o'r dyfais"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "ID SCSI:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "LUN SCSI:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "LUN FCP:"
