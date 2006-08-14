@@ -311,14 +311,14 @@ class DiskStripeGraph:
                                       size_points=9)
 	show_geometry = 0
 	if show_geometry:
-	    drivetext = ("Drive %s (Geom: %s/%s/%s) "
+	    drivetext = _("Drive %s (Geom: %s/%s/%s) "
 			 "(Model: %s)") % ('/dev/' + drive,
 					   disk.dev.cylinders,
 					   disk.dev.heads,
 					   disk.dev.sectors,
 					   disk.dev.model)
 	else:
-	    drivetext = ("Drive %s (%-0.f MB) "
+	    drivetext = _("Drive %s (%-0.f MB) "
 			 "(Model: %s)") % ('/dev/' + drive,
 					   partedUtils.getDeviceSizeMB(disk.dev),
 					   disk.dev.model)
