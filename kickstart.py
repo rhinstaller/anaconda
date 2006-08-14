@@ -544,7 +544,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 	self.skipSteps.append("accounts")
 
     def doSELinux(self, args):
-        self.KickstartHandlers.doSELinux(self, args)
+        KickstartHandlers.doSELinux(self, args)
         self.id.instClass.setSELinux(self.id, self.ksdata.selinux)
 
     def doSkipX(self, args):
