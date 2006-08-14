@@ -14,7 +14,7 @@
 import iutil
 import isys
 import os
-from installclass import BaseInstallClass, availableClasses
+from installclass import BaseInstallClass, availableClasses, getBaseInstallClass
 from partitioning import *
 from autopart import *
 from fsset import *
