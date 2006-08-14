@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-13 22:34+1000\n"
+"PO-Revision-Date: 2006-08-14 23:12+1000\n"
 "Last-Translator: x <x@gmail.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -201,12 +201,15 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "无法拨发基于柱面的分区"
+msgstr ""
+"无法化分基于柱面的分区。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -854,9 +857,8 @@ msgstr ""
 "请按 <Enter> 键来重新引导系统。"
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "无法载入文件！"
+msgstr "无法载入文件系统！"
 
 #: ../fsset.py:1730
 #, python-format
@@ -1214,15 +1216,16 @@ msgid "Unable to access the CDROM."
 msgstr "无法读取光盘。"
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation tree contains all required packages.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
+"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。请确定您的安装树包含所有组件。\n"
 "\n"
+"您如果现在重启，您的系统会要求您重新安装。\n"
 
 #: ../image.py:504
 #, python-format
@@ -1308,9 +1311,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "主机名只能包含字符：“a-z”、“A-Z”、“-”、或“.”。"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "缺少 IP 地址"
+msgstr "缺少IP地址"
 
 #: ../network.py:93
 msgid "IP Addresses must contain four numbers between 0 and 255, separated by periods."
@@ -2177,14 +2179,16 @@ msgid "Connecting..."
 msgstr "正在连接 ..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your mirror contains all required packages, and try using a different one.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
+"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。请确定您的镜像文件包括所有所需组件，并尝试采用不同的组件。\n"
+"\n"
+"您如果现在重启，您的系统可能会要求您重新安装。\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2560,9 +2564,8 @@ msgid "_Confirm: "
 msgstr "确认(_C)："
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI启动名称："
+msgstr "无效启动器名称："
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
@@ -3293,12 +3296,8 @@ msgid "The IP information you have entered is invalid."
 msgstr "您所输入的 IP 信息无效。"
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"您没有活跃的网络设备。至少需要一个活跃网络设备，您的系统才能默认使用网络来通讯。\n"
-"\n"
-"备注：如果您有一个基于 PCMCIA 的网络适配器，此刻您不应该激活它。在您重新引导系统时，该适配器会被自动激活。"
+msgstr "您没有活跃的网络设备。至少需要一个活跃的网络设备，您的系统才能默认使用网络交换数据。"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4019,7 +4018,6 @@ msgid "Unable to load file!"
 msgstr "无法载入文件！"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
 msgstr "无效主机名"
 
@@ -4029,9 +4027,8 @@ msgid "You must provide a non-zero length repository name."
 msgstr "您必须输入服务器名称。"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "引导标签无效"
+msgstr "无效主机地址"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -5750,14 +5747,12 @@ msgstr "网络错误"
 
 #: ../loader2/net.c:539
 #: ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "清除目标驱动器时出错。克隆失败。"
+msgstr "配置网络界面时出错。"
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "使用动态 IP 配置(BOOTP/DHCP)"
+msgstr "使用动态 IP 配置(DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -5768,13 +5763,13 @@ msgid "Enable IPv6 support"
 msgstr "启动IPV6支持"
 
 #: ../loader2/net.c:700
-#, fuzzy
 msgid "Avoid unwanted packet collisions"
 msgstr "避免不必要封包碰撞"
 
 #: ../loader2/net.c:702
+#, fuzzy
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "为高网络速度提供最大注册值"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -5808,9 +5803,8 @@ msgid "IPv6 address:"
 msgstr "IPv6地址："
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "名称服务器"
+msgstr "名称服务器："
 
 #: ../loader2/net.c:961
 msgid "Manual TCP/IP Configuration"
@@ -5822,14 +5816,12 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "必须输入有效的 IP 地址和子网掩码。"
+msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "必须输入有效的 IP 地址和子网掩码。"
+msgstr "必须输入有效的 IPv6 地址和CIDR代码。"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6032,37 +6024,33 @@ msgid "Advanced Storage Options"
 msgstr "高级存储选项"
 
 #: tmp/adddrive.glade.h:4
-#, fuzzy
 msgid "Disable _dmraid device"
-msgstr "禁止_dmraid设备"
+msgstr "禁用（_d）dmraid设备"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "您想如何在该分区上筹备文件系统？"
+msgstr "您想如何修改驱动配置？"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>主机 (_U)地址：<b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>(_N)iSCSI 启动器名称:</b>"
+msgstr "<b>主机（_n）名称:</b>"
 
 #: tmp/addrepo.glade.h:3
-#, fuzzy
 msgid "Add Repository"
-msgstr "添加软件库"
+msgstr "添加主机"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "请指定安装附加软件的位置。注意您必须提供一个有效的存储器%s。"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "（_A）添加主机"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6085,9 +6073,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "检验和修改分区方案(_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "高级引导装载程序配置"
+msgstr "（_A）高级存储参数"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6123,27 +6110,23 @@ msgstr "配置iSCSI参数"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI起动器名称的地址。"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "网关："
+msgstr "<b>网关：</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>(_T)目标 IP 地址:</b>"
+msgstr "<b>IPv4 地址:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>(_T)目标 IP 地址:</b>"
+msgstr "<b>IPv6 地址:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "名称服务器"
+msgstr "<b>名称服务器：</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
@@ -6162,14 +6145,12 @@ msgid "Enable network interface"
 msgstr "启动网络界面"
 
 #: tmp/netconfig.glade.h:10
-#, fuzzy
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
 msgstr "您在安装的过程中需要激活网络连接，请配置网络界面。"
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "使用动态 IP 配置(BOOTP/DHCP)"
+msgstr "使用(_d）动态 IP 配置(DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6185,9 +6166,8 @@ msgid "The default installation of %s includes a set of  software applicable for
 msgstr "%s的默认安装包含一系列用于互联网常规应用的软件。您希望你的系统还支持其它什么样的附加功能？"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Add additional software repositories"
-msgstr "添加（_A）额外的软件库"
+msgstr "（_A）添加额外的软件库"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
