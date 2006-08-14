@@ -1,3 +1,7 @@
+2006-08-14  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  virtpconsole is a value, not a boolean (#202450).
+
 2006-08-11  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network.lookupHostname): Use socket.getaddrinfo() so
