@@ -167,7 +167,7 @@ class UrlInstallMethod(InstallMethod):
             pass
 
         # encoding fun so that we can handle absolute paths
-        if path[1] == '/' and scheme == 'ftp':
+        if scheme == "ftp" and path and path.startswith("//"):
             path = "/%2F" + path[1:]
 
         self.baseUrl = urlparse.urlunsplit((scheme,netloc,path,query,fragid))

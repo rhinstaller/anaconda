@@ -2,6 +2,9 @@
 
 	* text.py (spawnShell):  Fix shell input/output (#201479).
 
+	* urlinstall.py (UrlInstallMethod.__init__):  Don't traceback if path
+	is simply "/" (#202368).
+
 2006-08-15  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR): Fix typo (#202167)
