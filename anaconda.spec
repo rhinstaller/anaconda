@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.81
+Version: 11.1.0.82
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.82-1
+- Make Turkish translation build again.
+
 * Tue Aug 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.81-1
 - Fix serial console shell IO (#201479).
 - Don't traceback if URL install path is just "/" (#202368).

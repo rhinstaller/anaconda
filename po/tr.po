@@ -130,7 +130,9 @@ msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Silindir tabanlı disk bölümlerini birincil bölümler olarak ayıramazsınız."
+msgstr "Silindir tabanlı disk bölümlerini birincil bölümler olarak ayıramazsınız.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
 #, python-format
@@ -138,7 +140,9 @@ msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Bu bölümleri birincil disk bölümler olarak ayıramazsınız."
+msgstr "Bu bölümleri birincil disk bölümler olarak ayıramazsınız.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
 #, python-format
@@ -146,7 +150,9 @@ msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Silindir bazlı bölümleri ayıramazsınız."
+msgstr "Silindir bazlı bölümleri ayıramazsınız.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -2524,7 +2530,7 @@ msgid "Retrieving installation information..."
 msgstr "Kurulum bilgisine erişiliyor..."
 
 #: ../yuminstall.py:640
-#, python-format
+#, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Kurulum bilgisine erişiliyor..."
 
