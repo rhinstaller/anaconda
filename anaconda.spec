@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.80
+Version: 11.1.0.81
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,29 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.81-1
+- Fix serial console shell IO (#201479).
+- Don't traceback if URL install path is just "/" (#202368).
+- Fix font typo (katzj, #202167).
+- SELinux fixups (pjones).
+- Handle virtpconsole option again (katzj, #201749, #202450).
+- Kickstart install fixes (#202471, #202483).
+- Mark strings for translation (#199022).
+- Fix ISO install method traceback (#201775).
+- Don't enable the back button if there's no screen to show (#197766).
+- Don't clobber a working /etc/resolv.conf on VNC installs (#201874).
+- Remember user choices on network config (dcantrel, #200986, #200797).
+- More greek fixing (katzj, #196980).
+- Sync pkgorder with what distill is expecting (katzj, #201923).
+- RHEL upgrade tweaks (katzj, #201741).
+- Install class detection (katzj, #201745).
+- Fix text upgrade traceback (katzj, #201960).
+- Add more libraries for s390 (katzj, #200985).
+- Add SATA probing (pjones).
+- Add registration key options (katzj, #201738).
+- Don't automatically set UTC check box on kickstart installs (#181737).
+- Patch from Paul Schroder <pschroeder@uplogix.com> for nogr mode.
+
 * Tue Aug 08 2006 Paul Nasrat <pnasrat@redhat.com> 11.1.0.80-1
 - Blacklist e2fsprogs.ppc64 on upgrades (#200233)
 - Set self.currentMedia to [] (dcantrel, #201722).
