@@ -1,14 +1,14 @@
 # Yuriy Syrota <ysyrota@softservecom.com>
 # Volodymyr M. Lisivka <lvm_ukr@yahoo.com>
 # Leon Kanter <leon@blackcatlinux.com>
-# Maxim Dziumanenko <mvd@mylinux.com.ua>
+# Maxim Dziumanenko <dziumanenko@gmail.com>, 2003-2006
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-19 09:49+0200\n"
-"Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
+"PO-Revision-Date: 2006-08-14 09:49+0200\n"
+"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,28 +115,34 @@ msgid "unknown install method: %s"
 msgstr "невідомий метод встановлення: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Не вдається розподілити як первинні розділи, основані на циліндрах"
+msgstr "Не вдається розподілити як первинні розділи, основані на циліндрах\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Не вдається розподілити розділи як первинні розділи"
+msgstr "Не вдається розподілити розділи як первинні розділи.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Не вдається розподілити розділи на основі циліндрів"
+msgstr "Не вдається розподілити розділи на основі циліндрів.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -320,6 +326,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Натисніть 'Гаразд', щоб вибрати інший варіант розподілу."
 
 #: ../autopart.py:1503
 #, python-format
@@ -417,14 +426,14 @@ msgstr ""
 "Ви дійсно бажаєте видалити всі розділи Linux?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Оновлення %s-%s-%s.%s.\n"
+msgstr "Оновлення %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Встановити %s"
+msgstr "Встановлення %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -807,9 +816,8 @@ msgstr ""
 "Натисніть <Enter> для перевантаження системи."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Не вдається завантажити файл!"
+msgstr "Не вдається підключити файлову систему"
 
 #: ../fsset.py:1730
 #, python-format
@@ -817,6 +825,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Помилка при підключенні пристрою %s як %s.  Можна продовжити встановлення, "
+"але можуть виникати проблеми."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1036,7 +1046,7 @@ msgid "Install Window"
 msgstr "Вікно встановлення"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1047,8 +1057,10 @@ msgid ""
 "\n"
 msgstr ""
 "Не вдається відкрити файл %s. Можлива причина - відсутній файл або "
-"пошкоджений пакет. Якщо ви встановлюєте систему з CD, це може означати, що "
-"диск пошкоджений або пристрій не може прочитати носій. \n"
+"пошкоджений пакет. Перевірте ваші образи встановлення та носії.\n"
+"\n"
+"При перевантаженні, ваша система залишиться у непослідовному стані, тому "
+"швидше за все знадобиться перезавантаження.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1148,7 +1160,7 @@ msgid "Unable to access the CDROM."
 msgstr "Не вдається отримати доступ до CDROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1159,8 +1171,10 @@ msgid ""
 "\n"
 msgstr ""
 "Не вдається відкрити файл %s. Можлива причина - відсутній файл або "
-"пошкоджений пакет. Якщо ви встановлюєте систему з CD, це може означати, що "
-"диск пошкоджений або пристрій не може прочитати носій. \n"
+"пошкоджений пакет. Перевірте, що дерево встановлення містить усі необхідні пакети. \n"
+"\n"
+"При перезавантаженні система залишиться у нестабільному стані, "
+"та ймовірно знадобиться перевстановлення.\n"
 "\n"
 
 #: ../image.py:504
@@ -1183,9 +1197,8 @@ msgid "Install on System"
 msgstr "Встановлення системи"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Ініціалізація"
+msgstr "Ініціалізується ініціатор iSCSI"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1262,35 +1275,32 @@ msgstr ""
 "чи '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "Не вказано адресу IP"
+msgstr "Не вказано адресу IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Адреса IP повинна містити числа від 0 до 255"
+msgstr "Адреса IP повинна містити числа від 0 до 255, розділені точкою."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s не є допустимою назвою сервера."
+msgstr "%s не є допустимою адресою IPv6."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Ключ шифрування"
+msgstr "Введіть ключ реєстрації"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Введіть ключ реєстрації для вашої версії %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Ключ:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1797,6 +1807,7 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Ваш завантажувальний розділ не є одним з чотирьох перших розділів, тому завантажитись з нього буде неможливо."
 
 #: ../partitions.py:849
 msgid ""
@@ -1965,6 +1976,7 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Розмір логічного тому має бути більшим, ніж розмір фізичного екстенту."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2304,7 +2316,7 @@ msgid "Connecting..."
 msgstr "З'єднання..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2315,8 +2327,10 @@ msgid ""
 "\n"
 msgstr ""
 "Не вдається відкрити файл %s. Можлива причина - відсутній файл або "
-"пошкоджений пакет. Якщо ви встановлюєте систему з CD, це може означати, що "
-"диск пошкоджений або пристрій не може прочитати носій. \n"
+"пошкоджений пакет. Перевірте, що дзеркало містить усі необхідні пакети або "
+"використовуйте інше дзеркало. \n"
+"\n"
+"При перезавантаженні система залишиться у нестабільному стані та вимагатиме перевстановлення.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2532,13 +2546,11 @@ msgid "Error running transaction"
 msgstr "Помилка запуску транзакції"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"Назва комп'ютера \"%s\" не є правильною з наступних причин:\n"
-"\n"
-"%s"
+"При виконанні вашої транзакції виникла помилка з наступних причин: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2549,9 +2561,9 @@ msgid "Retrieving installation information..."
 msgstr "Читання інформації встановлення..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Читання інформації встановлення..."
+msgstr "Отримання інформації встановлення для %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2725,13 +2737,12 @@ msgid "_Confirm: "
 msgstr "Під_твердження: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Назва ініціатора iSCSI:"
+msgstr "Неправильна назва ініціатора"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Треба вказати не повинно бути пустим."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3492,20 +3503,15 @@ msgstr "Необхідно вказати значення поля \"%s\"."
 
 #: ../iw/network_gui.py:187
 msgid "The IP information you have entered is invalid."
-msgstr "Введені інформація IP недопустима."
+msgstr "Введені інформація IP неприпустима."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "У вас немає активних мережних пристроїв.  Ваша система не зможе працювати в "
-"мережі без хоча б одного одного активного мережного пристрою.\n"
-"\n"
-"Примітка: якщо у вас встановлено мережну плату типу pcmcia, тут слід "
-"залишити її неактивною. Цей адаптер активується автоматично при завантаженні "
-"системи."
+"мережі без хоча б одного одного активного мережного пристрою."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4258,26 +4264,23 @@ msgid "Unable to load file!"
 msgstr "Не вдається завантажити файл!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Недопустима назва комп'ютера"
+msgstr "Неправильна назва репозиторію"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Ви маєте ввести назву сервера."
+msgstr "Назва репозиторію не може бути порожньою."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Некоректна позначка системи"
+msgstr "Неправильний URL сховища"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Слід вказати HTTP чи FTP URL цього сховища."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4287,7 +4290,9 @@ msgid ""
 msgstr ""
 "Не вдається прочитати метадані пакету. Можлива причина - відсутність "
 "каталогу repodata. Переконайтесь, що ваше дерево встановлення сформовано "
-"правильно.generated.  %s"
+"правильно.generated.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5462,13 +5467,12 @@ msgstr ""
 "\tІгри\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Потрібен реєстраційний ключ"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5476,6 +5480,7 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"Для встановлення %s потрібен реєстраційний ключ. Зв'яжіться з своїм представником технічної підтримки, якщо ви не отримали ключ разом з продуктом."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6138,15 +6143,16 @@ msgstr ""
 "      дистрибутив %s для вашої архітектури\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Недопустимий рядок IP"
+msgstr "Неправильна маска CIDR"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"Значення маски CIDR має бути у межах від 1 до 32 для мереж IPv4 "
+"чи від 1 до 128 для мереж IPv6."
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6201,93 +6207,84 @@ msgid "Sending request for IP information for %s..."
 msgstr "Надсилається запит конфігурації IP для %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Паролю паролю VNC"
+msgstr "Помилка мережі"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при налаштовуванні мережного інтерфейсу."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Динамічне налаштовування IP (BOOTP/DHCP)"
+msgstr "Використовувати динамічне налаштовування IP (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Включити підтримку IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Включити підтримку IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Уникати небажаних колізій пакетів"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "максимізувати значення регістрів для швидкісного мережного трафіка"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Налаштовування TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Відсутня група"
+msgstr "Відсутній протокол"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"Необхідно вибрати принаймні один протокол (IPv4 чи IPv6) для налаштовування вручну."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Необхідно вибрати принаймні один протокол (IPv4 чи IPv6) для DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Адреса IP:"
+msgstr "Адреса IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Адреса IP:"
+msgstr "Адреса IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "DNS сервер"
+msgstr "Сервер назв:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Налаштовування z/IPL"
+msgstr "Ручне налаштовування TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Недостатньо інформації"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Необхідно ввести правильну IP-адресу та маску підмережі."
+msgstr "Необхідно ввести правильну IP-адресу та маску мережі або префікс CIDR."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Необхідно ввести правильну IP-адресу та маску підмережі."
+msgstr "Необхідно ввести правильну адресу IPv6 та префікс CIDR."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6485,40 +6482,36 @@ msgid "Loading SCSI driver"
 msgstr "Завантаження SCSI драйвера"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Додати _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Додати пристрій _iSCSI"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Додаткові параметри розміру"
+msgstr "Додаткові параметри накопичувачів"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_Вимкнути пристрій dmraid"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Як ви бажаєте виділити простір розділу?"
+msgstr "Як слід виконати зміну конфігурації диску?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL сховища:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Назва ініціатора iSCSI:</b>"
+msgstr "<b>_Назва репозиторію:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Додати репозиторій"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6526,10 +6519,11 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Вкажіть адресу, звідки можна виконати встановлення додаткового програмного забезпечення. Має бути коректним репозиторієм для %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Додати репозиторій"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6552,9 +6546,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Перегляд та зміна розподілу розділів"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Додаткові параметри завантажувача"
+msgstr "_Додаткові параметри накопичувачів"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6569,81 +6562,74 @@ msgid "_Exception details"
 msgstr "Д_окладніше про виключну ситуацію"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Пароль:"
+msgstr "<b>_Пароль:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_Цільова адреса IP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Номер _порту:</b>"
+msgstr "<b>_Ім'я користувача:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Назва ініціатора iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Параметри Chandev"
+msgstr "Налаштовування параметрів iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Щоб використовувати диски iSCSI, ви маєте надати адресу пристрою iSCSI та назву ініціатора iSCSI, які були встановлені у вашому вузлі."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Шлюз:"
+msgstr "<b>Шлюз:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>_Цільова адреса IP:</b>"
+msgstr "<b>Адреса IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>_Цільова адреса IP:</b>"
+msgstr "<b>Адреса IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "DNS сервер"
+msgstr "<b>DNS сервер:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>Номер _порту:</b>"
+msgstr "<b>_Інтерфейс:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Увімкнути підтримку IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Увімкнути підтримку IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Увімкнути _мережний інтерфейс"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Для цього треба активне мережне з'єднання протягом процесу встановлення. Налаштуйте мережний інтерфейс."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Динамічне налаштовування IP (BOOTP/DHCP)"
+msgstr "_Динамічне налаштовування IP (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6670,7 +6656,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_додати додаткові репозиторії"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7432,9 +7418,8 @@ msgid "German"
 msgstr "Німецька"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Вільно"
+msgstr "Грецька"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7466,7 +7451,7 @@ msgstr "Японська"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Каннада"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7481,14 +7466,12 @@ msgid "Malay"
 msgstr "Малайська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Малайська"
+msgstr "Малаялам"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Гуяраті"
+msgstr "Мараті"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7500,7 +7483,7 @@ msgstr "Північний Сото"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Орія"
 
 #. generated from lang-table
 msgid "Persian"
