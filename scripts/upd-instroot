@@ -141,7 +141,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 fi
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGES="$PACKAGES dmraid python-pyblock libbdevid libbdevid-python"
+    PACKAGES="$PACKAGES dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
