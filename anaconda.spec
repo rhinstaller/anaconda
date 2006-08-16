@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.82
+Version: 11.1.0.83
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.83-1
+- Fix text timezone typo (clumens, #202844)
+- Some installclass tweaking
+- Fix nfsiso to handle changing repopaths
+- Fix x86_64 install traceback (#202660)
+- Adjust for new theme
+
 * Tue Aug 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.82-1
 - Make Turkish translation build again.
 
