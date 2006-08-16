@@ -57,7 +57,7 @@ class InstallClass(BaseInstallClass):
 
         # simple and stupid for now... if C is in the key, add Clustering
         # if V is in the key, add Virtualization.
-        if productPath == "Server":
+        if productPath == "Server" and rhpl.getArch() in ("i386", "x86_64", "ia64"):
             if key.find("C") != -1:
                 self.repopaths["cluster"] = "Cluster"
             if key.find("S") != -1:
