@@ -421,10 +421,10 @@ def findIsoImages(path, messageWindow):
                         os.access("/mnt/cdimage/images/stage2.img", os.R_OK)):
                         log.warning("%s doesn't have a stage2.img, skipping" %(what,))
                         continue
-                    # we only install binary packages and they have to be
-                    # in the product/RPMS/ dir.  make sure it exists to
-                    # avoid overwriting discs[2] with disc2 of the src.rpm set
-                    if not os.path.isdir("/mnt/cdimage/%s/RPMS" %(productPath,)):
+                    # we only install binary packages, so let's look for a
+                    # product/ dir and hope that this avoids getting
+                    # discs from the src.rpm set
+                    if not os.path.isdir("/mnt/cdimage/%s" %(productPath,)):
                         log.warning("%s doesn't have binary RPMS, skipping" %(what,))
                         continue
                     
