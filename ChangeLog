@@ -1,5 +1,8 @@
 2006-08-17  Chris Lumens  <clumens@redhat.com>
 
+	* iutil.py (makeDriveDeviceNodes):  Flush the drive cache so we don't
+	mistake hard drives for CD/DVD drives.
+
 	* language.py (Language.fixLang):  Make sure to run in English for
 	text CJKI installs (#180417, #202738).
 
