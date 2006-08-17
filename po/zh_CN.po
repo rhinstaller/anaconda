@@ -1,6 +1,7 @@
 # translation of zh_CN.po to 
 # translation of zh_CN.po to
 # translation of zh_CN.po to
+# translation of zh_CN.po to
 # translation of zh_CN.po to Chinese, Simplified
 # translation of zh_CN.po to zh_CN
 # translation of anaconda.po to Simplified Chinese
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-14 23:12+1000\n"
-"Last-Translator: x <x@gmail.com>\n"
+"PO-Revision-Date: 2006-08-17 10:16+1000\n"
+"Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1882,9 +1883,8 @@ msgid "This RAID device can have a maximum of %s spares. To have more spares you
 msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:924
-#, fuzzy
 msgid "Logical volume size must be larger than the volume group's physical extent size."
-msgstr "本地分区大小一定要比物理分区大。"
+msgstr "逻辑卷大小一定要比卷组的物理扩展分区大。"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2399,12 +2399,9 @@ msgid "Error running transaction"
 msgstr "错误运行记录"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"主机名“%s”无效，原因如下：\n"
-"\n"
-"%s"
+msgstr "出现错误，原因如下：%s"
 
 #: ../yuminstall.py:475
 #: ../yuminstall.py:570
@@ -4022,9 +4019,8 @@ msgid "Invalid Repository Name"
 msgstr "无效主机名"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "您必须输入服务器名称。"
+msgstr "您必须输入存储库名称。"
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
@@ -5692,9 +5688,8 @@ msgstr ""
 "     \n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "无效 IP 字符串"
+msgstr "无效的 CIDR Mask"
 
 #: ../loader2/net.c:97
 msgid "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
@@ -5767,7 +5762,6 @@ msgid "Avoid unwanted packet collisions"
 msgstr "避免不必要封包碰撞"
 
 #: ../loader2/net.c:702
-#, fuzzy
 msgid "Maximize register values for high speed network traffic"
 msgstr "为高网络速度提供最大注册值"
 
@@ -6010,14 +6004,12 @@ msgid "Loading SCSI driver"
 msgstr "载入 SCSI 驱动程序"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "添加 _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
-#, fuzzy
 msgid "Add _iSCSI target"
-msgstr "加入_iSCSI目标"
+msgstr "添加 _iSCSI 目标"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6074,7 +6066,7 @@ msgstr "检验和修改分区方案(_v)"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "（_A）高级存储参数"
+msgstr "（_A）高级存储配置"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6110,7 +6102,7 @@ msgstr "配置iSCSI参数"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI起动器名称的地址。"
+msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7061,85 +7053,4 @@ msgstr "威尔士语"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖鲁语"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "无法拨发分区"
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "您可以选择不同的自动分区选项，也可以点击“上一步”按钮来选择手工分区。\n"
-#~ "\n"
-#~ "按确定按钮来继续。"
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "安装 %s-%s-%s.%s.\n"
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "无法打开 %s-%s-%s,%s 软件包。这是由于文件遗失或者软件包损坏造成的。如果您"
-#~ "使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介"
-#~ "质。\n"
-#~ "\n"
-#~ "请按“重试”键重试。"
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "一旦重启，您的系统将处于不一致的状态，或将导致重新安装。您是否确认继续？"
-#~ msgid "_Cancel"
-#~ msgstr "取消(_C)"
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "IP 地址必须包含从 1 到 255 之间的数字"
-#~ msgid "iSCSI Configuration"
-#~ msgstr "配置 iSCSI"
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "未输入 IP 地址，跳过 iSCSI 设置"
-#~ msgid "Target IP address:"
-#~ msgstr "目标 IP 地址："
-#~ msgid "Port Number:"
-#~ msgstr "端口号："
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "红帽企业 Linux AS"
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\t桌面外壳（GNOME）\n"
-#~ "\t管理工具\n"
-#~ "\t服务器配置工具\n"
-#~ "\t万维网服务器\n"
-#~ "\tWindows 文件服务器（SMB）\n"
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "红帽企业 Linux 桌面"
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "红帽企业 Linux ES"
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "请输入本机的 IP 配置。每项均应以点式十进制输入为 IP 地址（例如："
-#~ "1.2.3.4）。"
-#~ msgid "Netmask:"
-#~ msgstr "子网掩码："
-#~ msgid "Default gateway (IP):"
-#~ msgstr "默认网关(IP)："
-#~ msgid "Primary nameserver:"
-#~ msgstr "主名称服务器："
-#~ msgid "iSCSI configuration"
-#~ msgstr "配置iSCSI"
 
