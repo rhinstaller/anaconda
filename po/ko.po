@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-03 10:50+1000\n"
+"PO-Revision-Date: 2006-08-17 12:34+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2097,7 +2097,7 @@ msgstr ""
 "템의 일부는 %s에 마운트 됩니다.\n"
 "\n"
 "쉘로 나가시려면, [ENTER] 키를 누르십시오. 쉘에서 빠져 나가시면, 시스템은 자동"
-"으로 재부팅 됩니다."
+"으로 재부팅됩니다."
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
@@ -2109,12 +2109,12 @@ msgid ""
 "will reboot automatically when you exit from the shell."
 msgstr ""
 "리눅스 파티션이 존재하지 않습니다. 쉘로 나가시려면, [ENTER] 키를 누르십시오. "
-"쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅 됩니다."
+"쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅됩니다."
 
 #: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "여러분의 시스템이 %s 디렉토리에 마운트 되었습니다."
+msgstr "여러분의 시스템이 %s 디렉토리에 마운트되었습니다."
 
 #: ../text.py:149 ../text.py:164
 msgid "Save"
@@ -2189,7 +2189,7 @@ msgstr "업그레이드"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr "업그레이드 설치 진행"
+msgstr "업그레이드 설치 진행?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2226,8 +2226,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"여러분 시스템의 파일시스템 중 일부분이 완전히 마운트 해제되지 않았습니다. 기"
-"존의 리눅스 시스템으로 부팅하여 파일시스템이 자동 점검될 수 있도록 하신 다"
+"여러분 리눅스 시스템의 파일시스템 중 일부분이 완전히 마운트 해제되지 않았습니다. "
+"기존의 리눅스 시스템으로 부팅하여 파일시스템이 자동 점검될 수 있도록 하신 다"
 "음, 모든 사항을 완전히 종료하신 후에 다시 업그레이드 하시기 바랍니다. \n"
 "%s"
 
@@ -2238,7 +2238,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"여러분 Linux 시스템의 파일 시스템 중 일부분이 완전히 마운트 해제되지 않았습니"
+"여러분 리눅스 시스템의 파일 시스템 중 일부분이 완전히 마운트 해제되지 않았습니"
 "다. 그래도 마운트 할까요?\n"
 "%s"
 
@@ -2251,7 +2251,7 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Linux 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부를 마운트"
+"리눅스 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부를 마운트"
 "할 수 없습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니다."
 
 #: ../upgrade.py:304
@@ -2260,8 +2260,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Linux 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부를 마운트"
-"할 수 없습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니다."
+"리눅스 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부가 "
+"불일치하여 마운트할 수 없습니다. 이 문제를 해결하신 후에 다시 "
+"업그레이드 하시기 바랍니다."
 
 #: ../upgrade.py:321
 msgid ""
@@ -2384,7 +2385,7 @@ msgstr "암호 길이"
 
 #: ../vnc.py:107
 msgid "The password must be at least six characters long."
-msgstr "암호는 적어도 6자 이상이어야 합니다."
+msgstr "암호는 최소 6자 이상이어야 합니다."
 
 #: ../vnc.py:137
 msgid "VNC Password Error"
@@ -2398,7 +2399,7 @@ msgid ""
 msgstr ""
 "최소 6자 이상의 vnc 패스워드를 지정해야 합니다.\n"
 "\n"
-"시스템 재부팅 위하여 <return>을 누르세요.\n"
+"시스템 재부팅 위하여 <ENTER>을 누르세요.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2420,7 +2421,7 @@ msgstr "vnc 암호를 설정하지 못했습니다 - 암호 없이 실행합니�
 
 #: ../vnc.py:249
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "암호는 적어도 6자 이상 되어야 합니다."
+msgstr "암호는 최소 6자 이상 되어야 합니다."
 
 #: ../vnc.py:272
 msgid ""
@@ -2445,7 +2446,7 @@ msgstr "VNC 서버가 이제 실행 중입니다."
 #: ../vnc.py:279
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "%s 호스트 상 vnc 서버에 접속을 시도 중입니다..."
+msgstr "%s 호스트 상 vnc 클라이언트에 접속을 시도 중입니다..."
 
 #: ../vnc.py:291
 msgid "Connected!"
@@ -2453,7 +2454,7 @@ msgstr "접속됨!"
 
 #: ../vnc.py:296
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr "50 번 시도했지만 연결되지 않아 포기합니다!\n"
+msgstr "50번 시도했지만 연결되지 않아 포기합니다!\n"
 
 #: ../vnc.py:298
 #, python-format
@@ -2627,8 +2628,8 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
-"zSeries 기계들은 보통 SCSI 장치들을 광채널 (FCP)를 통해 사용하실 수 있습니"
-"다. 각 장치들의, 16비트 장치 번호, 16비트 SCSI ID, 64비트 세계 포트 번호 "
+"zSeries 기계들은 보통 SCSI 장치들을 광채널 (FCP)을 통해 사용하실 수 있습니"
+"다. 각 장치들의, 16비트 장치 번호, 16비트 SCSI ID, 64비트 세계 포트 이름 "
 "(WWPN),16비트 SCSI LUN 그리고 64비트 FCP LUN 의 5가지 변수가 필요합니다."
 
 #: ../zfcp.py:31
@@ -2653,7 +2654,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "포트 이름을  지정하지 않으셨거나, 포트 번호가 맞지 않습니다"
+msgstr "세계 포트 이름(WWPN)을 지정하지 않으셨거나, 포트 번호가 맞지 않습니다"
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2661,7 +2662,7 @@ msgstr "SCSI LUN"
 
 #: ../zfcp.py:41
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "SCSI LUN을 지정하지 않으셨거나, LUN 번호가 맞지 않습니다"
+msgstr "SCSI LUN을 지정하지 않으셨거나, 번호가 맞지 않습니다"
 
 #: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
@@ -2669,7 +2670,7 @@ msgstr "FCP LUN"
 
 #: ../zfcp.py:44
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "FCP LUN을 지정하지 않으셨거나, LUN 번호가 맞지 않습니다"
+msgstr "FCP LUN을 지정하지 않으셨거나, 번호가 맞지 않습니다"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2692,21 +2693,21 @@ msgstr "여러분이 입력하신 암호가 일치하지 않습니다.  다시 �
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "root 암호는 적어도 6자 이상 되어야 합니다."
+msgstr "root 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
-"요청된 암호에는 암호에서 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니"
+"요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니"
 "다."
 
 #: ../iw/account_gui.py:92
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
+msgstr "루트 계정은 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
@@ -2730,7 +2731,7 @@ msgstr "데이터의 오류"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr " 선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr "선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -2787,7 +2788,7 @@ msgstr "암호가 일치하지 않습니다"
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
 msgid "Passwords do not match"
-msgstr "암호가 입력되지 않았거나 일치하지 않습니다"
+msgstr "암호가 일치하지 않습니다"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
 msgid ""
@@ -2812,8 +2813,8 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"여러분 메인 보드의 BIOS가 지원하지 않는 상황에서 부트로더를 LBA32 로 사용하신"
-"다면, 여러분의 시스템이 부팅할 수 없게 될 수도 있습니다.\n"
+"여러분 메인 보드의 BIOS가 지원하지 않는 상황에서 부트로더를 LBA32로 사용하신"
+"다면, 여러분의 시스템이 부팅할 수 없게 될 수 도 있습니다.\n"
 "\n"
 "LBA32 모드로 사용하시겠습니까?"
 
@@ -2854,7 +2855,7 @@ msgstr "부트로더는 설치되지 않을 것입니다."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "고급 부트로더 옵션 설정하기(_O)"
+msgstr "고급 부트로더 옵션 설정(_O)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2985,11 +2986,11 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "시스템을 새로 설치하시려면 이 옵션을 선택하시기 바랍니다. 선택하신 설정 내용"
-"에 따라서 기존 소프트웨어와 데이터가 지워질 수도 있습니다."
+"에 따라서 기존 소프트웨어와 데이터가 지워질 수 도 있습니다."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
-msgstr "기존 시스템 업그레이드(_U)"
+msgstr "기존 설치 시스템 업그레이드(_U)"
 
 #: ../iw/examine_gui.py:63
 #, python-format
@@ -3062,7 +3063,7 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"선택하신 값 (% 10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨 (%10.2f MB) 보다 큽니"
+"선택하신 값 (% 10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 (%10.2f MB) 보다 큽니"
 "다. 물리적 범위 용량을 변경할 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:174
@@ -3084,7 +3085,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"물리적 범위값을 변경하시면 볼륨 그룹에 속한 한개나 그 이상의 물리적 볼륨에서 "
+"물리적 범위값을 변경하시면 볼륨 그룹에 속한 하나 이상의 물리적 볼륨에서 "
 "상당한 공간을 낭비하게 됩니다."
 
 #: ../iw/lvm_dialog_gui.py:214
@@ -3094,7 +3095,7 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"최대 논리 볼륨 용량 (%10.2f MB)이 한개나 그 이상의 현재 정의된 논리 볼륨보다 "
+"최대 논리 볼륨 용량 (%10.2f MB)이 하나 이상의 현재 정의된 논리 볼륨보다 "
 "작습니다.물리적 범위 용량을 변경할 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:290
@@ -3103,7 +3104,7 @@ msgid ""
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 "물리적 볼륨을 제거하실 수 없습니다. 물리적 볼륨을 제거하시면 볼륨 그룹이 너"
-"무 적어지기 때문에 현재 정의된 논리 볼륨을 저장할 수가 없습니다."
+"무 적어지기 때문에 현재 정의된 논리 볼륨을 저장할 수 가 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
@@ -3112,7 +3113,7 @@ msgstr "논리 볼륨 설정"
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "논리 볼륨 편집: %s "
+msgstr "논리 볼륨 편집: %s"
 
 #: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
 msgid "Edit Logical Volume"
@@ -3204,7 +3205,7 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
-"다. 이 제한을 늘리기위해서는 파티션 되지 않은 디스크 공간에서의 물리적 볼륨"
+"다. 이 제한을 늘리기위해서는 파티션되지 않은 디스크 공간에서의 물리적 볼륨"
 "을 증가시키고 이것을 볼륨 그룹에 더하시면 됩니다."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
@@ -3232,7 +3233,7 @@ msgstr "여유 슬롯이 없습니다."
 #: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "논리 그룹 당 %s개 이상의 논리 볼륨을 생성하실 수 없습니다."
+msgstr "볼륨 그룹 당 %s개 이상의 논리 볼륨을 생성하실 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
@@ -3280,7 +3281,7 @@ msgstr ""
 "LVM 볼륨 그룹을 생성하기 위해서는 최소한 한개의 사용되지 않은 물리적 볼륨 파"
 "티션이 필요합니다.\n"
 "\n"
-"우선 파티션을 생성하시거나 \"물리적 볼륨 (LVM)\" 유형의 raid 배열을 만드신 "
+"파티션을 생성하시거나 \"물리적 볼륨 (LVM)\" 유형의 RAID 배열을 만드신 "
 "후 \"LVM\" 옵션을 다시 선택해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:964
