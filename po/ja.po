@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-11 08:29+1000\n"
+"PO-Revision-Date: 2006-08-17 12:51+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -131,25 +131,32 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"シリンダベースのパーティションを基本パーティションとして割り当てることができませんでした。\n"
+"シリンダベースのパーティションを基本パーティションとして割り当てることができ"
+"ませんでした。\n"
 "\n"
 "%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "パーティションを基本パーティションとして割り当てることができませんでした"
+msgstr ""
+"パーティションを基本パーティションとして割り当てることができませんでした。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "シリンダベースのパーティションを割り当てることができませんでした"
+msgstr ""
+"シリンダベースのパーティションを割り当てることができませんでした。\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -332,6 +339,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"「OK」を押して別のパーティション設定オプションを選択してください。"
 
 #: ../autopart.py:1503
 #, python-format
@@ -429,14 +439,14 @@ msgstr ""
 "本当にすべてを削除しますか?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "%s-%s-%s.%s をアップグレードしています。\n"
+msgstr "%s のアップグレード\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "インストール(_I) %s"
+msgstr "%s のインストール\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -815,16 +825,15 @@ msgstr ""
 "<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "ファイルを読み込めません!"
+msgstr "ファイルシステムをマウントできません"
 
 #: ../fsset.py:1730
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
+msgstr "デバイス %s を %s としてマウントする際にエラーが発生しました。インストールは続行できますが、問題が生じる場合があります。"
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1044,7 +1053,7 @@ msgid "Install Window"
 msgstr "インストールウィンドウ"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1055,9 +1064,9 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 CDメディアからインストールしている場合、通常 CD メディアが"
-"破損しているか、または CD ドライブがこのメディアを読み込めないということにな"
-"ります。\n"
+"可能性があります。 インストールイメージ及び必要となるメディアがすべて揃っているか確認してください。\n"
+"\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1156,7 +1165,7 @@ msgid "Unable to access the CDROM."
 msgstr "CDROM にアクセスできません。"
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1167,9 +1176,9 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 CDメディアからインストールしている場合、通常 CD メディアが"
-"破損しているか、または CD ドライブがこのメディアを読み込めないということにな"
-"ります。\n"
+"可能性があります。 インストールツリーに必要なパッケージがすべて含まれているか確認してください。\n"
+"\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
 "\n"
 
 #: ../image.py:504
@@ -1181,8 +1190,8 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"インストーラはイメージ #%s のマウントを試行しましたが、サーバー上に見つかりま"
-"せんでした。\n"
+"インストーラがイメージ #%s のマウントを試行していますが、サーバー上に見つかりま"
+"せん。\n"
 "\n"
 "このイメージをリモートサーバーの共有パスにコピーしてから再試行をクリックして"
 "ください。インストールを中止するには再起動をクリックします。"
@@ -1192,9 +1201,8 @@ msgid "Install on System"
 msgstr "システム上にインストール"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "初期化中"
+msgstr "iSCSI イニシエータの初期化中"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1268,35 +1276,32 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
 msgstr "IP アドレスがありません"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP アドレスは 0 から 255 までの数字にしなければなりません。"
+msgstr "IP アドレスは 0 から 255 までの数字を使用し、4 つの数字の組み合わせはそれぞれピリオドで区切らなければなりません。"
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s は有効なホスト名ではありません。"
+msgstr "%s は有効な IPv6 アドレスではありません。"
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "暗号キー"
+msgstr "登録キーの入力"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "%s の使用しているバージョンの登録キーを入力してください。"
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "キー:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1803,7 +1808,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "ブートパーティションが最初の 4 つのパーティションのいずれにもなっていないためブートできません。"
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1968,7 +1973,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "論理ボリュームのサイズは、ボリュームグループの物理エクステントのサイズより大きくなければなりません。"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2302,7 +2307,7 @@ msgid "Connecting..."
 msgstr "接続中..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2313,9 +2318,9 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 CDメディアからインストールしている場合、通常 CD メディアが"
-"破損しているか、または CD ドライブがこのメディアを読み込めないということにな"
-"ります。\n"
+"可能性があります。 ご使用のミラーに必要なパッケージがすべて含まれているか確認してから別のものを使用してみてください。\n"
+"\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2533,12 +2538,9 @@ msgid "Error running transaction"
 msgstr "トランザクション実行中にエラーが発生"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"ホスト名 \"%s\" は、次のような理由で有効ではありません。\n"
-"\n"
-"%s"
+msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2549,9 +2551,9 @@ msgid "Retrieving installation information..."
 msgstr "インストール情報を読み出し中..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "インストール情報を読み出し中..."
+msgstr "%s に関するインストール情報を読み出し中..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2725,13 +2727,12 @@ msgid "_Confirm: "
 msgstr "確認(_C): "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI イニシエーター名:"
+msgstr "無効なイニシエーター名です"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "長さがゼロにならないようイニシエータ名を入力してください。"
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3503,17 +3504,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "入力した IP 情報は不適切です。"
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "アクティブなネットワークデバイスがありません。 少なくとも 1 つのデバイスがア"
-"クティブでないとデフォルトではシステムがネットワーク上で通信できません。\n"
-" \n"
-"注意: PCMCIA ベースのネットワークアダプタを使用している場合、この時点ではまだ"
-"停止のままにしておきます。システムを再起動する時にアダプタは自動的に起動して"
-"きます。"
+"クティブでないとデフォルトではシステムがネットワーク上で通信できません。"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4276,26 +4272,23 @@ msgid "Unable to load file!"
 msgstr "ファイルを読み込めません!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "無効なホスト名です"
+msgstr "無効なリポジトリ名です"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "サーバー名を入力してください。"
+msgstr "長さがゼロにならないようリポジトリ名を入力してください。"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "無効なブートラベル"
+msgstr "無効なリポジトリ URL です。"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "リポジトリに HTTP または FTP の URL を入力してください。"
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4303,9 +4296,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"パッケージのメタデータを読めません。リポジトリデータのディレクトリがないこと"
-"が原因の可能性があります。インストールツリーが正しく生成されているか確認して"
-"ください。  %s"
+"リポジトリからパッケージのメタデータを読み込めません。リポジトリデータのディレクトリがないこと"
+"が原因の可能性があります。リポジトリが正しく生成されているか確認してください。\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5475,20 +5469,19 @@ msgstr ""
 "\tゲーム\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "登録キーが必要です"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "%s のインストールには登録キーが必要になります。キーが製品に同梱されていなかった場合はサポート担当者にご連絡ください。"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6135,15 +6128,14 @@ msgstr ""
 "       %s を含むディレクトリ\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "無効な IP 文字列"
+msgstr "無効な CIDR マスクです"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr ""
+msgstr "CIDR マスクの値は、 IPv4 ネットワークなら 1 から 32 まで、 IPv6 ネットワークなら 1 から 128 までの数値にしなければなりません。"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6198,94 +6190,82 @@ msgid "Sending request for IP information for %s..."
 msgstr "%s の IP 情報の要求を送信中..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC パスワードのエラー"
+msgstr "ネットワークエラー"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"ターゲットドライブ内を消去している際にエラーが発生しました。クローン作成は失"
-"敗しました。"
+msgstr "ネットワークインターフェースの設定中にエラーが発生しました。"
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定を使用する (BOOTP/DHCP)"
+msgstr "動的 IP 設定を使用する (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 サポートを有効にする"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 サポートを有効にする"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "不要なパケットの衝突を避ける"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "高速ネットワーク通信用にレジスタ値を最大にする"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "TCP/IP の設定"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "見つからないグループ"
+msgstr "見つからないプロトコル"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "手作業で設定を行うには少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "DHCP 用に少くともプロトコルを1 つ選択しなければなりません (IPv4 または IPv6)。"
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP アドレス:"
+msgstr "IPv4 アドレス:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP アドレス:"
+msgstr "IPv6 アドレス:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "ネームサーバー"
+msgstr "ネームサーバー:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL の設定"
+msgstr "手動による TCP/IP 設定"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "有効な IP アドレスとネットマスクの両方を入力してください。"
+msgstr "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "有効な IP アドレスとネットマスクの両方を入力してください。"
+msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6483,51 +6463,47 @@ msgid "Loading SCSI driver"
 msgstr "SCSI ドライバを読み込み中"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "ZFCP LUN の追加 (_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "iSCSI ターゲットの追加 (_I)"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "追加容量オプション"
+msgstr "高度なストレージオプション"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "dmraid デバイスを無効にする (_D)"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "このパーティションのファイルシステムはどのようにしますか?"
+msgstr "ドライブの構成をどのように変更しますか?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>リポジトリ URL (_U):</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI イニシエーター名(_N):</b>"
+msgstr "<b>リポジトリ名 (_N):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "リポジトリの追加"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "追加ソフトウェアのインストール元となる場所を入力します。 %s 用の有効なリポジトリでなければならないので注意してください。"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "リポジトリの追加 (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6550,9 +6526,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "高度なブートローダの設定"
+msgstr "高度なストレージ設定 (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6567,81 +6542,72 @@ msgid "_Exception details"
 msgstr "例外の詳細(_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "パスワード(_P):"
+msgstr "<b>パスワード (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>対象 IP アドレス(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>ポート番号(_P):</b>"
+msgstr "<b>ユーザー名 (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI イニシエーター名(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev パラメータ"
+msgstr "iSCSI パラメータの設定"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエータ名及びiSCSI ターゲットのアドレスを入力してください。"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "ゲートウェイ:"
+msgstr "<b>ゲートウェイ:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>対象 IP アドレス(_T):</b>"
+msgstr "<b>IPv4 アドレス:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>対象 IP アドレス(_T):</b>"
+msgstr "<b>IPv6 アドレス:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "ネームサーバー"
+msgstr "<b>ネームサーバー:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>ポート番号(_P):</b>"
+msgstr "<b>インターフェース (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv4 サポートを有効にする (_4)"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv6 サポートを有効にする (_6)"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "ネットワークインターフェースを有効にする"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "これを行うにはインストール中にアクティブなネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定を使用する (BOOTP/DHCP)"
+msgstr "動的 IP 設定を使用する (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6669,7 +6635,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "追加でソフトウェアリポジトリを加える (_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7433,9 +7399,8 @@ msgid "German"
 msgstr "ドイツ語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "空き"
+msgstr "ギリシャ語"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7467,7 +7432,7 @@ msgstr "日本語"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "カンナダ語"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7482,14 +7447,12 @@ msgid "Malay"
 msgstr "マレー語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "マレー語"
+msgstr "マラヤーラム語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "グジャラート語"
+msgstr "マラーティー語"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7501,7 +7464,7 @@ msgstr "北ソト語"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "オリヤー語"
 
 #. generated from lang-table
 msgid "Persian"
