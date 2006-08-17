@@ -6538,27 +6538,24 @@ msgid "_Exception details"
 msgstr "_Upplýsingar um óeðlilega ástandið"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Lykilorð:"
+msgstr "<b>Lykilorð:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_IP vistfang viðtakanda:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>_Gátt:</b>"
+msgstr "<b>_Notandanafn:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>Heiti iSCSI _rekils:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev viðföng"
+msgstr "Stilla iSCSI viðföng"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6567,52 +6564,48 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gátt:"
+msgstr "<b>Gátt:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>_IP vistfang viðtakanda:</b>"
+msgstr "<b>IPv4 vistfang:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>_IP vistfang viðtakanda:</b>"
+msgstr "<b>IPv6 vistfang:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Nafnaþjónn"
+msgstr "<b>Nafnaþjónn:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>_Gátt:</b>"
+msgstr "<b>_Netkort:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Virkja IPv_4 stuðning"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Virkja IPv_6 stuðning"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Virkja netkort"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Þetta krefst þess að þú hafir virka nettengingu meðan á upsetningu "
+"stendur.  Vinsamlega stilltu netkort."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Nota lausbundnar IP stillingar (BOOTP/DHCP)"
+msgstr "Nota lausbun_dnar IP stillingar (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7394,9 +7387,8 @@ msgid "German"
 msgstr "Þýska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Laust"
+msgstr "Gríska"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7428,7 +7420,7 @@ msgstr "Japanska"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7443,14 +7435,12 @@ msgid "Malay"
 msgstr "Malaíska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Malaíska"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7535,106 +7525,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Gat ekki búið til disksneiðar"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Þú getur kosið að nota aðra rofa á sjálfvirka sneiðingu eða smellt á 'Til "
-#~ "baka' hnappinn og sneitt diskana handvirkt.\n"
-#~ "\n"
-#~ "Veldu 'Í lagi' til að halda áfram."
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Set inn %s-%s-%s.%s.\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Ekki var hægt að opna pakkann %s-%s-%s.%s Þetta orsakast af skrá sem "
-#~ "vantar eða skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir "
-#~ "þetta oftast að hann sé skemmdur eða að geisladrifið getur ekki lesið "
-#~ "hann.\n"
-#~ "\n"
-#~ "Sláðu á 'Reyna aftur' til að reyna aftur."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Ef þú endurræsir núna verður vélin í annarlegu ástand og þarf líklega að "
-#~ "setja stýrikerfið upp aftur. Ertu viss um að þú viljir halda áfram?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Hætta við"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "IP vistfang má einungis innihalda tölur á bilinu 1 til 255"
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI stillingar"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "Ekkert IP visfang. Sleppi iSCSI uppsetningu"
-
-#~ msgid "Target IP address:"
-#~ msgstr "IP vistfang viðtakanda:"
-
-#~ msgid "Port Number:"
-#~ msgstr "Gáttarnúmer:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tSkjáborðsumhverfi (GNOME)\n"
-#~ "\tKerfisstjórnunartól\n"
-#~ "\tStillingatól fyrir þjóna\n"
-#~ "\tVefþjónn\n"
-#~ "\tSkráarþjónn fyrir Windows (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux sjáborð"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP-tala "
-#~ "rituð sem tölur með punkt á milli (dæmi 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Netmöskvi:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Sjálfgefin gátt (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Aðalnafnaþjónn:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "Stillingar iSCSI"
