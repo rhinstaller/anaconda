@@ -26,9 +26,8 @@ import fsset
 import iutil, isys
 import raid
 import rhpl
-if not rhpl.getArch() in ('s390','s390x'):
-    import dmraid
-    import block
+import dmraid
+import block
 import lvm
 from flags import flags
 from partErrors import *
@@ -567,8 +566,6 @@ class DiskSet:
     def startMPath(self):
         """Start all of the dm multipath devices associated with the DiskSet."""
 
-        if rhpl.getArch() in ('s390', 's390x'):
-            return
         if not DiskSet.mpList is None:
             return
 
@@ -585,15 +582,11 @@ class DiskSet:
             (self.driveList(),))
 
     def renameMPath(self, mp, name):
-        if rhpl.getArch() in ('s390', 's390x'):
-            return
         dmraid.renameMPath(mp, name)
  
     def stopMPath(self):
         """Stop all of the mpath devices associated with the DiskSet."""
 
-        if rhpl.getArch() in ('s390', 's390x'):
-            return
         if DiskSet.mpList:
             dmraid.stopAllMPath(DiskSet.mpList)
             DiskSet.mpList = None
@@ -638,11 +631,12 @@ class DiskSet:
         testList = []
         testList.extend(DiskSet.skippedDisks)
 
+        for mp in DiskSet.mpList or []:
+            for m in mp.members:
+                disk = m.split('/')[-1]
+                testList.append(disk)
+
         if not rhpl.getArch() in ('s390','s390x'):
-            for mp in DiskSet.mpList or []:
-                for m in mp.members:
-                    disk = m.split('/')[-1]
-                    testList.append(disk)
             for rs in DiskSet.dmList or []:
                 for m in rs.members:
                     if isinstance(m, block.RaidDev):

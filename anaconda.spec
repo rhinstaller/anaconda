@@ -23,10 +23,8 @@ Requires: libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
 Requires: device-mapper >= 1.01.05-3
 Requires: dosfstools e2fsprogs
-%ifnarch s390 s390x
 Requires: python-pyblock >= 0.17-2
 Requires: libbdevid >= 5.1.2-1, libbdevid-python
-%endif
 %ifnarch s390 s390x ppc64
 Requires: rhpxl >= 0.25
 %endif

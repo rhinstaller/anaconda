@@ -122,7 +122,8 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
          yum-metadata-parser gfs2-utils libvolume_id
-         libdhcp libnl libdhcp6client libdhcp4client"
+	 libdhcp libnl libdhcp6client libdhcp4client
+	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils dmidecode"
@@ -138,10 +139,6 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               login initscripts XFree86-xauth bash portmap pam 
               telnet-server login mount grep modutils gawk
               XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
-fi
-
-if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGES="$PACKAGES dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -189,7 +186,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
            fonts-malayalam fonts-oriya fonts-kannada
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot pycairo pirut dejavu-lgc-fonts"
+           firstboot pycairo pirut dejavu-lgc-fonts
+           dmraid python-pyblock libbdevid libbdevid-python"
 
 #
 # stuff ONLY included for rescue mode
@@ -199,7 +197,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
-                openssh openssh-clients pciutils rsh traceroute tar rsync"
+                openssh openssh-clients pciutils rsh traceroute tar rsync
+                device-mapper dmraid"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -209,11 +208,6 @@ fi
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
     PACKAGESRESCUE="bash"
-fi
-
-# dmraid stuff
-if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE device-mapper dmraid"
 fi
 
 #
@@ -241,11 +235,6 @@ fi
 
 # dogtail stuff...
 PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
-
-# dmraid stuff
-if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGESGR="$PACKAGESGR dmraid python-pyblock libbdevid libbdevid-python"
-fi
 
 # modular xorg...
 XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont libXinerama"
@@ -847,6 +836,8 @@ bin/zcat
 etc/joe/*
 sbin/arp
 sbin/depmod
+sbin/dmraid.static
+sbin/dmsetup.static
 sbin/dump
 sbin/ifconfig
 sbin/insmod
@@ -911,14 +902,6 @@ usr/sbin/smartctl
 usr/sbin/traceroute
 EOF
 
-# dmraid stuff
-if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    cat >> $KEEPFILERESCUE <<-EOF        
-sbin/dmraid.static
-sbin/dmsetup.static
-EOF
-fi
-
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
 boot/grub
@@ -978,15 +961,15 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 	mv $i/bin/sed $i/bin/sed_save
 	mv $i/bin/sort $i/bin/sort_save
     done
-else
-    for i in $DEST $DESTGR; do
-	# there's never a case with only one of these...
-	if [ -f $i/sbin/dmraid.static ]; then
-	    mv $i/sbin/dmraid.static $i/sbin/dmraid
-	    mv $i/sbin/dmsetup.static $i/sbin/dmsetup
-	fi
-    done
 fi
+
+for i in $DEST $DESTGR; do
+    # there's never a case with only one of these...
+    if [ -f $i/sbin/dmraid.static ]; then
+        mv $i/sbin/dmraid.static $i/sbin/dmraid
+        mv $i/sbin/dmsetup.static $i/sbin/dmsetup
+    fi
+done
 
 # change mtimes to 0 (to match what happens on the cramfs)
 for p in $DEST $DESTGR; do
