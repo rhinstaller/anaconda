@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-17 12:34+1000\n"
+"PO-Revision-Date: 2006-08-17 18:01+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2077,7 +2077,7 @@ msgid ""
 msgstr ""
 "시스템이 %s에 마운트 되었습니다.\n"
 "\n"
-"쉘로 나가시려면, [ENTER] 키를 누르십시오. 시스템을 Root 환경으로 하기 위해서"
+"쉘로 나가시려면, [ENTER] 키를 누르십시오. 시스템을 루트 환경으로 하기 위해서"
 "는 다음의 명령을 내리시기 바랍니다:\n"
 "\n"
 "\tchroot %s\n"
@@ -2693,7 +2693,7 @@ msgstr "여러분이 입력하신 암호가 일치하지 않습니다.  다시 �
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "root 암호는 최소 6자 이상이 되어야 합니다."
+msgstr "루트 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
@@ -2711,7 +2711,7 @@ msgstr "루트 계정은 시스템 관리에 사용됩니다. 루트 사용자 �
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "Root 암호(_P): "
+msgstr "루트 암호(_P): "
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
@@ -3556,7 +3556,7 @@ msgstr "DHCP를 통하여 호스트명을 자동으로 설정(_A)"
 
 #: ../iw/network_gui.py:558
 msgid "_manually"
-msgstr "수동 호스트명 설정(_M)"
+msgstr "수동으로 호스트명 설정(_M)"
 
 #: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
@@ -3855,7 +3855,7 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"소스프웨어 RAID를 사용하여 여러 개의 디스크를 하나의 큰 RAID 장치로 묶을 수 "
+"소프트웨어 RAID를 사용하여 여러 개의 디스크를 하나의 큰 RAID 장치로 묶을 수 "
 "있습니다.  개별 드라이브의 속력을 높이고 신뢰성을 더하도록 RAID 장치를 설정"
 "할 수 있습니다.  RAID 장치 사용법에 관련된 보다 많은 정보를 원하시면 %s 문서 "
 "자료를 참조해 보시기 바랍니다.\n"
@@ -3910,11 +3910,11 @@ msgstr "재설정(_S)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
-msgstr "R_AID"
+msgstr "RAID(_A)"
 
 #: ../iw/partition_gui.py:1361
 msgid "_LVM"
-msgstr "_LVM"
+msgstr "LVM(_L)"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
@@ -3966,7 +3966,7 @@ msgstr "자동 파티션 분할(_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "Disk Druid를 통한 수동 파티션 설정(_D)"
+msgstr "Disk Druid를 가지고 수동으로 파티션 설정(_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
@@ -3995,7 +3995,7 @@ msgstr "패키지 설치"
 #: ../iw/progress_gui.py:166
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr "%s 분 남음"
+msgstr "남은 시간: %s 분"
 
 #: ../iw/progress_gui.py:182
 #, python-format
@@ -4005,7 +4005,7 @@ msgstr "%s 다운로드 중"
 #: ../iw/progress_gui.py:222
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "%s-%s-%s.%s (%s)(을)를 설치합니다"
+msgstr "%s-%s-%s (을)를 설치합니다.%s (%s)"
 
 #: ../iw/progress_gui.py:346
 msgid "Package"
@@ -4100,7 +4100,7 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-"선택하신 소스 드라이브에는  /dev/%s 드라이브에 없는 파티션이 존재합니다.\n"
+"선택하신 소스 드라이브에는 /dev/%s 드라이브에 없는 파티션이 존재합니다.\n"
 "\n"
 "이 드라이브를 복제하기 위해서는 이 드라이브로 해당 파티션을 제한해 주시거나 "
 "해당 파티션을 제거해 주셔야 합니다."
@@ -4115,7 +4115,7 @@ msgstr ""
 "선택하신 소스 드라이브에는 작동중인 소프트웨어 RAID 장치의 일부인 소프트웨어 "
 "RAID 파티션이 있습니다.\n"
 "\n"
-"이 드라이브를 복제하기 위해서는 이 파티션을 먼저 제거하셔야 합니다"
+"이 드라이브를 복제하기 위해서는 이 파티션을 먼저 제거하셔야 합니다."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4181,7 +4181,7 @@ msgstr "복제 드라이브"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.   복제에 실패."
+msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.  복제에 실패."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4204,7 +4204,7 @@ msgstr ""
 "드라이브를 원하는 방식으로 파티션 분할한 후 그 파티션 배치를 다른 유사한 용량"
 "의 드라이브로 복제하는 원리입니다. 그 후 RAID 장치를 생성하시면 됩니다.\n"
 "\n"
-"주목: 소스 드라이브에 존재하는 파티션은 오직 소스 드라이브에만 제한됩니다. 또"
+"주의: 소스 드라이브에 존재하는 파티션은 오직 소스 드라이브에만 제한됩니다. 또"
 "한 사용되지 않은 소프트웨어 RAID 파티션 만이 소스 드라이브에 포함됩니다. 다"
 "른 유형의 파티션은 허용되지 않습니다.\n"
 "\n"
@@ -4224,11 +4224,11 @@ msgstr "드라이브"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
-msgstr "'출시에 앞서'의 내용을 찾을 수 없습니다.\n"
+msgstr "'릴리즈 노트'를 찾을 수 없습니다.\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
-msgstr "출시에 앞서"
+msgstr "릴리즈 노트"
 
 #: ../iw/release_notes.py:226
 msgid "Unable to load file!"
@@ -4283,7 +4283,7 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgstr "설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4321,7 +4321,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
-msgstr "추가할 장치의 종류를 선택해 주십시오?"
+msgstr "추가할 장치의 종류를 선택해 주십시오"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
 msgid "Migrate File Systems"
@@ -4412,7 +4412,7 @@ msgid ""
 "to continue?"
 msgstr ""
 "여러분은 반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 설"
-"치를 진행하실 경우에는 설치 프로그램이 비 정상적으로 종료될 수 있습니다.  스"
+"치를 진행하실 경우에는 설치 프로그램이 비정상적으로 종료될 수 있습니다.  스"
 "왑 파일을 생성하지 않은 상태로 설치를 계속 진행하시겠습니까?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
@@ -4433,7 +4433,7 @@ msgstr "제거(_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr "FCP 장치들"
+msgstr "FCP 장치"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
@@ -4520,7 +4520,7 @@ msgid ""
 msgstr ""
 "여러분은 어떤 부트로더도 설치하지 않기로 하셨습니다. 특별한 이유가 없다면, 가"
 "능한 부트로더를 설치하시기 바랍니다.  부트로더는 여러분의 하드 드라이브에 설"
-"치되어 있는 리눅스 시스템으로 부팅하는데 반드시 필요합니다.\n"
+"치되어 있는 리눅스 시스템으로 재부팅하는데 반드시 필요합니다.\n"
 "\n"
 "부트로더 설치를 생략하시겠습니까?"
 
@@ -4587,7 +4587,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> 는 버튼 선택 | <F2> 는 디폴트 | 선택하기 <F4> 는 지우기 | <F12> 는 "
+" <Space> 는 버튼 선택 | <F2> 는 디폴트 선택하기 | <F4> 는 지우기 | <F12> 는 "
 "다음 화면으로 가기>"
 
 #: ../textw/bootloader_text.py:387
@@ -4596,7 +4596,7 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"GRUB 암호를 지정하시면, 사용자가 임의로 특정 옵션을 커널에 전달하는 것을 막"
+"부트로더 암호를 지정하시면, 사용자가 임의로 특정 옵션을 커널에 전달하는 것을 막"
 "을 수 있습니다.  최상의 보안을 위해 암호를 설정하실 것을 권하지만, 대부분의 "
 "일반 사용자에게는 필요하지 않습니다."
 
@@ -4614,7 +4614,7 @@ msgstr "확인:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr "암호가 입력되지 않았거나 일치하지 않습니다"
+msgstr "암호가 일치하지 않습니다"
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
@@ -4722,7 +4722,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:84
 msgid "Please select the package groups you would like to have installed."
-msgstr "설치하시려는 패키지 그룹을 선택하세요."
+msgstr "설치하시려는 패키지 그룹을 선택하십시오."
 
 #: ../textw/grpselect_text.py:102
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4847,7 +4847,7 @@ msgstr "DHCP를 통하여 호스트명을 자동으로 설정"
 
 #: ../textw/network_text.py:349
 msgid "manually"
-msgstr "수동 호스트명 설정"
+msgstr "수동으로 호스트명 설정"
 
 #: ../textw/network_text.py:368
 msgid "Hostname Configuration"
@@ -5065,7 +5065,7 @@ msgstr "볼륨 그룹 없음"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr "논리 볼륨을 생성할 볼륨 그룹 없음."
+msgstr "논리 볼륨을 생성할 볼륨 그룹이 없음."
 
 #: ../textw/partition_text.py:1292
 #, python-format
@@ -5082,7 +5082,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
+"현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
 "다. "
 
 #: ../textw/partition_text.py:1365
@@ -5170,19 +5170,19 @@ msgstr "패키지 설치"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
-msgstr "이름: "
+msgstr " 이름   : "
 
 #: ../textw/progress_text.py:106
 msgid " Size   : "
-msgstr "용량: "
+msgstr " 용량   : "
 
 #: ../textw/progress_text.py:107
 msgid " Summary: "
-msgstr "설명: "
+msgstr " 설명: "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
-msgstr " 패키지 수"
+msgstr "    패키지 수"
 
 #: ../textw/progress_text.py:153
 msgid "      Bytes"
@@ -5190,19 +5190,19 @@ msgstr "      바이트"
 
 #: ../textw/progress_text.py:154
 msgid "        Time"
-msgstr "  소요시간"
+msgstr "        소요시간"
 
 #: ../textw/progress_text.py:156
 msgid "Total    :"
-msgstr "전  체: "
+msgstr "전체    :"
 
 #: ../textw/progress_text.py:163
 msgid "Completed:   "
-msgstr "완료됨: "
+msgstr "완료됨:   "
 
 #: ../textw/progress_text.py:173
 msgid "Remaining:  "
-msgstr "남  음: "
+msgstr "남음:  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5295,14 +5295,14 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"여러분 시스템 상에 한 개 이상이 리눅스 시스템이 발견되었습니다.\n"
+"여러분 시스템 상에 한개 이상이 리눅스 시스템이 발견되었습니다.\n"
 "\n"
 "업그레이드할 시스템을 선택하시거나 시스템을 새로 설치하기 위하여 '시스템 재설"
 "치'를 선택하시기 바랍니다."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "Root 암호"
+msgstr "루트 암호"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5310,13 +5310,13 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Root 암호를 입력해 주십시오. 암호는 두번 입력하여 앞서 입력하신 내용과 서로 "
-"일치하는지 확인해 주시기 바랍니다. Root 암호는 시스템의 보안에 있어 매우 중요"
+"루트 암호를 입력해 주십시오. 암호는 두번 입력하여 앞서 입력하신 내용과 서로 "
+"일치하는지 확인해 주시기 바랍니다. 루트 암호는 시스템의 보안에 있어 매우 중요"
 "한 부분입니다!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "Root 암호는 적어도 6자 이상 되어야 합니다."
+msgstr "루트 암호는 적어도 6자 이상 되어야 합니다."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5380,7 +5380,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
-msgstr "_Fedora"
+msgstr "Fedora(_F)"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
@@ -5422,7 +5422,7 @@ msgstr ""
 "\t사무용 도구 모음 (OpenOffice.org)\n"
 "\t웹 브라우저 (Mozilla) \n"
 "\t이메일 (Evolution)\n"
-"\t인스턴트 메신저\n"
+"\t인스턴트 메세지\n"
 "\t사운드와 비디오 프로그램\n"
 "\t게임\n"
 
@@ -5484,7 +5484,7 @@ msgstr ""
 "\t사무용 도구 모음 (OpenOffice.org)\n"
 "\t웹 브라우저 (Mozilla) \n"
 "\t이메일 (Evolution)\n"
-"\t인스턴트 메시징\n"
+"\t인스턴트 메세지\n"
 "\t사운드와 비디오 프로그램\n"
 "\t게임\n"
 "\t소프트웨어 개발용 도구\n"
@@ -5512,7 +5512,7 @@ msgid ""
 "CD and insert another for testing."
 msgstr ""
 "\"%s\"를 선택하여 현재 드라이브 상에 있는 CD를 테스트 하시거나 \"%s\"를 선택"
-"하여 그 CD를 꺼내고 다른 것을 테스트하기 위해 집어 넣으십시오."
+"하여 그 CD를 꺼내고 다른 것을 넣어 테스트하십시오."
 
 #: ../loader2/cdinstall.c:113
 #, c-format
@@ -5539,7 +5539,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:257
 msgid "CD Found"
-msgstr "드라이브를 찾았습니다"
+msgstr "CD를 찾았습니다"
 
 #: ../loader2/cdinstall.c:259
 #, c-format
@@ -5548,9 +5548,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"설치 전에 CD 미디어 테스트를 시작하시 려면 %s를 눌러주십시오.\n"
+"설치 전에 CD 미디어 테스트를 시작하시려면 %s를 눌러주십시오.\n"
 "\n"
-"%s를 선택하여 미디어 테스트를 건너뀌고 설치를 시작합니다."
+"%s를 선택하여 미디어 테스트를 건너뛰고 설치를 시작합니다."
 
 #: ../loader2/cdinstall.c:372
 #, c-format
@@ -5558,7 +5558,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"여러분의 부팅 메체에 적합한 %s CD를 찾을 수 없습니다.  %s CD를 넣고 %s를 눌"
+"여러분의 부팅 매체에 적합한 %s CD를 찾을 수 없습니다.  %s CD를 넣고 %s를 눌"
 "러 다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:384
@@ -5586,15 +5586,15 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 드라이버 디스켓 소스를 발견했습니다. 어떤 장"
-"치를 사용하시겠습니까?"
+"여러분의 시스템에서 드라이버 디스켓 소스로 사용될 수 있는 장치를 여러개 발견했습니다.  "
+"어떤 장치를 사용하시겠습니까?"
 
 #: ../loader2/driverdisk.c:300
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"이 장치에서 드라이버 디스크 이미지가 포함된 파티션이 여러개 발견했습니다. 어"
+"이 장치에서 드라이버 디스크 이미지가 포함된 파티션을 여러개 발견했습니다. 어"
 "느 파티션을 사용하시겠습니까?"
 
 #: ../loader2/driverdisk.c:338
@@ -5603,15 +5603,15 @@ msgstr "파티션을 마운트하는데 실패했습니다."
 
 #: ../loader2/driverdisk.c:346
 msgid "Select driver disk image"
-msgstr "드라이버 디스크 이미지를 선택해 주십시오."
+msgstr "드라이버 디스켓 이미지를 선택해 주십시오."
 
 #: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
-msgstr "드라이버 디스크 이미지 파일을 선택해주십시오."
+msgstr "드라이버 디스켓 이미지 파일을 선택해주십시오."
 
 #: ../loader2/driverdisk.c:376
 msgid "Failed to load driver disk from file."
-msgstr "파일에서 드라이버 디스크를 읽어오는데 실패했습니다."
+msgstr "파일에서 드라이버 디스켓을 읽어오는데 실패했습니다."
 
 #: ../loader2/driverdisk.c:387
 #, c-format
@@ -5673,7 +5673,7 @@ msgstr "킥스타트 오류"
 #: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "알 수 없는 드라이버 디스크 킥스타트 소스: %s"
+msgstr "알 수 없는 드라이버 디스켓 킥스타트 소스: %s"
 
 #: ../loader2/driverdisk.c:615
 #, c-format
@@ -5681,7 +5681,7 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"킥스타트 드라이버 디스크 명령에 다음과 같은 잘못된 인수 값이 지정되었습니다: "
+"킥스타트 드라이버 디스켓 명령에 다음과 같은 잘못된 인수 값이 지정되었습니다: "
 "%s:%s"
 
 #: ../loader2/driverselect.c:60
@@ -5721,8 +5721,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "아래에서 사용하실 드라이버를 선택해 주십시오.  여러분에게 필요한 드라이버가 "
-"이 목록에는 없는 경우 별도의 드라이버 디스켓을 가지고 계시다면, F2를 누르십시"
-"오."
+"이 목록에는 없고 별도의 드라이버 디스켓을 가지고 계시다면, F2를 누르십시오."
 
 #: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
@@ -5744,7 +5743,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"해당 디렉토리에서 %s 설치에 사용될 경로가 여러분의 부팅 메체와 일치하지 않습"
+"해당 디렉토리에서 %s 설치에 사용될 경로가 여러분의 부팅 매체와 일치하지 않습"
 "니다."
 
 #: ../loader2/hdinstall.c:217
@@ -5752,7 +5751,7 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"ISO 이미지들에서 설치를 읽어오는데 에러가 발생했습니다. ISO 이미지들을  확인"
+"ISO 이미지들에서 설치를 읽어오는데 오류가 발생했습니다. ISO 이미지들을 확인"
 "하시고 다시 시도해 주십시오."
 
 #: ../loader2/hdinstall.c:330
@@ -5770,8 +5769,8 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"어느 파티션이나 디랙토리에 %s를 위한 CD (iso9660) 이미지가 있습니까? 만일 여"
-"기에 작성된 목록에 여러분이 사용하시는 디스크 드라이브를 찾을 수 없다면,  F2"
+"어느 파티션이나 디렉토리에 %s를 위한 CD (iso9660) 이미지가 있습니까? 만일 여"
+"기에 작성된 목록에 여러분이 사용하시는 디스크 드라이브를 찾을 수 없다면, F2"
 "키를 눌러서 추가 장치 설정을 선택해주십시오."
 
 #: ../loader2/hdinstall.c:368
@@ -5867,7 +5866,7 @@ msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"업데이트 디스켓 소스로 사용 가능한 장치가 한 개 이상 발견되었습니다. 어떤 장"
+"업데이트 디스켓 소스로 사용 가능한 장치가 여러개 발견되었습니다. 어떤 장"
 "치를 사용하시겠습니까?"
 
 #: ../loader2/loader.c:346
@@ -5938,10 +5937,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"이 설치 타입에 필요한 장치 유형에 \n"
-"맞는 장치를 찾을 수 없습니다. \n"
-"직접 드라이버를 선택하시겠습니까? \n"
-"아니면 드라이버 디스켓을 사용할까요?"
+"이 설치 타입에 필요한 장치 유형에 맞는 장치를 찾을 수 없습니다."
+"직접 드라이버를 선택하시겠습니까? 아니면 드라이버 디스켓을 사용하시겠습니까?"
 
 #: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
@@ -5975,7 +5972,7 @@ msgstr "로더는 이미 실행 중입니다.  쉘을 시작합니다.\n"
 #: ../loader2/loader.c:1699
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "%s 복구 모드로 anaconda를 실행 중 입니다 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 복구 모드로 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/loader.c:1701
 #, c-format
@@ -5987,7 +5984,7 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-"원시 볼륨 서술자로부터 티스크 첵섬을 읽어들이는데 실패했습니다.  아마 이것은 "
+"원시 볼륨 서술자로부터 디스크 첵섬을 읽어들이는데 실패했습니다.  아마 이것은 "
 "첵섬을 추가하지 않은채로 디스크를 작성했기 때문입니다."
 
 #: ../loader2/mediacheck.c:338
@@ -5998,7 +5995,7 @@ msgstr "\"%s\"를 확인 중..."
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr "현재 미디어를 확인중입니다..."
+msgstr "현재 미디어를 확인중..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
@@ -6053,7 +6050,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"미디어 체크 %s\n"
+"미디어 확인 %s\n"
 "\n"
 "%s"
 
@@ -6116,8 +6113,8 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s은(는) 무선 네트워크 어댑터입니다.  무선 네트워크 접속에 필요한 ESSID 및 인"
-"증키를 입력해주십시오.  키를 사용하지 않는 경우 빈칸으로 두시고 계속 설치를 "
+"%s은(는) 무선 네트워크 어댑터입니다.  ESSID 및 무선 네트워크 접속에 필요한 인"
+"증키를 입력해주십시오.  키를 사용하지 않는 경우 빈 칸으로 두시고 계속 설치를 "
 "진행하십시오."
 
 #: ../loader2/net.c:241
@@ -6126,7 +6123,7 @@ msgstr "무선 설정"
 
 #: ../loader2/net.c:272
 msgid "Nameserver IP"
-msgstr "DNS의 IP 주소"
+msgstr "네임서버 IP 주소"
 
 #: ../loader2/net.c:276
 msgid "Nameserver"
@@ -6163,7 +6160,7 @@ msgstr "%s에 대한 IP 정보를 요청하고 있습니다..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
 msgid "Network Error"
-msgstr "Network 오류 "
+msgstr "네트워크 오류"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
 msgid "There was an error configuring your network interface."
@@ -6264,8 +6261,8 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치를 "
-"통해 설치하시겠습니까?"
+"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치로 "
+"설치하시겠습니까?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -6317,7 +6314,7 @@ msgstr "텔넷을 통해 anaconda를 실행중..."
 #: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "%s (을)를 읽는데 실패했습니다: //%s/%s/%s. "
+msgstr "%s (을)를 읽는데 실패했습니다: //%s/%s/%s."
 
 #: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
@@ -6402,7 +6399,7 @@ msgstr "알 수 없는 호스트"
 #: ../loader2/urls.c:346
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s (은)는 잘못된 호스트명 입니다."
+msgstr "%s (은)는 잘못된 호스트명입니다."
 
 #: ../loader2/urls.c:416
 msgid ""
@@ -6438,11 +6435,11 @@ msgstr "SCSI 드라이버 로딩 중"
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
-msgstr "_ZFCP LUN 추가"
+msgstr "ZFCP LUN 추가(_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "_iSCSI 목표 추가"
+msgstr "iSCSI 목표 추가(_I)"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6450,11 +6447,11 @@ msgstr "고급 용량 옵션"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr "_dmraid 장치 비활성화"
+msgstr "dmraid 장치 비활성화(_D)"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr "드라이브 설정을 어떻게 수정하시겠습니까?"
+msgstr "드라이브 설정을 수정할 방법을 지정해 주십시오."
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6495,7 +6492,7 @@ msgstr "다음(_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "출시에 앞서(_R)"
+msgstr "릴리즈 노트(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6531,7 +6528,7 @@ msgstr "<b>사용자명(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI 개시 이름 (_N):</b>"
+msgstr "<b>iSCSI 개시 이름(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6591,7 +6588,7 @@ msgstr "동적 IP 설정 사용(_D) (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "후의 사용자 설정 (_L)"
+msgstr "후의 사용자 설정(_L)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6599,7 +6596,7 @@ msgid ""
 "after install via the software management application."
 msgstr ""
 "소프트웨어 선택의 심화된 사용자 설정은 소프트웨어 관리 응용프로그램을 거쳐 지"
-"금 혹은 설치이후에 완성될 수 있습니다."
+"금 혹은 설치 이후에 완성될 수 있습니다."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6617,15 +6614,15 @@ msgstr "부가 소프트웨어 리포지터리 추가(_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
-msgstr "지금의 사용자 설정(_C)"
+msgstr "지금 사용자 설정(_C)"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr "Acre"
+msgstr "아크레(Acre)"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr "Alagoas, Sergipe"
+msgstr "알라고아스(Alagoas), 세르지페(Sergipe)"
 
 #. generated from zone.tab
 msgid "Alaska Time"
@@ -6645,19 +6642,19 @@ msgstr "알래스카 시간 - 서부 알래스카"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr "Aleutian Islands"
+msgstr "알류샨 열도(Aleutian Islands)"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr "Amapa, E Para"
+msgstr "아마파(Amapa), E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr "Amundsen-Scott Station, 남극"
+msgstr "아문센-스콧 기지(Amundsen-Scott Station), 남극"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr "Aqtobe (Aktobe)"
+msgstr "악토브(Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -6665,11 +6662,11 @@ msgstr "대서양 제도"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr "대서양 시간 - E Labrador"
+msgstr "대서양 시간 - 래브라도 동부(E Labrador)"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr "대서양 시간 - 뉴브런즈윅"
+msgstr "대서양 시간 - 뉴브런즈윅(New Brunswick)"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
@@ -6679,15 +6676,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "대서양 시간 - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr "대서양 시간 - 노바 스코샤 - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+msgstr "아티라우(Atyrau), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr "Azores"
+msgstr "아조레스(Azores)"
 
 #. generated from zone.tab
 msgid "Bahia"
@@ -6695,7 +6692,7 @@ msgstr "바이아(Bahia)"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+msgstr "Bayan-Olgiy, Govi-Altai, 호브드(Hovd), Uvs, 자브한(Zavkhan)"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
@@ -6703,7 +6700,7 @@ msgstr "부에노스 아이레스 (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "카나리 제도"
+msgstr "카나리 제도(Canary Islands)"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
@@ -6715,7 +6712,7 @@ msgstr "카타마르카 (CT), 추부트 (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr "중부 중국 - Gansu, Guizhou, Sichuan, Yunnan, 등."
+msgstr "중부 중국 - 간수(Gansu), 귀주(Guizhou), 스촨(Sichuan), 윈난(Yunnan), 등."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6723,11 +6720,11 @@ msgstr "중부 크리미아 (Crimea)"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "중부 표준시 - Saskatchewan - 중서부"
+msgstr "중부 표준시 - 서스캐춰원(Saskatchewan) - 중서부"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "중부 표준시 - Saskatchewan - 대부분 지역"
+msgstr "중부 표준시 - 서스캐처원(Saskatchewan) - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Central Time"
@@ -6735,15 +6732,15 @@ msgstr "중부 시"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr "중부시 - Campeche, Yucatan"
+msgstr "중부시 - 캄페체(Campeche), 유카탄(Yucatan)"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr "중부시 - 증부 Nunavut"
+msgstr "중부시 - 중부 누나부트(Nunavut)"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "중부시 - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+msgstr "중부시 - 코아우일라(Coahuila), 두랑고(Durango), 누에보 레온(Nuevo Leon), 타마울리파스(Tamaulipas)"
 
 #. generated from zone.tab
 msgid ""
@@ -6757,7 +6754,7 @@ msgstr "중부 시 - 인디애나 - Pike 군"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "중부시 - Manitoba & 서부 온타리오"
+msgstr "중부시 - 매니토바(Manitoba) & 서부 온타리오(west Ontario)"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
@@ -6769,23 +6766,23 @@ msgstr "중부시 - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "중부시 - 노스 다코타 - 모튼 카운티 (만단 지역 제외)"
+msgstr "중부시 - 노스 다코타(North Dakota) - 모튼 카운티(Morton County) (만단 지역 제외)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "중부시 - 노스 다코타 - Oliver 군"
+msgstr "중부시 - 노스 다코타(orth Dakota) - Oliver 군"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr "중부시 - Quintana Roo"
+msgstr "중부시 - 킨타나로오(Quintana Roo)"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "중부시 - Rainy River & Fort Frances, Ontario"
+msgstr "중부시 - Rainy River & Fort Frances, 온타리오(Ontario)"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr "중부시 - 서부 Nunavut"
+msgstr "중부시 - 서부 누나부트(west Nunavut)"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -6801,7 +6798,7 @@ msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar"
+msgstr "도르노드(Dornod), 수흐바타르(Sukhbaatar)"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -6809,11 +6806,11 @@ msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr "E Amazonas"
+msgstr "아마조나스 동부(E Amazonas)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "중국 동부 - 북경, 광동, 상해 등"
+msgstr "중국 동부 - 북경(Beijing), 광동(Guangdong), 상해(Shanghai) 등."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
@@ -6821,15 +6818,15 @@ msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "east Dem. Rep. of Congo"
+msgstr "콩고민주공화국 동부(east Dem. Rep. of Congo)"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "Easter Island & Sala y Gomez"
+msgstr "이스터 섬(Easter Island)과 살라이 고메즈(Sala y Gomez)"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "동부 표준시 - Southampton Island"
+msgstr "동부 표준시 - 사우샘프턴 섬(Southampton Island)"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6837,7 +6834,7 @@ msgstr "동부시"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr "동부시 - 동부 Nunavut"
+msgstr "동부시 - 동부 누나보트(Nunavut)"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
@@ -6857,7 +6854,7 @@ msgstr "동부 표준시 - 인디애나 - Switzerland 군"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "동부시 - Kentucky - Louisville area"
+msgstr "동부시 - 켄터키(Kentucky) - 루이빌 지역(Louisville area)"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
@@ -6865,55 +6862,55 @@ msgstr "동부시 - 캔터키 - Wayne 군"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "동부시 - Michigan - 대부분 지역"
+msgstr "동부시 - 미시간(Michigan) - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "동부시 - 온타리오 & 퀘벡 - 대부분 지역"
+msgstr "동부시 - 온타리오(Ontario) - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "동부시 - 온타리오(Ontario) 및 퀘벡(Quebec) - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "동부시 - Pangnirtung, Nunavut"
+msgstr "동부시 - Pangnirtung, 누나부트(Nunavut)"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "동부시 - 퀘벡 - 대부분 지역"
+msgstr "동부시 - 퀘벡(Quebec) - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "동부시 - Thunder Bay, Ontario"
+msgstr "동부시 - 선더베이(Thunder Bay), 온타리오(Ontario)"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "동부와 남부 보르네오, Celebes, 발리, Nusa Tengarra, 서티모르"
+msgstr "동부와 남부 보르네오, 셀레베스(Celebes), 발리(Bali), 누사 텐가라(Nusa Tengarra), 서티모르(west Timor)"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr "동부 우즈베키스탄"
+msgstr "동부 우즈베키스탄(east Uzbekistan)"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr "갈라파고스 군도"
+msgstr "갈라파고스 군도(Galapagos Islands)"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "갬비어 제도"
+msgstr "갬비어 제도(Gambier Islands)"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "길버트 군도"
+msgstr "길버트 군도(Gilbert Islands)"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr "하와이"
+msgstr "하와이(Hawaii)"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgstr "헤이룽장성(Heilongjiang)"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -6921,27 +6918,27 @@ msgstr "일리안 자야 (Irian Jaya)와 모루카스 (Moluccas)"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr "Jan Mayen"
+msgstr "얀마웬(Jan Mayen)"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr "자바와 수마트라"
+msgstr "자바(Java )와 수마트라(Sumatra)"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr "Johnston Atoll"
+msgstr "존스턴 섬(Johnston Atoll)"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr "Jujuy (JY)"
+msgstr "후후이(Jujuy) (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr "Kosrae"
+msgstr "코스라에(Kosrae)"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr "Kwajalein"
+msgstr "콰잘린(Kwajalein)"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
@@ -6949,103 +6946,103 @@ msgstr "라 리오하 (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Line Islands"
+msgstr "라인 아일랜드(Line Islands)"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Lord Howe Island"
+msgstr "로드 하우 아일랜드(Lord Howe Island)"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr "Madeira Islands"
+msgstr "마데이라 섬(Madeira Islands)"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr "본토"
+msgstr "본토(mainland)"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr "Marquesas Islands"
+msgstr "마르퀘사스 제도(Marquesas Islands)"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr "Mato Grosso"
+msgstr "마투 그로수(Mato Grosso)"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso do Sul"
+msgstr "마쿠 그로수 두 솔(Mato Grosso do Sul)"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr "Mawson Station, Holme Bay"
+msgstr "모슨 기지(Mawson Station), Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo Station, Ross Island"
+msgstr "멕머도 기지(McMurdo Station), 로스 섬(Ross Island)"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr "Mendoza (MZ)"
+msgstr "멘도사(Mendoza) (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Midway Islands"
+msgstr "미드웨이 섬(Midway Islands)"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr "모스코바+00 - 서부 러시아"
+msgstr "모스코바+00 - 서부 러시아(west Russia)"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr "모스코바+01 - Caspian Sea"
+msgstr "모스코바+01 - 카스피해(Caspian Sea)"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr "모스코바-01 - Kaliningrad"
+msgstr "모스코바-01 - 칼리닌그라드(Kaliningrad)"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr "모스코바+02 - Urals"
+msgstr "모스코바+02 - 우랄(Urals)"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr "모스코바+03 - Novosibirsk"
+msgstr "모스코바+03 - 노보시비르스크(Novosibirsk)"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr "Moscow+03 - west Siberia"
+msgstr "모스코바+03 - 서부 시베리아(west Siberia)"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr "Moscow+04 - Yenisei River"
+msgstr "모스코바+04 - 에네세이 강(Yenisei River)"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr "Moscow+05 - Lake Baikal"
+msgstr "모스코바+05 - 바이칼호(Lake Baikal)"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr "Moscow+06 - Lena River"
+msgstr "모스코바+06 - 레나강(Lena River)"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr "Moscow+07 - Amur River"
+msgstr "모스코바+07 - Amur River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscow+07 - Sakhalin Island"
+msgstr "모스코바+07 - Sakhalin Island"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr "Moscow+08 - Magadan"
+msgstr "모스코바+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr "Moscow+09 - Kamchatka"
+msgstr "모스코바+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr "Moscow+10 - Bering Sea"
+msgstr "모스코바+10 - Bering Sea"
 
 #. generated from zone.tab
 msgid "most locations"
