@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-15 17:23+1000\n"
-"PO-Revision-Date: 2006-08-15 09:23+1000\n"
+"PO-Revision-Date: 2006-08-17 16:56+1000\n"
+"PO-Revision-Date: 2006-08-17 16:56+1000\n"
 "Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
 "Language-Team: Portuguese - Brazilian\n"
 "MIME-Version: 1.0\n"
@@ -182,7 +182,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "A partição de inicialização %s não possui espaço livre suficiente no seu "
-"início para instalar o gerenciador de inicialização. Certifique-se de que há "
+"início para instalar o carregador de inicialização. Certifique-se de que há "
 "pelo menos 5MB de espaço disponível no início do disco que contém a "
 "partição /boot"
 
@@ -460,7 +460,7 @@ msgstr "Gerenciador de Inicialização"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr "Instalando o gerenciador de inicialização..."
+msgstr "Instalando o carregador de inicialização..."
 
 #: ../bootloader.py:195
 msgid ""
@@ -468,7 +468,7 @@ msgid ""
 "configuration will not be changed."
 msgstr ""
 "Nenhum pacote de kernel foi instalado em seu sistema. A configuração do "
-"gerenciador de inicialização permanecerá inalterada."
+"carregador de inicialização permanecerá inalterada."
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -2768,15 +2768,15 @@ msgstr "Erro com os Dados"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Apagar todas partições nos discos selecionados e criar o layout padrão."
+msgstr "Apagar todas partições nos discos selecionados e criar layout padrão."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Remover partições Linux nos discos selecionados e criar o layout padrão."
+msgstr "Remover partições Linux nos discos selecionados e criar layout padrão."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr "Usar o espaço livre nos discos selecionados e criar o layout padrão."
+msgstr "Usar espaço livre nos discos selecionados e criar layout padrão."
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -2788,13 +2788,13 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"A senha do gerenciador de inicialização impede que os usuários alterem "
+"A senha do carregador de inicialização impede que os usuários alterem "
 "opções passadas para o kernel.  Para maior segurança do sistema, "
 "recomendamos que você crie uma senha."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Utilizar uma senha no gerenciador de inicialização"
+msgstr "_Utilizar uma senha do carregador de inicialização"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
@@ -2802,14 +2802,14 @@ msgstr "Alterar _senha"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr "Insira a Senha do Gerenciador de Inicialização"
+msgstr "Insira a Senha do Carregador de Inicialização"
 
 #: ../iw/blpasswidget.py:102
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Indique uma senha para o gerenciador de inicialização e então confirme-a.  "
+"Indique uma senha para o carregador de inicialização e confirme-a.  "
 "(Note que o mapa do teclado da sua BIOS pode ser diferente daquele com o "
 "qual você está acostumado.)"
 
@@ -2836,7 +2836,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"A senha do gerenciador de inicialização tem menos de seis caracteres. "
+"A senha do carregador de inicialização tem menos de seis caracteres. "
 "Recomendamos uma senha maior.\n"
 "\n"
 "Deseja continuar com esta senha?"
@@ -2852,8 +2852,7 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forçar a utilização do modo LBA32 no seu gerenciador de inicialização quando "
-"ele não é suportado pela BIOS pode impossibilitar sua máquina de iniciar.\n"
+"Forçar o uso do modo LBA32 para o seu carregador de inicialização quando este modo não é suportado pela BIOS pode impossibilitar sua máquina de inicializar.\n"
 "\n"
 "Deseja continuar e forçar o modo LBA32?"
 
@@ -2870,35 +2869,35 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Se você deseja adicionar mais opções ao comando na inicialização, indique-as "
-"no campo 'Parâmetros gerais para a inicialização'."
+"Se você deseja adicionar mais opções padrão ao comando de inicialização, indique-as "
+"no campo 'Parâmetros gerais do kernel'."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
-msgstr "Parâmetros _gerais para a inicialização"
+msgstr "Parâmetros _gerais do kernel"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
 #: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
 msgid "Boot Loader Configuration"
-msgstr "Configuração do Gerenciador de Inicialização"
+msgstr "Configuração do Carregador de Inicialização"
 
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "O gerenciador de inicialização %s será instalado em /dev/%s."
+msgstr "O carregador de inicialização %s será instalado em /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Nenhum gerenciador de inicialização será instalado."
+msgstr "Nenhum carregador de inicialização será instalado."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "Configurar as _opções avançadas do gerenciador de inicialização"
+msgstr "Configurar _opções avançadas do carregador de inicialização"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Instalar registro do gerenciador de inicialização em:"
+msgstr "Instalar registro do Carregador de Inicialização em:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
@@ -2906,7 +2905,7 @@ msgstr "Alterar Ordem dos Dis_cos"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
-msgstr "Editar a Ordem dos Discos"
+msgstr "Editar Ordem dos Discos"
 
 #: ../iw/bootlocwidget.py:89
 msgid ""
@@ -2932,7 +2931,7 @@ msgstr "Reinicializar?"
 #: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
-msgstr "O sistema será reiniciado agora."
+msgstr "O sistema será reinicializado agora."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
@@ -2956,7 +2955,7 @@ msgstr ""
 "a reinicialização do sistema.\n"
 "\n"
 "Um arquivo kickstart contendo as opções de instalação selecionadas pode ser "
-"encontrado no arquivo '%s' após reinicializar o sistema."
+"encontrado no arquivo '%s' após a reinicialização do sistema."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -3054,7 +3053,7 @@ msgstr "Sistema Linux desconhecido"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
-msgstr "Seleção do Idioma"
+msgstr "Seleção de Idioma"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
 msgid "What language would you like to use during the installation process?"
@@ -3189,7 +3188,7 @@ msgstr "Desconhecido"
 #: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
 #: ../iw/raid_dialog_gui.py:314
 msgid "Original File System Label:"
-msgstr "Nome Original do Sistema de Arquivos:"
+msgstr "Etiqueta Original do Sistema de Arquivos:"
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
@@ -3433,7 +3432,7 @@ msgstr "_Modelo"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "_Simular 3 botões"
+msgstr "_Emular 3 botões"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3473,7 +3472,7 @@ msgstr "DNS _Terciário"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
-msgstr "Configuração da Rede"
+msgstr "Configuração de Rede"
 
 #: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
 #: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
@@ -3487,7 +3486,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Você não especificou o nome da máquina. Dependendo do seu ambiente de rede, "
+"Você não especificou o nome do host. Dependendo do seu ambiente de rede, "
 "isto poderá causar problemas posteriormente."
 
 #: ../iw/network_gui.py:168
@@ -3506,7 +3505,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"O nome da máquina \"%s\" não é válido pela seguinte razão:\n"
+"O nome do host \"%s\" não é válido pela seguinte razão:\n"
 "\n"
 "%s"
 
@@ -3516,7 +3515,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"Ocorreu um erro ao converter o valor introduzido para \"%s\":\n"
+"Ocorreu um erro ao converter o valor inserido para \"%s\":\n"
 "%s"
 
 #: ../iw/network_gui.py:183
@@ -3555,7 +3554,7 @@ msgstr "Endereço _IP"
 
 #: ../iw/network_gui.py:234
 msgid "Net_mask"
-msgstr "_Máscara de Rede"
+msgstr "_Máscara de rede"
 
 #: ../iw/network_gui.py:239
 msgid "_Point to Point (IP)"
@@ -3567,11 +3566,11 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:244
 msgid "Encryption _Key"
-msgstr "Chave de criptografia"
+msgstr "Chave de Criptografia"
 
 #: ../iw/network_gui.py:255
 msgid "Hardware address:"
-msgstr "Endereço do hardware:"
+msgstr "Endereço de hardware:"
 
 #: ../iw/network_gui.py:293
 #, python-format
@@ -3580,7 +3579,7 @@ msgstr "Configurar %s"
 
 #: ../iw/network_gui.py:469
 msgid "Active on Boot"
-msgstr "Ativar na inicialização"
+msgstr "Ativar na Inicialização"
 
 #: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
@@ -3591,15 +3590,15 @@ msgstr "Dispositivo"
 
 #: ../iw/network_gui.py:473
 msgid "IP/Netmask"
-msgstr "IP/Máscara de Rede"
+msgstr "IP/Máscara de rede"
 
 #: ../iw/network_gui.py:535
 msgid "Network Devices"
-msgstr "Dispositivos de rede"
+msgstr "Dispositivos de Rede"
 
 #: ../iw/network_gui.py:546
 msgid "Set the hostname:"
-msgstr "Definir nome da máquina:"
+msgstr "Definir nome do host:"
 
 #: ../iw/network_gui.py:551
 msgid "_automatically via DHCP"
@@ -3615,11 +3614,11 @@ msgstr "(ex.: \"nome.dominio.com\")"
 
 #: ../iw/network_gui.py:568 ../loader2/net.c:1354
 msgid "Hostname"
-msgstr "Nome da Máquina"
+msgstr "Nome do Host"
 
 #: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
-msgstr "Outras Configurações"
+msgstr "Configurações Diversas"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3629,7 +3628,7 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Você pode configurar o gerenciador de inicialização para carregar outros "
+"Você pode configurar o carregador de inicialização para inicializar outros "
 "sistemas operacionais. Isto permite que você selecione um sistema "
 "operacional da lista ao iniciar a máquina. Para adicionar outros sistemas "
 "operacionais, que não são automaticamente detectados, clique em 'Adicionar'. "
@@ -3653,13 +3652,13 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Indique um nome a ser mostrado no gerenciador de inicialização. O "
-"dispositivo (ou disco rígido e número da partição) é o dispositivo a partir "
+"Indique uma etiqueta a ser mostrada no menu do carregador de inicialização. O "
+"dispositivo (ou disco rígido e número de partição) é o dispositivo a partir "
 "do qual ele inicializa."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "_Nome"
+msgstr "_Etiqueta"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
@@ -3667,19 +3666,19 @@ msgstr "Destino de Inicialização Padrão"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "Você deve especificar um nome para esta entrada"
+msgstr "Você deve especificar uma etiqueta para este ítem"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "O nome contém caracteres inválidos"
+msgstr "Etiqueta contém caracteres inválidos"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "Nome Duplicado"
+msgstr "Etiqueta Duplicada"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr "Este nome já está sendo utilizado por outra inicialização."
+msgstr "Esta etiqueta já está sendo utilizado por outro ítem."
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
@@ -3687,7 +3686,7 @@ msgstr "Dispositivo Duplicado"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr "Este dispositivo já está sendo utilizado por outra inicialização."
+msgstr "Este dispositivo já está sendo utilizado por outro ítem."
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
@@ -3698,9 +3697,7 @@ msgstr "Não é Possível Excluir"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"Esta entrada não pode ser removida porque ela será utilizada no sistema %s "
-"que você está prestes a instalar."
+msgstr "Esta entrada de destino de inicialização não pode ser removida porque é para o sistema %s que você está prestes a instalar."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3757,7 +3754,7 @@ msgstr "Cilindro _Final:"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr "Forçar para ser uma partição _primária"
+msgstr "Forçar para que seja uma partição _primária"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3793,9 +3790,7 @@ msgstr "Particionamento"
 
 #: ../iw/partition_gui.py:633
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Existem os seguintes erros críticos com o esquema de particionamento "
-"selecionado."
+msgstr "Existem os seguintes erros críticos com o esquema de particionamento requisitado."
 
 #: ../iw/partition_gui.py:636
 #, python-format
@@ -3810,11 +3805,11 @@ msgstr "Erros de Particionamento"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "Existem os seguintes avisos em seu esquema de particionamento."
+msgstr "Existem os seguintes avisos em seu esquema de partições."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "Deseja continuar com o esquema de particionamento escolhido?"
+msgstr "Deseja continuar com o esquema de particionamento requisitado?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
@@ -3865,12 +3860,12 @@ msgstr "Livre"
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "Impossível alocar as partições requisitadas: %s."
+msgstr "Não foi possível alocar as partições requisitadas: %s."
 
 #: ../iw/partition_gui.py:1007
 #, python-format
 msgid "Warning: %s."
-msgstr "Aviso: %s"
+msgstr "Aviso: %s."
 
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
@@ -3882,19 +3877,17 @@ msgstr "LVM não é suportado nesta plataforma."
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
-msgstr "Software RAID não é suportado nesta plataforma."
+msgstr "RAID por software NÃO é suportado nesta plataforma."
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr "Não há números de dispositivos RAID disponíveis"
+msgstr "Não há números de dispositivos minoritários RAID disponíveis"
 
 #: ../iw/partition_gui.py:1214
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"Não é possível criar um dispositivo de software RAID porque todos os números "
-"minoritários dos dispositivos RAID já estão em uso."
+msgstr "Não é possível criar um dispositivo RAID por software porque todos os números  dos dispositivos minoritários RAID já estão em uso."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3911,7 +3904,7 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"O Software RAID permite combinar vários discos num dispositivo RAID maior.  "
+"O RAID por software permite que você combine vários discos num dispositivo RAID maior.  "
 "Um dispositivo RAID pode ser configurado para prover maior velocidade e "
 "confiabilidade, em comparação com o uso de um dispositivo individual.  Para "
 "mais informações sobre como usar os dispositivos RAID, consulte a "
@@ -3928,7 +3921,7 @@ msgid ""
 "\n"
 msgstr ""
 "Para usar o RAID você deve primeiramente criar pelo menos duas partições do "
-"tipo software RAID.  Depois você pode criar um dispositivo RAID que possa "
+"tipo RAID por software.  Depois você pode criar um dispositivo RAID que possa "
 "ser formatado e montado.\n"
 "\n"
 
@@ -3938,7 +3931,7 @@ msgstr "O que você deseja fazer agora?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "Criar uma _partição Software RAID."
+msgstr "Criar uma _partição RAID por software."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
@@ -3952,7 +3945,7 @@ msgstr "Clonar um _disco para criar um dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Não foi Possível Criar o Editor de Clonagem de Discos"
+msgstr "Não Foi Possível Criar o Editor de Clonagem de Discos"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
@@ -3976,14 +3969,14 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Ocultar membros de dispositivos RAID/_grupos de volume LVM"
+msgstr "Ocultar membros de dispositivos RAID/_Grupos de Volume LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
 #: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr "<Não Aplicável>"
+msgstr "<Not Applicable>"
 
 #: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
@@ -3991,7 +3984,7 @@ msgstr "Como você deseja preparar o sistema de arquivos nesta partição?"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
-msgstr "Permanecer _inalterada (preservar dados)"
+msgstr "Deixar _inalterada (preservar dados)"
 
 #: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
@@ -4011,7 +4004,7 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Partições do tipo '%s' devem restringir-se a um único disco.  Isto é feito "
+"Partições do tipo '%s' devem ser restritas a um único disco.  Isto é feito "
 "selecionando o disco na lista de Drives Permitidos."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4020,7 +4013,7 @@ msgstr "Configuração do Particionamento de Discos"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr "Particionamento _Automático"
+msgstr "Particionar _Automaticamente"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
@@ -4058,7 +4051,7 @@ msgstr "Tempo restante: %s minutos"
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr "Baixando - %s"
+msgstr "Baixando %s"
 
 #: ../iw/progress_gui.py:222
 #, python-format
@@ -4071,7 +4064,7 @@ msgstr "Pacote"
 
 #: ../iw/progress_gui.py:347
 msgid "Summary"
-msgstr "Descrição"
+msgstr "Resumo"
 
 #: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
 msgid "Status: "
@@ -4085,10 +4078,10 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"São necessárias pelo menos duas partições de software RAID não usadas para "
+"São necessárias pelo menos duas partições de RAID por software não usadas para "
 "criar um dispositivo RAID.\n"
 "\n"
-"Primeiramente crie pelo menos duas partições do tipo \"software RAID\" e em "
+"Primeiramente crie pelo menos duas partições do tipo \"RAID por software\" e em "
 "seguida selecione a opção \"RAID\" novamente."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
@@ -4123,7 +4116,7 @@ msgstr "Número de re_servas:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "_Formatar a partição?"
+msgstr "_Formatar partição?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4340,16 +4333,16 @@ msgstr "Atualizar Configuração do Gerenciador de Inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "At_ualizar a configuração do gerenciador de inicialização"
+msgstr "At_ualizar a configuração do carregador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr "Isto atualizará o seu gerenciador de inicialização."
+msgstr "Isto atualizará o seu carregador de inicialização."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "O instalador detectou o gerenciador de inicialização %s instalado em %s."
+msgstr "O instalador detectou o carregador de inicialização %s instalado em %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4360,12 +4353,12 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"O instalador não pôde detectar o gerenciador de inicialização que está sendo "
+"O instalador não pôde detectar o carregador de inicialização que está sendo "
 "utilizado em seu sistema no momento."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "_Criar nova configuração do gerenciador de inicialização"
+msgstr "_Criar nova configuração do carregador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -4373,20 +4366,20 @@ msgid ""
 "switch boot loaders, you should choose this."
 msgstr ""
 "Isto permite que você crie uma nova configuração do gerenciador de "
-"inicialização.  Se você deseja mudar o gerenciador de inicialização, escolha "
+"inicialização.  Se você deseja mudar o carregador de inicialização, escolha "
 "esta opção."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr "_Pular atualização do gerenciador de inicialização"
+msgstr "_Pular atualização do carregador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Isto não alterará a configuração do gerenciador de inicialização.  Se você "
-"está utilizando um outro gerenciador de inicialização, deverá selecionar "
+"Isto não alterará a configuração do carregador de inicialização.  Se você "
+"está utilizando um outro carregador de inicialização, deverá selecionar "
 "esta opção."
 
 #: ../iw/upgrade_bootloader_gui.py:109
@@ -4526,11 +4519,11 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Configuração do gerenciador de inicialização z/IPL"
+msgstr "Configuração do carregador de inicialização z/IPL"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "O gerenciador de inicialização z/IPL será instalado no seu sistema."
+msgstr "O carregador de inicialização z/IPL será instalado no seu sistema."
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4548,7 +4541,7 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"O gerenciador de inicialização z/IPL será instalado agora no seu sistema.\n"
+"O carregador de inicialização z/IPL será instalado agora no seu sistema.\n"
 "\n"
 "A partição raiz será a que foi selecionada previamente na configuração de "
 "partições.\n"
@@ -4572,19 +4565,19 @@ msgstr "Parâmetros Chandev"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr "Qual gerenciador de inicialização você quer usar?"
+msgstr "Qual carregador de inicialização você quer usar?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "Usar gerenciador de inicialização GRUB"
+msgstr "Usar carregador de inicialização GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr "Não usar gerenciador de inicialização"
+msgstr "Não usar carregador de inicialização"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr "Pular a configuração do gerenciador de inicialização"
+msgstr "Pular a configuração do carregador de inicialização"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4595,12 +4588,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Você optou por não instalar um gerenciador de inicialização. É altamente "
-"recomendável instalar um gerenciador de inicialização, exceto em alguns "
-"casos especiais. Um gerenciador de inicialização é quase sempre necessário "
+"Você optou por não instalar um carregador de inicialização. É altamente "
+"recomendável instalar um carregador de inicialização, exceto em alguns "
+"casos especiais. Um carregador de inicialização é quase sempre necessário "
 "para reinicializar seu sistema Linux diretamente do disco rígido.\n"
 "\n"
-"Tem certeza que deseja pular a instalação do gerenciador de inicialização?"
+"Tem certeza que deseja pular a instalação do carregador de inicialização?"
 
 #: ../textw/bootloader_text.py:93
 msgid ""
@@ -4620,7 +4613,7 @@ msgstr "Forçar uso de LBA32 (normalmente não necessário)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr "Onde deseja instalar o gerenciador de inicialização?"
+msgstr "Onde deseja instalar o carregador de inicialização?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
@@ -4658,7 +4651,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"O gerenciador de inicialização usado pelo %s também pode carregar outros "
+"O carregador de inicialização usado pelo %s também pode carregar outros "
 "sistemas operacionais. Aponte em quais partições residem outros sistemas e "
 "quais nomes deseja usar para a inicialização de cada um deles."
 
@@ -4674,7 +4667,7 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"A senha do gerenciador de inicialização impede que usuários passem "
+"A senha do carregador de inicialização impede que usuários passem "
 "parâmetros ao kernel.  Para maior segurança, recomendamos a proteção com "
 "senha, mas isto não é necessário para usuários mais comuns."
 
@@ -4684,7 +4677,7 @@ msgstr "Usar uma senha no GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Senha do gerenciador de inicialização:"
+msgstr "Senha do carregador de inicialização:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
@@ -5316,15 +5309,15 @@ msgstr "Relógio do sistema utiliza UTC"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Atualizar configuração do gerenciador de inicialização"
+msgstr "Atualizar configuração do carregador de inicialização"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr "Pular atualização do gerenciador de inicialização"
+msgstr "Pular atualização do carregador de inicialização"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Criar nova configuração do gerenciador de inicialização"
+msgstr "Criar nova configuração do carregador de inicialização"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -5437,7 +5430,7 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"O gerenciador de inicialização z/IPL será instalado em seu sistema após "
+"O carregador de inicialização z/IPL será instalado em seu sistema após "
 "completar a instalação. Agora você pode indicar quaisquer parâmetros "
 "adicionais para o kernel e chandev que sua máquina ou sua configuração "
 "possam precisar."
