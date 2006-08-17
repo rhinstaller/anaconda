@@ -705,7 +705,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"是 0 版本的 Linux 交换分区。如果您想使用此设备，您必须用 1 版本的Linux 交换分区进行格式化。如果你跳过，安装将在安装过程中忽略它。"
+"是 0 版本的 Linux 交换分区。如果您想使用此设备，您必须用 1 版本的Linux 交换分区进行格式化。如果跳过，安装将在安装过程中忽略它。"
 
 #: ../fsset.py:1480
 msgid "Reformat"
@@ -724,7 +724,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"在 /etc/fstab 文件中的当前状态是睡眠状态。如果你要进行升级，请关闭您的系统，而不是使系统进入睡眠状态。"
+"在 /etc/fstab 文件中的当前状态是睡眠状态。如果要进行升级，请关闭您的系统，而不是使系统进入睡眠状态。"
 
 #: ../fsset.py:1492
 #, python-format
@@ -739,7 +739,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"在 /etc/fstab 文件中的当前状态是睡眠状态。如果你要进行全新的安装，请确认安装程序被设置为格式化所有交换分区。"
+"在 /etc/fstab 文件中的当前状态是睡眠状态。如果要进行全新的安装，请确认安装程序被设置为格式化所有交换分区。"
 
 #: ../fsset.py:1502
 msgid ""
@@ -749,7 +749,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"如果你想安装程序在升级过程中忽略这个分区，请选择跳过。选择格式化将使这个分区被重新格式化为交换分区。选择重启将重新启动系统。"
+"如果想安装程序在升级过程中忽略这个分区，请选择跳过。选择格式化将使这个分区被重新格式化为交换分区。选择重启将重新启动系统。"
 
 #: ../fsset.py:1508
 #: ../iw/partition_gui.py:368
@@ -1331,7 +1331,7 @@ msgstr "输入注册码"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr "请输入你的版本%s的注册码"
+msgstr "请输入版本%s的注册码"
 
 #: ../packages.py:248
 msgid "Key:"
@@ -2260,9 +2260,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"你需要至少6位长的VNC密码。\n"
+"您需要至少6位长的VNC密码。\n"
 "\n"
-"按 <回车> 重启你的系统。\n"
+"按 <回车> 重启您的系统。\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2392,7 +2392,7 @@ msgstr "与操作系统不兼容的软件包"
 
 #: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
-msgstr "你在以下文件系统中需要更多空间:\n"
+msgstr "您在以下文件系统中需要更多空间:\n"
 
 #: ../yuminstall.py:470
 msgid "Error running transaction"
@@ -2610,7 +2610,7 @@ msgstr "输入引导装载程序口令"
 
 #: ../iw/blpasswidget.py:102
 msgid "Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"
-msgstr "输入引导装载程序口令，然后确认它。（注意，您的 BIOS 键映射可能和你实际使用的键映射不同。）"
+msgstr "输入引导装载程序口令，然后确认它。（注意，您的 BIOS 键映射可能和实际使用的键映射不同。）"
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -6146,16 +6146,16 @@ msgstr "使用(_d）动态 IP 配置(DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "优化稍后(_l)"
+msgstr "稍后定制(_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid "Further customization of the software selection can be completed now or after install via the software management application."
-msgstr "软件的进一步优化可以现在完成，也可以在安装之后，在软件应用管理中完成。"
+msgstr "软件的定制可以现在完成，也可以在安装之后，在软件应用管理中完成。"
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
 msgid "The default installation of %s includes a set of  software applicable for general internet usage.  What additional tasks would you like your system to include  support for?"
-msgstr "%s的默认安装包含一系列用于互联网常规应用的软件。您希望你的系统还支持其它什么样的附加功能？"
+msgstr "%s的默认安装包含一系列用于互联网常规应用的软件。您希望您的系统还支持其它什么样的附加功能？"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
