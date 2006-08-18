@@ -215,7 +215,6 @@ def makeCharDeviceNodes():
 
 # make the device nodes for all of the drives on the system
 def makeDriveDeviceNodes():
-    isys.flushDriveDict()
     hardDrives = isys.hardDriveDict()
     for drive in hardDrives.keys():
         if drive.startswith("mapper"):
@@ -239,7 +238,6 @@ def makeDriveDeviceNodes():
             dev = "%s%s%d" % (drive, sep, i)
             isys.makeDevInode(dev, "/dev/%s" % (dev,))
 
-    isys.flushDriveDict()
     cdroms = isys.cdromList()
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))

@@ -29,6 +29,7 @@ import resource
 import re
 import rhpl
 import struct
+import block
 
 import logging
 log = logging.getLogger("anaconda")
@@ -267,21 +268,28 @@ def flushDriveDict():
 
 def driveDict(klassArg):
     global cachedDrives
-    if cachedDrives is not None:
-        return cachedDrives
-    
+    if cachedDrives is None:
+        # FIXME: need to add dasd probing to kudzu
+        devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | \
+                                            kudzu.CLASS_FLOPPY,
+                           kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
+        new = {}
+        for dev in devs:
+            if dev.device is None: # none devices make no sense
+                continue
+            new[dev.device] = dev
+        cachedDrives = new
+
     ret = {}
-
-    # FIXME: need to add dasd probing to kudzu
-    devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | kudzu.CLASS_FLOPPY,
-                       kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
-    for dev in devs:
-        if dev.device is None: # none devices make no sense
-            continue
-        if dev.deviceclass == classMap[klassArg]:
-            ret[dev.device] = dev.desc
-
-    cachedDrives = ret
+    for key,dev in cachedDrives.items():
+        # XXX these devices should have deviceclass attributes.  Or they
+        # should all be subclasses in a device tree and we should be able
+        # to use isinstance on all of them.  Not both.
+        if klassArg == "disk" and (isinstance(dev, block.MultiPath) or \
+                                   isinstance(dev, block.RaidSet)):
+            ret[key] = dev
+        elif dev.deviceclass == classMap[klassArg]:
+            ret[key] = dev.desc
     return ret
 
 def hardDriveDict():

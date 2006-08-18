@@ -1,5 +1,12 @@
 2006-08-18  Peter Jones  <pjones@redhat.com>
 
+	* iutil.py (makeDriveDeviceNodes): don't call isys.flushDriveDict()
+
+	* isys/isys.py (driveDict): don't recompute cachedDrives unless it's
+	empty.  Return a subset of it based on the "klassdevice" or similar.
+
+2006-08-18  Peter Jones  <pjones@redhat.com>
+
 	* iw/partition_ui_helpers_gui.py (WideCheckList.__init__): Don't set
 	the selection mode to gtk.SELECTION_NONE.  AFAICT, all this does is
 	make it so you can't check or uncheck drives for installation using
