@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-17 18:01+1000\n"
+"PO-Revision-Date: 2006-08-18 10:46+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2674,7 +2674,7 @@ msgstr "FCP LUN을 지정하지 않으셨거나, 번호가 맞지 않습니다"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "루트 암호 설정"
+msgstr "Root 암호 설정"
 
 #: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
 #: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
@@ -2685,7 +2685,7 @@ msgstr "암호에 오류 발생"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr "루트 암호를 입력하신 후 확인을 위해 다시 한번 입력해 주십시오."
+msgstr "루트(root) 암호를 입력하신 후 확인을 위해 다시 한번 입력해 주십시오."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
@@ -2693,7 +2693,7 @@ msgstr "여러분이 입력하신 암호가 일치하지 않습니다.  다시 �
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "루트 암호는 최소 6자 이상이 되어야 합니다."
+msgstr "루트(root) 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
@@ -2707,11 +2707,11 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "루트 계정은 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
+msgstr "루트(root) 계정은 시스템 관리에 사용됩니다. 루트(root) 사용자 암호를 입력해주십시오."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "루트 암호(_P): "
+msgstr "Root 암호(_P): "
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
@@ -5119,7 +5119,7 @@ msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설�
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "루트 파티션이 지정되지 않음"
+msgstr "루트(Root) 파티션이 지정되지 않음"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
@@ -5302,7 +5302,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "루트 암호"
+msgstr "Root 암호"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5310,13 +5310,13 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"루트 암호를 입력해 주십시오. 암호는 두번 입력하여 앞서 입력하신 내용과 서로 "
+"루트(root) 암호를 입력해 주십시오. 암호는 두번 입력하여 앞서 입력하신 내용과 서로 "
 "일치하는지 확인해 주시기 바랍니다. 루트 암호는 시스템의 보안에 있어 매우 중요"
 "한 부분입니다!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "루트 암호는 적어도 6자 이상 되어야 합니다."
+msgstr "루트(root) 암호는 적어도 6자 이상 되어야 합니다."
 
 #: ../textw/welcome_text.py:22
 #, python-format
