@@ -920,7 +920,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
     def sanityCheckRequest(self, partitions, skipMntPtExistCheck=0, pesize=32768):
         """Run the basic sanity checks on the request."""
-        if not self.percent and self.size*1024 < pesize:
+        if not self.grow and not self.percent and self.size*1024 < pesize:
             return _("Logical volume size must be larger than the volume "
                      "group's physical extent size.")
 
