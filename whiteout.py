@@ -82,7 +82,8 @@ whiteout="""
         openoffice.org-libs>openoffice.org \
         gtk+>gdk-pixbuf \
         nautilus>nautilus-cd-burner \
-        hicolor-icon-theme>gtk2
+        hicolor-icon-theme>gtk2 \
+        gtk2>scim-libs
 """
 
 whitetup = map(lambda x: (x.split(">")[0], x.split(">")[1]), whiteout.split())
