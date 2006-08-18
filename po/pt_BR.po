@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-17 16:56+1000\n"
-"PO-Revision-Date: 2006-08-17 16:56+1000\n"
+"PO-Revision-Date: 2006-08-18 12:54+1000\n"
+"PO-Revision-Date: 2006-08-18 12:54+1000\n"
 "Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
 "Language-Team: Portuguese - Brazilian\n"
 "MIME-Version: 1.0\n"
@@ -2203,7 +2203,7 @@ msgstr "Bem-vindo ao %s"
 
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> ajuda | <Tab> alterna seleção | <Espaço> seleciona | <F12> próxima tela"
+msgstr " <F1> ajuda | <Tab> alterna seleção | <Espaço> seleciona | <F12> continuar"
 
 #: ../text.py:428
 msgid ""
@@ -2211,7 +2211,7 @@ msgid ""
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> alterna seleção   |  <Espaço> seleciona   |  <F12> "
-"próxima tela"
+"continuar"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
@@ -3309,7 +3309,7 @@ msgstr "Nome do Grupo de Volumes Inválido"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
-msgstr "Nome já utilizado"
+msgstr "Nome em uso"
 
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
@@ -3331,7 +3331,7 @@ msgstr ""
 "É necessária pelo menos uma partição de volume físico para criar um grupo de "
 "volumes LVM.\n"
 "\n"
-"Crie uma partição ou um grupo RAID do tipo \"volume físico (LVM)\" e então "
+"Crie uma partição ou um RAID do tipo \"volume físico (LVM)\" e então "
 "selecione a opção \"LVM\" novamente."
 
 #: ../iw/lvm_dialog_gui.py:964
@@ -3357,7 +3357,7 @@ msgstr "Nome do Grupo de Volumes:"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "Tamanho _Físico:"
+msgstr "Extensão _Física:"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
@@ -3630,7 +3630,7 @@ msgid ""
 msgstr ""
 "Você pode configurar o carregador de inicialização para inicializar outros "
 "sistemas operacionais. Isto permite que você selecione um sistema "
-"operacional da lista ao iniciar a máquina. Para adicionar outros sistemas "
+"operacional de uma lista ao iniciar a máquina. Para adicionar outros sistemas "
 "operacionais, que não são automaticamente detectados, clique em 'Adicionar'. "
 "Para alterar o sistema operacional iniciado por padrão, clique em 'Padrão' "
 "no sistema operacional desejado."
@@ -3641,7 +3641,7 @@ msgstr "Padrão"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr "Nome"
+msgstr "Etiqueta"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
@@ -3805,7 +3805,7 @@ msgstr "Erros de Particionamento"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "Existem os seguintes avisos em seu esquema de partições."
+msgstr "Existem os seguintes avisos em relação ao seu esquema de partições."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3851,7 +3851,7 @@ msgstr "Estendido(a)"
 
 #: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
 msgid "software RAID"
-msgstr "software RAID"
+msgstr "RAID por software"
 
 #: ../iw/partition_gui.py:908
 msgid "Free"
@@ -3873,7 +3873,7 @@ msgstr "Não suportado"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr "LVM não é suportado nesta plataforma."
+msgstr "LVM NÃO é suportado nesta plataforma."
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
@@ -3910,7 +3910,7 @@ msgstr ""
 "mais informações sobre como usar os dispositivos RAID, consulte a "
 "documentação do %s.\n"
 "\n"
-"No momento há %s partição(ões) de software RAID livre(s) para uso.\n"
+"No momento %s partição(ões) de RAID por software estão livre(s) para uso.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1250
@@ -4166,10 +4166,10 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-"O disco de origem selecionado tem partições de software RAID que são membros "
+"O disco de origem selecionado tem partições de RAID por software que são membros "
 "de um dispositivo software RAID ativo.\n"
 "\n"
-"Estas partições deverão ser removidas antes deste disco ser clonado."
+"Estas partições deverão ser removidas antes que este disco possa ser clonado."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4202,11 +4202,11 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"Esta partição deve ser removida antes que este disco possa ser o destino."
+"Esta partição deve ser removida antes que este disco possa ser um destino."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
-msgstr "Por favor selecione o disco de origem."
+msgstr "Por favor selecione um disco de origem."
 
 #: ../iw/raid_dialog_gui.py:643
 #, python-format
@@ -4225,7 +4225,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"AVISO! TODOS OS DADOS NA UNIDADE DE DESTINO SERÃO DESTRUÍDOS."
+"AVISO! TODOS OS DADOS NOS DISCOS DE DESTINO SERÃO DESTRUÍDOS."
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
@@ -4256,14 +4256,13 @@ msgid ""
 msgstr ""
 "Ferramenta de Clonagem de Discos\n"
 "\n"
-"Esta ferramenta permite reduzir significativamente a quantidade de esforço "
+"Esta ferramenta permite que você reduza significativamente a quantidade de esforço necessária  "
 "para configurar dispositivos RAID.  A idéia é pegar um disco de origem que "
 "foi preparado com o layout de particionamento desejado e copiar este layout "
-"para outros discos de tamanho similar.  Assim, um dispositivo RAID poderá "
+"para outros discos de tamanho similar.  Desta forma, um dispositivo RAID pode "
 "ser criado.\n"
 "\n"
-"NOTA: O disco de origem deve ter partições que se restrinjam a esse disco "
-"apenas, e só poderá conter partições de software RAID não utilizadas. Não "
+"NOTA: O disco de origem deve ter partições que se restrinjam apenas a ele mesmo, e só poderá conter partições de software RAID não utilizadas. Não "
 "são permitidos outros tipos de partições.\n"
 "\n"
 "TUDO que estiver no(s) disco(s) de destino será destruído por este processo."
@@ -4302,11 +4301,11 @@ msgstr "Você deve informar um nome de tamanho não nulo para o repositório."
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
-msgstr "URL de Repositório Inválida"
+msgstr "URL do Repositório Inválida"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Você deve informar uma URL HTTP ou FTP para um repositório."
+msgstr "Você deve informar uma URL do tipo HTTP ou FTP para um repositório."
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -4317,8 +4316,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Impossível ler metadados dos repositórios. Isto pode ser devido ao diretório "
-"repodata estar faltando. Verifique se o seu repositório foi gerado "
+"Impossível ler metadados dos repositórios. Isto pode ser devido a algum diretório do repositório de dados estar faltando. Verifique se o seu repositório foi gerado "
 "corretamente.\n"
 "\n"
 "%s"
@@ -4329,7 +4327,7 @@ msgstr "Seleção de Fuso Horário"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Atualizar Configuração do Gerenciador de Inicialização"
+msgstr "Atualizar Configuração do Carregador de Inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
@@ -4337,7 +4335,7 @@ msgstr "At_ualizar a configuração do carregador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr "Isto atualizará o seu carregador de inicialização."
+msgstr "Isto atualizará o seu carregador de inicialização atual."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
@@ -4353,7 +4351,7 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"O instalador não pôde detectar o carregador de inicialização que está sendo "
+"O instalador não pode detectar o carregador de inicialização que está sendo "
 "utilizado em seu sistema no momento."
 
 #: ../iw/upgrade_bootloader_gui.py:87
@@ -4365,7 +4363,7 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Isto permite que você crie uma nova configuração do gerenciador de "
+"Isto permite que você crie uma nova configuração do carregador de "
 "inicialização.  Se você deseja mudar o carregador de inicialização, escolha "
 "esta opção."
 
@@ -4379,7 +4377,7 @@ msgid ""
 "third party boot loader, you should choose this."
 msgstr ""
 "Isto não alterará a configuração do carregador de inicialização.  Se você "
-"está utilizando um outro carregador de inicialização, deverá selecionar "
+"está utilizando um carregador de inicialização de terceiros, você deve selecionar "
 "esta opção."
 
 #: ../iw/upgrade_bootloader_gui.py:109
@@ -4400,7 +4398,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Esta versão do %s suporta o sistema de arquivos ext3.  Ele oferece várias "
+"Esta versão do %s suporta o sistema de arquivos ext3 com recursos de journalling.  Ele oferece várias "
 "vantagens em relação ao sistema de arquivos ext2, tradicionalmente incluso "
 "no %s.  É possível migrar as partições formatadas em ext2 para ext3 sem "
 "perda de dados.\n"
@@ -4420,8 +4418,8 @@ msgid ""
 "file systems now."
 msgstr ""
 "O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que "
-"um kernel mais antigo, em torno do dobro da memória RAM do sistema.  No "
-"momento você tem %dMB de memória virtual (swap) configurado, mas poderá "
+"um kernels mais antigos, em torno do dobro da memória RAM do sistema.  No "
+"momento você tem %dMB de memória virtual configurado, mas você pode "
 "aumentar o espaço em um dos seus sistemas de arquivos agora."
 
 #: ../iw/upgrade_swap_gui.py:96
@@ -4437,11 +4435,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "_Quero criar um arquivo de memória virtual (swap)"
+msgstr "Quero criar um arquivo de memória virtual (s_wap)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Escolha a _partição que vai armazenar o arquivo de memória virtual:"
+msgstr "Escolha a _partição para armazenar o arquivo de memória virtual:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4475,7 +4473,7 @@ msgid ""
 "to continue?"
 msgstr ""
 "É altamente recomendável que você crie um arquivo de memória virtual. Se não "
-"o fizer o instalador pode abortar anormalmente. Tem certeza que deseja "
+"o fizer, o instalador pode abortar anormalmente. Tem certeza que deseja "
 "continuar?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
@@ -4485,7 +4483,7 @@ msgstr "O arquivo de memória virtual deve ter entre 1 e 2000 MB de tamanho."
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
-"Não há espaço suficiente na unidade que você selecionou para a partição de "
+"O dispositivo selecionado não tem espaço suficiente para a partição de "
 "memória virtual."
 
 #: ../iw/zfcp_gui.py:24
@@ -4519,7 +4517,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Configuração do carregador de inicialização z/IPL"
+msgstr "Configuração do Carregador de Inicialização z/IPL"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4549,7 +4547,7 @@ msgstr ""
 "O kernel utilizado para iniciar a máquina será aquele instalado como "
 "padrão.\n"
 "\n"
-"Para efetuar alterações depois da instalação altere o arquivo de "
+"Se desejar efetuar alterações após a instalação altere o arquivo de "
 "configuração /etc/zipl.conf.\n"
 "\n"
 "Agora você pode inserir parâmetros adicionais do kernel que sua máquina ou "
@@ -4565,19 +4563,19 @@ msgstr "Parâmetros Chandev"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr "Qual carregador de inicialização você quer usar?"
+msgstr "Qual carregador de inicialização você gostaria de usar?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "Usar carregador de inicialização GRUB"
+msgstr "Usar Carregador de Inicialização GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr "Não usar carregador de inicialização"
+msgstr "Não Usar Carregador de Inicialização"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr "Pular a configuração do carregador de inicialização"
+msgstr "Pular Configuração do Carregador de Inicialização"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4589,9 +4587,8 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Você optou por não instalar um carregador de inicialização. É altamente "
-"recomendável instalar um carregador de inicialização, exceto em alguns "
-"casos especiais. Um carregador de inicialização é quase sempre necessário "
-"para reinicializar seu sistema Linux diretamente do disco rígido.\n"
+"recomendável instalar um carregador de inicialização, a não ser que vocẽ tenha necessidades avançadas que impeçam a instalação do mesmo. Um carregador de inicialização é quase sempre necessário "
+"para reinicializar seu sistema em Linux diretamente do disco rígido.\n"
 "\n"
 "Tem certeza que deseja pular a instalação do carregador de inicialização?"
 
@@ -4602,14 +4599,13 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Alguns sistemas precisam de parâmetros especiais passados ao kernel para que "
-"o sistema funcione corretamente. Se você precisa passar parâmetros para o "
-"kernel, insira-os agora. Se não precisar passar parâmetros ou não tiver "
+"Alguns sistemas precisam que opções especiais sejam passadas ao kernel durante inicialização para que o sistema funcione corretamente. Se você precisa passar opções de inicialização para o "
+"kernel, insira-os agora. Se não precisar passar tais opções, ou não tiver "
 "certeza, deixe em branco."
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Forçar uso de LBA32 (normalmente não necessário)"
+msgstr "Forçar uso de LBA32 (normalmente desnecessário)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
@@ -4617,7 +4613,7 @@ msgstr "Onde deseja instalar o carregador de inicialização?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
-msgstr "Nome da inicialização"
+msgstr "Etiqueta da inicialização"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
@@ -4625,19 +4621,19 @@ msgstr "Limpar"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr "Editar Nome da Inicialização"
+msgstr "Editar Etiqueta da Inicialização"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr "Nome de Inicialização Inválido"
+msgstr "Etiqueta da Inicialização Inválida"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
-msgstr "O nome da inicialização deve ser preenchido."
+msgstr "A etiqueta da inicialização não pode estar vazia."
 
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr "O nome da inicialização contém caracteres inválidos."
+msgstr "A etiqueta da inicialização contém caracteres inválidos."
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
@@ -4651,14 +4647,13 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"O carregador de inicialização usado pelo %s também pode carregar outros "
-"sistemas operacionais. Aponte em quais partições residem outros sistemas e "
-"quais nomes deseja usar para a inicialização de cada um deles."
+"O gerenciador de inicialização usado pelo %s também pode carregar outros "
+"sistemas operacionais. Você precisa me dizer quais partições você gostaria de poder inicializar e que etiqueta você quer usar para cada uma delas."
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Espaço> selecionar | <F2> selecionar padrão | <F4> deletar | <F12> "
+" <Espaço> selecionar | <F2> selecionar padrão | <F4> excluir | <F12> "
 "continuar>"
 
 #: ../textw/bootloader_text.py:387
@@ -4667,17 +4662,16 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"A senha do carregador de inicialização impede que usuários passem "
-"parâmetros ao kernel.  Para maior segurança, recomendamos a proteção com "
-"senha, mas isto não é necessário para usuários mais comuns."
+"Uma senha de carregador de inicialização impede que usuários passem "
+"opções arbitrárias ao kernel.  Para maior segurança, nós recomendamos o uso de uma senha, mas isto não é necessário para usuários de caráter mais casual."
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr "Usar uma senha no GRUB"
+msgstr "Usar uma Senha no GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Senha do carregador de inicialização:"
+msgstr "Senha do Carregador de Inicialização:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
@@ -4685,15 +4679,15 @@ msgstr "Confirmar:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr "As Senhas Não Conferem"
+msgstr "Senhas Não Conferem"
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
-msgstr "A Senha é Muito Curta"
+msgstr "Senha Muito Curta"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr "A senha para o gerenciador é muito curta"
+msgstr "Senha do carregador de inicialização é muito curta"
 
 #: ../textw/complete_text.py:27
 msgid ""
@@ -4728,7 +4722,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Parabéns, a instalação do %s está completa.\n"
+"Parabéns, sua instalação do %s está completa.\n"
 "\n"
 "%s%s"
 
@@ -4741,11 +4735,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Para informações sobre a errata (atualizações e correções de bugs),visite "
+"Para informações sobre a errata (atualizações e correções de erros),visite "
 "http://www.redhat.com/errata.\n"
 "\n"
 "Informações sobre como utilizar seu sistema estão disponíveis nos manuais do "
-"%s, encontrados no site http://www.redhat.com/docs."
+"%s no site http://www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
@@ -4761,7 +4755,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-"Um relatório completo da instalação estará em %s após reinicializar seu "
+"Um relatório completo da sua instalação estará em %s após reinicializar seu "
 "computador. Talvez você queira guardar este arquivo para futura referência."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
@@ -4793,7 +4787,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:84
 msgid "Please select the package groups you would like to have installed."
-msgstr "Por favor selecione os grupos de pacotes que você gostaria de ter instalado."
+msgstr "Por favor selecione os grupos de pacotes que você gostaria de ter instalados."
 
 #: ../textw/grpselect_text.py:102
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4805,7 +4799,7 @@ msgstr "Detalhes do Grupos de Pacotes"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr "Seleção do Teclado"
+msgstr "Seleção de Teclado"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
@@ -4813,15 +4807,15 @@ msgstr "Qual tipo de teclado está conectado a este computador?"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr "Em qual porta seu mouse está conectado?"
+msgstr "Em que dispositivo o seu mouse está localizado?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "Que tipo de mouse está conectado a este computador?"
+msgstr "Que modelo de mouse está conectado a este computador?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Simular 3 Botões?"
+msgstr "Emular 3 Botões?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -4834,7 +4828,7 @@ msgstr "Informação de IP Inválida"
 #: ../textw/network_text.py:29
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "O IP '%s' indicado não é um IP válido."
+msgstr "O IP '%s' indicado não é válido."
 
 #: ../textw/network_text.py:72
 msgid "IP Address"
@@ -4859,7 +4853,7 @@ msgstr "Chave de Criptografia"
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr "Dispositivo de rede: %s"
+msgstr "Dispositivo de Rede: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
