@@ -1,3 +1,10 @@
+2006-08-18  Peter Jones  <pjones@redhat.com>
+
+	* iw/partition_ui_helpers_gui.py (WideCheckList.__init__): Don't set
+	the selection mode to gtk.SELECTION_NONE.  AFAICT, all this does is
+	make it so you can't check or uncheck drives for installation using
+	only the keyboard.
+
 2006-08-18  Chris Lumens  <clumens@redhat.com>
 
 	* partRequests.py (LogicalVolumeRequestSpec.sanityCheckRequest):  Skip

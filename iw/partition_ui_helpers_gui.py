@@ -45,9 +45,6 @@ class WideCheckList(checklist.CheckList):
 	checklist.CheckList.__init__(self, columns=columns,
 				     custom_store=store)
 
-	selection = self.get_selection()
-	selection.set_mode(gtk.SELECTION_NONE)
-
 	# make checkbox column wider
 	column = self.get_column(0)
 	column.set_fixed_width(75)
