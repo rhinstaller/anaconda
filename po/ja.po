@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-17 12:51+1000\n"
+"PO-Revision-Date: 2006-08-18 13:02+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -2728,7 +2728,7 @@ msgstr "確認(_C): "
 
 #: ../iw/autopart_type.py:135
 msgid "Invalid Initiator Name"
-msgstr "無効なイニシエーター名です"
+msgstr "無効なイニシエータ名です"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
@@ -3508,7 +3508,7 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"アクティブなネットワークデバイスがありません。 少なくとも 1 つのデバイスがア"
+"アクティブなネットワークデバイスがありません。少なくとも 1 つのデバイスがア"
 "クティブでないとデフォルトではシステムがネットワーク上で通信できません。"
 
 #: ../iw/network_gui.py:207
@@ -4285,7 +4285,7 @@ msgstr "無効なリポジトリ URL です。"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "リポジトリに HTTP または FTP の URL を入力してください。"
+msgstr "リポジトリに HTTP または FTP の URL を入力する必要があります。"
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -6135,7 +6135,7 @@ msgstr "無効な CIDR マスクです"
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr "CIDR マスクの値は、 IPv4 ネットワークなら 1 から 32 まで、 IPv6 ネットワークなら 1 から 128 までの数値にしなければなりません。"
+msgstr "CIDR マスクの値は、IPv4 ネットワークなら 1 から 32 まで、IPv6 ネットワークなら 1 から 128 までの数値にしなければなりません。"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6233,7 +6233,7 @@ msgstr "手作業で設定を行うには少くともプロトコルを 1 つ選
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "DHCP 用に少くともプロトコルを1 つ選択しなければなりません (IPv4 または IPv6)。"
+msgstr "DHCP 用に少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6555,7 +6555,7 @@ msgstr "<b>ユーザー名 (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI イニシエーター名(_N):</b>"
+msgstr "<b>iSCSI イニシエータ名(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
