@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-18 10:48+1000\n"
+"PO-Revision-Date: 2006-08-19 23:31+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../anaconda:258
 msgid "Unknown Error"
-msgstr "不知名錯誤"
+msgstr "未知的錯誤"
 
 #: ../anaconda:261
 #, c-format
@@ -327,6 +327,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"請按下「OK」，選擇不同的分割區選項。"
 
 #: ../autopart.py:1503
 #, python-format
@@ -796,7 +799,7 @@ msgstr "無法掛載檔案系統"
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
+msgstr "將裝置 %s 掛載為 %s 時發生錯誤。您可以繼續安裝，但可能會產生一些問題。"
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1015,7 +1018,7 @@ msgid "Install Window"
 msgstr "安裝視窗"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1025,8 +1028,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。假如您是從 CD 片安裝，通常這"
-"表示該 CD 片已毀損，或者光碟機無法讀取該光碟片。\n"
+"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。請確定安裝用的映像檔是否正確，同時您也擁有所有的光碟片。\n"
+"\n"
+"如果您重新開機，電腦將會處於不一致的狀態，可能需要重新安裝。\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1121,7 +1125,7 @@ msgid "Unable to access the CDROM."
 msgstr "無法存取光碟機"
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1131,8 +1135,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。假如您是從 CD 片安裝，通常這"
-"表示該 CD 片已毀損，或者光碟機無法讀取該光碟片。\n"
+"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。請確定您的安裝樹包括所有所需的套件。\n"
+"\n"
+"如果您重新開機，電腦將會處於不一致的狀態，可能需要重新安裝。\n"
 "\n"
 
 #: ../image.py:504
@@ -1154,7 +1159,6 @@ msgid "Install on System"
 msgstr "安裝到系統"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "正在初始化 iSCSI initiator"
 
@@ -1226,9 +1230,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "主機名稱只能包含 'a-z'、'A-Z'、'-' 或 '.' 等字元"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "缺少 IP 位址"
+msgstr "缺少 IP 位址。"
 
 #: ../network.py:93
 msgid ""
@@ -1735,7 +1738,7 @@ msgstr "您的 root 分割區小於 250 MB，空間太小不足以安裝 %s。"
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "您的開機分割區並不在前四個分割區的任何一個上，因此無法用來開機。"
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1880,7 +1883,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "邏輯磁區（logical volume）的大小必須大於磁區群組（volume group）的實際 extent 大小。"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2199,7 +2202,7 @@ msgid "Connecting..."
 msgstr "連接中..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2209,8 +2212,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。假如您是從 CD 片安裝，通常這"
-"表示該 CD 片已毀損，或者光碟機無法讀取該光碟片。\n"
+"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。請確定映像中包含所有所需的套件，或使用另一個映像。\n"
+"\n"
+"如果您重新開機，電腦將會處於不一致的狀態，可能需要重新安裝。\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2600,13 +2604,12 @@ msgid "_Confirm: "
 msgstr "密碼確認(_C): "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "Initiator 名稱無效"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Initiator 名稱的長度不可為零。"
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3347,13 +3350,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "您輸入的 IP 資訊無效。"
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"您沒有使用中的網路裝置。  預設下，如沒有至少一個裝置在使用中， 您的系統將無法"
-"使用網路通訊。\n"
+"您沒有使用中的網路裝置。  預設下，如沒有至少一個使用中的裝置，您的系統將無法"
+"使用網路通訊。"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4090,26 +4092,23 @@ msgid "Unable to load file!"
 msgstr "無法載入檔案！"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
 msgstr "軟體庫名稱無效"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "您必須提供長度不為零的軟體庫名稱。"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
 msgstr "軟體庫 URL 無效"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "您必須為軟體庫提供 HTTP 或 FTP 網址。"
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4117,8 +4116,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"無法從軟體庫讀取套件的元資料。可能是因為缺少了軟體庫資料的目錄。請確定您的安裝樹已"
-"經正確產生。\n"
+"無法從軟體庫讀取套件的元資料。可能是因為缺少了 repodata 目錄的關係。請確定您的軟體庫已經正確產生。\n"
 "\n"
 "%s"
 
@@ -5256,14 +5254,14 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "需要註冊金鑰"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "要安裝 %s，註冊金鑰是不可或缺的東西。如果您的產品中沒有這金鑰，請聯絡您的業務代表。"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5893,7 +5891,7 @@ msgstr "CIDR 遮罩無效"
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr ""
+msgstr "CIDR 遮罩值必須介於 1 到 32 之間（IPv4）或介於 1 到 128 之間（IPv6）。"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -5966,30 +5964,29 @@ msgstr "啟用 IPv6 支援"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "避免封包碰撞發生"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "將註冊值最大化，用於高速網路的網路流量"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "設定 TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "缺少協定"
+msgstr "缺少通訊協定"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "使用手動設定時，您必須選擇至少一項通訊協定（IPv4 或 IPv6）。"
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "使用 DHCP 時，您必須選擇至少一項通訊協定（IPv4 或 IPv6）。"
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -5997,7 +5994,7 @@ msgstr "IPv4 位址："
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
 msgid "IPv6 address:"
@@ -6218,7 +6215,7 @@ msgstr "新增 _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "新增 _iSCSI 目標"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6249,7 +6246,7 @@ msgstr "新增軟體庫"
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "請提供欲安裝之額外軟體的所在位置。請注意，這必須是 %s 的可用軟體庫。"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6353,7 +6350,7 @@ msgstr "啟用網路界面"
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "在安裝過程中，您需要可用的網路連線。請設定網路介面。"
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -7165,7 +7162,7 @@ msgstr "日語"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "坎納達語"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7197,7 +7194,7 @@ msgstr "北索托語"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "奧里雅語"
 
 #. generated from lang-table
 msgid "Persian"
