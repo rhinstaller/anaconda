@@ -1,3 +1,8 @@
+2006-08-21  Peter Jones  <pjones@redhat.com>
+
+	* scripts/upd-instroot: include /etc/mke2fs.conf , because the builtin
+	defaults suck real bad.  (#201645)
+
 2006-08-18  Peter Jones  <pjones@redhat.com>
 
 	* iutil.py (makeDriveDeviceNodes): don't call isys.flushDriveDict()
