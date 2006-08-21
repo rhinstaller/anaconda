@@ -677,7 +677,8 @@ if __name__ == "__main__":
     users.createLuserConf(anaconda.rootPath)
 
     # setup links required for all install types
-    for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
+    for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
+               "mke2fs.conf" ):
         try:
             if os.path.exists("/mnt/runtime/etc/" + i):
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)

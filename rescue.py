@@ -185,7 +185,7 @@ def runShell(screen, msg=""):
 
 def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
-                  "nsswitch.conf", "selinux" ]:
+                  "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
             os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
         except:

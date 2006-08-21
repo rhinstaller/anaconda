@@ -3,6 +3,10 @@
 	* scripts/upd-instroot: include /etc/mke2fs.conf , because the builtin
 	defaults suck real bad.  (#201645)
 
+	* anaconda (__main__): make /mnt/runtime symlink for mke2fs.conf
+
+	* rescue.py (runShell): ditto
+
 2006-08-18  Peter Jones  <pjones@redhat.com>
 
 	* iutil.py (makeDriveDeviceNodes): don't call isys.flushDriveDict()
