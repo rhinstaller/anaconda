@@ -1,5 +1,11 @@
 2006-08-21  Peter Jones  <pjones@redhat.com>
 
+	* isys/isys.py (driveDict): only return dm devices when "disk" is
+	the klassArg in question, but don't fall through to the 'elif' for
+	other klassArgs, either.
+
+2006-08-21  Peter Jones  <pjones@redhat.com>
+
 	* scripts/upd-instroot: include /etc/mke2fs.conf , because the builtin
 	defaults suck real bad.  (#201645)
 

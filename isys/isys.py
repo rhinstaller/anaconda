@@ -285,9 +285,9 @@ def driveDict(klassArg):
         # XXX these devices should have deviceclass attributes.  Or they
         # should all be subclasses in a device tree and we should be able
         # to use isinstance on all of them.  Not both.
-        if klassArg == "disk" and (isinstance(dev, block.MultiPath) or \
-                                   isinstance(dev, block.RaidSet)):
-            ret[key] = dev
+        if isinstance(dev, block.MultiPath) or isinstance(dev, block.RaidSet):
+            if klassArg == "disk":
+                ret[key] = dev
         elif dev.deviceclass == classMap[klassArg]:
             ret[key] = dev.desc
     return ret
