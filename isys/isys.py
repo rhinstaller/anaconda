@@ -369,6 +369,9 @@ def getDasdState(dev):
         # 2.6 seems to return basic
         if line.find(" basic") != -1:
             return 1
+        # ... and newer 2.6 returns unformatted.  consistency!
+        if line.find(" unformatted") != -1:
+            return 1
         
     return 0
 
