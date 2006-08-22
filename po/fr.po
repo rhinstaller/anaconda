@@ -1,4 +1,5 @@
 # translation of fr.po to 
+# translation of fr.po to
 # translation of fr.po to French
 # translation of fr.po to
 # translation of fr.po to
@@ -22,7 +23,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-18 14:33+1000\n"
+"PO-Revision-Date: 2006-08-22 15:57+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,7 +256,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Impossible de localiser la partition %s à utiliser pour %s.\n"
+"Impossible de trouver la partition %s à utiliser pour %s.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -270,7 +271,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Impossible de localiser le périphérique raid %s à utiliser pour %s.\n"
+"Impossible de trouver le périphérique raid %s à utiliser pour %s.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -285,7 +286,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Impossible de localiser le volume de groupes %s à utiliser pour %s.\n"
+"Impossible de trouver le volume de groupes %s à utiliser pour %s.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -300,7 +301,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Impossible de localiser le volume logique %s à utiliser pour %s.\n"
+"Impossible de trouver le volume logique %s à utiliser pour %s.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -375,7 +376,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Presser 'OK' pour choisir une option de paritionnement différente. "
+"Appuyez sur OK pour choisir une option de partitionnement différente. "
 
 #: ../autopart.py:1503
 #, python-format
@@ -464,18 +465,18 @@ msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Vous avez choisi de supprimer toutes les partitions Linux (et TOUTES LEURfS DONNÉES) contenues dans les disques suivants : %s\n"
+"Vous avez choisi de supprimer toutes les partitions Linux (et TOUTES LEURS DONNÉES) contenues dans les disques suivants : %s\n"
 "Souhaitez-vous continuer ?"
 
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s\n"
-msgstr "Mise à jour de %s\n"
+msgstr "Mise à niveau de %s\n"
 
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr "_Installer %s\n"
+msgstr "Installation de %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -491,7 +492,7 @@ msgstr "Aucun paquetage du noyau n'a été installé sur votre système. La conf
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr "Effectué"
+msgstr "Terminé"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
@@ -508,7 +509,7 @@ msgstr "Le mode de ligne de commande ne peut pas traiter les exceptions parted 
 #: ../cmdline.py:137
 #, python-format
 msgid "Done [%d/%d]"
-msgstr "Effectué [%d/%d]"
+msgstr "Terminé [%d/%d]"
 
 #: ../cmdline.py:143
 #, python-format
@@ -524,11 +525,11 @@ msgstr "Une exception inexpliquée s'est produite. Il s'agit très probablement 
 #: ../exception.py:390
 #: ../exception.py:407
 msgid "Dump Written"
-msgstr "Dump Written"
+msgstr "Vidage écrit"
 
 #: ../exception.py:391
 msgid "Your system's state has been successfully written to the floppy. Your system will now be rebooted."
-msgstr "L'état de votre système a été copié sur la disquette. Votre système va maintenant être rédémarré."
+msgstr "L'état de votre système a été copié sur la disquette. Votre système va maintenant être redémarré."
 
 #: ../exception.py:394
 #: ../exception.py:411
@@ -559,7 +560,7 @@ msgstr "Un problème s'est produit lors de l'écriture de l'état du système su
 
 #: ../exception.py:408
 msgid "Your system's state has been successfully written to the remote host.  Your system will now be rebooted."
-msgstr "L'état de votre système a été copié sur l'hôte distant avec succès.  Votre système vamaintenant redémarrer."
+msgstr "L'état de votre système a été copié sur l'hôte distant avec succès.  Votre système va maintenant redémarrer."
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
@@ -706,11 +707,11 @@ msgid ""
 "\n"
 "is a version 0 Linux swap partition. If you want to use this device, you must reformat as a version 1 Linux swap partition. If you skip it, the installer will ignore it during the installation."
 msgstr ""
-"Le périphérique de swap :\n"
+"Le périphérique swap :\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"est une partition de swap Linux de version 0. Si vous souhaitez utiliser ce périphérique, vous devez le reformater en une partiton de swap Linux de version 1. Si vous ne le faites pas, le programme d'installation l'ignorera durant l'installation."
+"est une partition swap Linux de version 0. Si vous souhaitez utiliser ce périphérique, vous devez le reformater en une partiton swap Linux de version 1. Si vous ne le faites pas, le programme d'installation l'ignorera durant l'installation."
 
 #: ../fsset.py:1480
 msgid "Reformat"
@@ -725,11 +726,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
 msgstr ""
-"Le périphérique de swap :\n"
+"Le périphérique swap :\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système est en veille prolongée. Pour une mise à jour, veuillez éteindre votre système plutôt que de le mettre en hibernation."
+"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système est en veille prolongée. Pour une mise à niveau, veuillez éteindre votre système plutôt que de le mettre en hibernation."
 
 #: ../fsset.py:1492
 #, python-format
@@ -740,10 +741,10 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. If you are performing a new install, make sure the installer is set to to format all swap partitions."
 msgstr ""
-"Le périphérique de swap :\n"
+"Le périphérique swap :\n"
 "     /dev/%s\n"
 "\n"
-"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système est en veille prolongée. Si vous réalisez une nouvelle installation, assurez-vous que le programme d'installation est configuré pour formater toutes les partitions de swap."
+"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système est en veille prolongée. Si vous réalisez une nouvelle installation, assurez-vous que le programme d'installation est configuré pour formater toutes les partitions swap."
 
 #: ../fsset.py:1502
 msgid ""
@@ -753,7 +754,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Choisissez Ignorer si vous souhaitez que le programme d'installation ignore cette partition durant la mise à jour. Choisissez Formater pour formater la partition en un espace de swap. Choisissze Redémarrer pour redémarrer le système."
+"Choisissez Ignorer si vous souhaitez que le programme d'installation ignore cette partition durant la mise à jour. Choisissez Formater pour formater la partition en un espace swap. Choisissez Redémarrer pour redémarrer le système."
 
 #: ../fsset.py:1508
 #: ../iw/partition_gui.py:368
@@ -863,12 +864,12 @@ msgstr ""
 
 #: ../fsset.py:1729
 msgid "Unable to mount filesystem"
-msgstr "Impossible de monter le système de fichier"
+msgstr "Impossible de monter le système de fichiers"
 
 #: ../fsset.py:1730
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr "Une erreure a été rencontrée lors du montage du périphérique %s comme %s. Vous pouvez poursuivre l'installation, cependant celle-ci pourrait résulter de problèmes."
+msgstr "Une erreure s'est produite lors du montage du périphérique %s comme %s. Vous pouvez poursuivre l'installation, cependant des problèmes pourraient en résulter."
 
 #: ../fsset.py:1738
 #: ../image.py:91
