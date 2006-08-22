@@ -8,12 +8,12 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-22 14:28+0200\n"
+"PO-Revision-Date: 2006-08-22 01:40-0400\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -116,29 +116,37 @@ msgid "unknown install method: %s"
 msgstr "okänd installationsmetod: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"Kunde inte allokera cylinderbaserade partitioner som primära partitioner"
+"Kunde inte allokera cylinderbaserade partitioner som primära partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Kunde inte allokera partitioner som primära partitioner"
+msgstr ""
+"Kunde inte allokera partitioner som primära partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Kunde inte allokera cylinderbaserade partitioner"
+msgstr ""
+"Kunde inte allokera cylinderbaserade partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -321,6 +329,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Tryck 'OK' för att välja en annan partioneringsmöjlighet."
 
 #: ../autopart.py:1503
 #, python-format
@@ -419,14 +430,14 @@ msgstr ""
 "Är du säker på att du vill göra detta?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Uppgraderar %s-%s-%s.\n"
+msgstr "Uppgraderar %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "Installera %s"
+msgstr "Installerar %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -813,9 +824,8 @@ msgstr ""
 "Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Kan inte läsa in fil!"
+msgstr "Kan inte montera filsystem"
 
 #: ../fsset.py:1730
 #, python-format
@@ -823,6 +833,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Ett fel inträffade vid montering av enhet %s som %s.  Du kan fortsätta "
+"installationen men det kan bli problem."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1044,7 +1056,7 @@ msgid "Install Window"
 msgstr "Installationsfönster"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1055,8 +1067,11 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Om du installerar från cd-medium kan detta bero på att cd-"
-"mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"trasigt paket. Vänligen verifiera dina installations-media och att du har "
+"alla nödvändiga media. \n"
+"\n"
+"Om du startar om kommer ditt system hamna i ett inkonstitent läge, "
+"som troligen innebär att det krävs en ominstallation.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1157,7 +1172,7 @@ msgid "Unable to access the CDROM."
 msgstr "Kan inte komma åt cd-romenheten."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1168,8 +1183,11 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Om du installerar från cd-medium kan detta bero på att cd-"
-"mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"trasigt paket. Vänligen kontrollera att ditt installationsträd innehåller alla "
+"nödvändiga paket. \n"
+"\n"
+"Om du startar om kommer ditt system hamna i ett inkonsistent läge "
+"som troligen kräver en ominstallation.\n"
 "\n"
 
 #: ../image.py:504
@@ -1193,9 +1211,8 @@ msgid "Install on System"
 msgstr "Installera på system"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Initierar"
+msgstr "Initierar iSCSI initierare"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1272,35 +1289,34 @@ msgstr ""
 "Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"-\" eller \".\""
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP-adress saknas"
+msgstr "IP-adress saknas."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP-adresser får bara innehålla tal mellan 0 och 255"
+msgstr ""
+"IP-adresser måste innehålla fyra tal mellan 0 och 255, separerade med "
+"punker."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s är inget giltigt värdnamn."
+msgstr "'%s' är ingen giltig IPv6-adress."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Krypteringsnyckel"
+msgstr "Ange registreringsnyckel"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Ange registreringsnyckeln för din version av %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Nyckel:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1816,6 +1832,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Din start-partition är inte en av de fyra första partitionerna och kommer "
+"därför inte vara startbar."
 
 #: ../partitions.py:849
 msgid ""
@@ -1984,6 +2002,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Logiska volymstorleken måste vara större än volymgruppens fysiska extent "
+"storlek."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2326,7 +2346,7 @@ msgid "Connecting..."
 msgstr "Ansluter..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2337,8 +2357,11 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Om du installerar från cd-medium kan detta bero på att cd-"
-"mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"trasigt paket. Vänligen verifiera att din spegel innehåller alla nödvändiga "
+"paket och försök använd en annan.\n"
+"\n"
+"Om du startar om kommer ditt system hamna i ett inkonsistent läge "
+"som troligen kräver en ominstallation.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2553,13 +2576,11 @@ msgid "Error running transaction"
 msgstr "Fel vid körning av transaktion"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"Värdnamnet \"%s\" är inte giltigt av följande skäl:\n"
-"\n"
-"%s"
+"Ett fel uppstod under körningen av transaktionen, av följande anledning(ar): %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2570,9 +2591,9 @@ msgid "Retrieving installation information..."
 msgstr "Hämtar installationsinformation..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Hämtar installationsinformation..."
+msgstr "Hämtar installationsinformation för %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2754,14 +2775,12 @@ msgid "_Confirm: "
 msgstr "B_ekräfta: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI-initierarnamn:"
+msgstr "Ogiltigt initierarnamn"
 
 #: ../iw/autopart_type.py:136
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "Du måste ange ett användarnamn"
+msgstr "Du måste ange ett initierarnamn."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3531,17 +3550,13 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP-informationen du angav är ogiltig."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
-"kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet.\n"
-"\n"
-"OBSERVERA: Om du har ett PCMCIA-baserat nätverkskort bör du lämna det "
-"inaktivt för tillfället. När du startar om ditt system kommer nätverkskortet "
-"att aktiveras automatiskt."
+"kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
+""
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4300,26 +4315,23 @@ msgid "Unable to load file!"
 msgstr "Kan inte läsa in fil!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Ogiltigt värdnamn"
+msgstr "Ogiltigt Repository-namn"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Du måste ange ett användarnamn"
+msgstr "Du måste ange ett Repository-namn"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Ogiltig startetikett"
+msgstr "Ogiltig Repository-URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Du måste ange en HTTP- eller FTP-URL till ett repository"
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4328,7 +4340,9 @@ msgid ""
 "%s"
 msgstr ""
 "Kan inte läsa paketmetadata. Detta kan bero på att repodata-katalogen "
-"saknas. Försäkra dig om att ditt installationsträd genererats korrekt. %s"
+"saknas. Försäkra dig om att ditt installationsträd genererats korrekt. \n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5522,7 +5536,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Registreringsnyckel krävs"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5530,6 +5544,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"En registreringsnyckel krävs för att installera %s.  Kontakta din support-"
+"representant, om du inte fick med en nyckel med din produkt."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6201,15 +6217,16 @@ msgstr ""
 "      %s för din arkitektur\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Ogiltig IP-sträng"
+msgstr "Ogiltig CIDR-mask"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR mask värde måste vara mellan 1 och 32 för IPv4-nätverk eller mellan "
+"1 och 128 för IPv6-nätverk"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6264,96 +6281,86 @@ msgid "Sending request for IP information for %s..."
 msgstr "Skickar förfrågan om IP-information för %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Nätverksstöd"
+msgstr "Nätverksfel"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
+msgstr "Ett fel inträffade vid konfigurertömning av målhårddiskarna. Kloning misslyckades."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Slå på IPv4 stöd"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Slå på IPv6 stöd"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Undvik oönskade paketkollisioner"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maximera registervärden för höghastighetsnätverkstrafik"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Konfigurera TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Grupp saknas"
+msgstr "Protokoll saknas"
 
 #: ../loader2/net.c:754
-#, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "Du måste välja minst ett språk att installera."
+msgstr ""
+"Du måste välja minst ett protokoll (IPv4 eller IPv6) för manuell "
+"kofiguration."
 
 #: ../loader2/net.c:764
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Du måste välja minst ett språk att installera."
+msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6) för DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP-adress:"
+msgstr "IPv4-adress:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP-adress:"
+msgstr "IPv6-adress:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Namnserver"
+msgstr "Namnserver:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL-konfiguration"
+msgstr "Manuell TCP/IP-konfiguration"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Information saknas"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Du måste skriva in både en giltig IP-adress och en nätmask."
+msgstr ""
+"Du måste skriva in både en giltig IPv4-adress och en nätmask eller CIDR prefix."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Du måste skriva in både en giltig IP-adress och en nätmask."
+msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6550,41 +6557,36 @@ msgid "Loading SCSI driver"
 msgstr "Läser in SCSI-drivrutin"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP-LUN"
+msgstr "Lägg till _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Lägg till _iSCSI destination"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Ytterligare storleksalternativ"
+msgstr "Avancerade lagrings alternativ"
 
 #: tmp/adddrive.glade.h:4
-#, fuzzy
 msgid "Disable _dmraid device"
-msgstr "Använd RAID-enhet"
+msgstr "Slå av _dmraid-enhet"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Hur vill du få utrymme att partitionera?"
+msgstr "Hur vill du modifiera din diskenhetskonfiguration?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Repository·_URL:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI-initierar_namn:</b>"
+msgstr "<b>Repository_namn:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Lägg till Repository"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6592,10 +6594,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Vänligen ange platsen från var ytterligare mjukvara kan installeras "
+"ifrån.  Notera att denna måste vara en giltig repository för %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Lägg till repository"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6618,9 +6622,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Avancerad konfiguration av startprogram"
+msgstr "Avancerad lagringskonfiguration"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6635,81 +6638,76 @@ msgid "_Exception details"
 msgstr "_Detaljer om undantagsfel"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Lösenord:"
+msgstr "<b>_Lösenord:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_Mål-IP-adress:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>_Portnummer:</b>"
+msgstr "<b>_Användarnamn:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI-initierar_namn:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Modulparametrar"
+msgstr "Konfigurera iSCSI-parametrar"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"För att använda iSCSI diskar måste du ange adressen till ditt iSCSI-mål och"
+"iSCSI-initiatorns namn som du har konfigurerat för din maskin."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>_Mål-IP-adress:</b>"
+msgstr "<b>IPv4-adress:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>_Mål-IP-adress:</b>"
+msgstr "<b>IPv6-adress:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Namnserver"
+msgstr "<b>Namnserver:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>_Portnummer:</b>"
+msgstr "<b>_interface:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Slå på IPv_4 stöd"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Slå på IPv_6 stöd"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Slå på nätverksinterfacet"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Detta kräver att du har en fungerande nätverksuppkoppling under "
+"installationsprocessen. Vänligen konfigurera ett nätverksinterface."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6739,7 +6737,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Lägg till fler mjukvaru-repositories"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7493,9 +7491,8 @@ msgid "German"
 msgstr "Tyska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Ledigt"
+msgstr "Grekisk"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7527,7 +7524,7 @@ msgstr "Japanska"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7542,14 +7539,12 @@ msgid "Malay"
 msgstr "Malajiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
 msgstr "Malajiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7561,7 +7556,7 @@ msgstr "Nordsotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
