@@ -107,7 +107,7 @@ EOF
 }
 
 makeBootImages() {
-  if [ "$kerneltag" ! "xen" ]; then
+  if [ "$kerneltag" != "xen" ]; then
     # Because ia64 boxes use EFI there needs to be a boot.img dosfs.
     echo "making boot.img for EFI bootloader"
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
