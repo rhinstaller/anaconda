@@ -59,6 +59,7 @@
 #include "lang.h"
 #include "wireless.h"
 #include "eddsupport.h"
+#include "auditd.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -118,6 +119,7 @@ static PyObject * isWireless(PyObject * s, PyObject * args);
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
+static PyObject * doAuditDaemon(PyObject *s);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -172,6 +174,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
+    { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -1305,6 +1308,12 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
      
     free (strings);
     exit(1);
+}
+
+static PyObject * doAuditDaemon(PyObject *s) {
+    audit_daemonize();
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

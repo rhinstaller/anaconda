@@ -850,6 +850,8 @@ def getIPAddress(dev):
 def resetFileContext(fn):
     return _isys.resetFileContext(fn)
 
+auditDaemon = _isys.auditdaemon
+
 handleSegv = _isys.handleSegv
 
 printObject = _isys.printObject
