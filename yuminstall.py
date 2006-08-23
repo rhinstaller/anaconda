@@ -634,6 +634,12 @@ class YumBackend(AnacondaBackend):
             if self.ayum.comps._groups.has_key("xen"):
                 del self.ayum.comps._groups["xen"]
 
+        # FIXME: and another bad hack since our xen kernel is PAE
+        if rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags():
+            if self.ayum.comps._groups.has_key("xen"):
+                del self.ayum.comps._groups["xen"]
+                
+
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         anaconda.method.switchMedia(1)
 

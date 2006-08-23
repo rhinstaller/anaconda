@@ -1,5 +1,8 @@
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.doGroupSetup): Only show Xen as
+	available on machines with PAE for x86
+
 	* iw/task_gui.py: Rework so that we can enable/disable optional
 	repos per install class as well as see what repos have been added
 	* ui/tasksel.glade: Change things up a little bit
