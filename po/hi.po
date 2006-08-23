@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-18 18:14+0530\n"
+"PO-Revision-Date: 2006-08-23 10:41+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -425,7 +425,7 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"निम्नांकित चालनों पर आपने सभी Linux विभाजनों (और उनपर सब आंकड़ा) को हटाना चयनित "
+"निम्नांकित चालनों पर आपने सभी Linux विभाजनों (और उनपर सारे आंकड़े) को हटाने के लिये चुना "
 "किया है:%s\n"
 "क्या आप यह करने के लिए निश्चित हैं?"
 
@@ -2884,7 +2884,7 @@ msgid ""
 msgstr ""
 "आपके सिस्टम को रिबूट करने के बाद अधिष्ठापन की पूरी लॉग '%s' फाइल में मिल सकती है.\n"
 "\n"
-"चयनित अधिष्ठापन विकल्पों से समाहित एक किकस्टार्ट फाइल, आपके सिस्टम को रिबूट करने के बाद "
+"एक किकस्टार्ट फाइल जिसमें अधिष्ठापन विकल्प चयन है, आपके सिस्टम को रिबूट करने के बाद "
 "'%s' फाइल में मिल सकता है."
 
 #: ../iw/confirm_gui.py:88
@@ -2954,8 +2954,8 @@ msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
-"आपके सिस्टम के नया अधिष्ठापन के लिए यह विकल्प चुनें. उपस्थित सॉफ्टवेयर और आंकड़े का अपलेखन "
-"आपकी विन्यास पसंद पर आधारित हो सकता है."
+"अपने सिस्टम के नये अधिष्ठापन के लिए यह विकल्प चुनें. उपस्थित सॉफ्टवेयर और आंकड़े का अधिलेखन"
+" आपकी विन्यास पसंद पर आधारित हो सकता है."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -2967,7 +2967,7 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"यदि आप, आपके उपस्थित %s सिस्टम का उन्नयन करना चाहते हैं तो यह विकल्प चुनें. यह विकल्प "
+"यदि आप, अपने उपस्थित %s सिस्टम का उन्नयन करना चाहते हैं तो यह विकल्प चुनें. यह विकल्प "
 "आपके चालन पर उपस्थित आंकड़ें सुरक्षित करेगा."
 
 #: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -3523,11 +3523,11 @@ msgstr "मेजबाननाम जमाएँ:"
 
 #: ../iw/network_gui.py:551
 msgid "_automatically via DHCP"
-msgstr "DHCP द्वारा स्वचालित (_a)"
+msgstr "DHCP होकर स्वचालित (_a)"
 
 #: ../iw/network_gui.py:558
 msgid "_manually"
-msgstr "दस्ती रूप से (_m)"
+msgstr "स्वयं (_m)"
 
 #: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
@@ -3571,7 +3571,7 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"बूट लोडर प्रसूची में प्रदर्शन के लिए एक लेबल दाखिल करें. युक्ति (या हार्ड ड्राइव और विभाजन "
+"बूट लोडर मेनू में प्रदर्शन के लिए एक लेबल दाखिल करें. युक्ति (या हार्ड ड्राइव और विभाजन "
 "संख्या) वह युक्ति है जिससे यह बूट होता है."
 
 #: ../iw/osbootwidget.py:149
@@ -4207,7 +4207,7 @@ msgstr "अमान्य रिपॉजिटरी नाम"
 
 #: ../iw/task_gui.py:86
 msgid "You must provide a non-zero length repository name."
-msgstr "आप जरूर एक गैर शून्य रिपॉजिटरी नाम अवश्य दें."
+msgstr "आपको कुछ न कुछ रिपॉजिटरी नाम अवश्य देना है."
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
