@@ -1,3 +1,8 @@
+2006-08-23  Peter Jones  <pjones@redhat.com>
+
+	* dmraid.py: don't clobber bdevid search path with "/lib/"
+	entries (#203425)
+
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
 	* iutil.py (cpuFeatureFlags): Add a method to get cpu feature

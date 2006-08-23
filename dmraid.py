@@ -21,7 +21,8 @@
 import sys
 import string
 import block
-block.setBdevidPath('/lib/bdevid/:/usr/lib/bdevid/:/mnt/source/RHupdates/bdevid/')
+block.setBdevidPath(block.getBdevidPath() + \
+    ":/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/")
 import partedUtils
 import raid
 from flags import flags
