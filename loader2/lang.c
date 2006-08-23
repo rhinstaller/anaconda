@@ -50,6 +50,8 @@ struct aString {
 struct aString * strings = NULL;
 int numStrings = 0, allocedStrings = 0;
 
+static int english = 0;
+
 static char * topLineWelcome = N_("Welcome to %s");
 static char * topLineWelcomeRescue = N_("Welcome to %s - Rescue Mode");
 static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
@@ -239,6 +241,7 @@ static int setupLanguage(int choice) {
 		       "installation will continue in English until the "
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
+        setLangEnv(english);
 	return 0;
     }
     
@@ -334,7 +337,6 @@ int chooseLanguage(char ** lang) {
     int choice = 0;
     char ** langs;
     int i;
-    int english = 0;
     int current = -1;
     char * currentLangName = getenv("LANG");
     int numLangs = 0;

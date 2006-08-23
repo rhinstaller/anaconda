@@ -1,3 +1,8 @@
+2006-08-23  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/lang.c (setupLanguage):  Make sure to set the language to
+	English every time if it's unsupported (#203331).
+
 2006-08-23  Peter Jones  <pjones@redhat.com>
 
 	* dmraid.py: don't clobber bdevid search path with "/lib/"
