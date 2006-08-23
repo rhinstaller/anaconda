@@ -1,5 +1,6 @@
 # translation of fr.po to 
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to French
 # translation of fr.po to
 # translation of fr.po to
@@ -23,7 +24,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-22 15:57+1000\n"
+"PO-Revision-Date: 2006-08-23 16:22+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -931,7 +932,7 @@ msgstr "Formatage"
 #: ../fsset.py:2718
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Formatage du système de fichiers %s ..."
+msgstr "Formatage du système de fichiers %s..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -939,7 +940,7 @@ msgstr "Une erreur s'est produite lors de la copie de la capture d'image."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr "Captures d'écrans copiées."
+msgstr "Captures d'écrans copiées"
 
 #: ../gui.py:117
 msgid ""
@@ -957,7 +958,7 @@ msgstr ""
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
-msgstr "Enregistrement des captures d'écrans en cours"
+msgstr "Enregistrement des captures d'écran en cours"
 
 #: ../gui.py:161
 #, python-format
@@ -1130,7 +1131,7 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Le fichier-%s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu.  Si vous effectuez l'installation à partir un CD-ROM, cela signifie en général que le CD-ROM est corrompu ou que le lecteur de CD-ROM ne peut pas lire le disque.\n"
+"Le fichier %s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu.  Si vous effectuez l'installation à partir un CD-ROM, cela signifie en général que le CD-ROM est corrompu ou que le lecteur de CD-ROM ne peut pas lire le disque.\n"
 "\n"
 "Si vous redémarrez, votre système sera peut être dans un état de corruption et devra être probablement ré-installé.\n"
 "\n"
@@ -1230,7 +1231,7 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Le fichier-%s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu. Vérifiez que votre support d'installation contient tous les paquetages nécéssaires\n"
+"Le fichier %s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu. Vérifiez que votre support d'installation contient tous les paquetages nécessaires\n"
 "\n"
 "Si vous redémarrez, votre système sera peut être corrompu et devra probablement être ré-installé.\n"
 "\n"
@@ -1257,7 +1258,7 @@ msgstr "Initialisation iSCSI"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
-msgstr "Échec du script"
+msgstr "Échec du scriptlet"
 
 #: ../kickstart.py:74
 #, python-format
@@ -1266,14 +1267,14 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Une erreur s'est produite lors du lancement du scriptlet. Vous pouvez examiner la sortie dans %s. Il s'agit d'une erreur fatale et 'installation sera interrompue.\n"
+"Une erreur s'est produite lors du lancement du scriptlet. Vous pouvez examiner la sortie dans %s. Il s'agit d'une erreur fatale et l'installation sera interrompue.\n"
 "\n"
 "Appuyez sur OK pour redémarrer votre système."
 
 #: ../kickstart.py:821
 #: ../kickstart.py:839
 msgid "Running..."
-msgstr "Éxécution..."
+msgstr "En cours..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
@@ -1290,12 +1291,12 @@ msgstr "Paquetage manquant"
 #: ../kickstart.py:981
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort your installation?"
-msgstr "Vous avez sélectionné le paquetage '%s' pour installation. Ce paquetage n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
+msgstr "Vous avez sélectionné le paquetage '%s' pour l'installation. Ce paquetage n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../kickstart.py:987
 #: ../kickstart.py:1016
 msgid "_Abort"
-msgstr "_Redémarrer"
+msgstr "_Annuler"
 
 #: ../kickstart.py:1008
 msgid "Missing Group"
@@ -1304,7 +1305,7 @@ msgstr "Groupe manquant"
 #: ../kickstart.py:1009
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort your installation?"
-msgstr "Vous avez sélectionné le groupe « %s » pour installation. Ce groupe n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
+msgstr "Vous avez sélectionné le groupe « %s » pour l'installation. Ce groupe n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1324,7 +1325,7 @@ msgstr "Adresse IP manquante. "
 
 #: ../network.py:93
 msgid "IP Addresses must contain four numbers between 0 and 255, separated by periods."
-msgstr "Les adresses IP doivent contenir quatre chiffres entre 0 et 255, séparés par des périodes."
+msgstr "Les adresses IP doivent contenir quatre chiffres entre 0 et 255, séparés par des points."
 
 #: ../network.py:96
 #, python-format
@@ -1333,7 +1334,7 @@ msgstr "'%s' n'est pas une adresse IPv6 valide."
 
 #: ../packages.py:247
 msgid "Enter Registration Key"
-msgstr "Entrer votre clé d'activation"
+msgstr "Saisissez votre clé d'enregistrement "
 
 #: ../packages.py:248
 #, python-format
@@ -1398,7 +1399,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"/dev/%s possède actuellement une structure de partition %s. Afin d'utiliser ce disque pour l'installation de %s, celui-ci doit être ré-initialisé, ce qui provoquera la perte de TOUTES LES DONNÉES sur ce disque.\n"
+"/dev/%s possède actuellement une structure de partitions %s. Afin d'utiliser ce disque pour l'installation de %s, celui-ci doit être ré-initialisé, ce qui provoquera la perte de TOUTES LES DONNÉES sur ce disque.\n"
 "\n"
 "Souhaitez-vous formater ce disque ?"
 
@@ -1433,7 +1434,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"La table de partition du périphérique %s (%s) est illisible. Elle doit être initialisée pour créer de nouvelles partitions. Cette initialisation provoquera la perte de TOUTES LES DONNÉES contenues sur ce disque.\n"
+"La table de partitions du périphérique %s (%s) est illisible. Elle doit être initialisée pour créer de nouvelles partitions. Cette initialisation provoquera la perte de TOUTES LES DONNÉES contenues sur ce disque.\n"
 "\n"
 "Cette opération annulera tout choix d'installation précédent précisant les disques durs qui ne doivent pas être pris en compte.\n"
 "Voulez-vous initialiser ce disque et, ce faisant, effacer TOUTES LES DONNÉES ?"
@@ -1447,7 +1448,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"La table de partition du périphérique %s est illisible. Elle doit être initialisée pour créer de nouvelles partitions. Cette initialisation provoquera la perte de TOUTES LES DONNÉES contenues sur ce disque.\n"
+"La table de partitions du périphérique %s est illisible. Elle doit être initialisée pour créer de nouvelles partitions. Cette initialisation provoquera la perte de TOUTES LES DONNÉES contenues sur ce disque.\n"
 "\n"
 "Cette opération annulera tout choix d'installation précédent précisant les disques durs qui ne doivent pas être pris en compte.\n"
 "Voulez-vous initialiser ce disque et, ce faisant, effacer TOUTES LES DONNÉES ?"
@@ -1471,11 +1472,11 @@ msgstr "Les noms de groupe de volumes doivent comporter au maximum 128 caractèr
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr "Erreur - le nom de groupe de volumes %s n'est pas valable."
+msgstr "Erreur - le nom de groupe de volumes %s n'est pas valide."
 
 #: ../partIntfHelpers.py:47
 msgid "Error - the volume group name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Erreur - le nom de groupe de volume contient des caractères ou espaces non valides. Le système accepte uniquement les lettres, chiffres, « . » ou « _ »."
+msgstr "Erreur - le nom de groupe de volumes contient des caractères ou espaces non valides. Le système accepte uniquement les lettres, chiffres, « . » ou « _ »."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1738,7 +1739,7 @@ msgstr "Confirmer la ré-initialisation "
 
 #: ../partIntfHelpers.py:537
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Souhaitez-vous remettre la table de partition à son état initial ?"
+msgstr "Souhaitez-vous remettre la table de partitions à son état initial ?"
 
 #: ../partitioning.py:68
 msgid "Installation cannot continue."
@@ -1937,9 +1938,9 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"L'environnement de secours va maintenant chercher l'installation Linux et la monter sous le répertoire %s. Vous pourrez ensuite apporter toutes les modifications souhaitées à votre système. Si vous désirez poursuivre cette étape, choisissez « Continuer ». Vous pouvez également choisir de monter vos systèmes de fichiers en mode de lecture-seule en sélectionnant l'option « Lecture-seule ».\n"
+"L'environnement de secours va maintenant chercher l'installation Linux et la monter sous le répertoire %s. Vous pourrez ensuite apporter toutes les modifications souhaitées à votre système. Si vous désirez poursuivre cette étape, choisissez « Continuer ». Vous pouvez également choisir de monter vos systèmes de fichiers en mode lecture-seule en sélectionnant l'option « Lecture-seule ».\n"
 "\n"
-"Si une quelconque raison ce processus échoue, vous pouvez choisir « Ignorer ». Ce faisant, cette étape sera évitée et un shell s'ouvrira automatiquement.\n"
+"Si pour une quelconque raison, ce processus échoue, vous pouvez choisir « Ignorer ». Ce faisant, cette étape sera évitée et un shell s'ouvrira automatiquement.\n"
 "\n"
 
 #: ../rescue.py:289
@@ -2191,7 +2192,7 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Le fichier-%s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu. Veuillez vérifier que vos dépôts contiennent tous les paquetages requis ou essayez d'en utiliser un différent.\n"
+"Le fichier %s ne peut pas être ouvert. Cela est dû à un fichier manquant ou peut-être à un paquetage corrompu. Veuillez vérifier que vos dépôts contiennent tous les paquetages requis ou essayez d'en utiliser un différent.\n"
 "\n"
 "Si vous redémarrez, votre système sera probablement corrompu et demandera une réinstallation.\n"
 "\n"
@@ -2406,7 +2407,7 @@ msgstr "Erreur d'exécution de la transaction"
 #: ../yuminstall.py:471
 #, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr "Il y a eut une erreure durant la transaction pour une des résons suivantes : %s"
+msgstr "Il y a eu une erreur durant la transaction pour l'une des raisons suivantes : %s"
 
 #: ../yuminstall.py:475
 #: ../yuminstall.py:570
@@ -2435,7 +2436,7 @@ msgstr "Sans catégorie"
 #: ../yuminstall.py:907
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or reboot."
-msgstr "Les paquetages sélectionnés nécessitent %d M d'espace pour leur installation, mais vous n'avez pas suffisament d'espace libre. Vous pouvez modifier votre sélection ou redémarrer."
+msgstr "Les paquetages sélectionnés nécessitent %d M d'espace pour leur installation, mais vous n'avez pas suffisamment d'espace libre. Vous pouvez modifier votre sélection ou redémarrer."
 
 #: ../yuminstall.py:1061
 #, python-format
@@ -2571,7 +2572,7 @@ msgstr "Nom d'initiateur invalide :"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr "Vous devez fournir une chaîne initiale différente de zéro charactère. "
+msgstr "Vous devez fournir une chaîne initiale différente de zéro caractère. "
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -2589,14 +2590,14 @@ msgstr ""
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Supprimer les partitions Linux sur les disques sélectionnés et utiliser\n"
-"le partionnement par défaut."
+"le partitionnement par défaut."
 
 #: ../iw/autopart_type.py:213
 #: ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 "Utiliser l'espace libre sur les disques sélectionnés et utiliser le\n"
-"partionnement par défaut."
+"partitionnement par défaut."
 
 #: ../iw/autopart_type.py:214
 #: ../textw/partition_text.py:1529
@@ -2662,7 +2663,7 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"En forçant l'utilisation de LBA32 pour votre chargeur de démarrage alors qu'il n'est pas pris en charge par le BIOS, vous risquez de compromttre le démarrage de votre système.\n"
+"En forçant l'utilisation de LBA32 pour votre chargeur de démarrage alors qu'il n'est pas pris en charge par le BIOS, vous risquez de compromettre le démarrage de votre système.\n"
 "\n"
 "Voulez-vous continuer et forcer le mode LBA32 ?"
 
@@ -2727,7 +2728,7 @@ msgstr ""
 "de plusieurs adaptateurs SCSI, ou SCSI et IDE et que vous désirez\n"
 "démarrer depuis le périphérique SCSI.\n"
 "\n"
-"Cela modifie l'encroit où le programme d'installation trouve le bloc de démarrage principal (MBR)."
+"Cela modifie l'endroit où le programme d'installation trouve le bloc de démarrage principal (MBR)."
 
 #: ../iw/confirm_gui.py:29
 #: ../textw/confirm_text.py:35
@@ -2965,12 +2966,12 @@ msgstr "Étiquette du système de fichiers originel :"
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
-msgstr "_Nom de volume logique :"
+msgstr "_Nom du volume logique :"
 
 #: ../iw/lvm_dialog_gui.py:434
 #: ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
-msgstr "Nom de volume logique :"
+msgstr "Nom du volume logique :"
 
 #: ../iw/lvm_dialog_gui.py:442
 #: ../iw/partition_dialog_gui.py:367
