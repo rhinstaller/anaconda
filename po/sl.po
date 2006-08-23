@@ -1,29 +1,28 @@
+# translation of sl.po to Slovenian
 # Translation of anaconda.po to Slovenian
-# translation of sl.po to slovenščina
 # SLOVENIAN TRANSLATION OF ANACONDA.
-# Copyright (C) 2003,2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2003,2004, 2005, 2006 Free Software Foundation, Inc.
 # $Id$
 # $Source$
+#
 # Roman Maurer <roman@lugos.si>, 2002,2003.
-# Rok Papez <rok.papez@lugos.si>, 2004.
+# Rok Papez <rok.papez@lugos.si>, 2004, 2006.
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2005.
 # Jure Repinc <jlp@holodeck1.com>, 2005.
 # Jure Cuhalev <gandalf@owca.info>, 2005.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2005-11-12 00:05+0100\n"
-"Last-Translator: Jure Čuhalev <gandalf@owca.info>\n"
-"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"PO-Revision-Date: 2006-08-23 21:38+0200\n"
+"Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -36,7 +35,7 @@ msgstr "Napaka pri branju drugega dela nastavitve za hitri zagon %s!"
 
 #: ../anaconda:414
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Pritisni <enter> za ukazno vrstico"
 
 #: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
 #: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
@@ -110,46 +109,53 @@ msgstr "Grafična namestitev ni dostopna... Zaganja se besedilni način."
 
 #: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Spremenljivka DISPLAY ni nastavljena. Zaganjam v znakovnem načinu!"
 
 #: ../anaconda:877
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Neznana metoda URL %s"
+msgstr "Neznana namestitvena metoda"
 
 #: ../anaconda:878
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Poskušate nameščati v stroj, ki ni podprt s to distribucijo %s."
+msgstr "Izbrali ste namestitveni način, ki v Anakondi ni podprt."
 
 #: ../anaconda:880
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Neznana metoda URL %s"
+msgstr "Neznana namestitvena metoda: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Razdelkov, temelječih na cilindrih, ni moč proglasiti za primarne"
+msgstr ""
+"Razdelkov, temelječih na cilindrih, ni moč narediti za primarne.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Razdelkov ni moč proglasiti za primarne"
+msgstr ""
+"Razdelkov ni moč narediti za primarne.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Razdelkov, temelječih na cilindrih, ni bilo moč dodeliti"
+msgstr ""
+"Razdelkov, temelječih na cilindrih, ni bilo moč dodeliti.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -192,8 +198,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zagonski razdelek %s morda ne ustreza omejitvam za zagon ki jih ima vaša "
 "arhitektura."
@@ -333,6 +338,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Pritisnite 'Naprej' za izbiro drugega načina izdelave razdelkov."
 
 #: ../autopart.py:1503
 #, python-format
@@ -429,16 +437,14 @@ msgstr ""
 "Ste prepričani, da to želite tudi res storiti?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"Nadgrajevanje paketov %s\n"
-"\n"
+msgstr "Nadgrajevanje %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Namesti %s"
+msgstr "Nameščam %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -483,29 +489,22 @@ msgid "Installing %s-%s-%s... "
 msgstr "Namešča se %s-%s-%s..."
 
 #: ../constants.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
-msgstr ""
-"Prišlo je do izjemnega pogoja. Najverjetneje gre za hrošča. Prosimo, "
-"prepišite vse besedilo te izjeme in shranite posmrtne ostanke procesa na "
-"disketo, nato pa izpolnite podrobno poročilo o hrošču v programu anaconda na "
-"%s"
+msgstr "Prišlo je do nepričakovane napake. Najverjetneje gre za hrošča. Podrobnosti o napaki sporočite pod paket 'anaconda' na naslovu %s"
 
 #: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
 msgstr "Posmrtni ostanek zapisan"
 
 #: ../exception.py:391
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Stanje vašega sistema je bilo uspešno zapisano na disketo. Sistem se bo zdaj "
-"resetiral."
+msgstr "Stanje vašega sistema je bilo uspešno zapisano na disketo. Sistem se bo zdaj znova zagnal."
 
 #: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
 #: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
@@ -515,26 +514,22 @@ msgid "_Reboot"
 msgstr "Znova _zaženi"
 
 #: ../exception.py:399 ../exception.py:416
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Posmrtni ostanek zapisan"
+msgstr "Stanje ni zabeleženo"
 
 #: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Pri pisanju stanja na disketo je prišlo do napake."
 
 #: ../exception.py:408
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
-"Stanje vašega sistema je bilo uspešno zapisano na disketo. Sistem se bo zdaj "
-"resetiral."
+msgstr "Stanje vašega sistema je bilo uspešno zapisano na oddaljeni računalnik. Sistem se bo zdaj znova zagnal."
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Pri pisanju stanja na oddaljeni računalnik je prišlo do napake."
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
@@ -639,11 +634,15 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Izmenjalna naprava:\\ "
+"\n"
+"     /dev/%s\n"
+"\n"
+"je Linux razdelek za izmenjevanje različice 0. Če želite uporabiti ta razdelek ga morate preoblikovati v različico 1. Če preskočite ta korak bo namestitveni program ta razdelek zanemaril."
 
 #: ../fsset.py:1480
-#, fuzzy
 msgid "Reformat"
-msgstr "Formatiraj"
+msgstr "Znova vzpostavi"
 
 #: ../fsset.py:1484
 #, python-format
@@ -656,6 +655,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Izmenjalna naprava:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"vpisana v datoteki /etc/fstab je trenutno uporabljena kot razdelek za spanje, kar pomeni, da je vaš sistem uspavan. Da bi sistem nadgradili ga morate ustaviti in ne uspavati"
 
 #: ../fsset.py:1492
 #, python-format
@@ -668,6 +672,11 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Izmenjalna naprava:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"vpisana v datoteki /etc/fstab je trenutno uporabljena kot razdelek za spanje, kar pomeni, da je vaš sistem uspavan. Da bi sistem ponovno namestili morate v namestitvenem programu nastaviti, da znova oblikuje vse izmenjalne datoteke."
 
 #: ../fsset.py:1502
 msgid ""
@@ -677,6 +686,10 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Izberite 'Preskoči', če želite da namestitveni program zanemari ta razdelek med "
+"nadgradnjo. Da bi sistem znova oblikoval razdelek kot izmenjalni razdelek izberite 'Oblikuj', z izbiro 'Znova zaženi' pa se bo sistem znova zagnal."
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
@@ -796,16 +809,15 @@ msgstr ""
 "Pritisnite <Enter> za vnovičen zagon sistema."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Datoteke ni moč naložiti!"
+msgstr "Datotečnega sistema ni bilo moč priključiti."
 
 #: ../fsset.py:1730
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
+msgstr "Pri priklapljanju naprave %s na %s je prišlo do napake. Z namestitvijo lahko nadaljujete vendar bodite pozorni na možne napake."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1027,7 +1039,7 @@ msgid "Install Window"
 msgstr "Namestitveno okno"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1037,15 +1049,14 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Paketa %s-%s-%s ni moč odpreti. To je morda zaradi manjkajoče datoteke ali "
-"zaradi pokvarjenega paketa. Če nameščate z nosilca CD, to navadno pomeni, da "
-"je plošča pokvarjena ali pa je pogon CD ne more prebrati.\n"
+"Datoteke %s ni moč odpreti. Ali datoteka manjka ali pa je paket okvarjen. Preverite namestitvene medije.\n"
 "\n"
-"Pritisnite <Enter> za nov poskus."
+"Če sistem znova zaženete bo le-ta v nekonsistentnem stanju in bo verjetno potrebno namestitev ponoviti.\n"
+"\n"
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Manjka slika ISO 9660"
 
 #: ../harddrive.py:69
 #, python-format
@@ -1056,11 +1067,13 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"Namestitveni program je poskušal priklopiti sliko #%s, vendar je ne najde na trdem disku.\n"
+"\n"
+"Sliko prenesite na disk in izberite 'Znova'. Z izbiro 'Zaženi znova' boste namestitev prekinili."
 
 #: ../harddrive.py:78 ../image.py:514
-#, fuzzy
 msgid "Re_try"
-msgstr "Ponovno"
+msgstr "_Ponovi"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1136,7 +1149,7 @@ msgid "Unable to access the CDROM."
 msgstr "Ni moč dostopati do CD-ROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1146,11 +1159,10 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Paketa %s-%s-%s ni moč odpreti. To je morda zaradi manjkajoče datoteke ali "
-"zaradi pokvarjenega paketa. Če nameščate z nosilca CD, to navadno pomeni, da "
-"je plošča pokvarjena ali pa je pogon CD ne more prebrati.\n"
+"Datoteke %s ni moč odpreti. Verjetno manjka datoteka ali pa je paket okvarjen. Preverite, da namestitveni imenik vsebuje vse potrebne pakete.\n"
 "\n"
-"Pritisnite <Enter> za nov poskus."
+"V primeru, da sistem znova zaženete vo le-ta v nekonsistentnem stanju in bo verjetno potrebno namestitev ponoviti.\n"
+"\n"
 
 #: ../image.py:504
 #, python-format
@@ -1161,15 +1173,17 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Namestitevni program je poskušal priklopiti sliko #%s, vendar je ne najde na strežniku\n"
+"\n"
+"Sliko skopirajte na oddaljeni strežnik in izberite 'Ponovi'. Z izbiro 'Zaženi znova' se bo namestitev prekinila."
 
 #: ../installclass.py:60
 msgid "Install on System"
 msgstr "Namesti v sistem"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Inicializacija"
+msgstr "Vzpostavljam zaganjalnik iSCSI"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1189,17 +1203,16 @@ msgstr ""
 "Pritisnite gumb V redu za vnovičen zagon sistema."
 
 #: ../kickstart.py:821 ../kickstart.py:839
-#, fuzzy
 msgid "Running..."
-msgstr "Povezovanje..."
+msgstr "V delu..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Zaganjam pred-namestitvene skripte"
 
 #: ../kickstart.py:840
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Zaganjam po-namestitvene skripte"
 
 #: ../kickstart.py:980
 msgid "Missing Package"
@@ -1223,13 +1236,13 @@ msgid "Missing Group"
 msgstr "Manjkajoča skupina"
 
 #: ../kickstart.py:1009
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Določili ste, da naj se namesti skupina '%s'.  Ta skupina ne obstaja.  Bi "
-"radi nadaljevali ali prekinili namestitev?"
+"Določili ste, da naj se namesti skupina '%s', ki pa ne obstaja. Bi "
+"radi nadaljevali z namestitvijo ali jo želite prekiniti?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1237,44 +1250,39 @@ msgstr "Ime računalnika mora imeti manj kot 65 znakov."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
+msgstr "Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
+msgstr "Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "Naslov IP manjka"
+msgstr "Manjka naslov IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Naslovi IP morajo vsebovati številke med 0 in 255."
+msgstr "Naslovi IP morajo vsebovati številke med 0 in 255, ločene z piko."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s ni veljavno ime gostitelja"
+msgstr "%s ni veljavni naslov IPv6."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Šifrirni ključ"
+msgstr "Vnesi ključ za registracijo"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Vnesite ključ za registracijo %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Ključ:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1466,14 +1474,13 @@ msgstr ""
 "Sprejemljivi znaki so angleške črke, številke, '.' ali '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Točka priklopa ni dobra. Točke priklopa se morajo začeti z znakom ,/` in se "
-"z njim ne smejo končati, vsebujejo pa lahko le izpisljive znake brez "
-"presledkov."
+"Točka priklopa %s ni dobra. Točke priklopa se morajo začeti z znakom ,/` in se "
+"z njim ne smejo končati. Vsebujejo lahko le izpisljive znake brez presledkov."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1520,8 +1527,7 @@ msgstr "Ne morete odstraniti razdelka LDL formatiranega DASD."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
@@ -1588,8 +1594,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
@@ -1731,8 +1736,7 @@ msgid "Confirm Reset"
 msgstr "Potrdite resetiranje"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Ste prepričani, da želite obnoviti razdelitveno tabelo v njenem izvirnem "
 "stanju?"
@@ -1786,13 +1790,11 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "Zagonski razdelek ni med prvimi štirimi. Zagon ne bo mogoč."
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
@@ -1812,15 +1814,14 @@ msgstr ""
 "velikosti za običajno namestitev sistema %s."
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Nameščam na napravo USB. Odvisno od sistema, zagon morda ne bo deloval."
 
 #: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Nameščan na napravo FireWire. Odvisno od sistema zagon morda ne bo deloval."
 
 #: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1870,10 +1871,8 @@ msgstr "razdelek, ki je član skupine nosilcev LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1948,7 +1947,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "Velikost logičnega polja mora biti večja od velikosti fizičnega razpona v skupini polj."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2096,9 +2095,8 @@ msgid "Save"
 msgstr "Shrani"
 
 #: ../text.py:152 ../text.py:166
-#, fuzzy
 msgid "Remote"
-msgstr "Odstrani"
+msgstr "Oddaljeni"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
@@ -2110,16 +2108,15 @@ msgstr "Prišlo je do izjeme"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Shrani na oddaljeni sistem"
 
 #: ../text.py:190
-#, fuzzy
 msgid "Host"
-msgstr "Ime računalnika"
+msgstr "Gostitelj"
 
 #: ../text.py:192
 msgid "Remote path"
-msgstr ""
+msgstr "Oddaljena pot"
 
 #: ../text.py:194
 msgid "User name"
@@ -2147,8 +2144,7 @@ msgid "Welcome to %s"
 msgstr "Dobrodošli v %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> pomoč | <Tab>/<Alt-Tab> med elementi | <presl> izbira | <F12> nasl. "
 "zaslon"
@@ -2157,8 +2153,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
+msgstr "  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
@@ -2289,7 +2284,7 @@ msgid "Connecting..."
 msgstr "Povezovanje..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2299,11 +2294,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Paketa %s-%s-%s ni moč odpreti. To je morda zaradi manjkajoče datoteke ali "
-"zaradi pokvarjenega paketa. Če nameščate z nosilca CD, to navadno pomeni, da "
-"je plošča pokvarjena ali pa je pogon CD ne more prebrati.\n"
+"Datoteke %s ni moč odpreti. Morda datoteka manjka ali pa je paket okvarjen. Preverite, da so na zrcalnem strežniku vsi potrebni paketi ali pa poizkusite z drugim zrcalnim strežnikom."
 "\n"
-"Pritisnite <Enter> za nov poskus."
+"\n"
+"Če sistem znova zaženete bo v nekonsistentnem stanju in bo namestitev verjetno potrebno ponoviti.\n"
+"\n"
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
@@ -2371,9 +2366,8 @@ msgid "The password must be at least six characters long."
 msgstr "Geslo mora imeti najmanj 6 znakov."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Brez gesla"
+msgstr "Napaka pri geslu za VNC"
 
 #: ../vnc.py:138
 msgid ""
@@ -2381,6 +2375,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Geslo za VNC mora biti dolgo vsaj 6 znakov.\n"
+"\n"
+"Pritisnite <enter>za vnovičen zagon sistema.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2440,8 +2437,7 @@ msgstr "Po 50 poskusih je poskus povezovanja opuščen!\n"
 #: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
+msgstr "Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
 
 #: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
@@ -2469,102 +2465,89 @@ msgid "Processing"
 msgstr "Obdelovanje"
 
 #: ../yuminstall.py:104
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Pripravljanje na namestitev ..."
+msgstr "Pripravljam prenos z namestitvenega izvora..."
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
-msgstr ""
+msgstr "datoteka je v sporu"
 
 #: ../yuminstall.py:433
-#, fuzzy
 msgid "older package(s)"
-msgstr "Dodatni paketi"
+msgstr "starejši paketi"
 
 #: ../yuminstall.py:434
 msgid "insufficient disk space"
-msgstr ""
+msgstr "na disku ni dovolj prostora"
 
 #: ../yuminstall.py:435
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "na disku ni dovolj inodov"
 
 #: ../yuminstall.py:436
-#, fuzzy
 msgid "package conflicts"
-msgstr "Privzeto za paket"
+msgstr "paket je v sporu z"
 
 #: ../yuminstall.py:437
 msgid "package already installed"
-msgstr ""
+msgstr "paket je že nameščen"
 
 #: ../yuminstall.py:438
-#, fuzzy
 msgid "required package"
-msgstr "Prosti prostor"
+msgstr "zahtevani paket"
 
 #: ../yuminstall.py:439
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "paket je za neveljavno platformo"
 
 #: ../yuminstall.py:440
 msgid "package for incorrect os"
-msgstr ""
+msgstr "paket ni za pravi operacijski sistem"
 
 #: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Na sledečih datotečnih sistemih rabite več prostora:\n"
 
 #: ../yuminstall.py:470
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Pripravljanje prenosa RPM ..."
+msgstr "Napaka pri prenosu"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Ime računalnika \"%s\" ni veljavno zaradi naslednjega razloga:\n"
-"\n"
-"%s"
+#, python-format
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Pri prenosu je prišlo do napake zaradi naslednjega: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
 msgstr "_Znova zaženi"
 
 #: ../yuminstall.py:638
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Branje podatkov o paketih ..."
+msgstr "Prenašam podatke za namestitev..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Branje podatkov o paketih ..."
+msgstr "Prenašam namestitvene podatke o %s..."
 
 #: ../yuminstall.py:656
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
-"V datoteki comps, ki se nahaja v vašem namestitvenem drevesu, manjkajo "
-"ključne skupine. Prosimo, poskrbite, da je bilo vaše namestitveno drevo "
-"pravilno generirano. "
+msgstr "Ne morem prebrati metapodatke o paketu. Morda manjka imenik z metapodatki o repozitoriju. Preverite ali je namestitveni imenik pravilno zgrajen.  %s"
 
 #: ../yuminstall.py:691
 msgid "Uncategorized"
-msgstr ""
+msgstr "Neuvrščen"
 
 #: ../yuminstall.py:907
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Izbrani paketi rabijo %d MB prostega prostora, kar je več kot imate. Ali spremenite izbiro ali pa sistem znova zaženite."
 
 #: ../yuminstall.py:1061
 #, python-format
@@ -2585,14 +2568,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Zaganjanje namestitve. To lahko traja nekaj minut ..."
 
 #: ../yuminstall.py:1110
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Nadgradnja"
+msgstr "Po Nadgradnji"
 
 #: ../yuminstall.py:1111
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Izvajanje nastavitve po namestitvi ..."
+msgstr "Nastavljanje po namestitvi ..."
 
 #: ../yuminstall.py:1113
 msgid "Post Install"
@@ -2603,9 +2584,8 @@ msgid "Performing post install configuration..."
 msgstr "Izvajanje nastavitve po namestitvi ..."
 
 #: ../yuminstall.py:1264
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Vrsta namestitve"
+msgstr "Napredek pri nameščanju"
 
 #: ../yuminstall.py:1299
 msgid "Dependency Check"
@@ -2696,8 +2676,7 @@ msgstr "Geslo roota mora imeti najmanj 6 znakov."
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
-"Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
+msgstr "Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
 
 #: ../iw/account_gui.py:92
 msgid ""
@@ -2716,36 +2695,32 @@ msgid "_Confirm: "
 msgstr "_Potrditev: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Neveljavno ime skupine nosilcev"
+msgstr "Neveljavno ime 'Initiator'"
 
 #: ../iw/autopart_type.py:136
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "Priskrbeti morate uporabniško ime"
+msgstr "Priskrbeti morate ime 'Initiator', ki je daljše od 0."
 
 #: ../iw/autopart_type.py:158
-#, fuzzy
 msgid "Error with Data"
-msgstr "Napaka v podatkih"
+msgstr "Napaka v Podatkih"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Odstranimo vse razdelke v tem sistemu"
+msgstr "Odstranimo vse razdelke na izbranih diskih in naredi privzeto razmestitev."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Odstrani vse razdelke Linux na izbranih diskih in uporabi privzeto razdelitev."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Uporabi prosti prostor na izbranih diskih in izdelaj privzeto razdelitev."
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Ročna razdelitev."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3210,7 +3185,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Ime logičnega nosilca \"%s\" že obstaja. Prosimo, izberite drugo."
 
 #: ../iw/lvm_dialog_gui.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3278,8 +3253,7 @@ msgstr "Ime v uporabi"
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
+msgstr "Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
@@ -3493,17 +3467,10 @@ msgid "The IP information you have entered is invalid."
 msgstr "Podatki IP, ki ste jih vnesli, niso veljavni."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
-msgstr ""
-"Nimate dejavnih omrežnih naprav.  Vaš sistem privzeto ne bo mogel "
-"komunicirati prek omrežja ne da bi imeli vsaj eno dejavno napravo.\n"
-"\n"
-"POZOR: Če imate omrežni prilagojevalnik vrste PCMCIA, ga morate na tej točki "
-"pustiti nedejavnega.  Ko boste sistem znova zagnali, se bo prilagojevalnik "
-"samodejno aktiviral."
+msgstr "Nimate dejavnih omrežnih naprav.  Vaš sistem ne more komunicirati prek omrežja brez vsaj ene dejavne naprave."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3666,8 +3633,7 @@ msgstr "Ni moč izbrisati"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
+msgstr "Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3759,16 +3725,13 @@ msgid "Partitioning"
 msgstr "Razdeljevanje"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "V vaši razdelitveni shemi so sledeče kritične napake."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -3920,8 +3883,7 @@ msgstr "Urejevalnika kloniranih pogonov ni moč narediti"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
+msgstr "Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
@@ -4205,8 +4167,7 @@ msgstr "Kloniraj pogone"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
+msgstr "Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4261,26 +4222,23 @@ msgid "Unable to load file!"
 msgstr "Datoteke ni moč naložiti!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Neveljavno ime računalnika"
+msgstr "Neveljavno ime repozitorija"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Priskrbeti morate uporabniško ime"
+msgstr "Priskrbeti morate ime repozitorija, ki je daljše od 0."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Neveljavna zagonska oznaka"
+msgstr "Neveljaven URL do repozitorija"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Vnesti morate HTTP ali FTP URL repozitorija."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4288,9 +4246,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"V datoteki comps, ki se nahaja v vašem namestitvenem drevesu, manjkajo "
-"ključne skupine. Prosimo, poskrbite, da je bilo vaše namestitveno drevo "
-"pravilno generirano. "
+"Ne morem brati metapodatkov z repozitorija. Morda manjka imenik 'repodata'. Preverite, da je imenik pravilno zgeneriran.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4310,8 +4268,7 @@ msgstr "To bo osvežilo vaš trenutni zagonski nalagalnik."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno nameščen v %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4452,8 +4409,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost izmenjevalne datoteke mora biti med 1 in 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na izbrani napravi ni dovolj prostora še za izmenjevalni razdelek."
 
 #: ../iw/zfcp_gui.py:24
@@ -4623,12 +4579,8 @@ msgstr ""
 "jim želite dodeliti."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <presl> izbere gumb | <F2> izbere vnos za privzeti zagon | <F12> nasl. "
-"zaslon>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <presl> izbere | <F2> izbere privzeto | <F4> briše <F12> nasl. zaslon>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4761,15 +4713,12 @@ msgstr ""
 "zagnali sistem. Morda boste želeli obdržati to datoteko za poznejši ogled."
 
 #: ../textw/grpselect_text.py:84
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Prosimo, izberite želeno ločljivost:"
+msgstr "Izberite skupino paketov, ki jo želite namestiti."
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-" <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr " <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
 
 #: ../textw/grpselect_text.py:130
 msgid "Package Group Details"
@@ -5032,8 +4981,7 @@ msgstr "Izbire datotečnega sistema"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
+msgstr "Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5061,8 +5009,7 @@ msgstr "Ni podprto"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
+msgstr "Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5160,10 +5107,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5174,30 +5119,27 @@ msgid "Must have a / partition to install on."
 msgstr "Imeti morate razdelek /, da vanj nameščate."
 
 #: ../textw/partition_text.py:1516
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Vrsta razdelitve"
+msgstr "Vrsta Razdelitve"
 
 #: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "Za namestitev je potrebno urediti razdelitev diska. Privzeto se izbere razdelitev, ki je primerna za večino uporabnikov. Seveda lahko razdelitev opravite po svoje."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Katere pogone bi radi uporabili za to namestitev?"
 
 #: ../textw/partition_text.py:1605
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Ponoven _pregled (in po potrebi sprememba) ustvarjenih razdelkov"
+msgstr "Ponovno preglej razdelitev"
 
 #: ../textw/partition_text.py:1606
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Ponoven _pregled (in po potrebi sprememba) ustvarjenih razdelkov"
+msgstr "Preveri ali spremeni razdelitev ?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5253,9 +5195,8 @@ msgid "Remaining:  "
 msgstr "Preostanek: "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Izbira skupine paketov"
+msgstr "Izbira paketov"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5263,7 +5204,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "Peivzeta namestitev %s vključuje nabor programja za splošno rabo interneta. Za katera dodatna opravila želite dodati podporo ?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5428,20 +5369,18 @@ msgstr ""
 "izbiranjem paketov in razdeljevanjem diska."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formatiraj"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Pisarna in opravila"
 
 #: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
 msgid "Software Development"
-msgstr ""
+msgstr "Programiranje"
 
 #: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
-#, fuzzy
 msgid "Web server"
 msgstr "Spletni strežnik"
 
@@ -5478,20 +5417,19 @@ msgstr ""
 "\tIgre\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Potrebuje se ključ za registracijo"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "Za namestietv %s potrebujete registrirni ključ. Če ga niste prejeli skupaj z izdelkom se obrnit na svojega predstavnika."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5515,8 +5453,7 @@ msgstr "_Delovna postaja"
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr ""
-"Ta izbira namesti grafično razvojno okolje in orodja za upravljanje sistema."
+msgstr "Ta izbira namesti grafično razvojno okolje in orodja za upravljanje sistema."
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -5572,7 +5509,7 @@ msgid ""
 "recommended.  Minimally, the CDs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
-msgstr ""
+msgstr "Če želite preveriti dodatne nosilce vstavite naslednji CD in pritisnite \"%s\". Preverjanje ni nujno potrebno vendar je priporočeno. Preverite jih vsaj pred prvo uporabo. Ko ste jih enkrat preverili tega postopka ni več potrebno ponoviti."
 
 #: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
 #, c-format
@@ -5732,15 +5669,15 @@ msgstr ""
 "gonilniki: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Vnesite vse parametre, ki bi jih radi podali modulu %s, ločene s presledki.  "
-"Če ne veste kakšne parametre bi podali, le preskočite ta zaslon s pritiskom "
-"gumba \"V redu\".  S tipko F1 dobite seznam dostopnih izbir."
+"Če ne veste kakšne parametre bi podali, preskočite ta zaslon s pritiskom "
+"na gumb \"Naprej\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5885,10 +5822,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Dobrodošli v %s - način za reševanje"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
@@ -5921,8 +5856,7 @@ msgstr ""
 #: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
+msgstr "Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
 
 #: ../loader2/loader.c:348
 msgid "Updates Disk"
@@ -5998,8 +5932,7 @@ msgstr "V vašem sistemu so bile najdene sledeče naprave."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
+msgstr "Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
 
 #: ../loader2/loader.c:1130
 msgid "Devices"
@@ -6054,57 +5987,45 @@ msgstr "Ni moč najti namestitvene slike %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "NAPAKA"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"SPODLETELO.\n"
-"\n"
-"Slika, ki je bila pravkar preverjana, vsebuje napake.  To je lahko zaradi "
-"pokvarjenega prenosa ali slabega diska.  Če je mogoče, očistite disk in "
-"poskusite znova.  Če preverjanje vedno znova spodleti, ne bi smeli "
-"nadaljevati z namestitvijo."
+"Pravkar preverjana slika, vsebuje napake.  To je lahko zaradi "
+"okvare pri prenosu ali slabega medija. Če je mogoče, očistite medij in "
+"poskusite znova. Če preverjanje vedno znova spodleti, vam odsvetujemo"
+"namestitev."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "USPELO"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"V REDU.\n"
-"\n"
-"S tega nosilca lahko nameščate."
+msgstr "Nosilec je preverjen."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NEZNANO.\n"
-"\n"
-"Kontrolna vsota ni na voljo, nosilca ni moč preveriti."
+msgstr "Kontrolna vsota ni na voljo, nosilca ni moč preveriti."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Rezultat preverjanja nosilca"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"slike:\n"
+"%s za sliko:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6113,6 +6034,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Preverjanje nosilca %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
 #, c-format
@@ -6155,15 +6079,14 @@ msgstr ""
 "      %s za vašo arhitekturo\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Neveljaven niz IP"
+msgstr "Neveljavna maska CIDR"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr ""
+msgstr "Maska CIDR mora biti med 1 in 32 za omrežja IPv4 ali med 1 in 128 za omrežja IPv6"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6218,96 +6141,82 @@ msgid "Sending request for IP information for %s..."
 msgstr "Pošiljam zahtevo po podatkih IP za %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Brez gesla"
+msgstr "Omrežna napaka"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
+msgstr "Pri nastavljanju omrežnega vmesnika je prišlo do napake."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Uporaba dinamične nastavitve IP (BOOTP/DHCP)"
+msgstr "Uporabi samodejno nastavljanje IP (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Omogoči IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Omogoči IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Izogibaj se neželenemu trčenju paketov"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Povečaj vrednosti registrov za hitre omrežne povezave"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Nastavitev TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Manjkajoča skupina"
+msgstr "Manjka protokol"
 
 #: ../loader2/net.c:754
-#, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
+msgstr "Za ročno nastavitev morate izbrati vsaj enega izmed protokolov IPv4 ali IPv6."
 
 #: ../loader2/net.c:764
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
+msgstr "Izbrati morate vsaj en protokol IPv4 ali IPv6 za DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Naslov IP:"
+msgstr "Naslov IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Naslov IP:"
+msgstr "Naslov IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Imenski strežnik"
+msgstr "Imenski strežnik:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Nastavitev z/IPL"
+msgstr "Ročna nastavitev TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Manjkajoči podatki"
 
 #: ../loader2/net.c:1085
-#, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Vnesti morate veljaven naslov IP in mrežno masko."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "Vnesti morate veljaven naslov IP in mrežno masko ali masko CIDR."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Vnesti morate veljaven naslov IP in mrežno masko."
+msgstr "Vnesti morate veljaven naslov IPv6 in masko CIDR."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6343,9 +6252,8 @@ msgid "%s directory:"
 msgstr "Imenik z %s:"
 
 #: ../loader2/nfsinstall.c:55
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6353,7 +6261,7 @@ msgstr "Nastavitev NFS"
 
 #: ../loader2/nfsinstall.c:131
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Ime gostitelja brez da bi nastavili DNS"
 
 #: ../loader2/nfsinstall.c:208
 #, c-format
@@ -6432,7 +6340,7 @@ msgstr "FTP"
 
 #: ../loader2/urls.c:278
 msgid "Web"
-msgstr ""
+msgstr "Splet"
 
 #: ../loader2/urls.c:295
 msgid "FTP site name:"
@@ -6475,8 +6383,7 @@ msgstr "%s ni veljavno ime gostitelja"
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
-"Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
+msgstr "Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
 
 #: ../loader2/urls.c:421
 msgid ""
@@ -6503,50 +6410,47 @@ msgid "Loading SCSI driver"
 msgstr "Nalagamo gonilnik za SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Dodaj _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Dodaj tarčo _iSCSI"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Dodatne možnosti za velikost"
+msgstr "Napredne diskovne nastavitve"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Onemogoči naprave _dmraid"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Kako bi radi pripravili datotečni sistem na tem razdelku?"
+msgstr "Kako bi radi spremenili nastavitve pogona ?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL Repozitorija:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>_Ime repozitorija:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Dodaj repozitorij"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "Navedite lokacijo z dodatnim programjem. Pozor! Repozitorij mora biti veljaven za %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Dodaj repozitorij"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6565,116 +6469,102 @@ msgid "_Release Notes"
 msgstr "_Opombe ob izdaji"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Ponoven _pregled (in po potrebi sprememba) ustvarjenih razdelkov"
+msgstr "_Preglej ali spremeni razdelitev diska"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Napredna prikrojitev zagonskega nalagalnika"
+msgstr "_Napredna nastavitev diskovja"
 
 #: tmp/autopart.glade.h:4
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Izberite pogone, ki bi jih radi uporabili za to namestitev:"
+msgstr "_Izberite pogone za namestitev."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Prišlo je do izjeme"
+msgstr "Podatki o izjemi"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Prišlo je do izjeme"
+msgstr "_Podrobnosti izjeme"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Geslo:"
+msgstr "<b>_Geslo:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Ciljni naslov IP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "Uporabniško ime"
+msgstr "<b>_Uporabniško ime:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Ime iSCSI Initiator:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Parametri chandev"
+msgstr "Nastavi parametre iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "Da bi uporabili diske iSCSI morate navesti iSCSI ponor in ime 'iSCSI initiator', ki ste ga nastavili za vaš sistem."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Prehod:"
+msgstr "<b>Prehod:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "Naslov IP"
+msgstr "<b>Naslov IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "Naslov IP"
+msgstr "<b>Naslov IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Imenski strežnik"
+msgstr "<b>Imenski strežnik:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>_Vmesnik:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Vklopi podoro IPv4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Vklopi podporo IPv6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Omogoči omrežni vmesnik"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "Za to je med nameščanjem potrebna aktivna omrežna povezava. Nastaviti morate omrežni vmesnik."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Uporaba dinamične nastavitve IP (BOOTP/DHCP)"
+msgstr "Uporabi _samodejno nastavitev IP (DHCP)"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Prilagodi"
+msgstr "Prilagodi _kasneje"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "Dodatne prikrojevanje izbora progamja lahko zaključite sedaj ali pa po namestitvi z orodjem za upravljanje s programjem."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6682,16 +6572,15 @@ msgid ""
 "The default installation of %s includes a set of  software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "Privzeta namestitev %s vključuje nabor programja za splošno uporabo interneta. Za katera dodatna opravila želite dodati podporo ?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Dodaj repozitorije za dodatno programje"
 
 #: tmp/tasksel.glade.h:6
-#, fuzzy
 msgid "_Customize now"
-msgstr "Prilagodi"
+msgstr "_Prilagodi sedaj"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6742,16 +6631,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantski čas - V. Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantski čas - V. Labrador"
+msgstr "Atlantski čas - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantski čas - Nova Škotska (večina krajev), NB, Z. Labrador, V. Quebec & "
-"PEI"
+msgstr "Atlantski čas - Nova Škotska (večina krajev), Z. Labrador, V. Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6786,9 +6671,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Postaja Casey, polotok Bailey"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Katamarka (CT)"
+msgstr "Katamarka (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6815,9 +6699,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Srednjeameriški čas - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Srednjeameriški čas - zahodni Nunavut"
+msgstr "Srednjeameriški čas - centralni Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6828,29 +6711,28 @@ msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
+"Srednjeameriški čas - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Vzhodnjeameriški čas - Indiana - okrožje Starke"
+msgstr "Srednjeameriški čas - Indiana - okrožje Pike"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Srednjeameriški čas - Manitoba in zahodni Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Srednjeameriški čas - Michigan - meja Wisconsina"
+msgstr "Srednjeameriški čas - Michigan - Dickinson, Gogebic, okrožje Iron & Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "Srednjeameriški čas - večina krajev"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Srednjeameriški čas - Severna Dakota - okrožje Oliver"
+msgstr "Srednjeameriški čas - Severna Dakota - okrožje Morton (razen področja Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6909,36 +6791,30 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Velikonočni otok in Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Vzhodnjeameriški čas - centralni Nunavut"
+msgstr "Vzhodnjeameriški čas - Otok Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Vzhodnjeameriški čas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Vzhodnjeameriški čas - centralni Nunavut"
+msgstr "Vzhodnjeameriški čas - vzhodni Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Vzhodnjeameriški čas - Indiana - okrožje Crawford"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
 msgstr "Vzhodnjeameriški čas - Indiana - večina krajev"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
 msgstr "Vzhodnjeameriški čas - Indiana - okrožje Starke"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Vzhodnjeameriški čas - Indiana - okrožje Switzerland"
 
@@ -6959,14 +6835,12 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Vzhodnjeameriški čas - Ontario - večina krajev"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Vzhodnjeameriški čas - Ontario & Quebec - kraji, ki niso upoštevali DST 1967-"
 "1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
 msgstr "Vzhodnjeameriški čas - Pangnirtung, Nunavu"
 
@@ -7151,10 +7025,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Standardni gorski čas - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Standardni gorski čas - Dawson Creek in Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Standardni gorski čas - Dawson Creek in Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7166,8 +7038,7 @@ msgstr "Gorski čas"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Gorski čas - Alberta, vzhodna Britanska Kolumbija in zahodni Saskatchewan"
+msgstr "Gorski čas - Alberta, vzhodna Britanska Kolumbija in zahodni Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -7315,12 +7186,11 @@ msgstr "Postaja Syowa, V Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - večina krajev"
+msgstr "Tasmania - večina krajev"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7339,9 +7209,8 @@ msgid "Tocantins"
 msgstr "Tokantini"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Čuuk)"
+msgstr "Truk (Čuuk) in Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7460,9 +7329,8 @@ msgid "German"
 msgstr "nemščina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Prosto"
+msgstr "Grško"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7494,7 +7362,7 @@ msgstr "japonščina"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7509,14 +7377,12 @@ msgid "Malay"
 msgstr "maleščina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "maleščina"
+msgstr "Maleščina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "gudžaratščina"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7528,7 +7394,7 @@ msgstr "Severni Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7555,14 +7421,12 @@ msgid "Russian"
 msgstr "ruščina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "perzijščina"
+msgstr "Srbščina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "perzijščina"
+msgstr "Srbščina (latinica)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7604,1777 +7468,3 @@ msgstr "velščina"
 msgid "Zulu"
 msgstr "zulujščina"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Ni bilo moč dodeliti razdelkov"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Izberete lahko različne načine samodejnega razdeljevanja, ali pa kliknete "
-#~ "'Nazaj' za ročno razdelitev.\n"
-#~ "\n"
-#~ "Pritisnite 'V redu' za nadaljevanje."
-
-#~ msgid "Upgrading %s-%s-%s.%s.\n"
-#~ msgstr "Nadgrajevanje %s-%s-%s.%s.\n"
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Nameščanje %s-%s-%s.%s.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Paketa %s-%s-%s ni moč odpreti. To je morda zaradi manjkajoče datoteke "
-#~ "ali zaradi pokvarjenega paketa. Če nameščate z nosilca CD, to navadno "
-#~ "pomeni, da je plošča pokvarjena ali pa je pogon CD ne more prebrati.\n"
-#~ "\n"
-#~ "Pritisnite <Enter> za nov poskus."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Če boste vaš sistem ponovno zagnali, bo ostal v nekonsistentnem stanju, "
-#~ "ki bo po vsej verjetnosti zahtevalo ponovno namestitev. Ste prepričani, "
-#~ "da žeite nadaljevati?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Prekliči"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "Naslovi IP morajo vsebovati številke med 1 in 255."
-
-#, fuzzy
-#~ msgid "iSCSI Configuration"
-#~ msgstr "Nastavitev SILO"
-
-#, fuzzy
-#~ msgid "Target IP address:"
-#~ msgstr "Naslov IP:"
-
-#, fuzzy
-#~ msgid "Port Number:"
-#~ msgstr "ali pa uporabite:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tNamizje (GNOME)\n"
-#~ "\tAdministrativna orodja\n"
-#~ "\tOrodja za nastavitev strežnika\n"
-#~ "\tSpletni strežnik\n"
-#~ "\tDatotečni strežnik Windows (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Prosimo, vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot "
-#~ "naslov IP v zapisu decimalnih številk, ločenih s piko (na primer 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Omrežna maska:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Privzeti prehod (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Primarni imenski strežnik:"
-
-#, fuzzy
-#~ msgid "iSCSI configuration"
-#~ msgstr "Nastavitev SILO"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Manjkajo opombe ob izdaji."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Naslednji paketi so na voljo v tej različici, a NISO bili nadgrajeni:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Naslednji paketi so na voljo v tej različici, a NISO bili nameščeni:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Iščem"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Iščem pakete za nadgradnjo..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Namestitveni program ne more nadgraditi sistemov z zbirko podatkov pred "
-#~ "rpm 4.x. Prosimo, namestite pakete rpm s popravki za svojo izdajo, kot je "
-#~ "opisano v opombah ob izdaji, in potem poženite nadgraditev."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr ""
-#~ "Med iskanjem paketov, ki jih je treba nadgraditi, je prišlo do napake."
-
-#~ msgid "Installation Type"
-#~ msgstr "Vrsta namestitve"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Katero vrsto sistema bi radi namestili?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Prikrojitev paketov za nadgradnjo"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Nameščeni paketi in paketi, ki so potrebni za zadovoljitev njihovih "
-#~ "odvisnosti, so bili izbrani za namestitev. Bi radi prilagodili nabor "
-#~ "paketov, ki naj se nadgradijo?"
-
-#~ msgid "Hide _Help"
-#~ msgstr "_Skrij pomoč"
-
-#~ msgid "Show _Help"
-#~ msgstr "Prikaži _pomoč"
-
-#, fuzzy
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Izberite pogone, ki bi jih radi uporabili za to namestitev:"
-
-#, fuzzy
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "Ponoven _pregled (in po potrebi sprememba) ustvarjenih razdelkov"
-
-#~ msgid "Amharic"
-#~ msgstr "amharščina"
-
-#~ msgid "Thai"
-#~ msgstr "tajščina"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Ta skupina vključuje vse dostopne pakete.  Vedite, da je znatno več "
-#~ "paketov od tistih iz vseh drugih skupin paketov na tej strani skupaj."
-
-#~ msgid "Everything"
-#~ msgstr "Vse"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "To skupino izberite, če želite namestiti kar najmanj paketov. Uporabno za "
-#~ "izdelavo malih usmerjevalnikov/požarnih zidov, na primer."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Različno"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr "Poskušate nameščati v stroj, ki ni podprt s to distribucijo %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Samodejna razdelitev"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Želim samodejno razdelitev:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Izberite pogone, ki bi jih radi uporabili za to namestitev:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "Ponoven _pregled (in po potrebi sprememba) ustvarjenih razdelkov"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Spremeni zagonski nalagalnik"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Izbrali ste, da ne nameravate namestiti zagonskega nalagalnika. Močno vam "
-#~ "priporočamo, da ga namestite, razen, če imate napredne potrebe. Zagonski "
-#~ "nalagalnik je skoraj vedno potreben za neposreden zagon sistema z diska v "
-#~ "Linux.\n"
-#~ "\n"
-#~ "Želite nadaljevati ne da bi namestili zagonski nalagalnik?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "_Nadaljuj brez zagonskega nalagalnika"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Prosimo, izberite zagonski nalagalnik, ki ga bo uporabljal ta računalnik. "
-#~ "Privzeti zagonski nalagalnik je GRUB. Vendar, če ne želite pisati prek "
-#~ "vašega trenutnega zagonskega nalagalnika, izberite \"Ne namesti "
-#~ "zagonskega nalagalnika\".  "
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Uporabi _GRUB kot zagonski nalagalnik"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Ne namesti zagonskega nalagalnika"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Spremeni zagonski nalagalnik"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Nerazrešene odvisnosti"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Skupna velikost namestitve: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Potrebuje"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "Na_mésti pakete tako, da zadovoljiš odvisnostim"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "_Ne namésti paketov, ki so odvisni od drugih"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "_Prezri odvisnosti paketov"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Privzeto namestitveno okolje vključuje priporočene pakete, ki smo jih "
-#~ "izbrali, vključno z:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Po namestitvi lahko dodatno programje dodajate ali odstranjujete z "
-#~ "uporabo orodja 'system-config-packages'.\n"
-#~ "\n"
-#~ "Če ste domači v sistemu %s, verjetno želite določiti pakete, ki bi jih "
-#~ "radi namestili ali pa se izognili njihovi namestitvi. Označite spodaj, če "
-#~ "želite prikrojiti svojo namestitev."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Če bi radi spremenili privzeti nabor paketov, ki naj se namestijo, lahko "
-#~ "spodaj izberete, da boste to prikrojili."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Namesti privzete programske pakete"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Prikroji pakete, ki naj se namestijo"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "Paketi"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Privzeto namestitveno okolje vsebuje naše prikrojene izbire paketov. Po "
-#~ "končani namestitvi lahko dodajate in odstranjujete pakete z orodjem "
-#~ "'system-config-packages'.\n"
-#~ "\n"
-#~ "%s vsebuje veliko več programja in po želji si lahko prikrojite nameščeno "
-#~ "programje."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Izberite posamezne pakete"
-
-#~ msgid "Package :"
-#~ msgstr "Paket   :"
-
-#~ msgid "Size    :"
-#~ msgstr "Velikost:"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f kbajtov"
-
-#~ msgid "Total size"
-#~ msgstr "Skupna velikost"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Izbira posameznih paketov"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr "   <Space>,<+>,<-> izbira   |   <F1> pomoč   |   <F2> opis paketa"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Odvisnosti paketov"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Nekateri paketi, ki ste jih izbrali za namestitev, potrebujejo pakete, ki "
-#~ "jih niste izbrali. Če le pritisnete \"V redu\", bodo vsi ti potrebni "
-#~ "paketi samodejno nameščeni."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Namésti pakete tako, da zadovoljiš odvisnostim"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Ne namésti paketov, ki so odvisni od drugih"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Odvisnosti paketov"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Miška ni bila zaznana. Za grafično namestitev potrebujete miško. Zaganja "
-#~ "se besedilni način."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Ugotavljam vrsto miške: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Uporabljam vrsto miške: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Prišlo je do izjemnega pogoja, najverjetneje do hrošča. Prosimo, "
-#~ "prepišite vse besedilo te izjeme in shranite posmrtne ostanke procesa na "
-#~ "disketo, nato pa izpolnite podrobno poročilo o hrošču v programu anaconda "
-#~ "na %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Oddaljena prijava (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Spletni strežnik (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Prenos datotek (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Poštni strežnik (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Zagonske diskete ni moč narediti"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Velikost modulov jedra, potrebnih za vaš stroj, onemogoča, da bi naredili "
-#~ "zagonsko sliko, ki bi šla na disketo."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Vstavite disketo"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Prosimo, odstranite vse diskete iz disketnika in vstavite disketo, ki naj "
-#~ "vsebuje zagonsko sliko.\n"
-#~ "\n"
-#~ "Vsi podatki na njej bodo med izdelavo zagonske diskete IZBRISANI."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Naredi zagonsko disketo"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Med izdelavo zagonske diskete je prišlo do napake.  Prosim, prepričajte "
-#~ "se, da je v prvem disketniku res disketa."
-
-#~ msgid "Creating"
-#~ msgstr "Ustvarja se"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Ustvarjamo zagonski disk..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Med preverjanjem vsebine zagonske diskete je prišlo do napake.  Prosim, "
-#~ "prepričajte se, da je v prvem disketniku res dobra disketa."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Vaša zagonska disketa je videti pokvarjena. To je najverjetneje zaradi "
-#~ "slabe diskete. Prosim, prepričajte se, da je v prvem disketniku res dobra "
-#~ "disketa."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Shrani na disketo"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Manjkajo naslednje slike ISO, ki jih potrebujete za namestitev:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Sistem se bo zdaj znova zagnal."
-
-#~ msgid "Reading"
-#~ msgstr "Branje"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Ni moč brati seznama glav.  To je lahko zato, ker manjka datoteka ali je "
-#~ "nosilec slab. Pritisnite <Enter> za vnovičen poskus."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Datoteke comps ni moč odpreti. To je lahko zato, ker manjka pa je nosilec "
-#~ "slab.  Pritisnite <Enter> za vnovičen poskus."
-
-#~ msgid "Installing..."
-#~ msgstr "Nameščanje..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Napaka pri nameščanju paketa"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Pri nameščanju %s je prišlo do napake.  To lahko pomeni pokvarjen "
-#~ "nosilec, pomanjkanje prostora v disku in/ali strojne težave. To je usodna "
-#~ "napaka in vaša namestitev bo prekinjena. Prosimo, preverite nosilec "
-#~ "podatkov in poskusite znova.\n"
-#~ "\n"
-#~ "Pritisnite gumb V redu za vnovičen zagon sistema."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Seznama glav ni moč združiti.  To je lahko zato, ker manjka datoteka ali "
-#~ "pa je nosilec slab.  Pritisnite <Enter> za vnovičen poskus."
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nameščanje paketov %s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Naslednji paketi so bili samodejno izbrani\n"
-#~ "za namestitev:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Kaže, da za pakete, ki ste jih izbrali, ni dovolj prostora na disku.\n"
-#~ "Potrebujete več prostora na naslednjih datotečnih sistemih:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Potreben prostor"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Kaže, da za pakete, ki ste jih izbrali, ni dovolj datotečnih vozlov.\n"
-#~ "Potrebujete več datotečnih vozlov na naslednjih datotečnih sistemih:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Potrebni vozli"
-
-#~ msgid "Disk Space"
-#~ msgstr "Prostor na disku"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Arhitektura izdaje %s, v katero nadgrajujete, je videti %s, kar ne "
-#~ "ustreza prej nameščeni arhitekturi %s.  To najverjetneje ne bo uspelo.  "
-#~ "Ste prepričani, da želite nadaljevati nadgraditev?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Videti je, da so v tem sistemu nameščeni paketi tretjih oseb, ki se "
-#~ "prekrivajo s paketi, vključeni v %s. Ker se ti paketi prekrivajo, lahko "
-#~ "nadaljevanje nadgradnje povzroči, da nehajo pravilno delovati, ali pa "
-#~ "povzroči kako drugo nestabilnost v delovanju.  Za več podatkov, prosimo, "
-#~ "poglejte zapiske ob izdaji.\n"
-#~ "\n"
-#~ "Ali želite nadaljevati z nadgradnjo?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Ta sistem nima datoteke /etc/redhat-release.  Možno je, da to ni sistem z "
-#~ "%s. Nadaljevanje z nadgradnjo lahko pusti sistem v neuporabnem stanju. "
-#~ "Ali želite nadaljevati z nadgradnjo?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Nastavitve avtentikacije"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Omogoči gesla _MD5"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Omogočimo _senčna gesla"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Omogoči _NIS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Uporabi _oddajanje za iskanje strežnika NIS"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "_Domena NIS: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_Strežnik NIS: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Omogoči _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Uporabi poizvedbe _TLS"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "Strežnik _LDAP:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _osnovna DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Omogoči _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "_Območje:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Skrbniški strežnik:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Omogoči _overjanje SMB"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "_Strežnik SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "Delovna _skupina SMB:"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Izdelava zagonske diskete"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Zagonska disketa vam omogoča zagon vašega sistema %s z diskete.  Z "
-#~ "zagonsko disketo lahko dvignete sistem tudi kadar zagonski nalagalnik v "
-#~ "disku neha delovati, ali če se odločite, da ga ne namestite, ali če nek "
-#~ "tretji zagonski nalagalnik ne podpira Linuxa.\n"
-#~ "\n"
-#~ "Toplo vam priporočamo, da naredite zagonsko disketo.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Da, želim ustvariti zagonsko disketo"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Ne, ne želim ustvariti zagonske diskete"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Izberite pogon na katerem boste poganjali fdasd"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Formatiranje izbrane naprave DASD bo uničilo vso vsebino v tej napravi. "
-#~ "Ali zares želite formatirati izbrano napravo DASD?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Razdeljevanje z orodjem fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Izberite pogon na katerem boste poganjali fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Onemogočeno"
-
-#~ msgid "Warn"
-#~ msgstr "Opozorila"
-
-#~ msgid "Active"
-#~ msgstr "Delujoče"
-
-#~ msgid "Firewall"
-#~ msgstr "Požarni zid"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Pozor - brez požarnega zidu"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Če je računalnik povezan neposredno v Internet ali v večje javno omrežje, "
-#~ "je priporočljivo da se z nastavitvijo požarnega zidu prepreči nedovoljeni "
-#~ "dostop. Toda niste določili postavitev požarnega zidu. Z izbiro "
-#~ "»Nadaljuj« boste nadaljevali brez požarnega zidu."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Nastavitev požarnega zidu"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Nadaljuj"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Požarni zid lahko pomaga preprečiti nepooblaščen dostop do vašega "
-#~ "računalnika iz zunanjega sveta.  Bi radi omogočili požarni zid?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Brez požarnega zidu"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Omogoči požarni zid"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Požarni zid lahko nastavite tako, da dovolite drugim računalnikom dostop "
-#~ "do določenih storitev na vašem računalniku. Do katerih (če sploh) "
-#~ "storitev želite omogočiti dostop?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Varnostno izboljšan Linux (SELinux) ponuja podrobnejši nadzor varnosti "
-#~ "kot je na voljo na običajnih sistemih Linux. Lahko ga nastavite, da le "
-#~ "opozarja na stvari, ki bi sicer bile preprečene; ali pa v polno delujoče "
-#~ "stanje."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Omogoči _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Vsi paketi"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Paket: %s\n"
-#~ "Različica: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_Drevesni pogled"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Ravni pogled"
-
-#~ msgid "_Package"
-#~ msgstr "_Paket"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Velikost (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Skupna velikost:"
-
-#~ msgid "Select _all in group"
-#~ msgstr "Izberi _vse v skupini"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Odizberi vse v skupini"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimalna"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Podrobnosti o '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Skupina paketov ima lahko tako osnovne kot dodatne člane.  Osnovni paketi "
-#~ "so vedno izbrani, če je le izbrana skupina paketov.\n"
-#~ "\n"
-#~ "Izberite dodatne pakete, ki naj se namestijo:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Osnovni paketi"
-
-#~ msgid "Details"
-#~ msgstr "Podrobnosti"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Izberite posamezne pakete"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Sistemska ura uporablja _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Prosimo, izberite najbližje mesto v vašem časovnem območju:"
-
-#~ msgid "_Location"
-#~ msgstr "_Lokacija"
-
-#~ msgid "Description"
-#~ msgstr "Opis"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Nepreskušeni monitor"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Prilagoditev grafične nastavitve"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Barvna globina:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 barv (8 bitov)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Raznobarvnost (16 bitov)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Prave barve (24 bitov)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Ločljivost zaslona:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Prosimo, izberite vaše privzeto namizno okolje:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Vaše namizno okolje je:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Prosimo, izberite vrsto vaše prijave:"
-
-#~ msgid "_Text"
-#~ msgstr "_Besedilna"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafična"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Nastavitev monitorja"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Nedoločen monitor"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Niste izbrali tipa zaslona. Predlagamo, da izberete najbližji ujemajoči "
-#~ "model, da bo možna čim večja kvaliteta prikaza."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Izberite vrsto monitorja"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "V večini primerov je monitor moč samodejno zaznati. Če so zaznane "
-#~ "nastavitve napačne za ta monitor, izberite pravilne."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Obnovi _izvirne vrednosti"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "_Horizontalna sinhronizacija:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Vertikalna sinhronizacija:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Prikrojitev grafičnega vmesnika (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Neznana grafična kartica"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Med izbiranjem grafične kartice %s je prišlo do napake. Prosimo, "
-#~ "poročajte o tej napaki prek %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Nedoločena grafična kartica"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Preden se prikrojitev X lahko nadaljuje, morate izbrati grafično "
-#~ "kartico.  Če želite popolnoma preskočiti prikrojitev X, izberite gumb ,"
-#~ "Preskok prikrojitve X`."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Vaš sistem bo nastavljen za uporabo posplošenega gonilnika (frame buffer) "
-#~ "zaokna X. Če ne želite nastaviti oken X izberite spodaj 'Preskoči "
-#~ "nastavitve X'."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Velikosti pomnilnika na kartici ne moremo samodejno zaznati.  Prosimo, "
-#~ "izberite velikost pomnilnika kartice iz spodnjih izbir:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "V večini primerov lahko samodejno preizkusimo grafično strojno opremo. Če "
-#~ "zaznane nastavitve niso pravilne za vašo strojno opremo, izberite "
-#~ "pravilne."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "RAM grafične _kartice: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Preskoči nastavitve X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Zagonska disketa vam omogoča, da zaganjate svoj sistem %s z diskete.  "
-#~ "Zagonska disketa vam omogoča zagon sistema tudi v primeru, ko vaša "
-#~ "nastavitev zagonskega nalagalnika preneha delovati.\n"
-#~ "\n"
-#~ "Toplo je priporočeno, da izdelate zagonsko disketo.\n"
-#~ "\n"
-#~ "Ali bi radi izdelali zagonsko disketo?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Zagonska disketa"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Izberite disk, na katerem boste poganjali fdasd ali dasdfmt"
-
-#~ msgid "Next"
-#~ msgstr "Naprej"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Uredi razdelke"
-
-#~ msgid "Format DASD"
-#~ msgstr "Formatiraj DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Prikrojitev diska"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Med poganjanjem %s na pogonu %s je prišlo do napake."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Poganjanje dasdfmt pomeni izgubo\n"
-#~ "VSEH PODATKOV v pogonu %s.\n"
-#~ "\n"
-#~ "Ali to zares želite storiti?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Prišlo je do napake - veljavne naprave, na kateri bi lahko ustvarili nove "
-#~ "datotečne sisteme, ni bilo moč najti.  Prosimo, preverite vašo strojno "
-#~ "opremo za razlog te težave ali pa uporabite dasdfmt.\n"
-#~ "\n"
-#~ "Nazaj na zaslon fdasd?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Izberite disk, na katerem boste poganjali fdisk"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Omogoči požarni zid"
-
-#~ msgid "No firewall"
-#~ msgstr "Brez požarnega zidu"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Dovoli prihodni:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Neveljavna izbira"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Ne morete prilagoditi onemogočenega požarnega zidu."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Prilagodite nastavitve požarnega zidu"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Pri uporabi požarnega zidu boste morda želeli drugim računalnikom "
-#~ "omogočiti dostop do določenih storitev na vašem računalniku. Do katerih "
-#~ "storitev naj bo dovoljen dostop? "
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Varnostno ojačani Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Uredimo uporabnika"
-
-#~ msgid "Add User"
-#~ msgstr "Dodajmo uporabnika"
-
-#~ msgid "User Name"
-#~ msgstr "Uporabniško ime"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Geslo (potrditev)"
-
-#~ msgid "Full Name"
-#~ msgstr "Polno ime"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Slabo uporabniško ime"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Uporabniška imena lahko vsebujejo le znake A-Z, a-z in 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Manjka uporabniško ime"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Geslo mora imeti najmanj 6 znakov."
-
-#~ msgid "User Exists"
-#~ msgstr "Uporabnik obstaja"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Uporabnik root je že pripravljen. Tega uporabnika vam tu ni treba "
-#~ "dodajati."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Uporabnik system je že pripravljen. Tega uporabnika vam tu ni treba "
-#~ "dodajati."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Uporabnik s to identiteto že obstaja.  Izberite drugega."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Za večino dela na sistemu bi morali uporabljati običajni uporabniški "
-#~ "račun. Če ne boste venomer uporabljali računa root, bo manj verjetno, da "
-#~ "boste po pomoti pokvarili sistemske nastavitve."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Namestitev uporabniškega računa"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Katere druge uporabniške račune bi radi imeli v sistemu?  Za običajno "
-#~ "delo naj bi imeli vsaj en račun, različen od root, večuporabniški sistemi "
-#~ "pa imajo lahko nameščeno poljubno število računov."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Vnesite podatke o uporabniku."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Spremenite podatke tega uporabnika."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Uporaba senčnih gesel"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Vklop gesel MD5"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Vklopimo NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "Domena NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "Strežnik NIS:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Zahtevajte strežnik z oddajanjem"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Vklopimo LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "Strežnik LDAP:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP osnovna DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Uporabi povezave TLS"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Omogoči Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Območje:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Skrbniški strežnik:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Barvna globina"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Izberite želeno barvno globino:"
-
-#~ msgid "Resolution"
-#~ msgstr "Ločljivost"
-
-#~ msgid "X Customization"
-#~ msgstr "Prilagoditev X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Izberite barvno globino in grafični način, ki bi ju radi uporabljali v "
-#~ "vašem sistemu. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Barvna globina:"
-
-#~ msgid "Change"
-#~ msgstr "Spremeni"
-
-#~ msgid "Resolution:"
-#~ msgstr "Ločljivost:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Privzeto namizje:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Privzeta prijava:"
-
-#~ msgid "Graphical"
-#~ msgstr "Grafična"
-
-#~ msgid "Text"
-#~ msgstr "Znakovna"
-
-#~ msgid "Monitor"
-#~ msgstr "Monitor"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Prosimo, izberite monitor, ki je priklopljen na vaš sistem."
-
-#~ msgid "horizontal"
-#~ msgstr "horizontalna"
-
-#~ msgid "vertical"
-#~ msgstr "vertikalna"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Neveljavne hitrosti sinhronizacije"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Hitrost sinhronizacije %s ni veljavna:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Veljavna hitrost sinhronizacije je lahko teh oblik:\n"
-#~ "\n"
-#~ "      31.5                   ena sama številka\n"
-#~ "    50.1-90.2                interval številk\n"
-#~ "31.5,35.0,39.3-40.0          seznam številk/intervalov\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Hitrosti sinhronizacije monitorja"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Prosimo, izberite hitrosti sinhronizacije vašega monitorja. \n"
-#~ "\n"
-#~ "VEDITE: ročno urejanje hitrosti sinhronizacije navadno ni potrebno, "
-#~ "morali pa bi paziti, da so vnešene vrednosti pravilne."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Hitrost HSync: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Hitrost VSync: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Izberite monitor za vaš sistem. Uporabite gumb ,%s` za resetiranje na "
-#~ "zaznane vrednosti."
-
-#~ msgid "Monitor:"
-#~ msgstr "Monitor:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Hitrost HSync:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Hitrost VSync:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Izberite vrsto monitorja"
-
-#~ msgid "Proceed"
-#~ msgstr "Nadaljuj"
-
-#~ msgid "Video Card"
-#~ msgstr "Grafična kartica"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Prosimo, izberite grafično kartico, ki je v vašem sistemu.  Izberite ,%s` "
-#~ "za obnovitev izbora kartice na vrednost, ki jo je zaznal namestitveni "
-#~ "program."
-
-#~ msgid "Video RAM"
-#~ msgstr "Video RAM"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Prosimo, izberite količino grafičnega pomnilnika, ki je na vaši grafični "
-#~ "kartici. Izberite ,%s`, da povrnete vaš izbor na vrednost, ki jo je za "
-#~ "vašo kartico zaznal namestitveni program."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Preskok nastavitve X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Nastavitev grafične kartice"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Izberite grafično kartico in grafični pomnilnik vašega sistema"
-
-#~ msgid "Video Card:"
-#~ msgstr "Grafična kartica:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Neznana kartica"
-
-#~ msgid "Video RAM:"
-#~ msgstr "RAM grafične kartice:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Če bi radi preskušali dodatne nosilce, vstavite naslednji medij in "
-#~ "pritisnite \"%s\".  Vseh medijev vam ni treba preskušati, čeprav je "
-#~ "priporočeno, da to storite vsaj enkrat.\n"
-#~ "\n"
-#~ "Za začetek namestitve vstavite medij #1 v pogon in pritisnite \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Preverjanje nosilca %s je končano in rezultat je: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Vzhodnjeameriški čas - central Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Velika Britanija"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Severna Irska"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmanija"
-
-#~ msgid "Yap"
-#~ msgstr "Jap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "severovzhodni Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "jugozahodni Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Podpora dodatnih jezikov"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Izberite _privzeti jezik za sistem:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "Izberite _dodatne jezike, ki bi jih radi namestili v ta sistem:"
-
-#~ msgid "_Select All"
-#~ msgstr "_Izberi vse"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Izberi _le privzete"
-
-#~ msgid "Rese_t"
-#~ msgstr "Rese_tiraj"
-
-#~ msgid "Select All"
-#~ msgstr "Izberite vse"
-
-#~ msgid "Reset"
-#~ msgstr "Ponastavi"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Izberite dodatne jezike, ki bi jih radi uporabljali v tem sistemu:"
-
-#~ msgid "Language Support"
-#~ msgstr "Podpora jezikov"
-
-#~ msgid "Default Language"
-#~ msgstr "Privzeti jezik"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Izberite privzeti jezik za ta sistem: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Za podatke o popravkih (osvežitvah in popravkih hroščev), obiščite:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Za informacije o samodejnem osveževanju prek omrežja Red Hat Network, "
-#~ "obiščite:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Za informacije o rabi in nastavitvah sistema, obiščite:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Za registracijo izdelka in uveljavitev podpore, obiščite:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Nastavitev SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Namestitev zaganjalnega zapisa SILO na:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Izdelava vzdevka PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Nastavimo privzeto zagonsko napravo PROM na linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Parametri jedra"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Izdelava zagonske diskete"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Ne nameščajmo zaganjalnika SILO"
-
-#~ msgid "Default boot image"
-#~ msgstr "Privzeta zagonska slika"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Izdelava vzdevka PROM `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Nastavimo privzeto zagonsko napravo PROM"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Kam bi radi namestili zaganjalnik sistema?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Zagonski upravljalnik, ki ga uporablja Red Hat, lahko zaganja tudi druge "
-#~ "operacijske sisteme. Določiti morate, s katerih razdelitev bi radi "
-#~ "zaganjali sistem in kakšne oznake bi radi uporabljali za njih."
-
-#~ msgid "no suggestion"
-#~ msgstr "ni predloga"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Uporabi _LILO kot zagonski nalagalnik"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Ni moč spremeniti vrstnega reda pogonov za LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Spreminjanja vrstnega reda pogonov za LILO ne podpiramo."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Uporabi zagonski nalagalnik LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "Namestitev %s v %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Izbrali ste, da v vaš sistem ne želite namestiti zagonskega nalagalnika.  "
-#~ "Za zagon sistema s to izbiro boste morali narediti zagonsko disketo.\n"
-#~ "\n"
-#~ "Bi radi nadaljevali in ne namestili zagonskega nalagalnika?"
-
-#~ msgid "Total"
-#~ msgstr "Skupno"
-
-#~ msgid "Remaining"
-#~ msgstr "Preostanek"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Namešča se %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Napredovanje paketa: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Skupni napredek:  "
-
-#~ msgid "Status"
-#~ msgstr "Stanje"
-
-#~ msgid "Time"
-#~ msgstr "Čas"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Nadgradnje na to različico %s so podprte le z Red Hat Linuxa 6.2 ali "
-#~ "novejših.  Videti je, da je to starejši sistem.  Ali želite nadaljevati "
-#~ "nadgraditveni postopek?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tNamizje (GNOME)\n"
-#~ "\tPisarna (OpenOffice)\n"
-#~ "\tSpletni brskalnik (Mozilla) \n"
-#~ "\tOdjemalec za elektronsko pošto (Evolution)\n"
-#~ "\tElektronsko kramljanje\n"
-#~ "\tZvočni in video programi\n"
-#~ "\tIgre\n"
-#~ "\tAdministrativna orodja\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tNamizje (GNOME)\n"
-#~ "\tPisarna (OpenOffice)\n"
-#~ "\tSpletni brskalnik (Mozilla) \n"
-#~ "\tOdjemalec za elektronsko pošto (Evolution)\n"
-#~ "\tElektronsko kramljanje\n"
-#~ "\tZvočni in video programi\n"
-#~ "\tIgre\n"
-#~ "\tOrodja za razvoj programja\n"
-#~ "\tAdministrativna orodja\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Fizični obseg:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Varnostno ojačani Linux (SELinux) omogoča natančnejšo kontrolo dostopa za "
-#~ "izboljšanje varnosti sistema. Kako želite omogočiti te razširitve?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Onemogoči SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Opozori ob prekoračitvah"
-
-#~ msgid "Device number:"
-#~ msgstr "Številka naprave:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "V. Argentina (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Podana so napačna vrata: %s.  Pravilen format je 'vrata:protokol', kjer "
-#~ "so vrata med 1 in 65535, protokol pa je bodisi 'tcp' ali 'udp'.\n"
-#~ "\n"
-#~ "Na primer: '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Pozor: slab žeton"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "_Dovoli prihodni:"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Druga _vrata:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Razširitve varnostno ojačanega Linuxa (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Zaupaj napravam:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "Svetovni splet (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Pošta (SMTP)"
-
-#~ msgid "Other ports"
-#~ msgstr "Druga vrata"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Nastavitev požarnega zidu - prilagoditev"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Svoj požarni zid lahko prilagodite na dva načina. Prvič, izberete lahko, "
-#~ "da dovolite ves promet od določenih omrežnih vmesnikov. Drugič, določenim "
-#~ "protokolom lahko eksplicitno dovolite prehod prek požarnega zidu. V "
-#~ "seznamu, ločenem z vejico, navedite dodatna vrata v obliki ,storitev:"
-#~ "protokol`, kot npr. ,imap:tcp`."
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Pozor: %s niso veljavna vrata."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CD-ROM-a ni moč priklopiti."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Vnesite geslo skrbnika tega sistema (uporabnika root)."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Prilagojen požarni zid"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Katerim storitvam je dovoljeno, da preidejo skozi požarni zid?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr "Če bi radi dovolili ves promet z naprave, jo izberite spodaj."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "_Zaupamo napravam:"
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "Privzeta delovna postaja"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Dobrodošli v sistemu %s!\n"
-#~ "\n"
-#~ "Ta način namestitve je podrobno razložen v vodniku za namestitev sistema "
-#~ "Official %s, ki ga lahko dobite pri podjetju Red Hat, Inc.  Če imate "
-#~ "dostop do tega priročnika, naj bi še pred nadaljevanjem prebrali razdelek "
-#~ "o namestitvi.\n"
-#~ "\n"
-#~ "Če ste kupili Official %s, registrirajte vaš izvod v našem spletišču, "
-#~ "http://www.redhat.com/."
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Če za zaganjanje sistema %s nameravate uporabljati zagonsko disketo, ki "
-#~ "ste jo naredili, jo vstavite, preden zaženete vaš novi sistem.\n"
-#~ "\n"
-
-#~ msgid "Online Help"
-#~ msgstr "Pomoč na zvezi"
-
-#~ msgid "_Install BETA"
-#~ msgstr "_Namesti BETO"
-
-#~ msgid "Set hostname"
-#~ msgstr "Nastavi ime računalnika"
-
-#~ msgid "Welcome"
-#~ msgstr "Dobrodošli"
