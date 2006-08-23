@@ -366,9 +366,9 @@ def isMactel():
             mactel = False
     return mactel
 
-def hasNX():
-    """Convenience function to see if a machine supports the nx bit. We want
-    to install an smp kernel if NX is present since NX requires PAE (#173245)"""
+def cpuFeatureFlags():
+    """Convenience function to get CPU feature flags from /proc/cpuinfo."""
+
     if rhpl.getArch() not in ("i386", "x86_64"):
         return False
     f = open("/proc/cpuinfo", "r")
@@ -382,10 +382,9 @@ def hasNX():
         flags = line[:-1].split(":", 1)[1]
         # and split them
         flst = flags.split(" ")
-        if "nx" in flst:
-            return True
-    return False
-    
+        return flst
+
+    return []
 
 def writeRpmPlatform(root="/"):
     import rhpl.arch

@@ -1,5 +1,8 @@
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
+	* iutil.py (cpuFeatureFlags): Add a method to get cpu feature
+	flags, remove no longer used hasNX
+
 	* cmdline.py (InstallInterface.kickstartErrorWindow): Handle
 	kickstart errors in cmdline mode (#203768)
 
