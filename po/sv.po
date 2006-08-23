@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-22 01:44-0400\n"
+"PO-Revision-Date: 2006-08-23 13:45-0400\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "Ingen grafikhårdvara hittades, antar huvudlöst"
 
 #: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Kan inte instantiera ett X-hårdvarutillståndsobjekt."
+msgstr "Kan inte skapa en instans av ett X-hårdvarutillståndsobjekt."
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
@@ -327,7 +327,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Tryck 'OK' för att välja en annan partioneringsmöjlighet."
+"Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
 #: ../autopart.py:1503
 #, python-format
@@ -448,7 +448,7 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"Inga kärnpaket installerades på ditt system. Din startprogramskonfiguration "
+"Inga kärnpaket installerades på ditt system. Din konfiguration för startprogrammet "
 "kommer inte att ändras."
 
 #: ../cmdline.py:44
@@ -1066,8 +1066,8 @@ msgstr ""
 "trasigt paket. Vänligen verifiera dina installations-media och att du har "
 "alla nödvändiga media. \n"
 "\n"
-"Om du startar om kommer ditt system hamna i ett inkonstitent läge, "
-"som troligen innebär att det krävs en ominstallation.\n"
+"Om du startar om kommer ditt system hamna i ett inkonsistent läge, "
+"som troligen innebär att det krävs en om-installation.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1183,7 +1183,7 @@ msgstr ""
 "nödvändiga paket. \n"
 "\n"
 "Om du startar om kommer ditt system hamna i ett inkonsistent läge "
-"som troligen kräver en ominstallation.\n"
+"som troligen kräver en om-installation.\n"
 "\n"
 
 #: ../image.py:504
@@ -1198,7 +1198,7 @@ msgstr ""
 "Installationsprogrammet har försökt att montera avbilden #%s, men kan inte "
 "hitta den på servern.\n"
 "\n"
-"Kopiera denna avbild till fjärrserverns utdelningssökväg och klicka på "
+"Kopiera denna avbild till fjärrserverns utdelnings-sökväg och klicka på "
 "Försök igen.\n"
 "Klicka på Starta om för att avbryta installationen."
 
@@ -1294,7 +1294,7 @@ msgid ""
 "periods."
 msgstr ""
 "IP-adresser måste innehålla fyra tal mellan 0 och 255, separerade med "
-"punker."
+"punkter."
 
 #: ../network.py:96
 #, python-format
@@ -1803,7 +1803,7 @@ msgid ""
 msgstr ""
 "Eftersom du inte har mycket minne i denna maskin måste vi aktivera "
 "växlingsutrymmet (swap) direkt. För att göra detta måste vi omedelbart "
-"skriva din nya partitionstabell till hårddisken. Är det okej?"
+"skriva din nya partitionstabell till hårddisken. Är det OK?"
 
 #: ../partitions.py:818
 #, python-format
@@ -2357,7 +2357,7 @@ msgstr ""
 "paket och försök använd en annan.\n"
 "\n"
 "Om du startar om kommer ditt system hamna i ett inkonsistent läge "
-"som troligen kräver en ominstallation.\n"
+"som troligen kräver en om-installation.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2372,7 +2372,7 @@ msgid ""
 msgstr ""
 "X kunde inte startas på din maskin. Vill du starta VNC för att ansluta till "
 "denna dator från en annan dator och utföra en grafisk installation, eller "
-"fortsätta med en textlägesinstallation?"
+"fortsätta med en textläge installation?"
 
 #: ../vnc.py:51 ../vnc.py:54
 msgid "Use text mode"
@@ -2396,7 +2396,7 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
-"Ett lösenord kommer att förhindra oauktoriserade lyssnare från att ansluta "
+"Ett lösenord kommer att förhindra otillåtna lyssnare från att ansluta "
 "och övervaka installationsförloppet. Ange ett lösenord att använda för "
 "installationen"
 
@@ -2622,7 +2622,7 @@ msgid ""
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Du verkar uppgradera från ett system som är för gammalt för att kunna "
-"uppgraderas till denna version av %s. Är du säker på att du vill fortsätta "
+"uppgradera till denna version av %s. Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
 #: ../yuminstall.py:1093
@@ -2641,19 +2641,19 @@ msgstr "Efteruppgradering"
 # "efterinstallationskonfiguration" istället, och motsvarande.
 #: ../yuminstall.py:1111
 msgid "Performing post upgrade configuration..."
-msgstr "Utför efteruppgraderingskonfiguration..."
+msgstr "Utför konfigurering efter uppgradering..."
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
 #: ../yuminstall.py:1113
 msgid "Post Install"
-msgstr "Efterinstallation"
+msgstr "Efter installation"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället.
 #: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
-msgstr "Utför efterinstallationskonfiguration..."
+msgstr "Utför konfiguration efter installation..."
 
 #: ../yuminstall.py:1264
 msgid "Installation Progress"
@@ -2735,7 +2735,7 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"Du måste ange ditt rootlösenord och bekräfta det genom att ange det en andra "
+"Du måste ange ditt root-lösenord och bekräfta det genom att ange det en andra "
 "gång för att fortsätta."
 
 #: ../iw/account_gui.py:49
@@ -2744,7 +2744,7 @@ msgstr "Lösenorden du angav var olika. Var vänlig och försök igen."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Rootlösenordet måste vara minst sex tecken långt."
+msgstr "Root-lösenordet måste vara minst sex tecken långt."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
@@ -2759,12 +2759,12 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"rootkontot används för administration av systemet. Ange ett lösenord för "
-"rootanvändaren."
+"root-kontot används för administration av systemet. Ange ett lösenord för "
+"root-användaren."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "R_ootlösenord: "
+msgstr "R_oot-lösenord: "
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
@@ -2806,7 +2806,7 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"Ett startprogramslösenord förhindrar användare från att ändra de alternativ "
+"Ett startprogram-lösenord förhindrar användare från att ändra de alternativ "
 "som skickas till kärnan. Vi rekommenderar att ett lösenord anges för största "
 "möjliga säkerhet."
 
@@ -2936,7 +2936,7 @@ msgid ""
 msgstr ""
 "Ordna hårddiskarna så att de är i samma ordning som används av BIOS. Att "
 "ändra ordningen på hårddiskarna kan vara användbart om du har flera SCSI-"
-"adaptrar eller både SCSI- och IDE-adaptrar och vill starta från SCSI-"
+"kort eller både SCSI- och IDE-kort och vill starta från SCSI-"
 "enheten.\n"
 "\n"
 "Att ändra ordningen på hårddiskarna kommer att ändra var "
@@ -3159,7 +3159,7 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"Storleken på den fysiska ytan kan inte ändras eftersom den resulterande "
+"Storleken på den fysiska ytan kan inte ändras eftersom "
 "maximala logiska volymstorleken (%10.2f MB) är mindre än en eller flera av "
 "de angivna logiska volymerna."
 
@@ -5401,7 +5401,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "Rootlösenord"
+msgstr "Root-lösenord"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5409,13 +5409,13 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Välj ett rootlösenord. Du måste skriva det två gånger för att säkerställa "
+"Välj ett root-lösenord. Du måste skriva det två gånger för att säkerställa "
 "att du vet vad det var och att du inte skrev fel. Kom ihåg att "
-"rootlösenordet är en kritisk del av systemets säkerhet!"
+"root-lösenordet är en kritisk del av systemets säkerhet!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "Rootlösenordet måste vara minst 6 tecken långt."
+msgstr "Root-lösenordet måste vara minst 6 tecken långt."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -6318,7 +6318,7 @@ msgid ""
 "configuration."
 msgstr ""
 "Du måste välja minst ett protokoll (IPv4 eller IPv6) för manuell "
-"kofiguration."
+"konfiguration."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
@@ -6424,7 +6424,7 @@ msgstr "Telnet"
 
 #: ../loader2/telnetd.c:83
 msgid "Waiting for telnet connection..."
-msgstr "Väntar på telnetanslutning..."
+msgstr "Väntar på telnet-anslutning..."
 
 #: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
@@ -6728,7 +6728,7 @@ msgid ""
 "include  support for?"
 msgstr ""
 "Standardinstallationen av %s inkluderar en samling program som är lämpliga "
-"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
+"för allmän Internet-användning. Vilka ytterligare uppgifter vill du att "
 "systemet ska ha stöd för?"
 
 #: tmp/tasksel.glade.h:5
