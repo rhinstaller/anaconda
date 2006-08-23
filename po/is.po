@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-01 01:31+0000\n"
+"PO-Revision-Date: 2006-08-23 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -116,28 +116,37 @@ msgid "unknown install method: %s"
 msgstr "Óþekkt uppsetningaraðferð: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Gat ekki búið til disksneiðina sem aðal disksneið"
+msgstr ""
+"Gat ekki búið til disksneiðina sem cylinder-based aðal disksneið.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Gat ekki búið til umbeðnar disksneiðar sem aðal disksneiðar"
+msgstr ""
+"Gat ekki búið til umbeðnar disksneiðar sem aðal disksneiðar.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Gat ekki búið til umbeðnar disksneiðar"
+msgstr ""
+"Gat ekki búið til cylinder-based disksneiðar.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -320,6 +329,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Veldu 'Í lagi' til að velja annan disksneiðamöguleika."
 
 #: ../autopart.py:1503
 #, python-format
@@ -418,14 +430,14 @@ msgstr ""
 "Ertu viss um að þú viljir gera þetta?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Uppfæri %s-%s-%s.%s.\n"
+msgstr "Uppfæri %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Setja upp %s"
+msgstr "Setja upp %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -621,6 +633,13 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Diskminnistækið:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"er diskminnissneið af gerðinni 0. Ef þú vilt nota þessa sneið þarftu að "
+"forsníða hana sem disksneið af gerðinni 1. Gerir þú það ekki mun "
+"uppsetningaforritið hunsa hana í þessari uppsetningu."
 
 #: ../fsset.py:1480
 msgid "Reformat"
@@ -637,6 +656,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Diskminnistækið:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"í /etc/fstab skránni þinni er í notkun sem disksvæfisneið sem þýðir að vélin "
+"þín er sofandi.  Til þess að framkvæma uppfærslu þarftu að slökkva á vélinni "
+"í stað þess að svæfa hana."
 
 #: ../fsset.py:1492
 #, python-format
@@ -649,6 +675,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Diskminnistækið:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"í /etc/fstab skránni þinni er í notkun sem disksvæfisneið sem þýðir að vélin "
+"þín er sofandi.  Ef þú ert að framkvæma nýja uppsetningu þarftu að ganga úr "
+"skugga um að uppsetningaforritið sé stillt til að forsníða öll diskminnissvæði."
 
 #: ../fsset.py:1502
 msgid ""
@@ -783,9 +816,8 @@ msgstr ""
 "Sláðu á <Enter> til að endurræsa vélina."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Get ekki lesið skrá!"
+msgstr "Get ekki tengt skráarkerfið"
 
 #: ../fsset.py:1730
 #, python-format
@@ -793,6 +825,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Það kom upp villa við að tengja tækið %s á %s.  Þú getur haldið uppsetningunni "
+"áfram en það geta komið upp vandamál."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1012,7 +1046,7 @@ msgid "Install Window"
 msgstr "Uppsetningargluggi"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1025,6 +1059,9 @@ msgstr ""
 "Ekki var hægt að opna skrána %s. Þetta orsakast af skrá sem vantar eða "
 "skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast að "
 "hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
+"\n"
+"Ef þú endurræsir núna mun vélin þín vera í þannig ástandi að það mun líklega "
+"vera nauðsynlegt að setja hana upp aftur.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1125,7 +1162,7 @@ msgid "Unable to access the CDROM."
 msgstr "Get ekki opnað geisladrifið."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1136,8 +1173,8 @@ msgid ""
 "\n"
 msgstr ""
 "Ekki var hægt að opna skrána %s. Þetta orsakast af skrá sem vantar eða "
-"skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast að "
-"hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
+"skemmdum pakka.  Vinsamlega gakktu úr skugga um að uppsetningatréið þitt "
+"innihaldi alla pakkana.\n"
 "\n"
 
 #: ../image.py:504
@@ -1160,9 +1197,8 @@ msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Frumstilli"
+msgstr "Frumstilli iSCSI rekilinn"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1236,35 +1272,34 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Heiti vélar má einungis innihalda stafina 'a-z', 'A-Z', '-', eða '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP vistfang vantar"
+msgstr "IP vistfang vantar."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP vistfang má einungis innihalda tölur á bilinu 0 til 255"
+msgstr ""
+"IP vistfang verður að innihalda fjórar tölur á bilinu 0 til 255 aðskildar "
+"með púnktum"
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s er ekki gilt heiti vélar."
+msgstr "'%s' er ekki gilt IPv6 vistfang."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Dulritunarlykill"
+msgstr "Sláðu inn skráningalykil"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Vinsamlega sláðu inn skráningalykil fyrir þessa útgáfu af %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Lykill:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1773,6 +1808,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Ræsidisksneiðin þín er ekki ein af fyrstu fjórum disksneiðunum og er því ekki "
+"ræsanleg."
 
 #: ../partitions.py:849
 msgid ""
@@ -1935,6 +1972,7 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Sýndardiskar verða að vera stærri en stærð raundiskbúta sýndardiskhópsins."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2273,7 +2311,7 @@ msgid "Connecting..."
 msgstr "Tengist..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2284,8 +2322,11 @@ msgid ""
 "\n"
 msgstr ""
 "Ekki var hægt að opna skrána %s. Þetta orsakast af skrá sem vantar eða "
-"skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast að "
-"hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
+"skemmdum pakka. Vinsamlega gakktu úr skugga um að spegillinn þinn innihaldi "
+"alla pakkana eða reyndu að nota annan.\n"
+"\n"
+"Ef þú endurræsir núna mun vélin þín vera í þannig ástandi að það mun líklega "
+"vera nauðsynlegt að setja hana upp aftur.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2500,13 +2541,11 @@ msgid "Error running transaction"
 msgstr "Villa við að keyra færsluna"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"Vélarheitið \"%s\" er ekki gilt sökum:\n"
-"\n"
-"%s"
+"Það kom upp villa við uppsetninguna vegna eftirfarandi skilyrða: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2517,9 +2556,9 @@ msgid "Retrieving installation information..."
 msgstr "Sæki upplýsingar um uppsetninguna..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Sæki upplýsingar um uppsetninguna..."
+msgstr "Sæki upplýsingar um uppsetningu %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2693,13 +2732,12 @@ msgid "_Confirm: "
 msgstr "_Staðfesta: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Heiti iSCSI rekils:"
+msgstr "Ógilt heiti rekils"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Þú verður að gefa upp heiti rekilsins."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3463,16 +3501,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP upplýsingarnar sem þú slóst inn eru ógildar."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Þú hefur engin virk netkort. Vélin þín mun ekki geta haft samskipti við "
-"aðrar vélar á neti án að minnsta kosti eins netkorts.\n"
-"\n"
-"ATH: Ef þú ert með PCMCIA netkort ættir þú að láta það vera óvirkt áfram. "
-"Þegar þú endurræsir eftir uppsetningu mun það verða virkt sjálfkrafa."
+"aðrar vélar á neti án að minnsta kosti eins virks netkorts."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4228,26 +4262,23 @@ msgid "Unable to load file!"
 msgstr "Get ekki lesið skrá!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Ógilt vélarheiti"
+msgstr "Ógilt heiti hugbúnaðarsafns"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Þú verður að gefa upp heiti þjóns."
+msgstr "Hugbúnaðarsafnið verður að hafa heiti."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Ógilt ræsimerki"
+msgstr "Ógild slóð á hugbúnaðarsafn"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Þú verður að gefa upp HTTP eða FTP slóð á hugbúnaðarsafnið."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4255,9 +4286,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Get ekki lesið pakkaupplýsingarnar. Orsök þess gæti verið að 'repodata' "
-"möppuna vantar.  Vinsamlega gakktu úr skugga um að uppsetningartréið þitt "
-"hafi verið sett upp rétt.  %s"
+"Get ekki lesið pakkaupplýsingarnar frá hugbúnaðarsafninu. Orsök þess gæti "
+"verið að 'repodata' möppuna vantar.  Vinsamlega gakktu úr skugga um að "
+"hugbúnaðarsafnið þitt hafi verið sett upp rétt.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5435,13 +5468,12 @@ msgstr ""
 "\tLeikir\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Skráningalykil vantar"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5449,6 +5481,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"Þú þarft skráningalykil til að setja upp %s.  Vinsamlega hafðu samband við "
+"þjónustuaðilann þinn ef þú hefur ekki fengið hann með vörunni."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6107,15 +6141,16 @@ msgstr ""
 "      %s fyrir vélina þína\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Ógildar IP upplýsingar"
+msgstr "Ógildur CIDR möskvi"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR möskvinn verður að vera milli 1 og 32 fyrir IPv4 net eða milli 1 og 128 "
+"fyrir IPv6 net"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6170,94 +6205,85 @@ msgid "Sending request for IP information for %s..."
 msgstr "Sendi beiðni um IP stillingar fyrir %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "VNC lykilorðavilla"
+msgstr "Netvilla"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að stilla netkortið þitt."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Nota lausbundnar IP stillingar (BOOTP/DHCP)"
+msgstr "Nota lausbundnar IP stillingar (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Virkja IPv4 stuðning"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Virkja IPv6 stuðning"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Forðast óþarfa pakkaárekstra"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Hámarka stilligildi fyrir háhraða netsamskipti"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Stillingar TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Hóp vantar"
+msgstr "Samskiptamáta vantar"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"Þú verður að velja amk. einn samskiptamála (IPv4 eða IPv6) til að "
+"stilla handvirkt."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Þú verður að velja amk. einn samskiptamála (IPv4 eða IPv6) fyrir DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP vistfang:"
+msgstr "IPv4 vistfang:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP vistfang:"
+msgstr "IPv6 vistfang:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Nafnaþjónn"
+msgstr "Nafnaþjónn:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Stillingar z/IPL"
+msgstr "Handvirkar TCP/IP stillingar"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Upplýsingar vantar"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
+msgstr "Þú verður að gefa upp gilt IPv4 vistfang og netmöskva eða CIDR forskeyti."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
+msgstr "Þú verður að gefa upp gilt IPv6 vistfang og CIDR forskeyti."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6454,40 +6480,36 @@ msgid "Loading SCSI driver"
 msgstr "Les inn SCSI rekil"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Bæta við _ZFCP tæki"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Bæta við _iSCSI tæki"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Frekari stærðarrofar"
+msgstr "Frekari diskgeymslurofar"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Slökkva á _dmraid tæki"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Hvernig viltu undirbúa skráarkerfið á þessari disksneið?"
+msgstr "Hvernig viltu breyta diskstillingum þínum?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Hugbúnaðar_slóð:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>Heiti iSCSI _rekils:</b>"
+msgstr "<b>Heiti hugbú_naðarsafns:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Bæta við hugbúnaðarsafni"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6495,10 +6517,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Vinsamlega gefðu upp staðsetningu hugbúnaðarsafnsins sem inniheldur auka "
+"hugbúnaðinn þinn. Athugaðu að þetta verður að gera gilt safn fyrir %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Bæta við hugbúnaðarsafni"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6521,9 +6545,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Frekari stillingar ræsistjóra"
+msgstr "_Frekari stillingar diskgeymslu"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6562,6 +6585,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Til að nota iSCSI diska þarftu að gefa upp vistfang iSCSI tækisins og "
+"heiti iSCSI rekilsins sem þú hefur stillt fyrir vélina þína."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6631,7 +6656,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Bæta við auka hugbúnaðarsöfnum"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7452,7 +7477,7 @@ msgstr "Norður Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
