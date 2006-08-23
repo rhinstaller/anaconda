@@ -1,3 +1,18 @@
+2006-08-22  Peter Jones  <pjones@redhat.com>
+
+	* isys/auditd.[ch]: A simple audit daemon that throws away all messages
+
+	* isys/isys.c: Include auditd.h.  Define doAuditDaemon(), which calls
+	auditd.c's audit_daemonize().  Define the python function "auditdaemon".
+
+	* isys/isys.py: define auditDaemon, which calls _isys.auditdaemon()
+
+	* isys/Makefile: Add -laudit if we're using selinux.  also add auditd.o
+
+	* anaconda.spec: require audit-libs and -devel .
+
+	* anaconda (__main__): start the audit daemon.
+
 2006-08-22  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/mk-images.ia64:  Fix typo (#203350).
