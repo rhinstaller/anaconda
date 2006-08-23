@@ -1,3 +1,16 @@
+2006-08-23  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/task_gui.py: Rework so that we can enable/disable optional
+	repos per install class as well as see what repos have been added
+	* ui/tasksel.glade: Change things up a little bit
+
+	* installclasses/fedora.py: Tweak description, add Extras as an
+	additional repo
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Allow for additional,
+	not enabled by default repos to be set up.
+	* installclass.py (repos): Add not-default repos
+
 2006-08-22  Peter Jones  <pjones@redhat.com>
 
 	* isys/auditd.[ch]: A simple audit daemon that throws away all messages

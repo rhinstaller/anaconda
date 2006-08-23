@@ -4,24 +4,25 @@ from constants import *
 import os
 import iutil
 
-# custom installs are easy :-)
+import rpmUtils.arch
+
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
-    id = "custom"
+    id = "fedora"
     name = N_("_Fedora")
-    pixmap = "custom.png"
-    description = N_("Select this installation type to gain complete "
-		     "control over the installation process, including "
-		     "software package selection and partitioning.")
+    description = N_("The default installation of %s includes a set of "
+                     "software applicable for general internet usage. "
+                     "What additional tasks would you like your system "
+                     "to include support for?") %(productName,)
     sortPriority = 10000
-    showLoginChoice = 1
-    showMinimal = 1
     if productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
+
+    repos = { "Fedora Extras": (None, "http://download.fedora.redhat.com/pub/fedora/linux/extras/development/%s" %(rpmUtils.arch.getBaseArch() ,)) }
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)

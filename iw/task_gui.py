@@ -31,14 +31,19 @@ class TaskWindow(InstallWindow):
         else:
             self.dispatch.skipStep("group-selection", skip = 1)
 
-        for (txt, grps) in self.tasks:
-            if not self.taskcbs.has_key(txt):
-                continue
-            cb = self.taskcbs[txt]
-            if cb.get_active():
+        tasks = self.xml.get_widget("taskList").get_model()
+        for (cb, task, grps) in tasks:
+            if cb:
                 map(self.backend.selectGroup, grps)
             else:
                 map(self.backend.deselectGroup, grps)
+
+        repos = self.xml.get_widget("repoList").get_model()
+        for (cb, repotxt, repo) in repos:
+            if cb:
+                repo.enable()
+            else:
+                repo.disable()
 
     def groupsInstalled(self, lst):
         # FIXME: yum specific
@@ -109,6 +114,8 @@ class TaskWindow(InstallWindow):
             try:
                 self.backend.doRepoSetup(self.anaconda, reponame,
                                          fatalerrors = False)
+                s = self.xml.get_widget("repoList").get_model()
+                s.append([repo.isEnabled(), reponame, repo])
                 log.info("added repository %s with with source URL %s" % (reponame, repourl))
             except yum.Errors.RepoError, e:
                 self.intf.messageWindow(_("Error"),
@@ -119,10 +126,71 @@ class TaskWindow(InstallWindow):
                                         type="ok", custom_icon="error")
                 self.backend.ayum.repos.delete(reponame)
                 continue
+
+            if not repo.groups_added:
+                self.intf.messageWindow(_("Warning"),
+                               _("Unable to find a group file for %s.  "
+                                 "This will make manual selection of packages "
+                                 "from the repository not work") %(reponame,),
+                                        type="warning")
+                                        
+            
             break
 
         dialog.destroy()
         return rc
+
+    def _toggled(self, data, row, store):
+        i = store.get_iter(int(row))
+        val = store.get_value(i, 0)
+        store.set_value(i, 0, not val)
+
+    def _createTaskStore(self):
+        store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+                              gobject.TYPE_STRING,
+                              gobject.TYPE_PYOBJECT)
+        tl = self.xml.get_widget("taskList")
+        tl.set_model(store)
+
+        cbr = gtk.CellRendererToggle()
+        col = gtk.TreeViewColumn('', cbr, active = 0)
+        cbr.connect("toggled", self._toggled, store)
+        tl.append_column(col)
+
+        col = gtk.TreeViewColumn('Text', gtk.CellRendererText(), text = 1)
+        col.set_clickable(False)
+        tl.append_column(col)
+
+        for (txt, grps) in self.tasks:
+            if not self.groupsExist(grps):
+                continue
+            store.append([self.groupsInstalled(grps), txt, grps])
+
+        return len(store)
+
+    def _createRepoStore(self):
+        store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+                              gobject.TYPE_STRING,
+                              gobject.TYPE_PYOBJECT)
+        tl = self.xml.get_widget("repoList")
+        tl.set_model(store)
+
+        cbr = gtk.CellRendererToggle()
+        col = gtk.TreeViewColumn('', cbr, active = 0)
+        cbr.connect("toggled", self._toggled, store)
+        tl.append_column(col)
+
+        col = gtk.TreeViewColumn('Text', gtk.CellRendererText(), text = 1)
+        col.set_clickable(False)
+        tl.append_column(col)
+
+        for (repoid, uri) in self.repos.items():
+            rid = repoid.replace(" ", "")
+            if not self.backend.ayum.repos.repos.has_key(rid):
+                continue
+            repo = self.backend.ayum.repos.repos[rid]
+            store.append([repo.isEnabled(), repoid, repo])
+        
             
     def getScreen (self, anaconda):
         self.intf = anaconda.intf
@@ -131,7 +199,7 @@ class TaskWindow(InstallWindow):
         self.anaconda = anaconda
 
         self.tasks = anaconda.id.instClass.tasks
-        self.taskcbs = {}
+        self.repos = anaconda.id.instClass.repos
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 
@@ -145,22 +213,13 @@ class TaskWindow(InstallWindow):
         else:
             self.xml.get_widget("customRadio").set_active(False)
 
-        found = False
-        for (txt, grps) in self.tasks:
-            if not self.groupsExist(grps):
-                continue
-            found = True
-            cb = gtk.CheckButton(_(txt))
-            self.xml.get_widget("cbVBox").pack_start(cb)
-            if self.groupsInstalled(grps):
-                cb.set_active(True)
-            self.taskcbs[txt] = cb
-
-        if not found:
-            self.xml.get_widget("mainLabel").hide()
+        if self._createTaskStore() == 0:
             self.xml.get_widget("cbVBox").hide()
+            self.xml.get_widget("mainLabel").hide()
+
+        self._createRepoStore()
         if not anaconda.id.instClass.allowExtraRepos:
-            self.xml.get_widget("addRepoButton").hide()
+            self.xml.get_widget("addRepoBox").hide()
 
         self.xml.get_widget("addRepoButton").connect("clicked", self._addRepo)
 

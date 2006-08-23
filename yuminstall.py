@@ -182,6 +182,7 @@ class AnacondaYumRepo(YumRepository):
                 self.setAttribute(k, v)
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
+        
         if uri and not mirrorlist:
             self.baseurl = [ uri ]
         elif mirrorlist and not uri:
@@ -364,6 +365,17 @@ class AnacondaYum(YumSorter):
                                    root = root)
             repo.enable()
             self.repos.add(repo)
+
+        # add some additional not enabled by default repos.
+        # FIXME: this is a hack and should probably be integrated
+        # with the above
+        for (name, (uri, mirror)) in self.anaconda.id.instClass.repos.items():
+            rid = name.replace(" ", "")
+            repo = AnacondaYumRepo(uri = uri, mirrorlist = mirror,
+                                   repoid=rid, root = root)
+            repo.disable()
+            self.repos.add(repo)
+            
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:
