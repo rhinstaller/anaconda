@@ -1,5 +1,8 @@
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
+	* cmdline.py (InstallInterface.kickstartErrorWindow): Handle
+	kickstart errors in cmdline mode (#203768)
+
 	* yuminstall.py (YumBackend.doGroupSetup): Only show Xen as
 	available on machines with PAE for x86
 

@@ -65,6 +65,14 @@ class InstallInterface:
     def progressWindow(self, title, text, total, updpct = 0.05):
         return ProgressWindow(title, text, total, updpct)
 
+    def kickstartErrorWindow(self, text):
+        s = _("The following error was found while parsing your "
+              "kickstart configuration:\n\n%s") %(text,)
+        print s
+
+        while 1:
+            time.sleep(5)
+        
     def messageWindow(self, title, text, type="ok", default = None,
                       custom_icon = None, custom_buttons = []):
         if type == "ok":
