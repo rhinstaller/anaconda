@@ -4,6 +4,9 @@
 	messages.
 	(RAIDDevice.setupDevice):  Add command to list of args for printing.
 
+	* yuminstall.py (YumBackend.selectAnacondaNeeds):  Make sure programs
+	anaconda runs post-install are installed (#203216).
+
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

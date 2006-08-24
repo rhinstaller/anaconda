@@ -884,6 +884,15 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage("iscsi-initiator-utils")
                 break
 
+    # anaconda requires several programs on the installed system to complete
+    # installation, but we have no guarantees that some of these will be
+    # installed (they could have been removed in kickstart).  So we'll force
+    # it.
+    def selectAnacondaNeeds(self):
+        for pkg in ['authconfig', 'chkconfig', 'mkinitrd',
+                    'system-config-securitylevel-tui']:
+            self.selectPackage(pkg)
+
     def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
         if anaconda.dir == DISPATCH_BACK:
@@ -893,6 +902,8 @@ class YumBackend(AnacondaBackend):
         self.selectBestKernel()
         self.selectBootloader()
         self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+
+        self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
