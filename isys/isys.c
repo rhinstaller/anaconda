@@ -1209,15 +1209,22 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
 #ifdef USESELINUX
 static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
     char *fn, *buf = NULL;
+    char * root = NULL;
+    char path[PATH_MAX];
     int ret;
 
-    if (!PyArg_ParseTuple(args, "s", &fn))
+    if (!PyArg_ParseTuple(args, "s|s", &fn, &root))
         return NULL;
 
     ret = matchpathcon(fn, 0, &buf);
     /*    fprintf(stderr, "matchpathcon returned %d: set %s to %s\n", ret, fn, buf);*/
     if (ret == 0) {
-        ret = lsetfilecon(fn, buf);
+        if (root != NULL) 
+            snprintf(path, PATH_MAX, "%s/%s", root, fn);
+        else
+            snprintf(path, PATH_MAX, "%s", root);
+
+        ret = lsetfilecon(path, buf);
     }
 
     return Py_BuildValue("s", buf);

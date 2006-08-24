@@ -187,11 +187,17 @@ class FileSystemType:
         self.maxLabelChars = 16
         self.packages = []
 
-    def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+    def mount(self, device, mountpoint, readOnly=0, bindMount=0,
+              instroot=""):
         if not self.isMountable():
             return
-        iutil.mkdirChain(mountpoint)
-        isys.mount(device, mountpoint, fstype = self.getName(), 
+        iutil.mkdirChain("%s/%s" %(instroot, mountpoint))
+        if flags.selinux:
+            log.info("setting SELinux context for mountpoint %s" %(mountpoint,))
+            isys.resetFileContext(mountpoint, instroot)
+            
+        isys.mount(device, "%s/%s" %(instroot, mountpoint),
+                   fstype = self.getName(), 
                    readOnly = readOnly, bindMount = bindMount)
 
     def umount(self, device, path):
@@ -775,7 +781,8 @@ class swapFileSystem(FileSystemType):
         self.supported = 1
         self.maxLabelChars = 15
         
-    def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+    def mount(self, device, mountpoint, readOnly=0, bindMount=0,
+              instroot = None):
         pagesize = resource.getpagesize()
         buf = None
         if pagesize > 2048:
@@ -1020,13 +1027,18 @@ class AutoFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "auto")
 
-    def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+    def mount(self, device, mountpoint, readOnly=0, bindMount=0,
+              instroot = None):
         errNum = 0
         errMsg = "cannot mount auto filesystem on %s of this type" % device
 
         if not self.isMountable():
             return
-        iutil.mkdirChain(mountpoint)
+        iutil.mkdirChain("%s/%s" %(instroot, mountpoint))
+        if flags.selinux:
+            log.info("setting SELinux context for mountpoint %s" %(mountpoint,))
+            isys.resetFileContext(mountpoint, instroot)
+        
         for fs in getFStoTry (device):
             try:
                 isys.mount (device, mountpoint, fstype = fs, readOnly =

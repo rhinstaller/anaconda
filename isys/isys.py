@@ -847,8 +847,8 @@ def isWireless(dev):
 def getIPAddress(dev):
     return _isys.getIPAddress(dev)
 
-def resetFileContext(fn):
-    return _isys.resetFileContext(fn)
+def resetFileContext(fn, instroot = '/'):
+    return _isys.resetFileContext(fn, instroot)
 
 auditDaemon = _isys.auditdaemon
 

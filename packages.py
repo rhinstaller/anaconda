@@ -210,23 +210,13 @@ def setFileCons(anaconda):
             files.extend(map(addpath, dirfiles))
             files.append(dir)
 
-        # blah, to work in a chroot, we need to actually be inside so the
-        # regexes will work
-        child = os.fork()
-        if (not child):
-            os.chroot(anaconda.rootPath)
-            for f in files:
-                if not os.access("%s" %(f,), os.R_OK):
-                    log.warning("%s doesn't exist" %(f,))
-                    continue
-                ret = isys.resetFileContext(os.path.normpath(f))
-                log.info("set fc of %s to %s" %(f, ret))
-            os._exit(0)
-
-        try:
-            os.waitpid(child, 0)
-        except OSError, (num, msg):
-            pass
+        for f in files:
+            if not os.access("%s" %(f,), os.R_OK):
+                log.warning("%s doesn't exist" %(f,))
+                continue
+            ret = isys.resetFileContext(os.path.normpath(f),
+                                        anaconda.rootPath)
+            log.info("set fc of %s to %s" %(f, ret))
             
 
     return
