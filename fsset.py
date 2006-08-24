@@ -1535,7 +1535,8 @@ MAILADDR root
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
-        log.info("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
+        if entry.mountpoint:
+            log.info("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
         entry.fsystem.clobberDevice(entry, chroot)
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
@@ -2170,7 +2171,7 @@ class RAIDDevice(Device):
                 args.append("--spare-devices=%s" %(self.spares,),)
             
             args.extend(map(devify, self.members))
-            log.info("going to run: %s" %(args,))
+            log.info("going to run: %s" %(["/usr/sbin/mdadm"] + args,))
             iutil.execWithRedirect ("/usr/sbin/mdadm", args,
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],

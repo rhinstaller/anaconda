@@ -1,3 +1,9 @@
+2006-08-24  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (FileSystemSet.formatEntry):  Don't output misleading
+	messages.
+	(RAIDDevice.setupDevice):  Add command to list of args for printing.
+
 2006-08-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
