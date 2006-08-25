@@ -267,6 +267,7 @@ def flushDriveDict():
     cachedDrives = None
 
 def driveDict(klassArg):
+    import parted
     global cachedDrives
     if cachedDrives is None:
         # FIXME: need to add dasd probing to kudzu
@@ -275,9 +276,43 @@ def driveDict(klassArg):
                            kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
         new = {}
         for dev in devs:
-            if dev.device is None: # none devices make no sense
+            device = dev.device
+            if device is None: # none devices make no sense
                 continue
-            new[dev.device] = dev
+            if dev.deviceclass != classMap["disk"]:
+                new[device] = dev
+                continue
+            try:
+                devName = "/dev/%s" % (device,)
+                makeDevInode(device, devName)
+                peddev = parted.PedDevice.get(devName)
+                model = peddev.model
+
+                if device.startswith("sd"):
+                    # blacklist *STMF on power5 iSeries boxes
+                    if rhpl.getArch() == "ppc" and \
+                            model.find("IBM *STMF KERNEL") != -1:
+                        log.info("%s looks like STMF, ignoring" % (device,))
+                        del peddev
+                        continue
+
+                    # blacklist DGC/EMC LUNs for which we have no ACL.
+                    # We should be ignoring LUN_Z for all vendors, but I
+                    # don't know how (if) other vendors encode this into
+                    # the model info.
+                    #
+                    # XXX I need to work some SCC2 LUN mode page detection
+                    # into libbdevid, and then this should use that instead.
+                    # -- pjones
+                    if str(peddev.model) == "DGC LUNZ":
+                        log.info("%s looks like a LUN_Z device, ignoring" % \
+                            (device,))
+                        del peddev
+                        continue
+                new[device] = dev
+            except Exception, e:
+                log.debug("exception checking disk blacklist on %s: %s" % \
+                    (device, e))
         cachedDrives = new
 
     ret = {}
@@ -293,26 +328,6 @@ def driveDict(klassArg):
     return ret
 
 def hardDriveDict():
-    import parted
-
-    dict = driveDict("disk")
-
-    # this is kind of ugly, but it's much easier to do this from python
-    for (dev, descr) in dict.items():
-        # blacklist *STMF on power5 iSeries boxes
-        if rhpl.getArch() == "ppc" and dev.startswith("sd"):
-            try:
-                devName = "/tmp/%s" % dev
-                makeDevInode(dev, devName)
-                peddev = parted.PedDevice.get(devName)
-                if peddev.model.find("IBM *STMF KERNEL") != -1:
-                    log.info("%s looks like STMF, ignoring" %(dev,))
-                    del dict[dev]
-                del peddev
-                os.unlink(devName)
-            except Exception, e:
-                log.debug("exception looking for STMF on %s: %s" %(dev, e))
-        
     return driveDict("disk")
 
 def floppyDriveDict():

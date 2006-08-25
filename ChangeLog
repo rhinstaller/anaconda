@@ -1,3 +1,10 @@
+2006-08-25  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.py: move device blacklisting from hardDriveDict into
+	driveDict, so we do it less often (but in more codepaths :/).  Also
+	add filtering of DGC LUNZ devices, which don't ever represent
+	addressable storage.
+
 2006-08-25  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/init.c: Handle xvc0 as a "weird" console.  Also, fix a
