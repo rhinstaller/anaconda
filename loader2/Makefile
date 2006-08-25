@@ -86,7 +86,7 @@ init: init.o undomounts.o shutdown.o
 shutdown: shutdown.o undomounts.o
 	$(CC) $(STATIC) $(CFLAGS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
 
-init.o: init.c
+init.o: init.c devices.h
 	$(CC) $(CFLAGS) -c -o init.o init.c
 
 undomounts.o: undomounts.c

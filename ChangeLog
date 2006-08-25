@@ -1,3 +1,22 @@
+2006-08-25  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/init.c: Handle xvc0 as a "weird" console.  Also, fix a
+	case where we didn't properly close an fd 
+
+	* loader2/devices.h: Add xvc0 under experimental major/minor
+
+	* loader2/Makefile (init.o): Add dependency rule on devices.h
+
+2006-08-24  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py (FileSystemType.mount): Reset file context on
+	mountpoints (#202525)
+
+	* packages.py (setFileCons): Use new parameter to resetFileContext
+
+	* isys/isys.py (resetFileContext): Allow passing a rootpath
+	* isys/isys.c (doResetFileContext): Likewise.
+
 2006-08-24  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.formatEntry):  Don't output misleading

@@ -45,6 +45,9 @@ struct devnode devnodes[] = {
     {"hvsi2", CHARDEV, 229, 130, 0600, "root", "root"},
     {"hvc0", CHARDEV, 229, 0, 0600, "root", "root"},
 #endif
+#if defined(__i386__) || defined(__x86_64__) || defined(__ia64__)
+    {"xvc0", CHARDEV, 250, 187, 0600, "root", "root"},
+#endif
     /* base unix */
     {"null", CHARDEV, 1, 3, 0666, "root", "root"},
     {"zero", CHARDEV, 1, 5, 0666, "root", "root"},
