@@ -45,10 +45,12 @@ class WideCheckList(checklist.CheckList):
 	checklist.CheckList.__init__(self, columns=columns,
 				     custom_store=store)
 
-	# make checkbox column wider
-	column = self.get_column(0)
-	column.set_fixed_width(75)
-	column.set_alignment(0.0)
+        # make checkbox column wider
+        column = self.get_column(3)
+        self.set_expander_column(column)
+        column = self.get_column(0)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        column.set_fixed_width(25)
 
 	self.clickCB = clickCB
 
