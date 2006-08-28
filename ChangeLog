@@ -9,6 +9,9 @@
 	* gui.py (ExceptionWindow.__init__):  Log IOError message.  Don't
 	traceback when loading the traceback dialog.
 
+	* installclasses/fedora.py (InstallClass):  Use baseurl instead of
+	mirrorlist (#204267).
+
 2006-08-28  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/partition_text.py: Better verbiage (#204249)
