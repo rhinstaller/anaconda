@@ -1516,9 +1516,8 @@ class PartitionTypeWindow:
         g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
         txt = TextboxReflowed(65, _("Installation requires partitioning "
-                                    "of your hard drive.  By default, "
-                                    "a partitioning layout is chosen "
-                                    "which is reasonable for most "
+                                    "of your hard drive.  The default "
+                                    "layout is reasonable for most "
                                     "users.  You can either choose "
                                     "to use this or create your own."))
         g.add(txt, 0, 0, (0, 0, 0, 0))

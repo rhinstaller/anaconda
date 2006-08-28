@@ -31,7 +31,7 @@
       <child>
 	<widget class="GtkLabel" id="mainLabel">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes" context="yes">The default installation of %s includes a set of  software applicable for general internet usage.  What additional tasks would you like your system to include  support for?</property>
+	  <property name="label" translatable="yes" context="yes">The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -105,7 +105,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label2">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">Further customization of the software selection can be completed now or after install via the software management application.</property>
+	      <property name="label" translatable="yes" context="yes">You can further customize the software selection now, or after install via the software management application.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
