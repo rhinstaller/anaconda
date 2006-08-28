@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anaconda el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-10 23:30+0300\n"
+"PO-Revision-Date: 2006-08-28 04:16+0300\n"
 "Last-Translator: nikos <nikosx@gmail.com>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -1306,9 +1306,8 @@ msgstr ""
 "'-', ή '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "Λείπει η διεύθυνση IP"
+msgstr "Λείπει η διεύθυνση IP."
 
 #: ../network.py:93
 #, fuzzy
@@ -1323,9 +1322,8 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "Το %s δεν είναι ένα έγκυρο όνομα συστήματος."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Κλειδί κρυπτογράφησης"
+msgstr "Εισαγωγή κλειδιού καταγραφής"
 
 #: ../packages.py:248
 #, python-format
@@ -4411,9 +4409,8 @@ msgid "Unable to load file!"
 msgstr "Αδύνατη η φόρτωση αρχείου!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Μη έγκυρο Όνομα Συστήματος"
+msgstr "Μη έγκυρο όνομα αποθετηρίου"
 
 #: ../iw/task_gui.py:86
 #, fuzzy
@@ -4421,9 +4418,8 @@ msgid "You must provide a non-zero length repository name."
 msgstr "Πρέπει να εισάγετε ένα όνομα εξυπηρετητή."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Μη έγκυρη ετικέτα boot"
+msgstr "Μη έγκυρη URL αποθετηρίου"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -6479,9 +6475,8 @@ msgid "IPv6 address:"
 msgstr "Διεύθυνση IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Nameserver"
+msgstr "Nameserver:"
 
 #: ../loader2/net.c:961
 msgid "Manual TCP/IP Configuration"
@@ -6732,16 +6727,15 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL αποθετηρίου:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI Initiator _Name:</b>"
+msgstr "<b>_Όνομα αποθετηρίου:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Πρόσθεση αποθετηρίου"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6752,7 +6746,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Πρόσθεση αποθετηρίου"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6823,24 +6817,20 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>IP Address _στόχου:</b>"
+msgstr "<b>Διεύθυνση IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>IP Address _στόχου:</b>"
+msgstr "<b>Διεύθυνση IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Nameserver"
+msgstr "<b>Nameserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 #, fuzzy
@@ -6849,15 +6839,15 @@ msgstr "<b>Αρι_θμός θύρας:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Ενεργοποίηση υποστήριξης IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Ενεργοποίηση υποστήριξης IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Ενεργοποίηση επιφάνειας δικτύου"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6895,7 +6885,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Πρόσθεση επιπλέον αποθετηρίων λογισμικού"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7702,14 +7692,12 @@ msgid "Malay"
 msgstr "Μαλαισιακή"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Μαλαισιακή"
+msgstr "Μαλαιαλάμ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Γκουγιαράτι"
+msgstr "Μάραθι"
 
 #. generated from lang-table
 msgid "Norwegian"
