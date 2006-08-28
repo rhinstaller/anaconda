@@ -2,6 +2,7 @@
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to French
 # translation of fr.po to
 # translation of fr.po to
@@ -25,7 +26,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-25 15:46+1000\n"
+"PO-Revision-Date: 2006-08-28 11:59+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3769,7 +3770,7 @@ msgstr "Vérification des _blocs défectueux ?"
 #: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  This is done by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "Les partitions de type « %s » doivent être contraintes dans un seul disque. Pour ce faire, sélectionner le disque dans la liste « Disques autorisés »."
+msgstr "Les partitions de type « %s » doivent être contraintes dans un seul disque. Pour ce faire, sélectionnez le disque dans la liste « Disques autorisés »."
 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
@@ -4045,7 +4046,7 @@ msgstr "URL du dépôt invalide"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Vous devez fournir une URL HTTP ou FTP au dépôt."
+msgstr "Vous devez fournir un URL HTTP ou FTP au dépôt."
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -4135,7 +4136,7 @@ msgstr "Mise à niveau de la partition swap"
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents ; deux fois la mémoire vive du système. Vous avez actuellement %dMo d'espace swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos systèmes de fichiers."
+msgstr "Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents ; deux fois la mémoire vive du système. Vous avez actuellement %d Mo d'espace swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos systèmes de fichiers."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4335,7 +4336,7 @@ msgstr "Le gestionnaire de démarrage %s peut aussi lancer d'autres systèmes d'
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Espace> Sélectionnerle bouton | <F2> Sélectionner l'entrée de démarrage par défaut | <F4> Effacer | <F12> Écran suivant>"
+msgstr " <Espace> Sélectionner | <F2> Sélectionner la valeur par défaut | <F4> Effacer | <F12> Écran suivant>"
 
 #: ../textw/bootloader_text.py:387
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."
@@ -4363,7 +4364,7 @@ msgstr "Mot de passe trop court"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr "Le mot de passe pour le chargeur d'amorçage est trop court."
+msgstr "Le mot de passe pour le chargeur de démarrage est trop court."
 
 #: ../textw/complete_text.py:27
 msgid ""
@@ -4382,7 +4383,7 @@ msgid ""
 "Remove any media used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Retirez les média d'installation (disquettes ou CD-ROM) que vous avez utilisé au cours du processus d'installation, puis appuyez sur <Entrée> pour redémarrer votre système.\n"
+"Retirez les média d'installation (disquettes ou CD-ROM) que vous avez utilisés au cours du processus d'installation, puis appuyez sur <Entrée> pour redémarrer votre système.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -4975,7 +4976,7 @@ msgstr "Créer une nouvelle configuration du chargeur de démarrage"
 #: ../textw/upgrade_text.py:91
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents, deux fois la mémoire vive du système. Actuellement vous avez %dMo d'espace swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos systèmes de fichiers."
+msgstr "Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents, deux fois la mémoire vive du système. Actuellement vous avez %d Mo d'espace swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos systèmes de fichiers."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -5015,7 +5016,7 @@ msgid ""
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
 msgstr ""
-"Une ou plusieurs installation(s) Linux ont été détectées sur votre système.\n"
+"Une ou plusieurs installations Linux ont été détectées sur votre système.\n"
 "\n"
 "Veuillez choisir celle à mettre à niveau ou choisissez « Réinstaller le système » pour une nouvelle installation de votre système."
 
@@ -5259,11 +5260,11 @@ msgstr "Source de la disquette de pilotes"
 
 #: ../loader2/driverdisk.c:268
 msgid "You have multiple devices which could serve as sources for a driver disk.  Which would you like to use?"
-msgstr "De multiples périphériques pourraient servir de sources pour une disquette de pilotes.Lequel voulez-vous utiliser ?"
+msgstr "De multiples périphériques pourraient servir de sources pour une disquette de pilotes. Lequel voulez-vous utiliser ?"
 
 #: ../loader2/driverdisk.c:300
 msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
-msgstr "Il existe plusieurs partitions sur ce périphérique qui pourraient contenir l'image de disque du pilote. Lequel voulez-vous utiliser ?"
+msgstr "Il existe plusieurs partitions sur ce périphérique qui pourraient contenir l'image de disque du pilote. Laquelle voulez-vous utiliser ?"
 
 #: ../loader2/driverdisk.c:338
 msgid "Failed to mount partition."
@@ -5398,7 +5399,7 @@ msgstr "L'arbre d'installation de %s contenu dans ce répertoire ne semble pas c
 
 #: ../loader2/hdinstall.c:217
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
-msgstr "Une erreur s'est produite lors de la lecture de l'installation à partir des images ISO. Contrôlez vos images ISO et essayez à nouveau."
+msgstr "Une erreur s'est produite lors de la lecture de l'installation à partir des images ISO. Vérifiez vos images ISO et essayez à nouveau."
 
 #: ../loader2/hdinstall.c:330
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
@@ -5526,7 +5527,7 @@ msgstr "Lecture des mises à jour anaconda..."
 
 #: ../loader2/loader.c:401
 msgid "No hard drives have been found.  You probably need to manually choose device drivers for the installation to succeed.  Would you like to select drivers now?"
-msgstr "Aucun disque dur n'a été trouvé. Vous devrez probablement choisir vos pilotes de périphériques manuellement pour que l'installation puisse être effectuée.Voulez-vous les choisir maintenant ?"
+msgstr "Aucun disque dur n'a été trouvé. Vous devrez probablement choisir vos pilotes de périphériques manuellement pour que l'installation puisse être effectuée. Voulez-vous les choisir maintenant ?"
 
 #: ../loader2/loader.c:775
 #, c-format
@@ -5588,7 +5589,7 @@ msgstr "Ajouter un périphérique"
 #: ../loader2/loader.c:1332
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Le chargeur a déja été exécuté. Démarrage du shell.\n"
+msgstr "Le chargeur a déjà été exécuté. Démarrage du shell.\n"
 
 #: ../loader2/loader.c:1699
 #, c-format
@@ -5787,7 +5788,7 @@ msgstr "Conflit de paquets vides non désiré"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr "Valeures maximum enregistrée pour le trafic de réseau à large bande."
+msgstr "Valeurs maximum enregistrées pour le trafic de réseau à large bande"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -5804,7 +5805,7 @@ msgstr "Vous devez choisir au moins un des protocoles (IPv4 ou IPv6) pour une co
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Vous devez choisir au moin un protocol (IPv4 ou IPv6) pour DHCP."
+msgstr "Vous devez choisir au moins un protocole (IPv4 ou IPv6) pour DHCP."
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -5839,7 +5840,7 @@ msgstr "Vous devez saisir une adresse IPv4 et un masque réseau ou préfixe CIDR
 
 #: ../loader2/net.c:1091
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Vous devez saisir une adresse Iv6P et un préfixe a CIDR valides."
+msgstr "Vous devez saisir une adresse Iv6P et un préfixe CIDR valides."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -5848,7 +5849,7 @@ msgstr "Recherche du nom de l'hôte et du domaine."
 #: ../loader2/net.c:1447
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Argument incorrect dans la commande réseau de Kickstart %s : %s"
+msgstr "Argument incorrect dans la commande network de Kickstart %s : %s"
 
 #: ../loader2/net.c:1470
 #, c-format
@@ -6049,7 +6050,7 @@ msgstr "Comment souhaitez-vous modifier votre configuration de partitions ?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b> _URL du dépôt :</b>"
+msgstr "<b>_URL du dépôt :</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
@@ -6062,7 +6063,7 @@ msgstr "Ajouter un dépôt"
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr "Veuillez indiquer un emplacement depuis lequel des logiciels supplémentaires pourront être installés. Veuillez noté que cette emplacement doit être un dépôt valide pour %s."
+msgstr "Veuillez indiquer un emplacement depuis lequel des logiciels supplémentaires pourront être installés. Veuillez noter que cet emplacement doit être un dépôt valide pour %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6146,7 +6147,7 @@ msgstr "<b>Serveur de noms : </b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>_interfface :</b>"
+msgstr "<b>_Interface :</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6315,11 +6316,11 @@ msgstr "Heure des états du Centre des États-Unis - Coahuila, Durango, Nuevo Le
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
-msgstr "Heure centrale - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Comtés"
+msgstr "Heure centrale - Indiana - Comtés Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr "Heure centrale - Indiana - Pike County"
+msgstr "Heure centrale - Indiana - Comté Pike"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
@@ -6327,7 +6328,7 @@ msgstr "Heure des états du Centre des États-Unis - Manitoba et Ontario de l'ou
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Heure centrale - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Heure centrale - Comtés Michigan - Dickinson, Gogebic, Iron & Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6339,7 +6340,7 @@ msgstr "Heure des États du Centre des États-Unis - Dakota du Nord - Comté de 
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Heure des états du Centre des États-Unis - North Dakota - Oliver County"
+msgstr "Heure des états du Centre des États-Unis - North Dakota - Comté Oliver"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -6395,63 +6396,63 @@ msgstr "Île de Pâques et Sala et Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Heure normale de l'Est - Île Southampton"
+msgstr "Heure normale de l'est - Île Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr "Heure de l'Est"
+msgstr "Heure de l'est"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr "Heure de l'Est - Nunavut de l'est"
+msgstr "Heure de l'est - Nunavut de l'est"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Heure de l'Est - Indiana - Crawford County"
+msgstr "Heure de l'est - Indiana - Comté Crawford"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Heure de l'Est - Indiana - plupart du territoire"
+msgstr "Heure de l'est - Indiana - plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Heure de l'Est - Indiana - Starke County"
+msgstr "Heure de l'est - Indiana - Comté Starke"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Heure de l'Est - Indiana - Switzerland County"
+msgstr "Heure de l'est - Indiana - Comté Switzerland"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Heure de l'Est - Kentucky - zone de Louisville "
+msgstr "Heure de l'est - Kentucky - zone de Louisville "
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Heure de l'Est - Kentucky - Wayne County"
+msgstr "Heure de l'est - Kentucky - Comté Wayne"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Heure de l'Est - Michigan - plupart du territoire"
+msgstr "Heure de l'est - Michigan - plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Heure de l'Est - Ontario - la plupart du territoire"
+msgstr "Heure de l'est - Ontario - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Heure de l'Est - Ontario et Québec - endroits qui n'observent pas DST 1967-1973"
+msgstr "Heure de l'est - Ontario et Québec - endroits qui n'observent pas DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Heure de l'Est - Pangnirtung, Nunavut"
+msgstr "Heure de l'est - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Heure de l'Est - Québec - la plupart du territoire"
+msgstr "Heure de l'est - Québec - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Heure de l'Est - Thunder Bay, Ontario"
+msgstr "Heure de l'est - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -6531,7 +6532,7 @@ msgstr "métropole"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr "Îles Marquise"
+msgstr "Îles Marquises"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
@@ -6639,7 +6640,7 @@ msgstr "Heure des Montagnes Rocheuses"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Heure des Montagnes Rocheuses - Alberta, Colombie-Britannique de l'est et Saskatchewan de l'Ouest"
+msgstr "Heure des Montagnes Rocheuses - Alberta, Colombie-Britannique de l'est et Saskatchewan de l'ouest"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -6675,7 +6676,7 @@ msgstr "Terre-Neuve"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "Nouvelle-Galles du Sud- plupart du territoire"
+msgstr "Nouvelle-Galles du Sud - plupart du territoire"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
@@ -6979,7 +6980,7 @@ msgstr "Malaisien"
 
 #. generated from lang-table
 msgid "Malayalam"
-msgstr "Malaisien"
+msgstr "Malayalam"
 
 #. generated from lang-table
 msgid "Marathi"
@@ -6991,7 +6992,7 @@ msgstr "Norvégien"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr "Sotho du Nord"
+msgstr "Sotho du nord"
 
 #. generated from lang-table
 msgid "Oriya"
