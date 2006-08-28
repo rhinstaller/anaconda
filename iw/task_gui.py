@@ -42,6 +42,7 @@ class TaskWindow(InstallWindow):
         for (cb, repotxt, repo) in repos:
             if cb:
                 repo.enable()
+                self._setupRepo(repo)
             else:
                 repo.disable()
 
@@ -63,6 +64,28 @@ class TaskWindow(InstallWindow):
             if not g:
                 return False
         return True
+
+    def _setupRepo(self, repo):
+        try:
+            self.backend.doRepoSetup(self.anaconda, repo.id,
+                                     fatalerrors = False)
+            log.info("added repository %s with with source URL %s" % (repo.id, repo.baseurl[0]))
+        except yum.Errors.RepoError, e:
+            self.intf.messageWindow(_("Error"),
+                  _("Unable to read package metadata from repository.  "
+                    "This may be due to a missing repodata directory.  "
+                    "Please ensure that your repository has been "
+                    "correctly generated.\n\n%s" %(e,)),
+                                    type="ok", custom_icon="error")
+            self.backend.ayum.repos.delete(repo.id)
+            return
+
+        if not repo.groups_added:
+            self.intf.messageWindow(_("Warning"),
+                           _("Unable to find a group file for %s.  "
+                             "This will make manual selection of packages "
+                             "from the repository not work") %(repo.id,),
+                                    type="warning")
 
     def _addRepo(self, *args):
         # FIXME: Need to bring up the network
@@ -109,32 +132,19 @@ class TaskWindow(InstallWindow):
             repo = AnacondaYumRepo(uri=repourl, repoid=reponame)
             repo.basecachedir = self.backend.ayum.conf.cachedir
             repo.enable()
-            self.backend.ayum.repos.add(repo)
 
             try:
-                self.backend.doRepoSetup(self.anaconda, reponame,
-                                         fatalerrors = False)
-                s = self.xml.get_widget("repoList").get_model()
-                s.append([repo.isEnabled(), reponame, repo])
-                log.info("added repository %s with with source URL %s" % (reponame, repourl))
-            except yum.Errors.RepoError, e:
+                self.backend.ayum.repos.add(repo)
+            except yum.Errors.DuplicateRepoError, e:
                 self.intf.messageWindow(_("Error"),
-                      _("Unable to read package metadata from repository.  "
-                        "This may be due to a missing repodata directory.  "
-                        "Please ensure that your repository has been "
-                        "correctly generated.\n\n%s" %(e,)),
-                                        type="ok", custom_icon="error")
-                self.backend.ayum.repos.delete(reponame)
+                      _("The repository %s has already been added.  Please "
+                        "choose a different repository name and "
+                        "URL.") % reponame, type="ok", custom_icon="error")
                 continue
 
-            if not repo.groups_added:
-                self.intf.messageWindow(_("Warning"),
-                               _("Unable to find a group file for %s.  "
-                                 "This will make manual selection of packages "
-                                 "from the repository not work") %(reponame,),
-                                        type="warning")
-                                        
-            
+            s = self.xml.get_widget("repoList").get_model()
+            s.append([repo.isEnabled(), repo.id, repo])
+
             break
 
         dialog.destroy()

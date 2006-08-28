@@ -12,6 +12,10 @@
 	* installclasses/fedora.py (InstallClass):  Use baseurl instead of
 	mirrorlist (#204267).
 
+	* iw/task_gui.py (TaskWindow):  Setup repos when next is clicked, not
+	when the repo is added.  This makes sure that ones pre-populated in
+	the repo list get setup before they're used.
+
 2006-08-28  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/partition_text.py: Better verbiage (#204249)
