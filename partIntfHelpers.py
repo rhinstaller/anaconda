@@ -29,7 +29,7 @@ from rhpl.translate import _
 
 def sanityCheckVolumeGroupName(volname):
     """Make sure that the volume group name doesn't contain invalid chars."""
-    badNames = ['lvm', 'root']
+    badNames = ['lvm', 'root', '.', '..' ]
 
     if not volname:
 	return _("Please enter a volume group name.")
@@ -51,7 +51,7 @@ def sanityCheckVolumeGroupName(volname):
 
 def sanityCheckLogicalVolumeName(logvolname):
     """Make sure that the logical volume name doesn't contain invalid chars."""
-    badNames = ['group']
+    badNames = ['group', '.', '..' ]
     
     if not logvolname:
 	return _("Please enter a logical volume name.")
