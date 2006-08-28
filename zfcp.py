@@ -165,10 +165,11 @@ class ZFCP:
             fnp = pa % (fcpdevices[i][0],)
             fnu = ua % (fcpdevices[i][0],fcpdevices[i][2],)
             try:
-               fp = open(fnp, "w")
-               log("echo %s > %s" % (fcpdevices[i][2], fnp))
-               fp.write("%s\n" % (fcpdevices[i][2],))
-               fp.close()
+               if not os.path.exists(fnu):
+                   fp = open(fnp, "w")
+                   log("echo %s > %s" % (fcpdevices[i][2], fnp))
+                   fp.write("%s\n" % (fcpdevices[i][2],))
+                   fp.close()
                try:
                   fu = open(fnu, "w")
                   log("echo %s > %s" % (fcpdevices[i][4], fnu))

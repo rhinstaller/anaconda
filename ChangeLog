@@ -1,3 +1,8 @@
+2006-08-28  Peter Jones <pjones@redhat.com>
+
+	* zfcp.py (ZFCP): only try to initialize uninitialized zfcp
+	devices (#200333, patch from jwhiter)
+
 2006-06-27  Peter Jones <pjones@redhat.com>
 
 	* rescue.py (runShell): backport new runShell code from HEAD (#193285)
