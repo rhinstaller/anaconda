@@ -124,6 +124,8 @@ makeBootImages() {
 	--loaderbin loader \
 	--modules "$INITRDMODS sgiioc4"
     [ $? = 0 ] || exit 1
+    mv $TOPDESTPATH/kernels/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
+    rmdir $TOPDESTPATH/kernels
 
     # make a boot iso
     mkdir -p $TOPDESTPATH/images/isopath
