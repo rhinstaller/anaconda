@@ -373,6 +373,7 @@ class AnacondaYum(YumSorter):
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri = uri, mirrorlist = mirror,
                                    repoid=rid, root = root)
+            repo.name = name
             repo.disable()
             self.repos.add(repo)
             
@@ -664,14 +665,17 @@ class YumBackend(AnacondaBackend):
         if thisrepo is None:
             txt = _("Retrieving installation information...")
         else:
-            txt = _("Retrieving installation information for %s...")%(thisrepo)
+            txt = _("Retrieving installation information for %s...")%(thisrepo.name)
         waitwin = YumProgress(anaconda.intf, txt, tot)
         self.ayum.repos.callback = waitwin
 
         try:
             for (task, incr) in longtasks:
                 waitwin.set_incr(incr)
-                task(thisrepo = thisrepo)
+                if thisrepo is None:
+                    task(thisrepo = None)
+                else:
+                    task(thisrepo = thisrepo.id)
                 waitwin.next_task()
             waitwin.pop()
         except RepoError, e:
