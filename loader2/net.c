@@ -822,7 +822,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct intfconfig_s * ipcomps,
                     int ipv4Choice, int ipv6Choice) {
     int ifour, isix, rows, pos, primary, prefix, cidr;
-    char buf[4];
+    char *buf = NULL;
     char ret[48];
     ip_addr_t *tip;
     struct in_addr addr;
@@ -873,14 +873,24 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newtComponentAddCallback(ipcomps->cidr4Entry, cidrCallback, &ipcomps);
 
         /* populate fields if we have data already */
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP) {
+        tip = NULL;
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP)
             tip = &(cfg->dev.ipv4);
+        else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP)
+            tip = &(newCfg->dev.ipv4);
+
+        if (tip) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             newtEntrySet(ipcomps->ipv4Entry, ret, 1);
         }
 
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
+        tip = NULL;
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
             tip = &(cfg->dev.netmask);
+        else if (newCfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
+            tip = &(newCfg->dev.netmask);
+
+        if (tip) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             newtEntrySet(ipcomps->cidr4Entry, ret, 1);
         }
@@ -915,16 +925,25 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newtComponentAddCallback(ipcomps->cidr6Entry, cidrCallback, &ipcomps);
 
         /* populate fields if we have data already */
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP) {
+        tip = NULL;
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP)
             tip = &(cfg->dev.ipv6);
+        else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP)
+            tip = &(newCfg->dev.ipv6);
+
+        if (tip) {
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
             newtEntrySet(ipcomps->ipv6Entry, ret, 1);
         }
 
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
-            sprintf(buf, "%d", cfg->dev.ipv6_prefixlen);
-            memcpy(ipcomps->cidr4Entry, buf, strlen(buf));
-            newtEntrySet(ipcomps->cidr4Entry, ret, 1);
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
+            asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen);
+        else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
+            asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen);
+
+        if (buf) {
+            newtEntrySet(ipcomps->cidr6Entry, buf, 1);
+            free(buf);
         }
 
         pos++;
@@ -948,14 +967,24 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
                      ipcomps->nsEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
+    tip = NULL;
+    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         tip = &(cfg->dev.gateway);
+    else if (newCfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+        tip = &(newCfg->dev.gateway);
+
+    if (tip) {
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
         newtEntrySet(ipcomps->gwEntry, ret, 1);
     }
 
-    if (cfg->dev.numDns) {
+    tip = NULL;
+    if (cfg->dev.numDns)
         tip = &(cfg->dev.dnsServers[0]);
+    else if (newCfg->dev.numDns)
+        tip = &(newCfg->dev.dnsServers[0]);
+
+    if (tip) {
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
         newtEntrySet(ipcomps->nsEntry, ret, 1);
     }
@@ -990,14 +1019,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             isix = 2;
 
         answer = newtRunForm(f);
-
-        if (answer == back) {
-            newtFormDestroy(f);
-            newtPopWindow();
-            return LOADER_BACK;
-        }
-
-        memset(newCfg, 0, sizeof(*newCfg));
+        /* memset(newCfg, 0, sizeof(*newCfg)); */
 
         /* collect IPv4 data */
         if (ipv4Choice) {
@@ -1095,6 +1117,13 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
             }
+        }
+
+        /* user selected back, but we've saved what they entered already */
+        if (answer == back) {
+            newtFormDestroy(f);
+            newtPopWindow();
+            return LOADER_BACK;
         }
 
         /* we might be done now */

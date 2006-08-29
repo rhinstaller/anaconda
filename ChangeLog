@@ -1,3 +1,10 @@
+2006-08-29  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c: Remember manual TCP/IP settings if user selects
+	Back and then re-enters the TCP/IP entry dialog again.
+
+	* gptsync/Makefile: Remove .depend in clean target.
+
 2006-08-29  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ia64 (image): Fix ia64 pxeboot dir (#199274)

@@ -24,10 +24,7 @@ $(OBJS): %.o: %.c
 # cleanup
 
 clean:
-	$(RM) *.o *~ *% $(TARGET)
-
-distclean: clean
-	$(RM) .depend
+	$(RM) *.o *~ *% $(TARGET) .depend
 
 # automatic dependencies
 
