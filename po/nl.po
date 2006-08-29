@@ -857,8 +857,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
-"Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s. U "
-"kunt verder gaan met de installatie, maar er kunnen problemen optreden."
+"Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s. U kunt "
+"verder gaan met de installatie, maar er kunnen problemen optreden."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1217,8 +1217,8 @@ msgstr ""
 "of misschien door een beschadigd pakket. Controleer of de "
 "installatiebestanden alle vereiste pakketten bevatten.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden."
-"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden.Dit "
+"zal waarschijnlijk een herinstallatie inhouden.\n"
 "\n"
 
 #: ../image.py:504
@@ -1326,8 +1326,8 @@ msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP-adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden door "
-"punten."
+"IP-adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden "
+"door punten."
 
 #: ../network.py:96
 #, python-format
@@ -1515,8 +1515,8 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Fout - De volume group naam bevat ongeldige tekens of spaties.  Geldige tekens "
-"zijn: letters, cijfers, '.' of '_'."
+"Fout - De volume group naam bevat ongeldige tekens of spaties.  Geldige "
+"tekens zijn: letters, cijfers, '.' of '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -2039,8 +2039,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
-"De grootte van het logical volume moet groter zijn dan de physical extent van "
-"het volume group."
+"De grootte van het logical volume moet groter zijn dan de physical extent "
+"van het volume group."
 
 # instellen hier beter dan bewerken of aanpassen
 #: ../rescue.py:129
@@ -2399,8 +2399,8 @@ msgstr ""
 "of misschien door een beschadigd pakket. Controleer of de mirror alle "
 "vereiste pakketten bevat en kies een andere mirror.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden."
-"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden.Dit "
+"zal waarschijnlijk een herinstallatie inhouden.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -3158,9 +3158,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Deze verandering in de waarde van het physical extent heeft tot gevolg dat de "
-"grootte van de huidige logical volume verzoeken naar boven worden afgerond "
-"tot een geheel aantal keren de physical extent.\n"
+"Deze verandering in de waarde van het physical extent heeft tot gevolg dat "
+"de grootte van de huidige logical volume verzoeken naar boven worden "
+"afgerond tot een geheel aantal keren de physical extent.\n"
 "\n"
 "Deze verandering zal meteen worden doorgevoerd."
 
@@ -3345,8 +3345,8 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 "De door u geconfigureerde logical volumes hebben %g MB nodig, maar de volume "
-"group heeft slechts %g MB.  U kunt, ofwel de volume group groter maken, of de "
-"logical volumes kleiner maken."
+"group heeft slechts %g MB.  U kunt, ofwel de volume group groter maken, of "
+"de logical volumes kleiner maken."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3367,9 +3367,9 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Er is in de volume group geen ruimte vrij om nieuwe logical volumes te maken. "
-"Om een logical volume toe te voegen moet u de grootte van een of meer van "
-"de huidige logical volumes verkleinen"
+"Er is in de volume group geen ruimte vrij om nieuwe logical volumes te "
+"maken. Om een logical volume toe te voegen moet u de grootte van een of meer "
+"van de huidige logical volumes verkleinen"
 
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
