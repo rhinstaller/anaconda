@@ -39,7 +39,7 @@ class TaskWindow(InstallWindow):
                 map(self.backend.deselectGroup, grps)
 
         repos = self.xml.get_widget("repoList").get_model()
-        for (cb, repotxt, repo) in repos:
+        for (cb, reponame, repo) in repos:
             if cb:
                 repo.enable()
                 self._setupRepo(repo)
@@ -67,9 +67,8 @@ class TaskWindow(InstallWindow):
 
     def _setupRepo(self, repo):
         try:
-            self.backend.doRepoSetup(self.anaconda, repo.id,
-                                     fatalerrors = False)
-            log.info("added repository %s with with source URL %s" % (repo.id, repo.baseurl[0]))
+            self.backend.doRepoSetup(self.anaconda, repo, fatalerrors = False)
+            log.info("added repository %s with with source URL %s" % (repo.name, repo.baseurl[0]))
         except yum.Errors.RepoError, e:
             self.intf.messageWindow(_("Error"),
                   _("Unable to read package metadata from repository.  "
@@ -143,7 +142,7 @@ class TaskWindow(InstallWindow):
                 continue
 
             s = self.xml.get_widget("repoList").get_model()
-            s.append([repo.isEnabled(), repo.id, repo])
+            s.append([repo.isEnabled(), repo.name, repo])
 
             break
 
@@ -194,12 +193,12 @@ class TaskWindow(InstallWindow):
         col.set_clickable(False)
         tl.append_column(col)
 
-        for (repoid, uri) in self.repos.items():
-            rid = repoid.replace(" ", "")
-            if not self.backend.ayum.repos.repos.has_key(rid):
+        for (reponame, uri) in self.repos.items():
+            repoid = reponame.replace(" ", "")
+            if not self.backend.ayum.repos.repos.has_key(repoid):
                 continue
-            repo = self.backend.ayum.repos.repos[rid]
-            store.append([repo.isEnabled(), repoid, repo])
+            repo = self.backend.ayum.repos.repos[repoid]
+            store.append([repo.isEnabled(), repo.name, repo])
         
             
     def getScreen (self, anaconda):

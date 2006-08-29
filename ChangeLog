@@ -4,6 +4,8 @@
 	going backwards.  doRepoSetup now takes a repo object instead of an
 	id, so we can display the name, but lookup with the id.
 
+	* iw/task_gui.py:  Display repo names, look up with repo ids.
+
 2006-08-29  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c: Remember manual TCP/IP settings if user selects
