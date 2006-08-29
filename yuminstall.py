@@ -383,6 +383,7 @@ class AnacondaYum(YumSorter):
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
                                        repoid=ksrepo.name)
+                repo.name = name
                 repo.enable()
                 self.repos.add(repo)
                 log.info("added repository %s with with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))

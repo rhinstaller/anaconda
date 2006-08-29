@@ -129,6 +129,7 @@ class TaskWindow(InstallWindow):
 
             # FIXME: this is yum specific
             repo = AnacondaYumRepo(uri=repourl, repoid=reponame)
+            repo.name = reponame
             repo.basecachedir = self.backend.ayum.conf.cachedir
             repo.enable()
 
