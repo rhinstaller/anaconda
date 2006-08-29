@@ -1,8 +1,7 @@
 2006-08-29  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doRepoSetup):  Don't do this step if we're
-	going backwards.  doRepoSetup now takes a repo object instead of an
-	id, so we can display the name, but lookup with the id.
+	going backwards.
 
 	* iw/task_gui.py:  Display repo names, look up with repo ids.
 

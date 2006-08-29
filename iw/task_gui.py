@@ -67,7 +67,7 @@ class TaskWindow(InstallWindow):
 
     def _setupRepo(self, repo):
         try:
-            self.backend.doRepoSetup(self.anaconda, repo, fatalerrors = False)
+            self.backend.doRepoSetup(self.anaconda, repo.id, fatalerrors = False)
             log.info("added repository %s with with source URL %s" % (repo.name, repo.baseurl[0]))
         except yum.Errors.RepoError, e:
             self.intf.messageWindow(_("Error"),

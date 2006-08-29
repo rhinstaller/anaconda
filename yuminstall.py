@@ -647,6 +647,9 @@ class YumBackend(AnacondaBackend):
         if anaconda.dir == DISPATCH_BACK:
             return
 
+        if thisrepo is not None:
+            repo = self.ayum.repos.getRepo(thisrepo)
+
         anaconda.method.switchMedia(1)
 
         if not os.path.exists("/tmp/cache"):
@@ -666,7 +669,7 @@ class YumBackend(AnacondaBackend):
         if thisrepo is None:
             txt = _("Retrieving installation information...")
         else:
-            txt = _("Retrieving installation information for %s...")%(thisrepo.name)
+            txt = _("Retrieving installation information for %s...")%(repo.name)
         waitwin = YumProgress(anaconda.intf, txt, tot)
         self.ayum.repos.callback = waitwin
 
@@ -676,7 +679,7 @@ class YumBackend(AnacondaBackend):
                 if thisrepo is None:
                     task(thisrepo = None)
                 else:
-                    task(thisrepo = thisrepo.id)
+                    task(thisrepo = repo.id)
                 waitwin.next_task()
             waitwin.pop()
         except RepoError, e:
