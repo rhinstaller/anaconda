@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.84
+Version: 11.1.0.85
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 29 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.85-1
+- Sanity check more device names for LVM (notting, #2040387)
+- Exception handling fixes (clumens)
+- Fix Extras selection (clumens, #204267)
+- Setup repos later
+- Improved verbage (Paul Frields, #204249)
+- Filter out some non-addressable storage from hd dict (pjones)
+- Handle xen virtual serial
+- Reset file contexts on mountpoints (#202525)
+- Ensure programs used by anaconda are installed (clumens, #203216)
+
 * Wed Aug 23 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.84-1
 - Run in English for CJKI text installs (clumens, #180417, #202738)
 - Don't mistake hard drives for CD drives (clumens, #202714)

@@ -21,7 +21,7 @@ fi
 tmpdir=$(mktemp -d)
 pushd $tmpdir
 zcat $INITRD |cpio -id
-strip -s -o sbin/loader $BIN
+strip -s -o sbin/$(basename $BIN) $BIN
 (find . |cpio -c -o |gzip -9) > $OUT
 popd
 rm -rf $tmpdir
