@@ -641,6 +641,10 @@ class YumBackend(AnacondaBackend):
                 
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
+        # Don't do this if we're going backwards
+        if anaconda.dir == DISPATCH_BACK:
+            return
+
         anaconda.method.switchMedia(1)
 
         if not os.path.exists("/tmp/cache"):
