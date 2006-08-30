@@ -5,7 +5,7 @@
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
 # Jordi Mas <jmas@softcatala.org>, 2003.
 # Josep Puigdemont <josep.puigdemont@gmail.com>, 2003, 2004, 2005, 2006.
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2006.
 #
 # This file is translated according to the glossary and style guide of
 #   Softcatalà. If you plan to modify this file, please read first the page
@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-02-24 00:07+0100\n"
-"Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
+"PO-Revision-Date: 2006-08-26 00:07+0100\n"
+"Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,30 +137,38 @@ msgid "unknown install method: %s"
 msgstr "mètode d'instal·lació desconegut: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"No s'han pogut assignar les particions basades en cilindres com a particions "
-"primàries"
+"No s'han pogut assignar les particions basades en cilindres com a\n"
+"particions primàries.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "No s'han pogut assignar particions com a particions primàries"
+msgstr ""
+"No s'han pogut assignar particions com a particions primàries.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "No s'han pogut assignar particions basades en cilindres"
+msgstr ""
+"No s'han pogut assignar particions basades en cilindres.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -232,7 +240,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut localitzar la partició %s per usar-la per a %s.\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
@@ -247,7 +255,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut localitzar el dispositiu raid %s per usar-lo amb %s.\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
@@ -262,7 +270,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut localitzar el grup de volum %s per usar-lo per a %s.\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
@@ -277,7 +285,7 @@ msgid ""
 msgstr ""
 "No s'ha pogut localitzar el volum lògic %s per utilitzar-lo per a %s.\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1456 ../autopart.py:1502
 msgid "Automatic Partitioning Errors"
@@ -296,7 +304,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1467
 msgid "Warnings During Automatic Partitioning"
@@ -321,7 +329,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Premeu 'D'acord' per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../autopart.py:1482 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
@@ -345,6 +353,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Premeu «D'acord» per escollir una opció de particionat diferent."
 
 #: ../autopart.py:1503
 #, python-format
@@ -443,16 +454,14 @@ msgstr ""
 "Esteu segur que ho voleu fer?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"S'estan actualitzant els paquets %s\n"
-"\n"
+msgstr "S'està actualitzant %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Instal·la %s"
+msgstr "S'està instal·lant %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -537,13 +546,12 @@ msgstr ""
 "Hi ha hagut un problema quan s'escrivia l'estat del sistema al disquet."
 
 #: ../exception.py:408
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"L'estat del sistema s'ha escrit correctament a l'ordinador remot.\n"
-"Es reiniciarà el sistema."
+"L'estat del sistema s'ha escrit correctament a l'ordinador remot. Ara es "
+"reiniciarà el vostre sistema."
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
@@ -642,7 +650,7 @@ msgstr "Omet"
 
 #: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr "Torna a arrencar"
+msgstr "Arrenca de nou"
 
 #: ../fsset.py:1473
 #, python-format
@@ -655,11 +663,17 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"El dispositiu d'intercanvi:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"és una partició d'intercanvi de Linux versió 0. Si voleu fer servir aquest "
+"dispositiu, heu de tornar-lo a formatar com a partició d'intercanvi de Linux "
+"versió 1. Si ho ignoreu, l'instal·lador ho ignorarà durant la instal·lació."
 
 #: ../fsset.py:1480
-#, fuzzy
 msgid "Reformat"
-msgstr "Format"
+msgstr "Torna a formatar"
 
 #: ../fsset.py:1484
 #, python-format
@@ -672,6 +686,14 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"El dispositiu d'intercanvi:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"al vostre fitxer /etc/fstab s'està fent servir com a partició de suspensió "
+"del programari, el que significa que el vostre sistema està aturat "
+"temporalment. Per realitzar una actualització, apagueu el vostre sistema en "
+"comptes d'aturar-lo temporalment."
 
 #: ../fsset.py:1492
 #, python-format
@@ -684,6 +706,15 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"El dispositiu d'intercanvi:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"al vostre fitxer /etc/fstab s'està fent servir com a partició de suspensió "
+"del programari, el que significa que el vostre sistema està aturat "
+"temporalment. Si esteu fent una nova instal·lació, assegureu-vos que "
+"l'instal·lador està configurat per formatar totes les particions "
+"d'intercanvi."
 
 #: ../fsset.py:1502
 msgid ""
@@ -693,6 +724,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Escolliu «Ignora» si voleu que l'instal·lador ignori aquesta partició durant "
+"l'actualització. Escolliu «Formata» per tornar a formatar la partició com a "
+"espai d'intercanvi. Escolliu «Arrenca de nou» per reiniciar el sistema."
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
@@ -715,7 +751,7 @@ msgstr ""
 "a\n"
 "cap memòria d'intercanvi vàlida.\n"
 "\n"
-"Premeu D'acord per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../fsset.py:1526
 #, python-format
@@ -731,7 +767,7 @@ msgstr ""
 "\n"
 "Aquesta partició no ha estat degudament inicialitzada.\n"
 "\n"
-"Premeu D'acord per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../fsset.py:1579
 #, python-format
@@ -816,9 +852,8 @@ msgstr ""
 "Premeu <tecla de retorn> per arrencar de nou el sistema."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "No s'ha pogut carregar el fitxer"
+msgstr "No s'ha pogut muntar el sistema de fitxers"
 
 #: ../fsset.py:1730
 #, python-format
@@ -826,6 +861,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"S'ha produït un errro en muntar el dispositiu %s com a %s. Encara que podeu "
+"continuar amb la instal·lació, poden haver-hi més problemes."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -845,7 +882,7 @@ msgstr ""
 "\n"
 "El més probable és que aquesta partició no hagi estat formatada.\n"
 "\n"
-"Premeu D'acord per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../fsset.py:1765
 msgid ""
@@ -907,7 +944,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"Hi podeu accedir quan arrenqueu de nou i entreu com a root."
+"Hi podeu accedir quan arrenqueu de nou i entreu com a superusuari."
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
@@ -1048,7 +1085,7 @@ msgid "Install Window"
 msgstr "Finestra d'instal·lació"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1058,17 +1095,20 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència "
-"d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD "
-"això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
-"no pot llegir el medi.\n"
+"No es pot obrir el fitxer %s.  Això pot ser degut a l'absència d'algun "
+"fitxer, o a un paquet corromput. Verifiqueu les vostres imatges de la "
+"instal·lació, i que teniu els CDs/DVD necessaris.\n"
+"\n"
+"Si reinicieu, el vostre sistema romandrà en un estat inconsistent que molt "
+"probablement requereixi reinstal·lar.\n"
+"\n"
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
 msgstr "Manca la imatge ISO 9600"
 
 #: ../harddrive.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1077,10 +1117,10 @@ msgid ""
 "the installation."
 msgstr ""
 "L'instal·lador ha intentat muntar la imatge número %s, però no l'ha pogut "
-"trobar al servidor.\n"
+"trobar al disc dur.\n"
 "\n"
-"Copieu aquesta imatge en el recurs compartit en el servidor, i feu clic a "
-"Reintenta. Feu clic a Arrenca de nou per avortar la instal·lació."
+"Copieu aquesta imatge a la unitat, i feu clic a «Reintenta». Feu clic a "
+"«Arrenca de nou» per avortar la instal·lació."
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
@@ -1160,7 +1200,7 @@ msgid "Unable to access the CDROM."
 msgstr "No s'ha pogut accedir al CDROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1170,10 +1210,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència "
-"d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD "
-"això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
-"no pot llegir el medi.\n"
+"No es pot obrir el fitxer %s.  Això pot ser degut a l'absència d'algun "
+"fitxer, o a un paquet corromput. Verifiqueu que el vostre arbre "
+"d'instal·lació conté tots els paquets requerits.\n"
+"\n"
+"Si reinicieu, el vostre sistema romandrà en un estat inconsistent que molt "
+"probablement requereixi reinstal·lar.\n"
+"\n"
 
 #: ../image.py:504
 #, python-format
@@ -1195,9 +1238,8 @@ msgid "Install on System"
 msgstr "Instal·la al sistema"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "S'està inicialitzant"
+msgstr "S'està inicialitzant l'iniciador iSCSI"
 
 # FIXME (josep)
 #: ../kickstart.py:73
@@ -1216,7 +1258,7 @@ msgstr ""
 "S'ha produït un error en executar la seqüència. En podeu examinar la sortida "
 "a %s. Aquest és un error greu i s'avortarà la instal·lació.\n"
 "\n"
-"Premeu D'acord per arrencar de nou el sistema."
+"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../kickstart.py:821 ../kickstart.py:839
 msgid "Running..."
@@ -1252,13 +1294,13 @@ msgid "Missing Group"
 msgstr "Grup absent"
 
 #: ../kickstart.py:1009
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Heu indicat que s'havia d'instal·lar el grup '%s'. Aquest grup no existeix. "
-"Voleu continuar o anul·leu la instal·lació?"
+"Voleu continuar o preferiu anul·lar la instal·lació?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1277,35 +1319,34 @@ msgstr ""
 "'.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "Falta l'adreça IP"
+msgstr "Falta l'adreça IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Les adreces IP han de contenir números entre el 0 i el 255"
+msgstr ""
+"Les adreces IP han de contenir números entre el 0 i el 255, separats per "
+"punts."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s no és un nom d'un ordinador central vàlid."
+msgstr "'%s' no és una adreça IPv6 vàlida."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Clau de xifratge"
+msgstr "Introduïu la clau de registre"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Introduïu la clau de registre per a la vostra versió de %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Clau:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1818,6 +1859,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"La vostra partició d'arrencada no és una de les primeres quatre partcions i "
+"per tant no és arrencable."
 
 #: ../partitions.py:849
 msgid ""
@@ -1846,12 +1889,16 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"S'està instal·lant en un dispositiu USB. El sistema resultant potser no "
+"funcionarà."
 
 #: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"S'està instal·lant en un dispositiu FireWire. El sistema resultant potser no "
+"funcionarà."
 
 #: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1984,6 +2031,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"La mida del volum lògic ha de ser més gran que la mida de l'extensió física "
+"del grup de volum."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2319,7 +2368,7 @@ msgid "Connecting..."
 msgstr "S'està connectant..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2329,10 +2378,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència "
-"d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD "
-"això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
-"no pot llegir el medi.\n"
+"No es pot obrir el fitxer %s. Això es pot deure a que manca un fitxer o que "
+"hi ha un paquet corrupte. Verifiqueu que el vostre servidor rèplica conté "
+"tots els paquets necessaris, i intenteu fer servir un de diferent.\n"
+"\n"
+"Si reinicieu, el vostre sistema romandrà en un estat inconsistent que "
+"probablement necessitarà reinstal·lació.\n"
+"\n"
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
@@ -2399,9 +2451,8 @@ msgid "The password must be at least six characters long."
 msgstr "La contrasenya ha de tenir almenys sis caràcters."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Sense contrasenya"
+msgstr "Error de la contrasenya del VNC"
 
 #: ../vnc.py:138
 msgid ""
@@ -2409,6 +2460,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Heu d'especificar una contrasenya del VNC almenys de 6 caràcters.\n"
+"\n"
+"Premeu <tecla de retorn> per reinicar el vostre sistema.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2503,72 +2557,68 @@ msgstr "S'està preparant la transacció de la font de la instal·lació..."
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
-msgstr ""
+msgstr "conflictes de fitxer"
 
 #: ../yuminstall.py:433
-#, fuzzy
 msgid "older package(s)"
-msgstr "Paquets _opcionals"
+msgstr "paquets antics"
 
 #: ../yuminstall.py:434
 msgid "insufficient disk space"
-msgstr ""
+msgstr "espai de disc insuficient"
 
 #: ../yuminstall.py:435
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "inodes de disc insuficients"
 
 #: ../yuminstall.py:436
-#, fuzzy
 msgid "package conflicts"
-msgstr "Predeterminats dels paquets"
+msgstr "conflictes dels paquets"
 
 #: ../yuminstall.py:437
 msgid "package already installed"
-msgstr ""
+msgstr "ja s'ha instal·lat el paquet"
 
 #: ../yuminstall.py:438
-#, fuzzy
 msgid "required package"
-msgstr "Espai lliure"
+msgstr "paquet obligatori"
 
 #: ../yuminstall.py:439
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "paquet per a una altra arquitectura"
 
 #: ../yuminstall.py:440
 msgid "package for incorrect os"
-msgstr ""
+msgstr "paquet per un SO incorrecte"
 
 #: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Necessiteu més espai en els següents sistemes de fitxer:\n"
 
 #: ../yuminstall.py:470
 msgid "Error running transaction"
 msgstr "S'ha produït un error en executar la transacció"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"El nom d'ordinador «%s» no és vàlid pels següents motius:\n"
-"\n"
-"%s"
+"S'ha produït un error en executar la vostra transacció, pels següents "
+"motius: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
-msgstr "_Torna a arrencar"
+msgstr "Arrenca de _nou"
 
 #: ../yuminstall.py:638
 msgid "Retrieving installation information..."
 msgstr "S'està recuperant la informació de la instal·lació..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "S'està recuperant la informació de la instal·lació..."
+msgstr "S'està recuperant la informació de la instal·lació per a %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2591,6 +2641,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Els paquets que heu seleccionat necessiten %d MB d'espai lliure, però no "
+"teniu l'espai suficient. Podeu canviar la vostra selecció o arrencar de nou."
 
 #: ../yuminstall.py:1061
 #, python-format
@@ -2611,15 +2663,15 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr ""
 "S'està iniciant el procés d'instal·lació. Això pot trigar uns minuts..."
 
+# XC: la traducció fa referència a la configuració després de l'actualització,
+# segons diu el missatge a continuació
 #: ../yuminstall.py:1110
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Actualitza"
+msgstr "Configuració posterior"
 
 #: ../yuminstall.py:1111
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "S'està realitzant la configuració posterior a la instal·lació..."
+msgstr "S'està realitzant la configuració posterior a l'actualització..."
 
 #: ../yuminstall.py:1113
 msgid "Post Install"
@@ -2631,7 +2683,7 @@ msgstr "S'està realitzant la configuració posterior a la instal·lació..."
 
 #: ../yuminstall.py:1264
 msgid "Installation Progress"
-msgstr "Progés de la instal·lació"
+msgstr "Progrés de la instal·lació"
 
 #: ../yuminstall.py:1299
 msgid "Dependency Check"
@@ -2640,7 +2692,8 @@ msgstr "Comprova les dependències"
 #: ../yuminstall.py:1300
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
-"Comprova les dependències dels paquets escollits per a la instal·lació..."
+"S'està comprovant les dependències dels paquets escollits per a la "
+"instal·lació..."
 
 #: ../zfcp.py:29
 msgid ""
@@ -2739,42 +2792,45 @@ msgstr ""
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "Contrasenya del superusuari: "
+msgstr "Contrasenya del _superusuari: "
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
 msgstr "_Confirmeu: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Nom de l'inicialitzador iSCSI:"
+msgstr "El nom de l'inicialitzador no és vàlid"
 
 #: ../iw/autopart_type.py:136
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "Heu d'indicar un nom d'usuari"
+msgstr "El nom de l'iniciador no pot tenir longitud zero."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
 msgstr "Error amb les dades"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Suprimeix totes les particions d'aquest sistema"
+msgstr ""
+"Suprimeix totes les particions a les unitats seleccionades i crea la "
+"disposició predeterminada."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
+"Suprimeix les particions del linux a les unitats seleccionades i crea una "
+"disposició predeterminada."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
+"Useu l'espai lliure a les unitats seleccionades i creeu la disposició "
+"predeterminada."
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Crea una disposició personalitzada."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2792,7 +2848,7 @@ msgstr "_Utilitza una contrasenya per al carregador de l'arrencada"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "Canvia contrasenya"
+msgstr "_Canvia la contrasenya"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -3523,17 +3579,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "La informació sobre IP que heu introduït no és vàlida."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "No teniu cap dispositiu de xarxa actiu. Aquest sistema no podrà comunicar-se "
-"per defecte a través de la xarxa si no hi ha almenys un dispositiu actiu.\n"
-"\n"
-"Atenció: si teniu un adaptador de xarxa PCMCIA, l'heu de deixar desactivar "
-"en aquest moment. Quan arrenqueu de nou el sistema l'adaptador s'activarà "
-"automàticament."
+"per defecte a través de la xarxa si no hi ha almenys un dispositiu actiu."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4297,26 +4348,23 @@ msgid "Unable to load file!"
 msgstr "No s'ha pogut carregar el fitxer"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "El nom de l'ordinador no és vàlid"
+msgstr "El nom del repositori no és vàlid"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Heu d'indicar un nom d'usuari"
+msgstr "El nom del repositori no pot tenir longitud zero."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "L'etiqueta d'arrencada no és vàlida"
+msgstr "L'URL del repositori no és vàlida"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Heu de proporcionar una url HTTP o FTP a un repositori."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4324,9 +4372,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"No s'han pogut llegir les metadades del paquet. Pot ser que manquin dades "
-"del dipòsit al directori. Comproveu que l'arbre d'instal·lació estigui "
-"generat correctament. %s"
+"No s'han pogut llegir les metadades del paquet del repositori. Pot ser que "
+"manquin dades del repositori al directori. Comproveu que el vostre "
+"repositori estigui generat correctament.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4660,11 +4710,10 @@ msgstr ""
 "etiqueta voleu assignar a cadascuna d'elles."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Espai> selecciona botó | <F2> selecciona predeterminada | <F12> següent"
+" <Espai> selecciona | <F2> predeterminat | <F4> suprimeix | <F12> següent>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -5516,13 +5565,12 @@ msgstr ""
 "\tJocs\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Es necessita una clau de registre"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5530,6 +5578,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"Es necessita una clau de registre per instal·lar %s. Contacteu amb el vostre "
+"representant de suport si no vau rebre una clau amb el vostre producte."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6199,15 +6249,16 @@ msgstr ""
 "      %s per a aquesta arquitectura\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Cadena IP invàlida"
+msgstr "Màscara CIDR invàlida"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"El valor de la màscara CIDR ha d'estar entre 1 i 32 per a xarxes IPv4 o "
+"entre 1 i 128 per a xarxes IPv6"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6262,96 +6313,85 @@ msgid "Sending request for IP information for %s..."
 msgstr "S'està enviant una sol·licitud d'informació d'IP per a %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Sense contrasenya"
+msgstr "Error de xarxa"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"S'ha produït un error en netejar les unitats destí. Ha fallat la clonació."
+msgstr "S'ha produït un error en configurar la vostra interfície de xarxa."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Fes servir una configuració d'IP dinàmica (BOOTP/DHCP)"
+msgstr "Configuració la IP dinàmicament (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Habilita l'IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Habilita l'IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Evita les col·lisions de paquets no desitjades"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
 msgstr ""
+"Maximitza els valors del registre per a trànsit de xarxa d'alta velocitat"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Configureu TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Grup absent"
+msgstr "Manca un protocol"
 
 #: ../loader2/net.c:754
-#, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "Heu d'escollir almenys un idioma."
+msgstr ""
+"Heu d'escollir almenys un protocol (IPv4 o IPv6) per a configurar manualment."
 
 #: ../loader2/net.c:764
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Heu d'escollir almenys un idioma."
+msgstr "Heu d'escollir almenys un protocol (IPv4 o IPv6) per a DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Adreça IP:"
+msgstr "Adreça IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Adreça IP:"
+msgstr "Adreça IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Servidor de noms"
+msgstr "Servidor de noms:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Configuració del z/IPL"
+msgstr "Configuració TCP/IP manual"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
-msgstr "Informació que falta"
+msgstr "Manca informació"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Heu d'indicar una adreça IP i una màscara de xarxa vàlides."
+msgstr "Heu d'indicar una adreça IPv4 i una màscara de xarxa o CIDR vàlides."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Heu d'indicar una adreça IP i una màscara de xarxa vàlides."
+msgstr "Heu d'indicar una adreça IPv6 i una màscara de xarxa o CIDR vàlides."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6389,9 +6429,8 @@ msgid "%s directory:"
 msgstr "Directori %s:"
 
 #: ../loader2/nfsinstall.c:55
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6480,7 +6519,7 @@ msgstr "FTP"
 
 #: ../loader2/urls.c:278
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:295
 msgid "FTP site name:"
@@ -6550,40 +6589,36 @@ msgid "Loading SCSI driver"
 msgstr "S'està carregant el controlador SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Afegeix LUN _ZFCP"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Afegeix destí _iSCSI"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Opcions addicionals quant a la mida"
+msgstr "Opcions d'emmagatzemament avançades"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Inhabilita el dispositiu _dmraid"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
 msgstr "Com voleu obtenir espai per a partir?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL del repositori:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nom de l'inicialitzador iSCSI:</b>"
+msgstr "<b>_Nom del repositori:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Afegeix repositori"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6591,14 +6626,16 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Heu de proporcionar la ubicació des d'on es pot afegir programari addiciona. "
+"Tingueu en compte que ha de ser un repositori vàlid per a %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Afegeix repositori"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "_Arrenca de nou"
+msgstr "Arrenca de _nou"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -6617,9 +6654,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_visa i modifica l'esquema de particions"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Configuració avançada del carregador de l'arrencada"
+msgstr "Configuració _avançada de l'emmagatzemament"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6631,88 +6667,83 @@ msgstr "Informació de l'excepció"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr "Detalls de l'excepció"
+msgstr "Detalls de l'_excepció"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Contrasenya:"
+msgstr "<b>_Contrasenya:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>_Adreça IP de destí:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Número de _port:</b>"
+msgstr "<b>Nom d'_usuari:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Nom de l'inicialitzador iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Paràmetres chandev"
+msgstr "Configura els paràmetres iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Per usar discs iSCSI, heu de proporcionar l'adreça del vostre destí iSCSI i "
+"el nom de l'iniciador iSCSI que heu configurat per a la vostra màquina."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Passarel·la:"
+msgstr "<b>Passarel·la:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>_Adreça IP de destí:</b>"
+msgstr "<b>Adreça IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>_Adreça IP de destí:</b>"
+msgstr "<b>Adreça IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Servidor de noms"
+msgstr "<b>Servidor de noms:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>Número de _port:</b>"
+msgstr "<b>_Interfície:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Habilita l'IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Habilita l'IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Habilita la intefície de xarxa"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Us fa falta tenir una connexió de xarxa activa durant el procés "
+"d'instal·lació. Configureu una interfície de xarxa."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Fes servir una configuració d'IP dinàmica (BOOTP/DHCP)"
+msgstr "Configura la IP _dinàmicament (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Persona_litza més tard"
+msgstr "Persona_litza més endavant"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6735,7 +6766,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Afegeix d'altres repositoris de programari"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -6867,11 +6898,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Temps central - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr "Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr ""
+"Temps central - Indiana - Daviess, Dubois, Knox, Martin, Perry i Pulaski "
+"Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6879,21 +6911,21 @@ msgstr "Temps central - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "Temps central - Manitoba & Ontario oest"
+msgstr "Temps central - Manitoba i Ontario oest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr ""
-"Temps central - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+"Temps central - Michigan - Dickinson, Gogebic, Iron i Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "Temps central - la majoria d'ubicacions"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Temps central - Dakota del nord - Oliver County"
+msgstr ""
+"Temps central - Dakota del nord - Morton County (excepte l'àrea de Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6905,7 +6937,7 @@ msgstr "Temps central - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Temps central - Rainy River & Fort Frances, Ontario"
+msgstr "Temps central - Rainy River i Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -7493,9 +7525,8 @@ msgid "German"
 msgstr "Alemany"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Lliure"
+msgstr "Grec"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7542,14 +7573,12 @@ msgid "Malay"
 msgstr "Malai"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
 msgstr "Malai"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
