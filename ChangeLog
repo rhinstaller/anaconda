@@ -1,5 +1,8 @@
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder (PackageOrderer.doLoggingSetup): Make logging a
+	lot quieter.
+
 	* gui.py (readImageFromFile): Fix the case where an image doesn't
 	exist (#204648) 
 

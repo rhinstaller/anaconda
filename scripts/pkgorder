@@ -43,6 +43,9 @@ class PackageOrderer(YumSorter):
     def doFileLogSetup(self, uid, logfile):
         pass
 
+    def doLoggingSetup(self, debuglevel, errorlevel):
+        pass
+
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root, init_plugins = False)
         self.conf.cache = 0
