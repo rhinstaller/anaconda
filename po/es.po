@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-28 13:15+1000\n"
+"PO-Revision-Date: 2006-08-30 11:34+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3554,7 +3554,7 @@ msgstr "Comprobación de las dependencias"
 # ../packages.py:155
 #: ../yuminstall.py:1300
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Comprobando las dependencias en los paquetes seleccionados para la instalación..."
+msgstr "Comprobando las dependencias en los paquetes seleccionados..."
 
 #: ../zfcp.py:29
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
@@ -4058,7 +4058,7 @@ msgstr "_Actualizar una instalación existente "
 #: ../iw/examine_gui.py:63
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your drives."
-msgstr "Seleccione esta opción si le gustaría actualizar su sistema %s existente. Esta opción mantendrá los datos existentes en sus unidades. "
+msgstr "Seleccione esta opción si desea actualizar su sistema %s existente. Esta opción mantendrá los datos existentes en sus unidades. "
 
 #: ../iw/examine_gui.py:110
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -6221,7 +6221,7 @@ msgstr ""
 # ../textw/bootloader_text.py:97 ../textw/silo_text.py:25
 #: ../textw/bootloader_text.py:93
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr "Algunos sistemas necesitan pasarle opciones especiales al kernel en el momento de inicio. Si necesita pasárselas, introdúzcalas ahora. Si no necesita ninguna o no está seguro, déjelo en blanco."
+msgstr "Algunos sistemas necesitan pasar opciones especiales al kernel en el momento de inicio. Si este es el caso, introduzca las opciones en estos momentos. De lo contrario, o en caso de no estar seguro, deje en blanco."
 
 # ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:106
 # ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:106
@@ -7444,7 +7444,7 @@ msgid ""
 msgstr ""
 "Se han encontrado una o más instalaciones de Linux en su sistema.\n"
 "\n"
-"Por favor seleccione alguna para actualizar, o seleccione 'Reinstalar sistema' para hacer una instalación limpia. "
+"Por favor seleccione la instalación a actualizar, o seleccione 'Reinstalar sistema' para hacer una instalación limpia. "
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
