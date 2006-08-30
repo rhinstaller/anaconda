@@ -1,5 +1,10 @@
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (setFileCons): Fix checking of chroot so file
+	contexts get set properly
+
+	* fsset.py: Fix setting context on mountpoints for real
+
 	* iw/partition_ui_helpers_gui.py (WideCheckList.__init__): Expand
 	the last column -- not all users of WideChecklist have 3 columns
 

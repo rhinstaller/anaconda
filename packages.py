@@ -201,7 +201,7 @@ def setFileCons(anaconda):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts/", "/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):
@@ -211,7 +211,7 @@ def setFileCons(anaconda):
             files.append(dir)
 
         for f in files:
-            if not os.access("%s" %(f,), os.R_OK):
+            if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
                 log.warning("%s doesn't exist" %(f,))
                 continue
             ret = isys.resetFileContext(os.path.normpath(f),

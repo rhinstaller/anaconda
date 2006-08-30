@@ -193,9 +193,8 @@ class FileSystemType:
             return
         iutil.mkdirChain("%s/%s" %(instroot, mountpoint))
         if flags.selinux:
-            log.info("setting SELinux context for mountpoint %s" %(mountpoint,))
-            isys.resetFileContext(mountpoint, instroot)
-            
+            ret = isys.resetFileContext(mountpoint, instroot)
+            log.info("set SELinux context for mountpoint %s to %s" %(mountpoint, ret))
         isys.mount(device, "%s/%s" %(instroot, mountpoint),
                    fstype = self.getName(), 
                    readOnly = readOnly, bindMount = bindMount)
@@ -1036,8 +1035,8 @@ class AutoFileSystem(PsudoFileSystem):
             return
         iutil.mkdirChain("%s/%s" %(instroot, mountpoint))
         if flags.selinux:
-            log.info("setting SELinux context for mountpoint %s" %(mountpoint,))
-            isys.resetFileContext(mountpoint, instroot)
+            ret = isys.resetFileContext(mountpoint, instroot)
+            log.info("set SELinux context for mountpoint %s to %s" %(mountpoint, ret))            
         
         for fs in getFStoTry (device):
             try:
@@ -1916,15 +1915,17 @@ class FileSystemSetEntry:
         # FIXME: we really should migrate before turnOnFilesystems.
         # but it's too late now
         if (self.migrate == 1) and (self.origfsystem is not None):
-            self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+            self.origfsystem.mount(device, "%s" % (self.mountpoint,),
                                    readOnly = readOnly,
                                    bindMount = isinstance(self.device,
-                                                          BindMountDevice))
+                                                          BindMountDevice),
+                                   instroot = chroot)
         else:
-            self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+            self.fsystem.mount(device, "%s" % (self.mountpoint,),
                                readOnly = readOnly,
                                bindMount = isinstance(self.device,
-                                                      BindMountDevice))
+                                                      BindMountDevice),
+                               instroot = chroot)
 
         self.mountcount = self.mountcount + 1
 
