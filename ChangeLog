@@ -1,3 +1,8 @@
+2006-08-30  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/partition_ui_helpers_gui.py (WideCheckList.__init__): Expand
+	the last column -- not all users of WideChecklist have 3 columns
+
 2006-08-29  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -46,7 +46,7 @@ class WideCheckList(checklist.CheckList):
 				     custom_store=store)
 
         # make checkbox column wider
-        column = self.get_column(3)
+        column = self.get_column(columns)
         self.set_expander_column(column)
         column = self.get_column(0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
