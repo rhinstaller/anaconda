@@ -42,7 +42,11 @@ class TaskWindow(InstallWindow):
         for (cb, reponame, repo) in repos:
             if cb:
                 repo.enable()
-                self._setupRepo(repo)
+
+                # Setup any repositories that were in the installclass's
+                # default list.
+                if not repo.ready():
+                    self._setupRepo(repo)
             else:
                 repo.disable()
 
@@ -77,7 +81,7 @@ class TaskWindow(InstallWindow):
                     "correctly generated.\n\n%s" %(e,)),
                                     type="ok", custom_icon="error")
             self.backend.ayum.repos.delete(repo.id)
-            return
+            return False
 
         if not repo.groups_added:
             self.intf.messageWindow(_("Warning"),
@@ -85,6 +89,8 @@ class TaskWindow(InstallWindow):
                              "This will make manual selection of packages "
                              "from the repository not work") %(repo.id,),
                                     type="warning")
+
+        return True
 
     def _addRepo(self, *args):
         # FIXME: Need to bring up the network
@@ -142,8 +148,12 @@ class TaskWindow(InstallWindow):
                         "URL.") % reponame, type="ok", custom_icon="error")
                 continue
 
+            if not self._setupRepo(repo):
+                continue
+
             s = self.xml.get_widget("repoList").get_model()
             s.append([repo.isEnabled(), repo.name, repo])
+            self.repos[repo.name] = (repo.baseurl[0], None)
 
             break
 

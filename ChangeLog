@@ -1,3 +1,10 @@
+2006-08-30  Chris Lumens  <clumens@redhat.com>
+
+	* iw/task_gui.py:  Add new repos to the installclass's list so they
+	appear when going back to this screen.  Setup repos as soon as they
+	are added to catch errors, but setup installclass default repos when
+	next is clicked so they are ready for use.
+
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
