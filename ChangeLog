@@ -1,5 +1,7 @@
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* scripts/pkgorder (PackageOrderer.doFileLogSetup): Don't setup file
 	logging for pkgorder
 
@@ -9,7 +11,8 @@
 	* fsset.py: Fix setting context on mountpoints for real
 
 	* iw/partition_ui_helpers_gui.py (WideCheckList.__init__): Expand
-	the last column -- not all users of WideChecklist have 3 columns
+	the last column -- not all users of WideChecklist have 3 
+	columns (#204631)
 
 2006-08-29  Jeremy Katz  <katzj@redhat.com>
 

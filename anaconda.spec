@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.86
+Version: 11.1.0.87
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 30 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.87-1
+- Fix traceback on editing lvm (#204631)
+- Fix SELinux context setting
+- Don't do file logging in pkgorder
+
 * Tue Aug 29 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.86-1
 - Fix ia64 pxeboot dir (#199274)
 - Remember manual TCP/IP settings (dcantrel, #202662)
