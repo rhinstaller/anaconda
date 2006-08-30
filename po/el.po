@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-30 13:13+0100\n"
+"PO-Revision-Date: 2006-08-30 14:03+0100\n"
 "Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
 "Language-Team: Greek <fedora-trans-el@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -455,7 +455,7 @@ msgstr "Αναβάθμιση %s\n"
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr "Εγκατάσταση %s\n"
+msgstr "Εγκατάσταση του %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -1627,7 +1627,7 @@ msgstr ""
 #: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
 #: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
-msgstr "Αδυναμία Επεξεργασίας"
+msgstr "Αδυναμία επεξεργασίας"
 
 #: ../partIntfHelpers.py:312
 msgid "You must select a partition to edit"
@@ -1700,7 +1700,7 @@ msgstr "Τροπο_ποίηση τμήμα δίσκου"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
-msgstr "Να _μη γίνει Μορφοποίηση"
+msgstr "Να _μη γίνει μορφοποίηση"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
@@ -1758,7 +1758,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
-msgstr "Προειδοποίηση Μορφοποίησης"
+msgstr "Προειδοποίηση μορφοποίησης"
 
 #: ../partIntfHelpers.py:513
 #, python-format
@@ -2202,7 +2202,7 @@ msgstr "Όνομα χρήστη"
 
 #: ../text.py:196
 msgid "Password"
-msgstr "Κωδικός Πρόσβασης"
+msgstr "Συνθηματικό"
 
 #: ../text.py:253
 msgid "Help not available"
@@ -2777,12 +2777,12 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Ο λογαριασμός Root χρησιμοποιείται για διαχείριση του συστήματος.Εισάγετε "
-"ένα κωδικό για τον χρήστη Root."
+"Ο λογαριασμός υπερχρήστη (root) χρησιμοποιείται για διαχείριση του συστήματος. Εισάγετε "
+"έναν κωδικό για τον υπερχρήστη."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "Κω_δικός Root:"
+msgstr "Κω_δικός υπερχρήστη:"
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
@@ -2931,7 +2931,7 @@ msgstr "Θα γίνει εγκατάσταση του boot loader %s στο /dev
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Δεν θα εγκατασταθεί κανένας boot loader."
+msgstr "Δε θα εγκατασταθεί κανένας boot loader."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
@@ -2943,7 +2943,7 @@ msgstr "Εγκατάσταση της εγγραφής boot loader στο:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "_Αλλαγή Σειράς Δίσκων"
+msgstr "_Αλλαγή σειράς δίσκων"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -2995,19 +2995,19 @@ msgid ""
 "in the file '%s' after rebooting the system."
 msgstr ""
 "Ένα αρχείο καταγραφής της εγκατάστασης μπορεί να βρεθεί στο '%s' μετά την "
-"επανεκκίνηση του συστήματος σας.\n"
+"επανεκκίνηση του συστήματος.\n"
 "\n"
-"Ένα αρχείο kickstart το οποίο περιέχει όλες τις επιλογές της εγκατάστασης "
+"Επίσης, ένα αρχείο kickstart το οποίο περιέχει όλες τις επιλογές της εγκατάστασης "
 "μπορεί να βρεθεί στο '%s' μετά την επανεκκίνηση του συστήματος."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
-msgstr "Έτοιμοι για Αναβάθμιση"
+msgstr "Έτοιμοι για αναβάθμιση"
 
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Επιλέξτε Επόμενο για να ξεκινήσει η αναβάθμιση του %s."
+msgstr "Επιλέξτε επόμενο για να ξεκινήσει η αναβάθμιση του %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3028,8 +3028,8 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Αφαιρέστε οποιαδήποτε μέσα χρησιμοποιήθηκαν στη διαδικασία εγκατάστασης και "
-"πατήστε το κουμπί \"Επανεκκίνηση\"για να επανεκκινήσετε το σύστημα σας.\n"
+"Αφαιρέστε οποιαδήποτε μέσα χρησιμοποιήθηκαν κατά τη διαδικασία εγκατάστασης και "
+"επιλέξτε \"Επανεκκίνηση\"για να γίνει επανεκκίνηση του συστήματος σας.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -3124,7 +3124,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr "Επικυρώστε τις Αλλαγές στο Φυσικό Μήκος"
+msgstr "Επικύρωση αλλαγών στο φυσικό μήκος"
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -3200,16 +3200,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
-msgstr "Δημιουργία Λογικού Τόμου"
+msgstr "Δημιουργία λογικού τόμου"
 
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Μορφοποίηση Λογικού Τόμου: %s"
+msgstr "Μορφοποίηση λογικού τόμου: %s"
 
 #: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
 msgid "Edit Logical Volume"
-msgstr "Μορφοποίηση Λογικού Τόμου"
+msgstr "Μορφοποίηση λογικού τόμου"
 
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
@@ -3218,12 +3218,12 @@ msgstr "Σημείο _προσάρτησης:"
 
 #: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
-msgstr "Τύπος _Συστήματος Αρχείων:"
+msgstr "Τύπος _συστήματος αρχείων:"
 
 #: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
-msgstr "Αρχικός Τύπος Συστήματος Αρχείων:"
+msgstr "Αρχικός τύπος συστήματος αρχείων:"
 
 #: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:308
@@ -3242,7 +3242,7 @@ msgstr "Όνομα _Λογικού Τόμου:"
 
 #: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
-msgstr "Όνομα Λογικού Τόμου:"
+msgstr "Όνομα λογικού τόμου:"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
@@ -3283,7 +3283,7 @@ msgstr "Το σημείο προσάρτησης \"%s\" ήδη χρησιμοπ�
 #
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
-msgstr "Άκυρο Όνομα Λογικού Τόμου"
+msgstr "Άκυρο όνομα λογικού τόμου"
 
 #
 #: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
@@ -3306,7 +3306,7 @@ msgid ""
 msgstr ""
 "Το μέγεθος που ζητάτε (%10.2f MB) είναι μεγαλύτερο από το μέγιστο μέγεθος "
 "λογικού τόμου (%10.2f MB). Για να αυξήσετε αυτό το όριο μπορείτε να "
-"δημιουργήσετε περισσότερους Φυσικούς Τόμους από χώρο στο δίσκο που δεν "
+"δημιουργήσετε περισσότερους φυσικούς τόμους από χώρο στο δίσκο που δεν "
 "περιέχει κατατμήσεις και να τους προσθέσετε σε αυτή την Ομάδα Τόμων."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
@@ -3315,7 +3315,7 @@ msgstr ""
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
 #: ../textw/partition_text.py:1330
 msgid "Error With Request"
-msgstr "Σφάλμα στην Αίτηση"
+msgstr "Σφάλμα στην αίτηση"
 
 #: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
 #, python-format
@@ -3495,7 +3495,7 @@ msgstr "Επιλέξτε το κατάλληλο ποντίκι για το σύ
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
-msgstr "Gateway"
+msgstr "Πύλη"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:607
 msgid "Primary DNS"
@@ -3511,7 +3511,7 @@ msgstr "Τριτεύον DNS"
 
 #: ../iw/network_gui.py:29
 msgid "_Gateway"
-msgstr "_Gateway"
+msgstr "Πύλ_η"
 
 #: ../iw/network_gui.py:29
 msgid "_Primary DNS"
@@ -3637,7 +3637,7 @@ msgstr "Ρύθμιση  %s"
 
 #: ../iw/network_gui.py:469
 msgid "Active on Boot"
-msgstr "Ενεργοποίηση κατά την Εκκίνηση"
+msgstr "Ενεργοποίηση κατά την εκκίνηση"
 
 #: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
@@ -3648,11 +3648,11 @@ msgstr "Συσκευή"
 
 #: ../iw/network_gui.py:473
 msgid "IP/Netmask"
-msgstr "IP/Netmask"
+msgstr "IP/Μάσκα δικτύου"
 
 #: ../iw/network_gui.py:535
 msgid "Network Devices"
-msgstr "Συσκευές Δικτύου"
+msgstr "Συσκευές δικτύου"
 
 #: ../iw/network_gui.py:546
 msgid "Set the hostname:"
@@ -3664,7 +3664,7 @@ msgstr "_αυτόματα μέσω DCHP"
 
 #: ../iw/network_gui.py:558
 msgid "_manually"
-msgstr "_χειρωνακτικά"
+msgstr "_χειροκίνητα"
 
 #: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
@@ -3687,10 +3687,10 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "Μπορείτε να ρυθμίσετε τον boot loader ώστε να εκκινεί και άλλα λειτουργικά "
-"συστήματα. Θα σας προσφέρει τη δυνατότητα να επιλέγετε από την λίστα ένα "
+"συστήματα. Θα σας προσφέρει τη δυνατότητα να επιλέγετε από μία λίστα ένα "
 "λειτουργικό σύστημα για εκκίνηση. Για να προσθέσετε κι άλλα λειτουργικά "
-"συστήματα που δεν εντοπίσθηκαν αυτόματα, πατήστε 'Προσθήκη'. Για να αλλάξετε "
-"το λειτουργικό σύστημα το οποίο προεπιλεγμένα εκκινεί, πατήστε 'Προεπιλογή' "
+"συστήματα που δεν εντοπίσθηκαν αυτόματα, επιλέξτε 'Προσθήκη'. Για να αλλάξετε "
+"το λειτουργικό σύστημα το οποίο προεπιλεγμένα εκκινεί, επιλέξτε 'Προεπιλογή' "
 "στο λειτουργικό σύστημα που επιθυμείτε."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
@@ -3756,7 +3756,7 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Δεν είναι δυνατή η διαγραφή του προορισμού boot μιας και προορίζεται για το "
+"Δεν είναι δυνατή η διαγραφή του προορισμού boot αφού προορίζεται για το "
 "σύστημα %s που πρόκειται να εγκαταστήσετε."
 
 #
@@ -6630,11 +6630,11 @@ msgstr "Όνομα λογαριασμού:"
 
 #: ../loader2/urls.c:466
 msgid "Further FTP Setup"
-msgstr "Περαιτέρω ρύθμιση FTP"
+msgstr "Επιπλέον ρυθμίσεις FTP"
 
 #: ../loader2/urls.c:469
 msgid "Further HTTP Setup"
-msgstr "Περαιτέρω ρύθμιση HTTP"
+msgstr "Επιπλέον ρύθμιση HTTP"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
@@ -6801,8 +6801,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
-"Περαιτέρω προσαρμογή του λογισμικού που επιλέξατε μπορεί να γίνει τώρα ή "
-"μετά την εγκατάσταση μέσω της εφαρμογής διαχείρισης λογισμικού."
+"Επιπλέον προσαρμογή του λογισμικού που επιλέξατε μπορεί να γίνει τώρα ή "
+"μετά την εγκατάσταση, μέσω της εφαρμογής διαχείρισης λογισμικού."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
