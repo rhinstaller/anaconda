@@ -1,5 +1,8 @@
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder (PackageOrderer.doFileLogSetup): Don't setup file
+	logging for pkgorder
+
 	* packages.py (setFileCons): Fix checking of chroot so file
 	contexts get set properly
 
