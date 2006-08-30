@@ -439,7 +439,7 @@ def readImageFromFile(file, height = None, width = None, dither = None,
     pixbuf = getPixbuf(file)
     if pixbuf is None:
         log.warning("can't find pixmap %s" %(file,))
-        pixbuf = None
+        return None
 
     if (height is not None and width is not None
         and height != pixbuf.get_height()

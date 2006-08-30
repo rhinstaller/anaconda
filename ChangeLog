@@ -1,5 +1,10 @@
 2006-08-30  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (readImageFromFile): Fix the case where an image doesn't
+	exist (#204648) 
+
+2006-08-30  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* scripts/pkgorder (PackageOrderer.doFileLogSetup): Don't setup file
