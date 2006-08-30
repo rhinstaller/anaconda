@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-29 21:54+0100\n"
+"PO-Revision-Date: 2006-08-30 13:13+0100\n"
 "Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
 "Language-Team: Greek <fedora-trans-el@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
@@ -169,8 +169,8 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"Η κατάτμηση Boot %s δεν ανήκει σε ετικέτα δίσκου BSD. Το SRM δεν θα μπορέσει "
-"να εκκινήσει από αυτή την κατάτμηση. Χρησιμοποιήστε μια κατάτμηση που ανήκει "
+"Το τμήμα δίσκου Boot %s δεν ανήκει σε ετικέτα δίσκου BSD. Το SRM δεν θα μπορέσει "
+"να εκκινήσει από αυτό το τμήμα δίσκου. Χρησιμοποιήστε ένα τμήμα δίσκου που ανήκει "
 "σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτή τη ετικέτα δίσκου σε BSD."
 
 #: ../autopart.py:1021
@@ -180,7 +180,7 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"Η κατάτμηση Boot %s δεν ανήκει σε δίσκο που έχει αρκετό ελεύθερο χώρο στη "
+"Το τμήμα δίσκου Boot %s δεν ανήκει σε δίσκο που έχει αρκετό ελεύθερο χώρο στη "
 "αρχή του, για να ξεκινήσει ο Bootloader. Βεβαιωθείτε ότι υπάρχουν "
 "τουλάχιστον 5MB ελεύθερα στην αρχή του δίσκου που περιέχει το /boot"
 
@@ -190,22 +190,22 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
-"Η κατάτμηση boot %s δεν είναι μια κατάτμηση VFAT. Το  EFI δεν θα μπορεί να "
-"εκκινήσει από αυτήν την κατάτμηση."
+"Το τμήμα δίσκου boot %s δεν είναι ένα τμήμα δίσκου VFAT. Το  EFI δε θα μπορεί να "
+"εκκινήσει από αυτό το τμήμα δίσκου."
 
 #: ../autopart.py:1025
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"Η κατάτμηση boot δεν είναι τοποθετημένη στην αρχή του δίσκου. Το  "
-"OpenFirmware δεν θα μπορεί να εκκινήσει από αυτήν την κατάτμηση."
+"Το τμήμα δίσκου boot δεν είναι τοποθετημένη στην αρχή του δίσκου. Το  "
+"OpenFirmware δεν θα μπορεί να εκκινήσει από αυτό το τμήμα δίσκου."
 
 #: ../autopart.py:1032
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Η κατάτμηση boot %s πιθανόν να μην μπορεί να συνεργαστεί με τους "
+"Το τμήμα δίσκου boot %s πιθανό να μη μπορεί να συνεργαστεί με τους "
 "περιορισμούς boot της αρχιτεκτονικής του συστήματος σας."
 
 #: ../autopart.py:1058
@@ -214,12 +214,12 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"Αν προσθέσετε αυτή την κατάτμηση δεν θα μείνει αρκετός ελεύθερος χώρος για "
+"Αν προσθέσετε αυτό το τμήμα δίσκου δεν θα μείνει αρκετός ελεύθερος χώρος για "
 "τους ήδη δεσμευμένους λογικούς τόμους στο %s."
 
 #: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
-msgstr "Δεν υπάρχει η απαιτούμενη κατάτμηση"
+msgstr "Δεν υπάρχει το απαιτούμενο τμήμα δίσκου"
 
 #: ../autopart.py:1244
 #, python-format
@@ -228,7 +228,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Αδυναμία εντοπισμού κατάτμησης %s για χρήση στο %s.\n"
+"Αδυναμία εντοπισμού τμήματος δίσκου %s για χρήση στο %s.\n"
 "\n"
 "Πατήστε 'Εντάξει' για να επανεκκινήσετε το σύστημα σας."
 
@@ -393,14 +393,14 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Η αυτόματη κατάτμηση καθορίζει τις κατατμήσεις σύμφωνα με το επιλεγμένο τύπο "
-"εγκατάστασης. Μπορείτε να παραμετροποιήσετε τις κατατμήσεις αφού "
+"Η αυτόματη κατάτμηση καθορίζει τα τμήματα δίσκου σύμφωνα με τον επιλεγμένο τύπο "
+"εγκατάστασης. Μπορείτε να παραμετροποιήσετε τα τμήματα δίσκου αφού "
 "δημιουργηθούν.\n"
 "\n"
 "Το εργαλείο της χειροκίνητης κατάτμησης  Disk Druid,  σας επιτρέπει να "
-"δημιουργήσετε κατατμήσεις μέσω ενός διαδραστικού περιβάλλοντος χρήσης. "
+"δημιουργήσετε τμήματα δίσκου μέσω ενός διαδραστικού περιβάλλοντος χρήσης. "
 "Μπορείτε να καθορίσετε τους τύπους συστήματος αρχείων, τα σημεία "
-"προσάρτησης, τα μεγέθη των κατατμήσεων και πολλά άλλα."
+"προσάρτησης, τα μεγέθη των τμημάτων και πολλά άλλα."
 
 #: ../autopart.py:1679
 msgid ""
@@ -433,8 +433,8 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 "Επιλέξατε να αφαιρέσετε όλες τις κατατμήσεις (ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ) από τους "
-"παρακάτω δίσκους:%s\n"
-"Είστε σίγουροι ότι θέλετε να το κάνετε;"
+"παρακάτω οδηγούς:%s\n"
+"Είστε σίγουροι ότι θέλετε να το κάνετε αυτό;"
 
 #: ../autopart.py:1692
 #, python-format
@@ -619,7 +619,7 @@ msgstr "PPC PReP Boot"
 # gconf/gconf-internals.c:2416
 #: ../fsset.py:1348
 msgid "First sector of boot partition"
-msgstr "Πρώτος τομέας της κατάτμησης boot"
+msgstr "Πρώτος τομέας του τμήματος δίσκου boot"
 
 #: ../fsset.py:1349
 msgid "Master Boot Record (MBR)"
@@ -663,10 +663,8 @@ msgstr ""
 "\n"
 "/dev/%s\n"
 "\n"
-"είναι κατάτμηση έκδοσης 0 Linux swap. Αν θέλετε να χρησιμοποιήσετε αυτή τη "
-"συσκευή, θα πρέπει να την μορφοποιήσετε ξανά ως έκδοση 1 Linux swap "
-"partition. Αν παρακάμψετε αυτό το βήμα, η κατάτμηση θα αγνοηθεί στην "
-"εγκατάσταση."
+"είναι τμήμα δίσκου έκδοσης 0 Linux swap. Αν θέλετε να χρησιμοποιήσετε αυτή τη "
+"συσκευή, θα πρέπει να την μορφοποιήσετε ξανά ως τμήμα δίσκου τύπου Linux swap έκδοση 1. Αν παρακάμψετε αυτό το βήμα, το τμήμα δίσκου θα αγνοηθεί κατά την εγκατάσταση."
 
 #: ../fsset.py:1480
 msgid "Reformat"
@@ -685,11 +683,11 @@ msgid ""
 msgstr ""
 "Η συσκευή swap:\n"
 "\n"
-"/dev/%s\n"
+"     /dev/%s\n"
 "\n"
-"στο αρχείο /etc/fstab χρησιμοποιείται ως κατάτμηση software suspend,που "
-"σημαίνει ότι το σύστημα σας μεταβαίνει σε λειτουργία αναστολής. Για να "
-"κάνετε μια αναβάθμιση, παρακαλώ κλείστε το σύστημα σας αντί να το θέσετε σε "
+"στο αρχείο /etc/fstab χρησιμοποιείται αυτή τη στιγμή ως τμήμα δίσκου software suspend,που "
+"σημαίνει ότι το σύστημα σας βρίσκεται σε λειτουργία αναστολής. Για να "
+"κάνετε μία αναβάθμιση, παρακαλώ κλείστε το σύστημα σας αντί να το θέσετε σε "
 "αναστολή."
 
 #: ../fsset.py:1492
@@ -707,8 +705,8 @@ msgstr ""
 "\n"
 "/dev/%s\n"
 "\n"
-"στο αρχείο /etc/fstab χρησιμοποιείται ως κατάτμηση software suspend,που "
-"σημαίνει ότι το σύστημα σας μεταβαίνει σε λειτουργία αναστολής. Αν κάνετε "
+"στο αρχείο /etc/fstab χρησιμοποιείται ως τμήμα δίσκου software suspend,που "
+"σημαίνει ότι το σύστημα σας βρίσκεται σε λειτουργία αναστολής. Αν κάνετε "
 "μια νέα εγκατάσταση βεβαιωθείτε ότι η εγκατάσταση έχει ρυθμιστεί έτσι ώστε "
 "να μορφοποιήσει όλες τις κατατμήσεις swap."
 
@@ -722,9 +720,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Επιλέξτε Παράκαμψη αν θέλετε η εγκατάσταση να αγνοήσει αυτή την κατάτμηση "
-"κατά την αναβάθμιση. Επιλέξτε Μορφοποίηση για να μορφοποιήσετε ξανά την "
-"κατάτμηση ως κατάτμηση swap. Επιλέξτε Επανεκκίνηση για να επανεκκινήσετε το "
+"Επιλέξτε Παράκαμψη αν θέλετε η εγκατάσταση να αγνοήσει αυτό το τμήμα δίσκου "
+"κατά την αναβάθμιση. Επιλέξτε Μορφοποίηση για να μορφοποιήσετε ξανά το τμήμα δίσκου ως τμήμα δίσκου swap. Επιλέξτε Επανεκκίνηση για να επανεκκινήσετε το "
 "σύστημα σας."
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
@@ -743,8 +740,7 @@ msgid ""
 msgstr ""
 "Σφάλμα ενεργοποίησης της συσκευής swap %s: %s\n"
 "\n"
-"Το /etc/fstab στην κατάτμηση αναβάθμισης σας δεν έχει αναφορά σε μια έγκυρη "
-"κατάτμηση swap.\n"
+"Το /etc/fstab στο αναβαθμισμένο τμήμα δίσκου σας δεν έχει αναφορά σε ένα έγκυρο τμήμα δίσκου swap.\n"
 "\n"
 "Πατήστε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
@@ -759,7 +755,7 @@ msgid ""
 msgstr ""
 "Σφάλμα ενεργοποίησης της συσκευής swap %s: %s\n"
 "\n"
-"Αυτό μάλλον σημαίνει ότι η κατάτμηση swap δεν έχει αρχικοποιηθεί.\n"
+"Αυτό μάλλον σημαίνει ότι το τμήμα δίσκου swap δεν έχει αρχικοποιηθεί.\n"
 "\n"
 "Πατήστε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
@@ -873,7 +869,7 @@ msgid ""
 msgstr ""
 "Σφάλμα προσάρτησης συσκευής %s ως %s: %s\n"
 "\n"
-"Αυτό συνήθως σημαίνει ότι η κατάτμηση δεν έχει μορφοποιηθεί.\n"
+"Αυτό συνήθως σημαίνει ότι το τμήμα δίσκου δεν έχει μορφοποιηθεί.\n"
 "\n"
 "Πατήστε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
@@ -1336,7 +1332,7 @@ msgstr "Κλειδί:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
-msgstr "Προειδοποίηση! Αυτό το λογισμικό είναι σε δοκιμαστικό στάδιο"
+msgstr "Προσοχή! Το λογισμικό αυτό βρίσκεται σε δοκιμαστικό στάδιο!"
 
 #: ../packages.py:279
 #, python-format
@@ -1353,17 +1349,17 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Σας ευχαριστούμε που μεταφορτώσατε αυτή την προέκδοση του %s.\n"
+"Σας ευχαριστούμε που μεταφορτώσατε αυτήν τη δοκιμαστική κυκλοφορία του %s.\n"
 "\n"
-"Δεν είναι μια τελική έκδοση και δεν σκοπεύει να χρησιμοποιηθεί σε συστήματα "
-"παραγωγής. Ο σκοπός αυτής της έκδοσης είναι η συλλογή σχολίων από τους "
-"δοκιμαστές, και δεν είναι κατάλληλη για καθημερινή χρήση.\n"
+"Αυτή η έκδοση δεν αποτελεί μια τελική κυκλοφορία και δεν προορίζεται για χρήση σε συστήματα "
+"παραγωγής. Ο σκοπός της είναι η συλλογή σχολίων από τους "
+"δοκιμαστές και δεν είναι κατάλληλη για καθημερινή χρήση.\n"
 "\n"
-"Για να αναφέρετε προβλήματα, επισκεφθείτε το:\n"
+"Για να δώσετε σχόλια ή να αναφέρετε προβλήματα, παρακαλούμε επισκεφθείτε το:\n"
 "\n"
 "   %s\n"
 "\n"
-"και συμπληρώστε μια αναφορά σχετικά με '%s'.\n"
+"και συμπληρώστε μια αναφορά για το '%s'.\n"
 
 #: ../packages.py:292
 msgid "_Install anyway"
@@ -1440,12 +1436,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Ο πίνακας διαμερισμάτων στη συσκευή %s (%s) δεν είναι αναγνώσιμος. Για να "
-"δημιουργήσετε νέες κατατμήσεις θα πρέπει να αρχικοποιηθεί με αποτέλεσμα τη "
-"διαγραφή ΟΛΩΝ των δεδομένων από αυτό το δίσκο.\n"
+"Ο πίνακας τμημάτων δίσκου στη συσκευή %s (%s) δεν είναι αναγνώσιμος. Για να μπορέσουν να δημιουργηθούν νέα τμήματα δίσκου θα πρέπει αυτός ο δίσκος να αρχικοποιηθεί με αποτέλεσμα τη "
+"διαγραφή ΟΛΩΝ των δεδομένων από αυτόν.\n"
 "\n"
-"Αυτή η διεργασία θα αντικαταστήσει όλες τις προηγούμενες επιλογές "
-"εγκατάστασης για τους δίσκους που θέλετε να αγνοήσετε.\n"
+"Αυτή η ενέργεια θα αντικαταστήσει όλες τις προηγούμενες επιλογές "
+"εγκατάστασης που κάνατε για το ποιους δίσκους επιλέξατε να αγνοηθούν.\n"
 "\n"
 "Θέλετε να αρχικοποιηθεί αυτός ο δίσκος και να διαγραφούν ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ;"
 
@@ -1471,14 +1466,14 @@ msgstr ""
 
 #: ../partedUtils.py:1160
 msgid "No Drives Found"
-msgstr "Δεν βρέθηκαν δίσκοι"
+msgstr "Δε βρέθηκαν δίσκοι"
 
 #: ../partedUtils.py:1161
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Δημιουργήθηκε ένα σφάλμα- δεν βρέθηκαν έγκυρες συσκευές για να δημιουργηθούν "
+"Δημιουργήθηκε ένα σφάλμα - δε βρέθηκαν έγκυρες συσκευές για να δημιουργηθούν "
 "νέα συστήματα αρχείων. Παρακαλώ ελέγξτε το υλικό σας για να εντοπίσετε την "
 "αιτία του προβλήματος."
 
@@ -1539,25 +1534,25 @@ msgstr ""
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr "Παρακαλώ καθορίστε ένα σημείο προσάρτησης για αυτή την κατάτμηση."
+msgstr "Παρακαλώ καθορίστε ένα σημείο προσάρτησης για αυτό το τμήμα δίσκου."
 
 #: ../partIntfHelpers.py:112
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr "Αυτή η κατάτμηση είναι μέρος της συσκευής RAID  /dev/md%s."
+msgstr "Αυτό το τμήμα δίσκου είναι μέρος της συσκευής RAID  /dev/md%s."
 
 #: ../partIntfHelpers.py:115
 msgid "This partition is part of a RAID device."
-msgstr "Αυτή η κατάτμηση είναι μέρος μιας συσκευής RAID."
+msgstr "Αυτό το τμήμα δίσκου είναι μέρος μιας συσκευής RAID."
 
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Αυτή η κατάτμηση είναι μέρος του LVM volume group '%s'."
+msgstr "Αυτό το τμήμα δίσκου είναι μέρος του LVM volume group '%s'."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr "Αυτή η κατάτμηση είναι μέρος του LVM volume group."
+msgstr "Αυτό το τμήμα δίσκου είναι μέρος του LVM volume group."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
@@ -1567,7 +1562,7 @@ msgstr "Αδύνατη η διαγραφή"
 
 #: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
-msgstr "Πρέπει να επιλέξετε πρώτα την κατάτμηση που θα διαγραφεί."
+msgstr "Πρέπει να επιλέξετε πρώτα το τμήμα δίσκου που θα διαγραφεί."
 
 #: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
@@ -1576,7 +1571,7 @@ msgstr "Δεν μπορείτε να διαγράψετε ελεύθερο χώ�
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr ""
-"Δεν μπορείτε να διαγράψετε μια κατάτμηση που ανήκει σε μορφοποιημένη LDL "
+"Δεν μπορείτε να διαγράψετε ένα τμήμα δίσκου που ανήκει σε μορφοποιημένη LDL "
 "DASD."
 
 #: ../partIntfHelpers.py:164
@@ -1584,20 +1579,18 @@ msgstr ""
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Δεν μπορείτε να διαγράψετε αυτή την κατάτμηση, μιας και είναι μα εκτεταμένη "
-"κατάτμηση που περιέχει %s"
+msgstr "Δεν μπορείτε να διαγράψετε αυτό το τμήμα δίσκου, αφού είναι ένα εκτεταμένο τμήμα δίσκου που περιέχει το %s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Αυτή η κατάτμηση διατηρεί τα δεδομένα για την εγκατάσταση σκληρού δίσκου."
+msgstr "Αυτό το τμήμα δίσκου διατηρεί τα δεδομένα για την εγκατάσταση σκληρού δίσκου."
 
 #: ../partIntfHelpers.py:188
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"Δεν μπορείτε να διαγράψετε αυτή την κατάτμηση:\n"
+"Δεν μπορείτε να διαγράψετε αυτό το τμήμα δίσκου:\n"
 "\n"
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
@@ -1638,14 +1631,14 @@ msgstr "Αδυναμία Επεξεργασίας"
 
 #: ../partIntfHelpers.py:312
 msgid "You must select a partition to edit"
-msgstr "Πρέπει να επιλέξετε πρώτα μια κατάτμηση για επεξεργασία"
+msgstr "Πρέπει να επιλέξετε πρώτα ένα τμήμα δίσκου για επεξεργασία"
 
 #: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
-"Δεν μπορείτε να επεξεργαστείτε αυτή την κατάτμηση:\n"
+"Δεν μπορείτε να επεξεργαστείτε αυτό το τμήμα δίσκου:\n"
 "\n"
 
 #: ../partIntfHelpers.py:351
@@ -1654,8 +1647,8 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Δεν μπορείτε να επεξεργαστείτε αυτή την κατάτμηση, μιας και είναι μια "
-"εκτεταμένη κατάτμηση που περιέχει %s"
+"Δεν μπορείτε να επεξεργαστείτε αυτό το τμήμα δίσκου, αφού είναι ένα"
+"εκτεταμένο τμήμα δίσκου που περιέχει το %s"
 
 #: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
@@ -1669,10 +1662,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"Το /dev/%s περιέχει ένα τύπο κατάτμησης τύπου 0x82 (Linux swap) αλλά δεν "
-"φαίνεται να έχει μορφοποιηθεί ως κατάτμηση  Linux swap.\n"
+"Το /dev/%s έχει ένα τύπο τμήματος δίσκου 0x82 (Linux swap) αλλά δε "
+"φαίνεται να έχει μορφοποιηθεί ως τμήμα δίσκου Linux swap.\n"
 "\n"
-"Θέλετε να μορφοποιήσετε αυτή την κατάτμηση ως κατάτμηση swap τώρα;"
+"Θέλετε να μορφοποιήσετε αυτό το τμήμα δίσκου ως τμήμα δίσκου swap;"
 
 #: ../partIntfHelpers.py:404
 #, python-format
@@ -1690,12 +1683,12 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Επιλέξατε να χρησιμοποιήσετε μια προϋπάρχουσα κατάτμηση για αυτή την "
-"εγκατάσταση χωρίς να την μορφοποιήσετε. Σας προτείνουμε να μορφοποιήσετε "
-"αυτή την κατάτμηση ώστε να αποφύγετε τυχόν προβλήματα με τα υπάρχοντα αρχεία "
-"του προηγούμενου λειτουργικού σας συστήματος. Αν όμως η κατάτμηση περιέχει "
+"Επιλέξατε να χρησιμοποιήσετε ένα προϋπάρχον τμήμα δίσκου για αυτή την "
+"εγκατάσταση χωρίς να το μορφοποιήσετε. Σας προτείνουμε να μορφοποιήσετε "
+"αυτό το τμήμα δίσκου ώστε να αποφύγετε τυχόν προβλήματα με τα υπάρχοντα αρχεία "
+"του προηγούμενου λειτουργικού σας συστήματος. Αν όμως το τμήμα δίσκου περιέχει "
 "αρχεία που χρειάζεστε, όπως κατάλογους χρηστών, τότε συνεχίστε χωρίς να "
-"μορφοποιήσετε την κατάτμηση."
+"μορφοποιήσετε αυτό το τμήμα δίσκου."
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
@@ -1703,7 +1696,7 @@ msgstr "Μορφοποίηση;"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "Τροπο_ποίηση κατάτμησης"
+msgstr "Τροπο_ποίηση τμήμα δίσκου"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
@@ -1729,7 +1722,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
-msgstr "Προειδοποίηση Κατάτμησης"
+msgstr "Προειδοποίηση κατάτμησης"
 
 #: ../partIntfHelpers.py:442
 #, python-format
@@ -1790,11 +1783,11 @@ msgstr "Πρόκειται να διαγράψετε μια συσκευή RAID.
 #: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr "Πρόκειται να διαγράψετε την κατάτμηση /dev/%s."
+msgstr "Πρόκειται να διαγράψετε το τμήμα δίσκου /dev/%s."
 
 #: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
-msgstr "Η κατάτμηση που επιλέξατε θα διαγραφεί."
+msgstr "Το τμήμα δίσκου που επιλέξατε θα διαγραφεί."
 
 #: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
@@ -1840,7 +1833,7 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Δεν έχετε καθορίσει μια κατάτμηση root (/), η οποία απαιτείται για την "
+"Δεν έχετε καθορίσει ένα τμήμα δίσκου root (/), το οποίο απαιτείται για την "
 "συνέχεια της εγκατάστασης του %s."
 
 #: ../partitions.py:823
@@ -1849,8 +1842,8 @@ msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-"H κατάτμηση root είναι μικρότερη των 250 megabytes, το οποίο συνήθως είναι "
-"πολύ μικρή για να εγκατασταθεί το %s."
+"Το τμήμα δίσκου root είναι μικρότερο των 250 megabytes, το οποίο συνήθως είναι "
+"πολύ μικρό για εγκατάσταση του %s."
 
 #: ../partitions.py:842
 msgid ""
@@ -1861,16 +1854,16 @@ msgstr "Το τμήμα δίσκου εκκίνησης δεν είναι ένα
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
-"Πρέπει να δημιουργήσετε μία κατάτμηση /boot/efi τύπου FAT και μεγέθους 50 "
+"Πρέπει να δημιουργήσετε ένα τμήμα δίσκου /boot/efi τύπου FAT και μεγέθους 50 "
 "megabytes."
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Πρέπει να δημιουργήσετε πρώτα μια κατάτμηση Apple Bootstrap."
+msgstr "Πρέπει να δημιουργήσετε πρώτα ένα τμήμα δίσκου Apple Bootstrap."
 
 #: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
-msgstr "Πρέπει να δημιουργήσετε μία κατάτμηση PPC PReP Boot."
+msgstr "Πρέπει να δημιουργήσετε ένα τμήμα δίσκου PPC PReP Boot."
 
 #: ../partitions.py:899 ../partitions.py:910
 #, python-format
@@ -1878,8 +1871,8 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Η κατάτμηση σας %s είναι μικρότερη από %s megabytes, το οποίο είναι λιγότερο "
-"από αυτό που συνιστάται για μια κανονική %s εγκατάσταση."
+"Το τμήμα δίσκου σας %s είναι μικρότερο από %s megabytes, το οποίο είναι λιγότερο "
+"από αυτό που συνιστάται για μια κανονική εγκατάσταση του %s."
 
 #: ../partitions.py:944
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -1909,7 +1902,7 @@ msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"Δεν έχετε ορίσει μία κατάτμηση swap. Αν και δεν κρίνεται απαραίτητη σε όλες "
+"Δεν έχετε ορίσει ένα τμήμα δίσκου swap. Αν και δεν κρίνεται απαραίτητο σε όλες "
 "τις περιπτώσεις, θα βελτιώσει σημαντικά την απόδοση για την πλειονότητα των "
 "εγκαταστάσεων."
 
@@ -1933,15 +1926,15 @@ msgstr ""
 
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
-msgstr "η κατάτμηση σε χρήση από την εγκατάσταση."
+msgstr "το τμήμα δίσκου που χρησιμοποιεί η εγκατάσταση."
 
 #: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
-msgstr "μια κατάτμηση που είναι μέλος μιας συστοιχίας RAID."
+msgstr "ένα τμήμα δίσκου που είναι μέλος μιας συστοιχίας RAID."
 
 #: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "η κατάτμηση που είναι μέλος του LVM volume group."
+msgstr "το τμήμα δίσκου που είναι μέλος του της ομάδας τόμων LVM."
 
 #: ../partRequests.py:249
 #, python-format
@@ -1981,7 +1974,7 @@ msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
-"Το μέγεθος της κατάτμησης %s (%10.2f MB) υπερβαίνει το μέγιστο μέγεθος των %"
+"Το μέγεθος του τμήματος δίσκου %s (%10.2f MB) υπερβαίνει το μέγιστο μέγεθος των %"
 "10.2f MB."
 
 #: ../partRequests.py:490
@@ -1990,13 +1983,13 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-"Το μέγεθος της αιτούμενης κατάτμησης (μέγεθος =%s MB) υπερβαίνει το μέγιστο "
+"Το μέγεθος του αιτούμενου τμήματος δίσκου (μέγεθος =%s MB) υπερβαίνει το μέγιστο "
 "μέγεθος των %s MB."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Το μέγεθος της αιτούμενης κατάτμησης είναι αρνητικό! (μέγεθος =%s MB)"
+msgstr "Το μέγεθος του απαιτούμενου τμήματος δίσκου είναι αρνητικό! (μέγεθος =%s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2105,7 +2098,7 @@ msgstr "Σύστημα για rescue"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr "Ποια κατάτμηση έχει την κατάτμηση root της εγκατάστασης;"
+msgstr "Ποιο τμήμα δίσκου περιέχει το τμήμα δίσκου root της εγκατάστασης σας;"
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
@@ -2167,7 +2160,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Δεν έχετε καμία κατάτμηση Linux. Πατήστε επιστροφή για να μπείτε σε ένα "
+"Δεν έχετε κανένα τμήμα δίσκου Linux. Πατήστε επιστροφή για να μεταβείτε σε ένα "
 "κέλυφος. Το σύστημα θα επανεκκινήσει αυτόματα όταν βγείτε από το κέλυφος."
 
 #: ../rescue.py:457
@@ -3390,10 +3383,10 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"Τουλάχιστον μία αχρησιμοποίητη κατάτμηση φυσικού τόμου απαιτείται για τη "
+"Τουλάχιστον ένα αχρησιμοποίητο τμήμα δίσκου φυσικού τόμου απαιτείται για τη "
 "δημιουργία μιας Ομάδας Τόμων LVM.\n"
 "\n"
-"Δημιουργήστε μία κατάτμηση ή συστοιχία RAID τύπου \"φυσικός τόμος (LVM)\" "
+"Δημιουργήστε ένα τμήμα δίσκου ή συστοιχία RAID τύπου \"φυσικός τόμος (LVM)\" "
 "και διαλέξτε την επιλογή \"LVM\" ξανά."
 
 #: ../iw/lvm_dialog_gui.py:964
@@ -3458,7 +3451,7 @@ msgstr "_Προσθήκη"
 #: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
-msgstr "_Επεξεργασία"
+msgstr "Επεξερ_γασία"
 
 #: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
@@ -3718,7 +3711,7 @@ msgid ""
 "drive and partition number) is the device from which it boots."
 msgstr ""
 "Εισάγετε μια ετικέτα για να εμφανίζεται στο μενού του boot loader. Η συσκευή "
-"(ή ο σκληρός δίσκος και ο αριθμός κατάτμησης) είναι η συσκευή από την οποία "
+"(ή ο σκληρός δίσκος και ο αριθμός τμήματος δίσκου) είναι η συσκευή από την οποία "
 "θα γίνεται εκκίνηση."
 
 #: ../iw/osbootwidget.py:149
@@ -3789,16 +3782,16 @@ msgstr "Ο τελικός κύλινδρος πρέπει να είναι μεγ
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr "Προσθήκη κατάτμησης"
+msgstr "Προσθήκη τμήματος δίσκου"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "Επεξεργασία κατάτμησης: /dev/%s"
+msgstr "Επεξεργασία τμήματος δίσκου: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr "Επεξεργασία κατάτμησης"
+msgstr "Επεξεργασία τμήματος δίσκου"
 
 #: ../iw/partition_dialog_gui.py:301
 msgid "File System _Type:"
@@ -3822,7 +3815,7 @@ msgstr "_Τελικός κύλινδρος:"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr "Επιλογή ως _πρωταρχική κατάτμηση"
+msgstr "Επιλογή ως _πρωταρχικό τμήμα δίσκου"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3842,7 +3835,7 @@ msgid ""
 "RAID/Volume"
 msgstr ""
 "Σημείο προσάρτησης/\n"
-"RAID/Τόμου"
+"RAID/Τόμος"
 
 #: ../iw/partition_gui.py:410
 msgid ""
@@ -3871,7 +3864,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
-msgstr "Σφάλματα Κατάτμησης"
+msgstr "Σφάλματα κατάτμησης"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
@@ -3885,7 +3878,7 @@ msgstr "Θέλετε να συνεχίσετε με το ζητούμενο σχ
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
-msgstr "Προειδοποιήσεις Κατάτμησης"
+msgstr "Προειδοποιήσεις κατάτμησης"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
@@ -3985,7 +3978,7 @@ msgstr ""
 "μεμονωμένου δίσκου.  Για περισσότερες πληροφορίες για τη χρήση συσκευών RAID "
 "παρακαλώ συμβουλευτείτε την τεκμηρίωση του %s.\n"
 "\n"
-"Προς το παρόν έχετε %s κατάτμηση/εις λογισμικού RAID ελεύθερη/ες για χρήση.\n"
+"Προς το παρόν έχετε %s τμήμα/τα δίσκου λογισμικού RAID ελεύθερο/α για χρήση.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1250
@@ -4007,7 +4000,7 @@ msgstr "Τι θα θέλατε να κάνετε τώρα;"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "Δημιουργία μιας _κατάτμησης RAID λογισμικού."
+msgstr "Δημιουργία ενός τ_μήματος δίσκου RAID λογισμικού."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
@@ -4061,9 +4054,7 @@ msgstr "<Δεν εφαρμόζεται>"
 
 #: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
-"Με ποιο τρόπο θα θέλατε να προετοιμαστεί το σύστημα αρχείων σε αυτή την "
-"κατάτμηση;"
+msgstr "Με ποιο τρόπο θα θέλατε να προετοιμαστεί το σύστημα αρχείων σε αυτό το τμήμα δίσκου;"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
@@ -4071,11 +4062,11 @@ msgstr "Να παραμείνει _χωρίς αλλαγές (διατήρηση
 
 #: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
-msgstr "_Μορφοποίηση κατάτμησης ως:"
+msgstr "_Μορφοποίηση τμήματος δίσκου ως:"
 
 #: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
-msgstr "_Μεταφορά κατάτμησης στο:"
+msgstr "_Μεταφορά τμήματος δίσκου στο:"
 
 #: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
@@ -4092,7 +4083,7 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Διαδικασία Κατάτμησης Δίσκων"
+msgstr "Διαδικασία κατάτμησης δίσκων"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
@@ -4200,7 +4191,7 @@ msgstr "Αριθμός ε_φεδρειών:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "_Μορφοποίηση κατάτμησης;"
+msgstr "_Μορφοποίηση τμήματος δίσκου;"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4283,12 +4274,12 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-"Ο πηγαίος δίσκος /dev/%s έχει μια κατάτμηση που δεν μπορεί να απομακρυνθεί "
-"για τ παρακάτω λόγο\n"
+"Ο πηγαίος δίσκος /dev/%s έχει ένα τμήμα δίσκου που δεν μπορεί να απομακρυνθεί "
+"για τον παρακάτω λόγο\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Αυτή η κατάτμηση πρέπει να απομακρυνθεί πριν αυτός ο δίσκος να γίνει δίσκος "
+"Αυτό το τμήμα δίσκου πρέπει να απομακρυνθεί πριν αυτός ο δίσκος γίνει δίσκος "
 "προορισμού."
 
 #: ../iw/raid_dialog_gui.py:623
@@ -4368,7 +4359,7 @@ msgstr "Δίσκοι"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
-msgstr "Οι Σημειώσεις Έκδοσης λείπουν.\n"
+msgstr "Οι σημειώσεις κυκλοφορίας λείπουν.\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
@@ -4492,7 +4483,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr "Αναβάθμιση κατάτμησης swap"
+msgstr "Αναβάθμιση τμήματος δίσκου swap"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
@@ -4525,11 +4516,11 @@ msgstr "_Θέλω να δημιουργήσω ένα αρχείο swap"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Επιλέ_ξτε την κατάτμηση για το αρχείο swap:"
+msgstr "Επιλέ_ξτε τμήμα δίσκου για το αρχείο swap:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
-msgstr "Κατάτμηση"
+msgstr "Τμήμα δίσκου"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
@@ -4628,7 +4619,7 @@ msgid ""
 msgstr ""
 "Ο z/IPL Boot Loader θα εγκατασταθεί στο σύστημα σας.\n"
 "\n"
-"Η κατάτμηση root θα είναι αυτή που επιλέχθηκε κατά την διάρκεια επιλογών "
+"Το τμήμα δίσκου root θα είναι αυτή που επιλέχθηκε κατά την διάρκεια επιλογών "
 "κατάτμησης.\n"
 "\n"
 "Ο πυρήνας που θα χρησιμοποιηθεί για την εκκίνηση είναι ο προεπιλεγμένος "
@@ -5059,7 +5050,7 @@ msgstr "Προειδοποίηση: %s"
 
 #: ../textw/partition_text.py:232
 msgid "Modify Partition"
-msgstr "Τροποποίηση κατάτμησης"
+msgstr "Τροποποίηση τμήματος δίσκου"
 
 #: ../textw/partition_text.py:232
 msgid "Add anyway"
@@ -5155,7 +5146,7 @@ msgid ""
 "partition."
 msgstr ""
 "Παρακαλώ καθορίστε τον τρόπο που θέλετε να προετοιμαστεί το σύστημα αρχείων "
-"σε αυτή την κατάτμηση."
+"σε αυτό το τμήμα δίσκου."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5175,7 +5166,7 @@ msgstr "Εισαγωγή σε:"
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
-msgstr "Επιλογή ως πρωταρχική κατάτμηση"
+msgstr "Επιλογή ως πρωταρχικό τμήμα δίσκου"
 
 #: ../textw/partition_text.py:770
 msgid "Not Supported"
@@ -5189,7 +5180,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
-msgstr "Μη έγκυρη καταχώριση για το μέγεθος κατάτμησης"
+msgstr "Μη έγκυρη καταχώριση για το μέγεθος τμήματος δίσκου"
 
 #: ../textw/partition_text.py:859
 msgid "Invalid Entry for Maximum Size"
@@ -5213,7 +5204,7 @@ msgstr "Απαιτούνται τουλάχιστον δύο κατατμήσε�
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
-msgstr "Μορφοποίηση κατάτμησης;"
+msgstr "Μορφοποίηση τμήματος δίσκου;"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
@@ -5257,16 +5248,16 @@ msgstr ""
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr "Νέα κατάτμηση ή λογικός τόμος;"
+msgstr "Νέο τμήμα δίσκου ή λογικός τόμος;"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Θα θέλατε να δημιουργήσετε μια νέα κατάτμηση ή ένα νέο λογικό τόμο;"
+msgstr "Θα θέλατε να δημιουργήσετε ένα τμήμα δίσκου ή ένα νέο λογικό τόμο;"
 
 #
 #: ../textw/partition_text.py:1368
 msgid "partition"
-msgstr "κατάτμηση"
+msgstr "τμήμα δίσκου"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
@@ -5293,11 +5284,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "Χωρίς Κατάτμηση Root"
+msgstr "Χωρίς τμήμα δίσκου Root"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr "Πρέπει να έχετε μια κατάτμηση / για να γίνει εγκατάσταση σε αυτή."
+msgstr "Πρέπει να έχετε ένα τμήμα δίσκου / για να γίνει εγκατάσταση σε αυτή."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
@@ -5312,7 +5303,7 @@ msgstr ""
 "Η εγκατάσταση απαιτεί την κατάτμηση του σκληρού σας δίσκου. Ως προεπιλογή "
 "έχει επιλεχθεί μια διάταξη κατάτμησης που είναι κατάλληλη για τους "
 "περισσότερους χρήστες. Υπάρχει επίσης η δυνατότητα να επιλέξετε την δική σας "
-"διάταξη κατατμήσεων."
+"διάταξη κατάτμησης."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5792,7 +5783,7 @@ msgstr ""
 # gconf/gconf-internals.c:2416
 #: ../loader2/driverdisk.c:338
 msgid "Failed to mount partition."
-msgstr "Αποτυχία προσάρτησης κατάτμησης."
+msgstr "Αποτυχία προσάρτησης τμήματος δίσκου."
 
 #: ../loader2/driverdisk.c:346
 msgid "Select driver disk image"
@@ -5964,8 +5955,7 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Ποια κατάτμηση και κατάλογο αυτής περιέχουν τις εικόνες CD (iso9660) για το %"
-"s; Αν δεν βλέπετε καταχωρημένο εδώ τον οδηγό δίσκου που χρησιμοποιείτε, "
+"Ποιο τμήμα δίσκου και κατάλογος αυτής περιέχουν τις εικόνες CD (iso9660) για το %s; Αν δε βλέπετε καταχωρημένο εδώ τον οδηγό δίσκου που χρησιμοποιείτε, "
 "πατήστε F2 για να ρυθμίσετε επιπλέον συσκευές."
 
 #: ../loader2/hdinstall.c:368
@@ -5974,7 +5964,7 @@ msgstr "Κατάλογος με εικόνες: "
 
 #: ../loader2/hdinstall.c:395
 msgid "Select Partition"
-msgstr "Επιλογή κατάτμησης"
+msgstr "Επιλογή τμήματος δίσκου"
 
 #: ../loader2/hdinstall.c:435
 #, c-format
@@ -6656,7 +6646,7 @@ msgstr "Προσθήκη _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "Προσθήκη στό_χου _iSCSI"
+msgstr "Προσθήκη στό_χου iSCSI"
 
 #
 #: tmp/adddrive.glade.h:3
@@ -6712,11 +6702,11 @@ msgstr "_Επόμενο"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "_Πληροφορίες Έκδοσης"
+msgstr "Σ_ημειώσεις κυκλοφορίας"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "Επι_σκόπηση και τροποποίηση διάταξης κατατμήσεων"
+msgstr "Επισ_κόπηση και τροποποίηση διάταξης κατατμήσεων"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
@@ -6724,7 +6714,7 @@ msgstr "Π_ροχωρημένη ρύθμιση αποθήκευσης"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Επιλέξτε το δίσκο (ή δίσκους) για χρήση σε αυτή την εγκατάσταση."
+msgstr "Επιλέξτε το _δίσκο (ή δίσκους) για χρήση σε αυτήν την εγκατάσταση."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
