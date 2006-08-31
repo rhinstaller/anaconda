@@ -1,3 +1,9 @@
+2006-08-31  Peter Jones  <pjones@redhat.com>
+
+	* yuminstall.py (YumBackend.selectFSPackages): install
+	device-mapper-multipath if we're using multipath, and kpartx if we're
+	using dmraid.
+
 2006-08-30  Chris Lumens  <clumens@redhat.com>
 
 	* iw/task_gui.py:  Add new repos to the installclass's list so they

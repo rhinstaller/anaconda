@@ -896,6 +896,14 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage("iscsi-initiator-utils")
                 break
 
+        if not diskset.__class__.mpList is None:
+            log.info("ensuring device-mapper-multipath is installed")
+            self.selectPackage("device-mapper-multipath")
+        if not diskset.__class__.dmList is None:
+            log.info("ensuring kpartx is installed")
+            self.selectPackage("kpartx")
+
+
     # anaconda requires several programs on the installed system to complete
     # installation, but we have no guarantees that some of these will be
     # installed (they could have been removed in kickstart).  So we'll force
