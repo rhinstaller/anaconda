@@ -1,5 +1,7 @@
 2006-08-31  Peter Jones  <pjones@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* yuminstall.py (YumBackend.selectFSPackages): install
 	device-mapper-multipath if we're using multipath, and kpartx if we're
 	using dmraid.

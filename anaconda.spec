@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.88
+Version: 11.1.0.89
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 31 2006 Peter Jones <pjones@redhat.com> - 11.1.0.89-1
+- Fix going back to the repo screen (clumens)
+- Install correct supplementary packages when using dmraid or multipath
+
 * Wed Aug 30 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.88-1
 - Fix a case where images don't exist (#204648)
 - More making pkgorder quieter
