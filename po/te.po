@@ -1,23 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of te.po to 
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-05-23 17:47-0400\n"
-"Last-Translator: none\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2006-08-30 17:29+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
-msgstr ""
+msgstr "తెలియని దోషం "
 
 #: ../anaconda:261
 #, c-format
@@ -68,7 +69,7 @@ msgstr ""
 #: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
 #: ../loader2/urls.c:345 ../loader2/urls.c:456
 msgid "OK"
-msgstr ""
+msgstr "సరే"
 
 #: ../anaconda:452
 msgid ""
@@ -102,16 +103,16 @@ msgstr ""
 
 #: ../anaconda:877
 msgid "Unknown install method"
-msgstr ""
+msgstr "అజ్ఞాత సంస్థాపనా విధానం"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
+msgstr "మీరు అనకొండ సమర్ధించని సంస్థాపనా విధానాన్ని సూచించారు."
 
 #: ../anaconda:880
 #, c-format
 msgid "unknown install method: %s"
-msgstr ""
+msgstr "అజ్ఞాత సంస్థాపనా విధానం: %s"
 
 #: ../autopart.py:949
 #, python-format
@@ -120,6 +121,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+".\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
 #, python-format
@@ -168,8 +172,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1058
@@ -1448,8 +1451,7 @@ msgid "Confirm Reset"
 msgstr ""
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
 #: ../partitioning.py:68
@@ -1495,8 +1497,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
 #: ../partitions.py:869
@@ -1515,8 +1516,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:947
@@ -1567,8 +1567,7 @@ msgstr ""
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:252
@@ -1805,8 +1804,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:428
@@ -2128,8 +2126,7 @@ msgstr ""
 
 #: ../yuminstall.py:471
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
@@ -3234,14 +3231,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:642
@@ -3720,8 +3715,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -3837,8 +3831,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zfcp_gui.py:24
@@ -3981,8 +3974,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:387
@@ -4100,8 +4092,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr ""
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/grpselect_text.py:130
@@ -4482,8 +4473,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1476
@@ -5122,8 +5112,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:364
@@ -5478,8 +5467,7 @@ msgid "Missing Information"
 msgstr ""
 
 #: ../loader2/net.c:1085
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
 #: ../loader2/net.c:1091
@@ -6099,8 +6087,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6288,8 +6275,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -6731,3 +6717,4 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
