@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-18 13:02+1000\n"
+"PO-Revision-Date: 2006-09-01 10:56+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1297,7 +1297,7 @@ msgstr "登録キーの入力"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr "%s の使用しているバージョンの登録キーを入力してください。"
+msgstr "使用している %s のバージョンの登録キーを入力してください。"
 
 #: ../packages.py:248
 msgid "Key:"
@@ -2741,18 +2741,20 @@ msgstr "データにエラー発生"
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
-"選択したドライブ上のすべてのパーティションを削除してデフォルトのレイアウトを"
-"作成します。"
+"選択したドライブ上のすべてのパーティションを削除してデフォルトの\n"
+"レイアウトを作成します。"
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
-"選択したドライブ上の linux パーティションを削除してデフォルトのレイアウトを作"
-"成します。"
+"選択したドライブ上の linux パーティションを削除してデフォルトの\n"
+"レイアウトを作成します。"
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr "選択したドライブ上の空き領域を使用して、デフォルトレイアウトを作成します。"
+msgstr ""
+"選択したドライブ上の空き領域を使用して、デフォルトレイアウトを\n"
+"作成します。"
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
