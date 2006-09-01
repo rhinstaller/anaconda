@@ -1,3 +1,4 @@
+# translation of pt_BR.po to Brazilian Portuguese
 # translation of pt_BR.po to Portuguese - Brazilian
 # translation of pt_BR.po to
 # Brazilian Portuguese localization of Red Hat Linux
@@ -21,10 +22,10 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-18 12:54+1000\n"
-"PO-Revision-Date: 2006-08-18 12:54+1000\n"
+"PO-Revision-Date: 2006-09-01 15:45+1000\n"
+"PO-Revision-Date: 2006-09-01 15:45+1000\n"
 "Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
-"Language-Team: Portuguese - Brazilian\n"
+"Language-Team: Brazilian Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -236,7 +237,7 @@ msgstr ""
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Dispositivo Raid Solicitado Não Existe"
+msgstr "Dispositivo RAID Solicitado Não Existe"
 
 #: ../autopart.py:1272
 #, python-format
@@ -245,7 +246,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Não foi possível localizar o dispositivo raid %s utilizado para %s.\n"
+"Não foi possível localizar o dispositivo RAID %s utilizado para %s.\n"
 "\n"
 "Pressione 'OK' para reinicializar seu sistema."
 
@@ -509,7 +510,7 @@ msgstr ""
 
 #: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
-msgstr "Dump Foi Salvo"
+msgstr "Despejo Foi Salvo"
 
 #: ../exception.py:391
 msgid ""
@@ -528,7 +529,7 @@ msgstr "_Reinicializar"
 
 #: ../exception.py:399 ../exception.py:416
 msgid "Dump Not Written"
-msgstr "Dump Não Foi Salvo"
+msgstr "Despejo Não Foi Salvo"
 
 #: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
@@ -3610,7 +3611,7 @@ msgstr "_manualmente"
 
 #: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
-msgstr "(ex.: \"nome.dominio.com\")"
+msgstr "(ex.: \"nome.domínio.com\")"
 
 #: ../iw/network_gui.py:568 ../loader2/net.c:1354
 msgid "Hostname"
@@ -3795,9 +3796,7 @@ msgstr "Existem os seguintes erros críticos com o esquema de particionamento re
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Estes erros precisam ser corrigidos antes de continuar com a instalação do %"
-"s."
+msgstr "Estes erros precisam ser corrigidos antes de continuar com a instalação do %s."
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -4281,11 +4280,11 @@ msgstr "Discos"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
-msgstr "As notas da versão não foram encontradas.\n"
+msgstr "As notas de lançamento não foram encontradas.\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
-msgstr "Notas da Versão"
+msgstr "Notas de Lançamento"
 
 #: ../iw/release_notes.py:226
 msgid "Unable to load file!"
@@ -4417,8 +4416,7 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que "
-"um kernels mais antigos, em torno do dobro da memória RAM do sistema.  No "
+"O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que kernels mais antigos, em torno do dobro da memória RAM do sistema.  No "
 "momento você tem %dMB de memória virtual configurado, mas você pode "
 "aumentar o espaço em um dos seus sistemas de arquivos agora."
 
@@ -4455,7 +4453,7 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"É recomendável o que seu arquivo de memória virtual tenha pelo menos %d MB. "
+"Recomendamos que o seu arquivo de memória virtual tenha pelo menos %d MB. "
 "Por favor insira o tamanho do arquivo de memória virtual:"
 
 #: ../iw/upgrade_swap_gui.py:169
@@ -4916,7 +4914,7 @@ msgstr "manualmente"
 
 #: ../textw/network_text.py:368
 msgid "Hostname Configuration"
-msgstr "Configuração do nome da máquina"
+msgstr "Configuração do nome de host"
 
 #: ../textw/network_text.py:371
 msgid ""
@@ -4927,16 +4925,16 @@ msgid ""
 msgstr ""
 "Se o seu sistema faz parte de uma rede grande na qual os nomes das máquinas "
 "são atribuídos pelo DHCP, selecione 'automaticamente via DHCP'. Caso "
-"contrário, selecione 'manualmente' e indique o nome da máquina para seu "
+"contrário, selecione 'manualmente' e indique o nome de host para seu "
 "sistema. Se você não o fizer, seu sistema será conhecido como 'localhost'."
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr "Nome de Máquina Inválido"
+msgstr "Nome de Host Inválido"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
-msgstr "Você não especificou o nome da máquina."
+msgstr "Você não especificou o nome de host."
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
@@ -5108,7 +5106,7 @@ msgstr "Nenhuma partição RAID"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr "São necessárias pelo menos duas partições de software RAID."
+msgstr "São necessárias pelo menos duas partições de RAID por software."
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
@@ -5182,17 +5180,15 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Ajuda     F2-Novo      F3-Editar   F4-Apagar    F5-Restaurar    F12-"
-"OK        "
+msgstr "    F1-Ajuda     F2-Novo      F3-Editar   F4-Apagar    F5-Restaurar    F12-OK        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "Nenhuma Partição Raiz (root)"
+msgstr "Nenhuma Partição Raiz"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr "Deve haver uma partição / para a instalação continuar."
+msgstr "É necessária uma partição / para a instalação continuar."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
@@ -5372,7 +5368,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "Senha do Administrador (root)"
+msgstr "Senha do Root (Administrador)"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5380,13 +5376,13 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Escolha uma senha para o administrador. Você deverá digitá-la duas vezes "
-"para garantir que não há erros. Lembre-se que a senha do administrador é uma "
+"Escolha uma senha para o root. Você deverá digitá-la duas vezes "
+"para garantir que não há erros. Lembre-se que a senha do root, por ser a senha do administrador,  é uma "
 "parte crítica da segurança do seu sistema!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "A senha do administrador deve ter pelo menos 6 caracteres."
+msgstr "A senha do root deve ter pelo menos 6 caracteres."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5408,7 +5404,7 @@ msgstr "Dispositivo FCP"
 
 #: ../textw/zfcp_text.py:101
 msgid "Device #"
-msgstr "Número do dispositivo"
+msgstr "Dispositivo #"
 
 #: ../textw/zfcp_text.py:107
 msgid "Add"
@@ -5505,7 +5501,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr "Chave de Registro necessária"
+msgstr "Chave de Registro Necessária"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5542,7 +5538,7 @@ msgid ""
 "development and system administration. "
 msgstr ""
 "Esta opção instala um ambiente de trabalho gráfico com ferramentas para o "
-"desenvolvimento de softwares e administração do sistema. "
+"desenvolvimento de software e administração do sistema. "
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -5569,7 +5565,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr "Verificação da mídia"
+msgstr "Verificação da Mídia"
 
 #: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
 #: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
@@ -5782,7 +5778,7 @@ msgstr "Nenhum driver encontrado"
 
 #: ../loader2/driverselect.c:180
 msgid "Load driver disk"
-msgstr "Carregar Disco de Drivers"
+msgstr "Carregar disco de drivers"
 
 #: ../loader2/driverselect.c:181
 msgid ""
@@ -5806,7 +5802,7 @@ msgstr "Especifique os parâmetros opcionais do módulo"
 
 #: ../loader2/driverselect.c:227
 msgid "Select Device Driver to Load"
-msgstr "Selecione o driver do dispositivo a carregar"
+msgstr "Selecione o Driver do Dispositivo a Carregar"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
@@ -5861,7 +5857,7 @@ msgstr "Selecione a Partição"
 #: ../loader2/hdinstall.c:435
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Dispositivo %s não parece conter as imagens dos CDROMs do %s."
+msgstr "Dispositivo %s não parece conter as imagens dos CD-ROMs do %s."
 
 #: ../loader2/hdinstall.c:470
 #, c-format
@@ -6193,8 +6189,8 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 "%s é um adaptador de rede sem fio. Por favor , defina o ESSID e a chave "
-"decriptografia necessária para acessar a sua rede sem fio. Se nenhuma chave "
-"é necessária , deixe este campo em branco e a instalação irá continuar."
+"de criptografia necessária para acessar a sua rede sem fio. Se nenhuma chave "
+"é necessária, deixe este campo em branco e a instalação irá continuar."
 
 #: ../loader2/net.c:241
 msgid "Wireless Settings"
@@ -6239,7 +6235,7 @@ msgstr "Enviando pedido para informações IP para %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
 msgid "Network Error"
-msgstr "Erro de rede"
+msgstr "Erro de Rede"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
 msgid "There was an error configuring your network interface."
@@ -6259,7 +6255,7 @@ msgstr "Habilitar suporte para IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr "Evitar colisões indesejadas de pacotes"
+msgstr "Evitar colisões de pacotes indesejadas"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
@@ -6366,12 +6362,12 @@ msgstr "Configuração do NFS"
 
 #: ../loader2/nfsinstall.c:131
 msgid "Hostname specified with no DNS configured"
-msgstr "Nome da máquina especificado sem DNS configurado"
+msgstr "Nome de host especificado sem DNS configurado"
 
 #: ../loader2/nfsinstall.c:208
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Esse diretório não parece conter uma árvore de instalação %s."
+msgstr "Esse diretório não parece conter uma árvore de instalação do %s."
 
 #: ../loader2/nfsinstall.c:221
 msgid "That directory could not be mounted from the server."
@@ -6414,16 +6410,16 @@ msgstr "Mídia de instalação local detectada..."
 #: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Argumento inválido para o comando do método kickstart da URL %s: %s"
+msgstr "Argumento inválido para o comando do método kickstart URL %s: %s"
 
 #: ../loader2/urlinstall.c:486
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Deve indicar um parâmetro --url ao método kickstart da Url."
+msgstr "Deve indicar um parâmetro --url ao método kickstart URL."
 
 #: ../loader2/urlinstall.c:497
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Método %s da Url desconhecido"
+msgstr "Método URL desconhecido %s"
 
 #: ../loader2/urls.c:182
 #, c-format
@@ -6477,12 +6473,12 @@ msgstr "Você deve inserir um diretório."
 
 #: ../loader2/urls.c:345
 msgid "Unknown Host"
-msgstr "Servidor desconhecido"
+msgstr "Host Desconhecido"
 
 #: ../loader2/urls.c:346
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s não é um nome de máquina válido."
+msgstr "%s não é um nome de host válido."
 
 #: ../loader2/urls.c:416
 msgid ""
@@ -6573,7 +6569,7 @@ msgstr "_Próximo"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "Notas da _Versão"
+msgstr "Notas de Lançamento"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6669,7 +6665,7 @@ msgstr "Utilizar configuração de IP _dinâmico (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Personalizar _depois"
+msgstr "Persona_lizar depois"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6678,7 +6674,7 @@ msgid ""
 msgstr ""
 "As personalizações adicionais da seleção de programas pode ser concluída "
 "agora ou após a instalação através da aplicação de gerenciamento de "
-"softwares."
+"software."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6725,7 +6721,7 @@ msgstr "Hora do Alasca - Alasca Oeste"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr "Ilhas Aleutian"
+msgstr "Ilhas Aleutas"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
@@ -6749,7 +6745,7 @@ msgstr "Hora do Atlântico - Labrador Leste"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr "Hora do Atlântico - New Brunswick"
+msgstr "Hora do Atlântico - Nova Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
