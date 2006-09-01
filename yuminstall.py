@@ -900,8 +900,8 @@ class YumBackend(AnacondaBackend):
             log.info("ensuring device-mapper-multipath is installed")
             self.selectPackage("device-mapper-multipath")
         if not diskset.__class__.dmList is None:
-            log.info("ensuring kpartx is installed")
-            self.selectPackage("kpartx")
+            log.info("ensuring dmraid is installed")
+            self.selectPackage("dmraid")
 
 
     # anaconda requires several programs on the installed system to complete
