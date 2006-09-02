@@ -173,7 +173,7 @@ msgid ""
 msgstr ""
 "Το τμήμα δίσκου Boot %s δεν ανήκει σε ετικέτα δίσκου BSD. Το SRM δεν θα "
 "μπορέσει να εκκινήσει από αυτό το τμήμα δίσκου. Χρησιμοποιήστε ένα τμήμα "
-"δίσκου που ανήκει σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτή τη ετικέτα δίσκου "
+"δίσκου που ανήκει σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτή την ετικέτα δίσκου "
 "σε BSD."
 
 #: ../autopart.py:1021
@@ -1227,7 +1227,7 @@ msgstr ""
 "Η εγκατάσταση προσπάθησε να προσαρτήσει την εικόνα #%s, αλλά δεν τη βρήκε "
 "στον εξυπηρετητή.\n"
 "\n"
-"Παρακαλώ αντιγράψτε την εικόνα στη κοινόχρηστη διαδρομή του απομακρυσμένου "
+"Παρακαλώ αντιγράψτε την εικόνα στην κοινόχρηστη διαδρομή του απομακρυσμένου "
 "εξυπηρετητή και πατήστε προσπάθεια ξανά. Πατήστε Επανεκκίνηση για να "
 "τερματίσετε την εγκατάσταση."
 
@@ -2097,7 +2097,7 @@ msgstr ""
 "κάνετε ό,τι αλλαγές χρειάζονται στο σύστημα σας. Αν επιθυμείτε να συνεχίσετε "
 "με αυτό το βήμα επιλέξτε 'Συνέχεια'. Μπορείτε επίσης να επιλέξετε να γίνουν "
 "mount τα συστήματα αρχείων ως ανάγνωση-μόνο (read-only) αντί ανάγνωση-και-"
-"εγγραφή (read-write)επιλέγοντας 'Ανάγνωση-Μόνο'.\n"
+"εγγραφή (read-write)επιλέγοντας 'Ανάγνωση-μόνο'.\n"
 "\n"
 "Αν για κάποιο λόγο αυτή η διαδικασία αποτύχει μπορείτε να επιλέξετε "
 "'Παράβλεψη' και αυτό το βήμα θα παραβλεφθεί και θα οδηγηθείτε κατ' ευθείαν "
@@ -2689,7 +2689,7 @@ msgstr "Μετά την αναβάθμιση"
 
 #: ../yuminstall.py:1111
 msgid "Performing post upgrade configuration..."
-msgstr "Γίνονται ρυθμίσεις μετά τη εγκατάσταση..."
+msgstr "Γίνονται ρυθμίσεις μετά την εγκατάσταση..."
 
 #: ../yuminstall.py:1113
 msgid "Post Install"
@@ -2697,7 +2697,7 @@ msgstr "Μετά την εγκατάσταση"
 
 #: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
-msgstr "Γίνονται ρυθμίσεις μετά τη εγκατάσταση..."
+msgstr "Γίνονται ρυθμίσεις μετά την εγκατάσταση..."
 
 #: ../yuminstall.py:1264
 msgid "Installation Progress"
@@ -3202,7 +3202,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Αυτή η αλλαγή στη τιμή της φυσικής έκτασης θα οδηγήσει στην απώλεια αρκετού "
+"Αυτή η αλλαγή στην τιμή της φυσικής έκτασης θα οδηγήσει στην απώλεια αρκετού "
 "χώρου σε ένα ή περισσότερους φυσικούς τόμους στην ομάδα τόμων."
 
 #: ../iw/lvm_dialog_gui.py:214
@@ -3264,7 +3264,7 @@ msgstr "Αρχική ετικέτα συστήματος αρχείων:"
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
-msgstr "Όνομα _Λογικού Τόμου:"
+msgstr "Όνομα _λογικού τόμου:"
 
 #: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
@@ -3382,7 +3382,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Είστε βέβαιος πως θέλετε να Διαγράψετε το λογικό τόμο \"%s\";"
+msgstr "Είστε βέβαιοι πως θέλετε να διαγράψετε το λογικό τόμο \"%s\";"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
@@ -3410,14 +3410,14 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 "Τουλάχιστον ένα αχρησιμοποίητο τμήμα δίσκου φυσικού τόμου απαιτείται για τη "
-"δημιουργία μιας Ομάδας Τόμων LVM.\n"
+"δημιουργία μιας ομάδας τόμων LVM.\n"
 "\n"
 "Δημιουργήστε ένα τμήμα δίσκου ή συστοιχία RAID τύπου \"φυσικός τόμος (LVM)\" "
 "και διαλέξτε την επιλογή \"LVM\" ξανά."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
-msgstr "Δημιουργία Ομάδας Τόμων LVM"
+msgstr "Δημιουργία ομάδας τόμων LVM"
 
 #: ../iw/lvm_dialog_gui.py:967
 #, python-format
@@ -3426,7 +3426,7 @@ msgstr "Μορφοποίηση ομάδας τόμων: %s"
 
 #: ../iw/lvm_dialog_gui.py:969
 msgid "Edit LVM Volume Group"
-msgstr "Μορφοποίηση Ομάδας Τόμων"
+msgstr "Μορφοποίηση ομάδας τόμων"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
@@ -3434,7 +3434,7 @@ msgstr "Όνομα _ομάδας τόμων"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
-msgstr "Όνομα Ομάδας Τόμων"
+msgstr "Όνομα ομάδας τόμων"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
@@ -3442,11 +3442,11 @@ msgstr "Φυσικό _μήκος"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
-msgstr "Φυσικοί Τόμοι που θα _χρησιμοποιηθούν:"
+msgstr "Φυσικοί τόμοι που θα _χρησιμοποιηθούν:"
 
 #: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
-msgstr "Χρησιμοποιημένος Χώρος"
+msgstr "Χρησιμοποιημένος χώρος"
 
 #: ../iw/lvm_dialog_gui.py:1039
 msgid "Free Space:"
@@ -3560,7 +3560,7 @@ msgstr "Ρύθμιση δικτύου"
 #: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
 #: ../textw/zfcp_text.py:62
 msgid "Error With Data"
-msgstr "Σφάλμα με τα Δεδομένα"
+msgstr "Σφάλμα με τα δεδομένα"
 
 #: ../iw/network_gui.py:164
 msgid ""
@@ -3758,7 +3758,7 @@ msgstr "Η ετικέτα boot περιέχει μη έγκυρους χαρακ
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "Διπλότυπη Ετικέτα"
+msgstr "Διπλότυπη ετικέτα"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
@@ -3908,7 +3908,7 @@ msgstr "Προειδοποιήσεις κατάτμησης"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
-msgstr "Προειδοποιήσεις Μορφοποίησης"
+msgstr "Προειδοποιήσεις μορφοποίησης"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
@@ -3916,7 +3916,7 @@ msgstr "Μορ_φοποίηση"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
-msgstr "Ομάδες Τόμων LVM"
+msgstr "Ομάδες τόμων LVM"
 
 #: ../iw/partition_gui.py:752
 msgid "RAID Devices"
@@ -3965,7 +3965,7 @@ msgstr "Δεν υποστηρίζεται"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr "Το LVM ΔΕΝ υποστηρίζεται σε αυτή τη πλατφόρμα."
+msgstr "Το LVM ΔΕΝ υποστηρίζεται σε αυτή την πλατφόρμα."
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
@@ -4120,7 +4120,7 @@ msgstr "Α_υτόματη κατάτμηση"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "Χειροκίνητη κατάτμηση με τον _Βοηθό Δίσκου"
+msgstr "Χειροκίνητη κατάτμηση με το _Βοηθό δίσκου"
 
 #: ../iw/progress_gui.py:43
 #, python-format
@@ -4234,7 +4234,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr "Σφάλμα Πηγαίου Δίσκου"
+msgstr "Σφάλμα πηγαίου δίσκου"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -4335,7 +4335,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
-msgstr "Τελευταία Προειδοποίηση"
+msgstr "Τελευταία προειδοποίηση"
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
@@ -4379,7 +4379,7 @@ msgstr "Πηγαίος δίσκος:"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr "Δίσκος(οι) Προορισμού:"
+msgstr "Δίσκος(οι) προορισμού:"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
@@ -4391,7 +4391,7 @@ msgstr "Οι σημειώσεις κυκλοφορίας λείπουν.\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
-msgstr "Σημειώσεις Έκδοσης"
+msgstr "Σημειώσεις κυκλοφορίας"
 
 #: ../iw/release_notes.py:226
 msgid "Unable to load file!"
@@ -4554,7 +4554,7 @@ msgstr "Τμήμα δίσκου"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
-msgstr "Ελεύθερος Χώρος (MB)"
+msgstr "Ελεύθερος χώρος (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
@@ -4663,7 +4663,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr "Παράμετροι Πυρήνα"
+msgstr "Παράμετροι πυρήνα"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
@@ -4784,7 +4784,7 @@ msgstr "Χρήση ενός κωδικού GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Κωδικός Πρόσβασης Boot Loader:"
+msgstr "Κωδικός πρόσβασης Boot Loader:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
@@ -4914,7 +4914,7 @@ msgstr "Λεπτομέρειες ομάδας πακέτων"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr "Επιλογή Πληκτρολογίου"
+msgstr "Επιλογή πληκτρολογίου"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
@@ -4934,7 +4934,7 @@ msgstr "Εξομοίωση 3ου κουμπιού;"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr "Επιλογή Ποντικιού"
+msgstr "Επιλογή ποντικιού"
 
 #: ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4969,7 +4969,7 @@ msgstr "Κλειδί κρυπτογράφησης"
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr "Συσκευή Δικτύου: %s"
+msgstr "Συσκευή δικτύου: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
@@ -4979,7 +4979,7 @@ msgstr "Περιγραφή %s"
 #: ../textw/network_text.py:102
 #, python-format
 msgid "Hardware Address: %s"
-msgstr "Διεύθυνση Υλικού: %s"
+msgstr "Διεύθυνση υλικού: %s"
 
 #: ../textw/network_text.py:107
 msgid "Configure using DHCP"
@@ -4992,7 +4992,7 @@ msgstr "Ενεργοποίηση κατά την εκκίνηση"
 #: ../textw/network_text.py:146
 #, python-format
 msgid "Network Configuration for %s"
-msgstr "Ρύθμιση Δικτύου για %s"
+msgstr "Ρύθμιση δικτύου για %s"
 
 #: ../textw/network_text.py:179
 msgid "Invalid information"
@@ -5048,7 +5048,7 @@ msgstr ""
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr "Μη έγκυρο Όνομα Συστήματος"
+msgstr "Μη έγκυρο όνομα συστήματος"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
@@ -5092,7 +5092,7 @@ msgstr "Σημείο προσάρτησης:"
 
 #: ../textw/partition_text.py:322
 msgid "File System type:"
-msgstr "Τύπος Συστήματος Αρχείων:"
+msgstr "Τύπος συστήματος αρχείων:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
@@ -5100,7 +5100,7 @@ msgstr "Διαθέσιμοι δίσκοι:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr "Σταθερό Μέγεθος:"
+msgstr "Σταθερό μέγεθος:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
@@ -5112,11 +5112,11 @@ msgstr "Γέμισμα όλου του διαθέσιμου χώρου:"
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
-msgstr "Αρχικός Κύλινδρος"
+msgstr "Αρχικός κύλινδρος"
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr "Τελικός Κύλινδρος:"
+msgstr "Τελικός κύλινδρος:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
@@ -5136,7 +5136,7 @@ msgstr "Αριθμός εφεδρικών;"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
-msgstr "Τύπος Συστήματος Αρχείων:"
+msgstr "Τύπος συστήματος αρχείων:"
 
 #
 #: ../textw/partition_text.py:563
@@ -5145,7 +5145,7 @@ msgstr "Ετικέτα συστήματος αρχείων:"
 
 #: ../textw/partition_text.py:574
 msgid "File System Option:"
-msgstr "Επιλογή Συστήματος Αρχείων:"
+msgstr "Επιλογή συστήματος αρχείων:"
 
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
@@ -5200,7 +5200,7 @@ msgstr "Επιλογή ως πρωταρχικό τμήμα δίσκου"
 
 #: ../textw/partition_text.py:770
 msgid "Not Supported"
-msgstr "Δεν Υποστηρίζεται"
+msgstr "Δεν υποστηρίζεται"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
@@ -5363,7 +5363,7 @@ msgstr "Λήψη - %s"
 
 #: ../textw/progress_text.py:103
 msgid "Package Installation"
-msgstr "Εγκατάσταση Πακέτου"
+msgstr "Εγκατάσταση πακέτου"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
@@ -5457,7 +5457,7 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr "Ελεύθερος Χώρος"
+msgstr "Ελεύθερος χώρος"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
@@ -5482,7 +5482,7 @@ msgstr "Η τιμή που εισαγάγατε δεν είναι έγκυρη."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
-msgstr "Επανεγκατάσταση Συστήματος"
+msgstr "Επανεγκατάσταση συστήματος"
 
 #: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
@@ -5602,7 +5602,7 @@ msgstr "Web server"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "_Προσωπικός Υπολογιστής"
+msgstr "_Προσωπικός υπολογιστής"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5836,7 +5836,7 @@ msgstr "Εισάγετε το δίσκο οδηγών στο /dev/%s και πα
 
 #: ../loader2/driverdisk.c:389
 msgid "Insert Driver Disk"
-msgstr "Εισαγωγή Δίσκου Οδηγού"
+msgstr "Εισαγωγή δίσκου οδηγού"
 
 # gconf/gconf-internals.c:2416
 #: ../loader2/driverdisk.c:404
@@ -6019,7 +6019,7 @@ msgstr "Αδυναμία εύρεσης σκληρού δίσκου για BIOS 
 
 #: ../loader2/kbd.c:129
 msgid "Keyboard Type"
-msgstr "Τύπος Πληκτρολογίου"
+msgstr "Τύπος πληκτρολογίου"
 
 #: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
@@ -6064,7 +6064,7 @@ msgstr "  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
-msgstr "Επιλέξτε μία Γλώσσα"
+msgstr "Επιλέξτε μία γλώσσα"
 
 #: ../loader2/loader.c:117
 msgid "Local CDROM"
@@ -6136,7 +6136,7 @@ msgstr "Μέθοδος Rescue"
 
 #: ../loader2/loader.c:936
 msgid "Installation Method"
-msgstr "Μέθοδος Εγκατάστασης"
+msgstr "Μέθοδος εγκατάστασης"
 
 #: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
@@ -6189,7 +6189,7 @@ msgstr "Έγινε"
 
 #: ../loader2/loader.c:1132
 msgid "Add Device"
-msgstr "Προσθήκη Συσκευής"
+msgstr "Προσθήκη συσκευής"
 
 #: ../loader2/loader.c:1332
 #, c-format
@@ -6307,7 +6307,7 @@ msgstr ""
 
 #: ../loader2/method.c:420
 msgid "Checksum Test"
-msgstr "Έλεγχος Αθροίσματος·Ελέγχου"
+msgstr "Έλεγχος αθροίσματος ελέγχου"
 
 #: ../loader2/modules.c:961
 #, c-format
@@ -6355,7 +6355,7 @@ msgstr ""
 
 #: ../loader2/net.c:241
 msgid "Wireless Settings"
-msgstr "Ασύρματες Ρυθμίσεις"
+msgstr "Ασύρματες ρυθμίσεις"
 
 #: ../loader2/net.c:272
 msgid "Nameserver IP"
@@ -6466,7 +6466,7 @@ msgstr "Μη αυτόματη ρύθμιση TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
-msgstr "Ελλιπείς Πληροφορίες"
+msgstr "Ελλειπείς πληροφορίες"
 
 #: ../loader2/net.c:1085
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
@@ -6494,7 +6494,7 @@ msgstr "Καθορίστηκε εσφαλμένη bootproto %s στην εντο
 
 #: ../loader2/net.c:1639
 msgid "Networking Device"
-msgstr "Συσκευή Δικτύου"
+msgstr "Συσκευή δικτύου"
 
 #: ../loader2/net.c:1640
 msgid ""
@@ -6759,7 +6759,7 @@ msgstr "Επιλέξτε το _δίσκο (ή δίσκους) για χρήση 
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
-msgstr "Πληροφορίες Εξαίρεσης"
+msgstr "Πληροφορίες εξαίρεσης"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
