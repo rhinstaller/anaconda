@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-25 15:08+0100\n"
+"PO-Revision-Date: 2006-09-04 12:24+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,6 @@ msgstr "Nenašiel som video hardvér, predpokladám bezhlavý"
 
 #: ../anaconda:487
 #: ../anaconda:910
-#, fuzzy
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nemožno inštancovať objekt stavu hardvéru X."
 
@@ -163,9 +162,8 @@ msgid "Unknown install method"
 msgstr "Neznáma metóda inštalácie"
 
 #: ../anaconda:878
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Pokúšate sa inštalovať na počítačí, ktorý nie je podporovaný týmto vydaním %s."
+msgstr "Špecifikovali ste inštalačnú metódu, ktorá nie je podporovaná anacondou."
 
 #: ../anaconda:880
 #, c-format
@@ -173,28 +171,37 @@ msgid "unknown install method: %s"
 msgstr "neznáma inštalačná metóda: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Nepodarilo sa vytvoriť oblasti podľa valcov ako primárne oblasti"
+msgstr ""
+"Nemožno alokovať oddiely založené na cylindroch ako primárne oddiely.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Nepodarilo sa vytvoriť oblasti ako primárne oblasti"
+msgstr ""
+"Nemožno alokovať oddiely ako primárne oddiely.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Nepodarilo sa vytvoriť oblasti podľa valcov"
+msgstr ""
+"Nemožno alokovať oddiely založené na cylindroch.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -354,6 +361,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Stlačte 'Ok' pre výber inej voľby rozdelenia oddielov."
 
 #: ../autopart.py:1503
 #, python-format
@@ -494,9 +504,9 @@ msgid "Installing %s-%s-%s... "
 msgstr "Inštalácia %s-%s-%s... "
 
 #: ../constants.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report against anaconda at %s"
-msgstr "Vyskytla sa neobslúžená výnimka. Toto je väčšinou chyba. Prosím skopírujte celý text tejto výnimky a vyplňte podrobnú správu o chybe pre program anaconda na http://bugzilla.redhat.com/bugzilla/"
+msgstr "Vyskytla sa neobslúžená výnimka.  Toto je väčšinou chyba.  Prosím skopírujte celý text tejto výnimky a vyplňte správu o chybe pre program anaconda na %s"
 
 #: ../exception.py:390
 #: ../exception.py:407
@@ -504,7 +514,6 @@ msgid "Dump Written"
 msgstr "Výpis zapísaný"
 
 #: ../exception.py:391
-#, fuzzy
 msgid "Your system's state has been successfully written to the floppy. Your system will now be rebooted."
 msgstr "Stav vášho systému bol úspešne zapísaný na disketu. Váš systém bude teraz reštartovaný."
 
@@ -535,9 +544,8 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Nastal problém so zápisom stavu systému na disketu."
 
 #: ../exception.py:408
-#, fuzzy
 msgid "Your system's state has been successfully written to the remote host.  Your system will now be rebooted."
-msgstr "Stav vášho systému bol úspešne zapísaný na disketu. Váš systém bude teraz reštartovaný."
+msgstr "Stav vášho systému bol úspešne zapísaný na vzdialený počítač. Váš systém bude teraz reštartovaný."
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
@@ -740,7 +748,7 @@ msgid "Format"
 msgstr "Formátovať"
 
 #: ../fsset.py:1515
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -748,9 +756,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Chyba pri pripájaní zariadenia %s ako %s: %s\n"
+"Chyba pri pripájaní odkladacieho zariadenia %s: %s\n"
 "\n"
-"Toto väčšinou znamená, že tento oddiel nebol naformátovaný.\n"
+"Súbor /etc/fstab na aktualizovanom oddiely neodkazuje na korektný odkladací oddiel.\n"
 "\n"
 "Stlačte Ok pre reštart vášho systému."
 
@@ -874,7 +882,6 @@ msgstr ""
 "Stlačte Ok pre reštart vášho systému."
 
 #: ../fsset.py:1765
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -882,9 +889,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Chyba pri pripájaní zariadenia %s ako %s: %s\n"
+"Chyba pri hľadaní položky /.\n"
 "\n"
-"Toto väčšinou znamená, že tento oddiel nebol naformátovaný.\n"
+"Toto väčšinou znamená, že váš fstab je nesprávny.\n"
 "\n"
 "Stlačte Ok pre reštart vášho systému."
 
@@ -1102,16 +1109,17 @@ msgstr "Okno inštalácie"
 #: ../harddrive.py:41
 #: ../image.py:143
 #: ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation images and that you have all the required media.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Balík %s-%s-%s nemohol byť otvorený. To je buď kvôli chýbajúcemu súboru, alebo poškodenému balíku. Ak inštalujete z CD média, väčšinou to znamená, že CD médium je poškodené, alebo jednotka CD nemôže médium prečítať.\n"
+"Súbor %s nemohol byť otvorený.  To mohlo byť spôsobené chýbajúcim súborom alebo možno poškodeným balíkom.  Prosím prekontrolujte si svoje inštalačné médiá ako aj to, či máte všetky vyžadované médiá.\n"
 "\n"
-"Stlačte <return> a skúste znova."
+"Ak teraz reštartujete, váš systém ostane v nekonzistnom stave, čo bude zrejme vyžadovať reinštaláciu.\n"
+"\n"
 
 #: ../harddrive.py:68
 #: ../image.py:503
@@ -1119,15 +1127,15 @@ msgid "Missing ISO 9660 Image"
 msgstr "Chýbajúci ISO 9660 obraz"
 
 #: ../harddrive.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard drive.\n"
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort the installation."
 msgstr ""
-"Inštalátor sa pokúsil pripojiť obraz #%s, ale nemohol ho nájsť na servri.\n"
+"Inštalátor sa pokúsil pripojiť obraz #%s, ale nemohol ho nájsť na disku.\n"
 "\n"
-"Prosím, skopírujte tento obraz zdieľaný adresár vzdialeného servra a stlačte Opakovať. Stlačte Reštart pre zrušenie inštalácie."
+"Prosím, skopírujte tento obraz na disk a stlačte Opakovať. Stlačte Reštart pre zrušenie inštalácie."
 
 #: ../harddrive.py:78
 #: ../image.py:514
@@ -1201,16 +1209,17 @@ msgid "Unable to access the CDROM."
 msgstr "Nepodaril sa prístup k CDROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation tree contains all required packages.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Balík %s-%s-%s nemohol byť otvorený. To je buď kvôli chýbajúcemu súboru, alebo poškodenému balíku. Ak inštalujete z CD média, väčšinou to znamená, že CD médium je poškodené, alebo jednotka CD nemôže médium prečítať.\n"
+"Súbor %s nemôže byť otvorený.  Toto mohlo byť spôsobené chýbajúcim súborom alebo možno poškodeným balíkom.  Prosím, skontrolujte, či váš inštalačný strom obsahuje všetky vyžadované balíky.\n"
 "\n"
-"Stlačte <return> a skúste znova."
+"Ak teraz reštartujete, váš systém zostane v nekonzistnom stave, čo bude zrejme vyžadovať reinštaláciu.\n"
+"\n"
 
 #: ../image.py:504
 #, python-format
@@ -1237,13 +1246,13 @@ msgid "Scriptlet Failure"
 msgstr "Chyba skriptu"
 
 #: ../kickstart.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Vyskytla sa chyba pri inštalácii %s. To môže indikovať zlyhanie média, nedostatok miesta na disku a/alebo hardvérové problémy. Toto je závažná chyba a vaša inštalácia bude prerušená. Prosím, skontrolujte vaše médium a skúste vašu inštaláciu opäť.\n"
+"Vyskytla sa chyba pri behu skriptu.  Môžete preveriť výstup v %s.  Toto je fatálna chyba a vaša inštalácia bude prerušená..\n"
 "\n"
 "Stlačte tlačidlo Ok pre reštart vášho systému."
 
@@ -1279,7 +1288,7 @@ msgid "Missing Group"
 msgstr "Chýbajúca skupina"
 
 #: ../kickstart.py:1009
-#, fuzzy, python-format
+#, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort your installation?"
 msgstr "Zadali ste, že skupina '%s' má byť nainštalovaná. Táto skupina neexituje. Chcete pokračovať, alebo ukončiť inštaláciu?"
 
@@ -1319,7 +1328,7 @@ msgstr ""
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Kľúč:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -2160,16 +2169,17 @@ msgid "Connecting..."
 msgstr "Pripájanie..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your mirror contains all required packages, and try using a different one.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Balík %s-%s-%s nemohol byť otvorený. To je buď kvôli chýbajúcemu súboru, alebo poškodenému balíku. Ak inštalujete z CD média, väčšinou to znamená, že CD médium je poškodené, alebo jednotka CD nemôže médium prečítať.\n"
+"Súbor %s nemohol byť otvorený.  To je buď kvôli chýbajúcemu súboru, alebo možno poškodenému balíku.  Prosím, skontrolujte, že váš zrkadlový server obsahuje všetky vyžadované balíky a skúste použiť iný.\n"
 "\n"
-"Stlačte <return> a skúste znova."
+"Ak teraz reštartujete, váš systém zostane v nekonzistnom stave, čo bude zrejme vyžadovať reinštaláciu.\n"
+"\n"
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
@@ -2330,9 +2340,8 @@ msgid "Processing"
 msgstr "Spracovanie"
 
 #: ../yuminstall.py:104
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Príprava inštalácie..."
+msgstr "Pripravujem transakciu z inštalačného zdroja..."
 
 #: ../yuminstall.py:431
 #: ../yuminstall.py:432
@@ -2380,12 +2389,9 @@ msgid "Error running transaction"
 msgstr "Chyba spustenia transakcie"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Meno hostiteľa \"%s\" nie je platné z nasledujúceho dôvodu:\n"
-"\n"
-"%s"
+msgstr "Nastala chyba pri behu vašej transakcie z nasledujúceho dôvodu: %s"
 
 #: ../yuminstall.py:475
 #: ../yuminstall.py:570
@@ -2403,9 +2409,9 @@ msgid "Retrieving installation information for %s..."
 msgstr "Získavam inštalačné informácie pre %s..."
 
 #: ../yuminstall.py:656
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.  %s"
-msgstr "Nepodarilo sa načítať zoznam hlavičiek. To môže byť spôsobené chýbajúcim súborom alebo zlým médiom. Stlačte <enter> pre nový pokus."
+msgstr "Nemôžem čítať metadáta balíkov. Toto môže byť spôsobené chýbajúcim adresárom repodata.  Prosím zaistite, že váš inštalačný strom bol správne vytvorený.  %s"
 
 #: ../yuminstall.py:691
 msgid "Uncategorized"
@@ -2417,9 +2423,9 @@ msgid "Your selected packages require %d MB of free space for installation, but 
 msgstr "Zvolené balíky vyžadujú %d MB voľného priestoru pre inštaláciu, ale nemáte ho dostatok k dispozícii.  Môžete zmeniť váš výber alebo reštartovať."
 
 #: ../yuminstall.py:1061
-#, fuzzy, python-format
+#, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr "Architektúra vydania %s, na ktorú aktualizujete, vyzerá %s, ktorá sa nezhoduje s vašou predchádzajúcou nainštalovanou architektúrou %s. To pravdepodobne nebude úspešné. Ste si istý, že chcete pokračovať v procese aktualizácie?"
+msgstr "Vyzerá, že aktualizujete zo systému, ktorý je príliš starý na aktualizáciu na túto verziu %s.  Ste si istý, že si želáte pokračovať v procese aktualizácie?"
 
 #: ../yuminstall.py:1093
 msgid "Install Starting"
@@ -3274,12 +3280,8 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP informácie, ktoré ste zadali, nie sú platné."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"Nemáte aktívne sieťové zariadenia. Váš systém nebude štandardne schopný komunikovať cez sieť bez aspoň jedného aktívneho zariadenia.\n"
-"\n"
-"POZNÁMKA: Ak máte sieťový adaptér PCMCIA, nechajte ho teraz neaktívny. Keď reštartujete váš systém, adaptér bude automaticky aktivovaný."
+msgstr "Nemáte aktívne sieťové zariadenia.  Váš systém štandardne nebude schopný komunikovať cez sieť bez aspoň jedného aktívneho zariadenia."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3672,7 +3674,7 @@ msgstr "Klonovať _disk pre vytvorenie zariadenia RAID [štandardne=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "Nemožno vytvoriť editor Drive Clone"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
@@ -3696,7 +3698,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "Skryť členov zariadení RAID/skupín _zväzkov LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:92
 #: ../iw/partition_ui_helpers_gui.py:113
@@ -4300,12 +4302,11 @@ msgid "<Enter> to exit"
 msgstr "<Enter> pre ukončenie"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Vyberte inštalačné médiá (diskety alebo CD-ROMy) použité počas inštalačného procesu a stlačte <Enter>, aby ste váš systém reštartovali.\n"
+"Vyberte akékoľvek médium použité počas inštalačného procesu a stlačte <Enter> pre reštart vášho systému.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -5057,7 +5058,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "Vyžadovaný registračný kľúč"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5324,9 +5325,9 @@ msgid "You don't seem to have any hard drives on your system! Would you like to 
 msgstr "Zdá sa, že na vašom systéme nemáte žiadne pevné disky! Želáte si nakonfigurovať prídavné zariadenia?"
 
 #: ../loader2/hdinstall.c:346
-#, fuzzy, c-format
+#, c-format
 msgid "What partition and directory on that partition hold the CD (iso9660) images for %s? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Zdá sa, že na vašom systéme nemáte žiadne pevné disky! Želáte si nakonfigurovať prídavné zariadenia?"
+msgstr "Ktorý oddiel alebo adresár na tomto oddiele obsahuje CD (iso9960) obrazy pre %s? Ak tu nevidíte diskové zariadenie, ktoré práve používate, stlačte F2 pre konfiguráciu ďalších zariadení."
 
 #: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
@@ -5517,7 +5518,7 @@ msgstr ""
 #: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "Spúšťam anacondu, inštalátor systému %s - prosím čakajte...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
@@ -5581,6 +5582,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Test média %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:156
 #: ../loader2/method.c:374
@@ -5677,7 +5681,7 @@ msgstr "Sieťová chyba"
 #: ../loader2/net.c:539
 #: ../loader2/net.c:640
 msgid "There was an error configuring your network interface."
-msgstr ""
+msgstr "Nastala chyba pri konfigurácii sieťového rozhrania."
 
 #: ../loader2/net.c:675
 msgid "Use dynamic IP configuration (DHCP)"
@@ -5724,7 +5728,7 @@ msgstr "IPv4 adresa:"
 #: ../loader2/net.c:888
 #: tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
 msgid "IPv6 address:"
@@ -6848,7 +6852,6 @@ msgid "Gujarati"
 msgstr "Gujarati"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
 msgstr "Hindi"
 
