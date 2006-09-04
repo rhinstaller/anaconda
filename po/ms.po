@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-24 23:36+0800\n"
+"PO-Revision-Date: 2006-08-31 22:36+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -465,11 +465,11 @@ msgstr "Memasang %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
-msgstr "PemuatBoot"
+msgstr "Pemuatboot"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr "Memasang PemuatBoot..."
+msgstr "Memasang pemuatboot..."
 
 #: ../bootloader.py:195
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
@@ -650,11 +650,11 @@ msgstr "Boot PPC PReP"
 
 #: ../fsset.py:1348
 msgid "First sector of boot partition"
-msgstr "Sektor pertama bagi partisyen but"
+msgstr "Sektor pertama bagi partisyen boot"
 
 #: ../fsset.py:1349
 msgid "Master Boot Record (MBR)"
-msgstr "Rekod But Induk (MBR)"
+msgstr "Rekod Boot Induk (MBR)"
 
 #: ../fsset.py:1423
 #, python-format
@@ -5798,7 +5798,7 @@ msgstr "terdapat ralat mengkosongkan pemacu sasaran.  Pengklonan gagal."
 #: ../loader2/net.c:675
 #, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Guna konfigurasi IP dinamik (BOOTP/DHCP)"
+msgstr "Guna tetapan IP _dinamik (DHCP)"
 
 #: ../loader2/net.c:680
 #, fuzzy
@@ -5861,7 +5861,7 @@ msgstr "Pelayan Nama:"
 #: ../loader2/net.c:961
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Guna konfigurasi IP dinamik (BOOTP/DHCP)"
+msgstr "Guna tetapan IP _dinamik (DHCP)"
 
 #: ../loader2/net.c:1084
 #: ../loader2/net.c:1090
@@ -6192,29 +6192,24 @@ msgid "<b>IPv4 Address:</b>"
 msgstr "Penganalisa Alamat IPv4"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "Alamat _IP"
+msgstr "<b>Alamat IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Pelayan Nama"
+msgstr "<b>Pelayan nama:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "Antaramuka:"
+msgstr "<b>_Antaramuka:</b>"
 
 #: tmp/netconfig.glade.h:7
-#, fuzzy
 msgid "Enable IPv_4 support"
-msgstr "Hidupkan sokongan SSL"
+msgstr "Hidupkan sokongan IPv_4"
 
 #: tmp/netconfig.glade.h:8
-#, fuzzy
 msgid "Enable IPv_6 support"
-msgstr "Hidupkan sokongan SSL"
+msgstr "Hidupkan sokongan IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
