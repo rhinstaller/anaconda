@@ -105,7 +105,8 @@ msgstr "テキストモードインストールを強制するインストール
 
 #: ../anaconda:816
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
+msgstr ""
+"グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
 #: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -199,7 +200,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "ブートパーティション %s は、ご使用のアーキテクチャに関するブート制限を満たし"
 "ていない可能性があります。"
@@ -508,7 +510,8 @@ msgstr "dump が書き込まれました"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr "システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
+msgstr ""
+"システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
 
 #: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
 #: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
@@ -833,7 +836,9 @@ msgstr "ファイルシステムをマウントできません"
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr "デバイス %s を %s としてマウントする際にエラーが発生しました。インストールは続行できますが、問題が生じる場合があります。"
+msgstr ""
+"デバイス %s を %s としてマウントする際にエラーが発生しました。インストールは"
+"続行できますが、問題が生じる場合があります。"
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1064,9 +1069,11 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 インストールイメージ及び必要となるメディアがすべて揃っているか確認してください。\n"
+"可能性があります。 インストールイメージ及び必要となるメディアがすべて揃ってい"
+"るか確認してください。\n"
 "\n"
-"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が"
+"高くなります。\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1176,9 +1183,11 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 インストールツリーに必要なパッケージがすべて含まれているか確認してください。\n"
+"可能性があります。 インストールツリーに必要なパッケージがすべて含まれているか"
+"確認してください。\n"
 "\n"
-"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が"
+"高くなります。\n"
 "\n"
 
 #: ../image.py:504
@@ -1190,8 +1199,8 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"インストーラがイメージ #%s のマウントを試行していますが、サーバー上に見つかりま"
-"せん。\n"
+"インストーラがイメージ #%s のマウントを試行していますが、サーバー上に見つかり"
+"ません。\n"
 "\n"
 "このイメージをリモートサーバーの共有パスにコピーしてから再試行をクリックして"
 "ください。インストールを中止するには再起動をクリックします。"
@@ -1273,7 +1282,8 @@ msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字�
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
+msgstr ""
+"ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:89
 msgid "IP Address is missing."
@@ -1283,7 +1293,9 @@ msgstr "IP アドレスがありません"
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP アドレスは 0 から 255 までの数字を使用し、4 つの数字の組み合わせはそれぞれピリオドで区切らなければなりません。"
+msgstr ""
+"IP アドレスは 0 から 255 までの数字を使用し、4 つの数字の組み合わせはそれぞれ"
+"ピリオドで区切らなければなりません。"
 
 #: ../network.py:96
 #, python-format
@@ -1550,7 +1562,8 @@ msgstr "これは %s を含む拡張パーティションなので削除でき�
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr ""
+"このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1568,7 +1581,8 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:233
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr ""
+"デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
@@ -1756,7 +1770,8 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:537
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partitioning.py:68
@@ -1808,10 +1823,13 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr "ブートパーティションが最初の 4 つのパーティションのいずれにもなっていないためブートできません。"
+msgstr ""
+"ブートパーティションが最初の 4 つのパーティションのいずれにもなっていないため"
+"ブートできません。"
 
 #: ../partitions.py:849
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "/boot/efi パーティションはタイプが FAT、サイズが 50MB で作成しなければなりま"
 "せん。"
@@ -1834,7 +1852,8 @@ msgstr ""
 "量には不足しています。"
 
 #: ../partitions.py:944
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -1895,7 +1914,8 @@ msgstr "LVM ボリュームグループのメンバーであるパーティシ�
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "マウントポイントが不適切です。 %s ディレクトリは / ファイルシステム上になけれ"
 "ばなりません。"
@@ -1911,7 +1931,8 @@ msgstr ""
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr "このマウントポイントは linux のファイルシステム上になければなりません。"
+msgstr ""
+"このマウントポイントは linux のファイルシステム上になければなりません。"
 
 #: ../partRequests.py:280
 #, python-format
@@ -1927,7 +1948,8 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
+msgstr ""
+"%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
 
 #: ../partRequests.py:490
 #, python-format
@@ -1953,7 +1975,8 @@ msgstr "パーティションが負のシリンダで終ることはできませ
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
+msgstr ""
+"RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
 
 #: ../partRequests.py:681
 #, python-format
@@ -1973,7 +1996,9 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr "論理ボリュームのサイズは、ボリュームグループの物理エクステントのサイズより大きくなければなりません。"
+msgstr ""
+"論理ボリュームのサイズは、ボリュームグループの物理エクステントのサイズより大"
+"きくなければなりません。"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2171,7 +2196,8 @@ msgid "Welcome to %s"
 msgstr "%s へようこそ"
 
 #: ../text.py:426
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ | <Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面"
 
 #: ../text.py:428
@@ -2318,9 +2344,11 @@ msgid ""
 "\n"
 msgstr ""
 "ファイル %s を開けません。ファイルが欠落しているか、パッケージが破損している"
-"可能性があります。 ご使用のミラーに必要なパッケージがすべて含まれているか確認してから別のものを使用してみてください。\n"
+"可能性があります。 ご使用のミラーに必要なパッケージがすべて含まれているか確認"
+"してから別のものを使用してみてください。\n"
 "\n"
-"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が高くなります。\n"
+"再起動するとシステムは矛盾した状態となり、再インストールを必要とする可能性が"
+"高くなります。\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2539,7 +2567,8 @@ msgstr "トランザクション実行中にエラーが発生"
 
 #: ../yuminstall.py:471
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
@@ -3219,7 +3248,8 @@ msgstr "不適切な論理ボリューム名"
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr ""
+"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
@@ -3510,8 +3540,8 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"アクティブなネットワークデバイスがありません。少なくとも 1 つのデバイスがア"
-"クティブでないとデフォルトではシステムがネットワーク上で通信できません。"
+"アクティブなネットワークデバイスがありません。少なくとも 1 つのデバイスがアク"
+"ティブでないとデフォルトではシステムがネットワーク上で通信できません。"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3767,13 +3797,16 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "要求されたパーティション設定に次の致命的なエラーが存在しています。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
+msgstr ""
+"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -4164,7 +4197,8 @@ msgstr "クローン作成を行うターゲットドライブを選択してく
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr ""
+"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4298,8 +4332,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"リポジトリからパッケージのメタデータを読み込めません。リポジトリデータのディレクトリがないこと"
-"が原因の可能性があります。リポジトリが正しく生成されているか確認してください。\n"
+"リポジトリからパッケージのメタデータを読み込めません。リポジトリデータのディ"
+"レクトリがないことが原因の可能性があります。リポジトリが正しく生成されている"
+"か確認してください。\n"
 "\n"
 "%s"
 
@@ -4321,7 +4356,8 @@ msgstr "これで現在のブートローダを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %s にインストールされている %s ブートローダを検出しまし"
 "た。"
@@ -4458,7 +4494,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: ../iw/zfcp_gui.py:24
@@ -4486,7 +4523,8 @@ msgstr "FCP デバイス %s の編集"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr "ご使用の構成から FCP ディスクを削除しようとしています。本当に続行しますか?"
+msgstr ""
+"ご使用の構成から FCP ディスクを削除しようとしています。本当に続行しますか?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4627,7 +4665,8 @@ msgstr ""
 "ブートラベルを設定してください。"
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Space> 選択 | <F2> デフォルト選択 | <F4> 削除 | <F12> 次の画面"
 
 #: ../textw/bootloader_text.py:387
@@ -4765,7 +4804,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "インストールするパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:102
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Space>,<+>,<-> 選択   |   <F2> グループの詳細   |   <F12> 次の画面"
 
 #: ../textw/grpselect_text.py:130
@@ -5029,7 +5069,8 @@ msgstr "ファイルシステムのオプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr "このパーティションのファイルシステムをどのようにするか選択してください。"
+msgstr ""
+"このパーティションのファイルシステムをどのようにするか選択してください。"
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5057,7 +5098,8 @@ msgstr "サポートされていません"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
+msgstr ""
+"LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5131,7 +5173,8 @@ msgstr "新規のパーティションにしますか、新規の論理ボリュ
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
+msgstr ""
+"新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
 
 #: ../textw/partition_text.py:1368
 msgid "partition"
@@ -5154,7 +5197,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  <F1>-ヘルプ   <F2>-新規    <F3>-編集  <F4>-削除    <F5>-リセット  <F12>-"
 "OK    "
@@ -5483,7 +5527,9 @@ msgstr "登録キーが必要です"
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr "%s のインストールには登録キーが必要になります。キーが製品に同梱されていなかった場合はサポート担当者にご連絡ください。"
+msgstr ""
+"%s のインストールには登録キーが必要になります。キーが製品に同梱されていなかっ"
+"た場合はサポート担当者にご連絡ください。"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5723,7 +5769,8 @@ msgstr "キックスタートの元となるドライバディスクが不明で
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+msgstr ""
+"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5752,7 +5799,8 @@ msgstr "ドライバディスクの読み込み"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
+msgstr ""
+"手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
 
 #: ../loader2/driverselect.c:199
 msgid ""
@@ -5797,7 +5845,8 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr ""
+"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader2/hdinstall.c:346
 #, c-format
@@ -5875,7 +5924,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s へようこそ - レスキューモード"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: ../loader2/lang.c:364
@@ -5985,7 +6035,8 @@ msgstr "システム上で次のデバイスが検出されました。"
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
+msgstr ""
+"デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
 
 #: ../loader2/loader.c:1130
 msgid "Devices"
@@ -6012,7 +6063,8 @@ msgstr "anaconda を %s レスキューモードで実行中 - しばらくお�
 #: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
+msgstr ""
+"anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6137,7 +6189,9 @@ msgstr "無効な CIDR マスクです"
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr "CIDR マスクの値は、IPv4 ネットワークなら 1 から 32 まで、IPv6 ネットワークなら 1 から 128 までの数値にしなければなりません。"
+msgstr ""
+"CIDR マスクの値は、IPv4 ネットワークなら 1 から 32 まで、IPv6 ネットワークな"
+"ら 1 から 128 までの数値にしなければなりません。"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6231,11 +6285,15 @@ msgstr "見つからないプロトコル"
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "手作業で設定を行うには少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
+msgstr ""
+"手作業で設定を行うには少くともプロトコルを 1 つ選択しなければなりません "
+"(IPv4 または IPv6)。"
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "DHCP 用に少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
+msgstr ""
+"DHCP 用に少くともプロトコルを 1 つ選択しなければなりません (IPv4 または "
+"IPv6)。"
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6262,12 +6320,16 @@ msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: ../loader2/net.c:1085
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する必要があります。"
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr ""
+"有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
+"必要があります。"
 
 #: ../loader2/net.c:1091
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr ""
+"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6501,7 +6563,9 @@ msgstr "リポジトリの追加"
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr "追加ソフトウェアのインストール元となる場所を入力します。 %s 用の有効なリポジトリでなければならないので注意してください。"
+msgstr ""
+"追加ソフトウェアのインストール元となる場所を入力します。 %s 用の有効なリポジ"
+"トリでなければならないので注意してください。"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6567,7 +6631,9 @@ msgstr "iSCSI パラメータの設定"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr "iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエータ名及びiSCSI ターゲットのアドレスを入力してください。"
+msgstr ""
+"iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエータ名及び"
+"iSCSI ターゲットのアドレスを入力してください。"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6605,7 +6671,9 @@ msgstr "ネットワークインターフェースを有効にする"
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr "これを行うにはインストール中にアクティブなネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
+msgstr ""
+"これを行うにはインストール中にアクティブなネットワーク接続が必要になります。"
+"ネットワークインターフェースを設定してください。"
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6789,7 +6857,8 @@ msgstr "中央時間 - マニトバ、西オンタリオ"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
+msgstr ""
+"中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6905,7 +6974,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "東部時間 - オンタリオ - ほとんどの地域"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
@@ -7094,8 +7164,10 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳標準時 - アリゾナ"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7107,7 +7179,8 @@ msgstr "山岳標準時"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
+msgstr ""
+"山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -7539,4 +7612,3 @@ msgstr "ウェールズ語"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "ズールー語"
-
