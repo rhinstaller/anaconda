@@ -26,8 +26,7 @@ from rhpl.translate import _, N_
 # Note that stage2 copies all files under /sbin to /usr/sbin
 ISCSID="/usr/sbin/iscsid"
 ISCSIADM = "/usr/sbin/iscsiadm"
-ISCSID_DB_DIR="/var/db/iscsi"
-INITIATOR_FILE="/etc/initiatorname.iscsi"
+INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
 class iscsi:
     def __init__(self):
@@ -57,9 +56,9 @@ class iscsi:
         records = iutil.execWithCapture(ISCSIADM, argv)
         for line in records.split("\n"):
             if line and line.find("no records found!") == -1:
-                recnum = line.split()[0][1:-1]
-                argv = [ "-m", "node", "-r", "%s" % (recnum,),
-                         "%s" % (action,) ]
+                (portal, node) = line.split()
+                argv = [ "-m", "node", "-T", node, "-p", portal, action ]
+                log.info("going to run iscsiadm: %s" %(argv,))
                 rc = iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5")
@@ -71,7 +70,7 @@ class iscsi:
                     continue
                 
                 # ... and now we have to make it start automatically
-                argv = [ "-m", "node", "-r", "%s" %(recnum,),
+                argv = [ "-m", "node", "-T", node, "-p", portal,
                          "-o", "update", "-n", "node.startup",
                          "-v", "automatic" ]
                 iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
@@ -130,12 +129,12 @@ class iscsi:
         log.debug("Setting up %s" % (INITIATOR_FILE, ))
         if os.path.exists(INITIATOR_FILE):
             os.unlink(INITIATOR_FILE)
+        if not os.path.isdir("/etc/iscsi"):
+            os.makedirs("/etc/iscsi", 0755)
         fd = os.open(INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
-        if not os.path.exists(ISCSID_DB_DIR):
-            iutil.mkdirChain(ISCSID_DB_DIR)
         log.info("ISCSID is %s", ISCSID)
         iutil.execWithRedirect(ISCSID, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
@@ -165,12 +164,15 @@ class iscsi:
         if not self.initiator:
             return
 
+        if not os.path.isdir(instPath + "/etc/iscsi"):
+            os.makedirs(instPath + "/etc/iscsi", 0755)
         fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
-        if not os.path.isdir(instPath  + "/var/db"):
-            iutil.mkdirChain(instPath + "/var/db")
-        shutil.copytree("/var/db/iscsi", instPath + "/var/db/iscsi")
+        # copy "db" files.  *sigh*
+        for d in ("/etc/iscsi/nodes", "/etc/iscsi/send_targets"):
+            if os.path.isdir(d):
+                shutil.copytree(d, instPath + d)
 
 # vim:tw=78:ts=4:et:sw=4
