@@ -127,7 +127,7 @@ class simpleCallback:
             self.progress.setPackage(hdr)
             self.progress.setPackageScale(0, 1)
 
-            nvra = po.returnNevraPrintable()
+            nvra = "%s" %(po,)
             self.instLog.write(self.modeText % (nvra,))
 
             self.instLog.flush()
@@ -158,7 +158,7 @@ class simpleCallback:
             hdr = po.returnLocalHeader()
             path = po.returnSimple('relativepath')
 
-            nvra = po.returnNevraPrintable()
+            nvra = "%s" %(po,)
 
             fn = self.files[nvra].name
             self.files[nvra].close()
@@ -833,7 +833,7 @@ class YumBackend(AnacondaBackend):
 
         if not foundkernel and os.path.exists("/proc/xen"):
             try:
-                kxen = getBestKernelByArch("kernel-xen", self.ayum)
+                kxen = getBestKernelByArch("kernel-xenU", self.ayum)
                 log.info("selecting kernel-xen package for kernel")
                 foundkernel = True
             except PackageSackError:
@@ -1190,7 +1190,7 @@ class YumBackend(AnacondaBackend):
 
     def kernelVersionList(self):
         kernelVersions = []
-
+        
         # nick is used to generate the lilo name
         for (ktag, nick) in [ ('kernel-smp', 'smp'),
                               ('kernel-xen0', 'xen0'),
@@ -1256,6 +1256,8 @@ class YumBackend(AnacondaBackend):
     def selectPackage(self, pkg, *args):
         try:
             mbrs = self.ayum.install(pattern=pkg)
+            if pkg.startswith("kernel"):
+                log.info("installing %d kernels" %(len(mbrs),))
             return len(mbrs)
         except yum.Errors.InstallError:
             log.debug("no package matching %s" %(pkg,))
