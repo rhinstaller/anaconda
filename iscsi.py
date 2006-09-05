@@ -71,7 +71,7 @@ class iscsi:
                 
                 # ... and now we have to make it start automatically
                 argv = [ "-m", "node", "-T", node, "-p", portal,
-                         "-o", "update", "-n", "node.startup",
+                         "-o", "update", "-n", "node.conn[0].startup",
                          "-v", "automatic" ]
                 iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
                                        stdout = "/dev/tty5",
