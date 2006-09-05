@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-05 11:01+0530\n"
+"PO-Revision-Date: 2006-09-05 17:10+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,8 +79,7 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"ଆଲେଖୀ ସ୍ଥାପନ କୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ। ଅକ୍ଷରାବସ୍ଥା କୁ ଆରମ୍ଭ "
-"କରୁଅଛି"
+"ଆଲେଖୀ ସ୍ଥାପନ କୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ। ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି।"
 
 #: ../anaconda:476
 msgid "No video hardware found, assuming headless"
@@ -88,7 +87,7 @@ msgstr "କୌଣସି ଭିଡିଓ ହାର୍ଡଓ୍ବାର ମିଳ
 
 #: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
-msgstr "X ହାର୍ଡଓ୍ବାର ର ଅବସ୍ଥା କୁ ଅସମର୍ଥ"
+msgstr "X ହାର୍ଡଓ୍ବାର ର ଅବସ୍ଥା କୁ ଅସମର୍ଥ।"
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
@@ -112,7 +111,7 @@ msgstr "ଅଜଣା ସ୍ଥାପନ ପ୍ରଣାଳୀ"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "ଆପଣ ଗୋଟିଏ ସ୍ଥାପନ ପ୍ରଣାଳୀ ଉଲ୍ଲେକ୍ଷିତ କରିଛନ୍ତି ଯାହାକି ଆନାକୋଣ୍ଡା ଦ୍ବାରା ସହାୟକ ନୁହଁ"
+msgstr "ଆପଣ ଗୋଟିଏ ସ୍ଥାପନ ପ୍ରଣାଳୀ ଉଲ୍ଲେକ୍ଷିତ କରିଛନ୍ତି ଯାହାକି ଆନାକୋଣ୍ଡା ଦ୍ବାରା ସହାୟକ ନୁହେଁ।"
 
 #: ../anaconda:880
 #, c-format
@@ -126,6 +125,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ସିଲିଣ୍ଡର ଆଧାରିତ ବିଭାଜନକୁ ମୌଳିକ ବିଭାଜନ ଭାବରେ ବାଣ୍ଟି ପାରିଲା ନାହିଁ।\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
 #, python-format
@@ -302,7 +304,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'ଠିକ ଅଛି' କୁ ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1482 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
@@ -317,7 +319,8 @@ msgid ""
 "%s.%s"
 msgstr ""
 "ଆପଣ ଅନୁରୋଧ କରିଥିବା ବିଭାଜନ କୁ ବାଣ୍ଟି ହେଲା ନାହିଁ: \n"
-"%s %s"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1500
 msgid ""
@@ -325,6 +328,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"ଗୋଟିଏ ଭିନ୍ନ ବିଭାଜନ ବିକଲ୍ପକୁ ଚୟନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' କୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1503
 #, python-format
@@ -4046,6 +4052,8 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Dette vil la deg lage en ny konfigurasjon for din oppstartslaster. Hvis du "
+"ønsker å bytte oppstartslaster, bør du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
@@ -4056,6 +4064,8 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Dette vil ikke endre konfigurasjonen av din oppstartslaster. Du bør velge "
+"dette dersom du bruker en tredjeparts oppstartslaster."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -5349,6 +5359,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
+"ସେହି ଡିରେକ୍ଟୋରିରେ ଥିବା %s ସ୍ଥାପନ ବୃକ୍ଷ ଆପଣଙ୍କ ବୁଟ ମାଧ୍ଯମ ସହିତ ମିଶୁଥିବା ପରି ଜଣାପଡୁ ନାହିଁ।"
 
 #: ../loader2/hdinstall.c:217
 msgid ""
@@ -5729,7 +5740,7 @@ msgstr "%s ପାଇଁ ଆଇ.ପି. ସୂଚନା ପାଇଁ ଅନୁର
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
 msgid "Network Error"
-msgstr ""
+msgstr "ନେଟୱାର୍କ ତୃଟି"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
 msgid "There was an error configuring your network interface."
@@ -5741,19 +5752,19 @@ msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)  କୁ �
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "ଅପ୍ରୟୋଜନ ପ୍ଯାକେଟ ସଂଘର୍ଷକୁ ଆଗ୍ରହ୍ଯ କରିଦିଅନ୍ତୁ"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "ଦୃତ ଗତି ନେଟୱାର୍କ ଯାତାୟାତ ପାଇଁ ସର୍ବାଧିକ ପଞ୍ଜିକୃତ ମୂଲ୍ଯ"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -5812,12 +5823,12 @@ msgstr "ଆଧାର ନାମ ଏବଂ ପରିସର କୁ ସ୍ଥିର 
 #: ../loader2/net.c:1447
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "ନେଟୱାର୍କ ନିର୍ଦ୍ଦେଶ %s କୁ କିକ-ଷ୍ଟାର୍ଟ କରିବା ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
 #: ../loader2/net.c:1470
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "ନେଟୱାର୍କ ନିର୍ଦ୍ଦେଶରେ ଖରାପ ବୁଟପ୍ରୋଟୋ %s କୁ ଉଲ୍ଲେକ କରାଯାଇଛି"
 
 #: ../loader2/net.c:1639
 msgid "Networking Device"
@@ -5827,7 +5838,7 @@ msgstr "ନେଟଓ୍ବାର୍କିଙ୍ଗ ଉପକରଣ"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
+msgstr "ଆପଣଙ୍କ ପାଖରେ ଏହି ତନ୍ତ୍ରରେ ଏକାଧିକ ନେଟୱାର୍କ ଉପକରଣ ଅଛି। ଆପଣ କାହାକୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -5848,21 +5859,21 @@ msgstr "NFS ବ୍ଯବସ୍ଥା"
 
 #: ../loader2/nfsinstall.c:131
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "ଉଲ୍ଲେଖିତ ଆଧାର ନାମ କୌଣସି DNS ଦ୍ବାରା ବିନ୍ଯସ୍ତ ହୋଇନାହିଁ"
 
 #: ../loader2/nfsinstall.c:208
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "ସେହି ଡିରେକ୍ଟୋରିଟି ଗୋଟିଏ %s ସ୍ଥାପନ ବୃକ୍ଷକୁ ଧାରଣ କରିଥିବା ପରି ଜଣାପଡୁ ନାହିଁ।"
 
 #: ../loader2/nfsinstall.c:221
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "ଡିରେକ୍ଟୋରିକୁ ସେବକରୁ ଆହରଣ କରି ପାରିଲା ନାହିଁ।"
 
 #: ../loader2/nfsinstall.c:260
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "ଏନ.ଏଫ.ଏସ. କିକ-ଷ୍ଟାର୍ଟ ପଦ୍ଧତି ନିର୍ଦ୍ଦେଶ %s ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
@@ -5939,7 +5950,7 @@ msgstr "ଓ୍ବେବ ସାଇଟ ନାମ:"
 
 #: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "ଜ୍ଞାତ ftp କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: ../loader2/urls.c:324
 msgid "FTP Setup"
@@ -5992,7 +6003,7 @@ msgstr "ପରବର୍ତ୍ତୀ HTTP ବ୍ଯବସ୍ଥା"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
-msgstr "SCSI ଡ୍ରାଇଭର କୁ ଧାରଣ କରୁଅଛି"
+msgstr "SCSI ଡ୍ରାଇଭରକୁ ଧାରଣ କରୁଅଛି"
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
@@ -6000,7 +6011,7 @@ msgstr "_ZFCP LUN କୁ ଯୋଗ କରନ୍ତୁ"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI ଲକ୍ଷ୍ଯକୁ ଯୋଗ କରନ୍ତୁ"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6008,15 +6019,15 @@ msgstr "ଉନ୍ନତ ଭଣ୍ଡାର ବିକଲ୍ପ"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid ଉପକରଣକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "ଆପଣ ଆପଣଙ୍କ ଡ୍ରାଇଭ ବିନ୍ଯାସକୁ ବଦଳାଇବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>ସଂଗ୍ରହାଳୟ ୟୁ.ଆର.ଏଲ. (_U):</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
@@ -6024,7 +6035,7 @@ msgstr "<b>ସଂଗ୍ରହାଳୟ ନାମ (_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "ସଂଗ୍ରହାଳୟକୁ ଯୋଗ କରନ୍ତୁ"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6035,7 +6046,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "ସଂଗ୍ରହାଳୟକୁ ଯୋଗ କରନ୍ତୁ (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6121,15 +6132,15 @@ msgstr "<b>ଅନ୍ତରାପୃଷ୍ଠ (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6161,7 +6172,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "ଅତିରିକ୍ତ ସଫ୍ଟୱେର ସଂଗ୍ରହାଳୟକୁ ଯୋଗ କରନ୍ତୁ (_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
