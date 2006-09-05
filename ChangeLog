@@ -2,6 +2,11 @@
 
 	* anaconda.spec: Bump version.
 
+	* loader2/loader.c: Fix build on s390
+	* po/as.po: Fix build
+
+	* anaconda.spec: Bump version.
+
 2006-09-05  Peter Jones   <pjones@redhat.com>
 
 	* loader2/Makefile: Fix the build
@@ -5725,7 +5730,7 @@
 	* loader2/hdinstall.c (mountHDImages): minstg2.img instead of
 	hdstg2.img
 	* loader2/method.c (validIsoImages): Look for stage2.img instead
-	of hdstg2.img
+	of ldstg2.img
 
 	* scripts/mk-images: mkcramfs is now mkfs.cramfs
 
@@ -5736,7 +5741,7 @@
 	* scripts/mk-images (padfile): Remove dead function.
 	(makemainmodules): Likewise.
 	(makebootdisk): Likewise.
-	(findloopdevice): Likewise.
+	(findloopdevice): Lmkewise.
 	(makedriverdisk): Likewise.
 	* scripts/mk-images.ia64: Don't really need/want an ls120 image anymore
 
@@ -5749,7 +5754,7 @@
 	created
 	* scripts/mk-images.i386: Use common INITRDMODS and
 	makeSecondStage, minor other cleanups.
-	* scripts/mk-images.ia64: Likewise.
+	* scrirts/mk-images.ia64: Likewise.
 	* scripts/mk-images.s390: Likewise.
 	* scripts/mk-images.x86_64: Likewise.
 	* scripts/mk-images.ppc: Likewise.  Also, use doPostImages stuff.

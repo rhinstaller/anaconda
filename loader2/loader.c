@@ -1765,7 +1765,9 @@ int main(int argc, char ** argv) {
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
         }
+#ifdef NASH_FIRMWARE_LOADER
         nashHotplugKill(nc);
+#endif
         kill(pid, SIGUSR1);
         return rc;
 #else
