@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-19 12:18+0530\n"
+"PO-Revision-Date: 2006-09-05 11:01+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 
 #: ../anaconda:258
@@ -120,28 +120,34 @@ msgid "unknown install method: %s"
 msgstr "ଅଜଣା ସ୍ଥାପନ ପ୍ରଣାଳୀ: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "ସିଲିଣ୍ଡର ଆଧାର ବିଶିଷ୍ଟ ବିଭାଜନ ମାନଙ୍କୁ ମୌଳିକ ବିଭାଜନ ଭାବ ରେ ବାଣ୍ଟି ହେବ ନାହିଁ"
+msgstr ""
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "ବିଭାଜନ ମାନଙ୍କୁ ମୌଳିକ ବିଭାଜନ ଭାବ ରେ ବାଣ୍ଟି ହେବ ନାହିଁ"
+msgstr ""
+"ବିଭାଜନ ମାନଙ୍କୁ ମୌଳିକ ବିଭାଜନ ଭାବରେ ବାଣ୍ଟି ପାରିଲା ନାହିଁ।\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "ସିଲିଣ୍ଡର ଆଧାର ବିଶିଷ୍ଟ ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ହେବ ନାହିଁ"
+msgstr ""
+"ସିଲିଣ୍ଡର ଆଧାର ବିଶିଷ୍ଟ ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ପାରିଲା ନାହିଁ।\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -162,8 +168,8 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "%s ବୁଟ୍ ବିଭାଜନ ଟି କୌଣସି ଡିସ୍କ୍ ର ଅନ୍ତର୍ଭୂକ୍ତ ନୁହଁ ଯାହାର ଆରମ୍ଭ ରେ ବୁଟ୍ଧାରଣ ର ସାଧନ ପାଇଁ ଯଥେଷ୍ଟଖାଲି "
-"ସ୍ଥାନ ଅଛି। ଆପଣ ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁ ଯେ  ଡିସ୍କ୍ ର ଆରମ୍ଭ ରେ ଅତି କମ ରେ ୫MB ଖାଲି ସ୍ଥାନ ଅଛି ଯାହାକି /"
-"bootକୁ ଧାରଣ କରିଛି।"
+"ସ୍ଥାନ ଅଛି। ଆପଣ ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁ ଯେ  ଡିସ୍କ୍ ର ଆରମ୍ଭ ରେ ଅତି କମ ରେ ୫ ମେଗା-ବାଇଟ ଖାଲି ସ୍ଥାନ ଅଛି ଯାହାକି /"
+"boot ଧାରଣ କରିଛି।"
 
 #: ../autopart.py:1023
 #, python-format
@@ -182,8 +188,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଆପଣଙ୍କର ଆର୍କିଟେକ୍ଚର ପାଇଁ ବୁଟିଙ୍ଗର ସ୍ଥିର ମୂଲ୍ଯ କୁ ପାଇ ନପାରେ।"
 
 #: ../autopart.py:1058
@@ -416,14 +421,14 @@ msgstr ""
 "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏପରି କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "%s-%s-%s.%s. ର ଉନ୍ନୟନ କରୁଅଛି\n"
+msgstr "%s ର ଉନ୍ନୟନ କରୁଅଛି\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "%s କୁ ସ୍ଥାପିତ କରନ୍ତୁ (_I)"
+msgstr "%s କୁ ସ୍ଥାପନ କରୁଅଛି\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -485,8 +490,7 @@ msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇଛି"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
+msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
 #: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
@@ -802,9 +806,8 @@ msgstr ""
 "ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "ଫାଇଲ କୁ ଧାରଣ କରିବା ରେ ଅସମର୍ଥ"
+msgstr "ଫାଇଲ ତନ୍ତ୍ରକୁ ଆହରଣ କରିବା ରେ ଅସମର୍ଥ"
 
 #: ../fsset.py:1730
 #, python-format
@@ -1166,9 +1169,8 @@ msgid "Install on System"
 msgstr "ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରନ୍ତୁ"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "ପ୍ରାରମ୍ଭିକରଣ କରୁଅଛି"
+msgstr "iSCSI ପ୍ରାରମ୍ଭକକୁ ପ୍ରାରମ୍ଭିକୃତ କରୁଅଛି"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1235,34 +1237,30 @@ msgstr "ଆଧାରନାମଟି ୬୪ କିମ୍ବା ତଦନିମ୍
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"ଆଧାରନାମଟି 'a-z' କିମ୍ବା 'A-Z' ପରିସର ମଧ୍ଯରେ ଥିବା ଗୋଟିଏ ବୈଧ ଅକ୍ଷର ସହିତ ପ୍ରାରମ୍ଭ ହେବା ଉଚିତ"
+msgstr "ଆଧାରନାମଟି 'a-z' କିମ୍ବା 'A-Z' ପରିସର ମଧ୍ଯରେ ଥିବା ଗୋଟିଏ ବୈଧ ଅକ୍ଷର ସହିତ ପ୍ରାରମ୍ଭ ହେବା ଉଚିତ"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ଆଧାରନାମଟି କେବଳ 'a-z', 'A-Z', '-', କିମ୍ବା '.' ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରି ପାରିବ।"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "ଆଇ.ପି. ଠିକଣା ଟି ମିଳୁ ନାହିଁ"
+msgstr "ଆଇ.ପି. ଠିକଣାଟି ମିଳୁନାହିଁ"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "ଆଇ.ପି. ଠିକଣା ରେ 0 ଏବଂ 255 ମଧ୍ଯବର୍ତ୍ତୀ ସଂଖ୍ଯା ମାନ ରହିବା ଉଚିତ"
+msgstr ""
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s ଟି ଗୋଟିଏ ବୈଧ ଆଧର ନାମ ନୁହେଁ।"
+msgstr "%s ଟି ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ନୁହେଁ।"
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "ଗୋପନ ଚାବି"
+msgstr "ପଞ୍ଜିକୃତ ଚାବିକୁ ଭରଣ କରନ୍ତୁ"
 
 #: ../packages.py:248
 #, python-format
@@ -1670,8 +1668,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"ନିମ୍ନଲିଖିତ ପୂର୍ବ-ଉପସ୍ଥିତ ବିଭାଜନର ସମସ୍ତ ପୂର୍ବ ତଥ୍ଯ ମାନଙ୍କୁ ନଷ୍ଟ କରି ସଂରୂପିତ କରିବା ପାଇଁ ଚୟନ କରାଯାଇଛି"
+msgstr "ନିମ୍ନଲିଖିତ ପୂର୍ବ-ଉପସ୍ଥିତ ବିଭାଜନର ସମସ୍ତ ପୂର୍ବ ତଥ୍ଯ ମାନଙ୍କୁ ନଷ୍ଟ କରି ସଂରୂପିତ କରିବା ପାଇଁ ଚୟନ କରାଯାଇଛି"
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -1719,8 +1716,7 @@ msgid "Confirm Reset"
 msgstr "ପୁନଃ ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବିଭାଜନ ସାରଣୀକୁ ଏହାର ପୂର୍ବାବସ୍ଥାକୁ ଆଣିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../partitioning.py:68
@@ -1764,8 +1760,7 @@ msgstr ""
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"ଆପଣଙ୍କର ରୁଟ ବିଭାଜନ ୨୫୦ ମେଗା-ବାଇଟରୁ କମ ଅଛି ଯାହାକି ସାଧାରଣତଃ %sର ସ୍ଥାପନ ପାଇଁ ବହୁତ କମ ଅଟେ।"
+msgstr "ଆପଣଙ୍କର ରୁଟ ବିଭାଜନ ୨୫୦ ମେଗା-ବାଇଟରୁ କମ ଅଛି ଯାହାକି ସାଧାରଣତଃ %sର ସ୍ଥାପନ ପାଇଁ ବହୁତ କମ ଅଟେ।"
 
 #: ../partitions.py:842
 msgid ""
@@ -1774,8 +1769,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "FAT ଏବଂ ୫୦ ମେଗା-ବାଇଟର ଗୋଟିଏ ଆକାରକୁ ଟାଇପ କରିବା ପାଇଁ ଆପଣ ଗୋଟିଏ /boot/efiକୁ ସ୍ରୁଷ୍ଟି କରିବା "
 "ଉଚିତ।"
@@ -1798,8 +1792,7 @@ msgstr ""
 "ଆକାରରୁ ଛୋଟ ଅଟେ।"
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ଗୋଟିଏ USB ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି "
 "ନପାରେ।"
@@ -1858,8 +1851,7 @@ msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି LVM ପ୍ରବ�
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ଏହି ଆରୋହଣ ବିନ୍ଦୁଟି ଅବୈଧ ଅଟେ। %s ଡିରେକ୍ଟୋରିଟି / ଫାଇଲ ତନ୍ତ୍ରରେ ଥିବା ଉଚିତ।"
 
 #: ../partRequests.py:252
@@ -1952,7 +1944,7 @@ msgstr ""
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
-msgstr ""
+msgstr "ବାତିଲ କରାଯାଇଛି"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -1979,11 +1971,11 @@ msgstr ""
 #: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
 #: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
-msgstr ""
+msgstr "ଆଗକୁ ବଢନ୍ତୁ"
 
 #: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
-msgstr ""
+msgstr "କେବଳ ପଠନୀୟ"
 
 #: ../rescue.py:320
 msgid "System to Rescue"
@@ -1995,7 +1987,7 @@ msgstr ""
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
-msgstr ""
+msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
 #: ../rescue.py:346
 msgid ""
@@ -2044,19 +2036,19 @@ msgstr ""
 
 #: ../text.py:149 ../text.py:164
 msgid "Save"
-msgstr ""
+msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
 #: ../text.py:152 ../text.py:166
 msgid "Remote"
-msgstr ""
+msgstr "ଦୂର"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
-msgstr ""
+msgstr "ତ୍ରୁଟିମୁକ୍ତ କରନ୍ତୁ"
 
 #: ../text.py:158
 msgid "Exception Occurred"
-msgstr ""
+msgstr "ବ୍ଯତିକ୍ରମ ପରିଲିକ୍ଷିତ ହେଲା"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
@@ -2064,7 +2056,7 @@ msgstr ""
 
 #: ../text.py:190
 msgid "Host"
-msgstr ""
+msgstr "ଆଧାର"
 
 #: ../text.py:192
 msgid "Remote path"
@@ -2072,11 +2064,11 @@ msgstr ""
 
 #: ../text.py:194
 msgid "User name"
-msgstr ""
+msgstr "ଚାଳକ ନାମ"
 
 #: ../text.py:196
 msgid "Password"
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ"
 
 #: ../text.py:253
 msgid "Help not available"
@@ -2096,8 +2088,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:428
@@ -2131,7 +2122,7 @@ msgstr ""
 
 #: ../upgrade.py:94
 msgid "Searching"
-msgstr ""
+msgstr "ସନ୍ଧାନ କରୁଅଛି"
 
 #: ../upgrade.py:95
 #, python-format
@@ -2207,7 +2198,7 @@ msgstr ""
 
 #: ../urlinstall.py:35
 msgid "Connecting..."
-msgstr ""
+msgstr "ସଂଯୋଗ କରୁଅଛି..."
 
 #: ../urlinstall.py:74
 #, python-format
@@ -2257,7 +2248,7 @@ msgstr ""
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ:"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
@@ -2348,8 +2339,7 @@ msgstr "୫୦ ଥର ଚେଷ୍ଟା କରିବା ପରେ ସଂଯୋ�
 #: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ %s ସହିତ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ %s ସହିତ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
 
 #: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
@@ -2425,13 +2415,9 @@ msgid "Error running transaction"
 msgstr "ବିନିମୟ ସମୟରେ ତ୍ରୁଟି"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+#, python-format
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"ନିମ୍ନଲିଖିତ କାରଣ ବଶତଃ \"%s\" ଆଧାର ନାମ ଟି ବୈଧ ନାହିଁ:\n"
-"\n"
-"%s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2442,9 +2428,9 @@ msgid "Retrieving installation information..."
 msgstr "ସ୍ଥାପନ ସୂଚନା କୁ ପୁନରୁଦ୍ଧାର କରୁଅଛି..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "ସ୍ଥାପନ ସୂଚନା କୁ ପୁନରୁଦ୍ଧାର କରୁଅଛି..."
+msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚନା କୁ ପୁନରୁଦ୍ଧାର କରୁଅଛି..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2602,9 +2588,8 @@ msgid "_Confirm: "
 msgstr "ନିଶ୍ଚିତ କରନ୍ତୁ (_C):"
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ:"
+msgstr "ଅବୈଧ ପ୍ରାରମ୍ଭକଙ୍କ ନାମ:"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
@@ -3550,14 +3535,12 @@ msgid "Partitioning"
 msgstr "ବିଭାଜନ କରୁଅଛି"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "ଆପଣଙ୍କ ଦ୍ବାରା ନିବେଦିତ ବିଭାଜନୀୟ ଯୋଜନା ସହିତ ନିମ୍ନଲିଖିତ ଗୁରୁତର ତ୍ରୁଟି ଗୁଡିକ ଅବସ୍ଥିତ ଅଛନ୍ତି।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ଆପଣଙ୍କ %s ସ୍ଥାପନ ସହିତ ଆଗକୁ ବଢିବା ପୂର୍ବରୁ ଏହି ତ୍ରୁଟି ମାନଙ୍କୁ ଠିକ କରିବା ଉଚିତ।"
 
 #: ../iw/partition_gui.py:642
@@ -3955,8 +3938,7 @@ msgstr "ଡ୍ରାଇଭ ମାନଙ୍କ ର କ୍ଲୋନ ପ୍ରସ�
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ମାନଙ୍କୁ ସଫା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। କ୍ଲୋନିଙ୍ଗ ବିଫଳ ହୋଇଗଲା।"
+msgstr "ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ମାନଙ୍କୁ ସଫା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। କ୍ଲୋନିଙ୍ଗ ବିଫଳ ହୋଇଗଲା।"
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -3999,19 +3981,16 @@ msgid "Unable to load file!"
 msgstr "ଫାଇଲ କୁ ଧାରଣ କରିବା ରେ ଅସମର୍ଥ"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "ଅବୈଧ ଆଧାରନାମ"
+msgstr "ଅବୈଧ ଭଣ୍ଡାର ନାମ"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "ଆପଣ ଗୋଟିଏ ସେବକ ର ନାମ କୁ ଭରଣ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଗୋଟିଏ ଖାଲି ନଥିବା ଭଣ୍ଡାର ନାମକୁ ପ୍ରଦାନ କରିବା ଉଚିତ।"
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "ଅବୈଧ ବୁଟ ସୂଚକ"
+msgstr "ଅବୈଧ ଭଣ୍ଡାର ୟୁ.ଆର.ଆଇ."
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -4045,8 +4024,7 @@ msgstr "ଏହା ପ୍ରଚଳିତ ବୁଟ ଲୋଡର କୁ ଅଦ୍�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ସ୍ଥାପକ ଟି %s ବୁଟ ଲୋଡର କୁ ଖୋଜି ପାରିଲା ଯାହାକି %s ରେ ବର୍ତମାନ ସ୍ଥାପିତ ହୋଇଅଛି।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4165,8 +4143,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ଅଦଳ ବଦଳ ଫାଇଲ ର ଆକାର ୧ ଏବଂ ୨୦୦୦ ମେଗା ବାଇଟ୍ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ଅଦଳ ବଦଳ ବିଭାଜନ ପାଇଁ ଆପଣ ଚୟିତ କରିଥିବା ଯନ୍ତ୍ର ରେ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ।"
 
 #: ../iw/zfcp_gui.py:24
@@ -4309,8 +4286,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> ଚୟନ କରନ୍ତୁ | <F2> ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ କୁ ଚୟନ କରନ୍ତୁ | <F4> ଅପସାରଣ କରନ୍ତୁ | <F12> "
 "ପରବର୍ତ୍ତୀ ପରଦା>"
@@ -4370,13 +4346,13 @@ msgid "<Enter> to reboot"
 msgstr "ପୁନଃ ଚାଳନ କରିବା ପାଇଁ <Enter>"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 "%s%s"
 msgstr ""
-"ଅଭିନନ୍ଦନ, ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଟି ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।\n"
+"ଅଭିନନ୍ଦନ, ଆପଣଙ୍କ %s ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଟି ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।\n"
 "\n"
 "%s%s"
 
@@ -4435,8 +4411,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ଦୟାକରି ସେହି ପ୍ଯାକେଜ ସମୂହ କୁ ଚୟନ କରନ୍ତୁ ଯାହାକୁ ଆପଣ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହିଁବେ।"
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> ଚୟନ   |   <F2> ସମୂହ ବିବରଣୀ   |   <F12> ପରବର୍ତ୍ତୀ ପରଦା"
 
 #: ../textw/grpselect_text.py:130
@@ -4817,8 +4792,7 @@ msgid "RAID"
 msgstr "ରେଡ୍"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-ସହାୟତା     F2-ନୂତନ      F3-ଅଦ୍ଯତନ କରନ୍ତୁ   F4-ଅପସାରଣ କରନ୍ତୁ   F5-ପୁନଃ ସ୍ଥାପନ "
 "କରନ୍ତୁ    F12-ଠିକ ଅଛି        "
@@ -5103,9 +5077,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -5261,8 +5234,7 @@ msgstr "ଫାଇଲ ରୁ ଡ୍ରାଇଭର ଡିସ୍କ କୁ ଧା�
 #: ../loader2/driverdisk.c:387
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"ଆପଣଙ୍କ ଡ୍ରାଇଭର ଡିସ୍କ କୁ /dev/%s ରେ ଭର୍ତି କରନ୍ତୁ ଏବଂ ଆଗକୁ ବଢିବା ପାଇଁ \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ।"
+msgstr "ଆପଣଙ୍କ ଡ୍ରାଇଭର ଡିସ୍କ କୁ /dev/%s ରେ ଭର୍ତି କରନ୍ତୁ ଏବଂ ଆଗକୁ ବଢିବା ପାଇଁ \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ।"
 
 #: ../loader2/driverdisk.c:389
 msgid "Insert Driver Disk"
@@ -5463,10 +5435,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s କୁ ସ୍ବାଗତମ - ରକ୍ଷଣ ଧାରା"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> ତତ୍ବ ମାନଙ୍କ ମଧ୍ଯରେ  | <Space> ଚୟନ କରନ୍ତୁ | <F12> ପରବର୍ତ୍ତୀ ପରଦା "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> ତତ୍ବ ମାନଙ୍କ ମଧ୍ଯରେ  | <Space> ଚୟନ କରନ୍ତୁ | <F12> ପରବର୍ତ୍ତୀ ପରଦା "
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
@@ -5703,9 +5673,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "ଅବୈଧ ଆଇ.ପି. ବାକ୍ଯଖଣ୍ଡ"
+msgstr "ଅବୈଧ CIDR ମାସ୍କ"
 
 #: ../loader2/net.c:97
 msgid ""
@@ -5763,15 +5732,12 @@ msgid "Network Error"
 msgstr ""
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ମାନଙ୍କୁ ସଫା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। କ୍ଲୋନିଙ୍ଗ ବିଫଳ ହୋଇଗଲା।"
+msgstr "ଆପଣଙ୍କ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. (BOOTP/DHCP) ବିନ୍ଯାସ କୁ ବ୍ଯବହାର କରନ୍ତୁ"
+msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)  କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -5794,9 +5760,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP କୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "ଅନୁପସ୍ଥିତ ସମୂହ"
+msgstr "ଅନୁପସ୍ଥିତ ପ୍ରୋଟୋକଲ"
 
 #: ../loader2/net.c:754
 msgid ""
@@ -5809,43 +5774,36 @@ msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "ଆଇ.ପି. ଠିକଣା:"
+msgstr "IPv4 ଠିକଣା:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "ଆଇ.ପି. ଠିକଣା:"
+msgstr "IPv6 ଠିକଣା:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "ନାମ ସେବକ"
+msgstr "ନାମ ସେବକ:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL ବିନ୍ଯାସ"
+msgstr "ହସ୍ତକୃତ TCP/IP ବିନ୍ଯାସ"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
-msgstr "ସୂଚନା ଅନୁପସ୍ଥିତ ଅଛି"
+msgstr "ଅନୁପସ୍ଥିତ ସୂଚନା"
 
 #: ../loader2/net.c:1085
-#, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ ଆଇ.ପି. ଠିକଣା ଏବଂ ଗୋଟିଏ ନେଟମାସ୍କ କୁ ଭରଣ କରନ୍ତୁ।"
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv4 ଠିକଣା ଏବଂ ଗୋଟିଏ ନେଟମାସ୍କ କିମ୍ବା CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ ଆଇ.ପି. ଠିକଣା ଏବଂ ଗୋଟିଏ ନେଟମାସ୍କ କୁ ଭରଣ କରନ୍ତୁ।"
+msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ଏବଂ ଗୋଟିଏ CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6037,36 +5995,32 @@ msgid "Loading SCSI driver"
 msgstr "SCSI ଡ୍ରାଇଭର କୁ ଧାରଣ କରୁଅଛି"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "_ZFCP LUN କୁ ଯୋଗ କରନ୍ତୁ"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
 msgstr ""
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "ଅତିରିକ୍ତ ଆକାର ବିକଲ୍ପ"
+msgstr "ଉନ୍ନତ ଭଣ୍ଡାର ବିକଲ୍ପ"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "ଏହି ବିଭାଜନ ରେ ଫାଇଲ ତନ୍ତ୍ରକୁ ଆପଣ କିପରି ଭାବରେ ପ୍ରସ୍ତୁତ କରିବା ପାଇଁ ଚାହିଁବେ?"
+msgstr ""
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr ""
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ (_N):</b>"
+msgstr "<b>ସଂଗ୍ରହାଳୟ ନାମ (_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6104,9 +6058,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "ବିଭାଜନକାରୀ ବିନ୍ଯାସ କୁ ସମୀକ୍ଷା ଏବଂ ରୂପାନ୍ତରିତ କରନ୍ତୁ (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "ଅଗ୍ରିମ ବୁଟ ଲୋଡର ବିନ୍ଯାସ"
+msgstr "ଉନ୍ନତ ଭଣ୍ଡାର ବିନ୍ଯାସ (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6121,27 +6074,24 @@ msgid "_Exception details"
 msgstr "ଅପବାଦ ବିବରଣୀ (_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "ନିଶ୍ଚିତ କରନ୍ତୁ (_P):"
+msgstr "<b>ପ୍ରବେଶ ସଙ୍କେତ (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>ସଂଯୋଗିକୀ ନମ୍ବର (_P):</b>"
+msgstr "<b>ଚାଳକ ନାମ (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "ଚେନଡେଭ ପାରାମିଟର"
+msgstr "iSCSI ପାରାମିଟରକୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6150,29 +6100,24 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "ଗେଟ-ଓ୍ବେ:"
+msgstr "<b>ଗେଟ-ଓ୍ବେ:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା (_T):</b>"
+msgstr "<b>IPv4 ଠିକଣା:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା (_T):</b>"
+msgstr "<b>IPv6 ଠିକଣା:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "ନାମ ସେବକ"
+msgstr "<b>ନାମ ସେବକ:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>ସଂଯୋଗିକୀ ନମ୍ବର (_P):</b>"
+msgstr "<b>ଅନ୍ତରାପୃଷ୍ଠ (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6193,9 +6138,8 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. (BOOTP/DHCP) ବିନ୍ଯାସ କୁ ବ୍ଯବହାର କରନ୍ତୁ"
+msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP) କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6277,8 +6221,7 @@ msgstr "ଆଟଲାଣ୍ଟିକ ସମୟ - ନୂତନ ବ୍ରୁନସ�
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"ଆଟଲାଣ୍ଟିକ ସମୟ - ନୋଭା ସ୍କୋଟିୟା (ଅଧିକାଂଶ ଅଞ୍ଚଳ), ପଶ୍ଚିମ ଲାବ୍ରାଡୋର, ପୂର୍ବ କ୍ଯୁବେକ ଏବଂ PEI"
+msgstr "ଆଟଲାଣ୍ଟିକ ସମୟ - ନୋଭା ସ୍କୋଟିୟା (ଅଧିକାଂଶ ଅଞ୍ଚଳ), ପଶ୍ଚିମ ଲାବ୍ରାଡୋର, ପୂର୍ବ କ୍ଯୁବେକ ଏବଂ PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6475,8 +6418,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ପୂର୍ବୀ ସମୟ - ଓଣ୍ଟାରିୟୋ - ଅଧିକାଂଶ ଅଞ୍ଚଳ"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "ପୂର୍ବୀ ସମୟ - ଓଣ୍ଟାରିୟୋ ଏବଂ କ୍ଯୁବେକ - ଅଞ୍ଚଳ ଯେଉଁ ଗୁଡିକ DST 1967-1973 କୁ ଦେଖନ୍ତି ନାହିଁ"
 
 #. generated from zone.tab
@@ -6664,8 +6606,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "ପର୍ବତୀୟ ମାନକ ସମୟ - ଏରିଜୋନା"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ପର୍ବତୀୟ ମାନକ ସମୟ - ଡାଉସନ କ୍ରୀକ ଏବଂ ସେଣ୍ଟ ଜୋନ ଦୁର୍ଗ, ବ୍ରିଟିଶ କୋଲମ୍ବିୟା"
 
 #. generated from zone.tab
@@ -6969,9 +6910,8 @@ msgid "German"
 msgstr "ଜର୍ମାନ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "ମୁକ୍ତ"
+msgstr "ଗ୍ରୀକ"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7003,7 +6943,7 @@ msgstr "ଜାପାନୀ"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "କନ୍ନଡ"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7018,14 +6958,12 @@ msgid "Malay"
 msgstr "ମାଳୟ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "ମାଳୟ"
+msgstr "ମଲୟାଲମ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "ଗୁଜୁରାଟୀ"
+msgstr "ମରାଠି"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7037,7 +6975,7 @@ msgstr "ଉତ୍ତରୀ ଶୋଥୋ"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "ଓଡିଆ"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7111,70 +7049,3 @@ msgstr "ଓ୍ବେଲ୍ଶ"
 msgid "Zulu"
 msgstr "ଜୁଲୁ"
 
-#~ msgid "Could not allocate partitions"
-#~ msgstr "ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ହେଲା ନାହିଁ"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "ଆପଣ ଅନ୍ଯ କୌଣସି ସ୍ବୟଂଚାଳିତ ବିଭାଜନ ପସନ୍ଦ କୁ ଚୟନ କରି ପାରନ୍ତି, କିମ୍ବା 'ଫଛ' କୁ ଦବାନ୍ତୁ \n"
-#~ "\n"
-#~ "ଆଗକୁ ଯିବା ପାଇଁ 'ଠିକ ଅଛି'କୁ ଦବାନ୍ତୁ"
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "%s-%s-%s.%s. କୁ ସ୍ଥାପିତ କରୁଅଛି\n"
-
-#~ msgid "_Cancel"
-#~ msgstr "ବାତିଲ (_C)"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "ଆଇ.ପି. ଠିକଣା ରେ 1 ଏବଂ 255 ମଧ୍ଯବର୍ତ୍ତୀ ସଂଖ୍ଯା ମାନ ରହିବା ଉଚିତ"
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI ବିନ୍ଯାସ"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "କୌଣସି ଆଇ.ପି. ଠିକଣା ଭରଣ କରାଯାଇ ନାହିଁ, iSCSI ବ୍ଯବସ୍ଥା କୁ ଛାଡି ଦେଉଛି"
-
-#~ msgid ""
-#~ "ଅଭିନନ୍ଦନ, ଆପଣଙ୍କର %s ବିନ୍ଯାସ ଟି ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।\n"
-#~ "\n"
-#~ "%s%s"
-#~ msgstr ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "%s%s"
-
-#~ msgid "Target IP address:"
-#~ msgstr "ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା:"
-
-#~ msgid "Port Number:"
-#~ msgstr "ସଂଯୋଗିକୀ ନମ୍ବର:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux ଡେସ୍କଟପ୍"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid "Netmask:"
-#~ msgstr "ନେଟମାସ୍କ:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ ଗେଟ-ଓ୍ବେ (ଆଇ.ପି.):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "ମୌଳିକ ନାମ ସେବକ:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI ବିନ୍ଯାସ"
