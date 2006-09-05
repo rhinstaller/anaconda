@@ -224,8 +224,11 @@ class TaskWindow(InstallWindow):
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 
         lbl = self.xml.get_widget("mainLabel")
-        txt = lbl.get_text()
-        lbl.set_text(txt %(productName,))
+        if anaconda.id.instClass.description:
+            lbl.set_text(anaconda.id.instClass.description)
+        else:
+            txt = lbl.get_text()
+            lbl.set_text(txt %(productName,))
 
 	custom = not self.dispatch.stepInSkipList("group-selection")
         if custom:

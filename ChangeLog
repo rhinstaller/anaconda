@@ -1,3 +1,9 @@
+2006-09-05  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/task_gui.py (TaskWindow.getScreen): Use text from the
+	installclass if it exists
+	* textw/task_text.py (TaskWindow.__call__): Likewise.
+
 2006-09-04  Bill Nottingham  <notting@redhat.com>
 
 	* scripts/upd-instroot: s/Clarius/Clearlooks/g

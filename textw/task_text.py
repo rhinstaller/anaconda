@@ -42,7 +42,10 @@ class TaskWindow:
 	toplevel = GridFormHelp (screen, _("Package selection"),
 				 "tasksel", 1, 5)
 
-	labeltxt = _("The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?") %(productName,)
+        if anaconda.id.instClass.description:
+            labeltxt = anaconda.id.instClass.description
+        else:
+            labeltxt = _("The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?") %(productName,)
 	toplevel.add (TextboxReflowed(55, labeltxt), 0, 0, (0, 0, 0, 1))
 
         ct = CheckboxTree(height = 4, scroll = (len(tasks) > 4))
