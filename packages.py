@@ -193,7 +193,10 @@ def setFileCons(anaconda):
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
-                 "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network"]
+                 "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
+                 "/root/install.log", "/root/install.log.syslog",
+                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
+                 "/var/log/lastlog"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
