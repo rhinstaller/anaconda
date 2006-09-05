@@ -1,3 +1,8 @@
+2006-09-05  David Cantrell  <dcantrell@redhat.com>
+
+	* exception.py (dumpException): Make sure trace is not None so we
+	get tracebacks.
+
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

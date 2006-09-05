@@ -150,15 +150,16 @@ def dumpException(out, text, tb, anaconda):
     out.write(text)
 
     trace = tb
-    while trace.tb_next:
-        trace = trace.tb_next
-    frame = trace.tb_frame
-    out.write ("\nLocal variables in innermost frame:\n")
-    try:
-        for (key, value) in frame.f_locals.items():
-            out.write ("%s: %s\n" % (key, value))
-    except:
-        pass
+    if trace is not None:
+        while trace.tb_next:
+            trace = trace.tb_next
+        frame = trace.tb_frame
+        out.write ("\nLocal variables in innermost frame:\n")
+        try:
+            for (key, value) in frame.f_locals.items():
+                out.write ("%s: %s\n" % (key, value))
+        except:
+            pass
 
     try:
         out.write("\n\n")
