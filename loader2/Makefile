@@ -7,7 +7,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-LIBS = -lnewt -lslang -lz -ldevmapper -lpopt ../isys/libisys.a
+LIBS = -lnewt -lslang -lz -lpopt ../isys/libisys.a
 
 # glib - for utility stuff
 LIBS   += $(shell pkg-config --libs glib-2.0)
@@ -17,9 +17,15 @@ CFLAGS += $(shell pkg-config --cflags glib-2.0)
 LIBS   += $(shell pkg-config --libs libdhcp)
 CFLAGS += $(shell pkg-config --cflags libdhcp)
 
+# devmapper
+LIBS	+= $(shell pkg-config --libs devmapper)
+CFLAGS	+= $(shell pkg-config --cflags devmapper)
+
+ifeq (1, $(USEFWLOADER))
 # nash library flags
 LIBS   += $(shell pkg-config --libs libnash)
-CFLAGS += $(shell pkg-config --cflags libnash)
+CFLAGS += $(shell pkg-config --cflags libnash) -DNASH_FIRMWARE_LOADER
+endif
 
 ifeq (1, $(USESELINUX))
 LIBS += -lselinux -lsepol

@@ -36,7 +36,9 @@
 #include <syslog.h>
 #include <unistd.h>
 
+#ifdef NASH_FIRMWARE_LOADER
 #include <nash.h>
+#endif
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -1235,6 +1237,7 @@ static int anaconda_trace_init(void) {
     return 0;
 }
 
+#ifdef NASH_FIRMWARE_LOADER
 int nashHotplugLogger(nashContext *nc, const nash_log_level level,
         const char *fmt, va_list ap) {
     int loglevel;
@@ -1261,6 +1264,7 @@ int nashHotplugLogger(nashContext *nc, const nash_log_level level,
     va_end(apc);
     return 0;
 }
+#endif
 
 int main(int argc, char ** argv) {
     /* Very first thing, set up tracebacks and debug features. */
@@ -1300,7 +1304,9 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+#ifdef NASH_FIRMWARE_LOADER
     nashContext *nc = nashNewContext();
+#endif
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -1314,8 +1320,10 @@ int main(int argc, char ** argv) {
 
     rc = anaconda_trace_init();
 
+#ifdef NASH_FIRMWARE_LOADER
     nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
     nashSetLogger(nc, nashHotplugLogger);
+#endif
 
     /* now we parse command line options */
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
@@ -1342,7 +1350,9 @@ int main(int argc, char ** argv) {
     fprintf(f, "%d\n", getpid());
     fclose(f);
 
+#ifdef NASH_FIRMWARE_LOADER
     nashHotplugInit(nc);
+#endif
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
@@ -1389,7 +1399,9 @@ int main(int argc, char ** argv) {
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
         sleep(5);
+#ifdef NASH_FIRMWARE_LOADER
         nashHotplugKill(nc);
+#endif
         exit(1);
     }
     mlReadLoadedList(&modLoaded);
@@ -1566,16 +1578,20 @@ int main(int argc, char ** argv) {
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
                            LIBPATH), 1);
+#ifdef NASH_FIRMWARE_LOADER
         nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware:/mnt/source/RHupdates/firmware/");
         nashHotplugKill(nc);
         nashHotplugInit(nc);
+#endif
     } else {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
+#ifdef NASH_FIRMWARE_LOADER
         nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
         nashHotplugKill(nc);
         nashHotplugInit(nc);
+#endif
     }
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
@@ -1756,7 +1772,7 @@ int main(int argc, char ** argv) {
         return rc;
 #endif
     }
-#if 0
+#ifdef NASH_FIRMWARE_LOADER
     else {
 	char **args = anacondaArgs;
 	printf("would have run ");
