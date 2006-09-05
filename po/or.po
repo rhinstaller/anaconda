@@ -1258,6 +1258,7 @@ msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
+"ଆଇ.ପି. ଠିକଣା 0 ଏବଂ 255 ମଧ୍ଯରେ ଚାରିଟି ସଂଖ୍ଯା ଧାରଣ କରିଥାଏ, ଏବଂ ପ୍ରତି ସଂଖ୍ଯାକୁ ବିନ୍ଦୁ ଦ୍ବାରା ପୃଥକ କରାଯାଇଥାଏ।"
 
 #: ../network.py:96
 #, python-format
@@ -1271,11 +1272,11 @@ msgstr "ପଞ୍ଜିକୃତ ଚାବିକୁ ଭରଣ କରନ୍ତୁ
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "ଆପଣଙ୍କ ସଂସ୍କରଣର %s ପାଇଁ ଦୟାକରି ପଞ୍ଜିକୃତ ଚାବିକୁ ଭରଣ କରନ୍ତୁ।"
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "ଚାବି:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1866,10 +1867,12 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
+"%s ଆରୋହଣ ବିନ୍ଦୁକୁ ବ୍ଯବହାର କରିପାରିବ ନାହିଁ। ତନ୍ତ୍ରର ସଠିକ କାର୍ଯ୍ଯକଳାପ ପାଇଁ ଏହା ଗୋଟିଏ ପ୍ରତୀକାତ୍ମକ ସମ୍ପର୍କ ହେବା ଉଚିତ। "
+"ଦୟାକରି ଗୋଟିଏ ଭିନ୍ନ ଆରୋହଣ ବିନ୍ଦୁକୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "ଏହି ଆରୋହଣ ବିନ୍ଦୁ ଗୋଟିଏ linux ଫାଇଲ ତନ୍ତ୍ରରେ ରହିବା ଉଚିତ।"
 
 #: ../partRequests.py:280
 #, python-format
@@ -1877,6 +1880,7 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
+"\"%s\" ଆରୋହଣ ବିନ୍ଦୁ ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଛି, ଦୟାକରି ଗୋଟିଏ ଭିନ୍ନ ଆରୋହଣ ବିନ୍ଦୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../partRequests.py:294
 #, python-format
@@ -1895,24 +1899,24 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "ନିବେଦିତ ବିଭାଜନର ଆକାର ଋଣାତ୍ମକ ଅଟେ! (ଆକାର = %s ମେଗା-ବାଇଟ)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "ପ୍ରଥମ ସିଲିଣ୍ଡର ଅଧୀନରେ ବିଭାଜନ ପ୍ରାରମ୍ଭ ହୋଇପାରିବ ନାହିଁ।"
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "ଗୋଟିଏ ନିଷେଧାତ୍ମକ ସିଲିଣ୍ଡରରେ ବିଭାଜନ ପ୍ରାରମ୍ଭ ହୋଇପାରିବ ନାହିଁ।"
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID ନିବେଦନରେ କୌଣସି ସଦସ୍ଯ ନାହାଁନ୍ତି, କିମ୍ବା RAID ସ୍ତର ନିର୍ଦ୍ଦିଷ୍ଟ କରାଯାଇ ନାହିଁ।"
 
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%s ପ୍ରକାରର ଗୋଟିଏ RAID ଉପକରଣ ଅତିକମରେ %s ସଦସ୍ଯଙ୍କୁ ଦରକାର କରିଥାଏ।"
 
 #: ../partRequests.py:690
 #, python-format
@@ -1929,12 +1933,12 @@ msgstr ""
 
 #: ../rescue.py:129
 msgid "Starting Interface"
-msgstr ""
+msgstr "ଅନ୍ତରାପୃଷ୍ଠାକୁ ପ୍ରାରମ୍ଭ କରୁଅଛି"
 
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s କୁ ପ୍ରାରମ୍ଭ କରିବାର ପ୍ରଚେଷ୍ଟା କରୁଅଛି"
 
 #: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1942,11 +1946,11 @@ msgstr ""
 
 #: ../rescue.py:199
 msgid "Setup Networking"
-msgstr ""
+msgstr "ବ୍ଯବସ୍ଥାପନ ନେଟୱାର୍କିଙ୍ଗ"
 
 #: ../rescue.py:200
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "ଆପଣ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ଏହି ତନ୍ତ୍ରରେ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
@@ -1954,11 +1958,11 @@ msgstr "ବାତିଲ କରାଯାଇଛି"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "ମୁଁ ପୂର୍ବବର୍ତ୍ତୀ ପଦକ୍ଷେପକୁ ଏଠାରୁ ଯାଇ ପାରିବି ନାହିଁ। ଆପଣଙ୍କୁ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ ପଡିବ।"
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
-msgstr ""
+msgstr "ଉଦ୍ଧାର କରନ୍ତୁ"
 
 #: ../rescue.py:279
 #, python-format
@@ -1985,11 +1989,11 @@ msgstr "କେବଳ ପଠନୀୟ"
 
 #: ../rescue.py:320
 msgid "System to Rescue"
-msgstr ""
+msgstr "ଉଦ୍ଧାର କରିବା ପାଇଁ ତନ୍ତ୍ର"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରର ପ୍ରମୂଖ ଚାଳକ (ରୁଟ) ର ବିଭାଜନକୁ କେଉଁ ବିଭାଜନ ଧାରଣ କରିଅଛି?"
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
@@ -2027,7 +2031,7 @@ msgstr ""
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
-msgstr ""
+msgstr "ଉଦ୍ଧାର ଧାରା"
 
 #: ../rescue.py:444
 msgid ""
@@ -2058,7 +2062,7 @@ msgstr "ବ୍ଯତିକ୍ରମ ପରିଲିକ୍ଷିତ ହେଲା"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "ଦୂର ଆଧାରରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
 #: ../text.py:190
 msgid "Host"
@@ -2066,7 +2070,7 @@ msgstr "ଆଧାର"
 
 #: ../text.py:192
 msgid "Remote path"
-msgstr ""
+msgstr "ଦୂର ପଥ"
 
 #: ../text.py:194
 msgid "User name"
@@ -2078,11 +2082,11 @@ msgstr "ପ୍ରବେଶ ସଙ୍କେତ"
 
 #: ../text.py:253
 msgid "Help not available"
-msgstr ""
+msgstr "ସହାୟତା ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "ସ୍ଥାପନର ଏହି ପଦକ୍ଷେପ ପାଇଁ କୌଣସି ସହାୟତା ଉପଲବ୍ଧ ନାହିଁ।"
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -2091,7 +2095,7 @@ msgstr ""
 #: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%s କୁ ସ୍ବାଗତମ"
 
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
@@ -2105,15 +2109,15 @@ msgstr ""
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "ଅବସ୍ଥିତ ତନ୍ତ୍ରକୁ ଉନ୍ନୟନ କରନ୍ତୁ"
 
 #: ../upgradeclass.py:24
 msgid "Upgrade"
-msgstr ""
+msgstr "ଉନ୍ନୟନ କରନ୍ତୁ"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "ଉନ୍ନୟନ ସହିତ ଆଗକୁ ବଢିବ କି?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2124,7 +2128,7 @@ msgstr ""
 
 #: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "ଆପଣ ଉନ୍ନୟନ ସହିତ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../upgrade.py:94
 msgid "Searching"
@@ -2133,11 +2137,11 @@ msgstr "ସନ୍ଧାନ କରୁଅଛି"
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s ସ୍ଥାପନ ପାଇଁ ସନ୍ଧାନ କରୁଅଛି..."
 
 #: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "ଅପ୍ରୀତିକର ଫାଇଲ ତନ୍ତ୍ର"
 
 #: ../upgrade.py:152
 #, python-format
@@ -2158,7 +2162,7 @@ msgstr ""
 
 #: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
-msgstr ""
+msgstr "ଆରୋହଣ ବିଫଳ"
 
 #: ../upgrade.py:298
 msgid ""
@@ -2183,7 +2187,7 @@ msgstr ""
 
 #: ../upgrade.py:327
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "ପ୍ରକୃତ ପୂର୍ବସମ୍ପର୍କ"
 
 #: ../upgrade.py:338
 msgid ""
@@ -2195,12 +2199,12 @@ msgstr ""
 
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr ""
+msgstr "ଅବୈଧ ଡିରେକ୍ଟୋରି"
 
 #: ../upgrade.py:351
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s ମିଳିଲା ନାହିଁ"
 
 #: ../urlinstall.py:35
 msgid "Connecting..."
@@ -2220,7 +2224,7 @@ msgstr ""
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
-msgstr ""
+msgstr "X କୁ ପ୍ରାରମ୍ଭ କରିବାରେ ଅସମର୍ଥ"
 
 #: ../vnc.py:44
 msgid ""
@@ -2231,19 +2235,19 @@ msgstr ""
 
 #: ../vnc.py:51 ../vnc.py:54
 msgid "Use text mode"
-msgstr ""
+msgstr "ପାଠ୍ଯ ଧାରାକୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: ../vnc.py:52
 msgid "Start VNC"
-msgstr ""
+msgstr "VNC କୁ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
 
 #: ../vnc.py:62
 msgid "VNC Configuration"
-msgstr ""
+msgstr "VNC ବିନ୍ଯାସ"
 
 #: ../vnc.py:66
 msgid "No password"
-msgstr ""
+msgstr "କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ନାହିଁ"
 
 #: ../vnc.py:69
 msgid ""
@@ -2258,27 +2262,27 @@ msgstr "ପ୍ରବେଶ ସଙ୍କେତ:"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ (ନିଶ୍ଚିତ କରନ୍ତୁ):"
 
 #: ../vnc.py:100 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ ମିଶୁନାହିଁ"
 
 #: ../vnc.py:101 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତଟି ଭିନ୍ନ ଅଟେ। ଦୟାକରି ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ।"
 
 #: ../vnc.py:106 ../textw/userauth_text.py:59
 msgid "Password Length"
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଦୈର୍ଘ୍ଯ"
 
 #: ../vnc.py:107
 msgid "The password must be at least six characters long."
-msgstr ""
+msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ଅତିକମରେ ୬ ଅକ୍ଷର ବିଶିଷ୍ଟ ହେବା ଉଚିତ।"
 
 #: ../vnc.py:137
 msgid "VNC Password Error"
-msgstr ""
+msgstr "VNC ପ୍ରବେଶ ସଙ୍କେତ ତୃଟି"
 
 #: ../vnc.py:138
 msgid ""
