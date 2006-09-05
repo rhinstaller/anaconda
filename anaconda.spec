@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.90
+Version: 11.1.0.91
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.91-1
+- build fix (pjones)
+- traceback fix (dcantrel)
+
 * Tue Sep  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.90-1
 - Update for newer iscsi code
 - Fix with yum API change
