@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.89
+Version: 11.1.0.90
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.90-1
+- Update for newer iscsi code
+- Fix with yum API change
+- More files to restorecon (clumens)
+- Don't crash with duplicate repos (clumens)
+- Back to clearlooks (notting)
+- dmraid for dmraid, not kpartx (pjones)
+
 * Thu Aug 31 2006 Peter Jones <pjones@redhat.com> - 11.1.0.89-1
 - Fix going back to the repo screen (clumens)
 - Install correct supplementary packages when using dmraid or multipath
