@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-08-31 07:28+0530\n"
+"PO-Revision-Date: 2006-09-05 15:11+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2677,17 +2677,16 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "கூடுதல் Boot Loader கட்டமைப்பு"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"BIOSஆல் ஆதரிக்கப்படாத போது LBA32ஐ துவக்க இயக்கியாக பயன்படுத்த அனுமதிப்பது உங்கள் "
+"BIOSஆல் துணையில்லாத போது LBA32ஐ bootloader ஆக பயன்படுத்த அனுமதிப்பது உங்கள் "
 "கணினியை துவக்க முடியாத நிலைக்கு கொண்டு செல்லும்.\n"
 "\n"
-"இருப்பினும் LBA32முறையை தொடர்ந்து செயல்படுத்த விருப்பமா?"
+"இருப்பினும் LBA32 முறையை தொடர்ந்து செயல்படுத்த வேண்டுமா?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2698,11 +2697,12 @@ msgid "_Force LBA32 (not normally required)"
 msgstr "LBA32ஐ செயல்படுத்தவும் (இயல்பாக தேவையில்லை)(_F)"
 
 #: ../iw/bootloader_advanced_gui.py:73
-#, fuzzy
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr "இயல்பான தேர்வை துவக்க கட்டளையில் சேர்க்க, 'பொதுவான கர்னல் அளவுரு' புலத்தில் உள்ளிடவும். "
+msgstr ""
+"முன்னிருப்பு விருப்பங்களை துவக்க கட்டளையில் சேர்க்க, அவற்றை "
+"'பொதுவான கர்னல் அளவுருக்கள்' புலத்தில் உள்ளிடவும். "
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
