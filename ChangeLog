@@ -3,6 +3,9 @@
 	* packages.py (setFileCons):  Add more files to the list of things we
 	need to fix the context on.
 
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Log when duplicate
+	repositories are added instead of crashing.
+
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/task_gui.py (TaskWindow.getScreen): Use text from the

@@ -385,8 +385,13 @@ class AnacondaYum(YumSorter):
                                        repoid=ksrepo.name)
                 repo.name = name
                 repo.enable()
-                self.repos.add(repo)
-                log.info("added repository %s with with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+                
+                try:
+                    self.repos.add(repo)
+                    log.info("added repository %s with with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+                except yum.Errors.DuplicateRepoError, e:
+                    log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+
         self.repos.setCacheDir('/tmp/cache')
 
     def getDownloadPkgs(self):
