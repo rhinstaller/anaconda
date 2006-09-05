@@ -16,6 +16,9 @@
 	* exception.py (dumpException): Make sure trace is not None so we
 	get tracebacks.
 
+	* iw/network_gui.py: Rewrite to handle manual IPv6 address entry
+	along with the ever-popular IPv4 address entry.
+
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

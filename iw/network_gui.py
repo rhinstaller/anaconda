@@ -23,11 +23,14 @@ from rhpl.translate import _, N_
 import network
 import checklist
 
-global_options = [_("Gateway"), _("Primary DNS"),
-		  _("Secondary DNS"), _("Tertiary DNS")]
+global_options = [_("Gateway"), _("Primary DNS"), _("Secondary DNS")]
+global_option_labels = [_("_Gateway"), _("_Primary DNS"), _("_Secondary DNS")]
 
-global_option_labels = [_("_Gateway"), _("_Primary DNS"),
-		  _("_Secondary DNS"), _("_Tertiary DNS")]
+descr = { 'ipaddr':   'IPv4 address',
+          'netmask':  'IPv4 network mask',
+          'remip':    'point-to-point IP address',
+          'ipv6addr': 'IPv6 address'
+        }
 
 class NetworkWindow(InstallWindow):		
 
@@ -88,12 +91,10 @@ class NetworkWindow(InstallWindow):
 	    self.network.gateway = tmpvals[0]
 	    self.network.primaryNS = tmpvals[1]
 	    self.network.secondaryNS = tmpvals[2]
-	    self.network.ternaryNS = tmpvals[3]
 	elif self.id.instClass.name != "kickstart":
 	    self.network.gateway = None
 	    self.network.primaryNS = None
 	    self.network.secondaryNS = None
-	    self.network.ternaryNS = None
 
         iter = self.ethdevices.store.get_iter_first()
 	while iter:
@@ -120,14 +121,6 @@ class NetworkWindow(InstallWindow):
 	self.network.overrideDHCPhostname = override
 
         return None
-        
-    def DHCPtoggled(self, widget, (dev, table)):
-	active = widget.get_active()
-        table.set_sensitive(not active)
-	
-	bootproto = "dhcp"
-	if not active:
-            bootproto = "static"
 
     def onBootToggled(self, widget, dev):
 	if widget.get_active():
@@ -178,7 +171,11 @@ class NetworkWindow(InstallWindow):
 				  "the value entered for \"%s\":\n%s") % (newfield, errmsg))
 
     def handleIPMissing(self, field):
-	newfield = string.replace(field, "_", "")
+	try:
+	    newfield = descr[field]
+	except:
+	    newfield = field
+
 	self.intf.messageWindow(_("Error With Data"),
 				_("A value is required for the field \"%s\".") % (newfield,))
 
@@ -191,6 +188,66 @@ class NetworkWindow(InstallWindow):
 	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
     def editDevice(self, data):
+	v4list = []
+	v6list = []
+	ptplist = []
+	wifilist = []
+
+        def DHCPtoggled(widget):
+	    active = widget.get_active()
+
+	    if wifilist:
+	        for widget in wifilist:
+	            widget.set_sensitive(True)
+
+	    if active:
+	        bootproto = "dhcp"
+
+	        for widget in v4list:
+	            widget.set_sensitive(False)
+
+	        for widget in v6list:
+	            widget.set_sensitive(False)
+
+	        if ptplist:
+	            for widget in ptplist:
+	                widget.set_sensitive(False)
+	    else:
+	        bootproto = "static"
+
+	        if IPV4cb.get_active():
+	            for widget in v4list:
+	                widget.set_sensitive(True)
+
+	        if IPV6cb.get_active():
+	            for widget in v6list:
+	                widget.set_sensitive(True)
+
+	        if ptplist:
+	            for widget in ptplist:
+	                widget.set_sensitive(True)
+
+	def IPV4toggled(widget):
+	    active = widget.get_active()
+	    if not DHCPcb.get_active():
+	        if active:
+	            for widget in v4list:
+	                widget.set_sensitive(True)
+	        else:
+	            for widget in v4list:
+	                widget.set_sensitive(False)
+
+	def IPV6toggled(widget):
+	    active = widget.get_active()
+	    if not DHCPcb.get_active():
+	        if active:
+	            for widget in v6list:
+	                widget.set_sensitive(True)
+	        else:
+	            for widget in v6list:
+	                widget.set_sensitive(False)
+
+
 	if self.ignoreEvents:
 	    return
 	
@@ -208,17 +265,32 @@ class NetworkWindow(InstallWindow):
 			     flags=gtk.DIALOG_MODAL)
         gui.addFrame(editWin)
         editWin.set_modal(True)
-#        editWin.set_size_request(350, 200)
         editWin.set_position (gtk.WIN_POS_CENTER)
 	
 	# create contents
 	devbox = gtk.VBox()
 
-	align = gtk.Alignment()
-	DHCPcb = gtk.CheckButton(_("Configure using _DHCP"))
+	hwaddr = self.devices[dev].get("hwaddr")
+	if hwaddr is not None and len(hwaddr) > 0:
+	    align = gtk.Alignment()
+	    label = gtk.Label(_("Hardware address: %s") % (hwaddr,))
+	    align.add(label)
+	    devbox.pack_start(align, False, padding=3)
 
+	align = gtk.Alignment()
+	DHCPcb = gtk.CheckButton(_("Use dynamic IP configuration (_DHCP)"))
 	align.add(DHCPcb)
-	devbox.pack_start(align, False)
+	devbox.pack_start(align, False, padding=3)
+
+	align = gtk.Alignment()
+	IPV4cb = gtk.CheckButton(_("Enable IPv4 support"))
+	align.add(IPV4cb)
+	devbox.pack_start(align, False, padding=3)
+
+	align = gtk.Alignment()
+	IPV6cb = gtk.CheckButton(_("Enable IPv6 support"))
+	align.add(IPV6cb)
+	devbox.pack_start(align, False, padding=3)
 
 	align = gtk.Alignment()
 	bootcb = gtk.CheckButton(_("_Activate on boot"))
@@ -226,69 +298,106 @@ class NetworkWindow(InstallWindow):
 	bootcb.connect("toggled", self.onBootToggled, self.devices[dev])
 	bootcb.set_active(onboot)
 	align.add(bootcb)
+	devbox.pack_start(align, False, padding=3)
 
-	devbox.pack_start(align, False, padding=6)
-#	devbox.pack_start(gtk.HSeparator(), False, padding=3)
-
-	options = [(_("_IP Address"), "ipaddr"),
-		   (_("Net_mask"),    "netmask")]
-
-        devopts = []
+        ipTableLength = 2
 
         if (network.isPtpDev(dev)):
-	    newopt = (_("_Point to Point (IP)"), "remip")
-	    options.append(newopt)
+            ipTableLength += 1
 
         if (isys.isWireless(dev)):
-            newopt = [(_("_ESSID"), "essid"),
-                      (_("Encryption _Key"), "key")]
-            devopts.extend(newopt)
-            
-        ipTable = gtk.Table(len(options) + 1, 2)
-	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
-	# go ahead and set up DHCP on the first device
-	DHCPcb.set_active(bootproto == 'DHCP')
+            ipTableLength += 2
+
+        ipTable = gtk.Table(ipTableLength, 4)
+
+	DHCPcb.connect("toggled", DHCPtoggled)
+
+	IPV4cb.connect("toggled", IPV4toggled)
+	IPV4cb.set_active(True)
+
+	IPV6cb.connect("toggled", IPV6toggled)
+	IPV6cb.set_active(True)
+
 	entrys = {}
 
-        hwaddr = self.devices[dev].get("hwaddr")
-        if hwaddr is not None and len(hwaddr) > 0:
-            label = gui.MnemonicLabel(_("Hardware address:"), (0.0, 0.5))
-            ipTable.attach(label, 0, 1, 0, 1, gtk.FILL, 0, 10, 5)
-            hwlabel = gtk.Label("%s" %(hwaddr,))
-            ipTable.attach(hwlabel, 1, 2, 0, 1)
-        
-	for t in range(len(options)):
-	    label = gtk.Label("%s:" %(options[t][0],))
-	    label.set_alignment(0.0, 0.5)
-	    label.set_property("use-underline", True)
-	    ipTable.attach(label, 0, 1, t+1, t+2, gtk.FILL, 0, 10)
+        # build the IP options table:
 
-            entry = gtk.Entry()
-	    entrys[t] = entry
-	    label.set_mnemonic_widget(entry)
-	    ipTable.attach(entry, 1, 2, t+1, t+2, 0, gtk.FILL|gtk.EXPAND)
+        # IPv4 address and mask
+        v4list.append(gtk.Label(_("IPv_4 Address:")))
+        v4list[0].set_alignment(0.0, 0.5)
+        v4list[0].set_property("use_underline", True)
+        ipTable.attach(v4list[0], 0, 1, 1, 2, xpadding=0, ypadding=0)
+
+        v4list.append(gtk.Entry())
+	v4list[1].set_width_chars(16)
+        entrys['ipaddr'] = v4list[1]
+        ipTable.attach(v4list[1], 1, 2, 1, 2, xpadding=0, ypadding=0)
+
+        v4list.append(gtk.Label("/"))
+        v4list[2].set_alignment(0.0, 0.5)
+        ipTable.attach(v4list[2], 2, 3, 1, 2, xpadding=4, ypadding=0)
+
+        v4list.append(gtk.Entry())
+	v4list[3].set_width_chars(16)
+        entrys['netmask'] = v4list[3]
+        ipTable.attach(v4list[3], 3, 4, 1, 2, xpadding=0, ypadding=0)
+
+        # IPv6 address and prefix
+        v6list.append(gtk.Label(_("IPv_6 Address:")))
+        v6list[0].set_alignment(0.0, 0.5)
+        v6list[0].set_property("use_underline", True)
+        ipTable.attach(v6list[0], 0, 1, 2, 3, xpadding=0, ypadding=0)
+
+        v6list.append(gtk.Entry())
+	v6list[1].set_width_chars(41)
+        entrys['ipv6addr'] = v6list[1]
+        ipTable.attach(v6list[1], 1, 2, 2, 3, xpadding=0, ypadding=0)
+
+        v6list.append(gtk.Label("/"))
+        v6list[2].set_alignment(0.0, 0.5)
+        ipTable.attach(v6list[2], 2, 3, 2, 3, xpadding=4, ypadding=0)
+
+        v6list.append(gtk.Entry())
+	v6list[3].set_width_chars(4)
+        entrys['ipv6prefix'] = v6list[3]
+        ipTable.attach(v6list[3], 3, 4, 2, 3, xpadding=0, ypadding=0)
+
+        # Point to Point address
+        if (network.isPtpDev(dev)):
+            ptplist.append(gtk.Label(_("_Point to Point (IP):")))
+            ptplist[0].set_alignment(0.0, 0.5)
+            ptplist[0].set_property("use_underline", True)
+            ipTable.attach(ptplist[0], 0, 1, 3, 4, xpadding=0, ypadding=0)
+
+            ptplist.append(gtk.Entry())
+	    ptplist[1].set_width_chars(41)
+            entrys['remip'] = ptplist[1]
+            ipTable.attach(ptplist[1], 1, 2, 3, 4, xpadding=0, ypadding=0)
+
+        if (isys.isWireless(dev)):
+            wifilist.append(gtk.Label(_("_ESSID:")))
+            wifilist[0].set_alignment(0.0, 0.5)
+            wifilist[0].set_property("use_underline", True)
+            ipTable.attach(wifilist[0], 0, 1, 4, 5, xpadding=0, ypadding=0)
+
+            wifilist.append(gtk.Entry())
+            entrys['essid'] = wifilist[1]
+            ipTable.attach(wifilist[1], 1, 2, 4, 5, xpadding=0, ypadding=0)
+
+            wifilist.append(gtk.Label(_("Encryption _Key:")))
+            wifilist[2].set_alignment(0.0, 0.5)
+            wifilist[2].set_property("use_underline", True)
+            ipTable.attach(wifilist[2], 0, 1, 5, 6, xpadding=0, ypadding=0)
+
+            wifilist.append(gtk.Entry())
+            entrys['key'] = wifilist[3]
+            ipTable.attach(wifilist[3], 1, 2, 5, 6, xpadding=0, ypadding=0)
 
 	devbox.pack_start(ipTable, False, False, 6)
         devbox.set_border_width(6)
 
-        deventrys = {}
-        if len(devopts) > 0:
-            devTable = gtk.Table(len(devopts), 2)
-
-            for t in range(len(devopts)):
-                label = gtk.Label("%s:" %(devopts[t][0],))
-                label.set_alignment(0.0, 0.5)
-                label.set_property("use-underline", True)
-                devTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
-
-                entry = gtk.Entry()
-                entry.set_text(self.devices[dev].get(devopts[t][1]))
-                deventrys[t] = entry
-                label.set_mnemonic_widget(entry)
-                devTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
-
-
-            devbox.pack_start(devTable, False, False, 6)
+	# go ahead and set up DHCP on the first device
+	DHCPcb.set_active(bootproto == 'DHCP')
 
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
@@ -330,24 +439,22 @@ class NetworkWindow(InstallWindow):
 	    if bootproto != 'dhcp':
 		valsgood = 1
 		tmpvals = {}
-		for t in range(len(options)):
-		    try:
-                        network.sanityCheckIPString(entrys[t].get_text())
-                        tmpvals[t] = entrys[t].get_text()
-		    except network.IPMissing, msg:
-			self.handleIPMissing(options[t][0])
-			valsgood = 0
-			break
-		    except network.IPError, msg:
-			self.handleIPError(options[t][0], msg)
-			valsgood = 0
-			break
+		for t in entrys.keys():
+		    if t == "ipaddr" or t == "netmask" or t == "remip" or t == "ipv6addr":
+		        try:
+		            network.sanityCheckIPString(entrys[t].get_text())
+		            tmpvals[t] = entrys[t].get_text()
+		        except network.IPMissing, msg:
+		            self.handleIPMissing(t)
+		            valsgood = 0
+		            break
 
 		if valsgood == 0:
 		    continue
 
 		try:
-                    (net, bc) = isys.inet_calcNetBroad (tmpvals[0], tmpvals[1])
+                    (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
+                                                        tmpvals['netmask'])
 		except Exception, e:
                     print e
 		    self.handleBroadCastError()
@@ -356,8 +463,22 @@ class NetworkWindow(InstallWindow):
 		if not valsgood:
 		    continue
 
-		for t in range(len(options)):
-		    self.devices[dev].set((options[t][1], tmpvals[t]))
+		for t in entrys.keys():
+		    if t == 'ipv6prefix':
+		        continue
+
+		    if tmpvals.has_key(t):
+		        if t == 'ipv6addr':
+		            if entrys['ipv6prefix'] is not None:
+		                q = "%s/%s" % (tmpvals[t],entrys['ipv6prefix'],)
+		            else:
+		                q = "%s" % (tmpvals[t],)
+
+		            self.devices[dev].set((t, q))
+		        else:
+		            self.devices[dev].set((t, tmpvals[t]))
+		    else:
+		        self.devices[dev].set((t, entrys[t].get_text()))
 
 		self.devices[dev].set(('network', net), ('broadcast', bc))
 
@@ -365,9 +486,6 @@ class NetworkWindow(InstallWindow):
 	    self.devices[dev].set(('ONBOOT', onboot))
 	    model.set_value(iter, 0, onboot == 'yes')
 	    model.set_value(iter, 2, self.createIPRepr(self.devices[dev]))
-
-            for t in range(len(devopts)):
-                self.devices[dev].set((devopts[t][1], deventrys[t].get_text()))
 
 	    editWin.destroy()
 
@@ -434,7 +552,7 @@ class NetworkWindow(InstallWindow):
 			  gobject.TYPE_STRING,
 			  gobject.TYPE_STRING)
 	
-	self.ethdevices = NetworkDeviceCheckList(2, store, clickCB=self.onbootToggleCB)
+	self.ethdevices = NetworkDeviceCheckList(3, store, clickCB=self.onbootToggleCB)
         num = 0
         for device in devnames:
 	    onboot = self.devices[device].get("ONBOOT")
@@ -470,10 +588,12 @@ class NetworkWindow(InstallWindow):
         self.ethdevices.set_column_sizing (0, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 	self.ethdevices.set_column_title(1, (_("Device")))
         self.ethdevices.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-	self.ethdevices.set_column_title(2, (_("IP/Netmask")))
+	self.ethdevices.set_column_title(2, (_("IPv4/Netmask")))
         self.ethdevices.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-#	self.ethdevices.set_column_title(3, (_("Description")))
-#        self.ethdevices.set_column_sizing (3, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+        self.ethdevices.set_column_title (3, (_("IPv6/Prefix")))
+        self.ethdevices.set_column_sizing (3, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+#	self.ethdevices.set_column_title(4, (_("Description")))
+#        self.ethdevices.set_column_sizing (4, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.ethdevices.set_headers_visible(True)
 
 	self.ignoreEvents = 1
@@ -607,8 +727,6 @@ class NetworkWindow(InstallWindow):
                 self.globals[_("Primary DNS")].set_text(self.network.primaryNS)
 	    if self.network.secondaryNS:
                 self.globals[_("Secondary DNS")].set_text(self.network.secondaryNS)
-	    if self.network.ternaryNS:
-                self.globals[_("Tertiary DNS")].set_text(self.network.ternaryNS)
 
 	self.ipTable.set_border_width(6)
 
