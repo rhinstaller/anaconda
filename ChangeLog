@@ -1,15 +1,20 @@
 2006-09-06  David Cantrell  <dcantrell@redhat.com>
 
+	* iw/network_gui.py (NetworkWindow.editDevice): Fill input boxes
+	with any existing network values we have.
+
+2006-09-06  David Cantrell  <dcantrell@redhat.com>
+
 	* isys/isys.py (inet_convertPrefixToNetmask): Take IPv4 CIDR prefix
 	and convert to dotted-quad netmask notation.
 
-	* iw/network_gui.py (NetworkWindow.editDevices): Allow user to enter
+	* iw/network_gui.py (NetworkWindow.editDevice): Allow user to enter
 	CIDR prefix or dotted-quad netmask for IPv4 settings, validate the
 	IPv4 and IPv6 prefix and make sure they fall within the required
 	range, if user enters IPv4 CIDR prefix then convert to dotted-quad
 	netmask for the sysconfig ifcfg-ethX file.
 
-	* iw/network_gui.py (NetworkWindow.editDevices): Call get_text() to
+	* iw/network_gui.py (NetworkWindow.editDevice): Call get_text() to
 	get the value of the ipv6prefix box rather than using an instance of
 	a gtk.Entry() object.
 
@@ -30,7 +35,7 @@
 	* iw/network_gui.py (createIPV4Repr): Added to handle IPv6 write
 	outs to the tree store.
 
-	* iw/network_gui.py (NetworkWindow.editDevices): Add IPv6 info to
+	* iw/network_gui.py (NetworkWindow.editDevice): Add IPv6 info to
 	the tree store.
 
 	* iw/network_gui.py (NetworkWindow.setupDevices): Initialize tree

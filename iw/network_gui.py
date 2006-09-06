@@ -329,7 +329,8 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v4list[0], 0, 1, 1, 2, xpadding=0, ypadding=0)
 
         v4list.append(gtk.Entry())
-	v4list[1].set_width_chars(16)
+        v4list[1].set_width_chars(16)
+        v4list[1].set_text(self.devices[dev].get('ipaddr'))
         entrys['ipaddr'] = v4list[1]
         ipTable.attach(v4list[1], 1, 2, 1, 2, xpadding=0, ypadding=0)
 
@@ -338,7 +339,8 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v4list[2], 2, 3, 1, 2, xpadding=4, ypadding=0)
 
         v4list.append(gtk.Entry())
-	v4list[3].set_width_chars(16)
+        v4list[3].set_width_chars(16)
+        v4list[3].set_text(self.devices[dev].get('netmask'))
         entrys['netmask'] = v4list[3]
         ipTable.attach(v4list[3], 3, 4, 1, 2, xpadding=0, ypadding=0)
 
@@ -349,7 +351,8 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v6list[0], 0, 1, 2, 3, xpadding=0, ypadding=0)
 
         v6list.append(gtk.Entry())
-	v6list[1].set_width_chars(41)
+        v6list[1].set_width_chars(41)
+        v6list[1].set_text(self.devices[dev].get('ipv6addr'))
         entrys['ipv6addr'] = v6list[1]
         ipTable.attach(v6list[1], 1, 2, 2, 3, xpadding=0, ypadding=0)
 
@@ -358,7 +361,8 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v6list[2], 2, 3, 2, 3, xpadding=4, ypadding=0)
 
         v6list.append(gtk.Entry())
-	v6list[3].set_width_chars(4)
+        v6list[3].set_width_chars(4)
+        v6list[3].set_text(self.devices[dev].get('ipv6prefix'))
         entrys['ipv6prefix'] = v6list[3]
         ipTable.attach(v6list[3], 3, 4, 2, 3, xpadding=0, ypadding=0)
 
@@ -370,7 +374,8 @@ class NetworkWindow(InstallWindow):
             ipTable.attach(ptplist[0], 0, 1, 3, 4, xpadding=0, ypadding=0)
 
             ptplist.append(gtk.Entry())
-	    ptplist[1].set_width_chars(41)
+            ptplist[1].set_width_chars(41)
+            ptplist[1].set_text(self.devices[dev].get('remip'))
             entrys['remip'] = ptplist[1]
             ipTable.attach(ptplist[1], 1, 2, 3, 4, xpadding=0, ypadding=0)
 
@@ -381,6 +386,7 @@ class NetworkWindow(InstallWindow):
             ipTable.attach(wifilist[0], 0, 1, 4, 5, xpadding=0, ypadding=0)
 
             wifilist.append(gtk.Entry())
+            wifilist[1].set_text(self.devices[dev].get('essid'))
             entrys['essid'] = wifilist[1]
             ipTable.attach(wifilist[1], 1, 2, 4, 5, xpadding=0, ypadding=0)
 
@@ -390,6 +396,7 @@ class NetworkWindow(InstallWindow):
             ipTable.attach(wifilist[2], 0, 1, 5, 6, xpadding=0, ypadding=0)
 
             wifilist.append(gtk.Entry())
+            wifilist[3].set_text(self.devices[dev].get('key'))
             entrys['key'] = wifilist[3]
             ipTable.attach(wifilist[3], 1, 2, 5, 6, xpadding=0, ypadding=0)
 
