@@ -1085,7 +1085,9 @@ fi
 
 echo "Creating SELinux policy..."
 if [ -x $DESTGR/usr/sbin/semodule ]; then
-    /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted
+    ( cd $DESTGR
+      x=$(ls usr/share/selinux/targeted/*.pp | grep -v -e base.pp -e enableaudit.pp | awk '{ print "-i /" $1 }')
+    /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp $x -n -s targeted )
 fi
 rm -rf $DEST/etc/selinux
 mkdir $DEST/etc/selinux
