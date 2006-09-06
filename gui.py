@@ -154,12 +154,12 @@ def takeScreenShot():
                     log.error("Too many screenshots!")
                     return
 
-                screenshot.save (screenshotDir + '/' + sname, "png")
-                screenshotIndex = screenshotIndex + 1
+            screenshot.save (screenshotDir + '/' + sname, "png")
+            screenshotIndex = screenshotIndex + 1
 
-                window = MessageWindow(_("Saving Screenshot"), 
-                   _("A screenshot named '%s' has been saved.") % (sname,) ,
-                   type="ok")
+            window = MessageWindow(_("Saving Screenshot"), 
+               _("A screenshot named '%s' has been saved.") % (sname,) ,
+               type="ok")
     except:
         window = MessageWindow(_("Error Saving Screenshot"), 
                                _("An error occurred while saving "

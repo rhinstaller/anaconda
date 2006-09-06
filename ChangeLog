@@ -20,6 +20,9 @@
 
 2006-09-06  Chris Lumens  <clumens@redhat.com>
 
+	* gui.py (takeScreenShot):  Fix indentation so screenshots work again
+	(#204480).
+
 	* yuminstal.py (YumBackend.doRepoSetup):  Iterate over enabled repos,
 	instead of trusting yum to do that for us.  This allows giving the
 	option of skipping incorrect repositories during kickstart (#204831).
