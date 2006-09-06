@@ -2,6 +2,7 @@
 
 	* yuminstall.py (YumBackend.getBestKernelByArch): Fix change that
 	slipped in by accident
+	(YumSorter._provideToPkg): Fix traceback (#205450)
 
 	* loader2/module-info: Add hptiop (#205337)
 

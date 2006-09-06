@@ -231,7 +231,7 @@ class YumSorter(yum.YumBase):
             if self.tsInfo.getMembers(po.pkgtup):
                 self.deps[req] = po
                 return po
-            if po.name not in satisfiers:
+            if po not in satisfiers:
                 satisfiers.append(po)
 
         if satisfiers:
