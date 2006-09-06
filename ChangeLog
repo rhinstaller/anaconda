@@ -1,3 +1,7 @@
+2006-09-06  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/module-info: Add hptiop (#205337)
+
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -5733,7 +5737,7 @@
 	* loader2/hdinstall.c (mountHDImages): minstg2.img instead of
 	hdstg2.img
 	* loader2/method.c (validIsoImages): Look for stage2.img instead
-	of ldstg2.img
+	of hdstg2.img
 
 	* scripts/mk-images: mkcramfs is now mkfs.cramfs
 
@@ -5744,7 +5748,7 @@
 	* scripts/mk-images (padfile): Remove dead function.
 	(makemainmodules): Likewise.
 	(makebootdisk): Likewise.
-	(findloopdevice): Lmkewise.
+	(findloopdevice): Likewise.
 	(makedriverdisk): Likewise.
 	* scripts/mk-images.ia64: Don't really need/want an ls120 image anymore
 
@@ -5757,7 +5761,7 @@
 	created
 	* scripts/mk-images.i386: Use common INITRDMODS and
 	makeSecondStage, minor other cleanups.
-	* scrirts/mk-images.ia64: Likewise.
+	* scripts/mk-images.ia64: Likewise.
 	* scripts/mk-images.s390: Likewise.
 	* scripts/mk-images.x86_64: Likewise.
 	* scripts/mk-images.ppc: Likewise.  Also, use doPostImages stuff.
