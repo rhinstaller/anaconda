@@ -440,12 +440,33 @@ class NetworkWindow(InstallWindow):
 		valsgood = 1
 		tmpvals = {}
 		for t in entrys.keys():
-		    if t == "ipaddr" or t == "netmask" or t == "remip" or t == "ipv6addr":
+		    val = entrys[t].get_text()
+
+		    if t == "ipaddr" or t == "netmask" or \
+		       t == "remip" or t == "ipv6addr":
+
+		        if t == "netmask" and val.find('.') == -1:
+		            if int(val) > 32 or int(val) < 0:
+		                self.intf.messageWindow(_("Invalid Prefix"),
+		                                        _("IPv4 prefix must be "
+		                                          "between 0 and 32."))
+		                valsgood = 0
+		                break
+		            else:
+		                val = isys.inet_convertPrefixToNetmask(val)
+
 		        try:
-		            network.sanityCheckIPString(entrys[t].get_text())
-		            tmpvals[t] = entrys[t].get_text()
+		            network.sanityCheckIPString(val)
+		            tmpvals[t] = val
 		        except network.IPMissing, msg:
 		            self.handleIPMissing(t)
+		            valsgood = 0
+		            break
+		    elif t == 'ipv6prefix':
+		        if int(val) > 128 or int(val) < 0:
+		            self.intf.messageWindow(_("Invalid Prefix"),
+		                                    _("IPv6 prefix must be "
+		                                      "between 0 and 128."))
 		            valsgood = 0
 		            break
 
@@ -470,7 +491,8 @@ class NetworkWindow(InstallWindow):
 		    if tmpvals.has_key(t):
 		        if t == 'ipv6addr':
 		            if entrys['ipv6prefix'] is not None:
-		                q = "%s/%s" % (tmpvals[t],entrys['ipv6prefix'],)
+		                p = entrys['ipv6prefix'].get_text()
+		                q = "%s/%s" % (tmpvals[t], p,)
 		            else:
 		                q = "%s" % (tmpvals[t],)
 
@@ -691,8 +713,9 @@ class NetworkWindow(InstallWindow):
 	self.hostnameManual = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox.pack_start(self.hostnameManual, False, False)
 	self.hostnameEntry = gtk.Entry()
+	self.hostnameEntry.set_width_chars(41)
 	tmphbox.pack_start(self.hostnameEntry, False, False)
-	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), False, False)
+	tmphbox.pack_start(gtk.Label(_('(e.g., host.domain.com)')), False, False)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
 	hostbox.pack_start(tmphbox, False, False)
 
@@ -708,10 +731,7 @@ class NetworkWindow(InstallWindow):
 
         self.setHostOptionsSensitivity()
         
-        #
-	# this is the iptable used for DNS, et. al
 	self.ipTable = gtk.Table(len(global_options), 2)
-#	self.ipTable.set_row_spacing(0, 5)
 	options = {}
 	for i in range(len(global_options)):
 	    label = gtk.Label("%s:" %(global_option_labels[i],))
@@ -720,6 +740,7 @@ class NetworkWindow(InstallWindow):
 	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0)
 	    align = gtk.Alignment(0, 0.5)
 	    options[i] = gtk.Entry()
+	    options[i].set_width_chars(41)
 	    align.add(options[i])
 	    label.set_mnemonic_widget(options[i])
 

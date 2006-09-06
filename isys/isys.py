@@ -444,6 +444,13 @@ def inet_convertNetmaskToPrefix (netmask):
 
     return prefix
 
+# Converts IPv4 CIDR prefix to a dotted-quad netmask
+def inet_convertPrefixToNetmask (prefix):
+    (m,) = struct.unpack('I',socket.inet_pton(socket.AF_INET,'255.255.255.255'))
+    tmp = m >> (32 - int(prefix))
+    ret = socket.inet_ntop(socket.AF_INET, struct.pack('i', tmp))
+    return ret
+
 def getopt(*args):
     warnings.warn("isys.getopt is deprecated.  Use optparse instead.",
                   DeprecationWarning, stacklevel=2)
