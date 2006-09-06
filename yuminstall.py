@@ -648,12 +648,18 @@ class YumBackend(AnacondaBackend):
                 
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
+        # We want to call ayum.doRepoSetup one repo at a time so we have
+        # some concept of which repo didn't set up correctly.
+        repos = []
+
         # Don't do this if we're going backwards
         if anaconda.dir == DISPATCH_BACK:
             return
 
         if thisrepo is not None:
-            repo = self.ayum.repos.getRepo(thisrepo)
+            repos.append(self.ayum.repos.getRepo(thisrepo))
+        else:
+            repos.extend(self.ayum.repos.listEnabled())
 
         anaconda.method.switchMedia(1)
 
@@ -671,35 +677,43 @@ class YumBackend(AnacondaBackend):
         for t in longtasks:
             tot += t[1]
 
-        if thisrepo is None:
-            txt = _("Retrieving installation information...")
-        else:
-            txt = _("Retrieving installation information for %s...")%(repo.name)
-        waitwin = YumProgress(anaconda.intf, txt, tot)
-        self.ayum.repos.callback = waitwin
+        for repo in repos:
+            if repo.name is None:
+                txt = _("Retrieving installation information...")
+            else:
+                txt = _("Retrieving installation information for %s...")%(repo.name)
+            waitwin = YumProgress(anaconda.intf, txt, tot)
+            self.ayum.repos.callback = waitwin
 
-        try:
-            for (task, incr) in longtasks:
-                waitwin.set_incr(incr)
-                if thisrepo is None:
-                    task(thisrepo = None)
-                else:
+            try:
+                for (task, incr) in longtasks:
+                    waitwin.set_incr(incr)
                     task(thisrepo = repo.id)
-                waitwin.next_task()
-            waitwin.pop()
-        except RepoError, e:
-            log.error("reading package metadata: %s" %(e,))
-            waitwin.pop()
-            if not fatalerrors:
-                raise RepoError, e
-            anaconda.intf.messageWindow(_("Error"),
-                               _("Unable to read package metadata. This may be "
-                                 "due to a missing repodata directory.  Please "
-                                 "ensure that your install tree has been "
-                                 "correctly generated.  %s" % e),
-                                 type="custom", custom_icon="error",
-                                 custom_buttons=[_("_Exit")])
-            sys.exit(0)
+                    waitwin.next_task()
+                waitwin.pop()
+            except RepoError, e:
+                log.error("reading package metadata: %s" %(e,))
+                waitwin.pop()
+                if not fatalerrors:
+                    raise RepoError, e
+
+                if anaconda.isKickstart:
+                    buttons = [_("_Abort"), _("_Continue")]
+                else:
+                    buttons = [_("_Abort")]
+
+                rc = anaconda.intf.messageWindow(_("Error"),
+                                   _("Unable to read package metadata. This may be "
+                                     "due to a missing repodata directory.  Please "
+                                     "ensure that your install tree has been "
+                                     "correctly generated.  %s" % e),
+                                     type="custom", custom_icon="error",
+                                     custom_buttons=buttons)
+                if rc == 0:
+                    sys.exit(0)
+                else:
+                    self.ayum.repos.delete(repo.id)
+                    continue
 
         self.doGroupSetup()
         self._catchallCategory()
