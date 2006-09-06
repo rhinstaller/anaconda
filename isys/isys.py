@@ -413,31 +413,36 @@ def mknod(pathname, mode, dev):
                   DeprecationWarning, stacklevel=2)
     return os.mknod(pathname, mode, dev)
 
-# XXX: Use socket.getnameinfo for ipv6 compatibility
-def inet_ntoa (addr):
-    return socket.inet_ntoa(struct.pack('i', addr))
-    
-def inet_aton (addr):
-    try:
-        return struct.unpack('I', socket.inet_aton(addr))[0]
-    except:
-        raise ValueError
-
 def inet_calcNetBroad (ip, nm):
     if isinstance (ip, type ("")):
-        ipaddr = inet_aton (ip)
+        (ipaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, ip))
     else:
         ipaddr = ip
 
     if isinstance (nm, type ("")):
-        nmaddr = inet_aton (nm)
+        (nmaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, nm))
     else:
         nmaddr = nm
 
     netaddr = ipaddr & nmaddr
-    bcaddr = netaddr | (~nmaddr);
-            
-    return (inet_ntoa (netaddr), inet_ntoa (bcaddr))
+    bcaddr = netaddr | (~nmaddr)
+    nw = socket.inet_ntop(socket.AF_INET, struct.pack('i', netaddr))
+    bc = socket.inet_ntop(socket.AF_INET, struct.pack('i', bcaddr))
+
+    return (nw, bc)
+
+# Converts IPv4 netmasks in dotted-quad notation to the CIDR prefix
+def inet_convertNetmaskToPrefix (netmask):
+    (nm,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, netmask))
+    prefix = 0
+
+    while prefix < 33:
+        if (nm >> prefix) == 0:
+            return prefix
+
+        prefix += 1
+
+    return prefix
 
 def getopt(*args):
     warnings.warn("isys.getopt is deprecated.  Use optparse instead.",

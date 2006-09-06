@@ -1,3 +1,23 @@
+2006-09-06  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py: Remove inet_aton() and inet_ntoa(). Replaced calls
+	to these functions with inet_pton() and inet_ntop().
+
+	* isys/isys.py: Added inet_convertNetmaskToPrefix() utility function
+	to convert dotted-quad IPv4 netmasks to CIDR prefix values.
+
+	* iw/network_gui.py (createIPRepr): Renamed to createIPV4Repr() and
+	have it write out ip/prefix rather than ip/netmask.
+
+	* iw/network_gui.py (createIPV4Repr): Added to handle IPv6 write
+	outs to the tree store.
+
+	* iw/network_gui.py (NetworkWindow.editDevice): Add IPv6 info to
+	the tree store.
+
+	* iw/network_gui.py (NetworkWindow.setupDevices): Initialize tree
+	store with IPv4 and IPv6 information.
+
 2006-09-06  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstal.py (YumBackend.doRepoSetup):  Iterate over enabled repos,

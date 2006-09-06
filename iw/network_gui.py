@@ -485,7 +485,8 @@ class NetworkWindow(InstallWindow):
 	    self.devices[dev].set(('bootproto', bootproto))
 	    self.devices[dev].set(('ONBOOT', onboot))
 	    model.set_value(iter, 0, onboot == 'yes')
-	    model.set_value(iter, 2, self.createIPRepr(self.devices[dev]))
+	    model.set_value(iter, 2, self.createIPV4Repr(self.devices[dev]))
+	    model.set_value(iter, 3, self.createIPV6Repr(self.devices[dev]))
 
 	    editWin.destroy()
 
@@ -494,12 +495,22 @@ class NetworkWindow(InstallWindow):
 
 	    return
 
-    def createIPRepr(self, device):
+    def createIPV4Repr(self, device):
 	bootproto = device.get("bootproto")
 	if bootproto == "dhcp":
 	    ip = "DHCP"
 	else:
-	    ip = "%s/%s" % (device.get("ipaddr"), device.get("netmask"))
+	    prefix = isys.inet_convertNetmaskToPrefix(device.get("netmask"))
+	    ip = "%s/%s" % (device.get("ipaddr"), prefix,)
+
+	return ip
+
+    def createIPV6Repr(self, device):
+	bootproto = device.get("bootproto")
+	if bootproto == "dhcp":
+	    ip = "DHCP"
+	else:
+	    ip = "%s" % (device.get("ipv6addr"),)
 
 	return ip
 
@@ -550,6 +561,7 @@ class NetworkWindow(InstallWindow):
 
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING,
 			  gobject.TYPE_STRING)
 	
 	self.ethdevices = NetworkDeviceCheckList(3, store, clickCB=self.onbootToggleCB)
@@ -566,7 +578,8 @@ class NetworkWindow(InstallWindow):
 		bootproto = 'dhcp'
 		self.devices[device].set(("bootproto", bootproto))
 		
-	    ip = self.createIPRepr(self.devices[device])
+	    ipv4 = self.createIPV4Repr(self.devices[device])
+	    ipv6 = self.createIPV6Repr(self.devices[device])
 
 # only if we want descriptions in the master device list
 # currently too wide, but might be able to do it with a tooltip on
@@ -580,7 +593,7 @@ class NetworkWindow(InstallWindow):
 #	    self.ethdevices.append_row((device, ip, descr), active)
 #
 # use this for now
-            self.ethdevices.append_row((device, ip), active)
+            self.ethdevices.append_row((device, ipv4, ipv6), active)
 
             num += 1
 
