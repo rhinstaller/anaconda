@@ -833,7 +833,7 @@ class YumBackend(AnacondaBackend):
 
         if not foundkernel and os.path.exists("/proc/xen"):
             try:
-                kxen = getBestKernelByArch("kernel-xenU", self.ayum)
+                kxen = getBestKernelByArch("kernel-xen", self.ayum)
                 log.info("selecting kernel-xen package for kernel")
                 foundkernel = True
             except PackageSackError:
@@ -1256,8 +1256,6 @@ class YumBackend(AnacondaBackend):
     def selectPackage(self, pkg, *args):
         try:
             mbrs = self.ayum.install(pattern=pkg)
-            if pkg.startswith("kernel"):
-                log.info("installing %d kernels" %(len(mbrs),))
             return len(mbrs)
         except yum.Errors.InstallError:
             log.debug("no package matching %s" %(pkg,))

@@ -1,7 +1,15 @@
 2006-09-06  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.getBestKernelByArch): Fix change that
+	slipped in by accident
+
 	* loader2/module-info: Add hptiop (#205337)
 
+2006-09-05  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/network_gui.py: Rewrite to handle manual IPv6 address entry
+	along with the ever-popular IPv4 address entry.
+	
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -19,9 +27,6 @@
 
 	* exception.py (dumpException): Make sure trace is not None so we
 	get tracebacks.
-
-	* iw/network_gui.py: Rewrite to handle manual IPv6 address entry
-	along with the ever-popular IPv4 address entry.
 
 2006-09-05  Jeremy Katz  <katzj@redhat.com>
 
