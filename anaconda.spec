@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.92
+Version: 11.1.0.93
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.93-1
+- unbreak xen installs
+- add hptiop drivers (#205337)
+- Fix a traceback (#205450)
+
 * Tue Sep  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.92-1
 - fix the build some more
 
