@@ -35,7 +35,12 @@ from product import productName
 from rhpl.log import log
 from rhpl.translate import _
 
-upgrade_remove_blacklist = ()
+# blacklist made up of (name, arch) or 
+# (name, ) to erase all matches
+upgrade_remove_blacklist = () 
+
+if iutil.getArch() == "ppc":
+    upgrade_remove_blacklist = (("samba","ppc64"),)
 
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
@@ -735,17 +740,33 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # if they were installed in the past, we want to remove them because
     # they'll screw up the upgrade otherwise
     for pkg in upgrade_remove_blacklist:
-        h = None
-        try:
-            h = ts.dbMatch('name', pkg).next()
-        except StopIteration:
-            pass
-        if h is not None:
-            text = ("Upgrade: %s is on the system but will cause problems "
-                    "with the upgrade transaction.  Removing." %(pkg,))
-            log(text)
-            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
-            id.upgradeRemove.append(pkg)
+        pkgarch = None
+        pkgnames = None
+        if len(pkg) == 1:
+            pkgname = pkg[0]
+        elif len(pkg) == 2:
+            pkgname, pkgarch = pkg
+        if pkgname is None:
+            continue
+
+        mi = ts.dbMatch('name', pkgname)
+        for h in mi:
+            if h is not None:
+                if pkgarch is None:
+                    text = ("Upgrade: %s is on the system but will cause "
+                    "problems with the upgrade transaction.  Removing." %(pkg,))
+                    log(text)
+                    id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+                    id.upgradeRemove.append(pkgname)
+                    break
+                else:
+                    if h['arch'] == pkgarch:
+                        text = ("Upgrade: %s.%s is on the system but will "
+                        "cause problems with the upgrade transaction.  "
+                        "Removing." %(pkgname,pkgarch))
+                        log(text)
+                        id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+                        id.upgradeRemove.append(mi.instance())
 
     # new package dependency fixup
     depcheck = hdrlist.DependencyChecker(id.grpset, how = "u")
