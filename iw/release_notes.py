@@ -48,6 +48,7 @@ class ReleaseNotesViewer:
 		self.anaconda = anaconda
 		self.load()
 		self.resize()
+		self.setupWindow()
 
 	def getReleaseNotes(self):
 		langs = self.anaconda.id.instLanguage.getCurrentLangSearchList() + [ "" ]
@@ -162,7 +163,7 @@ class ReleaseNotesViewer:
 			self.textWin.hide_all()
 			self.is_showing = False
 
-	def view(self):
+	def setupWindow(self):
 		self.vue.set_document(self.doc)
 		self.textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
 		table = gtk.Table(3, 3, False)
@@ -218,7 +219,6 @@ class ReleaseNotesViewer:
 
 			self.textWin.set_border_width(0)
 			gui.addFrame(self.textWin, _("Release Notes"))
-			self.textWin.show_all()
 		else:
 			self.textWin.set_position(gtk.WIN_POS_CENTER)
 			label = gtk.Label(_("Unable to load file!"))
@@ -227,7 +227,9 @@ class ReleaseNotesViewer:
 
 			self.textWin.set_border_width(0)
 			gui.addFrame(self.textWin)
-			self.textWin.show_all()
+
+	def view(self):
+		self.textWin.show_all()
 
 		# set cursor to normal (assuming that anaconda set it to busy
 		# when it exec'd this viewer app to give progress indicator
