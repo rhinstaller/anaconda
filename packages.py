@@ -196,7 +196,7 @@ def setFileCons(anaconda):
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
-                 "/var/log/lastlog"]
+                 "/var/log/lastlog", "/var/log/btmp"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
