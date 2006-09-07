@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-05 20:23+0530\n"
+"PO-Revision-Date: 2006-09-07 11:58+0530\n"
 "Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -1039,7 +1039,7 @@ msgid "Install Window"
 msgstr "प्रतिष्ठापक खिडकी"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1050,8 +1050,11 @@ msgid ""
 "\n"
 msgstr ""
 "%s फाइल उघडता आली नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या संकुलामुळे "
-"असावे. जर तुम्ही सीडी(CD) माध्यमाद्वारे प्रतिष्ठापन करत असाल तर याचा अर्थ सीडी माध्यम "
-"खराब असावे, किंवा , सीडी ड्राइव माध्यम वापरण्यास असमर्थ असावी.\n"
+"असावे. कृपया तुमच्या प्रतिष्ठापन प्रतिमा तपासून पहा आणि तुमच्याकडे सर्व आवश्यक माध्यमे "
+"असल्याची खात्री करून घ्या.\n"
+"\n"
+"जर तुम्ही रीबूट केले, तर तुमची प्रणाली अनियमित अवस्थेमध्ये सोडून दिली जाईल ज्यामुळे "
+"बहुदा पुनःप्रतिष्ठापन आवश्यक होईल.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1150,7 +1153,7 @@ msgid "Unable to access the CDROM."
 msgstr "CDROM कडून माहिती मिळवण्यास असमर्थ."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1161,8 +1164,10 @@ msgid ""
 "\n"
 msgstr ""
 "%s फाइल उघडता आली नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या संकुलामुळे "
-"असावे. जर तुम्ही सीडी(CD) माध्यमाद्वारे प्रतिष्ठापन करत असाल तर याचा अर्थ सीडी माध्यम "
-"खराब असावे, किंवा , सीडी ड्राइव माध्यम वापरण्यास असमर्थ असावी.\n"
+"असावे. कृपया तुमच्या प्रतिष्ठापन वृक्षात सर्व आवश्यक संकुले असल्याचे तपासून पहा.\n"
+"\n"
+"जर तुम्ही रीबूट केले, तर तुमची प्रणाली अनियमित अवस्थेमध्ये सोडून दिली जाईल ज्यामुळे "
+"बहुदा पुनःप्रतिष्ठापन आवश्यक होईल.\n"
 "\n"
 
 #: ../image.py:504
@@ -1940,7 +1945,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "तार्किक खंड आकार खंड समुहाच्या भौतिक मर्यादा आकारापेक्षा मोठा असायला हवा."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2271,7 +2276,7 @@ msgid "Connecting..."
 msgstr "जोडत आहे..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2281,9 +2286,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s फाइल उघडता आली नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या संकुलामुळे "
-"असावे. जर तुम्ही सीडी(CD) माध्यमाद्वारे प्रतिष्ठापन करत असाल तर याचा अर्थ सीडी माध्यम "
-"खराब असावे, किंवा , सीडी ड्राइव माध्यम वापरण्यास असमर्थ असावी.\n"
+"%s फाइल उघडता येत नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या संकुलामुळे "
+"असावे. कृपया तुमच्या  आरशा(मिरर)मध्ये सर्व आवश्यक संकुले असल्याचे तपासून पहा, आणि "
+"दुसरा एखादा वापरून पहा.\n"
+"\n"
+"जर तुम्ही रीबूट केले, तर तुमची प्रणाली अनियमित अवस्थेमध्ये सोडून दिली जाईल ज्यामुळे "
+"बहुदा पुनःप्रतिष्ठापन आवश्यक होईल.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2683,7 +2691,7 @@ msgstr "अवैध आरंभकर्ता नाम"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "तुम्ही एक शून्याखेरीज लांबीचे आरंभकर्ता नाव पुरवायलाच हवे."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3436,16 +3444,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP विषयी तुम्ही दाखल केलेली माहिती अवैध आहे."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "तुमच्याकडे एकही कार्यरत संजाळ(नेटवर्क) यंत्र नाही. तुमची प्रणाली कोणतेही यंत्र कार्यरत "
-"नसताना मुलतः संजाळावर संदेशवहन करू शकणार नाही.\n"
-"\n"
-"लक्षात ठेवा: तुमच्याकडे PCMCIA-आधारित संजाळ अडाप्टर असल्यास सध्या त्यास अकार्यान्वित "
-"अवस्थेत राहू द्या. जेव्हा तुम्ही प्रणाली रीबूट कराल अडाप्टर आपोआप कार्यान्वित होइल."
+"नसताना मुलतः संजाळावर संदेशवहन करू शकणार नाही."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4196,21 +4200,19 @@ msgid "Invalid Repository Name"
 msgstr "अवैध रिपॉझिटरी नाव"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "तुम्ही एक सेवक नाम दाखल करायलाच हवे."
+msgstr "तुम्ही एक शून्याखेरीज लांबीचे रिपॉझिटरी नाव दाखल करायलाच हवे."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "अयोग्य बूट लेबल"
+msgstr "अयोग्य रिपॉझिटरी URL"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "तुम्ही रिपॉझिटरीसाठी HTTP किंवा FTP URL पुरवायलाच हवा."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4218,8 +4220,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"संकुल मेटाडेटा वाचण्यास असमर्थ. हे बहुदा न सापडलेल्या रेपोडेटा निर्देशिकेमुळे असू शकते. कृपया "
-"तुमचा प्रतिष्ठापन वृक्ष योग्यरित्या उत्पन्न झाल्याची खात्री करून घ्या. %s"
+"रिपॉझिटरीमधून संकुल मेटाडेटा वाचण्यास असमर्थ. हे बहुदा न सापडलेल्या रेपोडेटा "
+"निर्देशिकेमुळे असू शकते. कृपया तुमची रिपॉझिटरी योग्यरित्या उत्पन्न झाल्याची खात्री "
+"करून घ्या.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5386,7 +5391,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "नोंदवणी किल्ली आवश्यक"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5394,6 +5399,8 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"%s प्रतिष्ठापित करण्यासाठी नोंदवणी किल्लीची गरज आहे. कृपया जर तुम्हास तुमच्या उत्पादासह "
+"किल्ली मिळाली नसेल तर तुमच्या आधार प्रतिनिधीस संपर्क साधा."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6036,15 +6043,16 @@ msgstr ""
 "     तुमच्या आर्किटेक्चरसाठी %s आहे\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "अयोग्य IP स्ट्रिंग"
+msgstr "अयोग्य CIDR मास्क"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"CIDR मास्कचे मूल्य IPv4 संजाळांसाठी १ आणि ३२ च्या दरम्यान आणि IPv6 संजाळांसाठी १ आणि "
+"१२८ च्या दरम्यान असावे"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6102,9 +6110,8 @@ msgid "Network Error"
 msgstr "संजाळ चूक"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "लक्ष्य ड्राइव साफ करताना चूक झाली. क्लोनींग अयशस्वी."
+msgstr "तुमचे संजाळ इंटरफेस व्यूहरचित करताना चूक झाली होती."
 
 #: ../loader2/net.c:675
 msgid "Use dynamic IP configuration (DHCP)"
@@ -6112,38 +6119,41 @@ msgstr "गतिज IP व्युहरचना (DHCP) वापरा"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 आधार कार्यान्वित करा"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 आधार कार्यान्वित करा"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "पुंजक्यांच्या नको असलेल्या टक्करी टाळा"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "उच्च वेग संजाळ रहदारीसाठी रजिस्टर मूल्य अधिकाधिक करा"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "TCP/IP रचा"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "समुह सापडत नाहीये"
+msgstr "प्रोटोकॉल सापडत नाहीये"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"तुम्ही स्वहस्ते व्यूहरचनेसाठी किमान एक प्रोटोकॉल (IPv4 किंवा IPv6) निवडायला "
+"हवा."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
+"तुम्ही DHCP साठी किमान एक प्रोटोकॉल (IPv4 किंवा IPv6) निवडायला "
+"हवा."
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6162,23 +6172,20 @@ msgid "Name Server:"
 msgstr "नामसेवक:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL व्यूहरचना"
+msgstr "स्वहस्ते TCP/IP व्यूहरचना"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "हरवलेली माहिती"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "तुम्ही वैध IP पत्ता आणि नेटमास्क हे दोन्ही दाखल करायला हवे."
+msgstr "तुम्ही एक वैध IPv4 पत्ता आणि संजाळ मास्क किंवा CIDR पुर्वपद दाखल करायलाच हवे."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "तुम्ही वैध IP पत्ता आणि नेटमास्क हे दोन्ही दाखल करायला हवे."
+msgstr "तुम्ही वैध IPv6 पत्ता आणि CIDR पुर्वपद हे दोन्ही दाखल करायला हवे."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6372,40 +6379,36 @@ msgid "Loading SCSI driver"
 msgstr "SCSI ड्राइव भारित करत आहे"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "_ZFCP LUN जोडा"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI लक्ष्य जोडा"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "अतिरिक्त आकार पर्याय"
+msgstr "प्रगत संग्रह पर्याय"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid यंत्रे अकार्यान्वित करा"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "या विभाजनावरील फाइल प्रणाली तुम्हास कशी तयार करायला आवडेल?"
+msgstr "तुमच्या ड्राइव व्यूहरचनेत कसे फेरफार करायला तुम्हांस आवडेल?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>रिपॉझिटरी _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI आरंभकाचे नाव(_N):</b>"
+msgstr "<b>रिपॉझिटरीचे नाव(_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "रिपॉझिटरी जोडा"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6413,10 +6416,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"कृपया तुमचे अतिरिक्त सॉफ्टवेअर कोठून प्रतिष्ठापित केले जाऊ शकते ते ठिकाण पुरवा. "
+"लक्षात ठेवा की ही %s साठी एक वैध रिपॉझिटरी असावी."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "रिपॉझिटरी जोडा(_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6439,9 +6444,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "विभाजन पटाची समीक्षा आणि बदल करा(_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "प्रगत बूट लोडर व्यूहरचना"
+msgstr "प्रगत संग्रह व्यूहरचना(_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6464,24 +6468,24 @@ msgid "<b>_Target IP Address:</b>"
 msgstr "<b>लक्ष्य IP पत्ता(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>पोर्ट क्रमांक(_P):</b>"
+msgstr "<b>उपयोक्ता नाम(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI आरंभकाचे नाव(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "चनडेव पॅरामीटर्स"
+msgstr "iSCSI पॅरामीटर्स रचा"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"iSCSI डिस्क्स वापरण्यासाठी, तुम्ही तुमच्या iSCSI लक्ष्याचा पत्ता आणि तुमच्या यजमानासाठी "
+"तुम्ही व्यूहरचित केलेल्या iSCSI आरंभकर्त्याचे नाव पुरवायलाच हवे."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6496,32 +6500,32 @@ msgid "<b>IPv6 Address:</b>"
 msgstr "<b>IPv6 पत्ता:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "नामसेवक"
+msgstr "<b>नामसेवक:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>पोर्ट क्रमांक(_P):</b>"
+msgstr "<b>इंटरफेस(_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 आधार कार्यान्वित करा"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 आधार कार्यान्वित करा"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "संजाळ इंटरफेस कार्यान्वित करा"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"यास प्रतिष्ठापन प्रक्रिये दरम्यान कार्यान्वित संजाळ जोडणीची आवश्यकता आहे. "
+"कृपया संजाळ इंटरफेस व्यूहरचित करा."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6552,7 +6556,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "अतिरिक्त सॉफ्टवेअर रिपॉझिटऱ्या जोडा(_A)"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
