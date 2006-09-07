@@ -39,6 +39,13 @@ from rhpl.translate import _
 # (name, ) to erase all matches
 upgrade_remove_blacklist = () 
 
+if rhpl.getArch() == "x86_64":
+        upgrade_remove_blacklist.extend( [("ImageMagick","i386"), 
+                                          ("gdb", "i386"),
+                                          ("libtabe", "i386"),
+                                          ("mozilla", "i386"),
+                                          ])
+
 if iutil.getArch() == "ppc":
     upgrade_remove_blacklist = (("samba","ppc64"),)
 
