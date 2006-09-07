@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.93
+Version: 11.1.0.94
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.94-1
+- Allow opening release notes more than once (dcantrel, #203147).
+- Fix NFS iso installs.
+- More files to restorecon.
+- Rework GUI network configuration screen (dcantrel).
+- isys network cleanups (dcantrel).
+- Fix taking sreenshots (#204480).
+- Skip broken repositories in kickstart (#204831).
+- Pull in all policy modules in initrd making.
+- Fix yum traceback (katzj, #205450).
+- Add hptiop module (katzj, #205337).
+
 * Wed Sep  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.93-1
 - unbreak xen installs
 - add hptiop drivers (#205337)
