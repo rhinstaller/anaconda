@@ -530,6 +530,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     def __init__(self, method, rootPath, intf):
         """@param method: nfsiso:/mnt/source"""
         tree = method[8:]
+	ImageInstallMethod.__init__(self, "/%s" % tree, rootPath, intf)
 	self.messageWindow = intf.messageWindow
 
 	# the tree points to the directory that holds the iso images
@@ -540,6 +541,3 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 
 	self.discImages = findIsoImages(tree, self.messageWindow)
 	self.mountImage(1)
-	ImageInstallMethod.__init__(self, self.mntPoint, rootPath, intf)
-
-

@@ -5,7 +5,11 @@
 
 2006-09-07  Chris Lumens  <clumens@redhat.com>
 
-	* packages (setFileCons):  Add another file.
+	* image.py (NfsIsoInstallMethod.__init__):  Call the superclass's
+	__init__ method before we needs the variables it sets up.  This fixes
+	NFS ISO installs.
+
+	* packages.py (setFileCons):  Add another file.
 
 2006-09-06  David Cantrell  <dcantrell@redhat.com>
 
