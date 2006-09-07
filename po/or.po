@@ -2465,6 +2465,8 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
+"ପ୍ଯାକେଜ ଅଧିତଥ୍ଯକୁ ପଢିବାରେ ଅସମର୍ଥ। ଏହା ଗୋଟିଏ ଅନୁପସ୍ଥିତ repodata ଡିରେକ୍ଟୋରି ପାଇଁ ହୋଇଥାଏ ପାରେ। "
+"ଦୟାକରି ଏହା ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣଙ୍କ ସ୍ଥାପନ ବୃକ୍ଷଟି ସଠିକ ଭାବରେ ସୃଷ୍ଟି କରାଯାଇଛି। %s"
 
 #: ../yuminstall.py:691
 msgid "Uncategorized"
@@ -2485,6 +2487,8 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
+"ଆପଣ ଗୋଟିଏ ଏପରି ତନ୍ତ୍ରରୁ ଉନ୍ନୟନ କରୁଥିବା ପରି ଦୃଶ୍ଯମାନ ହେଉଛନ୍ତି ଯାହାକି %s ତନ୍ତ୍ରକୁ ଉନ୍ନୟନ କରିବା ପାଇଁ ଖୁବ ପୁରୁଣା ଅଟେ। "
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏହି ଉନ୍ନୟନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../yuminstall.py:1093
 msgid "Install Starting"
@@ -2600,12 +2604,15 @@ msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
+"ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତଟି ଆସ୍କି-ବିହୀନ ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରିଅଛି, ପ୍ରବେଶ ସଙ୍କେତରେ ଯାହାର ବ୍ଯବହାର ସ୍ବୀକୃତ ନୁହେଁ।"
 
 #: ../iw/account_gui.py:92
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"ଏହି ତନ୍ତ୍ରର ପ୍ରଶାସନିକ କାର୍ଯ୍ଯ ପାଇଁ ପ୍ରମୂଖ ଚାଳକ (ରୁଟ) ର ସୂଚନାକୁ ବ୍ଯବହାର କରାଯାଇଥାଏ। ପ୍ରମୂଖ ଚାଳକ ପାଇଁ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ "
+"ଭରଣ କରନ୍ତୁ"
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
@@ -2637,7 +2644,7 @@ msgstr "ଚୟିତ ଡ୍ରାଇଭରୁ linux ବିଭାଜନକୁ ଅ
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "ଚୟିତ ଡ୍ରାଇଭ ମାନଙ୍କରେ ଖାଲିସ୍ଥାନକୁ ବ୍ଯବହାର କରନ୍ତୁ ଏବଂ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବିନ୍ଯାସକୁ ସୃଷ୍ଟି କରନ୍ତୁ।"
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -2649,6 +2656,8 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
+"ଗୋଟିଏ ବୁଟ ଧାରକ ପ୍ରବେଶ ସଙ୍କେତ କର୍ଣ୍ଣଲରେ ଥିବା ବିକଲ୍ପ ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ କରିବା ପାଇଁ ଚାଳକକୁ ନିଷେଧ କରିଥାଏ। ତନ୍ତ୍ରର ଉନ୍ନତ "
+"ସୁରକ୍ଷା ପାଇଁ, ଆପଣ ଗୋଟିଏ ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
