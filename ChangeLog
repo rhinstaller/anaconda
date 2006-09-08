@@ -1,3 +1,9 @@
+2006-09-08  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (formatException):  Reverse the order of how tracebacks
+	are printed in the UI so that the most recent call is listed first
+	(#204817).
+
 2006-09-07  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

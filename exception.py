@@ -310,6 +310,15 @@ def copyExceptionToFloppy (anaconda):
         isys.umount("/tmp/crash")
         return 0
 
+# Reverse the order that tracebacks are printed so people will hopefully quit
+# giving us the least useful part of the exception in bug reports.
+def formatException (type, value, tb):
+    lst = traceback.format_tb(tb)
+    lst.reverse()
+    lst.insert(0, 'Traceback (most recent call first):\n')
+    lst.extend(traceback.format_exception_only(type, value))
+    return lst
+
 def handleException(anaconda, (type, value, tb)):
     if isinstance(value, bdb.BdbQuit):
         sys.exit(1)
@@ -318,7 +327,7 @@ def handleException(anaconda, (type, value, tb)):
     sys.excepthook = sys.__excepthook__
 
     # get traceback information
-    list = traceback.format_exception (type, value, tb)
+    list = formatException (type, value, tb)
     text = joinfields (list, "")
 
     # save to local storage first
