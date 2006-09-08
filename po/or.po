@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-08 13:36+0530\n"
+"PO-Revision-Date: 2006-09-08 16:30+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -3044,6 +3044,8 @@ msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
+"ଆପଣ ଭୌତିକ ଆୟତନକୁ ଅପସାରଣ କରିପାରିବ ନାହିଁ କାରଣ ଏପରି କଲେ ଆୟତନ "
+"ସମୂହ ବର୍ତ୍ତମାନ ପରିଭାଷିତ ଆୟତନ ସମୂହକୁ ଧାରଣ କରିବା ପାଇଁ ଛୋଟ ପଡିଯିବ।"
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
@@ -3363,6 +3365,8 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
+"ଆପଣ ଗୋଟିଏ ଆଧାର ନାମକୁ ଉଲ୍ଲେଖ କରିନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ "
+"ନିର୍ଭର କରି ଏହା ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
 
 #: ../iw/network_gui.py:168
 #, python-format
@@ -3370,6 +3374,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
+"ଆପଣ \"%s\" କ୍ଷେତ୍ରକୁ ଉଲ୍ଲେଖ କରି ନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ "
+"ନିର୍ଭର କରି ଏହା ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:404
 #, python-format
@@ -3405,6 +3411,9 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
+"ଆପଣଙ୍କ ପାଖରେ କୌଣସି ସକ୍ରିୟ ନେଟୱାର୍କ ଉପକରଣ ନାହିଁ।  ଅତିକମରେ ଗୋଟିଏ "
+"ଉପକରଣ ସକ୍ରିୟ ନଥିଲେ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ଗୋଟିଏ ନେଟୱାର୍କ ଦ୍ବାରା ସମ୍ପର୍କ ସ୍ଥାପନ "
+"କରିପାରିବ ନାହିଁ।"
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3517,6 +3526,8 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
+"ବୁଟ ଲୋଡର ତାଲିକାରେ ପ୍ରଦର୍ଶିତ ହେବା ପାଇଁ ଗୋଟିଏ ସୂଚକକୁ ଭରଣ କରନ୍ତୁ। ଉପକରଣଟି "
+"(କିମ୍ବା ହାର୍ଡ ଡ୍ରାଇଭ ଏବଂ ବିଭାଜନ ସଂଖ୍ଯା) ଏପରି ସାଧନ ଅଟେ ଯେଉଁଠାରୁ ଏହା ବୁଟ କରିଥାଏ।"
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3560,6 +3571,8 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
+"ବୁଟ ଲକ୍ଷ୍ଯକୁ ଅପସାରଣ କରିହେଲା ନାହିଁ କାରଣ ଏହା ଆପଣ ସ୍ଥାପନ କରିବାକୁ ଯାଉଥିବା "
+"%s ତନ୍ତ୍ର ପାଇଁ ଉଦ୍ଦିଷ୍ଟ ଅଟେ।"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3748,6 +3761,8 @@ msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
+"ଗୋଟିଏ ସଫଟୱେର ରେଡ ଉପକରଣକୁ ସୃଷ୍ଟି କରିହେବ ନାହିଁ କାରଣ ସମସ୍ତ ଉପଲବ୍ଧ ରେଡ "
+"ନଗନ୍ଯ ଉପକରଣ ସଂଖ୍ଯା ମାନଙ୍କୁ ବ୍ଯବହାର କରିସାରିଛି।"
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3854,6 +3869,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
+"ଗୋଟିଏ ଡ୍ରାଇଭରେ '%s' ପ୍ରକାରର ବିଭାଜନ କରିବା ପାଇଁ ଚାପ ପକାନ୍ତୁ।  ଏହାକୁ "
+"'ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ' ର ଯାଞ୍ଚସୂଚୀ ମଧ୍ଯରୁ ଚଯିତ ଡ୍ରାଇଭ ଦ୍ବାରା ସମ୍ପନ୍ନ କରାଯାଇଥାଏ।"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3966,6 +3983,9 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
+"ଉତ୍ସ ଡ୍ରାଇଭରେ କ୍ଲୋନ କରିବା ପାଇଁ କୌଣସି ବିଭାଜନ ନାହିଁ।  ଏହାକୁ କ୍ଲୋନ କରାଯିବା "
+"ପୂର୍ବରୁ ଆପଣ ଏହି ତନ୍ତ୍ରରେ 'ସଫଟୱେର ରେଡ' ବିଭାଜନ ପ୍ରକାରକୁ ସର୍ବପ୍ରଥମେ ବ୍ଯାଖ୍ଯା "
+"କରିବା ଉଚିତ।"
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -4010,7 +4030,7 @@ msgstr "ଦୟାକରି କ୍ଲୋନ ପ୍ରକ୍ରିୟା ପାଇ
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "ଉତ୍ସ ଡ୍ରାଇଭ /dev/%s କୁ ଗୋଟିଏ ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭ ଭାବରେ ମଧ୍ଯ ଚଯନ କରିହେବ ନାହିଁ।"
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4033,6 +4053,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"/dev/%s ଡ୍ରାଇଭଟି ନିମ୍ନଲିଖିତ ଡ୍ରାଇଭରେ ବର୍ତ୍ତମାନ କ୍ଲୋନ କରାଯିବ:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:648
 msgid ""
@@ -4110,7 +4132,7 @@ msgstr "ଅବୈଧ ଭଣ୍ଡାର ୟୁ.ଆର.ଆଇ."
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "ଆପଣ ଭଣ୍ଡାରକୁ ଗୋଟିଏ HTTP କିମ୍ବା FTP ୟୁ.ଆର.ଏଲ. ପ୍ରଦାନ କରିବା ଉଚିତ।"
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -4152,6 +4174,8 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ବର୍ତ୍ତମାନ ବ୍ଯବହୃତ ହେଉଥିବା ବୁଟ ଲୋଡରକୁ ସ୍ଥାପକ ଖୋଜିବାରେ "
+"ଅସମର୍ଥ।"
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4242,6 +4266,8 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"ଆପଣଙ୍କ ଅଦଳ ବଦଳ ଫାଇଲଟି ଅତିକମରେ %d ମେଗା-ବାଇଟ ହେବା ଉଚିତ।  ଦୟାକରି "
+"ଅଦଳ ବଦଳ ଫାଇଲ ପାଇଁ ଗୋଟିଏ ଆକାର ଭରଣ କରନ୍ତୁ:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4257,6 +4283,9 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"ଏହା ବିଶେଷ ଭାବରେ ପରାମର୍ଶିତ ଯେ ଆପଣ ଗୋଟିଏ ଅଦଳ ବଦଳ ଫାଇଲ ସୃଷ୍ଟି କରିବା "
+"ଉଚିତ।  ଏପରି କରିବାରେ ବିଫଳ ହେଲେ ସ୍ଥାପକଟି ଅପ୍ରତ୍ଯାଶିତ ଭାବରେ ପ୍ରସ୍ଥାନ କରିବ।  "
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4292,6 +4321,8 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"ଆପଣ ଆପଣଙ୍କ ବିନ୍ଯାସରୁ ଗୋଟିଏ FCP ଡିସ୍କକୁ ଅପସାରିତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି। ଆପଣ "
+"ନିଶ୍ଚିତ କି ଆପଣ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4460,6 +4491,9 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
+"ଆପଣଙ୍କ ସ୍ଥାପନ ସମୟରେ ବ୍ଯବହୃତ ଯେ କୌଣସି ମାଧ୍ଯମକୁ ଅପସାରଣ କରନ୍ତୁ ଏବଂ ଆପଣଙ୍କ "
+"ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।\n"
+"\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
@@ -4485,6 +4519,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
+"ଇରାଟା (ଅଦ୍ଯତନ ଏବଂ ଦୋଷ ସମାଧାନ) ସମ୍ବନ୍ଧୀତ ସୂଚନା ପାଇଁ, ଏହି ୟୁ.ଆର.ଏଲ. କୁ "
+"ଯାଆନ୍ତୁ http://www.redhat.com/errata/.\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରର ବ୍ଯବହାର ସମ୍ବନ୍ଧୀତ ସୂଚନାକ ଏହି ୟୁ.ଆର.ଏଲ. ର %s ମେନ୍ଯୁଆଲରେ "
+"ଉପଲବ୍ଧ http://www.redhat.com/docs/।"
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
@@ -4500,6 +4539,8 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିସାରିବା ପରେ ଆପଣଙ୍କ ସ୍ଥାପନର ଗୋଟିଏ ସମ୍ପୂର୍ଣ୍ଣ ଲଗ "
+"%s ରେ ରହିବ। ଭବିଷ୍ଯତ ନିର୍ଣ୍ଣୟ ପାଇଁ ଆପଣ ଏହି ଫାଇଲକୁ ରଖିବା ପାଇଁ ଚାହିଁ ପାରନ୍ତୁ।"
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -4525,6 +4566,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିସାରିବା ପରେ ଆପଣଙ୍କ ଉନ୍ନଯନର ଗୋଟିଏ ସମ୍ପୂର୍ଣ୍ଣ ଲଗ "
+"%s ରେ ରହିବ। ଭବିଷ୍ଯତ ନିର୍ଣ୍ଣୟ ପାଇଁ ଆପଣ ଏହି ଫାଇଲକୁ ରଖିବା ପାଇଁ ଚାହିଁ ପାରନ୍ତୁ।"
 
 #: ../textw/grpselect_text.py:84
 msgid "Please select the package groups you would like to have installed."
@@ -4791,7 +4834,7 @@ msgstr "ଫାଇଲ ତନ୍ତ୍ର ବିକଲ୍ପ"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
+msgstr "ଏହି ବିଭାଜନରେ ଫାଇଲ ତନ୍ତ୍ରକୁ ପ୍ରସ୍ତୁତ କରିବାର ପ୍ରକ୍ରିୟାକୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -4875,6 +4918,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
+"ବର୍ତ୍ତମାନ ନିବେଦିତ ଆକାର (%10.2f ମେଗା-ବାଇଟ) ସର୍ବାଧିକ ଭୌତିକ ଘନଫଳ ଆକାର "
+"(%10.2f ମେଗା-ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ। "
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -4882,6 +4927,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"ବର୍ତ୍ତମାନ ନିବେଦିତ ଆକାର (%10.2f ମେଗା-ବାଇଟ) ସର୍ବାଧିକ ଉପଲବ୍ଧ ଭୌତିକ ଘନଫଳ ଆକାର "
+"(%10.2f ମେଗା-ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ। "
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5202,7 +5249,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "ପଞ୍ଜୀକରଣ ଚାବି ଆବଶ୍ଯକ"
 
 #: ../installclasses/rhel.py:50
 #, python-format
