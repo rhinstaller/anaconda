@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-08 16:30+0530\n"
+"PO-Revision-Date: 2006-09-08 19:59+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -5204,6 +5204,8 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
+"ସ୍ଥାପନ ପ୍ରକ୍ରିୟା, ସଫଟୱେର ପ୍ଯାକେଜ ଚୟନ ଏବଂ ବିଭାଜନ ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ନିଯନ୍ତ୍ରଣ "
+"ଅଧିକାର କରିବା ପାଇଁ ଏହି ସ୍ଥାପନ ପ୍ରକାରକୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
@@ -5231,6 +5233,9 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
+"ବ୍ଯକ୍ତିଗତ କମ୍ପୁଟର କିମ୍ବା ଲ୍ଯାପଟପ ପାଇଁ ଶ୍ରେଷ୍ଠ, ଗୋଟିଏ ଆଲେଖୀକ ପରିବେଶକୁ ସ୍ଥାପନ କରିବା "
+"ପାଇଁ ଏବଂ ଘରୋଇ ଏବଂ ଡେସ୍କଟପ ବ୍ଯବହାର ା ପାଇସର୍ବତ୍କୃଷ୍ଟ ତନ୍ତ୍ର ସୃଷ୍ଟି କରିବା ପାଇଁ ଏହି ସ୍ଥାପନ "
+"ପ୍ରକାରକୁ ଚୟନ କରନ୍ତୁ।ଁ "
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -5257,6 +5262,9 @@ msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
 msgstr ""
+"%s କୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଗୋଟିଏ ପଞ୍ଜୀକରଣ ଚାବି ଆବଶ୍ଯକ।  ଯଦି ଆପଣ "
+"ଆପଣଙ୍କ ଉତ୍ପାଦ ସହିତ ଗୋଟିଏ ଚାବି ପାଇ ନାହାଁନ୍ତି, ତାହାହେଲେ ଦୟାକରି ଆପଣଙ୍କ "
+"ସହାୟତା ପ୍ରତିନିଧିଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5278,6 +5286,8 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
+"ଏହି ବିକଲ୍ପ ଗୋଟିଏ ଆଲେଖୀକ ଡେସ୍କଟପ ପରିବେଶକୁ ସଫଟୱେର ବିକାଶ ଉପକରଣ "
+"ଏବଂ ତନ୍ତ୍ର ପ୍ରଶାସନ ସହିତ ସ୍ଥାପନ କରିଥାଏ।"
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -5313,6 +5323,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"ବର୍ତ୍ତମାନ ଡ୍ରାଇଭରେ ଥିବା CD କୁ ପରୀକ୍ଷା କରିବା ପାଇଁ \"%s\" କୁ ଚୟନ କରନ୍ତୁ, "
+"କିମ୍ବା CD ବାହାର କରି ଅନ୍ଯ ଗୋଟିଏ CD କୁ ଭର୍ତ୍ତୀ କରିବା ପାଇଁ \"%s\" କୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../loader2/cdinstall.c:113
 #, c-format
@@ -5330,6 +5342,8 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"ଆପଣଙ୍କ କୌଣସି CDROM ଡ୍ରାଇଭରେ %s CD ମିଳିଲା ନାହିଁ। ଦୟାକରି %s CD କୁ ଭର୍ତ୍ତୀ କରନ୍ତୁ ଏବଂ "
+"ପୁନଃପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ %s କୁ ଦବାନ୍ତୁ।"
 
 #: ../loader2/cdinstall.c:257
 msgid "CD Found"
@@ -5342,6 +5356,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"ସ୍ଥାପନ ପୂର୍ବରୁ CD ମାଧ୍ଯମର ପରୀକ୍ଷଣ ପ୍ରକ୍ରିୟା ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ %s କୁ ଦବାନ୍ତୁ।\n"
+"\n"
+"ମାଧ୍ଯମ ପରୀକ୍ଷଣକୁ ଏଡାଇ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ %s କୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../loader2/cdinstall.c:372
 #, c-format
