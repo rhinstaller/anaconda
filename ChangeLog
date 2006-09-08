@@ -1,3 +1,8 @@
+2006-09-08  Peter Jones  <pjones@redhat.com>
+
+	* yuminstall.py (YumBackend.selectFSPackages): test mpList and dmList
+	for truth, not None-ness
+
 2006-09-08  Chris Lumens  <clumens@redhat.com>
 
 	* exception.py (formatException):  Reverse the order of how tracebacks

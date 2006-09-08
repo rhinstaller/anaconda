@@ -915,10 +915,10 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage("iscsi-initiator-utils")
                 break
 
-        if not diskset.__class__.mpList is None:
+        if not diskset.__class__.mpList:
             log.info("ensuring device-mapper-multipath is installed")
             self.selectPackage("device-mapper-multipath")
-        if not diskset.__class__.dmList is None:
+        if not diskset.__class__.dmList:
             log.info("ensuring dmraid is installed")
             self.selectPackage("dmraid")
 
