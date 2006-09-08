@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.94
+Version: 11.1.0.95
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep  8 2006 Peter Jones <pjones@redhat.com> - 11.1.0.95-1
+- Look for repodata where the CDs are mounted, not where they're
+  stored (clumens)
+- Reverse traceback print order in the UI so most recent call is listed
+  first (clumens, #204817)
+- Don't install device-mapper-multipath or kpartx except when selected or
+  required by install media.
+
 * Thu Sep 07 2006 Chris Lumens <clumens@redhat.com> 11.1.0.94-1
 - Allow opening release notes more than once (dcantrel, #203147).
 - Fix NFS iso installs.
