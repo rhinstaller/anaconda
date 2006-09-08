@@ -28,6 +28,9 @@ log = logging.getLogger("anaconda")
 
 # Install from one or more iso images
 class HardDriveInstallMethod(ImageInstallMethod):
+    def getMethodUri(self):
+        return "file://%s" % self.tree
+
     def copyFileToTemp(self, filename):
         wasmounted = self.mediaIsMounted
         self.switchMedia(1, filename)

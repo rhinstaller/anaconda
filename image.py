@@ -458,6 +458,9 @@ def findIsoImages(path, messageWindow):
 
 class NfsIsoInstallMethod(NfsInstallMethod):
 
+    def getMethodUri(self):
+        return "file:///tmp/isomedia/"
+
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.mntPoint + "/" + filename
 

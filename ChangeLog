@@ -4,6 +4,10 @@
 	are printed in the UI so that the most recent call is listed first
 	(#204817).
 
+	* harddrive.py (HardDriveInstallMethod.getMethodUri):  Look for
+	repodata where the CDs are mounted, not where they are stored.
+	* image.py (NfsIsoInstallMethod.getMethodUri):  Likewise.
+
 2006-09-07  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
