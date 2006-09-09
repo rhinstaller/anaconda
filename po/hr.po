@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-06 17:11+0100\n"
+"PO-Revision-Date: 2006-09-09 13:51+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Nepoznat način instalacije"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Odabrali ste instalacijski način koji program anaconda ne podržava."
+msgstr "Odabrali ste instalacijski način koji program Anaconda ne podržava."
 
 #: ../anaconda:880
 #, c-format
@@ -172,7 +172,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Particije zasnovane na cilindrima nije moguće dodijeliti kao primarne particije.n\n"
+"Particije zasnovane na cilindrima nije moguće dodijeliti kao primarne particije.\n"
 "%s"
 
 #: ../autopart.py:954
@@ -500,7 +500,7 @@ msgstr "Instaliranje %s-%s-%s... "
 #: ../constants.py:60
 #, python-format
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report against anaconda at %s"
-msgstr "Došlo je do neobradive iznimke. Vjerojatno je programski nedostatak. Kopirajte cijeli opis ove pogrešku i prijavite detaljan izvještaj o programu anaconda na adresu %s"
+msgstr "Došlo je do neobradive iznimke. Vjerojatno je programski nedostatak. Kopirajte cijeli opis ove pogrešku i prijavite detaljan izvještaj o programu Anaconda na adresu %s"
 
 #: ../exception.py:390
 #: ../exception.py:407
@@ -657,7 +657,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Tijekom pokušaja inicijalizacije  'swap' particije na uređaju %s došlo je do pogreške. Ovo je ozbiljan problem i nije moguće nastaviti s instalacijom.\n"
+"Tijekom pokušaja inicijalizacije razmjenske particije na uređaju %s došlo je do pogreške. Ovo je ozbiljan problem i nije moguće nastaviti s instalacijom.\n"
 "\n"
 "Da biste ponovo pokrenuli sustav kliknite 'U redu'."
 
@@ -686,11 +686,11 @@ msgid ""
 "\n"
 "is a version 0 Linux swap partition. If you want to use this device, you must reformat as a version 1 Linux swap partition. If you skip it, the installer will ignore it during the installation."
 msgstr ""
-"Swap uređaj:\n"
+"Razmjenski uređaj:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"je vezije 0 Linux 'swap' particije. Ako želite upotrebljavati ovaj uređaj potrebno ga je re-oblikovati kao verziju 1 Linux swap particije. Ako preskočite tu radnju, instalacijski program će igorirati tu particiju tijekom instaliranja."
+"je verzije 0 Linux razmjenske particije. Ako želite upotrebljavati ovaj uređaj potrebno ga je re-oblikovati kao verziju 1 Linux razmjenske particije. Ako preskočite tu radnju, instalacijski program će ignorirati tu particiju tijekom instaliranja."
 
 #: ../fsset.py:1480
 msgid "Reformat"
@@ -705,7 +705,7 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
 msgstr ""
-"Swap uređaj:\n"
+"Razmjenski uređaj:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
@@ -720,11 +720,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. If you are performing a new install, make sure the installer is set to to format all swap partitions."
 msgstr ""
-"Swap uređaj:\n"
+"Razmjenski uređaj:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"u vašoj datoteci /etc/fstab trenutno je u upotrebi kao softverska suspendirana particija, odnosno vaš je sustav u hibernaciji. Ako izvršavata novu instalaciju, provjerite je li instalacijski program postavljen da oblikuje sve particije."
+"u vašoj datoteci /etc/fstab trenutno je u upotrebi kao softverska suspendirana particija, odnosno vaš je sustav u hibernaciji. Ako izvodite novu instalaciju, provjerite je li instalacijski program postavljen da oblikuje sve particije."
 
 #: ../fsset.py:1502
 msgid ""
@@ -734,7 +734,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Ako želite da instalacijski program tijekom nadogradnje ignorira ovu particiju odaberite 'Preskoči'.  Da biste particiju oblikovali kao swap prostor odaberite 'Oblikovanje'.  Da biste ponovo pokrenuli sustav odaberite 'Ponovo pokreni'."
+"Ako želite da instalacijski program tijekom nadogradnje ignorira ovu particiju odaberite 'Preskoči'.  Da biste particiju oblikovali kao razmjenski prostor odaberite 'Oblikovanje'.  Da biste ponovo pokrenuli sustav odaberite 'Ponovo pokreni'."
 
 #: ../fsset.py:1508
 #: ../iw/partition_gui.py:368
@@ -750,9 +750,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Pogreška pri omogućavanju swap uređaja %s: %s\n"
+"Pogreška pri omogućavanju razmjenskog uređaja %s: %s\n"
 "\n"
-"Na particiji nadogradnje /etc/fstab nema reference prema valjanoj swap particiji.\n"
+"Na particiji nadogradnje /etc/fstab nema reference prema valjanoj razmjenskoj particiji.\n"
 "\n"
 "Za ponovno pokretanje sustava kliknite 'U redu'."
 
@@ -765,9 +765,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Pogreška pri omogućavanju swap uređaja %s: %s\n"
+"Pogreška pri omogućavanju razmjenskog uređaja %s: %s\n"
 "\n"
-"Najvjerojatniji razlog je da swap particija nije inicijalizirana.\n"
+"Najvjerojatniji razlog je da razmjenska particija nije inicijalizirana.\n"
 "\n"
 "Za ponovno pokretanje sustava kliknite 'U redu'."
 
@@ -849,7 +849,7 @@ msgstr "Nije moguće pristupiti datotečnom sustavu"
 #: ../fsset.py:1730
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr "Tijekom pristipanja uređaju %s kao %s, došlo je do pogreške.  Možete nastaviti s instalacijom, ali moglo bi biti problema."
+msgstr "Tijekom pristupanja uređaju %s kao %s, došlo je do pogreške.  Možete nastaviti s instalacijom, ali moglo bi biti problema."
 
 #: ../fsset.py:1738
 #: ../image.py:91
@@ -933,7 +933,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"Možete im pristupiti pri ponovnom pokretanju računala i prijavljivanju kao root korisnik."
+"Možete im pristupiti pri ponovnom pokretanju računala i prijavljivanju kao korijenski korisnik."
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
@@ -1237,7 +1237,7 @@ msgstr "Inicijalizacija iSCSI inicijalizatora"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
-msgstr "Scriptlet neuspjeh"
+msgstr "Skriptlet neuspjeh"
 
 #: ../kickstart.py:74
 #, python-format
@@ -1246,7 +1246,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Tijekom izvršavanje scriptleta došlo je do pogreška.  Proučite izlazne podatke unutar %s.  Ovo je ozbiljna pogreška i instalacija će biti prekinuta.\n"
+"Tijekom izvršavanje skriptleta došlo je do pogreška.  Proučite izlazne podatke unutar %s.  Ovo je ozbiljna pogreška i instalacija će biti prekinuta.\n"
 "\n"
 "Za ponovno pokretanje sustava kliknite 'U redu'."
 
@@ -1603,7 +1603,7 @@ msgstr "Ovu particiju  nije moguće urediti iz razloga što je to proširena par
 
 #: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
-msgstr "Oblikuj kao 'swap'?"
+msgstr "Oblikovati kao razmjensko?"
 
 #: ../partIntfHelpers.py:384
 #, python-format
@@ -1612,9 +1612,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s ima particiju vrste 0x82 (Linux swap) ali čini se da nije oblikovana kao Linux 'swap' particija.\n"
+"/dev/%s ima particiju vrste 0x82 (Linux swap) ali čini se da nije oblikovana kao Linux razmjenska particija.\n"
 "\n"
-"Želite li ovu particiju oblikovati kao 'swap' particiju?"
+"Želite li ovu particiju oblikovati kao razmjensku particiju?"
 
 #: ../partIntfHelpers.py:404
 #, python-format
@@ -1736,12 +1736,12 @@ msgstr "Pomanjkanje memorije"
 
 #: ../partitioning.py:100
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr "S obzirom da na ovom računalu nema dovoljno memorije, potrebano je smjesta uključiti 'swap' prostor. Da bi se to postiglo potrebno je na disk odmah upisati novu tablicu particija. Želite li to?"
+msgstr "S obzirom da na ovom računalu nema dovoljno memorije, potrebno je smjesta uključiti razmjenski prostor. Da bi se to postiglo potrebno je na disk odmah upisati novu tablicu particija. Želite li to?"
 
 #: ../partitions.py:818
 #, python-format
 msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
-msgstr "Niste odredili 'root' particiju (/), potrebnu za nastavak instalacije %s-a."
+msgstr "Niste odredili korijensku particiju 'root ' (/), potrebnu za nastavak instalacije %s-a."
 
 #: ../partitions.py:823
 #, python-format
@@ -1789,17 +1789,17 @@ msgstr "Particije za pokretanje sustava ne mogu biti na logičkom volumenu."
 
 #: ../partitions.py:988
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr "Niste odredili 'swap' particiju. Iako nije strogo zahtijevana u svim slučajevima, može značajno unaprijediti izvršavanje većine instaliranih sustava."
+msgstr "Niste odredili razmjensku particiju. Iako nije strogo zahtijevana u svim slučajevima, može značajno unaprijediti izvršavanje većine instaliranih sustava."
 
 #: ../partitions.py:995
 #, python-format
 msgid "You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices."
-msgstr "Odredili ste više od 32 swap uređaja. Kernel za %s podržava samo 32 swap uređaja."
+msgstr "Odredili ste više od 32 razmjenska uređaja. Kernel za %s podržava samo 32 razmjenska uređaja."
 
 #: ../partitions.py:1006
 #, python-format
 msgid "You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance."
-msgstr "Dodijelili ste manje swap prostora (%dM) nego što ima dostupne radne memorije (%dM) na vašem računalu. To bi se moglo negativno odraziti na izvršavanje."
+msgstr "Dodijelili ste manje razmjenskog prostora (%dM) nego što ima dostupne radne memorije (%dM) na vašem računalu. To bi se moglo negativno odraziti na izvršavanje."
 
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
@@ -1943,7 +1943,7 @@ msgstr "Sustav za spašavanje"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr "Koja particija sadrži root particiju vaše instalacije?"
+msgstr "Koja particija sadrži korijensku particiju vaše instalacije?"
 
 #: ../rescue.py:323
 #: ../rescue.py:327
@@ -1967,7 +1967,7 @@ msgid ""
 msgstr ""
 "Vašem se sustavu pristupa pod %s.\n"
 "\n"
-"Za korisničku ljusku pritisnite <ENTER>. Ako želite vaš sustav učiniti root okruženjem, pokrenite naredbu:\n"
+"Za korisničku ljusku pritisnite <ENTER>. Ako želite vaš sustav učiniti korijenskim okruženjem, pokrenite naredbu:\n"
 "\n"
 "\tchroot %s\n"
 "\n"
@@ -2173,7 +2173,7 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadržo li vaše zrcalo sve potrebne pakete ili pokušajte s upotrebom drugog zrcala.\n"
+"Datoteku %s nije moguće otvoriti.  Razlog je nepostojeća datoteka ili je paket oštećen.  Provjerite sadrži li vaše zrcalo sve potrebne pakete ili pokušajte s upotrebom drugog zrcala.\n"
 "\n"
 "Ako ponovo pokrenete računalo vaš će sustav ostati u nedosljednom stanju koje će najvjerojatnije zahtijevati ponovnu instalaciju.\n"
 "\n"
@@ -2355,7 +2355,7 @@ msgstr "nedovoljan prostor na disku"
 
 #: ../yuminstall.py:435
 msgid "insufficient disk inodes"
-msgstr "nedovoljan inodes na disku"
+msgstr "nedovoljan 'inodes' na disku"
 
 #: ../yuminstall.py:436
 msgid "package conflicts"
@@ -2508,7 +2508,7 @@ msgstr "FCP LUN nije određen ili je nepravilan."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Postavi root lozinku"
+msgstr "Postavi korijensku lozinku"
 
 #: ../iw/account_gui.py:40
 #: ../iw/account_gui.py:48
@@ -2520,7 +2520,7 @@ msgstr "Pogreška lozinke"
 
 #: ../iw/account_gui.py:41
 msgid "You must enter your root password and confirm it by typing it a second time to continue."
-msgstr "Za nastavljanje je potrebno unijeti root lozinku i potvrditi ju ponovnim unošenjem."
+msgstr "Za nastavljanje je potrebno unijeti korijensku lozinku i potvrditi je ponovnim unošenjem."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
@@ -2528,7 +2528,7 @@ msgstr "Lozinke koje ste unijeli različite su. Pokušajte ponovo."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Root lozinka mora sadržavati najmanje 6 znakova."
+msgstr "Korijenska lozinka mora sadržavati najmanje 6 znakova."
 
 #: ../iw/account_gui.py:65
 #: ../textw/userauth_text.py:70
@@ -2537,11 +2537,11 @@ msgstr "Zahtijevana lozinka sadrži znakove izvan ASCII opsega, čija upotreba n
 
 #: ../iw/account_gui.py:92
 msgid "The root account is used for administering the system.  Enter a password for the root user."
-msgstr "Nalog 'root' upotrebljava se za administriranje sustava. Unesite lozinku za 'root' korisnika."
+msgstr "Korijenski nalog 'root' upotrebljava se za administriranje sustava. Unesite lozinku za 'root' korisnika."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
-msgstr "_Lozinka root korisnika:"
+msgstr "_Lozinka korijenskog korisnika:"
 
 #: ../iw/account_gui.py:112
 msgid "_Confirm: "
@@ -3013,7 +3013,7 @@ msgstr "Trenutna zahtijevana veličina (%10.2f MB) veća je od najvećeg logičk
 #: ../textw/partition_text.py:1105
 #: ../textw/partition_text.py:1330
 msgid "Error With Request"
-msgstr "Pogreška sa zahtijevom"
+msgstr "Pogreška sa zahtjevom"
 
 #: ../iw/lvm_dialog_gui.py:672
 #: ../iw/lvm_dialog_gui.py:883
@@ -4097,16 +4097,16 @@ msgid ""
 msgstr ""
 "Ovo izdanje %s podržava ext3 datotečni sustav s dnevnikom, koji ima nekoliko prednosti u odnosu na ext2, tradicionalno isporučenim s %s. Moguće je preseljenje ext2 oblikovane particije u ext3 bez ikakvih gubitaka podataka.\n"
 " \n"
-"Koje biste od ovih particija želljeli preseliti?"
+"Koje biste od ovih particija željeli preseliti?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr "Nadograditi swap particiju"
+msgstr "Nadograditi razmjensku particiju"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Kernel 2.4 potražuje daleko više swap prostora u odnosu na starijih kernela - dvostruko više swap prostora od radne memorije računala. Trenutno je konfigurirano %dMB swap-a, ali možete izraditi dodatne swap prostore na još nekom od datotečnih sustava."
+msgstr "Kernel 2.4 potražuje daleko više razmjenskog prostora u odnosu na starije kernele: dvostruko više razmjenskog prostora od radne memorije računala. Trenutno je konfigurirano %dMB razmjenskog prostora, ali možete izraditi dodatne razmjenske prostore na još nekom od datotečnih sustava."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4121,11 +4121,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "Želim _izraditi swap datoteku"
+msgstr "Želim _izraditi razmjensku datoteku"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Odaberite _particiju na koju će biti smještena swap datoteka:"
+msgstr "Odaberite _particiju na koju će biti smještena razmjenska datoteka:"
 
 #: ../iw/upgrade_swap_gui.py:136
 #: ../textw/upgrade_text.py:109
@@ -4139,29 +4139,29 @@ msgstr "Slobodan prostor (MB)"
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
 msgid "It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:"
-msgstr "Najmanja preporučena veličina swap datoteka je %d MB. Unesite veličinu swap datoteke:"
+msgstr "Najmanja preporučena veličina razmjenske datoteka je %d MB. Unesite veličinu razmjenske datoteke:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "_Veličina swap datoteke (MB):"
+msgstr "_Veličina razmjenske datoteke (MB):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "_Ne želim izraditi swap datoteku."
+msgstr "_Ne želim izraditi razmjensku datoteku"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
-msgstr "Snažno je preporučena izrada swap datoteke. Nepostojanje swap datoteke može prouzrokovati nepravilan prekid instalacijskog programa. Jeste li sigurni da želite nastaviti?"
+msgstr "Snažno je preporučena izrada razmjenske datoteke. Nepostojanje razmjenske datoteke može prouzrokovati nepravilan prekid instalacijskog programa. Jeste li sigurni da želite nastaviti?"
 
 #: ../iw/upgrade_swap_gui.py:197
 #: ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Veličine swap datoteka mora biti između 1 i 2000 MB."
+msgstr "Veličine razmjenske datoteka mora biti između 1 i 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204
 #: ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr "Na uređaju koji ste odabrali za smještaj swap particije nema dovoljno prostora."
+msgstr "Na uređaju koji ste odabrali za smještaj razmjenske particije nema dovoljno prostora."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
@@ -4211,9 +4211,9 @@ msgid ""
 msgstr ""
 "z/IPL pokretački program bit će instaliran na vaš sustav.\n"
 "\n"
-"Root particija bit će ona koju prethodno odabrali u postavkama particija.\n"
+"Korijenska particija bit će ona koju ste prethodno odabrali u postavkama particija.\n"
 "\n"
-"Kao zadan, bit će instaliran onaj kernel koji se upotrebljava za pokretanje računala.\n"
+"Kao zadan bit će instaliran onaj kernel koji se upotrebljava za pokretanje računala.\n"
 "\n"
 "Ako želite unijeti izmjene, nakon instalacije slobodno uredite konfiguracijsku datoteku /etc/zipl.conf.\n"
 "\n"
@@ -4828,7 +4828,7 @@ msgstr "   F1-Pomoć   F2-Novo  F3-Uredi   F4-Izbriši   F5-Povrat  F12-U redu "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "Nema root particije"
+msgstr "Nema korijenske particije"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
@@ -4945,7 +4945,7 @@ msgstr "Izradi novu konfiguraciju pokretača"
 #: ../textw/upgrade_text.py:91
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Kernel 2.4 potražuje daleko više swap prostora u odnosu na starijih kernela - dvostruko više swap prostora od radne memorije računala. Trenutno je konfigurirano %dMB swap-a, ali možete izraditi dodatne swap prostore na još nekom od datotečnih sustava."
+msgstr "Kernel 2.4 potražuje daleko više razmjenskog prostora u odnosu na starije kernele: dvostruko više razmjenskog prostora od radne memorije računala. Trenutno je konfigurirano %dMB razmjenskog prostora, ali možete izraditi dodatne razmjenske prostore na još nekom od datotečnih sustava."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -4961,11 +4961,11 @@ msgstr "Predložena veličina (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr "Veličina swap-a (MB):"
+msgstr "Veličina razmjene (MB):"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr "Dodaj swap"
+msgstr "Dodaj razmjenu"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
@@ -4991,15 +4991,15 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "Root lozinka"
+msgstr "Korijenska lozinka"
 
 #: ../textw/userauth_text.py:29
 msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "Odaberite lozinku za root korisnika. Da biste spriječili pogreške pri unosu, lozinku je potrebno unijeti dvaput. Ne zaboravite: Lozinka root korisnika kritičan je dio sigurnosti sustava!"
+msgstr "Odaberite lozinku za korijenskog korisnika. Da biste spriječili pogreške pri unosu, lozinku je potrebno unijeti dvaput. Ne zaboravite: Lozinka korijenskog korisnika kritičan je dio sigurnosti sustava!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "Lozinka root korisnika mora sadržavati najmanje 6 znakova."
+msgstr "Lozinka korijenskog korisnika mora sadržavati najmanje 6 znakova."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5492,7 +5492,7 @@ msgstr "Ažuriranja"
 
 #: ../loader2/loader.c:363
 msgid "Reading anaconda updates..."
-msgstr "Čitanje anaconda ažuriranja..."
+msgstr "Čitanje Anaconda ažuriranja..."
 
 #: ../loader2/loader.c:401
 msgid "No hard drives have been found.  You probably need to manually choose device drivers for the installation to succeed.  Would you like to select drivers now?"
@@ -5563,12 +5563,12 @@ msgstr "Pokretač je već bio pokrenut. Pokretanje korisničke ljuske.\n"
 #: ../loader2/loader.c:1699
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Pokretanje anaconde, %s način spašavanja - Pričekajte...\n"
+msgstr "Pokretanje Anaconde, %s način spašavanja - Pričekajte...\n"
 
 #: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Pokretanje anaconde, instalacijskog program sustava %s - pričekajte...\n"
+msgstr "Pokretanje Anaconde, instalacijskog program sustava %s - pričekajte...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
@@ -5705,7 +5705,7 @@ msgstr "Poslužitelj naziva"
 
 #: ../loader2/net.c:277
 msgid "Your dynamic IP request returned IP configuration information, but it did not include a DNS nameserver. If you know what your nameserver is, please enter it now. If you don't have this information, you can leave this field blank and the install will continue."
-msgstr "Vaš dinamički IP zahtijev vratio je podatke o IP konfiguraciji, ali nije sadržavao DNS poslužitelj naziva. Ako vam je poznat vaš poslužitelj naziv, unesite ga sad. Ako nemate taj podatak, ovo polje možete ostaviti neispunjenim i instalacija će biti nastavljena."
+msgstr "Vaš dinamički IP zahtjev vratio je podatke o IP konfiguraciji, ali nije sadržavao DNS poslužitelj naziva. Ako vam je poznat vaš poslužitelj naziv, unesite ga sad. Ako nemate taj podatak, ovo polje možete ostaviti neispunjenim i instalacija će biti nastavljena."
 
 #: ../loader2/net.c:300
 msgid "Invalid IP Information"
@@ -5877,7 +5877,7 @@ msgstr "Čekanje uspostavljanja telnet veze..."
 
 #: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
-msgstr "Pokretanje anaconde putem telneta..."
+msgstr "Pokretanje Anaconde putem Telneta..."
 
 #: ../loader2/urlinstall.c:80
 #, c-format
@@ -6029,7 +6029,7 @@ msgstr "Dodaj repozitorij"
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr "Navedite lokaciju s koje će biti instaliran dodatni softver. Napomena: Mora biti valjanim repozitorijem za %s."
+msgstr "Navedite lokaciju s koje će biti instaliran dodatni softver. Napomena: Mora biti valjanim repozitorijom za %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
