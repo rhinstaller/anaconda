@@ -1,5 +1,9 @@
 # translation of te.po to 
 # translation of te.po to
+# translation of te.po to
+# translation of te.po to
+# translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -8,7 +12,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-30 17:29+0530\n"
+"PO-Revision-Date: 2006-09-09 17:03+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,16 +22,16 @@ msgstr ""
 
 #: ../anaconda:258
 msgid "Unknown Error"
-msgstr "తెలియని దోషం "
+msgstr "‌‌తెలియని దోషం "
 
 #: ../anaconda:261
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
+msgstr "దోషం కిక్ స్టార్ట్ రెండోభాగ ఆకృతిని లాగుతోంది:%s!"
 
 #: ../anaconda:414
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "షల్ కోసం <ప్రవేశాన్ని> నొక్కండి"
 
 #: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
 #: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
@@ -75,11 +79,11 @@ msgstr "సరే"
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
+msgstr "చిత్రాత్మక స్థాపికను ఉపయోగించటానికి మీరు చాలినంత రామ్ కలిగిలేరు.  పాఠ రీతిలో ప్రారంభిస్తోంది."
 
 #: ../anaconda:476
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "వీడియో హార్డువేరు కనుగొనబడ లేదు, శీర్షిక లేనిదిగా భావిస్తోంది"
 
 #: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
@@ -87,7 +91,7 @@ msgstr ""
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "గ్రాఫికల్(చిత్రాత్మక) సంస్థాపన ప్రారంభిస్తోంది..."
 
 #: ../anaconda:790
 msgid "Install class forcing text mode installation"
@@ -95,11 +99,11 @@ msgstr ""
 
 #: ../anaconda:816
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "చిత్రాత్మిక సంస్థాపన అందుబాటులో లేదు...  పాఠరీతిలో ప్రారంభిస్తోది."
 
 #: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "ప్రదర్శనా చరరాశి (వేరిబుల్) అమర్చబడలేదు. పాఠాకృతిలో ప్రారంభిస్తోంది!"
 
 #: ../anaconda:877
 msgid "Unknown install method"
@@ -107,7 +111,7 @@ msgstr "అజ్ఞాత సంస్థాపనా విధానం"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "మీరు అనకొండ సమర్ధించని సంస్థాపనా విధానాన్ని సూచించారు."
+msgstr "మీరు అనకొండ సమర్ధించని సంస్థాపనా విధానాన్ని సూచించాలి."
 
 #: ../anaconda:880
 #, c-format
@@ -121,7 +125,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-".\n"
+"ప్రాథమిక విభాగాలుగా సిలిండర్ ఆధారిత విభజనలు............................\n"
 "\n"
 "%s"
 
@@ -140,6 +144,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"సిలిండర్-ఆధారిత విభజన కేటాయించబడలేదు. \n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -147,7 +154,7 @@ msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
+msgstr "బూట్ విభజన %s బి యస్ డి డిస్క్ గుర్తుకి చెందింది కాదు. "
 
 #: ../autopart.py:1021
 #, python-format
@@ -162,13 +169,13 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "బూట్ విభజన. %s VFAT విభజన కాదు.   EFI ఈ విభజన నుండీ బూట్ చేయలేదు."
 
 #: ../autopart.py:1025
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
+msgstr "ఇంతకుముందు బూట్ విభజన తగినంతగా మీ డిస్కులో చేసిలేదు.  Firmware తెరవటం ఈ సంస్థాపనను బూట్ చేయలేదు."
 
 #: ../autopart.py:1032
 #, python-format
@@ -184,7 +191,7 @@ msgstr ""
 
 #: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "అడిగిన విభజన లేదు"
 
 #: ../autopart.py:1244
 #, python-format
@@ -193,6 +200,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s.\nఉపయోగం కొరకు %sవిభజన ఉంచటానికి కుదరదు   "
+"\n"
+"కంప్యూటరును పునఃప్రారంభించటానికి 'సరే' మీటను నొక్కండి."
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
@@ -208,7 +218,7 @@ msgstr ""
 
 #: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "అడిగిన శృతివిభాగం లేదు"
 
 #: ../autopart.py:1304
 #, python-format
@@ -217,10 +227,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s.\n ఉపయోగం కొరకు %s విభాగ వర్గాన్ని ఉంచటం కుదరదు."
+"\n"
+"మీ కంప్యూటరును పునఃప్రారంభించటానికి 'సరే'ను నొక్కండి."
 
 #: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "కోరిన తార్కిక విభాగం లేదు"
 
 #: ../autopart.py:1342
 #, python-format
@@ -229,10 +242,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s.\n ఉపయోగం కొరకు %s తార్కిక విభాగాన్ని ఉంచటం కుదరదు."
+"\n"
+"మీ కంప్యూటరును పునఃప్రారంభించటానికి 'సరే'ను నొక్కండి."
 
 #: ../autopart.py:1456 ../autopart.py:1502
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "స్వయంచాలక విభజన దోషాలు"
 
 #: ../autopart.py:1457
 #, python-format
@@ -243,10 +259,15 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"మీ విభజనతో ఈ కింది దోషాలు వస్తున్నాయి:\n"
+"\n"
+"%s\n"
+"\n"
+"మీ కంప్యూటరును పునఃప్రారంభించటానికి 'సరే'ను నొక్కండి."
 
 #: ../autopart.py:1467
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "స్వయంచాలక విభజనప్పుడు దోషాలు"
 
 #: ../autopart.py:1468
 #, python-format
@@ -255,6 +276,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"స్వయంచాలక విభజనప్పుడు కింది హెచ్చరికలు సంభవించాయి:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1481 ../autopart.py:1498
 msgid ""
@@ -262,11 +286,14 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"మీ కంప్యూటరును పునఃప్రారంభించటానికి 'సరే'ను నొక్కండి."
 
 #: ../autopart.py:1482 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
-msgstr ""
+msgstr "విభజన దోషం"
 
 #: ../autopart.py:1483
 #, python-format
@@ -275,6 +302,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"అడిగిన విభజనను కేటాయించలేదు: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1500
 msgid ""
@@ -282,6 +312,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"వేరొక విభజన ఐచ్ఛికాన్ని ఎన్నుకోటానికి 'సరే'ను నొక్కండి."
 
 #: ../autopart.py:1503
 #, python-format
@@ -293,14 +326,19 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"మీ విభజనతో ఈ కింది దోషాలు వస్తున్నాయి::\n"
+"\n"
+"%s\n"
+"\n"
+"సంస్థాపనకు మీ hard drive(s)లో తగిన ఖాళీ లెకపోవటంవల్ల ఇది జరిగిం.%s"
 
 #: ../autopart.py:1514
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "తిరిగి సరిచేసుకోలేని దోషం"
 
 #: ../autopart.py:1515
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "ఇప్పుడు మీ కంప్యూటర్ పునఃప్రారంభించబడాలి."
 
 #: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
 #: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
@@ -312,7 +350,7 @@ msgstr ""
 #: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
 #: ../loader2/loader.c:400
 msgid "Warning"
-msgstr ""
+msgstr "హెచ్చరిక"
 
 #: ../autopart.py:1668
 msgid ""
@@ -328,19 +366,19 @@ msgstr ""
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
-msgstr ""
+msgstr "సంస్థాపనా పరిక్రమం(program) ద్వారా స్వయంచాలక విభజన ఎర్పరచకముందే, మీరు మీ hard driveలలో ఖాళీని ఎలా ఉపయోగించుకోవాలో  నిర్ణయించుకోవాలి."
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "ఈ కంప్యూటరులో అన్ని విభజనలనూ తొలగించు"
 
 #: ../autopart.py:1685
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "ఈ కంప్యూటరులోని అన్ని Linux విభజనలనీ తొలగించు."
 
 #: ../autopart.py:1686
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "అన్ని విభజనలనీ ఉంచి మిగిలిన ఖాళీని ఉపయోగించు"
 
 #: ../autopart.py:1688
 #, python-format
@@ -349,6 +387,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"మీరు కింది driveలలోని అన్ని విభజనలనీ (సమాచారం అంతటినీ) తొలగించాలనుకున్నారు:%"
+"s/n"
+"మీరు నిజంగా దీన్ని చెయాలనుకుంటున్నారా?"
 
 #: ../autopart.py:1692
 #, python-format
@@ -357,38 +398,40 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"మీరు ఈ కింది driveలలోని Linux విభజనలన్నీ (మరియు వాటిలోని సమాచారం అంతటినీ) తొలగించాలనుకుంటున్నారు:%s\n"
+"మీరు ఇది నిజంగా చెయాలనుకుంటున్నారా?"
 
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s\n"
-msgstr ""
+msgstr "స్థాయీవృద్ధి %s\n"
 
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr ""
+msgstr "సంస్థాపన %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
-msgstr ""
+msgstr "Bootloader"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "bootloader సంస్థాపన..."
 
 #: ../bootloader.py:195
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
+msgstr "kernel packageలు మీ కంప్యూటరులో సంస్థాపించబడలేదు. మీ boot loader ఆకృతీకరణ మార్చబడకూడదు."
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr ""
+msgstr "పూర్తయ్యింది"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr ""
+msgstr "...   "
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
@@ -669,7 +712,7 @@ msgstr ""
 
 #: ../fsset.py:1729
 msgid "Unable to mount filesystem"
-msgstr ""
+msgstr "పైళ్ల మరల్పు అసాధ్యం"
 
 #: ../fsset.py:1730
 #, python-format
@@ -681,7 +724,7 @@ msgstr ""
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr ""
+msgstr " కొనసాగించు (_C)"
 
 #: ../fsset.py:1746
 #, python-format
@@ -704,7 +747,7 @@ msgstr ""
 
 #: ../fsset.py:2456
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "నకిలీ లేబుళ్లు"
 
 #: ../fsset.py:2457
 #, python-format
@@ -717,12 +760,12 @@ msgstr ""
 
 #: ../fsset.py:2717
 msgid "Formatting"
-msgstr ""
+msgstr "ఆకృతీకరణ"
 
 #: ../fsset.py:2718
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s ఫైళ్ల విధానాన్ని ఆకృతీకరించు..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -730,7 +773,7 @@ msgstr ""
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Screenshotలు కాపీఅయ్యాయి"
 
 #: ../gui.py:117
 msgid ""
@@ -743,16 +786,16 @@ msgstr ""
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Screenshotని భద్రపరుస్తోంది"
 
 #: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "'%s'గా పెరుపెట్టబడిన screenshot భద్రపరచబడుతోంది."
 
 #: ../gui.py:164
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Screenshotని భద్రపరచటంలో దోషం"
 
 #: ../gui.py:165
 msgid ""
@@ -762,31 +805,31 @@ msgstr ""
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
-msgstr ""
+msgstr "స్థాపించు"
 
 #: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
 #: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
 msgid "Yes"
-msgstr ""
+msgstr "అవును"
 
 #: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
 #: ../loader2/loader.c:400
 msgid "No"
-msgstr ""
+msgstr "కాదు"
 
 #: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
 #: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
 #: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Retry"
-msgstr ""
+msgstr "పునఃప్రయత్నించు"
 
 #: ../gui.py:235 ../text.py:396
 msgid "Ignore"
-msgstr ""
+msgstr "అఙాతం"
 
 #: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
 #: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
@@ -795,7 +838,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
 #: ../loader2/loader.c:348
 msgid "Cancel"
-msgstr ""
+msgstr "రద్దు"
 
 #: ../gui.py:832 ../text.py:354
 #, python-format
@@ -804,10 +847,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"మీ kickstart ఆకృతిని వ్యాకృతిచేస్తున్నప్పుడు ఈ కింది దోషం కనుగొనబడింది:\n"
+"\n"
+"%s"
 
 #: ../gui.py:834 ../text.py:356
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "Kickstart రూప వ్యాకృవతి దోషం"
 
 #: ../gui.py:842 ../text.py:366
 msgid ""
@@ -817,11 +863,11 @@ msgstr ""
 
 #: ../gui.py:889
 msgid "default:LTR"
-msgstr ""
+msgstr "సిద్ధం:LTR"
 
 #: ../gui.py:973
 msgid "Error!"
-msgstr ""
+msgstr "దోషం!"
 
 #: ../gui.py:974
 #, python-format
@@ -834,28 +880,28 @@ msgstr ""
 #: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
 #: ../yuminstall.py:661
 msgid "_Exit"
-msgstr ""
+msgstr "బయటకి (_E)"
 
 #: ../gui.py:980 ../yuminstall.py:570
 msgid "_Retry"
-msgstr ""
+msgstr "పనఃప్రయత్నించు (_R)"
 
 #: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "సంస్థాపిక బయటకి వస్తుంది..."
 
 #: ../gui.py:986 ../packages.py:299
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "మీ కంప్యూటరును ఇప్పుడు పునఃప్రారంభించాలి..."
 
 #: ../gui.py:989 ../packages.py:301
 msgid "Rebooting System"
-msgstr ""
+msgstr "కంప్యూటరును పునఃప్రారంభిస్తోంది"
 
 #: ../gui.py:1053
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s సంస్థాపిక"
 
 #: ../gui.py:1060
 msgid "Unable to load title bar"
@@ -863,7 +909,7 @@ msgstr ""
 
 #: ../gui.py:1109
 msgid "Install Window"
-msgstr ""
+msgstr "Windowని సంస్థాపించు"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
 #, python-format
@@ -879,7 +925,7 @@ msgstr ""
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO 9660 దృశ్యం కనిపించటంలేదు"
 
 #: ../harddrive.py:69
 #, python-format
@@ -893,11 +939,11 @@ msgstr ""
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
-msgstr ""
+msgstr "పునఃప్రయత్నించు"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr ""
+msgstr "మాధ్యమాన్ని సంస్థాపించవలసి ఉంది"
 
 #: ../image.py:83
 #, python-format
@@ -913,7 +959,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr ""
+msgstr "వెనుక _(B)"
 
 #: ../image.py:133
 #, python-format
@@ -924,7 +970,7 @@ msgstr ""
 
 #: ../image.py:163
 msgid "Copying File"
-msgstr ""
+msgstr "ఫైలును కాపీచెస్తోంది"
 
 #: ../image.py:164
 msgid "Transferring install image to hard drive..."
@@ -938,7 +984,7 @@ msgstr ""
 
 #: ../image.py:263
 msgid "Change CDROM"
-msgstr ""
+msgstr "CDROM మార్చు"
 
 #: ../image.py:264
 #, python-format
@@ -947,12 +993,12 @@ msgstr ""
 
 #: ../image.py:299
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "సరికాని CDROM"
 
 #: ../image.py:300
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "అది సరైన %s CDROM కాదు."
 
 #: ../image.py:306
 msgid "Unable to access the CDROM."
@@ -982,7 +1028,7 @@ msgstr ""
 
 #: ../installclass.py:60
 msgid "Install on System"
-msgstr ""
+msgstr "కంప్యూటరులో సంస్థాపించు"
 
 #: ../iscsi.py:127 ../iscsi.py:128
 msgid "Initializing iSCSI initiator"
@@ -1003,7 +1049,7 @@ msgstr ""
 
 #: ../kickstart.py:821 ../kickstart.py:839
 msgid "Running..."
-msgstr ""
+msgstr "జరుగుతోంది..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
@@ -1015,7 +1061,7 @@ msgstr ""
 
 #: ../kickstart.py:980
 msgid "Missing Package"
-msgstr ""
+msgstr "Package కనపడటంలేదు"
 
 #: ../kickstart.py:981
 #, python-format
@@ -1030,7 +1076,7 @@ msgstr ""
 
 #: ../kickstart.py:1008
 msgid "Missing Group"
-msgstr ""
+msgstr "కనిపించని సమూహం"
 
 #: ../kickstart.py:1009
 #, python-format
@@ -1041,7 +1087,7 @@ msgstr ""
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "Hostపేరు తప్పక ౬౪ లేదా .తక్కువ అక్షరాల పొడవు కలిగి ఉండాలి."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1049,11 +1095,11 @@ msgstr ""
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "Hostపేరు 'a-z', 'A-Z', '-', లేదా '.' అక్షరాలను మాత్రమే కలిగి ఉండాలి"
 
 #: ../network.py:89
 msgid "IP Address is missing."
-msgstr ""
+msgstr "IP చిరునామా కనిపించటం లేదు."
 
 #: ../network.py:93
 msgid ""
@@ -1064,24 +1110,24 @@ msgstr ""
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr ""
+msgstr "'%s' సరైన IPv6 చిరునామా కాదు."
 
 #: ../packages.py:247
 msgid "Enter Registration Key"
-msgstr ""
+msgstr "నమోదు కీని ఇవ్వండి"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "దయచేసి మీ version %sయొక్క నమోదు కీని ఇవ్వండి."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "కీ:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "హెచ్చరిక! ఇది ముందుగా విడుదలైన software!"
 
 #: ../packages.py:279
 #, python-format
@@ -1143,7 +1189,7 @@ msgstr ""
 
 #: ../partedUtils.py:884
 msgid "Initializing"
-msgstr ""
+msgstr "సంస్థాపనం"
 
 #: ../partedUtils.py:885
 #, python-format
@@ -1177,7 +1223,7 @@ msgstr ""
 
 #: ../partedUtils.py:1160
 msgid "No Drives Found"
-msgstr ""
+msgstr "ఏ Driveలు కనుగొనబడలేదు"
 
 #: ../partedUtils.py:1161
 msgid ""
@@ -1187,16 +1233,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr ""
+msgstr "దయచేసి ఒక volume సమూహం పేరు ఇవ్వండి."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "Volume సమూహం పేర్లు తప్పకుండా ౧౨౮ అక్షరాలకంటే తక్కువ ఉండాలి"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "దోషం - %s.volume సమూహం పెరు సరైనది కాదు."
 
 #: ../partIntfHelpers.py:47
 msgid ""
@@ -1206,16 +1252,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
+msgstr "దయచేసి ఒక తార్కిక volume పేరు ఇవ్వండి."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "తార్కిక Volume పేరు తప్పక ౧౨౮ అక్షరాలకంటే తక్కువ ఉండాలి"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "దోషం - %s ఈ తార్కిక volume పేరు సరైనది కాదు."
 
 #: ../partIntfHelpers.py:71
 msgid ""
@@ -1237,75 +1283,77 @@ msgstr ""
 #: ../partIntfHelpers.py:112
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "ఈ విభజన RAID device /dev/md%sలో భాగం."
 
 #: ../partIntfHelpers.py:115
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "ఈ విభజన RAID సాధనంలో భాగం."
 
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "ఈ విభజన LVM volume సమూహం '%s'లో భాగం."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "ఈ విభజన LVM volume సమూహంలో భాగం."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
 #: ../partIntfHelpers.py:187
 msgid "Unable To Delete"
-msgstr ""
+msgstr "తొలగించటం కుదరదు"
 
 #: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "మీరి తప్పక తొలగించవలసిన విభాగాన్ని మొదటగా ఎన్నుకోవాలి "
 
 #: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "ఖాళీగా ఉన్న జాగాని మీరు తొలగించలేరు."
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "LDLచే ఆకృతీకరింపబడిన DASD విభాగాన్ని మీరు తొలగించలెరు."
 
 #: ../partIntfHelpers.py:164
 #, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "మీరు ఈ విభజనను తొలగించలేరు, ఉన్న విభజనకి ఇది విస్తృత విభజన.%s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "hard drive సంస్థాపనకు ఈ విభజన సమాచారాన్ని కలిగిఉంది."
 
 #: ../partIntfHelpers.py:188
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"మీరు ఈ విభజనని తొలగించలేరు:\n"
+"\n"
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
-msgstr ""
+msgstr "తొలగింపు నిర్ధారణ"
 
 #: ../partIntfHelpers.py:233
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "మీరు విభాగంలోని అన్ని విభజనలగురించి తొలగించాలనికుంటున్నారా.'/dev/%s'."
 
 #: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr ""
+msgstr "తొలగించు (_D)"
 
 #: ../partIntfHelpers.py:294
 msgid "Notice"
-msgstr ""
+msgstr "సూచన"
 
 #: ../partIntfHelpers.py:295
 #, python-format
@@ -1314,32 +1362,37 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"కింది విభజనలు తొలగించబడవు ఎందుకంటే అవి ఉపయోగంలో ఉన్నాయి:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
 #: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
-msgstr ""
+msgstr "కూర్పు సాధ్యంకాదు"
 
 #: ../partIntfHelpers.py:312
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "మీరు కూర్పుకి తప్పక ఒక విభజనని ఎన్నుకోవాలి"
 
 #: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"మీరు ఈ విభజనని కూర్చలెరు:\n"
+"\n"
 
 #: ../partIntfHelpers.py:351
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "మీరు ఈ విభజనని కుర్చలెరు, ఇది ఉన్న విభజనకి విస్తృత విభజన %s"
 
 #: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
-msgstr ""
+msgstr "Swapలా ఆకృతీకరణ?"
 
 #: ../partIntfHelpers.py:384
 #, python-format
@@ -1353,7 +1406,7 @@ msgstr ""
 #: ../partIntfHelpers.py:404
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "మీరు %s సంస్థాపనకు తప్పనిసరిగా ఒక hard driveని ఎన్నుకోవాలి"
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1367,19 +1420,19 @@ msgstr ""
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
-msgstr ""
+msgstr "ఆకృతీకరణ?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr ""
+msgstr "విభజనని మార్చు (_M)"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
-msgstr ""
+msgstr "ఆకృతీకరించకు (_N)"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "విభజనతో దోషం"
 
 #: ../partIntfHelpers.py:427
 #, python-format
@@ -1392,7 +1445,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "విభజన హెచ్చరిక"
 
 #: ../partIntfHelpers.py:442
 #, python-format
@@ -1418,7 +1471,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
-msgstr ""
+msgstr "ఆకృతీకరణ హెచ్చరిక"
 
 #: ../partIntfHelpers.py:513
 #, python-format
@@ -1435,28 +1488,28 @@ msgstr ""
 
 #: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "మీరు అడిగింది RAID ఉపకరణాన్ని తొలగించటం గురించి."
 
 #: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "మీరు అడిగింది /dev/%s విభజన తొలగించటం గురించి."
 
 #: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "మీరు ఎన్నుకొన్న విభజన తొలగించబడుతుంది."
 
 #: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
-msgstr ""
+msgstr "తిరిగి అమర్పుని ఖాయపరువు"
 
 #: ../partIntfHelpers.py:537
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "మీరు నిజంగా విభజన పట్టికను దాని నిజ స్థితిలోనే తిరిగి అమర్చాలనుకుంటున్నారా?"
 
 #: ../partitioning.py:68
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "సంస్థాపన కొనసాగించలేము."
 
 #: ../partitioning.py:69
 msgid ""
@@ -1467,7 +1520,7 @@ msgstr ""
 
 #: ../partitioning.py:99
 msgid "Low Memory"
-msgstr ""
+msgstr "తక్కువ స్మృతి"
 
 #: ../partitioning.py:100
 msgid ""
@@ -1481,20 +1534,20 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
+msgstr "%s సంస్థాపన కొనసాగింపుకి అవసరమైన మూల(root) విభజనను నిర్వచించలేదు. "
 
 #: ../partitions.py:823
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
+msgstr "మీ మూల(root) విభజన ౨౫౦ మెగాబైట్లకన్నా తక్కువగా ఉంది. ఇది సంస్థాపనకు చాలా తక్కువైంది.%s."
 
 #: ../partitions.py:842
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "మీ boot విభజన మొదటి నాలుగు విభజనలలో ఒకటి మరియూ అది boot చేయటానికి కుదరదు."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1502,11 +1555,11 @@ msgstr ""
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "మీరు తప్పక ఒక Apple Bootstrap విభజనని సృష్టించుకోవాలి."
 
 #: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "మీరు తప్పకుండా ఒక PPC PReP Boot విభజనని సృష్టించుకోవాలి."
 
 #: ../partitions.py:899 ../partitions.py:910
 #, python-format
@@ -1517,21 +1570,21 @@ msgstr ""
 
 #: ../partitions.py:944
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "USB ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు."
 
 #: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Fire Wire ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు.స్"
 
 #: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "Bootable విభజనలు RAID1లో మాత్రమే ఉంటాయి."
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "Bootable విభజనలు తార్కిక volumeలో ఉండవు."
 
 #: ../partitions.py:988
 msgid ""
@@ -1555,15 +1608,15 @@ msgstr ""
 
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "విభజన సంస్థాపికచే ఉపయోగించబడుతోంది."
 
 #: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "ఒక విభజన RAID arryలో సభ్యత్వం కలది."
 
 #: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "ఈ విభజన LVM Volume సమూహంలో సభ్యత్వం కలది."
 
 #: ../partRequests.py:249
 #, python-format
@@ -1579,7 +1632,7 @@ msgstr ""
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "ఈ mount point తప్పకుండా linux పైళ్ల విధానంలోదై ఉండాలి "
 
 #: ../partRequests.py:280
 #, python-format
@@ -1587,13 +1640,15 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
+"mount point \"%s\" ఇప్పటికే ఉపయోగంలో ఉంది, దయచెసి వేరొక  mount "
+"pointని ఎన్నుకోండి."
 
 #: ../partRequests.py:294
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
+msgstr "%s విభజన సైజు (%10.2f MB) %10.2f MB. గరిష్ట సైజుని అధికమించింది."
 
 #: ../partRequests.py:490
 #, python-format
@@ -1601,19 +1656,21 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
+"కావలసిన విభజన సైజు (సైజు = %s MB) గరిష్ఠ సైజు "
+"of %s MBని అధికమించింది."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "కావలసిన విభజన సైజు వ్యతిరేకంగా ఉంది! (సైజు = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "కింది మొదటి cylinder దగ్గర విభజన ప్రారంభంకాలేదు."
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "వ్యతిరేక cylinder దగ్గర విభజన సమాప్తికాదు."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
@@ -1622,7 +1679,7 @@ msgstr ""
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%sRAID ఉపకరణం వర్గం కనీసం %s సభ్యులను కలిగి ఉండాలి."
 
 #: ../partRequests.py:690
 #, python-format
@@ -1639,36 +1696,36 @@ msgstr ""
 
 #: ../rescue.py:129
 msgid "Starting Interface"
-msgstr ""
+msgstr "అంతర్ముఖీనతను ప్రారంభిస్తోంది"
 
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%sను ప్రారంభించటానికి ప్రయత్నిస్తోంది"
 
 #: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "పూర్తయ్యిన తర్వాత దయచేసి మీ shellనుండీ బయటకి వచ్చి మీ కంప్యూటరును పునఃప్రారంభించండి."
 
 #: ../rescue.py:199
 msgid "Setup Networking"
-msgstr ""
+msgstr "Networkingని అమర్చండి"
 
 #: ../rescue.py:200
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "మీరు network అంతర్ముఖీనతలను ఈ కంప్యూటరులో ప్రారంభించాలనుకుంటున్నారా?"
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
-msgstr ""
+msgstr "రద్దయ్యింది"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "నేను ఇక్కడనుందీ ముందలి అమర్పులకు వెళ్లలేను. మీరు ఇంకోసారి ప్రయత్నించండి."
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
-msgstr ""
+msgstr "కాపాడు"
 
 #: ../rescue.py:279
 #, python-format
@@ -1687,23 +1744,23 @@ msgstr ""
 #: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
 #: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
-msgstr ""
+msgstr "కొనసాగించు"
 
 #: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
-msgstr ""
+msgstr "చదవటానికి మాత్రమే"
 
 #: ../rescue.py:320
 msgid "System to Rescue"
-msgstr ""
+msgstr "కంప్యూటరు రక్షణకు"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "మీ సంస్థాపన మూల(root) విభజనను ఏ విభజన కలిగి ఉంది?"
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
-msgstr ""
+msgstr "బయటకు"
 
 #: ../rescue.py:346
 msgid ""
@@ -1737,7 +1794,7 @@ msgstr ""
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
-msgstr ""
+msgstr "రక్షణ విధం"
 
 #: ../rescue.py:444
 msgid ""
@@ -1748,82 +1805,82 @@ msgstr ""
 #: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "మీ కంప్యూటరు %s directory కింద ఉంది."
 
 #: ../text.py:149 ../text.py:164
 msgid "Save"
-msgstr ""
+msgstr "భద్రపరువు"
 
 #: ../text.py:152 ../text.py:166
 msgid "Remote"
-msgstr ""
+msgstr "దూరస్థ"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: ../text.py:158
 msgid "Exception Occurred"
-msgstr ""
+msgstr "మినహాయింపు సంభంవించింది"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "దూరస్థ అతిధేయికి భద్రపరువు"
 
 #: ../text.py:190
 msgid "Host"
-msgstr ""
+msgstr "అతిధేయి"
 
 #: ../text.py:192
 msgid "Remote path"
-msgstr ""
+msgstr "దూరస్థ మార్గం"
 
 #: ../text.py:194
 msgid "User name"
-msgstr ""
+msgstr "వినియోగదారు పేరు"
 
 #: ../text.py:196
 msgid "Password"
-msgstr ""
+msgstr "అనుమతిపదం"
 
 #: ../text.py:253
 msgid "Help not available"
-msgstr ""
+msgstr "సహాయం అందుబాటులో లేదు"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "ఈ సంస్థాపనకు ఏ సహాయమూ అందుబాటులో లేదు."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Crash రాశిని భద్రపరువు"
 
 #: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%sకి స్వాగతం"
 
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr "సహాయం కొరకు <F1> | మూలకాల మధ్య<Tab> | ఎన్నికలు <Space> | తదుపరి తెర <F12>"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> మూలకాల మధ్య   |  <Space> ఎన్నికలు   |  <F12> తదుపరి తెర"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "ఉన్న విధానాన్ని అభివృద్ధి చేయి"
 
 #: ../upgradeclass.py:24
 msgid "Upgrade"
-msgstr ""
+msgstr "అభివృద్ధి"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "అభివృద్ధితో కొనసాగు?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -1834,20 +1891,20 @@ msgstr ""
 
 #: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "మీరు ఈ అభివృద్ధులతో కొనసాగాలనుకుంటున్నారా?"
 
 #: ../upgrade.py:94
 msgid "Searching"
-msgstr ""
+msgstr "శోధకం"
 
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr " %s సంస్థాపనల... కోసం వెతుకుతోంది"
 
 #: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "చెడ్ద ఫైళ్ల విధానం"
 
 #: ../upgrade.py:152
 #, python-format
@@ -1868,7 +1925,7 @@ msgstr ""
 
 #: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
-msgstr ""
+msgstr "మరల్పు విఫలమైంది"
 
 #: ../upgrade.py:298
 msgid ""
@@ -1893,7 +1950,7 @@ msgstr ""
 
 #: ../upgrade.py:327
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "ఖచ్చితమైన Symlinkలు"
 
 #: ../upgrade.py:338
 msgid ""
@@ -1905,16 +1962,16 @@ msgstr ""
 
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr ""
+msgstr "చెల్లని Directoriలు"
 
 #: ../upgrade.py:351
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s కనుగొనబడలేదు"
 
 #: ../urlinstall.py:35
 msgid "Connecting..."
-msgstr ""
+msgstr "అనుసంధిస్తోంది..."
 
 #: ../urlinstall.py:74
 #, python-format
@@ -1930,7 +1987,7 @@ msgstr ""
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
-msgstr ""
+msgstr "Xని ప్రారంభించటం కుదరదు"
 
 #: ../vnc.py:44
 msgid ""
@@ -1941,19 +1998,19 @@ msgstr ""
 
 #: ../vnc.py:51 ../vnc.py:54
 msgid "Use text mode"
-msgstr ""
+msgstr "పాఠరీతిని ఉపయోగించు"
 
 #: ../vnc.py:52
 msgid "Start VNC"
-msgstr ""
+msgstr "VNCని ప్రారంభించు"
 
 #: ../vnc.py:62
 msgid "VNC Configuration"
-msgstr ""
+msgstr "VNC ఆకృతి"
 
 #: ../vnc.py:66
 msgid "No password"
-msgstr ""
+msgstr "అనుమతిపదం లేదు"
 
 #: ../vnc.py:69
 msgid ""
@@ -1964,31 +2021,31 @@ msgstr ""
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
-msgstr ""
+msgstr "అనుమతిపదం:"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
-msgstr ""
+msgstr "అనుమతిపదం (ఖాయమైన):"
 
 #: ../vnc.py:100 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
-msgstr ""
+msgstr "అనుమతి పదం సరిపోల్చబడలేదు"
 
 #: ../vnc.py:101 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "మీరు ఇచ్చిన అనుమతి పదం వేరైనది. దయచేసి మళ్లీ ప్రయత్నించండి."
 
 #: ../vnc.py:106 ../textw/userauth_text.py:59
 msgid "Password Length"
-msgstr ""
+msgstr "అనుమతిపదం పొడవు"
 
 #: ../vnc.py:107
 msgid "The password must be at least six characters long."
-msgstr ""
+msgstr "అనుమతిపదం తప్పకుండా కనీసం ఆరు అక్షరాల పొడవుండాలి."
 
 #: ../vnc.py:137
 msgid "VNC Password Error"
-msgstr ""
+msgstr "VNC అనుమతిపద దోషం"
 
 #: ../vnc.py:138
 msgid ""
@@ -1996,28 +2053,31 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"మీరు కనీసం ౬ అక్షరాల పొడవున్న vnc అనుపతిపదాన్ని ఇవ్వవలసి ఉంది.\n"
+"\n"
+"మీ కంప్యూటరును పునఃప్రారంభించటానికి <return>ని నొక్కండి.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
-msgstr ""
+msgstr "VNCని ప్రారంభిస్తోంది..."
 
 #: ../vnc.py:226
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr ""
+msgstr "%s %s hostలో సంస్థాపన %s"
 
 #: ../vnc.py:228
 #, python-format
 msgid "%s %s installation"
-msgstr ""
+msgstr "%s %s సంస్థాపన"
 
 #: ../vnc.py:248
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "vnc అనుమతిపదం ఏర్పాటు కుదరదు - అనుమతిపదాన్ని ఉపయోగించకు!"
 
 #: ../vnc.py:249
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
+msgstr "మీ అనుమతిపదం ౬ అక్షరాల పొడవుమాత్రమే ఉందని నిర్ధారణ చేసుకున్నారా."
 
 #: ../vnc.py:272
 msgid ""
@@ -2031,16 +2091,16 @@ msgstr ""
 
 #: ../vnc.py:276
 msgid "The VNC server is now running."
-msgstr ""
+msgstr "VNC సర్వరు ఇప్పుడు పనిచేస్తోంది."
 
 #: ../vnc.py:279
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "...%s hostలో vnc కక్షిదారునికి అనుసంధించటానికి ప్రయత్నిస్తోంది "
 
 #: ../vnc.py:291
 msgid "Connected!"
-msgstr ""
+msgstr "అనుసంధించబడింది!"
 
 #: ../vnc.py:296
 msgid "Giving up attempting to connect after 50 tries!\n"
