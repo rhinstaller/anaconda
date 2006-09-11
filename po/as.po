@@ -1,4 +1,4 @@
-# translation of anaconda.as.po to Assamese
+# translation of anaconda to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
@@ -454,7 +454,7 @@ msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
-msgstr " অনিয়ন্ত্ৰিত ব্যতিক্ৰম ঘটিছে । এইটো সম্ভৱতঃ এটা বাগ । বিস্তাৰিত ব্যতিক্ৰমৰ এটা অনুকৃতি একত্ৰিত কৰি anacondaৰ বিৰুদ্ধে এটা বাগৰ প্ৰতিবেদন নথিভুক্ত কৰক । "
+msgstr " অনিয়ন্ত্ৰিত ব্যতিক্ৰম ঘটিছে । এইটো সম্ভৱতঃ এটা বাগ । বিস্তাৰিত ব্যতিক্ৰমৰ এটা অনুকৃতি একত্ৰিত কৰি %s-ত anacondaৰ বিৰুদ্ধে এটা বাগৰ প্ৰতিবেদন নথিভুক্ত কৰক । "
 #: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
 msgstr " আবৰ্জনা লিখা গ'ল ।"
@@ -1234,7 +1234,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-
+"%s য্ন্ত্ৰ CDL আকৃতিৰ সলনি LDL আকৃতিত । LDL আকৃতিৰ DSAD সমূহ %s সংস্থাপনৰ সময়ত ব্যৱহাৰৰ সময়ত সমৰ্থন কৰা নহয় । এই ডিষ্ক সংস্থাপনৰ সময়ত ব্যৱহাৰ কৰিআ বিচাৰিলে, ইয়াক পুনৰাম্ভ কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব ।\n"
+"\n"
+"আপুনি এই DSAD-টো CDL আকৃতিলৈ পুনৰাকৃত কৰিব খোজে নেকি?"
 #: ../partedUtils.py:336
 #, python-format
 msgid ""
@@ -1244,28 +1246,30 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-
+"/dev/%s-ত বৰ্ত্তমান %s আকৃতিৰ পৰিকল্পনা । %s-ৰ সংস্থাপনৰ কাৰণে এই ডিষ্ক প্ৰয়োগ কৰিব হ'লে, ইয়াক পুনৰাম্ভ কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব।\n"
+"\n"
+"আপুনি এই ড্ৰাইভক পুনৰাকৃতি দিব খোজে নেকি?"
 #: ../partedUtils.py:345
 msgid "_Ignore drive"
-msgstr ""
+msgstr "ড্ৰাইভ আওকাণ কৰক (_I)"
 
 #: ../partedUtils.py:346
 msgid "_Format drive"
-msgstr ""
+msgstr "ড্ৰাইভ পুনৰাকৃত কৰক (_F)"
 
 #: ../partedUtils.py:789
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "নথি-পত্ৰৰ প্ণালী %s-ত তুলি লওঁতে ভ্ৰান্তি হ'ল: %s"
 
 #: ../partedUtils.py:884
 msgid "Initializing"
-msgstr ""
+msgstr "আৰম্ভ কৰিছোঁ"
 
 #: ../partedUtils.py:885
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "%s ড্ৰাইভ পুনৰাকৃত কৰাৰ সময়ত অনুগ্ৰহ কৰি প্ৰতীক্ষা কৰক...\n"
 
 #: ../partedUtils.py:985
 #, python-format
@@ -1279,7 +1283,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-
+""
 #: ../partedUtils.py:1042
 #, python-format
 msgid ""
