@@ -1,7 +1,8 @@
+# translation of it.po to 
+# translation of it.po to
 # translation of it.po to Italiano
 # translation of it.po to
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-#
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Tullio Dovera <tdovera@redhat.it>, 2001.
 # Gabriella Bertilaccio <gbertilaccio@redhat.it>, 2001.
@@ -12,18 +13,19 @@
 # Nicolò Nepote <nepote@labinf.polito.it>, 2005.
 # Francesco Tombolini <tombo@adamantio.net>, 2006.
 # Francesco Tombolini <tombo@localhost.localdomain>, 2006.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-08-16 03:45+0200\n"
-"Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
+"PO-Revision-Date: 2006-09-11 08:49+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:258
@@ -86,8 +88,8 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Memoria insufficiente per l'utilizzo dell'installazione grafica. Avvio della "
-"modalità testo."
+"RAM insufficiente per l'utilizzo dell'installatore grafico. Avvio della "
+"modalità di testo."
 
 #: ../anaconda:476
 msgid "No video hardware found, assuming headless"
@@ -95,7 +97,7 @@ msgstr "Nessun hardware video trovato, si presume senza monitor"
 
 #: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware"
+msgstr "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
@@ -103,7 +105,7 @@ msgstr "Inizio installazione grafica..."
 
 #: ../anaconda:790
 msgid "Install class forcing text mode installation"
-msgstr "Installare la classe forzando l'installazione in modalità testuale"
+msgstr "Installa classe forzando l'installazione in modalità di testo"
 
 #: ../anaconda:816
 msgid "Graphical installation not available...  Starting text mode."
@@ -119,9 +121,7 @@ msgstr "Metodo d'installazione sconosciuto"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"E' stato specificato un metodo d'installazione che non é supportato da "
-"anaconda."
+msgstr "E' stato specificato un metodo d'installazione non supportato da anaconda."
 
 #: ../anaconda:880
 #, c-format
@@ -135,7 +135,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Impossibile allocare le partizioni cylinder-based come partizioni primarie\n"
+"Impossibile allocare partizioni basate sul cilindro come partizioni primarie\n"
 "\n"
 "%s"
 
@@ -146,7 +146,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Impossibile allocare le partizioni come partizioni primarie\n"
+"Impossibile allocare partizioni come partizioni primarie\n"
 "\n"
 "%s"
 
@@ -157,7 +157,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Impossibile allocare le partizioni cylinder-based\n"
+"Impossibile allocare partizioni basate sul cilindro.\n"
 "\n"
 "%s"
 
@@ -168,10 +168,10 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"La partizione di avvio %s non appartiene ad un etichetta disco BSD. SRM non "
+"La partizione di avvio %s non appartiene ad alcuna etichetta disco BSD. SRM non "
 "potrà affettuare un avvio da questa partizione. Usare una partizione "
-"appartenente ad un etichetta disco BSD o cambiare l'etichetta di questo "
-"disco in BSD."
+"appartenente ad una etichetta disco BSD o cambiare l'etichetta di questo "
+"disco del dispositivo in BSD."
 
 #: ../autopart.py:1021
 #, python-format
@@ -214,7 +214,7 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"Aggiungendo questa partizione non si lascerebbe abbastanza spazio sul disco "
+"Aggiungendo questa partizione non lascerete abbastanza spazio sul disco "
 "per i volumi logici già allocati in %s."
 
 #: ../autopart.py:1243
@@ -345,7 +345,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Premere 'OK' per scegliere un opzione di partizionamento differente."
+"Premere 'OK' per scegliere una opzione di partizionamento differente."
 
 #: ../autopart.py:1503
 #, python-format
@@ -361,7 +361,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Può succedere quando non c'è spazio sufficiente sui dischi per effettuare "
+"Può succedere quando non c'è spazio sufficiente sui vostri dischi fissi per "
 "l'installazione.%s"
 
 #: ../autopart.py:1514
@@ -382,7 +382,7 @@ msgstr "Il sistema verrà ora riavviato."
 #: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
 #: ../loader2/loader.c:400
 msgid "Warning"
-msgstr "Attenzione"
+msgstr "Avviso"
 
 #: ../autopart.py:1668
 msgid ""
@@ -394,11 +394,10 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Il partizionamento automatico imposta le partizioni in base al tipo di "
-"installazione selezionato. É possibile personalizzare le partizioni una "
-"volta create.\n"
+"installazione selezionato. É possibile personalizzare le partizioni una volta create.\n"
 "\n"
 "Lo strumento di partizionamento manuale del disco, Disk Druid, consente di "
-"creare partizioni in un ambiente interattivo. E' possibile impostare i tipi "
+"creare partizioni in un ambiente interattivo. E' possibile impostare il tipo "
 "di filesystem, i mount point, le dimensioni della partizione e molto altro."
 
 #: ../autopart.py:1679
@@ -407,7 +406,7 @@ msgid ""
 "must choose how to use the space on your hard drives."
 msgstr ""
 "Prima che il programma di installazione possa configurare il partizionamento "
-"automatico, dovete scegliere come utilizzare lo spazio sui dischi fissi."
+"automatico, è necessario scegliere come utilizzare lo spazio sui dischi fissi."
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
@@ -428,8 +427,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Avete scelto di rimuovere tutte le partizioni (TUTTI I DATI) dai seguenti "
-"dischi:%s\n"
+"Avete scelto di rimuovere tutte le partizioni (TUTTI I DATI) dai seguenti dischi:% "
+"s\n"
 "Siete sicuri di voler fare questo?"
 
 #: ../autopart.py:1692
@@ -439,8 +438,7 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Avete scelto di rimuovere tutte le partizioni Linux (e TUTTI I DATI in esse "
-"contenuti) dai seguenti dischi:%s\n"
+"Avete scelto di rimuovere tutte le partizioni Linux (e TUTTI I DATI in esse contenuti) dai seguenti dischi:%s\n"
 "Siete sicuri di voler fare questo?"
 
 #: ../backend.py:97
