@@ -285,6 +285,11 @@ def driveDict(klassArg):
             try:
                 devName = "/dev/%s" % (device,)
                 makeDevInode(device, devName)
+
+                if not mediaPresent (device):
+                    new[device] = dev
+                    continue
+
                 peddev = parted.PedDevice.get(devName)
                 model = peddev.model
 

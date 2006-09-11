@@ -1,3 +1,8 @@
+2006-09-11  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.py (driveDict):  Skip attached devices without media
+	present (like CF readers, etc.) (#205465).
+
 2006-09-11  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.selectFSPackages): We want the
