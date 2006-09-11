@@ -1,5 +1,8 @@
 2006-09-11  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Check for grow
+	before checking the size (#206039).
+
 	* isys/isys.py (driveDict):  Skip attached devices without media
 	present (like CF readers, etc.) (#205465).
 

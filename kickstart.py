@@ -244,7 +244,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         if lvd.percent == 0 and not lvd.preexist:
             if lvd.size == 0:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
-            elif lvd.size*1024 < vg.pesize and not lvd.grow:
+            elif not lvd.grow and lvd.size*1024 < vg.pesize:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
         elif (lvd.percent <= 0 or lvd.percent > 100) and not lvd.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
