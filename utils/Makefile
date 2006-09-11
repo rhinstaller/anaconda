@@ -19,7 +19,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist moddeps snarffont mapshdr readmap
+all:	modlist moddeps snarffont mapshdr readmap geninitrdsz
 
 modlist: modlist.o moduleinfo.o
 	$(CC) $(LDFLAGS) -o modlist modlist.o moduleinfo.o $(LOADLIBES)
@@ -42,6 +42,9 @@ md5.o: md5.c md5.h
 hash.o : hash.c
 	$(CC) $(RPMCFLAGS) -c -o $@ $<
 
+geninitrdsz: geninitrdsz.c
+	$(CC) $(CFLAGS) -o $@ $<
+
 depends:
 
 install: all
@@ -54,9 +57,10 @@ install: all
 	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 geninitrdsz $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:	
-	rm -f modlist moddeps snarffont mapshdr readmap \
+	rm -f modlist moddeps snarffont mapshdr readmap geninitrdsz \
 	moduledeps.c moduleinfo.c .depend *.o
 
 depend:

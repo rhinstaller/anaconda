@@ -1,3 +1,15 @@
+2006-09-11  David Cantrell  <dcantrell@redhat.com>
+
+	* utils/geninitrdsz.c: Added util to generate the initrd.size file
+	needed on zSeries (#197773).
+
+	* utils/Makefile: Compile geninitrdsz, install to anaconda-runtime.
+
+	* scripts/mk-images: Define GENINITRDSZ command.
+
+	* scripts/mk-images.s390: Generate initrd.size for each s390 tree
+	build.
+
 2006-09-08  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec:  Bump version.

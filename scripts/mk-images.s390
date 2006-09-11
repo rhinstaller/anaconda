@@ -8,9 +8,9 @@ makeBootImages() {
 	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS $S390MODS"
+	$GENINITRDSZ 12288475 $TOPDESTPATH/images/initrd.size
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
-	cp -v $BOOTDISKDIR/initrd.size $TOPDESTPATH/images/initrd.size
 	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
 }
