@@ -10,6 +10,11 @@
 
 2006-09-11  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/nl.c: Only collect IPv4 and IPv6 addresses for IFF_RUNNING
+	interfaces.
+
+2006-09-11  David Cantrell  <dcantrell@redhat.com>
+
 	* scripts/mk-images.s390: Use the size of the actual initrd.img for
 	the value in initrd.size.
 

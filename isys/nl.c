@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <linux/netlink.h>
 #include <linux/rtnetlink.h>
+#include <linux/if.h>
 #include <arpa/inet.h>
 #include <net/if_arp.h>
 
@@ -207,7 +208,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
         /* RTM_NEWADDR */
         ifa = NLMSG_DATA(nlh);
         rta = IFA_RTA(ifa);
-        len = NLMSG_PAYLOAD(nlh, 0);      /* IFA_PAYLOAD(nlh) ???? */
+        len = IFA_PAYLOAD(nlh);
 
         if (ifa->ifa_family != family) {
             nlh = NLMSG_NEXT(nlh, ret);
@@ -224,12 +225,13 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
 
         /* write the address */
         if (tb[IFA_ADDRESS] && ifa->ifa_index == index) {
-            memset(addr, 0, sizeof(*addr));
             switch (family) {
                 case AF_INET:
+                    memset(addr, 0, sizeof(struct in_addr));
                     memcpy(addr, (struct in_addr *)RTA_DATA(tb[IFA_ADDRESS]), alen);
                     break;
                 case AF_INET6:
+                    memset(addr, 0, sizeof(struct in6_addr));
                     memcpy(addr, (struct in6_addr *)RTA_DATA(tb[IFA_ADDRESS]), alen);
                     break;
             }
@@ -340,15 +342,20 @@ int netlink_init_interfaces_list(void) {
             /* copy the MAC addr */
             memcpy(&intfinfo->mac, RTA_DATA(tb[IFLA_ADDRESS]), alen);
 
-            /* get the IPv4 address of this interface (if any) */
-            r = netlink_get_interface_ip(intfinfo->i, AF_INET, &intfinfo->ip_addr);
-            if (r == -1)
-                intfinfo->ip_addr.s_addr = 0;
+            if (ifi->ifi_flags & IFF_RUNNING) {
+                /* get the IPv4 address of this interface (if any) */
+                r = netlink_get_interface_ip(intfinfo->i, AF_INET, &intfinfo->ip_addr);
+                if (r == -1)
+                    memset(&intfinfo->ip_addr, 0, sizeof(struct in_addr));
 
-            /* get the IPv6 address of this interface (if any) */
-            r = netlink_get_interface_ip(intfinfo->i,AF_INET6,&intfinfo->ip6_addr);
-            if (r == -1)
-                memset(intfinfo->ip6_addr.s6_addr, 0, sizeof(intfinfo->ip6_addr.s6_addr));
+                /* get the IPv6 address of this interface (if any) */
+                r = netlink_get_interface_ip(intfinfo->i, AF_INET6, &intfinfo->ip6_addr);
+                if (r == -1)
+                    memset(&intfinfo->ip6_addr, 0, sizeof(struct in6_addr));
+            } else {
+                memset(&intfinfo->ip_addr, 0, sizeof(struct in_addr));
+                memset(&intfinfo->ip6_addr, 0, sizeof(struct in6_addr));
+            }
 
             /* add this interface */
             interfaces = g_slist_append(interfaces, intfinfo);
