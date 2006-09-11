@@ -11,6 +11,14 @@ CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 LDFLAGS = -g
 
+UTILS = modlist moddeps snarffont mapshdr readmap
+ifeq (s390, $(ARCH))
+UTILS += geninitrdsz
+endif
+ifeq (s390x, $(ARCH))
+UTILS += geninitrdsz
+endif
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
 else
@@ -19,7 +27,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist moddeps snarffont mapshdr readmap geninitrdsz
+all: $(UTILS)
 
 modlist: modlist.o moduleinfo.o
 	$(CC) $(LDFLAGS) -o modlist modlist.o moduleinfo.o $(LOADLIBES)
@@ -57,7 +65,9 @@ install: all
 	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 geninitrdsz $(DESTDIR)/$(RUNTIMEDIR)
+	if [ -x geninitrdsz ]; then \
+		install -m755 geninitrdsz $(DESTDIR)/$(RUNTIMEDIR) ; \
+	fi
 
 clean:	
 	rm -f modlist moddeps snarffont mapshdr readmap geninitrdsz \

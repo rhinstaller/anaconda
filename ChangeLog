@@ -1,5 +1,12 @@
 2006-09-11  David Cantrell  <dcantrell@redhat.com>
 
+	* scripts/mk-images.s390: Use the size of the actual initrd.img for
+	the value in initrd.size.
+
+	* utils/Makefile: Only build and install geninitrdsz on zSeries.
+
+2006-09-11  David Cantrell  <dcantrell@redhat.com>
+
 	* utils/geninitrdsz.c: Added util to generate the initrd.size file
 	needed on zSeries (#197773).
 
