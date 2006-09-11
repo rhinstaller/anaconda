@@ -1,3 +1,8 @@
+2006-09-11  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.selectFSPackages): We want the
+	packages if they're going to be used.... (#205865)
+
 2006-09-11  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/mk-images.s390: Use the size of the actual initrd.img for
