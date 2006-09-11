@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-09-07 15:27+0530\n"
+"PO-Revision-Date: 2006-09-11 17:47+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -985,7 +985,7 @@ msgstr ""
 #: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
 #: ../yuminstall.py:680
 msgid "_Exit"
-msgstr "வெளிச்செல் (_E)"
+msgstr "வெளியேறுதல் (_E)"
 
 #: ../gui.py:970 ../yuminstall.py:161
 msgid "_Retry"
@@ -1018,7 +1018,7 @@ msgstr "நிறுவும் சாளரம்"
 
 #: ../harddrive.py:61 ../image.py:480
 msgid "Missing ISO 9660 Image"
-msgstr "தொலைக்கப்பட்ட ISO 9660 படம்"
+msgstr "விடுபட்ட ISO 9660 உரு"
 
 #: ../harddrive.py:62
 #, python-format
@@ -1075,7 +1075,7 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"குறுவட்டினை வெளி ஏற்றும் போது பிழை ஏற்பட்டுள்ளது. tty2 இருக்கும் %s ஐ "
+"குறுவட்டினை ஏற்றம் நீக்கும் போது பிழை ஏற்பட்டுள்ளது. tty2 இருக்கும் %s ஐ "
 "உபயோகிக்கவில்லை என்பதை உறுதி செய்துகொள்ளவும்."
 
 #: ../image.py:157
@@ -1101,7 +1101,7 @@ msgstr "குறுவட்டினை மாற்றவும்"
 #: ../image.py:256
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "%s இனி தொடர, %d வட்டினை நுழைக்கவும்."
+msgstr "%s இனி தொடர, %d வட்டை நுழைக்கவும்."
 
 #: ../image.py:291
 msgid "Wrong CDROM"
@@ -1178,7 +1178,7 @@ msgstr ""
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
-msgstr "வெளியேற்று (_A)"
+msgstr "வெளியேற்றவும் (_A)"
 
 #: ../kickstart.py:936
 msgid "Missing Group"
@@ -2740,7 +2740,6 @@ msgid "Edit Drive Order"
 msgstr "இயக்கியின் வரிசையை தொகுக்கவும்"
 
 #: ../iw/bootlocwidget.py:89
-#, fuzzy
 msgid ""
 "Arrange the drives to be in the same order as used by the BIOS. Changing the "
 "drive order may be useful if you have multiple SCSI adapters or both SCSI "
@@ -2749,11 +2748,12 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"BIOS பயன்படுத்தும் அதேவரிசையில் இயக்கியை வரிசைப்படுத்தவும். இயக்கிகளின் வரிசையை "
-"மாற்றுவதால் பல SCSI  ஏற்பிகள் இருந்தாலோ அல்லது எல்லா SCSI ஏற்பிகள் மற்றும் IDE ஏற்பி "
-"களின் வரிசையை மாற்றி SCSI சாதனத்திலிருந்து துவக்க முடியும்.\n"
+"BIOS பயன்படுத்தும் அதே வரிசையில் இயக்கிகளை வரிசைப்படுத்தவும். நீங்கள் பல SCSI தகவிகள் "
+"அல்லது SCSI மற்றும் IDE தகவிகள் இரண்டையும் வைத்திருந்து, SCSI சாதனத்திலிருந்து துவக்க "
+"விரும்பி, இயக்கிகளின் வரிசையை மாற்றினால் உதவியாக இருக்கும்.\n"
 "\n"
-" சாதனத்தின் வரிசையை மாற்றுவதால் நிறுவல் நிரல் மூல துவக்க பதிவேட்டை கண்டுபிடிக்கும்"
+"இயக்கிகளின் வரிசையை மாற்றுவது Master Boot Record (MBR) ஐ எங்கு நிறுவல் நிறுவல் நிரலை "
+"வைத்திருக்கிறதோ அங்கு மாற்றும்."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2929,21 +2929,19 @@ msgid "Not enough space"
 msgstr "போதுமான இடம் இல்லை"
 
 #: ../iw/lvm_dialog_gui.py:116
-#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"தற்போது தர்க ரீதியாக பயன்படும் கொள்ளளவு மேலும் ஏற்கெனவே உள்ள அளவை விட அதிகமாகும் .பரும "
-"நீட்டிப்பின் அளவை மாற்ற முடியாது."
+"பருநிலை விரிவாக்க அளவை மாற்ற முடியாது. ஏனெனில் தற்போது குறிப்பிடப்பட்ட "
+"தருக்க தொகுதிகளுக்கு தேவைப்படும் இடம் இருக்கும் இடத்தை விட அதிகரித்து இருக்கும்."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
 msgstr "பருநிலை விரிவாக்க மாற்றத்தை உறுதிப்படுத்தவும்"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2951,11 +2949,11 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"பருமும நீட்டிப்பின் மதிப்பில் மாற்றங்கள் இருந்தாலதற்போதையதய தருக்க தொகுதி அளவுகள் "
-"தேவைப்படும மற்றும் பரும நீட்டிப்பின் முழு பெருக்கல் எண்ணின் அளவிற்க்கு "
-"முழுமைப்படுத்துகிறது .\n"
+"பருநிலை விரிவாக்க மதிப்பில் இந்த மாற்றங்களுக்கு நடப்பு தருக்க தொகுதிகள் "
+"கோரிய அளவான பருநிலை விரிவாக்கத்தின் ஒரு முழு எண் பெருக்கலின் "
+"அளவானது தேவைப்படுகிறது. \n"
 "\n"
-"இந்த மாற்றம் உடனடியாக நடக்கும்."
+"இந்த மாற்றம் உடனடியாக செயலுக்கு வரும்."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
@@ -2964,36 +2962,34 @@ msgstr "தொடரவும் (_o)"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
-#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"தேர்வு செய்யப்பட்ட மதிப்பு பரும (%10.2f MB) குறைந்த பட்ச அளவைவிட (%10.2f MB)  "
-"அதிகமாக இருப்பதால் பரும அளவை மாற்றமுடியாது"
+"தொகுதி குழுவில் தேர்ந்தெடுக்கப்பட்ட மதிப்பு (%10.2f MB) குறைந்தபட்ச பருநிலை தொகுதி "
+"அளவை விட (%10.2f MB) அதிகமாக இருப்பதால் பருநிலை அளவை மாற்ற முடியாது."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
-#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"தேர்வு செய்யப்பட்ட மதிப்பு பரும (%10.2f MB) குறைந்த பட்ச அளவைவிட (%10.2f MB)  மிக "
-"அதிகமாக இருப்பதால் பரும அளவை மாற்றமுடியாது"
+"தொகுதி குழுவில் தேர்ந்தெடுக்கப்பட்ட மதிப்பு (%10.2f MB) குறைந்தபட்ச பருநிலை தொகுதி "
+"அளவை விட ஒப்பிடும் போது (%10.2f MB) மிக அதிகமாக இருப்பதால் பருநிலை "
+"அளவை மாற்ற முடியாது."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
 msgstr "மிகச் சிறியது"
 
 #: ../iw/lvm_dialog_gui.py:189
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr "தொகுதிக் குழிவில் உள்ள பரும தொகுதியில் இந்த பரும நீட்டிப்பின் மாற்றம் இடத்தை வீணாக்கிவிடும் "
+msgstr "தொகுதி குழுவில் உள்ள பருநிலை தொகுதியில் இந்த பருநிலை விரிவாக்க மாற்றம் இடத்தை வீணாக்கிவிடும் "
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
