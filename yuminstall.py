@@ -418,6 +418,19 @@ class AnacondaYum(YumSorter):
             self.ts.ts.setColor(3)
 
     def run(self, instLog, cb, intf, id):
+        def mediasort(a, b):
+            # sort so that first CD comes first, etc.  -99 is a magic number
+            # to tell us that the cd should be last
+            if a == -99:
+                return 1
+            elif b == -99:
+                return -1
+            if a < b:
+                return -1
+            elif b > a:
+                return 1
+            return 0
+            
         self.initActionTs()
         if id.getUpgrade():
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
@@ -431,7 +444,9 @@ class AnacondaYum(YumSorter):
             # If we don't have any required media assume single disc
             if self.tsInfo.reqmedia == {}:
                 self.tsInfo.reqmedia[0] = None
-            for i in self.tsInfo.reqmedia.keys():
+            mkeys = self.tsInfo.reqmedia.keys()
+            mkeys.sort(mediasort)
+            for i in mkeys:
                 self.tsInfo.curmedia = i
                 if i > 0:
                     pkgtup = self.tsInfo.reqmedia[i][0]

@@ -6,6 +6,10 @@ from yum.Errors import YumBaseError
 import urlparse
 urlparse.uses_fragment.append('media')
 
+import logging
+log = logging.getLogger("anaconda")
+
+
 class SplitMediaTransactionData(SortableTransactionData):
     def __init__(self):
         SortableTransactionData.__init__(self)
@@ -17,11 +21,11 @@ class SplitMediaTransactionData(SortableTransactionData):
             uri = po.returnSimple('basepath')
             (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
             if scheme != "media" or not fragid:
-                return 0
+                return -99
             else:
                 return int(fragid)
         except (KeyError, AttributeError):
-            return 0
+            return -99
 
     def getMembers(self, pkgtup=None):
         if not self.curmedia:

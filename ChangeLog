@@ -1,5 +1,12 @@
 2006-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYum.run): Use magic value to sort
+	additional repo packages to the end
+
+	* sortedtransaction.py (SplitMediaTransactionData.__getMedia): Set
+	a magic (non-zero) value for things not from media so that
+	installing from additional repos will work (#205846)
+
 	* iw/netconfig_dialog.py: Actually bring up the network
 	appropriately, add some UI tweaks
 	* ui/netconfig.glade: Center the dialog.  Hide ipv6 bits for now
