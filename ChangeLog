@@ -1,3 +1,9 @@
+2006-09-12  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py:  Display the group-selection step if there's no
+	package section at all.  Fix up when group-selection should be
+	displayed in other cases.
+
 2006-09-11  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Check for grow

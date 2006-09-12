@@ -685,6 +685,7 @@ class KickstartPreParser(KickstartParser):
 
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers):
+        self.sawPackageSection = False
         KickstartParser.__init__(self, ksdata, kshandlers)
 
     # Map old broken Everything group to the new futuristic package globs
@@ -704,6 +705,10 @@ class AnacondaKSParser(KickstartParser):
                               self.script["errorOnFail"], self.script["type"])
 
         self.ksdata.scripts.append(s)
+
+    def handlePackageHdr (self, lineno, args):
+        self.sawPackageSection = True
+        KickstartParser.handlePackageHdr (self, lineno, args)
 
     def handleCommand (self, lineno, args):
         if not self.handler:
@@ -898,7 +903,10 @@ class Kickstart(cobject):
             else:
                 self.handlers.skipSteps.append("group-selection")
         else:
-            self.handlers.showSteps.append("group-selection")
+            if self.ksparser.sawPackageSection:
+                self.handlers.skipSteps.append("group-selection")
+            else:
+                self.handlers.showSteps.append("group-selection")
 
         if not self.ksdata.interactive:
             for n in self.handlers.skipSteps:
@@ -930,6 +938,13 @@ class Kickstart(cobject):
                 pass
 
     def setGroupSelection(self, anaconda, *args):
+        # If there wasn't even an empty packages section, use the default
+        # group selections.  Otherwise, select whatever was given (even if
+        # it's nothing).
+        if not self.ksparser.sawPackageSection:
+            cobject.setGroupSelection(self, anaconda)
+            return
+
         anaconda.backend.selectGroup("Core")
 
         if self.ksdata.addBase:
