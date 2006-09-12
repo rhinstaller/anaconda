@@ -1,3 +1,11 @@
+2006-09-12  Peter Jones  <pjones@redhat.com>
+
+	* anaconda (parseOptions): change --vesa to --xdriver, and pass that
+	to xserver.probeHW.
+
+	* loader2/loader.c (parseCmdLineFlags): handle xdriver=, and make "vesa"
+	use that instead.
+
 2006-09-12  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py:  Display the group-selection step if there's no

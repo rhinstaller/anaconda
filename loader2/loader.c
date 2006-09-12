@@ -717,9 +717,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                      !strncasecmp(argv[i], "nompath", 8) ||
                      !strncasecmp(argv[i], "dmraid", 6) ||
                      !strncasecmp(argv[i], "nodmraid", 8) ||
+                     !strncasecmp(argv[i], "xdriver=", 8) ||
                      !strncasecmp(argv[i], "vesa", 4) ||
                      !strncasecmp(argv[i], "syslog=", 7)) { 
-                int arglen;
 
                 /* vnc implies graphical */
                 if (!strncasecmp(argv[i], "vnc", 3))
@@ -727,10 +727,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 else if (!strncasecmp(argv[i], "iscsi", 5))
                     flags |= LOADER_FLAGS_ISCSI;
 
-                arglen = strlen(argv[i])+3;
-                extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
-                snprintf(extraArgs[numExtraArgs], arglen, "--%s", argv[i]);
-                numExtraArgs = numExtraArgs + 1;
+                if (!strncasecmp(argv[i], "vesa", 4)) {
+                    asprintf(&extraArgs[numExtraArgs], "--xdriver=vesa");
+                    logMessage(WARNING, "\"vesa\" command line argument is deprecated.  Use \"xdriver=vesa\".");
+                } else {
+                    asprintf(&extraArgs[numExtraArgs], "--%s", argv[i]);
+                }
+                numExtraArgs += 1;
 
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
                      logMessage(WARNING, "Too many command line arguments (max "

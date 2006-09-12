@@ -208,10 +208,10 @@ def parseOptions():
                   default="800x600", nargs=1, type="string")
     op.add_option("--serial", action="store_true", default=False)
     op.add_option("--usefbx", dest="useFBX", action="store_true", default=False)
-    op.add_option("--vesa", dest="forcevesa", action="store_true", default=False)
     op.add_option("--virtpconsole")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
+    op.add_option("--xdriver", dest="xdriver", action="store", type="string", default=None)
 
     # Language
     op.add_option("--keymap")
@@ -459,7 +459,7 @@ def probeHW(opts, x_already_set, xserver):
         #
         # try to probe interesting hw
         skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
-        xserver.probeHW(skipMouseProbe=skipmouseprobe, forceVesa=opts.forcevesa)
+        xserver.probeHW(skipMouseProbe=skipmouseprobe, forceDriver=opts.xdriver)
 
         # if the len(videocards) is zero, then let's assume we're isHeadless
         if len(xserver.videohw.videocards) == 0:
