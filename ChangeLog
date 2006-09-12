@@ -1,3 +1,9 @@
+2006-09-12  Jeremy Katz  <katzj@redhat.com>
+
+	* gui.py (addFrame): Make it so that you can just show() the
+	window instead of having to show_all -- this lets you have hidden
+	widgets in a dialog that's been addFrame()'d
+
 2006-09-12  Peter Jones  <pjones@redhat.com>
 
 	* anaconda (parseOptions): change --vesa to --xdriver, and pass that
