@@ -928,7 +928,7 @@ class YumBackend(AnacondaBackend):
     # installed (they could have been removed in kickstart).  So we'll force
     # it.
     def selectAnacondaNeeds(self):
-        for pkg in ['authconfig', 'chkconfig', 'mkinitrd',
+        for pkg in ['authconfig', 'chkconfig', 'mkinitrd', 'rhpl',
                     'system-config-securitylevel-tui']:
             self.selectPackage(pkg)
 

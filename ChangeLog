@@ -33,6 +33,9 @@
 	package section at all.  Fix up when group-selection should be
 	displayed in other cases.
 
+	* yuminstall.py (YumBackend.selectAnacondaNeeds):  We need rhpl as
+	well (#204797).
+
 2006-09-11  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Check for grow
