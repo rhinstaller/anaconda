@@ -1,5 +1,12 @@
 # translation of it.po to 
 # translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
 # translation of it.po to Italiano
 # translation of it.po to
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
@@ -19,7 +26,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-11 08:49+0200\n"
+"PO-Revision-Date: 2006-09-12 08:51+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,9 +488,7 @@ msgstr "Non è possibile avere un interrogativo nella modalità a linea di coman
 
 #: ../cmdline.py:92
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Le eccezioni parted non possono essere gestite nella modalità a linea di "
-"comando!"
+msgstr "Le eccezioni parted non possono essere gestite nella modalità a linea di comando!"
 
 #: ../cmdline.py:137
 #, python-format
@@ -533,7 +538,7 @@ msgstr "Dump non scritto"
 
 #: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
-msgstr "C'è stato un problema nello scrivere lo stato del sistema sul floppy."
+msgstr "Si è verificato un problema nello scrivere lo stato del sistema sul floppy."
 
 #: ../exception.py:408
 msgid ""
@@ -545,7 +550,7 @@ msgstr ""
 
 #: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
-msgstr "C'è stato un problema scrivendo lo stato del sistema sull'host remoto."
+msgstr "Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
@@ -624,8 +629,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Errore durante il tentativo di inizializzazione dello swap sul dispositivo %"
-"s.  Il problema è grave e non è possibile proseguire con l'installazione.\n"
+"Errore durante il tentativo di inizializzazione dello swap sul dispositivo %s."
+"Il problema è grave e non è possibile proseguire con l'installazione.\n"
 "\n"
 "Premere <Invio> per riavviare il sistema."
 
@@ -717,12 +722,12 @@ msgstr ""
 "\n"
 "Selezionate Salta se desiderate che l'installatore ignori questa partizione "
 "durante il processo di aggiornamento.  Selezionate invece Formatta per "
-"riformattare la partizione come uno spazio, o Riavvia per riavviare il "
+"riformattare la partizione come uno spazio swap, o Riavvia per riavviare il "
 "sistema."
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
-msgstr "Formattare"
+msgstr "Formatta"
 
 #: ../fsset.py:1515
 #, python-format
@@ -752,8 +757,7 @@ msgid ""
 msgstr ""
 "Errore durante l'abilitazione dello swap %s: %s \n"
 "\n"
-"Questo significa probabilmente che la partizione dello swap non è stata "
-"inizializzata.\n"
+"Questo significa probabilmente che la partizione dello swap non è stata inizializzata.\n"
 "\n"
 "Premere OK per riavviare il sistema."
 
@@ -811,7 +815,7 @@ msgstr ""
 
 #: ../fsset.py:1706 ../fsset.py:1715
 msgid "Invalid mount point"
-msgstr "Punto di montaggio non valido"
+msgstr "Mount point non valido"
 
 #: ../fsset.py:1707
 #, python-format
@@ -821,10 +825,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Si è verificato un errore durante il tentativo di creazione di %s. Alcuni "
-"elementi di questo path non sono directory. Il problema è grave e non è "
-"possibile\n"
-"proseguire con l'installazione.\n"
+"Si è verificato un errore durante il tentativo di creazione di %s. Alcuni elementi di questo path non sono directory. Il problema è grave e non è possibile proseguire con l'installazione.\n"
 "\n"
 "Premere <Invio> per riavviare il sistema."
 
@@ -850,9 +851,7 @@ msgstr "Impossibile montare il filesystem"
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
-"E' avvenuto un errore montando il dispositivo %s come %s.  Si potrebbe continuare l'installazione, "
-"ma potrebbero esserci problemi."
+msgstr "E' avvenuto un errore montando il dispositivo %s come %s.  Si potrebbe continuare l'installazione, ma potrebbero esserci problemi."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -870,8 +869,7 @@ msgid ""
 msgstr ""
 "Errore nel montare la periferica %s come %s: %s\n"
 "\n"
-"L'errore è probabilmente causato dalla mancata formattazione della "
-"partizione.\n"
+"L'errore è probabilmente causato dalla mancata formattazione della partizione.\n"
 "\n"
 "Premere OK per riavviare il sistema."
 
@@ -891,7 +889,7 @@ msgstr ""
 
 #: ../fsset.py:2456
 msgid "Duplicate Labels"
-msgstr "Etichette duplicate"
+msgstr "Duplica etichette"
 
 #: ../fsset.py:2457
 #, python-format
@@ -902,8 +900,7 @@ msgid ""
 "Please fix this problem and restart the installation process."
 msgstr ""
 "Più periferiche nel sistema hanno l'etichetta %s. Perché il sistema funzioni "
-"in modo corretto le etichette devo essere univoche tra tutte le "
-"periferiche.\n"
+"in modo corretto le etichette devono essere univoche tra tutte le periferiche.\n"
 "\n"
 "Risolvere questo problema e rilanciare il processo di installazione."
 
@@ -1004,8 +1001,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"È stato rilevato il seguente errore durante l'analisi della configurazione "
-"del kickstart:\n"
+"È stato rilevato il seguente errore durante l'analisi della configurazione del kickstart:\n"
 "\n"
 "%s"
 
@@ -1036,8 +1032,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Si è verificato un errore durante il tentativo di caricamento di un "
-"componente dell'interfaccia di installazione\n"
+"Si è verificato un errore durante il tentativo di caricamento di un componente dell'interfaccia di installazione\n"
 "\n"
 "Nome della classe = %s"
 
@@ -1052,7 +1047,7 @@ msgstr "_Riprova"
 
 #: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
-msgstr "L'installer uscirà tra qualche istante..."
+msgstr "L'installatore uscirà tra qualche istante..."
 
 #: ../gui.py:986 ../packages.py:299
 msgid "Your system will now be rebooted..."
@@ -1091,7 +1086,7 @@ msgstr ""
 "possedere tutti i media necessari.\n"
 "\n"
 "Se riavviate, il sistema verrà lasciato in uno stato inconsistente che richiederà "
-"la reinstallazione\n"
+"una reinstallazione\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1107,8 +1102,8 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"Il programma d'installazione ha tentato di montare l'immagine #%s, ma non "
-"può trovarla sul disco fisso.\n"
+"Il programma d'installazione ha provato a montare l'immagine #%s, ma non "
+"è in grado di trovarla sul disco fisso.\n"
 "\n"
 "Si prega di copiare questa immagine nel percorso condiviso sul drive e "
 "premere Riprova. Premere Riavvia per annullare l'installazione."
@@ -1119,7 +1114,7 @@ msgstr "Ri_prova"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr "Supporti d'installazione richiesti"
+msgstr "Media d'installazione richiesti"
 
 #: ../image.py:83
 #, python-format
@@ -1133,9 +1128,8 @@ msgstr ""
 "Il software che avete scelto di installare richiede i seguenti CD:\n"
 "\n"
 "%s\n"
-"assicuratevi di averli a disposizione prima di procedere con "
-"l'installazione.  Se avete bisogno di annullare l'installazione e riavviare "
-"selzionate \"Riavvia\"."
+"Assicuratevi di averli a disposizione prima di procedere con "
+"l'installazione.  Se avete bisogno di annullare l'installazione e riavviare selzionate \"Riavvia\"."
 
 #: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1164,10 +1158,7 @@ msgstr "Trasferimento dell'immagine di installazione sul disco fisso..."
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"Si è verificato un errore durante il trasferimento dell'immagine "
-"d'installazione sul disco fisso. Probabilmente lo spazio disponibile non è "
-"sufficiente."
+msgstr "Si è verificato un errore durante il trasferimento dell'immagine d'installazione sul disco fisso. Probabilmente lo spazio disponibile non è sufficiente."
 
 #: ../image.py:263
 msgid "Change CDROM"
@@ -1245,9 +1236,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Si è verificato un errore durante l'esecuzione dello scriptlet.  E' "
-"possibile esaminare l'output presente in %s. Questo errore è fatale e "
-"l'installazione non potrà proseguire.\n"
+"Si è verificato un errore durante l'esecuzione dello scriptlet.  E' possibile esaminare l'output presente in %s. Questo errore è fatale e l'installazione non potrà proseguire.\n"
 "\n"
 "Premere OK per riavviare il sistema."
 
@@ -1257,11 +1246,11 @@ msgstr "Esecuzione..."
 
 #: ../kickstart.py:822
 msgid "Running pre-install scripts"
-msgstr "Esecuzione pre-install scripts"
+msgstr "Esecuzione script pre-installazione"
 
 #: ../kickstart.py:840
 msgid "Running post-install scripts"
-msgstr "Esecuzione post-install scripts"
+msgstr "Esecuzione script post-installazione"
 
 #: ../kickstart.py:980
 msgid "Missing Package"
@@ -1274,8 +1263,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Avete indicato che il pacchetto '%s' dovrebbe essere installato.  Questo "
-"pacchetto non è esistente. Desiderate continuare oppure interrompere la "
-"vostra installazione."
+"pacchetto non è esistente. Desiderate continuare oppure interrompere la vostra installazione."
 
 #: ../kickstart.py:987 ../kickstart.py:1016
 msgid "_Abort"
@@ -1292,22 +1280,19 @@ msgid ""
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Avete indicato che il gruppo '%s' dovrebbe essere installato.  Questo gruppo "
-"non è esistente. Desiderate continuare oppure interrompere la vostra "
-"installazione."
+"non è esistente. Desiderate continuare oppure interrompere la vostra installazione."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Assicurarsi che il nome host sia al massimo di 64 caratteri."
+msgstr "Assicurarsi che l'Hostname sia al massimo di 64 caratteri."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"I nomi host devono iniziare con un carattere valido compreso tra 'a-z' o 'A-"
-"Z'"
+msgstr "L'Hostname deve iniziare con un carattere valido compreso tra 'a-z' o 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "I nomi host possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
+msgstr "Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
 
 #: ../network.py:89
 msgid "IP Address is missing."
@@ -1328,12 +1313,12 @@ msgstr "'%s' non è un indirizzo IPV6 valido."
 
 #: ../packages.py:247
 msgid "Enter Registration Key"
-msgstr "Immettere la chiave di registrazione"
+msgstr "Inserire chiave di registrazione"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr "Si prega di immettere la chiave di registrazione per questa versione di %s."
+msgstr "Si prega di inserire la chiave di registrazione per questa versione di %s."
 
 #: ../packages.py:248
 msgid "Key:"
@@ -1341,7 +1326,7 @@ msgstr "Chiave:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
-msgstr "Attenzione! Questa è una versione pre-release!"
+msgstr "Attenzione! Questa è un software pre-release!"
 
 #: ../packages.py:279
 #, python-format
@@ -1388,10 +1373,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"La periferica %s è formattata in LDL invece che in CDL. I DASDs formattati "
+"La periferica %s è formattata in LDL invece che in CDL. I DASD formattati "
 "in LDL non sono supportati per l'uso durante un'installazione di %s.  Per "
 "usare questo disco per l'installazione, occorre reinizializzarlo provocando "
-"la perdita di TUTTI I DATI su questo disco.\n"
+"la perdita di TUTTI I DATI su questo drive.\n"
 "\n"
 "Volete riformattare questo DASD utilizzando il formato CDL?"
 
@@ -1416,7 +1401,7 @@ msgstr "_Ignora l'unità"
 
 #: ../partedUtils.py:346
 msgid "_Format drive"
-msgstr "_Formattare l'unità"
+msgstr "_Formatta unità"
 
 #: ../partedUtils.py:789
 #, python-format
@@ -1430,7 +1415,7 @@ msgstr "Inizializzazione in corso"
 #: ../partedUtils.py:885
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Attendere durante la formattazione del disco %s...\n"
+msgstr "Attendere durante la formattazione del drive %s...\n"
 
 #: ../partedUtils.py:985
 #, python-format
@@ -1446,12 +1431,12 @@ msgid ""
 msgstr ""
 "La tabella delle partizioni sul dispositivo %s (%s) è illeggibile. Per "
 "creare nuove partizioni è necessario inizializzarla, causando la perdita di "
-"TUTTI I DATI presenti sul disco.\n"
+"TUTTI I DATI presenti sul drive.\n"
 "\n"
 "Questa operazione escluderá tutte le scelte fatte durante precedenti "
 "installazioni che riguardano quali dischi ignorare. \n"
 "\n"
-"Inizializzare questa unità disco, eliminando TUTTI I DATI?"
+"Inizializzare questa unità eliminando TUTTI I DATI?"
 
 #: ../partedUtils.py:1042
 #, python-format
@@ -1466,25 +1451,22 @@ msgid ""
 msgstr ""
 "La tabella delle partizioni sul dispositivo %s è illegibile. Per creare "
 "nuove partizioni è necessario inizializzarla, causando la perdita di TUTTI I "
-"DATI presenti sul disco.\n"
+"DATI presenti sul drive.\n"
 "\n"
 "Questa operazione escluderá tutte le scelte fatte durante precedenti "
 "installazioni che riguardano quali dischi ignorare. \n"
 "\n"
-"Inizializzare questa unità disco, eliminando TUTTI I DATI?"
+"Inizializzare questa unità eliminando TUTTI I DATI?"
 
 #: ../partedUtils.py:1160
 msgid "No Drives Found"
-msgstr "Nessun disco trovato"
+msgstr "Nessun drive trovato"
 
 #: ../partedUtils.py:1161
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Si è verificato un errore. Non è stato trovato alcun dispositivo valido sul "
-"quale creare nuovi filesystem. Controllare l'hardware per individuare la "
-"causa del problema."
+msgstr "Si è verificato un errore - non è stato trovato alcun dispositivo valido sul quale creare nuovi filesystem. Controllare l'hardware per individuare la causa del problema."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1492,7 +1474,7 @@ msgstr "Inserire il nome del gruppo di volumi."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "I nomi dei gruppi di volumi devono contenere meno di 128 caratteri."
+msgstr "I nomi del gruppo di volumi devono contenere meno di 128 caratteri."
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1504,7 +1486,7 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Errore - il nome del gruppo del volume contiene caratteri errati o spazi.  "
+"Errore - il nome del gruppo di volumi contiene caratteri errati o spazi.  "
 "Si accettano solo lettere, cifre, '.' o '_'."
 
 #: ../partIntfHelpers.py:57
@@ -1513,7 +1495,7 @@ msgstr "Inserire il nome del volume logico."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "I nomi dei volumi logici devono contenere meno di 128 caratteri"
+msgstr "I nomi del volume logico devono contenere meno di 128 caratteri"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -1602,7 +1584,7 @@ msgstr ""
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
-msgstr "Conferma eliminazione"
+msgstr "Conferma rimozione"
 
 #: ../partIntfHelpers.py:233
 #, python-format
@@ -1626,7 +1608,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Le seguenti partizioni non sono state eliminate perché erano in uso:\n"
+"Le seguenti partizioni non sono state eliminate perché sono in uso:\n"
 "\n"
 "%s"
 
@@ -1700,7 +1682,7 @@ msgstr "Formattare?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "_Modifica la partizione"
+msgstr "_Modifica partizione"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
@@ -1719,8 +1701,7 @@ msgid ""
 "%s"
 msgstr ""
 "Con lo schema di partizionamento richiesto si sono verificati i seguenti "
-"errori. Tali errori devono essere corretti prima di continuare "
-"l'installazione di %s.\n"
+"errori. Tali errori devono essere corretti prima di continuare l'installazione di %s.\n"
 "\n"
 "%s"
 
@@ -1749,7 +1730,7 @@ msgid ""
 "destroying all data."
 msgstr ""
 "Le seguenti partizioni preesistenti sono state selezionate per la "
-"formattazione. distruggendone tutti i dati."
+"formattazione, distruggendone tutti i dati."
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -1770,7 +1751,7 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"Il gruppo di volumi \"%s\" sta per essere eliminato.\n"
+"Il gruppo dei volumi \"%s\" sta per essere rimosso.\n"
 "\n"
 "TUTTI i volumi logici di questo gruppo andranno persi!"
 
@@ -1825,7 +1806,7 @@ msgid ""
 "disk immediately. Is that OK?"
 msgstr ""
 "Poiché la memoria di questo computer è insufficiente, è necessario attivare "
-"immediatamente lo spazio di swap. Per poterlo fare, si deve scrivere subito "
+"immediatamente lo spazio di swap. Per poterlo fare, scrivere subito "
 "una nuova tabella delle partizioni sul disco. Procedere?"
 
 #: ../partitions.py:818
@@ -1834,7 +1815,7 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Non è stata definita alcuna partizione root (/), necessaria per completare "
+"Non è stata definita alcuna partizione root (/) necessaria per completare "
 "l'installazione di %s."
 
 #: ../partitions.py:823
@@ -1844,7 +1825,7 @@ msgid ""
 "install %s."
 msgstr ""
 "La capacità della partizione di root è inferiore a 250 megabyte, "
-"insufficiente per installare %s."
+"insufficiente da installare %s."
 
 #: ../partitions.py:842
 msgid ""
@@ -1873,7 +1854,7 @@ msgid ""
 "for a normal %s install."
 msgstr ""
 "La capacità della partizione %s è inferiore a %s megabyte, ancor meno della "
-"capacità raccomandata per un'installazione di %s normale."
+"capacità consigliata per una installazione di %s normale."
 
 #: ../partitions.py:944
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -1895,16 +1876,13 @@ msgstr "Le partizioni avviabili possono trovarsi solo su dispositivi RAID1."
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Le partizioni di avvio non possono trovarsi su un volume logico."
+msgstr "Le partizioni di avvio non possono trovarsi su di un volume logico."
 
 #: ../partitions.py:988
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
-"Non è stata specificata alcuna partizione di swap. Benché non sia sempre "
-"necessaria, la partizione migliora significativamente le prestazioni della "
-"maggior parte delle installazioni."
+msgstr "Non è stata specificata alcuna partizione swap. Benché non sia sempre necessaria, la partizione migliora significativamente le prestazioni della maggior parte delle installazioni."
 
 #: ../partitions.py:995
 #, python-format
@@ -1920,9 +1898,7 @@ msgstr ""
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"E' stato allocato meno spazio di swap (%dM) rispetto alla RAM disponibile (%"
-"dM) nel sistema. Ciò potrebbe avere effetti negativi sulle prestazioni."
+msgstr "E' stato allocato meno spazio di swap (%dM) rispetto alla RAM disponibile (%dM) nel sistema. Ciò potrebbe avere effetti negativi sulle prestazioni."
 
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
@@ -1939,9 +1915,7 @@ msgstr "una partizione che fa parte del gruppo di volumi LVM."
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Il mount point richiesto non è valido. La directory %s deve essere sul "
-"filesystem /."
+msgstr "Il mount point richiesto non è valido. La directory %s deve essere sul filesystem /."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1949,7 +1923,7 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Il mount point %s non può essere usato. Deve essere un collegamento "
+"Il mount point %s non può essere usato. Esso deve essere un collegamento "
 "simbolico per il funzionamento adeguato del sistema. Scegliere un mount "
 "point differente."
 
@@ -1970,7 +1944,7 @@ msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
-"Le dimensioni sulla partizione %s (%10.2f MB) superano la dimensioni massime "
+"Le dimensioni sulla partizione %s (%10.2f MB) superano le dimensioni massime "
 "di %10.2f MB."
 
 #: ../partRequests.py:490
@@ -1997,9 +1971,7 @@ msgstr "Le partizioni non possono terminare su un cilindro negativo."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Non è stato trovato alcun componente nel RAID richiesto, o non è stato "
-"specificato alcun livello RAID."
+msgstr "Non è stato trovato alcun componente nel RAID richiesto, o non è stato specificato alcun livello RAID."
 
 #: ../partRequests.py:681
 #, python-format
@@ -2048,7 +2020,7 @@ msgstr "Cancellato"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Impossibile tornare al passo precedente. Provare di nuovo."
+msgstr "Impossibile tornare alla fase precedente. Provare di nuovo."
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
@@ -2104,7 +2076,7 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Il sistema includeva dei filesystem corrotti che non sono stati montati. "
+"Il sistema includeva filesystem corrotti che non sono stati montati. "
 "Premere Invio per ottenere una shell dalla quale eseguire il comando fsck e "
 "montare le partizioni. Il sistema si riavvierà automaticamente una volta "
 "chiusa la shell."
@@ -2147,7 +2119,7 @@ msgstr ""
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
-msgstr "Modalità ripristino"
+msgstr "Modalità di ripristino"
 
 #: ../rescue.py:444
 msgid ""
@@ -2176,7 +2148,7 @@ msgstr "Debug"
 
 #: ../text.py:158
 msgid "Exception Occurred"
-msgstr "Errore"
+msgstr "Si è verificata una eccezione"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
@@ -2204,7 +2176,7 @@ msgstr "Aiuto non disponibile"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr "Nessun Aiuto disponibile per questo passo dell'installazione."
+msgstr "Nessun Aiuto disponibile per questa fase dell'installazione."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -2328,7 +2300,7 @@ msgstr ""
 
 #: ../upgrade.py:327
 msgid "Absolute Symlinks"
-msgstr "Symlink assoluto"
+msgstr "Symlink assoluti"
 
 #: ../upgrade.py:338
 msgid ""
@@ -2366,7 +2338,7 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Il file %s non puó essere aperto. Ciò é dovuto alla mancanza di un file o ad "
+"Il file %s non puó essere aperto. Ciò é dovuto a causa della mancanza di un file o per "
 "un pacchetto corrotto.   Si prega di verificare che il vostro mirror contenga tutti i "
 "pacchetti necessari, oppure provate ad utilizzarne un'altro.\n"
 "\n"
@@ -2384,17 +2356,16 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"È impossibile avviare X. Desiderate avviare VCN per connettervi da un altro "
-"computer ed eseguire un installazione grafica oppure volete continuare con "
+"È impossibile avviare X. Desiderate avviare VNC per connettervi a questo computer da un altro computer ed eseguire una installazione grafica, oppure volete continuare con "
 "l'installazione in modalità testo?"
 
 #: ../vnc.py:51 ../vnc.py:54
 msgid "Use text mode"
-msgstr "Usare la modalità testo"
+msgstr "Usa modalità di testo"
 
 #: ../vnc.py:52
 msgid "Start VNC"
-msgstr "Avviare VNC"
+msgstr "Avvia VNC"
 
 #: ../vnc.py:62
 msgid "VNC Configuration"
@@ -2472,7 +2443,7 @@ msgstr "Impossibile impostare la password vnc - usando nessuna password!"
 
 #: ../vnc.py:249
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Assicurarsi che la vostra password sia minimo di 6 caratteri."
+msgstr "Assicurarsi che la vostra password sia almeno di 6 caratteri."
 
 #: ../vnc.py:272
 msgid ""
@@ -2510,13 +2481,11 @@ msgstr "Abbandono dopo 50 tentativi di connessione!\n"
 #: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Connettete manualmente il vostro client vnc a %s per far partire "
-"l'installazione."
+msgstr "Connettete manualmente il vostro client vnc a %s per far iniziare l'installazione."
 
 #: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Connettete manualmente il vostro client vnc per far partire l'installazione."
+msgstr "Connettete manualmente il vostro client vnc per far iniziare l'installazione."
 
 #: ../vnc.py:304
 msgid "Will try to connect again in 15 seconds..."
@@ -2590,7 +2559,7 @@ msgstr "Errore nell'esecuzione della transazione"
 #: ../yuminstall.py:471
 #, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr "Si è verificato un errore eseguendo la transazione, per la seguente ragione(i): %s"
+msgstr "Si è verificato un errore eseguendo la transazione a casua del seguente motivo(i): %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2625,21 +2594,14 @@ msgstr "Non categorizzato"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
-"Per poter installare i pacchetti da voi selezionati è necessario avere a "
-"disposizione %d MB di spazio, attualmente però non è disponibile spazio "
-"sufficiente.  È possibile modificare la scelta fatta oppure eseguire un "
-"processo di riavvio."
+msgstr "Per poter installare i pacchetti da voi selezionati è necessario avere a disposizione %d MB di spazio, attualmente però non è disponibile spazio sufficiente.  È possibile modificare la scelta fatta oppure eseguire un processo di riavvio."
 
 #: ../yuminstall.py:1061
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Il sistema dal quale state eseguendo l'aggiornamento è troppo vecchio per "
-"essere aggiornato alla versione di %s. Siete sicuri di voler continuare il "
-"processo di aggiornamento?"
+msgstr "Il sistema dal quale state eseguendo l'aggiornamento è troppo vecchio per essere aggiornato alla versione di %s. Siete sicuri di voler continuare il processo di aggiornamento?"
 
 #: ../yuminstall.py:1093
 msgid "Install Starting"
@@ -2663,7 +2625,7 @@ msgstr "Post installazione"
 
 #: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
-msgstr "Configurazione post installazione..."
+msgstr "Esecuzione configurazione post installazione..."
 
 #: ../yuminstall.py:1264
 msgid "Installation Progress"
@@ -2712,9 +2674,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Non avete specificato il nome della porta worldwide, oppure il nome non è "
-"valido."
+msgstr "Non avete specificato il nome della porta worldwide, oppure il nome non è valido."
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2787,7 +2747,7 @@ msgstr "Nome inizializzatore non valido"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr "Fornire un nome di inizializzatore di lunghezza diversa da zero."
+msgstr "Fornire un nome dell'inizializzatore di lunghezza diverso da zero."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -2795,21 +2755,15 @@ msgstr "Errore con i dati"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Rimuovi tutte le partizioni sulle unità selezionate e crea una struttura di "
-"default."
+msgstr "Rimuovi tutte le partizioni sulle unità selezionate e crea una struttura di default."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Rimuovi tutte le partizioni Linux sulle unità selezionate e crea una "
-"struttura di default."
+msgstr "Rimuovi tutte le partizioni Linux sulle unità selezionate e crea una struttura di default."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Utilizza lo spazio disponibile sulle unità selezionate e crea la struttura "
-"di default."
+msgstr "Utilizza lo spazio disponibile sulle unità selezionate e crea la struttura di default."
 
 #: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -2827,11 +2781,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Utilizzare una password per il boot loader"
+msgstr "_Utilizza una password per il boot loader"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "Modificare la _password"
+msgstr "Modifica la _password"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2843,8 +2797,7 @@ msgid ""
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
 "Inserire una password per il boot loader e confermarla. (Notare che "
-"l'impostazione della tastiera del BIOS potrebbe differire da quella usata "
-"ora)"
+"l'impostazione della tastiera del BIOS potrebbe differire da quella usata ora)"
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2885,10 +2838,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forzando la modalità LBA32 per il boot loader senza il supporto del BIOS, il "
-"computer potrebbe non avviarsi. \n"
+"Forzando la modalità LBA32 per il boot loader senza il supporto del BIOS, causerà il fallimento del riavvio del computer. \n"
 "\n"
-"Continuare e attivare la modalità LBA32?"
+"Desiderate continuare ed attivare la modalità LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2896,7 +2848,7 @@ msgstr "Forza LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Attiva la modalità LBA32 (normalmente non richiesta)"
+msgstr "_Forza LBA32 (normalmente non richiesto)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
@@ -2927,7 +2879,7 @@ msgstr "Non verrà installato alcun boot loader."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "Configurare le _opzioni avanzate del boot loader"
+msgstr "Configura le _opzioni avanzate del boot loader"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2951,7 +2903,7 @@ msgid ""
 "the Master Boot Record (MBR)."
 msgstr ""
 "Disporre le unità nell'ordine in cui sono gestite dal BIOS. Questo è utile "
-"se si hanno più adattatori SCSI o adattatori SCSI e IDE e si desidera "
+"se si hanno più adattatori SCSI o adattatori SCSI e IDE, e si desidera "
 "effettuare l'avvio dal dispositivo SCSI.\n"
 "\n"
 "La modifica dell'ordine delle unità cambia il punto in cui il programma di "
@@ -2988,7 +2940,7 @@ msgstr ""
 "E' possibile trovare un log completo dell'installazione nel file '%s' dopo "
 "il riavvio del sistema.\n"
 "\n"
-"Il file di kickstart contenente le opzioni di installazione selezionate è "
+"Il file di kickstart contenente le opzioni di installazione selezionate, è "
 "disponibile nel file '%s' dopo il riavvio del sistema."
 
 #: ../iw/confirm_gui.py:88
@@ -3006,7 +2958,7 @@ msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"Nel file '%s' è possibile trovare il log completo dell'aggiornamento dopo il "
+"Nel file '%s' è possibile trovare il log completo sull'aggiornamento dopo il "
 "riavvio del sistema."
 
 #: ../iw/congrats_gui.py:24
@@ -3053,20 +3005,17 @@ msgstr "Esamina aggiornamenti"
 #: ../iw/examine_gui.py:55
 #, python-format
 msgid "_Install %s"
-msgstr "_Installare %s"
+msgstr "_Installa %s"
 
 #: ../iw/examine_gui.py:57
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"Scegliere questa opzione per rinnovare l'installazione del sistema. Il "
-"software ed i dati esistenti potrebbero essere sovrascritti a seconda della "
-"configurazione da voi scelta."
+msgstr "Scegliere questa opzione per rinnovare l'installazione del sistema. Il software ed i dati esistenti potrebbero essere sovrascritti a seconda della configurazione da voi scelta."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
-msgstr "_Aggiornare una installazione esistente"
+msgstr "_Aggiorna una installazione esistente"
 
 #: ../iw/examine_gui.py:63
 #, python-format
@@ -3087,11 +3036,11 @@ msgstr "Sistema Linux sconosciuto"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
-msgstr "Selezione delle lingue"
+msgstr "Selezione della lingua"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
 msgid "What language would you like to use during the installation process?"
-msgstr "Lingua da utilizzare per l'installazione:"
+msgstr "Quale lingua desiderate installare durante il processo d'installazione:"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3099,7 +3048,7 @@ msgstr "Lingua da utilizzare per l'installazione:"
 #: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
-msgstr "Spazio non disponibile"
+msgstr "Spazio non sufficiente"
 
 #: ../iw/lvm_dialog_gui.py:116
 msgid ""
@@ -3143,7 +3092,7 @@ msgid ""
 msgstr ""
 "L'estensione fisica non può essere modificata perché il valore selezionato (%"
 "10.2f MB) è più grande del volume fisico più piccolo (%10.2f MB) nel gruppo "
-"di volumi."
+"dei volumi."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -3166,7 +3115,7 @@ msgid ""
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 "Questa modifica nel valore dell'estensione fisica occuperà parecchio spazio "
-"su uno o più volumi fisici del gruppo di volumi."
+"su uno o più volumi fisici del gruppo dei volumi."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3183,10 +3132,7 @@ msgstr ""
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr ""
-"Non è possibile rimuovere questo volume fisico perché altrimenti il gruppo "
-"di volumi sarà troppo piccolo per contenere i volumi logici attualmente "
-"definiti."
+msgstr "Non è possibile rimuovere questo volume fisico perché altrimenti il gruppo di volumi sarà troppo piccolo per contenere i volumi logici attualmente definiti."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
@@ -3204,7 +3150,7 @@ msgstr "Modifica volume logico"
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
-msgstr "Punto di _montaggio:"
+msgstr "_Mount Point:"
 
 #: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
@@ -3259,20 +3205,20 @@ msgstr "Il valore inserito non è un numero valido maggiore di 0."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
-msgstr "Punto di montaggio in uso"
+msgstr "Mount point in uso"
 
 #: ../iw/lvm_dialog_gui.py:559
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "Il punto di montaggio \"%s\" è già in uso, selezionarne un altro."
+msgstr "Il mount point \"%s\" è già in uso, selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
-msgstr "Nome di volume logico non valido"
+msgstr "Nome del volume logico non valido"
 
 #: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
-msgstr "Nome di volume logico non valido"
+msgstr "Nome del volume logico non valido"
 
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
@@ -3288,7 +3234,7 @@ msgid ""
 msgstr ""
 "La dimensione richiesta (%10.2f MB) è superiore alla dimensione massima del "
 "volume logico (%10.2f MB). Per aumentare questo limite puoi creare più "
-"Volumi Fisici da spazio su disco non partizionato ed aggiungerli a questo "
+"Volumi Fisici dallo spazio del disco non partizionato, ed aggiungerli a questo "
 "Gruppo di Volumi."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
@@ -3336,7 +3282,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Cancellare il volume logico \"%s\"?"
+msgstr "Siete sicuri di voler cancellare il volume logico \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
@@ -3418,11 +3364,11 @@ msgstr "Nome del volume logico"
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
-msgstr "Punto di montaggio"
+msgstr "Mount Point"
 
 #: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
 msgid "Size (MB)"
-msgstr "Dimensioni (MB)"
+msgstr "Dimensione (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
@@ -3439,7 +3385,7 @@ msgstr "Volumi logici"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Configurazione del mouse"
+msgstr "Configurazione mouse"
 
 #: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -3471,7 +3417,7 @@ msgstr "_Emulazione 3 pulsanti"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
-msgstr "Selezionare il mouse appropriato per il sistema."
+msgstr "Seleziona il mouse appropriato per il sistema."
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
@@ -3550,8 +3496,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"Si è verificato un errore durante la conversione del valore inserito per \"%s"
-"\":\n"
+"Si è verificato un errore durante la conversione del valore inserito per \"%s\":\n"
 "%s"
 
 #: ../iw/network_gui.py:183
@@ -3654,7 +3599,7 @@ msgstr "Hostname"
 
 #: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
-msgstr "Miscellanea"
+msgstr "Impostazioni Miscellanee"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3687,10 +3632,7 @@ msgstr "Immagine"
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
-msgstr ""
-"Inserire un'etichetta da visualizzare nel menu del boot loader. Il "
-"dispositivo (o disco fisso e numero di partizione) è quello da cui viene "
-"eseguito l'avvio."
+msgstr "Inserire un'etichetta da visualizzare nel menu del boot loader. Il dispositivo (o disco fisso e numero di partizione) è quello da cui viene eseguito l'avvio."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3698,7 +3640,7 @@ msgstr "_Etichetta"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "Immagine di destinazione _predefinita"
+msgstr "Immaginee di destinazione _predefinita "
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
