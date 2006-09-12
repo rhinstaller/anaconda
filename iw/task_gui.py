@@ -16,6 +16,7 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from constants import productName
 
+from netconfig_dialog import NetworkConfigurator
 import network
 
 from yuminstall import AnacondaYumRepo
@@ -93,13 +94,12 @@ class TaskWindow(InstallWindow):
         return True
 
     def _addRepo(self, *args):
-        # FIXME: Need to bring up the network
         if not network.hasActiveNetDev():
-            self.intf.messageWindow("Need network",
-                                    "additional repos can only be configured "
-                                    "if you have a network available.",
-                                    custom_icon="error")
-            return gtk.RESPONSE_CANCEL
+            net = NetworkConfigurator(self.anaconda.id.network)
+            ret = net.run()
+            net.destroy()
+            if ret == gtk.RESPONSE_CANCEL:
+                return gtk.RESPONSE_CANCEL
         
         (dxml, dialog) = gui.getGladeWidget("addrepo.glade", "addRepoDialog")
         gui.addFrame(dialog)
@@ -163,6 +163,14 @@ class TaskWindow(InstallWindow):
     def _toggled(self, data, row, store):
         i = store.get_iter(int(row))
         val = store.get_value(i, 0)
+
+        if not val and not network.hasActiveNetDev():
+            net = NetworkConfigurator(self.anaconda.id.network)
+            ret = net.run()
+            net.destroy()
+            if ret == gtk.RESPONSE_CANCEL:
+                return
+        
         store.set_value(i, 0, not val)
 
     def _createTaskStore(self):

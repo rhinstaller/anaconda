@@ -23,6 +23,7 @@ from rhpl.translate import _, N_
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
+from netconfig_dialog import NetworkConfigurator
 
 from iw_gui import *
 from flags import flags
@@ -96,13 +97,11 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
     def addIscsiDrive(self):
-        # FIXME: need to bring up the network
         if not network.hasActiveNetDev():
-            self.intf.messageWindow("Need network",
-                                    "iSCSI devices can only be configured "
-                                    "if you have a network available.",
-                                    custom_icon="error")
-            return gtk.RESPONSE_CANCEL
+            net = NetworkConfigurator(self.anaconda.id.network)
+            ret = net.run()
+            net.destroy()
+            return ret
             
         (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade",
                                             "iscsiDialog")
