@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-12 15:58+0530\n"
+"PO-Revision-Date: 2006-09-12 17:23+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -3968,6 +3968,11 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"ଗୋଟିଏ ରେଡ ଉପକରଣ ସୃଷ୍ଟି କରିବା ପାଇଁ ଅତିକମରେ ଦୁଇଟି ଅବ୍ଯବହୃତ "
+"ସଫଟୱେର ରେଡ ବିଭାଜନ ଆବଶ୍ଯକ।\n"
+"\n"
+"ପ୍ରଥମେ ଅତିକମରେ \"ସଫଟୱେର ପ୍ରକାରର\" ଦୁଇଟି ବିଭାଜନ ସୃଷ୍ଟି କରନ୍ତୁ, ଏବଂ ପରେ "
+"ପୁନର୍ବାର \"ରେଡ\" ବିକଲ୍ପକୁ ଚୟନ କରନ୍ତୁ"
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
@@ -5922,6 +5927,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"ଦୟାକରି ନିମ୍ନଲିଖିତ ସୂଚନା ମାନଙ୍କୁ ଭରଣ କରନ୍ତୁ:\n"
+"\n"
+"    o ଆପଣଙ୍କ %s ସେବକର ନାମ ଏବଂ IP ସଂଖ୍ଯା\n"
+"    o ସେହି ସେବକରେ ଥିବା ଢିରେକ୍ଟୋରି ଆପଣଙ୍କ ସ୍ଥାପତ୍ଯ\n"
+"      ପାଇଁ %s କୁ ଧାରଣ କରିଅଛି\n"
 
 #: ../loader2/net.c:96
 msgid "Invalid CIDR Mask"
@@ -5932,6 +5942,8 @@ msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"IPv4 ନେଟୱାର୍କ ପାଇଁ CIDR ମାସ୍କ ମୂଲ୍ଯ ୧ ଏବଂ ୩୨ ମଧ୍ଯରେ ହେବା ଉଚିତ କିମ୍ବା "
+"IPv6 ନେଟୱାର୍କ ପାଇଁ ୧ ଏବଂ ୧୨୮ ମଧ୍ଯରେ ହେବା ଉଚିତ।"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6019,10 +6031,14 @@ msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"ହସ୍ତକୃତ ବିନ୍ଯାସ ପାଇଁ ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) "
+"ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
+"DHCP ପାଇଁ ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) "
+"ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:834
 msgid "IPv4 address:"
@@ -6222,12 +6238,16 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
+"ଯଦି ଆପଣ ଗୋଟିଏ ଜ୍ଞାତ ftp ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ତାହାହେଲେ ତଳେ "
+"ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଥିବା ହିସାବ ଖାତାର ନାମ ଏବଂ ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରନ୍ତୁ।"
 
 #: ../loader2/urls.c:421
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
+"ଯଦି ଆପଣ HTTP ପ୍ରୋକ୍ସି ସେବକ ବ୍ଯବହାର କରୁଛନ୍ତି ତାହାହେଲେ ବ୍ଯବହାର୍ଯ୍ଯ HTTP "
+"ପ୍ରୋକ୍ସି ସେବକକୁ ବ୍ଯବହାର କରନ୍ତୁ।"
 
 #: ../loader2/urls.c:443
 msgid "Account name:"
@@ -6283,6 +6303,9 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"ଦୟାକରି ସେହି ଅବସ୍ଥାନକୁ ପ୍ରଦାନ କରନ୍ତୁ ଯେଉଁଠାରୁ ଆପଣଙ୍କର ଅତିରିକ୍ତ ସଫଟୱେର "
+"ମାନଙ୍କୁ ସ୍ଥାପନ କରାଯିବ।  ଏହା ଧ୍ଯାନ ରଖନ୍ତୁ ଯେ ଏହା %s ପାଇଁ ଗୋଟିଏ ବୈଧ ଇଣ୍ଡାର "
+"ହେବା ଉଚିତ।"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6349,6 +6372,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"iSCSI ଡିସ୍କକୁ ବ୍ଯବହାର କରିବା ପାଇଁ, ଆପଣ ଆପଣଙ୍କର ଆଧାରରେ ବିନ୍ଯାସ କରିଥିବା "
+"iSCSI ଲକ୍ଷ୍ଯର ଠିକଣା ଏବଂ iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ ପ୍ରଦାନ କରିବା ଉଟିତ।"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6387,6 +6412,8 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"ଏଥିପାଇଁ ସ୍ଥାପନ ସମୟରେ ଗୋଟିଏ ସକ୍ରିୟ ନେଟୱାର୍କ ସଂଯୋଗ ଥିବା ଉଚିତ।  ଦୟାକରି "
+"ଗୋଟିଏ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରନ୍ତୁ।"
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6401,6 +6428,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"ସଫଟୱେର ଚୟନର ଭବିଷ୍ଯତ ଇଚ୍ଛାରୂପଣ ପ୍ରକ୍ରିୟାକୁ ବର୍ତ୍ତମାନ ସମ୍ପନ୍ନ କରିହେବ କିମ୍ବା "
+"ସ୍ଥାପନ ପରେ ସଫଟୱେର ପରିଚାଳନା ପ୍ରୟୋଗ ଦ୍ବାରା ସମ୍ପନ୍ନ କରିହେବ।"
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6409,6 +6438,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"%s ର ପୂର୍ବନିର୍ଦ୍ଧାରିତ ସ୍ଥାପନ ସାଧାରଣ ଇଣ୍ଟରନେଟ ବ୍ଯବହାର ପାଇଁ ଉପଯୋଗୀ ସଫଟୱେର "
+"ସେଟକୁ ଅନ୍ତର୍ଭୂକ୍ତ କରିଥାଏ।  ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ସହାୟତା ପାଇଁ ଆପଣ କେଉଁ ଅତିରିକ୍ତ କାର୍ଯ୍ଯ "
+"ମାନଙ୍କୁ ସଂଲଗ୍ନିତ କରିବା ପାଇଁ ଚାହିଁବେ?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
