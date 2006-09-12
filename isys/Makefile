@@ -84,7 +84,7 @@ nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 
 nltest: nl.c nl.h
 	$(CC) -c $(CFLAGS) -DTESTING nl.c -o nl.o
-	$(CC) -DTESTING nl.o -o nl $(LOADLIBES)
+	$(CC) -DTESTING nl.o -o nl $(LOADLIBES) str.o
 
 depend: nfs_mountversion.h
 	$(CPP) -M $(CFLAGS) $(SOURCES) > .depend

@@ -88,7 +88,7 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
-static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
+static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
@@ -144,7 +144,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
-    { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
+    { "dhcpnetdevice", (PyCFunction) doDhcpNetDevice, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
@@ -610,14 +610,14 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
 }
 
 /* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
-static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
+static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     char * device;
     char * dhcpclass = NULL;
     char * r;
     char buf[47];
     time_t timeout = 45;
     struct pumpNetIntf cfg;
-    DHCP_Preference pref = 0;
+    DHCP_Preference pref = DHCPv6_DISABLE;
     ip_addr_t *tip;
     PyObject * rc;
 
@@ -1196,8 +1196,8 @@ static PyObject * isWireless(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
-    char *dev;
-    char *ret;
+    char *dev = NULL;
+    char *ret = NULL;
 
     if (!PyArg_ParseTuple(args, "s", &dev))
 	return NULL;
