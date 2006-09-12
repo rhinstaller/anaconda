@@ -5,6 +5,7 @@
         <property name="default_height">250</property>
         <property name="default_width">440</property>
         <property name="title" context="yes" translatable="yes">Enable network interface</property>
+        <property name="window_position">center</property>
         <child>
             <widget class="GtkVBox" id="vbox1">
                 <property name="border_width">18</property>
@@ -73,9 +74,9 @@
                 </child>
                 <child>
                     <widget class="GtkCheckButton" id="ipv6Checkbutton">
+                        <property name="is_focus">True</property>
                         <property name="label" context="yes" translatable="yes">Enable IPv_6 support</property>
                         <property name="use_underline">True</property>
-                        <property name="visible">True</property>
                         <signal handler="on_ipv6Checkbutton_toggled" name="toggled"/>
                     </widget>
                     <packing>
@@ -138,7 +139,6 @@
                     <widget class="GtkHBox" id="ipv6Box">
                         <property name="sensitive">False</property>
                         <property name="spacing">6</property>
-                        <property name="visible">True</property>
                         <child>
                             <widget class="GtkLabel" id="ipv6Label">
                                 <property name="label" context="yes" translatable="yes">&lt;b&gt;IPv6 Address:&lt;/b&gt;</property>

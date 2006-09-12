@@ -15,11 +15,13 @@
 
 import gtk
 import gobject
+import gui
 
 from rhpl.translate import _, N_
 
 import gui
 import network
+import isys
 
 class NetworkConfigurator:
     def __init__(self, network):
@@ -28,6 +30,7 @@ class NetworkConfigurator:
         self.window = w
         self.network = network
         self.xml = xml
+        self.rc = gtk.RESPONSE_CANCEL
 
         self._setSizeGroup()
         self._connectSignals()
@@ -120,12 +123,25 @@ class NetworkConfigurator:
                 combo.set_active_iter(i)
         
     def run(self):
+        gui.addFrame(self.window)
         self.window.show()
         gtk.main()
+        return self.rc
+
+    def destroy(self):
+        self.window.destroy()
+
+    def _handleIPError(self, field, errmsg):
+        d = gtk.MessageDialog(_("Error With Data"), 0, gtk.MESSAGE_ERROR,
+                              gtk.BUTTONS_OK,
+                                _("An error occurred converting the value "
+                                  "entered for \"%s\":\n%s") %(field, errmsg))
+        d.run()
+        d.destroy()
 
     def _cancel(self, *args):
         gtk.main_quit()
-        return False
+        self.rc = gtk.RESPONSE_CANCEL
 
     def _ok(self, *args):
         combo = self.xml.get_widget("interfaceCombo")
@@ -135,16 +151,59 @@ class NetworkConfigurator:
 
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
-            print "going to do dhcp on %s" %(netdev,)
+            self.window.hide()
+            w = gui.WaitWindow(_("Dynamic IP"),
+                               _("Sending request for IP information "
+                                 "for %s...") %(netdev.get("device")))
+            r = isys.dhcpNetDevice(netdev.get("device"))
+            w.pop()
+            if r is not None:
+                self.rc = gtk.RESPONSE_OK
         else:
             ipv4addr = self.xml.get_widget("ipv4AddressEntry").get_text()
             ipv4nm = self.xml.get_widget("ipv4NetmaskEntry").get_text()
             gateway = self.xml.get_widget("gatewayEntry").get_text()
             ns = self.xml.get_widget("nameserverEntry").get_text()
+
+            try:
+                network.sanityCheckIPString(ipv4addr)
+            except network.IPError, msg:
+                self._handleIPError(_("IP Address"), msg)
+                return
+
+            try:
+                network.sanityCheckIPString(ipv4nm)
+            except network.IPError, msg:
+                self._handleIPError(_("Netmask"), msg)
+                return
+
+            try:
+                network.sanityCheckIPString(gateway)
+            except network.IPError, msg:
+                self._handleIPError(_("Gateway"), msg)
+                return
+
+            try:
+                if ns:
+                    network.sanityCheckIPString(ns)
+            except network.IPError, msg:
+                self._handleIPError(_("Nameserver"), msg)
+                return
+                
+
+            try:
+                isys.configNetDevice(netdev.get("device"),
+                                     ipv4addr, ipv4nm, gateway)
+            except Exception, e:
+                log.error("Error configuring network device: %s" %(e,))
+            self.rc = gtk.RESPONSE_OK
+            if ns:
+                f = open("/etc/resolv.conf", "w")
+                f.write("nameserver %s\n" %(ns,))
+                f.close()
+                isys.resetResolv()
+                isys.setResolvRetry(1)
             
-            print "going to bring up %s as %s/%s, gateway %s, ns %s" %(netdev, ipv4addr, ipv4nm, gateway, ns)
-            # FIXME: ... and actually bring up the interface :)
-        
         gtk.main_quit()
         
 
@@ -152,7 +211,7 @@ class NetworkConfigurator:
 def main():
     net = network.Network()
     d = NetworkConfigurator(net)
-    d.run()
+    ret = d.run()
 
 
 if __name__ == "__main__":

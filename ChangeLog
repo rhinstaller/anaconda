@@ -1,5 +1,20 @@
 2006-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/netconfig_dialog.py: Actually bring up the network
+	appropriately, add some UI tweaks
+	* ui/netconfig.glade: Center the dialog.  Hide ipv6 bits for now
+
+	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Support
+	bringing up the network as needed.
+	* iw/task_gui.py (TaskWindow._addRepo): Bring up the network as needed
+
+	* isys/isys.c (doDhcpNetDevice): Rename to be dhcp instead of
+	pump. Prefer DHCPv4 for now
+	* isys/isys.py (dhcpNetDevice): Rename pumpNetDevice to this,
+	leave pumpNetDevice stub 
+
+	* isys/Makefile (nltest): Fix build of test program
+
 	* gui.py (addFrame): Make it so that you can just show() the
 	window instead of having to show_all -- this lets you have hidden
 	widgets in a dialog that's been addFrame()'d
