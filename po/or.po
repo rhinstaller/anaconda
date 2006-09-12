@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-12 13:31+0530\n"
+"PO-Revision-Date: 2006-09-12 15:58+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -5473,6 +5473,9 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"ଏହି ଡ୍ରାଇଭର ଡିସ୍କରେ ଉପଯୁକ୍ତ ପ୍ରକାରର କୌଣସି ଉପକରଣ ନାହିଁ।  ଆପଣ ହସ୍ତକୃତ ଭାବରେ "
+"ଡ୍ରାଇଭରକୁ ଚୟନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ତଥାପି ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, କିମ୍ବା ଅନ୍ଯ ଗୋଟିଏ "
+"ଡିସ୍କ ଧାରଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../loader2/driverdisk.c:516
 msgid "Driver disk"
@@ -5511,6 +5514,8 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
+"କିକ-ଷ୍ଟାର୍ଟ ଡ୍ରାଇଭର ଡିସ୍କ ନିର୍ଦ୍ଦେଶ ପାଇଁ ନିମ୍ନଲିଖିତ ଅବୈଧ ସ୍ବତନ୍ତ୍ରଚର ମାନ ଉଲ୍ଲେଖ "
+"କରାଯାଇଛି: %s:%sାଇଁ"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5519,6 +5524,9 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
+"ଦୟାକରି ସେହି ପାରାମିଟର ମାନଙ୍କୁ ଭରଣ କରନ୍ତୁ ଯାହାକୁ ଆପଣ ସ୍ଥାନ ଦ୍ବାରା ପୃଥକ ହୋଇଥିବା "
+"%s ଏକକାଂଶକୁ ପଠାଇବା ପାଇଁ ଚାହୁଁଛନ୍ତି।  କେଉଁ ପାରାମିଟର ଯୋଗାଇବା ପାଇଁ ହେବ ଯଦି ଆପଣ "
+"ତାହା ଜାଣି ନାହାଁନ୍ତି, ତାହାହେଲେ \"ଠିକ ଅଛି\" ବଟନକୁ ଦବାଇ ଏହା ପରଦାକୁ ଏଡାଇ ଦିଅନ୍ତୁ।"
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5537,12 +5545,17 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"ହସ୍ତକୃତ ଭାବରେ ଭର୍ତ୍ତୀ କରିବା ପାଇଁ କୌଣସି ଡ୍ରାଇଭର ମିଳିଲା ନାହିଁ।  ଆପଣ ଗୋଟିଏ "
+"ଡ୍ରାଇଭର ଡିସ୍କକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../loader2/driverselect.c:199
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
+"ଦୟାକରି ଆପଣ ଧାରଣ କରିବାକୁ ଚାହୁଁଥିବା ଡ୍ରାଇଭରକୁ ନିମ୍ନ ତାଲିକାରୁ ଚୟନ କରନ୍ତୁ।  ଯଦି "
+"ଏହା ଦୃଶ୍ଯମାନ ନ ହୁଏ ଏବଂ ଆପଣଙ୍କ ନିକଟରେ ଗୋଟିଏ ଡ୍ରାଇଭର ଡିସ୍କ ଅଛି, ତାହାହେଲେ "
+"F2 ଦବାନ୍ତୁ।"
 
 #: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
@@ -5570,12 +5583,16 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"ISO ପ୍ରତିଛବିରୁ ସ୍ଥାପନକୁ ପଢିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା। ଦୟାକରି ଆପଣଙ୍କ "
+"ISO ପ୍ରତିଛବିକୁ ଯାଞ୍ଚ କରନ୍ତୁ ଏବଂ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ।"
 
 #: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରରେ କୌଣସି ହାର୍ଡ ଡ୍ରାଇଭ ଥିବାପରି ଜଣାପଡୁ ନାହିଁ! ଆପଣ ଅତିରିକ୍ତ ଉପକରଣ ମାନଙ୍କୁ "
+"ବିନ୍ଯାସ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../loader2/hdinstall.c:346
 #, c-format
@@ -5678,11 +5695,15 @@ msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
+"ଆପଣଙ୍କ ନିକଟରେ ଏକାଧିକ ଉପକରଣ ଅଛି ଯାହାକି ଗୋଟିଏ ଅଦ୍ଯତିତ ଡିସ୍କ ପାଇଁ ଉତ୍ସ ଭାବରେ "
+"କାର୍ଯ୍ଯ କରିପାରେ।  ଆପଣ କେଉଁ ଉପକରଣକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
+"ଆପଣଙ୍କ ଅଦ୍ଯତିତ ଡିସ୍କକୁ /dev/%s ରେ ଭର୍ତ୍ତୀ କରନ୍ତୁ ଏବଂ ଆଗକୁ ବଢିବା ପାଇଁ "
+"\"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ।"
 
 #: ../loader2/loader.c:348
 msgid "Updates Disk"
@@ -5706,6 +5727,9 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
+"କୌଣସି ହାର୍ଡ ଡ୍ରାଇଭ ମିଳିଲା ନାହିଁ।  ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ସଫଳ କରିବା ପାଇଁ ଆପଣଙ୍କୁ ସମ୍ଭବତଃ "
+"ଦସ୍ତକୃତ ଭାବରେ ଉପକରଣ ଡ୍ରାଇଭର ମାନଙ୍କୁୁ ଚୟନ କରିବା ଆବଶ୍ଯକ।  ଆପଣ ବର୍ତ୍ତମା "
+"ଡ୍ରାଇଭର ମାନଙ୍କୁ ଚୟନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?ନ"
 
 #: ../loader2/loader.c:775
 #, c-format
@@ -5745,6 +5769,9 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ପାଇଁ ଉପଯୁକ୍ତ ପ୍ରକାରର କୌଣସି ଉପକରଣକୁ ପାଇବାରେ ଅସମର୍ଥ।  "
+"ଆପଣ ହସ୍ତକୃତ ଭାବରେ ଆପଣଙ୍କ ଡ୍ରାଇଭରକୁ ଚୟନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି ଗୋଟିଏ "
+"ଡ୍ରାଇଭର ଡିସ୍କ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
@@ -5790,6 +5817,8 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"ପ୍ରାଥମିକ ଘନଫଳ ବର୍ଣ୍ଣନକରୁ ଡିସ୍କ ଚେକ-ଶମକୁ ପଢାବାରେ ଅସମର୍ଥ।  ଏହାର ଅର୍ଥ "
+"ସମ୍ଭବତଃ ଏହା ଯେ ଡିସ୍କରେ ଚେକ-ଶମକୁ ଯୋଗ ନକରି ଏହାକୁ ସୃଷ୍ଟି କରାଯାଇଛି।"
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5816,6 +5845,10 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"ଯେଉଁ ପ୍ରତିଛବିକୁ ବର୍ତ୍ତମାନ ପରୀକ୍ଷଣ କରାଗଲା ସେଥିରେ ତୃଟି ଅଛି। ଏହା ତୃଟିଯୁକ୍ତ ଡାଉନଲୋଡ "
+"କିମ୍ବା ଖରାପ ଡିସ୍କ ଯୋଗୁଁ ହୋଇ ଥାଇପାରେ।  ଯଦି ପ୍ରୟୋଗ ଯୋଗ୍ଯ, ତାହାହେଲେ ଦୟାକରି ଡିସ୍କକୁ "
+"ସଫା କରନ୍ତୁ ଏବଂ ପୁନର୍ବାର ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ।  ଯଦି ଏହି ପରୀକ୍ଷଣ ବାରମ୍ବାର ବିଫଳ ହୁଏ, ତାହାହେଲେ "
+"ଆପଣ ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ଉଚିତ ନୁହେଁ।"
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -5867,6 +5900,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"ଆପଣ ISO ପ୍ରତିଛବିର ଗୋଟିଏ ଚେକ-ଶମ ପରୀକ୍ଷଣ ସମ୍ପାଦନ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:420
 msgid "Checksum Test"
