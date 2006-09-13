@@ -651,6 +651,11 @@ if ksfile is not None:
 	if vncconnectport == None:
 	    vncconnectport = ksvncport
 
+    # Test here instead of in the above block because 'vnc' could have been
+    # specified on the command line instead of in the kickstart file.
+    if flags.usevnc:
+        flags.display_mode = 'g'
+
 #
 # Determine install method - GUI or TUI
 #
