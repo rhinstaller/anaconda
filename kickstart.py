@@ -87,8 +87,8 @@ class Script:
 
 	rc = iutil.execWithRedirect(self.interp,
 				    [self.interp,"/tmp/ks-script"],
-				    stdout = messages, stderr = messages,
-				    root = scriptRoot)
+				    stdin = messages, stdout = messages,
+                                    stderr = messages, root = scriptRoot)
 
 	if rc != 0:
 	    log("WARNING - Error code %s encountered running a kickstart %%pre/%%post script", rc)

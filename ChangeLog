@@ -2,6 +2,9 @@
 
 	* anaconda:  vnc should override text on kickstart installs (#190099).
 
+	* kickstart.py (Script.run):  Get stdin from the right file descriptor
+	(#192067).
+
 	* rescue.py (runRescue):  Mount /selinux under the chrooted system
 	environment (#189489).
 
