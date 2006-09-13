@@ -931,7 +931,7 @@ msgstr "অনুগ্ৰহ কৰি এখন floppy ভৰাই দিয়�
 
 #: ../gui.py:889
 msgid "default:LTR"
-msgstr "default:LTR"
+msgstr "ডিফল্ত:LTR"
 
 #: ../gui.py:973
 msgid "Error!"
@@ -1574,22 +1574,26 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-
+"আপুনি বিচৰা বিভাজন প্ৰণালীত নিম্নলিখিত সকীয়নী আছে ।\n"
+"\n"
+"%s\n"
+"\n"
+"আপুনি বিচৰা বিভাজন প্ৰণালীৰ লগত আপুনি আগবাঢ়িব খোজে নেকি?"
 #: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-
+"নিম্নলিখিত পূৰ্ব - অৱস্থিত বিভাজন সমূহ পুনৰাকৃত কৰি সকলো তথ্য নাশ কৰিব'লৈ নিৰ্ব্বাচন কৰা হৈছে ।"
 #: ../partIntfHelpers.py:459
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-
+"আগবাঢ়িব'লৈ আৰু বিভাজন সমূহ পুনৰাকৃত কৰিব'লৈ 'হয়' নিৰ্ব্বাচন কৰক ন'হ'লে পিছলৈ গৈ আৰু পছন্দ সমূহ সলনি কৰিবলৈ 'নহয়' নিৰ্ব্বাচন কৰক ।"
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
-msgstr ""
+msgstr "পুনৰাকৃতিৰ সকীয়নী"
 
 #: ../partIntfHelpers.py:513
 #, python-format
@@ -1598,36 +1602,38 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-
+"আপুনি এই আয়তন সমষ্টি গুচাব খোজিছে \"%s\".\n"
+"\n"
+"এই আয়তন সমষ্টিৰ সকলো লজিকেল আয়তন হেৰাব !"
 #: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "আপুনি \"%s\" লজিকোল আয়তন গুচাব লৈছে ।"
 
 #: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "আপুনি এটা RAID যন্ত্ৰ গুচাব লৈছে ।"
 
 #: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "আপুনি /dev/%s বিভাজন গুচাব লৈছে ।"
 
 #: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "আপুনি নিৰ্ব্বাচিত কৰা বিভাজন গুচোৱা হ'ব ।"   
 
 #: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
-msgstr ""
+msgstr "পুনৰায় সজ্জিত কৰা নিশ্চিত কৰক ।"
 
 #: ../partIntfHelpers.py:537
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "আপুনি বিভাজন সূচি প্ৰথম অৱস্থালৈ পুনৰায় সজ্জিত কৰিবলৈ নিৰ্ধাৰিত কৰিছে নেকি ?"
 
 #: ../partitioning.py:68
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "সংস্থাপন আগবাঢ়িব নোৱাৰে ।"
 
 #: ../partitioning.py:69
 msgid ""
@@ -1635,7 +1641,9 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-
+"The partitioning options you have chosen have already been activated. You "
+"can no longer return to the disk editing screen. Would you like to continue "
+"with the installation process?"
 #: ../partitioning.py:99
 msgid "Low Memory"
 msgstr ""
