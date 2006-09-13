@@ -3,20 +3,20 @@
 # Oriya translation of anaconda.pot
 # Copyright (C) 2006, Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Subhransu Behera <sbehera@redhat.com>, 2006.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-12 20:47+0530\n"
+"PO-Revision-Date: 2006-09-13 10:10+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
@@ -34,7 +34,7 @@ msgstr "ଅଜଣା ତ୍ରୁଟି"
 #: ../anaconda:261
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "kickstart config ର ଦ୍ବିତୀୟ ଅଂଶ କୁ ଟାଣିବା ସମୟ ରେ ତ୍ରୁଟି: %s!"
+msgstr "kickstart config ର ଦ୍ବିତୀୟ ଅଂଶକୁ ଟାଣିବା ସମୟରେ ତ୍ରୁଟି: %s!"
 
 #: ../anaconda:414
 msgid "Press <enter> for a shell"
@@ -86,7 +86,7 @@ msgstr "ଠିକ ଅଛି"
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr "ଆଲେଖୀ ସ୍ଥାପନ କୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ। ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି।"
+msgstr "ଆଲେଖୀ ସ୍ଥାପନକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ। ଅକ୍ଷରାବସ୍ଥାକୁ ଆରମ୍ଭ କରୁଅଛି।"
 
 #: ../anaconda:476
 msgid "No video hardware found, assuming headless"
@@ -2779,6 +2779,10 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"ଆପଣଙ୍କ ବୁଟ-ଲୋଡର ପାଇଁ LBA32 ର ବଳପୂର୍ବକ ପ୍ରୟୋଗ କଲେ BIOS ସହାୟତା ନଥିବା ସମୟରେ "
+"ଆପଣଙ୍କ ମେସିନଟି ବୁଟ କରି ନପାରେ।\n"
+"\n"
+"ଆପଣ LBA32 ଧାରା ସହିତ ବଳପୂର୍ବକ ପ୍ରୟୋଗ କରି ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -5264,6 +5268,8 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସମ୍ପନ୍ନ ହୋଇ ସାରିବା ପରେ z/IPL ବୁଟ-ଲୋଡର କୁ ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରାଯିବ। ଆପଣଙ୍କର ଯନ୍ତ୍ର କିମ୍ବା ବ୍ଯବସ୍ଥାପନ "
+"ଆବଶ୍ଯକ କରୁଥିବା ଅତିରିକ୍ତ କର୍ଣ୍ଣଲ ଏବଂ chandev ପାରାମିଟର ମାନଙ୍କୁ ଆପଣ ବର୍ତ୍ତମାନ ଭରଣ କରିପାରିବେ।"
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5326,6 +5332,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tଡେସ୍କଟପ ଆବରଣ (ନୋମ)\n"
+"\tକାର୍ଯ୍ଯାଳୟ ଉପାଦାନ (OpenOffice.org)\n"
+"\tୱେବ ବ୍ରାଉଜର \n"
+"\tଇ-ଡାକ (ଇଭୋଲ୍ଯୁସନ)\n"
+"\tତତ୍କ୍ଷଣାତ ସମ୍ବାଦ ପ୍ରେରଣ\n"
+"\tସାଉଣ୍ଡ ଏବଂ ଭିଡିଓ ପ୍ରୟୋଗ\n"
+"\tଖେଳ\n"
 
 #: ../installclasses/rhel.py:11
 msgid "Red Hat Enterprise Linux"
@@ -7375,7 +7388,7 @@ msgstr "ଭିୟେତନାମୀ"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr "ଓ୍ବେଲ୍ଶ"
+msgstr "ୱେଲଶ୍"
 
 #. generated from lang-table
 msgid "Zulu"
