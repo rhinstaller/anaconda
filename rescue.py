@@ -367,6 +367,14 @@ def runRescue(instPath, mountroot, id):
                 # now that dev is udev, bind mount the installer dev there
                 isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
 
+                # and /selinux too
+                if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
+                    try:
+                        isys.mount("/selinux", "%s/selinux" %(anaconda.rootPath,),         
+                                   "selinuxfs")
+                    except Exception, e:
+                        log.error("error mounting selinuxfs: %s" %(e,))
+
 		# set a library path to use mounted fs
 		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
 
