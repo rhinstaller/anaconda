@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-12 15:04+0530\n"
+"PO-Revision-Date: 2006-09-13 13:52+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -92,7 +92,7 @@ msgstr "कोई वीडियो हार्डवेयर नहीं �
 
 #: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
-msgstr "एक X हार्डवेयर स्थिति वस्तु के प्रारंभिकीकरण में असमर्थ. "
+msgstr "एक X हार्डवेयर स्थिति वस्तु के प्रारंभिकीकरण में असमर्थ."
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
@@ -116,8 +116,7 @@ msgstr "अज्ञात अधिष्ठापन विधि"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"जिस अधिष्ठापन विधि को आपने निर्दिष्ट किया है, वो एनाकोंडा के द्वारा समर्थित नहीं है."
+msgstr "जिस अधिष्ठापन विधि को आपने निर्दिष्ट किया है, वो एनाकोंडा के द्वारा समर्थित नहीं है."
 
 #: ../anaconda:880
 #, c-format
@@ -195,8 +194,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकता."
 
 #: ../autopart.py:1058
@@ -270,7 +268,7 @@ msgstr ""
 
 #: ../autopart.py:1456 ../autopart.py:1502
 msgid "Automatic Partitioning Errors"
-msgstr "स्वतः विभाजन त्रुटि "
+msgstr "स्वतः विभाजन त्रुटि"
 
 #: ../autopart.py:1457
 #, python-format
@@ -955,7 +953,7 @@ msgstr "नहीं"
 #: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
 #: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Retry"
-msgstr "फिर प्रयास करें"
+msgstr "पुनः प्रयास करें"
 
 #: ../gui.py:235 ../text.py:396
 msgid "Ignore"
@@ -1019,7 +1017,7 @@ msgstr "निकास (_E)"
 
 #: ../gui.py:980 ../yuminstall.py:570
 msgid "_Retry"
-msgstr "फिर प्रयास करें (_R)"
+msgstr "पुनः प्रयास करें (_R)"
 
 #: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
@@ -1085,7 +1083,7 @@ msgstr ""
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
-msgstr "फिर प्रयास करें (_t)"
+msgstr "पुनः प्रयास करें (_t)"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1190,7 +1188,7 @@ msgstr ""
 "अधिष्ठापक ने #%s चित्र को आरोहित करने का प्रयास किया है, लेकिन इसे सर्वर पर नहीं पा "
 "सकता है.\n"
 "\n"
-"दूरस्थ सर्वर के शेयर पथ पर इस चित्र को कॉपी करें और फिर कोशिश करें को क्लिक करें. "
+"दूरस्थ सर्वर के साझा पथ पर इस चित्र को कॉपी करें और पुनः कोशिश करें को क्लिक करें. "
 "अधिष्ठापन रोकने के लिये रिबूट करें क्लिक करें."
 
 #: ../installclass.py:60
@@ -1266,8 +1264,7 @@ msgstr "मेजबाननाम 64 या इससे कम संप्�
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1698,8 +1695,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -1747,8 +1743,7 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitioning.py:68
@@ -1805,8 +1800,7 @@ msgstr ""
 "है."
 
 #: ../partitions.py:849
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और 50 मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है."
 
 #: ../partitions.py:869
@@ -1827,10 +1821,8 @@ msgstr ""
 "है."
 
 #: ../partitions.py:944
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "USB युक्ति पर अधिष्ठापित कर रहा है.  यह कार्यशील सिस्टम उत्पन्न कर सकता है या नहीं भी."
 
 #: ../partitions.py:947
 msgid ""
@@ -1888,8 +1880,7 @@ msgstr "एक विभाजन जो LVM वॉल्यूम ग्रू�
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:252
@@ -2156,10 +2147,8 @@ msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला स्क्रीन"
 
 #: ../text.py:428
 msgid ""
@@ -2280,7 +2269,7 @@ msgstr ""
 
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr "अमान्य निर्देशिकाएँ"
+msgstr "अमान्य निर्देशिका"
 
 #: ../upgrade.py:351
 #, python-format
@@ -2351,7 +2340,7 @@ msgstr ""
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
-msgstr "शब्दकूटः"
+msgstr "शब्दकूट:"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
@@ -2521,8 +2510,7 @@ msgstr "विनिमय के दौरान त्रुटि..."
 
 #: ../yuminstall.py:471
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "आपके विनिमय में एक त्रुटि थी, निम्न कारणों के लिये: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
@@ -3576,7 +3564,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
-msgstr "मूलभूत "
+msgstr "मूलभूत"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
@@ -3729,14 +3717,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीर त्रुटि आपके निवेदित विभाजन योजना के साथ उपस्थित है."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से जारी होने से पहले यह त्रुटि सही किया जाना जरूरी है."
 
 #: ../iw/partition_gui.py:642
@@ -3870,12 +3856,12 @@ msgstr "आप अब क्या करना चाहते हैं?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "एक सॉफ्टवेयर RAID विभाजन बनाएँ."
+msgstr "एक सॉफ्टवेयर RAID विभाजन बनाएँ (_p)."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "एक RAID युक्ति  [मूलभूत=/dev/md%s] बनाएँ (_d)."
+msgstr "एक RAID युक्ति [मूलभूत=/dev/md%s] बनाएँ (_d)."
 
 #: ../iw/partition_gui.py:1272
 #, python-format
@@ -4271,8 +4257,7 @@ msgstr "यह आपका वर्तमान बूट लोडर अद�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4407,8 +4392,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वैप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वैप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/zfcp_gui.py:24
@@ -4575,8 +4559,7 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> चुनें | <F2> मूलभूत चुनिये | <F4> मिटायें | <F12> अगला स्क्रीन>"
 
 #: ../textw/bootloader_text.py:387
@@ -4713,8 +4696,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "संकुल समूह चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
 #: ../textw/grpselect_text.py:102
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/grpselect_text.py:130
@@ -5069,8 +5051,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) वॉल्यूम ग्रूप में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5101,8 +5082,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -5395,7 +5375,7 @@ msgid ""
 "or desktop use."
 msgstr ""
 "निजी कंप्यूटरों और लेपटापों के लिए आदर्श, एक आलेखीय डेस्कटॉप वातावरण को अधिष्ठापन करने के "
-"लिए इस अधिष्ठापन प्रकार चुनें और  सिस्टम को होम या डेस्कटॉप उपयोग के लिए आदर्श बनाएँ."
+"लिए इस अधिष्ठापन प्रकार चुनें और सिस्टम को होम या डेस्कटॉप उपयोग के लिए आदर्श बनाएँ."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -5728,8 +5708,7 @@ msgstr "%s चालक लोड कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन तरू आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:217
 msgid ""
@@ -5823,10 +5802,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s में स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
@@ -5945,7 +5922,7 @@ msgstr "युक्तियां"
 
 #: ../loader2/loader.c:1131
 msgid "Done"
-msgstr "पूर्ण"
+msgstr "संपन्न"
 
 #: ../loader2/loader.c:1132
 msgid "Add Device"
@@ -6026,7 +6003,7 @@ msgid ""
 "\n"
 "   %s"
 msgstr ""
-"चित्र के लिये %s:\n"
+"बिंब के लिये %s:\n"
 "\n"
 "   %s"
 
@@ -6053,13 +6030,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"क्या आप इस ISO बिंब की जाँचयोग परीक्षा करना पसंद करेंगेः :\n"
+"क्या आप इस ISO बिंब की चेकसम परीक्षा करना पसंद करेंगेः :\n"
 "\n"
 "   %s?"
 
 #: ../loader2/method.c:420
 msgid "Checksum Test"
-msgstr "Checksum परीक्षा"
+msgstr "चेकसम परीक्षा"
 
 #: ../loader2/modules.c:961
 #, c-format
@@ -6184,8 +6161,7 @@ msgstr "गुम प्रोटोकॉल"
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
-"आपको दस्ती विन्यास के लिये कम से कम एक प्रोटोकॉल (IPv4 या IPv6) जरूर चुनना चाहिये."
+msgstr "आपको दस्ती विन्यास के लिये कम से कम एक प्रोटोकॉल (IPv4 या IPv6) जरूर चुनना चाहिये."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
@@ -6216,8 +6192,7 @@ msgid "Missing Information"
 msgstr "जानकारी गुम गई"
 
 #: ../loader2/net.c:1085
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "आप जरूर एक वैध IPv4 पता और संजाल मास्क या CIDR प्रत्यय डालें."
 
 #: ../loader2/net.c:1091
@@ -6226,7 +6201,7 @@ msgstr "आपको जरूर एक वैध IPv6 पता और CIDR �
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
-msgstr "मेजबाननाम और क्षेत्र की गणना कर रहा है..."
+msgstr "मेजबाननाम और डोमेन निर्धारित कर रहा है..."
 
 #: ../loader2/net.c:1447
 #, c-format
@@ -6246,7 +6221,7 @@ msgstr "संजाल युक्ति"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किसे अधिष्ठापन करना पसंद करेंगे?"
+msgstr "इस सिस्टम पर आपके पास बहु संजाल युक्तियाँ हैं. आप किससे होकर अधिष्ठापन करना पसंद करेंगे?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -6439,11 +6414,11 @@ msgstr "अपने चालन विन्यास को आप कैस�
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>Repository _URL:</b>"
+msgstr "<b>रिपॉजिटरी _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>Repository _name:</b>"
+msgstr "<b>रिपॉजिटरी नाम (_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6468,7 +6443,7 @@ msgstr "रिबूट करें (_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr "दोषमार्जन करें (_D)"
+msgstr "डिबग करें (_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6851,8 +6826,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "पूर्वी समय - ओंटारियो - अधिकतर जगह"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "पूर्वी समय - ओंटारियो एवं क्यूबेक - जगह जो  DST 1967-1973 को नहीं देखते"
 
 #. generated from zone.tab
@@ -7040,8 +7014,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -7484,5 +7457,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
-#~ msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-#~ msgstr "आप जरूर एक IPv6 पता और aCIDR प्रत्यय डालें."
