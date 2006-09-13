@@ -1,3 +1,8 @@
+2006-09-13  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py (YumBackend.writeConfiguration): Support
+	writing out repository configuration (#199468).
+
 2006-09-12  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYum.run): Use magic value to sort

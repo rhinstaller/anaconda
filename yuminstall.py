@@ -1337,13 +1337,18 @@ class YumBackend(AnacondaBackend):
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
     def writeConfiguration(self):
-        #XXX: dump is not sufficient reenable when fixed
-        return
+        emptyRepoConf = yum.config.RepoConf()
         for repo in self.ayum.repos.listEnabled():
             repo.disable()
-            fn = "%s/etc/yum.repos.d/%s.repo" % ( self.instPath, repo.id)
+            fn = "%s/etc/yum.repos.d/%s.repo" % (self.instPath, repo.id)
             f = open(fn , 'w')
-            f.write(repo.dump())
+            f.write('[%s]\n' % (repo.id,))
+            for k, v in emptyRepoConf.iteritems():
+                repoval = repo.getAttribute(k)
+                if not repoval or repoval == v:
+                    continue
+                val = emptyRepoConf.optionobj(k).tostring(repoval)
+                f.write("%s=%s\n" % (k,val))
             repo.enable()
             f.close()
 
