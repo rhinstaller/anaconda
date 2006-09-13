@@ -7,6 +7,14 @@
 # translation of it.po to
 # translation of it.po to
 # translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
 # translation of it.po to Italiano
 # translation of it.po to
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
@@ -26,7 +34,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-12 08:51+0200\n"
+"PO-Revision-Date: 2006-09-13 04:32+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3753,7 +3761,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Punto di montaggio/\n"
+"Mount Point/\n"
 "RAID/Volume"
 
 #: ../iw/partition_gui.py:410
@@ -3801,7 +3809,7 @@ msgstr "Avvisi di formattazione"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
-msgstr "_Formattare"
+msgstr "_Formatta"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
@@ -3888,7 +3896,7 @@ msgid ""
 "\n"
 msgstr ""
 "Il software RAID vi consente di unire diversi dischi in un grande "
-"dispositivo RAID, che può essere configurato per fornire maggiori velocità e "
+"dispositivo RAID, il quale può essere configurato per fornire maggiori velocità e "
 "affidabilità rispetto a una singola unità. Per maggiori informazioni "
 "sull'uso dei dispositivi RAID,consultare la documentazione %s.\n"
 "\n"
@@ -3913,17 +3921,17 @@ msgstr "Come procedere?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "Creare una _partizione RAID software."
+msgstr "Crea una _partizione RAID software."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "Creare un _dispositivo RAID [predef.=/dev/md%s]."
+msgstr "Crea un _dispositivo RAID [predef.=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Clonare un _disco per creare un dispositivo RAID [predef.=/dev/md%s]."
+msgstr "Clona un _disco per creare un dispositivo RAID [predef.=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
@@ -3991,7 +3999,7 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Configurazione del partizionamento del disco"
+msgstr "Impostazione partizionamento del disco"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
@@ -4086,11 +4094,11 @@ msgstr "_Dispositivo RAID:"
 
 #: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
-msgstr "_Livello del RAID:"
+msgstr "_Livello RAID:"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "Elementi del _RAID:"
+msgstr "Elementi _RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
@@ -4105,9 +4113,8 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"L'unità sorgente non ha partizioni da clonare. E' innanzitutto necessario "
-"definire le partizioni di tipo 'RAID software' su quest'unità prima di "
-"clonarla."
+"L'unità sorgente non ha partizioni da clonare. E' innanzitutto necessario definire "
+"le partizioni di tipo 'RAID software' su questa unità prima di clonarla."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -4160,14 +4167,12 @@ msgstr "Errore dell'unità di destinazione"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "Selezionare le unità di destinazione per l'operazione di clonazione."
+msgstr "Seleziona le unità di destinazione per l'operazione di clonazione."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"L'unità sorgente /dev/%s non può essere selezionata come unità di "
-"destinazione."
+msgstr "L'unità sorgente /dev/%s non può essere selezionata come unità di destinazione."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4184,8 +4189,7 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"Questa partizione deve essere rimossa prima che questa unità diventi la "
-"destinazione."
+"Questa partizione deve essere rimossa prima che questa unità diventi la destinazione."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
@@ -4197,7 +4201,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Il disco /dev/%s sarà ora clonato nei seguenti dischi:\n"
+"L'unità /dev/%s sarà ora clonata nelle seguenti unità:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:648
@@ -4208,7 +4212,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ATTENZIONE! TUTTI I DATI PRESENTI SUI DISCHI DI DESTINAZIONE SARANNO "
+"ATTENZIONE! TUTTI I DATI PRESENTI SULLE UNITÀ DI DESTINAZIONE SARANNO "
 "DISTRUTTI."
 
 #: ../iw/raid_dialog_gui.py:651
@@ -4223,7 +4227,7 @@ msgstr "Clonazione unità"
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 "Si è verificato un errore durante la cancellazione delle unità di "
-"destinazione. Clonazione interrotta."
+"destinazione. Clonazione fallita."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4240,11 +4244,11 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Strumento di clonazione dei dischi\n"
+"Strumento di clonazione unità\n"
 "\n"
 "Questo strumento consente di ridurre enormemente il tempo per configurare "
 "gli array RAID. L'idea è di prendere un'unità sorgente che è stata preparata "
-"con il layout di partizionamento desiderato e clonare il layout su altre "
+"con il layout di partizionamento desiderato, e clonare il layout su altre "
 "unità di dimensioni simili.  Quindi è possibile creare un dispositivo RAID.\n"
 "\n"
 "NOTA: L'unità sorgente deve contenere delle partizioni che sono limitate "
@@ -4259,7 +4263,7 @@ msgstr "Unità sorgente:"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr "Dischi di destinazione:"
+msgstr "Unità di destinazione:"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
@@ -4283,7 +4287,7 @@ msgstr "Nome repositorio non valido"
 
 #: ../iw/task_gui.py:86
 msgid "You must provide a non-zero length repository name."
-msgstr "Fornire un nome di repositorio di lunghezza diversa da zero"
+msgstr "Fornire un nome del repositorio di lunghezza diversa da zero"
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
@@ -4314,11 +4318,11 @@ msgstr "Selezione del fuso orario"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Aggiornare la configurazione del boot loader"
+msgstr "Aggiorna configurazione del boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "Aggiornare la config_urazione del boot loader"
+msgstr "Aggiorna config_urazione del boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
@@ -4345,7 +4349,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "_Creare una nuova configurazione del boot loader"
+msgstr "_Crea una nuova configurazione del boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -4353,7 +4357,7 @@ msgid ""
 "switch boot loaders, you should choose this."
 msgstr ""
 "Questo consentirà di creare una nuova configurazione del boot loader. Se si "
-"desidera cambiare boot loader, scegliere questo."
+"desidera cambiare boot loader, scegliere questa opzione."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
@@ -4365,7 +4369,7 @@ msgid ""
 "third party boot loader, you should choose this."
 msgstr ""
 "La configurazione del boot loader rimarrà immutata. Se si usa un boot loader "
-"terze parti, scegliere questo."
+"di terzi, scegliere questa opzione."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4386,7 +4390,7 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Questa versione di %s supporta il file system di tipo journalling ext3. "
-"Offre diversi vantaggi rispetto al file system ext2 generalmente fornito con "
+"Esso offre diversi vantaggi rispetto al file system ext2 generalmente fornito con "
 "%s. E' possibile migrare le partizioni formattate di tipo ext2 a ext3 senza "
 "perdere i dati.\n"
 "\n"
@@ -4426,7 +4430,7 @@ msgstr "Crea un file di s_wap"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Selezionare la _partizione nella quale creare il file di swap:"
+msgstr "Seleziona la _partizione nella quale creare il file di swap:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4442,7 +4446,7 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"Creare un file di swap di almeno %d MB. Inserire le dimensioni del file di "
+"Crea un file di swap di almeno %d MB. Inserire le dimensioni del file di "
 "swap da creare:"
 
 #: ../iw/upgrade_swap_gui.py:169
@@ -4468,9 +4472,7 @@ msgstr "La dimensione del file di swap deve essere compresa fra 1 e 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Non c'è abbastanza spazio sul dispositivo selezionato per creare la "
-"partizione."
+msgstr "Non c'è abbastanza spazio sul dispositivo selezionato per creare la partizione."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
@@ -4530,7 +4532,7 @@ msgstr ""
 "La partizione di root è quella selezionata precedentemente nella "
 "configurazione delle partizioni.\n"
 "\n"
-"Il kernel usato per avviare la macchina è quella installata di default.\n"
+"Il kernel usato per avviare la macchina è quella installato per default.\n"
 "\n"
 "E' possibile apportare delle modifiche dopo l'installazione nel file di "
 "configurazione /etc/zipl.conf.\n"
@@ -4607,7 +4609,7 @@ msgstr "Cancella"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr "Modificare la boot label"
+msgstr "Modifica la boot label"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
@@ -4634,7 +4636,7 @@ msgid ""
 "you want to use for each of them."
 msgstr ""
 "Il boot manager di %s può gestire l'avvio di altri sistemi operativi. "
-"Indicare le partizioni da avviare e associare a ognuna di esse un'etichetta."
+"Indicare le partizioni da avviare e associare ad ognuna di esse un'etichetta."
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -4663,7 +4665,7 @@ msgstr "Password del boot loader:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr "Confermare:"
+msgstr "Conferma:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
@@ -4695,9 +4697,7 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
-"Rimuovere qualsiasi supporto di installazione (dischetti, CD-ROM o DVD-ROM) "
-"utilizzato durante il processo di installazione, e premere <Invio> per "
-"riavviare il sistema.\n"
+"Rimuovere qualsiasi supporto di installazione utilizzato durante il processo di installazione, e premere <Invio> per riavviare il sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -4724,7 +4724,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Per informazioni sugli 'Errata' (aggiornamenti e risoluzione bug), visitare "
+"Per informazioni sugli 'errata' (aggiornamenti e risoluzione bug), visitare "
 "il sito http://www.redhat.com/errata.\n"
 "\n"
 "Per informazioni sull'utilizzo del sistema, consultare i manuali di %s "
@@ -4778,9 +4778,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:84
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
-"Si prega di selezionare il gruppo di pacchetti che si desidera avere "
-"installati."
+msgstr "Si prega di selezionare il gruppo di pacchetti che si desidera installare."
 
 #: ../textw/grpselect_text.py:102
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4798,7 +4796,7 @@ msgstr "Selezione del tipo di tastiera"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Modello di tastiera collegato al computer:"
+msgstr "Modello di tastiera collegata al computer:"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
@@ -5079,7 +5077,7 @@ msgstr "Non supportato"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "I gruppi di volumi LVM possono essere modificati solo nell'installer grafico."
+msgstr "I gruppi di volumi LVM possono essere modificati solo nel programma di installazione grafico."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5107,7 +5105,7 @@ msgstr "Sono richieste almeno due partizioni RAID software."
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
-msgstr "Formattare la partizione?"
+msgstr "Formatta la partizione?"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
@@ -5165,7 +5163,7 @@ msgstr "volume logico"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
-msgstr "Aggiungi"
+msgstr "Nuovo"
 
 #: ../textw/partition_text.py:1443
 msgid "Delete"
@@ -5177,7 +5175,7 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "   F1-Help  F2-Aggiungi   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
+msgstr "   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5204,7 +5202,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Disco da utilizzare per l'installazione:"
+msgstr "Unità da utilizzare per l'installazione:"
 
 #: ../textw/partition_text.py:1605
 msgid "Review Partition Layout"
@@ -5212,7 +5210,7 @@ msgstr "Revisione dello schema di partizionamento"
 
 #: ../textw/partition_text.py:1606
 msgid "Review and modify partitioning layout?"
-msgstr "Revisionare e modificare lo schema di partizionamento?"
+msgstr "Revisiona e modifica lo schema di partizionamento?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5292,12 +5290,12 @@ msgstr "In quale fuso orario vi trovate?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr "L'orologio di sistema usa UTC"
+msgstr "L'orologio del sistema usa UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Aggiornare la configurazione del boot loader"
+msgstr "Aggiorna la configurazione del boot loader"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -5305,7 +5303,7 @@ msgstr "Ignora l'aggiornamento del boot loader"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Creare una nuova configurazione del boot loader"
+msgstr "Crea una nuova configurazione del boot loader"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -5421,7 +5419,7 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "Il Boot Loader z/IPL verrà installato sul vostro sistema dopo che "
-"l'installazione 'é completata. Potete ora inserire tutti i parametri "
+"l'installazione è stata completata. Potete ora inserire tutti i parametri "
 "supplementari del chandev e del kernel che la vostra macchina o la vostra "
 "configurazione potrebbe richiedere."
 
@@ -5435,7 +5433,7 @@ msgstr "Linea chandev "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "_Personalizzare"
+msgstr "_Personalizza"
 
 #: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
 #: ../installclasses/rhel.py:13
@@ -5501,7 +5499,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr "Richiesta chiave di registrazione"
+msgstr "Chiave di registrazione necessaria"
 
 #: ../installclasses/rhel.py:50
 #, python-format
@@ -5563,7 +5561,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr "Controllo del supporto"
+msgstr "Controllo media"
 
 #: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
 #: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
@@ -5638,7 +5636,7 @@ msgstr "CD Non Trovato"
 
 #: ../loader2/cdinstall.c:455
 msgid "Cannot find kickstart file on CDROM."
-msgstr "Non si trova Il file kickstart sul CDROM."
+msgstr "Impossibile trovare il file kickstart sul CDROM."
 
 #: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
 msgid "Loading"
@@ -5711,7 +5709,7 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Nessun dispositivo del tipo adatto è stato trovato su questo dischetto dei "
+"Nessun dispositivo con una tipologia adatta è stato trovato su questo dischetto dei "
 "driver.  Desiderate selezionare manualmente il driver, continuare comunque, "
 "o caricare un altro dischetto dei driver?"
 
@@ -5721,7 +5719,7 @@ msgstr "Dischetto del driver"
 
 #: ../loader2/driverdisk.c:517
 msgid "Do you have a driver disk?"
-msgstr "Si dispone di un dischetto dei driver?"
+msgstr "Disponete di un dischetto dei driver?"
 
 #: ../loader2/driverdisk.c:527
 msgid "More Driver Disks?"
@@ -5744,14 +5742,14 @@ msgstr "Errore Kickstart"
 #: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Disco driver sorgente del kickstart sconosciuto: %s"
+msgstr "Sorgente del dischetto driver del kickstart sconosciuta: %s"
 
 #: ../loader2/driverdisk.c:615
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Argomento non corretto per il comando kickstart disco driver: %s:%s"
+msgstr "Argomento non corretto per il comando kickstart disco del driver: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5766,7 +5764,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr "Inserire Parametri dei moduli"
+msgstr "Inserire Parametri del modulo"
 
 #: ../loader2/driverselect.c:180
 msgid "No drivers found"
@@ -5781,7 +5779,7 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nessun driver trovato per inserire manualmente.  Desiderate usare un'altro "
+"Nessun driver trovato da inserire manualmente.  Desiderate usare un'altro "
 "dischetto dei driver?"
 
 #: ../loader2/driverselect.c:199
@@ -5790,15 +5788,15 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Selezionate il driver da utilizzare. Se il driver desiderato non è in "
-"elenco, e avete un dischetto dei driver, premere il tasto F2."
+"elenco e siete in possesso di un dischetto dei driver, premere il tasto F2."
 
 #: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
-msgstr "Specificare i parametri facoltativi dei moduli"
+msgstr "Specifica i parametri facoltativi dei moduli"
 
 #: ../loader2/driverselect.c:227
 msgid "Select Device Driver to Load"
-msgstr "Selezionate il Driver dei dispositivi da utilizzare"
+msgstr "Seleziona il Driver dei dispositivi da utilizzare"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
@@ -5811,7 +5809,9 @@ msgstr "Caricamento del driver %s..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr "L'albero d'installazione %s in tale directory non corrisponde al boot media."
+msgstr ""
+"L'albero d'installazione %s nella directory interessata, non corrisponde al media utilizzato "
+"per il boot."
 
 #: ../loader2/hdinstall.c:217
 msgid ""
@@ -5826,7 +5826,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Non sono stati trovati dischi fissi nel sistema! Configurare dispositivi "
+"Non sono stati trovati i dischi fissi all'interno del sistema! Configurare dispositivi "
 "aggiuntivi?"
 
 #: ../loader2/hdinstall.c:346
@@ -5836,7 +5836,7 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Quale partizione e directory di tale partizione contengono le immagini CD "
+"Quale partizione e directory della partizione interessata contengono le immagini CD "
 "(iso9660) per %s? Se l'unità disco in uso non è in elenco, premere F2 per "
 "configurare altri dispositivi."
 
@@ -5846,7 +5846,7 @@ msgstr "Directory contenente le immagini:"
 
 #: ../loader2/hdinstall.c:395
 msgid "Select Partition"
-msgstr "Selezionare la partizione"
+msgstr "Seleziona la partizione"
 
 #: ../loader2/hdinstall.c:435
 #, c-format
@@ -5873,7 +5873,7 @@ msgstr "Tipo di tastiera"
 
 #: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
-msgstr "Selezionare il tipo di tastiera utilizzato:"
+msgstr "Selezionare il tipo di tastiera utilizzata:"
 
 #: ../loader2/kickstart.c:125
 #, c-format
@@ -5926,7 +5926,7 @@ msgstr "Immagine NFS"
 
 #: ../loader2/loader.c:330
 msgid "Update Disk Source"
-msgstr "Disco per aggiornamenti"
+msgstr "Sorgente disco per aggiornamenti"
 
 #: ../loader2/loader.c:331
 msgid ""
@@ -5949,7 +5949,7 @@ msgstr "Disco degli aggiornamenti"
 
 #: ../loader2/loader.c:360
 msgid "Failed to mount updates disk"
-msgstr "Non si è riuscito a montare il disco degli aggiornamenti"
+msgstr "Impossibile montare il disco degli aggiornamenti"
 
 #: ../loader2/loader.c:363
 msgid "Updates"
@@ -5980,7 +5980,7 @@ msgstr "Metodo rescue"
 
 #: ../loader2/loader.c:936
 msgid "Installation Method"
-msgstr "Metodo installazione"
+msgstr "Metodo d'installazione"
 
 #: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
@@ -6006,14 +6006,11 @@ msgstr "Utilizzate un dischetto dei driver"
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
-"Non si trova nessun dispositivo che è richiesto per questo tipo "
-"d'installazione. Desiderate selezionare un driver manualmente oppure "
-"utilizzare un dischetto dei driver?"
+msgstr "Non si trova alcun dispositivo richiesto per questo tipo d'installazione. Desiderate selezionare un driver manualmente oppure utilizzare un dischetto dei driver?"
 
 #: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
-msgstr "Nel sistema sono stati trovati i seguenti dispositivi."
+msgstr "Sono stati trovati i seguenti dispositivi all'interno del sistema."
 
 #: ../loader2/loader.c:1126
 msgid ""
@@ -6083,8 +6080,8 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"L'immagine che è stata appena controllata contiene errori. Ciò potrebbe "
-"essere causato da uno scaricamento corrotto o un disco danneggiato.  Se "
+"L'immagine appena controllata contiene errori. Ciò potrebbe "
+"essere causato da un download corrotto o da un disco danneggiato.  Se "
 "possibile, pulite il disco e riprovate.  Se questo controllo continua a "
 "fallire non continuate l'installazione."
 
@@ -6098,13 +6095,11 @@ msgstr "L'installazione può essere effettuata da questo supporto."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Informazioni sul checksum non disponibili. Impossibile verificare il "
-"supporto."
+msgstr "Informazioni sul checksum non disponibili. Impossibile verificare il supporto."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr "Risultato della verifica del supporto"
+msgstr "Risultato verifica del supporto"
 
 #: ../loader2/mediacheck.c:424
 #, c-format
@@ -6124,7 +6119,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Il controllo del supporto %s\n"
+"Controllo del supporto %s\n"
 "\n"
 "%s"
 
@@ -6177,7 +6172,7 @@ msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
-"I valori di maschera CIDR devono essere fra 1 e 32 per le reti IPv4 or tra 1 e "
+"I valori di maschera CIDR devono essere compresi fra 1 e 32 per le reti IPv4 o 1 e "
 "128 per le reti IPv6"
 
 #: ../loader2/net.c:231
@@ -6242,7 +6237,7 @@ msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di
 
 #: ../loader2/net.c:675
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Usare la configurazione IP dinamica (DHCP)"
+msgstr "Usa la configurazione IP dinamica (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -6258,7 +6253,7 @@ msgstr "Evitare collisioni di pacchetti non desiderate"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr "Massimizzare i valori di registro per l'alta velocità di traffico di rete"
+msgstr "Massimizzare i valori di registro per l'alta velocità del traffico di rete"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -6292,7 +6287,7 @@ msgstr "Indirizzo IPv6:"
 
 #: ../loader2/net.c:928
 msgid "Name Server:"
-msgstr "Server dei nomi:"
+msgstr "Name Server:"
 
 #: ../loader2/net.c:961
 msgid "Manual TCP/IP Configuration"
@@ -6304,11 +6299,11 @@ msgstr "Informazioni mancanti"
 
 #: ../loader2/net.c:1085
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Immettere un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
+msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
 #: ../loader2/net.c:1091
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Immettere un indirizzo IPv6 valido ed un prefisso CIDR."
+msgstr "Inserire un indirizzo IPv6 valido ed un prefisso CIDR."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6407,7 +6402,7 @@ msgstr "Argomento errato per il comando del metodo Url del kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:486
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Si deve fornire un argomento --url al metodo Url del kickstart."
+msgstr "Fornire un argomento --url al metodo Url del kickstart."
 
 #: ../loader2/urlinstall.c:497
 #, c-format
@@ -6422,7 +6417,7 @@ msgstr "Login in %s fallito: %s"
 #: ../loader2/urls.c:192 ../loader2/urls.c:201
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Impossibile caricare %s: %s"
+msgstr "Impossibile riprendere %s: %s"
 
 #: ../loader2/urls.c:208
 msgid "Retrieving"
@@ -6519,7 +6514,7 @@ msgstr "Opzioni avanzate per lo storage"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr "Disabilitare dispositivo _dmraid"
+msgstr "Disabilita dispositivo _dmraid"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
@@ -6527,7 +6522,7 @@ msgstr "Come si desidera modificare la configurazione del disco?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>_URL repositorio:</b>"
+msgstr "<b>_URL del repositorio:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
@@ -6535,7 +6530,7 @@ msgstr "<b>_nome repositorio:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Aggiunta repositorio"
+msgstr "Aggiungi repositorio"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6548,7 +6543,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "_Aggiungere repositorio"
+msgstr "_Aggiungi repositorio"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6576,7 +6571,7 @@ msgstr "Configurazione avanzata dello storage"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Selezionare il disco(hi) da utilizzare per l'installazione."
+msgstr "_Seleziona il disco(hi) da utilizzare per l'installazione."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6604,14 +6599,14 @@ msgstr "<b>_Nome inizializzatore iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr "Configurazione dei parametri iSCSI"
+msgstr "Configurazione parametri iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Per usare dischi iSCSI, dovrete fornire l'indirizzo dei vostri targets iSCSI ed il nome "
+"Per usare dischi iSCSI, dovrete fornire l'indirizzo dei vostri target iSCSI ed il nome "
 "dell'inizializzatore iSCSI che avete configurato per il vostro host."
 
 #: tmp/netconfig.glade.h:2
@@ -6636,15 +6631,15 @@ msgstr "<b>_Interfaccia:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr "Abilitare supporto IPv_4"
+msgstr "Abilita supporto IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr "Abilitare supporto IPv_6"
+msgstr "Abilita supporto IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr "Abilitazione interfaccia di rete"
+msgstr "Abilita interfaccia di rete"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6656,20 +6651,17 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Usare la configurazione IP dinamica (DHCP)"
+msgstr "Usa la configurazione IP _dinamica (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Persona_lizzare successivamente"
+msgstr "Persona_lizza più tardi"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
-"Ulteriori personalizzazioni della selezione del software possono essere "
-"completate ora o dopo l'installazione mediante l'applicazione di "
-"amministrazione del software."
+msgstr "Ulteriori personalizzazioni della selezione del software possono essere completate ora o dopo l'installazione mediante l'applicazione di amministrazione del software."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6678,17 +6670,17 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
-"L'installazione predefinita di %s include un gruppo di software adatto "
+"L'installazione predefinita di %s include un gruppo software adatto "
 "all'uso generico di internet.  Di quali altri compiti desiderate che il "
 "sistema includa il supporto?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr "_Aggiungere ulteriori repositori software"
+msgstr "_Aggiungi ulteriori repositori software"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
-msgstr "_Personalizzare ora"
+msgstr "_Personalizza ora"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7186,15 +7178,15 @@ msgstr "Isola di Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "New South Wales - maggior parte del territorio"
+msgstr "Nuovo Galles del Sud - maggior parte del territorio"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
+msgstr "Nuovo Galles del Sud - Yancowinna"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr "Northern Territory"
+msgstr "Territori del Nord"
 
 #. generated from zone.tab
 msgid "Pacific Time"
