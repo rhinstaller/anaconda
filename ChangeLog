@@ -1,3 +1,7 @@
+2006-09-14  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images: Use -no-fragments to mksquashfs (#206472)
+
 2006-09-14  Peter Jones  <pjones@redhat.com>
 
 	* loader2/modules.c (scsiCount): make this function actually do what
