@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.95
+Version: 11.1.0.96
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 14 2006 Chris Lumens <clumens@redhat.com> 11.1.0.96-1
+- Use -no-fragments to mksquashfs (katzj, #206472).
+- Fix scsi and usb module loading (pjones).
+- Better testing for driver disk correctness (katzj, #195899).
+- Support HTTP redirects in the loader (#188198, #204488).
+- Write out repo configuration (pnasrat, #199468).
+- Fix installing from additional repos on CD/DVD installs (katzj, #205846).
+- Network UI fixes (katzj).
+- --vesa -> --xdriver (pjones).
+- Fix when group selection should appear in kickstart installs.
+- Fix logical volume size checking again (#206039).
+- Skip attached devices without media present again (#205465).
+- Install fs packages if they're needed for installation (katzj, #205865).
+- Only collect network addresses for running interfaces (dcantrel).
+- zSeries initrd fixes (dcantrel, #197773).
+
 * Fri Sep  8 2006 Peter Jones <pjones@redhat.com> - 11.1.0.95-1
 - Look for repodata where the CDs are mounted, not where they're
   stored (clumens)
