@@ -1,23 +1,26 @@
+# translation of hy.po to Armenian
 # Armenian translations for PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2005.
 #
+# Automatically generated, 2005.
+# Suren Karapetyan <surenkarapetyan@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: hy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2005-06-01 15:14-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2006-05-16 17:57-0400\n"
+"PO-Revision-Date: 2006-09-14 17:28+0500\n"
+"Last-Translator: Suren Karapetyan <surenkarapetyan@gmail.com>\n"
+"Language-Team: Armenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../anaconda:258
 msgid "Unknown Error"
-msgstr ""
+msgstr "Չճանաչված սխալ"
 
 #: ../anaconda:261
 #, c-format
@@ -68,7 +71,7 @@ msgstr ""
 #: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
 #: ../loader2/urls.c:345 ../loader2/urls.c:456
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../anaconda:452
 msgid ""
@@ -86,7 +89,7 @@ msgstr ""
 
 #: ../anaconda:529
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "Սկսում ենք գրաֆիկական տեղադրումը..."
 
 #: ../anaconda:790
 msgid "Install class forcing text mode installation"
@@ -102,7 +105,7 @@ msgstr ""
 
 #: ../anaconda:877
 msgid "Unknown install method"
-msgstr ""
+msgstr "Տեղադրման չճանաչված մեթոդ"
 
 #: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
@@ -111,7 +114,7 @@ msgstr ""
 #: ../anaconda:880
 #, c-format
 msgid "unknown install method: %s"
-msgstr ""
+msgstr "տեղադրման չճանաչված մեթոդ՝ %s"
 
 #: ../autopart.py:949
 #, python-format
@@ -168,8 +171,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1058
@@ -181,7 +183,7 @@ msgstr ""
 
 #: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "Պահանջվող կտորը գոյություն չունի"
 
 #: ../autopart.py:1244
 #, python-format
@@ -193,7 +195,7 @@ msgstr ""
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "Պահանջվող Ռեիդ սարքը գոյություն չունի"
 
 #: ../autopart.py:1272
 #, python-format
@@ -293,11 +295,11 @@ msgstr ""
 
 #: ../autopart.py:1514
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Չվերականգնվող սխալ"
 
 #: ../autopart.py:1515
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "Համակարգը հիմա կվերաբեռնվի։"
 
 #: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
 #: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
@@ -309,7 +311,7 @@ msgstr ""
 #: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
 #: ../loader2/loader.c:400
 msgid "Warning"
-msgstr ""
+msgstr "Զգուշացում"
 
 #: ../autopart.py:1668
 msgid ""
@@ -329,15 +331,15 @@ msgstr ""
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "Ջնջել կուտակիչի բոլոր կտորները"
 
 #: ../autopart.py:1685
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "Ջնջել կուտակիչի բոլոր Լինուքս կտորները"
 
 #: ../autopart.py:1686
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "Պահպանել բոլոր կտորները և օգտագործել գոյություն ունեցող դատարկ տարածությունը"
 
 #: ../autopart.py:1688
 #, python-format
@@ -367,11 +369,11 @@ msgstr ""
 
 #: ../bootloader.py:126
 msgid "Bootloader"
-msgstr ""
+msgstr "Բեռնիչ"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "Տեղադրում ենք բեռնիչը..."
 
 #: ../bootloader.py:195
 msgid ""
@@ -381,11 +383,11 @@ msgstr ""
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr ""
+msgstr "Ավարտված"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr ""
+msgstr "Պրոցոսի մեջ...   "
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
@@ -398,7 +400,7 @@ msgstr ""
 #: ../cmdline.py:137
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Ավարտված [%d/%d]"
 
 #: ../cmdline.py:143
 #, python-format
@@ -450,12 +452,12 @@ msgstr ""
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "Վատ բլոկեր ենք փնտրում"
 
 #: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "Վատ բլոկեր ենք փնտրում /dev/%sի վրա..."
 
 #: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
 #: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
@@ -482,7 +484,7 @@ msgstr ""
 #: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
 #: ../loader2/urls.c:334 ../loader2/urls.c:339
 msgid "Error"
-msgstr ""
+msgstr "Սխալ"
 
 #: ../fsset.py:672
 #, python-format
@@ -495,7 +497,7 @@ msgstr ""
 
 #: ../fsset.py:1330
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID սարք"
 
 #: ../fsset.py:1334 ../fsset.py:1340
 msgid "Apple Bootstrap"
@@ -511,7 +513,7 @@ msgstr ""
 
 #: ../fsset.py:1349
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "Բեռնման Գլխավոր Գրանցում (MBR)"
 
 #: ../fsset.py:1423
 #, python-format
@@ -526,11 +528,11 @@ msgstr ""
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:260 ../loader2/method.c:420
 msgid "Skip"
-msgstr ""
+msgstr "Բաց թողնել"
 
 #: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr ""
+msgstr "Վերաբեռնել"
 
 #: ../fsset.py:1473
 #, python-format
@@ -583,7 +585,7 @@ msgstr ""
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
-msgstr ""
+msgstr "Ֆորմատ"
 
 #: ../fsset.py:1515
 #, python-format
@@ -644,7 +646,7 @@ msgstr ""
 
 #: ../fsset.py:1706 ../fsset.py:1715
 msgid "Invalid mount point"
-msgstr ""
+msgstr "Բեռնման սխալ կետ"
 
 #: ../fsset.py:1707
 #, python-format
@@ -714,12 +716,12 @@ msgstr ""
 
 #: ../fsset.py:2717
 msgid "Formatting"
-msgstr ""
+msgstr "Ֆորմատավորում"
 
 #: ../fsset.py:2718
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "Ֆորմատավորում ենք %s ֆայլ սիստեմը..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -759,31 +761,31 @@ msgstr ""
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
-msgstr ""
+msgstr "Ուղղել"
 
 #: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
 #: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
 msgid "Yes"
-msgstr ""
+msgstr "Այո"
 
 #: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
 #: ../loader2/loader.c:400
 msgid "No"
-msgstr ""
+msgstr "Ոչ"
 
 #: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
 #: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
 #: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Retry"
-msgstr ""
+msgstr "Կրկնել"
 
 #: ../gui.py:235 ../text.py:396
 msgid "Ignore"
-msgstr ""
+msgstr "Անտեսել"
 
 #: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
 #: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
@@ -818,7 +820,7 @@ msgstr ""
 
 #: ../gui.py:973
 msgid "Error!"
-msgstr ""
+msgstr "Սխա՜լ"
 
 #: ../gui.py:974
 #, python-format
@@ -831,11 +833,11 @@ msgstr ""
 #: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
 #: ../yuminstall.py:661
 msgid "_Exit"
-msgstr ""
+msgstr "_Ելք"
 
 #: ../gui.py:980 ../yuminstall.py:570
 msgid "_Retry"
-msgstr ""
+msgstr "_Կրկնել"
 
 #: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
@@ -847,7 +849,7 @@ msgstr ""
 
 #: ../gui.py:989 ../packages.py:301
 msgid "Rebooting System"
-msgstr ""
+msgstr "Վերաբեռնեւմ ենք համակարգը"
 
 #: ../gui.py:1053
 #, python-format
@@ -876,7 +878,7 @@ msgstr ""
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Բացակայում է ISO 9660 պատկերը"
 
 #: ../harddrive.py:69
 #, python-format
@@ -890,11 +892,11 @@ msgstr ""
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
-msgstr ""
+msgstr "Կ_րկնել"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr ""
+msgstr "Պահանջվող տեղադրման աղբյուրները"
 
 #: ../image.py:83
 #, python-format
@@ -905,12 +907,22 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Ծրագրերը, որոնք ընտրել եք տեղադրման համար պահանջում են հետևյալ CDները՝\n"
+"\n"
+"%s\n"
+"Համոզվե՛ք, որ ունեք սրանք մինչը կսկսեք տեղադրման պրոցեսը։ Եթե համակարգիչը վերաբեռնելու կարիք ունեք, սեղմե՛ք \"Reboot\"։"
 
 #: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr ""
+msgstr "_Ետ"
+
+#: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
+#: ../iw/partition_gui.py:1011
+msgid "_Continue"
+msgstr "_Շարունակել"
+
 
 #: ../image.py:133
 #, python-format
@@ -921,7 +933,7 @@ msgstr ""
 
 #: ../image.py:163
 msgid "Copying File"
-msgstr ""
+msgstr "Արտագրում ենք ֆայլը"
 
 #: ../image.py:164
 msgid "Transferring install image to hard drive..."
@@ -1102,7 +1114,7 @@ msgstr ""
 
 #: ../partedUtils.py:206 ../textw/partition_text.py:558
 msgid "Foreign"
-msgstr ""
+msgstr "Օտար"
 
 #: ../partedUtils.py:306
 #, python-format
@@ -1567,8 +1579,7 @@ msgstr ""
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:252
@@ -3207,15 +3218,15 @@ msgstr ""
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
-msgstr ""
+msgstr "Տիպ"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
 msgid "Start"
-msgstr ""
+msgstr "Սկիզբ"
 
 #: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
 msgid "End"
-msgstr ""
+msgstr "Վերջ"
 
 #: ../iw/partition_gui.py:408
 msgid ""
@@ -3234,14 +3245,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:642
@@ -3288,7 +3297,7 @@ msgstr ""
 #: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
 msgid "Free space"
-msgstr ""
+msgstr "Ազար տեղ"
 
 #: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
 msgid "Extended"
@@ -3300,7 +3309,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:908
 msgid "Free"
-msgstr ""
+msgstr "Ազատ"
 
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
@@ -3386,19 +3395,19 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr ""
+msgstr "Նո_ր"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr ""
+msgstr "Անտ_եսել"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1361
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
@@ -3453,22 +3462,22 @@ msgstr ""
 #: ../iw/progress_gui.py:43
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s ՄԲ"
 
 #: ../iw/progress_gui.py:46
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s ԿԲ"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s Բայթ"
 
 #: ../iw/progress_gui.py:51
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s Բայթ"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
@@ -3720,8 +3729,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -3837,8 +3845,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zfcp_gui.py:24
@@ -3981,8 +3988,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:387
@@ -4082,7 +4088,7 @@ msgstr ""
 #: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:269 ../loader2/urls.c:456
 msgid "Back"
-msgstr ""
+msgstr "Ետ"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4143,7 +4149,7 @@ msgstr ""
 
 #: ../textw/network_text.py:72
 msgid "IP Address"
-msgstr ""
+msgstr "IP հասցե"
 
 #: ../textw/network_text.py:73
 msgid "Netmask"
@@ -4151,15 +4157,15 @@ msgstr ""
 
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "Կետից կետ (IP)"
 
 #: ../textw/network_text.py:79 ../loader2/net.c:237
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:80 ../loader2/net.c:238
 msgid "Encryption Key"
-msgstr ""
+msgstr "Կոդավորման բանալի"
 
 #: ../textw/network_text.py:92
 #, python-format
@@ -4191,7 +4197,7 @@ msgstr ""
 
 #: ../textw/network_text.py:179
 msgid "Invalid information"
-msgstr ""
+msgstr "Անվավեր տեղեկություններ"
 
 #: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
@@ -4199,31 +4205,31 @@ msgstr ""
 
 #: ../textw/network_text.py:247 ../loader2/net.c:920
 msgid "Gateway:"
-msgstr ""
+msgstr "Միջանցք՝"
 
 #: ../textw/network_text.py:256
 msgid "Primary DNS:"
-msgstr ""
+msgstr "Գլխավոր DNS՝"
 
 #: ../textw/network_text.py:261
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "Երկրորդական DNS՝"
 
 #: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "Երորդական DNS՝"
 
 #: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "Ցանցային այլ պարամետրեր"
 
 #: ../textw/network_text.py:345
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "ավտոմատորեն՝ DHCPի միջոցով"
 
 #: ../textw/network_text.py:349
 msgid "manually"
-msgstr ""
+msgstr "ձեռքով"
 
 #: ../textw/network_text.py:368
 msgid "Hostname Configuration"
@@ -4239,7 +4245,7 @@ msgstr ""
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "Անվավեր հոսթնեյմ"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
@@ -4265,7 +4271,7 @@ msgstr ""
 #: ../textw/partition_text.py:231
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "Զգուշացում՝ %s"
 
 #: ../textw/partition_text.py:232
 msgid "Modify Partition"
@@ -4289,7 +4295,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr ""
+msgstr "Ֆիքսված չափի՝"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
@@ -4301,11 +4307,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "Սկզբի ցիլինդր"
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr ""
+msgstr "Վեռջին ցիլինդր"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
@@ -4471,24 +4477,23 @@ msgstr ""
 
 #: ../textw/partition_text.py:1441
 msgid "New"
-msgstr ""
+msgstr "Նոր"
 
 #: ../textw/partition_text.py:1443
 msgid "Delete"
-msgstr ""
+msgstr "Ջնջել"
 
 #: ../textw/partition_text.py:1444
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Օգնություն     F2-Նոր      F3-Փոփոխել   F4-Ջնջել    F5-Վերականգնել    F12-Լավ է        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr ""
+msgstr "Ռութ կտոր չկա"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
@@ -4536,39 +4541,39 @@ msgstr ""
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
-msgstr ""
+msgstr " Անուն         ՝ "
 
 #: ../textw/progress_text.py:106
 msgid " Size   : "
-msgstr ""
+msgstr " Չափ           ՝ "
 
 #: ../textw/progress_text.py:107
 msgid " Summary: "
-msgstr ""
+msgstr " Վերլուծություն՝ "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
-msgstr ""
+msgstr "    Փաթեթներ"
 
 #: ../textw/progress_text.py:153
 msgid "      Bytes"
-msgstr ""
+msgstr "      Բայթեր"
 
 #: ../textw/progress_text.py:154
 msgid "        Time"
-msgstr ""
+msgstr "        Ժամանակ"
 
 #: ../textw/progress_text.py:156
 msgid "Total    :"
-msgstr ""
+msgstr "Ընդհանուր    :"
 
 #: ../textw/progress_text.py:163
 msgid "Completed:   "
-msgstr ""
+msgstr "Ավարտված:   "
 
 #: ../textw/progress_text.py:173
 msgid "Remaining:  "
-msgstr ""
+msgstr "Մնացած:  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -4588,11 +4593,11 @@ msgstr ""
 
 #: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "Ո՞ր ժամային գոտում եք գտնվում։"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Համակարգչի ժամացույցը օգտագործում է UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -4618,27 +4623,27 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr ""
+msgstr "Ազատ տեղ"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "Ճանաչված RAM (MB)՝"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "Գերադասելի չափ (MB)՝"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "Սվապ ֆայլի չափ (MB)՝"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr ""
+msgstr "Սվապ ավելացնել"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "Ձեր գրած արժեքը վավեր թիվ չէ։"
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
@@ -4658,7 +4663,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr ""
+msgstr "Ռութի ծածկագիր"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -4693,11 +4698,11 @@ msgstr ""
 
 #: ../textw/zfcp_text.py:107
 msgid "Add"
-msgstr ""
+msgstr "Ավելացնել"
 
 #: ../textw/zfcp_text.py:109
 msgid "Remove"
-msgstr ""
+msgstr "Ջնջել"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -4727,7 +4732,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
-msgstr ""
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
@@ -4735,15 +4740,15 @@ msgstr ""
 
 #: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
 msgid "Software Development"
-msgstr ""
+msgstr "Ծրագրերի մշակում"
 
 #: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
 msgid "Web server"
-msgstr ""
+msgstr "Վեբ սերվեր"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "_Անձնական համակարգիչ"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -4765,7 +4770,7 @@ msgstr ""
 
 #: ../installclasses/rhel.py:11
 msgid "Red Hat Enterprise Linux"
-msgstr ""
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -4853,7 +4858,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:257
 msgid "CD Found"
-msgstr ""
+msgstr "CDն գտնված է"
 
 #: ../loader2/cdinstall.c:259
 #, c-format
@@ -4925,7 +4930,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:389
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "Տեղադրե՛ք դրայվեր-դիսկը"
 
 #: ../loader2/driverdisk.c:404
 msgid "Failed to mount driver disk."
@@ -4937,7 +4942,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:476
 msgid "Load another disk"
-msgstr ""
+msgstr "Այլ դիսկ բեռնել"
 
 #: ../loader2/driverdisk.c:477
 msgid ""
@@ -4998,7 +5003,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:180
 msgid "No drivers found"
-msgstr ""
+msgstr "Դրայվերներ չեն գտնվել"
 
 #: ../loader2/driverselect.c:180
 msgid "Load driver disk"
@@ -5086,7 +5091,7 @@ msgstr ""
 
 #: ../loader2/kbd.c:129
 msgid "Keyboard Type"
-msgstr ""
+msgstr "Ստեղնաշարի տիպ"
 
 #: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
@@ -5128,19 +5133,19 @@ msgstr ""
 
 #: ../loader2/lang.c:364
 msgid "Choose a Language"
-msgstr ""
+msgstr "Ընտրեք լեզուն"
 
 #: ../loader2/loader.c:117
 msgid "Local CDROM"
-msgstr ""
+msgstr "Լոկալ CDROM"
 
 #: ../loader2/loader.c:119
 msgid "Hard drive"
-msgstr ""
+msgstr "Կոշտ սկավառակ"
 
 #: ../loader2/loader.c:120
 msgid "NFS image"
-msgstr ""
+msgstr "NFS պատկեր"
 
 #: ../loader2/loader.c:330
 msgid "Update Disk Source"
@@ -5183,15 +5188,15 @@ msgstr ""
 #: ../loader2/loader.c:775
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "Այս մեքենայի վրա %s տեղադրելու համար բավարար RAM չունեք։"
 
 #: ../loader2/loader.c:935
 msgid "Rescue Method"
-msgstr ""
+msgstr "Վերականգման եղանակ"
 
 #: ../loader2/loader.c:936
 msgid "Installation Method"
-msgstr ""
+msgstr "Տեղադրման եղանակ"
 
 #: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
@@ -5203,15 +5208,15 @@ msgstr ""
 
 #: ../loader2/loader.c:964
 msgid "No driver found"
-msgstr ""
+msgstr "Դրայվեր չի գտնվել"
 
 #: ../loader2/loader.c:964
 msgid "Select driver"
-msgstr ""
+msgstr "Ընտրել դրայվեր"
 
 #: ../loader2/loader.c:965
 msgid "Use a driver disk"
-msgstr ""
+msgstr "Դրայվեր-դիսկ օգտագործել"
 
 #: ../loader2/loader.c:966
 msgid ""
@@ -5231,15 +5236,15 @@ msgstr ""
 
 #: ../loader2/loader.c:1130
 msgid "Devices"
-msgstr ""
+msgstr "Սարքեր"
 
 #: ../loader2/loader.c:1131
 msgid "Done"
-msgstr ""
+msgstr "Ավարտված"
 
 #: ../loader2/loader.c:1132
 msgid "Add Device"
-msgstr ""
+msgstr "Սարք ավելացնել"
 
 #: ../loader2/loader.c:1332
 #, c-format
@@ -5380,7 +5385,7 @@ msgstr ""
 
 #: ../loader2/net.c:276
 msgid "Nameserver"
-msgstr ""
+msgstr "Նեյմսերվեր"
 
 #: ../loader2/net.c:277
 msgid ""
@@ -5392,15 +5397,15 @@ msgstr ""
 
 #: ../loader2/net.c:300
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "Սխալ IP տեղեկություններ"
 
 #: ../loader2/net.c:301
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "Դուք սխալ IP հասցե եք մուտքագրել։"
 
 #: ../loader2/net.c:375 ../loader2/net.c:768
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Դինամիկ IP"
 
 #: ../loader2/net.c:376 ../loader2/net.c:769
 #, c-format
@@ -5475,7 +5480,7 @@ msgstr ""
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
-msgstr ""
+msgstr "Բացակայող տեղեկություններ"
 
 #: ../loader2/net.c:1085
 msgid ""
@@ -5521,7 +5526,7 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -5547,7 +5552,7 @@ msgstr ""
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
-msgstr ""
+msgstr "Տելնետ"
 
 #: ../loader2/telnetd.c:83
 msgid "Waiting for telnet connection..."
@@ -5604,19 +5609,19 @@ msgstr ""
 
 #: ../loader2/urls.c:273
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:278
 msgid "Web"
-msgstr ""
+msgstr "Վեբ"
 
 #: ../loader2/urls.c:295
 msgid "FTP site name:"
-msgstr ""
+msgstr "FTP սայթի անուն՝"
 
 #: ../loader2/urls.c:296
 msgid "Web site name:"
-msgstr ""
+msgstr "Վեբ սայթի անուն՝"
 
 #: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
@@ -5624,28 +5629,28 @@ msgstr ""
 
 #: ../loader2/urls.c:324
 msgid "FTP Setup"
-msgstr ""
+msgstr "FTP պարամետրեր"
 
 #: ../loader2/urls.c:325
 msgid "HTTP Setup"
-msgstr ""
+msgstr "HTTP պարամետրեր"
 
 #: ../loader2/urls.c:335
 msgid "You must enter a server name."
-msgstr ""
+msgstr "Դուք պետք է սերվերի անուն գրեք։"
 
 #: ../loader2/urls.c:340
 msgid "You must enter a directory."
-msgstr ""
+msgstr "Դուք պետք է պանակ նշեք։"
 
 #: ../loader2/urls.c:345
 msgid "Unknown Host"
-msgstr ""
+msgstr "Չճանաչված հոսթ"
 
 #: ../loader2/urls.c:346
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%sը վավեր հոսթնեյմ չի։"
 
 #: ../loader2/urls.c:416
 msgid ""
@@ -5665,11 +5670,11 @@ msgstr ""
 
 #: ../loader2/urls.c:466
 msgid "Further FTP Setup"
-msgstr ""
+msgstr "Հավելյալ FTP պարամետրեր"
 
 #: ../loader2/urls.c:469
 msgid "Further HTTP Setup"
-msgstr ""
+msgstr "Հավելյալ HTTP պարամետրեր"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
@@ -5720,7 +5725,7 @@ msgstr ""
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr ""
+msgstr "_Վերբեռնել"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -5728,11 +5733,11 @@ msgstr ""
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr ""
+msgstr "Հ_աջորդը"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr ""
+msgstr "_Թողարկման նշումներ"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5824,7 +5829,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "_Հետո ուղղել"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -5958,7 +5963,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Կենտրոնական ժամանակ"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
@@ -6060,7 +6065,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Արևելյալ ժամանակ"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
@@ -6099,8 +6104,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6221,7 +6225,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Մոսկվա+00 - արևմտյան Ռուսաստան"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
@@ -6229,11 +6233,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Մոսկվա-01 - Կալինիգրադ"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Մոսկվա+02 - Ուրալ"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
@@ -6249,11 +6253,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Մոսկվա+05 - Բայկալ լիճ"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Մոսկվա+06 - Լենա գետ"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
@@ -6265,15 +6269,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Մոսկվա+08 - Մագադան"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Մոսկվա+09 - Կամչատկա"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Մոսկվա+10 - Բերինգի ծով"
 
 #. generated from zone.tab
 msgid "most locations"
@@ -6288,8 +6292,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -6298,7 +6301,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Լեռնային ժամանակ"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
@@ -6430,7 +6433,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "Հարավային Ավստրալիա"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
@@ -6482,7 +6485,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Վիկտորիա"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -6530,7 +6533,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "արաբերեն"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6542,27 +6545,27 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "բուլղարերեն"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "կատալան"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "չինարեն(պարզեցված)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "չինարեն(դասական)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "խորվատերեն"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "չեխերեն"
 
 #. generated from lang-table
 msgid "Danish"
@@ -6574,7 +6577,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "անգլերեն"
 
 #. generated from lang-table
 msgid "Estonian"
@@ -6586,11 +6589,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "ֆրանսերեն"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "գերմաներեն"
 
 #. generated from lang-table
 msgid "Greek"
@@ -6606,7 +6609,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "հունգարերեն"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -6614,15 +6617,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "ինդոնեզերեն"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "իտալերեն"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "ճապոներեն"
 
 #. generated from lang-table
 msgid "Kannada"
@@ -6630,15 +6633,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "կորեերեն"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "մակեդրներեն"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "մալայերեն"
 
 #. generated from lang-table
 msgid "Malayalam"
@@ -6650,7 +6653,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "նորվեգերեն"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -6662,7 +6665,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "պարսկերեն"
 
 #. generated from lang-table
 msgid "Polish"
@@ -6670,11 +6673,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "պորտուգալերեն"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "պորտուգալերեն(Բրազիլական)"
 
 #. generated from lang-table
 msgid "Punjabi"
@@ -6682,31 +6685,31 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "ռուսերեն"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "սերբերեն"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "սերբերեն(լատինական)"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "սլովակերեն"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "սլովեներեն"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "իսպաներեն"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "շվեդերեն"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6714,15 +6717,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "թուրքերեն"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ուկրաիներեն"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "վիետնամերեն"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -6730,4 +6733,5 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "զուլուերեն"
+
