@@ -644,7 +644,7 @@ static int removeHostAdapter(char *conf, char *name) {
     do {
         size_t n = 0;
         char *buf = NULL;
-        int d = 0;
+        int d = 0, m = 0;
 
         if (getline(&buf, &n, in) < 0)
             break;
@@ -655,17 +655,16 @@ static int removeHostAdapter(char *conf, char *name) {
             continue;
         }
             
-        n = 0;
         if (buf[22] != ' ')
-            sscanf(buf+22, "%d %n", &d, &n);
+            sscanf(buf+22, "%d %n", &d, &m);
         else
-            sscanf(buf+22, " %n", &n);
+            sscanf(buf+22, " %n", &m);
         if (!ret) {
-            if (strncmp(buf+22+n, name, strlen(name))) {
+            if (strncmp(buf+22+m, name, strlen(name))) {
                 if (nhbas)
-                    fprintf(out, "alias scsi_hostadapter%d %s", nhbas, buf+22+n);
+                    fprintf(out, "alias scsi_hostadapter%d %s", nhbas, buf+22+m);
                 else
-                    fprintf(out, "alias scsi_hostadapter %s", buf+22+n);
+                    fprintf(out, "alias scsi_hostadapter %s", buf+22+m);
                 nhbas++;
             } else {
                 logMessage(INFO, "removed usb-storage from modprobe.conf");
