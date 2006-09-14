@@ -137,7 +137,7 @@ msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr " স্তম্ভক‌-ভিত্তিৰ অাধাৰত কৰা বিভাজনসমূহক বিতৰণ কৰিব নোৱাৰি ।\n \n %s"
+msgstr " স্তম্ভক‌-ভিত্তিত কৰা বিভাজনসমূহক বিতৰণ কৰিব নোৱাৰি ।\n \n %s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -1708,44 +1708,44 @@ msgstr "বুট কৰিব পৰা বিভাজন "
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "বুট বিভাজন কোনো লজিকেল আয়তনত হ'ব নোৱাৰে ।"
 
 #: ../partitions.py:988
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-
+"আপুনি কোনো শ্বেপ বিভাজন নিৰ্দ্দিষ্ট কৰা নাই । যদিও সকলো ক্ষেত্ৰতে কঠোৰ ভাবে প্ৰয়োজন নহয়, এইটোৱে সৰহভাগ সংস্থাপনৰ যোগ্যতা গুৰুতৰ ভাবে বঢ়াব ।"
 #: ../partitions.py:995
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-
+"আপুনি ৩২-তকৈ বেছি শ্বেপ যন্ত্ৰ নিৰ্দ্দিষ্ট কৰিছে । %s-ৰ কাৰ্ণেলে অকল ৩২টা শ্বেপ যন্ত্ৰৰ সমৰ্থন কৰে ।"
 #: ../partitions.py:1006
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-
+"আপুনি ব্যৱস্থাপ্ৰণালীত RAM (%dM)-তকৈ কম স্থান শ্বেপ স্থান (%dM)ক বিতৰণ কৰিছে । এইটোৱে কাৰ্য্যসাধনত ধ্বংসাত্মকভাবে আঘাত কৰিব পাৰে ।"
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "বিভাজনটো সংস্থাপকৰ দ্বাৰা প্ৰয়োগ কৰা হৈছে ।"
 
 #: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "এটা বিভাজন যিতো কোনো RAID শাৰীৰ অংশ ।"
 
 #: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "এটা বিভাজন যিতো কোনো LVM আয়তন সমষ্টিৰ অংশ ।"
 
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "এই অভ্যুত্থানৰ স্থান অবৈধ । %s পঞ্জিকা /  নথি-পত্ৰ প্ৰণালীত থাকিব লাগিব । "
 
 #: ../partRequests.py:252
 #, python-format
@@ -1753,10 +1753,10 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-
+"অভ্যুত্থানৰ স্থান %s ব্যৱহাৰ কৰিব পৰা নাযাব । এইটো উচিত ব্যৱস্থাপ্ৰণালীৰ ক্ৰিয়াকৰণৰ বাবে সাঙ্কেতিক সংযোগ হ'ব লাগিব । অনুগ্ৰহ কৰি এটা বেলেগ অভ্যুত্থানৰ স্থান নিৰ্ব্বাচন কৰক ।"
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "এই অভ্যুত্থানৰ স্থান কোনো লিনাক্স নথি-পত্ৰ প্ৰণালীত থাকিব লাগিব ।"
 
 #: ../partRequests.py:280
 #, python-format
@@ -1764,13 +1764,13 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
-
+"অভ্যুত্থানৰ স্থান \"%s\" ইতিমধ্যে প্ৰয়োগত আছে, অনুগ্ৰহ কৰি এটা বেলেগ অভ্যুত্থানৰ স্থান নিৰ্ব্বাচন কৰক ।"
 #: ../partRequests.py:294
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
+msgstr "%s বিভাজনৰ আকাৰ (%10.2f MB) সৰ্বাধিক আকাৰ %10.2f MB-তকৈ বেছি ।"
 
 #: ../partRequests.py:490
 #, python-format
@@ -1778,28 +1778,28 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-
+"বিচৰা বিভাজনৰ আকাৰ (size = %s MB) সৰ্বাধিক আকাৰ %s MB-তকৈ বেছি । "
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "বিচৰা বিভাজনৰ আকাৰ ঋণাত্মক ! (size = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "বিভাজনসমূহ প্ৰথম স্তম্ভক‌ৰ তলৰ পৰা আৰম্ভ হ'ব নোৱাৰে ।"
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "বিভাজনসমূহ ঋণাত্মক স্তম্ভক‌ত অন্ত হ'ব নোৱাৰে ।"
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID অনুৰোধত কোনো সদস্য নাই, বা RAID-ৰ স্তৰ নিৰ্দ্দিষ্ট কৰা হোৱা নাই ।"
 
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "এটা %s ধৰণৰ RAID যন্ত্ৰক %s সদস্য অতি কমেও লাগে ।"
 
 #: ../partRequests.py:690
 #, python-format
@@ -1807,41 +1807,41 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-
+"এই RAID যন্ত্ৰৰ সৰ্বাধিক %s অতিৰিক্ত বস্তু হ'ব পাৰে । ইয়াতকৈ বেছি অতিৰিক্ত বস্তু পাবলৈ অপোনাক RAID যন্ত্ৰত সদস্য যোজ দিব লাগিব ।"
 #: ../partRequests.py:924
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
-
+"লজিকেল আয়তনৰ আকাৰ আয়তন সমষ্টিৰ প্ৰকৃত পৰিসৰৰ আকাৰতকৈ ডাঙৰ হ'ব লাগিব ।"
 #: ../rescue.py:129
 msgid "Starting Interface"
-msgstr ""
+msgstr "সংযোগ মাধ্যম আৰম্ভ কৰা হৈছে"
 
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s আৰম্ভ কৰিব'লৈ চেষ্টা কৰা হৈছে"
 
 #: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "যেতিয়া সমাপ্ত হয় অনুগ্ৰহ কৰি শ্বেলৰ পৰা প্ৰস্থান কৰিব আৰু আপোনাৰ ব্যৱস্থাপৰণালী পুনৰাম্ভ হ'ব ।"
 
 #: ../rescue.py:199
 msgid "Setup Networking"
-msgstr ""
+msgstr "নে'টৱৰ্ক কাৰ্য্যকৰ কৰক"
 
 #: ../rescue.py:200
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "আপুনি এই ব্যৱস্থাপ্ৰণালীত নে'টৱৰ্ক সংযোগ-মাধ্যম আৰম্ভ কৰিব বিচাৰে নেকি?"
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
-msgstr ""
+msgstr "কৰ্তন কৰা হ'ল"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "মই আগৰ "
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
