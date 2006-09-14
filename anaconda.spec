@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.96
+Version: 11.1.0.97
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 14 2006 Chris Lumens <clumens@redhat.com> 11.1.0.97-1
+- Compile fix (pjones).
+
 * Thu Sep 14 2006 Chris Lumens <clumens@redhat.com> 11.1.0.96-1
 - Use -no-fragments to mksquashfs (katzj, #206472).
 - Fix scsi and usb module loading (pjones).
