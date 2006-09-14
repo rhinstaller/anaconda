@@ -1641,12 +1641,10 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"The partitioning options you have chosen have already been activated. You "
-"can no longer return to the disk editing screen. Would you like to continue "
-"with the installation process?"
+"আপুনি বিচৰা বিভাজনৰ বিকল্পসমূহ ইতিমধ্যে সক্ৰিয় কৰা হৈছে । আপুনি পুনৰ ডিষ্ক সম্পাদন পৰ্দ্দালৈ  প্ৰত্যাৱৰ্তন কৰিব নোৱাৰে । সংস্থাপন প্ৰণালীৰ লগত আগবাঢ়িব খোজে নেকি ?"
 #: ../partitioning.py:99
 msgid "Low Memory"
-msgstr ""
+msgstr "কম্পিউটাৰৰ কম স্মৃতিশক্তি"
 
 #: ../partitioning.py:100
 msgid ""
@@ -1654,38 +1652,38 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-
+"যিহেতু আপোনাৰ যন্ত্ৰত অধিক স্মৃতিশক্তি নাই, শ্বেপৰ স্থান তত্‌ক্ষণাত্‌ আৰম্ভ কৰি দিছোঁ । এই কাৰ্য্য কৰিব'লৈ আমি আপোাৰ নতুন বিভাজন সূচি ডিষ্কত লগে লগে লিখিব লাগিব ? সেইটো ঠিক আছেনে ?"
 #: ../partitions.py:818
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-
+"আপনুি কোনো মূল বিভাজন (/) সংজ্ঞাবদ্ধ কৰা নাই, যাৰ %s ৰ সংস্থাপনত আগবাঢ়িব'লৈ প্ৰয়োজন আছে ।"
 #: ../partitions.py:823
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-
+"আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
 #: ../partitions.py:842
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
-
+"প্ৰথম ৪ টা বিভাজনৰ ভিতৰত আপোনাৰ বুট বিভাজন নাই আৰু সেইবাবে বুট কৰিব পৰা নাযাব ।"
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "আপুনি এটা FAT ধৰণৰ /boot/efi বিভাজন আৰু ৫০ মেগাবাইটৰ আকাৰ সৃষ্টি কৰিবৈ লাগিব ।"
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "আপুনি এটা Apple Bootstrap বিভাজন সৃষ্টি কৰিবৈ লাগিব ।"
 
 #: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "আপুনি এটা PPC PReP বুট বিভাজন সৃষ্টি কৰিবৈ লাগিব ।"
 
 #: ../partitions.py:899 ../partitions.py:910
 #, python-format
@@ -1693,20 +1691,20 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-
+"আপোনাৰ %s বিভাজন %s মেগাবাইটকৈ কম যিটো সাধাৰণ %s সংস্থাপনৰ কাৰণে দিয়া উপদেশতকৈ নিম্ন স্তৰৰ ।"
 #: ../partitions.py:944
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "USB যন্ত্ৰত সংস্তাপন কৰা হৈছে । এই সংস্থাপনে কাৰ্য্যকৰি প্ৰণালী সৃষ্টি কৰিব বা নকৰিবও পাৰে ।"
 
 #: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
-
+"FireWire যন্ত্ৰ সংস্থাপন কৰা হৈছে । এই সংস্থাপনে কাৰ্য্যকৰি প্ৰণালী সৃষ্টি কৰিব বা নকৰিবও পাৰে ।"
 #: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "বুট কৰিব পৰা বিভাজন "
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
