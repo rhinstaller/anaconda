@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-09-04 12:24+0100\n"
+"PO-Revision-Date: 2006-09-14 15:34+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -855,7 +855,7 @@ msgstr "Nepodarilo sa pripojiť súborový systém"
 #: ../fsset.py:1730
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr ""
+msgstr "Nastala chyba pri pripájaní zariadenia %s ako %s.  Môžete pokračovať v inštalácii, ale môžu nastať problémy."
 
 #: ../fsset.py:1738
 #: ../image.py:91
@@ -1324,7 +1324,7 @@ msgstr "Zadajte registračný kľúč"
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Prosím zadajte registračný kód pre vašu verziu %s."
 
 #: ../packages.py:248
 msgid "Key:"
@@ -1757,7 +1757,7 @@ msgstr "Váš koreňový oddiel je menší ako 250 megabajtov, čo je obvykle pr
 
 #: ../partitions.py:842
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
-msgstr ""
+msgstr "Váš zavádzací oddiel nie je na prvých štyroch oddieloch a preto je možné, že z neho nebude možné zaviesť systém."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1878,7 +1878,7 @@ msgstr "Toto zariadenie RAID môže mať maximálne %s rezerv. Ak chcete mať vi
 
 #: ../partRequests.py:924
 msgid "Logical volume size must be larger than the volume group's physical extent size."
-msgstr ""
+msgstr "Veľkosť logického zväzku musí byť väčšia ako fyzická veľkosť oblasti skupiny zväzkov."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2893,7 +2893,7 @@ msgstr "Fyzická veľkosť oddielu nemôže byť zmenená, pretože výsledná m
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "Nemôžete odstrániť tento fyzický zväzok, pretože inak skupina zväzkov bude príliš malá pre aktuálne logické zväzky."
 
 #: ../iw/lvm_dialog_gui.py:370
 #: ../textw/partition_text.py:1137
@@ -3004,7 +3004,7 @@ msgstr "Názov logického zväzku \"%s\" je už používaný. Prosím, zvoľte i
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
+msgstr "Aktuálna požadovaná veľkosť (%10.2f MB) je väčšia ako maximálna veľkosť logických zväzkov (%10.2f MB). Pre zvýšenie tohto limitu môžete vytvoriť viac fyzických zväzkov z nerozdeleného diskového priestoru a pridať ich k tejto skupine zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:648
 #: ../iw/partition_dialog_gui.py:179
@@ -3022,7 +3022,7 @@ msgstr "Chyba požiadavky"
 #: ../iw/lvm_dialog_gui.py:883
 #, python-format
 msgid "The logical volumes you have configured require %g MB, but the volume group only has %g MB.  Please either make the volume group larger or make the logical volume(s) smaller."
-msgstr ""
+msgstr "Vami nakonfigurované logické zväzky vyžadujú %g MB, ale skupina zväzkov má len %g MB.  Prosím, buď zväčšite skupinu zväzkov, alebo zmenšite logické zväzky."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3039,7 +3039,7 @@ msgstr "Nie je voľné miesto"
 
 #: ../iw/lvm_dialog_gui.py:730
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you will need to reduce the size of one or more of the currently existing logical volumes"
-msgstr ""
+msgstr "Nie je tu voľné miesto v skupine zväzkov pre vytvorenie nových logických zväzkov. Pre pridanie logického zväzku budete potrebovať redukovať veľkosť jedného alebo viac existujúcich logických zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
@@ -3069,6 +3069,9 @@ msgid ""
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
 msgstr ""
+"Aspoň jeden voľný oddiel fyzického zväzku je potrebný pre vytvorenie skupiny zväzkov LVM.\n"
+"\n"
+"Vytvorte oddiel alebo pole RAID typu \"fyzický zväzok (LVM)\" a potom zvoľte voľbu \"LVM\" znova."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
@@ -3434,7 +3437,7 @@ msgstr "Nepodarilo sa odstrániť"
 #: ../textw/bootloader_text.py:343
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
-msgstr ""
+msgstr "Tento zavádzací zdroj nemôže byť zmazaný, pretože je pre %s systém, ktorý inštalujete."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3633,7 +3636,7 @@ msgstr "Vedľajšie číslo zariadenia RAID nedostupné"
 
 #: ../iw/partition_gui.py:1214
 msgid "A software RAID device cannot be created because all of the available RAID minor device numbers have been used."
-msgstr ""
+msgstr "Softvérové zariadenie RAID nemôže byť vytvorené, pretože všetky dostupné menšinové (minor) čísla RAID už boli použité."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3653,6 +3656,8 @@ msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device which can be formatted and mounted.\n"
 "\n"
 msgstr ""
+"Pre použitie RAID musíte najskôr vytvoriť aspoň dva oddiely typu 'softvérový RAID'.  Potom môžete vytvoriť zariadenie RAID, ktoré môže byť formátované a pripojené.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
@@ -3733,7 +3738,7 @@ msgstr "Kontrolovať na _chybné bloky?"
 #: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  This is done by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "Oddiely typu '%s' musia byť viazané s vlastným diskom.  To sa urobí výberom disku zo zoznamu 'Možných diskov'."
 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
@@ -3806,6 +3811,9 @@ msgid ""
 "\n"
 "First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
 msgstr ""
+"Aspoň dva nepoužité oddiely softvérového RAIDu sú potrebné pre vytvorenie zariadenia RAID.\n"
+"\n"
+"Najskôr vytvorte aspoň dva oddiely typu \"softvérový RAID\", a potom zvoľte voľbu \"RAID\" znova."
 
 #: ../iw/raid_dialog_gui.py:265
 #: ../iw/raid_dialog_gui.py:686
@@ -3845,7 +3853,7 @@ msgstr "_Formátovať oddiel?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid "The source drive has no partitions to be cloned.  You must first define partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "Zdrojový disk nemá oddiely, ktoré môžu byť klonované.  Predtým, ako môžu byť klonované, musíte definovať oddiely typu 'softvérový RAID' na tomto disku."
 
 #: ../iw/raid_dialog_gui.py:491
 #: ../iw/raid_dialog_gui.py:497
@@ -3860,6 +3868,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"Vybraný zdrojový disk má oddiely, ktoré sú iného typu ako 'softvérový RAID'.\n"
+"\n"
+"Aby bolo možné klonovať tento disku, je potrebné tieto oddiely odstrániť."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
