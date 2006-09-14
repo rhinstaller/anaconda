@@ -48,11 +48,12 @@
 /* boot flags */
 extern int flags;
 
-static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
-                                    "modules.cgz", NULL };
+static char * driverDiskFiles[] = { "modinfo", "modules.dep", 
+                                    "modules.cgz", "modules.alias", NULL };
 
 
-static char * optionalFiles[] = { "modules.pcimap", "pci.ids", NULL };
+static char * optionalFiles[] = { "modules.pcimap", "pci.ids", "pcitable", 
+                                  NULL };
 
 static int verifyDriverDisk(char *mntpt) {
     char ** fnPtr;
@@ -410,6 +411,9 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             rc = verifyDriverDisk("/tmp/drivers");
             if (rc == LOADER_BACK) {
+                newtWinMessage(_("Error"), _("OK"),
+                               _("Driver disk is invalid for this "
+                                 "release of %s."), getProductName());
                 umount("/tmp/drivers");
                 stage = DEV_INSERT;
                 break;
