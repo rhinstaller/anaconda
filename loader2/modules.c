@@ -43,7 +43,7 @@
 /* boot flags */
 extern int flags;
 
-static int writeModulesConf(moduleList list, int fd);
+static int writeModulesConf(moduleList list, char *conf);
 static struct extractedModule * extractModules (char * const * modNames,
                                                 struct extractedModule * oldPaths,
                                                 struct moduleBallLocation * location);
@@ -75,22 +75,25 @@ static int ethCount(const char * type) {
     return count;
 }
 
-static int scsiCount(void) {
+static int scsiCount(char *conf) {
     FILE *f;
-    char buf[16384];
     int count = 0;
     
-    f = fopen("/tmp/modprobe.conf", "r");
+    f = fopen(conf, "r");
     if (!f)
         return 0;
-    while (fgets(buf, sizeof(buf) - 1, f)) {
+    do {
+        char *buf = NULL;
+        size_t n = 0;
+        if (getline(&buf, &n, f) < 0)
+            break;
         if (!strncmp(buf, "alias scsi_hostadapter", 22))
             count++;
-    }
+        free(buf);
+    } while (1);
     fclose(f);
     return count;
 }
-
 
 static int scsiDiskCount(void) {
     struct device ** devices;
@@ -551,6 +554,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
         /* here we need to save the state of stage2 */
         removeLoadedModule("usb-storage", modLoaded);
+
         
         /* JKFIXME: here are the big hacks... for now, just described.
          * 1) figure out which scsi devs are claimed by usb-storage.
@@ -583,18 +587,8 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
          */
     }
 
-    if (!FL_TESTING(flags)) {
-        int fd;
-
-        fd = open("/tmp/modprobe.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
-        if (fd == -1) {
-            logMessage(ERROR, "error appending to /tmp/modprobe.conf: %s\n",
-                       strerror(errno));
-        } else {
-	    writeModulesConf(modLoaded, fd);
-            close(fd);
-        }
-    }
+    if (!FL_TESTING(flags))
+	writeModulesConf(modLoaded, "/tmp/modprobe.conf");
 
     for (p = paths; p->path; p++) {
         unlink(p->path);
@@ -626,15 +620,91 @@ int mlLoadModuleSet(const char * modNames,
                          NULL, NULL, NULL);
 }
 
-static int writeModulesConf(moduleList list, int fd) {
+static int removeHostAdapter(char *conf, char *name) {
+    FILE *in = NULL, *out = NULL;
+    int nhbas = 0;
+    char *newconf = NULL;
+    int ret = 0;
+
+    if (asprintf(&newconf, "%s.new", conf) < 0)
+        return ret;
+
+    if (!(out = fopen(newconf, "w+"))) {
+        free(newconf);
+        return ret;
+    }
+
+    if (!(in = fopen(conf, "r"))) {
+        fclose(out);
+        unlink(newconf);
+        free(newconf);
+        return ret;
+    }
+
+    do {
+        size_t n = 0;
+        char *buf = NULL;
+        int d = 0;
+
+        if (getline(&buf, &n, in) < 0)
+            break;
+
+        if (ret || strncmp(buf, "alias scsi_hostadapter", 22)) {
+            fputs(buf, out);
+            free(buf);
+            continue;
+        }
+            
+        n = 0;
+        if (buf[22] != ' ')
+            sscanf(buf+22, "%d %n", &d, &n);
+        else
+            sscanf(buf+22, " %n", &n);
+        if (!ret) {
+            if (strncmp(buf+22+n, name, strlen(name))) {
+                if (nhbas)
+                    fprintf(out, "alias scsi_hostadapter%d %s", nhbas, buf+22+n);
+                else
+                    fprintf(out, "alias scsi_hostadapter %s", buf+22+n);
+                nhbas++;
+            } else {
+                logMessage(INFO, "removed usb-storage from modprobe.conf");
+                ret++;
+            }
+        }
+        free(buf);
+    } while (1);
+
+    fclose(in);
+    fclose(out);
+    unlink(conf);
+    rename(newconf, conf);
+    free(newconf);
+    return ret;
+}
+
+static int writeModulesConf(moduleList list, char *conf) {
     int i, ret;
     struct loadedModuleInfo * lm;
     int ethNum;
-    int scsiNum = scsiCount();
+    int scsiNum;
     char buf[16384], buf2[512]; /* these will be enough for anyone... */
     char * tmp, ** arg;
+    int fd;
+    static int once = 0;
+
+    if (!once)
+        once = removeHostAdapter(conf, "usb-storage");
+    scsiNum = scsiCount(conf);
 
     if (!list) return 0;
+
+    fd = open("/tmp/modprobe.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
+    if (fd == -1) {
+        logMessage(ERROR, "error appending to /tmp/modprobe.conf: %s\n",
+                    strerror(errno));
+        return 0;
+    }
 
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
         if (!lm->weLoaded) continue;
@@ -711,6 +781,7 @@ static int writeModulesConf(moduleList list, int fd) {
         }
     }
 
+    close(fd);
     return 0;
 }
 

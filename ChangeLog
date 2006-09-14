@@ -1,3 +1,15 @@
+2006-09-14  Peter Jones  <pjones@redhat.com>
+
+	* loader2/modules.c (scsiCount): make this function actually do what
+	it's supposed to; also take a file name as input.
+
+	* loader2/modules.c (dlLoadModules): do the file open/close of
+	modprobe.conf in writeModulesConf, not here.
+
+	* loader2/modules.c (writeModulesConf): make it remove the first
+	"usb-storage" module it finds from modprobe.conf.  Also takes a
+	filename on input.
+
 2006-09-14  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/driverdisk.c: Better checking for what driver disks
