@@ -553,17 +553,115 @@ const char *ftpStrerror(int errorNumber, urlprotocol protocol) {
     }
 }
 
-/* extraHeaders is either NULL or a string with extra headers separated by '\r\n', ending with
- * '\r\n'
- */
-int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders) {
-    char * buf;
+static int read_headers (char **headers, fd_set *readSet, int sock)
+{
+    char *nextChar;
     struct timeval timeout;
-    char headers[4096];
-    char * nextChar = headers;
-    char *realhost;
+    int rc;
+
+    *headers = malloc(4096);
+    nextChar = *headers;
+
+    *nextChar = '\0';
+    while (!strstr(*headers, "\r\n\r\n")) {
+        FD_ZERO(readSet);
+        FD_SET(sock, readSet);
+
+        timeout.tv_sec = TIMEOUT_SECS;
+        timeout.tv_usec = 0;
+
+        rc = select(sock + 1, readSet, NULL, NULL, &timeout);
+        if (rc == 0) {
+            close(sock);
+            free(*headers);
+            *headers = NULL;
+            return FTPERR_SERVER_TIMEOUT;
+        } else if (rc < 0) {
+            close(sock);
+            free(*headers);
+            *headers = NULL;
+            return FTPERR_SERVER_IO_ERROR;
+        }
+
+        if (read(sock, nextChar, 1) != 1) {
+            close(sock);
+            free(*headers);
+            *headers = NULL;
+            return FTPERR_SERVER_IO_ERROR;
+        }
+
+        nextChar++;
+        *nextChar = '\0';
+
+        if (nextChar - *headers == sizeof(*headers))
+            *headers = realloc (*headers, sizeof(*headers)+4096);
+    }
+
+    return 0;
+}
+
+static char *find_header (char *headers, char *to_find)
+{
+    char *start, *end, *searching_for, *retval;
+
+    asprintf (&searching_for, "\r\n%s:", to_find);
+
+    if ((start = strstr(headers, searching_for)) == NULL) {
+        free(searching_for);    
+        return NULL;
+    }
+
+    /* Trim off what we were searching for so we only return the value. */
+    start += strlen(searching_for);
+    free(searching_for);
+    while (isspace(*start) && *start) start++;
+
+    if (start == NULL)
+        return NULL;
+
+    /* Now find the end of the header. */
+    end = strstr (start, "\r\n");
+
+    if (end == NULL) 
+        return NULL;
+
+    retval = strndup (start, end-start);
+    return retval;
+}
+
+static char *find_status_code (char *headers)
+{
+    char *start, *end, *retval;
+
+    start = headers;
+
+    /* Skip ahead to the first whitespace in the header. */
+    while (!isspace(*start) && *start) start++;
+    if (start == NULL)
+        return NULL;
+
+    /* Now skip over the whitespace.  What's next is the status code number,
+     * followed by a text description of the code.
+     */
+    while (isspace(*start) && *start) start++;
+    if (start == NULL)
+        return NULL;
+
+    if ((end = strstr (start, "\r\n")) == NULL)
+        return NULL;
+
+    retval = strndup (start, end-start);
+    return retval;
+}
+
+/* extraHeaders is either NULL or a string with extra headers separated
+ * by '\r\n', ending with '\r\n'.
+ */
+int httpGetFileDesc(char * hostname, int port, char * remotename,
+                    char *extraHeaders) {
+    char * buf, *headers = NULL;
+    char *realhost, *status;
     char *hstr;
-    int checkedCode;
     int family;
     struct in_addr addr;
     struct in6_addr addr6;
@@ -635,79 +733,45 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, realhost, hstr);
     rc = write(sock, buf, strlen(buf));
 
-    /* This is fun; read the response a character at a time until we:
+    rc = read_headers (&headers, &readSet, sock);
 
-       1) Get our first \r\n; which lets us check the return code
-       2) Get a \r\n\r\n, which means we're done */
+    if (rc < 0)
+        return rc;
 
-    *nextChar = '\0';
-    checkedCode = 0;
-    while (!strstr(headers, "\r\n\r\n")) {
-        FD_ZERO(&readSet);
-        FD_SET(sock, &readSet);
+    status = find_status_code (headers);
 
-        timeout.tv_sec = TIMEOUT_SECS;
-        timeout.tv_usec = 0;
-    
-        rc = select(sock + 1, &readSet, NULL, NULL, &timeout);
-        if (rc == 0) {
+    if (status == NULL) {
+        close(sock);
+        return FTPERR_SERVER_IO_ERROR;
+    } else if (!strncmp(status, "200", 3)) {
+        return sock;
+    } else if (!strncmp(status, "301", 3)) {
+        struct iurlinfo ui;
+        char *redir_loc = find_header (headers, "Location");
+        int retval;
+
+        if (redir_loc == NULL) {
+            logMessage(WARNING, "got a 301 response, but Location header is NULL");
             close(sock);
-            return FTPERR_SERVER_TIMEOUT;
-        } else if (rc < 0) {
-            close(sock);
-            return FTPERR_SERVER_IO_ERROR;
+            return FTPERR_FILE_NOT_FOUND;
         }
 
-        if (read(sock, nextChar, 1) != 1) {
-            close(sock);
-            return FTPERR_SERVER_IO_ERROR;
-        }
-
-        nextChar++;
-        *nextChar = '\0';
-
-        if (nextChar - headers == sizeof(headers)) {
-            close(sock);
-            return FTPERR_SERVER_IO_ERROR;
-        }
-
-        if (!checkedCode && strstr(headers, "\r\n")) {
-            char * start, * end;
-
-            checkedCode = 1;
-            start = headers;
-            while (!isspace(*start) && *start) start++;
-            if (!*start) {
-                close(sock);
-                return FTPERR_SERVER_IO_ERROR;
-            }
-            start++;
-
-            end = start;
-            while (!isspace(*end) && *end) end++;
-            if (!*end) {
-                close(sock);
-                return FTPERR_SERVER_IO_ERROR;
-            }
-
-            *end = '\0';
-            if (!strcmp(start, "404")) {
-                close(sock);
-                return FTPERR_FILE_NOT_FOUND;
-            } else if (!strcmp(start, "403")) {
-                close(sock);
-                return FTPERR_PERMISSION_DENIED;
-            } else if (strcmp(start, "200")) {
-                close(sock);
-                logMessage(ERROR, "bad HTTP response: %s", start);
-                return FTPERR_BAD_SERVER_RESPONSE;
-            }
-
-            *end = ' ';
-        }
+        logMessage(INFO, "redirecting to %s", redir_loc);
+        convertURLToUI(redir_loc, &ui);
+        retval = httpGetFileDesc (ui.address, -1, ui.prefix, extraHeaders);
+        free(redir_loc);
+        return retval;
+    } else if (!strncmp(status, "403", 3)) {
+        close(sock);
+        return FTPERR_PERMISSION_DENIED;
+    } else if (!strncmp(status, "404", 3)) {
+        close(sock);
+        return FTPERR_FILE_NOT_FOUND;
+    } else {
+        close(sock);
+        logMessage(ERROR, "bad HTTP response code: %s", status);
+        return FTPERR_BAD_SERVER_RESPONSE;
     }
-    
-    return sock;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
