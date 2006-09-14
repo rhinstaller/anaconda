@@ -952,6 +952,9 @@ class YumBackend(AnacondaBackend):
         if anaconda.dir == DISPATCH_BACK:
             return
 
+        dscb = YumDepSolveProgress(anaconda.intf)
+        self.ayum.dsCallback = dscb
+
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
@@ -973,9 +976,6 @@ class YumBackend(AnacondaBackend):
                     continue
                 self.ayum.remove(name=pkgname, arch=pkgarch)
             self.ayum.update()
-
-        dscb = YumDepSolveProgress(anaconda.intf)
-        self.ayum.dsCallback = dscb
 
         try:
             (code, msgs) = self.ayum.buildTransaction()

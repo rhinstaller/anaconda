@@ -5,6 +5,10 @@
 
 2006-09-14  Chris Lumens  <clumens@redhat.com>
 
+	* yuminstall.py (YumBackend.doPostSelection):  Move progress window
+	earlier so we have more immediate feedback when the "next" button is
+	clicked in tasksel.
+
 	* loader/ftp.c:  Break httpGetFileDesc up into helper functions to
 	read and example HTTP headers and response codes.  Handle 301 Redirect
 	by calling httpGetFileDesc again with the redirect location (#188198,
