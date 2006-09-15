@@ -1972,38 +1972,38 @@ msgstr "সহায় পোৱা ন'গ'ল"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "এই সংস্থাপনৰ পৰ্য্যায়ৰ বাবে কোনো সহায় পোৱা নাযায় ।"
 
 #: ../text.py:365
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "অসমৰ্থতাৰ দ'ম ৰক্ষা কৰক"
 
 #: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%s লৈ স্বাগতম"
 
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr "সহায়ৰ বাবে <F1> | পদাৰ্থৰ মাজত <Tab> | <Space>-এ নিৰ্ব্বাচন কৰে | পৰৱৰ্তী পৰ্দ্দালৈ <F12>"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-
+" পদাৰ্থৰ মাজত <Tab>/<Alt-Tab>   |  <Space>-এ নিৰ্ব্বাচন কৰে   |  পৰৱৰ্তী পৰ্দ্দালৈ <F12> "
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "বৰ্ত্তমানৰ ব্যৱস্থাপ্ৰণালী উন্নত কৰক"
 
 #: ../upgradeclass.py:24
 msgid "Upgrade"
-msgstr ""
+msgstr "উন্নত কৰক"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "উন্নয়নৰ লগত আগবাঢ়ো ?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2011,23 +2011,24 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-
+"আপুনি উন্নয়নৰ বাবে বিচৰা লিনাক্স সংস্থাপনৰ নথি-পত্ৰৰ প্ৰণালী ইতিমধ্যে তুলি লোৱা হৈছে । এই স্থানৰ পৰা পিছলৈ যোৱা আপেনাৰ বাবে সম্ভৱ নহয় ।\n"
+"\n"
 #: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "এই উন্নয়নত আপুনি আগবাঢ়িব খোজে নেকি ?"
 
 #: ../upgrade.py:94
 msgid "Searching"
-msgstr ""
+msgstr "বিচৰা হৈছে"
 
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s সংস্থাপনসমূহৰ বাবে বিচৰা হৈছে..."
 
 #: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "অপৰিষ্কাৰ নথি-পত্ৰৰ প্ৰণালী"
 
 #: ../upgrade.py:152
 #, python-format
@@ -2037,7 +2038,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-
+"আপেনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথি-পত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা ন'গ'ল ।অনুগ্ৰহ কৰি উন্নয়নৰ বাবে আপোনাৰ লিনাক্স সংস্থাপন প্ৰাৰম্ভ কৰক, নথি-পত্ৰৰ প্ৰণালীসমূহ পৰীক্ষা কৰি নিকা ভাবে ব্যৱস্থাপ্ৰণনালী বন্ধ কৰক ।\n"
+"%s"
 #: ../upgrade.py:160
 #, python-format
 msgid ""
@@ -2045,24 +2047,25 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-
+"আপেনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথি-পত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা ন'গ'ল । তথাপিও যিকোনো উপায়ে আপুনি তুলি ল'ব খোজে নেকি?\n"
+"%s"
 #: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
-msgstr ""
+msgstr "তুলি লোৱা বিফল হ'ল"
 
 #: ../upgrade.py:298
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-
+"আপোনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ /etc/fstab ত তালিকাভুক্ত কৰা এটা বা অধিক নথি-পত্ৰৰ প্ৰণালী তুলি ল'ব পৰা ন'গ'ল । অনুগ্ৰহ কৰি এই সমস্যা সমাধান কৰি পুনৰ উন্নয়নৰ চেষ্টা কৰক ।"
 #: ../upgrade.py:304
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-
+"আপোনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ /etc/fstab ত তালিকাভুক্ত কৰা এটা বা অধিক নথি-পত্ৰৰ প্ৰণালী স্থিৰতাহীন আৰু তুলি ল'ব পৰা ন'গ'ল । অনুগ্ৰহ কৰি এই সমস্যা সমাধান কৰি পুনৰ উন্নয়নৰ চেষ্টা কৰক ।"
 #: ../upgrade.py:321
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
