@@ -201,6 +201,10 @@ eexpress
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
+ehea_mod
+	eth
+	"IBM eServer HEA Driver"
+
 epic100
 	eth
 	"SMC 83c170 EPIC/100"
