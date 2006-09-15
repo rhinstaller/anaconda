@@ -165,8 +165,9 @@ def startNetworking(network, intf):
 
         f.close()
 
-def runShell(screen, msg=""):
-    screen.suspend()
+def runShell(screen = None, msg=""):
+    if screen:
+        screen.suspend()
 
     print
     if msg:
@@ -181,7 +182,8 @@ def runShell(screen, msg=""):
         print "Unable to find /bin/sh to execute!  Not starting shell"
         time.sleep(5)
 
-    screen.finish()
+    if screen:
+        screen.finish()
 
 def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
@@ -257,7 +259,7 @@ def runRescue(anaconda):
 
     # Early shell access with no disk access attempts
     if not anaconda.rescue_mount:
-	runShell(screen)
+	runShell()
 	sys.exit(0)
 
     # lets create some devices
