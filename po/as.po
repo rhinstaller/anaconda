@@ -1841,11 +1841,11 @@ msgstr "কৰ্তন কৰা হ'ল"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "মই আগৰ "
+msgstr "মই এই স্থানৰ পৰা আগৰ খোজলৈ যাব নোৱাৰো । আপুনি পুনঃ চেষ্টা কৰিব লাগিব ।"
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
-msgstr ""
+msgstr "উদ্ধাৰ"
 
 #: ../rescue.py:279
 #, python-format
@@ -1860,27 +1860,30 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-
+"উদ্ধাৰ পৰিবেশে এতিয়া আপোনাৰ লিনাক্স সংস্থাপন বিচাৰিবলৈ চেষ্টা কৰিব আৰু %s পঞ্জিকাৰ তলত তুলি ল'ব । তেতিয়া আপুনি আপোনাৰ ব্যৱস্থাপ্ৰণালীত যি কোনো প্ৰয়োজনীয় পৰিবৰ্ত্তন কৰিব পাৰে । যদি এই খোজেৰে আগবাঢ়িব খোজে, তেনেহ'লে 'আগবাঢ়ক'  নিৰ্ব্বাচন কৰক ।আপোনাৰ নথি-পত্ৰৰ প্ৰণালী সমূহক আপুনি 'অকল পঢ়ক'-এৰে পঢ়া আৰু লিখাৰ সলনি অকল পঢ়াৰ বাবে সক্ষম হোৱাকে তুলি ল'বলৈ নিৰ্ব্বাচন কৰিব পাৰে ।\n"
+"\n"
+"যদি কিবা কাৰণত এই প্ৰক্ৰিয়া বিফল হয় তেতিয়া হ'লে আপুনি 'বাদ দিয়ক' নিৰ্ব্বাচন কৰি এই কাৰ্য্যক বাদ দি আপুনি পোনপটীয়াকৈ আদেশ শ্বেললৈ যাব ।\n"
+"\n"
 #: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
 #: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
-msgstr ""
+msgstr "আগবাঢ়ক"
 
 #: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
-msgstr ""
+msgstr "অকল পঢ়ক"
 
 #: ../rescue.py:320
 msgid "System to Rescue"
-msgstr ""
+msgstr "উদ্ধাৰৰ বাবে ব্যৱস্থাপ্ৰণালী"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "আপোনাৰ সংস্থাপনৰ কোনটো বিভাজনে মূল বিভাজন ধৰি ৰাখে ?"
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
-msgstr ""
+msgstr "প্ৰস্থান"
 
 #: ../rescue.py:346
 msgid ""
@@ -1888,7 +1891,7 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-
+"আপোনাৰ ব্যৱস্থাপ্ৰণালীত আপুনি তুলি নোলোৱা অপৰিষ্কাৰ নথি-পত্ৰৰ প্ৰণালী আছিল । return টিপি শ্বেল এটাত আপুনি fsck কৰিব পাৰে আৰু নিজৰ বিভাজন সমূহ তুলি ল'ব পাৰে । আপুনি শ্বেলৰ পৰা প্ৰস্থান কৰোঁতে ব্যৱস্থাপ্ৰণালী স্বয়ংক্ৰিয় ভাবে পুনৰাম্ভ হ'ব ।"
 #: ../rescue.py:354
 #, python-format
 msgid ""
@@ -1914,58 +1917,58 @@ msgstr ""
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
-msgstr ""
+msgstr "উদ্ধাৰ পদ্ধতি"
 
 #: ../rescue.py:444
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-
+"আপেনাৰ লগত কোনো লিনাক্স বিভাজন নাই । শ্বেল এটা পাব'লৈ return টিপক । শ্বেলৰ পৰা প্ৰস্থান কৰিলে ব্যৱস্থাপ্ৰণালী স্বযংক্ৰিয় ভাবে পুনৰাম্ভ হ'ব ।"
 #: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "আপোনাৰ ব্যৱস্থাপ্ৰণালী %s পঞ্জিকাৰ তলত তুলি লোৱা হৈছে ।"
 
 #: ../text.py:149 ../text.py:164
 msgid "Save"
-msgstr ""
+msgstr "ৰক্ষা কৰক"
 
 #: ../text.py:152 ../text.py:166
 msgid "Remote"
-msgstr ""
+msgstr "দূৰৰ"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
-msgstr ""
+msgstr "ডিবাগ"
 
 #: ../text.py:158
 msgid "Exception Occurred"
-msgstr ""
+msgstr "ব্যতিক্ৰম ঘটিছে"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "দূৰৰ গৃহস্থলৈ ৰক্ষা কৰক"
 
 #: ../text.py:190
 msgid "Host"
-msgstr ""
+msgstr "গৃহস্থ"
 
 #: ../text.py:192
 msgid "Remote path"
-msgstr ""
+msgstr "দূৰৰ মাৰ্গ"
 
 #: ../text.py:194
 msgid "User name"
-msgstr ""
+msgstr "ব্যৱহাৰকৰ্তাৰ নাম"
 
 #: ../text.py:196
 msgid "Password"
-msgstr ""
+msgstr "গুপ্ত শব্দ"
 
 #: ../text.py:253
 msgid "Help not available"
-msgstr ""
+msgstr "সহায় পোৱা ন'গ'ল"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
