@@ -736,7 +736,7 @@ makemainimage () {
     elif [ $type = "squashfs" ]; then
         makeproductfile $IMGPATH
         echo "Running mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments"
-        mksquashfs $IMGPATH $mmi_tmpimage -all-root -nofragments
+        mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments
         chmod 0644 $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     elif [ $type = "cramfs" ]; then
