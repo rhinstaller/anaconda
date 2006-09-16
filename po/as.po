@@ -1,4 +1,3 @@
-# translation of as.po to Assamese
 # translation of anaconda to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -1904,7 +1903,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-
+"%s-ৰ তলত আপোনাৰ ব্যৱস্থাপ্ৰণালী তুলি লোৱা হৈছে ।\n"
+"\n"
+"শ্বেল এটা পাব'লৈ <return> টিপক । যদি আপুনি আপোনাৰ ব্যৱস্থাপ্ৰণালীক ৰুটৰ পৰিবেশ বনাব খোজিছে, তেন্তে এই আজ্ঞা চলাওক :\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"আপুনি শ্বেলৰ পৰা প্ৰস্থান কৰিলে ব্যৱহাৰপ্ৰণালী স্বয়ংক্ৰিয় ভাবে পুনৰাম্ভ হ'ব ।"
 #: ../rescue.py:437
 #, python-format
 msgid ""
@@ -1914,7 +1919,9 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-
+"আপোনাৰ ব্যৱস্থাপ্ৰনালীৰ কোনো বা সকলো তুলি লওঁতে এটা ভ্ৰান্তি হ'ল । ইয়াৰে কোনো কোনো %sৰ তলত তুলি লোৱা হ'ব পাৰে ।\n"
+"\n"
+"শ্বেল এটা পাব'লৈ <return> টিপক । আপুনি শ্বেলৰ পৰা প্ৰস্থান কৰিলে ব্যৱহাৰপ্ৰণালী স্বয়ংক্ৰিয় ভাবে পুনৰাম্ভ হ'ব । "
 #: ../rescue.py:443
 msgid "Rescue Mode"
 msgstr "উদ্ধাৰ পদ্ধতি"
@@ -2073,7 +2080,6 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-
 #: ../upgrade.py:327
 msgid "Absolute Symlinks"
 msgstr ""
