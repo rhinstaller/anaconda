@@ -2,6 +2,9 @@
 
 	* loader2/module-info:  Remove hostap from initrd (#196334).
 
+	* loader2/urlinstall.c:  Remove check for repodata/repomd.xml that
+	doesn't understand the new RHEL tree layout (#205571, #206072).
+
 2006-09-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

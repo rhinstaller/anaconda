@@ -280,11 +280,7 @@ char * mountUrlImage(struct installMethod * method,
 	    /* before trying to pull one over network         */
 	    cdurl = findAnacondaCD(location, modInfo, modLoaded, 
 				 *modDeps, 0);
-            /* FIXME: this hard-codes info about the backend type 
-               which sucks */
-	    if (cdurl && 
-                (loadSingleUrlImage(&ui, "repodata/repomd.xml", NULL, 
-                                    NULL, NULL, 0) == 0)) {
+	    if (cdurl) {
 		logMessage(INFO, "Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
 			  _("Local installation media detected..."), 0);
@@ -293,12 +289,6 @@ char * mountUrlImage(struct installMethod * method,
 
                 stage = URL_STAGE_DONE;
                 dir = 1;
-            } else if (cdurl) { 
-                /* clean up as we found a cd, but the path was bad */
-                umountStage2();
-                umount("/mnt/source");
-                stage = URL_STAGE_MAIN;
-                dir = -1;
             } else {
 		/* need to find stage 2 on remote site */
 		if (loadUrlImages(&ui)) {
