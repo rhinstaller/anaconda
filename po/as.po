@@ -2094,19 +2094,20 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-
+"তলত উল্লেখ কৰা সমূহ সাঙ্কেতিক সংযোগৰ সলনি পঞ্জিকা হয় যিবোেেৰে উন্নয়ন হেতু সমস্যা সৃষ্টি কৰিব পাৰে । অনুগ্ৰহ কৰি ইহঁতক সাঙ্কেতিক সংযোগ হিচাপে প্ৰাক্তন অৱস্থালৈ নিয়ক আৰু উন্নয়ন আৰম্ভ কৰক । \n"
+"\n"
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr ""
+msgstr "অবৈধ পঞ্জিকা"
 
 #: ../upgrade.py:351
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s বিচাৰি পোৱা ন'গ'ল"
 
 #: ../urlinstall.py:35
 msgid "Connecting..."
-msgstr ""
+msgstr "যোগাযোগ কৰা হৈছে..."
 
 #: ../urlinstall.py:74
 #, python-format
@@ -2119,7 +2120,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-
+"%s নথি-পত্ৰ খুলিব পৰা ন'গ'ল । এইটো কোনো লুপ্ত নথি-পত্ৰ বা বিকৃত সৰঞ্জামৰ বাবে হৈছে । "
+"and try using a different one.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
 #: ../vnc.py:43
 msgid "Unable to Start X"
 msgstr ""
