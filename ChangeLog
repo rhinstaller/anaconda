@@ -1,5 +1,7 @@
 2006-09-18  Chris Lumens  <clumens@redhat.com>
 
+	* gui.py (findGladeFile):  Fix misleading error message.
+
 	* loader2/module-info:  Remove hostap from initrd (#196334).
 
 	* loader2/urlinstall.c:  Remove check for repodata/repomd.xml that

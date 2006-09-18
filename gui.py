@@ -399,7 +399,7 @@ def findGladeFile(file):
         fn = dir + file
         if os.access(fn, os.R_OK):
             return fn
-    raise RuntimeError, "Unable to find glade file %s"  %(fn,)
+    raise RuntimeError, "Unable to find glade file %s" % file
 
 def getGladeWidget(file, rootwidget, i18ndomain="anaconda"):
     f = findGladeFile(file)
