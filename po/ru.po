@@ -1,4 +1,4 @@
-# translation of ru.po to 
+# translation of ru.po to
 # translation of ru.po to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
@@ -11,9 +11,9 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-17 15:30+1000\n"
-"Last-Translator: Yuliya Poyarkova <ypoyarko@redhat.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2006-09-19 01:11+0400\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3552,14 +3552,13 @@ msgid "Edit Interface %s"
 msgstr "Правка интерфейса %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Аппаратный адрес: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Использовать динамическую конфигурацию IP (DHCP)"
+msgstr "Использовать динамическую конфигурацию IP (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3574,29 +3573,24 @@ msgid "_Activate on boot"
 msgstr "Активизировать при загрузке"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "Адрес IPv4:"
+msgstr "Адрес IPv_4:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "Адрес IPv6:"
+msgstr "Адрес IPv_6:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Точка-точка (IP)"
+msgstr "_Точка-точка (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Ключ шифрования"
+msgstr "_Ключ шифрования:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3604,19 +3598,16 @@ msgid "Configure %s"
 msgstr "Параметры %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Неверная строка IP"
+msgstr "Неверный префикс"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
+msgstr "Префикс IPv4 должен быть в диапазоне от 0 до 32."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
+msgstr "Префикс IPv6 должен быть в диапазоне от 0 до 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3632,13 +3623,12 @@ msgid "Device"
 msgstr "Устройство"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/маска"
+msgstr "IPv4/маска"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Префикс"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3657,9 +3647,8 @@ msgid "_manually"
 msgstr "_вручную"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(напр. \"host.domain.com\")"
+msgstr "(напр. host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3809,12 +3798,12 @@ msgstr "Сделать первичным разделом"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Диск %s (Геом: %s/%s/%s) (Модель: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Диск %s (%-0.f Мб) (Модель: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4387,13 +4376,12 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Вы должны указать HTTP или FTP URL этого хранилища."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Точка монтирования \"%s\" уже используется, выберите другую точку "
-"монтирования."
+"Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5262,15 +5250,14 @@ msgid "Partitioning Type"
 msgstr "Тип разбиения"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Установка требует создания разделов на вашем жестком диске. По умолчанию, "
-"выбрано разбиение, оптимальное для большинства пользователей. Однако вы "
-"можете создать разделы вручную"
+"Установка требует создания разделов на вашем жестком диске.  Разбиение по "
+"умолчанию является оптимальным для большинства пользователей. Однако вы "
+"можете создать разделы вручную."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5342,7 +5329,7 @@ msgid "Package selection"
 msgstr "Выбор пакетов"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5517,7 +5504,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5759,12 +5746,12 @@ msgstr "Вставьте Диск драйверов"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
-msgstr "Ошибка монтирования диска драйвера."
+msgstr "Ошибка монтирования диска драйверов."
 
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Диск драйверов не подходит для этого выпуска %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6240,13 +6227,12 @@ msgstr ""
 "      %s для вашей архитектуры\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Значение маски CIDR должно быть в диапазоне от 1 до 32 для сетей IPv4 или от "
-"1 до 128 для сетей IPv6."
+"Значение префикса должно быть в диапазоне от 1 до 32 для сетей IPv4 или от 1 "
+"до 128 для сетей IPv6."
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6314,11 +6300,11 @@ msgstr "Настройка TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 необходим для NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Метод установки по NFS требует наличия поддержки IPv4."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6366,7 +6352,6 @@ msgid ""
 msgstr "Необходимо ввести корректный адрес IPv4 и маску сети или префикс CIDR."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv6 и префикс CIDR."
 
@@ -6725,15 +6710,16 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Укажите любые дополнительные репозитарии, которые вы хотели бы использовать "
+"для установки ПО."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Дальнейшая настройка списка програм может быть выполнена сейчас или после "
-"установки при помощи утилиты по управлению программным обеспечением."
+"Вы можете продолжить настройку списка программ сейчас, или выполнить ее "
+"после установки при помощи утилиты по управлению программным обеспечением."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6789,23 +6775,19 @@ msgstr "Атлантические острова"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Атлантическое стандартное время - Квебек - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Время вост. побережья - Онтарио - большая часть"
+msgstr "Атлантическое время - Лабрадор - большая часть"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Атлантическое время - Нью-Брансуик"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Атлантическое время - Новая Шотландия (большая часть), Восточный Лабрадор, "
-"Западный Квебек & PEI"
+msgstr "Атлантическое время - Новая Шотландия (большая часть), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6846,9 +6828,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Катамарка (CT), Чубут (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "центральный Китай - Ганьсу, Гуйчжоу, Сычуань, Юньнань и т.д."
+msgstr "центральный Китай - Сычуань, Юньнань, Ганьсу, Шэньси, Гуйчжоу, и т.д."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -7054,8 +7035,9 @@ msgid "Hawaii"
 msgstr "Гаваи"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Хейлунцзян (за искл. Mohe), Дзилинь"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7134,9 +7116,8 @@ msgid "Midway Islands"
 msgstr "о-ва Мидуэй"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Москва+01 - Каспийское море"
+msgstr "Москва+00 - Каспийское море"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7147,9 +7128,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Москва-01 - Калининград"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Москва+09 - Камчатка"
+msgstr "Москва+01 - Самара, Удмуртия"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7205,7 +7185,7 @@ msgstr "большая часть (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "большая часть Тибета и Синьцзянь"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7259,9 +7239,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Северо-восток Бразилии (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Атлантическое время - Западный Лабрадор"
+msgstr "время Ньюфаундленда, включая Юго-восточный Лабрадор"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7432,9 +7411,8 @@ msgid "West Kazakhstan"
 msgstr "Западный Казахстан"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Тибет и большая часть Синьцзянь-Уйгурский"
+msgstr "восточный Тибет и Синьцзянь"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
