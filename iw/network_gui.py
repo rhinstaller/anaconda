@@ -230,6 +230,7 @@ class NetworkWindow(InstallWindow):
 
 	def IPV4toggled(widget):
 	    active = widget.get_active()
+	    self.network.useIPv4 = active
 	    if not DHCPcb.get_active():
 	        if active:
 	            for widget in v4list:
@@ -240,6 +241,7 @@ class NetworkWindow(InstallWindow):
 
 	def IPV6toggled(widget):
 	    active = widget.get_active()
+	    self.network.useIPv6 = active
 	    if not DHCPcb.get_active():
 	        if active:
 	            for widget in v6list:
@@ -293,6 +295,8 @@ class NetworkWindow(InstallWindow):
 	align.add(IPV6cb)
 	devbox.pack_start(align, False, padding=3)
 
+	# FIXME: radio group to pick static or RFC2462 autoconfig
+
 	align = gtk.Alignment()
 	bootcb = gtk.CheckButton(_("_Activate on boot"))
 
@@ -301,7 +305,7 @@ class NetworkWindow(InstallWindow):
 	align.add(bootcb)
 	devbox.pack_start(align, False, padding=3)
 
-        ipTableLength = 2
+        ipTableLength = 3
 
         if (network.isPtpDev(dev)):
             ipTableLength += 1
@@ -319,8 +323,14 @@ class NetworkWindow(InstallWindow):
 
         # build the IP options table:
 
+	# put some column labels on the table
+	cl = gtk.Label(_("Address"))
+	ipTable.attach(cl, 0, 2, 0, 1, xpadding=0, ypadding=0)
+	cl = gtk.Label(_("Prefix (Netmask)"))
+	ipTable.attach(cl, 3, 5, 0, 1, xpadding=0, ypadding=0)
+
         # IPv4 address and mask
-        v4list.append(gtk.Label(_("IPv_4 Address:")))
+        v4list.append(gtk.Label(_("IPv_4:")))
         v4list[0].set_alignment(0.0, 0.5)
         v4list[0].set_property("use_underline", True)
         ipTable.attach(v4list[0], 0, 1, 1, 2, xpadding=0, ypadding=0)
@@ -342,7 +352,7 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v4list[3], 3, 4, 1, 2, xpadding=0, ypadding=0)
 
         # IPv6 address and prefix
-        v6list.append(gtk.Label(_("IPv_6 Address:")))
+        v6list.append(gtk.Label(_("IPv_6:")))
         v6list[0].set_alignment(0.0, 0.5)
         v6list[0].set_property("use_underline", True)
         ipTable.attach(v6list[0], 0, 1, 2, 3, xpadding=0, ypadding=0)
@@ -404,11 +414,8 @@ class NetworkWindow(InstallWindow):
 	DHCPcb.set_active(bootproto == 'DHCP')
 
 	# set the IPv4 and IPv6 check boxes
-	if bootproto == 'DHCP' or self.devices[dev].get("ipaddr") is not None:
-	    IPV4cb.set_active(True)
-
-	if bootproto == 'DHCP' or self.devices[dev].get("ipv6addr") is not None:
-	    IPV6cb.set_active(True)
+	IPV4cb.set_active(self.network.useIPv4)
+	IPV6cb.set_active(self.network.useIPv6)
 
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")

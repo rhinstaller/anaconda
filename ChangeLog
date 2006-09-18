@@ -1,5 +1,20 @@
 2006-09-18  David Cantrell  <dcantrell@redhat.com>
 
+	* network.py: Added the useIPv4 and useIPv6 flags to the Network class.
+	These are used in the network configuration dialog boxes. Set based on
+	existing network configuration, or initialize to true.
+
+	* network.py: Read in IPV6_AUTOCONF variable from the network-script if
+	it exists. We need this for the RFC 2462 auto configuration setting.
+
+	* iw/network_gui.py: Set the IPv4 and IPv6 enable check boxes based on
+	the useIPv4 and useIPv6 flags in the Network class.
+
+	* iw/network_gui.py: Add column labels so users have an idea of what
+	goes in the _____ / _____ entry boxes.
+
+2006-09-18  David Cantrell  <dcantrell@redhat.com>
+
 	* iw/network_gui.py: Correct input validation problems for manual
 	network configuration (#206148, #206678, #206537).
 
