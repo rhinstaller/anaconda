@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-26 17:08-0400\n"
+"POT-Creation-Date: 2006-09-18 15:40-0400\n"
 "PO-Revision-Date: 2005-12-31 18:44+0700\n"
 "Last-Translator: Vorasilp Kijchavengkul <vorasilp@gmail.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
@@ -22,102 +22,101 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: ../anaconda:258
+#: ../anaconda:256
 msgid "Unknown Error"
 msgstr "ข้อผิดพลาดที่ไม่รู้จัก"
 
-#: ../anaconda:261
+#: ../anaconda:259
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "เกิดข้อผิดพลาดขณะกำลังดึงส่วนที่สองของการตั้งค่า kickstart: %s!"
 
-#: ../anaconda:414
+#: ../anaconda:412
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
-#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:140
+#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
+#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:139
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:260 ../loader2/cdinstall.c:375
-#: ../loader2/cdinstall.c:380 ../loader2/cdinstall.c:385
-#: ../loader2/cdinstall.c:454 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
-#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:216 ../loader2/hdinstall.c:383
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
-#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:581
-#: ../loader2/hdinstall.c:594 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
+#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
+#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
+#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:411 ../loader2/lang.c:104
-#: ../loader2/lang.c:367 ../loader2/loader.c:335 ../loader2/loader.c:348
-#: ../loader2/loader.c:359 ../loader2/loader.c:778 ../loader2/loader.c:943
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:960 ../loader2/net.c:242
-#: ../loader2/net.c:282 ../loader2/net.c:706 ../loader2/net.c:949
-#: ../loader2/net.c:1446 ../loader2/net.c:1469 ../loader2/net.c:1643
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
-#: ../loader2/nfsinstall.c:259 ../loader2/telnetd.c:87
+#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
+#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
 #: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:476
-#: ../loader2/urlinstall.c:485 ../loader2/urlinstall.c:496
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
-#: ../loader2/urls.c:345 ../loader2/urls.c:456
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
+#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
+#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:351 ../loader2/urls.c:455
 msgid "OK"
 msgstr "ตกลง"
 
-#: ../anaconda:452
+#: ../anaconda:450
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "คุณมีแรมไม่พอที่จะใช้ตัวติดตั้งแบบกราฟิก กำลังเริ่มติดตั้งบนโหมดตัวอักษร"
 
-#: ../anaconda:476
+#: ../anaconda:466
 msgid "No video hardware found, assuming headless"
 msgstr "ไม่พบวิดีโอฮาร์ดแวร์ คิดว่าเป็นระบบไม่มีจอภาพ"
 
-#: ../anaconda:487 ../anaconda:910
+#: ../anaconda:473 ../anaconda:886
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Unable to instantiate a X hardware state object."
 
-#: ../anaconda:529
+#: ../anaconda:512
 msgid "Starting graphical installation..."
 msgstr "เริ่มต้นการติดตั้งแบบกราฟิก"
 
-#: ../anaconda:790
+#: ../anaconda:766
 msgid "Install class forcing text mode installation"
 msgstr "บังคับการติดตั้งเป็นแบบโหมดตัวอักษร"
 
-#: ../anaconda:816
+#: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "การติดตั้งแบบกราฟิกไม่สามารถทำได้... กำลังเริ่มการติดตั้งบนโหมดตัวอักษร"
 
-#: ../anaconda:824
+#: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:877
+#: ../anaconda:851
 #, fuzzy
 msgid "Unknown install method"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
 
-#: ../anaconda:878
+#: ../anaconda:852
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "คุณกำลังพยายามติดตั้งบนเครื่องซึ่ง %s รีลีสนี้ไม่สนับสนุน"
 
-#: ../anaconda:880
+#: ../anaconda:854
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
@@ -345,15 +344,15 @@ msgstr "เกิดข้อผิดพลาดที่ไม่สามา
 msgid "Your system will now be rebooted."
 msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
-#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
-#: ../partedUtils.py:1041 ../upgrade.py:350 ../yuminstall.py:1060
+#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
+#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
-#: ../iw/upgrade_swap_gui.py:203 ../iw/zfcp_gui.py:247
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:400
+#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
+#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
 msgid "Warning"
 msgstr "ข้อความเตือน"
 
@@ -448,20 +447,31 @@ msgstr "เสร็จสมบูรณ์"
 msgid "In progress...   "
 msgstr "กำลังดำเนินการ...   "
 
-#: ../cmdline.py:73
+#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"ข้อผิดพลาดต่อไปนี้เกิดเมื่อตีความค่าที่กำหนดไว้สำหรับ kickstart:\n"
+"\n"
+"%s"
+
+#: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "ไม่สามารถถามคำถามขณะที่อยู่ในโหมดบรรทัดคำสั่งได้!"
 
-#: ../cmdline.py:92
+#: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Parted exceptions ไม่สามารถถูกจัดการในโหมดบรรทัดคำสั่งได้"
 
-#: ../cmdline.py:137
+#: ../cmdline.py:145
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "เสร็จแล้ว [%d/%d]"
 
-#: ../cmdline.py:143
+#: ../cmdline.py:151
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr "กำลังติดตั้ง %s-%s-%s.... "
@@ -477,11 +487,11 @@ msgstr ""
 "และส่งรายงานบั๊กพร้อมรายละเอียดที่เกี่ยวข้องกับอนาคอนดาไปที่ http://bugzilla.redhat.com/"
 "bugzilla/"
 
-#: ../exception.py:390 ../exception.py:407
+#: ../exception.py:400 ../exception.py:417
 msgid "Dump Written"
 msgstr "เขียนถ่ายข้อมูล"
 
-#: ../exception.py:391
+#: ../exception.py:401
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -489,23 +499,23 @@ msgid ""
 msgstr ""
 "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
-#: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
-#: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
-#: ../image.py:442 ../image.py:513 ../packages.py:300 ../iw/confirm_gui.py:32
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
+#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
+#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_รีบูต"
 
-#: ../exception.py:399 ../exception.py:416
+#: ../exception.py:409 ../exception.py:426
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "เขียนถ่ายข้อมูล"
 
-#: ../exception.py:400
+#: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:408
+#: ../exception.py:418
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -513,47 +523,46 @@ msgid ""
 msgstr ""
 "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
-#: ../exception.py:417
+#: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:216
+#: ../fsset.py:221
 msgid "Checking for Bad Blocks"
 msgstr "กำลังตรวจสอบหาพื้นที่เสีย"
 
-#: ../fsset.py:217
+#: ../fsset.py:222
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "กำลังตรวจสอบหาพื้นที่เสียใน /dev/%s..."
 
-#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
-#: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
-#: ../fsset.py:1679 ../fsset.py:1745 ../fsset.py:1764 ../image.py:132
-#: ../image.py:173 ../image.py:305 ../partedUtils.py:788
-#: ../partIntfHelpers.py:406 ../yuminstall.py:567 ../yuminstall.py:655
-#: ../yuminstall.py:906 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
+#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
+#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
+#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
+#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
+#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:110 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:454 ../loader2/driverdisk.c:337
-#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:216
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:538
-#: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:104 ../loader2/loader.c:359
-#: ../loader2/loader.c:778 ../loader2/mediacheck.c:329
+#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:334 ../loader2/urls.c:339
+#: ../loader2/urls.c:340 ../loader2/urls.c:345
 msgid "Error"
 msgstr "เกิดข้อผิดพลาด"
 
-#: ../fsset.py:672
+#: ../fsset.py:677
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -566,27 +575,27 @@ msgstr ""
 "\n"
 "คุณต้องการดำเนินการต่อโดยไม่เปลี่ยนระบบไฟล์ของ %s เป็น ext3 หรือไม่?"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1333
 msgid "RAID Device"
 msgstr "อุปกรณ์ RAID"
 
-#: ../fsset.py:1334 ../fsset.py:1340
+#: ../fsset.py:1337 ../fsset.py:1343
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1345 ../partitions.py:902
+#: ../fsset.py:1348 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1348
+#: ../fsset.py:1351
 msgid "First sector of boot partition"
 msgstr "เซกเตอร์แรกของบูตพาร์ทิชัน"
 
-#: ../fsset.py:1349
+#: ../fsset.py:1352
 msgid "Master Boot Record (MBR)"
 msgstr "บูตเรคอร์ดหลัก (MBR)"
 
-#: ../fsset.py:1423
+#: ../fsset.py:1426
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -599,17 +608,17 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1452 ../rescue.py:289 ../rescue.py:291
+#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:420
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "ข้ามไป"
 
-#: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "รีบูต"
 
-#: ../fsset.py:1473
+#: ../fsset.py:1476
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -621,12 +630,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1480
+#: ../fsset.py:1483
 #, fuzzy
 msgid "Reformat"
 msgstr "ฟอร์แมต"
 
-#: ../fsset.py:1484
+#: ../fsset.py:1487
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -638,7 +647,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1492
+#: ../fsset.py:1495
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -650,7 +659,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1502
+#: ../fsset.py:1505
 msgid ""
 "\n"
 "\n"
@@ -659,11 +668,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1508 ../iw/partition_gui.py:368
+#: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "ฟอร์แมต"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1518
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -679,7 +688,7 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1526
+#: ../fsset.py:1529
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -694,7 +703,7 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1579
+#: ../fsset.py:1583
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -706,7 +715,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณ"
 
-#: ../fsset.py:1590
+#: ../fsset.py:1594
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -719,7 +728,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1630
+#: ../fsset.py:1634
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -731,7 +740,7 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1680
+#: ../fsset.py:1684
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -744,11 +753,11 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1706 ../fsset.py:1715
+#: ../fsset.py:1710 ../fsset.py:1719
 msgid "Invalid mount point"
 msgstr "ตำแหน่งเมานท์ไม่ถูกต้อง"
 
-#: ../fsset.py:1707
+#: ../fsset.py:1711
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -761,7 +770,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1716
+#: ../fsset.py:1720
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -774,24 +783,24 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1729
+#: ../fsset.py:1733
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "ไม่สามารถโหลดไฟล์ได้!"
 
-#: ../fsset.py:1730
+#: ../fsset.py:1734
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
-#: ../kickstart.py:1017 ../iw/partition_gui.py:1011
+#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
+#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_ต่อไป"
 
-#: ../fsset.py:1746
+#: ../fsset.py:1750
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -806,7 +815,7 @@ msgstr ""
 "\n"
 "กดปุ่มตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1765
+#: ../fsset.py:1769
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -821,11 +830,11 @@ msgstr ""
 "\n"
 "กดปุ่มตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:2456
+#: ../fsset.py:2462
 msgid "Duplicate Labels"
 msgstr "ชื่อซ้ำซ้อน"
 
-#: ../fsset.py:2457
+#: ../fsset.py:2463
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -838,11 +847,11 @@ msgstr ""
 "\n"
 "ให้ทำการแก้ไข แล้วเริ่มการติดตั้งใหม่ทั้งหมด "
 
-#: ../fsset.py:2717
+#: ../fsset.py:2723
 msgid "Formatting"
 msgstr "กำลังฟอร์แมต"
 
-#: ../fsset.py:2718
+#: ../fsset.py:2724
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "กำลังฟอร์แมตระบบไฟล์ %s ..."
@@ -894,23 +903,24 @@ msgstr ""
 msgid "Fix"
 msgstr "ซ่อม"
 
-#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
 msgid "Yes"
 msgstr "ใช่"
 
-#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/loader.c:403
 msgid "No"
 msgstr "ไม่"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
-#: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
-#: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
+#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
+#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
+#: ../loader2/net.c:1137
 msgid "Retry"
 msgstr "ลองใหม่"
 
@@ -918,45 +928,34 @@ msgstr "ลองใหม่"
 msgid "Ignore"
 msgstr "ไม่ต้องสนใจ"
 
-#: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/loader.c:348
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
+#: ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: ../gui.py:832 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"ข้อผิดพลาดต่อไปนี้เกิดเมื่อตีความค่าที่กำหนดไว้สำหรับ kickstart:\n"
-"\n"
-"%s"
-
-#: ../gui.py:834 ../text.py:356
+#: ../gui.py:843 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "เกิดข้อผิดพลาดในการวิเคราะห์ค่าที่กำหนดของ Kickstart"
 
-#: ../gui.py:842 ../text.py:366
+#: ../gui.py:851 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr "กรุณาใส่แผ่นฟลอปปี้ ข้อมูลทั้งหมดในแผ่นจะถูกลบ ดังนั้นกรุณาเลือกแผ่นดิสก์อย่างระมัดระวัง"
 
-#: ../gui.py:889
+#: ../gui.py:898
 msgid "default:LTR"
 msgstr "ค่าปริยาย:LTR"
 
-#: ../gui.py:973
+#: ../gui.py:982
 msgid "Error!"
 msgstr "เกิดข้อผิดพลาด!"
 
-#: ../gui.py:974
+#: ../gui.py:983
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -967,41 +966,40 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
-#: ../yuminstall.py:661
+#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
 msgid "_Exit"
 msgstr "_ออกจากโปรแกรม"
 
-#: ../gui.py:980 ../yuminstall.py:570
+#: ../gui.py:989 ../yuminstall.py:609
 msgid "_Retry"
 msgstr "_ลองใหม่"
 
-#: ../gui.py:983 ../packages.py:296
+#: ../gui.py:992 ../packages.py:294
 msgid "The installer will now exit..."
 msgstr "กำลังออกจากโปรแกรมติดตั้ง..."
 
-#: ../gui.py:986 ../packages.py:299
+#: ../gui.py:995 ../packages.py:297
 msgid "Your system will now be rebooted..."
 msgstr "ระบบของคุณกำลังจะถูกรีบูต..."
 
-#: ../gui.py:989 ../packages.py:301
+#: ../gui.py:998 ../packages.py:299
 msgid "Rebooting System"
 msgstr "กำลังรีบูตระบบ"
 
-#: ../gui.py:1053
+#: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
 msgstr "ตัวติดตั้ง %s"
 
-#: ../gui.py:1060
+#: ../gui.py:1069
 msgid "Unable to load title bar"
 msgstr "ไม่สามารถโหลดแถบหัวเรื่องได้"
 
-#: ../gui.py:1109
+#: ../gui.py:1118
 msgid "Install Window"
 msgstr "วินโดว์ติดตั้ง"
 
-#: ../harddrive.py:41 ../image.py:143 ../image.py:470
+#: ../harddrive.py:44 ../image.py:144 ../image.py:474
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1017,11 +1015,11 @@ msgstr ""
 "\n"
 "กดปุ่ม <return> เพื่อลองใหม่"
 
-#: ../harddrive.py:68 ../image.py:503
+#: ../harddrive.py:71 ../image.py:507
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
-#: ../harddrive.py:69
+#: ../harddrive.py:72
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1031,7 +1029,7 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: ../harddrive.py:78 ../image.py:514
+#: ../harddrive.py:81 ../image.py:518
 #, fuzzy
 msgid "Re_try"
 msgstr "ลองใหม่"
@@ -1054,13 +1052,13 @@ msgstr ""
 "%s\n"
 "กรุณาเตรียมไว้ให้พร้อมก่อนทำการติดตั้ง ถ้าคุณต้องการยกเลิกและจะรีบูต ให้เลือก \"รีบูต\""
 
-#: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
+#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_ย้อนกลับ"
 
-#: ../image.py:133
+#: ../image.py:134
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1069,15 +1067,15 @@ msgstr ""
 "เกิดข้อผิดพลาดระหว่างยกเลิกการเมานท์ซีดี ให้ตรวจดูว่าคุณไม่ได้กำลังเข้าใช้งาน %s จากเชลล์บน "
 "tty2 แล้วให้คลิ้ก ตกลง เพื่อลองใหม่อีกครั้ง"
 
-#: ../image.py:163
+#: ../image.py:164
 msgid "Copying File"
 msgstr "กำลังคัดลอกไฟล์"
 
-#: ../image.py:164
+#: ../image.py:165
 msgid "Transferring install image to hard drive..."
 msgstr "กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปที่ฮาร์ดไดรฟ์..."
 
-#: ../image.py:174
+#: ../image.py:175
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1085,29 +1083,29 @@ msgstr ""
 "เกิดข้อผิดพลาดขณะที่กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปยังฮาร์ดไดรฟ์ของคุณ "
 "เป็นไปได้ว่าคุณไม่มีที่ว่างบนดิสก์"
 
-#: ../image.py:263
+#: ../image.py:264
 msgid "Change CDROM"
 msgstr "เปลี่ยนแผ่นซีดี"
 
-#: ../image.py:264
+#: ../image.py:265
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "โปรดใส่โปรแกรม %s แผ่น %d เพื่อดำเนินการติดตั้งต่อ"
 
-#: ../image.py:299
+#: ../image.py:300
 msgid "Wrong CDROM"
 msgstr "ใส่ซีดีรอมผิด"
 
-#: ../image.py:300
+#: ../image.py:301
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "นี่ไม่ใช่ซีดีรอมของ %s"
 
-#: ../image.py:306
+#: ../image.py:307
 msgid "Unable to access the CDROM."
 msgstr "ไม่สามารถเข้าถึงแผ่นซีดีได้"
 
-#: ../image.py:359
+#: ../image.py:360
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1123,7 +1121,7 @@ msgstr ""
 "\n"
 "กดปุ่ม <return> เพื่อลองใหม่"
 
-#: ../image.py:504
+#: ../image.py:508
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1133,11 +1131,11 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../installclass.py:60
+#: ../installclass.py:64
 msgid "Install on System"
 msgstr "ติดตั้งบนระบบ"
 
-#: ../iscsi.py:127 ../iscsi.py:128
+#: ../iscsi.py:126 ../iscsi.py:127
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "กำลังเตรียมความพร้อม..."
@@ -1160,24 +1158,24 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบใหม่"
 
-#: ../kickstart.py:821 ../kickstart.py:839
+#: ../kickstart.py:764 ../kickstart.py:782
 #, fuzzy
 msgid "Running..."
 msgstr "กำลังตรวจสอบ \"%s\"..."
 
-#: ../kickstart.py:822
+#: ../kickstart.py:765
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:840
+#: ../kickstart.py:783
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:980
+#: ../kickstart.py:926
 msgid "Missing Package"
 msgstr "ไม่พบแพ็กเกจ"
 
-#: ../kickstart.py:981
+#: ../kickstart.py:927
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1186,15 +1184,16 @@ msgstr ""
 "คุณได้กำหนดไว้ว่าแพ็กเกจ '%s' ต้องถูกติดตั้ง แต่แพ็กเกจนี้ไม่ได้มีอยู่ "
 "คุณยังอยากจะดำเนินการต่อไปหรือยกเลิกการติดตั้ง?"
 
-#: ../kickstart.py:987 ../kickstart.py:1016
+#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_ยกเลิก"
 
-#: ../kickstart.py:1008
+#: ../kickstart.py:961
 msgid "Missing Group"
 msgstr "ไม่พบกลุ่ม"
 
-#: ../kickstart.py:1009
+#: ../kickstart.py:962
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1232,25 +1231,25 @@ msgstr "หมายเลข IP จะต้องเป็นตัวเล�
 msgid "'%s' is not a valid IPv6 address."
 msgstr "ชื่อ %s ใช้เป็นชื่อโฮสต์ไม่ได้"
 
-#: ../packages.py:247
-#, fuzzy
-msgid "Enter Registration Key"
-msgstr "Encryption Key"
-
-#: ../packages.py:248
+#: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
 msgstr ""
 
-#: ../packages.py:248
+#: ../packages.py:245
+#, fuzzy
+msgid "Enter Registration Key"
+msgstr "Encryption Key"
+
+#: ../packages.py:246
 msgid "Key:"
 msgstr ""
 
-#: ../packages.py:278
+#: ../packages.py:276
 msgid "Warning! This is pre-release software!"
 msgstr "คำเตือน! นี้เป็นซอฟต์แวร์รุ่นทดสอบเท่านั้น! "
 
-#: ../packages.py:279
+#: ../packages.py:277
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1275,15 +1274,15 @@ msgstr ""
 "\n"
 "และส่งรายงานที่เกี่ยวข้องกับ %s.\n"
 
-#: ../packages.py:292
+#: ../packages.py:290
 msgid "_Install anyway"
 msgstr "ดำเนินการติดตั้งต่อ"
 
-#: ../partedUtils.py:206 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
 msgstr "อื่นๆ"
 
-#: ../partedUtils.py:306
+#: ../partedUtils.py:305
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1299,7 +1298,7 @@ msgstr ""
 "\n"
 "คุณต้องการเปลี่ยนรูปแบบของ DASD นี้ให้เป็นรูปแบบ CDL หรือไม่?"
 
-#: ../partedUtils.py:336
+#: ../partedUtils.py:335
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1313,29 +1312,29 @@ msgstr ""
 "\n"
 "คุณต้องการให้ฟอร์แมตไดรฟ์นี้หรือไม่?"
 
-#: ../partedUtils.py:345
+#: ../partedUtils.py:344
 msgid "_Ignore drive"
 msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 
-#: ../partedUtils.py:346
+#: ../partedUtils.py:345
 msgid "_Format drive"
 msgstr "_ฟอร์แมตไดรฟ์"
 
-#: ../partedUtils.py:789
+#: ../partedUtils.py:791
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "เกิดข้อผิดพลาดขณะกำลังเมานท์ระบบไฟล์บน %s: %s"
 
-#: ../partedUtils.py:884
+#: ../partedUtils.py:888
 msgid "Initializing"
 msgstr "กำลังเตรียมความพร้อม..."
 
-#: ../partedUtils.py:885
+#: ../partedUtils.py:889
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "กรุณารอสักครู่ กำลังฟอร์แมตไดรฟ์ %s...\n"
 
-#: ../partedUtils.py:985
+#: ../partedUtils.py:987
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1355,7 +1354,7 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:1042
+#: ../partedUtils.py:1044
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1374,11 +1373,11 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:1160
+#: ../partedUtils.py:1162
 msgid "No Drives Found"
 msgstr "ไม่พบไดรฟ์ในเครื่อง"
 
-#: ../partedUtils.py:1161
+#: ../partedUtils.py:1163
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1496,27 +1495,27 @@ msgstr ""
 "คุณไม่สามารถลบพาร์ทิชันนี้ได้:\n"
 "\n"
 
-#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
 msgstr "ยืนยันการลบ"
 
-#: ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "คุณกำลังจะลบพาร์ทิชันทั้งหมดบนดีไวซ์ '/dev/%s'"
 
-#: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
+#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "_ลบ"
 
-#: ../partIntfHelpers.py:294
+#: ../partIntfHelpers.py:295
 msgid "Notice"
 msgstr "โปรดสังเกต"
 
-#: ../partIntfHelpers.py:295
+#: ../partIntfHelpers.py:296
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1527,16 +1526,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
-#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
+#: ../partIntfHelpers.py:312 ../partIntfHelpers.py:325
+#: ../partIntfHelpers.py:351 ../partIntfHelpers.py:362
 msgid "Unable To Edit"
 msgstr "ไม่สามารถแก้ไขได้"
 
-#: ../partIntfHelpers.py:312
+#: ../partIntfHelpers.py:313
 msgid "You must select a partition to edit"
 msgstr "คุณต้องเลือกพาร์ทิชันที่จะแก้ไข"
 
-#: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
+#: ../partIntfHelpers.py:325 ../partIntfHelpers.py:363
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
@@ -1544,18 +1543,18 @@ msgstr ""
 "คุณไม่สามารถแก้ไขพาร์ทิชันนี้ได้:\n"
 "\n"
 
-#: ../partIntfHelpers.py:351
+#: ../partIntfHelpers.py:352
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "คุณไม่สามารถแก้ไขพาร์ทิชันนี้ได้ เพราะมันเป็นพาร์ทิชันแบบขยายซึ่งมีพาร์ทิชันอยู่คือ %s "
 
-#: ../partIntfHelpers.py:383
+#: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
 msgstr "ฟอร์แมตเป็น swap หรือไม่?"
 
-#: ../partIntfHelpers.py:384
+#: ../partIntfHelpers.py:385
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1568,12 +1567,12 @@ msgstr ""
 "\n"
 "คุณต้องการฟอร์แมตพาร์ทิชันนี้เป็นพาร์ทิชัน swap หรือไม่?"
 
-#: ../partIntfHelpers.py:404
+#: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "คุณต้องเลือกอย่างน้อยหนึ่งฮาร์ดไดรฟ์ เพื่อใช้ในการติดตั้ง %s"
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:411
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1587,23 +1586,23 @@ msgstr ""
 "เพื่อให้แน่ใจว่าไฟล์จากการติดตั้งครั้งก่อนจะไม่สร้างปัญหาให้กับการติดตั้งลินุกซ์ครั้งนี้ แต่อย่างไรก็ตาม "
 "ถ้าพาร์ทิชันนี้มีข้อมูลที่ต้องการเก็บไว้ เช่น เป็นโฮมไดเรกทอรี ก็ควรดำเนินการต่อไปโดยไม่ต้องฟอร์แมต"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Format?"
 msgstr "ฟอร์แมตหรือไม่?"
 
-#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "แ_ก้ไขพาร์ทิชัน"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Do _Not Format"
 msgstr "ไ_ม่ต้องฟอร์แมต"
 
-#: ../partIntfHelpers.py:426
+#: ../partIntfHelpers.py:427
 msgid "Error with Partitioning"
 msgstr "เกิดข้อผิดพลาดกับการแบ่งพาร์ทิชัน"
 
-#: ../partIntfHelpers.py:427
+#: ../partIntfHelpers.py:428
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1616,11 +1615,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:441
+#: ../partIntfHelpers.py:442
 msgid "Partitioning Warning"
 msgstr "ข้อความเตือนในการแบ่งพาร์ทิชัน"
 
-#: ../partIntfHelpers.py:442
+#: ../partIntfHelpers.py:443
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1635,13 +1634,13 @@ msgstr ""
 "\n"
 "คุณต้องการดำเนินการติดตั้งต่อตามประเภทการแบ่งพาร์ทิชันทีคุณต้องการหรือไม่?"
 
-#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:457 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr "พาร์ทิชันที่มีอยู่แล้วนี้จะถูกฟอร์แมต และลบข้อมูลทั้งหมดที่มีอยู่"
 
-#: ../partIntfHelpers.py:459
+#: ../partIntfHelpers.py:460
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1649,11 +1648,11 @@ msgstr ""
 "กดปุ่ม 'ใช่' เพื่อดำเนินการฟอร์แมตพาร์ทิชันเหล่านี้ หรือกดปุ่ม 'ไม่ใช่' เพื่อย้อนกลับ "
 "แล้วเปลี่ยนการตั้งค่าเหล่านี้ใหม่"
 
-#: ../partIntfHelpers.py:465
+#: ../partIntfHelpers.py:466
 msgid "Format Warning"
 msgstr "ข้อความเตือนเกี่ยวกับการฟอร์แมต"
 
-#: ../partIntfHelpers.py:513
+#: ../partIntfHelpers.py:514
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1664,38 +1663,38 @@ msgstr ""
 "\n"
 "logical volumes ทั้งหมดใน volume group จะหายไป"
 
-#: ../partIntfHelpers.py:517
+#: ../partIntfHelpers.py:518
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "คุณกำลังจะลบ logical volume \"%s\""
 
-#: ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:521
 msgid "You are about to delete a RAID device."
 msgstr "คุณกำลังจะลบดีไวซ์ RAID"
 
-#: ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:524
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "คุณกำลังจะลบพาร์ทิชัน /dev/%s "
 
-#: ../partIntfHelpers.py:526
+#: ../partIntfHelpers.py:527
 msgid "The partition you selected will be deleted."
 msgstr "พาร์ทิชันที่คุณเลือกจะถูกลบ"
 
-#: ../partIntfHelpers.py:536
+#: ../partIntfHelpers.py:537
 msgid "Confirm Reset"
 msgstr "ยืนยันการรีเซ็ต"
 
-#: ../partIntfHelpers.py:537
+#: ../partIntfHelpers.py:538
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตตารางพาร์ทิชันกลับไปยังสถานะดั้งเดิมของมัน?"
 
-#: ../partitioning.py:68
+#: ../partitioning.py:62
 msgid "Installation cannot continue."
 msgstr "การติดตั้งไม่สามารถดำเนินการต่อได้"
 
-#: ../partitioning.py:69
+#: ../partitioning.py:63
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1705,11 +1704,11 @@ msgstr ""
 "คุณไม่สามารถย้อนกลับไปยังขั้นตอนการแก้ไขดิสก์ได้แล้ว "
 "คุณต้องการดำเนินการต่อในขั้นตอนการติดตั้งหรือไม่?"
 
-#: ../partitioning.py:99
+#: ../partitioning.py:93
 msgid "Low Memory"
 msgstr "หน่วยความจำมีน้อย"
 
-#: ../partitioning.py:100
+#: ../partitioning.py:94
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1718,43 +1717,43 @@ msgstr ""
 "ขณะนี้เครื่องของคุณมีหน่วยความจำไม่มากพอ เราต้องเปิดใช้พื้นที่ swap ทันที "
 "ซึ่งคุณจะต้องบันทึกตารางพาร์ทิชันใหม่ลงในดิสก์ทันที คุณจะตกลงหรือไม่?"
 
-#: ../partitions.py:818
+#: ../partitions.py:816
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "คุณยังไม่ได้กำหนดพาร์ทิชัน root (/) ซึ่งจำเป็นต้องใช้ เพื่อให้การติดตั้ง %s ดำเนินการต่อไป"
 
-#: ../partitions.py:823
+#: ../partitions.py:821
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "พาร์ทิชัน root ของคุณ (/) มีขนาดเล็กกว่า 250 เมกะไบต์ ซึ่งเล็กเกินไปที่จะติดตั้ง %s"
 
-#: ../partitions.py:842
+#: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
 
-#: ../partitions.py:849
+#: ../partitions.py:847
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "คุณจะต้องสร้างพาร์ทิชันที่มีตำแหน่งเมานท์ที่ /boot/efi สำหรับพาร์ทิชันชนิด FAT และมีขนาด 50 "
 "เมกะไบต์"
 
-#: ../partitions.py:869
+#: ../partitions.py:867
 #, fuzzy
 msgid "You must create an Apple Bootstrap partition."
 msgstr "คุณต้องสร้างพาร์ทิชันบูต PPC PReP"
 
-#: ../partitions.py:891
+#: ../partitions.py:889
 msgid "You must create a PPC PReP Boot partition."
 msgstr "คุณต้องสร้างพาร์ทิชันบูต PPC PReP"
 
-#: ../partitions.py:899 ../partitions.py:910
+#: ../partitions.py:897 ../partitions.py:908
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1763,26 +1762,26 @@ msgstr ""
 "พาร์ทิชัน %s ที่คุณสร้างมีขนาดเล็กกว่า %s เมกะไบต์ "
 "ซึ่งมีขนาดต่ำกว่าที่แนะนำสำหรับที่จะใช้ในการติดตั้ง %s ตามปกติ"
 
-#: ../partitions.py:944
+#: ../partitions.py:942
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: ../partitions.py:947
+#: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: ../partitions.py:956 ../partRequests.py:677
+#: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "พาร์ทิชันที่บูตได้ ต้องอยู่บนอุปกรณ์ RAID1 เท่านั้น"
 
-#: ../partitions.py:963
+#: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บน logical volume"
 
-#: ../partitions.py:988
+#: ../partitions.py:986
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1790,7 +1789,7 @@ msgstr ""
 "คุณยังไม่ระบุพาร์ทิชัน swap แม้ว่าจะไม่ได้จำเป็นต้องใช้นักในทุกกรณี "
 "แต่มันจะทำให้เพิ่มประสิทธิภาพในการติดตั้งแทบทุกกรณี"
 
-#: ../partitions.py:995
+#: ../partitions.py:993
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1799,7 +1798,7 @@ msgstr ""
 "คุณได้ระบุอุปกรณ์ swap มากกว่า 32 ตัวเคอร์เนลของ %s รองรับอุปกรณ์ swap ได้เพียงแค่ 32 "
 "ตัวเท่านั้น"
 
-#: ../partitions.py:1006
+#: ../partitions.py:1004
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1808,15 +1807,15 @@ msgstr ""
 "พื้นที่ swap ที่คุณสร้าง (%dM) น้อยกว่าขนาดของแรม (%dM) บนระบบของคุณ "
 "ซึ่งจะมีผลกระทบที่ไม่ดีต่อประสิทธิภาพ"
 
-#: ../partitions.py:1306
+#: ../partitions.py:1304
 msgid "the partition in use by the installer."
 msgstr "พาร์ทิชันถูกใช้โดยโปรแกรมติดตั้ง"
 
-#: ../partitions.py:1309
+#: ../partitions.py:1307
 msgid "a partition which is a member of a RAID array."
 msgstr "พาร์ทิชันนี้เป็นสมาชิกหนึ่งในชุดอาร์เรย์ RAID"
 
-#: ../partitions.py:1312
+#: ../partitions.py:1310
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "พาร์ทิชันนี้เป็นสมาชิกหนึ่งใน LVM Volume Group"
 
@@ -1905,31 +1904,31 @@ msgstr "เริ่มใช้อินเทอร์เฟซ"
 msgid "Attempting to start %s"
 msgstr "กำลังพยายามที่จะเริ่ม %s"
 
-#: ../rescue.py:174
+#: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "เมื่อเสร็จแล้ว กรุณาออกจากเชลล์ แล้วระบบของคุณจะทำการรีบูต"
 
-#: ../rescue.py:199
+#: ../rescue.py:201
 msgid "Setup Networking"
 msgstr "ติดตั้งระบบเน็ตเวิร์ก"
 
-#: ../rescue.py:200
+#: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "คุณต้องการให้เริ่มการทำงานของเน็ตเวิร์คอินเทอร์เฟซของระบบหรือไม่"
 
-#: ../rescue.py:241 ../text.py:533
+#: ../rescue.py:243 ../text.py:533
 msgid "Cancelled"
 msgstr "ถูกยกเลิกแล้ว"
 
-#: ../rescue.py:242 ../text.py:534
+#: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "ระบบไม่สามารถย้อนกลับไปขั้นตอนก่อนหน้านี้ได้ คุณอาจจะต้องลองใหม่"
 
-#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
 msgstr "กู้ระบบ"
 
-#: ../rescue.py:279
+#: ../rescue.py:281
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1951,28 +1950,28 @@ msgstr ""
 "แล้วคุณจะเข้าสู่การสั่งงานโดยตรงที่เชลล์\n"
 "\n"
 
-#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
-#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "ดำเนินการต่อไป"
 
-#: ../rescue.py:289 ../rescue.py:294
+#: ../rescue.py:291 ../rescue.py:296
 msgid "Read-Only"
 msgstr "อ่านได้อย่างเดียว"
 
-#: ../rescue.py:320
+#: ../rescue.py:322
 msgid "System to Rescue"
 msgstr "ระบบที่จะกู้"
 
-#: ../rescue.py:321
+#: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
 msgstr "พาร์ทิชันใดคือพาร์ทิชัน root ที่คุณติดตั้งไว้?"
 
-#: ../rescue.py:323 ../rescue.py:327
+#: ../rescue.py:325 ../rescue.py:329
 msgid "Exit"
 msgstr "ออกจากโปรแกรมติดตั้ง"
 
-#: ../rescue.py:346
+#: ../rescue.py:348
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1981,7 +1980,7 @@ msgstr ""
 "ระบบของคุณมีระบบไฟล์ที่ไม่ได้ยกเลิกเมานท์อย่างถูกต้อง ซึ่งคุณได้เลือกที่จะไม่เมานท์  กด return "
 "เพื่อสู่เชลล์ เพื่อใช้คำสั่ง fsck จากนั้นก็เมานท์พาร์ทิชัน  โดยระบบจะรีบูตอัตโนมัติเมื่อคุณออกจากเชลล์"
 
-#: ../rescue.py:354
+#: ../rescue.py:356
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2001,7 +2000,7 @@ msgstr ""
 "\n"
 "โดยระบบจะรีบูตอัตโนมัติ เมื่อคุณออกจากเชลล์"
 
-#: ../rescue.py:437
+#: ../rescue.py:439
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2015,18 +2014,18 @@ msgstr ""
 "\n"
 "กด <return> เพื่อเข้าสู่เชลล์ โดยระบบจะรีบูตอัตโนมัติเมื่อคุณออกจากเชลล์"
 
-#: ../rescue.py:443
+#: ../rescue.py:445
 msgid "Rescue Mode"
 msgstr "โหมดกู้ระบบ"
 
-#: ../rescue.py:444
+#: ../rescue.py:446
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 "คุณไม่มีพาร์ทิชันของลินุกซ์เลย กด return เพื่อเข้าสู่เชลล์ โดยระบบจะรีบูตอัตโนมัติเมื่อคุณออกจากเชลล์"
 
-#: ../rescue.py:457
+#: ../rescue.py:459
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "ระบบของคุณถูกเมานท์ภายใต้ไดเรกทอรี %s"
@@ -2081,7 +2080,7 @@ msgstr "ไม่มีคำแนะนำสำหรับขั้นตอ
 msgid "Save Crash Dump"
 msgstr "บันทึก crash dump"
 
-#: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
+#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "ยินดีต้อนรับสู่ %s"
@@ -2098,11 +2097,11 @@ msgid ""
 msgstr ""
 "  <Tab>/<Alt-Tab> ระหว่าง elements   |  <Space> เลือก   |  <F12> หน้าจอถัดไป"
 
-#: ../upgradeclass.py:20
+#: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
 msgstr "อัพเกรดระบบที่มีอยู่"
 
-#: ../upgradeclass.py:24
+#: ../upgradeclass.py:26
 msgid "Upgrade"
 msgstr "อัพเกรด"
 
@@ -2124,20 +2123,20 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "คุณต้องการดำเนินการอัพเกรดต่อไปหรือไม่?"
 
-#: ../upgrade.py:94
+#: ../upgrade.py:93
 msgid "Searching"
 msgstr "กำลังค้นหา"
 
-#: ../upgrade.py:95
+#: ../upgrade.py:94
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "กำลังค้นหาการติดตั้ง %s..."
 
-#: ../upgrade.py:151 ../upgrade.py:159
+#: ../upgrade.py:150 ../upgrade.py:158
 msgid "Dirty File Systems"
 msgstr "ระบบไฟล์ที่ไม่ได้ยกเลิกเมานท์อย่างถูกต้อง"
 
-#: ../upgrade.py:152
+#: ../upgrade.py:151
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2150,7 +2149,7 @@ msgstr ""
 "แล้วปิดเครื่องอย่างถูกต้อง จึงจะดำเนินการอัพเกรดได้\n"
 "%s"
 
-#: ../upgrade.py:160
+#: ../upgrade.py:159
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2160,11 +2159,11 @@ msgstr ""
 "ระบบไฟล์ของระบบลินุกซ์เดิมของคุณไม่ได้ยกเลิกเมานท์อย่างถูกต้อง คุณยังต้องการที่จะเมานท์หรือไม่? \n"
 "%s"
 
-#: ../upgrade.py:297 ../upgrade.py:303
+#: ../upgrade.py:296 ../upgrade.py:302
 msgid "Mount failed"
 msgstr "เมานท์ล้มเหลว"
 
-#: ../upgrade.py:298
+#: ../upgrade.py:297
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2172,7 +2171,7 @@ msgstr ""
 "ระบบไฟล์ที่อยู่ในรายการของไฟล์ /etc/fstab บนระบบลินุกซ์เดิมไม่สามารถเมานท์ "
 "กรุณาแก้ไขปัญหาก่อน แล้วค่อยดำเนินการอัพเกรดใหม่อีกครั้ง"
 
-#: ../upgrade.py:304
+#: ../upgrade.py:303
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2181,7 +2180,7 @@ msgstr ""
 "ระบบไฟล์ที่อยู่ในรายการของ /etc/fstab บนระบบลินุกซ์เดิม มีลักษณะผิดปกติ "
 "และไม่สามารถเมานท์ได้ กรุณาแก้ไขปัญหานี้ก่อน แล้วจึงลองอัพเกรดใหม่อีกครั้ง "
 
-#: ../upgrade.py:321
+#: ../upgrade.py:320
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2192,11 +2191,11 @@ msgstr ""
 "กรุณาเปลี่ยนเป็น symbolic link แบบสัมพัทธ์ แล้วเริ่มต้นการอัพเกรดใหม่อีกครั้ง\n"
 "\n"
 
-#: ../upgrade.py:327
+#: ../upgrade.py:326
 msgid "Absolute Symlinks"
 msgstr "Absolute Symlinks"
 
-#: ../upgrade.py:338
+#: ../upgrade.py:337
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2207,21 +2206,21 @@ msgstr ""
 "กรุณาเปลี่ยนพวกมันกลับไปเป็นแบบดั้งเดิม คือเป็น symbolic links และเริ่มต้นอัพเกรดใหม่\n"
 "\n"
 
-#: ../upgrade.py:344
+#: ../upgrade.py:343
 msgid "Invalid Directories"
 msgstr "ไดเรกทอรีที่ไม่ถูกต้อง"
 
-#: ../upgrade.py:351
+#: ../upgrade.py:350
 #, python-format
 msgid "%s not found"
 msgstr "ไม่พบ %s"
 
-#: ../urlinstall.py:35
+#: ../urlinstall.py:36
 #, fuzzy
 msgid "Connecting..."
 msgstr "กำลังตรวจสอบ \"%s\"..."
 
-#: ../urlinstall.py:74
+#: ../urlinstall.py:75
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -2237,11 +2236,11 @@ msgstr ""
 "\n"
 "กดปุ่ม <return> เพื่อลองใหม่"
 
-#: ../vnc.py:43
+#: ../vnc.py:44
 msgid "Unable to Start X"
 msgstr "ไม่สามารถเริ่มการทำงานของ X ได้"
 
-#: ../vnc.py:44
+#: ../vnc.py:45
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2251,23 +2250,23 @@ msgstr ""
 "เพื่อเชื่อมต่อคอมพิวเตอร์เครื่องนี้จากเครื่องอื่นแล้วทำการติดตั้งแบบกราฟิกได้ "
 "หรือทำต่อไปโดยติดตั้งบนโหมดตัวอักษร"
 
-#: ../vnc.py:51 ../vnc.py:54
+#: ../vnc.py:52 ../vnc.py:55
 msgid "Use text mode"
 msgstr "ใช้โหมดตัวอักษร"
 
-#: ../vnc.py:52
+#: ../vnc.py:53
 msgid "Start VNC"
 msgstr "เริ่มโปรแกรม VNC"
 
-#: ../vnc.py:62
+#: ../vnc.py:63
 msgid "VNC Configuration"
 msgstr "การกำหนดค่าสำหรับ VNC"
 
-#: ../vnc.py:66
+#: ../vnc.py:67
 msgid "No password"
 msgstr "ไม่มีรหัสผ่าน"
 
-#: ../vnc.py:69
+#: ../vnc.py:70
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2276,66 +2275,66 @@ msgstr ""
 "รหัสผ่านจะป้องกันผู้ที่ได้รับอนุญาตเชื่อมต่อเข้ามาและเฝ้าดูความก้าวหน้าของการติดตั้ง  "
 "กรุณาป้อนรหัสผ่านสำหรับใช้ในขั้นตอนการติดตั้งนี้"
 
-#: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
+#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
 msgid "Password:"
 msgstr "รหัสผ่าน:"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:43
+#: ../vnc.py:79 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "รหัสผ่าน (ยืนยัน):"
 
-#: ../vnc.py:100 ../textw/userauth_text.py:64
+#: ../vnc.py:101 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "รหัสผ่านไม่ตรงกัน"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:65
+#: ../vnc.py:102 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "รหัสผ่านที่คุณป้อนแตกต่างกัน กรุณาลองใหม่อีกครั้ง"
 
-#: ../vnc.py:106 ../textw/userauth_text.py:59
+#: ../vnc.py:107 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "ความยาวของรหัสผ่าน"
 
-#: ../vnc.py:107
+#: ../vnc.py:108
 #, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "รหัสผ่านต้องยาวอย่างน้อย 6 ตัวอักษร"
 
-#: ../vnc.py:137
+#: ../vnc.py:138
 #, fuzzy
 msgid "VNC Password Error"
 msgstr "ไม่มีรหัสผ่าน"
 
-#: ../vnc.py:138
+#: ../vnc.py:139
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: ../vnc.py:183
+#: ../vnc.py:184
 msgid "Starting VNC..."
 msgstr "กำลังเริ่มโปรแกรม VNC..."
 
-#: ../vnc.py:226
+#: ../vnc.py:227
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "%s %s การติดตั้งบนโฮสต์ %s"
 
-#: ../vnc.py:228
+#: ../vnc.py:229
 #, python-format
 msgid "%s %s installation"
 msgstr "%s %s การติดตั้ง"
 
-#: ../vnc.py:248
+#: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
 msgstr "ไม่สามารถตั้งค่ารหัสผ่าน VNC - ไม่ใช้รหัสผ่าน!"
 
-#: ../vnc.py:249
+#: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "ดูให้แน่ใจว่ารหัสผ่านของคุณมีความยาวไม่น้อยกว่า 6 ตัวอักษร "
 
-#: ../vnc.py:272
+#: ../vnc.py:273
 msgid ""
 "\n"
 "\n"
@@ -2351,48 +2350,44 @@ msgstr ""
 "ถ้าคุณต้องการเพิ่มความปลอดภัยให้เซิร์ฟเวอร์\n"
 "\n"
 
-#: ../vnc.py:276
+#: ../vnc.py:277
 msgid "The VNC server is now running."
 msgstr "ตอนนี้เซิร์ฟเวอร์ VNC ทำงานแล้ว"
 
-#: ../vnc.py:279
+#: ../vnc.py:280
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "กำลังพยายามเชื่อมต่อไคลเอ็นต์ VNC ที่โฮสต์ %s..."
 
-#: ../vnc.py:291
+#: ../vnc.py:292
 msgid "Connected!"
 msgstr "เชื่อมต่อได้แล้ว!"
 
-#: ../vnc.py:296
+#: ../vnc.py:297
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "กำลังยกเลิกความพยายามที่จะเชื่อมต่อ หลังจากพยายามมาแล้ว 50 ครั้ง!\n"
 
-#: ../vnc.py:298
+#: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "กรุณาเชื่อมต่อไคลเอ็นต์ VNC ที่ %s ด้วยคุณตัวเอง เพื่อเริ่มติดตั้ง"
 
-#: ../vnc.py:300
+#: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "กรุณาเชื่อมต่อไคลเอ็นต์ VNC ด้วยคุณตัวเอง เพื่อเริ่มการติดตั้ง"
 
-#: ../vnc.py:304
+#: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
 msgstr "จะพยายามเชื่อมต่ออีกครั้งภายในเวลา 15 วินาที..."
 
-#: ../vnc.py:312
+#: ../vnc.py:313
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "กรุณาเชื่อมต่อไปที่ง %s เพื่อเริ่มติดตั้ง..."
 
-#: ../vnc.py:314
+#: ../vnc.py:315
 msgid "Please connect to begin the install..."
 msgstr "กรุณาเชื่อมต่อก่อน เพื่อเริ่มการติดตั้ง..."
-
-#: ../xsetup.py:48
-msgid "DDC Probed Monitor"
-msgstr "จอภาพที่ตรวจหาได้ด้วย DDC"
 
 #: ../yuminstall.py:103
 msgid "Processing"
@@ -2403,55 +2398,55 @@ msgstr "กำลังประมวลผล"
 msgid "Preparing transaction from installation source..."
 msgstr "กำลังเตรียมที่จะติดตั้ง..."
 
-#: ../yuminstall.py:431 ../yuminstall.py:432
+#: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:433
+#: ../yuminstall.py:472
 #, fuzzy
 msgid "older package(s)"
 msgstr "แพ็กเกจเสริม"
 
-#: ../yuminstall.py:434
+#: ../yuminstall.py:473
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:435
+#: ../yuminstall.py:474
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:436
+#: ../yuminstall.py:475
 #, fuzzy
 msgid "package conflicts"
 msgstr "แพ็กเกจปริยาย"
 
-#: ../yuminstall.py:437
+#: ../yuminstall.py:476
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:438
+#: ../yuminstall.py:477
 #, fuzzy
 msgid "required package"
 msgstr "พื้นที่ว่าง"
 
-#: ../yuminstall.py:439
+#: ../yuminstall.py:478
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:440
+#: ../yuminstall.py:479
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:454
+#: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:470
+#: ../yuminstall.py:509
 #, fuzzy
 msgid "Error running transaction"
 msgstr "กำลังเตรียมตั้งชุดคำสั่งสำหรับติดตั้ง RPM..."
 
-#: ../yuminstall.py:471
+#: ../yuminstall.py:510
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2460,22 +2455,22 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
+#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 #, fuzzy
 msgid "Re_boot"
 msgstr "รีบูต"
 
-#: ../yuminstall.py:638
+#: ../yuminstall.py:697
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
 
-#: ../yuminstall.py:640
+#: ../yuminstall.py:699
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
 
-#: ../yuminstall.py:656
+#: ../yuminstall.py:721
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2485,18 +2480,18 @@ msgstr ""
 "ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
 "กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
 
-#: ../yuminstall.py:691
+#: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:907
+#: ../yuminstall.py:995
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1061
+#: ../yuminstall.py:1149
 #, fuzzy, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2505,43 +2500,43 @@ msgstr ""
 "สถาปัตยกรรมของรีลีสของ %s ที่คุณกำลังอัพเกรดคือ %s ซึ่งไม่เข้ากันกับระบบที่ติดตั้งไว้ก่อนหน้านี้สำหรับ "
 "%s  เป็นไปได้ว่าการอัพเกรดจะไม่สำเร็จ  คุณแน่ใจว่ายังต้องการจะอัพเกรดต่อหรือไม่?"
 
-#: ../yuminstall.py:1093
+#: ../yuminstall.py:1181
 msgid "Install Starting"
 msgstr "เริ่มการติดตั้ง"
 
-#: ../yuminstall.py:1094
+#: ../yuminstall.py:1182
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
 
-#: ../yuminstall.py:1110
+#: ../yuminstall.py:1198
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "อัพเกรด"
 
-#: ../yuminstall.py:1111
+#: ../yuminstall.py:1199
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1201
 msgid "Post Install"
 msgstr "ช่วงหลังติดตั้ง"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
 msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
 
-#: ../yuminstall.py:1264
+#: ../yuminstall.py:1357
 #, fuzzy
 msgid "Installation Progress"
 msgstr "ประเภทของการติดตั้ง"
 
-#: ../yuminstall.py:1299
+#: ../yuminstall.py:1392
 msgid "Dependency Check"
 msgstr "การตรวจสอบการขึ้นต่อกัน"
 
-#: ../yuminstall.py:1300
+#: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "กำลังตรวจสอบการขึ้นต่อกันของแพ็กเกจที่เลือกเพื่อใช้สำหรับการติดตั้ง..."
 
@@ -2626,49 +2621,49 @@ msgid ""
 "use in password."
 msgstr "รหัสผ่านมีตัวอักษรที่ไม่ใช่รหัส ascii ซึ่งจะไม่อนุญาตให้ใช้ในรหัสผ่าน"
 
-#: ../iw/account_gui.py:92
+#: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr "บัญชี root ใช้สำหรับการบริหารจัดการระบบ  ป้อนรหัสผ่านสำหรับผู้ใช้ root"
 
-#: ../iw/account_gui.py:109
+#: ../iw/account_gui.py:110
 msgid "Root _Password: "
 msgstr "_รหัสผ่านของ root: "
 
-#: ../iw/account_gui.py:112
+#: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "_ยืนยันรหัสผ่าน: "
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:134
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
 
-#: ../iw/autopart_type.py:136
+#: ../iw/autopart_type.py:135
 #, fuzzy
 msgid "You must provide a non-zero length initiator name."
 msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
 
-#: ../iw/autopart_type.py:158
+#: ../iw/autopart_type.py:157
 #, fuzzy
 msgid "Error with Data"
 msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "ลบพาร์ทิชันทั้งหมดที่มีในระบบ"
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
 msgstr ""
 
@@ -2938,7 +2933,7 @@ msgstr "ระบบลินุกซ์ที่ไม่รู้จัก"
 msgid "Language Selection"
 msgstr "การเลือกภาษา"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "ภาษาอะไรที่คุณต้องการใช้ในระหว่างกระบวนการการติดตั้ง?"
 
@@ -2978,7 +2973,7 @@ msgstr ""
 "การเปลี่ยนแปลงนี้ จะมีผลทันที"
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
+#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
 msgstr "_ต่อไป"
 
@@ -3267,7 +3262,7 @@ msgstr "ขนาด (เมกะไบต์)"
 msgid "_Add"
 msgstr "เ_พิ่ม"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
+#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
 msgstr "แ_ก้ไข"
@@ -3312,57 +3307,80 @@ msgstr "_จำลองเป็นแบบ 3 ปุ่ม"
 msgid "Select the appropriate mouse for the system."
 msgstr "เลือกเมาส์ที่เหมาะสมกับระบบนี้"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:605
-msgid "Gateway"
-msgstr "เกตเวย์"
-
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:607
-msgid "Primary DNS"
-msgstr "DNS หลัก"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
-msgid "Secondary DNS"
-msgstr "DNS รอง"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:611
-msgid "Tertiary DNS"
-msgstr "DNS ตัวที่ 3"
-
-#: ../iw/network_gui.py:29
-msgid "_Gateway"
-msgstr "เ_กตเวย์"
-
-#: ../iw/network_gui.py:29
-msgid "_Primary DNS"
-msgstr "DNS _หลัก "
-
-#: ../iw/network_gui.py:30
-msgid "_Secondary DNS"
-msgstr "DNS _รอง "
-
-#: ../iw/network_gui.py:30
-msgid "_Tertiary DNS"
-msgstr "DNS _ตัวที่ 3"
-
-#: ../iw/network_gui.py:34
-msgid "Network Configuration"
-msgstr "การตั้งค่าเน็ตเวิร์ก"
-
-#: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
-#: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
-#: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
-#: ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
+#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
+#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
 msgid "Error With Data"
 msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 
-#: ../iw/network_gui.py:164
+#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%s\":\n"
+"%s"
+msgstr ""
+"เกิดข้อผิดพลาดระหว่างการแปลงค่าที่กำหนด \"%s\":\n"
+"%s"
+
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+msgid "Dynamic IP"
+msgstr "IP แบบไดนามิก"
+
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#, c-format, python-format
+msgid "Sending request for IP information for %s..."
+msgstr "กำลังส่งคำร้องขอข้อมูล IP สำหรับ %s.."
+
+#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+msgid "IP Address"
+msgstr "หมายเลขไอพี"
+
+#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+msgid "Netmask"
+msgstr "เน็ตมาสก์"
+
+#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
+#: ../iw/network_gui.py:766
+msgid "Gateway"
+msgstr "เกตเวย์"
+
+#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+msgid "Nameserver"
+msgstr "Nameserver"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+msgid "Primary DNS"
+msgstr "DNS หลัก"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+msgid "Secondary DNS"
+msgstr "DNS รอง"
+
+#: ../iw/network_gui.py:27
+msgid "_Gateway"
+msgstr "เ_กตเวย์"
+
+#: ../iw/network_gui.py:27
+msgid "_Primary DNS"
+msgstr "DNS _หลัก "
+
+#: ../iw/network_gui.py:27
+msgid "_Secondary DNS"
+msgstr "DNS _รอง "
+
+#: ../iw/network_gui.py:37
+msgid "Network Configuration"
+msgstr "การตั้งค่าเน็ตเวิร์ก"
+
+#: ../iw/network_gui.py:157
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
 "คุณไม่ได้ระบุชื่อโฮสต์  ซึ่งอาจจะทำให้เกิดปัญหาตามมาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
-#: ../iw/network_gui.py:168
+#: ../iw/network_gui.py:161
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3370,7 +3388,7 @@ msgid ""
 msgstr ""
 "คุณไม่ได้ระบุในช่อง \"%s\" ซึ่งอาจก่อให้เกิดปัญหาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:404
+#: ../iw/network_gui.py:165 ../textw/network_text.py:404
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3381,25 +3399,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:177
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%s\":\n"
-"%s"
-msgstr ""
-"เกิดข้อผิดพลาดระหว่างการแปลงค่าที่กำหนด \"%s\":\n"
-"%s"
-
-#: ../iw/network_gui.py:183
+#: ../iw/network_gui.py:180
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "จำเป็นต้องป้อนค่าในช่อง \"%s\"."
 
-#: ../iw/network_gui.py:187
+#: ../iw/network_gui.py:184
 msgid "The IP information you have entered is invalid."
 msgstr "หมายเลข IP ที่คุณกรอกไม่ถูกต้อง"
 
-#: ../iw/network_gui.py:191
+#: ../iw/network_gui.py:188
 #, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
@@ -3411,88 +3420,124 @@ msgstr ""
 "ข้อควรสังเกต: ถ้าคุณมีอุปกรณ์เน็ตเวิร์กแบบ PCMCIA มันอาจไม่ทำงานขณะนี้ แต่เมื่อคุณรีบูตระบบ "
 "มันจะทำงานเองอัตโนมัติ"
 
-#: ../iw/network_gui.py:207
+#: ../iw/network_gui.py:264
 #, python-format
 msgid "Edit Interface %s"
 msgstr "แก้ไขอินเทอร์เฟซ %s"
 
-#: ../iw/network_gui.py:218
-msgid "Configure using _DHCP"
-msgstr "ตั้งค่าโดยใช้ _DHCP"
+#: ../iw/network_gui.py:276
+#, fuzzy, python-format
+msgid "Hardware address: %s"
+msgstr "ตำแหน่งฮาร์ดแวร์: %s"
 
-#: ../iw/network_gui.py:224
+#: ../iw/network_gui.py:281
+#, fuzzy
+msgid "Use dynamic IP configuration (_DHCP)"
+msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (BOOTP/DHCP)"
+
+#: ../iw/network_gui.py:286 ../loader2/net.c:691
+msgid "Enable IPv4 support"
+msgstr ""
+
+#: ../iw/network_gui.py:291 ../loader2/net.c:702
+msgid "Enable IPv6 support"
+msgstr ""
+
+#: ../iw/network_gui.py:296
 msgid "_Activate on boot"
 msgstr "ให้_ทำงานเมื่อบูต "
 
-#: ../iw/network_gui.py:233
-msgid "_IP Address"
-msgstr "หมายเลขไ_อพี "
+#: ../iw/network_gui.py:326
+#, fuzzy
+msgid "IPv_4 Address:"
+msgstr "หมายเลข IP:"
 
-#: ../iw/network_gui.py:234
-msgid "Net_mask"
-msgstr "เน็ต_มาสก์ "
+#: ../iw/network_gui.py:348
+#, fuzzy
+msgid "IPv_6 Address:"
+msgstr "หมายเลข IP:"
 
-#: ../iw/network_gui.py:239
-msgid "_Point to Point (IP)"
+#: ../iw/network_gui.py:371
+#, fuzzy
+msgid "_Point to Point (IP):"
 msgstr "_จุดต่อจุด (IP)"
 
-#: ../iw/network_gui.py:243
-msgid "_ESSID"
+#: ../iw/network_gui.py:383
+#, fuzzy
+msgid "_ESSID:"
 msgstr "_ESCSI"
 
-#: ../iw/network_gui.py:244
-msgid "Encryption _Key"
+#: ../iw/network_gui.py:393
+#, fuzzy
+msgid "Encryption _Key:"
 msgstr "_กุญแจเข้ารหัส"
 
-#: ../iw/network_gui.py:255
-msgid "Hardware address:"
-msgstr "ตำแหน่งฮาร์ดแวร์:"
-
-#: ../iw/network_gui.py:293
+#: ../iw/network_gui.py:409
 #, python-format
 msgid "Configure %s"
 msgstr "ตั้งค่า %s"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#, fuzzy
+msgid "Invalid Prefix"
+msgstr "สตริงของไอพีไม่ถูกต้อง"
+
+#: ../iw/network_gui.py:458
+#, fuzzy
+msgid "IPv4 prefix must be between 0 and 32."
+msgstr "หมายเลข IP จะต้องเป็นตัวเลขระหว่าง 1 ถึง 255"
+
+#: ../iw/network_gui.py:475
+#, fuzzy
+msgid "IPv6 prefix must be between 0 and 128."
+msgstr "หมายเลข IP จะต้องเป็นตัวเลขระหว่าง 1 ถึง 255"
+
+#: ../iw/network_gui.py:629
 msgid "Active on Boot"
 msgstr "ให้ทำงานเมื่อบูต"
 
-#: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "อุปกรณ์"
 
-#: ../iw/network_gui.py:473
-msgid "IP/Netmask"
+#: ../iw/network_gui.py:633
+#, fuzzy
+msgid "IPv4/Netmask"
 msgstr "IP/เน็ตมาสก์"
 
-#: ../iw/network_gui.py:535
+#: ../iw/network_gui.py:635
+msgid "IPv6/Prefix"
+msgstr ""
+
+#: ../iw/network_gui.py:697
 msgid "Network Devices"
 msgstr "อุปกรณ์เครือข่าย"
 
-#: ../iw/network_gui.py:546
+#: ../iw/network_gui.py:708
 msgid "Set the hostname:"
 msgstr "ตั้งชื่อโฮสต์:"
 
-#: ../iw/network_gui.py:551
+#: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
 msgstr "โดย_อัตโนมัติด้วย DHCP "
 
-#: ../iw/network_gui.py:558
+#: ../iw/network_gui.py:720
 msgid "_manually"
 msgstr "ทำด้วย_ตัวเอง"
 
-#: ../iw/network_gui.py:562
-msgid "(ex. \"host.domain.com\")"
+#: ../iw/network_gui.py:725
+#, fuzzy
+msgid "(e.g., host.domain.com)"
 msgstr "(เช่น \"host.domain.com\")"
 
-#: ../iw/network_gui.py:568 ../loader2/net.c:1354
+#: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
 msgstr "ชื่อโฮสต์"
 
-#: ../iw/network_gui.py:616
+#: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
 msgstr "การตั้งค่าอื่นๆ"
 
@@ -3629,6 +3674,16 @@ msgstr "ไซลินเดอร์_สุดท้าย:"
 msgid "Force to be a _primary partition"
 msgstr "กำหนดให้เป็นพาร์ทิชันห_ลัก"
 
+#: ../iw/partition_gui.py:314
+#, python-format
+msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
+msgstr ""
+
+#: ../iw/partition_gui.py:321
+#, python-format
+msgid "Drive %s (%-0.f MB) (Model: %s)"
+msgstr ""
+
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
 msgstr "ชนิด"
@@ -3709,7 +3764,7 @@ msgstr "อุปกรณ์ RAID"
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:329
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "ฮาร์ดไดรฟ์"
 
@@ -3841,34 +3896,34 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "ซ่อนสมาชิกของ อุปกรณ์ RAID หรือ LVM Volume _Group"
 
-#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
-#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
+#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
 msgstr "<ไม่สามารถเหมาะสม>"
 
-#: ../iw/partition_ui_helpers_gui.py:251
+#: ../iw/partition_ui_helpers_gui.py:250
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "คุณต้องการจัดการกับระบบไฟล์ของพาร์ทิชันนี้อย่างไร?"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
 msgstr "ไ_ม่เปลี่ยนแปลง (คงข้อมูลไว้)"
 
-#: ../iw/partition_ui_helpers_gui.py:265
+#: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
 msgstr "_ฟอร์แมตพาร์ทิชันนี้เป็น:"
 
-#: ../iw/partition_ui_helpers_gui.py:288
+#: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
 msgstr "เ_ปลี่ยนระบบไฟล์ในพาร์ทิชันให้เป็นแบบ:"
 
-#: ../iw/partition_ui_helpers_gui.py:310
+#: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
 msgstr "ต้องการตรวจสอบ_พื้นที่เสีย?"
 
-#: ../iw/partition_ui_helpers_gui.py:345
+#: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4139,38 +4194,19 @@ msgstr "ไดรฟ์เป้าหมาย:"
 msgid "Drives"
 msgstr "ไดรฟ์"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
+#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
 msgid "Release notes are missing.\n"
 msgstr "ไม่พบบันทึกการออกรุ่น\n"
 
-#: ../iw/release_notes.py:222
+#: ../iw/release_notes.py:221
 msgid "Release Notes"
 msgstr "บันทึกการออกรุ่น"
 
-#: ../iw/release_notes.py:226
+#: ../iw/release_notes.py:224
 msgid "Unable to load file!"
 msgstr "ไม่สามารถโหลดไฟล์ได้!"
 
-#: ../iw/task_gui.py:85
-#, fuzzy
-msgid "Invalid Repository Name"
-msgstr "ชื่อโฮสต์ไม่ถูกต้อง"
-
-#: ../iw/task_gui.py:86
-#, fuzzy
-msgid "You must provide a non-zero length repository name."
-msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
-
-#: ../iw/task_gui.py:95
-#, fuzzy
-msgid "Invalid Repository URL"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
-
-#: ../iw/task_gui.py:96
-msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
-
-#: ../iw/task_gui.py:111
+#: ../iw/task_gui.py:79
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4181,6 +4217,39 @@ msgid ""
 msgstr ""
 "ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
 "กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
+
+#: ../iw/task_gui.py:89
+#, python-format
+msgid ""
+"Unable to find a group file for %s.  This will make manual selection of "
+"packages from the repository not work"
+msgstr ""
+
+#: ../iw/task_gui.py:121
+#, fuzzy
+msgid "Invalid Repository Name"
+msgstr "ชื่อโฮสต์ไม่ถูกต้อง"
+
+#: ../iw/task_gui.py:122
+#, fuzzy
+msgid "You must provide a non-zero length repository name."
+msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
+
+#: ../iw/task_gui.py:131
+#, fuzzy
+msgid "Invalid Repository URL"
+msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+
+#: ../iw/task_gui.py:132
+msgid "You must provide an HTTP or FTP URL to a repository."
+msgstr ""
+
+#: ../iw/task_gui.py:146
+#, fuzzy, python-format
+msgid ""
+"The repository %s has already been added.  Please choose a different "
+"repository name and URL."
+msgstr "ตำแหน่งเมานท์ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกตำแหน่งเมานท์อื่น"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4612,15 +4681,15 @@ msgstr ""
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:385
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:181 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:131
-#: ../loader2/loader.c:335 ../loader2/loader.c:943 ../loader2/loader.c:965
-#: ../loader2/net.c:242 ../loader2/net.c:282 ../loader2/net.c:706
-#: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:269 ../loader2/urls.c:456
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
+#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
+#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
+#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:275 ../loader2/urls.c:455
 msgid "Back"
 msgstr "ย้อนกลับ"
 
@@ -4637,18 +4706,18 @@ msgstr ""
 "บันทึกการอัพเกรดอย่างสมบูรณ์จะอยู่ที่ %s หลังจากที่รีบูตระบบ  "
 "คุณอาจจะต้องการเก็บไฟล์นี้ไว้ใช้อ้างอิงในภายหลัง"
 
-#: ../textw/grpselect_text.py:84
+#: ../textw/grpselect_text.py:87
 #, fuzzy
 msgid "Please select the package groups you would like to have installed."
 msgstr "กรุณาเลือกความละเอียดของการแสดงผลที่ต้องการ:"
 
-#: ../textw/grpselect_text.py:102
+#: ../textw/grpselect_text.py:105
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
 
-#: ../textw/grpselect_text.py:130
+#: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
 msgstr "รายละเอียดของกลุ่มแพ็กเกจ"
 
@@ -4685,23 +4754,15 @@ msgstr "สตริงของไอพีไม่ถูกต้อง"
 msgid "The entered IP '%s' is not a valid IP."
 msgstr "ไอพีที่ป้อนเข้ามา '%s' ไม่ใช่ไอพีที่เป็นไปได้"
 
-#: ../textw/network_text.py:72
-msgid "IP Address"
-msgstr "หมายเลขไอพี"
-
-#: ../textw/network_text.py:73
-msgid "Netmask"
-msgstr "เน็ตมาสก์"
-
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
-#: ../textw/network_text.py:79 ../loader2/net.c:237
+#: ../textw/network_text.py:79 ../loader2/net.c:238
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:80 ../loader2/net.c:238
+#: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
 msgstr "Encryption Key"
 
@@ -4741,7 +4802,7 @@ msgstr "ข้อมูลไม่ถูกต้อง"
 msgid "You must enter valid IP information to continue"
 msgstr "คุณต้องป้อนข้อมูล IP ที่ถูกต้องก่อนจึงจะดำเนินการต่อได้"
 
-#: ../textw/network_text.py:247 ../loader2/net.c:920
+#: ../textw/network_text.py:247 ../loader2/net.c:957
 msgid "Gateway:"
 msgstr "เกตเวย์:"
 
@@ -5055,23 +5116,23 @@ msgstr "ต้องมีพาร์ทิชัน / เพื่อใช้
 msgid "Partitioning Type"
 msgstr "ชนิดของพาร์ทิชัน"
 
-#: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1518
 msgid ""
-"Installation requires partitioning of your hard drive.  By default, a "
-"partitioning layout is chosen which is reasonable for most users.  You can "
-"either choose to use this or create your own."
+"Installation requires partitioning of your hard drive.  The default layout "
+"is reasonable for most users.  You can either choose to use this or create "
+"your own."
 msgstr ""
 
-#: ../textw/partition_text.py:1543
+#: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ไดรฟ์ใดบ้างที่คุณต้องการใช้ในการติดตั้ง?"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1604
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
 
-#: ../textw/partition_text.py:1606
+#: ../textw/partition_text.py:1605
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
@@ -5134,15 +5195,15 @@ msgstr "ยังเหลืออยู่:  "
 msgid "Package selection"
 msgstr "การเลือกกลุ่มของแพ็กเกจ"
 
-#: ../textw/task_text.py:45
-#, python-format
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
+"support?"
 msgstr ""
 
-#: ../textw/task_text.py:60
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "การเลือกซอฟต์แวร์แบบละเอียด"
 
@@ -5291,27 +5352,34 @@ msgstr ""
 msgid "_Custom"
 msgstr "เลือกแพ็กเกจเอง "
 
-#: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
-#: ../installclasses/rhel.py:13
+#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr "การติดตั้งแบบเลือกด้วยตัวเองคุณสามารถกำหนดการเลือกแพ็กเกจต่างๆ ด้วยตัวคุณเอง"
 
-#: ../installclasses/fedora.py:11
+#: ../installclasses/fedora.py:12
 #, fuzzy
 msgid "_Fedora"
 msgstr "_ฟอร์แมต"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
+#: ../installclasses/fedora.py:13
+#, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage. What additional tasks would you like your system to "
+"include support for?"
+msgstr ""
+
+#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
 #, fuzzy
 msgid "Web server"
 msgstr "Nameserver"
@@ -5341,21 +5409,10 @@ msgid ""
 "\tGames\n"
 msgstr ""
 
-#: ../installclasses/rhel.py:11
+#: ../installclasses/rhel.py:15
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux WS"
-
-#: ../installclasses/rhel.py:49
-msgid "Registration Key Required"
-msgstr ""
-
-#: ../installclasses/rhel.py:50
-#, python-format
-msgid ""
-"A registration key is required to install %s.  Please contact your support "
-"representative if you did not receive a key with your product."
-msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5395,22 +5452,22 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
 msgstr "ตรวจสอบแผ่นข้อมูล"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
-#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/method.c:420
 msgid "Test"
 msgstr "ทดสอบ"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
 msgstr "เอาแผ่นซีดีออก"
 
-#: ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:93
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -5419,7 +5476,7 @@ msgstr ""
 "เลือก \"%s\" เพื่อทดสอบซีดีที่อยู่ในไดรฟ์ หรือ \"%s\" เพื่อเอาแผ่นซีดีออก "
 "และเปลี่ยนแผ่นอื่นสำหรับการทดสอบ"
 
-#: ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:114
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5429,14 +5486,14 @@ msgid ""
 "to retest each CD prior to using it again."
 msgstr ""
 
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr "ไม่พบแผ่นซีดี %s ในไดรฟ์ซีดีรอมของคุณ กรุณาใส่แผ่นซีดี %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
 
-#: ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:258
 msgid "CD Found"
 msgstr "ตรวจพบแผ่นซีดี"
 
@@ -5451,123 +5508,128 @@ msgstr ""
 "\n"
 "เลือก %s ถ้าจะข้ามการตรวจสอบแผ่นข้อมูล และเริ่มเข้าสู่การติดตั้ง"
 
-#: ../loader2/cdinstall.c:372
+#: ../loader2/cdinstall.c:379
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr "ไม่พบแผ่นซีดี %s ในไดรฟ์ซีดีรอมของคุณ กรุณาใส่แผ่นซีดี %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
 
-#: ../loader2/cdinstall.c:384
+#: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
 msgstr "ไม่พบแผ่นซีดี"
 
-#: ../loader2/cdinstall.c:455
+#: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "ไม่สามารถหาไฟล์คิกสตาร์ทในซีดีรอม"
 
-#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
+#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "กำลังโหลด"
 
-#: ../loader2/driverdisk.c:127
+#: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
 msgstr "กำลังอ่านแผ่นไดรเวอร์..."
 
-#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
+#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
 msgstr ""
 
-#: ../loader2/driverdisk.c:268
+#: ../loader2/driverdisk.c:269
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
-#: ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:301
 #, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
 msgstr "เกิดความล้มเหลวในการเมานท์พาร์ทิชัน"
 
-#: ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
 msgstr "เลือกอิมเมจของแผ่น driver"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:377
 #, fuzzy
 msgid "Failed to load driver disk from file."
 msgstr "การเมานท์แผ่นดิสก์ไดรเวอร์ล้มเหลว"
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "ใส่แผ่นดิสก์ไดรเวอร์ใน /dev/%s แล้วกดปุ่ม \"ตกลง\" เพื่อดำเนินการต่อ"
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "ใส่แผ่นไดรเวอร์"
 
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "การเมานท์แผ่นดิสก์ไดรเวอร์ล้มเหลว"
 
-#: ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:415
+#, c-format
+msgid "Driver disk is invalid for this release of %s."
+msgstr ""
+
+#: ../loader2/driverdisk.c:479
 msgid "Manually choose"
 msgstr "เลือกด้วยตัวเอง"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:480
 msgid "Load another disk"
 msgstr "โหลดแผ่นดิสก์อื่น"
 
-#: ../loader2/driverdisk.c:477
+#: ../loader2/driverdisk.c:481
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:520
 msgid "Driver disk"
 msgstr "แผ่นไดรเวอร์"
 
-#: ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
 msgstr "คุณมีแผ่นดิสก์ไดรเวอร์หรือไม่?"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
 msgstr "มีแผ่นไดรเวอร์ อีกไหม?"
 
-#: ../loader2/driverdisk.c:528
+#: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
 msgstr "คุณต้องการที่จะโหลดแผ่นไดรเวอร์เพิ่มอีกหรือไม่?"
 
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:411 ../loader2/modules.c:960 ../loader2/net.c:1446
-#: ../loader2/net.c:1469 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:476 ../loader2/urlinstall.c:485
-#: ../loader2/urlinstall.c:496
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
+#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
+#: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
 msgstr "Kickstart ผิดพลาด"
 
-#: ../loader2/driverdisk.c:578
+#: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: ../loader2/driverdisk.c:615
+#: ../loader2/driverdisk.c:619
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5589,21 +5651,21 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "ใส่พารามีเตอร์สำหรับโมดูล"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "No drivers found"
 msgstr "ไม่พบไดรฟ์เวอร์"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "Load driver disk"
 msgstr "โหลดแผ่นไดรเวอร์"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
 
-#: ../loader2/driverselect.c:199
+#: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5611,11 +5673,11 @@ msgstr ""
 "กรุณาเลือกไดรเวอร์ด้านล่าง ถ้าไดรเวอร์ที่คุณต้องการไม่ปรากฏในรายการนี้ "
 "และคุณมีแผ่นดิสก์ไดรเวอร์แผ่นอื่น ให้กดปุ่ม F2"
 
-#: ../loader2/driverselect.c:207
+#: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
 msgstr "กำหนดพารามีเตอร์สำหรับโมดูล "
 
-#: ../loader2/driverselect.c:227
+#: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
 msgstr "เลือกไดรฟ์เวอร์อุปกรณ์ที่จะใช้ในการโหลด"
 
@@ -5624,28 +5686,28 @@ msgstr "เลือกไดรฟ์เวอร์อุปกรณ์ที
 msgid "Loading %s driver..."
 msgstr "กำลังโหลดไดรเวอร์ %s..."
 
-#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:153
-#: ../loader2/nfsinstall.c:204 ../loader2/urlinstall.c:160
+#: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
+#: ../loader2/urlinstall.c:160
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
 
-#: ../loader2/hdinstall.c:217
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
 "เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
 
-#: ../loader2/hdinstall.c:330
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr "ดูเหมือนจะไม่มีฮาร์ดไดรฟ์บนระบบของคุณ! คุณต้องการจะกำหนดค่าอุปกรณ์เพิ่มเติมอีกหรือไม่?"
 
-#: ../loader2/hdinstall.c:346
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5655,29 +5717,29 @@ msgstr ""
 "อิมเมจซีดี (iso9660) สำหรับ %s ถูกเก็บที่พาร์ทิชัน และไดเรกทอรีใด? "
 "ถ้าคุณไม่เห็นดิสก์ไดรฟ์ที่คุณใช้อยู่ในรายการนี้ ให้กด F2 เพื่อปรับแต่งอุปกรณ์เพิ่มเติม"
 
-#: ../loader2/hdinstall.c:368
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "ไดเรกทอรีที่เก็บอิมเมจ:"
 
-#: ../loader2/hdinstall.c:395
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "เลือกพาร์ทิชัน"
 
-#: ../loader2/hdinstall.c:435
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "อุปกรณ์ %s ไม่มีอิมเมจของซีดี %s อยู่"
 
-#: ../loader2/hdinstall.c:470
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "ไม่สามารถหาไฟล์คิกสตาร์ทบนฮาร์ดไดรฟ์"
 
-#: ../loader2/hdinstall.c:582
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "ไม่พบฮาร์ดไดรฟ์สำหรับ BISO disk %s"
@@ -5709,69 +5771,69 @@ msgstr "เกิดข้อผิดพลาดใน %s ในบรรท�
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "บนแผ่นบูตไม่มีไฟล์ ks.cfg"
 
-#: ../loader2/kickstart.c:412
+#: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/lang.c:54
+#: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "ยินดีต้อนรับสู่ %s - Rescue Mode"
 
-#: ../loader2/lang.c:55 ../loader2/loader.c:158
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ระหว่าง elements  | <Space> เลือก | <F12> หน้าถัดไป "
 
-#: ../loader2/lang.c:364
+#: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "เลือกภาษา"
 
-#: ../loader2/loader.c:117
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "ซีดีรอมในเครื่อง"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "ฮาร์ดไดรฟ์"
 
-#: ../loader2/loader.c:120
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "NFS image"
 
-#: ../loader2/loader.c:330
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "อัพเดทแผ่นดิสก์ต้นฉบับ"
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
-#: ../loader2/loader.c:346
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "ใส่แผ่นดิสก์อัพเดทใน /dev/%s และกด \"ตกลง\" เพื่อดำเนินการต่อไป"
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "อัพเดทแผ่นดิสก์"
 
-#: ../loader2/loader.c:360
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "การเมานท์แผ่นดิสก์อัพเดทล้มเหลว"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "อัพเดท"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "กำลังอ่านอนาคอนดาอัพเดต"
 
-#: ../loader2/loader.c:401
+#: ../loader2/loader.c:404
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5780,78 +5842,78 @@ msgstr ""
 "ไม่พบฮาร์ดไดรฟ์ คุณอาจจะต้องเลือกไดรเวอร์อุปกรณ์ด้วยตัวเองเพื่อให้การติดตั้งสำเร็จ "
 "คุณต้องการจะเลือกไดรเวอร์ตอนนี้หรือไม่?"
 
-#: ../loader2/loader.c:775
+#: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "คุณไม่มีแรมมากพอที่จะติดตั้ง %s บนเครื่องนี้"
 
-#: ../loader2/loader.c:935
+#: ../loader2/loader.c:938
 msgid "Rescue Method"
 msgstr "วิธีการกู้ระบบ"
 
-#: ../loader2/loader.c:936
+#: ../loader2/loader.c:939
 msgid "Installation Method"
 msgstr "วิธีการติดตั้ง"
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
 msgstr "อิมเมจสำหรับกู้ระบบถูกเก็บในสื่อประเภทใด?"
 
-#: ../loader2/loader.c:940
+#: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
 msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "No driver found"
 msgstr "ไม่พบไดรฟ์เวอร์"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "Select driver"
 msgstr "เลือกไดรฟ์เวอร์"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:969
 msgid "Use a driver disk"
 msgstr "ใช้แผ่นไดรเวอร์"
 
-#: ../loader2/loader.c:966
+#: ../loader2/loader.c:970
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:1124
+#: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
 msgstr "พบอุปกรณ์ต่อไปนี้ในระบบของคุณ"
 
-#: ../loader2/loader.c:1126
+#: ../loader2/loader.c:1133
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "ไม่มีไดรเวอร์อุปกรณ์สำหรับโหลดใช้กับระบบของคุณ คุณต้องการจะโหลดตอนนี้หรือไม่?"
 
-#: ../loader2/loader.c:1130
+#: ../loader2/loader.c:1137
 msgid "Devices"
 msgstr "อุปกรณ์"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1138
 msgid "Done"
 msgstr "เสร็จ"
 
-#: ../loader2/loader.c:1132
+#: ../loader2/loader.c:1139
 msgid "Add Device"
 msgstr "Add Device"
 
-#: ../loader2/loader.c:1332
+#: ../loader2/loader.c:1347
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader has already been run.  Starting shell.\n"
 
-#: ../loader2/loader.c:1699
+#: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Running anaconda, the %s rescue mode - please wait...\n"
 
-#: ../loader2/loader.c:1701
+#: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "กำลังรันโปรแกรมอนาคอนดา ตัวติดตั้งระบบ %s - กรุณารอสักครู่...\n"
@@ -5953,12 +6015,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "การตรวจสอบ Checksum"
 
-#: ../loader2/modules.c:961
+#: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/net.c:62
+#: ../loader2/net.c:63
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -5973,18 +6035,13 @@ msgstr ""
 "    o ไดเรกทอรีที่เซิร์ฟเวอร์นั้นเก็บ %s\n"
 "      สำหรับระบบของคุณ\n"
 
-#: ../loader2/net.c:96
-#, fuzzy
-msgid "Invalid CIDR Mask"
-msgstr "สตริงของไอพีไม่ถูกต้อง"
-
-#: ../loader2/net.c:97
+#: ../loader2/net.c:98
 msgid ""
-"CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
-"128 for IPv6 networks"
+"Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
+"IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:231
+#: ../loader2/net.c:232
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -5992,19 +6049,15 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 
-#: ../loader2/net.c:241
+#: ../loader2/net.c:242
 msgid "Wireless Settings"
 msgstr "Wireless Settings"
 
-#: ../loader2/net.c:272
+#: ../loader2/net.c:273
 msgid "Nameserver IP"
 msgstr "IP ของ nameserver"
 
-#: ../loader2/net.c:276
-msgid "Nameserver"
-msgstr "Nameserver"
-
-#: ../loader2/net.c:277
+#: ../loader2/net.c:278
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6015,133 +6068,124 @@ msgstr ""
 "ถ้าคุณทราบว่า nameserver ของคุณคืออะไร กรุณาป้อนค่า ถ้าคุณไม่ทราบข้อมูลนี้จริงๆ "
 "คุณสามารถละฟิลด์นี้ให้ว่างไว้ โดยที่การติดตั้งยังคงดำเนินต่อไปได้"
 
-#: ../loader2/net.c:300
+#: ../loader2/net.c:301
 msgid "Invalid IP Information"
 msgstr "ข้อมูลเกี่ยวกับ IP ไม่ถูกต้อง"
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:302
 msgid "You entered an invalid IP address."
 msgstr "คุณป้อนหมายเลข IP ไม่ถูกต้อง"
 
-#: ../loader2/net.c:375 ../loader2/net.c:768
-msgid "Dynamic IP"
-msgstr "IP แบบไดนามิก"
-
-#: ../loader2/net.c:376 ../loader2/net.c:769
-#, c-format
-msgid "Sending request for IP information for %s..."
-msgstr "กำลังส่งคำร้องขอข้อมูล IP สำหรับ %s.."
-
-#: ../loader2/net.c:538 ../loader2/net.c:639
+#: ../loader2/net.c:541 ../loader2/net.c:647
 #, fuzzy
 msgid "Network Error"
 msgstr "ไม่มีรหัสผ่าน"
 
-#: ../loader2/net.c:539 ../loader2/net.c:640
+#: ../loader2/net.c:542 ../loader2/net.c:648
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
 
-#: ../loader2/net.c:675
+#: ../loader2/net.c:684
 #, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (BOOTP/DHCP)"
 
-#: ../loader2/net.c:680
-msgid "Enable IPv4 support"
-msgstr ""
-
-#: ../loader2/net.c:690
-msgid "Enable IPv6 support"
-msgstr ""
-
-#: ../loader2/net.c:700
+#: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
 msgstr ""
 
-#: ../loader2/net.c:702
+#: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
 msgstr ""
 
-#: ../loader2/net.c:738
+#: ../loader2/net.c:750
 msgid "Configure TCP/IP"
 msgstr "กำหนดค่า TCP/IP"
 
-#: ../loader2/net.c:753 ../loader2/net.c:763
+#: ../loader2/net.c:764
+msgid "IPv4 Needed for NFS"
+msgstr ""
+
+#: ../loader2/net.c:765
+msgid "NFS installation method requires IPv4 support."
+msgstr ""
+
+#: ../loader2/net.c:771 ../loader2/net.c:781
 #, fuzzy
 msgid "Missing Protocol"
 msgstr "ไม่พบกลุ่ม"
 
-#: ../loader2/net.c:754
+#: ../loader2/net.c:772
 #, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr "คุณต้องเลือกติดตั้งอย่างน้อยหนึ่งภาษา"
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:782
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr "คุณต้องเลือกติดตั้งอย่างน้อยหนึ่งภาษา"
 
-#: ../loader2/net.c:834
+#: ../loader2/net.c:852
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "หมายเลข IP:"
 
-#: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:876
+#: ../loader2/net.c:904
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "หมายเลข IP:"
 
-#: ../loader2/net.c:928
+#: ../loader2/net.c:965
 #, fuzzy
 msgid "Name Server:"
 msgstr "Nameserver"
 
-#: ../loader2/net.c:961
+#: ../loader2/net.c:1008
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "การกำหนดค่า z/IPL"
 
-#: ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
 msgstr "ข้อมูลไม่ถูกต้อง"
 
-#: ../loader2/net.c:1085
+#: ../loader2/net.c:1132
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
 
-#: ../loader2/net.c:1091
+#: ../loader2/net.c:1138
 #, fuzzy
-msgid "You must enter both a valid IPv6 address and a CIDR prefix."
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
 
-#: ../loader2/net.c:1355
+#: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
 msgstr "กำลังค้นหาชื่อโฮสต์และชื่อโดเมน..."
 
-#: ../loader2/net.c:1447
+#: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr ""
 
-#: ../loader2/net.c:1470
+#: ../loader2/net.c:1517
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader2/net.c:1639
+#: ../loader2/net.c:1688
 msgid "Networking Device"
 msgstr "อุปกรณ์เครือข่าย"
 
-#: ../loader2/net.c:1640
+#: ../loader2/net.c:1689
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6151,7 +6195,7 @@ msgstr "คุณมีอุปกรณ์เครือข่ายหลา
 msgid "NFS server name:"
 msgstr "ชื่อเซิร์ฟเวอร์ NFS:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
 #, c-format
 msgid "%s directory:"
 msgstr "%s ไดเรกทอรี:"
@@ -6165,20 +6209,20 @@ msgstr "NIS"
 msgid "NFS Setup"
 msgstr "การตั้งค่า NFS"
 
-#: ../loader2/nfsinstall.c:131
+#: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:208
+#: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "ไดเรกทอรีนั้นดูเหมือนจะไม่มีชุดติดตั้ง %s"
 
-#: ../loader2/nfsinstall.c:221
+#: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
 msgstr "ไม่สามารถเมานท์ไดเรกทอรีจากเซิร์ฟเวอร์ได้"
 
-#: ../loader2/nfsinstall.c:260
+#: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr ""
@@ -6204,109 +6248,99 @@ msgstr "ไม่สามารถเรียกคืน  %s://%s/%s/%s"
 msgid "Unable to retrieve the install image."
 msgstr "ไม่สามารถเรียกอิมเมจสำหรับติดตั้งคืนมาได้"
 
-#: ../loader2/urlinstall.c:291
+#: ../loader2/urlinstall.c:285
 msgid "Media Detected"
 msgstr ""
 
-#: ../loader2/urlinstall.c:292
+#: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
 msgstr ""
 
-#: ../loader2/urlinstall.c:477
+#: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "วิธี kickstart แบบ url มีอาร์กิวเมนต์ที่ไม่ถูกต้องสำหรับคำสั่ง %s: %s"
 
-#: ../loader2/urlinstall.c:486
+#: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "ต้องใส่อาร์กิวเมนต์ --url เพื่อใช้วิธี kickstart แบบ url"
 
-#: ../loader2/urlinstall.c:497
+#: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
 
-#: ../loader2/urls.c:182
-#, c-format
-msgid "Failed to log into %s: %s"
-msgstr "เกิดความล้มเหลวที่จะล็อกเข้าสู่ %s: %s"
-
-#: ../loader2/urls.c:192 ../loader2/urls.c:201
-#, c-format
-msgid "Failed to retrieve %s: %s"
-msgstr "เกิดความล้มเหลวที่จะเรียกคืน %s: %s"
-
-#: ../loader2/urls.c:208
+#: ../loader2/urls.c:215
 msgid "Retrieving"
 msgstr "กำลังเรียกคืน"
 
-#: ../loader2/urls.c:273
+#: ../loader2/urls.c:279
 msgid "FTP"
 msgstr ""
 
-#: ../loader2/urls.c:278
+#: ../loader2/urls.c:284
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:295
+#: ../loader2/urls.c:301
 msgid "FTP site name:"
 msgstr "ชื่อไซต์ FTP:"
 
-#: ../loader2/urls.c:296
+#: ../loader2/urls.c:302
 msgid "Web site name:"
 msgstr "ชื่อเว็บไซต์:"
 
-#: ../loader2/urls.c:315
+#: ../loader2/urls.c:321
 msgid "Use non-anonymous ftp"
 msgstr "ใช้ non-anonymous ftp"
 
-#: ../loader2/urls.c:324
+#: ../loader2/urls.c:330
 msgid "FTP Setup"
 msgstr "ติดตั้งผ่าน FTP"
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:331
 msgid "HTTP Setup"
 msgstr "ติดตั้งผ่าน HTTP"
 
-#: ../loader2/urls.c:335
+#: ../loader2/urls.c:341
 msgid "You must enter a server name."
 msgstr "คุณต้องป้อนชื่อเซิร์ฟเวอร์"
 
-#: ../loader2/urls.c:340
+#: ../loader2/urls.c:346
 msgid "You must enter a directory."
 msgstr "คุณต้องป้อนไดเรกทอรี"
 
-#: ../loader2/urls.c:345
+#: ../loader2/urls.c:351
 msgid "Unknown Host"
 msgstr "ไม่รู้จักโฮสต์นี้"
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:352
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "ชื่อ %s ใช้เป็นชื่อโฮสต์ไม่ได้"
 
-#: ../loader2/urls.c:416
+#: ../loader2/urls.c:415
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr "ถ้าคุณไม่ได้ใช้ anonymous ftp ให้ป้อนชื่อบัญชีผู้ใช้ และรหัสผ่านของคุณ ข้างล่างนี้"
 
-#: ../loader2/urls.c:421
+#: ../loader2/urls.c:420
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "ถ้าคุณใช้พรอกซีเซิร์ฟเวอร์สำหรับ HTTP ให้ป้อนชื่อเซิร์ฟเวอร์"
 
-#: ../loader2/urls.c:443
+#: ../loader2/urls.c:442
 msgid "Account name:"
 msgstr "ชื่อบัญชี:"
 
-#: ../loader2/urls.c:466
+#: ../loader2/urls.c:465
 #, fuzzy
 msgid "Further FTP Setup"
 msgstr "ติดตั้งผ่าน FTP"
 
-#: ../loader2/urls.c:469
+#: ../loader2/urls.c:468
 #, fuzzy
 msgid "Further HTTP Setup"
 msgstr "ติดตั้งผ่าน HTTP"
@@ -6376,6 +6410,13 @@ msgstr "_ถัดไป "
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
 msgstr "_รีลีสโน้ต"
+
+#: tmp/autopart.glade.h:1
+msgid ""
+"Installation requires partitioning of your hard drive.  By default, a "
+"partitioning layout is chosen which is reasonable for most users.  You can "
+"either choose to use this or create your own."
+msgstr ""
 
 #: tmp/autopart.glade.h:2
 #, fuzzy
@@ -6485,23 +6526,21 @@ msgstr "ปรับเลือกเอง"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
-"Further customization of the software selection can be completed now or "
-"after install via the software management application."
-msgstr ""
-
-#: tmp/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of  software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
+"Please select any additional repositories that you want to use for software "
+"installation."
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-msgid "_Add additional software repositories"
+msgid ""
+"You can further customize the software selection now, or after install via "
+"the software management application."
 msgstr ""
 
 #: tmp/tasksel.glade.h:6
+msgid "_Add additional software repositories"
+msgstr ""
+
+#: tmp/tasksel.glade.h:7
 #, fuzzy
 msgid "_Customize now"
 msgstr "ปรับเลือกเอง"
@@ -6551,8 +6590,13 @@ msgid "Atlantic islands"
 msgstr "Atlantic islands"
 
 #. generated from zone.tab
-msgid "Atlantic Time - E Labrador"
-msgstr "Atlantic Time - E Labrador"
+msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Labrador - most locations"
+msgstr "Eastern Time - Ontario - most locations"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6561,7 +6605,7 @@ msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 #, fuzzy
-msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), PEI"
 msgstr ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
@@ -6604,7 +6648,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
-msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+#, fuzzy
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
@@ -6723,7 +6768,7 @@ msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 #, fuzzy
-msgid "Eastern Standard Time - Southampton Island"
+msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
 msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
@@ -6815,8 +6860,8 @@ msgid "Hawaii"
 msgstr "Hawaii"
 
 #. generated from zone.tab
-msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgid "Heilongjiang (except Mohe), Jilin"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -6895,16 +6940,22 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
+#, fuzzy
+msgid "Moscow+00 - Caspian Sea"
+msgstr "Moscow+01 - Caspian Sea"
+
+#. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Moscow+00 - west Russia"
 
 #. generated from zone.tab
-msgid "Moscow+01 - Caspian Sea"
-msgstr "Moscow+01 - Caspian Sea"
-
-#. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
 msgstr "Moscow-01 - Kaliningrad"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Moscow+01 - Samara, Udmurtia"
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -6959,6 +7010,10 @@ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
@@ -7009,8 +7064,9 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland Island"
+#, fuzzy
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7109,10 +7165,6 @@ msgid "South Australia"
 msgstr "South Australia"
 
 #. generated from zone.tab
-msgid "southwest Xinjiang Uyghur"
-msgstr "southwest Xinjiang Uyghur"
-
-#. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
@@ -7136,10 +7188,6 @@ msgstr "Queensland - most locations"
 #. generated from zone.tab
 msgid "Thule / Pituffik"
 msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
@@ -7189,6 +7237,11 @@ msgstr "ออสเตรเลียตะวันตก"
 #. generated from zone.tab
 msgid "West Kazakhstan"
 msgstr "คาซัคสถานตะวันตก"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "west Tibet & Xinjiang"
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7418,6 +7471,46 @@ msgstr "ภาษาชาวเวลส์"
 msgid "Zulu"
 msgstr "ภาษาซูลู"
 
+#~ msgid "DDC Probed Monitor"
+#~ msgstr "จอภาพที่ตรวจหาได้ด้วย DDC"
+
+#~ msgid "Tertiary DNS"
+#~ msgstr "DNS ตัวที่ 3"
+
+#~ msgid "_Tertiary DNS"
+#~ msgstr "DNS _ตัวที่ 3"
+
+#~ msgid "Configure using _DHCP"
+#~ msgstr "ตั้งค่าโดยใช้ _DHCP"
+
+#~ msgid "_IP Address"
+#~ msgstr "หมายเลขไ_อพี "
+
+#~ msgid "Net_mask"
+#~ msgstr "เน็ต_มาสก์ "
+
+#~ msgid "Hardware address:"
+#~ msgstr "ตำแหน่งฮาร์ดแวร์:"
+
+#, fuzzy
+#~ msgid "Invalid CIDR Mask"
+#~ msgstr "สตริงของไอพีไม่ถูกต้อง"
+
+#~ msgid "Failed to log into %s: %s"
+#~ msgstr "เกิดความล้มเหลวที่จะล็อกเข้าสู่ %s: %s"
+
+#~ msgid "Failed to retrieve %s: %s"
+#~ msgstr "เกิดความล้มเหลวที่จะเรียกคืน %s: %s"
+
+#~ msgid "Heilongjiang"
+#~ msgstr "Heilongjiang"
+
+#~ msgid "Newfoundland Island"
+#~ msgstr "Newfoundland Island"
+
+#~ msgid "southwest Xinjiang Uyghur"
+#~ msgstr "southwest Xinjiang Uyghur"
+
 #~ msgid "Could not allocate partitions"
 #~ msgstr "ไม่สามารถสร้างพาร์ทิชันได้"
 
@@ -7464,9 +7557,6 @@ msgstr "ภาษาซูลู"
 
 #~ msgid "_Cancel"
 #~ msgstr "_ยกเลิก"
-
-#~ msgid "IP Addresses must contain numbers between 1 and 255"
-#~ msgstr "หมายเลข IP จะต้องเป็นตัวเลขระหว่าง 1 ถึง 255"
 
 #, fuzzy
 #~ msgid "iSCSI Configuration"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-26 17:08-0400\n"
+"POT-Creation-Date: 2006-09-18 15:40-0400\n"
 "PO-Revision-Date: 2006-08-30 23:25+0100\n"
 "Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
 "Language-Team: Greek <fedora-trans-el@redhat.com>\n"
@@ -26,63 +26,63 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../anaconda:258
+#: ../anaconda:256
 msgid "Unknown Error"
 msgstr "Άγνωστο σφάλμα"
 
 # gconf/gconfd.c:1676
-#: ../anaconda:261
+#: ../anaconda:259
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Σφάλμα ανάγνωσης του δεύτερου μέρους του αρχείου ρυθμίσεων kickstart: %s!"
+msgstr ""
+"Σφάλμα ανάγνωσης του δεύτερου μέρους του αρχείου ρυθμίσεων kickstart: %s!"
 
-#: ../anaconda:414
+#: ../anaconda:412
 msgid "Press <enter> for a shell"
 msgstr "Πατήστε <enter> για ένα κέλυφος"
 
-#: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
-#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:140
+#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
+#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:139
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:260 ../loader2/cdinstall.c:375
-#: ../loader2/cdinstall.c:380 ../loader2/cdinstall.c:385
-#: ../loader2/cdinstall.c:454 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
-#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:216 ../loader2/hdinstall.c:383
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
-#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:581
-#: ../loader2/hdinstall.c:594 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
+#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
+#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
+#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:411 ../loader2/lang.c:104
-#: ../loader2/lang.c:367 ../loader2/loader.c:335 ../loader2/loader.c:348
-#: ../loader2/loader.c:359 ../loader2/loader.c:778 ../loader2/loader.c:943
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:960 ../loader2/net.c:242
-#: ../loader2/net.c:282 ../loader2/net.c:706 ../loader2/net.c:949
-#: ../loader2/net.c:1446 ../loader2/net.c:1469 ../loader2/net.c:1643
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
-#: ../loader2/nfsinstall.c:259 ../loader2/telnetd.c:87
+#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
+#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
 #: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:476
-#: ../loader2/urlinstall.c:485 ../loader2/urlinstall.c:496
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
-#: ../loader2/urls.c:345 ../loader2/urls.c:456
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
+#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
+#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:351 ../loader2/urls.c:455
 msgid "OK"
 msgstr "Εντάξει"
 
-#: ../anaconda:452
+#: ../anaconda:450
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -90,41 +90,44 @@ msgstr ""
 "Δεν έχετε αρκετή μνήμη RAM για να χρησιμοποιήσετε τη γραφική εγκατάσταση. Θα "
 "εκκινήσει τώρα η λειτουργία κειμένου."
 
-#: ../anaconda:476
+#: ../anaconda:466
 msgid "No video hardware found, assuming headless"
 msgstr "Δεν βρέθηκε υλικό γραφικών, θα θεωρηθεί ότι δεν υπάρχει"
 
-#: ../anaconda:487 ../anaconda:910
+#: ../anaconda:473 ../anaconda:886
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Αδυναμία αρχικοποίησης ενός αντικειμένου κατάστασης υλικού X."
 
-#: ../anaconda:529
+#: ../anaconda:512
 msgid "Starting graphical installation..."
 msgstr "Εκκίνηση γραφικής εγκατάστασης..."
 
-#: ../anaconda:790
+#: ../anaconda:766
 msgid "Install class forcing text mode installation"
-msgstr "Η κλάση εγκατάστασης επιβάλλει αναγκαστική εγκατάσταση σε λειτουργία κειμένου"
+msgstr ""
+"Η κλάση εγκατάστασης επιβάλλει αναγκαστική εγκατάσταση σε λειτουργία κειμένου"
 
-#: ../anaconda:816
+#: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Η γραφική εγκατάσταση δεν είναι διαθέσιμη...  Εκκίνηση λειτουργίας κειμένου."
+msgstr ""
+"Η γραφική εγκατάσταση δεν είναι διαθέσιμη...  Εκκίνηση λειτουργίας κειμένου."
 
-#: ../anaconda:824
+#: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "Δεν έχει οριστεί η μεταβλητή DISPLAY. Γίνεται εκκίνηση λειτουργίας κειμένου!"
+msgstr ""
+"Δεν έχει οριστεί η μεταβλητή DISPLAY. Γίνεται εκκίνηση λειτουργίας κειμένου!"
 
-#: ../anaconda:877
+#: ../anaconda:851
 msgid "Unknown install method"
 msgstr "Άγνωστη μέθοδος εγκατάστασης"
 
-#: ../anaconda:878
+#: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
 "Έχετε καθορίσει μια μέθοδο εγκατάστασης που δεν υποστηρίζεται από το "
 "anaconda."
 
-#: ../anaconda:880
+#: ../anaconda:854
 #, c-format
 msgid "unknown install method: %s"
 msgstr "άγνωστη μέθοδος εγκατάστασης: %s"
@@ -173,8 +176,8 @@ msgid ""
 msgstr ""
 "Το τμήμα δίσκου Boot %s δεν ανήκει σε ετικέτα δίσκου BSD. Το SRM δεν θα "
 "μπορέσει να εκκινήσει από αυτό το τμήμα δίσκου. Χρησιμοποιήστε ένα τμήμα "
-"δίσκου που ανήκει σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτήν την ετικέτα δίσκου "
-"σε BSD."
+"δίσκου που ανήκει σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτήν την ετικέτα "
+"δίσκου σε BSD."
 
 #: ../autopart.py:1021
 #, python-format
@@ -206,7 +209,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Το τμήμα δίσκου boot %s πιθανό να μη μπορεί να συνεργαστεί με τους "
 "περιορισμούς boot της αρχιτεκτονικής του συστήματος σας."
@@ -375,15 +379,15 @@ msgstr "Μη αναστρέψιμο σφάλμα"
 msgid "Your system will now be rebooted."
 msgstr "Θα γίνει τώρα επανεκκίνηση του συστήματος σας."
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
-#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
-#: ../partedUtils.py:1041 ../upgrade.py:350 ../yuminstall.py:1060
+#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
+#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
-#: ../iw/upgrade_swap_gui.py:203 ../iw/zfcp_gui.py:247
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:400
+#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
+#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
@@ -484,22 +488,33 @@ msgstr "Ολοκληρώθηκε"
 msgid "In progress...   "
 msgstr "Σε εξέλιξη..."
 
-#: ../cmdline.py:73
+#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Βρέθηκε το ακόλουθο σφάλμα κατά την ανάλυση της ρύθμισης του kickstart σας:\n"
+"\n"
+"%s"
+
+#: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "Δεν μπορείτε να κάνετε ερώτηση στη λειτουργία γραμμής εντολών!"
 
-#: ../cmdline.py:92
+#: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr ""
 "Δεν είναι δυνατός ο χειρισμός των parted exceptions σε λειτουργία γραμμής "
 "εντολών!"
 
-#: ../cmdline.py:137
+#: ../cmdline.py:145
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "Ολοκληρώθηκαν [%d/%d]"
 
-#: ../cmdline.py:143
+#: ../cmdline.py:151
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr "Εγκατάσταση %s-%s-%s... "
@@ -515,11 +530,11 @@ msgstr ""
 "αποθηκεύστε ένα αντίγραφο της λεπτομερούς εξαίρεσης και συμπληρώστε μια "
 "αναφορά σφάλματος σχετικά με το anaconda στο %s"
 
-#: ../exception.py:390 ../exception.py:407
+#: ../exception.py:400 ../exception.py:417
 msgid "Dump Written"
 msgstr "Dump Written"
 
-#: ../exception.py:391
+#: ../exception.py:401
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -527,24 +542,24 @@ msgstr ""
 "Η κατάσταση του συστήματος σας αποθηκεύτηκε επιτυχώς στη δισκέτα. Τώρα θα "
 "γίνει επανεκκίνηση του συστήματος σας."
 
-#: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
-#: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
-#: ../image.py:442 ../image.py:513 ../packages.py:300 ../iw/confirm_gui.py:32
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
+#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
+#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Επανε_κκίνηση"
 
-#: ../exception.py:399 ../exception.py:416
+#: ../exception.py:409 ../exception.py:426
 msgid "Dump Not Written"
 msgstr "Dump Not Written"
 
-#: ../exception.py:400
+#: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "Υπήρξε πρόβλημα κατά την αποθήκευση της κατάστασης του συστήματος σας στη  "
 "δισκέτα."
 
-#: ../exception.py:408
+#: ../exception.py:418
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -552,49 +567,48 @@ msgstr ""
 "Η κατάσταση του συστήματος σας αποθηκεύτηκε επιτυχώς στο απομακρυσμένο "
 "σύστημα. Το σύστημα σας θα επανεκκινήσει τώρα."
 
-#: ../exception.py:417
+#: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Υπήρξε πρόβλημα κατά την αποθήκευση της κατάστασης του συστήματος σας στο "
 "απομακρυσμένο σύστημα."
 
-#: ../fsset.py:216
+#: ../fsset.py:221
 msgid "Checking for Bad Blocks"
 msgstr "Έλεγχος για ακατάλληλα μπλοκ"
 
-#: ../fsset.py:217
+#: ../fsset.py:222
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Έλεγχος για ακατάλληλα μπλοκ σε /dev/%s..."
 
-#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
-#: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
-#: ../fsset.py:1679 ../fsset.py:1745 ../fsset.py:1764 ../image.py:132
-#: ../image.py:173 ../image.py:305 ../partedUtils.py:788
-#: ../partIntfHelpers.py:406 ../yuminstall.py:567 ../yuminstall.py:655
-#: ../yuminstall.py:906 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
+#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
+#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
+#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
+#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
+#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:110 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:454 ../loader2/driverdisk.c:337
-#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:216
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:538
-#: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:104 ../loader2/loader.c:359
-#: ../loader2/loader.c:778 ../loader2/mediacheck.c:329
+#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:334 ../loader2/urls.c:339
+#: ../loader2/urls.c:340 ../loader2/urls.c:345
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../fsset.py:672
+#: ../fsset.py:677
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -607,28 +621,28 @@ msgstr ""
 "\n"
 "Θέλετε να συνεχίσετε χωρίς να εισάγετε το %s;"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1333
 msgid "RAID Device"
 msgstr "Συσκευή RAID"
 
-#: ../fsset.py:1334 ../fsset.py:1340
+#: ../fsset.py:1337 ../fsset.py:1343
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1345 ../partitions.py:902
+#: ../fsset.py:1348 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
 # gconf/gconf-internals.c:2416
-#: ../fsset.py:1348
+#: ../fsset.py:1351
 msgid "First sector of boot partition"
 msgstr "Πρώτος τομέας του τμήματος δίσκου boot"
 
-#: ../fsset.py:1349
+#: ../fsset.py:1352
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1423
+#: ../fsset.py:1426
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -641,17 +655,17 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1452 ../rescue.py:289 ../rescue.py:291
+#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:420
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "Παράκαμψη"
 
-#: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Επανεκκίνηση"
 
-#: ../fsset.py:1473
+#: ../fsset.py:1476
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -671,11 +685,11 @@ msgstr ""
 "swap έκδοση 1. Αν παρακάμψετε αυτό το βήμα, το τμήμα δίσκου θα αγνοηθεί κατά "
 "την εγκατάσταση."
 
-#: ../fsset.py:1480
+#: ../fsset.py:1483
 msgid "Reformat"
 msgstr "Μορφοποίηση ξανά"
 
-#: ../fsset.py:1484
+#: ../fsset.py:1487
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -695,7 +709,7 @@ msgstr ""
 "αναστολής. Για να κάνετε μία αναβάθμιση, παρακαλώ κλείστε το σύστημα σας "
 "αντί να το θέσετε σε αναστολή."
 
-#: ../fsset.py:1492
+#: ../fsset.py:1495
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -715,7 +729,7 @@ msgstr ""
 "νέα εγκατάσταση βεβαιωθείτε ότι η εγκατάσταση έχει ρυθμιστεί έτσι ώστε να "
 "μορφοποιήσει όλα τα τμήματα δίσκου swap."
 
-#: ../fsset.py:1502
+#: ../fsset.py:1505
 msgid ""
 "\n"
 "\n"
@@ -730,11 +744,11 @@ msgstr ""
 "δίσκου ως τμήμα δίσκου swap. Επιλέξτε Επανεκκίνηση για να επανεκκινήσετε το "
 "σύστημα σας."
 
-#: ../fsset.py:1508 ../iw/partition_gui.py:368
+#: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Μορφοποίηση"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1518
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -751,7 +765,7 @@ msgstr ""
 "\n"
 "Επιλέξτε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1526
+#: ../fsset.py:1529
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -766,7 +780,7 @@ msgstr ""
 "\n"
 "Επιλέξτε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1579
+#: ../fsset.py:1583
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -779,7 +793,7 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας"
 
-#: ../fsset.py:1590
+#: ../fsset.py:1594
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -792,7 +806,7 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1630
+#: ../fsset.py:1634
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -805,7 +819,7 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1680
+#: ../fsset.py:1684
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -818,11 +832,11 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1706 ../fsset.py:1715
+#: ../fsset.py:1710 ../fsset.py:1719
 msgid "Invalid mount point"
 msgstr "Μη έγκυρο σημείο προσάρτησης"
 
-#: ../fsset.py:1707
+#: ../fsset.py:1711
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -836,7 +850,7 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1716
+#: ../fsset.py:1720
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -849,11 +863,11 @@ msgstr ""
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1729
+#: ../fsset.py:1733
 msgid "Unable to mount filesystem"
 msgstr "Αδύνατη η προσάρτηση συστήματος αρχείων"
 
-#: ../fsset.py:1730
+#: ../fsset.py:1734
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -862,12 +876,12 @@ msgstr ""
 "Ένα σφάλμα εμφανίστηκε κατά την προσάρτηση της συσκευής %s σαν %s.  Μπορείτε "
 "να συνεχίσετε την εγκατάσταση, αλλά θα υπάρξουν προβλήματα."
 
-#: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
-#: ../kickstart.py:1017 ../iw/partition_gui.py:1011
+#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
+#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Συνέχεια"
 
-#: ../fsset.py:1746
+#: ../fsset.py:1750
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -882,7 +896,7 @@ msgstr ""
 "\n"
 "Πατήστε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:1765
+#: ../fsset.py:1769
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -896,11 +910,11 @@ msgstr ""
 "\n"
 "Πατήστε Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
-#: ../fsset.py:2456
+#: ../fsset.py:2462
 msgid "Duplicate Labels"
 msgstr "Διπλότυπες ετικέτες"
 
-#: ../fsset.py:2457
+#: ../fsset.py:2463
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -913,11 +927,11 @@ msgstr ""
 "\n"
 "Παρακαλώ διορθώστε το πρόβλημα και ξεκινήστε ξανά τη διαδικασία εγκατάστασης."
 
-#: ../fsset.py:2717
+#: ../fsset.py:2723
 msgid "Formatting"
 msgstr "Μορφοποίηση"
 
-#: ../fsset.py:2718
+#: ../fsset.py:2724
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Μορφοποίηση συστήματος αρχείων %s..."
@@ -970,23 +984,24 @@ msgstr ""
 msgid "Fix"
 msgstr "Διόρθωση"
 
-#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/loader.c:403
 msgid "No"
 msgstr "Όχι"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
-#: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
-#: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
+#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
+#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
+#: ../loader2/net.c:1137
 msgid "Retry"
 msgstr "Προσπάθεια ξανά"
 
@@ -994,32 +1009,21 @@ msgstr "Προσπάθεια ξανά"
 msgid "Ignore"
 msgstr "Αγνόηση"
 
-#: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/loader.c:348
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
+#: ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../gui.py:832 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"Βρέθηκε το ακόλουθο σφάλμα κατά την ανάλυση της ρύθμισης του kickstart σας:\n"
-"\n"
-"%s"
-
 # gconf/gconfd.c:1676
-#: ../gui.py:834 ../text.py:356
+#: ../gui.py:843 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "Σφάλμα ανάλυσης ρύθμισης kickstart"
 
-#: ../gui.py:842 ../text.py:366
+#: ../gui.py:851 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1027,15 +1031,15 @@ msgstr ""
 "Εισάγετε μια δισκέτα τώρα. Όλα τα περιεχόμενα της θα διαγραφούν, διαλέξτε τη "
 "δισκέτα σας προσεκτικά."
 
-#: ../gui.py:889
+#: ../gui.py:898
 msgid "default:LTR"
 msgstr "προεπιλογή:LTR"
 
-#: ../gui.py:973
+#: ../gui.py:982
 msgid "Error!"
 msgstr "Σφάλμα!"
 
-#: ../gui.py:974
+#: ../gui.py:983
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1047,41 +1051,40 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
-#: ../yuminstall.py:661
+#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
 msgid "_Exit"
 msgstr "Ε_ξοδος"
 
-#: ../gui.py:980 ../yuminstall.py:570
+#: ../gui.py:989 ../yuminstall.py:609
 msgid "_Retry"
 msgstr "_Προσπάθεια ξανά"
 
-#: ../gui.py:983 ../packages.py:296
+#: ../gui.py:992 ../packages.py:294
 msgid "The installer will now exit..."
 msgstr "Η εγκατάσταση τώρα θα τερματιστεί..."
 
-#: ../gui.py:986 ../packages.py:299
+#: ../gui.py:995 ../packages.py:297
 msgid "Your system will now be rebooted..."
 msgstr "Θα γίνει τώρα επανεκκίνηση του συστήματος σας..."
 
-#: ../gui.py:989 ../packages.py:301
+#: ../gui.py:998 ../packages.py:299
 msgid "Rebooting System"
 msgstr "Επανεκκίνηση συστήματος"
 
-#: ../gui.py:1053
+#: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
 msgstr "Εγκατάσταση %s"
 
-#: ../gui.py:1060
+#: ../gui.py:1069
 msgid "Unable to load title bar"
 msgstr "Αδύνατη η φόρτωση μπάρας τίτλου"
 
-#: ../gui.py:1109
+#: ../gui.py:1118
 msgid "Install Window"
 msgstr "Παράθυρο εγκατάστασης"
 
-#: ../harddrive.py:41 ../image.py:143 ../image.py:470
+#: ../harddrive.py:44 ../image.py:144 ../image.py:474
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1100,11 +1103,11 @@ msgstr ""
 "οποία πιθανόν να χρειαστεί επανεγκατάσταση.\n"
 "\n"
 
-#: ../harddrive.py:68 ../image.py:503
+#: ../harddrive.py:71 ../image.py:507
 msgid "Missing ISO 9660 Image"
 msgstr "Λείπει η εικόνα ISO 9660"
 
-#: ../harddrive.py:69
+#: ../harddrive.py:72
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1119,7 +1122,7 @@ msgstr ""
 "Παρακαλώ αντιγράψτε την εικόνα στο δίσκο και επιλέξτε Προσπάθεια ξανά. "
 "Επιλέξτε Επανεκκίνηση για να τερματίσετε την εγκατάσταση."
 
-#: ../harddrive.py:78 ../image.py:514
+#: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
 msgstr "Προσπάθεια _ξανά"
 
@@ -1142,13 +1145,13 @@ msgstr ""
 "Παρακαλώ ετοιμάστε τα πριν να συνεχίσετε με την εγκατάσταση.  Αν χρειάζεται "
 "να εγκαταλείψετε την εγκατάσταση πατήστε \"Επανεκκίνηση\"."
 
-#: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
+#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Πίσω"
 
-#: ../image.py:133
+#: ../image.py:134
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1158,15 +1161,15 @@ msgstr ""
 "έχετε πρόσβαση στο %s μέσω του κελύφους στο tty2 και πατήστε Εντάξει για να "
 "ξαναπροσπαθήσετε."
 
-#: ../image.py:163
+#: ../image.py:164
 msgid "Copying File"
 msgstr "Αντιγραφή αρχείου"
 
-#: ../image.py:164
+#: ../image.py:165
 msgid "Transferring install image to hard drive..."
 msgstr "Μεταφορά εικόνας εγκατάστασης στο σκληρό δίσκο..."
 
-#: ../image.py:174
+#: ../image.py:175
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1174,29 +1177,29 @@ msgstr ""
 "Δημιουργήθηκε σφάλμα κατά τη μεταφορά της εικόνας εγκατάστασης στο σκληρό "
 "σας δίσκο. Πιθανόν να μην έχετε αρκετό χώρο στο δίσκο."
 
-#: ../image.py:263
+#: ../image.py:264
 msgid "Change CDROM"
 msgstr "Αλλαγή CDROM"
 
-#: ../image.py:264
+#: ../image.py:265
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Παρακαλώ εισάγετε το δίσκο %s %d για να συνεχίσετε."
 
-#: ../image.py:299
+#: ../image.py:300
 msgid "Wrong CDROM"
 msgstr "Λάθος CDROM"
 
-#: ../image.py:300
+#: ../image.py:301
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Αυτό δεν είναι το σωστό %s CDROM."
 
-#: ../image.py:306
+#: ../image.py:307
 msgid "Unable to access the CDROM."
 msgstr "Αδυναμία πρόσβασης στο CDROM."
 
-#: ../image.py:359
+#: ../image.py:360
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1215,7 +1218,7 @@ msgstr ""
 "οποία πιθανόν να χρειαστεί επανεγκατάσταση.\n"
 "\n"
 
-#: ../image.py:504
+#: ../image.py:508
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1231,11 +1234,11 @@ msgstr ""
 "εξυπηρετητή και πατήστε προσπάθεια ξανά. Πατήστε Επανεκκίνηση για να "
 "τερματίσετε την εγκατάσταση."
 
-#: ../installclass.py:60
+#: ../installclass.py:64
 msgid "Install on System"
 msgstr "Εγκατάσταση στο σύστημα"
 
-#: ../iscsi.py:127 ../iscsi.py:128
+#: ../iscsi.py:126 ../iscsi.py:127
 msgid "Initializing iSCSI initiator"
 msgstr "Γίνεται αρχικοποίηση του iSCSI initiator"
 
@@ -1257,23 +1260,23 @@ msgstr ""
 "\n"
 "Πατήστε το κουμπί Εντάξει για να επανεκκινήσετε το σύστημα σας."
 
-#: ../kickstart.py:821 ../kickstart.py:839
+#: ../kickstart.py:764 ../kickstart.py:782
 msgid "Running..."
 msgstr "Εκτέλεση..."
 
-#: ../kickstart.py:822
+#: ../kickstart.py:765
 msgid "Running pre-install scripts"
 msgstr "Εκτέλεση δέσμης ενεργειών πριν την εγκατάσταση "
 
-#: ../kickstart.py:840
+#: ../kickstart.py:783
 msgid "Running post-install scripts"
 msgstr "Εκτέλεση δέσμης ενεργειών μετά την εγκατάσταση "
 
-#: ../kickstart.py:980
+#: ../kickstart.py:926
 msgid "Missing Package"
 msgstr "Απουσία πακέτου"
 
-#: ../kickstart.py:981
+#: ../kickstart.py:927
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1282,15 +1285,16 @@ msgstr ""
 "Έχετε επιλέξει να εγκατασταθεί το πακέτο '%s'. Αυτό το πακέτο δεν υπάρχει. "
 "Θέλετε να συνεχίσετε ή να τερματίσετε την εγκατάσταση;"
 
-#: ../kickstart.py:987 ../kickstart.py:1016
+#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "Ε_γκατάλειψη"
 
-#: ../kickstart.py:1008
+#: ../kickstart.py:961
 msgid "Missing Group"
 msgstr "Η ομάδα λείπει"
 
-#: ../kickstart.py:1009
+#: ../kickstart.py:962
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1332,24 +1336,24 @@ msgstr ""
 msgid "'%s' is not a valid IPv6 address."
 msgstr "Η '%s' δεν είναι μία έγκυρη διεύθυνση IPv6."
 
-#: ../packages.py:247
-msgid "Enter Registration Key"
-msgstr "Εισαγωγή κλειδιού καταγραφής"
-
-#: ../packages.py:248
+#: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
 msgstr "Παρακαλούμε εισάγετε το κλειδί εγγραφής για την έκδοση του %s."
 
-#: ../packages.py:248
+#: ../packages.py:245
+msgid "Enter Registration Key"
+msgstr "Εισαγωγή κλειδιού καταγραφής"
+
+#: ../packages.py:246
 msgid "Key:"
 msgstr "Κλειδί:"
 
-#: ../packages.py:278
+#: ../packages.py:276
 msgid "Warning! This is pre-release software!"
 msgstr "Προσοχή! Το λογισμικό αυτό βρίσκεται σε δοκιμαστικό στάδιο!"
 
-#: ../packages.py:279
+#: ../packages.py:277
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1377,15 +1381,15 @@ msgstr ""
 "\n"
 "και συμπληρώστε μια αναφορά για το '%s'.\n"
 
-#: ../packages.py:292
+#: ../packages.py:290
 msgid "_Install anyway"
 msgstr "Ε_γκατάσταση ούτως ή άλλως"
 
-#: ../partedUtils.py:206 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
 msgstr "Ξένη"
 
-#: ../partedUtils.py:306
+#: ../partedUtils.py:305
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1402,7 +1406,7 @@ msgstr ""
 "\n"
 "Θέλετε να μορφοποιήσετε ξανά αυτό το DASD με χρήση μορφοποίησης CDL;"
 
-#: ../partedUtils.py:336
+#: ../partedUtils.py:335
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1417,30 +1421,30 @@ msgstr ""
 "\n"
 "Θέλετε να μορφοποιήσετε ξανά αυτόν το δίσκο;"
 
-#: ../partedUtils.py:345
+#: ../partedUtils.py:344
 msgid "_Ignore drive"
 msgstr "Α_γνόηση δίσκου"
 
-#: ../partedUtils.py:346
+#: ../partedUtils.py:345
 msgid "_Format drive"
 msgstr "Μορ_φοποίηση δίσκου"
 
 # gconf/gconfd.c:1676
-#: ../partedUtils.py:789
+#: ../partedUtils.py:791
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Σφάλμα προσάρτησης συστήματος αρχείων σε %s: %s"
 
-#: ../partedUtils.py:884
+#: ../partedUtils.py:888
 msgid "Initializing"
 msgstr "Γίνεται αρχικοποίηση"
 
-#: ../partedUtils.py:885
+#: ../partedUtils.py:889
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Παρακαλώ περιμένετε ενώ μορφοποιείται ο δίσκος %s...\n"
 
-#: ../partedUtils.py:985
+#: ../partedUtils.py:987
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1461,7 +1465,7 @@ msgstr ""
 "\n"
 "Θέλετε να αρχικοποιηθεί αυτός ο δίσκος και να διαγραφούν ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ;"
 
-#: ../partedUtils.py:1042
+#: ../partedUtils.py:1044
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1481,11 +1485,11 @@ msgstr ""
 "\n"
 "Θέλετε να αρχικοποιηθεί αυτός ο δίσκος και να διαγραφούν ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ;"
 
-#: ../partedUtils.py:1160
+#: ../partedUtils.py:1162
 msgid "No Drives Found"
 msgstr "Δε βρέθηκαν δίσκοι"
 
-#: ../partedUtils.py:1161
+#: ../partedUtils.py:1163
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1501,7 +1505,8 @@ msgstr "Παρακαλώ εισάγετε ένα όνομα για την ομά
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Τα ονόματα Volume Group θα πρέπει να είναι μικρότερα από 128 χαρακτήρες"
+msgstr ""
+"Τα ονόματα Volume Group θα πρέπει να είναι μικρότερα από 128 χαρακτήρες"
 
 #
 #: ../partIntfHelpers.py:42
@@ -1524,7 +1529,8 @@ msgstr "Παρακαλώ εισάγετε ένα όνομα για το λογι
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "Τα ονόματα λογικών τόμων θα πρέπει να είναι μικρότερα από 128 χαρακτήρες"
+msgstr ""
+"Τα ονόματα λογικών τόμων θα πρέπει να είναι μικρότερα από 128 χαρακτήρες"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -1602,7 +1608,8 @@ msgstr ""
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Αυτό το τμήμα δίσκου διατηρεί τα δεδομένα για την εγκατάσταση σκληρού δίσκου."
+msgstr ""
+"Αυτό το τμήμα δίσκου διατηρεί τα δεδομένα για την εγκατάσταση σκληρού δίσκου."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1612,27 +1619,28 @@ msgstr ""
 "Δεν μπορείτε να διαγράψετε αυτό το τμήμα δίσκου:\n"
 "\n"
 
-#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
 msgstr "Επιβεβαίωση διαγραφής"
 
-#: ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "Πρόκειται να διαγράψετε όλα τα τμήματα δίσκου από τη  συσκευή '/dev/%s'."
+msgstr ""
+"Πρόκειται να διαγράψετε όλα τα τμήματα δίσκου από τη  συσκευή '/dev/%s'."
 
-#: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
+#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "_Διαγραφή"
 
-#: ../partIntfHelpers.py:294
+#: ../partIntfHelpers.py:295
 msgid "Notice"
 msgstr "Ειδοποίηση"
 
-#: ../partIntfHelpers.py:295
+#: ../partIntfHelpers.py:296
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1643,16 +1651,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
-#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
+#: ../partIntfHelpers.py:312 ../partIntfHelpers.py:325
+#: ../partIntfHelpers.py:351 ../partIntfHelpers.py:362
 msgid "Unable To Edit"
 msgstr "Αδυναμία επεξεργασίας"
 
-#: ../partIntfHelpers.py:312
+#: ../partIntfHelpers.py:313
 msgid "You must select a partition to edit"
 msgstr "Πρέπει να επιλέξετε πρώτα ένα τμήμα δίσκου για επεξεργασία"
 
-#: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
+#: ../partIntfHelpers.py:325 ../partIntfHelpers.py:363
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
@@ -1660,7 +1668,7 @@ msgstr ""
 "Δεν μπορείτε να επεξεργαστείτε αυτό το τμήμα δίσκου:\n"
 "\n"
 
-#: ../partIntfHelpers.py:351
+#: ../partIntfHelpers.py:352
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1669,11 +1677,11 @@ msgstr ""
 "Δεν μπορείτε να επεξεργαστείτε αυτό το τμήμα δίσκου, αφού είναι "
 "έναεκτεταμένο τμήμα δίσκου που περιέχει το %s"
 
-#: ../partIntfHelpers.py:383
+#: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
 msgstr "Μορφοποίηση ως Swap;"
 
-#: ../partIntfHelpers.py:384
+#: ../partIntfHelpers.py:385
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1686,14 +1694,14 @@ msgstr ""
 "\n"
 "Θέλετε να μορφοποιήσετε αυτό το τμήμα δίσκου ως τμήμα δίσκου swap;"
 
-#: ../partIntfHelpers.py:404
+#: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 "Πρέπει να επιλέξτε τουλάχιστον ένα σκληρό δίσκο για να εγκαταστήσετε το %s "
 "σε αυτόν."
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:411
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1709,23 +1717,23 @@ msgstr ""
 "περιέχει αρχεία που χρειάζεστε, όπως κατάλογους χρηστών, τότε συνεχίστε "
 "χωρίς να μορφοποιήσετε αυτό το τμήμα δίσκου."
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Format?"
 msgstr "Μορφοποίηση;"
 
-#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "Τροπο_ποίηση τμήμα δίσκου"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Do _Not Format"
 msgstr "Να _μη γίνει μορφοποίηση"
 
-#: ../partIntfHelpers.py:426
+#: ../partIntfHelpers.py:427
 msgid "Error with Partitioning"
 msgstr "Σφάλμα με την κατάτμηση"
 
-#: ../partIntfHelpers.py:427
+#: ../partIntfHelpers.py:428
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1733,17 +1741,17 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Παρουσιάστηκαν τα ακόλουθα σημαντικά σφάλματα με το ζητούμενο σχήμα "
-"τμημάτων δίσκου σας. Αυτά τα σφάλματα πρέπει να διορθωθούν πριν να συνεχίσετε με "
-"την εγκατάσταση του %s.\n"
+"Παρουσιάστηκαν τα ακόλουθα σημαντικά σφάλματα με το ζητούμενο σχήμα τμημάτων "
+"δίσκου σας. Αυτά τα σφάλματα πρέπει να διορθωθούν πριν να συνεχίσετε με την "
+"εγκατάσταση του %s.\n"
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:441
+#: ../partIntfHelpers.py:442
 msgid "Partitioning Warning"
 msgstr "Προειδοποίηση κατάτμησης"
 
-#: ../partIntfHelpers.py:442
+#: ../partIntfHelpers.py:443
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1752,14 +1760,14 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"Παρουσιάστηκαν τα ακόλουθα σημαντικά σφάλματα με το ζητούμενο σχήμα "
-"τμημάτων δίσκου σας.\n"
+"Παρουσιάστηκαν τα ακόλουθα σημαντικά σφάλματα με το ζητούμενο σχήμα τμημάτων "
+"δίσκου σας.\n"
 "\n"
 "%s\n"
 "\n"
 "Θέλετε να συνεχίσετε με το ζητούμενο σχήμα τμημάτων δίσκου σας;"
 
-#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:457 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1767,19 +1775,19 @@ msgstr ""
 "Τα ακόλουθα προϋπάρχοντα τμημάτων δίσκου επιλέχτηκαν για μορφοποίηση και όλα "
 "τους τα δεδομένα θα καταστραφούν."
 
-#: ../partIntfHelpers.py:459
+#: ../partIntfHelpers.py:460
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Επιλέξτε 'Ναι' για να συνεχίσετε και να γίνει μορφοποίηση αυτών των τμημάτων δίσκου,"
-"ή 'Όχι' για να γυρίσετε πίσω και να αλλάξετε αυτές τις ρυθμίσεις."
+"Επιλέξτε 'Ναι' για να συνεχίσετε και να γίνει μορφοποίηση αυτών των τμημάτων "
+"δίσκου,ή 'Όχι' για να γυρίσετε πίσω και να αλλάξετε αυτές τις ρυθμίσεις."
 
-#: ../partIntfHelpers.py:465
+#: ../partIntfHelpers.py:466
 msgid "Format Warning"
 msgstr "Προειδοποίηση μορφοποίησης"
 
-#: ../partIntfHelpers.py:513
+#: ../partIntfHelpers.py:514
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1790,39 +1798,40 @@ msgstr ""
 "\n"
 "ΟΛΟΙ οι λογικοί τόμοι σε αυτήν την ομάδα τόμων θα χαθούν!"
 
-#: ../partIntfHelpers.py:517
+#: ../partIntfHelpers.py:518
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Πρόκειται να διαγράψετε το λογικό τόμο \"%s\"."
 
-#: ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:521
 msgid "You are about to delete a RAID device."
 msgstr "Πρόκειται να διαγράψετε μια συσκευή RAID."
 
-#: ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:524
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Πρόκειται να διαγράψετε το τμήμα δίσκου /dev/%s."
 
-#: ../partIntfHelpers.py:526
+#: ../partIntfHelpers.py:527
 msgid "The partition you selected will be deleted."
 msgstr "Το τμήμα δίσκου που επιλέξατε θα διαγραφεί."
 
-#: ../partIntfHelpers.py:536
+#: ../partIntfHelpers.py:537
 msgid "Confirm Reset"
 msgstr "Επιβεβαίωση επαναφοράς"
 
-#: ../partIntfHelpers.py:537
-msgid "Are you sure you want to reset the partition table to its original state?"
+#: ../partIntfHelpers.py:538
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr ""
-"Είστε σίγουροι ότι θέλετε να επαναφέρετε τον πίνακα τμημάτων δίσκου στην αρχική "
-"του κατάσταση;"
+"Είστε σίγουροι ότι θέλετε να επαναφέρετε τον πίνακα τμημάτων δίσκου στην "
+"αρχική του κατάσταση;"
 
-#: ../partitioning.py:68
+#: ../partitioning.py:62
 msgid "Installation cannot continue."
 msgstr "Η εγκατάσταση δεν μπορεί να συνεχίσει."
 
-#: ../partitioning.py:69
+#: ../partitioning.py:63
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1832,11 +1841,11 @@ msgstr ""
 "πια να επιστρέψετε στην οθόνη μορφοποίησης δίσκου. Θέλετε να συνεχίσετε με "
 "τη διαδικασία εγκατάστασης;"
 
-#: ../partitioning.py:99
+#: ../partitioning.py:93
 msgid "Low Memory"
 msgstr "Λίγη μνήμη"
 
-#: ../partitioning.py:100
+#: ../partitioning.py:94
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1846,7 +1855,7 @@ msgstr ""
 "ενεργοποιήσουμε το χώρο swap άμεσα. Για να γίνει αυτό πρέπει να γράψουμε τον "
 "καινούριο πίνακα κατάτμησης στο δίσκο τώρα. Είναι εντάξει αυτό;"
 
-#: ../partitions.py:818
+#: ../partitions.py:816
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1855,7 +1864,7 @@ msgstr ""
 "Δεν έχετε καθορίσει ένα τμήμα δίσκου root (/), το οποίο απαιτείται για την "
 "συνέχεια της εγκατάστασης του %s."
 
-#: ../partitions.py:823
+#: ../partitions.py:821
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1864,7 +1873,7 @@ msgstr ""
 "Το τμήμα δίσκου root είναι μικρότερο των 250 megabytes, το οποίο συνήθως "
 "είναι πολύ μικρό για εγκατάσταση του %s."
 
-#: ../partitions.py:842
+#: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
@@ -1872,21 +1881,22 @@ msgstr ""
 "Το τμήμα δίσκου εκκίνησης δεν είναι ένα από τα πρώτα τέσσερα τμήματα δίσκου, "
 "συνεπώς δε θα είναι εκκινήσιμο."
 
-#: ../partitions.py:849
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+#: ../partitions.py:847
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Πρέπει να δημιουργήσετε ένα τμήμα δίσκου /boot/efi τύπου FAT και μεγέθους 50 "
 "megabytes."
 
-#: ../partitions.py:869
+#: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Πρέπει να δημιουργήσετε πρώτα ένα τμήμα δίσκου Apple Bootstrap."
 
-#: ../partitions.py:891
+#: ../partitions.py:889
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Πρέπει να δημιουργήσετε ένα τμήμα δίσκου PPC PReP Boot."
 
-#: ../partitions.py:899 ../partitions.py:910
+#: ../partitions.py:897 ../partitions.py:908
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1895,13 +1905,14 @@ msgstr ""
 "Το τμήμα δίσκου σας %s είναι μικρότερο από %s megabytes, το οποίο είναι "
 "λιγότερο από αυτό που συνιστάται για μια κανονική εγκατάσταση του %s."
 
-#: ../partitions.py:944
-msgid "Installing on a USB device.  This may or may not produce a working system."
+#: ../partitions.py:942
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Εγκατάσταση σε μια συσκευή USB . Δεν είναι σίγουρο ότι το σύστημα θα "
 "δουλεύει μετά την εγκατάσταση."
 
-#: ../partitions.py:947
+#: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -1909,16 +1920,18 @@ msgstr ""
 "Εγκατάσταση σε μια συσκευή FireWire. Δεν είναι σίγουρο ότι το σύστημα θα "
 "δουλεύει μετά την εγκατάσταση."
 
-#: ../partitions.py:956 ../partRequests.py:677
+#: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Τα εκκινήσιμα τμήματα δίσκου μπορούν να βρίσκονται μόνο σε συσκευές RAID1."
+msgstr ""
+"Τα εκκινήσιμα τμήματα δίσκου μπορούν να βρίσκονται μόνο σε συσκευές RAID1."
 
 #
-#: ../partitions.py:963
+#: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Τα εκκινήσιμα τμήματα δίσκου μπορούν να βρίσκονται μόνο σε έναν λογικό τόμο."
+msgstr ""
+"Τα εκκινήσιμα τμήματα δίσκου μπορούν να βρίσκονται μόνο σε έναν λογικό τόμο."
 
-#: ../partitions.py:988
+#: ../partitions.py:986
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1927,7 +1940,7 @@ msgstr ""
 "όλες τις περιπτώσεις, θα βελτιώσει σημαντικά την απόδοση για την πλειονότητα "
 "των εγκαταστάσεων."
 
-#: ../partitions.py:995
+#: ../partitions.py:993
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1936,7 +1949,7 @@ msgstr ""
 "Καθορίσατε περισσότερες από 32 συσκευές swap. Ο πυρήνας για το %s "
 "υποστηρίζει μόνο 32 συσκευές swap."
 
-#: ../partitions.py:1006
+#: ../partitions.py:1004
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1945,21 +1958,22 @@ msgstr ""
 "Έχετε αναθέσει λιγότερο χώρο swap (%dM) από τη διαθέσιμη μνήμη RAM (%dM) που "
 "υπάρχει στο σύστημα σας. Αυτό μπορεί να επηρεάσει αρνητικά την απόδοση."
 
-#: ../partitions.py:1306
+#: ../partitions.py:1304
 msgid "the partition in use by the installer."
 msgstr "το τμήμα δίσκου που χρησιμοποιεί η εγκατάσταση."
 
-#: ../partitions.py:1309
+#: ../partitions.py:1307
 msgid "a partition which is a member of a RAID array."
 msgstr "ένα τμήμα δίσκου που είναι μέλος μιας συστοιχίας RAID."
 
-#: ../partitions.py:1312
+#: ../partitions.py:1310
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "το τμήμα δίσκου που είναι μέλος του της ομάδας τόμων LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Το σημείο προσάρτησης δεν είναι έγκυρο. Ο κατάλογος %s θα πρέπει να είναι "
 "στο σύστημα αρχείων / ."
@@ -2010,7 +2024,8 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Το μέγεθος του απαιτούμενου τμήματος δίσκου είναι αρνητικό! (μέγεθος =%s MB)"
+msgstr ""
+"Το μέγεθος του απαιτούμενου τμήματος δίσκου είναι αρνητικό! (μέγεθος =%s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2022,7 +2037,8 @@ msgstr "Τα τμήματα δίσκου δεν μπορούν να τελειώ
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Δεν υπάρχουν μέλη στην αίτηση για RAID ή δεν έχει οριστεί σωστό επίπεδο RAID."
+msgstr ""
+"Δεν υπάρχουν μέλη στην αίτηση για RAID ή δεν έχει οριστεί σωστό επίπεδο RAID."
 
 #: ../partRequests.py:681
 #, python-format
@@ -2042,7 +2058,9 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr "Το μέγεθος του λογικού τόμου πρέπει να είναι μεγαλύτερο από το μέγεθος του φυσικού μήκους της ομάδας τόμων."
+msgstr ""
+"Το μέγεθος του λογικού τόμου πρέπει να είναι μεγαλύτερο από το μέγεθος του "
+"φυσικού μήκους της ομάδας τόμων."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2053,33 +2071,34 @@ msgstr "Εκκίνηση διεπαφής"
 msgid "Attempting to start %s"
 msgstr "Γίνεται προσπάθεια εκκίνησης %s"
 
-#: ../rescue.py:174
+#: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Όταν τελειώσετε κάντε έξοδο από το κέλυφος και το σύστημα θα επανεκκινήσει."
+msgstr ""
+"Όταν τελειώσετε κάντε έξοδο από το κέλυφος και το σύστημα θα επανεκκινήσει."
 
-#: ../rescue.py:199
+#: ../rescue.py:201
 msgid "Setup Networking"
 msgstr "Ρύθμιση δικτύου"
 
-#: ../rescue.py:200
+#: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Θέλετε να ξεκινήσετε τις διεπαφές δικτύου σε αυτό το σύστημα;"
 
-#: ../rescue.py:241 ../text.py:533
+#: ../rescue.py:243 ../text.py:533
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
-#: ../rescue.py:242 ../text.py:534
+#: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Δεν είναι δυνατή η μετάβαση στο προηγούμενο βήμα από αυτό το σημείο. Θα "
 "πρέπει να προσπαθήσετε ξανά."
 
-#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
 msgstr "Rescue"
 
-#: ../rescue.py:279
+#: ../rescue.py:281
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2104,28 +2123,28 @@ msgstr ""
 "στο κέλυφος εντολών.\n"
 "\n"
 
-#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
-#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: ../rescue.py:289 ../rescue.py:294
+#: ../rescue.py:291 ../rescue.py:296
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
-#: ../rescue.py:320
+#: ../rescue.py:322
 msgid "System to Rescue"
 msgstr "Σύστημα για rescue"
 
-#: ../rescue.py:321
+#: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ποιο τμήμα δίσκου περιέχει το τμήμα δίσκου root της εγκατάστασης σας;"
 
-#: ../rescue.py:323 ../rescue.py:327
+#: ../rescue.py:325 ../rescue.py:329
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: ../rescue.py:346
+#: ../rescue.py:348
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2136,7 +2155,7 @@ msgstr ""
 "να εκτελέσετε fsck και να προσαρτήσετε τα τμήματα δίσκου σας. Το σύστημα θα "
 "επανεκκινήσει αυτόματα όταν βγείτε από το κέλυφος."
 
-#: ../rescue.py:354
+#: ../rescue.py:356
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2157,7 +2176,7 @@ msgstr ""
 "\n"
 "Το σύστημα σας θα επανεκκινήσει αυτόματα όταν βγείτε από το κέλυφος."
 
-#: ../rescue.py:437
+#: ../rescue.py:439
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2172,11 +2191,11 @@ msgstr ""
 "Πατήστε <return> για να βγείτε σε κέλυφος. Το σύστημα σας θα επανεκκινήσει "
 "αυτόματα όταν βγείτε από το κέλυφος."
 
-#: ../rescue.py:443
+#: ../rescue.py:445
 msgid "Rescue Mode"
 msgstr "Λειτουργία rescue"
 
-#: ../rescue.py:444
+#: ../rescue.py:446
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2184,7 +2203,7 @@ msgstr ""
 "Δεν έχετε κανένα τμήμα δίσκου Linux. Πατήστε επιστροφή για να μεταβείτε σε "
 "ένα κέλυφος. Το σύστημα θα επανεκκινήσει αυτόματα όταν βγείτε από το κέλυφος."
 
-#: ../rescue.py:457
+#: ../rescue.py:459
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Το σύστημα σας έχει προσαρτηθεί κάτω από τον κατάλογο %s."
@@ -2238,13 +2257,14 @@ msgid "Save Crash Dump"
 msgstr "Αποθήκευση Crash Dump"
 
 #
-#: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
+#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Καλώς ήλθατε στο %s"
 
 #: ../text.py:426
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> για βοήθεια | <Tab> αλλαγή πεδίου | <Space> επιλογή | <F12> επόμενη "
 "οθόνη"
@@ -2253,14 +2273,15 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή | <F12> επόμενη οθόνη "
+msgstr ""
+"  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή | <F12> επόμενη οθόνη "
 
 #
-#: ../upgradeclass.py:20
+#: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
 msgstr "Αναβάθμιση υπάρχοντος συστήματος"
 
-#: ../upgradeclass.py:24
+#: ../upgradeclass.py:26
 msgid "Upgrade"
 msgstr "Αναβάθμιση"
 
@@ -2282,21 +2303,21 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Θέλετε να συνεχίσετε με την αναβάθμιση;"
 
-#: ../upgrade.py:94
+#: ../upgrade.py:93
 msgid "Searching"
 msgstr "Γίνεται αναζήτηση"
 
-#: ../upgrade.py:95
+#: ../upgrade.py:94
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Αναζήτηση για εγκαταστάσεις %s ..."
 
 #
-#: ../upgrade.py:151 ../upgrade.py:159
+#: ../upgrade.py:150 ../upgrade.py:158
 msgid "Dirty File Systems"
 msgstr "Βρώμικα συστημάτων αρχείων"
 
-#: ../upgrade.py:152
+#: ../upgrade.py:151
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2309,7 +2330,7 @@ msgstr ""
 "σωστά και να ελεγχθεί, για να γίνει η αναβάθμιση.\n"
 "%s"
 
-#: ../upgrade.py:160
+#: ../upgrade.py:159
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2320,11 +2341,11 @@ msgstr ""
 "unmount. Θα θέλατε να τα προσαρτήσετε πάραυτα;\n"
 "%s"
 
-#: ../upgrade.py:297 ../upgrade.py:303
+#: ../upgrade.py:296 ../upgrade.py:302
 msgid "Mount failed"
 msgstr "Αποτυχία προσάρτησης"
 
-#: ../upgrade.py:298
+#: ../upgrade.py:297
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2333,7 +2354,7 @@ msgstr ""
 "συστήματος σας δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ διορθώστε το πρόβλημα "
 "και προσπαθήστε να αναβαθμίσετε το σύστημα ξανά."
 
-#: ../upgrade.py:304
+#: ../upgrade.py:303
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2343,7 +2364,7 @@ msgstr ""
 "συστήματος σας είναι ανακόλουθα και δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ "
 "διορθώστε το πρόβλημα και προσπαθήστε να αναβαθμίσετε το σύστημα ξανά."
 
-#: ../upgrade.py:321
+#: ../upgrade.py:320
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2355,11 +2376,11 @@ msgstr ""
 "συμβολικούς δεσμούς και ξεκινήστε ξανά την αναβάθμιση.\n"
 "\n"
 
-#: ../upgrade.py:327
+#: ../upgrade.py:326
 msgid "Absolute Symlinks"
 msgstr "Απόλυτοι συμβολικοί δεσμοί"
 
-#: ../upgrade.py:338
+#: ../upgrade.py:337
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2371,20 +2392,20 @@ msgstr ""
 "τους κατάσταση ως συμβολικούς δεσμούς και ξεκινήστε ξανά την αναβάθμιση.\n"
 "\n"
 
-#: ../upgrade.py:344
+#: ../upgrade.py:343
 msgid "Invalid Directories"
 msgstr "Μη έγκυροι κατάλογοι"
 
-#: ../upgrade.py:351
+#: ../upgrade.py:350
 #, python-format
 msgid "%s not found"
 msgstr "δε βρέθηκε %s"
 
-#: ../urlinstall.py:35
+#: ../urlinstall.py:36
 msgid "Connecting..."
 msgstr "Γίνεται σύνδεση..."
 
-#: ../urlinstall.py:74
+#: ../urlinstall.py:75
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -2404,11 +2425,11 @@ msgstr ""
 "οποία πιθανόν να χρειαστεί επανεγκατάσταση.\n"
 "\n"
 
-#: ../vnc.py:43
+#: ../vnc.py:44
 msgid "Unable to Start X"
 msgstr "Αδύνατη η εκκίνηση του X"
 
-#: ../vnc.py:44
+#: ../vnc.py:45
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2419,23 +2440,23 @@ msgstr ""
 "υπολογιστή και να εκτελέσετε μία γραφική εγκατάσταση ή να συνεχίσετε με μία "
 "εγκατάσταση σε λειτουργία κειμένου;"
 
-#: ../vnc.py:51 ../vnc.py:54
+#: ../vnc.py:52 ../vnc.py:55
 msgid "Use text mode"
 msgstr "Χρήση λειτουργίας κειμένου"
 
-#: ../vnc.py:52
+#: ../vnc.py:53
 msgid "Start VNC"
 msgstr "Γίνεται εκκίνηση VNC"
 
-#: ../vnc.py:62
+#: ../vnc.py:63
 msgid "VNC Configuration"
 msgstr "Ρύθμιση VNC"
 
-#: ../vnc.py:66
+#: ../vnc.py:67
 msgid "No password"
 msgstr "Χωρίς κωδικό"
 
-#: ../vnc.py:69
+#: ../vnc.py:70
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2445,35 +2466,35 @@ msgstr ""
 "παρακολουθήσουν τη διαδικασία εγκατάστασης σας. Παρακαλώ εισάγετε έναν "
 "κωδικό για να χρησιμοποιηθεί για την εγκατάσταση"
 
-#: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
+#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:43
+#: ../vnc.py:79 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "Κωδικός (επιβεβαίωση):"
 
-#: ../vnc.py:100 ../textw/userauth_text.py:64
+#: ../vnc.py:101 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "Οι κωδικοί δεν ταιριάζουν"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:65
+#: ../vnc.py:102 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "Οι κωδικοί που εισάγατε ήταν διαφορετικοί. Παρακαλώ προσπαθήστε ξανά."
 
-#: ../vnc.py:106 ../textw/userauth_text.py:59
+#: ../vnc.py:107 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "Μήκος κωδικού"
 
-#: ../vnc.py:107
+#: ../vnc.py:108
 msgid "The password must be at least six characters long."
 msgstr "Ο κωδικός πρόσβασης πρέπει να έχει μήκος τουλάχιστον έξι χαρακτήρες."
 
-#: ../vnc.py:137
+#: ../vnc.py:138
 msgid "VNC Password Error"
 msgstr "Σφάλμα κωδικού VNC "
 
-#: ../vnc.py:138
+#: ../vnc.py:139
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
@@ -2483,29 +2504,29 @@ msgstr ""
 "\n"
 "Πατήστε <return> για να επανεκκινήσετε το σύστημα σας.\n"
 
-#: ../vnc.py:183
+#: ../vnc.py:184
 msgid "Starting VNC..."
 msgstr "Έναρξη VNC..."
 
-#: ../vnc.py:226
+#: ../vnc.py:227
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "εγκατάσταση %s %s στο σύστημα %s"
 
-#: ../vnc.py:228
+#: ../vnc.py:229
 #, python-format
 msgid "%s %s installation"
 msgstr "εγκατάσταση %s %s"
 
-#: ../vnc.py:248
+#: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
 msgstr "Αδυναμία ρύθμισης κωδικού vnc - δεν χρησιμοποιείται κωδικός!"
 
-#: ../vnc.py:249
+#: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες."
 
-#: ../vnc.py:272
+#: ../vnc.py:273
 msgid ""
 "\n"
 "\n"
@@ -2521,52 +2542,47 @@ msgstr ""
 "αν θέλετε να διασφαλίσετε τον εξυπηρετητή.\n"
 "\n"
 
-#: ../vnc.py:276
+#: ../vnc.py:277
 msgid "The VNC server is now running."
 msgstr "Ο διακομιστής VNC είναι ενεργός."
 
-#: ../vnc.py:279
+#: ../vnc.py:280
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Προσπάθεια σύνδεσης με τον πελάτη vnc στο σύστημα %s..."
 
-#: ../vnc.py:291
+#: ../vnc.py:292
 msgid "Connected!"
 msgstr "Ολοκλήρωση σύνδεσης!"
 
-#: ../vnc.py:296
+#: ../vnc.py:297
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Εγκατάλειψη προσπάθειας σύνδεσης μετά από 50 προσπάθειες!\n"
 
-#: ../vnc.py:298
+#: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
-"Παρακαλώ συνδέστε χειροκίνητα τον πελάτη vnc στο %s για να "
-"ξεκινήσει η εγκατάσταση."
-
-#: ../vnc.py:300
-msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Παρακαλώ συνδέστε χειροκίνητα τον πελάτη vnc για να ξεκινήσει η "
+"Παρακαλώ συνδέστε χειροκίνητα τον πελάτη vnc στο %s για να ξεκινήσει η "
 "εγκατάσταση."
 
-#: ../vnc.py:304
+#: ../vnc.py:301
+msgid "Please manually connect your vnc client to begin the install."
+msgstr ""
+"Παρακαλώ συνδέστε χειροκίνητα τον πελάτη vnc για να ξεκινήσει η εγκατάσταση."
+
+#: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Θα γίνει ξανά προσπάθεια σύνδεσης σε 15 δευτερόλεπτα..."
 
-#: ../vnc.py:312
+#: ../vnc.py:313
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Παρακαλώ συνδεθείτε με το %s για να ξεκινήσει η εγκατάσταση..."
 
-#: ../vnc.py:314
+#: ../vnc.py:315
 msgid "Please connect to begin the install..."
 msgstr "Παρακαλώ συνδεθείτε για να ξεκινήσει η εγκατάσταση..."
-
-#: ../xsetup.py:48
-msgid "DDC Probed Monitor"
-msgstr "Οθόνη DDC-probed"
 
 #: ../yuminstall.py:103
 msgid "Processing"
@@ -2576,71 +2592,72 @@ msgstr "Γίνεται επεξεργασία"
 msgid "Preparing transaction from installation source..."
 msgstr "Προετοιμασία συναλλαγής από την πηγή εγκατάστασης..."
 
-#: ../yuminstall.py:431 ../yuminstall.py:432
+#: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
 msgstr "συγκρούσεις αρχείων"
 
-#: ../yuminstall.py:433
+#: ../yuminstall.py:472
 msgid "older package(s)"
 msgstr "παλαιότερο/α πακέτο/α"
 
-#: ../yuminstall.py:434
+#: ../yuminstall.py:473
 msgid "insufficient disk space"
 msgstr "ανεπαρκής χώρος στο δίσκο"
 
-#: ../yuminstall.py:435
+#: ../yuminstall.py:474
 msgid "insufficient disk inodes"
 msgstr "ανεπαρκή inodes δίσκου"
 
-#: ../yuminstall.py:436
+#: ../yuminstall.py:475
 msgid "package conflicts"
 msgstr "συγκρούσεις πακέτου"
 
-#: ../yuminstall.py:437
+#: ../yuminstall.py:476
 msgid "package already installed"
 msgstr "το πακέτο είναι ήδη εγκατεστημένο"
 
-#: ../yuminstall.py:438
+#: ../yuminstall.py:477
 msgid "required package"
 msgstr "απαιτούμενο πακέτο"
 
-#: ../yuminstall.py:439
+#: ../yuminstall.py:478
 msgid "package for incorrect arch"
 msgstr "πακέτο για λανθασμένη αρχειοθήκη"
 
-#: ../yuminstall.py:440
+#: ../yuminstall.py:479
 msgid "package for incorrect os"
 msgstr "πακέτο για λάθος os"
 
-#: ../yuminstall.py:454
+#: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
 msgstr "Χρειάζεστε περισσότερο χώρο στα ακόλουθα συστήματα αρχείων:\n"
 
-#: ../yuminstall.py:470
+#: ../yuminstall.py:509
 msgid "Error running transaction"
 msgstr "Σφάλμα εκτέλεσης συναλλαγής"
 
-#: ../yuminstall.py:471
+#: ../yuminstall.py:510
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Εμφανίστηκε ένα σφάλμα κατά την εκτέλεση της συναλλαγής σας, για τον "
 "ακόλουθο λόγο (λόγους): %s"
 
-#: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
+#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
 msgstr "Επανε_κκίνηση"
 
-#: ../yuminstall.py:638
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "Ανάκτηση πληροφοριών εγκατάστασης... "
 
-#: ../yuminstall.py:640
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Ανάκτηση πληροφοριών εγκατάστασης για το %s..."
 
-#: ../yuminstall.py:656
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2651,11 +2668,11 @@ msgstr ""
 "ότι λείπει κάποιος κατάλογος με repodata. Παρακαλώ σιγουρευτείτε ότι το "
 "δέντρο εγκατάστασης σας έχει δημιουργηθεί σωστά. %s"
 
-#: ../yuminstall.py:691
+#: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr "Χωρίς κατηγορία"
 
-#: ../yuminstall.py:907
+#: ../yuminstall.py:995
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2665,7 +2682,7 @@ msgstr ""
 "αλλά εσείς δεν έχετε όσα χρειάζονται. Μπορείτε να αλλάξετε τις επιλογές σας "
 "ή να επανεκκινήσετε."
 
-#: ../yuminstall.py:1061
+#: ../yuminstall.py:1149
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2675,39 +2692,40 @@ msgstr ""
 "παλιό για να αναβαθμιστεί σε αυτήν την έκδοση του %s. Είστε βέβαιος ότι "
 "επιθυμείτε να συνεχίσετε τη διαδικασία αναβάθμισης;"
 
-#: ../yuminstall.py:1093
+#: ../yuminstall.py:1181
 msgid "Install Starting"
 msgstr "Εκκίνηση εγκατάστασης"
 
-#: ../yuminstall.py:1094
+#: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Εκκίνηση διαδικασίας εγκατάστασης. Αυτό μπορεί να διαρκέσει λίγα λεπτά..."
+msgstr ""
+"Εκκίνηση διαδικασίας εγκατάστασης. Αυτό μπορεί να διαρκέσει λίγα λεπτά..."
 
-#: ../yuminstall.py:1110
+#: ../yuminstall.py:1198
 msgid "Post Upgrade"
 msgstr "Μετά την αναβάθμιση"
 
-#: ../yuminstall.py:1111
+#: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
 msgstr "Γίνονται ρυθμίσεις μετά την εγκατάσταση..."
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1201
 msgid "Post Install"
 msgstr "Μετά την εγκατάσταση"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
 msgstr "Γίνονται ρυθμίσεις μετά την εγκατάσταση..."
 
-#: ../yuminstall.py:1264
+#: ../yuminstall.py:1357
 msgid "Installation Progress"
 msgstr "Πρόοδος εγκατάστασης"
 
-#: ../yuminstall.py:1299
+#: ../yuminstall.py:1392
 msgid "Dependency Check"
 msgstr "Έλεγχος εξάρτησης"
 
-#: ../yuminstall.py:1300
+#: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Έλεγχος εξαρτήσεων των πακέτων που επιλέχθηκαν για εγκατάσταση..."
 
@@ -2747,7 +2765,8 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Δεν έχετε καθορίσει ένα παγκόσμιο όνομα θύρας ή το όνομα δεν είναι έγκυρο."
+msgstr ""
+"Δεν έχετε καθορίσει ένα παγκόσμιο όνομα θύρας ή το όνομα δεν είναι έγκυρο."
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2788,7 +2807,8 @@ msgstr "Οι κωδικοί που εισαγάγατε είναι διαφορ�
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Το συνθηματικό υπερχρήστη πρέπει να έχει μήκος τουλάχιστον έξι χαρακτήρες."
+msgstr ""
+"Το συνθηματικό υπερχρήστη πρέπει να έχει μήκος τουλάχιστον έξι χαρακτήρες."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
@@ -2798,54 +2818,54 @@ msgstr ""
 "Ο κωδικός που ζητήσατε περιέχει χαρακτήρες οι οποίοι βρίσκονται εκτός του "
 "συνόλου ascii και δεν είναι αποδεκτοί για χρήση σε κωδικούς."
 
-#: ../iw/account_gui.py:92
+#: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Ο λογαριασμός υπερχρήστη χρησιμοποιείται για διαχείριση του "
-"συστήματος. Εισάγετε έναν κωδικό για τον υπερχρήστη."
+"Ο λογαριασμός υπερχρήστη χρησιμοποιείται για διαχείριση του συστήματος. "
+"Εισάγετε έναν κωδικό για τον υπερχρήστη."
 
-#: ../iw/account_gui.py:109
+#: ../iw/account_gui.py:110
 msgid "Root _Password: "
 msgstr "Κω_δικός υπερχρήστη:"
 
-#: ../iw/account_gui.py:112
+#: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "Επι_βεβαίωση: "
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
 msgstr "Μη έγκυρο όνομα Initiator"
 
-#: ../iw/autopart_type.py:136
+#: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
 msgstr "Πρέπει να εισάγετε ένα όνομα initiator με μη μηδενικό μέγεθος."
 
-#: ../iw/autopart_type.py:158
+#: ../iw/autopart_type.py:157
 msgid "Error with Data"
 msgstr "Σφάλμα δεδομένων"
 
 #
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
-"Αφαίρεση όλων των τμημάτων δίσκου από τις επιλεγμένες συσκευές και δημιουργία "
-"προεπιλεγμένης διάταξης."
+"Αφαίρεση όλων των τμημάτων δίσκου από τις επιλεγμένες συσκευές και "
+"δημιουργία προεπιλεγμένης διάταξης."
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Αφαίρεση όλων των τμημάτων δίσκου linux από τους επιλεγμένους δίσκους και "
 "δημιουργία προεπιλεγμένης διάταξης."
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 "Χρήση του ελεύθερου χώρου στους επιλεγμένους δίσκους και δημιουργία "
 "προεπιλεγμένης διάταξης."
 
-#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
 msgstr "Δημιουργία προσαρμοσμένης διάταξης."
 
@@ -2986,8 +3006,8 @@ msgid ""
 msgstr ""
 "Τακτοποιήστε τους δίσκους έτσι ώστε να έχουν την ίδια σειρά όπως είναι στο "
 "BIOS. Η αλλαγή της σειράς των δίσκων μπορεί να είναι χρήσιμη αν έχετε "
-"πολλαπλούς SCSI adapters ή SCSI και IDE adapters μαζί και θέλετε να εκκινείτε "
-"το σύστημα σας από τη συσκευή SCSI.\n"
+"πολλαπλούς SCSI adapters ή SCSI και IDE adapters μαζί και θέλετε να "
+"εκκινείτε το σύστημα σας από τη συσκευή SCSI.\n"
 "\n"
 "Η αλλαγή της σειράς των δίσκων θα αλλάξει και την τοποθεσία εγκατάστασης του "
 "Master Boot Record (MBR)."
@@ -3126,9 +3146,10 @@ msgstr "Άγνωστο σύστημα Linux"
 msgid "Language Selection"
 msgstr "Επιλογή γλώσσας"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr "Ποια γλώσσα θα θέλατε να χρησιμοποιηθεί κατά τη διαδικασία εγκατάστασης;"
+msgstr ""
+"Ποια γλώσσα θα θέλατε να χρησιμοποιηθεί κατά τη διαδικασία εγκατάστασης;"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3167,7 +3188,7 @@ msgstr ""
 "Αυτή η αλλαγή θα γίνει αμέσως."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
+#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
 msgstr "Συ_νέχεια"
 
@@ -3221,8 +3242,8 @@ msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
-"Δεν μπορείτε να αφαιρέσετε αυτόν το φυσικό τόμο επειδή η ομάδα τόμων θα είναι "
-"πολύ μικρή για να χωρέσει τους τρέχοντες λογικούς τόμους."
+"Δεν μπορείτε να αφαιρέσετε αυτόν το φυσικό τόμο επειδή η ομάδα τόμων θα "
+"είναι πολύ μικρή για να χωρέσει τους τρέχοντες λογικούς τόμους."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
@@ -3304,7 +3325,8 @@ msgstr "Το σημείο προσάρτησης ήδη χρησιμοποιεί
 #: ../iw/lvm_dialog_gui.py:559
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "Το σημείο προσάρτησης \"%s\" ήδη χρησιμοποιείται, παρακαλώ επιλέξτε ένα άλλο."
+msgstr ""
+"Το σημείο προσάρτησης \"%s\" ήδη χρησιμοποιείται, παρακαλώ επιλέξτε ένα άλλο."
 
 #
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
@@ -3395,7 +3417,8 @@ msgstr "Το όνομα ήδη χρησιμοποιείται"
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "Το όνομα ομάδας τόμων \"%s\" ήδη χρησιμοποιείται. Παρακαλώ επιλέξτε ένα άλλο."
+msgstr ""
+"Το όνομα ομάδας τόμων \"%s\" ήδη χρησιμοποιείται. Παρακαλώ επιλέξτε ένα άλλο."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
@@ -3474,7 +3497,7 @@ msgstr "Μέγεθος (MB)"
 msgid "_Add"
 msgstr "_Προσθήκη"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
+#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
 msgstr "Επεξερ_γασία"
@@ -3519,50 +3542,74 @@ msgstr "_Εξομοίωση 3ου κουμπιού"
 msgid "Select the appropriate mouse for the system."
 msgstr "Επιλέξτε το κατάλληλο ποντίκι για το σύστημα."
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:605
-msgid "Gateway"
-msgstr "Πύλη"
-
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:607
-msgid "Primary DNS"
-msgstr "Πρωτεύον DNS"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
-msgid "Secondary DNS"
-msgstr "Δευτερεύον DNS"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:611
-msgid "Tertiary DNS"
-msgstr "Τριτεύον DNS"
-
-#: ../iw/network_gui.py:29
-msgid "_Gateway"
-msgstr "Πύλ_η"
-
-#: ../iw/network_gui.py:29
-msgid "_Primary DNS"
-msgstr "_Πρωτεύον DNS"
-
-#: ../iw/network_gui.py:30
-msgid "_Secondary DNS"
-msgstr "_Δευτερεύον DNS"
-
-#: ../iw/network_gui.py:30
-msgid "_Tertiary DNS"
-msgstr "_Τριτεύον DNS"
-
-#: ../iw/network_gui.py:34
-msgid "Network Configuration"
-msgstr "Ρύθμιση δικτύου"
-
-#: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
-#: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
-#: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
-#: ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
+#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
+#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
 msgid "Error With Data"
 msgstr "Σφάλμα με τα δεδομένα"
 
-#: ../iw/network_gui.py:164
+#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%s\":\n"
+"%s"
+msgstr ""
+"Παρουσιάστηκε ένα σφάλμα κατά τη μετατροπή της τιμής που εισαγάγατε για το "
+"\"%s\":\n"
+"%s"
+
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+msgid "Dynamic IP"
+msgstr "Δυναμικό IP"
+
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#, c-format, python-format
+msgid "Sending request for IP information for %s..."
+msgstr "Αποστολή αίτησης για πληροφορίες IP για %s..."
+
+#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+msgid "IP Address"
+msgstr "Διεύθυνση IP"
+
+#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+msgid "Netmask"
+msgstr "Netmask"
+
+#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
+#: ../iw/network_gui.py:766
+msgid "Gateway"
+msgstr "Πύλη"
+
+#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+msgid "Nameserver"
+msgstr "Nameserver"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+msgid "Primary DNS"
+msgstr "Πρωτεύον DNS"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+msgid "Secondary DNS"
+msgstr "Δευτερεύον DNS"
+
+#: ../iw/network_gui.py:27
+msgid "_Gateway"
+msgstr "Πύλ_η"
+
+#: ../iw/network_gui.py:27
+msgid "_Primary DNS"
+msgstr "_Πρωτεύον DNS"
+
+#: ../iw/network_gui.py:27
+msgid "_Secondary DNS"
+msgstr "_Δευτερεύον DNS"
+
+#: ../iw/network_gui.py:37
+msgid "Network Configuration"
+msgstr "Ρύθμιση δικτύου"
+
+#: ../iw/network_gui.py:157
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3570,7 +3617,7 @@ msgstr ""
 "Δεν έχετε ορίσει ένα όνομα συστήματος. Αυτό μπορεί αργότερα να  δημιουργήσει "
 "προβλήματα ανάλογα με το δίκτυο που βρίσκεται ο υπολογιστής σας."
 
-#: ../iw/network_gui.py:168
+#: ../iw/network_gui.py:161
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3579,7 +3626,7 @@ msgstr ""
 "Δεν έχετε ορίσει το πεδίο \"%s\". Ανάλογα με το περιβάλλον δικτύου σας αυτό "
 "μπορεί προκαλέσει προβλήματα αργότερα."
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:404
+#: ../iw/network_gui.py:165 ../textw/network_text.py:404
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3590,117 +3637,145 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:177
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%s\":\n"
-"%s"
-msgstr ""
-"Παρουσιάστηκε ένα σφάλμα κατά τη μετατροπή της τιμής που εισαγάγατε για το "
-"\"%s\":\n"
-"%s"
-
-#: ../iw/network_gui.py:183
+#: ../iw/network_gui.py:180
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "Μία τιμή απαιτείται για το πεδίο \"%s\"."
 
 #
-#: ../iw/network_gui.py:187
+#: ../iw/network_gui.py:184
 msgid "The IP information you have entered is invalid."
 msgstr "Οι πληροφορίες για την IP που εισαγάγατε δεν είναι έγκυρες."
 
-#: ../iw/network_gui.py:191
+#: ../iw/network_gui.py:188
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"Δεν έχετε ενεργές συσκευές δικτύου. Το σύστημα σας δεν θα έχει προεπιλεγμένα την "
-"δυνατότητα επικοινωνίας μέσω δικτύου χωρίς την ύπαρξη τουλάχιστον μιας "
+"Δεν έχετε ενεργές συσκευές δικτύου. Το σύστημα σας δεν θα έχει προεπιλεγμένα "
+"την δυνατότητα επικοινωνίας μέσω δικτύου χωρίς την ύπαρξη τουλάχιστον μιας "
 "ενεργής συσκευής."
 
-#: ../iw/network_gui.py:207
+#: ../iw/network_gui.py:264
 #, python-format
 msgid "Edit Interface %s"
 msgstr "Επεξεργασία διεπαφής %s"
 
-#: ../iw/network_gui.py:218
-msgid "Configure using _DHCP"
-msgstr "Ρύθμιση με _χρήση DHCP"
+#: ../iw/network_gui.py:276
+#, fuzzy, python-format
+msgid "Hardware address: %s"
+msgstr "Διεύθυνση υλικού: %s"
 
-#: ../iw/network_gui.py:224
+#: ../iw/network_gui.py:281
+#, fuzzy
+msgid "Use dynamic IP configuration (_DHCP)"
+msgstr "Χρήση δυναμικής ρύθμισης IP (DHCP)"
+
+#: ../iw/network_gui.py:286 ../loader2/net.c:691
+msgid "Enable IPv4 support"
+msgstr "Ενεργοποίηση υποστήριξης IPv4"
+
+#: ../iw/network_gui.py:291 ../loader2/net.c:702
+msgid "Enable IPv6 support"
+msgstr "Ενεργοποίηση υποστήριξης IPv6"
+
+#: ../iw/network_gui.py:296
 msgid "_Activate on boot"
 msgstr "_Ενεργοποίηση κατά την εκκίνηση"
 
-#: ../iw/network_gui.py:233
-msgid "_IP Address"
-msgstr "Διεύθυνση _IP"
+#
+#: ../iw/network_gui.py:326
+#, fuzzy
+msgid "IPv_4 Address:"
+msgstr "Διεύθυνση IPv4:"
 
-#: ../iw/network_gui.py:234
-msgid "Net_mask"
-msgstr "_Μάσκα δικτύου"
+#
+#: ../iw/network_gui.py:348
+#, fuzzy
+msgid "IPv_6 Address:"
+msgstr "Διεύθυνση IPv6:"
 
-#: ../iw/network_gui.py:239
-msgid "_Point to Point (IP)"
+#: ../iw/network_gui.py:371
+#, fuzzy
+msgid "_Point to Point (IP):"
 msgstr "Σημείο σε σημείο (IP, Point to Point)"
 
-#: ../iw/network_gui.py:243
-msgid "_ESSID"
+#: ../iw/network_gui.py:383
+#, fuzzy
+msgid "_ESSID:"
 msgstr "_ESSID"
 
-#: ../iw/network_gui.py:244
-msgid "Encryption _Key"
+#: ../iw/network_gui.py:393
+#, fuzzy
+msgid "Encryption _Key:"
 msgstr "_Κλειδί κρυπτογράφησης"
 
-#: ../iw/network_gui.py:255
-msgid "Hardware address:"
-msgstr "Διεύθυνση υλικού:"
-
-#: ../iw/network_gui.py:293
+#: ../iw/network_gui.py:409
 #, python-format
 msgid "Configure %s"
 msgstr "Ρύθμιση  %s"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#, fuzzy
+msgid "Invalid Prefix"
+msgstr "Μη έγκυρος αριθμός IP"
+
+#: ../iw/network_gui.py:458
+#, fuzzy
+msgid "IPv4 prefix must be between 0 and 32."
+msgstr "Το αρχείο swap πρέπει να είναι μεγέθους μεταξύ 1 και 2000 MB."
+
+#: ../iw/network_gui.py:475
+#, fuzzy
+msgid "IPv6 prefix must be between 0 and 128."
+msgstr "Το αρχείο swap πρέπει να είναι μεγέθους μεταξύ 1 και 2000 MB."
+
+#: ../iw/network_gui.py:629
 msgid "Active on Boot"
 msgstr "Ενεργοποίηση κατά την εκκίνηση"
 
-#: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "Συσκευή"
 
-#: ../iw/network_gui.py:473
-msgid "IP/Netmask"
+#: ../iw/network_gui.py:633
+#, fuzzy
+msgid "IPv4/Netmask"
 msgstr "IP/Μάσκα δικτύου"
 
-#: ../iw/network_gui.py:535
+#: ../iw/network_gui.py:635
+msgid "IPv6/Prefix"
+msgstr ""
+
+#: ../iw/network_gui.py:697
 msgid "Network Devices"
 msgstr "Συσκευές δικτύου"
 
-#: ../iw/network_gui.py:546
+#: ../iw/network_gui.py:708
 msgid "Set the hostname:"
 msgstr "Ορίστε το όνομα του συστήματος:"
 
-#: ../iw/network_gui.py:551
+#: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
 msgstr "_αυτόματα μέσω DCHP"
 
-#: ../iw/network_gui.py:558
+#: ../iw/network_gui.py:720
 msgid "_manually"
 msgstr "_χειροκίνητα"
 
-#: ../iw/network_gui.py:562
-msgid "(ex. \"host.domain.com\")"
+#: ../iw/network_gui.py:725
+#, fuzzy
+msgid "(e.g., host.domain.com)"
 msgstr "(πχ. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:568 ../loader2/net.c:1354
+#: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
 msgstr "Όνομα συστήματος"
 
-#: ../iw/network_gui.py:616
+#: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
 msgstr "Διάφορες ρυθμίσεις"
 
@@ -3804,7 +3879,8 @@ msgstr "Γέμισμα στο μέγιστο _επιτρεπτό χώρο"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "Ο τελικός κύλινδρος πρέπει να είναι μεγαλύτερος από τον αρχικό κύλινδρο."
+msgstr ""
+"Ο τελικός κύλινδρος πρέπει να είναι μεγαλύτερος από τον αρχικό κύλινδρο."
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
@@ -3843,6 +3919,16 @@ msgstr "_Τελικός κύλινδρος:"
 msgid "Force to be a _primary partition"
 msgstr "Επιλογή ως _πρωταρχικό τμήμα δίσκου"
 
+#: ../iw/partition_gui.py:314
+#, python-format
+msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
+msgstr ""
+
+#: ../iw/partition_gui.py:321
+#, python-format
+msgid "Drive %s (%-0.f MB) (Model: %s)"
+msgstr ""
+
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
 msgstr "Τύπος"
@@ -3876,14 +3962,16 @@ msgid "Partitioning"
 msgstr "Κατάτμηση"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr ""
-"Παρουσιάστηκαν τα ακόλουθα κρίσιμα σφάλματα με το ζητούμενο σχήμα "
-"κατάτμησης σας."
+"Παρουσιάστηκαν τα ακόλουθα κρίσιμα σφάλματα με το ζητούμενο σχήμα κατάτμησης "
+"σας."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Αυτά τα σφάλματα πρέπει να διορθωθούν πριν να συνεχίσετε με την εγκατάσταση "
 "του %s."
@@ -3895,8 +3983,8 @@ msgstr "Σφάλματα κατάτμησης"
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
-"Παρουσιάστηκαν οι ακόλουθες προειδοποιήσεις με το ζητούμενο σχήμα "
-"κατάτμησης σας."
+"Παρουσιάστηκαν οι ακόλουθες προειδοποιήσεις με το ζητούμενο σχήμα κατάτμησης "
+"σας."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3927,7 +4015,7 @@ msgstr "Συσκευές RAID"
 msgid "None"
 msgstr "Κανένα"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:329
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "Σκληροί δίσκοι"
 
@@ -4072,43 +4160,44 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Απόκρυψη μελών συσκευής/LVM Volume _Group "
 
-#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
-#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
+#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
 msgstr "<Δεν εφαρμόζεται>"
 
-#: ../iw/partition_ui_helpers_gui.py:251
+#: ../iw/partition_ui_helpers_gui.py:250
 msgid "How would you like to prepare the file system on this partition?"
 msgstr ""
 "Με ποιο τρόπο θα θέλατε να προετοιμαστεί το σύστημα αρχείων σε αυτό το τμήμα "
 "δίσκου;"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
 msgstr "Να παραμείνει _χωρίς αλλαγές (διατήρηση δεδομένων)"
 
-#: ../iw/partition_ui_helpers_gui.py:265
+#: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
 msgstr "_Μορφοποίηση τμήματος δίσκου ως:"
 
-#: ../iw/partition_ui_helpers_gui.py:288
+#: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
 msgstr "_Μεταφορά τμήματος δίσκου στο:"
 
-#: ../iw/partition_ui_helpers_gui.py:310
+#: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
 msgstr "Έλεγχος για _ακατάλληλα μπλοκ;"
 
-#: ../iw/partition_ui_helpers_gui.py:345
+#: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Τα τμήματα δίσκου του τύπου '%s' θα πρέπει να περιορίζονται σε ένα δίσκο. Αυτό "
-"μπορεί να γίνει με την επιλογή του δίσκου στη λίστα 'Επιτρεπόμενοι τόμοι'."
+"Τα τμήματα δίσκου του τύπου '%s' θα πρέπει να περιορίζονται σε ένα δίσκο. "
+"Αυτό μπορεί να γίνει με την επιλογή του δίσκου στη λίστα 'Επιτρεπόμενοι "
+"τόμοι'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4182,8 +4271,8 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"Απαιτούνται τουλάχιστον δύο κενές κατατμήσεις software RAID για τη δημιουργία"
-"μιας συσκευής RAID.\n"
+"Απαιτούνται τουλάχιστον δύο κενές κατατμήσεις software RAID για τη "
+"δημιουργίαμιας συσκευής RAID.\n"
 "\n"
 "Πρώτα δημιουργήστε τουλάχιστον δύο τμήματα δίσκου \"software RAID\" και μετά "
 "επιλέξτε ξανά την επιλογή \"RAID\"."
@@ -4228,8 +4317,8 @@ msgid ""
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 "Ο πηγαίος δίσκος δεν έχει τμήματα δίσκου για κλωνοποίηση.  Πρέπει πρώτα να "
-"ορίσετε τμήματα δίσκου τύπου 'λογισμικό RAID' σε αυτόν το δίσκο πριν μπορέσει "
-"να κλωνοποιηθεί."
+"ορίσετε τμήματα δίσκου τύπου 'λογισμικό RAID' σε αυτόν το δίσκο πριν "
+"μπορέσει να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -4243,11 +4332,11 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου τα οποία δεν "
-"είναι τύπου 'λογισμικό RAID'.\n"
+"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου τα οποία δεν είναι "
+"τύπου 'λογισμικό RAID'.\n"
 "\n"
-"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν πριν αυτός ο δίσκος μπορέσει να "
-"κλωνοποιηθεί."
+"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν πριν αυτός ο δίσκος μπορέσει "
+"να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4258,11 +4347,11 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου τα οποία δεν "
-"είναι περιορισμένα στο δίσκο /dev/%s.\n"
+"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου τα οποία δεν είναι "
+"περιορισμένα στο δίσκο /dev/%s.\n"
 "\n"
-"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν ή να περιοριστούν σε αυτόν τον "
-"δίσκο πριν μπορέσει να κλωνοποιηθεί."
+"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν ή να περιοριστούν σε αυτόν "
+"τον δίσκο πριν μπορέσει να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4271,10 +4360,11 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου λογικού RAID τα οποία είναι μέλη ενός ενεργού δίσκου λογισμικού RAID.\n"
+"Ο πηγαίος δίσκος που επιλέχθηκε περιέχει τμήματα δίσκου λογικού RAID τα "
+"οποία είναι μέλη ενός ενεργού δίσκου λογισμικού RAID.\n"
 "\n"
-"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν πριν αυτός ο δίσκος μπορέσει να "
-"κλωνοποιηθεί."
+"Αυτά τα τμήματα δίσκου θα πρέπει να αφαιρεθούν πριν αυτός ο δίσκος μπορέσει "
+"να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4284,13 +4374,13 @@ msgstr "Σφάλμα δίσκου προορισμού:"
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
 msgstr ""
-"Παρακαλώ επιλέξτε τους δίσκους προορισμού για τη λειτουργία της "
-"κλωνοποίησης."
+"Παρακαλώ επιλέξτε τους δίσκους προορισμού για τη λειτουργία της κλωνοποίησης."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "Ο πηγαίος δίσκος /dev/%s δεν μπορεί να επιλεχθεί και ως δίσκος προορισμού."
+msgstr ""
+"Ο πηγαίος δίσκος /dev/%s δεν μπορεί να επιλεχθεί και ως δίσκος προορισμού."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4343,7 +4433,8 @@ msgstr "Κλωνοποίηση δίσκων"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "Υπήρξε ένα σφάλμα κατά την εκκαθάριση των δίσκων. Η κλωνοποίηση απέτυχε."
+msgstr ""
+"Υπήρξε ένα σφάλμα κατά την εκκαθάριση των δίσκων. Η κλωνοποίηση απέτυχε."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4385,35 +4476,19 @@ msgstr "Δίσκος(οι) προορισμού:"
 msgid "Drives"
 msgstr "Δίσκοι"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
+#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
 msgid "Release notes are missing.\n"
 msgstr "Οι σημειώσεις κυκλοφορίας λείπουν.\n"
 
-#: ../iw/release_notes.py:222
+#: ../iw/release_notes.py:221
 msgid "Release Notes"
 msgstr "Σημειώσεις κυκλοφορίας"
 
-#: ../iw/release_notes.py:226
+#: ../iw/release_notes.py:224
 msgid "Unable to load file!"
 msgstr "Αδύνατη η φόρτωση αρχείου!"
 
-#: ../iw/task_gui.py:85
-msgid "Invalid Repository Name"
-msgstr "Μη έγκυρο όνομα αποθετηρίου"
-
-#: ../iw/task_gui.py:86
-msgid "You must provide a non-zero length repository name."
-msgstr "Πρέπει να εισάγετε ένα όνομα αποθετηρίου με μη μηδενικό μέγεθος."
-
-#: ../iw/task_gui.py:95
-msgid "Invalid Repository URL"
-msgstr "Μη έγκυρη URL αποθετηρίου"
-
-#: ../iw/task_gui.py:96
-msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Πρέπει να εισάγετε ένα URL τύπου HTTP ή FTP στο αποθετήριο."
-
-#: ../iw/task_gui.py:111
+#: ../iw/task_gui.py:79
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4427,6 +4502,38 @@ msgstr ""
 "Παρακαλώ βεβαιωθείτε ότι το αποθετήριο σας έχει δημιουργηθεί σωστά.\n"
 "\n"
 "%s"
+
+#: ../iw/task_gui.py:89
+#, python-format
+msgid ""
+"Unable to find a group file for %s.  This will make manual selection of "
+"packages from the repository not work"
+msgstr ""
+
+#: ../iw/task_gui.py:121
+msgid "Invalid Repository Name"
+msgstr "Μη έγκυρο όνομα αποθετηρίου"
+
+#: ../iw/task_gui.py:122
+msgid "You must provide a non-zero length repository name."
+msgstr "Πρέπει να εισάγετε ένα όνομα αποθετηρίου με μη μηδενικό μέγεθος."
+
+#: ../iw/task_gui.py:131
+msgid "Invalid Repository URL"
+msgstr "Μη έγκυρη URL αποθετηρίου"
+
+#: ../iw/task_gui.py:132
+msgid "You must provide an HTTP or FTP URL to a repository."
+msgstr "Πρέπει να εισάγετε ένα URL τύπου HTTP ή FTP στο αποθετήριο."
+
+#: ../iw/task_gui.py:146
+#, fuzzy, python-format
+msgid ""
+"The repository %s has already been added.  Please choose a different "
+"repository name and URL."
+msgstr ""
+"Το σημείο προσάρτησης \"%s\" χρησιμοποιείται ήδη, παρακαλώ επιλέξτε ένα "
+"διαφορετικό σημείο προσάρτησης."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4446,8 +4553,10 @@ msgstr "Αυτό θα ενημερώσει τον τρέχοντα boot loader."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Η εγκατάσταση εντόπισε ότι ο boot loader %s είναι εγκατεστημένος στο %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
+msgstr ""
+"Η εγκατάσταση εντόπισε ότι ο boot loader %s είναι εγκατεστημένος στο %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4506,8 +4615,8 @@ msgid ""
 msgstr ""
 "Αυτή η έκδοση του %s υποστηρίζει το σύστημα αρχείων ext3 journalling. Έχει "
 "αρκετά πλεονεκτήματα σε σχέση με το ext2 που παραδοσιακά έρχεται με το %s. "
-"Είναι δυνατόν να εισάγετε τα ήδη μορφοποιημένα τμήματα δίσκου ext2 σας σε ext3 "
-"χωρίς να υπάρχει απώλεια δεδομένων.\n"
+"Είναι δυνατόν να εισάγετε τα ήδη μορφοποιημένα τμήματα δίσκου ext2 σας σε "
+"ext3 χωρίς να υπάρχει απώλεια δεδομένων.\n"
 "\n"
 "Ποια από αυτά τα τμήματα δίσκου θα θέλατε να εισάγετε;"
 
@@ -4589,7 +4698,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Το αρχείο swap πρέπει να είναι μεγέθους μεταξύ 1 και 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Δεν υπάρχει αρκετός χώρος στην επιλεγμένη συσκευή για δημιουργία αρχείου "
 "swap."
@@ -4762,7 +4872,8 @@ msgstr ""
 "μπορείτε να εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 "<Space> επιλογή | <F2> ορισμός προεπιλογής  | <F4> διαγραφή | <F12> επόμενη "
 "οθόνη>"
@@ -4820,8 +4931,8 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
-"Απομακρύνετε όλα τα μέσα που χρησιμοποιήσατε κατά τη διαδικασία "
-"εγκατάστασης και πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας.\n"
+"Απομακρύνετε όλα τα μέσα που χρησιμοποιήσατε κατά τη διαδικασία εγκατάστασης "
+"και πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -4874,15 +4985,15 @@ msgstr ""
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:385
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:181 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:131
-#: ../loader2/loader.c:335 ../loader2/loader.c:943 ../loader2/loader.c:965
-#: ../loader2/net.c:242 ../loader2/net.c:282 ../loader2/net.c:706
-#: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:269 ../loader2/urls.c:456
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
+#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
+#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
+#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:275 ../loader2/urls.c:455
 msgid "Back"
 msgstr "Πίσω"
 
@@ -4900,15 +5011,17 @@ msgstr ""
 "επανεκκίνηση του συστήματος σας. Μπορεί να χρειαστείτε αυτό το αρχείο για "
 "μελλοντική αναφορά."
 
-#: ../textw/grpselect_text.py:84
+#: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
 msgstr "Παρακαλώ επιλέξτε τις ομάδες πακέτων που θέλετε να εγκατασταθούν."
 
-#: ../textw/grpselect_text.py:102
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> επιλογή | <F2> Λεπτομέρειες ομάδας | <F12> επόμενη οθόνη"
+#: ../textw/grpselect_text.py:105
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> επιλογή | <F2> Λεπτομέρειες ομάδας | <F12> επόμενη οθόνη"
 
-#: ../textw/grpselect_text.py:130
+#: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
 msgstr "Λεπτομέρειες ομάδας πακέτων"
 
@@ -4946,23 +5059,15 @@ msgstr "Μη έγκυρος αριθμός IP"
 msgid "The entered IP '%s' is not a valid IP."
 msgstr "Η εισηγμένη IP  '%s' δεν είναι έγκυρη IP."
 
-#: ../textw/network_text.py:72
-msgid "IP Address"
-msgstr "Διεύθυνση IP"
-
-#: ../textw/network_text.py:73
-msgid "Netmask"
-msgstr "Netmask"
-
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
-#: ../textw/network_text.py:79 ../loader2/net.c:237
+#: ../textw/network_text.py:79 ../loader2/net.c:238
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:80 ../loader2/net.c:238
+#: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
 msgstr "Κλειδί κρυπτογράφησης"
 
@@ -5002,7 +5107,7 @@ msgstr "Μη έγκυρες πληροφορίες"
 msgid "You must enter valid IP information to continue"
 msgstr "Πρέπει να εισάγετε έγκυρες πληροφορίες IP για να συνεχίσετε"
 
-#: ../textw/network_text.py:247 ../loader2/net.c:920
+#: ../textw/network_text.py:247 ../loader2/net.c:957
 msgid "Gateway:"
 msgstr "Gateway:"
 
@@ -5307,7 +5412,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Βοήθεια     F2-Νέο      F3-Επεξεργασία   F4-Διαγραφή    F5-"
 "Επαναφορά    F12-OK        "
@@ -5324,26 +5430,28 @@ msgstr "Πρέπει να έχετε ένα τμήμα δίσκου / για ν�
 msgid "Partitioning Type"
 msgstr "Τύπος κατάτμησης"
 
-#: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1518
+#, fuzzy
 msgid ""
-"Installation requires partitioning of your hard drive.  By default, a "
-"partitioning layout is chosen which is reasonable for most users.  You can "
-"either choose to use this or create your own."
+"Installation requires partitioning of your hard drive.  The default layout "
+"is reasonable for most users.  You can either choose to use this or create "
+"your own."
 msgstr ""
 "Η εγκατάσταση απαιτεί την κατάτμηση του σκληρού σας δίσκου. Ως προεπιλογή "
 "έχει επιλεχθεί μια διάταξη κατάτμησης που είναι κατάλληλη για τους "
 "περισσότερους χρήστες. Υπάρχει επίσης η δυνατότητα να επιλέξετε τη δική σας "
 "διάταξη κατάτμησης."
 
-#: ../textw/partition_text.py:1543
+#: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Ποιο δίσκο (ή δίσκους) θέλετε να χρησιμοποιήσετε για αυτήν την εγκατάσταση;"
+msgstr ""
+"Ποιο δίσκο (ή δίσκους) θέλετε να χρησιμοποιήσετε για αυτήν την εγκατάσταση;"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1604
 msgid "Review Partition Layout"
 msgstr "Επισκόπηση διάταξης κατάτμησης"
 
-#: ../textw/partition_text.py:1606
+#: ../textw/partition_text.py:1605
 msgid "Review and modify partitioning layout?"
 msgstr "Επισκόπηση και τροποποίηση διάταξης κατάτμησης;"
 
@@ -5406,18 +5514,18 @@ msgstr "Απομένουν:  "
 msgid "Package selection"
 msgstr "Επιλογή πακέτων"
 
-#: ../textw/task_text.py:45
-#, python-format
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
+#, fuzzy, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
+"support?"
 msgstr ""
 "Η προεπιλεγμένη εγκατάσταση του %s περιλαμβάνει ένα σύνολο προγραμμάτων που "
 "είναι κατάλληλο για γενική χρήση ενός υπολογιστή που έχει σύνδεση στο "
 "διαδίκτυο. Ποιες πρόσθετες χρήσεις θα θέλατε να υποστηρίζει το σύστημα σας;  "
 
-#: ../textw/task_text.py:60
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "Προσαρμογή επιλεγμένου λογισμικού"
 
@@ -5559,8 +5667,8 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "Ο z/IPL Boot Loader θα εγκατασταθεί στο σύστημα μετά την ολοκλήρωση της "
-"εγκατάστασης. Τώρα έχετε τη δυνατότητα να εισάγετε πρόσθετες παραμέτρους "
-"του πυρήνα και του chandev όπου χρειάζονται."
+"εγκατάστασης. Τώρα έχετε τη δυνατότητα να εισάγετε πρόσθετες παραμέτρους του "
+"πυρήνα και του chandev όπου χρειάζονται."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5574,8 +5682,7 @@ msgstr "Chandev line "
 msgid "_Custom"
 msgstr "_Προσαρμοσμένο"
 
-#: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
-#: ../installclasses/rhel.py:13
+#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5584,19 +5691,30 @@ msgstr ""
 "διαδικασίας εγκατάστασης, συμπεριλαμβανομένης της επιλογής πακέτων "
 "λογισμικού και της διαδικασίας κατάτμησης."
 
-#: ../installclasses/fedora.py:11
+#: ../installclasses/fedora.py:12
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
+#: ../installclasses/fedora.py:13
+#, fuzzy, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage. What additional tasks would you like your system to "
+"include support for?"
+msgstr ""
+"Η προεπιλεγμένη εγκατάσταση του %s περιλαμβάνει ένα σύνολο προγραμμάτων που "
+"είναι κατάλληλο για γενική χρήση ενός υπολογιστή που έχει σύνδεση στο "
+"διαδίκτυο. Ποιες πρόσθετες χρήσεις θα θέλατε να υποστηρίζει το σύστημα σας;  "
+
+#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
 msgstr "Γραφείο και παραγωγικότητα"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
 msgstr "Ανάπτυξη λογισμικού"
 
-#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
 msgid "Web server"
 msgstr "Web server"
 
@@ -5632,23 +5750,9 @@ msgstr ""
 "\tΕφαρμογές ήχου και βίντεο\n"
 "\tΠαιχνίδια\n"
 
-#: ../installclasses/rhel.py:11
+#: ../installclasses/rhel.py:15
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
-
-#: ../installclasses/rhel.py:49
-msgid "Registration Key Required"
-msgstr "Απαιτείται κλειδί εγγραφής"
-
-#: ../installclasses/rhel.py:50
-#, python-format
-msgid ""
-"A registration key is required to install %s.  Please contact your support "
-"representative if you did not receive a key with your product."
-msgstr ""
-"Ένα κλειδί εγγραφής απαιτείται για την εγκατάσταση του %s.  Παρακαλώ "
-"επικοινωνήστε με τον εκπρόσωπο υποστήριξης σας αν δεν έχετε λάβει ένα κλειδί "
-"με το προϊόν σας."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5699,22 +5803,22 @@ msgstr ""
 "\tΕργαλεία ανάπτυξης λογισμικού\n"
 "\tΕργαλεία διαχείρισης\n"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
 msgstr "Έλεγχος μέσων"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
-#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/method.c:420
 msgid "Test"
 msgstr "Δοκιμή"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
 msgstr "Εξαγωγή CD"
 
-#: ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:93
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -5723,7 +5827,7 @@ msgstr ""
 "Επιλέξτε \"%s\" για να ελέγξετε το CD που βρίσκεται στον οδηγό, ή \"%s\" για "
 "να εξαχθεί το CD και να εισάγετε ένα άλλο για έλεγχο."
 
-#: ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:114
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5738,7 +5842,7 @@ msgstr ""
 "μία φορά πριν την πρώτη τους χρήση. Αν ο πρώτος έλεγχος είναι επιτυχής δεν "
 "απαιτείται επιπλέον έλεγχος την επόμενη φορά που θα τα χρησιμοποιήσετε."
 
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5747,7 +5851,7 @@ msgstr ""
 "Το %s CD δεν βρέθηκε σε κανένα από τους οδηγούς CDROM σας. Παρακαλώ εισάγετε "
 "το %s CD και πατήστε %s για να ξαναπροσπαθήσετε."
 
-#: ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:258
 msgid "CD Found"
 msgstr "Βρέθηκε CD"
 
@@ -5764,7 +5868,7 @@ msgstr ""
 "Επιλέξτε %s για να προσπεράσετε των έλεγχο των μέσων και να ξεκινήσετε την "
 "εγκατάσταση."
 
-#: ../loader2/cdinstall.c:372
+#: ../loader2/cdinstall.c:379
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5773,29 +5877,29 @@ msgstr ""
 "Δεν βρέθηκε %s CD που να ταιριάζει με το μέσο εκκίνησης. Παρακαλώ εισάγετε "
 "το %s CD και πατήστε %s για να προσπαθήσετε ξανά."
 
-#: ../loader2/cdinstall.c:384
+#: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
 msgstr "Δε βρέθηκε CD"
 
-#: ../loader2/cdinstall.c:455
+#: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Αδυναμία εύρεσης αρχείου kickstart στο CDROM."
 
 #
-#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
+#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Γίνεται φόρτωση"
 
 # gconf/gconf-internals.c:2416
-#: ../loader2/driverdisk.c:127
+#: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
 msgstr "Ανάγνωση δίσκου οδηγού..."
 
-#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
+#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
 msgstr "Πηγή δισκέτας οδηγού"
 
-#: ../loader2/driverdisk.c:268
+#: ../loader2/driverdisk.c:269
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5803,7 +5907,7 @@ msgstr ""
 "Έχετε πολλαπλές συσκευές που μπορούν να χρησιμοποιηθούν ως πηγές για δίσκο "
 "οδηγών. Ποια θέλετε να χρησιμοποιήσετε;"
 
-#: ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5812,87 +5916,93 @@ msgstr ""
 "πηγαία εικόνα οδηγών. Ποια θέλετε να χρησιμοποιήσετε;"
 
 # gconf/gconf-internals.c:2416
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
 msgstr "Αποτυχία προσάρτησης τμήματος δίσκου."
 
-#: ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
 msgstr "Επιλογή εικόνας δίσκου οδηγού"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
 msgstr "Επιλέξτε το αρχείο στο οποίο βρίσκεται η εικόνα δίσκου οδηγού."
 
 # gconf/gconf-internals.c:2416
-#: ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
 msgstr "Αποτυχία φόρτωσης δίσκου οδηγού από αρχείο."
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Εισάγετε το δίσκο οδηγών στο /dev/%s και πατήστε \"OK\" για να συνεχίσετε."
+msgstr ""
+"Εισάγετε το δίσκο οδηγών στο /dev/%s και πατήστε \"OK\" για να συνεχίσετε."
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "Εισαγωγή δίσκου οδηγού"
 
 # gconf/gconf-internals.c:2416
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "Αποτυχία προσάρτησης δισκέτας οδηγού."
 
-#: ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:415
+#, c-format
+msgid "Driver disk is invalid for this release of %s."
+msgstr ""
+
+#: ../loader2/driverdisk.c:479
 msgid "Manually choose"
 msgstr "Χειροκίνητη επιλογή"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:480
 msgid "Load another disk"
 msgstr "Φόρτωση άλλου δίσκου"
 
-#: ../loader2/driverdisk.c:477
+#: ../loader2/driverdisk.c:481
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 "Δεν βρέθηκαν συσκευές κατάλληλου τύπου σε αυτόν το δίσκο. Θα θέλατε να "
-"επιλέξετε μη αυτόματα τον οδηγό, να συνεχίσετε ή να εισάγετε ένα "
-"άλλο δίσκο οδηγούς;"
+"επιλέξετε μη αυτόματα τον οδηγό, να συνεχίσετε ή να εισάγετε ένα άλλο δίσκο "
+"οδηγούς;"
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:520
 msgid "Driver disk"
 msgstr "Δίσκος οδηγού"
 
-#: ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
 msgstr "Έχετε δίσκο οδηγού;"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
 msgstr "Περισσότεροι δίσκοι οδηγών;"
 
-#: ../loader2/driverdisk.c:528
+#: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
 msgstr "Θέλετε να φορτώσετε άλλους δίσκους οδηγών;"
 
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:411 ../loader2/modules.c:960 ../loader2/net.c:1446
-#: ../loader2/net.c:1469 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:476 ../loader2/urlinstall.c:485
-#: ../loader2/urlinstall.c:496
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
+#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
+#: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
 msgstr "Σφάλμα Kickstart"
 
-#: ../loader2/driverdisk.c:578
+#: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Άγνωστη πηγή driver disk kickstart: %s"
 
-#: ../loader2/driverdisk.c:615
+#: ../loader2/driverdisk.c:619
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5916,15 +6026,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Εισαγωγή παραμέτρων Module"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "No drivers found"
 msgstr "Δεν βρέθηκαν οδηγοί"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "Load driver disk"
 msgstr "Φόρτωση δίσκου οδηγού"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -5932,7 +6042,7 @@ msgstr ""
 "Δεν βρέθηκαν οδηγοί για χειροκίνητη εισαγωγή. Θέλετε να χρησιμοποιήσετε ένα "
 "δίσκο με οδηγούς;"
 
-#: ../loader2/driverselect.c:199
+#: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5940,11 +6050,11 @@ msgstr ""
 "Παρακαλώ επιλέξτε παρακάτω τον οδηγό που θέλετε να χρησιμοποιήσετε. Αν δεν "
 "εμφανίζεται και έχετε ήδη ένα δίσκο με οδηγούς πατήστε F2."
 
-#: ../loader2/driverselect.c:207
+#: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
 msgstr "Καθορισμός προαιρετικών παραμέτρων"
 
-#: ../loader2/driverselect.c:227
+#: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
 msgstr "Επιλογή οδηγού συσκευής για φόρτωση"
 
@@ -5953,8 +6063,8 @@ msgstr "Επιλογή οδηγού συσκευής για φόρτωση"
 msgid "Loading %s driver..."
 msgstr "Φόρτωση οδηγού %s..."
 
-#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:153
-#: ../loader2/nfsinstall.c:204 ../loader2/urlinstall.c:160
+#: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
+#: ../loader2/urlinstall.c:160
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5963,7 +6073,7 @@ msgstr ""
 "Το δέντρο εγκατάστασης του %s σε αυτόν τον κατάλογο δε φαίνεται να ταιριάζει "
 "με τα μέσα εκκίνησης σας."
 
-#: ../loader2/hdinstall.c:217
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5971,7 +6081,7 @@ msgstr ""
 "Υπήρξε ένα σφάλμα κατά την ανάγνωση των αρχείων εγκατάστασης από τις εικόνες "
 "ISO. Παρακαλώ ελέγξτε τις εικόνες ISO και προσπαθήστε ξανά."
 
-#: ../loader2/hdinstall.c:330
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5979,7 +6089,7 @@ msgstr ""
 "Δεν φαίνεται να έχετε σκληρούς δίσκους στο σύστημα σας! Θέλετε να ρυθμίσετε "
 "επιπρόσθετες συσκευές;"
 
-#: ../loader2/hdinstall.c:346
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5990,29 +6100,29 @@ msgstr ""
 "το %s; Αν δε βλέπετε καταχωρημένο εδώ τον οδηγό δίσκου που χρησιμοποιείτε, "
 "πατήστε F2 για να ρυθμίσετε επιπλέον συσκευές."
 
-#: ../loader2/hdinstall.c:368
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "Κατάλογος με εικόνες: "
 
-#: ../loader2/hdinstall.c:395
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "Επιλογή τμήματος δίσκου"
 
-#: ../loader2/hdinstall.c:435
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Η συσκευή %s δε φαίνεται να περιέχει εικόνες %s CDROM."
 
-#: ../loader2/hdinstall.c:470
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Εσφαλμένο όρισμα για την εντολή μεθόδου του HD kickstart %s: %s"
 
-#: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Αδυναμία εύρεσης αρχείου kickstart στο σκληρό δίσκο."
 
-#: ../loader2/hdinstall.c:582
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Αδυναμία εύρεσης σκληρού δίσκου για BIOS disk %s"
@@ -6047,42 +6157,45 @@ msgstr "Σφάλμα στο %s στη γραμμή %d του αρχείου kick
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Αδυναμία εύρεσης ks.cfg στη δισκέτα εκκίνησης."
 
-#: ../loader2/kickstart.c:412
+#: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Εσφαλμένο όρισμα για την εντολή μεθόδου τερματισμού του kickstart %s: %s"
+msgstr ""
+"Εσφαλμένο όρισμα για την εντολή μεθόδου τερματισμού του kickstart %s: %s"
 
 #
-#: ../loader2/lang.c:54
+#: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Καλώς ήλθατε στο %s - Λειτουργία Rescue"
 
-#: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή | <F12> επόμενη οθόνη "
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή | <F12> επόμενη οθόνη "
 
-#: ../loader2/lang.c:364
+#: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "Επιλέξτε μία γλώσσα"
 
-#: ../loader2/loader.c:117
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "Τοπικό CDROM"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "Σκληρός δίσκος"
 
-#: ../loader2/loader.c:120
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "Εικόνα NFS"
 
-#: ../loader2/loader.c:330
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "Ενημέρωση πηγής δίσκου"
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6090,88 +6203,88 @@ msgstr ""
 "Έχετε πολλαπλές συσκευές οι οποίες θα μπορούσαν να είναι πηγές δημιουργίας "
 "ενός δίσκου με ενημερώσεις. Ποια θα θέλατε να χρησιμοποιήσετε;"
 
-#: ../loader2/loader.c:346
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Εισάγετε το δίσκο με τις ενημερώσεις στο /dev/%s και πατήστε \"OK\" για να "
 "συνεχίσετε."
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "Δίσκος ενημερώσεων"
 
 # gconf/gconf-internals.c:2416
-#: ../loader2/loader.c:360
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "Αποτυχία προσάρτησης δίσκου ενημερώσεων"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "Ανανεώσεις"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "Ανάγνωση ενημερώσεων anaconda..."
 
-#: ../loader2/loader.c:401
+#: ../loader2/loader.c:404
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 "Δε βρέθηκαν σκληροί δίσκοι. Πιθανόν να χρειάζεται να επιλέξετε μη αυτόματα "
-"οδηγούς ώστε να ολοκληρώσετε  με επιτυχία την εγκατάσταση. Θα "
-"θέλατε να επιλέξετε οδηγούς τώρα;"
+"οδηγούς ώστε να ολοκληρώσετε  με επιτυχία την εγκατάσταση. Θα θέλατε να "
+"επιλέξετε οδηγούς τώρα;"
 
-#: ../loader2/loader.c:775
+#: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Δεν έχετε αρκετή RAM για να εγκαταστήσετε το %s σε αυτό το σύστημα."
 
 #
-#: ../loader2/loader.c:935
+#: ../loader2/loader.c:938
 msgid "Rescue Method"
 msgstr "Μέθοδος Rescue"
 
-#: ../loader2/loader.c:936
+#: ../loader2/loader.c:939
 msgid "Installation Method"
 msgstr "Μέθοδος εγκατάστασης"
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
 msgstr "Τι είδος μέσου περιέχει την εικόνα rescue;"
 
-#: ../loader2/loader.c:940
+#: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
 msgstr "Τι είδος μέσου περιέχει τα πακέτα που θα εγκατασταθούν;"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "No driver found"
 msgstr "Δε βρέθηκε οδηγός"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "Select driver"
 msgstr "Επιλογή οδηγού"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:969
 msgid "Use a driver disk"
 msgstr "Χρήση ενός δίσκου οδηγού"
 
-#: ../loader2/loader.c:966
+#: ../loader2/loader.c:970
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Αδύνατη η εύρεση κάποιας συσκευής που είναι απαραίτητη για αυτόν τον τύπο "
-"εγκατάστασης. Θα θέλατε να επιλέξετε μη αυτόματα τον κατάλληλο "
-"οδηγό ή να χρησιμοποιήσετε ένα δίσκο με οδηγούς;"
+"εγκατάστασης. Θα θέλατε να επιλέξετε μη αυτόματα τον κατάλληλο οδηγό ή να "
+"χρησιμοποιήσετε ένα δίσκο με οδηγούς;"
 
-#: ../loader2/loader.c:1124
+#: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
 msgstr "Οι ακόλουθες συσκευές βρέθηκαν στο σύστημά σας."
 
-#: ../loader2/loader.c:1126
+#: ../loader2/loader.c:1133
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6179,31 +6292,31 @@ msgstr ""
 "Δεν έχουν φορτωθεί οδηγοί συσκευών για το σύστημα σας.  Θα θέλατε να "
 "φορτωθεί κάποιος τώρα;"
 
-#: ../loader2/loader.c:1130
+#: ../loader2/loader.c:1137
 msgid "Devices"
 msgstr "Συσκευές"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1138
 msgid "Done"
 msgstr "Έγινε"
 
-#: ../loader2/loader.c:1132
+#: ../loader2/loader.c:1139
 msgid "Add Device"
 msgstr "Προσθήκη συσκευής"
 
-#: ../loader2/loader.c:1332
+#: ../loader2/loader.c:1347
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ο φορτωτής έχει ήδη εκτελεσθεί.  Έναρξη κελύφους.\n"
 
-#: ../loader2/loader.c:1699
+#: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "Εκτέλεση του anaconda, το περιβάλλον διάσωσης του %s - παρακαλώ "
 "περιμένετε...\n"
 
-#: ../loader2/loader.c:1701
+#: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6309,12 +6422,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Έλεγχος αθροίσματος ελέγχου"
 
-#: ../loader2/modules.c:961
+#: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Λάθος όρισμα στην εντολή της μεθόδου έναρξης της συσκευής %s: %s"
 
-#: ../loader2/net.c:62
+#: ../loader2/net.c:63
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6329,19 +6442,16 @@ msgstr ""
 "    o τον κατάλογο σε αυτόν τον εξυπηρετητή που\n"
 "      περιέχει %s για την αρχιτεκτονική σας\n"
 
-#: ../loader2/net.c:96
-msgid "Invalid CIDR Mask"
-msgstr "Μη έγκυρο CIDR Mask"
-
-#: ../loader2/net.c:97
+#: ../loader2/net.c:98
+#, fuzzy
 msgid ""
-"CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
-"128 for IPv6 networks"
+"Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
+"IPv6 networks"
 msgstr ""
-"Η τιμή της μάσκας CIDR πρέπει να είναι μεταξύ 1 και 32 για δίκτυα IPv4 ή μεταξύ 1 και "
-"128 για IPv6 δίκτυα"
+"Η τιμή της μάσκας CIDR πρέπει να είναι μεταξύ 1 και 32 για δίκτυα IPv4 ή "
+"μεταξύ 1 και 128 για IPv6 δίκτυα"
 
-#: ../loader2/net.c:231
+#: ../loader2/net.c:232
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6353,19 +6463,15 @@ msgstr ""
 "δίκτυο σας. Αν δεν χρειάζεται κλειδί, αφήστε κενό το πεδίο και η εγκατάσταση "
 "θα προχωρήσει."
 
-#: ../loader2/net.c:241
+#: ../loader2/net.c:242
 msgid "Wireless Settings"
 msgstr "Ασύρματες ρυθμίσεις"
 
-#: ../loader2/net.c:272
+#: ../loader2/net.c:273
 msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
-#: ../loader2/net.c:276
-msgid "Nameserver"
-msgstr "Nameserver"
-
-#: ../loader2/net.c:277
+#: ../loader2/net.c:278
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6377,60 +6483,51 @@ msgstr ""
 "παρακαλώ εισάγετε τον τώρα. Αν δεν έχετε αυτήν την πληροφορία, μπορείτε να "
 "αφήσετε αυτό το πεδίο κενό και η εγκατάσταση θα συνεχίσει."
 
-#: ../loader2/net.c:300
+#: ../loader2/net.c:301
 msgid "Invalid IP Information"
 msgstr "Μη έγκυρες πληροφορίες IP"
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:302
 msgid "You entered an invalid IP address."
 msgstr "Εισάγατε μη έγκυρη διεύθυνση IP."
 
-#: ../loader2/net.c:375 ../loader2/net.c:768
-msgid "Dynamic IP"
-msgstr "Δυναμικό IP"
-
-#: ../loader2/net.c:376 ../loader2/net.c:769
-#, c-format
-msgid "Sending request for IP information for %s..."
-msgstr "Αποστολή αίτησης για πληροφορίες IP για %s..."
-
-#: ../loader2/net.c:538 ../loader2/net.c:639
+#: ../loader2/net.c:541 ../loader2/net.c:647
 msgid "Network Error"
 msgstr "Σφάλμα δικτύου"
 
-#: ../loader2/net.c:539 ../loader2/net.c:640
+#: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
 msgstr "Εμφανίστηκε ένα σφάλμα κατά τη ρύθμιση της διεπαφής δικτύου σας."
 
-#: ../loader2/net.c:675
+#: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Χρήση δυναμικής ρύθμισης IP (DHCP)"
 
-#: ../loader2/net.c:680
-msgid "Enable IPv4 support"
-msgstr "Ενεργοποίηση υποστήριξης IPv4"
-
-#: ../loader2/net.c:690
-msgid "Enable IPv6 support"
-msgstr "Ενεργοποίηση υποστήριξης IPv6"
-
-#: ../loader2/net.c:700
+#: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
 msgstr "Αποφυγή ανεπιθύμητων συγκρούσεων πακέτων"
 
-#: ../loader2/net.c:702
+#: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
 msgstr "Μεγιστοποίηση τιμών register για κίνηση δικτύου μεγάλης ταχύτητας"
 
-#: ../loader2/net.c:738
+#: ../loader2/net.c:750
 msgid "Configure TCP/IP"
 msgstr "Ρύθμιση TCP/IP"
 
-#: ../loader2/net.c:753 ../loader2/net.c:763
+#: ../loader2/net.c:764
+msgid "IPv4 Needed for NFS"
+msgstr ""
+
+#: ../loader2/net.c:765
+msgid "NFS installation method requires IPv4 support."
+msgstr ""
+
+#: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
 msgstr "Πρωτόκολλο που λείπει"
 
-#: ../loader2/net.c:754
+#: ../loader2/net.c:772
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
@@ -6438,65 +6535,68 @@ msgstr ""
 "Πρέπει να επιλέξετε τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6) για χειροκίνητη "
 "ρύθμιση."
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr "Πρέπει να επιλέξετε τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6) για DHCP."
 
 #
-#: ../loader2/net.c:834
+#: ../loader2/net.c:852
 msgid "IPv4 address:"
 msgstr "Διεύθυνση IPv4:"
 
-#: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
 #
-#: ../loader2/net.c:876
+#: ../loader2/net.c:904
 msgid "IPv6 address:"
 msgstr "Διεύθυνση IPv6:"
 
-#: ../loader2/net.c:928
+#: ../loader2/net.c:965
 msgid "Name Server:"
 msgstr "Nameserver:"
 
-#: ../loader2/net.c:961
+#: ../loader2/net.c:1008
 msgid "Manual TCP/IP Configuration"
 msgstr "Μη αυτόματη ρύθμιση TCP/IP"
 
-#: ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
 msgstr "Ελλειπείς πληροφορίες"
 
-#: ../loader2/net.c:1085
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1132
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Πρέπει να εισάγετε τόσο μια έγκυρη διεύθυνση IPv4 όσο και μια μάσκα δικτύου "
 "ή πρόθεμα CIDR."
 
-#: ../loader2/net.c:1091
-msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Πρέπει να εισάγετε τόσο μια έγκυρη διεύθυνση IPv6 όσο και ένα πρόθεμα CIDR."
+#: ../loader2/net.c:1138
+#, fuzzy
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgstr ""
+"Πρέπει να εισάγετε τόσο μια έγκυρη διεύθυνση IPv6 όσο και ένα πρόθεμα CIDR."
 
-#: ../loader2/net.c:1355
+#: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
 msgstr "Καθορισμός ονόματος συστήματος και τομέα..."
 
-#: ../loader2/net.c:1447
+#: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Εσφαλμένο όρισμα για την εντολή δικτύου του kickstart %s: %s"
 
-#: ../loader2/net.c:1470
+#: ../loader2/net.c:1517
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Καθορίστηκε εσφαλμένη bootproto %s στην εντολή δικτύου"
 
-#: ../loader2/net.c:1639
+#: ../loader2/net.c:1688
 msgid "Networking Device"
 msgstr "Συσκευή δικτύου"
 
-#: ../loader2/net.c:1640
+#: ../loader2/net.c:1689
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6508,7 +6608,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Όνομα εξυπηρετητή NFS:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
 #, c-format
 msgid "%s directory:"
 msgstr "%s κατάλογος:"
@@ -6521,20 +6621,20 @@ msgstr "NFS"
 msgid "NFS Setup"
 msgstr "Ρύθμιση NFS"
 
-#: ../loader2/nfsinstall.c:131
+#: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
 msgstr "Καθορίστηκε όνομα συστήματος χωρίς ρύθμιση DNS"
 
-#: ../loader2/nfsinstall.c:208
+#: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Ο κατάλογος δεν φαίνεται να περιέχει ένα δέντρο εγκατάστασης %s."
 
-#: ../loader2/nfsinstall.c:221
+#: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
 msgstr "Δεν είναι δυνατή η προσάρτηση του καταλόγου από τον εξυπηρετητή."
 
-#: ../loader2/nfsinstall.c:260
+#: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Εσφαλμένο όρισμα για την εντολή μεθόδου του NFS kickstart %s: %s"
@@ -6561,92 +6661,80 @@ msgstr "Αδυναμία ανάκτησης %s://%s/%s/%s."
 msgid "Unable to retrieve the install image."
 msgstr "Αδυναμία ανάκτησης της εικόνας εγκατάστασης."
 
-#: ../loader2/urlinstall.c:291
+#: ../loader2/urlinstall.c:285
 msgid "Media Detected"
 msgstr "Εντοπίστηκε μέσο"
 
-#: ../loader2/urlinstall.c:292
+#: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
 msgstr "Εντοπίστηκε μέσο τοπικής εγκατάστασης..."
 
-#: ../loader2/urlinstall.c:477
+#: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Εσφαλμένη παράμετρος για την εντολή μεθόδου Url kickstart %s: %s"
 
-#: ../loader2/urlinstall.c:486
+#: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Θα πρέπει να δώσετε -- μια παράμετρο url  για τη μέθοδο Url kickstart."
 
-#: ../loader2/urlinstall.c:497
+#: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Άγνωστη μέθοδος Url %s"
 
-# gconf/gconf-internals.c:2416
-#: ../loader2/urls.c:182
-#, c-format
-msgid "Failed to log into %s: %s"
-msgstr "Αδυναμία σύνδεσης σε %s: %s"
-
-# gconf/gconf-internals.c:2416
-#: ../loader2/urls.c:192 ../loader2/urls.c:201
-#, c-format
-msgid "Failed to retrieve %s: %s"
-msgstr "Αποτυχία ανάκτησης του %s: %s"
-
-#: ../loader2/urls.c:208
+#: ../loader2/urls.c:215
 msgid "Retrieving"
 msgstr "Ανάκτηση"
 
-#: ../loader2/urls.c:273
+#: ../loader2/urls.c:279
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:278
+#: ../loader2/urls.c:284
 msgid "Web"
 msgstr "Ιστός"
 
 #
-#: ../loader2/urls.c:295
+#: ../loader2/urls.c:301
 msgid "FTP site name:"
 msgstr "Όνομα σελίδας FTP:"
 
 #
-#: ../loader2/urls.c:296
+#: ../loader2/urls.c:302
 msgid "Web site name:"
 msgstr "Όνομα ιστοσελίδας:"
 
-#: ../loader2/urls.c:315
+#: ../loader2/urls.c:321
 msgid "Use non-anonymous ftp"
 msgstr "Χρήση ονομαστικού FTP"
 
-#: ../loader2/urls.c:324
+#: ../loader2/urls.c:330
 msgid "FTP Setup"
 msgstr "Ρύθμιση FTP"
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:331
 msgid "HTTP Setup"
 msgstr "Ρύθμιση HTTP"
 
-#: ../loader2/urls.c:335
+#: ../loader2/urls.c:341
 msgid "You must enter a server name."
 msgstr "Πρέπει να εισάγετε ένα όνομα εξυπηρετητή."
 
-#: ../loader2/urls.c:340
+#: ../loader2/urls.c:346
 msgid "You must enter a directory."
 msgstr "Πρέπει να εισάγετε  ένα κατάλογο."
 
-#: ../loader2/urls.c:345
+#: ../loader2/urls.c:351
 msgid "Unknown Host"
 msgstr "Άγνωστο σύστημα"
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:352
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "Το %s δεν είναι ένα έγκυρο όνομα συστήματος."
 
-#: ../loader2/urls.c:416
+#: ../loader2/urls.c:415
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6654,7 +6742,7 @@ msgstr ""
 "Αν χρησιμοποιείτε μη ανώνυμο ftp, εισάγετε παρακάτω το όνομα και τον κωδικό "
 "του λογαριασμού σας που θέλετε να χρησιμοποιήσετε."
 
-#: ../loader2/urls.c:421
+#: ../loader2/urls.c:420
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6662,15 +6750,15 @@ msgstr ""
 "Αν χρησιμοποιείτε ένα διακομιστή HTTP proxy εισάγετε το όνομα του διακομιστή "
 "HTTP proxy server που θα χρησιμοποιηθεί."
 
-#: ../loader2/urls.c:443
+#: ../loader2/urls.c:442
 msgid "Account name:"
 msgstr "Όνομα λογαριασμού:"
 
-#: ../loader2/urls.c:466
+#: ../loader2/urls.c:465
 msgid "Further FTP Setup"
 msgstr "Επιπλέον ρυθμίσεις FTP"
 
-#: ../loader2/urls.c:469
+#: ../loader2/urls.c:468
 msgid "Further HTTP Setup"
 msgstr "Επιπλέον ρύθμιση HTTP"
 
@@ -6745,6 +6833,17 @@ msgstr "_Επόμενο"
 msgid "_Release Notes"
 msgstr "Σ_ημειώσεις κυκλοφορίας"
 
+#: tmp/autopart.glade.h:1
+msgid ""
+"Installation requires partitioning of your hard drive.  By default, a "
+"partitioning layout is chosen which is reasonable for most users.  You can "
+"either choose to use this or create your own."
+msgstr ""
+"Η εγκατάσταση απαιτεί την κατάτμηση του σκληρού σας δίσκου. Ως προεπιλογή "
+"έχει επιλεχθεί μια διάταξη κατάτμησης που είναι κατάλληλη για τους "
+"περισσότερους χρήστες. Υπάρχει επίσης η δυνατότητα να επιλέξετε τη δική σας "
+"διάταξη κατάτμησης."
+
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
 msgstr "Επισ_κόπηση και τροποποίηση διάταξης κατάτμησης"
@@ -6790,8 +6889,9 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Για να γίνει χρήση δίσκων iSCSI, πρέπει να παρέχετε τη διεύθυνση του στόχου iSCSI σας και "
-"το όνομα του iSCSI initiator που έχετε ρυθμίσει για το διακομιστή σας."
+"Για να γίνει χρήση δίσκων iSCSI, πρέπει να παρέχετε τη διεύθυνση του στόχου "
+"iSCSI σας και το όνομα του iSCSI initiator που έχετε ρυθμίσει για το "
+"διακομιστή σας."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6843,28 +6943,24 @@ msgstr "Προσαρμογή αρ_γότερα"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
-"Further customization of the software selection can be completed now or "
-"after install via the software management application."
+"Please select any additional repositories that you want to use for software "
+"installation."
+msgstr ""
+
+#: tmp/tasksel.glade.h:5
+#, fuzzy
+msgid ""
+"You can further customize the software selection now, or after install via "
+"the software management application."
 msgstr ""
 "Επιπλέον προσαρμογή του λογισμικού που επιλέξατε μπορεί να γίνει τώρα ή μετά "
 "την εγκατάσταση, μέσω της εφαρμογής διαχείρισης λογισμικού."
 
-#: tmp/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of  software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
-msgstr ""
-"Η προεπιλεγμένη εγκατάσταση του %s περιλαμβάνει μια ομάδα εφαρμογών "
-"κατάλληλη για γενική χρήση του διαδικτύου. Ποιες επιπρόσθετες εργασίες θα "
-"θέλατε να υποστηρίζει το σύστημα σας;"
-
-#: tmp/tasksel.glade.h:5
+#: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
 msgstr "_Πρόσθεση επιπλέον αποθετηρίων λογισμικού"
 
-#: tmp/tasksel.glade.h:6
+#: tmp/tasksel.glade.h:7
 msgid "_Customize now"
 msgstr "Προσαρμο_γή τώρα"
 
@@ -6914,20 +7010,27 @@ msgid "Atlantic islands"
 msgstr "Νήσοι Ατλαντικού"
 
 #. generated from zone.tab
-msgid "Atlantic Time - E Labrador"
-msgstr "Atlantic Time - E Labrador"
+msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Labrador - most locations"
+msgstr "Ανατολική ώρα - Οντάριο - περισσότερες τοποθεσίες"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantic Time - New Brunswick"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
+#, fuzzy
+msgid "Atlantic Time - Nova Scotia (most places), PEI"
 msgstr "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr ""
+"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6962,7 +7065,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+#, fuzzy
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
@@ -7011,7 +7115,8 @@ msgstr "Κεντρική ώρα - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Κεντρική ώρα - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr ""
+"Κεντρική ώρα - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -7078,7 +7183,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Νήσοι του Πάσχα & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Southampton Island"
+#, fuzzy
+msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
 msgstr "Ανατολική κανονική ώρα - Southampton Island"
 
 #. generated from zone.tab
@@ -7122,8 +7228,10 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Ανατολική ώρα - Οντάριο - περισσότερες τοποθεσίες"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Ανατολική ώρα  - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+"Ανατολική ώρα  - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7162,8 +7270,8 @@ msgid "Hawaii"
 msgstr "Χαβάη"
 
 #. generated from zone.tab
-msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgid "Heilongjiang (except Mohe), Jilin"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7242,16 +7350,22 @@ msgid "Midway Islands"
 msgstr "Νήσοι Μίντγουαίυ"
 
 #. generated from zone.tab
+#, fuzzy
+msgid "Moscow+00 - Caspian Sea"
+msgstr "Μόσχα+01 - Κασπία Θάλασσα"
+
+#. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Μόσχα+00 - δυτική Ρωσία"
 
 #. generated from zone.tab
-msgid "Moscow+01 - Caspian Sea"
-msgstr "Μόσχα+01 - Κασπία Θάλασσα"
-
-#. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
 msgstr "Μόσχα-01 - Kaliningrad"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Moscow+01 - Samara, Udmurtia"
+msgstr "Μόσχα+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7306,12 +7420,18 @@ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7354,8 +7474,9 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "ΒΑ Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland Island"
+#, fuzzy
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7454,10 +7575,6 @@ msgid "South Australia"
 msgstr "Νότια Αυστραλία"
 
 #. generated from zone.tab
-msgid "southwest Xinjiang Uyghur"
-msgstr "southwest Xinjiang Uyghur"
-
-#. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
@@ -7480,10 +7597,6 @@ msgstr "Ταζμανία - περισσότερες τοποθεσίες"
 #. generated from zone.tab
 msgid "Thule / Pituffik"
 msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
@@ -7533,6 +7646,11 @@ msgstr "Δυτική Αυστραλία"
 #. generated from zone.tab
 msgid "West Kazakhstan"
 msgstr "Δυτικό Καζακστάν"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "west Tibet & Xinjiang"
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7754,3 +7872,63 @@ msgstr "Ουαλική"
 msgid "Zulu"
 msgstr "Ζουλού"
 
+#~ msgid "DDC Probed Monitor"
+#~ msgstr "Οθόνη DDC-probed"
+
+#~ msgid "Tertiary DNS"
+#~ msgstr "Τριτεύον DNS"
+
+#~ msgid "_Tertiary DNS"
+#~ msgstr "_Τριτεύον DNS"
+
+#~ msgid "Configure using _DHCP"
+#~ msgstr "Ρύθμιση με _χρήση DHCP"
+
+#~ msgid "_IP Address"
+#~ msgstr "Διεύθυνση _IP"
+
+#~ msgid "Net_mask"
+#~ msgstr "_Μάσκα δικτύου"
+
+#~ msgid "Hardware address:"
+#~ msgstr "Διεύθυνση υλικού:"
+
+#~ msgid "Registration Key Required"
+#~ msgstr "Απαιτείται κλειδί εγγραφής"
+
+#~ msgid ""
+#~ "A registration key is required to install %s.  Please contact your "
+#~ "support representative if you did not receive a key with your product."
+#~ msgstr ""
+#~ "Ένα κλειδί εγγραφής απαιτείται για την εγκατάσταση του %s.  Παρακαλώ "
+#~ "επικοινωνήστε με τον εκπρόσωπο υποστήριξης σας αν δεν έχετε λάβει ένα "
+#~ "κλειδί με το προϊόν σας."
+
+#~ msgid "Invalid CIDR Mask"
+#~ msgstr "Μη έγκυρο CIDR Mask"
+
+# gconf/gconf-internals.c:2416
+#~ msgid "Failed to log into %s: %s"
+#~ msgstr "Αδυναμία σύνδεσης σε %s: %s"
+
+# gconf/gconf-internals.c:2416
+#~ msgid "Failed to retrieve %s: %s"
+#~ msgstr "Αποτυχία ανάκτησης του %s: %s"
+
+#~ msgid ""
+#~ "The default installation of %s includes a set of  software applicable for "
+#~ "general internet usage.  What additional tasks would you like your system "
+#~ "to include  support for?"
+#~ msgstr ""
+#~ "Η προεπιλεγμένη εγκατάσταση του %s περιλαμβάνει μια ομάδα εφαρμογών "
+#~ "κατάλληλη για γενική χρήση του διαδικτύου. Ποιες επιπρόσθετες εργασίες θα "
+#~ "θέλατε να υποστηρίζει το σύστημα σας;"
+
+#~ msgid "Heilongjiang"
+#~ msgstr "Heilongjiang"
+
+#~ msgid "Newfoundland Island"
+#~ msgstr "Newfoundland Island"
+
+#~ msgid "southwest Xinjiang Uyghur"
+#~ msgstr "southwest Xinjiang Uyghur"

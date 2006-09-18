@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-26 17:08-0400\n"
+"POT-Creation-Date: 2006-09-18 15:40-0400\n"
 "PO-Revision-Date: 2006-08-13 22:18+0200\n"
 "Last-Translator: Nikola Štohanzl <niko@srnet.cz>\n"
 "Language-Team: Czech\n"
@@ -17,64 +17,64 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../anaconda:258
+#: ../anaconda:256
 msgid "Unknown Error"
 msgstr "Neznámá chyba"
 
-#: ../anaconda:261
+#: ../anaconda:259
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Chyba při stahování druhé části konfigurace kickstart: %s"
 
-#: ../anaconda:414
+#: ../anaconda:412
 msgid "Press <enter> for a shell"
 msgstr "Stiskněte <enter> pro shell"
 
-#: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
-#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:140
+#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
+#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:139
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:260 ../loader2/cdinstall.c:375
-#: ../loader2/cdinstall.c:380 ../loader2/cdinstall.c:385
-#: ../loader2/cdinstall.c:454 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
-#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:216 ../loader2/hdinstall.c:383
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
-#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:581
-#: ../loader2/hdinstall.c:594 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
+#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
+#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
+#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:411 ../loader2/lang.c:104
-#: ../loader2/lang.c:367 ../loader2/loader.c:335 ../loader2/loader.c:348
-#: ../loader2/loader.c:359 ../loader2/loader.c:778 ../loader2/loader.c:943
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:960 ../loader2/net.c:242
-#: ../loader2/net.c:282 ../loader2/net.c:706 ../loader2/net.c:949
-#: ../loader2/net.c:1446 ../loader2/net.c:1469 ../loader2/net.c:1643
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
-#: ../loader2/nfsinstall.c:259 ../loader2/telnetd.c:87
+#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
+#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
 #: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:476
-#: ../loader2/urlinstall.c:485 ../loader2/urlinstall.c:496
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
-#: ../loader2/urls.c:345 ../loader2/urls.c:456
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
+#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
+#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:351 ../loader2/urls.c:455
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:452
+#: ../anaconda:450
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -82,39 +82,39 @@ msgstr ""
 "Nemáte dostatek paměti RAM pro grafický instalační program. Startuji v "
 "textovém režimu."
 
-#: ../anaconda:476
+#: ../anaconda:466
 msgid "No video hardware found, assuming headless"
 msgstr "Nenalezen žádný video hardware, předpokládám počítač bez monitoru"
 
-#: ../anaconda:487 ../anaconda:910
+#: ../anaconda:473 ../anaconda:886
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nemohu vytvořit objekt stavu hardware X."
 
-#: ../anaconda:529
+#: ../anaconda:512
 msgid "Starting graphical installation..."
 msgstr "Spouštím grafickou instalaci..."
 
-#: ../anaconda:790
+#: ../anaconda:766
 msgid "Install class forcing text mode installation"
 msgstr "Třída instalace vynucující instalaci v textovém režimu"
 
-#: ../anaconda:816
+#: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafická instalace není k dispozici... Spouštím textový režim."
 
-#: ../anaconda:824
+#: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Proměnná prostředí DISPLAY není nastavena. Spouštím textový režim!."
 
-#: ../anaconda:877
+#: ../anaconda:851
 msgid "Unknown install method"
 msgstr "Neznámý způsob instalace"
 
-#: ../anaconda:878
+#: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Byl zvolen způsob instalace, který anaconda nepodporuje."
 
-#: ../anaconda:880
+#: ../anaconda:854
 #, c-format
 msgid "unknown install method: %s"
 msgstr "Neznámý způsob instalace: %s"
@@ -193,8 +193,10 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "Zaváděcí oddíl %s možná nesplňuje omezení pro zavádění na vaší architektuře."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
+msgstr ""
+"Zaváděcí oddíl %s možná nesplňuje omezení pro zavádění na vaší architektuře."
 
 #: ../autopart.py:1058
 #, python-format
@@ -360,15 +362,15 @@ msgstr "Neopravitelná chyba"
 msgid "Your system will now be rebooted."
 msgstr "Váš systém se nyní restartuje."
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
-#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
-#: ../partedUtils.py:1041 ../upgrade.py:350 ../yuminstall.py:1060
+#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
+#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
-#: ../iw/upgrade_swap_gui.py:203 ../iw/zfcp_gui.py:247
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:400
+#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
+#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
 msgid "Warning"
 msgstr "Varování"
 
@@ -464,20 +466,31 @@ msgstr "Hotovo"
 msgid "In progress...   "
 msgstr "Probíhá...   "
 
-#: ../cmdline.py:73
+#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Při zpracovávání vašeho nastavení kickstart byla nalezena následující "
+"chyba:\n"
+"%s"
+
+#: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "Nemohu mít dotaz v režimu příkazového řádku!"
 
-#: ../cmdline.py:92
+#: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Výjimky parted nemohou být obslouženy v režimu příkazového řádku!"
 
-#: ../cmdline.py:137
+#: ../cmdline.py:145
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "Hotovo [%d/%d]"
 
-#: ../cmdline.py:143
+#: ../cmdline.py:151
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr "Instaluji %s-%s-%s... "
@@ -493,11 +506,11 @@ msgstr ""
 "chyba. Zkopírujte prosím plné znění této výjimky a podrobně vyplňte hlášení "
 "o chybě programu anaconda na %s"
 
-#: ../exception.py:390 ../exception.py:407
+#: ../exception.py:400 ../exception.py:417
 msgid "Dump Written"
 msgstr "Výpis zapsán"
 
-#: ../exception.py:391
+#: ../exception.py:401
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -505,22 +518,22 @@ msgstr ""
 "Stav Vašeho systému byl úspěšně zapsán na disketu. Váš systém bude nyní "
 "restartován."
 
-#: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
-#: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
-#: ../image.py:442 ../image.py:513 ../packages.py:300 ../iw/confirm_gui.py:32
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
+#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
+#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Restartovat"
 
-#: ../exception.py:399 ../exception.py:416
+#: ../exception.py:409 ../exception.py:426
 msgid "Dump Not Written"
 msgstr "Výpis nebyl zapsán"
 
-#: ../exception.py:400
+#: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Při zápisu stavu systému na disketu se vyskytl problém."
 
-#: ../exception.py:408
+#: ../exception.py:418
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -528,47 +541,46 @@ msgstr ""
 "Stav systému byl úspěšně zapsán na vzdálený počítač. Systém bude nyní "
 "restartován."
 
-#: ../exception.py:417
+#: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
 msgstr "V průběhu zápisu stavu systému na vzdálený počítač se vyskytl problém."
 
-#: ../fsset.py:216
+#: ../fsset.py:221
 msgid "Checking for Bad Blocks"
 msgstr "Zjišťování chybných bloků"
 
-#: ../fsset.py:217
+#: ../fsset.py:222
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Zjišťuji chybné bloky na zařízení /dev/%s..."
 
-#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
-#: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
-#: ../fsset.py:1679 ../fsset.py:1745 ../fsset.py:1764 ../image.py:132
-#: ../image.py:173 ../image.py:305 ../partedUtils.py:788
-#: ../partIntfHelpers.py:406 ../yuminstall.py:567 ../yuminstall.py:655
-#: ../yuminstall.py:906 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
+#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
+#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
+#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
+#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
+#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:110 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:454 ../loader2/driverdisk.c:337
-#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:216
-#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:538
-#: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:104 ../loader2/loader.c:359
-#: ../loader2/loader.c:778 ../loader2/mediacheck.c:329
+#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/nfsinstall.c:130
-#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:334 ../loader2/urls.c:339
+#: ../loader2/urls.c:340 ../loader2/urls.c:345
 msgid "Error"
 msgstr "Chyba"
 
-#: ../fsset.py:672
+#: ../fsset.py:677
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -581,27 +593,27 @@ msgstr ""
 "\n"
 "Přejete si pokračovat bez převodu %s?"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1333
 msgid "RAID Device"
 msgstr "RAID zařízení"
 
-#: ../fsset.py:1334 ../fsset.py:1340
+#: ../fsset.py:1337 ../fsset.py:1343
 msgid "Apple Bootstrap"
 msgstr "Zavádění Apple"
 
-#: ../fsset.py:1345 ../partitions.py:902
+#: ../fsset.py:1348 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "Zavádění PPC PReP"
 
-#: ../fsset.py:1348
+#: ../fsset.py:1351
 msgid "First sector of boot partition"
 msgstr "První sektor zaváděcího oddílu"
 
-#: ../fsset.py:1349
+#: ../fsset.py:1352
 msgid "Master Boot Record (MBR)"
 msgstr "Hlavní zaváděcí záznam (MBR)"
 
-#: ../fsset.py:1423
+#: ../fsset.py:1426
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -614,17 +626,17 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1452 ../rescue.py:289 ../rescue.py:291
+#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:420
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "Vynechat"
 
-#: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Restartovat"
 
-#: ../fsset.py:1473
+#: ../fsset.py:1476
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -643,11 +655,11 @@ msgstr ""
 "přeformátovat jako Linuxový swapovací oddíl verze 1. Přeskočíte-li tento "
 "krok, instalátor bude zařízení v průběhu instalace ignorovat."
 
-#: ../fsset.py:1480
+#: ../fsset.py:1483
 msgid "Reformat"
 msgstr "Přeformátovat"
 
-#: ../fsset.py:1484
+#: ../fsset.py:1487
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -666,7 +678,7 @@ msgstr ""
 "znamená, že je systém hibernován. Pro provedení upgradu prosím systém "
 "vypněte, nehibernujte ho."
 
-#: ../fsset.py:1492
+#: ../fsset.py:1495
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -686,7 +698,7 @@ msgstr ""
 "že je instalátor nastaven tak, aby provedl formátování všech swapovacích "
 "oddílů."
 
-#: ../fsset.py:1502
+#: ../fsset.py:1505
 msgid ""
 "\n"
 "\n"
@@ -700,11 +712,11 @@ msgstr ""
 "upgradu. Zvolte Formátovat, má-li být oddíl přeformátován jako swapovací "
 "oddíl. Zvolte Restartovat pro restartování systému."
 
-#: ../fsset.py:1508 ../iw/partition_gui.py:368
+#: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formátovat"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1518
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -721,7 +733,7 @@ msgstr ""
 "\n"
 "Stiskněte OK pro restart systému."
 
-#: ../fsset.py:1526
+#: ../fsset.py:1529
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -736,7 +748,7 @@ msgstr ""
 "\n"
 "Stiskněte OK pro restart systému."
 
-#: ../fsset.py:1579
+#: ../fsset.py:1583
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -749,7 +761,7 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému"
 
-#: ../fsset.py:1590
+#: ../fsset.py:1594
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -762,7 +774,7 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1630
+#: ../fsset.py:1634
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -775,7 +787,7 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1680
+#: ../fsset.py:1684
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -788,11 +800,11 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1706 ../fsset.py:1715
+#: ../fsset.py:1710 ../fsset.py:1719
 msgid "Invalid mount point"
 msgstr "Chybné místo připojení"
 
-#: ../fsset.py:1707
+#: ../fsset.py:1711
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -805,7 +817,7 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1716
+#: ../fsset.py:1720
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -818,23 +830,25 @@ msgstr ""
 "\n"
 "Stiskněte Enter pro restart systému."
 
-#: ../fsset.py:1729
+#: ../fsset.py:1733
 msgid "Unable to mount filesystem"
 msgstr "Nemohu připojit souborový systém"
 
-#: ../fsset.py:1730
+#: ../fsset.py:1734
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr "V průběhu připojování zařízení %s jako %s došlo k chybě. Můžete pokračovat v instalaci, mohou však nastat problémy."
+msgstr ""
+"V průběhu připojování zařízení %s jako %s došlo k chybě. Můžete pokračovat v "
+"instalaci, mohou však nastat problémy."
 
-#: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
-#: ../kickstart.py:1017 ../iw/partition_gui.py:1011
+#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
+#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Pokračovat"
 
-#: ../fsset.py:1746
+#: ../fsset.py:1750
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -849,7 +863,7 @@ msgstr ""
 "\n"
 "Stiskněte OK pro restart systému."
 
-#: ../fsset.py:1765
+#: ../fsset.py:1769
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -863,11 +877,11 @@ msgstr ""
 "\n"
 "Stiskněte OK pro restart systému."
 
-#: ../fsset.py:2456
+#: ../fsset.py:2462
 msgid "Duplicate Labels"
 msgstr "Duplicitní jmenovky"
 
-#: ../fsset.py:2457
+#: ../fsset.py:2463
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -880,11 +894,11 @@ msgstr ""
 "\n"
 "Opravte prosím tento problém a spusťte instalaci znovu."
 
-#: ../fsset.py:2717
+#: ../fsset.py:2723
 msgid "Formatting"
 msgstr "Formátování"
 
-#: ../fsset.py:2718
+#: ../fsset.py:2724
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formátuji systém souborů %s..."
@@ -936,23 +950,24 @@ msgstr ""
 msgid "Fix"
 msgstr "Opravit"
 
-#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
 msgid "Yes"
 msgstr "Ano"
 
-#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
-#: ../loader2/loader.c:400
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
+#: ../loader2/loader.c:403
 msgid "No"
 msgstr "Ne"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
-#: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
-#: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
+#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
+#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
+#: ../loader2/net.c:1137
 msgid "Retry"
 msgstr "Znovu"
 
@@ -960,31 +975,20 @@ msgstr "Znovu"
 msgid "Ignore"
 msgstr "Ignorovat"
 
-#: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/loader.c:348
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
+#: ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../gui.py:832 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"Při zpracovávání vašeho nastavení kickstart byla nalezena následující "
-"chyba:\n"
-"%s"
-
-#: ../gui.py:834 ../text.py:356
+#: ../gui.py:843 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "Chyba při zpracovávání nastavení kickstart"
 
-#: ../gui.py:842 ../text.py:366
+#: ../gui.py:851 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -992,15 +996,15 @@ msgstr ""
 "Vložte prosím disketu. Celý obsah diskety bude smazán, proto vyberte "
 "disketu, na které nemáte důležitá data."
 
-#: ../gui.py:889
+#: ../gui.py:898
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:973
+#: ../gui.py:982
 msgid "Error!"
 msgstr "Chyba!"
 
-#: ../gui.py:974
+#: ../gui.py:983
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1011,41 +1015,40 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
-#: ../yuminstall.py:661
+#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
 msgid "_Exit"
 msgstr "_Konec"
 
-#: ../gui.py:980 ../yuminstall.py:570
+#: ../gui.py:989 ../yuminstall.py:609
 msgid "_Retry"
 msgstr "_Znovu"
 
-#: ../gui.py:983 ../packages.py:296
+#: ../gui.py:992 ../packages.py:294
 msgid "The installer will now exit..."
 msgstr "Instalační program nyní skončí..."
 
-#: ../gui.py:986 ../packages.py:299
+#: ../gui.py:995 ../packages.py:297
 msgid "Your system will now be rebooted..."
 msgstr "Váš počítač se nyní restartuje..."
 
-#: ../gui.py:989 ../packages.py:301
+#: ../gui.py:998 ../packages.py:299
 msgid "Rebooting System"
 msgstr "Restartuji počítač"
 
-#: ../gui.py:1053
+#: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
 msgstr "%s Instalační program"
 
-#: ../gui.py:1060
+#: ../gui.py:1069
 msgid "Unable to load title bar"
 msgstr "Nemohu přečíst titulek"
 
-#: ../gui.py:1109
+#: ../gui.py:1118
 msgid "Install Window"
 msgstr "Instalační okno"
 
-#: ../harddrive.py:41 ../image.py:143 ../image.py:470
+#: ../harddrive.py:44 ../image.py:144 ../image.py:474
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1057,16 +1060,18 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo možná poškození "
-"balíčku. Zkontrolujte prosím obrazy, z nichž instalujete, a přesvědčte se, že máte všechna potřebná média.\n"
+"balíčku. Zkontrolujte prosím obrazy, z nichž instalujete, a přesvědčte se, "
+"že máte všechna potřebná média.\n"
 "\n"
-"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si může vyžádat opětovnou instalaci.\n"
+"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si "
+"může vyžádat opětovnou instalaci.\n"
 "\n"
 
-#: ../harddrive.py:68 ../image.py:503
+#: ../harddrive.py:71 ../image.py:507
 msgid "Missing ISO 9660 Image"
 msgstr "Chybějící obraz formátu ISO 9660"
 
-#: ../harddrive.py:69
+#: ../harddrive.py:72
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1081,7 +1086,7 @@ msgstr ""
 "Zkopírujte prosím tento obraz na disk a zvolte Znovu. Chcete-li instalaci "
 "ukončit, zvolte Restartovat."
 
-#: ../harddrive.py:78 ../image.py:514
+#: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
 msgstr "_Znovu"
 
@@ -1105,13 +1110,13 @@ msgstr ""
 "Připravte si je prosím před pokračováním v instalaci. Pokud potřebujete "
 "instalaci přerušit a restartovat, zvolte \"Restartovat\"."
 
-#: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
+#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Zpět"
 
-#: ../image.py:133
+#: ../image.py:134
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1120,15 +1125,15 @@ msgstr ""
 "Při odpojování CD nastala chyba. Zkontrolujte, že z shellu na tty2 "
 "nepřistupujete na %s a stiskněte OK pro nový pokus."
 
-#: ../image.py:163
+#: ../image.py:164
 msgid "Copying File"
 msgstr "Kopírování souboru"
 
-#: ../image.py:164
+#: ../image.py:165
 msgid "Transferring install image to hard drive..."
 msgstr "Přenáším instalační obraz na pevný disk..."
 
-#: ../image.py:174
+#: ../image.py:175
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1136,29 +1141,29 @@ msgstr ""
 "Došlo k chybě při přenosu instalačních souborů na váš pevný disk. Disk je "
 "pravděpodobně plný."
 
-#: ../image.py:263
+#: ../image.py:264
 msgid "Change CDROM"
 msgstr "Vyměnit CD-ROM"
 
-#: ../image.py:264
+#: ../image.py:265
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Vložte prosím %s disk %d pro pokračování."
 
-#: ../image.py:299
+#: ../image.py:300
 msgid "Wrong CDROM"
 msgstr "Nesprávné CD-ROM"
 
-#: ../image.py:300
+#: ../image.py:301
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Toto není správné %s CD-ROM."
 
-#: ../image.py:306
+#: ../image.py:307
 msgid "Unable to access the CDROM."
 msgstr "Nemohu přistupovat k CD-ROM."
 
-#: ../image.py:359
+#: ../image.py:360
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1170,12 +1175,14 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo možná poškození "
-"balíčku. Zkontrolujte prosím, že instalační strom obsahuje všechny požadované balíčky.\n"
+"balíčku. Zkontrolujte prosím, že instalační strom obsahuje všechny "
+"požadované balíčky.\n"
 "\n"
-"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si může vyžádat opětovnou instalaci.\n"
+"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si "
+"může vyžádat opětovnou instalaci.\n"
 "\n"
 
-#: ../image.py:504
+#: ../image.py:508
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1190,11 +1197,11 @@ msgstr ""
 "Zkopírujte prosím tento obraz na server a zvolte Znovu. Chcete-li instalaci "
 "ukončit, zvolte Restartovat."
 
-#: ../installclass.py:60
+#: ../installclass.py:64
 msgid "Install on System"
 msgstr "Typ instalace"
 
-#: ../iscsi.py:127 ../iscsi.py:128
+#: ../iscsi.py:126 ../iscsi.py:127
 msgid "Initializing iSCSI initiator"
 msgstr "Inicializuji iSCSI initiator"
 
@@ -1215,23 +1222,23 @@ msgstr ""
 "\n"
 "Stiskněte tlačítko OK pro restart systému."
 
-#: ../kickstart.py:821 ../kickstart.py:839
+#: ../kickstart.py:764 ../kickstart.py:782
 msgid "Running..."
 msgstr "Spouštím..."
 
-#: ../kickstart.py:822
+#: ../kickstart.py:765
 msgid "Running pre-install scripts"
 msgstr "Spouštím předinstalační skripty"
 
-#: ../kickstart.py:840
+#: ../kickstart.py:783
 msgid "Running post-install scripts"
 msgstr "Spouštím poinstalační skripty"
 
-#: ../kickstart.py:980
+#: ../kickstart.py:926
 msgid "Missing Package"
 msgstr "Chybějící Balíček"
 
-#: ../kickstart.py:981
+#: ../kickstart.py:927
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1240,15 +1247,16 @@ msgstr ""
 "Požadoval jste, aby byl nainstalován balíček '%s'. Takový balíček "
 "neexistuje. Chcete pokračovat nebo ukončit instalaci?"
 
-#: ../kickstart.py:987 ../kickstart.py:1016
+#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_Ukončit"
 
-#: ../kickstart.py:1008
+#: ../kickstart.py:961
 msgid "Missing Group"
 msgstr "Chybějící skupina"
 
-#: ../kickstart.py:1009
+#: ../kickstart.py:962
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1288,24 +1296,24 @@ msgstr "IP adresy musí obsahovat čísla mezi 0 a 255 oddělená tečkami."
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' není platná adresa IPv6."
 
-#: ../packages.py:247
-msgid "Enter Registration Key"
-msgstr "Vložte registační klíč"
-
-#: ../packages.py:248
+#: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
 msgstr "Vložte registrační klíč pro Vaši verzi %s."
 
-#: ../packages.py:248
+#: ../packages.py:245
+msgid "Enter Registration Key"
+msgstr "Vložte registační klíč"
+
+#: ../packages.py:246
 msgid "Key:"
 msgstr "Klíč:"
 
-#: ../packages.py:278
+#: ../packages.py:276
 msgid "Warning! This is pre-release software!"
 msgstr "Varování! Toto není konečná verze software!"
 
-#: ../packages.py:279
+#: ../packages.py:277
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1331,15 +1339,15 @@ msgstr ""
 "\n"
 "a založte zprávu pro '%s'.\n"
 
-#: ../packages.py:292
+#: ../packages.py:290
 msgid "_Install anyway"
 msgstr "Přesto _instalovat"
 
-#: ../partedUtils.py:206 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
 msgstr "Cizí"
 
-#: ../partedUtils.py:306
+#: ../partedUtils.py:305
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1355,7 +1363,7 @@ msgstr ""
 "\n"
 "Chcete toto DASD přeformátovat pomocí formátu CDL?"
 
-#: ../partedUtils.py:336
+#: ../partedUtils.py:335
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1370,29 +1378,29 @@ msgstr ""
 "\n"
 "Chcete tento disk naformátovat?"
 
-#: ../partedUtils.py:345
+#: ../partedUtils.py:344
 msgid "_Ignore drive"
 msgstr "_Ignorovat disk"
 
-#: ../partedUtils.py:346
+#: ../partedUtils.py:345
 msgid "_Format drive"
 msgstr "_Formátovat disk"
 
-#: ../partedUtils.py:789
+#: ../partedUtils.py:791
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Chyba při připojování systému souborů na %s: %s"
 
-#: ../partedUtils.py:884
+#: ../partedUtils.py:888
 msgid "Initializing"
 msgstr "Inicializuji"
 
-#: ../partedUtils.py:885
+#: ../partedUtils.py:889
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Prosím čekejte, formátuje se disk %s...\n"
 
-#: ../partedUtils.py:985
+#: ../partedUtils.py:987
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1412,7 +1420,7 @@ msgstr ""
 "\n"
 "Chcete inicializovat tento disk a smazat VŠECHNA DATA?"
 
-#: ../partedUtils.py:1042
+#: ../partedUtils.py:1044
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1431,11 +1439,11 @@ msgstr ""
 "\n"
 "Chcete inicializovat tento disk a smazat VŠECHNA DATA?"
 
-#: ../partedUtils.py:1160
+#: ../partedUtils.py:1162
 msgid "No Drives Found"
 msgstr "Nenalezeny žádné jednotky"
 
-#: ../partedUtils.py:1161
+#: ../partedUtils.py:1163
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1555,27 +1563,27 @@ msgstr ""
 "Nemůžete odstranit tento oddíl:\n"
 "\n"
 
-#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
 msgstr "Potvrzení odstranění"
 
-#: ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Chcete odstranit všechny oddíly na zařízení /dev/%s."
 
-#: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
+#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "_Odstranit"
 
-#: ../partIntfHelpers.py:294
+#: ../partIntfHelpers.py:295
 msgid "Notice"
 msgstr "Upozornění"
 
-#: ../partIntfHelpers.py:295
+#: ../partIntfHelpers.py:296
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1586,16 +1594,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
-#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
+#: ../partIntfHelpers.py:312 ../partIntfHelpers.py:325
+#: ../partIntfHelpers.py:351 ../partIntfHelpers.py:362
 msgid "Unable To Edit"
 msgstr "Nelze upravit"
 
-#: ../partIntfHelpers.py:312
+#: ../partIntfHelpers.py:313
 msgid "You must select a partition to edit"
 msgstr "Zvolte oddíl, který chcete upravit"
 
-#: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
+#: ../partIntfHelpers.py:325 ../partIntfHelpers.py:363
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
@@ -1603,7 +1611,7 @@ msgstr ""
 "Nemůžete upravit tento oddíl:\n"
 "\n"
 
-#: ../partIntfHelpers.py:351
+#: ../partIntfHelpers.py:352
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1612,11 +1620,11 @@ msgstr ""
 "Nemůžete upravit tento tento oddíl, protože je to extended oddíl, který "
 "obsahuje %s"
 
-#: ../partIntfHelpers.py:383
+#: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
 msgstr "Formátovat jako swap?"
 
-#: ../partIntfHelpers.py:384
+#: ../partIntfHelpers.py:385
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1629,12 +1637,12 @@ msgstr ""
 "\n"
 "Chcete tento oddíl naformátovat jako swap?"
 
-#: ../partIntfHelpers.py:404
+#: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Musíte vybrat alespoň jeden disk, na který nainstalujete %s."
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:411
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1650,23 +1658,23 @@ msgstr ""
 "zachovat, např. domovské adresáře uživatelů, tak byste měli pokračovat bez "
 "formátování tohoto oddílu."
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Format?"
 msgstr "Formátovat?"
 
-#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "_Zpět na úpravu oddílu"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:419
 msgid "Do _Not Format"
 msgstr "_Neformátovat"
 
-#: ../partIntfHelpers.py:426
+#: ../partIntfHelpers.py:427
 msgid "Error with Partitioning"
 msgstr "Chyba při vytváření oddílů"
 
-#: ../partIntfHelpers.py:427
+#: ../partIntfHelpers.py:428
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1679,11 +1687,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:441
+#: ../partIntfHelpers.py:442
 msgid "Partitioning Warning"
 msgstr "Varování při vytváření oddílů"
 
-#: ../partIntfHelpers.py:442
+#: ../partIntfHelpers.py:443
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1698,7 +1706,7 @@ msgstr ""
 "\n"
 "Chcete i přes to pokračovat?"
 
-#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:457 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1706,7 +1714,7 @@ msgstr ""
 "Zvolili jste formátování následujících již existujících oddílů, což zničí "
 "všechna data, která jsou na oddílu uložena."
 
-#: ../partIntfHelpers.py:459
+#: ../partIntfHelpers.py:460
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1714,11 +1722,11 @@ msgstr ""
 "Pro pokračování a formátování těchto oddílů klikněte na 'Ano'. Pokud zvolíte "
 "'Ne', vrátíte se zpět a budete moci provést změny v nastavení."
 
-#: ../partIntfHelpers.py:465
+#: ../partIntfHelpers.py:466
 msgid "Format Warning"
 msgstr "Varování při formátování"
 
-#: ../partIntfHelpers.py:513
+#: ../partIntfHelpers.py:514
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1729,37 +1737,38 @@ msgstr ""
 "\n"
 "VŠECHNY svazky na této skupině svazků budou zničeny!"
 
-#: ../partIntfHelpers.py:517
+#: ../partIntfHelpers.py:518
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Chcete odstranit logický svazek \"%s\"."
 
-#: ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:521
 msgid "You are about to delete a RAID device."
 msgstr "Chcete odstranit RAID zařízení."
 
-#: ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:524
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Chcete odstranit oddíl /dev/%s."
 
-#: ../partIntfHelpers.py:526
+#: ../partIntfHelpers.py:527
 msgid "The partition you selected will be deleted."
 msgstr "Vybraný oddíl bude odstraněn."
 
-#: ../partIntfHelpers.py:536
+#: ../partIntfHelpers.py:537
 msgid "Confirm Reset"
 msgstr "Potvrzení obnovení"
 
-#: ../partIntfHelpers.py:537
-msgid "Are you sure you want to reset the partition table to its original state?"
+#: ../partIntfHelpers.py:538
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "Chcete opravdu obnovit tabulku oddílů do jejího původního stavu?"
 
-#: ../partitioning.py:68
+#: ../partitioning.py:62
 msgid "Installation cannot continue."
 msgstr "Instalace nemůže pokračovat."
 
-#: ../partitioning.py:69
+#: ../partitioning.py:63
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1768,11 +1777,11 @@ msgstr ""
 "Změny v oddílech byly již aktivovány. Nemůžete se již vrátit do obrazovky "
 "pro úpravy oddílů. Chcete pokračovat v instalaci?"
 
-#: ../partitioning.py:99
+#: ../partitioning.py:93
 msgid "Low Memory"
 msgstr "Nedostatek paměti"
 
-#: ../partitioning.py:100
+#: ../partitioning.py:94
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1782,7 +1791,7 @@ msgstr ""
 "odkládací prostor. Proto je nutné zapsat novou tabulku oddílů na disk již "
 "nyní. Souhlasíte?"
 
-#: ../partitions.py:818
+#: ../partitions.py:816
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1791,7 +1800,7 @@ msgstr ""
 "Nenadefinovali jste kořenový oddíl (/), který je pro instalaci distribuce %s "
 "potřeba."
 
-#: ../partitions.py:823
+#: ../partitions.py:821
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1800,27 +1809,30 @@ msgstr ""
 "Kořenový oddíl je menší než 250 MB, což je obvykle příliš málo pro "
 "distribuci %s."
 
-#: ../partitions.py:842
+#: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr "Váš zaváděcí oddíl není jedním z prvních čtyř oddílů a nebude z něj tedy možné zavádět."
+msgstr ""
+"Váš zaváděcí oddíl není jedním z prvních čtyř oddílů a nebude z něj tedy "
+"možné zavádět."
 
-#: ../partitions.py:849
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+#: ../partitions.py:847
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Musíte vytvořit oddíl /boot/efi, který bude typu FAT a jeho velikost bude 50 "
 "MB."
 
-#: ../partitions.py:869
+#: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Musíte vytvořit zaváděcí oddíl Apple."
 
-#: ../partitions.py:891
+#: ../partitions.py:889
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Musíte vytvořit zaváděcí oddíl PPC PReP."
 
-#: ../partitions.py:899 ../partitions.py:910
+#: ../partitions.py:897 ../partitions.py:908
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1829,13 +1841,14 @@ msgstr ""
 "Oddíl %s je menší než %s MB, což je méně než je doporučená velikost pro "
 "obvyklou instalaci distribuce %s."
 
-#: ../partitions.py:944
-msgid "Installing on a USB device.  This may or may not produce a working system."
+#: ../partitions.py:942
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Instalace probíhá na USB zařízení. To může, ale nemusí, vést k vytvoření "
 "funkčního systému. "
 
-#: ../partitions.py:947
+#: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -1843,15 +1856,15 @@ msgstr ""
 "Instalace probíhá na FireWire zařízení. To může, ale nemusí, vést k "
 "vytvoření funkčního systému. "
 
-#: ../partitions.py:956 ../partRequests.py:677
+#: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Oddíl pro zavádění systému (/boot) může být pouze na RAID1 zařízení."
 
-#: ../partitions.py:963
+#: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Oddíl pro zavádění systému nemůže být na logickém svazku."
 
-#: ../partitions.py:988
+#: ../partitions.py:986
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1859,7 +1872,7 @@ msgstr ""
 "Neurčili jste odkládací oddíl. Přesto, že to není není nezbytně nutná, jeho "
 "použití ve většině případů výrazně zvýší výkonnost systému."
 
-#: ../partitions.py:995
+#: ../partitions.py:993
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1868,7 +1881,7 @@ msgstr ""
 "Určili jste více než 32 odkládacích zařízení, což je více než podporuje "
 "jádro distribuce %s."
 
-#: ../partitions.py:1006
+#: ../partitions.py:1004
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1878,21 +1891,22 @@ msgstr ""
 "na vašem počítači. Tato skutečnost může negativně ovlivnit výkon vašeho "
 "systému."
 
-#: ../partitions.py:1306
+#: ../partitions.py:1304
 msgid "the partition in use by the installer."
 msgstr "oddíl používaný instalačním programem."
 
-#: ../partitions.py:1309
+#: ../partitions.py:1307
 msgid "a partition which is a member of a RAID array."
 msgstr "oddíl, který je součástí RAID pole."
 
-#: ../partitions.py:1312
+#: ../partitions.py:1310
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "oddíl, který je členem skupiny svazků LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Zadané místo připojení je neplatné. Adresář %s musí být v kořenovém systému "
 "souborů."
@@ -1924,14 +1938,16 @@ msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
+msgstr ""
+"Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr "Požadovaná velikost oddílu (%s MB) překračuje maximální velikost %s MB."
+msgstr ""
+"Požadovaná velikost oddílu (%s MB) překračuje maximální velikost %s MB."
 
 #: ../partRequests.py:495
 #, python-format
@@ -1968,7 +1984,9 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr "Velikost logického svazku musí být větší, než je fyzická extent size skupiny svazků."
+msgstr ""
+"Velikost logického svazku musí být větší, než je fyzická extent size skupiny "
+"svazků."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -1979,33 +1997,33 @@ msgstr "Startuji rozhraní"
 msgid "Attempting to start %s"
 msgstr "Pokouším se spustit %s"
 
-#: ../rescue.py:174
+#: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Po dokončení práce ukončete shell a váš systém bude restartován."
 
-#: ../rescue.py:199
+#: ../rescue.py:201
 msgid "Setup Networking"
 msgstr "Nastavení sítě"
 
-#: ../rescue.py:200
+#: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Chcete aktivovat síťová rozhraní?"
 
-#: ../rescue.py:241 ../text.py:533
+#: ../rescue.py:243 ../text.py:533
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-#: ../rescue.py:242 ../text.py:534
+#: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Z tohoto místa se nemohu vrátit k předchozímu kroku. Budete to muset zkusit "
 "znovu."
 
-#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
 msgstr "Záchrana"
 
-#: ../rescue.py:279
+#: ../rescue.py:281
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2027,28 +2045,28 @@ msgstr ""
 "dostanete se přímo do shellu.\n"
 "\n"
 
-#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
-#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Pokračovat"
 
-#: ../rescue.py:289 ../rescue.py:294
+#: ../rescue.py:291 ../rescue.py:296
 msgid "Read-Only"
 msgstr "Jen pro čtení"
 
-#: ../rescue.py:320
+#: ../rescue.py:322
 msgid "System to Rescue"
 msgstr "Opravit systém"
 
-#: ../rescue.py:321
+#: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
 msgstr "Který oddíl je ve vaší instalaci použit jako kořenový?"
 
-#: ../rescue.py:323 ../rescue.py:327
+#: ../rescue.py:325 ../rescue.py:329
 msgid "Exit"
 msgstr "Konec"
 
-#: ../rescue.py:346
+#: ../rescue.py:348
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2059,7 +2077,7 @@ msgstr ""
 "souborů opravíte příkazem fsck a pak je bezpečně připojíte příkazem mount. "
 "Systém bude po ukončení příkazového řádku automaticky restartován."
 
-#: ../rescue.py:354
+#: ../rescue.py:356
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2080,7 +2098,7 @@ msgstr ""
 "\n"
 "Systém bude automaticky restartován po ukončení shellu."
 
-#: ../rescue.py:437
+#: ../rescue.py:439
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2095,11 +2113,11 @@ msgstr ""
 "Stiskněte Enter pro vstup do shellu. Systém bude po jeho ukončení "
 "automaticky restartován."
 
-#: ../rescue.py:443
+#: ../rescue.py:445
 msgid "Rescue Mode"
 msgstr "Záchranný režim"
 
-#: ../rescue.py:444
+#: ../rescue.py:446
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2107,7 +2125,7 @@ msgstr ""
 "Ve vašem systému nejsou žádné oddíly s Linuxem. Stiskněte Enter pro vstup do "
 "shellu. Systém bude po jeho ukončení automaticky restartován."
 
-#: ../rescue.py:457
+#: ../rescue.py:459
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Váš systém je připojen v adresáři %s."
@@ -2160,26 +2178,29 @@ msgstr "Pro toto místo není k dispozici žádná nápověda."
 msgid "Save Crash Dump"
 msgstr "Uložit záznam havárie"
 
-#: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
+#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Vítá vás %s"
 
 #: ../text.py:426
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr "  <F1> nápověda | <Tab> mezi položkami | <Mezera> výběr | <F12> pokračovat"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+"  <F1> nápověda | <Tab> mezi položkami | <Mezera> výběr | <F12> pokračovat"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "  <Tab>/<Alt-Tab> mezi položkami  |  <Mezera> výběr  |  <F12> pokračovat"
+msgstr ""
+"  <Tab>/<Alt-Tab> mezi položkami  |  <Mezera> výběr  |  <F12> pokračovat"
 
-#: ../upgradeclass.py:20
+#: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
 msgstr "Aktualizace systému"
 
-#: ../upgradeclass.py:24
+#: ../upgradeclass.py:26
 msgid "Upgrade"
 msgstr "Aktualizace"
 
@@ -2201,20 +2222,20 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Chcete pokračovat v aktualizaci?"
 
-#: ../upgrade.py:94
+#: ../upgrade.py:93
 msgid "Searching"
 msgstr "Hledání"
 
-#: ../upgrade.py:95
+#: ../upgrade.py:94
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Vyhledávám systémy %s..."
 
-#: ../upgrade.py:151 ../upgrade.py:159
+#: ../upgrade.py:150 ../upgrade.py:158
 msgid "Dirty File Systems"
 msgstr "Špinavé systémy souborů"
 
-#: ../upgrade.py:152
+#: ../upgrade.py:151
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2227,7 +2248,7 @@ msgstr ""
 "ukončete a proveďte čistou aktualizaci.\n"
 "%s"
 
-#: ../upgrade.py:160
+#: ../upgrade.py:159
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2238,11 +2259,11 @@ msgstr ""
 "je přesto připojit?\n"
 "%s"
 
-#: ../upgrade.py:297 ../upgrade.py:303
+#: ../upgrade.py:296 ../upgrade.py:302
 msgid "Mount failed"
 msgstr "Připojení selhalo"
 
-#: ../upgrade.py:298
+#: ../upgrade.py:297
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2251,7 +2272,7 @@ msgstr ""
 "Linuxovém systému nemůže být připojeno. Opravte prosím tento problém a "
 "zkuste opět spustit aktualizaci."
 
-#: ../upgrade.py:304
+#: ../upgrade.py:303
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2261,7 +2282,7 @@ msgstr ""
 "systému je nekonzistentní a nemůže být připojen. Opravte prosím tento "
 "problém a zkuste opět spustit aktualizaci."
 
-#: ../upgrade.py:321
+#: ../upgrade.py:320
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2273,11 +2294,11 @@ msgstr ""
 "znovu.\n"
 "\n"
 
-#: ../upgrade.py:327
+#: ../upgrade.py:326
 msgid "Absolute Symlinks"
 msgstr "Absolutní symbolické odkazy"
 
-#: ../upgrade.py:338
+#: ../upgrade.py:337
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2288,20 +2309,20 @@ msgstr ""
 "aktualizaci dělat problémy. Změňte je prosím zpět do původního stavu na "
 "symbolické odkazy a spusťte aktualizaci znovu.\n"
 
-#: ../upgrade.py:344
+#: ../upgrade.py:343
 msgid "Invalid Directories"
 msgstr "Neplatné adresáře"
 
-#: ../upgrade.py:351
+#: ../upgrade.py:350
 #, python-format
 msgid "%s not found"
 msgstr "%s nenalezen"
 
-#: ../urlinstall.py:35
+#: ../urlinstall.py:36
 msgid "Connecting..."
 msgstr "Připojuji se..."
 
-#: ../urlinstall.py:74
+#: ../urlinstall.py:75
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -2313,16 +2334,18 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo možná poškození "
-"balíčku. Zkontrlujte prosím, zda zrcadlo (mirror) obsahuje všechny požadované balíčky, a případně zkuste použít jiné.\n"
+"balíčku. Zkontrlujte prosím, zda zrcadlo (mirror) obsahuje všechny "
+"požadované balíčky, a případně zkuste použít jiné.\n"
 "\n"
-"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si může vyžádat opětovnou instalaci.\n"
+"Provedete-li restart, Váš systém zůstane v nekonzistentním stavu, což si "
+"může vyžádat opětovnou instalaci.\n"
 "\n"
 
-#: ../vnc.py:43
+#: ../vnc.py:44
 msgid "Unable to Start X"
 msgstr "Nemohu spustit X"
 
-#: ../vnc.py:44
+#: ../vnc.py:45
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2332,23 +2355,23 @@ msgstr ""
 "počítači mohli připojit z jiného počítače a provést grafickou instalaci,\n"
 "nebo pokračovat v instalaci v textovém režimu?"
 
-#: ../vnc.py:51 ../vnc.py:54
+#: ../vnc.py:52 ../vnc.py:55
 msgid "Use text mode"
 msgstr "Použít textový režim"
 
-#: ../vnc.py:52
+#: ../vnc.py:53
 msgid "Start VNC"
 msgstr "Spustit VNC"
 
-#: ../vnc.py:62
+#: ../vnc.py:63
 msgid "VNC Configuration"
 msgstr "Nastavení VNC"
 
-#: ../vnc.py:66
+#: ../vnc.py:67
 msgid "No password"
 msgstr "Žádné heslo"
 
-#: ../vnc.py:69
+#: ../vnc.py:70
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2357,35 +2380,35 @@ msgstr ""
 "Heslo zabrání neautorizovaným posluchačům, aby se připojili a sledovali "
 "průběh vaší instalace. Zadejte prosím heslo, které používat pro instalaci"
 
-#: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
+#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:43
+#: ../vnc.py:79 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "Heslo (znovu):"
 
-#: ../vnc.py:100 ../textw/userauth_text.py:64
+#: ../vnc.py:101 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "Chyba při zadávání hesla"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:65
+#: ../vnc.py:102 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "Nezadali jste dvakrát stejné heslo. Musíte jej zadat znovu."
 
-#: ../vnc.py:106 ../textw/userauth_text.py:59
+#: ../vnc.py:107 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "Délka hesla"
 
-#: ../vnc.py:107
+#: ../vnc.py:108
 msgid "The password must be at least six characters long."
 msgstr "Heslo musí mít délku nejméně 6 znaků."
 
-#: ../vnc.py:137
+#: ../vnc.py:138
 msgid "VNC Password Error"
 msgstr "Chyba VNC Hesla"
 
-#: ../vnc.py:138
+#: ../vnc.py:139
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
@@ -2395,29 +2418,29 @@ msgstr ""
 "\n"
 "Stisknutím <return> restartujte systém.\n"
 
-#: ../vnc.py:183
+#: ../vnc.py:184
 msgid "Starting VNC..."
 msgstr "Startuji VNC..."
 
-#: ../vnc.py:226
+#: ../vnc.py:227
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "Instalace %s %s na počítač %s"
 
-#: ../vnc.py:228
+#: ../vnc.py:229
 #, python-format
 msgid "%s %s installation"
 msgstr "Instalace %s %s"
 
-#: ../vnc.py:248
+#: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
 msgstr "Nemohu nastavit heslo vnc - nepoužívám heslo!"
 
-#: ../vnc.py:249
+#: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Zkontrolujte, zda je vaše heslo alespoň 6 znaků dlouhé."
 
-#: ../vnc.py:272
+#: ../vnc.py:273
 msgid ""
 "\n"
 "\n"
@@ -2433,48 +2456,44 @@ msgstr ""
 "při zavádění volbu vncpassword=<heslo>.\n"
 "\n"
 
-#: ../vnc.py:276
+#: ../vnc.py:277
 msgid "The VNC server is now running."
 msgstr "VNC server nyní běží."
 
-#: ../vnc.py:279
+#: ../vnc.py:280
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Pokouším se připojit ke klientovi vnc na počítači %s..."
 
-#: ../vnc.py:291
+#: ../vnc.py:292
 msgid "Connected!"
 msgstr "Připojen!"
 
-#: ../vnc.py:296
+#: ../vnc.py:297
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Vzdávám snahu připojit se po 50 pokusech!\n"
 
-#: ../vnc.py:298
+#: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta k %s."
 
-#: ../vnc.py:300
+#: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta."
 
-#: ../vnc.py:304
+#: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Znovu se zkusím připojit za 15 sekund..."
 
-#: ../vnc.py:312
+#: ../vnc.py:313
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Pro spuštění instalace se prosím připojte k %s..."
 
-#: ../vnc.py:314
+#: ../vnc.py:315
 msgid "Please connect to begin the install..."
 msgstr "Pro spuštění instalace se prosím připojte..."
-
-#: ../xsetup.py:48
-msgid "DDC Probed Monitor"
-msgstr "Monitor detekovaný pomocí DDC"
 
 #: ../yuminstall.py:103
 msgid "Processing"
@@ -2484,69 +2503,70 @@ msgstr "Pracuji"
 msgid "Preparing transaction from installation source..."
 msgstr "Připravuji transakci z instalačního zdroje..."
 
-#: ../yuminstall.py:431 ../yuminstall.py:432
+#: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
 msgstr "kolize souborů"
 
-#: ../yuminstall.py:433
+#: ../yuminstall.py:472
 msgid "older package(s)"
 msgstr "starší balíček nebo balíčky"
 
-#: ../yuminstall.py:434
+#: ../yuminstall.py:473
 msgid "insufficient disk space"
 msgstr "nedostatek místa na disku"
 
-#: ../yuminstall.py:435
+#: ../yuminstall.py:474
 msgid "insufficient disk inodes"
 msgstr "nedostatek inodů na disku"
 
-#: ../yuminstall.py:436
+#: ../yuminstall.py:475
 msgid "package conflicts"
 msgstr "kolize balíčků"
 
-#: ../yuminstall.py:437
+#: ../yuminstall.py:476
 msgid "package already installed"
 msgstr "balíček je již nainstalován"
 
-#: ../yuminstall.py:438
+#: ../yuminstall.py:477
 msgid "required package"
 msgstr "vyžadovaný balíček"
 
-#: ../yuminstall.py:439
+#: ../yuminstall.py:478
 msgid "package for incorrect arch"
 msgstr "balíček pro nesprávnou architekturu"
 
-#: ../yuminstall.py:440
+#: ../yuminstall.py:479
 msgid "package for incorrect os"
 msgstr "balíček pro nesprávný operační systém"
 
-#: ../yuminstall.py:454
+#: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
 msgstr "Je třeba více místa na následujících souborových systémech:\n"
 
-#: ../yuminstall.py:470
+#: ../yuminstall.py:509
 msgid "Error running transaction"
 msgstr "Chyba v průběhu transakce"
 
-#: ../yuminstall.py:471
+#: ../yuminstall.py:510
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "V průběhu vaší transakce došlo k chybě z následujících důvodů: %s"
 
-#: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
+#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
 msgstr "_Restartovat"
 
-#: ../yuminstall.py:638
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "Načítám informace o instalaci..."
 
-#: ../yuminstall.py:640
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Načítám informace o instalaci pro %s..."
 
-#: ../yuminstall.py:656
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2556,11 +2576,11 @@ msgstr ""
 "Nelze načíst metadata balíčku. Důvodem může být chybějící adresář repodata. "
 "Zkontrolujte prosím, že byl Váš instalační strom správně vygenerován. %s"
 
-#: ../yuminstall.py:691
+#: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr "Nezařazeno"
 
-#: ../yuminstall.py:907
+#: ../yuminstall.py:995
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2569,7 +2589,7 @@ msgstr ""
 "Vybrané balíčky vyžadují pro instalaci %d MB volného místa. Tolik místa není "
 "k dispozici. Můžete změnit výběr nebo restartovat."
 
-#: ../yuminstall.py:1061
+#: ../yuminstall.py:1149
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2578,41 +2598,42 @@ msgstr ""
 "Zřejmě aktualizujete ze systému, který je příliš starý pro aktualizaci na "
 "tuto verzi %s. Opravdu chcete pokračovat v procesu aktualizace?"
 
-#: ../yuminstall.py:1093
+#: ../yuminstall.py:1181
 msgid "Install Starting"
 msgstr "Start instalace"
 
-#: ../yuminstall.py:1094
+#: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Spouštím proces instalace. To může chvíli trvat..."
 
-#: ../yuminstall.py:1110
+#: ../yuminstall.py:1198
 msgid "Post Upgrade"
 msgstr "Dokončení Upgrade"
 
-#: ../yuminstall.py:1111
+#: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
 msgstr "Provádím nastavení po provedení upgradu..."
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1201
 msgid "Post Install"
 msgstr "Po instalaci"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
 msgstr "Provádím zápis nastavení po instalaci..."
 
-#: ../yuminstall.py:1264
+#: ../yuminstall.py:1357
 msgid "Installation Progress"
 msgstr "Postup instalace"
 
-#: ../yuminstall.py:1299
+#: ../yuminstall.py:1392
 msgid "Dependency Check"
 msgstr "Kontrola závislostí"
 
-#: ../yuminstall.py:1300
+#: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Kontroluji závislosti mezi balíčky, které byly zvoleny pro instalaci..."
+msgstr ""
+"Kontroluji závislosti mezi balíčky, které byly zvoleny pro instalaci..."
 
 #: ../zfcp.py:29
 msgid ""
@@ -2699,47 +2720,50 @@ msgstr ""
 "Požadované heslo obsahuje ne-ASCII znaky, ne-ASCII znaky nejsou v hesle "
 "povoleny."
 
-#: ../iw/account_gui.py:92
+#: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
+msgstr ""
+"Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
-#: ../iw/account_gui.py:109
+#: ../iw/account_gui.py:110
 msgid "Root _Password: "
 msgstr "_Heslo správce systému:"
 
-#: ../iw/account_gui.py:112
+#: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "Po_tvrzení: "
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
 msgstr "Neplatné jméno pro initiator"
 
-#: ../iw/autopart_type.py:136
+#: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
 msgstr "Musíte zadat jméno nenulové délky pro initiator."
 
-#: ../iw/autopart_type.py:158
+#: ../iw/autopart_type.py:157
 msgid "Error with Data"
 msgstr "Chyba dat"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Odstranit všechny oddíly na vybraných discích a vytvořit defaultní rozdělení."
+msgstr ""
+"Odstranit všechny oddíly na vybraných discích a vytvořit defaultní rozdělení."
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Odstranit linuxové oddíly na vybraných discích a vytvořit defaultní "
 "rozdělení."
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr "Použít volné místo na vybraných discích a vytvořit defaultní rozdělení."
+msgstr ""
+"Použít volné místo na vybraných discích a vytvořit defaultní rozdělení."
 
-#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
 msgstr "Vytvořit vlastní rozdělění."
 
@@ -3010,7 +3034,7 @@ msgstr "Neznámý systém Linux"
 msgid "Language Selection"
 msgstr "Výběr jazyka"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "Jaký jazyk chcete používat během instalace?"
 
@@ -3050,7 +3074,7 @@ msgstr ""
 "Tato změna bude mít okamžitý účinek."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
+#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
 msgstr "_Pokračovat"
 
@@ -3346,7 +3370,7 @@ msgstr "Velikost (MB)"
 msgid "_Add"
 msgstr "Přid_at"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
+#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
 msgstr "_Upravit"
@@ -3391,50 +3415,73 @@ msgstr "_Emulovat 3 tlačítka"
 msgid "Select the appropriate mouse for the system."
 msgstr "Zvolte typ myši."
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:605
-msgid "Gateway"
-msgstr "Gateway"
-
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:607
-msgid "Primary DNS"
-msgstr "Primární DNS"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
-msgid "Secondary DNS"
-msgstr "Sekundární DNS"
-
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:611
-msgid "Tertiary DNS"
-msgstr "Terciální DNS"
-
-#: ../iw/network_gui.py:29
-msgid "_Gateway"
-msgstr "_Gateway"
-
-#: ../iw/network_gui.py:29
-msgid "_Primary DNS"
-msgstr "Pri_mární DNS"
-
-#: ../iw/network_gui.py:30
-msgid "_Secondary DNS"
-msgstr "_Sekundární DNS"
-
-#: ../iw/network_gui.py:30
-msgid "_Tertiary DNS"
-msgstr "_Terciální DNS"
-
-#: ../iw/network_gui.py:34
-msgid "Network Configuration"
-msgstr "Nastavení sítě"
-
-#: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
-#: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
-#: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
-#: ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
+#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
+#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
 msgid "Error With Data"
 msgstr "Chyba v datech"
 
-#: ../iw/network_gui.py:164
+#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%s\":\n"
+"%s"
+msgstr ""
+"Při konverzi hodnoty zadané pro \"%s\" došlo k chybě:\n"
+"%s"
+
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+msgid "Dynamic IP"
+msgstr "Dynamické nastavení IP"
+
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#, c-format, python-format
+msgid "Sending request for IP information for %s..."
+msgstr "Odesílám požadavek o informace IP pro %s..."
+
+#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+msgid "IP Address"
+msgstr "IP adresa"
+
+#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+msgid "Netmask"
+msgstr "Maska sítě"
+
+#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
+#: ../iw/network_gui.py:766
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+msgid "Nameserver"
+msgstr "DNS server"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+msgid "Primary DNS"
+msgstr "Primární DNS"
+
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+msgid "Secondary DNS"
+msgstr "Sekundární DNS"
+
+#: ../iw/network_gui.py:27
+msgid "_Gateway"
+msgstr "_Gateway"
+
+#: ../iw/network_gui.py:27
+msgid "_Primary DNS"
+msgstr "Pri_mární DNS"
+
+#: ../iw/network_gui.py:27
+msgid "_Secondary DNS"
+msgstr "_Sekundární DNS"
+
+#: ../iw/network_gui.py:37
+msgid "Network Configuration"
+msgstr "Nastavení sítě"
+
+#: ../iw/network_gui.py:157
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3442,7 +3489,7 @@ msgstr ""
 "Nezadali jste jméno počítače. To může, v závislosti na vašem síťovém "
 "prostředí, později způsobit problémy."
 
-#: ../iw/network_gui.py:168
+#: ../iw/network_gui.py:161
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3451,7 +3498,7 @@ msgstr ""
 "Nevyplnili jste pole \"%s\". To může, v závislosti na vašem síťovém "
 "prostředí, později způsobit problémy."
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:404
+#: ../iw/network_gui.py:165 ../textw/network_text.py:404
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3462,25 +3509,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:177
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%s\":\n"
-"%s"
-msgstr ""
-"Při konverzi hodnoty zadané pro \"%s\" došlo k chybě:\n"
-"%s"
-
-#: ../iw/network_gui.py:183
+#: ../iw/network_gui.py:180
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "Je nutné vyplnit pole \"%s\"."
 
-#: ../iw/network_gui.py:187
+#: ../iw/network_gui.py:184
 msgid "The IP information you have entered is invalid."
 msgstr "Zadané informace IP jsou neplatné."
 
-#: ../iw/network_gui.py:191
+#: ../iw/network_gui.py:188
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3488,88 +3526,124 @@ msgstr ""
 "Nemáte žádná aktivní síťová zařízení. Váš systém nebude moci komunikovat po "
 "síti bez aktivního zařízení."
 
-#: ../iw/network_gui.py:207
+#: ../iw/network_gui.py:264
 #, python-format
 msgid "Edit Interface %s"
 msgstr "Upravit rozhraní %s"
 
-#: ../iw/network_gui.py:218
-msgid "Configure using _DHCP"
-msgstr "_Nastavit pomocí DHCP"
+#: ../iw/network_gui.py:276
+#, fuzzy, python-format
+msgid "Hardware address: %s"
+msgstr "Hardwarová adresa: %s"
 
-#: ../iw/network_gui.py:224
+#: ../iw/network_gui.py:281
+#, fuzzy
+msgid "Use dynamic IP configuration (_DHCP)"
+msgstr "Použít dynamické nastavení IP adresy (DHCP)"
+
+#: ../iw/network_gui.py:286 ../loader2/net.c:691
+msgid "Enable IPv4 support"
+msgstr "Povolit podporu IPv4"
+
+#: ../iw/network_gui.py:291 ../loader2/net.c:702
+msgid "Enable IPv6 support"
+msgstr "Povolit podporu IPv6"
+
+#: ../iw/network_gui.py:296
 msgid "_Activate on boot"
 msgstr "_Aktivovat při startu"
 
-#: ../iw/network_gui.py:233
-msgid "_IP Address"
-msgstr "_IP adresa"
+#: ../iw/network_gui.py:326
+#, fuzzy
+msgid "IPv_4 Address:"
+msgstr "IPv4 adresa:"
 
-#: ../iw/network_gui.py:234
-msgid "Net_mask"
-msgstr "_Maska sítě"
+#: ../iw/network_gui.py:348
+#, fuzzy
+msgid "IPv_6 Address:"
+msgstr "IPv6 adresa:"
 
-#: ../iw/network_gui.py:239
-msgid "_Point to Point (IP)"
+#: ../iw/network_gui.py:371
+#, fuzzy
+msgid "_Point to Point (IP):"
 msgstr "_Point to Point (IP)"
 
-#: ../iw/network_gui.py:243
-msgid "_ESSID"
+#: ../iw/network_gui.py:383
+#, fuzzy
+msgid "_ESSID:"
 msgstr "_ESSID"
 
-#: ../iw/network_gui.py:244
-msgid "Encryption _Key"
+#: ../iw/network_gui.py:393
+#, fuzzy
+msgid "Encryption _Key:"
 msgstr "_Šifrovací klíč"
 
-#: ../iw/network_gui.py:255
-msgid "Hardware address:"
-msgstr "Hardwarová adresa:"
-
-#: ../iw/network_gui.py:293
+#: ../iw/network_gui.py:409
 #, python-format
 msgid "Configure %s"
 msgstr "Nastavit %s"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#, fuzzy
+msgid "Invalid Prefix"
+msgstr "Neplatný řetězec IP"
+
+#: ../iw/network_gui.py:458
+#, fuzzy
+msgid "IPv4 prefix must be between 0 and 32."
+msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
+
+#: ../iw/network_gui.py:475
+#, fuzzy
+msgid "IPv6 prefix must be between 0 and 128."
+msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
+
+#: ../iw/network_gui.py:629
 msgid "Active on Boot"
 msgstr "Aktivovat při startu"
 
-#: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "Zařízení"
 
-#: ../iw/network_gui.py:473
-msgid "IP/Netmask"
+#: ../iw/network_gui.py:633
+#, fuzzy
+msgid "IPv4/Netmask"
 msgstr "IP/Maska sítě"
 
-#: ../iw/network_gui.py:535
+#: ../iw/network_gui.py:635
+msgid "IPv6/Prefix"
+msgstr ""
+
+#: ../iw/network_gui.py:697
 msgid "Network Devices"
 msgstr "Síťová zařízení"
 
-#: ../iw/network_gui.py:546
+#: ../iw/network_gui.py:708
 msgid "Set the hostname:"
 msgstr "Nastavit jméno počítače:"
 
-#: ../iw/network_gui.py:551
+#: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
 msgstr "_automaticky pomocí DHCP"
 
-#: ../iw/network_gui.py:558
+#: ../iw/network_gui.py:720
 msgid "_manually"
 msgstr "_ručně"
 
-#: ../iw/network_gui.py:562
-msgid "(ex. \"host.domain.com\")"
+#: ../iw/network_gui.py:725
+#, fuzzy
+msgid "(e.g., host.domain.com)"
 msgstr "(př. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:568 ../loader2/net.c:1354
+#: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
 msgstr "Jméno počítače"
 
-#: ../iw/network_gui.py:616
+#: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
 msgstr "Různé volby"
 
@@ -3709,6 +3783,16 @@ msgstr "_Koncový cylindr:"
 msgid "Force to be a _primary partition"
 msgstr "Nastavit jako p_rimární oddíl"
 
+#: ../iw/partition_gui.py:314
+#, python-format
+msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
+msgstr ""
+
+#: ../iw/partition_gui.py:321
+#, python-format
+msgid "Drive %s (%-0.f MB) (Model: %s)"
+msgstr ""
+
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
 msgstr "Typ"
@@ -3742,12 +3826,15 @@ msgid "Partitioning"
 msgstr "Vytváření oddílů"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr "V požadovaném schématu oddílů byly nalezeny následující kritické chyby."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
+msgstr ""
+"V požadovaném schématu oddílů byly nalezeny následující kritické chyby."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Tyto chyby musí být opraveny před tím, než budete pokračovat v instalaci "
 "distribuce %s."
@@ -3789,7 +3876,7 @@ msgstr "RAID zařízení"
 msgid "None"
 msgstr "Nic"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:329
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
@@ -3925,34 +4012,34 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "_Skrýt členy zařízení RAID/skupiny svazků LVM"
 
-#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
-#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
+#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
 msgstr "<Není použitelné>"
 
-#: ../iw/partition_ui_helpers_gui.py:251
+#: ../iw/partition_ui_helpers_gui.py:250
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "Jak chcete připravit systém souborů na tomto oddílu?"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
 msgstr "Ponechat beze změny (zachovat _data)"
 
-#: ../iw/partition_ui_helpers_gui.py:265
+#: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
 msgstr "_Naformátovat jako:"
 
-#: ../iw/partition_ui_helpers_gui.py:288
+#: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
 msgstr "_Migrovat na:"
 
-#: ../iw/partition_ui_helpers_gui.py:310
+#: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
 msgstr "Zjišťovat při formátování chybné _bloky?"
 
-#: ../iw/partition_ui_helpers_gui.py:345
+#: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4228,35 +4315,19 @@ msgstr "Cílový disk (disky):"
 msgid "Drives"
 msgstr "Disky"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
+#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
 msgid "Release notes are missing.\n"
 msgstr "Poznámky k vydání nejsou k dispozici.\n"
 
-#: ../iw/release_notes.py:222
+#: ../iw/release_notes.py:221
 msgid "Release Notes"
 msgstr "Poznámky k vydání"
 
-#: ../iw/release_notes.py:226
+#: ../iw/release_notes.py:224
 msgid "Unable to load file!"
 msgstr "Nemohu přečíst soubor!"
 
-#: ../iw/task_gui.py:85
-msgid "Invalid Repository Name"
-msgstr "Neplatné jméno úložiště"
-
-#: ../iw/task_gui.py:86
-msgid "You must provide a non-zero length repository name."
-msgstr "Musíte zadat jméno úložiště nenulové délky."
-
-#: ../iw/task_gui.py:95
-msgid "Invalid Repository URL"
-msgstr "Neplatné URL úložiště"
-
-#: ../iw/task_gui.py:96
-msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Musíte zadat HTTP nebo FTP URL úložiště."
-
-#: ../iw/task_gui.py:111
+#: ../iw/task_gui.py:79
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4265,10 +4336,40 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Nelze načíst metadata balíčku z úložiště. Důvodem může být chybějící adresář repodata. "
-"Zkontrolujte prosím, že vaše úložiště bylo správně vygenerováno.\n"
+"Nelze načíst metadata balíčku z úložiště. Důvodem může být chybějící adresář "
+"repodata. Zkontrolujte prosím, že vaše úložiště bylo správně vygenerováno.\n"
 "\n"
 "%s"
+
+#: ../iw/task_gui.py:89
+#, python-format
+msgid ""
+"Unable to find a group file for %s.  This will make manual selection of "
+"packages from the repository not work"
+msgstr ""
+
+#: ../iw/task_gui.py:121
+msgid "Invalid Repository Name"
+msgstr "Neplatné jméno úložiště"
+
+#: ../iw/task_gui.py:122
+msgid "You must provide a non-zero length repository name."
+msgstr "Musíte zadat jméno úložiště nenulové délky."
+
+#: ../iw/task_gui.py:131
+msgid "Invalid Repository URL"
+msgstr "Neplatné URL úložiště"
+
+#: ../iw/task_gui.py:132
+msgid "You must provide an HTTP or FTP URL to a repository."
+msgstr "Musíte zadat HTTP nebo FTP URL úložiště."
+
+#: ../iw/task_gui.py:146
+#, fuzzy, python-format
+msgid ""
+"The repository %s has already been added.  Please choose a different "
+"repository name and URL."
+msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4288,7 +4389,8 @@ msgstr "Bude provedena aktualizace zavaděče systému."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "Instalační program nalezl zavaděč %s nainstalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4428,7 +4530,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Na vybraném zařízení není dostatek volného místa pro odkládací oddíl."
 
 #: ../iw/zfcp_gui.py:24
@@ -4456,7 +4559,8 @@ msgstr "Upravit zařízení FCP %s"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr "Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
+msgstr ""
+"Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4593,7 +4697,8 @@ msgstr ""
 "které bude použito pro jejich výběr při startu počítače."
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> vybrat | <F2> vybrat default | <F4> odstranit | <F12> další "
 "obrazovka>"
@@ -4703,15 +4808,15 @@ msgstr ""
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:385
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:181 ../loader2/driverselect.c:206
-#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:131
-#: ../loader2/loader.c:335 ../loader2/loader.c:943 ../loader2/loader.c:965
-#: ../loader2/net.c:242 ../loader2/net.c:282 ../loader2/net.c:706
-#: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:269 ../loader2/urls.c:456
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
+#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
+#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
+#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:275 ../loader2/urls.c:455
 msgid "Back"
 msgstr "Zpět"
 
@@ -4728,15 +4833,17 @@ msgstr ""
 "Úplný protokol o aktualizaci bude po restartu systému v %s. Tento soubor se "
 "může hodit pro pozdější referenci."
 
-#: ../textw/grpselect_text.py:84
+#: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
 msgstr "Zvolte prosím skupiny balíčků, které chcete nainstalovat"
 
-#: ../textw/grpselect_text.py:102
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
+#: ../textw/grpselect_text.py:105
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
 
-#: ../textw/grpselect_text.py:130
+#: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
 msgstr "Detaily skupiny balíčků"
 
@@ -4773,23 +4880,15 @@ msgstr "Neplatný řetězec IP"
 msgid "The entered IP '%s' is not a valid IP."
 msgstr "Vložené IP '%s' není platné."
 
-#: ../textw/network_text.py:72
-msgid "IP Address"
-msgstr "IP adresa"
-
-#: ../textw/network_text.py:73
-msgid "Netmask"
-msgstr "Maska sítě"
-
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
-#: ../textw/network_text.py:79 ../loader2/net.c:237
+#: ../textw/network_text.py:79 ../loader2/net.c:238
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:80 ../loader2/net.c:238
+#: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
 msgstr "Šifrovací klíč"
 
@@ -4829,7 +4928,7 @@ msgstr "Chybná informace"
 msgid "You must enter valid IP information to continue"
 msgstr "Pro pokračování musíte zadat platné informace o IP"
 
-#: ../textw/network_text.py:247 ../loader2/net.c:920
+#: ../textw/network_text.py:247 ../loader2/net.c:957
 msgid "Gateway:"
 msgstr "Gateway:"
 
@@ -5025,7 +5124,8 @@ msgstr "Nepodporováno"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "Skupiny svazků LVM mohou být upraveny jen v grafickém instalačním programu."
+msgstr ""
+"Skupiny svazků LVM mohou být upraveny jen v grafickém instalačním programu."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5122,8 +5222,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5137,25 +5239,26 @@ msgstr "Musíte určit oddíl / (kořenový oddíl)."
 msgid "Partitioning Type"
 msgstr "Způsob rozdělení oddílů"
 
-#: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1518
+#, fuzzy
 msgid ""
-"Installation requires partitioning of your hard drive.  By default, a "
-"partitioning layout is chosen which is reasonable for most users.  You can "
-"either choose to use this or create your own."
+"Installation requires partitioning of your hard drive.  The default layout "
+"is reasonable for most users.  You can either choose to use this or create "
+"your own."
 msgstr ""
 "Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
 "vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů."
 "Můžete buď zvolit toto rozložení, nebo definovat vlastní."
 
-#: ../textw/partition_text.py:1543
+#: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Který disk(y) chcete použít pro tuto instalaci?"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1604
 msgid "Review Partition Layout"
 msgstr "Prohlédnout rozložení oddílů"
 
-#: ../textw/partition_text.py:1606
+#: ../textw/partition_text.py:1605
 msgid "Review and modify partitioning layout?"
 msgstr "Prohlédnout a upravit rozložení oddílů?"
 
@@ -5216,17 +5319,17 @@ msgstr "Zbývá    :  "
 msgid "Package selection"
 msgstr "Výběr balíčků"
 
-#: ../textw/task_text.py:45
-#, python-format
+#: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
+#, fuzzy, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
+"support?"
 msgstr ""
 "Standardní instalace %s obsahuje sadu programů pro běžné používání "
 "internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
 
-#: ../textw/task_text.py:60
+#: ../textw/task_text.py:63
 msgid "Customize software selection"
 msgstr "Upravit výběr programů"
 
@@ -5380,8 +5483,7 @@ msgstr "Řádek chandev "
 msgid "_Custom"
 msgstr "_Vlastní"
 
-#: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
-#: ../installclasses/rhel.py:13
+#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5389,19 +5491,29 @@ msgstr ""
 "Zvolením tohoto typu instalace získáte úplnou kontrolu nad procesem "
 "instalace, včetně výběru balíčků a vytváření oddílů."
 
-#: ../installclasses/fedora.py:11
+#: ../installclasses/fedora.py:12
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
+#: ../installclasses/fedora.py:13
+#, fuzzy, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage. What additional tasks would you like your system to "
+"include support for?"
+msgstr ""
+"Standardní instalace %s obsahuje sadu programů pro běžné používání "
+"internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
+
+#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
 msgstr "Kancelář a Produktivita"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
 msgstr "Vývoj software"
 
-#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
 msgid "Web server"
 msgstr "Web server"
 
@@ -5437,20 +5549,9 @@ msgstr ""
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
 
-#: ../installclasses/rhel.py:11
+#: ../installclasses/rhel.py:15
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
-
-#: ../installclasses/rhel.py:49
-msgid "Registration Key Required"
-msgstr "Je požadován registrační klíč"
-
-#: ../installclasses/rhel.py:50
-#, python-format
-msgid ""
-"A registration key is required to install %s.  Please contact your support "
-"representative if you did not receive a key with your product."
-msgstr "Pro instalaci %s je požadován registrační klíč. Spojte se prosím se zástupcem podpory, pokud jste neobdržel klíč zároveň s produktem. "
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5500,22 +5601,22 @@ msgstr ""
 "\tNástroje pro vývoj programů\n"
 "\tNástroje pro administraci\n"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
 msgstr "Kontrola média"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
-#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/method.c:420
 msgid "Test"
 msgstr "Test"
 
-#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
 msgstr "Vysunout CD"
 
-#: ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:93
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -5524,7 +5625,7 @@ msgstr ""
 "Zvolte \"%s\" pro test CD, které je právě v mechanice nebo \"%s\" pro "
 "vysunutí CD. Pak vložte další CD, které chcete otestovat."
 
-#: ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:114
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5538,7 +5639,7 @@ msgstr ""
 "doporučováno. Určitě by měla být CD testována před prvním použitím. Po "
 "úspěšném otestování již není vyžadováno dalsí testování před každým použitím."
 
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5547,7 +5648,7 @@ msgstr ""
 "Nemohu nalézt CD-ROM %s v žádné jednotce CD-ROM. Prosím vložte CD-ROM s "
 "distribucí %s a stiskněte tlačítko %s pro opakování."
 
-#: ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:258
 msgid "CD Found"
 msgstr "CD nalezeno"
 
@@ -5562,7 +5663,7 @@ msgstr ""
 "\n"
 "Stiskněte %s pro přeskočení testu média a započetí instalace."
 
-#: ../loader2/cdinstall.c:372
+#: ../loader2/cdinstall.c:379
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5571,27 +5672,27 @@ msgstr ""
 "Nemohu nalézt CD-ROM %s odpovídající vašemu zaváděcímu médiu. Vložte prosím "
 "CD-ROM %s a opakujte stisknutím %s."
 
-#: ../loader2/cdinstall.c:384
+#: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
 msgstr "CD nalezeno"
 
-#: ../loader2/cdinstall.c:455
+#: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Nemohu najít soubor kickstart na CDROM."
 
-#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
+#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Načítání"
 
-#: ../loader2/driverdisk.c:127
+#: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
 msgstr "Načítám ovladače..."
 
-#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
+#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
 msgstr "Umístění ovladačů"
 
-#: ../loader2/driverdisk.c:268
+#: ../loader2/driverdisk.c:269
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5599,7 +5700,7 @@ msgstr ""
 "V počítači je k dispozici více zařízení, která by mohla být použita pro "
 "načtení ovladačů. Vyberte zařízení, ze kterého chcete ovladače načíst."
 
-#: ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5607,44 +5708,50 @@ msgstr ""
 "Na tomto zařízení je více oddílů, které by mohly obsahovat obraz diskety s "
 "ovladači. Který chcete použít?"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
 msgstr "Nemohu připojit oddíl."
 
-#: ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
 msgstr "Zvolte obraz diskety s ovladači"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
 msgstr "Zvolte soubor, který je obraz vaší diskety s ovladači."
 
-#: ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
 msgstr "Nemohu načíst disketu s ovladači ze souboru."
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr ""
+"Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "Vložení diskety s ovladači"
 
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "Nemohu připojit disketu s aktualizací."
 
-#: ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:415
+#, c-format
+msgid "Driver disk is invalid for this release of %s."
+msgstr ""
+
+#: ../loader2/driverdisk.c:479
 msgid "Manually choose"
 msgstr "Zvolit ručně"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:480
 msgid "Load another disk"
 msgstr "Načíst jinou disketu"
 
-#: ../loader2/driverdisk.c:477
+#: ../loader2/driverdisk.c:481
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5654,43 +5761,44 @@ msgstr ""
 "Chcete vybrat ovladač ručně, i přesto pokračovat, nebo načíst jinou disketu "
 "s ovladači?"
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:520
 msgid "Driver disk"
 msgstr "Disketa s ovladači"
 
-#: ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
 msgstr "Máte disketu s ovladači?"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
 msgstr "Více disket s ovladači?"
 
-#: ../loader2/driverdisk.c:528
+#: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
 msgstr "Chcete načíst více disket s ovladači?"
 
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:411 ../loader2/modules.c:960 ../loader2/net.c:1446
-#: ../loader2/net.c:1469 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:476 ../loader2/urlinstall.c:485
-#: ../loader2/urlinstall.c:496
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
+#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
+#: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
 msgstr "Chyba kickstartu"
 
-#: ../loader2/driverdisk.c:578
+#: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Neznámy zdroj driver disk kickstartu: %s"
 
-#: ../loader2/driverdisk.c:615
+#: ../loader2/driverdisk.c:619
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
+msgstr ""
+"Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5707,15 +5815,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Zadejte parametry modulu"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "No drivers found"
 msgstr "Nenalezen žádný ovladač"
 
-#: ../loader2/driverselect.c:180
+#: ../loader2/driverselect.c:181
 msgid "Load driver disk"
 msgstr "Načíst disketu s ovladači"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -5723,7 +5831,7 @@ msgstr ""
 "Nebyly nalezeny žádné ovladače pro ruční zavedení. Chcete použít disketu s "
 "ovladači?"
 
-#: ../loader2/driverselect.c:199
+#: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5731,11 +5839,11 @@ msgstr ""
 "Zadejte prosím níže ovladač, který si přejete načíst. Pokud není uveden a "
 "máte disketu s ovladači, stiskněte F2."
 
-#: ../loader2/driverselect.c:207
+#: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
 msgstr "Zadejte volitelné parametry modulu"
 
-#: ../loader2/driverselect.c:227
+#: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
 msgstr "Vyberte ovladač zařízení, který načíst"
 
@@ -5744,15 +5852,16 @@ msgstr "Vyberte ovladač zařízení, který načíst"
 msgid "Loading %s driver..."
 msgstr "Zavádím ovladač %s ..."
 
-#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:153
-#: ../loader2/nfsinstall.c:204 ../loader2/urlinstall.c:160
+#: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
+#: ../loader2/urlinstall.c:160
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr "Instalační strom %s v tomto adresáři zřejmě neodpovídá zavedenému systému."
+msgstr ""
+"Instalační strom %s v tomto adresáři zřejmě neodpovídá zavedenému systému."
 
-#: ../loader2/hdinstall.c:217
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5760,7 +5869,7 @@ msgstr ""
 "Při čtení instalačního programu z ISO obrazu došlo k chybě. Zkontrolujte "
 "prosím ISO obrazy a zkuste spustit instalaci znovu."
 
-#: ../loader2/hdinstall.c:330
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5768,7 +5877,7 @@ msgstr ""
 "V tomto počítači nebyly nalezeny žádné pevné disky! Chcete nastavit další "
 "připojená zařízení?"
 
-#: ../loader2/hdinstall.c:346
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5779,29 +5888,29 @@ msgstr ""
 "(iso9660) pro %s? Pokud oddíl ani disk na seznamu nenaleznete, stiskněte "
 "klávesu F2, abyste mohli nakonfigurovat další zařízení."
 
-#: ../loader2/hdinstall.c:368
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "Adresář obsahující obrazy:"
 
-#: ../loader2/hdinstall.c:395
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "Výběr oddílu"
 
-#: ../loader2/hdinstall.c:435
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Zařízení %s zřejmě neobsahuje obrazy CD %s."
 
-#: ../loader2/hdinstall.c:470
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Chybný argument kickstart příkazu metody HD %s: %s"
 
-#: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Nemohu najít soubor kickstart na pevném disku."
 
-#: ../loader2/hdinstall.c:582
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Nemohu najít pevný disk pro disk BIOSu %s"
@@ -5833,41 +5942,43 @@ msgstr "Chyba v %s na řádku %d souboru kickstart %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zaváděcí disketě nemohu nalézt soubor ks.cfg."
 
-#: ../loader2/kickstart.c:412
+#: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Chybný argument kickstart příkazu metody shutdown %s: %s"
 
-#: ../loader2/lang.c:54
+#: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Vítá vás %s - Záchranný režim"
 
-#: ../loader2/lang.c:55 ../loader2/loader.c:158
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr " <Tab>/<Alt-Tab> přepíná mezi položkami  | <Mezera> výběr | <F12> pokračovat"
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+" <Tab>/<Alt-Tab> přepíná mezi položkami  | <Mezera> výběr | <F12> pokračovat"
 
-#: ../loader2/lang.c:364
+#: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "Vyberte jazyk"
 
-#: ../loader2/loader.c:117
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "Lokální CD-ROM"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "Pevný disk"
 
-#: ../loader2/loader.c:120
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "NFS obraz"
 
-#: ../loader2/loader.c:330
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "Zdroj disku s aktualizací"
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5875,28 +5986,29 @@ msgstr ""
 "Máte více zařízení, která by mohla být použita jako zdroj diskety s "
 "aktualizací. Které chcete použít?"
 
-#: ../loader2/loader.c:346
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Vložte svou disketu s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr ""
+"Vložte svou disketu s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "Disk s aktualizací"
 
-#: ../loader2/loader.c:360
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "Nemohu připojit disketu s aktualizací"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "Aktualizace"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "Čtu aktualizace anacondy..."
 
-#: ../loader2/loader.c:401
+#: ../loader2/loader.c:404
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5905,40 +6017,40 @@ msgstr ""
 "Nebyly nalezeny žádné pevné disky. Pravděpodobně budete muset pro úspěšnou "
 "instalaci ručně zvolit ovladače zařízení. Chcete nyní vybrat ovladače?"
 
-#: ../loader2/loader.c:775
+#: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nemáte dostatek paměti RAM pro instalaci distribuce %s."
 
-#: ../loader2/loader.c:935
+#: ../loader2/loader.c:938
 msgid "Rescue Method"
 msgstr "Metoda zotavení"
 
-#: ../loader2/loader.c:936
+#: ../loader2/loader.c:939
 msgid "Installation Method"
 msgstr "Metoda instalace"
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
 msgstr "Jaký druh média obsahuje disk pro zotavení?"
 
-#: ../loader2/loader.c:940
+#: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kde jsou umístěny balíčky, které chcete instalovat?"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "No driver found"
 msgstr "Žádný ovladač nebyl nalezen"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:968
 msgid "Select driver"
 msgstr "Vybrat ovladač"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:969
 msgid "Use a driver disk"
 msgstr "Použít disketu s ovladači"
 
-#: ../loader2/loader.c:966
+#: ../loader2/loader.c:970
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5946,39 +6058,40 @@ msgstr ""
 "Nemohu najít žádná zařízení, která jsou potřeba pro provedení tohoto typu "
 "instalace. Chcete vybrat ovladač ručně nebo chcete použít disketu s ovladači?"
 
-#: ../loader2/loader.c:1124
+#: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
 msgstr "Ve vašem systému byla nalezena následující zařízení."
 
-#: ../loader2/loader.c:1126
+#: ../loader2/loader.c:1133
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
+msgstr ""
+"Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
 
-#: ../loader2/loader.c:1130
+#: ../loader2/loader.c:1137
 msgid "Devices"
 msgstr "Zařízení"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1138
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../loader2/loader.c:1132
+#: ../loader2/loader.c:1139
 msgid "Add Device"
 msgstr "Přidat zařízení"
 
-#: ../loader2/loader.c:1332
+#: ../loader2/loader.c:1347
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader již byl spuštěn. Spouštím shell.\n"
 
-#: ../loader2/loader.c:1699
+#: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Spouštím Anacondu, záchranný režim systému %s - čekejte prosím...\n"
 
-#: ../loader2/loader.c:1701
+#: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Spouštím Anacondu, instalační program systému %s - čekejte prosím...\n"
@@ -6079,12 +6192,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Test kontrolních součtů"
 
-#: ../loader2/modules.c:961
+#: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Chybný argument kickstart příkazu metody device %s: %s"
 
-#: ../loader2/net.c:62
+#: ../loader2/net.c:63
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6099,17 +6212,16 @@ msgstr ""
 "    * adresář daného serveru obsahující\n"
 "      %s pro vaši architekturu\n"
 
-#: ../loader2/net.c:96
-msgid "Invalid CIDR Mask"
-msgstr "Neplatná maska CIDR"
-
-#: ../loader2/net.c:97
+#: ../loader2/net.c:98
+#, fuzzy
 msgid ""
-"CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
-"128 for IPv6 networks"
-msgstr "Hodnota masky CIDR musí být mezi 1 a 32 pro IPv4 sítě a mezi 1 a 128 pro IPv6 sítě"
+"Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
+"IPv6 networks"
+msgstr ""
+"Hodnota masky CIDR musí být mezi 1 a 32 pro IPv4 sítě a mezi 1 a 128 pro "
+"IPv6 sítě"
 
-#: ../loader2/net.c:231
+#: ../loader2/net.c:232
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6121,19 +6233,15 @@ msgstr ""
 "toto pole prázdné a instalace bude pokračovat."
 
 # If you can get away with it in English...
-#: ../loader2/net.c:241
+#: ../loader2/net.c:242
 msgid "Wireless Settings"
 msgstr "Bezdrátová nastavení"
 
-#: ../loader2/net.c:272
+#: ../loader2/net.c:273
 msgid "Nameserver IP"
 msgstr "IP DNS serveru"
 
-#: ../loader2/net.c:276
-msgid "Nameserver"
-msgstr "DNS server"
-
-#: ../loader2/net.c:277
+#: ../loader2/net.c:278
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6144,120 +6252,115 @@ msgstr ""
 "víte, jaká je IP adresa DNS serveru, vložte ji. Pokud tuto adresu neznáte, "
 "ponechte políčko prázdné a instalace bude pokračovat."
 
-#: ../loader2/net.c:300
+#: ../loader2/net.c:301
 msgid "Invalid IP Information"
 msgstr "Chybná IP informace"
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:302
 msgid "You entered an invalid IP address."
 msgstr "Vložili jste chybnou IP adresu."
 
-#: ../loader2/net.c:375 ../loader2/net.c:768
-msgid "Dynamic IP"
-msgstr "Dynamické nastavení IP"
-
-#: ../loader2/net.c:376 ../loader2/net.c:769
-#, c-format
-msgid "Sending request for IP information for %s..."
-msgstr "Odesílám požadavek o informace IP pro %s..."
-
-#: ../loader2/net.c:538 ../loader2/net.c:639
+#: ../loader2/net.c:541 ../loader2/net.c:647
 msgid "Network Error"
 msgstr "Chyba sítě"
 
-#: ../loader2/net.c:539 ../loader2/net.c:640
+#: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
 msgstr "Došlo k chybě v průběhu konfigurování vašeho síťového rozhraní"
 
-#: ../loader2/net.c:675
+#: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Použít dynamické nastavení IP adresy (DHCP)"
 
-#: ../loader2/net.c:680
-msgid "Enable IPv4 support"
-msgstr "Povolit podporu IPv4"
-
-#: ../loader2/net.c:690
-msgid "Enable IPv6 support"
-msgstr "Povolit podporu IPv6"
-
-#: ../loader2/net.c:700
+#: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
 msgstr "Vyhnout se nechtěným kolizím paketů"
 
-#: ../loader2/net.c:702
+#: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
 msgstr "Maximalizovat registrové hodnoty pro vysokorychlostní síťový provoz"
 
-#: ../loader2/net.c:738
+#: ../loader2/net.c:750
 msgid "Configure TCP/IP"
 msgstr "Nastavení TCP/IP"
 
-#: ../loader2/net.c:753 ../loader2/net.c:763
+#: ../loader2/net.c:764
+msgid "IPv4 Needed for NFS"
+msgstr ""
+
+#: ../loader2/net.c:765
+msgid "NFS installation method requires IPv4 support."
+msgstr ""
+
+#: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
 msgstr "Chybějící protokol"
 
-#: ../loader2/net.c:754
+#: ../loader2/net.c:772
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro ruční konfiguraci."
+msgstr ""
+"Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro ruční "
+"konfiguraci."
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro DHCP."
 
-#: ../loader2/net.c:834
+#: ../loader2/net.c:852
 msgid "IPv4 address:"
 msgstr "IPv4 adresa:"
 
-#: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:876
+#: ../loader2/net.c:904
 msgid "IPv6 address:"
 msgstr "IPv6 adresa:"
 
-#: ../loader2/net.c:928
+#: ../loader2/net.c:965
 msgid "Name Server:"
 msgstr "Name server:"
 
-#: ../loader2/net.c:961
+#: ../loader2/net.c:1008
 msgid "Manual TCP/IP Configuration"
 msgstr "Ruční konfigurace TCP/IP"
 
-#: ../loader2/net.c:1084 ../loader2/net.c:1090
+#: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
 msgstr "Chybějící informace"
 
-#: ../loader2/net.c:1085
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1132
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Musíte zadat platnou IPv4 adresu a masku sítě nebo CIDR prefix."
 
-#: ../loader2/net.c:1091
-msgid "You must enter both a valid IPv6 address and a CIDR prefix."
+#: ../loader2/net.c:1138
+#, fuzzy
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "Musíte zadat platnou IPv6 adresu a CIDR prefix."
 
-#: ../loader2/net.c:1355
+#: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
 msgstr "Zjišťuji jméno počítače a doménu..."
 
-#: ../loader2/net.c:1447
+#: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Chybný argument Kickstart příkazu network %s: %s"
 
-#: ../loader2/net.c:1470
+#: ../loader2/net.c:1517
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Chybný zaváděcí protokol %s v příkazu network"
 
-#: ../loader2/net.c:1639
+#: ../loader2/net.c:1688
 msgid "Networking Device"
 msgstr "Síťové zařízení"
 
-#: ../loader2/net.c:1640
+#: ../loader2/net.c:1689
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6267,7 +6370,7 @@ msgstr "V systému je více síťových zařízení. Pomocí kterého chcete ins
 msgid "NFS server name:"
 msgstr "Jméno NFS serveru:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
 #, c-format
 msgid "%s directory:"
 msgstr "Adresář %s:"
@@ -6280,20 +6383,20 @@ msgstr "NFS"
 msgid "NFS Setup"
 msgstr "NFS instalace"
 
-#: ../loader2/nfsinstall.c:131
+#: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
 msgstr "Zadáno jméno počítače s nekonfigurovaným DNS"
 
-#: ../loader2/nfsinstall.c:208
+#: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Uvedený adresář zřejmě neobsahuje instalační strom %s."
 
-#: ../loader2/nfsinstall.c:221
+#: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
 msgstr "Uvedený adresář nelze připojit."
 
-#: ../loader2/nfsinstall.c:260
+#: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Chybný argument Kickstart příkazu metody NFS %s: %s"
@@ -6319,88 +6422,78 @@ msgstr "Nemohu přenést %s://%s/%s/%s."
 msgid "Unable to retrieve the install image."
 msgstr "Nemohu přenést instalační obraz."
 
-#: ../loader2/urlinstall.c:291
+#: ../loader2/urlinstall.c:285
 msgid "Media Detected"
 msgstr "Detekováno médium"
 
-#: ../loader2/urlinstall.c:292
+#: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
 msgstr "Detekováno místní instalační médium..."
 
-#: ../loader2/urlinstall.c:477
+#: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Chybný argument Kickstart příkazu metody Url %s: %s"
 
-#: ../loader2/urlinstall.c:486
+#: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Kickstart metodě Url musíte zadat argument --url."
 
-#: ../loader2/urlinstall.c:497
+#: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Neznámá metoda Url %s"
 
-#: ../loader2/urls.c:182
-#, c-format
-msgid "Failed to log into %s: %s"
-msgstr "Nemohu zaznamenávat do %s: %s"
-
-#: ../loader2/urls.c:192 ../loader2/urls.c:201
-#, c-format
-msgid "Failed to retrieve %s: %s"
-msgstr "Nemohu načíst %s: %s"
-
-#: ../loader2/urls.c:208
+#: ../loader2/urls.c:215
 msgid "Retrieving"
 msgstr "Načítání"
 
-#: ../loader2/urls.c:273
+#: ../loader2/urls.c:279
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:278
+#: ../loader2/urls.c:284
 msgid "Web"
 msgstr "Web"
 
-#: ../loader2/urls.c:295
+#: ../loader2/urls.c:301
 msgid "FTP site name:"
 msgstr "Jméno FTP serveru:"
 
-#: ../loader2/urls.c:296
+#: ../loader2/urls.c:302
 msgid "Web site name:"
 msgstr "Jméno WWW serveru:"
 
-#: ../loader2/urls.c:315
+#: ../loader2/urls.c:321
 msgid "Use non-anonymous ftp"
 msgstr "Použít neanonymní ftp"
 
-#: ../loader2/urls.c:324
+#: ../loader2/urls.c:330
 msgid "FTP Setup"
 msgstr "FTP instalace"
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:331
 msgid "HTTP Setup"
 msgstr "HTTP instalace"
 
-#: ../loader2/urls.c:335
+#: ../loader2/urls.c:341
 msgid "You must enter a server name."
 msgstr "Musíte zadat jméno serveru."
 
-#: ../loader2/urls.c:340
+#: ../loader2/urls.c:346
 msgid "You must enter a directory."
 msgstr "Musíte zadat adresář."
 
-#: ../loader2/urls.c:345
+#: ../loader2/urls.c:351
 msgid "Unknown Host"
 msgstr "Neznámý počítač"
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:352
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s není platné jméno počítače."
 
-#: ../loader2/urls.c:416
+#: ../loader2/urls.c:415
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6408,21 +6501,21 @@ msgstr ""
 "Nepoužíváte-li anonymní FTP, zadejte jméno uživatele a heslo, které chcete "
 "použít."
 
-#: ../loader2/urls.c:421
+#: ../loader2/urls.c:420
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "Jestliže používáte HTTP proxy server, zadejte jeho jméno."
 
-#: ../loader2/urls.c:443
+#: ../loader2/urls.c:442
 msgid "Account name:"
 msgstr "Jméno účtu:"
 
-#: ../loader2/urls.c:466
+#: ../loader2/urls.c:465
 msgid "Further FTP Setup"
 msgstr "Další nastavení FTP"
 
-#: ../loader2/urls.c:469
+#: ../loader2/urls.c:468
 msgid "Further HTTP Setup"
 msgstr "Další nastavení HTTP"
 
@@ -6467,7 +6560,9 @@ msgstr "Přidat úložiště"
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr "Zadejte prosím umístění, odkud má být nainstalován váš dodatečný software. Vezměte v úvahu, že to musí být platné úložiště pro %s."
+msgstr ""
+"Zadejte prosím umístění, odkud má být nainstalován váš dodatečný software. "
+"Vezměte v úvahu, že to musí být platné úložiště pro %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6488,6 +6583,16 @@ msgstr "_Další"
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
 msgstr "_Poznámky k vydání"
+
+#: tmp/autopart.glade.h:1
+msgid ""
+"Installation requires partitioning of your hard drive.  By default, a "
+"partitioning layout is chosen which is reasonable for most users.  You can "
+"either choose to use this or create your own."
+msgstr ""
+"Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
+"vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů."
+"Můžete buď zvolit toto rozložení, nebo definovat vlastní."
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6533,7 +6638,9 @@ msgstr "Konfigurovat parametry iSCSI"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr "Chcete-li používat iSCSI disky, musíte zadat adresu vašeho iSCSI cíle a jméno iSCSI initiatoru, které jste konfigurovali pro váš počítač."
+msgstr ""
+"Chcete-li používat iSCSI disky, musíte zadat adresu vašeho iSCSI cíle a "
+"jméno iSCSI initiatoru, které jste konfigurovali pro váš počítač."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6571,7 +6678,9 @@ msgstr "Povolit síťové rozhraní"
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr "Toto vyžaduje, abyste měl aktivní síťové připojení v průběhu instalačního procesu. Nakonfigurujte prosím síťové rozhraní."
+msgstr ""
+"Toto vyžaduje, abyste měl aktivní síťové připojení v průběhu instalačního "
+"procesu. Nakonfigurujte prosím síťové rozhraní."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6583,27 +6692,24 @@ msgstr "Upravit po_zději"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
-"Further customization of the software selection can be completed now or "
-"after install via the software management application."
+"Please select any additional repositories that you want to use for software "
+"installation."
+msgstr ""
+
+#: tmp/tasksel.glade.h:5
+#, fuzzy
+msgid ""
+"You can further customize the software selection now, or after install via "
+"the software management application."
 msgstr ""
 "Další úpravy výběru softwaru mohou být provedeny teď nebo po instalaci "
 "pomocí aplikace pro správu softwaru."
 
-#: tmp/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of  software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"include  support for?"
-msgstr ""
-"Standardní instalace %s obsahuje sadu programů pro běžné používání "
-"internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
-
-#: tmp/tasksel.glade.h:5
+#: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
 msgstr "_Přidat rozšiřující softwarová úložiště"
 
-#: tmp/tasksel.glade.h:6
+#: tmp/tasksel.glade.h:7
 msgid "_Customize now"
 msgstr "_Upravit teď"
 
@@ -6652,16 +6758,23 @@ msgid "Atlantic islands"
 msgstr "Atlantské ostrovy"
 
 #. generated from zone.tab
-msgid "Atlantic Time - E Labrador"
-msgstr "Atlantický čas - E Labrador"
+msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Labrador - most locations"
+msgstr "Východní čas - Ontario - většina míst"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantický čas - New Brunswick"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr "Atlantický čas - Nové Skotsko (většina míst), NB, W Labrador, E Quebec & PEI"
+#, fuzzy
+msgid "Atlantic Time - Nova Scotia (most places), PEI"
+msgstr ""
+"Atlantický čas - Nové Skotsko (většina míst), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6700,7 +6813,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+#, fuzzy
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 msgstr "Centrální Čína - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
@@ -6749,7 +6863,8 @@ msgstr "Centrální čas - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Centrální čas - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr ""
+"Centrální čas - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6816,7 +6931,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Southampton Island"
+#, fuzzy
+msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
 msgstr "Východní standardní čas - Southampton Island"
 
 #. generated from zone.tab
@@ -6860,8 +6976,10 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Východní čas - Ontario - většina míst"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+"Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -6900,8 +7018,8 @@ msgid "Hawaii"
 msgstr "Havaj"
 
 #. generated from zone.tab
-msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgid "Heilongjiang (except Mohe), Jilin"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -6980,16 +7098,22 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
+#, fuzzy
+msgid "Moscow+00 - Caspian Sea"
+msgstr "Moskva+01 - Kaspické moře"
+
+#. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Moskva+00 - západní Rusko"
 
 #. generated from zone.tab
-msgid "Moscow+01 - Caspian Sea"
-msgstr "Moskva+01 - Kaspické moře"
-
-#. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskva-01 - Kaliningrad"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Moscow+01 - Samara, Udmurtia"
+msgstr "Moskva+09 - Kamčatka"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7044,12 +7168,18 @@ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr "většina míst (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Horský standardní čas - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Horský standardní čas - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"Horský standardní čas - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7092,8 +7222,9 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "SV Brazílie (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland Island"
+#, fuzzy
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "Atlantický čas - E Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7192,10 +7323,6 @@ msgid "South Australia"
 msgstr "Jižní Austrálie"
 
 #. generated from zone.tab
-msgid "southwest Xinjiang Uyghur"
-msgstr "Jihozápadní Xinjiang Uyghur"
-
-#. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 msgstr "J a JV Brazílie (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
@@ -7218,10 +7345,6 @@ msgstr "Tasmánie - většina míst"
 #. generated from zone.tab
 msgid "Thule / Pituffik"
 msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & většina Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
@@ -7270,6 +7393,11 @@ msgstr "Západní Austrálie"
 #. generated from zone.tab
 msgid "West Kazakhstan"
 msgstr "Západní Kazachstán"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "west Tibet & Xinjiang"
+msgstr "Tibet & většina Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7491,3 +7619,59 @@ msgstr "Velština"
 msgid "Zulu"
 msgstr "Zulu"
 
+#~ msgid "DDC Probed Monitor"
+#~ msgstr "Monitor detekovaný pomocí DDC"
+
+#~ msgid "Tertiary DNS"
+#~ msgstr "Terciální DNS"
+
+#~ msgid "_Tertiary DNS"
+#~ msgstr "_Terciální DNS"
+
+#~ msgid "Configure using _DHCP"
+#~ msgstr "_Nastavit pomocí DHCP"
+
+#~ msgid "_IP Address"
+#~ msgstr "_IP adresa"
+
+#~ msgid "Net_mask"
+#~ msgstr "_Maska sítě"
+
+#~ msgid "Hardware address:"
+#~ msgstr "Hardwarová adresa:"
+
+#~ msgid "Registration Key Required"
+#~ msgstr "Je požadován registrační klíč"
+
+#~ msgid ""
+#~ "A registration key is required to install %s.  Please contact your "
+#~ "support representative if you did not receive a key with your product."
+#~ msgstr ""
+#~ "Pro instalaci %s je požadován registrační klíč. Spojte se prosím se "
+#~ "zástupcem podpory, pokud jste neobdržel klíč zároveň s produktem. "
+
+#~ msgid "Invalid CIDR Mask"
+#~ msgstr "Neplatná maska CIDR"
+
+#~ msgid "Failed to log into %s: %s"
+#~ msgstr "Nemohu zaznamenávat do %s: %s"
+
+#~ msgid "Failed to retrieve %s: %s"
+#~ msgstr "Nemohu načíst %s: %s"
+
+#~ msgid ""
+#~ "The default installation of %s includes a set of  software applicable for "
+#~ "general internet usage.  What additional tasks would you like your system "
+#~ "to include  support for?"
+#~ msgstr ""
+#~ "Standardní instalace %s obsahuje sadu programů pro běžné používání "
+#~ "internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
+
+#~ msgid "Heilongjiang"
+#~ msgstr "Heilongjiang"
+
+#~ msgid "Newfoundland Island"
+#~ msgstr "Newfoundland Island"
+
+#~ msgid "southwest Xinjiang Uyghur"
+#~ msgstr "Jihozápadní Xinjiang Uyghur"

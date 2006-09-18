@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-11 00:28+0200\n"
+"POT-Creation-Date: 2006-09-18 15:40-0400\n"
 "PO-Revision-Date: 2006-09-11 00:37+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
@@ -24,9 +24,9 @@ msgstr "Feil under henting av annen del av kickstart-konfigurasjon: %s!"
 msgid "Press <enter> for a shell"
 msgstr "Trykk <linjeskift> for et skall"
 
-#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
-#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:141
+#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
+#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:182 ../textw/network_text.py:399
@@ -35,32 +35,33 @@ msgstr "Trykk <linjeskift> for et skall"
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
 #: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
-#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
-#: ../loader2/kickstart.c:124 ../loader2/kickstart.c:134
-#: ../loader2/kickstart.c:177 ../loader2/kickstart.c:276
-#: ../loader2/kickstart.c:416 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:780 ../loader2/loader.c:943 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:155 ../loader2/method.c:373 ../loader2/method.c:458
-#: ../loader2/modules.c:965 ../loader2/net.c:243 ../loader2/net.c:283
-#: ../loader2/net.c:718 ../loader2/net.c:996 ../loader2/net.c:1493
-#: ../loader2/net.c:1516 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
-#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493 ../loader2/urls.c:275 ../loader2/urls.c:340
-#: ../loader2/urls.c:345 ../loader2/urls.c:351 ../loader2/urls.c:455
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
+#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
+#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
+#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
+#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
+#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
+#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:351 ../loader2/urls.c:455
 msgid "OK"
 msgstr "OK"
 
@@ -355,9 +356,9 @@ msgstr "Systemet vil nå startes på nytt."
 
 #: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
-#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1133
+#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/task_gui.py:87 ../iw/upgrade_swap_gui.py:188
+#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
 #: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
 #: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
@@ -458,7 +459,7 @@ msgstr "Ferdig"
 msgid "In progress...   "
 msgstr "Pågår...   "
 
-#: ../cmdline.py:69 ../gui.py:838 ../text.py:354
+#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -511,7 +512,7 @@ msgstr ""
 "nytt."
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
-#: ../gui.py:843 ../gui.py:993 ../harddrive.py:80 ../image.py:91
+#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
 #: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
@@ -552,18 +553,19 @@ msgstr "Leter etter dårlige blokker på /dev/%s..."
 #: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
 #: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
 #: ../image.py:174 ../image.py:306 ../partedUtils.py:790
-#: ../partIntfHelpers.py:407 ../yuminstall.py:591 ../yuminstall.py:705
-#: ../yuminstall.py:979 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
+#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:77 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
-#: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:337
-#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kickstart.c:276 ../loader2/lang.c:106
-#: ../loader2/loader.c:362 ../loader2/loader.c:780 ../loader2/mediacheck.c:329
+#: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -619,7 +621,7 @@ msgstr ""
 "\n"
 "Trykk <Linjeskift> for å starte systemet på nytt."
 
-#: ../fsset.py:1455 ../rescue.py:289 ../rescue.py:291
+#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
@@ -630,7 +632,7 @@ msgid "Reboot"
 msgstr "Start på nytt"
 
 #: ../fsset.py:1476
-#, python-format, fuzzy
+#, fuzzy, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -812,8 +814,8 @@ msgid ""
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:926
-#: ../kickstart.py:955 ../yuminstall.py:701 ../iw/partition_gui.py:1011
+#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
+#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Fortsett"
 
@@ -920,16 +922,16 @@ msgstr ""
 msgid "Fix"
 msgstr "Fiks"
 
-#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:403
 msgid "No"
 msgstr "Nei"
@@ -945,20 +947,20 @@ msgstr "Prøv igjen"
 msgid "Ignore"
 msgstr "Overse"
 
-#: ../gui.py:236 ../gui.py:708 ../partIntfHelpers.py:237
+#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
 #: ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:840 ../text.py:356
+#: ../gui.py:843 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "Feil under lesing av kickstart-konfigurasjon"
 
-#: ../gui.py:848 ../text.py:366
+#: ../gui.py:851 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -966,15 +968,15 @@ msgstr ""
 "Vennligst sett inn en diskett. Alt innhold på disketten vil slettes, så vær "
 "forsiktig når du velger diskett."
 
-#: ../gui.py:895
+#: ../gui.py:898
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:979
+#: ../gui.py:982
 msgid "Error!"
 msgstr "Feil!"
 
-#: ../gui.py:980
+#: ../gui.py:983
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -986,36 +988,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:985 ../gui.py:990 ../packages.py:290 ../packages.py:295
+#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
 msgid "_Exit"
 msgstr "A_vslutt"
 
-#: ../gui.py:986 ../yuminstall.py:594
+#: ../gui.py:989 ../yuminstall.py:609
 msgid "_Retry"
 msgstr "P_røv igjen"
 
-#: ../gui.py:989 ../packages.py:294
+#: ../gui.py:992 ../packages.py:294
 msgid "The installer will now exit..."
 msgstr "Installasjonsprogrammet avsluttes nå..."
 
-#: ../gui.py:992 ../packages.py:297
+#: ../gui.py:995 ../packages.py:297
 msgid "Your system will now be rebooted..."
 msgstr "Maskinen vil nå startes på nytt..."
 
-#: ../gui.py:995 ../packages.py:299
+#: ../gui.py:998 ../packages.py:299
 msgid "Rebooting System"
 msgstr "Starter maskinen på nytt"
 
-#: ../gui.py:1059
+#: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
 msgstr "%s installering"
 
-#: ../gui.py:1066
+#: ../gui.py:1069
 msgid "Unable to load title bar"
 msgstr "Kunne ikke laste tittellinjen"
 
-#: ../gui.py:1115
+#: ../gui.py:1118
 msgid "Install Window"
 msgstr "Installasjonsvindu"
 
@@ -1075,7 +1077,7 @@ msgstr ""
 "Vennligst ha disse klar før du fortsetter med installasjonen. Hvis du må "
 "avbryte installasjonen og starte på nytt trykker du på «Start på nytt»."
 
-#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:986
+#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
@@ -1179,23 +1181,23 @@ msgstr ""
 "\n"
 "Trykk OK for å starte maskinen på nytt."
 
-#: ../kickstart.py:759 ../kickstart.py:777
+#: ../kickstart.py:764 ../kickstart.py:782
 msgid "Running..."
 msgstr "Kjører..."
 
-#: ../kickstart.py:760
+#: ../kickstart.py:765
 msgid "Running pre-install scripts"
 msgstr "Kjører skript for å klargjøre installasjon"
 
-#: ../kickstart.py:778
+#: ../kickstart.py:783
 msgid "Running post-install scripts"
 msgstr "Kjører skript for ferdigstilling av installasjon"
 
-#: ../kickstart.py:918
+#: ../kickstart.py:926
 msgid "Missing Package"
 msgstr "Manglende pakke"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:927
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1204,16 +1206,16 @@ msgstr ""
 "Du har oppgitt en at pakken '%s' skal installeres. Denne pakken finnes ikke. "
 "Ønsker du å fortsette installasjonen?"
 
-#: ../kickstart.py:925 ../kickstart.py:954 ../yuminstall.py:701
-#: ../yuminstall.py:703
+#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:961
 msgid "Missing Group"
 msgstr "Manglende gruppe"
 
-#: ../kickstart.py:947
+#: ../kickstart.py:962
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1947,31 +1949,31 @@ msgstr "Starter grensesnitt"
 msgid "Attempting to start %s"
 msgstr "Forsøker å starte %s"
 
-#: ../rescue.py:174
+#: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Når ferdig, avslutt skallet for å starte systemet på nytt."
 
-#: ../rescue.py:199
+#: ../rescue.py:201
 msgid "Setup Networking"
 msgstr "Oppsett av nettverk"
 
-#: ../rescue.py:200
+#: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
 
-#: ../rescue.py:241 ../text.py:533
+#: ../rescue.py:243 ../text.py:533
 msgid "Cancelled"
 msgstr "Avbrutt"
 
-#: ../rescue.py:242 ../text.py:534
+#: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Kan ikke gå tilbake til forrige steg herfra. Du må forsøke igjen."
 
-#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
 msgstr "Redning"
 
-#: ../rescue.py:279
+#: ../rescue.py:281
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1993,28 +1995,28 @@ msgstr ""
 "dette steget bli utelatt og du vil gå direkte til et kommandoskall.\n"
 "\n"
 
-#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
-#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:476
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Fortsett"
 
-#: ../rescue.py:289 ../rescue.py:294
+#: ../rescue.py:291 ../rescue.py:296
 msgid "Read-Only"
 msgstr "Kun lesbart"
 
-#: ../rescue.py:320
+#: ../rescue.py:322
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:321
+#: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
-#: ../rescue.py:323 ../rescue.py:327
+#: ../rescue.py:325 ../rescue.py:329
 msgid "Exit"
 msgstr "Avslutt"
 
-#: ../rescue.py:346
+#: ../rescue.py:348
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2025,7 +2027,7 @@ msgstr ""
 "kjøre filsystemsjekk og montere dine partisjoner. Systemet vil starte på "
 "nytt når du avslutter skallet."
 
-#: ../rescue.py:354
+#: ../rescue.py:356
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2046,7 +2048,7 @@ msgstr ""
 "\n"
 "Systemet vil starte på nytt automatisk når du avslutter skallet."
 
-#: ../rescue.py:437
+#: ../rescue.py:439
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2061,11 +2063,11 @@ msgstr ""
 "Trykk <Linjeskift> for å få et skall. Systemet vil starte på nytt automatisk "
 "når du avslutter skallet."
 
-#: ../rescue.py:443
+#: ../rescue.py:445
 msgid "Rescue Mode"
 msgstr "Redningsmodus"
 
-#: ../rescue.py:444
+#: ../rescue.py:446
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2073,7 +2075,7 @@ msgstr ""
 "Du har ingen Linux-partisjoner. Trykk <Enter> for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
-#: ../rescue.py:457
+#: ../rescue.py:459
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Systemet er montert under katalogen %s."
@@ -2450,51 +2452,51 @@ msgstr "Arbeider"
 msgid "Preparing transaction from installation source..."
 msgstr "Forbereder transaksjon fra installasjonskilden..."
 
-#: ../yuminstall.py:455 ../yuminstall.py:456
+#: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
 msgstr "filen er i konflikt"
 
-#: ../yuminstall.py:457
+#: ../yuminstall.py:472
 msgid "older package(s)"
 msgstr "eldre pakker"
 
-#: ../yuminstall.py:458
+#: ../yuminstall.py:473
 msgid "insufficient disk space"
 msgstr "ikke nok diskplass"
 
-#: ../yuminstall.py:459
+#: ../yuminstall.py:474
 msgid "insufficient disk inodes"
 msgstr "ikke nok inoder på disken"
 
-#: ../yuminstall.py:460
+#: ../yuminstall.py:475
 msgid "package conflicts"
 msgstr " konflikt mellom pakker"
 
-#: ../yuminstall.py:461
+#: ../yuminstall.py:476
 msgid "package already installed"
 msgstr "pakken er allerede installert"
 
-#: ../yuminstall.py:462
+#: ../yuminstall.py:477
 msgid "required package"
 msgstr "nødvendig pakke"
 
-#: ../yuminstall.py:463
+#: ../yuminstall.py:478
 msgid "package for incorrect arch"
 msgstr "pakke for ugyldig arkitektur"
 
-#: ../yuminstall.py:464
+#: ../yuminstall.py:479
 msgid "package for incorrect os"
 msgstr "pakke for feil OS"
 
-#: ../yuminstall.py:478
+#: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
 msgstr "Du trenger mer plass på følgende filsystemer:\n"
 
-#: ../yuminstall.py:494
+#: ../yuminstall.py:509
 msgid "Error running transaction"
 msgstr "Feil under kjøring av transaksjon"
 
-#: ../yuminstall.py:495
+#: ../yuminstall.py:510
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2503,20 +2505,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:499 ../yuminstall.py:594 ../yuminstall.py:986
+#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
 msgstr "St_art på nytt"
 
-#: ../yuminstall.py:682
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "Henter informasjon om installasjonen..."
 
-#: ../yuminstall.py:684
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Henter installasjonsinformasjon for %s..."
 
-#: ../yuminstall.py:706
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2527,18 +2529,18 @@ msgstr ""
 "repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
 "korrekt måte.  %s"
 
-#: ../yuminstall.py:745
+#: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr "Ikke kategorisert"
 
-#: ../yuminstall.py:980
+#: ../yuminstall.py:995
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1149
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2548,39 +2550,39 @@ msgstr ""
 "oppgradere til denne versjonen av %s. Er du sikker på at du ønsker å "
 "fortsette oppgraderingen?"
 
-#: ../yuminstall.py:1166
+#: ../yuminstall.py:1181
 msgid "Install Starting"
 msgstr "Starter installasjon"
 
-#: ../yuminstall.py:1167
+#: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Starter installasjon. Dette kan ta flere minutter..."
 
-#: ../yuminstall.py:1183
+#: ../yuminstall.py:1198
 msgid "Post Upgrade"
 msgstr "Etter oppgradering"
 
-#: ../yuminstall.py:1184
+#: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
 msgstr "Utfører konfigurasjon etter oppgradering..."
 
-#: ../yuminstall.py:1186
+#: ../yuminstall.py:1201
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../yuminstall.py:1187
+#: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
 msgstr "Utfører konfigurasjon etter installering..."
 
-#: ../yuminstall.py:1337
+#: ../yuminstall.py:1357
 msgid "Installation Progress"
 msgstr "Fremdrift for installasjonen"
 
-#: ../yuminstall.py:1372
+#: ../yuminstall.py:1392
 msgid "Dependency Check"
 msgstr "Sjekk av avhengigheter"
 
-#: ../yuminstall.py:1373
+#: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
@@ -2683,32 +2685,32 @@ msgstr "Passord for root: "
 msgid "_Confirm: "
 msgstr "_Bekreft: "
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
 msgstr "Ugyldig navn på initiator"
 
-#: ../iw/autopart_type.py:136
+#: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
 msgstr "Du må oppgi et gyldig navn på initiatoren."
 
-#: ../iw/autopart_type.py:158
+#: ../iw/autopart_type.py:157
 msgid "Error with Data"
 msgstr "Feil med data"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1525
+#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Fjern alle partisjoner valgte stasjoner og opprett forvalgt utforming."
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming."
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
 msgstr "Bruk ledig plass på valgte stasjoner og opprett forvalgt utforming."
 
-#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
 msgstr "Opprett egendefinert utforming."
 
@@ -3364,9 +3366,47 @@ msgstr "_Emuler 3 knapper"
 msgid "Select the appropriate mouse for the system."
 msgstr "Velg riktig mus for ditt system."
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:766
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
+#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
+#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
+msgid "Error With Data"
+msgstr "Feil med data"
+
+#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%s\":\n"
+"%s"
+msgstr ""
+"En feil oppsto ved konvertering av verdien oppgitt for «%s»:\n"
+"%s"
+
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+msgid "Dynamic IP"
+msgstr "Dynamisk IP"
+
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#, c-format, python-format
+msgid "Sending request for IP information for %s..."
+msgstr "Sender forespørsel om IP-informasjon for %s..."
+
+#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+msgid "IP Address"
+msgstr "IP-adresse"
+
+#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+msgid "Netmask"
+msgstr "Nettmaske"
+
+#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
+#: ../iw/network_gui.py:766
 msgid "Gateway"
 msgstr "Gateway"
+
+#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+msgid "Nameserver"
+msgstr "Navnetjener"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:768
 msgid "Primary DNS"
@@ -3391,13 +3431,6 @@ msgstr "_Sekundær DNS"
 #: ../iw/network_gui.py:37
 msgid "Network Configuration"
 msgstr "Nettverkskonfigurasjon"
-
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:164
-#: ../iw/network_gui.py:169 ../iw/network_gui.py:179 ../iw/network_gui.py:183
-#: ../iw/network_gui.py:188 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
-#: ../textw/zfcp_text.py:62
-msgid "Error With Data"
-msgstr "Feil med data"
 
 #: ../iw/network_gui.py:157
 msgid ""
@@ -3425,15 +3458,6 @@ msgid ""
 msgstr ""
 "Vertsnavnet «%s» er ikke gyldig av følgende årsak:\n"
 "\n"
-"%s"
-
-#: ../iw/network_gui.py:170
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%s\":\n"
-"%s"
-msgstr ""
-"En feil oppsto ved konvertering av verdien oppgitt for «%s»:\n"
 "%s"
 
 #: ../iw/network_gui.py:180
@@ -4246,7 +4270,7 @@ msgstr "Versjonsmerknader"
 msgid "Unable to load file!"
 msgstr "Kan ikke lese filen!"
 
-#: ../iw/task_gui.py:78
+#: ../iw/task_gui.py:79
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4259,7 +4283,7 @@ msgstr ""
 "repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
 "korrekt måte.  %s"
 
-#: ../iw/task_gui.py:88
+#: ../iw/task_gui.py:89
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
@@ -4730,11 +4754,11 @@ msgstr ""
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
 #: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
+#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:943 ../loader2/loader.c:966
+#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
 #: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
 #: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:275 ../loader2/urls.c:455
@@ -4800,14 +4824,6 @@ msgstr "Ugyldig IP-streng"
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
 msgstr "Oppgitt IP «%s» er ikke en gyldig IP-adresse."
-
-#: ../textw/network_text.py:72
-msgid "IP Address"
-msgstr "IP-adresse"
-
-#: ../textw/network_text.py:73
-msgid "Netmask"
-msgstr "Nettmaske"
 
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
@@ -5610,19 +5626,19 @@ msgstr "CD ikke funnet"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan ikke finne kickstart-fil på CD-ROM."
 
-#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
+#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Laster"
 
-#: ../loader2/driverdisk.c:127
+#: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
 msgstr "Leser driverdisk..."
 
-#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
+#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
 msgstr "Kilde for driverdisk"
 
-#: ../loader2/driverdisk.c:268
+#: ../loader2/driverdisk.c:269
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5630,7 +5646,7 @@ msgstr ""
 "Du har flere enheter som kan være kilde for en driverdisk. Hvilken vil du "
 "bruke?"
 
-#: ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5638,44 +5654,49 @@ msgstr ""
 "Det er flere partisjoner på denne stasjonen som kan inneholde "
 "driverdisketten. Hvilken vil du bruke?"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
 msgstr "Kunne ikke montere partisjonen."
 
-#: ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
 msgstr "Velg driverdisk"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
 msgstr "Velg filen som er din driverdiskett."
 
-#: ../loader2/driverdisk.c:376
+#: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
 msgstr "Kunne ikke laste driverdiskett fra fil."
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Sett inn driverdisken i /dev/%s og trykk «OK» for å fortsette."
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "Sett inn driverdisk"
 
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere driverdisketten."
 
-#: ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:415
+#, c-format
+msgid "Driver disk is invalid for this release of %s."
+msgstr ""
+
+#: ../loader2/driverdisk.c:479
 msgid "Manually choose"
 msgstr "Velg manuelt"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:480
 msgid "Load another disk"
 msgstr "Last en annen disk"
 
-#: ../loader2/driverdisk.c:477
+#: ../loader2/driverdisk.c:481
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5684,38 +5705,38 @@ msgstr ""
 "Ingen enheter av passende type ble funnet på denne driverdisketten. Vil du "
 "velge driveren manuelt, fortsette likevel, eller laste en ny driverdiskett?"
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:520
 msgid "Driver disk"
 msgstr "Driverdisk"
 
-#: ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
 msgstr "Har du en driverdisk?"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
 msgstr "Flere driverdisker?"
 
-#: ../loader2/driverdisk.c:528
+#: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ønsker du å laste flere driverdisker?"
 
-#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:965 ../loader2/net.c:1493
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
 #: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493
+#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
+#: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
 msgstr "Kickstart-feil"
 
-#: ../loader2/driverdisk.c:578
+#: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Ukjent kickstart-kilde for driverdisk: %s"
 
-#: ../loader2/driverdisk.c:615
+#: ../loader2/driverdisk.c:619
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5942,40 +5963,40 @@ msgstr ""
 "Ingen harddisker ble funnet. Du må sannsynligvis velge en enhetsdriver "
 "manuelt for å kunne fortsette installasjonen. Vil du velge drivere nå?"
 
-#: ../loader2/loader.c:777
+#: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Du har ikke nok RAM til å installere %s på denne maskinen."
 
-#: ../loader2/loader.c:935
+#: ../loader2/loader.c:938
 msgid "Rescue Method"
 msgstr "Redningsmetode"
 
-#: ../loader2/loader.c:936
+#: ../loader2/loader.c:939
 msgid "Installation Method"
 msgstr "Installasjonsmetode"
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type media inneholder redningsbildet?"
 
-#: ../loader2/loader.c:940
+#: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilken type media inneholder pakkene som skal installeres?"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:968
 msgid "No driver found"
 msgstr "Ingen driver funnet"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:968
 msgid "Select driver"
 msgstr "Velg driver"
 
-#: ../loader2/loader.c:966
+#: ../loader2/loader.c:969
 msgid "Use a driver disk"
 msgstr "Bruk en driverdisk"
 
-#: ../loader2/loader.c:967
+#: ../loader2/loader.c:970
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5983,40 +6004,40 @@ msgstr ""
 "Kan ikke finne noen enhter av typen som kreves for denne installasjonstypen. "
 "Vil du velge din driver manuelt eller bruke en driverdiskett?"
 
-#: ../loader2/loader.c:1128
+#: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
 msgstr "Følgende enheter ble funnet på ditt system."
 
-#: ../loader2/loader.c:1130
+#: ../loader2/loader.c:1133
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Ingen enhetsdrivere er lastet for ditt system. Ønsker du å gjøre dette nå?"
 
-#: ../loader2/loader.c:1134
+#: ../loader2/loader.c:1137
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:1135
+#: ../loader2/loader.c:1138
 msgid "Done"
 msgstr "Ferdig"
 
-#: ../loader2/loader.c:1136
+#: ../loader2/loader.c:1139
 msgid "Add Device"
 msgstr "Legg til enhet"
 
-#: ../loader2/loader.c:1344
+#: ../loader2/loader.c:1347
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "laster er allerede kjørt. Starter skall.\n"
 
-#: ../loader2/loader.c:1720
+#: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Kjører anaconda, feilrettingsmodus for %s - vennligst vent...\n"
 
-#: ../loader2/loader.c:1722
+#: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Kjører anaconda, installeringsprogrammet for %s...\n"
@@ -6116,7 +6137,7 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Test av sjekksum"
 
-#: ../loader2/modules.c:966
+#: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Ugyldig argument til enhetskommando for kickstart %s: %s"
@@ -6161,10 +6182,6 @@ msgstr "Innstillinger for trådløst nettverk"
 msgid "Nameserver IP"
 msgstr "Navnetjeners IP-adresse"
 
-#: ../loader2/net.c:277
-msgid "Nameserver"
-msgstr "Navnetjener"
-
 #: ../loader2/net.c:278
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
@@ -6184,15 +6201,6 @@ msgstr "Ugyldig IP-informasjon"
 #: ../loader2/net.c:302
 msgid "You entered an invalid IP address."
 msgstr "Du skrev inn en ugyldig IP-adresse."
-
-#: ../loader2/net.c:376 ../loader2/net.c:786
-msgid "Dynamic IP"
-msgstr "Dynamisk IP"
-
-#: ../loader2/net.c:377 ../loader2/net.c:787
-#, c-format
-msgid "Sending request for IP information for %s..."
-msgstr "Sender forespørsel om IP-informasjon for %s..."
 
 #: ../loader2/net.c:541 ../loader2/net.c:647
 msgid "Network Error"
@@ -6358,24 +6366,24 @@ msgstr "Kan ikke hente %s://%s/%s/%s."
 msgid "Unable to retrieve the install image."
 msgstr "Kunne ikke hente installasjonsbildet."
 
-#: ../loader2/urlinstall.c:289
+#: ../loader2/urlinstall.c:285
 msgid "Media Detected"
 msgstr "Medie funnet"
 
-#: ../loader2/urlinstall.c:290
+#: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
 msgstr "Lokalt installasjonsmedie funnet..."
 
-#: ../loader2/urlinstall.c:474
+#: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Ugyldig argument til kommando for URL-kickstartmetode %s: %s"
 
-#: ../loader2/urlinstall.c:483
+#: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Må oppgi et --url argument til kickstartmetoden for URL."
 
-#: ../loader2/urlinstall.c:494
+#: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Ukjent URL-metode %s"
@@ -6863,7 +6871,8 @@ msgstr "Påskeøyene & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "\"Eastern Standard Time\" - Atikokan, Ontario og Southampton I, Nunavut"
+msgstr ""
+"\"Eastern Standard Time\" - Atikokan, Ontario og Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
