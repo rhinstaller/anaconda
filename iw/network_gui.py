@@ -2,8 +2,9 @@
 # network_gui.py: Network configuration dialog
 #
 # Michael Fulbright <msf@redhat.com>
+# David Cantrell <dcantrell@redhat.com>
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -311,12 +312,8 @@ class NetworkWindow(InstallWindow):
         ipTable = gtk.Table(ipTableLength, 4)
 
 	DHCPcb.connect("toggled", DHCPtoggled)
-
 	IPV4cb.connect("toggled", IPV4toggled)
-	IPV4cb.set_active(True)
-
 	IPV6cb.connect("toggled", IPV6toggled)
-	IPV6cb.set_active(True)
 
 	entrys = {}
 
@@ -406,6 +403,13 @@ class NetworkWindow(InstallWindow):
 	# go ahead and set up DHCP on the first device
 	DHCPcb.set_active(bootproto == 'DHCP')
 
+	# set the IPv4 and IPv6 check boxes
+	if bootproto == 'DHCP' or self.devices[dev].get("ipaddr") is not None:
+	    IPV4cb.set_active(True)
+
+	if bootproto == 'DHCP' or self.devices[dev].get("ipv6addr") is not None:
+	    IPV6cb.set_active(True)
+
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
 	if descr is not None and len(descr) > 0:
@@ -449,18 +453,25 @@ class NetworkWindow(InstallWindow):
 		for t in entrys.keys():
 		    val = entrys[t].get_text()
 
-		    if t == "ipaddr" or t == "netmask" or \
-		       t == "remip" or t == "ipv6addr":
-
-		        if t == "netmask" and val.find('.') == -1:
-		            if int(val) > 32 or int(val) < 0:
-		                self.intf.messageWindow(_("Invalid Prefix"),
-		                                        _("IPv4 prefix must be "
-		                                          "between 0 and 32."))
+		    if ((t == 'ipaddr' or t == 'netmask') and \
+		        IPV4cb.get_active() is True) or \
+		       (t == 'ipv6addr' and IPV6cb.get_active() is True) or \
+		       (t == 'remip'):
+		        if t == 'netmask' and val.find('.') == -1:
+		            try:
+		                if int(val) > 32 or int(val) < 0:
+		                    self.intf.messageWindow(_("Invalid Prefix"),
+		                                            _("IPv4 prefix "
+		                                              "must be between "
+		                                              "0 and 32."))
+		                    valsgood = 0
+		                    break
+		                else:
+		                    val = isys.inet_convertPrefixToNetmask(val)
+		            except:
+		                self.handleIPMissing(t)
 		                valsgood = 0
 		                break
-		            else:
-		                val = isys.inet_convertPrefixToNetmask(val)
 
 		        try:
 		            network.sanityCheckIPString(val)
@@ -469,7 +480,7 @@ class NetworkWindow(InstallWindow):
 		            self.handleIPMissing(t)
 		            valsgood = 0
 		            break
-		    elif t == 'ipv6prefix':
+		    elif t == 'ipv6prefix' and IPV6cb.get_active() is True:
 		        if int(val) > 128 or int(val) < 0:
 		            self.intf.messageWindow(_("Invalid Prefix"),
 		                                    _("IPv6 prefix must be "
