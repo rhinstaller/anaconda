@@ -23,59 +23,25 @@ from rhpl.translate import _, N_
 
 import logging
 log = logging.getLogger("anaconda")
+import warnings
 
-class ZFCP:
-    def __init__(self):
-        self.description = _("zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN.")
-        self.options = [
-            (_("Device number"), 1,
-             _("You have not specified a device number or the number is invalid"),
-             self.sanitizeDeviceInput, self.checkValidDevice),
-            (_("SCSI Id"), 0,
-             _("You have not specified a SCSI ID or the ID is invalid."),
-             self.sanitizeHexInput, self.checkValidID),
-            (_("WWPN"), 1,
-             _("You have not specified a worldwide port name or the name is invalid."),
-             self.sanitizeHexInput, self.checkValid64BitHex),
-            (_("SCSI LUN"), 0,
-             _("You have not specified a SCSI LUN or the number is invalid."),
-             self.sanitizeHexInput, self.checkValidID),
-            (_("FCP LUN"), 1,
-             _("You have not specified a FCP LUN or the number is invalid."),
-             self.sanitizeFCPLInput, self.checkValid64BitHex)]
-        self.readConfig()
+class ZFCPDevice:
+    def __init__(self, devnum, wwpn, fcplun):
+        self.devnum = self.sanitizeDeviceInput(devnum)
+        self.wwpn = self.sanitizeWWPNInput(wwpn)
+        self.fcplun = self.sanitizeFCPLInput(fcplun)
 
-    def hextest(self, hex):
-        try:
-            int(hex, 16)
-            return 0
-        except:
-            return -1
+        if not self.checkValidDevice(self.devnum):
+            raise ValueError, _("You have not specified a device number or the number is invalid")
+        if not self.checkValidWWPN(self.wwpn):
+            raise ValueError, _("You have not specified a worldwide port name or the name is invalid.")
+        if not self.checkValidFCPLun(self.fcplun):
+            raise ValueError, _("You have not specified a FCP LUN or the number is invalid.")
 
-    def checkValidDevice(self, id):
-        if id is None or id == "":
-            return -1
-        if len(id) != 8:             # p.e. 0.0.0600
-            return -1
-        if id[0] not in string.digits or id[2] not in string.digits:
-            return -1
-        if id[1] != "." or id[3] != ".":
-            return -1
-        return self.hextest(id[4:])
+        self.onlineStatus = False
 
-    def checkValidID(self, hex):
-        if hex is None or hex == "":
-            return -1
-        if len(hex) > 6:
-            return -1
-        return self.hextest(hex)
-
-    def checkValid64BitHex(self, hex):
-        if hex is None or hex == "":
-            return -1
-        if len(hex) != 18:
-            return -1
-        return self.hextest(hex)
+    def __str__(self):
+        return "%s %s %s" %(self.devnum, self.wwpn, self.fcplun)
 
     def sanitizeDeviceInput(self, dev):
         if dev is None or dev == "":
@@ -89,7 +55,7 @@ class ZFCP:
         else:
             return bus + dev
 
-    def sanitizeHexInput(self, id):
+    def sanitizeWWPNInput(self, id):
         if id is None or id == "":
             return None
         id = id.lower()
@@ -109,159 +75,175 @@ class ZFCP:
         lun = lun + "0" * (16 - len(lun) + 2)
         return lun
 
-
-    def updateConfig(self, fcpdevices, diskset, intf):
-        self.writeFcpSysfs(fcpdevices)
-        self.writeModprobeConf(fcpdevices)
-        self.writeZFCPconf(fcpdevices)
-        # XXX this should use partitions.partitionObjectsInitialize()
-        isys.flushDriveDict()
-        diskset.refreshDevices(intf)
+    def _hextest(self, hex):
         try:
-            iutil.makeDriveDeviceNodes()
+            int(hex, 16)
+            return True
         except:
-            pass
+            return False
 
-    # remove the configuration from sysfs, required when the user
-    # steps backward from the partitioning screen and changes fcp configuration
-    def cleanFcpSysfs(self, fcpdevices):
-        if not len(fcpdevices):
+    def checkValidDevice(self, id):
+        if id is None or id == "":
+            return False
+        if len(id) != 8:             # p.e. 0.0.0600
+            return False
+        if id[0] not in string.digits or id[2] not in string.digits:
+            return False
+        if id[1] != "." or id[3] != ".":
+            return False
+        return self._hextest(id[4:])
+
+    def checkValid64BitHex(self, hex):
+        if hex is None or hex == "":
+            return False
+        if len(hex) != 18:
+            return False
+        return self._hextest(hex)
+    checkValidWWPN = checkValidFCPLun = checkValid64BitHex
+
+    def onlineDevice(self):
+        if self.onlineStatus:
+            return True
+        
+        online = "/sys/bus/ccw/drivers/zfcp/%s/online" %(self.devnum,)
+        portadd = "/sys/bus/ccw/drivers/zfcp/%s/port_add" %(self.devnum,)
+        unitadd = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_add" %(self.devnum,
+                                                          self.wwpn)
+        try:
+            if not os.path.exists(unitadd):
+                f = open(portadd, "w")
+                log.debug("echo %s > %s" % (self.wwpn, portadd))
+                f.write("%s\n" % (self.wwpn,))
+                f.close()
+
+            f = open(unitadd, "w")
+            log.debug("echo %s > %s" % (self.fcplun, unitadd))
+            f.write("%s\n" % (self.fcplun,))
+            f.close()
+
+            f = open(online, "w")
+            log.debug("echo %s > %s" % (1, online))
+            f.write("1")
+            f.close()
+        except Exception, e:
+            log.warn("error bringing zfcp device %s online: %s"
+                     %(self.devnum, e))
+            return False
+
+        self.onlineStatus = True
+        return True
+
+    def offlineDevice(self):
+        if not self.offlineStatus:
+            return True
+        
+        offline = "/sys/bus/ccw/drivers/zfcp/%s/offline" %(self.devnum,)
+        portremove = "/sys/bus/ccw/drivers/zfcp/%s/port_remove" %(self.devnum,)
+        unitremove = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_remove" %(self.devnum,
+                                                                     self.wwpn)
+
+        try:
+            f = open(offline, "w")
+            log.debug("echo %s > %s" % (0, offline))
+            f.write("0")
+            f.close()
+
+            f = open(unitremove, "w")
+            log.debug("echo %s > %s" %(self.fcplun, unitremove))
+            f.write("%s\n" %(self.fcplun,))
+            f.close()
+
+            f = open(portremove, "w")
+            log.debug("echo %s > %s" %(self.wwpn, portremove))
+            f.write("%s\n" %(self.wwpn,))
+            f.close()
+        except Exception, e:
+            log.warn("error bringing zfcp device %s offline: %s"
+                     %(self.devnum, e))
+            return False
+
+        self.onlineStatus = False
+        return True
+
+class ZFCP:
+    def __init__(self):
+        self.fcpdevs = []
+
+        self.readConfig()
+
+    def readConfig(self):
+        try:
+            f = open("/tmp/fcpconfig", "r")
+        except:
+            log.info("no /tmp/fcpconfig; not configuring zfcp")
             return
-        on = "/sys/bus/ccw/drivers/zfcp/%s/online"
-        pr = "/sys/bus/ccw/drivers/zfcp/%s/port_remove"
-        ur = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_remove"
-        for i in range(len(fcpdevices)):
-            fno = on % (fcpdevices[i][0],)
-            fnp = pr % (fcpdevices[i][0],)
-            fnu = ur % (fcpdevices[i][0],fcpdevices[i][2],)
-            try:
-                fo = open(fno, "w")
-                log.info("echo %s > %s" % (0, fno))
-                fo.write("0")
-                fo.close()
-                try:
-                    fu = open(fnu, "w")
-                    log.info("echo %s > %s" % (fcpdevices[i][4], fnu))
-                    fu.write("%s\n" % (fcpdevices[i][4],))
-                    fu.close()
-                    try:
-                        fp = open(fnp, "w")
-                        log.info("echo %s > %s" % (fcpdevices[i][2], fnp))
-                        fp.write("%s\n" % (fcpdevices[i][2],))
-                        fp.close()
-                    except:
-                        continue
-                except:
-                    continue
-            except:
+
+        lines = f.readlines()
+        f.close()
+        for line in lines:
+            # each line is a string separated list of values to describe a dev
+            # there are two valid formats for the line:
+            #   devnum scsiid wwpn scsilun fcplun    (scsiid + scsilun ignored)
+            #   devnum wwpn fcplun
+            line = string.strip(line).lower()
+            if line.startswith("#"):
+                continue
+            fcpconf = string.split(line)
+            if len(fcpconf) == 3:
+                devnum = fcpconf[0]
+                wwpn = fcpconf[1]
+                fcplun = fcpconf[2]
+            elif len(fcpconf) == 5:
+                warnings.warn("SCSI ID and SCSI LUN values for ZFCP devices are ignored and deprecated.", DeprecationWarning)
+                devnum = fcpconf[0]
+                wwpn = fcpconf[2]
+                fcplun = fcpconf[4]
+            else:
+                log.warn("Invalid line found in /tmp/fcpconfig!")
                 continue
 
-    # initialize devices via sysfs
-    def writeFcpSysfs(self,fcpdevices):
-        if not len(fcpdevices):
-            return
-        on = "/sys/bus/ccw/drivers/zfcp/%s/online"
-        pa = "/sys/bus/ccw/drivers/zfcp/%s/port_add"
-        ua = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_add"
-        for i in range(len(fcpdevices)):
-            fno = on % (fcpdevices[i][0],)
-            fnp = pa % (fcpdevices[i][0],)
-            fnu = ua % (fcpdevices[i][0],fcpdevices[i][2],)
             try:
-               fp = open(fnp, "w")
-               log.info("echo %s > %s" % (fcpdevices[i][2], fnp))
-               fp.write("%s\n" % (fcpdevices[i][2],))
-               fp.close()
-               try:
-                  fu = open(fnu, "w")
-                  log.info("echo %s > %s" % (fcpdevices[i][4], fnu))
-                  fu.write("%s\n" % (fcpdevices[i][4],))
-                  fu.close()
-                  try:
-                     fo = open(fno, "w")
-                     log.info("echo %s > %s" % (1, fno))
-                     fo.write("1")
-                     fo.close()
-                  except:
-                     log.warning("opening %s failed" %(fno,))
-                     continue
-               except:
-                  log.warning("opening %s failed" %(fnu,))
-                  continue
-            except:
-               log.warning("opening %s failed" %(fnp,))
-               continue
+                self.addFCP(devnum, wwpn, fcplun)
+            except ValueError, e:
+                log.warn("Invalid FCP device configuration: %s" %(e,))
+                continue
 
-    def writeModprobeConf(self, fcpdevices):
-        lines = []
-        try:
-            f = open("/tmp/modprobe.conf", "r")
-            lines = f.readlines()
+    def addFCP(self, devnum, wwpn, fcplun):
+        d = ZFCPDevice(devnum, wwpn, fcplun)
+        if d.onlineDevice():
+            self.fcpdevs.append(d)
+            f = open("/tmp/zfcp.conf", "a")
+            f.write("%s\n" %(d,))
             f.close()
-        except:
-            pass
-        foundalias = 0
-        for line in lines:
-            if string.find(string.strip(line), "alias scsi_hostadapter zfcp") == 0:
-                foundalias = 1
-                break
-        if len(fcpdevices):
-            if not foundalias:
-                try:
-                    f = open("/tmp/modprobe.conf", "a")
-                    f.write("alias scsi_hostadapter zfcp\n")
-                    f.close()
-                except:
-                    pass
-        if not len(fcpdevices):
-            if foundalias:
-                try:
-                    f = open("/tmp/modprobe.conf", "w")
-                    for line in lines:
-                        if string.find(string.strip(line), "alias scsi_hostadapter zfcp") != 0:
-                            f.write(line)
-                    f.close()
-                except:
-                    pass
 
-    def writeZFCPconf(self, fcpdevices):
-        if not len(fcpdevices):
+    def shutdown(self):
+        if len(self.fcpdevs) == 0:
             return
-        f = open("/tmp/zfcp.conf", "w")
-        for dev in fcpdevices:
-            f.write("%s %s %s %s %s\n" % (dev[0], dev[1], dev[2], dev[3], dev[4],))
+        for d in self.fcpdevs:
+            d.offlineDevice()
+        # empty zfcp.conf as we'll write things back out when we initialize
+        f = open("/tmp/zfcp.conf", "w+")
         f.close()
+
+    def startup(self):
+        if len(self.fcpdevs) == 0:
+            return
+        for d in self.fcpdevs:
+            if d.onlineDevice():
+                f = open("/tmp/zfcp.conf", "a")
+                f.write("%s\n" %(d,))
+                f.close()
 
     def writeKS(self,fcpdevices):
         # FIXME KH not implemented yet
         return
 
     def write(self, instPath):
+        if len(self.fcpdevs) == 0:
+            return
         if os.path.exists("/tmp/zfcp.conf"):
             shutil.copyfile("/tmp/zfcp.conf", instPath + "/etc/zfcp.conf")
-
-    def readConfig(self):
-        self.fcpdevices = []
-        try:
-            f = open("/tmp/fcpconfig", "r")
-        except:
-            pass
         else:
-            lines = f.readlines()
-            f.close()
-            for line in lines:
-                invalid = 0
-                line = string.strip(line).lower()
-                fcpconf = string.split(line)
-                if len(fcpconf) != 5 or fcpconf[0][:1] == "#":
-                    continue
-                for i in range(len(self.options)):
-                    fcpconf[i] = self.options[i][3](fcpconf[i])
-                    if self.options[i][4](fcpconf[i]) == -1:
-                        invalid = 1
-                        break
-                if not invalid:
-                    self.fcpdevices.append(fcpconf)
-
+            return
 
 # vim:tw=78:ts=4:et:sw=4

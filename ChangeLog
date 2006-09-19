@@ -1,3 +1,20 @@
+2006-09-19  Jeremy Katz  <katzj@redhat.com>
+
+	* partitioning.py (partitionObjectsInitialize): Shutdown/startup
+	zfcp devs here
+
+	* yuminstall.py (YumBackend.doPreInstall): Remove spurious
+	zfcp.conf copy
+
+	* zfcp.py: Massive reworking to work better with new UI
+
+	* ui/zfcp-config.glade: ZFCP config dialog
+	* iw/autopart_type.py: Use zfcp config dialog (#204145)
+
+	* installclass.py (BaseInstallClass.setSteps): Remove explicit
+	zfcp step
+	* dispatch.py (installSteps): Likewise.
+
 2006-09-19  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/Makefile: Make nltest target depend on str.o.

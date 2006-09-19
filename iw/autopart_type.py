@@ -164,6 +164,36 @@ class PartitionTypeWindow(InstallWindow):
 
         dialog.destroy()
         return rc
+
+
+    def addZfcpDrive(self):
+        (dxml, dialog) = gui.getGladeWidget("zfcp-config.glade",
+                                            "zfcpDialog")
+        gui.addFrame(dialog)
+        dialog.show_all()
+        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
+        map(lambda x: sg.add_widget(dxml.get_widget(x)),
+            ("devnumEntry", "wwpnEntry", "fcplunEntry"))
+
+        while 1:
+            rc = dialog.run()
+            if rc != gtk.RESPONSE_OK:
+                break
+                return rc
+
+            devnum = dxml.get_widget("devnumEntry").get_text().strip()
+            wwpn = dxml.get_widget("wwpnEntry").get_text().strip()
+            fcplun = dxml.get_widget("fcplunEntry").get_text().strip()
+
+            try:
+                self.anaconda.id.zfcp.addFCP(devnum, wwpn, fcplun)
+            except ValueError, e:
+                self.intf.messageWindow(_("Error"), e)
+                continue
+            break
+
+        dialog.destroy()
+        return rc
         
 
     def addDrive(self, button):
@@ -179,7 +209,7 @@ class PartitionTypeWindow(InstallWindow):
         if dxml.get_widget("iscsiRadio").get_active():
             rc = self.addIscsiDrive()
         elif dxml.get_widget("zfcpRadio").get_active():
-            print "do zfcp"
+            rc = self.addZfcpDrive()
         dialog.destroy()
 
         if rc != gtk.RESPONSE_CANCEL:

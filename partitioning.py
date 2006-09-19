@@ -30,6 +30,7 @@ def partitionObjectsInitialize(anaconda):
     anaconda.id.diskset.closeDevices()
     anaconda.id.diskset.stopMdRaid()
     anaconda.id.iscsi.shutdown()
+    anaconda.id.zfcp.shutdown()
 
     # clean slate about drives
     isys.flushDriveDict()
@@ -39,6 +40,9 @@ def partitionObjectsInitialize(anaconda):
 
     # ensure iscsi devs are up
     anaconda.id.iscsi.startup(anaconda.intf)
+
+    # ensure zfcp devs are up
+    anaconda.id.zfcp.startup()
 
     # pull in the new iscsi drive
     isys.flushDriveDict()

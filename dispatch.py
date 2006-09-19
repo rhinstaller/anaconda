@@ -66,7 +66,6 @@ installSteps = [
     ("regkey", regKeyScreen, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
-    ("zfcpconfig", ),
     ("partitionobjinit", partitionObjectsInitialize, ),
     ("parttype", ),    
     ("autopartitionexecute", doAutoPartition, ),

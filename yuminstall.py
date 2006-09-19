@@ -1114,9 +1114,6 @@ class YumBackend(AnacondaBackend):
             if os.access("/tmp/modprobe.conf", os.R_OK):
                 shutil.copyfile("/tmp/modprobe.conf", 
                                 anaconda.rootPath + "/etc/modprobe.conf")
-            if os.access("/tmp/zfcp.conf", os.R_OK):
-                shutil.copyfile("/tmp/zfcp.conf", 
-                                anaconda.rootPath + "/etc/zfcp.conf")
             anaconda.id.network.write(anaconda.rootPath)
             anaconda.id.iscsi.write(anaconda.rootPath)
             anaconda.id.zfcp.write(anaconda.rootPath)

@@ -115,7 +115,6 @@ class BaseInstallClass:
                  "findrootparts",
 		 "betanag",
 		 "installtype",
-		 "zfcpconfig",
                  "partitionobjinit",
                  "parttype",
                  "autopartitionexecute",
@@ -153,9 +152,6 @@ class BaseInstallClass:
 
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
-
-	if rhpl.getArch() != "s390":
-            dispatch.skipStep("zfcpconfig", permanent=1)
 
         if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("bootloader", permanent=1)
