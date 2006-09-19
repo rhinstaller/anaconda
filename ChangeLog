@@ -26,6 +26,9 @@
 	manual network configuration dialog that explains what the input
 	fields expect from the user.
 
+	* network.py: Make sure we compare the lowercase version of bootproto
+	because 'dhcp' does not equal 'DHCP'.
+
 2006-09-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Fix upgrade traceback by using depends_on not

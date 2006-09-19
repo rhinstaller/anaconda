@@ -77,7 +77,7 @@ def isPtpDev(devname):
 def anyUsingDHCP(devices):
     for dev in devices.keys():
         bootproto = devices[dev].get("bootproto")
-        if bootproto and bootproto == "dhcp":
+        if bootproto and bootproto.lower() == "dhcp":
             onboot = devices[dev].get("onboot")
             if onboot and onboot != "no":
                 return 1
@@ -129,7 +129,7 @@ class NetworkDevice(SimpleConfigFile):
 
 	# Don't let onboot be turned on unless we have config information
 	# to go along with it
-	if self.get('bootproto') != 'dhcp' and not self.get('ipaddr'):
+	if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
 	    forceOffOnBoot = 1
 	else:
 	    forceOffOnBoot = 0
@@ -332,7 +332,7 @@ class Network:
         myns = self.primaryNS
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
-                if (dev.get('bootproto') == "dhcp" and
+                if (dev.get('bootproto').lower() == "dhcp" and
                     dev.get('onboot') == "yes"):
 		    ret = isys.pumpNetDevice(dev.get('device'), dev.get('dhcpclass'))
                     if ret is None:
@@ -401,7 +401,7 @@ class Network:
         for devName in devNames:
             dev = self.netdevices[devName]
 
-            if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
+            if dev.get('bootproto').lower() == 'dhcp' or dev.get('ipaddr'):
                 f.write("network --device %s" % dev.get('device'))
 
                 if dev.get('MTU') and dev.get('MTU') != 0:
@@ -410,7 +410,7 @@ class Network:
 		onboot = dev.get("onboot")
 		if onboot and onboot == "no":
 		    f.write(" --onboot no")
-                if dev.get('bootproto') == 'dhcp':
+                if dev.get('bootproto').lower() == 'dhcp':
                     f.write(" --bootproto dhcp")
                     if dev.get('dhcpclass'):
 			f.write(" --class %s" % dev.get('dhcpclass'))
@@ -452,7 +452,7 @@ class Network:
             f.write(str(dev))
 
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
-            if (dev.get('bootproto') == 'dhcp' and self.hostname and
+            if (dev.get('bootproto').lower() == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
             if dev.get('dhcpclass'):
