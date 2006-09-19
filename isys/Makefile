@@ -82,7 +82,7 @@ nfsmount.do: nfs_mountversion.h
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
 
-nltest: nl.c nl.h
+nltest: str.o nl.c nl.h
 	$(CC) -c $(CFLAGS) -DTESTING nl.c -o nl.o
 	$(CC) -DTESTING nl.o -o nl $(LOADLIBES) str.o
 
