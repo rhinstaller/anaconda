@@ -7,6 +7,7 @@
 # translation of de.po to
 # translation of de.po to
 # translation of de.po to
+# translation of de.po to
 # translation of de.po to German
 # translation of de.po to
 # Copyright (C) 2001 Red Hat, Inc.
@@ -25,7 +26,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-19 10:04+1000\n"
+"PO-Revision-Date: 2006-09-19 11:27+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,8 +189,8 @@ msgid ""
 msgstr ""
 "Die Boot-Partition %s gehört zu keiner Platte mit genügend freiem Speicher "
 "am Anfang, auf welchem der Bootloader Platz finden könnte. Stellen Sie "
-"sicher, dass mindestens 5MB freier Speicher am Anfang der Platte sind, die /"
-"boot enthält."
+"sicher, dass mindestens 5MB freier Speicher am Anfang der Platte sind, die "
+"/boot enthält."
 
 #: ../autopart.py:1023
 #, python-format
@@ -861,7 +862,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Während des Versuchs, %s zu erzeugen, trat ein Fehler auf: %s.  Dies ist ein "
-"schwerwiegender Fehler. Die Installation kann kann nicht fortgesetztwerden.\n"
+"schwerwiegender Fehler. Die Installation kann kann nicht fortgesetzt werden.\n"
 "\n"
 "Drücken Sie die <Enter>, um Ihr System neu zu starten."
 
@@ -1901,7 +1902,7 @@ msgstr ""
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
-"Installation auf einem USB Gerät.  Dies mag zu einem funktionierenden System "
+"Installation auf einem USB Gerät.  Dies könnte zu einem funktionierenden System "
 "führen oder auch nicht."
 
 #: ../partitions.py:945
@@ -3637,7 +3638,7 @@ msgid ""
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Sie haben keine aktiven Netzwerk-Geräte. Ihr System ist ohne mindestens "
-"einem aktiven Gerät nicht in der Lage, standardmäßig über ein Netzwerk zu "
+"ein aktives Gerät nicht in der Lage, standardmäßig über ein Netzwerk zu "
 "kommunizieren."
 
 #: ../iw/network_gui.py:264
@@ -6378,7 +6379,7 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 "%s ist ein Funknetzwerkgerät. Bitte geben Sie die ESSID und den "
-"Kyptoschlüssel Ihres Funknetzes an. Falls dieses keinen Schlüssel benötigt, "
+"Kryptoschlüssel Ihres Funknetzes an. Falls dieses keinen Schlüssel benötigt, "
 "lassen Sie das Feld frei und die Installation fährt fort."
 
 #: ../loader2/net.c:242
