@@ -29,6 +29,21 @@
 	* network.py: Make sure we compare the lowercase version of bootproto
 	because 'dhcp' does not equal 'DHCP'.
 
+	* iw/network_gui.py: Add checkorder list so that input validation
+	later makes sense to the user (order of error messages).
+
+	* iw/network_gui.py: Compare bootproto in lowercase.
+
+	* iw/network_gui.py (NetworkWindow.handleIPError): Add function to
+	display IPError messages.
+
+	* iw/network_gui.py (NetworkWindow): Add labels above the IP address
+	and prefix columns.  Prevent users from unchecking IPv4 and IPv6;
+	force user to choose at least one.  Use the checkorder list for input
+	validation order.  Catch network.IPError exception.  Display the word
+	'Disabled' in the main interface list if the user has disabled that
+	protocol for the interface.
+
 2006-09-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Fix upgrade traceback by using depends_on not

@@ -33,6 +33,11 @@ descr = { 'ipaddr':   'IPv4 address',
           'ipv6addr': 'IPv6 address'
         }
 
+# order to check input values
+checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
+              'remip', 'essid', 'key'
+             ]
+
 class NetworkWindow(InstallWindow):		
 
     windowTitle = N_("Network Configuration")
@@ -109,7 +114,7 @@ class NetworkWindow(InstallWindow):
 	    else:
 		onboot = "no"
 		
-	    if bootproto == "DHCP":
+	    if bootproto.lower() == "dhcp":
 		bootproto = 'dhcp'
 	    else:
 		bootproto = 'static'
@@ -179,6 +184,9 @@ class NetworkWindow(InstallWindow):
 
 	self.intf.messageWindow(_("Error With Data"),
 				_("A value is required for the field \"%s\".") % (newfield,))
+
+    def handleIPError(self, field, msg):
+	self.intf.messageWindow(_("Error With %s Data") % (field,), msg)
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
@@ -325,9 +333,11 @@ class NetworkWindow(InstallWindow):
 
 	# put some column labels on the table
 	cl = gtk.Label(_("Address"))
-	ipTable.attach(cl, 0, 2, 0, 1, xpadding=0, ypadding=0)
+	cl.set_alignment(0.5, 0.5)
+	ipTable.attach(cl, 1, 2, 0, 1, xpadding=0, ypadding=0)
 	cl = gtk.Label(_("Prefix (Netmask)"))
-	ipTable.attach(cl, 3, 5, 0, 1, xpadding=0, ypadding=0)
+	cl.set_alignment(0.5, 0.5)
+	ipTable.attach(cl, 3, 4, 0, 1, xpadding=0, ypadding=0)
 
         # IPv4 address and mask
         v4list.append(gtk.Label(_("IPv_4:")))
@@ -342,7 +352,7 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v4list[1], 1, 2, 1, 2, xpadding=0, ypadding=0)
 
         v4list.append(gtk.Label("/"))
-        v4list[2].set_alignment(0.0, 0.5)
+        v4list[2].set_alignment(0.5, 0.5)
         ipTable.attach(v4list[2], 2, 3, 1, 2, xpadding=4, ypadding=0)
 
         v4list.append(gtk.Entry())
@@ -364,7 +374,7 @@ class NetworkWindow(InstallWindow):
         ipTable.attach(v6list[1], 1, 2, 2, 3, xpadding=0, ypadding=0)
 
         v6list.append(gtk.Label("/"))
-        v6list[2].set_alignment(0.0, 0.5)
+        v6list[2].set_alignment(0.5, 0.5)
         ipTable.attach(v6list[2], 2, 3, 2, 3, xpadding=4, ypadding=0)
 
         v6list.append(gtk.Entry())
@@ -411,7 +421,7 @@ class NetworkWindow(InstallWindow):
         devbox.set_border_width(6)
 
 	# go ahead and set up DHCP on the first device
-	DHCPcb.set_active(bootproto == 'DHCP')
+	DHCPcb.set_active(bootproto.lower() == 'dhcp')
 
 	# set the IPv4 and IPv6 check boxes
 	IPV4cb.set_active(self.network.useIPv4)
@@ -448,16 +458,25 @@ class NetworkWindow(InstallWindow):
 	    else:
 		bootproto = 'static'
 
+	    if IPV4cb.get_active() is False and IPV6cb.get_active() is False:
+	        self.intf.messageWindow(_("Missing Protocol"),
+	                                _("You must select at least IPv4 "
+	                                  "or IPv6 support."))
+	        continue
 
 	    if bootcb.get_active():
 		onboot = 'yes'
 	    else:
 		onboot = 'no'
 
-	    if bootproto != 'dhcp':
+	    if bootproto.lower() != 'dhcp':
 		valsgood = 1
 		tmpvals = {}
-		for t in entrys.keys():
+
+		for t in checkorder:
+		    if not entrys.has_key(t):
+		        continue
+
 		    val = entrys[t].get_text()
 
 		    if ((t == 'ipaddr' or t == 'netmask') and \
@@ -487,6 +506,11 @@ class NetworkWindow(InstallWindow):
 		            self.handleIPMissing(t)
 		            valsgood = 0
 		            break
+		        except network.IPError, msg:
+		            self.handleIPError(t, msg)
+		            valsgood = 0
+		            break
+
 		    elif t == 'ipv6prefix' and IPV6cb.get_active() is True:
 		        if int(val) > 128 or int(val) < 0:
 		            self.intf.messageWindow(_("Invalid Prefix"),
@@ -544,7 +568,10 @@ class NetworkWindow(InstallWindow):
 
     def createIPV4Repr(self, device):
 	bootproto = device.get("bootproto")
-	if bootproto == "dhcp":
+	if self.network.useIPv4 is False:
+	    return _("Disabled")
+
+	if bootproto.lower() == "dhcp" and self.network.useIPv4 is True:
 	    ip = "DHCP"
 	else:
 	    prefix = isys.inet_convertNetmaskToPrefix(device.get("netmask"))
@@ -554,7 +581,10 @@ class NetworkWindow(InstallWindow):
 
     def createIPV6Repr(self, device):
 	bootproto = device.get("bootproto")
-	if bootproto == "dhcp":
+	if self.network.useIPv6 is False:
+	    return _("Disabled")
+
+	if bootproto.lower() == "dhcp" and self.network.useIPv6 is True:
 	    ip = "DHCP"
 	else:
 	    ip = "%s" % (device.get("ipv6addr"),)
@@ -577,7 +607,7 @@ class NetworkWindow(InstallWindow):
 	for device in self.devices.keys():
 	    bootproto = self.devices[device].get("bootproto")
 
-	    if bootproto and bootproto == 'dhcp':
+	    if bootproto and bootproto.lower() == 'dhcp':
 		onboot = self.devices[device].get("ONBOOT")
 		if onboot != "no":
 		    return 1
