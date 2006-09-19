@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from yum.transactioninfo import TransactionData, TransactionMember, SortableTransactionData
+from yum.constants import *
 from yum.Errors import YumBaseError
 
 import urlparse
@@ -43,12 +44,13 @@ class SplitMediaTransactionData(SortableTransactionData):
             return []
 
     def add(self, txmember):
-        id = self.__getMedia(txmember.po)
-        if id:
-            if id not in self.reqmedia.keys():
-                self.reqmedia[id] = [ txmember.pkgtup ]
-            else:
-                self.reqmedia[id].append(txmember.pkgtup)
+        if txmember.output_state in TS_INSTALL_STATES:
+            id = self.__getMedia(txmember.po)
+            if id:
+                if id not in self.reqmedia.keys():
+                    self.reqmedia[id] = [ txmember.pkgtup ]
+                else:
+                    self.reqmedia[id].append(txmember.pkgtup)
         SortableTransactionData.add(self, txmember)
 
     def remove(self, pkgtup):
@@ -57,6 +59,8 @@ class SplitMediaTransactionData(SortableTransactionData):
         txmembers = self.pkgdict[pkgtup]
         if len(txmembers) > 0:
             for txmbr in txmembers:
+                if txmbr.output_state not in TS_INSTALL_STATES:
+                    continue
                 id = self.__getMedia(txmbr.po)
                 if id:
                     self.reqmedia[id].remove(pkgtup)
