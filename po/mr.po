@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-07 11:58+0530\n"
+"PO-Revision-Date: 2006-09-19 18:26+0530\n"
 "Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -113,8 +113,7 @@ msgstr "अपरिचित प्रतिष्ठापना पद्ध�
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"तुम्ही जी प्रतिष्ठापना पद्धती नमूद केली आहे ती ऍनाकोंडा(anaconda) मध्ये समर्थनीय नाही."
+msgstr "तुम्ही जी प्रतिष्ठापना पद्धती नमूद केली आहे ती ऍनाकोंडा(anaconda) मध्ये समर्थनीय नाही."
 
 #: ../anaconda:854
 #, c-format
@@ -192,10 +191,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"तुमच्या आर्किटेक्चरसाठी असलेल्या बूटिंग निर्बंधांची %s बूट विभाजनातर्फे पुर्तता होऊ शकत नाही."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "तुमच्या आर्किटेक्चरसाठी असलेल्या बूटिंग निर्बंधांची %s बूट विभाजनातर्फे पुर्तता होऊ शकत नाही."
 
 #: ../autopart.py:1058
 #, python-format
@@ -511,8 +508,7 @@ msgstr "संनिक्षेप लिहिला गेला"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"तुमच्या प्रणालीची अवस्था फ्लॉपीवर लिहिली गेली आहे. तुमची प्रणाली आता रीबूट होइल. "
+msgstr "तुमच्या प्रणालीची अवस्था फ्लॉपीवर लिहिली गेली आहे. तुमची प्रणाली आता रीबूट होइल. "
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
 #: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
@@ -1274,8 +1270,7 @@ msgstr "IP पत्ता सापडला नाही."
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
-"IP पत्त्यांमध्ये ० ते २५५ दरम्यानच्याच संख्या असायला हव्यात, त्याही बिंदूंनी विलग केलेल्या."
+msgstr "IP पत्त्यांमध्ये ० ते २५५ दरम्यानच्याच संख्या असायला हव्यात, त्याही बिंदूंनी विलग केलेल्या."
 
 #: ../network.py:96
 #, python-format
@@ -1691,8 +1686,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"खालील पूर्व-उपस्थित विभाजने स्वरूपित करण्यासाठी निवडली आहेत, सर्व माहिती नष्ट करीत आहे."
+msgstr "खालील पूर्व-उपस्थित विभाजने स्वरूपित करण्यासाठी निवडली आहेत, सर्व माहिती नष्ट करीत आहे."
 
 #: ../partIntfHelpers.py:460
 msgid ""
@@ -1740,8 +1734,7 @@ msgid "Confirm Reset"
 msgstr "पुनर्निर्धारण निश्चिती"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "तुमची खात्री आहे तुम्ही विभाजन तक्ता त्यच्या मुळ अवस्थेत पुनर्निर्धारित करू इच्छिता?"
 
 #: ../partitioning.py:62
@@ -1784,19 +1777,16 @@ msgstr ""
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"तुमचे रूट विभाजन २५० मेगाबाइट्स पेक्षा कमी आहे जे %s प्रतिष्ठापित करण्यासाठी खूपच लहान आहे."
+msgstr "तुमचे रूट विभाजन २५० मेगाबाइट्स पेक्षा कमी आहे जे %s प्रतिष्ठापित करण्यासाठी खूपच लहान आहे."
 
 #: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"तुमचा बूट विभाजन पहिल्या चार विभाजनांपैकी नाही आणि त्यामुळे तो बूट करण्यायोग्य नसेल."
+msgstr "तुमचा बूट विभाजन पहिल्या चार विभाजनांपैकी नाही आणि त्यामुळे तो बूट करण्यायोग्य नसेल."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "तुम्ही एक FAT प्रकाराचे आणि ५० मेगाबाइट्स आकाराचे /boot/efi विभाजन निर्माण करायलाच "
 "हवे."
@@ -1819,8 +1809,7 @@ msgstr ""
 "संकेतापेक्षा कमी आहे."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB यंत्रावर प्रतिष्ठापना करत आहे. यातून एक कार्यक्षम प्रणाली निर्माण होऊ शकते किंवा "
 "नाहीपण होऊ शकत."
@@ -1854,8 +1843,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"तुम्ही ३२ पेक्षा अधिक स्वॅप यंत्रे दर्शवली आहेत. %s चा कर्नल फक्त ३२ स्वॅप यंत्रांनाच आधार देतो."
+msgstr "तुम्ही ३२ पेक्षा अधिक स्वॅप यंत्रे दर्शवली आहेत. %s चा कर्नल फक्त ३२ स्वॅप यंत्रांनाच आधार देतो."
 
 #: ../partitions.py:1004
 #, python-format
@@ -1880,8 +1868,7 @@ msgstr "असे विभाजन कि जे LVM खंड संचाच
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "हा आरोहण बिंदू अयोग्य आहे. %s निर्देशिका / फाइल प्रणालीवरच असायला हवी."
 
 #: ../partRequests.py:252
@@ -2148,8 +2135,7 @@ msgid "Welcome to %s"
 msgstr "%s मध्ये सुस्वागतम् "
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1> मदतीसाठी | <Tab> तत्वांदरम्यान | <Space> निवडते | <F12> पुढील स्क्रीन"
 
 #: ../text.py:428
@@ -2510,8 +2496,7 @@ msgstr "व्यवहार करताना चूक"
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "खालील कारणांमुळे तुमचा व्यवहार चालवण्यात चूक झाली: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
@@ -2681,8 +2666,7 @@ msgstr "निवेदित गुप्तशब्दात ascii नसल�
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"रूट खाते हे प्रणाली प्रशासित करण्यास वापरले जाते. रूट उपयोक्त्यासाठी गुप्तशब्द दाखल करा."
+msgstr "रूट खाते हे प्रणाली प्रशासित करण्यास वापरले जाते. रूट उपयोक्त्यासाठी गुप्तशब्द दाखल करा."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3478,14 +3462,13 @@ msgid "Edit Interface %s"
 msgstr "%s इंटरफेस संपादा"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "यंत्रभाग(हार्डवेयर) पत्ता: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "गतिज IP व्युहरचना (DHCP) वापरा"
+msgstr "गतिज IP व्युहरचना (_DHCP) वापरा"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3500,29 +3483,24 @@ msgid "_Activate on boot"
 msgstr "बूट करताना सक्रिय करा(_A)"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4 पत्ता:"
+msgstr "IPv_4 पत्ता:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6 पत्ता:"
+msgstr "IPv_6 पत्ता:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Point to Point (IP)"
+msgstr "_Point to Point (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "सांकेतीकरण किल्ली(_K)"
+msgstr "सांकेतीकरण किल्ली(_K):"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3530,19 +3508,16 @@ msgid "Configure %s"
 msgstr "%s रचा"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "अयोग्य IP स्ट्रिंग"
+msgstr "अयोग्य पूर्वपद"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "स्वॅप फाइलचा आकार १ ते २००० MB च्या दरम्यानच असावा."
+msgstr "IPv4 पूर्वपद ० ते ३२ च्या दरम्यानच असावे."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "स्वॅप फाइलचा आकार १ ते २००० MB च्या दरम्यानच असावा."
+msgstr "IPv6 पूर्वपद ० ते १२८ च्या दरम्यानच असावे."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3556,13 +3531,12 @@ msgid "Device"
 msgstr "यंत्र"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/नेटमास्क(Netmask)"
+msgstr "IPv4/नेटमास्क(Netmask)"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/पूर्वपद"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3581,9 +3555,8 @@ msgid "_manually"
 msgstr "स्वहस्ते(_m)"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(उदा. \"host.domain.com\")"
+msgstr "(उदा., host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3732,12 +3705,12 @@ msgstr "प्राथमिक विभाजन असण्याची ब
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "%s ड्राइव (Geom: %s/%s/%s) (नमुना: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "%s ड्राइव (%-0.f MB) (नमुना: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3772,14 +3745,12 @@ msgid "Partitioning"
 msgstr "विभाजन करत आहे"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निवेदित विभाजन योजनेसोबत खालील गंभीर चुका अस्तित्वात आहेत."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "तुमची %s ची प्रतिष्ठापना चालू ठेवण्यापूर्वी या चुका दुरूस्त व्हायलाच हव्यात."
 
 #: ../iw/partition_gui.py:642
@@ -3870,8 +3841,7 @@ msgstr "कोणतेही RAID लघू यंत्र क्रमां�
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"सर्व उपलब्ध RAID लघू यंत्र क्रमांक वापरले गेल्याने सॉफ्टवेयर RAID यंत्र बनवता येणार नाही."
+msgstr "सर्व उपलब्ध RAID लघू यंत्र क्रमांक वापरले गेल्याने सॉफ्टवेयर RAID यंत्र बनवता येणार नाही."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -4285,6 +4255,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"%s साठी समुह फाइल शोधण्यास असमर्थ. यामुळे रिपॉझिटरीमधून स्वहस्ते संकुले "
+"निवडता येणार नाहीत"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4303,11 +4275,13 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "तुम्ही रिपॉझिटरीसाठी HTTP किंवा FTP URL पुरवायलाच हवा."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "आरोहण बिंदू \"%s\" आधिच वापरात आहे, कृपया निराळा आरोहण बिंदू निवडा."
+msgstr ""
+"रिपॉझिटरी %s आधिच जमा केलेली आहे. कृपया निराळे रिपॉझिटरी नाव आणि "
+"URL निवडा."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4327,8 +4301,7 @@ msgstr "हे तुमचा सध्याचा बूट लोडर अ�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "प्रतिष्ठापकाच्या तपासणीनुसार %s बूट लोडर सध्या %s वर प्रतिष्ठापित आहे."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4463,8 +4436,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वॅप फाइलचा आकार १ ते २००० MB च्या दरम्यानच असावा."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "स्वॅप विभाजनासाठी निवडलेल्या यंत्रावर पुरेशी जागा नाही."
 
 #: ../iw/zfcp_gui.py:24
@@ -4632,8 +4604,7 @@ msgstr ""
 "प्रत्येकास कोणते लेबल लावावे."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> निवडा | <F2> मुलभूत निवडा | <F4> नष्ट करा | <F12> पुढचे पटल>"
 
 #: ../textw/bootloader_text.py:387
@@ -4771,8 +4742,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "कृपया तुम्ही प्रतिष्ठापित करू इच्छिता त्या संकुल संचांची निवड करा."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> निवड   |   <F2> समूह विवरण   |   <F12> पुढचे पटल"
 
 #: ../textw/grpselect_text.py:133
@@ -5119,8 +5089,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"सध्या निवेदित आकार (%10.2f MB) खंड संचामधील उपलब्ध आकारापेक्षा (%10.2f MB)  मोठा आहे."
+msgstr "सध्या निवेदित आकार (%10.2f MB) खंड संचामधील उपलब्ध आकारापेक्षा (%10.2f MB)  मोठा आहे."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5151,8 +5120,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-मदत     F2-नविन   F3-संपादन करा F4-नष्ट करा    F5-पुनःनिर्धारण    F12-"
 "ठीक        "
@@ -5170,7 +5138,6 @@ msgid "Partitioning Type"
 msgstr "विभाजन प्रकार"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
@@ -5250,7 +5217,7 @@ msgid "Package selection"
 msgstr "संकुल निवड"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5424,7 +5391,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5668,7 +5635,7 @@ msgstr "चालक डिस्क आरोहित करण्यात �
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "%s च्या या प्रकाशनासाठी ड्राइवर डिस्क अवैध आहे."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5751,8 +5718,7 @@ msgstr "चालक डिस्क भारित करा"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"स्वहस्ते दाखल करण्यासाठी चालक सापडले नाहीत? तुम्हास चालक डिस्क वापरायला आवडेल काय?"
+msgstr "स्वहस्ते दाखल करण्यासाठी चालक सापडले नाहीत? तुम्हास चालक डिस्क वापरायला आवडेल काय?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5781,8 +5747,7 @@ msgstr "%s चालक भारित करत आहे..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"त्या निर्देशिकेमधील %s प्रतिष्ठापन वृक्ष तुमच्या बूट माध्यमाशी जुळत असल्याचे वाटत नाही."
+msgstr "त्या निर्देशिकेमधील %s प्रतिष्ठापन वृक्ष तुमच्या बूट माध्यमाशी जुळत असल्याचे वाटत नाही."
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -5796,8 +5761,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"तुमच्या प्रणालीवर एकही हार्ड ड्राइव असल्याचे वाटत नाही! तुम्हास अतिरिक्त यंत्रे रचणे आवडेल?"
+msgstr "तुमच्या प्रणालीवर एकही हार्ड ड्राइव असल्याचे वाटत नाही! तुम्हास अतिरिक्त यंत्रे रचणे आवडेल?"
 
 #: ../loader2/hdinstall.c:281
 #, c-format
@@ -5875,8 +5839,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s मध्ये सुस्वागतम् - बचाव रीत"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab>तत्वांदरम्यान  | <Space> निवडतो | <F12> पुढील पटल "
 
 #: ../loader2/lang.c:366
@@ -5986,8 +5949,7 @@ msgstr "खालील यंत्रे तुमच्या प्रणा
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"तुमच्या प्रणालीसाठी कोणताही यंत्र चालक भारित केलेला नाही? तुम्हास आता भारित करणे आवडेल?"
+msgstr "तुमच्या प्रणालीसाठी कोणताही यंत्र चालक भारित केलेला नाही? तुम्हास आता भारित करणे आवडेल?"
 
 #: ../loader2/loader.c:1137
 msgid "Devices"
@@ -6132,12 +6094,11 @@ msgstr ""
 "     तुमच्या आर्किटेक्चरसाठी %s आहे\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"CIDR मास्कचे मूल्य IPv4 संजाळांसाठी १ आणि ३२ च्या दरम्यान आणि IPv6 संजाळांसाठी १ आणि "
+"IPv4 संजाळांसाठी पूर्वपद १ आणि ३२ च्या दरम्यान किंवा IPv6 संजाळांसाठी १ आणि "
 "१२८ च्या दरम्यान असावे"
 
 #: ../loader2/net.c:232
@@ -6204,11 +6165,11 @@ msgstr "TCP/IP रचा"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS साठी IPv4 आवश्यक"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS प्रतिष्ठापन पद्धतीस IPv4 आधार आवश्यक."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6249,12 +6210,10 @@ msgid "Missing Information"
 msgstr "हरवलेली माहिती"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "तुम्ही एक वैध IPv4 पत्ता आणि संजाळ मास्क किंवा CIDR पुर्वपद दाखल करायलाच हवे."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "तुम्ही वैध IPv6 पत्ता आणि CIDR पुर्वपद हे दोन्ही दाखल करायला हवे."
 
@@ -6421,8 +6380,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"जर तुम्ही HTTP प्रॉक्झी सेवक वापरत असाल तर HTTP प्रॉक्झी सेवकाचे वापरायचे नाव दाखल करा."
+msgstr "जर तुम्ही HTTP प्रॉक्झी सेवक वापरत असाल तर HTTP प्रॉक्झी सेवकाचे वापरायचे नाव दाखल करा."
 
 #: ../loader2/urls.c:442
 msgid "Account name:"
@@ -6611,10 +6569,9 @@ msgstr "फेरफार नंतर करू(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "सॉफ्टवेअर प्रतिष्ठापनासाठी तुम्हांस वापरावयाच्या अतिरिक्त रिपॉझिटरी निवडा."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
@@ -6676,21 +6633,19 @@ msgstr "अटलांटिक बेटे"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "अटलांटिक प्रमाण वेळ - क्युबेक - लोअर उत्तर किनारा"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "पूर्वीय वेळ - ओंटारियो - अधिकांश स्थळे"
+msgstr "अटलांटिक वेळ - लाब्राडोर - अधिकांश स्थळे"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "अटलांटिक वेळ - न्यू ब्रंसविक"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "अटलांटिक वेळ - नोवा स्कोटिया (अधिकांश स्थळे), W लाब्राडोर, E क्यूबेक आणि PEI"
+msgstr "अटलांटिक वेळ - नोवा स्कोटिया (अधिकांश स्थळे), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6729,9 +6684,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "कॅटामारका(CT), चाबुट (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "केन्द्रीय चीन - गांसू, ग्यूझू, सिचुआन, यूनन, इत्यादि."
+msgstr "केन्द्रीय चीन - सिचुआन, यूनन, गांक्सी, शांक्सी, ग्यूझू, इत्यादि."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6844,9 +6798,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "ईस्टर बेट आणि साला ये गोमेज"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "पूर्वीय प्रमाण वेळ - साउथंपटन बेट"
+msgstr "पूर्वीय प्रमाण वेळ - अटिकोकन, ओंटारियो आणि साउथंपटन बेट, नानावुट"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6889,8 +6842,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "पूर्वीय वेळ - ओंटारियो - अधिकांश स्थळे"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "पूर्वीय वेळ - ओंटारियो व क्यूबेक - स्थळ जे  DST 1967-1973 ला नाही दाखवत"
 
 #. generated from zone.tab
@@ -6931,7 +6883,7 @@ msgstr "हवाई"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "हैलाँगजियांग (मोहे वगळून), जिलिन"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7010,9 +6962,8 @@ msgid "Midway Islands"
 msgstr "मिडवे बेटे"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "मॉस्को+01 - कॅस्पियन समुद्र"
+msgstr "मॉस्को+00 - कॅस्पियन समुद्र"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7023,9 +6974,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "मॉस्को-01  - केलीनिनग्राड"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "मॉस्को+09 -कमचटका"
+msgstr "मॉस्को+01 - समारा, उदमुर्तिया"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7081,15 +7031,14 @@ msgstr "अधिकांश स्थळे (CB, CC, CN, ER, FM, LP, MN, NQ, R
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "अधिकांश तिबेट आणि झिंजिआंग"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय प्रमाण वेळ - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय प्रमाण वेळ - डॉसन क्रीक न सेंट जॉन किल्ला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -7133,9 +7082,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NE ब्राझील (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "अटलांटिक वेळ - ई लेब्राडोर"
+msgstr "न्यूफाउंडलँड वेळ, SE लेब्राडोर धरून"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7306,9 +7254,8 @@ msgid "West Kazakhstan"
 msgstr "पश्चिम कजाखस्तान"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "टीबेट आणि अधिकांश झिंगजांग युगहर चे"
+msgstr "पश्चिम तिबेट आणि झिंगजांग "
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7530,60 +7477,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "झुलू"
 
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC ने शोधून काढलेले मॉनिटर"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "तृतीयक DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "तृतीयक DNS (_T)"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "DHCP वापरून रचा(_D)"
-
-#~ msgid "_IP Address"
-#~ msgstr "IP(_I) पत्ता"
-
-#~ msgid "Net_mask"
-#~ msgstr "नेटमास्क(_m)"
-
-#~ msgid "Hardware address:"
-#~ msgstr "यंत्रभाग(हार्डवेयर) पत्ता:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "नोंदवणी किल्ली आवश्यक"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "%s प्रतिष्ठापित करण्यासाठी नोंदवणी किल्लीची गरज आहे. कृपया जर तुम्हास तुमच्या "
-#~ "उत्पादासह किल्ली मिळाली नसेल तर तुमच्या आधार प्रतिनिधीस संपर्क साधा."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "अयोग्य CIDR मास्क"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "%s मध्ये प्रवेश मिळवण्यात अयशस्वी: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "%s हुडकण्यात अयशस्वी: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "%s च्या मुलभूत प्रतिष्ठापनात आंतरजालाच्या सामान्य वापरासाठी योग्य अशा बुद्धीभागांचा "
-#~ "(सॉफ्टवेयर) समावेश होतो. कोणत्या अतिरिक्त कामांचे तुमच्या प्रणालीने समर्थन करावे असे "
-#~ "तुम्हास वाटते?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "हिलोंगजिंग"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "न्यूफाउंडलँड बेट"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "दक्षिणपश्चिम झिंगजांग युगहर"
