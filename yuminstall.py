@@ -309,8 +309,8 @@ class YumSorter(yum.YumBase):
 
                 #Add relationship
                 found = False
-                for (tup, rel) in txmbr.relatedto:
-                    if member.po.pkgtup == tup:
+                for dependspo in txmbr.depends_on:
+                    if member.po == dependspo:
                         found = True
                         break
                 if not found:
