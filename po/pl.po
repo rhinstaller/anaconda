@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-04 02:52+0200\n"
+"PO-Revision-Date: 2006-09-19 22:01+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3565,14 +3565,13 @@ msgid "Edit Interface %s"
 msgstr "Edytuj interfejs %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Adres sprzętu: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Użyj dynamicznej konfiguracji IP (DHCP)"
+msgstr "Użyj dynamicznej konfiguracji IP (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3587,29 +3586,24 @@ msgid "_Activate on boot"
 msgstr "_Aktywuj przy uruchamianiu"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "Adres IPv4:"
+msgstr "Adres IPv_4:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "Adres IPv6:"
+msgstr "Adres IPv_6:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Punkt-punkt (IP)"
+msgstr "_Punkt-punkt (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Klucz szyfrujący"
+msgstr "_Klucz szyfrujący:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3617,19 +3611,16 @@ msgid "Configure %s"
 msgstr "Skonfiguruj %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Błędny ciąg znaków określający IP"
+msgstr "Nieprawidłowy przedrostek"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Obszar wymiany musi mieć rozmiar między 1 a 2000 MB."
+msgstr "Przedrostek IPv4 musi być między 0 a 32."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Obszar wymiany musi mieć rozmiar między 1 a 2000 MB."
+msgstr "Przedrostek IPv6 musi być między 0 a 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3643,13 +3634,12 @@ msgid "Device"
 msgstr "Urządzenie"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/maska"
+msgstr "IPv4/maska"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/przedrostek"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3668,9 +3658,8 @@ msgid "_manually"
 msgstr "_ręcznie"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(np. \"komputer.domena.pl\")"
+msgstr "(np. komputer.domena.pl)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3819,12 +3808,12 @@ msgstr "Wymuś, aby była partycją p_odstawową"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Napęd %s (Geometria: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Napęd %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4382,6 +4371,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Nie można znaleźć pliku grup dla %s. To spowoduje, że ręczny wybór pakietów "
+"z repozytorium nie będzie działać"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4400,12 +4391,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Musisz podać URL HTTP lub FTP repozytorium."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"Punkt montowania \"%s\" jest już używany. Wybierz inny punkt montowania."
+msgstr "Repozytorium %s zostało już dodane. Wybierz inną nazwę i URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5277,13 +5267,12 @@ msgid "Partitioning Type"
 msgstr "Typ partycjonowania"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Instalacja wymaga partycjonowania dysków twardych. Domyślnie wybrany układ "
+"Instalacja wymaga partycjonowania dysku twardego. Domyślny układ "
 "partycjonowania jest odpowiedni dla większości użytkowników. Możesz go "
 "wybrać lub utworzyć swój."
 
@@ -5357,7 +5346,7 @@ msgid "Package selection"
 msgstr "Wybór pakietów"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5531,7 +5520,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5775,7 +5764,7 @@ msgstr "Nie udało się zamontować dyskietki ze sterownikami."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Dyskietka ze sterownikami jest nieprawidłowa dla tego wydania %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6253,12 +6242,11 @@ msgstr ""
 "      %s dla twojej architektury\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Wartość maski CIDR musi być między 1 a 32 dla sieci IPv4 lub między 1 a 128 "
+"Przedrostek musi być między 1 a 32 dla sieci IPv4 lub między 1 a 128 "
 "dla sieci IPv6."
 
 #: ../loader2/net.c:232
@@ -6326,11 +6314,11 @@ msgstr "Skonfiguruj TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "Ipv4 jest wymagane dla NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Metoda instalacji NFS wymaga obsługi IPv4."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6380,9 +6368,8 @@ msgstr ""
 "przedrostek CIDR."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Musisz podać zarówno prawidłowy adres IPv6, jak i przedrostek a CIDR."
+msgstr "Musisz podać zarówno prawidłowy adres IPv6, jak i przedrostek aCIDR."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6737,15 +6724,16 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Wybierz dodatkowe repozytoria, których chcesz użyć do instalacji "
+"oprogramowania."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Dalsze dostosowanie wyboru oprogramowania może zostań zakończone teraz lub "
-"po instalacji przez aplikację zarządzania oprogramowaniem."
+"Można dostosować wybór oprogramowania teraz lub po instalacji przez "
+"aplikację zarządzania oprogramowaniem."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6801,27 +6789,23 @@ msgstr "Wyspy Atlantyckie"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Standardowy czas atlantycki - Quebec - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Czas wschodni - Ontario - większość lokalizacji"
+msgstr "Czas atlantycki - Labrador - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr "Czas Atlantycki - Nowy Brunszwik"
+msgstr "Czas atlantycki - Nowy Brunszwik"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Czas Atlantycki - Nowa Szkocja (większość miejsc), zachodni Labrador, "
-"wschodni Quebec i PEI"
+msgstr "Czas atlantycki - Nowa Szkocja (większość miejsc), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Czas Atlantycki - Nowa Szkocja - miejsca bez DST 1966-1971"
+msgstr "Czas atlantycki - Nowa Szkocja - miejsca bez DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6856,9 +6840,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Chiny środkowe - Gansu, Guizhou, Sichuan, Yunnan itd."
+msgstr "Chiny środkowe - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou itd."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6974,9 +6957,9 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Wyspa Wielkanocna i Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Czas standardowy wschodni - Wyspa Southampton"
+msgstr ""
+"Czas standardowy wschodni - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7062,7 +7045,7 @@ msgstr "Hawaje"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (poza Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7141,9 +7124,8 @@ msgid "Midway Islands"
 msgstr "Wyspy Midway"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskwa +01 - Morze Kaspijskie"
+msgstr "Moskwa +00 - Morze Kaspijskie"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7154,9 +7136,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskwa -01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskwa +09 - Kamczatka"
+msgstr "Moskwa +01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7213,7 +7194,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "Większość Tybetu i Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7267,9 +7248,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Północno wschodnia Brazylia (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Czas Atlantycki - wschodni Labrador"
+msgstr "Czas nowofundlandzki - w tym południowo-wschodni Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7442,9 +7422,8 @@ msgid "West Kazakhstan"
 msgstr "Zachodni Kazachstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tybet i większość Xinjiang Uyghur"
+msgstr "Wschodni Tybet i Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7666,61 +7645,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Rozpoznano monitor DDC"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Trzeci DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Trzeci DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Skonfiguruj używając _DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "Adres _IP"
-
-#~ msgid "Net_mask"
-#~ msgstr "_Maska sieci"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Adres sprzętu:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Wymagany jest klucz rejestracji"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Do zainstalowania %s wymagany jest klucz rejestracji. Skontaktuj się ze "
-#~ "swoim reprezentantem obsługi technicznej, jeśli nie otrzymałeś klucza "
-#~ "razem z produktem. "
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Błędna maska CIDR"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Nie udało się zalogować do %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Nie można pobrać %s: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Domyśla instalacja %s zawiera zestaw oprogramowania odpowiedni do "
-#~ "ogólnego używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Wyspa Nowa Fundlandia"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "Południowo zachodni Xinjiang Uyghur"
