@@ -832,6 +832,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtGrid qgrid = NULL;
     newtGrid rgrid = NULL;
     newtGrid buttons, grid;
+    newtComponent text = NULL;
 
     /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
     rows = 2;
@@ -996,11 +997,20 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 
     /* main window layout */
-    grid = newtCreateGrid(1, 2);
+    grid = newtCreateGrid(1, 3);
 
-    newtGridSetField(grid, 0, 0, NEWT_GRID_SUBGRID, egrid,
+    buf = sdupprintf(_("Enter the IPv4 and/or the IPv6 address and prefix "
+                       "(address / prefix).  For IPv4, the dotted-quad "
+                       "netmask or the CIDR-style prefix are acceptable. "
+                       "The gateway and name server fields must be valid IPv4 "
+                       "or IPv6 addresses."));
+    text = newtTextboxReflowed(-1, -1, buf, 52, 0, 10, 0);
+
+    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, buttons,
+    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, egrid,
+                     0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
     f = newtForm(NULL, NULL, 0);
