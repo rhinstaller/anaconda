@@ -6,6 +6,7 @@
 # translation of de.po to
 # translation of de.po to
 # translation of de.po to
+# translation of de.po to
 # translation of de.po to German
 # translation of de.po to
 # Copyright (C) 2001 Red Hat, Inc.
@@ -24,7 +25,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-01 11:37+1000\n"
+"PO-Revision-Date: 2006-09-19 10:04+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +113,7 @@ msgstr "Installationsklasse erfordert Installation im Textmodus"
 
 #: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafische Installation nicht verfügbar ...  Der Textmodus wird gestartet."
+msgstr "Grafische Installation nicht verfügbar ...  Der Textmodus wird gestartet."
 
 #: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -210,8 +210,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Möglicherweise erfüllt die Bootpartition %s nicht die Voraussetzungen zum "
 "Booten Ihrer Architektur."
@@ -1317,13 +1316,11 @@ msgstr "Der Rechnername darf aus maximal 64 Zeichen bestehen."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Der Rechnername muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
+msgstr "Der Rechnername muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Rechnernamen können nur die Zeichen 'a-z', 'A-Z', '-' oder '.' enthalten."
+msgstr "Rechnernamen können nur die Zeichen 'a-z', 'A-Z', '-' oder '.' enthalten."
 
 #: ../network.py:89
 msgid "IP Address is missing."
@@ -1345,8 +1342,7 @@ msgstr "%s ist keine gültige IPv6 Adresse."
 #: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
-"Bitte geben Sie den Registrierungsschlüssel für Ihre Version von %s ein."
+msgstr "Bitte geben Sie den Registrierungsschlüssel für Ihre Version von %s ein."
 
 #: ../packages.py:245
 msgid "Enter Registration Key"
@@ -1527,8 +1523,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
-"Geben Sie einen Namen für den logischen Datenträger (Logical Volume) ein."
+msgstr "Geben Sie einen Namen für den logischen Datenträger (Logical Volume) ein."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1573,13 +1568,11 @@ msgstr "Diese Partition ist Teil eines RAID-Geräts."
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
-"Diese Partition ist Teil des LVM Datenträgerverbundes (Volume Group) '%s'."
+msgstr "Diese Partition ist Teil des LVM Datenträgerverbundes (Volume Group) '%s'."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr ""
-"Diese Partition ist Teil eines LVM Datenträgerverbundes (Volume Group)."
+msgstr "Diese Partition ist Teil eines LVM Datenträgerverbundes (Volume Group)."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
@@ -1700,8 +1693,7 @@ msgstr ""
 #: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
+msgstr "Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
 
 #: ../partIntfHelpers.py:411
 msgid ""
@@ -1804,8 +1796,7 @@ msgstr ""
 #: ../partIntfHelpers.py:518
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
-"Sie sind dabei, den logischen Datenträger (Logical Volume) \"%s\" zu löschen."
+msgstr "Sie sind dabei, den logischen Datenträger (Logical Volume) \"%s\" zu löschen."
 
 #: ../partIntfHelpers.py:521
 msgid "You are about to delete a RAID device."
@@ -1825,8 +1816,7 @@ msgid "Confirm Reset"
 msgstr "Zurücksetzen bestätigen"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Partitionstabelle in den Originalzustand "
 "zurücksetzen möchten?"
@@ -1886,8 +1876,7 @@ msgstr ""
 "nicht ladbar."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Sie müssen eine /boot/efi-Partition des Typs FAT und einer Größe von 50 "
 "Megabyte erstellen."
@@ -1910,8 +1899,7 @@ msgstr ""
 "s gewöhnlich zu wenig ist. "
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installation auf einem USB Gerät.  Dies mag zu einem funktionierenden System "
 "führen oder auch nicht."
@@ -1978,8 +1966,7 @@ msgstr ""
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dieser Einhängepunkt ist ungültig. Das Verzeichnis %s muss sich im / "
 "Dateisystem befinden."
@@ -2040,8 +2027,7 @@ msgstr "Partitionen können nicht an einem negativen Zylinder enden."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Keine Partitionen in ihrem RAID-Request oder kein RAID-Level festgelegt."
+msgstr "Keine Partitionen in ihrem RAID-Request oder kein RAID-Level festgelegt."
 
 #: ../partRequests.py:681
 #, python-format
@@ -2142,8 +2128,7 @@ msgstr "Zu rettendes System"
 
 #: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
-"Auf welcher Partition befindet sich die Root-Partition der Installation?"
+msgstr "Auf welcher Partition befindet sich die Root-Partition der Installation?"
 
 #: ../rescue.py:325 ../rescue.py:329
 msgid "Exit"
@@ -2268,17 +2253,14 @@ msgid "Welcome to %s"
 msgstr "Willkommen bei %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
+msgstr "     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -2645,8 +2627,7 @@ msgstr "Fehler beim Durchführen der Transaktion"
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender "
 "Ursache(n): %s"
@@ -2705,8 +2686,7 @@ msgstr "Installation startet"
 
 #: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Installationsprozess wird gestartet.  Dies kann einige Minuten dauern..."
+msgstr "Installationsprozess wird gestartet.  Dies kann einige Minuten dauern..."
 
 #: ../yuminstall.py:1198
 msgid "Post Upgrade"
@@ -2754,8 +2734,7 @@ msgstr "Gerätenummer"
 
 #: ../zfcp.py:32
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Sie haben keine Gerätenummer oder eine ungültige Gerätenummer angegeben"
+msgstr "Sie haben keine Gerätenummer oder eine ungültige Gerätenummer angegeben"
 
 #: ../zfcp.py:34
 msgid "SCSI Id"
@@ -2771,8 +2750,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Sie haben keinen globalen Portnamen angegeben oder dieser ist ungültig."
+msgstr "Sie haben keinen globalen Portnamen angegeben oder dieser ist ungültig."
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2855,13 +2833,11 @@ msgstr "Fehler mit Daten"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Alle Partitionen auf gewählten Platten löschen und Standard-Layout kreieren."
+msgstr "Alle Partitionen auf gewählten Platten löschen und Standard-Layout kreieren."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Linux-Partitionen auf gewählten Platten löschen und Standard-Layout kreieren."
+msgstr "Linux-Partitionen auf gewählten Platten löschen und Standard-Layout kreieren."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
@@ -3151,8 +3127,7 @@ msgstr "Sprache auswählen"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
+msgstr "Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3321,8 +3296,7 @@ msgstr "Ungültige Größe"
 
 #: ../iw/lvm_dialog_gui.py:525
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
+msgstr "Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
@@ -3672,14 +3646,13 @@ msgid "Edit Interface %s"
 msgstr "Schnittstelle %s bearbeiten"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
-msgstr "Hardware Addresse: %s"
+msgstr "Hardwareadresse: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Dynamische IP-Konfiguration (DHCP) verwenden"
+msgstr "Dynamische IP-Konfiguration (_DHCP) verwenden"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3694,29 +3667,24 @@ msgid "_Activate on boot"
 msgstr "Beim Starten _aktivieren"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4-Adresse:"
+msgstr "IPv_4-Adresse:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6-Adresse:"
+msgstr "IPv_6-Adresse:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Punkt zu Punkt (IP)"
+msgstr "_Punkt-zu-Punkt (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Kryptoschlüssel"
+msgstr "_Kryptoschlüssel:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3724,19 +3692,16 @@ msgid "Configure %s"
 msgstr "%s konfigurieren"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Ungültige IP-Angaben"
+msgstr "Ungültiges Präfix"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
+msgstr "Das IPv4-Präfix muss zwischen 0 und 32 liegen."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
+msgstr "Das IPv6-Präfix muss zwischen 0 und 128 liegen."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3750,13 +3715,12 @@ msgid "Device"
 msgstr "Gerät"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Netzmaske"
+msgstr "IPv4/Netzmaske"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Präfix"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3775,9 +3739,8 @@ msgid "_manually"
 msgstr "_manuell"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(z.B. \"host.domain.com\")"
+msgstr "(z.B. host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3928,12 +3891,12 @@ msgstr "Verwendung als _primäre Partition erzwingen."
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Laufwerk %s (Geom: %s/%s/%s) (Modell: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Laufwerk %s (%-0.f MB) (Modell: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3968,16 +3931,14 @@ msgid "Partitioning"
 msgstr "Partitionieren"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Die folgenden kritischen Fehler bestehen mit dem geforderten "
 "Partitionsschema."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Diese Fehler müssen korrigiert werden, bevor Sie mit der Installation von %s "
 "fortfahren."
@@ -4372,8 +4333,7 @@ msgstr "Wählen Sie die Ziel-Festplatten für das Klonen."
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
+msgstr "Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4504,6 +4464,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Kann Gruppendatei für %s nicht finden.  Deshalb ist eine manuelle Auswahl "
+"von Paketen aus dem Depot nicht möglich"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4522,13 +4484,13 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Sie müssen eine HTTP- oder FTP-URL für ein Depot angeben."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Der Einhängepunkt \"%s\" wird bereits verwendet. Wählen Sie einen anderen "
-"Einhängepunkt."
+"Das Depot %s wurde bereits hinzugefügt. Wählen Sie einen anderen "
+"Depotnamen und URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4548,8 +4510,7 @@ msgstr "Dadurch wird Ihr derzeitiger Bootloader aktualisiert."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Das Installationsprogramm hat den %s Bootloader, der zur Zeit auf %s "
 "installiert ist, erkannt."
@@ -4692,8 +4653,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Auf dem Gerät, das Sie für die Swap-Partition gewählt haben, steht nicht "
 "genügend Platz zur Verfügung."
@@ -4867,8 +4827,7 @@ msgstr ""
 "Kennungen Sie diesen zuweisen möchten."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> Auswählen | <F2> Default auswählen | <F4> löschen | <F12> nächster "
 "Bildschirm"
@@ -5011,10 +4970,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Bitte wählen Sie die Paketgruppen, die installiert werden sollen."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Leertaste>,<+>,<-> Auswahl |   <F2> Gruppendetails  |   <F12> nächste Seite"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Leertaste>,<+>,<-> Auswahl |   <F2> Gruppendetails  |   <F12> nächste Seite"
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
@@ -5269,8 +5226,7 @@ msgstr "Dateisystem-Optionen"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
+msgstr "Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5401,10 +5357,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-" F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr " F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5419,16 +5373,14 @@ msgid "Partitioning Type"
 msgstr "Partitionierungstyp"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Die Installation erfordert die Partitionierung Ihrer Festplatte. "
-"Standardmäßig wird eine Partitionsschema ausgewählt, das für die meisten "
-"Benutzer passt. Sie können entweder dieses auswählen oder Ihr eigenes "
-"erstellen."
+"Die Installation erfordert die Partitionierung Ihrer Festplatte. Das Standard-Layout "
+"ist für die meisten Benutzer sinnvoll. Sie können entweder dieses auswählen oder "
+"Ihr eigenes erstellen."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5500,14 +5452,14 @@ msgid "Package selection"
 msgstr "Paketauswahl"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
 "Die Standardinstallation von %s beinhaltet eine Auswahl an Programmen für "
-"die allgemeine Internetnutzung. Welche zusätzlichen Aufgaben sollen durch "
+"die allgemeine Internetnutzung.  Welche zusätzlichen Aufgaben sollen durch "
 "Ihr System unterstützt werden?"
 
 #: ../textw/task_text.py:63
@@ -5677,7 +5629,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5927,7 +5879,7 @@ msgstr "Treiberdiskette konnte nicht eingebunden werden."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Treiberdiskette ist ungültig für das Release von %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6136,8 +6088,7 @@ msgstr "ks.cfg konnte nicht auf der Bootdiskette gefunden werden."
 #: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
+msgstr "Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6145,8 +6096,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Willkommen beim %s - Rettungsmodus"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "    <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../loader2/lang.c:366
@@ -6415,13 +6365,10 @@ msgstr ""
 "      %s für Ihre Architektur enthalten ist\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"Werte für CIDR-Masken müssen zwischen 1 und 32 für IPv4-Netzwerke oder "
-"zwischen 1 und 128 für IPv6-Netzwerke liegen"
+msgstr "Das Präfix muss zwischen 1 und 32 für IPv4-Netzwerke oder zwischen 1 und 128 für IPv6-Netzwerke liegen"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6489,11 +6436,11 @@ msgstr "TCP/IP konfigurieren"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 wird für NFS benötigt"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Die NFS-Installationsmethode benötigt IPv4-Unterstützung."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6509,8 +6456,7 @@ msgstr ""
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
-"Sie müssen mindestens ein Protokoll (IPv4 oder IPv6) für DHCP auswählen."
+msgstr "Sie müssen mindestens ein Protokoll (IPv4 oder IPv6) für DHCP auswählen."
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
@@ -6537,14 +6483,12 @@ msgid "Missing Information"
 msgstr "Fehlende Informationen"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Sie müssen sowohl eine gültige IPv4-Adresse als auch eine Netzwerkmaske oder "
 "ein CIDR-Präfix eingeben."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr ""
 "Sie müssen sowohl eine gültige IPv6-Adresse als auch ein CIDR-Präfix "
@@ -6910,15 +6854,16 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Bitte wählen Sie alle zusätzlichen Depots, die Sie für die Softwareinstallation "
+"verwenden möchten."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Eine weitergehende Anpassung der Softwareauswahl kann jetzt oder nach der "
-"Installation in der Softwaremanagement-Anwendung durchgeführt werden."
+"Weiterhin können Sie die Softwareauswahl jetzt anpassen oder nach der "
+"Installation mit Hilfe der Softwaremanagement-Anwendung."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6974,23 +6919,19 @@ msgstr "Atlantische Inseln"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantische Standardzeit - Quebec - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Eastern Time - Ontario - die meisten Orte"
+msgstr "Atlantische Zeit - Labrador - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantische Zeit -New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Atlantische Zeit  - Nova Scotia (die meisten Orte), West-Labrador, Ost-"
-"Quebec & PEI"
+msgstr "Atlantische Zeit  - Nova Scotia (die meisten Orte), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7031,9 +6972,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Zentral-China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr "Zentral-China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -7041,73 +6981,71 @@ msgstr "Zentral Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "Central Standard Time - Saskatchewan - Mittelwesten"
+msgstr "Zentrale Standardzeit - Saskatchewan - Mittelwesten"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Central Standard Time - Saskatchewan - die meisten Orte"
+msgstr "Zentrale Standardzeit - Saskatchewan - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr "Central Time"
+msgstr "Zentrale Zeit"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr "Central Time - Campeche, Yucatan"
+msgstr "Zentrale Zeit - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr "Central Time - Zentral-Nunavut"
+msgstr "Zentrale Zeit - Zentral-Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+msgstr "Zentrale Zeit - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Zentrale Zeit - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr "Central Time - Indiana - Pike County"
+msgstr "Zentrale Zeit - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "Central Time - Manitoba & West Ontario"
+msgstr "Zentrale Zeit - Manitoba & West Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Zentrale Zeit - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr "Central Time - die meisten Orte"
+msgstr "Zentrale Zeit - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
-"Central Time - North Dakota - Morton County (bis auf den Bezirk Mandan)"
+msgstr "Zentrale Zeit - North Dakota - Morton County (bis auf den Bezirk Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Central Time - North Dakota - Oliver County"
+msgstr "Zentrale Zeit - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr "Central Time - Quintana Roo"
+msgstr "Zentrale Zeit - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Central Time - Rainy River & Fort Frances, Ontario"
+msgstr "Zentrale Zeit - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr "Central Time - West Nunavut"
+msgstr "Zentrale Zeit - West Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -7150,68 +7088,66 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Osterinsel & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Eastern Standard Time - Southampton Island"
+msgstr "Östliche Standardzeit - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr "Eastern Time"
+msgstr "Östliche Zeit"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr "Eastern Standard Time - Ost-Nunavut"
+msgstr "Östliche Zeit - Ost-Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Eastern Time - Indiana - Crawford County"
+msgstr "Östliche Zeit - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Time - Indiana - die meisten Orte"
+msgstr "Östliche Zeit - Indiana - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Eastern Time - Indiana - Starke County"
+msgstr "Östliche Zeit - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Eastern Time - Indiana - Switzerland County"
+msgstr "Östliche Zeit - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Eastern Time - Kentucky - Louisville"
+msgstr "Östliche Zeit - Kentucky - Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Eastern Time - Kentucky - Wayne County"
+msgstr "Östliche Zeit - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Eastern Time - Michigan - die meisten Orte"
+msgstr "Östliche Zeit - Michigan - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario - die meisten Orte"
+msgstr "Östliche Zeit - Ontario - die meisten Orte"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Eastern Time - Ontario & Quebec - Orte die die Sommerzeit 1967-1973 nicht "
+"Östliche Zeit - Ontario & Quebec - Orte die die Sommerzeit 1967-1973 nicht "
 "anwenden"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Östliche Standardzeit - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Eastern Time - Quebec - die meisten Orte"
+msgstr "Östliche Zeit - Quebec - die meisten Orte"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Eastern Time - Thunder Bay, Ontario"
+msgstr "Östliche Zeit - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -7239,7 +7175,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (außer Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7318,9 +7254,8 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskau+01 - Kaspisches Meer"
+msgstr "Moskau+00 - Kaspisches Meer"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7331,9 +7266,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskau-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskau+09 - Kamchatka"
+msgstr "Moskau+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7389,62 +7323,59 @@ msgstr "die meisten Orte (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "Großteil von Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr "Mountain Standard Time - Arizona"
+msgstr "Mountain Standardzeit - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standardzeit - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr "Mountain Standard Time - Sonora"
+msgstr "Mountain Standardzeit - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "Mountain Time"
+msgstr "Mountain Zeit"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Mountain Time - Alberta, Ost-British Columbia & West-Saskatchewan"
+msgstr "Mountain Zeit - Alberta, Ost-British Columbia & West-Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - Zentral Northwest Territories"
+msgstr "Mountain Zeit - Zentral Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "Mountain Time - Chihuahua"
+msgstr "Mountain Zeit - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "Mountain Time - Navajo"
+msgstr "Mountain Zeit - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+msgstr "Mountain Zeit - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Mountain Time - Süd-Idaho & Ost-Oregon"
+msgstr "Mountain Zeit - Süd-Idaho & Ost-Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Mountain Time - westliches Northwest Territories"
+msgstr "Mountain Zeit - westliches Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Nord-Ost Brasilien (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantische Zeit - Ost-Labrador"
+msgstr "Neufundland-Zeit - inklusive SO-Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7460,19 +7391,19 @@ msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr "Pacific Time"
+msgstr "Pazifische Zeit"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Pacific Time - Nord-Yukon"
+msgstr "Pazifische Zeit - Nord-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "Pacific Time - Süd-Yukon"
+msgstr "Pazifische Zeit - Süd-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "Pacific Time - West British Columbia"
+msgstr "Pazifische Zeit - West British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
@@ -7496,7 +7427,7 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Holiday-Insel"
+msgstr "Queensland - Holiday-Inseln"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -7604,20 +7535,19 @@ msgstr "West & Zentral-Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "West-Kongo "
+msgstr "Westliche Dem. Rep. Kongo "
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "West-Australien"
+msgstr "Western Australia"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
 msgstr "West-Kasachstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & der größte Teil von Xinjiang Uyghur"
+msgstr "West-Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7839,61 +7769,3 @@ msgstr "Walisisch"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC-erkannter Monitor"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Tertiärer DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Tertiärer DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Mittels _DHCP konfigurieren"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP-Adresse"
-
-#~ msgid "Net_mask"
-#~ msgstr "Netz_maske"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Hardware-Adresse:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Registrierungsschlüssel wird benötigt"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Ein Registrierungsschlüssel wird benötigt, um %s zu installieren.  Bitte "
-#~ "kontaktieren Sie Ihren Supportvertreter, falls Sie keinen Schlüssel mit "
-#~ "Ihrem Produkt erhalten haben."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Ungültige CIDR-Maske"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Einloggen auf %s fehlgeschlagen: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "%s konnte nicht abgerufen werden: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Die Standardinstallation von %s beinhaltet eine Auswahl an Programmen für "
-#~ "die allgemeine Internetnutzung. Welche zusätzlichen Aufgaben sollen durch "
-#~ "Ihr System unterstützt werden?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Neufundland"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "Südwest Xinjiang Uyghur"
