@@ -1,3 +1,4 @@
+# translation of as.po to Assamese
 # translation of anaconda to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-12 12:13+0530\n"
+"PO-Revision-Date: 2006-09-19 10:33+0530\n"
 "Last-Translator: Amitakhya Phukan <amitakhya.phukan@gmail.com>\n"
 "Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
@@ -108,8 +109,7 @@ msgstr "অগ্যাত সংস্থাপন প্ৰক্ৰীয়া 
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-" অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যিটো anacondaই যোগান নধৰে ।"
+msgstr " অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যিটো anacondaই যোগান নধৰে ।"
 
 #: ../anaconda:854
 #, c-format
@@ -175,8 +175,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-" Boot বিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFIয়ে boot কৰিব নোৱাৰিব । "
+msgstr " Boot বিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFIয়ে boot কৰিব নোৱাৰিব । "
 
 #: ../autopart.py:1025
 msgid ""
@@ -188,10 +187,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-" অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুত বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে। "
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr " অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুত বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে। "
 
 #: ../autopart.py:1058
 #, python-format
@@ -1598,8 +1595,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত আছে %s ।"
+msgstr "আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত আছে %s ।"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1742,8 +1738,7 @@ msgid "Confirm Reset"
 msgstr "পুনৰায় সজ্জিত কৰা নিশ্চিত কৰক ।"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "আপুনি বিভাজন সূচি প্ৰথম অৱস্থালৈ পুনৰায় সজ্জিত কৰিবলৈ নিৰ্ধাৰিত কৰিছে নেকি ?"
 
 #: ../partitioning.py:62
@@ -1787,21 +1782,17 @@ msgstr ""
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
+msgstr "আপোনাৰ মূল বিভাজন ২৫০ মেগাবাইটকৈ কম যিটো সাধাৰণতে %s সংস্থাপনৰ বাবে বৰ সৰু ।"
 
 #: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"প্ৰথম ৪ টা বিভাজনৰ ভিতৰত আপোনাৰ বুট বিভাজন নাই আৰু সেইবাবে বুট কৰিব পৰা নাযাব ।"
+msgstr "প্ৰথম ৪ টা বিভাজনৰ ভিতৰত আপোনাৰ বুট বিভাজন নাই আৰু সেইবাবে বুট কৰিব পৰা নাযাব ।"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"আপুনি এটা FAT ধৰণৰ /boot/efi বিভাজন আৰু ৫০ মেগাবাইটৰ আকাৰ সৃষ্টি কৰিবৈ লাগিব ।"
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "আপুনি এটা FAT ধৰণৰ /boot/efi বিভাজন আৰু ৫০ মেগাবাইটৰ আকাৰ সৃষ্টি কৰিবৈ লাগিব ।"
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1821,8 +1812,7 @@ msgstr ""
 "উপদেশতকৈ নিম্ন স্তৰৰ ।"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB যন্ত্ৰত সংস্তাপন কৰা হৈছে । এই সংস্থাপনে কাৰ্য্যকৰি প্ৰণালী সৃষ্টি কৰিব বা নকৰিবও "
 "পাৰে ।"
@@ -1883,8 +1873,7 @@ msgstr "এটা বিভাজন যিতো কোনো LVM আয়তন 
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "এই অভ্যুত্থানৰ স্থান অবৈধ । %s পঞ্জিকা /  নথি-পত্ৰ প্ৰণালীত থাকিব লাগিব । "
 
 #: ../partRequests.py:252
@@ -2157,8 +2146,7 @@ msgid "Welcome to %s"
 msgstr "%s লৈ স্বাগতম"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "সহায়ৰ বাবে <F1> | পদাৰ্থৰ মাজত <Tab> | <Space>-এ নিৰ্ব্বাচন কৰে | পৰৱৰ্তী "
 "পৰ্দ্দালৈ <F12>"
@@ -2295,7 +2283,7 @@ msgstr "%s বিচাৰি পোৱা ন'গ'ল"
 
 #: ../urlinstall.py:36
 msgid "Connecting..."
-msgstr "যোগাযোগ কৰা হৈছে..."
+msgstr "সংযোগ কৰা হৈছে..."
 
 #: ../urlinstall.py:75
 #, python-format
@@ -2308,16 +2296,15 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s নথি-পত্ৰ খুলিব পৰা ন'গ'ল । এইটো কোনো লুপ্ত নথি-পত্ৰ বা বিকৃত সৰঞ্জামৰ বাবে হৈছে "
-"। and try using a different one.\n"
+"%s নথি-পত্ৰ খুলিব পৰা ন'গ'ল । এইটো কোনো লুপ্ত নথি-পত্ৰ বা বিকৃত সৰঞ্জামৰ বাবে হৈছে । অনুগ্ৰহ কৰি প্ৰতিবিম্বত সকলো আৱশ্যকীয় সৰঞ্জাম থকাতো নিৰ্দ্দিষ্ট কৰক আৰু কোনো বেলেগ প্ৰতিবিম্ব এটা ব্যৱহাৰ কৰিব'লৈ চেষ্টা কৰক ।"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
-"likely require reinstallation.\n"
+"\n"
+"পুনৰাম্ভ কৰিলে, আপোনাৰ ব্যৱস্থাপ্ৰণালী অস্থিৰ অৱস্থালৈ পৰিণত হ'ব আৰু সম্ভৱতঃ পুনঃসংস্থাপনৰ আৱশ্যক হ'ব । \n"
 "\n"
 
 #: ../vnc.py:44
 msgid "Unable to Start X"
-msgstr ""
+msgstr "X আৰম্ভ কৰিব পৰা ন'গ'ল ।"
 
 #: ../vnc.py:45
 msgid ""
@@ -2325,22 +2312,22 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-
+"আপোনাৰ যন্ত্ৰত X আৰম্ভ কৰিব পৰা ন'গ'ল । অন্য এটা কম্পিউটাৰৰ পৰা এই কম্পিউটাৰলৈ সংযোগ কৰি VNC আৰম্ভ কৰিব খোজে নেকি যাতে চিত্ৰাংকিত সংস্থাপন কৰিব পাৰি নে লিখিত ধৰণৰ সংস্থাপনত আগবাঢ়িব খোজে ?"
 #: ../vnc.py:52 ../vnc.py:55
 msgid "Use text mode"
-msgstr ""
+msgstr "লিখিত ধৰণ ব্যৱহাৰ কৰক"
 
 #: ../vnc.py:53
 msgid "Start VNC"
-msgstr ""
+msgstr "VNC আৰম্ভ কৰক"
 
 #: ../vnc.py:63
 msgid "VNC Configuration"
-msgstr ""
+msgstr "VNC বিন্যাস"
 
 #: ../vnc.py:67
 msgid "No password"
-msgstr ""
+msgstr "কোনো গুপ্ত শব্দ নাই"
 
 #: ../vnc.py:70
 msgid ""
@@ -2348,34 +2335,34 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
-
+"এটা গুপ্ত শব্দই আপোনাৰ সংস্থাপন কাৰ্য্যৰ প্ৰগতি অনুমতি নোহোৱা শ্ৰোতাক সংযোগ আৰু নিৰীক্ষণ কৰাৰ পৰা প্ৰতিৰোধ কৰিব । অনুগ্ৰহ কৰি সংস্থাপনত ব্যৱহাৰ কৰিব'লৈ এটা গুপ্ত শব্দ দিয়ক ।"
 #: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
 msgid "Password:"
-msgstr ""
+msgstr "গুপ্ত শব্দ:"
 
 #: ../vnc.py:79 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
-msgstr ""
+msgstr "গুপ্ত শব্দ (সাব্যস্ত কৰক):"
 
 #: ../vnc.py:101 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
-msgstr ""
+msgstr "গুপ্ত শব্দ বিজোৰ"
 
 #: ../vnc.py:102 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "আপুনি দিয়া গুপ্ত শব্দ বেলেগ । অনুগ্ৰহ কৰি পুনঃ চেষ্টা কৰক ।"
 
 #: ../vnc.py:107 ../textw/userauth_text.py:59
 msgid "Password Length"
-msgstr ""
+msgstr "গুপ্ত শব্দৰ দৈৰ্ঘ্য"
 
 #: ../vnc.py:108
 msgid "The password must be at least six characters long."
-msgstr ""
+msgstr "গুপ্ত শব্দ অতি কমেও ৬টা আখৰ দীঘল হ'ব লাগে ।"
 
 #: ../vnc.py:138
 msgid "VNC Password Error"
-msgstr ""
+msgstr "VNC গুপ্ত শব্দ ভুল"
 
 #: ../vnc.py:139
 msgid ""
@@ -2383,28 +2370,30 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-
+"আপুনি অতি কমেও ৬টা আখৰ দীঘল vnc গুপ্ত শব্দ নিৰ্দ্দিষ্ট কৰিব লাগে ।\n"
+"\n"
+"ব্যৱস্থাপ্ৰণালী পুনৰাম্ভ কৰিব'লৈ <return> টিপক ।\n"
 #: ../vnc.py:184
 msgid "Starting VNC..."
-msgstr ""
+msgstr "VNC আৰম্ভ কৰা হৈছে..."
 
 #: ../vnc.py:227
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr ""
+msgstr "%s গৃহস্থত %s %s সংস্থাপন কৰা হৈছে"
 
 #: ../vnc.py:229
 #, python-format
 msgid "%s %s installation"
-msgstr ""
+msgstr "%s %s সংস্থাপন"
 
 #: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "vnc গুপ্ত শব্দ নিৰ্ধাৰিত কৰিব পৰা ন'গ'ল - কোনো গুপ্ত শব্দ ব্যৱহাৰ কৰা হোৱা নাই !"
 
 #: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
+msgstr "আপোনাৰ গুপ্ত শব্দ অতি কমেও ৬টা আখৰ দীঘল হোৱাতো নিশ্চিত কৰক ।"
 
 #: ../vnc.py:273
 msgid ""
@@ -2415,7 +2404,12 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
-
+"\n"
+"\n"
+"সকীয়নি !!! \n"
+"You can use the vncpassword=<password> boot option\n"
+"if you would like to secure the server.\n"
+"\n"
 #: ../vnc.py:277
 msgid "The VNC server is now running."
 msgstr ""
@@ -2509,8 +2503,7 @@ msgstr ""
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
@@ -3423,9 +3416,8 @@ msgid "IPv_6 Address:"
 msgstr ""
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "অভ্যুত্থানৰ স্থান:(_M)"
+msgstr ""
 
 #: ../iw/network_gui.py:383
 msgid "_ESSID:"
@@ -3441,9 +3433,8 @@ msgid "Configure %s"
 msgstr ""
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "অবৈধ পঞ্জিকা"
+msgstr ""
 
 #: ../iw/network_gui.py:458
 msgid "IPv4 prefix must be between 0 and 32."
@@ -3668,14 +3659,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:642
@@ -4144,13 +4133,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"অভ্যুত্থানৰ স্থান \"%s\" ইতিমধ্যে প্ৰয়োগত আছে, অনুগ্ৰহ কৰি এটা বেলেগ অভ্যুত্থানৰ স্থান "
-"নিৰ্ব্বাচন কৰক ।"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4170,8 +4157,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4287,8 +4273,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zfcp_gui.py:24
@@ -4431,8 +4416,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:387
@@ -4550,8 +4534,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr ""
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/grpselect_text.py:133
@@ -4924,8 +4907,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1476
@@ -5565,8 +5547,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:366
@@ -5904,14 +5885,12 @@ msgid "Missing Information"
 msgstr ""
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "'%s' বৈধ IPv6 ঠিকনা নহয় ।"
+msgstr ""
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6525,8 +6504,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6722,8 +6700,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -7161,3 +7138,4 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
