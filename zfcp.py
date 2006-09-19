@@ -25,6 +25,14 @@ import logging
 log = logging.getLogger("anaconda")
 import warnings
 
+def loggedWriteLineToFile(fn, value):
+    f = open(fn, "w")
+    log.debug("echo %s > %s" % (value, fn))
+    f.write("%s\n" % (value))
+    f.close()
+
+zfcpsysfs = "/sys/bus/ccw/drivers/zfcp"
+
 class ZFCPDevice:
     def __init__(self, devnum, wwpn, fcplun):
         self.devnum = self.sanitizeDeviceInput(devnum)
@@ -105,26 +113,15 @@ class ZFCPDevice:
         if self.onlineStatus:
             return True
         
-        online = "/sys/bus/ccw/drivers/zfcp/%s/online" %(self.devnum,)
-        portadd = "/sys/bus/ccw/drivers/zfcp/%s/port_add" %(self.devnum,)
-        unitadd = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_add" %(self.devnum,
-                                                          self.wwpn)
+        online = "%s/%s/online" %(zfcpsysfs, self.devnum)
+        portadd = "%s/%s/port_add" %(zfcpsysfs, self.devnum)
+        unitadd = "%s/%s/%s/unit_add" %(zfcpsysfs, self.devnum, self.wwpn)
         try:
             if not os.path.exists(unitadd):
-                f = open(portadd, "w")
-                log.debug("echo %s > %s" % (self.wwpn, portadd))
-                f.write("%s\n" % (self.wwpn,))
-                f.close()
+                loggedWriteLineToFile(portadd, self.wwpn)
 
-            f = open(unitadd, "w")
-            log.debug("echo %s > %s" % (self.fcplun, unitadd))
-            f.write("%s\n" % (self.fcplun,))
-            f.close()
-
-            f = open(online, "w")
-            log.debug("echo %s > %s" % (1, online))
-            f.write("1")
-            f.close()
+            loggedWriteLineToFile(unitadd, self.fcplun)
+            loggedWriteLineToFile(online, "1")
         except Exception, e:
             log.warn("error bringing zfcp device %s online: %s"
                      %(self.devnum, e))
@@ -137,26 +134,13 @@ class ZFCPDevice:
         if not self.offlineStatus:
             return True
         
-        offline = "/sys/bus/ccw/drivers/zfcp/%s/offline" %(self.devnum,)
-        portremove = "/sys/bus/ccw/drivers/zfcp/%s/port_remove" %(self.devnum,)
-        unitremove = "/sys/bus/ccw/drivers/zfcp/%s/%s/unit_remove" %(self.devnum,
-                                                                     self.wwpn)
-
+        offline = "%s/%s/offline" %(zfcpsysfs, self.devnum)
+        portremove = "%s/%s/port_remove" %(zfcpsysfs, self.devnum)
+        unitremove = "%s/%s/%s/unit_remove" %(zfcpsysfs, self.devnum, self.wwpn)
         try:
-            f = open(offline, "w")
-            log.debug("echo %s > %s" % (0, offline))
-            f.write("0")
-            f.close()
-
-            f = open(unitremove, "w")
-            log.debug("echo %s > %s" %(self.fcplun, unitremove))
-            f.write("%s\n" %(self.fcplun,))
-            f.close()
-
-            f = open(portremove, "w")
-            log.debug("echo %s > %s" %(self.wwpn, portremove))
-            f.write("%s\n" %(self.wwpn,))
-            f.close()
+            loggedWriteLineToFile(offline, "0")
+            loggedWriteLineToFile(unitremove, self.fcplun)
+            loggedWriteLineToFile(portremove, self.wwpn)
         except Exception, e:
             log.warn("error bringing zfcp device %s offline: %s"
                      %(self.devnum, e))
@@ -168,7 +152,6 @@ class ZFCPDevice:
 class ZFCP:
     def __init__(self):
         self.fcpdevs = []
-
         self.readConfig()
 
     def readConfig(self):
@@ -243,7 +226,5 @@ class ZFCP:
             return
         if os.path.exists("/tmp/zfcp.conf"):
             shutil.copyfile("/tmp/zfcp.conf", instPath + "/etc/zfcp.conf")
-        else:
-            return
 
 # vim:tw=78:ts=4:et:sw=4

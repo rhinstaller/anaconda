@@ -1,5 +1,8 @@
 2006-09-19  Jeremy Katz  <katzj@redhat.com>
 
+	* zfcp.py (ZFCPDevice.onlineDevice): Consolidate repeated code.
+	(ZFCPDevice.offlineDevice): Likewise.
+
 	* partitioning.py (partitionObjectsInitialize): Shutdown/startup
 	zfcp devs here
 
