@@ -2,6 +2,8 @@
 # translation of zh_CN.po to
 # translation of zh_CN.po to
 # translation of zh_CN.po to
+# translation of zh_CN.po to
+# translation of zh_CN.po to
 # translation of zh_CN.po to Chinese, Simplified
 # translation of zh_CN.po to zh_CN
 # translation of anaconda.po to Simplified Chinese
@@ -19,7 +21,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-17 10:16+1000\n"
+"PO-Revision-Date: 2006-09-19 14:21+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -192,8 +194,7 @@ msgstr "引导分区在磁盘上的位置不够靠前。OpenFirmware 无法引�
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "引导分区 %s 可能没有满足您的体系的引导制约参数。"
 
 #: ../autopart.py:1058
@@ -908,8 +909,7 @@ msgstr "保存屏幕快照时出错"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
+msgstr "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
@@ -1209,8 +1209,7 @@ msgstr "缺少软件包组"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
-"您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
+msgstr "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1408,8 +1407,7 @@ msgstr "错误 - 卷组名 %s 无效。"
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1428,8 +1426,7 @@ msgstr "错误 - 逻辑卷名称 %s 无效。"
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1686,8 +1683,7 @@ msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
 #: ../partitioning.py:62
@@ -1735,8 +1731,7 @@ msgid ""
 msgstr "您的引导区不是最初的四个分区之一，因此无法引导驱动器。"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必须创建一个 FAT 类型的 /boot/efl 分区，大小为 50MB。"
 
 #: ../partitions.py:867
@@ -1755,8 +1750,7 @@ msgid ""
 msgstr "您的 %s 分区小于 %s MB，小于正常安装 %s 的建议值。"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:945
@@ -1809,8 +1803,7 @@ msgstr "一个是 LVM 卷组成员之一的分区。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 
 #: ../partRequests.py:252
@@ -1818,8 +1811,7 @@ msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
+msgstr "挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -1873,8 +1865,7 @@ msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
-"该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
+msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:924
 msgid ""
@@ -2070,8 +2061,7 @@ msgid "Welcome to %s"
 msgstr "欢迎使用 %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1>求助 | <Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
 #: ../text.py:428
@@ -2148,16 +2138,14 @@ msgstr "挂载失败"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
-"在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
+msgstr "在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:303
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
-"/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
+msgstr "/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:320
 msgid ""
@@ -2420,8 +2408,7 @@ msgstr "错误运行记录"
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "出现错误，原因如下：%s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
@@ -2861,8 +2848,7 @@ msgstr "安装 %s(_I)"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
+msgstr "选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -2873,8 +2859,7 @@ msgstr "升级现有安装(_U)"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
-"如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
+msgstr "如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
 
 #: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3369,14 +3354,13 @@ msgid "Edit Interface %s"
 msgstr "编辑接口 %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "硬件地址： %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "使用动态 IP 配置(DHCP)"
+msgstr "使用动态 IP 配置 (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3391,29 +3375,24 @@ msgid "_Activate on boot"
 msgstr "引导时激活(_A)"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4 地址："
+msgstr "IPv_4 地址："
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6地址："
+msgstr "IPv_6地址："
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
 msgstr "点对点 (I_P)"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "加密密钥(_K)"
+msgstr "加密密钥(_K):"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3421,19 +3400,16 @@ msgid "Configure %s"
 msgstr "配置 %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "无效 IP 字符串"
+msgstr "无效的前缀"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
+msgstr "IPv4 的前缀必须在0和32之间。"
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
+msgstr "IPv6 的前缀必须在0到128之间。"
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3447,13 +3423,12 @@ msgid "Device"
 msgstr "设备"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/子网掩码"
+msgstr "IPv4/子网掩码"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/前缀"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3472,9 +3447,8 @@ msgid "_manually"
 msgstr "手工设置(_m)"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(例如“host.domain.com”)"
+msgstr "(例如：host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3619,12 +3593,12 @@ msgstr "强制为主分区(_p)"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3659,14 +3633,12 @@ msgid "Partitioning"
 msgstr "分区"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "您所申请的分区方案存在下列严重错误。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "在继续安装 %s 之前，您一定要首先更正这些错误。"
 
 #: ../iw/partition_gui.py:642
@@ -4162,7 +4134,7 @@ msgstr ""
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr ""
+msgstr "无法为 %s 找到组群文件。这会使手工从存储库中选择软件包无法正常工作。"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4181,11 +4153,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "您必须为存储器提供一个HTTP或FTP地址。"
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "挂载点 %s 已被使用，请另选一个。"
+msgstr "存储库 %s 已被使用，请另选一个存储库名和 URL。"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4205,8 +4177,7 @@ msgstr "这将会更新您目前的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4328,16 +4299,14 @@ msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
-"强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
+msgstr "强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所选的交换分区在该设备上空间不够。"
 
 #: ../iw/zfcp_gui.py:24
@@ -4498,10 +4467,8 @@ msgstr ""
 "一个分区使用的标签。"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4636,8 +4603,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "请选择您想安装的软件包"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组详情   |   <F12> 下一屏幕"
 
 #: ../textw/grpselect_text.py:133
@@ -5013,10 +4979,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5031,14 +4995,13 @@ msgid "Partitioning Type"
 msgstr "分区类型"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"安装需要对您的硬盘进行分区。默认情况下，选择适合大多数用户的分区方案。您可以"
-"选择默认方式，也可以创建您自己的分区方式。"
+"安装需要对您的硬盘进行分区。默认分区方案适合大多数用户。您可以"
+"选择默认的分区，也可以创建您自己的分区。"
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5110,14 +5073,12 @@ msgid "Package selection"
 msgstr "选择软件包"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"%s的默认安装包括一系列用于一般互联网应用的软件。您希望您的系统可以支持的额外"
-"功能是什么？"
+msgstr "%s 的默认安装包括一系列用于一般互联网应用的软件。您希望您的系统可以支持的额外功能是什么？"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5277,13 +5238,13 @@ msgid "_Fedora"
 msgstr "Fedora(_F)"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"%s的默认安装包括一系列用于一般互联网应用的软件。您希望您的系统可以支持的额外"
+"%s 的默认安装包括一系列用于一般互联网应用的软件。您希望您的系统可以支持的额外"
 "功能是什么？"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
@@ -5398,8 +5359,7 @@ msgstr "弹出光盘"
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr ""
-"选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
+msgstr "选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5418,8 +5378,7 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
+msgstr "在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -5507,7 +5466,7 @@ msgstr "挂载驱动程序盘失败。"
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "驱动程序盘无效（ %s 的这个发行版本）。"
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5708,8 +5667,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "欢迎使用 %s - 援救模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../loader2/lang.c:366
@@ -5959,11 +5917,10 @@ msgstr ""
 "     \n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr "对于IPv4网络，CIDR预设数值在1到32之间，而对于IPv6网络则在1到128之间。"
+msgstr "对于 IPv4网络，前缀值在1到32之间，而对于 IPv6网络则在1到128之间。"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6028,11 +5985,11 @@ msgstr "配置 TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS 需要 IPv4"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS 安装需要 IPv4 的支持。"
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6073,14 +6030,12 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "必须输入有效的 IPv6 地址和CIDR代码。"
+msgstr "必须输入有效的 IPv6 地址和一个 CIDR 前缀。"
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6373,8 +6328,7 @@ msgstr "配置iSCSI参数"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
-"使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
+msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6426,14 +6380,13 @@ msgstr "稍后定制(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "请选择您的软件安装所需要的存储库。"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr "软件的定制可以现在完成，也可以在安装之后，在软件应用管理中完成。"
+msgstr "软件的定制可以现在进行，也可以在安装后使用软件管理应用程序来完成。"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6489,21 +6442,19 @@ msgstr "大西洋群岛"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "大西洋标准时间 - 魁北克 - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "东部时间 - 安大略 - 多数地区"
+msgstr "大西洋时间 - Labrador - 多数地区"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "大西洋时间 - 新布伦兹维克"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "大西洋时间 - 新斯科舍省 (多数地区)，西拉布拉多，东魁北克 & PEI"
+msgstr "大西洋时间 - 新斯科舍省 (多数地区)，PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6543,9 +6494,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "卡塔马卡 (CT)，丘布特(CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "中国中部 - 甘肃、贵州、四川、云南等地"
+msgstr "中国中部 - 陕西、贵州、四川、云南、广西等地"
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6658,9 +6608,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "复活岛和萨雷戈麦兹"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "东部标准时间 - 南安普敦岛"
+msgstr "东部标准时间 - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6703,8 +6652,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "东部时间 - 安大略 - 多数地区"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "东部时间 - 安大略 & 魁北克 - 不使用 DST 1967-1973 的地区"
 
 #. generated from zone.tab
@@ -6745,7 +6693,7 @@ msgstr "夏威夷"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "黑龙江、吉林"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -6825,9 +6773,8 @@ msgid "Midway Islands"
 msgstr "中途群岛"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "莫斯科+01 - 里海"
+msgstr "莫斯科+00 - 里海"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -6838,9 +6785,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "莫斯科-01 - 加里宁格勒"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "莫斯科+09 -  勘察加"
+msgstr "莫斯科+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -6897,15 +6843,14 @@ msgstr "多数位置 (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "西藏大部和新疆"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "山区标准时间 - 亚利桑那"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山区标准时间 - 道森溪 & 圣约翰堡，英属哥伦比亚"
 
 #. generated from zone.tab
@@ -6949,9 +6894,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "巴西东北 (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "大西洋时间 - 东拉布拉多"
+msgstr "Newfoundland 时间，包括 SE Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7126,9 +7070,8 @@ msgid "West Kazakhstan"
 msgstr "哈萨克斯坦西部"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "西藏和新疆维吾尔自治区大部"
+msgstr "西藏西部和新疆"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7352,57 +7295,3 @@ msgstr "威尔士语"
 msgid "Zulu"
 msgstr "祖鲁语"
 
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC 探测过的显示器"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "第三 DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "第三 DNS(_T)"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "使用 DHCP 进行配置(_D)"
-
-#~ msgid "_IP Address"
-#~ msgstr "IP 地址(_I)"
-
-#~ msgid "Net_mask"
-#~ msgstr "子网掩码(_m)"
-
-#~ msgid "Hardware address:"
-#~ msgstr "硬件地址："
-
-#~ msgid "Registration Key Required"
-#~ msgstr "请输入注册码。"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr "安装%s需要输入注册码，请与您的供应商联系获得该产品的注册码。"
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "无效的 CIDR Mask"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "登录 %s 失败：%s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "检索 %s 失败：%s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "%s的默认安装包含一系列用于互联网常规应用的软件。您希望您的系统还支持其它什"
-#~ "么样的附加功能？"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "黑龙江"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "纽芬兰岛"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "新疆乌鲁木齐西南"
