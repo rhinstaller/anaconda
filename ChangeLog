@@ -1,5 +1,10 @@
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py: Remove old zfcp stuff
+
+	* textw/zfcp_text.py: Remove.
+	* iw/zfcp_text.py: Remove.
+
 	* kickstart.py (AnacondaKSHandlers.doZFCP): Handle multiple zfcp
 	devs and adjust for new backend
 

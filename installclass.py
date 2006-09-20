@@ -199,9 +199,6 @@ class BaseInstallClass:
     def setGroupSelection(self, anaconda):
 	pass
 
-    def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):
-        id.zfcp.fcpdevices.append( (devnum, scsiid, wwpn, scsilun, fcplun) )
-
     def setZeroMbr(self, id, zeroMbr):
         id.partitions.zeroMbr = zeroMbr
 
@@ -280,9 +277,6 @@ class BaseInstallClass:
 
     def setSELinux(self, id, sel):
         id.security.setSELinux(sel)
-
-    def setZFCP(self, id, fcpdev):
-        id.zfcp.fcpdevices = fcpdev
 
     def setFirewall(self, id, enable = 1, trusts = [], ports = []):
 	id.firewall.enabled = enable
