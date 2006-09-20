@@ -19,6 +19,11 @@
 
 	* loader2/net.c (manualNetConfig): Translation fix (#207069)
 
+	* isys/isys.c (doDhcpNetDevice): Call pumpSetupInterface() after
+	we call pumpDhcpClassRun() to bring the interface up.  NOTE: This
+	function only does IPv4 stuff right now since the UI code needs
+	changes before IPv6 can be worked in (#206192, #200109).
+
 2006-09-20  Paul Nasrat <pnasrat@redhat.com>
 
 	* upgrade.py: Format swap on ppc upgrades (#206523)

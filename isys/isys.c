@@ -617,6 +617,7 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     char buf[47];
     time_t timeout = 45;
     struct pumpNetIntf cfg;
+    /* FIXME: we call this from rescue mode, need to pass in what user wants */
     DHCP_Preference pref = DHCPv6_DISABLE;
     ip_addr_t *tip;
     PyObject * rc;
@@ -624,10 +625,16 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
         return NULL;
 
-    memset(&cfg,'\0',sizeof(struct pumpNetIntf));
+    memset(&cfg, '\0', sizeof(cfg));
     strncpy(cfg.device, device, sizeof(cfg.device) - 1);
 
     r = pumpDhcpClassRun(&cfg, 0L, "anaconda", pref, 0, timeout, NULL, 0L);
+    if (r) {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+
+    r = pumpSetupInterface(&cfg);
     if (r) {
         Py_INCREF(Py_None);
         return Py_None;
