@@ -1,3 +1,8 @@
+2006-09-20  Chris Lumens  <clumens@redhat.com>
+
+	* language.py (Language.setDefault):  Don't write out "none" for
+	SYSFONT.
+
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
 	* syslogd.py (InstSyslog.start): Only exec syslogd if it exists

@@ -174,7 +174,11 @@ class Language:
 
 	dispLang = self.fixLang(self.canonLangNick(nick))
 	self.info['LANG'] = dispLang
-	self.info['SYSFONT'] = self.localeInfo[dispLang][2]
+
+        if self.localeInfo[dispLang][2] == "none":
+            self.info['SYSFONT'] = None
+        else:
+            self.info['SYSFONT'] = self.localeInfo[dispLang][2]
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if nick == "zh_CN.GB18030":
