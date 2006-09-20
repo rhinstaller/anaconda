@@ -62,6 +62,7 @@ class Flags:
 	self.__dict__['flags']['dmraid'] = 1
 	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
         self.__dict__['flags']['debug'] = 0
+	self.__dict__['flags']['targetarch'] = None
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
@@ -77,6 +78,9 @@ class Flags:
 
         if self.__dict__['flags']['cmdline'].has_key("debug"):
             self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
+
+        if self.__dict__['flags']['cmdline'].has_key("rpmarch"):
+            self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']             
 
         if not os.path.exists("/selinux/load"):
             self.__dict__['flags']['selinux'] = 0

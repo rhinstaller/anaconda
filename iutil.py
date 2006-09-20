@@ -399,8 +399,8 @@ def writeRpmPlatform(root="/"):
     myarch = rhpl.arch.canonArch
 
     # now allow an override with rpmarch=i586 on the command line (#101971)
-    if flags.cmdline.has_key("rpmarch"):
-        myarch = flags.cmdline["rpmarch"]
+    if flags["targetarch"] != None:
+        myarch = flags["targetarch"]
 
     # now make the current install believe it, too
     rhpl.arch.canonArch = myarch            

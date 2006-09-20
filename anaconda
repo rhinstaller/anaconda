@@ -199,7 +199,8 @@ def parseOptions():
     op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
                   default="/mnt/sysimage", nargs=1, type="string")
     op.add_option("-t", "--test", action="store_true", default=False)
-
+    op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
+                  
     # Display
     op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
     op.add_option("--lowres", dest="resolution", action="store_const", const="640x480")
@@ -662,6 +663,9 @@ if __name__ == "__main__":
 
     if opts.iscsi:
         flags.iscsi = 1
+
+    if opts.targetarch:
+        flags.targetarch = opts.targetarch
 
     # set dmraid and mpath flags 
     flags.dmraid = opts.dmraid

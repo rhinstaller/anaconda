@@ -1,3 +1,10 @@
+2006-09-20  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda (Anaconda.setMethod): Allow passing --targetarch
+	(#206881)
+	* flags.py (Flags.__init__): Set targetarch as a flag
+	* iutil.py (writeRpmPlatform): Use flag
+
 2006-09-20  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (manualNetConfig): Translation fix (#207069)
