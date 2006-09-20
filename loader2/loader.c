@@ -389,8 +389,10 @@ static void checkForHardDrives(void) {
     struct device ** devices;
 
     devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
-    if (devices || FL_ISCSI(flags))
+    if (devices)
         return;
+
+    return;
 
     /* If they're using kickstart, assume they might know what they're doing.
      * Worst case is we fail later */
@@ -564,6 +566,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                         LOADER_FLAGS_ASKMETHOD);*/
         } else if (!strcasecmp(argv[i], "askmethod"))
             flags |= LOADER_FLAGS_ASKMETHOD;
+        else if (!strcasecmp(argv[i], "asknetwork"))
+            flags |= LOADER_FLAGS_ASKNETWORK;
         else if (!strcasecmp(argv[i], "noshell"))
             flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "mediacheck"))
@@ -711,7 +715,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                      !strncasecmp(argv[i], "vnc", 3) ||
                      !strncasecmp(argv[i], "vncconnect=", 11) ||
                      !strncasecmp(argv[i], "headless", 8) ||
-                     !strncasecmp(argv[i], "iscsi", 5) ||
                      !strncasecmp(argv[i], "usefbx", 6) ||
                      !strncasecmp(argv[i], "mpath", 6) ||
                      !strncasecmp(argv[i], "nompath", 8) ||
@@ -724,8 +727,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 /* vnc implies graphical */
                 if (!strncasecmp(argv[i], "vnc", 3))
                     flags |= LOADER_FLAGS_GRAPHICAL;
-                else if (!strncasecmp(argv[i], "iscsi", 5))
-                    flags |= LOADER_FLAGS_ISCSI;
 
                 if (!strncasecmp(argv[i], "vesa", 4)) {
                     asprintf(&extraArgs[numExtraArgs], "--xdriver=vesa");
@@ -1007,7 +1008,7 @@ static char *doLoaderMain(char * location,
         case STEP_NETWORK:
             if ( (installMethods[validMethods[methodNum]].deviceType != 
                   CLASS_NETWORK) && (!hasGraphicalOverride()) &&
-                 !FL_ISCSI(flags)) {
+                 !FL_ASKNETWORK(flags)) {
                 needsNetwork = 0;
                 if (dir == 1) 
                     step = STEP_URL;

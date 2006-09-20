@@ -1,5 +1,9 @@
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c: Change iscsi flag -> asknetwork.  Don't bail
+	if we don't have find disk devices in the loader.
+	* loader2/loader.h: Likewise.
+
 	* textw/partition_text.py: Text mode support for iscsi and zfcp devices
 
 	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Adjust

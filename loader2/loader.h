@@ -33,7 +33,7 @@
 #define LOADER_FLAGS_MEDIACHECK         (1 << 22)
 #define LOADER_FLAGS_NOUSBSTORAGE       (1 << 23)
 #define LOADER_FLAGS_ASKMETHOD          (1 << 24)
-#define LOADER_FLAGS_ISCSI              (1 << 25)
+#define LOADER_FLAGS_ASKNETWORK         (1 << 25)
 #define LOADER_FLAGS_NOIEEE1394         (1 << 26)
 #define LOADER_FLAGS_NOFB		(1 << 27)
 #define LOADER_FLAGS_CMDLINE            (1 << 28)
@@ -74,7 +74,7 @@
 #define FL_VIRTPCONSOLE(a)  ((a) & LOADER_FLAGS_VIRTPCONSOLE)
 #define FL_NOSTORAGE(a)     ((a) & LOADER_FLAGS_NOSTORAGE)
 #define FL_NOPROBE(a)       (FL_NOSTORAGE(a) | FL_NONET(a))
-#define FL_ISCSI(a)         ((a) & LOADER_FLAGS_ISCSI)
+#define FL_ASKNETWORK(a)    ((a) & LOADER_FLAGS_ASKNETWORK)
 #define FL_UB(a)            ((a) & LOADER_FLAGS_UB)
 #define FL_NOIPV6(a)        ((a) & LOADER_FLAGS_NOIPV6)
 
