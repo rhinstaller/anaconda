@@ -664,8 +664,8 @@ if __name__ == "__main__":
     if opts.iscsi:
         flags.iscsi = 1
 
-    if opts.targetarch:
-        flags.targetarch = opts.targetarch
+    if opts.targetArch:
+        flags.targetarch = opts.targetArch
 
     # set dmraid and mpath flags 
     flags.dmraid = opts.dmraid
