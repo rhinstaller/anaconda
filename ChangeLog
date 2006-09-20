@@ -1,5 +1,10 @@
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
+	* syslogd.py (InstSyslog.start): Only exec syslogd if it exists
+
+	* fsset.py (FileSystemSet.mkDevRoot): Don't create /dev/root if it
+	already exists
+
 	* anaconda (Anaconda.setMethod): Allow passing --targetarch
 	(#206881)
 	* flags.py (Flags.__init__): Set targetarch as a flag

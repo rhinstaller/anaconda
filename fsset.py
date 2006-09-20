@@ -1284,8 +1284,9 @@ MAILADDR root
         if not os.path.exists(dev):
             isys.makeDevInode(root.device.getDevice(), dev)        
         rdev = os.stat(dev).st_rdev
-        
-        os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
+
+        if not os.path.exists("%s/dev/root" %(instPath,)):
+            os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
 
     # return the "boot" device
     def getBootDev(self):

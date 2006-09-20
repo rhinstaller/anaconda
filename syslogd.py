@@ -73,8 +73,9 @@ class InstSyslog:
                     if os.access (f+"/syslogd", os.X_OK):
                         path = f+"/syslogd"
                         break
-                
-            os.execv (path, ("syslogd", root, log))
+
+            if os.path.exists(path):
+                os.execv (path, ("syslogd", root, log))
 
     def stop(self):
         if self.pid == -1:
