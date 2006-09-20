@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.98
+Version: 11.1.0.99
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 20 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.99-1
+- Fix CD stage2 + URL installs (clumens, #205571, #206072)
+- Remove hostap (clumens, #196334)
+- Fix input validation for manual network config (dcantrel, 
+  #206148, #206678, #206537)
+- More network UI improvements (dcantrel)
+- Fix upgrade tracebacks (pnasrat, #206913)
+- Improved zfcp code (#204145)
+- Format swap on ppc upgrades (pnasrat, #206523)
+- Fix network interface bringup (dcantrel, #206192, #200109)
+- Allow running anaconda with --target arch for stateless (#206881)
+- Improve iscsi and zfcp TUI and kickstart config
+
 * Fri Sep 15 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.98-1
 - Fix stage2 creation (prarit, #206638)
 - Add ehea driver (pjones)
