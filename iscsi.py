@@ -19,6 +19,7 @@ from flags import flags
 import logging
 import shutil
 import time
+import md5, random
 log = logging.getLogger("anaconda")
 
 from rhpl.translate import _, N_
@@ -28,61 +29,121 @@ ISCSID="/usr/sbin/iscsid"
 ISCSIADM = "/usr/sbin/iscsiadm"
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
-class iscsi:
+class iscsiTarget:
+    def __init__(self, ipaddr, port = None, user = None, pw = None):
+        # FIXME: validate ipaddr
+        self.ipaddr = ipaddr
+        if not port: # FIXME: hack hack hack
+            port = 3260
+        self.port = str(port)
+        self.user = user
+        self.password = pw
+        self._portal = None
+        self._node = None
+
+    def _getPortal(self):
+        if self._portal is None:
+            argv = [ "-m", "node", "-p", self.ipaddr ]
+            records = iutil.execWithCapture(ISCSIADM, argv)
+            for line in records.split("\n"):
+                if not line or line.find("found!") != -1:
+                    log.warn("no record found!")
+                    return None
+                (self._portal, self._node) = line.split()
+                break
+        return self._portal
+    def _getNode(self):
+        # FIXME: this is kind of gross....
+        if self._node is None:
+            p = self.portal
+        return self._node
+    portal = property(_getPortal)
+    node = property(_getNode)
+
+    def discover(self):
+        if flags.test:
+            return True
+
+        argv = [ "-m", "discovery", "-t", "st", "-p", 
+                 "%s:%s" % (self.ipaddr, self.port) ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        rc = iutil.execWithRedirect(ISCSIADM, argv,
+                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+        if rc != 0:
+            log.warn("iscsiadm failed to discover on %s" %(self.ipaddr,))
+            return False
+        return True
+
+    def login(self):
+        if self.node is None or self.portal is None:
+            log.warn("unable to find portal information")
+            return False
+        argv = [ "-m", "node", "-T", self.node, "-p", self.portal, "--login" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        rc = iutil.execWithRedirect(ISCSIADM, argv,
+                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+        if rc != 0:
+            log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
+            return False
+
+        self._autostart()
+        return True
+
+    def _autostart(self):
+        argv = [ "-m", "node", "-T", self.node, "-p", self.portal,
+                 "-o", "update", "-n", "node.conn[0].startup",
+                 "-v", "automatic" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        iutil.execWithRedirect(ISCSIADM, argv,
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
+
+    def logout(self):
+        argv = [ "-m", "node", "-T", self.node, "-p", self.portal, "--logout" ]
+        log.debug("iscsiadm %s" %(string.join(argv),))
+        rc = iutil.execWithRedirect(ISCSIADM, argv,
+                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+
+def randomIname():
+    """Generate a random initiator name the same way as iscsi-iname"""
+    
+    s = "iqn.2005-03.com.max:01."
+    m = md5.md5()
+    u = os.uname()
+    for i in u:
+        m.update(i)
+    dig = m.hexdigest()
+    
+    for i in range(0, 6):
+        s += dig[random.randrange(0, 32)]
+    return s
+
+class iscsi(object):
     def __init__(self):
         self.targets = []
-        self.initiator = ""
+        self._initiator = ""
+        self.initiatorSet = False
         self.iscsidStarted = False
 
-
-    def action(self, action, ipaddr = None):
-        #
-        # run action for all iSCSI targets.
-        #
-        # For each record (line of output) in:
-        #     iscsiadm -m node
-        #
-        # Where each line in the output is of the form:
-        #     [recnum] stuff
-        #
-        # Issue the "action" request to recnum.
-        #
-        argv = [ "-m", "node" ]
-
-        if ipaddr is not None:
-            argv.extend(["-p", ipaddr])
-
-        log.info("going to run iscsiadm: %s" %(argv,))
-        records = iutil.execWithCapture(ISCSIADM, argv)
-        for line in records.split("\n"):
-            if line and line.find("no records found!") == -1:
-                (portal, node) = line.split()
-                argv = [ "-m", "node", "-T", node, "-p", portal, action ]
-                log.info("going to run iscsiadm: %s" %(argv,))
-                rc = iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
-                                            stdout = "/dev/tty5",
-                                            stderr = "/dev/tty5")
-                if rc != 0:
-                    log.info("iscsiadm failed!")
-                    continue
-
-                if action != "--login":
-                    continue
-                
-                # ... and now we have to make it start automatically
-                argv = [ "-m", "node", "-T", node, "-p", portal,
-                         "-o", "update", "-n", "node.conn[0].startup",
-                         "-v", "automatic" ]
-                iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
-                                       stdout = "/dev/tty5",
-                                       stderr = "/dev/tty5")
+    def _getInitiator(self):
+        if self._initiator != "":
+            return self._initiator
+        return randomIname()
+    def _setInitiator(self, val):
+        if self._initiator != "":
+            raise ValueError, "Unable to change iSCSI initiator name once set"
+        if len(val) == 0:
+            raise ValueError, "Must provide a non-zero length string"
+        self._initiator = val
+        self.initiatorSet = True        
+    initiator = property(_getInitiator, _setInitiator)
 
     def shutdown(self):
         if not self.iscsidStarted:
             return
 
         log.info("iSCSI shutdown")
-        self.action("--logout")
+        for t in self.targets:
+            t.logout()
 
         # XXX use iscsiadm shutdown when it's available.
         argv = [ "--no-headers", "-C", "%s" % (ISCSID,) ]
@@ -94,27 +155,10 @@ class iscsi:
                 os.kill(pid, signal.SIGKILL)
         self.iscsidStarted = False;
 
-    def discoverTarget(self, ipaddr, port = "3260", intf = None):
-        if not self.iscsidStarted:
-            self.startup(intf)
-        if flags.test:
-            return
-            
-        argv = [ "-m", "discovery", "-t", "st", "-p", 
-                 "%s:%s" % (ipaddr, port) ]
-        log.info("going to run with args: %s" %(argv,))
-        iutil.execWithRedirect(ISCSIADM, argv,
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
-
-    def loginTarget(self, ipaddr = None):
-        if flags.test:
-            return
-        self.action("--login", ipaddr)
-
     def startup(self, intf = None):
         if flags.test:
             return
-        if not self.initiator:
+        if not self.initiatorSet:
             log.info("no initiator set")
             return
         if self.iscsidStarted:
@@ -142,19 +186,28 @@ class iscsi:
         time.sleep(2)
 
         for t in self.targets:
-            idx = t.rfind(":")
-            if idx == -1:
-                ipaddr = t
-                port = "3260"
-            else:
-                ipaddr = t[:idx]
-                port = t[idx+1:]
-
-            self.discoverTarget(ipaddr, port, intf)
-            self.loginTarget(ipaddr)
+            if not t.discover():
+                continue
+            t.login()
 
         if intf:
             w.pop()
+
+    def addTarget(self, ipaddr, port = "3260", user = None, pw = None,
+                  intf = None):
+        if not self.iscsidStarted:
+            self.startup(intf)
+            if not self.iscsidStarted:
+                # can't start for some reason.... just fallback I guess
+                return
+
+        t = iscsiTarget(ipaddr, port, user, pw)
+        if not t.discover():
+            return
+        if not t.login():
+            return
+        self.targets.append(t)
+        return
 
     def writeKS(self):
         # XXX Useful if we have auto-generated kickstart files.

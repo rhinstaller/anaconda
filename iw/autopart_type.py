@@ -117,9 +117,9 @@ class PartitionTypeWindow(InstallWindow):
 
         # get the initiator name if it exists and don't allow changing
         # once set
-        if self.anaconda.id.iscsi.initiator:
-            e = dxml.get_widget("iscsiInitiatorEntry")
-            e.set_text(self.anaconda.id.iscsi.initiator)
+        e = dxml.get_widget("iscsiInitiatorEntry")
+        e.set_text(self.anaconda.id.iscsi.initiator)
+        if self.anaconda.id.iscsi.initiatorSet: # this is uglyyyy....
             e.set_sensitive(False)
 
         while 1:
@@ -137,8 +137,9 @@ class PartitionTypeWindow(InstallWindow):
                 continue
             self.anaconda.id.iscsi.initiator = initiator
 
-            target = dxml.get_widget("iscsiAddrEntry").get_text()
-            target.strip()
+            target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
+            user = dxml.get_widget("userEntry").get_text().strip()
+            pw = dxml.get_widget("passEntry").get_text().strip()
             err = None
             try:
                 idx = target.rfind(":")
@@ -156,10 +157,8 @@ class PartitionTypeWindow(InstallWindow):
             if err:
                 self.intf.messageWindow(_("Error with Data"), "%s" %(msg,))
                 continue
-            self.anaconda.id.iscsi.targets.append(target)
 
-            self.anaconda.id.iscsi.discoverTarget(ip, port, self.intf)
-            self.anaconda.id.iscsi.loginTarget(ip)
+            self.anaconda.id.iscsi.addTarget(ip, port, user, pw, self.intf)
             break
 
         dialog.destroy()

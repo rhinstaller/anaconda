@@ -1,3 +1,16 @@
+2006-09-20  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/partition_text.py: Text mode support for iscsi and zfcp devices
+
+	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Adjust
+	for new iscsi backend code.
+
+	* kickstart.py (AnacondaKSHandlers.doIscsi): Better iscsi syntax.
+
+	* iscsi.py: Improve support a bit so that we give a default
+	initiator name, have the framework for handling
+	usernames/passwords, and have cleaner code.
+
 2006-09-20  Chris Lumens  <clumens@redhat.com>
 
 	* language.py (Language.setDefault):  Don't write out "none" for

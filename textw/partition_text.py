@@ -4,7 +4,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,6 +18,7 @@ import os, sys
 import isys
 import string
 import copy
+import network
 import parted
 from partitioning import *
 from partedUtils import *
@@ -1506,13 +1507,14 @@ class PartitionTypeWindow:
             flag = FLAGS_SET
         # XXX need a way to disable the checkbox tree
 
-    def shutdownUI(self):
+    def clearDrivelist(self):
         # XXX remove parted object refs
         #     need to put in clear() method for checkboxtree in snack
         self.drivelist.key2item = {}
         self.drivelist.item2key = {}
-    
+
     def __call__(self, screen, anaconda):
+        self.anaconda = anaconda
         g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
         txt = TextboxReflowed(65, _("Installation requires partitioning "
@@ -1542,39 +1544,48 @@ class PartitionTypeWindow:
         subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
                                                "use for this installation?")),
                          0, 0)
-        cleardrives = anaconda.id.partitions.autoClearPartDrives
-        disks = anaconda.id.diskset.disks.keys()
-        disks.sort()
         drivelist = CheckboxTree(height=2, scroll=1)
-        if not cleardrives or len(cleardrives) < 1:
-            for disk in disks:
-                drivelist.append(disk, selected = 1)
-        else:
-            for disk in disks:
-                if disk in cleardrives:
-                    selected = 1
-                else:
-                    selected = 0
-                drivelist.append(disk, selected = selected)
         subgrid.setField(drivelist, 0, 1)
         g.add(subgrid, 0, 2, (0, 1, 0, 0))
 
-        
-        
         bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
         g.add(bb, 0, 5, (0,1,0,0))
 
 
         typebox.setCallback(self.typeboxChange, (typebox, drivelist))        
         self.drivelist = drivelist
-        
+
+        g.addHotKey("F2")
+	screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))        
 
         while 1:
+            # restore the drive list each time
+            disks = anaconda.id.diskset.disks.keys()
+            disks.sort()
+            cleardrives = anaconda.id.partitions.autoClearPartDrives
+            self.clearDrivelist()
+            if not cleardrives or len(cleardrives) < 1:
+                cleardrives = disks
+
+            for disk in disks:
+                if disk in cleardrives:
+                    selected = 1
+                else:
+                    selected = 0
+                self.drivelist.append(disk, selected = selected)
+
+            
             rc = g.run()
+
+            if rc == "F2":
+                if self.addDriveDialog(screen) != INSTALL_BACK:
+                    partitionObjectsInitialize(anaconda)
+                continue
+            
             res = bb.buttonPressed(rc)
 
             if res == TEXT_BACK_CHECK:
-                self.shutdownUI()
+                self.clearDrivelist()
                 screen.popWindow()
                 
                 return INSTALL_BACK
@@ -1609,7 +1620,90 @@ class PartitionTypeWindow:
                 anaconda.dispatch.skipStep("partition", skip = 1)
                 anaconda.dispatch.skipStep("bootloader", skip = 1)
 
-        self.shutdownUI()
+        self.clearDrivelist()
         screen.popWindow()
 
+        return INSTALL_OK
+
+    def addDriveDialog(self, screen):
+        newdrv = [ "Add iSCSI target" ]
+        if rhpl.getArch() in ("s390", "s390x"):
+            newdrv.append( "Add zFCP LUN" )
+
+        (button, choice) = ListboxChoiceWindow(screen,
+                                   _("Advanced Storage Options"),
+                                   _("How would you like to modify "
+                                     "your drive configuration?"),
+                                   newdrv,
+                                   [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
+                                               width=55, height=3)
+        
+        if button == TEXT_BACK_CHECK:
+            return INSTALL_BACK
+        if choice == 1:
+            try:
+                return self.addZFCPDriveDialog(screen)
+            except ValueError, e:
+                ButtonChoiceWindow(screen, _("Error"), e)
+                return INSTALL_BACK
+        else:
+            try:
+                return self.addIscsiDriveDialog(screen)
+            except ValueError, e:
+                ButtonChoiceWindow(screen, _("Error"), e)
+                return INSTALL_BACK
+
+    def addZFCPDriveDialog(self, screen):
+        (button, entries) = EntryWindow(screen,
+                                        _("Add FCP Device"),
+                                        _("zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port Name (WWPN), and a 64 bit FCP LUN for each device."),
+                                        prompts = [ "Device number",
+                                                    "WWPN",
+                                                    "FCP LUN" ] )
+        if button == TEXT_BACK_CHECK:
+            return INSTALL_BACK
+
+        devnum = entries[0].strip()
+        wwpn = entries[1].strip()
+        fcplun = entries[2].strip()
+        self.anaconda.id.zfcp.addFCP(devnum, wwpn, fcplun)        
+                                        
+        return INSTALL_OK
+
+    def addIscsiDriveDialog(self, screen):
+        if not network.hasActiveNetDev():
+            ButtonChoiceWindow(screen, _("Error"),
+                               "Must have a network configuration set up "
+                               "for iSCSI config.  Please boot with "
+                               "'linux asknetwork'")
+            return INSTALL_BACK
+        
+        (button, entries) = EntryWindow(screen,
+                                        _("Configure iSCSI Parameters"),
+                                        _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
+                                        prompts = [ "Target IP Address",
+                                                    "iSCSI Initiator Name" ])
+        if button == TEXT_BACK_CHECK:
+            return INSTALL_BACK
+
+        target = entries[0].strip()
+        try:
+            idx = target.rfind(":")
+            if idx != -1:
+                ip = target[:idx]
+                port = target[idx:]
+            else:
+                ip = target
+                port = "3260"
+            network.sanityCheckIPString(ip)
+        except network.IPMissing, msg:
+            raise ValueError, msg
+        except network.IPError, msg:
+            raise ValueError, msg
+
+        iname = entries[1].strip()
+        if not self.anaconda.id.iscsi.initiatorSet:
+            self.anaconda.id.iscsi.initiator = iname
+        self.anaconda.id.iscsi.addTarget(ip, port)
+                                        
         return INSTALL_OK
