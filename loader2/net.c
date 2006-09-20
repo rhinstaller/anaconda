@@ -1145,7 +1145,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
 
         if (isix != 2) {
             newtWinMessage(_("Missing Information"), _("Retry"),
-                           _("You must enter both a valid IPv6 address and a"
+                           _("You must enter both a valid IPv6 address and a "
                              "CIDR prefix."));
         }
 
