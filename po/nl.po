@@ -15,13 +15,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-15 22:20+0200\n"
+"PO-Revision-Date: 2006-09-20 21:13+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -3627,14 +3627,13 @@ msgid "Edit Interface %s"
 msgstr "Interface %s instellen"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Hardware-adres: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP-configuratie (_DHCP) gebruiken"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3649,29 +3648,24 @@ msgid "_Activate on boot"
 msgstr "_Activeren bij opstarten"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4-adres:"
+msgstr "IPv_4-adres:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6-adres:"
+msgstr "IPv_6-adres:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "Point to Point (IP):"
+msgstr "_Point to Point (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "Encryptie _sleutel"
+msgstr "Encryptie _sleutel:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3679,19 +3673,16 @@ msgid "Configure %s"
 msgstr "%s configureren"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Ongeldige IP-informatie"
+msgstr "Ongeldige prefix"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP-adressen moeten bestaan uit getallen tussen 1 en 255"
+msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP-adressen moeten bestaan uit getallen tussen 1 en 255"
+msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3705,13 +3696,12 @@ msgid "Device"
 msgstr "Apparaat"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Netmask"
+msgstr "IPv4/Netmask"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Prefix"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3731,9 +3721,8 @@ msgid "_manually"
 msgstr "hand_matig"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(bijv. \"host.domein.com\")"
+msgstr "(bijv., host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3885,12 +3874,12 @@ msgstr "Forceren als _primaire partitie"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Station %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Station %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4468,6 +4457,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Er is geen groepsbestand gevonden voor %s. Dit maakt een handmatige selectie "
+"van pakketten uit de repository niet mogelijk"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4486,11 +4477,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "U moet een HTTP of FTP URL naar een repository opgeven."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Het koppelpunt \"%s\" is reeds in gebruik. Kies een ander koppelpunt."
+msgstr "De repository %s is al toegevoegd. Kies een andere repository naam en URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5377,15 +5368,14 @@ msgid "Partitioning Type"
 msgstr "Partitioneringstype"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Installatie vereist partitionering van uw harde schijf. Standaard wordt een "
-"partitieopmaak gekozen die geschikt is voor de meeste gebruikers. U kunt "
-"ervoor kiezen om deze te gebruiken of om er zelf een aan te maken."
+"Installatie vereist partitionering van uw harde schijf. De standaard "
+"partitieopmaak is geschikt voor de meeste gebruikers. U kunt ervoor kiezen "
+"om deze te gebruiken of om er zelf een aan te maken."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5457,7 +5447,7 @@ msgid "Package selection"
 msgstr "Pakketselectie"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5635,7 +5625,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5888,11 +5878,9 @@ msgid "Failed to mount driver disk."
 msgstr "Aankoppelen stuurprogramma-diskette mislukt."
 
 #: ../loader2/driverdisk.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
-"De diskette die u invoerde is geen geldige driver-diskette voor deze versie "
-"van %s."
+msgstr "Stuurprogramma-diskette is ongeldig voor deze uitgave van %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6374,13 +6362,12 @@ msgstr ""
 "      voor uw architectuur\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"CIDR-mask waarde moet tussen 1 en 32 liggen voor IPv4-netwerken of tussen 1 "
-"en 128 voor IPv6-netwerken"
+"Prefix moet tussen 1 en 32 liggen voor IPv4 netwerken of tussen 1 en 128 voor "
+"IPv6 netwerken"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6447,11 +6434,11 @@ msgstr "TCP/IP configureren"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 is benodigd voor NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Installatie via NFS vereist IPv4-ondersteuning."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6501,7 +6488,6 @@ msgstr ""
 "invoeren."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "U moet zowel een geldig IPv6-adres en een CIDR-prefix invoeren."
 
@@ -6862,15 +6848,16 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Selecteer eventuele additionele repositories die u wilt gebruiken voor "
+"software-installatie."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Verdere aanpassingen aan de software-selectie kunnen nu worden voltooid of "
-"na de installatie met behulp van de software-beheer applicatie."
+"U kunt de software-selectie nu verder aanpassen of na de installatie met "
+"behulp van de software-beheer applicatie."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6926,22 +6913,19 @@ msgstr "Atlantische Eilanden"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantische Standaard Tijd - Quebec - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Eastern Time - Ontario - meeste lokaties"
+msgstr "Atlantische Tijd - Labrador - meeste locaties"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantische Tijd - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Atlantische Tijd - Nova Scotia (meeste plaatsen), W Labrador, E Quebec & PEI"
+msgstr "Atlantische Tijd - Nova Scotia (meeste plaatsen), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6982,9 +6966,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "centraal China - Gansu, Guizhou, Sichuan, Yunnan, enz."
+msgstr "centraal China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, enz."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6996,7 +6979,7 @@ msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Central Standard Time - Saskatchewan - meeste lokaties"
+msgstr "Central Standard Time - Saskatchewan - meeste locaties"
 
 #. generated from zone.tab
 msgid "Central Time"
@@ -7037,7 +7020,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr "Central Time - meeste lokaties"
+msgstr "Central Time - meeste locaties"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
@@ -7100,9 +7083,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Paaseiland & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Eastern Standard Time - Southampton Island"
+msgstr "Eastern Standard Time - Atikokan, Ontario en Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7118,7 +7100,7 @@ msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Time - Indiana - meeste lokaties"
+msgstr "Eastern Time - Indiana - meeste locaties"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7138,11 +7120,11 @@ msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Eastern Time - Michigan - meeste lokaties"
+msgstr "Eastern Time - Michigan - meeste locaties"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario - meeste lokaties"
+msgstr "Eastern Time - Ontario - meeste locaties"
 
 #. generated from zone.tab
 msgid ""
@@ -7157,7 +7139,7 @@ msgstr "Eastern Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Eastern Time - Ontario - meeste lokaties"
+msgstr "Eastern Time - Ontario - meeste locaties"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7189,7 +7171,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (behalve Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7268,9 +7250,8 @@ msgid "Midway Islands"
 msgstr "Midway Eilanden"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskou+01 - Kaspische Zee"
+msgstr "Moskou+00 - Kaspische Zee"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7281,9 +7262,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskou-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskou+09 - Kamchatka"
+msgstr "Moskou+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7331,15 +7311,15 @@ msgstr "Moskou+10 - Bering zee"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "meeste lokaties"
+msgstr "meeste locaties"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "meeste lokaties (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "meeste locaties (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "het meeste van Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7392,13 +7372,12 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NO Brazilië (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantische Tijd - E Labrador"
+msgstr "Newfoundland Tijd, inclusief SE Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "New South Wales - meeste lokaties"
+msgstr "New South Wales - meeste locaties"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
@@ -7450,7 +7429,7 @@ msgstr "Queensland - Holiday Eilanden"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - meeste lokaties"
+msgstr "Queensland - meeste locaties"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7510,7 +7489,7 @@ msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr "Tasmania - meeste lokaties"
+msgstr "Tasmania - meeste locaties"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7565,9 +7544,8 @@ msgid "West Kazakhstan"
 msgstr "West Kazagstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & grootste gedeelte van Xinjiang Uyghur"
+msgstr "west Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
