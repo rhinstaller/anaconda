@@ -1,5 +1,8 @@
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (AnacondaKSHandlers.doZFCP): Handle multiple zfcp
+	devs and adjust for new backend
+
 	* loader2/loader.c: Change iscsi flag -> asknetwork.  Don't bail
 	if we don't have find disk devices in the loader.
 	* loader2/loader.h: Likewise.

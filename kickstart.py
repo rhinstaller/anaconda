@@ -608,28 +608,8 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doZFCP(self, args):
         KickstartHandlers.doZFCP(self, args)
-        dict = self.ksdata.zfcp
-
-        dict["devnum"] = self.id.zfcp.sanitizeDeviceInput(dict["devnum"])
-        dict["fcplun"] = self.id.zfcp.sanitizeHexInput(dict["fcplun"])
-        dict["scsiid"] = self.id.zfcp.sanitizeInput(dict["scsiid"])
-        dict["scsilun"] = self.id.zfcp.sanitizeHexInput(dict["scsilun"])
-        dict["wwpn"] = self.id.zfcp.sanitizeFCPLInput(dict["wwpn"])
-
-        if self.id.zfcp.checkValidDevice(dict["devnum"]) == -1:
-            raise KickstartValueError, "Invalid devnum specified"
-        if self.id.zfcp.checkValidID(dict["scsiid"]) == -1:
-            raise KickstartValueError, "Invalid scsiid specified"
-        if self.id.zfcp.checkValid64BitHex(dict["wwpn"]) == -1:
-            raise KickstartValueError, "Invalid wwpn specified"
-        if self.id.zfcp.checkValidID(dict["scsilun"]) == -1:
-            raise KickstartValueError, "Invalid scsilun specified"
-        if self.id.zfcp.checkValid64BitHex(dict["fcplun"]) == -1:
-            raise KickstartValueError, "Invalid fcplun specified"
-
-        self.id.instClass.setZFCP(self.id, dict["devnum"], dict["scsiid"], dict["wwpn"],
-                                  dict["scsilun"], dict["fcplun"])
-        self.skipSteps.append("zfcpconfig")
+        for fcp in self.ksdata.zfcp:
+            self.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
 
 class VNCHandlers(KickstartHandlers):
     # We're only interested in the handler for the VNC command.
