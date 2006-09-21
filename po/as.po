@@ -2504,20 +2504,20 @@ msgstr "কাৰ্য্য পৰিচালনাৰ যোগান ধৰ
 #: ../yuminstall.py:510
 #, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
+msgstr "নিম্নলিখিত কাৰণ সমূহৰ বাবে কাৰ্য্য পৰিচালনাৰ যোগান ধৰা চলাওঁতে ভুল হ'ল: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
-msgstr ""
+msgstr "পুনৰাম্ভ কৰক (_b)"
 
 #: ../yuminstall.py:697
 msgid "Retrieving installation information..."
-msgstr ""
+msgstr "সংস্থাপন তথ্য উদ্ধাৰ কৰা হৈছে..."
 
 #: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
-msgstr ""
+msgstr "%s ৰ বাবে সংস্থাপন তথ্য উদ্ধাৰ কৰা হৈছে..."
 
 #: ../yuminstall.py:721
 #, python-format
@@ -2526,7 +2526,9 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-
+"Unable to read package metadata. This may be due to a missing repodata "
+"directory.  Please ensure that your install tree has been correctly "
+"generated.  %s"
 #: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr ""
