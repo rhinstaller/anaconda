@@ -1,5 +1,7 @@
 2006-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iutil.py (writeRpmPlatform): Fix flags (#207594)
+
 	* installclasses/rhel.py: Some text tweaks
 
 	* packages.py (regKeyScreen): Fix silly none vs not (#207587)
