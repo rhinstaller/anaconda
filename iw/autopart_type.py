@@ -37,6 +37,9 @@ class PartitionTypeWindow(InstallWindow):
         ics.setNextEnabled(True)
 
     def getNext(self):
+        if self.diskset.checkNoDisks(self.intf):
+            raise gui.StayOnScreen
+        
         active = self.combo.get_active_iter()
         val = self.combo.get_model().get_value(active, 1)
 

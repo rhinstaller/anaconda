@@ -1,5 +1,13 @@
 2006-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* partitioning.py (partitionObjectsInitialize): Don't call check
+	no disks here (#207471)
+	* textw/partition_text.py (PartitionTypeWindow.__call__): And here
+	* iw/autopart_type.py (PartitionTypeWindow.getNext): Check for no
+	disks here
+	* partedUtils.py (DiskSet.checkNoDisks): Don't exit, just return
+	with an error code
+
 	* scripts/mk-images.x86 (SYSLINUX): Fix bootdisk.img for x86_64
 
 2006-09-20  Jeremy Katz  <katzj@redhat.com>

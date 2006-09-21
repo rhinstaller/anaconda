@@ -1164,8 +1164,8 @@ class DiskSet:
                                  "found on which to create new file systems. "
                                  "Please check your hardware for the cause "
                                  "of this problem."))
-            sys.exit(0)
-
+            return True
+        return False
     
 
 

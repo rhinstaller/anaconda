@@ -1590,6 +1590,9 @@ class PartitionTypeWindow:
                 
                 return INSTALL_BACK
 
+            if anaconda.id.diskset.checkNoDisks(anaconda.intf):
+                continue
+
             if len(self.drivelist.getSelection()) < 1:
                 mustHaveSelectedDrive(anaconda.intf)
                 continue
