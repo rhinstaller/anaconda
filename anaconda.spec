@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.99
+Version: 11.1.0.100
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.100-1
+- Fix a few tracebacks (#207594, #207587)
+- Allow only iSCSI disks (#207471)
+- Fix bootdisk.img on x86_64
+
 * Wed Sep 20 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.99-1
 - Fix CD stage2 + URL installs (clumens, #205571, #206072)
 - Remove hostap (clumens, #196334)
