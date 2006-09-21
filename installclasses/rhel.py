@@ -11,15 +11,13 @@ log = logging.getLogger("anaconda")
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
-    id = "custom"
+    id = "rhel"
     name = N_("Red Hat Enterprise Linux")
-    pixmap = "custom.png"
-    description = N_("Select this installation type to gain complete "
-		     "control over the installation process, including "
-		     "software package selection and partitioning.")
+    description = N_("The default installation of %s includes a set of "
+                     "software applicable for general internet usage. "
+                     "What additional tasks would you like your system "
+                     "to include support for?") %(productName,)
     sortPriority = 10000
-    showLoginChoice = 1
-    showMinimal = 1
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
