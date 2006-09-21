@@ -1,5 +1,7 @@
 2006-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (regKeyScreen): Fix silly none vs not (#207587)
+
 	* partitioning.py (partitionObjectsInitialize): Don't call check
 	no disks here (#207471)
 	* textw/partition_text.py (PartitionTypeWindow.__call__): And here

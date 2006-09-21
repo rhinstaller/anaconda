@@ -237,7 +237,7 @@ def regKeyScreen(anaconda):
         return DISPATCH_NOOP
 
     while 1:
-        if anaconda.id.instClass.regkeydesc is not None:
+        if anaconda.id.instClass.regkeydesc is None:
             desc = _("Please enter the registration key for your version of %s.") %(productName,)
         else:
             desc = anaconda.id.instClass.regkeydesc
