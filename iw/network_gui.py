@@ -421,7 +421,7 @@ class NetworkWindow(InstallWindow):
         devbox.set_border_width(6)
 
 	# go ahead and set up DHCP on the first device
-	DHCPcb.set_active(bootproto.lower() == 'dhcp')
+	DHCPcb.set_active(self.devices[dev].get('bootproto').lower() == 'dhcp')
 
 	# set the IPv4 and IPv6 check boxes
 	IPV4cb.set_active(self.network.useIPv4)

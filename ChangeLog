@@ -1,3 +1,10 @@
+2006-09-22  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow): Set DHCP checkbox to active using
+	correct bootproto value.  Corrects a problem where you select DHCP and
+	IPv6 but uncheck IPv4 and the edit dialog enables and disables the
+	wrong widgets.
+
 2006-09-22  Bill Nottingham  <notting@redhat.com>
 
 	* loader2/firewire.c: firewire devices never have ->device
