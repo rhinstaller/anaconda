@@ -81,7 +81,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     for (i=0;devices[i];i++) {
 	if ((devices[i]->detached == 0) && (devices[i]->driver != NULL)) {
  	    logMessage(INFO, "found firewire device using %s",
-		       devices[i]->device);
+		       devices[i]->driver);
 	    mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, modInfo);
 	}
     }

@@ -1,3 +1,7 @@
+2006-09-22  Bill Nottingham  <notting@redhat.com>
+
+	* loader2/firewire.c: firewire devices never have ->device
+
 2006-09-22  Jeremy Katz  <katzj@redhat.com>
 
 	* partedUtils.py (DiskSet.findExistingRootPartitions): Don't give
