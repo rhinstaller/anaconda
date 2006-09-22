@@ -787,9 +787,6 @@ class DiskSet:
 		    try:
 			isys.mount(node, anaconda.rootPath, part.fs_type.name)
 		    except SystemError, (errno, msg):
-			anaconda.intf.messageWindow(_("Error"),
-                                           _("Error mounting file system on "
-                                             "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
 		    if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):

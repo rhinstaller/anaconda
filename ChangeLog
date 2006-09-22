@@ -1,5 +1,8 @@
 2006-09-22  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.findExistingRootPartitions): Don't give
+	an error on partition mount errors (#201805)
+
 	* textw/grpselect_text.py (GroupSelectionWindow.__call__): Give
 	indication of no optional packages (#204242)
 
