@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-20 23:37+1000\n"
+"PO-Revision-Date: 2006-09-23 03:05+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3379,14 +3379,13 @@ msgid "Edit Interface %s"
 msgstr "編輯網路界面 %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "硬體位址：%s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "使用動態 IP 設定 (DHCP)"
+msgstr "使用動態 IP 設定 (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3401,29 +3400,24 @@ msgid "_Activate on boot"
 msgstr "開機時立即啟動(_A)"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4 位址："
+msgstr "IPv_4 位址："
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6 位址："
+msgstr "IPv_6 位址："
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "點對點 (I_P)"
+msgstr "點對點 (I_P)："
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID："
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "加密金鑰(_K)"
+msgstr "加密金鑰(_K)："
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3431,19 +3425,16 @@ msgid "Configure %s"
 msgstr "設定 %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "IP 字串無效"
+msgstr "無效的前置"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
+msgstr "IPv4 的前置數字必須介於 0 與 32 之間。"
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
+msgstr "IPv4 的前置數字必須介於 0 與 128 之間。"
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3457,9 +3448,8 @@ msgid "Device"
 msgstr "裝置"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/網路遮罩"
+msgstr "IPv4/網路遮罩"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
@@ -3482,9 +3472,8 @@ msgid "_manually"
 msgstr "手動設定(_M)"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(例如：\"host.domain.com\")"
+msgstr "（例如：host.domain.com）"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -4191,11 +4180,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "您必須為軟體庫提供 HTTP 或 FTP 網址。"
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "您所要求的掛載點 \"%s\" 已被使用，請另外指定一個。"
+msgstr "已加入軟體庫 %s，請選擇另一個軟體庫名稱與網址。"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5031,14 +5020,11 @@ msgid "Partitioning Type"
 msgstr "分割類型"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
-msgstr ""
-"安裝過程需要重新分割您的硬碟。預設上會選擇一種對大部份使用者都適用的分割區方"
-"式。您可以選擇使用這分割區方式，或自行建立。"
+msgstr "安裝過程需要重新分割您的硬碟。預設分割區適用於大部份使用者。您可以選擇使用這預設分割模式，或自行建立。"
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5110,12 +5096,12 @@ msgid "Package selection"
 msgstr "選擇套件"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還包括哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5275,12 +5261,12 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還包括哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -5955,11 +5941,10 @@ msgstr ""
 "      的 %s 目錄\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr "CIDR 遮罩值必須介於 1 到 32 之間（IPv4）或介於 1 到 128 之間（IPv6）。"
+msgstr "前置數字必須介於 1 到 32 之間（IPv4）或介於 1 到 128 之間（IPv6）。"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6072,9 +6057,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "您必須輸入有效的 IPv6 位址及網路遮罩或 CIDR 前置字元。"
+msgstr "您必須輸入有效的 IPv6 位址及 aCIDR 前置字元。"
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6424,7 +6408,6 @@ msgid ""
 msgstr "請選擇任何您想要使用軟體安裝的額外軟體庫。"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
@@ -6495,11 +6478,8 @@ msgid "Atlantic Time - New Brunswick"
 msgstr "大西洋標準時區 - 新布朗斯威克"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"大西洋標準時區 - 諾華史高沙省（大部分地方）、拉布拉多西部、魁北克東部與愛德華"
-"島"
+msgstr "大西洋標準時區 - 諾華史高沙省（大部分地方）、愛德華王子島"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6652,9 +6632,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "復活島 & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "東部標準時間 - 南安普敦島"
+msgstr "東部標準時間 - 安大略的艾提高根與努勒維特的南安普敦島"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6817,9 +6796,8 @@ msgid "Midway Islands"
 msgstr "中途島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "莫斯科+01 - 裹海"
+msgstr "莫斯科+00 - 裹海"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -6830,9 +6808,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "莫斯科-01 - 加里寧格勒"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "莫斯科+09 - 康察加半島"
+msgstr "莫斯科+01 - 烏德穆爾特共和國薩馬拉州"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
