@@ -20,6 +20,7 @@ int main(int argc,char **argv) {
     unsigned int zero = 0;
     int fd;
     unsigned int size;
+    mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH;
 
     if (argc != 3) {
         printf("Usage: %s [integer size] [output file]\n", basename(argv[0]));
@@ -28,8 +29,7 @@ int main(int argc,char **argv) {
     }
 
     size = htonl(atoi(argv[1]));
-
-    fd = open(argv[2], O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+    fd = open(argv[2], O_CREAT | O_RDWR, mode);
 
     if (write(fd, &zero, sizeof(int)) == -1) {
         perror("writing initrd.size (zero)");

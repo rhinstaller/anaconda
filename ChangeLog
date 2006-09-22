@@ -5,6 +5,9 @@
 	IPv6 but uncheck IPv4 and the edit dialog enables and disables the
 	wrong widgets.
 
+	* utils/geninitrdsz.c: Create initrd.size file with 0644 permissions
+	(#197773).
+
 2006-09-22  Bill Nottingham  <notting@redhat.com>
 
 	* loader2/firewire.c: firewire devices never have ->device
