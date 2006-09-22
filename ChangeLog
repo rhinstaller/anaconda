@@ -1,5 +1,10 @@
 2006-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* backend.py (AnacondaBackend.doInitialSetup): Add missing self
+	(from Elliot Peele <elliot@rpath.com>)
+
+2006-09-21  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version
 
 	* iutil.py (writeRpmPlatform): Fix flags (#207594)

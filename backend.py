@@ -104,7 +104,7 @@ class AnacondaBackend:
     def doInitialSetup(self, anaconda):
         pass
 
-    def doRepoSetup(anaconda):
+    def doRepoSetup(self, anaconda):
         log.warning("doRepoSetup not implemented for backend!")
         pass
 
