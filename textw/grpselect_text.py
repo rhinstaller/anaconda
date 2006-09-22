@@ -110,6 +110,12 @@ class GroupSelectionWindow:
             if result != "F2":
                 break
 
+            pkgs = grp.default_packages.keys() + grp.optional_packages.keys()
+            if len(pkgs) == 0:
+                ButtonChoiceWindow(screen, _("Error"),
+                                   _("No optional packages to select"))
+                continue
+
 	    # if current group is not selected then select it first
 	    newSelection = 0
 	    grp = ct.getCurrent()
@@ -123,7 +129,6 @@ class GroupSelectionWindow:
 	    gct = CheckboxTree(height = 8, scroll = 1)
 
             orig = {}
-            pkgs = grp.default_packages.keys() + grp.optional_packages.keys()
             for pkg in pkgs:
                 orig[pkg] = self.ayum.isPackageInstalled(pkg)
                 gct.append("%s" %(pkg,), pkg, orig[pkg])
