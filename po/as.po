@@ -2526,11 +2526,10 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । "
-"generated.  %s"
+"সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । কোনো নোহোৱা তথ্য পাত্ৰৰ কাৰণে এইটো হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ নক্সা শুদ্ধকৈ উত্‌পন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক । %s"
 #: ../yuminstall.py:760
 msgid "Uncategorized"
-msgstr ""
+msgstr "অবৰ্গীকৰণ"
 
 #: ../yuminstall.py:995
 #, python-format
@@ -2538,17 +2537,17 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
-
+"আপুনি বিচৰা সৰঞ্জাম সমূহক সংস্থাপনৰ বাবে %d MB মুক্ত স্থানৰ প্ৰয়োজন, কিন্তু আপোনাৰ ওচৰত পৰ্যাপ্ত স্থান নাই । আপুনি আপোনাৰ পছন্দ সলনি কৰিব পাৰে নতুবা পুনৰাম্ভ কৰিব পাৰে ।"
 #: ../yuminstall.py:1149
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-
+"%s লৈ উন্নত কৰিব বিচৰা আপোনাৰ প্ৰণালী অত্যাধিককৈ পুৰণি । ইচ্ছা কৰা উন্নয়ন প্ৰক্ৰীয়াত  আগবাঢ়িব'লৈ আপুনি নিশ্চিগ নে ?"
 #: ../yuminstall.py:1181
 msgid "Install Starting"
-msgstr ""
+msgstr "সংস্থাপন আৰম্ভ কৰা হৈছে"
 
 #: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
