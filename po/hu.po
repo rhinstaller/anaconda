@@ -1,5 +1,4 @@
-# translation of hu.po to hu
-# Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005.
+# Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005, 2006.
 # Széll Tamás <tomi@digiflex.hu>, 2004.
 # Gabor SUVEG <gabor@suveg.hu>, 2004.
 # Szentiványi Gábor <szentivanyi.gabor@ulx.hu>, 2006.
@@ -9,13 +8,14 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-27 14:19+0200\n"
-"Last-Translator: Gábor Szentiványi <szenti@ulx.hu>\n"
-"Language-Team: hu <en@li.org>\n"
+"PO-Revision-Date: 2006-09-23 21:23+0200\n"
+"Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -3555,51 +3555,45 @@ msgid "Edit Interface %s"
 msgstr "A(z) %s csatoló módosítása"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Hardvercím: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Dinamikus IP címbeállítás (DHCP)"
+msgstr "Dinamikus IP-címbeállítás (D_HCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr "IPv4 támogatás engedélyezése"
+msgstr "IPv4-támogatás engedélyezése"
 
 #: ../iw/network_gui.py:291 ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr "IPv6 támogatás engedélyezése"
+msgstr "IPv6-támogatás engedélyezése"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
 msgstr "Akti_válás rendszerindításkor"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4 cím:"
+msgstr "IPv_4-cím:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6 cím:"
+msgstr "IPv_6-cím:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Point to Point (IP)"
+msgstr "_Point to Point (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "Titkosítási k_ulcs"
+msgstr "Titkosítási k_ulcs:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3607,19 +3601,16 @@ msgid "Configure %s"
 msgstr "%s beállítása"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Érvénytelen IP-sztring"
+msgstr "Érvénytelen előtag"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
+msgstr "Az IPv4-előtagnak 0 és 32 közé kell esnie."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
+msgstr "Az IPv6-előtagnak 0 és 128 közé kell esnie."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3633,13 +3624,12 @@ msgid "Device"
 msgstr "Eszköz"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP-cím/alhálózati maszk"
+msgstr "IPv4/alhálózati maszk"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/előtag"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3658,9 +3648,8 @@ msgid "_manually"
 msgstr "_kézzel"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(pl. \"xy.tartomány.hu\")"
+msgstr "(pl. \"gép.tartomány.hu\")"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3807,15 +3796,17 @@ msgstr "_Zárócilinder:"
 msgid "Force to be a _primary partition"
 msgstr "Első_dleges partíció legyen (kikényszerítés)"
 
+# drivetext = _("Drive %s (Geom: %s/%s/%s) "
+#                          "(Model: %s)") % ('/dev/' + drive,
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "%s meghajtó (geom.: %s/%s/%s) (modell: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "%s meghajtó (%-0.f MB) (modell: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4380,35 +4371,37 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Nem található csoportfájl ehhez: \"%s\", ezért a csomagokat nem lehet majd "
+"kézzel kiválasztani a tárházból."
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr "Érvénytelen csomagtárház név"
+msgstr "Érvénytelen csomagtárház-név"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
-msgstr "Meg kell adnia egy csomagtárház nevet."
+msgstr "Meg kell adnia egy csomagtárház-nevet."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr "Érvénytelen rendszertárház URL"
+msgstr "Érvénytelen tárház-URL"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Meg kell adnia egy HTTP vagy FTP URL-t a csomagtárház eléréséhez."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már le van kötve más célra, válasszon egy "
-"másikat."
+"A(z) \"%s\" csomagtárház már fel lett véve - válasszon másik csomagtárház-"
+"nevet és -URL-t."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
-msgstr "Időzóna választás"
+msgstr "Időzóna-választás"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
@@ -5274,15 +5267,14 @@ msgid "Partitioning Type"
 msgstr "Partícionálás típusa"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"A telepítés a merevlemez partícionálását igényli. Alapértelmezett esetben "
-"olyan partícionálási séma jelenik meg, ami alkalmas a legtöbb felhasználó "
-"számára. Választhat, hogy ezt használja, vagy elkészíti a sajátját."
+"A telepítés a merevlemez partícionálását igényli. Az alapértelmezett "
+"partíciókiosztás a legtöbb felhasználó számára megfelelő. Ha Önnek nem "
+"megfelelő, akkor egyéni kiosztást is készíthet."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5354,15 +5346,15 @@ msgid "Package selection"
 msgstr "Csomagválaszték"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"A(z) %s alapértelmezett telepítése tartalmaz egy szoftvercsoportot ami "
-"általános internet használatot tesz lehetővé. Milyen egyéb feladatot "
-"támogasson méga számítógépe?"
+"A(z) %s alapértelmezett telepítése tartalmaz egy általános "
+"internethasználathoz készült szoftvercsoportot. Milyen egyéb tevékenységeket "
+"szeretne végezni a számítógéppel?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5528,15 +5520,15 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"A(z) %s alapértelmezett telepítése tartalmaz egy szoftvercsoportot ami "
-"általános internet használatot tesz lehetővé. Milyen egyéb feladatot "
-"támogasson méga számítógépe?"
+"A(z) %s alapértelmezett telepítése tartalmaz egy általános "
+"internethasználathoz készült szoftvercsoportot. Milyen egyéb "
+"tevékenységekhez szeretne támogatást a számítógépen?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -5720,7 +5712,7 @@ msgstr "Betöltés"
 
 #: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
-msgstr "A meghajtólemez beolvasása..."
+msgstr "A meghajtóprogram-lemez olvasása..."
 
 #: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
@@ -5731,16 +5723,16 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Több olyan eszköz található a gépben, mely meghajtólemezt tartalmazhat. "
-"Melyiket szeretné használni?"
+"Több olyan eszköz található a gépben, amely meghajtóprogram-lemezt "
+"tartalmazhat. Melyiket szeretné használni?"
 
 #: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Több olyan partíció található ezen az eszközön, mely meghajtófájt "
-"tartalmazhat. Melyiket szeretné használni?"
+"Több olyan partíció található ezen az eszközön, amely tartalmazhatja a "
+"meghajtóprogram-lemez képmását. Melyiket szeretné használni?"
 
 #: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
@@ -5762,8 +5754,8 @@ msgstr "Nem sikerült betölteni a meghajtó-képmást a fájlból."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Helyezze be a meghajtólemezt a(z) /dev/%s meghajtóba, majd a folytatáshoz "
-"nyomja meg az \"OK\" gombot."
+"Helyezze be a meghajtóprogram-lemezt a(z) /dev/%s meghajtóba, majd a "
+"folytatáshoz nyomja meg az \"OK\" gombot."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -5776,7 +5768,7 @@ msgstr "Nem sikerült csatlakoztatni a meghajtólemezt."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "A meghajtóprogram-lemez érvénytelen a(z) %s ezen kiadásához."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6197,7 +6189,7 @@ msgid ""
 "\n"
 "   %s"
 msgstr ""
-"%s a képmásból:\n"
+"Az eredmény \"%s\" erre a képmásra:\n"
 "\n"
 "   %s"
 
@@ -6208,7 +6200,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Az adathordozó ellenőrzése %s\n"
+"Az adathordozó ellenőrzése - %s\n"
 "\n"
 "%s"
 
@@ -6253,13 +6245,12 @@ msgstr ""
 "      a kiszolgálón\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"A CIDR maszknak 1 és 32 között kell lennie IPv4 alapú hálózatok esetén, és 1 "
-"és 128 között IPv6 alapú hálózatoknál."
+"Az előtagnak 1 és 32 között kell lennie IPv4-alapú hálózatok esetén, illetve "
+"1 és 128 között az IPv6-alapú hálózatoknál."
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6326,11 +6317,11 @@ msgstr "TCP/IP-beállítások"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS-hez IPv4 szükséges"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Az NFS-es telepítési módszer IPv4-támogatást igényel."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6351,7 +6342,7 @@ msgstr ""
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
-msgstr "IPv4 cím:"
+msgstr "IPv4-cím:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
@@ -6359,7 +6350,7 @@ msgstr "/"
 
 #: ../loader2/net.c:904
 msgid "IPv6 address:"
-msgstr "IPv6 cím:"
+msgstr "IPv6-cím:"
 
 #: ../loader2/net.c:965
 msgid "Name Server:"
@@ -6367,7 +6358,7 @@ msgstr "Névkiszolgáló:"
 
 #: ../loader2/net.c:1008
 msgid "Manual TCP/IP Configuration"
-msgstr "Kézi TCP/IP beállítások"
+msgstr "Kézi TCP/IP-beállítások"
 
 #: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
@@ -6377,12 +6368,12 @@ msgstr "Hiányzó információ"
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
-"Érvényes IPv4 címet és alhálózati maszkot vagy CIDR előtétet kell megadnia."
+"Meg kell adnia egy érvényes IPv4-címet, valamint vagy egy alhálózati "
+"maszkot, vagy egy CIDR-előtagot."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Érvényes IPv6 CIDR előtétet kell megadnia."
+msgstr "Meg kell adnia egy érvényes IPv6-címet és egy CIDR-előtagot."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6740,15 +6731,16 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Ha szeretne további tárházakat használni szoftvertelepítéshez, akkor "
+"válassza ki azokat."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"A csomagválaszték további testreszabása megtörténhet most, vagy később, a "
-"telepítés után, a szoftverkezelő alkalmazással segítségével is."
+"A csomagválaszték további testreszabását elvégezheti most, vagy pedig a "
+"telepítés után a szoftverkezelő alkalmazással."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6804,21 +6796,19 @@ msgstr "Atlanti-szigetek"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Standard Atlanti idő - Quebec - az északi part alsó része"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Keleti idő - Ontario (a legtöbb hely)"
+msgstr "Atlanti idő - Labrador - a legtöbb hely"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlanti idő - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlanti idő - Nova Scotia (nagy része), Ny-Labrador, K-Quebec & PEI"
+msgstr "Atlanti idő - Nova Scotia (legnagyobb része), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6846,7 +6836,7 @@ msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Kanári szigetek"
+msgstr "Kanári-szigetek"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
@@ -6857,9 +6847,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Közép-Kína - Gansu, Guizhou, Sichuan, Yunnan stb."
+msgstr "Közép-Kína - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, ..."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6906,7 +6895,7 @@ msgstr "Közép-idő - Manitoba és Nyugat-Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Közép- idő - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Közép-idő - Michigan - Dickinson, Gogebic, Iron & Menominee területek"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6970,12 +6959,11 @@ msgstr "Kongói Demokratikus Köztársaság, keleti rész"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "Húsvét-szigetek, Sala y Gomez"
+msgstr "Húsvét-sziget, Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Standard keleti idő - Southampton sziget"
+msgstr "Standard keleti idő - Atikokan, Ontario és Southampton-sziget, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7061,7 +7049,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (Mohe kivételével), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7140,9 +7128,8 @@ msgid "Midway Islands"
 msgstr "Midway-szigetek"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moszkva+01 - Kaszpi-tenger"
+msgstr "Moszkva+00 - Kaszpi-tenger"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7153,9 +7140,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moszkva-01 - Kalinyingrád"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moszkva+09 - Kamcsatka"
+msgstr "Moszkva+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7211,7 +7197,7 @@ msgstr "a legtöbb rész (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "Tibet legnagyobb része és Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7265,9 +7251,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Brazília, északkeleti rész (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlanti idő - K-Labrador"
+msgstr "Újfundlandi idő, beleértve Délkelet-Labradort"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7379,7 +7364,7 @@ msgstr "Syowa állomás, Kelet-Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr "Tasmánia - King sziget"
+msgstr "Tasmánia - King-sziget"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
@@ -7438,9 +7423,8 @@ msgid "West Kazakhstan"
 msgstr "Nyugat-Kazahsztán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet és Xinjiang-Ujgur nagy része"
+msgstr "Nyugat-Tibet és Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7661,61 +7645,3 @@ msgstr "velszi"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC-vel detektált monitor"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Harmadlagos DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "Harmad_lagos DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Beállítás _DHCP-vel"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP-cím"
-
-#~ msgid "Net_mask"
-#~ msgstr "Hálózati mas_zk"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Hardvercím:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Regisztrációs kulcs szükséges"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "A(z) %s telepítéséhez regisztrációs kulcs szükséges. Lépjen kapcsolatba "
-#~ "az ügyfélszolgálattal, ha nem kapott kulcsot a termékhez."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Érvénytelen CIDR maszk"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Nem sikerült bejelentkezni ide: %s (%s)"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Hiba %s letöltésénél: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "A(z) %s alapértelmezett telepítése tartalmaz néhány szoftvercsomagot "
-#~ "általános internet használathoz. Milyen további feladatokra kívánja a "
-#~ "számítógépet igénybevenni?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Újfundland"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "délnyugati Xinjiang Ujgur"
