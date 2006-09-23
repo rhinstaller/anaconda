@@ -1,6 +1,4 @@
 # translation of pt_BR.po to Brazilian Portuguese
-# translation of pt_BR.po to Portuguese - Brazilian
-# translation of pt_BR.po to
 # Brazilian Portuguese localization of Red Hat Linux
 # Originated from the Portuguese translation by
 # Pedro Morais <morais@kde.org>
@@ -12,24 +10,33 @@
 # Pedro Fernandes Macedo <webmaster@margo.bijoux.nom.br>, 2005.
 # Rodrigo Padula de Oliveira <rodrigopadula@gmail.com>, 2005, 2006.
 # Rodrigo Padula de Oliveira <rodrigopadula@projetofedora.org>, 2006.
-# Igor Pires Soares <igor@projetofedora.org>, 2006.
 # Rodrigo Padula <rodrigopadula@localhost.localdomain>, 2006.
 # Valnir Ferreira Jr. <vferreir@redhat.com>, 2006.
-#
-#
+# Igor Pires Soares <igor@projetofedora.org>, 2006.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-19 14:16+1000\n"
+"PO-Revision-Date: 2006-09-23 15:16-0300\n"
 "Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
-"Language-Team: Brazilian Portuguese\n"
+"Language-Team: Brazilian Portuguese <Project-Id-Version: gtranslator"
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: 2005-02-06 13:07+0700"
+"PO-Revision-Date: 2004-07-27 14:57-0400"
+"Last-Translator: Afonso Celso Medina <medina@maua.br>"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+">\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n > 1);X-Generator: KBabel 1.9.1\n"
-"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms:  nplurals=2; plural=(n > 1);X-Generator: KBabel 1.9.1"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -183,7 +190,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "A partição de inicialização %s não possui espaço livre suficiente no seu "
-"início para instalar o carregador de inicialização. Certifique-se de que há "
+"início para instalar o gerenciador de inicialização. Certifique-se de que há "
 "pelo menos 5MB de espaço disponível no início do disco que contém a "
 "partição /boot"
 
@@ -462,15 +469,15 @@ msgstr "Gerenciador de Inicialização"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr "Instalando o carregador de inicialização..."
+msgstr "Instalando o gerenciador de inicialização..."
 
 #: ../bootloader.py:195
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"Nenhum pacote de kernel foi instalado em seu sistema. A configuração do "
-"carregador de inicialização permanecerá inalterada."
+"Nenhum pacote do kernel foi instalado em seu sistema. A configuração do "
+"gerenciador de inicialização permanecerá inalterada."
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -519,7 +526,7 @@ msgid ""
 msgstr ""
 "Ocorreu uma exceção não tratada.  Isto provavelmente é um erro. Por favor "
 "salve uma cópia detalhada da exceção e registre o bug ocorrido contra o "
-"anaconda em %s "
+"anaconda em %s"
 
 #: ../exception.py:400 ../exception.py:417
 msgid "Dump Written"
@@ -603,7 +610,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Ocorreu um erro enquanto migrando o %s para ext3. Se desejável, é possível "
+"Ocorreu um erro ao migrar o %s para ext3. Se desejável, é possível "
 "continuar sem migrar este sistema de arquivos.\n"
 "\n"
 "Deseja continuar sem migrar o %s?"
@@ -2806,13 +2813,13 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"A senha do carregador de inicialização impede que os usuários alterem opções "
-"passadas para o kernel.  Para maior segurança do sistema, recomendamos que "
+"A senha do gerenciador de inicialização impede que os usuários alterem opções "
+"passadas para o kernel.  Para maior segurança do sistema recomendamos que "
 "você crie uma senha."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Utilizar uma senha do carregador de inicialização"
+msgstr "_Utilizar uma senha do gerenciador de inicialização"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
@@ -2820,16 +2827,16 @@ msgstr "Alterar _senha"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr "Insira a Senha do Carregador de Inicialização"
+msgstr "Insira a Senha do Gerenciador de Inicialização"
 
 #: ../iw/blpasswidget.py:102
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Indique uma senha para o carregador de inicialização e confirme-a.  (Note "
+"Indique uma senha para o gerenciador de inicialização e confirme-a.  (Note "
 "que o mapa do teclado da sua BIOS pode ser diferente daquele com o qual você "
-"está acostumado.)"
+"está acostumado)."
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2854,7 +2861,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"A senha do carregador de inicialização tem menos de seis caracteres. "
+"A senha do gerenciador de inicialização tem menos de seis caracteres. "
 "Recomendamos uma senha maior.\n"
 "\n"
 "Deseja continuar com esta senha?"
@@ -2870,7 +2877,7 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forçar o uso do modo LBA32 para o seu carregador de inicialização quando "
+"Forçar o uso do modo LBA32 para o seu gerenciador de inicialização quando "
 "este modo não é suportado pela BIOS pode impossibilitar sua máquina de "
 "inicializar.\n"
 "\n"
@@ -2900,24 +2907,24 @@ msgstr "Parâmetros _gerais do kernel"
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
 #: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
 msgid "Boot Loader Configuration"
-msgstr "Configuração do Carregador de Inicialização"
+msgstr "Configuração do Gerenciador de Inicialização"
 
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "O carregador de inicialização %s será instalado em /dev/%s."
+msgstr "O gerenciador de inicialização %s será instalado em /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Nenhum carregador de inicialização será instalado."
+msgstr "Nenhum gerenciador de inicialização será instalado."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "Configurar _opções avançadas do carregador de inicialização"
+msgstr "Configurar _opções avançadas do gerenciador de inicialização"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Instalar registro do Carregador de Inicialização em:"
+msgstr "Instalar registro do Gerenciador de Inicialização em:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
@@ -3687,7 +3694,7 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Você pode configurar o carregador de inicialização para inicializar outros "
+"Você pode configurar o gerenciador de inicialização para inicializar outros "
 "sistemas operacionais. Isto permite que você selecione um sistema "
 "operacional de uma lista ao iniciar a máquina. Para adicionar outros "
 "sistemas operacionais, que não são automaticamente detectados, clique em "
@@ -3711,7 +3718,7 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Indique uma etiqueta a ser mostrada no menu do carregador de inicialização. "
+"Indique uma etiqueta a ser mostrada no menu do gerenciador de inicialização. "
 "O dispositivo (ou disco rígido e número de partição) é o dispositivo a "
 "partir do qual ele inicializa."
 
@@ -4418,20 +4425,20 @@ msgstr "Seleção de Fuso Horário"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Atualizar Configuração do Carregador de Inicialização"
+msgstr "Atualizar Configuração do Gerenciador de Inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "At_ualizar a configuração do carregador de inicialização"
+msgstr "At_ualizar a configuração do gerenciador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr "Isto atualizará o seu carregador de inicialização atual."
+msgstr "Isto atualizará o seu gerenciador de inicialização atual."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "O instalador detectou o carregador de inicialização %s instalado em %s."
+msgstr "O instalador detectou o gerenciador de inicialização %s instalado em %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4442,33 +4449,33 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"O instalador não pode detectar o carregador de inicialização que está sendo "
+"O instalador não pode detectar o gerenciador de inicialização que está sendo "
 "utilizado em seu sistema no momento."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "_Criar nova configuração do carregador de inicialização"
+msgstr "_Criar nova configuração do gerenciador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Isto permite que você crie uma nova configuração do carregador de "
-"inicialização.  Se você deseja mudar o carregador de inicialização, escolha "
+"Isto permite que você crie uma nova configuração do gerenciador de "
+"inicialização.  Se você deseja mudar o gerenciador de inicialização, escolha "
 "esta opção."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr "_Pular atualização do carregador de inicialização"
+msgstr "_Pular atualização do gerenciador de inicialização"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Isto não alterará a configuração do carregador de inicialização.  Se você "
-"está utilizando um carregador de inicialização de terceiros, você deve "
+"Isto não alterará a configuração do gerenciador de inicialização.  Se você "
+"está utilizando um gerenciador de inicialização de terceiros, você deve "
 "selecionar esta opção."
 
 #: ../iw/upgrade_bootloader_gui.py:109
@@ -4608,11 +4615,11 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Configuração do Carregador de Inicialização z/IPL"
+msgstr "Configuração do Gerenciador de Inicialização z/IPL"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "O carregador de inicialização z/IPL será instalado no seu sistema."
+msgstr "O gerenciador de inicialização z/IPL será instalado no seu sistema."
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4630,7 +4637,7 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"O carregador de inicialização z/IPL será instalado agora no seu sistema.\n"
+"O gerenciador de inicialização z/IPL será instalado agora no seu sistema.\n"
 "\n"
 "A partição raiz será a que foi selecionada previamente na configuração de "
 "partições.\n"
@@ -4654,19 +4661,19 @@ msgstr "Parâmetros Chandev"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr "Qual carregador de inicialização você gostaria de usar?"
+msgstr "Qual gerenciador de inicialização você gostaria de usar?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "Usar Carregador de Inicialização GRUB"
+msgstr "Usar Gerenciador de Inicialização GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr "Não Usar Carregador de Inicialização"
+msgstr "Não Usar Gerenciador de Inicialização"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr "Pular Configuração do Carregador de Inicialização"
+msgstr "Pular Configuração do Gerenciador de Inicialização"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4677,13 +4684,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Você optou por não instalar um carregador de inicialização. É altamente "
-"recomendável instalar um carregador de inicialização, a não ser que vocẽ "
+"Você optou por não instalar um gerenciador de inicialização. É altamente "
+"recomendável instalar um gerenciador de inicialização, a não ser que você "
 "tenha necessidades avançadas que impeçam a instalação do mesmo. Um "
-"carregador de inicialização é quase sempre necessário para reinicializar seu "
+"gerenciador de inicialização é quase sempre necessário para reinicializar seu "
 "sistema em Linux diretamente do disco rígido.\n"
 "\n"
-"Tem certeza que deseja pular a instalação do carregador de inicialização?"
+"Tem certeza que deseja pular a instalação do gerenciador de inicialização?"
 
 #: ../textw/bootloader_text.py:93
 msgid ""
@@ -4703,7 +4710,7 @@ msgstr "Forçar uso de LBA32 (normalmente desnecessário)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr "Onde deseja instalar o carregador de inicialização?"
+msgstr "Onde deseja instalar o gerenciador de inicialização?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
@@ -4757,7 +4764,7 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Uma senha de carregador de inicialização impede que usuários passem opções "
+"A senha do gerenciador de inicialização impede que usuários passem opções "
 "arbitrárias ao kernel.  Para maior segurança, nós recomendamos o uso de uma "
 "senha, mas isto não é necessário para usuários de caráter mais casual."
 
@@ -4767,7 +4774,7 @@ msgstr "Usar uma Senha no GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Senha do Carregador de Inicialização:"
+msgstr "Senha do Gerenciador de Inicialização:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
@@ -4783,7 +4790,7 @@ msgstr "Senha Muito Curta"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr "Senha do carregador de inicialização é muito curta"
+msgstr "Senha do gerenciador de inicialização é muito curta"
 
 #: ../textw/complete_text.py:27
 msgid ""
@@ -5391,15 +5398,15 @@ msgstr "Relógio do sistema utiliza UTC"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Atualizar configuração do carregador de inicialização"
+msgstr "Atualizar configuração do gerenciador de inicialização"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr "Pular atualização do carregador de inicialização"
+msgstr "Pular atualização do gerenciador de inicialização"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Criar nova configuração do carregador de inicialização"
+msgstr "Criar nova configuração do gerenciador de inicialização"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -5512,7 +5519,7 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"O carregador de inicialização z/IPL será instalado em seu sistema após "
+"O gerenciador de inicialização z/IPL será instalado em seu sistema após "
 "completar a instalação. Agora você pode indicar quaisquer parâmetros "
 "adicionais para o kernel e chandev que sua máquina ou sua configuração "
 "possam precisar."
@@ -6633,7 +6640,7 @@ msgstr "_Próximo"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "Notas de Lançamento"
+msgstr "Notas de _Lançamento"
 
 #: tmp/autopart.glade.h:1
 msgid ""
