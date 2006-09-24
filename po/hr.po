@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-19 13:34+0100\n"
+"PO-Revision-Date: 2006-09-24 06:19+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -1159,7 +1159,7 @@ msgstr ""
 #: ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "_Nazad"
+msgstr "_Povratak"
 
 #: ../image.py:134
 #, python-format
@@ -1479,7 +1479,7 @@ msgstr "Pogreška - naziv logičkog volumena sadrži nedozvoljene znakove ili pr
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr "Pristupna točka %s nije ispravna. Pristupne točke moraju započinjati s '/', a ne smiju završavati s '/'. Dodatno, moraju sadržavati ispisive znakove i ne smiju sadržavati razmake."
+msgstr "Točka pristupa %s nije ispravna. Pristupne točke moraju započinjati s '/', a ne smiju završavati s '/'. Dodatno, moraju sadržavati ispisive znakove i ne smiju sadržavati razmake."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1623,7 +1623,9 @@ msgstr "Za instaliranje %s potrebno je odabrati najmanje jedan tvrdi disk."
 
 #: ../partIntfHelpers.py:411
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr "Za ovu ste instalaciju odabrali upotrebu već postojeće particije bez njezinog ponovnog oblikovanja. Da bi bili sigurni da datoteke iz prethodnog operativnog sustava neće prouzrokovati probleme novoj instalaciji Linuxa, preporučuje se ponovno oblikovanje ove particije. Pa ipak, ako ova particija sadrži datoteke koje je potrebno zadržati, poput korisničkih mapa, onda nastavite BEZ ponovnog oblikovanja ove particije."
+msgstr ""
+"Za ovu ste instalaciju odabrali upotrebu već postojeće particije bez njezinog ponovnog oblikovanja. Da biste bili sigurni kako datoteke iz prethodnog operativnog sustava neće prouzrokovati probleme novoj instalaciji Linuxa, preporučuje se ponovno oblikovanje ove particije.\n"
+"Pa ipak, ako ova particija sadrži datoteke koje je potrebno zadržati, poput korisničkih mapa, onda nastavite BEZ ponovnog oblikovanja ove particije."
 
 #: ../partIntfHelpers.py:419
 msgid "Format?"
@@ -2322,11 +2324,11 @@ msgstr "Pokušaj ponovnog povezivanja za 15 sekundi..."
 #: ../vnc.py:313
 #, python-format
 msgid "Please connect to %s to begin the install..."
-msgstr "Da bite pokrenuli instalaciju povežite se s %s..."
+msgstr "Da biste pokrenuli instalaciju povežite se s %s..."
 
 #: ../vnc.py:315
 msgid "Please connect to begin the install..."
-msgstr "Da bite pokrenuli instalaciju povežite se..."
+msgstr "Da biste pokrenuli instalaciju povežite se..."
 
 #: ../yuminstall.py:103
 msgid "Processing"
@@ -2456,7 +2458,7 @@ msgstr "Provjera zavisnosti"
 
 #: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Provjerava zavisnosti u paketima odabranim za instaliranje..."
+msgstr "Provjerava zavisnosti unutar paketa odabranih za instaliranje..."
 
 #: ../zfcp.py:29
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
@@ -2570,7 +2572,7 @@ msgstr "Uklanjanje Linux particija na odabranim diskovima i izrada po zadanom pr
 #: ../iw/autopart_type.py:212
 #: ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr "Upotrijebi slobodan prostor na odabranim diskovima i izradi zadani raspored."
+msgstr "Iskorištavanje slobodnog prostora na odabranim diskovima i izrada zadanog rasporeda."
 
 #: ../iw/autopart_type.py:213
 #: ../textw/partition_text.py:1528
@@ -3419,7 +3421,7 @@ msgstr "Naziv računala"
 
 #: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
-msgstr "Razne postavke"
+msgstr "Ostale postavke"
 
 #: ../iw/osbootwidget.py:43
 msgid "You can configure the boot loader to boot other operating systems. It will allow you to select an operating system to boot from the list. To add additional operating systems, which are not automatically detected, click 'Add.' To change the operating system booted by default, select 'Default' by the desired operating system."
@@ -3651,7 +3653,7 @@ msgstr "Slobodan prostor"
 #: ../iw/partition_gui.py:871
 #: ../textw/partition_text.py:143
 msgid "Extended"
-msgstr "Prošireno"
+msgstr "prošireno"
 
 #: ../iw/partition_gui.py:873
 #: ../textw/partition_text.py:145
@@ -3751,7 +3753,7 @@ msgstr "_Novo"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr "_Vrati"
+msgstr "Po_ništi"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
@@ -4491,7 +4493,7 @@ msgstr "Potpuni zapisnik instalacije može se nakon ponovnog pokretanja sustava 
 #: ../loader2/urls.c:275
 #: ../loader2/urls.c:455
 msgid "Back"
-msgstr "Nazad"
+msgstr "Povratak"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -6095,7 +6097,7 @@ msgstr "N_apredna konfiguracija pohrane"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Odaberite diskove koje želite upotrijebiti za ovu instalaciju."
+msgstr "_Odaberite diskove koje želite iskoristiti za ovu instalaciju."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
