@@ -5,6 +5,9 @@
 	
 2006-09-25  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.py:  Set display_mode if the ksfile specifies a vnc install
+	(#204736).
+
 	* instdata.py (InstallData.reset):  Turn off firstboot on s390
 	(#207926).
 

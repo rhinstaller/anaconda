@@ -720,6 +720,7 @@ if __name__ == "__main__":
     if opts.ksfile:
         anaconda.isKickstart = True
         vncksdata = setVNCFromKickstart(opts)
+        opts.display_mode = 'g'
 
     #
     # Determine install method - GUI or TUI
