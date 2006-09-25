@@ -15,9 +15,9 @@
 
 from installmethod import InstallMethod, FileCopyException
 import os
+import re
 import time
 import string
-import struct
 import socket
 import urlparse
 import urlgrabber.grabber as grabber
@@ -79,18 +79,14 @@ class UrlInstallMethod(InstallMethod):
                  "If you reboot, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
-    def getFilename(self, filename, callback=None, destdir=None, retry=1,
-                    disc = 1):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
 
 	if destdir is None:
 	    tmppath = self.getTempPath()
 	else:
 	    tmppath = destdir
 
-        if self.multiDiscs:
-            base = "%s/disc%d" %(self.pkgUrl, disc)
-        else:
-            base = self.pkgUrl
+        base = self.pkgUrl
         
 	fullPath = base + "/" + filename
 
@@ -121,12 +117,7 @@ class UrlInstallMethod(InstallMethod):
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
 
-        if self.multiDiscs:
-            base = "%s/disc1" % (self.pkgUrl,)
-        else:
-            base = self.pkgUrl
-	    
-        fullPath = base + "/" + filename
+        fullPath = self.pkgUrl + "/" + filename
 
         file = tmppath + "/" + os.path.basename(fullPath)
 
@@ -155,6 +146,47 @@ class UrlInstallMethod(InstallMethod):
     def getMethodUri(self):
         return self.baseUrl
 
+    def __checkUrlForIsoMounts(self):
+        # account for multiple mounted ISOs on loopback...bleh
+        # assumes ISOs are mounted as AAAAN where AAAA is some alpha text
+        # and N is an integer.  so users could have these paths:
+        #     CD1, CD2, CD3
+        #     disc1, disc2, disc3
+        #     qux1, qux2, qux3
+        # as long as the alpha text is consistent and the ints increment
+        #
+        # NOTE: this code is basically a guess. we don't really know if
+        # they are doing a loopback ISO install, but make a guess and
+        # shove all that at yum and hope for the best   --dcantrell
+
+        discdir = os.path.basename(self.pkgUrl)
+        alpharm = re.compile("[A-Za-z]+")
+        discnum = alpharm.sub("", discdir)
+        multiDiscs = False
+
+        try:
+            discnum = int(discnum)
+
+            stripnum = re.compile("%s$" % (discnum,))
+            basepath = stripnum.sub("", self.pkgUrl)
+
+            # add all possible baseurls
+            discnum = discnum + 1
+            baseurls = [ self.pkgUrl ]
+            while discnum <= NUMBER_OF_CDS:
+                baseurls.append("%s%s" % (basepath ,discnum))
+                discnum += 1
+            if len(baseurls) > 1:
+	        multiDiscs = True
+                self.baseUrl = baseurls
+        except ValueError:
+            # we didn't figure out the user's dir naming scheme
+            pass
+
+        if multiDiscs:
+            self.baseUrl = self.baseUrl.split()
+
+
     def __init__(self, url, rootPath, intf):
 	InstallMethod.__init__(self, url, rootPath, intf)
 
@@ -171,17 +203,8 @@ class UrlInstallMethod(InstallMethod):
             path = "/%2F" + path[1:]
 
         self.baseUrl = urlparse.urlunsplit((scheme,netloc,path,query,fragid))
+        self.pkgUrl = self.baseUrl
+
+        self.__checkUrlForIsoMounts()
 
         self.currentMedia = []
-
-        # FIXME: does not work
-#	# self.baseUrl points at the path which contains the 'product'
-#	# directory with the hdlist.
-#
-#	if self.baseUrl[-6:] == "/disc1":
-#	    self.multiDiscs = 1
-#	    self.pkgUrl = self.baseUrl[:-6]
-#	else:
-#	    self.multiDiscs = 0
-#	    self.pkgUrl = self.baseUrl
-	

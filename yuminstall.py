@@ -17,7 +17,7 @@ import os.path
 import shutil
 import timer
 import warnings
-import re
+import types
 
 import rpm
 import rpmUtils
@@ -51,10 +51,6 @@ import iutil
 import isys
 
 import whiteout
-
-# set to the number of CDs the distribution currently has.  might increase
-# or decrease over time
-NUMBER_OF_CDS = 5
 
 #XXX: this needs to be somewhere better - probably method
 def getcd(po):
@@ -184,7 +180,10 @@ class AnacondaYumRepo(YumRepository):
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         
         if uri and not mirrorlist:
-            self.baseurl = [ uri ]
+            if type(uri) == types.ListType:
+                self.baseurl = uri
+            else:
+                self.baseurl = [ uri ]
         elif mirrorlist and not uri:
             self.mirrorlist = mirrorlist
 

@@ -1,3 +1,9 @@
+2006-09-25  Paul Nasrat <pnasrat@redhat.com>
+
+	* urlinstall.py: Attempt to support loopback url mounts (#207904)
+	* yuminstall.py: Support methods with multiple baseurls
+	* constants.py: Move maximum number of CDs to constants
+
 2006-09-22  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/network_gui.py (NetworkWindow): Set DHCP checkbox to active using
