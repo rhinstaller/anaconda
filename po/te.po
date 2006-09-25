@@ -1,6 +1,7 @@
 # translation of te.po to 
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-26 01:28+0530\n"
+"PO-Revision-Date: 2006-09-26 03:01+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4164,7 +4165,7 @@ msgstr "Swap file _పరిమాణం (MB): (_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "నేను swap ఫైలుని సృష్టించ దలవలేదు (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -4175,46 +4176,46 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "swap ఫైలు పరిమాణంలో తప్పక 1 మరియూ 2000MBల మధ్య ఉండాలి."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "మీరు ఎన్నుకున్న swap విభజనకు సధనంలో తగినంత ఖాళీ లేదు."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ZFCP ఆకృతీకరణ"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr ""
+msgstr "తొలగించు (_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr ""
+msgstr "FCP సాధనాలు"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
-msgstr ""
+msgstr "Add FCP సాధనం"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "FCP సాధనం %sని కూర్చు"
 
 #: ../iw/zfcp_gui.py:248
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "మీరు మీ ఆకృతీకరణనుండీ FCP diskను తొలగించబోతున్నారు. మీరు నిజంగా కొనసాగించాలనుకుంటున్నారా?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL Boot Loader ఆకృతీకరణ"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "z/IPL boot loader మీ కంప్యూటరులో సంస్థాపించబడుతుంది."
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4235,27 +4236,27 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Kernel పారామితులు"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Chandev పారామితులు"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "మీరు ఏ boot loaderను ఉపయోగించాలనుకుంటున్నారు?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB Boot Loaderను ఉపయోగించు"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr ""
+msgstr "Boot Loader వద్దు"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "Boot Loaderను దాటవేయి"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4277,40 +4278,40 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 యొక్క వినియోగానికి వత్తిడి (సాధారణంగా అవసరంలేదు)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr ""
+msgstr "boot loaderను ఎక్కడ సంస్థాపించాలనుకుంన్నారు?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
-msgstr ""
+msgstr "Boot గుర్తు"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
-msgstr ""
+msgstr "స్పష్టం"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "Boot గుర్తును కూర్చు"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "చెల్లని Boot గుర్తు"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "Boot ఖాళీగా ఉండాక పోవచ్చు."
 
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "Boot గుర్తు విరుద్ధ అక్షరాలను కలిగి ఉంది."
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
 msgid "Edit"
-msgstr ""
+msgstr "కూర్చు"
 
 #: ../textw/bootloader_text.py:278
 #, python-format
@@ -4322,7 +4323,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
+msgstr " <ఖాళీ> ఎన్నుకో | <F2> సిద్ధంగా ఎన్నుకో | <F4> తొలగించు | <F12> తరువాతి screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4333,37 +4334,39 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "GRUB అనుమతి పదాన్ని ఉపయోగించు"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "Boot Loader అనుమతిపదం:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr ""
+msgstr "నిర్ధారణ:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "అనుమతిపదం సరిపోలలేదు"
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
-msgstr ""
+msgstr "అనుమతిపదం బాగా చిన్నది"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "Boot loader అనుమతిపదం బాగా చిన్నదిగా ఉంది"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"సంస్థాపనా విధానాన్ని ముగించటానికి <Enter>ని నొక్కండి .\n"
+"\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "<Enter>బయటకు"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4371,10 +4374,12 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
+"సంస్థాపనాసమయంలో ఉపయోగించిన ఏ మాధ్యమాన్నయినా తొలగించు మరియూ మీ కంప్యూటరును పునఃప్రారంభించటానికి <Enter>ను నొక్కండి.\n"
+"\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "<Enter> పునఃప్రారంభించటానికి"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -4383,6 +4388,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"అభినందనలు, మీ %s సంస్థాపన పూర్తయ్యింది.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:40
 #, python-format
@@ -4393,14 +4401,19 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
+"errata (updates మరియూ bug fixes)సమాచారం కోసం, చూడండి http://www.redhat."
+"com/errata/.\n"
+"\n"
+"మీ కంప్యూటరు వినియోగ విధానం http://"
+"www.redhat.com/docs/ యందలి %s నిబంధనావళిలో ఉంది."
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
-msgstr ""
+msgstr "సమాప్తం"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "సంస్థాపన ప్రారంభించటానికి"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -4421,11 +4434,11 @@ msgstr ""
 #: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:275 ../loader2/urls.c:455
 msgid "Back"
-msgstr ""
+msgstr "వెనుకకు"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "ప్రారంభానికి నవీకరణ"
 
 #: ../textw/confirm_text.py:51
 #, python-format
@@ -4436,56 +4449,56 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "దయచేసి మీరు సంస్థాపించదలచిన package సమూహాలను ఎన్నుకోండి."
 
 #: ../textw/grpselect_text.py:105
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> ఎన్నిక   |   <F2> సమూహ వివరాలు   |   <F12> తదుపరి screen"
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
-msgstr ""
+msgstr "Package సమూహ వివరాలు"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "Keyboard ఎన్నిక"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "ఈ కంప్యూటరుకు ఏరకం keyboard అనుసంధించాలి?"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "మీ mouse ఏ సాధనంలో ఉంచాలి?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "ఈ కంప్యూటరుకు ఏ రకం mouseని అనుసంధించాలి?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "3 మీటల అనుసరణ?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "mouse ఎన్నిక"
 
 #: ../textw/network_text.py:28
 msgid "Invalid IP string"
-msgstr ""
+msgstr "చెల్లని IP పరంపర"
 
 #: ../textw/network_text.py:29
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr ""
+msgstr "ఇచ్చిన IP '%s' చెల్లని IP."
 
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "కేంద్రం నుండీ కేంద్రానికి (IP)"
 
 #: ../textw/network_text.py:79 ../loader2/net.c:238
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
@@ -4494,70 +4507,70 @@ msgstr ""
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr ""
+msgstr "Network సధనం: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Description: %s"
-msgstr ""
+msgstr "వర్ణన: %s"
 
 #: ../textw/network_text.py:102
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hardware చిరునామాలు: %s"
 
 #: ../textw/network_text.py:107
 msgid "Configure using DHCP"
-msgstr ""
+msgstr "DHCP ఉపయోగాన్ని ఆకృతీకరించు"
 
 #: ../textw/network_text.py:120
 msgid "Activate on boot"
-msgstr ""
+msgstr "bootను క్రియాశీలిని చేయి"
 
 #: ../textw/network_text.py:146
 #, python-format
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "%s కొరకు Network ఆకృతీకరణ"
 
 #: ../textw/network_text.py:179
 msgid "Invalid information"
-msgstr ""
+msgstr "చెల్లని సమాచారం"
 
 #: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "మీరు కొనసాగించటానికి తప్పక సరైన IP సమాచారాన్ని ఇవ్వాలి"
 
 #: ../textw/network_text.py:247 ../loader2/net.c:957
 msgid "Gateway:"
-msgstr ""
+msgstr "Gateway:"
 
 #: ../textw/network_text.py:256
 msgid "Primary DNS:"
-msgstr ""
+msgstr "ప్రాధమిక DNS:"
 
 #: ../textw/network_text.py:261
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "ద్వితీయ DNS:"
 
 #: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "తృతీయ DNS:"
 
 #: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "సంకీర్ణ Network అమర్పులు"
 
 #: ../textw/network_text.py:345
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "DHCP ద్వారా స్వయంచాలకంగా"
 
 #: ../textw/network_text.py:349
 msgid "manually"
-msgstr ""
+msgstr "మానవీయంగా"
 
 #: ../textw/network_text.py:368
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "ఆతిధేయనామ ఆకృతీకరణ"
 
 #: ../textw/network_text.py:371
 msgid ""
@@ -4569,133 +4582,133 @@ msgstr ""
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "చెల్లని ఆతిధేయనామం"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "మీరు ఆతిధేయనామం తెలియచేయలేదు"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
-msgstr ""
+msgstr "తప్పక ఒక విలువను తెలియచేయాలి"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "అడిగిన విలువ పూర్ణాంకం కాదు"
 
 #: ../textw/partition_text.py:47
 msgid "Requested value is too large"
-msgstr ""
+msgstr "అడిగిన విలువ బాగా పెద్దది"
 
 #: ../textw/partition_text.py:101
 #, python-format
 msgid "RAID Device %s"
-msgstr ""
+msgstr "RAID సాధనం %s"
 
 #: ../textw/partition_text.py:231
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "హెచ్చరిక: %s"
 
 #: ../textw/partition_text.py:232
 msgid "Modify Partition"
-msgstr ""
+msgstr "విభజనను మార్చు"
 
 #: ../textw/partition_text.py:232
 msgid "Add anyway"
-msgstr ""
+msgstr "ఏమైనప్పటికీ మార్చు"
 
 #: ../textw/partition_text.py:270
 msgid "Mount Point:"
-msgstr ""
+msgstr "మరల్పు కేంద్రం"
 
 #: ../textw/partition_text.py:322
 msgid "File System type:"
-msgstr ""
+msgstr "ఫైలు విధాన వర్గం"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "ఆమోదకర Driveలు:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr ""
+msgstr "నిర్ధారిత పరిమాణం:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "గరిష్ఠ పరిమాణం(MB)ని నింపు:"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
-msgstr ""
+msgstr "అందుబాటులో ఉన్న ఖాళీనంతటినీ నింపు"
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "Cylinder ప్రారంభం:"
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr ""
+msgstr "చివరి Cylinder:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
-msgstr ""
+msgstr "Volume సమూహం:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
-msgstr ""
+msgstr "RAID స్థాయి:"
 
 #: ../textw/partition_text.py:517
 msgid "RAID Members:"
-msgstr ""
+msgstr "RAID సభ్యులు:"
 
 #: ../textw/partition_text.py:536
 msgid "Number of spares?"
-msgstr ""
+msgstr "ఖాళీల సంఖ్య?"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
-msgstr ""
+msgstr "ఫైలు విధాన వర్గం:"
 
 #: ../textw/partition_text.py:563
 msgid "File System Label:"
-msgstr ""
+msgstr "ఫైలు విధాన గుర్తు:"
 
 #: ../textw/partition_text.py:574
 msgid "File System Option:"
-msgstr ""
+msgstr "ఫైలు విధాన ఐచ్ఛికం:"
 
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
 msgid "Format as %s"
-msgstr ""
+msgstr "%sగా ఆకృతీకరించు"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
 #, python-format
 msgid "Migrate to %s"
-msgstr ""
+msgstr "%sకి వలస వెళ్లు"
 
 #: ../textw/partition_text.py:581 ../textw/partition_text.py:819
 #: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
 msgid "Leave unchanged"
-msgstr ""
+msgstr "స్థాయి మారలేదు"
 
 #: ../textw/partition_text.py:597 ../textw/partition_text.py:792
 #: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
 msgid "File System Options"
-msgstr ""
+msgstr "ఫైలు విధాన ఐచ్ఛికాలు"
 
 #: ../textw/partition_text.py:600
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
+msgstr "దయచేసి ఈ విభజనలో మీరు ఎలాంటి ఫైలు విధానాన్ని తయారుచేయలనుకుంటున్నారో ఎన్నుకోండి."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "చెడ్డ అడ్డంకులకోసం వెదుకు"
 
 #: ../textw/partition_text.py:612
 msgid "Leave unchanged (preserve data)"
