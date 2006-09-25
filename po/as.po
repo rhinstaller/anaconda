@@ -912,7 +912,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"পুনৰাম্ভ কৰি root হিচাপে প্ৰৱেশ কৰিলে আপুনি এই চিত্ৰ লাভ কৰিব পাৰে ।"
+"পুনৰাম্ভ কৰি ৰূট হিচাপে প্ৰৱেশ কৰিলে আপুনি এই চিত্ৰ লাভ কৰিব পাৰে ।"
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
@@ -987,7 +987,7 @@ msgstr ""
 
 #: ../gui.py:898
 msgid "default:LTR"
-msgstr "ডিফল্ত:LTR"
+msgstr "অবিকল্পিত:LTR"
 
 #: ../gui.py:982
 msgid "Error!"
@@ -2053,7 +2053,7 @@ msgid ""
 msgstr ""
 "%s-ৰ তলত আপোনাৰ ব্যৱস্থাপ্ৰণালী তুলি লোৱা হৈছে ।\n"
 "\n"
-"শ্বেল এটা পাব'লৈ <return> টিপক । যদি আপুনি আপোনাৰ ব্যৱস্থাপ্ৰণালীক ৰুটৰ পৰিবেশ "
+"শ্বেল এটা পাব'লৈ <return> টিপক । যদি আপুনি আপোনাৰ ব্যৱস্থাপ্ৰণালীক ৰূটৰ পৰিবেশ "
 "বনাব খোজিছে, তেন্তে এই আজ্ঞা চলাওক :\n"
 "\n"
 "\tchroot %s\n"
@@ -2559,27 +2559,27 @@ msgstr "উন্নয়নৰ পিছৰ"
 
 #: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
-msgstr ""
+msgstr "উন্নয়নৰ পিছৰ বিন্যাস আৰম্ভ কৰা হৈছে..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
-msgstr ""
+msgstr "সংস্থাপনৰ পিছৰ"
 
 #: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "সংস্থাপনৰ পিছৰ বিন্যাস আৰম্ভ কৰা হৈছে..."
 
 #: ../yuminstall.py:1357
 msgid "Installation Progress"
-msgstr ""
+msgstr "সংস্থাপনৰ প্ৰগতি"
 
 #: ../yuminstall.py:1392
 msgid "Dependency Check"
-msgstr ""
+msgstr "নিৰ্ভৰশীলতা পৰীক্ষা"
 
 #: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "সংস্থাপনৰ বাবে নিৰ্ব্বাচন কৰা সৰঞ্জাম সমূহত নিৰ্ভৰশীলতা পৰীক্ষা কৰা হৈছে..."
 
 #: ../zfcp.py:29
 msgid ""
@@ -2588,117 +2588,117 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
-
+"ফাইবাৰ চেনেল (FCP)ৰ যোগেদি zSeries ৰ যন্ত্ৰ সমূহে উদ্যোগ-মানদণ্ডৰ SCSI যন্ত্ৰ অভিগমন কৰিব পাৰে । তাৰ বাবে আপুনি ৫টা স্থিতিমাপৰ যোগান ধৰিব লাগিব: এটা ১৬ বিট যন্ত্ৰ সংখ্যা, এটা ১৬ বিট SCSI ID, এটা ৬৪ বিট World Wide Port Name (WWPN), এটা ১৬ বিট SCSI LUN আৰু এটা ৬৪ বিট FCP LUN ।"
 #: ../zfcp.py:31
 msgid "Device number"
-msgstr ""
+msgstr "যন্ত্ৰ সংখ্যা"
 
 #: ../zfcp.py:32
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
+msgstr "আপুনি কোনো যন্ত্ৰ সংখ্যা নিৰ্দ্দিষ্ট কৰা নাই বা সংখ্যাটো অসিদ্ধ ।"
 
 #: ../zfcp.py:34
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:35
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr ""
+msgstr "আপুনি কোনো SCSI ID নিৰ্দ্দিষ্ট কৰা নাই বা IDটো অসিদ্ধ ।"
 
 #: ../zfcp.py:37 ../textw/zfcp_text.py:101
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "আপুনি কোনো worldwide portৰ নাম নিৰ্দ্দিষ্ট কৰা নাই বা নামটো অসিদ্ধ ।"
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:41
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr ""
+msgstr "আপুনি কোনো SCSI LUNৰ নাম নিৰ্দ্দিষ্ট কৰা নাই বা সংখ্যাটো অসিদ্ধ ।"
 
 #: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:44
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr ""
+msgstr "আপুনি কোনো FCP LUNৰ নাম নিৰ্দ্দিষ্ট কৰা নাই বা সংখ্যাটো অসিদ্ধ ।"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr ""
+msgstr "ৰূটৰ গুপ্ত শব্দ নিৰ্ধাৰিত কৰক"
 
 #: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
 #: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
 msgid "Error with Password"
-msgstr ""
+msgstr "গুপ্ত শব্দত ভ্ৰান্তি"
 
 #: ../iw/account_gui.py:41
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-
+"আপুনি ৰূটৰ গুপ্ত শব্দ দি সেইটোকে দ্বিতীয় বাৰ পুনঃ মুদ্ৰণ কৰি দৃঢ় কৰিব লাগিব ।"
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
+msgstr "আপুনি দিয়া গুপ্ত শব্দ কেইটা বেলেগ । অনুগ্ৰহ কৰি পুনঃ চেষ্টা কৰক ।"
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr ""
+msgstr "ৰূটৰ গুপ্ত শব্দ অতি কমেও ৬টা আখৰৰ হ'ব লাগিব ।"
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
-
+"বিচৰা গুপ্ত শব্দত non-ascii আখৰ আছে যিতো গুপ্ত শব্দত ব্যৱহাৰৰ বাবে স্বীকাৰ কৰা নহয় ।"
 #: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-
+"ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰ্তাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "ৰূটৰ গুপ্ত শব্দ: (_P)"
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "দৃঢ় কৰক: (_C)"
 
 #: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
-msgstr ""
+msgstr "অসিদ্ধ আৰম্ভকৰ্তাৰ নাম"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "আপুনি এটা শূণ্য বিহীন দৈৰ্ঘ্যৰ আৰ্ভকৰোঁতাৰ নাম দিব  লাগিব ।"
 
 #: ../iw/autopart_type.py:157
 msgid "Error with Data"
-msgstr ""
+msgstr "তথ্যৰ লগত ভুল"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
+msgstr "নিৰ্বাচিত ড্ৰাইভসমূহত সকলো বিভাজন দূৰ কৰক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক ।"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "নিৰ্বাচিত ড্ৰাইভসমূহত সকলো লিনাক্স বিভাজন দূৰ কৰক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক ।"
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "নিৰ্বাচিত ড্ৰাইভসমূহৰ ৰিক্ত স্থান প্ৰয়োগ কৰক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক ।"
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
-msgstr ""
+msgstr "ব্যক্তিগত পৰিকল্পনা সৃষ্টি কৰক ।"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2706,40 +2706,40 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-
+"বুটলোডাৰ গুপ্ত শব্দই ব্যৱহাৰকৰোঁতাক কাৰ্ণেললৈ বিকল্প সমূহ সলনি কৰি আগবঢ়াব নিদিয়ে । ব্যৱহাৰ প্ৰণালীৰ অধিক নিৰাপত্তাৰ বাবে আপুনি এটা গুপ্ত শব্দ স্থাপন কৰাৰ উপদেশ দিয়া হয় ।"
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr ""
+msgstr "বুটলোডাৰ গুপ্ত শব্দ ব্যৱহাৰ কৰক (_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr ""
+msgstr "গুপ্ত শব্দ সলনি কৰক (_p)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "বুটলোডাৰ গুপ্ত শব্দ দিয়ক"
 
 #: ../iw/blpasswidget.py:102
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-
+"বুটলোডাৰ গুপ্ত শব্দ দি সেইটো সমৰ্থন কৰক । (মনত ৰাখিব যে আপোনাৰ BIOSৰ কীমেপ আপোনি অভ্যস্ত থকা আচল কীমেপতকে বেলেগ হ'ব পাৰে ।)"
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
-msgstr ""
+msgstr "গুপ্ত শব্দ(_P)"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr ""
+msgstr "সমৰ্থন কৰক(_f):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
-msgstr ""
+msgstr "গুপ্ত শব্দৰ মিল নাই"
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
 msgid "Passwords do not match"
-msgstr ""
+msgstr "গুপ্ত শব্দ সমান নহয়"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
 msgid ""
@@ -2748,10 +2748,12 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-
+"আপোনাৰ বুটলোডাৰ গুপ্ত শব্দ ৬টা আখৰতকৈ কম । আমি এটা দীঘল বুটলোডাৰ গুপ্ত শব্দৰ বাবে উপদেশ দিওঁ । \n"
+"\n"
+"আপুনি এই গুপ্ত শব্দৰ সৈতে আগবাঢ়িব খোজে নেকি?"
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr ""
+msgstr "বুটলোডাৰৰ উন্নত বিন্যাস"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
 msgid ""
@@ -2763,18 +2765,18 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
-msgstr ""
+msgstr "LBA32 বলবত্ব কৰক"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 বলবত্ব কৰক(সাধাৰণতে প্ৰয়োজনীয় নহয়) (_F) "
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-
+""
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
 msgstr ""
