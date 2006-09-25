@@ -301,7 +301,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         self.skipSteps.append("network")
 
     def doMultiPath(self, args):
-        KickstartHandlers.doMPath(self, args)
+        KickstartHandlers.doMultiPath(self, args)
 
         from partedUtils import DiskSet
         ds = DiskSet()

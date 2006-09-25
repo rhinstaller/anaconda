@@ -1,3 +1,8 @@
+2006-09-25  Peter Jones  <pjones@redhat.com>
+
+	* kickstart.py (AnacondaKSHandlers.doMultiPath): Fix invocation of
+	pykickstart method to use the right name.
+	
 2006-09-25  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.reset):  Turn off firstboot on s390
