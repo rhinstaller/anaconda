@@ -30,6 +30,7 @@ import zfcp
 import urllib
 import iutil
 import users
+import rhpl
 from flags import *
 from constants import *
 
@@ -75,7 +76,12 @@ class InstallData:
         self.upgradeDeps = ""
         self.upgradeRemove = []
         self.upgradeInfoFound = None
-        self.firstboot = FIRSTBOOT_DEFAULT
+
+        if rhpl.getArch() == "s390":
+            self.firstboot = FIRSTBOOT_SKIP
+        else:
+            self.firstboot = FIRSTBOOT_DEFAULT
+
         # XXX I expect this to die in the future when we have a single data
         # class and translate ksdata into that instead.
         self.ksdata = None
