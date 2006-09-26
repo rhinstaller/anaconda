@@ -2762,13 +2762,16 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-
+"BIOSৰ পৰা সমৰ্থন নোহোৱাৰ পিছত বুটলোডাৰৰ বাবে LBA32ৰ প্ৰয়োগ বলবত্ব কৰিলে আপোনাৰ যন্ত্ৰ আৰম্ভ কৰিব পৰা "
+"can cause your machine to be unable to boot.\n"
+"\n"
+"Would you like to continue and force LBA32 mode?"
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
 msgstr "LBA32 বলবত্ব কৰক"
 
 #: ../iw/bootloader_advanced_gui.py:69
-msgid "_Force LBA32 (not normally required)"
+msgid ""
 msgstr "LBA32 বলবত্ব কৰক(সাধাৰণতে প্ৰয়োজনীয় নহয়) (_F) "
 
 #: ../iw/bootloader_advanced_gui.py:73
@@ -2776,10 +2779,10 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-""
+"যদি আপুনি বুট আদেশত অবিকল্পিত বিকল্প যোগ দিব খোজে, সাধাৰণ কাৰ্ণেল স্থিতিমাপসমূহৰ ক্ষেত্ৰত ভৰাই দিয়ক ।"
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
-msgstr ""
+msgstr "সাধাৰণ কাৰ্ণেল স্থিতিমাপসমূহ (_G)"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
