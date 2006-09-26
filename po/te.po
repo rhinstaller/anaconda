@@ -2,6 +2,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -10,7 +11,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-26 03:01+0530\n"
+"PO-Revision-Date: 2006-09-26 05:33+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4507,7 +4508,7 @@ msgstr ""
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr "Network సధనం: %s"
+msgstr "Network సాధనం: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
@@ -4716,152 +4717,152 @@ msgstr ""
 
 #: ../textw/partition_text.py:621
 msgid "Format as:"
-msgstr ""
+msgstr "గా ఆకృతీకరించు:"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
-msgstr ""
+msgstr "కి వలసపో:"
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "ప్రాధమిక విభజనకి వత్తిడి"
 
 #: ../textw/partition_text.py:770
 msgid "Not Supported"
-msgstr ""
+msgstr "మద్దతివ్వలేదు"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "చిత్ర సంస్థాకలో LVM విలువలు మాత్రమే కూర్చబడతాయి."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "విభజనా పరిమాణానికి చెల్లని ప్రవేశం"
 
 #: ../textw/partition_text.py:859
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "గరిష్ఠ పరిమాణానికి చెల్లని ప్రవేశం"
 
 #: ../textw/partition_text.py:878
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "Cylinder ప్రారంభానికి చెల్లని ప్రవేశం"
 
 #: ../textw/partition_text.py:892
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "Cylinder సమాప్తికి చెల్లని ప్రవేశం"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
-msgstr ""
+msgstr "RAID విభజనలు లేవు"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "కనీసం రెండు software RAID విభజనలు అవసరం."
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
-msgstr ""
+msgstr "ఆకృతి విభజన?"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "RAID మిగుల్పులకు చెల్లని ప్రవేశం"
 
 #: ../textw/partition_text.py:1093
 msgid "Too many spares"
-msgstr ""
+msgstr "చాలా మిగుల్పులు"
 
 #: ../textw/partition_text.py:1094
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "ఒక RAID0 arrayతో ఉండదగ్గ గరిష్ఠ మిగిల్పుల సంఖ్య 0."
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
-msgstr ""
+msgstr "Volume సమూహాలు లేవు"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr ""
+msgstr "తార్కిక విలువను సృష్టించగల volume సమూహం లేదు"
 
 #: ../textw/partition_text.py:1292
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
+msgstr "ప్రస్తుతం కావలసిన పరిమాణం (%10.2f MB) గరిష్ఠ తార్కిక విలువ పరిమాణం (%10.2f MB) కన్నా పెద్దగా ఉంది. "
 
 #: ../textw/partition_text.py:1311
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "ప్రస్తుతం కావలసిన పరిమాణం (%10.2f MB) అందుబాటులో ఉన్న valume సమూహం (%10.2f MB) కన్నా పెద్దగా ఉంది."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr ""
+msgstr "కొత్త విభజన లేదా తార్కిక విలువ?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
+msgstr "మీరు కొత్త విభజనని కానీ కొత్త తార్కిక విలువను కానీ సృష్టించాలనుకుంటున్నారా?"
 
 #: ../textw/partition_text.py:1368
 msgid "partition"
-msgstr ""
+msgstr "విభజన"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
-msgstr ""
+msgstr "తార్కిక విలువ"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
-msgstr ""
+msgstr "కొత్త"
 
 #: ../textw/partition_text.py:1443
 msgid "Delete"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../textw/partition_text.py:1444
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+msgstr "    F1-సహాయం     F2-కొత్త      F3-కూర్పు   F4-తొలగింపు    F5-తిరిగి అమర్పు    F12-సరే        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr ""
+msgstr "Root విభజన లేదు"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr ""
+msgstr "తప్పక ఒక / విభజనను సంస్థాపనకు కలిగి ఉండాలి."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
-msgstr ""
+msgstr "విభజనా వర్గం"
 
 #: ../textw/partition_text.py:1518
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
-msgstr ""
+msgstr "సంస్థాపనకు మీ hard driveలో విభజన అవసరం.  ఈ సిద్ధ వాస్తు ఎక్కువ మంది వినియోగదారులకు సముచితమైంది.  మీరు దీన్నే ఎన్నుకోవచ్చు లేదా మీ సొంతంగా సృష్టించుకోవచ్చు."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "ఈ సంస్థాపనకు మీరు ఏ drive(లు) ఉపయోగించాలనుకుంటున్నారు?"
 
 #: ../textw/partition_text.py:1604
 msgid "Review Partition Layout"
-msgstr ""
+msgstr "విభజనా వాస్తు సమీక్ష"
 
 #: ../textw/partition_text.py:1605
 msgid "Review and modify partitioning layout?"
-msgstr ""
+msgstr "విభజనా వాస్తు సమీక్ష మరియూ మార్పు?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr ""
+msgstr "స్వీయవిభజన"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -4870,51 +4871,51 @@ msgstr ""
 #: ../textw/progress_text.py:66
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "దిగుమతి - %s"
 
 #: ../textw/progress_text.py:103
 msgid "Package Installation"
-msgstr ""
+msgstr "Package సంస్థాపన"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
-msgstr ""
+msgstr " పేరు   : "
 
 #: ../textw/progress_text.py:106
 msgid " Size   : "
-msgstr ""
+msgstr " పరిమాణం   : "
 
 #: ../textw/progress_text.py:107
 msgid " Summary: "
-msgstr ""
+msgstr " సారాంశం: "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
-msgstr ""
+msgstr "    Packageలు"
 
 #: ../textw/progress_text.py:153
 msgid "      Bytes"
-msgstr ""
+msgstr "      Byteలు"
 
 #: ../textw/progress_text.py:154
 msgid "        Time"
-msgstr ""
+msgstr "        సమయం"
 
 #: ../textw/progress_text.py:156
 msgid "Total    :"
-msgstr ""
+msgstr "మొత్తం    :"
 
 #: ../textw/progress_text.py:163
 msgid "Completed:   "
-msgstr ""
+msgstr "ముగిసింది:   "
 
 #: ../textw/progress_text.py:173
 msgid "Remaining:  "
-msgstr ""
+msgstr "మిగిలింది:  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
-msgstr ""
+msgstr "Package ఎన్నిక"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
@@ -4922,32 +4923,32 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
+msgstr "%sయొక్క సిద్ధ సంస్థాపన సాధారణ సంస్థాపన ఉపయోగానికి కావలసిన software అనువర్తనాలను కలిగి ఉంది.  మీ కంప్యూటరు అదనంగా ఏ పనులకు మద్దతివ్వాలనుకుంటున్నారు?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
-msgstr ""
+msgstr "software ఎన్నికను costomize చేయి."
 
 #: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "మీరు ఏ సమయక్షేత్రాన్ని ఉంచాలనుకుంటున్నారు?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "కంప్యూటరు గడియారం UTCని ఉపయోగిస్తుంది"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "boot loader ఆకృతీకరణను నవీకరించు"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "boot loader నవీకరణను దాటవేయి"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "కొత్త boot loader ఆకృతీకరణను సృష్టించు"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -4960,35 +4961,35 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr ""
+msgstr "వాడని ఖాళీ"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "RAM శోధించిన (MB):"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "సూచించిన పరిమాణం (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "Swap ఫైలు పరిమాణం (MB):"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr ""
+msgstr "Swapను కలుపు"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "మీరు ప్రవేశపెట్టిన విలువ సరైన సంఖ్య కాదు."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
-msgstr ""
+msgstr "కంప్యూటరును పునఃసంస్థాపించు"
 
 #: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
-msgstr ""
+msgstr "కంప్యూటరు నవీకరణకు"
 
 #: ../textw/upgrade_text.py:206
 msgid ""
@@ -5000,7 +5001,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr ""
+msgstr "Root అనుమతిపదం"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5011,12 +5012,12 @@ msgstr ""
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Root అనుమతిపదం తప్పక కనీసం 6 అక్షరాల పొడవుండాలి."
 
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -5024,22 +5025,24 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"%sకి సుస్వాగతం!\n"
+"\n"
 
 #: ../textw/zfcp_text.py:43
 msgid "FCP Device"
-msgstr ""
+msgstr "FCP సాధనం"
 
 #: ../textw/zfcp_text.py:101
 msgid "Device #"
-msgstr ""
+msgstr "సాధనం #"
 
 #: ../textw/zfcp_text.py:107
 msgid "Add"
-msgstr ""
+msgstr "కలుపు"
 
 #: ../textw/zfcp_text.py:109
 msgid "Remove"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -5050,11 +5053,11 @@ msgstr ""
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
-msgstr ""
+msgstr "z/IPL ఆకృతీకరణ"
 
 #: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev లైను "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
@@ -5068,7 +5071,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
-msgstr ""
+msgstr "_Fedora (_F)"
 
 #: ../installclasses/fedora.py:13
 #, python-format
@@ -5080,19 +5083,19 @@ msgstr ""
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
-msgstr ""
+msgstr "కార్యాలయం మరియూ ఉత్పాదకత"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
-msgstr ""
+msgstr "Software అభివృద్ధి"
 
 #: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
 msgid "Web server"
-msgstr ""
+msgstr "Web server"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "వ్యక్తిగత Desktop (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5114,11 +5117,11 @@ msgstr ""
 
 #: ../installclasses/rhel.py:15
 msgid "Red Hat Enterprise Linux"
-msgstr ""
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr ""
+msgstr "Server (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5129,7 +5132,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr ""
+msgstr "కార్యక్షేత్రం (_W)"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5153,24 +5156,24 @@ msgstr ""
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr ""
+msgstr "మాధ్యమ శోధన"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/method.c:420
 msgid "Test"
-msgstr ""
+msgstr "పరిశీలన"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
-msgstr ""
+msgstr "CDని బయటకు పంపు"
 
 #: ../loader2/cdinstall.c:93
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr ""
+msgstr "ప్రస్తుతం driveలో ఉన్న CDని పరిశీలించటానికి \"%s\"ని ఎన్నుకోండి, లేదా \"%s\"  CDని తీసి పరిశీలనకు వేరొకదానిని పెట్టండి."
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5188,10 +5191,12 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"%s CD మీ ఏ CDROM driveలోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచి"
+"పునఃప్రారంభించటానికి %s ను నొక్కండి."
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
-msgstr ""
+msgstr "CD కనుగొనబడింది"
 
 #: ../loader2/cdinstall.c:259
 #, c-format
@@ -5200,6 +5205,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"CD మాద్యమాన్ని పరీక్ష ప్రారంభానికి, సంస్థాపనకు ముందు %sను నొక్కండి.\n"
+"\n"
+"%sను మాధ్యమ పరిశీలన దాటివేతకు మరియూ సంస్థాపన ప్రారంభానికి ఎన్నుకోండి."
 
 #: ../loader2/cdinstall.c:379
 #, c-format
@@ -5207,80 +5215,86 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"మీ boot మాధ్యమంతో జతపడే ఏ %s CD కనుగొనబడలేదు.  దయచేసి %s CDని ఉంచి "
+"పునఃప్రయత్నానికి %sని నొక్కండి."
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
-msgstr ""
+msgstr "CD కనుగొనబడలేదు"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "kickstart ఫైలు CDROMలో కనుగొనబడలేదు."
 
 #: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
-msgstr ""
+msgstr "Loading"
 
 #: ../loader2/driverdisk.c:128
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "పఠన driver disk..."
 
 #: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "Driver Disk ఆకరం"
 
 #: ../loader2/driverdisk.c:269
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
+"driver disk ఆకరంగా పనిచేసే.సాధనా బాహుళ్యాన్ని మీరు కలిగి ఉన్నారు.  "
+"మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
 
 #: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
+"driver disk చిత్రాలను కలిగిఉన్న విభజనా బాహుళ్యాలు ఈ సాధనంలో ఉన్నాయి.  "
+"మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
 
 #: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "విభజనను మరల్చటంలో వైఫల్యం."
 
 #: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
-msgstr ""
+msgstr "driver disk చిత్రాన్ని ఎన్నుకో"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "మీ driver disk చిత్రంగా ఉన్న ఫైలుని ఎన్నుకోండి."
 
 #: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "driver disk నుండీ fileను load చేయటంలో వైఫల్యం."
 
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "మీ driver disk /dev/%sలోకి చొప్పించి కొనసాగించటానికి \"సరే\"ను నొక్కండి."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "Driver Diskను చొప్పించండి"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "driver diskను మరల్చటంలో వైఫల్యం."
 
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "%s విడుదలకు Driver disk సరైనది కాదు."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
-msgstr ""
+msgstr "మానవీయంగా ఎన్నుకోబడింది"
 
 #: ../loader2/driverdisk.c:480
 msgid "Load another disk"
-msgstr ""
+msgstr "వేరొక diskని load చేయి"
 
 #: ../loader2/driverdisk.c:481
 msgid ""
@@ -5291,19 +5305,19 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
-msgstr ""
+msgstr "Driver disk"
 
 #: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "మీరు driver diskను కలిగి ఉన్నారా?"
 
 #: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "ఎక్కువ Driver Diskలు?"
 
 #: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "మీరు ఏమైనా driver diskలను load చేయాలనుకుంటున్నారా?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
@@ -5313,12 +5327,12 @@ msgstr ""
 #: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
 #: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
-msgstr ""
+msgstr "Kickstart దోషం"
 
 #: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "తెలియని driver disk kickstart ఆకరం: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
@@ -5337,40 +5351,42 @@ msgstr ""
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "Module Parametersను ప్రవేశపెట్టండి"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
-msgstr ""
+msgstr "ఏ driverలూ కనుగొనబడలేదు"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
-msgstr ""
+msgstr "driver diskను Load చేయి"
 
 #: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"మానవీయంగా చొప్పించటానికి ఏ driverలూ కనుగొనబడలేదు.  మీరు driver "
+"diskను ఉపయోగించాలనుకుంటున్నారా?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
+msgstr "దయచేసి మీరు load చేయాలనుకుంటున్న కింది driverను ఎన్నుకోండి.  అది కనిపించకపోతే మీరుdriver diskను కలిగి ఉంటే, F2 నొక్కండి."
 
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "ఐచ్ఛిక module అమర్పులను తెల్పండి"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr " Device Driverను Load చెయటానికి ఎన్నుకోండి"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
 msgid "Loading %s driver..."
-msgstr ""
+msgstr "Loading %s driver..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
 #: ../loader2/urlinstall.c:160
@@ -5378,7 +5394,7 @@ msgstr ""
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "ఆ directoryలోని %s సంస్థాపనా చిత్రం మీ boot మాధ్యమంతో సరిపోల్చబడేటట్లు లేదు."
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -5402,16 +5418,16 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
-msgstr ""
+msgstr "Directory కలిగిఉన్న చిత్రాలు:"
 
 #: ../loader2/hdinstall.c:332
 msgid "Select Partition"
-msgstr ""
+msgstr "విభ్జనను ఎన్నుకో"
 
 #: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "%s CDROM చిత్రాలను కలిగి ఉండటానికి %s సాధనం కనపడటంలేదు."
 
 #: ../loader2/hdinstall.c:407
 #, c-format
