@@ -3,8 +3,9 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 # Michael Fulbright <msf@redhat.com>
+# David Cantrell <dcantrell@redhat.com>
 #
-# Copyright 2000-2003 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -87,40 +88,50 @@ class NetworkDeviceWindow:
         if hwaddr is None or len(hwaddr) == 0:
             hwaddr = None
 
-	topgrid = Grid(1, 3)
-
-        topgrid.setField(Label (_("Network Device: %s")
-                                %(dev.info['DEVICE'],)),
-                         0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
-                         growx = 1)
+	topgrid = Grid(1, 2)
 
 	if descr is not None:
 	    topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
-			     0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
+			     0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
 			     growx = 1)
         if hwaddr is not None:
             topgrid.setField(Label (_("Hardware Address: %s") %(hwaddr,)),
-                             0, 2, padding = (0, 0, 0, 0), anchorLeft = 1,
+                             0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
                              growx = 1)
 
-	botgrid = Grid(2, 2+len(options))
-        self.dhcpCb = Checkbox(_("Configure using DHCP"),
-                               isOn = (boot == "dhcp"))
+	# Create options grid
+	botgrid = Grid(2, 4+len(options))
+	currow = 0
 
 	if not showonboot:
 	    ypad = 1
 	else:
 	    ypad = 0
 
-	currow = 0
-        botgrid.setField(self.dhcpCb, 0, currow, anchorLeft = 1, growx = 1,
-			 padding = (0, 0, 0, ypad))
+	# DHCP option
+	self.dhcpCb = Checkbox(_("Use dynamic IP configuration (DHCP)"),
+	                       isOn = (boot == "dhcp"))
+	botgrid.setField(self.dhcpCb, 0, currow, anchorLeft = 1, growx = 1,
+	                 padding = (0, 0, 0, ypad))
 	currow += 1
-        
+
+	# Use IPv4 option
+	self.ipv4Cb = Checkbox(_("Enable IPv4 support"), net.useIPv4)
+	botgrid.setField(self.ipv4Cb, 0, currow, anchorLeft = 1, growx = 1,
+	                 padding = (0, 0, 0, ypad))
+	currow += 1
+
+	# Use IPv6 option
+	self.ipv6Cb = Checkbox(_("Enable IPv6 support"), net.useIPv6)
+	botgrid.setField(self.ipv6Cb, 0, currow, anchorLeft = 1, growx = 1,
+	                 padding = (0, 0, 0, ypad))
+	currow += 1
+
+	# Activate on boot option
         self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
 	if showonboot:
-	    botgrid.setField(self.onbootCb, 0, currow, anchorLeft = 1, growx = 1,
-			     padding = (0, 0, 0, 1))
+	    botgrid.setField(self.onbootCb, 0, currow, anchorLeft = 1,growx = 1,
+	                 padding = (0, 0, 0, 1))
 	    currow += 1
 
 	row = currow

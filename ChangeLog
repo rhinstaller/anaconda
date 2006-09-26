@@ -4,6 +4,9 @@
 	a third nameserver setting (which should be called tertiary NS, not
 	ternary NS).
 
+	* textw/network_text.py (NetworkDeviceWindow): First changes towards
+	making this screen look like the new iw one.
+
 2006-09-26  Jeremy Katz  <katzj@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow.__call__): Fix the
@@ -16,7 +19,7 @@
 	
 2006-09-25  Chris Lumens  <clumens@redhat.com>
 
-	* anaconda.py:  Set display_mode if the ksfile specifies a vnc install
+	* anaconda:  Set display_mode if the ksfile specifies a vnc install
 	(#204736).
 
 	* instdata.py (InstallData.reset):  Turn off firstboot on s390
