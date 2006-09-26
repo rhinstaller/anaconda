@@ -315,7 +315,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"বিচৰা বিভাজন বিতৰণ কৰিব নোৱাৰি: \n"
+"অনুৰোধ কৰা বিভাজন বিতৰণ কৰিব নোৱাৰি: \n"
 "\n"
 "%s.%s"
 
@@ -1595,7 +1595,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত আছে %s ।"
+msgstr "আপুনি এই বিভাজন সম্পাদন কৰিব নোৱাৰে, কিয়নো এইটো সম্প্ৰসাৰিত বিভাজন য'ত %s আছে ।"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -2657,7 +2657,7 @@ msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
-"বিচৰা গুপ্ত শব্দত non-ascii আখৰ আছে যিতো গুপ্ত শব্দত ব্যৱহাৰৰ বাবে স্বীকাৰ কৰা নহয় ।"
+"বিচৰা গুপ্ত শব্দত non-ascii আখৰ আছে যিতো গুপ্ত শব্দত ব্যৱহাৰৰ বাবে অনুমতি দিয়া নহয় ।"
 #: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
@@ -3311,71 +3311,71 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"An error occurred converting the value entered for \"%s\":\n"
+"\"%s\"ৰ বাবে দিয়া সংখ্যা ৰূপান্তৰিত কৰোঁতে এটা ভুল হ'ল:\n"
 "%s"
 #: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
 msgid "Dynamic IP"
-msgstr ""
+msgstr "গতিশীল IP"
 
 #: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
-msgstr ""
+msgstr "%s IP তথ্যৰ বাবে অনুৰোধ পঠিওৱা হৈছে..."
 
 #: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
 msgid "IP Address"
-msgstr ""
+msgstr "IP ঠিকনা"
 
 #: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
 msgid "Netmask"
-msgstr ""
+msgstr "নেটমাস্ক"
 
 #: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
 #: ../iw/network_gui.py:766
 msgid "Gateway"
-msgstr ""
+msgstr "দ্বাৰ"
 
 #: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
 msgid "Nameserver"
-msgstr ""
+msgstr "নামাঙ্কৰণৰ সেৱা প্ৰদান কৰোঁতা"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:768
 msgid "Primary DNS"
-msgstr ""
+msgstr "প্ৰধান DNS"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:770
 msgid "Secondary DNS"
-msgstr ""
+msgstr "দ্বিতীয় DNS"
 
 #: ../iw/network_gui.py:27
 msgid "_Gateway"
-msgstr ""
+msgstr "দ্বাৰ(_G)"
 
 #: ../iw/network_gui.py:27
 msgid "_Primary DNS"
-msgstr ""
+msgstr "প্ৰধান DNS(_P)"
 
 #: ../iw/network_gui.py:27
 msgid "_Secondary DNS"
-msgstr ""
+msgstr "দ্বিতীয় DNS(_S)"
 
 #: ../iw/network_gui.py:37
 msgid "Network Configuration"
-msgstr ""
+msgstr "নে'টৱৰ্ক বিন্যাস"
 
 #: ../iw/network_gui.py:157
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-
+"গৃহস্থৰ নাম আপুনি নিৰ্ধাৰিত কৰা নাই । আপোনাৰ নে'টৱৰ্কৰ পৰিবেশত নিৰ্ভৰ কৰি এইটোৱে পিছলৈ সমস্যা সৃষ্টি কৰিব পাৰে ।"
 #: ../iw/network_gui.py:161
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-
+"\"%s\" ক্ষেত্ৰ আপুনি নিৰ্ধাৰিত কৰা নাই । আপোনাৰ নে'টৱৰ্কৰ পৰিবেশত নিৰ্ভৰ কৰি এইটোৱে পিছলৈ সমস্যা সৃষ্টি কৰিব পাৰে ।"
 #: ../iw/network_gui.py:165 ../textw/network_text.py:404
 #, python-format
 msgid ""
@@ -3383,131 +3383,134 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"নিম্নলিখিত কাৰণৰ বাবে গৃহস্থৰ নাম \"%s\" অবৈধ:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:180
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "\"%s\" ক্ষেত্ৰ বাবে সংখ্যা এটাৰ প্ৰয়োজন ।"
 
 #: ../iw/network_gui.py:184
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "আপুনি দিয়া IP তথ্য অবৈধ ।"
 
 #: ../iw/network_gui.py:188
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-
+"আপোনাৰ কোনো সক্ৰীয় নে'টৱৰ্ক যন্ত্ৰ নাই । আপোনাৰ ব্যৱস্থাপ্ৰণালীীয়ে নে'টৱৰ্কত অবিকল্পিত ভাবে যোগাযোগ কৰিব নোৱাৰিব যদি অতি কমে এটাও সক্ৰীয় যন্ত্ৰ নাই ।"
 #: ../iw/network_gui.py:264
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "সংযোগ-মাধ্যম %s সম্পাদন কৰক"
 
 #: ../iw/network_gui.py:276
 #, python-format
 msgid "Hardware address: %s"
-msgstr ""
+msgstr "যান্ত্ৰিক সামগ্ৰীৰ ঠিকনা: %s"
 
 #: ../iw/network_gui.py:281
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr ""
+msgstr "গতিশীল IP বিন্যাস (_DHCP) ব্যৱহাৰ কৰক"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 সমৰ্থন সক্ষম কৰক"
 
 #: ../iw/network_gui.py:291 ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 সমৰ্থন সক্ষম কৰক"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
-msgstr ""
+msgstr "বুট কৰোঁতে সক্ৰীয় কৰক(_A)"
 
 #: ../iw/network_gui.py:326
 msgid "IPv_4 Address:"
-msgstr ""
+msgstr "IPv4 ঠিকনা(_4)"
 
 #: ../iw/network_gui.py:348
 msgid "IPv_6 Address:"
-msgstr ""
+msgstr "IPv6 ঠিকনা(_6)"
 
 #: ../iw/network_gui.py:371
 msgid "_Point to Point (IP):"
-msgstr ""
+msgstr "এটা সংয়োগ বিন্দুৰ পৰা আনটোলৈ(IP)(_P):"
 
 #: ../iw/network_gui.py:383
 msgid "_ESSID:"
-msgstr ""
+msgstr "ESSID(_E):"
 
 #: ../iw/network_gui.py:393
 msgid "Encryption _Key:"
-msgstr ""
+msgstr "গোপনীয় কৰাৰ চাবি (_K):"
 
 #: ../iw/network_gui.py:409
 #, python-format
 msgid "Configure %s"
-msgstr ""
+msgstr "%s-ৰ বিন্যাস"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
 msgid "Invalid Prefix"
-msgstr ""
+msgstr "অবৈধ উপসৰ্গ"
 
 #: ../iw/network_gui.py:458
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr ""
+msgstr "IPv4-ৰ উপসৰ্গ ০ আৰু ৩২ৰ মাজত হ'ব লাগিব ।"
 
 #: ../iw/network_gui.py:475
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr ""
+msgstr "IPv6-ৰ উপসৰ্গ ০ আৰু ১২৮ৰ মাজত হ'ব লাগিব ।"
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
-msgstr ""
+msgstr "বুট কৰোঁতে সক্ৰীয় কৰক"
 
 #: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
-msgstr ""
+msgstr "যন্ত্ৰ"
 
 #: ../iw/network_gui.py:633
 msgid "IPv4/Netmask"
-msgstr ""
+msgstr "IPv4/নে'টমাস্ক"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/উপসৰ্গ"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
-msgstr ""
+msgstr "নে'টৱৰ্ক যন্ত্ৰ"
 
 #: ../iw/network_gui.py:708
 msgid "Set the hostname:"
-msgstr ""
+msgstr "গৃহস্থৰ নাম নিৰ্ধাৰিত কৰক:"
 
 #: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "DHCP-ৰ বাটেৰে স্বয়ংচালিত ভাবে (_a)"
 
 #: ../iw/network_gui.py:720
 msgid "_manually"
-msgstr ""
+msgstr "হস্তচালিত (_m)"
 
 #: ../iw/network_gui.py:725
 msgid "(e.g., host.domain.com)"
-msgstr ""
+msgstr "(যেনে, host.domain.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
-msgstr ""
+msgstr "গৃহস্থৰ নাম"
 
 #: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "বিবিধ পটভুমি৪"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3517,60 +3520,60 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-
+"আপুনি বেলেগ কাৰ্য্যকৰ ব্যৱস্থাপ্ণালী আৰম্ভ কৰিব'লৈ আপোনাৰ বুট লোডাৰ বিন্যাস কৰিব পাৰে । তালিকাৰ পৰা আৰম্ভ কৰিব'লৈ কাৰ্য্যকৰ ব্যৱস্থাপ্ণালী নিৰ্ব্বাচন কৰিব'লৈ আপোনাক অনুমতি দিব । উপৰঞ্চি কাৰ্য্যকৰ ব্যৱস্থাপ্ণালী যোগ কৰিব'লৈ, যিবোৰৰ স্বয়ং উদ্ঘাটন নহয়, 'যোগ কৰক' টিপক । অবিকল্পিত ভাবে আৰম্ভ হোৱা কাৰ্য্যকৰ ব্যৱস্থাপ্ণালী সলনি কৰিব'লৈ পছন্দৰ কাৰ্য্যকৰ ব্যৱস্থাপ্ণালীৰ ওচৰৰ 'অবিকল্প' নিৰ্ব্বাচন কৰক ।"
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
-msgstr ""
+msgstr "অবিকল্পিত"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr ""
+msgstr "চিহ্ন"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
-msgstr ""
+msgstr "প্ৰতিমূৰ্তি"
 
 #: ../iw/osbootwidget.py:137
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-
+"বুট লোডাৰ তালিকাত প্ৰদৰ্শন কৰিব'লৈ এটা চিহ্ন দিয়ক । যি যন্ত্ৰ পৰা আৰম্ভ হয়, সেইটোৱে হৈছে যন্ত্ৰ (বা হাৰ্ড ড্ৰাইভ আৰু ভিভাজন সংখ্যা)"
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr ""
+msgstr "চিহ্ন (_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "অবিকল্পিত বুটৰ লক্ষ্য (_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr ""
+msgstr "আপুনি ভৰ্তিটোৰ বাবে এটা চিহ্ন নিৰ্ধাৰিত কৰিব লাগিব"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr ""
+msgstr "বুট চিহ্নত অবৈধ আখৰ আছে"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr ""
+msgstr "দ্বৈত চিহ্ন"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "এই চিহ্নটো ইতিমধ্যে বেলেগ এটা বুট ভৰ্তিৰ বাবে ব্যৱহাৰ কৰা হৈছে ।"
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr ""
+msgstr "দ্বৈত যন্ত্ৰ"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "এই যন্ত্ৰটো ইতিমধ্যে বেলেগ এটা বুট ভৰ্তিৰ বাবৈ ব্যৱহাৰ কৰা হৈছে ।"
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
-msgstr ""
+msgstr "গুচাব নোৱাৰি"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
@@ -3578,85 +3581,85 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-
+"বুটৰ লক্ষ্য গুচাব নোৱাৰি কাৰণ এইটো আপুনি সংস্থাপন কৰিব লোৱা %s ব্যৱস্থাপ্ৰণালীৰ ।"
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "উপৰঞ্চি আকাৰৰ বিকল্প"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr ""
+msgstr "দৃঢ় আকাৰ (_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "(MB)লৈ সকলো স্থান পৰিপূৰ্ণ কৰক (_u):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "সৰ্বোচ্চ অনুমতি থকা আকাৰলৈ পৰিপূৰ্ণ কৰক (_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "অন্তৰ স্তম্ভক‌ আৰম্ভনিৰ স্তম্ভক‌তকৈ ডাঙৰ হ'ব লাগিব ।"
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr ""
+msgstr "বিভাজন যোগ দিয়ক"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "বিভাজন সম্পাদন কৰক: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr ""
+msgstr "বিভাজন সম্পাদন কৰক"
 
 #: ../iw/partition_dialog_gui.py:301
 msgid "File System _Type:"
-msgstr ""
+msgstr "নথি-পত্ৰৰ ধৰণ (_T):"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "অনুমতি থকা ড্ৰাইভ (_D):"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
-msgstr ""
+msgstr "ড্ৰাইভ:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "আৰম্ভনিৰ স্তম্ভক (_S):"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "অন্তৰ স্তম্ভক (_E):"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr ""
+msgstr "প্ৰধান বিভাজন হ'বলৈ বলবত্ব কৰক (_p)"
 
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "ড্ৰাইভ %s (ক্ষেত্ৰতত্ব: %s/%s/%s) (প্ৰতিৰূপ: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "ড্ৰাইভ %s (%-0.f MB) (প্ৰতিৰূপ: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
-msgstr ""
+msgstr "ধৰণ"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
 msgid "Start"
-msgstr ""
+msgstr "আৰম্ভ"
 
 #: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
 msgid "End"
-msgstr ""
+msgstr "অন্ত"
 
 #: ../iw/partition_gui.py:408
 msgid ""
@@ -3664,120 +3667,121 @@ msgid ""
 "RAID/Volume"
 msgstr ""
 "অভ্যুত্থানৰ স্থান/\n"
-"RAID/Volume"
+"RAID/আয়তন"
 
 #: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
-
+"আকাৰ\n"
+"(MB)"
 #: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
 msgid "Partitioning"
-msgstr ""
+msgstr "বিভাজন ক্ৰীয়া"
 
 #: ../iw/partition_gui.py:633
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "নিম্নলিখিত গুৰুত্বপূৰ্ণ ভুল আপোনাৰ অনুৰোধ কৰা বিভাজন প্ৰকৰীয়াৰ আঁচনিত পোৱা হৈছে ।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+msgstr "এই ভুল সমূহ আপোনাৰ %s সংস্থাপনৰ সৈতে আগবঢ়াৰ পূৰ্বে  শুদ্ধ হ'ব লাগিব ।"
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
-msgstr ""
+msgstr "বিভাজন প্ৰকৰীয়াৰ ভুল"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
+msgstr "নিম্নলিখিত সকীয়নি আপোনাৰ অনুৰোধ কৰা বিভাজন প্ৰক্ৰীয়াত পোৱা হ'ল ।"
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "আপোনাৰ অনুৰোধ কৰা বিভাজন প্ৰক্ৰীয়াৰ আঁচনিৰ সৈতে আগবাঢ়িব খোজে নেকি ?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
-msgstr ""
+msgstr "বিভাজনৰ সকীয়নি"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
-msgstr ""
+msgstr "পুনৰাকৃতিৰ সকীয়নী"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
-msgstr ""
+msgstr "পুনৰাকৃতি (_F)"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM আয়তন সমষ্টি"
 
 #: ../iw/partition_gui.py:752
 msgid "RAID Devices"
-msgstr ""
+msgstr "RAID যন্ত্ৰ"
 
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
 msgid "None"
-msgstr ""
+msgstr "একো নাই"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
-msgstr ""
+msgstr "হাৰ্ড ড্ৰাইভসমূহ"
 
 #: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
 msgid "Free space"
-msgstr ""
+msgstr "মুক্ত স্থান"
 
 #: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
 msgid "Extended"
-msgstr ""
+msgstr "সম্প্ৰসাৰিত"
 
 #: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
 msgid "software RAID"
-msgstr ""
+msgstr "চালনাজ্ঞান RAID"
 
 #: ../iw/partition_gui.py:908
 msgid "Free"
-msgstr ""
+msgstr "মুক্ত"
 
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr ""
+msgstr "অনুৰোধ কৰা বিভাজন বিতৰণ কৰিব নোৱাৰি: %s ।"
 
 #: ../iw/partition_gui.py:1007
 #, python-format
 msgid "Warning: %s."
-msgstr ""
+msgstr "সকীয়নি: %s ।"
 
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
-msgstr ""
+msgstr "সমৰ্থন কৰা নহয়"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "এই অভিকল্পত LVM সমৰ্থন কৰা নহয় ।"
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "এই অভিকল্পত চালনাজ্ঞান RAID সমৰ্থন কৰা নহয় ।"
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "কোনো RAID ক্ষুদ্ৰ যন্ত্ৰ সংখ্যা পোৱা ন'গ'ল ।"
 
 #: ../iw/partition_gui.py:1214
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
-
+"কোনো চালনাজ্ঞান RAID যন্ত্ৰ সৃষ্টি কৰিব পৰা ন'গ'ল কাৰণ সকলো RAID ক্ষুদ্ৰ যন্ত্ৰ সংখ্যা ব্যৱহাৰ কৰা হৈছে ।"
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
-msgstr ""
+msgstr "RAID বিকল্প"
 
 #: ../iw/partition_gui.py:1239
 #, python-format
@@ -3790,7 +3794,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-
+"চালনাজ্ঞান RAID-এ আপোনাক বহুতো ডিষ্কক এটা ডাঙৰ RAID যন্ত্ৰলৈ সংযোগ কৰিব দিয়ে । এটা RAID যন্ত্ৰক এটা স্বতন্ত্ৰ ড্ৰাইভৰ তুলনাত অতিৰিক্ত গতি আৰু যোগ্যতা দিব'লৈ বিন্যাস কৰিব পাৰি । RAID যন্ত্ৰ ব্যৱহাৰৰ অধিক তথ্যৰ বাবে অনুগ্ৰহ কৰি %s আলেখ্যণ মন্ত্ৰণা কৰক । \n"
+"\n"
+"বৰ্ত্তমানে আপোনাৰ ওচৰত %s চালনাজ্ঞান RAID বিভাজন(সমূহ) ব্যৱহাৰ কৰিব'লৈ মুক্ত আছে ।\n"
+"\n"
 #: ../iw/partition_gui.py:1250
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
@@ -3798,79 +3805,81 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-
+"RAID ব্যৱহাৰ কৰিব'লৈ প্ৰথমে আপুনি অতি কমেও দুটা 'চালনাজ্ঞান RAID' বিধৰ বিভাজন সৃষ্টি কৰিব লাগিব । ইয়াৰ পিছত আপুনি এটা RAID যন্ত্ৰ সৃষ্টি কৰক যিটোক পুনৰাকৃতি কৰিব পৰা আৰু তুলি ল'ব পৰা যাব ।"
+"mounted.\n"
+"\n"
 #: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "এতিয়া আপুনি কি কৰিব বিচাৰে ?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "চালনাজ্ঞান RAID বিভাজন সৃষ্টি কৰক (_p) ।"
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "RAID যন্ত্ৰ সৃষ্টি কৰক [অবিকল্পিত=/dev/md%s] ।"
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "RAID যন্ত্ৰ [অবিকল্পিত=/dev/md%s] সৃষ্টি কৰিব'লৈ এটা ড্ৰাইভ কৃত্তক কৰক (_d) ।"
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "ড্ৰাইভ কৃত্তক সম্পাদক সৃষ্টি কৰিব পৰা ন'গ'ল"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "ড্ৰাইভ কৃত্তক সম্পাদক কোনো কাৰণত সৃষ্টি কৰিব পৰা ন'গ'ল ।"
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr ""
+msgstr "নতুন (_w)"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr ""
+msgstr "পুনঃ সজোৱা (_s)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
-msgstr ""
+msgstr "RAID (_A)"
 
 #: ../iw/partition_gui.py:1361
 msgid "_LVM"
-msgstr ""
+msgstr "LVM (_L)"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "RAID যন্ত্ৰ/LVM আয়তন সমষ্টিৰ সদস্য লুকাই দিয়ক"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<অপ্ৰযোজ্য>"
 
 #: ../iw/partition_ui_helpers_gui.py:250
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "এই বিভাজনত আপুনি কেনেদৰে নথি-পত্ৰৰ প্ৰণালী সাজু কৰিব খোজে ?"
 
 #: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "অপৰিবৰ্তিত ভাবে ৰাখক (তথ্য সংগ্ৰহ কৰক) (_u)"
 
 #: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
-msgstr ""
+msgstr "বিভাজন এনেদৰে পুনৰাকৃত কৰক (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "বিভবাজন প্ৰব্ৰজন কৰক (_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "বেয়া খণ্ড অনুসন্ধান কৰোঁ ?(_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
@@ -3878,69 +3887,69 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-
+"'%s'-ৰ ধৰণৰ বিভাজন এটা ড্ৰাইভতে আবদ্ধ কৰিব লাগে । 'অনুজ্ঞেয় ড্ৰাইভ'ৰ পৰীক্ষাতালিকাত ড্ৰাইভটো নিৰ্ব্বাচন কৰি এই কাম কৰিব পাৰি ।"
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "ডিষ্ক বিভাজন প্ৰক্ৰীয়াৰ প্ৰতিষ্ঠা "
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr ""
+msgstr "স্বয়ংচালিত ভাবে বিভাজন কৰক (_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "Disk Druidৰ সহায়ত হস্তচালিত ভাবে বিভাজন কৰক (_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:46
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s Byte"
 
 #: ../iw/progress_gui.py:51
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s Bytes"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
-msgstr ""
+msgstr "সৰঞ্জাম সংস্থাপন কৰা হৈছে"
 
 #: ../iw/progress_gui.py:166
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "অৱশিষ্ট সময় :%s মিনিট"
 
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "%s ডাউনল'ড কৰা হৈছে"
 
 #: ../iw/progress_gui.py:222
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "%s-%s-%s.%s সংস্থাপন কৰা হৈছে (%s)"
 
 #: ../iw/progress_gui.py:346
 msgid "Package"
-msgstr ""
+msgstr "সৰঞ্জাম"
 
 #: ../iw/progress_gui.py:347
 msgid "Summary"
-msgstr ""
+msgstr "সংক্ষিপ্ত"
 
 #: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
 msgid "Status: "
-msgstr ""
+msgstr "পৰিস্থিতি:"
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -3950,47 +3959,50 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-
+"RAID যন্ত্ৰ সৃষ্টি কৰিব'লৈ অতি কমেও দুটা অব্যৱহৃত চালনাজ্ঞান RAID বিভাজনৰ প্ৰয়োজন হয় ।\n"
+"\n"
+"প্ৰথমে অতি কমেও দুটা \"চালনাজ্ঞান RAID\" বিধৰ বিভাজন সৃষ্টি কৰক, আৰু তাৰ পিছত \"RAID\" বিকল্প পুনঃ নিৰ্ব্বাচন কৰক ।"
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr ""
+msgstr "RAID যন্ত্ৰ বনাওক"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "RAID যন্ত্ৰ সম্পাদন কৰক: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "RAID যন্ত্ৰ সম্পাদন কৰক"
 
 #: ../iw/raid_dialog_gui.py:322
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID যন্ত্ৰ (_D):"
 
 #: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAIDৰ স্তৰ (_L):"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr ""
+msgstr "RAIDৰ সদস্য (_R):"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr ""
+msgstr "অতিৰিক্ত সমূহৰ সংখ্যা (_s):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr ""
+msgstr "বিভাজন পুনৰাকৃথ কৰোঁ ?(_F)"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-
+"The source drive has no partitions to be cloned.  You must first define "
+"partitions of type 'software RAID' on this drive before it can be cloned."
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
