@@ -2526,7 +2526,7 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । কোনো নোহোৱা তথ্য পাত্ৰৰ কাৰণে এইটো হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ নক্সা শুদ্ধকৈ উত্‌পন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক । %s"
+"সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । কোনো নোহোৱা তথ্য পাত্ৰ পঞ্জিকাৰ কাৰণে এইটো হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ নক্সা শুদ্ধকৈ উত্‌পন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক । %s"
 #: ../yuminstall.py:760
 msgid "Uncategorized"
 msgstr "অবৰ্গীকৰণ"
@@ -4001,12 +4001,11 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"The source drive has no partitions to be cloned.  You must first define "
-"partitions of type 'software RAID' on this drive before it can be cloned."
+"উত্‌সৰ ড্ৰাইভত কৃত্তক কৰিব'লৈ কোনো বিভাজন নাই । কৃত্তক কৰাৰ পূৰ্বে আপুনি প্ৰথমে 'চালনাজ্ঞান RAID' বিধৰ বিভাজন সমূহ সংজ্ঞাবদ্ধ কৰিব লাগিব ।"
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr ""
+msgstr "উত্‌সৰ ড্ৰাইভত ভুল"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -4015,7 +4014,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-
+"নিৰ্ব্বাচিত উত্‌সৰ ড্ৰাইভত কোনো 'চালনাজ্ঞান RAID' বিধৰ বিভাজন নাই । \n"
+"\n"
+"এই ড্ৰাইভক কৃত্তক কৰাৰ পূৰ্বে এই বিভাজন সমূহ আঁতৰাব লাগিব ।"
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
 msgid ""
@@ -4025,7 +4026,9 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-
+"নিৰ্বাচিত উত্‌সৰ ড্ৰাইভত /dev/%s ড্ৰাইভলৈ আবদ্ধ নথকা বিভাজন আছে ।\n"
+"\n"
+"ড্ৰাইভটো কৃত্তক কৰাৰ পূৰ্বে এই বিভাজন সমূহ এই ড্ৰাইভলৈ আঁতৰাব লাগিব বা নিয়ন্ত্ৰিত কৰিব লাগিব ।"
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
@@ -4033,20 +4036,22 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-
+"নিৰ্বাচিত উত্‌সৰ ড্ৰাইভত এনে ধৰণৰ চালনাজ্ঞান RAID বিভাজন আছে যি কোনো সক্ৰীয় চালনাজ্ঞান RAID যন্ত্ৰৰ সদস্য ।\n"
+"\n"
+"ড্ৰাইভটো কৃত্তক কৰাৰ পূৰ্বে এই বিভাজন সমূহ আঁতৰাব লাগিব ।"
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
 msgid "Target Drive Error"
-msgstr ""
+msgstr "লক্ষ্য কৰা ড্ৰাইভত ভুল"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "কৃত্তক কাৰ্য্যকৰণৰ বাবে লক্ষ্য কৰা ড্ৰাইভ নিৰ্ব্চিত কৰক ।"
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "উত্‌সৰ ড্ৰাইভ /dev/%s লক্ষ্য কৰা ড্ৰাইভ ভাবেও নিৰ্ব্বাচন কৰিব নোৱাৰি ।"
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4058,10 +4063,14 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-
+"লক্ষ্য কৰা ড্ৰাইভ /dev/%s ত এটা বিভাজন আছে যিটো নিম্নলিখিত কাৰণৰ বাবে আঁতৰাব নোৱাৰি :\n"
+"\n"
+"\"%s\"\n"
+"\n"
+"এই ড্ৰাইভ লক্ষ্য হোৱাৰ পূৰ্বে এই বিভাজন আঁতৰাবৈ লাগিব ।"
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
-msgstr ""
+msgstr "অনুগ্ৰহ কৰি এটা উত্‌সৰ ড্ৰাইভ নিৰ্ব্বাচন কৰক ।"
 
 #: ../iw/raid_dialog_gui.py:643
 #, python-format
@@ -4069,25 +4078,28 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-
+"ড্ৰাইভ /dev/%s ক এতিয়া নিম্নলিখিত ড্ৰাইভলৈ কৃত্তক কৰা হ'ব:\n"
+"\n"
 #: ../iw/raid_dialog_gui.py:648
 msgid ""
 "\n"
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
-
+"\n"
+"\n"
+"সকীয়নি ! লক্ষ্য কৰা ড্ৰাইভত সকলো তথ্যৰ নাশ হ'ব ।"
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
-msgstr ""
+msgstr "শেষ সকীয়নি"
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
-msgstr ""
+msgstr "ড্ৰাইভ কৃত্তক কৰক"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "লক্ষ্য কৰা ড্ৰাইভ সমূহ পৰিষ্কাৰ কৰোঁতে ভুল হ'ল । কৃত্তক কৰা বিফল হ'ল ।"
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4104,30 +4116,36 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-
+"ড্ৰাইভ কৃত্তকৰ সঁজুলি\n"
+"\n"
+"এই সঁজুলিয়ে আপোনাক RAID শাৰী প্ৰতিষ্ঠা কৰিবলৈ কৰা পুৰুষাৰ্থ উল্লেখযোগ্য ভাবে কমাবলৈ অনুজ্ঞা দিয়ে । কল্পনাটো হৈছে এটা উত্‌সৰ ড্ৰাইভ লোৱা, যিটো বিচৰা বিভাজন প্ৰণালীৰ পৰিকল্পনাত সাজু কৰা হৈছে, আৰু এই পৰিকল্পনা সমান আকাৰৰ ড্ৰাইভত কৃত্তক কৰা । তেতিয়া এটা RAID যন্ত্ৰ সৃষ্টি কৰিব পাৰি ।\n"
+"\n"
+"টোকা: উত্‌সৰ ড্ৰাইভত বিভাজন থাকিব লাগিব যিবোৰ সেই ড্ৰাইভতে বন্ধা থাকিব, আৰু অকল অব্যৱহৃত চালনাজ্ঞান RAID বিভাজন থাকিব পাৰে । বেলেগ বিভাজন বিধৰ আজ্ঞা নাই ।\n"
+"\n"
+"এই প্ৰণালীত লক্ষ্য কৰা ড্ৰাইভত সকলো নাশ হ'ব ।"
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
-msgstr ""
+msgstr "উত্‌সৰ ড্ৰাইভ:"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "লক্ষ্য কৰা ড্ৰাইভ(সমূহ):"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
-msgstr ""
+msgstr "ড্ৰাইভসমূহ"
 
 #: ../iw/release_notes.py:150 ../iw/release_notes.py:154
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "মুক্তি পোৱাৰ টোকা সমূহ অনুপস্থিত ।\n"
 
 #: ../iw/release_notes.py:221
 msgid "Release Notes"
-msgstr ""
+msgstr "মুক্তি পোৱাৰ টোকা"
 
 #: ../iw/release_notes.py:224
 msgid "Unable to load file!"
-msgstr ""
+msgstr "নথি-পত্ৰ তুলি ল'ব পৰা ন'গ'ল !"
 
 #: ../iw/task_gui.py:79
 #, python-format
@@ -4138,29 +4156,31 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-
+"ভঁৰালৰ পৰা সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । এইটো কোনো অনুপস্থিত তথ্য পাত্ৰ পঞ্জিকাৰ কাৰণে হৈছে । অনুগ্ৰহ কৰি আপোনাৰ ভঁৰালটো শুদ্ধকৈ উত্‌পন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক ।\n"
+"\n"
+"%s"
 #: ../iw/task_gui.py:89
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
-
+"%sৰ বাবে সমষ্টিৰ নথি-পত্ৰ পোৱা ন'গ'ল । এইটোৱে ভঁৰালৰ পৰা সৰঞ্জামৰ হস্তচালিত নিৰ্ব্বাচন কৰা অক্ষম কৰিব ।"
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr ""
+msgstr "অবৈধ ভঁৰালৰ নাম"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
-msgstr ""
+msgstr "আপুনি এটা শূণ্য বিহীন দৈৰ্ঘ্যৰ ভঁৰালৰ নাম দিব লাগিব ।"
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr ""
+msgstr "অবৈধ ভঁৰালৰ URL"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "আপুনি এটা ভঁৰাললৈ কোনো HTTP বা FTP URL দিব লাগিব ।"
 
 #: ../iw/task_gui.py:146
 #, python-format
@@ -4168,65 +4188,65 @@ msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-
+"%s ভঁৰাল ইতিমধ্যে যোগ কৰা হৈছে । অনুগ্ৰহ কৰি বেলেগ এটা ভঁৰালৰ নাম আৰু URL নিৰ্ব্বাচন কৰক ।"
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "সমকাল মণ্ডলৰ নিৰ্ব্বাচন"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "বুটলোডাৰৰ বিন্যাস উন্নত কৰক"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "বুটলোডাৰৰ বিন্যাস উন্নত কৰক (_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "এইটোৱে বৰ্ত্তমানৰ বুটলোডাৰ উন্নত কৰিব ।"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "%s বুটলোডাৰ বৰ্ত্তমানে %s ত সংস্থাপন হোৱাটো সংস্থাপকে উদ্ঘাটন কৰিছে ।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
-msgstr ""
+msgstr "এইটো বিকল্পৰ উপদেশ দিয়া হয় ।"
 
 #: ../iw/upgrade_bootloader_gui.py:78 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-
+"সংস্থাপকে আপোনাৰ ব্যৱস্থাপ্ৰণালীত বৰ্ত্তমানে ব্যৱহাৰ হোৱা বুটলোডাৰ উদ্ঘাটন কৰিব পৰা নাই ।"
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr ""
+msgstr "নতুন বুটলোডাৰ বিন্যাস সৃষ্টি কৰক (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-
+"এইটোৱে আপোনাক নতুন বুটলোডাৰ বিন্যাস সৃষ্টি কৰিব'লৈ সক্ষম কৰিব । বুটলোডাৰ সলনি কৰিব খোজিলে, এইটো নিৰ্ব্বাচন কৰক ।"
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "বুটলোডাৰৰ উন্নয়ন এৰি যাওক (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-
+"এইটোৱে বুটলোডাৰ বিন্যাসত কোনো সলনি নকৰে । যদি তৃতীয় দলীয় বুটলোডাৰ ব্যৱহাৰ কৰিছে, তেন্তে আপুনি এইটো নিৰ্ব্বাচন কৰক ।"
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
-msgstr ""
+msgstr "আপুনি কি কৰিব বিচাৰে ?"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "নথি-পত্ৰৰ প্ৰণালী অভিগমন কৰক"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
 #, python-format
@@ -4238,10 +4258,12 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-
+"%sৰ মুক্তিয়ে ext3 দিনপঞ্জী লিখা নথি-পত্ৰ প্ৰণালীৰ সমৰ্থন কৰে । %sত পৰম্পৰাগত ভাবে পৰিবাহিত কৰা ext2 নথি-পত্ৰ প্ৰণালীতকৈ বহুত সুবিধা আছে । তথ্য নাশ নোহোৱাকৈ ext2 নথি-পত্ৰ প্ৰণালী ext3লৈ অভিগমন কৰা সম্ভৱ হয় ।\n"
+"\n"
+"নিম্নলিখিত বিভাজন সমূহৰ কোনটো আপুনি অভিগমন কৰিব খোজে?"
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "শ্বেপ বিভাজন উন্নত কৰক"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
@@ -4251,7 +4273,7 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-
+"২.৮ কাৰ্ণেলক পূৰ্বৰ কাৰ্ণেলতকৈ যথেষ্ট বেছি শ্বেপ লাগে, আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ RAMৰ দুগুণ শ্বেপ স্থানৰ সমান । আপোনাৰ ওচৰত বৰ্ত্তমান %dMB শ্বোপৰ বিন্যাস কৰা হৈছে, কিন্তু আপুনি আপোনাৰ নথি-পত্ৰ প্ৰণালীত অতিৰিক্ত শ্বেপ স্থান এতিয়া সৃষ্টি কৰিব পাৰে ।"
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
 msgid ""
@@ -4259,22 +4281,25 @@ msgid ""
 "\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
+"\n"
+"\n"
+"সংষ্তাপকে %s MB ৰ RAM উদ্ঘাটন কৰিছে ।\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr ""
+msgstr "মই শ্বেপ নথি-পত্ৰ সৃষ্টি কৰিব খোজোঁ (_w)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
+msgstr "শ্বেপ নথি-পত্ৰ থ'ব'লৈ বিভাজন নিৰ্ধাৰিত কৰক (_p):"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
-msgstr ""
+msgstr "বিভাজন"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "মুক্ত স্থান (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
@@ -4282,14 +4307,14 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-
+"উপদেশ দিয়া হয় যে আপেনাৰ শ্বেপ নথি-পত্ৰ অতি কমেও %d MB হওক । শ্বেপ নথি-পত্ৰৰ বাবে এটা আকাৰ দিয়ক:"
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "শ্বেপ নথি-পত্ৰৰ আকাৰ (MB) (_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "মই শ্বেপ নথি-পত্ৰ সৃষ্টি কৰিব নোখোজোঁ (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -4297,49 +4322,49 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-
+"এইটো গভীৰ ভাবে উপদেশ দিয়া হয় যে আপুনি এটা শ্বেপ নথি-পত্ৰ সৃষ্টি কৰক । কৰিব'লৈ অক্ষম হ'লে সংস্থাপক অস্বাভাবিক ভাবে ব্যৰ্থ হ'ব । আগবাঢ়িব'লৈ আপুনি সুনিশ্চিত নে?"
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "শ্বেপ নথি-পত্ৰ ১ আৰু ২০০০ MBৰ মাজৰ আকাৰৰ হ'ব লাগিব ।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "শ্বেপ বিভাজজনৰ বাবে যন্ত্ৰত পৰ্যাপ্ত স্থান নাই ।"
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ZFCP বিন্যাস"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr ""
+msgstr "আঁতৰাওক (_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr ""
+msgstr "FCP যন্ত্ৰ"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
-msgstr ""
+msgstr "FCP যন্ত্ৰ যোগ কৰক"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "FCP যন্ত্ৰ %s সম্পাদন কৰক"
 
 #: ../iw/zfcp_gui.py:248
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
-
+"আপেনাৰ বিন্য়াসৰ পৰা আপুনি FCP ডিষ্ক আঁতৰাব খোজিছে ।আগবাঢ়িব'লৈ আপুনি সুনিশ্চিত নে?"
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL বুটলোডাৰৰ বিন্যাস"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "z/IPL বুটলোডাৰ আপপেনাৰ ব্যৱস্থাপ।ৰণালীত সংস্থাপন কৰা হ'ব ।"
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4357,30 +4382,38 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-
+"z/IPL বুটলোডাৰ আপপেনাৰ ব্যৱস্থাপ।ৰণালীত সংস্থাপন কৰা হ'ব ।\n"
+"\n"
+"বিভাজন প্ৰতিষ্ঠা কৰোঁতে পূৰ্বে ননিৰ্ব্বাচন কৰা মূল বিভাজনেই মূল বিভাজন হ'ব ।\n"
+"\n"
+"যন্ত্ৰ আৰম্ভ কৰিব'লৈ ব্যৱহাৰ কৰা কাৰ্ণেল অবিকল্পিত ভাবে সংস্থাপন কৰাতো হ'ব ।\n"
+"\n"
+"সংস্থাপনৰ পিছত সলনি কৰিব খোজিলে /etc/zipl.conf বিন্যাস নথি-পত্ৰ সলনি কৰিব'লৈ সংকা বোধ নকৰিব ।\n"
+"\n"
+"আপুনি এতিয়া অতিৰিক্ত কাৰ্ণেল স্থিতিমাপসমূহ দিব পাৰে যিবোৰ আপোনাৰ যন্ত্ৰত বা প্ৰতিষ্ঠাপনত প্ৰয়োগ হ'ব পাৰে ।"
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "কাৰ্ণেল স্থিতিমাপসমূহ"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "ছেণ্ডেভ স্থিতিমাপসমূহ"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "কোনটো বুটলোডাৰ ব্যৱহাৰ কৰিব বিচাৰিব ?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB বুটলোডাৰ ব্যৱহাৰ কৰক"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr ""
+msgstr "কোনো বুটলোডাৰ নাই"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "বুটলোডাৰ এৰি যাওক"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4391,7 +4424,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-
+"আপুনি কোনো বুটলোডাৰ সংস্থাপন নকৰিব'লৈ নিৰ্বাচিত কৰিছে । এইটো গভীৰ ভাবে উপদেশ দিয়া হয় যে আপুনি এটা বুটলোডাৰ সংস্থাপন কৰক যদিহে আপোনাৰ কোনো উন্নত প্ৰয়োজন নাই । এটা বুটলোডাৰ প্ৰায় সদায় প্ৰয়োজনীয় হয় হাৰ্ড ড্ৰাইভৰ পৰা অবিলম্বে লিনাক্সলৈ আপোনাৰ ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ।\n"
+"\n"
+"বুটলোডাৰ সংস্থাপন এৰি যাবলৈ আপুনি সুনিশ্চিত নে?"
 #: ../textw/bootloader_text.py:93
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
@@ -4399,43 +4434,46 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32ৰ প্ৰয়োগ বলবত্ব কৰক(সাধাৰণতে প্ৰয়োজনীয় নহয়)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr ""
+msgstr "আপুনি বুটলোডাৰ ক'ত সংস্থাপন কৰিব খোজিছে ?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
-msgstr ""
+msgstr "বুট চিহ্ন"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
-msgstr ""
+msgstr "পৰিষ্কাৰ"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "বুট চিহ্ন সম্পাদন কৰক"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "অবৈধ বুট চিহ্ন"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "বুট চিহ্ন ৰিক্ত হ'ব নোৱাৰে"
 
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "বুট চিহ্নত অবৈধ আখৰ আছে ।"
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
 msgid "Edit"
-msgstr ""
+msgstr "সম্পাদন"
 
 #: ../textw/bootloader_text.py:278
 #, python-format
@@ -4447,7 +4485,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
+msgstr " <Space>-এ নিৰ্ব্বাচন কৰে | <F2> অবিকল্পিত নিৰ্ব্বাচন কৰে | <F4> গুচোৱা | <F12> পৰৱৰ্তী পৰ্দ্দালৈ>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4458,37 +4496,38 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "GRUB গুপ্ত শব্দ ব্যৱহাৰ কৰক"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "বুটলোডাৰৰ গুপ্ত শব্দ:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr ""
+msgstr "দৃঢ় কৰক:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "গুপ্ত শব্দৰ মিল নাই"
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
-msgstr ""
+msgstr "গুপ্ত শব্দ বৰ সৰু"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "বুটলোডাৰৰ গুপ্ত শব্দ বৰ সৰু"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-
+"সংস্থাপন প্ৰক্ৰীয়া অন্ত কৰিব'লৈ <Enter> টিপক ।\n"
+"\n"
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "প্ৰস্থান কৰিব'লৈ <Enter>"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4496,10 +4535,11 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
-
+"সংস্থাপনৰ সময়ত ব্যৱহাৰ কৰা সকলো মাধ্যম আঁতৰাই দিয়ক আৰু ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।\n"
+"\n"
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "পুনৰাৰম্ভ কৰিব'লৈ <Enter>"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -4508,7 +4548,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-
+"অভিনন্দন, আপোনাৰ %s সংস্থাপন সম্পূৰ্ণ হ'ল ।\n"
+"\n"
+"%s%s"
 #: ../textw/complete_text.py:40
 #, python-format
 msgid ""
@@ -4521,11 +4563,11 @@ msgstr ""
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
-msgstr ""
+msgstr "সম্পূৰ্ণ"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "আৰম্ভ হ'ব লগা সংস্থাপন"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -4546,11 +4588,11 @@ msgstr ""
 #: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:275 ../loader2/urls.c:455
 msgid "Back"
-msgstr ""
+msgstr "পিছলৈ"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "আৰম্ভ হ'ব লগা উন্নয়ন"
 
 #: ../textw/confirm_text.py:51
 #, python-format
@@ -5069,10 +5111,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-
+"২.৮ কাৰ্ণেলক পূৰ্বৰ কাৰ্ণেলতকৈ যথেষ্ট বেছি শ্বেপ লাগে, আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ RAMৰ দুগুণ শ্বেপ স্থানৰ সমান । আপোনাৰ ওচৰত বৰ্ত্তমান %dMB শ্বোপৰ বিন্যাস কৰা হৈছে, কিন্তু আপুনি আপোনাৰ নথি-পত্ৰ প্ৰণালীত অতিৰিক্ত শ্বেপ স্থান এতিয়া সৃষ্টি কৰিব পাৰে ।"
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr ""
+msgstr "মুক্ত স্থান"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
@@ -5223,10 +5265,16 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice.org)\n"
+"\tWeb browser \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
 #: ../installclasses/rhel.py:15
 msgid "Red Hat Enterprise Linux"
-msgstr ""
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5271,11 +5319,11 @@ msgstr ""
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/method.c:420
 msgid "Test"
-msgstr ""
+msgstr "পৰীক্ষা"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
-msgstr ""
+msgstr "CD বাহিৰ কৰক"
 
 #: ../loader2/cdinstall.c:93
 #, c-format
