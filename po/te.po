@@ -3,6 +3,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-26 05:33+0530\n"
+"PO-Revision-Date: 2006-09-26 12:48+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5008,7 +5009,7 @@ msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
-msgstr ""
+msgstr "ఒక root అనుమతిపదాన్ని తీసుకోండి. అది ఏమిటో మీకు ధృడపడటానికి మీరు దాన్ని రెండుసార్లు టైపు చేయవలసి ఉంటుంది మరియూ టైపు చేసేటప్పుడు ఎటువంటి అక్షరదోషాలనూ చేయకండి. కంప్యూటరు రక్షణకు root అనుమతిపదం క్లిష్టమైన భాగమని గుర్తుంచుకోండి! "
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5050,6 +5051,8 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"z/IPL Boot Loader సంస్థాపన పూర్తయ్యిన తరువాత మీ కంప్యూటరులో సంస్థాపించబడుతుంది. మీరు మీకంప్యూటరుకీ లేదా మీ అమర్పుకి అవసరమైన అదనపు kernel మరియూ chandev parameterలను ఇవ్వాలి."
+"."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5061,13 +5064,13 @@ msgstr "Chandev లైను "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr ""
+msgstr "వాడుక (_C)"
 
 #: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
+msgstr "సంస్థాపనా విధానంపై పూర్తి నియంత్రణని సంపాదించటానికి ఈ సంస్థాపనా వర్గాన్ని మళ్లీ ఎన్నుకోండి, software package ఎన్నిక మరియూ విభజనతోకూడా."
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
@@ -5079,7 +5082,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr ""
+msgstr "ఈ %s యొక్క సిద్ధ సంస్థాపన సాధారణ internet ఉపయోగాలకోసం softwareను కూడిఉంది. దానికి ఏమైనా అదనపు బాధ్యతలను మీ కంప్యూటరు కలిగి ఉండాలనుకుంటున్నారా?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -5102,7 +5105,7 @@ msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr ""
+msgstr "వ్యక్తిగత కంప్యూటర్లకు, laptopలకు సరైంది, చిత్ర సంబంధ desktop వాతావరణానికి మరియూ కంప్యూటరు home లేదా desktop వినియోగ సృష్టి సంస్థాపనకూ ఈ సంస్థాపనావిధానాన్ని ఎన్నుకోండి."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -5114,6 +5117,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice పరివారం (OpenOffice.org)\n"
+"\tWeb browser \n"
+"\tEmail (వికాసం)\n"
+"\tతక్షణ సమాచారం\n"
+"\tశ్రవణ మరియూ దృశ్య అనువర్తనాలు\n"
+"\tఆటలు\n"
 
 #: ../installclasses/rhel.py:15
 msgid "Red Hat Enterprise Linux"
@@ -5128,7 +5138,7 @@ msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr ""
+msgstr "మీరు ఫైళ్ల భాగస్వామ్యాన్ని అమర్చాలనుకుంటే ఈ సంస్థాపనా వర్గాన్ని ఎన్నుకోండి, ముద్రణా భాగస్వామ్యం, మరియూ web సేవలూ, అదనపు సేవలు కూడా సామౌతాయి, మరియూ మీరు చిత్ర సంబంధ వాతావరణాన్ని ఎన్నుకునేదీ లేనిదీ మీ ఇష్టం."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -5138,7 +5148,7 @@ msgstr "కార్యక్షేత్రం (_W)"
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr ""
+msgstr "software అభివృద్ధితోకూడిన చిత్ర సంబంధ desktop వాతావరణం మరియూ కంప్యూటరు నిర్వహణ అన్నవి ఐచ్ఛిక సంస్థాపనలు. "
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -5152,6 +5162,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice పరివారం (OpenOffice.org)\n"
+"\tWeb browser \n"
+"\tEmail (Evolution)\n"
+"\tతక్షణ సమాచారం\n"
+"\tశ్రవణ మరియూ దృశ్య అనువర్తనాలు\n"
+"\tఆటలు\n"
+"\tSoftware అభివృద్ధి ఉపకరణాలు\n"
+"\tనిర్వహణా ఉపకరణాలు\n"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5183,7 +5202,7 @@ msgid ""
 "recommended.  Minimally, the CDs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
-msgstr ""
+msgstr "మీరు అదనపు మాధ్యమాన్ని పరిశీలించాలనుకుంటే, తరువాతి CDని పెట్టి \"%s\"ను నొక్కండి. ప్రతి CDనీ పరిక్షించటం అవసరంలేదు.  తక్కువగా, మొదటసారి ఉపయోగించేటప్పుడు పరీక్షించవలసి ఉంటుంది. అవి పరీక్షించబడిన తరువాత, ఉపయోగించటానికి ప్రతి CDని తిరిగి అమర్చనవసరంలేదు."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
@@ -5301,7 +5320,7 @@ msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr ""
+msgstr "ఈ driver diskకు తగిన వర్గానికి చెందిన సాధనాలు లేవు.  మీరు మానవీయంగా driverను ఎన్నుకోవాలనుకుంటున్నారా, కొనసాగించాలనుకుంటున్నారా, లేదా వేరే driver diskని loadచేయాలనుకుంటున్నారా?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
@@ -5339,7 +5358,7 @@ msgstr "తెలియని driver disk kickstart ఆకరం: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
+msgstr "ఈ కింది చెల్లని వాదన kickstart driver disk ఆదేశం కోసం నిర్దేశించబడింది: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5348,6 +5367,8 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
+"దయచేసి మీరు %s గుణకంకి ఇవ్వదలచుకున్న ఖాళీలచే వేరు చేయబడుతున్న పారామితులను ప్రవేశపెట్టండి"
+".  పారామితులు ఏం సరఫరా చేస్తాయో తెలియకపోతే, ఈ screenను \"సరే\"మీట నొక్కటంద్వారా దాటవేయండి."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5401,6 +5422,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"ISO చిత్రాలనుండీ . Please check your "
+"ISO images and try again."
 
 #: ../loader2/hdinstall.c:266
 msgid ""
