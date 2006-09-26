@@ -167,7 +167,6 @@ class Network:
         self.gateway = ""
         self.primaryNS = ""
         self.secondaryNS = ""
-        self.ternaryNS = ""
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
@@ -233,8 +232,6 @@ class Network:
 			self.primaryNS = resolv[1]
 		    elif self.secondaryNS == "":
 			self.secondaryNS = resolv[1]
-		    elif self.ternaryNS == "":
-			self.ternaryNS = resolv[1]
 
 	# now initialize remaining devices
 	# XXX we just throw return away, the method initialize a
@@ -317,8 +314,6 @@ class Network:
             self.primaryNS = dns[0]
         if len(dns) >= 2:
             self.secondaryNS = dns[1]
-        if len(dns) >= 3:
-            self.ternaryNS = dns[2]
 
     def setGateway(self, gw):
         self.gateway = gw
@@ -379,7 +374,7 @@ class Network:
 	return ip
 
     def nameservers(self):
-        return (self.primaryNS, self.secondaryNS, self.ternaryNS)
+        return (self.primaryNS, self.secondaryNS)
 
     def dnsString(self):
         str = ""

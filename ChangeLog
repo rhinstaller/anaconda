@@ -1,3 +1,9 @@
+2006-09-26  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network): UI isn't using it, so removed references to
+	a third nameserver setting (which should be called tertiary NS, not
+	ternary NS).
+
 2006-09-26  Jeremy Katz  <katzj@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow.__call__): Fix the
