@@ -1586,6 +1586,7 @@ class PartitionTypeWindow:
 
             if res == TEXT_BACK_CHECK:
                 self.clearDrivelist()
+                screen.popHelpLine()                
                 screen.popWindow()
                 
                 return INSTALL_BACK
@@ -1624,6 +1625,7 @@ class PartitionTypeWindow:
                 anaconda.dispatch.skipStep("bootloader", skip = 1)
 
         self.clearDrivelist()
+        screen.popHelpLine()        
         screen.popWindow()
 
         return INSTALL_OK
