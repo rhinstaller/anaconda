@@ -1,3 +1,9 @@
+2006-09-27  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/task_gui.py (TaskWindow.getScreen): Have to remove since we
+	do a show_all on the vbox
+	* ui/tasksel.glade: Fix a tyop
+
 2006-09-26  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network): UI isn't using it, so removed references to

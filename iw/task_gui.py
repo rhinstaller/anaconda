@@ -250,7 +250,7 @@ class TaskWindow(InstallWindow):
 
         self._createRepoStore()
         if not anaconda.id.instClass.allowExtraRepos:
-            self.xml.get_widget("addRepoBox").hide()
+            vbox.remove(self.xml.get_widget("addRepoBox"))
 
         self.xml.get_widget("addRepoButton").connect("clicked", self._addRepo)
 
