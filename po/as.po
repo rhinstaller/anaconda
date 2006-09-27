@@ -2148,16 +2148,14 @@ msgstr "%s লৈ স্বাগতম"
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-"সহায়ৰ বাবে <F1> | পদাৰ্থৰ মাজত <Tab> | <Space>-এ নিৰ্ব্বাচন কৰে | পৰৱৰ্তী "
-"পৰ্দ্দালৈ <F12>"
+"সহায়ৰ বাবে <F1> | পদাৰ্থৰ মাজত <Tab> | <Space>-এ নিৰ্ব্বাচন কৰে | <F12> পৰৱৰ্তী পৰ্দ্দালৈ "
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-" পদাৰ্থৰ মাজত <Tab>/<Alt-Tab>   |  <Space>-এ নিৰ্ব্বাচন কৰে   |  পৰৱৰ্তী পৰ্দ্দালৈ "
-"<F12> "
+" পদাৰ্থৰ মাজত <Tab>/<Alt-Tab>   |  <Space>-এ নিৰ্ব্বাচন কৰে   |  <F12> পৰৱৰ্তী পৰ্দ্দালৈ  "
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -4199,11 +4197,11 @@ msgstr "বুটলোডাৰৰ বিন্যাস উন্নত কৰ
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "বুটলোডাৰৰ বিন্যাস উন্নত কৰক (_U)"
+msgstr "বুটলোডাৰৰ বিন্যাস বৰ্ত্তমানলৈ আনক (_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr "এইটোৱে বৰ্ত্তমানৰ বুটলোডাৰ উন্নত কৰিব ।"
+msgstr "এইটোৱে আপোনাৰ এতিয়াৰ বুটলোডাৰ বৰ্ত্তমানলৈ আনিব ।"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
@@ -4557,7 +4555,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"শুধৰণিৰ তথ্যৰ বাবে (উন্নয়ন আৰু দোষ আৰোগ্য), চাওক http://www.redhat."
+"শুধৰণিৰ তথ্যৰ বাবে (ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ আৰু দোষ আৰোগ্য), চাওক http://www.redhat."
 "com/errata/.\n"
 "\n"
 "আপোনাৰ ব্যৱস্থাপ্ৰণালী ব্যৱহাৰ কৰিব'লৈ তথ্য %s নিবন্ধপুথিত আছে  at http://"
@@ -5094,7 +5092,7 @@ msgstr ""
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "বুটলোডাৰৰ বিন্যাস বৰ্ত্তমানলৈ আনক"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -5395,54 +5393,54 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-
+"?"
 #: ../loader2/driverdisk.c:301
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-
+"চালক ডিষ্ক থাকিব পৰা এই যন্ত্ৰত একাধিক বিভাজন আছে । আপুনি কোনটো ব্যৱহাৰ কৰিব খোজে ?" 
 #: ../loader2/driverdisk.c:339
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "বিভাজন অভ্যুত্থান কৰিব ন'গ'ল ।"
 
 #: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
-msgstr ""
+msgstr "চালক ডিষ্কৰ প্ৰতিমূৰ্তি নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "আপোনাৰ চালক ডিষ্কৰ প্ৰতিমূৰ্তি থকা নথি-পত্ৰ নিৰ্ব্বাচন কৰক ।"
 
 #: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "নথি-পত্ৰৰ পৰা চালক ডিষ্ক তুলি ল'ব পৰা ন'গ'ল ।"
 
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "চালক ডিষ্ক /dev/%s-ত ভৰাওক আৰু আগবাঢ়িব'লৈ \"ঠিক আছে\" টিপক ।"
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "চালক ডিষ্ক দিয়ক"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "চালক ডিষ্ক অভ্যুত্থান কৰিব পৰা ন'গ'ল ।"
 
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "%s ৰ এই মুক্তিৰ বাবে চালক ডিষ্ক অসিদ্ধ ।"
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
-msgstr ""
+msgstr "নিজে নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/driverdisk.c:480
 msgid "Load another disk"
-msgstr ""
+msgstr "অন্য এখন ডিষ্ক তুলি লওক"
 
 #: ../loader2/driverdisk.c:481
 msgid ""
@@ -5450,22 +5448,22 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-
+"এই চালক ডিষ্কত কোনো যথোপযুক্ত যন্ত্ৰ পোৱা ন'গ'ল । আপুনি নিজে চালক নিৰ্ব্বাচন কৰিব খোজে, নে আগবাঢ়িব খোজে নে অন্য এখন চালক ডিষ্ক তুলি ল'ব খোজে?"
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
-msgstr ""
+msgstr "চালক ডিষ্ক"
 
 #: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "আপোনাৰ চালক ডিষ্ক আছেনে ?"
 
 #: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "আৰু চালক ডিষ্ক ?"
 
 #: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "আপুনি আৰু কোন চালক ডিষ্ক তুলি ল'ব খোজে নেকি ?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
@@ -5475,12 +5473,12 @@ msgstr ""
 #: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
 #: ../loader2/urlinstall.c:483
 msgid "Kickstart Error"
-msgstr ""
+msgstr "Kickstart ভুল"
 
 #: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "অজ্ঞাত চালক ডিষ্ক kickstart উত্‌স: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
@@ -5488,7 +5486,7 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-
+"kickstart চালক ডিষ্ক আদেশৰ বাবে নিম্নলিখিত অসিদ্ধ তৰ্ক নিৰ্ধাৰিত কৰা হেছিল: %s:%s"
 #: ../loader2/driverselect.c:60
 #, c-format
 msgid ""
@@ -5496,43 +5494,45 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-
+"বিক্ত স্থানেৰে পৃথক কৰি %s ক্ষুদ্ৰাংশলৈ আগবঢ়াব খোজা যিকোনো স্থিতিমাপ দিব পাৰে । যদি কি স্থিতিমাপ দিয় লাগে আপুনি নেজানে, \"ঠিক আছে\" বুটাম টিপি এই পৰ্দ্দা এৰি যাওক ।"
+"separated by spaces.  If you don't know what parameters to supply, skip this "
+"screen by pressing the \"OK\" button."
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "ক্ষুদ্ৰাংশ স্থিতিমাপসমূহ দিয়ক"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
-msgstr ""
+msgstr "কোনো চালক পোৱা ন'গ'ল ।"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
-msgstr ""
+msgstr "চালক ডিষ্ক তুলি লওক ।"
 
 #: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-
+"নিজে ভৰাব'লৈ কোনো চালক পোৱা ন'গ'ল । আপুনি এটা চালক ডিধ্ক ব্যৱহাৰ কৰিব খোজে নেকি?"
 #: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-
+"অনুগ্ৰহ কৰি তুলি ল'ব খোজা চালক নিৰ্ব্বাচন কৰক । যদি সেইটো প্ৰকাশ নহয় আৰু আপোনাৰ ওচৰত চালক ডিষ্ক আছে, F2 টিপক ।"
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "বৈকল্পিক ক্ষুদ্ৰাংশ তৰ্কসমূহ নিৰ্ধাৰিত কৰক"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr "তুলি ল'ব লগীয়া যন্ত্ৰ চালক নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
 msgid "Loading %s driver..."
-msgstr ""
+msgstr "%s যন্ত্ৰ তুলি লোৱা হৈছে..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
 #: ../loader2/urlinstall.c:160
@@ -5541,19 +5541,19 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-
+"সেই পঞ্জিকাত থকা %s সংস্থাপন তথ্য আকাৰ আপোনাৰ বুট মাধ্যমৰ সৈতে সমান নহয় যেন নেলাগে । "
 #: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-
+"ISO প্ৰতিমূৰ্তিৰ পৰা সংস্থাপন পঢ়োঁতে বুল হ'ল । অনুগ্ৰহ কৰি আপোনাৰ ISO প্ৰতিমূৰ্তি পৰীক্ষা কৰক আৰু পুনঃ চেষ্টা কৰক ।"
 #: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-
+"আপোনাৰ ব্যৱস্থাপ্ৰণালীত কোনো হাৰ্ড ড্ৰাইভ থকা যেন নেলাগে ! অতিৰিক্ত যন্ত্ৰ বিন্যাস কৰিব বিচাৰেনে?"
 #: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
@@ -5561,121 +5561,121 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-
+"%sৰ বাবে CD (iso9660) প্ৰতিমূৰ্তিসমূহ বিভাজনৰ কোনটো বিভাজন আৰু পঞ্জিকাত আছে ? যদি আপুনি ব্যৱহাৰ কৰা ডিষ্ক ড্ৰাইভ তালিকাভুক্ত কৰা দেখা নাই, অতিৰিক্ত যন্ত্ৰৰ বিন্যাসৰ বাবে F2 টিপক ।"
 #: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
-msgstr ""
+msgstr "প্ৰতিমূৰ্তি থকা পঞ্জিকা"
 
 #: ../loader2/hdinstall.c:332
 msgid "Select Partition"
-msgstr ""
+msgstr "বিভাজন নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "%s যন্ত্ৰত %s CDROM প্ৰতিমূৰ্তি থকা যেন নেলাগে ।"
 
 #: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "হাৰ্ড ড্ৰাইভ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "kickstart নথি-পত্ৰ হাৰ্ড ড্ৰাইভত পোৱা ন'গ'ল ।"
 
 #: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "%s BIOS ডিষ্কৰ বাবে হাৰ্ড ড্ৰাইভ পোৱা ন'গ'ল ।"
 
 #: ../loader2/kbd.c:129
 msgid "Keyboard Type"
-msgstr ""
+msgstr "চাবি ফলকৰ ধৰণ"
 
 #: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "আপোনাৰ কেনে ধৰণৰ চাবিৰ ফলক আছে ?"
 
 #: ../loader2/kickstart.c:125
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "%s kickstart নথি-পত্ৰ খোলোঁতে ভুল হ'ল: %s"
 
 #: ../loader2/kickstart.c:135
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "%s kickstart নথি-পত্ৰ বিষয় বস্তু পঢ়োঁতে ভুল হ'ল: %s"
 
 #: ../loader2/kickstart.c:178
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "%s kickstart নথি-পত্ৰৰ %d পংক্তিত %s ভুল পোৱা গ'ল ।"
 
 #: ../loader2/kickstart.c:277
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "বুট ফ্লপিত ks.cfg পোৱা ন'গ'ল ।"
 
 #: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
+msgstr "বন্ধ কৰিব'লৈ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr ""
+msgstr "%s - পৰিত্ৰাণ পদ্ধতিলৈ আদৰণি "
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "<Tab>/<Alt-Tab> পদাৰ্থৰ মাজত  | <Space>-এ নিৰ্ব্বাচন কৰে | <F12> পৰৱৰ্তী পৰ্দ্দালৈ "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
-msgstr ""
+msgstr "এটা ভাষা নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/loader.c:120
 msgid "Local CDROM"
-msgstr ""
+msgstr "স্থানীয় CDROM"
 
 #: ../loader2/loader.c:122
 msgid "Hard drive"
-msgstr ""
+msgstr "হাৰ্ড ড্ৰাইভ"
 
 #: ../loader2/loader.c:123
 msgid "NFS image"
-msgstr ""
+msgstr "NFS পৰ্তিমূৰ্তি"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
-msgstr ""
+msgstr "ডিষ্কৰ উত্‌স বৰ্ত্তমানলৈ আনক"
 
 #: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-
+"আপোেনাৰ ওচৰত একাধিক যন্ত্ৰ আছে যি ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্কৰ উত্স হিচাপে সেৱা কৰিব পাৰে । আপুনি কোনটো ব্যৱহাৰ কৰিব খোজে?"
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "আপোনাৰ ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্ক /dev/%s-ত ভৰাই দিয়ক আৰু আগবাঢ়িব'লৈ \"ঠিক আছে\" টিপক ।"
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
-msgstr ""
+msgstr "ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্ক"
 
 #: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ ডিষ্ক তুলি ল'বলৈ অক্ষম হ'ল"
 
 #: ../loader2/loader.c:366
 msgid "Updates"
-msgstr ""
+msgstr "ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনা তথ্য"
 
 #: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "এনাকণ্ডাৰ ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনা পঢ়া হৈছে..."
 
 #: ../loader2/loader.c:404
 msgid ""
@@ -5683,103 +5683,104 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-
+"কোনো হাৰ্ড ড্ৰাইভ পোৱা ন'গ'ল । সক্ষম হ'বলে আপুনি বোধকৰো নিজেই যন্ত্ৰ চালক নিৰ্ব্বাচন কৰিব লাগিব । আপুনি এতিয়া চালক নিৰ্ব্বাচন কৰিব খোজে নেকি?"
 #: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "আপোনাৰ ওচৰত এই যন্ত্ৰত %s সংস্থাপন কৰিব'লৈ পৰ্যাপ্ত RAM নাই ।"
 
 #: ../loader2/loader.c:938
 msgid "Rescue Method"
-msgstr ""
+msgstr "পৰিত্ৰাণৰ ধৰণ"
 
 #: ../loader2/loader.c:939
 msgid "Installation Method"
-msgstr ""
+msgstr "সংস্থাপনৰ ধৰণ"
 
 #: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "পৰিত্ৰাণৰ প্ৰতিমূৰ্তিত কোনতো ধৰণৰ মাধ্যমত আছে?"
 
 #: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "সংস্থাপন কৰিব লগা সৰঞ্জাম কোনতো ধৰণৰ মাধ্যমত আছে?"
 
 #: ../loader2/loader.c:968
 msgid "No driver found"
-msgstr ""
+msgstr "কোনো চালক পোৱা ন'গ'ল ।"
 
 #: ../loader2/loader.c:968
 msgid "Select driver"
-msgstr ""
+msgstr "চালক নিৰ্ব্বাচন কৰক"
 
 #: ../loader2/loader.c:969
 msgid "Use a driver disk"
-msgstr ""
+msgstr "চালক ডিষ্ক ব্যৱহাৰ কৰক"
 
 #: ../loader2/loader.c:970
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-
+"সংস্থাপন বিধৰ বাবে প্ৰয়োজনীয় ধৰণৰ যন্ত্ৰ পোৱা ন'গ'ল । আপুনি নিজেই কোনো চালক নিৰ্ব্বাচন কৰিব খোজে নে কোনো চালক ডিষ্ক ব্যৱহাৰ কৰিব খোজে?"
+"Would you like to manually select your driver or use a driver disk?"
 #: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "নিম্নলিখিত যন্ত্ৰসমূহ আপোনাৰ ব্যৱস্থাপ্ৰণালীত পোৱা হৈছে ।"
 
 #: ../loader2/loader.c:1133
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-
+"আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ বাবে কোনো যন্ত্ৰ চালক তুলি লোৱা হোৱা নাই । আপুনি এতিয়া তুলি ল'ব খোজে নেকি?"
 #: ../loader2/loader.c:1137
 msgid "Devices"
-msgstr ""
+msgstr "যন্ত্ৰ সমূহ"
 
 #: ../loader2/loader.c:1138
 msgid "Done"
-msgstr ""
+msgstr "কৰা হ'ল"
 
 #: ../loader2/loader.c:1139
 msgid "Add Device"
-msgstr ""
+msgstr "যন্ত্ৰ যোগ কৰক"
 
 #: ../loader2/loader.c:1347
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "লোডাৰ ইতিমধ্যে চলোৱা হ'ল । শ্বেল আৰম্ভ কৰা হৈছে ।\n"
 
 #: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
+msgstr "এনাকণ্ডা চলোৱা হৈছে, %s পৰিত্ৰাণ পদ্ধতি - অনুগ্ৰহ কৰি প্ৰতীক্ষা কৰক...\n"
 
 #: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "এনাকণ্ডা চলোৱা হৈছে, %s ব্যৱস্থাপ্ৰণালীৰ সংস্থাপক - অনুগ্ৰহ কৰি প্ৰতীক্ষা কৰক...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-
+"প্ৰাৰম্ভিক আয়তন বৰ্ণনা কৰ্তাৰ পৰা ডিষ্ক চেকছাম পঢ়িব পৰা ন'গ'ল । এইটোৱে ইয়াকে বুজাই যে ডিষ্কখন চেকছাম যোগ নকৰাকৈ সৃষ্টি কৰা হৈছিল ।"
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "\"%s\" পৰীক্ষা কৰা হৈছে..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr ""
+msgstr "মাধ্যম পৰীক্ষা কৰা হৈছে..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "সংস্থাপন প্ৰতিমূৰ্তি %s পোৱা ন'গ'ল ।"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
@@ -5791,7 +5792,7 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-""
+"পৰীক্ষা কৰা প্ৰতিমূৰ্তিত ভুল আছে । এইটো কোনো ভ্ৰষ্ট ডাউনলোড বা বেয়া ডিষ্কৰ বাবে হৈছে । যদি প্ৰযোজ্য হয়, অনুগ্ৰহ কৰি ডিষ্কখন পৰিষ্কাৰ কৰি পুনঃ চেষ্টা কৰক । যদি পৰীক্ষা অক্ষম হৈ থাকে আপুনি সংস্থাপনত আগ নাবাঢ়িব ।"
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr "উত্তীৰ্ণ হ'ল"
