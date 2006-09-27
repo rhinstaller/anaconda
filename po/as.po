@@ -791,7 +791,7 @@ msgstr ""
 
 #: ../fsset.py:1710 ../fsset.py:1719
 msgid "Invalid mount point"
-msgstr "অবৈধ অভ্যুত্থানৰ স্থান"
+msgstr "অসিদ্ধ অভ্যুত্থানৰ স্থান"
 
 #: ../fsset.py:1711
 #, python-format
@@ -1480,7 +1480,7 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"%s অভ্যুত্থানৰ স্থান অবৈধ । অভ্যুত্থানৰ স্থান '/' দি আৰম্ভ হ'ব লাগিব কিন্তু '/' দি অন্ত "
+"%s অভ্যুত্থানৰ স্থান অসিদ্ধ। অভ্যুত্থানৰ স্থান '/' দি আৰম্ভ হ'ব লাগিব কিন্তু '/' দি অন্ত "
 "হ'ব নোৱাৰে, মুদ্ৰণ কৰিব পৰা আখৰ থাকিব লাগিব আৰু কোনো ৰিক্ত স্থান থাকিব নোৱাৰে ।"
 
 #: ../partIntfHelpers.py:102
@@ -1874,7 +1874,7 @@ msgstr "এটা বিভাজন যিতো কোনো LVM আয়তন 
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "এই অভ্যুত্থানৰ স্থান অবৈধ । %s পঞ্জিকা /  নথি-পত্ৰ প্ৰণালীত থাকিব লাগিব । "
+msgstr "এই অভ্যুত্থানৰ স্থান অসিদ্ধ । %s পঞ্জিকা /  নথি-পত্ৰ প্ৰণালীত থাকিব লাগিব । "
 
 #: ../partRequests.py:252
 #, python-format
@@ -2274,7 +2274,7 @@ msgstr ""
 
 #: ../upgrade.py:343
 msgid "Invalid Directories"
-msgstr "অবৈধ পঞ্জিকা"
+msgstr "অসিদ্ধ পঞ্জিকা"
 
 #: ../upgrade.py:350
 #, python-format
@@ -3168,7 +3168,7 @@ msgstr "লজিকেল আয়তন \"%s\" টো আপুনি গুচ�
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
-msgstr "অবৈধ আয়তন সমষ্টিৰ নাম"
+msgstr "অসিদ্ধ আয়তন সমষ্টিৰ নাম"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
@@ -3394,7 +3394,7 @@ msgstr "\"%s\" ক্ষেত্ৰ বাবে সংখ্যা এটা�
 
 #: ../iw/network_gui.py:184
 msgid "The IP information you have entered is invalid."
-msgstr "আপুনি দিয়া IP তথ্য অবৈধ ।"
+msgstr "আপুনি দিয়া IP তথ্য অসিদ্ধ ।"
 
 #: ../iw/network_gui.py:188
 msgid ""
@@ -3455,7 +3455,7 @@ msgstr "%s-ৰ বিন্যাস"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
 msgid "Invalid Prefix"
-msgstr "অবৈধ উপসৰ্গ"
+msgstr "অসিদ্ধ উপসৰ্গ"
 
 #: ../iw/network_gui.py:458
 msgid "IPv4 prefix must be between 0 and 32."
@@ -3510,7 +3510,7 @@ msgstr "গৃহস্থৰ নাম"
 
 #: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
-msgstr "বিবিধ পটভুমি৪"
+msgstr "বিবিধ পটভুমি"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -4168,7 +4168,7 @@ msgstr ""
 "%sৰ বাবে সমষ্টিৰ নথি-পত্ৰ পোৱা ন'গ'ল । এইটোৱে ভঁৰালৰ পৰা সৰঞ্জামৰ হস্তচালিত নিৰ্ব্বাচন কৰা অক্ষম কৰিব ।"
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr "অবৈধ ভঁৰালৰ নাম"
+msgstr "অসিদ্ধ ভঁৰালৰ নাম"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
@@ -4176,7 +4176,7 @@ msgstr "আপুনি এটা শূণ্য বিহীন দৈৰ্�
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr "অবৈধ ভঁৰালৰ URL"
+msgstr "অসিদ্ধ ভঁৰালৰ URL"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
@@ -4434,10 +4434,7 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"কিছুমান ব্যৱস্থাপ্ৰণালীয়ে বিশেষ বিকল্প আৰম্ভ কৰাৰ সময়ত কাৰ্ণেললৈ আগবঢ়াব লাগিব যাতে ব্যৱস্থাপ্ৰণালী ঠিককে কাম কৰে । আপুনি যদি কাৰ্ণেললৈ আৰম্ভ কৰাৰ বিকল্প আগবঢ়াব লাগে, এতিয়া দিয়ক । যদি আপোনাৰ প্ৰয়োজন নাই বা আপুনি নিশ্চিত নহয়, এইটো ৰিক্ত ৰাখক । "
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
 msgstr "LBA32ৰ প্ৰয়োগ বলবত্ব কৰক(সাধাৰণতে প্ৰয়োজনীয় নহয়)"
@@ -4460,7 +4457,7 @@ msgstr "বুট চিহ্ন সম্পাদন কৰক"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr "অবৈধ বুট চিহ্ন"
+msgstr "অসিদ্ধ বুট চিহ্ন"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
@@ -4482,7 +4479,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-
+"%s-এ ব্যৱহাৰ কৰা বুট পৰিচালকে বেলেগ কাৰ্য্যকৰ ব্যৱস্থাপ্ণালীও আৰম্ভ কৰিব পাৰে । আপুনি মোক কোৱাৰ প্ৰয়োজন আপুনি কোনবোৰ বিভাজন আৰম্ভ কৰিব বিচাৰে আৰু কি চিহ্ন প্ৰত্যেকটোৰ বাবে ব্যৱহাৰ কৰিব খোজে । "
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space>-এ নিৰ্ব্বাচন কৰে | <F2> অবিকল্পিত নিৰ্ব্বাচন কৰে | <F4> গুচোৱা | <F12> পৰৱৰ্তী পৰ্দ্দালৈ>"
@@ -4560,7 +4557,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-
+"শুধৰণিৰ তথ্যৰ বাবে (উন্নয়ন আৰু দোষ আৰোগ্য), চাওক http://www.redhat."
+"com/errata/.\n"
+"\n"
+"আপোনাৰ ব্যৱস্থাপ্ৰণালী ব্যৱহাৰ কৰিব'লৈ তথ্য %s নিবন্ধপুথিত আছে  at http://"
+"www.redhat.com/docs/."
 #: ../textw/complete_text.py:46
 msgid "Complete"
 msgstr "সম্পূৰ্ণ"
@@ -4575,7 +4576,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-
+"সংস্থাপনৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথি-পত্ৰত পোৱা যাব । আপুন এই নথি-পত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিব'লৈ থ'ব খোজিব পাৰে ।"
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
 #: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
@@ -4600,10 +4601,10 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
-
+"উন্নয়নৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথি-পত্ৰত পোৱা যাব । আপুন এই নথি-পত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিব'লৈ থ'ব খোজিব পাৰে ।"
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "অনুগ্ৰহ কৰি সৰঞ্জাম সমষ্টি নিৰ্ব্বাচন কৰক যিবোৰ আপুনি সংস্থাপিত হোৱাতো বিচাৰে ।"
 
 #: ../textw/grpselect_text.py:105
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4611,120 +4612,120 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
-msgstr ""
+msgstr "সৰঞ্জাম সমষ্টিৰ বিৱৰণ"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "চাবিৰ ফলকৰ নিৰ্ব্বাচন"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "কোনটো প্ৰতিৰূপৰ চাবিৰ ফলক এই কম্পিউটাৰত সংলগ্ন হৈ আছে ?"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "কোনটো যন্ত্ৰত আপোনাৰ মাউচ্ আছে ?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "কোনটো প্ৰতিৰূপৰ মাউচ্ এই কম্পিউটাৰত সংলগ্ন হৈ আছে ?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "৩টা বুটাম অনুকৰণ কৰক ?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "মাউচ্ নিৰ্ব্বাচন"
 
 #: ../textw/network_text.py:28
 msgid "Invalid IP string"
-msgstr ""
+msgstr "অসিদ্ধ IP জৰী"
 
 #: ../textw/network_text.py:29
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr ""
+msgstr "দিয়া IP '%s' অসিদ্ধ IP ।"
 
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "এটা সংয়োগ বিন্দুৰ পৰা আনটোলৈ (IP)"
 
 #: ../textw/network_text.py:79 ../loader2/net.c:238
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
-msgstr ""
+msgstr "গোপনীয় কৰাৰ চাবি"
 
 #: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
-msgstr ""
+msgstr "নে'টৱৰ্ক যন্ত্ৰ: %s"
 
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Description: %s"
-msgstr ""
+msgstr "বিৱৰণ: %s"
 
 #: ../textw/network_text.py:102
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "যান্ত্ৰিক সামগ্ৰীৰ ঠিকনা: %s"
 
 #: ../textw/network_text.py:107
 msgid "Configure using DHCP"
-msgstr ""
+msgstr "DHCP ব্যৱহাৰ কৰি বিন্যাস কৰক"
 
 #: ../textw/network_text.py:120
 msgid "Activate on boot"
-msgstr ""
+msgstr "আৰম্ভ কৰোঁতে সক্ৰীয় কৰক"
 
 #: ../textw/network_text.py:146
 #, python-format
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "%s ৰ বাবে নে'টৱৰ্ক বিন্যাস"
 
 #: ../textw/network_text.py:179
 msgid "Invalid information"
-msgstr ""
+msgstr "অসিদ্ধ তথ্য"
 
 #: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "আগবাঢ়িব'লৈ আপুনি সিদ্ধ IP তথ্য দিব লাগিব"
 
 #: ../textw/network_text.py:247 ../loader2/net.c:957
 msgid "Gateway:"
-msgstr ""
+msgstr "দ্বাৰ:"
 
 #: ../textw/network_text.py:256
 msgid "Primary DNS:"
-msgstr ""
+msgstr "প্ৰধান DNS:"
 
 #: ../textw/network_text.py:261
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "দ্বিতীয় DNS:"
 
 #: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "তৃতীয় DNS:"
 
 #: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "বিবিধ নে'টৱৰ্কৰ পটভুমি"
 
 #: ../textw/network_text.py:345
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "DHCP-ৰ বাটেৰে স্বয়ংচালিত ভাবে"
 
 #: ../textw/network_text.py:349
 msgid "manually"
-msgstr ""
+msgstr "হস্তচালিত ভাবে"
 
 #: ../textw/network_text.py:368
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "গৃহস্থৰ নামৰ বিন্যাস"
 
 #: ../textw/network_text.py:371
 msgid ""
@@ -4736,15 +4737,15 @@ msgstr ""
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "অসিদ্ধ গৃহস্থৰ নাম"
 
 #: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "আপুনি কোনো গৃহস্থৰ নাম নিৰ্ধাৰিত কৰা নাই ।"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
-msgstr ""
+msgstr "এটা সংখ্যা নিৰ্ধাৰিত কৰিব লাগিব"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is not an integer"
