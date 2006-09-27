@@ -469,13 +469,8 @@ class xfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         
-        xfsBytesPerInode = 2048
-        if entry.bytesPerInode < 2048:
-            xfsBytesPerInode = entry.bytesPerInode
-
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.xfs",
-                                    ["-f", "-l", "internal", "-i",
-                                     "size=" + str(xfsBytesPerInode),
+                                    ["-f", "-l", "internal", 
                                      "-i", "attr=2", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
