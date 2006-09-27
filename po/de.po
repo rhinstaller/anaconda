@@ -9,6 +9,7 @@
 # translation of de.po to
 # translation of de.po to
 # translation of de.po to
+# translation of de.po to
 # translation of de.po to German
 # translation of de.po to
 # Copyright (C) 2001 Red Hat, Inc.
@@ -27,7 +28,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-22 10:17+1000\n"
+"PO-Revision-Date: 2006-09-28 09:22+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -883,7 +884,7 @@ msgstr ""
 #: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
 #: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr "Weiter (_C)"
+msgstr "_Weiter"
 
 #: ../fsset.py:1750
 #, python-format
@@ -1130,7 +1131,7 @@ msgstr ""
 
 #: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
-msgstr "Wiederholen (_t)"
+msgstr "Wiede_rholen"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1156,7 +1157,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "Zurück (_B)"
+msgstr "_Zurück"
 
 #: ../image.py:134
 #, python-format
@@ -1631,7 +1632,7 @@ msgstr "Sie sind dabei, alle Partitionen auf dem Gerät '/dev/%s' zu löschen."
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr "Löschen (_D)"
+msgstr "_Löschen"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
@@ -2636,7 +2637,7 @@ msgstr ""
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
-msgstr "Neu starten (_b)"
+msgstr "Neu _starten"
 
 #: ../yuminstall.py:697
 msgid "Retrieving installation information..."
@@ -2819,7 +2820,7 @@ msgstr "Root-_Passwort: "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "Bestätigen: (_C)"
+msgstr "_Bestätigen:"
 
 #: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
@@ -2886,7 +2887,7 @@ msgstr "_Passwort:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "Bestätigen: (_f)"
+msgstr "_Bestätigen:"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2969,7 +2970,7 @@ msgstr "Bootloader-Datensatz installieren auf:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "Festplattenreihenfolge ändern (_C)"
+msgstr "Festpl_attenreihenfolge ändern"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -3169,7 +3170,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
-msgstr "Weiter (_o)"
+msgstr "_Weiter"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
@@ -3245,11 +3246,11 @@ msgstr "Logischen Datenträger (Logical Volume) bearbeiten"
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
-msgstr "Einhängepunkt: (_M)"
+msgstr "_Einhängepunkt:"
 
 #: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
-msgstr "Dateisystemtyp: (_F)"
+msgstr "_Dateisystemtyp:"
 
 #: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
 #: ../iw/raid_dialog_gui.py:303
@@ -3276,7 +3277,7 @@ msgstr "Logical Volume-Name:"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
-msgstr "Größe (MB): (_S)"
+msgstr "_Größe (MB):"
 
 #: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
@@ -3480,7 +3481,7 @@ msgstr "Größe (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
-msgstr "Hinzufügen (_A)"
+msgstr "_Hinzufügen"
 
 #: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
@@ -3513,7 +3514,7 @@ msgstr "/dev/ttyS3 (COM4 unter DOS)"
 
 #: ../iw/mouse_gui.py:90 ../iw/osbootwidget.py:157
 msgid "_Device"
-msgstr "Gerät (_D)"
+msgstr "_Gerät"
 
 #: ../iw/mouse_gui.py:136
 msgid "_Model"
@@ -3788,7 +3789,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "Kennung (_L)"
+msgstr "_Kennung"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
@@ -3870,7 +3871,7 @@ msgstr "Dateisystem_typ:"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr "Zulässige Festplatten: (_D)"
+msgstr "Zulässige _Festplatten:"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
@@ -4101,7 +4102,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr "Neu (_w)"
+msgstr "Ne_u"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
@@ -4529,7 +4530,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "Neue Bootloader-Konfiguration erstellen (_C)"
+msgstr "_Neue Bootloader-Konfiguration erstellen"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -5613,7 +5614,7 @@ msgstr "Chandev Zeile "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "Benutzerdefiniert (_C)"
+msgstr "_Benutzerdefiniert"
 
 #: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
@@ -6723,7 +6724,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "Depot hinzufügen (_A)"
+msgstr "_Depot hinzufügen"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6735,7 +6736,7 @@ msgstr "Fehler_diagnose"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "Weiter (_N)"
+msgstr "_Weiter"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
@@ -6847,7 +6848,7 @@ msgstr "_Dynamische IP-Konfiguration (DHCP) verwenden"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Später anpassen (_l)"
+msgstr "Später _anpassen"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6871,7 +6872,7 @@ msgstr "Zusätzliche Softw_are-Depots hinzufügen"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "Jetzt anpassen (_C)"
+msgstr "_Jetzt anpassen"
 
 #. generated from zone.tab
 msgid "Acre"
