@@ -4,6 +4,9 @@
 
 2006-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/partition_text.py (PartitionTypeWindow.__call__): Fix
+	cases where we could traceback (#208101)
+
 	* installclasses/rhel.py: Disable extra repos
 
 	* iw/task_gui.py (TaskWindow.getScreen): Have to remove since we

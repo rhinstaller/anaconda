@@ -1515,55 +1515,55 @@ class PartitionTypeWindow:
 
     def __call__(self, screen, anaconda):
         self.anaconda = anaconda
-        g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
-        txt = TextboxReflowed(65, _("Installation requires partitioning "
+        while 1:
+            g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
+
+            txt = TextboxReflowed(65, _("Installation requires partitioning "
                                     "of your hard drive.  The default "
                                     "layout is reasonable for most "
                                     "users.  You can either choose "
                                     "to use this or create your own."))
-        g.add(txt, 0, 0, (0, 0, 0, 0))
+            g.add(txt, 0, 0, (0, 0, 0, 0))
 
-        opts = ((_("Remove all partitions on selected drives and create default layout."), CLEARPART_TYPE_ALL),
-                (_("Remove linux partitions on selected drives and create default layout."), CLEARPART_TYPE_LINUX),
-                (_("Use free space on selected drives and create default layout."), CLEARPART_TYPE_NONE),
-                (_("Create custom layout."), -1))
-        typebox = Listbox(height = len(opts), scroll = 0)
-        for (txt, val) in opts:
-            typebox.append(txt, val)
+            opts = ((_("Remove all partitions on selected drives and create default layout."), CLEARPART_TYPE_ALL),
+                    (_("Remove linux partitions on selected drives and create default layout."), CLEARPART_TYPE_LINUX),
+                    (_("Use free space on selected drives and create default layout."), CLEARPART_TYPE_NONE),
+                    (_("Create custom layout."), -1))
+            typebox = Listbox(height = len(opts), scroll = 0)
+            for (txt, val) in opts:
+                typebox.append(txt, val)
 
-        if anaconda.dispatch.stepInSkipList("autopartitionexecute"):
-            typebox.setCurrent(-1)
-        else:
-            typebox.setCurrent(anaconda.id.partitions.autoClearPartType)        
+            if anaconda.dispatch.stepInSkipList("autopartitionexecute"):
+                typebox.setCurrent(-1)
+            else:
+                typebox.setCurrent(anaconda.id.partitions.autoClearPartType)        
 
-        g.add(typebox, 0, 1, (0, 1, 0, 0))
+            g.add(typebox, 0, 1, (0, 1, 0, 0))
 
-        # list of drives to select which to clear
-        subgrid = Grid(1, 2)
-        subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
-                                               "use for this installation?")),
-                         0, 0)
-        drivelist = CheckboxTree(height=2, scroll=1)
-        subgrid.setField(drivelist, 0, 1)
-        g.add(subgrid, 0, 2, (0, 1, 0, 0))
+            # list of drives to select which to clear
+            subgrid = Grid(1, 2)
+            subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
+                                                   "use for this installation?")),
+                             0, 0)
+            drivelist = CheckboxTree(height=2, scroll=1)
+            subgrid.setField(drivelist, 0, 1)
+            g.add(subgrid, 0, 2, (0, 1, 0, 0))
 
-        bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
-        g.add(bb, 0, 5, (0,1,0,0))
+            bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+            g.add(bb, 0, 5, (0,1,0,0))
 
 
-        typebox.setCallback(self.typeboxChange, (typebox, drivelist))        
-        self.drivelist = drivelist
+            typebox.setCallback(self.typeboxChange, (typebox, drivelist))        
+            self.drivelist = drivelist
 
-        g.addHotKey("F2")
-	screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))        
+            g.addHotKey("F2")
+            screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))        
 
-        while 1:
             # restore the drive list each time
             disks = anaconda.id.diskset.disks.keys()
             disks.sort()
             cleardrives = anaconda.id.partitions.autoClearPartDrives
-            self.clearDrivelist()
             if not cleardrives or len(cleardrives) < 1:
                 cleardrives = disks
 
@@ -1577,28 +1577,29 @@ class PartitionTypeWindow:
             
             rc = g.run()
 
+            sel = self.drivelist.getSelection()
+            partmethod_ans = typebox.current()
+            res = bb.buttonPressed(rc)
+            
+            self.clearDrivelist()
+            screen.popHelpLine()
+            screen.popWindow()
+
             if rc == "F2":
                 if self.addDriveDialog(screen) != INSTALL_BACK:
                     partitionObjectsInitialize(anaconda)
                 continue
             
-            res = bb.buttonPressed(rc)
-
             if res == TEXT_BACK_CHECK:
-                self.clearDrivelist()
-                screen.popHelpLine()                
-                screen.popWindow()
-                
                 return INSTALL_BACK
 
             if anaconda.id.diskset.checkNoDisks(anaconda.intf):
                 continue
 
-            if len(self.drivelist.getSelection()) < 1:
+            if len(sel) < 1:
                 mustHaveSelectedDrive(anaconda.intf)
                 continue
 
-            partmethod_ans = typebox.current()
             if partmethod_ans == -1:
                 anaconda.dispatch.skipStep("autopartitionexecute", skip = 1)
                 break
@@ -1606,7 +1607,7 @@ class PartitionTypeWindow:
                 anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
 
                 anaconda.id.partitions.autoClearPartType = partmethod_ans
-                anaconda.id.partitions.autoClearPartDrives = self.drivelist.getSelection()
+                anaconda.id.partitions.autoClearPartDrives = sel
                 
                 if queryAutoPartitionOK(anaconda):
                     break
@@ -1623,10 +1624,6 @@ class PartitionTypeWindow:
             if reviewLayout != 1:
                 anaconda.dispatch.skipStep("partition", skip = 1)
                 anaconda.dispatch.skipStep("bootloader", skip = 1)
-
-        self.clearDrivelist()
-        screen.popHelpLine()        
-        screen.popWindow()
 
         return INSTALL_OK
 
