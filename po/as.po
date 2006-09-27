@@ -5081,7 +5081,7 @@ msgstr ""
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
-msgstr ""
+msgstr "চালনাজ্ঞানৰ নিৰ্ব্বাচন পছন্দ মতে নিৰ্ধাৰিত কৰক"
 
 #: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
@@ -5179,7 +5179,8 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
-
+"%sলৈ আদৰণি!\n"
+"\n"
 #: ../textw/zfcp_text.py:43
 msgid "FCP Device"
 msgstr ""
@@ -6010,7 +6011,7 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
-msgstr ""
+msgstr "NFS প্ৰতিষ্ঠাপন"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
@@ -6099,11 +6100,11 @@ msgstr ""
 
 #: ../loader2/urls.c:330
 msgid "FTP Setup"
-msgstr ""
+msgstr "FTP প্ৰতিষ্ঠাপন"
 
 #: ../loader2/urls.c:331
 msgid "HTTP Setup"
-msgstr ""
+msgstr "HTTP প্ৰতিষ্ঠাপন"
 
 #: ../loader2/urls.c:341
 msgid "You must enter a server name."
@@ -6133,54 +6134,54 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-
+"যদি আপুনি HTTP"
 #: ../loader2/urls.c:442
 msgid "Account name:"
-msgstr ""
+msgstr "হিচাপৰ নাম:"
 
 #: ../loader2/urls.c:465
 msgid "Further FTP Setup"
-msgstr ""
+msgstr "ওপৰঞ্চি FTP প্ৰতিষ্ঠাপন"
 
 #: ../loader2/urls.c:468
 msgid "Further HTTP Setup"
-msgstr ""
+msgstr "ওপৰঞ্চি HTTP প্ৰতিষ্ঠাপন"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "SCSI চালক তুলি লোৱা হেছে"
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
-msgstr ""
+msgstr "ZFCP LUN যোগ কৰক (_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "iSCSI লক্ষ্য যোগ কৰক (_i)"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
-msgstr ""
+msgstr "উন্নত ভঁৰালৰ বিকল্প"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "dmraid যন্ত্ৰ নিস্ক্ৰীয় কৰক (_d)"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "আপুনি কেনেদৰে ড্ৰাইভ বিন্যাস সালসলনি কৰিব খোজে ?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>ভঁৰালৰ URL (_U):</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>ভঁৰালৰ নাম (_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "ভঁৰাল যোগ কৰক"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6188,26 +6189,26 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
-
+"অনুগ্ৰহ কৰি আপোনাৰ অতিৰিক্ত চালনাজ্ঞান ক'ৰ পৰা সংস্থাপন কৰা হ'ব সেই স্থান দিয়ক । মন কৰিব যে এইটো %sৰ বাবে এটা সিদ্ধ ভঁৰাল হ'ব লাগিব ।"
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "ভঁৰাল যোগ কৰক (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr ""
+msgstr "পুনৰাৰম্ভ (_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr ""
+msgstr "ডিবাগ (_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr ""
+msgstr "পৰৱৰ্তী(_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr ""
+msgstr "মুক্তি পোৱাৰ টোকা (_R)"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6215,1006 +6216,1006 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
-
+"সংস্থাপনৰ বাবে আপোনাৰ হাৰ্ড ড্ৰাইভ বিভাজন কৰাৰ প্ৰয়োজন । অবিকল্পিত ভাবে, এটা বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰ্তাৰ বাবে যুক্তিসঙ্গত । আপুনি এইটোকে ব্যৱহাৰ কৰিব পাৰে বা আপোনাৰ নিজৰ সৃষ্টি কৰিব পাৰে ।"
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "বিভাজনৰ পৰিকল্পনা নিৰীক্ষণ আৰু সালসলনি কৰক (_v) "
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr ""
+msgstr "উন্নত ভঁৰালৰ বিন্যাস (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr ""
+msgstr "সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিব'লৈ ড্ৰাইভ(সমূহ) নিৰ্ব্বাচন কৰক (_S)।"
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
-msgstr ""
+msgstr "ব্যতিক্ৰমৰ তথ্য"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr ""
+msgstr "ব্যতিক্ৰমৰ বিৱৰণ (_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr ""
+msgstr "<b>গুপ্ত শব্দ (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>লক্ষ্যৰ IP ঠিকনা (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr ""
+msgstr "<b>ব্যৱহাৰকৰ্তাৰ নাম (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI আৰম্ভ কৰোঁতাৰ নাম (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr ""
+msgstr "iSCSI স্থিতিমাপসমূহ বিন্যাস কৰক"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-
+"iSCSI ডিষ্ক ব্যৱহাৰ কৰিব'লৈ, আপুনি iSCSI লক্ষ্যৰ ঠিকনা আৰু আপেনাৰ গৃহস্থত বিন্যাস কৰা iSCSI আৰম্ভ কৰোঁতাৰ নাম দিব লাগিব ।"
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr ""
+msgstr "<b>দ্বাৰ:</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
-msgstr ""
+msgstr "<b>IPv4ৰ ঠিকনা:</b>"
 
 #: tmp/netconfig.glade.h:4
 msgid "<b>IPv6 Address:</b>"
-msgstr ""
+msgstr "<b>IPv6ৰ ঠিকনা:</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr ""
+msgstr "<b>নামাংকৰণ সেৱা প্ৰদান কৰোঁতা:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>সংযোগ মাধ্যম (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv4 সমৰ্থন সক্ৰীয় কৰক (_4)"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv6ৰ সমৰ্থন সক্ৰীয় কৰক (_6)"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "নে'টৱৰ্ক সংযোগ মাধ্যম সবল কৰক"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
-
+"ইয়াৰ বাবে সংস্থাপন প্ৰণালীত আপোনাৰ এটা সক্ৰীয় নে'টৱৰ্ক যোগাযোগ হোৱাটো আৱশ্যক । অনুগ্ৰ কৰি এটা নে'টৱৰ্ক সংযোগ মাধ্যম বিন্যাস কৰক ।"
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr ""
+msgstr "গতিশীল IP বিন্যাস (DHCP) ব্যৱহাৰ কৰক (_d)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "পছন্দ মতে পিছত নিৰ্ধাৰিত কৰক (_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-
+"অনুগ্ৰহ কৰি চালনাজ্ঞানৰ সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিব'লৈ কোনো অতিৰিক্ত ভঁৰাল নিৰ্ধাৰিত কৰক ।"
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-
+"আপুনি এতিয়া চালনাজ্ঞানৰ নিৰ্ব্বাচন পছন্দ মতে নিৰ্ধাৰিত কৰিব পাৰে, বা সংস্থাপনৰ পিছত চালন্জ্ঞান পৰিচালনাৰ প্ৰযুক্তিৰ দ্বাৰা ।"
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "অতিৰিক্ত চালনাজ্ঞানৰ ভঁৰাল যোগ দিয়ক (_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr ""
+msgstr "এতিয়া পছন্দ মতে নিৰ্ধাৰিত কৰক (_C)"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "একৰ"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "আলাগোৱাছ, ছাৰ্জাইপ্"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "আলাস্কা সময়"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "আলাস্কা সময় - আলাস্কা পেনহেণ্ডেল"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "আলাস্কা সময় - আলাস্কা পেনহেণ্ডেল নেক"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "আলাস্কা সময় - পশ্চিম আলাস্কা"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "আলেউছীয়ান দ্বীপ"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "আমাপা, পূব পাৰা"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "এমাণ্ডচেন - স্কট ছাউনি, দক্ষিন মেৰু"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "এক্টোবে (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক দ্বীপ"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক মানদণ্ড সময় - ক্বেবেক - নিম্ন উত্তৰ পাৰ"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক সময় - লেব্ৰাডৰ - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক সময় - নিউ ব্ৰুনস্বিক"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক সময় - নোভা স্কোটিয়া (সৰ্বাধিক অৱস্থান), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "অ্যাটল্যান্টিক সময় - নোভা স্কোটিয়া - DST ১৯৬৬-১৯৭১ যি স্থান সমূহে পালন নকৰিলে ।"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "আতিৰাউ (Atirau, Gur'yev), মাঙ্কিষ্টাও (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "এজোৰেছ"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "বাহিয়া"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "বায়ান-অ'লগিঈ, গোভি-আল্টাই, হোভ্দ, উভ্চ, জাভখান"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "বুইন'ছ এইৰ্ছ (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "কেনেৰী দ্বীপ"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "কেছি ছাউনি, বেইলি উপদ্বীপ"
 
 #. generated from zone.tab
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr ""
+msgstr "কাটামাৰ্কা (CT), চুবুট  (CH)"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr ""
+msgstr "মধ্য চীন - চিচুৱান, য়ুনান, গুৱাংচি, শ্বাংচি, গুইজু, আৰু অন্যান্য ।"
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "মধ্য ক্ৰিমীয়া"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "মধ্য মানদণ্ড সময় - চাস্কাট্চেৱান - মধ্যপশ্চিম"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "মধ্য মানদণ্ড সময় - চাস্কাট্চেৱান - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "মধ্যৰ সময়"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "মধ্যৰ সময় - কামপেছে, য়ুকাটান"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "মধ্যৰ সময় - মধ্য নুনাৱুট "
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "মধ্যৰ সময় - ক'ৱাহুইলা, ডুৰাঙ্গো, নুইভো লিঅ'ন, তামাউলিপাছ "
 
 #. generated from zone.tab
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
+msgstr "মধ্যৰ সময় - ইণ্ডিয়ানা - ডাভিএচ, ডুবোইছ, নক্স, মাৰ্টিন, পেৰী আৰু পুলাস্কী অঞ্চল"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr ""
+msgstr "মধ্যৰ সময় - ইণ্ডিয়ানা - পাইক অঞ্চল"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "মধ্যৰ সময় - মনিটোবা আৰু পশ্চিম অ'ন্টাৰিঅ'"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
+msgstr "মধ্যৰ সময় - মিছিগান - ডিকিন্ছন, জোজেবিক, আইৰন আৰু মোন'মিনী অঞ্চল সমূহ"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "মধ্যৰ সময় - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
+msgstr "মধ্যৰ সময় - উত্তৰ ডাক'টা - মৰ্টনঅঞ্চল (মন্দন ক্ষেত্ৰৰ বাহিৰে)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "মধ্যৰ সময় - উত্তৰ ডাক'টা - অ'লিভঅৰ অঞ্চল"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "মধ্যৰ সময় - ক্বুইন্টানা ৰূ"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "মধ্যৰ সময় - ৰেইনি ৰিভাৰ আৰু ফ্ৰান্চেছ গড়, অ'ন্টাৰিঅ'"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "মধ্যৰ সময় - পশ্চিম নুনাৱুট"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "চেউটা আৰু মেলিল্লা"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "কেথেম দ্বীপ"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "ডেভিছ ছাউনি, ভেষ্টফ'ল্ড পাাহাৰ"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "ড'ৰনোড, চুখবাতৰ"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "ডুম'ণ্ট-ডি'উৰভিল্ল বেচ্,তেৰ্ৰে এডেলি"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "পূব অ্যাম্যাজোনাচ্"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "পূব চীন - বেইজিং, গুৱাংডং, শাংঘাই, আৰু অন্যান্য ।"
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "পূব সমূদ্ৰতট, স্কোৰচবাইছান্দৰ উত্তৰলৈ"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "কঙ্গোৰ পূব গণতান্ত্ৰিক গণৰাজ্য"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "ঈষ্টাৰ দ্বীপ আৰু ছালা ৱাই গোমেজ"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr ""
+msgstr "প্ৰাচ্য মানদণ্ড সময় - অতিকোকন, অ'ন্টাৰিঅ' আৰু চাউথেম্টন I, নুনাৱুট"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "প্ৰাচ্য সময়"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - পূব নুনাৱুট"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - ইণ্ডিয়ানা - ক্ৰঅ'ফ'ৰ্ড অঞ্চল"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - ইণ্ডিয়ানা - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - ইণ্ডিয়ানা - স্টাৰ্ক অঞ্চল"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - ইণ্ডিয়ানা - চুইজাৰলেণ্ড অঞ্চল"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - কেন্টাকি - লুইভিল্ল ক্ষেত্ৰ"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - কেন্টাকি - ৱেইন অঞ্চল"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - মিছিগান - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - অ'ন্টাৰিঅ' - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - অ'ন্টাৰিঅ' আৰু ক্বেবেক - DST ১৯৬৭-১৯৭৩ যি স্থান সমূহে পালন নকৰিলে ।"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - পাঙনিৰ্টুঙ,নুনাৱুট"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - ক্বেবেক - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "প্ৰাচ্য সময় - থাণ্ডাৰ উপসাগৰ, অ'ন্টাৰিঅ'"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "পূব আৰু দক্ষিণ ব'ৰনিও, চেলেলবেছ, বালী, নুছা টেঙাৰ্ৰা, পশ্চিম টিম'ৰ"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "পূব উজ্বেকিস্তান"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "গেলাপেগ'ছ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "গেম্বীয়াৰ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "গিল্বাৰ্ট দ্বীপ"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "হাৱাই"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "হেইলঙজিয়াঙ (মোহে বাহিৰে), জিলিন"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "ঈৰিয়ান জায়া আৰু ম'লুক্কাছ"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "জান মায়েন"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "জাভা আৰু সুমাত্ৰা"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "জনস্টন এট'ল"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "জুজুই (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "ক'স্ৰেই"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "ক্বাজালেইন"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "লা ৰি'জা (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "লাইন দ্বীপ"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "লৰ্ড হ'ৱে দ্বীপ"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "মাডেইৰা দ্বীপ"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "মূল ভূখণ্ড"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "মাৰ্ক্বেচাছ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "মাটো গ্ৰ'চ্চো"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "মাটো গ্ৰ'চ্চো দো চুল"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "মাউছন ছাউনী, হ'লমে উপসাগৰ"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "মেক্মুৰ্ডো ছাউনী, ৰ'ছ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "মেণ্ডোজা (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "মিডৱে দ্বীপ"
 
 #. generated from zone.tab
 msgid "Moscow+00 - Caspian Sea"
-msgstr ""
+msgstr "ম'স্কো‍+০০ - কাস্পীয়ান সমুদ্ৰ"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "ম'স্কো‍+০০ - পশ্চিম ৰুচ"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "ম'স্কো‍-০১ - কালিনিন্গ্ৰেদ"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr ""
+msgstr "ম'স্কো‍+০১ - চামাৰা, উদ্মুৰ্তীয়া"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "ম'স্কো‍+০২ - ইউৰাল্স"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "ম'স্কো‍+০৩ -ন'ভ'চিবিৰ্স্ক"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "ম'স্কো‍+০৩ - পশ্চিম চাইবেৰীয়া"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "ম'স্কো‍+০৪ - য়েনিচেই নদি"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "ম'স্কো‍+০৫ - বাইকাল হ্ৰদ"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "ম'স্কো‍+০৬ - লেনা নদি"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "ম'স্কো‍+০৭ - আমুৰ নদি"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "ম'স্কো‍+০৭ - চাখালিন দ্বীপ"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "ম'স্কো‍+০৮ - মাগাদান"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "ম'স্কো‍+০৯ - কামচাট্কা"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "ম'স্কো‍+১০ - বেৰিঙ সমুদ্ৰ"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "সৰ্বাধিক অৱস্থান (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "তিব্বত আৰু জিনজিয়াঙৰ সৰহভাগ"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "পাহাৰৰ মানদণ্ড সময় - এৰিজ'না"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "পাহাৰৰ মানদণ্ড সময় - ড'চ'ন কৰীক আৰু চেইন্ট জন গড়, ব্ৰিটিশ্ব ক'ল'ম্বীয়া"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "পাহাৰৰ মানদণ্ড সময় - চোনোৰা"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "পাহাৰৰ সময়"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "পাহাৰৰ সময় - আলবেৰ্টা, পূব ব্ৰিটিশ্ব ক'ল'ম্বীয়া আৰু পশ্চিম চাস্কাট্চেৱান"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "পাহাৰৰ সময় - মধ্য উত্তৰ-পশ্চিম প্ৰদেশ"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "পাহাৰৰ সময় - চিহুৱাহুৱা"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "পাহাৰৰ সময় - নৱজো"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "পাহাৰৰ সময় - দক্ষিণ বাজা, নয়ৰিত, চিনালোআ"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "পাহাৰৰ সময় - দক্ষিণ ইডাহো আৰু পূব অ'ৰিগ'ন"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "পাহাৰৰ সময় - পশ্চিম উত্তৰ-পশ্চিম প্ৰদেশ"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "উত্তৰ পূব ব্ৰাজিল (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
-msgstr ""
+msgstr "নিউফাউণ্ডলেণ্ডৰ সময়, দক্ষিণ-পূব লেব্ৰাডৰ পৰিবেষ্টিত কৰি"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "নিউ ছাউথ্ ৱেলশ্ব - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "নিউ ছাউথ্ ৱেলশ্ব - য়ানকোৱিন্না"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "উত্তৰীয় প্ৰদেশ"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "প্ৰশান্ত মহাসাগৰৰ সময়"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "প্ৰশান্ত মহাসাগৰৰ সময় - উত্তৰ য়ুকোণ"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "প্ৰশান্ত মহাসাগৰৰ সময় - দক্ষিণ য়ুকোণ"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "প্ৰশান্ত মহাসাগৰৰ সময় - পশ্চিম ব্ৰিটিশ্ব ক'ল'ম্বীয়া"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "পাল্মাৰ ছাউনী, আন্ভেৰ্চ দ্বীপ"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "উপদ্বীপীয় ম্যালাইছীয়া"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "পেৰ্নামবুকো"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "ফেনিক্স দ্বীপ"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "পোনপেই (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "কুইন্সলেণ্ড - অৱকাশৰ দিনৰ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "কুইন্সলেণ্ড - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "কিজিলোৰ্ডা(Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "ৰোৰাইমা"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "ৰথেৰা ছাউনী, এডিলেইড দ্বীপ"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "ৰুথেনীয়া"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "ছাবাহ আৰু ছাৰাৱাক"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "ছান জুআন (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "ছান্টা ক্ৰূজ (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "স্কোৰচবাইছান্দ/ইট্টোক্কোৰ্তূৰমীত"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "চ্যাচাইটী দ্বীপ"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "দক্ষিণ অ'স্ট্ৰেলীয়া"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "দক্ষিণ আৰু দক্ষিণ-পূব ব্ৰাজিল (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "চ্বাবাৰ্ড"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "চ্যোৱা ছাউনী, পূব অঙুল ।"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "টাচমেনীয়া - ৰজাৰ দ্বীপ"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr ""
+msgstr "টাচমেনীয়া - সৰ্বাধিক অৱস্থান"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "থুলে/পিটুফিক"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "টিয়েৰা ডীল ফুয়েগো (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "টোকান্টিন্স"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk) and Yap"
-msgstr ""
+msgstr "ত্ৰুক (চূক) আৰু য়াপ"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "টুকুমান (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "ভিক্টোৰীয়া"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "ভস্তক ছাউনী, দক্ষিণ চুম্বকীয় মেৰু"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "ৱেক্ দ্বীপ"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "পশ্চিম অ্যাম্যাজোনাচ্"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "পশ্চিম আৰু মধ্য ব'ৰনিও"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "কঙ্গোৰ পশ্চিম গণতান্ত্ৰিক গণৰাজ্য"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "পশ্চিমীয় অ'স্ট্ৰেলীয়া"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "পশ্চিম কাজাখস্তান"
 
 #. generated from zone.tab
 msgid "west Tibet & Xinjiang"
-msgstr ""
+msgstr "পশ্চিম তিব্বত আৰু জিনজিয়াঙ"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "পশ্চিম উজ্বেকিস্তান"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "পশ্চিম পাৰা, ৰণ্ডোনীয়া"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, পূব লুগানস্ক"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "আফ্ৰিকান্স"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "আৰবীয়"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "বঙালী"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "বঙালী(ভাৰত)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "বুলগেৰীয়"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "কেটেলান"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "চীনা (সৰল কৰা)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "চীনা (পৰম্পৰাগত)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "ক্ৰোয়েচীয়ান"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "চেক্"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "ডেনিশ্ব"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "ডাচ"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "ইংৰাজী"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "ইষ্টোনীয়ান"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "ফিনলেণ্ডীয়"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "ফৰাচী"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "জাৰ্মান"
 
 #. generated from lang-table
 msgid "Greek"
-msgstr ""
+msgstr "গ্ৰীক"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "গুজৰাটী"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "হিন্দী"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "হাঙ্গেৰীয়"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "আইচলেণ্ডীয়"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "ইণ্ডোনেচীয়"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "ইটালীয়"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "জাপানী"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "কন্নড়"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "ক'ৰীয়ান"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "মেচিডনীয়"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "মালয়"
 
 #. generated from lang-table
 msgid "Malayalam"
-msgstr ""
+msgstr "মলয়ালম"
 
 #. generated from lang-table
 msgid "Marathi"
-msgstr ""
+msgstr "মাৰাঠি"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "নৰওৱেইয়"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr ""
+msgstr "উত্তৰৰ সোথো"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "ৱৰীয়্যা"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "ফাৰ্চী"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "পোলেণ্ডীয়"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "পৰ্তুজীগ"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "পৰ্তুজীগ(ব্ৰাজিলৰ)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "পাঞ্জাবী"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "ৰুচীয়"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "চাৰ্বীয়"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "চাৰ্বীয় (লেটিন)"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "শ্লোভাক"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "শ্লোভেনীয়ান"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "হিস্পানীয়"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "চুইডীয়"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "তামিল"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "তুৰস্কীয়"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ইউক্ৰেনীয়ান"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ভিয়েতনামি"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "ৱেল্শ্ব"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "জুলু"
 
