@@ -5783,7 +5783,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "অক্ষম হ'ল"
 
 #: ../loader2/mediacheck.c:398
 msgid ""
@@ -5791,22 +5791,22 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-
+""
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "উত্তীৰ্ণ হ'ল"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
-msgstr ""
+msgstr "এই মাধ্যমৰ পৰা সংস্থাপন কৰা ঠিক আছে ।"
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
+msgstr "কোনো চোকছামৰ তথ্য পোৱা ন'গ'ল, মাধ্যম নিৰ্দ্দিষ্ট কৰিব পৰা ন'গ'ল ।"
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr ""
+msgstr "মাধ্যম পৰীক্ষাৰ ফলাফল"
 
 #: ../loader2/mediacheck.c:424
 #, c-format
@@ -5815,7 +5815,9 @@ msgid ""
 "\n"
 "   %s"
 msgstr ""
-
+"%s প্ৰতিমূৰ্তিৰ বাবে:\n"
+"\n"
+"   %s"
 #: ../loader2/mediacheck.c:428
 #, c-format
 msgid ""
@@ -5823,11 +5825,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-
+"মাধ্যমৰ পৰীক্ষা %s\n"
+"\n"
+"%s"
 #: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr ""
+msgstr "%s পঞ্জিকা পঢ়োঁতে ভুল হ'ল: %s"
 
 #: ../loader2/method.c:417
 #, c-format
@@ -5836,15 +5840,17 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-
+"ISO প্ৰতিমূৰ্তিৰ চেকছাম পৰীক্ষা কৰিব খোজে নেকি:\n"
+"\n"
+"   %s?"
 #: ../loader2/method.c:420
 msgid "Checksum Test"
-msgstr ""
+msgstr "চেকছাম পৰীক্ষা"
 
 #: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "যন্ত্ৰ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/net.c:63
 #, c-format
@@ -5855,13 +5861,17 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
-
+"অনুগ্ৰহ কৰি নিম্নলিখিত তথ্য সমূহ দিয়ক:\n"
+"\n"
+"    o আপোনাৰ %s সেৱা প্ৰদান কৰোঁতাৰ নাম বা IP সংখ্যা \n"
+"    o সেৱা প্ৰদাান কৰোঁতাত আপোনাৰ স্থাপত্যৰ বাবে %s থকা পঞ্জিকা\n"
+"       \n"
 #: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-
+"IPv4 নে'টৱৰ্কৰ বাবে উপসৰ্গ ১ আৰু ৩২ ৰ মাজত বা IPv6 নে'টৱৰ্কৰ বাবে ১ আৰু ১২৮ ৰ মাজত হ'ব লাগিব ।"
 #: ../loader2/net.c:232
 #, c-format
 msgid ""
@@ -5869,14 +5879,14 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-
+"%s এটা অনাতাঁৰ নে'টৱৰ্ক উপযোজক । অনুগ্ৰহ কৰি অনাতাঁৰ নে'টৱৰ্ক অভিগমন কৰিব'লৈ ESSID আৰু গোপনীয় কৰাৰ চাবিৰ যোগান ধৰক । যদি কোনো চাবিৰ প্ৰয়োজন নাই, তেন্তে এই ক্ষেত্ৰ ৰিক্ত ৰাখক আৰু সংস্থাপন আগবাঢ়িব । "
 #: ../loader2/net.c:242
 msgid "Wireless Settings"
-msgstr ""
+msgstr "অনাতাঁৰ পটভুমি"
 
 #: ../loader2/net.c:273
 msgid "Nameserver IP"
-msgstr ""
+msgstr "নামাংকৰণ সেৱা প্ৰদান কৰোঁতাৰ IP"
 
 #: ../loader2/net.c:278
 msgid ""
@@ -5885,129 +5895,129 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-
+"আপোনাৰ গতিশীল IP অনুৰোধে IP বিন্যাস তথ্য ঘূৰাই দিছে, কিন্তু কোনো DNS নামাংকৰণ সেৱা প্ৰদান কৰোঁতা নাছিল । যদি আপুনি নামাংকৰণ সেৱা প্ৰদান কৰোঁতাীৰ বিষয়ে জানে, অনুগ্ৰহ কৰি এতিয়া দিয়ক । যদি আপোনাৰ ঔচৰত এি তথ্য নাই, তেন্তে এই ক্ষেত্ৰ এৰি যাওক আৰু সংস্থাপন আগবাঢ়িব ।"
 #: ../loader2/net.c:301
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "অসিদ্ধ IP তথ্য"
 
 #: ../loader2/net.c:302
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "আপুনি এটা অসিদ্ধ IP ঠিকনা দিছে ।"
 
 #: ../loader2/net.c:541 ../loader2/net.c:647
 msgid "Network Error"
-msgstr ""
+msgstr "নে'টৱৰ্কত ভুল"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
-msgstr ""
+msgstr "আপোনাৰ নে'টৱৰ্ক সংযোগ-মাধ্যম বিন্যাস কৰোঁতে ভুল হ'ল ।"
 
 #: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr ""
+msgstr "গতিশীল IP বিন্যাস (DHCP) ব্যৱহাৰ কৰক"
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "অনাবশ্যকীয় টোপোলাৰ সংঘৰ্ষ বাতিল কৰক"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "অধিক গতি থকা নে'টৱৰ্ক ভীৰৰ বাবে পঞ্জী মূল্য সৰ্বাধিক কৰক"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "TCP/IP বিন্যাস কৰক"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFSৰ বাবে IPv4ৰ প্ৰয়োজন ।"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS সংস্থাপন প্ৰক্ৰীয়াত IPv4 সমৰ্থনৰ প্ৰয়োজন ।"
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
-msgstr ""
+msgstr "অনুপস্থিত আচাৰ বিধি"
 
 #: ../loader2/net.c:772
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "হস্থচালিত বিন্যাসৰ বাবে অতি কমেও এটা আচাৰ বিধি (IPv4 বা IPv6) নিৰ্ব্বাচন কৰিব লাগিব ।"
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "DHCP ৰ বাবে অতি কমেও এটা আচাৰ বিধি (IPv4 বা IPv6) নিৰ্ব্বাচন কৰিব লাগিব ।"
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
-msgstr ""
+msgstr "IPv4 ঠিকনা:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:904
 msgid "IPv6 address:"
-msgstr ""
+msgstr "IPv6 ঠিকনা:"
 
 #: ../loader2/net.c:965
 msgid "Name Server:"
-msgstr ""
+msgstr "নামাংকৰণ সেৱা প্ৰদান কৰোঁতা:"
 
 #: ../loader2/net.c:1008
 msgid "Manual TCP/IP Configuration"
-msgstr ""
+msgstr "হস্থচালিত TCP/IP বিন্যাস"
 
 #: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
-msgstr ""
+msgstr "অনুপস্থিত তথ্য"
 
 #: ../loader2/net.c:1132
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
+msgstr "এটা সিদ্ধ IPv4 ঠিকনা আৰু এটা নে'টৱৰ্ক মাস্ক বা CIDR উপসৰ্গ দুয়োতা দিব লাগিব ।"
 
 #: ../loader2/net.c:1138
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr ""
+msgstr "এটা সিদ্ধ IPv6 ঠিকনা আৰু এটা CIDR উপসৰ্গ দুয়োতা দিব লাগিব ।"
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "গৃহস্থৰ নাম আৰু ডোমেইন নিৰ্ধাৰিত কৰা হৈছে..."
 
 #: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "kickstart নে'টৱৰ্ক আদেশ %sত বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/net.c:1517
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "নে'টৱৰ্ক আদেশত বেয়া বুট বিধি %s নিৰ্দ্দিষ্ট কৰা হৈছে"
 
 #: ../loader2/net.c:1688
 msgid "Networking Device"
-msgstr ""
+msgstr "নে'টৱৰ্ক কৰাৰ যন্ত্ৰ"
 
 #: ../loader2/net.c:1689
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-
+"আপোনাৰ এই ব্যৱস্থাপ্ৰণালীত একাধিক নে'টৱৰ্ক যন্ত্ৰ নছে । আপুনি কোনতোৰ দ্বাৰা সংস্থাপন কৰিব খোজে?"
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
-msgstr ""
+msgstr "NFS সেৱা প্ৰদান কৰোঁতাৰ নাম:"
 
 #: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
 #, c-format
 msgid "%s directory:"
-msgstr ""
+msgstr "%s পঞ্জিকা:"
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6015,88 +6025,88 @@ msgstr "NFS প্ৰতিষ্ঠাপন"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "গৃহস্থৰনাম কোনোে DNS বিন্যাস নকৰাকৈ নিৰ্ধাৰিত কৰা হৈছে"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "সেই পঞ্জিকাত %s সংস্থাপন তথ্য আকাৰ নোহোৱা যেন লাগে ।"
 
 #: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "সেৱা প্ৰদান কৰোঁতাৰ পৰা পঞ্জিকা তুলি ল'ব পৰা ন'গ'ল ।"
 
 #: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "NFS kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
-msgstr ""
+msgstr "টেলনেট"
 
 #: ../loader2/telnetd.c:83
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "টেলনেট সংযোগৰ বাবে প্ৰতীক্ষা কৰা হৈছে..."
 
 #: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "টেলনেটৰ যোগেদি এনাকণ্ডা চলোৱা হৈছে..."
 
 #: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "%s উদ্ধাৰ কৰিব পৰা ন'গ'ল://%s/%s/%s ।"
 
 #: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "সংস্থাপন প্ৰতিমূৰ্তি উদ্ধাৰ কৰিব পৰা ন'গ'ল ।"
 
 #: ../loader2/urlinstall.c:285
 msgid "Media Detected"
-msgstr ""
+msgstr "মাধ্যম উদ্ঘাটন কৰা হৈছে"
 
 #: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "স্থানিক সংস্থাপনৰ মাধ্যম উদ্ঘাটন কৰা হৈছে..."
 
 #: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Url kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে : %s"
 
 #: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Url kickstart প্ৰক্ৰীয়াত এটা --url তৰ্কৰ যোগান ধৰিব লাগিব ।"
 
 #: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
-msgstr ""
+msgstr "অজ্ঞাত Url প্ৰক্ৰীয়া %s"
 
 #: ../loader2/urls.c:215
 msgid "Retrieving"
-msgstr ""
+msgstr "উদ্ধাৰ কৰা হৈছে"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:284
 msgid "Web"
-msgstr ""
+msgstr "ওৱেব"
 
 #: ../loader2/urls.c:301
 msgid "FTP site name:"
-msgstr ""
+msgstr "FTP ক্ষেত্ৰৰ নাম:"
 
 #: ../loader2/urls.c:302
 msgid "Web site name:"
-msgstr ""
+msgstr "ওৱেব ক্ষেত্ৰৰ নাম:"
 
 #: ../loader2/urls.c:321
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "অজ্ঞাতহীন ftp ব্যৱহাৰ কৰক"
 
 #: ../loader2/urls.c:330
 msgid "FTP Setup"
@@ -6108,33 +6118,33 @@ msgstr "HTTP প্ৰতিষ্ঠাপন"
 
 #: ../loader2/urls.c:341
 msgid "You must enter a server name."
-msgstr ""
+msgstr "আপুনি এটা সেৱা প্ৰদান কৰোঁতাৰ নাম দিব লাগিব ।"
 
 #: ../loader2/urls.c:346
 msgid "You must enter a directory."
-msgstr ""
+msgstr "আপুনি এটা পঞ্জিকা দিব লাগিব ।"
 
 #: ../loader2/urls.c:351
 msgid "Unknown Host"
-msgstr ""
+msgstr "অজ্ঞাত গৃহস্থ"
 
 #: ../loader2/urls.c:352
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s সিদ্ধ গৃহস্থৰ নাম নহয় ।"
 
 #: ../loader2/urls.c:415
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-
+"যদি আপুনি অজ্ঞাতহীন ftp ব্যৱহাৰ কৰিছে, তলত ব্যৱহাৰ কৰিব খোজা  হিচাপৰ নাম আৰু গুপ্ত শব্দ দিয়ক ।"
 #: ../loader2/urls.c:420
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"যদি আপুনি HTTP"
+"যদি আপুনি HTTP সেৱা প্ৰদান কৰোঁতাৰ নিযুক্তক ব্যৱহাৰ কৰিছে তেন্তে ব্যৱহাৰ কৰিব'লৈ HTTP সেৱা প্ৰদান কৰোঁতাৰ নিযুক্তকৰ নাম দিয়ক ।"
 #: ../loader2/urls.c:442
 msgid "Account name:"
 msgstr "হিচাপৰ নাম:"
