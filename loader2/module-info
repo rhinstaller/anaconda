@@ -342,6 +342,10 @@ pcnet32
 # NOT YET MODULARIZED!
 #pt
 
+qla3xxx
+	eth
+	"Qlogic 3xxx"
+
 8139too
 	eth
 	"RTL8139, SMC EZ Card Fast Ethernet"
@@ -746,6 +750,10 @@ qla2400
 qla2322
 	scsi_hostadapter
 	"Qlogic 2322"
+
+qla4xxx
+	scsi_hostadapter
+	"Qlogic 4xxx"
 
 qla6312
 	scsi_hostadapter
