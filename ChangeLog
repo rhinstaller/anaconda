@@ -1,5 +1,7 @@
 2006-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/rhel.py: Disable extra repos
+
 	* iw/task_gui.py (TaskWindow.getScreen): Have to remove since we
 	do a show_all on the vbox
 	* ui/tasksel.glade: Fix a tyop

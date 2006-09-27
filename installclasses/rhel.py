@@ -18,6 +18,7 @@ class InstallClass(BaseInstallClass):
                      "What additional tasks would you like your system "
                      "to include support for?") %(productName,)
     sortPriority = 10000
+    allowExtraRepos = False
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
