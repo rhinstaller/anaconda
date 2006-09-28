@@ -745,13 +745,14 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
         return FTPERR_SERVER_IO_ERROR;
     } else if (!strncmp(status, "200", 3)) {
         return sock;
-    } else if (!strncmp(status, "301", 3)) {
+    } else if (!strncmp(status, "301", 3) || !strncmp(status, "302", 3) ||
+               !strncmp(status, "303", 3) || !strncmp(status, "307", 3)) {
         struct iurlinfo ui;
         char *redir_loc = find_header (headers, "Location");
         int retval;
 
         if (redir_loc == NULL) {
-            logMessage(WARNING, "got a 301 response, but Location header is NULL");
+            logMessage(WARNING, "got a redirect response, but Location header is NULL");
             close(sock);
             return FTPERR_FILE_NOT_FOUND;
         }
