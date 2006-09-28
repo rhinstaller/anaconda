@@ -77,6 +77,8 @@ def presentRequiredMediaMessage(anaconda):
     reqcds.sort()
     reqcdstr = ""
     for cdnum in reqcds:
+        if cdnum == -99: # non-CD bits
+            continue
 	reqcdstr += "\t\t%s %s CD #%d\n" % (product.productName, product.productVersion, cdnum,)
 		
     return anaconda.intf.messageWindow( _("Required Install Media"),
