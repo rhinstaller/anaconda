@@ -208,6 +208,14 @@ class NetworkConfigurator:
                 f.close()
                 isys.resetResolv()
                 isys.setResolvRetry(1)
+
+        if self.rc != gtk.REPONSE_OK:
+            d = gtk.MessageDialog(_("Error"), 0, gtk.MESSAGE_ERROR,
+                                  gtk.BUTTONS_OK,
+                                  _("Error configuring network device"))
+            d.run()
+            d.destroy()
+            return
             
         gtk.main_quit()
         
