@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.100
+Version: 11.1.0.101
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.101-1
+- Give indication of no optional packages (#204242)
+- Don't give an error on partition mount errors looking for upgrades (#201805)
+- Firewire fix (notting)
+- Make initrd.size have 0644 perms (dcantrel, #197773)
+- More netconfig tweaks (dcantrel)
+- Support loopback URL mounts (pnasrat, #207904)
+- Turn off firstboot on s390 (clumens, #207926)
+- Set display mode if vnc ks (clumens, #204736)
+- Fix partitioning traceback (#208101)
+- Fix lowres (clumens)
+- xfs tweak (esandeen, #208323)
+- Add qla4xxx (#208324) and qla3xxx 
+
 * Thu Sep 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.100-1
 - Fix a few tracebacks (#207594, #207587)
 - Allow only iSCSI disks (#207471)
