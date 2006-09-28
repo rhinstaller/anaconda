@@ -14,6 +14,9 @@
 	* loader2/ftp.c (httpGetFileDesc):  Teach the loader about more HTTP
 	redirect response codes.
 
+	* loader2/loader.c (loadUpdates):  Add device name to loaderData.
+	(main):  Pass --updates to anaconda.
+
 2006-09-28  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/netconfig_dialog.py (NetworkConfigurator._ok): Give an error

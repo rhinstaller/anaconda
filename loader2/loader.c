@@ -312,7 +312,7 @@ static void spawnShell(void) {
     return;
 }
 
-void loadUpdates(void) {
+void loadUpdates(struct loaderData_s *loaderData) {
     int done = 0;
     int rc;
     char * device = NULL, ** devNames = NULL;
@@ -341,20 +341,20 @@ void loadUpdates(void) {
                 free(devNames);
                 return;
             }
-            device = strdup(devNames[num]);
+            loaderData->updatessrc = strdup(devNames[num]);
             free(devNames);
         }
 
 
         buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
-                           "\"OK\" to continue."), device);
+                           "\"OK\" to continue."), loaderData->updatessrc);
         rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Cancel"), buf);
         if (rc == 2)
             return;
 
-        logMessage(INFO, "UPDATES device is %s", device);
+        logMessage(INFO, "UPDATES device is %s", loaderData->updatessrc);
 
-        devMakeInode(device, "/tmp/upd.disk");
+        devMakeInode(loaderData->updatessrc, "/tmp/upd.disk");
         if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 
                       IMOUNT_RDONLY, NULL) &&
             doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 
@@ -1554,7 +1554,7 @@ int main(int argc, char ** argv) {
     if (loaderData.updatessrc)
         loadUpdatesFromRemote(loaderData.updatessrc, &loaderData);
     else if (FL_UPDATES(flags))
-        loadUpdates();
+        loadUpdates(&loaderData);
 
     mlLoadModuleSet("md:raid0:raid1:raid5:raid6:raid456:fat:msdos:jbd:ext3:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc", modLoaded, modDeps, modInfo);
 
@@ -1678,6 +1678,11 @@ int main(int argc, char ** argv) {
         if (FL_VIRTPCONSOLE(flags)) {
             *argptr++ = "--virtpconsole";
             *argptr++ = virtpcon;
+        }
+
+        if (loaderData.updatessrc && FL_UPDATES(flags)) {
+            *argptr++ = "--updates";
+            *argptr++ = loaderData.updatessrc;
         }
 
         if ((loaderData.lang) && !FL_NOPASS(flags)) {
