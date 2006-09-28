@@ -50,10 +50,10 @@ class NetworkDeviceWindow:
     def runScreen(self, screen, net, dev, showonboot=1):
         boot = dev.get("bootproto")
         onboot = dev.get("onboot")
-	v4list = []
-	v6list = []
-	ptplist = []
-	wifilist = []
+        v4list = []
+        v6list = []
+        ptplist = []
+        wifilist = []
 
         devnames = self.devices.keys()
         devnames.sort(cmp=isys.compareNetDevices)
@@ -64,157 +64,156 @@ class NetworkDeviceWindow:
         if not boot:
             boot = "dhcp"
 
-	descr = dev.get("desc")
+        descr = dev.get("desc")
         hwaddr = dev.get("hwaddr")
-	if descr is None or len(descr) == 0:
-	    descr = None
+        if descr is None or len(descr) == 0:
+            descr = None
         if hwaddr is None or len(hwaddr) == 0:
             hwaddr = None
 
-	topgrid = Grid(1, 2)
+        topgrid = Grid(1, 2)
 
-	if descr is not None:
-	    topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
-			     0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
-			     growx = 1)
+        if descr is not None:
+            topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
+                             0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
+                             growx = 1)
         if hwaddr is not None:
             topgrid.setField(Label (_("Hardware Address: %s") %(hwaddr,)),
                              0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
                              growx = 1)
 
-	# Create options grid
-	maingrid = Grid(1, 5)
-	mainrow = 0
+        # Create options grid
+        maingrid = Grid(1, 5)
+        mainrow = 0
 
-	if not showonboot:
-	    ypad = 1
-	else:
-	    ypad = 0
+        if not showonboot:
+            ypad = 1
+        else:
+            ypad = 0
 
-	# DHCP option
-	self.dhcpCb = Checkbox(_("Use dynamic IP configuration (DHCP)"),
-	                       isOn = (boot == "dhcp"))
-	maingrid.setField(self.dhcpCb, 0, mainrow, anchorLeft = 1, growx = 1,
-	                  padding = (0, 0, 0, ypad))
-	mainrow += 1
+        # DHCP option
+        self.dhcpCb = Checkbox(_("Use dynamic IP configuration (DHCP)"),
+                               isOn = (boot == "dhcp"))
+        maingrid.setField(self.dhcpCb, 0, mainrow, anchorLeft = 1, growx = 1,
+                          padding = (0, 0, 0, ypad))
+        mainrow += 1
 
-	# Use IPv4 option
-	self.ipv4Cb = Checkbox(_("Enable IPv4 support"), net.useIPv4)
-	maingrid.setField(self.ipv4Cb, 0, mainrow, anchorLeft = 1, growx = 1,
-	                  padding = (0, 0, 0, ypad))
-	mainrow += 1
+        # Use IPv4 option
+        self.ipv4Cb = Checkbox(_("Enable IPv4 support"), net.useIPv4)
+        maingrid.setField(self.ipv4Cb, 0, mainrow, anchorLeft = 1, growx = 1,
+                          padding = (0, 0, 0, ypad))
+        mainrow += 1
 
-	# Use IPv6 option
-	self.ipv6Cb = Checkbox(_("Enable IPv6 support"), net.useIPv6)
-	maingrid.setField(self.ipv6Cb, 0, mainrow, anchorLeft = 1, growx = 1,
-	                  padding = (0, 0, 0, ypad))
-	mainrow += 1
+        # Use IPv6 option
+        self.ipv6Cb = Checkbox(_("Enable IPv6 support"), net.useIPv6)
+        maingrid.setField(self.ipv6Cb, 0, mainrow, anchorLeft = 1, growx = 1,
+                          padding = (0, 0, 0, ypad))
+        mainrow += 1
 
-	# Activate on boot option
+        # Activate on boot option
         self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
-	if showonboot:
-	    maingrid.setField(self.onbootCb, 0, mainrow, anchorLeft = 1,
-	                      growx = 1, padding = (0, 0, 0, 1))
-	    mainrow += 1
+        if showonboot:
+            maingrid.setField(self.onbootCb, 0, mainrow, anchorLeft = 1,
+                              growx = 1, padding = (0, 0, 0, 1))
+            mainrow += 1
 
-	# IP address subtable
-	ipTableLength = 3
+        # IP address subtable
+        ipTableLength = 3
 
-	if (network.isPtpDev(dev.info["DEVICE"])):
-	    ipTableLength += 1
+        if (network.isPtpDev(dev.info["DEVICE"])):
+            ipTableLength += 1
 
-	if (isys.isWireless(dev.info["DEVICE"])):
-	    ipTableLength += 2
+        if (isys.isWireless(dev.info["DEVICE"])):
+            ipTableLength += 2
 
-	ipgrid = Grid(4, ipTableLength)
-	entrys = {}
+        ipgrid = Grid(4, ipTableLength)
+        entrys = {}
 
-	# IP subtable labels
-	ipgrid.setField(Label(" "), 0, 0)
-	ipgrid.setField(Label(_("Address")), 1, 0)
-	ipgrid.setField(Label(" "), 2, 0)
-	ipgrid.setField(Label(_("Prefix (Netmask)")), 3, 0)
-	ipgrid.setField(Label(_("IPv4:")), 0, 1, anchorLeft = 1,
-	                padding = (0, 0, 1, 0))
-	ipgrid.setField(Label("/"), 2, 1, padding = (1, 0, 1, 0))
-	ipgrid.setField(Label(_("IPv6:")), 0, 2, anchorLeft = 1,
-	                padding = (0, 0, 1, 0))
-	ipgrid.setField(Label("/"), 2, 2, padding = (1, 0, 1, 0))
+        # IP subtable labels
+        ipgrid.setField(Label(" "), 0, 0)
+        ipgrid.setField(Label(_("Address")), 1, 0)
+        ipgrid.setField(Label(" "), 2, 0)
+        ipgrid.setField(Label(_("Prefix (Netmask)")), 3, 0)
+        ipgrid.setField(Label(_("IPv4:")), 0, 1, anchorLeft = 1,
+                        padding = (0, 0, 1, 0))
+        ipgrid.setField(Label("/"), 2, 1, padding = (1, 0, 1, 0))
+        ipgrid.setField(Label(_("IPv6:")), 0, 2, anchorLeft = 1,
+                        padding = (0, 0, 1, 0))
+        ipgrid.setField(Label("/"), 2, 2, padding = (1, 0, 1, 0))
 
-	# IPv4 entries
-	v4list.append(Entry(41))
-	v4list[0].set(dev.get('ipaddr'))
-	entrys['ipaddr'] = v4list[0]
-	ipgrid.setField(v4list[0], 1, 1, anchorLeft = 1)
+        # IPv4 entries
+        v4list.append(Entry(41))
+        v4list[0].set(dev.get('ipaddr'))
+        entrys['ipaddr'] = v4list[0]
+        ipgrid.setField(v4list[0], 1, 1, anchorLeft = 1)
 
-	v4list.append(Entry(16))
-	v4list[1].set(dev.get('netmask'))
-	entrys['netmask'] = v4list[1]
-	ipgrid.setField(v4list[1], 3, 1, anchorLeft = 1)
+        v4list.append(Entry(16))
+        v4list[1].set(dev.get('netmask'))
+        entrys['netmask'] = v4list[1]
+        ipgrid.setField(v4list[1], 3, 1, anchorLeft = 1)
 
-	# IPv6 entries
-	v6list.append(Entry(41))
-	v6list[0].set(dev.get('ipv6addr'))
-	entrys['ipv6addr'] = v6list[0]
-	ipgrid.setField(v6list[0], 1, 2, anchorLeft = 1)
+        # IPv6 entries
+        v6list.append(Entry(41))
+        v6list[0].set(dev.get('ipv6addr'))
+        entrys['ipv6addr'] = v6list[0]
+        ipgrid.setField(v6list[0], 1, 2, anchorLeft = 1)
 
-	v6list.append(Entry(16))
-	v6list[1].set(dev.get('ipv6prefix'))
-	entrys['ipv6prefix'] = v6list[1]
-	ipgrid.setField(v6list[1], 3, 2, anchorLeft = 1)
+        v6list.append(Entry(16))
+        v6list[1].set(dev.get('ipv6prefix'))
+        entrys['ipv6prefix'] = v6list[1]
+        ipgrid.setField(v6list[1], 3, 2, anchorLeft = 1)
 
-	iprow = 3
+        iprow = 3
 
-	# Point to Point address
-	if (network.isPtpDev(dev.info["DEVICE"])):
-	    ipgrid.setField(Label(_("P-to-P:")), 0, iprow, anchorLeft = 1,
-	                    padding = (0, 0, 1, 0))
+        # Point to Point address
+        if (network.isPtpDev(dev.info["DEVICE"])):
+            ipgrid.setField(Label(_("P-to-P:")), 0, iprow, anchorLeft = 1,
+                            padding = (0, 0, 1, 0))
 
-	    ptplist.append(Entry(41))
-	    ptplist[0].set(dev.get('remip'))
-	    entrys['remip'] = ptplist[0]
-	    ipgrid.setField(ptplist[0], 1, iprow, anchorLeft = 1)
+            ptplist.append(Entry(41))
+            ptplist[0].set(dev.get('remip'))
+            entrys['remip'] = ptplist[0]
+            ipgrid.setField(ptplist[0], 1, iprow, anchorLeft = 1)
 
-	    iprow += 1
+            iprow += 1
 
-	# Wireless settings
-	if (isys.isWireless(dev.info["DEVICE"])):
-	    ipgrid.setField(Label(_("ESSID:")), 0, iprow, anchorLeft = 1,
-	                    padding = (0, 0, 1, 0))
-	    wifilist.append(Entry(41))
-	    wifilist[0].set(dev.get('essid'))
-	    entrys['essid'] = wifilist[0]
-	    ipgrid.setField(wifilist[0], 1, iprow, anchorLeft = 1)
+        # Wireless settings
+        if (isys.isWireless(dev.info["DEVICE"])):
+            ipgrid.setField(Label(_("ESSID:")), 0, iprow, anchorLeft = 1,
+                            padding = (0, 0, 1, 0))
+            wifilist.append(Entry(41))
+            wifilist[0].set(dev.get('essid'))
+            entrys['essid'] = wifilist[0]
+            ipgrid.setField(wifilist[0], 1, iprow, anchorLeft = 1)
 
-	    iprow += 1
+            iprow += 1
 
-	    ipgrid.setField(Label(_("WEP Key:")), 0, iprow, anchorLeft = 1,
-	                    padding = (0, 0, 1, 0))
-	    wifilist.append(Entry(41))
-	    wifilist[1].set(dev.get('key'))
-	    entrys['key'] = wifilist[1]
-	    ipgrid.setField(wifilist[1], 1, iprow, anchorLeft = 1)
+            ipgrid.setField(Label(_("WEP Key:")), 0, iprow, anchorLeft = 1,
+                            padding = (0, 0, 1, 0))
+            wifilist.append(Entry(41))
+            wifilist[1].set(dev.get('key'))
+            entrys['key'] = wifilist[1]
+            ipgrid.setField(wifilist[1], 1, iprow, anchorLeft = 1)
 
-	# Add the IP subtable
-	maingrid.setField(ipgrid, 0, mainrow, anchorLeft = 1,
-	                  growx = 1, padding = (0, 0, 0, 1))
+        # Add the IP subtable
+        maingrid.setField(ipgrid, 0, mainrow, anchorLeft = 1,
+                          growx = 1, padding = (0, 0, 0, 1))
 
-	bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
-	toplevel = GridFormHelp(screen, _("Network Configuration for %s") %
-                                (dev.info['DEVICE']), 
-                                "networkdev", 1, 3)
+        toplevel = GridFormHelp(screen, _("Network Configuration for %s") %
+                                (dev.info['DEVICE']), "networkdev", 1, 3)
 
-	if ipTableLength == 6:
-	    pbottom = 0
-	else:
-	    pbottom = 1
+        if ipTableLength == 6:
+            pbottom = 0
+        else:
+            pbottom = 1
 
-	toplevel.add(topgrid,  0, 0, (0, 0, 0, pbottom), anchorLeft = 1)
-	toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
-	toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
+        toplevel.add(topgrid,  0, 0, (0, 0, 0, pbottom), anchorLeft = 1)
+        toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
 
-	self.setsensitive()
+        self.setsensitive()
         
         while 1:
             result = toplevel.run()
@@ -333,7 +332,7 @@ class NetworkGlobalWindow:
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         toplevel = GridFormHelp (screen, _("Miscellaneous Network Settings"),
-				 "miscnetwork", 1, 3)
+                                 "miscnetwork", 1, 3)
         toplevel.add (thegrid, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         toplevel.add (bb, 0, 2, growx = 1)
 
@@ -377,7 +376,6 @@ class NetworkGlobalWindow:
         screen.popWindow()        
         return INSTALL_OK
         
-
 class HostnameWindow:
     def hostTypeCb(self, (radio, hostEntry)):
         if radio.getSelection() != "manual":
@@ -404,8 +402,7 @@ class HostnameWindow:
 
         thegrid = Grid(2, 2)
         radio = RadioGroup()
-        autoCb = radio.add(_("automatically via DHCP"), "dhcp",
-                                not manual)
+        autoCb = radio.add(_("automatically via DHCP"), "dhcp", not manual)
         thegrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
 
         manualCb = radio.add(_("manually"), "manual", manual)
@@ -475,3 +472,5 @@ class HostnameWindow:
 
         screen.popWindow()
         return INSTALL_OK
+
+# vim:tw=78:ts=4:et:sw=4
