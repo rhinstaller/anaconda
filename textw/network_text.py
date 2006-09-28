@@ -25,6 +25,11 @@ from constants_text import *
 from constants import *
 from rhpl.translate import _
 
+# order to check input values
+checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
+              'remip', 'essid', 'key'
+             ]
+
 def badIPDisplay(screen, the_ip):
     ButtonChoiceWindow(screen, _("Invalid IP string"),
                        _("The entered IP '%s' is not a valid IP.") %(the_ip,),
@@ -38,17 +43,63 @@ def sanityCheckIPString(val):
         return err
 
 class NetworkDeviceWindow:
-    def setsensitive(self):
-        if self.dhcpCb.selected ():
-            sense = FLAGS_SET
-        else:
-            sense = FLAGS_RESET
-
-        #for n in self.dhcpentries.values():
-        #    n.setFlags (FLAG_DISABLED, sense)
-
     def runScreen(self, screen, net, dev, showonboot=1):
-        boot = dev.get("bootproto")
+        def DHCPtoggled():
+            active = self.dhcpCb.selected()
+
+            if wifilist:
+                for widget in wifilist:
+                    widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+
+            if active:
+                boot = 'dhcp'
+
+                for widget in v4list:
+                    widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+
+                for widget in v6list:
+                    widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+
+                if ptplist:
+                    for widget in ptplist:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+            else:
+                boot = 'static'
+
+                if self.ipv4Cb.selected() != 0:
+                    for widget in v4list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+
+                    for widget in v6list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+
+                    if ptplist:
+                        for widget in ptplist:
+                            widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+
+        def IPV4toggled():
+            active = self.ipv4Cb.selected()
+            net.useIPv4 = active
+            if not self.dhcpCb.selected():
+                if active:
+                    for widget in v4list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+                else:
+                    for widget in v4list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+
+        def IPV6toggled():
+            active = self.ipv6Cb.selected()
+            net.useIPv6 = active
+            if not self.dhcpCb.selected():
+                if active:
+                    for widget in v6list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+                else:
+                    for widget in v6list:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+
+        boot = dev.get("bootproto").lower()
         onboot = dev.get("onboot")
         v4list = []
         v6list = []
@@ -127,6 +178,11 @@ class NetworkDeviceWindow:
             ipTableLength += 2
 
         ipgrid = Grid(4, ipTableLength)
+
+        self.dhcpCb.setCallback(DHCPtoggled)
+        self.ipv4Cb.setCallback(IPV4toggled)
+        self.ipv6Cb.setCallback(IPV6toggled)
+
         entrys = {}
 
         # IP subtable labels
@@ -213,8 +269,25 @@ class NetworkDeviceWindow:
         toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
         toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
 
-        self.setsensitive()
-        
+        if boot == 'dhcp':
+            self.dhcpCb.isOn = True
+        else:
+            self.dhcpCb.isOn = False
+
+        if net.useIPv4:
+            self.ipv4Cb.isOn = True
+        else:
+            self.ipv4Cb.isOn = False
+
+        if net.useIPv6:
+            self.ipv6Cb.isOn = True
+        else:
+            self.ipv6Cb.isOn = False
+
+        DHCPtoggled()
+        IPV4toggled()
+        IPV6toggled()
+
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed (result)
@@ -223,41 +296,101 @@ class NetworkDeviceWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            if self.onbootCb.selected() != 0:
+            if not self.ipv4Cb.selected() and not self.ipv6Cb.selected():
+                # FIXME: missing protocol
+                continue
+
+            if self.onbootCb.selected():
                 dev.set(("onboot", "yes"))
             else:
                 dev.unset("onboot")
 
-            if self.dhcpCb.selected() != 0:
+            if self.dhcpCb.selected():
                 dev.set(("bootproto", "dhcp"))
                 dev.unset("ipaddr", "netmask", "network", "broadcast", "remip")
             else:
-                ip = self.entries["ipaddr"].value()
-                nm = self.entries["netmask"].value()
-                try:
-                    (net, bc) = isys.inet_calcNetBroad(ip, nm)
-                except:
-                    if self.onbootCb.selected() != 0:
-                        ButtonChoiceWindow(screen, _("Invalid information"),
-                                           _("You must enter valid IP "
-                                             "information to continue"),
-                                           buttons = [ _("OK") ])
+                valsgood = 1
+                tmpvals = {}
+
+                for t in checkorder:
+                    if not entrys.has_key(t):
                         continue
-                    else:
-                        net = ""
-                        bc = ""
 
-                dev.set(("bootproto", "static"))
-                if bc and net:
-                    dev.set(("broadcast", bc), ("network", net))
+                    val = entrys[t].get_text()
 
-            for val in self.entries.keys():
-                if ((self.dhcpCb.selected() != 0) and
-                    self.dhcpentries.has_key(val)):
+                    if ((t == 'ipaddr' or t == 'netmask') and \
+                        self.ipv4Cb.selected()) or \
+                       (t == 'ipv6addr' and self.ipv6Cb.selected()) or \
+                       (t == 'remip'):
+                        if t == 'netmask' and val.find('.') == -1:
+                            try:
+                                if int(val) > 32 or int(val) < 0:
+                                    self.intf.messageWindow(_("Invalid Prefix"),
+                                                            _("IPv4 prefix "
+                                                              "must be between"
+                                                              "0 and 32."))
+                                    valsgood = 0
+                                    break
+                                else:
+                                    val = isys.inet_convertPrefixToNetmask(val)
+                            except:
+                                self.handleIPMissing(t)
+                                valsgood = 0
+                                break
+
+                        try:
+                            network.sanityCheckIPString(val)
+                            tmpvals[t] = val
+                        except network.IPMissing, msg:
+                            self.handleIPMissing(t)
+                            valsgood = 0
+                            break
+                        except network.IPError, msg:
+                            self.handleIPError(t, msg)
+                            valsgood = 0
+                            break
+
+                    elif t == 'ipv6prefix' and self.ipv6Cb.selected():
+                        if int(val) > 128 or int(val) < 0:
+                            self.intf.messageWindow(_("Invalid Prefix"),
+                                                    _("IPv6 prefix must be "
+                                                      "between 0 and 128."))
+                            valsgood = 0
+                            break
+
+                if valsgood == 0:
                     continue
-                if self.entries[val].value():
-                    dev.set((val, self.entries[val].value()))
-                        
+
+                try:
+                    (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
+                                                        tmpvals['netmask'])
+                except Exception, e:
+                    print e
+                    self.handleBroadCastError()
+                    valsgood = 0
+
+                if not valsgood:
+                    continue
+
+                for t in entrys.keys():
+                    if t == 'ipv6prefix':
+                        continue
+
+                    if tmpvals.has_key(t):
+                        if t == 'ipv6addr':
+                            if entrys['ipv6prefix'] is not None:
+                                p = entrys['ipv6prefix'].get_text()
+                                q = "%s/%s" % (tmpvals[t], p,)
+                            else:
+                                q = "%s" % (tmpvals[t],)
+
+                            dev.set((t, q))
+                        else:
+                            dev.set((t, tmpvals[t]))
+                    else:
+                        dev.set((t, entrys[t].get_text()))
+
+                dev.set(('network', net), ('broadcast', bc))
 
             break
 

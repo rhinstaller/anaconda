@@ -1,3 +1,9 @@
+2006-09-28  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/network_text.py (NetworkDeviceWindow): Input validation code
+	is there for the text mode manual net config UI, but it's still under
+	debugging.
+
 2006-09-28  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.writeConfiguration): Disable repo
