@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.101
+Version: 11.1.0.102
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 28 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.102-1
+- Disable repo writing for now
+- Fixup text network config (dcantrel)
+- More HTTP response codes (clumens)
+- Don't try to use updates disk image by default (clumens)
+- Give an error message when netconfig fails
+- Don't prompt for non-existent cd
+- Fix DNS with dhcp for extras on CD install
+
 * Wed Sep 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.101-1
 - Give indication of no optional packages (#204242)
 - Don't give an error on partition mount errors looking for upgrades (#201805)
