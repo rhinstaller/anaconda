@@ -5,6 +5,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-27 15:27+0530\n"
+"PO-Revision-Date: 2006-09-28 14:48+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2125,6 +2126,9 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"మీ Linux కంప్యూటరుయొక్క ఈ కింది ఫైలు క్రమం పూర్తిగా మరల్చబడలేదు  "
+"ఏమైనప్పటికీ మీరు వాటిని మరల్చాలనుకుంటున్నారా?\n"
+"%s"
 
 #: ../upgrade.py:296 ../upgrade.py:302
 msgid "Mount failed"
@@ -2135,6 +2139,8 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"మీ Linux కంప్యూటరులోని /etc/fstabలో జాబితా చేయబడిన ఒకటి లేదా ఎక్కువ ఫైళ్లు మరల్చబడలేదు. "
+"దయచేసి ఈ సమస్యని నిర్ధారణ చేసి నవీకరించటానికి మళ్లీ ప్రయత్నించండి."
 
 #: ../upgrade.py:303
 msgid ""
@@ -2312,7 +2318,7 @@ msgstr ""
 #: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "దయచేసి మీ vnc కక్ష్యదారునికి %s ను సంస్థాపనను ప్రారంభించటానికి మానవీయంగా అనుసంధించండి."
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
@@ -2748,7 +2754,7 @@ msgstr "%s అభివృద్ధిని ప్రారంభించట�
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
+msgstr "మీ కంప్యూటరును పునఃప్రారంభించినతరువాత నవీకరణల పూర్తి మొత్తాన్ని ఈ '%s' ఫైలులో చూడగలుగుతారు."
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
@@ -2760,6 +2766,8 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"సంస్థాపనప్పుడు ఉపయోగించబడిన ఏ మాధ్యమాన్నయినా తొలగించు మరియూ మీ కంప్యూటరును పునఃప్రారంభించటానికి \"Reboot\" మీటను నొక్కండి.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -4519,7 +4527,7 @@ msgstr "ESSID"
 
 #: ../textw/network_text.py:80 ../loader2/net.c:239
 msgid "Encryption Key"
-msgstr ""
+msgstr "Encryption మీట"
 
 #: ../textw/network_text.py:92
 #, python-format
@@ -5616,7 +5624,7 @@ msgstr "ఒక driver diskను ఉపయోగించు"
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "ఈ సంస్థాపనా రకానికి కావలసిన సాధనా వర్గాన్ని కనుగొన లేము.  మీరు మీ driverను మానవీయంగానే ఎన్నుకోవాలనుకుంటున్నారా లేక ఒక driver diskను ఉపయోగించాలనుకుంటున్నారా?"
 
 #: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
@@ -5737,6 +5745,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"మీరు ISO చిత్రం యొక్క checksum పరీక్షని చేయాలనుకుంటున్నారా:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:420
 msgid "Checksum Test"
@@ -5745,7 +5756,7 @@ msgstr "Checksum పరీక్ష"
 #: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "kickstart సాధన ఆదేశం %s: %sకి చెడ్డ వాదన"
 
 #: ../loader2/net.c:63
 #, c-format
@@ -5756,12 +5767,17 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"దయచేసి కింది సమాచారాన్ని ప్రవేశపెట్టండి:\n"
+"\n"
+"    o మీ %s server యొక్క పేరు లేదా IP సంఖ్య\n"
+"    o ఆ server కలిగిఉన్న సంచిక\n"
+"      %s మీ నిర్మాణం కోసం\n"
 
 #: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
+msgstr "IPv4 networkల కోసం Prefix  తప్పక 1 మరియూ 32ల మధ్య ఉండాలి లేదా IPv6 networkల కోసం 1 మరియూ 128ల మధ్య ఉండాలి"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -5809,11 +5825,11 @@ msgstr "క్రియాశీల IP నిర్ధారణను ఉపయ�
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "అవసరంలేని packet సంఘర్షానను దూరంగా ఉంచండి"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "అతివేగవణ్తమైన network రద్దీ  నమోదు విలువలను గరిష్ఠీకరించండి"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -5835,11 +5851,11 @@ msgstr "తప్పిన ఒడంబడిక"
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "మానవీయ ఆకృతీకరణకు మీరు తప్పక ఒక ఒడంబడిక (IPv4 or IPv6)ను ఎన్నుకోవాలి."
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "DHCPకోసం మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
@@ -5867,7 +5883,7 @@ msgstr "తప్పిపోయిన సమాచారం"
 
 #: ../loader2/net.c:1132
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
+msgstr "ఒక విలువైన IPv4 చిరునామాలూ మరియూ ఒక network mask లేదా CIDR prefix మీరు తప్పక రెంతినీ ప్రవేశపెట్టాలి."
 
 #: ../loader2/net.c:1138
 #, fuzzy
@@ -5876,17 +5892,17 @@ msgstr "'%s' సరైన IPv6 చిరునామా కాదు."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "ఆతిధేయనామం మరియూ క్షేతాన్ని  నిర్ణయించు..."
 
 #: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "kickstart network ఆదేశం %s: %sకి చెడ్డవాదన"
 
 #: ../loader2/net.c:1517
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "చెడ్డ bootproto %s network ఆదేశంలో తెలుపబడింది"
 
 #: ../loader2/net.c:1688
 msgid "Networking Device"
@@ -5896,7 +5912,7 @@ msgstr "Networking సాధనం"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
+msgstr "మీరు ఈ కంప్యూటరులో పెక్కు network సాధనాలను కలిగి ఉన్నారు. మీరు దెనిగుండా సంస్థాపన చేయాలనుకుంటున్నారు?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -5917,21 +5933,21 @@ msgstr "NFS అమర్పు"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "DNS ఆకృతీకరణ లేకుండా ఆతిధేయ నామం తెల్పబడింది"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "ఈ సంచిక %s సంస్థాపనా చిత్రాన్ని కలిగి ఉన్నట్లు లేదు."
 
 #: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "ఈ సంచిక server నుండీ మరల్చబడదు."
 
 #: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "NFS kickstart విధాన ఆదేశం %s: %sకి చెడ్డ వాదనS"
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
@@ -5948,28 +5964,28 @@ msgstr "anacondaను telnetద్వారా నడుస్తోంది..
 #: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "%s://%s/%s/%sను తిరిగి తెచ్చుకోవటం కుదరదు."
 
 #: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "సంస్థాపనా చిత్రాన్ని తిరిగి తెచ్చుకోవటం కుదరదు."
 
 #: ../loader2/urlinstall.c:285
 msgid "Media Detected"
-msgstr ""
+msgstr "మాధ్యమం కనిపెట్టబడింది"
 
 #: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "స్వస్థాన సంస్థాపక మాధ్యమం కనిపెట్టబడింది..."
 
 #: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Url kickstart విధాన ఆదేశంక %s: %sకి చెడ్డ వాదన"
 
 #: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Url kickstart విధానానికి ఒక --url వాదన తప్పక సరఫరా చేయాలి."
 
 #: ../loader2/urlinstall.c:484
 #, c-format
@@ -5978,7 +5994,7 @@ msgstr "తెలియని Url విధానం %s"
 
 #: ../loader2/urls.c:215
 msgid "Retrieving"
-msgstr ""
+msgstr "పునఃసమ్పాదన"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
@@ -5998,7 +6014,7 @@ msgstr "Web site పేరు:"
 
 #: ../loader2/urls.c:321
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "నామరహిత ftpని ఉపయోగించు"
 
 #: ../loader2/urls.c:330
 msgid "FTP Setup"
@@ -6029,13 +6045,15 @@ msgstr "%s సరైన ఆతిధేయి పేరు కాదు."
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
+msgstr "మీరు నామరహిత ftpని ఉపయోగిస్తున్నట్లయితే, ఖాతా పేరు మరియూ అనుమతిపదంను కింద ఇవ్వండి."
 
 #: ../loader2/urls.c:420
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
+"మీరు HTTP proxy serverను ఉపయోగిస్తున్నట్లయితే ఉపయోగానికి HTTP proxy server "
+"పేరును ఇవ్వండి."
 
 #: ../loader2/urls.c:442
 msgid "Account name:"
@@ -6063,38 +6081,38 @@ msgstr "iSCSI లక్ష్యాన్ని కలుపు"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
-msgstr ""
+msgstr "పురోగమ నిక్షిప్త ఐచ్ఛికాలు"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "dmraid సాధనం కుదరదు"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "మీరు మీ drive ఆకృతీకరణను ఎలా మార్చాలనుకుంటున్నారు?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>సురక్షితస్థానం _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>సురక్షితస్థానం _పేరు:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "సురక్షిత స్థానాన్ని కలుపు"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "దయచేసి మీ అదనపు software ఎక్కడ సంస్థాపించాలో ఆ స్థానాన్ని సమకూర్చండి.  ఇది మీ %sకి విలువైన సురకక్షితస్థానం."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "సురక్షితస్థానాన్ని కలుపు (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6102,7 +6120,7 @@ msgstr "పునఃప్రారంభం (_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr ""
+msgstr "_Debug"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6110,7 +6128,7 @@ msgstr "తరువాత (_n)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr ""
+msgstr "విడుదల నోట్సు (_R)"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6121,81 +6139,83 @@ msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "పరిశీలన మరియూ విభజనా వాస్తు మార్పు"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr ""
+msgstr "పురోగామి నిక్షిప్త ఆఇతీకరణ (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr ""
+msgstr "ఈ సంస్థాపనకు ఉపయోగించే drive(లు)ను ఎన్నుకో."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
-msgstr ""
+msgstr "మినహాయింపు సమాచారం"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr ""
+msgstr "మినహాయింపు వివరాలు"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr ""
+msgstr "<b>_అనుమతిపదం:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_లక్ష్య IP చిరునామా:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr ""
+msgstr "<b>వినియోగదారుని పేరు:</b>(_U)"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI నిర్దేశకుని _పేరు:</b>(_N)"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr ""
+msgstr "iSCSI పారామితులను ఆకృతీకరించు"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"iSCSI diskలను ఉపయీగించటానికి, మీరు తప్పక మీ iSCSI లక్ష్య చిరునామాని మరియూ "
+"ఆతిధేయికి iSCSI నిర్దేశకుని పేరును ఆకృతీకరించాలి."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr ""
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
-msgstr ""
+msgstr "<b>IPv4 చిరునామా:</b>"
 
 #: tmp/netconfig.glade.h:4
 msgid "<b>IPv6 Address:</b>"
-msgstr ""
+msgstr "<b>IPv6 చిరునామా:</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr ""
+msgstr "<b>నామserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>అంతర్ముఖం:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 మద్దతు కుదరదు"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 మద్దతు కుదరదు"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "network అంతర్ముఖీనత కుదరదు"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -6205,11 +6225,11 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr ""
+msgstr "క్రియాశీల IP ఆకృతీకరణన (DHCP)ను ఉపయోగించు"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "తరువాత వినియోగించు"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6225,7 +6245,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "అదనపు software రక్షణలు ఉపయోగించు"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -6233,7 +6253,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
@@ -6241,883 +6261,885 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alaska సమయం"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska సమయం - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska సమయం - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alaska సమయం - పశ్చిమ Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutian Islands"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Amundsen-Scott Station, దక్షిణ Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantic ప్రామాణిక సమయం - Quebec - కింది ఉత్తర Shore"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
-msgstr ""
+msgstr "Atlantic సమయం - Labrador - ఎక్కువ స్థానాలు"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr ""
+msgstr "Atlantic సమయం - కొత్త Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
+msgstr "Atlantic సమయం - Nova Scotia (ఎక్కువ స్థలాలు), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Atlantic సమయం - Nova Scotia - గమనించని స్థలాలు DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Canary Islands"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr ""
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr ""
+msgstr "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "ప్రామాణిక కేంద్ర సమయం - Saskatchewan - ఎక్కువ స్థానాలు"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "కేంద్ర సమయం"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "కేంద్ర సమయం - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "కేంద్ర సమయం - central Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "కేంద్ర సమయం - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
+"కేంద్ర సమయం- Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr ""
+msgstr "కేంద్ర సమయం - Indiana - Pike ప్రాంతం"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "కేంద్ర సమయం - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
+msgstr "కేంద్ర సమయం - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "కేంద్ర సమయం - ఎక్కువ స్థానాలు"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
+msgstr "కేంద్ర సమయం - North Dakota - Morton County (Mandan ప్రాంతం తప్ప)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "కేంద్ర సమయం - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "కేంద్ర సమయం - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "కేంద్ర సమయం - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "కేంద్ర సమయం - west Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Eastern Time"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr ""
+msgstr "Eastern Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr ""
+msgstr "Eastern సమయం - Indiana - అధిక ప్రాంతాలు"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr ""
+msgstr "Eastern సమయం - Indiana - Starke ప్రాంతం"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Eastern సమయం - Indiana - Switzerland ప్రాంతం"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Eastern సమయం - Kentucky - Louisville ప్రాంతం"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Eastern సమయం - Kentucky - Wayne ప్రాంతం"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Eastern సమయం - Michigan - అధిక స్థానాలు"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Eastern సమయం - Ontario - most స్థానాలు"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Eastern సమయం - Ontario & Quebec - DST 1967-1973 గుర్తించని స్థలాలు"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Eastern సమయం - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Eastern సమయం - Quebec - అధిక ప్రాంతాలు"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Eastern సమయం - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "తూర్పు Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Galapagos Islands"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert Islands"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (Mohe తప్ప), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - Caspian Sea"
-msgstr ""
+msgstr "Moscow+00 - Caspian సముద్రం"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscow+00 - పశ్చిమ Russia"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr ""
+msgstr "Moscow+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscow+02 - Urals"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscow+03 - పశ్చిమ Siberia"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscow+04 - Yenisei నది"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscow+05 - Lake Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscow+06 - Lena నది"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscow+07 - Amur నది"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Moscow+07 - Sakhalin Island"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscow+10 - Bering సముద్రం"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "అధిక స్థానాలు"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "అధిక స్థానాలు (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "Tibet & Xinjiang ఆధిక్యం"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain ప్రామాణిక సమయం - Arizona"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "Mountain ప్రామానిక సమయం - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain ప్రామాణిక సమయం - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain సమయం"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain సమయం - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain సమయం - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain సమయం - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain సమయం - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain సమయం - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain సమయం - దక్షిణ Idaho & తూర్పు Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain సమయం - పశ్చిమ Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
-msgstr ""
+msgstr "Newfoundland సమయం, SE Labradorతో కూడా"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - అధిక ప్రాంతాలు"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "Pacific సమయం"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Pacific సమయం - north Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Pacific సమయం - దక్షిణ Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacific సమయమ్ - పశ్చిమ British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - అధిక ప్రాంతాలు"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Rothera Station, Adelaide Island"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "దక్షిణ Australia"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr ""
+msgstr "Tasmania - అధిక ప్రాంతాలు"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk) and Yap"
-msgstr ""
+msgstr "Truk (Chuuk) మరియూ Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "west & central Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "పశ్చిమ Australia"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "పశ్చిమ Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Tibet & Xinjiang"
-msgstr ""
+msgstr "పశ్చిమ Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "పశ్చిమ Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabic"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Bengali(India)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgarian"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "Catalan"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Chinese(Simplified)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Chinese(Traditional)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "Croatian"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Czech"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "Danish"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "Dutch"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estonian"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "Finnish"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "German"
 
 #. generated from lang-table
 msgid "Greek"
-msgstr ""
+msgstr "Greek"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungarian"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Icelandic"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesian"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Japanese"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "Korean"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonian"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malay"
 
 #. generated from lang-table
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #. generated from lang-table
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Norwegian"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr ""
+msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "Persian"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguese"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "Portuguese(Brazilian)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Russian"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "Serbian"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "Serbian(Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "Slovak"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenian"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "Spanish"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Swedish"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainian"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamese"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Welsh"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
