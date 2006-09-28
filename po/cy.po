@@ -1,9 +1,7 @@
-# translation of anaconda.pot to Cymraeg
-# This file is distributed under the same license as the anaconda package.
-# Copyright (C) 2004 Alan Cox
-# Translated by Owain Green <owaing@oceanfree.net>, 2004.
-# Dafydd Walters <dwalters@dragontechnology.com>, 2004.
-# Rhys Jones <rhys@sucs.org>, 2005-6.
+# translation of anaconda.pot to Cymraeg This file is distributed under the
+# same license as the anaconda package. Copyright (C) 2004 Alan Cox
+# Translated by Owain Green <owaing@oceanfree.net>, 2004. Dafydd Walters
+# <dwalters@dragontechnology.com>, 2004. Rhys Jones <rhys@sucs.org>, 2005-6.
 #
 msgid ""
 msgstr ""
@@ -3560,14 +3558,13 @@ msgid "Edit Interface %s"
 msgstr "Golygu Rhyngwyneb %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
-msgstr "Cyfeiriad Caledwedd: %s"
+msgstr "Cyfeiriad caledwedd: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Defnyddio cyflunio IP dynamig (DHCP)"
+msgstr "Defnyddio cyflunio IP dynamig (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3582,29 +3579,24 @@ msgid "_Activate on boot"
 msgstr "_Gweithredoli ar gychwyn"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "Cyfeiriad IPv4:"
+msgstr "Cyfeiriad IPv_4:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "Cyfeiriad IPv6:"
+msgstr "Cyfeiriad IPv_6:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Pwynt i Bwynt (IP)"
+msgstr "_Pwynt i Bwynt (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Allwedd Amgryptio"
+msgstr "_Allwedd Amgryptio:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3612,19 +3604,16 @@ msgid "Configure %s"
 msgstr "Cyflunio %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Llinyn IP annilys"
+msgstr ""
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Rhaid i'r ffeil gyfnewid fod rhwng 1 a 2000 MB o faint."
+msgstr ""
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Rhaid i'r ffeil gyfnewid fod rhwng 1 a 2000 MB o faint."
+msgstr ""
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3638,13 +3627,12 @@ msgid "Device"
 msgstr "Dyfais"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "Masg IP/Rhwyd"
+msgstr "Masg IPv4/Rhwyd"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "Masg IPv6/Rhwyd"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3663,9 +3651,8 @@ msgid "_manually"
 msgstr "â _llaw"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(e.e. \"gwesteiwr.parth.com\")"
+msgstr "(e.e., \"gwesteiwr.parth.com\")"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -4396,8 +4383,6 @@ msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Mae'r man gosod \"%s\" eisoes mewn defnydd, dewiswch fan gosod gwahanol, os "
-"gwelwch yn dda."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5273,15 +5258,11 @@ msgid "Partitioning Type"
 msgstr "Math Rhaniad"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Er mwyn arsefydlu, rhaid rhannu eich disg caled. Yn rhagosodiad, dewisir "
-"cynllun rhannu sy'n rhesymol i'r mwyafrif o ddefnyddwyr. Gallwch naill ai "
-"ddefnyddio hwn neu greu cynllun eich hun."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5354,15 +5335,12 @@ msgid "Package selection"
 msgstr "Dewis pecynnau"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"Mae arsefydliad rhagosodedig %s yn cynnwys set o feddalwedd sy'n addas at "
-"ddefnydd cyffredinol y Rhyngrwyd. Pa dasgau ychwanegol hoffech chi eu cynnal "
-"ar eich system?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5529,15 +5507,12 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"Mae arsefydliad rhagosodedig %s yn cynnwys set o feddalwedd sy'n addas at "
-"ddefnydd cyffredinol y Rhyngrwyd. Pa dasgau ychwanegol hoffech chi eu cynnal "
-"ar eich system?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -6249,13 +6224,10 @@ msgstr ""
 "      %s ar gyfer eich saernïaeth\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Rhaid i'r rhif masg CIDR fod rhwng 1 a 32 ar rwydweithiau IPv4, neu rhwng 1 "
-"a 128 ar rwydweithiau IPv6."
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6377,9 +6349,8 @@ msgstr ""
 "ragddodiad CIDR."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Rhaid i chi roi cyfeiriad IPv6 dilys yn ogystal â rhagddodiad CIDR."
+msgstr ""
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6740,13 +6711,10 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Gellir addasu'r dewis meddalwedd ymhellach yn awr, neu gan ddefnyddio'r "
-"rhaglen rheoli meddalwedd ar ôl gorffen arsefydlu."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6805,20 +6773,16 @@ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Amser Dwyreiniol - Ontario - rhan fwyaf o lefydd"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Amser Iwerydd - Brunswick Newydd"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
 msgstr ""
-"Amser Iwerydd - Nova Scotia (rhan fwyaf o lefydd), Gn Labrador, Dn Cwebèc a "
-"PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6858,9 +6822,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "canolbarth Tseina - Gansu, Guizhou, Sichuan, Yunnan, ayb."
+msgstr "canolbarth Tseina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6978,9 +6941,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Ynys y Pasg a Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Amser Safonol Dwyreiniol - Ynys Southampton"
+msgstr "Amser Safonol Dwyreiniol - Atikokan, Ontario ac Ynys Southampton, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7146,9 +7108,8 @@ msgid "Midway Islands"
 msgstr "Ynysoedd Midway"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Mosgo+01 - Môr Caspia"
+msgstr "Mosgo+00 - Môr Caspia"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7159,9 +7120,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Mosgo-01 - Caliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Mosgo+09 - Camtsiatca"
+msgstr "Mosgo+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7274,9 +7234,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Gogledd-ddwyrain Brasil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Amser Iwerydd - Dn Labrador"
+msgstr ""
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7447,9 +7406,8 @@ msgid "West Kazakhstan"
 msgstr "Gorllewin Casacstán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet a rhan fwyaf Xinjiang Uyghur"
+msgstr "Tibet a Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
