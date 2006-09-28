@@ -155,10 +155,15 @@ class NetworkConfigurator:
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
                                  "for %s...") %(netdev.get("device")))
-            r = isys.dhcpNetDevice(netdev.get("device"))
+            ns = isys.dhcpNetDevice(netdev.get("device"))
             w.pop()
-            if r is not None:
+            if ns is not None:
                 self.rc = gtk.RESPONSE_OK
+            if ns:
+                f = open("/etc/resolv.conf", "w")
+                f.write("nameserver %s\n" % ns)
+                f.close()
+                isys.resetResolv()
         else:
             ipv4addr = self.xml.get_widget("ipv4AddressEntry").get_text()
             ipv4nm = self.xml.get_widget("ipv4NetmaskEntry").get_text()
