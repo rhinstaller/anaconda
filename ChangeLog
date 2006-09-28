@@ -19,8 +19,16 @@
 	* loader2/ftp.c (httpGetFileDesc):  Teach the loader about more HTTP
 	redirect response codes.
 
+	* anaconda (parseOptions):  Accept --updates option.
+
 	* loader2/loader.c (loadUpdates):  Add device name to loaderData.
 	(main):  Pass --updates to anaconda.
+
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen):  Pass updateSrc
+	to partition UI helpers.
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore):  Don't
+	check the update image source by default.
+	* text/partition_text.py (PartitionTypeWindow.__call__):  Likewise.
 
 2006-09-28  Jeremy Katz  <katzj@redhat.com>
 

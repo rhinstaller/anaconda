@@ -1569,7 +1569,10 @@ class PartitionTypeWindow:
 
             for disk in disks:
                 if disk in cleardrives:
-                    selected = 1
+                    if disk != self.anaconda.updateSrc:
+                        selected = 1
+                    else:
+                        selected = 0
                 else:
                     selected = 0
                 self.drivelist.append(disk, selected = selected)
