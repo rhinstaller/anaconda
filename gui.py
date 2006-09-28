@@ -371,6 +371,7 @@ def addFrame(dialog, title=None, showtitle = 1):
             else:
                 s = gtk.Label("")
                 titleBox.pack_start(s)
+            eventBox.show_all()
             box.pack_start(eventBox, False, False)
         elif flags.rootpath:
             dialog.set_title (title)
