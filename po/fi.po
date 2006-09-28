@@ -3,7 +3,7 @@
 #
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
-# Lauri Nurmi <lanurmi@iki.fi>, 2004, 2005.
+# Lauri Nurmi <lanurmi@iki.fi>, 2004, 2005, 2006.
 # Mikko Ikola <ikola@iki.fi>, 2004.
 # Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2006.
 msgid ""
@@ -11,9 +11,9 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-06 22:56+0300\n"
-"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
-"Language-Team: Finnish <Laatu@lokalisointi.org>\n"
+"PO-Revision-Date: 2006-09-29 02:24+0300\n"
+"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
+"Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1047,7 +1047,7 @@ msgstr "Tallennetaan näyttökaappausta"
 #: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Näyttökaappaus tallennettiin nimellä %s."
+msgstr "Kuvakaappaus tallennettiin nimellä ”%s”."
 
 #: ../gui.py:164
 msgid "Error Saving Screenshot"
@@ -1133,8 +1133,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Syötä levyke asemaan. Valitse levyke tarkasti, sillä koko sen sisältö "
-"poistetaan."
+"Syötä levyke asemaan. Valitse levyke huolella, sillä koko sen sisältö "
+"tuhotaan."
 
 # ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
 # ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
@@ -1235,7 +1235,7 @@ msgstr ""
 
 #: ../harddrive.py:71 ../image.py:507
 msgid "Missing ISO 9660 Image"
-msgstr "Puuttuva ISO 9960 -levykuva"
+msgstr "Puuttuva ISO 9660 -levykuva"
 
 #: ../harddrive.py:72
 #, python-format
@@ -1471,17 +1471,18 @@ msgid "IP Address is missing."
 msgstr "IP-osoite puuttuu"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP-osoitteessa on käytettävä lukuja väliltä 0 ja 255"
+msgstr ""
+"IP-osoitteen tulee sisältää neljä lukua väliltä 0 ja 255 pisteillä "
+"eroteltuina."
 
 # ../loader/urls.c:248
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s ei ole kelpo IPv6-osoite."
+msgstr "”%s” ei ole kelvollinen IPv6-osoite."
 
 #: ../packages.py:241
 #, fuzzy, python-format
@@ -1489,7 +1490,6 @@ msgid "Please enter the registration key for your version of %s."
 msgstr "Anna rekisteröintiavain versiollesi ohjelmasta %s."
 
 #: ../packages.py:245
-#, fuzzy
 msgid "Enter Registration Key"
 msgstr "Anna rekisteröintiavain"
 
@@ -7182,11 +7182,11 @@ msgstr "Konfiguroi TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS vaatii IPv4:n"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS-asennustapa vaatii IPv4-tuen."
 
 # ../loader/net.c:404
 #: ../loader2/net.c:771 ../loader2/net.c:781
@@ -7228,7 +7228,6 @@ msgstr "Nimipalvelin:"
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
 #: ../loader2/net.c:1008
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "Manuaalinen TCP/IP:n asetus"
 
@@ -7301,9 +7300,8 @@ msgid "NFS Setup"
 msgstr "NFS:n määrittely"
 
 #: ../loader2/nfsinstall.c:126
-#, fuzzy
 msgid "Hostname specified with no DNS configured"
-msgstr "Tietokoneen nimi on määritelty mutta DNS-asetuksia ei ole tehty"
+msgstr "Konenimi annettu mutta DNS-asetuksia ei ole tehty"
 
 # ../loader/loader.c:1141
 #: ../loader2/nfsinstall.c:202
@@ -7429,7 +7427,7 @@ msgstr "Tuntematon kone"
 #: ../loader2/urls.c:352
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s ei ole kelpo konenimi."
+msgstr "%s ei ole kelvollinen konenimi."
 
 # ../loader/urls.c:328
 #: ../loader2/urls.c:415
@@ -7649,7 +7647,6 @@ msgid "Enable network interface"
 msgstr "Ota käyttöön verkkoliitäntä"
 
 #: tmp/netconfig.glade.h:10
-#, fuzzy
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -8535,14 +8532,12 @@ msgid "Malay"
 msgstr "malaiji"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "malaiji"
+msgstr "malajalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "gudžarati"
+msgstr "marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8554,7 +8549,7 @@ msgstr "pohjoissotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "orija"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8581,14 +8576,12 @@ msgid "Russian"
 msgstr "venäjä"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "persia"
+msgstr "serbia"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "persia"
+msgstr "serbia(latinalaiset aakkoset)"
 
 #. generated from lang-table
 msgid "Slovak"
