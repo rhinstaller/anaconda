@@ -1,3 +1,8 @@
+2006-09-29  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Only set graphical display mode if VNC is enabled in
+	kickstart, not just if it's a kickstart install.
+
 2006-09-29  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/netconfig_dialog.py (NetworkConfigurator._ok): I can't type.
