@@ -1333,22 +1333,23 @@ class YumBackend(AnacondaBackend):
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
     def writeConfiguration(self):
-        emptyRepoConf = yum.config.RepoConf()
-        compulsorySettings = [ 'enabled' ]
-        for repo in self.ayum.repos.listEnabled():
-            repo.disable()
-            fn = "%s/etc/yum.repos.d/%s.repo" % (self.instPath, repo.id)
-            f = open(fn , 'w')
-            f.write('[%s]\n' % (repo.id,))
-            for k, v in emptyRepoConf.iteritems():
-                repoval = repo.getAttribute(k)
-                if k not in compulsorySettings:
-                    if not repoval or repoval == v:
-                        continue
-                val = emptyRepoConf.optionobj(k).tostring(repoval)
-                f.write("%s=%s\n" % (k,val))
-            repo.enable()
-            f.close()
+        return
+#         emptyRepoConf = yum.config.RepoConf()
+#         compulsorySettings = [ 'enabled' ]
+#         for repo in self.ayum.repos.listEnabled():
+#             repo.disable()
+#             fn = "%s/etc/yum.repos.d/%s.repo" % (self.instPath, repo.id)
+#             f = open(fn , 'w')
+#             f.write('[%s]\n' % (repo.id,))
+#             for k, v in emptyRepoConf.iteritems():
+#                 repoval = repo.getAttribute(k)
+#                 if k not in compulsorySettings:
+#                     if not repoval or repoval == v:
+#                         continue
+#                 val = emptyRepoConf.optionobj(k).tostring(repoval)
+#                 f.write("%s=%s\n" % (k,val))
+#             repo.enable()
+#             f.close()
 
 class YumProgress:
     def __init__(self, intf, text, total):

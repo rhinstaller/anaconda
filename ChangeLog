@@ -1,5 +1,9 @@
 2006-09-29  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.writeConfiguration): Disable repo
+	writeout -- there are some weird cases that we need to decide what
+	to do with and right before FC6 isn't the time to do so
+
 	* installclasses/fedora.py (InstallClass._get_description): Return
 	the translated text as the description (#206620). 
 	* iw/task_gui.py (TaskWindow._createTaskStore): Fix translations
