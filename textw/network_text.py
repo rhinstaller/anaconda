@@ -25,16 +25,30 @@ from constants_text import *
 from constants import *
 from rhpl.translate import _
 
+descr = { 'ipaddr':   'IPv4 address',
+          'netmask':  'IPv4 network mask',
+          'remip':    'point-to-point IP address',
+          'ipv6addr': 'IPv6 address'
+        }
+
 # order to check input values
 checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
               'remip', 'essid', 'key'
              ]
 
-#def badIPDisplay(screen, the_ip):
-#    ButtonChoiceWindow(screen, _("Invalid IP string"),
-#                       _("The entered IP '%s' is not a valid IP.") %(the_ip,),
-#                       buttons = [ _("OK") ])
-#    return
+def handleIPError(screen, field, msg):
+    ButtonChoiceWindow(screen, _("Error With %s Data") % (field,), msg,
+                       buttons = [ _("OK") ])
+
+def handleIPMissing(screen, field):
+    try:
+        newfield = descr[field]
+    except:
+        newfield = field
+
+    ButtonChoiceWindow(screen, _("Error With Data"),
+                       _("A value is required for the field \"%s\".")
+                       % (newfield,), buttons = [ _("OK") ])
 
 class NetworkDeviceWindow:
     def runScreen(self, screen, net, dev, showonboot=1):
@@ -320,16 +334,16 @@ class NetworkDeviceWindow:
                         if t == 'netmask' and val.find('.') == -1:
                             try:
                                 if int(val) > 32 or int(val) < 0:
-                                    self.intf.messageWindow(_("Invalid Prefix"),
-                                                            _("IPv4 prefix "
-                                                              "must be between"
-                                                              "0 and 32."))
+                                    ButtonChoiceWindow(screen,
+                                        _("Invalid Prefix"),
+                                        _("IPv4 prefix must be between "
+                                          "0 and 32."), buttons = [_("OK")])
                                     valsgood = 0
                                     break
                                 else:
                                     val = isys.inet_convertPrefixToNetmask(val)
                             except:
-                                self.handleIPMissing(t)
+                                handleIPMissing(screen, t)
                                 valsgood = 0
                                 break
 
@@ -337,19 +351,26 @@ class NetworkDeviceWindow:
                             network.sanityCheckIPString(val)
                             tmpvals[t] = val
                         except network.IPMissing, msg:
-                            self.handleIPMissing(t)
+                            handleIPMissing(screen, t)
                             valsgood = 0
                             break
                         except network.IPError, msg:
-                            self.handleIPError(t, msg)
+                            handleIPError(screen, t, msg)
                             valsgood = 0
                             break
 
                     elif t == 'ipv6prefix' and self.ipv6Cb.selected():
-                        if int(val) > 128 or int(val) < 0:
-                            self.intf.messageWindow(_("Invalid Prefix"),
-                                                    _("IPv6 prefix must be "
-                                                      "between 0 and 128."))
+                        try:
+                            if int(val) > 128 or int(val) < 0:
+                                ButtonChoiceWindow(screen, _("Invalid Prefix"),
+                                    _("IPv6 prefix must be between 0 and 128."),
+                                    buttons = [_("OK")])
+                                valsgood = 0
+                                break
+                        except:
+                            ButtonChoiceWindow(screen, _("Invalid Prefix"),
+                                _("Invalid or missing IPv6 prefix (must be "
+                                  "between 0 and 128."), buttons = [_("OK")])
                             valsgood = 0
                             break
 
@@ -466,26 +487,36 @@ class NetworkGlobalWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            val = gwEntry.value()
-            if val and network.sanityCheckIPString(val) is not None:
-                screen.suspend()
-                print "gw", val, network.sanityCheckIPString(val)
-                screen.resume()
-                #badIPDisplay(screen, val)
+            try:
+                network.sanityCheckIPString(gwEntry.value())
+                anaconda.id.network.gateway = gwEntry.value()
+            except network.IPMissing, msg:
+                handleIPMissing(screen, 'gateway')
                 continue
-            anaconda.id.network.gateway = val
+            except network.IPError, msg:
+                handleIPError(screen, 'gateway', msg)
+                continue
 
-            val = ns1Entry.value()
-            if val and network.sanityCheckIPString(val) is not None:
-                #badIPDisplay(screen, val)
+            try:
+                network.sanityCheckIPString(ns1Entry.value())
+                anaconda.id.network.primaryNS = ns1Entry.value()
+            except network.IPMissing, msg:
+                handleIPMissing(screen, 'primary DNS')
                 continue
-            anaconda.id.network.primaryNS = val
+            except network.IPError, msg:
+                handleIPError(screen, 'primary DNS', msg)
+                continue
 
-            val = ns2Entry.value()
-            if val and network.sanityCheckIPString(val) is not None:
-                #badIPDisplay(screen, val)
+            try:
+                network.sanityCheckIPString(ns2Entry.value())
+                anaconda.id.network.secondaryNS = ns2Entry.value()
+            except network.IPMissing, msg:
+                handleIPMissing(screen, 'secondary DNS')
                 continue
-            anaconda.id.network.secondaryNS = val
+            except network.IPError, msg:
+                handleIPError(screen, 'secondary DNS', msg)
+                continue
+
             break
 
         screen.popWindow()        

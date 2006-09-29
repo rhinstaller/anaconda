@@ -1,5 +1,27 @@
 2006-09-29  David Cantrell  <dcantrell@redhat.com>
 
+	* iw/network_gui.py (NetworkWindow): Removed duplicate handleIPError()
+	function.  Wrap ipv6prefix input validation to catch exception where
+	the user left the field blank (ValueError).
+
+	* textw/network_text.py: Added descr hash.  Removed badIPDisplay().
+
+	* textw/network_text.py: Added handleIPError() and handleIPMissing()
+	which work in the same way as the functions of the same name in the
+	iw interface, but they are modified to use ButtonChoiceWindow.
+
+	* textw/network_text.py (NetworkDeviceWindow): Replace all instances
+	of self.intf.messageWindow with ButtonChoiceWindow.  Call the
+	handleIPError() and handleIPMissing() functions correctly.  Catch
+	ipv6prefix entry errors when the user left the field blank.
+
+	* textw/network_text.py (NetworkGlobalWindow): Rewrote input
+	validation for gateway, primary DNS, and secondary DNS.  Use
+	exceptions from network and handleIPError() and handleIPMissing()
+	functions.
+
+2006-09-29  David Cantrell  <dcantrell@redhat.com>
+
 	* textw/network_text.py: Removed badIPDisplay() for now.  Removed
 	sanityCheckIPString() because we can just use the one in network.
 

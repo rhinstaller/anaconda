@@ -170,12 +170,6 @@ class NetworkWindow(InstallWindow):
 	self.intf.messageWindow(_("Error With Data"),
 				_("The hostname \"%s\" is not valid for the following reason:\n\n%s") % (hostname, error))
 
-    def handleIPError(self, field, errmsg):
-	newfield = string.replace(field, "_", "")
-	self.intf.messageWindow(_("Error With Data"),
-				_("An error occurred converting "
-				  "the value entered for \"%s\":\n%s") % (newfield, errmsg))
-
     def handleIPMissing(self, field):
 	try:
 	    newfield = descr[field]
@@ -396,6 +390,7 @@ class NetworkWindow(InstallWindow):
             entrys['remip'] = ptplist[1]
             ipTable.attach(ptplist[1], 1, 2, 3, 4, xpadding=0, ypadding=0)
 
+        # Wireless settings
         if (isys.isWireless(dev)):
             wifilist.append(gtk.Label(_("_ESSID:")))
             wifilist[0].set_alignment(0.0, 0.5)
@@ -512,12 +507,20 @@ class NetworkWindow(InstallWindow):
 		            break
 
 		    elif t == 'ipv6prefix' and IPV6cb.get_active() is True:
-		        if int(val) > 128 or int(val) < 0:
-		            self.intf.messageWindow(_("Invalid Prefix"),
-		                                    _("IPv6 prefix must be "
-		                                      "between 0 and 128."))
-		            valsgood = 0
-		            break
+                        try:
+		            if int(val) > 128 or int(val) < 0:
+		                self.intf.messageWindow(_("Invalid Prefix"),
+		                                        _("IPv6 prefix must be "
+		                                          "between 0 and 128."))
+		                valsgood = 0
+		                break
+                        except:
+                            self.intf.messageWindow(_("Invalid Prefix"),
+                                                    _("Invalid or missing "
+                                                      "IPv6 prefix (must be "
+                                                      "between 0 and 128."))
+                            valsgood = 0
+                            break
 
 		if valsgood == 0:
 		    continue
