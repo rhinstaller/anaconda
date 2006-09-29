@@ -192,7 +192,7 @@ class TaskWindow(InstallWindow):
         for (txt, grps) in self.tasks:
             if not self.groupsExist(grps):
                 continue
-            store.append([self.groupsInstalled(grps), txt, grps])
+            store.append([self.groupsInstalled(grps), _(txt), grps])
 
         return len(store)
 

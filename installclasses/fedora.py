@@ -1,5 +1,5 @@
 from installclass import BaseInstallClass
-from rhpl.translate import N_
+from rhpl.translate import N_,_
 from constants import *
 import os
 import iutil
@@ -10,10 +10,10 @@ class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "fedora"
     name = N_("_Fedora")
-    description = N_("The default installation of %s includes a set of "
-                     "software applicable for general internet usage. "
-                     "What additional tasks would you like your system "
-                     "to include support for?") %(productName,)
+    _description = N_("The default installation of %s includes a set of "
+                    "software applicable for general internet usage. "
+                    "What additional tasks would you like your system "
+                    "to include support for?") 
     sortPriority = 10000
     if productName.startswith("Red Hat Enterprise"):
         hidden = 1
@@ -23,6 +23,10 @@ class InstallClass(BaseInstallClass):
              (N_("Web server"), ["web-server"])]
 
     repos = { "Fedora Extras": ("http://download.fedora.redhat.com/pub/fedora/linux/extras/development/%s" %(rpmUtils.arch.getBaseArch() ,), None) }
+
+    def _get_description(self):
+        return _(self._description) %(productName,)
+    description = property(_get_description)
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)
