@@ -1,5 +1,8 @@
 2006-09-29  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/task_gui.py (TaskWindow._taskToggled): Only do netconfig for
+	repo toggles (#208562)
+
 	* yuminstall.py (YumBackend.writeConfiguration): Disable repo
 	writeout -- there are some weird cases that we need to decide what
 	to do with and right before FC6 isn't the time to do so

@@ -160,7 +160,12 @@ class TaskWindow(InstallWindow):
         dialog.destroy()
         return rc
 
-    def _toggled(self, data, row, store):
+    def _taskToggled(self, data, row, store):
+        i = store.get_iter(int(row))
+        val = store.get_value(i, 0)
+        store.set_value(i, 0, not val)
+
+    def _repoToggled(self, data, row, store):
         i = store.get_iter(int(row))
         val = store.get_value(i, 0)
 
@@ -182,7 +187,7 @@ class TaskWindow(InstallWindow):
 
         cbr = gtk.CellRendererToggle()
         col = gtk.TreeViewColumn('', cbr, active = 0)
-        cbr.connect("toggled", self._toggled, store)
+        cbr.connect("toggled", self._taskToggled, store)
         tl.append_column(col)
 
         col = gtk.TreeViewColumn('Text', gtk.CellRendererText(), text = 1)
@@ -205,7 +210,7 @@ class TaskWindow(InstallWindow):
 
         cbr = gtk.CellRendererToggle()
         col = gtk.TreeViewColumn('', cbr, active = 0)
-        cbr.connect("toggled", self._toggled, store)
+        cbr.connect("toggled", self._repoToggled, store)
         tl.append_column(col)
 
         col = gtk.TreeViewColumn('Text', gtk.CellRendererText(), text = 1)
