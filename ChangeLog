@@ -1,5 +1,10 @@
 2006-09-29  David Cantrell  <dcantrell@redhat.com>
 
+	* textw/network_text.py (NetworkDeviceWindow): Display error message
+	if user unchecks IPv4 and IPv6 support.
+
+2006-09-29  David Cantrell  <dcantrell@redhat.com>
+
 	* iw/network_gui.py (NetworkWindow): Removed duplicate handleIPError()
 	function.  Wrap ipv6prefix input validation to catch exception where
 	the user left the field blank (ValueError).

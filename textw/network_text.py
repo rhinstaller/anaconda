@@ -305,7 +305,9 @@ class NetworkDeviceWindow:
                 return INSTALL_BACK
 
             if not self.ipv4Cb.selected() and not self.ipv6Cb.selected():
-                # FIXME: missing protocol
+                ButtonChoiceWindow(screen, _("Missing Protocol"),
+                    _("You must select at least IPv4 or IPv6 support."),
+                    buttons = [_("OK")])
                 continue
 
             if self.onbootCb.selected():
