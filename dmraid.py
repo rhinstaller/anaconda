@@ -155,7 +155,13 @@ def startAllRaid(driveList):
         return []
     log.debug("starting all dmraids on drives %s" % (driveList,))
 
-    dmList = scanForRaid(driveList)
+    try:
+        dmList = scanForRaid(driveList)
+    except Exception, e:
+        log.error("error scanning dmraid, disabling: %s" %(e,))
+        flags.dmraid = 0
+        dmList = []
+        
     for rs in dmList:
         rs.prefix = '/dev/mapper/'
         log.debug("starting raid %s with mknod=True" % (rs,))
@@ -216,31 +222,25 @@ def scanForMPath(drives):
     log.debug("scanning for multipath on drives %s" % (drives,))
     mpaths = []
 
-    try:
-        probeDrives = []
-        for d in drives:
-            dp = "/dev/" + d
-            isys.makeDevInode(d, dp)
-            probeDrives.append(dp)
-            dp = "/tmp/" + d
-            isys.makeDevInode(d, dp)
-    
-        import block as _block
-        _block.setBdevidPath(_block.getBdevidPath() + _bdModulePath)
-    
-        _block.load("scsi")
-        mpaths = _block.getMPaths(probeDrives)
-        log.debug("mpaths: %s" % (mpaths,))
-    except:
-        pass
+    probeDrives = []
+    for d in drives:
+        dp = "/dev/" + d
+        isys.makeDevInode(d, dp)
+        probeDrives.append(dp)
+        dp = "/tmp/" + d
+        isys.makeDevInode(d, dp)
+
+    import block as _block
+    _block.setBdevidPath(_block.getBdevidPath() + _bdModulePath)
+
+    _block.load("scsi")
+    mpaths = _block.getMPaths(probeDrives)
+    log.debug("mpaths: %s" % (mpaths,))
     
     def updateName(mp):
-        try:
-            if dmNameUpdates.has_key(mp.name):
-                mp.set_name(dmNameUpdates[mp.name])
-            cacheDrives.add(mp)
-        except:
-            pass
+        if dmNameUpdates.has_key(mp.name):
+            mp.set_name(dmNameUpdates[mp.name])
+        cacheDrives.add(mp)
         return mp
     
     return reduce(lambda x,y: x + [updateName(y),], mpaths, [])
@@ -262,7 +262,13 @@ def startAllMPath(driveList):
         return []
     log.debug("starting all mpaths on drives %s" % (driveList,))
 
-    mpList = scanForMPath(driveList)
+    try:
+        mpList = scanForMPath(driveList)
+    except Exception, e:
+        log.error("error scanning mpaths, disabling: %s" %(e,))
+        flags.mpath = 0
+        mpList = []
+        
     for mp in mpList:
         startMPath(mp)
     return mpList
