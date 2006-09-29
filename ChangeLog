@@ -1,3 +1,18 @@
+2006-09-29  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/network_text.py: Removed badIPDisplay() for now.  Removed
+	sanityCheckIPString() because we can just use the one in network.
+
+	* textw/network_text.py (NetworkDeviceWindow): Change instances of
+	the boot variable to bootproto to make it more consistent with the
+	iw interface code.  Unset BOOTPROTO if the user has selected a
+	manual network configuration.  Use the value() method on the Entry
+	boxes since get_text() is not available in snack.
+
+	* textw/network_text.py (NetworkGlobalWindow): Increase size of
+	entry boxes to 41 characters so they can hold IPv4 and IPv6
+	addresses.  Removed third nameserver prompts.
+
 2006-09-29  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Only set graphical display mode if VNC is enabled in

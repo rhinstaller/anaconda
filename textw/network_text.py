@@ -30,20 +30,21 @@ checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
               'remip', 'essid', 'key'
              ]
 
-def badIPDisplay(screen, the_ip):
-    ButtonChoiceWindow(screen, _("Invalid IP string"),
-                       _("The entered IP '%s' is not a valid IP.") %(the_ip,),
-                       buttons = [ _("OK") ])
-    return
-
-def sanityCheckIPString(val):
-    try:
-        network.sanityCheckIPString(val)
-    except IPError, err:
-        return err
+#def badIPDisplay(screen, the_ip):
+#    ButtonChoiceWindow(screen, _("Invalid IP string"),
+#                       _("The entered IP '%s' is not a valid IP.") %(the_ip,),
+#                       buttons = [ _("OK") ])
+#    return
 
 class NetworkDeviceWindow:
     def runScreen(self, screen, net, dev, showonboot=1):
+        bootproto = dev.get('bootproto').lower()
+        onboot = dev.get('onboot')
+        v4list = []
+        v6list = []
+        ptplist = []
+        wifilist = []
+
         def DHCPtoggled():
             active = self.dhcpCb.selected()
 
@@ -52,7 +53,7 @@ class NetworkDeviceWindow:
                     widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
             if active:
-                boot = 'dhcp'
+                bootproto = 'dhcp'
 
                 for widget in v4list:
                     widget.setFlags(FLAG_DISABLED, FLAGS_SET)
@@ -64,7 +65,7 @@ class NetworkDeviceWindow:
                     for widget in ptplist:
                         widget.setFlags(FLAG_DISABLED, FLAGS_SET)
             else:
-                boot = 'static'
+                bootproto = 'static'
 
                 if self.ipv4Cb.selected() != 0:
                     for widget in v4list:
@@ -99,24 +100,17 @@ class NetworkDeviceWindow:
                     for widget in v6list:
                         widget.setFlags(FLAG_DISABLED, FLAGS_SET)
 
-        boot = dev.get("bootproto").lower()
-        onboot = dev.get("onboot")
-        v4list = []
-        v6list = []
-        ptplist = []
-        wifilist = []
-
         devnames = self.devices.keys()
         devnames.sort(cmp=isys.compareNetDevices)
-        if devnames.index(dev.get("DEVICE")) == 0 and not onboot:
+        if devnames.index(dev.get('DEVICE')) == 0 and not onboot:
             onbootIsOn = 1
         else:
-            onbootIsOn = (onboot == "yes")
-        if not boot:
-            boot = "dhcp"
+            onbootIsOn = (onboot == 'yes')
+        if not bootproto:
+            bootproto = 'dhcp'
 
-        descr = dev.get("desc")
-        hwaddr = dev.get("hwaddr")
+        descr = dev.get('desc')
+        hwaddr = dev.get('hwaddr')
         if descr is None or len(descr) == 0:
             descr = None
         if hwaddr is None or len(hwaddr) == 0:
@@ -144,7 +138,7 @@ class NetworkDeviceWindow:
 
         # DHCP option
         self.dhcpCb = Checkbox(_("Use dynamic IP configuration (DHCP)"),
-                               isOn = (boot == "dhcp"))
+                               isOn = (bootproto == "dhcp"))
         maingrid.setField(self.dhcpCb, 0, mainrow, anchorLeft = 1, growx = 1,
                           padding = (0, 0, 0, ypad))
         mainrow += 1
@@ -171,10 +165,10 @@ class NetworkDeviceWindow:
         # IP address subtable
         ipTableLength = 3
 
-        if (network.isPtpDev(dev.info["DEVICE"])):
+        if (network.isPtpDev(dev.info['DEVICE'])):
             ipTableLength += 1
 
-        if (isys.isWireless(dev.info["DEVICE"])):
+        if (isys.isWireless(dev.info['DEVICE'])):
             ipTableLength += 2
 
         ipgrid = Grid(4, ipTableLength)
@@ -269,7 +263,7 @@ class NetworkDeviceWindow:
         toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
         toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
 
-        if boot == 'dhcp':
+        if bootproto == 'dhcp':
             self.dhcpCb.isOn = True
         else:
             self.dhcpCb.isOn = False
@@ -301,14 +295,15 @@ class NetworkDeviceWindow:
                 continue
 
             if self.onbootCb.selected():
-                dev.set(("onboot", "yes"))
+                dev.set(('onboot', 'yes'))
             else:
-                dev.unset("onboot")
+                dev.unset('onboot')
 
             if self.dhcpCb.selected():
-                dev.set(("bootproto", "dhcp"))
-                dev.unset("ipaddr", "netmask", "network", "broadcast", "remip")
+                dev.set(('bootproto', 'dhcp'))
+                dev.unset('ipaddr', 'netmask', 'network', 'broadcast', 'remip')
             else:
+                dev.unset('bootproto')
                 valsgood = 1
                 tmpvals = {}
 
@@ -316,7 +311,7 @@ class NetworkDeviceWindow:
                     if not entrys.has_key(t):
                         continue
 
-                    val = entrys[t].get_text()
+                    val = entrys[t].value()
 
                     if ((t == 'ipaddr' or t == 'netmask') and \
                         self.ipv4Cb.selected()) or \
@@ -379,7 +374,7 @@ class NetworkDeviceWindow:
                     if tmpvals.has_key(t):
                         if t == 'ipv6addr':
                             if entrys['ipv6prefix'] is not None:
-                                p = entrys['ipv6prefix'].get_text()
+                                p = entrys['ipv6prefix'].value()
                                 q = "%s/%s" % (tmpvals[t], p,)
                             else:
                                 q = "%s" % (tmpvals[t],)
@@ -388,7 +383,7 @@ class NetworkDeviceWindow:
                         else:
                             dev.set((t, tmpvals[t]))
                     else:
-                        dev.set((t, entrys[t].get_text()))
+                        dev.set((t, entrys[t].value()))
 
                 dev.set(('network', net), ('broadcast', bc))
 
@@ -396,7 +391,6 @@ class NetworkDeviceWindow:
 
         screen.popWindow()
         return INSTALL_OK
-
 
     def __call__(self, screen, anaconda, showonboot=1):
         self.devices = anaconda.id.network.available()
@@ -439,7 +433,7 @@ class NetworkGlobalWindow:
         thegrid = Grid(2, 4)
 
         thegrid.setField(Label(_("Gateway:")), 0, 0, anchorLeft = 1)
-        gwEntry = Entry(16)
+        gwEntry = Entry(41)
         # if it's set already, use that... otherwise, make them enter it
         if anaconda.id.network.gateway:
             gwEntry.set(anaconda.id.network.gateway)
@@ -448,20 +442,15 @@ class NetworkGlobalWindow:
         thegrid.setField(gwEntry, 1, 0, padding = (1, 0, 0, 0))
         
         thegrid.setField(Label(_("Primary DNS:")), 0, 1, anchorLeft = 1)
-        ns1Entry = Entry(16)
+        ns1Entry = Entry(41)
         ns1Entry.set(anaconda.id.network.primaryNS)
         thegrid.setField(ns1Entry, 1, 1, padding = (1, 0, 0, 0))
         
         thegrid.setField(Label(_("Secondary DNS:")), 0, 2, anchorLeft = 1)
-        ns2Entry = Entry(16)
+        ns2Entry = Entry(41)
         ns2Entry.set(anaconda.id.network.secondaryNS)
         thegrid.setField(ns2Entry, 1, 2, padding = (1, 0, 0, 0))
         
-        thegrid.setField(Label(_("Tertiary DNS:")), 0, 3, anchorLeft = 1)
-        ns3Entry = Entry(16)
-        ns3Entry.set(anaconda.id.network.ternaryNS)
-        thegrid.setField(ns3Entry, 1, 3, padding = (1, 0, 0, 0))
-
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         toplevel = GridFormHelp (screen, _("Miscellaneous Network Settings"),
@@ -478,32 +467,25 @@ class NetworkGlobalWindow:
                 return INSTALL_BACK
 
             val = gwEntry.value()
-            if val and sanityCheckIPString(val) is not None:
+            if val and network.sanityCheckIPString(val) is not None:
                 screen.suspend()
-                print "gw", val, sanityCheckIPString(val)
-                import pdb; pdb.set_trace()
+                print "gw", val, network.sanityCheckIPString(val)
                 screen.resume()
-                badIPDisplay(screen, val)
+                #badIPDisplay(screen, val)
                 continue
             anaconda.id.network.gateway = val
 
             val = ns1Entry.value()
-            if val and sanityCheckIPString(val) is not None:
-                badIPDisplay(screen, val)
+            if val and network.sanityCheckIPString(val) is not None:
+                #badIPDisplay(screen, val)
                 continue
             anaconda.id.network.primaryNS = val
 
             val = ns2Entry.value()
-            if val and sanityCheckIPString(val) is not None:
-                badIPDisplay(screen, val)
+            if val and network.sanityCheckIPString(val) is not None:
+                #badIPDisplay(screen, val)
                 continue
             anaconda.id.network.secondaryNS = val
-
-            val = ns3Entry.value()
-            if val and sanityCheckIPString(val) is not None:
-                badIPDisplay(screen, val)
-                continue
-            anaconda.id.network.ternaryNS = val
             break
 
         screen.popWindow()        
