@@ -20,9 +20,11 @@
 
 import sys
 import string
+
+_bdModulePath = ":/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/"
 import block
-block.setBdevidPath(block.getBdevidPath() + \
-    ":/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/")
+block.setBdevidPath(block.getBdevidPath() + _bdModulePath)
+
 import partedUtils
 import raid
 from flags import flags
@@ -114,8 +116,6 @@ def scanForRaid(drives, degradedOk=False):
     """
 
     log.debug("scanning for dmraid on drives %s" % (drives,))
-    Sets = {}
-    Devices = {}
 
     probeDrives = []
     for d in drives:
@@ -214,27 +214,35 @@ def lookup_raid_device(dmname):
 
 def scanForMPath(drives):
     log.debug("scanning for multipath on drives %s" % (drives,))
-    MPaths = []
-    n = 0
-    Devices = {}
+    mpaths = []
 
-    probeDrives = []
-    for d in drives:
-        dp = "/dev/" + d
-        isys.makeDevInode(d, dp)
-        probeDrives.append(dp)
-        dp = "/tmp/" + d
-        isys.makeDevInode(d, dp)
-
-    mpaths = block.getMPaths(probeDrives)
-    log.debug("mpaths: %s" % (mpaths,))
-
+    try:
+        probeDrives = []
+        for d in drives:
+            dp = "/dev/" + d
+            isys.makeDevInode(d, dp)
+            probeDrives.append(dp)
+            dp = "/tmp/" + d
+            isys.makeDevInode(d, dp)
+    
+        import block as _block
+        _block.setBdevidPath(_block.getBdevidPath() + _bdModulePath)
+    
+        _block.load("scsi")
+        mpaths = _block.getMPaths(probeDrives)
+        log.debug("mpaths: %s" % (mpaths,))
+    except:
+        pass
+    
     def updateName(mp):
-        if dmNameUpdates.has_key(mp.name):
-            mp.set_name(dmNameUpdates[mp.name])
-        cacheDrives.add(mp)
+        try:
+            if dmNameUpdates.has_key(mp.name):
+                mp.set_name(dmNameUpdates[mp.name])
+            cacheDrives.add(mp)
+        except:
+            pass
         return mp
-
+    
     return reduce(lambda x,y: x + [updateName(y),], mpaths, [])
 
 def renameMPath(mpath, name):

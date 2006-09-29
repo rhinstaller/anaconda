@@ -1,3 +1,12 @@
+2006-09-29  Peter Jones <pjones@redhat.com>
+
+	* dmraid.py (scanForMPath): Use a private copy of block which loads
+	only the "scsi" probe, wrap probing in one big tryblock, and clean up
+	some unused variables (#208423).
+
+	* anaconda.spec: require python-pyblock >= 0.24-1 (#208423, #208431,
+	#208337)
+
 2006-09-29  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/task_gui.py (TaskWindow._taskToggled): Only do netconfig for
