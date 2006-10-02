@@ -32,6 +32,7 @@ def getRaidLevels():
 
         f.close()
 
+    avail.sort()
     return avail
 
 # XXX define availraidlevels and defaultmntpts as arch characteristics
