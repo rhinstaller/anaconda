@@ -488,7 +488,7 @@ class NetworkWindow(InstallWindow):
 		                    valsgood = 0
 		                    break
 		                else:
-		                    val = isys.inet_convertPrefixToNetmask(val)
+		                    val = isys.prefix2netmask(val)
 		            except:
 		                self.handleIPMissing(t)
 		                valsgood = 0

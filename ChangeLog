@@ -1,3 +1,16 @@
+2006-10-02  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (inet_doConvertPrefixToNetmask): Removed since it does
+	not work right.  Added prefix2netmask() passthrough to _isys.
+
+	* isys/isys.c (doConvertPrefixToNetmask): When Python fails, use C.
+	Added isys.prefix2netmask() for use in Python code to convert a CIDR
+	prefix to a dotted-quad format netmask (#207845).
+
+	* iw/network_gui.py (NetworkWindow): Use isys.prefix2netmask()
+
+	* textw/network_text.py (NetworkDeviceWindow): Use isys.prefix2netmask()
+
 2006-10-02  Chris Lumens  <clumens@redhat.com>
 
 	* iw/partition_dialog_gui.py (PartitionEditor.__init__):  Pass
