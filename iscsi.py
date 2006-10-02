@@ -49,6 +49,9 @@ class iscsiTarget:
                 if not line or line.find("found!") != -1:
                     log.warn("no record found!")
                     return None
+                if len(line.split()) != 2:
+                    log.warn("didn't get what we expected from iscsiadm")
+                    return None
                 (self._portal, self._node) = line.split()
                 break
         return self._portal
