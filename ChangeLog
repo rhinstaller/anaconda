@@ -1,5 +1,8 @@
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumSorter.tsCheck): Ensure that we do eventually
+	depcheck on redhat-lsb (#201222)
+
 	* scripts/upd-instroot: Attempt to fix up sr_CS.UTF-8@Latn (#182591)
 
 2006-10-02  David Cantrell  <dcantrell@redhat.com>

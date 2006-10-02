@@ -268,7 +268,8 @@ class YumSorter(yum.YumBase):
         unresolved = []
 
         for txmbr in tocheck:
-            if txmbr.name == "redhat-lsb": # FIXME: this speeds things up a lot
+            if txmbr.name == "redhat-lsb" and len(tocheck) != 1: # FIXME: this speeds things up a lot
+                unresolved.append(txmbr)
                 continue
             if self.dsCallback: self.dsCallback.pkgAdded()
             if txmbr.output_state not in TS_INSTALL_STATES:
