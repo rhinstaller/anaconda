@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.102
+Version: 11.1.0.103
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  2 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.103-1
+- More netconfig fixing (dcantrel)
+- Fix some translation problems (#206620)
+- Don't do netconfig on task toggle (#208562)
+- Some mpath/dmraid fixes (pjones, #208423)
+- Only set graphical if VNC is enabled in kickstart, not 
+  all kickstarts (clumens)
+- Ensure RAID levels get sorted (#208478)
+- Fix handling of locales we can't display (#208841)
+- Fix traceback in partition editing (clumens, #208677)
+- Try to fix sr_CS.UTF-8@Latn (#182591)
+- Ensure a depcheck on redhat-lsb (#201222)
+- Fix pkgorder to order "needed" groups early (#206778)
+
 * Thu Sep 28 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.102-1
 - Disable repo writing for now
 - Fixup text network config (dcantrel)
