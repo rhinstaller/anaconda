@@ -159,27 +159,27 @@ if __name__ == "__main__":
     ds = PackageOrderer(arch=arch)
     ds.setup(fn=config, excludes=options.excludeList, root = testpath)
 
-    addGroups(ds, ["Core", "Base", "Text-based Internet"])
+    addGroups(ds, ["core", "base", "text-internet"])
 
-    addGroups(ds, ["X Window System", "Dialup Networking Support",
-                   "Graphical Internet", "Editors", 
-                   "Graphics", "GNOME Desktop Environment", "Sound and Video",
-                   "Printing Support", "Dialup Networking Support"])
+    addGroups(ds, ["base-x", "dial-up",
+                   "graphical-internet", "editors", 
+                   "graphics", "gnome-desktop", "sound-and-video",
+                   "printing"])
 
-    addGroups(ds, ["Office/Productivity", "Engineering and Scientific",
-                   "Authoring and Publishing", "Games and Entertainment"])
+    addGroups(ds, ["office", "engineering-and-scientific",
+                   "authoring-and-publishing", "games"])
 
-    addGroups(ds, ["Web Server", "FTP Server", "MySQL Database",
-                   "Server Configuration Tools", "DNS Name Server",
-                   "Windows File Server", "Administration Tools"])
+    addGroups(ds, ["web-server", "ftp-server", "sql-server",
+                   "mysql", "server-cfg", "dns-server",
+                   "smb-server", "admin-tools"])
 
-    addGroups(ds, ["KDE (K Desktop Environment)", "Development Tools",
-                   "GNOME Software Development", "Eclipse",
-                   "Java Development", "KDE Software Development",
-                   "PostgreSQL Database", "Mail Server",
-                   "Legacy Network Server"])
+    addGroups(ds, ["kde-desktop", "development-tools", "development-libs",
+                   "gnome-software-development", "eclipse",
+                   "x-software-development",
+                   "java-development", "kde-software-development",
+                   "mail-server", "legacy-network-server"])
 
-    addGroups(ds, ["News Server", "Legacy Software Development"])
+    addGroups(ds, ["news-server", "legacy-software-development"])
 
     #Everthing else but kernels - don't depsolve
     for po in ds.pkgSack.returnPackages():

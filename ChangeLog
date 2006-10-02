@@ -1,5 +1,8 @@
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder (usage): Use group ids -- the display name can
+	(... and has) changed.  This should fix our # of cd problem (#206778)
+
 	* yuminstall.py (YumSorter.tsCheck): Ensure that we do eventually
 	depcheck on redhat-lsb (#201222)
 
