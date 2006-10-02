@@ -214,7 +214,7 @@ static void setLangEnv (int i) {
     if (i > numLanguages)
         return;
 
-    if (!strcmp(languages[i].font, "none"))
+    if (strcmp(languages[i].font, "latarcyrheb-sun16"))
         return;
     logMessage(INFO, "setting language to %s", languages[i].lc_all);
 
@@ -232,7 +232,7 @@ static int setupLanguage(int choice) {
     logMessage(DEBUGLVL, "going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
-    if ((!strcmp(languages[choice].font, "none") && !FL_SERIAL(flags) && 
+    if ((strcmp(languages[choice].font, "latarcyrheb-sun16") && !FL_SERIAL(flags) && 
          !FL_VIRTPCONSOLE(flags) && !isVioConsole())) {
         if (FL_KICKSTART(flags)) return 0;
 

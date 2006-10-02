@@ -8,6 +8,9 @@
 
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/lang.c: Fix handling of !latarcyrheb-sun16 console fonts
+	which we don't have any way to display in anaconda right now (#208841)
+
 	* raid.py (getRaidLevels): Ensure raid levels are sorted (#208478)
 
 2006-10-01  Jeremy Katz  <katzj@redhat.com>
