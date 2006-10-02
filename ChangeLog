@@ -26,6 +26,8 @@
 	* iw/partition_gui.py:  Pass anaconda object to
 	PartitionEditor.__init__.
 
+	* loader2/urlinstall.c (getFileFromUrl):  Fix a misleading message.
+
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/lang.c: Fix handling of !latarcyrheb-sun16 console fonts

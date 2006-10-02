@@ -360,7 +360,7 @@ int getFileFromUrl(char * url, char * dest,
     getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
                    &host, &file, ret);
 
-    logMessage(INFO, "ks location: %s://%s/%s", 
+    logMessage(INFO, "file location: %s://%s/%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
 
     chptr = strchr(host, '/');
