@@ -1,3 +1,11 @@
+2006-10-02  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/nfsinstall.c (getFileFromNfs): Do not bring down network
+	interface after fetching file (#201194).
+
+	* loader2/urlinstall.c (getFileFromUrl): Do not bring down network
+	interface after fetching file (#201194).
+
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

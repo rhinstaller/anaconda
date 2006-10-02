@@ -336,7 +336,6 @@ char * mountUrlImage(struct installMethod * method,
 
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
-    char *buf = NULL;
     char ret[47];
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
@@ -430,12 +429,6 @@ int getFileFromUrl(char * url, char * dest,
     urlinstFinishTransfer(&ui, fd);
 
     if (ehdrs) free(ehdrs);
-
-    buf = pumpDisableInterface(netCfg.dev.device);
-    if (buf) {
-        logMessage(ERROR, "getFileFromUrl: %s", buf);
-        return 1;
-    }
 
     return 0;
 }

@@ -275,7 +275,6 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
 
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
-    char *buf = NULL;
     char ret[47];
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     int failed = 0;
@@ -357,12 +356,6 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
     umount("/tmp/mnt");
     unlink("/tmp/mnt");
-
-    buf = pumpDisableInterface(netCfg.dev.device);
-    if (buf) {
-        logMessage(ERROR, "getFileFromNfs: %s", buf);
-        failed = 1;
-    }
 
     return failed;
 }
