@@ -1,3 +1,11 @@
+2006-10-02  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_dialog_gui.py (PartitionEditor.__init__):  Pass
+	updateSrc to createAllowedDrivesList (#208677).
+
+	* iw/partition_gui.py:  Pass anaconda object to
+	PartitionEditor.__init__.
+
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
 	* raid.py (getRaidLevels): Ensure raid levels are sorted (#208478)

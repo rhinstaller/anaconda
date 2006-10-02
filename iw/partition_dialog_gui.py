@@ -256,13 +256,14 @@ class PartitionEditor:
 	self.dialog = None
 
 
-    def __init__(self, partitions, diskset, intf, parent, origrequest,
-                 isNew = 0, restrictfs = None):
-	self.partitions = partitions
-	self.diskset = diskset
+    def __init__(self, anaconda, parent, origrequest, isNew = 0,
+                 restrictfs = None):
+        self.anaconda = anaconda
+	self.partitions = self.anaconda.id.partitions
+	self.diskset = self.anaconda.id.diskset
+	self.intf = self.anaconda.intf
 	self.origrequest = origrequest
 	self.isNew = isNew
-	self.intf = intf
 	self.parent = parent
 
 	if isNew:
@@ -334,7 +335,8 @@ class PartitionEditor:
                 maintable.attach(lbl, 0, 1, row, row + 1)
 
                 self.driveview = createAllowedDrivesList(self.diskset.disks,
-							 self.origrequest.drive)
+                                                         self.origrequest.drive,
+                                                         self.anaconda.updateSrc)
 		lbl.set_mnemonic_widget(self.driveview)
                 sw = gtk.ScrolledWindow()
                 sw.add(self.driveview)

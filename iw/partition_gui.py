@@ -1084,9 +1084,7 @@ class PartitionWindow(InstallWindow):
 
 
     def editPartitionRequest(self, origrequest, isNew = 0, restrictfs = None):
-	parteditor = partition_dialog_gui.PartitionEditor(self.partitions,
-							  self.diskset,
-							  self.intf,
+	parteditor = partition_dialog_gui.PartitionEditor(self.anaconda,
 							  self.parent,
 							  origrequest,
 							  isNew = isNew,
@@ -1331,6 +1329,7 @@ class PartitionWindow(InstallWindow):
 	self.populate()
 
     def getScreen(self, anaconda):
+        self.anaconda = anaconda
         self.fsset = anaconda.id.fsset
         self.diskset = anaconda.id.diskset
         self.intf = anaconda.intf
