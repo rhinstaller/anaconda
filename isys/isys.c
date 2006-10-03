@@ -120,7 +120,7 @@ static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
-static PyObject * doConvertPrefixToNetmask(PyObject *s, PyObject *args);
+static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -176,7 +176,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
-    { "prefix2netmask", (PyCFunction) doConvertPrefixToNetmask, METH_VARARGS, NULL },
+    { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -653,14 +653,14 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     return rc;
 }
 
-static PyObject * doConvertPrefixToNetmask (PyObject * s, PyObject * args) {
-	char *prefix = NULL;
+static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
+	int prefix = 0;
     int mask = 0;
     char dst[INET_ADDRSTRLEN];
 
-    if (!PyArg_ParseTuple(args, "s", &prefix)) return NULL;
+    if (!PyArg_ParseTuple(args, "i", &prefix)) return NULL;
 
-    mask = htonl(~((1 << (32 - atoi(prefix))) - 1));
+    mask = htonl(~((1 << (32 - prefix)) - 1));
     inet_ntop(AF_INET, (struct in_addr *) &mask, dst, INET_ADDRSTRLEN);
 
     return Py_BuildValue("s", dst);

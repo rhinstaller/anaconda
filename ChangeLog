@@ -1,3 +1,18 @@
+2006-10-03  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow): Use isys.netmask2prefix() and
+	isys.prefix2netmask() correctly.
+
+	* textw/network_text.py (NetworkDeviceWindow): Use isys.prefix2netmask()
+	correctly.
+
+	* isys/isys.c (doPrefixToNetmask): Renamed to a shorter function name
+	and it somewhat matches what the isys.py passthrough is called.  We
+	also take an int as the argument now and return a string.
+
+	* isys/isys.py (netmask2prefix): Added this function to replace the
+	borken inet_convertNetmaskToPrefix() function.
+
 2006-10-02  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (iscsiTarget._getPortal): Handle another error 

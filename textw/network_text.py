@@ -343,7 +343,7 @@ class NetworkDeviceWindow:
                                     valsgood = 0
                                     break
                                 else:
-                                    val = isys.prefix2netmask(val)
+                                    val = isys.prefix2netmask(int(val))
                             except:
                                 handleIPMissing(screen, t)
                                 valsgood = 0

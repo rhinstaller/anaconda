@@ -39,7 +39,6 @@ checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
              ]
 
 class NetworkWindow(InstallWindow):		
-
     windowTitle = N_("Network Configuration")
 
     def __init__(self, ics):
@@ -488,7 +487,7 @@ class NetworkWindow(InstallWindow):
 		                    valsgood = 0
 		                    break
 		                else:
-		                    val = isys.prefix2netmask(val)
+		                    val = isys.prefix2netmask(int(val))
 		            except:
 		                self.handleIPMissing(t)
 		                valsgood = 0
@@ -577,7 +576,7 @@ class NetworkWindow(InstallWindow):
 	if bootproto.lower() == "dhcp" and self.network.useIPv4 is True:
 	    ip = "DHCP"
 	else:
-	    prefix = isys.inet_convertNetmaskToPrefix(device.get("netmask"))
+	    prefix = str(isys.netmask2prefix(device.get("netmask")))
 	    ip = "%s/%s" % (device.get("ipaddr"), prefix,)
 
 	return ip
@@ -639,10 +638,8 @@ class NetworkWindow(InstallWindow):
 	devnames = self.devices.keys()
 	devnames.sort()
 
-	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
+	store = gtk.TreeStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
+	                      gobject.TYPE_STRING, gobject.TYPE_STRING)
 	
 	self.ethdevices = NetworkDeviceCheckList(3, store, clickCB=self.onbootToggleCB)
         num = 0
@@ -660,19 +657,6 @@ class NetworkWindow(InstallWindow):
 		
 	    ipv4 = self.createIPV4Repr(self.devices[device])
 	    ipv6 = self.createIPV6Repr(self.devices[device])
-
-# only if we want descriptions in the master device list
-# currently too wide, but might be able to do it with a tooltip on
-# each row once I figure out how (can't be done: b.g.o #80980)
-# would require adding extra text field to end of store above as well
-#
-#	    descr = self.devices[device].get("desc")
-#	    if descr is None:
-#		descr = ""
-#		
-#	    self.ethdevices.append_row((device, ip, descr), active)
-#
-# use this for now
             self.ethdevices.append_row((device, ipv4, ipv6), active)
 
             num += 1
@@ -685,8 +669,6 @@ class NetworkWindow(InstallWindow):
         self.ethdevices.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.ethdevices.set_column_title (3, (_("IPv6/Prefix")))
         self.ethdevices.set_column_sizing (3, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-#	self.ethdevices.set_column_title(4, (_("Description")))
-#        self.ethdevices.set_column_sizing (4, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.ethdevices.set_headers_visible(True)
 
 	self.ignoreEvents = 1

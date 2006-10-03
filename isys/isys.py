@@ -436,19 +436,6 @@ def inet_calcNetBroad (ip, nm):
 
     return (nw, bc)
 
-# Converts IPv4 netmasks in dotted-quad notation to the CIDR prefix
-def inet_convertNetmaskToPrefix (netmask):
-    (nm,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, netmask))
-    prefix = 0
-
-    while prefix < 33:
-        if (nm >> prefix) == 0:
-            return prefix
-
-        prefix += 1
-
-    return prefix
-
 def getopt(*args):
     warnings.warn("isys.getopt is deprecated.  Use optparse instead.",
                   DeprecationWarning, stacklevel=2)
@@ -881,6 +868,17 @@ def resetFileContext(fn, instroot = '/'):
 
 def prefix2netmask(prefix):
     return _isys.prefix2netmask(prefix)
+
+def netmask2prefix (netmask):
+    prefix = 0
+
+    while prefix < 33:
+        if (prefix2netmask(prefix) == netmask):
+            return prefix
+
+        prefix += 1
+
+    return prefix
 
 auditDaemon = _isys.auditdaemon
 
