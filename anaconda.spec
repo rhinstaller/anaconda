@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.103
+Version: 11.1.0.104
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 03 2006 Chris Lumens <clumens@redhat.com> - 11.1.0.104-1
+- More netconfig fixes (dcantrel).
+- Reset protected partitions list (#204405).
+- Handle more iscsi error cases (katzj, #208671).
+- Don't bring down network interfaces after fetching files (dcantrel,
+  #201194).
+
 * Mon Oct  2 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.103-1
 - More netconfig fixing (dcantrel)
 - Fix some translation problems (#206620)
