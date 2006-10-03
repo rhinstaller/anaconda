@@ -1474,6 +1474,7 @@ def doAutoPartition(anaconda):
         # restore drives to original state
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
+        partitions.setProtected(anaconda.dispatch)
         if not anaconda.isKickstart:
             extra = ""
             anaconda.dispatch.skipStep("partition", skip = 0)

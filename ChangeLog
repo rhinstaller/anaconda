@@ -1,3 +1,8 @@
+2006-10-03  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (doAutoPartition):  Reset protected partitions list when
+	there are problems partitioning (#204405).
+
 2006-10-03  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/network_gui.py (NetworkWindow): Use isys.netmask2prefix() and
