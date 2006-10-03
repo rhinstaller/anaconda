@@ -4,14 +4,15 @@
 # Deepayan Sarkar <deepayan@BengaLinux.Org>, 2003.
 # Jamil Ahmed <jamil@bengalinux.org>, 2003.
 # Progga <progga@BengaLinux.Org>, 2003-2006.
-# 
+# Mahay Alam Khan (মাহে আলম) <makl10n@yahoo.com>, 2006.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-01-23 12:00+0600\n"
-"Last-Translator: Progga <progga@BengaLinux.Org>\n"
+"PO-Revision-Date: 2006-09-22 04:52+0600\n"
+"Last-Translator: Mahay Alam Khan (মাহে আলম) <makl10n@yahoo.com>\n"
 "Language-Team: Bangla <redhat-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,29 +122,38 @@ msgid "unknown install method: %s"
 msgstr "অজ্ঞাত ইনস্টলেশন পদ্ধতি: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"প্রাথমিক (Primary) পার্টিশন হিসেবে কোন সিলিন্ডারভিত্তিক পার্টিশন তৈরি করা যায় নি"
+"প্রাথমিক (Primary) পার্টিশন হিসেবে কোন সিলিন্ডারভিত্তিক পার্টিশন এলোকেট করা যায় "
+"নি।\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "প্রাথমিক (Primary) পার্টিশন হিসেবে কোন পার্টিশন তৈরি করা যায় নি"
+msgstr ""
+"প্রাথমিক (Primary) পার্টিশন হিসেবে কোন পার্টিশন এলোকেট করা যায় নি।\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "সিলিন্ডারভিত্তিক পার্টিশন তৈরি করা যায় নি"
+msgstr ""
+"সিলিন্ডারভিত্তিক পার্টিশন তৈরি এলোকেট যায় নি\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -324,6 +334,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"ভিন্ন একটি পার্টিশন অপশন পছন্দ করতে 'OK' চাপুন"
 
 #: ../autopart.py:1503
 #, python-format
@@ -421,14 +434,14 @@ msgstr ""
 "আপনি কি এ ব্যাপারে নিশ্চিত?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "%s-%s-%s.%s. আপগ্রেড করা হচ্ছে\n"
+msgstr "%s আপগ্রেড\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "%s ইনস্টল করো (_I)"
+msgstr "%s ইনস্টল করা হচ্ছে \n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -500,12 +513,11 @@ msgid "Dump Written"
 msgstr "ডাম্প (Dump) সংরক্ষণ করা হয়েছে"
 
 #: ../exception.py:401
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"আপনার সিস্টেমের অবস্থা সফলভাবে ফ্লপিতে লেখা হয়েছে।  এখন সিস্টেমকে রিবুট করা হবে।"
+"আপনার সিস্টেমের অবস্থা সফলভাবে ফ্লপিতে লেখা হয়েছে। এখন সিস্টেমকে রিবুট করা হবে।"
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
 #: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
@@ -523,12 +535,11 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "সিস্টেমের অবস্থা ফ্লপি ডিস্কে লিখতে সমস্যা হয়েছে।"
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"আপনার সিস্টেমের অবস্থাকে সফলভাবে দূরবর্তী কম্পিউটারে লেখা হয়েছে।\n"
+"আপনার সিস্টেমের অবস্থাকে সফলভাবে দূরবর্তী হোস্টে লেখা হয়েছে।\n"
 "এখন আপনার সিস্টেমকে রিবুট করা হবে।"
 
 #: ../exception.py:427
@@ -591,10 +602,9 @@ msgstr "রেইড ডিভাইস"
 msgid "Apple Bootstrap"
 msgstr "অ্যাপল বুটস্ট্র্যাপ"
 
-# FIXME: এইটা নিয়ে Confusion আছে
 #: ../fsset.py:1348 ../partitions.py:900
 msgid "PPC PReP Boot"
-msgstr "পি.পি.সি. PReP বুট"
+msgstr "PPC PReP বুট"
 
 #: ../fsset.py:1351
 msgid "First sector of boot partition"
@@ -638,11 +648,17 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"সোয়াপ ডিভাইস:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"একটি লিনাক্স ০ সংষ্করণের সোয়াপ পার্টিশন। আপনি যদি এই ডিভাইসটি ব্যবহার করতে চান, "
+"তাহলে আপনাকে অবশ্যই পুনরায লিনাক্স ১ সংষ্করণে সোয়াপ পার্টিশন পুনরায় ফরম্যাট করতে "
+"হবে। আপনি যদি এড়িয়ে যান, তাহলে ইনস্টলার এটি ইনস্টলেশনের সময় এটি এড়িয়ে যাবে।"
 
 #: ../fsset.py:1483
-#, fuzzy
 msgid "Reformat"
-msgstr "ফরম্যাট"
+msgstr "পুনরায় ফরম্যাট"
 
 #: ../fsset.py:1487
 #, python-format
@@ -655,6 +671,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"সোয়াপ ডিভাইস:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"আপনার  /etc/fstab ফাইলে বর্তমানে একটি সাময়িক বাতিলকৃত পার্টিশন হিসাবে ব্যবহৃত "
+"হচ্ছে, যার অর্থ আপনার সিস্টেম হাইবারনেট করছে। আপগ্রেড করতে, হাইবারনেট না করে "
+"আপনার সিস্টেম দয়াকরে বন্ধ করুন।"
 
 #: ../fsset.py:1495
 #, python-format
@@ -667,6 +690,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"সোয়াপ ডিভাইস:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"আপনার /etc/fstab ফাইলে বর্তমানে সাময়িকভাবে বাতিলকৃত পার্টিশন হিসাবে ব্যবহৃত হচ্ছে, "
+"অর্থ্যাৎ সিস্টেম হাইবারনেট করছে। আপনি যদি নতুন ইনস্টলেশন করতে থাকেন, তাহলে "
+"নিশ্চিিত করুন আপনার ইনস্টলার সবগুলো সোয়াপ পার্টিশন ফরম্যাট করবে।"
 
 #: ../fsset.py:1505
 msgid ""
@@ -676,6 +706,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"আপগ্রেডেের সময় পার্টিশন বাদ দেওয়ার জন্য Skip (বাদ দিন) পছন্দ করুন। ফরম্যাট পছন্দ "
+"করুন পার্টিশন সোয়াপ হিসাবে পুনরায় ফরম্যাট করার জন্য। সিস্টেম রিস্টার্ট করার জন্য রিবুট "
+"পছন্দ করুন।"
 
 #: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
@@ -795,9 +830,8 @@ msgstr ""
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
 #: ../fsset.py:1733
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "ফাইল পড়তে অক্ষম"
+msgstr "ফাইলসিস্টেম মাউন্ট করতে অক্ষম"
 
 #: ../fsset.py:1734
 #, python-format
@@ -805,6 +839,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"%s ডিভাইসকে %s হিসাবে মাউন্ট করতে সমস্যা দেখা দিয়েছে। আপনি ইনস্টলেশন চালিয়ে "
+"যেতে পারেন, কিন্তু সমস্যা রয়ে যাবে।"
 
 #: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
 #: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
@@ -840,10 +876,9 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে 'ঠিক আছে' চাপুন।"
 
-# FIXME: এটা Verb কিনা বোঝা যাচ্ছে না ;-(
 #: ../fsset.py:2462
 msgid "Duplicate Labels"
-msgstr "অনুরূপ লেবেল"
+msgstr "ডুপ্লিকেট লেবেল"
 
 #: ../fsset.py:2463
 #, python-format
@@ -1013,7 +1048,7 @@ msgid "Install Window"
 msgstr "ইনস্টল উইন্ডো"
 
 #: ../harddrive.py:44 ../image.py:144 ../image.py:474
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1023,16 +1058,17 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"প্যাকেজ %s-%s-%s.%s-কে খোলা যাচ্ছে না।  সম্ভবত প্যাকেজের কোন একটি ফাইল পাওয়া "
-"যাচ্ছে না অথবা প্যাকেজ ফাইলটি ত্রুটিপূর্ণ।  যদি এমন হয় যে আপনি সিডি থেকে ইনস্টল "
-"করছেন, তবে এর অর্থ হল সিডিটি ত্রুটিপূর্ণ অথবা সিডি ড্রাইভটি সিডি থেকে পড়তে পারছে "
-"না।\n"
+"%s ফাইলটি খোলা যাচ্ছে না।  সম্ভবত প্যাকেজের কোন একটি ফাইল পাওয়া যাচ্ছে না অথবা "
+"প্যাকেজটি ত্রুটিপূর্ণ।  দয়া করে আপনার ইনস্টলেশন ইমেজ এবং সকল প্রয়োজনীয় মাধ্যম পরীক্ষা "
+"করুন।\n"
 "\n"
-"পুনরায় চেষ্টা করার জন্য 'পুনঃপ্রচেষ্টা' চাপুন।"
+"আপনি যদি রিবুট করেন, তাহলে আপনার সিস্টেম একটি কিংকর্তব্যবিমূড় অবস্থায় এসে পড়বে, "
+"যার জন্য পুনরায় ইনস্টলেশন প্রয়োজন হবে।\n"
+"\n"
 
 #: ../harddrive.py:71 ../image.py:507
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO ৯৬৬০ ইমেজ পাওয়া যাচ্ছে না"
 
 #: ../harddrive.py:72
 #, python-format
@@ -1043,16 +1079,19 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"The installer has tried to mount image #%s, but cannot find it on the hard "
+"drive.\n"
+"\n"
+"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"the installation."
 
 #: ../harddrive.py:81 ../image.py:518
-#, fuzzy
 msgid "Re_try"
-msgstr "পুনঃপ্রচেষ্টা"
+msgstr "পুনঃপ্রচেষ্টা (_t)"
 
-# FIXME: ভাল শোনাচ্ছে না ;-(
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr "ইনস্টলেশনের জন্য প্রয়োজনীয় মিডিয়া"
+msgstr "প্রয়োজনীয় ইনস্টল মিডিয়া"
 
 #: ../image.py:83
 #, python-format
@@ -1123,7 +1162,7 @@ msgid "Unable to access the CDROM."
 msgstr "সিডিরমটি ব্যবহার করা যাচ্ছে না।"
 
 #: ../image.py:360
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1133,12 +1172,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"প্যাকেজ %s-%s-%s.%s-কে খোলা যাচ্ছে না।  সম্ভবত প্যাকেজের কোন একটি ফাইল পাওয়া "
-"যাচ্ছে না অথবা প্যাকেজ ফাইলটি ত্রুটিপূর্ণ।  যদি এমন হয় যে আপনি সিডি থেকে ইনস্টল "
-"করছেন, তবে এর অর্থ হল সিডিটি ত্রুটিপূর্ণ অথবা সিডি ড্রাইভটি সিডি থেকে পড়তে পারছে "
-"না।\n"
+"%s ফাইলটি খোলা যাচ্ছে না।  সম্ভবত কোন একটি ফাইল পাওয়া যাচ্ছে না অথবা প্যাকেজটি "
+"ত্রুটিপূর্ণ।  পরীক্ষা করুন আপনার ইনস্টলেশন ট্রীতে সকল প্রয়োজনীয় প্যাকেজ রয়েছে।\n"
 "\n"
-"পুনরায় চেষ্টা করার জন্য 'পুনঃপ্রচেষ্টা' চাপুন।"
+"যদি আপনি রিবুট করেন, তাহলে সিস্টেম একটি কিংকর্তব্যবিমূড অবস্থায় থেকে যাবে, যার জন্য "
+"পুনরায় ইনস্টল করার প্রয়োজন পরবে।\n"
+"\n"
 
 #: ../image.py:508
 #, python-format
@@ -1149,15 +1188,18 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"ইনস্টলার ইমেজ #%s মাউন্ট করার চেষ্টা করেছে, কিন্তু সার্ভারে এটা পাওয়া যায়নি।\n"
+"\n"
+"দয়া করে ইমেজটি রিমেোট সার্ভারের শেয়ার পাথে কপি করুন এবং পুনরায় চেষ্টা বাটন ক্লিক "
+"করুন। রিবুট বাটন ক্লিক করুন ইন্সটলেশন বাতিল করুন।"
 
 #: ../installclass.py:64
 msgid "Install on System"
 msgstr "সিস্টেমের ওপর ইনস্টল করো"
 
 #: ../iscsi.py:126 ../iscsi.py:127
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "পুনঃর্বিন্যাস করা হচ্ছে"
+msgstr "iSCSI ইনিসিয়েটর ইনিসিয়ালাইজ হচ্ছে"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1190,9 +1232,8 @@ msgid "Running post-install scripts"
 msgstr "ইনস্টলেশন‌-পরবর্তী স্ক্রিপ্ট চালানো হচ্ছে"
 
 #: ../kickstart.py:926
-#, fuzzy
 msgid "Missing Package"
-msgstr "প্যাকেজ ইনস্টল করা হচ্ছে"
+msgstr "হারানো প্যাকেজ"
 
 #: ../kickstart.py:927
 #, python-format
@@ -1200,17 +1241,17 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"আপনি সিদ্ধান্ত নিয়েছেন যে '%s' প্যাকেজটি ইনস্টল করা হবে। এই প্যাকেজটির অস্তিত্ব "
+"নেই। আপনি কি চালিয়ে যেতে চান, নাকি ইনস্টলেশন বাতিল করতে চান?"
 
 #: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
 #: ../yuminstall.py:718
-#, fuzzy
 msgid "_Abort"
-msgstr "রিবুট (_R)"
+msgstr "রিবুট (_A)"
 
 #: ../kickstart.py:961
-#, fuzzy
 msgid "Missing Group"
-msgstr "কিছু তথ্যের এখনো অভাব"
+msgstr "হারানো দল"
 
 #: ../kickstart.py:962
 #, python-format
@@ -1218,6 +1259,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"আপনি সিদ্ধান্ত নিয়েছেন যে '%s' গ্রুপটি ইনস্টল করা হবে। এই গ্রুপটির অস্তিত্ব নেই। আপনি "
+"কি চালিয়ে যেতে চান, নাকি ইনস্টলেশন বাতিল করতে চান?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1235,37 +1278,34 @@ msgstr ""
 "শুধুমাত্র 'a-z', 'A-Z', '-' বা '.' অক্ষরগুলো দিয়ে হোস্টনাম (Hostname) লেখা যাবে"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "আই.পি. (IP) ঠিকানা (Address) পাওয়া যাচ্ছে না"
+msgstr "আইপি এড্রেস পাওয়া যাচ্ছে না"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"আই.পি. (IP) ঠিকানা (Address) যেসব নম্বরের সমন্বয়ে গঠিত হবে তা অবশ্যই ০ থেকে ২৫৫ "
-"এর মধ্যে হতে হবে"
+"আইপি এড্রেস চারটি সংখ্যা বিন্দু দ্বারা পৃথক অবস্থায় থাকবে এবং সংখ্যাগুলোর অংক অবশ্যই ০ "
+"থেকে ২৫৫ এর মধ্যে হতে হবে।"
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s নামটি hostname হিসেবে অবৈধ"
+msgstr "'%s' একটি বৈধ IPv6 এড্রেস নয়।"
 
 #: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "আপনার %s সংষ্করণের জন্য রেজিস্ট্রেশন কি প্রবেশ করান।"
 
 #: ../packages.py:245
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "এনক্রিপ্টশন কী (Key)"
+msgstr "রেজিস্ট্রেশন কি প্রবেশ করান"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr ""
+msgstr "চাবী:"
 
 # FIXME
 #: ../packages.py:276
@@ -1786,7 +1826,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "আপনার বুট পার্টিশন, প্রথম চারটি পার্টিশনের একটি নয় আর তাই বুট হবে না।"
 
 #: ../partitions.py:847
 msgid ""
@@ -1816,12 +1856,14 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"একটু ইউএসবি ডিভাইসে ইনস্টল করা হচ্ছে। এটা কাজ করতে পারে আবার নাও করতে পারে।"
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"একটু ফায়ারওয়্যার ডিভাইসে ইনস্টল করা হচ্ছে। এটা কাজ করতে পারে আবার নাও করতে পারে।"
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1953,7 +1995,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "ভলিউম গ্রুপের ফিজিক্যাল এক্সটেন্ট আকার হতে লজিক্যাল ভলিউমের আকার বড় হতে হবে।"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2292,7 +2334,7 @@ msgid "Connecting..."
 msgstr "সংযোগ স্থাপন করা হচ্ছে..."
 
 #: ../urlinstall.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2302,12 +2344,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"প্যাকেজ %s-%s-%s.%s-কে খোলা যাচ্ছে না।  সম্ভবত প্যাকেজের কোন একটি ফাইল পাওয়া "
-"যাচ্ছে না অথবা প্যাকেজ ফাইলটি ত্রুটিপূর্ণ।  যদি এমন হয় যে আপনি সিডি থেকে ইনস্টল "
-"করছেন, তবে এর অর্থ হল সিডিটি ত্রুটিপূর্ণ অথবা সিডি ড্রাইভটি সিডি থেকে পড়তে পারছে "
-"না।\n"
+"%s ফাইলটি খোলা যাচ্ছে না।  সম্ভবত কোন একটি ফাইল পাওয়া যাচ্ছে না অথবা প্যাকেজটি "
+"ত্রুটিপূর্ণ। দয়া করে নিশ্চিত করুন আপনার মিরর সকল প্রয়োজনীয় প্যাকেজ সরবরাহ করছে কিনা, "
+"দরকার হলে ভিন্ন একটি ব্যবহার করুন।\n"
 "\n"
-"পুনরায় চেষ্টা করার জন্য 'পুনঃপ্রচেষ্টা' চাপুন।"
+"আপনি যদি রিবুট করেন, তাহলে আপনার সিস্টেম একটি কিংকর্তব্যবিমূড় অবস্থায় রয়ে যাবে, "
+"যার জন্য পুনরায় ইনস্টলেশনের প্রয়োজন হবে।\n"
+"\n"
 
 #: ../vnc.py:44
 msgid "Unable to Start X"
@@ -2375,9 +2418,8 @@ msgid "The password must be at least six characters long."
 msgstr "পাসওয়ার্ড অবশ্যই অন্তত ৬ অক্ষর দীর্ঘ হতে হবে।"
 
 #: ../vnc.py:138
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "পাসওয়ার্ডবিহীন"
+msgstr "VNC পাসওয়ার্ড ত্রুটি"
 
 #: ../vnc.py:139
 msgid ""
@@ -2385,6 +2427,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"আপনাকে কমপক্ষে ৬ অক্ষর দীর্ঘ একটি ভিএনসি পাসওয়ার্ড নির্ধারণ করতে হবে।\n"
+"\n"
+"সিস্টেম রিবুট করার জন্য <return> বোতাম চাপুন।\n"
 
 #: ../vnc.py:184
 msgid "Starting VNC..."
@@ -2474,66 +2519,58 @@ msgid "Processing"
 msgstr "প্রক্রিয়াধীন আছে"
 
 #: ../yuminstall.py:104
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "ইনস্টল করার জন্য প্রস্তুতি নেওয়া হচ্ছে..."
+msgstr "ইনস্টলেশন সোর্স হতে ট্রানজেকশন প্রস্তুতি নেওয়া হচ্ছে..."
 
 #: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
-msgstr ""
+msgstr "ফাইল কনফ্লিক্ট"
 
 #: ../yuminstall.py:472
-#, fuzzy
 msgid "older package(s)"
-msgstr "ঐচ্ছিক প্যাকেজ (_O)"
+msgstr "পুরাতন প্যাকেজ (_s)"
 
 #: ../yuminstall.py:473
 msgid "insufficient disk space"
-msgstr ""
+msgstr "ডিস্কের ফাঁকা স্থান যথেষ্ট নয়"
 
 #: ../yuminstall.py:474
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "ডিস্কের আইনোড যথেষ্ট নয়"
 
-# FIXME
 #: ../yuminstall.py:475
-#, fuzzy
 msgid "package conflicts"
-msgstr "প্যাকেজ ডিফল্ট"
+msgstr "প্যাকেজ কনফ্লিক্ট"
 
 #: ../yuminstall.py:476
 msgid "package already installed"
-msgstr ""
+msgstr "প্যাকেজ ইতোমধ্যে ইনস্টল করা হয়েছে"
 
 #: ../yuminstall.py:477
-#, fuzzy
 msgid "required package"
-msgstr "ফাঁকা স্থান"
+msgstr "প্রয়োজনীয় স্থান"
 
 #: ../yuminstall.py:478
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "ভুল আর্চের প্যাকেজ"
 
 #: ../yuminstall.py:479
 msgid "package for incorrect os"
-msgstr ""
+msgstr "বেঠিক ওএস এর জন্য প্যাকেজ"
 
 #: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "নিম্নোক্ত ফাইল সিস্টেমে আপনার আরও ফাঁকা স্থান প্রয়োজন:\n"
 
 #: ../yuminstall.py:509
 msgid "Error running transaction"
 msgstr "লেনদেন প্রক্রিয়ায় (transaction) সমস্যা হয়েছে"
 
 #: ../yuminstall.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"নিম্নোক্ত কারণে উল্লিখিত হোস্টনাম (Hostname) \"%s\" সঠিক নয়:\n"
-"\n"
-"%s"
+msgstr "ট্রানজেকশ চালাতে সমস্যা হয়েছে, কারণ হচ্ছে: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
@@ -2544,9 +2581,9 @@ msgid "Retrieving installation information..."
 msgstr "ইনস্টলেশন সংক্রান্ত তথ্য পড়া হচ্ছে..."
 
 #: ../yuminstall.py:699
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "ইনস্টলেশন সংক্রান্ত তথ্য পড়া হচ্ছে..."
+msgstr "%s জন্য ইনস্টলেশন সংক্রান্ত তথ্য পড়া হচ্ছে..."
 
 #: ../yuminstall.py:721
 #, python-format
@@ -2568,6 +2605,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"আপনার নির্বাচিত প্যাকেজ ইনস্টলের জন্য %d MB ফাঁকা স্থান প্রয়োজন, কিন্তু আপনার যথেষ্ট "
+"ফাঁকা স্থান নেই। আপনি আপনার নির্বাচন পরিবর্তন করতে পারেন অথবা রিবুট করতে পারেন।"
 
 #: ../yuminstall.py:1149
 #, python-format
@@ -2587,14 +2626,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "ইনস্টলেশন প্রক্রিয়া আরম্ভ হতে যাচ্ছে।  এজন্য কয়েক মিনিট সময় লাগতে পারে..."
 
 #: ../yuminstall.py:1198
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "আপগ্রেড"
+msgstr "পোস্ট আপগ্রেড"
 
 #: ../yuminstall.py:1199
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "ইনস্টলেশন পরবর্তী কনফিগারেশন করা হচ্ছে..."
+msgstr "আপগ্রেডের পরবর্তী কনফিগারেশন করা হচ্ছে..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
@@ -2722,35 +2759,32 @@ msgid "_Confirm: "
 msgstr "পাসওয়ার্ড নিশ্চিত করুন (_C): "
 
 #: ../iw/autopart_type.py:134
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "ভলিউম গ্রুপের নাম ভুল"
+msgstr "অবৈধ ইনিসিয়েটর নাম"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "আপনাকে অবশ্যই নিম্নতম দৈর্ঘ্যের একটি ইনিসিয়েটর নাম প্রদান করতে হবে।"
 
 #: ../iw/autopart_type.py:157
-#, fuzzy
 msgid "Error with Data"
-msgstr "সমস্যাযুক্ত তথ্য"
+msgstr "ডাটার সাথে সমস্যা"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "সিস্টেমের সকল পার্টিশন মুছে ফেলো"
+msgstr "নির্বাচিত ড্রাইভের সকল পার্টিশন অপসারন করো এবং ডিফল্ট লেআউট তৈরী করো"
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "নির্বাচিত ড্রাইভের লিনাক্স পার্টিশন অপসারণ করো এবং ডিফল্ট লেআউট তৈরী করো"
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "নির্বাচিত ড্রাইভে ফাঁকা স্থান ব্যবহার করে ডিফল্ট লেআউট তৈরী করো।"
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
-msgstr ""
+msgstr "কাস্টম লেআউট তৈরী করো"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3223,15 +3257,15 @@ msgstr ""
 "নাম বেছে নিন।"
 
 #: ../iw/lvm_dialog_gui.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "এখন যে আকার (%10.2f মেগাবাইট) ব্যবহার করতে চাওয়া হচ্ছে তা লজিকাল ভলিউমের "
-"সর্বোচ্চ আকার (%10.2f মেগাবাইট) অপেক্ষা বড়।  সর্বোচ্চ আকার বৃদ্ধি করতে চাইলে এই "
-"ভলিউম গ্রুপের আকার বৃদ্ধি করতে পারেন।"
+"সর্বোচ্চ আকার (%10.2f মেগাবাইট) অপেক্ষা বড়।  এই ভলিউম গ্রুপের আকার বৃদ্ধি করতে আপনি "
+"পার্টিশন করা নয়া এমন স্থান থেকে আরও ফিজিক্যাল ভলিউম তৈরী করতে পারেন।"
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3520,18 +3554,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "আই.পি. (IP) সম্পর্কে আপনার প্রদত্ত তথ্য সঠিক নয়।"
 
 #: ../iw/network_gui.py:188
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"আপনার সিস্টেমে কোন সক্রিয় নেটওয়ার্ক ডিভাইস নেই। স্বাভাবিক অবস্থায় অন্তত একটি সক্রিয় "
-"নেটওয়ার্ক ডিভাইস ব্যতীত আপনার সিস্টেমটি নেটওয়ার্ক ব্যবহার করে কোন যোগাযোগ কাজ "
-"চালাতে পারবে না।\n"
-"\n"
-"লক্ষণীয়: যদি আপনার সিস্টেমে কোন পি.সি.এম.সি.আই.এ. (PCMCIA) ভিত্তিক নেটওয়ার্ক "
-"অ্যাডাপ্টার থাকে তবে সেটিকে এখন নিষ্ক্রিয় রাখুন। যখন সিস্টেম রিবুট করা হবে, তখন "
-"অ্যাডাপ্টারটি নিজ থেকেই সক্রিয় হবে।"
+"আপনার সিস্টেমে কোন সক্রিয় নেটওয়ার্ক ডিভাইস নেই। স্বাভাবিক অবস্থায় আপনার সিস্টেমটি "
+"নেটওয়ার্ক ব্যবহার করে কোন যোগাযোগ কাজ চালাতে পারবে না।"
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3546,15 +3574,15 @@ msgstr "হার্ডওয়্যারের ঠিকানা: %s"
 #: ../iw/network_gui.py:281
 #, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "ডাইনামিক আই. পি. কনফিগারেশন ব্যবহার কর (BOOTP/DHCP)"
+msgstr "ডাইনামিক আইপি কনফিগারেশন ব্যবহার করো (DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4 সমর্থন সক্রিয় করুন"
 
 #: ../iw/network_gui.py:291 ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6 সমর্থন সক্রিয় করুন"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
@@ -3563,12 +3591,12 @@ msgstr "বুট হওয়ার সময় সক্রিয় করো (_A)"
 #: ../iw/network_gui.py:326
 #, fuzzy
 msgid "IPv_4 Address:"
-msgstr "আই.পি. (IP) ঠিকানা:"
+msgstr "IPv4 এড্রেস:"
 
 #: ../iw/network_gui.py:348
 #, fuzzy
 msgid "IPv_6 Address:"
-msgstr "আই.পি. (IP) ঠিকানা:"
+msgstr "IPv6 এড্রেস:"
 
 #: ../iw/network_gui.py:371
 #, fuzzy
@@ -4343,7 +4371,7 @@ msgid "Unable to load file!"
 msgstr "ফাইল পড়তে অক্ষম"
 
 #: ../iw/task_gui.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4352,7 +4380,10 @@ msgid ""
 "%s"
 msgstr ""
 "প্যাকেজ মেটাডাটা পড়া যাচ্ছে না।  repodata ডিরেক্টরিটি না পাওয়া যাওয়াতে এমনটা "
-"হতে পারে।  অনুগ্রহপূর্বক নিশ্চিত হন যে, ইনস্টল ট্রি সঠিকভাবে তৈরি করা হয়েছে।  %s"
+"হতে পারে।  অনুগ্রহপূর্বক নিশ্চিত হন যে, আপনার ভান্ডার (repository) সঠিকভাবে প্রস্তুত "
+"হয়েছে।\n"
+"\n"
+"%s"
 
 #: ../iw/task_gui.py:89
 #, python-format
@@ -4362,23 +4393,20 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:121
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "অবৈধ হোস্টনাম"
+msgstr "অবৈধ ভান্ডার নাম"
 
 #: ../iw/task_gui.py:122
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "আপনাকে এখানে একটি সার্ভারের নাম দিতেই হবে।"
+msgstr "আপনাকে অবশ্যই নিম্নতম দৈর্ঘ্যের ভান্ডার নাম প্রদান করতে হবে।"
 
 #: ../iw/task_gui.py:131
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "অবৈধ বুট লেবেল"
+msgstr "অবৈধ ভান্ডার ইউআরএল"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "ভান্ডারে আপনাকে অবশ্যই একটি এইচটিটিপি বা এফটিপি ইউআরএল প্রদান করতে হবে।"
 
 #: ../iw/task_gui.py:146
 #, fuzzy, python-format
@@ -4718,12 +4746,9 @@ msgstr ""
 "আপনি কোন পার্টিশন থেকে বুট করতে চান এবং এজন্য কি লেবেল ব্যবহার করতে চান তা জানান।"
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> বাটন বেছে নেয় | <F2> ডিফল্ট বুট এন্ট্রি বেছে নেয় | <F12> পরবর্তী পৃষ্ঠা "
-"প্রদর্শন করে>"
+msgstr " <Space> নির্বাচন | <F2> ডিফল্ট নির্বাচ | <F4> মুছো | <F12> পরবর্তী পৃষ্ঠা>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4857,7 +4882,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "অনুগ্রহ করে আপনি যে প্যাকেজ গ্রুপ ইনস্টল করতে চান, তা নির্বাচন করুন।"
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -5280,14 +5305,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "এই ইনস্টলেশন প্রক্রিয়ায় আপনি কোন ড্রাইভ (বা ড্রাইভসমূহ) ব্যবহার করতে চান?"
 
 #: ../textw/partition_text.py:1604
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "পার্টিশন পরিকল্পনা পরীক্ষণ ও পরিবর্তন (_v)"
+msgstr "পার্টিশন পরিকল্পনা পরীক্ষণ ও পরিবর্তন"
 
 #: ../textw/partition_text.py:1605
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "পার্টিশন পরিকল্পনা পরীক্ষণ ও পরিবর্তন (_v)"
+msgstr "পার্টিশন পরিকল্পনা পরীক্ষা ও পরিবর্তন করতে চান?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5343,17 +5366,17 @@ msgid "Remaining:  "
 msgstr "অবশিষ্ট:  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "প্যাকেজ গ্রুপ নির্বাচন"
+msgstr "প্যাকেজ নির্বাচন"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, no-c-format, python-format
+#, fuzzy, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
+"সাধারণ ইন্টারনেট ব্যবহারের জন্য %s এর ডিফল্ট ইনস্টলেশন একগুচ্ছ সফটওয়ার এ রয়েছে।"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5520,25 +5543,25 @@ msgid "_Fedora"
 msgstr "ফিডোরা (_F)"
 
 #: ../installclasses/fedora.py:13
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
+"সাধারণ ইন্টারনেট ব্যবহারের জন্য %s এর ডিফল্ট ইনস্টলেশন একগুচ্ছ সফটওয়ার এ রয়েছে।"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
-msgstr ""
+msgstr "ওফিস ও প্রোডাক্টিভিটি"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
-msgstr ""
+msgstr "সফটওয়ার ডেভেলপমেন্ট"
 
 #: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
-#, fuzzy
 msgid "Web server"
-msgstr "নেম সার্ভার"
+msgstr "ওয়েব সার্ভার"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5572,13 +5595,12 @@ msgstr ""
 "\tখেলা\n"
 
 #: ../installclasses/rhel.py:15
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "রেড হ্যাট এন্টারপ্রাইজ লিনাক্স WS"
+msgstr "রেড হ্যাট এন্টারপ্রাইজ লিনাক্স"
 
 # **************************************************************************************************
 # পরবর্তী অধিকাংশ পঙ্‌ক্তির অনুবাদক - মহামান্য দীপায়ন সরকার
-# আমি, মানে প্রজ্ঞা, এখানে যা করছি তা হইল - 
+# আমি, মানে প্রজ্ঞা, এখানে যা করছি তা হইল -
 #    ১) কিছু পঙ্‌ক্তির শেষ ':' ও '।'  বসানো
 #    ২) বানান ঠিকঠাক  করা
 #    ৩) শেষের দিকে কিছু সময় অঞ্চলের নামের ব্যাপারে নতুন পংক্তি Suggest করা
@@ -6247,10 +6269,13 @@ msgstr ""
 "(Architecture) নির্ভর %s রয়েছে\n"
 
 #: ../loader2/net.c:98
+#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"CIDR মাস্ক মান অবশ্যই IPv4 নেটওয়ার্কের জন্য ১ থেকে ৩২ মধ্যে অথবা IPv6 নেটওয়ার্কের "
+"জন্য ১ থেকে ১২৮ এর মধ্যে হতে হবে"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6292,29 +6317,24 @@ msgid "You entered an invalid IP address."
 msgstr "আপনার দেওয়া আই. পি. address অবৈধ"
 
 #: ../loader2/net.c:541 ../loader2/net.c:647
-#, fuzzy
 msgid "Network Error"
-msgstr "পাসওয়ার্ডবিহীন"
+msgstr "নেেটওয়ার্ক সমস্যা"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"গন্তব্য ড্রাইভকে ফাঁকা করার সময় সমস্যা হয়েছে।  প্রতিরূপ (Clone) তৈরির প্রচেষ্টা ব্যর্থ "
-"হয়েছে।"
+msgstr "নেটওয়ার্ক ইন্টারফেস কনফিগার করার সময় একটি ত্রুটি হয়েছে।"
 
 #: ../loader2/net.c:684
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "ডাইনামিক আই. পি. কনফিগারেশন ব্যবহার কর (BOOTP/DHCP)"
+msgstr "ডাইনামিক আইপি কনফিগারেশন ব্যবহার করো (DHCP)"
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "অযাচিত প্যাকেট সংঘর্ষ এড়িয়ে যাও"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "হাইস্পীড নেটওয়ার্ক ট্রাফিকের জন্য রেজিষ্টার মান বৃদ্ধি করে"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -6329,58 +6349,55 @@ msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "কিছু তথ্যের এখনো অভাব"
+msgstr "হারানো প্রোটকোল"
 
 #: ../loader2/net.c:772
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"ম্যানুয়াল কনফিগারেশনের জন্য আপনাকে অবশ্যই যেকোেন একটি প্রোটকোল (IPv4 বা IPv6) "
+"নির্বাচন করতে হবে।"
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "DHCP এর জন্য আপনাকে অন্তত একটি প্রোটকোল (IPv4 or IPv6) নির্বাচন করতে হবে।"
 
 #: ../loader2/net.c:852
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "আই.পি. (IP) ঠিকানা:"
+msgstr "IPv4 এড্রেস:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:904
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "আই.পি. (IP) ঠিকানা:"
+msgstr "IPv6 এড্রেস:"
 
 #: ../loader2/net.c:965
-#, fuzzy
 msgid "Name Server:"
-msgstr "নেম সার্ভার"
+msgstr "নেম সার্ভার:"
 
 #: ../loader2/net.c:1008
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "জেড/আই.পি.এল. (z/IPL) কনফিগারেশন"
+msgstr "ম্যানুয়েল টিসিপি/আইপি কনফিগারেশন"
 
 #: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
 msgstr "কিছু তথ্যের এখনো অভাব"
 
 #: ../loader2/net.c:1132
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "আপনাকে একটি বৈধ আই. পি. অ্যাডরেস এবং একটি নেট মাস্ক, দুই দিতে হবে"
+msgstr ""
+"আপনাকে অবশ্যই একটি বৈধ IPv4 আইপি এড্রেস এবং একটি CDIR প্রিফিক্স উভয়ই দিতে হবে"
 
 #: ../loader2/net.c:1138
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "আপনাকে একটি বৈধ আই. পি. অ্যাডরেস এবং একটি নেট মাস্ক, দুই দিতে হবে"
+msgstr "আপনাকে অবশ্যই একটি বৈধ IPv6 আইপি এড্রেস এবং CIDR প্রিফিক্স দিতে হবে।"
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6418,7 +6435,7 @@ msgstr "%s ডিরেক্টরি:"
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
-msgstr ""
+msgstr "এনএফএস"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6496,11 +6513,11 @@ msgstr "আনছি"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
-msgstr ""
+msgstr "এফটিপি"
 
 #: ../loader2/urls.c:284
 msgid "Web"
-msgstr ""
+msgstr "ওয়েব"
 
 #: ../loader2/urls.c:301
 msgid "FTP site name:"
@@ -6572,39 +6589,36 @@ msgid "Loading SCSI driver"
 msgstr "SCSI ড্রাইভার লোড করছি"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "এফ.সি.পি. LUN"
+msgstr "ZFCP LUN যোগ করো (_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI টার্গেট যোগ করো"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "আকার সংক্রান্ত অতিরিক্ত অপশন"
+msgstr "অগ্রসর স্টোরেজ অপশন"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid ডিভাসইস নিস্ক্রিয় করো"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "এই পার্টিশনের ফাইল সিস্টেমকে আপনি কিভাবে প্রস্তুত করতে চান?"
+msgstr "আপনি কিভাবে আপনার ড্রাইভ কনফিগারেশন পরিবর্তন করতে চান?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>ভান্ডার _ইউআরএল:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>ভান্ডার _নাম:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "ভান্ডার যোগ করুন"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6612,10 +6626,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"আপনার অতিরিক্ত সফটওয়ার কোথা হতে ইনস্টল হবে, অনুগ্রহ করে তার অবস্থান প্রদান করুন। "
+"লক্ষ্য রাখুন এটি %s এর জন্য অবশ্যই একটি বৈধ ভান্ডার হতে হবে।"
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_ভান্ডার যোগ করুন"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6648,9 +6664,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "পার্টিশন পরিকল্পনা পরীক্ষণ ও পরিবর্তন (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "অগ্রসর বুট লোডার কনফিগারেশন"
+msgstr "অগ্রসর সংরক্ষন কনফিগারেশন (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6665,84 +6680,80 @@ msgid "_Exception details"
 msgstr "Exception সম্পর্কিত  বিস্তারিত বিবরণ (_E)"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "পাসওয়ার্ড (_P):"
+msgstr "<b>পাসওয়ার্ড (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_টার্গেট আইপি এড্রেস:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "ব্যবহারকারীর নাম"
+msgstr "<b>ব্যবহারকারীর নাম (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI ইনিসিয়েটর নাম (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev পরামিতি (Parameter)"
+msgstr "iSCSI প্যারামিটার কনফিগার করো"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"iSCSI ডিস্ক ব্যবহার করার জন্য, আপনাকে অবশ্যই প্রদান করতে হবে আপনার iSCSI টার্গেট  "
+"এবং iSCSI ইনিসিয়েটর নাম যেটা আপনি আপনার হোস্টের জন্য কনফিগার করেছেন।"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "গেটওয়ে"
+msgstr "<b>গেটওয়ে:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "আইপি (IP) ঠিকানা"
+msgstr "<b>IPv4 এড্রেস:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "আইপি (IP) ঠিকানা"
+msgstr "<b>IPv6 এড্রেস:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "নেম সার্ভার"
+msgstr "<b>নেমসার্ভার:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>ইন্টারফেস (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4 সমর্থন সক্রিয় করো"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6 সমর্থন সক্রিয় করো"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "নেটওয়ার্ক ইন্টারফেস সক্রিয় করো"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"এর জন্য ইনস্টলেশন চলাকালীন একটি সক্রিয় নেটওয়ার্ক কানেকশন প্রয়োজন। অনুগ্রহ করে একটি "
+"নেটওয়ার্ক ইন্টারফেস কনফিগার করুন।"
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ডাইনামিক আই. পি. কনফিগারেশন ব্যবহার কর (BOOTP/DHCP)"
+msgstr "ডাইনামিক আইপি কনফিগারেশন ব্যবহার করো (DHCP) (_d)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "পরে কাস্টমাইজ করা হবে (_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6751,19 +6762,21 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
+#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
+"সফটওয়্যার নির্বাচনের আরও পছন্দ এখন করা যাবে অথবা ইনস্টল হবার পর সফটওয়ার ব্যবস্থাপক "
+"অ্যাপলিকেশনের সাহায্যে।"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "অতিরিক্ত সফটওয্যার ভান্ডার যোগ করো (_A)"
 
 #: tmp/tasksel.glade.h:7
-#, fuzzy
 msgid "_Customize now"
-msgstr "স্বনির্বাচিত (_C)"
+msgstr "স্বনির্বাচন করো এখনই (_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6819,17 +6832,15 @@ msgid "Atlantic Time - Labrador - most locations"
 msgstr "ইস্টার্ন টাইম - ওন্টারিও - অধিকাংশ স্থান"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "অতলান্তিক সময় - পূর্ব লাব্রাডর"
+msgstr "আটলান্টিক টাইম - নতুন ব্রান্সউইক"
 
-# msgstr "আটলান্টিক সময় -- নোভা স্কোশিয়া (বেশির ভাগ), এন বি, পশ্চিম লাব্রাডর, পূর্ব কুয়েবেক এপং পি. ই. আই." -- প্রজ্ঞা
 #. generated from zone.tab
 #, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
 msgstr ""
-"অতলান্তিক সময় -- নোভা স্কোশিয়া (বেশির ভাগ), এন বি, পশ্চিম লাব্রাডর, পূর্ব কুয়েবেক "
-"এপং পি. ই. আই."
+"আটলান্টিক টাইম -- নোভা স্কোটিয়া (বেশির ভাগ স্থান), পশ্চিম লাব্রাডর, পূর্ব কুইবেক এপং "
+"পি. ই. আই."
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6905,29 +6916,28 @@ msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
+"সেন্ট্রাল টাইম - ইন্ডিয়ানা - ডাভিয়েস, দুবোয়িস, নক্স, মার্টিন, পেরী এবং পুলাস্কি "
+"কাউন্টি"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "ইস্টার্ন স্ট্যান্ডার্ড টাইম - ইন্ডিয়ানা - স্টার্ক কাউন্টি"
+msgstr "সেন্ট্রাল টাইম - ইন্ডিয়ানা - পাইক কাউন্টি"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "মধ্য সময় - মনিটোবা ও পশ্চিম অন্টারিও"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "মধ্য সময় - মিশিগান - উইস্কোনসিন সীমান্ত"
+msgstr "সেন্ট্রাল টাইম - মিশিগান - ডিকিনসন, গোগেবিক,আয়রন এবং মেনোমিনী কাউন্টিসমূহ"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "মধ্য সময় - অধিকাংশ স্থান"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "মধ্য সময় - উত্তর ডাকোটা - অলিভার কাউন্টি"
+msgstr "সেন্ট্রাল টাইম - উত্তর ডাকোটা - মর্টন কাউন্টি (ম্যান্ডান এলাকা ছাড়া)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6999,24 +7009,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "ইস্টার্ন টাইম - পূর্ব নুনাভুট"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "ইস্টার্ন স্ট্যান্ডার্ড টাইম - ইন্ডিয়ানা - ক্রফোর্ড কাউন্টি"
+msgstr "ইস্টার্ন টাইম - ইন্ডিয়ানা - ক্রফোর্ড কাউন্টি"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "ইস্টার্ন স্ট্যান্ডার্ড টাইম - ইন্ডিয়ানা - বেশির ভাগ"
+msgstr "ইস্টার্ন টাইম - ইন্ডিয়ানা - বেশির ভাগ অবস্থান"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "ইস্টার্ন স্ট্যান্ডার্ড টাইম - ইন্ডিয়ানা - স্টার্ক কাউন্টি"
+msgstr "ইস্টার্ন টাইম - ইন্ডিয়ানা - স্টার্ক কাউন্টি"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "ইস্টার্ন স্ট্যান্ডার্ড টাইম - ইন্ডিয়ানা - সুইৎ‍জারল্যান্ড কাউন্টি"
+msgstr "ইস্টার্ন টাইম - ইন্ডিয়ানা - সুইৎ‍জারল্যান্ড কাউন্টি"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7486,7 +7492,7 @@ msgstr "বাংলা"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr "বাংলা(ভারত)"
+msgstr "বাংলা (ভারতীয়)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -7541,9 +7547,8 @@ msgid "German"
 msgstr "জর্মন"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "ফাঁকা"
+msgstr "গ্রিক"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7576,7 +7581,7 @@ msgstr "জাপানি"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "কান্নাড়া"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7592,14 +7597,12 @@ msgid "Malay"
 msgstr "মালয়"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "মালয়"
+msgstr "মালায়লম"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "গুজরাটি"
+msgstr "মারাঠি"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7612,7 +7615,7 @@ msgstr "উত্তর সোথো"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "উড়ীয়"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7645,9 +7648,8 @@ msgid "Serbian"
 msgstr "সার্বিয়"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "সার্বিয়"
+msgstr "সার্বিয়(লাতিন)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7687,13 +7689,10 @@ msgstr "ইউক্রেইনিয়"
 msgid "Vietnamese"
 msgstr "ভিয়েতনামি"
 
-#  generated from lang-table
 #. generated from lang-table
 msgid "Welsh"
 msgstr "ওয়েলস"
 
-#  generated from lang-table
-#  generated from lang-table
 #. generated from lang-table
 msgid "Zulu"
 msgstr "জুলু"
@@ -7719,15 +7718,33 @@ msgstr "জুলু"
 #~ msgid "Hardware address:"
 #~ msgstr "হার্ডওয়্যারের ঠিকানা:"
 
-#, fuzzy
+#~ msgid "Registration Key Required"
+#~ msgstr "রেজিস্ট্রেশন কি (key) প্রয়োজন"
+
+#~ msgid ""
+#~ "A registration key is required to install %s.  Please contact your "
+#~ "support representative if you did not receive a key with your product."
+#~ msgstr ""
+#~ "%s ইনস্টল করার জন্য একটি রেজিস্ট্রেশন কী প্রয়েোজন। যদি আপনি পণ্যের সাথে এটি না "
+#~ "পেয়ে থাকেন, তবে অনুগ্রহ করে আপনার সাপোের্ট প্রতিনিধির সাথে যোগাযোগ করুন।"
+
 #~ msgid "Invalid CIDR Mask"
-#~ msgstr "অবৈধ আই.পি. পঙ্‌ক্তি"
+#~ msgstr "অবৈধ CIDR মাস্ক"
 
 #~ msgid "Failed to log into %s: %s"
 #~ msgstr "%s: %s-এ লগ ইন করতে ব্যর্থ"
 
 #~ msgid "Failed to retrieve %s: %s"
 #~ msgstr "%s: %s আনতে ব্যর্থ"
+
+#~ msgid ""
+#~ "The default installation of %s includes a set of  software applicable for "
+#~ "general internet usage.  What additional tasks would you like your system "
+#~ "to include  support for?"
+#~ msgstr ""
+#~ "সাধারণ ইন্টারনেট ব্যবহারের জন্য %s এর ডিফল্ট ইনস্টলেশনের সাথে একগুচ্ছ সফটওয়ার "
+#~ "রয়েছে। অতিরিক্ত আর কোন কিছু আপনি আপনার সিস্টেম সাপোর্টের জন্য অন্তর্ভুক্ত করতে "
+#~ "আগ্রহী?"
 
 #~ msgid "Heilongjiang"
 #~ msgstr "হিলংজিয়াং"
@@ -7917,230 +7934,3 @@ msgstr "জুলু"
 #, fuzzy
 #~ msgid "_Review and modify partitioning layout"
 #~ msgstr "পার্টিশন পরিকল্পনা পরীক্ষণ ও পরিবর্তন (_v)"
-
-#  generated from lang-table
-#~ msgid "Amharic"
-#~ msgstr "আমহারিক"
-
-#  generated from lang-table
-#~ msgid "Thai"
-#~ msgstr "থাই"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "যত প্যাকেজ আছে তার সবগুলোই এই গ্রুপের অন্তর্গত।  লক্ষণীয় যে, এখানে যত প্যাকেজ "
-#~ "প্রদর্শন করার হচ্ছে, তা অন্য যেকোন প্যাকেজ গ্রুপ অপেক্ষা বেশি।"
-
-#~ msgid "Everything"
-#~ msgstr "সব কিছু"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "সর্বাপেক্ষা কম সংখ্যক প্যাকেজ ইনস্টল করতে হলে এই গ্রুপটি বেছে নিন। উদাহরণস্বরূপ, "
-#~ "ছোট রাউটার/ফায়ারওয়াল তৈরির জন্য এটি বেশ উপযোগী।"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "বিবিধ"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr "আপনার কম্পিউটারে %s এর এই সংস্করণটি ইনস্টল করা সম্ভব নয়।  দুঃখিত।"
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "স্বয়ংক্রিয়ভাবে পার্টিশন তৈরি"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "আমি স্বয়ংক্রিয়ভাবে পার্টিশন তৈরি করতে চাই:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "এই ইনস্টলেশনের জন্য ড্রাইভ (বা ড্রাইভসমূহ) বেছে নিন:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "তৈরিকৃত পার্টিশনগুলো পুনঃপরীক্ষা (প্রয়োজনে পরিবর্তন) করুন (_v)"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "বুট লোডার পরিবর্তন করো"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "আপনি কোন বুট লোডার ইনস্টল না করার সিদ্ধান্ত নিয়েছেন।  যদি না কোন বিশেষ কারণ "
-#~ "থাকে, তবে একটি বুট লোডার ইনস্টল করার ব্যাপারে আপনাকে জোরালো পরামর্শ দেওয়া "
-#~ "যাচ্ছে।  হার্ড ড্রাইভে ইনস্টলকৃত কোন লিনাক্স সিস্টেমকে সরাসরি বুট করার জন্য প্রায় "
-#~ "সবক্ষেত্রেই একটি বুট লোডার প্রয়োজন হয়।\n"
-#~ "\n"
-#~ "আপনি কি বুট লোডার ইনস্টল না করেই এগিয়ে যেতে চান?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "বুট লোডার ইনস্টল না করেই পরবর্তী ধাপে যাও (_o)"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "অনুগ্রহপূর্বক আপনার কম্পিউটারে ব্যবহারের জন্য একটি বুট লোডার বেছে নিন।  ডিফল্টবুট "
-#~ "লোডার হল গ্রাব। তবে বিদ্যমান বুট লোডারকে যদি আপনি মুছে ফেলতে না চান তবে \"কোন "
-#~ "বুট লোডার ইনস্টল করার প্রয়োজন নেই।\"  বেছে নিন।"
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "বুট লোডার হিসেবে গ্রাব ব্যবহার করো (_G)"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "কোন বুট লোডার ইনস্টল করার প্রয়োজন নেই (_D)"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "বুট লোডার পরিবর্তন করো (_C)"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "অসমাধানকৃত নির্ভরতা (Dependencies)"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "যেসব সফটওয়্যার ইনস্টল করা হবে, তাদের সম্মিলিত আকার দাঁড়িয়েছে: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "প্রয়োজন"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "নির্ভরতা (Dependencies) পূরণের জন্য প্যাকেজ ইনস্টল করো (_I)"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "যে সকল প্যাকেজের নির্ভরতা (Dependency) রয়েছে সেগুলো ইনস্টল করবে না (_D)"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "প্যাকেজ নির্ভরতা (Dependency) অগ্রাহ্য করো (_g)"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr "ডিফল্ট ইনস্টলেশন ব্যবস্থায় রয়েছে আমাদের বাছাইকৃত প্যাকেজ সংকলন, যথা:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "ইনস্টলেশনের পর 'system-config-packages' নামের সফটওয়্যারটি ব্যবহার করে অন্যান্য "
-#~ "সফটওয়্যারকে সিস্টেমে যোগ করা বা বাদ দেওয়া যাবে।\n"
-#~ "\n"
-#~ "যদি আপনি %s ব্যবহারে ইতিমধ্যেই অভ্যস্ত হয়ে থাকেন তবে হয়তো কিছু বিশেষ প্যাকেজকে "
-#~ "ইনস্টল করতে অথবা ইনস্টল তালিকা থেকে বাদ রাখতে চাইবেন। সেক্ষেত্রে নিচের "
-#~ "বাক্সগুলোতে টিক দিয়ে আপনার পছন্দের প্যাকেজগুলো বেছে নিতে পারেন।"
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "যদি আপনি ডিফল্ট প্যাকেজগুলো ইনস্টল করতে না চান, তবে নিচ থেকে ইচ্ছামাফিক প্যাকেজ "
-#~ "বেছে নিতে পারেন।"
-
-#~ msgid "_Install default software packages"
-#~ msgstr "ডিফল্ট সফটওয়্যার প্যাকেজ ইনস্টল করো (_I)"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "প্যাকেজ তালিকা স্বনির্বাচন (_C)"
-
-#~ msgid "Packages in %s"
-#~ msgstr " %s-এ অবস্থিত প্যাকেজ"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s-এর কোন বিবরণ পাওয়া যায় নি।\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%2d-টি ঐচ্ছিক প্যাকেেজের মধ্যে %1d-টি ইনস্টল করা হয়েছে]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "ডিফল্ট ইনস্টলেশন ব্যবস্থায় রয়েছে আমাদের বাছাইকৃত প্যাকেজ সংকলন।  ইনস্টলেশন "
-#~ "প্রক্রিয়া সম্পন্ন হওয়ার পর 'system-config-packages' নামক প্রোগ্রাম ব্যবহার করে "
-#~ "অন্যান্য সফটওয়্যার ইনস্টল বা সরিয়ে ফেলা যাবে।\n"
-#~ "\n"
-#~ "তবে %s-এর সাথে আরো অনেক সফটওয়্যার প্রদান করা হয় এবং আপনি ইচ্ছা হলে এসবের "
-#~ "সাহায্যে  নির্বাচিত সফটওয়্যারের তালিকা পরিবর্তন করতে পারেন।"
-
-#~ msgid "Select individual packages"
-#~ msgstr "পৃথক পৃথক প্যাকেজ বেছে নিন"
-
-#~ msgid "Package :"
-#~ msgstr "প্যাকেজ :"
-
-#~ msgid "Size    :"
-#~ msgstr "আকার    :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f কিলোবাইট"
-
-#~ msgid "Total size"
-#~ msgstr "মোট আকার"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "পৃথক পৃথক প্যাকেজ বাছাই"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Space>,<+>,<-> বাছাই   |   <F1> সহায়িকা   |   <F2> প্যাকেজের বিবরণ"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "প্যাকেজ নির্ভরতা (Dependency)"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "আপনি যেসব প্যাকেজ বেছে নিয়েছেন, তার কতগুলো ইনস্টল করার জন্য আরো কিছু প্যাকেজ "
-#~ "প্রয়োজন যা বাছাই করা হয় নি। যদি আপনি শুধু 'ঠিক আছে' চাপেন, তবে সবগুলো "
-#~ "প্রয়োজনীয় প্যাকেজই ইনস্টল হবে।"
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "নির্ভরতা (Dependency) পূরণের জন্য প্রয়োজনীয় প্যাকেজ ইনস্টল করো"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr ""
-#~ "যেসব প্যাকেজের নির্ভরতা (Dependency) রয়েছে সেগুলো ইনস্টল করার প্রয়োজন নেই"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "প্যাকেজ নির্ভরতা (Dependency) অগ্রাহ্য করো"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "এই গ্রুপের সাথে সংশ্লিষ্ট প্রতিটি প্যাকেজ ইনস্টল করার প্রয়োজন নেই, তবে প্যাকেজগুলো "
-#~ "হয়তো অতিরিক্ত কেোন সুবিধা দিতে পারে।  অনুগ্রহপূর্বক যে প্যাকেজগুলো আপনি ইনস্টল "
-#~ "করতে চান তাদের বেছে নিন।"
-
-#~ msgid "dialog1"
-#~ msgstr "ডায়ালগ১"
