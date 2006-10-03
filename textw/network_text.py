@@ -50,6 +50,10 @@ def handleIPMissing(screen, field):
                        _("A value is required for the field \"%s\".")
                        % (newfield,), buttons = [ _("OK") ])
 
+def handleBroadCastError(screen):
+    ButtonChoiceWindow(screen, _("Error With Data"),
+                       _("The IPv4 information you have entered is invalid."))
+
 class NetworkDeviceWindow:
     def runScreen(self, screen, net, dev, showonboot=1):
         bootproto = dev.get('bootproto').lower()
@@ -384,7 +388,7 @@ class NetworkDeviceWindow:
                                                         tmpvals['netmask'])
                 except Exception, e:
                     print e
-                    self.handleBroadCastError()
+                    handleBroadCastError()
                     valsgood = 0
 
                 if not valsgood:

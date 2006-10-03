@@ -1,3 +1,16 @@
+2006-10-03  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (inet_calcNetBroad): Umm, use ntohl() so it works on all
+	platforms.
+
+	* iw/network_gui.py (NetworkWindow.handleBroadCastError): Tell users
+	the IPv4 information given is invalid, since this error message will
+	occur when calculating the network and broadcast address using the
+	IPv4 ip address and netmask.
+
+	* textw/network_text.py (handleBroadCastError): Add missing error
+	handling function for network and broadcast address calculation.
+
 2006-10-03  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Reset protected partitions list when

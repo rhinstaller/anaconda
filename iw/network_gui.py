@@ -183,7 +183,7 @@ class NetworkWindow(InstallWindow):
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
-				_("The IP information you have entered is "
+				_("The IPv4 information you have entered is "
 				  "invalid."))
 
     def handleNoActiveDevices(self):
