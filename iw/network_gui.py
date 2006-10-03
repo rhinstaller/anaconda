@@ -421,6 +421,11 @@ class NetworkWindow(InstallWindow):
 	IPV4cb.set_active(self.network.useIPv4)
 	IPV6cb.set_active(self.network.useIPv6)
 
+	# set widget sensitivity
+	DHCPtoggled(DHCPcb)
+	IPV4toggled(IPV4cb)
+	IPV6toggled(IPV6cb)
+
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
 	if descr is not None and len(descr) > 0:
@@ -517,7 +522,7 @@ class NetworkWindow(InstallWindow):
                             self.intf.messageWindow(_("Invalid Prefix"),
                                                     _("Invalid or missing "
                                                       "IPv6 prefix (must be "
-                                                      "between 0 and 128."))
+                                                      "between 0 and 128)."))
                             valsgood = 0
                             break
 
