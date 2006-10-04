@@ -68,9 +68,9 @@ class InstallClass(BaseInstallClass):
                 log.info("Adding ClusterStorage option")
 
         if productPath == "Client":
-            if key.find("D") != -1:
-                self.repopaths["desktop"] = "Desktop"
-                log.info("Adding Desktop option")
+#             if key.find("D") != -1:
+#                 self.repopaths["desktop"] = "Desktop"
+#                 log.info("Adding Desktop option")
             if key.find("W") != -1:
                 self.repopaths["desktop"] = "Workstation"
                 log.info("Adding Workstation option")
