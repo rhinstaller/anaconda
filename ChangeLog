@@ -7,8 +7,8 @@
 
 	* iw/release_notes.py (ReleaseNotesViewer): Disable request_url,
 	link_clicked, and request_object callbacks for now because they
-	work quite right and it's better to be able to view just the
-	release notes than nothing at all.
+	don't work quite right and it's better to be able to view just
+	the release notes than nothing at all.
 
 2006-10-04  Jeremy Katz  <katzj@redhat.com>
 
