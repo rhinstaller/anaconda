@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.104
+Version: 11.1.0.105
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct  4 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.105-1
+- Fix details in tui pkgselection (#209310)
+- Add Assamese (#207424)
+- More network UI sanity checking (dcantrel)
+- Disable release notes url clicking (dcantrel)
+- Fix traceback going back on upgrade (#205198)
+- Try to fix up sr_CS.UTF-8@Latn some more (#182591)
+
 * Tue Oct 03 2006 Chris Lumens <clumens@redhat.com> - 11.1.0.104-1
 - More netconfig fixes (dcantrel).
 - Reset protected partitions list (#204405).
