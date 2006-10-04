@@ -9,9 +9,10 @@ ea2006-10-03  Chris Lumens  <clumens@redhat.com>
 
 2006-10-03  David Cantrell  <dcantrell@redhat.com>
 
-	* iw/network_gui.py (NetworkWindow): Set initial input widget sensitivity
-	based on checkbox values (prevents IPv6 entry boxes as active when the
-	IPv6 box is unchecked).  Fixed a type in an error message.
+	* iw/network_gui.py (NetworkWindow): Set initial input widget
+	sensitivity based on checkbox values (prevents IPv6 entry boxes as
+	active when the IPv6 box is unchecked).  Fixed a type in an error
+	message.
 
 2006-10-03  David Cantrell  <dcantrell@redhat.com>
 
