@@ -37,8 +37,13 @@ checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
              ]
 
 def handleIPError(screen, field, msg):
-    ButtonChoiceWindow(screen, _("Error With %s Data") % (field,), msg,
-                       buttons = [ _("OK") ])
+    try:
+        newfield = descr[field]
+    except:
+        newfield = field
+
+    ButtonChoiceWindow(screen, _("Error With %s Data") % (newfield,),
+                       _("%s") % msg.__str__(), buttons = [ _("OK") ])
 
 def handleIPMissing(screen, field):
     try:
@@ -47,7 +52,7 @@ def handleIPMissing(screen, field):
         newfield = field
 
     ButtonChoiceWindow(screen, _("Error With Data"),
-                       _("A value is required for the field \"%s\".")
+                       _("A value is required for the field %s.")
                        % (newfield,), buttons = [ _("OK") ])
 
 def handleBroadCastError(screen):
@@ -222,7 +227,15 @@ class NetworkDeviceWindow:
 
         # IPv6 entries
         v6list.append(Entry(41))
-        v6list[0].set(dev.get('ipv6addr'))
+
+        ipv6addr = dev.get('ipv6addr')
+        brk = ipv6addr.find('/')
+        if brk != -1:
+            ipv6addr = ipv6addr[0:brk]
+            brk += 1
+            ipv6prefix = ipv6addr[brk:]
+
+        v6list[0].set(ipv6addr)
         entrys['ipv6addr'] = v6list[0]
         ipgrid.setField(v6list[0], 1, 2, anchorLeft = 1)
 
@@ -281,20 +294,9 @@ class NetworkDeviceWindow:
         toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
         toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
 
-        if bootproto == 'dhcp':
-            self.dhcpCb.isOn = True
-        else:
-            self.dhcpCb.isOn = False
-
-        if net.useIPv4:
-            self.ipv4Cb.isOn = True
-        else:
-            self.ipv4Cb.isOn = False
-
-        if net.useIPv6:
-            self.ipv6Cb.isOn = True
-        else:
-            self.ipv6Cb.isOn = False
+        self.dhcpCb.isOn = (bootproto == 'dhcp')
+        self.ipv4Cb.isOn = net.useIPv4
+        self.ipv6Cb.isOn = net.useIPv6
 
         DHCPtoggled()
         IPV4toggled()
@@ -376,7 +378,7 @@ class NetworkDeviceWindow:
                         except:
                             ButtonChoiceWindow(screen, _("Invalid Prefix"),
                                 _("Invalid or missing IPv6 prefix (must be "
-                                  "between 0 and 128."), buttons = [_("OK")])
+                                  "between 0 and 128)."), buttons = [_("OK")])
                             valsgood = 0
                             break
 
@@ -395,14 +397,14 @@ class NetworkDeviceWindow:
                     continue
 
                 for t in entrys.keys():
-                    if t == 'ipv6prefix':
-                        continue
-
                     if tmpvals.has_key(t):
                         if t == 'ipv6addr':
                             if entrys['ipv6prefix'] is not None:
+                                a = tmpvals[t]
+                                if a.find('/') != -1:
+                                    a = a[0:a.find('/')]
                                 p = entrys['ipv6prefix'].value()
-                                q = "%s/%s" % (tmpvals[t], p,)
+                                q = "%s/%s" % (a, p,)
                             else:
                                 q = "%s" % (tmpvals[t],)
 

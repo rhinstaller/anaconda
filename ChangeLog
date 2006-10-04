@@ -27,6 +27,17 @@
 	we set the ipv6prefix in the entrys hash and write out a new
 	ipv6addr with the new prefix in case the user changed it.
 
+	* textw/network_text.py (handleIPError): Same change as for
+	iw/network_gui.py (NetworkWindow.handleIPError) above.
+
+	* textw/network_text.py (handleIPMissing): Remove the double
+	quotes around the field description.
+
+	* textw/network_text.py (NetworkDeviceWindow): Same change as for
+	iw/network_gui.py (NetworkWindow) above.  Added missing closing
+	paren in an Invalid Prefix error dialog.  Set checkbox initial
+	checkbox values correctly.
+
 2006-10-04  Jeremy Katz  <katzj@redhat.com>
 
 	* lang-table: Add Assamese (#207424)
