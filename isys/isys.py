@@ -234,7 +234,7 @@ def acpicpus():
     if _acpi_ncpus is None:
 	# returning 0 will cause packages.py to fall back to the mptables way.
 	_acpi_ncpus = 0
-	if iutil.getArch() in ("x86_64", "i386"):
+	if iutil.getArch() in ("x86_64", "i386", "ia64"):
 	    if os.path.exists("/proc/lapics"):
 		f = open("/proc/lapics", "r")
 		lapics = f.readlines()

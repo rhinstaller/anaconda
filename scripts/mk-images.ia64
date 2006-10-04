@@ -4,7 +4,7 @@ USBMODS="uhci-hcd ohci-hcd ehci-hcd hid keybdev usb-storage sd_mod"
 LATEUSBMODS="mousedev"
 
 BTERMMODULES="vga16fb"
-COMMONMODULES="nfs fat vfat cramfs loop floppy $BTERMMODULES"
+COMMONMODULES="nfs fat vfat cramfs loop floppy lapic_status $BTERMMODULES"
 FSMODS="msdos vfat ext3 reiserfs jfs xfs"
 LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
 RAIDMODS="md raid0 raid1 raid5 raid6"

@@ -1,3 +1,9 @@
+2006-10-04  Paul Nasrat <pnasrat@redhat.com>
+
+	* isys/isys.py (acpicpus): ia64 detection (#201397)
+	* loader2/hardware.c( lapicSetup): Load lapic_status (#201397)
+	* scripts/mk-images.ia64: Include lapic_status (#201397)
+
 2006-09-13  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  vnc should override text on kickstart installs (#190099).
