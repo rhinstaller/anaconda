@@ -110,6 +110,7 @@ class GroupSelectionWindow:
             if result != "F2":
                 break
 
+	    grp = ct.getCurrent()
             pkgs = grp.default_packages.keys() + grp.optional_packages.keys()
             if len(pkgs) == 0:
                 ButtonChoiceWindow(screen, _("Error"),
@@ -118,7 +119,6 @@ class GroupSelectionWindow:
 
 	    # if current group is not selected then select it first
 	    newSelection = 0
-	    grp = ct.getCurrent()
 	    lst = ct.getSelection()
 	    if grp not in lst:
 		newSelection = 1
