@@ -35,9 +35,10 @@ class ReleaseNotesViewer:
 		self.vue = gtkhtml2.View()
 		self.opener = urllib.FancyURLopener()
 
-		self.doc.connect('request_url', self.requestURLCallBack)
-		self.doc.connect('link_clicked', self.linkClickedCallBack)
-		self.vue.connect('request_object', self.requestObjectCallBack)
+		# FIXME: these do not work, disabling for FC6   --dcantrell
+		#self.doc.connect('request_url', self.requestURLCallBack)
+		#self.doc.connect('link_clicked', self.linkClickedCallBack)
+		#self.vue.connect('request_object', self.requestObjectCallBack)
 		self.topDir = None
 
 		self.width = None
