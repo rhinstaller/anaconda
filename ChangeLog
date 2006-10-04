@@ -10,6 +10,23 @@
 	don't work quite right and it's better to be able to view just
 	the release notes than nothing at all.
 
+	* network.py (sanityCheckIPString): Test IP more accurately to
+	determine address family.  Clean up error messages to make things
+	more clear.  Have a catch-all else case that returns the given
+	IP address in an invalid message in the form of an IPError
+	exception.
+
+	* iw/network_gui.py (NetworkWindow.handleIPError): Display the
+	field description in the title bar rather than the field name.
+	Call __str__() on the msg parameter since msg could be an IPError
+	exception or a string.
+
+	* iw/network_gui.py (NetworkWindow): Set the IPv6 address entry
+	field to just the address portion of the value that's written
+	out to the ifcfg-ethX file (remove the /prefix part).  Make sure
+	we set the ipv6prefix in the entrys hash and write out a new
+	ipv6addr with the new prefix in case the user changed it.
+
 2006-10-04  Jeremy Katz  <katzj@redhat.com>
 
 	* lang-table: Add Assamese (#207424)

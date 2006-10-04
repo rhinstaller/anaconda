@@ -176,10 +176,16 @@ class NetworkWindow(InstallWindow):
 	    newfield = field
 
 	self.intf.messageWindow(_("Error With Data"),
-				_("A value is required for the field \"%s\".") % (newfield,))
+	    _("A value is required for the field %s.") % (newfield,))
 
     def handleIPError(self, field, msg):
-	self.intf.messageWindow(_("Error With %s Data") % (field,), msg)
+	try:
+	    newfield = descr[field]
+	except:
+	    newfield = field
+
+	self.intf.messageWindow(_("Error With %s Data") % (newfield,),
+	                        _("%s") % msg.__str__())
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
@@ -362,7 +368,15 @@ class NetworkWindow(InstallWindow):
 
         v6list.append(gtk.Entry())
         v6list[1].set_width_chars(41)
-        v6list[1].set_text(self.devices[dev].get('ipv6addr'))
+
+        ipv6addr = self.devices[dev].get('ipv6addr')
+        brk = ipv6addr.find('/')
+        if brk != -1:
+            ipv6addr = ipv6addr[0:brk]
+            brk += 1
+            ipv6prefix = ipv6addr[brk:]
+
+        v6list[1].set_text(ipv6addr)
         entrys['ipv6addr'] = v6list[1]
         ipTable.attach(v6list[1], 1, 2, 2, 3, xpadding=0, ypadding=0)
 
@@ -541,14 +555,14 @@ class NetworkWindow(InstallWindow):
 		    continue
 
 		for t in entrys.keys():
-		    if t == 'ipv6prefix':
-		        continue
-
 		    if tmpvals.has_key(t):
 		        if t == 'ipv6addr':
 		            if entrys['ipv6prefix'] is not None:
+		                a = tmpvals[t]
+		                if a.find('/') != -1:
+		                    a = a[0:a.find('/')]
 		                p = entrys['ipv6prefix'].get_text()
-		                q = "%s/%s" % (tmpvals[t], p,)
+		                q = "%s/%s" % (a, p,)
 		            else:
 		                q = "%s" % (tmpvals[t],)
 
