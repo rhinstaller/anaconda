@@ -1124,6 +1124,9 @@ class YumBackend(AnacondaBackend):
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):
+        if anaconda.dir == DISPATCH_BACK:
+            return
+        
         # Figure out current version for upgrade nag and for determining weird
         # upgrade cases
         supportedUpgradeVersion = -1
