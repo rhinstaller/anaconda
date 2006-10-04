@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.46
+Version: 10.1.1.47
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 04 2006 David Cantrell <dcantrell@redhat.com> - 10.1.1.47-1
+- ia64 detection fixes (#201397, pnasrat)
+- Include lapic_status on ia64 images (#201397, pnasrat)
+- VNC override text on kickstart installs (190099, clumens)
+- Get stdin from the correct file descriptor (#192067, clumens)
+- Mount /selinux under the chrooted system environment (#189489, clumens)
+- Blacklist by arch support backport (#198545, pnasrat)
+- Blacklist x86_64 multilib packages (#181742, pnasrat)
+- Only try to init uninitialized zfcp devices (#200333, jwhiter)
+
 * Wed Jun 28 2006 Peter Jones <pjones@redhat.com> - 10.1.1.46-1
 - Add Marvell SATA driver to module-info (#181852)
 
