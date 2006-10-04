@@ -457,7 +457,6 @@ usr/sbin/genhomedircon
 sbin/setfiles
 usr/sbin/lvm
 usr/sbin/gptsync
-usr/sbin/build-locale-archive
 usr/share/anaconda/anaconda.conf
 usr/share/selinux/targeted/base.pp
 usr/share/system-config-date/zonetab.py*
@@ -996,17 +995,6 @@ LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 }
 ); done
 rm -f $DESTGR/locales $DESTGR/locales.list
-
-# now, create a locale archive and nuke the locale dirs since 
-# that ends up taking less space
-for p in $DEST $DESTGR; do
-    echo "Building locale archive"
-    /usr/sbin/chroot $p /usr/sbin/build-locale-archive
-    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
-    rm -rf $p/usr/lib/locale/*
-    rm -f $p/usr/sbin/build-locale-archive
-    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
-done
 
 # fixup joe links
 if [ -n "$NEEDGR" ]; then
