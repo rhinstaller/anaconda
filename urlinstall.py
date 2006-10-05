@@ -162,7 +162,6 @@ class UrlInstallMethod(InstallMethod):
         discdir = os.path.basename(self.pkgUrl)
         alpharm = re.compile("[A-Za-z]+")
         discnum = alpharm.sub("", discdir)
-        multiDiscs = False
 
         try:
             discnum = int(discnum)
@@ -177,15 +176,10 @@ class UrlInstallMethod(InstallMethod):
                 baseurls.append("%s%s" % (basepath ,discnum))
                 discnum += 1
             if len(baseurls) > 1:
-	        multiDiscs = True
                 self.baseUrl = baseurls
         except ValueError:
             # we didn't figure out the user's dir naming scheme
             pass
-
-        if multiDiscs:
-            self.baseUrl = self.baseUrl.split()
-
 
     def __init__(self, url, rootPath, intf):
 	InstallMethod.__init__(self, url, rootPath, intf)
