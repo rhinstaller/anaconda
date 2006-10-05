@@ -208,7 +208,7 @@ def parseOptions():
     op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
                   default="800x600", nargs=1, type="string")
     op.add_option("--serial", action="store_true", default=False)
-    op.add_option("--usefbx", dest="useFBX", action="store_true", default=False)
+    op.add_option("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     op.add_option("--virtpconsole")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
@@ -834,7 +834,7 @@ if __name__ == "__main__":
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
             xserver.serverflags.extend(["-screen", "Anaconda"])
-            xserver.startX(xStartedCB=doStartupX11Actions, useFB=opts.useFBX)
+            xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
