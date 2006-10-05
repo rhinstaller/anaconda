@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.106
+Version: 11.1.0.107
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Oct  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.106-1
+* Thu Oct  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.107-1
 - minor yum api fix
 
 * Wed Oct  4 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.105-1
