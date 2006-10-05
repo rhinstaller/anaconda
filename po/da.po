@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-03-15 15:37+0100\n"
+"PO-Revision-Date: 2006-10-05 23:57+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +112,7 @@ msgstr "Ukendt installerings-metode"
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du har angivet en installeringsmetode som ikke understøttes af anaconda."
+msgstr "Du har angivet en installeringsmetode som ikke understøttes af anaconda."
 
 #: ../anaconda:854
 #, c-format
@@ -121,29 +120,37 @@ msgid "unknown install method: %s"
 msgstr "Ukendt installeringsmetode %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"Kunne ikke allokere cylinder-baserede partitioner som primære partitioner"
+"Kunne ikke allokere cylinder-baserede partitioner som primære partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Kunne ikke allokere partitioner som primære partitioner"
+msgstr ""
+"Kunne ikke allokere partitioner som primære partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Kunne ikke allokere cylinder-baserede partitioner"
+msgstr ""
+"Kunne ikke allokere cylinder-baserede partitioner.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -186,8 +193,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
 "maskinarkitektur. "
@@ -424,14 +430,14 @@ msgstr ""
 "Er du sikker på at du ønsker at gøre dette?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Opgraderer %s-%s-%s.%s.\n"
+msgstr "Opgraderer %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Installér %s"
+msgstr "Installerer %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -505,8 +511,7 @@ msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+msgstr "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
 #: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
@@ -521,22 +526,19 @@ msgstr "Dumpet blev ikke skrevet"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
-"Der var et problem ved skrivning af dit systems tilstand til disketten. "
+msgstr "Der var et problem ved skrivning af dit systems tilstand til disketten. "
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Dit systems tilstand er skrevet til den eksterne maskine. \n"
+"Dit systems tilstand er skrevet til den eksterne maskine. "
 "Systemet bliver nu genstartet."
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
+msgstr "Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
 
 #: ../fsset.py:221
 msgid "Checking for Bad Blocks"
@@ -643,9 +645,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1483
-#, fuzzy
 msgid "Reformat"
-msgstr "Formatér"
+msgstr "Omformatér"
 
 #: ../fsset.py:1487
 #, python-format
@@ -800,9 +801,8 @@ msgstr ""
 "Tryk på retur for at genstarte systemet."
 
 #: ../fsset.py:1733
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Kan ikke læse fil!"
+msgstr "Kan ikke montere filsystem"
 
 #: ../fsset.py:1734
 #, python-format
@@ -1019,7 +1019,7 @@ msgid "Install Window"
 msgstr "Installeringsvindue"
 
 #: ../harddrive.py:44 ../image.py:144 ../image.py:474
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1029,10 +1029,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke. Hvis du installerer fra cd-medium er dette "
-"normalt fordi cd-mediet er beskadiget, eller at cd-læseren ikke kan læse "
-"mediet.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
+"måske en beskadiget pakke. Kontrollér dine systemmedier og at du har alle de nødvendige medier.\n"
+"\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
+"kræve geninstallation.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:507
@@ -1040,7 +1041,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Mangler ISO 9660-aftryk"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1049,9 +1050,9 @@ msgid ""
 "the installation."
 msgstr ""
 "Installeringsprogrammet har forsøgt at montere aftryk #%s, men kan ikke "
-"finde det på serveren.\n"
+"finde det på disken.\n"
 "\n"
-"Kopiér gerne dette aftryk til den eksterne servers adresse for fildeling og "
+"Kopiér gerne dette aftryk til drevet og "
 "klik Forsøg igen. Klik Genstart for at afbryde installationen."
 
 #: ../harddrive.py:81 ../image.py:518
@@ -1131,7 +1132,7 @@ msgid "Unable to access the CDROM."
 msgstr "Kan ikke tilgå CDROM-drevet."
 
 #: ../image.py:360
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1141,10 +1142,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke. Hvis du installerer fra cd-medium er dette "
-"normalt fordi cd-mediet er beskadiget, eller at cd-læseren ikke kan læse "
-"mediet.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
+"måske en beskadiget pakke."
+"Kontrollér at dit installationstræ indeholder alle de nødvendige pakker.\n"
+"\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
+"kræve geninstallation.\n"
 "\n"
 
 #: ../image.py:508
@@ -1167,9 +1170,8 @@ msgid "Install on System"
 msgstr "Installér på system"
 
 #: ../iscsi.py:126 ../iscsi.py:127
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Initierer"
+msgstr "Initierer iSCSI-initiator"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1201,9 +1203,8 @@ msgid "Running post-install scripts"
 msgstr "Kører efter-installerings-skripter"
 
 #: ../kickstart.py:926
-#, fuzzy
 msgid "Missing Package"
-msgstr "Installerer pakker"
+msgstr "Mangler pakker"
 
 #: ../kickstart.py:927
 #, python-format
@@ -1214,14 +1215,12 @@ msgstr ""
 
 #: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
 #: ../yuminstall.py:718
-#, fuzzy
 msgid "_Abort"
-msgstr "_Genstart"
+msgstr "_Afbryd"
 
 #: ../kickstart.py:961
-#, fuzzy
 msgid "Missing Group"
-msgstr "Manglende information"
+msgstr "Manglende gruppe"
 
 #: ../kickstart.py:962
 #, python-format
@@ -1236,29 +1235,26 @@ msgstr "Værtsnavnet skal være højst 64 tegn langt."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
+msgstr "Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Værtsnavne må kun indeholde tegnene 'a-z', 'A-Z', '-' og '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP-adresse mangler"
+msgstr "IP-adresse mangler."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP-adresser skal indeholde tal mellem 0 og 255"
+msgstr "IP-adresser skal indeholde fire tal tal mellem 0 og 255, adskilt af punktummer."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s er ikke et gyldigt værtsnavn."
+msgstr "%s er ikke en gyldig IPv6-adresse."
 
 #: ../packages.py:241
 #, python-format
@@ -1266,9 +1262,8 @@ msgid "Please enter the registration key for your version of %s."
 msgstr ""
 
 #: ../packages.py:245
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Krypteringsnøgle"
+msgstr "Indtast registreringsnøgle"
 
 #: ../packages.py:246
 msgid "Key:"
@@ -1730,8 +1725,7 @@ msgid "Confirm Reset"
 msgstr "Bekræft nulstilling"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til oprindelig "
 "tilstand?"
@@ -1789,10 +1783,8 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1812,8 +1804,7 @@ msgstr ""
 "for en almindelig installation af %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:945
@@ -1871,10 +1862,8 @@ msgstr "en partition som er medlem af en LVM-afsnitsgruppe."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:252
 #, python-format
@@ -2149,17 +2138,14 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
+msgstr "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -2287,7 +2273,7 @@ msgid "Connecting..."
 msgstr "Tilslutter..."
 
 #: ../urlinstall.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2297,10 +2283,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke. Hvis du installerer fra cd-medium er dette "
-"normalt fordi cd-mediet er beskadiget, eller at cd-læseren ikke kan læse "
-"mediet.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
+"måske en beskadiget pakke. Kontrollér at dit spejl  indeholder alle de nødvendige pakker, eller prøv at bruge et andet spejl.\n"
+"\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
+"kræve geninstallation.\n"
 "\n"
 
 #: ../vnc.py:44
@@ -2368,9 +2355,8 @@ msgid "The password must be at least six characters long."
 msgstr "Adgangskoden skal være på mindst 6 tegn."
 
 #: ../vnc.py:138
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Ingen adgangskode"
+msgstr "Fejl ved VNC-adgangskode"
 
 #: ../vnc.py:139
 msgid ""
@@ -2489,9 +2475,8 @@ msgid "package already installed"
 msgstr ""
 
 #: ../yuminstall.py:477
-#, fuzzy
 msgid "required package"
-msgstr "Ledig plads"
+msgstr "nødvendig pakke"
 
 #: ../yuminstall.py:478
 msgid "package for incorrect arch"
@@ -2510,13 +2495,9 @@ msgid "Error running transaction"
 msgstr "Fejl ved kørsel af transaktion..."
 
 #: ../yuminstall.py:510
-#, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Værtsnavnet \"%s\" er ikke gyldigt på grund af følgende årsag:\n"
-"\n"
-"%s"
+#, python-format
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
@@ -2527,9 +2508,9 @@ msgid "Retrieving installation information..."
 msgstr "Modtager installationsinformation..."
 
 #: ../yuminstall.py:699
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Modtager installationsinformation..."
+msgstr "Modtager installationsinformation for %s..."
 
 #: ../yuminstall.py:721
 #, python-format
@@ -2572,14 +2553,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Starter installationsproces. Dette kan tage adskillige minutter..."
 
 #: ../yuminstall.py:1198
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Opgradér"
+msgstr "Efter opgradering"
 
 #: ../yuminstall.py:1199
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Konfigurerer systemet efter installation..."
+msgstr "Udfører konfiguration af systemet efter installation..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
@@ -2703,9 +2682,8 @@ msgid "_Confirm: "
 msgstr "_Bekræft: "
 
 #: ../iw/autopart_type.py:134
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI initiator-navn:"
+msgstr "Ugyldigt Initiator-navn"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
@@ -2716,9 +2694,8 @@ msgid "Error with Data"
 msgstr "Fejl med Data"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Fjern alle partitioner på dette system"
+msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægning."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -3169,8 +3146,7 @@ msgstr "Ugyldig størrelse"
 
 #: ../iw/lvm_dialog_gui.py:525
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
+msgstr "Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
@@ -3179,8 +3155,7 @@ msgstr "Monteringspunkt i brug"
 #: ../iw/lvm_dialog_gui.py:559
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
+msgstr "Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
 
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3264,8 +3239,7 @@ msgstr "Navnet er i brug"
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
+msgstr "Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
@@ -3492,17 +3466,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "Den IP-information, du angav, er ikke gyldig."
 
 #: ../iw/network_gui.py:188
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Du har ingen aktive netværksenheder. Dit system vil ikke kunne kommunikere "
-"over et netværk som standard uden mindst én aktiv enhed.\n"
-"\n"
-"BEMÆRK: Hvis du har et PCMCIA-baseret netværkskort bør du lade det være "
-"inaktivt i øjeblikket. Når du genstarter dit system bliver netværkskortet "
-"aktiveret automatisk."
+"over et netværk som standard uden mindst én aktiv enhed."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3510,14 +3479,13 @@ msgid "Edit Interface %s"
 msgstr "Redigér grænsefladen %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Maskin-adresse: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Brug dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr "Brug dynamisk IP-konfiguration (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3532,29 +3500,24 @@ msgid "_Activate on boot"
 msgstr "_Aktivér ved opstart"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IP-adresse:"
+msgstr "IPv_4-adresse:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IP-adresse:"
+msgstr "IPv_6-adresse:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Punkt-til-punkt (IP)"
+msgstr "_Punkt-til-punkt (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Krypteringsnøgle"
+msgstr "_Krypteringsnøgle:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3804,14 +3767,12 @@ msgid "Partitioning"
 msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Disse fejl skal rettes op før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:642
@@ -4369,10 +4330,8 @@ msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4511,8 +4470,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../iw/zfcp_gui.py:24
@@ -4684,10 +4642,8 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 #, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-"<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr "<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4825,10 +4781,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Venligst vælg de pakkegrupper du ønsker at installere."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
@@ -5083,8 +5037,7 @@ msgstr "Filsystemsvalgmuligheder"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
+msgstr "Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -5112,8 +5065,7 @@ msgstr "Ikke understøttet"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
+msgstr "LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5210,10 +5162,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5944,10 +5894,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Velkommen til %s - redningstilstand"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -5980,8 +5928,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -6331,8 +6278,7 @@ msgstr "Manglende information"
 
 #: ../loader2/net.c:1132
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
 
 #: ../loader2/net.c:1138
@@ -6505,8 +6451,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
+msgstr "Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
 
 #: ../loader2/urls.c:442
 msgid "Account name:"
@@ -6782,13 +6727,11 @@ msgstr "Atlantisk tid - New Brunswick"
 #. generated from zone.tab
 #, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Atlantisk tid - (det meste af) Nova Scotia, Vestlabrador, Østquebec & PEI"
+msgstr "Atlantisk tid - (det meste af) Nova Scotia, Vestlabrador, Østquebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
+msgstr "Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6989,8 +6932,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Østamerikansk tid - Ontario - de fleste steder"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Østamerikansk tid - Ontario & Québec - steder, der ikke havde sommertid i "
 "1967-1973"
@@ -7190,8 +7132,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Amerikansk bjerg-standardtid - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Amerikansk bjerg-standardtid - Dawson Creek & Fort Saint John, Britisk "
 "Columbia"
@@ -7639,239 +7580,3 @@ msgstr "Walisisk"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC-specificeret skærm"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Tertiær DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Tertiær DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Konfigurér ved brug af _DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP-adresse"
-
-#~ msgid "Net_mask"
-#~ msgstr "Net_maske"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Maskin-adresse:"
-
-#, fuzzy
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Ugyldig IP-streng"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Kunne ikke logge ind på %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Kunne ikke hente %s: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Den normale installation af %s indbefatter et udvalg af programmel som "
-#~ "passer til generel internet brug. Hvilke yderligere opgaver ønsker du at "
-#~ "dit system skal have understøttelse for?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Newfoundland-øen"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "sydvestlige Xinjiang Uyghur"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Kunne ikke allokere partitioner"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Du kan vælge et andet automatisk partitioneringsalternativ eller klikke "
-#~ "på \"Tilbage\" for at vælge manuel partitionering.\n"
-#~ "\n"
-#~ "Tryk på \"O.k.\" for at fortsætte."
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Installerer %s-%s-%s.%s.\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller "
-#~ "måske en beskadiget pakke. Hvis du installerer fra cd-medium er det "
-#~ "normalt fordi cd-mediet er beskadiget, eller at cd-læseren ikke kan læse "
-#~ "mediet.\n"
-#~ "\n"
-#~ "Tryk <Retur> for at forsøge igen."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Hvis du genstarter, vil dit system være i en inkonsistent tilstand, som "
-#~ "sandsynligvis vil kræve geninstallering. Er du sikker på at du ønsker at "
-#~ "fortsætte?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annullér"
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI-konfiguration"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "Ingen IP-adresse indtastet, overspringer opsætning af iSCSI"
-
-#~ msgid "Target IP address:"
-#~ msgstr "IP-adresse for mål:"
-
-#~ msgid "Port Number:"
-#~ msgstr "Portnummer:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tSkrivebordsskál (GNOME)\n"
-#~ "\tAdministrationsværktøjer\n"
-#~ "\tKonfigurationværktøjer for server\n"
-#~ "\tWebserver\n"
-#~ "\tWindows Filserver (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Skrivebord"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Indtast IP-konfiguration for denne maskine. Hver linie bør indtastes som "
-#~ "en IP-adresse i punktdecimalformat (for eksempel: 1.2.3.4)..."
-
-#~ msgid "Netmask:"
-#~ msgstr "Netmaske:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Standard-gateway (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Primær navneserver:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI-konfiguration"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Udgivelsesnoter mangler."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De følgende pakker var tilstede i denne version men blev IKKE "
-#~ "opgraderet:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De følgende pakker var tilstede i denne version men blev IKKE "
-#~ "opgraderet:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Finder"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Finder pakker som skal opgraderes..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Installationsprogrammet kan ikke opgradere systemer med en præ-rpm 4.x-"
-#~ "database. Installér derfor rettelsespakkerne til rpm til din udgave som "
-#~ "beskrevet i udgivelsesnoterne, og kør så opgraderingsproceduren."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
-
-#~ msgid "Installation Type"
-#~ msgstr "Installationstype"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Hvilken type system ønsker du at installere?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Vælg selv pakker, som skal opgraderes"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Pakkerne du har installeret, og de andre pakker som er nødvendige for at "
-#~ "opfylde deres afhængigheder, er blevet valgt til installering. Ønsker du "
-#~ "at ændre i sammensætningen af pakker som vil blive opgraderet?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Virtualisering (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Skjul _hjælp"
-
-#~ msgid "Show _Help"
-#~ msgstr "Vis _vejledning"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Installation af <product> kræver partitionering af din disk.  Du kan "
-#~ "enten vælge standard-partitioneringen, eller lave din egen opdeling. "
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Vælg de drev du vil bruge til denne installation."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "Vis og ændr udlægning af partitioner"
-
-#~ msgid "Amharic"
-#~ msgstr "Amharisk"
-
-#~ msgid "Thai"
-#~ msgstr "Thailandsk"
