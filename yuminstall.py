@@ -174,7 +174,7 @@ class AnacondaYumRepo(YumRepository):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
-            if v or not k in self.getAttributeKeys():
+            if v or not self.getAttribute(k):
                 self.setAttribute(k, v)
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
