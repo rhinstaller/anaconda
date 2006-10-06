@@ -230,7 +230,9 @@ class iscsi(object):
         os.close(fd)
 
         # copy "db" files.  *sigh*
-        for d in ("/etc/iscsi/nodes", "/etc/iscsi/send_targets"):
+        if not os.path.isdir(instPath + "/var/lib/iscsi"):
+            os.makedirs(instPath + "/var/lib/iscsi", 0755)
+        for d in ("/var/lib/iscsi/nodes", "/var/lib/iscsi/send_targets"):
             if os.path.isdir(d):
                 shutil.copytree(d, instPath + d)
 
