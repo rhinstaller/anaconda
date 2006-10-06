@@ -1,3 +1,8 @@
+2006-10-06  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumSorter.tsCheck): Fix case where we could spin
+	endlessly in dep checking (#209665)
+
 2006-10-05  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda (parseOptions):  --usefbx is really just a special case of
