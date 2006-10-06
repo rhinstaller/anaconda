@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.107
+Version: 11.1.0.108
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.108-1
+- Fix endless spinning with redhat-lsb depcheck (#209665)
+- Fix usefbx (clumens)
+- Fix traceback with loopback isos (pnasrat)
+
 * Thu Oct  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.107-1
 - minor yum api fix
 
