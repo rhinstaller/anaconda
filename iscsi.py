@@ -53,6 +53,9 @@ class iscsiTarget:
                     log.warn("didn't get what we expected from iscsiadm")
                     return None
                 (self._portal, self._node) = line.split()
+                if not self._portal.startswith(self.ipaddr):
+                    self._portal = self._node = None
+                    continue
                 break
         return self._portal
     def _getNode(self):
