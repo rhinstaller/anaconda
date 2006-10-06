@@ -88,10 +88,10 @@ def sanityCheckIPString(ip_string):
     if ip_string.strip() == "":
         raise IPMissing, _("IP address is missing.")
 
-    if ip_string.find(':') == -1 and ip_string.find('.') > 1:
+    if ip_string.find(':') == -1 and ip_string.find('.') > 0:
         family = socket.AF_INET
         errstr = _("IPv4 addresses must contain four numbers between 0 and 255, separated by periods.")
-    elif ip_string.find(':') > 1 and ip_string.find('.') == -1:
+    elif ip_string.find(':') > 0 and ip_string.find('.') == -1:
         family = socket.AF_INET6
         errstr = _("'%s' is not a valid IPv6 address.") % ip_string
     else:
