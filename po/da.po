@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-08 19:27+0200\n"
+"PO-Revision-Date: 2006-10-08 19:40+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6195,9 +6195,8 @@ msgid "There was an error configuring your network interface."
 msgstr ""
 
 #: ../loader2/net.c:684
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Brug dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr "Brug dynamisk IP-konfiguration (DHCP)"
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
@@ -6220,9 +6219,8 @@ msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Manglende information"
+msgstr "Manglende protokol"
 
 #: ../loader2/net.c:772
 msgid ""
@@ -6235,42 +6233,36 @@ msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
 #: ../loader2/net.c:852
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP-adresse:"
+msgstr "IPv4-adresse:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
 #: ../loader2/net.c:904
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP-adresse:"
+msgstr "IPv6-adresse:"
 
 #: ../loader2/net.c:965
-#, fuzzy
 msgid "Name Server:"
-msgstr "Navneserver"
+msgstr "Navneserver:"
 
 #: ../loader2/net.c:1008
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL-konfiguration"
+msgstr "Manuel TCP/IP-konfiguration"
 
 #: ../loader2/net.c:1131 ../loader2/net.c:1137
 msgid "Missing Information"
 msgstr "Manglende information"
 
 #: ../loader2/net.c:1132
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
+msgstr "Du skal indtaste både en gyldig IPv4-adresse og en netmaske eller et CIDR-præfiks."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
+msgstr "Du skal indtaste både en gyldig IPv6-adresse og et CIDR-præfiks."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6456,36 +6448,32 @@ msgid "Loading SCSI driver"
 msgstr "Indlæser SCSI-driver"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Tilføj _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
 msgstr ""
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Flere alternativer for størrelse"
+msgstr ""
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Hvordan ønsker du at få plads til at partitionere?"
+msgstr ""
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr ""
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>iSCSI initiator_navn:</b>"
+msgstr ""
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6533,9 +6521,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Avanceret konfiguration af opstartsindlæser"
+msgstr ""
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6550,27 +6537,24 @@ msgid "_Exception details"
 msgstr "_Detaljer om undtagelse"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Adgangskode:"
+msgstr "<b>_Adgangskode:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>IP-addresse på målet:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>_Portnummer:</b>"
+msgstr "<b>_Brugernavn:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI initiator_navn:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev-parametre"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
@@ -6579,29 +6563,24 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>IP-addresse på målet:</b>"
+msgstr "<b>IPv4-adresse:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>IP-addresse på målet:</b>"
+msgstr "<b>IPv6-adresse:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Navneserver"
+msgstr "<b>Navneserver:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>_Portnummer:</b>"
+msgstr ""
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6622,9 +6601,8 @@ msgid ""
 msgstr ""
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Brug dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr "Brug dynamisk IP-konfiguration (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6637,12 +6615,11 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Yderligere tilpasning af programmelvalget kan laves nu, eller efter "
+"Du kan lave yderligere tilpasning af programmelvalget kan laves nu, eller efter "
 "installering via programmet til programmeladministration."
 
 #: tmp/tasksel.glade.h:6
@@ -6702,18 +6679,16 @@ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Østamerikansk tid - Ontario - de fleste steder"
+msgstr "Atlantisk tid - Labrador - de fleste steder"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantisk tid - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlantisk tid - (det meste af) Nova Scotia, Vestlabrador, Østquebec & PEI"
+msgstr "Atlantisk tid - (det meste af) Nova Scotia, PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6752,9 +6727,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "centrale Kina - Gansu, Guizhou, Sichuan, Yunnan, osv."
+msgstr "centrale Kina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, osv."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6785,13 +6759,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Centralamerikansk tid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
 "Centralamerikansk tid - Indiana - Daviess, Dubois, Knox, Martin, Perry & "
-"Pulaski"
+"Pulaski amter"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6812,9 +6785,8 @@ msgid "Central Time - most locations"
 msgstr "Centralamerikansk tid - de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Centralamerikansk tid - North Dakota - Oliver County"
+msgstr "Centralamerikansk tid - North Dakota - Morton County (undtagen Mandan-området)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6873,9 +6845,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Påskeøen & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Østamerikansk standardtid - Southampton Island"
+msgstr "Østamerikansk standardtid - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7040,9 +7011,8 @@ msgid "Midway Islands"
 msgstr "Midway-øerne"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskva+01 - Kaspiske Hav"
+msgstr "Moskva+00 - Kaspiske Hav"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7053,9 +7023,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskva+09 - Kamchatka"
+msgstr "Moskva+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7166,9 +7135,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Nordøstbrasilien (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantisk tid - Østlabrador"
+msgstr ""
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7339,9 +7307,8 @@ msgid "West Kazakhstan"
 msgstr "Vestlige Kazakhstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & det meste af Xinjiang Uyghur"
+msgstr "Vesttibet og Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7424,9 +7391,8 @@ msgid "German"
 msgstr "Tysk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Fri"
+msgstr "Græsk"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7473,14 +7439,12 @@ msgid "Malay"
 msgstr "Malaj"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Malaj"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
