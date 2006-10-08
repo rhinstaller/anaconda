@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-05 23:57+0200\n"
+"PO-Revision-Date: 2006-10-08 19:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3525,19 +3525,16 @@ msgid "Configure %s"
 msgstr "Konfigurér %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Ugyldig IP-streng"
+msgstr ""
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP-adresser skal indeholde tal mellem 1 og 255"
+msgstr ""
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP-adresser skal indeholde tal mellem 1 og 255"
+msgstr ""
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3551,9 +3548,8 @@ msgid "Device"
 msgstr "Enhed"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Netmaske"
+msgstr "IPv4/Netmaske"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
@@ -3576,9 +3572,8 @@ msgid "_manually"
 msgstr "_manuelt"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(fx \"vært.domæne.dk\")"
+msgstr "(fx vært.domæne.dk)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -4265,7 +4260,7 @@ msgid "Unable to load file!"
 msgstr "Kan ikke læse fil!"
 
 #: ../iw/task_gui.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4273,8 +4268,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kunne ikke læse overordnede data om pakke. Dette kan bero sig på et "
-"manglende 'repodata'-katalog.Forsikr dig venligst om at dit installationstræ "
+"Kunne ikke læse overordnede data om pakke fra registret. Dette kan bero sig på et "
+"manglende 'repodata'-katalog.Forsikr dig venligst om at dit register "
 "er blevet genereret korrekt.  %s"
 
 #: ../iw/task_gui.py:89
@@ -4285,32 +4280,29 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:121
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Ugyldigt værtsnavn"
+msgstr "Ugyldigt registernavn"
 
 #: ../iw/task_gui.py:122
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Du skal indtaste et værtsnavn."
+msgstr "Det er nødvendigt at du angiver et ikke-tomt navn på registeret."
 
 #: ../iw/task_gui.py:131
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "ugyldigt opstartsnavn"
+msgstr "ugyldig URL for register"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Monteringspunktet %s er allerede i brug. Vælg venligst et andet "
-"monteringspunkt."
+"Registeret %s er allerede blevet tilføjet. Vælg venligst et andet "
+"registernavn og URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4641,9 +4633,8 @@ msgstr ""
 "hvilket navn du vil bruge for hvert af dem."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr "<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
+msgstr "<Mellemrum> vælg | <F2> vælg standard | <F4> slet | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -5178,14 +5169,12 @@ msgid "Partitioning Type"
 msgstr "Partitionstype"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Installation kræver partitionering af din disk. Som standard vil en "
-"partitions-opdeling blive valgt som er fornuftig for de fleste brugere. Du "
+"Installation kræver partitionering af din disk. Standard-opdelingen er fornuftig for de fleste brugere. Du "
 "kan enten vælge denne, eller lave din egen opdeling. "
 
 #: ../textw/partition_text.py:1542
@@ -5258,7 +5247,7 @@ msgid "Package selection"
 msgstr "Pakkevalg"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5266,7 +5255,7 @@ msgid ""
 msgstr ""
 "Den normale installation af %s indbefatter et udvalg af programmel som "
 "passer til generel internet brug. Hvilke yderligere opgaver ønsker du at dit "
-"system skal have understøttelse for?"
+"system skal understøtte?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5432,7 +5421,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5488,9 +5477,8 @@ msgstr ""
 "\tSpil\n"
 
 #: ../installclasses/rhel.py:15
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6199,14 +6187,12 @@ msgid "You entered an invalid IP address."
 msgstr "Du skrev en ugyldig IP-adresse."
 
 #: ../loader2/net.c:541 ../loader2/net.c:647
-#, fuzzy
 msgid "Network Error"
-msgstr "Ingen adgangskode"
+msgstr "Netværksfejl"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "En fejl skete ved tømning af måldiskene. Kloning mislykkedes."
+msgstr ""
 
 #: ../loader2/net.c:684
 #, fuzzy
