@@ -1,3 +1,8 @@
+2006-10-09  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.getPackage):  Fix for yum api
+	change supporting basepath that we use for split media hinting.
+
 2006-10-09  Chris Lumens  <clumens@redhat.com>
 
 	* network.py (Network.lookupHostname):  Fix traceback on looking up

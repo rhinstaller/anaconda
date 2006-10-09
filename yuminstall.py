@@ -191,6 +191,16 @@ class AnacondaYumRepo(YumRepository):
         self.setAttribute('pkgdir', root)
         self.setAttribute('hdrdir', '/tmp/cache/headers')
 
+    def getPackage(self, package, checkfunc = None, text = None, cache = True):
+        remote = package.returnSimple('relativepath')
+        local = package.localPkg()
+
+        return self.__get(relative=remote,
+                        local=local,
+                        checkfunc=checkfunc,
+                        text=text,
+                        cache=cache
+                        )
 
 class YumSorter(yum.YumBase):
     
