@@ -1,3 +1,4 @@
+# translation of da1.po to
 # translation of da.po to
 # translation of da.po to Danish
 # Danish translation of anaconda
@@ -9,10 +10,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: da\n"
+"Project-Id-Version: da1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-08 19:40+0200\n"
+"PO-Revision-Date: 2006-10-09 22:57+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -333,6 +334,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Tryk 'O.k.' for at vælge et andet partitioneringsalternativ."
 
 #: ../autopart.py:1503
 #, python-format
@@ -533,8 +537,8 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Dit systems tilstand er skrevet til den eksterne maskine. "
-"Systemet bliver nu genstartet."
+"Dit systems tilstand er skrevet til den eksterne maskine. Systemet bliver nu "
+"genstartet."
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
@@ -643,6 +647,14 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Swapenheden:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"er en Linuxswappartition af typen version 0. Hvis du vil bruge denne "
+"enhed skal du omformatere den til en Linuxswappartition af typen "
+"version 1. Hvis du springer over det vil installationsprogrammet "
+"overspringe det under installationen."
 
 #: ../fsset.py:1483
 msgid "Reformat"
@@ -659,6 +671,14 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Swapenheden:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil bruges i øjeblikket som en partition for "
+"programmelsuspendering, hvilket indebær at dit system er i hviletilstand. For "
+"at lave en opgradering bør du lukke dit system ned i stedet for at "
+"sætte det i hviletilstand."
 
 #: ../fsset.py:1495
 #, python-format
@@ -671,6 +691,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Swapenheden:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil bruges i øjeblikket som en partition for "
+"programmelsuspendering, hvilket indebærer at dit system er i hviletilstand. Hvis "
+"du laver en ny installation bør du se til at installationsprogrammet er "
+"sat op til at formatere alle swappartitioner."
 
 #: ../fsset.py:1505
 msgid ""
@@ -680,6 +708,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Vælg Overspring hvis du ønsker at installationsprogrammet skal ignorere denne "
+"partition under opgraderingen. Vælg Formatér for at formatere partitionen "
+"som swapplads. Vælg Genstart for at genstarte systemet."
 
 #: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
@@ -810,6 +843,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Et fejl skete ved montering af enhed %s som %s.  Du kan fortsætte "
+"installationen men det kan komme problemer."
 
 #: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
 #: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
@@ -1029,11 +1064,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke. Kontrollér dine systemmedier og at du har alle de nødvendige medier.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller måske en "
+"beskadiget pakke. Kontrollér dine systemmedier og at du har alle de "
+"nødvendige medier.\n"
 "\n"
-"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
-"kræve geninstallation.\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som "
+"sandsynligvis vil kræve geninstallation.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:507
@@ -1052,8 +1088,8 @@ msgstr ""
 "Installeringsprogrammet har forsøgt at montere aftryk #%s, men kan ikke "
 "finde det på disken.\n"
 "\n"
-"Kopiér gerne dette aftryk til drevet og "
-"klik Forsøg igen. Klik Genstart for at afbryde installationen."
+"Kopiér gerne dette aftryk til drevet og klik Forsøg igen. Klik Genstart for "
+"at afbryde installationen."
 
 #: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
@@ -1142,12 +1178,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke."
-"Kontrollér at dit installationstræ indeholder alle de nødvendige pakker.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller måske en "
+"beskadiget pakke.Kontrollér at dit installationstræ indeholder alle de "
+"nødvendige pakker.\n"
 "\n"
-"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
-"kræve geninstallation.\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som "
+"sandsynligvis vil kræve geninstallation.\n"
 "\n"
 
 #: ../image.py:508
@@ -1212,6 +1248,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Du har angivet at pakken \"%s\" skal installeres. Denne pakke findes ikke. "
+"Vil du fortsætte eller afbryde din installation?"
 
 #: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
 #: ../yuminstall.py:718
@@ -1228,6 +1266,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Du har angivet at gruppen \"%s\" skal installeres. Denne gruppe findes ikke. "
+"Vil du fortsætte eller afbryde din installation?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1249,7 +1289,9 @@ msgstr "IP-adresse mangler."
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP-adresser skal indeholde fire tal tal mellem 0 og 255, adskilt af punktummer."
+msgstr ""
+"IP-adresser skal indeholde fire tal tal mellem 0 og 255, adskilt af "
+"punktummer."
 
 #: ../network.py:96
 #, python-format
@@ -1259,7 +1301,7 @@ msgstr "%s er ikke en gyldig IPv6-adresse."
 #: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Angiv registreringsnøglen for din version af %s."
 
 #: ../packages.py:245
 msgid "Enter Registration Key"
@@ -1267,7 +1309,7 @@ msgstr "Indtast registreringsnøgle"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr ""
+msgstr "Nøgle:"
 
 #: ../packages.py:276
 msgid "Warning! This is pre-release software!"
@@ -1781,6 +1823,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Din opstarts-partition er ikke en af de fire første partitioner og vil "
+"derfor ikke være startbar."
 
 #: ../partitions.py:847
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1806,12 +1850,16 @@ msgstr ""
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Installerer på en USB-enhed. Dette kan give et fungerende system, men det "
+"er ikke sikkert."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Installerer på en FireWire-enhed. Dette kan give et fungerende system, "
+"men det er ikke sikkert."
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1940,7 +1988,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "Logiske volymstørrelse skal være større end volymgruppens fysiske område-størrelse."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2283,11 +2331,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller "
-"måske en beskadiget pakke. Kontrollér at dit spejl  indeholder alle de nødvendige pakker, eller prøv at bruge et andet spejl.\n"
+"Filen %s kan ikke åbnes. Dette beror på en manglende fil eller måske en "
+"beskadiget pakke. Kontrollér at dit spejl  indeholder alle de nødvendige "
+"pakker, eller prøv at bruge et andet spejl.\n"
 "\n"
-"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som sandsynligvis vil "
-"kræve geninstallation.\n"
+"Hvis du genstarter vil dit system være i en inkonsistent tilstand, som "
+"sandsynligvis vil kræve geninstallation.\n"
 "\n"
 
 #: ../vnc.py:44
@@ -2364,6 +2413,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Du skal angive en vnc-adgangskode som er mindst 6 tegn langt.\n"
+"\n"
+"Tryk <retur> for at genstarte dit system.\n"
 
 #: ../vnc.py:184
 msgid "Starting VNC..."
@@ -2452,27 +2504,27 @@ msgstr "Forbereder installation fra installationskilde..."
 
 #: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
-msgstr ""
+msgstr "filkonflikter"
 
 #: ../yuminstall.py:472
 msgid "older package(s)"
-msgstr ""
+msgstr "ældre pakker"
 
 #: ../yuminstall.py:473
 msgid "insufficient disk space"
-msgstr ""
+msgstr "ikke tilstrækkeligt med diskplads"
 
 #: ../yuminstall.py:474
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "ikke tilstrækkeligt med diskinoder"
 
 #: ../yuminstall.py:475
 msgid "package conflicts"
-msgstr ""
+msgstr "pakkekonflikter"
 
 #: ../yuminstall.py:476
 msgid "package already installed"
-msgstr ""
+msgstr "pakke er allerede installeret"
 
 #: ../yuminstall.py:477
 msgid "required package"
@@ -2480,15 +2532,15 @@ msgstr "nødvendig pakke"
 
 #: ../yuminstall.py:478
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pakke for fejlagtig arkitektur"
 
 #: ../yuminstall.py:479
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pakke for fejlagtigt os"
 
 #: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Du behøver mere plads på følgende filsystem:\n"
 
 #: ../yuminstall.py:509
 msgid "Error running transaction"
@@ -2533,6 +2585,9 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"De pakker som du har valgt kræver %d MB fri plads for installationen, "
+"men du har ikke nok fri plads. Du kan ændre dine valg eller "
+"genstarte."
 
 #: ../yuminstall.py:1149
 #, python-format
@@ -2687,7 +2742,7 @@ msgstr "Ugyldigt Initiator-navn"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Du skal angive et ikke-tomt initiator-navn."
 
 #: ../iw/autopart_type.py:157
 msgid "Error with Data"
@@ -2699,15 +2754,15 @@ msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægnin
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Fjern Linuxpartitioner på valgte enheder og opret et forvalgt layout."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Brug fri plads på valgte enheder og opret et forvalgt layout."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
-msgstr ""
+msgstr "Opret egendefineret layout."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3489,11 +3544,11 @@ msgstr "Brug dynamisk IP-konfiguration (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Aktivér IPv4 understøttelse"
 
 #: ../iw/network_gui.py:291 ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Aktivér IPv6 understøttelse"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
@@ -3526,15 +3581,15 @@ msgstr "Konfigurér %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
 msgid "Invalid Prefix"
-msgstr ""
+msgstr "Ugyldigt præfiks"
 
 #: ../iw/network_gui.py:458
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr ""
+msgstr "IPv4-præfiks må kun indeholde tal mellem 0 og 32."
 
 #: ../iw/network_gui.py:475
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr ""
+msgstr "IPv6-præfiks må kun indeholde tal mellem 0 og 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3553,7 +3608,7 @@ msgstr "IPv4/Netmaske"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Præfiks"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3722,12 +3777,12 @@ msgstr "Tving til at være en _primærpartition"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Enhed %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Enhed %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4268,8 +4323,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kunne ikke læse overordnede data om pakke fra registret. Dette kan bero sig på et "
-"manglende 'repodata'-katalog.Forsikr dig venligst om at dit register "
+"Kunne ikke læse overordnede data om pakke fra registret. Dette kan bero sig "
+"på et manglende 'repodata'-katalog.Forsikr dig venligst om at dit register "
 "er blevet genereret korrekt.  %s"
 
 #: ../iw/task_gui.py:89
@@ -4278,6 +4333,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Kan ikke finde en gruppefil for %s.  Dette gør at manuelt valg af pakker "
+"fra datalagret ikke vil fungere"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4293,7 +4350,7 @@ msgstr "ugyldig URL for register"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Du skal angive en HTTP- eller FTP-URL til et repository"
 
 #: ../iw/task_gui.py:146
 #, python-format
@@ -5174,8 +5231,9 @@ msgid ""
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Installation kræver partitionering af din disk. Standard-opdelingen er fornuftig for de fleste brugere. Du "
-"kan enten vælge denne, eller lave din egen opdeling. "
+"Installation kræver partitionering af din disk. Standard-opdelingen er "
+"fornuftig for de fleste brugere. Du kan enten vælge denne, eller lave din "
+"egen opdeling. "
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5668,7 +5726,7 @@ msgstr "Kunne ikke montere driverdiskette."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Driverrutinedisketten er ugyldig for denne udgave af %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6145,6 +6203,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"Præfiks skal være mellem 1 og 32 for IPv4-netværk eller mellem 1 og 128 for "
+"IPv6-netværk"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6192,7 +6252,7 @@ msgstr "Netværksfejl"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
-msgstr ""
+msgstr "Et fejl skete ved konfigurering af netværksgrænsesnittet."
 
 #: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
@@ -6200,11 +6260,11 @@ msgstr "Brug dynamisk IP-konfiguration (DHCP)"
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Undgå uønskede pakkekollisioner"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maksimér registerværdier for højhastighedsnetværkstrafik"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -6212,11 +6272,11 @@ msgstr "Konfigurér TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 behøves for NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS-installationsmetode kræver IPv4-understøttelse."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6227,10 +6287,12 @@ msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"Du skal vælge mindst en protokol (IPv4 eller IPv6) for manuel "
+"konfiguration."
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Du skal vælge mindst en protokol (IPv4 eller IPv6) for DHCP."
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
@@ -6238,7 +6300,7 @@ msgstr "IPv4-adresse:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:904
 msgid "IPv6 address:"
@@ -6258,7 +6320,9 @@ msgstr "Manglende information"
 
 #: ../loader2/net.c:1132
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Du skal indtaste både en gyldig IPv4-adresse og en netmaske eller et CIDR-præfiks."
+msgstr ""
+"Du skal indtaste både en gyldig IPv4-adresse og en netmaske eller et CIDR-"
+"præfiks."
 
 #: ../loader2/net.c:1138
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
@@ -6301,7 +6365,7 @@ msgstr "%s-katalog:"
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6374,11 +6438,11 @@ msgstr "Modtager"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:284
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:301
 msgid "FTP site name:"
@@ -6453,31 +6517,31 @@ msgstr "Tilføj _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Tilføj _iSCSI destination"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
-msgstr ""
+msgstr "Avancerede lagrings alternativer"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Deaktivér _dmraid-enhed"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "Hvordan vil du ændre din diskenhedskonfiguration?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Repository·_URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>Repository_navn:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Tilføj Repository"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6485,10 +6549,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Angiv stedet fra hvorfra yderligere programmel kan installeres.  "
+"bemærk at dette skal være et gyldig repository for %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Tilføj repository"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6522,7 +6588,7 @@ msgstr "_Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr ""
+msgstr "_Avanceret lagringskonfiguration"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6554,13 +6620,15 @@ msgstr "<b>iSCSI initiator_navn:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr ""
+msgstr "Konfigurér iSCSI-parametre"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"For at bruge iSCSI diske skal du angive adressen på dit iSCSI-mål "
+"og iSCSI-initiatorens navn som du har konfigureret for din maskine."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6580,25 +6648,27 @@ msgstr "<b>Navneserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>_grænsesnit:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Aktivér IPv_4 understøttelse"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Aktivér IPv_6 understøttelse"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Aktivér netværksgrænsesnittet"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Dette kræver at du har en fungerende netværksopkobling under "
+"installationsprocessen. Konfigurér et netværksgrænsesnit."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6612,19 +6682,19 @@ msgstr "Tilpas _senere"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "Vælg de yderligere datalagre du vil bruge for installation af programmer."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Du kan lave yderligere tilpasning af programmelvalget kan laves nu, eller efter "
-"installering via programmet til programmeladministration."
+"Du kan lave yderligere tilpasning af programmelvalget kan laves nu, eller "
+"efter installering via programmet til programmeladministration."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Tilføj flere program-datalagre"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -6676,7 +6746,7 @@ msgstr "Atlantiske øer"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantisk Standard Tid - Québec - Nedre nordre kyst"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
@@ -6786,7 +6856,9 @@ msgstr "Centralamerikansk tid - de fleste steder"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Centralamerikansk tid - North Dakota - Morton County (undtagen Mandan-området)"
+msgstr ""
+"Centralamerikansk tid - North Dakota - Morton County (undtagen Mandan-"
+"området)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6932,7 +7004,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (undtagen Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7080,7 +7152,7 @@ msgstr "de fleste steder (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "de meste af Tibet og Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7136,7 +7208,7 @@ msgstr "Nordøstbrasilien (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
-msgstr ""
+msgstr "Newfoundlandtid, inklusive SØ Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7424,7 +7496,7 @@ msgstr "Japansk"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7456,7 +7528,7 @@ msgstr "Nordlige Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
