@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.109
+Version: 11.1.0.110
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.110-1
+- Fix SELinux contexts for iscsi 
+- Fix traceback if addrepos isn't shown (#209997)
+- Fix traceback looking up hostnames (clumens, #209672)
+- Fix split media (pnasrat)
+- Fix network to be enabled after install on non-network installs
+
 * Fri Oct  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.109-1
 - Fix iscsi for toolchain changes and targets with multiple IPs
 - Validate ips like 9.1.2.3 (dcantrel, #209654)
