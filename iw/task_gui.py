@@ -39,17 +39,18 @@ class TaskWindow(InstallWindow):
             else:
                 map(self.backend.deselectGroup, grps)
 
-        repos = self.xml.get_widget("repoList").get_model()
-        for (cb, reponame, repo) in repos:
-            if cb:
-                repo.enable()
+        if self.anaconda.id.instClass.allowExtraRepos:
+            repos = self.xml.get_widget("repoList").get_model()
+            for (cb, reponame, repo) in repos:
+                if cb:
+                    repo.enable()
 
-                # Setup any repositories that were in the installclass's
-                # default list.
-                if not repo.ready():
-                    self._setupRepo(repo)
-            else:
-                repo.disable()
+                    # Setup any repositories that were in the installclass's
+                    # default list.
+                    if not repo.ready():
+                        self._setupRepo(repo)
+                else:
+                    repo.disable()
 
     def groupsInstalled(self, lst):
         # FIXME: yum specific
