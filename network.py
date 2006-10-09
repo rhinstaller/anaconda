@@ -363,12 +363,12 @@ class Network:
 
 	try:
             (family, socktype, proto, canonname, sockaddr) = \
-                socket.getaddrinfo(self.hostname, None, socket.AF_INET)
+                socket.getaddrinfo(self.hostname, None, socket.AF_INET)[0]
             (ip, port) = sockaddr
 	except:
             try:
                 (family, socktype, proto, canonname, sockaddr) = \
-                    socket.getaddrinfo(self.hostname, None, socket.AF_INET6)
+                    socket.getaddrinfo(self.hostname, None, socket.AF_INET6)[0]
                 (ip, port, flowinfo, scopeid) = sockaddr
             except:
 	        return None
