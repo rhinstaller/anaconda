@@ -1,3 +1,9 @@
+2006-10-09  Jeremy Katz  <katzj@redhat.com>
+
+	* network.py (Network.__init__): Default ipv4 and ipv6 to being
+	enabled so that we get network devices enabled postinstall on CD
+	installs 
+
 2006-10-09  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo.getPackage):  Fix for yum api

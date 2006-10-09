@@ -172,8 +172,8 @@ class Network:
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
-	self.useIPv4 = False
-	self.useIPv6 = False
+	self.useIPv4 = True
+	self.useIPv6 = True
 
         # if we specify a hostname and are using dhcp, do an override
         # originally used by the gui but overloaded now
@@ -211,14 +211,10 @@ class Network:
             if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
 	    if info.has_key("BOOTPROTO"):
-	        if info["BOOTPROTO"].lower() == "dhcp":
-	            self.useIPv4 = True
-	            self.useIPv6 = True
-	        else:
-	            if info.has_key("IPADDR"):
-	                self.useIPv4 = True
-	            if info.has_key("IPV6ADDR"):
-	                self.useIPv6 = True
+                if not info.has_key("IPADDR"):
+                    self.useIPv4 = False
+                if not info.has_key("IPV6ADDR"):
+                    self.useIPv6 = False
 
 	try:
 	    f = open("/etc/resolv.conf", "r")
