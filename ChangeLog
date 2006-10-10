@@ -1,3 +1,8 @@
+2006-10-10  Chris Lumens  <clumens@redhat.com>
+
+	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):  Fix UI
+	flow traceback (#210190).
+
 2006-10-10  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/partition_ui_helpers_gui.py (createAllowedDrivesList): Ensure
