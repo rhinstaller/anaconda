@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.110
+Version: 11.1.1.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 10 2006 Jeremy Katz <katzj@redhat.com> - 11.1.1.0-1
+- Allow setting the language to something not in lang-table (clumens, #176538)
+- Fix split media (pnasrat)
+- Fix going back from advanced bootloader (clumens, #210190)
+- Bump early swap to be higher
+
 * Mon Oct  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.110-1
 - Fix SELinux contexts for iscsi 
 - Fix traceback if addrepos isn't shown (#209997)
