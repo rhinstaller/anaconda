@@ -1,3 +1,7 @@
+2006-10-10  Jeremy Katz  <katzj@redhat.com>
+
+	* constants.py: Betanag off
+
 2006-10-10  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo.__get):  Fix for yum api
@@ -8,9 +12,6 @@
 	* language.py (Language.setRuntimeLanguage):  Allow setting the system
 	language to something other than what's in lang-table, as the
 	kickstart documentation says is allowed (#176538).
-
-	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):  Fix UI
-	flow traceback (#210190).
 
 2006-10-09  Jeremy Katz  <katzj@redhat.com>
 
