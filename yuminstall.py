@@ -195,12 +195,12 @@ class AnacondaYumRepo(YumRepository):
         remote = package.returnSimple('relativepath')
         local = package.localPkg()
 
-        return self.__get(relative=remote,
-                        local=local,
-                        checkfunc=checkfunc,
-                        text=text,
-                        cache=cache
-                        )
+        return self._YumRepository__get(relative=remote,
+                                        local=local,
+                                        checkfunc=checkfunc,
+                                        text=text,
+                                        cache=cache
+                                       )
 
 class YumSorter(yum.YumBase):
     

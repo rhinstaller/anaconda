@@ -1,3 +1,9 @@
+2006-10-10  Chris Lumens  <clumens@redhat.com>
+
+	* language.py (Language.setRuntimeLanguage):  Allow setting the system
+	language to something other than what's in lang-table, as the
+	kickstart documentation says is allowed (#176538).
+
 2006-10-09  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
