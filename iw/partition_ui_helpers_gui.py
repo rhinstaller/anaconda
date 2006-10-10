@@ -120,7 +120,7 @@ def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
 
-def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
+def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc = None):
     drivelist.clear()
     drives = disks.keys()
     drives.sort()
@@ -142,7 +142,7 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
     else:
         drivelist.set_sensitive(True)
 
-def createAllowedDrivesList(disks, reqdrives, updateSrc):
+def createAllowedDrivesList(disks, reqdrives, updateSrc = None):
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			  gobject.TYPE_STRING,
 			  gobject.TYPE_STRING,

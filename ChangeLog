@@ -1,5 +1,13 @@
 2006-10-10  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesList): Ensure
+	that we don't fall over dead if a caller hasn't been updated
+
+	* iw/autopart_type.py (PartitionTypeWindow.addDrive): Fix another
+	traceback with the allowed drive stuff.
+
+2006-10-10  Jeremy Katz  <katzj@redhat.com>
+
 	* isys/isys.h (EARLY_SWAP_RAM): More realistic numbers
 
 	* loader2/loader.h (GUI_STAGE2_RAM): Require more than 256 megs of

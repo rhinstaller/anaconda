@@ -218,7 +218,8 @@ class PartitionTypeWindow(InstallWindow):
             partitioning.partitionObjectsInitialize(self.anaconda)
             createAllowedDrivesStore(self.diskset.disks,
                                      self.partitions.autoClearPartDrives,
-                                     self.drivelist)
+                                     self.drivelist,
+                                     self.anaconda.updateSrc)
         
 
     def getScreen(self, anaconda):
