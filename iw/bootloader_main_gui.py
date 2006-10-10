@@ -98,7 +98,7 @@ class MainBootloaderWindow(InstallWindow):
 
         if self.bl.useGrub():
             self.blname = "GRUB"
-        if self.dispatch.stepInSkipList("instbootloader"):
+        else:
             self.blname = None
 
         # make sure we get a valid device to say we're installing to
