@@ -190,6 +190,12 @@ class Language:
 
     def setRuntimeLanguage(self, nick):
         canonNick = self.canonLangNick(nick)
+
+        # Allow specifying languages in kickstart that aren't in lang-table,
+        # but are still valid settings.
+        if not canonNick.startswith(nick):
+            self.targetLang = nick
+
         self.setRuntimeDefaults(nick)
 
         os.environ["LANG"] = self.fixLang(canonNick)
