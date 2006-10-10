@@ -340,9 +340,12 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = ethCount("tr") - 1;
                 } else if (mi->major == DRIVER_SCSI) {
-                    /* FIXME: this is a hack, but usb-storage seems to
-                     * like to take forever to enumerate.  try to 
-                     * give it some time */
+                    /*
+		     * The usb-storage seems to take forever to enumerate.
+		     * Also, it does all the work in its own threads, so
+		     * the modprobe returns before the devices are found.
+		     * Wait for it to find something useable.
+		     */
                     if (!strcmp(modName, "usb-storage") && !usbWasLoaded) {
                         int slp;
                         usbWasLoaded = 1;
@@ -582,9 +585,28 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
     if (reloadUsbStorage) {
         mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL);
-        /* JKFIXME: here's the rest of the hacks.  basically do the reverse
-         * of what we did before.
-         */
+	/*
+	 * We sleep here *in addition to loadModule* for a couple of reasons.
+	 *
+	 * Firstly, if a system has more than one USB device (for example,
+	 * IBM Bladecenter has a USB floppy and USB CD-ROM), the built-in
+	 * waiting loop in loadModule exits when the first device is found,
+	 * which may not be the one where CD is (e.g. the floppy). On a fast
+	 * box, we blow through the media selection before scd0 can be open.
+	 *
+	 * However, we only get here when installing from USB to SCSI (or SATA).
+	 * Therefore, there's no reason to boggle down loadModule with this.
+	 * If we waited in loadModule, we'd wait when we loaded usb-storage for
+	 * the first time, too. But that time is simply wasted, because we
+	 * remove usb-storage immediately afterwards.
+	 *
+	 * Why sleep so much? That's because a USB device can inherit a
+	 * so-called "nonzero toggle" after rmmod, and it has to time out
+	 * before it's reset. The default timeout for inquiry is 5.5s.
+	 *
+	 * See bug 207336 for the discussion of possible kernel patches.
+	 */
+	sleep(7);
     }
 
     if (!FL_TESTING(flags))

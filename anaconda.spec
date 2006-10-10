@@ -110,6 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 - Bump early swap to be higher
 - Add Telugu (#207428)
 - Update edd support (Rez Kabir, #207331)
+- Sleep hacks for usb-storage (zaitcev, #207336)
 
 * Mon Oct  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.110-1
 - Fix SELinux contexts for iscsi 
