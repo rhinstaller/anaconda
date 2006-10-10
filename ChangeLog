@@ -1,3 +1,10 @@
+2006-10-10  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.addDrive): Fix another
+	traceback with the allowed drive stuff.
+
+	* isys/isys.h (EARLY_SWAP_RAM): More realistic numbers
+	
 2006-10-10  Chris Lumens  <clumens@redhat.com>
 
 	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):  Fix UI
