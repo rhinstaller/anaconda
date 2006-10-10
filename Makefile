@@ -99,7 +99,7 @@ src: create-archive
 build: src
 	@rm -rf /tmp/anaconda
 	@mkdir /tmp/anaconda
-	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-5 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 	@rm -rf /tmp/anaconda
 	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?devel/anaconda#$(CVSTAG)'
 
