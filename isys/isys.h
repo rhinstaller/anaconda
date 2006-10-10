@@ -2,8 +2,8 @@
 #define H_ISYS
 
 #define MIN_RAM			64000	    
-#define MIN_GUI_RAM		128000
-#define EARLY_SWAP_RAM		140000
+#define MIN_GUI_RAM		192000
+#define EARLY_SWAP_RAM		220000
 
 /* returns -2 for errno, -1 for unknown device */
 int devMakeInode(char * devName, char * path);
