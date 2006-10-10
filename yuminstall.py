@@ -23,6 +23,7 @@ import rpm
 import rpmUtils
 import urlgrabber.progress
 import urlgrabber.grabber
+from urlgrabber.grabber import URLGrabber, URLGrabError
 import yum
 import rhpl
 from packages import recreateInitrd
@@ -190,6 +191,88 @@ class AnacondaYumRepo(YumRepository):
         self.setAttribute('cachedir', '/tmp/cache/')
         self.setAttribute('pkgdir', root)
         self.setAttribute('hdrdir', '/tmp/cache/headers')
+
+    #XXX: FIXME duplicated from YumRepository due to namespacing
+    def __get(self, url=None, relative=None, local=None, start=None, end=None,
+            copy_local=0, checkfunc=None, text=None, reget='simple', cache=True):
+        """retrieve file from the mirrorgroup for the repo
+           relative to local, optionally get range from
+           start to end, also optionally retrieve from a specific baseurl"""
+
+        # if local or relative is None: raise an exception b/c that shouldn't happen
+        # if url is not None - then do a grab from the complete url - not through
+        # the mirror, raise errors as need be
+        # if url is None do a grab via the mirror group/grab for the repo
+        # return the path to the local file
+
+        # Turn our dict into a list of 2-tuples
+        headers = self.__headersListFromDict()
+
+        # We will always prefer to send no-cache.
+        if not (cache or self.http_headers.has_key('Pragma')):
+            headers.append(('Pragma', 'no-cache'))
+
+        headers = tuple(headers)
+
+        if local is None or relative is None:
+            raise Errors.RepoError, \
+                  "get request for Repo %s, gave no source or dest" % self.id
+
+        if self.failure_obj:
+            (f_func, f_args, f_kwargs) = self.failure_obj
+            self.failure_obj = (f_func, f_args, f_kwargs)
+
+        if self.cache == 1:
+            if os.path.exists(local): # FIXME - we should figure out a way
+                return local          # to run the checkfunc from here
+
+            else: # ain't there - raise
+                raise Errors.RepoError, \
+                    "Caching enabled but no local cache of %s from %s" % (local,
+                           self)
+
+        if url is not None:
+            ug = URLGrabber(keepalive = self.keepalive,
+                            bandwidth = self.bandwidth,
+                            retry = self.retries,
+                            throttle = self.throttle,
+                            progres_obj = self.callback,
+                            copy_local = copy_local,
+                            reget = reget,
+                            proxies = self.proxy_dict,
+                            failure_callback = self.failure_obj,
+                            interrupt_callback=self.interrupt_callback,
+                            timeout=self.timeout,
+                            checkfunc=checkfunc,
+                            http_headers=headers,
+                            )
+
+            remote = url + '/' + relative
+
+            try:
+                result = ug.urlgrab(remote, local,
+                                    text=text,
+                                    range=(start, end),
+                                    )
+            except URLGrabError, e:
+                raise Errors.RepoError, \
+                    "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
+
+        else:
+            try:
+                result = self.grab.urlgrab(relative, local,
+                                           text = text,
+                                           range = (start, end),
+                                           copy_local=copy_local,
+                                           reget = reget,
+                                           checkfunc=checkfunc,
+                                           http_headers=headers,
+                                           )
+            except URLGrabError, e:
+                raise Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+
+        return result
+
 
     def getPackage(self, package, checkfunc = None, text = None, cache = True):
         remote = package.returnSimple('relativepath')
