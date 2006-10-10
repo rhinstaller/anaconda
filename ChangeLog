@@ -1,8 +1,10 @@
 2006-10-10  Jeremy Katz  <katzj@redhat.com>
 
+	* lang-table: Add Telugu (#207428)
+
 	* isys/eddsupport.c: Update from Rez Kabir AT dell to support
 	specifying bios drive as long as a drive matches the signature and
-	to fix problems with medium-less devices
+	to fix problems with medium-less devices (#207331)
 
 	* iw/autopart_type.py (PartitionTypeWindow.addDrive): Fix another
 	traceback with the allowed drive stuff.
