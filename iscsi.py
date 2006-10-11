@@ -135,7 +135,7 @@ class iscsi(object):
             return self._initiator
         return randomIname()
     def _setInitiator(self, val):
-        if self._initiator != "":
+        if self._initiator != "" and val != self._initiator:
             raise ValueError, "Unable to change iSCSI initiator name once set"
         if len(val) == 0:
             raise ValueError, "Must provide a non-zero length string"
