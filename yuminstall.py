@@ -193,6 +193,17 @@ class AnacondaYumRepo(YumRepository):
         self.setAttribute('hdrdir', '/tmp/cache/headers')
 
     #XXX: FIXME duplicated from YumRepository due to namespacing
+    def __headersListFromDict(self):
+        """Convert our dict of headers to a list of 2-tuples for urlgrabber."""
+        headers = []
+
+        keys = self.http_headers.keys()
+        for key in keys:
+            headers.append((key, self.http_headers[key]))
+
+        return headers
+
+    #XXX: FIXME duplicated from YumRepository due to namespacing
     def __get(self, url=None, relative=None, local=None, start=None, end=None,
             copy_local=0, checkfunc=None, text=None, reget='simple', cache=True):
         """retrieve file from the mirrorgroup for the repo
