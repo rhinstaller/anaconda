@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.1.0
+Version: 11.1.1.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 11 2006 Chris Lumens <clumens@redhat.com> - 11.1.1.1-1
+- Ignore basepath in getHeader to fix CD installs (pnasrat).
+- Fix package installation.
+
 * Tue Oct 10 2006 Jeremy Katz <katzj@redhat.com> - 11.1.1.0-1
 - Allow setting the language to something not in lang-table (clumens, #176538)
 - Fix split media (pnasrat)
