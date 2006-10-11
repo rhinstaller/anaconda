@@ -1,3 +1,11 @@
+2006-10-11  Peter Jones  <pjones@redhat.com>
+
+	* anaconda (__main__): Only do auditDaemon if we're not in test or
+	rootpath mode.
+
+	* isys/auditd.c (audit_daemonize): Don't start a new process group,
+	and do "exit(0)" rather than "return" after recieving SIGTERM.
+
 2006-10-11  Jeremy Katz  <katzj@redhat.com>
 
 	* partedUtils.py (productMatches): Fix desktop upgrade (#210408)
