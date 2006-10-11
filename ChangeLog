@@ -1,10 +1,15 @@
+2006-10-11  Jeremy Katz  <katzj@redhat.com>
+
+	* iscsi.py (iscsi._setInitiator): Only error if we're actually
+	changing the initiator name (#210347)
+
 2006-10-11  Peter Jones  <pjones@redhat.com>
 
-       * anaconda (__main__): Only do auditDaemon if we're not in test or
-       rootpath mode.
+	* anaconda (__main__): Only do auditDaemon if we're not in test or
+	rootpath mode.
 
-       * isys/auditd.c (audit_daemonize): Don't start a new process group,
-       and do "exit(0)" rather than "return" after recieving SIGTERM.
+	* isys/auditd.c (audit_daemonize): Don't start a new process group,
+	and do "exit(0)" rather than "return" after recieving SIGTERM.
 
 2006-10-11  Chris Lumens  <clumens@redhat.com>
 
