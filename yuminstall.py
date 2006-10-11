@@ -284,6 +284,18 @@ class AnacondaYumRepo(YumRepository):
 
         return result
 
+    def getHeader(self, package, checkfunc = None, reget = 'simple',
+            cache = True):
+
+        remote = package.returnSimple('relativepath')
+        local =  package.localHdr()
+        start = package.returnSimple('hdrstart')
+        end = package.returnSimple('hdrend')
+
+        return self.__get(relative=remote, local=local, start=start,
+                        reget=None, end=end, checkfunc=checkfunc, copy_local=1,
+                        cache=cache,
+                        )
 
     def getPackage(self, package, checkfunc = None, text = None, cache = True):
         remote = package.returnSimple('relativepath')

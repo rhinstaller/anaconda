@@ -1,6 +1,10 @@
+2006-10-11  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.getHeader): Ignore basepath 
+
 2006-10-11  Chris Lumens  <clumens@redhat.com>
 
-        * yuminstall.py (AnacondaYumRepo.__headersListFromDict):  Added because
+	* yuminstall.py (AnacondaYumRepo.__headersListFromDict):  Added because
 	it's needed by __get additions from yesterday.
 
 2006-10-10  Jeremy Katz  <katzj@redhat.com>
