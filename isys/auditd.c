@@ -104,7 +104,6 @@ int audit_daemonize(void) {
     for (i = 0; i < getdtablesize(); i++)
         close(i);
 
-    setsid();
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
@@ -119,7 +118,7 @@ int audit_daemonize(void) {
     do_auditd(fd);
     audit_close(fd);
 #endif /* USESELINUX */
-    return 0;
+    exit(0);
 }
 
 #ifdef STANDALONE
