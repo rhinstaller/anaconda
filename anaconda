@@ -598,8 +598,6 @@ if __name__ == "__main__":
     if rhpl.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
         logger.addFileHandler ("/dev/tty3", log)
 
-    isys.auditDaemon()
-
     warnings.showwarning = AnacondaShowWarning
 
     setupTranslations()
@@ -684,6 +682,9 @@ if __name__ == "__main__":
     # probing for hardware on an s390 seems silly...
     if rhpl.getArch() == "s390":
         opts.isHeadless = True
+
+    if not flags.test and not flags.rootpath:
+        isys.auditDaemon()
 
     users.createLuserConf(anaconda.rootPath)
 
