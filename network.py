@@ -210,7 +210,7 @@ class Network:
                 self.domains.append(info["DOMAIN"])
             if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
-	    if info.has_key("BOOTPROTO"):
+	    if not info.has_key("BOOTPROTO"):
                 if not info.has_key("IPADDR"):
                     self.useIPv4 = False
                 if not info.has_key("IPV6ADDR"):
