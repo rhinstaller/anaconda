@@ -1,3 +1,8 @@
+2006-10-12  Chris Lumens  <clumens@redhat.com>
+
+	* iutil.py (swapSuggestion):  Tweak min/max swap numbers for the low
+	memory case (#189490).
+
 2006-10-12  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/network_text.py (handleMissingOptionalIP): Added from the

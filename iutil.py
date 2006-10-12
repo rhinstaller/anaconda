@@ -126,9 +126,9 @@ def swapSuggestion(quiet=0):
     if not quiet:
 	log.info("Detected %sM of memory", mem)
 	
-    if mem < 128:
-        minswap = 96
-        maxswap = 192
+    if mem <= 256:
+        minswap = 256
+        maxswap = 512
     else:
         if mem > 1000:
             minswap = 1000
