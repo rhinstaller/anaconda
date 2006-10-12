@@ -100,12 +100,13 @@ class NetworkDeviceWindow:
                     for widget in v4list:
                         widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
+                if self.ipv6Cb.selected() != 0:
                     for widget in v6list:
                         widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
-                    if ptplist:
-                        for widget in ptplist:
-                            widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
+                if ptplist:
+                    for widget in ptplist:
+                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
 
         def IPV4toggled():
             active = self.ipv4Cb.selected()

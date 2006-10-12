@@ -1,3 +1,9 @@
+2006-10-12  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/network_text.py (NetworkDeviceWindow): Set IPv6 entry box
+	sensitivity correctly.  Fixes bizarre UI problems where unchecking
+	DHCP and IPv6 would leave all the input boxes active.
+
 2006-10-12  Chris Lumens  <clumens@redhat.com>
 
 	* iutil.py (swapSuggestion):  Tweak min/max swap numbers for the low
