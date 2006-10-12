@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.1
+Version: 11.1.2.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 12 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.2-1
+- Fix layout where extra repo selection box is not displayed (clumens)
+- Fix desktop upgrade (katzj, #210408)
+- Don't start a new process group and do exit(0) instead of return
+  after receiving SIGTERM (pjones)
+- Only do auditDaemon if we're not in test or rootpath mode (pjones)
+- Error only when checking the initiator name (katzj, #210347)
+- Don't force gateway and DNS values (#200029)
+- Set IPv6 entry box sensitivity correctly in text mode
+- Initialize useIPv4 and useIPv6 correctly when existing net info is there
+
 * Wed Oct 11 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.1-1
 - Ignore basepath in getHeader to fix CD installs (pnasrat).
 - Fix package installation.

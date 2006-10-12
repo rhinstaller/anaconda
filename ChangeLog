@@ -1,5 +1,9 @@
 2006-10-12  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2006-10-12  David Cantrell  <dcantrell@redhat.com>
+
 	* textw/network_text.py (NetworkDeviceWindow): Set IPv6 entry box
 	sensitivity correctly.  Fixes bizarre UI problems where unchecking
 	DHCP and IPv6 would leave all the input boxes active.
@@ -7,12 +11,12 @@
 2006-10-12  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/network_text.py (handleMissingOptionalIP): Added from the
-	iw netconfig screen.
+	iw netconfig screen (#200029).
 
 	* textw/network_text.py (NetworkGlobalWindow): If gateway or primary
 	DNS are missing, warn user via handleMissingOptionalIP() and continue.
 	Just pass if secondary DNS is missing.  This is consistent with the
-	iw interface.
+	iw interface (#200029).
 
 	* network.py (Network): If not has key BOOTPROTO, s'il vous plaît.
 	I like double negatives.  I'm not not licking toads.
