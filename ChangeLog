@@ -1,3 +1,13 @@
+2006-10-12  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/network_text.py (handleMissingOptionalIP): Added from the
+	iw netconfig screen.
+
+	* textw/network_text.py (NetworkGlobalWindow): If gateway or primary
+	DNS are missing, warn user via handleMissingOptionalIP() and continue.
+	Just pass if secondary DNS is missing.  This is consistent with the
+	iw interface.
+
 2006-10-11  Peter Jones  <pjones@redhat.com>
 
 	* anaconda (__main__): Only do auditDaemon if we're not in test or
