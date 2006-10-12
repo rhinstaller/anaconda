@@ -55,6 +55,12 @@ def handleIPMissing(screen, field):
                        _("A value is required for the field %s.")
                        % (newfield,), buttons = [ _("OK") ])
 
+def handleMissingOptionalIP(screen, field):
+    ButtonChoiceWindow(screen, _("Error With Data"),
+                       _("You have not specified the field %s.  Depending on "
+                         "your network environment this may cause problems "
+                         "later.") % (field,), buttons = [ _("Continue") ])
+
 def handleBroadCastError(screen):
     ButtonChoiceWindow(screen, _("Error With Data"),
                        _("The IPv4 information you have entered is invalid."))
@@ -499,8 +505,8 @@ class NetworkGlobalWindow:
                 network.sanityCheckIPString(gwEntry.value())
                 anaconda.id.network.gateway = gwEntry.value()
             except network.IPMissing, msg:
-                handleIPMissing(screen, 'gateway')
-                continue
+                handleMissingOptionalIP(screen, 'gateway')
+                pass
             except network.IPError, msg:
                 handleIPError(screen, 'gateway', msg)
                 continue
@@ -509,8 +515,8 @@ class NetworkGlobalWindow:
                 network.sanityCheckIPString(ns1Entry.value())
                 anaconda.id.network.primaryNS = ns1Entry.value()
             except network.IPMissing, msg:
-                handleIPMissing(screen, 'primary DNS')
-                continue
+                handleMissingOptionalIP(screen, 'primary DNS')
+                pass
             except network.IPError, msg:
                 handleIPError(screen, 'primary DNS', msg)
                 continue
@@ -519,8 +525,7 @@ class NetworkGlobalWindow:
                 network.sanityCheckIPString(ns2Entry.value())
                 anaconda.id.network.secondaryNS = ns2Entry.value()
             except network.IPMissing, msg:
-                handleIPMissing(screen, 'secondary DNS')
-                continue
+                pass
             except network.IPError, msg:
                 handleIPError(screen, 'secondary DNS', msg)
                 continue
