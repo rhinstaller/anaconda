@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.1.1
+Version: 11.1.1.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 12 2006 Jeremy Katz <katzj@redhat.com> - 11.1.1.2-1
+- Fix path for Extras for FC6
+- A few more text netconfig fixes (dcantrel)
+- Fix an iscsi error (#210347)
+- Don't do auditdaemon in test or rootpath mode (pjones) 
+
 * Wed Oct 11 2006 Chris Lumens <clumens@redhat.com> - 11.1.1.1-1
 - Ignore basepath in getHeader to fix CD installs (pnasrat).
 - Fix package installation.
