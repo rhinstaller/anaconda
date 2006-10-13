@@ -15,7 +15,7 @@ class InstallClass(BaseInstallClass):
                     "What additional tasks would you like your system "
                     "to include support for?") 
     sortPriority = 10000
-    if productName.startswith("Red Hat Enterprise"):
+    if productName.startswith("Red Hat Enterprise") or 1:
         hidden = 1
 
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),

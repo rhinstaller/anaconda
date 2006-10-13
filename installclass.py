@@ -38,7 +38,6 @@ class BaseInstallClass:
     showMinimal = 1
     showLoginChoice = 0
     description = None
-    regkeydesc = None
     name = "base"
     pkgstext = ""
     # default to showing the upgrade option
@@ -65,6 +64,12 @@ class BaseInstallClass:
 
     # we can use a different install data class
     installDataClass = InstallData
+
+    # install key related bits
+    skipkeytext = None
+    instkeyname = None
+    allowinstkeyskip = True
+    instkeydesc = None
 
     def postAction(self, anaconda, serial):
 	pass

@@ -579,6 +579,50 @@ class ScpWindow:
     def pop(self):
         self.window.destroy()
 
+class InstallKeyWindow:
+    def __init__(self, anaconda, key):
+        (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
+        if anaconda.id.instClass.instkeydesc is not None:
+            w = keyxml.get_widget("instkeyLabel")
+            w.set_text(anaconda.id.instClass.instkeydesc)
+
+        if not anaconda.id.instClass.allowinstkeyskip:
+            keyxml.get_widget("skipRadio").hide()
+
+        keyName = anaconda.id.instClass.instkeyname
+        if anaconda.id.instClass.instkeyname is None:
+            keyName = _("Installation Key")
+
+        # set the install key name based on the installclass
+        for l in ("instkeyLabel", "keyEntryLabel", "skipLabel"):
+            w = keyxml.get_widget(l)
+            t = w.get_text()
+            w.set_text(t % {"instkey": keyName})
+
+        self.entry = keyxml.get_widget("keyEntry")
+        self.entry.set_text(key)
+        self.entry.set_sensitive(True)
+
+        self.keyradio = keyxml.get_widget("keyRadio")
+        self.skipradio = keyxml.get_widget("skipRadio")
+        self.rc = 0
+
+    def run(self):
+        self.win.show()
+        self.rc = self.win.run()
+        return self.rc
+
+    def get_key(self):
+        if self.skipradio.get_active():
+            return SKIP_KEY
+        key = self.entry.get_text()
+        key.strip()
+        return key
+
+    def destroy(self):
+        self.win.destroy()
+            
+
 class ExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
         # Get a bunch of widgets from the XML file.
@@ -834,6 +878,16 @@ class InstallInterface:
 
     def scpWindow(self):
         return ScpWindow()
+
+    def getInstallKey(self, anaconda, key = ""):
+        d = InstallKeyWindow(anaconda, key)
+        rc = d.run()
+        if rc == gtk.RESPONSE_CANCEL:
+            ret = None
+        else:
+            ret = d.get_key()
+        d.destroy()
+        return ret
 
     def beep(self):
         gtk.gdk.beep()

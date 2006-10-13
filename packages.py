@@ -236,17 +236,25 @@ def regKeyScreen(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
 
+    key = ""
     while 1:
-        if anaconda.id.instClass.regkeydesc is None:
-            desc = _("Please enter the registration key for your version of %s.") %(productName,)
-        else:
-            desc = anaconda.id.instClass.regkeydesc
-            
-        rc = anaconda.intf.entryWindow(_("Enter Registration Key"),
-                                       desc, _("Key:"))
+        rc = anaconda.intf.getInstallKey(anaconda, key)
+        if rc is None:
+            return DISPATCH_BACK
+        if rc == SKIP_KEY:
+            if anaconda.id.instClass.skipkeytext:
+                rc = anaconda.intf.messageWindow(_("Skip"),
+                                     anaconda.id.instClass.skipkeytext,
+                                     type="custom", custom_icon="question",
+                                     custom_buttons=[_("_Back"), _("_Skip")])
+                if not rc:
+                    continue
+                return
+            break
 
+        key = rc
         try:
-            anaconda.id.instClass.handleRegKey(rc, anaconda.intf)
+            anaconda.id.instClass.handleRegKey(key, anaconda.intf)
         except Exception, e:
             log.info("exception handling regkey: %s" %(e,))
             continue

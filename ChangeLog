@@ -1,5 +1,15 @@
 2006-10-13  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (InstallKeyWindow.__init__): Improved fancier, schmancier
+	installation key dialog
+	* ui/instkey.glade: The glade file
+	* packages.py (regKeyScreen): Likewise.
+	* text.py: New install key bits
+	* installclass.py: More install key bits
+	* installclasses/rhel.py: Enable by default, better strings
+	* installclasses/fedora.py: Disable.
+	* constants.py (SKIP_KEY): Define another constant
+
 	* iw/progress_gui.py (InstallProgressWindow.getScreen): Take up
 	more of the space (#210531)
 

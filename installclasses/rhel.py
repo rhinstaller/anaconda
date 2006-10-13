@@ -1,6 +1,6 @@
 from installclass import BaseInstallClass
 import rhpl
-from rhpl.translate import N_
+from rhpl.translate import N_,_
 from constants import *
 import os
 import iutil
@@ -19,12 +19,27 @@ class InstallClass(BaseInstallClass):
                      "to include support for?") %(productName,)
     sortPriority = 10000
     allowExtraRepos = False
-    if not productName.startswith("Red Hat Enterprise"):
+    if 0: # not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
+
+    instkeyname = _("Installation Number")
+    instkeydesc = _("To install the full set of supported packages included "
+                    "in your subscription, please enter your Installation "
+                    "Number")
+    skipkeytext = _("If you're unable to locate the Installation Number, "
+                    "consult http://www.redhat.com/apps/support/in.html.\n\n"
+                    "If you skip:\n"
+                    "* You may not get access to the full set of "
+                    "packages included in your subscription.\n"
+                    "* It may result in an unsupported/uncertified "
+                    "installation of Red Hat Enterprise Linux.\n"
+                    "* You will not get software and security updates "
+                    "for packages not included in your subscription.")
+ 
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)

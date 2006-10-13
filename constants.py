@@ -47,6 +47,10 @@ CHECK_DEPS = 0
 IGNORE_DEPS = 1
 RESOLVE_DEPS = 2
 
+# install key related constants
+SKIP_KEY = -50
+
+
 # pull in kickstart constants as well
 from pykickstart.constants import *
 
