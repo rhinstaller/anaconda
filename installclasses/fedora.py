@@ -22,7 +22,7 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
 
-    repos = { "Fedora Extras": ("http://download.fedora.redhat.com/pub/fedora/linux/extras/development/%s" %(rpmUtils.arch.getBaseArch() ,), None) }
+    repos = { "Fedora Extras": ("http://download.fedora.redhat.com/pub/fedora/linux/extras/6/%s" %(rpmUtils.arch.getBaseArch() ,), None) }
 
     def _get_description(self):
         return _(self._description) %(productName,)
