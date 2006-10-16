@@ -1,5 +1,8 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.doGroupSetup): Fix up for
+	virtualization being the group instead of xen
+
 	* zfcp.py (ZFCPDevice.offlineDevice): Fix a few stupid bugs
 	(ZFCP.startup): Move config reading to here so that we don't have
 	problems with bringing up devs more than once (#210094)
