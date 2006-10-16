@@ -2,6 +2,13 @@
 
 	* loader2/urls.c (urlinstStartTransfer):  Fix bad info message.
 
+	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Use a
+	better regex for finding ISO loopback mount points (#205133).
+
+	* installclasses/rhel.py (InstallClass.getPackagePaths):  Set up
+	baseUrl for yum correctly if the method is passed a list of URLs
+	(#210877).
+
 2006-10-13  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/progress_gui.py (InstallProgressWindow.getScreen): Take up
