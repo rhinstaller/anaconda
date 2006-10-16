@@ -10,6 +10,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-10 12:52+0530\n"
+"PO-Revision-Date: 2006-10-16 16:09+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2622,7 +2623,7 @@ msgid ""
 "A boot loader password prevents users from changing options passed to the "
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
-msgstr ""
+msgstr "Boot loader అనుమతిపదం kernelకి పంపిన ఐచ్ఛికాలను వినియోగదారుడు మార్చటాన్న నిరోదిస్తుంది.  కంప్యూటరు రక్షణకోసం, ఇది అనుమతిపద ఏర్పాటును మద్దతిస్తుంది."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2680,6 +2681,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"మీ బూట్లోడరుకోసం LBA32 వినియోగంలో ఒత్తిడి BIOS చేత మద్దతివ్వబడదు. ఎందుకంటే మీ కంప్యూటరు boot చేయటానికి వీలుకాదు.\n"
+"\n"
+"మీరు దీంట్లోనె కొనసాగించాలని మరియూ LBA32 రీతిని నిర్బంధంగా ఉపయోగించాలనుకుంటున్నారా?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2739,6 +2743,10 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"driveలను BIOSచే ఉపయోగించబడే క్రమంలోనే అమర్చండి. మీరు బహుళ SCSI ఎడాప్టర్లు లేదాSCSI "
+"లేదా IDE ఎడాప్టర్లు రెండూ మరియూ SCSI సాధనం నుండీ బూట్ చేయాలనుకుంటే డ్రైవు క్రమం మార్చటం ఉపయోగకరంకావచ్చు.\n"
+"\n"
+"డ్రైవరు క్రమాన్ని మార్చటం సంస్థాపనా ప్రక్రమస్థానాన్ని Master Boot Record (MBR) మార్చుతుంది."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2768,6 +2776,9 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"సంస్థాపనయొక్క పూర్తిక్రమాన్ని మీ కంప్యూటరును పునఃప్రారంభించిన తరువాత ఈ '%s' ఫైలులో చూడవచ్చు.\n"
+"\n"
+"మీ కంప్యూటరు పునఃప్రారంభించిన తరువాత kickstart ఫైలు సంస్థాపనా ఐచ్ఛికాలను కలిగిఉన్న ఎన్నికలను కింది '%s' ఫైలులో కనుగొనవచ్చు."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -2876,7 +2887,7 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
+msgstr "భౌతికంగా ఉన్న పరిమాణాన్ని మార్చలేము ఎందుకంటే ప్రస్తుతం నిర్వచించబడిన తార్కిక విలువకు కావలసిన జాగా అందుబాటులో ఉన్న జాగాకంటే ఎక్కువ ఔతుంది."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -2903,6 +2914,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"ఈ భౌతిక విలువ మార్చబడదు ఎందుకంటే volume సమూహంలో ఎన్నుకున్న విలువ (%"
+"10.2f MB) చిన్న భౌతిక విలువ (%10.2f MB) కంటే పెద్దదిగాఉంది."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -2911,6 +2924,9 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"భౌతికంగా ఉన్న పరిమాణం మార్చటానికి కుదరదు ఎందుకంటే "
+"volume సమూహంలో ఎన్నుకున్న విలువ (%"
+"10.2f MB) చిన్న భౌతికవిలువ (%10.2f MB) కంటే చాలా పెద్దగా ఉంది."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -2920,7 +2936,7 @@ msgstr "చాలా చిన్నది"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "భౌతికంగా ఉన్న ఈ విలువ యొక్క మార్పు volume సమూహంలో ఉన్న ఒకటి లేదా ఎక్కువ భౌతిక విలువల వాస్తవ జాగాని వృధా చేస్తోంది."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -2928,13 +2944,13 @@ msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
-msgstr ""
+msgstr "ఈ భౌతికంగా ఉన్న పరిమాణం మార్చబడదు ఎందుకంటే తార్కిక విలువలకంటే గరిష్ఠ పరిమాణ (%10.2f MB) ఫలితం నిర్వచించబడి ప్రస్తుతం నిర్వచించిన ఒకటి లేదా పెక్కు తార్కిక విలువలకంటే చిన్నదిగా ఉంది."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "మీరు ఈ భౌతిక విలువను తొలగించలేరు ఎందుకంటే విలువల సమూహం ప్రస్తుతం నిర్వచించిన తార్కిక విలువలకంటే చాలా చిన్నదిగా ఔతుంది"
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
@@ -3033,7 +3049,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
+msgstr "ప్రస్తుతం అడిగిన పరిమాణం (%10.2f MB) గరిష్ఠ తార్కిక విలువ పరిమాణం(%10.2f MB)కంటే పెద్దగా ఉంది. ఈ హద్దుని అధికమించటానికి మీరు విభజించని disk జాగా నుండీ ఎక్కువ భౌతిక విలువలను సృష్టించాలి వాటిని ఈ విలువల సమూహానికి కలపాలి."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3049,7 +3065,7 @@ msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr ""
+msgstr "మీరు ఆకృతీకరించిన తార్కిక విలువలు %g MB కావలసి ఉంది, కానీ ఆ volumeసమూహం %g MB మాత్రమే కలిగిఉంది.  దయచేసి volume సమూహాన్ని పెద్దది లేదా తార్కిక విలువ(లు)ను చిన్నవి చెయండి."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3101,6 +3117,8 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
+"LVM సమూహంను సృష్టించటానికి కనీసం ఒక ఉపయోగించని భౌతిక విలువ అవసరం.\n"
+"ఒక విభజన లేదా RAID ఎరే యొక్క వర్గం \"physical volume (LVM)\"ను సృష్టించు మరియూ అప్పుడు\"LVM\"ఐచ్ఛికాన్ని మళ్లీ ఎన్నుకో."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
@@ -3309,7 +3327,7 @@ msgstr "మీరు ప్రవేశపెట్టిన IP సమాచా�
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
-msgstr ""
+msgstr "మీరు క్రియాశీల network కలిగిలేరు.  మీ కంప్యూటరు కనీసం సిధ్ధంగా ఒక్క సాధనం కూడా క్రియాశీలంకాకుండా networkతో సంబంధాన్ని కలిగి ఉండటం కుదరదు."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3355,7 +3373,7 @@ msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
 msgid "Encryption _Key:"
-msgstr ""
+msgstr "Encryption _కీ: (_K)"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3429,7 +3447,7 @@ msgid ""
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr ""
+msgstr "మీరు boot loaderను ఇతర operating విధానాలను boot చేయటానికి ఆకృతీకరించవలసిఉంది.  ఇది మిమ్మల్ని జాబితానుండీ boot చెయటానికి ఒక operatig విధానాన్ని ఎన్నుకోవటంలో అనుమతిస్తుంది. అదనపు operating విధానాలను కలపటానికి, ఏవి స్వయంచాలకంగా పరిశీలించబడవో, సిద్ఢంగా bootచెయబడ్డ operating విధానాన్ని మార్చటానికి 'Add.'ని నొక్కండి , 'Default'ను కోరిన operating విధానంకోసం ఎన్నుకోండి."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
@@ -3705,6 +3723,12 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"Software RAID మిమ్మల్ని పెక్కు diskలను పెద్ద RAID సాధనంలో కలపటానికి అనుమతిస్తుంది.  A RAID device can be configured to provide additional speed and "
+"reliability compared to using an individual drive.  For more information on "
+"using RAID devices please consult the %s documentation.\n"
+"\n"
+"You currently have %s software RAID partition(s) free to use.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1250
 msgid ""
@@ -3794,7 +3818,7 @@ msgstr "చెడ్డ అడ్డంకులకొరకు అవరోధ�
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "'%s' వర్గానికి చెందిన విభజన ఏకైక డ్రైవును తప్పక అడ్డుకుంటుంది.  ఇది  'Allowable Drives' శోధక జాబితాలోనించీ డ్రైవును ఎన్నుకోవటంద్వారా జరుగుతుంది."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4031,6 +4055,18 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"Clone Drive Tool\n"
+"\n"
+"This tool allows you to significantly reduce the amount of effort required "
+"to setup RAID arrays.  The idea is to take a source drive which has been "
+"prepared with the desired partitioning layout, and clone this layout onto "
+"other similar sized drives.  Then a RAID device can be created.\n"
+"\n"
+"NOTE: The source drive must have partitions which are restricted to be on "
+"that drive only, and can only contain unused software RAID partitions.  "
+"Other partition types are not allowed.\n"
+"\n"
+"EVERYTHING on the target drive(s) will be destroyed by this process."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
@@ -4065,6 +4101,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ప్యాకేజ్ మెటాడేటాను సురక్షిత స్థానంనుండీ చదవటం కుదరదు.  ఇది తప్పిపోయిన రిపోసమాచార డైరెక్టరీ వల్ల కావచ్చు.  దయచేసి మీ సురక్షితస్థానం సరిగ్గా సరిగా నిష్పాదించబడిందోలేదో చూసుకోండి.\n"
+"\n"
+"%s"
 
 #: ../iw/task_gui.py:89
 #, python-format
@@ -4165,6 +4204,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"%s యొక్క ఈ విడుదల ext3 journalling ఫైళ్ల విధానానికి మద్దతిస్తుంది.  ఇది సాంప్రదాయకంగా %s లోకి మార్చబడిన ext2 ఫైళ్ల విధానంలో పెక్కు లాభాలను కలిగి ఉంది.  సమాచారం పోకుండా ext2 ఆకృతీకరణ విభజనని ext3కి పంపటం సాధ్యమౌతుంది .\n"
+"\n"
+"ఈ విభజనలలో దేన్ని మీరు వలస పంపాలనుకుంటున్నారు?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
@@ -4177,7 +4219,7 @@ msgid ""
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
+msgstr "2.4 కెర్నల్ పాత కెర్నల్ కంటే గుర్తించదగ్గ ఎక్కువ swap అవసరమౌతుంది,కంప్యూటర్లో ఉన్న swap జాగా కంప్యూటరులో ఉన్న RAMకి రెండింతలు ఉండాలి.  మీరు ప్రస్తుతం %dMB swap ఆకృతీకరించబడి ఉన్నారు, కానీ మీరు అదనపు swap జాగాను మీ ఫైళ్ల విధానంలో ఇప్పుడు కలిగి ఉండాలి."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4287,6 +4329,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"z/IPL ఇప్పుడు మీ కంప్యూటర్లో సంస్థాపించబడింది.\n"
+"\n"
+"రూట్ విభజన మీరు ముందు విభజన అమర్పులో ఎన్నుకున్న వాటిలో ఒకటి.\n"
+"\n"
+"కంప్యూటరును ప్రారంభించటానికి ఉపయోగించే సిద్ధంగా సంస్థాపించబడేవాతిల్లో ఒకటి.\n"
+"\n"
+"మీరు సంస్థాపన తరువాత మార్పులను చేయదలిస్తే ఈ ఆకృయీకరణ ఫైలు /etc/ziplని స్వేచ్ఛగా మార్చటానికి వీలుంది.\n"
+"\n"
+"మీ కంప్యూటరు లేదా మీ అమర్పుకి కావలసిన అదనపు కెర్నల్ పారామితులను ప్రవేశపెట్టగలరు."
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
@@ -4321,6 +4372,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
+"You have elected to not install any boot loader. It is strongly recommended "
+"that you install a boot loader unless you have an advanced need.  A boot "
+"loader is almost always required in order to reboot your system into Linux "
+"directly from the hard drive.\n"
+"\n"
+"Are you sure you want to skip boot loader installation?"
 
 #: ../textw/bootloader_text.py:93
 msgid ""
@@ -4329,6 +4386,9 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+". If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
