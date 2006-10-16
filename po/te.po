@@ -11,6 +11,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-16 16:09+0530\n"
+"PO-Revision-Date: 2006-10-16 16:23+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2901,6 +2902,11 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"This change in the value of the physical extent will require the sizes of "
+"the current logical volume requests to be rounded up in size to an integer "
+"multiple of the physical extent.\n"
+"\n"
+"This change will take affect immediately."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
@@ -4434,6 +4440,9 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
+"The boot manager %s uses can boot other operating systems as well. You need "
+"to tell me what partitions you would like to be able to boot and what label "
+"you want to use for each of them."
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -4445,6 +4454,9 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
+"A boot loader password prevents users from passing arbitrary options to the "
+"kernel.  For highest security, we recommend setting a password, but this is "
+"not necessary for more casual users."
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
@@ -4693,6 +4705,10 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"If your system is part of a larger network where hostnames are assigned by "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
+"a hostname for your system. If you do not, your system will be known as "
+"'localhost.'"
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
@@ -5071,6 +5087,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -5553,6 +5573,9 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
+"What partition and directory on that partition hold the CD (iso9660) images "
+"for %s? If you don't see the disk drive you're using listed here, press F2 "
+"to configure additional devices."
 
 #: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
@@ -5602,7 +5625,7 @@ msgstr "kickstart ఫైలు %s: %s విషయాన్ని చదవట�
 #: ../loader2/kickstart.c:178
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "Error in %s on line %d of kickstart file %s."
 
 #: ../loader2/kickstart.c:277
 msgid "Cannot find ks.cfg on boot floppy."
@@ -5675,6 +5698,9 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
+"No hard drives have been found.  You probably need to manually choose device "
+"drivers for the installation to succeed.  Would you like to select drivers "
+"now?"
 
 #: ../loader2/loader.c:780
 #, c-format
@@ -5757,6 +5783,8 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"Unable to read the disc checksum from the primary volume descriptor.  This "
+"probably means the disc was created without adding the checksum."
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5783,6 +5811,9 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"The image which was just tested has errors. This could be due to a corrupt "
+"download or a bad disc.  If applicable, please clean the disc and try "
+"again.  If this test continues to fail you should not continue the install."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -5875,6 +5906,9 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s is a wireless network adapter.  Please provide the ESSID and encryption "
+"key needed to access your wireless network.  If no key is needed, leave this "
+"field blank and the install will continue."
 
 #: ../loader2/net.c:242
 msgid "Wireless Settings"
@@ -5891,6 +5925,10 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Your dynamic IP request returned IP configuration information, but it did "
+"not include a DNS nameserver. If you know what your nameserver is, please "
+"enter it now. If you don't have this information, you can leave this field "
+"blank and the install will continue."
 
 #: ../loader2/net.c:301
 msgid "Invalid IP Information"
@@ -6225,6 +6263,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Installation requires partitioning of your hard drive.  By default, a "
+"partitioning layout is chosen which is reasonable for most users.  You can "
+"either choose to use this or create your own."
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6311,6 +6352,8 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6324,13 +6367,15 @@ msgstr "తరువాత వినియోగించు"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "దయచేసి software సంస్థాపనకు మీరు ఉపయోగించదలచిన అదనపు repositoriలను ఎన్నుకోండి."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
+"You can further customize the software selection now, or after install via "
+"the software management application."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6338,7 +6383,7 @@ msgstr "అదనపు software రక్షణలు ఉపయోగించ�
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr ""
+msgstr "ఇప్పుడు వినియోగించు (_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6346,7 +6391,7 @@ msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
