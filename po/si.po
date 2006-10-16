@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-16 11:30+0530\n"
+"PO-Revision-Date: 2006-10-16 22:07+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -657,6 +657,12 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"swap උපාංගය:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"ඔබේ /etc/fstab ගොනුව දැනට භාවිත කරනුයේ මෘදුකාංග අත්සිටුවීමේ කොටසක් ලෙසයි, "
+"මෙහි අදහස වන්නේ ඔබේ පද්ධතිය නිද්‍රාශීලී වෙමින් පවතින බවයි. ඔබ විසින් නව ස්ථාපනයක් සිදුකරන්නේ නම් සියළුම swap කොටස් සංයුති කිරීමට වග බලාගන්න."
 
 #: ../fsset.py:1502
 msgid ""
@@ -767,6 +773,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s සෑදීමට යාමේදී දෝශයක් ඇති විය. මෙම මර්ගයේ ඇති සමහර සංඝටක බහලුම් නොවේ. මෙය භයානක දෝශයක් වන අතර ස්ථාපනය ඉදිරියට කරගෙන යා නොහැක.\n"
+"\n"
+"පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න."
 
 #: ../fsset.py:1716
 #, python-format
@@ -821,6 +830,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"/ සටහන සෙවීමේදී දෝශයක් ඇති විය.\n"
+"\n"
+"fstab සාවද්‍ය වීම මීට බොහො දුරට හේතු විය හැක.\n"
+"\n"
+"පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා 'හරි' සූචකය ඔබන්න."
 
 #: ../fsset.py:2456
 #, fuzzy
@@ -835,10 +849,12 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"%s ලෙස උපාංග කිහිපයක් ලේබල් කර ඇත.  උපාංගයන් (ලේබල) කිරීමේදීඑය ඔබේ පද්ධතියට  අද්විතීය ලෙසනිසියාකාරව නම් කිරීමට වග බලා ගන්න .\n"
+"\nකරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර ස්ථාපන ක්‍රියාවලිය නැවත ආරම්භ කරන්න.."
 
 #: ../fsset.py:2717
 msgid "Formatting"
-msgstr "ව්‍යුහගත කරමින් පවතී"
+msgstr "සංයුති කරමින් පවතී"
 
 #: ../fsset.py:2718
 #, python-format
@@ -847,13 +863,14 @@ msgstr "%s ගොනු පද්ධතිය ව්‍යුහගත කරම
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
-msgstr ""
+msgstr "රූපරාමු පිටපත් කිරීමේදී දෝශයක් ඇතිවිය"
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "රූපරාමු පිටපත් කර අවසන්"
 
 #: ../gui.py:117
+#, fuzzy
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -861,25 +878,30 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"රූපරාමු සියල්ල බහලුම තුල සුරක්‍ෂිත කර ඇත:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"You can access these when you reboot and login as root."
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "රූපරාමුව සුරක්‍ෂිත කරමින්"
 
 #: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "'%s'ලෙස නම් කර තිබෙන රූපරාමුව සුරක්‍ෂිත කර ඇත."
 
 #: ../gui.py:164
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "රූපරාමුව සුරැකීමේදී දෝශයක් ඇතිවිය"
 
 #: ../gui.py:165
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
+msgstr "රූපරාමුව සුරක්‍ෂිත කිරීමේදී දෝශයක් ඇතිවිය. මෙය හටගනු ලැබූයේ ඇසුරුම් ස්ථාපනය කරනවිටදී නම් මෙය සාර්ථක කරගැනීම සඳහා කිහිප වරක් උත්සහ කර බලන්න."
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
@@ -931,8 +953,9 @@ msgstr ""
 "%s"
 
 #: ../gui.py:834 ../text.py:356
+#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "Kickstart මාණකරනය පරිශීලනය කරනවිට දෝශයක් ඇතිවිය"
 
 #: ../gui.py:842 ../text.py:366
 msgid ""
@@ -950,11 +973,15 @@ msgstr "දෝශයක්!"
 
 #: ../gui.py:974
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
 msgstr ""
+"ස්ථාපන අතුරුමුහුනත් සංරචකය රුවීමට උත්සහ කිරීමේදී දෝශයක් ඇතිවිය.\n"
+"\n"
+"පන්තියේ නම = %s"
 
 #: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
 #: ../yuminstall.py:661
@@ -1002,6 +1029,10 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
+"%s ගොනුව විවෘත කලනොහැක.  ගොනුව අස්ථානගතව තිබීම හෝ ඇසුරුම පළුදුවී තිබීම මීට හේතු විය හැක.  කරුණාකර ඔබේ ස්ථාපන පිළිඹිබු සහ අවශ්‍ය මාධ්‍ය වල තත්වය තහවුරු කරගන්න\n"
+"\n"
+"ඔබ නැවත පරිගණකය ක්‍රියාත්මත කලහොත්, ඔබේ පද්ධතිය අස්ථාවර වන අතර ඔබට නැවත ස්ථාපනය කිරීමට සිදුවේ.\n"
+"\n"
 
 #: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
@@ -1009,6 +1040,7 @@ msgstr "ISO 9660 පිළිඹුව අස්ථාන ගත වී ඇත"
 
 #: ../harddrive.py:69
 #, python-format
+#, fuzzy
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1016,6 +1048,9 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"ස්ථාපකය විසින් #%s පිළිඹුව සවිකිරීමට උත්සහ කල නමුත් එයදෘඪ තැටිය තුල සොයාගත නොහැකි විය.\n"
+"\n"
+"කරුණාකර මෙම පිළිඹුව ධාවකයට පිටපත් කරගෙන Retry යන්න ක්ලික් කරන්න. ස්ථාපනය නවතා දැමීම සඳහා Reboot  මත ක්ලික් කරන්න."
 
 #: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
@@ -1059,13 +1094,13 @@ msgstr "ගොනුව පිටපත් කරමින්"
 
 #: ../image.py:164
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "ස්ථාපන පිළිඹුව දෘඪ තැටියට මාරු කරමින් පවතී..."
 
 #: ../image.py:174
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
+msgstr "ස්ථාපන පිළිඹුව ඔබේ දෘඪ තැටියට මාරු කිරීමේදී දෝශයක් ඇතිවිය. අවශ්‍ය ඉඩ ප්‍රමාණය දෘඪ තැටිය තුල නොමැති විය හැක."
 
 #: ../image.py:263
 msgid "Change CDROM"
@@ -1101,6 +1136,10 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
+"%s ගොනුව විවෘත කල නොහැක. ඇතැම්විට ගොනුව අස්ථාන ගතවී හෝ ඇසුරුම පළුදු වී තිබීමට පිළිවෙන.  කරුණාකර ඔබේ ස්ථාපන රුක තුල අවශ්‍ය කරන ඇසුරුම් අන්තර්ගතව තිබේදැයි තහවුරු කරගන්න .\n"
+"\n"
+"ඔබ නැවත පරිගණකය ක්‍රියාත්මත කලහොත්, ඔබේ පද්ධතිය අස්ථාවර වන අතර ඔබට නැවත ස්ථාපනය කිරීමට සිදුවේ.\n"
+"\n"
 
 #: ../image.py:504
 #, python-format
@@ -1111,6 +1150,10 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"ස්ථාපකය #%s සවිකිරීමට උත්සහ කල නමුත් එය සේවාදායකය තුල සොයාගත නොහැකිවිය.\n"
+"\n"
+"කරුණාකර මෙම පිළිඹුව දුර්ස්ථ සේවාදායකයේ පොදු මාර්ගය තුල තබා Retry මත ක්ලික් කරන්න. "
+"ස්ථාපනය නවතා දැමීමට Reboot මත ක්ලික් කරන්න."
 
 #: ../installclass.py:60
 msgid "Install on System"
@@ -1118,7 +1161,7 @@ msgstr "පද්ධතිය මත ස්ථාපනය කරන්න"
 
 #: ../iscsi.py:127 ../iscsi.py:128
 msgid "Initializing iSCSI initiator"
-msgstr ""
+msgstr "iSCSI ආරම්භකය ආරම්භනය කරමින්"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1178,11 +1221,11 @@ msgstr "ඔබ විසින් ස්ථාපනය සඳහා '%s' කා
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "ධාරක නාමය දිගින් අක්‍ෂර 64 හෝ ඊට වඩා අඩු විය යුතුය."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "දහාරක නාමය ආරම්භ විය යුත්තේ 'a-z' හෝ 'A-Z' යන වලංගු පරාසය තුල තිබෙන අක්ෂරයක් සමඟිනි."
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1244,7 +1287,7 @@ msgstr "කෙසේ හෝ ස්ථාපනය කරන්න(_I)"
 
 #: ../partedUtils.py:206 ../textw/partition_text.py:558
 msgid "Foreign"
-msgstr ""
+msgstr "විදේශීය"
 
 #: ../partedUtils.py:306
 #, python-format
@@ -1269,25 +1312,25 @@ msgstr ""
 
 #: ../partedUtils.py:345
 msgid "_Ignore drive"
-msgstr ""
+msgstr "ධාවකය නොසලකා හරින්න(_I)"
 
 #: ../partedUtils.py:346
 msgid "_Format drive"
-msgstr ""
+msgstr "දහාවකය සංයුති කරන්න(_F)"
 
 #: ../partedUtils.py:789
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "ගොනු පද්ධතිය %s: %s මත සවි කිරීමේදී දෝශයක් ඇතිවිය"
 
 #: ../partedUtils.py:884
 msgid "Initializing"
-msgstr ""
+msgstr "ආරම්භනය කරමින්"
 
 #: ../partedUtils.py:885
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "%s ධාවකය සංයුති කරමින් පවතී, කරුණාකර මඳක් රැඳී සිටින්න...\n"
 
 #: ../partedUtils.py:985
 #, python-format
@@ -1316,7 +1359,7 @@ msgstr ""
 
 #: ../partedUtils.py:1160
 msgid "No Drives Found"
-msgstr ""
+msgstr "ධාවකයන් කිසිවක් සොයාගත නොහැකි විය"
 
 #: ../partedUtils.py:1161
 msgid ""
@@ -1326,84 +1369,88 @@ msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr ""
+msgstr "කරුණාකර පරිමාවේ කණ්ඩය සඳහා නාමයක් ඇතුලත් කරන්න"
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "පරිමාවේ කණ්ඩායම් නාමයන් සඳහා භාවිත කලයුතු අක්‍ෂර ප්‍රමාණය 128 ක් හෝ ඊට වඩා අඩු විය යුතුය."
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "දෝශයකි - පරිමාවෙ කණ්ඩායම් නාමය %s වලංගු නොවේ"
 
 #: ../partIntfHelpers.py:47
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"දෝශයකි - පරිමාවේ කණ්ඩායම් නාමයන් තුල වලංගු නොවන අක්‍ෂර හෝ හිස් අවකාශයන් ඇතුලත්ව තිබේ.  "
+"වලංගු වන්නේ අක්‍ෂර, ඉලක්කම්, '.' හෝ '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
+msgstr "කරුණාකර තාරතික පරිමාවෙ නම ඇතුලත් කරන්න"
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "තාරතික පරිමාවේ නාමයන් අක්‍ෂර 128 හෝ ඊට වඩා අඩු විය යුතුය"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "දෝශයකි - තාර්තික පරිමාවේ නාමය %s වලංගු නොවේ"
 
 #: ../partIntfHelpers.py:71
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"දෝශයකි - තාර්තික පරිමාවේ කණ්ඩායම් නාමයන් තුල වලංගු නොවන අක්‍ෂර හෝ හිස් අවකාශයන් ඇතුලත්ව තිබේ.  "
+"වලංගු වන්නේ අක්‍ෂර, ඉලක්කම්, '.' හෝ '_'."
 
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "සවි කලයුතු ස්ථානය %s වලංගු නොවේ.  සවි කලයුතු ස්ථානයන් '/' ගෙන් ආර්මභ විය යුතු වන අතර අවසානයට '/' යොදා නොතිබිය යුතුය, තවද මුද්‍රණය කල හැකි අක්‍ෂර වලින් සමන් විය යුතු අතර හිස් අවකාශයන් ඇතුලත් විය නොහැක."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "කරුණාකර මෙම කොටස සවිකල යුතු ස්ථානය නියම කරන්න."
 
 #: ../partIntfHelpers.py:112
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "මෙම කොටස RAID /dev/md%s උපාංගයට අයත් වේ."
 
 #: ../partIntfHelpers.py:115
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "මෙම කොටස RAID උපාංගයට අයත් වේ."
 
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "මෙම කොටස LVM පරිමාවේ කණ්ඩායම වන %s හට අයත් වේ."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "මෙම කොටස LVM පරිමාවේ කණ්ඩායමට අයත් වේ."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
 #: ../partIntfHelpers.py:187
 msgid "Unable To Delete"
-msgstr ""
+msgstr "මකා දැමීමට නොහැකි විය"
 
 #: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "මකා දැමීම සඳහා ප්‍රථමයෙන් ඔබ විසින් කොටසක් තෝරා ගත යුතුය"
 
 #: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "නිදහස් ඉඩ ප්‍රමාණයන් ඔබහට මකා දැමිය නොහැක"
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -1414,37 +1461,39 @@ msgstr ""
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "මෙම කොටස මකා දැමීමට ඔබට නොහැක, මක්නිසාදයත් මෙය %s අඩංගු දිගුකල කොටසක් වේ."
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "දෘඪ තැටිය තුල සිදුකරන ස්ථාපනය දරාගනු ලබන්නේ මෙම කොටසෙහි වේ. "
 
 #: ../partIntfHelpers.py:188
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"ඔබට මෙම කොටස මකා දැමිය නොහැක:\n"
+"\n"
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
-msgstr ""
+msgstr "මකාදැමීම තහවුරු කරන්න"
 
 #: ../partIntfHelpers.py:233
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "'/dev/%s' හි තිබෙන කොටස් සියල්ල ඔබ විසින් මකා දැමිමට නියමිතව ඇත."
 
 #: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr ""
+msgstr "මකන්න(_D)"
 
 #: ../partIntfHelpers.py:294
 msgid "Notice"
-msgstr ""
+msgstr "දැන්වීමයි"
 
 #: ../partIntfHelpers.py:295
 #, python-format
@@ -1453,32 +1502,37 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"පහත සඳහන් කොටස් භාවිතයේ තිබෙන බැවින් මකානොදැමින:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
 #: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
-msgstr ""
+msgstr "සංශෝධනය කල නොහැක"
 
 #: ../partIntfHelpers.py:312
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "සංශෝධනය කිරීම සඳහා කොටසක් ඔබ විසින් තෝරාගත යුතුය"
 
 #: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"ඔබට මෙම කොටස සංශෝධනය කල නොහැක:\n"
+"\n"
 
 #: ../partIntfHelpers.py:351
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr " %s කොටස් දිගුවක් වන බැවින් මෙය ඔබහට සංශෝධනය කල නොහැක"
 
 #: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
-msgstr ""
+msgstr "Swap කොටසක් ලෙස මෙය සංයුති කිරීමට අවශ්‍යද?"
 
 #: ../partIntfHelpers.py:384
 #, python-format
@@ -1492,7 +1546,7 @@ msgstr ""
 #: ../partIntfHelpers.py:404
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "%s ස්ථාපනය කිරීම සඳහා අවම වශයෙන් එක් දෘඪ තැටියක් හෝ තෝරාගත යුතුවේ."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1506,19 +1560,19 @@ msgstr ""
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
-msgstr ""
+msgstr "සංයුති කිරීමට අවශ්‍යද ?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr ""
+msgstr "කොටස සංශෝධනය කරන්න(_M)"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
-msgstr ""
+msgstr "සංයුති නොකරන්න(_N)"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "කොටස් කිරීමේදී දෝශයක් ඇතිවිය"
 
 #: ../partIntfHelpers.py:427
 #, python-format
@@ -1531,7 +1585,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "කොටස් කිරීමේදී නිකුත්කල අවවාදයන්"
 
 #: ../partIntfHelpers.py:442
 #, python-format
@@ -1550,10 +1604,13 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:459
+#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
+"මෙම කොටස් සංයුති කිර ඉදිරියට කරගෙන යාම සඳහා  'Yes' (ඔව්)තෝරාගන්නs,නැවත පෙර අවස්ථාවට ගොස් මෙම   'No' to go back and "
+"change these settings."
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
