@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-16 23:00+0530\n"
+"PO-Revision-Date: 2006-10-16 23:50+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1744,14 +1744,15 @@ msgstr "ඔබ විසින් swap උපාංගයන් 32 කට වඩ
 
 #: ../partitions.py:1006
 #, python-format
+#, fuzzy
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
+msgstr "ඔබේ පද්ධතියේ තිබෙන ප්‍රමාණයට (%2$dM)වඩා ඉතා අඩු ප්‍රමාණයක් swap කොටස සඳහා වෙන්කර ඇත(%1$dM). මෙය ඔබේ පද්ධතියේ ඵලදායිතාවය අවම වීමට හේතු වේ."
 
 #: ../partitions.py:1306
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "මෙම කොටස ස්ථාපකය විසින් භාවිත කරමින් තිබේ"
 
 #: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
@@ -1759,30 +1760,30 @@ msgstr ""
 
 #: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "මෙම කොටස LVM පරිමා කණ්ඩායමේ සාමාජිකයකු වේ"
 
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "සවිකල යුතු ස්ථානය සාවද්‍යයි.  %s බහලුම / ගොනු පද්ධතිය මත තිබිය යුතු වේ."
 
 #: ../partRequests.py:252
 #, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
+msgstr "සවි කල යුතු ස්ථානය %s භාවිතයට ගත නොහැක.  එය පද්ධතියේ මනා ක්‍රියාකාරීත්වයට උපකාරී වන සංකේතාත්මක පුරුකක් විය හැක. කරුණාකර වෙනත් සවි කල යුතු ස්ථානයක් තෝරාගන්න."
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "සවි කල යුතු ස්ථානය linux ගොනුපද්ධතියක් මත විය යුතුය."
 
 #: ../partRequests.py:280
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
+msgstr "සවිලකයුතුස්ථානය \"%s\" දැනටමත් භාවිතයේ ඇත, කරුණාකර සවිකිරීම සඳහා වෙනත් ස්ථානයක් තෝරාගන්න."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1790,35 +1791,37 @@ msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
+"%s කොටසේ ප්‍රමාණය (%10.2f MB) උපරිම අගය වන %10.2f "
+"MB ඉක්මවායයි."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
+msgstr "විමසා ඇති කොටසේ ප්‍රමාණය (size = %s MB) උපරිම අගය වන %s MB ඉක්මවා යයි."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "විමසා ඇති කොටසේ ප්‍රමාණය ඍණ අගයක් ගනී! (size = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "පළමුවැනි සිලින්ඩරයට පහලින් කොටස් කිසිවක් ආරම්භ කල නොහැක."
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "කොටස් සියල්ල ඍණ අගයකින් යුතු සිලින්ඩරයකින් අවසන් විය නොහැක."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID විමසීම තුල කිසිම සාමාජිකයක සොයාගත නොහැක, නැතහොත් RAID මට්ටම දක්වා නොමැත."
 
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%s ගණයට අයත් RAID උපාංගයන් හට අවම වශයෙන් සාමාජිකයින් %s ක් තිබිය යුතු වේ."
 
 #: ../partRequests.py:690
 #, python-format
@@ -1835,36 +1838,36 @@ msgstr ""
 
 #: ../rescue.py:129
 msgid "Starting Interface"
-msgstr ""
+msgstr "අතුරු මුහුණත ක්‍රියාත්මක කරමින්"
 
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s ආරම්භ කිරීමට උත්සහ කරමින්"
 
 #: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "ස්ථාපනය අවසන් වූ පසු පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා shell එකෙන් පිටවන්න."
 
 #: ../rescue.py:199
 msgid "Setup Networking"
-msgstr ""
+msgstr "ජාලය සකසුරුවම් කරන්න"
 
 #: ../rescue.py:200
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "පද්ධතිය තුල තිබෙන ජාල සම්බන්ධක අතුරු මුහුණත් ආරම්භ කිරීමට ඔබට අවශ්‍යද ?"
 
 #: ../rescue.py:241 ../text.py:533
 msgid "Cancelled"
-msgstr ""
+msgstr "අවලංගු කරන ලදී"
 
 #: ../rescue.py:242 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "මාහට පෙර පියවරෙන් ඉදිරියට යා නොහැක. ඔබ විසින් මෙය නැවත උත්සහ කලයුතු වේ."
 
 #: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
-msgstr ""
+msgstr "මුදවාගන්න"
 
 #: ../rescue.py:279
 #, python-format
@@ -1883,23 +1886,23 @@ msgstr ""
 #: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
 #: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
-msgstr ""
+msgstr "දිගටම කරගෙන යන්න"
 
 #: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
-msgstr ""
+msgstr "කියවීමට පමණි"
 
 #: ../rescue.py:320
 msgid "System to Rescue"
-msgstr ""
+msgstr "මුදවා ගැනීමට තිබෙන පද්ධතිය"
 
 #: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "ඔබේ ස්ථාපනයේ root කොටස් දරා සිටින්නේ කුම කොටසේද?"
 
 #: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
-msgstr ""
+msgstr "පිටවෙනු"
 
 #: ../rescue.py:346
 msgid ""
@@ -1933,7 +1936,7 @@ msgstr ""
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
-msgstr ""
+msgstr "මුදවාගැනීමේ මාතය"
 
 #: ../rescue.py:444
 msgid ""
@@ -1944,51 +1947,51 @@ msgstr ""
 #: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "ඔබේ පද්ධතිය %s බහලුම යටතේ සවිකරන ලදී"
 
 #: ../text.py:149 ../text.py:164
 msgid "Save"
-msgstr ""
+msgstr "සුරකිනු"
 
 #: ../text.py:152 ../text.py:166
 msgid "Remote"
-msgstr ""
+msgstr "දුරස්ථ"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
-msgstr ""
+msgstr "නිදොස්කරණය"
 
 #: ../text.py:158
 msgid "Exception Occurred"
-msgstr ""
+msgstr "ව්‍යතිරේකයක් හට ගැනුනි"
 
 #: ../text.py:187
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "දුරස්ථ සේවා ග්‍රාහකය මත සුරකින්න"
 
 #: ../text.py:190
 msgid "Host"
-msgstr ""
+msgstr "සේවා ග්‍රාහකය"
 
 #: ../text.py:192
 msgid "Remote path"
-msgstr ""
+msgstr "දුරස්ථ මාර්ගය"
 
 #: ../text.py:194
 msgid "User name"
-msgstr ""
+msgstr "පරිශීලක නාමය"
 
 #: ../text.py:196
 msgid "Password"
-msgstr ""
+msgstr "රහස්පදය"
 
 #: ../text.py:253
 msgid "Help not available"
-msgstr ""
+msgstr "උදව් භාවිතයේ නොමැත"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "මෙම ස්ථාපන පියවරේදී උදව් ලබාගත නොහැක."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -1997,29 +2000,29 @@ msgstr ""
 #: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%s වෙත සාදරයෙන් පිළිගනිමු"
 
 #: ../text.py:426
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr " <F1> උදව් | <Tab> සංඝටක අතර| <Space> තෝරාගැනීමට | <F12> මීලඟ තිරයට"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> සංඝටකයන් අතර   |  <Space> තෝරාගැනීමට   |  <F12> මීලඟ තිරයට"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "වර්තමාන පද්ධතිය ප්‍රගමනය කරමින්"
 
 #: ../upgradeclass.py:24
 msgid "Upgrade"
-msgstr ""
+msgstr "ප්‍රගමනය"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "ප්‍රගමනය කරන්නද?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2030,20 +2033,20 @@ msgstr ""
 
 #: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "ප්‍රගමනය දිගටම කරගෙන යාමට ඔබ කැමතිද?"
 
 #: ../upgrade.py:94
 msgid "Searching"
-msgstr ""
+msgstr "සොයමින්"
 
 #: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s ස්ථාපනයන් සොයමින්..."
 
 #: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "කිළිටි ගොනු පද්ධති"
 
 #: ../upgrade.py:152
 #, python-format
@@ -2064,20 +2067,20 @@ msgstr ""
 
 #: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
-msgstr ""
+msgstr "සවිකිරීමට අසමත්වුනි"
 
 #: ../upgrade.py:298
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "/etc/fstab හී ඇතුලත්ව linux පද්ධතිය තුල තිබෙන ගොනු පද්ධතිය හෝ පද්ධති සවිකල නොහැක. කරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර නැවත ප්‍රගමනය කිරීමට උත්සහ කරන්න."
 
 #: ../upgrade.py:304
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
+msgstr "/etc/fstab හී ඇතුලත්ව linux පද්ධතිය තුල තිබෙන ගොනු පද්ධතිය හෝ පද්ධති අස්ථාවර වන අතර ඒවා සවිකල නොහැක. කරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර නැවත ප්‍රගමනය කිරීමට උත්සහ කරන්න."
 
 #: ../upgrade.py:321
 msgid ""
@@ -2101,7 +2104,7 @@ msgstr ""
 
 #: ../upgrade.py:344
 msgid "Invalid Directories"
-msgstr ""
+msgstr "සාවද්‍ය බහලුම්"
 
 #: ../upgrade.py:351
 #, python-format
