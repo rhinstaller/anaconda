@@ -212,9 +212,13 @@ class ZFCP:
         for d in self.fcpdevs:
             d.onlineDevice()
 
-    def writeKS(self,fcpdevices):
-        # FIXME KH not implemented yet
-        return
+    def writeKS(self, f):
+        if len(self.fcpdevs) == 0:
+            return
+        for d in self.fcpdevs:
+            f.write("zfcp --devnum %s --wwpn %s --fcplun %s\n" %(d.devnum,
+                                                                 d.wwpn,
+                                                                 d.fcplun))
 
     def write(self, instPath):
         if len(self.fcpdevs) == 0:

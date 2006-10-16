@@ -1,5 +1,7 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* zfcp.py (ZFCP.writeKS): Write out zfcp in the anaconda-ks.cfg
+
 	* iscsi.py (iscsi.writeKS): Write out iscsi kickstart bits
 
 	* instdata.py (InstallData.writeKS): Write out install key for
