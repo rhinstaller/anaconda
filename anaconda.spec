@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.2
+Version: 11.1.2.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.3-1
+- Better regex for finding ISO loopback mounts (clumens, #205133)
+- Setup baseurl better for additional repos (clumens, #210877)
+- Add qla2400 and qla2xxx to late module load list (#210886)
+- Write out zfcp to anaconda-ks.cfg
+- Write out iscsi to anaconda-ks.cfg
+- Preserve installation number in anaconda-ks.cfg and on the system (#207029)
+- Add support for 'key' directive in kickstart for installation number
+- Handle non-base repos which may or may not exist better (#202810)
+- Fix zfcp (#210094)
+- Take up more space for package descriptions (#210531)
+- New installation number dialog (#207752)
+
 * Thu Oct 12 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.2-1
 - Fix layout where extra repo selection box is not displayed (clumens)
 - Fix desktop upgrade (katzj, #210408)

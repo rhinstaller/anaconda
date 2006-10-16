@@ -218,7 +218,7 @@ class iscsi(object):
     def writeKS(self, f):
         if not self.initiatorSet:
             return
-        f.write("iscsiname %s\n", self.initiator)
+        f.write("iscsiname %s\n" %(self.initiator,))
         for t in self.targets:
             f.write("iscsi --ipaddr %s --port %s" %(t.ipaddr, t.port))
             if t.user:
