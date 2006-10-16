@@ -1,5 +1,7 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* iscsi.py (iscsi.writeKS): Write out iscsi kickstart bits
+
 	* instdata.py (InstallData.writeKS): Write out install key for
 	anaconda-ks.cfg (#207029).  And also iscsi
 
