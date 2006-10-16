@@ -12,6 +12,7 @@
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
+# translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -20,7 +21,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-16 16:23+0530\n"
+"PO-Revision-Date: 2006-10-16 17:26+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1382,7 +1383,7 @@ msgstr ""
 "మీరు సమచారాన్నంతటినీ తుడిచే ఈ driveని సంస్థాపించాలనుకుంటున్నారా?"
 
 #: ../partedUtils.py:1044
-#,fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1391,7 +1392,14 @@ msgid ""
 "drives to ignore.\n"
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
-msgstr "దీనిలో ఉన్న సమాచారాన్ని తొలగించడానాకి మీరు ఈ డ్రైవును ఉపయోగించదలుచుకున్నారా?"
+msgstr ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
 
 #: ../partedUtils.py:1162
 msgid "No Drives Found"
@@ -3387,9 +3395,8 @@ msgid "Configure %s"
 msgstr "%s ఆకృతీకరించు"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "చెల్లని Directoriలు"
+msgstr "చెల్లని పురస్సర్గ"
 
 #: ../iw/network_gui.py:458
 msgid "IPv4 prefix must be between 0 and 32."
