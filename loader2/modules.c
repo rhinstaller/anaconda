@@ -395,7 +395,7 @@ static char ** lateModuleSort(char **allmods, int num) {
      * as is lpfc.  ibmvscsic needs to be sure to be loaded after ipr on
      * power5 due to bug #137920 */
     char * lateList[] = { "qla2100", "qla2200", "qla2300", "qla2322", 
-                          "qla6312", "qla6322", 
+                          "qla6312", "qla6322", "qla2400", "qla2xxx",
                           "lpfc", "ibmvscsic", NULL };
     char ** lateMods;
 

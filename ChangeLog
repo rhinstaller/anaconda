@@ -1,3 +1,8 @@
+2006-10-16  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c (lateModuleSort: Add qla2400 and qla2xxx to
+	late sort by request (#210886)
+
 2006-10-16  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/urls.c (urlinstStartTransfer):  Fix bad info message.
