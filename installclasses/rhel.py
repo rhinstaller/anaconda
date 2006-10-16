@@ -4,6 +4,7 @@ from rhpl.translate import N_,_
 from constants import *
 import os
 import iutil
+import types
 
 import logging
 log = logging.getLogger("anaconda")
@@ -59,7 +60,15 @@ class InstallClass(BaseInstallClass):
     def getPackagePaths(self, uri):
         rc = {}
         for (name, path) in self.repopaths.items():
-            rc[name] = "%s/%s" %(uri, path)
+            if type(uri) == types.ListType:
+                lst = []
+
+                for i in uri:
+                    lst.append("%s/%s" % (i, path))
+
+                rc[name] = lst
+            else:
+                rc[name] = "%s/%s" %(uri, path)
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):

@@ -1,3 +1,12 @@
+2006-10-16  Chris Lumens  <clumens@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Use a
+	better regex for finding ISO loopback mount points (#205133).
+
+	* installclasses/rhel.py (InstallClass.getPackagePaths):  Set up
+	baseUrl for yum correctly if the method is passed a list of URLs
+	(#210877).
+
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
 	* zfcp.py (ZFCP.writeKS): Write out zfcp in the anaconda-ks.cfg

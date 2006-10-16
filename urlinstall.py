@@ -160,7 +160,7 @@ class UrlInstallMethod(InstallMethod):
         # shove all that at yum and hope for the best   --dcantrell
 
         discdir = os.path.basename(self.pkgUrl)
-        alpharm = re.compile("[A-Za-z]+")
+        alpharm = re.compile("^[^0-9]+")
         discnum = alpharm.sub("", discdir)
 
         try:
