@@ -235,12 +235,16 @@ class InstallData:
 		    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
 		    break
 
+        if self.instClass.installkey:
+            f.write("key %s\n" %(self.instClass.installkey,))
+
 	self.instLanguage.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
             self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.zfcp.writeKS(f)
+        self.iscsi.writeKS(f)
 
         if self.rootPassword["isCrypted"]:
             f.write("rootpw --iscrypted %s\n" % self.rootPassword["password"])
