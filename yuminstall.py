@@ -828,6 +828,11 @@ class YumBackend(AnacondaBackend):
                 if not fatalerrors:
                     raise RepoError, e
 
+                if repo.id.find("-base-") == -1 and not anaconda.isKickstart:
+                    log.error("disabling non-base repo %s: %s" %(repo,e))
+                    self.ayum.repos.disable(repo.id)
+                    continue
+
                 if anaconda.isKickstart:
                     buttons = [_("_Abort"), _("_Continue")]
                 else:
