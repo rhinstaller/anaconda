@@ -236,8 +236,16 @@ def regKeyScreen(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
 
-    key = ""
+    key = anaconda.id.instClass.installkey or ""
     while 1:
+        if len(key) > 0:
+            try:
+                anaconda.id.instClass.handleRegKey(key, anaconda.intf,
+                                                   not anaconda.isKickstart)
+            except Exception, e:
+                log.info("exception handling installation key: %s" %(e,))
+            break
+            
         rc = anaconda.intf.getInstallKey(anaconda, key)
         if rc is None:
             return DISPATCH_BACK
@@ -253,12 +261,6 @@ def regKeyScreen(anaconda):
             break
 
         key = rc
-        try:
-            anaconda.id.instClass.handleRegKey(key, anaconda.intf)
-        except Exception, e:
-            log.info("exception handling regkey: %s" %(e,))
-            continue
-        break
 
     # FIXME: currently, we only allow this screen to ever be hit _once_
     anaconda.dispatch.skipStep("regkey", permanent = 1)

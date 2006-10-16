@@ -1,5 +1,8 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (regKeyScreen): Better handling with install keys in
+	kickstart 
+
 	* instdata.py (InstallData.write): Write out install key
 
 	* installclasses/rhel.py (InstallClass.handleRegKey): Minor
