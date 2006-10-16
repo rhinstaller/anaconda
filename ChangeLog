@@ -9,6 +9,9 @@
 
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/modules.c (lateModuleSort: Add qla2400 and qla2xxx to
+	late sort by request (#210886)
+
 	* zfcp.py (ZFCP.writeKS): Write out zfcp in the anaconda-ks.cfg
 
 	* iscsi.py (iscsi.writeKS): Write out iscsi kickstart bits
