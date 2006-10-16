@@ -62,7 +62,7 @@ class InstallClass(BaseInstallClass):
             rc[name] = "%s/%s" %(uri, path)
         return rc
 
-    def handleRegKey(self, key, intf):
+    def handleRegKey(self, key, intf, interactive = True):
 #         if key is None or len(key) == 0:
 #             intf.messageWindow(_("Registration Key Required"),
 #                                _("A registration key is required to "
@@ -87,10 +87,9 @@ class InstallClass(BaseInstallClass):
             self.repopaths["virt"] = "VT"
             log.info("Adding Virtualization option")
 
-        self.regkey = key
+        self.installkey = key
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
         self.repopaths = { "base": "%s" %(productPath,) }
-        self.regkey = None

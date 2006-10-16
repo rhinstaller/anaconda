@@ -1,5 +1,14 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* instdata.py (InstallData.write): Write out install key
+
+	* installclasses/rhel.py (InstallClass.handleRegKey): Minor
+	tweaking
+	* installclass.py: Keep install key around
+
+	* kickstart.py (AnacondaKSHandlers.doKey): Handle installation key
+	with a real directive
+
 	* installclasses/rhel.py (InstallClass.handleRegKey): Remove some
 	special casing now that non-existent repos aren't fatal
 

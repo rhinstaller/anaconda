@@ -184,6 +184,10 @@ class InstallData:
                                          ud.uid, root=anaconda.rootPath) == None:
                     log.error("User %s already exists, not creating." % ud.name)
 
+        if anaconda.id.instClass.installkey and os.path.exists(anaconda.rootPath + "/etc/sysconfig/rhn"):
+            f = open(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
+            f.write("%s\n" %(anaconda.id.instClass.installkey,))
+            f.close()
 
     def writeKS(self, filename):
         if self.auth.find("--enablemd5"):

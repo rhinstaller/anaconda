@@ -70,6 +70,7 @@ class BaseInstallClass:
     instkeyname = None
     allowinstkeyskip = True
     instkeydesc = None
+    installkey = None
 
     def postAction(self, anaconda, serial):
 	pass

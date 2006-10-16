@@ -187,6 +187,11 @@ class AnacondaKSHandlers(KickstartHandlers):
         # FIXME: flush the drive dict so we figure drives out again        
         isys.flushDriveDict()
 
+    def doKey(self, args):
+        KickstartHandlers.doKey(self, args)
+        log.info("setting install key to %s" %(self.ksdata.key,))
+        self.id.instClass.installkey = self.ksdata.key
+
     def doKeyboard(self, args):
         KickstartHandlers.doKeyboard(self, args)
         self.id.instClass.setKeyboard(self.id, self.ksdata.keyboard)
@@ -849,7 +854,6 @@ class Kickstart(cobject):
 
         dispatch.skipStep("bootdisk")
         dispatch.skipStep("betanag")
-        dispatch.skipStep("regkey")
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
 
