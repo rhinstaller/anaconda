@@ -135,7 +135,7 @@ class iscsi(object):
             return self._initiator
         return randomIname()
     def _setInitiator(self, val):
-        if self._initiator != "":
+        if self._initiator != "" and val != self._initiator:
             raise ValueError, "Unable to change iSCSI initiator name once set"
         if len(val) == 0:
             raise ValueError, "Must provide a non-zero length string"
@@ -215,12 +215,20 @@ class iscsi(object):
         self.targets.append(t)
         return
 
-    def writeKS(self):
-        # XXX Useful if we have auto-generated kickstart files.
-        return
+    def writeKS(self, f):
+        if not self.initiatorSet:
+            return
+        f.write("iscsiname %s\n" %(self.initiator,))
+        for t in self.targets:
+            f.write("iscsi --ipaddr %s --port %s" %(t.ipaddr, t.port))
+            if t.user:
+                f.write(" --user %s" %(t.user,))
+            if t.password:
+                f.write(" --password %s" %(t.password,))
+            f.write("\n")
 
     def write(self, instPath):
-        if not self.initiator:
+        if not self.initiatorSet:
             return
 
         if not os.path.isdir(instPath + "/etc/iscsi"):

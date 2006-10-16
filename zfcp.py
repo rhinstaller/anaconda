@@ -131,10 +131,10 @@ class ZFCPDevice:
         return True
 
     def offlineDevice(self):
-        if not self.offlineStatus:
+        if not self.onlineStatus:
             return True
         
-        offline = "%s/%s/offline" %(zfcpsysfs, self.devnum)
+        offline = "%s/%s/online" %(zfcpsysfs, self.devnum)
         portremove = "%s/%s/port_remove" %(zfcpsysfs, self.devnum)
         unitremove = "%s/%s/%s/unit_remove" %(zfcpsysfs, self.devnum, self.wwpn)
         try:
@@ -152,7 +152,7 @@ class ZFCPDevice:
 class ZFCP:
     def __init__(self):
         self.fcpdevs = []
-        self.readConfig()
+        self.hasReadConfig = False
 
     def readConfig(self):
         try:
@@ -195,36 +195,37 @@ class ZFCP:
         d = ZFCPDevice(devnum, wwpn, fcplun)
         if d.onlineDevice():
             self.fcpdevs.append(d)
-            f = open("/tmp/zfcp.conf", "a")
-            f.write("%s\n" %(d,))
-            f.close()
 
     def shutdown(self):
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
             d.offlineDevice()
-        # empty zfcp.conf as we'll write things back out when we initialize
-        f = open("/tmp/zfcp.conf", "w+")
-        f.close()
 
     def startup(self):
+        if not self.hasReadConfig:
+            self.readConfig()
+            self.hasReadConfig = True
+            
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
-            if d.onlineDevice():
-                f = open("/tmp/zfcp.conf", "a")
-                f.write("%s\n" %(d,))
-                f.close()
+            d.onlineDevice()
 
-    def writeKS(self,fcpdevices):
-        # FIXME KH not implemented yet
-        return
+    def writeKS(self, f):
+        if len(self.fcpdevs) == 0:
+            return
+        for d in self.fcpdevs:
+            f.write("zfcp --devnum %s --wwpn %s --fcplun %s\n" %(d.devnum,
+                                                                 d.wwpn,
+                                                                 d.fcplun))
 
     def write(self, instPath):
         if len(self.fcpdevs) == 0:
             return
-        if os.path.exists("/tmp/zfcp.conf"):
-            shutil.copyfile("/tmp/zfcp.conf", instPath + "/etc/zfcp.conf")
+        f = open(instPath + "/etc/zfcp.conf", "w")
+        for d in self.fcpdevs:
+            f.write("%s\n" %(d,))
+        f.close()
 
 # vim:tw=78:ts=4:et:sw=4
