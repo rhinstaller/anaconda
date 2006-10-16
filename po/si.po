@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-16 22:07+0530\n"
+"PO-Revision-Date: 2006-10-16 23:00+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1604,17 +1604,14 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:459
-#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"මෙම කොටස් සංයුති කිර ඉදිරියට කරගෙන යාම සඳහා  'Yes' (ඔව්)තෝරාගන්නs,නැවත පෙර අවස්ථාවට ගොස් මෙම   'No' to go back and "
-"change these settings."
+msgstr "මෙම කොටස් සංයුති කිර ඉදිරියට කරගෙන යාම සඳහා  'Yes' (ඔව්)තෝරාගන්නs,නැවත පෙර අවස්ථාවට ගොස් මෙම සැකසුම වෙනස් කිරීම සඳහා  'No'(නැත) තෝරාගන්න.."
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
-msgstr ""
+msgstr "සංයුති අවවාදය"
 
 #: ../partIntfHelpers.py:513
 #, python-format
@@ -1623,36 +1620,39 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"ඔබ සූදානම්ව සිටින්නේ \"%s\" පරිමා කණ්ඩායම මකා දැමීමටයි .\n"
+"\n"
+"මෙම පරිමා කණ්ඩායම තුල තිබෙන සියළුම තාර්තික කොටස් අහිමි වනු ඇත!"
 
 #: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "ඔබ සූදානම්ව සිටින්නේ \"%s\" තාර්තික පරිමාව මකා දැමීමටයි."
 
 #: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "ඔබ සූදාමන්ව සිටින්නේ RAID device උපාංගය මකා දැමීමටයි."
 
 #: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "ඔබ සූදානම්ව සිටින්නේ /dev/%s කොටස් මකා දැමිමටයි"
 
 #: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "ඔබ විසින් තෝරාගනු ලැබූ කොටස මකාදමනු ඇත."
 
 #: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
-msgstr ""
+msgstr "නැවත සකස් කිරීම තහවුරු කරන්න"
 
 #: ../partIntfHelpers.py:537
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "කොටස් වගුව පෙර තිබූ සැබෑ තත්වයට පත් කිරීමට ඔබට අවශ්‍යද?"
 
 #: ../partitioning.py:68
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "ස්ථාපනය ඉදිරියට කරගෙන යාමට නොහැක"
 
 #: ../partitioning.py:69
 msgid ""
@@ -1677,70 +1677,70 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
+msgstr "%s ස්ථාපනය ඉදිරියට කරගෙන යාම සඳහා අවශ්‍ය root කොටස (/) ඔබ විසින් නියමකර නොමැත."
 
 #: ../partitions.py:823
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
+msgstr "ඔබේ root කොටස මෙගා බයිට් 250 ට වඩා අඩු වන හෙයින්, එය %s ස්ථාපනය සඳහා ප්‍රමාණවත් නොවේ."
 
 #: ../partitions.py:842
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "ඔබේ boot කොටස ප්‍රධාන කොටස් සතර තුල අන්තර්ගතව නොමැති හෙයින් පද්ධතිය ආරම්භ කිරීමට නොහැකි වනු ඇත."
 
 #: ../partitions.py:849
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "ඔබ විසින් /boot/efi partition කොටසක් සෑදිය යුතු වන අතර එය මෙගා බයිට් 50කින් හා FAT 32 ගණයෙන් සමන් විය යුතුය."
 
 #: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "ඔබ විසින් Apple Bootstrap කොටසක් සෑදිය යුතුය."
 
 #: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "ඔබ විසින් PPC PReP Boot කොටසක් සෑදිය යුතුය"
 
 #: ../partitions.py:899 ../partitions.py:910
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
+msgstr "ඔබේ %s කොටස මෙගා බයිට් %s  ට වඩා අඩු වන අතර එය %s ස්ථාපනය සඳහා රෙකමදාරු කර තිබෙන ප්‍රමාණයට වඩා අඩු අගයක් ගනී."
 
 #: ../partitions.py:944
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "USB ධාවකය ස්ථාපනය කරමින්.  මෙය ක්‍රියාත්මක කල හැකි හෝ නොමැති වීමට පිළිවෙන."
 
 #: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "FireWire උපාංගය ස්ථාපනය කරමින්.   මෙය ක්‍රියාත්මක කල හැකි හෝ නොමැති වීමට පිළිවෙන."
 
 #: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "ඇරඹුම් කාරක කොටස් තිබිය හැක්කේ RAID1 උපාංග මත පමණි."
 
 #: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "ඇරඹුම් කාරක අඩංගු කොටස් තාර්තික පරිමාවන් මත තිබිය නොහැක."
 
 #: ../partitions.py:988
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "ඔබ විසින් swap කොටසක් නියම කර නොමැත. මෙය සෑම විටම අනිවාර්‍ය නොවන මුත් පද්ධතියේ ඉහල ක්‍රියාකාරීත්වයට බෙහෙවින් ඉවහල් වේ."
 
 #: ../partitions.py:995
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
+msgstr "ඔබ විසින් swap උපාංගයන් 32 කට වඩා නියම කර ඇත.  %s සඳහා වන කර්නලය (kernel) පහසුකම් සපයන්නේ swap උපාංග 32 කට පමණි."
 
 #: ../partitions.py:1006
 #, python-format
