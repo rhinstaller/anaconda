@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-16 23:50+0530\n"
+"PO-Revision-Date: 2006-10-17 00:05+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2247,7 +2247,7 @@ msgstr "සම්බන්ධ විය!"
 
 #: ../vnc.py:296
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "සම්බන්ධ වීමට 50 වරක් උත්සහ කිරීමෙන් පසුව අතහැර දමමින්!\n"
 
 #: ../vnc.py:298
 #, python-format
@@ -2277,7 +2277,7 @@ msgstr ""
 
 #: ../yuminstall.py:103
 msgid "Processing"
-msgstr ""
+msgstr "ක්‍රියාත්මක කරමින්"
 
 #: ../yuminstall.py:104
 msgid "Preparing transaction from installation source..."
@@ -2285,11 +2285,11 @@ msgstr ""
 
 #: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
-msgstr ""
+msgstr "ගොනුව ඝට්ටනය වේ"
 
 #: ../yuminstall.py:433
 msgid "older package(s)"
-msgstr ""
+msgstr "පැරණි ඇසුරුම(ම්)"
 
 #: ../yuminstall.py:434
 msgid "insufficient disk space"
@@ -2301,27 +2301,27 @@ msgstr ""
 
 #: ../yuminstall.py:436
 msgid "package conflicts"
-msgstr ""
+msgstr "ඇසුරුම ඝට්ටනය වේ"
 
 #: ../yuminstall.py:437
 msgid "package already installed"
-msgstr ""
+msgstr "ඇසුරුම මේවන විට ස්ථාපනය කර ඇත"
 
 #: ../yuminstall.py:438
 msgid "required package"
-msgstr ""
+msgstr "ඇසුරුම අවශ්‍යව ඇත"
 
 #: ../yuminstall.py:439
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "සාවද්‍ය තෝම්බුවක් සඳහා ඇසුරුමක්"
 
 #: ../yuminstall.py:440
 msgid "package for incorrect os"
-msgstr ""
+msgstr "සාවද්‍ය මෙහෙයම් පද්ධතිය සඳහා ඇසුරුමක්"
 
 #: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "පහත සඳහන් ගොනු පද්ධති තුල බොහෝ ඉඩ ප්‍රමාණයක් අවශ්‍ය වේ:\n"
 
 #: ../yuminstall.py:470
 msgid "Error running transaction"
@@ -2355,7 +2355,7 @@ msgstr ""
 
 #: ../yuminstall.py:691
 msgid "Uncategorized"
-msgstr ""
+msgstr "වර්ගීකරණය කර නොමැත"
 
 #: ../yuminstall.py:907
 #, python-format
@@ -2393,11 +2393,11 @@ msgstr "පශ්චාත් ස්ථාපනය"
 
 #: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "පසු ස්ථාපන මණකරනය ක්‍රියාත්මක කරමින්..."
 
 #: ../yuminstall.py:1264
 msgid "Installation Progress"
-msgstr ""
+msgstr "ස්ථාපන ක්‍රියාවලිය සිදුවෙමින් පවතී"
 
 #: ../yuminstall.py:1299
 msgid "Dependency Check"
@@ -2417,23 +2417,23 @@ msgstr ""
 
 #: ../zfcp.py:31
 msgid "Device number"
-msgstr ""
+msgstr "උපාංගයේ අංකය"
 
 #: ../zfcp.py:32
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
+msgstr "ඔබ විසින් උපාංගය සඳහා අංකයක් නියම කර නොමැත නැතහොත් එම අංකය සාවද්‍ය වේ"
 
 #: ../zfcp.py:34
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI සඳුනා ගැනීමේ අංකය"
 
 #: ../zfcp.py:35
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr ""
+msgstr "ඔබ විසින් SCSI හඳුනා ගැනීමේ අංකයක් සපයා නොමැත, නැතහොත් එය සාවද්‍ය වේ."
 
 #: ../zfcp.py:37 ../textw/zfcp_text.py:101
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -2441,19 +2441,19 @@ msgstr ""
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:41
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr ""
+msgstr "ඔබ විසින් SCSI LUN සපයා නොමැත නැතහොත් එම අංකය සාවද්‍ය වේ."
 
 #: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:44
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr ""
+msgstr "ඔබ විසින් FCP LUN සපයා නොමැත, නැතහොත් අංකය සාවද්‍ය වේ"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
