@@ -171,7 +171,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else
         sprintf(buf, "%s/%s", finalPrefix, filename);
     
-    logMessage(INFO, "transferring %s://%s/%s to a fd",
+    logMessage(INFO, "transferring %s://%s%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
                ui->address, buf);
 
