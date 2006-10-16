@@ -1,3 +1,10 @@
+2006-10-16  Jeremy Katz  <katzj@redhat.com>
+
+	* zfcp.py (ZFCPDevice.offlineDevice): Fix a few stupid bugs
+	(ZFCP.startup): Move config reading to here so that we don't have
+	problems with bringing up devs more than once (#210094)
+	(ZFCP.write): Better way of writing out zfcp.conf
+
 2006-10-13  Jeremy Katz  <katzj@redhat.com>
 
 	* gui.py (InstallKeyWindow.__init__): Improved fancier, schmancier
