@@ -74,26 +74,18 @@ class InstallClass(BaseInstallClass):
 
         # simple and stupid for now... if C is in the key, add Clustering
         # if V is in the key, add Virtualization. etc
-        if productPath == "Server" and rhpl.getArch() in ("i386", "x86_64", "ia64"):
-            if key.find("C") != -1:
-                self.repopaths["cluster"] = "Cluster"
-                log.info("Adding Cluster option")
-            if key.find("S") != -1:
-                self.repopaths["cs"] = "ClusterStorage"
-                log.info("Adding ClusterStorage option")
-
-        if productPath == "Client":
-#             if key.find("D") != -1:
-#                 self.repopaths["desktop"] = "Desktop"
-#                 log.info("Adding Desktop option")
-            if key.find("W") != -1:
-                self.repopaths["desktop"] = "Workstation"
-                log.info("Adding Workstation option")
-
-        if rhpl.getArch() in ("i386", "x86_64", "ia64"):
-            if key.find("V") != -1:
-                self.repopaths["virt"] = "VT"
-                log.info("Adding Virtualization option")
+        if key.find("C") != -1:
+            self.repopaths["cluster"] = "Cluster"
+            log.info("Adding Cluster option")
+        if key.find("S") != -1:
+            self.repopaths["cs"] = "ClusterStorage"
+            log.info("Adding ClusterStorage option")
+        if key.find("W") != -1:
+            self.repopaths["desktop"] = "Workstation"
+            log.info("Adding Workstation option")
+        if key.find("V") != -1:
+            self.repopaths["virt"] = "VT"
+            log.info("Adding Virtualization option")
 
         self.regkey = key
 

@@ -1,5 +1,8 @@
 2006-10-16  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/rhel.py (InstallClass.handleRegKey): Remove some
+	special casing now that non-existent repos aren't fatal
+
 	* yuminstall.py (YumBackend.doRepoSetup): Handle non-base repos
 	which may or may not exist for arches (#202810)
 
