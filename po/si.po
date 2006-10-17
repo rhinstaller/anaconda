@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-18 00:53+0530\n"
+"PO-Revision-Date: 2006-10-18 01:24+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5347,7 +5347,7 @@ msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
-msgstr ""
+msgstr "%s මොඩියුලය වෙත ලබා දීමට කැමති පරාමිතියන් වේ නම් ඒවා සියල්ල හිස් ඉඩකින් වෙන්කර ඇතුල් කරන්න.  මේ සඳහා ලබා දිය යුතු පරාමිතියන් ගැන අව බෝධයක් නොමැති නම් මීලඟ තිරයට පිවිසීම සඳහා \"OK\" බොත්තම ඔබන්න."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5372,7 +5372,7 @@ msgstr "ඔබ විසින් අතින් ඇතුලත් කිර�
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
+msgstr "රුවීම සඳහා භාවිත කිරිමමට කැමති ධාවකය පහත ලැයිස්තුවෙන් තෝරා ගන්න. එය එහි නොමැති නම් ඒ සඳහා ධාවක තැටියක් ඇත්නම් F2 ඔබන්න"
 
 #: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
@@ -5394,7 +5394,7 @@ msgstr "%s ධාවකය රුවමින්..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "බහලුම තුල තිබෙන %s ස්ථාපන රුක ඔබේ ඇරඹුම් මාධ්‍ය හා සමපාත නොවේ."
 
 #: ../loader2/hdinstall.c:217
 #, fuzzy
@@ -5418,7 +5418,7 @@ msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
+msgstr "%s සඳහා වන සංයුක්ත තැටි  (iso9660) පිළිඹුවන් ඇත්තේ කුමන කොටසේ හා බහලුමේද? ඔබ විසින් භාවිත කරන ධාවකය මෙම ලැයිස්තුව තුල නොවේ නම් එය මාන කිරීම සඳහා F2 ඔබන්න."
 
 #: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
@@ -5477,7 +5477,7 @@ msgstr "ආරම්භක නම්‍ය තැටය තුල ks.cfg  ගො
 #: ../loader2/kickstart.c:412
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
+msgstr "kickstart ක්‍රම විධානය වසා දැමීම සඳහා භාවිත කරන ලද පරාමිතය සාවද්‍යය %s: %s"
 
 #: ../loader2/lang.c:54
 #, c-format
@@ -5512,7 +5512,7 @@ msgstr "තැටියේ මූලාශ්‍රය නවීකරණය ක
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr ""
+msgstr "නවීකරණ තැටය සඳහා මූලාශ්‍රයන් ලෙස ක්‍රියා කල හැකි උපාංග කිහිපයක් ඔබ සතුව තිබේ, මේ සඳහා භාවිතා කිරීමට කැමති මින් කවරක්ද?"
 
 #: ../loader2/loader.c:346
 #, c-format
@@ -5581,6 +5581,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"මෙම ආකාරයෙන් ස්ථාපනය කරගෙන යාම සඳහා අවශ්‍ය උපාංගයන් සොයාගත නොහැකි විය."
+"ඔබට අවශ්‍ය ධාවකය අතින් තෝරා ගැනීමට ඔබ කැමති නැතහොත් ධාහක තැටියක් භාවිත කිරීමටද?"
 
 #: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
@@ -5590,7 +5592,7 @@ msgstr "ඔබේ පද්ධතිය තුල තිබෙන පහත ද�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
+msgstr "කිසිදු උපාංග ධාවකයක් ඔබේ පද්ධතිය තුලට රුවා නොමැත. එය මේ අවස්ථාවේ සිදු කිරීමට ඔබ කැමතිද?"
 
 #: ../loader2/loader.c:1130
 msgid "Devices"
@@ -5624,7 +5626,7 @@ msgstr "anaconda ක්‍රියාත්මක වෙමින් පවත�
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
+msgstr "ප්‍රාථමික පරිමා විස්තරය තුලින් තැටියේ තිර අගය කියවීමට නොහැක. තිර අගය ඇතුල් නොකොට තැටිය සාදා තිබීම මීට හේතු විය හැක."
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5753,7 +5755,7 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s රැහැන් රහිත ජාල සම්බන්ධක උපකරණයකි.  කරුණාකර රහැන් රහිතව ජාලයට සම්බන්ධවීම සඳහා ESSID සහ සංකේත යතුර ලබා දෙන්න. සංකේත යතුරක් අනවශ්‍ය නම් මෙය හිස්ව තබන්න, ස්ථාපනය දිගටම සිදුකරගෙන යනු ඇත."
 
 #: ../loader2/net.c:241
 #, fuzzy
@@ -5774,7 +5776,7 @@ msgid ""
 "not include a DNS nameserver. If you know what your nameserver is, please "
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
-msgstr ""
+msgstr "ඔබේ ගතික IP ඉල්ලීම විසින් IP මාණකරන තොරතුරු ලබා දී ඇත, නමුත් ඒ තුල DNS nameserverවිස්තරනොමැත. ඔබේ nameserver විස්තර දන්නෙහි නම් කරුණාකර එය ඇතුල් කරන්න. ඔබ සතුව මෙම විසෙතර නොමැති නම් මෙය හිස්ව තබන්න, ස්ථාපනය දිගටම කරගෙන යනු ඇත."
 
 #: ../loader2/net.c:300
 msgid "Invalid IP Information"
