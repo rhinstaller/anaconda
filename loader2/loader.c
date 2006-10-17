@@ -21,7 +21,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 #include <ctype.h>
 #include <errno.h>
 #include <execinfo.h>
@@ -423,62 +422,76 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
 
 /* read information from /tmp/netinfo (written by linuxrc) */
 static void readNetInfo(struct loaderData_s ** ld) {
-   struct loaderData_s * loaderData = *ld;
-   FILE *f;
-   char *end;
-   char buf[100], *vname, *vparm;
+    int i;
+    struct loaderData_s * loaderData = *ld;
+    FILE *f;
+    /* FIXME: arbitrary size that works, but could blow up in the future */
+    int bufsiz = 100;
+    char buf[bufsiz], *vname, *vparm;
 
-   f = fopen("/tmp/netinfo", "r");
-   if (!f) {
-       return;
-   }
-   vname = (char *)malloc(sizeof(char)*15);
-   vparm = (char *)malloc(sizeof(char)*85);
+    f = fopen("/tmp/netinfo", "r");
+    if (!f)
+		return;
 
-   while(fgets(buf, 100, f)) {
-       if ((vname = strtok(buf, "="))) {
-           vparm = strtok(NULL, "=");
-           while (isspace(*vparm))
-               vparm++;
-           end = strchr(vparm, '\0');
-           while (isspace(*end))
-               end--;
-           end++;
-           *end = '\0';
-           if (strstr(vname, "IPADDR")) {
-               loaderData->ip = strdup(vparm);
-               loaderData->ipinfo_set = 1;
-           }
-           if (strstr(vname, "NETMASK")) {
-               loaderData->netmask = strdup(vparm);
-           }
-           if (strstr(vname, "GATEWAY")) {
-               loaderData->gateway = strdup(vparm);
-           }
-           if (strstr(vname, "DNS")) {
-               loaderData->dns = strdup(vparm);
-           }
-           if (strstr(vname, "MTU")) {
-               loaderData->mtu = atoi(vparm);
-           }
-           if (strstr(vname, "PEERID")) {
-               loaderData->peerid = strdup(vparm);
-           }
-           if (strstr(vname, "SUBCHANNELS")) {
-               loaderData->subchannels = strdup(vparm);
-           }
-           if (strstr(vname, "PORTNAME")) {
-               loaderData->portname = strdup(vparm);
-           }
-           if (strstr(vname, "NETTYPE")) {
-               loaderData->nettype = strdup(vparm);
-           }
-           if (strstr(vname, "CTCPROT")) {
-               loaderData->ctcprot = strdup(vparm);
-           }
-       }
-   }
-   fclose(f);
+    /* FIXME: static buffers lead to pain */
+    vname = (char *)malloc(sizeof(char)*15);
+    vparm = (char *)malloc(sizeof(char)*85);
+
+    /*
+     * The /tmp/netinfo file is written out by /sbin/init on s390x (which is
+     * really the linuxrc.s390 script).  It's a shell-sourcable file with
+     * various system settings needing for the system instance.
+     *
+     * The goal of this function is to read in only the network settings
+     * and populate the loaderData structure.
+     */
+    while(fgets(buf, bufsiz, f)) {
+		/* trim whitespace from end */
+		i = 0;
+		while (!isspace(buf[i]) && i < (bufsiz-1))
+			i++;
+		buf[i] = '\0';
+
+		/* break up var name and value */
+		if (strstr(buf, "=")) {
+			vname = strtok(buf, "=");
+			vparm = strtok(NULL, "=");
+
+            if (!strncmp(vname, "IPADDR", 6)) {
+                loaderData->ip = strdup(vparm);
+                loaderData->ipinfo_set = 1;
+            }
+
+            if (!strncmp(vname, "NETMASK", 7))
+                loaderData->netmask = strdup(vparm);
+
+            if (!strncmp(vname, "GATEWAY", 7))
+                loaderData->gateway = strdup(vparm);
+
+            if (!strncmp(vname, "DNS", 3))
+                loaderData->dns = strdup(vparm);
+
+            if (!strncmp(vname, "MTU", 3))
+                loaderData->mtu = atoi(vparm);
+
+            if (!strncmp(vname, "PEERID", 6))
+                loaderData->peerid = strdup(vparm);
+
+            if (!strncmp(vname, "SUBCHANNELS", 12))
+                loaderData->subchannels = strdup(vparm);
+
+            if (!strncmp(vname, "PORTNAME", 8))
+                loaderData->portname = strdup(vparm);
+
+            if (!strncmp(vname, "NETTYPE", 7))
+                loaderData->nettype = strdup(vparm);
+
+            if (!strncmp(vname, "CTCPROT", 7))
+                loaderData->ctcprot = strdup(vparm);
+        }
+    }
+
+    fclose(f);
 }
 
 /* parse anaconda or pxelinux-style ip= arguments

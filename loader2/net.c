@@ -310,17 +310,17 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 }
 
 void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
-    logMessage(DEBUGLVL, "loaderData->ipinfo_set = %d", loaderData->ipinfo_set);
-    logMessage(DEBUGLVL, "loaderData->ip         = %s", loaderData->ip);
-    logMessage(DEBUGLVL, "loaderData->netmask    = %s", loaderData->netmask);
-    logMessage(DEBUGLVL, "loaderData->gateway    = %s", loaderData->gateway);
-    logMessage(DEBUGLVL, "loaderData->dns        = %s", loaderData->dns);
-    logMessage(DEBUGLVL, "loaderData->hostname   = %s", loaderData->hostname);
-    logMessage(DEBUGLVL, "loaderData->noDns      = %d", loaderData->noDns);
-    logMessage(DEBUGLVL, "loaderData->netDev_set = %d", loaderData->netDev_set);
-    logMessage(DEBUGLVL, "loaderData->netDev     = %s", loaderData->netDev);
-    logMessage(DEBUGLVL, "loaderData->netCls_set = %d", loaderData->netCls_set);
-    logMessage(DEBUGLVL, "loaderData->netCls     = %s", loaderData->netCls);
+    logMessage(DEBUGLVL, "loaderData->ipinfo_set = |%d|", loaderData->ipinfo_set);
+    logMessage(DEBUGLVL, "loaderData->ip         = |%s|", loaderData->ip);
+    logMessage(DEBUGLVL, "loaderData->netmask    = |%s|", loaderData->netmask);
+    logMessage(DEBUGLVL, "loaderData->gateway    = |%s|", loaderData->gateway);
+    logMessage(DEBUGLVL, "loaderData->dns        = |%s|", loaderData->dns);
+    logMessage(DEBUGLVL, "loaderData->hostname   = |%s|", loaderData->hostname);
+    logMessage(DEBUGLVL, "loaderData->noDns      = |%d|", loaderData->noDns);
+    logMessage(DEBUGLVL, "loaderData->netDev_set = |%d|", loaderData->netDev_set);
+    logMessage(DEBUGLVL, "loaderData->netDev     = |%s|", loaderData->netDev);
+    logMessage(DEBUGLVL, "loaderData->netCls_set = |%d|", loaderData->netCls_set);
+    logMessage(DEBUGLVL, "loaderData->netCls     = |%s|", loaderData->netCls);
 }
 
 /* given loader data from kickstart, populate network configuration struct */
@@ -413,6 +413,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             cfg->preset = 1;
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
+            cfg->isDynamic = 0;
             loaderData->ip = NULL;
         }
     }
@@ -1727,7 +1728,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     initLoopback();
 
     memset(netCfgPtr, 0, sizeof(*netCfgPtr));
-    netCfgPtr->isDynamic = 1;
 
     do {
         /* this is smart and does the right thing based on whether or not
