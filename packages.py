@@ -247,9 +247,11 @@ def regKeyScreen(anaconda):
             break
             
         rc = anaconda.intf.getInstallKey(anaconda, key)
-        if rc is None:
+        if rc is None and anaconda.dispatch.canGoBack():
             return DISPATCH_BACK
-        if rc == SKIP_KEY:
+        elif rc is None:
+            continue
+        elif rc == SKIP_KEY:
             if anaconda.id.instClass.skipkeytext:
                 rc = anaconda.intf.messageWindow(_("Skip"),
                                      anaconda.id.instClass.skipkeytext,
@@ -262,9 +264,7 @@ def regKeyScreen(anaconda):
 
         key = rc
 
-    # FIXME: currently, we only allow this screen to ever be hit _once_
-    anaconda.dispatch.skipStep("regkey", permanent = 1)
-    return 
+    return DISPATCH_FORWARD
 
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",

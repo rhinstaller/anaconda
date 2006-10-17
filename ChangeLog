@@ -1,5 +1,7 @@
 2006-10-17  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (regKeyScreen): Only go back if we can (#211101)
+
 	* kickstart.py (AnacondaKSHandlers.doKey): Support --skip for instkey
 
 2006-10-17  David Cantrell  <dcantrell@redhat.com>
