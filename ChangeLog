@@ -1,5 +1,7 @@
 2006-10-17  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYumRepo.__get): Fix retry on failure (#211117)
+
 	* scripts/pkgorder (usage): Try to fix ordering for iscsi tools on
 	CD installs (#208832)
 

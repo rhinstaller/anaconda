@@ -226,7 +226,7 @@ class AnacondaYumRepo(YumRepository):
         headers = tuple(headers)
 
         if local is None or relative is None:
-            raise Errors.RepoError, \
+            raise yum.Errors.RepoError, \
                   "get request for Repo %s, gave no source or dest" % self.id
 
         if self.failure_obj:
@@ -238,7 +238,7 @@ class AnacondaYumRepo(YumRepository):
                 return local          # to run the checkfunc from here
 
             else: # ain't there - raise
-                raise Errors.RepoError, \
+                raise yum.Errors.RepoError, \
                     "Caching enabled but no local cache of %s from %s" % (local,
                            self)
 
@@ -266,7 +266,7 @@ class AnacondaYumRepo(YumRepository):
                                     range=(start, end),
                                     )
             except URLGrabError, e:
-                raise Errors.RepoError, \
+                raise yum.Errors.RepoError, \
                     "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
 
         else:
@@ -280,7 +280,7 @@ class AnacondaYumRepo(YumRepository):
                                            http_headers=headers,
                                            )
             except URLGrabError, e:
-                raise Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
 
@@ -1012,13 +1012,13 @@ class YumBackend(AnacondaBackend):
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
                 ksmp = getBestKernelByArch("kernel-smp", self.ayum)
-                log.info("selected kernel-smp package for kernel")
             except PackageSackError:
                 ksmp = None
                 log.debug("no kernel-smp package")
 
             if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
                 foundkernel = True
+                log.info("selected kernel-smp package for kernel")
                 self.ayum.install(po=ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
