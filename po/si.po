@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-18 00:09+0530\n"
+"PO-Revision-Date: 2006-10-18 00:27+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5332,14 +5332,14 @@ msgstr "Kickstart Error"
 #: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "kickstart මූලාශය අඩංගු හඳුනා නොගත් ධාවක තැටියකි: %s"
 
 #: ../loader2/driverdisk.c:615
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
+msgstr "kickstart ධාවක තැටි සඳහා වන විධානයක් ලෙස පහත සඳහන් සාවද්‍ය අගය ලබා දී ඇත: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5376,7 +5376,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "අතිරේක මොඩියුල් සඳහා පරාමිතියන් නියම කරන්න"
 
 #: ../loader2/driverselect.c:227
 #, fuzzy
@@ -5436,7 +5436,7 @@ msgstr "%s උපාංගය සතුව %s සංයුක්ත තැටි
 #: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "HD kickstart විධාන ක්‍රමය සඳහා වැරදි පරාමිතියන් %s: %s"
 
 #: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
 msgid "Cannot find kickstart file on hard drive."
@@ -5506,7 +5506,7 @@ msgstr "NFS පිළිඹුව"
 
 #: ../loader2/loader.c:330
 msgid "Update Disk Source"
-msgstr ""
+msgstr "තැටියේ මූලාශ්‍රය නවීකරණය කරන්න"
 
 #: ../loader2/loader.c:331
 msgid ""
@@ -5550,7 +5550,7 @@ msgstr "%s ස්ථාපනය සඳහා ප්‍රමාණවත් RAM
 
 #: ../loader2/loader.c:935
 msgid "Rescue Method"
-msgstr ""
+msgstr "ගලවා ගැනීමේ ක්‍රමය"
 
 #: ../loader2/loader.c:936
 msgid "Installation Method"
@@ -5558,7 +5558,7 @@ msgstr "ස්ථාපනය කලයුතු ආකාරය"
 
 #: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "ගලවා ගැනීමේ පිළිඹුව තිබෙන්නේ කිනම් ආකාරයක මාධ්‍යකද ? "
 
 #: ../loader2/loader.c:940
 msgid "What type of media contains the packages to be installed?"
@@ -5717,7 +5717,7 @@ msgstr "තිර අගය පරීක්‍ෂා කිරීම"
 #: ../loader2/modules.c:961
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "kickstart ධාවකයේ විධාන ක්‍රමය සඳහා සපයා ඇත්තේ සාවද්‍ය පරාමිතියකි %s: %s"
 
 #: ../loader2/net.c:62
 #, c-format
@@ -5737,13 +5737,15 @@ msgstr ""
 
 #: ../loader2/net.c:96
 msgid "Invalid CIDR Mask"
-msgstr ""
+msgstr "CIDR Mask සාවද්‍යයි"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
 msgstr ""
+"IPv4 ජාල සඳහා CIDR mask වටිනාකම 1 හෝ 32 විය යුතුය නැතහොත් IPv6 ජාල සඳහා 1 සහ "
+"128 විය යුතුය"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -5760,11 +5762,11 @@ msgstr "රැහැන් රහිත "
 
 #: ../loader2/net.c:272
 msgid "Nameserver IP"
-msgstr ""
+msgstr "Nameserver IP"
 
 #: ../loader2/net.c:276
 msgid "Nameserver"
-msgstr ""
+msgstr "Nameserver"
 
 #: ../loader2/net.c:277
 msgid ""
@@ -5801,7 +5803,7 @@ msgstr "ඔබගේ පරිගණක ජාලය මාන කිරීම�
 
 #: ../loader2/net.c:675
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr ""
+msgstr "dynamic IP configuration (DHCP) භාවිත කරන්න"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -5853,7 +5855,7 @@ msgstr "IPv6 ලිපිනය:"
 
 #: ../loader2/net.c:928
 msgid "Name Server:"
-msgstr ""
+msgstr "Name Server:"
 
 #: ../loader2/net.c:961
 #, fuzzy
@@ -5972,7 +5974,7 @@ msgstr ""
 #: ../loader2/urlinstall.c:497
 #, c-format
 msgid "Unknown Url method %s"
-msgstr ""
+msgstr "හඳුනා නොගත් Url ක්‍රමයකි %s"
 
 #: ../loader2/urls.c:182
 #, c-format
@@ -6006,7 +6008,7 @@ msgstr "වියුනු අඩවියේ නම:"
 
 #: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "නිර්ණාමික නොවන ftp භාවිත කරන්න"
 
 #: ../loader2/urls.c:324
 msgid "FTP Setup"
@@ -6069,7 +6071,7 @@ msgstr "_ZFCP LUN එකතු කරන්න"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI ඉලක්කය එකතු කරන්න"
 
 #: tmp/adddrive.glade.h:3
 #, fuzzy
@@ -6086,7 +6088,7 @@ msgstr "ඔබට ධාවකයේ මානකරනය වෙනස් ක�
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>නිධියේ _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
@@ -6114,7 +6116,7 @@ msgstr "නැවත ක්‍රියාත්මක කරන්න(_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr ""
+msgstr "දොස් හරණය(_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6122,7 +6124,7 @@ msgstr "මීලඟ(_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr ""
+msgstr "මුදා හැරීමේ සටහන්(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6151,7 +6153,7 @@ msgstr "<b>රහස්පදය(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>ඉලක්ක ගත IP ලිපිනය(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
@@ -6159,7 +6161,7 @@ msgstr "<b>පරිශීලක නාමය(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI ආරම්භකයේ නම(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6173,7 +6175,7 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr ""
+msgstr "<b>බිහිදොර:</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
@@ -6190,7 +6192,7 @@ msgstr "<b>නාම සේවා දාරකය:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>අතුරු මුහුණත(_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6202,7 +6204,7 @@ msgstr "IPv_6 පහසුකම සක්‍රීය කරන්න"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "ජාල අතුරු මුහුණත සක්‍රීය කරන්න"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
