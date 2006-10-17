@@ -1,5 +1,8 @@
 2006-10-17  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder (usage): Try to fix ordering for iscsi tools on
+	CD installs (#208832)
+
 	* packages.py (regKeyScreen): Only go back if we can (#211101)
 
 	* kickstart.py (AnacondaKSHandlers.doKey): Support --skip for instkey

@@ -161,6 +161,14 @@ if __name__ == "__main__":
 
     addGroups(ds, ["core", "base", "text-internet"])
 
+    # hack, hack, hack... make sure iscsi ends up on disc1 (#208832)
+    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
+        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "iscsi-*"))
+    elif os.path.isdir("%s/%s" %(toppath, product)):
+        printMatchingPkgs("%s/%s/%s" % (toppath, product, "iscsi-*"))
+    else:
+        printMatchingPkgs("%s/%s" % (toppath, "iscsi-*"))        
+
     addGroups(ds, ["base-x", "dial-up",
                    "graphical-internet", "editors", 
                    "graphics", "gnome-desktop", "sound-and-video",
