@@ -266,7 +266,7 @@ class AnacondaYumRepo(YumRepository):
                                     range=(start, end),
                                     )
             except URLGrabError, e:
-                raise Errors.RepoError, \
+                raise yum.Errors.RepoError, \
                     "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
 
         else:
@@ -280,7 +280,7 @@ class AnacondaYumRepo(YumRepository):
                                            http_headers=headers,
                                            )
             except URLGrabError, e:
-                raise Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
 
