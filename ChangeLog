@@ -1,3 +1,7 @@
+2006-10-17  Jeremy Katz  <katzj@redhat.com>
+
+	* kickstart.py (AnacondaKSHandlers.doKey): Support --skip for instkey
+
 2006-10-17  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (readNetInfo): Rewrote the /tmp/netinfo parser so we
