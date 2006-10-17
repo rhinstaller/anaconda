@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-18 01:24+0530\n"
+"PO-Revision-Date: 2006-10-18 01:38+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1016,7 +1016,7 @@ msgstr "ස්ථාපනය කරන්නා %s"
 
 #: ../gui.py:1060
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "තොරතුරු තීරුව රුවීමට නොහැකි විය"
 
 #: ../gui.py:1109
 msgid "Install Window"
@@ -2436,14 +2436,14 @@ msgstr "වර්ගීකරණය කර නොමැත"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "ඔබ විසින් තෝරා ගන්නා ලද ඇසුරුම් ස්ථාපනය සඳහා %d MB ඉඩ ප්‍රමාණයක් අවශ්‍ය වේ, නමුත් මේ සඳහා අවශ්‍ය ඉඩ ඔබ සතුව නොමැත.  ඔබේ තෝරාගැනීම වෙනස් කිරීමට හෝ නැවත ක්‍රියාත්මක කිරීමට ඔබට පුළුවන."
 
 #: ../yuminstall.py:1061
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "ඔබ විසින් ප්‍රගමනය තෝරාගෙන ඇති නමුත් මෙම පද්ධතිය %s ලෙස ප්‍රගමනය කිරීම සඳහා කල් ඉකුත් වී තිබේ. ? ප්‍රගමන ක්‍රියාවලිය ඉදිරියට කරගෙන යාමට ඔබට අවශ්‍යද?"
 
 #: ../yuminstall.py:1093
 msgid "Install Starting"
@@ -2875,7 +2875,7 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
+msgstr "භෞතිකව තිඑන ඉඩ ප්‍රමාණය වෙනස් කල නොහැක. එසේ කිරීමෙන් දැනට තිබෙන තාර්තික පරිමාවන් භෞතිකව තිබෙන ප්‍රමාණයට වඩා විශාල වීමට ඉඩ තිබේ."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -2902,6 +2902,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"භෞතිකව තිබෙන ඉඩ ප්‍රමාණය වෙනස් කල නොහැක, මක් නිසාද තෝරාගෙන ඇති කොටස(%"
+"10.2f MB) පරිමා කණ්ඩායමේ තිබෙන කුඩාම භොතික පරිමාවට වඩා විශාල වේ (%10.2f MB) ."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -2910,6 +2912,8 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"භෞතිකව තිබෙන ඉඩ ප්‍රමාණය වෙනස් කල නොහැක, මක් නිසාද තෝරාගෙන ඇති කොටස(%"
+"10.2f MB)සංසන්දනය කිරීමේදී, පරිමා කණ්ඩායමේ තිබෙන කුඩාම භොතික පරිමාවට වඩා විශාල වේ (%10.2f MB) ."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -5271,7 +5275,6 @@ msgid "Select the file which is your driver disk image."
 msgstr "ඔබේ ධාවකයේ තැටි පිළිඹුව ඇතුලත් ගොනුව තෝරන්න"
 
 #: ../loader2/driverdisk.c:376
-#, fuzzy
 msgid "Failed to load driver disk from file."
 msgstr "ගොනුව තුලින් ධාවක තැටි රුවීමට අපොහොසත් විය"
 
