@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.3
+Version: 11.1.2.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 17 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.4-1
+- yum fix retry on failure (katzj, #211117)
+- Fix ordering for iSCSI tools on CD installs (katzj, #208832)
+- Only go back a screen from regKeyScreen is possible (katzj, #211101)
+- Support --skip for instkey (katzj)
+- Parse /tmp/netinfo correctly on zSeries (#207991)
+- Fix for virtualization being the group instead of xen (katzj)
+
 * Mon Oct 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.3-1
 - Better regex for finding ISO loopback mounts (clumens, #205133)
 - Setup baseurl better for additional repos (clumens, #210877)
