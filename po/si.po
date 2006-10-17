@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-18 00:27+0530\n"
+"PO-Revision-Date: 2006-10-18 00:53+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5820,7 +5820,7 @@ msgstr "අනවශ්‍ය පැකට් ඝට්ටනයන් වලක
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "කාර්යක්‍ෂම සහ වේගවත් ජාල පහසුකමක් ලබා ගැනීම සඳහා ලියාපදිංචි අගයන් උපරිම කරන්න"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
@@ -5868,25 +5868,25 @@ msgstr "අවශ්‍ය කරන තොරතුරු අස්ථාන �
 
 #: ../loader2/net.c:1085
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
+msgstr "ඔබ විසින් වලංගු IPv4 ලිපිනයක් සහ network mask(ජාල වැස්මක්) එකකෙ හෝ CIDR පෙර ඈඳියක් ඇතුල් කල යුතු වේ"
 
 #: ../loader2/net.c:1091
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr ""
+msgstr "ඔබ විසින් වලංගු IPv6 ලිපිනයක් සහ CIDR පෙර ඈඳියක් ඇතුල් කල යුතු වේ"
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "ධාරක නාමය සහ දාමය තහවුරු කර ගනිමින්..."
 
 #: ../loader2/net.c:1447
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "kickstart ජාල විධානය සඳහා ලබා දී ඇත්තේ වැරදි පරාමිතියකි %s: %s"
 
 #: ../loader2/net.c:1470
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "ජාල විධානය තුල වැරදි bootproto %s සපයා ඇත"
 
 #: ../loader2/net.c:1639
 msgid "Networking Device"
@@ -5965,11 +5965,11 @@ msgstr "දේශීය ස්ථාපන මාධ්‍යයක් හඳු
 #: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Url kickstart ක්‍රම විධානය සඳහා ලබා දී ඇත්තේ වැරදි පරාමිතියකි %s: %s"
 
 #: ../loader2/urlinstall.c:486
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "ඔබ විසින් --url පරාමිතියක් Url kickstart ක්‍රමය සඳහා ලබා දිය යුතු වේ."
 
 #: ../loader2/urlinstall.c:497
 #, c-format
@@ -6040,7 +6040,7 @@ msgstr "%s වලංගු ධාරක නාමයක් නොවේ"
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
+msgstr "ඔබ විසින් නිර්නාමික නොවන ftp භාවිත කරන්නේ නම්, ඔබ විසින් භාවිත කිරීමට කැමති ගිණුමේ නම සහ රහස්පදය ඇතුල් කරන්න, "
 
 #: ../loader2/urls.c:421
 msgid ""
@@ -6100,7 +6100,6 @@ msgstr "නිධිය එකතු කරන්න"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
-#, fuzzy
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
@@ -6128,7 +6127,7 @@ msgstr "මුදා හැරීමේ සටහන්(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "සමාලෝචනය කර කොටස් සැකසුම වෙනස් කරන්න(_v)"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
@@ -6141,11 +6140,11 @@ msgstr "මෙම ස්ථාපනය සඳහා භාවිත කල ය�
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
-msgstr ""
+msgstr "ව්‍යතිරේකයේ තොරතුරු"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr ""
+msgstr "ව්‍යතිරේකයේ විස්තර(_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6171,7 +6170,7 @@ msgstr "iSCSI පරාමිතියන් මානන්න"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "iSCSI තැටි භාවිත කිරීම සඳහා, ඔබේ iSCSI ඉලක්කගත ධාවකයේ ලිපිනය සහ ඔබේ ධාරකයේ තිබෙන iSCSI ආරම්භන නාමය ලබා දිය යුතු වේ."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6210,7 +6209,7 @@ msgstr "ජාල අතුරු මුහුණත සක්‍රීය ක�
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "ස්ථාපන ක්‍රියාවලිය තුලදී, මේ සඳහා සක්‍රීයව ක්‍රියාත්මක වන ජාල සම්බන්ධතාවයක් ඔබ සතුව තිබිය යුතු වේ.  කරුණාකර ජාල අතුරු මුහුණත මානන්න."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6224,7 +6223,7 @@ msgstr "පසුව රිසිකරණය කරන්න(_l)"
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "තව දුරටත් සකසුරුවම් ලෙස මෘදුකාංග තෝරා ගැනීම මෙම අවස්ථාවේදී හෝ ස්ථාපනයෙන් පසුව මෘදුකාංග කළමණාකරන වැඩසටහන මාර්ගයෙන් සිදු කල හැක."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
