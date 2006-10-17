@@ -1,3 +1,16 @@
+2006-10-17  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (readNetInfo): Rewrote the /tmp/netinfo parser so we
+	get loaderData populated with valid strings for inet_pton (#207991).
+
+	* loader2/net.c (printLoaderDataIPINFO): Wrap debugging output in pipes
+	so we can more easily see when space characters are present.
+
+	* loader2/net.c (setupNetworkDeviceConfig): If the IP information in
+	loaderData is invalid, set isDynamic flag to 0.
+
+	* loader2/net.c (kickstartNetworkUp): Remove isDynamic initialization.
+
 2006-10-17  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Fix up for failure on __get (#211117)
