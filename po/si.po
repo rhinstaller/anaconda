@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-17 22:54+0530\n"
+"PO-Revision-Date: 2006-10-17 23:46+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3200,11 +3200,11 @@ msgstr "වර්ගය(_M)"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr ""
+msgstr "බොත්තම් 3ක් අනුකරණය කරන්න(_E)"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "පද්ධතිය සඳහා වඩාත් යෝග්‍යය මූසිකය තෝරන්න"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
@@ -3297,7 +3297,7 @@ msgstr "ඔබ විසින් ලබා දෙන ලද IP විස්ත�
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
-msgstr ""
+msgstr "ඔබේ පද්ධතිය මත ජාල සම්බන්ධක උපකරණයක් නොමැත. එහෙයින් පරිගණක ජාල පද්ධතියක් හරහා සම්බන්ධ විය නොහැක."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -3322,7 +3322,7 @@ msgstr "ජාලවැස්ම(_m)"
 
 #: ../iw/network_gui.py:239
 msgid "_Point to Point (IP)"
-msgstr ""
+msgstr "අග්‍රයෙන් අග්‍රයට(_P)(IP)"
 
 #: ../iw/network_gui.py:243
 msgid "_ESSID"
@@ -3330,7 +3330,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:244
 msgid "Encryption _Key"
-msgstr ""
+msgstr "සංකේතයන් හී යතුර(_K)"
 
 #: ../iw/network_gui.py:255
 msgid "Hardware address:"
@@ -3382,7 +3382,7 @@ msgstr "ධාරක නාමය"
 
 #: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "විවධාකාර පරිස්ථිතියන්"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3417,15 +3417,15 @@ msgstr "ලේබලය(_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "ප්‍රකෘති  ඇරඹුම් ඉලක්කය(_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr ""
+msgstr "ප්‍රවේශය සඳහා ඔබ විසින් ලේබලයක් නියම කල යුතු වේ"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr ""
+msgstr "Boot ලේබලය තුල නීති විරෝධී අක්‍ෂර ඇතුලත්ව තිබේ"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
@@ -3433,15 +3433,15 @@ msgstr "අනුරූප ලේබල්"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "මෙම ලේබලය වෙනත් ඇරඹුම් සටහනක් තුල බාවිත කර ඇත"
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr ""
+msgstr "උපාංගය භාවිතයේ ඇත"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "මෙම උපාංගය දැනටමත් වෙනත් ඇරඹුම් සටහනක් සඳහා බාවිතයේ ඇත"
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
@@ -3452,7 +3452,7 @@ msgstr "මකාදැමිය නොහැක"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
+msgstr "ඔබ පද්ධතිය %s  සඳහා ස්ථාපනය කිරීමට සූදානම්ව ඇති හෙයින් මෙම ඇරඹුම් ඉලක්කය මකා දැමිය නොහැක."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3464,11 +3464,11 @@ msgstr "නියම කර ඇති ප්‍රමාණය(_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "ප්‍රමාණය දක්වා පුරවන්න(_u)(MB):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "ඉඩ දිය හැකි උපරිම ප්‍රමාණය දක්වා පුරවන්න(_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3509,7 +3509,7 @@ msgstr "අවසන් සිලින්ඩරය(_E):"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr ""
+msgstr "ප්‍රාථමික කොටසක් බවට කෙසේ හෝ පත් කරන්න(_p)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -3545,12 +3545,12 @@ msgstr "කොටස් කිරීම"
 
 #: ../iw/partition_gui.py:633
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "ඔබ විසින් විමසා සිටි කොටස් කිරීමේ සැලස්ම සමඟ පහත සඳහන් භායනක දෝශයන් පවතී"
 
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+msgstr "%s ස්ථාපනය ඉදිරියට කරගෙන යාමට ප්‍රථම මෙම දෝශ සියල්ල නිරාකරණය කරගත යුතු වේ"
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -3558,11 +3558,11 @@ msgstr "කොටස් කිරීමේදී ඇති වූ දෝශය�
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
+msgstr "ඔබ විසින් විමසා සිටි කොටස් කිරීමේ සැලස්ම සමඟ පහත අවවාදයන් දෝශයන් පවතී"
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "ඔබ විසින් විමසා සිට කොටස් කිරීමේ සැලස්ම ඉදිරියට කරගෙන යාමට ඔබ කැමතිද?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
@@ -3626,21 +3626,21 @@ msgstr "පහසුකම නොමැත"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "LVM පහසුකම මෙහිනොමැත"
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "මෘදුකාංගමය RAID පහසුකම මෙහි නොමැත"
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "කුඩා RAID ධාවක අංකයන් ලබාගත නොහැක"
 
 #: ../iw/partition_gui.py:1214
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
+msgstr "RAID උපාංගයන් සඳහා වන කුඩා අගයන්ගෙන් යුතු සියල්ල වෙන්කර අවසන්, RAID උපාංගයන් සඳහා වන කුඩා අගයක් ලබා ගත නොහැකි බැවින් මෘදුකාංගමය RAID උපාංගයක් සෑදිය නොහැක."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3687,11 +3687,11 @@ msgstr "RAID උපාංගයක් සෑදීම සඳහා ධාවක�
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "කිසිම් හේතුවක් නිසා ධාවක ක්ලෝන සංශෝධකය සෑදිය නොහැක"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "ධාවක ක්ලෝන සංශෝධකය සෑදිය නොහැක"
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
@@ -3711,7 +3711,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "RAID උපාංගය/LVM පරිමා කණ්ඩායම් සාමාජිකයින් සඟවන්න(_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
 #: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
@@ -3848,7 +3848,7 @@ msgstr "_RAID සාමාජිකයින් (කොටස්):"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr ""
+msgstr "අතිරේකයන් ගණන(_s):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
@@ -3863,7 +3863,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr ""
+msgstr "මූලාශ්‍ර ධාවකයේ දෝශයකි"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -3894,16 +3894,16 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
 msgid "Target Drive Error"
-msgstr ""
+msgstr "ඉලක්කගත ධාවකයේ දෝශයකි"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "ක්ලෝන ක්‍රියාවලිය සඳහා ඉලක්කගත ධාවකයන් තෝරාගන්න"
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "මූලාශ්‍ර දහාවකය වන drive /dev/%s ඉලක්ක ගත ධාවකය ලෙසද යොදාගත නොහැක."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -3915,10 +3915,15 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"ඉලක්කගත ධාවකය /dev/%s සතුව ඇති කොටස පහත සඳහන් හේතුව නිසා ඉවත්කල නොහැකි විය:\n"
+"\n"
+"\"%s\"\n"
+"\n"
+"මෙම ධාවකය ඉලක්කයක් ලෙස භාවිත කිරීමට ප්‍රථම මෙම කොටස ඉවත් කල යුතු වේ."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
-msgstr ""
+msgstr "කරුණාකර මූලාශ්‍ර ධාවකයක් තෝරන්න"
 
 #: ../iw/raid_dialog_gui.py:643
 #, python-format
@@ -3926,6 +3931,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"/dev/%s ධාවකය දැන් පහත සඳහන් ධාවකයන් ලෙස ක්ලෝන වනු ඇත:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:648
 msgid ""
@@ -3933,6 +3940,9 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"අවවාදයයි! ඉලක්කගත ධාවකයේ තිබෙන සියළුම දත්තයන් අහිමි වනු ඇත."
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
@@ -3940,11 +3950,11 @@ msgstr "අවසාන අවවාදය"
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
-msgstr ""
+msgstr "දහාවකයන් ක්ලෝන කරන්න"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "ඉලක්කගත ධාවකයන් නිරවුල් කිරීමේදී දෝශයක් ඇති විය. ක්ලෝන කරනය අසමත් විය"
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -3964,11 +3974,11 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
-msgstr ""
+msgstr "මූලාශ්‍ර ධාවකය:"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "ඉලක්කගත ධාවකය(න්):"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
@@ -3976,11 +3986,11 @@ msgstr "උපාංගයන්"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "නිදහස් කිරීමේ සටහන් අස්ථාන ගත වී ඇත.\n"
 
 #: ../iw/release_notes.py:222
 msgid "Release Notes"
-msgstr ""
+msgstr "නිදහස් කිරීමේ සටහන් "
 
 #: ../iw/release_notes.py:226
 msgid "Unable to load file!"
@@ -3992,15 +4002,15 @@ msgstr "නිධියේ නම සාවද්‍යයි"
 
 #: ../iw/task_gui.py:86
 msgid "You must provide a non-zero length repository name."
-msgstr ""
+msgstr "නිධිය සඳහා ලබාදෙන නාමයේ දිග ප්‍රමාණය බින්දුවට වඩා විශාල විය යුතුය"
 
 #: ../iw/task_gui.py:95
 msgid "Invalid Repository URL"
-msgstr ""
+msgstr "නිධිය සඳහා ලබා දී ඇත්තේ සාවද්‍ය URL එකකි."
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "නිධිය සඳහා HTTP හෝ FTP URL ඔබ විසින් ලබා දිය යුතු වේ."
 
 #: ../iw/task_gui.py:111
 #, python-format
@@ -4031,7 +4041,7 @@ msgstr "මෙය විසින් ඔබේ ඇරඹුම් කාරක�
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "ස්ථාපකය විසින් %s ඇරඹුම් කාරකය %s ස්ථාපනය කර තිබෙන බව සොයා ගැනින."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4041,7 +4051,7 @@ msgstr "මෙය නිර්දේශිත විකල්පය වේ"
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
+msgstr "ඔබ් පද්ධතිය තුල තිබෙන ඇරඹුම් කාරකය සොයා ගැනීමට ස්ථාපකයට නොහැකි විය"
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4051,7 +4061,7 @@ msgstr "නව ඇරඹුම් කාරක මාණකරනයක් ස�
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
-msgstr ""
+msgstr "මොමඟින් නව ඇරඹුම් කාරකය මාණන්න ඔබ හට ඉඩ ප්‍රස්ථාවන් ලැබෙනු ඇත. ඔබ ඇරඹුම් කාරක කිහිපයක් භාවිත කරන්නේ නම් ඔබ විසින් මෙය තෝරා ගත යුතු වේ."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
@@ -4061,7 +4071,7 @@ msgstr "ඇරඹුම් කාරකය නවීකරණය මඟහරි
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
+msgstr "මෙමඟින් ඔබේ ඇරඹුම් කාරකයේ මාණකරණයට කිසිවක් සිදු නොවේ. තෙවන පාර්ශවයේ ඇරඹුම් කාරකයක් භාවිත කරන්නේ නම් මෙය තෝරා ගන්න."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4179,7 +4189,7 @@ msgstr "FCP උපාංගය %s සංශෝධනය කරන්න"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "ඔබ විසින් FCP තැටියක් මාණකරනයෙන් ඉවත් කිරීමට සූදානම් ව සිටී. ඔබ හට මෙය ඉදිරියට කරගෙන යාමට අවශ්‍යද?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4250,7 +4260,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 භාවිතය සඳහා බල කරන්න (සාමාන්‍යයෙන් අවශ්‍ය නොවේ)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
@@ -4262,7 +4272,7 @@ msgstr "ඇරඹුම් ලේබලය"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
-msgstr ""
+msgstr "නිරවුල් කරන්න"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
@@ -4387,7 +4397,7 @@ msgstr "ස්ථාපනය ආරම්භ වීමට නියමිතව
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
+msgstr "පද්ධතිය නැවත ක්‍රියාත්මක කල පසු ස්ථාපනයට අදාල සම්පූර්ණ ඉපියක් %s ඇත. මෙය පසුකාලීනව විමසීම සඳහා යොදාගත හැක."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -4412,7 +4422,7 @@ msgstr "ප්‍රගමනය ආරම්භ වීමට නියමිත
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
+msgstr "පද්ධතිය නැවත ක්‍රියාත්මක කල පසු ප්‍රගමනයට අදාල සම්පූර්ණ ඉපියක් %s ඇත. මෙය පසුකාලීනව විමසීම සඳහා යොදාගත හැක."
 
 #: ../textw/grpselect_text.py:84
 #, fuzzy
@@ -4446,7 +4456,7 @@ msgstr "ඔබේ පරිගණකය හා සම්බන්ධ කර ඇ�
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "බොත්තම් 3 අනුකරණය කරන්නද?"
 
 #: ../textw/mouse_text.py:85
 #, fuzzy
@@ -4455,7 +4465,7 @@ msgstr "මූසිකය තෝරාගැනීම"
 
 #: ../textw/network_text.py:28
 msgid "Invalid IP string"
-msgstr ""
+msgstr "සාවද්‍ය IP අගයක්"
 
 #: ../textw/network_text.py:29
 #, python-format
@@ -4469,11 +4479,11 @@ msgstr "IP ලිපිනය"
 
 #: ../textw/network_text.py:73
 msgid "Netmask"
-msgstr ""
+msgstr "Netmask"
 
 #: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "අග්‍රයෙන් අග්‍රයට(IP)"
 
 #: ../textw/network_text.py:79 ../loader2/net.c:237
 msgid "ESSID"
@@ -4481,7 +4491,7 @@ msgstr "ESSID"
 
 #: ../textw/network_text.py:80 ../loader2/net.c:238
 msgid "Encryption Key"
-msgstr ""
+msgstr "සංකේත යතුර"
 
 #: ../textw/network_text.py:92
 #, python-format
@@ -4526,7 +4536,7 @@ msgstr "ඉදිරියට කරගෙන යාම සඳහා ඔබ ව�
 
 #: ../textw/network_text.py:247 ../loader2/net.c:920
 msgid "Gateway:"
-msgstr ""
+msgstr "බිහිදොර:"
 
 #: ../textw/network_text.py:256
 msgid "Primary DNS:"
@@ -4542,7 +4552,7 @@ msgstr "තෘතීය DNS:"
 
 #: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "විවිධ ජාල පරිස්ථිතියන්"
 
 #: ../textw/network_text.py:345
 msgid "automatically via DHCP"
@@ -4616,19 +4626,19 @@ msgstr "ගොනු පද්ධතියේ ගණය:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "ඉඩදිය හැකි ධාවකයන්:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr ""
+msgstr "නියම කර ඇති ප්‍රමාණය:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "උපරිම ප්‍රමාණය දක්වා පුරවන්න(MB):"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
-msgstr ""
+msgstr "ඉතිරිව තිබෙන ඉඩ සියල්ල පුරවන්න:"
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
@@ -4640,7 +4650,7 @@ msgstr "අවසාන සිලින්ඩරය:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
-msgstr ""
+msgstr "පරිමා කණ්ඩායම:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
@@ -4652,7 +4662,7 @@ msgstr "RAID සාමාජිකයින්:"
 
 #: ../textw/partition_text.py:536
 msgid "Number of spares?"
-msgstr ""
+msgstr "වැඩිපුර තබාගත යුතු ගණන?"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
@@ -4670,7 +4680,7 @@ msgstr "ගොනු පද්ධතියේ විකල්පය:"
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
 msgid "Format as %s"
-msgstr ""
+msgstr "%s ලෙස සංයුති කරන්න"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
@@ -4696,7 +4706,7 @@ msgstr "කරුණාකර මෙම කොටස සඳහා ගොනු �
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "නරක කොටස් සඳහා පරීක්‍ෂා කරන්න"
 
 #: ../textw/partition_text.py:612
 msgid "Leave unchanged (preserve data)"
@@ -4704,7 +4714,7 @@ msgstr "කිසිදු වෙනසක් සිදුනොකර සිට
 
 #: ../textw/partition_text.py:621
 msgid "Format as:"
-msgstr ""
+msgstr "ලෙස සංයුති කරන්න:"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
