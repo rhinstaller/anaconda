@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-17 23:46+0530\n"
+"PO-Revision-Date: 2006-10-18 00:09+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4722,31 +4722,32 @@ msgstr "වෙත සංක්‍රමණය කරන්න:"
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "කෙසේ හෝ ප්‍රාථමික කොටස ලෙස තබන්න"
 
 #: ../textw/partition_text.py:770
+#, fuzzy
 msgid "Not Supported"
-msgstr ""
+msgstr "මේ සඳහා හැකියාවක් නොමැත"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "LVM පරිමා කණ්ඩායම් සංශෝධනය කල හැක්කේ චිත්‍රක මඟින් සිදුකෙරෙන ස්ථාපනය තුලින් පමණි."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "කොටසක් සඳහා සටහන් කර ඇති ප්‍රමාණය සාවද්‍යයි"
 
 #: ../textw/partition_text.py:859
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "උපරිම ප්‍රමාණය සඳහා සටහන් ඇති සටහන සාවද්‍යයි."
 
 #: ../textw/partition_text.py:878
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "ආරම්භක සිලින්ඩරය සඳහා වන සටහන සාවද්‍යයි"
 
 #: ../textw/partition_text.py:892
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "අවසාන සිලින්ඩරය සඳහා සපයා ඇති සටහන සාවද්‍යයි"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
@@ -4754,31 +4755,31 @@ msgstr "RAID කොටස් කිසිවක් නොමැත"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "අවම වශයෙන් RAID කොටස් දෙකක්වත් අවශ්‍ය වේ"
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
-msgstr ""
+msgstr "කොටස සංයුති කරන්නද?"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "RAID අතිරේකයන් සඳහා සපයා ඇති සටහන සාවද්‍යයි"
 
 #: ../textw/partition_text.py:1093
 msgid "Too many spares"
-msgstr ""
+msgstr "අතිරේක ප්‍රමාණයන් බොහෝ වෙයි"
 
 #: ../textw/partition_text.py:1094
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "RAID0 ලෙස වන විටදී  උපරිම අතිරේකයන් හී අගය 0 වේ."
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
-msgstr ""
+msgstr "පරිමා කණ්දායම් කිසිවක් නොමැත"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr ""
+msgstr "තාර්තික පරිමාවක් සෑදීම සඳහා පරිමා කණ්දායම් කිසිවක් නොමැත"
 
 #: ../textw/partition_text.py:1292
 #, python-format
@@ -4796,11 +4797,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr ""
+msgstr "නව කොටසක් හෝ තාර්තික පරිමාවක් ?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
+msgstr "නව කොටසක් හෝ තාර්තික පරිමාවක් සෑදීමට ඔබ කැමතිද?"
 
 #: ../textw/partition_text.py:1368
 msgid "partition"
@@ -4808,7 +4809,7 @@ msgstr "කොටස"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
-msgstr ""
+msgstr "තාර්තික පරිමාව"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -4848,15 +4849,15 @@ msgstr ""
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "ස්ථාපනය සඳහා භාවිත කිරීමට අවශ්‍ය වන්නේ කුමන ධාවකයද ?"
 
 #: ../textw/partition_text.py:1605
 msgid "Review Partition Layout"
-msgstr ""
+msgstr "කොටස් සැකසුම  සමාලෝචනය කරන්න"
 
 #: ../textw/partition_text.py:1606
 msgid "Review and modify partitioning layout?"
-msgstr ""
+msgstr "කොටස් සැකසුම සමාලෝචනය කර වෙනස් කිරීමට අවශ්‍යද?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4864,7 +4865,7 @@ msgstr "ස්වයංක්‍රියව කොටස් කරන්න"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
-msgstr ""
+msgstr "Disk Druid"
 
 #: ../textw/progress_text.py:66
 #, python-format
@@ -4925,28 +4926,28 @@ msgstr ""
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
-msgstr ""
+msgstr "මෘදුකාංග තෝරා ගැනීම රිසිලෙස සකසා ගන්න"
 
 #: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "ඔබ සිටින්නේ කුමන හෝරා කලාපයේද ?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "පද්ධතියේ වේලාව UTC භාවිත කරයි"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "ඇරඹුම් කාරකයේ මාණකරනය නවීකරණය කරන්න"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "ඇරඹුම් කාරකය නවීකරණය කිරීම මඟ හරින්න"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "නව ඇරඹුම් කාරක මාණකරනයක් සාදන්න"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -5056,7 +5057,7 @@ msgstr "z/IPL මානකරනය"
 
 #: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev තීරුව"
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
@@ -5075,8 +5076,9 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
+#, fuzzy
 msgid "Office and Productivity"
-msgstr ""
+msgstr "කාකාස"
 
 #: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
 msgid "Software Development"
@@ -5138,7 +5140,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr ""
+msgstr "_Workstation"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5221,11 +5223,11 @@ msgstr ""
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
+msgstr "ඇරඹුම් මාධ්‍ය සමඟ සමපාත වන %s සංයුක්ත තැටිය සොයා ගත නොහැකි විය.  කරුණාකර %s සංයුක්ත තැටිය ඇතුල් කර නැවත උත්සහ කිරීමට %s ඔබන්න."
 
 #: ../loader2/cdinstall.c:384
 msgid "CD Not Found"
-msgstr ""
+msgstr "සංයුක්ත තැටිය සොයාගත නොහැකි විය"
 
 #: ../loader2/cdinstall.c:455
 msgid "Cannot find kickstart file on CDROM."
@@ -5241,7 +5243,7 @@ msgstr "ධාවකයේ තැටිය කියවමින්..."
 
 #: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "ධාවක තැටියේ මූලාශ්‍රය"
 
 #: ../loader2/driverdisk.c:268
 msgid ""
@@ -5315,7 +5317,7 @@ msgstr "තවත් ධාවක සඳහා තැටි ඔබ සතුව 
 
 #: ../loader2/driverdisk.c:528
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "තව ධාහක තැටි රුවීමට ඔබ කැමතිද?"
 
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
 #: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
