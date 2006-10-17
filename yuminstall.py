@@ -226,7 +226,7 @@ class AnacondaYumRepo(YumRepository):
         headers = tuple(headers)
 
         if local is None or relative is None:
-            raise Errors.RepoError, \
+            raise yum.Errors.RepoError, \
                   "get request for Repo %s, gave no source or dest" % self.id
 
         if self.failure_obj:
@@ -238,7 +238,7 @@ class AnacondaYumRepo(YumRepository):
                 return local          # to run the checkfunc from here
 
             else: # ain't there - raise
-                raise Errors.RepoError, \
+                raise yum.Errors.RepoError, \
                     "Caching enabled but no local cache of %s from %s" % (local,
                            self)
 
