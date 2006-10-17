@@ -266,7 +266,7 @@ class AnacondaYumRepo(YumRepository):
                                     range=(start, end),
                                     )
             except URLGrabError, e:
-                raise Errors.RepoError, \
+                raise yum.Errors.RepoError, \
                     "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
 
         else:
@@ -280,7 +280,7 @@ class AnacondaYumRepo(YumRepository):
                                            http_headers=headers,
                                            )
             except URLGrabError, e:
-                raise Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
 
@@ -1007,13 +1007,13 @@ class YumBackend(AnacondaBackend):
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
                 ksmp = getBestKernelByArch("kernel-smp", self.ayum)
-                log.info("selected kernel-smp package for kernel")
             except PackageSackError:
                 ksmp = None
                 log.debug("no kernel-smp package")
 
             if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
                 foundkernel = True
+                log.info("selected kernel-smp package for kernel")
                 self.ayum.install(po=ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
