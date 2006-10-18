@@ -16,6 +16,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 
 #define WLITE_REDEF_STDC 0
@@ -58,9 +59,13 @@ strong_alias (__dcgettext, dcgettext);
 
 /* lie to slang to trick it into using unicode chars for linedrawing */
 char *setlocale (int category, const char *locale) {
-    if (locale == NULL || *locale == '\0')
-	return "en_US.UTF-8";
-    return 0;
+    if (locale == NULL || *locale == '\0') {
+        if (!strcmp("vt100-nav", getenv("TERM")))
+            return "en_US";
+        else
+            return "en_US.UTF-8";
+    }
+    return NULL;
 }
 
 /* lie to slang some more */

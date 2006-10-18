@@ -1,3 +1,8 @@
+2006-10-18  Jeremy Katz  <katzj@redhat.com>
+
+	* stubs/unicode-lite.c: Hack so that we don't try to use unicode
+	line drawing chars on vt100-nav terminals.  (#208374)
+
 2006-10-18  Paul Nasrat <pnasrat@redhat.com>
 
 	* upgrade.py: Remove multilib packages (#209011)
