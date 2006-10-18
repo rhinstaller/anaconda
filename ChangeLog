@@ -1,5 +1,7 @@
 2006-10-18  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYumRepo.__get): Fix retries (#211117)
+	
 	* stubs/unicode-lite.c: Hack so that we don't try to use unicode
 	line drawing chars on vt100-nav terminals.  (#208374)
 
