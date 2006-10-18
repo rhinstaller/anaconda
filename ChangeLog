@@ -1,3 +1,8 @@
+2006-10-18  Jeremy Katz  <katzj@redhat.com>
+
+	* stubs/unicode-lite.c: Hack so that we don't try to use unicode
+	line drawing chars on vt100-nav terminals.  (#208374)
+
 2006-10-17  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (readNetInfo): Rewrote the /tmp/netinfo parser so we
