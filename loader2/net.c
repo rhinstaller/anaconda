@@ -572,6 +572,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     while (i == 1) {
         ret = configureTCPIP(device, cfg, &newCfg, &ipv4Choice, &ipv6Choice,
                              methodNum);
+        newCfg.noipv4 = (ipv4Choice == '*') ? 0 : 1;
+        newCfg.noipv6 = (ipv6Choice == '*') ? 0 : 1;
 
         if (ret == LOADER_NOOP) {
             /* dhcp selected, proceed */
@@ -591,6 +593,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             return LOADER_BACK;
         }
     }
+
+    cfg->noipv4 = newCfg.noipv4;
+    cfg->noipv6 = newCfg.noipv6;
 
     /* preserve extra dns servers for the sake of being nice */
     if (cfg->dev.numDns > newCfg.dev.numDns) {

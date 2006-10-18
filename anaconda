@@ -189,6 +189,10 @@ def parseOptions():
     op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
 
+    # Network
+    op.add_option("--noipv4", action="store_true", default=False)
+    op.add_option("--noipv6", action="store_true", default=False)
+
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
@@ -630,6 +634,12 @@ if __name__ == "__main__":
     anaconda.rootPath = opts.rootPath
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
+
+    if opts.noipv4:
+        flags.useIPv4 = False
+
+    if opts.noipv6:
+        flags.useIPv6 = False
 
     if opts.updateSrc:
         anaconda.updateSrc = opts.updateSrc

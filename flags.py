@@ -64,6 +64,8 @@ class Flags:
         self.__dict__['flags']['debug'] = 0
 	self.__dict__['flags']['targetarch'] = None
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
+        self.__dict__['flags']['useIPv4'] = True
+        self.__dict__['flags']['useIPv6'] = True
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that

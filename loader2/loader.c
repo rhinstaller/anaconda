@@ -1071,6 +1071,8 @@ static char *doLoaderMain(char * location,
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
+            loaderData->noipv4 = netDev.noipv4;
+            loaderData->noipv6 = netDev.noipv6;
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_IFACE;
@@ -1662,6 +1664,12 @@ int main(int argc, char ** argv) {
         
         tmparg++;
     }
+
+    if (loaderData.noipv4)
+        *argptr++ = "--noipv4";
+
+    if (loaderData.noipv6)
+        *argptr++ = "--noipv6";
 
     if (FL_RESCUE(flags)) {
         *argptr++ = "--rescue";
