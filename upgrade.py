@@ -39,11 +39,41 @@ log = logging.getLogger("anaconda")
 # (name, ) to erase all matches
 upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
 
+if rhpl.getArch() == "ia64":
+    upgrade_remove_blacklist.extend( [("cracklib-dicts", "i386"),
+                                      ("e2fsprogs", "i386"),
+                                      ("sane-backends", "i386"),
+                                      ("openjade", "i386"),
+                                      ("elfutils", "i386"),
+                                      ("tclx", "i386")
+                                     ])
+
 if rhpl.getArch() == "x86_64":
-    upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386")] )
+    upgrade_remove_blacklist.extend( [("perl","i386"), 
+                                      ("cracklib-dicts", "i386"),
+                                      ("e2fsprogs", "i386"),
+                                      ("sane-backends", "i386"),
+                                      ("openjade", "i386"),
+                                      ("elfutils", "i386"),
+                                      ("tclx", "i386")
+                                     ])
 
 if rhpl.getArch() == "ppc":
-    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64")] )
+    upgrade_remove_blacklist.extend( [("e2fsprogs", "ppc64"),
+                                      ("cracklib-dicts", "ppc64"),
+                                      ("sane-backends", "ppc64"),
+                                      ("openjade", "ppc64"),
+                                      ("elfutils", "ppc64"),
+                                      ("tclx", "ppc64")
+                                     ] )
+
+if rhpl.getArch() == "s390x":
+    upgrade_remove_blacklist.extend( [("e2fsprogs", "s390"),
+                                      ("cracklib-dicts", "s390"),
+                                      ("openjade", "s390"),
+                                      ("elfutils", "s390"),
+                                      ("tclx", "s390")
+                                     ] )
 
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
