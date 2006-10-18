@@ -1,3 +1,19 @@
+2006-10-18  Jeremy Katz  <katzj@redhat.com>
+
+	First pass at changes to support Xen guests
+	* anaconda.spec (BuildPreReq): require new enough kudzu for xen bits
+	* scripts/mk-images: Put xvc0 in the initrd, build xen images
+	* scripts/mk-images.i386: Do something with the xen kernel
+	* scripts/mk-images.x86_64: Likewise.
+	* loader2/module-info: Add xenblk and xennet
+	* loader2/init.c: Support Xen xvc console as a serial console
+	* loader2/hardware.c (detectHardware): Probe on BUS_XEN
+	* isys/lang.c: Xen consoles can't load keymaps
+	* isys/devnodes.c: Support for xen xvd devices
+	* text.py: Xen guests should use the text mode fallbacks
+	* packages.py (doPreInstall): Select kernel-xenU on xen guests
+	* hdrlist.py (GroupSet.kernelVersionList): Support for kernel-xenU
+
 2006-10-04  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

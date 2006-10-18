@@ -117,6 +117,14 @@ int devMakeInode(char * devName, char * path) {
 	type = S_IFBLK;
 	major = 9;
 	minor = atoi(devName + 2);
+    } else if (devName[0] == 'x' && devName[1] == 'v' && devName[2] == 'd') {
+        /* xen xvd devices */
+        type = S_IFBLK;
+        major = 202;
+	minor = ( devName[3] - 'a' ) * 16;
+        if (devName[4] && isdigit(devName[4])) {
+            minor += devName[4] - '0';
+	}
     } else if (devName[0] == 's' && devName[1] == 'g') {
 	type = S_IFBLK;
 	major = 21;

@@ -114,29 +114,10 @@ BOOTPCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 BOOTPCMCIAMODULES="$BOOTPCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 
 makeBootImages() {
- if [ "$KERNELARCH" = "i386" ]; then
-    echo "Building $KERNELARCH $TOPDESTPATH/images/pxeboot/initrd.img"
-    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--pcmcia --nobogl \
-	--initrdsize 4750 \
-	--loaderbin loader \
-	--modules "$COMMONMODULES"
-
-    echo "Building $KERNELARCH bootdisk.img"
-    makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
-	--bootdisksize 1440 \
-	--imagename $BOOTDIR/bootdisk.img \
-	--initrd $TOPDESTPATH/images/pxeboot/initrd.img
-    [ $? = 0 ] || exit 1
-
-    rm -f $TOPDESTPATH/images/pxeboot/initrd.img
-
-  fi
-
   # FIXME: this is so that we can switch back and forth.  if we want both
   # on the CD, then more needs to be done, esp for things like isolinux.cfg
   # Right now, last one wins
-  if [ "$KERNELARCH" = "i686" -o "$KERNELARCH" = "i586" -o "$KERNELARCH" = "athlon" ]; then
+  if [ "$kerneltag" != "xen" ]; then
     echo "Building $KERNELARCH initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	--pcmcia \
@@ -210,6 +191,15 @@ vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
+  else # set up the boot stuff for the xen guest kernel
+    echo "Building $KERNELARCH guest initrd.img"
+    mkdir -p $TOPDESTPATH/images/xen
+    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
+	--initrdsize 8192 \
+	--loaderbin loader \
+	--modules "$INITRDMODS"
+    [ $? = 0 ] || exit 1
+    cp $KERNELROOT/boot/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
   fi
 }
 

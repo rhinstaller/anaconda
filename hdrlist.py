@@ -56,7 +56,8 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-bigmem-unsupported': None,
                      'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None,
-                     'kernel-largesmp': None }
+                     'kernel-largesmp': None,
+                     'kernel-xenU': None, }
 
 def showMem():
     f = open("/proc/self/status", "r")
@@ -888,6 +889,7 @@ class GroupSet:
                               ('kernel-hugemem', 'hugemem'),
 			      ('kernel-smp', 'smp'),
 			      ('kernel-largesmp', 'largesmp'),
+                              ('kernel-xenU', 'xenU'),
 			      ('kernel-tape', 'tape'),
                               ('kernel-pseries', ''),
                               ('kernel-iseries', '') ]:

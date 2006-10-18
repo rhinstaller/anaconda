@@ -391,7 +391,8 @@ class InstallInterface:
         if (flags.setupFilesystems and
             (id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "bterm")
             and not flags.serial and not flags.virtpconsole
-            and not isys.isPsudoTTY(0) and not isys.isVioConsole()):
+            and not isys.isPsudoTTY(0) and not isys.isVioConsole() and
+            not os.path.exists("/proc/xen")):
             log("starting bterm")
             rc = 1
             try:
@@ -424,7 +425,7 @@ class InstallInterface:
         if DEBUG or flags.test:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	if flags.serial or flags.virtpconsole or isys.isPsudoTTY(0) or isys.isVioConsole():
+	if flags.serial or flags.virtpconsole or isys.isPsudoTTY(0) or isys.isVioConsole() or os.path.exists("/proc/xen"):
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
 	# clear out the old root text by writing spaces in the blank

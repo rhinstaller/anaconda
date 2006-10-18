@@ -645,6 +645,13 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     if not upgrade:
         foundkernel = 0
+
+        if os.path.exists("/proc/xen") and \
+               select(id.grpset.hdrlist, "kernel-xenU"):
+            foundKernel = 1
+            if selected(id.grpset.hdrlist, "gcc"):
+                select(id.grpset.hdrlist, "kernel-xenU-devel")
+        
         nthreads = isys.acpicpus()
 
         if nthreads == 0:

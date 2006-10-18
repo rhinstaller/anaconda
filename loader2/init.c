@@ -523,14 +523,6 @@ int main(int argc, char **argv) {
     noKill = getNoKill();
 
 #if !defined(__s390__) && !defined(__s390x__)
-
-    /* handle weird consoles */
-#if defined(__powerpc__)
-    char * consoles[] = { "/dev/hvc0", /* hvc for JS20 */
-
-                          "/dev/hvsi0", "/dev/hvsi1",
-                          "/dev/hvsi2", /* hvsi for POWER5 */
-                          NULL };
     static struct termios orig_cmode;
     struct termios cmode, mode;
     int cfd;
@@ -546,17 +538,23 @@ int main(int argc, char **argv) {
     tcsetattr(cfd,TCSANOW,&cmode);
     close(cfd);
 
+    /* handle weird consoles */
+#if defined(__powerpc__)
+    char * consoles[] = { "/dev/hvc0", /* hvc for JS20 */
+
+                          "/dev/hvsi0", "/dev/hvsi1",
+                          "/dev/hvsi2", /* hvsi for POWER5 */
+                          NULL };
+
 #elif defined (__ia64__)
-    char * consoles[] = { "/dev/ttySG0", NULL };
+    char * consoles[] = { "/dev/ttySG0", "/dev/xvc0", NULL };
+#elif defined (__i386__) || defined (__x86_64__)
+    char * consoles[] = { "/dev/xvc0", NULL };
 #else
     char * consoles[] = { NULL };
 #endif
     for (i = 0; consoles[i] != NULL; i++) {
-#if defined(__powerpc__)
         if ((fd = open(consoles[i], O_RDWR)) >= 0 && !tcgetattr(fd, &mode) && !termcmp(&cmode, &mode)) {
-#else
-        if ((fd = open(consoles[i], O_RDWR)) >= 0) {
-#endif
             printf("anaconda installer init version %s using %s as console\n",
                    VERSION, consoles[i]);
             isSerial = 3;
@@ -565,11 +563,9 @@ int main(int argc, char **argv) {
         }
     }
 
-#if defined(__powerpc__)
     cfd = open("/dev/console", O_WRONLY);
     tcsetattr(cfd,TCSANOW,&orig_cmode);
     close(cfd); 
-#endif
 
     if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
 	isSerial = 2;

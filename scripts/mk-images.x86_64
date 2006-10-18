@@ -94,6 +94,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 mkdir -p $TOPDESTPATH/images/pxeboot
 
 makeBootImages() {
+  if [ "$kerneltag" != "xen" ]; then
     echo "Building initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--pcmcia \
@@ -152,6 +153,16 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
+  else # set up the boot stuff for the xen guest kernel
+    echo "Building $KERNELARCH guest initrd.img"
+    mkdir -p $TOPDESTPATH/images/xen
+    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
+	--initrdsize 8192 \
+	--loaderbin loader \
+	--modules "$INITRDMODS"
+    [ $? = 0 ] || exit 1
+    cp $KERNELROOT/boot/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
+  fi
 }
 
 makeSecondStage() {

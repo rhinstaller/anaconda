@@ -783,6 +783,13 @@ EOF
 	chmod 644 $MBD_DIR/dev/ttySG0
     fi
 
+    # weird xen console
+    if [ "$BUILDARCH" = "i386" -o "$BUILDARCH" = "x86_64" -o "$BUILDARCH" = "ia64" ]; then
+	mknod $MBD_DIR/dev/xvc0 c 250 187
+	chown root:root $MBD_DIR/dev/xvc0
+	chmod 644 $MBD_DIR/dev/xvc0
+    fi
+
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=20000 2>/dev/null
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
     tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big >/dev/null
@@ -1086,24 +1093,20 @@ else
 fi
 
 # Find the kernel, unpack it, and verify it
-vertag="BOOT"
+kerneltags="kernel"
+arches="$BUILDARCH"
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     arches="ppc64pseries ppc64 ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
-else
-    arches="$BUILDARCH"
+    kerneltags="kernel kernel-xenU"
+elif [ "$BUILDARCH" = "x86_64" ]; then
+    kerneltags="kernel kernel-xenU"
 fi
 foundakernel=""
 for KERNELARCH in $arches; do
-  for kernelvers in $vertag; do
-    kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
-    if [ ! -f "$kpackage" ]; then
-	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
-	kpackage=$($LATEST $KERNELPATH kernel)
-	kernelvers=""
-    fi
-
+  for kernelvers in $kerneltags; do
+    kpackage=$($LATEST $KERNELPATH $kernelvers)
     if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
@@ -1111,7 +1114,7 @@ for KERNELARCH in $arches; do
     fi
 
     if [ ! -f "$kpackage" ]; then
-	echo "kernel doesn't exist for $KERNELARCH.  skipping arch"
+	echo "kernel ($kernelvers) does not exist for $KERNELARCH. skipping"
 	continue
     fi
 
@@ -1119,13 +1122,14 @@ for KERNELARCH in $arches; do
     mkdir -p $KERNELROOT/lib/modules/misc
 
     foundakernel="yes"
+    if [ "${kernelvers}" = "kernel-xenU" ]; then kerneltag="xen" ; fi
 
     ppackage=$($LATEST $KERNELPATH hwdata)
     if [ ! -f "$ppackage" ]; then
 	ppackage=""
     fi
 
-    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
+    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kerneltag}
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
     echo "unpacking $kpackage.$arch"
 

@@ -1049,3 +1049,11 @@ wavelan_cs
 wl3501_cs
 	eth
 	"Planet wl3501 PCMCIA wirelesss ethernet"
+
+xenblk
+	scsi_hostadapter
+	"Xen block frontend device"
+
+xennet
+	eth
+	"Xen network frontend device"
