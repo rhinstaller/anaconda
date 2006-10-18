@@ -1,3 +1,25 @@
+2006-10-18  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda (parseOptions): Add the --noipv4 and --noipv6 opts (#208334).
+	* anaconda (__main__): Set flags.useIPv4 and flags.useIPv6 to false if
+	we receive one of the --noipv{4,6} options (#208334).
+
+	* flags.py (Flags): Add useIPv4 and useIPv6 flags, default to
+	True (#208334).
+
+	* network.py (Network): Initialize self.useIPv4 and self.useIPv6 to
+	flags.useIPv4 and flags.useIPv6 (#208334).
+
+	* loader2/loader.c (doLoaderMain): After readNetConfig() call, set the
+	noipv4 and noipv6 flags in loaderData (#208334).
+	* loader2/loader.c (main): If noipv4 or noipv6 flag is set in the
+	loaderData, add option to pass to anaconda (#208334).
+
+	* loader2/net.c (readNetConfig): Set noipv4 and noipv6 flags in newCfg
+	after configureTCPIP() call (#208334).
+	* loader2/net.c (readNetConfig): After dialog window closes, copy the
+	noipv4 and noipv6 flags from newCfg to cfg (#208334).
+
 2006-10-18  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doPartition):  Correct --onbiosdisk

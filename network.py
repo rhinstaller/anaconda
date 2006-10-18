@@ -172,8 +172,8 @@ class Network:
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
-	self.useIPv4 = True
-	self.useIPv6 = True
+	self.useIPv4 = flags.useIPv4
+	self.useIPv6 = flags.useIPv6
 
         # if we specify a hostname and are using dhcp, do an override
         # originally used by the gui but overloaded now
