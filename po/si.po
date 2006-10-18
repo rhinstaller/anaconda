@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-10-18 12:15+0530\n"
+"PO-Revision-Date: 2006-10-18 13:40+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1925,6 +1925,10 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"ගලවාගැනීමේ පසුබිම විසින් Linux ස්ථාපනය හඳුනාගෙන %s බහලුම යටතේ සවිකරනු ඇත. පසුව ඔබට අවශ්‍ය වෙනස්කම් සිදු කිරීමට හැකි වේ.  ඔබට මෙම පියවරයන් අනුගමනය කරමින් දිගටම කරගෙන යාමට අවශ්‍ය නම් 'Continue' තෝරාගන්න. ඔබේ ගොනු පද්ධති කියවීමට පමණක් හැකි වන ආකාරයෙන්ද සවි කල හැක. මේ සඳහා ඔබ කලයුතු වන්නේ read-write වෙනුවට read-only තෝරා ගැනීමයි.\n"
+"\n"
+"කිසියම් හේතුවකින් මෙම ක්‍රියාවලිය අසමත් වූවහොත් 'Skip' තෝරාගෙන මෙම පියවර මඟහැර විධාන පුවරුවක්(shell) වෙත ලඟා විය හැක.\n"
+"\n"
 
 #: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
 #: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
@@ -2878,7 +2882,7 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr "භෞතිකව තිඑන ඉඩ ප්‍රමාණය වෙනස් කල නොහැක. එසේ කිරීමෙන් දැනට තිබෙන තාර්තික පරිමාවන් භෞතිකව තිබෙන ප්‍රමාණයට වඩා විශාල වීමට ඉඩ තිබේ."
+msgstr "භෞතිකව තිබෙන ඉඩ ප්‍රමාණය වෙනස් කල නොහැක. එසේ කිරීමෙන් දැනට තිබෙන තාර්තික පරිමාවන් භෞතිකව තිබෙන ප්‍රමාණයට වඩා විශාල වීමට ඉඩ තිබේ."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -2892,6 +2896,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"භෞතික ප්‍රමාණයේ අගය වෙනස් කිරීම සඳහා දැනට භාවිතයේ තිබෙන තාර්තික පරිමාවන්ගේ අගය, භෞතික ප්‍රමාණයේ ගුණාකාරයේ පරිපූර්ණ අගයක් ලෙස වටයනු ලැබූ විට ලැබෙන ප්‍රමාණය විය යුතුය.\n"
+"\n"
+"මෙම වෙනස් කිරීම සැනෙකින් භාවිතයේ යෙදෙනු ඇත.."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
