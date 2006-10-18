@@ -1329,7 +1329,7 @@ class YumBackend(AnacondaBackend):
             break
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm'):
-            if anaconda.id.displayMode == 'g':
+            if anaconda.id.displayMode == 'g' and not flags.usevnc:
                 anaconda.id.desktop.setDefaultRunLevel(5)
                 break
 
