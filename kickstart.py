@@ -361,8 +361,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         if pd.onbiosdisk != "":
             pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
 
-            if pd.disk != "":
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.disk)
+            if pd.disk == "":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.onbiosdisk)
 
         if pd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')

@@ -1,5 +1,8 @@
 2006-10-18  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (AnacondaKSHandlers.doPartition):  Correct --onbiosdisk
+	handling (#210705).
+
 	* yuminstall.py (YumBackend.doPostInstall):  Keep runlevel 3 if doing
 	a VNC install (#211318).
 
