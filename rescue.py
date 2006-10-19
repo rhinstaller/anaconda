@@ -28,6 +28,7 @@ import shutil
 import fcntl
 import termios
 
+import rhpl
 from rhpl.translate import _
 
 import logging
@@ -177,7 +178,10 @@ def runShell(screen = None, msg=""):
     print
 
     if os.path.exists("/bin/sh"):
-        iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
+        if rhpl.getArch() == "s390":
+            iutil.execWithRedirect("/bin/sh", [])
+        else:
+            iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
     else:
         print "Unable to find /bin/sh to execute!  Not starting shell"
         time.sleep(5)
