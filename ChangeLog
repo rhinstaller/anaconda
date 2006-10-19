@@ -1,3 +1,9 @@
+2006-10-19  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_gui.py (PartitionWindow.getPrev):  Forget partitioning
+	changes when going back to the parttype screen (#211255).
+	* textw/partition_text.py (PartitionWindow.__call__):  Likewise.
+
 2006-10-18  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda (parseOptions): Add the --noipv4 and --noipv6 opts (#208334).

@@ -1468,6 +1468,9 @@ class PartitionWindow:
             elif res == TEXT_BACK_CHECK:
                 # remove refs to parted objects
                 self.shutdownMainUI()
+
+                self.diskset.refreshDevices()
+                self.partitions.setFromDisk(self.diskset)
                 
                 screen.popHelpLine()
                 screen.popWindow()

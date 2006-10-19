@@ -691,6 +691,8 @@ class PartitionWindow(InstallWindow):
 
     def getPrev(self):
         self.diskStripeGraph.shutDown()
+        self.diskset.refreshDevices()
+        self.partitions.setFromDisk(self.diskset)
         self.tree.clear()
         del self.parent
         return None
@@ -965,7 +967,6 @@ class PartitionWindow(InstallWindow):
             return
         
         self.diskStripeGraph.shutDown()
-        self.newFsset = self.fsset.copy()
         self.diskset.refreshDevices()
         self.partitions.setFromDisk(self.diskset)
         self.tree.clear()
@@ -1340,10 +1341,6 @@ class PartitionWindow(InstallWindow):
 	self.show_uneditable = 1
 
         checkForSwapNoMatch(anaconda)
-
-        # XXX PartitionRequests() should already exist and
-        # if upgrade or going back, have info filled in
-#        self.newFsset = self.fsset.copy()
 
 	# load up checkmark
 	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(new_checkmark), new_checkmark, False)
