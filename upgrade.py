@@ -355,9 +355,8 @@ def upgradeMountFilesystems(anaconda):
 	newfsset = readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
         for entry in newfsset.entries:
             anaconda.id.fsset.add(entry)
-        
     if flags.setupFilesystems:
         if rhpl.getArch() == "ppc":
-            anaconda.id.fsset.formatSwap(anaconda.rootPath)
+            anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
         anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
