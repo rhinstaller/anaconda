@@ -308,8 +308,8 @@ int netlink_init_interfaces_list(void) {
         rta = IFLA_RTA(ifi);
         len = IFLA_PAYLOAD(nlh);
 
-        /* void and none are bad */
-        if (ifi->ifi_type == ARPHRD_VOID || ifi->ifi_type == ARPHRD_NONE) {
+        /* we only do things with ethernet mac addrs, so ... */
+        if (ifi->ifi_type != ARPHRD_ETHER) {
             nlh = NLMSG_NEXT(nlh, ret);
             continue;
         }
