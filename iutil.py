@@ -74,6 +74,12 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     pipe.wait()
     return rc
 
+def execConsole():
+    if rhpl.getArch() == "s390":
+        iutil.execWithRedirect("/bin/sh", [])
+    else:
+        iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
+
 # return size of directory (and subdirs) in kilobytes
 def getDirSize(dir):
     def getSubdirSize(dir):

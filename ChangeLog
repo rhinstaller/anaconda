@@ -1,7 +1,9 @@
 2006-10-19  Chris Lumens  <clumens@redhat.com>
 
-	* anaconda (runVNC):  Don't specify a stdout or stderr for shells on
+	* iutil.py (execConsole):  Don't specify a stdout or stderr for shells on
 	s390 (#210481).
+
+	* anaconda (runVNC):  Use execConsole.
 	* rescue.py (runShell):  Likewise.
 	* text.py (spawShell):  Likewise.
 
