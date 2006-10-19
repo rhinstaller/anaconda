@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.47
+Version: 10.1.1.48
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 19 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.48-1
+- Start to support installation of paravirt Xen guests (#201613)
+
 * Wed Oct 04 2006 David Cantrell <dcantrell@redhat.com> - 10.1.1.47-1
 - ia64 detection fixes (#201397, pnasrat)
 - Include lapic_status on ia64 images (#201397, pnasrat)

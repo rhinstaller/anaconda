@@ -1,6 +1,10 @@
+2006-10-19  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version
+
 2006-10-18  Jeremy Katz  <katzj@redhat.com>
 
-	First pass at changes to support Xen guests
+	First pass at changes to support Xen guests (#201613)
 	* anaconda.spec (BuildPreReq): require new enough kudzu for xen bits
 	* scripts/mk-images: Put xvc0 in the initrd, build xen images
 	* scripts/mk-images.i386: Do something with the xen kernel
