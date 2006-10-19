@@ -1,3 +1,8 @@
+2006-10-19  Jeremy Katz  <katzj@redhat.com>
+
+	* cmdline.py (InstallInterface.getInstallKey): Don't traceback
+	without a key in cmdline mode (#211476)
+
 2006-10-18  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda (parseOptions): Add the --noipv4 and --noipv6 opts (#208334).
