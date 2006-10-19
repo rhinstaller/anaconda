@@ -388,6 +388,6 @@ def upgradeMountFilesystems(anaconda):
         
     if flags.setupFilesystems:
         if rhpl.getArch() == "ppc":
-            anaconda.id.fsset.formatSwap(anaconda.rootPath)
+            anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
         anaconda.id.fsset.mkDevRoot(anaconda.rootPath)

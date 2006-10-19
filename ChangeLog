@@ -1,3 +1,11 @@
+2006-10-19  Paul Nasrat <pnasrat@redhat.com>
+
+	* upgrade.py (upgradeMountFilesystems): Force swap formatting on ppc
+	(#206523)
+
+	* fsset.py (FileSystemSet.formatSwap): Support forcing swap to be
+	formatted
+
 2006-10-19  Jeremy Katz  <katzj@redhat.com>
 
 	* cmdline.py (InstallInterface.getInstallKey): Don't traceback

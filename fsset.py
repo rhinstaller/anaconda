@@ -1402,7 +1402,7 @@ MAILADDR root
             if bootPart:
                 del bootPart
 
-    def formatSwap (self, chroot):
+    def formatSwap (self, chroot, forceFormat=False):
         formatted = []
         notformatted = []
         
@@ -1411,8 +1411,9 @@ MAILADDR root
                 entry.isMounted()):
                 continue
             if not entry.getFormat():
-                notformatted.append(entry)
-                continue
+                if not forceFormat:
+                    notformatted.append(entry)
+                    continue
             try:
                 self.formatEntry(entry, chroot)
                 formatted.append(entry)
