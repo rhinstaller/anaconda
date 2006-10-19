@@ -16,12 +16,15 @@
 	changes when going back to the parttype screen (#211255).
 	* textw/partition_text.py (PartitionWindow.__call__):  Likewise.
 
-	* iutil.py (execConsole):  Don't specify a stdout or stderr for shells on
-	s390 (#210481).
+	* iutil.py (execConsole):  Don't specify a stdout or stderr for shells
+	on s390 (#210481).
 
 	* anaconda (runVNC):  Use execConsole.
 	* rescue.py (runShell):  Likewise.
 	* text.py (spawShell):  Likewise.
+
+	* gui.py (titleBarMousePressCB, titleBarMotionEventCB):  When dragging
+	a dialog box, don't jerk to the side starting off (krh AT redhat.com).
 
 2006-10-18  David Cantrell  <dcantrell@redhat.com>
 

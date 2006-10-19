@@ -307,10 +307,11 @@ class WrappingLabel(gtk.Label):
 
 def titleBarMousePressCB(widget, event, data):
     if event.type & gtk.gdk.BUTTON_PRESS:
+        (x, y) = data["window"].get_position()
         data["state"] = 1
         data["button"] = event.button
-        data["deltax"] = event.x
-        data["deltay"] = event.y
+        data["deltax"] = event.x_root - x
+        data["deltay"] = event.y_root - y
     
 def titleBarMouseReleaseCB(widget, event, data):
     if data["state"] and event.button == data["button"]:
@@ -321,8 +322,8 @@ def titleBarMouseReleaseCB(widget, event, data):
 
 def titleBarMotionEventCB(widget, event, data):
     if data["state"]:
-        newx = event.x_root-data["deltax"]
-        newy = event.y_root-data["deltay"]
+        newx = event.x_root - data["deltax"]
+        newy = event.y_root - data["deltay"]
         if newx < 0:
             newx = 0
         if newy < 0:
