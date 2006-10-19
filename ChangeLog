@@ -16,8 +16,10 @@
 	changes when going back to the parttype screen (#211255).
 	* textw/partition_text.py (PartitionWindow.__call__):  Likewise.
 
-	* anaconda (runVNC):  Don't specify a stdout or stderr for shells on
+	* iutil.py (execConsole):  Don't specify a stdout or stderr for shells on
 	s390 (#210481).
+
+	* anaconda (runVNC):  Use execConsole.
 	* rescue.py (runShell):  Likewise.
 	* text.py (spawShell):  Likewise.
 
