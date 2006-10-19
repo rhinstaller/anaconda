@@ -1,3 +1,11 @@
+2006-10-19  Paul Nasrat <pnasrat@redhat.com>
+
+	* upgrade.py (upgradeMountFilesystems): Force swap formatting on ppc
+	(#206523)
+
+	* fsset.py (FileSystemSet.formatSwap): Support forcing swap to be
+	formatted
+
 2006-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* iw/partition_gui.py (PartitionWindow.getPrev):  Forget partitioning
