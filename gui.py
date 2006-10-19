@@ -582,6 +582,7 @@ class ScpWindow:
 class InstallKeyWindow:
     def __init__(self, anaconda, key):
         (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
+        addFrame(self.win)        
         if anaconda.id.instClass.instkeydesc is not None:
             w = keyxml.get_widget("instkeyLabel")
             w.set_text(anaconda.id.instClass.instkeydesc)
