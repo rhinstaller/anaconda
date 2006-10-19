@@ -604,7 +604,10 @@ def spawnShell(screen):
     screen.suspend()
     print "\n\nType <exit> to return to the install program.\n"
     if os.path.exists("/bin/sh"):
-        iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
+        if rhpl.getArch() == "s390":
+            iutil.execWithRedirect("/bin/sh", [])
+        else:
+            iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
     else:
         print "Unable to find /bin/sh to execute!  Not starting shell"
     time.sleep(5)

@@ -1,3 +1,10 @@
+2006-10-19  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda (runVNC):  Don't specify a stdout or stderr for shells on
+	s390 (#210481).
+	* rescue.py (runShell):  Likewise.
+	* text.py (spawShell):  Likewise.
+
 2006-10-19  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/nl.c: We only ever do anything with ethernet (#210195)
