@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.4
+Version: 11.1.2.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 20 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.5-1
+- Build against libdhcp-1.16
+- Continue if vname or vparm are NULL in readNetInfo (#211502)
+- Add fonts-telugu (katzj, #207428)
+- Fix install progress bar/window dimensions (katzj, #211526)
+- Don't specify a stdout of stderr for shells on zSeries (clumens, #210481)
+- Use execConsole function to run shells (clumens)
+- Only use netlink messages with ARP Ethernet headers (katzj, #210195)
+- Force swap formatting on ppc (pnasrat, #206523)
+- Don't traceback without a key in cmdline mode (katzj, #211476)
+- Pass noipv4/noipv6 settings from stage 1 to stage 2 (#208334)
+- Correct --onbiosdisk handling (clumens, #210705)
+- Keep runlevel 3 if doing a VNC install (clumens, #211318)
+- Don't use unicode line drawing on vt100-nav terminals (katzj, #208374)
+- Remove multilib packages (pnasrat, #209011)
+
 * Tue Oct 17 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.4-1
 - yum fix retry on failure (katzj, #211117)
 - Fix ordering for iSCSI tools on CD installs (katzj, #208832)
