@@ -431,7 +431,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
     f = fopen("/tmp/netinfo", "r");
     if (!f)
-		return;
+        return;
 
     /* FIXME: static buffers lead to pain */
     vname = (char *)malloc(sizeof(char)*15);
@@ -446,16 +446,16 @@ static void readNetInfo(struct loaderData_s ** ld) {
      * and populate the loaderData structure.
      */
     while(fgets(buf, bufsiz, f)) {
-		/* trim whitespace from end */
-		i = 0;
-		while (!isspace(buf[i]) && i < (bufsiz-1))
-			i++;
-		buf[i] = '\0';
+        /* trim whitespace from end */
+        i = 0;
+        while (!isspace(buf[i]) && i < (bufsiz-1))
+           i++;
+        buf[i] = '\0';
 
-		/* break up var name and value */
-		if (strstr(buf, "=")) {
-			vname = strtok(buf, "=");
-			vparm = strtok(NULL, "=");
+        /* break up var name and value */
+        if (strstr(buf, "=")) {
+            vname = strtok(buf, "=");
+            vparm = strtok(NULL, "=");
 
             if (!strncmp(vname, "IPADDR", 6)) {
                 loaderData->ip = strdup(vparm);
