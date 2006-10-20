@@ -455,7 +455,12 @@ static void readNetInfo(struct loaderData_s ** ld) {
         /* break up var name and value */
         if (strstr(buf, "=")) {
             vname = strtok(buf, "=");
+            if (vname == NULL)
+                continue;
+
             vparm = strtok(NULL, "=");
+            if (vparm == NULL)
+                continue;
 
             if (!strncmp(vname, "IPADDR", 6)) {
                 loaderData->ip = strdup(vparm);
