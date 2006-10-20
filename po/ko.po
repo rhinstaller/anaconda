@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-19 11:51+1000\n"
+"PO-Revision-Date: 2006-10-20 14:18+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2528,7 +2528,7 @@ msgstr "트랜젝션은 다음과 같은 이유로 실행되지 않았습니다:
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
-msgstr "재부팅(_B)"
+msgstr "재부팅(_b)"
 
 #: ../yuminstall.py:697
 msgid "Retrieving installation information..."
@@ -2747,7 +2747,7 @@ msgstr "부트로더 암호 사용(_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "암호 변경(_P)"
+msgstr "암호 변경(_p)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2767,7 +2767,7 @@ msgstr "암호(_P):"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "확인(_F):"
+msgstr "확인(_f):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2842,7 +2842,7 @@ msgstr "부트로더는 설치되지 않을 것입니다."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "고급 부트로더 옵션 설정(_O)"
+msgstr "고급 부트로더 옵션 설정(_o)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -3041,7 +3041,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
-msgstr "진행(_O)"
+msgstr "진행(_o)"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
@@ -3522,7 +3522,7 @@ msgstr "IPv_6 주소:"
 
 #: ../iw/network_gui.py:371
 msgid "_Point to Point (IP):"
-msgstr "Point to Point (IP)(_P):"
+msgstr "_Point to Point (IP):"
 
 #: ../iw/network_gui.py:383
 msgid "_ESSID:"
@@ -3578,11 +3578,11 @@ msgstr "호스트명 설정:"
 
 #: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
-msgstr "DHCP를 통하여 호스트명을 자동으로 설정(_A)"
+msgstr "DHCP를 통하여 호스트명을 자동으로 설정(_a)"
 
 #: ../iw/network_gui.py:720
 msgid "_manually"
-msgstr "수동으로 호스트명 설정(_M)"
+msgstr "수동으로 호스트명 설정(_m)"
 
 #: ../iw/network_gui.py:725
 msgid "(e.g., host.domain.com)"
@@ -3682,11 +3682,11 @@ msgstr "고정 용량(_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "다음의 용량까지 모두 채움 (MB)(_U):"
+msgstr "다음의 용량까지 모두 채움 (MB)(_u):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "최대 가능한 용량으로 채움(_A)"
+msgstr "최대 가능한 용량으로 채움(_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3727,7 +3727,7 @@ msgstr "실린더의 끝(_E):"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr "첫번째 파티션으로 함(_P)"
+msgstr "첫번째 파티션으로 함(_p)"
 
 #: ../iw/partition_gui.py:314
 #, python-format
@@ -3921,12 +3921,12 @@ msgstr "소프트웨어 RAID 파티션 만들기(_P)"
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "RAID 장치 만들기 [기본=/dev/md%s](_D)"
+msgstr "RAID 장치 만들기 [기본=/dev/md%s](_d)"
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "RAID 장치를 만들기 위해 드라이브를 복제 [기본=/dev/md%s]."
+msgstr "RAID 장치를 만들기 위해 드라이브를 복제 [기본=/dev/md%s](_d)."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
@@ -3938,11 +3938,11 @@ msgstr "드라이브 복제 편집기가 생성되지 않았습니다."
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr "새로 생성(_W)"
+msgstr "새로 생성(_w)"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr "재설정(_S)"
+msgstr "재설정(_s)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
@@ -3969,7 +3969,7 @@ msgstr "이 파티션에 설정할 파일시스템을 지정해 주십시오"
 
 #: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
-msgstr "변경하지 않은 내용 유지 (자료를 보존함)(_U)"
+msgstr "변경하지 않은 내용 유지 (자료를 보존함)(_u)"
 
 #: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
@@ -3977,11 +3977,11 @@ msgstr "포맷할 파티션의 형식(_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
-msgstr "이전할 파티션의 위치(_G):"
+msgstr "이전할 파티션의 위치(_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
-msgstr "불량 섹터를 검사하시겠습니까?(_B)"
+msgstr "불량 섹터를 검사하시겠습니까?(_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
@@ -4097,7 +4097,7 @@ msgstr "RAID 요소(_R):"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr "여분(spare)의 수(_S):"
+msgstr "여분(spare)의 수(_s):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
@@ -4428,11 +4428,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "스왑 파일을 생성함(_W)"
+msgstr "스왑 파일을 생성함(_w)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "스왑 파일이 생성될 파티션을 선택해 주십시오(_P):"
+msgstr "스왑 파일이 생성될 파티션을 선택해 주십시오(_p):"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4453,11 +4453,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "스왑 파일 용량 (MB)(_S):"
+msgstr "스왑 파일 용량 (MB)(_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "스왑 파일을 생성하지 않음(_D)"
+msgstr "스왑 파일을 생성하지 않음(_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -6455,7 +6455,7 @@ msgstr "ZFCP LUN 추가(_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "iSCSI 목표 추가(_I)"
+msgstr "iSCSI 목표 추가(_i)"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6463,7 +6463,7 @@ msgstr "고급 용량 옵션"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr "dmraid 장치 비활성화(_D)"
+msgstr "dmraid 장치 비활성화(_d)"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
@@ -6475,7 +6475,7 @@ msgstr "<b>리포지터리 _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>리포지터리 _이름:</b>"
+msgstr "<b>리포지터리 _이름(_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6496,7 +6496,7 @@ msgstr "리포지터리 추가(_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "재부팅(_T)"
+msgstr "재부팅(_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -6522,7 +6522,7 @@ msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "파티션 배치 재확인과 수정(_V)"
+msgstr "파티션 배치 재확인과 수정(_v)"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
@@ -6610,11 +6610,11 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "동적 IP 설정 사용(_D) (DHCP)"
+msgstr "동적 IP 설정 사용(_DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "후의 사용자 설정(_L)"
+msgstr "후의 사용자 설정(_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
