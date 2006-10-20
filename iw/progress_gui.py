@@ -352,7 +352,7 @@ class InstallProgressWindow (InstallWindow):
             label.set_line_wrap (True)
             if key == "summary":
                 label.set_text ("\n\n")
-                label.set_size_request(600, 35)
+                label.set_size_request(525, 35)
                 fillopts = gtk.EXPAND|gtk.FILL
             else:
                 fillopts = gtk.FILL
