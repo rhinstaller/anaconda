@@ -1,3 +1,8 @@
+2006-10-20  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (readNetInfo): Continue if vname or vparm are NULL
+	(#211502).
+
 2006-10-20  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (PACKAGESGR): Add fonts-telugu (#207428)
