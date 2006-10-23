@@ -1,3 +1,8 @@
+2006-10-23  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network): Write out ::1 in /etc/hosts as localhost6
+	rather than localhost (#211800).
+
 2006-10-23  Chris Lumens  <clumens@redhat.com>
 
 	* iutil.py (execConsole):  Fix traceback (#211830).
