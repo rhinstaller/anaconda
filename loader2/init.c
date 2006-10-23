@@ -303,7 +303,7 @@ static int setupTerminal(int fd) {
     return 0;
 }
 
-#ifdef __powerpc__
+#if !defined(__s390__) && !defined(__s390x__)
 static int termcmp(struct termios *a, struct termios *b)
 {
         if (a->c_iflag != b->c_iflag || a->c_oflag != b->c_oflag ||
