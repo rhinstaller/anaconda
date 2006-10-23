@@ -8,6 +8,9 @@
 
 	* anaconda.spec: Require libdhcp-1.16 or higher (#201907)
 
+	* network.py (Network): Write out ::1 in /etc/hosts as localhost6
+	rather than localhost (#211800).
+
 2006-10-23  Jeremy Katz  <katzj@redhat.com>
 
 	* lang-table: Add Sinhala (#207426)
