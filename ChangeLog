@@ -1,3 +1,7 @@
+2006-10-23  Paul Nasrat <pnasrat@redhat.com>
+
+	* iutil.py (execWithConsole): Fix traceback (#211830)
+
 2006-10-20  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (readNetInfo): Continue if vname or vparm are NULL
