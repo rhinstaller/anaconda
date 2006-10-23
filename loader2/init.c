@@ -307,8 +307,14 @@ static int setupTerminal(int fd) {
 static int termcmp(struct termios *a, struct termios *b)
 {
         if (a->c_iflag != b->c_iflag || a->c_oflag != b->c_oflag ||
-            a->c_cflag != b->c_cflag || a->c_lflag != b->c_lflag ||
-            a->c_ispeed != b->c_ispeed || a->c_ospeed != b->c_ospeed)
+            a->c_cflag != b->c_cflag || a->c_lflag != b->c_lflag 
+#ifdef _HAVE_STRUCT_TERMIOS_C_ISPEED
+            || a->c_ispeed != b->c_ispeed 
+#endif
+#ifdef _HAVE_STRUCT_TERMIOS_C_OSPEED
+            || a->c_ospeed != b->c_ospeed
+#endif
+            )
                 return 1;
         return memcmp(a->c_cc, b->c_cc, sizeof(a->c_cc));
 }
