@@ -1,3 +1,9 @@
+2006-10-23  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/net.c (setKickstartNetwork):  Bring up the network when the
+	network command in a kickstart file is processed for CD and hard drive
+	image installs (#191424).
+
 2006-10-23  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Require libdhcp-1.16 or higher (#201907)

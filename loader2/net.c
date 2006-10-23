@@ -1457,6 +1457,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
     int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0;
     poptContext optCon;
+    struct networkDeviceConfig cfg;
 
     struct poptOption ksOptions[] = {
         { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0, NULL, NULL },
@@ -1579,6 +1580,15 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     if (noDns) {
         loaderData->noDns = 1;
+    }
+
+    /* Make sure the network is always up if there's a network line in the
+     * kickstart file, as %post/%pre scripts might require that.
+     */
+    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_FTP &&
+        loaderData->method != METHOD_HTTP) {
+        if (kickstartNetworkUp(loaderData, &cfg))
+            logMessage(ERROR, "unable to bring up network");
     }
 }
 
