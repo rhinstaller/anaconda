@@ -34,6 +34,10 @@ class UpgradeExamineWindow (InstallWindow):
 	if self.doupgrade:
             # set the install class to be an upgrade
             c = UpgradeClass(flags.expert)
+            # hack, hack, hack...
+            c.installkey = self.anaconda.id.instClass.installkey
+            c.repopaths = self.anaconda.id.instClass.repopaths
+
             c.setSteps(self.anaconda.dispatch)
             c.setInstallData(self.anaconda)
 

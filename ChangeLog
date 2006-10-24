@@ -1,3 +1,9 @@
+2006-10-24  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/examine_gui.py (UpgradeExamineWindow.getNext): Make it so
+	that we use the install key + repopaths on upgrade (#211547)
+	* textw/upgrade_text.py (UpgradeExamineWindow.__call__): Text too
+
 2006-10-24  Bill Nottingham  <notting@redhat.com>
 
 	* iw/netconfig_dialog.py: Use the same widget names as the

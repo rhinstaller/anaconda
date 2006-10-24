@@ -224,6 +224,9 @@ class UpgradeExamineWindow:
 
         if root is not None:
             c = UpgradeClass(flags.expert)
+            # hack, hack, hack...
+            c.installkey = self.anaconda.id.instClass.installkey
+            c.repopaths = self.anaconda.id.instClass.repopaths
             c.setSteps(anaconda.dispatch)
             c.setInstallData(anaconda)
 
