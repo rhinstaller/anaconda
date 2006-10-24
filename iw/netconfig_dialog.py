@@ -66,8 +66,8 @@ class NetworkConfigurator:
             self.xml.get_widget("dhcpCheckbutton").set_active(False)
 
             # FIXME: need to set ipv6 here too once we have that
-            if netdev.get("ipaddr"): self.xml.get_widget("ipv4AddressEntry").set_text(netdev.get("ipaddr"))
-            if netdev.get("netmask"): self.xml.get_widget("ipv4NetmaskEntry").set_text(netdev.get("netmask"))
+            if netdev.get("ipaddr"): self.xml.get_widget("ipv4Address").set_text(netdev.get("ipaddr"))
+            if netdev.get("netmask"): self.xml.get_widget("ipv4Netmask").set_text(netdev.get("netmask"))
             if self.network.gateway: self.xml.get_widget("gatewayEntry").set_text(self.network.gateway)
             if self.network.primaryNS: self.xml.get_widget("nameserverEntry").set_text(self.network.primaryNS)
 
@@ -165,8 +165,8 @@ class NetworkConfigurator:
                 f.close()
                 isys.resetResolv()
         else:
-            ipv4addr = self.xml.get_widget("ipv4AddressEntry").get_text()
-            ipv4nm = self.xml.get_widget("ipv4NetmaskEntry").get_text()
+            ipv4addr = self.xml.get_widget("ipv4Address").get_text()
+            ipv4nm = self.xml.get_widget("ipv4Netmask").get_text()
             gateway = self.xml.get_widget("gatewayEntry").get_text()
             ns = self.xml.get_widget("nameserverEntry").get_text()
 
