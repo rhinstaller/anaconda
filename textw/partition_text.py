@@ -1642,20 +1642,20 @@ class PartitionTypeWindow:
                                    newdrv,
                                    [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
                                                width=55, height=3)
-        
+
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
         if choice == 1:
             try:
                 return self.addZFCPDriveDialog(screen)
             except ValueError, e:
-                ButtonChoiceWindow(screen, _("Error"), e)
+                ButtonChoiceWindow(screen, _("Error"), "%s" %(e,))
                 return INSTALL_BACK
         else:
             try:
                 return self.addIscsiDriveDialog(screen)
             except ValueError, e:
-                ButtonChoiceWindow(screen, _("Error"), e)
+                ButtonChoiceWindow(screen, _("Error"), "%s" %(e,))
                 return INSTALL_BACK
 
     def addZFCPDriveDialog(self, screen):
@@ -1665,7 +1665,7 @@ class PartitionTypeWindow:
                                         prompts = [ "Device number",
                                                     "WWPN",
                                                     "FCP LUN" ] )
-        if button == TEXT_BACK_CHECK:
+        if button == 'cancel':
             return INSTALL_BACK
 
         devnum = entries[0].strip()
@@ -1688,7 +1688,8 @@ class PartitionTypeWindow:
                                         _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
                                         prompts = [ "Target IP Address",
                                                     "iSCSI Initiator Name" ])
-        if button == TEXT_BACK_CHECK:
+
+        if button == 'cancel':
             return INSTALL_BACK
 
         target = entries[0].strip()
