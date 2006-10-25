@@ -732,14 +732,15 @@ class YumBackend(AnacondaBackend):
 
     def mirrorFailureCB (self, obj, *args, **kwargs):
         log.warning("Failed to get %s from mirror" % obj.url)
-        
-        if self.method.currentMedia:
-            if kwargs.has_key("tsInfo"):
-                self.prevmedia = kwargs["tsInfo"].curmedia
-            self.method.unmountCD()
 
-        if kwargs.has_key("intf") and kwargs["intf"]:
-            self._handleFailure(obj.url, kwargs["intf"])
+        if kwargs["grab"]._next >= len(kwargs["grab"].mirrors):
+            if self.method.currentMedia:
+                if kwargs.has_key("tsInfo"):
+                    self.prevmedia = kwargs["tsInfo"].curmedia
+                self.method.unmountCD()
+
+            if kwargs.has_key("intf") and kwargs["intf"]:
+                self._handleFailure(obj.url, kwargs["intf"])
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
@@ -858,7 +859,7 @@ class YumBackend(AnacondaBackend):
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
                                            {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
         self.ayum.repos.setMirrorFailureCallback((self.mirrorFailureCB, (),
-                                                 {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
+                                                 {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo, "grab": repo.grab}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
