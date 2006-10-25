@@ -290,10 +290,10 @@ def driveDict(klassArg):
                     new[device] = dev
                     continue
 
-                peddev = parted.PedDevice.get(devName)
-                model = peddev.model
-
                 if device.startswith("sd"):
+                    peddev = parted.PedDevice.get(devName)
+                    model = peddev.model
+
                     # blacklist *STMF on power5 iSeries boxes
                     if rhpl.getArch() == "ppc" and \
                             model.find("IBM *STMF KERNEL") != -1:
@@ -314,6 +314,8 @@ def driveDict(klassArg):
                             (device,))
                         del peddev
                         continue
+
+                    del peddev
                 new[device] = dev
             except Exception, e:
                 log.debug("exception checking disk blacklist on %s: %s" % \
