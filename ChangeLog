@@ -1,9 +1,11 @@
 2006-10-24  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* packages.py (regKeyScreen): Error dialog on a bad key (dlehman)
 	* scripts/upd-instroot: Add rhel-instnum package (dlehman)
 	* installclasses/rhel.py: Add support for real key format (initial
-	patch by dlehman, tweaked a bit by me)
+	patch by dlehman, tweaked a bit by me) (#207752)
 
 	* iw/examine_gui.py (UpgradeExamineWindow.getNext): Make it so
 	that we use the install key + repopaths on upgrade (#211547)

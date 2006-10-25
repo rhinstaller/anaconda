@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.5
+Version: 11.1.2.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 24 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.6-1
+- Add Sinhala (#207426)
+- Fix a traceback in shell exec (pnasrat, #211830)
+- Write out proper ipv6 localhost in /etc/hosts (dcantrel, #211800)
+- Merge swap/graphical limits from fc6 (#211649)
+- Fix canceling with iscsi (#211996)
+- Fix static IPs with iscsi/repo adding
+- Fix use of repos on upgrade (#211547)
+- Add real key format (dlehman, #207752)
+
 * Fri Oct 20 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.5-1
 - Build against libdhcp-1.16
 - Continue if vname or vparm are NULL in readNetInfo (#211502)
