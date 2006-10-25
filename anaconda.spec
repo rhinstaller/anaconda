@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.6
+Version: 11.1.2.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 25 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.7-1
+- Fix zfcp (#210094)
+- Remove unneeded whiteout
+- Fix a case where we might have leaked an fd (#212191)
+
 * Tue Oct 24 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.6-1
 - Add Sinhala (#207426)
 - Fix a traceback in shell exec (pnasrat, #211830)
