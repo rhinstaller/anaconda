@@ -1,3 +1,8 @@
+2006-10-25  Jeremy Katz  <katzj@redhat.com>
+
+	* zfcp.py (ZFCP.write): Include zfcp in modprobe.conf so that zfcp
+	luns come up post-install (#210094)
+
 2006-10-24  Bill Nottingham  <notting@redhat.com>
 
 	* iw/netconfig_dialog.py: Use the same widget names as the glade

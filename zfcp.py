@@ -227,5 +227,9 @@ class ZFCP:
         for d in self.fcpdevs:
             f.write("%s\n" %(d,))
         f.close()
+        
+        f = open(instPath + "/etc/modprobe.conf", "a")
+        f.write("alias scsi_hostadapter zfcp\n")
+        f.close()
 
 # vim:tw=78:ts=4:et:sw=4
