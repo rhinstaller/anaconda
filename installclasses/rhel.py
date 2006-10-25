@@ -5,6 +5,10 @@ from constants import *
 import os
 import iutil
 import types
+try:
+    import instnum
+except ImportError:
+    instnum = None
 
 import logging
 log = logging.getLogger("anaconda")
@@ -60,41 +64,40 @@ class InstallClass(BaseInstallClass):
     def getPackagePaths(self, uri):
         rc = {}
         for (name, path) in self.repopaths.items():
+            lst = []
             if type(uri) == types.ListType:
-                lst = []
-
                 for i in uri:
-                    lst.append("%s/%s" % (i, path))
-
-                rc[name] = lst
+                    for p in path:
+                        lst.append("%s/%s" % (i, p))
             else:
-                rc[name] = "%s/%s" %(uri, path)
+                for p in path:
+                    lst.append("%s/%s" % (uri, p))
+
+            rc[name] = lst
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
-#         if key is None or len(key) == 0:
-#             intf.messageWindow(_("Registration Key Required"),
-#                                _("A registration key is required to "
-#                                  "install %s.  Please contact your support "
-#                                  "representative if you did not receive a "
-#                                  "key with your product." %(productName,)),
-#                                type = "ok", custom_icon="error")
-#             raise NoKeyError
-
-        # simple and stupid for now... if C is in the key, add Clustering
-        # if V is in the key, add Virtualization. etc
-        if key.find("C") != -1:
-            self.repopaths["cluster"] = "Cluster"
-            log.info("Adding Cluster option")
-        if key.find("S") != -1:
-            self.repopaths["cs"] = "ClusterStorage"
-            log.info("Adding ClusterStorage option")
-        if key.find("W") != -1:
-            self.repopaths["desktop"] = "Workstation"
-            log.info("Adding Workstation option")
-        if key.find("V") != -1:
-            self.repopaths["virt"] = "VT"
-            log.info("Adding Virtualization option")
+        if instnum is not None and instnum.formatMap.has_key(len(key)):
+            inum = instnum.InstNum(key)
+            for name, path in inum.get_repos_dict().items():
+                self.repopaths[name.lower()] = path
+                log.info("Adding %s repo" % (path,))
+        else:
+            key = key.upper()
+            # simple and stupid for now... if C is in the key, add Clustering
+            # if V is in the key, add Virtualization. etc
+            if key.find("C") != -1:
+                self.repopaths["Cluster"] = ["Cluster"]
+                log.info("Adding Cluster option")
+            if key.find("S") != -1:
+                self.repopaths["ClusterStorage"] = ["ClusterStorage"]
+                log.info("Adding ClusterStorage option")
+            if key.find("W") != -1:
+                self.repopaths["Workstation"] = ["Workstation"]
+                log.info("Adding Workstation option")
+            if key.find("V") != -1:
+                self.repopaths["Virt"] = ["VT"]
+                log.info("Adding Virtualization option")
 
         self.installkey = key
 

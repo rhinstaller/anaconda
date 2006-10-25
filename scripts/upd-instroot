@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils libvolume_id
+         yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 
@@ -436,6 +436,7 @@ usr/lib/python?.?/site-packages/repomd/*
 usr/lib/python?.?/site-packages/pirut/*
 usr/lib/python?.?/site-packages/pykickstart/*
 usr/lib/python?.?/site-packages/rhpxl/*
+usr/lib/python?.?/site-packages/instnum.*
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
