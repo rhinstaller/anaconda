@@ -101,7 +101,7 @@ build: src
 	@mkdir /tmp/anaconda
 	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-5 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 	@rm -rf /tmp/anaconda
-	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?RHEL-5/anaconda#$(CVSTAG)'
+	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?anaconda/RHEL-5#$(CVSTAG)'
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
