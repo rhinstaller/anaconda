@@ -152,6 +152,13 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doClearPart(self, args):
         KickstartHandlers.doClearPart(self, args)
         dict = self.ksdata.clearpart
+
+        hds = isys.hardDriveDict().keys()
+        for disk in dict["drives"]:
+            if disk not in hds:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Spec
+ified nonexistent disk %s in clearpart command" % disk)
+
         self.id.instClass.setClearParts(self.id, dict["type"], drives=dict["drives"],
                                         initAll=dict["initAll"])
 
@@ -432,7 +439,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
             pd.disk = 'mapper/' + pd.disk
         if pd.disk != "" and pd.disk not in hds.keys():
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified disk in partition command which does not exist")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = pd.mountpoint,
