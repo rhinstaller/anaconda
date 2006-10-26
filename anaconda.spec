@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.7
+Version: 11.1.2.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 26 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.8-1
+- Fall over to the next mirror correctly (#208077, #212014).
+
 * Wed Oct 25 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.7-1
 - Fix zfcp (#210094)
 - Remove unneeded whiteout
