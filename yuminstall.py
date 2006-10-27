@@ -179,6 +179,7 @@ class AnacondaYumRepo(YumRepository):
                 self.setAttribute(k, v)
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
+        self.keepalive = False
         
         if uri and not mirrorlist:
             if type(uri) == types.ListType:
@@ -243,7 +244,7 @@ class AnacondaYumRepo(YumRepository):
                            self)
 
         if url is not None:
-            ug = URLGrabber(keepalive = self.keepalive,
+            ug = URLGrabber(keepalive = False,
                             bandwidth = self.bandwidth,
                             retry = self.retries,
                             throttle = self.throttle,
@@ -272,6 +273,7 @@ class AnacondaYumRepo(YumRepository):
         else:
             try:
                 result = self.grab.urlgrab(relative, local,
+                                           keepalive = False,
                                            text = text,
                                            range = (start, end),
                                            copy_local=copy_local,
