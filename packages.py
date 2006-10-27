@@ -242,6 +242,7 @@ def regKeyScreen(anaconda):
             try:
                 anaconda.id.instClass.handleRegKey(key, anaconda.intf,
                                                    not anaconda.isKickstart)
+                break
             except Exception, e:
                 log.info("exception handling installation key: %s" %(e,))
                 anaconda.intf.messageWindow(_("Invalid Key"),

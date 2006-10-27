@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.8
+Version: 11.1.2.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.9-1
+- Fix install key handling (#212548)
+- Catch hard drives that don't exist (clumens, #212377)
+- Fix typo for slovak keyboard (#212304) 
+
 * Thu Oct 26 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.8-1
 - Fall over to the next mirror correctly (#208077, #212014).
 

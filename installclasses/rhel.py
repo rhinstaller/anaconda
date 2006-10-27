@@ -74,6 +74,8 @@ class InstallClass(BaseInstallClass):
                     lst.append("%s/%s" % (uri, p))
 
             rc[name] = lst
+
+        log.info("package paths is %s" %(rc,))
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
@@ -87,21 +89,23 @@ class InstallClass(BaseInstallClass):
             # simple and stupid for now... if C is in the key, add Clustering
             # if V is in the key, add Virtualization. etc
             if key.find("C") != -1:
-                self.repopaths["Cluster"] = ["Cluster"]
+                self.repopaths["cluster"] = ["Cluster"]
                 log.info("Adding Cluster option")
             if key.find("S") != -1:
-                self.repopaths["ClusterStorage"] = ["ClusterStorage"]
+                self.repopaths["clusterstorage"] = ["ClusterStorage"]
                 log.info("Adding ClusterStorage option")
             if key.find("W") != -1:
-                self.repopaths["Workstation"] = ["Workstation"]
+                self.repopaths["workstation"] = ["Workstation"]
                 log.info("Adding Workstation option")
             if key.find("V") != -1:
-                self.repopaths["Virt"] = ["VT"]
+                self.repopaths["virt"] = ["VT"]
                 log.info("Adding Virtualization option")
+
+        log.info("repopaths is %s" %(self.repopaths,))
 
         self.installkey = key
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
-        self.repopaths = { "base": "%s" %(productPath,) }
+        self.repopaths = { "base": [ "%s" %(productPath,) ] }

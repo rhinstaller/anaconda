@@ -1,3 +1,12 @@
+2006-10-27  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* installclasses/rhel.py (InstallClass.__init__): Fixes for the
+	key and some more logging for when things go south (#212548)
+	* packages.py (regKeyScreen): Breaking is important so that we
+	actually accept the key...
+
 2006-10-26  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doClearPart):  Catch hard drives
