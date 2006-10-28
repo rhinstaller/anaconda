@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.9
+Version: 11.1.2.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 27 2006 Peter Jones <pjones@redhat.com> - 11.1.2.10-1
+- Don't use keepalive sockets when they won't be reused (#212571)
+
 * Fri Oct 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.2.9-1
 - Fix install key handling (#212548)
 - Catch hard drives that don't exist (clumens, #212377)
