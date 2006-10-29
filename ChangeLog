@@ -1,3 +1,7 @@
+2006-10-28  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network): Add missing \n to localhost6 line (#210050)
+
 2006-10-27  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py:  Disable keepalive since it seems to be broken and
