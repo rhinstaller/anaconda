@@ -499,7 +499,7 @@ class Network:
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
         f.write("127.0.0.1\t\t" + localline)
-        f.write("::1\t\tlocalhost6.localdomain6 localhost6")
+        f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
 	if ip:
             nameline = "%s\t\t%s" % (ip, self.hostname)
