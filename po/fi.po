@@ -1,4 +1,3 @@
-# translation of fi.po to Finnish
 # Finnish translation of Anaconda.
 #
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
@@ -8,11 +7,11 @@
 # Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: fi\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-09 09:22+0300\n"
-"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
+"PO-Revision-Date: 2006-10-30 02:21+0200\n"
+"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <Laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6056,13 +6055,12 @@ msgstr "Pakettien valinta"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
-#, fuzzy
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"%s:n oletusasennus sisältää ohjelmistoja yleiseen Internet-käyttöön.  Mitä "
+"%sn oletusasennus sisältää ohjelmistoja yleiseen Internet-käyttöön. Mitä "
 "muita tehtäviä haluat järjestelmän tukevan?"
 
 # ../textw/xconfig_text.py:162
@@ -6276,10 +6274,10 @@ msgstr ""
 "%s:n oletusasennus sisältää ohjelmistoja yleiseen Internet-käyttöön. Mitä "
 "muita tehtäviä haluat järjestelmän tukevan?"
 
+# Ja mitähän se tuottavuus sitten on?
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
-#, fuzzy
 msgid "Office and Productivity"
-msgstr "Toimisto ja tuottavuus"
+msgstr "Toimistosovellukset ja tuottavuus"
 
 #: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
 msgid "Software Development"
@@ -7499,13 +7497,12 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
-"Aennus vaatii kiintolevyn osioinnin. Oletuksena valitaan osiointi joka on "
-"järkevä useimmille käyttäjille. Voit käyttää sitä tai tehdä osioinnin itse."
+"Asennus vaatii kiintolevyn osioinnin. Oletuksena valitaan osiointi, joka "
+"soveltuu useimmille käyttäjille. Voit käyttää sitä tai tehdä osioinnin itse."
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
+msgstr "Ta_rkastele ja muuta osiointia"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
@@ -7630,9 +7627,8 @@ msgstr ""
 "ohjelmistonhallintasovelluksella."
 
 #: tmp/tasksel.glade.h:6
-#, fuzzy
 msgid "_Add additional software repositories"
-msgstr "_Lisää täydentäviä ohjelmien asennuslähteitä"
+msgstr "_Lisää muita ohjelmistojen asennuslähteitä"
 
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 #: tmp/tasksel.glade.h:7
