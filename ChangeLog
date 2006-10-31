@@ -15,6 +15,10 @@
 	gethostbyname on a string containing a port number (#212622).
 	* loader2/urls.c (urlinstStartTransfer):  Likewise.
 
+	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Set
+	self.splitmethod if it's a split ISO method, as this seems to decrease
+	the number of retry errors.
+
 2006-10-30  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR): Add more fonts (#207428)

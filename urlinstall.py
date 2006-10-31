@@ -175,8 +175,10 @@ class UrlInstallMethod(InstallMethod):
             while discnum <= NUMBER_OF_CDS:
                 baseurls.append("%s%s" % (basepath ,discnum))
                 discnum += 1
+
             if len(baseurls) > 1:
                 self.baseUrl = baseurls
+                self.splitmethod = True
         except ValueError:
             # we didn't figure out the user's dir naming scheme
             pass
