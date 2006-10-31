@@ -1,3 +1,9 @@
+2006-10-31  Chris Lumens  <clumens@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Set
+	self.splitmethod if it's a split ISO method, as this seems to decrease
+	the number of retry errors.
+
 2006-10-31  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgrade_remove_blacklist): Remove i386 dmraid on 
