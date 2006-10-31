@@ -359,7 +359,7 @@ int getFileFromUrl(char * url, char * dest,
     getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
                    &host, &file, ret);
 
-    logMessage(INFO, "file location: %s://%s/%s", 
+    logMessage(INFO, "file location: %s://%s%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
 
     chptr = strchr(host, '/');
@@ -413,7 +413,7 @@ int getFileFromUrl(char * url, char * dest,
 	
     fd = urlinstStartTransfer(&ui, file, ehdrs);
     if (fd < 0) {
-        logMessage(ERROR, "failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
+        logMessage(ERROR, "failed to retrieve http://%s/%s%s", ui.address, ui.prefix, file);
         if (ehdrs) free(ehdrs);
         return 1;
     }

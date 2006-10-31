@@ -294,19 +294,21 @@ int getKickstartFromBlockDevice(char *device, char *path) {
 }
 
 void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
-    *host = malloc(strlen(ksSource) + 1);
-    strcpy(*host, ksSource);
+    char *tmp;
 
-    *file = strchr(*host, '/');
+    *host = strdup(ksSource);
+    tmp = strchr(*host, '/');
 
-    if (*file) {
-        **file = '\0';
-        *file = *file + 1;
-    } else {
+    if (tmp) {
+       *file = strdup(tmp);
+       *tmp = '\0';
+    }
+    else {
         *file = malloc(sizeof(char *));
         **file = '\0';
     }
 
+    logMessage(DEBUGLVL, "getHostandPath host: |%s|", *host);
     logMessage(DEBUGLVL, "getHostandPath file(1): |%s|", *file);
 
     /* if the filename ends with / or is null, use default kickstart

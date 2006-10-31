@@ -1,3 +1,9 @@
+2006-10-31  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/kickstart.c (getHostandPath):  The slash should be the first
+	character of file, not the last character of host.
+	* loader2/urlinstall.c:  Fewer slashes in URL output.
+
 2006-10-30  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR): Add more fonts (#207428)
