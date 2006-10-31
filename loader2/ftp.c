@@ -671,24 +671,10 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
     struct sockaddr_in6 destPort6;
     fd_set readSet;
 
-    /* XXX: this won't work correctly for IPv6 */
-/*
     realhost = hostname;
-    if (port < 0) {
-        char *colonptr = strchr(hostname, ':');
-        if (colonptr != NULL) {
-            int realhostlen = colonptr - hostname;
-            port = atoi(colonptr + 1);
-            realhost = alloca (realhostlen + 1);
-            memcpy (realhost, hostname, realhostlen);
-            realhost[realhostlen] = '\0';
-        } else {
-            port = 80;
-        }
-    } 
-*/
-    realhost = hostname;
-    port = 80;
+
+    if (port < 0)
+        port = 80;
 
     family = AF_INET;
     rc = getHostAddress(realhost, &addr, family);
