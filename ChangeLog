@@ -1,3 +1,10 @@
+2006-10-31  Dave Lehman  <dlehman@redhat.com>
+
+	* scripts/upd-instroot: add audit-libs to PACKAGES (#203391)
+
+	* scripts/upd-instroot: remove ineffectual /bin/echo symlink
+	* scripts/mk-images: symlink /bin/echo->/usr/bin/echo (#178781)
+
 2006-10-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

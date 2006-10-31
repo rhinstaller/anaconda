@@ -116,7 +116,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt ncurses readline
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
-	 rhpl pyxf86config libxml2 libxml2-python glib2
+	 rhpl pyxf86config libxml2 libxml2-python glib2 audit-libs
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl 
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
@@ -1016,7 +1016,6 @@ for p in $DEST $DESTGR; do
 	else
 	    ln -s ash $p/bin/sh
 	fi
-	ln -s /usr/bin/echo $p/bin/echo
 
 	[ -d $p/bin ] || die "ERROR: directory missing: $p/bin"
 	[ -d $p/sbin ] || die "ERROR: directory missing: $p/sbin"

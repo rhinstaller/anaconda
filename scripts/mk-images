@@ -470,6 +470,7 @@ EOF
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
+    ln -sf /usr/bin/echo $MBD_DIR/bin/echo
     (cd $MBD_DIR/sbin;
     	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
     	while [ -n "$1" ]; do
