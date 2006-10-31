@@ -4,6 +4,10 @@
 	character of file, not the last character of host.
 	* loader2/urlinstall.c:  Fewer slashes in URL output.
 
+	* loader2/net.c (splitHostname):  Add a function to split
+	hostname/port number pairs up that takes IPv6 numeric addresses into
+	account.
+
 2006-10-30  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR): Add more fonts (#207428)
