@@ -27,8 +27,6 @@
  */
 /* #define RAWHIDE_STUPID_OPTIONS 1 */
 
-#define _GNU_SOURCE
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>

@@ -7,6 +7,7 @@
 	* loader2/net.c (splitHostname):  Add a function to split
 	hostname/port number pairs up that takes IPv6 numeric addresses into
 	account.
+	* loader2/net.h:  Add prototype for splitHostname.
 
 2006-10-30  Jeremy Katz  <katzj@redhat.com>
 
