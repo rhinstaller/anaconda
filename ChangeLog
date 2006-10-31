@@ -11,6 +11,9 @@
 
 	* loader2/ftp.c (httpGetFileDesc):  If we're not passed a port, use
 	the default.
+	(getHostAddress):  Use splitHostname so we don't attempt to
+	gethostbyname on a string containing a port number (#212622).
+	* loader2/urls.c (urlinstStartTransfer):  Likewise.
 
 2006-10-30  Jeremy Katz  <katzj@redhat.com>
 
