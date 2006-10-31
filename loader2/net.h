@@ -4,6 +4,7 @@
 #include "loader.h"
 #include <ip_addr.h>
 #include <libdhcp.h>
+#include <newt.h>
 #include <pump.h>
 
 struct networkDeviceConfig {

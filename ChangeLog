@@ -7,7 +7,7 @@
 	* loader2/net.c (splitHostname):  Add a function to split
 	hostname/port number pairs up that takes IPv6 numeric addresses into
 	account.
-	* loader2/net.h:  Add prototype for splitHostname.
+	* loader2/net.h:  Add prototype for splitHostname.  Include newt.h.
 
 	* loader2/ftp.c (httpGetFileDesc):  If we're not passed a port, use
 	the default.
