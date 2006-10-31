@@ -55,7 +55,8 @@ if rhpl.getArch() == "x86_64":
                                       ("sane-backends", "i386"),
                                       ("openjade", "i386"),
                                       ("elfutils", "i386"),
-                                      ("tclx", "i386")
+                                      ("tclx", "i386"),
+                                      ("dmraid", "i386")
                                      ])
 
 if rhpl.getArch() == "ppc":
