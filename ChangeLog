@@ -7,6 +7,9 @@
 	set an active value on the peCombo, and don't traceback if the default
 	value is the first one in the list (#212317).
 
+	* autopart.py (doClearPartAction):  Don't try to clear drives that are
+	in the skippedList either.
+
 2006-10-31  Chris Lumens  <clumens@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Set
