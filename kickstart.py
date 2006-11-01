@@ -156,8 +156,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         hds = isys.hardDriveDict().keys()
         for disk in dict["drives"]:
             if disk not in hds:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Spec
-ified nonexistent disk %s in clearpart command" % disk)
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
 
         self.id.instClass.setClearParts(self.id, dict["type"], drives=dict["drives"],
                                         initAll=dict["initAll"])
