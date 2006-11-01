@@ -241,25 +241,23 @@ class VolumeGroupEditor:
     def createPEOptionMenu(self, default=4096):
         peCombo = datacombo.DataComboBox()
 
-	idx = 0
-	defindex = None
-	actualPE = lvm.getPossiblePhysicalExtents(floor=1024)
-	for curpe in actualPE:
-	    # dont show PE over 128M, unless it's the default
-	    if curpe > 131072 and curpe != default:
-		continue
-	    
+        actualPE = lvm.getPossiblePhysicalExtents(floor=1024)
+        for curpe in actualPE:
+            # don't show PE over 128M, unless it's the default
+            if curpe > 131072 and curpe != default:
+                continue
+
             val = self.prettyFormatPESize(curpe)
 
             peCombo.append(val, curpe)
 
-	    if default == curpe:
-		defindex = idx
-		
-	    idx = idx + 1
-
-	if defindex:
-            peCombo.set_active(defindex)
+        # First try to set the combo's active value to the default we're
+        # passed.  If that doesn't work, just set it to the first one to
+        # prevent TypeErrors everywhere.
+        try:
+            peCombo.set_active(actualPE.index(default))
+        except ValueError:
+            peCombo.set_active(0)
 
         peCombo.set_data("lastidx", peCombo.get_active())
         peCombo.connect("changed", self.peChangeCB)

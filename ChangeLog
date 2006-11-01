@@ -3,6 +3,10 @@
 	* kickstart.py (AnacondaKSHandlers.doClearPart):  Fix line wrapping
 	(#213425).
 
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.createPEOptionMenu):  Always
+	set an active value on the peCombo, and don't traceback if the default
+	value is the first one in the list (#212317).
+
 2006-10-31  Chris Lumens  <clumens@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Set
