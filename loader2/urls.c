@@ -154,11 +154,12 @@ char *convertUIToURL(struct iurlinfo *ui) {
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
                          char *extraHeaders) {
     char * buf;
-    int fd;
+    int fd, port;
     int family = -1;
     char * finalPrefix;
     struct in_addr addr;
     struct in6_addr addr6;
+    char *hostname, *portstr;
 
     if (!strcmp(ui->prefix, "/"))
         finalPrefix = "";
@@ -175,28 +176,34 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
                ui->address, buf);
 
-    if (inet_pton(AF_INET, ui->address, &addr) >= 1)
+    splitHostname(ui->address, &hostname, &portstr);
+    if (portstr == NULL)
+        port = -1;
+    else
+        port = atoi(portstr);
+
+    if (inet_pton(AF_INET, hostname, &addr) >= 1)
         family = AF_INET;
-    else if (inet_pton(AF_INET6, ui->address, &addr6) >= 1)
+    else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
         family = AF_INET6;
     else {
-        if (mygethostbyname(ui->address, &addr) == 0) {
+        if (mygethostbyname(hostname, &addr) == 0) {
             family = AF_INET;
 /*
-        } else if (mygethostbyname(ui->address, &addr6) == 0) {
+        } else if (mygethostbyname(hostname, &addr6) == 0) {
             family = AF_INET6;
 */
         } else {
             logMessage(ERROR, "cannot determine address family of %s",
-                       ui->address);
+                       hostname);
         }
     }
 
     if (ui->protocol == URL_METHOD_FTP) {
-        ui->ftpPort = ftpOpen(ui->address, family,
+        ui->ftpPort = ftpOpen(hostname, family,
                               ui->login ? ui->login : "anonymous", 
                               ui->password ? ui->password : "rhinstall@", 
-                              NULL, -1);
+                              NULL, port);
         if (ui->ftpPort < 0)
             return -2;
 
@@ -206,7 +213,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(ui->address, -1, buf, extraHeaders);
+        fd = httpGetFileDesc(hostname, port, buf, extraHeaders);
         if (fd < 0)
             return -1;
     }

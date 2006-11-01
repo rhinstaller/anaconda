@@ -1777,4 +1777,56 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     return 0;
 }
 
+static int strcount (char *str, int ch)
+{
+    int retval = 0;
+    char *tmp = str;
+
+    do {
+        if ((tmp = index(tmp, ch)) != NULL) {
+            tmp++;
+            retval++;
+        }
+    } while (tmp != NULL);
+
+    return retval;
+}
+
+void splitHostname (char *str, char **host, char **port)
+{
+    char *rightbrack = strchr(str, ']');
+
+    *host = NULL;
+    *port = NULL;
+
+    if (*str == '[' && rightbrack) {
+        /* An IPv6 address surrounded by brackets, optionally with a colon and
+         * port number.
+         */
+        char *colon = strrchr(rightbrack, ':');
+
+        if (colon) {
+            *host = strndup(str+1, rightbrack-1-str);
+            *port = strdup(colon+1);
+        }
+        else
+            *host = strndup(str+1, rightbrack-1-str);
+    } else if (strcount(str, ':') > 1) {
+        /* An IPv6 address without brackets.  Don't make the user surround the
+         * address with brackets if there's no port number.
+         */
+        *host = strdup(str);
+    } else {
+        /* An IPv4 address, optionally with a colon and port number. */
+        char *colon = strrchr(str, ':');
+
+        if (colon) {
+            *host = strndup(str, colon-str);
+            *port = strdup(colon+1);
+        }
+        else
+            *host = strdup(str);
+    }
+}
+
 /* vim:set shiftwidth=4 softtabstop=4: */

@@ -10,6 +10,17 @@
 	* autopart.py (doClearPartAction):  Don't try to clear drives that are
 	in the skippedList either.
 
+	* loader2/net.c (splitHostname):  Add a function to split
+	hostname/port number pairs up that takes IPv6 numeric addresses into
+	account.
+	* loader2/net.h:  Add prototype for splitHostname.  Include newt.h.
+
+	* loader2/ftp.c (httpGetFileDesc):  If we're not passed a port, use
+	the default.
+	(getHostAddress):  Use splitHostname so we don't attempt to
+	gethostbyname on a string containing a port number (#212622).
+	* loader2/urls.c (urlinstStartTransfer):  Likewise.
+
 2006-10-31  Chris Lumens  <clumens@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.__checkUrlForIsoMounts):  Set

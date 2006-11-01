@@ -69,6 +69,7 @@ extern int h_errno;
 
 #include "ftp.h"
 #include "log.h"
+#include "net.h"
 
 static int ftpCheckResponse(int sock, char ** str);
 static int ftpCommand(int sock, char * command, ...);
@@ -208,15 +209,19 @@ int ftpCommand(int sock, char * command, ...) {
 }
 
 static int getHostAddress(const char * host, void * address, int family) {
+    char *hostname, *port;
+
+    splitHostname((char *) host, &hostname, &port);
+
     if (family == AF_INET) {
         if (isdigit(host[0])) {
-            if (inet_pton(AF_INET, host, (struct in_addr *)address) >= 1) {
+            if (inet_pton(AF_INET, hostname, (struct in_addr *)address) >= 1) {
                 return 0;
             } else {
                 return FTPERR_BAD_HOST_ADDR;
             }
         } else {
-            if (mygethostbyname((char *) host, (struct in_addr *) address)) {
+            if (mygethostbyname(hostname, (struct in_addr *) address)) {
                 errno = h_errno;
                 return FTPERR_BAD_HOSTNAME;
             } else {
@@ -224,8 +229,8 @@ static int getHostAddress(const char * host, void * address, int family) {
             }
         }
     } else if (family == AF_INET6) {
-        if (strchr(host, ':')) {
-            if (inet_pton(AF_INET6, host, (struct in_addr6 *)address) >= 1) {
+        if (strchr(hostname, ':')) {
+            if (inet_pton(AF_INET6, hostname, (struct in_addr6 *)address) >= 1) {
                 return 0;
             } else
                 return FTPERR_BAD_HOST_ADDR;
@@ -660,7 +665,7 @@ static char *find_status_code (char *headers)
 int httpGetFileDesc(char * hostname, int port, char * remotename,
                     char *extraHeaders) {
     char * buf, *headers = NULL;
-    char *realhost, *status;
+    char *status;
     char *hstr;
     int family;
     struct in_addr addr;
@@ -671,30 +676,14 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
     struct sockaddr_in6 destPort6;
     fd_set readSet;
 
-    /* XXX: this won't work correctly for IPv6 */
-/*
-    realhost = hostname;
-    if (port < 0) {
-        char *colonptr = strchr(hostname, ':');
-        if (colonptr != NULL) {
-            int realhostlen = colonptr - hostname;
-            port = atoi(colonptr + 1);
-            realhost = alloca (realhostlen + 1);
-            memcpy (realhost, hostname, realhostlen);
-            realhost[realhostlen] = '\0';
-        } else {
-            port = 80;
-        }
-    } 
-*/
-    realhost = hostname;
-    port = 80;
+    if (port < 0)
+        port = 80;
 
     family = AF_INET;
-    rc = getHostAddress(realhost, &addr, family);
+    rc = getHostAddress(hostname, &addr, family);
     if (rc) {
         family = AF_INET6;
-        rc = getHostAddress(realhost, &addr6, family);
+        rc = getHostAddress(hostname, &addr6, family);
         if (rc)
             return rc;
     }
@@ -729,8 +718,8 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
     else
         hstr = "";
 
-    buf = alloca(strlen(remotename) + strlen(realhost) + strlen(hstr) + 25);
-    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, realhost, hstr);
+    buf = alloca(strlen(remotename) + strlen(hostname) + strlen(hstr) + 25);
+    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, hostname, hstr);
     rc = write(sock, buf, strlen(buf));
 
     rc = read_headers (&headers, &readSet, sock);

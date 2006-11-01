@@ -4,6 +4,7 @@
 #include "loader.h"
 #include <ip_addr.h>
 #include <libdhcp.h>
+#include <newt.h>
 #include <pump.h>
 
 struct networkDeviceConfig {
@@ -67,5 +68,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
 
 char *doDhcp(struct networkDeviceConfig *dev);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
+void splitHostname (char *str, char **host, char **port);
 
 #endif
