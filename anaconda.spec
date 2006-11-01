@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.10
+Version: 11.1.2.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov  1 2006 Peter Jones <pjones@redhat.com> - 11.1.2.11-1
+- Fix localhost6 line in /etc/hosts (dcantrell, #210050)
+- Add more fonts to the install image (katzj, #207428)
+- Remove i386 dmraid on multi-arch upgrades (katzj, #209011)
+- Improve split ISO URL installs (clumens)
+- Fix line wrapping in clearpart (clumens, #213425)
+- Always set an active value in the LVM PE size combo box (clumens, #212317)
+- Don't try to clear partitions on drives in the skippedList (clumens)
+- Don't try to resolve port numbers from urls as hostnames (clumens, #212622)
+
 * Fri Oct 27 2006 Peter Jones <pjones@redhat.com> - 11.1.2.10-1
 - Don't use keepalive sockets when they won't be reused (#212571)
 

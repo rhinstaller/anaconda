@@ -1,3 +1,7 @@
+2006-11-01  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec: Bump version.
+
 2006-11-01  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doClearPart):  Fix line wrapping
@@ -19,6 +23,7 @@
 	the default.
 	(getHostAddress):  Use splitHostname so we don't attempt to
 	gethostbyname on a string containing a port number (#212622).
+
 	* loader2/urls.c (urlinstStartTransfer):  Likewise.
 
 2006-10-31  Chris Lumens  <clumens@redhat.com>
