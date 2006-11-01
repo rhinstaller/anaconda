@@ -1081,7 +1081,8 @@ def doClearPartAction(anaconda, partitions, diskset):
 
     for drive in drives:
         # skip drives not in clear drive list
-        if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
+        if (cleardrives and len(cleardrives) > 0 and not drive in cleardrives) or \
+           drive in diskset.skippedDisks:
             continue
         disk = diskset.disks[drive]
         part = disk.next_partition()
@@ -1167,7 +1168,8 @@ def doClearPartAction(anaconda, partitions, diskset):
     # set the diskset up
     doPartitioning(diskset, partitions, doRefresh = 1)
     for drive in drives:
-        if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
+        if (cleardrives and len(cleardrives) > 0 and not drive in cleardrives) or \
+           drive in diskset.skippedDisks:
             continue
 
         disk = diskset.disks[drive]

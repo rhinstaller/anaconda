@@ -6,6 +6,11 @@
 	set an active value on the peCombo, and don't traceback if the default
 	value is the first one in the list (#212317).
 
+	* autopart.py (doClearPartAction):  Don't try to clear drives that are
+	in the skippedList either.
+
+	* yuminstall.py (YumBackend.mirrorFailureCB):  Fix typo.
+
 2006-10-01  Paul Nasrat <pnasrat@redhat.com>
 
 	* backend.py (AnacondaBackend.getDefaultGroups): Signature change to
