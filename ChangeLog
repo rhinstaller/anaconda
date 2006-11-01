@@ -2,6 +2,10 @@
 
 	* ui/anaconda.glade:  Center anaconda window again (#213350).
 
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.createPEOptionMenu):  Always
+	set an active value on the peCombo, and don't traceback if the default
+	value is the first one in the list (#212317).
+
 2006-10-01  Paul Nasrat <pnasrat@redhat.com>
 
 	* backend.py (AnacondaBackend.getDefaultGroups): Signature change to
