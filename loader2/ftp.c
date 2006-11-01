@@ -665,7 +665,7 @@ static char *find_status_code (char *headers)
 int httpGetFileDesc(char * hostname, int port, char * remotename,
                     char *extraHeaders) {
     char * buf, *headers = NULL;
-    char *realhost, *status;
+    char *status;
     char *hstr;
     int family;
     struct in_addr addr;
@@ -676,16 +676,14 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
     struct sockaddr_in6 destPort6;
     fd_set readSet;
 
-    realhost = hostname;
-
     if (port < 0)
         port = 80;
 
     family = AF_INET;
-    rc = getHostAddress(realhost, &addr, family);
+    rc = getHostAddress(hostname, &addr, family);
     if (rc) {
         family = AF_INET6;
-        rc = getHostAddress(realhost, &addr6, family);
+        rc = getHostAddress(hostname, &addr6, family);
         if (rc)
             return rc;
     }
@@ -720,8 +718,8 @@ int httpGetFileDesc(char * hostname, int port, char * remotename,
     else
         hstr = "";
 
-    buf = alloca(strlen(remotename) + strlen(realhost) + strlen(hstr) + 25);
-    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, realhost, hstr);
+    buf = alloca(strlen(remotename) + strlen(hostname) + strlen(hstr) + 25);
+    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, hostname, hstr);
     rc = write(sock, buf, strlen(buf));
 
     rc = read_headers (&headers, &readSet, sock);
