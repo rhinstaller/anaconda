@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.110
+Version: 11.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,51 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov  2 2006 Chris Lumens <clumens@redhat.com> - 11.2
+- Add name resolution support for IPv6 AAAA and ip6.arpa records (dcantrell).
+- Center anaconda window (#213350).
+- Make sure to set a default on the physical extent combo (#212317).
+- Fix updates on USB keys under kickstart installs.
+- Set language support on text installs (pnasrat, #212511).
+- Fix downloading kickstart files from nonstandard port numbers (#212622).
+- Add more fonts (katzj, #207428).
+- Fix localhost6 line (dcantrell, #211800, #210050).
+- Disable keepalive so we don't run out of file handles (#212571).
+- Display an error if we try to clear nonexistent hard drives (#212377).
+- Fix lang-table typo (#212304).
+- Fix file descriptor leak (katzj, #212191).
+- Fix ZFCP config, kickstart handling, and module probing (katzj, #210094).
+- Fix widget names on netconfig dialog (notting).
+- Always bring up the network if specified in kickstart (#191424).
+- Add Sinhala and Telugu (katzj, #207426, #207428).
+- Fix iutil traceback (pnasrat, #211830).
+- Continue if vname or vparm are NULL (dcantrell, #211502).
+- Add fonts-telugu (katzj, #207428).
+- Fix package installation progress bar size (katzj, #210531, #211526).
+- Fix installation with CTC networking (katzj, #210195).
+- Force swap formatting on ppc upgrades (pnasrat, #206523).
+- Forget partitioning changes when going back in the UI (#211255).
+- Don't specify a stdout or stderr for s390 shells (#210481).
+- Fix window dragging jerkiness (krh).
+- Add --noipv4 and --noipv6 (#208334).
+- Correct --onbiosdisk handling (#210705).
+- Set runlevel 3 by default on VNC installs (#211318).
+- Fix download failures/retries (pnasrat, katzj, #211117).
+- Don't use unicode line drawing characters on vt100-nav (katzj, #208374).
+- Fix /tmp/netinfo parsing (dcantrell, #207991).
+- Use virtualization instead of xen for the group name (katzj).
+- Write out iscsi config to kickststart (katzj).
+- Add qla2400 and qla2xxx to late sort module list (katzj, #210886).
+- Use a better regex for finding ISO loopback mount points (#205133).
+- Set up baseUrl correctly when given a list of URLs (#210877).
+- Network config screen fixes (dcantrell).
+- Tweak min/max swap numbers for low memory (#189490).
+- Only run auditDaemon if not in test or rootpath mode (pjones).
+- Fixes for supporting medium-less devices (Rez Kabir AT dell.com, #207331).
+- yum API fixes (pnasrat).
+- System language doesn't have to be in lang-table (#176538).
+- Fix UI traceback (#210190).
+
 * Mon Oct  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.110-1
 - Fix SELinux contexts for iscsi 
 - Fix traceback if addrepos isn't shown (#209997)
