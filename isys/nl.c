@@ -378,7 +378,7 @@ int netlink_init_interfaces_list(void) {
  *
  * @param ifname The interface name (e.g., eth0).
  * @return The human-readable IP address (either IPv4 or IPv6) or NULL on
- *            error/no match.
+ *         error/no match.
  */
 char *netlink_interfaces_ip2str(char *ifname) {
     char *ret = NULL;
