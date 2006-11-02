@@ -187,12 +187,10 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
         family = AF_INET6;
     else {
-        if (mygethostbyname(hostname, &addr) == 0) {
+        if (mygethostbyname(hostname, &addr, AF_INET) == 0) {
             family = AF_INET;
-/*
-        } else if (mygethostbyname(hostname, &addr6) == 0) {
+        } else if (mygethostbyname(hostname, &addr6, AF_INET6) == 0) {
             family = AF_INET6;
-*/
         } else {
             logMessage(ERROR, "cannot determine address family of %s",
                        hostname);
@@ -248,7 +246,9 @@ char * addrToIp(char * hostname) {
         return ret;
     else if (inet_ntop(AF_INET6, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
         return ret;
-    else if (mygethostbyname(hostname, &ad) == 0)
+    else if (mygethostbyname(hostname, &ad, AF_INET) == 0)
+        return hostname;
+    else if (mygethostbyname(hostname, &ad6, AF_INET6) == 0)
         return hostname;
     else
         return NULL;
@@ -377,10 +377,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     if (ui->prefix) free(ui->prefix);
 
     /* add a slash at the start of the dir if it is missing */
-    if (*dir != '/')
-        asprintf(&(ui->prefix), "/%s", dir);
-    else
+    if (*dir != '/') {
+        if (asprintf(&(ui->prefix), "/%s", dir) == -1)
+            ui->prefix = strdup(dir);
+    } else {
         ui->prefix = strdup(dir);
+    }
 
     /* Get rid of trailing /'s */
     chptr = ui->prefix + strlen(ui->prefix) - 1;

@@ -827,7 +827,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps,
                     int ipv4Choice, int ipv6Choice) {
-    int ifour, isix, rows, pos, primary, prefix, cidr;
+    int ifour, isix, rows, pos, primary, prefix, cidr, q;
     char *buf = NULL;
     char ret[48];
     ip_addr_t *tip;
@@ -944,9 +944,9 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         }
 
         if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
-            asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen);
+            q = asprintf(&buf, "%d", cfg->dev.ipv6_prefixlen);
         else if (newCfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
-            asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen);
+            q = asprintf(&buf, "%d", newCfg->dev.ipv6_prefixlen);
 
         if (buf) {
             newtEntrySet(ipcomps->cidr6Entry, buf, 1);
@@ -1421,7 +1421,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev) {
 
         tip = &(dev->dev.ip);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        name = mygethostbyaddr(ret);
+        name = mygethostbyaddr(ret, tip->sa_family);
 
         if (!FL_CMDLINE(flags))
             newtPopWindow();

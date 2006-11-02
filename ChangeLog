@@ -1,3 +1,29 @@
+2006-11-02  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/dns.c (doQuery): Expand to support IPv6 AAAA and ip6.arpa
+	records.
+	* isys/dns.c (mygethostbyaddr): Add family parameter, rewrite
+	in-addr.arpa construction, add ip6.arpa construction.
+	* isys/dns.c (mygethostbyname): Add family parameter, pass T_A or
+	T_AAAA depending on address family.
+	* isys/dns.c (main): Everyone likes test functions.
+	* isys/dns.h: Update prototypes.
+
+	* isys/nfsmount.c: Pass AF_INET to mygethostbyname() calls.
+
+	* loader2/ftp.c (getHostAddress): Pass AF_INET to mygethostbyname().
+	* loader2/ftp.c (ftpOpen, find_header): Check return value of asprintf.
+
+	* loader2/loader.c (parseCmdLineFlags): Check return value of asprintf.
+
+	* loader2/net.c (manualNetConfig): Catch asprintf() return values.
+	* loader2/net.c (findHostAndDomain): Pass address family to
+	mygethostbyaddr().
+
+	* loader2/urls.c (urlinstStartTransfer): Pass AF_INET to
+	mygethostbyname().
+	* loader2/urls.c (urlMainSetupPanel): Check return value of asprintf().
+
 2006-11-01  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
