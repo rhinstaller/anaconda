@@ -7,7 +7,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "dns.h"
+
 /* This is dumb, but glibc doesn't like to do hostname lookups w/o libc.so */
+
+/*
+ * IPv6 DNS extensions documented here:
+ * http://tools.ietf.org/html/rfc3596
+ */
 
 union dns_response{
     HEADER hdr;
@@ -15,7 +22,7 @@ union dns_response{
 };
 
 static int doQuery(char * query, int queryType,
-                   char ** domainName, struct in_addr * ipNum) {
+                   char ** domainName, void * ipNum, int family) {
     int len, ancount, type;
     u_char * data, * end;
     char name[MAXDNAME];
@@ -94,14 +101,22 @@ static int doQuery(char * query, int queryType,
                 return 0;
             }
         } else if (type == T_A) {
-            /* we got an address */
+            /* we have an IPv4 address */
             if (queryType == T_A && ipNum) {
-                /* we wanted an address */
-                memcpy(ipNum, data, sizeof(*ipNum));
-                if (response != &static_response) free(response);
+                memcpy(ipNum, data, sizeof(struct in_addr));
+                if (response != &static_response)
+					free(response);
                 return 0;
             }
-        }
+        } else if (type == T_AAAA) {
+			/* we have an IPv6 address */
+            if (queryType == T_AAAA && ipNum) {
+                memcpy(ipNum, data, sizeof(struct in6_addr));
+                if (response != &static_response)
+                    free(response);
+                return 0;
+            }
+		}
 
         /* move ahead to next RR */
         data += len;
@@ -111,58 +126,136 @@ static int doQuery(char * query, int queryType,
     return -1;
 }
 
-char * mygethostbyaddr(char * ipnum) {
-    int rc;
-    char * result;
-    char * strbuf;
-    char * chptr;
-    char * splits[4];
-    int i;
+char * mygethostbyaddr(char * ipnum, int family) {
+    int i, j, ret;
+    char *buf = NULL;
+    char sbuf[5];
+    char *result = NULL;
+    char *octets[4];
+    char *octet = NULL;
+    char *parts[8];
+    char *partptr = NULL;
+    struct in6_addr addr6;
 
     _res.retry = 1;
 
-    strbuf = alloca(strlen(ipnum) + 1);
-    strcpy(strbuf, ipnum);
+    if (ipnum == NULL || (family != AF_INET && family != AF_INET6))
+	return NULL;
 
-    ipnum = alloca(strlen(strbuf) + 20);
+    if (family == AF_INET) {
+        buf = strdup(ipnum);
+        octet = strtok(buf, ".");
 
-    for (i = 0; i < 4; i++) {
-        chptr = strbuf;
-        while (*chptr && *chptr != '.') chptr++;
-        *chptr = '\0';
+        i = 0;
+        while (octet != NULL) {
+            octets[i] = octet;
+            i++;
+            octet = strtok(NULL, ".");
+        }
 
-        if (chptr - strbuf > 3) return NULL;
-        splits[i] = strbuf;
-        strbuf = chptr + 1;
+        if (i == 4) {
+            if (asprintf(&ipnum, "%s.%s.%s.%s.in-addr.arpa", octets[3],
+                         octets[2], octets[1], octets[0]) == -1)
+                return NULL;
+        } else {
+            return NULL;
+        }
+
+        free(buf);
+        buf = NULL;
+    } else if (family == AF_INET6) {
+        if (!inet_pton(AF_INET6, ipnum, &addr6))
+            return NULL;
+
+        i = 7;
+        while (i >= 0) {
+            sprintf(sbuf, "%4x", ntohs(addr6.s6_addr16[i]));
+            sbuf[4] = '\0';
+
+            if ((parts[i] = malloc(8)) == NULL)
+                return NULL;
+
+            partptr = parts[i];
+
+            for (j = 3; j >= 0; j--) {
+                if (sbuf[j] == ' ')
+                    *partptr = '0';
+                else
+                    *partptr = sbuf[j];
+
+                partptr++;
+
+                if (j != 0) {
+                    *partptr = '.';
+                    partptr++;
+                }
+            }
+
+            i--;
+        }
+
+        if (asprintf(&ipnum, "%s.%s.%s.%s.%s.%s.%s.%s.ip6.arpa", parts[7],
+                     parts[6], parts[5], parts[4], parts[3], parts[2],
+                     parts[1], parts[0]) == -1)
+            return NULL;
+
+        for (j = 0; j < 8; j++) {
+            free(parts[j]);
+            parts[j] = NULL;
+        }
     }
 
-    sprintf(ipnum, "%s.%s.%s.%s.in-addr.arpa", splits[3], splits[2],
-            splits[1], splits[0]);
+    ret = doQuery(ipnum, T_PTR, &result, NULL, family);
+    if (ret)
+        ret = doQuery(ipnum, T_PTR, &result, NULL, family);
 
-    rc = doQuery(ipnum, T_PTR, &result, NULL);
-    if (rc)
-        rc = doQuery(ipnum, T_PTR, &result, NULL);
-
-    if (rc) 
+    if (ret) 
         return NULL;
     else
         return result;
 }
 
-int mygethostbyname(char * name, struct in_addr * addr) {
-    return doQuery(name, T_A, NULL, addr);
+int mygethostbyname(char * name, void * addr, int family) {
+    int type;
+
+    if (family == AF_INET)
+        type = T_A;
+    else if (family == AF_INET6)
+        type = T_AAAA;
+    else
+        type = -1;
+
+    return doQuery(name, type, NULL, addr, family);
 }
 
 #if 0
 int main(int argc, char **argv) {
-    struct in_addr address;
-    fprintf(stderr, "hostname for %s is %s\n", "152.1.2.22",
-            mygethostbyaddr("152.1.2.22"));
-    if (mygethostbyname("www.redhat.com", &address) == 0) {
-        fprintf(stderr, "ip for www.redhat.com is %d.%d.%d.%d\n",
-                (address.s_addr >>  0) & 0xff, (address.s_addr >>  8) & 0xff,
-                (address.s_addr >> 16) & 0xff, (address.s_addr >> 24) & 0xff);
+    struct in_addr addr;
+    struct in6_addr addr6;
+    char *ret = NULL;
+
+    /* IPv4 tests */
+    printf("hostname for %s is %s\n", "152.1.2.22",
+           mygethostbyaddr("152.1.2.22", AF_INET));
+    if (mygethostbyname("www.redhat.com", &addr, AF_INET) == 0) {
+        ret = malloc(48);
+        inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN);
+        printf("ip for www.redhat.com is %s\n", ret);
+        free(ret);
+        ret = NULL;
     }
+
+    /* IPv6 tests */
+    printf("hostname for %s is %s\n", "fec0:acdc:1::1",
+           mygethostbyaddr("fec0:acdc:1::1", AF_INET6));
+    if (mygethostbyname("cutlet.ipv6.install.boston.redhat.com", &addr6, AF_INET6) == 0) {
+        ret = malloc(48);
+        inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN);
+        printf("ip for cutlet.ipv6.install.boston.redhat.com is %s\n", ret);
+        free(ret);
+        ret = NULL;
+    }
+
     return 0;
 }
 #endif

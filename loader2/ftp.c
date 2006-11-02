@@ -221,7 +221,7 @@ static int getHostAddress(const char * host, void * address, int family) {
                 return FTPERR_BAD_HOST_ADDR;
             }
         } else {
-            if (mygethostbyname(hostname, (struct in_addr *) address)) {
+            if (mygethostbyname(hostname, (struct in_addr *)address, AF_INET)) {
                 errno = h_errno;
                 return FTPERR_BAD_HOSTNAME;
             } else {
@@ -273,8 +273,8 @@ int ftpOpen(char *host, int family, char *name, char *password,
     }
 
     if (proxy) {
-        asprintf(&buf, "%s@%s", name, host);
-        name = buf;
+        if (asprintf(&buf, "%s@%s", name, host) != -1)
+            name = buf;
         host = proxy;
     }
 
@@ -609,7 +609,8 @@ static char *find_header (char *headers, char *to_find)
 {
     char *start, *end, *searching_for, *retval;
 
-    asprintf (&searching_for, "\r\n%s:", to_find);
+    if (asprintf(&searching_for, "\r\n%s:", to_find) == -1)
+        return NULL;
 
     if ((start = strstr(headers, searching_for)) == NULL) {
         free(searching_for);    

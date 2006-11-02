@@ -747,10 +747,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     flags |= LOADER_FLAGS_GRAPHICAL;
 
                 if (!strncasecmp(argv[i], "vesa", 4)) {
-                    asprintf(&extraArgs[numExtraArgs], "--xdriver=vesa");
+                    if (asprintf(&extraArgs[numExtraArgs],
+                                 "--xdriver=vesa") == -1)
+                        return;
                     logMessage(WARNING, "\"vesa\" command line argument is deprecated.  Use \"xdriver=vesa\".");
                 } else {
-                    asprintf(&extraArgs[numExtraArgs], "--%s", argv[i]);
+                    if (asprintf(&extraArgs[numExtraArgs],"--%s",argv[i]) == -1)
+                        return;
                 }
                 numExtraArgs += 1;
 
