@@ -12,9 +12,9 @@
 	* isys/nfsmount.c: Pass AF_INET to mygethostbyname() calls.
 
 	* loader2/ftp.c (getHostAddress): Pass AF_INET to mygethostbyname().
-	* loader2/ftp.c (ftpOpen, find_header): Check return value of asprintf().
+	* loader2/ftp.c (ftpOpen, find_header): Check return value of asprintf.
 
-	* loader2/loader.c (parseCmdLineFlags): Check return value of asprintf().
+	* loader2/loader.c (parseCmdLineFlags): Check return value of asprintf.
 
 	* loader2/net.c (manualNetConfig): Catch asprintf() return values.
 	* loader2/net.c (findHostAndDomain): Pass address family to
