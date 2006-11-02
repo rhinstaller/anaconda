@@ -129,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 - Forget partitioning changes when going back in the UI (#211255).
 - Don't specify a stdout or stderr for s390 shells (#210481).
 - Fix window dragging jerkiness (krh).
-- Add --noipv4 and --noipv6 (#208334).
+- Add --noipv4 and --noipv6 (dcantrell, #208334).
 - Correct --onbiosdisk handling (#210705).
 - Set runlevel 3 by default on VNC installs (#211318).
 - Fix download failures/retries (pnasrat, katzj, #211117).
