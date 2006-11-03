@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.11
+Version: 11.1.2.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 03 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.2.12-1
+- Fix traceback on ftp loopback iso installs (#212014)
+- Enable IPv6 dns support in loader (dcantrell)
+
 * Wed Nov  1 2006 Peter Jones <pjones@redhat.com> - 11.1.2.11-1
 - Fix localhost6 line in /etc/hosts (dcantrell, #210050)
 - Add more fonts to the install image (katzj, #207428)
