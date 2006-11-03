@@ -140,7 +140,7 @@ char * mygethostbyaddr(char * ipnum, int family) {
     _res.retry = 1;
 
     if (ipnum == NULL || (family != AF_INET && family != AF_INET6))
-	return NULL;
+        return NULL;
 
     if (family == AF_INET) {
         buf = strdup(ipnum);
