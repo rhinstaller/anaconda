@@ -171,8 +171,9 @@ class simpleCallback:
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
                   repoid='anaconda%s' % productStamp,
-                  root = "/mnt/sysimage/"):
+                  root = "/mnt/sysimage/", method=None):
         YumRepository.__init__(self, repoid)
+        self.method = method
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
             if v or not self.getAttribute(k):
@@ -293,8 +294,17 @@ class AnacondaYumRepo(YumRepository):
         local =  package.localHdr()
         start = package.returnSimple('hdrstart')
         end = package.returnSimple('hdrend')
+        url = None
+        if self.method and self.method.splitmethod:
+            from urlinstall import UrlInstallMethod
+            if isinstance(self.method, UrlInstallMethod):
+                if self.urls:
+                    repourl = self.urls[0]
+                    baseurl = self.method.pkgUrl
+                    discurl = self.method.getMethodUri()
+                    url = repourl.replace(baseurl, discurl)
 
-        return self.__get(relative=remote, local=local, start=start,
+        return self.__get(url=url, relative=remote, local=local, start=start,
                         reget=None, end=end, checkfunc=checkfunc, copy_local=1,
                         cache=cache,
                         )
@@ -302,8 +312,18 @@ class AnacondaYumRepo(YumRepository):
     def getPackage(self, package, checkfunc = None, text = None, cache = True):
         remote = package.returnSimple('relativepath')
         local = package.localPkg()
+        url = None
+        if self.method and self.method.splitmethod:
+            from urlinstall import UrlInstallMethod
+            if isinstance(self.method, UrlInstallMethod):
+                if self.urls:
+                    repourl = self.urls[0]
+                    baseurl = self.method.pkgUrl
+                    discurl = self.method.getMethodUri()
+                    url = repourl.replace(baseurl, discurl)
 
-        return self.__get(relative=remote,
+        return self.__get(url=url,
+                          relative=remote,
                           local=local,
                           checkfunc=checkfunc,
                           text=text,
@@ -480,7 +500,7 @@ class AnacondaYum(YumSorter):
             repo = AnacondaYumRepo(uri,
                                    repoid="anaconda-%s-%s" %(name,
                                                              productStamp),
-                                   root = root)
+                                   root = root, method=self.method)
             repo.enable()
             self.repos.add(repo)
 
