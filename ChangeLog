@@ -1,3 +1,11 @@
+2006-11-03  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* anaconda:  Add badEDID function to check the X log to see if we were
+	lied to about the monitor, probably because there's a KVM involved.
+	If so, fall back to text mode.
+
 2006-11-03  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version

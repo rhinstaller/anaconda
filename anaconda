@@ -27,7 +27,7 @@
 
 # This toplevel file is a little messy at the moment...
 
-import sys, os
+import sys, os, re
 from optparse import OptionParser
 
 # keep up with process ID of miniwm if we start it
@@ -495,6 +495,23 @@ def setupGraphicalLinks():
         except:
 	    pass
 
+def badEDID(logfile):
+    retval = False
+    f = open(logfile, "r")
+    pattern = re.compile("^.*Monitor name: .*KVM.*$")
+
+    while True:
+        line = f.readline()
+        if line == "":
+            break
+
+        if pattern.match(line):
+            retval = True
+            break
+
+    f.close()
+    return retval
+
 class Anaconda:
     def __init__(self):
         self.intf = None
@@ -623,6 +640,8 @@ if __name__ == "__main__":
     vncpassword = ""
     vncconnecthost = ""
     vncconnectport = ""
+    xserver_pid = None
+    got_bad_edid = False
 
     (opts, args) = parseOptions()
 
@@ -845,12 +864,21 @@ if __name__ == "__main__":
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
             xserver.serverflags.extend(["-screen", "Anaconda"])
-            xserver.startX(xStartedCB=doStartupX11Actions)
+            xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
             graphical_failed = 1
             time.sleep(2)
+
+        # If we got bad EDID information from the X server, that means X was
+        # unable to probe the monitor correctly.  This can happen with lots of
+        # crappy KVMs.  For now, switch to text mode and display an error message
+        # so the user knows to run s-c-display after installation.
+        if xserver_pid is not None and badEDID(xserver.logfile):
+            os.kill(xserver_pid, signal.SIGTERM)
+            got_bad_edid = True
+            opts.display_mode = 't'
 
     if opts.display_mode == 't' and graphical_failed and not opts.ksfile:
         ret = vnc.askVncWindow()
@@ -865,6 +893,13 @@ if __name__ == "__main__":
         runVNC(vncpassword, vncconnecthost, vncconnectport, doStartupX11Actions)
 
     anaconda.setInstallInterface(opts.display_mode)
+
+    if got_bad_edid:
+        msg = "anaconda was unable to detect your monitor, possibly due to the presence of a KVM.  The installation will proceed in text mode.  Please run system-config-display after installation to configure your monitor."
+        if opts.ksfile:
+            log.warning(msg)
+        else:
+            anaconda.intf.messageWindow("Unknown monitor", msg)
 
     # imports after setting up the path
     if anaconda.methodstr:

@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.12
+Version: 11.1.2.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 03 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.13-1
+- Install in text mode if a KVM confused X autodetection.
+
 * Fri Nov 03 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.2.12-1
 - Fix traceback on ftp loopback iso installs (#212014)
 - Enable IPv6 dns support in loader (dcantrell)
