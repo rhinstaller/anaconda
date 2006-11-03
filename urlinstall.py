@@ -146,6 +146,10 @@ class UrlInstallMethod(InstallMethod):
     def getMethodUri(self):
         return self.baseUrl
 
+    def switchMedia(self, mediano, filename=""):
+        if self.splitmethod:
+            self.baseUrl = self.baseUrls[mediano - 1]
+
     def __checkUrlForIsoMounts(self):
         # account for multiple mounted ISOs on loopback...bleh
         # assumes ISOs are mounted as AAAAN where AAAA is some alpha text
@@ -177,7 +181,7 @@ class UrlInstallMethod(InstallMethod):
                 discnum += 1
 
             if len(baseurls) > 1:
-                self.baseUrl = baseurls
+                self.baseUrls = tuple(baseurls)
                 self.splitmethod = True
         except ValueError:
             # we didn't figure out the user's dir naming scheme

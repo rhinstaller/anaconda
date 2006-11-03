@@ -1,3 +1,10 @@
+2006-11-03  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py: Use disc url and split media style install for
+	ftp/http loopback mount setups (#212014)
+	* urlinstall.py: Use switchMedia to change baseUrls for ftp/http
+	loopback mount installs
+
 2006-11-02  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/dns.c (doQuery): Expand to support IPv6 AAAA and ip6.arpa
