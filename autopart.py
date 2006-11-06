@@ -1398,13 +1398,15 @@ def doAutoPartition(anaconda):
                                 len(partitions.autoClearPartDrives) == 0):
                                 valid = 1
                             else:
-                                for d in r.drive:
-                                    if d in partitions.autoClearPartDrives:
-                                        valid = 1
-                                        break
+                                if not isinstance(r, partRequests.RaidRequestSpec):
+                                    for d in r.drive:
+                                        if d in partitions.autoClearPartDrives:
+                                            valid = 1
+                                            break
 
-                            if not r.multidrive:
-                                valid = 0
+                            if not isinstance(r, partRequests.RaidRequestSpec):
+                                if not r.multidrive:
+                                    valid = 0
 
                             if valid:
                                 req.physicalVolumes.append(r.uniqueID)
