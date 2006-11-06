@@ -1166,7 +1166,11 @@ def doClearPartAction(anaconda, partitions, diskset):
             part = disk.next_partition(part)
 
     # set the diskset up
-    doPartitioning(diskset, partitions, doRefresh = 1)
+    try:
+        doPartitioning(diskset, partitions, doRefresh = 1)
+    except PartitioningError: # if we get an error here, it isn't overly relevant
+        pass
+
     for drive in drives:
         if (cleardrives and len(cleardrives) > 0 and not drive in cleardrives) or \
            drive in diskset.skippedDisks:
