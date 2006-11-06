@@ -14,6 +14,8 @@
  */
 
 /* Function prototypes */
+char *str2case(char *str, char lower, char upper, int shift);
 char *str2upper(char *str);
+char *str2lower(char *str);
 
 /* vim:set shiftwidth=4 softtabstop=4: */

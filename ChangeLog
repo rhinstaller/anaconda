@@ -1,3 +1,8 @@
+2006-11-06  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/str.c: Added str2case() to handle str2upper() and str2lower().
+	* isys/str.h: Prototype changes.
+
 2006-11-06  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/netconfig_dialog.py (NetworkConfigurator._ok): Use
