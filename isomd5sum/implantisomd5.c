@@ -53,7 +53,8 @@ int main(int argc, char **argv) {
 
     rc = implantISOFile((char *)args[0], supported, forceit, 0, &errstr);
     if (rc) {
-	fprintf(stderr, "ERROR: %s\n", errstr);
+        fprintf(stderr, "ERROR: ");
+        fprintf(stderr, errstr, (char *)args[0]);
 	exit(1);
     } else {
 	exit(0);
