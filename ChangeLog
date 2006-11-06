@@ -1,3 +1,8 @@
+2006-11-06  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.getBestKernelByArch): Remove hacky
+	'linux xen0' bits; you can select the virt group sanely now
+
 2006-11-03  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Add badEDID function to check the X log to see if we were
