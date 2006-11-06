@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.13
+Version: 11.1.2.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov  4 2006 Peter Jones <pjones@redhat.com> - 11.1.2.14-1
+- Avoid traceback with PReP partitions on disks that aren't currently
+  in use (clumens, #211098)
+- Fix traceback when all space is in use (ddearau AT us.ibm.com, #213616)
+- Fix text mode traceback (katzj, #213869)
+- Use better API for network configuration dialog (katzj, #213356)
+
 * Fri Nov 03 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.13-1
 - Install in text mode if a KVM confused X autodetection.
 
