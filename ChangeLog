@@ -10,6 +10,8 @@
 
 	* autopart.py (doClearPartAction):  Avoid a traceback when we see PReP
 	partitions on disks that aren't being used (#211098).
+	(doAutoPartition):  Fix traceback when all space is in use (ddearauj
+	AT us.ibm.com, #213616).
 
 2006-11-03  Chris Lumens  <clumens@redhat.com>
 
