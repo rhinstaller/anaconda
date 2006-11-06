@@ -1,5 +1,8 @@
 2006-11-06  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/upgrade_text.py (UpgradeExamineWindow.__call__): Fix text
+	mdoe traceback (#213869)
+
 	* iw/netconfig_dialog.py (NetworkConfigurator._ok): Use
 	gui.MessageWindow instead as it has the API we want (#213356)
 
