@@ -1,3 +1,8 @@
+2006-11-06  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/netconfig_dialog.py (NetworkConfigurator._ok): Use
+	gui.MessageWindow instead as it has the API we want (#213356)
+
 2006-11-06  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doClearPartAction):  Avoid a traceback when we see PReP
