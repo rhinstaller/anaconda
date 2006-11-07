@@ -92,6 +92,7 @@
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 #include "../isys/eddsupport.h"
+#include "../isys/str.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128
@@ -545,6 +546,26 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
   }
 }
 
+/*
+ * parse anaconda ipv6= arguments
+ */
+static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
+{
+    /* right now we only accept ipv6= arguments equal to:
+     *     dhcp     DHCPv6 call
+     *     auto     RFC 2461 neighbor discovery
+     */
+    if (!strncmp(str2lower(argv), "dhcp", 4)) {
+        loaderData->ipv6 = strdup("dhcp");
+        loaderData->ipv6info_set = 1;
+    } else if (!strncmp(str2lower(argv), "auto", 4)) {
+        loaderData->ipv6 = strdup("auto");
+        loaderData->ipv6info_set = 1;
+    }
+
+    return;
+}
+
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
@@ -691,12 +712,12 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         }
-        else if (!strncasecmp(argv[i], "method=", 7)) {
+        else if (!strncasecmp(argv[i], "method=", 7))
             setMethodFromCmdline(argv[i] + 7, loaderData);
-        }
-        else if (!strncasecmp(argv[i], "ip=", 3)) {
+        else if (!strncasecmp(argv[i], "ip=", 3))
             parseCmdLineIp(loaderData, argv[i]);
-        }
+        else if (!strncasecmp(argv[i], "ipv6=", 5))
+            parseCmdLineIpv6(loaderData, argv[i]);
         else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "gateway=", 8))
