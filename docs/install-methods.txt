@@ -1,4 +1,4 @@
-04-01-2003
+11-07-2006
 ----------
 
 Contents
@@ -19,7 +19,11 @@ Notes:
 
  - "ISO" - the ISO image for a CD image.
 
- - "anaconda update" - patches for anaconda to fix bugs/etc
+ - "anaconda updates" - patches for anaconda to fix bugs/etc.
+
+ - "anaconda updates=[http://url|ftp://url]" - patches for anaconda to fix
+   bugs/etc. that can be downloaded from the specified remote location.
+   The image is the same format as an updates.img as specified below.
 
  - all paths without a leading '/' are relative to directory specified
    to installer containing install source.
@@ -30,16 +34,17 @@ Notes:
 Current Installation Methods:
 -----------------------------
 
-- CDROM
--------
+- CDROM / DVD
+-------------
 
   Summary:
-      This is pretty self-explanatory.  Mounts the CD and installs packages,
-      prompts user to switch CDs when the next disc is required.
+      This is pretty self-explanatory.  Mounts the disc and installs packages,
+      prompts user to switch discs when the next disc is required.
 
   Update Options: 
-      - floppy.
-      - 'updates.img' file in '/RedHat/base' directory of CD #1 image.
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory of disc #1 image.
+      - remote updates.img downloaded via FTP or HTTP.
 
 - NFS (from a fully exploded tree)
 ----------------------------------
@@ -48,10 +53,11 @@ Current Installation Methods:
       Mounts directory from NFS server.
 
   Update Options:
-      - floppy.
-      - 'updates.img' file in 'RedHat/base' directory.
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory.
       - updated python sources or modules in 'RHupdates/' directory are 
         used in preference to those in original.
+      - remote updates.img downloaded via FTP or HTTP.
 
 - NFS (from a directory of ISOs)
 --------------------------------
@@ -60,49 +66,54 @@ Current Installation Methods:
       Loopback mounts ISO images from NFS server.
 
   Update Options:
-      - floppy
-      - 'updates.img' file in 'RedHat/base' directory 
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory.
+      - remote updates.img downloaded via FTP or HTTP.
 
 - FTP/HTTP (from a fully exploded tree)
 ---------------------------------------
 
   Summary:
-      Pulls files from tree via FTP.
+      Pulls files from tree via FTP or HTTP.
 
   Update Options:
-      - floppy.
-      - 'updates.img' file in 'RedHat/base' directory.
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory.
+      - remote updates.img downloaded via FTP or HTTP.
 
 - FTP/HTTP (from a directory of loopback-mounted ISOs)
 ------------------------------------------------------
 
   Summary:
-      Pulls files from tree via FTP.  Looks in 'disc1/' directory to contain
-      files from CD #1, 'disc2/' for CD #2, etc.  These can be created on the
-      server by loopback mounting the ISO images into these directories under
-      the directory made available to ftp.
+      Pulls files from tree via FTP or HTTP.  Looks in 'disc1/' directory
+      to contain files from disc #1, 'disc2/' for disc #2, etc.  These can be
+      created on the server by loopback mounting the ISO images into these
+      directories under the directory made available to ftp.
 
   Update Options:
-      - floppy
-      - 'updates.img' file in '/RedHat/base' directory in ISO image for CD #1.
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory in ISO image for disc #1.
+      - remote updates.img downloaded via FTP or HTTP.
 
 Hard Drive from ISOs
 --------------------
 
   Summary:
       Similar to NFS ISO-based method - loopback mounts ISOs in directory
-      specified by user.
+      specified by user.  The ISOs must be on an ext2 or vfat partition,
+      not a logical volume.
 
   Update Options:
-      - floppy.
-      - 'updates.img' file in '/RedHat/base' directory of ISO image for CD #1.
+      - floppy or USB key drive.
+      - 'updates.img' file in 'images/' directory of ISO image for CD #1.
+      - remote updates.img downloaded via FTP or HTTP.
   
 
 2)Extra Notes:
 --------------
 
-   By default NFS, harddrive, and CDROM-based installs are graphical, unless
-the 'text' option is passed on the boot command line.
+   By default NFS, harddrive, and CDROM/DVD-based installs are graphical,
+unless the 'text' option is passed on the boot command line.
 
    FTP and HTTP are text-based, unless 'graphical' is passed on the command
 line.  For a graphical FTP or HTTP install to occur, one of the following
