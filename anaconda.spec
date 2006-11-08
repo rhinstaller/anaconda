@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.14
+Version: 11.1.2.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Nov  4 2006 Peter Jones <pjones@redhat.com> - 11.1.2.14-1
+* Wed Nov  8 2006 Peter Jones <pjones@redhat.com> - 11.1.2.15-1
+- Fix segfault when there's no EDD, as on ppc (#214653)
+- Always skip networking screen on kickstart installs (clumens, #214584)
+- Update install method docs (clumens, #214159)
+
+* Mon Nov  6 2006 Peter Jones <pjones@redhat.com> - 11.1.2.14-1
 - Avoid traceback with PReP partitions on disks that aren't currently
   in use (clumens, #211098)
 - Fix traceback when all space is in use (ddearau AT us.ibm.com, #213616)
