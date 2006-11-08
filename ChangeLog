@@ -1,3 +1,8 @@
+2006-11-08  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Kickstart.setSteps):  Always skip the networking step
+	on kickstart installs (#214584).
+
 2006-11-07  Chris Lumens  <clumens@redhat.com>
 
 	* docs/install-methods.txt:  Updated (#214159).
