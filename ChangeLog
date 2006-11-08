@@ -1,3 +1,8 @@
+2006-11-08  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/splittree.py: Don't fail with non-rpms in the 
+	directory; don't link rpms multiple times (jkeating)
+
 2006-11-08  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Kickstart.setSteps):  Always skip the networking step
