@@ -440,6 +440,8 @@ def getopt(*args):
     return apply(_isys.getopt, args)
 
 def doProbeBiosDisks():
+    if rhpl.getArch() != "i386":
+        return None
     return _isys.biosDiskProbe()
 
 def doGetBiosDisk(mbrSig):
