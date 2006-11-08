@@ -443,6 +443,8 @@ def doProbeBiosDisks():
     return _isys.biosDiskProbe()
 
 def doGetBiosDisk(mbrSig):
+    if rhpl.getArch() != "i386":
+        return None
     return _isys.getbiosdisk(mbrSig)
 
 handleSegv = _isys.handleSegv

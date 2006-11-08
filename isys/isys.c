@@ -1315,9 +1315,11 @@ static PyObject * doGetBiosDisk(PyObject * s, PyObject * args) {
             
     if (!PyArg_ParseTuple(args, "s", &mbr_sig)) return NULL;
 
-    diskname = getBiosDisk(mbr_sig);
-    return Py_BuildValue("s", diskname);
+    if ((diskname = getBiosDisk(mbr_sig)))
+        return Py_BuildValue("s", diskname);
 
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
