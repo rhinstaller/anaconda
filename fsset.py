@@ -92,17 +92,6 @@ def getUsableLinuxFs():
         rc.insert(0, defaultName)
     return rc
 
-def mountCompare(a, b):
-    one = a.mountpoint
-    two = b.mountpoint
-    adev = a.device.getDevice()
-    bdev = b.device.getDevice()
-    if one < two or one == bdev:
-        return -1
-    elif two > one or two == adev:
-        return 1
-    return 0
-
 def devify(device):
     if device == "proc" or device == "devpts":
         return device
@@ -1101,20 +1090,50 @@ class FileSystemSet:
             if type(entry.__dict__) != type({}):
                 raise RuntimeError, "fsset internals inconsistent"
 
-    def add (self, entry):
-        # remove any existing duplicate entries
+    def add (self, newEntry):
+        # Should object A be sorted after object B?  Take mountpoints and
+        # device names into account so bind mounts are sorted correctly.
+        def comesAfter (a, b):
+            mntA = a.mountpoint
+            mntB = b.mountpoint
+            devA = a.device.getDevice()
+            devB = b.device.getDevice()
+
+            if not mntB or not devB:
+                return True
+            if not mntA or not devA:
+                return False
+
+            if (mntA.startswith(mntB) and mntA != mntB) or (devA.startswith(mntB) and devA != devB):
+                return True
+            else:
+                return False
+
+        # remove preexisting duplicate entries
         for existing in self.entries:
-            if (existing.device.getDevice() == entry.device.getDevice()
-                and existing.mountpoint == entry.mountpoint):
+            if (existing.device.getDevice() == newEntry.device.getDevice()
+                and existing.mountpoint == newEntry.mountpoint):
                 self.remove(existing)
+
         # XXX debuggin'
 ##         log.info ("fsset at %s\n"
 ##                   "adding entry for %s\n"
 ##                   "entry object %s, class __dict__ is %s",
 ##                   self, entry.mountpoint, entry,
 ##                   isys.printObject(entry.__dict__))
-        self.entries.append(entry)
-        self.entries.sort (mountCompare)
+
+        insertAt = 0
+
+        # doesn't matter where these get added, so just put them at the end
+        if not newEntry.mountpoint or not newEntry.mountpoint.startswith("/") or self.entries == []:
+            self.entries.append(newEntry)
+            return
+
+        for entry in self.entries:
+            if comesAfter(newEntry, entry):
+                insertAt = self.entries.index(entry)+1
+
+        self.entries.insert(insertAt, newEntry)
 
     def remove (self, entry):
         self.entries.remove(entry)

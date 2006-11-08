@@ -6,6 +6,10 @@
 
 2006-11-08  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (FileSystemSet.add):  Add entries in sorted order.  Make
+	sure the sort order takes into account bind mount points and the
+	"devices" being mounted in that case (#212270).
+
 	* kickstart.py (Kickstart.setSteps):  Always skip the networking step
 	on kickstart installs (#214584).
 
