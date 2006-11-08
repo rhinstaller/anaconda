@@ -304,8 +304,6 @@ class AnacondaKSHandlers(KickstartHandlers):
         if nd.gateway != "":
             self.id.instClass.setGateway(self.id, nd.gateway)
 
-        self.skipSteps.append("network")
-
     def doMultiPath(self, args):
         KickstartHandlers.doMultiPath(self, args)
 
@@ -858,6 +856,7 @@ class Kickstart(cobject):
         dispatch.skipStep("regkey")
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
+        dispatch.skipStep("network")
 
         # Don't show confirmation screens on non-interactive installs.
         if not self.ksdata.interactive:

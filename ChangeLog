@@ -1,3 +1,8 @@
+2006-11-08  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Kickstart.setSteps):  Always skip the networking step
+	on kickstart installs (#214584).
+
 2006-11-07  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (parseCmdLineIpv6): Added function to parse a new
