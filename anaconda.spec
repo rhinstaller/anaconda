@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.15
+Version: 11.1.2.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 09 2006 Paul Nasrat <pnasrat@redhat.com> -11.1.2.16-1
+- Fix traceback due to incorrect no discs (#214787)
+
 * Wed Nov  8 2006 Peter Jones <pjones@redhat.com> - 11.1.2.15-1
 - Fix segfault when there's no EDD, as on ppc (#214653)
 - Always skip networking screen on kickstart installs (clumens, #214584)
