@@ -1,3 +1,9 @@
+2006-11-10  Chris Lumens  <clumens@redhat.com>
+
+	* dispatch.py (installSteps):  Reverse order of postaction and
+	methodcomplete so source is unmounted on image installs before
+	kickstart %post scripts are run (#214677).
+
 2006-11-09  Jeremy Katz  <katzj@redhat.com>
 
 	* instdata.py (InstallData.write): 0600 for install-num file (#214853)
