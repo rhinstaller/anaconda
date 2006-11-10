@@ -3,6 +3,10 @@
 	* bootloader.py (bootloaderSetupChoices):  If the kickstart file
 	specified a drive order, pass that to booty (#214881).
 
+	* dispatch.py (installSteps):  Reverse order of postaction and
+	methodcomplete so source is unmounted on image installs before
+	kickstart %post scripts are run (#214677).
+
 2006-11-08  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c (doGetBiosDisk): Check return value of getBiosDisk and
