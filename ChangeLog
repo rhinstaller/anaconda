@@ -1,3 +1,13 @@
+2006-11-10  Dave Lehman  <dlehman@redhat.com>
+
+	improve handling of local (cdrom) stage2 with URL installs (#189262)
+	* loader2/urlinstall.c:
+	grab product.img from the URL instead of hdlist and verify that its 
+	stamp matches the initrd's
+	* urlinstall.py:
+	add systemMounted, systemUnmounted, filesDone methods to handle the 
+	stage2 image so the cdrom can be ejected at the end of installation
+
 2006-10-31  Dave Lehman  <dlehman@redhat.com>
 
 	* scripts/upd-instroot: add audit-libs to PACKAGES (#203391)

@@ -15,6 +15,8 @@
 
 from hdrlist import groupSetFromCompsFile, HeaderList
 from installmethod import InstallMethod, FileCopyException
+import iutil
+import isys
 import os
 import rpm
 import time
@@ -92,6 +94,53 @@ class UrlInstallMethod(InstallMethod):
 	    fname = '%s/%s/base/comps.xml' % (self.baseUrl, productPath)
 	    log("Comps not in update dirs, using %s",fname)
         return groupSetFromCompsFile(fname, hdlist)
+
+    def filesDone(self):
+        if self.tree is None:
+            return
+
+        try:
+            isys.umount("/mnt/source")
+        except Exception, e:
+            log("failed to umount /mnt/source in filesDone")
+
+        if self.loopbackFile:
+            try:
+                os.unlink(self.loopbackFile)
+            except:
+                pass
+
+    def systemUnmounted(self):
+        if self.loopbackFile:
+            isys.makeDevInode("loop0", "/tmp/loop")
+            isys.lochangefd("/tmp/loop", 
+                            "%s/%s/base/stage2.img" % (self.tree, productPath))
+            self.loopbackFile = None
+
+    def systemMounted(self, fsset, chroot):
+        if self.tree is None:
+            return
+
+        self.loopbackFile = "%s%s%s" % (chroot,
+                                        fsset.filesystemSpace(chroot)[0][0],
+                                        "/rhinstall-stage2.img")
+
+        try:
+            iutil.copyFile("%s/%s/base/stage2.img" % (self.tree, productPath), 
+                           self.loopbackFile,
+                           (self.progressWindow, _("Copying File"),
+                            _("Transferring install image to hard drive...")))
+        except Exception, e:
+            log("error transferring stage2.img: %s" %(e,))
+            self.messageWindow(_("Error"),
+                        _("An error occurred transferring the install image "
+                        "to your hard drive. You are probably out of disk "
+                        "space."))
+            os.unlink(self.loopbackFile)
+            return 1
+
+        isys.makeDevInode("loop0", "/tmp/loop")
+        isys.lochangefd("/tmp/loop", self.loopbackFile)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1,
                     disc = 1):
@@ -221,6 +270,8 @@ class UrlInstallMethod(InstallMethod):
 
     def setIntf(self, intf):
 	self.intf = intf
+        self.messageWindow = intf.messageWindow
+        self.progressWindow = intf.progressWindow
 
     def __init__(self, url, rootPath):
 	InstallMethod.__init__(self, rootPath)
@@ -260,4 +311,15 @@ class UrlInstallMethod(InstallMethod):
 	    self.pkgUrl = self.baseUrl
 
 	self.intf = None
+
+        self.messageWindow = None
+        self.progressWindow = None
+        self.loopbackFile = None
+        self.tree = "/mnt/source"
+        for path in ("/tmp/ramfs/stage2.img", "/tmp/ramfs/netstg2.img"):
+            if os.access(path, os.R_OK):
+                # we used a remote stage2. no need to worry about ejecting CDs
+                self.tree = None
+                break
+
 	

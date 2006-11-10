@@ -270,23 +270,30 @@ char * mountUrlImage(struct installMethod * method,
 	    /* before trying to pull one over network         */
 	    cdurl = findRedHatCD(location, modInfo, modLoaded, 
 				 *modDeps, flags, 0);
-	    if (cdurl && 
-                (loadSingleUrlImage(&ui, "base/hdlist", flags, NULL, 
-                                    NULL, NULL, 0) == 0)) {
-		logMessage("Detected stage 2 image on CD");
-		winStatus(50, 3, _("Media Detected"), 
-			  _("Local installation media detected..."), 0);
-		sleep(3);
-		newtPopWindow();
+	    if (cdurl) {
+                if (!loadSingleUrlImage(&ui, "base/product.img", flags,
+                                        "/tmp/ramfs/product-disk.img", 
+                                        "/tmp/product-disk",
+                                        "loop7", 1) &&
+                    verifyStamp("/tmp/product-disk")) {
+                    logMessage("Detected stage 2 image on CD");
+                    winStatus(50, 3, _("Media Detected"), 
+                              _("Local installation media detected..."), 0);
+                    sleep(3);
+                    newtPopWindow();
 
-                stage = URL_STAGE_DONE;
-                dir = 1;
-            } else if (cdurl) { 
-                /* clean up as we found a cd, but the path was bad */
-                umountStage2();
-                umount("/mnt/source");
-                stage = URL_STAGE_MAIN;
-                dir = -1;
+                    stage = URL_STAGE_DONE;
+                    dir = 1;
+                } else { 
+                    /* clean up as we found a cd, but the path was bad */
+                    umountStage2();
+                    umount("/mnt/source");
+                    stage = URL_STAGE_MAIN;
+                    dir = -1;
+                }
+                umountLoopback("/tmp/product-disk", "loop7");
+                unlink("/tmp/ramfs/product-disk.img");
+                unlink("/tmp/product-disk");
             } else {
 		/* need to find stage 2 on remote site */
 		if (loadUrlImages(&ui, flags)) {
