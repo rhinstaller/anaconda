@@ -188,6 +188,8 @@ class InstallData:
             f = open(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
             f.write("%s\n" %(anaconda.id.instClass.installkey,))
             f.close()
+            os.chmod(anaconda.rootPath + "/etc/sysconfig/rhn/install-num",
+                     0600)
 
     def writeKS(self, filename):
         if self.auth.find("--enablemd5"):
