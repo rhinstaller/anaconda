@@ -1,3 +1,8 @@
+2006-11-10  Chris Lumens  <clumens@redhat.com>
+
+	* bootloader.py (bootloaderSetupChoices):  If the kickstart file
+	specified a drive order, pass that to booty (#214881).
+
 2006-11-08  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c (doGetBiosDisk): Check return value of getBiosDisk and
