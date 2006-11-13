@@ -1208,6 +1208,14 @@ Creating the Kickstart File
 
        %packages --ignoremissing                                   
 
+   --nobase
+
+       Don't select the Base group by default.  This is useful if you are
+       putting together an extremely minimal system.  However with this
+       option, it is very easy to end up with a system that does not fully
+       boot to a login prompt as you will need to list all the packages
+       required to get that much functionality.
+
      ----------------------------------------------------------------------
 
                        Chapter 4. Pre-installation Script
