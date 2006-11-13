@@ -234,7 +234,7 @@ class InstallData:
 	self.instLanguage.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
-            self.xsetup.writeKS(f, self.desktop)
+            self.xsetup.writeKS(f, self.desktop, self.ksdata)
 	self.network.writeKS(f)
 	self.zfcp.writeKS(f)
 

@@ -1,5 +1,9 @@
 2006-11-13  Chris Lumens  <clumens@redhat.com>
 
+	* xsetup.py (XSetup.writeKS):  We don't usually want to write out the
+	xconfig and monitor lines into the kickstart file, unless that info
+	was already given during a kickstart install (#211977).
+
 	* docs/kickstart-docs.txt:  Document --nobase argument.
 
 2006-11-10  Paul Nasrat <pnasrat@redhat.com>
