@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-14 00:28+0200\n"
+"PO-Revision-Date: 2006-11-14 00:46+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -457,8 +457,8 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"Pe sistemul dvs. nu s-au instalat pachete kernel. Configuraţia bootloader-"
-"ului nu va fi modificată."
+"Nu au fost instalate pachete cu kernel pe sistemul dvs..  Configuraţia "
+"programului de pornire nu va fi schimbată."
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -709,7 +709,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Alegeţi Sări peste dacă doriţi ca procesul de instalare să ignore această partiţie "
+"Alegeţi „Sări” dacă doriţi ca procesul de instalare să ignore această partiţie "
 "în timpul actualizării.  Alegeţi Formatare pentru a reformata partiţia ca spaţiu "
 "swap.  Alegeţi Repornire pentru a reporni sistemul."
 
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: ../partedUtils.py:1162
 msgid "No Drives Found"
-msgstr "Nu s-a identificat nici un disc"
+msgstr "Nicio unitate găsită"
 
 #: ../partedUtils.py:1163
 msgid ""
@@ -1850,6 +1850,7 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Instalare pe un dispozitiv USB.  Aceasta ar putea produce sau nu un sistem funcţional."
 
 #: ../partitions.py:945
 msgid ""
@@ -1963,7 +1964,7 @@ msgstr "Partiţiile nu se pot termina pe un cilindru negativ."
 
 #: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Nu există membri în cererea RAID, sau nu s-a specificat nivelul RAID."
+msgstr "Niciun membru în cererea RAID, sau nu s-a specificat nivelul RAID."
 
 #: ../partRequests.py:681
 #, python-format
@@ -2169,7 +2170,7 @@ msgstr "Ajutorul nu e disponibil"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr "Această porţiune de instalare nu are documentaţie de ajutor."
+msgstr "Nu este disponibil ajutorul pentru acest pas al instalării."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -2450,7 +2451,7 @@ msgstr ""
 "\n"
 "ATENŢIE!!! Serverul VNC rulează FĂRĂ PAROLĂ!\n"
 "Puteţi folosi opţiunea de pornire vncpassword=<parolă>\n"
-"dacă doriţi securizarea server-ului.\n"
+"dacă doriţi securizarea serverului.\n"
 "\n"
 
 #: ../vnc.py:277
@@ -2502,7 +2503,7 @@ msgstr "Pregătesc tranzacţia din sursa de instalare..."
 
 #: ../yuminstall.py:470 ../yuminstall.py:471
 msgid "file conflicts"
-msgstr ""
+msgstr "conflicte fişiere"
 
 #: ../yuminstall.py:472
 msgid "older package(s)"
@@ -2518,11 +2519,11 @@ msgstr ""
 
 #: ../yuminstall.py:475
 msgid "package conflicts"
-msgstr ""
+msgstr "conflicte pachete"
 
 #: ../yuminstall.py:476
 msgid "package already installed"
-msgstr ""
+msgstr "pachet deja instalat"
 
 #: ../yuminstall.py:477
 msgid "required package"
@@ -2538,7 +2539,7 @@ msgstr ""
 
 #: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Aveţi nevoide mai mult spaţiu pe următoarele sisteme de fişiere:\n"
 
 #: ../yuminstall.py:509
 msgid "Error running transaction"
@@ -2865,7 +2866,7 @@ msgstr "Programul de încărcare %s va fi instalat pe /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Nu va fi instalat nici un program de pornire."
+msgstr "Nu va fi instalat niciun program de pornire."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
@@ -3151,7 +3152,7 @@ msgstr "Mărime (MO):"
 #: ../iw/lvm_dialog_gui.py:463
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(Maxim %s MO)"
+msgstr "(Mărimea maximă este %s MO)"
 
 #: ../iw/lvm_dialog_gui.py:524
 msgid "Illegal size"
@@ -3803,7 +3804,7 @@ msgstr "Dispozitive RAID"
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
 msgid "None"
-msgstr "Niciunul"
+msgstr "Nimic"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
@@ -4239,7 +4240,7 @@ msgstr "URL de repozit invalid"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Trebuie să furnizaţi un URL HTTP sau FTP către repozit."
 
 #: ../iw/task_gui.py:146
 #, python-format
@@ -4423,7 +4424,7 @@ msgstr "Configurare ZFCP"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr ""
+msgstr "E_limină"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
@@ -4967,7 +4968,7 @@ msgstr "Formatare ca %s"
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
 #, python-format
 msgid "Migrate to %s"
-msgstr "Migrează către %s"
+msgstr "Migrează la %s"
 
 #: ../textw/partition_text.py:581 ../textw/partition_text.py:819
 #: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
@@ -5000,7 +5001,7 @@ msgstr "Formatare ca:"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
-msgstr "Migrează către:"
+msgstr "Migrează la:"
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
@@ -5032,7 +5033,7 @@ msgstr "Valoare incorectă pentru cilindrul final"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
-msgstr "Nu există partiţii RAID"
+msgstr "Nicio partiţie RAID"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
@@ -5112,7 +5113,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr "Partiţie Root Nedefinita"
+msgstr "Nicio partiţie rădăcină"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
@@ -5479,7 +5480,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr "Verificare mediu de instalare"
+msgstr "Verificare mediu"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
@@ -5540,8 +5541,8 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nu s-a putut detecta un CD %s care să corespundă mediului de instalare."
-"Încărcaţi CD-ul %s şi selectaţi %s pentru a reîncerca."
+"Nu s-a găsit nici un CD %s care să corespundă mediului dvs. de pornire.  Vă rugăm "
+"introduceţi CD-ul %s şi apăsaţi %s pentru a reîncerca."
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5612,7 +5613,7 @@ msgstr "Nu s-a putut monta discul cu drivere."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Disc cu driver invalid pentru această lansare de %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5628,9 +5629,9 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Nici un periferic de tipul necesar nu a fost găsit pe acest disc cu drivere "
-"Doriţi să selectaţi manual driver-ul, sa continuaţi oricum, sau să "
-"încărcaţialt disc cu drivere?"
+"Nu s-a găsit niciun dispozitiv de tipul necesar pe acest disc cu drivere.  "
+"Doriţi să selectaţi manual driverul, să continuaţi oricum sau să "
+"încărcaţi alt disc cu drivere?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
@@ -5689,7 +5690,7 @@ msgstr "Introduceţi parametrii modulului"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
-msgstr "Nu s-a identificat nici un driver"
+msgstr "Nu s-a găsit niciun driver"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
@@ -5700,8 +5701,8 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nu am găsit nici un driver pentru introducere manuală. Doriţi săutilizaţi un "
-"disc de drivere?"
+"Nu s-a găsit nici un driver de inserat manual.  Doriţi să folosiţi un disc cu "
+"drivere?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5888,8 +5889,8 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-"Nu a fost găsit nici un disc dur. Probabil că va trebui să selectaţi manual "
-"un driver pentru ca instalarea să aibă succes. Doriţi să selectaţi drivere "
+"Nu a fost găsit nici un disc dur.  Probabil că va trebui să selectaţi manual "
+"un driver pentru ca instalarea să aibă succes.  Doriţi să selectaţi drivere "
 "acum?"
 
 #: ../loader2/loader.c:780
@@ -5915,7 +5916,7 @@ msgstr "Ce tip de mediu conţine pachetele care urmează a fi instalate?"
 
 #: ../loader2/loader.c:968
 msgid "No driver found"
-msgstr "Nu am găsit nici un driver"
+msgstr "Nu s-a găsit nici un driver"
 
 #: ../loader2/loader.c:968
 msgid "Select driver"
@@ -6012,7 +6013,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "A TRECUT"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
@@ -6020,11 +6021,11 @@ msgstr "Este în regulă să instalaţi de pe acest mediu."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr "Nicio sumă de control disponibilă, nu pot verifica mediul."
+msgstr "Nicio informaţie despre suma de control, nu se poate verifica mediul."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr "Rezultatul verificării"
+msgstr "Rezultatul verificării mediului"
 
 #: ../loader2/mediacheck.c:424
 #, c-format
@@ -6179,7 +6180,7 @@ msgstr "Adresă IPv4:"
 
 #: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:904
 msgid "IPv6 address:"
@@ -6423,7 +6424,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Adaugă repozit"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6434,7 +6435,7 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Adaugă repozit"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6446,7 +6447,7 @@ msgstr "_Debug"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "_Înainte"
+msgstr "Î_nainte"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
@@ -6556,16 +6557,20 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Vă rugăm selectaţi orice repozite adiţionale pe care doriţi să le folosiţi "
+"pentru această instalare."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
+"Puteţi personaliza mai departe selecţia de pachete acum, sau după instalare "
+"prin aplicaţia de management de pachete."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Adaugă repozite adiţionale de programe"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -7257,11 +7262,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Africană"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabă"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7345,7 +7350,7 @@ msgstr "Islandeză"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "Indoneză"
 
 #. generated from lang-table
 msgid "Italian"
@@ -7365,7 +7370,7 @@ msgstr "Coreeană"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedoniană"
 
 #. generated from lang-table
 msgid "Malay"
@@ -7457,11 +7462,11 @@ msgstr "Vietnameză"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Galeză"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
 #~ msgid "DDC Probed Monitor"
 #~ msgstr "Monitor Detectat DDC"
