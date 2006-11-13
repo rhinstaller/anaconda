@@ -2091,7 +2091,7 @@ class RAIDDevice(Device):
             self.chunksize = 256
 
         if len(members) < spares:
-            raise RuntimeError, ("you requiested more spare devices "
+            raise RuntimeError, ("you requested more spare devices "
                                  "than online devices!")
 
         if level == 5:
