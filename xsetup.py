@@ -67,7 +67,7 @@ class XSetup:
 
         args = []
         if ksconfig:
-            if ksconfig.monitor["monitor"] != "";
+            if ksconfig.monitor["monitor"] != "":
                 args += [ "--monitor", ksconfig.monitor["monitor"] ]
             if ksconfig.monitor["hsync"] != "":
                 args += [ "--hsync", ksconfig.monitor["hsync"] ]
