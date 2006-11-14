@@ -133,6 +133,15 @@ Creating the Kickstart File
      specified after it. In the example commands, options in brackets ([])    
      are optional arguments for the command.                                  
 
+   auth or authconfig (required)
+
+       Sets up the authentication options for the system.  This is just a
+       wrapper around the authconfig program, so all options recognized
+       by that program are valid for this command.  See the manual page for
+       authconfig for a complete list.
+
+       By default, passwords are normally encrypted and are not shadowed.
+
    autopart (optional)
 
        Automatically create partitions -- 1 GB or more root (/) partition,
@@ -145,14 +154,11 @@ Creating the Kickstart File
        Similar to interactive except it goes to the next screen for you.
        It is used mostly for debugging.
 
-   auth or authconfig (required)
+       --autoscreenshot
 
-       Sets up the authentication options for the system.  This is just a
-       wrapper around the authconfig program, so all options recognized
-       by that program are valid for this command.  See the manual page for
-       authconfig for a complete list.
-
-       By default, passwords are normally encrypted and are not shadowed.
+            Take a screenshot at every step during installation and copy
+            the images over to /root/anaconda-screenshots after
+            installation is complete.  This is most useful for documentation.
 
    bootloader (required)
 
@@ -268,7 +274,11 @@ Creating the Kickstart File
             Options to pass to the kernel module. Note that multiple
             options may be passed if they are put in quotes. For example:
 
-            --opts="aic152x=0x340 io=11"                    
+            --opts="aic152x=0x340 io=11"
+
+   dmraid (optional)
+
+       dmraid --name= --dev=
 
    driverdisk (optional)
 
@@ -367,6 +377,11 @@ Creating the Kickstart File
             networking configuration options in addition to the default
             ones.
 
+   graphical (optional)
+
+       Perform the kickstart installation in graphical mode.  This is the
+       default.
+
    install (optional)
 
        Tells the system to install a fresh system rather than upgrade an
@@ -383,6 +398,10 @@ Creating the Kickstart File
 
             Install from a Red Hat installation tree on a local drive,
             which must be either vfat or ext2.
+
+            * --biospart=
+
+              BIOS partition to install from (such as 82).
 
             * --partition=
 
@@ -431,6 +450,15 @@ Creating the Kickstart File
 
             url --url ftp://<username>:<password>@<server>/<dir> 
 
+   ignoredisk (optional)
+
+       Used to specify disks that anaconda should not touch when
+       partitioning, formatting, and clearing.  This command has a single
+       required argument, which takes a comma-separated list of drive
+       names to ignore.
+
+       ignoredisk --drives=[disk1,disk2,...]
+
    interactive (optional)
 
        Uses the information provided in the kickstart file during the
@@ -439,6 +467,34 @@ Creating the Kickstart File
        installation program with the values from the kickstart file.
        Either accept the values by clicking Next or change the values and
        click Next to continue. See also autostep.
+
+   iscsi (optional)
+
+        iscsi --ipaddr= [options]
+
+       --target=
+
+       --port=
+
+       --user=
+
+       --password=
+
+   iscsiname (optional)
+
+   key (optional)
+
+       Specify a registration key, which is needed to aid in package
+       selection and identify your system for support purposes.  This
+       command is RHEL-specific; it has no meaning for Fedora and will
+       be ignored.
+
+       --skip
+
+           Skip entering a key.  Usually if the key command is not given,
+           anaconda will pause at this step to prompt for a key.  This
+           option allows automated installation to continue if you do not
+           have a key or do not want to provide one.
 
    keyboard (required)
 
@@ -454,7 +510,7 @@ Creating the Kickstart File
        speakup-lt, sv-latin1, sg, sg-latin1, sk-querty, slovene, trq, ua,
        uk, us, us-acentos
 
-       The file /usr/lib/python2.2/site-packages/rhpl/keyboard_models.py
+       The file /usr/lib/python?.?/site-packages/rhpl/keyboard_models.py
        also contains this list and is part of the rhpl package.
 
    lang (required)
@@ -469,6 +525,12 @@ Creating the Kickstart File
        The file /usr/share/system-config-language/locale-list provides a
        list the valid language codes in the first column of each line and
        is part of the system-config-languages package.
+
+       Certain languages (mainly Chinese, Japanese, Korean, and Indic
+       languages) are not supported during text mode installation.  If
+       one of these languages is specified using the lang command,
+       installation will continue in English though the running system
+       will have the specified langauge by default.
 
    langsupport
 
@@ -543,7 +605,40 @@ Creating the Kickstart File
        volgroup myvg pv.01                                         
        logvol / --vgname=myvg --size=2000 --name=rootvol           
 
-   monitor
+   logging (optional)
+
+       This command controls the error logging of anaconda during
+       installation.  It has no effect on the installed system.
+
+       --host=
+
+           Send logging information to the given remote host, which must
+           be running a syslogd process configured to accept remote logging.
+
+       --port=
+
+           If the remote syslogd process uses a port other than the
+           default, it may be specified with this option.
+
+       --level=
+
+           One of debug, info, warning, error, or critical.
+
+           Specify the minimum level of messages that appear on tty3.  All
+           messages will still be sent to the log file regardless of this
+           level, however.
+
+   mediacheck (optional)
+
+       If given, this will force anaconda to run mediacheck on the
+       installation media.  This command requires that installs be
+       attended, so it is disabled by default.
+
+   monitor (optional)
+
+       If the monitor command is not given, anaconda will use X to
+       automatically detect your monitor settings.  Please try this before
+       manually configuring your monitor.
 
        --hsync=
 
@@ -684,6 +779,22 @@ Creating the Kickstart File
        --class=
 
            The DHCP class.
+
+       --mtu=
+
+           The MTU of the device.
+
+       --noipv4
+
+           Disable IPv4 on this device.
+
+       --noipv6
+
+           Disable IPv6 on this device.
+
+   multipath (optional)
+
+       multipath --name= --device= --rule=
 
    part or partition (required for installs, ignored for upgrades)
 
@@ -904,7 +1015,11 @@ Creating the Kickstart File
        Normally, kickstart displays a message and waits for the user to
        press a key before rebooting.
 
-   repo (optional) - EXPERIMENTAL
+       --eject
+
+           Attempt to eject and CD or DVD media before rebooting.
+
+   repo (optional)
 
        Configures additional yum repositories that may be used as sources
        for package installation.  Multiple repo lines may be specified.
@@ -1070,12 +1185,39 @@ Creating the Kickstart File
            Set a password which must be provided to connect to the VNC
            session.  This is optional, but recommended.
 
+   volgroup (optional)
+
+       Use to create a Logical Volume Management (LVM) group with the
+       syntax:
+
+       volgroup <name> <partition> <options>                       
+
+       The options are as follows:
+
+       --noformat
+
+           Use an existing volume group and do not format it.
+
+       --useexisting
+
+           Use an existing volume group and reformat it.
+
+       --pesize=
+
+           Set the size of the physical extents.
+
+       Create the partition first, create the logical volume group, and
+       then create the logical volume. For example:
+
+       part pv.01 --size 3000                                      
+       volgroup myvg pv.01                                         
+       logvol / --vgname=myvg --size=2000 --name=rootvol           
+
    xconfig (optional)
 
-       Configures the X Window System. If this option is not given, the
-       user will need to configure X manually during the installation, if
-       X was installed; this option should not be used if X is not
-       installed on the final system.
+       Configures the X Window System.  If this option is not given,
+       anaconda will use X to attempt to automatically configure.  Please
+       try this before manually configuring your system.
 
        --driver=
 
@@ -1110,44 +1252,23 @@ Creating the Kickstart File
            to specify a color depth that is compatible with the video card
            and monitor.
 
-   volgroup (optional)
-
-       Use to create a Logical Volume Management (LVM) group with the
-       syntax:
-
-       volgroup <name> <partition> <options>                       
-
-       The options are as follows:
-
-       --noformat
-
-           Use an existing volume group and do not format it.
-
-       --useexisting
-
-           Use an existing volume group and reformat it.
-
-       --pesize=
-
-           Set the size of the physical extents.
-
-       Create the partition first, create the logical volume group, and
-       then create the logical volume. For example:
-
-       part pv.01 --size 3000                                      
-       volgroup myvg pv.01                                         
-       logvol / --vgname=myvg --size=2000 --name=rootvol           
-
    zerombr (optional)
 
-       If zerombr is specified, and yes is its sole argument, any invalid
-       partition tables found on disks are initialized. This will destroy
-       all of the contents of disks with invalid partition tables. This
-       command should be in the following format:
+       If zerombr is specified, any invalid partition tables found on
+       disks are initialized. This will destroy all of the contents of
+       disks with invalid partition tables.
 
-       zerombr yes                                                 
+   zfcp (optional)
 
-       No other format is effective.
+       --devnum=
+
+       --fcplun=
+
+       --scsiid=
+
+       --scsilun=
+
+       --wwpn=
 
    %include
 
@@ -1192,6 +1313,15 @@ Creating the Kickstart File
    file. Groups can also be specified using the id for the group, such as
    gnome-desktop. Specify individual packages with no additional characters
    (the dhcp line in the example above is an individual package).
+
+   Additionally, individual packages may be specified using globs.  For
+   instance:
+
+   %packages
+   vim*
+   kde-i18n-*
+
+   This would install all packages whose names start with vim or kde-i18n.
 
    You can also specify which packages not to install from the default
    package list:
@@ -1242,6 +1372,10 @@ Creating the Kickstart File
        error dialog to be displayed and will halt installation. The error
        message will direct you to where the cause of the failure is
        logged.
+
+   --log=
+
+       Log all messages from the script to the given log file.
 
 Example
 
@@ -1342,6 +1476,10 @@ fi
        error dialog to be displayed and will halt installation. The error
        message will direct you to where the cause of the failure is
        logged.
+
+   --log=
+
+       Log all messages from the script to the given log file.
 
 Examples
 
