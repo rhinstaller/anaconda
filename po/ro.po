@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-14 00:46+0200\n"
+"PO-Revision-Date: 2006-11-14 22:49+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Eroare la extragerea părţii secunde a configuraţiei kickstart: %s!"
 
 #: ../anaconda:412
 msgid "Press <enter> for a shell"
-msgstr "Apăsaţi <enter> pentru o linie de comandă"
+msgstr "Apăsaţi «Enter» pentru o linie de comandă"
 
 #: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
@@ -102,7 +102,7 @@ msgstr "Tipul instalării impune o instalare în mod text"
 
 #: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Instalarea grafică nu este disponibilă... Pornesc modul text."
+msgstr "Instalarea grafică nu este disponibilă...  Pornesc modul text."
 
 #: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -128,7 +128,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Nu am putut aloca partiţiile bazate pe cilindru ca partiţii primare.\n"
+"Nu se pot aloca partiţiile bazate pe cilindru ca partiţii primare.\n"
 "\n"
 "%s"
 
@@ -138,7 +138,7 @@ msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Nu am putut aloca partiţiile ca partiţii primare.\n"
+msgstr "Nu se pot aloca partiţiile ca partiţii primare.\n"
 "\n"
 "%s"
 
@@ -148,7 +148,7 @@ msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Nu am putut aloca partiţiile bazate pe cilindru.\n"
+msgstr "Nu se pot aloca partiţiile bazate pe cilindru.\n"
 "\n"
 "%s"
 
@@ -325,7 +325,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Nu s-au putut aloca următoarele partiţii: \n"
+"Nu se pot aloca următoarele partiţii: \n"
 "\n"
 "%s.%s"
 
@@ -385,7 +385,7 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Partiţionarea automată crează partiţii în funcţie de tipul de instalare "
+"Partiţionarea automată creează partiţii în funcţie de tipul de instalare "
 "ales. Puteţi de asemenea să modificaţi partiţiile după ce au fost create.\n"
 "\n"
 "Programul de partiţionare manuală, Disk Druid, vă permite să creaţi partiţii "
@@ -442,7 +442,7 @@ msgstr "Se actualizează %s\n"
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr "Instalez %s\n"
+msgstr "Se instalează %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -626,7 +626,7 @@ msgstr ""
 "A apărut o eroare la iniţializarea swap pe %s.  Această problemă este "
 "fatală şi instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
@@ -761,7 +761,7 @@ msgstr ""
 "S-au detectat blocuri defecte pe dispozitivul %s. Vă recomandăm să nu folosiţi "
 "acest dispozitiv.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1594
 #, python-format
@@ -774,7 +774,7 @@ msgstr ""
 "A apărut o eroare în timpul căutării de blocuri defecte pe %s.  Această "
 "problemă este fatală şi instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1634
 #, python-format
@@ -787,7 +787,7 @@ msgstr ""
 "A apărut o eroare la formatarea %s.  Această problemă este fatală şi "
 "instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1684
 #, python-format
@@ -800,7 +800,7 @@ msgstr ""
 "A apărut o eroare la migrarea %s.  Această problemă este fatală şi "
 "instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1710 ../fsset.py:1719
 msgid "Invalid mount point"
@@ -817,7 +817,7 @@ msgstr ""
 "A apărut o eroare la crearea %s.  Un element al căii nu este un director. "
 "Aceasta este o eroare fatală şi instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1720
 #, python-format
@@ -830,7 +830,7 @@ msgstr ""
 "A apărut o eroare la crearea %s: %s.  Aceasta este o eroare fatală şi "
 "instalarea nu poate continua.\n"
 "\n"
-"Apăsaţi <Enter> pentru a reporni sistemul."
+"Apăsaţi «Enter» pentru a reporni sistemul."
 
 #: ../fsset.py:1733
 msgid "Unable to mount filesystem"
@@ -898,12 +898,12 @@ msgstr ""
 
 #: ../fsset.py:2723
 msgid "Formatting"
-msgstr "Formatez"
+msgstr "Se formatează"
 
 #: ../fsset.py:2724
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Formatez sistemul de fişiere %s..."
+msgstr "Se formatează sistemul de fişiere %s..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -951,7 +951,7 @@ msgstr ""
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
-msgstr "Reparare"
+msgstr "Repară"
 
 #: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
@@ -976,7 +976,7 @@ msgstr "Reîncercare"
 
 #: ../gui.py:235 ../text.py:396
 msgid "Ignore"
-msgstr "Ignorare"
+msgstr "Ignoră"
 
 #: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
@@ -1265,19 +1265,21 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Aţi specificat că grupul „%s” ar trebui instalat. Acest grup nu există. Doriţi să "
+"continuaţi sau să abandonaţi instalarea dvs.?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Numele de gazdă trebuie să aibă 64 de caractere sau mai puţin."
+msgstr "Numele gazdei trebuie să aibă 64 de caractere sau mai puţin."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "Numele de gazdă trebuie să înceapă cu un caracter de la „a” la „z” "
+msgstr "Numele gazdei trebuie să înceapă cu un caracter de la „a” la „z” "
 "sau „A” la „Z”"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Numele de gazdă poate conţine doar caracterele „a-z”, „A-Z”, "
+msgstr "Numele gazdei poate conţine doar caracterele „a-z”, „A-Z”, "
 "„-” sau „.”"
 
 #: ../network.py:89
@@ -1299,7 +1301,7 @@ msgstr "„%s” nu este o adresă validă IPv6."
 #: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Vă rugăm introduceţi cheia de înregistrare pentru versiunea dvs. de %s."
 
 #: ../packages.py:245
 msgid "Enter Registration Key"
@@ -1307,7 +1309,7 @@ msgstr "Cheia de înregistrare"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr ""
+msgstr "Cheie:"
 
 #: ../packages.py:276
 msgid "Warning! This is pre-release software!"
@@ -1822,6 +1824,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Partiţia dvs. de pornire nu este una dintre primele patru partiţii, aşadar "
+"nu veţi putea porni de pe ea."
 
 #: ../partitions.py:847
 msgid ""
@@ -1857,6 +1861,8 @@ msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Instalare pe un dispozitiv FireWire.  Aceasta ar putea produce sau nu un "
+"sistem funcţional."
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1985,6 +1991,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Mărimea volumului logic trebuie să fie mai mare ca extensia fizică a grupului de "
+"volume."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2071,7 +2079,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Sistemul dvs. are sisteme de fişiere instabile pe care aţi ales să nu le "
-"montaţi.  Apăsaţi <Enter> pentru a intra în linia de comandă de unde puteţi "
+"montaţi.  Apăsaţi «Enter» pentru a intra în linia de comandă de unde puteţi "
 "verifica şi monta aceste partiţii. Sistemul va reporni automat când veţi ieşi "
 "din linia de comandă."
 
@@ -2089,7 +2097,7 @@ msgid ""
 msgstr ""
 "Sistemul dvs. a fost montat sub %s.\n"
 "\n"
-"Apăsaţi <Enter> pentru linia de comandă. Dacă doriţi să lucraţi pe sistemul "
+"Apăsaţi «Enter» pentru linia de comandă. Dacă doriţi să lucraţi pe sistemul "
 "dvs. în locul celui de pe disc, rulaţi comanda:\n"
 "\n"
 "\tchroot %s\n"
@@ -2108,7 +2116,7 @@ msgstr ""
 "A apărut o eroare la montarea unuia sau mai multor sisteme. de fişiere. S-ar "
 "putea ca unele să fie montate sub %s.\n"
 "\n"
-"Apăsaţi <Enter> pentru a primi o linie de comandă. Sistemul va reporni automat "
+"Apăsaţi «Enter» pentru a primi o linie de comandă. Sistemul va reporni automat "
 "când ieşiţi din aceasta."
 
 #: ../rescue.py:445
@@ -2120,7 +2128,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Nu aveţi nicio partiţie Linux. Apăsaţi <Enter> pentru linia de comandă. "
+"Nu aveţi nicio partiţie Linux. Apăsaţi «Enter» pentru linia de comandă. "
 "Sistemul va reporni automat când ieşiţi din linia de comandă."
 
 #: ../rescue.py:459
@@ -2415,6 +2423,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Trebuie să specificaţi o parolă vnc lungă de cel puţin 6 caractere.\n"
+"\n"
+"Apăsaţi «Enter» pentru a reporni sistemul dvs..\n"
 
 #: ../vnc.py:184
 msgid "Starting VNC..."
@@ -2507,15 +2518,15 @@ msgstr "conflicte fişiere"
 
 #: ../yuminstall.py:472
 msgid "older package(s)"
-msgstr ""
+msgstr "pachet(e) mai vechi"
 
 #: ../yuminstall.py:473
 msgid "insufficient disk space"
-msgstr ""
+msgstr "insuficient spaţiu pe disc"
 
 #: ../yuminstall.py:474
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "insuficiente inoduri de disc"
 
 #: ../yuminstall.py:475
 msgid "package conflicts"
@@ -2531,11 +2542,11 @@ msgstr "pachete necesare"
 
 #: ../yuminstall.py:478
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pachet pentru o arh. incorectă"
 
 #: ../yuminstall.py:479
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pachet pentru un so incorect"
 
 #: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
@@ -2586,6 +2597,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Pachetele alese de dvs. necesită %d MO de spaţiu liber pentru instalare, dar "
+"dvs. nu aveţi suficient disponibil.  Puteţi să schimbaţi selecţia sau să reporniţi."
 
 #: ../yuminstall.py:1149
 #, python-format
@@ -2737,7 +2750,7 @@ msgstr "Nume de iniţiator invalid"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Trebuie să daţi un nume de iniţiator de o lungime nenulă."
 
 #: ../iw/autopart_type.py:157
 msgid "Error with Data"
@@ -2745,19 +2758,19 @@ msgstr "Eroare cu datele"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Înlătură toate partiţiile de pe unităţile selectate şi crează structura implicită."
+msgstr "Înlătură toate partiţiile de pe unităţile selectate şi creează structura implicită."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Şterge partiţile linux de pe unităţile selectate şi creează structura implicită."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Foloseşte spaţiul liber de pe unităţile selectate şi creează structura implicită."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
-msgstr ""
+msgstr "Creare structură personalizată."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2847,7 +2860,7 @@ msgid ""
 "'General kernel parameters' field."
 msgstr ""
 "Dacă doriţi să adăugaţi opţiuni implicite la comanda de pornire, introduceţi-le "
-"în câmpul „Parametri generali pentru kernel”."
+"acum în câmpul „Parametri generali pentru kernel”."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -2893,6 +2906,12 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"Se aranjează unităţile să fie în aceeaşi ordine ca cea din BIOS. Schimbarea ordinii "
+"unităţilor v-ar putea fi de folos dacă aveţi mai multe adaptoare SCSI sau adaptoare "
+"SCSI şi IDE în acelaşi timp şi doriţi să porniţi de pe dispozitivul SCSI.\n"
+"\n"
+"Schimbarea ordinii unităţilor va schimba locul unde programul de instalare va "
+"căuta Înregistrarea Principală de Pornire (ÎPP)"
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2985,13 +3004,15 @@ msgstr "Examinare actualizare"
 #: ../iw/examine_gui.py:55
 #, python-format
 msgid "_Install %s"
-msgstr "_Instalează %s"
+msgstr "_Instalare %s"
 
 #: ../iw/examine_gui.py:57
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
+"Alegeţi această opţiune pentru o instalare proaspătă. Datele existente ar "
+"putea fi suprascrise în funcţie de alegerile dumneavoastră."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -3003,6 +3024,8 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
+"Alegeţi această opţiune dacă aţi dori să actualizaţia sistemul dvs. %s.  "
+"Această opţiune va menţine intacte datele de pe unităţile dvs.."
 
 #: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3037,7 +3060,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "Confirmaţi schimbarea extensiei fizice"
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -3047,6 +3070,10 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"Această schimbare în valoarea extensiei fizice va necesita rotunjirea în sus "
+"a mărimilor volumelor logice curente la un multiplu întreg de extensii fizice.\n"
+"\n"
+"Această schimbare va avea efect imediat."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
@@ -3078,6 +3105,8 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
+"Această schimbare în valoarea extensiei fizice va irosi spaţiu substanţial pe "
+"unul sau mai multe dintre volumele fizice din acest grup de volume."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3092,10 +3121,12 @@ msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
+"Nu puteţi elimina acest volum fizic deoarece grupul de volume ar deveni prea "
+"mic pentru a putea ţine volumele logice definite deja."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
-msgstr "Crează volum logic"
+msgstr "Creează volum logic"
 
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
@@ -3152,7 +3183,7 @@ msgstr "Mărime (MO):"
 #: ../iw/lvm_dialog_gui.py:463
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(Mărimea maximă este %s MO)"
+msgstr "(Mărimea max e %s MO)"
 
 #: ../iw/lvm_dialog_gui.py:524
 msgid "Illegal size"
@@ -3215,7 +3246,7 @@ msgstr "Fără sloturi libere"
 #: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "Nu puteţi crea mai mult de %s volume logice per grup de volume."
 
 #: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
@@ -3264,7 +3295,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
-msgstr "Crează un grup de volume LVM"
+msgstr "Creează un grup de volume LVM"
 
 #: ../iw/lvm_dialog_gui.py:967
 #, python-format
@@ -3277,15 +3308,15 @@ msgstr "Editare grup de volume LVM"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr ""
+msgstr "Nume grup de _volume:"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
-msgstr ""
+msgstr "Nume grup de volume:"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr ""
+msgstr "Extindere _fizică:"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
@@ -3379,6 +3410,9 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"A apărut o eroare la conversia valorii pe care aţi introdus-o pentru "
+"„%s”:\n"
+"%s"
 
 #: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
 msgid "Dynamic IP"
@@ -3472,6 +3506,8 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
+"Nu aveţi niciun dispozitiv de reţea activ.  Sistemul dvs. nu va putea comunica "
+"implicit în reţea fără cel puţin un dispozitiv activ."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3489,11 +3525,11 @@ msgstr "Configurare dinamică a adresei IP (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Activare suport IPv4"
 
 #: ../iw/network_gui.py:291 ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "ACtivare suport IPv6"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
@@ -3553,7 +3589,7 @@ msgstr "Mască de reţea IPv4"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "Prefix IPv6"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3581,7 +3617,7 @@ msgstr "Nume gazdă"
 
 #: ../iw/network_gui.py:775
 msgid "Miscellaneous Settings"
-msgstr "Setări diverse"
+msgstr "Alte setări"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3614,6 +3650,8 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
+"Introduceţi o etichetă care să fie afişată în meniul programului de pornire. "
+"Dispozitivul (sau discul şi numărul partiţiei) este cel de pe care se porneşte."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3657,6 +3695,8 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
+"Această ţintă de pornire nu poate fi ştearsă deoarece este pentru sistemul %s "
+"pe care sunteţi pe cale de a-l instala."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3808,7 +3848,7 @@ msgstr "Nimic"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
-msgstr "Discuri dure"
+msgstr "Unităţi de disc"
 
 #: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
@@ -3825,7 +3865,7 @@ msgstr "software RAID"
 
 #: ../iw/partition_gui.py:908
 msgid "Free"
-msgstr "Liber (M)"
+msgstr "Liber"
 
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
@@ -3889,7 +3929,7 @@ msgstr "Ce aţi dori să faceţi acum?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "Crează o partiţie software RAID."
+msgstr "Creează o partiţie software RAID."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
@@ -3997,7 +4037,7 @@ msgstr "%s Octeţi"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
-msgstr "Instalare pachete"
+msgstr "Se instalează pachetele"
 
 #: ../iw/progress_gui.py:166
 #, python-format
@@ -4038,7 +4078,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr "Crează un dispozitiv RAID"
+msgstr "Creează un dispozitiv RAID"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
@@ -4063,7 +4103,7 @@ msgstr "Membri _RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr ""
+msgstr "Număr de _rezerve:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
@@ -4130,6 +4170,12 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"Unitatea ţintă /dev/%s are o partiţie care nu poate fi eliminată din "
+"următoarele motive:\n"
+"\n"
+"„%s”\n"
+"\n"
+"Această partiţie trebuie eliminată înainte ca această unitate să devină o ţintă."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
@@ -4141,6 +4187,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"Unitatea /dev/%s va fi acum clonată pe următoarele unităţi:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:648
 msgid ""
@@ -4225,6 +4273,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Nu se poate găsi un fişier de grup pentru %s.  Aceasta va face selecţia "
+"manuală de pachete nefuncţională"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4289,7 +4339,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "_Crează o nouă configuraţie a programului de pornire"
+msgstr "_Creează o nouă configuraţie a programului de pornire"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -4630,12 +4680,12 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Apăsaţi <Enter> pentru a termina procesul de instalare.\n"
+"Apăsaţi «Enter» pentru a termina procesul de instalare.\n"
 "\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr "<Enter> pentru ieşire"
+msgstr "«Enter» pentru ieşire"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4644,12 +4694,12 @@ msgid ""
 "\n"
 msgstr ""
 "Scoateţi orice mediu de instalare folosit în timpul procesului de instalare şi "
-"apăsaţi <Enter> pentru a reporni sistemul.\n"
+"apăsaţi «Enter» pentru a reporni sistemul.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr "<Enter> pentru repornire"
+msgstr "«Enter» pentru repornire"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -4857,8 +4907,8 @@ msgid ""
 msgstr ""
 "Dacă sistemul dvs face parte dintr-o reţea mai mare unde numele de gazdă "
 "este atribuit automat prin DHCP, alegeţi automat prin DHCP. Dacă nu, alegeţi "
-"manual şi introduceţi un nume de gazdă pentru sistemul dvs. Daca nu faceţi "
-"asta, sistemul dvs va fi cunoscut ca „localhost”."
+"manual şi introduceţi un nume de gazdă pentru sistemul dvs.. Daca nu faceţi "
+"asta, sistemul dvs. va fi cunoscut ca „localhost”."
 
 #: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
@@ -5076,6 +5126,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Mărimea cerută (%10.2f MO) este mai mare decât mărimea disponibilă în grupul "
+"de volume (%10.2f MO)."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5129,6 +5181,9 @@ msgid ""
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
+"Instalarea necesită partiţionarea unităţii dvs. de disc.  Structura implicită e "
+"acceptabilă pentru majoritatea utilizatorilor.  Puteţi să o folosiţi pe aceasta "
+"sau să creaţi una pe placul dvs."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5206,6 +5261,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
+"Instalarea implicită %s include un set de programe aplicabile pentru uz general "
+"de internet.  Pentru ce sarcini adiţionale aţi dori să se includă suport?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5230,7 +5287,7 @@ msgstr "Sări peste actualizarea programului de pornire"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Crează o nouă configuraţie a programului de pornire"
+msgstr "Creează o nouă configuraţie a programului de pornire"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -5380,6 +5437,8 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
+"Instalarea implicită %s include un set de programe aplicabile pentru internet de "
+"uz general. Pentru ce sarcini adiţionale aţi dori să se includă suport ?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -5843,7 +5902,7 @@ msgstr "CDROM local"
 
 #: ../loader2/loader.c:122
 msgid "Hard drive"
-msgstr "Disc Dur"
+msgstr "Unitate de disc"
 
 #: ../loader2/loader.c:123
 msgid "NFS image"
@@ -6142,7 +6201,7 @@ msgstr "Configurare dinamică a adresei IP (DHCP)"
 
 #: ../loader2/net.c:712
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Evită coliziunile nedorite de pachete"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
@@ -6158,7 +6217,7 @@ msgstr ""
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Metoda de instalare NFS necesită suport IPv4."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6169,10 +6228,12 @@ msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
+"Trebuie să selectaţi cel puţin un protocol (IPv4 sau IPv6) pentru "
+"configurarea manuală."
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Trebuie să specificaţi cel puţin un protocol (IPv4 sau IPv6) pentru DHCP."
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
@@ -6246,7 +6307,7 @@ msgstr "Directorul %s:"
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
@@ -6319,11 +6380,11 @@ msgstr "Se aduce"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:284
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:301
 msgid "FTP site name:"
@@ -6416,11 +6477,11 @@ msgstr "Cum aţi dori să modificaţi configuraţia actuală a unităţilor de d
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>URL repozit</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>_Nume repozit</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6486,7 +6547,7 @@ msgstr "<b>_Parolă:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>Adresa IP a ţin_tei:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
@@ -6524,25 +6585,27 @@ msgstr "<b>Server de nume:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>Interfaţă:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Activare suport IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Activare suport IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Activează interfaţa de reţea"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Pentru aceasta este necesar să aveţi o conexiune activă la reţea în "
+"timpul procesului de instalare.  Vă rugăm configuraţi o interfaţă de reţea."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6586,7 +6649,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Timpul din Alaska"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
@@ -6618,11 +6681,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Insulele Atlantice"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Timpul standard atlantic - Quebec - Ţărmul nordic de jos"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
@@ -6788,7 +6851,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr ""
+msgstr "Timpul standard estic - Atikokan, Ontario şi Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6853,11 +6916,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "Estul Uzbekistanului"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Insulele Galapagos"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
@@ -6865,7 +6928,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Insulele Gilbert"
 
 #. generated from zone.tab
 msgid "Hawaii"
@@ -6917,7 +6980,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Insulele Madeira"
 
 #. generated from zone.tab
 msgid "mainland"
@@ -7013,7 +7076,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
@@ -7086,11 +7149,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Teritoriu nordic"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "Timpul Pacific"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -7110,7 +7173,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "Malaezia peninsulară"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -7118,7 +7181,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Insulele Phoenix"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -7154,11 +7217,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7170,11 +7233,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "Sudul Australiei"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S şi SE Braziliei (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7190,7 +7253,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr ""
+msgstr "Tazmania - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7214,7 +7277,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -7230,27 +7293,27 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "Borneo central şi de vest"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "Rep. dem. Congo de vest"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Australia de vest"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "Kazahstanul de vest"
 
 #. generated from zone.tab
 msgid "west Tibet & Xinjiang"
-msgstr ""
+msgstr "Xinjiang şi Tibetul de vest"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "Uzbekistanul de vest"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -7390,7 +7453,7 @@ msgstr "Norvegiană"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr ""
+msgstr "Nordul Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
