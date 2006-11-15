@@ -185,16 +185,17 @@ if __name__ == "__main__":
                    "gnome-software-development", "eclipse",
                    "x-software-development",
                    "java-development", "kde-software-development",
-                   "mail-server", "legacy-network-server"])
+                   "mail-server", "network-server", "legacy-network-server"])
 
     addGroups(ds, ["news-server", "legacy-software-development"])
 
-    #Everthing else but kernels - don't depsolve
+    #Everthing else but kernels
     for po in ds.pkgSack.returnPackages():
         if po.pkgtup not in ds._installed.returnPackages():
             if po.name.find("kernel") == -1:
                 member = ds.tsInfo.addInstall(po)
 
+    ds.resolveDeps()
     processTransaction(ds)
     os.unlink(config)
     shutil.rmtree(testpath)
