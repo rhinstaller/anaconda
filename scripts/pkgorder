@@ -161,6 +161,14 @@ if __name__ == "__main__":
 
     addGroups(ds, ["core", "base", "text-internet"])
 
+    # hack, hack, hack... make sure iscsi ends up on disc1 (#208832)
+    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
+        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "iscsi-*"))
+    elif os.path.isdir("%s/%s" %(toppath, product)):
+        printMatchingPkgs("%s/%s/%s" % (toppath, product, "iscsi-*"))
+    else:
+        printMatchingPkgs("%s/%s" % (toppath, "iscsi-*"))        
+
     addGroups(ds, ["base-x", "dial-up",
                    "graphical-internet", "editors", 
                    "graphics", "gnome-desktop", "sound-and-video",
@@ -177,16 +185,17 @@ if __name__ == "__main__":
                    "gnome-software-development", "eclipse",
                    "x-software-development",
                    "java-development", "kde-software-development",
-                   "mail-server", "legacy-network-server"])
+                   "mail-server", "network-server", "legacy-network-server"])
 
     addGroups(ds, ["news-server", "legacy-software-development"])
 
-    #Everthing else but kernels - don't depsolve
+    #Everthing else but kernels
     for po in ds.pkgSack.returnPackages():
         if po.pkgtup not in ds._installed.returnPackages():
             if po.name.find("kernel") == -1:
                 member = ds.tsInfo.addInstall(po)
 
+    ds.resolveDeps()
     processTransaction(ds)
     os.unlink(config)
     shutil.rmtree(testpath)

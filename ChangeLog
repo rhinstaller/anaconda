@@ -1,3 +1,8 @@
+2006-11-15  Paul Nasrat <pnasrat@redhat.com>
+
+	* scripts/pkgorder: Depsolve on optional/non-grouped packages so sort
+	works correctly (#214848)
+
 2006-11-14  Chris Lumens  <clumens@redhat.com>
 
 	* xsetup (XSetup.writeKS):  Typo.
