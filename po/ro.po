@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-14 22:49+0200\n"
+"PO-Revision-Date: 2006-11-15 23:40+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2654,6 +2654,10 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
+"Maşinile zSeries pot accesa dispozitive standard SCSI prin Fibre Channel (FCP). "
+"Trebuie să furnizaţi 5 parametri pentru fiecare dispozitiv: un număr de dispozitiv "
+"de 16 biţi, un ID SCSI de 16 biţi, un nume de port World Wide (WWPN), un LUN SCSI "
+"de 16 biţi şi un LUN FCP de 64 de biţi."
 
 #: ../zfcp.py:31
 msgid "Device number"
@@ -2941,6 +2945,11 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"Un log complet al instalării poate fi găsit în fişierul „%s” după repornirea "
+"sistemului dvs..\n"
+"\n"
+"Un fişier kickstart conţinând opţiunile de instalare alese poate fi găsit în "
+"fişierul „%s” după repornirea sistemului."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -3057,6 +3066,8 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
+"Mărimea extensiei fizică nu poate fi schimbată deoarece mărimea spaţiul "
+"cerut de volumele logice deja definite ar fi mai mare decât spaţiul disponibil."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -3087,6 +3098,9 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"Mărimea extensiei fizice nu poate fi schimbată deoarece valoarea selectată "
+"(%10.2f MO) este mai mare decât cel mai mic volum fizic (%10.2f MO) din "
+"grupul de volume."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -3095,6 +3109,9 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"Mărimea extensiei fizice nu poate fi schimbată deoarece valoarea selectată "
+"(%10.2f MO) este prea mare comparativ cu mărimea celui mai mic volum fizic "
+"(%10.2f MO) din grupul de volume."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -3115,6 +3132,9 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
+"Mărimea extensiei fizice nu poate fi schimbată deoarece mărimea rezultantă "
+"a volumului logic (%10.2f MO) ar fi mai mică decât unul sau mai multe din volumele "
+"logice deja definite."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
@@ -3222,6 +3242,9 @@ msgid ""
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
+"Mărimea cerută (%10.2f MO) este mai mare decât mărimea maximă de volum "
+"logic (%10.2f MO). Pentru a mări această limită, puteţi crea mai multe volume "
+"fizice din spaţiul nepartiţionat de pe disc şi să le adăugaţi la acest grup de volume."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3238,6 +3261,9 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"Volumele logice pe care le-aţi configurat necesită %g MO, dar grupul de volume "
+"are doar %g MO.  Vă rugăm să măriţi grupul de volume sau să faceţi volumele "
+"logice mai mici."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3292,6 +3318,11 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
+"Este nevoie de cel puţin un volum fizic nefolosit pentru a crea un grup de "
+"volume LVM.\n"
+"\n"
+"Creaţi o partiţie sau o matrice RAID de tipul „volum fizic (LVM)” şi apoi "
+"selectaţi opţiunea „LVM” din nou."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
@@ -3898,6 +3929,8 @@ msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
+"Nu se poate crea un dispozitiv RAID software deoarece toate numerele de "
+"minori pentru dispozitive RAID sunt utilizate deja."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3914,6 +3947,14 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"RAID software vă permite să combinaţi mai multe discuri într-un dispozitiv "
+"RAID mai mare.  Un dispozitiv RAID poate fi configurat să ofere viteză şi "
+"siguranţă mai mare comparativ cu ce oferă o singură unitate.  Pentru mai "
+"multe informaţii despre folosirea dispozitivelor RAID vă rugăm consultaţi "
+"documentaţia %s.\n"
+"\n"
+"Aveţi acum %s partiţii RAID software disponibile pentru a fi utilizate.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1250
 msgid ""
@@ -3922,6 +3963,10 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"Pentru a folosi RAID trebuie să creaţi întâi cel puţin două partiţii de tip "
+"„RAID software”.  Apoi puteţi crea un dispozitiv RAID care poate fi "
+"formatat şi montat.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
@@ -3934,16 +3979,17 @@ msgstr "Creează o partiţie software RAID."
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "Creează _dispozitiv RAID [implicit=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "Clonează o unitate pentru a crea un _dispozitiv RAID "
+"[implicit=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "Nu se poate crea editorul clonelor de unităţi."
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
@@ -3967,7 +4013,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "Ascunde membrii dispozitivului RAID/_Grupului de volume LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
@@ -4002,6 +4048,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
+"Partiţiile de tipul „%s” trebuie să fie restricţionate la o singură unitate.  "
+"Aceasta se face selectând unitatea în lista de „Unităţi disponibile”."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4074,6 +4122,11 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"Cel puţin două partiţii RAID software neutilizate sunt necesare pentru a crea "
+"un dispozitiv RAID.\n"
+"\n"
+"Creaţi întâi cel puţin două partiţii de tipul „RAID software” şi apoi selectaţi "
+"opţiunea „RAID” din nou."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
@@ -4114,6 +4167,8 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
+"Unitatea sursă nu are partiţii de clonat.  Trebuie să definiţi întâi partiţii de "
+"tipul „RAID software” pe această unitate înainte de a fi clonată."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -4127,6 +4182,11 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"Unitatea sursă selectată are partiţii pe ea care nu sunt de tipul „RAID "
+"software”.\n"
+"\n"
+"Aceste partiţii trebuie eliminate înainte ca această unitate să poată fi "
+"clonată."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4137,6 +4197,11 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"Unitatea sursă selectată are partiţii care nu sunt constrânse unităţii "
+"/dev/%s.\n"
+"\n"
+"Aceste partiţii trebuie eliminate sau restricţionate la această unitate "
+"înainte ca ea să poată fi clonată."
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4145,6 +4210,10 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"Unitatea sursă selectată are partiţii RAID software care sunt membre ale unui "
+"dispozitiv activ RAID software.\n"
+"\n"
+"Aceste partiţii trebuie înlăturate înainte ca această unitate să poată fi clonată."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4158,7 +4227,7 @@ msgstr "Vă rugăm alegeţi unităţile ţintă pentru operaţia de clonare."
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Unitatea sursă /dev/%s nu poate fi selectată şi ca unitate ţintă."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4210,7 +4279,7 @@ msgstr "Clonare unităţi"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "A apărut o eroare la curăţirea unităţilor ţintă.  Clonarea a eşuat."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4227,6 +4296,18 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"Unealta de clonare unităţi\n"
+"\n"
+"Această unealtă vă permite să reduceţi considerabil timpul necesar "
+"pentru setarea unor matrici RAID.  Idea este a se lua o unitate sursă care "
+"a fost pregătită cu structura de partiţii dorită şi a se clona această structură "
+"pe alte unităţi de mărime similară.  Apoi se poate crea un dispozitiv RAID.\n"
+"\n"
+"NOTĂ: Unitatea sursă trebuie să aibă partiţii care sunt restricţionate la ea "
+"însăşi şi poate conţine doar partiţii RAID software neutilizate.  Alte tipuri de "
+"partiţii nu sunt permise.\n"
+"\n"
+"TOTUL de pe unităţile ţintă va fi distrus de acest proces."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
@@ -5119,6 +5200,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
+"Mărimea cerută (%10.2f MO) este mai mare ca maximul permis pentru mărimea "
+"volumului logic (%10.2f MO). "
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -5569,6 +5652,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Dacă doriţi să testaţi şi alte medii, introduceţi următorul CD şi apăsaţi „%s”. "
+"Deşi nu este necesară testarea fiecărui CD, vă recomandăm să o faceţi.  "
+"Minimal, CD-urile ar trebui testate înainte de prima lor folosire. După ce au "
+"fost testate cu succes, nu mai este necesar să testaţi din nou fiecare CD."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
@@ -6104,6 +6191,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Verificarea mediului %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
 #, c-format
@@ -6150,6 +6240,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"Prefixul trebuie să fie între 1 şi 32 pentru reţele IPv4 şi între 1 şi 128 pentru "
+"reţele IPv6"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6158,6 +6250,9 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s este un adaptor wireless.  Vă rugăm furnizaţi ESSID şi cheia de criptare "
+"necesare pentru a accesa reţeaua dvs. wireless.  Dacă nu este necesară "
+"o cheie, lăsaţi acest câmp gol şi instalarea va continua."
 
 #: ../loader2/net.c:242
 msgid "Wireless Settings"
@@ -6193,7 +6288,7 @@ msgstr "Eroare de reţea"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
-msgstr ""
+msgstr "A apărut e eroarea la configurarea interfeţei cu reţeaua."
 
 #: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
@@ -6205,7 +6300,7 @@ msgstr "Evită coliziunile nedorite de pachete"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maximizaţi valorile de registru pentru trafic de reţea de mare viteză"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -6213,7 +6308,7 @@ msgstr "Configurare TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 este necesar pentru NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
@@ -6315,7 +6410,7 @@ msgstr "Configurare NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Nume de gazdă specificat fără niciun DNS configurat"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
@@ -6461,7 +6556,7 @@ msgstr "Adaugă LUN _ZFCP"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Adăugare ţintă _iSCSI"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6469,7 +6564,7 @@ msgstr "Opţiuni avansate pentru stocare"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Dezactivare dispozitiv _dmraid"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
@@ -6493,6 +6588,8 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Vă rugăm furnizaţi locaţia de unde poate fi instalat soft adiţional.  Aveţi în "
+"vedere că aceasta trebuie să fie un repozit valid pentru %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6520,6 +6617,10 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Instalarea necesită partiţionarea unităţii dvs. de disc.  Implicit, este aleasă "
+"o structură de partiţii convenabilă pentru majoritatea utilizatorilor.  Puteţi "
+"să o folosiţi pe aceasta sau puteţi crea dvs. una."
+" "
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6555,7 +6656,7 @@ msgstr "<b>Nume de u_tilizator:<b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Nume iniţiator iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6566,6 +6667,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"Pentru a folosi discuri iSCSI, trebuie să furnizaţi adresa ţintei dvs. iSCSI şi "
+"numele iniţiatorului iSCSI pe care le-aţi configurat pentru gazda dvs."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6645,39 +6748,39 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr "Timpul din Alaska"
+msgstr "Ora Alaskăi"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Ora Alaskăi - fâşia Alaskăi"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Ora Alaskăi - gâtul fâşiei Alaskăi"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Ora Alaskăi - vestul Alaskăi"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Insulele Aleutian"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Staţia Amundsen-Scott, Polul Sud"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -6685,165 +6788,167 @@ msgstr "Insulele Atlantice"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "Timpul standard atlantic - Quebec - Ţărmul nordic de jos"
+msgstr "Ora standard a Atlanticului - Quebec - Ţărmul nordic de jos"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
-msgstr ""
+msgstr "Ora Atlanticului - Labrador - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr ""
+msgstr "Ora Atlanticului - New Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
+msgstr "Ora Atlanticului - Noua Scoţie (majoritatea locurilor), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Ora Atlanticului - Noua Scoţie - locurile neobservate de DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Insulele Canare"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Staţia Casey, Peninsula Bailey"
 
 #. generated from zone.tab
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr ""
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr ""
+msgstr "centrul Chinei - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "centrul Crimeei"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Ora centrală standard - Saskatchewan - jumătatea vestică"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Ora centrală standard - Saskatchewan - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Ora centrală"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Ora centrală - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "Ora centrală - centrul Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Ora centrală - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
+"Ora centrală - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr ""
+msgstr "Ora centrală - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Ora centrală - Manitoba şi vestul Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
+msgstr "Ora centrală - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Ora centrală - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
+msgstr "Ora centrală - Nordul Dakota - Morton County (exceptând zona Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Ora centrală - Nordul Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Ora centrală - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Ora centrală - Râul Rainy şi Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Ora centrală - vestul Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Insulele Chatham"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Staţia Davis, Dealurile Vestfold"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "estul Chinei - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "coasta de est, nordul Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "estul Rep. Dem. Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
@@ -6851,19 +6956,19 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Timpul standard estic - Atikokan, Ontario şi Southampton I, Nunavut"
+msgstr "Ora estică standard - Atikokan, Ontario şi Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Ora estică"
 
 #. generated from zone.tab
 msgid "Eastern Time - east Nunavut"
-msgstr ""
+msgstr "Ora Estică - estul Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Ora Estică - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
@@ -6924,7 +7029,7 @@ msgstr "Insulele Galapagos"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Insulele Gambier"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
@@ -6932,51 +7037,51 @@ msgstr "Insulele Gilbert"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (exceptând Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya şi Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Insulele Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
@@ -6984,95 +7089,95 @@ msgstr "Insulele Madeira"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "continent"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Insulele Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Staţia Mawson, Golful Holme"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "Staţia McMurdo, Insula Ross"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Insulele Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - Caspian Sea"
-msgstr ""
+msgstr "Moscova+00 - Marea Caspică"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscova+00 - vestul Rusiei"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscova-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr ""
+msgstr "Moscova+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscow+02 - Urali"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscow+03 - vestul·Siberiei"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscow+04 - Râul Yenisei"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscow+05 - Lacul Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscow+06 - Râul Lena"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscow+07 - Râul Amur"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Moscow+07 - Insula Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscow+10 - Marea Bering"
 
 #. generated from zone.tab
 msgid "most locations"
@@ -7080,11 +7185,11 @@ msgstr "majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "majoritatea locaţiilor (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "majoritatea Tibetului şi Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7133,7 +7238,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "NE Braziliei (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
@@ -7153,15 +7258,15 @@ msgstr "Teritoriu nordic"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr "Timpul Pacific"
+msgstr "Ora Pacificului"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Ora Pacificului - nordul Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Ora Pacificului - sudul Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
@@ -7177,7 +7282,7 @@ msgstr "Malaezia peninsulară"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
@@ -7185,7 +7290,7 @@ msgstr "Insulele Phoenix"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
@@ -7193,7 +7298,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7201,7 +7306,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
@@ -7209,11 +7314,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
@@ -7225,7 +7330,7 @@ msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -7241,15 +7346,15 @@ msgstr "S şi SE Braziliei (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Staţia Syowa, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - Insula Regelui"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
@@ -7257,7 +7362,7 @@ msgstr "Tazmania - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
@@ -7265,15 +7370,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk) and Yap"
-msgstr ""
+msgstr "Truk (Chuuk) şi Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -7281,11 +7386,11 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Staţia Vostok, Polul Sud"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Insula Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -7321,7 +7426,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye·şi·Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7333,11 +7438,11 @@ msgstr "Arabă"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Bengali(India)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -7397,7 +7502,7 @@ msgstr "Greacă"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -7425,7 +7530,7 @@ msgstr "Japoneză"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7445,7 +7550,7 @@ msgstr "Malaeziană"
 
 #. generated from lang-table
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7457,7 +7562,7 @@ msgstr "Nordul Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7477,7 +7582,7 @@ msgstr "Portugheză(Braziliană)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
