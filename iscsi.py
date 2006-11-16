@@ -39,7 +39,7 @@ class iscsiTarget:
         self.user = user
         self.password = pw
         self._portal = None
-        self._node = None
+        self._nodes = []
 
     def _getPortal(self):
         if self._portal is None:
@@ -49,22 +49,22 @@ class iscsiTarget:
                 if not line or line.find("found!") != -1:
                     log.warn("no record found!")
                     return None
-                if len(line.split()) != 2:
+                pnlist = line.split()
+                if len(pnlist) != 2:
                     log.warn("didn't get what we expected from iscsiadm")
                     return None
-                (self._portal, self._node) = line.split()
-                if not self._portal.startswith(self.ipaddr):
-                    self._portal = self._node = None
-                    continue
-                break
+                (portal, node) = pnlist
+                if portal.startswith(self.ipaddr):
+                    self._portal = portal
+                    self._nodes.append(node)
         return self._portal
     def _getNode(self):
-        # FIXME: this is kind of gross....
-        if self._node is None:
-            p = self.portal
-        return self._node
+        if len(self._nodes) == 0:
+            # _getPortal() fills the list, if possible.
+            self._getPortal()
+        return self._nodes
     portal = property(_getPortal)
-    node = property(_getNode)
+    nodes = property(_getNodes)
 
     def discover(self):
         if flags.test:
@@ -81,32 +81,41 @@ class iscsiTarget:
         return True
 
     def login(self):
-        if self.node is None or self.portal is None:
+        if len(self.nodes) == 0 or self.portal is None:
             log.warn("unable to find portal information")
             return False
-        argv = [ "-m", "node", "-T", self.node, "-p", self.portal, "--login" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        rc = iutil.execWithRedirect(ISCSIADM, argv,
+        def _login(node, portal):
+            argv = [ "-m", "node", "-T", node, "-p", portal, "--login" ]
+            log.debug("iscsiadm %s" %(string.join(argv),))
+            rc = iutil.execWithRedirect(ISCSIADM, argv,
                                     stdout = "/dev/tty5", stderr="/dev/tty5")
-        if rc != 0:
-            log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
-            return False
+            if rc != 0:
+                log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
+                return False
+            return True
 
-        self._autostart()
-        return True
-
-    def _autostart(self):
-        argv = [ "-m", "node", "-T", self.node, "-p", self.portal,
-                 "-o", "update", "-n", "node.conn[0].startup",
-                 "-v", "automatic" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        iutil.execWithRedirect(ISCSIADM, argv,
+        def _autostart(node, portal):
+            argv = [ "-m", "node", "-T", node, "-p", portal,
+                     "-o", "update", "-n", "node.conn[0].startup",
+                     "-v", "automatic" ]
+            log.debug("iscsiadm %s" %(string.join(argv),))
+            iutil.execWithRedirect(ISCSIADM, argv,
                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
+        ret = False
+        for node in self.nodes:
+            if _login(node, portal):
+                ret = True
+                _autostart(node, portal)
+
+        # we return True if there were any successful logins for our portal.
+        return ret
+
     def logout(self):
-        argv = [ "-m", "node", "-T", self.node, "-p", self.portal, "--logout" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        rc = iutil.execWithRedirect(ISCSIADM, argv,
+        for node in self.nodes:
+            argv = [ "-m", "node", "-T", node, "-p", self.portal, "--logout" ]
+            log.debug("iscsiadm %s" %(string.join(argv),))
+            rc = iutil.execWithRedirect(ISCSIADM, argv,
                                     stdout = "/dev/tty5", stderr="/dev/tty5")
 
 def randomIname():
