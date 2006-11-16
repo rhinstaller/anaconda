@@ -575,6 +575,7 @@ class AnacondaYum(YumSorter):
         self.setColor()
         if not self.method.splitmethod:
             self.populateTs(keepold=0)
+            rpm.setVerbosity(rpm.RPMLOG_DEBUG)
             self.ts.check()
             self.ts.order()
             self._run(instLog, cb, intf)
@@ -933,7 +934,7 @@ class YumBackend(AnacondaBackend):
             pattern = ""
             names = ""
             for (n, arch, tag) in kernelVersions:
-                if tag == "up":
+                if tag == "base":
                     pkg = "kernel"
                 else:
                     pkg = "kernel-%s" %(tag,)
@@ -950,7 +951,7 @@ class YumBackend(AnacondaBackend):
             os.system(command)
 
             for (n, arch, tag) in kernelVersions:
-                if tag == "up":
+                if tag == "base":
                     pkg = "kernel"
                 else:
                     pkg = "kernel-%s" %(tag,)
@@ -1376,7 +1377,7 @@ class YumBackend(AnacondaBackend):
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='kernel'):
             version = ( tsmbr.version + '-' + tsmbr.release)
-            kernelVersions.append((version, tsmbr.arch, 'up'))
+            kernelVersions.append((version, tsmbr.arch, 'base'))
 
         return kernelVersions
 
