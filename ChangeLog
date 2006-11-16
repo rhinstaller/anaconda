@@ -1,3 +1,9 @@
+2006-11-16  Peter Jones <pjones@redhat.com>
+
+	* iscsi.py (_getPortal): Treat the results of "iscsiadm -m node -p
+	$portal" as a hash rather than a list, and activate/login/logout of
+	the entire list, not just the first one we find.
+
 2006-11-15  Paul Nasrat <pnasrat@redhat.com>
 
 	* scripts/pkgorder: Depsolve on optional/non-grouped packages so sort
