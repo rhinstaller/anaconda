@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-15 23:40+0200\n"
+"PO-Revision-Date: 2006-11-16 21:20+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2782,9 +2782,9 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"O parolă pentru programul de pornire previne schimbarea opţiunilor kernelului "
-"de către utilizatori.  Pentru o mai bună securitate a sistemului, este recomandat "
-"să setaţi o parolă."
+"O parolă pentru programul de pornire previne schimbarea opţiunilor de pornire "
+"ale kernelului de către utilizatori.  Pentru o mai mare securitate a sistemului, este "
+"recomandat să setaţi o parolă."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2929,7 +2929,7 @@ msgstr "Sistemul va fi repornit acum."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
-msgstr "Gata de Instalare"
+msgstr "Gata de instalare"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
@@ -3605,7 +3605,7 @@ msgstr "Prefixul IPv6 trebuie să fie între 0 şi 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
-msgstr "Activare la pornire"
+msgstr "Activă la pornire"
 
 #: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
@@ -3731,7 +3731,7 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr "Opţiuni suplimentare pentru mărime"
+msgstr "Extraopţiuni pentru mărime"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
@@ -4727,8 +4727,8 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"O parolă pentru programul de pornire previne introducerea unor "
-"argumente către kernel de către utilizatori.  Pentru o siguranţă mai mare "
+"O parolă pentru programul de pornire previne introducerea unor argumente "
+"arbitrare către kernel de către utilizatori.  Pentru o mai mare siguranţă, "
 "recomandăm setarea unei parole, deşi acest lucru nu este necesar pentru "
 "utilizatorii obişnuiţi."
 
@@ -4822,7 +4822,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-"Un log complet al acestei instalări se va găsi în %s după repornirea "
+"Un log complet al instalării dvs. poate fi găsit în %s după repornirea "
 "sistemului. Puteţi să-l păstraţi pentru referinţe ulterioare."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
@@ -4849,7 +4849,7 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
-"Un log complet al acestei actualizări se va găsi în %s după repornirea "
+"Un log complet al actualizării dvs. se va găsi în %s după repornirea "
 "sistemului. Puteţi să-l păstraţi pentru referinţe ulterioare."
 
 #: ../textw/grpselect_text.py:87
@@ -5039,7 +5039,7 @@ msgstr "Tip sistem de fişiere:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr "Discuri permise:"
+msgstr "Unităţi permise:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
@@ -5886,8 +5886,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"A apărut o eroare la citirea instalării de pe imaginile ISO. Vă rugăm "
-"verificaţi imaginile ISO şi încercaţi din nou."
+"A apărut o eroare la citirea instalării de pe imaginile ISO. Vă rugăm verificaţi "
+"imaginile ISO şi încercaţi din nou."
 
 #: ../loader2/hdinstall.c:266
 msgid ""
@@ -6556,7 +6556,7 @@ msgstr "Adaugă LUN _ZFCP"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "Adăugare ţintă _iSCSI"
+msgstr "Adaugă ţintă _iSCSI"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6628,7 +6628,7 @@ msgstr "Re_vizuiţi şi modificaţi structura de partiţii"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "Configurare _avansată a spaţiului de stocare"
+msgstr "Configurare _avansată a stocării"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6744,7 +6744,7 @@ msgstr "Personalizează a_cum"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
@@ -6952,7 +6952,7 @@ msgstr "estul Rep. Dem. Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Insula Easter & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
@@ -6972,52 +6972,53 @@ msgstr "Ora Estică - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr ""
+msgstr "Ora estică - Indiana - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr ""
+msgstr "Ora estică - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Ora estică - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Ora estică - Kentucky - Zona Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Ora estică - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Ora estică - Michigan - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Ora estică - Ontario - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"Ora estică - Ontario şi Quebec - locuri neobservate de DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Ora estică - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Ora estică - Quebec - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Ora estică - Golful Thunder, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "estul şi sudul Borneo, Celebes, Bali, Nusa Tengarra, vestul Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -7193,48 +7194,49 @@ msgstr "majoritatea Tibetului şi Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain Standard Time - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain Time - Alberta, estul Columbiei Britanice & vestul Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain Time - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain Time - La sud de·Idaho·&·est de·Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain·Time·-·west·Northwest·Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7242,15 +7244,15 @@ msgstr "NE Braziliei (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
-msgstr ""
+msgstr "Ora Newfoundland, inclusiv SE Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -7270,11 +7272,11 @@ msgstr "Ora Pacificului - sudul Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Ora Pacificului - vestul Columbiei Britanice"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Staţia Palmer, Insula Anvers"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -7294,7 +7296,7 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Insulele Holiday"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -7302,7 +7304,7 @@ msgstr "Queensland - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -7310,7 +7312,7 @@ msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Staţia Rothera, Insula Adelaide"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7334,7 +7336,7 @@ msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Insulele Society"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -7366,7 +7368,7 @@ msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7394,7 +7396,7 @@ msgstr "Insula Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -7422,7 +7424,7 @@ msgstr "Uzbekistanul de vest"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
