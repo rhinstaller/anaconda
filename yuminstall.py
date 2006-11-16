@@ -927,7 +927,7 @@ class YumBackend(AnacondaBackend):
             pattern = ""
             names = ""
             for (n, arch, tag) in kernelVersions:
-                if tag == "up":
+                if tag == "base":
                     pkg = "kernel"
                 else:
                     pkg = "kernel-%s" %(tag,)
@@ -944,7 +944,7 @@ class YumBackend(AnacondaBackend):
             os.system(command)
 
             for (n, arch, tag) in kernelVersions:
-                if tag == "up":
+                if tag == "base":
                     pkg = "kernel"
                 else:
                     pkg = "kernel-%s" %(tag,)
@@ -1356,7 +1356,7 @@ class YumBackend(AnacondaBackend):
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='kernel'):
             version = ( tsmbr.version + '-' + tsmbr.release)
-            kernelVersions.append((version, tsmbr.arch, 'up'))
+            kernelVersions.append((version, tsmbr.arch, 'base'))
 
         return kernelVersions
 

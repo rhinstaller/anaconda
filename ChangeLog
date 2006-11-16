@@ -1,3 +1,9 @@
+2006-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.kernelVersionList): With kernel not
+	being UP, calling it -up doesn't make sense anymore (#215746)
+	* bootloader.py: Likewise.
+
 2006-11-16  Peter Jones <pjones@redhat.com>
 
 	* iscsi.py (_getPortal): Treat the results of "iscsiadm -m node -p
