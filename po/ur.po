@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 15:40-0400\n"
+"POT-Creation-Date: 2006-11-17 09:23-0500\n"
 "PO-Revision-Date: 2006-03-25 21:52+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
 "Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu."
@@ -20,26 +20,28 @@ msgstr ""
 "X-Poedit-Language: Urdu\n"
 "X-Poedit-Country: Pakistan\n"
 
-#: ../anaconda:256
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "نا معلوم نقص"
 
-#: ../anaconda:259
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "نقص pulling second part of kickstart config: %s!"
 
-#: ../anaconda:412
+#: ../anaconda:418
 msgid "Press <enter> for a shell"
 msgstr "شیل کے لیے اینٹر دبائیں۔"
 
-#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:449 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
-#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
+#: ../rescue.py:449 ../text.py:438 ../text.py:581 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../textw/constants_text.py:36 ../textw/network_text.py:46
+#: ../textw/network_text.py:56 ../textw/network_text.py:323
+#: ../textw/network_text.py:355 ../textw/network_text.py:382
+#: ../textw/network_text.py:388 ../textw/network_text.py:618
+#: ../textw/network_text.py:626 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -56,25 +58,25 @@ msgstr "شیل کے لیے اینٹر دبائیں۔"
 #: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
 #: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
+#: ../loader2/lang.c:369 ../loader2/loader.c:337 ../loader2/loader.c:350
+#: ../loader2/loader.c:361 ../loader2/loader.c:805 ../loader2/loader.c:968
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
-#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/method.c:458 ../loader2/modules.c:1057 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:724 ../loader2/net.c:1003
+#: ../loader2/net.c:1509 ../loader2/net.c:1532 ../loader2/net.c:1708
 #: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
 #: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
-#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
-#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
-#: ../loader2/urls.c:351 ../loader2/urls.c:455
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
+#: ../loader2/urls.c:282 ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/urls.c:358 ../loader2/urls.c:464
 msgid "OK"
 msgstr "درست"
 
-#: ../anaconda:450
+#: ../anaconda:456
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -82,39 +84,39 @@ msgstr ""
 "graphical installer استعمال کرنے کے لیے RAM کے مطلوبہ مقدار کم ھےَ  text "
 "mode. کا آغاز"
 
-#: ../anaconda:466
+#: ../anaconda:472
 msgid "No video hardware found, assuming headless"
 msgstr "ویڈیو ھاڈوٰیر دیافت نھیں  ھیڈلس فرض کر لیا"
 
-#: ../anaconda:473 ../anaconda:886
+#: ../anaconda:479 ../anaconda:944
 msgid "Unable to instantiate a X hardware state object."
 msgstr " ھاڈویر سٹیٹ اوبجیکٹ کو شروع کرنے سےقاصر ہے X."
 
-#: ../anaconda:512
+#: ../anaconda:536
 msgid "Starting graphical installation..."
 msgstr "گرافیکل انسٹالیشن شروع ھو رہی ھے۔"
 
-#: ../anaconda:766
+#: ../anaconda:808
 msgid "Install class forcing text mode installation"
 msgstr "کلاس فورس ٹیکسٹ موڈ انسٹال کریں"
 
-#: ../anaconda:798
+#: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "گرافیکل تنصیب میسر نھیں۔ ٹیکسٹ مورڈ کا آغاز"
 
-#: ../anaconda:806
+#: ../anaconda:848
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "ڈسپلے کا ویریبل سیٹ نہیں ھے۔ ٹیکسٹ موڈ شروع ھو رہا ھے۔"
 
-#: ../anaconda:851
+#: ../anaconda:909
 msgid "Unknown install method"
 msgstr "نامعلوم  تنصیب کا طریقہ  "
 
-#: ../anaconda:852
+#: ../anaconda:910
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "آپ نے تنصیب کا وہ طریقہ منتخب کیا ہے جس سے ایناکونڈا واقف نہیں ہے۔ "
 
-#: ../anaconda:854
+#: ../anaconda:912
 #, c-format
 msgid "unknown install method: %s"
 msgstr "نامعلوم  تنصیب کا  طریقہ  %s"
@@ -197,11 +199,11 @@ msgstr ""
 "%s اس پاٹیشن کو ایڈ کرنے سے  لوجیکل والیم کے لیے کافی خالی ڈسک پر جگہ نھیں "
 "بچے گی "
 
-#: ../autopart.py:1243
+#: ../autopart.py:1249
 msgid "Requested Partition Does Not Exist"
 msgstr "مطلوبہ پاٹیشن نھیں ملی"
 
-#: ../autopart.py:1244
+#: ../autopart.py:1250
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -212,11 +214,11 @@ msgstr ""
 "\n"
 "%sاستعمال کے لیے ۔   %sپاٹیشن کو تلاش کرنے سے قاصر ھے "
 
-#: ../autopart.py:1271
+#: ../autopart.py:1277
 msgid "Requested Raid Device Does Not Exist"
 msgstr "ڈیواس نھیں ھے RAID مطلوبہ"
 
-#: ../autopart.py:1272
+#: ../autopart.py:1278
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -227,11 +229,11 @@ msgstr ""
 "\n"
 "%sاستعمال کے لیے ۔   %s ڈیواس موجود نھیں ھے  raid "
 
-#: ../autopart.py:1303
+#: ../autopart.py:1309
 msgid "Requested Volume Group Does Not Exist"
 msgstr "مطلوبہ والیم گروپ موجود نھیں ھے"
 
-#: ../autopart.py:1304
+#: ../autopart.py:1310
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -242,11 +244,11 @@ msgstr ""
 "\n"
 "%sاستعمال کے لیے ۔ %s مطلوبہ والیم گروپ موجود نھیں ھے"
 
-#: ../autopart.py:1341
+#: ../autopart.py:1347
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "مطلوبہ لوجیکل والیم موجود نھیں ھے"
 
-#: ../autopart.py:1342
+#: ../autopart.py:1348
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -257,11 +259,11 @@ msgstr ""
 "\n"
 "%sاستعمال کے لیے ۔ %s مطلوبہ لوجیکل والیم موجود نھیں ھے"
 
-#: ../autopart.py:1456 ../autopart.py:1502
+#: ../autopart.py:1464 ../autopart.py:1511
 msgid "Automatic Partitioning Errors"
 msgstr "ٹومیٹک پاٹیشن کی غلطی"
 
-#: ../autopart.py:1457
+#: ../autopart.py:1465
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -276,11 +278,11 @@ msgstr ""
 "\n"
 "دی گی غلطیاں کے ساتھ ھوی ھیں ."
 
-#: ../autopart.py:1467
+#: ../autopart.py:1475
 msgid "Warnings During Automatic Partitioning"
 msgstr "آٹومیٹک پاٹیشن کے دوران خبردار"
 
-#: ../autopart.py:1468
+#: ../autopart.py:1476
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -291,7 +293,7 @@ msgstr ""
 "\n"
 ":  دی گی احطیاط آٹو میٹک پاٹیشن کے دوران واقع ھوی"
 
-#: ../autopart.py:1481 ../autopart.py:1498
+#: ../autopart.py:1490 ../autopart.py:1507
 msgid ""
 "\n"
 "\n"
@@ -301,12 +303,12 @@ msgstr ""
 "\n"
 "اپنے سسٹم کو ریبوٹ کرنے کے لیے ٹھیک ھے دبایے۔"
 
-#: ../autopart.py:1482 ../iw/partition_gui.py:997
-#: ../textw/partition_text.py:227
+#: ../autopart.py:1491 ../iw/partition_gui.py:997
+#: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "پارٹیشن کی غلطی"
 
-#: ../autopart.py:1483
+#: ../autopart.py:1492
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -317,14 +319,14 @@ msgstr ""
 "\n"
 " مطلوبہ پاٹیشن کو جگہ نھیں مل سکی"
 
-#: ../autopart.py:1500
+#: ../autopart.py:1509
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1503
+#: ../autopart.py:1512
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -340,27 +342,27 @@ msgstr ""
 "\n"
 "اگر آپ کی ھاڈ ڈراو  پر انسٹالیشن کے لیے کافی جگہ نھیں ھے تو یہ ھو سکتا ھے .%s"
 
-#: ../autopart.py:1514
+#: ../autopart.py:1523
 msgid "Unrecoverable Error"
 msgstr "نا قابل معاف غلطی"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1524
 msgid "Your system will now be rebooted."
 msgstr "آپ کا سسٹم اب ریبوٹ ھو گا"
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
-#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
+#: ../autopart.py:1671 ../bootloader.py:194 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
+#: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
+#: ../loader2/loader.c:404
 msgid "Warning"
 msgstr "خبردار"
 
-#: ../autopart.py:1668
+#: ../autopart.py:1677
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -376,7 +378,7 @@ msgstr ""
 "دیتا ھے۔آپ مختلف فایل سسٹم،ماونٹ پوانٹ،پاٹیشن کا سایز اور بہت کچھ سیٹ کر "
 "سکتے ھیں  Disk Druid "
 
-#: ../autopart.py:1679
+#: ../autopart.py:1688
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -384,19 +386,19 @@ msgstr ""
 "اس سے پہلے کہ پروگرام انسٹالیشن آٹو میٹک پاٹیشنگ سیٹ کرے آپ لازمی طور پر "
 "اپنی ھاڈ  ڈراو پا جگہ کو کیسے استعمال کرنا چن لیں"
 
-#: ../autopart.py:1684
+#: ../autopart.py:1693
 msgid "Remove all partitions on this system"
 msgstr "اس سسٹم سے ہر پاٹیشن ختم کر دیں"
 
-#: ../autopart.py:1685
+#: ../autopart.py:1694
 msgid "Remove all Linux partitions on this system"
 msgstr "اس سسٹم سے ہرلینکس پاٹیشن ختم کر دیں"
 
-#: ../autopart.py:1686
+#: ../autopart.py:1695
 msgid "Keep all partitions and use existing free space"
 msgstr "ہر پاٹیشن رکھیں اور موجود خالی جگہ استعمال کریں"
 
-#: ../autopart.py:1688
+#: ../autopart.py:1697
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -406,7 +408,7 @@ msgstr ""
 "%sآپ نے دی گی ڈراو سے سب پاٹیشن ختم کرنے کو چن لیا ھے\n"
 "کیا آپ کو یقین ھے کہ آپ یہ کرنا چاھتے ھیں"
 
-#: ../autopart.py:1692
+#: ../autopart.py:1701
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -450,7 +452,11 @@ msgstr "ختم ھوا"
 msgid "In progress...   "
 msgstr "بڑھ رھا ھے۔"
 
-#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#: ../cmdline.py:66 ../cmdline.py:86
+msgid "Can't have a question in command line mode!"
+msgstr "!کمانڈ لاین موڈ میں سوال نھیں ھو سکتا"
+
+#: ../cmdline.py:74 ../gui.py:897 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -461,25 +467,21 @@ msgstr ""
 "کنفیگریشن کو پارس کرتے ھوئے\n"
 "%s"
 
-#: ../cmdline.py:81
-msgid "Can't have a question in command line mode!"
-msgstr "!کمانڈ لاین موڈ میں سوال نھیں ھو سکتا"
-
-#: ../cmdline.py:100
+#: ../cmdline.py:105
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "!ایکسیپشنز کمانڈ لاین موڈ میں ہینڈل ھو سکتا parted "
 
-#: ../cmdline.py:145
+#: ../cmdline.py:150
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "[%d/%d]کر لیا"
 
-#: ../cmdline.py:151
+#: ../cmdline.py:156
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr " %s-%s-%sانسٹال ھو رھا ھے"
 
-#: ../constants.py:60
+#: ../constants.py:69
 #, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -502,9 +504,9 @@ msgstr ""
 "آپ کے سسٹم کی حالت کامیابی سے فلاپی پر لکھ دی گی ھے۔ اب آپ کا سسٹم دوبارہ "
 "شروع ھو گا"
 
-#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
-#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
-#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
+#: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "دوبارہ چلاؤ _"
@@ -539,14 +541,17 @@ msgstr "برے بلاکوں کو دیکھ رھا ھے"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "۔۔۔ %s/dev/برے بلاکوں کو دیکھ رھا ھے"
 
-#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
-#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
-#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
-#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
-#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
-#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
+#: ../fsset.py:1525 ../fsset.py:1579 ../fsset.py:1590 ../fsset.py:1630
+#: ../fsset.py:1680 ../fsset.py:1746 ../fsset.py:1765 ../image.py:135
+#: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:407
+#: ../yuminstall.py:745 ../yuminstall.py:865 ../yuminstall.py:1138
+#: ../iw/autopart_type.py:193 ../iw/netconfig_dialog.py:213
+#: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
+#: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
@@ -554,18 +559,18 @@ msgstr "۔۔۔ %s/dev/برے بلاکوں کو دیکھ رھا ھے"
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:361
+#: ../loader2/loader.c:805 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "نقص"
 
-#: ../fsset.py:677
+#: ../fsset.py:672
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -578,27 +583,27 @@ msgstr ""
 "سے۔۔اگر چاہیے تو فایل سسٹم کی نقل مکانی کے بغیر  جاری رھنا ممکن ھے۔ ext3 %"
 "sایک غلطی واقع ھوی نقل مکانی کرتے ھو ے  "
 
-#: ../fsset.py:1333
+#: ../fsset.py:1329
 msgid "RAID Device"
 msgstr "ڈواس RAID"
 
-#: ../fsset.py:1337 ../fsset.py:1343
+#: ../fsset.py:1333 ../fsset.py:1339
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1348 ../partitions.py:900
+#: ../fsset.py:1344 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr " PPC PReP بوٹ"
 
-#: ../fsset.py:1351
+#: ../fsset.py:1347
 msgid "First sector of boot partition"
 msgstr "بوٹ پاٹیشن کا پہلا سکٹر"
 
-#: ../fsset.py:1352
+#: ../fsset.py:1348
 msgid "Master Boot Record (MBR)"
 msgstr "ماسٹر بوٹ ریکاڈ (MBR)"
 
-#: ../fsset.py:1426
+#: ../fsset.py:1423
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -611,17 +616,17 @@ msgstr ""
 "۔ یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی ڈیواس "
 "پر سویپ کرنے کی کوشش میں واقع ھو گی ھے \""
 
-#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
+#: ../fsset.py:1452 ../packages.py:259 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "سکپ"
 
-#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1452 ../upgrade.py:90 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "دوبارہ بوٹ"
 
-#: ../fsset.py:1476
+#: ../fsset.py:1473
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -633,12 +638,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1483
+#: ../fsset.py:1480
 #, fuzzy
 msgid "Reformat"
 msgstr "فارمیٹ"
 
-#: ../fsset.py:1487
+#: ../fsset.py:1484
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -650,7 +655,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1495
+#: ../fsset.py:1492
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -662,7 +667,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1505
+#: ../fsset.py:1502
 msgid ""
 "\n"
 "\n"
@@ -671,11 +676,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1511 ../iw/partition_gui.py:368
+#: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "فارمیٹ"
 
-#: ../fsset.py:1518
+#: ../fsset.py:1515
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -691,7 +696,7 @@ msgstr ""
 "\n"
 " %s: %s سویپ ڈسک کی غلطی دکھا رھا ھے"
 
-#: ../fsset.py:1529
+#: ../fsset.py:1526
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -706,7 +711,7 @@ msgstr ""
 "\n"
 "اپنے سسٹم کو ریبوٹ کرنے کے لیےُ ٹھیک ہے دبایںُ۔  "
 
-#: ../fsset.py:1583
+#: ../fsset.py:1580
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -719,7 +724,7 @@ msgstr ""
 "ہم اس ڈیواس کو استعمال کرنے کی صلاح نہیں دیتے %s/dev/ ڈیواس پر بیڈ بلاک ملے "
 "ھیں"
 
-#: ../fsset.py:1594
+#: ../fsset.py:1591
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -732,7 +737,7 @@ msgstr ""
 "۔ یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی بیڈ "
 "بلاک کو تلاش کرتے ھوے واقع ھو گی ھے \""
 
-#: ../fsset.py:1634
+#: ../fsset.py:1631
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -745,7 +750,7 @@ msgstr ""
 "۔ یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی صاف کی "
 "کوشش کرتے ھوے واقع ھو گی ھے \""
 
-#: ../fsset.py:1684
+#: ../fsset.py:1681
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -758,11 +763,11 @@ msgstr ""
 "۔  یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی "
 "مایگریشن کی کوشش کرتے ھوے واقع ھو گی ھے "
 
-#: ../fsset.py:1710 ../fsset.py:1719
+#: ../fsset.py:1707 ../fsset.py:1716
 msgid "Invalid mount point"
 msgstr "ماونٹ پواینٹ خالی ھے"
 
-#: ../fsset.py:1711
+#: ../fsset.py:1708
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -775,7 +780,7 @@ msgstr ""
 " یہ ایک فیٹل غلطی ھے اور انسٹالیشن جاری نھیں ھو سکتی ۔ کچھ الیمینٹ ڈاریکٹری "
 "میں نھیں ھے۔%sایک غلطی ھوی ھے جب بنانے کی کوشش کر رہا تھا  <Enter> ."
 
-#: ../fsset.py:1720
+#: ../fsset.py:1717
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -788,24 +793,24 @@ msgstr ""
 " یہ ایک فیٹل غلطی ھے اور انسٹالیشن جاری نھیں ھو سکتی %s: %sایک غلطی ھوی ھے "
 "جب بنانے کی کوشش کر رہا تھا ."
 
-#: ../fsset.py:1733
+#: ../fsset.py:1730
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "فایٓل لوڈ نھیں ھو سکتی   "
 
-#: ../fsset.py:1734
+#: ../fsset.py:1731
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
-#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
+#: ../fsset.py:1739 ../image.py:93 ../image.py:446 ../kickstart.py:921
+#: ../kickstart.py:957 ../yuminstall.py:861 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "جاری رکھو _"
 
-#: ../fsset.py:1750
+#: ../fsset.py:1747
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -820,7 +825,7 @@ msgstr ""
 "  %s\n"
 " :%s جیسا کہ  %s ماونٹ ڈیواس کی غلطی  "
 
-#: ../fsset.py:1769
+#: ../fsset.py:1766
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -834,11 +839,11 @@ msgstr ""
 "\n"
 "اپنے سسٹم کو دوبارہ سے شروع کرنے کے لیےُ ٹھیک ہے دباُیں۔"
 
-#: ../fsset.py:2462
+#: ../fsset.py:2459
 msgid "Duplicate Labels"
 msgstr "ایک جیسا لیبل"
 
-#: ../fsset.py:2463
+#: ../fsset.py:2460
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -851,11 +856,11 @@ msgstr ""
 "آپ کے سسٹم کو صحیح طور پر کام کرنے کے لیے  ڈیواسس پرمختلف لیبل ھونے چاھیے۔   "
 "%sمختلف ڈیواسسز آپ کے سسٹم پر لیبل ھیں .  ."
 
-#: ../fsset.py:2723
+#: ../fsset.py:2720
 msgid "Formatting"
 msgstr "صاف کر رہی ہے"
 
-#: ../fsset.py:2724
+#: ../fsset.py:2721
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "فائل سسٹم %s فارمیٹنگ"
@@ -903,49 +908,54 @@ msgstr ""
 "اسکرین شاٹ کو کاپی کرنے کے دوران غلطی ھو گئی ھے۔ اگر پیکیج انسٹالیشن کے "
 "دوران بھی ایسا ھوا تو آپ کو کامیابی کے لیے زیادہ دفعہ کوشش کرنی پڑے گی۔"
 
-#: ../gui.py:230 ../text.py:391
+#: ../gui.py:230 ../text.py:435
 msgid "Fix"
 msgstr "ٹھیک کرنا۔"
 
-#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:404
 msgid "Yes"
 msgstr "جی ہاں۔"
 
-#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:437
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:403
+#: ../loader2/loader.c:404
 msgid "No"
 msgstr "نہیں۔"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
-#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
-#: ../loader2/net.c:1137
+#: ../gui.py:234 ../text.py:439 ../loader2/net.c:97 ../loader2/net.c:301
+#: ../loader2/net.c:542 ../loader2/net.c:653 ../loader2/net.c:770
+#: ../loader2/net.c:777 ../loader2/net.c:787 ../loader2/net.c:1147
+#: ../loader2/net.c:1153
 msgid "Retry"
 msgstr "دوبارہ کوشش کریں۔"
 
-#: ../gui.py:235 ../text.py:396
+#: ../gui.py:235 ../text.py:440
 msgid "Ignore"
 msgstr "پرواہ  نہ کرنا۔"
 
-#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
+#: ../gui.py:236 ../gui.py:757 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
+#: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:350
 msgid "Cancel"
 msgstr "رد کرنا۔"
 
-#: ../gui.py:843 ../text.py:356
+#: ../gui.py:595 ../text.py:356
+#, fuzzy
+msgid "Installation Key"
+msgstr "انسٹالیش کی قسم"
+
+#: ../gui.py:899 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "کک سٹارٹ کنفیگریشن کو پارس کرتے ھوئے غلطی۔ "
 
-#: ../gui.py:851 ../text.py:366
+#: ../gui.py:907 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -953,15 +963,15 @@ msgstr ""
 "براہ مہربانی اب فلاپی کو ڈالیں۔ ڈسک پر موجود ہر چیز کو ختم کر دیا جائے گا۔ "
 "اس لیے اپنی ڈسک احتیاط سے چنیں۔"
 
-#: ../gui.py:898
+#: ../gui.py:954
 msgid "default:LTR"
 msgstr "ایل ٹی آر LTR : ڈیفالٹ "
 
-#: ../gui.py:982
+#: ../gui.py:1038
 msgid "Error!"
 msgstr "نقص!"
 
-#: ../gui.py:983
+#: ../gui.py:1039
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -972,40 +982,40 @@ msgstr ""
 " انسٹالر انٹر فیس کو لوڈ کرتے ھوئے غلطی ھو گئی ھے۔\n"
 "className = %s "
 
-#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
+#: ../gui.py:1044 ../gui.py:1049 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
 msgstr "بند کرنا _"
 
-#: ../gui.py:989 ../yuminstall.py:609
+#: ../gui.py:1045 ../yuminstall.py:748
 msgid "_Retry"
 msgstr "دوبارہ کوشش کریں _"
 
-#: ../gui.py:992 ../packages.py:294
+#: ../gui.py:1048 ../packages.py:307
 msgid "The installer will now exit..."
 msgstr "انسٹالر اب بند ھو رہا ھے۔"
 
-#: ../gui.py:995 ../packages.py:297
+#: ../gui.py:1051 ../packages.py:310
 msgid "Your system will now be rebooted..."
 msgstr "اب آپ کا سسٹم دوبارہ چلے گا۔"
 
-#: ../gui.py:998 ../packages.py:299
+#: ../gui.py:1054 ../packages.py:312
 msgid "Rebooting System"
 msgstr "سسٹم کو دوبارہ چلانا۔"
 
-#: ../gui.py:1062
+#: ../gui.py:1118
 #, python-format
 msgid "%s Installer"
 msgstr "انسٹالر %s "
 
-#: ../gui.py:1069
+#: ../gui.py:1125
 msgid "Unable to load title bar"
 msgstr "ٹائٹل بار کو لوڈ نہیں کیا جا سکا"
 
-#: ../gui.py:1118
+#: ../gui.py:1174
 msgid "Install Window"
 msgstr "انسٹال ونڈو"
 
-#: ../harddrive.py:44 ../image.py:144 ../image.py:474
+#: ../harddrive.py:44 ../image.py:146 ../image.py:476
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1021,7 +1031,7 @@ msgstr ""
 "مطلب سی۔ڈی میڈیا کا خراب ھونا ھے۔یا سی۔ڈی  ڈرائیو میڈیا کو پڑھ نہیں سکتا۔\n"
 "\n"
 
-#: ../harddrive.py:71 ../image.py:507
+#: ../harddrive.py:71 ../image.py:509
 msgid "Missing ISO 9660 Image"
 msgstr "تصویر  لا پتہ ہے ISO 9660 "
 
@@ -1040,15 +1050,15 @@ msgstr ""
 "مہربانی فرما کر اس خاکہ کو ریموٹ کارآمد کے جڑے ہوےُ راستہ پر رکھیں اور دوبارہ "
 "کوشش کریں دبایُں۔ تنصیب کو ختم کرنے کے لیےُ دوبارہ بوٹ کریں دبایُں۔ "
 
-#: ../harddrive.py:81 ../image.py:518
+#: ../harddrive.py:81 ../image.py:520
 msgid "Re_try"
 msgstr "ری_ٹرایُ"
 
-#: ../image.py:82
+#: ../image.py:84
 msgid "Required Install Media"
 msgstr "انسٹال میڈیا کی ضرورت ھے۔"
 
-#: ../image.py:83
+#: ../image.py:85
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1065,13 +1075,13 @@ msgstr ""
 "کو تنصیب ختم کرنے یا دوبارہ سے بوٹ کرنے کی ضرورت ہے تو \"Reboot\".کا انتخاب "
 "کیجیئے۔"
 
-#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:262 ../packages.py:308 ../packages.py:311
+#: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "پیچھے _"
 
-#: ../image.py:134
+#: ../image.py:136
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1081,15 +1091,15 @@ msgstr ""
 "tty2 کو %s کو ان ماؤنٹ کرتے ھوئے غلطی ھو گئی ھے۔ براہ مہربانی اس بات کا یقین "
 "کر لیں کہ آپ CD"
 
-#: ../image.py:164
+#: ../image.py:166
 msgid "Copying File"
 msgstr "فائل کو کاپی کیا جا رھا ھے۔"
 
-#: ../image.py:165
+#: ../image.py:167
 msgid "Transferring install image to hard drive..."
 msgstr "... انسٹال امیج کو ہارڈ ڈرائیو پر منتقل کیا جا رھا ھے"
 
-#: ../image.py:175
+#: ../image.py:177
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1097,29 +1107,29 @@ msgstr ""
 "آپ کی ہارڈ ڈرایُو پر تنصیبی خاکہ منتقل کرنے میں نقص واقع ہو گیا ہے۔ آپ لازمی "
 "طور پر ڈسک کی جگہ سے باہر ہیں۔"
 
-#: ../image.py:264
+#: ../image.py:266
 msgid "Change CDROM"
 msgstr "کو تبدیل کریں CDROM"
 
-#: ../image.py:265
+#: ../image.py:267
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "ڈالیں%s disc %d  براےُ کرم جاری کرنے کے لیےُ"
 
-#: ../image.py:300
+#: ../image.py:302
 msgid "Wrong CDROM"
 msgstr "CDROM غلط"
 
-#: ../image.py:301
+#: ../image.py:303
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "نھیں ہے۔ %s CDROM یہ درست "
 
-#: ../image.py:307
+#: ../image.py:309
 msgid "Unable to access the CDROM."
 msgstr " کی رسایُ کرنے سے قاصر ہے۔CDROM"
 
-#: ../image.py:360
+#: ../image.py:362
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1135,7 +1145,7 @@ msgstr ""
 "مطلب سی۔ڈی میڈیا کا خراب ھونا ھے۔یا سی۔ڈی  ڈرائیو میڈیا کو پڑھ نہیں سکتا۔\n"
 "\n"
 
-#: ../image.py:508
+#: ../image.py:510
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1150,11 +1160,11 @@ msgstr ""
 "مہربانی فرما کر اس خاکہ کو ریموٹ کارآمد کے جڑے ہوےُ راستہ پر رکھیں اور دوبارہ "
 "کوشش کریں دبایُں۔ تنصیب کو ختم کرنے کے لیےُ دوبارہ بوٹ کریں دبایُں۔ "
 
-#: ../installclass.py:64
+#: ../installclass.py:63
 msgid "Install on System"
 msgstr "سسٹم پر تنصیب"
 
-#: ../iscsi.py:126 ../iscsi.py:127
+#: ../iscsi.py:185 ../iscsi.py:186
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "شروع کر رہا ہے"
@@ -1177,42 +1187,42 @@ msgstr ""
 "\n"
 "اپنےسسٹم کو دوبارہ سے بُوٹ کرنے کے لئےاوکے بٹن دبائیے۔ "
 
-#: ../kickstart.py:764 ../kickstart.py:782
+#: ../kickstart.py:751 ../kickstart.py:769
 msgid "Running..."
 msgstr "چل رہا ہے"
 
-#: ../kickstart.py:765
+#: ../kickstart.py:752
 msgid "Running pre-install scripts"
 msgstr "پری-انسٹال سکریپٹز چلا رہا ہے"
 
-#: ../kickstart.py:783
+#: ../kickstart.py:770
 msgid "Running post-install scripts"
 msgstr "پوسٹ-انسٹال سکریپٹز چلا رہا ہے"
 
-#: ../kickstart.py:926
+#: ../kickstart.py:913
 #, fuzzy
 msgid "Missing Package"
 msgstr "پیکیجز انسٹال ہو رہے ہیں"
 
-#: ../kickstart.py:927
+#: ../kickstart.py:914
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
-#: ../yuminstall.py:718
+#: ../kickstart.py:920 ../kickstart.py:956 ../yuminstall.py:861
+#: ../yuminstall.py:863
 #, fuzzy
 msgid "_Abort"
 msgstr "دوبارہ چلاؤ _"
 
-#: ../kickstart.py:961
+#: ../kickstart.py:948
 #, fuzzy
 msgid "Missing Group"
 msgstr "امکمل معلومات  "
 
-#: ../kickstart.py:962
+#: ../kickstart.py:949
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1235,13 +1245,13 @@ msgstr ""
 
 #: ../network.py:89
 #, fuzzy
-msgid "IP Address is missing."
+msgid "IP address is missing."
 msgstr "کا پتہ موجود نہیں IP "
 
 #: ../network.py:93
 #, fuzzy
 msgid ""
-"IP Addresses must contain four numbers between 0 and 255, separated by "
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr "کے پتے کے لیے لازمی کہ اس کے نمبر 0 سے لے کر 255 تک ہوں IP"
 
@@ -1250,25 +1260,31 @@ msgstr "کے پتے کے لیے لازمی کہ اس کے نمبر 0 سے لے �
 msgid "'%s' is not a valid IPv6 address."
 msgstr "%s ایک صحیح ہوسٹ کا نام نہیں ہے"
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr ""
+#: ../network.py:98
+#, fuzzy, python-format
+msgid "'%s' is an invalid IP address."
+msgstr "%s ایک صحیح ہوسٹ کا نام نہیں ہے"
 
-#: ../packages.py:245
+#: ../packages.py:248
 #, fuzzy
-msgid "Enter Registration Key"
-msgstr "اینکر پشن کی"
+msgid "Invalid Key"
+msgstr " سٹر نگ IP غلط"
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr ""
+#: ../packages.py:249
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "غلط نمبر کا اندراج کیا گیا۔"
 
-#: ../packages.py:276
+#: ../packages.py:262
+#, fuzzy
+msgid "_Skip"
+msgstr "سکپ"
+
+#: ../packages.py:289
 msgid "Warning! This is pre-release software!"
 msgstr "خبردار! یہ ایک ریلیز سے پہلے کا سوفٹ ویرُ ! ہے  "
 
-#: ../packages.py:277
+#: ../packages.py:290
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1295,11 +1311,11 @@ msgstr ""
 "\n"
 "اور '%s'کے خلاف ترتیب سے بیان دیجیئے.\n"
 
-#: ../packages.py:290
+#: ../packages.py:303
 msgid "_Install anyway"
 msgstr "کسی نہ کسی طرح انسٹال کرو۔"
 
-#: ../partedUtils.py:205 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
 msgid "Foreign"
 msgstr "فارن"
 
@@ -1342,21 +1358,16 @@ msgstr "نظرانداز ڈرایو_"
 msgid "_Format drive"
 msgstr "فارمیٹ ڈرایو_"
 
-#: ../partedUtils.py:791
-#, python-format
-msgid "Error mounting file system on %s: %s"
-msgstr "میں ماونُٹ کرنے میں نقص %s: %s فایلُ سسٹم"
-
-#: ../partedUtils.py:888
+#: ../partedUtils.py:885
 msgid "Initializing"
 msgstr "شروع کر رہا ہے"
 
-#: ../partedUtils.py:889
+#: ../partedUtils.py:886
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "...%s  مہربانی فرما کر ڈرایوُ فارمیٹنگ کے دوران انتظار کریں\n"
 
-#: ../partedUtils.py:987
+#: ../partedUtils.py:984
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1377,7 +1388,7 @@ msgstr ""
 "\n"
 "کیا ٓاپ اس ڈرائیو پہ ٓاغازکار، جو تمام ڈیٹا کو مٹا دے گا،چاہیتے ہیں؟"
 
-#: ../partedUtils.py:1044
+#: ../partedUtils.py:1041
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1396,11 +1407,11 @@ msgstr ""
 "\n"
 "کیا ٓاپ اس ڈرائیو پہ آغاز، جو تمام ڈیٹا کو مٹا دے گا،چاہتے ہیں؟ "
 
-#: ../partedUtils.py:1162
+#: ../partedUtils.py:1159
 msgid "No Drives Found"
 msgstr "کویُ ڈرایو ز نھیں ملی"
 
-#: ../partedUtils.py:1163
+#: ../partedUtils.py:1160
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1524,7 +1535,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
-#: ../iw/lvm_dialog_gui.py:757
+#: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
 msgstr "ختم کرنے کو یقینی بنایںُ"
 
@@ -1534,8 +1545,8 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr " پر تمام  پارٹیشنز ختم کرنے والے ہیں۔ '/dev/%s' آپ اِس ڈیوایُس"
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
-#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
+#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1110
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1357
 msgid "_Delete"
 msgstr "ختم کرو"
 
@@ -1724,11 +1735,11 @@ msgstr ""
 "کیا آپ کو یقین ہے کہ پارٹیشن ٹیبل کو دوبارہ ٹھیک کر کے اس کی اصل حالت پر "
 "واپس لانا چاہتے ہیں؟"
 
-#: ../partitioning.py:62
+#: ../partitioning.py:64
 msgid "Installation cannot continue."
 msgstr "تنصیب جاری نھیں رہ سکتی۔"
 
-#: ../partitioning.py:63
+#: ../partitioning.py:65
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1738,11 +1749,11 @@ msgstr ""
 "ترمیم والی سکرین پر واپس نہیں جا سکتے۔ کیا آپ تنصیب کے عمل کے ساتھ جاری رہنا "
 "چاہتے ہیں؟"
 
-#: ../partitioning.py:93
+#: ../partitioning.py:95
 msgid "Low Memory"
 msgstr "محدود میموری"
 
-#: ../partitioning.py:94
+#: ../partitioning.py:96
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1964,11 +1975,11 @@ msgstr "نیٹ ورکینگ کا سیٹ اپ"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "کیا آپ نیٹ ورک انٹرفیز اس مشین پر شروع کرنا چاہتے ہیں "
 
-#: ../rescue.py:243 ../text.py:533
+#: ../rescue.py:243 ../text.py:577
 msgid "Cancelled"
 msgstr "کنسلیڈ"
 
-#: ../rescue.py:244 ../text.py:534
+#: ../rescue.py:244 ../text.py:578
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "میں یہاں سے واپس پیپھے نہیں جا سکتا۔ تمھیں دوبارہ کوشش کرنی پڑ ے گی۔"
 
@@ -1999,8 +2010,9 @@ msgstr ""
 "گے۔\n"
 " 'Skip' اگر کسی وجہ سے یہ عمل ناکام ہو جاےُ تو آپ\n"
 
-#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
-#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../textw/network_text.py:62
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
+#: ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "جاری رھے"
 
@@ -2128,22 +2140,32 @@ msgstr "ابھی مدد نھیں مل سکتی"
 msgid "No help is available for this step of the install."
 msgstr "انسٹالیشن کے اس قدم پر کوئ مدد نھیں مل سکتی"
 
-#: ../text.py:365
+#: ../text.py:361
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "مہربانی فرما کر والیم گروپ نام کا اندراج کریں"
+
+#: ../text.py:378 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:409
 msgid "Save Crash Dump"
 msgstr "سیو کریش ڈنپ"
 
-#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:154
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr " میں  %sخوش آمدید"
 
-#: ../text.py:426
+#: ../text.py:470
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "اگلی سکرین <F12> سلیکٹ <Space> لفظوں کے درمیان <Tab>   مدد کے لیے  <F1> "
 
-#: ../text.py:428
+#: ../text.py:472
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2157,11 +2179,11 @@ msgstr "پہلے والی فاءیل کو اپ گریڈ کرو"
 msgid "Upgrade"
 msgstr "اپ گریڈ"
 
-#: ../upgrade.py:52
+#: ../upgrade.py:83
 msgid "Proceed with upgrade?"
 msgstr "اپگریڈ کے ساتھ جاری رہنا چاہتے ہیں؟"
 
-#: ../upgrade.py:53
+#: ../upgrade.py:84
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -2171,24 +2193,24 @@ msgstr ""
 "ماوُنٹیڈ  ہیں۔ آپ اس مقام سے واپس ماضی میں نہیں جا سکتے۔\n"
 " \n"
 
-#: ../upgrade.py:57
+#: ../upgrade.py:88
 msgid "Would you like to continue with the upgrade?"
 msgstr "کیا آپ اپگریڈ کے ساتھ جاری رہنا چاہتے ہیں؟ "
 
-#: ../upgrade.py:93
+#: ../upgrade.py:124
 msgid "Searching"
 msgstr "ڈھونڈنا"
 
-#: ../upgrade.py:94
+#: ../upgrade.py:125
 #, python-format
 msgid "Searching for %s installations..."
 msgstr " کی انسٹالیشن ڈھونڈنا %s"
 
-#: ../upgrade.py:150 ../upgrade.py:158
+#: ../upgrade.py:181 ../upgrade.py:189
 msgid "Dirty File Systems"
 msgstr "گندھے فاءیل سسٹم"
 
-#: ../upgrade.py:151
+#: ../upgrade.py:182
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2201,7 +2223,7 @@ msgstr ""
 "لیےُ اِس کو چیک کریں اور بند کر دیں۔\n"
 "%s"
 
-#: ../upgrade.py:159
+#: ../upgrade.py:190
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2212,11 +2234,11 @@ msgstr ""
 "کیا آپ انھیں کسی بھی طریقے سے ماوُنٹ کرنا چاہتے ہیں؟\n"
 "%s"
 
-#: ../upgrade.py:296 ../upgrade.py:302
+#: ../upgrade.py:327 ../upgrade.py:333
 msgid "Mount failed"
 msgstr "مونٹ فیلڈ"
 
-#: ../upgrade.py:297
+#: ../upgrade.py:328
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2225,7 +2247,7 @@ msgstr ""
 "دوبارہ بہتری کی کوشش کریں۔/etc/fstab  آپ کے لینکس سسٹم میں ایک یا اس سے "
 "زیادہ فایل سسٹمز  جو"
 
-#: ../upgrade.py:303
+#: ../upgrade.py:334
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2235,7 +2257,7 @@ msgstr ""
 "مسلہُ کو حل کریں اور دوبارہ بہتری کی کوشش کریں۔/etc/fstab  آپ کے لینکس سسٹم "
 "میں ایک یا اس سے زیادہ فایل سسٹمز  جو"
 
-#: ../upgrade.py:320
+#: ../upgrade.py:351
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2247,11 +2269,11 @@ msgstr ""
 "کرانھیں ریلیٹیو نشانی والے رابطے میں منتۡل کریں اور بہتری کو دوبارہ سے شروع "
 "کریں۔  \n"
 
-#: ../upgrade.py:326
+#: ../upgrade.py:357
 msgid "Absolute Symlinks"
 msgstr "ایبسلیوٹ سیملینکز"
 
-#: ../upgrade.py:337
+#: ../upgrade.py:368
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2263,11 +2285,11 @@ msgstr ""
 "اپگریڈ کو دوبارہ سے شروع کریں۔\n"
 " \n"
 
-#: ../upgrade.py:343
+#: ../upgrade.py:374
 msgid "Invalid Directories"
 msgstr "اِن ویلیڈ ڈایریکٹری"
 
-#: ../upgrade.py:350
+#: ../upgrade.py:381
 #, python-format
 msgid "%s not found"
 msgstr "نھیں ملا %s"
@@ -2331,7 +2353,7 @@ msgstr ""
 "خفیہ الفاظ آپ کی تنصیب کی پیش رفت کو غیر یقینی رابطہ اور دہکھنے سے بچاتے "
 "ہیں۔ مہربانی فرما کر تنصیب کے استعمال کے لیےُ خفیہ الفاظ کا اندراج کریں"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
+#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:454
 msgid "Password:"
 msgstr "پاسورڈ"
 
@@ -2445,60 +2467,60 @@ msgstr "مہربانی کرکے %s کو منسلک کرکے تنصیب شروع 
 msgid "Please connect to begin the install..."
 msgstr "مہربانی منسلک کرکے تنصیب شروع کریں  "
 
-#: ../yuminstall.py:103
+#: ../yuminstall.py:100
 msgid "Processing"
 msgstr "پروسیسینگ"
 
-#: ../yuminstall.py:104
+#: ../yuminstall.py:101
 msgid "Preparing transaction from installation source..."
 msgstr " کی انسٹالیشن ڈھونڈنا %s"
 
-#: ../yuminstall.py:470 ../yuminstall.py:471
+#: ../yuminstall.py:609 ../yuminstall.py:610
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:472
+#: ../yuminstall.py:611
 msgid "older package(s)"
 msgstr ""
 
-#: ../yuminstall.py:473
+#: ../yuminstall.py:612
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:474
+#: ../yuminstall.py:613
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:475
+#: ../yuminstall.py:614
 msgid "package conflicts"
 msgstr ""
 
-#: ../yuminstall.py:476
+#: ../yuminstall.py:615
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:477
+#: ../yuminstall.py:616
 #, fuzzy
 msgid "required package"
 msgstr "خالی جگہ"
 
-#: ../yuminstall.py:478
+#: ../yuminstall.py:617
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:479
+#: ../yuminstall.py:618
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:493
+#: ../yuminstall.py:632
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:509
+#: ../yuminstall.py:648
 msgid "Error running transaction"
 msgstr "ٹرانسیکشن کو چلانے میں نقص"
 
-#: ../yuminstall.py:510
+#: ../yuminstall.py:649
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2507,20 +2529,20 @@ msgstr ""
 ":\n"
 " درجہ ذیل کی وجہ سے\"%s\"دیا گیا میزبان نام صیحیح نہیں"
 
-#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
+#: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
 msgid "Re_boot"
 msgstr "Re_boot"
 
-#: ../yuminstall.py:697
+#: ../yuminstall.py:837
 msgid "Retrieving installation information..."
 msgstr "تنصیب کی معلومات حاصل کر رہا ہے۔"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:839
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "تنصیب کی معلومات حاصل کر رہا ہے۔"
 
-#: ../yuminstall.py:721
+#: ../yuminstall.py:866
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2531,18 +2553,18 @@ msgstr ""
 "سکتی ہے۔ مہربانی فرما کر آپ  %s اِس بات کی یقین دہانی کر لیں کہ آپ کا تنصیبی "
 "درخت صحیح طور پر ابھرا ہے۔ "
 
-#: ../yuminstall.py:760
+#: ../yuminstall.py:905
 msgid "Uncategorized"
 msgstr "کسی تقسیم کے بغیر"
 
-#: ../yuminstall.py:995
+#: ../yuminstall.py:1139
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1149
+#: ../yuminstall.py:1293
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2552,93 +2574,53 @@ msgstr ""
 "رہنا چاہیں گے؟ %s  یہ دیکھنے میں آ رہا ہے کہ آپ ایسے سسٹم کو بہتر بنانا "
 "چاہتے ہیں جو اِس     "
 
-#: ../yuminstall.py:1181
+#: ../yuminstall.py:1325
 msgid "Install Starting"
 msgstr "تنصیب شروع ہو رہی ھے"
 
-#: ../yuminstall.py:1182
+#: ../yuminstall.py:1326
 msgid "Starting install process.  This may take several minutes..."
 msgstr "تنصیب کے عمل کا آغاز ہو رہا ہے۔ یہ کافی منٹ لے سکتا ہے۔۔۔ "
 
-#: ../yuminstall.py:1198
+#: ../yuminstall.py:1342
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "اپ گریڈ"
 
-#: ../yuminstall.py:1199
+#: ../yuminstall.py:1343
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "پوسٹ تنصیب ترتیبات نبھا رہا ہے۔۔۔"
 
-#: ../yuminstall.py:1201
+#: ../yuminstall.py:1345
 msgid "Post Install"
 msgstr "پوسٹ تنصیب"
 
-#: ../yuminstall.py:1202
+#: ../yuminstall.py:1346
 msgid "Performing post install configuration..."
 msgstr "پوسٹ تنصیب ترتیبات نبھا رہا ہے۔۔۔"
 
-#: ../yuminstall.py:1357
+#: ../yuminstall.py:1504
 msgid "Installation Progress"
 msgstr "انسٹالیش کی پیش رفت"
 
-#: ../yuminstall.py:1392
+#: ../yuminstall.py:1539
 msgid "Dependency Check"
 msgstr "انحصار چیک"
 
-#: ../yuminstall.py:1393
+#: ../yuminstall.py:1540
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "تنصیب کے لیےُ منتخب شدہ پیکیجیز میں انحصار چیک کر رہا ہے۔"
 
-#: ../zfcp.py:29
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
-msgstr ""
-" کے ذریعے کر سکتی ہیں۔ آپ کو ہر ایک آلے کے لیےُ 5 پیرامیٹرز مہیا کرنے ہوں گے:"
-"a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name "
-"(WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN.  (FCP) آلات کی رسایُ فایُبر "
-"چینل SCSI مشینز صرف انڈسٹری معیار zSeries"
-
-#: ../zfcp.py:31
-msgid "Device number"
-msgstr "ڈیواءس نمبر"
-
-#: ../zfcp.py:32
+#: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
 msgstr "آپ نے ڈیوایس نمبر نھیں دیا یا وہ اِن ویلڈ ھے  "
 
-#: ../zfcp.py:34
-msgid "SCSI Id"
-msgstr "SCSI Id"
-
-#: ../zfcp.py:35
-msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr " نھیں دیا یا وہ اِن ویلڈ ھے SCSI IDآپ نے "
-
-#: ../zfcp.py:37 ../textw/zfcp_text.py:101
-msgid "WWPN"
-msgstr "WWPN"
-
-#: ../zfcp.py:38
+#: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "آپ نے ورلڈ وایڈ پورٹ نیم نھیں دیا یا نام اِن ویلڈ ھے"
 
-#: ../zfcp.py:40
-msgid "SCSI LUN"
-msgstr "SCSI LUN"
-
-#: ../zfcp.py:41
-msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "نھیں لکھا یا آپ کا نمبر اِن ویلڈ ھے SCSI LUN     ٓاپ نے "
-
-#: ../zfcp.py:43 ../textw/zfcp_text.py:101
-msgid "FCP LUN"
-msgstr "FCP LUN"
-
-#: ../zfcp.py:44
+#: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr " نھیں لکھا یا آپ کا نمبر اِن ویلڈ ھے   FCP LUN  ٓاپ نے "
 
@@ -2689,33 +2671,33 @@ msgstr "روٹ پاسورڈ ۔ ۔"
 msgid "_Confirm: "
 msgstr "کنفرم ۔ ۔"
 
-#: ../iw/autopart_type.py:134
+#: ../iw/autopart_type.py:137
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "نام _انیٹیٹر: iSCSI"
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:138
 msgid "You must provide a non-zero length initiator name."
 msgstr ""
 
-#: ../iw/autopart_type.py:157
+#: ../iw/autopart_type.py:161
 msgid "Error with Data"
 msgstr "ڈیٹا میں نقص "
 
-#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
+#: ../iw/autopart_type.py:243 ../textw/partition_text.py:1529
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "اس سسٹم سے ہر پاٹیشن ختم کر دیں"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:244 ../textw/partition_text.py:1530
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:245 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:246 ../textw/partition_text.py:1532
 msgid "Create custom layout."
 msgstr ""
 
@@ -2939,7 +2921,7 @@ msgstr ""
 msgid "Drive"
 msgstr "دراءیو"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
 msgid "Size"
 msgstr "سایز"
 
@@ -2951,12 +2933,12 @@ msgstr "ماڈل"
 msgid "Upgrade Examine"
 msgstr "اکزمن کو اپگڑد کریں"
 
-#: ../iw/examine_gui.py:55
+#: ../iw/examine_gui.py:59
 #, python-format
 msgid "_Install %s"
 msgstr "تنصیب_ %s"
 
-#: ../iw/examine_gui.py:57
+#: ../iw/examine_gui.py:61
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2965,11 +2947,11 @@ msgstr ""
 "اور ڈیٹا دوبارہ سے لکہا جا سکتا ہے اس کا  انحصار آپ کی منتخب کردہ ترامیم پر "
 "ہے۔"
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
 msgstr "موجود انسٹالیشں کو اپگڑد کریں_"
 
-#: ../iw/examine_gui.py:63
+#: ../iw/examine_gui.py:67
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2978,11 +2960,11 @@ msgstr ""
 "تو اس کا انتخاب کریں۔ یہ انتخاب آپ کے موجود دیٹا کی حفاظت کرے گا %s اگر آپ "
 "اپنے موجود سسٹم کو اور اچھا کرنا چاہتے ہیں"
 
-#: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:114 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "درجہ ذیل انسٹال سسٹم اپگڑد کر دیا گیا ہے"
 
-#: ../iw/examine_gui.py:123
+#: ../iw/examine_gui.py:127
 msgid "Unknown Linux system"
 msgstr " Linux system نہ معلوم  "
 
@@ -2996,9 +2978,9 @@ msgstr "کون سی زبان کا اپ استعمال کر نا چاہتے ہی�
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
-#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
-#: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
+#: ../iw/lvm_dialog_gui.py:287 ../iw/lvm_dialog_gui.py:601
+#: ../iw/lvm_dialog_gui.py:669 ../iw/lvm_dialog_gui.py:880
+#: ../textw/partition_text.py:1292 ../textw/partition_text.py:1311
 msgid "Not enough space"
 msgstr "پوری جگہ نہیں"
 
@@ -3027,7 +3009,7 @@ msgstr ""
 "ملٹیپل انٹرجر کے سایز کے مطابق کرنا ہے"
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:166 ../iw/network_gui.py:196
 msgid "C_ontinue"
 msgstr "جاری"
 
@@ -3075,7 +3057,7 @@ msgstr ""
 "فیزیکل کے سایز کو تبدیل نہیں کیا جاسکتا کیونکہ اس کا نتیجہاتن زیادہ سے زیادہ "
 "لوجیکل سایز (%10.2f MB) چھوٹا ہے موجود لوجیکل والیم سے"
 
-#: ../iw/lvm_dialog_gui.py:290
+#: ../iw/lvm_dialog_gui.py:288
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -3083,98 +3065,98 @@ msgstr ""
 "آپ اس فیزیکل والیم کو ختم نہیں کرسکتے کیونکہ والیم گوروپ  بہت چھوٹا ہے دیے "
 "گے لوجیکل والیم سے"
 
-#: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
+#: ../iw/lvm_dialog_gui.py:368 ../textw/partition_text.py:1138
 msgid "Make Logical Volume"
 msgstr "لوجیکل والیوم  بنیں"
 
-#: ../iw/lvm_dialog_gui.py:373
+#: ../iw/lvm_dialog_gui.py:371
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "لوجیکل والیوم کو تبدیل کریں%s"
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
+#: ../iw/lvm_dialog_gui.py:373 ../textw/partition_text.py:1136
 msgid "Edit Logical Volume"
 msgstr "لوجیکل والیوم کو تبدیل کریں"
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
+#: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
 msgstr "مونٹ پواءنٹ:"
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
+#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
 msgstr "فایل سسٹم کی قسم:"
 
-#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
 msgstr "اصل میں موجود فایل سسٹم کی قسم:"
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:323
 #: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "نہ معلوم"
 
-#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:357
 #: ../iw/raid_dialog_gui.py:314
 msgid "Original File System Label:"
 msgstr ":اصلی فائل سسٹم کا لیبل"
 
-#: ../iw/lvm_dialog_gui.py:426
+#: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
 msgstr "_لوجیکل والیوم کا نام:"
 
-#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:432 ../textw/partition_text.py:287
 msgid "Logical Volume Name:"
 msgstr "الوجیکل والیوم کا نام:"
 
-#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
 msgid "_Size (MB):"
 msgstr "_سایز(MB):"
 
-#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
-#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
-#: ../textw/partition_text.py:378 ../textw/partition_text.py:461
-#: ../textw/partition_text.py:569
+#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
+#: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
+#: ../textw/partition_text.py:379 ../textw/partition_text.py:462
+#: ../textw/partition_text.py:570
 msgid "Size (MB):"
 msgstr "سایز(MB):"
 
-#: ../iw/lvm_dialog_gui.py:463
+#: ../iw/lvm_dialog_gui.py:461
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(ہے %s MBسب سے بڑا سایز یہ)"
 
-#: ../iw/lvm_dialog_gui.py:524
+#: ../iw/lvm_dialog_gui.py:522
 msgid "Illegal size"
 msgstr "غیر قانونی سایز"
 
-#: ../iw/lvm_dialog_gui.py:525
+#: ../iw/lvm_dialog_gui.py:523
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "مطلوبہ سایز جو دیا گیا ہے وہ صیحیح نہیں ے دورست یہ ہو گا 0 سے بڑ کر"
 
-#: ../iw/lvm_dialog_gui.py:558
+#: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
 msgstr "مونٹ پواءنٹ استعمال میں ہے"
 
-#: ../iw/lvm_dialog_gui.py:559
+#: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr " استعمال میں ہے ،دوسرے کا انتخاب کریں\"%s\"ماونٹ پونٹ"
 
-#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1260
 msgid "Illegal Logical Volume Name"
 msgstr "غیر قانونی لوجیکل والیوم کا نام"
 
-#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:587 ../textw/partition_text.py:1277
 msgid "Illegal logical volume name"
 msgstr "غیر قانونی لوجیکل والیوم کا نام"
 
-#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1278
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "استعمال میں ہے ،دوسرے کا انتخاب کریں\"%s\"لوجیکل والیم کا نام"
 
-#: ../iw/lvm_dialog_gui.py:604
+#: ../iw/lvm_dialog_gui.py:602
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -3185,15 +3167,15 @@ msgstr ""
 "بڑھنے کے لیےُ آپ اور بھی زیادہ فیزیکل والیمز غیر پارٹیشنڈ ڈیکس جگہ سے بنا  "
 "اور انھیں اِس والیم گروپ  میں جمع کر سکتے ہیں۔   "
 
-#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
-#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
-#: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
-#: ../textw/partition_text.py:1330
+#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
+#: ../textw/partition_text.py:933 ../textw/partition_text.py:1106
+#: ../textw/partition_text.py:1331
 msgid "Error With Request"
 msgstr "غلطی درخواست کے ساتھ"
 
-#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
+#: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3203,20 +3185,20 @@ msgstr ""
 "ہے۔ براء مہربانی وایم گروپ کو بڑا کریں یالوجیکل والیم کو چھوٹا کریں %g "
 "MBچاہیے،مگر والیم گروپ کے پاس صرف %g MBلوجیکل والیم جو آپ نے دیی ہے اس کو"
 
-#: ../iw/lvm_dialog_gui.py:722
+#: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
 msgstr "کوئ خالی سلوٹ نہیں"
 
-#: ../iw/lvm_dialog_gui.py:723
+#: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "زیادہ لوجیکل گروپ پر والیم  والیم نہیں بنا سکتے %s آپ اس سے"
 
-#: ../iw/lvm_dialog_gui.py:729
+#: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
 msgstr "کوئ خالی جگہ نہیں"
 
-#: ../iw/lvm_dialog_gui.py:730
+#: ../iw/lvm_dialog_gui.py:728
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3226,31 +3208,31 @@ msgstr ""
 "کو جمع کرنے کے لیےُ آپ کو ایک یا اس سے زیادہ  پہلے سے موجودہ لوجیکل والیمز کا "
 "ہجم کم کرنا پٹرے گا  "
 
-#: ../iw/lvm_dialog_gui.py:758
+#: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr " چاہتے ہیں۔\"%s\"   کیا آپ کو یقین ہے کہ آپ لوجیکل والیم کو ختم کرنا"
 
-#: ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
 msgstr "غلط والیو گوروپ کا نام "
 
-#: ../iw/lvm_dialog_gui.py:907
+#: ../iw/lvm_dialog_gui.py:905
 msgid "Name in use"
 msgstr "نام  استعمال میں ہے"
 
-#: ../iw/lvm_dialog_gui.py:908
+#: ../iw/lvm_dialog_gui.py:906
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "  پہلے سے استعمال میں ہے۔ مہربانی فرما کر کسی دوسرے کا انتخاب کریں۔\"%s\"  "
 "والیم گروپ نام "
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:950
 msgid "Not enough physical volumes"
 msgstr "فیزیکل والیمز نا کافی ہیں"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:951
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3264,71 +3246,71 @@ msgstr ""
 "   آپشن کا دوبارہ انتخاب کریں۔ \"LVM\"  فیزیکل والیم کی  قسم کی پارٹیشن یا "
 "ریڈ ایرے بنایُں اور\" (LVM)\"      "
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:962
 msgid "Make LVM Volume Group"
 msgstr "والیو کا گوروپ بنیں LVM"
 
-#: ../iw/lvm_dialog_gui.py:967
+#: ../iw/lvm_dialog_gui.py:965
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "والیو  گوروپ کو تبدیل کریں LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:969
+#: ../iw/lvm_dialog_gui.py:967
 msgid "Edit LVM Volume Group"
 msgstr "والیو  گوروپ کو تبدیل کریں LVM"
 
-#: ../iw/lvm_dialog_gui.py:985
+#: ../iw/lvm_dialog_gui.py:983
 msgid "_Volume Group Name:"
 msgstr "_والیو گوروپ کا نام:"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:991
 msgid "Volume Group Name:"
 msgstr "والیو گوروپ کا نام:"
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:999
 msgid "_Physical Extent:"
 msgstr "_فیزیکل کو بڑھیں:"
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1014
 msgid "Physical Volumes to _Use:"
 msgstr "فیزیکل والیوز کو استعمال کریں:"
 
-#: ../iw/lvm_dialog_gui.py:1022
+#: ../iw/lvm_dialog_gui.py:1020
 msgid "Used Space:"
 msgstr "ااستعال شدہ جگہ:"
 
-#: ../iw/lvm_dialog_gui.py:1039
+#: ../iw/lvm_dialog_gui.py:1037
 msgid "Free Space:"
 msgstr "خالی جگہ:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1055
 msgid "Total Space:"
 msgstr "پوری جگہ:"
 
-#: ../iw/lvm_dialog_gui.py:1086
+#: ../iw/lvm_dialog_gui.py:1084
 msgid "Logical Volume Name"
 msgstr "لوجیکل والیو کا نام"
 
-#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:364
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "ماونُٹ پواینُٹ"
 
-#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1090 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "سایز(MB)"
 
-#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_جمع"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
+#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:742
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "_تبدیل"
 
-#: ../iw/lvm_dialog_gui.py:1124
+#: ../iw/lvm_dialog_gui.py:1122
 msgid "Logical Volumes"
 msgstr "لوجیکل والیو"
 
@@ -3368,14 +3350,15 @@ msgstr "_کاپی کریں 3 بٹنون کو"
 msgid "Select the appropriate mouse for the system."
 msgstr "انتخاب کریں ٹھیک ماوس کا سسٹمکے لیے"
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
-#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
-#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
-#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:161
+#: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:178
+#: ../iw/network_gui.py:191 ../iw/network_gui.py:196
+#: ../textw/network_text.py:54 ../textw/network_text.py:59
+#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "  ڈیٹا میں نقص "
 
-#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3384,57 +3367,62 @@ msgstr ""
 " \"%s\":\n"
 "غلطی آی ہے دیی گی ویلیو کو تبدیل کرتے ہوے%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:792
 msgid "Dynamic IP"
 msgstr "IP ڈائنامک "
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:793
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr " کیلۓ بھجی جارہی ہیں%s... آئ-پی معلومات"
 
-#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+#: ../iw/netconfig_dialog.py:176
 msgid "IP Address"
 msgstr "کا پتا IP"
 
-#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+#: ../iw/netconfig_dialog.py:182
 msgid "Netmask"
 msgstr "نیٹ ما سک"
 
-#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
-#: ../iw/network_gui.py:766
+#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
+#: ../iw/network_gui.py:818
 msgid "Gateway"
 msgstr "گیٹ وے"
 
-#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195 ../loader2/net.c:277
 msgid "Nameserver"
 msgstr "نیم سرور"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+#: ../iw/netconfig_dialog.py:214
+#, fuzzy
+msgid "Error configuring network device"
+msgstr "یھان پر غلطی ٹارگٹ ڈریو کو چیک کریںأیکسانیت صیھع نھیںأ  "
+
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
 msgstr "DNS پہلی"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Secondary DNS"
 msgstr "DNS دوسری"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Gateway"
 msgstr "_گیٹ وے"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Primary DNS"
 msgstr "_DNS پہلی"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
 msgstr "_DNS دوسری"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:42
 msgid "Network Configuration"
 msgstr "نٹورک کی سیٹنگز "
 
-#: ../iw/network_gui.py:157
+#: ../iw/network_gui.py:162
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3442,7 +3430,7 @@ msgstr ""
 "آپ کا دیا گیا میزبان نام موجود نہیں ہے۔یہ اپ کے نٹورک پر انحصار کرتا ہے اور "
 "بعد میں مثل کر سکتا ہے"
 
-#: ../iw/network_gui.py:161
+#: ../iw/network_gui.py:166
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3451,7 +3439,7 @@ msgstr ""
 "۔یہ اپ کے نٹورک پر انحصار کرتا ہے اور بعد میں مثل کر سکتا ہے\"%s\"آپ نے فیلد "
 "نہیں دیا"
 
-#: ../iw/network_gui.py:165 ../textw/network_text.py:404
+#: ../iw/network_gui.py:170 ../textw/network_text.py:623
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3462,16 +3450,28 @@ msgstr ""
 ":\n"
 " درجہ ذیل کی وجہ سے\"%s\"دیا گیا میزبان نام صیحیح نہیں"
 
-#: ../iw/network_gui.py:180
-#, python-format
-msgid "A value is required for the field \"%s\"."
+#: ../iw/network_gui.py:179 ../textw/network_text.py:55
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
 msgstr "\"%s\"ویلیو کی ضرورت ہے فیلد کے لیے."
 
-#: ../iw/network_gui.py:184
-msgid "The IP information you have entered is invalid."
+#: ../iw/network_gui.py:187 ../textw/network_text.py:45
+#, fuzzy, python-format
+msgid "Error With %s Data"
+msgstr "  ڈیٹا میں نقص "
+
+#: ../iw/network_gui.py:188 ../textw/network_text.py:46
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
+
+#: ../iw/network_gui.py:192 ../textw/network_text.py:66
+#, fuzzy
+msgid "The IPv4 information you have entered is invalid."
 msgstr "کی معلومات جو دیی گی ہیں غلط ہیں IP "
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:196
 #, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
@@ -3483,124 +3483,153 @@ msgstr ""
 "آپ کے پاس کو ئ موجود نٹورک دیواس نہیں۔آپ کا سسٹم نٹورک پر رابطہ نہیں کر سکتا "
 "جب تک کم سے کم ایک دیواس موجود نہ ہو۔"
 
-#: ../iw/network_gui.py:264
+#: ../iw/network_gui.py:274
 #, python-format
 msgid "Edit Interface %s"
 msgstr "انٹر فیس کو تبدیل کریں %s"
 
-#: ../iw/network_gui.py:276
+#: ../iw/network_gui.py:286
 #, fuzzy, python-format
 msgid "Hardware address: %s"
 msgstr " %s:ھا ر ڈ و یر کا پتا"
 
-#: ../iw/network_gui.py:281
+#: ../iw/network_gui.py:291
 #, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
 msgstr "ڈائنامک آئ-پی کو استعمال کریں (BOOTP/DHCP)"
 
-#: ../iw/network_gui.py:286 ../loader2/net.c:691
+#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:697
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: ../iw/network_gui.py:291 ../loader2/net.c:702
+#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:708
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: ../iw/network_gui.py:296
+#: ../iw/network_gui.py:308
 msgid "_Activate on boot"
 msgstr "بوٹ پر ایکٹیویٹ کریں"
 
-#: ../iw/network_gui.py:326
+#: ../iw/network_gui.py:334 ../textw/network_text.py:214
 #, fuzzy
-msgid "IPv_4 Address:"
-msgstr "عنوان IP :"
+msgid "Address"
+msgstr "کا پتا IP"
 
-#: ../iw/network_gui.py:348
+#: ../iw/network_gui.py:337 ../textw/network_text.py:216
 #, fuzzy
-msgid "IPv_6 Address:"
-msgstr "عنوان IP :"
+msgid "Prefix (Netmask)"
+msgstr "نیٹ ما سک"
 
-#: ../iw/network_gui.py:371
+#: ../iw/network_gui.py:342
+msgid "IPv_4:"
+msgstr ""
+
+#: ../iw/network_gui.py:364
+msgid "IPv_6:"
+msgstr ""
+
+#: ../iw/network_gui.py:395
 #, fuzzy
 msgid "_Point to Point (IP):"
 msgstr "آئی پی) _پوا ئنٹ ٹو پوا ئنٹ )"
 
-#: ../iw/network_gui.py:383
+#: ../iw/network_gui.py:408
 #, fuzzy
 msgid "_ESSID:"
 msgstr "ای ایس ایس آئی ڈی_"
 
-#: ../iw/network_gui.py:393
+#: ../iw/network_gui.py:418
 #, fuzzy
 msgid "Encryption _Key:"
 msgstr "انکریپشن کِی"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:443
 #, python-format
 msgid "Configure %s"
 msgstr "کنفگر %s"
 
-#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:777
+#: ../loader2/net.c:787
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "امکمل معلومات  "
+
+#: ../iw/network_gui.py:476 ../textw/network_text.py:322
+msgid "You must select at least IPv4 or IPv6 support."
+msgstr ""
+
+#: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
+#: ../textw/network_text.py:353 ../textw/network_text.py:380
+#: ../textw/network_text.py:386 ../loader2/net.c:97
 #, fuzzy
 msgid "Invalid Prefix"
 msgstr " سٹر نگ IP غلط"
 
-#: ../iw/network_gui.py:458
+#: ../iw/network_gui.py:503 ../textw/network_text.py:354
 #, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "کے پتے کے لیے لازمی کہ اس کے نمبر 1 سے لے کر 255 تک ہوں IP"
 
-#: ../iw/network_gui.py:475
+#: ../iw/network_gui.py:531 ../textw/network_text.py:381
 #, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "کے پتے کے لیے لازمی کہ اس کے نمبر 1 سے لے کر 255 تک ہوں IP"
 
-#: ../iw/network_gui.py:629
+#: ../iw/network_gui.py:537 ../textw/network_text.py:387
+#, fuzzy
+msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+msgstr "کے پتے کے لیے لازمی کہ اس کے نمبر 1 سے لے کر 255 تک ہوں IP"
+
+#: ../iw/network_gui.py:593 ../iw/network_gui.py:606
+msgid "Disabled"
+msgstr ""
+
+#: ../iw/network_gui.py:683
 msgid "Active on Boot"
 msgstr "بوٹ پر ایکٹیو کریں"
 
-#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:685 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1437
+#: ../textw/partition_text.py:1438
 msgid "Device"
 msgstr "ڈیوا ئیس"
 
-#: ../iw/network_gui.py:633
+#: ../iw/network_gui.py:687
 #, fuzzy
 msgid "IPv4/Netmask"
 msgstr "آ ئی پی / نیٹ ماسک"
 
-#: ../iw/network_gui.py:635
+#: ../iw/network_gui.py:689
 msgid "IPv6/Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:697
+#: ../iw/network_gui.py:749
 msgid "Network Devices"
 msgstr "نیٹ ورک ڈیوا ئیسز"
 
-#: ../iw/network_gui.py:708
+#: ../iw/network_gui.py:760
 msgid "Set the hostname:"
 msgstr "ہوسٹ کا نام رکھیں "
 
-#: ../iw/network_gui.py:713
+#: ../iw/network_gui.py:765
 msgid "_automatically via DHCP"
 msgstr "کے ذریعے _خودکار DHCP "
 
-#: ../iw/network_gui.py:720
+#: ../iw/network_gui.py:772
 msgid "_manually"
 msgstr "خود کریں_"
 
-#: ../iw/network_gui.py:725
+#: ../iw/network_gui.py:777
 #, fuzzy
 msgid "(e.g., host.domain.com)"
 msgstr "(\"/ای ایکس. /\"یوسٹ۔ڈومین۔کام)"
 
-#: ../iw/network_gui.py:731 ../loader2/net.c:1401
+#: ../iw/network_gui.py:783 ../loader2/net.c:1417
 msgid "Hostname"
 msgstr "یوسٹ کا نام"
 
-#: ../iw/network_gui.py:775
+#: ../iw/network_gui.py:827
 msgid "Miscellaneous Settings"
 msgstr "مختلف چیزوں کو ایک ساتھ ترتیب دینا "
 
@@ -3701,40 +3730,40 @@ msgstr "جائز سائز تک پورا بھر دیں"
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "آخری سلنڈر آغاز کے سلنڈر سے بڑا ہونا چاہیے۔"
 
-#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
+#: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
 msgstr "پارٹیشنز میں اضافہ کریں"
 
-#: ../iw/partition_dialog_gui.py:272
+#: ../iw/partition_dialog_gui.py:273
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "پارٹیشن میں تبدیلی کریں : /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:274
+#: ../iw/partition_dialog_gui.py:275
 msgid "Edit Partition"
 msgstr "پارٹیشن میں تبدیلی کریں"
 
-#: ../iw/partition_dialog_gui.py:301
+#: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
 msgstr "فائل سسٹم کی _قِسم"
 
-#: ../iw/partition_dialog_gui.py:333
+#: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
 msgstr "ڈرائیوز "
 
-#: ../iw/partition_dialog_gui.py:346
+#: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
 msgstr ":ڈرائیو"
 
-#: ../iw/partition_dialog_gui.py:390
+#: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
 msgstr ":آغاز کا سلنڈر_"
 
-#: ../iw/partition_dialog_gui.py:408
+#: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
 msgstr ":آخری سلنڈر_"
 
-#: ../iw/partition_dialog_gui.py:460
+#: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
 msgstr "پرائمری پارٹیشن کے لیے مجبور کریں_"
 
@@ -3748,15 +3777,15 @@ msgstr ""
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
 msgid "Type"
 msgstr "قِسم"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
 msgid "Start"
 msgstr "آغاز"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1438
 msgid "End"
 msgstr "آخر"
 
@@ -3776,7 +3805,7 @@ msgstr ""
 "سائز \n"
 "(میگا بائیٹ)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1432
 msgid "Partitioning"
 msgstr "پارٹیشن ہو رہی ہے"
 
@@ -3826,7 +3855,7 @@ msgid "RAID Devices"
 msgstr "ڈیوائیسز RAID"
 
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
-#: ../textw/partition_text.py:96 ../textw/partition_text.py:159
+#: ../textw/partition_text.py:97 ../textw/partition_text.py:160
 msgid "None"
 msgstr "کچھ بھی نہیں"
 
@@ -3834,16 +3863,16 @@ msgstr "کچھ بھی نہیں"
 msgid "Hard Drives"
 msgstr "ہارڈ ڈرائیوز"
 
-#: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
-#: ../textw/partition_text.py:180
+#: ../iw/partition_gui.py:869 ../textw/partition_text.py:142
+#: ../textw/partition_text.py:181
 msgid "Free space"
 msgstr "خالی جگہ"
 
-#: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:144
 msgid "Extended"
 msgstr "پھیلا ہوا"
 
-#: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
+#: ../iw/partition_gui.py:873 ../textw/partition_text.py:146
 msgid "software RAID"
 msgstr "سافٹ ویئر RAID"
 
@@ -3851,7 +3880,7 @@ msgstr "سافٹ ویئر RAID"
 msgid "Free"
 msgstr "خالی"
 
-#: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
+#: ../iw/partition_gui.py:998 ../textw/partition_text.py:229
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "%s  : آپ نے جن پارٹیشنز کی درخواست کی تھی وہ ایلوکیٹ نہیں ہو سکیں"
@@ -3861,33 +3890,33 @@ msgstr "%s  : آپ نے جن پارٹیشنز کی درخواست کی تھی 
 msgid "Warning: %s."
 msgstr "%s :خطرے کی اطلاع"
 
-#: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "اس کی سپّورٹ نہیں ہے"
 
-#: ../iw/partition_gui.py:1192
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "اس پلیٹ فارم پر سپّورٹ نہیں کیا جاتا۔ LVM"
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr "کو اِس پلیٹ فارم پر سپّورٹ نہیان کیا جاتا  RAID سافٹ ویئر "
 
-#: ../iw/partition_gui.py:1213
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr "ڈیوائیس نمبرز دستیاب نہیں ہیں RAID کوئی بھی چھوٹے"
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr "ڈیوائیس نہیں بنائی جا سکتی کیونکہ تمام  RAID سافٹ ویئر"
 
-#: ../iw/partition_gui.py:1228
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "آپشنز RAID "
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3906,7 +3935,7 @@ msgstr ""
 "ریڈ پارٹیشنز استعمال کے لیےُ باقی ہیں۔  %s آپ کے پاس اِس وقت \n"
 "\n"
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3917,82 +3946,82 @@ msgstr ""
 "بنائیں۔ پھر آپ ایک  'RAID استمعال کرنے سے پہلے دو 'سافٹ وئیر RAID\n"
 "\n"
 
-#: ../iw/partition_gui.py:1256
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "ٓپ کیا کرنا چاہتے ہیں؟"
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr " پارٹیشن بنائیں۔ _  RAID ایک سافٹ ویئر"
 
-#: ../iw/partition_gui.py:1268
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr " [default=/dev/md%s]ڈیوائیس بنائیں_  RAID ایک"
 
-#: ../iw/partition_gui.py:1272
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 "[default=/dev/md/%s] ڈیوائیس بنانے کے لیے ایک ڈرائیو جیسی ہی دوسری _ڈرائیو "
 "بنائیں RAID"
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "ڈرائیو کی طرح کا ایڈیٹر نہیں بن سکا"
 
-#: ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr "کسی وجہ سے ڈرائیو کی طرح کا ایڈیٹر نہیں بن سکا"
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1355
 msgid "Ne_w"
 msgstr "نیا"
 
-#: ../iw/partition_gui.py:1359
+#: ../iw/partition_gui.py:1358
 msgid "Re_set"
 msgstr "ری_سیٹ"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1359
 msgid "R_AID"
 msgstr "آر_اے آئی ڈی"
 
-#: ../iw/partition_gui.py:1361
+#: ../iw/partition_gui.py:1360
 msgid "_LVM"
 msgstr "ایل وی ایم_"
 
-#: ../iw/partition_gui.py:1402
+#: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "ریڈ ڈیواُس/ایل وی ایم _گروپ ممبران کو چھپا دو"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
-#: ../textw/partition_text.py:253 ../textw/partition_text.py:255
-#: ../textw/partition_text.py:280
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:254 ../textw/partition_text.py:256
+#: ../textw/partition_text.py:281
 msgid "<Not Applicable>"
 msgstr "<لاگو نھیں ہے>"
 
-#: ../iw/partition_ui_helpers_gui.py:250
+#: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "آپ اس پارٹیشن پر فایُل سسٹم کس طرح تیار کرنا چاہتے ہیں؟"
 
-#: ../iw/partition_ui_helpers_gui.py:258
+#: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
 msgstr "ترمیم کیےُ بغیر چھوڑ دیں (ڈیٹا کو محفوظ رکھیں)۔_"
 
-#: ../iw/partition_ui_helpers_gui.py:264
+#: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
 msgstr "پارٹیشن کو اس طرح فارمیٹ کرو: _"
 
-#: ../iw/partition_ui_helpers_gui.py:287
+#: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
 msgstr "پارٹیشن کی ہجرت کا مقام:"
 
-#: ../iw/partition_ui_helpers_gui.py:309
+#: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
 msgstr "خراب بلاکز کی جانچ پڑتال کریں؟_"
 
-#: ../iw/partition_ui_helpers_gui.py:344
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4074,7 +4103,7 @@ msgstr ""
 "استعمال نہ ہوئی ہوں اُن کی ضرورت ہے /n /n "
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
-#: ../textw/partition_text.py:967
+#: ../textw/partition_text.py:968
 msgid "Make RAID Device"
 msgstr "آراےآئی ڈی ڈیوائیس  بنائیں"
 
@@ -4083,7 +4112,7 @@ msgstr "آراےآئی ڈی ڈیوائیس  بنائیں"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "/dev/md%s :ڈیوائیس مین تبدیلی کرو RAID"
 
-#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
+#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:966
 msgid "Edit RAID Device"
 msgstr "ڈیوائیس مین تبدیلی کرو RAID"
 
@@ -4263,19 +4292,19 @@ msgstr "منزل  ڈرایو"
 msgid "Drives"
 msgstr "ڈرایوز"
 
-#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
 msgstr "رلیز نوٹس موجود نہیں ھیں۔\n"
 
-#: ../iw/release_notes.py:221
+#: ../iw/release_notes.py:222
 msgid "Release Notes"
 msgstr "اعلامیۃ خط "
 
-#: ../iw/release_notes.py:224
+#: ../iw/release_notes.py:225
 msgid "Unable to load file!"
 msgstr "فایٓل لوڈ نھیں ھو سکتی   "
 
-#: ../iw/task_gui.py:79
+#: ../iw/task_gui.py:80
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4288,33 +4317,33 @@ msgstr ""
 "سکتی ہے۔ مہربانی فرما کر آپ  %s اِس بات کی یقین دہانی کر لیں کہ آپ کا تنصیبی "
 "درخت صحیح طور پر ابھرا ہے۔ "
 
-#: ../iw/task_gui.py:89
+#: ../iw/task_gui.py:90
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
 
-#: ../iw/task_gui.py:121
+#: ../iw/task_gui.py:122
 #, fuzzy
 msgid "Invalid Repository Name"
 msgstr "غلط میز با ن کا نا م"
 
-#: ../iw/task_gui.py:122
+#: ../iw/task_gui.py:123
 #, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "آپ کو سرور کا کا نام  داخل کرنا چاہیۓ"
 
-#: ../iw/task_gui.py:131
+#: ../iw/task_gui.py:132
 #, fuzzy
 msgid "Invalid Repository URL"
 msgstr "غلط بوٹ نانہ"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:133
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
-#: ../iw/task_gui.py:146
+#: ../iw/task_gui.py:147
 #, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4483,33 +4512,6 @@ msgid ""
 msgstr ""
 "یھاں پر سویپ حصہ کیلیے  جگہ خالی نھیں ھے جس ڈرایو کو آپ نے منتخب کیا ھے "
 
-#: ../iw/zfcp_gui.py:24
-msgid "ZFCP Configuration"
-msgstr "ZFCP سیٹنگژ"
-
-#: ../iw/zfcp_gui.py:103
-msgid "_Remove"
-msgstr "ختم"
-
-#: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
-msgid "FCP Devices"
-msgstr "FCP اٰلۃ "
-
-#: ../iw/zfcp_gui.py:121
-msgid "Add FCP device"
-msgstr "جمع  FCP اٰلہ "
-
-#: ../iw/zfcp_gui.py:184
-#, python-format
-msgid "Edit FCP device %s"
-msgstr "FCP ترمیم %s آلۃ"
-
-#: ../iw/zfcp_gui.py:248
-msgid ""
-"You're about to remove a FCP disk from your configuration. Are you sure that "
-"you wish to continue?"
-msgstr "ڈسک ختم کر نا چاھتے ھیں  FCP آپ اپنی سیٹنگز سے"
-
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
 msgstr "z/IPL بوٹ لوڈر سیٹنگژ"
@@ -4628,8 +4630,7 @@ msgstr "بوٹ لیبل خالی نھیں ھو سکتا"
 msgid "Boot label contains illegal characters."
 msgstr "بوٹ لیبل میں غیر ضروری حرف ھٰیں"
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
-#: ../textw/zfcp_text.py:108
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1443
 msgid "Edit"
 msgstr "ترمیم"
 
@@ -4758,10 +4759,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
-#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:275 ../loader2/urls.c:455
+#: ../loader2/loader.c:337 ../loader2/loader.c:968 ../loader2/loader.c:991
+#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:724
+#: ../loader2/net.c:1003 ../loader2/net.c:1708 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "واپس"
 
@@ -4788,7 +4789,11 @@ msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "ا گلی سکرین <F12> | گرو پ کی تفصیل <F2> | حا لی  جگہ>,<+>,<->انتحا ب "
 
-#: ../textw/grpselect_text.py:133
+#: ../textw/grpselect_text.py:117
+msgid "No optional packages to select"
+msgstr ""
+
+#: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
 msgstr "پیکج گرو پ کی تفصیل"
 
@@ -4816,97 +4821,89 @@ msgstr "ایمولیٹ 3 بٹن"
 msgid "Mouse Selection"
 msgstr " ما وس کا انتحا ب "
 
-#: ../textw/network_text.py:28
-msgid "Invalid IP string"
-msgstr " سٹر نگ IP غلط"
+#: ../textw/network_text.py:60
+#, fuzzy, python-format
+msgid ""
+"You have not specified the field %s.  Depending on your network environment "
+"this may cause problems later."
+msgstr ""
+"۔یہ اپ کے نٹورک پر انحصار کرتا ہے اور بعد میں مثل کر سکتا ہے\"%s\"آپ نے فیلد "
+"نہیں دیا"
 
-#: ../textw/network_text.py:29
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "ٰدرست نھیں ھے۔IP'%s' درج ز یل "
-
-#: ../textw/network_text.py:75
-msgid "Point to Point (IP)"
-msgstr "IPنقطہ بہ نقطہ"
-
-#: ../textw/network_text.py:79 ../loader2/net.c:238
-msgid "ESSID"
-msgstr "ESSID"
-
-#: ../textw/network_text.py:80 ../loader2/net.c:239
-msgid "Encryption Key"
-msgstr "اینکر پشن کی"
-
-#: ../textw/network_text.py:92
-#, python-format
-msgid "Network Device: %s"
-msgstr " %sجا ل کا ٓالہ"
-
-#: ../textw/network_text.py:98
+#: ../textw/network_text.py:152
 #, python-format
 msgid "Description: %s"
 msgstr " %s:مکمل بیا ن"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:156
 #, python-format
 msgid "Hardware Address: %s"
 msgstr " %s:ھا ر ڈ و یر کا پتا"
 
-#: ../textw/network_text.py:107
-msgid "Configure using DHCP"
-msgstr "  ا ستعما ل کر تے  DHCPوضع "
+#: ../textw/network_text.py:170 ../loader2/net.c:690
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
+msgstr "ڈائنامک آئ-پی کو استعمال کریں (BOOTP/DHCP)"
 
-#: ../textw/network_text.py:120
+#: ../textw/network_text.py:189
 msgid "Activate on boot"
 msgstr "بو ٹ پر کا م شرو ع ھو نا"
 
-#: ../textw/network_text.py:146
+#: ../textw/network_text.py:217
+msgid "IPv4:"
+msgstr ""
+
+#: ../textw/network_text.py:220
+msgid "IPv6:"
+msgstr ""
+
+#: ../textw/network_text.py:258
+msgid "P-to-P:"
+msgstr ""
+
+#: ../textw/network_text.py:270
+#, fuzzy
+msgid "ESSID:"
+msgstr "ای ایس ایس آئی ڈی_"
+
+#: ../textw/network_text.py:279
+msgid "WEP Key:"
+msgstr ""
+
+#: ../textw/network_text.py:292
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "کے لیے %sجا ل کی و ضع"
 
-#: ../textw/network_text.py:179
-msgid "Invalid information"
-msgstr "غلط ا طلا ع"
-
-#: ../textw/network_text.py:180
-msgid "You must enter valid IP information to continue"
-msgstr ""
-"کی معلو ما ت کا اندر ا ج کر نا ھو گا  IPاپ کو کا م جار ی رکھنے کیلےدر ست"
-
-#: ../textw/network_text.py:247 ../loader2/net.c:957
+#: ../textw/network_text.py:471 ../loader2/net.c:964
 msgid "Gateway:"
 msgstr "گیٹ و ے"
 
-#: ../textw/network_text.py:256
+#: ../textw/network_text.py:480
 msgid "Primary DNS:"
 msgstr "DNSا بتد ا یی"
 
-#: ../textw/network_text.py:261
+#: ../textw/network_text.py:485
 msgid "Secondary DNS:"
 msgstr " DNSدو سرے د ر جے کا"
 
-#: ../textw/network_text.py:266
-msgid "Tertiary DNS:"
-msgstr " DNSتیسر ے د ر جے کا"
-
-#: ../textw/network_text.py:273
+#: ../textw/network_text.py:492
 msgid "Miscellaneous Network Settings"
 msgstr "متفر ق جا ل کی تر تیب"
 
-#: ../textw/network_text.py:345
+#: ../textw/network_text.py:565
 msgid "automatically via DHCP"
 msgstr "کے ذ ر یعےDHCPحو د بحو د"
 
-#: ../textw/network_text.py:349
+#: ../textw/network_text.py:568
 msgid "manually"
 msgstr "حو د سے کا م کر نا "
 
-#: ../textw/network_text.py:368
+#: ../textw/network_text.py:587
 msgid "Hostname Configuration"
 msgstr "میز با ن کے نا م کی تر تیب"
 
-#: ../textw/network_text.py:371
+#: ../textw/network_text.py:590
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4917,127 +4914,127 @@ msgstr ""
 "کریں اور سسٹم کے لے ھوسٹ کا نام درج کرءں۔اگر آپ ایسا نھیں کریں گے تو سسٹم کا "
 "نا م لوکل ھو سٹ ھو گا۔سے اسا ین ھےحود بحود انتحا بDHCPسٹ کا نام "
 
-#: ../textw/network_text.py:397 ../textw/network_text.py:403
+#: ../textw/network_text.py:616 ../textw/network_text.py:622
 msgid "Invalid Hostname"
 msgstr "غلط میز با ن کا نا م"
 
-#: ../textw/network_text.py:398
+#: ../textw/network_text.py:617
 msgid "You have not specified a hostname."
 msgstr "ٓاپ نے میزبا ن کا نا م  محصو ص نھین کیا"
 
-#: ../textw/partition_text.py:42
+#: ../textw/partition_text.py:43
 msgid "Must specify a value"
 msgstr "کا ضرور تعین کر یںvalueاسکی "
 
-#: ../textw/partition_text.py:45
+#: ../textw/partition_text.py:46
 msgid "Requested value is not an integer"
 msgstr "نھیں ھو گیinteger valueد ر حو ا ست کی گی"
 
-#: ../textw/partition_text.py:47
+#: ../textw/partition_text.py:48
 msgid "Requested value is too large"
 msgstr "مطلوبہ ویلیو بہت بڑی ہے"
 
-#: ../textw/partition_text.py:101
+#: ../textw/partition_text.py:102
 #, python-format
 msgid "RAID Device %s"
 msgstr "ٓا لہ RAID %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:232
 #, python-format
 msgid "Warning: %s"
 msgstr "حطر ے کی ا طلا ع: %s"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Modify Partition"
 msgstr "تقسیم کو مز ید ٹھیک کر نا"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Add anyway"
 msgstr "کسی بھی صو ر ت میں جمع  کر دو"
 
-#: ../textw/partition_text.py:270
+#: ../textw/partition_text.py:271
 msgid "Mount Point:"
 msgstr "جمع ھو نے کی جگہ:"
 
-#: ../textw/partition_text.py:322
+#: ../textw/partition_text.py:323
 msgid "File System type:"
 msgstr "فا یل سسٹم ٹا یپ :"
 
-#: ../textw/partition_text.py:356
+#: ../textw/partition_text.py:357
 msgid "Allowable Drives:"
 msgstr "وہ ڈراییو ر جن کو اجا ز ت ھے :"
 
-#: ../textw/partition_text.py:412
+#: ../textw/partition_text.py:413
 msgid "Fixed Size:"
 msgstr "مستحکم مقد ا ر:"
 
-#: ../textw/partition_text.py:414
+#: ../textw/partition_text.py:415
 msgid "Fill maximum size of (MB):"
 msgstr "زیا دہ سے زیا دہ مقد ار میں  (МB):"
 
-#: ../textw/partition_text.py:418
+#: ../textw/partition_text.py:419
 msgid "Fill all available space:"
 msgstr "تمام حا لی جگہ کو پر کر دو:"
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:442
 msgid "Start Cylinder:"
 msgstr "سلنڈ ر کو شر و ع کر دو:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:455
 msgid "End Cylinder:"
 msgstr "سلنڈ ر کو حتم کر دو:"
 
-#: ../textw/partition_text.py:477
+#: ../textw/partition_text.py:478
 msgid "Volume Group:"
 msgstr "گر وہ کا حجم:"
 
-#: ../textw/partition_text.py:499
+#: ../textw/partition_text.py:500
 msgid "RAID Level:"
 msgstr "لیو ل RAID:"
 
-#: ../textw/partition_text.py:517
+#: ../textw/partition_text.py:518
 msgid "RAID Members:"
 msgstr "ر کن RAID:"
 
-#: ../textw/partition_text.py:536
+#: ../textw/partition_text.py:537
 msgid "Number of spares?"
 msgstr "کتنے کم کر نے ھیں؟"
 
-#: ../textw/partition_text.py:550
+#: ../textw/partition_text.py:551
 msgid "File System Type:"
 msgstr "فا یل سسٹم ٹا یپ :"
 
-#: ../textw/partition_text.py:563
+#: ../textw/partition_text.py:564
 msgid "File System Label:"
 msgstr "فا یل سسٹم لیبل :"
 
-#: ../textw/partition_text.py:574
+#: ../textw/partition_text.py:575
 msgid "File System Option:"
 msgstr "فا یل سسٹم کا انتحا ب کر نا :"
 
-#: ../textw/partition_text.py:577 ../textw/partition_text.py:815
-#: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
 #, python-format
 msgid "Format as %s"
 msgstr " %sبنا و ٹ جسطر ح"
 
-#: ../textw/partition_text.py:579 ../textw/partition_text.py:817
-#: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
+#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
+#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1225
 #, python-format
 msgid "Migrate to %s"
 msgstr "  کی طرف جا نا%s"
 
-#: ../textw/partition_text.py:581 ../textw/partition_text.py:819
-#: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
+#: ../textw/partition_text.py:582 ../textw/partition_text.py:820
+#: ../textw/partition_text.py:1057 ../textw/partition_text.py:1227
 msgid "Leave unchanged"
 msgstr "بغیر بد لے ھو یے رھنے دو"
 
-#: ../textw/partition_text.py:597 ../textw/partition_text.py:792
-#: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
+#: ../textw/partition_text.py:598 ../textw/partition_text.py:793
+#: ../textw/partition_text.py:1033 ../textw/partition_text.py:1203
 msgid "File System Options"
 msgstr "فا یل سسٹم کے انتحا بات"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:601
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
@@ -5045,142 +5042,142 @@ msgstr ""
 "مھر با نی کر کے انتحا ب کر یں کہ اس تقسیم کے لےّ آپ فا یّل سسٹم کو کیسے تیا ر "
 "کریں گے"
 
-#: ../textw/partition_text.py:608
+#: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
 msgstr "بیڈ بلا کس کیلّے رکا و ٹ کر یں"
 
-#: ../textw/partition_text.py:612
+#: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
 msgstr "بغیر بد لے ھو یّےرھنے دو(محفو ظ ڈیٹا)"
 
-#: ../textw/partition_text.py:621
+#: ../textw/partition_text.py:622
 msgid "Format as:"
 msgstr "بنا و ٹ جسطر ح:"
 
-#: ../textw/partition_text.py:641
+#: ../textw/partition_text.py:642
 msgid "Migrate to:"
 msgstr "کی طرف جا نا:"
 
-#: ../textw/partition_text.py:753
+#: ../textw/partition_text.py:754
 msgid "Force to be a primary partition"
 msgstr "ابتدا یّی تقسیم کیلّے کھنا"
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:771
 msgid "Not Supported"
 msgstr "اسکو تعا و ن نھیں کرتا "
 
-#: ../textw/partition_text.py:771
+#: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr "وا لیم گروپ گر ا فکل ا نسٹا لر میں ھی در ست کیا جا سکتا ھے LVM "
 
-#: ../textw/partition_text.py:847 ../textw/partition_text.py:900
+#: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
 msgstr "تقسیم کے سا ّیز کیلّے غلط ا ند ر ا ج"
 
-#: ../textw/partition_text.py:859
+#: ../textw/partition_text.py:860
 msgid "Invalid Entry for Maximum Size"
 msgstr "مکمل سا ّیز کیلّے غلط اند ر ا ج"
 
-#: ../textw/partition_text.py:878
+#: ../textw/partition_text.py:879
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "سلنڈر کے آغا ز کیلّے غلط اند ر اج"
 
-#: ../textw/partition_text.py:892
+#: ../textw/partition_text.py:893
 msgid "Invalid Entry for End Cylinder"
 msgstr "سلنڈر کے احتتام کیلّے غلط اند ر اج"
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1006
 msgid "No RAID partitions"
 msgstr " تقسیم نھیںRAIDکو ّیی"
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:1007
 msgid "At least two software RAID partitions are needed."
 msgstr " تقسیم کیلّے کم از کم دو سا فٹ و ّیر کی ضر ورت ھےRAID "
 
-#: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#: ../textw/partition_text.py:1019 ../textw/partition_text.py:1190
 msgid "Format partition?"
 msgstr "فا ر مٹ تقسیم؟"
 
-#: ../textw/partition_text.py:1080
+#: ../textw/partition_text.py:1081
 msgid "Invalid Entry for RAID Spares"
 msgstr "کم کرنے کیلّے غلط اندرا ج RAID"
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1094
 msgid "Too many spares"
 msgstr "بھت زیا دہ کم "
 
-#: ../textw/partition_text.py:1094
+#: ../textw/partition_text.py:1095
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "کے ساتھ فالتو تعداد زیادہ سے زیادہ 0 ہے۔  RAID0 array"
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1176
 msgid "No Volume Groups"
 msgstr "کوئی گروپ نھیں"
 
-#: ../textw/partition_text.py:1176
+#: ../textw/partition_text.py:1177
 msgid "No volume groups in which to create a logical volume"
 msgstr "لوجیکل وا لیم کے لےّ کو ییّ والیم گر و پ نھین"
 
-#: ../textw/partition_text.py:1292
+#: ../textw/partition_text.py:1293
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr "موجودہ سایز (%10.2f MB) بڑا ھےاس سایز سے جو موجود ھے (%10.2f MB)"
 
-#: ../textw/partition_text.py:1311
+#: ../textw/partition_text.py:1312
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr "پارٹیشن کی مقدار،(%10.2f MB)کی آخری حد %10.2f MB) سے تجاوزکر چکی ھے"
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1366
 msgid "New Partition or Logical Volume?"
 msgstr "نیّ پا ر ٹیشن یا لو جیکل وا لیم؟"
 
-#: ../textw/partition_text.py:1366
+#: ../textw/partition_text.py:1367
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "کیا آپ نیّ پا ر ٹیشن یا لو جیکل وا لیم؟\" "
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1369
 msgid "partition"
 msgstr "بناوٹ"
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1369
 msgid "logical volume"
 msgstr "لوجیکل و ا لیم"
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1442
 msgid "New"
 msgstr "نیا"
 
-#: ../textw/partition_text.py:1443
+#: ../textw/partition_text.py:1444
 msgid "Delete"
 msgstr "مٹائیں"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1445
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1447
+#: ../textw/partition_text.py:1448
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-مدد  F2-نیا  F3-بدلنا  F4-ختم کرنا F5-ابتدائی حالت  F12-ٹھیک ھے  "
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1477
 msgid "No Root Partition"
 msgstr "روٹ پا ر ٹیشن نھیں"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1478
 msgid "Must have a / partition to install on."
 msgstr "ایک پا ر ٹیشن انسٹا لیشن کے لےّضروری ھے"
 
-#: ../textw/partition_text.py:1516
+#: ../textw/partition_text.py:1520
 msgid "Partitioning Type"
 msgstr "پارٹیشن کی قسم"
 
-#: ../textw/partition_text.py:1518
+#: ../textw/partition_text.py:1522
 #, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
@@ -5191,17 +5188,60 @@ msgstr ""
 "انتخاب کیا جا چکا ہے جو اکثر یوزرز کے لیےُ قابلِ قبول ہے۔  آپ استعمال کے لیےُ "
 "اس کا انتخاب بھی کر سکتے ہیں یا اپنا بھی بنا سکتے ہیں۔"
 
-#: ../textw/partition_text.py:1542
+#: ../textw/partition_text.py:1546
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "انسٹا لیشن کے لےّ کو نسی ڈرا یو استعمال کر نی ھے"
 
-#: ../textw/partition_text.py:1604
+#: ../textw/partition_text.py:1561
+#, fuzzy
+msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
+msgstr "ا گلی سکرین <F12> | گرو پ کی تفصیل <F2> | حا لی  جگہ>,<+>,<->انتحا ب "
+
+#: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
 msgstr "پا ر ٹیشن کو دیکھیں ؟"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1624
 msgid "Review and modify partitioning layout?"
 msgstr "پارٹیشنگ لےآوٹ کو دوبارہ دیکھیں اور ترمیم کریں"
+
+#: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "زائد سائز کے لیے آپشنز "
+
+#: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
+#, fuzzy
+msgid "How would you like to modify your drive configuration?"
+msgstr "آپ پارٹیشن کے لیےُ کتنی جگہ چاہتے ہیں؟"
+
+#: ../textw/partition_text.py:1663
+#, fuzzy
+msgid "Add FCP Device"
+msgstr "جمع  FCP اٰلہ "
+
+#: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
+#, fuzzy
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
+msgstr ""
+" کے ذریعے کر سکتی ہیں۔ آپ کو ہر ایک آلے کے لیےُ 5 پیرامیٹرز مہیا کرنے ہوں گے:"
+"a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name "
+"(WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN.  (FCP) آلات کی رسایُ فایُبر "
+"چینل SCSI مشینز صرف انڈسٹری معیار zSeries"
+
+#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#, fuzzy
+msgid "Configure iSCSI Parameters"
+msgstr "Chandev لیمٹ"
+
+#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5369,11 +5409,6 @@ msgstr ""
 msgid "The root password must be at least 6 characters long."
 msgstr "بنیادی شناختی نمبر کم از کم 6 حروف پر مشتمل ھونا چاھئے"
 
-#: ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
-
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
@@ -5382,22 +5417,6 @@ msgid ""
 msgstr ""
 " %s خوش آمد ید!\n"
 "\n"
-
-#: ../textw/zfcp_text.py:43
-msgid "FCP Device"
-msgstr "ایف سی پی ڈیواُس"
-
-#: ../textw/zfcp_text.py:101
-msgid "Device #"
-msgstr "ڈیوایُس #   "
-
-#: ../textw/zfcp_text.py:107
-msgid "Add"
-msgstr "جمع کرو"
-
-#: ../textw/zfcp_text.py:109
-msgid "Remove"
-msgstr "ختم کرو"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -5421,7 +5440,7 @@ msgstr "لا ئن Chandev "
 msgid "_Custom"
 msgstr "_رسم"
 
-#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
+#: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5434,7 +5453,7 @@ msgstr ""
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:13
+#: ../installclasses/fedora.py:13 ../installclasses/rhel.py:21
 #, fuzzy, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5445,15 +5464,15 @@ msgstr ""
 "استعمال کے لیےُ ہے۔ کون سے اضافی کاموں کے لیےُ آپ اپنے سسٹم کے لیےُ رہنمایُ "
 "چاہتے ہیں؟ %s"
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
+#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
 msgid "Office and Productivity"
 msgstr "آفس اور پروڈیکٹیوٹی"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:31
 msgid "Software Development"
 msgstr "سافٹ ویُر کی تعمیر"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:32
 msgid "Web server"
 msgstr " ویب سرور"
 
@@ -5489,10 +5508,35 @@ msgstr ""
 "\tصوت اور تصویر پروگرامز\n"
 "\tکھیل\n"
 
-#: ../installclasses/rhel.py:15
+#: ../installclasses/rhel.py:20
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
 msgstr "ریڈ ھیٹ انٹرپراُس لینکس ڈبلیو ایس"
+
+#: ../installclasses/rhel.py:34
+#, fuzzy
+msgid "Installation Number"
+msgstr "انسٹالیش کی قسم"
+
+#: ../installclasses/rhel.py:35
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:38
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5723,10 +5767,10 @@ msgstr " کیا آپ مزید ڈرائیور ڈ یسکس لوڈ کرنا چا�
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
-#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
-#: ../loader2/urlinstall.c:483
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1057 ../loader2/net.c:1509
+#: ../loader2/net.c:1532 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr " \" غلطی  Kickstart\" "
 
@@ -5898,7 +5942,7 @@ msgstr "ککسٹارٹ طریقہ کمانڈ کو بند کرنےکیلئے غل
 msgid "Welcome to %s - Rescue Mode"
 msgstr "ریسکیو موڈ %s - میں خوش آمدید"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:160
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -5909,23 +5953,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "زبان کا انتخاب کریں"
 
-#: ../loader2/loader.c:120
+#: ../loader2/loader.c:119
 msgid "Local CDROM"
 msgstr "لوکل سی ڈی روم"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:121
 msgid "Hard drive"
 msgstr "ہارڈ ڈرائیو"
 
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:122
 msgid "NFS image"
 msgstr "NFSایمیج"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:332
 msgid "Update Disk Source"
 msgstr "ڈسک سورس ايپڈيٹيس "
 
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:333
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5933,28 +5977,28 @@ msgstr ""
 "آپ کے پاس مختلف ڈیواسز ہیں جن کو ايپڈيٹيس ڈسک کیلئیے استعمال کیا جاسکتا ہے "
 "۔آپ کس کو استعمال کرنا چاہیں گے"
 
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:348
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "اپنی ايپڈيٹيس ڈسک داخل کریں/dev/%s \"OK\" پرس کریں اور"
 
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:350
 msgid "Updates Disk"
 msgstr "ايپڈيٹيس ڈسک"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:362
 msgid "Failed to mount updates disk"
 msgstr "ماؤنٹ ايپڈيٹيس ڈسک ناکام"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:365
 msgid "Updates"
 msgstr "ايپڈيٹيس"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:365
 msgid "Reading anaconda updates..."
 msgstr "ایناکونڈا کی ايپڈيٹيس کو پڑھ رہا ہے"
 
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5963,40 +6007,40 @@ msgstr ""
 "کوئ ہارڈ ڈرائیو نہیں ملی آپ کو انسٹالیشن کیلئے خود سے ڈیوائس ڈرائیور کرنا "
 "ہوگا۔ کیا آپ ابھی ڈرائیور کا انتخاب کرنا چاہیں گے"
 
-#: ../loader2/loader.c:780
+#: ../loader2/loader.c:802
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "آپ کے پاس %sناکافی ہے RAMانسٹالیشن کیلئیے "
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:960
 msgid "Rescue Method"
 msgstr "بچانے کا طریقہ"
 
-#: ../loader2/loader.c:939
+#: ../loader2/loader.c:961
 msgid "Installation Method"
 msgstr "انسٹالیشن کا طریقہ"
 
-#: ../loader2/loader.c:941
+#: ../loader2/loader.c:963
 msgid "What type of media contains the rescue image?"
 msgstr "ایمیج ریسکیو کرنے کیلئے کس قسم کا میڈیا چائیے?"
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:965
 msgid "What type of media contains the packages to be installed?"
 msgstr "پیکج کو انسٹال کرنے کیلئے کس قسم کا میڈیا چائیے?"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:990
 msgid "No driver found"
 msgstr "کوئ ڈرائیو نہیںملی"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:990
 msgid "Select driver"
 msgstr "ڈرائیو کا انختاب کریں"
 
-#: ../loader2/loader.c:969
+#: ../loader2/loader.c:991
 msgid "Use a driver disk"
 msgstr "ڈرائیو ڈسک استعمال کریں"
 
-#: ../loader2/loader.c:970
+#: ../loader2/loader.c:992
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6004,11 +6048,11 @@ msgstr ""
 "انسٹالیشن کیلئے جو ڈیوائسز چاہئے تھں نہیں ملیںکیا آپ خود سےکوئ ڈیوائسز چچنا "
 "چاہہں گے یا ڈرائیو ڈسک استعمال کرنا چاہیں گے"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1155
 msgid "The following devices have been found on your system."
 msgstr "آپکے سسٹم پر درج ذیل ڈیوائسز ملی ہیں"
 
-#: ../loader2/loader.c:1133
+#: ../loader2/loader.c:1157
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6016,30 +6060,30 @@ msgstr ""
 "آپ کے سسٹم کیلئے کوئ ڈیوائس ڈرائور لوڈ نہیں کیا گیا کیا آپ کوئلوڈ کرنا چاہیں "
 "گے"
 
-#: ../loader2/loader.c:1137
+#: ../loader2/loader.c:1161
 msgid "Devices"
 msgstr "ڈیوائسز"
 
-#: ../loader2/loader.c:1138
+#: ../loader2/loader.c:1162
 msgid "Done"
 msgstr "مکمل"
 
-#: ../loader2/loader.c:1139
+#: ../loader2/loader.c:1163
 msgid "Add Device"
 msgstr "ڈیوائس داخل کریں"
 
-#: ../loader2/loader.c:1347
+#: ../loader2/loader.c:1371
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "لوڈر پہلے ہی جاری ہے۔ شیل شروع ہورہا ہے.\n"
 
-#: ../loader2/loader.c:1723
+#: ../loader2/loader.c:1758
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 " ایناکونڈا جاری ہے  %s ۔برائے مہربانی انتظار کریں... ریسکیو موڈ میں۔ \n"
 
-#: ../loader2/loader.c:1725
+#: ../loader2/loader.c:1760
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr " ایناکونڈا جاری ہے %s.. .سسٹم نسٹالر۔برائےمہربانی انتظار کریں\n"
@@ -6139,7 +6183,7 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "چیک ازم ٹیسٹ"
 
-#: ../loader2/modules.c:1036
+#: ../loader2/modules.c:1058
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "دلیل ککسٹارٹ نیٹ ورک کمانڈ کیلے غلط%s: %s"
@@ -6176,6 +6220,14 @@ msgstr ""
 "نہیں تو اس کو خالی چھوڑ دیں اور انسٹالیشن خود جاری ہو جاائے گی مہیا کریں ایک "
 "نیٹ ورک اڈاپٹر ہے ESSID"
 
+#: ../loader2/net.c:238
+msgid "ESSID"
+msgstr "ESSID"
+
+#: ../loader2/net.c:239
+msgid "Encryption Key"
+msgstr "اینکر پشن کی"
+
 #: ../loader2/net.c:242
 msgid "Wireless Settings"
 msgstr "وائرلس سیٹنگز"
@@ -6205,114 +6257,111 @@ msgstr "آئ-پی سے متعلق غلط معلومات"
 msgid "You entered an invalid IP address."
 msgstr "اڈریس کا اندراج کیا ہے IP آپ نے غلط"
 
-#: ../loader2/net.c:541 ../loader2/net.c:647
+#: ../loader2/net.c:542 ../loader2/net.c:653
 #, fuzzy
 msgid "Network Error"
 msgstr "کوئ پاسورڈ نھیں ھے"
 
-#: ../loader2/net.c:542 ../loader2/net.c:648
+#: ../loader2/net.c:543 ../loader2/net.c:654
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr "یھان پر غلطی ٹارگٹ ڈریو کو چیک کریںأیکسانیت صیھع نھیںأ  "
 
-#: ../loader2/net.c:684
-#, fuzzy
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "ڈائنامک آئ-پی کو استعمال کریں (BOOTP/DHCP)"
-
-#: ../loader2/net.c:712
+#: ../loader2/net.c:718
 msgid "Avoid unwanted packet collisions"
 msgstr ""
 
-#: ../loader2/net.c:714
+#: ../loader2/net.c:720
 msgid "Maximize register values for high speed network traffic"
 msgstr ""
 
-#: ../loader2/net.c:750
+#: ../loader2/net.c:756
 msgid "Configure TCP/IP"
 msgstr "ٹی-سی-پی/آئ-پی  وضع"
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:770
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:765
+#: ../loader2/net.c:771
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
-msgid "Missing Protocol"
-msgstr "امکمل معلومات  "
-
-#: ../loader2/net.c:772
+#: ../loader2/net.c:778
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr ""
 
-#: ../loader2/net.c:782
+#: ../loader2/net.c:788
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr ""
 
-#: ../loader2/net.c:852
+#: ../loader2/net.c:859
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "عنوان IP :"
 
-#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:871 ../loader2/net.c:923 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:904
+#: ../loader2/net.c:911
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "عنوان IP :"
 
-#: ../loader2/net.c:965
+#: ../loader2/net.c:972
 #, fuzzy
 msgid "Name Server:"
 msgstr "نیم سرور"
 
 #: ../loader2/net.c:1008
+msgid ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
+msgstr ""
+
+#: ../loader2/net.c:1024
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr " کی تر تیب z/IPL"
 
-#: ../loader2/net.c:1131 ../loader2/net.c:1137
+#: ../loader2/net.c:1147 ../loader2/net.c:1153
 msgid "Missing Information"
 msgstr "امکمل معلومات  "
 
-#: ../loader2/net.c:1132
+#: ../loader2/net.c:1148
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "آپ کو درست آئ-پی عنوان اور نیٹ ماسک دونوں داخل کرنے چاہۓ"
 
-#: ../loader2/net.c:1138
+#: ../loader2/net.c:1154
 #, fuzzy
-msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "آپ کو درست آئ-پی عنوان اور نیٹ ماسک دونوں داخل کرنے چاہۓ"
 
-#: ../loader2/net.c:1402
+#: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
 msgstr "ڈومین اور ہوسٹنیم کا تعین جاری ہے..."
 
-#: ../loader2/net.c:1494
+#: ../loader2/net.c:1510
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "دلیل ککسٹارٹ نیٹ ورک کمانڈ کیلے غلط%s: %s"
 
-#: ../loader2/net.c:1517
+#: ../loader2/net.c:1533
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr " جو نیٹ ورک کمانڈ میں دی گئ ہے%s غلط بوٹپروٹو"
 
-#: ../loader2/net.c:1688
+#: ../loader2/net.c:1704
 msgid "Networking Device"
 msgstr "نیٹ ورک ڈئواس"
 
-#: ../loader2/net.c:1689
+#: ../loader2/net.c:1705
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6323,7 +6372,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "ااین-ایف-ایس سرور کا نام:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "ڈائریکٹری %s:"
@@ -6383,70 +6432,70 @@ msgstr "میڈیا مل گیا ہے"
 msgid "Local installation media detected..."
 msgstr "لوکل انسٹالیشن کیلے میڈیا مل گیا ہے..."
 
-#: ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "یو-آر-ایل ککسٹارٹ طریقہ %s: %s"
 
-#: ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr " یو-آر-ایل ککسٹارٹ طریقہ کو ایک یو-آر-ایل آرگومنٹ  -- مہیا کرنا چاہۓ"
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "نامعلوم  یو-آر-ایل طریقہ  %s"
 
-#: ../loader2/urls.c:215
+#: ../loader2/urls.c:220
 msgid "Retrieving"
 msgstr "دوبارہ حاصل کررہا"
 
-#: ../loader2/urls.c:279
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr ""
 
-#: ../loader2/urls.c:284
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:301
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "ایف ٹی پی سائٹ کا نام:"
 
-#: ../loader2/urls.c:302
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "ویب سائٹ کا نام:"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "معلوم ایف-ٹی-پی استعمال کریں"
 
-#: ../loader2/urls.c:330
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "ایف- ٹی-پی سیٹ اپ"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "ایچ-ٹی-ٹی-پی سیٹ اپ"
 
-#: ../loader2/urls.c:341
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "آپ کو سرور کا کا نام  داخل کرنا چاہیۓ"
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "آپ کو ایک ڈائریکٹری درج کرنی چاہۓ۔ "
 
-#: ../loader2/urls.c:351
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "نامعلوم ہوسٹ"
 
-#: ../loader2/urls.c:352
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s ایک صحیح ہوسٹ کا نام نہیں ہے"
 
-#: ../loader2/urls.c:415
+#: ../loader2/urls.c:424
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6454,7 +6503,7 @@ msgstr ""
 "اگر آپ معلوم ایف-ٹی-پی استعمال کررہے ہیں تو جو آپ اکاؤنٹ کا نام اور پاسورڈ "
 "رکھنا چاہتے ہیں وہ درج کریں"
 
-#: ../loader2/urls.c:420
+#: ../loader2/urls.c:429
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6462,15 +6511,15 @@ msgstr ""
 "اگر آپ ایک ایچ-ٹی-ٹی-پی پروکسي سرور استمعال کر رہے ہیں تو ایچ-ٹی-ٹی-پی "
 "پروکسي سرور استعمال کرنے کے لۓ اس کا نام راخل کریں۔"
 
-#: ../loader2/urls.c:442
+#: ../loader2/urls.c:451
 msgid "Account name:"
 msgstr "حساب نام:"
 
-#: ../loader2/urls.c:465
+#: ../loader2/urls.c:474
 msgid "Further FTP Setup"
 msgstr "مزید ایف-ٹی-پی سیٹ اپ"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:477
 msgid "Further HTTP Setup"
 msgstr "مزید ایچ-ٹی-ٹی-پی سیٹ اپ"
 
@@ -6487,19 +6536,9 @@ msgstr "FCP LUN"
 msgid "Add _iSCSI target"
 msgstr ""
 
-#: tmp/adddrive.glade.h:3
-#, fuzzy
-msgid "Advanced Storage Options"
-msgstr "زائد سائز کے لیے آپشنز "
-
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
-
-#: tmp/adddrive.glade.h:5
-#, fuzzy
-msgid "How would you like to modify your drive configuration?"
-msgstr "آپ پارٹیشن کے لیےُ کتنی جگہ چاہتے ہیں؟"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6572,6 +6611,11 @@ msgstr "ایکسیپشن کی معلومات"
 msgid "_Exception details"
 msgstr "ایکسیپشن کی تفصیلات"
 
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
+
 #: tmp/iscsi-config.glade.h:1
 #, fuzzy
 msgid "<b>_Password:</b>"
@@ -6589,17 +6633,6 @@ msgstr "<b>: پورٹ نمبر_ </b>"
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>: نام _انیٹیٹرiSCSI</b>"
-
-#: tmp/iscsi-config.glade.h:5
-#, fuzzy
-msgid "Configure iSCSI Parameters"
-msgstr "Chandev لیمٹ"
-
-#: tmp/iscsi-config.glade.h:6
-msgid ""
-"To use iSCSI disks, you must provide the address of your iSCSI target and "
-"the iSCSI initiator name you've configured for your host."
-msgstr ""
 
 #: tmp/netconfig.glade.h:2
 #, fuzzy
@@ -6675,6 +6708,25 @@ msgstr ""
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
 msgstr " ابھی تبدیل کریں"
+
+#: tmp/zfcp-config.glade.h:1
+#, fuzzy
+msgid "<b>Device number:</b>"
+msgstr "ڈیواءس نمبر"
+
+#: tmp/zfcp-config.glade.h:2
+#, fuzzy
+msgid "<b>FCP LUN:</b>"
+msgstr "FCP LUN"
+
+#: tmp/zfcp-config.glade.h:3
+#, fuzzy
+msgid "<b>WWPN:</b>"
+msgstr "پاسورڈ"
+
+#: tmp/zfcp-config.glade.h:4
+msgid "Add FCP device"
+msgstr "جمع  FCP اٰلہ "
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7385,6 +7437,10 @@ msgid "Arabic"
 msgstr "عربی"
 
 #. generated from lang-table
+msgid "Assamese"
+msgstr ""
+
+#. generated from lang-table
 msgid "Bengali"
 msgstr "بنگالی"
 
@@ -7548,6 +7604,10 @@ msgid "Serbian(Latin)"
 msgstr "سیربین (لیٹن)۔"
 
 #. generated from lang-table
+msgid "Sinhala"
+msgstr ""
+
+#. generated from lang-table
 msgid "Slovak"
 msgstr "سلوویک"
 
@@ -7568,6 +7628,10 @@ msgid "Tamil"
 msgstr "تمیل"
 
 #. generated from lang-table
+msgid "Telugu"
+msgstr ""
+
+#. generated from lang-table
 msgid "Turkish"
 msgstr "ترکی"
 
@@ -7586,6 +7650,90 @@ msgstr "ویلش"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "زولو"
+
+#, fuzzy
+#~ msgid "Enter Registration Key"
+#~ msgstr "اینکر پشن کی"
+
+#~ msgid "Error mounting file system on %s: %s"
+#~ msgstr "میں ماونُٹ کرنے میں نقص %s: %s فایلُ سسٹم"
+
+#~ msgid "SCSI Id"
+#~ msgstr "SCSI Id"
+
+#~ msgid "You have not specified a SCSI ID or the ID is invalid."
+#~ msgstr " نھیں دیا یا وہ اِن ویلڈ ھے SCSI IDآپ نے "
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN"
+
+#~ msgid "SCSI LUN"
+#~ msgstr "SCSI LUN"
+
+#~ msgid "You have not specified a SCSI LUN or the number is invalid."
+#~ msgstr "نھیں لکھا یا آپ کا نمبر اِن ویلڈ ھے SCSI LUN     ٓاپ نے "
+
+#, fuzzy
+#~ msgid "IPv_4 Address:"
+#~ msgstr "عنوان IP :"
+
+#, fuzzy
+#~ msgid "IPv_6 Address:"
+#~ msgstr "عنوان IP :"
+
+#~ msgid "ZFCP Configuration"
+#~ msgstr "ZFCP سیٹنگژ"
+
+#~ msgid "_Remove"
+#~ msgstr "ختم"
+
+#~ msgid "FCP Devices"
+#~ msgstr "FCP اٰلۃ "
+
+#~ msgid "Edit FCP device %s"
+#~ msgstr "FCP ترمیم %s آلۃ"
+
+#~ msgid ""
+#~ "You're about to remove a FCP disk from your configuration. Are you sure "
+#~ "that you wish to continue?"
+#~ msgstr "ڈسک ختم کر نا چاھتے ھیں  FCP آپ اپنی سیٹنگز سے"
+
+#~ msgid "Invalid IP string"
+#~ msgstr " سٹر نگ IP غلط"
+
+#~ msgid "The entered IP '%s' is not a valid IP."
+#~ msgstr "ٰدرست نھیں ھے۔IP'%s' درج ز یل "
+
+#~ msgid "Point to Point (IP)"
+#~ msgstr "IPنقطہ بہ نقطہ"
+
+#~ msgid "Network Device: %s"
+#~ msgstr " %sجا ل کا ٓالہ"
+
+#~ msgid "Configure using DHCP"
+#~ msgstr "  ا ستعما ل کر تے  DHCPوضع "
+
+#~ msgid "Invalid information"
+#~ msgstr "غلط ا طلا ع"
+
+#~ msgid "You must enter valid IP information to continue"
+#~ msgstr ""
+#~ "کی معلو ما ت کا اندر ا ج کر نا ھو گا  IPاپ کو کا م جار ی رکھنے کیلےدر ست"
+
+#~ msgid "Tertiary DNS:"
+#~ msgstr " DNSتیسر ے د ر جے کا"
+
+#~ msgid "FCP Device"
+#~ msgstr "ایف سی پی ڈیواُس"
+
+#~ msgid "Device #"
+#~ msgstr "ڈیوایُس #   "
+
+#~ msgid "Add"
+#~ msgstr "جمع کرو"
+
+#~ msgid "Remove"
+#~ msgstr "ختم کرو"
 
 #~ msgid "DDC Probed Monitor"
 #~ msgstr "پروبڈ مونیٹر DDC"
@@ -7776,9 +7924,6 @@ msgstr "زولو"
 
 #~ msgid "An error occurred when finding the packages to upgrade."
 #~ msgstr "کا نمایا ھونا error  اپ گریڈ کرتے وقت"
-
-#~ msgid "Installation Type"
-#~ msgstr "انسٹالیش کی قسم"
 
 #~ msgid "What type of system would you like to install?"
 #~ msgstr "آپ کس طرح کا نظام انسٹال کرنا پسند کریں گے؟"

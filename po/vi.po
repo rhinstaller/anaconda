@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 15:40-0400\n"
+"POT-Creation-Date: 2006-11-17 09:23-0500\n"
 "PO-Revision-Date: 2006-05-17 03:37+0900\n"
 "Last-Translator: Nam <lhnam29vn@yahoo.co.jp>\n"
 "Language-Team: Vietnamese\n"
@@ -15,26 +15,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:256
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "Lỗi lạ"
 
-#: ../anaconda:259
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Lỗi nạp phần hai của cấu hình kickstart: %s!"
 
-#: ../anaconda:412
+#: ../anaconda:418
 msgid "Press <enter> for a shell"
 msgstr "Hãy nhấn <enter> để mở một shell"
 
-#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:449 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
-#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
+#: ../rescue.py:449 ../text.py:438 ../text.py:581 ../vnc.py:141
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../textw/constants_text.py:36 ../textw/network_text.py:46
+#: ../textw/network_text.py:56 ../textw/network_text.py:323
+#: ../textw/network_text.py:355 ../textw/network_text.py:382
+#: ../textw/network_text.py:388 ../textw/network_text.py:618
+#: ../textw/network_text.py:626 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -51,63 +53,63 @@ msgstr "Hãy nhấn <enter> để mở một shell"
 #: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
 #: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
+#: ../loader2/lang.c:369 ../loader2/loader.c:337 ../loader2/loader.c:350
+#: ../loader2/loader.c:361 ../loader2/loader.c:805 ../loader2/loader.c:968
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
-#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
+#: ../loader2/method.c:458 ../loader2/modules.c:1057 ../loader2/net.c:243
+#: ../loader2/net.c:283 ../loader2/net.c:724 ../loader2/net.c:1003
+#: ../loader2/net.c:1509 ../loader2/net.c:1532 ../loader2/net.c:1708
 #: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
 #: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
-#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
-#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
-#: ../loader2/urls.c:351 ../loader2/urls.c:455
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
+#: ../loader2/urls.c:282 ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/urls.c:358 ../loader2/urls.c:464
 msgid "OK"
 msgstr "Đồng ý"
 
-#: ../anaconda:450
+#: ../anaconda:456
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "Bạn không đủ RAM để dùng bộ cài đặt đồ họa. Khởi động chế độ văn bản."
 
-#: ../anaconda:466
+#: ../anaconda:472
 msgid "No video hardware found, assuming headless"
 msgstr "Không tìm thấy phần cứng video, giả định không hiển thị"
 
-#: ../anaconda:473 ../anaconda:886
+#: ../anaconda:479 ../anaconda:944
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Không thể tạo đối tượng trạng thái phần cứng X."
 
-#: ../anaconda:512
+#: ../anaconda:536
 msgid "Starting graphical installation..."
 msgstr "Đang khởi động trình cài đặt đồ hoạ..."
 
-#: ../anaconda:766
+#: ../anaconda:808
 msgid "Install class forcing text mode installation"
 msgstr "Cài đặt class bắt buộc ở chế độ văn bản"
 
-#: ../anaconda:798
+#: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Không có cài đặt đồ họa... Khởi động chế độ văn bản."
 
-#: ../anaconda:806
+#: ../anaconda:848
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Chưa đặt biến DISPLAY. Khởi động chế độ văn bản!"
 
-#: ../anaconda:851
+#: ../anaconda:909
 msgid "Unknown install method"
 msgstr "Phương thức cài đặt lạ"
 
-#: ../anaconda:852
+#: ../anaconda:910
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Bạn đang cố cài đặt trên máy không được hỗ trợ bởi anaconda."
 
-#: ../anaconda:854
+#: ../anaconda:912
 #, c-format
 msgid "unknown install method: %s"
 msgstr "Phương thức cài đặt lạ: %s"
@@ -191,11 +193,11 @@ msgid ""
 msgstr ""
 "Thêm partition này sẽ làm cho không còn đủ chỗ cho các volume logic trong %s."
 
-#: ../autopart.py:1243
+#: ../autopart.py:1249
 msgid "Requested Partition Does Not Exist"
 msgstr "Partition yêu cầu không tồn tại"
 
-#: ../autopart.py:1244
+#: ../autopart.py:1250
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -206,11 +208,11 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1271
+#: ../autopart.py:1277
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Thiết bị RAID Yêu cầu Không Tồn tại"
 
-#: ../autopart.py:1272
+#: ../autopart.py:1278
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -221,11 +223,11 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1303
+#: ../autopart.py:1309
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Nhóm Volume yêu cầu không tồn tại"
 
-#: ../autopart.py:1304
+#: ../autopart.py:1310
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -236,11 +238,11 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1341
+#: ../autopart.py:1347
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Volume Logic yêu cầu không tồn tại"
 
-#: ../autopart.py:1342
+#: ../autopart.py:1348
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -251,11 +253,11 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1456 ../autopart.py:1502
+#: ../autopart.py:1464 ../autopart.py:1511
 msgid "Automatic Partitioning Errors"
 msgstr "Lỗi phân partition tự động"
 
-#: ../autopart.py:1457
+#: ../autopart.py:1465
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -270,11 +272,11 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1467
+#: ../autopart.py:1475
 msgid "Warnings During Automatic Partitioning"
 msgstr "Cảnh báo trong suốt quá trình phân partition tự động"
 
-#: ../autopart.py:1468
+#: ../autopart.py:1476
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -285,7 +287,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1481 ../autopart.py:1498
+#: ../autopart.py:1490 ../autopart.py:1507
 msgid ""
 "\n"
 "\n"
@@ -295,12 +297,12 @@ msgstr ""
 "\n"
 "Nhấn 'Đồng ý' để khởi động lại hệ thống."
 
-#: ../autopart.py:1482 ../iw/partition_gui.py:997
-#: ../textw/partition_text.py:227
+#: ../autopart.py:1491 ../iw/partition_gui.py:997
+#: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Lỗi phân partition"
 
-#: ../autopart.py:1483
+#: ../autopart.py:1492
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -311,14 +313,14 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1500
+#: ../autopart.py:1509
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1503
+#: ../autopart.py:1512
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -334,27 +336,27 @@ msgstr ""
 "\n"
 "Điều này xảy ra nếu không đủ chỗ trên đĩa cứng để cài đặt.%s"
 
-#: ../autopart.py:1514
+#: ../autopart.py:1523
 msgid "Unrecoverable Error"
 msgstr "Lỗi không thể phục hồi"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1524
 msgid "Your system will now be rebooted."
 msgstr "Hệ thống của bạn sẽ được khởi động lại bây giờ."
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
-#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
+#: ../autopart.py:1671 ../bootloader.py:194 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
+#: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
+#: ../loader2/loader.c:404
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: ../autopart.py:1668
+#: ../autopart.py:1677
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -370,7 +372,7 @@ msgstr ""
 "trong môi trường tương tác. Bạn có thể đặt loại hệ thống tập tin, điểm gắn "
 "kết, kích thước partition, và nhiều thứ khác."
 
-#: ../autopart.py:1679
+#: ../autopart.py:1688
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -378,19 +380,19 @@ msgstr ""
 "Trước khi phân partition tự động, bạn phải chọn cách dùng đĩa cứng như thế "
 "nào."
 
-#: ../autopart.py:1684
+#: ../autopart.py:1693
 msgid "Remove all partitions on this system"
 msgstr "Xóa mọi partition trên hệ thống này"
 
-#: ../autopart.py:1685
+#: ../autopart.py:1694
 msgid "Remove all Linux partitions on this system"
 msgstr "Xóa mọi parition Linux trên hệ thống này"
 
-#: ../autopart.py:1686
+#: ../autopart.py:1695
 msgid "Keep all partitions and use existing free space"
 msgstr "Giữ mọi partition và dùng phần còn trống"
 
-#: ../autopart.py:1688
+#: ../autopart.py:1697
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -400,7 +402,7 @@ msgstr ""
 "Bạn đã chọn xóa mọi partition (MỌI DỮ LIỆU) trên những ổ đĩa sau:%s\n"
 "Bạn có chắc muốn thực hiện điều này không?"
 
-#: ../autopart.py:1692
+#: ../autopart.py:1701
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -447,7 +449,11 @@ msgstr "Hoàn tất"
 msgid "In progress...   "
 msgstr "Đang thực hiện...   "
 
-#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#: ../cmdline.py:66 ../cmdline.py:86
+msgid "Can't have a question in command line mode!"
+msgstr "Không thể đặt câu hỏi ở chế độ dòng lệnh!"
+
+#: ../cmdline.py:74 ../gui.py:897 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -458,25 +464,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../cmdline.py:81
-msgid "Can't have a question in command line mode!"
-msgstr "Không thể đặt câu hỏi ở chế độ dòng lệnh!"
-
-#: ../cmdline.py:100
+#: ../cmdline.py:105
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Không thể xử lý lỗi ngoại lệ ở chế độ dòng lệnh!"
 
-#: ../cmdline.py:145
+#: ../cmdline.py:150
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "Xong [%d/%d]"
 
-#: ../cmdline.py:151
+#: ../cmdline.py:156
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr "Đang cài đặt %s-%s-%s... "
 
-#: ../constants.py:60
+#: ../constants.py:69
 #, fuzzy, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -500,9 +502,9 @@ msgstr ""
 "Trạng thái hệ thống đã được ghi vào đĩa mềm thành công. Hệ thống này sẽ được "
 "reset."
 
-#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
-#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
-#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
+#: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Khởi động _lại"
@@ -539,14 +541,17 @@ msgstr "Đang kiểm tra hư hỏng"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Đang kiểm tra hư hỏng trên /dev/%s..."
 
-#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
-#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
-#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
-#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
-#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
-#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
+#: ../fsset.py:1525 ../fsset.py:1579 ../fsset.py:1590 ../fsset.py:1630
+#: ../fsset.py:1680 ../fsset.py:1746 ../fsset.py:1765 ../image.py:135
+#: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:407
+#: ../yuminstall.py:745 ../yuminstall.py:865 ../yuminstall.py:1138
+#: ../iw/autopart_type.py:193 ../iw/netconfig_dialog.py:213
+#: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
+#: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
@@ -554,18 +559,18 @@ msgstr "Đang kiểm tra hư hỏng trên /dev/%s..."
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:361
+#: ../loader2/loader.c:805 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Lỗi"
 
-#: ../fsset.py:677
+#: ../fsset.py:672
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -578,27 +583,27 @@ msgstr ""
 "\n"
 "Bạn có muốn tiếp tục và không chuyển đổi %s không?"
 
-#: ../fsset.py:1333
+#: ../fsset.py:1329
 msgid "RAID Device"
 msgstr "Thiết bị RAID"
 
-#: ../fsset.py:1337 ../fsset.py:1343
+#: ../fsset.py:1333 ../fsset.py:1339
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1348 ../partitions.py:900
+#: ../fsset.py:1344 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1351
+#: ../fsset.py:1347
 msgid "First sector of boot partition"
 msgstr "Sector đầu của partition khởi động"
 
-#: ../fsset.py:1352
+#: ../fsset.py:1348
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1426
+#: ../fsset.py:1423
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -611,17 +616,17 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
+#: ../fsset.py:1452 ../packages.py:259 ../rescue.py:291 ../rescue.py:293
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "Bỏ qua"
 
-#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1452 ../upgrade.py:90 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Khởi động lại"
 
-#: ../fsset.py:1476
+#: ../fsset.py:1473
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -633,12 +638,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1483
+#: ../fsset.py:1480
 #, fuzzy
 msgid "Reformat"
 msgstr "Dạng thức"
 
-#: ../fsset.py:1487
+#: ../fsset.py:1484
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -650,7 +655,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1495
+#: ../fsset.py:1492
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -662,7 +667,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1505
+#: ../fsset.py:1502
 msgid ""
 "\n"
 "\n"
@@ -671,11 +676,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1511 ../iw/partition_gui.py:368
+#: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Dạng thức"
 
-#: ../fsset.py:1518
+#: ../fsset.py:1515
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -691,7 +696,7 @@ msgstr ""
 "\n"
 "Nhấn Đồng ý để khởi động lại hệ thống."
 
-#: ../fsset.py:1529
+#: ../fsset.py:1526
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -706,7 +711,7 @@ msgstr ""
 "\n"
 "Nhấn Đồng ý để khởi động lại hệ thống."
 
-#: ../fsset.py:1583
+#: ../fsset.py:1580
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -719,7 +724,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống"
 
-#: ../fsset.py:1594
+#: ../fsset.py:1591
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -732,7 +737,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1634
+#: ../fsset.py:1631
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -745,7 +750,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1684
+#: ../fsset.py:1681
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -758,11 +763,11 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1710 ../fsset.py:1719
+#: ../fsset.py:1707 ../fsset.py:1716
 msgid "Invalid mount point"
 msgstr "Điểm gắn kết không hợp lệ"
 
-#: ../fsset.py:1711
+#: ../fsset.py:1708
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -775,7 +780,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1720
+#: ../fsset.py:1717
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -788,24 +793,24 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để khởi động lại hệ thống."
 
-#: ../fsset.py:1733
+#: ../fsset.py:1730
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "Không thể nạp tập tin!"
 
-#: ../fsset.py:1734
+#: ../fsset.py:1731
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
-#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
+#: ../fsset.py:1739 ../image.py:93 ../image.py:446 ../kickstart.py:921
+#: ../kickstart.py:957 ../yuminstall.py:861 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Tiếp tục"
 
-#: ../fsset.py:1750
+#: ../fsset.py:1747
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -820,7 +825,7 @@ msgstr ""
 "\n"
 "Nhấn Đồng ý để khởi động lại hệ thống."
 
-#: ../fsset.py:1769
+#: ../fsset.py:1766
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -835,11 +840,11 @@ msgstr ""
 "\n"
 "Nhấn Đồng ý để khởi động lại hệ thống."
 
-#: ../fsset.py:2462
+#: ../fsset.py:2459
 msgid "Duplicate Labels"
 msgstr "Trùng nhãn"
 
-#: ../fsset.py:2463
+#: ../fsset.py:2460
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -852,11 +857,11 @@ msgstr ""
 "\n"
 "Hãy sửa lại lỗi này và khởi động lại quá trình cài đặt."
 
-#: ../fsset.py:2723
+#: ../fsset.py:2720
 msgid "Formatting"
 msgstr "Đang định dạng"
 
-#: ../fsset.py:2724
+#: ../fsset.py:2721
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Đang định dạng hệ thống tập tin %s..."
@@ -904,49 +909,54 @@ msgstr ""
 "Xảy ra lỗi khi lưu screenshot. Nếu lỗi này xảy ra trong quá trình cài đặt "
 "gói, bạn có thể cần thử lại vài lần."
 
-#: ../gui.py:230 ../text.py:391
+#: ../gui.py:230 ../text.py:435
 msgid "Fix"
 msgstr "Sửa"
 
-#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:404
 msgid "Yes"
 msgstr "Có"
 
-#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
+#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:437
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:403
+#: ../loader2/loader.c:404
 msgid "No"
 msgstr "Không"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
-#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
-#: ../loader2/net.c:1137
+#: ../gui.py:234 ../text.py:439 ../loader2/net.c:97 ../loader2/net.c:301
+#: ../loader2/net.c:542 ../loader2/net.c:653 ../loader2/net.c:770
+#: ../loader2/net.c:777 ../loader2/net.c:787 ../loader2/net.c:1147
+#: ../loader2/net.c:1153
 msgid "Retry"
 msgstr "Thử lại"
 
-#: ../gui.py:235 ../text.py:396
+#: ../gui.py:235 ../text.py:440
 msgid "Ignore"
 msgstr "Bỏ qua"
 
-#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
+#: ../gui.py:236 ../gui.py:757 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
+#: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:350
 msgid "Cancel"
 msgstr "Hủy bỏ"
 
-#: ../gui.py:843 ../text.py:356
+#: ../gui.py:595 ../text.py:356
+#, fuzzy
+msgid "Installation Key"
+msgstr "Loại cài đặt"
+
+#: ../gui.py:899 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "Lỗi phân tích cấu hình kickstart"
 
-#: ../gui.py:851 ../text.py:366
+#: ../gui.py:907 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -954,15 +964,15 @@ msgstr ""
 "Vui lòng chèn đĩa mềm vào bây giờ. Mọi thứ trên đĩa sẽ bị xóa, vì thế vui "
 "lòng chọn đĩa mềm cẩn thận."
 
-#: ../gui.py:898
+#: ../gui.py:954
 msgid "default:LTR"
 msgstr "Mặc định:LTR"
 
-#: ../gui.py:982
+#: ../gui.py:1038
 msgid "Error!"
 msgstr "Lỗi!"
 
-#: ../gui.py:983
+#: ../gui.py:1039
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -973,40 +983,40 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
+#: ../gui.py:1044 ../gui.py:1049 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
 msgstr "T_hoát"
 
-#: ../gui.py:989 ../yuminstall.py:609
+#: ../gui.py:1045 ../yuminstall.py:748
 msgid "_Retry"
 msgstr "Thử _lại"
 
-#: ../gui.py:992 ../packages.py:294
+#: ../gui.py:1048 ../packages.py:307
 msgid "The installer will now exit..."
 msgstr "Đang thoát khỏi trình cài đặt..."
 
-#: ../gui.py:995 ../packages.py:297
+#: ../gui.py:1051 ../packages.py:310
 msgid "Your system will now be rebooted..."
 msgstr "Hệ thống của bạn sẽ được khởi động lại bây giờ..."
 
-#: ../gui.py:998 ../packages.py:299
+#: ../gui.py:1054 ../packages.py:312
 msgid "Rebooting System"
 msgstr "Đang khởi động lại hệ thống"
 
-#: ../gui.py:1062
+#: ../gui.py:1118
 #, python-format
 msgid "%s Installer"
 msgstr "Bộ cài đặt %s"
 
-#: ../gui.py:1069
+#: ../gui.py:1125
 msgid "Unable to load title bar"
 msgstr "Không thể nạp thanh tựa đề"
 
-#: ../gui.py:1118
+#: ../gui.py:1174
 msgid "Install Window"
 msgstr "Cửa sổ cài đặt"
 
-#: ../harddrive.py:44 ../image.py:144 ../image.py:474
+#: ../harddrive.py:44 ../image.py:146 ../image.py:476
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1022,7 +1032,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để thử lại."
 
-#: ../harddrive.py:71 ../image.py:507
+#: ../harddrive.py:71 ../image.py:509
 msgid "Missing ISO 9660 Image"
 msgstr "Thiếu ISO 9660 Image"
 
@@ -1040,15 +1050,15 @@ msgstr ""
 "Hãy sao chép image này tới thư mục phân phối trên máy chủ và nhấn Làm lại. "
 "Chọn Khởi động lại để dừng quá trình cài đặt."
 
-#: ../harddrive.py:81 ../image.py:518
+#: ../harddrive.py:81 ../image.py:520
 msgid "Re_try"
 msgstr "Thử _lại"
 
-#: ../image.py:82
+#: ../image.py:84
 msgid "Required Install Media"
 msgstr "Yêu cầu Install Media"
 
-#: ../image.py:83
+#: ../image.py:85
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1063,13 +1073,13 @@ msgstr ""
 "Hãy chuẩn bị những đĩa trên trước khi tiến hành cài đặt.  Nếu bạn cần dừng "
 "cài đặt và khởi động lại, hãy chọn \"Khởi động lại\"."
 
-#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:262 ../packages.py:308 ../packages.py:311
+#: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Lùi"
 
-#: ../image.py:134
+#: ../image.py:136
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1078,43 +1088,43 @@ msgstr ""
 "Xảy ra lỗi khi gắn kết CD. Hãy chắc chắn bạn không truy cập %s từ shell trên "
 "tty2 và nhấn Đồng ý để thử lại."
 
-#: ../image.py:164
+#: ../image.py:166
 msgid "Copying File"
 msgstr "Đang chép tập tin"
 
-#: ../image.py:165
+#: ../image.py:167
 msgid "Transferring install image to hard drive..."
 msgstr "Đang chuyển install image vào đĩa cứng..."
 
-#: ../image.py:175
+#: ../image.py:177
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr "Gặp lỗi khi chuyển install image vào đĩa cứng. Có lẽ do hết đĩa."
 
-#: ../image.py:264
+#: ../image.py:266
 msgid "Change CDROM"
 msgstr "Đổi CDROM"
 
-#: ../image.py:265
+#: ../image.py:267
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Vui lòng chèn %s vào đĩa %d để tiếp tục."
 
-#: ../image.py:300
+#: ../image.py:302
 msgid "Wrong CDROM"
 msgstr "CDROM sai"
 
-#: ../image.py:301
+#: ../image.py:303
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Đây không phải là CDROM %s."
 
-#: ../image.py:307
+#: ../image.py:309
 msgid "Unable to access the CDROM."
 msgstr "Không thể truy cập tới ổ CDROM."
 
-#: ../image.py:360
+#: ../image.py:362
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1130,7 +1140,7 @@ msgstr ""
 "\n"
 "Nhấn <Enter> để thử lại."
 
-#: ../image.py:508
+#: ../image.py:510
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1144,11 +1154,11 @@ msgstr ""
 "Hãy sao chép image này tới thư mục phân phối trên máy chủ và nhấn Làm lại. "
 "Chọn Khởi động lại để dừng quá trình cài đặt."
 
-#: ../installclass.py:64
+#: ../installclass.py:63
 msgid "Install on System"
 msgstr "Cài đặt trên hệ thống"
 
-#: ../iscsi.py:126 ../iscsi.py:127
+#: ../iscsi.py:185 ../iscsi.py:186
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "Đang khởi động"
@@ -1171,23 +1181,23 @@ msgstr ""
 "\n"
 "Nhấn nút Đồng ý để khởi động lại hệ thống."
 
-#: ../kickstart.py:764 ../kickstart.py:782
+#: ../kickstart.py:751 ../kickstart.py:769
 msgid "Running..."
 msgstr "Đang hoạt động..."
 
-#: ../kickstart.py:765
+#: ../kickstart.py:752
 msgid "Running pre-install scripts"
 msgstr "Đang thực thi xử lý trước khi cài đặt"
 
-#: ../kickstart.py:783
+#: ../kickstart.py:770
 msgid "Running post-install scripts"
 msgstr "Đang thực thi xử lý sau khi cài đặt"
 
-#: ../kickstart.py:926
+#: ../kickstart.py:913
 msgid "Missing Package"
 msgstr "Gói thiếu"
 
-#: ../kickstart.py:927
+#: ../kickstart.py:914
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1196,16 +1206,16 @@ msgstr ""
 "Bạn đã chọn cài đặt gói '%s'. Gói này không tồn tại. Bạn muốn tiếp tục cài "
 "đặt hay hủy bỏ cài đặt?"
 
-#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
-#: ../yuminstall.py:718
+#: ../kickstart.py:920 ../kickstart.py:956 ../yuminstall.py:861
+#: ../yuminstall.py:863
 msgid "_Abort"
 msgstr "_Hủy bỏ"
 
-#: ../kickstart.py:961
+#: ../kickstart.py:948
 msgid "Missing Group"
 msgstr "Nhóm thiếu"
 
-#: ../kickstart.py:962
+#: ../kickstart.py:949
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1229,13 +1239,13 @@ msgstr ""
 
 #: ../network.py:89
 #, fuzzy
-msgid "IP Address is missing."
+msgid "IP address is missing."
 msgstr "Thiếu địa chỉ IP"
 
 #: ../network.py:93
 #, fuzzy
 msgid ""
-"IP Addresses must contain four numbers between 0 and 255, separated by "
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr "Địa chỉ IP phải chứa số từ 0 đến 255"
 
@@ -1244,24 +1254,31 @@ msgstr "Địa chỉ IP phải chứa số từ 0 đến 255"
 msgid "'%s' is not a valid IPv6 address."
 msgstr "%s không phải là tên máy hợp lệ."
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr ""
+#: ../network.py:98
+#, fuzzy, python-format
+msgid "'%s' is an invalid IP address."
+msgstr "%s không phải là tên máy hợp lệ."
 
-#: ../packages.py:245
-msgid "Enter Registration Key"
-msgstr ""
+#: ../packages.py:248
+#, fuzzy
+msgid "Invalid Key"
+msgstr "Chuỗi IP không hợp lệ"
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr ""
+#: ../packages.py:249
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "Bạn đã nhập số không hợp lệ."
 
-#: ../packages.py:276
+#: ../packages.py:262
+#, fuzzy
+msgid "_Skip"
+msgstr "Bỏ qua"
+
+#: ../packages.py:289
 msgid "Warning! This is pre-release software!"
 msgstr "Cảnh báo! Đây là bản beta!"
 
-#: ../packages.py:277
+#: ../packages.py:290
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1288,11 +1305,11 @@ msgstr ""
 "\n"
 "và điền vào báo cáo cho '%s Beta'.\n"
 
-#: ../packages.py:290
+#: ../packages.py:303
 msgid "_Install anyway"
 msgstr "_Cài đặt"
 
-#: ../partedUtils.py:205 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
 msgid "Foreign"
 msgstr "Nước ngoài"
 
@@ -1337,21 +1354,16 @@ msgstr "Bỏ qua"
 msgid "_Format drive"
 msgstr "Định _dạng"
 
-#: ../partedUtils.py:791
-#, python-format
-msgid "Error mounting file system on %s: %s"
-msgstr "Lỗi gắn kết hệ thống tập tin trên %s: %s"
-
-#: ../partedUtils.py:888
+#: ../partedUtils.py:885
 msgid "Initializing"
 msgstr "Đang khởi động"
 
-#: ../partedUtils.py:889
+#: ../partedUtils.py:886
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vui lòng chờ trong khi định dạng đĩa %s...\n"
 
-#: ../partedUtils.py:987
+#: ../partedUtils.py:984
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1370,7 +1382,7 @@ msgstr ""
 "\n"
 "Bạn có muốn khởi tạo đĩa này không, xóa MỌI DỮ LIỆU hay không?"
 
-#: ../partedUtils.py:1044
+#: ../partedUtils.py:1041
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1388,11 +1400,11 @@ msgstr ""
 "\n"
 "Bạn có muốn khởi tạo đĩa này không, xóa MỌI DỮ LIỆU hay không?"
 
-#: ../partedUtils.py:1162
+#: ../partedUtils.py:1159
 msgid "No Drives Found"
 msgstr "Không tìm thấy đĩa"
 
-#: ../partedUtils.py:1163
+#: ../partedUtils.py:1160
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1512,7 +1524,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
-#: ../iw/lvm_dialog_gui.py:757
+#: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
 msgstr "Xác nhận xóa"
 
@@ -1522,8 +1534,8 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Bạn định xóa mọi partition trên thiết bị /dev/%s."
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
-#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
+#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1110
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1357
 msgid "_Delete"
 msgstr "_Xóa"
 
@@ -1710,11 +1722,11 @@ msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Bạn có muốn phục hồi bảng partition như lúc ban đầu không?"
 
-#: ../partitioning.py:62
+#: ../partitioning.py:64
 msgid "Installation cannot continue."
 msgstr "Không thể tiếp tục cài đặt."
 
-#: ../partitioning.py:63
+#: ../partitioning.py:65
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1723,11 +1735,11 @@ msgstr ""
 "Tùy chọn partition bạn chọn đã được kích hoạt rồi. Bạn không thể trở về bước "
 "hiệu chỉnh đĩa được nữa. Bạn có muốn tiếp tục cài đặt không?"
 
-#: ../partitioning.py:93
+#: ../partitioning.py:95
 msgid "Low Memory"
 msgstr "Bộ nhớ ít"
 
-#: ../partitioning.py:94
+#: ../partitioning.py:96
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1943,11 +1955,11 @@ msgstr "Thiết lập mạng"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Bạn có muốn khởi động giao diện mạng này trên hệ thống không?"
 
-#: ../rescue.py:243 ../text.py:533
+#: ../rescue.py:243 ../text.py:577
 msgid "Cancelled"
 msgstr "Đã hủy bỏ"
 
-#: ../rescue.py:244 ../text.py:534
+#: ../rescue.py:244 ../text.py:578
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Không thể trở về bước trước đó được nữa. bạn sẽ phải thử lại."
 
@@ -1978,8 +1990,9 @@ msgstr ""
 "qua' và bạn sẽ được dùng shell trực tiếp.\n"
 "\n"
 
-#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
-#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
+#: ../rescue.py:291 ../iw/partition_gui.py:567 ../textw/network_text.py:62
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
+#: ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Tiếp tục"
 
@@ -2107,21 +2120,31 @@ msgstr "Không có trợ giúp"
 msgid "No help is available for this step of the install."
 msgstr "Không có trợ giúp cho bước cài đặt này."
 
-#: ../text.py:365
+#: ../text.py:361
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "Vui lòng nhập tên người dùng"
+
+#: ../text.py:378 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:409
 msgid "Save Crash Dump"
 msgstr "Lưu Crash Dump"
 
-#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:154
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Chào mừng sử dụng %s"
 
-#: ../text.py:426
+#: ../text.py:470
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> trợ giúp | <Tab> chuyển đổi | <Space> chọn | <F12> bước kế"
 
-#: ../text.py:428
+#: ../text.py:472
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2135,11 +2158,11 @@ msgstr "Nâng cấp hệ thống hiện có"
 msgid "Upgrade"
 msgstr "Nâng cấp"
 
-#: ../upgrade.py:52
+#: ../upgrade.py:83
 msgid "Proceed with upgrade?"
 msgstr "Thực hiện nâng cấp chứ?"
 
-#: ../upgrade.py:53
+#: ../upgrade.py:84
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -2149,24 +2172,24 @@ msgstr ""
 "kết. Bạn không thể lui lại được nữa.\n"
 "\n"
 
-#: ../upgrade.py:57
+#: ../upgrade.py:88
 msgid "Would you like to continue with the upgrade?"
 msgstr "Bạn có muốn tiếp tục nâng cấp không?"
 
-#: ../upgrade.py:93
+#: ../upgrade.py:124
 msgid "Searching"
 msgstr "Đang tìm"
 
-#: ../upgrade.py:94
+#: ../upgrade.py:125
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Đang tìm bản cài đặt %s..."
 
-#: ../upgrade.py:150 ../upgrade.py:158
+#: ../upgrade.py:181 ../upgrade.py:189
 msgid "Dirty File Systems"
 msgstr "Dirty File Systems"
 
-#: ../upgrade.py:151
+#: ../upgrade.py:182
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2179,7 +2202,7 @@ msgstr ""
 "và shut down máy rồi nâng cấp.\n"
 "%s"
 
-#: ../upgrade.py:159
+#: ../upgrade.py:190
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2190,11 +2213,11 @@ msgstr ""
 "muốn gắn kết chúng không?\n"
 "%s"
 
-#: ../upgrade.py:296 ../upgrade.py:302
+#: ../upgrade.py:327 ../upgrade.py:333
 msgid "Mount failed"
 msgstr "Gắn kết thất bại"
 
-#: ../upgrade.py:297
+#: ../upgrade.py:328
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2202,7 +2225,7 @@ msgstr ""
 "Không thể gắn kết một số hệ thống tập tin được liệt kệ trong /etc/fstab. Vui "
 "lòng sửa lỗi này và nâng cấp lại."
 
-#: ../upgrade.py:303
+#: ../upgrade.py:334
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2211,7 +2234,7 @@ msgstr ""
 "Không thể gắn kết một số hệ thống tập tin được liệt kệ trong /etc/fstab vì "
 "không thống nhất. Vui lòng sửa lỗi này và nâng cấp lại."
 
-#: ../upgrade.py:320
+#: ../upgrade.py:351
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2222,11 +2245,11 @@ msgstr ""
 "kết kiểu này. Vui lòng đổi chúng thành liên kết tương đối và nâng cấp lại.\n"
 "\n"
 
-#: ../upgrade.py:326
+#: ../upgrade.py:357
 msgid "Absolute Symlinks"
 msgstr "Liên kết biểu tượng tuyệt đối"
 
-#: ../upgrade.py:337
+#: ../upgrade.py:368
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2239,11 +2262,11 @@ msgstr ""
 "cấp.\n"
 "\n"
 
-#: ../upgrade.py:343
+#: ../upgrade.py:374
 msgid "Invalid Directories"
 msgstr "Thư mục không hợp lệ"
 
-#: ../upgrade.py:350
+#: ../upgrade.py:381
 #, python-format
 msgid "%s not found"
 msgstr "Không tìm thấy %s"
@@ -2307,7 +2330,7 @@ msgstr ""
 "Mật khẩu sẽ ngăn chặn những kết nối không cho phép ảnh hưởng tới quá trình "
 "cài đặt.  Hãy nhập mật khẩu để sử dụng cho quá trình cài đặt"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
+#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:454
 msgid "Password:"
 msgstr "Mật khẩu:"
 
@@ -2420,62 +2443,62 @@ msgstr "Vui lòng kết nối đến %s để bắt đầu cài đặt..."
 msgid "Please connect to begin the install..."
 msgstr "Vui lòng kết nối để bắt đầu cài đặt..."
 
-#: ../yuminstall.py:103
+#: ../yuminstall.py:100
 msgid "Processing"
 msgstr "Đang xử lý"
 
-#: ../yuminstall.py:104
+#: ../yuminstall.py:101
 msgid "Preparing transaction from installation source..."
 msgstr "Đang chuẩn bị cài đặt..."
 
-#: ../yuminstall.py:470 ../yuminstall.py:471
+#: ../yuminstall.py:609 ../yuminstall.py:610
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:472
+#: ../yuminstall.py:611
 #, fuzzy
 msgid "older package(s)"
 msgstr "Gói tùy chọn"
 
-#: ../yuminstall.py:473
+#: ../yuminstall.py:612
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:474
+#: ../yuminstall.py:613
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:475
+#: ../yuminstall.py:614
 #, fuzzy
 msgid "package conflicts"
 msgstr "Chi tiết Nhóm gói"
 
-#: ../yuminstall.py:476
+#: ../yuminstall.py:615
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:477
+#: ../yuminstall.py:616
 #, fuzzy
 msgid "required package"
 msgstr "Chỗ trống"
 
-#: ../yuminstall.py:478
+#: ../yuminstall.py:617
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:479
+#: ../yuminstall.py:618
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:493
+#: ../yuminstall.py:632
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:509
+#: ../yuminstall.py:648
 msgid "Error running transaction"
 msgstr "Lỗi giao dịch RPM..."
 
-#: ../yuminstall.py:510
+#: ../yuminstall.py:649
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2484,21 +2507,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
+#: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
 msgid "Re_boot"
 msgstr "Khởi động _lại"
 
-#: ../yuminstall.py:697
+#: ../yuminstall.py:837
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Đang đọc thông tin gói..."
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:839
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Đang đọc thông tin gói..."
 
-#: ../yuminstall.py:721
+#: ../yuminstall.py:866
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2508,18 +2531,18 @@ msgstr ""
 "Không thể đọc danh sách tiêu đề. Có thể là do thiếu tập tin này, hoặc thiết "
 "bị hư. Nhấn <Enter> để thử lại."
 
-#: ../yuminstall.py:760
+#: ../yuminstall.py:905
 msgid "Uncategorized"
 msgstr "Chưa phân loại"
 
-#: ../yuminstall.py:995
+#: ../yuminstall.py:1139
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1149
+#: ../yuminstall.py:1293
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2528,98 +2551,56 @@ msgstr ""
 "Có vẻ như bạn định nâng cấp từ một hệ thống quá cũ để nâng cấp lên bản %s "
 "này. Bạn có chắc chắn muốn tiếp tục quá trình nâng cấp?"
 
-#: ../yuminstall.py:1181
+#: ../yuminstall.py:1325
 msgid "Install Starting"
 msgstr "Khởi động cài đặt"
 
-#: ../yuminstall.py:1182
+#: ../yuminstall.py:1326
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Đang khởi động tiến trình cài đặt, có thể mất vài phút..."
 
-#: ../yuminstall.py:1198
+#: ../yuminstall.py:1342
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "Nâng cấp"
 
-#: ../yuminstall.py:1199
+#: ../yuminstall.py:1343
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Thực hiện cấu hình sau khi cài đặt..."
 
-#: ../yuminstall.py:1201
+#: ../yuminstall.py:1345
 msgid "Post Install"
 msgstr "Hậu cài đặt"
 
-#: ../yuminstall.py:1202
+#: ../yuminstall.py:1346
 msgid "Performing post install configuration..."
 msgstr "Thực hiện cấu hình sau khi cài đặt..."
 
-#: ../yuminstall.py:1357
+#: ../yuminstall.py:1504
 msgid "Installation Progress"
 msgstr "Quá trình cài đặt"
 
-#: ../yuminstall.py:1392
+#: ../yuminstall.py:1539
 msgid "Dependency Check"
 msgstr "Kiểm tra phụ thuộc"
 
-#: ../yuminstall.py:1393
+#: ../yuminstall.py:1540
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Đang kiểm tra phụ thuộc của các gói được chọn cài đặt..."
 
-#: ../zfcp.py:29
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
-msgstr ""
-"zSeries có thể truy cập tới thiết bị industry-standard SCSI qua Fibre "
-"Channel (FCP). Có 5 thông số cần được cung cấp cho mỗi thiết bị là: số thiết "
-"bị (16 bit), mã SCSI ID (16 bit), World Wide Port Name (WWPN) (64 bit), SCSI "
-"LUN (16 bit) và FCP LUN (64 bit)."
-
-#: ../zfcp.py:31
-msgid "Device number"
-msgstr "Số thiết bị"
-
-#: ../zfcp.py:32
+#: ../zfcp.py:43
 #, fuzzy
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Bạn chưa xác định tên máy."
 
-#: ../zfcp.py:34
-msgid "SCSI Id"
-msgstr "mã SCSI ID (16 bit)"
-
-#: ../zfcp.py:35
-#, fuzzy
-msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Bạn chưa xác định tên máy."
-
-#: ../zfcp.py:37 ../textw/zfcp_text.py:101
-msgid "WWPN"
-msgstr "WWPN (64 bit)"
-
-#: ../zfcp.py:38
+#: ../zfcp.py:45
 #, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "Bạn chưa xác định tên máy."
 
-#: ../zfcp.py:40
-msgid "SCSI LUN"
-msgstr "SCSI LUN (16 bit)"
-
-#: ../zfcp.py:41
-#, fuzzy
-msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Bạn chưa xác định tên máy."
-
-#: ../zfcp.py:43 ../textw/zfcp_text.py:101
-msgid "FCP LUN"
-msgstr "FCP LUN (64 bit)"
-
-#: ../zfcp.py:44
+#: ../zfcp.py:47
 #, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Bạn chưa xác định tên máy."
@@ -2670,35 +2651,35 @@ msgstr "Mật khẩu _root: "
 msgid "_Confirm: "
 msgstr "_Xác nhận: "
 
-#: ../iw/autopart_type.py:134
+#: ../iw/autopart_type.py:137
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "Tên nhóm volume không hợp lệ"
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:138
 #, fuzzy
 msgid "You must provide a non-zero length initiator name."
 msgstr "Bạn phải cho biết tên người dùng"
 
-#: ../iw/autopart_type.py:157
+#: ../iw/autopart_type.py:161
 #, fuzzy
 msgid "Error with Data"
 msgstr "Lỗi dữ liệu"
 
-#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
+#: ../iw/autopart_type.py:243 ../textw/partition_text.py:1529
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Xóa mọi partition trên hệ thống này"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:244 ../textw/partition_text.py:1530
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:245 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:246 ../textw/partition_text.py:1532
 msgid "Create custom layout."
 msgstr ""
 
@@ -2926,7 +2907,7 @@ msgstr ""
 msgid "Drive"
 msgstr "Đĩa"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
 msgid "Size"
 msgstr "Kích thước"
 
@@ -2938,12 +2919,12 @@ msgstr "Kiểu"
 msgid "Upgrade Examine"
 msgstr "Kiểm tra nâng cấp"
 
-#: ../iw/examine_gui.py:55
+#: ../iw/examine_gui.py:59
 #, python-format
 msgid "_Install %s"
 msgstr "_Cài đặt %s"
 
-#: ../iw/examine_gui.py:57
+#: ../iw/examine_gui.py:61
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2951,11 +2932,11 @@ msgstr ""
 "Chọn tuỳ chọn này để cài mới lên hệ thống. Có thể những phần mềm và dữ liệu "
 "đang có sẽ bị ghi đè (bị mất) tuỳ thuộc vào lựa chọn cấu hình của bạn."
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
 msgstr "_Nâng cấp bản cài đặt đang dùng"
 
-#: ../iw/examine_gui.py:63
+#: ../iw/examine_gui.py:67
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2964,12 +2945,12 @@ msgstr ""
 "Chọn tùy chọn này nếu bạn muốn nâng cấp hệ thống %s đã có của bạn. Tùy chọn "
 "này sẽ bảo toàn dữ liệu trên hệ thống đã có."
 
-#: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:114 ../iw/pixmapRadioButtonGroup_gui.py:197
 #, fuzzy
 msgid "The following installed system will be upgraded:"
 msgstr "Sản phẩm Red Hat sau sẽ được nâng cấp:"
 
-#: ../iw/examine_gui.py:123
+#: ../iw/examine_gui.py:127
 msgid "Unknown Linux system"
 msgstr "Hệ thống Linux lạ"
 
@@ -2983,9 +2964,9 @@ msgstr "Bạn muốn dùng ngôn ngữ nào khi cài đặt?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
-#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
-#: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
+#: ../iw/lvm_dialog_gui.py:287 ../iw/lvm_dialog_gui.py:601
+#: ../iw/lvm_dialog_gui.py:669 ../iw/lvm_dialog_gui.py:880
+#: ../textw/partition_text.py:1292 ../textw/partition_text.py:1311
 msgid "Not enough space"
 msgstr "Không đủ chỗ"
 
@@ -3010,7 +2991,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:166 ../iw/network_gui.py:196
 msgid "C_ontinue"
 msgstr "_Tiếp tục"
 
@@ -3048,7 +3029,7 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:290
+#: ../iw/lvm_dialog_gui.py:288
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -3056,98 +3037,98 @@ msgstr ""
 "Bạn không thể loại bỏ volume vật lý này vì nếu không nhóm volume sẽ quá nhỏ "
 "không đủ chứa các volume logic hiện thời."
 
-#: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
+#: ../iw/lvm_dialog_gui.py:368 ../textw/partition_text.py:1138
 msgid "Make Logical Volume"
 msgstr "Tạo volume logic"
 
-#: ../iw/lvm_dialog_gui.py:373
+#: ../iw/lvm_dialog_gui.py:371
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Sửa volume logic: %s"
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
+#: ../iw/lvm_dialog_gui.py:373 ../textw/partition_text.py:1136
 msgid "Edit Logical Volume"
 msgstr "Sửa volume logic"
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
+#: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
 msgstr "Điểm _gắn kết:"
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
+#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
 msgstr "Loại _hệ thống tập tin:"
 
-#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
 msgstr "Loại hệ thống tập tin ban đầu:"
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:323
 #: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "Không biết"
 
-#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:357
 #: ../iw/raid_dialog_gui.py:314
 msgid "Original File System Label:"
 msgstr "Nhãn hệ thống tập tin gốc:"
 
-#: ../iw/lvm_dialog_gui.py:426
+#: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
 msgstr "Tên volume _logic:"
 
-#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:432 ../textw/partition_text.py:287
 msgid "Logical Volume Name:"
 msgstr "Tên volume logic:"
 
-#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
 msgid "_Size (MB):"
 msgstr "_Kích thước (MB):"
 
-#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
-#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
-#: ../textw/partition_text.py:378 ../textw/partition_text.py:461
-#: ../textw/partition_text.py:569
+#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
+#: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
+#: ../textw/partition_text.py:379 ../textw/partition_text.py:462
+#: ../textw/partition_text.py:570
 msgid "Size (MB):"
 msgstr "Kích thước (MB):"
 
-#: ../iw/lvm_dialog_gui.py:463
+#: ../iw/lvm_dialog_gui.py:461
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Kích thước tối đa là %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:524
+#: ../iw/lvm_dialog_gui.py:522
 msgid "Illegal size"
 msgstr "Kích thước không hợp lệ"
 
-#: ../iw/lvm_dialog_gui.py:525
+#: ../iw/lvm_dialog_gui.py:523
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Kích thước yêu cầu phải là số lớn hơn 0."
 
-#: ../iw/lvm_dialog_gui.py:558
+#: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
 msgstr "Điểm gắn kết đang được dùng"
 
-#: ../iw/lvm_dialog_gui.py:559
+#: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "Điểm gắn kết \"%s\" đã được dùng, hãy chọn điểm gắn kết khác."
 
-#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1260
 msgid "Illegal Logical Volume Name"
 msgstr "Tên volume logic không hợp lệ"
 
-#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:587 ../textw/partition_text.py:1277
 msgid "Illegal logical volume name"
 msgstr "Tên volume logic không hợp lệ"
 
-#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1278
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Tên volume logic \"%s\" đã được dùng. Vui lòng chọn tên khác."
 
-#: ../iw/lvm_dialog_gui.py:604
+#: ../iw/lvm_dialog_gui.py:602
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -3158,15 +3139,15 @@ msgstr ""
 "10.2f MB). Để tăng giới hạn này, bạn có thể tăng kích thước Quy mô Vật lý "
 "của Nhóm Volume này."
 
-#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
-#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
-#: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
-#: ../textw/partition_text.py:1330
+#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
+#: ../textw/partition_text.py:933 ../textw/partition_text.py:1106
+#: ../textw/partition_text.py:1331
 msgid "Error With Request"
 msgstr "Lỗi yêu cầu"
 
-#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
+#: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3174,20 +3155,20 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:722
+#: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
 msgstr "Không còn chỗ"
 
-#: ../iw/lvm_dialog_gui.py:723
+#: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Bạn không thể tạo hơn %s volume logic trên mỗi nhóm volume."
 
-#: ../iw/lvm_dialog_gui.py:729
+#: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
 msgstr "Hết chỗ"
 
-#: ../iw/lvm_dialog_gui.py:730
+#: ../iw/lvm_dialog_gui.py:728
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3197,29 +3178,29 @@ msgstr ""
 "volume logic mới, bạn cần thu nhỏ kích thước một trong các volume logic hiện "
 "có"
 
-#: ../iw/lvm_dialog_gui.py:758
+#: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Bạn có chắc muốn xóa volume logic \"%s\" không?"
 
-#: ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
 msgstr "Tên nhóm volume không hợp lệ"
 
-#: ../iw/lvm_dialog_gui.py:907
+#: ../iw/lvm_dialog_gui.py:905
 msgid "Name in use"
 msgstr "Tên đang dùng"
 
-#: ../iw/lvm_dialog_gui.py:908
+#: ../iw/lvm_dialog_gui.py:906
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Tên nhóm volume \"%s\" đã được dùng. Vui lòng chọn tên khác."
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:950
 msgid "Not enough physical volumes"
 msgstr "Không đủ volume vật lý"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:951
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3232,71 +3213,71 @@ msgstr ""
 "Hãy tạo partition hoặc mảng RAID kiểu \"Volume vật lý (LVM)\" và chọn tùy "
 "chọn \"LVM\" lần nữa."
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:962
 msgid "Make LVM Volume Group"
 msgstr "Tạo nhóm volume LVM"
 
-#: ../iw/lvm_dialog_gui.py:967
+#: ../iw/lvm_dialog_gui.py:965
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Sửa nhóm volume LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:969
+#: ../iw/lvm_dialog_gui.py:967
 msgid "Edit LVM Volume Group"
 msgstr "Sửa nhóm volume LVM"
 
-#: ../iw/lvm_dialog_gui.py:985
+#: ../iw/lvm_dialog_gui.py:983
 msgid "_Volume Group Name:"
 msgstr "_Tên nhóm volume:"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:991
 msgid "Volume Group Name:"
 msgstr "Tên nhóm volume:"
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:999
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1014
 msgid "Physical Volumes to _Use:"
 msgstr "Volume vật lý cần _dùng:"
 
-#: ../iw/lvm_dialog_gui.py:1022
+#: ../iw/lvm_dialog_gui.py:1020
 msgid "Used Space:"
 msgstr "Khoảng đã dùng:"
 
-#: ../iw/lvm_dialog_gui.py:1039
+#: ../iw/lvm_dialog_gui.py:1037
 msgid "Free Space:"
 msgstr "Khoảng chưa dùng:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1055
 msgid "Total Space:"
 msgstr "Tổng cộng:"
 
-#: ../iw/lvm_dialog_gui.py:1086
+#: ../iw/lvm_dialog_gui.py:1084
 msgid "Logical Volume Name"
 msgstr "Tên volume logic"
 
-#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:364
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Điểm gắn kết"
 
-#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1090 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Kích thước (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Thêm"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
+#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:742
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "_Thay đổi"
 
-#: ../iw/lvm_dialog_gui.py:1124
+#: ../iw/lvm_dialog_gui.py:1122
 msgid "Logical Volumes"
 msgstr "Volume logic"
 
@@ -3336,14 +3317,15 @@ msgstr "_Mô phỏng 3 nút"
 msgid "Select the appropriate mouse for the system."
 msgstr "Chọn chuột của hệ thống."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
-#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
-#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
-#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:161
+#: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:178
+#: ../iw/network_gui.py:191 ../iw/network_gui.py:196
+#: ../textw/network_text.py:54 ../textw/network_text.py:59
+#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "Lỗi dữ liệu"
 
-#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3352,57 +3334,62 @@ msgstr ""
 "Lỗi chuyển đổi giá trị nhập vào \"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:792
 msgid "Dynamic IP"
 msgstr "IP động"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:793
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Đang gửi yêu cầu thông tin IP cho %s..."
 
-#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+#: ../iw/netconfig_dialog.py:176
 msgid "IP Address"
 msgstr "Địa chỉ IP"
 
-#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+#: ../iw/netconfig_dialog.py:182
 msgid "Netmask"
 msgstr "Mặt nạ mạng"
 
-#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
-#: ../iw/network_gui.py:766
+#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
+#: ../iw/network_gui.py:818
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195 ../loader2/net.c:277
 msgid "Nameserver"
 msgstr "Nameserver"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+#: ../iw/netconfig_dialog.py:214
+#, fuzzy
+msgid "Error configuring network device"
+msgstr "Lỗi xóa đĩa đích. Sao chép thất bại."
+
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
 msgstr "DNS chính"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Secondary DNS"
 msgstr "DNS thứ hai"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Gateway"
 msgstr "_Gateway"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Primary DNS"
 msgstr "DNS _chính"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
 msgstr "DNS thứ _hai"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:42
 msgid "Network Configuration"
 msgstr "Cấu hình mạng"
 
-#: ../iw/network_gui.py:157
+#: ../iw/network_gui.py:162
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3410,7 +3397,7 @@ msgstr ""
 "Bạn chưa chọn tên máy. Điều này có thể gây ra lỗi sau này (tùy thuộc vào môi "
 "trường mạng)."
 
-#: ../iw/network_gui.py:161
+#: ../iw/network_gui.py:166
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3419,7 +3406,7 @@ msgstr ""
 "Bạn chưa nhập vào mục \"%s\". Điều này có thể gây ra lỗi sau này (tuỳ thuộc "
 "vào môi trường mạng)"
 
-#: ../iw/network_gui.py:165 ../textw/network_text.py:404
+#: ../iw/network_gui.py:170 ../textw/network_text.py:623
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3430,16 +3417,28 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:180
-#, python-format
-msgid "A value is required for the field \"%s\"."
+#: ../iw/network_gui.py:179 ../textw/network_text.py:55
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
 msgstr "Cần giá trị trong mục \"%s\"."
 
-#: ../iw/network_gui.py:184
-msgid "The IP information you have entered is invalid."
+#: ../iw/network_gui.py:187 ../textw/network_text.py:45
+#, fuzzy, python-format
+msgid "Error With %s Data"
+msgstr "Lỗi dữ liệu"
+
+#: ../iw/network_gui.py:188 ../textw/network_text.py:46
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
+
+#: ../iw/network_gui.py:192 ../textw/network_text.py:66
+#, fuzzy
+msgid "The IPv4 information you have entered is invalid."
 msgstr "Thông tin IP không hợp lệ."
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:196
 #, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
@@ -3451,123 +3450,153 @@ msgstr ""
 "CHÚ Ý: Nếu bạn có adapter mạng loại PCMCIA, bạn không nên kích hoạt nó lúc "
 "này. Khi bạn khởi động lại hệ thống, adapter sẽ được kích hoạt tự động."
 
-#: ../iw/network_gui.py:264
+#: ../iw/network_gui.py:274
 #, python-format
 msgid "Edit Interface %s"
 msgstr "Sửa giao diện %s"
 
-#: ../iw/network_gui.py:276
+#: ../iw/network_gui.py:286
 #, fuzzy, python-format
 msgid "Hardware address: %s"
 msgstr "Địa chỉ phần cứng: %s"
 
-#: ../iw/network_gui.py:281
+#: ../iw/network_gui.py:291
 #, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
 msgstr "Dùng cấu hình IP động (BOOTP/DHCP)"
 
-#: ../iw/network_gui.py:286 ../loader2/net.c:691
+#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:697
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: ../iw/network_gui.py:291 ../loader2/net.c:702
+#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:708
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: ../iw/network_gui.py:296
+#: ../iw/network_gui.py:308
 msgid "_Activate on boot"
 msgstr "Kích hoạt khi _khởi động"
 
-#: ../iw/network_gui.py:326
+#: ../iw/network_gui.py:334 ../textw/network_text.py:214
 #, fuzzy
-msgid "IPv_4 Address:"
-msgstr "Địa chỉ IP:"
+msgid "Address"
+msgstr "Địa chỉ IP"
 
-#: ../iw/network_gui.py:348
+#: ../iw/network_gui.py:337 ../textw/network_text.py:216
 #, fuzzy
-msgid "IPv_6 Address:"
-msgstr "Địa chỉ IP:"
+msgid "Prefix (Netmask)"
+msgstr "Mặt nạ mạng"
 
-#: ../iw/network_gui.py:371
+#: ../iw/network_gui.py:342
+msgid "IPv_4:"
+msgstr ""
+
+#: ../iw/network_gui.py:364
+msgid "IPv_6:"
+msgstr ""
+
+#: ../iw/network_gui.py:395
 #, fuzzy
 msgid "_Point to Point (IP):"
 msgstr "Point to Point (IP):"
 
-#: ../iw/network_gui.py:383
+#: ../iw/network_gui.py:408
 #, fuzzy
 msgid "_ESSID:"
 msgstr "SCSI"
 
-#: ../iw/network_gui.py:393
+#: ../iw/network_gui.py:418
 msgid "Encryption _Key:"
 msgstr ""
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:443
 #, python-format
 msgid "Configure %s"
 msgstr "Cấu hình %s"
 
-#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:777
+#: ../loader2/net.c:787
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "Nhóm thiếu"
+
+#: ../iw/network_gui.py:476 ../textw/network_text.py:322
+#, fuzzy
+msgid "You must select at least IPv4 or IPv6 support."
+msgstr "Bạn phải chọn ít nhất một ngôn ngữ."
+
+#: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
+#: ../textw/network_text.py:353 ../textw/network_text.py:380
+#: ../textw/network_text.py:386 ../loader2/net.c:97
 #, fuzzy
 msgid "Invalid Prefix"
 msgstr "Chuỗi IP không hợp lệ"
 
-#: ../iw/network_gui.py:458
+#: ../iw/network_gui.py:503 ../textw/network_text.py:354
 #, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "Địa chỉ IP phải chứa số từ 1 đến 255"
 
-#: ../iw/network_gui.py:475
+#: ../iw/network_gui.py:531 ../textw/network_text.py:381
 #, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Địa chỉ IP phải chứa số từ 1 đến 255"
 
-#: ../iw/network_gui.py:629
+#: ../iw/network_gui.py:537 ../textw/network_text.py:387
+#, fuzzy
+msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+msgstr "Địa chỉ IP phải chứa số từ 1 đến 255"
+
+#: ../iw/network_gui.py:593 ../iw/network_gui.py:606
+msgid "Disabled"
+msgstr ""
+
+#: ../iw/network_gui.py:683
 msgid "Active on Boot"
 msgstr "Kích hoạt khi boot"
 
-#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:685 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1437
+#: ../textw/partition_text.py:1438
 msgid "Device"
 msgstr "Thiết bị"
 
-#: ../iw/network_gui.py:633
+#: ../iw/network_gui.py:687
 #, fuzzy
 msgid "IPv4/Netmask"
 msgstr "IP/Netmask"
 
-#: ../iw/network_gui.py:635
+#: ../iw/network_gui.py:689
 msgid "IPv6/Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:697
+#: ../iw/network_gui.py:749
 msgid "Network Devices"
 msgstr "Thiết bị mạng"
 
-#: ../iw/network_gui.py:708
+#: ../iw/network_gui.py:760
 msgid "Set the hostname:"
 msgstr "Đặt tên máy:"
 
-#: ../iw/network_gui.py:713
+#: ../iw/network_gui.py:765
 msgid "_automatically via DHCP"
 msgstr "_tự động bằng DHCP"
 
-#: ../iw/network_gui.py:720
+#: ../iw/network_gui.py:772
 msgid "_manually"
 msgstr "_thủ công"
 
-#: ../iw/network_gui.py:725
+#: ../iw/network_gui.py:777
 #, fuzzy
 msgid "(e.g., host.domain.com)"
 msgstr "(vd. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:731 ../loader2/net.c:1401
+#: ../iw/network_gui.py:783 ../loader2/net.c:1417
 msgid "Hostname"
 msgstr "Tên máy"
 
-#: ../iw/network_gui.py:775
+#: ../iw/network_gui.py:827
 msgid "Miscellaneous Settings"
 msgstr "Thiết lập linh tinh"
 
@@ -3667,40 +3696,40 @@ msgstr "Dùng kích thước _tối đa có thể"
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "Cylinder đuôi phải lớn hơn cylinder đầu."
 
-#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
+#: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
 msgstr "Thêm partition"
 
-#: ../iw/partition_dialog_gui.py:272
+#: ../iw/partition_dialog_gui.py:273
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Hiệu chỉnh partition: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:274
+#: ../iw/partition_dialog_gui.py:275
 msgid "Edit Partition"
 msgstr "Hiệu chỉnh partition"
 
-#: ../iw/partition_dialog_gui.py:301
+#: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
 msgstr "Loại _hệ thống tập tin:"
 
-#: ../iw/partition_dialog_gui.py:333
+#: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
 msgstr "Đĩ_a có thể dùng:"
 
-#: ../iw/partition_dialog_gui.py:346
+#: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
 msgstr "Đĩa:"
 
-#: ../iw/partition_dialog_gui.py:390
+#: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
 msgstr "Cylinder bắt đầ_u:"
 
-#: ../iw/partition_dialog_gui.py:408
+#: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
 msgstr "Cyliner _kết thúc:"
 
-#: ../iw/partition_dialog_gui.py:460
+#: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
 msgstr "Buộc là partition _chính"
 
@@ -3714,15 +3743,15 @@ msgstr ""
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
 msgid "Type"
 msgstr "Loại"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
 msgid "Start"
 msgstr "Đầu"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1438
 msgid "End"
 msgstr "Cuối"
 
@@ -3742,7 +3771,7 @@ msgstr ""
 "Kích thước\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1432
 msgid "Partitioning"
 msgstr "Đang phân partition"
 
@@ -3790,7 +3819,7 @@ msgid "RAID Devices"
 msgstr "Thiết bị RAID"
 
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
-#: ../textw/partition_text.py:96 ../textw/partition_text.py:159
+#: ../textw/partition_text.py:97 ../textw/partition_text.py:160
 msgid "None"
 msgstr "Không"
 
@@ -3798,16 +3827,16 @@ msgstr "Không"
 msgid "Hard Drives"
 msgstr "Đĩa cứng"
 
-#: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
-#: ../textw/partition_text.py:180
+#: ../iw/partition_gui.py:869 ../textw/partition_text.py:142
+#: ../textw/partition_text.py:181
 msgid "Free space"
 msgstr "Chỗ trống"
 
-#: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:144
 msgid "Extended"
 msgstr "Mở rộng"
 
-#: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
+#: ../iw/partition_gui.py:873 ../textw/partition_text.py:146
 msgid "software RAID"
 msgstr "RAID phần mềm"
 
@@ -3815,7 +3844,7 @@ msgstr "RAID phần mềm"
 msgid "Free"
 msgstr "Trống"
 
-#: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
+#: ../iw/partition_gui.py:998 ../textw/partition_text.py:229
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Không thể tạo partition yêu cầu: %s."
@@ -3825,23 +3854,23 @@ msgstr "Không thể tạo partition yêu cầu: %s."
 msgid "Warning: %s."
 msgstr "Cảnh báo: %s."
 
-#: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "Không hỗ trợ"
 
-#: ../iw/partition_gui.py:1192
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM không được hỗ trợ trên hệ máy này."
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr "RAID phần mềm không được hỗ trợ trên hệ máy này."
 
-#: ../iw/partition_gui.py:1213
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr "Không còn số hiệu phụ thiết bị RAID nào nữa"
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -3849,11 +3878,11 @@ msgstr ""
 "Không thể tạo thiết bị RAID phần mềm vì mọi số thiết bị RAID phụ đều đã được "
 "dùng."
 
-#: ../iw/partition_gui.py:1228
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "Tùy chọn RAID"
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3872,7 +3901,7 @@ msgstr ""
 "Bạn hiện có %s partition RAID phần mềm còn trống, có thể được dùng.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3883,80 +3912,80 @@ msgstr ""
 "đó bạn có thể tạo thiết bị RAID.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1256
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "Bạn muốn làm gì bây giờ?"
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr "Tạo partition RAID phần _mềm."
 
-#: ../iw/partition_gui.py:1268
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Tạo thiết bị _RAID [mặc định=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1272
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "Nhân bản đĩa để tạo thiết bị RAID [mặc định=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1355
 msgid "Ne_w"
 msgstr "Tạo Mớ_i"
 
-#: ../iw/partition_gui.py:1359
+#: ../iw/partition_gui.py:1358
 msgid "Re_set"
 msgstr "Đặt _lại"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1359
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1361
+#: ../iw/partition_gui.py:1360
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1402
+#: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Ẩn thiết bị RAID/Thành phần Nhóm volume LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
-#: ../textw/partition_text.py:253 ../textw/partition_text.py:255
-#: ../textw/partition_text.py:280
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:254 ../textw/partition_text.py:256
+#: ../textw/partition_text.py:281
 msgid "<Not Applicable>"
 msgstr "<Không thể dùng>"
 
-#: ../iw/partition_ui_helpers_gui.py:250
+#: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "Bạn muốn chuẩn bị partition này như thế nào?"
 
-#: ../iw/partition_ui_helpers_gui.py:258
+#: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
 msgstr "Để _nguyên (bảo toàn dữ liệu)"
 
-#: ../iw/partition_ui_helpers_gui.py:264
+#: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
 msgstr "Định _dạng partition là:"
 
-#: ../iw/partition_ui_helpers_gui.py:287
+#: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
 msgstr "_Chuyển đổi paritition thành:"
 
-#: ../iw/partition_ui_helpers_gui.py:309
+#: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
 msgstr "Kiểm tra chỗ _hư hỏng?"
 
-#: ../iw/partition_ui_helpers_gui.py:344
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4042,7 +4071,7 @@ msgstr ""
 "\"RAID\" lần nữa."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
-#: ../textw/partition_text.py:967
+#: ../textw/partition_text.py:968
 msgid "Make RAID Device"
 msgstr "Tạo thiết bị RAID"
 
@@ -4051,7 +4080,7 @@ msgstr "Tạo thiết bị RAID"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Sửa thiết bị RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
+#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:966
 msgid "Edit RAID Device"
 msgstr "Sửa thiết bị RAID"
 
@@ -4217,19 +4246,19 @@ msgstr "Đĩa đích:"
 msgid "Drives"
 msgstr "Đĩa"
 
-#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
 msgstr "Thiếu ghi chú phiên bản.\n"
 
-#: ../iw/release_notes.py:221
+#: ../iw/release_notes.py:222
 msgid "Release Notes"
 msgstr "Ghi chú phiên bản"
 
-#: ../iw/release_notes.py:224
+#: ../iw/release_notes.py:225
 msgid "Unable to load file!"
 msgstr "Không thể nạp tập tin!"
 
-#: ../iw/task_gui.py:79
+#: ../iw/task_gui.py:80
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4241,33 +4270,33 @@ msgstr ""
 "Không thể đọc danh sách tiêu đề. Có thể là do thiếu tập tin này, hoặc thiết "
 "bị hư. Nhấn <Enter> để thử lại."
 
-#: ../iw/task_gui.py:89
+#: ../iw/task_gui.py:90
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
 
-#: ../iw/task_gui.py:121
+#: ../iw/task_gui.py:122
 #, fuzzy
 msgid "Invalid Repository Name"
 msgstr "Tên máy không hợp lệ"
 
-#: ../iw/task_gui.py:122
+#: ../iw/task_gui.py:123
 #, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "Bạn phải cho biết tên người dùng"
 
-#: ../iw/task_gui.py:131
+#: ../iw/task_gui.py:132
 #, fuzzy
 msgid "Invalid Repository URL"
 msgstr "Tên boot không hợp lệ"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:133
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
-#: ../iw/task_gui.py:146
+#: ../iw/task_gui.py:147
 #, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4433,36 +4462,6 @@ msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "Không đủ chỗ cho partition swap trên thiết bị được chọn."
 
-#: ../iw/zfcp_gui.py:24
-msgid "ZFCP Configuration"
-msgstr "Cấu hình ZFCP"
-
-#: ../iw/zfcp_gui.py:103
-#, fuzzy
-msgid "_Remove"
-msgstr "Đặt _lại"
-
-#: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
-#, fuzzy
-msgid "FCP Devices"
-msgstr "Thiết bị"
-
-#: ../iw/zfcp_gui.py:121
-#, fuzzy
-msgid "Add FCP device"
-msgstr "Thêm thiết bị"
-
-#: ../iw/zfcp_gui.py:184
-#, fuzzy, python-format
-msgid "Edit FCP device %s"
-msgstr "Sửa thiết bị RAID"
-
-#: ../iw/zfcp_gui.py:248
-msgid ""
-"You're about to remove a FCP disk from your configuration. Are you sure that "
-"you wish to continue?"
-msgstr ""
-
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
 msgstr "Cấu hình Boot Loader z/IPL"
@@ -4570,8 +4569,7 @@ msgstr "Phải có tên boot"
 msgid "Boot label contains illegal characters."
 msgstr "Tên boot chứa ký tự không hợp lệ."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
-#: ../textw/zfcp_text.py:108
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1443
 msgid "Edit"
 msgstr "Thay đổi"
 
@@ -4708,10 +4706,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
-#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:275 ../loader2/urls.c:455
+#: ../loader2/loader.c:337 ../loader2/loader.c:968 ../loader2/loader.c:991
+#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:724
+#: ../loader2/net.c:1003 ../loader2/net.c:1708 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "Lùi"
 
@@ -4739,7 +4737,12 @@ msgid ""
 msgstr ""
 "<Space>,<+>,<-> chọn        |   <F2> chi tiết nhóm   |   <F2> màn hình kế"
 
-#: ../textw/grpselect_text.py:133
+#: ../textw/grpselect_text.py:117
+#, fuzzy
+msgid "No optional packages to select"
+msgstr "Cài đặt lên loại thiết bị nào?"
+
+#: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
 msgstr "Chi tiết Nhóm gói"
 
@@ -4767,96 +4770,89 @@ msgstr "Mô phỏng 3 nút?"
 msgid "Mouse Selection"
 msgstr "Chọn chuột"
 
-#: ../textw/network_text.py:28
-msgid "Invalid IP string"
-msgstr "Chuỗi IP không hợp lệ"
-
-#: ../textw/network_text.py:29
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "IP đã nhập '%s' không phải là IP hợp lệ."
-
-#: ../textw/network_text.py:75
-msgid "Point to Point (IP)"
-msgstr "Point to Point (IP)"
-
-#: ../textw/network_text.py:79 ../loader2/net.c:238
-msgid "ESSID"
-msgstr "ESSID"
-
-#: ../textw/network_text.py:80 ../loader2/net.c:239
-msgid "Encryption Key"
+#: ../textw/network_text.py:60
+#, fuzzy, python-format
+msgid ""
+"You have not specified the field %s.  Depending on your network environment "
+"this may cause problems later."
 msgstr ""
+"Bạn chưa nhập vào mục \"%s\". Điều này có thể gây ra lỗi sau này (tuỳ thuộc "
+"vào môi trường mạng)"
 
-#: ../textw/network_text.py:92
-#, python-format
-msgid "Network Device: %s"
-msgstr "Thiết bị mạng: %s"
-
-#: ../textw/network_text.py:98
+#: ../textw/network_text.py:152
 #, python-format
 msgid "Description: %s"
 msgstr "Mô tả: %s"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:156
 #, python-format
 msgid "Hardware Address: %s"
 msgstr "Địa chỉ phần cứng: %s"
 
-#: ../textw/network_text.py:107
-msgid "Configure using DHCP"
-msgstr "Cấu hình dùng _DHCP"
+#: ../textw/network_text.py:170 ../loader2/net.c:690
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
+msgstr "Dùng cấu hình IP động (BOOTP/DHCP)"
 
-#: ../textw/network_text.py:120
+#: ../textw/network_text.py:189
 msgid "Activate on boot"
 msgstr "Kích hoạt khi boot"
 
-#: ../textw/network_text.py:146
+#: ../textw/network_text.py:217
+msgid "IPv4:"
+msgstr ""
+
+#: ../textw/network_text.py:220
+msgid "IPv6:"
+msgstr ""
+
+#: ../textw/network_text.py:258
+msgid "P-to-P:"
+msgstr ""
+
+#: ../textw/network_text.py:270
+#, fuzzy
+msgid "ESSID:"
+msgstr "SCSI"
+
+#: ../textw/network_text.py:279
+msgid "WEP Key:"
+msgstr ""
+
+#: ../textw/network_text.py:292
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Cấu hình mạng cho %s"
 
-#: ../textw/network_text.py:179
-msgid "Invalid information"
-msgstr "Thông tin không hợp lệ"
-
-#: ../textw/network_text.py:180
-msgid "You must enter valid IP information to continue"
-msgstr "Bạn phải nhập địa chỉ IP hợp lệ"
-
-#: ../textw/network_text.py:247 ../loader2/net.c:957
+#: ../textw/network_text.py:471 ../loader2/net.c:964
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: ../textw/network_text.py:256
+#: ../textw/network_text.py:480
 msgid "Primary DNS:"
 msgstr "DNS chính:"
 
-#: ../textw/network_text.py:261
+#: ../textw/network_text.py:485
 msgid "Secondary DNS:"
 msgstr "DNS thứ hai:"
 
-#: ../textw/network_text.py:266
-msgid "Tertiary DNS:"
-msgstr "DNS thứ ba:"
-
-#: ../textw/network_text.py:273
+#: ../textw/network_text.py:492
 msgid "Miscellaneous Network Settings"
 msgstr "Thiết lập linh tinh về mạng"
 
-#: ../textw/network_text.py:345
+#: ../textw/network_text.py:565
 msgid "automatically via DHCP"
 msgstr "tự động nhờ DHCP"
 
-#: ../textw/network_text.py:349
+#: ../textw/network_text.py:568
 msgid "manually"
 msgstr "thủ công"
 
-#: ../textw/network_text.py:368
+#: ../textw/network_text.py:587
 msgid "Hostname Configuration"
 msgstr "Cấu hình tên máy"
 
-#: ../textw/network_text.py:371
+#: ../textw/network_text.py:590
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4864,212 +4860,212 @@ msgid ""
 "'localhost.'"
 msgstr ""
 
-#: ../textw/network_text.py:397 ../textw/network_text.py:403
+#: ../textw/network_text.py:616 ../textw/network_text.py:622
 msgid "Invalid Hostname"
 msgstr "Tên máy không hợp lệ"
 
-#: ../textw/network_text.py:398
+#: ../textw/network_text.py:617
 msgid "You have not specified a hostname."
 msgstr "Bạn chưa xác định tên máy."
 
-#: ../textw/partition_text.py:42
+#: ../textw/partition_text.py:43
 msgid "Must specify a value"
 msgstr "Phải xác định giá trị"
 
-#: ../textw/partition_text.py:45
+#: ../textw/partition_text.py:46
 msgid "Requested value is not an integer"
 msgstr "Giá trị yêu cầu phải là số nguyên"
 
-#: ../textw/partition_text.py:47
+#: ../textw/partition_text.py:48
 msgid "Requested value is too large"
 msgstr "Giá trị yêu cầu quá lớn"
 
-#: ../textw/partition_text.py:101
+#: ../textw/partition_text.py:102
 #, python-format
 msgid "RAID Device %s"
 msgstr "Thiết bị RAID %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:232
 #, python-format
 msgid "Warning: %s"
 msgstr "Cảnh báo: %s"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Modify Partition"
 msgstr "Sửa partition"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Add anyway"
 msgstr "Cứ thêm"
 
-#: ../textw/partition_text.py:270
+#: ../textw/partition_text.py:271
 msgid "Mount Point:"
 msgstr "Điểm gắn kết:"
 
-#: ../textw/partition_text.py:322
+#: ../textw/partition_text.py:323
 msgid "File System type:"
 msgstr "Loại hệ thống tập tin:"
 
-#: ../textw/partition_text.py:356
+#: ../textw/partition_text.py:357
 msgid "Allowable Drives:"
 msgstr "Đĩa có thể dùng:"
 
-#: ../textw/partition_text.py:412
+#: ../textw/partition_text.py:413
 msgid "Fixed Size:"
 msgstr "Cỡ cố định:"
 
-#: ../textw/partition_text.py:414
+#: ../textw/partition_text.py:415
 msgid "Fill maximum size of (MB):"
 msgstr "Đầy tối đa (MB):"
 
-#: ../textw/partition_text.py:418
+#: ../textw/partition_text.py:419
 msgid "Fill all available space:"
 msgstr "Đầy vùng mọi trống: "
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:442
 msgid "Start Cylinder:"
 msgstr "Cylinder bắt đầu:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:455
 msgid "End Cylinder:"
 msgstr "Cylinder kết thúc:"
 
-#: ../textw/partition_text.py:477
+#: ../textw/partition_text.py:478
 #, fuzzy
 msgid "Volume Group:"
 msgstr "Tên nhóm volume:"
 
-#: ../textw/partition_text.py:499
+#: ../textw/partition_text.py:500
 msgid "RAID Level:"
 msgstr "Cấp độ RAID:"
 
-#: ../textw/partition_text.py:517
+#: ../textw/partition_text.py:518
 msgid "RAID Members:"
 msgstr "Thành phần RAID:"
 
-#: ../textw/partition_text.py:536
+#: ../textw/partition_text.py:537
 msgid "Number of spares?"
 msgstr "Số phần dư?"
 
-#: ../textw/partition_text.py:550
+#: ../textw/partition_text.py:551
 msgid "File System Type:"
 msgstr "Loại hệ thống tập tin:"
 
-#: ../textw/partition_text.py:563
+#: ../textw/partition_text.py:564
 msgid "File System Label:"
 msgstr "Tên hệ thống tập tin:"
 
-#: ../textw/partition_text.py:574
+#: ../textw/partition_text.py:575
 msgid "File System Option:"
 msgstr "Tùy chọn hệ thống tập tin:"
 
-#: ../textw/partition_text.py:577 ../textw/partition_text.py:815
-#: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
 #, python-format
 msgid "Format as %s"
 msgstr "Định dạng là %s"
 
-#: ../textw/partition_text.py:579 ../textw/partition_text.py:817
-#: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
+#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
+#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1225
 #, python-format
 msgid "Migrate to %s"
 msgstr "Chuyển thành %s"
 
-#: ../textw/partition_text.py:581 ../textw/partition_text.py:819
-#: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
+#: ../textw/partition_text.py:582 ../textw/partition_text.py:820
+#: ../textw/partition_text.py:1057 ../textw/partition_text.py:1227
 msgid "Leave unchanged"
 msgstr "Để nguyên"
 
-#: ../textw/partition_text.py:597 ../textw/partition_text.py:792
-#: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
+#: ../textw/partition_text.py:598 ../textw/partition_text.py:793
+#: ../textw/partition_text.py:1033 ../textw/partition_text.py:1203
 msgid "File System Options"
 msgstr "Tùy chọn hệ thông tập tin"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:601
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr "Vui lòng chọn cách chuẩn bị hệ thống tập tin trên partition này."
 
-#: ../textw/partition_text.py:608
+#: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
 msgstr "Kiểm tra hư hỏng"
 
-#: ../textw/partition_text.py:612
+#: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
 msgstr "Để nguyên (bảo toàn dữ liệu)"
 
-#: ../textw/partition_text.py:621
+#: ../textw/partition_text.py:622
 msgid "Format as:"
 msgstr "Định dạng là:"
 
-#: ../textw/partition_text.py:641
+#: ../textw/partition_text.py:642
 msgid "Migrate to:"
 msgstr "Chuyển thành:"
 
-#: ../textw/partition_text.py:753
+#: ../textw/partition_text.py:754
 msgid "Force to be a primary partition"
 msgstr "Buộc làm partition chính"
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:771
 msgid "Not Supported"
 msgstr "Không hỗ trợ"
 
-#: ../textw/partition_text.py:771
+#: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr "Chỉ có thể sửa Nhóm volume LVM trong chế độ đồ họa."
 
-#: ../textw/partition_text.py:847 ../textw/partition_text.py:900
+#: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
 msgstr "Kích thước partition không hợp lệ"
 
-#: ../textw/partition_text.py:859
+#: ../textw/partition_text.py:860
 msgid "Invalid Entry for Maximum Size"
 msgstr "Kích thước tối đa không hợp lệ"
 
-#: ../textw/partition_text.py:878
+#: ../textw/partition_text.py:879
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "Cylinder đầu không hợp lệ"
 
-#: ../textw/partition_text.py:892
+#: ../textw/partition_text.py:893
 msgid "Invalid Entry for End Cylinder"
 msgstr "Cylinder cuối không hợp lệ"
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1006
 msgid "No RAID partitions"
 msgstr "Không có partition RAID"
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:1007
 msgid "At least two software RAID partitions are needed."
 msgstr "Cần ít nhất hai partition RAID phần mềm."
 
-#: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#: ../textw/partition_text.py:1019 ../textw/partition_text.py:1190
 msgid "Format partition?"
 msgstr "Định dạng partition?"
 
-#: ../textw/partition_text.py:1080
+#: ../textw/partition_text.py:1081
 msgid "Invalid Entry for RAID Spares"
 msgstr "Mục nhập phần dư RAID sai"
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1094
 msgid "Too many spares"
 msgstr "Quá nhiều phần dư?"
 
-#: ../textw/partition_text.py:1094
+#: ../textw/partition_text.py:1095
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Số phần dư tối đa của mảng RAID0 là 0."
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1176
 #, fuzzy
 msgid "No Volume Groups"
 msgstr "Nhóm Volume LVM"
 
-#: ../textw/partition_text.py:1176
+#: ../textw/partition_text.py:1177
 #, fuzzy
 msgid "No volume groups in which to create a logical volume"
 msgstr "Vui lòng nhập tên volume logic."
 
-#: ../textw/partition_text.py:1292
+#: ../textw/partition_text.py:1293
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -5079,84 +5075,128 @@ msgstr ""
 "10.2f MB). Để tăng giới hạn này, bạn có thể tăng kích thước Quy mô Vật lý "
 "của Nhóm Volume này."
 
-#: ../textw/partition_text.py:1311
+#: ../textw/partition_text.py:1312
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1366
 #, fuzzy
 msgid "New Partition or Logical Volume?"
 msgstr "Sửa volume logic"
 
-#: ../textw/partition_text.py:1366
+#: ../textw/partition_text.py:1367
 #, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Partition khởi động không thể đặt trên volume logic."
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1369
 #, fuzzy
 msgid "partition"
 msgstr "Partition"
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1369
 #, fuzzy
 msgid "logical volume"
 msgstr "Volume logic"
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1442
 msgid "New"
 msgstr "Tạo mới"
 
-#: ../textw/partition_text.py:1443
+#: ../textw/partition_text.py:1444
 msgid "Delete"
 msgstr "Xóa"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1445
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1447
+#: ../textw/partition_text.py:1448
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Trợ giúp F2-Tạo mới  F3-Thay đổi F4-Xóa     F5-Phục hồi F12-Đồng ý  "
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1477
 msgid "No Root Partition"
 msgstr "Không có partition gốc"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1478
 msgid "Must have a / partition to install on."
 msgstr "Cần có partition / để cài đặt."
 
-#: ../textw/partition_text.py:1516
+#: ../textw/partition_text.py:1520
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "Loại partition"
 
-#: ../textw/partition_text.py:1518
+#: ../textw/partition_text.py:1522
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
 
-#: ../textw/partition_text.py:1542
+#: ../textw/partition_text.py:1546
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Đĩa nào sẽ được dùng cho bản cài đặt?"
 
-#: ../textw/partition_text.py:1604
+#: ../textw/partition_text.py:1561
+#, fuzzy
+msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> chọn        |   <F2> chi tiết nhóm   |   <F2> màn hình kế"
+
+#: ../textw/partition_text.py:1623
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "_Xem lại (và sửa đổi nếu cần) partition đã tạo"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1624
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "_Xem lại (và sửa đổi nếu cần) partition đã tạo"
+
+#: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "Tùy chọn kích thước bổ sung"
+
+#: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
+#, fuzzy
+msgid "How would you like to modify your drive configuration?"
+msgstr "Bạn muốn chuẩn bị partition này như thế nào?"
+
+#: ../textw/partition_text.py:1663
+#, fuzzy
+msgid "Add FCP Device"
+msgstr "Thêm thiết bị"
+
+#: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
+#, fuzzy
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
+msgstr ""
+"zSeries có thể truy cập tới thiết bị industry-standard SCSI qua Fibre "
+"Channel (FCP). Có 5 thông số cần được cung cấp cho mỗi thiết bị là: số thiết "
+"bị (16 bit), mã SCSI ID (16 bit), World Wide Port Name (WWPN) (64 bit), SCSI "
+"LUN (16 bit) và FCP LUN (64 bit)."
+
+#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#, fuzzy
+msgid "Configure iSCSI Parameters"
+msgstr "Tham số Chandev"
+
+#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5324,35 +5364,12 @@ msgstr ""
 msgid "The root password must be at least 6 characters long."
 msgstr "Mật khẩu root phải dài ít nhất sáu ký tự."
 
-#: ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
-
 #: ../textw/welcome_text.py:23
 #, fuzzy, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr "Chào mừng sử dụng %s"
-
-#: ../textw/zfcp_text.py:43
-#, fuzzy
-msgid "FCP Device"
-msgstr "Thiết bị"
-
-#: ../textw/zfcp_text.py:101
-#, fuzzy
-msgid "Device #"
-msgstr "Thiết bị"
-
-#: ../textw/zfcp_text.py:107
-msgid "Add"
-msgstr "Thêm"
-
-#: ../textw/zfcp_text.py:109
-msgid "Remove"
-msgstr "Xoá bỏ"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -5376,7 +5393,7 @@ msgstr "Dòng Changdev "
 msgid "_Custom"
 msgstr "_Tự chọn"
 
-#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
+#: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5388,7 +5405,7 @@ msgstr ""
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:13
+#: ../installclasses/fedora.py:13 ../installclasses/rhel.py:21
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5396,15 +5413,15 @@ msgid ""
 "include support for?"
 msgstr ""
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
+#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
 msgid "Office and Productivity"
 msgstr "Office and Productivity"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:31
 msgid "Software Development"
 msgstr "Software Development"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:32
 #, fuzzy
 msgid "Web server"
 msgstr "_Server"
@@ -5433,10 +5450,35 @@ msgid ""
 "\tGames\n"
 msgstr ""
 
-#: ../installclasses/rhel.py:15
+#: ../installclasses/rhel.py:20
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux WS"
+
+#: ../installclasses/rhel.py:34
+#, fuzzy
+msgid "Installation Number"
+msgstr "Loại cài đặt"
+
+#: ../installclasses/rhel.py:35
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:38
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5653,10 +5695,10 @@ msgstr "Bạn có muốn nạp đĩa driver khác không?"
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
-#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
-#: ../loader2/urlinstall.c:483
+#: ../loader2/kickstart.c:416 ../loader2/modules.c:1057 ../loader2/net.c:1509
+#: ../loader2/net.c:1532 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Lỗi Kickstart"
 
@@ -5821,7 +5863,7 @@ msgstr "Đối số cho lệnh HD kickstart sai %s: %s"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Chào mừng sử dụng %s"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:160
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> chuyển đổi  | <Space> chọn | <F12> bước kế "
@@ -5830,23 +5872,23 @@ msgstr "  <Tab>/<Alt-Tab> chuyển đổi  | <Space> chọn | <F12> bước kế
 msgid "Choose a Language"
 msgstr "Chọn ngôn ngữ"
 
-#: ../loader2/loader.c:120
+#: ../loader2/loader.c:119
 msgid "Local CDROM"
 msgstr "CDROM cục bộ"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:121
 msgid "Hard drive"
 msgstr "Đĩa cứng"
 
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:122
 msgid "NFS image"
 msgstr "NFS image"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:332
 msgid "Update Disk Source"
 msgstr "Nguồn đĩa cập nhật"
 
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:333
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5854,28 +5896,28 @@ msgstr ""
 "Bạn có nhiều thiết bị, có thể làm nguồn đĩa cập nhật. Bạn muốn cài đặt bằng "
 "cái nào?"
 
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:348
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Hãy chèn đĩa cập nhật vào /dev/%s và nhấn \"Đồng ý\" để tiếp tục."
 
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:350
 msgid "Updates Disk"
 msgstr "Đĩa cập nhật"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:362
 msgid "Failed to mount updates disk"
 msgstr "Lỗi gắn kết đĩa cập nhật."
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:365
 msgid "Updates"
 msgstr "Cập nhật"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:365
 msgid "Reading anaconda updates..."
 msgstr "Đang đọc cập nhật anaconda..."
 
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5884,40 +5926,40 @@ msgstr ""
 "Không tìm thấy đĩa cứng. Có lẽ bạn cần chọn ổ đĩa bằng tay để tiếp tục cài "
 "đặt. Bạn có muốn chọn đĩa bây giờ không?"
 
-#: ../loader2/loader.c:780
+#: ../loader2/loader.c:802
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Bạn không có đủ RAM để cài đặt %s trên máy này."
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:960
 msgid "Rescue Method"
 msgstr "Cách phục hồi"
 
-#: ../loader2/loader.c:939
+#: ../loader2/loader.c:961
 msgid "Installation Method"
 msgstr "Cách cài đặt"
 
-#: ../loader2/loader.c:941
+#: ../loader2/loader.c:963
 msgid "What type of media contains the rescue image?"
 msgstr "Loại thiết bị nào chứa image phục hồi?"
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:965
 msgid "What type of media contains the packages to be installed?"
 msgstr "Cài đặt lên loại thiết bị nào?"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:990
 msgid "No driver found"
 msgstr "Không tìm thấy driver"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:990
 msgid "Select driver"
 msgstr "Chọn driver"
 
-#: ../loader2/loader.c:969
+#: ../loader2/loader.c:991
 msgid "Use a driver disk"
 msgstr "Dùng đĩa driver"
 
-#: ../loader2/loader.c:970
+#: ../loader2/loader.c:992
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5925,39 +5967,39 @@ msgstr ""
 "Không thể tìm thấy thiết bị cần thiết cho loại cài đặt này. Bạn có muốn chọn "
 "driver bằng tay hoặc dùng đĩa driver không?"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1155
 msgid "The following devices have been found on your system."
 msgstr "Tìm thấy những thiết bị sau trên hệ thống."
 
-#: ../loader2/loader.c:1133
+#: ../loader2/loader.c:1157
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "Chưa nạp driver thiết bị trên hệ thống. Bạn có muốn nạp bây giờ không?"
 
-#: ../loader2/loader.c:1137
+#: ../loader2/loader.c:1161
 msgid "Devices"
 msgstr "Thiết bị"
 
-#: ../loader2/loader.c:1138
+#: ../loader2/loader.c:1162
 msgid "Done"
 msgstr "Xong"
 
-#: ../loader2/loader.c:1139
+#: ../loader2/loader.c:1163
 msgid "Add Device"
 msgstr "Thêm thiết bị"
 
-#: ../loader2/loader.c:1347
+#: ../loader2/loader.c:1371
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader đã chạy rồi. Khởi động shell."
 
-#: ../loader2/loader.c:1723
+#: ../loader2/loader.c:1758
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Đang chạy anaconda, bộ cài đặt hệ thống %s - vui lòng chờ...\n"
 
-#: ../loader2/loader.c:1725
+#: ../loader2/loader.c:1760
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Đang chạy anaconda, bộ cài đặt hệ thống %s - vui lòng chờ...\n"
@@ -6069,7 +6111,7 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Kiểm tra checksum"
 
-#: ../loader2/modules.c:1036
+#: ../loader2/modules.c:1058
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Lệnh kickstart có tham số sai %s: %s"
@@ -6103,6 +6145,14 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 
+#: ../loader2/net.c:238
+msgid "ESSID"
+msgstr "ESSID"
+
+#: ../loader2/net.c:239
+msgid "Encryption Key"
+msgstr ""
+
 #: ../loader2/net.c:242
 #, fuzzy
 msgid "Wireless Settings"
@@ -6132,116 +6182,113 @@ msgstr "Thông tin IP không hợp lệ"
 msgid "You entered an invalid IP address."
 msgstr "Bạn đã nhập địa chỉ IP không hợp lệ."
 
-#: ../loader2/net.c:541 ../loader2/net.c:647
+#: ../loader2/net.c:542 ../loader2/net.c:653
 #, fuzzy
 msgid "Network Error"
 msgstr "Không mật khẩu"
 
-#: ../loader2/net.c:542 ../loader2/net.c:648
+#: ../loader2/net.c:543 ../loader2/net.c:654
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr "Lỗi xóa đĩa đích. Sao chép thất bại."
 
-#: ../loader2/net.c:684
-#, fuzzy
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Dùng cấu hình IP động (BOOTP/DHCP)"
-
-#: ../loader2/net.c:712
+#: ../loader2/net.c:718
 msgid "Avoid unwanted packet collisions"
 msgstr ""
 
-#: ../loader2/net.c:714
+#: ../loader2/net.c:720
 msgid "Maximize register values for high speed network traffic"
 msgstr ""
 
-#: ../loader2/net.c:750
+#: ../loader2/net.c:756
 msgid "Configure TCP/IP"
 msgstr "Cấu hình TCP/IP"
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:770
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:765
+#: ../loader2/net.c:771
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
-msgid "Missing Protocol"
-msgstr "Nhóm thiếu"
-
-#: ../loader2/net.c:772
+#: ../loader2/net.c:778
 #, fuzzy
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
 msgstr "Bạn phải chọn ít nhất một ngôn ngữ."
 
-#: ../loader2/net.c:782
+#: ../loader2/net.c:788
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
 msgstr "Bạn phải chọn ít nhất một ngôn ngữ."
 
-#: ../loader2/net.c:852
+#: ../loader2/net.c:859
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "Địa chỉ IP:"
 
-#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:871 ../loader2/net.c:923 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:904
+#: ../loader2/net.c:911
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "Địa chỉ IP:"
 
-#: ../loader2/net.c:965
+#: ../loader2/net.c:972
 #, fuzzy
 msgid "Name Server:"
 msgstr "Nameserver"
 
 #: ../loader2/net.c:1008
+msgid ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
+msgstr ""
+
+#: ../loader2/net.c:1024
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "Cấu hình z/IPL"
 
-#: ../loader2/net.c:1131 ../loader2/net.c:1137
+#: ../loader2/net.c:1147 ../loader2/net.c:1153
 msgid "Missing Information"
 msgstr "Thiếu thông tin"
 
-#: ../loader2/net.c:1132
+#: ../loader2/net.c:1148
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Bạn phải nhập cả địa chỉ IP hợp lệ và netmask hợp lệ."
 
-#: ../loader2/net.c:1138
+#: ../loader2/net.c:1154
 #, fuzzy
-msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Bạn phải nhập cả địa chỉ IP hợp lệ và netmask hợp lệ."
 
-#: ../loader2/net.c:1402
+#: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
 msgstr "Đang xác định tên máy và tên miền..."
 
-#: ../loader2/net.c:1494
+#: ../loader2/net.c:1510
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Đối số cho lệnh mạng kickstart sai %s: %s"
 
-#: ../loader2/net.c:1517
+#: ../loader2/net.c:1533
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "BootProto %s sai trong lệnh mạng"
 
-#: ../loader2/net.c:1688
+#: ../loader2/net.c:1704
 msgid "Networking Device"
 msgstr "Thiết bị mạng"
 
-#: ../loader2/net.c:1689
+#: ../loader2/net.c:1705
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6252,7 +6299,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Tên server NFS:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, fuzzy, c-format
 msgid "%s directory:"
 msgstr "Thư mục Red Hat:"
@@ -6313,70 +6360,70 @@ msgstr "Tìm thấy Media"
 msgid "Local installation media detected..."
 msgstr "Tìm thấy trình cài đặt trên máy..."
 
-#: ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Đối số cho lệnh mạng URL kickstart sai %s: %s"
 
-#: ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Phải cung cấp đối số --url cho URL kichstart."
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Loại URL lạ %s"
 
-#: ../loader2/urls.c:215
+#: ../loader2/urls.c:220
 msgid "Retrieving"
 msgstr "Đang nhận"
 
-#: ../loader2/urls.c:279
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:284
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:301
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "Tên FTP site:"
 
-#: ../loader2/urls.c:302
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "Tên web site:"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "Dùng non-anonymous ftp"
 
-#: ../loader2/urls.c:330
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "Thiết lập FTP"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "Thiết lập HTTP"
 
-#: ../loader2/urls.c:341
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "Bạn phải nhập tên server."
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "Bạn phải nhập thư mục."
 
-#: ../loader2/urls.c:351
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "Máy lạ"
 
-#: ../loader2/urls.c:352
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s không phải là tên máy hợp lệ."
 
-#: ../loader2/urls.c:415
+#: ../loader2/urls.c:424
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6384,23 +6431,23 @@ msgstr ""
 "Nếu bạn dùng non-anonymous ftp, hãy nhập tên tài khoản và mật khẩu vào dưới "
 "đây."
 
-#: ../loader2/urls.c:420
+#: ../loader2/urls.c:429
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
 "Nếu bạn dùng HTTP proxy server, hãy nhập tên HTTP proxy server cần dùng."
 
-#: ../loader2/urls.c:442
+#: ../loader2/urls.c:451
 msgid "Account name:"
 msgstr "Tên tài khoản:"
 
-#: ../loader2/urls.c:465
+#: ../loader2/urls.c:474
 #, fuzzy
 msgid "Further FTP Setup"
 msgstr "Thiết lập FTP"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:477
 #, fuzzy
 msgid "Further HTTP Setup"
 msgstr "Thiết lập HTTP"
@@ -6418,19 +6465,9 @@ msgstr "FCP LUN (64 bit)"
 msgid "Add _iSCSI target"
 msgstr ""
 
-#: tmp/adddrive.glade.h:3
-#, fuzzy
-msgid "Advanced Storage Options"
-msgstr "Tùy chọn kích thước bổ sung"
-
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
-
-#: tmp/adddrive.glade.h:5
-#, fuzzy
-msgid "How would you like to modify your drive configuration?"
-msgstr "Bạn muốn chuẩn bị partition này như thế nào?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6504,6 +6541,11 @@ msgstr "Gặp lỗi"
 msgid "_Exception details"
 msgstr "Gặp lỗi"
 
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
+
 #: tmp/iscsi-config.glade.h:1
 #, fuzzy
 msgid "<b>_Password:</b>"
@@ -6520,17 +6562,6 @@ msgstr "Tên người dùng"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
-
-#: tmp/iscsi-config.glade.h:5
-#, fuzzy
-msgid "Configure iSCSI Parameters"
-msgstr "Tham số Chandev"
-
-#: tmp/iscsi-config.glade.h:6
-msgid ""
-"To use iSCSI disks, you must provide the address of your iSCSI target and "
-"the iSCSI initiator name you've configured for your host."
 msgstr ""
 
 #: tmp/netconfig.glade.h:2
@@ -6605,6 +6636,26 @@ msgstr ""
 #, fuzzy
 msgid "_Customize now"
 msgstr "_Tùy biến"
+
+#: tmp/zfcp-config.glade.h:1
+#, fuzzy
+msgid "<b>Device number:</b>"
+msgstr "Thiết bị"
+
+#: tmp/zfcp-config.glade.h:2
+#, fuzzy
+msgid "<b>FCP LUN:</b>"
+msgstr "FCP LUN (64 bit)"
+
+#: tmp/zfcp-config.glade.h:3
+#, fuzzy
+msgid "<b>WWPN:</b>"
+msgstr "_Mật khẩu:"
+
+#: tmp/zfcp-config.glade.h:4
+#, fuzzy
+msgid "Add FCP device"
+msgstr "Thêm thiết bị"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7330,6 +7381,10 @@ msgid "Arabic"
 msgstr "tiếng Ả rập"
 
 #. generated from lang-table
+msgid "Assamese"
+msgstr ""
+
+#. generated from lang-table
 msgid "Bengali"
 msgstr "Bengali"
 
@@ -7503,6 +7558,10 @@ msgid "Serbian(Latin)"
 msgstr "Đức"
 
 #. generated from lang-table
+msgid "Sinhala"
+msgstr ""
+
+#. generated from lang-table
 #, fuzzy
 msgid "Slovak"
 msgstr "Slovenia"
@@ -7525,6 +7584,10 @@ msgid "Tamil"
 msgstr "Tasmania"
 
 #. generated from lang-table
+msgid "Telugu"
+msgstr ""
+
+#. generated from lang-table
 msgid "Turkish"
 msgstr "Thổ Nhĩ Kỳ"
 
@@ -7543,6 +7606,90 @@ msgstr "tiếng Mỹ (Welsh)"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "tiếng Zulu"
+
+#~ msgid "Error mounting file system on %s: %s"
+#~ msgstr "Lỗi gắn kết hệ thống tập tin trên %s: %s"
+
+#~ msgid "Device number"
+#~ msgstr "Số thiết bị"
+
+#~ msgid "SCSI Id"
+#~ msgstr "mã SCSI ID (16 bit)"
+
+#, fuzzy
+#~ msgid "You have not specified a SCSI ID or the ID is invalid."
+#~ msgstr "Bạn chưa xác định tên máy."
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN (64 bit)"
+
+#~ msgid "SCSI LUN"
+#~ msgstr "SCSI LUN (16 bit)"
+
+#, fuzzy
+#~ msgid "You have not specified a SCSI LUN or the number is invalid."
+#~ msgstr "Bạn chưa xác định tên máy."
+
+#, fuzzy
+#~ msgid "IPv_4 Address:"
+#~ msgstr "Địa chỉ IP:"
+
+#, fuzzy
+#~ msgid "IPv_6 Address:"
+#~ msgstr "Địa chỉ IP:"
+
+#~ msgid "ZFCP Configuration"
+#~ msgstr "Cấu hình ZFCP"
+
+#, fuzzy
+#~ msgid "_Remove"
+#~ msgstr "Đặt _lại"
+
+#, fuzzy
+#~ msgid "FCP Devices"
+#~ msgstr "Thiết bị"
+
+#, fuzzy
+#~ msgid "Edit FCP device %s"
+#~ msgstr "Sửa thiết bị RAID"
+
+#~ msgid "Invalid IP string"
+#~ msgstr "Chuỗi IP không hợp lệ"
+
+#~ msgid "The entered IP '%s' is not a valid IP."
+#~ msgstr "IP đã nhập '%s' không phải là IP hợp lệ."
+
+#~ msgid "Point to Point (IP)"
+#~ msgstr "Point to Point (IP)"
+
+#~ msgid "Network Device: %s"
+#~ msgstr "Thiết bị mạng: %s"
+
+#~ msgid "Configure using DHCP"
+#~ msgstr "Cấu hình dùng _DHCP"
+
+#~ msgid "Invalid information"
+#~ msgstr "Thông tin không hợp lệ"
+
+#~ msgid "You must enter valid IP information to continue"
+#~ msgstr "Bạn phải nhập địa chỉ IP hợp lệ"
+
+#~ msgid "Tertiary DNS:"
+#~ msgstr "DNS thứ ba:"
+
+#, fuzzy
+#~ msgid "FCP Device"
+#~ msgstr "Thiết bị"
+
+#, fuzzy
+#~ msgid "Device #"
+#~ msgstr "Thiết bị"
+
+#~ msgid "Add"
+#~ msgstr "Thêm"
+
+#~ msgid "Remove"
+#~ msgstr "Xoá bỏ"
 
 #~ msgid "DDC Probed Monitor"
 #~ msgstr "Màn hình DDC dò được"
@@ -7717,9 +7864,6 @@ msgstr "tiếng Zulu"
 
 #~ msgid "An error occurred when finding the packages to upgrade."
 #~ msgstr "Gặp lỗi khi tìm gói cần nâng cấp."
-
-#~ msgid "Installation Type"
-#~ msgstr "Loại cài đặt"
 
 #~ msgid "What type of system would you like to install?"
 #~ msgstr "Bạn muốn cài đặt loại hệ thống nào?"
@@ -7900,10 +8044,6 @@ msgstr "tiếng Zulu"
 #, fuzzy
 #~ msgid "Packages in %s"
 #~ msgstr "Gói"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "Cài đặt lên loại thiết bị nào?"
 
 #, fuzzy
 #~ msgid ""
@@ -9062,10 +9202,6 @@ msgstr "tiếng Zulu"
 #~ "cấp không?"
 
 #, fuzzy
-#~ msgid "Device number:"
-#~ msgstr "Thiết bị"
-
-#, fuzzy
 #~ msgid "SCSI ID:"
 #~ msgstr "SCSI"
 
@@ -9448,9 +9584,6 @@ msgstr "tiếng Zulu"
 
 #~ msgid "_Full Name:"
 #~ msgstr "_Họ và tên:"
-
-#~ msgid "Please enter user name"
-#~ msgstr "Vui lòng nhập tên người dùng"
 
 #~ msgid "Account Name"
 #~ msgstr "Tên tài khoản"
