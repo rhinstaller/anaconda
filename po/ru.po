@@ -1,3 +1,4 @@
+# translation of ru.po to 
 # translation of ru.po to
 # translation of ru.po to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
@@ -6,14 +7,15 @@
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
 # Yuliya Poyarkova <ypoyarko@redhat.com>, 2006.
+# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-19 01:11+0400\n"
-"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
-"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
+"PO-Revision-Date: 2006-11-17 10:02+1000\n"
+"Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -195,8 +197,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
 "архитектуры."
@@ -1764,10 +1765,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitioning.py:62
 msgid "Installation cannot continue."
@@ -1823,8 +1822,7 @@ msgstr ""
 "загрузиться с него будет невозможно."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Необходимо создать раздел /boot/efi типа FAT размером 50Мб."
 
 #: ../partitions.py:867
@@ -1845,8 +1843,7 @@ msgstr ""
 "нормальной установки %s. "
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Установка на USB устройство.  Существует возможность получения нерабочей "
 "системы."
@@ -1880,8 +1877,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
+msgstr "Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
 
 #: ../partitions.py:1004
 #, python-format
@@ -1906,8 +1902,7 @@ msgstr "раздел, который является членом группы 
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть в корневой (/) файловой "
 "системе."
@@ -1989,8 +1984,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
-"Размер логического тома должен быть больше, чем размер физического экстента."
+msgstr "Размер логического тома должен быть больше, чем размер физического экстента."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2189,17 +2183,14 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -2555,10 +2546,8 @@ msgstr "Ошибка подготовки транзакции"
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"При выполнении вашей транзакции произошла ошибка по следующим причинам: %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "При выполнении вашей транзакции произошла ошибка по следующим причинам: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
@@ -2678,8 +2667,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Вы не задали worldwide port name устройства или имя указано неправильно."
+msgstr "Вы не задали worldwide port name устройства или имя указано неправильно."
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2760,13 +2748,11 @@ msgstr "Ошибка данных"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Удалить все разделы на выбранных дисках и создать разбиение по умолчанию."
+msgstr "Удалить все разделы на выбранных дисках и создать разбиение по умолчанию."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию."
+msgstr "Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
@@ -3020,9 +3006,7 @@ msgstr "_Установить %s"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"Выберите этот параметр для установки новой системы. Существующее ПО и данные "
-"могут быть переписаны в зависимости от выбранных параметров."
+msgstr "Выберите этот пункт для установки новой системы. Существующее ПО и данные могут быть переписаны в зависимости от выбранных параметров."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -3570,7 +3554,7 @@ msgstr "Включить поддержку IPv6"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
-msgstr "Активизировать при загрузке"
+msgstr "Активировать при загрузке"
 
 #: ../iw/network_gui.py:326
 msgid "IPv_4 Address:"
@@ -3628,7 +3612,7 @@ msgstr "IPv4/маска"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr "IPv6/Префикс"
+msgstr "IPv6/префикс"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3838,14 +3822,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:642
@@ -4000,8 +3982,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
@@ -4380,8 +4361,7 @@ msgstr "Вы должны указать HTTP или FTP URL этого хран
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
+msgstr "Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4401,8 +4381,7 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4541,8 +4520,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Недостаточно места на устройстве, выбранном для раздела подкачки."
 
 #: ../iw/zfcp_gui.py:24
@@ -4710,10 +4688,8 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4850,10 +4826,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Укажите группы пакетов, которые вы хотите установить"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
@@ -5233,8 +5207,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-ОК    "
 
 #: ../textw/partition_text.py:1476
@@ -5839,8 +5812,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5965,10 +5937,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добро пожаловать в %s - Режим восстановления"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6078,8 +6048,7 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:1137
 msgid "Devices"
@@ -6101,14 +6070,12 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6291,8 +6258,7 @@ msgstr "Избегать нежeлaтальных коллизий пакето�
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
-"Максимизировать значения регистров для высокоскоростного сетевого трафика"
+msgstr "Максимизировать значения регистров для высокоскоростного сетевого трафика"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -6347,8 +6313,7 @@ msgid "Missing Information"
 msgstr "Недостаточно информации"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv4 и маску сети или префикс CIDR."
 
 #: ../loader2/net.c:1138
@@ -6604,10 +6569,7 @@ msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
-"Установка требует создания разделов на вашем жестком диске. По умолчанию, "
-"выбрано разбиение, оптимальное для большинства пользователей. Однако вы "
-"можете создать разделы вручную"
+msgstr "Установка требует создания разделов на жестком диске. По умолчанию выбрано разбиение, оптимальное для большинства пользователей. Однако вы можете создать разделы вручную."
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6877,8 +6839,7 @@ msgstr "Центральное время - Манитоба и запад Он�
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Центральное время - Мичиган - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Центральное время - Мичиган - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6992,8 +6953,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Время вост. побережья - Онтарио - большая часть"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Время вост. побережья - Онтарио - местность, где не происходила смена "
 "летнего/зимнего времени в 1967-1973"
@@ -7035,9 +6995,8 @@ msgid "Hawaii"
 msgstr "Гаваи"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "Хейлунцзян (за искл. Mohe), Дзилинь"
+msgstr "Хейлунцзян (за искл. Мохе), Дзилинь"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7192,10 +7151,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7207,8 +7164,7 @@ msgstr "Горное время"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
+msgstr "Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -7634,60 +7590,3 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулусский"
 
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Определенный по DDC"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Третичный DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Третичный DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Использовать DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "Адрес IP"
-
-#~ msgid "Net_mask"
-#~ msgstr "Маска подсети"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Аппаратный адрес:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Необходим ключ регистрации"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Для установки %s необходим регистрационный ключ.  Свяжитесь со своим "
-#~ "представителем техподдержки, если вы не получили ключ со своим продуктом."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Неверная маска CIDR"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Ошибка подключения к %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Ошибка получения %s: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Установка по умолчанию %s включает набор программ, подходящих для решения "
-#~ "обычных задач работы с Интернетом.  Поддержку каких дополнительных задач "
-#~ "вы хотели бы включить?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Хейлунцзян"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "остров Ньюфаундленд"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "юг Синьцзянь-Уйгурский"
