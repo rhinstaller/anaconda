@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.16
+Version: 11.1.2.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 17 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.17-1
+- Preserve drive order specified in kickstart (#214881).
+- Be smarter about checking if iscsi is available (katzj, #216128).
+- Install language support packages in text mode (nasrat, #215867).
+- Fix kernel naming (katzj, #215746).
+- Fix handling of iscsiadm output and activation of devices (pjones).
+- Depsolve on optional/non-grouped packages (nasrat, #214848).
+- Update kickstart documentation.
+- Make sure source is unmounted on image installs before %post (#214677).
+- Use mode 0600 for install-num file (katzj, #214853).
+
 * Thu Nov 09 2006 Paul Nasrat <pnasrat@redhat.com> -11.1.2.16-1
 - Fix traceback due to incorrect no discs (#214787)
 
