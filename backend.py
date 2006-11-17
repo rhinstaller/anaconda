@@ -132,7 +132,7 @@ class AnacondaBackend:
         log.warning("deselectPackage not implemented for backend!")
         pass
 
-    def getDefaultGroups(self):
+    def getDefaultGroups(self, anaconda):
         log.warning("getDefaultGroups not implemented for backend!")
         pass
 

@@ -1,3 +1,13 @@
+2006-11-17   Paul Nasrat <pnasrat@redhat.com>
+
+	* backend.py (AnacondaBackend.getDefaultGroups): Signature change to
+	take an anaconda
+	* yuminstall.py (YumBackend.getDefaultGroups): Get the language list
+	from install data to fix text mode (#215867)
+	* installclasses/fedora.py (InstallClass.setGroupSelection): Pass
+	anaconda object to getDefaultGroups
+	* installclasses/rhel.py (InstallClass.setGroupSelection): ditto
+
 2006-11-16  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.kernelVersionList): With kernel not

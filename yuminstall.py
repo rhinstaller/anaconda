@@ -907,11 +907,10 @@ class YumBackend(AnacondaBackend):
         c.categoryid = "uncategorized"
         self.ayum.comps._categories[c.categoryid] = c
 
-    def getDefaultGroups(self):
-        import language
+    def getDefaultGroups(self, anaconda):
+        langs = anaconda.id.instLanguage.getCurrentLangSearchList()
         rc = map(lambda x: x.groupid,
                  filter(lambda x: x.default, self.ayum.comps.groups))
-        langs = language.expandLangs(os.environ["LANG"])
         for g in self.ayum.comps.groups:
             if g.langonly in langs:
                 rc.append(g.groupid)
