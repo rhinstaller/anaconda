@@ -1,3 +1,11 @@
+2006-11-17  Jeremy Katz  <katzj@redhat.com>
+
+	* iscsi.py (has_iscsi): Add a method so that we can find out if
+	iscsi is really available (#216128)
+	* iw/autopart_type.py (PartitionTypeWindow.addDrive): And don't
+	allow trying to add iscsi drives if we don't have iscsi stuff.
+	* textw/partition_text.py: Likewise.
+
 2006-11-17   Paul Nasrat <pnasrat@redhat.com>
 
 	* backend.py (AnacondaBackend.getDefaultGroups): Signature change to

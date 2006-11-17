@@ -204,6 +204,11 @@ class PartitionTypeWindow(InstallWindow):
         dialog.show_all()
         if rhpl.getArch() not in ("s390", "s390x"):
             dxml.get_widget("zfcpRadio").hide()
+
+        import iscsi
+        if not iscsi.has_iscsi():
+            dxml.get_widget("iscsiRadio").set_sensitive(False)
+        
         rc = dialog.run()
         dialog.hide()
         if rc == gtk.RESPONSE_CANCEL:
