@@ -40,7 +40,10 @@ def bootloaderSetupChoices(anaconda):
     if flags.livecd:
         return 
 
-    anaconda.id.bootloader.updateDriveList()
+    if anaconda.id.ksdata:
+        anaconda.id.bootloader.updateDriveList(anaconda.id.ksdata.bootloader["driveorder"])
+    else:
+        anaconda.id.bootloader.updateDriveList()
 
 # iSeries bootloader on upgrades
     if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:        

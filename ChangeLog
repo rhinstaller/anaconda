@@ -1,3 +1,8 @@
+2006-11-17  Chris Lumens  <clumens@redhat.com>
+
+	* bootloader.py (bootloaderSetupChoices):  If the kickstart file
+	specified a drive order, pass that to booty (#214881).
+
 2006-11-17  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (has_iscsi): Add a method so that we can find out if
