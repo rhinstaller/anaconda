@@ -1634,7 +1634,10 @@ class PartitionTypeWindow:
         return INSTALL_OK
 
     def addDriveDialog(self, screen):
-        newdrv = [ "Add iSCSI target" ]
+        newdrv = []
+        import iscsi
+        if iscsi.has_iscsi():
+            newdrv.append("Add iSCSI target")
         if rhpl.getArch() in ("s390", "s390x"):
             newdrv.append( "Add zFCP LUN" )
 

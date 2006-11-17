@@ -1,7 +1,8 @@
 #
 # iscsi.py - iscsi class
 #
-# Copyright 2005, 2006 IBM, Inc.
+# Copyright 2005, 2006 IBM, Inc.,
+# Copyright 2006  Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -28,6 +29,15 @@ from rhpl.translate import _, N_
 ISCSID="/usr/sbin/iscsid"
 ISCSIADM = "/usr/sbin/iscsiadm"
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
+
+
+def has_iscsi():
+    if not os.access(ISCSID, os.X_OK) or not os.access(ISCSIADM, os.X_OK):
+        return False
+    # make sure the module is loaded
+    if not os.access("/sys/modules/iscsi_tcp", os.X_OK):
+        return False
+    return True
 
 class iscsiTarget:
     def __init__(self, ipaddr, port = None, user = None, pw = None):
@@ -172,6 +182,8 @@ class iscsi(object):
 
     def startup(self, intf = None):
         if flags.test:
+            return
+        if not has_iscsi():
             return
         if not self.initiatorSet:
             log.info("no initiator set")
