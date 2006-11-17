@@ -1,3 +1,8 @@
+2006-11-17  Chris Lumens  <clumens@redhat.com>
+
+	* textw/partition_text.py (PartitionWindow.editRaidRequest):  Set the
+	RAID minor number on new RAID requests (#215231).
+
 2006-11-17  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (has_iscsi): Add a method so that we can find out if

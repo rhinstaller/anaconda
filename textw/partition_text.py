@@ -82,7 +82,7 @@ class PartitionWindow:
 
 
         # next, add the raid partitions
-        raidcounter = 0
+        self.raidcounter = 0
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
             for request in raidrequests:
@@ -99,14 +99,14 @@ class PartitionWindow:
 		try:
 		    device = "/dev/md%d" % (request.raidminor,)
 		except:
-		    device = _("RAID Device %s" %(str(raidcounter)))
+		    device = _("RAID Device %s" %(str(self.raidcounter)))
 		    
                 size = request.size
                 self.lb.append(["%s" %(device),
                                 "", "", "%dM" %(size),
                                 "%s" %(ptype), "%s" %(mount)], str(request.uniqueID),
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
-                raidcounter = raidcounter + 1
+                self.raidcounter += 1
         
 
         # next, add the drives and partitions to the list
@@ -1084,6 +1084,7 @@ class PartitionWindow:
 
 		request.raidspares = int(spares.value())
 		request.raidlevel = raidtype.current()
+                request.raidminor = self.raidcounter
 
 		if format:
 		    request.format = format.selected()
