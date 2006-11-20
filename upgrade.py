@@ -34,6 +34,7 @@ from product import productName
 
 from rhpl.log import log
 from rhpl.translate import _
+import rhpl
 
 # blacklist made up of (name, arch) or 
 # (name, ) to erase all matches
