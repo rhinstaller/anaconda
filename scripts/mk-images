@@ -1123,7 +1123,7 @@ for KERNELARCH in $arches; do
     mkdir -p $KERNELROOT/lib/modules/misc
 
     foundakernel="yes"
-    if [ "${kernelvers}" = "kernel-xenU" ]; then kerneltag="xen" ; fi
+    if [ "${kernelvers}" = "kernel-xenU" ]; then kerneltag="xenU" ; fi
 
     ppackage=$($LATEST $KERNELPATH hwdata)
     if [ ! -f "$ppackage" ]; then
