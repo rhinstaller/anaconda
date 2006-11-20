@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.50
+Version: 10.1.1.51
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 20 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.51-1
+- Fix /bin/echo symlink (dlehman, #178781)
+- Add audit-libs (dlehman, #203391)
+- Improve handling of local stage2 with URL installs (dlehman, #189262)
+- xen fix
+
 * Mon Oct 23 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.50-1
 - fix build
 
