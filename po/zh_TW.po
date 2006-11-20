@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 09:23-0500\n"
-"PO-Revision-Date: 2006-10-20 11:33+1000\n"
+"PO-Revision-Date: 2006-11-20 23:14+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -192,8 +192,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Boot 分割區 %s 可能不符合您系統架構的開機限制。"
 
 #: ../autopart.py:1058
@@ -958,9 +957,8 @@ msgid "Cancel"
 msgstr "取消"
 
 #: ../gui.py:595 ../text.py:356
-#, fuzzy
 msgid "Installation Key"
-msgstr "安裝方式"
+msgstr "安裝金鑰"
 
 #: ../gui.py:899 ../text.py:400
 msgid "Error Parsing Kickstart Config"
@@ -1242,16 +1240,14 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "主機名稱只能包含 'a-z'、'A-Z'、'-' 或 '.' 等字元"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "缺少 IP 位址。"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP 位址必須包含四組以小數點分隔，介乎 0 到 255 之間的號碼"
+msgstr "IPv4 位址必須包含四組以小數點分隔、介乎 0 到 255 之間的號碼。"
 
 #: ../network.py:96
 #, python-format
@@ -1259,24 +1255,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' 不是有效的 IPv6 位址。"
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' 不是有效的 IPv6 位址。"
+msgstr "'%s' 不是有效的 IP 位址。"
 
 #: ../packages.py:248
-#, fuzzy
 msgid "Invalid Key"
-msgstr "無效的前置"
+msgstr "無效的金鑰"
 
 #: ../packages.py:249
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "您必須輸入一個有效數字。"
+msgstr "您輸入的金鑰不正確。"
 
 #: ../packages.py:262
-#, fuzzy
 msgid "_Skip"
-msgstr "跳過"
+msgstr "跳過(_S)"
 
 #: ../packages.py:289
 msgid "Warning! This is pre-release software!"
@@ -1709,8 +1702,7 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partitioning.py:64
@@ -1722,8 +1714,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../partitioning.py:95
 msgid "Low Memory"
@@ -1759,8 +1750,7 @@ msgid ""
 msgstr "您的開機分割區並不在前四個分割區的任何一個上，因此無法用來開機。"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區，大小為 50 MB。"
 
 #: ../partitions.py:867
@@ -1779,8 +1769,7 @@ msgid ""
 msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:945
@@ -1817,8 +1806,7 @@ msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援到 32 個
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
+msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
 
 #: ../partitions.py:1304
 msgid "the partition in use by the installer."
@@ -1834,8 +1822,7 @@ msgstr "LVM 磁區群組成員的一個分割區。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:252
@@ -1843,8 +1830,7 @@ msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
+msgstr "無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -2089,14 +2075,14 @@ msgid "No help is available for this step of the install."
 msgstr "找不到這個安裝階段的輔助訊息。"
 
 #: ../text.py:361
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "請輸入磁區群組名稱。"
+msgstr "請輸入您的 %(instkey)s"
 
 #: ../text.py:378 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "跳過輸入 %(instkey)s"
 
 #: ../text.py:409
 msgid "Save Crash Dump"
@@ -2108,8 +2094,7 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> 下一個畫面"
 
 #: ../text.py:472
@@ -2291,8 +2276,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
-"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:454
 msgid "Password:"
@@ -2463,8 +2447,7 @@ msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "由於下列原因，異動程序發生錯誤：%s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -2961,8 +2944,7 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
-"這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
+msgstr "這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3307,9 +3289,8 @@ msgid "Nameserver"
 msgstr "名稱伺服器"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "設定網路界面時發生錯誤。"
+msgstr "設定網路界面時發生錯誤"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
@@ -3346,8 +3327,7 @@ msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許�
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../iw/network_gui.py:170 ../textw/network_text.py:623
 #, python-format
@@ -3361,14 +3341,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:179 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "欄位 \"%s\" 需要一個數值。"
+msgstr "欄位 %s 需要一個數值。"
 
 #: ../iw/network_gui.py:187 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "資料錯誤"
+msgstr "%s 資料錯誤"
 
 #: ../iw/network_gui.py:188 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3377,9 +3357,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:192 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "您輸入的 IP 資訊無效。"
+msgstr "您輸入的 IPv4 資訊無效。"
 
 #: ../iw/network_gui.py:196
 msgid ""
@@ -3416,22 +3395,20 @@ msgid "_Activate on boot"
 msgstr "開機時立即啟動(_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP 位址"
+msgstr "位址"
 
 #: ../iw/network_gui.py:337 ../textw/network_text.py:216
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "網路遮罩"
+msgstr "前置（網路遮罩）"
 
 #: ../iw/network_gui.py:342
 msgid "IPv_4:"
-msgstr ""
+msgstr "IPv_4:"
 
 #: ../iw/network_gui.py:364
 msgid "IPv_6:"
-msgstr ""
+msgstr "IPv_6:"
 
 #: ../iw/network_gui.py:395
 msgid "_Point to Point (IP):"
@@ -3456,9 +3433,8 @@ msgid "Missing Protocol"
 msgstr "缺少通訊協定"
 
 #: ../iw/network_gui.py:476 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "使用 DHCP 時，您必須選擇至少一項通訊協定（IPv4 或 IPv6）。"
+msgstr "您必須擇一選擇 IPv4 或 IPv6。"
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -3475,13 +3451,12 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv4 的前置數字必須介於 0 與 128 之間。"
 
 #: ../iw/network_gui.py:537 ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv4 的前置數字必須介於 0 與 128 之間。"
+msgstr "錯誤或找不到 IPv6 的前置數字（必須介於 0 與 128 之間）。"
 
 #: ../iw/network_gui.py:593 ../iw/network_gui.py:606
 msgid "Disabled"
-msgstr ""
+msgstr "停用"
 
 #: ../iw/network_gui.py:683
 msgid "Active on Boot"
@@ -3705,14 +3680,12 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "您的磁碟分割發生下列錯誤。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:642
@@ -3803,8 +3776,7 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1226
 msgid "RAID Options"
@@ -4254,8 +4226,7 @@ msgstr "這將會更新您目前的開機管理程式。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4386,8 +4357,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/zipl_gui.py:28
@@ -4519,8 +4489,7 @@ msgstr ""
 "區，並分別給予一個識別標籤。"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> 選取 | <F2> 選取預設開機項目 | <F4> 刪除 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:387
@@ -4621,8 +4590,7 @@ msgstr "開始安裝"
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -4647,21 +4615,19 @@ msgstr "開始升級系統"
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
 msgstr "請選擇您想要安裝的套件群組。"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "沒有選用套件可供選擇"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -4692,12 +4658,11 @@ msgid "Mouse Selection"
 msgstr "選擇滑鼠"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您尚未指定 %s 欄位。  取決於您的網路環境，這樣的設定將來也許會造成問題。"
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4719,25 +4684,23 @@ msgstr "開機時立即啟動"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "點對點："
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID："
+msgstr "ESSID："
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "金鑰："
+msgstr "WEP 金鑰："
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5028,8 +4991,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     F12-確定"
 
 #: ../textw/partition_text.py:1477
@@ -5058,9 +5020,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "您想安裝程序使用哪些磁碟機？"
 
 #: ../textw/partition_text.py:1561
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
+msgstr "<Space>,<+>,<-> 選擇   |   <F2> 新增磁碟   |   <F12> 下一個畫面"
 
 #: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
@@ -5079,21 +5040,15 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "您要如何修改您的磁碟設定？"
 
 #: ../textw/partition_text.py:1663
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "新增 FCP 裝置"
 
 #: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr ""
-"zSeries 的電腦可以透過光纖通道（FCP，Fibre Channel）存取符合業界標準的 SCSI "
-"裝置。您需要為每個裝置設定五個參數：16 位元的裝置號碼、16 位元的 SCSI ID、64 "
-"位元的 World Wide Port Number（WWPN）、16 位元的 SCSI LUN、以及 64 位元的 "
-"FCP LUN。"
+msgstr "zSeries 的電腦可以透過光纖通道（FCP，Fibre Channel）存取符合業界標準的 SCSI 裝置。您需要為每個裝置提供 16 位元的裝置號碼、64 位元的 World Wide Port Number（WWPN）、以及 64 位元的 FCP LUN。"
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5170,8 +5125,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5303,8 +5257,7 @@ msgstr "自訂安裝(_C)"
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
-"藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
+msgstr "藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
@@ -5316,8 +5269,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
 msgid "Office and Productivity"
@@ -5367,15 +5319,14 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:34
-#, fuzzy
 msgid "Installation Number"
-msgstr "開始安裝"
+msgstr "安裝號碼"
 
 #: ../installclasses/rhel.py:35
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "要安裝您訂閱服務所包括的所有支援套件，請輸入您的安裝號碼（Installation Number）"
 
 #: ../installclasses/rhel.py:38
 msgid ""
@@ -5390,6 +5341,12 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"如果您找不到安裝號碼，請參閱 http://www.redhat.com/apps/support/in.html.\n"
+"\n"
+"如果您跳過本步驟：\n"
+"* 您將無法存取您訂閱服務所包含的所有套件。\n"
+"* 這可能會導致安裝不受支援 / 未經認證的 Red Hat Enterprise Linux。\n"
+"* 您將無法為不包括在您訂閱服務中的套件，取得軟體與安全性更新。"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5500,8 +5457,7 @@ msgstr ""
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
+msgstr "在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5768,8 +5724,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "歡迎使用 %s - 救援模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:160
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader2/lang.c:366
@@ -5910,8 +5865,7 @@ msgstr "正在執行 anaconda，%s 系統安裝程式 - 請稍候...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -6128,7 +6082,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "請輸入 IPv4 與（或）IPv6 的位址與前置（位址 / 前置）。以 IPv4 來說，以小數點隔開四組數字的網路遮罩或 CIDR 式的前置都是可接受的。閘道器與網域名稱伺服器欄位，都必須填入正確的 IPv4 或 IPv6 位址。"
 
 #: ../loader2/net.c:1024
 msgid "Manual TCP/IP Configuration"
@@ -6139,14 +6093,12 @@ msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader2/net.c:1148
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1154
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "您必須輸入有效的 IPv6 位址及 aCIDR 前置字元。"
+msgstr "您必須輸入有效的 IPv6 位址及一組 CIDR 前置字元。"
 
 #: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
@@ -6410,7 +6362,7 @@ msgstr "例外狀況細節(_E)"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6495,19 +6447,16 @@ msgid "_Customize now"
 msgstr "立即自訂(_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "裝置號碼"
+msgstr "<b>裝置號碼：</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN：</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>密碼(_P)：</b>"
+msgstr "<b>WWPN：</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6645,8 +6594,7 @@ msgstr "中部標準時間 - 柯省、杜蘭哥、Nuevo Leon、Tamaulipas"
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"中央標準時間 - 印地安那州 - 戴維斯、杜伯依斯、諾克斯、馬丁、派里與普拉斯基郡"
+msgstr "中央標準時間 - 印地安那州 - 戴維斯、杜伯依斯、諾克斯、馬丁、派里與普拉斯基郡"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6769,8 +6717,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "東部標準時間 -  安大略省 - 大部分地方"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部標準時間 - 安大略省 & 魁北克 - 不遵照 DST 1967-1973 的地方"
 
 #. generated from zone.tab
@@ -6966,8 +6913,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳部標準時間 - 亞利桑那"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山岳部標準時間 - 道森河 & 福聖約翰、英屬哥倫比亞"
 
 #. generated from zone.tab
@@ -7208,7 +7154,7 @@ msgstr "阿拉伯文"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "阿薩姆語"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7372,7 +7318,7 @@ msgstr "塞爾維亞語（拉丁）"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "僧伽羅語"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7396,7 +7342,7 @@ msgstr "泰米爾語"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "泰盧固語"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7418,85 +7364,3 @@ msgstr "威爾斯語"
 msgid "Zulu"
 msgstr "祖魯語"
 
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "請輸入您 %s 的註冊金鑰。"
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "輸入註冊金鑰"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "掛載檔案系統在 %s 發生錯誤: %s"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ID"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "您尚未指定 SCSI ID，或該 ID 無效。"
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "您尚未指定 SCSI LUN，或該號碼無效。"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4 位址："
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6 位址："
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP 設定"
-
-#~ msgid "_Remove"
-#~ msgstr "移除(_R)"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP 裝置"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "編輯 FCP 裝置 %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr "您正打算從設定中移除 FCP 磁碟，請問是否繼續？"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "IP 字串無效"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "所輸入的 IP '%s' 不是有效的 IP。"
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "點對點 (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "網路裝置: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "使用動態 IP 配置（DHCP）"
-
-#~ msgid "Invalid information"
-#~ msgstr "資料無效"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "您必須輸入有效的 IP 位址才能繼續"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "第三 DNS："
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP 裝置"
-
-#~ msgid "Device #"
-#~ msgstr "裝置 #"
-
-#~ msgid "Add"
-#~ msgstr "新增"
-
-#~ msgid "Remove"
-#~ msgstr "移除"
