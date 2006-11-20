@@ -197,7 +197,7 @@ EOF
     makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
 	--initrdsize 8192 \
 	--loaderbin loader \
-	--modules "$INITRDMODS"
+	--modules  "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $BOOTPCMCIAMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
     [ $? = 0 ] || exit 1
     cp $KERNELROOT/boot/vmlinuz-*xen* $TOPDESTPATH/images/xen/vmlinuz
   fi

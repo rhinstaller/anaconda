@@ -1,6 +1,10 @@
 2006-11-20  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
+	* scripts/mk-images.x86_64: xen module fixing
+	* scripts/mk-images.i386: Likewise.
+
+	* anaconda.spec: Bump version
 	* scripts/mk-images.x86_64: More xen -> xenU fixing
 	* scripts/mk-images.i386: The same
 	* Makefile: fix build target
