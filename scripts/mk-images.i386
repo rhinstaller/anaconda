@@ -117,7 +117,7 @@ makeBootImages() {
   # FIXME: this is so that we can switch back and forth.  if we want both
   # on the CD, then more needs to be done, esp for things like isolinux.cfg
   # Right now, last one wins
-  if [ "$kerneltag" != "xen" ]; then
+  if [ "$kerneltag" != "xenU" ]; then
     echo "Building $KERNELARCH initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	--pcmcia \

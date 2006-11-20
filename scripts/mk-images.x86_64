@@ -94,7 +94,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 mkdir -p $TOPDESTPATH/images/pxeboot
 
 makeBootImages() {
-  if [ "$kerneltag" != "xen" ]; then
+  if [ "$kerneltag" != "xenU" ]; then
     echo "Building initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--pcmcia \
