@@ -74,7 +74,7 @@ class iscsiTarget:
             self._getPortal()
         return self._nodes
     portal = property(_getPortal)
-    nodes = property(_getNodes)
+    nodes = property(_getNode)
 
     def discover(self):
         if flags.test:
