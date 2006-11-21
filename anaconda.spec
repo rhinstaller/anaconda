@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2
+Version: 11.2.0.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,37 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 21 2006 Chris Lumens <clumens@redhat.com> - 11.2.0.1
+- Use .discinfo files to determine if a CD tree exists instead of a set
+  limit (pjones, #214787).
+- Allow fixing/retrying when unable to grab a ksfile (#216446).
+- Fix typos (pnasrat, #216410, #215232).
+- Set the RAID minor number in text installs (#215231).
+- Be smarter about detecting if iscsi is available (katzj, #216128).
+- Kernel naming fix (katzj, #215746).
+- Activate/login/logout of all iscsi devices (pjones).
+- Depsolve on optional/non-grouped packages (pnasrat, #214848).
+- Update kickstart documentation.
+- Don't always write out xconfig and monitor in anaconda-ks.cfg (#211977).
+- Follow drive order specified in kickstart file (#214881).
+- Unmount source on image installs before %post is run (#214677).
+- Check return value of getBiosDisk (pjones, #214653).
+- splittree shouldn't fail with non-rpms in the directory (jkeating).
+- Order bind mounts correctly on upgrades (#212270).
+- Always skip networking on kickstart installs (#214584).
+- Handle ipv6= command line option (dcantrell).
+- Split up ipv4 and ipv6 options, add radvd support (dcantrell, #213108,
+  #213112).
+- Log exceptions when activating raid (pjones).
+- Update install method documentation (#214159).
+- Netconfig UI fixes (katzj, #213356).
+- Avoid traceback on unused PReP partitions (#211098).
+- Fix no free space traceback (ddearauj AT us.ibm.com, #213616(.
+- Fix implantisomd5 output formatting (#214046).
+- Remove virt group hacks (katzj).
+- Default to text install if a KVM lies to us about the monitor.
+- Split media FTP/HTTP loopback mount install fixes (pnasrat, #212014).
+
 * Thu Nov  2 2006 Chris Lumens <clumens@redhat.com> - 11.2
 - Add name resolution support for IPv6 AAAA and ip6.arpa records (dcantrell).
 - Center anaconda window (#213350).
