@@ -1,4 +1,4 @@
-# translation of lv.po to latvian
+# translation of lv.po to Latvian
 # Copyright (C) 2006
 # This file is distributed under the same license as the anaconda package.
 #
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-15 15:57+0200\n"
-"Last-Translator: Salvis <salvis@no.lv>\n"
-"Language-Team: latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2006-11-20 21:19+0200\n"
+"Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
+"Language-Team: Latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -166,28 +166,37 @@ msgid "unknown install method: %s"
 msgstr "nezināma instalēšanas metode: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Nav iespējams uz cilindriem bāzētās partīcijas noteikt kā primārās"
+msgstr ""
+"Nav iespējams uz cilindriem bāzētās partīcijas noteikt kā primārās.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Nav iespējams partīcijas noteikt kā primārās"
+msgstr ""
+"Nav iespējams partīcijas noteikt kā primārās.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Nav iespējams noteikt uz cilindriem bāzētās partīcijas"
+msgstr ""
+"Nav iespējams noteikt uz cilindriem bāzētās partīcijas.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -347,6 +356,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Nospiediet 'OK', lai norādītu citus partīciju parametrus."
 
 #: ../autopart.py:1503
 #, python-format
@@ -440,14 +452,14 @@ msgstr ""
 "Vai Jūs patiešām to vēlaties?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "Jaunināšana %s-%s-%s.%s.\n"
+msgstr "Jaunināšana %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "Instalēt %s"
+msgstr "Instalēšana %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -844,14 +856,13 @@ msgstr ""
 "Nospiediet <Enter>, lai pārstartētu sistēmu."
 
 #: ../fsset.py:1733
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Failu ielādēt nav iespējams!"
+msgstr "Nav iespējams piemontēt failu sistēmu"
 
 #: ../fsset.py:1734
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr ""
+msgstr "Kļūda montējot ierīci %s kā %s. Jūs varat turpināt instalēšanu, taču procedūras laikā var rasties problēmas."
 
 #: ../fsset.py:1742
 #: ../image.py:91
@@ -1092,14 +1103,16 @@ msgstr "Instalēšanas logs"
 #: ../harddrive.py:44
 #: ../image.py:144
 #: ../image.py:474
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation images and that you have all the required media.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakotni %s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, vai arī CD ierīce to nevar nolasīt.\n"
+"Failu %s nav iespējams atvērt. Iemesls - faila neesamība vai bojāta pakotne. Pārbaudiet vai Jums ir visi nepieciešamie instalācijas diski un vai tie nav bojāti.\n"
+"\n"
+"Ja Jūs pārstartēsiet sistēmu, sistēma nebūs darboties spējīga un Jums nāksies atkārtot instalācijas procesu.\n"
 "\n"
 
 #: ../harddrive.py:71
@@ -1190,14 +1203,16 @@ msgid "Unable to access the CDROM."
 msgstr "Nav iespējams piekļūt CD saturam."
 
 #: ../image.py:360
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your installation tree contains all required packages.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakotni %s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, vai arī CD ierīce to nevar nolasīt.\n"
+"Failu %s nav iespējams atvērt. Iemesls - faila neesamība vai bojāta pakotne. Pārbaudiet, vai instalācijas datu nesējā ir visi nepieciešamie faili.\n"
+"\n"
+"Ja Jūs pārstartēsiet datoru, sistēma nebūs darboties spējīga un Jums nāksies atkārtot instalācijas procesu.\n"
 "\n"
 
 #: ../image.py:508
@@ -1217,9 +1232,8 @@ msgstr "Sistēmas uzstādīšana"
 
 #: ../iscsi.py:126
 #: ../iscsi.py:127
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Inicializēšana"
+msgstr "iSCSI inicializēšana"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1287,32 +1301,30 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Datora nosaukums drīkst saturēt simbolus 'a-z', 'A-Z', '-' vai '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "IP adrese nav norādīta"
+msgstr "IP adrese nav pareiza."
 
 #: ../network.py:93
-#, fuzzy
 msgid "IP Addresses must contain four numbers between 0 and 255, separated by periods."
 msgstr "IP adresei jāsatur skaitļi diapazonā no 0 līdz 255"
 
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr ""
+msgstr "'%s' nav korekta IPv6 adrese."
 
 #: ../packages.py:241
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Lūdzu ievadiet Jūsu %s kopijas reģistrācijas atslēgu."
 
 #: ../packages.py:245
 msgid "Enter Registration Key"
-msgstr ""
+msgstr "Ievatiet reģistrācijas atslēgu"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr ""
+msgstr "Atslēga:"
 
 #: ../packages.py:276
 msgid "Warning! This is pre-release software!"
@@ -1740,7 +1752,7 @@ msgstr "Jūsu norādītā root partīcija ir mazāka par 250 megabaitiem, kas ir
 
 #: ../partitions.py:840
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
-msgstr ""
+msgstr "Jūsu norādītā ielādes partīcija nav viena no pirmajām četrām partīcijām, tāpēc sistēmu nostartēt nebūs iespējams."
 
 #: ../partitions.py:847
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1861,7 +1873,7 @@ msgstr "Šajā RAID ierīcē var būt maksimums %s disku. Ja Jūs vēlaties izma
 
 #: ../partRequests.py:924
 msgid "Logical volume size must be larger than the volume group's physical extent size."
-msgstr ""
+msgstr "Loģiskās sadaļas izmēram jābūt lielākam nekā sadaļu grupas fiziskajam izmēram."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2156,14 +2168,16 @@ msgid "Connecting..."
 msgstr "Notiek pieslēgšanās..."
 
 #: ../urlinstall.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a corrupt package.  Please verify your mirror contains all required packages, and try using a different one.\n"
 "\n"
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Pakotni %s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, vai arī CD ierīce to nevar nolasīt.\n"
+"Failu %s nav iespējams atvērt. Iemesls - faila neesamība vai bojāta pakotne. Pārbaudiet, vai Jūsu spoguļserveris satur visas nepieciešamās pakotnes.\n"
+"\n"
+"Ja Jūs pārstartēsiet sistēmu, sistēmu nevarēs nostartēt un Jums būs jāatkārto instalācijas process.\n"
 "\n"
 
 #: ../vnc.py:44
@@ -2370,12 +2384,9 @@ msgid "Error running transaction"
 msgstr "Kļūda transakciju pārbaudes laikā"
 
 #: ../yuminstall.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Datora nosaukums \"%s\" ir nekorekts sekojošu iemeslu dēļ:\n"
-"\n"
-"%s"
+msgstr "Kļūda izpildot Jūsu norādīto procedūru. Iemesls: %s"
 
 #: ../yuminstall.py:514
 #: ../yuminstall.py:609
@@ -2388,9 +2399,9 @@ msgid "Retrieving installation information..."
 msgstr "Instalēšanas informācijas saņemšana..."
 
 #: ../yuminstall.py:699
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Instalēšanas informācijas saņemšana..."
+msgstr "Instalēšanas informācijas saņemšana priekš %s..."
 
 #: ../yuminstall.py:721
 #, python-format
@@ -2535,13 +2546,12 @@ msgid "_Confirm: "
 msgstr "Atkārtot:"
 
 #: ../iw/autopart_type.py:134
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Nekorekts sadaļu grupas vārds"
+msgstr "Nepareizs iniciatora vārds"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Jums jānorāda korekts iniciatora vārds."
 
 #: ../iw/autopart_type.py:157
 msgid "Error with Data"
@@ -3203,19 +3213,19 @@ msgstr ""
 #: ../loader2/net.c:376
 #: ../loader2/net.c:786
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Dinamiska IP"
 
 #: ../iw/netconfig_dialog.py:156
 #: ../loader2/net.c:377
 #: ../loader2/net.c:787
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
-msgstr ""
+msgstr "Sūta IP informācijas pieprasījumu par %s..."
 
 #: ../iw/netconfig_dialog.py:171
 #: ../textw/network_text.py:72
 msgid "IP Address"
-msgstr ""
+msgstr "IP adrese"
 
 #: ../iw/netconfig_dialog.py:177
 #: ../textw/network_text.py:73
@@ -3231,7 +3241,7 @@ msgstr "Vārteja"
 #: ../iw/netconfig_dialog.py:190
 #: ../loader2/net.c:277
 msgid "Nameserver"
-msgstr ""
+msgstr "Vārdu serveris"
 
 #: ../iw/network_gui.py:26
 #: ../iw/network_gui.py:768
@@ -3290,12 +3300,8 @@ msgid "The IP information you have entered is invalid."
 msgstr "Ievadītā IP informācija ir nekorekta."
 
 #: ../iw/network_gui.py:188
-#, fuzzy
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"Jūsu datoram nav aktīvu tīkla karšu. Jūsu sistēma nevar darboties datortīklā, ja nav nevienas aktīvas tīkla kartes.\n"
-"\n"
-"PIEZĪME: ja Jūsu datorā tiek izmantota PCMCIA tipa tīkla karte, šeit tā jāatstāj neaktivizēta. Šī karte tiks aktivizēta datora startēšanas laikā."
+msgstr "Jūsu datoram nav aktīvu tīkla karšu. Jūsu sistēma nevar darboties datortīklā, ja nav nevienas aktīvas tīkla kartes."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3303,52 +3309,47 @@ msgid "Edit Interface %s"
 msgstr "Labot karti %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
-msgstr "Ierīces adrese:"
+msgstr "Ierīces adrese: %s"
 
 #: ../iw/network_gui.py:281
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr ""
+msgstr "Izmantot dinamisko IP (DHCP)"
 
 #: ../iw/network_gui.py:286
 #: ../loader2/net.c:691
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Ieslēgt IPv4 atbalstu"
 
 #: ../iw/network_gui.py:291
 #: ../loader2/net.c:702
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Ieslēgt IPv6 atbalstu"
 
 #: ../iw/network_gui.py:296
 msgid "_Activate on boot"
 msgstr "Aktivizēt ielādes laikā"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IP adrese"
+msgstr "IPv_4 adrese:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IP adrese"
+msgstr "IPv_6 adrese:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "Punkts pret punktu (IP)"
+msgstr "Punkts pret punktu (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "Šifra atslēga"
+msgstr "Šifra atslēga:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3358,19 +3359,16 @@ msgstr "Iestatīt %s"
 #: ../iw/network_gui.py:457
 #: ../iw/network_gui.py:474
 #: ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Nekorekti katalogi"
+msgstr "Nekorekts prefikss"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP adresei jāsatur skaitļi diapazonā no 1 līdz 255"
+msgstr "IPv4 prefiksam jābūt diapazonā no 1 līdz 32."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP adresei jāsatur skaitļi diapazonā no 1 līdz 255"
+msgstr "IPv6 prefiksam jābūt robežās no 0 līdz 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3387,13 +3385,12 @@ msgid "Device"
 msgstr "Ierīce"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Tīkla maska"
+msgstr "IPv4/Tīkla maska"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Prefikss"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3412,9 +3409,8 @@ msgid "_manually"
 msgstr "manuāli"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(piem. \"dators.domēns.lv\")"
+msgstr "(piem., dators.domēns.lv)"
 
 #: ../iw/network_gui.py:731
 #: ../loader2/net.c:1401
@@ -3550,12 +3546,12 @@ msgstr "Padarīt par primāro partīciju"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Disks %s (Ģeom: %s/%s/%s) (Modelis: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Disks %s (%-0.f MB) (Modelis: %s)"
 
 #: ../iw/partition_gui.py:365
 #: ../textw/partition_text.py:1437
@@ -4066,39 +4062,41 @@ msgid "Unable to load file!"
 msgstr "Failu ielādēt nav iespējams!"
 
 #: ../iw/task_gui.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "Nav iespējams nolasīt pakotnes metadatus. Iespējamais iemesls - kataloga repodata neesamība. Lūdzu pārliecinieties, ka uzstādīšanas direktorijs ir noformēts pareizi.  %s"
+msgstr ""
+"Nav iespējams nolasīt pakotnes metadatus. Iespējamais iemesls - kataloga repodata neesamība. Lūdzu pārliecinieties, ka uzstādīšanas repozitarijs ir norādīts pareizi.\n"
+"\n"
+"%s"
 
 #: ../iw/task_gui.py:89
 #, python-format
 msgid "Unable to find a group file for %s.  This will make manual selection of packages from the repository not work"
-msgstr ""
+msgstr "Nav iespējams atvērt grupas failu priekš %s. Izvēlēties failus nav iespējams."
 
 #: ../iw/task_gui.py:121
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Nekorekts sadaļu grupas vārds"
+msgstr "Nekorekts repozitarija nosaukums"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
-msgstr ""
+msgstr "Jums jāievada korekts repozitarija nosaukums."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr ""
+msgstr "Nekorekts repozitarija URL"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Jums jānorāda korekta repozitarija HTTP vai FTP adrese."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
-msgstr "Montēšanas punkts \"%s\" jau tiek izmantots, lūdzu norādiet citu montēšanas punktu."
+msgstr "Repozitarijs %s jau ir pievienots. Norādiet savādāku repozitarija nosaukumu un URL."
 
 #: ../iw/timezone_gui.py:61
 #: ../textw/timezone_text.py:89
@@ -4280,32 +4278,41 @@ msgid ""
 "\n"
 "You can now enter any additional kernel parameters which your machine or your setup may require."
 msgstr ""
+"Jūsu sistēmā tiek uzstādīts z/IPL Boot Loader.\n"
+"\n"
+"Kā root partīcija tiks izmantota viena no Jūsu iepriekš norādītajām partīcijām.\n"
+"\n"
+"Sistēmas startēšanai tiks izmantots viens no pēc noklusējuma izmantotajiem sistēmas kodoliem.\n"
+"\n"
+"Lai izmainītu ielādes iestatījumus, pietiekoši ir izmainīt konfigurācijas failu /etc/zipl.conf.\n"
+"\n"
+"Tagad Jūs varat norādīt sistēmas kodola papildus parametrus, kas var būt nepieciešami Jūsu datorsistēmai."
 
 #: ../iw/zipl_gui.py:81
 #: ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Kodola parametri"
 
 #: ../iw/zipl_gui.py:84
 #: ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Chandev parametri"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "Kādu ielādētāju Jūs vēlaties izmantot?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "Izmantot GRUB ielādētāju"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr ""
+msgstr "Ielādētāju neizmantot"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "Izlaist ielādētāja uzstādīšanu"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4313,10 +4320,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
+"Jūs izlēmāt neuzstādīt sistēmas ielādētāju. Tā uzstādīšana ir rekomendējama vairumā gadījumu, lai sistēmu ielādētu no cietā diska.\n"
+"\n"
+"Vai tiešām Jūs vēlaties ignorēt ielādētāja uzstādīšanu?"
 
 #: ../textw/bootloader_text.py:93
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr ""
+msgstr "Dažu sistēmu ielādes "
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
@@ -7034,60 +7044,4 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Monitors noteikts pēc DDC"
-#~ msgid "Tertiary DNS"
-#~ msgstr "Trešais DNS"
-#~ msgid "_Tertiary DNS"
-#~ msgstr "Trešais DNS"
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Iestatīšana izmantojot DHCP"
-#~ msgid "_IP Address"
-#~ msgstr "IP adrese"
-#~ msgid "Net_mask"
-#~ msgstr "Tīkla maska"
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Nav iespējams noteikt partīcijas"
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Jūs varat izvēlēties citu automātiskās diska sadales parametru, vai arī "
-#~ "nospiest 'Atpakaļ', lai sāktu manuālu diska sadali.\n"
-#~ "\n"
-#~ "Nospiediet 'OK', lai turpinātu."
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Instalēšana %s-%s-%s.%s.\n"
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Pakotni %s-%s-%s.%s nav iespējams atvērt. Iemesls - datnes neesamība vai "
-#~ "bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir "
-#~ "bojāts, vai arī CD ierīce to nevar nolasīt.\n"
-#~ "\n"
-#~ "Nospiediet 'Atkārtot', lai mēģinātu vēlreiz."
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Ja Jūs sistēmu pārstartēsiet tagad, tā būs nestabilā stāvoklī un, "
-#~ "visticamāk, instalēšana būs jāatkārto. Turpināt?"
-#~ msgid "_Cancel"
-#~ msgstr "Atcelt"
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI konfigurācija"
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "IP adrese nav norādīta, iSCSI iestatīšana izlaista"
 
