@@ -114,10 +114,10 @@ class UrlInstallMethod(InstallMethod):
 
 	return file
 
-    def copyFileToTemp(self, filename):
+    def __copyFileToTemp(self, baseurl, filename, raise404=False):
         tmppath = self.getTempPath()
 
-        fullPath = self.pkgUrl + "/" + filename
+        fullPath = baseurl + "/" + filename
 
         file = tmppath + "/" + os.path.basename(fullPath)
 
@@ -126,6 +126,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
+                if errnum == 14 and 404 in msg and raise404:
+                    raise
 		log.critical("IOError %s occurred getting %s: %s",
 			     errnum, fullPath.replace("%", "%%"), str(msg))
                 time.sleep(5)
@@ -137,6 +139,8 @@ class UrlInstallMethod(InstallMethod):
             raise FileCopyException
 	return file
 
+    def copyFileToTemp(self, filename):
+        return self.__copyFileToTemp(self.pkgUrl, filename)
     def unlinkFilename(self, fullName):
 	os.remove(fullName)
 
@@ -174,10 +178,23 @@ class UrlInstallMethod(InstallMethod):
             basepath = stripnum.sub("", self.pkgUrl)
 
             # add all possible baseurls
-            discnum = discnum + 1
-            baseurls = [ self.pkgUrl ]
-            while discnum <= NUMBER_OF_CDS:
-                baseurls.append("%s%s" % (basepath ,discnum))
+            discnum = 1
+            baseurls = [] # self.pkgUrl ]
+            while True:
+                dirpath = "%s%s" % (basepath, discnum)
+
+                try:
+                    filename = self.__copyFileToTemp(dirpath, ".discinfo")
+                    self.unlinkFilename(filename)
+                except:
+                    break
+
+                log.debug("Adding baseurl: %s" % (dirpath,))
+                baseurls.append("%s" % (dirpath,))
+                try:
+                    self.unlinkFilename(filename)
+                except:
+                    pass
                 discnum += 1
 
             if len(baseurls) > 1:
