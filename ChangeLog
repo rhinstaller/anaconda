@@ -1,3 +1,10 @@
+2006-11-21  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/cdinstall.c, loader2/hdinstall.c:  Update comments.
+	* loader2/kickstart.c (getKickstartFile):  If there's an error
+	getting the kickstart file, display an error message that allows the
+	user to select a new location (#216446).
+
 2006-11-20  Paul Nasrat <pnasrat@redhat.com>
 
 	* iscsi.py: Nodes property typo (#216410)
