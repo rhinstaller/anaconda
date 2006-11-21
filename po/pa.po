@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 09:23-0500\n"
-"PO-Revision-Date: 2006-11-02 15:10+0530\n"
+"PO-Revision-Date: 2006-11-21 16:14+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -200,8 +200,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂਟ ਕਰਨ ਦੀਆਂ ਲੋੜੀਦੀਆਂ ਸੀਮਾਂਵਾਂ ਵਿੱਚ ਨਹੀ ਆ ਰਿਹਾ ਹੈ।"
 
 #: ../autopart.py:1058
@@ -209,8 +208,7 @@ msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂ�
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
+msgstr "ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
 
 #: ../autopart.py:1249
 msgid "Requested Partition Does Not Exist"
@@ -457,8 +455,7 @@ msgstr "ਬੂਟ-ਲੋਡਰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹ�
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -515,8 +512,7 @@ msgstr "ਡੰਪ ਲਿਖਿਆ ਗਿਆ"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੀ ਹਾਲਤ ਫਲਾਪੀ ਵਿੱਚ ਸਫ਼ਲਤਾਪੂਰਕ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁੜ-ਚਾਲੂ ਹੋਵੇਗਾ।"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੀ ਹਾਲਤ ਫਲਾਪੀ ਵਿੱਚ ਸਫ਼ਲਤਾਪੂਰਕ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁੜ-ਚਾਲੂ ਹੋਵੇਗਾ।"
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
 #: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
@@ -986,9 +982,8 @@ msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
 #: ../gui.py:595 ../text.py:356
-#, fuzzy
 msgid "Installation Key"
-msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ"
+msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕੁੰਜੀ"
 
 #: ../gui.py:899 ../text.py:400
 msgid "Error Parsing Kickstart Config"
@@ -998,8 +993,7 @@ msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ �
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
-"ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
 
 #: ../gui.py:954
 msgid "default:LTR"
@@ -1281,18 +1275,14 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਦੇ ਨਾਂ ਵਿੱਚ ਸਿਰਫ 'a-z', 'A-Z', '-', ਜਾਂ '.' ਅੱਖਰ ਹੀ ਵਰਤਣੇ ਚਾਹੀਦੇ ਹਨ।"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP ਸਿਰਨਾਵਾਂ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
-"IP ਸਿਰਨਾਵੇਂ ਵਿੱਚ ਅੰਕ 0 ਅਤੇ 255 ਦੇ ਵਿੱਚੋਂ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ, ਜਿੰਨਾਂ ਨੂੰ ਬਿੰਦੀ ਰਾਹੀਂ ਵੱਖ ਕੀਤਾ ਹੋਣਾ "
-"ਚਾਹੀਦਾ ਹੈ।"
+msgstr "IP ਸਿਰਨਾਵੇਂ ਵਿੱਚ ਚਾਰ ਅੰਕ 0 ਅਤੇ 255 ਦੇ ਵਿੱਚੋਂ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ, ਜਿੰਨਾਂ ਨੂੰ ਬਿੰਦੀ ਰਾਹੀਂ ਵੱਖ ਕੀਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../network.py:96
 #, python-format
@@ -1300,24 +1290,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' ਇੱਕ ਠੀਕ IPv6 ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਹੈ।"
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' ਇੱਕ ਠੀਕ IPv6 ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਹੈ।"
+msgstr "'%s' ਇੱਕ ਗਲਤ IP ਸਿਰਨਾਵਾਂ ਹੈ।"
 
 #: ../packages.py:248
-#, fuzzy
 msgid "Invalid Key"
-msgstr "ਗਲਤ ਪ੍ਰੀ-ਫਿਕਸ"
+msgstr "ਗਲਤ ਕੁੰਜੀ"
 
 #: ../packages.py:249
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "ਮੁੱਲ, ਜੋ ਕਿ ਤੁਸੀਂ ਦਿੱਤਾ ਹੈ, ਇੱਕ ਠੀਕ ਅੰਕ ਨਹੀ ਹੈ।"
+msgstr "ਕੁੰਜੀ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ, ਗਲਤ ਹੈ।"
 
 #: ../packages.py:262
-#, fuzzy
 msgid "_Skip"
-msgstr "ਅਧੂਰਾ ਛੱਡੋ"
+msgstr "ਅਧੂਰਾ ਛੱਡੋ(_S)"
 
 #: ../packages.py:289
 msgid "Warning! This is pre-release software!"
@@ -1755,8 +1742,7 @@ msgid "Confirm Reset"
 msgstr "ਮੁਡ਼-ਨਿਰਧਾਰਨ ਦੀ ਪੁਸ਼ਟੀ"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਹੀ ਭਾਗ-ਸਾਰਣੀ ਨੂੰ ਮੁਡ਼ ਮੁੱਢਲੀ ਸਥਿਤੀ ਤੇ ਲਿਆਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../partitioning.py:64
@@ -1805,12 +1791,10 @@ msgstr "ਤੁਸੀਂ ਰੂਟ(root) ਭਾਗ 250 ਮੈਗਾਬਾਇਟ �
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"ਤੁਹਾਡਾ ਬੂਟ ਭਾਗ ਪਹਿਲੇ 4 ਭਾਗਾਂ ਵਿਚੋਂ ਕਿਸੇ ਉੱਤੇ ਵੀ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸਕਰਕੇ ਇਹ ਬੂਟ ਕਰਨ ਨਹੀਂ ਸਕੇਗਾ।"
+msgstr "ਤੁਹਾਡਾ ਬੂਟ ਭਾਗ ਪਹਿਲੇ 4 ਭਾਗਾਂ ਵਿਚੋਂ ਕਿਸੇ ਉੱਤੇ ਵੀ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸਕਰਕੇ ਇਹ ਬੂਟ ਕਰਨ ਨਹੀਂ ਸਕੇਗਾ।"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ /boot/efi ਭਾਗ ਫੈਟ(FAT) ਕਿਸਮ ਅਤੇ 50 ਮੈਗਾਬਾਇਟ ਦਾ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:867
@@ -1831,17 +1815,14 @@ msgstr ""
 "ਹੈ।"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
-"ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
+msgstr "ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1891,8 +1872,7 @@ msgstr "ਇੱਕ ਭਾਗ, ਜੋ ਕਿ LVM ਵਾਲੀਅਮ ਸਮੂਹ �
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਮਾਊਟ ਸਥਿਤੀ ਜਾਇਜ਼ ਨਹੀ ਹੈ।  ਡਾਇਰੈਕਟਰੀ %s ਫਾਇਲ-ਸਿਸਟਮ / ਤੇ ਮੌਜੂਦ ਹੋਣੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partRequests.py:252
@@ -1913,8 +1893,7 @@ msgstr "ਇਹ ਮਾਊਟ ਸਥਿਤੀ ਲੀਨਕਸ ਫਾਇਲ ਸਿ�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
+msgstr "ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
 
 #: ../partRequests.py:294
 #, python-format
@@ -2154,14 +2133,14 @@ msgid "No help is available for this step of the install."
 msgstr "ਇੰਸਟਾਲ ਦੇ ਇਸ ਪਗ ਲਈ ਕੋਈ ਸਹਾਇਤਾ ਨਹੀ ਹੈ।"
 
 #: ../text.py:361
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਵਾਲੀਅਮ-ਸਮੂਹ ਦਾ ਨਾਂ ਦਿਉ।"
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ %(instkey)s ਦਿਉ।"
 
 #: ../text.py:378 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s ਦੇਣ ਨੂੰ ਛੱਡੋ"
 
 #: ../text.py:409
 msgid "Save Crash Dump"
@@ -2173,8 +2152,7 @@ msgid "Welcome to %s"
 msgstr "%s ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ਸਹਾਇਤਾ ਲਈ | <Tab> ਇਕਾਈਆਂ ਵਿੱਚ | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../text.py:472
@@ -2533,8 +2511,7 @@ msgstr "ਸੰਚਾਰ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -3391,9 +3368,8 @@ msgid "Nameserver"
 msgstr "ਨਾਂ-ਸਰਵਰ"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ ਸੰਰਚਨਾ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਸੀ।"
+msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ ਦੀ ਸੰਰਚਨਾ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਹੈ"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
@@ -3448,14 +3424,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:179 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "ਖੇਤਰ \"%s\" ਲਈ ਮੁੱਲ ਲੋਡ਼ੀਦਾ ਹੈ।"
+msgstr "ਖੇਤਰ %s ਲਈ ਮੁੱਲ ਲੋਡ਼ੀਂਦਾ ਹੈ।"
 
 #: ../iw/network_gui.py:187 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "ਡਾਟਾ ਨਾਲ ਗਲਤੀ"
+msgstr "%s ਡਾਟਾ ਨਾਲ ਗਲਤੀ"
 
 #: ../iw/network_gui.py:188 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3464,9 +3440,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:192 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "ਆਈਪੀ(IP) ਜਾਣਕਾਰੀ ਜੋ ਤੁਸੀਂ ਭਰੀ ਹੈ, ਠੀਕ ਨਹੀ ਹੈ।"
+msgstr "IPv4 ਜਾਣਕਾਰੀ ਜੋ ਤੁਸੀਂ ਭਰੀ ਹੈ, ਠੀਕ ਨਹੀ ਹੈ।"
 
 #: ../iw/network_gui.py:196
 msgid ""
@@ -3503,22 +3478,20 @@ msgid "_Activate on boot"
 msgstr "ਬੂਟ ਸਮੇਂ ਸਰਗਰਮ(_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP ਸਿਰਨਾਵਾਂ"
+msgstr "ਸਿਰਨਾਵਾਂ"
 
 #: ../iw/network_gui.py:337 ../textw/network_text.py:216
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "ਨੈੱਟਮਾਸਕ"
+msgstr "ਅਗੇਤਰ (ਨੈੱਟਮਾਸਕ)"
 
 #: ../iw/network_gui.py:342
 msgid "IPv_4:"
-msgstr ""
+msgstr "IPv_4:"
 
 #: ../iw/network_gui.py:364
 msgid "IPv_6:"
-msgstr ""
+msgstr "IPv_6:"
 
 #: ../iw/network_gui.py:395
 msgid "_Point to Point (IP):"
@@ -3543,32 +3516,30 @@ msgid "Missing Protocol"
 msgstr "ਗੁੰਮ ਪਰੋਟੋਕਾਲ"
 
 #: ../iw/network_gui.py:476 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "ਤੁਹਾਨੂੰ DHCP ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ (IPv4 ਜਾਂ IPv6)।"
+msgstr "ਤੁਹਾਨੂੰ ਘੱਟੋ-ਘੱਟ IPv4 ਜਾਂ IPv6 ਸਹਿਯੋਗ ਚੁਣਨ ਦੀ ਲੋੜ ਹੈ।"
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
 #: ../textw/network_text.py:386 ../loader2/net.c:97
 msgid "Invalid Prefix"
-msgstr "ਗਲਤ ਪ੍ਰੀ-ਫਿਕਸ"
+msgstr "ਗਲਤ ਅਗੇਤਰ"
 
 #: ../iw/network_gui.py:503 ../textw/network_text.py:354
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IPv4 ਪ੍ਰੀ-ਫਿਕਸ 0 ਤੋਂ 32 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
+msgstr "IPv4 ਅਗੇਤਰ 0 ਤੋਂ 32 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
 #: ../iw/network_gui.py:531 ../textw/network_text.py:381
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IPv6 ਪ੍ਰੀ-ਫਿਕਸ 0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
+msgstr "IPv6 ਅਗੇਤਰ 0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
 #: ../iw/network_gui.py:537 ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6 ਪ੍ਰੀ-ਫਿਕਸ 0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
+msgstr "ਗਲਤ ਜਾਂ ਖਾਲੀ IPv6 ਅਗੇਤਰ (0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ)।"
 
 #: ../iw/network_gui.py:593 ../iw/network_gui.py:606
 msgid "Disabled"
-msgstr ""
+msgstr "ਅਯੋਗ ਕੀਤਾ"
 
 #: ../iw/network_gui.py:683
 msgid "Active on Boot"
@@ -3587,7 +3558,7 @@ msgstr "IPv4/ਨੈੱਟਮਾਸਕ"
 
 #: ../iw/network_gui.py:689
 msgid "IPv6/Prefix"
-msgstr "IPv6/ਪ੍ਰੀ-ਫਿਕਸ"
+msgstr "IPv6/ਅਗੇਤਰ"
 
 #: ../iw/network_gui.py:749
 msgid "Network Devices"
@@ -3795,14 +3766,12 @@ msgid "Partitioning"
 msgstr "ਵਿਭਾਗੀਕਰਨ"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "ਇਹ ਘਾਤਕ ਗਲਤੀਆਂ ਕਰਕੇ ਤੁਹਾਡੀ ਲੋਡ਼ੀਂਦੀ ਵਿਭਾਗੀਕਰਨ ਸਕੀਮ ਖਤਮ ਹੋ ਗਈ ਹੈ।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ਇਹ ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀਆਂ ਜਰੂਰੀ ਹਨ ਤਾਂਕਿ ਤੁਸੀਂ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਰਹੋ।"
 
 #: ../iw/partition_gui.py:642
@@ -4302,8 +4271,7 @@ msgstr ""
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr ""
-"%s ਲਈ ਗਰੁੱਪ ਫਾਇਲ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰਥ।  ਇਸ ਨਾਲ ਰਿਪੋਜ਼ਟਰੀ ਤੇ ਪੈਕੇਜਾਂ ਦੀ ਚੋਣ ਕੰਮ ਨਹੀਂ ਕਰੇਗੀ।"
+msgstr "%s ਲਈ ਗਰੁੱਪ ਫਾਇਲ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰਥ।  ਇਸ ਨਾਲ ਰਿਪੋਜ਼ਟਰੀ ਤੇ ਪੈਕੇਜਾਂ ਦੀ ਚੋਣ ਕੰਮ ਨਹੀਂ ਕਰੇਗੀ।"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
@@ -4348,8 +4316,7 @@ msgstr "ਇਹ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਬੂਟ-ਲੋਡਰ ਨ�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ਇੰਸਟਾਲਰ ਨੇ %s ਬੂਟ-ਲੋਡਰ ਇਸ ਸਮੇਂ %s ਤੇ ਖੋਜਿਆ ਹੈ।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4484,8 +4451,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ਸਵੈਪ ਫਾਇਲ ਦਾ ਆਕਾਰ 1 ਅਤੇ 2000 ਮੈਬਾ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ਜੋ ਜੰਤਰ ਤੁਸੀਂ ਸਵੈਪ ਲਈ ਚੁਣਿਆ ਹੈ, ਤੇ ਲੋਡ਼ੀਦਾ ਥਾਂ ਨਹੀ ਹੈ।"
 
 #: ../iw/zipl_gui.py:28
@@ -4621,10 +4587,8 @@ msgstr ""
 "ਭਾਗ ਤੋਂ ਬੂਟ ਕਰਨਾ ਹੈ ਅਤੇ ਉਸ ਲਈ ਵੱਖਰਾ ਲੇਬਲ ਵੀ ਦੇਣਾ ਪਵੇਗਾ।"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4759,13 +4723,12 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਪੈਕੇਜ ਗਰੁੱਪ ਦੀ ਚੋਣ ਕਰੋ, ਜਿਸ ਨੂੰ ਤੁਸੀਂ ਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> ਚੋਣ   |   <F2> ਸਮੂਹ ਵੇਰਵਾ   |   <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "ਚੁਣਨ ਲਈ ਕੋਈ ਚੋਣਵਾਂ ਪੈਕੇਜ ਨਹੀਂ ਹੈ"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -4796,12 +4759,12 @@ msgid "Mouse Selection"
 msgstr "ਮਾਊਸ ਚੋਣ"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"ਤੁਸੀਂ ਖੇਤਰ \"%s\" ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
+"ਤੁਸੀਂ ਖੇਤਰ %s ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
 "ਸਕਦੀ ਹੈ।"
 
 #: ../textw/network_text.py:152
@@ -4824,25 +4787,23 @@ msgstr "ਚੱਲਣ ਸਮੇਂ ਸਰਗਰਮ ਕਰੋ"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-ਤੋਂ-P:"
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "ਕੁੰਜੀ:"
+msgstr "WEP ਕੁੰਜੀ:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5095,8 +5056,7 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ �
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
+msgstr "ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
 
 #: ../textw/partition_text.py:1312
 #, python-format
@@ -5134,10 +5094,8 @@ msgid "RAID"
 msgstr "ਰੇਡ (RAID)"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5165,9 +5123,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਤੁਸੀਂ ਕਿਹਡ਼ੀ ਡਰਾਈਵਾਂ ਵਰਤੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../textw/partition_text.py:1561
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> ਚੋਣ   |   <F2> ਸਮੂਹ ਵੇਰਵਾ   |   <F12> ਅਗਲਾ ਪਰਦਾ"
+msgstr "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 
 #: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
@@ -5186,20 +5143,15 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "ਤੁਸੀਂ ਆਪਣੀ ਹਾਰਡ ਡਿਸਕ ਸੰਰਚਨਾ ਨੂੰ ਕਿਵੇਂ ਸੋਧਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../textw/partition_text.py:1663
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "FCP ਜੰਤਰ ਸ਼ਾਮਿਲ"
+msgstr "FCP ਜੰਤਰ ਸ਼ਾਮਿਲ ਕਰੋ"
 
 #: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr ""
-"zSeries ਮਸ਼ੀਨਾਂ ਸਨਅਤੀ ਪੱਧਰ SCSI ਜੰਤਰਾਂ ਨੂੰ ਫਾਇਬਰ ਚੈਨਲ(FCP) ਰਾਹੀ ਖੋਲ ਸਕਦੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਹਰ "
-"ਜੰਤਰ ਲਈ 5 ਪੈਰਾਮੀਟਰ ਦੇਣੇ ਪੈਣਗੇ। ਇੱਕ 16 ਬਿੱਟ ਜੰਤਰ ਨੰਬਰ, 16 ਬਿੱਟ SCSI ID, ਇੱਕ 64 ਬਿੱਟ "
-"ਵਰਡਵਾਇਡ ਪੋਰਟ ਨੰਬਰ(WWPN), ਇੱਕ 16 ਬਿੱਟ SCSI LUN ਅਤੇ 64 ਬਿੱਟ FCP LUN।"
+msgstr "zSeries ਮਸ਼ੀਨਾਂ ਸਨਅਤੀ ਪੱਧਰ SCSI ਜੰਤਰਾਂ ਨੂੰ ਫਾਇਬਰ ਚੈਨਲ(FCP) ਰਾਹੀ ਖੋਲ ਸਕਦੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਹਰ ਜੰਤਰ ਲਈ 5 ਪੈਰਾਮੀਟਰ ਦੇਣੇ ਪੈਣਗੇ। ਇੱਕ 16 ਬਿੱਟ ਜੰਤਰ ਨੰਬਰ, ਇੱਕ 64 ਬਿੱਟ ਵਰਡਵਾਇਡ ਪੋਰਟ ਨੰਬਰ(WWPN), ਅਤੇ 64 ਬਿੱਟ FCP LUN।"
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5479,15 +5431,14 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:34
-#, fuzzy
 msgid "Installation Number"
-msgstr "ਸ਼ੁਰੂ ਹੋਣ ਲਈ ਇੰਸਟਾਲੇਸ਼ਨ"
+msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ"
 
 #: ../installclasses/rhel.py:35
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "ਤੁਹਾਡੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸਹਿਯੋਗੀ ਪੈਕੇਜਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਦਿਓ"
 
 #: ../installclasses/rhel.py:38
 msgid ""
@@ -5502,6 +5453,13 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"ਜੇ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਪਤਾ ਨਹੀਂ ਲਗਾ ਸਕਦੇ, ਤਾਂ http://www."
+"redhat.com/apps/support/in.html ਨਾਲ ਸੰਪਰਕ ਕਰੋ।\n"
+"\n"
+"ਜੇ ਤੁਸੀਂ ਅਧੂਰਾ ਛੱਡ ਦਿੱਤਾ:\n"
+"* ਤੁਸੀਂ ਆਪਣੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਸਭ ਪੈਕੇਜਾਂ ਲਈ ਪਹੁੰਚ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰ ਸਕਦੇ।\n"
+"* ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ Red Hat Enterprise Linux ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨਾ-ਸਹਿਯੋਗੀ/ਨਾ-ਸਾਰਟੀਫਾਈਡ ਹੋਵੇਗੀ।\n"
+"* ਤੁਸੀਂ ਪੈਕੇਜਾਂ ਜੋ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਨਹੀਂ, ਲਈ ਸਾਫਟਵੇਅਰ ਅਤੇ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨਹੀਂ ਲੈ ਸਕਦੇ।"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5893,8 +5851,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ - ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:160
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ਇਕਾਈਆਂ ਵਿੱਚ  | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../loader2/lang.c:366
@@ -6004,8 +5961,7 @@ msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜ�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਈਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਈਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../loader2/loader.c:1161
 msgid "Devices"
@@ -6153,8 +6109,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"IPv4 ਨੈੱਟਵਰਕ ਲਈ ਅਗੇਤਰ 1 ਅਤੇ 32 ਵਿਚਕਾਰ ਜਾਂ IPv6 ਨੈੱਟਵਰਕ ਲਈ 1 ਅਤੇ 128 ਵਿਚਕਾਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
+msgstr "IPv4 ਨੈੱਟਵਰਕ ਲਈ ਅਗੇਤਰ 1 ਅਤੇ 32 ਵਿਚਕਾਰ ਜਾਂ IPv6 ਨੈੱਟਵਰਕ ਲਈ 1 ਅਤੇ 128 ਵਿਚਕਾਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6261,7 +6216,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "IPv4 ਅਤੇ/ਜਾਂ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਅਗੇਤਰ (ਸਿਰਨਾਵਾਂ / ਅਗੇਤਰ) ਦਿਓ। IPv4 ਲਈ, ਬਿੰਦੂ ਦੁਆਰਾ ਵੱਖ ਕੀਤਾ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR-ਵਰਗਾ ਅਗੇਤਰ ਸਵੀਕਾਰ ਹੁੰਦਾ ਹੈ। ਗੇਟਵੇ ਅਤੇ ਨਾਂ ਸਰਵਰ ਖੇਤਰ ਸਹੀ IPv4 ਜਾਂ IPv6 ਸਿਰਨਾਵੇਂ ਹੋਣੇ ਜਰੂਰੀ ਹਨ।"
 
 #: ../loader2/net.c:1024
 msgid "Manual TCP/IP Configuration"
@@ -6272,14 +6227,12 @@ msgid "Missing Information"
 msgstr "ਗੁੰਮ ਜਾਣਕਾਰੀ"
 
 #: ../loader2/net.c:1148
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv4 ਸਿਰਨਾਵਾਂ ਅਤੇ ਇੱਕ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR ਪ੍ਰੀਫਿਕਸ ਦੇਣਾ ਪਵੇਗਾ।"
 
 #: ../loader2/net.c:1154
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਇੱਕ aCIDR ਪ੍ਰੀਫਿਕਸ ਦੇਣਾ ਪਵੇਗਾ।"
+msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਇੱਕ CIDR ਅਗੇਤਰ ਦੇਣਾ ਪਵੇਗਾ।"
 
 #: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
@@ -6444,8 +6397,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"ਜੇਕਰ ਤੁਸੀਂ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
+msgstr "ਜੇਕਰ ਤੁਸੀਂ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
 
 #: ../loader2/urls.c:451
 msgid "Account name:"
@@ -6549,7 +6501,7 @@ msgstr "ਅਪਵਾਦ ਵੇਰਵਾ(_E)"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6638,19 +6590,16 @@ msgid "_Customize now"
 msgstr "ਆਪਣੀ ਪਸੰਦ(_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "ਜੰਤਰ ਨੰਬਰ"
+msgstr "<b>ਜੰਤਰ ਨੰਬਰ:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>ਗੁਪਤ-ਕੋਡ(_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6911,8 +6860,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟੀਰੀਓ - ਆਮ ਥਾਵਾਂ"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟਾਰੀਓ ਤੇ ਕਿਊਬਸ - ਥਾਵਾਂ, ਜੋ ਕਿ DST 1967-1973 ਨੂੰ ਨਹੀ ਵੇਖੀਆ"
 
 #. generated from zone.tab
@@ -7108,8 +7056,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਅਰੀਜ਼ੋਨਾ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਡਾਵਸਨ ਕਰੈਕ ਤੇ ਕਿਲਾ ਸੈਟ ਜੋਹਨ, ਬਰਤਾਨਵੀਂ ਕੋਲੰਬੀਆ"
 
 #. generated from zone.tab
@@ -7350,7 +7297,7 @@ msgstr "ਅਰਬੀ"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "ਅਸਾਮੀ"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7514,7 +7461,7 @@ msgstr "ਸਰਬੀਆ (ਲੈਟਿਨ)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "ਸਿਨਹਾਲਾ"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7538,7 +7485,7 @@ msgstr "ਤਾਮਿਲ"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "ਤੇਲਗੂ"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7560,86 +7507,3 @@ msgstr "ਵਾਲਿਸ਼"
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
 
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "ਕਿਰਪਾ ਕਰੇਕ %s ਦੇ ਆਪਣੇ ਵਰਜਨ ਲਈ ਰਜਿਸਟਰੇਸ਼ਨ ਕੁੰਜੀ ਦਿਓ।"
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "ਰਜਿਸਟਰੇਸ਼ਨ ਕੁੰਜੀ ਦਿਓ"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "ਗਲਤੀ, %s ਤੇ ਫਾਇਲ ਸਿਸਟਮ ਮਾਊਟ ਕਰਨ ਵਿੱਚ: %s"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI Id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "ਤੁਸੀਂ ਇੱਕ SCSI Id ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ID ਜਾਇਜ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "ਤੁਸੀਂ SCSI LUN ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਜਾਇਜ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4 ਸਿਰਨਾਵਾਂ:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6 ਸਿਰਨਾਵਾਂ:"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP ਸੰਰਚਨਾ"
-
-#~ msgid "_Remove"
-#~ msgstr "ਹਟਾਓ(_R)"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP ਜੰਤਰ"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP ਜੰਤਰ %s ਸੋਧ"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "ਤੁਸੀਂ ਆਪਣੀ ਸੰਰਚਨਾ ਵਿੱਚੋਂ FCP ਡਿਸਕ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣ ਲਈ ਸਹਿਮਤ ਹੋ?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "ਗਲਤ IP ਸਤਰ"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "ਦਿੱਤਾ IP '%s' ਇੱਕ ਜਾਇਜ਼ IP ਨਹੀ ਹੈ।"
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point ਤੋਂ Point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "DHCP ਵਰਤੇ ਕੇ ਸੰਰਚਿਤ ਕਰੋ"
-
-#~ msgid "Invalid information"
-#~ msgstr "ਗਲਤ ਜਾਣਕਾਰੀ"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "ਤੁਹਾਨੂੰ ਜਾਰੀ ਰਹਿਣ ਲਈ ਜਾਇਜ਼ IP ਜਾਣਕਾਰੀ ਦੇਣੀ ਜ਼ਰੂਰੀ ਹੈ"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "ਤ੍ਰਸ਼ਰੀ DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP ਜੰਤਰ"
-
-#~ msgid "Device #"
-#~ msgstr "ਜੰਤਰ #"
-
-#~ msgid "Add"
-#~ msgstr "ਸ਼ਾਮਿਲ"
-
-#~ msgid "Remove"
-#~ msgstr "ਹਟਾਓ"
