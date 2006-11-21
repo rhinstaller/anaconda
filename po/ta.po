@@ -15,14 +15,14 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 09:23-0500\n"
-"PO-Revision-Date: 2006-10-20 16:21+0530\n"
+"PO-Revision-Date: 2006-11-21 17:39+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -192,20 +192,17 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"துவக்க பகிர்வு %s VFAT பகிர்வில் இல்லை.  EFI ஐ இந்த பகிர்விலிருந்து துவக்க முடியாது."
+msgstr "துவக்க பகிர்வு %s VFAT பகிர்வில் இல்லை.  EFI ஐ இந்த பகிர்விலிருந்து துவக்க முடியாது."
 
 #: ../autopart.py:1025
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
-"துவக்க பகிர்வு இதற்கு முன் இந்த வட்டில் இல்லை.OpenFirmware நிறுவலை துவக்க முடியாது."
+msgstr "துவக்க பகிர்வு இதற்கு முன் இந்த வட்டில் இல்லை.OpenFirmware நிறுவலை துவக்க முடியாது."
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "துவக்க பகிர்வு %s ஆல் உங்கள் வடிவமைப்பிற்கேற்ற துவக்க விதிகளை அமைக்க முடியவில்லை."
 
 #: ../autopart.py:1058
@@ -213,8 +210,7 @@ msgstr "துவக்க பகிர்வு %s ஆல் உங்கள்
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"இந்தப் பகிர்வை சேர்ப்பதால் ஏற்கெனவே ஒதுக்கப்பட்ட பகிர்வு %s இல் இடப்பற்றாக்குறை ஏற்படும்."
+msgstr "இந்தப் பகிர்வை சேர்ப்பதால் ஏற்கெனவே ஒதுக்கப்பட்ட பகிர்வு %s இல் இடப்பற்றாக்குறை ஏற்படும்."
 
 #: ../autopart.py:1249
 msgid "Requested Partition Does Not Exist"
@@ -993,9 +989,8 @@ msgid "Cancel"
 msgstr "ரத்து"
 
 #: ../gui.py:595 ../text.py:356
-#, fuzzy
 msgid "Installation Key"
-msgstr "நிறுவல் முறை"
+msgstr "நிறுவல் குறியீடு"
 
 #: ../gui.py:899 ../text.py:400
 msgid "Error Parsing Kickstart Config"
@@ -1148,8 +1143,7 @@ msgstr "நிறுவல் கோப்புகள் நிலைவட்�
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"நிறுவல் கோப்புகளை வட்டுக்கு மாற்றும் போது பிழை ஏற்பட்டுள்ளது. உங்கள் வட்டில் இடம் இல்லை"
+msgstr "நிறுவல் கோப்புகளை வட்டுக்கு மாற்றும் போது பிழை ஏற்பட்டுள்ளது. உங்கள் வட்டில் இடம் இல்லை"
 
 #: ../image.py:266
 msgid "Change CDROM"
@@ -1289,17 +1283,15 @@ msgstr ""
 "வேண்டும்."
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP முகவரியைக் காணவில்லை."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP முகவரிகள் 0க்கும் 255 க்கும் இடைப்பட்ட 4 எண்களை கொண்டு, காலங்களால் பிரிக்கப்பட்டிருக்க "
+"IPv4 முகவரிகள் 0க்கும் 255 க்கும் இடைப்பட்ட நான்கு எண்களை கொண்டு, காலங்களால் பிரிக்கப்பட்டிருக்க "
 "வேண்டும்."
 
 #: ../network.py:96
@@ -1308,24 +1300,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' ஒரு சரியான IPv6 முகவரி இல்லை."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' ஒரு சரியான IPv6 முகவரி இல்லை."
+msgstr "'%s' ஒரு தவறான IP முகவரி."
 
 #: ../packages.py:248
-#, fuzzy
 msgid "Invalid Key"
-msgstr "தவறான முன்னொட்டு"
+msgstr "தவறான குறியீடு"
 
 #: ../packages.py:249
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "நீங்கள் உள்ளிட்ட மதிப்பு தவறான எண்ணாகும்."
+msgstr "நீங்கள் உள்ளிட்ட குறியீடு தவறானது."
 
 #: ../packages.py:262
-#, fuzzy
 msgid "_Skip"
-msgstr "தவிர்க்கவும்"
+msgstr "தவிர்க்கவும் (_S)"
 
 #: ../packages.py:289
 msgid "Warning! This is pre-release software!"
@@ -1763,8 +1752,7 @@ msgid "Confirm Reset"
 msgstr "மறுஅமைவினை உறுதி செய்யவும்"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "உங்கள் பகிர்வு அட்டவணையை பழைய நிலைக்கே மாற்ற வேண்டுமா?"
 
 #: ../partitioning.py:64
@@ -1799,8 +1787,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"நீங்கள் Root பகிர்வை வரையறுக்கவில்லை (/), %s நிறுவலைத் தொடர இது அவசியம் தேவையானது."
+msgstr "நீங்கள் Root பகிர்வை வரையறுக்கவில்லை (/), %s நிறுவலைத் தொடர இது அவசியம் தேவையானது."
 
 #: ../partitions.py:821
 #, python-format
@@ -1818,8 +1805,7 @@ msgid ""
 msgstr "உங்கள் பூட் பகிர்வு முதல் நான்கு பகிர்வுகளில் இல்லை எனவே அதனை துவக்க முடியவில்லை."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "நீங்கள் /boot/efi FAT வகையாக உருவாக்க வேண்டும். மேலும் அது 50 மெகா பைட்டுகளாக இருத்தல் "
 "வேண்டும்."
@@ -1842,8 +1828,7 @@ msgstr ""
 "போதாது."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ஒரு USB சாதனத்தை நிறுவுகிறது. இது பணி செய்யும் கணினியை உருவாக்கலாம் அல்லது "
 "உருவாக்காமலும் இருக்கலாம்."
@@ -1904,8 +1889,7 @@ msgstr "LVM தொகுதி குழுவில் உறுப்பின
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "இந்த ஏற்றப்புள்ளி தவறானது.  %s அடைவு, / கோப்பு முறைமையில் இருக்க வேண்டும்."
 
 #: ../partRequests.py:252
@@ -1933,8 +1917,7 @@ msgstr "ஏற்றப்புள்ளி \"%s\" ஏற்கனவே பய
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s பகிர்வின் அளவு (%10.2f MB) %10.2f MB ன் அதிகபட்ச அளவினை விட அதிகமாக உள்ளது."
+msgstr "%s பகிர்வின் அளவு (%10.2f MB) %10.2f MB ன் அதிகபட்ச அளவினை விட அதிகமாக உள்ளது."
 
 #: ../partRequests.py:490
 #, python-format
@@ -1963,8 +1946,7 @@ msgstr "RAIDல் உள்ள உறுப்பினர்கள் கோ�
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s வகையைச் சார்ந்த RAID சாதனம் குறைந்தது %s உறுப்பினர்களையாவது கொண்டிருக்க வேண்டும்."
+msgstr "%s வகையைச் சார்ந்த RAID சாதனம் குறைந்தது %s உறுப்பினர்களையாவது கொண்டிருக்க வேண்டும்."
 
 #: ../partRequests.py:690
 #, python-format
@@ -2010,8 +1992,7 @@ msgstr "ரத்து செய்யப்பட்டது"
 
 #: ../rescue.py:244 ../text.py:578
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"என்னால் இங்கு இருந்து முந்தைய நிலைக்கு செல்ல இயலவில்லை. நீங்கள் மீண்டும் முயற்சிக்க வேண்டும்."
+msgstr "என்னால் இங்கு இருந்து முந்தைய நிலைக்கு செல்ல இயலவில்லை. நீங்கள் மீண்டும் முயற்சிக்க வேண்டும்."
 
 #: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
@@ -2169,14 +2150,14 @@ msgid "No help is available for this step of the install."
 msgstr "இந்த படிநிலை நிறுவலுக்கு எந்த உதவியும் இல்லை."
 
 #: ../text.py:361
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "தொகுதி குழு பெயரை உள்ளிடவும்."
+msgstr "உங்கள் %(instkey)sஐ உள்ளிடவும்"
 
 #: ../text.py:378 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s உள்ளிடுவதை தவிர்க்கவும்"
 
 #: ../text.py:409
 msgid "Save Crash Dump"
@@ -2188,17 +2169,14 @@ msgid "Welcome to %s"
 msgstr "%sக்கு நல்வரவு"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"<F1> உதவிக்கு | <Tab> உறுப்புகள்  இடையே | <Space> தேர்ந்தெடு | <F12> அடுத்த திரை"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "<F1> உதவிக்கு | <Tab> உறுப்புகள்  இடையே | <Space> தேர்ந்தெடு | <F12> அடுத்த திரை"
 
 #: ../text.py:472
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"   <Tab>/<Alt-Tab> உறுப்புகள் இடையே  |  <Space> தேர்ந்தெடு   |  <F12> அடுத்த திரை "
+msgstr "   <Tab>/<Alt-Tab> உறுப்புகள் இடையே  |  <Space> தேர்ந்தெடு   |  <F12> அடுத்த திரை "
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -2552,8 +2530,7 @@ msgstr "பரிமாற்ற இயக்கத்தில் பிழை"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "பின்வரும் காரணங்களால், உங்கள் பரிமாற்றத்தை இயக்கும் போது பிழை ஏற்பட்டுள்ளது: %s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -2662,8 +2639,7 @@ msgstr "கடவுச்சொல்லில் தவறு"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"Root கடவுச்சொல்லை உள்ளிட வேண்டும் மற்றும் அதை இரண்டாவது முறை உறுதிசெய்து தொடர வேண்டும்."
+msgstr "Root கடவுச்சொல்லை உள்ளிட வேண்டும் மற்றும் அதை இரண்டாவது முறை உறுதிசெய்து தொடர வேண்டும்."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
@@ -2685,8 +2661,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"Root கணக்கு கணினியை நிர்வாகிக்க பயன்படும்.  ரூட் பயனருக்கான ஒரு கடவுச்சொல்லை உள்ளிடவும்."
+msgstr "Root கணக்கு கணினியை நிர்வாகிக்க பயன்படும்.  ரூட் பயனருக்கான ஒரு கடவுச்சொல்லை உள்ளிடவும்."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3257,8 +3232,7 @@ msgstr "பெயர் பயனில் உள்ளது"
 #: ../iw/lvm_dialog_gui.py:906
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" தொகுதி குழுப் பெயரை ஏற்கெனவே பயன்படுத்தப்பட்டுள்ளது. வேறொன்றைத் தேர்ந்தெடுக்கவும்."
+msgstr "\"%s\" தொகுதி குழுப் பெயரை ஏற்கெனவே பயன்படுத்தப்பட்டுள்ளது. வேறொன்றைத் தேர்ந்தெடுக்கவும்."
 
 #: ../iw/lvm_dialog_gui.py:950
 msgid "Not enough physical volumes"
@@ -3426,9 +3400,8 @@ msgid "Nameserver"
 msgstr "பெயர்சேவையகம்"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "உங்கள் பிணைய இடைமுகத்தை கட்டமைக்கும் போது பிழை."
+msgstr "உங்கள் பிணைய சாதனத்தை கட்டமைக்கும் போது பிழை"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
@@ -3483,14 +3456,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:179 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "புலம் \"%s\" க்கு ஒரு மதிப்பு தேவைப்படுகிறது."
+msgstr "புலம் %s க்கு ஒரு மதிப்பு தேவைப்படுகிறது."
 
 #: ../iw/network_gui.py:187 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "தரவில் பிழை"
+msgstr "%s தரவில் பிழை"
 
 #: ../iw/network_gui.py:188 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3499,9 +3472,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:192 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "நீங்கள் உள்ளிட்ட IP தகவல் தவறானது."
+msgstr "நீங்கள் உள்ளிட்ட IPv4 தகவல் தவறானது."
 
 #: ../iw/network_gui.py:196
 msgid ""
@@ -3538,22 +3510,20 @@ msgid "_Activate on boot"
 msgstr "துவக்கத்தின் போது செயல்படுத்தவும் (_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP முகவரி"
+msgstr "முகவரி"
 
 #: ../iw/network_gui.py:337 ../textw/network_text.py:216
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr "முன்னொட்டு (Netmask)"
 
 #: ../iw/network_gui.py:342
 msgid "IPv_4:"
-msgstr ""
+msgstr "IPv_4:"
 
 #: ../iw/network_gui.py:364
 msgid "IPv_6:"
-msgstr ""
+msgstr "IPv_6:"
 
 #: ../iw/network_gui.py:395
 msgid "_Point to Point (IP):"
@@ -3578,10 +3548,8 @@ msgid "Missing Protocol"
 msgstr "விடுபட்ட நெறிமுறை"
 
 #: ../iw/network_gui.py:476 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr ""
-"DHCPக்கு நீங்கள் குறைந்தது ஒரு நெறிமுறையானவது (IPv4 அல்லது IPv6) தேர்ந்தெடுக்க வேண்டும்."
+msgstr "நீங்கள் குறைந்தது IPv4 அல்லது IPv6 துணையாவது தேர்ந்தெடுக்க வேண்டும்."
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -3598,13 +3566,12 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 முன்னொட்டு 0 மற்றும் 128க்கு இடைப்பட்டதாக இருக்க வேண்டும்."
 
 #: ../iw/network_gui.py:537 ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6 முன்னொட்டு 0 மற்றும் 128க்கு இடைப்பட்டதாக இருக்க வேண்டும்."
+msgstr "தவறான அல்லது விடுபட்ட IPv6 முன்னொட்டு (0 மற்றும் 128க்கு இடையே இருக்க வேண்டும்)."
 
 #: ../iw/network_gui.py:593 ../iw/network_gui.py:606
 msgid "Disabled"
-msgstr ""
+msgstr "செயல்நீக்கப்பட்டது"
 
 #: ../iw/network_gui.py:683
 msgid "Active on Boot"
@@ -3727,8 +3694,7 @@ msgstr "அழிக்க முடியாது"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"துவக்க இலக்கினை அழிக்க முடியாது ஏனெனில் %s இப்போது உங்கள் கணினியில் நிறுவப்பட உள்ளது."
+msgstr "துவக்க இலக்கினை அழிக்க முடியாது ஏனெனில் %s இப்போது உங்கள் கணினியில் நிறுவப்பட உள்ளது."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3830,14 +3796,12 @@ msgid "Partitioning"
 msgstr "பகிர்வு செய்யப்படுகிறது"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "நீங்கள் கோரிய பகிர்தல் திட்டத்தில் பின்வரும் சிக்கலான பிழைகள் உள்ளன."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "%sஇன் நிறுவலை தொடர்வதற்கு முன்பே பிழைகளை திருத்த வேண்டும்."
 
 #: ../iw/partition_gui.py:642
@@ -4393,8 +4357,7 @@ msgstr "இது உங்கள் நடப்பு boot loader ஐ மே�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "%s யில் தற்போது நிறுவப்பட்ட %s boot loaderஐ நிறுவி கண்டுபிடித்துள்ளது."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4405,8 +4368,7 @@ msgstr "இது பரிந்துரைக்கப்பட்ட வி�
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"உங்கள் கணினியில் தற்போது பயனில் உள்ள boot loaderஐ நிறுவியால் கண்டுபிடிக்க முடியவில்லை."
+msgstr "உங்கள் கணினியில் தற்போது பயனில் உள்ள boot loaderஐ நிறுவியால் கண்டுபிடிக்க முடியவில்லை."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4531,8 +4493,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "இடமாற்று கோப்பு 1 முதல் 2000 எம்பி அளவுக்குள் இருக்க வேண்டும்."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "இடமாற்று பகிர்தலில் நீங்கள் தேர்வு செய்த இயக்கியில் போதுமான இடமில்லை."
 
 #: ../iw/zipl_gui.py:28
@@ -4668,10 +4629,8 @@ msgstr ""
 "தெரியப்படுத்த வேண்டும்."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4808,14 +4767,12 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "நீங்கள் நிறுவ விரும்பும் தொகுப்பு குழுவை தேர்வு செய்யவும்."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "தேர்ந்தெடுக்க விருப்ப தொகுப்புகள் இல்லை"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -4846,12 +4803,12 @@ msgid "Mouse Selection"
 msgstr "சுட்டி தேர்ந்தெடுத்தல்"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"நீங்கள் \"%s\" புலத்தை குறிப்பிடவில்லை. பின்னால் உங்கள் பிணைய சூழலுக்கு ஏற்ப சில சிக்கல்கள் "
+"நீங்கள் %s புலத்தைக் குறிப்பிடவில்லை. பின்னர் உங்கள் பிணைய சூழலுக்கு ஏற்ப சில சிக்கல்கள் "
 "நேரலாம்."
 
 #: ../textw/network_text.py:152
@@ -4874,25 +4831,23 @@ msgstr "துவக்கும் போது செயல்படுத்�
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "விசை:"
+msgstr "WEP குறியீடு:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5063,8 +5018,7 @@ msgstr "கோப்பு முறைமை விருப்பங்கள�
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"இந்த பகிர்தலில் நீங்கள் எவ்வாறு கோப்பு முறைமையை உருவாக்க வேண்டும் என்பதை தேர்வு செய்யவும்."
+msgstr "இந்த பகிர்தலில் நீங்கள் எவ்வாறு கோப்பு முறைமையை உருவாக்க வேண்டும் என்பதை தேர்வு செய்யவும்."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5189,10 +5143,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5221,10 +5173,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "இந்த நிறுவலுக்கு எந்த இயக்கி(களை) பயன்படுத்த வேண்டும்?"
 
 #: ../textw/partition_text.py:1561
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 
 #: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
@@ -5243,21 +5193,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "உங்கள் இயக்கி கட்டமைப்பினை எவ்வாறு மாற்ற வேண்டும்?"
 
 #: ../textw/partition_text.py:1663
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "FCP சாதனத்தை சேர்"
+msgstr "FCP சாதனத்தை சேர்க்கவும்"
 
 #: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries கணினிகள் SCSI சாதனங்களை கண்ணாடி இழை தடம் (Fibre Channel) (FCP) வழியாக "
-"அணுக முடியும். ஒவ்வொரு சாதனத்திற்கும் 5 அளவுருக்களை அனுப்ப வேண்டும்: ஒரு 16 பிட் சாதன "
-"எண், ஒரு 16பிட் SCSI ID, 64 bit World Wide Port Name (WWPN), 16பிட் SCSI LUN "
-"மற்றும் 64 பிட் FCP LUN."
+"அணுக முடியும். நீங்கள் ஒவ்வொரு சாதனத்திற்கும் 16 பிட் சாதன எண்ணை கொடுக்க வேண்டும், "
+"ஒரு 64 பிட் World Wide Port Name (WWPN), மற்றும் ஒரு 64 பிட் FCP LUN."
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5537,15 +5484,16 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:34
-#, fuzzy
 msgid "Installation Number"
-msgstr "நிறுவல் துவங்க உள்ளது"
+msgstr "நிறுவல் எண்"
 
 #: ../installclasses/rhel.py:35
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"உங்கள் சந்தாவில் அனைத்து துணைபுரியும் தொகுப்புகளையும் நிறுவ, "
+"உங்கள் நிறுவல் எண்ணை உள்ளிடவும்"
 
 #: ../installclasses/rhel.py:38
 msgid ""
@@ -5560,6 +5508,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"உங்கள் நிறுவல் எண்ணை கண்டுபிடிக்க முடியவில்லையெனில் http://www."
+"redhat.com/apps/support/in.html ஐ பார்க்கவும்.\n"
+"\n"
+"நீங்கள் இதனை தவிர்த்தால்:\n"
+"* உங்கள் சந்தாவிலுள்ள அனைத்து தொகுப்புகளையும் உங்களால் "
+"அணுக முடியாது.\n"
+"* துணைபுரியாத/சான்றிடப்படாத Red Hat Enterprise Linux "
+"நிறுவல் என அறிவிக்கப்படும்.\n"
+"* உங்கள் சந்தாவிலுள்ள மென்பொருள் மற்றும் தொகுப்புகளின் பாதுகாப்பு "
+"மேம்படுத்தல்களை பெற முடியாது."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5800,8 +5758,7 @@ msgstr "தெரியாத இயக்க வட்டு கிக்ஸ்
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"கிக்ஸ்டார்ட் இயக்க வட்டு கட்டளையில் பின்வரும் தவறான அளவுரு குறிப்பிடப்பட்டுள்ளது: %s:%s"
+msgstr "கிக்ஸ்டார்ட் இயக்க வட்டு கட்டளையில் பின்வரும் தவறான அளவுரு குறிப்பிடப்பட்டுள்ளது: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5829,8 +5786,7 @@ msgstr "இயக்கி வட்டினை ஏற்றவும்"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"கைமுறையாக உள்ளிட எந்த இயக்கிகளும் இல்லை. நீங்கள் இயக்கி வட்டினை பயன்படுத்த வேண்டுமா?"
+msgstr "கைமுறையாக உள்ளிட எந்த இயக்கிகளும் இல்லை. நீங்கள் இயக்கி வட்டினை பயன்படுத்த வேண்டுமா?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5953,10 +5909,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%sக்கு நல்வரவு - மீட்பு முறை"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:160
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6063,8 +6017,7 @@ msgstr "பின்வரும் சாதனங்கள் உங்கள�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்படவில்லை. எப்படியாவது ஏற்ற வேண்டுமா?"
+msgstr "உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்படவில்லை. எப்படியாவது ஏற்ற வேண்டுமா?"
 
 #: ../loader2/loader.c:1161
 msgid "Devices"
@@ -6300,8 +6253,7 @@ msgstr ""
 
 #: ../loader2/net.c:788
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
-"DHCPக்கு நீங்கள் குறைந்தது ஒரு நெறிமுறையானவது (IPv4 அல்லது IPv6) தேர்ந்தெடுக்க வேண்டும்."
+msgstr "DHCPக்கு நீங்கள் குறைந்தது ஒரு நெறிமுறையானவது (IPv4 அல்லது IPv6) தேர்ந்தெடுக்க வேண்டும்."
 
 #: ../loader2/net.c:859
 msgid "IPv4 address:"
@@ -6325,6 +6277,10 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"IPv4 மற்றும் IPv6 முகவரி மற்றும் முன்னொட்டை(முகவரி / முன்னொட்டு) உள்ளிடவும். "
+"IPv4க்கு, dotted-quad netmask அல்லது CIDR-style முன்னொட்டு ஏற்றுக்கொள்ளக்கூடியது. "
+"நுழைவாயில் மற்றும் பெயர் சேவையக புலங்கள் சரியான IPv4 அல்லது IPv6 முகவரிகளை "
+"கொண்டிருக்க வேண்டும்."
 
 #: ../loader2/net.c:1024
 msgid "Manual TCP/IP Configuration"
@@ -6335,16 +6291,14 @@ msgid "Missing Information"
 msgstr "விடுபட்ட தகவல்கள்"
 
 #: ../loader2/net.c:1148
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "ஒரு சரியான IPv4 முகவரி மற்றும் ஒரு பிணைய மூடி இரண்டையும் அல்லது CIDR முன்னொட்டையும் "
 "உள்ளிட வேண்டும்."
 
 #: ../loader2/net.c:1154
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "நீங்கள் ஒரு சரியான IPv6 முகவரி மற்றும் CIDR முன்னொட்டினை உள்ளிட வேண்டும்."
+msgstr "நீங்கள் ஒரு சரியான IPv6 முகவரி மற்றும் CIDR முன்னொட்டு ஆகிய இரண்டையும் உள்ளிட வேண்டும்."
 
 #: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
@@ -6615,7 +6569,7 @@ msgstr "பிழை விவரங்கள் (_E)"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6704,19 +6658,16 @@ msgid "_Customize now"
 msgstr "இப்போது தனிபயனாக்கவும் (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "சாதன எண்"
+msgstr "<b>சாதன எண்:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>கடவுச்சொல் (_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6854,8 +6805,7 @@ msgstr "மைய நேரம்-கொஹாயுலியா, டுரா�
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"மத்திய நேரம் - இந்தியானா - டேவீஸ், டுபோஸ், நாக்ஸ், மார்டின், ப்பெரி & புலாஸ்கி கவுண்டிஸ்"
+msgstr "மத்திய நேரம் - இந்தியானா - டேவீஸ், டுபோஸ், நாக்ஸ், மார்டின், ப்பெரி & புலாஸ்கி கவுண்டிஸ்"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6978,10 +6928,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "கிழக்கத்திய நேரம் - ஒன்டாரியொ எல்லா இடங்கள்"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"கிழக்கத்திய நேரம் - DST 1967-1973வை ஒன்டரியொ மற்றும் குபெக் இடங்கள் கவனிக்கப்படவில்லை"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "கிழக்கத்திய நேரம் - DST 1967-1973வை ஒன்டரியொ மற்றும் குபெக் இடங்கள் கவனிக்கப்படவில்லை"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7176,8 +7124,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "மலை தர நேரம் - அரிசோனா"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "மலை தர நேரம்-டாசன் கிரீக் மற்றும் போர்ட் செயின்ட் ஜான், பிரிட்டிஷ் கொலம்பியா"
 
 #. generated from zone.tab
@@ -7418,7 +7365,7 @@ msgstr "அரேபியம்"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "அசாமி"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7582,7 +7529,7 @@ msgstr "செர்பியன்(லத்தீன்)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "சிங்களம்"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7606,7 +7553,7 @@ msgstr "தமிழ்"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "தெலுங்கு"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7628,87 +7575,3 @@ msgstr "வெல்ஸ்"
 msgid "Zulu"
 msgstr "சூலு"
 
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "உங்கள் %sஇன் பதிப்பின் பதிவு விசையை உள்ளிடவும்."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "பதிவு விசையை உள்ளிடவும்"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "%sல் கோப்பு முறைமைகளை ஏற்றுவதில் பிழை: %s"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI Id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "SCSI ID ஐ நீங்கள் குறிப்பிடவில்லை அல்லது ID தவறானது."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "நீங்கள் ஒரு SCSI LUN ஐ குறிப்பிடவில்லை அல்லது எண் தவறானது."
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4 முகவரி:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6 முகவரி:"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP கட்டமைப்பு"
-
-#~ msgid "_Remove"
-#~ msgstr "நீக்கவும் (_R)"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP சாதனங்கள்"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP சாதனத்தை தொகுக்கவும் %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "நீங்கள் ஒரு FCP வட்டினை உங்கள் கட்டமைப்பிலிருந்து நீக்க முயற்சிக்கிறீர்கள். அதனை தொடர "
-#~ "வேண்டுமா?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "தவறான IP சரம்"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "உள்ளிடப்பட்ட IP '%s' தவறான IP ஆகும்."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point to Point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "பிணைய சாதனம்: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "DHCP யால் கட்டமைக்கவும்"
-
-#~ msgid "Invalid information"
-#~ msgstr "தவறான தகவல்"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "தொடர்வதற்கு சரியான IP மதிப்பை உள்ளிடவும்."
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "மூன்றாம் DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP சாதனம்"
-
-#~ msgid "Device #"
-#~ msgstr "சாதனம் #"
-
-#~ msgid "Add"
-#~ msgstr "சேர்"
-
-#~ msgid "Remove"
-#~ msgstr "நீக்கவும்"
