@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-23 12:07+0530\n"
+"PO-Revision-Date: 2006-11-23 18:42+0530\n"
 "Last-Translator: shankar prasad <svenkate@redhat.com>\n"
 "Language-Team: kannada\n"
 "MIME-Version: 1.0\n"
@@ -526,7 +526,7 @@ msgstr ""
 #: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು"
+msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು (_R)"
 
 #: ../exception.py:409 ../exception.py:426
 msgid "Dump Not Written"
@@ -849,7 +849,7 @@ msgstr ""
 #: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
 #: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr "ಮುಂದುವರೆ"
+msgstr "ಮುಂದುವರೆ (_C)"
 
 #: ../fsset.py:1750
 #, python-format
@@ -1020,11 +1020,11 @@ msgstr ""
 
 #: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
 msgid "_Exit"
-msgstr "ನಿರ್ಗಮಿಸು"
+msgstr "ನಿರ್ಗಮಿಸು (_E)"
 
 #: ../gui.py:989 ../yuminstall.py:609
 msgid "_Retry"
-msgstr "ಮರುಪ್ರಯತ್ನಿಸು"
+msgstr "ಮರುಪ್ರಯತ್ನಿಸು (_R)"
 
 #: ../gui.py:992 ../packages.py:294
 msgid "The installer will now exit..."
@@ -1091,7 +1091,7 @@ msgstr ""
 
 #: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
-msgstr "ಮರುಪ್ರಯತ್ನಿಸು"
+msgstr "ಮರುಪ್ರಯತ್ನಿಸು (_T)"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1116,7 +1116,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "ಹಿಂದಕ್ಕೆ"
+msgstr "ಹಿಂದಕ್ಕೆ (_B)"
 
 #: ../image.py:134
 #, python-format
@@ -1253,7 +1253,7 @@ msgstr ""
 #: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
 #: ../yuminstall.py:718
 msgid "_Abort"
-msgstr "ರದ್ದುಗೊಳಿಸು"
+msgstr "ರದ್ದುಗೊಳಿಸು (_A)"
 
 #: ../kickstart.py:961
 msgid "Missing Group"
@@ -1345,7 +1345,7 @@ msgstr ""
 
 #: ../packages.py:290
 msgid "_Install anyway"
-msgstr "ಪರವಾಗಿಲ್ಲ ಅನುಸ್ಥಾಪಿಸು"
+msgstr "ಪರವಾಗಿಲ್ಲ ಅನುಸ್ಥಾಪಿಸು (_I)"
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
@@ -1385,11 +1385,11 @@ msgstr ""
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಕಡೆಗಣಿಸು"
+msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಕಡೆಗಣಿಸು (_I)"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
-msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಸಪಾಟುಗೊಳಿಸು"
+msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಸಪಾಟುಗೊಳಿಸು (_F)"
 
 #: ../partedUtils.py:791
 #, python-format
@@ -1584,7 +1584,7 @@ msgstr "ನೀವು '/dev/%s' ಸಾಧನದಲ್ಲಿರುವ ಎಲ್ಲ
 #: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr "ತೆಗೆದುಹಾಕು"
+msgstr "ಅಳಿಸು (_D)"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
@@ -1669,11 +1669,11 @@ msgstr "ಸಪಾಟುಗೊಳಿಸುವುದೇ?"
 
 #: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "ವಿಭಾಗವನ್ನು ಮಾರ್ಪಡಿಸು"
+msgstr "ವಿಭಾಗವನ್ನು ಮಾರ್ಪಡಿಸು (_M)"
 
 #: ../partIntfHelpers.py:419
 msgid "Do _Not Format"
-msgstr "ಸಪಾಟುಗೊಳಿಸದಿರು"
+msgstr "ಸಪಾಟುಗೊಳಿಸದಿರು (_N)"
 
 #: ../partIntfHelpers.py:427
 msgid "Error with Partitioning"
@@ -2549,7 +2549,7 @@ msgstr "ಈ ಕೆಳಕಂಡ ಕಾರಣಗಳಿಂದಾಗಿ ನಿಮ್
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
-msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು"
+msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು (_B)"
 
 #: ../yuminstall.py:697
 msgid "Retrieving installation information..."
@@ -2727,11 +2727,11 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr "ನಿರ್ವಹಣಾ ಗುಪ್ತಪದ: "
+msgstr "ನಿರ್ವಹಣಾ ಗುಪ್ತಪದ (_P): "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "ದೃಢೀಕರಿಸಿ: "
+msgstr "ದೃಢೀಕರಿಸಿ (_C): "
 
 #: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
@@ -2779,11 +2779,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಗುಪ್ತಪದವನ್ನು ಬಳಸು"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಗುಪ್ತಪದವನ್ನು ಬಳಸು (_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ"
+msgstr "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ (_P)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2800,11 +2800,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
-msgstr "ಗುಪ್ತಪದ:"
+msgstr "ಗುಪ್ತಪದ (_P):"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "ದೃಢೀಕರಿಸಿ:"
+msgstr "ದೃಢೀಕರಿಸಿ (_F):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2848,7 +2848,7 @@ msgstr "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸು"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸು (ಸಾಮಾನ್ಯವಾಗಿ ಇದರ ಆವಶ್ಯಕತೆ ಇರುವುದಿಲ್ಲ)"
+msgstr "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸು (ಸಾಮಾನ್ಯವಾಗಿ ಇದರ ಆವಶ್ಯಕತೆ ಇರುವುದಿಲ್ಲ) (_F)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
@@ -2860,7 +2860,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
-msgstr "ಸಾಮಾನ್ಯ ತಿರುಳು ಪ್ರಮಿತಿಗಳು"
+msgstr "ಸಾಮಾನ್ಯ ತಿರುಳು ಪ್ರಮಿತಿಗಳು (_G)"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
@@ -2879,7 +2879,7 @@ msgstr "ಯಾವುದೇ ಸಜ್ಜು ಉತ್ಥಾಪಕವೂ ಅನು
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "ಪ್ರೌಢ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಆಯ್ಕೆಗಳನ್ನು ಸಂರಚಿಸಿ"
+msgstr "ಪ್ರೌಢ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಆಯ್ಕೆಗಳನ್ನು ಸಂರಚಿಸಿ (_O)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2887,7 +2887,7 @@ msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ದಾಖಲೆಯನ್ನು ಇ
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕಗಳ ಕ್ರಮವನ್ನು ಬದಲಾಯಿಸು"
+msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕಗಳ ಕ್ರಮವನ್ನು ಬದಲಾಯಿಸು (_C)"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -3005,7 +3005,7 @@ msgstr "ಊರ್ಜಿತಗೊಳಿಸುವಿಕೆಯ ಪರಿಶೀಲ�
 #: ../iw/examine_gui.py:55
 #, python-format
 msgid "_Install %s"
-msgstr "ಅನುಸ್ಥಾಪಿಸು %s"
+msgstr "ಅನುಸ್ಥಾಪಿಸು (_I) %s"
 
 #: ../iw/examine_gui.py:57
 msgid ""
@@ -3017,7 +3017,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
-msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಊರ್ಜಿತಗೊಳಿಸು"
+msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಊರ್ಜಿತಗೊಳಿಸು (_U)"
 
 #: ../iw/examine_gui.py:63
 #, python-format
@@ -3038,7 +3038,7 @@ msgstr "ಗೊತ್ತಿಲ್ಲದ ಲೈನಕ್ಸ್ ವ್ಯವಸ್�
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
-msgstr "ನುಡಿಯಾಯ್ಕೆ"
+msgstr "ಭಾಷೆಯ ಆಯ್ಕೆ್ಕೆ"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
@@ -3081,7 +3081,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
 msgid "C_ontinue"
-msgstr "ಮುಂದುವರೆಯಿರಿ"
+msgstr "ಮುಂದುವರೆಯಿರಿ (_C)"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
@@ -3152,11 +3152,11 @@ msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣವನ್ನು ಸಂಪಾದ�
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
-msgstr "ಆರೋಹಣಾತಾಣ:"
+msgstr "ಆರೋಹಣಾತಾಣ (_M):"
 
 #: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
-msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ:"
+msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ (_F):"
 
 #: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
 #: ../iw/raid_dialog_gui.py:303
@@ -3175,7 +3175,7 @@ msgstr "ಮೂಲ ಕಡತ ವ್ಯವಸ್ಥೆಯ ಗುರುತುಪಟ
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
-msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರು:"
+msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರು (_L):"
 
 #: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
@@ -3183,7 +3183,7 @@ msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
-msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ):"
+msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ) (_S):"
 
 #: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
@@ -3330,7 +3330,7 @@ msgstr "LVM ಪರಿಮಾಣ ಸಮೂಹವನ್ನು ಸಂಪಾದಿಸ
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr "ಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು:"
+msgstr "ಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು (_V):"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
@@ -3338,11 +3338,11 @@ msgstr "ಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "ಭೌತಿಕ ಗಾತ್ರಮಟ್ಟ:"
+msgstr "ಭೌತಿಕ ಗಾತ್ರಮಟ್ಟ (_P):"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
-msgstr "ಬಳಸಬೇಕಾದ ಭೌತಿಕ ಪರಿಮಾಣಗಳು:"
+msgstr "ಬಳಸಬೇಕಾದ ಭೌತಿಕ ಪರಿಮಾಣಗಳು (_U):"
 
 #: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
@@ -3372,12 +3372,12 @@ msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ)"
 
 #: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
-msgstr "ಸೇರಿಸಿ"
+msgstr "ಸೇರಿಸಿ (_A)"
 
 #: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
-msgstr "ಸಂಪಾದನೆ"
+msgstr "ಸಂಪಾದನೆ (_E)"
 
 #: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
@@ -3389,35 +3389,35 @@ msgstr "ತೆರೆಸೂಚಿಯ ಸಂರಚನೆ"
 
 #: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (DOS ಅಡಿಯಲ್ಲಿೆ COM1)"
+msgstr "/dev/ttyS0 (DOS ಅಡಿಯಲ್ಲಿ COM1)"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (DOS ಅಡಿಯಲ್ಲಿೆ COM2)"
+msgstr "/dev/ttyS1 (DOS ಅಡಿಯಲ್ಲಿ COM2)"
 
 #: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (DOS ಅಡಿಯಲ್ಲಿೆ COM3)"
+msgstr "/dev/ttyS2 (DOS ಅಡಿಯಲ್ಲಿ COM3)"
 
 #: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (DOS ಅಡಿಯಲ್ಲಿೆ COM4)"
+msgstr "/dev/ttyS3 (DOS ಅಡಿಯಲ್ಲಿ COM4)"
 
 #: ../iw/mouse_gui.py:90 ../iw/osbootwidget.py:157
 msgid "_Device"
-msgstr "ಸಾಧನ"
+msgstr "ಸಾಧನ (_D)"
 
 #: ../iw/mouse_gui.py:136
 msgid "_Model"
-msgstr "ಮಾದರಿ"
+msgstr "ಮಾದರಿ (_M)"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "೩ ಗುಂಡಿಗಳನ್ನು ಅನುಕರಿಸು"
+msgstr "೩ ಗುಂಡಿಗಳನ್ನು ಅನುಕರಿಸು (_E)"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
-msgstr "ಗಣಕಕ್ಕೆ ಸೂಕ್ತವಾದ ತರಸಚ (ಿ (mouse) ಅನ್ನು ಆರಿಸಿ."
+msgstr "ಗಣಕಕ್ಕೆ ಸೂಕ್ತವಾದ ಮೌಸನ್ನು ಆರಿಸಿ."
 
 #: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
 #: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
@@ -3471,15 +3471,15 @@ msgstr "ದ್ವಿತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರ�
 
 #: ../iw/network_gui.py:27
 msgid "_Gateway"
-msgstr "ಮಾಹಿತಿದ್ವಾರ"
+msgstr "ಮಾಹಿತಿದ್ವಾರ (_G)"
 
 #: ../iw/network_gui.py:27
 msgid "_Primary DNS"
-msgstr "ಪ್ರಾಥಮಿಕ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
+msgstr "ಪ್ರಾಥಮಿಕ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ) (_P)"
 
 #: ../iw/network_gui.py:27
 msgid "_Secondary DNS"
-msgstr "ದ್ವಿತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
+msgstr "ದ್ವಿತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ) (_S)"
 
 #: ../iw/network_gui.py:37
 msgid "Network Configuration"
@@ -3542,7 +3542,7 @@ msgstr "ಯಂತ್ರಾಂಶ ವಿಳಾಸ: %s"
 
 #: ../iw/network_gui.py:281
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "ಸಕ್ರಿಯ IP ಸಂರಚನೆಯನ್ನು ಬಳಸು (DHCP)"
+msgstr "ಸಕ್ರಿಯ IP ಸಂರಚನೆಯನ್ನು ಬಳಸು (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3574,7 +3574,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:393
 msgid "Encryption _Key:"
-msgstr "ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಕೈ"
+msgstr "ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಕೈ (_K)"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3622,11 +3622,11 @@ msgstr "ಆತಿಥೇಯನಾಮವನ್ನು ನಿಗದಿಗೊಳಿ�
 
 #: ../iw/network_gui.py:713
 msgid "_automatically via DHCP"
-msgstr "DHCP ಮೂಲಕ ಸ್ವಯಂಚಾಲಿತವಾಗಿ"
+msgstr "DHCP ಮೂಲಕ ಸ್ವಯಂಚಾಲಿತವಾಗಿ (_A)"
 
 #: ../iw/network_gui.py:720
 msgid "_manually"
-msgstr "ಸ್ವಹಸ್ತದಿಂದ"
+msgstr "ಸ್ವಹಸ್ತದಿಂದ (_M)"
 
 #: ../iw/network_gui.py:725
 msgid "(e.g., host.domain.com)"
@@ -3677,11 +3677,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "ಗುರುತುಪಟ್ಟಿ"
+msgstr "ಗುರುತುಪಟ್ಟಿ (_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "ಪೂರ್ವನಿಯೋಜಿತ ಸಜ್ಜು ಗುರಿ"
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ ಸಜ್ಜು ಗುರಿ (_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
@@ -3726,15 +3726,15 @@ msgstr "ಹೆಚ್ಚುವರಿ ಗಾತ್ರ ಆಯ್ಕೆಗಳು"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "ನಿಶ್ಚಿತ ಗಾತ್ರ"
+msgstr "ನಿಶ್ಚಿತ ಗಾತ್ರ (_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "ಎಲ್ಲಾ ಸ್ಥಳಗಳನ್ನೂ ಭರಿಸು (ಎಮ್.ಬಿ) ಗಳವರೆಗೆ:"
+msgstr "ಎಲ್ಲಾ ಸ್ಥಳಗಳನ್ನೂ ಭರಿಸು (ಎಮ್.ಬಿ) ಗಳವರೆಗೆ (_U):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "ಗರಿಷ್ಟ ಸಮ್ಮತಿತ ಗಾತ್ರದ ವರೆಗೆ ಭರಿಸು"
+msgstr "ಗರಿಷ್ಟ ಸಮ್ಮತಿತ ಗಾತ್ರದ ವರೆಗೆ ಭರಿಸು (_A)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3755,11 +3755,11 @@ msgstr "ವಿಭಾಗವನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../iw/partition_dialog_gui.py:301
 msgid "File System _Type:"
-msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ:"
+msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ (_T):"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr "ಸಮ್ಮತಿತ ಮುದ್ರಿಕಾಚಾಲಕಗಳು:"
+msgstr "ಸಮ್ಮತಿತ ಮುದ್ರಿಕಾಚಾಲಕಗಳು (_D):"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
@@ -3767,15 +3767,15 @@ msgstr "ಮುದ್ರಿಕಾಚಾಲಕ:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr "ಪ್ರಾರಂಭಿಕ ಹೊರಳು:"
+msgstr "ಪ್ರಾರಂಭಿಕ ಹೊರಳು (_S):"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr "ಅಂತಿಮ ಹೊರಳು:"
+msgstr "ಅಂತಿಮ ಹೊರಳು (_E):"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr "ಪ್ರಾಥಮಿಕ ವಿಭಾಗವಾಗಿ ಪರಿಗಣಿಸಲು ಒತ್ತಾಯಿಸು"
+msgstr "ಪ್ರಾಥಮಿಕ ವಿಭಾಗವಾಗಿ ಪರಿಗಣಿಸಲು ಒತ್ತಾಯಿಸು (_P)"
 
 #: ../iw/partition_gui.py:314
 #, python-format
@@ -3850,7 +3850,7 @@ msgstr "ಸಪಾಟುಗೊಳಿಸುವಿಕೆಯ ಎಚ್ಚರಿಕ�
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
-msgstr "ಸಪಾಟುಗೊಳಿಸು"
+msgstr "ಸಪಾಟುಗೊಳಿಸು (_F)"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
@@ -3960,17 +3960,17 @@ msgstr "ಈಗ ಏನು ಮಾಡಬೇಕೆಂದಿದ್ದೀರಿ?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "ತಂತ್ರಾಂಶಾತ್ಮಕ RAID ವಿಭಾಗವನ್ನು ರಚಿಸು."
+msgstr "ತಂತ್ರಾಂಶಾತ್ಮಕ RAID ವಿಭಾಗವನ್ನು ರಚಿಸು (_P)."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "RAID ಸಾಧನವನ್ನು ರಚಿಸು [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
+msgstr "RAID ಸಾಧನವನ್ನು ರಚಿಸು (_D) [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "RAID ಅನ್ನು ರಚಿಸಲು ಸ್ಮೃತಿಮುದ್ರಿಕಾ ಚಾಲಕವನ್ನು ತದ್ರೂಪಿಸು [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
+msgstr "RAI_D ಅನ್ನು ರಚಿಸಲು ಸ್ಮೃತಿಮುದ್ರಿಕಾ ಚಾಲಕವನ್ನು ತದ್ರೂಪಿಸು [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
@@ -3982,11 +3982,11 @@ msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕ ತದ್ರೂಪಕ ಸಂಪಾ
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr "ಹೊಸ"
+msgstr "ಹೊಸ (_W)"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr "ಮರುಸಿದ್ಧಗೂಳಿಸು"
+msgstr "ಮರುಸಿದ್ಧಗೂಳಿಸು (_S)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
@@ -3998,7 +3998,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "RAID ಸಾಧನ/LVM ಪರಿಮಾಣ ಸಮೂಹ ಸದಸ್ಯರನ್ನು ಅಡಗಿಸು"
+msgstr "RAID ಸಾಧನ/LVM ಪರಿಮಾಣ ಸಮೂಹ ಸದಸ್ಯರನ್ನು ಅಡಗಿಸು (_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
@@ -4013,19 +4013,19 @@ msgstr "ಈ ವಿಭಾಗದ ಮೇಲೆ ಕಡತ ವ್ಯವಸ್ಥೆ�
 
 #: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
-msgstr "ಬದಲಾಯಿಸದೆ ಬಿಡು (ದತ್ತಾಂಶವನ್ನು ಸಂರಕ್ಷಿಸು)"
+msgstr "ಬದಲಾಯಿಸದೆ ಬಿಡು (ದತ್ತಾಂಶವನ್ನು ಸಂರಕ್ಷಿಸು) (_U)"
 
 #: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
-msgstr "ವಿಭಾಗವನ್ನು ಈ ರೀತಿಯಾಗಿ ಸಪಾಟುಗೊಳಿಸು:"
+msgstr "ವಿಭಾಗವನ್ನು ಈ ರೀತಿಯಾಗಿ ಸಪಾಟುಗೊಳಿಸು (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
-msgstr "ವಿಭಾಗವನ್ನು ಇಲ್ಲಿಗೆ ವಲಸೆಹೋಗಿಸು:"
+msgstr "ವಿಭಾಗವನ್ನು ಇಲ್ಲಿಗೆ ವಲಸೆಹೋಗಿಸು (_G):"
 
 #: ../iw/partition_ui_helpers_gui.py:309
 msgid "Check for _bad blocks?"
-msgstr "ದೋಷಯುಕ್ತ ಖಂಡಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲೆ?"
+msgstr "ದೋಷಯುಕ್ತ ಖಂಡಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲೆ (_B)?"
 
 #: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
@@ -4042,11 +4042,11 @@ msgstr "ಮುದ್ರಿಕಾ ವಿಭಾಗೀಕರಣ ಸಂರಚನೆ"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ವಿಭಜಿಸಿ"
+msgstr "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ವಿಭಜಿಸಿ (_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "ಮುದ್ರಿಕಾ ಮಾಂತ್ರಿಕನನ್ನು ಬಳಸಿ ಸ್ವಹಸ್ತದಿಂದ ವಿಭಜಿಸಿ"
+msgstr "ಮುದ್ರಿಕಾ ಮಾಂತ್ರಿಕನನ್ನು ಬಳಸಿ ಸ್ವಹಸ್ತದಿಂದ ವಿಭಜಿಸಿ (_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
@@ -4128,23 +4128,23 @@ msgstr "RAID ಸಾಧನವನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../iw/raid_dialog_gui.py:322
 msgid "RAID _Device:"
-msgstr "RAID ಸಾಧನ:"
+msgstr "RAI_D ಸಾಧನ:"
 
 #: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
-msgstr "RAID ಸ್ತರ:"
+msgstr "RAID ಸ್ತರ (_L):"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "R_AID ಸದಸ್ಯರು:"
+msgstr "_RAID ಸದಸ್ಯರು:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr "ಬಿಡಿಭಾಗಗಳ ಸಂಖ್ಯೆ:"
+msgstr "ಬಿಡಿಭಾಗಗಳ ಸಂಖ್ಯೆ (_S):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "ವಿಭಾಗವನ್ನು ಸಪಾಟುಗೊಳಿಸಲೇ?"
+msgstr "ವಿಭಾಗವನ್ನು ಸಪಾಟುಗೊಳಿಸಲೇ (_F)?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4372,7 +4372,7 @@ msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು 
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ನವೀಕರಿಸಿ"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ನವೀಕರಿಸಿ (_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
@@ -4397,7 +4397,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "ಹೊಸ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ರಚಿಸಿ"
+msgstr "ಹೊಸ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ರಚಿಸಿ (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -4409,7 +4409,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕವನ್ನು ಊರ್ಜಿತಗೊಳಿಸುವುದನ್ನು ಉಪೇಕ್ಷಿಸಿ"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕವನ್ನು ಊರ್ಜಿತಗೊಳಿಸುವುದನ್ನು ಉಪೇಕ್ಷಿಸಿ (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
@@ -4421,7 +4421,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
-msgstr "ನೀವು ಎನು ಮಾಡಲು ಇಷ್ಟಪಡಿಯುತ್ತೀರಿ?"
+msgstr "ನೀವು ಏನು ಮಾಡಲು ಇಚ್ಚಿಸುತ್ತೀರಿ?"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
 msgid "Migrate File Systems"
@@ -4475,11 +4475,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "ನಾನು ಒಂದು ವಿನಿಮಯ ಕಡತವನ್ನು ರಚಿಸಲು ಇಚ್ಛಿಸುತ್ತೇನೆ"
+msgstr "ನಾನು ಒಂದು ವಿನಿಮಯ ಕಡತವನ್ನು ರಚಿಸಲು ಇಚ್ಛಿಸುತ್ತೇನೆ (_W)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಹಾಕಲು ಒಂದು ವಿಭಾಗವನ್ನು ಆರಿಸಿ:"
+msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಹಾಕಲು ಒಂದು ವಿಭಾಗವನ್ನು ಆರಿಸಿ (_P):"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4500,11 +4500,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ (ಎಮ್.ಬಿ):"
+msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ (ಎಮ್.ಬಿ) (_S):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಸೃಷ್ಟಿಸುಲು ನನಗೆ ಇಚ್ಛೆಯಿಲ್ಲ"
+msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಸೃಷ್ಟಿಸಲು ನನಗೆ ಇಚ್ಛೆಯಿಲ್ಲ (_D)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -4530,7 +4530,7 @@ msgstr "ZFCP ಸಂರಚನೆ"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr "ತೆಗೆ"
+msgstr "ತೆಗೆ (_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
@@ -5469,7 +5469,7 @@ msgstr "Chandev ಸಾಲು"
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "ಪರಿಷ್ಕೃತ"
+msgstr "ಪರಿಷ್ಕೃತ (_C)"
 
 #: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
 msgid ""
@@ -5481,7 +5481,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
-msgstr "ಫೆಡೋರಾ"
+msgstr "ಫೆಡೋರಾ (_F)"
 
 #: ../installclasses/fedora.py:13
 #, python-format
@@ -5508,7 +5508,7 @@ msgstr "ಜಾಲ ಪರಿಚಾರಕ"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "ವೈಯಕ್ತಿಕ ಗಣಕತೆರೆ"
+msgstr "ವೈಯಕ್ತಿಕ ಗಣಕತೆರೆ (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5533,7 +5533,7 @@ msgstr ""
 "\tಕಛೇರಿ ಪರಿವಾರ (OpenOffice.org)\n"
 "\tಜಾಲ ಪ್ರದರ್ಶಕ\n"
 "\tವಿಅಂಚೆ (Evolution)\n"
-"\tತತ್ಕ್ಷಣೀಯ ಸಂದೇಶಪ್ರೇಷಣೆ\n"
+"\tತತ್-ಕ್ಷಣೀಯ ಸಂದೇಶಪ್ರೇಷಣೆ\n"
 "\tಧ್ವನಿ ಮತ್ತು ಚಿತ್ರಣ ಅನ್ವಯಗಳು\n"
 "\tಕ್ರೀಡೆಗಳು\n"
 
@@ -5543,7 +5543,7 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "ಪರಿಚಾರಕ"
+msgstr "ಪರಿಚಾರಕ (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5557,7 +5557,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr "ಕಾರ್ಯಕೇಂದ್ರ"
+msgstr "ಕಾರ್ಯಕೇಂದ್ರ (_W)"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5583,7 +5583,7 @@ msgstr ""
 "\tಕಛೇರಿ ಪರಿವಾರ (OpenOffice.org)\n"
 "\tಜಾಲ ಪ್ರದರ್ಶಕ\n"
 "\tವಿಅಂಚೆ (Evolution)\n"
-"\tತತ್ಷಣೀಯ ಸಂದೇಶಪ್ರೇಷಣೆ\n"
+"\tತತ್-ಕ್ಷಣೀಯ ಸಂದೇಶಪ್ರೇಷಣೆ\n"
 "\tಧ್ವನಿ ಮತ್ತು ಚಿತ್ರಣ ಅನ್ವಯಗಳು\n"
 "\tಕ್ರೀಡೆಗಳು\n"
 "\tತಂತ್ರಾಂಶ ವಿಕಾಸನಾ ಉಪಕರಣಗಳು\n"
@@ -5602,7 +5602,7 @@ msgstr "ಪರೀಕ್ಷಿಸು"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
 msgid "Eject CD"
-msgstr "ಅಡಕಮುದ್ರಿಕೆಯನ್ನು ಹೊರತಳ್ಳು"
+msgstr "ಸಿಡಿ್ರಿಕೆಯನ್ನು ಹೊರತಳ್ಳು"
 
 #: ../loader2/cdinstall.c:93
 #, c-format
@@ -5663,11 +5663,11 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
-msgstr "ಅಡಕಮುದ್ರಿಕೆ ಕಂಡುಬರುತ್ತಿಲ್ಲ"
+msgstr "ಸಿಡಿ ಕಂಡುಬರುತ್ತಿಲ್ಲ"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
-msgstr "ಅಡಕಮುದ್ರಿಕೆಯಲ್ಲಿ ಕಿಕ್ ಸ್ಟಾಟ್೯ ಕಡತ ಕಾಣಬರುತ್ತಿಲ್ಲ."
+msgstr "ಸಿಡಿರಾಮ್ ನಲ್ಲಿ್ಲಿ ಕಿಕ್ ಸ್ಟಾಟ್೯ ಕಡತ ಕಾಣಬರುತ್ತಿಲ್ಲ."
 
 #: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
@@ -6537,7 +6537,7 @@ msgstr "<b>ಸಂಪುಟದ _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>ಸಂಪುಟದ ಹೆಸರು:</b>"
+msgstr "<b>ಸಂಪುಟದ ಹೆಸರು (_N):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6554,23 +6554,23 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "ಸಂಪುಟವನ್ನು ಸೇರಿಸಿ"
+msgstr "ಸಂಪುಟವನ್ನು ಸೇರಿಸಿ (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸಿ"
+msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸಿ (_T)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr "ದೋಷನೇರ್ಪಡಿಸಿ"
+msgstr "ದೋಷನೇರ್ಪಡಿಸಿ (_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "ಮುಂದಕ್ಕೆ"
+msgstr "ಮುಂದಕ್ಕೆ (_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "ಸಮರ್ಪಣಾ ಟಿಪ್ಪಣಿಗಳು"
+msgstr "ಸಮರ್ಪಣಾ ಟಿಪ್ಪಣಿಗಳು (_R)"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6585,15 +6585,15 @@ msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "ವಿಭಾಗೀಕರಣ ವಿನ್ಯಾಸವನ್ನು ಮರುಪರಿಶೀಲಿಸಿ ಮಾರ್ಪಡಿಸಿ"
+msgstr "ವಿಭಾಗೀಕರಣ ವಿನ್ಯಾಸವನ್ನು ಮರುಪರಿಶೀಲಿಸಿ ಮಾರ್ಪಡಿಸಿ (_V)"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "ಪ್ರೌಢ ಸಂಗ್ರಹಣಾ ಸಂರಚನೆ"
+msgstr "ಪ್ರೌಢ ಸಂಗ್ರಹಣಾ ಸಂರಚನೆ (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "ಅನುಸ್ಥಾಪನೆಗೆ ಬಳಸಬೇಕಾದ ಚಾಲಕಗಳನ್ನು ಆರಿಸಿ."
+msgstr "ಅನುಸ್ಥಾಪನೆಗೆ ಬಳಸಬೇಕಾದ ಚಾಲಕಗಳನ್ನು ಆರಿಸಿ (_S)."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6601,23 +6601,23 @@ msgstr "ತೊಡಕುಗಳ ಮಾಹಿತಿ"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr "ತೊಡಕುಗಳ ವಿವರಗಳು"
+msgstr "ತೊಡಕುಗಳ ವಿವರಗಳು (_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr "<b>ಗುಪ್ತಪದ:</b>"
+msgstr "<b>ಗುಪ್ತಪದ (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>ಉದ್ದಿಷ್ಟ IP ವಿಳಾಸ:</b>"
+msgstr "<b>ಉದ್ದಿಷ್ಟ IP ವಿಳಾಸ (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>ಬಳಕೆದಾರನ ಹೆಸರು:</b>"
+msgstr "<b>ಬಳಕೆದಾರನ ಹೆಸರು (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI ಆರಂಭಕದ ಹೆಸರು:</b>"
+msgstr "<b>iSCSI ಆರಂಭಕದ ಹೆಸರು (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6649,7 +6649,7 @@ msgstr "<b>ನಾಮಪರಿಚಾರಕ:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>ಅಂತರಮುಖ:</b>"
+msgstr "<b>ಅಂತರಮುಖ (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6673,11 +6673,11 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ಸಕ್ರಿಯ IP ಸಂರಚನೆಯನ್ನು ಬಳಸಿ (DHCP)"
+msgstr "ಸಕ್ರಿಯ IP ಸಂರಚನೆಯನ್ನು ಬಳಸಿ (_DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "ನಂತರ ಪರಿಷ್ಕರಿಸು"
+msgstr "ನಂತರ ಪರಿಷ್ಕರಿಸು (_L)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6690,16 +6690,16 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"ಈಗ ತಂತ್ರಾಂಶದ ಆಯ್ಕೆಯನ್ನು ರೂಢಿಗೊಳಿಸಬಹುದು ಇಲ್ಲವೇ ಅನುಸ್ಥಾಪನೆಯ ನಂತರ ತಂತ್ರಾಂಶ "
+"ಈಗ ತಂತ್ರಾಂಶದ ಆಯ್ಕೆಯನ್ನು ರೂಢಿಗೊಳಿಸಬಹುದು ಇಲ್ಲವೇ ಅನುಸ್ಥಾಪನೆಯ ನಂತರ ತಂತ್ರಾಂಶ "
 "ನಿರ್ವಹಣಾ ಅನ್ವಯದ ಮೂಲಕ ಮಾಡಬಹುದು."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶ ಸಂಪುಟಗಳನ್ನು ಸೇರಿಸು"
+msgstr "ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶ ಸಂಪುಟಗಳನ್ನು ಸೇರಿಸು (_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "ಈಗ ಪರಿಷ್ಕರಿಸು"
+msgstr "ಈಗ ಪರಿಷ್ಕರಿಸು (_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6905,7 +6905,7 @@ msgstr "ಪೂರ್ವ ಸಮುದ್ರತೀರ, ಸ್ಕೋರ್ಸ್ �
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "ಪಶ್ಚಿಮ ಕಾಂಗೋ "
+msgstr "ಪಶ್ಚಿಮ ಡೆಮೊ.ರಿಪ.ಆಫ್ ಕಾಂಗೋ "
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
