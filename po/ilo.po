@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-24 20:11-0800\n"
+"PO-Revision-Date: 2006-11-25 12:12-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -179,7 +179,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Saan a naipabagi ti benneg kas kangrunaan.\n"
+"Saan a naipabagi a kas kangrunaan ti benneg.\n"
 "\n"
 "%s"
 
@@ -699,7 +699,7 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
-"ket bersion 0 ti agsinnukat a benneg ti Linux. No kayatyo aramaten daytoy nga aparato, masapol nga ipormatoyo kas bersion 1 ti pangsinnukat a benneg ti Linux. No luktawenyo, iti panagikablina mabay-anto."
+"ket bersion 0 ti agsinnukat a benneg ti Linux. No kayatyo aramaten daytoy nga aparato, masapol nga ipormatoyo a kas bersion 1 ti pangsinnukat a benneg ti Linux. No luktawenyo, iti panagikablina mabay-anto."
 
 #: ../fsset.py:1483
 msgid "Reformat"
@@ -718,7 +718,7 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
-"nga nakasurat iti intar a '/etc/fstab' ket ar-aramaten nga agdinama ti software a kas benneg a tagtaginayonen. Kayat a sawen, matmaturog ti sistema. Ideppenyo ti sistema imbes nga ipaturoganyo tapno makapagtuloykayo iti panagpasayaatna."
+"nga nakasurat iti intar a '/etc/fstab' ket ar-aramaten nga agdinama ti software a kas tagtaginayonen a benneg. Kayat a sawen, matmaturog ti sistema. Ideppenyo ti sistema imbes nga ipaturoganyo tapno makapagtuloykayo iti panagpasayaatna."
 
 #: ../fsset.py:1495
 #, python-format
@@ -743,7 +743,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Pilienyo ti 'Laktawen' no kayatyo nga bay-ananto daytoy a benneg iti panagpasayaat. Piliinyo ti 'Ipormato' tapno maipormato ti benneg a kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian manen ti sistema."
+"Pilienyo ti 'Laktawen' no kayatyo nga bay-ananto daytoy a benneg bayat ti panagpangato ti tukad. Piliinyo ti 'Ipormato' tapno maipormato ti benneg a kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian manen ti sistema."
 
 #: ../fsset.py:1511
 #: ../iw/partition_gui.py:368
@@ -858,7 +858,7 @@ msgstr "Saan a maisagpat ti sistema ti intar"
 #: ../fsset.py:1734
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr "Rimsua ti biddut iti panagisagsagpat ti aparato a %s kas %s. Makapagpatuloyyo iti panaginstal, ngem mabalin nga adda ti problema."
+msgstr "Rimsua ti biddut iti panagisagsagpat ti aparato a %s a kasla %s. Makapagpatuloyyo iti panaginstal, ngem mabalin nga adda ti problema."
 
 #: ../fsset.py:1742
 #: ../image.py:91
@@ -879,7 +879,7 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Rimsua ti biddut bayat ti panagisagpat ti aparato a %s kas %s: %s\n"
+"Rimsua ti biddut bayat ti panagisagsagpat ti aparato a %s a kasla %s: %s\n"
 "\n"
 "Saan a naipormato ti benneg.\n"
 "\n"
@@ -1525,7 +1525,7 @@ msgstr "Saan a maikkat ti benneg ti DASD a naipormato babaen ti LDL."
 #: ../partIntfHelpers.py:164
 #, python-format
 msgid "You cannot delete this partition, as it is an extended partition which contains %s"
-msgstr "Saan a maikkat daytoy a benneg, gapu ta daytoy ket nabennat a benneg nga aglallaon iti %s."
+msgstr "Saan a maikkat daytoy a benneg, gapu ta daytoy ket nabennat a benneg daytoy nga aglallaon iti %s."
 
 #: ../partIntfHelpers.py:182
 #: ../iw/raid_dialog_gui.py:558
@@ -1598,7 +1598,7 @@ msgstr ""
 #: ../partIntfHelpers.py:352
 #, python-format
 msgid "You cannot edit this partition, as it is an extended partition which contains %s"
-msgstr "Saan a mabaliwan daytoy a benneg gapu ta nabennat a benneg ken aglalaon iti %s."
+msgstr "Saan a mabaliwan daytoy a benneg, gapu ta nabennat a benneg daytoy ken aglallaon iti %s."
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1622,7 +1622,7 @@ msgstr "Nasken a mapili ti kabassitan a maysa a nalagda a disk tapno mapaikapeta
 
 #: ../partIntfHelpers.py:411
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr "Piniliyo ti agaramat a saan a naipormato iti benneg nga addan maipaay daytoy a panagikapet. Naisingasing a maipormato daytoy a benneg tapno mapatalgedan a saan nga agimproblema dagiti intar ti daan a panagikapet ti sistema ti panangpaandar kadaytoy a panagikapet ti Linux. Nupay kasta, no aglallaon daytoy a benneg iti intar a masapolyo, kas pagarigan dagiti direktorio ti mangaramat, ipatuloyyo ketdi a saan a maipormato daytoy a benneg."
+msgstr "Piniliyo ti agaramat a saan a maipormato iti benneg nga addan maipaay daytoy nga instalasion. Naisingasing a maipormato daytoy a benneg tapno mapatalgedan a saan nga agimproblema dagiti intar ti daan nga instalasion ti sistema ti panangpaandar kadaytoy a panaginstala ti Linux. Nupay kasta, no aglallaon daytoy a benneg iti intar a masapolyo, kas pagarigan dagiti direktorio ti mangaramat, ipatuloyyo ketdi a saan a maipormato daytoy a benneg."
 
 #: ../partIntfHelpers.py:419
 msgid "Format?"
@@ -1736,7 +1736,7 @@ msgstr "Kurang ti Memoria"
 
 #: ../partitioning.py:94
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr "Gapu ta kurang ti memoria kadaytoy a kompiuter, kailangan a mapairugi a dagus ti pangsinnukat nga espasio. Tapno mairugi, kailangan a maisurat a dagus ti baro a rehistro ti benneg iti disk. Mayat aya?"
+msgstr "Gapu ta kurang ti memoria kadaytoy a makina, masapul a malukatan a dagus ti pangsinnukat nga espasio. Tapno maaramid daytoy, masapul a masuratan a dagus ti disk ti baro nga akinbenneg a rehistro. Mayat aya?"
 
 #: ../partitions.py:816
 #, python-format
@@ -2694,7 +2694,7 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates the Master Boot Record (MBR)."
 msgstr ""
-"Urnosen ti drive babaen ti panagurnos ti inaramat ti BIOD. Ti panagbaliwan ti panagurnos ti drive ket maaramat no adda kadakayo ti adu a pagibagay ti SCSI wenno dagiti dua a kita ti SCSI ken IDE ken kayatyo ti mangrubbuat agapu ti aparato a SCSI.\n"
+"Urnosen ti drive babaen ti panagurnos ti inaramat ti BIOS. Ti panagbaliwan ti panagurnos ti drive ket maaramat no adda kadakayo ti adu pagibagay a SCSI wenno dagiti dua a kita ti SCSI ken IDE ken kayatyo ti mangrubbuat nga aggapu ti aparato a SCSI.\n"
 "\n"
 "Ti panagbaliwan ti panagurnos ti drive ket mabaliwanto ti pagbirokan ti Kangrunaan a Rehistro ti Panagrubbuat (MBR)."
 
@@ -2967,7 +2967,7 @@ msgstr "Saan a matutop a kadakkel"
 
 #: ../iw/lvm_dialog_gui.py:525
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "Ti dinawat a naisurat a kadakkel ket saan a natutop a numero a dakdakkel ngem 0."
+msgstr "Ti dinawat a kadakkel a kas naisurat ket saan a natutop a numero a dakdakkel ngem 0."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
@@ -3783,7 +3783,7 @@ msgstr "Pabay-an a saan a na_baliwan (taginayonen ti datos)"
 
 #: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
-msgstr "Ipormato ti _benneg kas:"
+msgstr "Panangipormato ti _benneg:"
 
 #: ../iw/partition_ui_helpers_gui.py:287
 msgid "Mi_grate partition to:"
@@ -3963,7 +3963,7 @@ msgstr "Pilienyo ti pagtatarusan a drive ti panagpada."
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "Ti pagtataudan a drive a /dev/%s ket saan a mapili kas pagtatarusan a drive met."
+msgstr "Ti pagtataudan a drive a '/dev/%s' ket saan a mapili a kas pagtatarusan a drive met."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4367,7 +4367,7 @@ msgstr "Baliwan"
 #: ../textw/bootloader_text.py:278
 #, python-format
 msgid "The boot manager %s uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
-msgstr "Ti mangimaton ti rubbuat nga ar-aramaten ket marubbuat me ti %s ti sabali a sistema ti panangpaandar. Saan a nasken a maibaga ti ania a benneg a kayatyo nga aramaten ken ania nga etiketa a kayatyo nga aramaten maipaay ida."
+msgstr "Ti mangimaton ti rubbuat nga ar-aramaten ti %s ket makarubbuat met iti sabali a sistema ti panangpaandar. Saan a nasken a maibaga ti ania a benneg a kayatyo nga aramaten ken ania nga etiketa a kayatyo nga aramaten maipaay ida."
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -5002,7 +5002,7 @@ msgstr "Parsuaen ti baro a pannkaidalimanek ti mangimaton ti rubbuat"
 #: ../textw/upgrade_text.py:91
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "Masapul a madlaw ti 2.4 a kernel ti ad-adu a pangsinnukat nga espasio ngem daydi daddaan a kernel, pamindua a pangsinnukat nga espasio ti RAM ti sistema. Naituding nga agdinama ti %dMB ti pangsinnukat, ngem maparsuaan ita ti maysa a sistema ti intar ti nayon a pangsinnukat nga espasio."
+msgstr "Masapul a madlaw ti 2.4 a kernel ti ad-adu a pangsinnukat nga espasio ngem daydi daddaan a kernel, pamindua a pangsinnukat nga espasio a kas ti RAM ti sistema. Naituding nga ittata ti %d a MB ti pangsinnukat, ngem maparsuaan ita ti maysa a sistema ti intar ti nayon a pangsinnukat nga espasio."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -5281,7 +5281,7 @@ msgstr "Pagtataudan ti Disk ti Agtengngel"
 
 #: ../loader2/driverdisk.c:269
 msgid "You have multiple devices which could serve as sources for a driver disk.  Which would you like to use?"
-msgstr "Adda ti dadduma nga aparato a makaserbi kas punganay maipaay ti disk ti pagtengnel.Ania ti kayatyo nga aramaten?"
+msgstr "Adda ti dadduma nga aparato a makaserbi a kas punganay maipaay ti disk ti pagtengnel. Ania ti kayatyo nga aramaten?"
 
 #: ../loader2/driverdisk.c:301
 msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
@@ -5527,7 +5527,7 @@ msgstr "Ipadama ti Pagtataudan ti Disk"
 
 #: ../loader2/loader.c:334
 msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
-msgstr "Add ti dadduma nga aparato a makaserbi kasta met la ti punganay maipaay ti disk ti panagpadama?Ania ti kayatyo nga aramaten?"
+msgstr "Add ti dadduma nga aparato a makaserbi a kas ti punganay maipaay ti disk ti panagpadama?Ania ti kayatyo nga aramaten?"
 
 #: ../loader2/loader.c:349
 #, c-format
