@@ -78,7 +78,10 @@ class Users:
             homedir = "/home/" + name
 
         # Do this to make the user's home dir under the install root.
-        userEnt.set(libuser.HOMEDIRECTORY, os.path.join(root, homedir))
+        if homedir[0] != "/":
+            userEnt.set(libuser.HOMEDIRECTORY, root + "/" + homedir)
+        else:
+            userEnt.set(libuser.HOMEDIRECTORY, root + homedir)
 
         if shell:
             userEnt.set(libuser.LOGINSHELL, shell)
