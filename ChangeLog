@@ -3,6 +3,9 @@
 	* users.py (Users.createUser):  Set the right home directory so it
 	gets made correctly (#216681).
 
+	* scripts/upd-instroot:  Keep xinf files on text installs.  Also,
+	XFree86 no longer exists.
+
 2006-11-21  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
