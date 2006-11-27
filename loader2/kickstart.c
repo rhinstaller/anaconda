@@ -261,7 +261,7 @@ int kickstartFromFloppy(char *kssrc) {
         return 1;
     }
 
-    /* format is ks=floppy:[/path/to/ks.cfg] */
+    /* format is floppy:[/path/to/ks.cfg] */
     kspath = "";
     p = strchr(kssrc, ':');
     if (p)
@@ -319,41 +319,94 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
     }
 }
 
-void getKickstartFile(struct loaderData_s * loaderData) {
-    char * c = loaderData->ksFile;
+static char *newKickstartLocation(char *origLocation) {
+    const char *location;
+    char *retval = NULL;
+    newtComponent f, okay, cancel, answer, locationEntry;
+    newtGrid grid, buttons;
 
-    loaderData->ksFile = NULL;
+    startNewt();
 
-    if (!strncmp(c, "ks=http://", 10) || !strncmp(c, "ks=ftp://", 9)) {
-        if (kickstartFromUrl(c + 3, loaderData))
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=nfs:", 7)) {
-        if (kickstartFromNfs(c + 7, loaderData))
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=floppy", 9)) {
-        if (kickstartFromFloppy(c)) 
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=hd:", 6)) {
-        if (kickstartFromHD(c)) 
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=bd:", 6)) {
-        if (kickstartFromBD(c))
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=cdrom", 8)) {
-        if (kickstartFromCD(c)) 
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=file:", 8)) {
-        loaderData->ksFile = c + 8;
-    } else if (!strcmp(c, "ks")) {
-        if (kickstartFromNfs(NULL, loaderData))
-            return;
-        loaderData->ksFile = strdup("/tmp/ks.cfg");
+    locationEntry = newtEntry(-1, -1, NULL, 60, &location, NEWT_FLAG_SCROLL);
+    newtEntrySet(locationEntry, origLocation, 1);
+
+    /* button bar at the bottom of the window */
+    buttons = newtButtonBar(_("OK"), &okay, _("Cancel"), &cancel, NULL);
+
+    grid = newtCreateGrid(1, 3);
+
+    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT,
+                     newtTextboxReflowed(-1, -1, _("Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."), 60, 0, 0, 0),
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, locationEntry,
+                     0, 1, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
+                     0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+
+    f = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, f, 1);
+    newtGridWrappedWindow(grid, _("Error downloading kickstart file"));
+    newtGridFree(grid, 1);
+
+    /* run the form */
+    answer = newtRunForm(f);
+
+    if (answer != cancel)
+        retval = strdup(location);
+
+    newtFormDestroy(f);
+    newtPopWindow();
+
+    return retval;
+}
+
+void getKickstartFile(struct loaderData_s *loaderData) {
+    char *c;
+    int rc = 1;
+
+    /* Chop off the parameter name, if given. */
+    if (!strncmp(loaderData->ksFile, "ks=", 3))
+        c = loaderData->ksFile+3;
+    else
+        c = loaderData->ksFile;
+
+    while (rc != 0) {
+        if (!strncmp(c, "ks", 2)) {
+            rc = kickstartFromNfs(NULL, loaderData);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "http://", 7) || !strncmp(c, "ftp://", 6)) {
+            rc = kickstartFromUrl(c, loaderData);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "nfs:", 4)) {
+            rc = kickstartFromNfs(c+4, loaderData);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "floppy", 6)) {
+            rc = kickstartFromFloppy(c);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "hd:", 3)) {
+            rc = kickstartFromHD(c);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "bd:", 3)) {
+            rc = kickstartFromBD(c);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "cdrom", 5)) {
+            rc = kickstartFromCD(c);
+            loaderData->ksFile = strdup("/tmp/ks.cfg");
+        } else if (!strncmp(c, "file:", 5)) {
+            loaderData->ksFile = c+5;
+        }
+
+        if (rc != 0) {
+            if (loaderData->ksFile != NULL)
+                free(loaderData->ksFile);
+
+            loaderData->ksFile = newKickstartLocation(c);
+
+            if (loaderData->ksFile != NULL)
+               return getKickstartFile(loaderData);
+            else
+               return;
+        }
     }
 
     flags |= LOADER_FLAGS_KICKSTART;

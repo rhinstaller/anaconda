@@ -441,7 +441,7 @@ int kickstartFromCD(char *kssrc) {
         return 1;
     }
 
-    /* format is ks=cdrom:[/path/to/ks.cfg] */
+    /* format is cdrom:[/path/to/ks.cfg] */
     kspath = "";
     p = strchr(kssrc, ':');
     if (p)

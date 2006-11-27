@@ -446,15 +446,15 @@ int kickstartFromHD(char *kssrc) {
 
     logMessage(INFO, "getting kickstart file from harddrive");
 
-    /* format is ks=hd:[device]:/path/to/ks.cfg */
-    /* split of pieces */
+    /* format is hd:[device]:/path/to/ks.cfg */
+    /* split up pieces */
     tmpstr = strdup(kssrc);
     p = strchr(tmpstr, ':');
     if (p)
         np = strchr(p+1, ':');
     
     /* no second colon, assume its the old format of                     */
-    /*     ks=hd:[device]/path/to/ks.cfg                                 */
+    /*        hd:[device]/path/to/ks.cfg                                 */
     /* this format is bad however because some devices have '/' in them! */
     if (!np)
         np = strchr(p+1, '/');
@@ -489,7 +489,7 @@ int kickstartFromBD(char *kssrc) {
 
     logMessage(INFO, "getting kickstart file from biosdrive");
 
-    /* format is ks=bd:[device]:/path/to/ks.cfg */
+    /* format is bd:[device]:/path/to/ks.cfg */
     /* split of pieces */
     tmpstr = strdup(kssrc);
     p = strchr(tmpstr, ':');
