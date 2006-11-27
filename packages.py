@@ -645,10 +645,13 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     if not upgrade:
         foundkernel = 0
+        xenkernel = 0
 
         if os.path.exists("/proc/xen") and \
                select(id.grpset.hdrlist, "kernel-xenU"):
+            log("selected xenU kernel")
             foundKernel = 1
+            xenkernel = 1
             if selected(id.grpset.hdrlist, "gcc"):
                 select(id.grpset.hdrlist, "kernel-xenU-devel")
         
@@ -673,28 +676,34 @@ def doPreInstall(method, id, intf, instPath, dir):
         elif iutil.getArch() == "ia64":
             largesmp_min = 64
 
-        if largesmp_min > 0 and nthreads > largesmp_min and \
+        if not xenkernel and largesmp_min > 0 and nthreads > largesmp_min and \
                 select(id.grpset.hdrlist, "kernel-largesmp"):
             foundKernel = 1
             if selected(id.grpset.hdrlist, "gcc"):
                 select(id.grpset.hdrlist, "kernel-largesmp-devel")
-        elif nthreads > 1:
+        elif not xenkernel and nthreads > 1:
             if select(id.grpset.hdrlist, "kernel-smp"):
                 foundkernel = 1
                 if selected(id.grpset.hdrlist, "gcc"):
                     select(id.grpset.hdrlist, "kernel-smp-devel")
 
-        if iutil.needsEnterpriseKernel():
+        if not xenkernel and iutil.needsEnterpriseKernel():
             if select(id.grpset.hdrlist, "kernel-bigmem"):
                 foundkernel = 1
 
-        if isys.summitavailable():
+        if not xenkernel and isys.summitavailable():
             if select(id.grpset.hdrlist, "kernel-summit"):
                 foundkernel = 1
 
         if foundkernel == 0:
             # we *always* need to have some sort of kernel installed
             select(id.grpset.hdrlist, 'kernel')
+
+        if xenkernel: 
+            log("deselecting kernel since we're installing xen kerenl")
+            # XXX: this is a bit of a hack, but we can't do much better
+            # with the rhel4 anaconda
+            id.grpset.hdrlist["kernel"].manual_state = -2 # MANUAL_OFF
             
         if (selected(id.grpset.hdrlist, "gcc") and
             selected(id.grpset.hdrlist, "kernel")):
