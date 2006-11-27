@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.1
+Version: 11.2.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 27 2006 Chris Lumens <clumens@redhat.com> - 11.2.0.2
+- Set the home directory correctly for ks user command (#216681).
+- Pull in xinf files from X driver packages on url images.
+
 * Tue Nov 21 2006 Chris Lumens <clumens@redhat.com> - 11.2.0.1
 - Use .discinfo files to determine if a CD tree exists instead of a set
   limit (pjones, #214787).
