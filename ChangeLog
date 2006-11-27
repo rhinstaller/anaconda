@@ -1,3 +1,8 @@
+2006-11-27  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/splittree.py:  Backport fixes from devel:  don't fail with
+	non-rpms in the directory, and don't link rpms multiple times.
+
 2006-10-24  Bill Nottingham <notting@redhat.com>
 
 	* iw/netconfig_dialog.py: Use the right widget names from the

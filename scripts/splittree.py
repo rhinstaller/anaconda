@@ -199,7 +199,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
         for i in range(self.bin_list[0], self.bin_list[-1] + 1):
             if i == 1:
-                p = os.popen('find %s/ -type f -not -name .discinfo' % self.dist_dir, 'r')
+                p = os.popen('find %s/ -type f -not -name .discinfo -not -name "*\.rpm"' % self.dist_dir, 'r')
                 filelist = p.read()
                 p.close()
                 filelist = string.split(filelist)
@@ -235,7 +235,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                 self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
             self.createDiscInfo(i)
             
-	if (self.src_discs != 0):
+        if (self.src_discs != 0):
             for i in range(self.src_list[0], self.src_list[-1] + 1):
                 os.makedirs("%s-disc%d/SRPMS" % (self.dist_dir, i))
                 self.linkFiles(self.dist_dir,
@@ -261,7 +261,10 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         # create the packages dictionary in this format: n-v-r.a:['n-v-r.arch.rpm']
         for filename in rpmlist:
             filesize = os.path.getsize("%s/%s/%s" % (self.dist_dir, pkgdir, filename))
-            pkg_nvr = nvra("%s/%s/%s" %(self.dist_dir, pkgdir, filename))
+            try:
+                pkg_nvr = nvra("%s/%s/%s" %(self.dist_dir, pkgdir, filename))
+            except rpm.error, e:
+                continue
             
             if packages.has_key(pkg_nvr):
                 # append in case we have multiple packages with the
@@ -389,7 +392,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         """Just runs everything"""
         self.createSplitDirs()
         self.splitRPMS()
-	if (self.src_discs != 0):
+        if (self.src_discs != 0):
             self.splitSRPMS()
         return self.logfile
 
@@ -462,7 +465,7 @@ if "__main__" == __name__:
         usage("You forgot to specify --srcdir")
     
     if options.has_key("--productpath"):
-	timber.product_path = options["--productpath"]
+        timber.product_path = options["--productpath"]
 
     if options.has_key("--reserve-size"):
         timber.reserve_size = float(options["--reserve_size"])
