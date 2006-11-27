@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 09:23-0500\n"
-"PO-Revision-Date: 2006-11-20 14:47+1000\n"
+"PO-Revision-Date: 2006-11-28 09:28+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2016,7 +2016,7 @@ msgid ""
 "Would you like to format this drive?"
 msgstr ""
 "Actualmente /dev/%s tiene un formato de partición %s. Para usar este disco "
-"para la instalación de %s, deberá reiniciarlo y como consecuencia perderà "
+"para la instalación de %s, deberá reiniciarlo y como consecuencia perderá "
 "TODOS LOS DATOS de la unidad.\n"
 "\n"
 "¿Desea formatear esta unidad?"
@@ -4319,7 +4319,7 @@ msgid ""
 "than the available space."
 msgstr ""
 "El tamaño físico extendido no puede ser cambiado porque de lo contrario el "
-"espacio necesario por los volumenes lógicos definidos en al actualidad "
+"espacio necesario por los volúmenes lógicos definidos en al actualidad "
 "incrementará para a más del espacio disponible."
 
 #: ../iw/lvm_dialog_gui.py:125
@@ -4357,7 +4357,7 @@ msgid ""
 msgstr ""
 "No se puede cambiar el tamaño de extensión porque el valor seleccionado (%"
 "10.2f MB) es mayor que el volumen físico más pequeño (%10.2f MB) del grupo "
-"de volumenes."
+"de volúmenes."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -4368,7 +4368,7 @@ msgid ""
 msgstr ""
 "No se puede cambiar el tamaño de extensión porque el valor seleccionado (%"
 "10.2f MB) es mayor que el volumen físico más pequeño (%10.2f MB) del grupo "
-"de volumenes."
+"de volúmenes."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -4379,8 +4379,8 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Este cambio en el valor de la extensión física le supondrà un espacio "
-"substancial en uno o más de los volumenes físicos en el grupo de volumen."
+"Este cambio en el valor de la extensión física le supondrá un espacio "
+"substancial en uno o más de los volúmenes físicos en el grupo de volumen."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -4390,7 +4390,7 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 "El tamaño de extensión física no se puede cambiar porque el tamaño de "
-"volumen lógico máximo (%10.2f MB) es menor de uno y mayor de los volumenes "
+"volumen lógico máximo (%10.2f MB) es menor de uno y mayor de los volúmenes "
 "lógicos definidos actualmente."
 
 #: ../iw/lvm_dialog_gui.py:288
@@ -4399,7 +4399,7 @@ msgid ""
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 "No puede borrar el volumen físico porque de lo contrario el grupo de volumen "
-"será menor a los volumenes lógicos definidos en la actualidad."
+"será menor a los volúmenes lógicos definidos en la actualidad."
 
 #: ../iw/lvm_dialog_gui.py:368 ../textw/partition_text.py:1138
 msgid "Make Logical Volume"
@@ -4584,7 +4584,7 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Los volumenes lógicos que ha configurado necesitan %g MB, pero el grupo de "
+"Los volúmenes lógicos que ha configurado necesitan %g MB, pero el grupo de "
 "volumen tiene tan sólo %g MB. Introduzca el grupo de volumen mayor o reduzca "
 "el volumen lógico."
 
@@ -4595,7 +4595,7 @@ msgstr "Ningún espacio libre"
 #: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "No puede crear más volumenes lógicos  %s por grupo de volumen."
+msgstr "No puede crear más volúmenes lógicos  %s por grupo de volumen."
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
@@ -4613,9 +4613,9 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"No existe espacio libre en el grupo de volumen para crear volumenes lógicos. "
+"No existe espacio libre en el grupo de volumen para crear volúmenes lógicos. "
 "Para añadir un volumen lógico necesitará reducir el tamaño de un o más de "
-"los volumenes lógicos existentes."
+"los volúmenes lógicos existentes."
 
 # ../partitioning.py:1555
 # ../partitioning.py:1575
@@ -4649,7 +4649,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:950
 msgid "Not enough physical volumes"
-msgstr "No existen suficientes volumenes físicos"
+msgstr "No existen suficientes volúmenes físicos"
 
 #: ../iw/lvm_dialog_gui.py:951
 msgid ""
@@ -4692,7 +4692,7 @@ msgstr "_Extensión física:"
 
 #: ../iw/lvm_dialog_gui.py:1014
 msgid "Physical Volumes to _Use:"
-msgstr "Volumenes físicos a _usar:"
+msgstr "Volúmenes físicos a _usar:"
 
 # ../packages.py:592
 # ../packages.py:608
@@ -4755,7 +4755,7 @@ msgstr "_Modificar"
 
 #: ../iw/lvm_dialog_gui.py:1122
 msgid "Logical Volumes"
-msgstr "Volumenes lógicos"
+msgstr "Volúmenes lógicos"
 
 # ../iw/mouse_gui.py:24
 # ../iw/mouse_gui.py:24
@@ -5701,7 +5701,7 @@ msgid ""
 msgstr ""
 "El RAID de software le permite combinar diversos discos en un dispositivo "
 "RAID amplio. Un dispositivo RAID puede ser configurado para proporcionar "
-"velocidad adicional y fiabilidad en comparaci al uso de un dispositivo "
+"velocidad adicional y fiabilidad en comparación al uso de un dispositivo "
 "individual. Para obtener más información sobre el uso de los dispositivos "
 "RAID consulte la documentación %s.\n"
 "\n"
@@ -5717,7 +5717,7 @@ msgid ""
 "\n"
 msgstr ""
 "Para usar RAID debe crear al menos dos particiones del tipo 'software RAID'. "
-"Podrá crea un dispositivo RAID que pueda ser formateado y montado.\n"
+"Podrá crear un dispositivo RAID que pueda ser formateado y montado.\n"
 "\n"
 
 # ../loader/loader.c:322
