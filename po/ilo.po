@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-28 02:27-0800\n"
+"PO-Revision-Date: 2006-11-28 02:45-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -1108,9 +1108,9 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Saan a mailukat ti intar a %s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo dagiti paginstala nga imahen ken adda amin a masapol a media.\n"
+"Saan a mailukat ti intar a %s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo dagiti paginstala nga imahen ken adda amin a nasken a warnakan.\n"
 "\n"
-"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a masapol nga uliten ti panaginstala.\n"
+"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a nasken nga uliten ti panaginstala.\n"
 "\n"
 
 #: ../harddrive.py:71
@@ -1136,7 +1136,7 @@ msgstr "Padasen _manen"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr "Masapol a Warnakan a Paginstala"
+msgstr "Nasken a Warnakan a Paginstala"
 
 #: ../image.py:83
 #, python-format
@@ -1146,7 +1146,7 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"Ti napili a software a mainstala ket masapol dagiti sumaruno a CD:\n"
+"Ti napili a software a mainstala ket nasken dagiti sumaruno a CD:\n"
 "\n"
 "%s\n"
 "Isaganayo dagiti CD sakbayyo ipatuloy ti panaginstala. No masapolyo nga ukasen ti panaginstala, santo marugian manen, pillienyo ti \"Rugian manen\"."
@@ -1736,7 +1736,7 @@ msgstr "Kurang ti Memoria"
 
 #: ../partitioning.py:94
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr "Gapu ta kurang ti memoria kadaytoy a makina, masapul a malukatan a dagus ti pangsinnukat nga espasio. Tapno maaramid daytoy, masapul a masuratan a dagus ti disk ti baro nga akinbenneg a rehistro. Mayat aya?"
+msgstr "Gapu ta kurang ti memoria kadaytoy a makina, naksen a malukatan a dagus ti pangsinnukat nga espasio. Tapno maaramid daytoy, nasken a masuratan a dagus ti harddisk ti baro nga akinbenneg a rehistro. Mayat aya?"
 
 #: ../partitions.py:816
 #, python-format
@@ -2752,7 +2752,7 @@ msgid ""
 "Remove any media used during the installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Ikkatenyo ania man a media a naaramat bayat ti panaginstala, sayonto lagitekanyo ti \"Manrugi manen\" tapno marugian manen ti sistema.\n"
+"Ikkatenyo ania man a warnakan a naaramat bayat ti panaginstala, sayonto lagitekanyo ti \"Manrugi manen\" tapno marugian manen ti sistema.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -2991,7 +2991,7 @@ msgstr "Saan a matutop a nagan ti lohikal a tomo"
 #: ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "Naar-aramat ti naga a \"%s\" ti lohikal a tomo. Pilienyo ti sabali."
+msgstr "Naar-aramat ti nagan a \"%s\" ti lohikal a tomo. Pilienyo ti sabali."
 
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
@@ -3044,7 +3044,7 @@ msgstr "Saan a Matutop ti Nagan ti Grupo ti Tomo"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
-msgstr "Nar-aramat ti nagan"
+msgstr "Ar-aramaten ti nagan"
 
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
@@ -4417,7 +4417,7 @@ msgid ""
 "Remove any media used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Ikkatenyo ti ania man a media a naaramat bayat ti panaginstala, sayonto talmegan ti <ENTER> tapno marugian manen ti sistema.\n"
+"Ikkatenyo ti ania man a warnakan a naaramat bayat ti panaginstala, sayonto talmegan ti <ENTER> tapno marugian manen ti sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -5228,7 +5228,7 @@ msgstr "Pilienyo ti \"%s\" tapno masukimat ti CD nga agdinama a nakaisengngat, w
 #: ../loader2/cdinstall.c:114
 #, c-format
 msgid "If you would like to test additional media, insert the next CD and press \"%s\". Testing each CD is not strictly required, however it is highly recommended.  Minimally, the CDs should be tested prior to using them for the first time. After they have been successfully tested, it is not required to retest each CD prior to using it again."
-msgstr "No kayatyo a sukimaten ti nayon a media, isengngatyo ti sumaruno a CD, santo talmeganyo ti \"%s\". Saan a nasken ti agsukimat iti CD, nupay kasta, naisingasing. Iti kabassitanna, nasken a masukimat ti CD sakbay mauna a maaramat ida. Kalpasandanto masukimat, saan a nasken a masukimat manen ti tunggal maysa a CD sakbay maaramatda manen. "
+msgstr "No kayatyo a sukimaten ti nayon a warnakan, isengngatyo ti sumaruno a CD, santo talmeganyo ti \"%s\". Saan a nasken ti agsukimat iti CD, nupay kasta, naisingasing. Iti kabassitanna, nasken a masukimat ti CD sakbay mauna a maaramat ida. Kalpasandanto masukimat, saan a nasken a masukimat manen ti tunggal maysa a CD sakbay maaramatda manen. "
 
 #: ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:384
@@ -5247,14 +5247,14 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Tapno mapaneknekan ti CD a media sakbay ti panaginstala, talmeganyo ti '%s'.\n"
+"Tapno mapaneknekan ti CD a warnakan sakbay ti panaginstala, talmeganyo ti '%s'.\n"
 "\n"
-"Pilienyo ti '%s' ket malaktaw ti panagpaneknekan ti media, santo irugi ti panaginstala."
+"Pilienyo ti '%s' ket malaktaw ti panagpaneknekan ti warnakan, santo irugi ti panaginstala."
 
 #: ../loader2/cdinstall.c:379
 #, c-format
 msgid "No %s CD was found which matches your boot media.  Please insert the %s CD and press %s to retry."
-msgstr "Awan ti nabirokan a %s a CD nga agbaya iti pagirugi a media. Iyunegyo ti %s CD sayonto talmegan ti %s tapno mapadas manen."
+msgstr "Awan ti nabirokan a %s a CD nga agbaya iti pagirugi a warnakan. Iyunegyo ti %s CD sayonto talmegan ti %s tapno mapadas manen."
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5419,7 +5419,7 @@ msgstr "Aw-awiten ti %s a driver..."
 #: ../loader2/urlinstall.c:160
 #, c-format
 msgid "The %s installation tree in that directory does not seem to match your boot media."
-msgstr "Saan nga agpada ti kayo ti instalasion ti %s nga adda kadayta a direktorio ti media ti panagrubbuat."
+msgstr "Saan nga agpada ti kayo ti instalasion ti %s nga adda kadayta a direktorio ti warnakan ti panagrubbuat."
 
 #: ../loader2/hdinstall.c:158
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
@@ -5568,11 +5568,11 @@ msgstr "panaginstala"
 
 #: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
-msgstr "Ania ti kita ti media nga aglallaon iti pangisalakan nga imahen?"
+msgstr "Ania ti kita ti warnakan nga aglallaon iti pangisalakan nga imahen?"
 
 #: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
-msgstr "Ania ti kita ti media nga aglallaon iti pakete a mainstalato?"
+msgstr "Ania ti kita ti warnakan nga aglallaon iti pakete a mainstalato?"
 
 #: ../loader2/loader.c:968
 msgid "No driver found"
@@ -5637,7 +5637,7 @@ msgstr "Agsuksukimat iti \"%s\"..."
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr "Sukimaten ti media ita..."
+msgstr "Sukimaten ti warnakan ita..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
@@ -5659,11 +5659,11 @@ msgstr "BALLIGI"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
-msgstr "Mayat ti aginstala nga aggapu daytoy a media."
+msgstr "Mayat ti aginstala nga aggapu daytoy a warnakan."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr "Awan ti maal-ala nga impormastion maipanggep ti panenglan a dagup; saan a mapaneknekan ti media."
+msgstr "Awan ti maal-ala nga impormastion maipanggep ti panenglan a dagup; saan a mapaneknekan ti warnakan."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -5687,7 +5687,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ti panagpaneknek ti media ket: %s\n"
+"Ti panagpaneknek ti warnakan ket: %s\n"
 "\n"
 "%s"
 
@@ -5851,7 +5851,7 @@ msgstr "Ikedkedding ti nagan ti host ken ti sakup..."
 #: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Maid ti argumento ti pammilin a %s ti iket ti kickstart: %s"
+msgstr "Madi ti argumento ti pammilin a %s ti iket ti kickstart: %s"
 
 #: ../loader2/net.c:1517
 #, c-format
@@ -5930,16 +5930,16 @@ msgstr "Naduktalan ti Media"
 
 #: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
-msgstr "Nadutalan ti lokal a media ti panaginstala..."
+msgstr "Naduktalan ti lokal a warnakan ti panaginstala..."
 
 #: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Naikkan ti madi nga argumento ti URL a pammilin a %s ti wagas ti kickstart: %s"
+msgstr "Madi ti argumento ti URL a pammilin a %s ti wagas ti kickstart: %s"
 
 #: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Nasken a maikkan ti --url nga argumento iti URL a wagas ti kickstart."
+msgstr "Nasken a maikkanan ti URL a wagas ti kickstart ti --url nga argumento."
 
 #: ../loader2/urlinstall.c:484
 #, c-format
@@ -5948,7 +5948,7 @@ msgstr "Saan nga am-ammo a URL a wagas a %s "
 
 #: ../loader2/urls.c:215
 msgid "Retrieving"
-msgstr "Agal-ala"
+msgstr "Inal-ala"
 
 #: ../loader2/urls.c:279
 msgid "FTP"
@@ -5960,7 +5960,7 @@ msgstr "Sapot"
 
 #: ../loader2/urls.c:301
 msgid "FTP site name:"
-msgstr "Nagan ti FTP a sitio:"
+msgstr "Nagan ti sitio ti FTP:"
 
 #: ../loader2/urls.c:302
 msgid "Web site name:"
