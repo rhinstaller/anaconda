@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.52.1
+Version: 10.1.1.53
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 28 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.53-1
+- Ensure we only install kernel-xenU on paravirt xen
+
 * Mon Nov 20 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.52-1
 - Fix /bin/echo symlink (dlehman, #178781)
 - Add audit-libs (dlehman, #203391)
