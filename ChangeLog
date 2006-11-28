@@ -1,3 +1,8 @@
+2006-11-28  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/wireless.c (set_essid, get_essid): Init wreq struct before
+	use (#215367).
+
 2006-11-28  Chris Lumens  <clumens@redhat.com>
 
 	* iw/language_gui.py (LanguageWindow.getNext):  If we changed

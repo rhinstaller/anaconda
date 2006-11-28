@@ -67,8 +67,10 @@ int is_wireless_interface(char * ifname) {
 /* set the essid for ifname to essid.  if essid is NULL, do automatically */
 int set_essid(char * ifname, char * essid) {
     int sock; 
-    struct iwreq wreq; 
-    
+    struct iwreq wreq;
+
+    memset(&wreq, 0, sizeof (wreq));
+
     if (strlen(essid) > IW_ESSID_MAX_SIZE) {
         fprintf(stderr, "essid too long\n");
         return -1;
@@ -101,7 +103,9 @@ int set_essid(char * ifname, char * essid) {
 char * get_essid(char * ifname) {
     int sock; 
     struct iwreq wreq; 
-    
+
+    memset(&wreq, 0, sizeof (wreq));
+
     sock = get_socket();
     wreq = get_wreq(ifname);
 
