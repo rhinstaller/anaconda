@@ -27,9 +27,14 @@ class InstallClass(BaseInstallClass):
     if 0: # not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
+    tasks = [(N_("Office"), ["office"]),
+             (N_("Multimedia"), ["graphics", "sound-and-video"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
-             (N_("Web server"), ["web-server"])]
+             (N_("Web server"), ["web-server"]),
+             (N_("Virtualization"), ["virtualization"]),
+             (N_("Clustering"), ["clustering"]),
+             (N_("Storage Clustering"), ["cluster-storage"])
+             ]
 
     instkeyname = _("Installation Number")
     instkeydesc = _("To install the full set of supported packages included "
@@ -52,7 +57,7 @@ class InstallClass(BaseInstallClass):
                                                 CLEARPART_TYPE_LINUX)
 
     def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups(anaconda)
+        grps = anaconda.backend.getDefaultGroups()
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def setSteps(self, dispatch):
@@ -84,6 +89,31 @@ class InstallClass(BaseInstallClass):
             for name, path in inum.get_repos_dict().items():
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (path,))
+
+
+            # if we've got a real installation number, use it to base
+            # what tasks we show.  this is pretty ugly, but alas.
+            tasks = []
+            if inum.get_product_string() == "client":
+                tasks += [(N_("Office"), ["office"]),
+                          (N_("Multimedia"), ["graphics", "sound-and-video"])]
+            elif inum.get_product_string() == "server":
+                tasks.append( (N_("Web server"), ["web-server"]) )
+                
+            if "VT" in inum.get_repos():
+                tasks.append( (N_("Virtualization"), ["virtualization"]) )
+            if "Cluster" in inum.get_repos():
+                tasks.append( (N_("Clustering"), ["clustering"]) )
+            if "ClusterStorage" in inum.get_repos():
+                tasks.append( (N_("Storage Clustering"), ["cluster-storage"]) )
+
+            if inum.get_product_string() == "server" or "Workstation" in inum.get_repos():
+                tasks.append( (N_("Software Development"),
+                               ["development-libs", "development-tools",
+                                "gnome-software-development",
+                                "x-software-development"],) )
+            self.tasks = tasks
+            
         else:
             key = key.upper()
             # simple and stupid for now... if C is in the key, add Clustering
