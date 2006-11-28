@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-17 09:23-0500\n"
-"PO-Revision-Date: 2006-11-28 10:12+1000\n"
+"PO-Revision-Date: 2006-11-28 17:40+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: ../anaconda:472
 msgid "No video hardware found, assuming headless"
-msgstr "비디오 하드웨어를 찾을 수 없어, 없는 것으로 취급합니다."
+msgstr "비디오 하드웨어를 찾을 수 없어, 없는 것으로 취급함"
 
 #: ../anaconda:479 ../anaconda:944
 msgid "Unable to instantiate a X hardware state object."
@@ -113,7 +113,7 @@ msgstr "알 수 없는 설치 방식"
 
 #: ../anaconda:910
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "anaconda에서 지원하지 않는 설치 방식을 지정하습니다."
+msgstr "anaconda에서 지원하지 않는 설치 방식을 지정하셨습니다."
 
 #: ../anaconda:912
 #, c-format
@@ -195,7 +195,7 @@ msgstr ""
 #: ../autopart.py:1032
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
+msgstr "%s 부트 파티션이 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1058
 #, python-format
@@ -382,9 +382,9 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"자동 파티션은 여러분이 선택하신 설치 유형에 따라 자동으로 파티션을 설정합니"
+"자동 파티션은 선택하신 설치 유형에 따라 자동으로 파티션을 설정합니"
 "다. 자동으로 설정된 파티션의 결과를 확인해 보신 후에 필요하시다면, 사용자가 "
-"원하시는 대로 직접 파티션을 설정하실 수도 있습니다.\n"
+"원하는 대로 직접 파티션을 설정하실 수 도 있습니다.\n"
 "\n"
 "수동 디스크 파티션 도구인 Disk Druid는 상호 호환 환경에서 파일 시스템 유형, "
 "마운트할 지점, 용량 등을 쉽고 편하게 설정하실 수 있도록 도와드립니다."
@@ -631,7 +631,7 @@ msgstr ""
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
-msgstr "스킵"
+msgstr "생략"
 
 #: ../fsset.py:1452 ../upgrade.py:90 ../textw/complete_text.py:47
 msgid "Reboot"
@@ -1115,7 +1115,7 @@ msgstr ""
 #: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "뒤로(_B)"
+msgstr "이전(_B)"
 
 #: ../image.py:136
 #, python-format
@@ -1297,24 +1297,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' (은)는 잘못된 IPv6 주소입니다."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' (은)는 잘못된 IPv6 주소입니다."
+msgstr "'%s' (은)는 잘못된 IP 주소입니다."
 
 #: ../packages.py:248
-#, fuzzy
 msgid "Invalid Key"
-msgstr "잘못된 접두부(Prefix)"
+msgstr "잘못된 키"
 
 #: ../packages.py:249
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "여러분이 입력하신 값은 사용될 수 없습니다."
+msgstr "입력하신 키는 유효하지 않습니다."
 
 #: ../packages.py:262
-#, fuzzy
 msgid "_Skip"
-msgstr "스킵"
+msgstr "생략(_S)"
 
 #: ../packages.py:289
 msgid "Warning! This is pre-release software!"
@@ -2165,14 +2162,14 @@ msgid "No help is available for this step of the install."
 msgstr "이 설치 과정에 관한 도움말이 없습니다."
 
 #: ../text.py:361
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "볼륨 그룹명을 입력해 주십시오"
+msgstr "%(instkey)s를 입력해 주십시오"
 
 #: ../text.py:378 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s 입력 생략"
 
 #: ../text.py:409
 msgid "Save Crash Dump"
@@ -3402,9 +3399,8 @@ msgid "Nameserver"
 msgstr "네임서버"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "네트워크 인터페이스를 설정하는 도중 오류가 발생하였습니다."
+msgstr "네트워크 장치를 설정하는 도중 오류 발생"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:820
 msgid "Primary DNS"
@@ -3459,14 +3455,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:179 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "\"%s\" 항목을 반드시 입력하셔야 합니다."
+msgstr "%s 항목에 해당하는 값이 필요합니다."
 
 #: ../iw/network_gui.py:187 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "데이터의 오류"
+msgstr "%s 데이터 오류"
 
 #: ../iw/network_gui.py:188 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3475,9 +3471,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:192 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "여러분이 입력하신 IP 정보는 사용될 수 없습니다."
+msgstr "입력하신 IPv4 정보는 유효하지 않습니다."
 
 #: ../iw/network_gui.py:196
 msgid ""
@@ -3514,22 +3509,20 @@ msgid "_Activate on boot"
 msgstr "부팅시 활성화(_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP 주소"
+msgstr "주소"
 
 #: ../iw/network_gui.py:337 ../textw/network_text.py:216
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "넷마스크"
+msgstr "접두부 (넷마스크)"
 
 #: ../iw/network_gui.py:342
 msgid "IPv_4:"
-msgstr ""
+msgstr "IPv_4:"
 
 #: ../iw/network_gui.py:364
 msgid "IPv_6:"
-msgstr ""
+msgstr "IPv_6:"
 
 #: ../iw/network_gui.py:395
 msgid "_Point to Point (IP):"
@@ -3554,9 +3547,8 @@ msgid "Missing Protocol"
 msgstr "프로토콜 부재"
 
 #: ../iw/network_gui.py:476 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "DHCP에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니다."
+msgstr "최소한 IPv4 또는 IPv6 지원을 선택하셔야 합니다."
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -3573,13 +3565,12 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 접두부는 0과 128 사이의 값이어야 합니다."
 
 #: ../iw/network_gui.py:537 ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6 접두부는 0과 128 사이의 값이어야 합니다."
+msgstr "유효하지 않거나 존재하지 않는 IPv6 접두부 (0과 128 사이의 값이어야 함.)"
 
 #: ../iw/network_gui.py:593 ../iw/network_gui.py:606
 msgid "Disabled"
-msgstr ""
+msgstr "비활성화됨"
 
 #: ../iw/network_gui.py:683
 msgid "Active on Boot"
@@ -4788,7 +4779,7 @@ msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다�
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "선택할 패키지 옵션이 없음"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -4819,13 +4810,13 @@ msgid "Mouse Selection"
 msgstr "마우스 선택"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"\"%s\" 항목이 지정되지 않았습니다.  네트워크 환경에 따라 이후 문제가 발생할 "
-"수도 있습니다."
+"%s 항목을 지정하지 않으셨습니다.  네트워크 환경에 따라 이후 문제가 발생할 "
+"수 도 있습니다."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4847,25 +4838,23 @@ msgstr "부팅시 활성화"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "키:"
+msgstr "WEP 키:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5189,9 +5178,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "사용하실 드라이브를 지정해 주십시오"
 
 #: ../textw/partition_text.py:1561
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
+msgstr "<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
 
 #: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
@@ -5210,20 +5198,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "드라이브 설정을 수정할 방법을 지정해 주십시오."
 
 #: ../textw/partition_text.py:1663
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP 장치 추가"
 
 #: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
-"zSeries 기계들은 보통 SCSI 장치들을 광채널 (FCP)을 통해 사용하실 수 있습니"
-"다. 각 장치들의, 16비트 장치 번호, 16비트 SCSI ID, 64비트 세계 포트 이름 "
-"(WWPN),16비트 SCSI LUN 그리고 64비트 FCP LUN 의 5가지 변수가 필요합니다."
+"zSeries 기계들은 산업 표준 SCSI 장치들을 광채널 (FCP)을 통해 사용하실 수 있습니"
+"다. 각 장치들의, 16비트 장치 번호, 64비트 세계 포트 이름 (WWPN), 64비트 FCP LUN을 "
+"알려주셔야 합니다."
 
 #: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5364,7 +5350,7 @@ msgstr "스왑 추가"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr "여러분이 입력하신 값은 사용될 수 없습니다."
+msgstr "입력하신 값은 사용될 수 없습니다."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
@@ -5505,15 +5491,16 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:34
-#, fuzzy
 msgid "Installation Number"
-msgstr "설치 시작"
+msgstr "설치 번호"
 
 #: ../installclasses/rhel.py:35
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"등록에 포함된 지원되는 모든 패키지 모음을 설치하기 위해, 설치 번호를 입력해 "
+"주시기 바랍니다."
 
 #: ../installclasses/rhel.py:38
 msgid ""
@@ -5528,6 +5515,15 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"설치 번호의 위치를 지정하실 수 없을 경우, http://www."
+"redhat.com/apps/support/in.html에서 참조하시기 바랍니다.\n"
+"\n"
+"생략하실 경우:\n"
+"* 등록에 포함된 모든 패키지 모음에 액세스하실 수 없게 됩니다.\n"
+"* Red Hat Enterprise Linux에서 지원되지 않는/인증되지 않는 설치를 "
+"하게 될 수 도 있습니다.\n"
+"* 등록에 포함되지 않은 패키지에 대한 소프트웨어와 보안 업데이트를 받으실 수 "
+"없게 됩니다."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5620,7 +5616,7 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"여러분의 CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
+"CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:258
@@ -5672,7 +5668,7 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"여러분의 시스템에서 드라이버 디스켓 소스로 사용될 수 있는 장치를 여러개 발견"
+"시스템에서 드라이버 디스켓 소스로 사용될 수 있는 장치를 여러개 발견"
 "했습니다.  어떤 장치를 사용하시겠습니까?"
 
 #: ../loader2/driverdisk.c:301
@@ -5715,7 +5711,7 @@ msgstr "드라이버 디스켓을 마운트하는데 실패했습니다."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr "%s의 출시 버젼에 대해 드라이버 디스켓이 잘못되었습니다."
+msgstr "%s의 출시 버전에 대해 드라이버 디스켓이 잘못되었습니다."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6040,7 +6036,7 @@ msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
+"시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
 "딩하시겠습니까? "
 
 #: ../loader2/loader.c:1161
@@ -6182,7 +6178,7 @@ msgstr ""
 "다음의 사항을 입력해 주십시오:\n"
 "\n"
 "    o 웹 %s서버의 이름 또는 IP 주소\n"
-"    o 여러분 시스템에 맞는 %s를 포함한\n"
+"    o 시스템에 맞는 %s를 포함한\n"
 "     서버가 있는 디렉토리\n"
 
 #: ../loader2/net.c:98
@@ -6227,7 +6223,7 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"여러분의 동적 IP 주소 요청에 의해 IP 설정 정보가 전달되었으나, 그 정보에는 "
+"동적 IP 주소 요청에 의해 IP 설정 정보가 전달되었으나, 그 정보에는 "
 "DNS 네임서버의 정보가 포함되어 있지 않습니다. 네임서버를 알고 계신다면, 지금 "
 "입력해 주십시오. 이와 관련된 사항에 대해 잘 모르실 경우에는 빈 칸으로 놔두시"
 "고, 설치를 계속 진행하시기 바랍니다."
@@ -6300,6 +6296,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"IPv4 또는 IPv6 주소 및 접두부를 입력하십시오 (주소 /접두부). IPv4에 대해, 점으로 "
+"구분된 네 개의 숫자로된 넷마스크나 CIDR 스타일의 접두부가 사용가능합니다. 게이트웨이와 "
+"네임 서버 영역에서 IPv4 또는 IPv6 주소를 사용할 수 있어야 합니다."
 
 #: ../loader2/net.c:1024
 msgid "Manual TCP/IP Configuration"
@@ -6307,16 +6306,15 @@ msgstr "수동 TCP/IP 설정"
 
 #: ../loader2/net.c:1147 ../loader2/net.c:1153
 msgid "Missing Information"
-msgstr "정보 부족"
+msgstr "정보 부재"
 
 #: ../loader2/net.c:1148
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1154
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "올바른 IPv6 주소와 CIDR 접두부(prefix)를 입력해 주십시오."
+msgstr "유효한 IPv6 주소와 CIDR 접두부를 입력해 주십시오."
 
 #: ../loader2/net.c:1418
 msgid "Determining host name and domain..."
@@ -6341,7 +6339,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치로 "
+"시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치로 "
 "설치하시겠습니까?"
 
 #: ../loader2/nfsinstall.c:47
@@ -6589,7 +6587,7 @@ msgstr "예외 상황 정보(_E)"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6678,19 +6676,16 @@ msgid "_Customize now"
 msgstr "지금 사용자 설정(_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "장치 번호"
+msgstr "<b>장치 번호:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>암호(_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7412,7 +7407,7 @@ msgstr "아라비아어"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "아삼어"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7576,7 +7571,7 @@ msgstr "세르비아어(라틴)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "신할라어"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7600,7 +7595,7 @@ msgstr "타밀어"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "텔루구어"
 
 #. generated from lang-table
 msgid "Turkish"
