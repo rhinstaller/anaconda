@@ -543,13 +543,14 @@ class NetworkWindow(InstallWindow):
 		if valsgood == 0:
 		    continue
 
-		try:
-                    (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
-                                                        tmpvals['netmask'])
-		except Exception, e:
-                    print e
-		    self.handleBroadCastError()
-		    valsgood = 0
+		if IPV4cb.get_active() is True:
+		    try:
+                        (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
+                                                            tmpvals['netmask'])
+		    except Exception, e:
+                        print e
+		        self.handleBroadCastError()
+		        valsgood = 0
 
 		if not valsgood:
 		    continue
@@ -572,7 +573,8 @@ class NetworkWindow(InstallWindow):
 		    else:
 		        self.devices[dev].set((t, entrys[t].get_text()))
 
-		self.devices[dev].set(('network', net), ('broadcast', bc))
+	        if IPV4cb.get_active() is True:
+		    self.devices[dev].set(('network', net), ('broadcast', bc))
 
 	    self.devices[dev].set(('bootproto', bootproto))
 	    self.devices[dev].set(('ONBOOT', onboot))
