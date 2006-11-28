@@ -1,3 +1,50 @@
+2006-11-28  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (parseCmdLineIpv6): Added function to parse a new
+	ipv6= command line argument.  You can pass dhcp or auto to select
+	the IPv6 configuration method for install.  No support for passing
+	the IPv6 address via this option (yet).
+
+	* loader2/loader.c (parseCmdLineFlags): Call parseCmdLineIpv6() for
+	the ipv6= flag.
+
+	* loader2/loader.h: Add ipv6 and ipv6info_set to loaderData_s.
+
+	* loader2/net.c (setMethodSensitivity): Toggle function to handle
+	IPv4 and IPv6 radio buttons in configureTCPIP() dialog.
+
+	* loader2/net.c (v4MethodCallback): Toggle IPv4 radio buttons.
+	* loader2/net.c (v6MethodCallback): Toggle IPv6 radio buttons.
+
+	* loader2/net.c (getDnsServers): Reword and resize dialog box, bump
+	size of input field to accomodate IPv6 address.
+
+	* loader2/net.c (printLoaderDataIPINFO): Add lines to print the values
+	of ipv6 and ipv6info_set.
+
+	* loader2/net.c (setupNetworkDeviceConfig): Remove title from the
+	winStatus() dialog that appears before doDhcp() is called.
+
+	* loader2/net.c (readNetConfig): Combine UI flags in to the
+	netconfopts structure. Set ipv4method and ipv6method in newCfg.
+
+	* loader2/net.c (configureTCPIP): Remove previous checkboxes.  Have
+	two checkboxes (for for IPv4 and one for IPv6).  Added radio buttons
+	to let the user pick the configuration method per stack.  Let the
+	user configure stacks independently and offer automatic neighbor
+	discovery for IPv6 as well as DHCP and manual (#213108, #213112).
+
+	* loader2/net.c (manualNetConfig): Check for more than just IPv4
+	or IPv6 being selected to enable input fields.  Check for that and
+	the ipv4method and ipv6method.
+
+	* loader2/net.c (doDhcp): Set DHCP_Preference based on noipv4,
+	noipv6, ipv4method, and ipv6method.  Add DHCPv6_DISABLE_RESOLVER
+	and DHCPv4_DISABLE_HOSTNAME_SET to the preference flags.
+
+	* loader2/net.h: Add strings, enums, structs, and prototype fixes
+	related to the changes above.
+
 2006-11-28  Jeremy Katz  <katzj@redhat.com>
 
 	* lang-table: Fix si_LK timezone (#217288)

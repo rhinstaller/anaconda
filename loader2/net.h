@@ -7,6 +7,17 @@
 #include <newt.h>
 #include <pump.h>
 
+#define DHCP_METHOD_STR   _("Dynamic IP configuration (DHCP)")
+#define MANUAL_METHOD_STR _("Manual configuration")
+#define AUTO_METHOD_STR   _("Automatic neighbor discovery (RFC 2461)")
+
+/* generic names for array index positions in net.c */
+enum { IPV4, IPV6 };
+
+/* these match up to the radio button array index order in configureTCPIP() */
+enum { IPV4_DHCP_METHOD, IPV4_MANUAL_METHOD };
+enum { IPV6_AUTO_METHOD, IPV6_DHCP_METHOD, IPV6_MANUAL_METHOD };
+
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
 
@@ -19,7 +30,7 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
-    int noipv4, noipv6;
+    int noipv4, noipv6, ipv4method, ipv6method;
     char * vendor_class;
 
     /* s390 settings */
@@ -36,17 +47,21 @@ struct intfconfig_s {
     const char *gw, *ns;
 };
 
+struct netconfopts {
+    char ipv4Choice;
+    char ipv6Choice;
+};
+
 typedef int int32;
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev,
                   char * dhcpclass, int methodNum);
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   char * ipv4Choice, char * ipv6Choice, int methodNum);
+                   struct netconfopts * opts, int methodNum);
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
-                    struct intfconfig_s * ipcomps,
-                    int ipv4Choice, int ipv6Choice);
+                    struct intfconfig_s * ipcomps, struct netconfopts * opts);
 void debugNetworkInfo(struct networkDeviceConfig *cfg);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
