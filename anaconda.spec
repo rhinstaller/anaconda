@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.17
+Version: 11.1.2.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 28 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.18-1
+- Fix registration key dialog (katzj).
+- Base shown tasks on registration key (katzj).
+- Init wreq structure before use (dcantrel, #215367).
+- Fetch new release notes file on language change (#217501).
+- Add ipv6= command line argument (dcantrel).
+- Rework loader network config screen (dcantrel, #213108, #213112).
+- Disable testing registration keys when out of beta (katzj, #217360).
+- Fix si_LK timezone (katzj, #217288).
+- Set the right home directory on kickstart user command (#216681).
+- Allow correcting kickstart file location on error/typo (#216446).
+- Check for .discinfo instead of using a static number (pjones, #214787).
+- Nodes property typo (pnasrat, #216410).
+- Only set broadcast and network addr if ipv4 is enabled (dcantrel, #215451).
+
 * Fri Nov 17 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.17-1
 - Preserve drive order specified in kickstart (#214881).
 - Be smarter about checking if iscsi is available (katzj, #216128).
