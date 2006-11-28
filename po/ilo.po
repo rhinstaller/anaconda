@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-28 02:05-0800\n"
+"PO-Revision-Date: 2006-11-28 02:27-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: ../autopart.py:1679
 msgid "Before automatic partitioning can be set up by the installation program, you must choose how to use the space on your hard drives."
-msgstr "Sakbay maisagana ti programa ti panaginstala ti otomatiko a panagbenneg, naskenyo ti agpili iti panangaramat ti espasio ti drive."
+msgstr "Sakbay maisagana ti programa ti panaginstala ti otomatiko a panagbenneg, naskenyo ti agpili iti panangaramat ti espasio ti harddrive."
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
@@ -435,7 +435,7 @@ msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Piniliyo ti agikkat kadagiti amin a benneg (SIBUBUKEL a DATOS) nga adda kadagiti sumaruno a drive:%s\n"
+"Piniliyo ti agikkat kadagiti amin a benneg (SIBUBUKEL a DATOS) nga adda kadagiti sumaruno a harddrive:%s\n"
 "Sigurado a kayatyo ti agpatuloy?"
 
 #: ../autopart.py:1692
@@ -444,7 +444,7 @@ msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Piniliyo ti agikkat kadagiti amin a benneg a Linux (ken SIBUBUKEL a DATOSDA) nga adda kadagiti sumaruno a drive:%s\n"
+"Piniliyo ti agikkat kadagiti amin a benneg a Linux (ken SIBUBUKEL a DATOSDA) nga adda kadagiti sumaruno a harddrive:%s\n"
 "Sigurado a kayatyo ti agpatuloy?"
 
 #: ../backend.py:97
@@ -1125,7 +1125,7 @@ msgid ""
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort the installation."
 msgstr ""
-"Napadas ti agisagpat iti #%s nga imahen, ngem saan a mabirokan iti tagtaginayon a disk.\n"
+"Napadas ti agisagpat iti #%s nga imahen, ngem saan a mabirokan iti harddrive.\n"
 "\n"
 "Kopiaenyo daytoy nga imahen kadaytoy a drive, sayonto lagitekanyo ti 'Padasen Manen'. Lagitekanyo ti 'Rugian manen' tapno maukas ti panaginstala."
 
@@ -1172,11 +1172,11 @@ msgstr "Kopkopiean ti intar"
 
 #: ../image.py:165
 msgid "Transferring install image to hard drive..."
-msgstr "Iyakyakar ti paginstala nga imahen iti tagtaginayon a disk..."
+msgstr "Iyakyakar ti paginstala nga imahen iti harddrive..."
 
 #: ../image.py:175
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
-msgstr "Rimsua ti biddut iti panagyayakar ti paginstala nga imahen iti tagtaginayon a disk. Kurangensa ti espasio ti disk."
+msgstr "Rimsua ti biddut iti panagyayakar ti paginstala nga imahen iti harddisk. Kurangensa ti espasio ti harddisk."
 
 #: ../image.py:264
 msgid "Change CDROM"
@@ -1366,7 +1366,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a maipakat tapno maaramat iti panaginstala ti %s. No kayatyo nga aramaten daytoy a disk maipapan ti panaginstala, naksen a marugianto ngem mabura ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
+"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a masayangkat tapno maaramat iti panaginstala ti %s. No kayatyo nga aramaten daytoy a harddisk maipapan ti panaginstala, naksen a marugianto ngem mabura ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a DASD babaen ti CDL?"
 
@@ -1377,17 +1377,17 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem mabura ti SIBUBUKEL a DATOS a nakasurat kadaytoy a drive.\n"
+"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem mabura ti SIBUBUKEL a DATOS a nakasurat kadaytoy a harddrive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a drive?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr "_Bay-an ti drive"
+msgstr "_Bay-an ti harddrive"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
-msgstr "Ipormato ti _drive"
+msgstr "Ipormato ti _harddrive"
 
 #: ../partedUtils.py:791
 #, python-format
@@ -1401,7 +1401,7 @@ msgstr "Agirubrubbuat"
 #: ../partedUtils.py:889
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Aguraykayo bayat ti panagpormato ti drive a %s...\n"
+msgstr "Aguraykayo bayat ti panagpormato ti harddrive a %s...\n"
 
 #: ../partedUtils.py:987
 #, python-format
@@ -1412,7 +1412,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Saan a mabasa ti tabula ti benneg nga naisurat iti aparato a %s (%s). Tapno maparsua ti baro a benneg, kailangan a mairugi ket mapukaw ti SIBUBUKEL a DATOS a naisurat kadaytoy a drive.\n"
+"Saan a mabasa ti tabula ti benneg nga naisurat iti aparato a %s (%s). Tapno maparsua ti baro a benneg, kailangan a mairugi ket mapukaw ti SIBUBUKEL a DATOS a naisurat kadaytoy a harddrive.\n"
 "\n"
 "Daytoy nga aramid ket \n"
 "\n"
@@ -1427,15 +1427,15 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro a benneg, nasken a marugian ket maburanto ti SIBUBUKEL A DATOS nga nakaisurat kadaytoy a disk.\n"
+"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro a benneg, nasken a marugian ket maburanto ti SIBUBUKEL A DATOS nga nakaisurat kadaytoy a harddisk.\n"
 "\n"
-"Waswasen daytoy nga aramid ti keddeng a maipanggep ania a drive a mabaybay-an.\n"
+"Waswasen daytoy nga aramid ti keddeng a maipanggep ania a harddrive a mabaybay-an.\n"
 "\n"
-"Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL A DATOS?"
+"Kayatyo a marugian daytoy a harddrive ket mabura ti SIBUBUKEL A DATOS?"
 
 #: ../partedUtils.py:1162
 msgid "No Drives Found"
-msgstr "Awan ti masarakan a drive"
+msgstr "Awan ti masarakan a harddrive"
 
 #: ../partedUtils.py:1163
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
@@ -1530,7 +1530,7 @@ msgstr "Saan a mabura daytoy a benneg, gapu ta daytoy ket nabennat a benneg dayt
 #: ../partIntfHelpers.py:182
 #: ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Daytoy a benneg ket aglallaon iti datos maipaay ti panaginstala iti agnannayon a disk."
+msgstr "Daytoy a benneg ket aglallaon iti datos maipaay ti panaginstala iti agnannayon a harddisk."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1888,7 +1888,7 @@ msgstr "No nalpasen, leppasenyo ti shell santo marugian manen ti sistema."
 
 #: ../rescue.py:201
 msgid "Setup Networking"
-msgstr "Ipinipin ti Ikit"
+msgstr "Ituding ti Ikit"
 
 #: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
@@ -2010,7 +2010,7 @@ msgstr "Adayo"
 #: ../text.py:154
 #: ../text.py:162
 msgid "Debug"
-msgstr "Depura"
+msgstr "Linisen"
 
 #: ../text.py:158
 msgid "Exception Occurred"
@@ -2557,17 +2557,17 @@ msgstr "Biddut ti Datos"
 #: ../iw/autopart_type.py:210
 #: ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Ikkaten amin a benneg a nakaidisso kadagiti napili a drive, santo maparsua ti sigud a panangurnos."
+msgstr "Ikkaten amin a benneg a nakaidisso kadagiti napili a harddrive, santo maparsua ti sigud a panangurnos."
 
 #: ../iw/autopart_type.py:211
 #: ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Ikkaten amin a benneg ti Linux a nakaidisso kadagiti napili a drive, santo parsuaen ti sigud a panangurnos."
+msgstr "Ikkaten amin a benneg ti Linux a nakaidisso kadagiti napili a harddrive, santo parsuaen ti nakaisigudan a panangurnos."
 
 #: ../iw/autopart_type.py:212
 #: ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr "Aramaten ti nawaya nga espasio iti pinili a drive, santo parsuaen ti sigud a panangurnos."
+msgstr "Aramaten ti nawaya nga espasio iti pinili a harddrive, santo parsuaen ti nakaisigudan a panangurnos."
 
 #: ../iw/autopart_type.py:213
 #: ../textw/partition_text.py:1528
@@ -2681,11 +2681,11 @@ msgstr "Paginstalaan ti rehistro ti mangimaton ti rubbuat:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "_Sukatan ti urnos ti drive"
+msgstr "_Sukatan ti urnos ti harddrive"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
-msgstr "Baliwan ti Panagurnos ti Drive"
+msgstr "Baliwan ti Panagurnos ti Harddrive"
 
 #: ../iw/bootlocwidget.py:89
 msgid ""
@@ -2693,9 +2693,9 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates the Master Boot Record (MBR)."
 msgstr ""
-"Urnosen ti drive babaen ti panagurnos ti inaramat ti BIOS. Ti panagbaliwan ti panagurnos ti drive ket maaramat no adda kadakayo ti adu pagibagay a SCSI wenno dagiti dua a kita ti SCSI ken IDE ken kayatyo ti mangrubbuat nga aggapu ti aparato a SCSI.\n"
+"Urnosen ti drive babaen ti panagurnos ti inaramat ti BIOS. Ti panagbaliwan ti panagurnos ti harddrive ket maaramat no adda kadakayo ti adu pagibagay a SCSI wenno dagiti dua a kita ti SCSI ken IDE ken kayatyo ti mangrubbuat nga aggapu ti aparato a SCSI.\n"
 "\n"
-"Ti panagbaliwan ti panagurnos ti drive ket mabaliwanto ti pagbirokan ti Kangrunaan a Rehistro ti Panagrubbuat (MBR)."
+"Ti panagbaliwan ti panagurnos ti harddrive ket mabaliwanto ti pagbirokan ti Kangrunaan a Rehistro ti Panagrubbuat (MBR)."
 
 #: ../iw/confirm_gui.py:29
 #: ../textw/confirm_text.py:35
@@ -2768,7 +2768,7 @@ msgstr ""
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
-msgstr "Drive"
+msgstr "Harddrive"
 
 #: ../iw/driveorderwidget.py:44
 #: ../textw/partition_text.py:1437
@@ -2799,7 +2799,7 @@ msgstr "_Pasayaat ti panagadda a panaginstala"
 #: ../iw/examine_gui.py:63
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your drives."
-msgstr "Pilienyo ti opsion no kayatyo a pasayaat ti panagadda a sistema a %s. Daytoy nga opsion ket taginayonen ti datos a nakasurat kadagiti drive."
+msgstr "Pilienyo ti opsion no kayatyo a pasayaat ti panagadda a sistema a %s. Daytoy nga opsion ket taginayonen ti datos a nakasurat kadagiti harddrive."
 
 #: ../iw/examine_gui.py:110
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -3437,7 +3437,7 @@ msgstr "Imahen"
 
 #: ../iw/osbootwidget.py:137
 msgid "Enter a label to be displayed in the boot loader menu. The device (or hard drive and partition number) is the device from which it boots."
-msgstr "Isuratyo ti etiketa a maipakita iti menu ti mangimaton ti rubbuat. Ti aparato (wenno nalagda a drive ken numero ti benneg) ket ti pagrubbuatanna."
+msgstr "Isuratyo ti etiketa a maipakita iti menu ti mangimaton ti rubbuat. Ti aparato (wenno harddrive ken numero ti benneg) ket ti pagrubbuatanna."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3522,11 +3522,11 @@ msgstr "_Kita ti Sistema ti Intar:"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr "Mapalubos a _Drive:"
+msgstr "Mapalubos a _Harddrive:"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
-msgstr "Drive:"
+msgstr "Harddrive:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
@@ -3543,12 +3543,12 @@ msgstr "Pilitin kas kangrunaan a _benneg"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr "Drive a %s (Rukod: %s/%s/%s) (Model: %s)"
+msgstr "Harddrive a %s (Rukod: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr "Drive %s (%-0.f a MB) (Model: %s)"
+msgstr "Harddrive %s (%-0.f a MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365
 #: ../textw/partition_text.py:1437
@@ -3637,7 +3637,7 @@ msgstr "Awan"
 #: ../iw/partition_gui.py:798
 #: ../loader2/hdinstall.c:265
 msgid "Hard Drives"
-msgstr "Tagtaginayon a Disk"
+msgstr "Harddrive"
 
 #: ../iw/partition_gui.py:869
 #: ../textw/partition_text.py:141
@@ -3703,7 +3703,7 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"Ti RAID ti software, ket ikkannakayo ti pannakabael ti agaramat iti dadduma disk maipakaykaysa a dakdakkel nga aparato ti RAID. Maidalimanek ti aparato ti RAID tapno makaikkan iti nayon a kapardas ken talek no maidilig ti panagaramat ti maymaysa a drive. Ti dadduma nga impormasion maipaay ti panagaramat ti aparato ti RAID, makiumankayo ti dokumentasion ti %s.\n"
+"Ti RAID ti software, ket ikkannakayo ti pannakabael ti agaramat iti dadduma disk maipakaykaysa a dakdakkel nga aparato ti RAID. Maidalimanek ti aparato ti RAID tapno makaikkan iti nayon a kapardas ken talek no maidilig ti panagaramat ti maymaysa a harddrive. Ti dadduma nga impormasion maipaay ti panagaramat ti aparato ti RAID, makiumankayo ti dokumentasion ti %s.\n"
 "\n"
 "Adda nga ittatta ti %s a nawaya a benneg ti software a RAID a maaramat.\n"
 "\n"
@@ -3732,15 +3732,15 @@ msgstr "Parsuaen ti _aparato ti RAID [sigud=/dev/md%s]."
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Padaen ti drive tapno maparsua ti aparato ti RAID [sigud=/dev/md%s]."
+msgstr "Padaen ti _harddrive tapno maparsua ti aparato ti RAID [sigud=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Saan a Naparsua ti Pagbaliwan ti Pada ti Drive"
+msgstr "Saan a Naparsua ti Pagbaliwan ti Pada ti Harddrive"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Saan a naparsua ti pagbaliw ti pada ti drive maigapu ti maysa a rason."
+msgstr "Saan a naparsua ti pagbaliw ti pada ti harddrive maigapu ti maysa a rason."
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
@@ -3795,12 +3795,12 @@ msgstr "_Sukimaten ti nadadael a paset?"
 #: ../iw/partition_ui_helpers_gui.py:344
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  This is done by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "Nasken a mapatingga ti benneg ti kita a '%s' iti maymaysa a drive. Maaramat daytoy no mapili ti drive iti listaan a 'Mapalubusan a Drive'."
+msgstr "Nasken a mapatingga ti benneg ti kita a '%s' iti maymaysa a harddrive. Maaramat daytoy no mapili ti drive iti listaan a 'Mapalubusan a Harddrive'."
 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Panagituding ti Benneg ti Disk"
+msgstr "Pannakaituding ti Benneg ti Disk"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
@@ -3910,14 +3910,14 @@ msgstr "I_pormato ti benneg?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid "The source drive has no partitions to be cloned.  You must first define partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr "Awan iti pagtataudan a drive ti benneg a mapada. Unaenyo ti agtuding iti benneg ti kita a 'RAID iti software' kadaytoy a drive, sakbay mapada."
+msgstr "Awan iti pagtataudan a harddrive ti benneg a mapada. Unaenyo ti agtuding iti benneg ti kita a 'software a RAID' kadaytoy a drive, sakbay mapada."
 
 #: ../iw/raid_dialog_gui.py:491
 #: ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509
 #: ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr "Biddut ti Pagtataudan a Drive"
+msgstr "Biddut ti Pagtataudan a Harddrive"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -3925,9 +3925,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"Lallaonen ti napili a pagtataudan a drive ti benneg a saan ti kita 'software a RAID'.\n"
+"Lallaonen ti napili a pagtataudan a harddrive ti benneg a saan ti kita 'software a RAID'.\n"
 "\n"
-"Nasken a maikkatto dagitoy a benneg kasakbay maipapada daytoy a drive."
+"Nasken a maikkatto dagitoy a benneg kasakbay maipapada daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -3938,7 +3938,7 @@ msgid ""
 msgstr ""
 "Lallaonen ti napili a pagtataudan a drive ti benneg a saan a napatingga ti /dev/%s.\n"
 "\n"
-"Nasken a maikkatto dagitoy a benneg wenno mapatingga kadaytoy a drive kasakbay maipapada daytoy a drive."
+"Nasken a maikkatto dagitoy a benneg wenno mapatingga kadaytoy a harddrive kasakbay maipapada daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -3947,22 +3947,22 @@ msgid ""
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
 "Lallaonen ti napili a pagtataudan a drive ti benneg ti software a RAID a miembro ti aktibo nga aparato ti software RAID.\n"
-"Nasken a maikkatto dagitoy a benneg kasakbay maipapada daytoy a drive."
+"Nasken a maikkatto dagitoy a benneg kasakbay maipapada daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:536
 #: ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
 msgid "Target Drive Error"
-msgstr "Biddut ti Pagyakyakaran a Drive"
+msgstr "Biddut ti Pagyakyakaran a Harddrive"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "Pilienyo ti pagtatarusan a drive ti panagpada."
+msgstr "Pilienyo ti pagtatarusan a harddrive ti panagpada."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "Ti pagtataudan a drive a '/dev/%s' ket saan a mapili a kas pagtatarusan a drive met."
+msgstr "Ti pagtataudan a drive a '/dev/%s' ket saan a mapili a kas pagtatarusan a harddrive met."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -3973,15 +3973,15 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-"Iti pagtatarusan a drive a /dev/%s ket ti benneg a saan a maikkat maigapu ti sumaruno a rason:\n"
+"Iti pagtatarusan a harddrive a /dev/%s ket ti benneg a saan a maikkat maigapu ti sumaruno a rason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Nasken a maikkat daytoy a benneg kasakbayan agpagtatarusan daytoy a drive."
+"Nasken a maikkat daytoy a benneg kasakbayan agpagtatarusan daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
-msgstr "Pilienyo ti pagtataudan a drive."
+msgstr "Pilienyo ti pagtataudan a harddrive."
 
 #: ../iw/raid_dialog_gui.py:643
 #, python-format
@@ -3989,7 +3989,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Ti drive a /dev/%s ket mapadato iti sumaruno a drive:\n"
+"Ti harddrive a /dev/%s ket mapadato iti sumaruno a harddrive:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:648
@@ -4000,7 +4000,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"PATIGMAAN! AMIN A DAOS ITI PAGTATARUSAN A DRIVE KET MARAKRAK."
+"PATIGMAAN! AMIN A DAOS ITI PAGTATARUSAN A HARDDRIVE KET MARAKRAK."
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
@@ -4008,11 +4008,11 @@ msgstr "Pangileppas a Patigmaan"
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
-msgstr "Padaen ti Drive"
+msgstr "Padaen ti Harddrive"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "Rimsua ti biddut iti panagpapakalawkaw ti pagyakyakaran a drive. Saan a maipapada."
+msgstr "Rimsua ti biddut iti panagpapakalawkaw ti pagyakyakaran a harddrive. Saan a maipapada."
 
 #: ../iw/raid_dialog_gui.py:696
 msgid ""
@@ -4025,23 +4025,23 @@ msgid ""
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
 "Pamagipapada ti Drive\n"
-"Daytoy a ramit ket ikkannakayo ti pannakabael ti agpalaka iti nasapul a ganetget ti pannakaituding ti RAID a tinipon. Ti punganay a drive ket naisagana ti nakaliguman a panagurnos ti benneg, santo papadaan ti dadduma a pada a kadakkel a drive daytoy a panagurnos. Maparsuanto ti RAID nga aparato.\n"
+"Daytoy a ramit ket ikkannakayo ti pannakabael ti agpalaka iti nasken a ganetget ti pannakaituding ti RAID a tinipon. Ti punganay a harddrive ket naisagana ti nakaliguman a panagurnos ti benneg, santo papadaan ti dadduma a pada a kadakkel a harddrive daytoy a panagurnos. Maparsuanto ti RAID nga aparato.\n"
 "\n"
-"PAKDAAR: Nasken nga adda ti benneg a natinggaan dayta a drive laeng iti drive ti punganay, ken makalallaon iti saan a naar-aramat benneg ti software a RAID.  Sabali a kita ti benneg ket saan a mabalinan.\n"
+"PAKDAAR: Nasken nga adda ti benneg a natinggaan dayta a harddrive laeng iti harddrive ti punganay, ken makalallaon iti saan a naar-aramat benneg ti RAID a software.  Sabali a kita ti benneg ket saan a mabalinan.\n"
 "\n"
-"Marakrakto daytoy a panagaramid amin nga nakaisurat iti pagtatarusan a drive."
+"Marakrakto daytoy a panagaramid amin nga nakaisurat iti pagtatarusan a harddrive."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
-msgstr "Pagtataudan a drive:"
+msgstr "Pagtataudan a Harddrive:"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr "Pagtatarusan a drive:"
+msgstr "Pagtatarusan a Harddrive:"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
-msgstr "Drive"
+msgstr "Harddrive"
 
 #: ../iw/release_notes.py:150
 #: ../iw/release_notes.py:154
@@ -4315,7 +4315,7 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Saan a nakainstala aniaman a mangimaton ti rubbuat. Naisingasing a mainstala ti mangimaton ti rubbuat malaksid no adda ti sapulyo ti nangatngato a tukad. Ngannani a kanayon a nasken ti mangimatno ti rubbuat tapno marugian manen a dagus nga aggapu ti nalagda a drive ti sistema ti Linux.\n"
+"Saan a nakainstala aniaman a mangimaton ti rubbuat. Naisingasing a mainstala ti mangimaton ti rubbuat malaksid no adda ti sapulyo ti nangatngato a tukad. Ngannani a kanayon a nasken ti mangimatno ti rubbuat tapno marugian manen a dagus nga aggapu ti nalagda a harddrive ti sistema ti Linux.\n"
 " \n"
 "Sigurado a kayatyo a laktawen ti panaginstala ti mangimaton ti rubbuat?"
 
@@ -4678,7 +4678,7 @@ msgstr "Kita ti Sistema ti Intar:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr "Mapalubosan a Drive:"
+msgstr "Mapalubosan a Harddrive:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
@@ -4896,11 +4896,11 @@ msgstr "Kita ti Benneg"
 
 #: ../textw/partition_text.py:1518
 msgid "Installation requires partitioning of your hard drive.  The default layout is reasonable for most users.  You can either choose to use this or create your own."
-msgstr "Masapol ti panaginstala ti panagbenneg ti agnanayon a disk. Matutop ti sigud a panangurnos maipaay kaaduan a mangaramat. Mapiliyo ti sigud wenno maparsuayo ti maysa."
+msgstr "Nasken ti panaginstala ti panagbenneg ti agnanayon a harddisk. Matutop ti sigud a panangurnos maipaay kaaduan a mangaramat. Mapiliyo ti sigud wenno maparsuayo ti maysa."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Ania a drive a kayatyo nga aramaten maipaay daytoy a panaginstala?"
+msgstr "Ania a harddrive a kayatyo nga aramaten maipaay daytoy a panaginstala?"
 
 #: ../textw/partition_text.py:1604
 msgid "Review Partition Layout"
@@ -5089,7 +5089,7 @@ msgstr "Ikkaten"
 
 #: ../textw/zipl_text.py:26
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup may require."
-msgstr "Mainstalaan ti sistema ti mangimaton ti rubbuat ti z/IPL kalpasan ti panaginstala. Maisurat ti aniaman a nayon a parametro ti kernel ken chandev a masapul ti makina wenno ti panaginstala."
+msgstr "Mainstalaan ti sistema ti mangimaton ti rubbuat ti z/IPL kalpasan ti panaginstala. Maisurat ti aniaman a nayon a parametro ti kernel ken chandev a nasken ti makina wenno ti panaginstala."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5427,12 +5427,12 @@ msgstr "Rimsua ti biddut iti pannakabasa ti pakainstala nga aggapu ti imahen nga
 
 #: ../loader2/hdinstall.c:266
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "Awan ti nalagda a drive ti sistema. Kayatyo nga idalimanek ti dadduma nga aparato?"
+msgstr "Awan ti harddrive ti sistema. Kayatyo nga idalimanek ti dadduma nga aparato?"
 
 #: ../loader2/hdinstall.c:281
 #, c-format
 msgid "What partition and directory on that partition hold the CD (iso9660) images for %s? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Ania a benneg wenno direktorio nga adda kadayta benneg nga aglallaon ti CD (ISO9660) nga imahen ti %s? No saan a makita ti drive ti disk a ar-aramtenyo ditoy, talmeganyo ti 'F2' tapno maidalimanek ti nayon nga aparato."
+msgstr "Ania a benneg wenno direktorio nga adda kadayta benneg nga aglallaon iti CD (ISO9660) nga imahen ti %s? No saan a makita ti drive ti disk a ar-aramtenyo ditoy, talmeganyo ti 'F2' tapno maidalimanek ti nayon nga aparato."
 
 #: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
@@ -5455,12 +5455,12 @@ msgstr "Madi ti argumento ti wagas a pammilin a %s ti HD kickstart: %s"
 #: ../loader2/hdinstall.c:477
 #: ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Saan a masarakan ti nalagda a drive ti intar ti kickstart."
+msgstr "Saan a masarakan ti harddrive ti intar ti kickstart."
 
 #: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr "Saan a maduktalan ti nalagda a drive maipaay ti disk a %s ti BIOS"
+msgstr "Saan a maduktalan ti nalagda a harddrive maipaay ti disk a %s ti BIOS"
 
 #: ../loader2/kbd.c:129
 msgid "Keyboard Type"
@@ -5514,7 +5514,7 @@ msgstr "Lokal a CDROM"
 
 #: ../loader2/loader.c:122
 msgid "Hard drive"
-msgstr "Tagtaginayon a disk"
+msgstr "Harddrive"
 
 #: ../loader2/loader.c:123
 msgid "NFS image"
@@ -5551,7 +5551,7 @@ msgstr "Basbasaen ti pagpadama ti Anaconda..."
 
 #: ../loader2/loader.c:404
 msgid "No hard drives have been found.  You probably need to manually choose device drivers for the installation to succeed.  Would you like to select drivers now?"
-msgstr "Awan ti naduktalan ti nalagda a drive. Naskenyo ngata ti agpili iti pagtengngel ti aparato tapno makaballigi ti panaginstala. Kayatyo ita ti agpili ti pagtengngel?"
+msgstr "Awan ti naduktalan ti harddrive. Naskenyo ngata ti agpili iti pagtengngel ti aparato tapno makaballigi ti panaginstala. Kayatyo ita ti agpili ti pagtengngel?"
 
 #: ../loader2/loader.c:780
 #, c-format
@@ -5576,7 +5576,7 @@ msgstr "Ania ti kita ti media nga aglallaon iti pakete a mainstalato?"
 
 #: ../loader2/loader.c:968
 msgid "No driver found"
-msgstr "Awan ti nabirokan a driver"
+msgstr "Awan ti nabirokan nga agtengngel"
 
 #: ../loader2/loader.c:968
 msgid "Select driver"
@@ -5584,11 +5584,11 @@ msgstr "Pilien ti agtengngel"
 
 #: ../loader2/loader.c:969
 msgid "Use a driver disk"
-msgstr "Aramaten ti disk ti driver"
+msgstr "Aramaten ti disk ti agtengnel"
 
 #: ../loader2/loader.c:970
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
-msgstr "Saan a maduktalan aniaman nga aparato daytoy a kita a masapul maipaay daytoy a kita ti panaginstala. Kayatyo ti agpili a demano ti pagtengngel wenno agaramat ti disk ti pagtengnel?"
+msgstr "Saan a maduktalan aniaman nga aparato daytoy a kita a nasken maipaay daytoy a kita ti panaginstala. Kayatyo ti agpili a demano ti pagtengngel wenno agaramat ti disk ti agtengnel?"
 
 #: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
@@ -5596,7 +5596,7 @@ msgstr "Naduktalan ti sistema ti sumaruno nga aparato. "
 
 #: ../loader2/loader.c:1133
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
-msgstr "Awan ti naawit a pagtengngel ti aparato maipaay ti sistema. Kayatyo awiten ita?"
+msgstr "Awan ti naawit a pagtengngel ti aparato maipaay ti sistema. Kayatyo nga awiten ita?"
 
 #: ../loader2/loader.c:1137
 msgid "Devices"
@@ -5811,7 +5811,7 @@ msgstr "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno 
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
-msgstr "Pagtaengan a IPv4:"
+msgstr "IPv4 a Pagtaengan:"
 
 #: ../loader2/net.c:864
 #: ../loader2/net.c:916
@@ -5821,11 +5821,11 @@ msgstr "/"
 
 #: ../loader2/net.c:904
 msgid "IPv6 address:"
-msgstr "Pagtaengan a IPv6:"
+msgstr "IPv6 a Pagtaengan:"
 
 #: ../loader2/net.c:965
 msgid "Name Server:"
-msgstr "Serbidor ti nagan:"
+msgstr "Serbidor ti Nagnagan:"
 
 #: ../loader2/net.c:1008
 msgid "Manual TCP/IP Configuration"
@@ -5860,11 +5860,11 @@ msgstr "Madi ti booproto a %s a naituding iti pammilin ti iket"
 
 #: ../loader2/net.c:1688
 msgid "Networking Device"
-msgstr "Aparato ti Ikit"
+msgstr "Pangiket nga Aparato"
 
 #: ../loader2/net.c:1689
 msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr "Lallaonen ti sistema ti adu a aparato ti iket. Ania ti pagbaetan ti panaginstala?"
+msgstr "Lallaonen ti sistema ti adu a pangiket nga aparato. Ania ti pagbaetan ti panaginstala?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -5972,11 +5972,11 @@ msgstr "Aramaten ti saan nga anonima a FTP"
 
 #: ../loader2/urls.c:330
 msgid "FTP Setup"
-msgstr "Pakaitudingan ti FTP"
+msgstr "Pannakaituding ti FTP"
 
 #: ../loader2/urls.c:331
 msgid "HTTP Setup"
-msgstr "Pakaitudingan ti HTTP"
+msgstr "Pannakaituding ti HTTP"
 
 #: ../loader2/urls.c:341
 msgid "You must enter a server name."
@@ -6009,11 +6009,11 @@ msgstr "Nagan ti kuento:"
 
 #: ../loader2/urls.c:465
 msgid "Further FTP Setup"
-msgstr "Dadduma a Pakaitudingan ti FTP"
+msgstr "Dadduma a Pannakaituding ti FTP"
 
 #: ../loader2/urls.c:468
 msgid "Further HTTP Setup"
-msgstr "Dadduma a Pakaitudingan ti HTTP"
+msgstr "Dadduma a Pannakaituding ti HTTP"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
@@ -6041,7 +6041,7 @@ msgstr "Ania ti panagbaliw ti panaidalimanek ti drive a kayatyo? "
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b> _URL ti Nakaikabilan:</b>"
+msgstr "<b>_URL ti Nakaikabilan:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
