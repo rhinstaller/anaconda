@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-25 12:12-0800\n"
+"PO-Revision-Date: 2006-11-27 23:56-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -121,16 +121,16 @@ msgstr "Mayat"
 
 #: ../anaconda:450
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
-msgstr "Kurang ti RAM tapno maaramat ti grapikal a pagikapet. Marugrugian ti wagas a text. "
+msgstr "Kurang ti RAM tapno maaramat ti grapikal a paginstala. Marugrugian ti text a wagas. "
 
 #: ../anaconda:466
 msgid "No video hardware found, assuming headless"
-msgstr "Awan ti nasarak a video a hardware; awan ti ulo ket ti sigud"
+msgstr "Awan ti naduktalan a video a hardware, mausigan a kas awan ti ulo"
 
 #: ../anaconda:473
 #: ../anaconda:886
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Saan a makaaramid iti pagarigan ti obheto ti kasasaad ti X a hardware."
+msgstr "Saan a marugian ti banag ti kasasaad maipaay ti X a hardware."
 
 #: ../anaconda:512
 msgid "Starting graphical installation..."
@@ -138,7 +138,7 @@ msgstr "Marugrugian ti grapikal a panagikapet..."
 
 #: ../anaconda:766
 msgid "Install class forcing text mode installation"
-msgstr "Ti kita ti panafikapet ket pilpilitenna ti wagas a text."
+msgstr "Pilpiliten ti klases ti panaginstala ti text a wagas."
 
 #: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
@@ -154,12 +154,12 @@ msgstr "Saan nga am-ammo a panagikapet"
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Ti naituding a panangikapet ket saan a maipakat ti Anaconda."
+msgstr "Saan a maisayangkat ti Anaconda ti napili a pananginstala."
 
 #: ../anaconda:854
 #, c-format
 msgid "unknown install method: %s"
-msgstr "saan nga am-ammo panapngikapet: %s"
+msgstr "saan nga am-ammo a pananginstala: %s"
 
 #: ../autopart.py:949
 #, python-format
@@ -168,7 +168,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Saan a naipabagi ti naikugnal ti silindro a benneg kas kangrunaan.\n"
+"Saan a naipabagi a kas kangrunaan ti benneg a maikugnal ti silindro.\n"
 "\n"
 "%s"
 
@@ -179,7 +179,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Saan a naipabagi a kas kangrunaan ti benneg.\n"
+"Saan a naipabagi a kas kangrunaan dagiti benneg.\n"
 "\n"
 "%s"
 
@@ -190,24 +190,24 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Saan a naipabagi ti naikugnal ti silindro a benneg.\n"
+"Saan a naipabagi ti benneg a maikugnal ti silindro.\n"
 "\n"
 "%s"
 
 #: ../autopart.py:1019
 #, python-format
 msgid "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this partition. Use a partition belonging to a BSD disk label or change this device disk label to BSD."
-msgstr "Ti pagrubbuat a benneg a %s ket saan a maipatpatagikua iti etiketa ti disk a BSD. Ti SRM ket saanna makapagrubbuat manipud daytoy a benneg. Pagbennegyo ti etiketa a maipatagikua iti etiketa a BSD wenno isukatyo daytoy nga etiketa ti disk iti BSD."
+msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti BSD nga etiketa ti disk. Ti SRM ket saanna makapagrubbuat manipud daytoy a benneg. Pagbennegyo ti etiketa a maipatagikua iti BSD nga etiketa wenno isukatyo daytoy nga etiketa ti disk iti BSD."
 
 #: ../autopart.py:1021
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti disk nga umanay ti nawaya nga espasio iti rugina tapno maidissuan ti mangimaton ti rubbuat. Talgedanyo nga adda met ti kabassitan a 5MB a nawaya nga espasio iti rugi ti disk nga aglallaon iti '/boot'."
+msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti disk nga adda ti umanay a nawaya nga espasio iti rugina tapno maidissuan ti mangimaton ti rubbuat. Talgedanyo nga adda met ti kabassitan a 5MB a nawaya nga espasio iti rugi ti disk nga aglallaon iti '/boot'."
 
 #: ../autopart.py:1023
 #, python-format
 msgid "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition."
-msgstr "Ti pagrubbuat a benneg a %s ket saan a kita ti VFAT. Ti EFI ket saanna makapagrubbuat kadaytoy a benneg."
+msgstr "Ti pagrubbuat a benneg a %s ket saan a kita ti VFAT. Ti EFI ket saanna makapagrubbuat manipud daytoy a benneg."
 
 #: ../autopart.py:1025
 msgid "Boot partition isn't located early enough on the disk.  OpenFirmware won't be able to boot this installation."
@@ -225,7 +225,7 @@ msgstr "Ti pannakanayonan daytoy a benneg ket makapagpakurang iti espasio ti dis
 
 #: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
-msgstr "Ti dinawat a benneg ket saan a panagadda"
+msgstr "Ti Dinawat a Benneg ket Saan a Panagadda"
 
 #: ../autopart.py:1244
 #, python-format
@@ -249,7 +249,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Saan a mabirokan ti aparato a %s ti RAID a maipapan ti %s.\n"
+"Saan a mabirokan ti RAID nga aparato a %s a maipapan ti %s.\n"
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
@@ -409,9 +409,9 @@ msgid ""
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create partitions in an interactive environment. You can set the file system types, mount points, partition sizes, and more."
 msgstr ""
-"Ti Otomatiko a Panagbenneg ket mangipabagi iti benneg babaen ti napili a kita ti panagikapet. Makaibukodyo iti benneg no maparsuadanto.\n"
+"Ti Otomatiko a Panagbenneg ket mangipabagi iti benneg babaen ti napili a kita ti panaginstala. Maipangrunayo ti benneg kalpasandanto a maparsua.\n"
 "\n"
-"Ti demano a pagikapet, Disk Druid, ket maikkanna kadakayo ti panakabael ti agparsua iti benneg. Maitudingyo dagiti kita ti sistema ti intar, dagiti pagisagpatan, dagiti kadakkel ti benneg, ken dadduma pay. "
+"Ti demano a panaginstala a Disk Druid ket maikkanna kadakayo ti pannakabael ti agparsua iti benneg iti interaktibo nga aglawlaw. Maitudingyo dagiti kita ti sistema ti intar, dagiti pagisagpatan, dagiti kadakkel ti benneg, ken dadduma pay. "
 
 #: ../autopart.py:1679
 msgid "Before automatic partitioning can be set up by the installation program, you must choose how to use the space on your hard drives."
@@ -965,7 +965,7 @@ msgstr "Rimsua ti biddut iti pannakaidulin ti natukmaan a pantalia. No rimsua it
 #: ../gui.py:230
 #: ../text.py:391
 msgid "Fix"
-msgstr "Tarimaanen"
+msgstr "Isaad"
 
 #: ../gui.py:231
 #: ../rescue.py:203
@@ -2235,7 +2235,7 @@ msgstr "Kaatiddog ti Kontrasenias"
 
 #: ../vnc.py:108
 msgid "The password must be at least six characters long."
-msgstr "Masapol ti kontrasenias ti kabassitan nga innem a kurdit ti kaatiddog."
+msgstr "Naksen a di nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias ti root."
 
 #: ../vnc.py:138
 msgid "VNC Password Error"
@@ -2247,7 +2247,7 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Ti kontrasenias ket masapol a maituding ti kabassitan ti kaatiddog ti innem a kurdit.\n"
+"Nasken a maituding ti kontrasenia a nakurkurang ngem innem a kurdit ti kaatiddog ti ti VNC.\n"
 "\n"
 "Talmeganyo ti <RETURN> tapno marugian manen ti sistema.\n"
 
@@ -2271,7 +2271,7 @@ msgstr "Saan a maituding ti kontrasenias ti VNC - Awan ti kontrasenias."
 
 #: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Talgedanyo nga ti kontraseniasyo ket kabassitan a 6 a kurdit ti kaatiddog."
+msgstr "Talgedanyo nga saan a nakurkurang ngem innem a kurdit ti kaatiddog ti kontraseniasyo."
 
 #: ../vnc.py:273
 msgid ""
@@ -2524,7 +2524,7 @@ msgstr "Maiduma dagiti kontrasenias a insuratyo. Padasenyo manen."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Ti kabassitan ti kaatiddog ti kontrasenias ti root ket innem a kurdit."
+msgstr "Nasken a saan a nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias ti root."
 
 #: ../iw/account_gui.py:65
 #: ../textw/userauth_text.py:70
@@ -3544,12 +3544,12 @@ msgstr "Pilitin kas kangrunaan a _benneg"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr "Drive %s (Sukat: %s/%s/%s) (Model: %s)"
+msgstr "Drive a %s (Rukod: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr "Drive %s (%-0.f MB) (Model: %s)"
+msgstr "Drive %s (%-0.f a MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365
 #: ../textw/partition_text.py:1437
@@ -6371,7 +6371,7 @@ msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
+msgstr "Base a Dumont-d'Urville, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
