@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-27 23:56-0800\n"
+"PO-Revision-Date: 2006-11-28 00:48-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr "Mayat"
 
 #: ../anaconda:450
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
-msgstr "Kurang ti RAM tapno maaramat ti grapikal a paginstala. Marugrugian ti text a wagas. "
+msgstr "Kurang ti RAM tapno maaramat ti grapikal a pananginstala. Marugrugian ti text a wagas. "
 
 #: ../anaconda:466
 msgid "No video hardware found, assuming headless"
@@ -134,15 +134,15 @@ msgstr "Saan a marugian ti banag ti kasasaad maipaay ti X a hardware."
 
 #: ../anaconda:512
 msgid "Starting graphical installation..."
-msgstr "Marugrugian ti grapikal a panagikapet..."
+msgstr "Marugrugian ti grapikal a pananginstala..."
 
 #: ../anaconda:766
 msgid "Install class forcing text mode installation"
-msgstr "Pilpiliten ti klases ti panaginstala ti text a wagas."
+msgstr "Pilpiliten ti klases ti pananginstala ti text a wagas."
 
 #: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Saan a maaramat ti grapikal a panagikapet... Marugrugian ti wagas a text."
+msgstr "Saan a maaramat ti grapikal a pananginstala... Marugrugian ti text a wagas."
 
 #: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -150,7 +150,7 @@ msgstr "Saan a nakatuding ti agbaliwbaliw a pateg a DISPLAY. Marugrugian ti waga
 
 #: ../anaconda:851
 msgid "Unknown install method"
-msgstr "Saan nga am-ammo a panagikapet"
+msgstr "Saan nga am-ammo a pananginstala"
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
@@ -202,7 +202,7 @@ msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti BSD nga etike
 #: ../autopart.py:1021
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti disk nga adda ti umanay a nawaya nga espasio iti rugina tapno maidissuan ti mangimaton ti rubbuat. Talgedanyo nga adda met ti kabassitan a 5MB a nawaya nga espasio iti rugi ti disk nga aglallaon iti '/boot'."
+msgstr "Ti pangrubbuat a benneg a %s ket saan a maipatagtagikua ti disk nga adda ti umanay a nawaya nga espasio iti rugina tapno maidissuan ti mangimaton ti rubbuat. Talgedanyo a saan a nakurkurang ngem 5 a MB ti nawaya nga espasio iti rugi ti disk nga aglallaon iti '/boot'."
 
 #: ../autopart.py:1023
 #, python-format
@@ -211,7 +211,7 @@ msgstr "Ti pagrubbuat a benneg a %s ket saan a kita ti VFAT. Ti EFI ket saanna m
 
 #: ../autopart.py:1025
 msgid "Boot partition isn't located early enough on the disk.  OpenFirmware won't be able to boot this installation."
-msgstr "Ti pagrubbuat a benneg ket saan a naidisso a nasapa iti disk. Ti OpenFirmware ket saan a makapagrubbuat kadaytoy a panagikapet."
+msgstr "Ti pagrubbuat a benneg ket saan a naidisso a gumaw-at a nasapa iti disk. Ti OpenFirmware ket saan a makapagrubbuat kadaytoy nga instalasion."
 
 #: ../autopart.py:1032
 #, python-format
@@ -369,7 +369,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Makarussua dagitoy no kurang ti espasio kadagiti tagtaginayon a disk maipapan ti panagikapet.%s"
+"Makarussua dagitoy no kurang ti espasio kadagiti harddrive maipapan ti panaginstala.%s"
 
 #: ../autopart.py:1514
 msgid "Unrecoverable Error"
@@ -409,13 +409,13 @@ msgid ""
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create partitions in an interactive environment. You can set the file system types, mount points, partition sizes, and more."
 msgstr ""
-"Ti Otomatiko a Panagbenneg ket mangipabagi iti benneg babaen ti napili a kita ti panaginstala. Maipangrunayo ti benneg kalpasandanto a maparsua.\n"
+"Ti Otomatiko a Panagbenneg ket mangipabagi iti benneg babaen ti napili a  pananginstala. Maipangrunayo ti benneg kalpasandanto a maparsua.\n"
 "\n"
 "Ti demano a panaginstala a Disk Druid ket maikkanna kadakayo ti pannakabael ti agparsua iti benneg iti interaktibo nga aglawlaw. Maitudingyo dagiti kita ti sistema ti intar, dagiti pagisagpatan, dagiti kadakkel ti benneg, ken dadduma pay. "
 
 #: ../autopart.py:1679
 msgid "Before automatic partitioning can be set up by the installation program, you must choose how to use the space on your hard drives."
-msgstr "Sakbay maisagana ti pagikapet a programa ti otomatiko a panagbenneg, kailanganyo ti agpili iti panagaramat ti espasio ti drive."
+msgstr "Sakbay maisagana ti programa ti panaginstala ti otomatiko a panagbenneg, naskenyo ti agpili iti panangaramat ti espasio ti drive."
 
 #: ../autopart.py:1684
 msgid "Remove all partitions on this system"
@@ -455,7 +455,7 @@ msgstr "Pinapasayaat ti %s\n"
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr "Maisimsimpa ti %s\n"
+msgstr "Main-instala ti %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -463,11 +463,11 @@ msgstr "Mangimaton ti Panangrubbuat"
 
 #: ../bootloader.py:126
 msgid "Installing bootloader..."
-msgstr "Maisimsimpa ti mangimaton ti rubbuat..."
+msgstr "Main-instala ti mangimaton ti rubbuat..."
 
 #: ../bootloader.py:195
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
-msgstr "Awan ti naikapet a pakete ti kernel kadaytoy a sistema. Saan a maisukatto ti panagidalimanek ti mangimaton ti rubbuat."
+msgstr "Awan ti nainstala a pakete ti kernel kadaytoy a sistema. Saan a maisukatto ti panagidalimanek ti mangimaton ti rubbuat."
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -506,7 +506,7 @@ msgstr "[%d/%d] ket nalpas"
 #: ../cmdline.py:151
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Maisimsimpa ti %s-%s-%s... "
+msgstr "Main-instala ti %s-%s-%s... "
 
 #: ../constants.py:60
 #, python-format
@@ -666,7 +666,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Rimsua ti biddut iti panagrugrugian ti pangsinnukat nga aparato a %s. Saan a makapagpatuloy ti panagikapet.\n"
+"Rimsua ti biddut iti panagrugrugian ti pangsinnukat nga aparato a %s. Saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -699,7 +699,7 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
-"ket bersion 0 ti agsinnukat a benneg ti Linux. No kayatyo aramaten daytoy nga aparato, masapol nga ipormatoyo a kas bersion 1 ti pangsinnukat a benneg ti Linux. No luktawenyo, iti panagikablina mabay-anto."
+"ket bersion a 0 ti agsinnukat a benneg ti Linux. No kayatyo aramaten daytoy nga aparato, nasken nga ipormatoyo a kas bersion a 1 ti pangsinnukat a benneg ti Linux. No luktawenyo, iti panagin-instalana malaktawto."
 
 #: ../fsset.py:1483
 msgid "Reformat"
@@ -733,7 +733,7 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
-"nga nakasurat iti intar a '/etc/fstab' ket ar-aramaten nga agdinama ti software a kas tagtaginayon a benneg. Kayat a sawen, matmaturog ti sistema. No agisimsimpakayo ti baro, talgedanyo a nakaisagana ti pagikapet ti agpormato kadagit amin nga pagsinnukat a benneg."
+"nga nakasurat iti intar a '/etc/fstab' ket ar-aramaten nga ittata ti software a kas tagtaginayon a benneg. Kayat a sawen, matmaturog ti sistema. No agin-instalakayo iti baro, talgedanyo a nakaisagana ti paginstala ti agpormato kadagiti amin nga pangsinnukat a benneg."
 
 #: ../fsset.py:1505
 msgid ""
@@ -743,7 +743,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Pilienyo ti 'Laktawen' no kayatyo nga bay-ananto daytoy a benneg bayat ti panagpangato ti tukad. Piliinyo ti 'Ipormato' tapno maipormato ti benneg a kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian manen ti sistema."
+"Pilienyo ti 'Laktawen' no kayatyo nga malaktawto daytoy a benneg iti panagpapangato ti tukad. Pilienyo ti 'Ipormato' tapno maipormato ti benneg a kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian manen ti sistema."
 
 #: ../fsset.py:1511
 #: ../iw/partition_gui.py:368
@@ -798,7 +798,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Rimsua ti biddut bayat ti pannakasarak ti madi a paset ti %s. Gapu ta grabe ti problema, isu nga saan a makapagtuloy ti panagikapet.\n"
+"Rimsua ti biddut bayat ti pannakasukimat ti madi a paset ti %s. Gapu ta nakaro ti problema, isu nga saan a makapagtuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -809,7 +809,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Rimsua ti biddut iti panagpadas ti pannakaipormato ti %s. Saan a makapagpatuloy ti panagikapet.\n"
+"Rimsua ti biddut iti panagpapadas ti pannakaipormato ti %s. Gapu ta nakaro ti problema, saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -820,7 +820,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Rimsua ti biddut bayat ti panagyakar ti %s. Gapu ta nakaro daytoy a problema, isu nga saan a makapagpatuloy ti panagikapetna.\n"
+"Rimsua ti biddut bayat ti panagyakar ti %s. Gapu ta nakaro ti problema, isu nga saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -836,7 +836,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Rimsua ti biddut bayat ti panagpadas ti pannakaparsua ti %s. Adda ti paset ti dana ket saan met direktorio. Gapu ta patal daytoy a problema, saan a makapagpatuloy ti panagikapet.\n"
+"Rimsua ti biddut bayat ti panagpadas ti pannakaparsua ti %s. Adda ti paset ti dana ket saan a direktorio. Gapu ta nakaro ti problema, saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -847,7 +847,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"rimsua ti biddut idi napadas ti panagparsua ti %s: %s. Saan a makapagpatuloy ti panagikapet.\n"
+"Timsua ti biddut iti panagpapadas ti pannakaparsua ti %s: %s. Gapu ta nakaro ti problema, saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -858,7 +858,7 @@ msgstr "Saan a maisagpat ti sistema ti intar"
 #: ../fsset.py:1734
 #, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
-msgstr "Rimsua ti biddut iti panagisagsagpat ti aparato a %s a kasla %s. Makapagpatuloyyo iti panaginstal, ngem mabalin nga adda ti problema."
+msgstr "Rimsua ti biddut iti panagisagsagpat ti aparato a %s a kas %s. Makapagpatuloyyo iti panaginstal, ngem mabalin nga addanto ti problema."
 
 #: ../fsset.py:1742
 #: ../image.py:91
@@ -910,9 +910,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Maikamano nga aparato ket napanaganan iti %s. Dagiti etiketa ti aparato ket masapol nga saanda agkapada tapno makapagtaray a nalaing ti sistema.\n"
+"Napanaganan a kas %s ti maikamano nga aparato ti sistema. Dagiti etiketa ti aparato ket nasken a saanda nga agkapada tapno makapagtaray a nalaing ti sistema.\n"
 "\n"
-"Tarimaanyo daytoy a problema, sayonto uliten ti panagrugi ti panagikapet."
+"Tarimaanyo daytoy a problema, sayonto uliten ti panagrugi ti panaginstala."
 
 #: ../fsset.py:2723
 msgid "Formatting"
@@ -960,7 +960,7 @@ msgstr "Biddut iti Pannakaidulin ti Ladawan ti Pantalia"
 
 #: ../gui.py:165
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
-msgstr "Rimsua ti biddut iti pannakaidulin ti natukmaan a pantalia. No rimsua iti panagikapet ti pakete, siguro maminmanoyo a padasen tapno agballigi."
+msgstr "Rimsua ti biddut iti pannakaidulin ti natukmaan a pantalia. No rimsua iti panagin-instala ti pakete, siguro maminmanoyo a padasen tapno agballigi."
 
 #: ../gui.py:230
 #: ../text.py:391
@@ -1054,7 +1054,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Rimsua ti biddut iti panagpadpadas ti agawit iti komponente ti pagsilpuan ti pagikapet.\n"
+"Rimsua ti biddut iti panagpapadas ti pannakaawit ti komponente ti pagsilpuan ti paginstala.\n"
 "\n"
 "className = %s"
 
@@ -1073,7 +1073,7 @@ msgstr "_Padasen manen"
 #: ../gui.py:992
 #: ../packages.py:294
 msgid "The installer will now exit..."
-msgstr "Aglepleppas ti Panagikapet..."
+msgstr "Aglepleppas ti panaginstala..."
 
 #: ../gui.py:995
 #: ../packages.py:297
@@ -1088,7 +1088,7 @@ msgstr "Pangrugi ti Sistema"
 #: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
-msgstr "%s a Pagikapet"
+msgstr "%s a Paginstala"
 
 #: ../gui.py:1069
 msgid "Unable to load title bar"
@@ -1096,7 +1096,7 @@ msgstr "Saan a maawit ti barras ti titulo"
 
 #: ../gui.py:1118
 msgid "Install Window"
-msgstr "Tawa ti Panagikapet"
+msgstr "Tawa ti panaginstala"
 
 #: ../harddrive.py:44
 #: ../image.py:144
@@ -1108,9 +1108,9 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Saan a mailukat ti intar a %s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo dagiti pagikapet nga imahen ken adda amin a masapol a media.\n"
+"Saan a mailukat ti intar a %s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo dagiti paginstala nga imahen ken adda amin a masapol a media.\n"
 "\n"
-"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a masapol nga uliten ti panagikapet.\n"
+"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a masapol nga uliten ti panaginstala.\n"
 "\n"
 
 #: ../harddrive.py:71
@@ -1127,7 +1127,7 @@ msgid ""
 msgstr ""
 "Napadas ti agisagpat iti #%s nga imahen, ngem saan a mabirokan iti tagtaginayon a disk.\n"
 "\n"
-"Kopiaenyo daytoy nga imahen kadaytoy a drive, sayonto lagitekanyo ti 'Padasen Manen'. Lagitekanyo ti 'Rugian manen' tapno maukas ti panagikapet."
+"Kopiaenyo daytoy nga imahen kadaytoy a drive, sayonto lagitekanyo ti 'Padasen Manen'. Lagitekanyo ti 'Rugian manen' tapno maukas ti panaginstala."
 
 #: ../harddrive.py:81
 #: ../image.py:518
@@ -1136,7 +1136,7 @@ msgstr "Padasen _manen"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr "Masapol a Warnakan a Pagikapet"
+msgstr "Masapol a Warnakan a Paginstala"
 
 #: ../image.py:83
 #, python-format
@@ -1146,10 +1146,10 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"Ti napili a software a maikapet ket masapol dagiti sumaruno a CD:\n"
+"Ti napili a software a mainstala ket masapol dagiti sumaruno a CD:\n"
 "\n"
 "%s\n"
-"Isaganayo dagiti CD sakbayyo ipatuloy ti panagikapet. No masapolyo nga ukasen ti panagikapet, santo marugian manen, pillienyo ti \"Rugian manen\"."
+"Isaganayo dagiti CD sakbayyo ipatuloy ti panaginstala. No masapolyo nga ukasen ti panaginstala, santo marugian manen, pillienyo ti \"Rugian manen\"."
 
 #: ../image.py:91
 #: ../packages.py:295
@@ -1172,11 +1172,11 @@ msgstr "Kopkopiean ti intar"
 
 #: ../image.py:165
 msgid "Transferring install image to hard drive..."
-msgstr "Iyakyakar ti pagikapet nga imahen iti tagtaginayon a disk..."
+msgstr "Iyakyakar ti paginstala nga imahen iti tagtaginayon a disk..."
 
 #: ../image.py:175
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
-msgstr "Rimsua ti biddut iti panagyakar ti pagikapet nga imahen iti tagtaginayon a disk. Kurangensa ti espasio ti disk."
+msgstr "Rimsua ti biddut iti panagyakar ti paginstala nga imahen iti tagtaginayon a disk. Kurangensa ti espasio ti disk."
 
 #: ../image.py:264
 msgid "Change CDROM"
@@ -1208,9 +1208,9 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Saan a mailukat ti intar a%s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo nga laonen ti pagikapet a kayo ti amin a masapol a pakete.\n"
+"Saan a mailukat ti intar a%s. Aggapu ta nalabsan ti intar wenno nalabit a nadadael ti pakete. Patalgedanyo nga laonen ti paginstala a kayo ti amin a masapol a pakete.\n"
 "\n"
-"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a masapol a uliten ti panagikapet.\n"
+"No marugian manen, mabatinto ti sistema iti bullabullan a kasasaad. Nalabit a masapol a uliten ti panaginstala.\n"
 "\n"
 
 #: ../image.py:508
@@ -1222,11 +1222,11 @@ msgid ""
 msgstr ""
 "Napadas ti panagisagpat ti imahen a #%s, ngem saan a mabirokan iti serbidor.\n"
 "\n"
-"Kopiaenyo daytoy nga imahen maipapan ti dana ti pagbingayan iti adayo a serbidor, sayonto klikan ti 'Uliten'. Klikanyo ti 'Rugian manen' tapno maukas ti panagikapet."
+"Kopiaenyo daytoy nga imahen maipapan ti dana ti pagbingayan iti adayo a serbidor, sayonto klikan ti 'Uliten'. Klikanyo ti 'Rugian manen' tapno maukas ti panaginstala."
 
 #: ../installclass.py:64
 msgid "Install on System"
-msgstr "Maikapet iti Sistema"
+msgstr "Mainstala iti Sistema"
 
 #: ../iscsi.py:126
 #: ../iscsi.py:127
@@ -1244,7 +1244,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Rimsua ti biddut bayat ti pannakatungpal ti scriptlet. Maimatanganyo ti rimruar nga intar a %s. Maukas itan ti panagikapet.\n"
+"Rimsua ti biddut bayat ti pannakatungpal ti scriptlet. Maimatanganyo ti rimruar nga intar a %s. Maukas itan ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
@@ -1255,7 +1255,7 @@ msgstr "Matungtungpal..."
 
 #: ../kickstart.py:765
 msgid "Running pre-install scripts"
-msgstr "Tungtungpalen dagiti kasakbay ti panagikapet nga eskrito"
+msgstr "Tungtungpalen dagiti kasakbay ti panaginstala nga eskrito"
 
 #: ../kickstart.py:783
 msgid "Running post-install scripts"
@@ -1268,7 +1268,7 @@ msgstr "Nalabsan ti pakete"
 #: ../kickstart.py:927
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort your installation?"
-msgstr "Naituding a maikapet ti pakete a '%s'. Saan a panagadda daytoy a pakete. Kayatyo ti agpatuloy wenno agukas ti panagikapet?"
+msgstr "Naituding a mainstala ti pakete a '%s'. Saan a panagadda daytoy a pakete. Kayatyo ti agpatuloy wenno agukas ti panaginstala?"
 
 #: ../kickstart.py:933
 #: ../kickstart.py:969
@@ -1284,7 +1284,7 @@ msgstr "Nlabsan ti grupo"
 #: ../kickstart.py:962
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort your installation?"
-msgstr "Nadutokan a ti grupo a '%s' ket maikapet. Saan a panagadda daytoy a grupo. Kayatyo ti agpatuloy wenno agukas iti panagikapet?"
+msgstr "Nadutokan a ti grupo a '%s' ket mainstala. Saan a panagadda daytoy a grupo. Kayatyo ti agpatuloy wenno agukas iti panaginstala?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1352,7 +1352,7 @@ msgstr ""
 
 #: ../packages.py:290
 msgid "_Install anyway"
-msgstr "_Maikapet ania man"
+msgstr "_Mainstala ania man"
 
 #: ../partedUtils.py:205
 #: ../textw/partition_text.py:558
@@ -1366,7 +1366,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a maipakat tapno maaramat iti panagikapet ti %s. No kayatyo nga aramaten daytoy a disk maipapan ti panagikapet, naksen a marugianto ngem maborra ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
+"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a maipakat tapno maaramat iti panaginstala ti %s. No kayatyo nga aramaten daytoy a disk maipapan ti panaginstala, naksen a marugianto ngem maborra ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a DASD babaen ti CDL?"
 
@@ -1377,7 +1377,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panagikapet ti %s, nasken a marugian manen ngem maborra ti SIBUBUKEL a DATOS a nakasurat kadaytoy a drive.\n"
+"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem maborra ti SIBUBUKEL a DATOS a nakasurat kadaytoy a drive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a drive?"
 
@@ -1530,7 +1530,7 @@ msgstr "Saan a maikkat daytoy a benneg, gapu ta daytoy ket nabennat a benneg day
 #: ../partIntfHelpers.py:182
 #: ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Daytoy a benneg ket aglallaon iti datos maipaay ti panagikapet iti agnannayon a disk."
+msgstr "Daytoy a benneg ket aglallaon iti datos maipaay ti panaginstala iti agnannayon a disk."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1618,7 +1618,7 @@ msgstr ""
 #: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Nasken a mapili ti kabassitan a maysa a nalagda a disk tapno mapaikapetan ti %s."
+msgstr "Nasken a mapili ti saan a nakurkurang ngem maysa a harddrive a mainstalaan ti %s."
 
 #: ../partIntfHelpers.py:411
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
@@ -1648,7 +1648,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Adda ti nakaro a biddut a sumaruno iti gandat a dinawatyo ti panagbenneg. Masapol a mapalaingan dagitoy kasakbayan ti pakapagpatuloy ti panagikapet ti %s.\n"
+"Adda ti nakaro a biddut a sumaruno iti gandat a dinawatyo ti panagbenneg. Masapol a mapalaingan dagitoy kasakbayan ti pakapagpatuloy ti panaginstala ti %s.\n"
 "\n"
 "%s"
 
@@ -1724,11 +1724,11 @@ msgstr "Sigurado a kayatyo a maisubli ti rehistro ti benneg iti sigud a kasasaad
 
 #: ../partitioning.py:62
 msgid "Installation cannot continue."
-msgstr "Saan a makapagpatuloy ti panagikapet."
+msgstr "Saan a makapagpatuloy ti panaginstala."
 
 #: ../partitioning.py:63
 msgid "The partitioning options you have chosen have already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "Naipatungpalen dagiti piniliyo nga opsion ti panagbenneg. Saanyo makapagsubli iti pantalia ti panagbaliwan ti disk. Kayatyo ti agpatuloy iti panagikapet?"
+msgstr "Naipatungpalen dagiti piniliyo nga opsion ti panagbenneg. Saanyo makapagsubli iti pantalia ti panagbaliwan ti disk. Kayatyo ti agpatuloy iti panaginstala?"
 
 #: ../partitioning.py:93
 msgid "Low Memory"
@@ -1741,12 +1741,12 @@ msgstr "Gapu ta kurang ti memoria kadaytoy a makina, masapul a malukatan a dagus
 #: ../partitions.py:816
 #, python-format
 msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
-msgstr "Saan a naituding ti masapol a benneg a root (/) tapno makapagpatuloy ti panagikapet ti %s."
+msgstr "Saan a naituding ti masapol a benneg a root (/) tapno makapagpatuloy ti panaginstala ti %s."
 
 #: ../partitions.py:821
 #, python-format
 msgid "Your root partition is less than 250 megabytes which is usually too small to install %s."
-msgstr "Ti espasio ti benneg a 'root' ket basbassit ngem 250 a megabyte; nakabasbassit tapno maikapet ti %s."
+msgstr "Ti espasio ti benneg a 'root' ket basbassit ngem 250 a megabyte; nakabasbassit tapno mainstala ti %s."
 
 #: ../partitions.py:840
 msgid "Your boot partition isn't on one of the first four partitions and thus won't be bootable."
@@ -1768,7 +1768,7 @@ msgstr "Nasken a maparsua ti pangrubbuat a benneg ti PPC PReP."
 #: ../partitions.py:908
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr "Daytoy a benneg a %s ket %s MB a nababbaba ngem ti naisingasin maipaay ti kadawyan nga panagikapet ti %s."
+msgstr "Daytoy a benneg a %s ket %s MB a nababbaba ngem ti naisingasin maipaay ti kadawyan nga panaginstala ti %s."
 
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -1789,7 +1789,7 @@ msgstr "Saan a maidisso ti mairubbuat a benneg iti lohikal a tomo."
 
 #: ../partitions.py:986
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr "Awan ti naituding a pangsinnukat a benneg. Uray no masapol iti amin a pasamak, naisangayan a mapasayaatna ti panagtaray maipaay ti kaadduan a panagikapet."
+msgstr "Awan ti naituding a pangsinnukat a benneg. Uray no masapol iti amin a pasamak, naisangayan a mapasayaatna ti panagtaray maipaay ti kaadduan a panaginstala."
 
 #: ../partitions.py:993
 #, python-format
@@ -1803,7 +1803,7 @@ msgstr "naituding ti nababbaba a pangsinnukat nga espasio (%d a MB) ngem ti maar
 
 #: ../partitions.py:1304
 msgid "the partition in use by the installer."
-msgstr "ti benneg ket inar-armat ti pagikapet."
+msgstr "ti benneg ket inar-armat ti paginstala."
 
 #: ../partitions.py:1307
 msgid "a partition which is a member of a RAID array."
@@ -1862,7 +1862,7 @@ msgstr "Awan ti miembro ti padawat ti RAID, wenno awan ti tukad a naituding ti R
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "Ti aparato ti RAID ti kita a %s ket tuntonen ti kabassitan a %s a miembro."
+msgstr "Naksen ti RAID nga aparato ti kita a %s ti saan a nakurkurang ngem %s a miembro."
 
 #: ../partRequests.py:690
 #, python-format
@@ -1919,7 +1919,7 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Ti pangsalakan nga aglawlaw ket padasennanto a saraken ti panagikapet ti Linux, ken isagpatnanto babaen ti direktorio a %s. Maaramidyo dagiti masapol a pakabaliwan maipaay ti sistemayo. No kayatyo ti agpatuloy kadaytoy nga addang, pilienyo ti 'Ipatuloy'. Mapiliyo met ti agisagpat iti sistema ti intar a kas basa-laeng imbes a kas basa-surat no pilieny ti 'Basa-Laeng'.\n"
+"Ti pangsalakan nga aglawlaw ket padasennanto a saraken ti panaginstala ti Linux, ken isagpatnanto babaen ti direktorio a %s. Maaramidyo dagiti masapol a pakabaliwan maipaay ti sistemayo. No kayatyo ti agpatuloy kadaytoy nga addang, pilienyo ti 'Ipatuloy'. Mapiliyo met ti agisagpat iti sistema ti intar a kas basa-laeng imbes a kas basa-surat no pilieny ti 'Basa-Laeng'.\n"
 "\n"
 "No saan a makapagpatuloy maigapu ti ania man a rason, mapiliyo ti 'Laktawen', malaktaw daytoy nga addang, santo maipataruskayo iti shell ti pammilin.\n"
 "\n"
@@ -1943,7 +1943,7 @@ msgstr "Ti Sistema a Maisalakan"
 
 #: ../rescue.py:323
 msgid "What partition holds the root partition of your installation?"
-msgstr "Ania a benneg ti pagdissuan ti kangrunaan a benneg ti panagikapet?"
+msgstr "Ania a benneg ti pagdissuan ti kangrunaan a benneg ti panaginstala?"
 
 #: ../rescue.py:325
 #: ../rescue.py:329
@@ -2042,7 +2042,7 @@ msgstr "Saan a maala ti tulong"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr "Awan ti tulong maipaay daytoy nga addang ti panagikapet."
+msgstr "Awan ti tulong maipaay daytoy nga addang ti panaginstala."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -2080,7 +2080,7 @@ msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"Nakaisagpaten ti sistema a piniliyo nga pasayaatento ti intar ti panagikapet ti Linux. Saankayo makasubli gapu ditoy.\n"
+"Nakaisagpaten ti sistema a piniliyo nga pasayaatento ti intar ti panaginstala ti Linux. Saankayo makasubli gapu ditoy.\n"
 "\n"
 
 #: ../upgrade.py:57
@@ -2094,7 +2094,7 @@ msgstr "Agsarsarak"
 #: ../upgrade.py:94
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Birbiroken dagiti panagikapet ti %s..."
+msgstr "Birbiroken dagiti panaginstala ti %s..."
 
 #: ../upgrade.py:150
 #: ../upgrade.py:158
@@ -2107,7 +2107,7 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Dagiti sumaruno a sistema a Linux ti intar ket saanda a naidissaag a nalaing. Rugianyo ti pakaikapetyo ti Linux, palubosanyo a masukimat ti sistema ti intar, sayonto iddepen a nalaing ti sistema tapno mapasayaat ti sistema.\n"
+"Dagiti sumaruno a sistema a Linux ti intar ket saanda a naidissaag a nalaing. Rugianyo ti pakainstalayo ti Linux, palubosanyo a masukimat ti sistema ti intar, sayonto iddepen a nalaing ti sistema tapno mapasayaat ti sistema.\n"
 "%s"
 
 #: ../upgrade.py:159
@@ -2175,7 +2175,7 @@ msgid ""
 msgstr ""
 "Saan a mailukat ti intar a %s. Gapu ta nalabasan ti intar wenno nadadaelsa ti pakete. Paneknekanyo nga aglalaon ti mirror amin a masapol a pakete wenno adasenyo met ti dadduma.\n"
 "\n"
-"No marugian manen, mabatinto ti sistema iti bullabulla a kasasaad. Nalabit a maikapet manen.\n"
+"No marugian manen, mabatinto ti sistema iti bullabulla a kasasaad. Nalabit a mainstala manen.\n"
 "\n"
 
 #: ../vnc.py:44
@@ -2184,7 +2184,7 @@ msgstr "Saan a Mapaandar ti X"
 
 #: ../vnc.py:45
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr "Saan a makaandar ti X kadaytoy a makina. Kayatyo ti agpaandar iti VNC tapno makasilpokayo nga aggapu ti sabali a kompiuter kadaytoy a kompiuter, sayonto sigragrapikal nga ikapet, wenno ipatuloy ti panagikapet ti wagas ti text?"
+msgstr "Saan a makaandar ti X kadaytoy a makina. Kayatyo ti agpaandar iti VNC tapno makasilpokayo nga aggapu ti sabali a kompiuter kadaytoy a kompiuter, sayonto sigragrapikal nga instala, wenno ipatuloy ti panaginstala ti wagas ti text?"
 
 #: ../vnc.py:52
 #: ../vnc.py:55
@@ -2205,7 +2205,7 @@ msgstr "Awan ti Kontrasenias"
 
 #: ../vnc.py:70
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr "Ti kontrasenias ket atipaenna ti saan a napalugodan nga adengdengngeg a makasilpo ken makapaliiw ti kasasaad ti panagikapet. Isuratyo ti kontrasenias a maaramatto maipaay ti panagikapet."
+msgstr "Ti kontrasenias ket atipaenna ti saan a napalugodan nga adengdengngeg a makasilpo ken makapaliiw ti kasasaad ti panaginstala. Isuratyo ti kontrasenias a maaramatto maipaay ti panaginstala."
 
 #: ../vnc.py:78
 #: ../textw/userauth_text.py:42
@@ -2235,7 +2235,7 @@ msgstr "Kaatiddog ti Kontrasenias"
 
 #: ../vnc.py:108
 msgid "The password must be at least six characters long."
-msgstr "Naksen a di nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias ti root."
+msgstr "Naksen a saan a nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias."
 
 #: ../vnc.py:138
 msgid "VNC Password Error"
@@ -2247,7 +2247,7 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Nasken a maituding ti kontrasenia a nakurkurang ngem innem a kurdit ti kaatiddog ti ti VNC.\n"
+"Nasken a maituding ti kontrasenia a saan a nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias ti VNC.\n"
 "\n"
 "Talmeganyo ti <RETURN> tapno marugian manen ti sistema.\n"
 
@@ -2263,7 +2263,7 @@ msgstr "%s %s panaginstalla iti host a %s"
 #: ../vnc.py:229
 #, python-format
 msgid "%s %s installation"
-msgstr "%s %s panagikapet"
+msgstr "%s %s panaginstala"
 
 #: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
@@ -2308,11 +2308,11 @@ msgstr "Kalpasanna ti naminlimapulo nga agpadas, mauk-ukasen ti panagsilpo!\n"
 #: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Ti kliente a VNC ket ikasilpoyo a demano iti %s tapno mairugi ti panagikapet. "
+msgstr "Ti kliente a VNC ket ikasilpoyo a demano iti %s tapno mairugi ti panaginstala. "
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Ti kliente a VNC ket ikasilpoyo a demano tapno mairugi ti panagikapet. "
+msgstr "Ti kliente a VNC ket ikasilpoyo a demano tapno mairugi ti panaginstala. "
 
 #: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
@@ -2321,11 +2321,11 @@ msgstr "Agpadasto ti agsilpo manen no 15 segundo..."
 #: ../vnc.py:313
 #, python-format
 msgid "Please connect to %s to begin the install..."
-msgstr "Ikasilpuanyo ti %s tapno makapagrugi ti panagikapet..."
+msgstr "Ikasilpuanyo ti %s tapno makapagrugi ti panaginstala..."
 
 #: ../vnc.py:315
 msgid "Please connect to begin the install..."
-msgstr "Agkasilpokayo tapno makapagrugi ti panagikapet..."
+msgstr "Agkasilpokayo tapno makapagrugi ti panaginstala..."
 
 #: ../yuminstall.py:103
 msgid "Processing"
@@ -2334,7 +2334,7 @@ msgstr "Aga-analisa..."
 # Pakatungpal
 #: ../yuminstall.py:104
 msgid "Preparing transaction from installation source..."
-msgstr "Isagsagana ti transaksion aggapo ti pagtataudan ti panagikapet..."
+msgstr "Isagsagana ti transaksion aggapo ti pagtataudan ti panaginstala..."
 
 #: ../yuminstall.py:470
 #: ../yuminstall.py:471
@@ -2359,7 +2359,7 @@ msgstr "masuppiat ti pakete"
 
 #: ../yuminstall.py:476
 msgid "package already installed"
-msgstr "nakaikapetn ti pakete"
+msgstr "nakainstalan ti pakete"
 
 #: ../yuminstall.py:477
 msgid "required package"
@@ -2394,17 +2394,17 @@ msgstr "Uliten ti panagrugi"
 
 #: ../yuminstall.py:697
 msgid "Retrieving installation information..."
-msgstr "Ab-abruten ti datos ti panagikapet..."
+msgstr "Ab-abruten ti datos ti panaginstala..."
 
 #: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Ab-abruten ti datos ti panagikapet maipaay ti %s..."
+msgstr "Ab-abruten ti datos ti panaginstala maipaay ti %s..."
 
 #: ../yuminstall.py:721
 #, python-format
 msgid "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.  %s"
-msgstr "Saan a nabasa ti metadata ti pakete. Aggapu ta nalabsan ti direktorio ti datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti panagikapet. %s"
+msgstr "Saan a nabasa ti metadata ti pakete. Aggapu ta nalabsan ti direktorio ti datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti panaginstala. %s"
 
 #: ../yuminstall.py:760
 msgid "Uncategorized"
@@ -2413,7 +2413,7 @@ msgstr "Awan ti Kategoria"
 #: ../yuminstall.py:995
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or reboot."
-msgstr "Dagiti pakete a piniliyo ket masapolda ti %d a MB ti nawaya nga espasio tapno maikapetda, ngem kurang ti espasio. Maisukatyo ti pakapilianyo wenno marugian manen."
+msgstr "Dagiti pakete a piniliyo ket masapolda ti %d a MB ti nawaya nga espasio tapno mainstalada, ngem kurang ti espasio. Maisukatyo ti pakapilianyo wenno marugian manen."
 
 #: ../yuminstall.py:1149
 #, python-format
@@ -2422,11 +2422,11 @@ msgstr "Agar-arup nga agpasaysayaatkayo manipud ti sistema a nakadaddaan tapno m
 
 #: ../yuminstall.py:1181
 msgid "Install Starting"
-msgstr "Mangrugrugi ti Panagikapet"
+msgstr "Mangrugrugi ti panaginstala"
 
 #: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Mangrugrugi ti panagikapet. Mabaybayag ti nadumaduma a minuto..."
+msgstr "Mangrugrugi ti panaginstala. Mabaybayag ti nadumaduma a minuto..."
 
 #: ../yuminstall.py:1198
 msgid "Post Upgrade"
@@ -2438,15 +2438,15 @@ msgstr "Agdaldalimanek iti kalpasan ti panagpasayaat..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
-msgstr "Kalpasan ti Panagikapet"
+msgstr "Kalpasan ti panaginstala"
 
 #: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
-msgstr "Agur-urnos, kalpasan ti panagikapet..."
+msgstr "Agur-urnos, kalpasan ti panaginstala..."
 
 #: ../yuminstall.py:1357
 msgid "Installation Progress"
-msgstr "Kasasaad ti Panagikapet"
+msgstr "Kasasaad ti panaginstala"
 
 #: ../yuminstall.py:1392
 msgid "Dependency Check"
@@ -2454,7 +2454,7 @@ msgstr "Panagsukimat ti Agtaltalek "
 
 #: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Agsuksukimat iti agtaltalek ti napili a pakete ti panagikapet..."
+msgstr "Agsuksukimat iti agtaltalek ti napili a pakete ti panaginstala..."
 
 #: ../zfcp.py:29
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
@@ -2666,11 +2666,11 @@ msgstr "Panagidalimanek ti Mangimaton ti Panangirubbuat"
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "Ti mangimaton ti rubbuat a %s ket maikapet iti /dev/%s."
+msgstr "Ti mangimaton ti rubbuat a %s ket mainstala iti /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Saanto a maikapet ti mangimaton ti rubbuat."
+msgstr "Saanto a mainstala ti mangimaton ti rubbuat."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
@@ -2678,7 +2678,7 @@ msgstr "Idalimanek dagiti natukad nga _opsion ti mangimaton ti panangrubbuat "
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Pagikapetan ti rehistro ti mangimaton ti rubbuat:"
+msgstr "Paginstalaan ti rehistro ti mangimaton ti rubbuat:"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
@@ -2712,12 +2712,12 @@ msgstr "Marugian manen ti sistema itan."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
-msgstr "Maikapetnto"
+msgstr "Mainstalanto"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Klikanyo ti 'Sumaruno' tapno mangrugi ti panagikapet ti %s."
+msgstr "Klikanyo ti 'Sumaruno' tapno mangrugi ti panaginstala ti %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2726,7 +2726,7 @@ msgid ""
 "\n"
 "A kickstart file containing the installation options selected can be found in the file '%s' after rebooting the system."
 msgstr ""
-"Ti sibubukel a rehistro ti panangikapet ket masarakan iti intar a '%s' kalpasanna marugian manen ti sistema.\n"
+"Ti sibubukel a rehistro ti pananginstala ket masarakan iti intar a '%s' kalpasanna marugian manen ti sistema.\n"
 "\n"
 "Ti intar ti kickstart a manglaon dagiti napili nga opsion ket masarakan iti intar a '%s' kalpasanna marugian manen ti sistema."
 
@@ -2753,7 +2753,7 @@ msgid ""
 "Remove any media used during the installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Ikkatenyo ania man a media a naaramat bayat ti panagikapet, sayonto lagitekanyo ti \"Manrugi manen\" tapno marugian manen ti sistema.\n"
+"Ikkatenyo ania man a media a naaramat bayat ti panaginstala, sayonto lagitekanyo ti \"Manrugi manen\" tapno marugian manen ti sistema.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -2763,7 +2763,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Kablaawan, nalpas ti panagikapet.\n"
+"Kablaawan, nalpas ti panaginstala.\n"
 "\n"
 "%s%s"
 
@@ -2791,11 +2791,11 @@ msgstr "_Isimpa ti %s"
 
 #: ../iw/examine_gui.py:57
 msgid "Choose this option to freshly install your system. Existing software and data may be overwritten depending on your configuration choices."
-msgstr "Pilienyo daytoy no kayatyo ti agikapet ti baro a sistema. Mawaswasen a maisurat ti panagadda a software ken datos ket agtalek kadagiti pakapilian ti panagidalimanek."
+msgstr "Pilienyo daytoy no kayatyo ti aginstala ti baro a sistema. Mawaswasen a maisurat ti panagadda a software ken datos ket agtalek kadagiti pakapilian ti panagidalimanek."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
-msgstr "_Pasayaat ti panagadda a panagikapet"
+msgstr "_Pasayaat ti panagadda a panaginstala"
 
 #: ../iw/examine_gui.py:63
 #, python-format
@@ -2805,7 +2805,7 @@ msgstr "Pilienyo ti opsion no kayatyo a pasayaat ti panagadda a sistema a %s. Da
 #: ../iw/examine_gui.py:110
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr "Ti sumaruno a naikapet a sistema ket mapasayaatto:"
+msgstr "Ti sumaruno a nainstala a sistema ket mapasayaatto:"
 
 #: ../iw/examine_gui.py:123
 msgid "Unknown Linux system"
@@ -2820,7 +2820,7 @@ msgstr "Pakapilian ti Pagsasao"
 #: ../textw/language_text.py:42
 #: ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr "Ania a pagsasao a kayatyo nga aramaten iti panagikapet?"
+msgstr "Ania a pagsasao a kayatyo nga aramaten iti panaginstala?"
 
 #: ../iw/lvm_dialog_gui.py:115
 #: ../iw/lvm_dialog_gui.py:162
@@ -3062,7 +3062,7 @@ msgid ""
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
 msgstr ""
-"Nasken ti kabassitan a maysa a pisikal a tomo ti benneg tapno maparsua ti Grupo ti Tomo a LVM.\n"
+"Nasken ti saan a nakurkurang ngem maysa ti saan a naar-armat a pisikal a benneg ti tomo tapno maparsua ti Grupo ti LVM a Tomo.\n"
 "\n"
 "Parsuaen ti benneg wenno tinipon ti RAID ti kita a \"pisikal a tomo (LVM)\", santo pilien ti opsion a \"LVM\" manen."
 
@@ -3299,7 +3299,7 @@ msgstr "Saan a matutop ti impormasion a naidatag ti IP."
 
 #: ../iw/network_gui.py:188
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr "Awan ti nakarugian nga aparato ti iket. Ti sistema ket ti sigud a saan a makapagsinnarita babaen ti iket no awan ania man ti maysa iti nakairugian nga aparato ti iket."
+msgstr "Awan ti singarngar nga aparato ti iket. Ti sistema ket ti sigud a saan a makapagsinnarita babaen ti iket no awan ania man ti saan a nakurkuran ngem maysa nga aparato iti nakairugian nga aparato ti iket."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -3481,7 +3481,7 @@ msgstr "Saan a Maikkat"
 #: ../textw/bootloader_text.py:343
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
-msgstr "Saan a maborra ti pagrubbuatan, gapu ta agpaay ti sistema ti %s a maikapetto."
+msgstr "Saan a maborra ti pagrubbuatan, gapu ta agpaay ti sistema ti %s a mainstalato."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3594,7 +3594,7 @@ msgstr "Panagad-adda ti sumaruno a nakaro a biddut iti dinawatyo a gandat ti pan
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr "Dagiti biddut ket masapol a mapalaingan kasakbayan ti panagipatuloy ti panagikapet ti %s."
+msgstr "Dagiti biddut ket masapol a mapalaingan kasakbayan ti panagipatuloy ti panaginstala ti %s."
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -3714,7 +3714,7 @@ msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device which can be formatted and mounted.\n"
 "\n"
 msgstr ""
-"Tapno maaramat ti RAID, masapol a maparsua ti kabassitan a dua a benneg ti kita a 'RAID iti software'. Santo maparsau ti aparato ti RAID a maipormato ken maisagpat.\n"
+"Tapno maaramat ti RAID, nasken a maparsua ti saan a nakurkurang ngem dua ti benneg ti kita a 'software a RAID'. Santo maparsua ti aparato ti RAID a maipormato ken maisagpat.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1256
@@ -3869,7 +3869,7 @@ msgid ""
 "\n"
 "First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
 msgstr ""
-"Nasken ti kabassitan a dua a saan a maar-aramat a benneg ti software a RAID tapno maparsua ti aparato ti RAID.\n"
+"Nasken ti saan a nakurkurang a dua ti saan a naar-armat a RAID a benneg tapno maparsua ti aparato ti RAID.\n"
 "\n"
 "Unaenyo ti arparsua ti dua a benneg ti kita a \"\", sayonto pilien manen ti opsion a \"RAID\"."
 
@@ -4064,7 +4064,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Saan a mabasa ti metadata ti pakete aggapu ti pagikbilan. Aggapu ta nalabsan ti direktorio ti datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti panagikapet.\n"
+"Saan a mabasa ti metadata ti pakete aggapu ti pagikbilan. Aggapu ta nalabsan ti direktorio ti datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti panaginstala.\n"
 "\n"
 "%s"
 
@@ -4182,7 +4182,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Naduktalan ti pagikapet ti %s a MB ti RAM.\n"
+"Naduktalan ti paginstala ti %s a MB ti RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
@@ -4204,7 +4204,7 @@ msgstr "Nawaya nga Espasio (MB)"
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
 msgid "It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:"
-msgstr "Naisingasing ti pangsinnukat nga intar ket ti kabassitanna ti %d MB. Isuratyo ti kadakkel ti pangsinnukat nga intar:"
+msgstr "Naisingasing  a saan a nakurkurang ngem %d a MB ti pangsinnukat nga intar. Isuratyo ti kadakkel ti pangsinnukat nga intar:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4278,9 +4278,9 @@ msgstr ""
 "\n"
 "Ti benneg a root ket daydiayto a pinilyo a kasakbay iti panagidaldalimanek ti benneg.\n"
 "\n"
-"Ti kernel nga pagrugi ti sistema ket ti maikapetto kas sigud.\n"
+"Ti kernel nga pagrugi ti sistema ket ti mainstalato kas sigud.\n"
 "\n"
-"No kayatyo ti agbaliw intono madamdama kalpasanna ti panagikapet, baliwanyo ti intar a /etc/zipl.conf ti panagidalimanek.\n"
+"No kayatyo ti agbaliw intono madamdama kalpasanna ti panaginstala, baliwanyo ti intar a /etc/zipl.conf ti panagidalimanek.\n"
 "\n"
 "Isuratyo ita ti dadduma a parametro a nasken ti makina wenno ti panagidalimanek maippay ti kernel."
 
@@ -4330,7 +4330,7 @@ msgstr "Pilitin ti panagaramat ti LBA32 (saan kadaywan a naisingasing)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr "Ania ti kayatyo a pagikapetan ti mangimaton ti panagrubbuat?"
+msgstr "Ania ti kayatyo a paginstalaan ti mangimaton ti panagrubbuat?"
 
 #: ../textw/bootloader_text.py:194
 #: ../textw/bootloader_text.py:259
@@ -4406,7 +4406,7 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Talmeganyo ti <ENTER> tapno malpas ti panagikapet.\n"
+"Talmeganyo ti <ENTER> tapno malpas ti panaginstala.\n"
 "\n"
 
 #: ../textw/complete_text.py:28
@@ -4418,7 +4418,7 @@ msgid ""
 "Remove any media used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Ikkatenyo ti ania man a media a naaramat bayat ti panagikapet, sayonto talmegan ti <ENTER> tapno marugian manen ti sistema.\n"
+"Ikkatenyo ti ania man a media a naaramat bayat ti panaginstala, sayonto talmegan ti <ENTER> tapno marugian manen ti sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -4453,12 +4453,12 @@ msgstr "Nalpas"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr "Panagikapet nga Irugianto"
+msgstr "panaginstala nga Irugianto"
 
 #: ../textw/confirm_text.py:23
 #, python-format
 msgid "A complete log of your installation will be in %s after rebooting your system. You may want to keep this file for later reference."
-msgstr "Maisurat ti sibubukel a rehistro ti panagikapet iti %s kalpasan ti panagrugi manen ti sistema. Kayatyonsa nga idulin daytoy a file maipaay ti madamdama a reperensia. "
+msgstr "Maisurat ti sibubukel a rehistro ti panaginstala iti %s kalpasan ti panagrugi manen ti sistema. Kayatyonsa nga idulin daytoy a file maipaay ti madamdama a reperensia. "
 
 #: ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28
@@ -4789,7 +4789,7 @@ msgstr "Saan a Maipakat"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "Mabaliwan ti grupo ti LVM a tomo ti grapikal a pagikapet laeng."
+msgstr "Mabaliwan ti grupo ti LVM a tomo ti grapikal a paginstala laeng."
 
 #: ../textw/partition_text.py:847
 #: ../textw/partition_text.py:900
@@ -4814,7 +4814,7 @@ msgstr "Awan ti benneg ti RAID"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr "Ti kabassitan ket masapol ti dua a benneg ti RAID iti software."
+msgstr "Nasken ti saan a nakurkurang ngem dua ti benneg ti software a RAID."
 
 #: ../textw/partition_text.py:1018
 #: ../textw/partition_text.py:1189
@@ -4889,7 +4889,7 @@ msgstr "Awan ti kangrunaan a benneg"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr "Masapol ti benneg a / a maikapetan."
+msgstr "Masapol ti benneg a / a mainstalaan."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
@@ -4897,11 +4897,11 @@ msgstr "Kita ti Benneg"
 
 #: ../textw/partition_text.py:1518
 msgid "Installation requires partitioning of your hard drive.  The default layout is reasonable for most users.  You can either choose to use this or create your own."
-msgstr "Masapol ti panagikapet ti panagbenneg ti agnanayon a disk. Matutop ti sigud a panangurnos maipaay kaaduan a mangaramat. Mapiliyo ti sigud wenno maparsuayo ti maysa."
+msgstr "Masapol ti panaginstala ti panagbenneg ti agnanayon a disk. Matutop ti sigud a panangurnos maipaay kaaduan a mangaramat. Mapiliyo ti sigud wenno maparsuayo ti maysa."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Ania a drive a kayatyo nga aramaten maipaay daytoy a panagikapet?"
+msgstr "Ania a drive a kayatyo nga aramaten maipaay daytoy a panaginstala?"
 
 #: ../textw/partition_text.py:1604
 msgid "Review Partition Layout"
@@ -4926,7 +4926,7 @@ msgstr "Iyulyulog - %s"
 
 #: ../textw/progress_text.py:103
 msgid "Package Installation"
-msgstr "Panagikapet ti Pakete"
+msgstr "panaginstala ti Pakete"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
@@ -4972,7 +4972,7 @@ msgstr "Pakapilian ti pakete"
 #: tmp/tasksel.glade.h:4
 #, no-c-format, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?"
-msgstr "Maikapet ti sigud nga instalasion ti %s ti tinipon ti software a matutop maipaay sapasap a panagaramat ti internet. Ania a nayon nga aramid a kayatyo a maipakat ti sistema?"
+msgstr "Mainstala ti sigud nga instalasion ti %s ti tinipon ti software a matutop maipaay sapasap a panagaramat ti internet. Ania a nayon nga aramid a kayatyo a maipakat ti sistema?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5030,7 +5030,7 @@ msgstr "Saan a matutop a numero ti pateg a naisurat."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
-msgstr "Maulit ti panagikapet ti sistema"
+msgstr "Maulit ti panaginstala ti sistema"
 
 #: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
@@ -5042,9 +5042,9 @@ msgid ""
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
 msgstr ""
-"Naduktalan ti sistema ti maysa wenno ad-adu a panagadda a pakaikapet ti Linux.\n"
+"Naduktalan ti sistema ti maysa wenno ad-adu a panagadda a pakainstala ti Linux.\n"
 "\n"
-"Pilienyo ti maysa a mapasayaat, wenn pilienyo ti 'Ikapet Manen ti Sistema' tapno maikapet a baro ti sistema."
+"Pilienyo ti maysa a mapasayaat, wenn pilienyo ti 'instala Manen ti Sistema' tapno mainstala a baro ti sistema."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
@@ -5056,7 +5056,7 @@ msgstr "Pilienyo ti kontrasenias ti root. Nasken a mamindua a maisurat tapno mat
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "Nasken ti kontrasenias ti root ket kabassitan a 6 a kurdit ti atiddog."
+msgstr "Nasken a saan a nakurkurang ngem innem a kurdit ti kaatiddog ti kontrasenias ti root."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5170,7 +5170,7 @@ msgstr "_Serbidor"
 
 #: ../installclasses/server.py:13
 msgid "Select this installation type if you would like to set up file sharing, print sharing, and Web services. Additional services can also be enabled, and you can choose whether or not to install a graphical environment."
-msgstr "Pilienyo daytoy a kita ti panagikapet no kayatyo isimpa ti ti intar, pannakabingay ti pagimalditan ken serbisios ti Saput. Maaktibar met ti nayon a serbisios, ken mapiliyo no maikapet wenno saan ti grapikal nga aglawlaw."
+msgstr "Pilienyo daytoy a kita ti panaginstala no kayatyo isimpa ti ti intar, pannakabingay ti pagimalditan ken serbisios ti Saput. Maaktibar met ti nayon a serbisios, ken mapiliyo no mainstala wenno saan ti grapikal nga aglawlaw."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -5424,7 +5424,7 @@ msgstr "Saan nga agpada ti kayo ti instalasion ti %s nga adda kadayta a direktor
 
 #: ../loader2/hdinstall.c:158
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
-msgstr "Rimsua ti biddut iti pannakabasa ti pakaikapet nga aggapu ti imahen nga ISO. Sukimatenyo ti imahen nga ISO, sayonto padasen manen."
+msgstr "Rimsua ti biddut iti pannakabasa ti pakainstala nga aggapu ti imahen nga ISO. Sukimatenyo ti imahen nga ISO, sayonto padasen manen."
 
 #: ../loader2/hdinstall.c:266
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
@@ -5557,7 +5557,7 @@ msgstr "Awan ti naduktalan ti nalagda a drive. Naskenyo ngata ti agpili iti pagt
 #: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Kurang ti RAM tapno maikapetan daytoy a makina ti %s."
+msgstr "Kurang ti RAM tapno mainstalaan daytoy a makina ti %s."
 
 #: ../loader2/loader.c:938
 msgid "Rescue Method"
@@ -5565,7 +5565,7 @@ msgstr "Panagisalakan"
 
 #: ../loader2/loader.c:939
 msgid "Installation Method"
-msgstr "Panagikapet"
+msgstr "panaginstala"
 
 #: ../loader2/loader.c:941
 msgid "What type of media contains the rescue image?"
@@ -5573,7 +5573,7 @@ msgstr "Ania ti kita ti media nga aglallaon iti pangisalakan nga imahen?"
 
 #: ../loader2/loader.c:943
 msgid "What type of media contains the packages to be installed?"
-msgstr "Ania ti kita ti media nga aglallaon iti pakete a maikapetto?"
+msgstr "Ania ti kita ti media nga aglallaon iti pakete a mainstalato?"
 
 #: ../loader2/loader.c:968
 msgid "No driver found"
@@ -5589,7 +5589,7 @@ msgstr "Aramaten ti disk ti driver"
 
 #: ../loader2/loader.c:970
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
-msgstr "Saan a maduktalan aniaman nga aparato daytoy a kita a masapul maipaay daytoy a kita ti panagikapet. Kayatyo ti agpili a demano ti pagtengngel wenno agaramat ti disk ti pagtengnel?"
+msgstr "Saan a maduktalan aniaman nga aparato daytoy a kita a masapul maipaay daytoy a kita ti panaginstala. Kayatyo ti agpili a demano ti pagtengngel wenno agaramat ti disk ti pagtengnel?"
 
 #: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
@@ -5624,7 +5624,7 @@ msgstr "Ipatartaray ti Anaconda, ti pansalak a wagas ti sistema a %s - Aguraykay
 #: ../loader2/loader.c:1725
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Ipatartaray ti Anaconda, ti pagikapet ti sistema a %s - Aguraykayo man...\n"
+msgstr "Ipatartaray ti Anaconda, ti paginstala ti sistema a %s - Aguraykayo man...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
@@ -5643,7 +5643,7 @@ msgstr "Sukimaten ti media ita..."
 #: ../loader2/mediacheck.c:387
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Saan a maduktalan ti pangikapet nga imahen ti %s"
+msgstr "Saan a maduktalan ti panginstala nga imahen ti %s"
 
 #: ../loader2/mediacheck.c:397
 #: ../loader2/mediacheck.c:414
@@ -5652,7 +5652,7 @@ msgstr "NAPAAY"
 
 #: ../loader2/mediacheck.c:398
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr "Adda ti biddut iti kapanpaneknekan ang imahen. Aggapu ta nadadael ti pakayulog wenno nadadael ti disk. No mayanatup, dalusanyo ti disk, sayonto padasen manen. No agkarapalia, saanyo ipatuloy ti panagikapet."
+msgstr "Adda ti biddut iti kapanpaneknekan ang imahen. Aggapu ta nadadael ti pakayulog wenno nadadael ti disk. No mayanatup, dalusanyo ti disk, sayonto padasen manen. No agkarapalia, saanyo ipatuloy ti panaginstala."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -5660,7 +5660,7 @@ msgstr "BALLIGI"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
-msgstr "Mayat ti agikapet nga aggapu daytoy a media."
+msgstr "Mayat ti aginstala nga aggapu daytoy a media."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
@@ -5795,7 +5795,7 @@ msgstr "Masapul ti IPv4 maipaay ti NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr "Tuntonen ti wagas ti panagikapet ti NFS ti pannakaipakat ti IPv4."
+msgstr "Tuntonen ti wagas ti panaginstala ti NFS ti pannakaipakat ti IPv4."
 
 #: ../loader2/net.c:771
 #: ../loader2/net.c:781
@@ -5804,11 +5804,11 @@ msgstr "Nalabsan a Protokol"
 
 #: ../loader2/net.c:772
 msgid "You must select at least one protocol (IPv4 or IPv6) for manual configuration."
-msgstr "Nasken a mapili ti kabassitan a maysa a protokol (IPv4 wenno IPv6) maipaay ti panagidalimanek a demano."
+msgstr "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno IPv6) maipaay ti panagidalimanek a demano."
 
 #: ../loader2/net.c:782
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Nasken a mapili ti kabassitan a maysa a protokol (IPv4 wenno IPv6) maipaay ti DHCP."
+msgstr "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno IPv6) maipaay ti DHCP."
 
 #: ../loader2/net.c:852
 msgid "IPv4 address:"
@@ -5865,7 +5865,7 @@ msgstr "Aparato ti Ikit"
 
 #: ../loader2/net.c:1689
 msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr "Lallaonen ti sistema ti adu a aparato ti iket. Ania ti pagbaetan ti panagikapet?"
+msgstr "Lallaonen ti sistema ti adu a aparato ti iket. Ania ti pagbaetan ti panaginstala?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -5892,7 +5892,7 @@ msgstr "Naituding ti nagan ti host ket awan ti naidalimanek a DNS"
 #: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Agar-arup a saan a lallaonen dayta direktorio ti puno ti panagikapet ti %s."
+msgstr "Agar-arup a saan a lallaonen dayta direktorio ti puno ti panaginstala ti %s."
 
 #: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
@@ -5923,7 +5923,7 @@ msgstr "Saan a maala ti %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
-msgstr "Saan a maala ti imahen ti panagikapet."
+msgstr "Saan a maala ti imahen ti panaginstala."
 
 #: ../loader2/urlinstall.c:285
 msgid "Media Detected"
@@ -5931,7 +5931,7 @@ msgstr "Naduktalan ti Media"
 
 #: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
-msgstr "Nadutalan ti lokal a media ti panagikapet..."
+msgstr "Nadutalan ti lokal a media ti panaginstala..."
 
 #: ../loader2/urlinstall.c:464
 #, c-format
@@ -6055,7 +6055,7 @@ msgstr "Inayon ti Nakaikabilan"
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr "Ikkanyo ti pagyanan a maikapetanto ti nayon a software. Imatanganyo a nasken daytoy ti matutop a nakaikabilan ti %s."
+msgstr "Ikkanyo ti pagyanan a mainstalaanto ti nayon a software. Imatanganyo a nasken daytoy ti matutop a nakaikabilan ti %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6079,7 +6079,7 @@ msgstr "_Pakdaar ti Pannakaibbat"
 
 #: tmp/autopart.glade.h:1
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
-msgstr "Nasken ti panagikapet ti panabenneg ti nalagda a drive. Iti sigud, mapilinto ti pannakaidalimanek ti benneg a matutop maipaay ti kaadu a mangaramat. Wenno mapiliyo nga aramaten daytoy wenno maparsuayo ti kukuayo."
+msgstr "Nasken ti panaginstala ti panabenneg ti nalagda a drive. Iti sigud, mapilinto ti pannakaidalimanek ti benneg a matutop maipaay ti kaadu a mangaramat. Wenno mapiliyo nga aramaten daytoy wenno maparsuayo ti kukuayo."
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6091,7 +6091,7 @@ msgstr "_Natukad a pannakaidalimanek ti pannakaidulinan"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Pilien ti drive a maaramat maipaay daytoy a panagikapet."
+msgstr "_Pilien ti drive a maaramat maipaay daytoy a panaginstala."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6159,7 +6159,7 @@ msgstr "Irugi ti pagsilpuan ti iket"
 
 #: tmp/netconfig.glade.h:10
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr "Nasken nga adda ti nakaandar a panilpo ti iket iti panagikapet. Idalimanekyo ti pagsilpuan ti iket."
+msgstr "Nasken nga adda ti nakaandar a panilpo ti iket iti panaginstala. Idalimanekyo ti pagsilpuan ti iket."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6171,11 +6171,11 @@ msgstr "Ipabukod intono _madamdama"
 
 #: tmp/tasksel.glade.h:2
 msgid "Please select any additional repositories that you want to use for software installation."
-msgstr "Pilienyo ti ania man a nayon a nakaikabilan a kayatyo aramaten maipaay ti panagikapet ti software."
+msgstr "Pilienyo ti ania man a nayon a nakaikabilan a kayatyo aramaten maipaay ti panaginstala ti software."
 
 #: tmp/tasksel.glade.h:5
 msgid "You can further customize the software selection now, or after install via the software management application."
-msgstr "Maipabukodyo pay ti pakapilian ti software ita, wenno kalpasan ti panagikapet babaen ti pangimaton nga aplikasion ti software. "
+msgstr "Maipabukodyo pay ti pakapilian ti software ita, wenno kalpasan ti panaginstala babaen ti pangimaton nga aplikasion ti software. "
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6679,7 +6679,7 @@ msgstr "Amianan a Daya ti Brasil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Oras ti Newfoundland, maikapet ti Abagatan a Daya ti Labrador"
+msgstr "Oras ti Newfoundland, mainstala ti Abagatan a Daya ti Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
