@@ -57,6 +57,9 @@
 
 2006-11-28  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/rhel.py (InstallClass.handleRegKey): Disable
+	hack keys when we go to non-beta (#217360)
+
 	* lang-table: Fix si_LK timezone (#217288)
 
 2006-11-27  Chris Lumens  <clumens@redhat.com>

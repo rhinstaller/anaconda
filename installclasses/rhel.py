@@ -79,7 +79,7 @@ class InstallClass(BaseInstallClass):
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
-        if instnum is not None and instnum.formatMap.has_key(len(key)):
+        if instnum is not None and instnum.formatMap.has_key(len(key)) or not BETANAG: # disable hack keys for non-beta
             inum = instnum.InstNum(key)
             for name, path in inum.get_repos_dict().items():
                 self.repopaths[name.lower()] = path
