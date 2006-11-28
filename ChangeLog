@@ -1,5 +1,7 @@
 2006-11-28  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (InstallKeyWindow.__init__): Fix the border for this dialog
+
 	* installclasses/rhel.py (InstallClass.handleRegKey): Based on the
 	reg key, set up the tasks that are shown
 
