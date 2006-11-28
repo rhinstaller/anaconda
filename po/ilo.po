@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-28 00:48-0800\n"
+"PO-Revision-Date: 2006-11-28 01:21-0800\n"
 "Last-Translator: Joseph S. Maza <joemaza@comcast.net>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
 "MIME-Version: 1.0\n"
@@ -1063,7 +1063,7 @@ msgstr ""
 #: ../packages.py:290
 #: ../packages.py:295
 msgid "_Exit"
-msgstr "Il_eppas"
+msgstr "_Turposen"
 
 #: ../gui.py:989
 #: ../yuminstall.py:609
@@ -1073,22 +1073,22 @@ msgstr "_Padasen manen"
 #: ../gui.py:992
 #: ../packages.py:294
 msgid "The installer will now exit..."
-msgstr "Aglepleppas ti panaginstala..."
+msgstr "Agturturpos ita ti paginstala..."
 
 #: ../gui.py:995
 #: ../packages.py:297
 msgid "Your system will now be rebooted..."
-msgstr "Rugian manen ti sistema itaMarugian manen..."
+msgstr "Marugian manen ita ti sistema..."
 
 #: ../gui.py:998
 #: ../packages.py:299
 msgid "Rebooting System"
-msgstr "Pangrugi ti Sistema"
+msgstr "Agrugrugi manen ti Sistema"
 
 #: ../gui.py:1062
 #, python-format
 msgid "%s Installer"
-msgstr "%s a Paginstala"
+msgstr "Paginstala ti %s"
 
 #: ../gui.py:1069
 msgid "Unable to load title bar"
@@ -1189,7 +1189,7 @@ msgstr "Isengngatyo ti %s a disk ti %d tapno makapagpatuloykayo."
 
 #: ../image.py:300
 msgid "Wrong CDROM"
-msgstr "Saan a apag-isu a CDROM"
+msgstr "Saan nga apag-isu a CDROM"
 
 #: ../image.py:301
 #, python-format
@@ -1226,7 +1226,7 @@ msgstr ""
 
 #: ../installclass.py:64
 msgid "Install on System"
-msgstr "Mainstala iti Sistema"
+msgstr "Mainstalaan ti Sistema"
 
 #: ../iscsi.py:126
 #: ../iscsi.py:127
@@ -1251,7 +1251,7 @@ msgstr ""
 #: ../kickstart.py:764
 #: ../kickstart.py:782
 msgid "Running..."
-msgstr "Matungtungpal..."
+msgstr "Agtungtungpal..."
 
 #: ../kickstart.py:765
 msgid "Running pre-install scripts"
@@ -1279,7 +1279,7 @@ msgstr "_Ukasen"
 
 #: ../kickstart.py:961
 msgid "Missing Group"
-msgstr "Nlabsan ti grupo"
+msgstr "Nalabsan A Grupo"
 
 #: ../kickstart.py:962
 #, python-format
@@ -1300,7 +1300,7 @@ msgstr "Makalaon laeng ti nagan ti host iti dagiti 'a-z', 'A-Z', '-', wenno '.' 
 
 #: ../network.py:89
 msgid "IP Address is missing."
-msgstr "Nalabsan ti pagtaengan ti IP."
+msgstr "Nalabsan ti IP a Pagtaengan."
 
 #: ../network.py:93
 msgid "IP Addresses must contain four numbers between 0 and 255, separated by periods."
@@ -1322,7 +1322,7 @@ msgstr "Isuratyo ti pangrehistro a tulbek"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr "Tulbek:"
+msgstr "Klabe:"
 
 #: ../packages.py:276
 msgid "Warning! This is pre-release software!"
@@ -1352,7 +1352,7 @@ msgstr ""
 
 #: ../packages.py:290
 msgid "_Install anyway"
-msgstr "_Mainstala ania man"
+msgstr "_Mainstala no aniaman"
 
 #: ../partedUtils.py:205
 #: ../textw/partition_text.py:558
@@ -1366,7 +1366,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a maipakat tapno maaramat iti panaginstala ti %s. No kayatyo nga aramaten daytoy a disk maipapan ti panaginstala, naksen a marugianto ngem maborra ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
+"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti LDL a DASD ket saan a maipakat tapno maaramat iti panaginstala ti %s. No kayatyo nga aramaten daytoy a disk maipapan ti panaginstala, naksen a marugianto ngem mabura ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a DASD babaen ti CDL?"
 
@@ -1377,7 +1377,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem maborra ti SIBUBUKEL a DATOS a nakasurat kadaytoy a drive.\n"
+"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem mabura ti SIBUBUKEL a DATOS a nakasurat kadaytoy a drive.\n"
 "\n"
 "Kayatyo a maipormato daytoy a drive?"
 
@@ -1416,7 +1416,7 @@ msgstr ""
 "\n"
 "Daytoy nga aramid ket \n"
 "\n"
-"Kayatyo a marugian daytoy a drive ket maborra ti SIBUBUKEL a DATOS?"
+"Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL a DATOS?"
 
 #: ../partedUtils.py:1044
 #, python-format
@@ -1427,11 +1427,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro a benneg, nasken a marugian ket maborranto ti SIBUBUKEL A DATOS nga nakaisurat kadaytoy a disk.\n"
+"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro a benneg, nasken a marugian ket maburanto ti SIBUBUKEL A DATOS nga nakaisurat kadaytoy a disk.\n"
 "\n"
 "Waswasen daytoy nga aramid ti keddeng a maipanggep ania a drive a mabaybay-an.\n"
 "\n"
-"Kayatyo a marugian daytoy a drive ket maborra ti SIBUBUKEL A DATOS?"
+"Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL A DATOS?"
 
 #: ../partedUtils.py:1162
 msgid "No Drives Found"
@@ -1508,24 +1508,24 @@ msgstr "Daytoy a benneg ket paset ti grupo ti LVM a tomo."
 #: ../partIntfHelpers.py:163
 #: ../partIntfHelpers.py:187
 msgid "Unable To Delete"
-msgstr "Saan a naikkat"
+msgstr "Saan a Mabura"
 
 #: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
-msgstr "Kailanganyo ti agpili iti benneg a maikkatto."
+msgstr "Nasken a mapili ti benneg a maburanburato"
 
 #: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
-msgstr "Saan a maikkat ti nawaya nga espasio."
+msgstr "Saan a mabura ti nawaya nga espasio."
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Saan a maikkat ti benneg ti DASD a naipormato babaen ti LDL."
+msgstr "Saan a mabura ti benneg ti DASD a naipormato babaen ti LDL."
 
 #: ../partIntfHelpers.py:164
 #, python-format
 msgid "You cannot delete this partition, as it is an extended partition which contains %s"
-msgstr "Saan a maikkat daytoy a benneg, gapu ta daytoy ket nabennat a benneg daytoy nga aglallaon iti %s."
+msgstr "Saan a mabura daytoy a benneg, gapu ta daytoy ket nabennat a benneg daytoy, nga aglallaon iti %s."
 
 #: ../partIntfHelpers.py:182
 #: ../iw/raid_dialog_gui.py:558
@@ -1537,19 +1537,19 @@ msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"Saan a maikkat daytoy a benneg:\n"
+"Saan a mabura daytoy a benneg:\n"
 "\n"
 
 #: ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
-msgstr "Patalgedan ti Panagikkat"
+msgstr "Patalgedan ti Panagbura"
 
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "Maikkatto dagiti benneg ti '/dev/%s'."
+msgstr "Maburanto dagiti benneg ti '/dev/%s'."
 
 #: ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530
@@ -1558,7 +1558,7 @@ msgstr "Maikkatto dagiti benneg ti '/dev/%s'."
 #: ../iw/osbootwidget.py:104
 #: ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr "Ikkate_n"
+msgstr "_Borraen"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
@@ -1571,7 +1571,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Dagiti sumaruno a benneg ket saanda a naikkat gapu ta mar-armatda:\n"
+"Dagiti sumaruno a benneg ket saanda a nabura, gapu ta naar-armatda:\n"
 "\n"
 "%s"
 
@@ -1675,7 +1675,7 @@ msgstr ""
 #: ../partIntfHelpers.py:457
 #: ../iw/partition_gui.py:665
 msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
-msgstr "Dagiti sumaruno a panagadda a benneg ket napilida a maipormatto a maborra amin a datos."
+msgstr "Dagiti sumaruno a panagadda a benneg ket napilida a maipormatto a mabura amin a datos."
 
 #: ../partIntfHelpers.py:460
 msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
@@ -1692,27 +1692,27 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"Maikkatto ti grupo a \"%s\" ti tomo.\n"
+"Maburanto ti grupo a \"%s\" ti tomo.\n"
 "\n"
 "AMIN a lohikal a tomo nga aggigyan kadaytoy ket mapukaw."
 
 #: ../partIntfHelpers.py:518
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "Maikkatto ti lohikal a tomo a \"%s\"."
+msgstr "Maburanto ti lohikal a tomo a \"%s\"."
 
 #: ../partIntfHelpers.py:521
 msgid "You are about to delete a RAID device."
-msgstr "Maikkatto ti aparato ti RAID."
+msgstr "Maborato ti aparato ti RAID."
 
 #: ../partIntfHelpers.py:524
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr "Maikkatto ti benneg a /dev/%s."
+msgstr "Maburato ti benneg a /dev/%s."
 
 #: ../partIntfHelpers.py:527
 msgid "The partition you selected will be deleted."
-msgstr "Ti napili a benneg ket maikkatto."
+msgstr "Ti napili a benneg ket maburato."
 
 #: ../partIntfHelpers.py:537
 msgid "Confirm Reset"
@@ -1768,7 +1768,7 @@ msgstr "Nasken a maparsua ti pangrubbuat a benneg ti PPC PReP."
 #: ../partitions.py:908
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr "Daytoy a benneg a %s ket %s MB a nababbaba ngem ti naisingasin maipaay ti kadawyan nga panaginstala ti %s."
+msgstr "Daytoy a benneg a %s ket basbassit ngem %s a MB, a nababbaba ngem ti naisingasing a kadawyan a panaginstala ti %s."
 
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -3037,7 +3037,7 @@ msgstr "Awan ti nabati nga espasio iti grupo ti tomo a maparsuaan ti baro a lohi
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Sigurado a kayatyo Borraen ti lohikal a tomo a \"%s\"?"
+msgstr "Sigurado a kayatyo Buraen ti lohikal a tomo a \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
@@ -3475,13 +3475,13 @@ msgstr "Maaramat daytoy nga aparato maipaay ti sabali a pangrubbuat a pakasurata
 #: ../iw/osbootwidget.py:329
 #: ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
-msgstr "Saan a Maikkat"
+msgstr "Saan a Mabura"
 
 #: ../iw/osbootwidget.py:330
 #: ../textw/bootloader_text.py:343
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
-msgstr "Saan a maborra ti pagrubbuatan, gapu ta agpaay ti sistema ti %s a mainstalato."
+msgstr "Saan a mabura ti pagrubbuatan, gapu ta agpaay ti sistema ti %s a mainstalato."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -4371,7 +4371,7 @@ msgstr "Ti mangimaton ti rubbuat nga ar-aramaten ti %s ket makarubbuat met iti s
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> Agpili | <F2> Agpili iti Sigud | <F4> Borraen | <F12> Sumaruno a Pantalia>"
+msgstr " <Space> Agpili | <F2> Agpili iti Sigud | <F4> Buraen | <F12> Sumaruno a Pantalia>"
 
 #: ../textw/bootloader_text.py:387
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."
@@ -4873,7 +4873,7 @@ msgstr "Baro"
 
 #: ../textw/partition_text.py:1443
 msgid "Delete"
-msgstr "Borraen"
+msgstr "Buraen"
 
 #: ../textw/partition_text.py:1444
 msgid "RAID"
@@ -4881,7 +4881,7 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Tulong     F2-Baro      F3-Baliwan   F4-Borraen    F5-Isubli    F12-Mayat        "
+msgstr "    F1-Tulong     F2-Baro      F3-Baliwan   F4-Buraen    F5-Isubli    F12-Mayat        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6231,7 +6231,7 @@ msgstr "Purpuro ti Atlantiko"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "Rukod nga Oras ti Atlantiko - Quebec - Amianan a Naababa nga Igid ti Baybay "
+msgstr "Rukod nga Oras ti Atlantiko - Quebec - Amianan a Nababbaba nga Igid ti Baybay"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
