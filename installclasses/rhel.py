@@ -57,7 +57,7 @@ class InstallClass(BaseInstallClass):
                                                 CLEARPART_TYPE_LINUX)
 
     def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups()
+        grps = anaconda.backend.getDefaultGroups(anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def setSteps(self, dispatch):
