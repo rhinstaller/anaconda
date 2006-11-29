@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.18
+Version: 11.1.2.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 29 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.19-1
+- Don't always write out xconfig and monitor lines (#211977).
+- Pull in xinf files from X driver packages on url images.
+- Fix for changed API (katzj, #217673, #217689).
+
 * Tue Nov 28 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.18-1
 - Fix registration key dialog (katzj).
 - Base shown tasks on registration key (katzj).
