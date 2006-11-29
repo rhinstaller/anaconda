@@ -4,6 +4,9 @@
 	xconfig and monitor lines into the kickstart file, unless that info
 	was already given during a kickstart install (#211977).
 
+	* scripts/upd-instroot:  Keep xinf files from driver packages in text
+	install mode.
+
 2006-11-29  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py (InstallClass.setGroupSelection): Fix for
