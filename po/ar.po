@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-17 09:23-0500\n"
+"POT-Creation-Date: 2006-11-29 10:34-0500\n"
 "PO-Revision-Date: 2006-07-15 03:38+0200\n"
 "Last-Translator: Maha <ms.helwa@gmail.com>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
@@ -43,8 +43,8 @@ msgstr "إضغط على مفتاح الإدخال enter من أجل shell."
 #: ../textw/constants_text.py:36 ../textw/network_text.py:46
 #: ../textw/network_text.py:56 ../textw/network_text.py:323
 #: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:618
-#: ../textw/network_text.py:626 ../loader2/cdinstall.c:140
+#: ../textw/network_text.py:388 ../textw/network_text.py:620
+#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -60,22 +60,22 @@ msgstr "إضغط على مفتاح الإدخال enter من أجل shell."
 #: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
 #: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:337 ../loader2/loader.c:350
-#: ../loader2/loader.c:361 ../loader2/loader.c:805 ../loader2/loader.c:968
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1057 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:724 ../loader2/net.c:1003
-#: ../loader2/net.c:1509 ../loader2/net.c:1532 ../loader2/net.c:1708
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
-#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:456
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
-#: ../loader2/urls.c:282 ../loader2/urls.c:347 ../loader2/urls.c:352
-#: ../loader2/urls.c:358 ../loader2/urls.c:464
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:334
+#: ../loader2/kickstart.c:469 ../loader2/lang.c:106 ../loader2/lang.c:369
+#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:155 ../loader2/method.c:373 ../loader2/method.c:458
+#: ../loader2/modules.c:1057 ../loader2/net.c:259 ../loader2/net.c:298
+#: ../loader2/net.c:719 ../loader2/net.c:1044 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
+#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
+#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:464
 msgid "OK"
 msgstr "موافق"
 
@@ -349,7 +349,7 @@ msgstr "خطأ غير قابل للإصلاح"
 msgid "Your system will now be rebooted."
 msgstr "سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../autopart.py:1671 ../bootloader.py:194 ../image.py:435
+#: ../autopart.py:1671 ../bootloader.py:197 ../image.py:435
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
 #: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
@@ -357,7 +357,7 @@ msgstr "سوف يتمّ الآن إعادة تشغيل نظامك."
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
 #: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "تحذير"
 
@@ -428,15 +428,15 @@ msgstr "جاري تحديث %s-%s-%s.%s.\n"
 msgid "Installing %s\n"
 msgstr "_ثبّت %s"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Bootloader"
 msgstr "مُحمّل الإقلاع"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Installing bootloader..."
 msgstr "جاري تثبيت مُحمّل الإقلاع..."
 
-#: ../bootloader.py:195
+#: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -454,7 +454,7 @@ msgstr "قيد العمل..."
 msgid "Can't have a question in command line mode!"
 msgstr "لا يمكن وضع سؤال في وضع سطر الأوامر!"
 
-#: ../cmdline.py:74 ../gui.py:897 ../text.py:398
+#: ../cmdline.py:74 ../gui.py:898 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -502,7 +502,7 @@ msgstr ""
 "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
-#: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
+#: ../gui.py:903 ../gui.py:1053 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
@@ -547,8 +547,8 @@ msgstr "جاري تفحّص وجود كتل سيّئة على /dev/%s..."
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
 #: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
-#: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
-#: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:162
+#: ../textw/partition_text.py:1655 ../textw/partition_text.py:1661
+#: ../textw/partition_text.py:1683 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
@@ -556,8 +556,8 @@ msgstr "جاري تفحّص وجود كتل سيّئة على /dev/%s..."
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:361
-#: ../loader2/loader.c:805 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -907,21 +907,20 @@ msgstr "أصْلح"
 #: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:404
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "نعم"
 
 #: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:437
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "No"
 msgstr "لا"
 
-#: ../gui.py:234 ../text.py:439 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:542 ../loader2/net.c:653 ../loader2/net.c:770
-#: ../loader2/net.c:777 ../loader2/net.c:787 ../loader2/net.c:1147
-#: ../loader2/net.c:1153
+#: ../gui.py:234 ../text.py:439 ../loader2/net.c:91 ../loader2/net.c:316
+#: ../loader2/net.c:563 ../loader2/net.c:671 ../loader2/net.c:771
+#: ../loader2/net.c:779 ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Retry"
 msgstr "أعد المحاولة"
 
@@ -929,25 +928,25 @@ msgstr "أعد المحاولة"
 msgid "Ignore"
 msgstr "تجاهل"
 
-#: ../gui.py:236 ../gui.py:757 ../partIntfHelpers.py:237
+#: ../gui.py:236 ../gui.py:758 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
 #: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:350
+#: ../loader2/kickstart.c:334 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: ../gui.py:595 ../text.py:356
+#: ../gui.py:594 ../text.py:356
 #, fuzzy
 msgid "Installation Key"
 msgstr "نوع التثبيت"
 
-#: ../gui.py:899 ../text.py:400
+#: ../gui.py:900 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "خطأ عند تحليل ملف إعدادات Kickstart "
 
-#: ../gui.py:907 ../text.py:410
+#: ../gui.py:908 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -955,15 +954,15 @@ msgstr ""
 "الرجاء إدخال قرص مرن الآن. سوف تحذف جميع محتويات القرص، لذا رجاء اختر القرص "
 "بحذر."
 
-#: ../gui.py:954
+#: ../gui.py:955
 msgid "default:LTR"
 msgstr "افتراض: من اليسار إلى اليمين (LTR)"
 
-#: ../gui.py:1038
+#: ../gui.py:1039
 msgid "Error!"
 msgstr "خطأ!"
 
-#: ../gui.py:1039
+#: ../gui.py:1040
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -974,36 +973,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1044 ../gui.py:1049 ../packages.py:303 ../packages.py:308
+#: ../gui.py:1045 ../gui.py:1050 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
 msgstr "ا_خرج"
 
-#: ../gui.py:1045 ../yuminstall.py:748
+#: ../gui.py:1046 ../yuminstall.py:748
 msgid "_Retry"
 msgstr "ا_عد المحاولة"
 
-#: ../gui.py:1048 ../packages.py:307
+#: ../gui.py:1049 ../packages.py:307
 msgid "The installer will now exit..."
 msgstr "المثبّت سيخرج الآن"
 
-#: ../gui.py:1051 ../packages.py:310
+#: ../gui.py:1052 ../packages.py:310
 msgid "Your system will now be rebooted..."
 msgstr "سوف يتمّ الآن إعادة تشغيل نظامك..."
 
-#: ../gui.py:1054 ../packages.py:312
+#: ../gui.py:1055 ../packages.py:312
 msgid "Rebooting System"
 msgstr "جاري إعادة تشغيل النّظام"
 
-#: ../gui.py:1118
+#: ../gui.py:1119
 #, python-format
 msgid "%s Installer"
 msgstr "مُثبّت %s"
 
-#: ../gui.py:1125
+#: ../gui.py:1126
 msgid "Unable to load title bar"
 msgstr "لم يمكن تحميل سطر العنوان"
 
-#: ../gui.py:1174
+#: ../gui.py:1175
 msgid "Install Window"
 msgstr "نافذة التثبيت"
 
@@ -1145,7 +1144,7 @@ msgstr ""
 msgid "Install on System"
 msgstr "ثبّت على النّظام"
 
-#: ../iscsi.py:185 ../iscsi.py:186
+#: ../iscsi.py:197 ../iscsi.py:198
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "جاري عملية التهيئة"
@@ -2099,7 +2098,7 @@ msgstr ""
 msgid "Save Crash Dump"
 msgstr "احفظ مُخرجات الخلل"
 
-#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:154
+#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "أهلاً بكم إلى %s"
@@ -2627,20 +2626,20 @@ msgstr ""
 msgid "Error with Data"
 msgstr "خطأ في البيانات"
 
-#: ../iw/autopart_type.py:243 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1529
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "أزل كلّ التجزيئات على هذا النّظام"
 
-#: ../iw/autopart_type.py:244 ../textw/partition_text.py:1530
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1530
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:245 ../textw/partition_text.py:1531
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:246 ../textw/partition_text.py:1532
+#: ../iw/autopart_type.py:251 ../textw/partition_text.py:1532
 msgid "Create custom layout."
 msgstr ""
 
@@ -2911,7 +2910,7 @@ msgstr "نظام لينكس غير معروف"
 msgid "Language Selection"
 msgstr "خيار اللّغة"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "ما اللّغة التي تودّ استخدامها أثناء عمليّة التثبيت؟"
 
@@ -3240,7 +3239,7 @@ msgstr "الحجم (ميجابايت)"
 msgid "_Add"
 msgstr "_أضف"
 
-#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:742
+#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:744
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "_عدّل"
@@ -3302,11 +3301,11 @@ msgstr ""
 "حدث خطأ في تحويل القيمة المُدخلة لـ\"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:792
+#: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
 msgstr "IP ديناميكي"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:793
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:394 ../loader2/net.c:810
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "جاري إرسال طلب معلومات IP من أجل %s..."
@@ -3320,11 +3319,11 @@ msgid "Netmask"
 msgstr "قناع الشّبكة"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:818
+#: ../iw/network_gui.py:820
 msgid "Gateway"
 msgstr "البوّابة"
 
-#: ../iw/netconfig_dialog.py:195 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
 msgstr "خادم النّطاق"
 
@@ -3333,11 +3332,11 @@ msgstr "خادم النّطاق"
 msgid "Error configuring network device"
 msgstr "كان هناك خطأ في مسح الأقراص المستهدفة.  فشل الاستنساخ."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:820
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Primary DNS"
 msgstr "DNS الأوّلي"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:824
 msgid "Secondary DNS"
 msgstr "DNS الثّاني"
 
@@ -3372,7 +3371,7 @@ msgid ""
 msgstr ""
 "لم تحدّد قيمة الحقل \"%s\".  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
 
-#: ../iw/network_gui.py:170 ../textw/network_text.py:623
+#: ../iw/network_gui.py:170 ../textw/network_text.py:625
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3431,11 +3430,11 @@ msgstr "عنوان الجهاز: %s"
 msgid "Use dynamic IP configuration (_DHCP)"
 msgstr "استخدام تهيئة IP الديناميكيّة (BOOTP/DHCP)"
 
-#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:697
+#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:708
+#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:712
 msgid "Enable IPv6 support"
 msgstr ""
 
@@ -3481,8 +3480,7 @@ msgstr "مفتاح _التّرميز"
 msgid "Configure %s"
 msgstr "هيّئ %s"
 
-#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:777
-#: ../loader2/net.c:787
+#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:771
 #, fuzzy
 msgid "Missing Protocol"
 msgstr "معلومات مفقودة"
@@ -3493,7 +3491,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:97
+#: ../textw/network_text.py:386 ../loader2/net.c:91
 #, fuzzy
 msgid "Invalid Prefix"
 msgstr "عنوان IP غير صالح"
@@ -3513,56 +3511,56 @@ msgstr "عناوين IP يجب أن تحتوي أرقاماً بين 1 و 255"
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
 msgstr "عناوين IP يجب أن تحتوي أرقاماً بين 1 و 255"
 
-#: ../iw/network_gui.py:593 ../iw/network_gui.py:606
+#: ../iw/network_gui.py:595 ../iw/network_gui.py:608
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/network_gui.py:683
+#: ../iw/network_gui.py:685
 msgid "Active on Boot"
 msgstr "نشط عند الإقلاع"
 
-#: ../iw/network_gui.py:685 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:687 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1438
 msgid "Device"
 msgstr "جهاز"
 
-#: ../iw/network_gui.py:687
+#: ../iw/network_gui.py:689
 #, fuzzy
 msgid "IPv4/Netmask"
 msgstr "IP/قناع الشّبكة"
 
-#: ../iw/network_gui.py:689
+#: ../iw/network_gui.py:691
 msgid "IPv6/Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:749
+#: ../iw/network_gui.py:751
 msgid "Network Devices"
 msgstr "أجهزة الشّبكة"
 
-#: ../iw/network_gui.py:760
+#: ../iw/network_gui.py:762
 msgid "Set the hostname:"
 msgstr "حدّد اسم المضيف:"
 
-#: ../iw/network_gui.py:765
+#: ../iw/network_gui.py:767
 msgid "_automatically via DHCP"
 msgstr "آ_ليّاً عبر DHCP"
 
-#: ../iw/network_gui.py:772
+#: ../iw/network_gui.py:774
 msgid "_manually"
 msgstr "_يديويّاً"
 
-#: ../iw/network_gui.py:777
+#: ../iw/network_gui.py:779
 #, fuzzy
 msgid "(e.g., host.domain.com)"
 msgstr "(مثال. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:783 ../loader2/net.c:1417
+#: ../iw/network_gui.py:785
 msgid "Hostname"
 msgstr "اسم المضيف"
 
-#: ../iw/network_gui.py:827
+#: ../iw/network_gui.py:829
 msgid "Miscellaneous Settings"
 msgstr "إعدادات متفرّقة"
 
@@ -4686,9 +4684,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:337 ../loader2/loader.c:968 ../loader2/loader.c:991
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:724
-#: ../loader2/net.c:1003 ../loader2/net.c:1708 ../loader2/nfsinstall.c:57
+#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:719
+#: ../loader2/net.c:1044 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "ارجع"
@@ -4768,7 +4766,7 @@ msgstr "الوصف: %s"
 msgid "Hardware Address: %s"
 msgstr "عنوان الجهاز: %s"
 
-#: ../textw/network_text.py:170 ../loader2/net.c:690
+#: ../textw/network_text.py:170
 #, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "استخدام تهيئة IP الديناميكيّة (BOOTP/DHCP)"
@@ -4803,35 +4801,35 @@ msgstr ""
 msgid "Network Configuration for %s"
 msgstr "تهيئة الشّبكة لـ%s"
 
-#: ../textw/network_text.py:471 ../loader2/net.c:964
+#: ../textw/network_text.py:473 ../loader2/net.c:1005
 msgid "Gateway:"
 msgstr "البوّابة:"
 
-#: ../textw/network_text.py:480
+#: ../textw/network_text.py:482
 msgid "Primary DNS:"
 msgstr "DNS الأوّلي:"
 
-#: ../textw/network_text.py:485
+#: ../textw/network_text.py:487
 msgid "Secondary DNS:"
 msgstr "DNS الثّانوي:"
 
-#: ../textw/network_text.py:492
+#: ../textw/network_text.py:494
 msgid "Miscellaneous Network Settings"
 msgstr "إعدادت الشّبكة المُتفرّقة"
 
-#: ../textw/network_text.py:565
+#: ../textw/network_text.py:567
 msgid "automatically via DHCP"
 msgstr "آليّاً من خلال بروتوكول تهيئة المُضيف الدّيناميكيّة (DHCP)"
 
-#: ../textw/network_text.py:568
+#: ../textw/network_text.py:570
 msgid "manually"
 msgstr "يدويّاً"
 
-#: ../textw/network_text.py:587
+#: ../textw/network_text.py:589
 msgid "Hostname Configuration"
 msgstr "تهيئة اسم المضيف"
 
-#: ../textw/network_text.py:590
+#: ../textw/network_text.py:592
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4842,11 +4840,11 @@ msgstr ""
 "المُضيف الدّيناميكيّة (DHCP)، اختر تلقائيّاً عبر DHCP. وإلا، اختر يدويّاً وأدخل اسم "
 "مضيف لنظامك. إن لم تقم بذلك، فسوف يكون نظامك معروفاً بإسم 'localhost.'"
 
-#: ../textw/network_text.py:616 ../textw/network_text.py:622
+#: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
 msgstr "اسم مضيف غير صالح"
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
 msgstr "لم تقم بتحديد اسم مضيف."
 
@@ -5142,22 +5140,22 @@ msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات ا
 msgid "Review and modify partitioning layout?"
 msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
 
-#: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1642 tmp/adddrive.glade.h:3
 #, fuzzy
 msgid "Advanced Storage Options"
 msgstr "خيارات الحجم الإضافيّ"
 
-#: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1643 tmp/adddrive.glade.h:5
 #, fuzzy
 msgid "How would you like to modify your drive configuration?"
 msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
 
-#: ../textw/partition_text.py:1663
+#: ../textw/partition_text.py:1666
 #, fuzzy
 msgid "Add FCP Device"
 msgstr "أضف جهاز FCP"
 
-#: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1667 tmp/zfcp-config.glade.h:5
 #, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
@@ -5169,12 +5167,12 @@ msgstr ""
 "بت، رقم SCSI ذي 16 بت، رقم ميناء عالمي (WWPN) ذي 64 بت، رقم وحدة SCSI منطقي "
 "ذي 16 بت، رقم وحدة FCP منطقي ذي 64 بت"
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1690 tmp/iscsi-config.glade.h:5
 #, fuzzy
 msgid "Configure iSCSI Parameters"
 msgstr "مُعطيات Chandev"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1691 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5397,16 +5395,18 @@ msgstr ""
 "التثبيت الإفتراضى ل %s يتضمن مجموعة من البرمجيات لإستعمال العام لشبكة "
 "internet. ما هى المهام الإضافية التى قد تود النظام ان يدعمها؟"
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
+#: ../installclasses/fedora.py:21
 #, fuzzy
 msgid "Office and Productivity"
 msgstr "إنتاجية و أدوات مكتبية"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:31
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:32
+#: ../installclasses/rhel.py:111
 msgid "Software Development"
 msgstr "تطوير البرمجيات"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:32
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:33
+#: ../installclasses/rhel.py:101
 msgid "Web server"
 msgstr "خادم النّطاق"
 
@@ -5446,18 +5446,39 @@ msgstr ""
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux WS"
 
-#: ../installclasses/rhel.py:34
+#: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
+#, fuzzy
+msgid "Virtualization"
+msgstr "تهانينا"
+
+#: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:39
 #, fuzzy
 msgid "Installation Number"
 msgstr "نوع التثبيت"
 
-#: ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
 
-#: ../installclasses/rhel.py:38
+#: ../installclasses/rhel.py:43
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5696,8 +5717,8 @@ msgstr "هل تودّ تحميل أيّة أقراص برامج تعريف إض�
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1057 ../loader2/net.c:1509
-#: ../loader2/net.c:1532 ../loader2/nfsinstall.c:251
+#: ../loader2/kickstart.c:469 ../loader2/modules.c:1057 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/nfsinstall.c:251
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
 #: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
@@ -5853,7 +5874,18 @@ msgstr "خطأ في %s عند السّطر %d من ملف kickstart %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "لا يمكن العثور على kd.cfg على القرص المرن."
 
-#: ../loader2/kickstart.c:417
+#: ../loader2/kickstart.c:339
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+
+#: ../loader2/kickstart.c:348
+#, fuzzy
+msgid "Error downloading kickstart file"
+msgstr "خطأ في فتح ملف kickstart %s: %s"
+
+#: ../loader2/kickstart.c:470
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "مُعطى الأمر  لطريقة القرص الصّلب kickstart لا يصلح %s: %s"
@@ -5863,7 +5895,7 @@ msgstr "مُعطى الأمر  لطريقة القرص الصّلب kickstart ل
 msgid "Welcome to %s - Rescue Mode"
 msgstr "أهلاً بكم إلى %s - نظام الإنقاذ"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:160
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> بين العناصر  | <Space> يحدّد | <F12> الشّاشة التّالية "
@@ -5872,50 +5904,50 @@ msgstr "  <Tab>/<Alt-Tab> بين العناصر  | <Space> يحدّد | <F12> ا
 msgid "Choose a Language"
 msgstr "اختر لغة"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "القرص المدمج المحلّي"
 
-#: ../loader2/loader.c:121
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "القرص الصّلب"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "صورة NFS"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "مصدر قرص التّحديث"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "لديك عدّة أجهزة يمكنها أن تخدم كمصادر لقرص التّحديث.  أيّها تودّ استخدامه؟"
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "أدخل قرص التّحديثات في /dev/%s واضغط \"موافق\" كي تستمرّ."
 
-#: ../loader2/loader.c:350
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "قرص التّحديثات"
 
-#: ../loader2/loader.c:362
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "فشل تجهيز قرص التّحديثات"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "تحديثات"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "جاري قراءة تحديثات أناكوندا..."
 
-#: ../loader2/loader.c:405
+#: ../loader2/loader.c:406
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5924,40 +5956,40 @@ msgstr ""
 "يم يعثر على أيّة أقراص صلبة.  ربّما عليك اختيار برنامج تعريف الجهازيدويّاً كي "
 "ينجح هذا التّثبيت.  هل تودّ اختيار برامج التّعريف الآن؟"
 
-#: ../loader2/loader.c:802
+#: ../loader2/loader.c:823
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ليس لديك ذاكرة كافية كي تثبّت %s على هذه الماكينة."
 
-#: ../loader2/loader.c:960
+#: ../loader2/loader.c:981
 msgid "Rescue Method"
 msgstr "طريقة الإنقاذ"
 
-#: ../loader2/loader.c:961
+#: ../loader2/loader.c:982
 msgid "Installation Method"
 msgstr "طريقة التّثبيت"
 
-#: ../loader2/loader.c:963
+#: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
 msgstr "ما نوع الوسط الذي يحتوي صورة الإنقاذ؟"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
 msgstr "ما نوع الوسط الذي يحتوي الحزم لتثبيتها؟"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "No driver found"
 msgstr "لم يُعثر على أيّ برنامج تعريف"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "Select driver"
 msgstr "اختر برنامج تعريف"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1012
 msgid "Use a driver disk"
 msgstr "اسم قرص برنامج تعريف"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:1013
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5965,39 +5997,39 @@ msgstr ""
 "لم يمكن العثور على أية أجهزة من النّوع المطلوب لنوع التّثبيت هذا.  هل تودّ "
 "اختيار برنامج التّعريف يدويّاً أو استخدام قرص برنامج تعريف؟"
 
-#: ../loader2/loader.c:1155
+#: ../loader2/loader.c:1176
 msgid "The following devices have been found on your system."
 msgstr "تمّ العثور على الأجهزة التّالية في نظامك."
 
-#: ../loader2/loader.c:1157
+#: ../loader2/loader.c:1178
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "لم يتمّ تحميل أيّ برامج تعريف لنظامك.  هل تودّ تحميل أيّها الآن؟"
 
-#: ../loader2/loader.c:1161
+#: ../loader2/loader.c:1182
 msgid "Devices"
 msgstr "الأجهزة"
 
-#: ../loader2/loader.c:1162
+#: ../loader2/loader.c:1183
 msgid "Done"
 msgstr "تمّ"
 
-#: ../loader2/loader.c:1163
+#: ../loader2/loader.c:1184
 msgid "Add Device"
 msgstr "أضف جهازاً"
 
-#: ../loader2/loader.c:1371
+#: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "تمّ تشغيل المُحمّل مسبّقاً. يجري بدأ الصّدفة.\n"
 
-#: ../loader2/loader.c:1758
+#: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "جاري تشغيل anaconda، وضع الإنقاذ لـ%s  - الرّجاء الانتظار...\n"
 
-#: ../loader2/loader.c:1760
+#: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "جاري تشغيل anaconda، مُثبّت نظام %s - الرّجاء الانتظار...\n"
@@ -6113,7 +6145,7 @@ msgstr "فحص Checksum"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "مُعطى الأمر %s لا يصلح لطريق جهاز kickstart:%s"
 
-#: ../loader2/net.c:63
+#: ../loader2/net.c:57
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6128,13 +6160,13 @@ msgstr ""
 "    o الدّليل على ذلك الخادم الذي يحتوي\n"
 "      %s لبناء نظامك\n"
 
-#: ../loader2/net.c:98
+#: ../loader2/net.c:92
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:248
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6145,146 +6177,137 @@ msgstr ""
 "بشبكتك اللّاسلكية. في حالة عدم الحاجة إلى مفتاح، أترك هذا الحقل فارغا و "
 "سيواصل التّثبيت."
 
-#: ../loader2/net.c:238
+#: ../loader2/net.c:254
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:239
+#: ../loader2/net.c:255
 msgid "Encryption Key"
 msgstr "مفتاح التّرميز"
 
-#: ../loader2/net.c:242
+#: ../loader2/net.c:258
 msgid "Wireless Settings"
 msgstr "إعدادات اللّاسلكي"
 
-#: ../loader2/net.c:273
+#: ../loader2/net.c:289
 msgid "Nameserver IP"
 msgstr "عنوان IP لخادم النّطاق"
 
-#: ../loader2/net.c:278
+#: ../loader2/net.c:293
+#, fuzzy
+msgid "Missing Nameserver"
+msgstr "خادم النّطاق"
+
+#: ../loader2/net.c:294
+#, fuzzy
 msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 msgstr ""
 "طلبك عنوان IP الديناميكي أرجع معلومات تهيئة IP، لكنه لم يشمل خادم الاسم DNS. "
 "إن كنت تعرف ما هو اسم خادم الاسم، رجاء أدخله الآن. إن لم تكن لديك هذه "
 "المعلومات، يمكنك ترك هذا الحقل فارغاً وسوف يستمرّ التّثبيت."
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:316
 msgid "Invalid IP Information"
 msgstr "معلومات IP غير صالحة"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:317
 msgid "You entered an invalid IP address."
 msgstr "لقد أدخلت عنوان IP غير صالح."
 
-#: ../loader2/net.c:542 ../loader2/net.c:653
+#: ../loader2/net.c:563 ../loader2/net.c:671
 #, fuzzy
 msgid "Network Error"
 msgstr "ليست هناك كلمة مرور"
 
-#: ../loader2/net.c:543 ../loader2/net.c:654
+#: ../loader2/net.c:564 ../loader2/net.c:672
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr "كان هناك خطأ في مسح الأقراص المستهدفة.  فشل الاستنساخ."
 
-#: ../loader2/net.c:718
-msgid "Avoid unwanted packet collisions"
-msgstr ""
-
-#: ../loader2/net.c:720
-msgid "Maximize register values for high speed network traffic"
-msgstr ""
-
-#: ../loader2/net.c:756
+#: ../loader2/net.c:745
 msgid "Configure TCP/IP"
 msgstr "هيّئ TCP/IP"
 
-#: ../loader2/net.c:770
+#: ../loader2/net.c:772
+msgid "You must select at least one protocol (IPv4 or IPv6)."
+msgstr ""
+
+#: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:771
+#: ../loader2/net.c:780
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:778
-msgid ""
-"You must select at least one protocol (IPv4 or IPv6) for manual "
-"configuration."
-msgstr ""
-
-#: ../loader2/net.c:788
-msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
-
-#: ../loader2/net.c:859
+#: ../loader2/net.c:900
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "عنوان IP:"
 
-#: ../loader2/net.c:871 ../loader2/net.c:923 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:912 ../loader2/net.c:964 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:911
+#: ../loader2/net.c:952
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "عنوان IP:"
 
-#: ../loader2/net.c:972
+#: ../loader2/net.c:1013
 #, fuzzy
 msgid "Name Server:"
 msgstr "خادم النّطاق"
 
-#: ../loader2/net.c:1008
+#: ../loader2/net.c:1049
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1024
+#: ../loader2/net.c:1065
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "تهيئة z/IPL"
 
-#: ../loader2/net.c:1147 ../loader2/net.c:1153
+#: ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Missing Information"
 msgstr "معلومات مفقودة"
 
-#: ../loader2/net.c:1148
+#: ../loader2/net.c:1186
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "يجب أن تدخل كلّاً من عنوان IP صالح وقناع شبكة."
 
-#: ../loader2/net.c:1154
+#: ../loader2/net.c:1192
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "يجب أن تدخل كلّاً من عنوان IP صالح وقناع شبكة."
 
-#: ../loader2/net.c:1418
+#: ../loader2/net.c:1467
 msgid "Determining host name and domain..."
 msgstr "جاري إقرار اسم المضيف والمجال..."
 
-#: ../loader2/net.c:1510
+#: ../loader2/net.c:1559
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "مُعطى سيّئ لأمر شبكة kickstart %s: %s"
 
-#: ../loader2/net.c:1533
+#: ../loader2/net.c:1582
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "بروتوكول إقلاع غير صالح %s حدّد في أمر الشّبكة"
 
-#: ../loader2/net.c:1704
+#: ../loader2/net.c:1753
 msgid "Networking Device"
 msgstr "جهاز التّشبيك"
 
-#: ../loader2/net.c:1705
+#: ../loader2/net.c:1754
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"

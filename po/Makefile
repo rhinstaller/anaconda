@@ -23,7 +23,7 @@ NONPOTFILES = /usr/share/zoneinfo/zone.tab \
 all: $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) glade-po
-	xgettext --default-domain=$(NLSPACKAGE) \
+	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) \
 		 --keyword=_ --keyword=N_ $(POTFILES) tmp/*.h
 	cat /usr/share/zoneinfo/zone.tab | cut -f4 | grep "^[a-zA-Z]" | sort -u | while read line; do echo -e "\n#. generated from zone.tab\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po

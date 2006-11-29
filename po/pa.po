@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-17 09:23-0500\n"
+"POT-Creation-Date: 2006-11-29 10:34-0500\n"
 "PO-Revision-Date: 2006-11-21 16:14+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -23,7 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -50,8 +51,8 @@ msgstr "ਸ਼ੈੱਲ ਲਈ <enter> ਦਬਾਓ"
 #: ../textw/constants_text.py:36 ../textw/network_text.py:46
 #: ../textw/network_text.py:56 ../textw/network_text.py:323
 #: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:618
-#: ../textw/network_text.py:626 ../loader2/cdinstall.c:140
+#: ../textw/network_text.py:388 ../textw/network_text.py:620
+#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -67,22 +68,22 @@ msgstr "ਸ਼ੈੱਲ ਲਈ <enter> ਦਬਾਓ"
 #: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
 #: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:337 ../loader2/loader.c:350
-#: ../loader2/loader.c:361 ../loader2/loader.c:805 ../loader2/loader.c:968
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1057 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:724 ../loader2/net.c:1003
-#: ../loader2/net.c:1509 ../loader2/net.c:1532 ../loader2/net.c:1708
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
-#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:456
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
-#: ../loader2/urls.c:282 ../loader2/urls.c:347 ../loader2/urls.c:352
-#: ../loader2/urls.c:358 ../loader2/urls.c:464
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:334
+#: ../loader2/kickstart.c:469 ../loader2/lang.c:106 ../loader2/lang.c:369
+#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:155 ../loader2/method.c:373 ../loader2/method.c:458
+#: ../loader2/modules.c:1057 ../loader2/net.c:259 ../loader2/net.c:298
+#: ../loader2/net.c:719 ../loader2/net.c:1044 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
+#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
+#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:464
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
 
@@ -200,7 +201,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂਟ ਕਰਨ ਦੀਆਂ ਲੋੜੀਦੀਆਂ ਸੀਮਾਂਵਾਂ ਵਿੱਚ ਨਹੀ ਆ ਰਿਹਾ ਹੈ।"
 
 #: ../autopart.py:1058
@@ -208,7 +210,8 @@ msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂ�
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr "ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
+msgstr ""
+"ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
 
 #: ../autopart.py:1249
 msgid "Requested Partition Does Not Exist"
@@ -364,7 +367,7 @@ msgstr "ਨਾ-ਮੁੜ ਪ੍ਰਾਪਤੀਯੋਗ ਗਲਤੀ"
 msgid "Your system will now be rebooted."
 msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ ਹੋਵੇਗਾ।"
 
-#: ../autopart.py:1671 ../bootloader.py:194 ../image.py:435
+#: ../autopart.py:1671 ../bootloader.py:197 ../image.py:435
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
 #: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
@@ -372,7 +375,7 @@ msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ �
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
 #: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "ਚੇਤਾਵਨੀ"
 
@@ -443,19 +446,20 @@ msgstr "%s ਅੱਪਗਰੇਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ\n"
 msgid "Installing %s\n"
 msgstr "%s ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ\n"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Bootloader"
 msgstr "ਬੂਟ-ਲੋਡਰ"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Installing bootloader..."
 msgstr "ਬੂਟ-ਲੋਡਰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: ../bootloader.py:195
+#: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
+msgstr ""
+"ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -469,7 +473,7 @@ msgstr "ਜਾਰੀ ਹੈ...   "
 msgid "Can't have a question in command line mode!"
 msgstr "ਕਮਾਂਡ ਲਾਈਨ ਢੰਗ ਵਿੱਚ ਸਵਾਲ ਨਹੀ ਹੋ ਸਕਦਾ!"
 
-#: ../cmdline.py:74 ../gui.py:897 ../text.py:398
+#: ../cmdline.py:74 ../gui.py:898 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -512,10 +516,11 @@ msgstr "ਡੰਪ ਲਿਖਿਆ ਗਿਆ"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੀ ਹਾਲਤ ਫਲਾਪੀ ਵਿੱਚ ਸਫ਼ਲਤਾਪੂਰਕ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁੜ-ਚਾਲੂ ਹੋਵੇਗਾ।"
+msgstr ""
+"ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੀ ਹਾਲਤ ਫਲਾਪੀ ਵਿੱਚ ਸਫ਼ਲਤਾਪੂਰਕ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁੜ-ਚਾਲੂ ਹੋਵੇਗਾ।"
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
-#: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
+#: ../gui.py:903 ../gui.py:1053 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
@@ -559,8 +564,8 @@ msgstr "ਜੰਤਰ /dev/%s 'ਤੇ ਨਕਾਰਾ ਬਲਾਕਾਂ ਦੀ �
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
 #: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
-#: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
-#: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:162
+#: ../textw/partition_text.py:1655 ../textw/partition_text.py:1661
+#: ../textw/partition_text.py:1683 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
@@ -568,8 +573,8 @@ msgstr "ਜੰਤਰ /dev/%s 'ਤੇ ਨਕਾਰਾ ਬਲਾਕਾਂ ਦੀ �
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:361
-#: ../loader2/loader.c:805 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -950,21 +955,20 @@ msgstr "ਸਥਿਰ"
 #: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:404
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "ਹਾਂ"
 
 #: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:437
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "No"
 msgstr "ਨਹੀਂ"
 
-#: ../gui.py:234 ../text.py:439 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:542 ../loader2/net.c:653 ../loader2/net.c:770
-#: ../loader2/net.c:777 ../loader2/net.c:787 ../loader2/net.c:1147
-#: ../loader2/net.c:1153
+#: ../gui.py:234 ../text.py:439 ../loader2/net.c:91 ../loader2/net.c:316
+#: ../loader2/net.c:563 ../loader2/net.c:671 ../loader2/net.c:771
+#: ../loader2/net.c:779 ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Retry"
 msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ"
 
@@ -972,38 +976,39 @@ msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ"
 msgid "Ignore"
 msgstr "ਅਣਡਿੱਠਾ"
 
-#: ../gui.py:236 ../gui.py:757 ../partIntfHelpers.py:237
+#: ../gui.py:236 ../gui.py:758 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
 #: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:350
+#: ../loader2/kickstart.c:334 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
-#: ../gui.py:595 ../text.py:356
+#: ../gui.py:594 ../text.py:356
 msgid "Installation Key"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕੁੰਜੀ"
 
-#: ../gui.py:899 ../text.py:400
+#: ../gui.py:900 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ ਪਾਰਸ ਕਰਨ ਦੌਰਾਨ"
 
-#: ../gui.py:907 ../text.py:410
+#: ../gui.py:908 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
+msgstr ""
+"ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
 
-#: ../gui.py:954
+#: ../gui.py:955
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1038
+#: ../gui.py:1039
 msgid "Error!"
 msgstr "ਗਲਤੀ!"
 
-#: ../gui.py:1039
+#: ../gui.py:1040
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1014,36 +1019,36 @@ msgstr ""
 "\n"
 "ਸ਼੍ਰੇਣੀ ਨਾਂ = %s"
 
-#: ../gui.py:1044 ../gui.py:1049 ../packages.py:303 ../packages.py:308
+#: ../gui.py:1045 ../gui.py:1050 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
 msgstr "ਬਾਹਰ(_E)"
 
-#: ../gui.py:1045 ../yuminstall.py:748
+#: ../gui.py:1046 ../yuminstall.py:748
 msgid "_Retry"
 msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ(_R)"
 
-#: ../gui.py:1048 ../packages.py:307
+#: ../gui.py:1049 ../packages.py:307
 msgid "The installer will now exit..."
 msgstr "ਇੰਸਟਾਲਰ ਹੁਣ ਬੰਦ ਹੋ ਰਿਹਾ ਹੈ..."
 
-#: ../gui.py:1051 ../packages.py:310
+#: ../gui.py:1052 ../packages.py:310
 msgid "Your system will now be rebooted..."
 msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ ਹੋ ਰਿਹਾ ਹੈ..."
 
-#: ../gui.py:1054 ../packages.py:312
+#: ../gui.py:1055 ../packages.py:312
 msgid "Rebooting System"
 msgstr "ਸਿਸਟਮ ਮੁਡ਼ ਚਾਲੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
 
-#: ../gui.py:1118
+#: ../gui.py:1119
 #, python-format
 msgid "%s Installer"
 msgstr "%s ਇੰਸਟਾਲਰ"
 
-#: ../gui.py:1125
+#: ../gui.py:1126
 msgid "Unable to load title bar"
 msgstr "ਸਿਰਲੇਖ-ਪੱਟੀ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../gui.py:1174
+#: ../gui.py:1175
 msgid "Install Window"
 msgstr "ਇੰਸਟਾਲ ਝਰੋਖਾ"
 
@@ -1198,7 +1203,7 @@ msgstr ""
 msgid "Install on System"
 msgstr "ਸਿਸਟਮ 'ਤੇ ਇੰਸਟਾਲ"
 
-#: ../iscsi.py:185 ../iscsi.py:186
+#: ../iscsi.py:197 ../iscsi.py:198
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI ਐਂਡੀਕੇਟਰ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
 
@@ -1282,7 +1287,9 @@ msgstr "IP ਸਿਰਨਾਵਾਂ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP ਸਿਰਨਾਵੇਂ ਵਿੱਚ ਚਾਰ ਅੰਕ 0 ਅਤੇ 255 ਦੇ ਵਿੱਚੋਂ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ, ਜਿੰਨਾਂ ਨੂੰ ਬਿੰਦੀ ਰਾਹੀਂ ਵੱਖ ਕੀਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
+msgstr ""
+"IP ਸਿਰਨਾਵੇਂ ਵਿੱਚ ਚਾਰ ਅੰਕ 0 ਅਤੇ 255 ਦੇ ਵਿੱਚੋਂ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ, ਜਿੰਨਾਂ ਨੂੰ ਬਿੰਦੀ ਰਾਹੀਂ ਵੱਖ ਕੀਤਾ ਹੋਣਾ "
+"ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../network.py:96
 #, python-format
@@ -1742,7 +1749,8 @@ msgid "Confirm Reset"
 msgstr "ਮੁਡ਼-ਨਿਰਧਾਰਨ ਦੀ ਪੁਸ਼ਟੀ"
 
 #: ../partIntfHelpers.py:538
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਹੀ ਭਾਗ-ਸਾਰਣੀ ਨੂੰ ਮੁਡ਼ ਮੁੱਢਲੀ ਸਥਿਤੀ ਤੇ ਲਿਆਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../partitioning.py:64
@@ -1791,10 +1799,12 @@ msgstr "ਤੁਸੀਂ ਰੂਟ(root) ਭਾਗ 250 ਮੈਗਾਬਾਇਟ �
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr "ਤੁਹਾਡਾ ਬੂਟ ਭਾਗ ਪਹਿਲੇ 4 ਭਾਗਾਂ ਵਿਚੋਂ ਕਿਸੇ ਉੱਤੇ ਵੀ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸਕਰਕੇ ਇਹ ਬੂਟ ਕਰਨ ਨਹੀਂ ਸਕੇਗਾ।"
+msgstr ""
+"ਤੁਹਾਡਾ ਬੂਟ ਭਾਗ ਪਹਿਲੇ 4 ਭਾਗਾਂ ਵਿਚੋਂ ਕਿਸੇ ਉੱਤੇ ਵੀ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸਕਰਕੇ ਇਹ ਬੂਟ ਕਰਨ ਨਹੀਂ ਸਕੇਗਾ।"
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ /boot/efi ਭਾਗ ਫੈਟ(FAT) ਕਿਸਮ ਅਤੇ 50 ਮੈਗਾਬਾਇਟ ਦਾ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:867
@@ -1815,14 +1825,17 @@ msgstr ""
 "ਹੈ।"
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr "ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
+msgstr ""
+"ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1872,7 +1885,8 @@ msgstr "ਇੱਕ ਭਾਗ, ਜੋ ਕਿ LVM ਵਾਲੀਅਮ ਸਮੂਹ �
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਮਾਊਟ ਸਥਿਤੀ ਜਾਇਜ਼ ਨਹੀ ਹੈ।  ਡਾਇਰੈਕਟਰੀ %s ਫਾਇਲ-ਸਿਸਟਮ / ਤੇ ਮੌਜੂਦ ਹੋਣੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partRequests.py:252
@@ -1893,7 +1907,8 @@ msgstr "ਇਹ ਮਾਊਟ ਸਥਿਤੀ ਲੀਨਕਸ ਫਾਇਲ ਸਿ�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr "ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
+msgstr ""
+"ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
 
 #: ../partRequests.py:294
 #, python-format
@@ -2146,13 +2161,14 @@ msgstr "%(instkey)s ਦੇਣ ਨੂੰ ਛੱਡੋ"
 msgid "Save Crash Dump"
 msgstr "ਕਰੈਸ਼ ਡੰਪ ਸੰਭਾਲੋ"
 
-#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:154
+#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ"
 
 #: ../text.py:470
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ਸਹਾਇਤਾ ਲਈ | <Tab> ਇਕਾਈਆਂ ਵਿੱਚ | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../text.py:472
@@ -2511,7 +2527,8 @@ msgstr "ਸੰਚਾਰ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -2666,19 +2683,19 @@ msgstr "ਤੁਹਾਨੂੰ initiator ਨਾਂ ਲਈ ਕੁਝ ਅੱਖਰ 
 msgid "Error with Data"
 msgstr "ਡਾਟਾ ਨਾਲ ਗਲਤੀ"
 
-#: ../iw/autopart_type.py:243 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1529
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "ਚੁਣੀ ਡਰਾਇਵ ਤੋਂ ਸਭ ਭਾਗ ਹਟਾਓ ਅਤੇ ਮੂਲ ਖਾਕਾ ਬਣਾਓ।"
 
-#: ../iw/autopart_type.py:244 ../textw/partition_text.py:1530
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1530
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr "ਚੁਣੀਆਂ ਹੋਈਆਂ ਡਰਾਇਵਾਂ ਤੋਂ ਲੀਨਕਸ ਭਾਗ ਹਟਾ ਦਿਓ ਅਤੇ ਮੂਲ ਖਾਕਾ ਬਣਾਓ।"
 
-#: ../iw/autopart_type.py:245 ../textw/partition_text.py:1531
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
 msgstr "ਚੁਣੀਆਂ ਡਰਾਇਵਾਂ ਉੱਤੇ ਖਾਲੀ ਥਾਂ ਵਰਤੋਂ ਅਤੇ ਮੂਲ ਖਾਕਾ ਬਣਾਓ।"
 
-#: ../iw/autopart_type.py:246 ../textw/partition_text.py:1532
+#: ../iw/autopart_type.py:251 ../textw/partition_text.py:1532
 msgid "Create custom layout."
 msgstr "ਪਸੰਦੀਦਾ ਖਾਕਾ ਬਣਾਓ।"
 
@@ -2949,7 +2966,7 @@ msgstr "ਅਣਪਛਾਤਾ ਲੀਨਕਸ ਸਿਸਟਮ"
 msgid "Language Selection"
 msgstr "ਭਾਸ਼ਾ ਚੋਣ"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਕਿਹਡ਼ੀ ਭਾਸ਼ਾ ਤੁਸੀਂ ਵਰਤਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
@@ -3279,7 +3296,7 @@ msgstr "ਆਕਾਰ(ਮੈਬਾ)"
 msgid "_Add"
 msgstr "ਸ਼ਾਮਿਲ(_A)"
 
-#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:742
+#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:744
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "ਸੋਧ(_E)"
@@ -3341,11 +3358,11 @@ msgstr ""
 "\"%s\" ਲਈ ਦਿੱਤੇ ਮੁੱਲ ਨੂੰ ਤਬਦੀਲ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ:\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:792
+#: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
 msgstr "ਡਾਇਆਨਮਿਕ IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:793
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:394 ../loader2/net.c:810
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s ਲਈ IP ਜਾਣਕਾਰੀ ਲਈ ਨਿਵੇਦਨ ਭੇਜਿਆ ਗਿਆ ਹੈ..."
@@ -3359,11 +3376,11 @@ msgid "Netmask"
 msgstr "ਨੈੱਟਮਾਸਕ"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:818
+#: ../iw/network_gui.py:820
 msgid "Gateway"
 msgstr "ਗੇਟਵੇ"
 
-#: ../iw/netconfig_dialog.py:195 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
 msgstr "ਨਾਂ-ਸਰਵਰ"
 
@@ -3371,11 +3388,11 @@ msgstr "ਨਾਂ-ਸਰਵਰ"
 msgid "Error configuring network device"
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ ਦੀ ਸੰਰਚਨਾ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਹੈ"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:820
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Primary DNS"
 msgstr "ਪ੍ਰਾਇਮਰੀ DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:824
 msgid "Secondary DNS"
 msgstr "ਸੈਕੰਡਰੀ DNS"
 
@@ -3412,7 +3429,7 @@ msgstr ""
 "ਤੁਸੀਂ ਖੇਤਰ \"%s\" ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
 "ਸਕਦੀ ਹੈ।"
 
-#: ../iw/network_gui.py:170 ../textw/network_text.py:623
+#: ../iw/network_gui.py:170 ../textw/network_text.py:625
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3465,11 +3482,11 @@ msgstr "ਜੰਤਰ ਸਿਰਨਾਵਾਂ: %s"
 msgid "Use dynamic IP configuration (_DHCP)"
 msgstr "ਡਾਇਆਂਮਿਕ IP ਸੰਰਚਨਾ (_DHCP) ਵਰਤੋਂ"
 
-#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:697
+#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
 msgid "Enable IPv4 support"
 msgstr "IPv4 ਸਹਿਯੋਗ ਯੋਗ"
 
-#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:708
+#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:712
 msgid "Enable IPv6 support"
 msgstr "IPv6 ਸਹਿਯੋਗ ਯੋਗ"
 
@@ -3510,8 +3527,7 @@ msgstr "ਇੰਕਰਿਪਟਿਡ ਕੁੰਜੀ(_K):"
 msgid "Configure %s"
 msgstr "%s ਸੰਰਚਨਾ"
 
-#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:777
-#: ../loader2/net.c:787
+#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:771
 msgid "Missing Protocol"
 msgstr "ਗੁੰਮ ਪਰੋਟੋਕਾਲ"
 
@@ -3521,7 +3537,7 @@ msgstr "ਤੁਹਾਨੂੰ ਘੱਟੋ-ਘੱਟ IPv4 ਜਾਂ IPv6 ਸਹ�
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:97
+#: ../textw/network_text.py:386 ../loader2/net.c:91
 msgid "Invalid Prefix"
 msgstr "ਗਲਤ ਅਗੇਤਰ"
 
@@ -3537,54 +3553,54 @@ msgstr "IPv6 ਅਗੇਤਰ 0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ �
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
 msgstr "ਗਲਤ ਜਾਂ ਖਾਲੀ IPv6 ਅਗੇਤਰ (0 ਤੋਂ 128 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ)।"
 
-#: ../iw/network_gui.py:593 ../iw/network_gui.py:606
+#: ../iw/network_gui.py:595 ../iw/network_gui.py:608
 msgid "Disabled"
 msgstr "ਅਯੋਗ ਕੀਤਾ"
 
-#: ../iw/network_gui.py:683
+#: ../iw/network_gui.py:685
 msgid "Active on Boot"
 msgstr "ਬੂਟ ਕਰਨ ਸਮੇਂ ਸਰਗਰਮ"
 
-#: ../iw/network_gui.py:685 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:687 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1438
 msgid "Device"
 msgstr "ਜੰਤਰ"
 
-#: ../iw/network_gui.py:687
+#: ../iw/network_gui.py:689
 msgid "IPv4/Netmask"
 msgstr "IPv4/ਨੈੱਟਮਾਸਕ"
 
-#: ../iw/network_gui.py:689
+#: ../iw/network_gui.py:691
 msgid "IPv6/Prefix"
 msgstr "IPv6/ਅਗੇਤਰ"
 
-#: ../iw/network_gui.py:749
+#: ../iw/network_gui.py:751
 msgid "Network Devices"
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ"
 
-#: ../iw/network_gui.py:760
+#: ../iw/network_gui.py:762
 msgid "Set the hostname:"
 msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ ਦਿਓ:"
 
-#: ../iw/network_gui.py:765
+#: ../iw/network_gui.py:767
 msgid "_automatically via DHCP"
 msgstr "DHCP ਰਾਹੀਂ ਆਟੋਮੈਟਿਕ(_A)"
 
-#: ../iw/network_gui.py:772
+#: ../iw/network_gui.py:774
 msgid "_manually"
 msgstr "ਦਸਤੀ(_M)"
 
-#: ../iw/network_gui.py:777
+#: ../iw/network_gui.py:779
 msgid "(e.g., host.domain.com)"
 msgstr "(ਜਿਵੇਂ ਕਿ: host.domain.com)"
 
-#: ../iw/network_gui.py:783 ../loader2/net.c:1417
+#: ../iw/network_gui.py:785
 msgid "Hostname"
 msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ"
 
-#: ../iw/network_gui.py:827
+#: ../iw/network_gui.py:829
 msgid "Miscellaneous Settings"
 msgstr "ਫੁਟਕਲ ਸਥਾਪਨ"
 
@@ -3766,12 +3782,14 @@ msgid "Partitioning"
 msgstr "ਵਿਭਾਗੀਕਰਨ"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "ਇਹ ਘਾਤਕ ਗਲਤੀਆਂ ਕਰਕੇ ਤੁਹਾਡੀ ਲੋਡ਼ੀਂਦੀ ਵਿਭਾਗੀਕਰਨ ਸਕੀਮ ਖਤਮ ਹੋ ਗਈ ਹੈ।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "ਇਹ ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀਆਂ ਜਰੂਰੀ ਹਨ ਤਾਂਕਿ ਤੁਸੀਂ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਰਹੋ।"
 
 #: ../iw/partition_gui.py:642
@@ -4271,7 +4289,8 @@ msgstr ""
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr "%s ਲਈ ਗਰੁੱਪ ਫਾਇਲ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰਥ।  ਇਸ ਨਾਲ ਰਿਪੋਜ਼ਟਰੀ ਤੇ ਪੈਕੇਜਾਂ ਦੀ ਚੋਣ ਕੰਮ ਨਹੀਂ ਕਰੇਗੀ।"
+msgstr ""
+"%s ਲਈ ਗਰੁੱਪ ਫਾਇਲ ਲੱਭਣ ਵਿੱਚ ਅਸਮਰਥ।  ਇਸ ਨਾਲ ਰਿਪੋਜ਼ਟਰੀ ਤੇ ਪੈਕੇਜਾਂ ਦੀ ਚੋਣ ਕੰਮ ਨਹੀਂ ਕਰੇਗੀ।"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
@@ -4316,7 +4335,8 @@ msgstr "ਇਹ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਬੂਟ-ਲੋਡਰ ਨ�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "ਇੰਸਟਾਲਰ ਨੇ %s ਬੂਟ-ਲੋਡਰ ਇਸ ਸਮੇਂ %s ਤੇ ਖੋਜਿਆ ਹੈ।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4451,7 +4471,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ਸਵੈਪ ਫਾਇਲ ਦਾ ਆਕਾਰ 1 ਅਤੇ 2000 ਮੈਬਾ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "ਜੋ ਜੰਤਰ ਤੁਸੀਂ ਸਵੈਪ ਲਈ ਚੁਣਿਆ ਹੈ, ਤੇ ਲੋਡ਼ੀਦਾ ਥਾਂ ਨਹੀ ਹੈ।"
 
 #: ../iw/zipl_gui.py:28
@@ -4587,8 +4608,10 @@ msgstr ""
 "ਭਾਗ ਤੋਂ ਬੂਟ ਕਰਨਾ ਹੈ ਅਤੇ ਉਸ ਲਈ ਵੱਖਰਾ ਲੇਬਲ ਵੀ ਦੇਣਾ ਪਵੇਗਾ।"
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4698,9 +4721,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:337 ../loader2/loader.c:968 ../loader2/loader.c:991
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:724
-#: ../loader2/net.c:1003 ../loader2/net.c:1708 ../loader2/nfsinstall.c:57
+#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:719
+#: ../loader2/net.c:1044 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "ਪਿੱਛੇ"
@@ -4723,7 +4746,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਪੈਕੇਜ ਗਰੁੱਪ ਦੀ ਚੋਣ ਕਰੋ, ਜਿਸ ਨੂੰ ਤੁਸੀਂ ਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> ਚੋਣ   |   <F2> ਸਮੂਹ ਵੇਰਵਾ   |   <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../textw/grpselect_text.py:117
@@ -4764,8 +4788,8 @@ msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"ਤੁਸੀਂ ਖੇਤਰ %s ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
-"ਸਕਦੀ ਹੈ।"
+"ਤੁਸੀਂ ਖੇਤਰ %s ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ ਸਕਦੀ "
+"ਹੈ।"
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4777,7 +4801,7 @@ msgstr "ਵੇਰਵਾ: %s"
 msgid "Hardware Address: %s"
 msgstr "ਜੰਤਰ ਸਿਰਨਾਵਾਂ: %s"
 
-#: ../textw/network_text.py:170 ../loader2/net.c:690
+#: ../textw/network_text.py:170
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "ਡਾਇਆਂਮਿਕ IP ਸੰਰਚਨਾ (DHCP) ਵਰਤੋਂ"
 
@@ -4810,35 +4834,35 @@ msgstr "WEP ਕੁੰਜੀ:"
 msgid "Network Configuration for %s"
 msgstr "%s ਲਈ ਨੈੱਟਵਰਕ ਸੰਰਚਨਾ"
 
-#: ../textw/network_text.py:471 ../loader2/net.c:964
+#: ../textw/network_text.py:473 ../loader2/net.c:1005
 msgid "Gateway:"
 msgstr "ਗੇਟਵੇ:"
 
-#: ../textw/network_text.py:480
+#: ../textw/network_text.py:482
 msgid "Primary DNS:"
 msgstr "ਪ੍ਰਾਇਮਰੀ DNS:"
 
-#: ../textw/network_text.py:485
+#: ../textw/network_text.py:487
 msgid "Secondary DNS:"
 msgstr "ਸੈਕੰਡਰੀ DNS:"
 
-#: ../textw/network_text.py:492
+#: ../textw/network_text.py:494
 msgid "Miscellaneous Network Settings"
 msgstr "ਫੁਟਕਲ ਨੈੱਟਵਰਕ ਸਥਾਪਨ"
 
-#: ../textw/network_text.py:565
+#: ../textw/network_text.py:567
 msgid "automatically via DHCP"
 msgstr "DHCP ਦੁਆਰਾ ਸਵੈਚਾਲਿਤ"
 
-#: ../textw/network_text.py:568
+#: ../textw/network_text.py:570
 msgid "manually"
 msgstr "ਦਸਤੀ"
 
-#: ../textw/network_text.py:587
+#: ../textw/network_text.py:589
 msgid "Hostname Configuration"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਸੰਰਚਨਾ"
 
-#: ../textw/network_text.py:590
+#: ../textw/network_text.py:592
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4849,11 +4873,11 @@ msgstr ""
 "ਦੁਆਰਾ ਸਵੈ ਹੀ ਚੁਣੋ। ਨਹੀ ਤਾਂ ਦਸਤੀ ਚੁਣੋ ਅਤੇ ਆਪਣੇ ਸਿਸਟਮ ਲਈ ਮੇਜ਼ਬਾਨ ਦਾ ਨਾਂ ਖੁਦ ਹੀ ਭਰੋ। ਜੇਕਰ ਤੁਸੀਂ "
 "ਨਾਂ ਨਾ ਭਰਿਆ, ਤੁਹਾਡਾ ਸਿਸਟਮ 'localhost.' ਨਾਂ ਨਾਲ ਜਾਣਿਆ ਜਾਵੇਗਾ।"
 
-#: ../textw/network_text.py:616 ../textw/network_text.py:622
+#: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਠੀਕ ਨਹੀਂ"
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
 msgstr "ਤੁਸੀਂ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ।"
 
@@ -5056,7 +5080,8 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ �
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr "ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
+msgstr ""
+"ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
 
 #: ../textw/partition_text.py:1312
 #, python-format
@@ -5094,8 +5119,10 @@ msgid "RAID"
 msgstr "ਰੇਡ (RAID)"
 
 #: ../textw/partition_text.py:1448
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5134,30 +5161,33 @@ msgstr "ਵਿਭਾਗ ਖਾਕਾ ਮੁੜ-ਜਾਂਚ"
 msgid "Review and modify partitioning layout?"
 msgstr "ਕੀ ਵਿਭਾਗੀਕਰਨ ਖਾਕੇ ਨੂੰ ਮੁੜ-ਜਾਂਚਣਾ ਅਤੇ ਸੋਧਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1642 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "ਤਕਨੀਕੀ ਸਟੋਰੇਜ਼ ਚੋਣਾਂ"
 
-#: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1643 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "ਤੁਸੀਂ ਆਪਣੀ ਹਾਰਡ ਡਿਸਕ ਸੰਰਚਨਾ ਨੂੰ ਕਿਵੇਂ ਸੋਧਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../textw/partition_text.py:1663
+#: ../textw/partition_text.py:1666
 msgid "Add FCP Device"
 msgstr "FCP ਜੰਤਰ ਸ਼ਾਮਿਲ ਕਰੋ"
 
-#: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1667 tmp/zfcp-config.glade.h:5
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr "zSeries ਮਸ਼ੀਨਾਂ ਸਨਅਤੀ ਪੱਧਰ SCSI ਜੰਤਰਾਂ ਨੂੰ ਫਾਇਬਰ ਚੈਨਲ(FCP) ਰਾਹੀ ਖੋਲ ਸਕਦੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਹਰ ਜੰਤਰ ਲਈ 5 ਪੈਰਾਮੀਟਰ ਦੇਣੇ ਪੈਣਗੇ। ਇੱਕ 16 ਬਿੱਟ ਜੰਤਰ ਨੰਬਰ, ਇੱਕ 64 ਬਿੱਟ ਵਰਡਵਾਇਡ ਪੋਰਟ ਨੰਬਰ(WWPN), ਅਤੇ 64 ਬਿੱਟ FCP LUN।"
+msgstr ""
+"zSeries ਮਸ਼ੀਨਾਂ ਸਨਅਤੀ ਪੱਧਰ SCSI ਜੰਤਰਾਂ ਨੂੰ ਫਾਇਬਰ ਚੈਨਲ(FCP) ਰਾਹੀ ਖੋਲ ਸਕਦੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਹਰ "
+"ਜੰਤਰ ਲਈ 5 ਪੈਰਾਮੀਟਰ ਦੇਣੇ ਪੈਣਗੇ। ਇੱਕ 16 ਬਿੱਟ ਜੰਤਰ ਨੰਬਰ, ਇੱਕ 64 ਬਿੱਟ ਵਰਡਵਾਇਡ ਪੋਰਟ ਨੰਬਰ(WWPN), "
+"ਅਤੇ 64 ਬਿੱਟ FCP LUN।"
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1690 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "iSCSI ਮੁੱਲ ਸੰਰਚਨਾ"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1691 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5383,15 +5413,17 @@ msgstr ""
 "%s ਦੀ ਮੂਲ ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਆਮ ਇੰਟਰਨੈੱਟ ਵਰਤੋਂ ਲਈ ਸਾਫਟਵੇਅਰ ਉਪਲੱਬਧ ਹਨ।  ਤੁਸੀਂ ਕਿਹੜੇ ਹੋਰ ਕੰਮਾਂ ਲਈ "
 "ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਤਿਆਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
+#: ../installclasses/fedora.py:21
 msgid "Office and Productivity"
 msgstr "ਦਫ਼ਤਰ ਅਤੇ ਉਤਪਾਦਨ"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:31
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:32
+#: ../installclasses/rhel.py:111
 msgid "Software Development"
 msgstr "ਸਾਫਟਵੇਅਰ ਵਿਕਾਸ"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:32
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:33
+#: ../installclasses/rhel.py:101
 msgid "Web server"
 msgstr "ਵੈੱਬ ਸਰਵਰ"
 
@@ -5430,17 +5462,40 @@ msgstr ""
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: ../installclasses/rhel.py:34
+#: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
+#, fuzzy
+msgid "Virtualization"
+msgstr "ਮੁਬਾਰਕ"
+
+#: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:39
 msgid "Installation Number"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ"
 
-#: ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr "ਤੁਹਾਡੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸਹਿਯੋਗੀ ਪੈਕੇਜਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਦਿਓ"
+msgstr ""
+"ਤੁਹਾਡੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸਹਿਯੋਗੀ ਪੈਕੇਜਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਸਟਾਲੇਸ਼ਨ "
+"ਨੰਬਰ ਦਿਓ"
 
-#: ../installclasses/rhel.py:38
+#: ../installclasses/rhel.py:43
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5453,12 +5508,13 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
-"ਜੇ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਪਤਾ ਨਹੀਂ ਲਗਾ ਸਕਦੇ, ਤਾਂ http://www."
-"redhat.com/apps/support/in.html ਨਾਲ ਸੰਪਰਕ ਕਰੋ।\n"
+"ਜੇ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਪਤਾ ਨਹੀਂ ਲਗਾ ਸਕਦੇ, ਤਾਂ http://www.redhat.com/apps/support/in."
+"html ਨਾਲ ਸੰਪਰਕ ਕਰੋ।\n"
 "\n"
 "ਜੇ ਤੁਸੀਂ ਅਧੂਰਾ ਛੱਡ ਦਿੱਤਾ:\n"
 "* ਤੁਸੀਂ ਆਪਣੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਸਭ ਪੈਕੇਜਾਂ ਲਈ ਪਹੁੰਚ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰ ਸਕਦੇ।\n"
-"* ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ Red Hat Enterprise Linux ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨਾ-ਸਹਿਯੋਗੀ/ਨਾ-ਸਾਰਟੀਫਾਈਡ ਹੋਵੇਗੀ।\n"
+"* ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ Red Hat Enterprise Linux ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨਾ-ਸਹਿਯੋਗੀ/ਨਾ-ਸਾਰਟੀਫਾਈਡ "
+"ਹੋਵੇਗੀ।\n"
 "* ਤੁਸੀਂ ਪੈਕੇਜਾਂ ਜੋ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਿਲ ਨਹੀਂ, ਲਈ ਸਾਫਟਵੇਅਰ ਅਤੇ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨਹੀਂ ਲੈ ਸਕਦੇ।"
 
 #: ../installclasses/server.py:11
@@ -5686,8 +5742,8 @@ msgstr "ਕੀ ਤੁਸੀਂ ਹੋਰ ਡਰਾਈਵਰ ਡਿਸਕਾਂ �
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1057 ../loader2/net.c:1509
-#: ../loader2/net.c:1532 ../loader2/nfsinstall.c:251
+#: ../loader2/kickstart.c:469 ../loader2/modules.c:1057 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/nfsinstall.c:251
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
 #: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
@@ -5840,7 +5896,18 @@ msgstr "%s ਵਿੱਚ ਸਤਰ %d ਤੇ ਗਲਤੀ ਹੈ, ਕਿੱਕਸ
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ਬੂਟ ਫਲਾਪੀ ਤੇ ks.cfg ਨਹੀ ਲੱਭੀ"
 
-#: ../loader2/kickstart.c:417
+#: ../loader2/kickstart.c:339
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+
+#: ../loader2/kickstart.c:348
+#, fuzzy
+msgid "Error downloading kickstart file"
+msgstr "ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਖੋਲਣ ਵਿੱਚ ਅਸਫਲ: %s"
+
+#: ../loader2/kickstart.c:470
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ %s ਬੰਦ ਕਰਨ ਲਈ ਗਲਤ ਮੁੱਲ: %s"
@@ -5850,31 +5917,32 @@ msgstr "ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ %s ਬੰਦ ਕ�
 msgid "Welcome to %s - Rescue Mode"
 msgstr "%s ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ - ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:160
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ਇਕਾਈਆਂ ਵਿੱਚ  | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "ਭਾਸ਼ਾ ਚੁਣੋ"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "ਸਥਾਨਿਕ CDROM"
 
-#: ../loader2/loader.c:121
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "ਹਾਰਡ ਡਰਾਈਵ"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "NFS ਪ੍ਰਤੀਬਿੰਬ"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "ਅੱਪਡੇਟ ਡਿਸਕ ਸਰੋਤ"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5882,28 +5950,28 @@ msgstr ""
 "ਤੁਹਾਡੇ ਕੋਲ ਇੱਕ ਤੋ ਵੱਧ ਜੰਤਰ ਹਨ, ਜੋ ਕਿ ਅੱਪਡੇਟ ਡਿਸਕ ਲਈ ਸਰੋਤ ਦਾ ਕੰਮ ਕਰ ਸਕਦੇ ਹਨ। ਤੁਸੀਂ ਕਿਹਡ਼ਾ "
 "ਵਰਤਣਾ ਪਸੰਦ ਕਰੋਗੇ?"
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "ਆਪਣੀ ਅੱਪਡੇਟ ਡਿਸਕ /dev/%s ਵਿੱਚ ਪਾਓ ਅਤੇ ਜਾਰੀ ਰਹਿਣ ਲਈ \"ਠੀਕ ਹੈ\" ਦਬਾਓ।"
 
-#: ../loader2/loader.c:350
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "ਅੱਪਡੇਟ ਡਿਸਕ"
 
-#: ../loader2/loader.c:362
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "ਅੱਪਡੇਟ ਡਿਸਕ ਮਾਊਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "ਅੱਪਡੇਟ"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "ਐਨਾਕਾਂਡਾ ਅੱਪਡੇਟ ਖੋਲ੍ਹ ਰਿਹਾ ਹੈ..."
 
-#: ../loader2/loader.c:405
+#: ../loader2/loader.c:406
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5912,40 +5980,40 @@ msgstr ""
 "ਕੋਈ ਹਾਰਡ-ਡਰਾਈਵ ਨਹੀ ਲੱਭੀ ਹੈ।  ਇੰਸਟਾਲੇਸ਼ਨ ਦੀ ਸਫਲਤਾ ਲਈ ਤੁਸੀਂ ਨਿਸ਼ਚੇ ਹੀ ਜੰਤਰ-ਡਰਾਈਵਰ ਦਸਤੀ "
 "ਚੁਣਨਾ ਚਾਹੋਗੇ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਹੀ ਡਰਾਈਵਰ ਚੁਣਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
 
-#: ../loader2/loader.c:802
+#: ../loader2/loader.c:823
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ਤੁਹਾਡੀ ਮਸ਼ੀਨ ਤੇ %s ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਰੈਮ(RAM) ਨਹੀ ਹੈ।"
 
-#: ../loader2/loader.c:960
+#: ../loader2/loader.c:981
 msgid "Rescue Method"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
-#: ../loader2/loader.c:961
+#: ../loader2/loader.c:982
 msgid "Installation Method"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ"
 
-#: ../loader2/loader.c:963
+#: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
 msgstr "ਬਚਾਉ ਪ੍ਰਤੀਬਿੰਬ ਕਿਸ ਕਿਸਮ ਦੇ ਮਾਧਿਅਮ ਤੇ ਹਨ?"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
 msgstr "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਪੈਕੇਜ ਕਿਸ ਕਿਸਮ ਦੇ ਮਾਧਿਅਮ ਤੇ ਹਨ?"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "No driver found"
 msgstr "ਕੋਈ ਡਰਾਈਵਰ ਨਹੀ ਲੱਭਾ"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "Select driver"
 msgstr "ਡਰਾਈਵਰ ਚੁਣੋ"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1012
 msgid "Use a driver disk"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਵਰਤੋਂ"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:1013
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5953,39 +6021,40 @@ msgstr ""
 "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਕਿਸਮ ਲਈ ਲੋੜੀਂਦੀ ਕੋਈ ਜੰਤਰ ਦੀ ਕਿਸਮ ਨੂੰ ਖੋਜਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। ਤੁਸੀਂ ਡਰਾਈਵਰ ਨੂੰ ਦਸਤੀ "
 "ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਜੰਤਰ-ਡਿਸਕ ਵਰਤਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../loader2/loader.c:1155
+#: ../loader2/loader.c:1176
 msgid "The following devices have been found on your system."
 msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜੇ ਗਏ ਹਨ।"
 
-#: ../loader2/loader.c:1157
+#: ../loader2/loader.c:1178
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਈਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+msgstr ""
+"ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਈਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../loader2/loader.c:1161
+#: ../loader2/loader.c:1182
 msgid "Devices"
 msgstr "ਜੰਤਰ"
 
-#: ../loader2/loader.c:1162
+#: ../loader2/loader.c:1183
 msgid "Done"
 msgstr "ਸਮਾਪਤ"
 
-#: ../loader2/loader.c:1163
+#: ../loader2/loader.c:1184
 msgid "Add Device"
 msgstr "ਜੰਤਰ ਸ਼ਾਮਿਲ"
 
-#: ../loader2/loader.c:1371
+#: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ਲੋਡਰ ਤਾਂ ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ ਹੈ। ਸ਼ੈੱਲ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ।\n"
 
-#: ../loader2/loader.c:1758
+#: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "ਐਨਾਕਾਂਡਾ ਜਾਰੀ ਹੈ, %s ਸੰਕਟਕਾਲੀਨ ਢੰਗ - ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ...\n"
 
-#: ../loader2/loader.c:1760
+#: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "ਐਨਾਕਾਂਡਾ ਜਾਰੀ ਹੈ, %s ਸਿਸਟਮ ਇੰਸਟਾਲਰ - ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ...\n"
@@ -6090,7 +6159,7 @@ msgstr "ਚੈਕ-ਸਮ ਦੀ ਜਾਂਚ"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "ਜੰਤਰ ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ %s ਲਈ ਗਲਤ ਆਰਗੂਮਿੰਟ ਹੈ: %s"
 
-#: ../loader2/net.c:63
+#: ../loader2/net.c:57
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6105,13 +6174,14 @@ msgstr ""
 "    o ਡਾਇਰੈਕਟਰੀ, ਜੋ ਕਿ ਉਸ ਸਰਵਰ ਤੇ ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ\n"
 "      %s ਰੱਖਦੀ ਹੈ।\n"
 
-#: ../loader2/net.c:98
+#: ../loader2/net.c:92
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr "IPv4 ਨੈੱਟਵਰਕ ਲਈ ਅਗੇਤਰ 1 ਅਤੇ 32 ਵਿਚਕਾਰ ਜਾਂ IPv6 ਨੈੱਟਵਰਕ ਲਈ 1 ਅਤੇ 128 ਵਿਚਕਾਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
+msgstr ""
+"IPv4 ਨੈੱਟਵਰਕ ਲਈ ਅਗੇਤਰ 1 ਅਤੇ 32 ਵਿਚਕਾਰ ਜਾਂ IPv6 ਨੈੱਟਵਰਕ ਲਈ 1 ਅਤੇ 128 ਵਿਚਕਾਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:248
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6122,137 +6192,133 @@ msgstr ""
 "(key) ਉਪਲਬੱਧ ਕਰਵਾਉ, ਜੇਕਰ ਕੋਈ ਕੀ ਨਹੀਂ ਲੋੜੀਦੀ ਹੈ ਤਾਂ ਇਹ ਖੇਤਰ ਖਾਲੀ ਰਹਿਣ ਦਿਉ ਤੇ ਇੰਸਟਾਲੇਸ਼ਨ "
 "ਜਾਰੀ ਰਹੇਗੀ।"
 
-#: ../loader2/net.c:238
+#: ../loader2/net.c:254
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:239
+#: ../loader2/net.c:255
 msgid "Encryption Key"
 msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ ਕੀ"
 
-#: ../loader2/net.c:242
+#: ../loader2/net.c:258
 msgid "Wireless Settings"
 msgstr "ਬੇਤਾਰ ਸਥਾਪਨ"
 
-#: ../loader2/net.c:273
+#: ../loader2/net.c:289
 msgid "Nameserver IP"
 msgstr "ਨਾਂ-ਸਰਵਰ IP"
 
-#: ../loader2/net.c:278
+#: ../loader2/net.c:293
+#, fuzzy
+msgid "Missing Nameserver"
+msgstr "ਨਾਂ-ਸਰਵਰ"
+
+#: ../loader2/net.c:294
+#, fuzzy
 msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 msgstr ""
 "ਤੁਹਾਡੇ ਡਾਇਆਨਮਿਕ IP ਬੇਨਤੀ ਨੇ IP ਸੰਰਚਨਾ ਜਾਣਕਾਰੀ ਉਪਲੱਬਧ ਕਰਵਾਈ ਹੈ, ਪਰ ਇਸ ਵਿੱਚ DNS ਨਾਂ "
 "ਸਰਵਰ ਦਾ ਨਾਂ ਸ਼ਾਮਿਲ ਨਹੀ ਹੈ, ਜੇਕਰ ਤੁਹਾਨੂੰ ਇਸ ਦਾ ਪਤਾ ਹੈ ਤਾਂ ਇਸ ਨੂੰ ਭਰੋ। ਜੇਕਰ ਤੁਹਾਡੇ ਕੋਲ ਇਹ "
 "ਜਾਣਕਾਰੀ ਨਹੀ ਹੈ ਤਾਂ ਤੁਸੀਂ ਇਸ ਖੇਤਰ ਨੂੰ ਖਾਲੀ ਛੱਡ ਸਕਦੇ ਹੋ ਅਤੇ ਇੰਸਟਾਲ ਜਾਰੀ ਰਹੇਗਾ।"
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:316
 msgid "Invalid IP Information"
 msgstr "ਗਲਤ IP ਸਿਰਨਾਵਾਂ"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:317
 msgid "You entered an invalid IP address."
 msgstr "ਤੁਸੀਂ ਗਲਤ IP ਸਿਰਨਾਵਾਂ ਭਰਿਆ ਹੈ।"
 
-#: ../loader2/net.c:542 ../loader2/net.c:653
+#: ../loader2/net.c:563 ../loader2/net.c:671
 msgid "Network Error"
 msgstr "ਨੈੱਟਵਰਕ ਗਲਤੀ ਹੈ"
 
-#: ../loader2/net.c:543 ../loader2/net.c:654
+#: ../loader2/net.c:564 ../loader2/net.c:672
 msgid "There was an error configuring your network interface."
 msgstr "ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ ਸੰਰਚਨਾ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਸੀ।"
 
-#: ../loader2/net.c:718
-msgid "Avoid unwanted packet collisions"
-msgstr "ਬੇਲੋੜੀ ਪੈਕੇਟ ਟੱਕਰ ਤੋਂ ਬਚੋਂ"
-
-#: ../loader2/net.c:720
-msgid "Maximize register values for high speed network traffic"
-msgstr "ਤੇਜ਼ ਗਤੀ ਨੈੱਟਵਰਕ ਟਰੈਫਿਕ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਰਜਿਸਟਰ ਮੁੱਲ"
-
-#: ../loader2/net.c:756
+#: ../loader2/net.c:745
 msgid "Configure TCP/IP"
 msgstr "TCP/IP ਸੰਰਚਨਾ"
 
-#: ../loader2/net.c:770
+#: ../loader2/net.c:772
+#, fuzzy
+msgid "You must select at least one protocol (IPv4 or IPv6)."
+msgstr "ਤੁਹਾਨੂੰ DHCP ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ (IPv4 ਜਾਂ IPv6)।"
+
+#: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 NFS ਲਈ ਲੋੜੀਦਾ ਹੈ"
 
-#: ../loader2/net.c:771
+#: ../loader2/net.c:780
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ ਲਈ IPv4 ਸਹਿਯੋਗ ਦੀ ਲੋੜ ਹੈ।"
 
-#: ../loader2/net.c:778
-msgid ""
-"You must select at least one protocol (IPv4 or IPv6) for manual "
-"configuration."
-msgstr "ਤੁਹਾਨੂੰ ਦਸਤੀ ਸੰਰਚਨਾ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ (IPv4 or IPv6) ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ।"
-
-#: ../loader2/net.c:788
-msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "ਤੁਹਾਨੂੰ DHCP ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ (IPv4 ਜਾਂ IPv6)।"
-
-#: ../loader2/net.c:859
+#: ../loader2/net.c:900
 msgid "IPv4 address:"
 msgstr "IPv4 ਸਿਰਨਾਵਾਂ:"
 
-#: ../loader2/net.c:871 ../loader2/net.c:923 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:912 ../loader2/net.c:964 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:911
+#: ../loader2/net.c:952
 msgid "IPv6 address:"
 msgstr "IPv6 ਸਿਰਨਾਵਾਂ:"
 
-#: ../loader2/net.c:972
+#: ../loader2/net.c:1013
 msgid "Name Server:"
 msgstr "ਨਾਂ-ਸਰਵਰ:"
 
-#: ../loader2/net.c:1008
+#: ../loader2/net.c:1049
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "IPv4 ਅਤੇ/ਜਾਂ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਅਗੇਤਰ (ਸਿਰਨਾਵਾਂ / ਅਗੇਤਰ) ਦਿਓ। IPv4 ਲਈ, ਬਿੰਦੂ ਦੁਆਰਾ ਵੱਖ ਕੀਤਾ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR-ਵਰਗਾ ਅਗੇਤਰ ਸਵੀਕਾਰ ਹੁੰਦਾ ਹੈ। ਗੇਟਵੇ ਅਤੇ ਨਾਂ ਸਰਵਰ ਖੇਤਰ ਸਹੀ IPv4 ਜਾਂ IPv6 ਸਿਰਨਾਵੇਂ ਹੋਣੇ ਜਰੂਰੀ ਹਨ।"
+msgstr ""
+"IPv4 ਅਤੇ/ਜਾਂ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਅਗੇਤਰ (ਸਿਰਨਾਵਾਂ / ਅਗੇਤਰ) ਦਿਓ। IPv4 ਲਈ, ਬਿੰਦੂ ਦੁਆਰਾ ਵੱਖ "
+"ਕੀਤਾ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR-ਵਰਗਾ ਅਗੇਤਰ ਸਵੀਕਾਰ ਹੁੰਦਾ ਹੈ। ਗੇਟਵੇ ਅਤੇ ਨਾਂ ਸਰਵਰ ਖੇਤਰ ਸਹੀ IPv4 ਜਾਂ "
+"IPv6 ਸਿਰਨਾਵੇਂ ਹੋਣੇ ਜਰੂਰੀ ਹਨ।"
 
-#: ../loader2/net.c:1024
+#: ../loader2/net.c:1065
 msgid "Manual TCP/IP Configuration"
 msgstr "ਦਸਤੀ TCP/IP ਸੰਰਚਨਾ"
 
-#: ../loader2/net.c:1147 ../loader2/net.c:1153
+#: ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Missing Information"
 msgstr "ਗੁੰਮ ਜਾਣਕਾਰੀ"
 
-#: ../loader2/net.c:1148
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1186
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv4 ਸਿਰਨਾਵਾਂ ਅਤੇ ਇੱਕ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR ਪ੍ਰੀਫਿਕਸ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: ../loader2/net.c:1154
+#: ../loader2/net.c:1192
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv6 ਸਿਰਨਾਵਾਂ ਅਤੇ ਇੱਕ CIDR ਅਗੇਤਰ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: ../loader2/net.c:1418
+#: ../loader2/net.c:1467
 msgid "Determining host name and domain..."
 msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ ਅਤੇ ਡੋਮੇਨ ਜਾਣ ਰਿਹਾ ਹੈ..."
 
-#: ../loader2/net.c:1510
+#: ../loader2/net.c:1559
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਨੈੱਟਵਰਕ ਕਮਾਂਡ %s ਲਈ ਨਕਾਰਾ ਆਰਗੂਮਿੰਟ: %s"
 
-#: ../loader2/net.c:1533
+#: ../loader2/net.c:1582
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ਨੈੱਟਵਰਕ ਕਮਾਂਡ ਵਿੱਚ ਗਲਤ ਬੂਟ-ਪਰੋਟੋਕੋਲ %s ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਹੈ"
 
-#: ../loader2/net.c:1704
+#: ../loader2/net.c:1753
 msgid "Networking Device"
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ"
 
-#: ../loader2/net.c:1705
+#: ../loader2/net.c:1754
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6397,7 +6463,8 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "ਜੇਕਰ ਤੁਸੀਂ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
+msgstr ""
+"ਜੇਕਰ ਤੁਸੀਂ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
 
 #: ../loader2/urls.c:451
 msgid "Account name:"
@@ -6860,7 +6927,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟੀਰੀਓ - ਆਮ ਥਾਵਾਂ"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟਾਰੀਓ ਤੇ ਕਿਊਬਸ - ਥਾਵਾਂ, ਜੋ ਕਿ DST 1967-1973 ਨੂੰ ਨਹੀ ਵੇਖੀਆ"
 
 #. generated from zone.tab
@@ -7056,7 +7124,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਅਰੀਜ਼ੋਨਾ"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਡਾਵਸਨ ਕਰੈਕ ਤੇ ਕਿਲਾ ਸੈਟ ਜੋਹਨ, ਬਰਤਾਨਵੀਂ ਕੋਲੰਬੀਆ"
 
 #. generated from zone.tab
@@ -7507,3 +7576,14 @@ msgstr "ਵਾਲਿਸ਼"
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
 
+#~ msgid "Avoid unwanted packet collisions"
+#~ msgstr "ਬੇਲੋੜੀ ਪੈਕੇਟ ਟੱਕਰ ਤੋਂ ਬਚੋਂ"
+
+#~ msgid "Maximize register values for high speed network traffic"
+#~ msgstr "ਤੇਜ਼ ਗਤੀ ਨੈੱਟਵਰਕ ਟਰੈਫਿਕ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਰਜਿਸਟਰ ਮੁੱਲ"
+
+#~ msgid ""
+#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
+#~ "configuration."
+#~ msgstr ""
+#~ "ਤੁਹਾਨੂੰ ਦਸਤੀ ਸੰਰਚਨਾ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ (IPv4 or IPv6) ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ।"

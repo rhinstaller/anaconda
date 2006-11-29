@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-17 09:23-0500\n"
+"POT-Creation-Date: 2006-11-29 10:34-0500\n"
 "PO-Revision-Date: 2006-11-21 15:58+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 
@@ -42,8 +43,8 @@ msgstr "ഒരു ഷെല്ലിനായി <enter> അമറ്‍ത്�
 #: ../textw/constants_text.py:36 ../textw/network_text.py:46
 #: ../textw/network_text.py:56 ../textw/network_text.py:323
 #: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:618
-#: ../textw/network_text.py:626 ../loader2/cdinstall.c:140
+#: ../textw/network_text.py:388 ../textw/network_text.py:620
+#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -59,22 +60,22 @@ msgstr "ഒരു ഷെല്ലിനായി <enter> അമറ്‍ത്�
 #: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
 #: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:337 ../loader2/loader.c:350
-#: ../loader2/loader.c:361 ../loader2/loader.c:805 ../loader2/loader.c:968
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1057 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:724 ../loader2/net.c:1003
-#: ../loader2/net.c:1509 ../loader2/net.c:1532 ../loader2/net.c:1708
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
-#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:456
-#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
-#: ../loader2/urls.c:282 ../loader2/urls.c:347 ../loader2/urls.c:352
-#: ../loader2/urls.c:358 ../loader2/urls.c:464
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:334
+#: ../loader2/kickstart.c:469 ../loader2/lang.c:106 ../loader2/lang.c:369
+#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:155 ../loader2/method.c:373 ../loader2/method.c:458
+#: ../loader2/modules.c:1057 ../loader2/net.c:259 ../loader2/net.c:298
+#: ../loader2/net.c:719 ../loader2/net.c:1044 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
+#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
+#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:464
 msgid "OK"
 msgstr "ശരി"
 
@@ -198,8 +199,10 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "ബൂട്ട് പാറ്‍ട്ടിഷന്‍ %s നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ ബൂട്ടിംങ് പരിമിതികളുമായി യോജിക്കാന്‍ സാധ്യതയില്ല."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
+msgstr ""
+"ബൂട്ട് പാറ്‍ട്ടിഷന്‍ %s നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ ബൂട്ടിംങ് പരിമിതികളുമായി യോജിക്കാന്‍ സാധ്യതയില്ല."
 
 #: ../autopart.py:1058
 #, python-format
@@ -365,7 +368,7 @@ msgstr "പരിഹരിക്കാനാവാത്ത പിഴവ്"
 msgid "Your system will now be rebooted."
 msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
-#: ../autopart.py:1671 ../bootloader.py:194 ../image.py:435
+#: ../autopart.py:1671 ../bootloader.py:197 ../image.py:435
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
 #: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
@@ -373,7 +376,7 @@ msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ�
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
 #: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "മുന്നറിയിരപ്പ്"
 
@@ -446,15 +449,15 @@ msgstr "%s പുതുക്കുന്നു\n"
 msgid "Installing %s\n"
 msgstr "%s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നു    \n"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Bootloader"
 msgstr "ബൂട്ട് ലോഡര്‍"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Installing bootloader..."
 msgstr "ബൂട്ട് ലോഡര്‍ ഇന്‍സ്റ്റോള്‍ .ചെയ്യപ്പെടുന്നു..."
 
-#: ../bootloader.py:195
+#: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -474,7 +477,7 @@ msgstr "പുരോഗമിക്കുന്നു..."
 msgid "Can't have a question in command line mode!"
 msgstr "കമാന്ഡ് ലൈന്‍ മോഡില്‍ ചോദ്യം പാടില്ല!"
 
-#: ../cmdline.py:74 ../gui.py:897 ../text.py:398
+#: ../cmdline.py:74 ../gui.py:898 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -523,7 +526,7 @@ msgstr ""
 "കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
 #: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
-#: ../gui.py:902 ../gui.py:1052 ../harddrive.py:80 ../image.py:93
+#: ../gui.py:903 ../gui.py:1053 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
@@ -535,7 +538,8 @@ msgstr "Dump എഴുതിയിട്ടില്ല"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി ഫ്ളോപ്പിയിലേക്ക് രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു. "
+msgstr ""
+"നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി ഫ്ളോപ്പിയിലേക്ക് രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു. "
 
 #: ../exception.py:418
 msgid ""
@@ -547,7 +551,8 @@ msgstr ""
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
-msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി റിമോട്ട് ഹോസ്റ്റില്‍ രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു."
+msgstr ""
+"നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി റിമോട്ട് ഹോസ്റ്റില്‍ രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു."
 
 #: ../fsset.py:221
 msgid "Checking for Bad Blocks"
@@ -567,8 +572,8 @@ msgstr "/dev/%sല്‍ തകരാറുളള ബ്ളോക്കുകള
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
 #: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
-#: ../textw/partition_text.py:1652 ../textw/partition_text.py:1658
-#: ../textw/partition_text.py:1680 ../textw/upgrade_text.py:162
+#: ../textw/partition_text.py:1655 ../textw/partition_text.py:1661
+#: ../textw/partition_text.py:1683 ../textw/upgrade_text.py:162
 #: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
@@ -576,8 +581,8 @@ msgstr "/dev/%sല്‍ തകരാറുളള ബ്ളോക്കുകള
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:361
-#: ../loader2/loader.c:805 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -960,21 +965,20 @@ msgstr "ശരിയാക്കുക"
 #: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:404
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "ഉവ്വ്"
 
 #: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:437
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:405
 msgid "No"
 msgstr "ഇല്ല"
 
-#: ../gui.py:234 ../text.py:439 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:542 ../loader2/net.c:653 ../loader2/net.c:770
-#: ../loader2/net.c:777 ../loader2/net.c:787 ../loader2/net.c:1147
-#: ../loader2/net.c:1153
+#: ../gui.py:234 ../text.py:439 ../loader2/net.c:91 ../loader2/net.c:316
+#: ../loader2/net.c:563 ../loader2/net.c:671 ../loader2/net.c:771
+#: ../loader2/net.c:779 ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Retry"
 msgstr "വിണ്ടും ശ്രമിക്കുക"
 
@@ -982,24 +986,24 @@ msgstr "വിണ്ടും ശ്രമിക്കുക"
 msgid "Ignore"
 msgstr "അവഗണിക്കുക"
 
-#: ../gui.py:236 ../gui.py:757 ../partIntfHelpers.py:237
+#: ../gui.py:236 ../gui.py:758 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
 #: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:350
+#: ../loader2/kickstart.c:334 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "റദ്ദാക്കുക"
 
-#: ../gui.py:595 ../text.py:356
+#: ../gui.py:594 ../text.py:356
 msgid "Installation Key"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ കീ"
 
-#: ../gui.py:899 ../text.py:400
+#: ../gui.py:900 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "കിക്ക്സ്റ്റാര്‍ട്ട് കോണ്‍ഫിഗ് പാഴ്സിങില്‍ പിഴവ്"
 
-#: ../gui.py:907 ../text.py:410
+#: ../gui.py:908 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1007,15 +1011,15 @@ msgstr ""
 "ഒരു ഫ്ളോപ്പി ഇനി ഇന്‍സേര്‍ട്ട് ചെയ്യുക. ഡിസ്ക്കിലെ വിവരങ്ങള്‍ എല്ലാം മാഞ്ഞുപോകാന്‍ സാധ്യത "
 "ഉളളതിനാല്‍, ദയവായി ഡിസ്ക്കറ്റ് സൂക്ഷമതയോടെ തിരഞ്ഞെടുക്കുക."
 
-#: ../gui.py:954
+#: ../gui.py:955
 msgid "default:LTR"
 msgstr "‍ഡീഫോള്‍ട്ട്:LTR"
 
-#: ../gui.py:1038
+#: ../gui.py:1039
 msgid "Error!"
 msgstr "പിഴവ്!"
 
-#: ../gui.py:1039
+#: ../gui.py:1040
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1027,36 +1031,36 @@ msgstr ""
 "\n"
 "ക്ളാസിന്‍റെ പേര് = %s"
 
-#: ../gui.py:1044 ../gui.py:1049 ../packages.py:303 ../packages.py:308
+#: ../gui.py:1045 ../gui.py:1050 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
 msgstr "പുറത്തേക്ക് പോവുക(_E)"
 
-#: ../gui.py:1045 ../yuminstall.py:748
+#: ../gui.py:1046 ../yuminstall.py:748
 msgid "_Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 
-#: ../gui.py:1048 ../packages.py:307
+#: ../gui.py:1049 ../packages.py:307
 msgid "The installer will now exit..."
 msgstr "ഇന്‍സ്റ്റോളര്‍ ഇപ്പോള്‍ നിര്‍ത്തലാകും"
 
-#: ../gui.py:1051 ../packages.py:310
+#: ../gui.py:1052 ../packages.py:310
 msgid "Your system will now be rebooted..."
 msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
-#: ../gui.py:1054 ../packages.py:312
+#: ../gui.py:1055 ../packages.py:312
 msgid "Rebooting System"
 msgstr "കംപ്യൂട്ടറ്‍ റീബൂട്ട് ചെയ്യപ്പെടുന്നു"
 
-#: ../gui.py:1118
+#: ../gui.py:1119
 #, python-format
 msgid "%s Installer"
 msgstr "%s ഇന്‍സ്റ്റോളറ്‍"
 
-#: ../gui.py:1125
+#: ../gui.py:1126
 msgid "Unable to load title bar"
 msgstr "ടൈറ്റില്‍ ബാര്‍ ലോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല"
 
-#: ../gui.py:1174
+#: ../gui.py:1175
 msgid "Install Window"
 msgstr "വിന്‍ഡോ ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
@@ -1213,7 +1217,7 @@ msgstr ""
 msgid "Install on System"
 msgstr "കംപ്യൂട്ടറില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
-#: ../iscsi.py:185 ../iscsi.py:186
+#: ../iscsi.py:197 ../iscsi.py:198
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI ഇനിഷ്യേറ്റര്‍ ആരംഭിക്കുന്നു"
 
@@ -1284,7 +1288,8 @@ msgstr "ഹോസ്റ്റ്നെയ്മില്‍ 64 അല്ലെ�
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "ഹോസ്റ്റനെയിം തുടങ്ങുന്നത് 'a-z' അല്ലെങ്കില്‍ 'A-Z' എന്ന പരിധിയിലുളള അക്ഷരത്തിലായിരിക്കണം"
+msgstr ""
+"ഹോസ്റ്റനെയിം തുടങ്ങുന്നത് 'a-z' അല്ലെങ്കില്‍ 'A-Z' എന്ന പരിധിയിലുളള അക്ഷരത്തിലായിരിക്കണം"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1583,7 +1588,8 @@ msgstr "നീക്കം ചെയ്യണമെന്ന് ഉറപ്പ�
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "'/dev/%s'എന്ന ഡിവൈസിലുളള എല്ലാ പാര്‍ട്ടീഷനുകളും നിങ്ങള്‍ നീക്കം ചെയ്യുവാനുളള പുറപ്പാടിലാണ്."
+msgstr ""
+"'/dev/%s'എന്ന ഡിവൈസിലുളള എല്ലാ പാര്‍ട്ടീഷനുകളും നിങ്ങള്‍ നീക്കം ചെയ്യുവാനുളള പുറപ്പാടിലാണ്."
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1110
@@ -1628,7 +1634,8 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "%s ഉളള ഒരു എക്സ്റ്റന്‍റട് പാര്‍ട്ടീഷന്‍ ആയതിനാല്‍ ഇതില്‍ നിങ്ങള്‍ക്ക് മാറ്റം വരുത്തുവാന്‍ സാധിക്കില്ല"
+msgstr ""
+"%s ഉളള ഒരു എക്സ്റ്റന്‍റട് പാര്‍ട്ടീഷന്‍ ആയതിനാല്‍ ഇതില്‍ നിങ്ങള്‍ക്ക് മാറ്റം വരുത്തുവാന്‍ സാധിക്കില്ല"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1769,8 +1776,10 @@ msgid "Confirm Reset"
 msgstr "റീസെറ്റ് ചെയ്യണമെന്ന് ഉറപ്പുവരുത്തുക"
 
 #: ../partIntfHelpers.py:538
-msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "പാര്‍ട്ടീഷന്‍ ടേബിള്‍ ഒറിജിനല്‍ സ്റ്റേറ്റിലേക്കിലേക്ക് റീസെറ്റ് ചെയ്യണമെന്ന് നിങ്ങള്‍ക്ക് ഉറപ്പാണോ?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
+msgstr ""
+"പാര്‍ട്ടീഷന്‍ ടേബിള്‍ ഒറിജിനല്‍ സ്റ്റേറ്റിലേക്കിലേക്ക് റീസെറ്റ് ചെയ്യണമെന്ന് നിങ്ങള്‍ക്ക് ഉറപ്പാണോ?"
 
 #: ../partitioning.py:64
 msgid "Installation cannot continue."
@@ -1827,7 +1836,8 @@ msgstr ""
 "സാധ്യമല്ല."
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "FAT ടൈപ്പും 50 മെഗബൈറ്റ് വലിപ്പവുമുളള ഒരു /boot/efi പാര്‍ട്ടീഷന്‍ നിങ്ങള്‍ ഉണ്ടാക്കണം."
 
 #: ../partitions.py:867
@@ -1846,7 +1856,8 @@ msgid ""
 msgstr "ഒരു സാധരണ %s ഇന്‍സ്റ്റോളിനുളള നിങ്ങളുടെ    %s പാര്‍ട്ടീഷന്‍ %s"
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ഒരു USB ഡിവൈസില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടുന്നു.  ഒരു പ്രവര്‍ത്തിക്കുന്ന സിസ്റ്റം ഉണ്ടാക്കുവാന്‍ ഇത് "
 "സഹായിക്കുകയോ സഹായിക്കാതെയിരിക്കുകയോ ചെയ്യാം."
@@ -1907,7 +1918,8 @@ msgstr "ഒരു LVM വോള്യം ഗ്രൂപ്പിന്‍റെ
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ഈ മൌണ്ട് പോയിന്‍റ് അസാധുവാണ്.  %s ഡയറക്ടറി / ഫൈല്‍ സിസ്റ്റമിലായിരിക്കണം."
 
 #: ../partRequests.py:252
@@ -1937,7 +1949,8 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "%s പാര്‍ട്ടീഷന്‍റെ (%10.2f MB) വലിപ്പം %10.2f MB എന്ന മാക്സിമം വലിപ്പത്തേക്കാള്‍ കൂടുതലാണ്."
+msgstr ""
+"%s പാര്‍ട്ടീഷന്‍റെ (%10.2f MB) വലിപ്പം %10.2f MB എന്ന മാക്സിമം വലിപ്പത്തേക്കാള്‍ കൂടുതലാണ്."
 
 #: ../partRequests.py:490
 #, python-format
@@ -2016,7 +2029,8 @@ msgstr "റദ്ദാക്കപ്പെട്ടു"
 
 #: ../rescue.py:244 ../text.py:578
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "ഇവിടെ നിന്നും മുന്പുളള സ്റ്റെപ്പിലേക്ക് പോകുവാന്‍ സാധിക്കില്ല. നിങ്ങള്‍ വീണ്ടും ശ്രമിക്കേണ്ടതാണ്."
+msgstr ""
+"ഇവിടെ നിന്നും മുന്പുളള സ്റ്റെപ്പിലേക്ക് പോകുവാന്‍ സാധിക്കില്ല. നിങ്ങള്‍ വീണ്ടും ശ്രമിക്കേണ്ടതാണ്."
 
 #: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
@@ -2189,13 +2203,14 @@ msgstr "%(instkey)s നല്‍കേണ്ടതില്ല"
 msgid "Save Crash Dump"
 msgstr "ക്രാഷ് ഡന്പ് സംരക്ഷിക്കുക"
 
-#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:154
+#: ../text.py:463 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s ലേക്ക് സ്വാഗതം"
 
 #: ../text.py:470
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> സഹായത്തിന് | <Tab> എലമെന്‍റുകളുടെ ഇടയ്ക്ക് | <Space> selects | <F12> അടുത്ത "
 "സ്ക്രീനിനായി"
@@ -2490,7 +2505,8 @@ msgstr "50 തവണയും പരാജയപ്പെട്ടതിനാ�
 #: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനു വേണ്ടി ദയവായി നിങ്ങള്‍ തന്നെ vnc ക്ളൈന്‍റിനെ    %s മായി കണക്ട് ചെയ്യുക."
+msgstr ""
+"ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനു വേണ്ടി ദയവായി നിങ്ങള്‍ തന്നെ vnc ക്ളൈന്‍റിനെ    %s മായി കണക്ട് ചെയ്യുക."
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
@@ -2563,7 +2579,8 @@ msgstr "ട്രാന്‍സാക്ഷന്‍ പ്രവര്‍ത�
 
 #: ../yuminstall.py:649
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "താഴെ പറയുന്ന കാരണങ്ങള്‍ കൊണ്ട് നിങ്ങളുടെ നടപടികള്‍ പ്രവര്‍ത്തിക്കുന്നതില്‍ പിശക്: %s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -2689,7 +2706,8 @@ msgstr "റൂട്ട് പാസ്വേര്‍ഡില്‍ കുറ�
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr "പാസ്വേര്‍ഡില്‍ ഉപയോഗിക്കുവാന്‍ പാടില്ലാത്ത non-ascii അക്ഷരങ്ങള്‍ ആവശ്യപ്പെട്ട പാസ്വേര്‍ഡില്‍ ഉണ്ട്."
+msgstr ""
+"പാസ്വേര്‍ഡില്‍ ഉപയോഗിക്കുവാന്‍ പാടില്ലാത്ത non-ascii അക്ഷരങ്ങള്‍ ആവശ്യപ്പെട്ട പാസ്വേര്‍ഡില്‍ ഉണ്ട്."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2719,23 +2737,24 @@ msgstr "ഇനിഷ്യേറ്ററിന് ശരിയായ ഒരു 
 msgid "Error with Data"
 msgstr "ഡേറ്റായില്‍ പിഴവ്"
 
-#: ../iw/autopart_type.py:243 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1529
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 "തിരഞ്ഞെടുത്ത ഡ്രൈവുകളില്‍ ഉളള പാര്‍ട്ടീഷനുകള്‍ മാറ്റി ഡീഫോള്‍ട്ട്\n"
 "ലേയൌട്ട് സൃഷ്ടിക്കുക. "
 
-#: ../iw/autopart_type.py:244 ../textw/partition_text.py:1530
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1530
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "തിരഞ്ഞെടുത്ത ഡ്രൈവുകളില്‍ ഉളള linux പാര്‍ട്ടീഷനുകള്‍ മാറ്റി ഡീഫോള്‍ട്ട്\n"
 "ലേയൌട്ട് സൃഷ്ടിക്കുക."
 
-#: ../iw/autopart_type.py:245 ../textw/partition_text.py:1531
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
-msgstr "തിരഞ്ഞെടുത്തിരിക്കുന്ന ഡ്രൈവുകളിലുളള ഫ്രീ സ്പെയ്സ് ഉപയോഗിച്ച് ഡീഫോള്‍ട്ടായ ലേയൌട്ട് സൃഷ്ടിക്കുക."
+msgstr ""
+"തിരഞ്ഞെടുത്തിരിക്കുന്ന ഡ്രൈവുകളിലുളള ഫ്രീ സ്പെയ്സ് ഉപയോഗിച്ച് ഡീഫോള്‍ട്ടായ ലേയൌട്ട് സൃഷ്ടിക്കുക."
 
-#: ../iw/autopart_type.py:246 ../textw/partition_text.py:1532
+#: ../iw/autopart_type.py:251 ../textw/partition_text.py:1532
 msgid "Create custom layout."
 msgstr "കസ്റ്റം ലേയൌട്ട് സൃഷ്ടിക്കുക."
 
@@ -3008,7 +3027,7 @@ msgstr "അപരിചിതമായ ലിനക്സ് സിസ്റ്�
 msgid "Language Selection"
 msgstr "ഭാഷ തിരഞ്ഞെടുക്കുക"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "ഇന്‍സ്റ്റലേഷനുവേണ്ടി നിങ്ങള്‍ ആഗ്രഹിക്കുന്ന ഭാഷ ഏത്?"
 
@@ -3347,7 +3366,7 @@ msgstr "വലിപ്പം (MB)"
 msgid "_Add"
 msgstr "കൂട്ടുക (_A)"
 
-#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:742
+#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:744
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "മാറ്റുക (_E)"
@@ -3409,11 +3428,11 @@ msgstr ""
 "\"%s\"-ന് നല്‍കിയ മൂല്ല്യം വേര്‍തിരിക്കുന്നതില്‍ പിശക്:\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:792
+#: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
 msgstr "ഡൈനാമിക്ക് IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:793
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:394 ../loader2/net.c:810
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%sനുളള IP വിലരങ്ങള്‍ക്കായി റിക്ക്വസ്റ്റ് അയക്കുന്നു..."
@@ -3427,11 +3446,11 @@ msgid "Netmask"
 msgstr "നെറ്റമാസ്ക്ക്"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:818
+#: ../iw/network_gui.py:820
 msgid "Gateway"
 msgstr "ഗേറ്റ്വെ"
 
-#: ../iw/netconfig_dialog.py:195 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
 msgstr "നെയിംസര്‍വര്‍"
 
@@ -3439,11 +3458,11 @@ msgstr "നെയിംസര്‍വര്‍"
 msgid "Error configuring network device"
 msgstr "നെറ്റ്‍വര്‍ക്ക് ഡിവൈസ്  ക്രമീകരിക്കുന്നതില്‍ പിശക്"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:820
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Primary DNS"
 msgstr "പ്രൈമറി DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:824
 msgid "Secondary DNS"
 msgstr "സെക്കന്‍ഡറി DNS"
 
@@ -3480,7 +3499,7 @@ msgstr ""
 "\"%s\"എന്ന ഫീല്‍ഡ് നിങ്ങള്‍ പറഞ്ഞിട്ടില്ല.  നിങ്ങളുടെ നെറ്റ്വര്‍ക്ക് എന്‍വയോണ്‍മെന്‍റ് അനുസരിച്ച് ഇത് "
 "പിന്നീട് ഒരു പക്ഷേ പ്രശ്നങ്ങള്‍ക്ക് കാരണമാവാം."
 
-#: ../iw/network_gui.py:170 ../textw/network_text.py:623
+#: ../iw/network_gui.py:170 ../textw/network_text.py:625
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3533,11 +3552,11 @@ msgstr "ഹാര്‍ഡ്‍വെയര്‍ അഡ്രസ്സ്: %s"
 msgid "Use dynamic IP configuration (_DHCP)"
 msgstr "ഡൈനാമിക്ക് IP കോണ്‍ഫിഗറേഷന്‍ ഉപയോഗിക്കുക (DHCP) (_D)"
 
-#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:697
+#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
 msgid "Enable IPv4 support"
 msgstr "IPv4-നുളള പിന്തുണ സജ്ജമാക്കുക"
 
-#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:708
+#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:712
 msgid "Enable IPv6 support"
 msgstr "IPv6-നുളള പിന്തുണ സജ്ജമാക്കുക"
 
@@ -3578,8 +3597,7 @@ msgstr "എന്‍ക്ക്രിപ്പ്ഷന്‍ കീ:(_K)"
 msgid "Configure %s"
 msgstr "%sനെ കോണ്‍ഫിഗര്‍ ചെയ്യുക"
 
-#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:777
-#: ../loader2/net.c:787
+#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:771
 msgid "Missing Protocol"
 msgstr "സന്പ്രദായം ലഭ്യമല്ല"
 
@@ -3589,7 +3607,7 @@ msgstr "നിങ്ങള്‍ ഒരു പിന്തുണ (IPv4, IPv6) �
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:97
+#: ../textw/network_text.py:386 ../loader2/net.c:91
 msgid "Invalid Prefix"
 msgstr "അസാധുവായ പ്രിഫിക്സ്"
 
@@ -3605,56 +3623,54 @@ msgstr "IPv6 പ്രിഫിക്സ് 0-ത്തിനും 128-നു�
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
 msgstr "ശരിയായ IPv6 പ്രിഫിക്സ് ലഭ്യമല്ല (0-ത്തിനും 128-നും മദ്ധ്യത്തിലായിരിക്കണം)."
 
-#: ../iw/network_gui.py:593 ../iw/network_gui.py:606
+#: ../iw/network_gui.py:595 ../iw/network_gui.py:608
 msgid "Disabled"
-msgstr ""
-"പ്രവര്‍ത്തന "
-"രഹിതം"
+msgstr "പ്രവര്‍ത്തന രഹിതം"
 
-#: ../iw/network_gui.py:683
+#: ../iw/network_gui.py:685
 msgid "Active on Boot"
 msgstr "ബൂട്ട് ചെയ്യുന്പോള്‍ ആക്റ്റീവ് ആകുക"
 
-#: ../iw/network_gui.py:685 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:687 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1438
 msgid "Device"
 msgstr "ഡിവൈസ്"
 
-#: ../iw/network_gui.py:687
+#: ../iw/network_gui.py:689
 msgid "IPv4/Netmask"
 msgstr "IPv4/നെറ്റ്മാസ്ക്"
 
-#: ../iw/network_gui.py:689
+#: ../iw/network_gui.py:691
 msgid "IPv6/Prefix"
 msgstr "IPv6/പ്രിഫിക്സ്"
 
-#: ../iw/network_gui.py:749
+#: ../iw/network_gui.py:751
 msgid "Network Devices"
 msgstr "നെറ്റ്വര്‍ക്ക് ഡിവൈസുകള്‍"
 
-#: ../iw/network_gui.py:760
+#: ../iw/network_gui.py:762
 msgid "Set the hostname:"
 msgstr "ഹോസ്റ്റ്നെയിം സെറ്റ് ചെയ്യുക:"
 
-#: ../iw/network_gui.py:765
+#: ../iw/network_gui.py:767
 msgid "_automatically via DHCP"
 msgstr "DHCP മുഖേന ഓട്ടോമാറ്റിക്കായി(_a)"
 
-#: ../iw/network_gui.py:772
+#: ../iw/network_gui.py:774
 msgid "_manually"
 msgstr "നിങ്ങള്‍ സ്വന്തമായി(manually)(_m)"
 
-#: ../iw/network_gui.py:777
+#: ../iw/network_gui.py:779
 msgid "(e.g., host.domain.com)"
 msgstr "(ഉദാ., host.domain.com)"
 
-#: ../iw/network_gui.py:783 ../loader2/net.c:1417
+#: ../iw/network_gui.py:785
 msgid "Hostname"
 msgstr "ഹോസ്റ്റ്നെയിം"
 
-#: ../iw/network_gui.py:827
+#: ../iw/network_gui.py:829
 msgid "Miscellaneous Settings"
 msgstr "മിസലേനിയസ്സ് സെറ്റിങുകള്‍"
 
@@ -3837,12 +3853,14 @@ msgid "Partitioning"
 msgstr "പാര്‍ട്ടീഷനിങ്"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "നിങ്ങള്‍ ആവശ്യപ്പെട്ട പാര്‍ട്ടീഷന്‍ സ്കീമില്‍ താഴെ കാണിച്ചിരിക്കുന്ന പിശകള്‍ നിലവിലുണ്ട്."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "%sന്‍റെ ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിന് മുന്പ് തന്നെ ഈ പിഴവുകള്‍ തിരുത്തിയിരിക്കണം"
 
 #: ../iw/partition_gui.py:642
@@ -4398,7 +4416,8 @@ msgstr "നിലവിലുളള നിങ്ങളുടെ ബൂട്ട�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "നിലവില്‍ %s-ല്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടുളള   %s ബൂട്ട് ലോഡര്‍ ഇന്‍സ്റ്റോളര്‍ കണ്ടുപിടിച്ചിരിക്കുന്നു."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4535,7 +4554,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "സ്വാപ്പ് ഫൈലിന്‍റെ വലിപ്പം "
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "നിങ്ങള്‍ തിരഞ്ഞെടുത്ത swap പാര്‍ട്ടീഷന് ആവശ്യമുളള സ്ഥലം ഡിവൈസില്‍ ലഭ്യമല്ല."
 
 #: ../iw/zipl_gui.py:28
@@ -4671,8 +4691,10 @@ msgstr ""
 "ഏതെല്ലാം പാര്‍ട്ടീഷനുകള്‍ ബൂട്ട് ചെയ്യണമെന്ന് ആഗ്രഹിക്കുന്നു, അവയ്ക്ക് കൊടുക്കേണ്ട ലേബലുകളും വ്യക്തമാക്കുക."
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4784,9 +4806,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:337 ../loader2/loader.c:968 ../loader2/loader.c:991
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:724
-#: ../loader2/net.c:1003 ../loader2/net.c:1708 ../loader2/nfsinstall.c:57
+#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:719
+#: ../loader2/net.c:1044 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "പുറകോട്ട്"
@@ -4809,8 +4831,10 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാനുളള പാക്കേജിന്‍റെ ഗ്രൂപ്പുകള്‍ ദയവായി തിരഞ്ഞെടുക്കുക."
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -4850,8 +4874,8 @@ msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"%sഎന്ന ഫീല്‍ഡ് നിങ്ങള്‍ പറഞ്ഞിട്ടില്ല.  നിങ്ങളുടെ നെറ്റ്വര്‍ക്ക് എന്‍വയോണ്‍മെന്‍റ് അനുസരിച്ച് ഇത് "
-"പിന്നീട് ഒരു പക്ഷേ പ്രശ്നങ്ങള്‍ക്ക് കാരണമാവാം."
+"%sഎന്ന ഫീല്‍ഡ് നിങ്ങള്‍ പറഞ്ഞിട്ടില്ല.  നിങ്ങളുടെ നെറ്റ്വര്‍ക്ക് എന്‍വയോണ്‍മെന്‍റ് അനുസരിച്ച് ഇത് പിന്നീട് "
+"ഒരു പക്ഷേ പ്രശ്നങ്ങള്‍ക്ക് കാരണമാവാം."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4863,7 +4887,7 @@ msgstr "വിശദാംശം: %s"
 msgid "Hardware Address: %s"
 msgstr "ഹാര്‍ഡ്വയര്‍ അഡ്രസ്സ്: %s"
 
-#: ../textw/network_text.py:170 ../loader2/net.c:690
+#: ../textw/network_text.py:170
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "ഡൈനാമിക്ക് IP കോണ്‍ഫിഗറേഷന്‍ ഉപയോഗിക്കുക (DHCP)"
 
@@ -4896,35 +4920,35 @@ msgstr "WEP കീ:"
 msgid "Network Configuration for %s"
 msgstr "%s ആയുളള നെറ്റവര്‍ക്ക് കോണ്‍ഫിഗറേഷന്‍"
 
-#: ../textw/network_text.py:471 ../loader2/net.c:964
+#: ../textw/network_text.py:473 ../loader2/net.c:1005
 msgid "Gateway:"
 msgstr "ഗേറ്റ്വേ:"
 
-#: ../textw/network_text.py:480
+#: ../textw/network_text.py:482
 msgid "Primary DNS:"
 msgstr "പ്രൈമറി DNS:"
 
-#: ../textw/network_text.py:485
+#: ../textw/network_text.py:487
 msgid "Secondary DNS:"
 msgstr "സെക്കന്‍ഡറി DNS:"
 
-#: ../textw/network_text.py:492
+#: ../textw/network_text.py:494
 msgid "Miscellaneous Network Settings"
 msgstr "മറ്റു നെറ്റ്വര്‍ക്ക് സെറ്റിങുകള്‍"
 
-#: ../textw/network_text.py:565
+#: ../textw/network_text.py:567
 msgid "automatically via DHCP"
 msgstr "DHCP വഴി ഓട്ടോമാറ്റിക്കായി"
 
-#: ../textw/network_text.py:568
+#: ../textw/network_text.py:570
 msgid "manually"
 msgstr "നിങ്ങള്‍ സ്വന്തമായി (മാനുവലായി)"
 
-#: ../textw/network_text.py:587
+#: ../textw/network_text.py:589
 msgid "Hostname Configuration"
 msgstr "ഹോസ്റ്റ്നെയിം കോണ്‍ഫിഗറേഷന്‍"
 
-#: ../textw/network_text.py:590
+#: ../textw/network_text.py:592
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4936,11 +4960,11 @@ msgstr ""
 "(മാനുവലായി) എന്നത് തിരഞ്ഞെടുത്ത് നിങ്ങളുടെ കംപ്യൂട്ടറിന് ഒരു ഹോസ്റ്റ് നെയിം നല്‍കുക. നിങ്ങള്‍ പേര് "
 "നല്‍കിയില്ല എങ്കില്‍, 'localhost' എന്ന് നിങ്ങളുടെ കംപ്യൂട്ടറിനെ വിളിക്കപ്പെടുന്നതാണ്."
 
-#: ../textw/network_text.py:616 ../textw/network_text.py:622
+#: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
 msgstr "അസാധുവായ ഹോസ്റ്റ്നെയിം"
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
 msgstr "നിങ്ങള്‍ ഹോസ്റ്റ്നെയിം പറഞ്ഞിട്ടില്ല."
 
@@ -5185,7 +5209,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-സഹായം     F2-പുതിയ      F3-മാറ്റം വരുത്തുക   F4-നീക്കം ചെയ്യുക    F5-"
 "റീസെറ്റ്    F12-ശരി        "
@@ -5228,33 +5253,33 @@ msgstr "പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് വീ�
 msgid "Review and modify partitioning layout?"
 msgstr "പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് വീണ്ടും പരിശോധിച്ച് വ്യത്യാസം വരുത്തണമോ?"
 
-#: ../textw/partition_text.py:1639 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1642 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "കൂടുതല്‍ സംഭരണ ഉപാധികള്‍"
 
-#: ../textw/partition_text.py:1640 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1643 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "നിങ്ങളുടെ ഡ്രൈവിന്‍റെ ക്രമീകരണം നിങ്ങള്‍ക്ക് എങ്ങനെ മെച്ചപ്പെടുത്തുവാന്‍ ആഗ്രഹിക്കുന്നു?"
 
-#: ../textw/partition_text.py:1663
+#: ../textw/partition_text.py:1666
 msgid "Add FCP Device"
 msgstr "FCP ഡിവൈസ് ചേര്‍ക്കുക "
 
-#: ../textw/partition_text.py:1664 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1667 tmp/zfcp-config.glade.h:5
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "ഫൈബര്‍ ചാനല്‍ മുഖേന zSeries മഷീനുകള്‍ക്ക് സര്‍വ്വസാധാരണമായി ഉപയോഗിക്കപ്പെടുന്ന SCSI "
-"ഉപകരണങ്ങളുമായി ബന്ധപ്പെടാവുന്നതാണ്. ഇതിന് ആവശ്യമുളള 16 ബിറ്റ് ഡിവൈസ് നന്പര്‍, 16 ബിറ്റ് "
-"വേള്‍ഡ് വൈഡ് പോര്‍ട്ട് നെയിം (WWPN), 64 ബിറ്റ് FCP LUN എന്നിവ ലഭ്യമാക്കേണ്ടതുണ്ട്."
+"ഉപകരണങ്ങളുമായി ബന്ധപ്പെടാവുന്നതാണ്. ഇതിന് ആവശ്യമുളള 16 ബിറ്റ് ഡിവൈസ് നന്പര്‍, 16 ബിറ്റ് വേള്‍ഡ് "
+"വൈഡ് പോര്‍ട്ട് നെയിം (WWPN), 64 ബിറ്റ് FCP LUN എന്നിവ ലഭ്യമാക്കേണ്ടതുണ്ട്."
 
-#: ../textw/partition_text.py:1687 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1690 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "iSCSI പരാമീറ്ററുകള്‍ ക്രമീകരിക്കുക"
 
-#: ../textw/partition_text.py:1688 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1691 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5481,15 +5506,17 @@ msgstr ""
 "സാധാരണ ഇന്‍റര്‍നെറ്റ് ഉപയോഗത്തിനുളള ഒരു സോഫ്റ്റ്‍വയറുകളുടെ കൂട്ടം %s-ന്‍റെ ഡീഫോള്‍ട്ട് ഇന്‍സ്റ്റലേഷനില്‍ "
 "അടങ്ങുന്നു.  നിങ്ങളുടെ കംപ്യൂട്ടറില്‍ ഇനി ഏതെല്ലാം പിന്തുണയാണ് നിങ്ങള്‍ ആഗ്രഹിക്കുന്നത്? "
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:30
+#: ../installclasses/fedora.py:21
 msgid "Office and Productivity"
 msgstr "ഓഫീസും ഉത്പാദനവും"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:31
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:32
+#: ../installclasses/rhel.py:111
 msgid "Software Development"
 msgstr "സോഫ്റ്റവയര്‍ ഡവലപ്പ്മെന്‍റ്"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:32
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:33
+#: ../installclasses/rhel.py:101
 msgid "Web server"
 msgstr "വെബ് സര്‍വര്‍"
 
@@ -5528,19 +5555,40 @@ msgstr ""
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: ../installclasses/rhel.py:34
+#: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
+#, fuzzy
+msgid "Virtualization"
+msgstr "അഭിനന്ദനങ്ങള്‍"
+
+#: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:39
 msgid "Installation Number"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ നന്പര്‍"
 
-#: ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
-"നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിരിക്കുന്ന പൂര്‍ണ്ണ പിന്തുണയുളള പാക്കേജുകള്‍ "
-"ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനായി, നിങ്ങളുടെ ഇന്‍സ്റ്റലേഷന്‍ നന്പര്‍ നല്‍കുക"
+"നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിരിക്കുന്ന പൂര്‍ണ്ണ പിന്തുണയുളള പാക്കേജുകള്‍ ഇന്‍സ്റ്റോള്‍ "
+"ചെയ്യുന്നതിനായി, നിങ്ങളുടെ ഇന്‍സ്റ്റലേഷന്‍ നന്പര്‍ നല്‍കുക"
 
-#: ../installclasses/rhel.py:38
+#: ../installclasses/rhel.py:43
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5553,16 +5601,15 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
-"നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷന്‍ നന്പര്‍ ലഭ്യമായില്ലായെങ്കില്‍, ദയവായി http://www."
-"redhat.com/apps/support/in.html സന്ദര്‍ശിക്കുക.\n"
+"നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷന്‍ നന്പര്‍ ലഭ്യമായില്ലായെങ്കില്‍, ദയവായി http://www.redhat.com/apps/"
+"support/in.html സന്ദര്‍ശിക്കുക.\n"
 "\n"
 "നിങ്ങള്‍ ഇത് ഉപേക്ഷിക്കുന്നു എങ്കില്‍:\n"
-"* നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിരിക്കുന്ന എല്ലാ പാക്കേജുകളില്‍ നിങ്ങള്‍ക്ക് "
-"പ്രവേശനം ലഭ്യമാകില്ല.\n"
-"* Red Hat Enterprise Linux-ന്‍റെ പിന്തുണ ലഭ്യമല്ലാത്ത ഇന്‍സ്റ്റലേഷന്‍ "
-"നടക്കുന്നു.\n"
-"* നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിട്ടില്ലാത്ത പാക്കേജുകള്‍ക്കുളള സോഫ്റ്റ്‍വെയര്‍, "
-"സുരക്ഷിത അപ്ഡേറ്റുകള്‍ ലഭ്യമാകില്ല."
+"* നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിരിക്കുന്ന എല്ലാ പാക്കേജുകളില്‍ നിങ്ങള്‍ക്ക് പ്രവേശനം "
+"ലഭ്യമാകില്ല.\n"
+"* Red Hat Enterprise Linux-ന്‍റെ പിന്തുണ ലഭ്യമല്ലാത്ത ഇന്‍സ്റ്റലേഷന്‍ നടക്കുന്നു.\n"
+"* നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷനില്‍ ഉല്‍പ്പെടുത്തിയിട്ടില്ലാത്ത പാക്കേജുകള്‍ക്കുളള സോഫ്റ്റ്‍വെയര്‍, സുരക്ഷിത "
+"അപ്ഡേറ്റുകള്‍ ലഭ്യമാകില്ല."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5707,7 +5754,8 @@ msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് സോഴ്സ്"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "ഒരു ഡ്രൈവര്‍ ഡിസ്കിന് ഉറവിടമായി അനേഘം ഡിവൈസുകള്‍ ലഭ്യമാണ്.  നിങ്ങള്‍ക്ക് ഇതില്‍ ഏത് ഉപയോഗിക്കണം?"
+msgstr ""
+"ഒരു ഡ്രൈവര്‍ ഡിസ്കിന് ഉറവിടമായി അനേഘം ഡിവൈസുകള്‍ ലഭ്യമാണ്.  നിങ്ങള്‍ക്ക് ഇതില്‍ ഏത് ഉപയോഗിക്കണം?"
 
 #: ../loader2/driverdisk.c:301
 msgid ""
@@ -5787,8 +5835,8 @@ msgstr "നിങ്ങള്‍ ഇനിയും ഡ്രൈവര്‍ ഡ
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1057 ../loader2/net.c:1509
-#: ../loader2/net.c:1532 ../loader2/nfsinstall.c:251
+#: ../loader2/kickstart.c:469 ../loader2/modules.c:1057 ../loader2/net.c:1558
+#: ../loader2/net.c:1581 ../loader2/nfsinstall.c:251
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
 #: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
@@ -5833,7 +5881,8 @@ msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ലോഡ് ചെയ
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "നിങ്ങള്‍ക്ക് സ്വയം ചേര്‍ക്കുന്നതിനായി ഡ്രൈവുകള്‍ ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കണമോ?"
+msgstr ""
+"നിങ്ങള്‍ക്ക് സ്വയം ചേര്‍ക്കുന്നതിനായി ഡ്രൈവുകള്‍ ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കണമോ?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5877,7 +5926,8 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "നിങ്ങളുടെ സിസ്റ്റമില്‍ ഹാര്‍ഡ് ഡ്രൈവുകള്‍ ലഭ്യമല്ല! നിങ്ങള്‍ക്ക് അഡീഷണല്‍ ഡിവൈസുകള്‍ ക്രമീകരിക്കണമോ?"
+msgstr ""
+"നിങ്ങളുടെ സിസ്റ്റമില്‍ ഹാര്‍ഡ് ഡ്രൈവുകള്‍ ലഭ്യമല്ല! നിങ്ങള്‍ക്ക് അഡീഷണല്‍ ഡിവൈസുകള്‍ ക്രമീകരിക്കണമോ?"
 
 #: ../loader2/hdinstall.c:281
 #, c-format
@@ -5944,7 +5994,18 @@ msgstr "കിക്ക് സ്റ്റാര്‍ട്ട് ഫയല്�
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ബൂട്ട് ഫ്ളോപ്പിയില്‍ ks.cfg ലഭ്യമല്ല."
 
-#: ../loader2/kickstart.c:417
+#: ../loader2/kickstart.c:339
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+
+#: ../loader2/kickstart.c:348
+#, fuzzy
+msgid "Error downloading kickstart file"
+msgstr "കിക്ക് സ്റ്റാര്‍ട്ട് ഫയല്‍ %s തുറക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../loader2/kickstart.c:470
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "കിക്ക് സ്റ്റാര്‍ട്ട് കമാന്‍ഡ് %s അടച്ചു പൂട്ടുന്നതിനുളള ആര്‍ഗ്യുമെന്‍റ് തെറ്റാണ്: %s"
@@ -5954,31 +6015,33 @@ msgstr "കിക്ക് സ്റ്റാര്‍ട്ട് കമാന�
 msgid "Welcome to %s - Rescue Mode"
 msgstr "%s-ലേക്ക് സ്വാഗതം - റെസ്ക്യൂ മോഡ്"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:160
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+#: ../loader2/lang.c:57 ../loader2/loader.c:161
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
 msgstr "ഒരു ഭാഷ തിരഞ്ഞെടുക്കുക"
 
-#: ../loader2/loader.c:119
+#: ../loader2/loader.c:120
 msgid "Local CDROM"
 msgstr "ലോക്കല്‍ CDROM"
 
-#: ../loader2/loader.c:121
+#: ../loader2/loader.c:122
 msgid "Hard drive"
 msgstr "ഹാര്‍ഡ് ഡ്രൈവ്"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:123
 msgid "NFS image"
 msgstr "NFS ഇമേജ്"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:333
 msgid "Update Disk Source"
 msgstr "ഡിസ്കിന്‍റെ ഉറവിടം പുതുക്കുക"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:334
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5986,28 +6049,29 @@ msgstr ""
 "ഒരു അപ്ഡേറ്റ് ഡിസ്കിന് ഉറവിടമായി നിങ്ങള്‍ക്ക് അനവധി ഡിവൈസുകള്‍ ലഭ്യമാണ്.  നിങ്ങള്‍ക്ക് ഇവയില്‍ ഏതാണ് "
 "ഉപയോഗിക്കേണ്ടത്?"
 
-#: ../loader2/loader.c:348
+#: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "നിങ്ങളുടെ അപ്ഡേറ്റുകള്‍ ഉളള ഡിസ്ക് /dev/%s-ലേക്ക് ഇടുക. തുടരുന്നതിനായി \"ശരി\" അമര്‍ത്തുക."
+msgstr ""
+"നിങ്ങളുടെ അപ്ഡേറ്റുകള്‍ ഉളള ഡിസ്ക് /dev/%s-ലേക്ക് ഇടുക. തുടരുന്നതിനായി \"ശരി\" അമര്‍ത്തുക."
 
-#: ../loader2/loader.c:350
+#: ../loader2/loader.c:351
 msgid "Updates Disk"
 msgstr "ഡിസ്ക്ക് അപ്ഡേറ്റ് ചെയ്യുക"
 
-#: ../loader2/loader.c:362
+#: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
 msgstr "അപ്ഡേറ്റുകളുടെ ഡിസ്ക് മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Updates"
 msgstr "അപ്ഡേറ്റുകള്‍"
 
-#: ../loader2/loader.c:365
+#: ../loader2/loader.c:366
 msgid "Reading anaconda updates..."
 msgstr "anaconda-യില്‍ വന്ന മാറ്റങ്ങള്‍ വായിക്കുന്നു..."
 
-#: ../loader2/loader.c:405
+#: ../loader2/loader.c:406
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6016,40 +6080,40 @@ msgstr ""
 "ഹാര്‍ഡ് ഡ്രൈവുകള്‍ ലഭ്യമല്ല.  ഇന്‍സ്റ്റലേഷനുമായി വിജയകരമായി മുന്പോട്ട് പോകുന്നതിന് നിങ്ങള്‍ സ്വയം "
 "ഡിവൈസ് ഡ്രൈവറുകള്‍ തിരഞ്ഞെടുക്കേണ്ടതാണ്.  നിങ്ങള്‍ക്ക് അവ ഇപ്പോള്‍ തിരഞ്ഞെടുക്കണമോ?"
 
-#: ../loader2/loader.c:802
+#: ../loader2/loader.c:823
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ഈ കംപ്യൂട്ടറില്‍ %s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിന് ആവശ്യമുളള RAM നിങ്ങള്‍ക്ക് ലഭ്യമല്ല."
 
-#: ../loader2/loader.c:960
+#: ../loader2/loader.c:981
 msgid "Rescue Method"
 msgstr "റെസ്ക്യൂ മെഥേഡ്"
 
-#: ../loader2/loader.c:961
+#: ../loader2/loader.c:982
 msgid "Installation Method"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ മെഥേഡ്"
 
-#: ../loader2/loader.c:963
+#: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
 msgstr "റെസ്ക്യൂ ഇമേജ് ഏത് തരത്തിലുളള മീഡിയായില്‍ ലഭ്യമാണ്?"
 
-#: ../loader2/loader.c:965
+#: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
 msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാനുളള പാക്കേജുകള്‍ ഏത് തരത്തിലുളള മീഡിയായില്‍ ലഭ്യമാണ്?"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "No driver found"
 msgstr "ഡ്രൈവര്‍ ലഭ്യമല്ല"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:1011
 msgid "Select driver"
 msgstr "ഡ്രൈവര്‍ തിരഞ്ഞെടുക്കുക"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1012
 msgid "Use a driver disk"
 msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ഉപയോഗിക്കുക"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:1013
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6057,11 +6121,11 @@ msgstr ""
 "ഈ ഇന്‍സ്റ്റലേഷന്‍ രീതിയ്ക്ക് ആവശ്യമുളള തരത്തിലുളള ഒരു ഡിവൈസുകളും ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് നിങ്ങളുടെ "
 "ഡ്രൈവര്‍ തനിയേ തിരഞ്ഞെടുക്കുകയോ ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കുകയോ ചെയ്യണമോ?"
 
-#: ../loader2/loader.c:1155
+#: ../loader2/loader.c:1176
 msgid "The following devices have been found on your system."
 msgstr "ഇവയാണ് നിങ്ങളുടെ സിസ്റ്റത്തില്‍ ലഭ്യമായ ഡിവൈസുകള്‍."
 
-#: ../loader2/loader.c:1157
+#: ../loader2/loader.c:1178
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6069,29 +6133,29 @@ msgstr ""
 "നിങ്ങളുടെ സിസ്റ്റത്തിന് ആവശ്യമുളള ഡിവൈസ് ഡ്രൈവറുകള്‍ ലോഡ് ചെയ്തിട്ടില്ല. നിങ്ങള്‍ക്ക് അവ ഏതേലും "
 "ഇപ്പോള്‍ ലോഡ് ചെയ്യണമോ?"
 
-#: ../loader2/loader.c:1161
+#: ../loader2/loader.c:1182
 msgid "Devices"
 msgstr "ഡിവൈസുകള്‍"
 
-#: ../loader2/loader.c:1162
+#: ../loader2/loader.c:1183
 msgid "Done"
 msgstr "ചെയ്ത് കഴിഞ്ഞിരിക്കുന്നു"
 
-#: ../loader2/loader.c:1163
+#: ../loader2/loader.c:1184
 msgid "Add Device"
 msgstr "ഡിവൈസ് ചേര്‍ക്കുക"
 
-#: ../loader2/loader.c:1371
+#: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ലോഡര്‍ പ്രവര്‍ത്തനത്തിലാണ്.  ഷെല്‍ ആരംഭിക്കുന്നു.\n"
 
-#: ../loader2/loader.c:1758
+#: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "%s റെസ്ക്യൂ മോഡ് ആയ anaconda പ്രവര്‍ത്തിക്കുന്നു - ദയവായി കാത്തിരിക്കൂ....   \n"
 
-#: ../loader2/loader.c:1760
+#: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "%s സിസ്റ്റം ഇന്‍സ്റ്റോളര്‍ ആയ anaconda പ്രവര്‍ത്തിക്കുന്നു - ദയവായി കാത്തിരിക്കൂ....   \n"
@@ -6196,7 +6260,7 @@ msgstr "ചെക്ക്സം ടെസ്റ്റ്"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "ഡിവൈസ് കിക്ക് സറ്റാര്‍ട്ട് മാര്‍ഗ്ഗത്തിനുളള കമാന്‍ഡ് %s-ന് തെറ്റായ ആര്‍ഗ്യുമെന്‍റ്: %s"
 
-#: ../loader2/net.c:63
+#: ../loader2/net.c:57
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6211,7 +6275,7 @@ msgstr ""
 "    o നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ ആര്‍ക്കിറ്റെക്ചറിന്\n"
 "      ആവശ്യമുളള %s ഉളള ഡയറക്ടറി\n"
 
-#: ../loader2/net.c:98
+#: ../loader2/net.c:92
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6219,7 +6283,7 @@ msgstr ""
 "IPv4 നെറ്റ്‍വര്‍ക്കള്‍ക്കുളള പ്രിഫിക്സ് 1-നും 32-നും മദ്ധ്യത്തിലും IPv6 നെറ്റ്‍വര്‍ക്കള്‍ 1-നും 128-നും "
 "മദ്ധ്യത്തിലും ആയിരിക്കേണ്ടതാണ്."
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:248
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6230,144 +6294,136 @@ msgstr ""
 "പ്രവേശിക്കുന്നതിനായി, ദയവായി ESSID-യും എന്‍ക്രിപ്ഷന്‍ കീയും നല്‍കുക.  കീ ആവശ്യമില്ലായെങ്കില്‍, ഈ "
 "ഫീള്‍ഡില്‍ ഒന്നും എഴുതേണ്ട, ഇന്‍സ്റ്റലേഷന്‍ തുടരുന്നുതാണ്."
 
-#: ../loader2/net.c:238
+#: ../loader2/net.c:254
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:239
+#: ../loader2/net.c:255
 msgid "Encryption Key"
 msgstr "എന്‍ക്രിപ്ഷന്‍ കീ"
 
-#: ../loader2/net.c:242
+#: ../loader2/net.c:258
 msgid "Wireless Settings"
 msgstr "വൈര്‍ലസ്സ് സെറ്റിംങുകള്‍"
 
-#: ../loader2/net.c:273
+#: ../loader2/net.c:289
 msgid "Nameserver IP"
 msgstr "നെയിംസര്‍വര്‍ IP"
 
-#: ../loader2/net.c:278
+#: ../loader2/net.c:293
+#, fuzzy
+msgid "Missing Nameserver"
+msgstr "നെയിംസര്‍വര്‍"
+
+#: ../loader2/net.c:294
+#, fuzzy
 msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 msgstr ""
 "നിങ്ങള്‍ ഡൈനമിക് IP ആവശ്യപ്പെട്ടതിന് മറുപടി ആയി IP ക്രമീകരണം സംബന്ധിച്ചുളള വിവരങ്ങള്‍ "
 "ലഭ്യമായി, പക്ഷേ അതില്‍ DNS നെയിം സര്‍വര്‍ അടങ്ങുന്നില്ല. നിങ്ങള്‍ക്ക് നെയിം സര്‍വര്‍ ഏത് എന്ന് "
 "അറിയാമെങ്കില്‍, ദയവായി അത് ഇവിടെ നല്‍കുക. നിങ്ങള്‍ക്ക് അറിയില്ല എന്നുണ്ടെങ്കില്‍, ഈ ഫീള്‍ഡ് "
 "ശൂന്യമാക്കി ഇടുക, ഇന്‍സ്റ്റലേഷന്‍ തുടരുന്നതമാണ്."
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:316
 msgid "Invalid IP Information"
 msgstr "തെറ്റായ IP വിവരം"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:317
 msgid "You entered an invalid IP address."
 msgstr "തെറ്റായ IP അഡ്രസ്സ് ആണ് നിങ്ങള്‍ എന്‍റര്‍ ചെയ്തിരിക്കുന്നത്."
 
-#: ../loader2/net.c:542 ../loader2/net.c:653
+#: ../loader2/net.c:563 ../loader2/net.c:671
 msgid "Network Error"
 msgstr "നെറ്റ്‍വര്‍ക്ക് പിശക്"
 
-#: ../loader2/net.c:543 ../loader2/net.c:654
+#: ../loader2/net.c:564 ../loader2/net.c:672
 msgid "There was an error configuring your network interface."
 msgstr "നിങ്ങളുടെ നെറ്റ്‍വര്‍ക്കിനുളള സംയോജക ഘടകം ക്രമീകരിക്കുന്നതില്‍ പിശക്."
 
-#: ../loader2/net.c:718
-msgid "Avoid unwanted packet collisions"
-msgstr "ആവശ്യമില്ലാത്ത പാക്കറ്റുകളുടെ കൊളീഷന്‍ അവഗണിക്കുക"
-
-#: ../loader2/net.c:720
-msgid "Maximize register values for high speed network traffic"
-msgstr "വേഗത കൂടിയ നെറ്റ്‍വര്‍ക്ക് ട്രാഫിക്കിനുളള രജിസ്ടര്‍ മൂല്ല്യങ്ങള്‍ ഏറ്റവും വലുതാക്കുക"
-
-#: ../loader2/net.c:756
+#: ../loader2/net.c:745
 msgid "Configure TCP/IP"
 msgstr "TCP/IP കോണ്‍ഫിഗര്‍ ചെയ്യുക"
 
-#: ../loader2/net.c:770
+#: ../loader2/net.c:772
+#, fuzzy
+msgid "You must select at least one protocol (IPv4 or IPv6)."
+msgstr ""
+"DHCP-യ്ക്ക് വേണ്ടി നിങ്ങള്‍ ഒരു സന്പ്രദായം (IPv4 or IPv6) എങ്കിലും തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്."
+
+#: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
 msgstr "NFS-ന് ആവശ്യമുളള IPv4"
 
-#: ../loader2/net.c:771
+#: ../loader2/net.c:780
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ഇന്‍സ്റ്റലേഷന്‍ രീതിയ്ക്ക് IPv4 പിന്തുണ ആവശ്യമുണ്ട്."
 
-#: ../loader2/net.c:778
-msgid ""
-"You must select at least one protocol (IPv4 or IPv6) for manual "
-"configuration."
-msgstr ""
-"നിങ്ങള്‍ക്ക് സ്വയം സജ്ജീകരിക്കുന്നതിന് വേണ്ടി ഒരു സന്പ്രദായം (IPv4 or IPv6) എങ്കിലും "
-"തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്."
-
-#: ../loader2/net.c:788
-msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "DHCP-യ്ക്ക് വേണ്ടി നിങ്ങള്‍ ഒരു സന്പ്രദായം (IPv4 or IPv6) എങ്കിലും തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്."
-
-#: ../loader2/net.c:859
+#: ../loader2/net.c:900
 msgid "IPv4 address:"
 msgstr "IPv4 അഡ്രസ്സ്:"
 
-#: ../loader2/net.c:871 ../loader2/net.c:923 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:912 ../loader2/net.c:964 tmp/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:911
+#: ../loader2/net.c:952
 msgid "IPv6 address:"
 msgstr "IPv6 അഡ്രസ്സ്:"
 
-#: ../loader2/net.c:972
+#: ../loader2/net.c:1013
 msgid "Name Server:"
 msgstr "നെയിം സര്‍വര്‍:"
 
-#: ../loader2/net.c:1008
+#: ../loader2/net.c:1049
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
-"IPv4, IPv6 വിലാസങ്ങളും(രണ്ടും അല്ലെങ്കില്‍ അതില്‍ ഒന്ന്) പ്രിഫിക്സം നല്‍കുക (വിലാസം "
-"/ പ്രിഫിക്സ്).  IPv4-ന് ഡോട്ടഡ്-ക്വാഡ് നെറ്റ്മാസ്ക് അല്ലെങ്കില്‍ CIDR-രീതിയിലുളള പ്രിഫിക്സ് "
-"അംഗീകരിക്കുന്നു.ഗേറ്റ് വേയും നെയിം സര്‍വര്‍ ഫീള്‍ഡുകളും ശരിയായ IPv4 അല്ലെങ്കില്‍ IPv6 "
-"വിലാസങ്ങള്‍ ആയിരിക്കണം."
+"IPv4, IPv6 വിലാസങ്ങളും(രണ്ടും അല്ലെങ്കില്‍ അതില്‍ ഒന്ന്) പ്രിഫിക്സം നല്‍കുക (വിലാസം / "
+"പ്രിഫിക്സ്).  IPv4-ന് ഡോട്ടഡ്-ക്വാഡ് നെറ്റ്മാസ്ക് അല്ലെങ്കില്‍ CIDR-രീതിയിലുളള പ്രിഫിക്സ് "
+"അംഗീകരിക്കുന്നു.ഗേറ്റ് വേയും നെയിം സര്‍വര്‍ ഫീള്‍ഡുകളും ശരിയായ IPv4 അല്ലെങ്കില്‍ IPv6 വിലാസങ്ങള്‍ "
+"ആയിരിക്കണം."
 
-#: ../loader2/net.c:1024
+#: ../loader2/net.c:1065
 msgid "Manual TCP/IP Configuration"
 msgstr "മാനുവല്‍ TCP/IP കോണ്‍ഫിഗറേഷന്‍"
 
-#: ../loader2/net.c:1147 ../loader2/net.c:1153
+#: ../loader2/net.c:1185 ../loader2/net.c:1191
 msgid "Missing Information"
 msgstr "ലഭ്യമല്ലാത്ത വിവരം"
 
-#: ../loader2/net.c:1148
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1186
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "നിങ്ങള്‍ ശരിയായ IPv4 അഡ്രസ്സും നെറ്റ്‍വര്‍ക്ക് മാസ്കും CIDR പ്രിഫിക്സും നല്‍കേണ്ടതാണ്."
 
-#: ../loader2/net.c:1154
+#: ../loader2/net.c:1192
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "നിങ്ങള്‍ ശരിയായ IPv4 അഡ്രസ്സും ഒരു CIDR പ്രിഫിക്സും നല്‍കേണ്ടതാണ്. "
 
-#: ../loader2/net.c:1418
+#: ../loader2/net.c:1467
 msgid "Determining host name and domain..."
 msgstr "ഡൊമൈനും ഹോസ്റ്റ്നെയിമും കണ്ടുപിടിക്കുന്നു..."
 
-#: ../loader2/net.c:1510
+#: ../loader2/net.c:1559
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "നെറ്റ്‍വര്‍ക്ക് കമാന്‍ഡ് %s കിക്ക് സ്റ്റാര്‍ട്ട് ചെയ്യുന്നതിനായി തെറ്റായ ആര്‍ഗ്യുമെന്‍റ്: %s"
 
-#: ../loader2/net.c:1533
+#: ../loader2/net.c:1582
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "നെറ്റ്‍വര്‍ക്ക് കമാന്‍ഡില്‍ തെറ്റായ bootproto %s പറഞ്ഞിരിക്കുന്നു"
 
-#: ../loader2/net.c:1704
+#: ../loader2/net.c:1753
 msgid "Networking Device"
 msgstr "നെറ്റ്വര്‍ക്കിങ് ഡിവൈസ്"
 
-#: ../loader2/net.c:1705
+#: ../loader2/net.c:1754
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6788,7 +6844,8 @@ msgstr "അറ്റലാന്‍റിക്ക് സമയം - നോവ �
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "അറ്റലാന്‍റിക്ക് സമയം - നോവ സ്ക്കോട്ടിയ - DST 1966-1971 നിരീക്ഷിച്ചിട്ടില്ലാത്ത സ്ഥലങ്ങള്‍"
+msgstr ""
+"അറ്റലാന്‍റിക്ക് സമയം - നോവ സ്ക്കോട്ടിയ - DST 1966-1971 നിരീക്ഷിച്ചിട്ടില്ലാത്ത സ്ഥലങ്ങള്‍"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6858,7 +6915,8 @@ msgstr "സെന്‍ട്രല്‍ സമയം - കൊഹുയില, 
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr "സെന്‍ട്രല്‍ സമയം - ഇന്ത്യാന - ഡേവിയസ്, നോക്സ്, മാര്‍ട്ടിന്‍, പെറി പുലാസ്ക്കി കൌക് കൌണ്‍ട്ടികള്‍"
+msgstr ""
+"സെന്‍ട്രല്‍ സമയം - ഇന്ത്യാന - ഡേവിയസ്, നോക്സ്, മാര്‍ട്ടിന്‍, പെറി പുലാസ്ക്കി കൌക് കൌണ്‍ട്ടികള്‍"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6981,8 +7039,10 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "കിഴക്കന്‍ സമയം - ഒണ്‍റ്റാരിയോ - മിക്ക സ്ഥലങ്ങളും"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "കിഴക്കന്‍ സമയം - ഒണ്‍റ്റാരിയോയും ക്യൂബിക്കും - DST 1967-1973 നിരീക്ഷിച്ചിട്ടില്ലാത്ത സ്ഥലങ്ങള്‍"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+"കിഴക്കന്‍ സമയം - ഒണ്‍റ്റാരിയോയും ക്യൂബിക്കും - DST 1967-1973 നിരീക്ഷിച്ചിട്ടില്ലാത്ത സ്ഥലങ്ങള്‍"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7177,7 +7237,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "മൌണ്‍ടന്‍ സ്റ്റാന്‍ഡേര്‍ഡ് സമയം - അറിസോണ"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "മൌണ്‍ടന്‍ സ്റ്റാന്‍ഡേര്‍ഡ് സമയം - ഡോസണ്‍ ക്രീക്കും ഫോര്‍ട്ട് സെന്‍റ് ജോണും, ബ്രിട്ടീഷ് കൊളംബിയ"
 
 #. generated from zone.tab
@@ -7628,3 +7689,15 @@ msgstr "വെല്‍ഷ്"
 msgid "Zulu"
 msgstr "സുളു"
 
+#~ msgid "Avoid unwanted packet collisions"
+#~ msgstr "ആവശ്യമില്ലാത്ത പാക്കറ്റുകളുടെ കൊളീഷന്‍ അവഗണിക്കുക"
+
+#~ msgid "Maximize register values for high speed network traffic"
+#~ msgstr "വേഗത കൂടിയ നെറ്റ്‍വര്‍ക്ക് ട്രാഫിക്കിനുളള രജിസ്ടര്‍ മൂല്ല്യങ്ങള്‍ ഏറ്റവും വലുതാക്കുക"
+
+#~ msgid ""
+#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
+#~ "configuration."
+#~ msgstr ""
+#~ "നിങ്ങള്‍ക്ക് സ്വയം സജ്ജീകരിക്കുന്നതിന് വേണ്ടി ഒരു സന്പ്രദായം (IPv4 or IPv6) എങ്കിലും "
+#~ "തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്."
