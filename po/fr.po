@@ -1,9 +1,9 @@
+# translation of anaconda.po to Français
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
-# translation of fr.po to French
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
@@ -22,18 +22,19 @@
 # Thomas Canniot <thomas.canniot@laposte.net>, 2006.
 # Damien Durand <splinux@fedoraproject.org>, 2006.
 # Decroux Fabien <fdecroux@redhat.com>, 2006.
+# Alain PORTAL <aportal@univ-montp2.fr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-02 10:27+1000\n"
-"Last-Translator: Decroux Fabien <fdecroux@redhat.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2006-11-27 23:04+0100\n"
+"Last-Translator: Alain PORTAL <aportal@univ-montp2.fr>\n"
+"Language-Team: Français <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -47,6 +48,7 @@ msgstr ""
 "kickstart : %s !"
 
 #: ../anaconda:412
+#, fuzzy
 msgid "Press <enter> for a shell"
 msgstr "Appuyez sur <Entrée> pour ouvrir un shell"
 
@@ -104,6 +106,7 @@ msgid "No video hardware found, assuming headless"
 msgstr "Aucun matériel vidéo détecté, configuration sans écran"
 
 #: ../anaconda:473 ../anaconda:886
+#, fuzzy
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Une instance objet du statut matériel de X ne peut pas être créée."
 
@@ -180,12 +183,13 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 "La partition boot %s ne fait pas partie d'une étiquette de disque BSD. SRM "
-"ne pourra pas démarrer à partir de cette partition. Utiliser une partition "
-"appartenant à une étiquette de disque BSD ou changer l'étiquette du disque "
+"ne pourra pas démarrer à partir de cette partition. Utilisez une partition "
+"appartenant à une étiquette de disque BSD ou modifiez l'étiquette du disque "
 "du périphérique à BSD."
 
 #: ../autopart.py:1021
 #, python-format
+#, fuzzy
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
@@ -215,8 +219,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partition boot %s pourrait ne pas avoir les caractéristiques requises par "
 "votre architecture."
@@ -247,7 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Le périphérique Raid demandé n'existe pas"
+msgstr "Le périphérique RAID demandé n'existe pas"
 
 #: ../autopart.py:1272
 #, python-format
@@ -256,7 +259,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Impossible de trouver le périphérique raid %s à utiliser pour %s.\n"
+"Impossible de trouver le périphérique RAID %s à utiliser pour %s.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -359,7 +362,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Appuyez sur OK pour choisir une option de partitionnement différente. "
+"Appuyez sur OK pour choisir une option de partitionnement différente."
 
 #: ../autopart.py:1503
 #, python-format
@@ -380,11 +383,11 @@ msgstr ""
 
 #: ../autopart.py:1514
 msgid "Unrecoverable Error"
-msgstr "Erreur irrémédiable"
+msgstr "Erreur irréparable"
 
 #: ../autopart.py:1515
 msgid "Your system will now be rebooted."
-msgstr "Votre système sera maintenant redémarré."
+msgstr "Votre système va maintenant être redémarré."
 
 #: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
@@ -444,9 +447,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Vous avez choisi de supprimer toutes les partitions (TOUTES LES DONNÉES) "
+"Vous avez choisi de supprimer toutes les partitions (et TOUTES LEURS DONNÉES) "
 "contenues dans les disques suivants : %s\n"
-"Souhaitez-vous continuer ?"
+"Êtes-vous certain de vouloir continuer ?"
 
 #: ../autopart.py:1692
 #, python-format
@@ -457,7 +460,7 @@ msgid ""
 msgstr ""
 "Vous avez choisi de supprimer toutes les partitions Linux (et TOUTES LEURS "
 "DONNÉES) contenues dans les disques suivants : %s\n"
-"Souhaitez-vous continuer ?"
+"Êtes-vous certain de vouloir continuer ?"
 
 #: ../backend.py:97
 #, python-format
@@ -506,13 +509,13 @@ msgstr ""
 "%s"
 
 #: ../cmdline.py:81
+#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "Impossible d'avoir une question en mode de ligne de commande !"
 
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Le mode de ligne de commande ne peut pas traiter les exceptions parted !"
+msgstr "Le mode de ligne de commande ne peut pas traiter les exceptions parted !"
 
 #: ../cmdline.py:145
 #, python-format
@@ -571,8 +574,8 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"L'état de votre système a été copié sur l'hôte distant avec succès.  Votre "
-"système va maintenant redémarrer."
+"L'état de votre système a été copié sur l'hôte distant avec succès. Votre "
+"système va maintenant être redémarré."
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
@@ -634,9 +637,10 @@ msgstr "Périphérique RAID"
 
 #: ../fsset.py:1337 ../fsset.py:1343
 msgid "Apple Bootstrap"
-msgstr "Apple Bootstrap"
+msgstr "Amorce Apple"
 
 #: ../fsset.py:1348 ../partitions.py:900
+#, fuzzy
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
@@ -745,9 +749,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Choisissez Ignorer si vous souhaitez que le programme d'installation ignore "
-"cette partition durant la mise à jour. Choisissez Formater pour formater la "
-"partition en un espace swap. Choisissez Redémarrer pour redémarrer le "
+"Choisissez « Ignorer » si vous souhaitez que le programme d'installation ignore "
+"cette partition durant la mise à jour. Choisissez « Formater » pour formater la "
+"partition en un espace swap. Choisissez « Redémarrer » pour redémarrer le "
 "système."
 
 #: ../fsset.py:1511 ../iw/partition_gui.py:368
@@ -794,7 +798,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"De mauvais blocs ont été détectés sur le périphérique /dev/%s. Nous vous "
+"Des blocs défectueux ont été détectés sur le périphérique /dev/%s. Nous vous "
 "déconseillons l'utilisation de ce périphérique.\n"
 "\n"
 "Appuyez sur <Entrée> pour redémarrer le système."
@@ -879,7 +883,7 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
-"Une erreure s'est produite lors du montage du périphérique %s comme %s. Vous "
+"Une erreur s'est produite lors du montage du périphérique %s comme %s. Vous "
 "pouvez poursuivre l'installation, cependant des problèmes pourraient en "
 "résulter."
 
@@ -913,7 +917,7 @@ msgid ""
 msgstr ""
 "Erreur lors de la localisation de l'entrée /.\n"
 "\n"
-"Cela signifie probablement que les info de fstab ne sont pas correctes.\n"
+"Cela signifie probablement que les informations de fstab ne sont pas correctes.\n"
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
@@ -946,7 +950,7 @@ msgstr "Formatage du système de fichiers %s..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
-msgstr "Une erreur s'est produite lors de la copie de la capture d'image."
+msgstr "Une erreur s'est produite lors de la copie de la capture d'écran."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
@@ -960,21 +964,21 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"Les captures d'écrans on été enregistrées dans le répertoire :\n"
+"Les captures d'écrans ont été enregistrées dans le répertoire :\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
 "Vous pouvez y accéder en redémarrant votre système et vous connectant en "
-"tant que super-utilisateur."
+"tant que superutilisateur."
 
 #: ../gui.py:160
 msgid "Saving Screenshot"
-msgstr "Enregistrement des captures d'écran en cours"
+msgstr "Enregistrement des captures d'écran"
 
 #: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Une capture d'écran intitulée « %s » a été enregistrée. "
+msgstr "Une capture d'écran intitulée « %s » a été enregistrée."
 
 #: ../gui.py:164
 msgid "Error Saving Screenshot"
@@ -991,7 +995,7 @@ msgstr ""
 
 #: ../gui.py:230 ../text.py:391
 msgid "Fix"
-msgstr "Fixer"
+msgstr "Corriger"
 
 #: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
@@ -1028,6 +1032,7 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: ../gui.py:843 ../text.py:356
+#, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "Erreur d'analyse du fichier kickstart"
 
@@ -1036,12 +1041,12 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Veuillez insérer une disquette. Tout le contenu du disque va être effacé, "
-"choisissez donc soigneusement votre disquette."
+"Veuillez insérer une disquette. Tout son contenu sera effacé, "
+"choisissez donc la soigneusement."
 
 #: ../gui.py:898
 msgid "default:LTR"
-msgstr "Par défaut:LTR"
+msgstr "Par défaut : LTR"
 
 #: ../gui.py:982
 msgid "Error!"
@@ -1073,7 +1078,7 @@ msgstr "Le programme d'installation va maintenant se terminer..."
 
 #: ../gui.py:995 ../packages.py:297
 msgid "Your system will now be rebooted..."
-msgstr "Votre système sera maintenant redémarré..."
+msgstr "Votre système va être maintenant redémarré..."
 
 #: ../gui.py:998 ../packages.py:299
 msgid "Rebooting System"
@@ -1086,7 +1091,7 @@ msgstr "Programme d'installation %s"
 
 #: ../gui.py:1069
 msgid "Unable to load title bar"
-msgstr "Impossible de charger la barre du titre !"
+msgstr "Impossible de charger la barre de titre !"
 
 #: ../gui.py:1118
 msgid "Install Window"
@@ -1104,11 +1109,11 @@ msgid ""
 "\n"
 msgstr ""
 "Le fichier %s ne peut pas être ouvert. Cela est dû à un fichier manquant ou "
-"peut-être à un paquetage corrompu.  Si vous effectuez l'installation à "
+"peut-être à un paquetage corrompu. Si vous effectuez l'installation à "
 "partir un CD-ROM, cela signifie en général que le CD-ROM est corrompu ou que "
 "le lecteur de CD-ROM ne peut pas lire le disque.\n"
 "\n"
-"Si vous redémarrez, votre système sera peut être dans un état de corruption "
+"Si vous redémarrez, votre système sera peut-être inutilisable "
 "et devra être probablement ré-installé.\n"
 "\n"
 
@@ -1128,8 +1133,8 @@ msgstr ""
 "Le programme d'installation a essayé de monter l'image #%s, mais ne peut pas "
 "la trouver sur le disque dur.\n"
 "\n"
-"Copiez cette image sur le disque et cliquez sur Réessayer. Cliquez sur "
-"Redémarrer pour annuler l'installation."
+"Copiez cette image sur le disque et cliquez sur « Réessayer ». Cliquez sur "
+"« Redémarrer » pour annuler l'installation."
 
 #: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
@@ -1137,7 +1142,7 @@ msgstr "_Réessayer"
 
 #: ../image.py:82
 msgid "Required Install Media"
-msgstr "Support d'installation nécessaire"
+msgstr "Medium d'installation nécessaire"
 
 #: ../image.py:83
 #, python-format
@@ -1163,6 +1168,7 @@ msgstr "Précé_dent"
 
 #: ../image.py:134
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
@@ -1177,7 +1183,7 @@ msgstr "Copie du fichier"
 
 #: ../image.py:165
 msgid "Transferring install image to hard drive..."
-msgstr "Transfert de l'image d'installation sur le disque dur."
+msgstr "Transfert de l'image d'installation sur le disque dur..."
 
 #: ../image.py:175
 msgid ""
@@ -1193,8 +1199,9 @@ msgstr "Changer de CD-ROM"
 
 #: ../image.py:265
 #, python-format
+#, fuzzy
 msgid "Please insert %s disc %d to continue."
-msgstr "Insérer le CD-ROM %s # %d pour continuer."
+msgstr "Insérez le CD-ROM %s # %d pour continuer."
 
 #: ../image.py:300
 msgid "Wrong CDROM"
@@ -1211,6 +1218,7 @@ msgstr "Impossible d'accéder au CD-ROM."
 
 #: ../image.py:360
 #, python-format
+#, fuzzy
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1224,7 +1232,7 @@ msgstr ""
 "peut-être à un paquetage corrompu. Vérifiez que votre support d'installation "
 "contient tous les paquetages nécessaires\n"
 "\n"
-"Si vous redémarrez, votre système sera peut être corrompu et devra "
+"Si vous redémarrez, votre système sera peut-être corrompu et devra "
 "probablement être ré-installé.\n"
 "\n"
 
@@ -1241,13 +1249,14 @@ msgstr ""
 "la trouver sur le serveur.\n"
 "\n"
 "Copiez cette image sur le chemin de partage du serveur distant et cliquez "
-"sur Réessayer. Cliquez sur Redémarrer pour annuler l'installation."
+"sur « Réessayer ». Cliquez sur « Redémarrer » pour annuler l'installation."
 
 #: ../installclass.py:64
 msgid "Install on System"
 msgstr "Installer sur le système"
 
 #: ../iscsi.py:126 ../iscsi.py:127
+#, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "Initialisation iSCSI"
 
@@ -1275,11 +1284,11 @@ msgstr "En cours..."
 
 #: ../kickstart.py:765
 msgid "Running pre-install scripts"
-msgstr "Exécution des scripts avant l'installation"
+msgstr "Exécution des scripts de préinstallation"
 
 #: ../kickstart.py:783
 msgid "Running post-install scripts"
-msgstr "Exécution des scripts après l'installation"
+msgstr "Exécution des scripts de postinstallation"
 
 #: ../kickstart.py:926
 msgid "Missing Package"
@@ -1330,7 +1339,7 @@ msgstr ""
 
 #: ../network.py:89
 msgid "IP Address is missing."
-msgstr "Adresse IP manquante. "
+msgstr "Adresse IP manquante."
 
 #: ../network.py:93
 msgid ""
@@ -1343,7 +1352,7 @@ msgstr ""
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "'%s' n'est pas une adresse IPv6 valide."
+msgstr "« %s » n'est pas une adresse IPv6 valide."
 
 #: ../packages.py:241
 #, python-format
@@ -1352,11 +1361,11 @@ msgstr "Veuillez indiquer une clé d'enregistrement pour votre version de %s."
 
 #: ../packages.py:245
 msgid "Enter Registration Key"
-msgstr "Saisissez votre clé d'enregistrement "
+msgstr "Saisissez votre clé d'enregistrement"
 
 #: ../packages.py:246
 msgid "Key:"
-msgstr "Clé : "
+msgstr "Clé :"
 
 #: ../packages.py:276
 msgid "Warning! This is pre-release software!"
@@ -1377,7 +1386,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Merci d'avoir téléchargé cette version béta de %s.\n"
+"Merci d'avoir téléchargé cette version beta de %s.\n"
 "\n"
 "Il ne s'agit pas d'une version finale et elle n'est pas destinée à être "
 "utilisée dans des systèmes de production. L'objectif de cette version est de "
@@ -1389,11 +1398,11 @@ msgstr ""
 "\n"
 "    %s\n"
 "\n"
-"et rédigez un rapport de sous « %s ».\n"
+"et rédigez un rapport sous « %s ».\n"
 
 #: ../packages.py:290
 msgid "_Install anyway"
-msgstr "_Installer "
+msgstr "_Installer malgré tout"
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
@@ -1419,6 +1428,7 @@ msgstr ""
 
 #: ../partedUtils.py:335
 #, python-format
+#, fuzzy
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1426,9 +1436,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"/dev/%s possède actuellement une structure de partitions %s. Afin d'utiliser "
+"/dev/%s possède actuellement une structure de partition %s. Afin d'utiliser "
 "ce disque pour l'installation de %s, celui-ci doit être ré-initialisé, ce "
-"qui provoquera la perte de TOUTES LES DONNÉES sur ce disque.\n"
+"qui provoquera la perte de TOUTES LES DONNÉES du disque.\n"
 "\n"
 "Souhaitez-vous formater ce disque ?"
 
@@ -1504,7 +1514,7 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Une erreur s'est produite - aucun périphérique valide sur lequel créer de "
+"Une erreur s'est produite. Aucun périphérique valide sur lequel créer de "
 "nouveaux systèmes de fichiers n'a pu être trouvé. Vérifiez votre matériel "
 "pour déterminer la cause de ce problème."
 
@@ -1514,8 +1524,7 @@ msgstr "Saisissez un nom de groupe de volumes."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
-"Les noms de groupe de volumes doivent comporter au maximum 128 caractères"
+msgstr "Les noms de groupe de volumes doivent comporter au maximum 128 caractères"
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1559,7 +1568,7 @@ msgid ""
 msgstr ""
 "Le point de montage %s n'est pas valide. Les points de montage doivent "
 "commencer par « / », ne peuvent se terminer par « / » et ne peuvent contenir "
-"que des caractères imprimables et aucun espace."
+"que des caractères imprimables et aucune espace."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1612,8 +1621,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Cette partition contient les données pour l'installation du disque dur."
+msgstr "Cette partition contient les données pour l'installation du disque dur."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1693,8 +1701,8 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s est une partition de type 0x82 (Linux swap) mais ne semble pas être "
-"formatée comme une partition Linux swap.\n"
+"/dev/%s est une partition de type 0x82 (swap Linux) mais ne semble pas être "
+"formatée comme une partition swap Linux.\n"
 "\n"
 "Souhaitez-vous formater cette partition comme swap ?"
 
@@ -1712,9 +1720,9 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Vous avez choisi d'utiliser une partition pré-existante pour cette "
+"Vous avez choisi d'utiliser une partition préexistante pour cette "
 "installation sans la formater. Nous vous recommandons de formater cette "
-"partition pour vous assurer que d'anciens fichiers provenant d'une autre  "
+"partition pour vous assurer que d'anciens fichiers provenant d'une précédente "
 "installation ne créent pas de conflits avec cette installation Linux. "
 "Toutefois, si cette partition contient des fichiers que vous souhaitez "
 "conserver, comme par exemple des fichiers utilisateurs, vous pouvez "
@@ -1774,8 +1782,8 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Les partitions pré-existantes ci-dessous ont été sélectionnées pour être "
-"formatées. Ceci causera la destruction de toutes les données qu'elles "
+"Les partitions préexistantes ci-dessous ont été sélectionnées pour être "
+"formatées. Ceci provoquera la destruction de toutes les données qu'elles "
 "contiennent."
 
 #: ../partIntfHelpers.py:460
@@ -1784,7 +1792,7 @@ msgid ""
 "change these settings."
 msgstr ""
 "Sélectionner « Oui » pour continuer et formater ces partitions ou « Non » "
-"pour retourner en arrière et changer cette configuration."
+"pour retourner en arrière et modifier cette configuration."
 
 #: ../partIntfHelpers.py:466
 msgid "Format Warning"
@@ -1821,11 +1829,10 @@ msgstr "La partition que vous avez sélectionnée sera effacée."
 
 #: ../partIntfHelpers.py:537
 msgid "Confirm Reset"
-msgstr "Confirmer la ré-initialisation "
+msgstr "Confirmer la ré-initialisation"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Souhaitez-vous remettre la table de partitions à son état initial ?"
 
 #: ../partitioning.py:62
@@ -1843,6 +1850,7 @@ msgstr ""
 "vous poursuivre l'installation ?"
 
 #: ../partitioning.py:93
+#, fuzzy
 msgid "Low Memory"
 msgstr "Mémoire faible"
 
@@ -1863,7 +1871,7 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Aucune partition racine n'a été définie (/). Cette partition est requise "
+"Aucune partition racine n'a été définie (/). Cette partition est nécessaire "
 "pour que l'installation de %s puisse continuer."
 
 #: ../partitions.py:821
@@ -1880,37 +1888,36 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
-"Votre partition boot n'est pas sur une des quatre partitions primaires et ne "
+"Votre partition de démarrage « /boot » n'est pas sur une des quatre partitions primaires et ne "
 "devrait pas être amorçable."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Vous devez créer une partition /boot/efi de type FAT et de 50 méga-octets."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Vous devez créer une partition /boot/efi de type FAT et de 50 Mo."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Vous devez créer une partition Bootstrap Apple."
+msgstr "Vous devez créer une partition d'amorce Apple."
 
 #: ../partitions.py:889
+#, fuzzy
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Vous devez créer une partition PPC PReP Boot."
 
 #: ../partitions.py:897 ../partitions.py:908
 #, python-format
+#, fuzzy
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 "Votre partition %s est inférieure à %s Mo, ce qui est inférieur à la taille "
-"recommandée pour une installation %s normale."
+"recommandée pour une installation normale de %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
-"Installation sur un périphérique USB.  Il peut en résulter un système "
+"Installation sur un périphérique USB. Il peut en résulter un système "
 "inopérant."
 
 #: ../partitions.py:945
@@ -1918,7 +1925,7 @@ msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
-"Installation sur un périphérique FireWire.  Il peut en résulter un système "
+"Installation sur un périphérique FireWire. Il peut en résulter un système "
 "inopérant."
 
 #: ../partitions.py:954 ../partRequests.py:677
@@ -1929,8 +1936,7 @@ msgstr ""
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
-"Les partitions de démarrage ne peuvent pas se trouver sur un volume logique."
+msgstr "Les partitions de démarrage ne peuvent pas se trouver sur un volume logique."
 
 #: ../partitions.py:986
 msgid ""
@@ -1938,7 +1944,7 @@ msgid ""
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 "Aucune partition swap n'a été spécifiée. Bien qu'elle ne soit pas "
-"indispensable, elle améliore nettement les performances pour la plupart des "
+"indispensable, elle améliore nettement les performances de la plupart des "
 "installations."
 
 #: ../partitions.py:993
@@ -1947,7 +1953,7 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Vous avez spécifié plus de 32 périphériques swap. Le noyau de %s ne supporte "
+"Vous avez spécifié plus de 32 périphériques swap. Le noyau de %s ne gère "
 "que 32 périphériques swap."
 
 #: ../partitions.py:1004
@@ -1974,11 +1980,10 @@ msgstr "une partition qui fait partie d'un groupe de volumes LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ce point de montage n'est pas valide. Ce répertoire %s doit être sur le "
-"système de fichiers /."
+"système de fichiers racine « / »."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1987,7 +1992,7 @@ msgid ""
 "system operation.  Please select a different mount point."
 msgstr ""
 "Le point de montage « %s » ne peut être utilisé. Pour permettre un bon "
-"fonctionnement du système ce dernier doit être un lien symbolique. Veuillez "
+"fonctionnement du système, ce dernier doit être un lien symbolique. Veuillez "
 "choisir un autre point de montage."
 
 #: ../partRequests.py:259
@@ -2016,13 +2021,13 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-"La taille de la partition requise (taille = %s Mo) dépasse la taille maximum "
+"La taille de la partition rnécessaire (taille = %s Mo) dépasse la taille maximum "
 "de %s Mo."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "La taille de la partition requise est négative ! (taille = %s Mo)"
+msgstr "La taille de la partition nécessaire est négative ! (taille = %s Mo)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2033,6 +2038,7 @@ msgid "Partitions can't end on a negative cylinder."
 msgstr "Les partitions ne peuvent se terminer sur un cylindre négatif."
 
 #: ../partRequests.py:669
+#, fuzzy
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Aucun élément dans la requête RAID, ou niveau RAID non spécifié."
 
@@ -2047,7 +2053,7 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Ce périphérique RAID peut avoir au maximum %s disques restants. Pour avoir "
+"Ce périphérique RAID peut avoir au maximum %s disques de rechange. Pour avoir "
 "plus de disques, vous devrez ajouter des éléments supplémentaires au "
 "périphérique RAID."
 
@@ -2069,6 +2075,7 @@ msgid "Attempting to start %s"
 msgstr "Tentative de démarrage de %s"
 
 #: ../rescue.py:175
+#, fuzzy
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "Une fois terminé, fermez le shell. Ce faisant, vous redémarrerez votre "
@@ -2088,8 +2095,7 @@ msgstr "Annulé"
 
 #: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Impossible de revenir à l'étape précédente à partir d'ici. Essayez à nouveau."
+msgstr "Impossible de revenir à l'étape précédente à partir d'ici. Essayez à nouveau."
 
 #: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
@@ -2097,6 +2103,7 @@ msgstr "Secours"
 
 #: ../rescue.py:281
 #, python-format
+#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2142,19 +2149,21 @@ msgid "Exit"
 msgstr "Quitter"
 
 #: ../rescue.py:348
+#, fuzzy
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Votre système contient des systèmes de fichiers corrompus que vous avez "
-"choisis de ne pas monter. Appuyez sur Entrée pour obtenir un shell à partir "
-"duquel vous pourrez, au moyen des commandes fsck et mount, vérifier et "
+"choisis de ne pas monter. Appuyez sur « Entrée » pour obtenir un shell à partir "
+"duquel vous pourrez, au moyen des commandes « fsck » et « mount », vérifier et "
 "monter vos partitions. Le système redémarrera automatiquement lorsque vous "
 "quitterez le shell."
 
 #: ../rescue.py:356
 #, python-format
+#, fuzzy
 msgid ""
 "Your system has been mounted under %s.\n"
 "\n"
@@ -2165,7 +2174,7 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Votre système a été monté sous%s.\n"
+"Votre système a été monté sous %s.\n"
 "\n"
 "Appuyez sur <Entrée> pour obtenir un shell. Si vous voulez que votre système "
 "soit l'environnement root, lancez la commande :\n"
@@ -2176,6 +2185,7 @@ msgstr ""
 
 #: ../rescue.py:439
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -2194,11 +2204,12 @@ msgid "Rescue Mode"
 msgstr "Mode de secours"
 
 #: ../rescue.py:446
+#, fuzzy
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Vous n'avez pas de partition Linux. Appuyez sur Entrée pour obtenir un "
+"Vous n'avez pas de partition Linux. Appuyez sur « Entrée » pour obtenir un "
 "shell. Le système redémarrera automatiquement lorsque vous quitterez le "
 "shell."
 
@@ -2253,7 +2264,7 @@ msgstr "Aucune aide n'est disponible pour cette étape de l'installation."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
-msgstr "Sauvegarde d'une image système en raison d'un crash."
+msgstr "Sauvegarde d'une image système en raison d'un plantage."
 
 #: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
@@ -2261,8 +2272,7 @@ msgid "Welcome to %s"
 msgstr "Bienvenue dans %s"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> Aide | <Tab> Changer d'élément | <Espace> Sélectionner | <F12> Écran "
 "suivant"
@@ -2371,13 +2381,13 @@ msgid ""
 "\n"
 msgstr ""
 "Les fichiers suivants sont des liens symboliques absolus, qui ne sont pas "
-"supportés durant une mise à niveau. Transformez-les en liens symboliques "
+"gérés lors d'une mise à niveau. Transformez-les en liens symboliques "
 "relatifs et recommencez la mise à niveau.\n"
 "\n"
 
 #: ../upgrade.py:326
 msgid "Absolute Symlinks"
-msgstr "Symlinks absolus"
+msgstr "Liens symboliques absolus"
 
 #: ../upgrade.py:337
 msgid ""
@@ -2407,6 +2417,7 @@ msgstr "Connexion en cours..."
 
 #: ../urlinstall.py:75
 #, python-format
+#, fuzzy
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2435,9 +2446,9 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"X n'a pas pu démarrer sur votre machine. Voulez vous démarrer VNC afin de "
-"vous connecter à cet ordinateur depuis un autre ordinateur et ainsi "
-"effectuer une installation en mode graphique ou alors continuer avec une "
+"X n'a pas pu démarrer sur votre machine. Voulez-vous démarrer VNC afin de "
+"vous connecter à cet ordinateur depuis un autre et ainsi "
+"effectuer une installation en mode graphique ou bien continuer avec une "
 "installation en mode texte ?"
 
 #: ../vnc.py:52 ../vnc.py:55
@@ -2463,7 +2474,7 @@ msgid ""
 "installation"
 msgstr ""
 "Un mot de passe empêchera les personnes non autorisées de se connecter et de "
-"regarder votre processus d'installation.  Veuillez saisir le mot de passe à "
+"regarder votre processus d'installation. Veuillez saisir le mot de passe à "
 "utiliser pour cette installation."
 
 #: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
@@ -2480,8 +2491,7 @@ msgstr "Erreur de mot de passe"
 
 #: ../vnc.py:102 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
-"Les mots de passe que vous avez saisis sont différents. Veuillez recommencer."
+msgstr "Les mots de passe que vous avez saisis sont différents. Veuillez recommencer."
 
 #: ../vnc.py:107 ../textw/userauth_text.py:59
 msgid "Password Length"
@@ -2489,7 +2499,7 @@ msgstr "Nombre de caractères du mot de passe"
 
 #: ../vnc.py:108
 msgid "The password must be at least six characters long."
-msgstr "Le mot de passe doit compter au minimum six caractères."
+msgstr "Le mot de passe doit compter au moins six caractères."
 
 #: ../vnc.py:138
 msgid "VNC Password Error"
@@ -2502,7 +2512,7 @@ msgid ""
 "Press <return> to reboot your system.\n"
 msgstr ""
 "Vous devez spécifier un mot de passe d'une longueur minimale de 6 caractères "
-"pour vnc.\n"
+"pour VNC.\n"
 "\n"
 "Appuyer sur <Entrée> pour redémarrer votre système.\n"
 
@@ -2512,22 +2522,23 @@ msgstr "Démarrage de VNC..."
 
 #: ../vnc.py:227
 #, python-format
+#, fuzzy
 msgid "%s %s installation on host %s"
 msgstr "Installation %s %s sur l'hôte %s"
 
 #: ../vnc.py:229
 #, python-format
+#, fuzzy
 msgid "%s %s installation"
 msgstr "Installation %s %s"
 
 #: ../vnc.py:249
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
-"Impossible de définir le mot de passe de vnc - aucun mot de passe utilisé !"
+msgstr "Impossible de définir le mot de passe de VNC - pas de mot de passe utilisé !"
 
 #: ../vnc.py:250
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Votre mot de passe doit comporter au minimum 6 caractères."
+msgstr "Votre mot de passe doit comporter au moins 6 caractères."
 
 #: ../vnc.py:273
 msgid ""
@@ -2552,7 +2563,7 @@ msgstr "Le serveur VNC est maintenant en cours d'exécution."
 #: ../vnc.py:280
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "Tentative de connexion au client vnc sur l'hôte %s..."
+msgstr "Tentative de connexion au client VNC sur l'hôte %s..."
 
 #: ../vnc.py:292
 msgid "Connected!"
@@ -2566,13 +2577,13 @@ msgstr "Abandon après 50 tentatives de connexion !\n"
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
-"Veuillez connecter manuellement votre client vnc à %s pour commencer "
+"Veuillez connecter manuellement votre client VNC à %s pour commencer "
 "l'installation."
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
-"Veuillez connecter manuellement votre client vnc pour commencer "
+"Veuillez connecter manuellement votre client VNC pour commencer "
 "l'installation."
 
 #: ../vnc.py:305
@@ -2609,8 +2620,9 @@ msgid "insufficient disk space"
 msgstr "Espace disque insuffisant"
 
 #: ../yuminstall.py:474
+#, fuzzy
 msgid "insufficient disk inodes"
-msgstr "Nombre d'i-nodes insuffisant"
+msgstr "Nombre d'i-nodes insuffisants"
 
 #: ../yuminstall.py:475
 msgid "package conflicts"
@@ -2634,8 +2646,7 @@ msgstr "Paquetage non prévu pour ce système."
 
 #: ../yuminstall.py:493
 msgid "You need more space on the following file systems:\n"
-msgstr ""
-"Vous devez libérer plus d'espace sur les systèmes de fichiers suivants :\n"
+msgstr "Vous devez libérer plus d'espace sur les systèmes de fichiers suivants :\n"
 
 #: ../yuminstall.py:509
 msgid "Error running transaction"
@@ -2643,8 +2654,7 @@ msgstr "Erreur d'exécution de la transaction"
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Il y a eu une erreur durant la transaction pour l'une des raisons "
 "suivantes : %s"
@@ -2671,7 +2681,7 @@ msgid ""
 msgstr ""
 "Impossible de lire les métadonnées du paquetage. Il se peut qu'un répertoire "
 "repodata n'existe pas. Veuillez vous assurer que votre arborescence "
-"d'installation a été créée correctement. %s"
+"d'installation a été correctement créée. %s"
 
 #: ../yuminstall.py:760
 msgid "Uncategorized"
@@ -2683,8 +2693,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
-"Les paquetages sélectionnés nécessitent %d M d'espace pour leur "
-"installation, mais vous n'avez pas suffisamment d'espace libre. Vous pouvez "
+"Les paquetages sélectionnés nécessitent %d Mo d'espace pour leur "
+"installation, mais vous n'avez pas suffisamment d'espace disponible. Vous pouvez "
 "modifier votre sélection ou redémarrer."
 
 #: ../yuminstall.py:1149
@@ -2708,24 +2718,25 @@ msgstr ""
 "minutes... "
 
 #: ../yuminstall.py:1198
+#, fuzzy
 msgid "Post Upgrade"
 msgstr "Mise à niveau"
 
 #: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
-msgstr "Exécution de la configuration post-installation..."
+msgstr "Exécution de la configuration de postinstallation..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
-msgstr "Post-installation"
+msgstr "Postinstallation"
 
 #: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
-msgstr "Exécution de la configuration post-installation..."
+msgstr "Exécution de la configuration de postinstallation..."
 
 #: ../yuminstall.py:1357
 msgid "Installation Progress"
-msgstr "Progrès de l'installation"
+msgstr "Avancement de l'installation"
 
 #: ../yuminstall.py:1392
 msgid "Dependency Check"
@@ -2733,7 +2744,7 @@ msgstr "Vérification des dépendances"
 
 #: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Vérification des dépendances pour les paquetages de l'installation."
+msgstr "Vérification des dépendances pour les paquetages de l'installation..."
 
 #: ../zfcp.py:29
 msgid ""
@@ -2744,9 +2755,9 @@ msgid ""
 msgstr ""
 "Les machines zSeries peuvent accéder aux périphériques SCSI respectant les "
 "normes de l'industrie via FCP (Fibre Channel). Vous devez fournir cinq "
-"paramètres pour chaque périphérique : un numéro de périphérique à 16 bit, un "
-"identifiant SCSI à 16 bit, un WWPN (World Wide Port Number) à 64 bit, un LUN "
-"SCSI à 16 bit et un LUN FCP à 64 bit."
+"paramètres pour chaque périphérique : un numéro de périphérique à 16 bits, un "
+"identifiant SCSI à 16 bits, un WWPN (World Wide Port Number) à 64 bits, un LUN "
+"SCSI à 16 bits et un LUN FCP à 64 bits."
 
 #: ../zfcp.py:31
 msgid "Device number"
@@ -2794,7 +2805,7 @@ msgstr "Vous n'avez pas spécifié de LUN FCP ou le numéro n'est pas valide."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Déterminer un mot de passe root"
+msgstr "Définir un mot de passe superutilisateur"
 
 #: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
 #: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
@@ -2805,25 +2816,22 @@ msgstr "Erreur avec le mot de passe"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"Vous devez saisir votre mot de passe root et le confirmer en le saisissant à "
-"nouveau avant de continuer."
+msgstr "Vous devez saisir votre mot de passe superutilisateur et le confirmer en le saisissant une nouvelle fois avant de continuer."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
-"Les mots de passe que vous avez saisis sont différents. Veuillez recommencer."
+msgstr "Les mots de passe que vous avez saisis sont différents. Veuillez recommencer."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Le mot de passe root doit comporter au minimum 6 caractères."
+msgstr "Le mot de passe superutilisateur doit comporter au moins 6 caractères."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
-"Le mot de passe demandé contient des caractères non-ascii qui ne peuvent pas "
+"Le mot de passe demandé contient des caractères non-ASCII qui ne peuvent pas "
 "être utilisés dans un mot de passe."
 
 #: ../iw/account_gui.py:93
@@ -2831,12 +2839,12 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Le compte root est utilisé pour administrer le système. Saisissez un mot de "
-"passe pour l'utilisateur root."
+"Le compte « root » est utilisé pour administrer le système. Saisissez un mot de "
+"passe pour l'utilisateur « root »."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr "Mot de _passe root : "
+msgstr "Mot de _passe « root » : "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
@@ -2847,6 +2855,7 @@ msgid "Invalid Initiator Name"
 msgstr "Nom d'initiateur invalide :"
 
 #: ../iw/autopart_type.py:135
+#, fuzzy
 msgid "You must provide a non-zero length initiator name."
 msgstr "Vous devez fournir une chaîne initiale différente de zéro caractère. "
 
@@ -2856,18 +2865,15 @@ msgstr "Erreur de données"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Supprimer les partitions sélect. et utiliser le partitionnement par défaut."
+msgstr "Supprimer toutes les partitions sur les disques sélectionnés et utiliser le partitionnement par défaut."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Supprimer les partitions Linux et utiliser le partitionnement par défaut."
+msgstr "Supprimer les partitions Linux et utiliser le partitionnement par défaut."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Utiliser l'espace libre sur les disques pour le partitionnement par défaut."
+msgstr "Utiliser l'espace libre sur les disques pour le partitionnement par défaut."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
@@ -2889,7 +2895,7 @@ msgstr "_Utiliser un mot de passe pour le chargeur de démarrage "
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "Changer le mot de _passe"
+msgstr "Modifier le mot de _passe"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2910,15 +2916,15 @@ msgstr "_Mot de passe :"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "Conf_irmer : "
+msgstr "Conf_irmer :"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
-msgstr "Les mots de passe root ne correspondent pas."
+msgstr "Les mots de passe ne correspondent pas."
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
 msgid "Passwords do not match"
-msgstr "Les mots de passe root ne correspondent pas."
+msgstr "Les mots de passe ne correspondent pas."
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
 msgid ""
@@ -2928,7 +2934,7 @@ msgid ""
 "Would you like to continue with this password?"
 msgstr ""
 "Le mot de passe de votre chargeur d'amorçage contient moins de six "
-"caractères. Nous vous conseillons de choisir un mot de passe plus long.\n"
+"caractères. Nous vous conseillons vivement de choisir un mot de passe plus long.\n"
 "\n"
 "Souhaitez-vous continuer avec ce mot de passe ?"
 
@@ -2994,7 +3000,7 @@ msgstr "Installation du bloc du chargeur de démarrage sur :"
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "_Changer l'ordre des disques"
+msgstr "_Modifier l'ordre des disques"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -3025,16 +3031,16 @@ msgstr "Redémarrer ?"
 #: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
-msgstr "Le système sera maintenant redémarré."
+msgstr "Le système va maintenant être redémarré."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
-msgstr "Début de l'installation"
+msgstr "À propos de l'installation"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Cliquez sur Suivant pour commencer l'installation de %s."
+msgstr "Cliquez sur « Suivant » pour commencer l'installation de %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -3053,12 +3059,12 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
-msgstr "Début de la mise à jour"
+msgstr "À propos de la mise à jour"
 
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Cliquez sur Suivant pour commencer la mise à niveau de %s."
+msgstr "Cliquez sur « Suivant » pour commencer la mise à niveau de %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3152,8 +3158,7 @@ msgstr "Sélection de la langue"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Quelle langue souhaitez-vous utiliser durant le processus d'installation ?"
+msgstr "Quelle langue souhaitez-vous utiliser durant le processus d'installation ?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3188,7 +3193,7 @@ msgstr ""
 "sera nécessaire d'arrondir les tailles des besoins de volumes logiques "
 "courants au multiple supérieur des dimensions physiques.\n"
 "\n"
-"Cette modification sera appliquée immédiatement. "
+"Cette modification sera appliquée immédiatement."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
@@ -3204,7 +3209,7 @@ msgid ""
 msgstr ""
 "La taille physique ne peut pas être modifiée car la valeur sélectionnée (%"
 "10.2f Mo) est plus grande que le plus petit volume physique du groupe de "
-"volumes (%10.2f Mo). "
+"volumes (%10.2f Mo)."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -3337,8 +3342,7 @@ msgstr "Nom de volume logique invalide"
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Le nom de volume logique « %s » est déjà utilisé. Choisissez-en un autre."
+msgstr "Le nom de volume logique « %s » est déjà utilisé. Choisissez-en un autre."
 
 #: ../iw/lvm_dialog_gui.py:604
 #, python-format
@@ -3401,7 +3405,7 @@ msgstr "Souhaitez-vous supprimer le volume logique « %s » ?"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
-msgstr "Nom de groupe de volumes non valide"
+msgstr "Nom de groupe de volumes invalide"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
@@ -3410,8 +3414,7 @@ msgstr "Nom utilisé"
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Le nom du groupe de volumes « %s » est déjà utilisé. Choisissez-en un autre."
+msgstr "Le nom du groupe de volumes « %s » est déjà utilisé. Choisissez-en un autre."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
@@ -3533,7 +3536,7 @@ msgstr "É_mulation de la souris à trois boutons"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
-msgstr "Sélectionnez la souris appropriée pour votre système."
+msgstr "Sélectionnez la souris appropriée à votre système."
 
 #: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
 #: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
@@ -3645,7 +3648,7 @@ msgid ""
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Vous n'avez activé aucun périphérique réseau. Votre système ne pourra pas "
-"communiquer dans un réseau par défaut sans qu'au moins un périphérique soit "
+"communiquer dans un réseau par défaut sans qu'au moins un périphérique ne soit "
 "activé."
 
 #: ../iw/network_gui.py:264
@@ -3688,11 +3691,11 @@ msgstr "_Point par point (IP) :"
 
 #: ../iw/network_gui.py:383
 msgid "_ESSID:"
-msgstr "_ESSID : "
+msgstr "_ESSID :"
 
 #: ../iw/network_gui.py:393
 msgid "Encryption _Key:"
-msgstr "_Clé de cryptage : "
+msgstr "_Clé de cryptage :"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3732,7 +3735,7 @@ msgstr "IPv6/Préfixe"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
-msgstr "Périphériques réseau "
+msgstr "Périphériques réseau"
 
 #: ../iw/network_gui.py:708
 msgid "Set the hostname:"
@@ -3748,7 +3751,7 @@ msgstr "_manuellement"
 
 #: ../iw/network_gui.py:725
 msgid "(e.g., host.domain.com)"
-msgstr "(par ex., hote.domaine.com)"
+msgstr "(par exemple, hote.domaine.com)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3770,7 +3773,7 @@ msgstr ""
 "systèmes d'exploitation. Il vous permettra de sélectionner un système "
 "d'exploitation à démarrer parmi ceux de la liste. Pour ajouter des systèmes "
 "d'exploitation qui ne sont pas détectés automatiquement, cliquez sur "
-"« Ajouter ». Pour changer le système d'exploitation démarré par défaut, "
+"« Ajouter ». Pour modifier le système d'exploitation démarré par défaut, "
 "sélectionnez « Par défaut » à côté du système d'exploitation désiré."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
@@ -3820,7 +3823,7 @@ msgstr "Cette étiquette est déjà utilisée par une autre entrée de démarrag
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr "Duplication des périphériques "
+msgstr "Duplication des périphériques"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
@@ -3837,7 +3840,7 @@ msgid ""
 "about to install."
 msgstr ""
 "Cette étiquette de démarrage ne peut être supprimée car elle est nécessaire "
-"au système %s que vous vous apprêtez à installer. "
+"au système %s que vous vous apprêtez à installer."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3878,17 +3881,19 @@ msgstr "Type de système de _fichiers :"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr "Disques _disponibles :"
+msgstr "_Disques disponibles :"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
 msgstr "Disque :"
 
 #: ../iw/partition_dialog_gui.py:390
+#, fuzzy
 msgid "_Start Cylinder:"
 msgstr "_Début du cylindre :"
 
 #: ../iw/partition_dialog_gui.py:408
+#, fuzzy
 msgid "_End Cylinder:"
 msgstr "_Fin du cylindre :"
 
@@ -3899,7 +3904,7 @@ msgstr "Transformer la partition en _partition primaire"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr "Disque %s (Géom : %s/%s/%s) (Modèle : %s)"
+msgstr "Disque %s (Géométrie : %s/%s/%s) (Modèle : %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
@@ -3939,18 +3944,15 @@ msgid "Partitioning"
 msgstr "Partitionnement"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Les erreurs critiques ci-dessous se réfèrent au schéma de partitionnement "
 "requis."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Ces erreurs doivent être corrigées avant de poursuivre l'installation de %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "Ces erreurs doivent être corrigées avant de poursuivre l'installation de %s."
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -4025,15 +4027,15 @@ msgstr "Avertissement : %s."
 # ../comps/comps-master:555
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
-msgstr "Non supporté"
+msgstr "Non géré"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr "LVM n'est PAS supporté sur cette plate-forme."
+msgstr "LVM N'est PAS supporté sur cette plateforme."
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
-msgstr "Le RAID logiciel n'est PAS supporté sur cette plate-forme."
+msgstr "Le RAID logiciel n'est PAS supporté sur cette plateforme."
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
@@ -4064,11 +4066,11 @@ msgid ""
 msgstr ""
 "Le RAID logiciel vous permet de combiner de nombreux disques dans un "
 "périphérique RAID. Un périphérique RAID peut être configuré pour fournir une "
-"plus grande vitesse et fiabilité par rapport à l'utilisation du disque "
+"plus grande vitesse et une meilleure fiabilité par rapport à l'utilisation du disque "
 "individuel. Pour obtenir de plus amples informations sur l'utilisation des "
 "périphériques, veuillez consulter la documentation de %s.\n"
 "\n"
-"Vous avez actuellement %s partitions RAID logicielles à disposition.\n"
+"Vous avez actuellement %s partition(s) RAID logicielle(s) à disposition.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1250
@@ -4078,8 +4080,8 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"Pour utiliser RAID il vous faut créer au moins deux partitions de type "
-"« software RAID ». Vous pourrez ensuite créer un périphérique RAID pouvant "
+"Pour utiliser RAID, il vous faut créer au moins deux partitions de type "
+"RAID logiciel. Vous pourrez ensuite créer un périphérique RAID pouvant "
 "être formaté et monté.\n"
 "\n"
 
@@ -4126,6 +4128,7 @@ msgid "_LVM"
 msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
+#, fuzzy
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Cacher le périphérique RAID / les membres du _groupe de volumes LVM"
 
@@ -4138,8 +4141,7 @@ msgstr "<Non applicable>"
 
 #: ../iw/partition_ui_helpers_gui.py:250
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
-"Comment souhaitez-vous préparer le système de fichiers sur cette partition ?"
+msgstr "Comment souhaitez-vous préparer le système de fichiers sur cette partition ?"
 
 #: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
@@ -4210,7 +4212,7 @@ msgstr "Temps restant : %s minutes"
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr "Téléchargement en cours de %s"
+msgstr "Téléchargement de %s"
 
 #: ../iw/progress_gui.py:222
 #, python-format
@@ -4237,10 +4239,10 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"Un minimum de deux partitions RAID logicielles sont requises pour créer un "
+"Un minimum de deux partitions RAID logicielles sont nécessaires pour créer un "
 "périphérique RAID.\n"
 "\n"
-"Créez avant tout deux partitions de type « software RAID », puis "
+"Créez avant tout deux partitions de type « RAID logiciel », puis "
 "sélectionnez à nouveau l'option « RAID »."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
@@ -4270,6 +4272,7 @@ msgid "_RAID Members:"
 msgstr "Élém_ents RAID :"
 
 #: ../iw/raid_dialog_gui.py:398
+#, fuzzy
 msgid "Number of _spares:"
 msgstr "Disques _restants :"
 
@@ -4283,7 +4286,7 @@ msgid ""
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 "Le disque source n'a pas de partition à cloner. Il vous faut d'abord définir "
-"les partitions de type « software RAID » sur ce disque avant de pouvoir le "
+"les partitions de type « RAID logiciel » sur ce disque avant de pouvoir le "
 "cloner."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
@@ -4299,8 +4302,8 @@ msgid ""
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
 "Le disque source sélectionné comprend des partitions qui ne sont pas de type "
-"« software RAID ».\n"
-"Ces partitions devront être supprimées avant de cloner le disque. "
+"« RAID logiciel ».\n"
+"Ces partitions devront être supprimées avant de cloner le disque."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4336,14 +4339,14 @@ msgstr "Erreur de disque cible"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "Sélectionner les disques cible pour l'opération de clonage."
+msgstr "Sélectionner les disques cibles pour l'opération de clonage."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr ""
 "Le disque source /dev/%s ne peut être sélectionné également comme disque "
-"cible. "
+"cible."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4355,7 +4358,7 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-"Le disque cible /dev/%s contient une partition qui ne peut pas être supprimé "
+"Le disque cible /dev/%s contient une partition qui ne peut pas être supprimée "
 "pour la raison suivante :\n"
 "\n"
 "« %s »\n"
@@ -4373,7 +4376,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Le disque /dev/%s va maintenant être cloné dans les disques suivants :\n"
+"Le disque /dev/%s va maintenant être cloné sur les disques suivants :\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:648
@@ -4384,7 +4387,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ATTENTION ! TOUTES LES DONNÉES CONTENUES DANS LE DISQUE CIBLE SERONT "
+"ATTENTION ! TOUTES LES DONNÉES CONTENUES SUR LE DISQUE CIBLE SERONT "
 "DÉTRUITES."
 
 #: ../iw/raid_dialog_gui.py:651
@@ -4398,7 +4401,7 @@ msgstr "Disques de clonage"
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
-"Une erreur s'est produite lors de la suppression des disques cible. Le "
+"Une erreur s'est produite lors de la suppression des disques cibles. Le "
 "clonage a échoué."
 
 #: ../iw/raid_dialog_gui.py:696
@@ -4426,9 +4429,9 @@ msgstr ""
 "\n"
 "REMARQUE : le disque source doit comporter des partitions qui doivent être "
 "restreintes uniquement sur ce disque et ne peut contenir que des partitions "
-"RAID logicielles. D'autres types de partition ne sont pas autorisés.\n"
+"RAID logicielles. D'autres types de partition ne sont pas autorisées.\n"
 "\n"
-"TOUT ce qui se trouve sur le(s) disque(s) cible sera détruit par ce "
+"TOUT ce qui se trouve sur le(s) disque(s) cible(s) sera détruit par ce "
 "processus."
 
 #: ../iw/raid_dialog_gui.py:716
@@ -4437,7 +4440,7 @@ msgstr "Disque source :"
 
 #: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
-msgstr "Disques cible :"
+msgstr "Disque(s) cible(s) :"
 
 #: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
@@ -4457,6 +4460,7 @@ msgstr "Impossible de charger le fichier !"
 
 #: ../iw/task_gui.py:79
 #, python-format
+#, fuzzy
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4475,34 +4479,31 @@ msgstr ""
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr ""
-"Impossible de trouver le groupe de fichiers pour %s.  Cela rendra la "
-"sélection manuelle des paquetages impossible depuis le dépôt."
+msgstr "Impossible de trouver le groupe de fichiers pour %s. Cela rendra la sélection manuelle des paquetages impossible depuis le dépôt."
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr "Nom de dépôt non valide"
+msgstr "Nom de dépôt invalide"
 
 #: ../iw/task_gui.py:122
+#, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "Vous devez saisir un nom de serveur correct."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr "URL du dépôt invalide"
+msgstr "L'URL du dépôt est invalide"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Vous devez fournir un URL HTTP ou FTP au dépôt."
+msgstr "Vous devez fournir une URL HTTP ou FTP au dépôt."
 
 #: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"Le dépôt %s a déjà été ajouté.  Merci de saisir un autre nom de dépôt et une "
-"URL différente."
+msgstr "Le dépôt %s a déjà été ajouté. Merci de saisir un autre nom de dépôt et une URL différente."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4514,7 +4515,7 @@ msgstr "Mettre à jour la configuration du chargeur de démarrage"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "_Mettre à jour la configuration du chargeur de démarrage "
+msgstr "_Mettre à jour la configuration du chargeur de démarrage"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
@@ -4522,8 +4523,7 @@ msgstr "Ceci mettra à jour votre chargeur de démarrage actuel."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Le programme d'installation a détecté le chargeur de démarrage %s installé "
 "sur %s."
@@ -4562,7 +4562,7 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Ceci n'apportera aucun changement à la configuration du chargeur de "
+"Ceci n'apportera aucune modification à la configuration du chargeur de "
 "démarrage. Si vous utilisez un chargeur de démarrage de tierce partie, "
 "choisissez cette option."
 
@@ -4584,7 +4584,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Cette édition de %s prend en charge le système de fichiers de journalisation "
+"Cette version de %s prend en charge le système de fichiers de journalisation "
 "ext3. Ce système présente différents avantages par rapport au système de "
 "fichiers ext2 habituellement fourni dans %s. Il est possible de convertir "
 "les partitions ext2 formatées en ext3 sans perdre de données.\n"
@@ -4625,8 +4625,7 @@ msgstr "Je _veux créer un fichier swap"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
-"Sélectionnez la _partition dans laquelle vous voulez insérer le fichier :"
+msgstr "Sélectionnez la _partition sur laquelle vous voulez insérer le fichier :"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4642,12 +4641,12 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"Il est recommandé que votre fichier swap fasse %d Mo. Saisissez une taille "
+"Il est recommandé que votre fichier swap fasse au moins %d Mo. Saisissez une taille "
 "pour le fichier swap :"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "Taille du fichier _swap (Mo) : "
+msgstr "Taille du fichier _swap (Mo) :"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
@@ -4668,8 +4667,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La taille du fichier swap doit être comprise entre 1 et 2000 Mo."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Le périphérique que vous avez sélectionné ne contient pas assez d'espace "
 "libre pour la partition swap."
@@ -4705,7 +4703,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Configuration du chargeur de démarrage z/IPL "
+msgstr "Configuration du chargeur de démarrage z/IPL"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4730,7 +4728,7 @@ msgstr ""
 "Le chargeur de démarrage z/IPL va maintenant être installé sur votre "
 "système.\n"
 "\n"
-"La partition root est celle que vous avez sélectionnée auparavant lors du "
+"La partition racine est celle que vous avez sélectionnée auparavant lors du "
 "paramétrage de la partition.\n"
 "\n"
 "Le noyau utilisé pour démarrer le système sera celui qui sera installé par "
@@ -4740,7 +4738,7 @@ msgstr ""
 "modifier le fichier de configuration /etc/zipl.conf.\n"
 "\n"
 "Vous pouvez maintenant saisir les paramètres supplémentaires du noyau que "
-"votre système ou votre paramétrage requiert."
+"votre système ou votre paramétrage nécessite."
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
@@ -4778,7 +4776,7 @@ msgstr ""
 "Vous avez décidé de ne pas installer de chargeur de démarrage. Il est "
 "fortement conseillé d'installer un chargeur de démarrage à moins que vous "
 "n'ayez un besoin spécifique. Un chargeur de démarrage est presque toujours "
-"requis pour redémarrer le système Linux à partir du disque dur.\n"
+"nécessaire pour redémarrer le système Linux à partir du disque dur.\n"
 "\n"
 "Souhaitez-vous ignorer l'installation du chargeur de démarrage ?"
 
@@ -4843,8 +4841,7 @@ msgstr ""
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Espace> Sélectionner | <F2> Sélectionner la valeur par défaut | <F4> "
 "Effacer | <F12> Écran suivant>"
@@ -4866,15 +4863,15 @@ msgstr "Utiliser un mot de passe GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Mot de passe du chargeur de démarrage : "
+msgstr "Mot de passe du chargeur de démarrage :"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr "Confirmer : "
+msgstr "Confirmer :"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr "Les mots de passe root ne correspondent pas."
+msgstr "Les mots de passe ne correspondent pas."
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
@@ -4909,7 +4906,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr "<Entrée> pour redémarrer l'ordinateur"
+msgstr "<Entrée> pour redémarrer"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -4988,10 +4985,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Sélectionnez les groupes de paquetages à installer."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Espace>,<+>,<-> Sélectionner | <F2> Détails de groupes | <F12> Écran suivant"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Espace>,<+>,<-> Sélectionner | <F2> Détails de groupes | <F12> Écran suivant"
 
 #: ../textw/grpselect_text.py:133
 msgid "Package Group Details"
@@ -5118,7 +5113,7 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "Si votre système fait partie d'un réseau plus grand où les noms d'hôte sont "
-"assignés par DHCP, sélectionnez automatiquement avec DHCP. Sinon, "
+"attribués par DHCP, sélectionnez automatiquement avec DHCP. Sinon, "
 "sélectionnez manuellement et saisissez un nom d'hôte pour votre système. "
 "Dans le cas contraire, votre système sera connu comme « localhost »."
 
@@ -5173,22 +5168,25 @@ msgid "Allowable Drives:"
 msgstr "Disques disponibles :"
 
 #: ../textw/partition_text.py:412
+#, fuzzy
 msgid "Fixed Size:"
 msgstr "Taille fixée :"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr "Remplir jusqu'à un maximum de (Mo) :"
+msgstr "Remplir jusqu'à une taille maximum de (Mo) :"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
 msgstr "Remplir tout l'espace disponible :"
 
 #: ../textw/partition_text.py:441
+#, fuzzy
 msgid "Start Cylinder:"
 msgstr "Début du cylindre :"
 
 #: ../textw/partition_text.py:454
+#, fuzzy
 msgid "End Cylinder:"
 msgstr "Fin du cylindre :"
 
@@ -5223,8 +5221,9 @@ msgstr "Option du système de fichiers :"
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
+#, fuzzy
 msgid "Format as %s"
-msgstr "Formater comme %s"
+msgstr "Formater en %s"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
@@ -5272,6 +5271,7 @@ msgstr "Transformer la partition en partition primaire"
 
 # ../comps/comps-master:555
 #: ../textw/partition_text.py:770
+#, fuzzy
 msgid "Not Supported"
 msgstr "Non supporté"
 
@@ -5303,7 +5303,7 @@ msgstr "Aucune partition RAID"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr "Deux partitions RAID logicielles sont nécessaires au minimum."
+msgstr "Au moins deux partitions RAID logicielles sont nécessaires."
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
@@ -5353,8 +5353,7 @@ msgstr "Nouvelle partition ou volume logique ?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
-"Souhaitez-vous créer une nouvelle partition ou un nouveau volume logique ?"
+msgstr "Souhaitez-vous créer une nouvelle partition ou un nouveau volume logique ?"
 
 #: ../textw/partition_text.py:1368
 msgid "partition"
@@ -5377,8 +5376,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  F1-Aide     F2-Ajouter     F3-Éditer    F4-Supprimer     F5-"
 "Réinitialiser     F12-OK  "
@@ -5389,8 +5387,7 @@ msgstr "Pas de partition racine"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr ""
-"Vous devez disposer d'une partition / sur laquelle effectuer l'installation."
+msgstr "Vous devez disposer d'une partition racine « / » sur laquelle effectuer l'installation."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
@@ -5483,8 +5480,8 @@ msgid ""
 "support?"
 msgstr ""
 "L'installation par défaut de %s inclut un ensemble de logiciels dédiés à une "
-"utilisation générale de l'internet. Quelles tâches supplémentaires souhaitez-"
-"vous que votre système prenne en charge "
+"utilisation générale d'Internet. Quelles tâches supplémentaires souhaitez-"
+"vous que votre système prenne en charge ?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5496,12 +5493,12 @@ msgstr "Dans quel fuseau horaire vous trouvez-vous ?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr "L'horloge système utilise U_TC"
+msgstr "L'horloge système utilise UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Mettre à jour la configuration du chargeur de démarrage "
+msgstr "Mettre à jour la configuration du chargeur de démarrage"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -5534,13 +5531,14 @@ msgstr "Mémoire vive détectée (Mo) :"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr "Taille recommandée (Mo) : "
+msgstr "Taille recommandée (Mo) :"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr "Taille du fichier swap (Mo) : "
+msgstr "Taille du fichier swap (Mo) :"
 
 #: ../textw/upgrade_text.py:138
+#, fuzzy
 msgid "Add Swap"
 msgstr "Ajouter swap"
 
@@ -5570,7 +5568,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr "Mot de passe root"
+msgstr "Mot de passe superutilisateur"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -5578,14 +5576,14 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Choisissez un mot de passe root. Vous devez le saisir deux fois pour vous "
+"Choisissez un mot de passe superutilisateur. Vous devez le saisir deux fois pour vous "
 "assurer que vous le connaissez et que vous n'avez pas fait d'erreur en le "
-"saisissant. N'oubliez pas que le mot de passe root est un élément "
+"saisissant. N'oubliez pas que le mot de passe superutilisateur est un élément "
 "extrêmement important de la sécurité du système !"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr "Le mot de passe root doit comporter au minimum 6 caractères."
+msgstr "Le mot de passe superutilisateur doit comporter au moins 6 caractères."
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5625,7 +5623,7 @@ msgid ""
 msgstr ""
 "Le chargeur de démarrage z/IPL sera installé sur votre système une fois "
 "l'installation terminée. Vous pouvez maintenant saisir tout paramètre de "
-"noyau et chandev supplémentaire dont votre ordinateur ou votre configuration "
+"noyau et de « chandev » supplémentaire dont votre ordinateur ou votre configuration "
 "a besoin. "
 
 #: ../textw/zipl_text.py:58
@@ -5645,7 +5643,7 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Sélectionnez ce type d'installation pour gagner un contrôle total du "
+"Sélectionnez ce type d'installation pour prendre le contrôle total du "
 "processus d'installation, y compris la sélection des paquetages de logiciels "
 "et le partitionnement."
 
@@ -5661,7 +5659,7 @@ msgid ""
 "include support for?"
 msgstr ""
 "L'installation par défaut de %s inclut un ensemble de logiciels dédiés à une "
-"utilisation générale de l'internet. Quelles tâches supplémentaires souhaitez-"
+"utilisation générale d'Internet. Quelles tâches supplémentaires souhaitez-"
 "vous que votre système prenne en charge ?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
@@ -5681,6 +5679,7 @@ msgid "_Personal Desktop"
 msgstr "_Bureau personnel"
 
 #: ../installclasses/personal_desktop.py:13
+#, fuzzy
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
@@ -5782,8 +5781,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Sélectionnez « %s » pour vérifier le CD-ROM contenu dans le lecteur de CD-"
-"ROM ou « %s » pour éjecter le CD-ROM et en introduire un autre afin de le "
+"Sélectionnez « %s » pour vérifier le CD-ROM contenu dans le lecteur ou « %s » pour éjecter le CD-ROM et en introduire un autre afin de le "
 "contrôler."
 
 #: ../loader2/cdinstall.c:114
@@ -5796,9 +5794,8 @@ msgid ""
 "to retest each CD prior to using it again."
 msgstr ""
 "Si vous souhaitez tester d'autres supports, insérez le CD-ROM suivant et "
-"cliquez sur \"%s\". Tester chaque CD-ROM n'est pas vraiment requis, mais est "
-"hautement recommandé. Au minimum, les CD-ROM devraient être testés avant "
-"leur première utilisation. Une fois testés, il n'est pas requis de les "
+"cliquez sur « %s ». Tester chaque CD-ROM n'est pas vraiment nécessaire, mais vivement recommandé. Au minimum, les CD-ROM devraient être testés avant "
+"leur première utilisation. Une fois testés, il n'est pas nécessaire de les "
 "tester à nouveau avant de les réutiliser."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
@@ -5823,7 +5820,7 @@ msgid ""
 msgstr ""
 "Sélectionnez %s pour vérifier le CD-ROM avant l'installation.\n"
 "\n"
-"Sélectionnez %s pour sauter le contrôle du support et démarrer "
+"Sélectionnez %s pour sauter la vérification du medium et démarrer "
 "l'installation."
 
 #: ../loader2/cdinstall.c:379
@@ -5881,8 +5878,7 @@ msgstr "Sélectionner l'image de disquette de pilotes"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr ""
-"Choisissez le fichier qui correspond à l'image de votre disquette de pilotes."
+msgstr "Choisissez le fichier qui correspond à l'image de votre disquette de pilotes."
 
 #: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
@@ -5964,7 +5960,7 @@ msgid ""
 "command: %s:%s"
 msgstr ""
 "L'argument invalide suivant était spécifié dans la commande de la disquette "
-"de pilotes Kickstart %s : %s"
+"de pilotes kickstart %s : %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5983,7 +5979,7 @@ msgstr "Saisissez les paramètres du module"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
-msgstr "Aucun pilote n'a été trouvé "
+msgstr "Aucun pilote n'a été trouvé"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
@@ -6002,17 +5998,17 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Dans la liste ci-dessous, veuillez choisir le pilote que vous souhaité "
+"Dans la liste ci-dessous, veuillez choisir le pilote que vous souhaitez "
 "chargé. Si le pilote dont vous avez besoin ne figure pas dans cette liste et "
 "que vous avez une disquette de pilotes, appuyez sur F2."
 
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
-msgstr "Spécifier les arguments du module optionnels"
+msgstr "Spécifiez les arguments du module optionnels"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
-msgstr "Sélectionner le pilote de périphérique à charger"
+msgstr "Sélectionnez le pilote de périphérique à charger"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
@@ -6026,7 +6022,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"L'arbre d'installation de %s contenu dans ce répertoire ne semble pas "
+"L'arborescence d'installation de %s contenue dans ce répertoire ne semble pas "
 "correspondre à vos supports de démarrage."
 
 #: ../loader2/hdinstall.c:158
@@ -6073,7 +6069,7 @@ msgstr "Le périphérique %s ne semble pas contenir des images de CD-ROM %s."
 #: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Argument incorrect dans la commande méthode HD de Kickstart %s : %s"
+msgstr "Argument incorrect dans la commande méthode HD de kickstart %s : %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
@@ -6095,7 +6091,7 @@ msgstr "Quel type de clavier utilisez-vous ?"
 #: ../loader2/kickstart.c:125
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Erreur lors de l'ouverture du fichier kickstart %s : %s "
+msgstr "Erreur lors de l'ouverture du fichier kickstart %s : %s"
 
 #: ../loader2/kickstart.c:135
 #, c-format
@@ -6114,8 +6110,7 @@ msgstr "Impossible de trouver ks.cfg sur la disquette d'amorçage."
 #: ../loader2/kickstart.c:417
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argument incorrect pour arrêter la commande méthode de Kickstart %s : %s"
+msgstr "Argument incorrect pour arrêter la commande méthode de kickstart %s : %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6123,8 +6118,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Bienvenue à %s - Mode de secours"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> Changer d'élément  | <Espace> Sélectionner |<F12> Écran "
 "suivant "
@@ -6193,8 +6187,7 @@ msgstr ""
 #: ../loader2/loader.c:780
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"Vous n'avez pas assez de mémoire vive pour installer %s sur cette machine."
+msgstr "Vous n'avez pas assez de mémoire vive pour installer %s sur cette machine."
 
 #: ../loader2/loader.c:938
 msgid "Rescue Method"
@@ -6259,14 +6252,14 @@ msgstr "Ajouter un périphérique"
 
 #: ../loader2/loader.c:1347
 #, c-format
+#, fuzzy
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Le chargeur a déjà été exécuté. Démarrage du shell.\n"
 
 #: ../loader2/loader.c:1723
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Démarrage d'anaconda, en mode dépannage pour le système %s - patientez...\n"
+msgstr "Démarrage d'anaconda, en mode dépannage pour le système %s - veuillez patienter...\n"
 
 #: ../loader2/loader.c:1725
 #, c-format
@@ -6287,12 +6280,12 @@ msgstr ""
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Contrôle de « %s »..."
+msgstr "Vérification de « %s »..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr "Contrôle du support en cours..."
+msgstr "Vérification du medium..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
@@ -6301,7 +6294,7 @@ msgstr "Impossible de trouver l'image d'installation %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr "ÉCHOUÉ"
+msgstr "ÉCHEC"
 
 #: ../loader2/mediacheck.c:398
 msgid ""
@@ -6312,7 +6305,7 @@ msgstr ""
 "L'image qui vient d'être testée contient des erreurs. Ceci pourrait être dû "
 "à un téléchargement corrompu ou à un disque endommagé. Le cas échéant, "
 "réparez le disque et essayez de nouveau. Si ce test est toujours négatif, "
-"vous ne devriez pas poursuivre l'installation. "
+"vous ne devriez pas poursuivre l'installation."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -6325,12 +6318,12 @@ msgstr "L'installation peut être effectuée à partir de ce support."
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
 msgstr ""
-"Aucune information sur la somme de contrôle disponible. Impossible de "
+"Aucune information sur la somme de contrôle n'est disponible. Impossible de "
 "vérifier le support."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr "Résultat du contrôle du support"
+msgstr "Résultat de la vérification du support"
 
 #: ../loader2/mediacheck.c:424
 #, c-format
@@ -6350,7 +6343,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"La vérification de support %s\n"
+"La vérification du support %s\n"
 "\n"
 "%s"
 
@@ -6372,14 +6365,14 @@ msgstr ""
 
 #: ../loader2/method.c:420
 msgid "Checksum Test"
-msgstr "Contrôle d'intégrité "
+msgstr "Contrôle d'intégrité"
 
 #: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 "L'argument incorrect suivant a été spécifié pour la commande méthode device "
-"de Kickstart %s : %s"
+"de kickstart %s : %s"
 
 #: ../loader2/net.c:63
 #, c-format
@@ -6400,9 +6393,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"La valeur du préfixe doit être comprise entre 0 et 32 pour les réseaux IPv4 "
-"et entre 1 et 128 pour les réseaux IPv6."
+msgstr "La valeur du préfixe doit être comprise entre 0 et 32 pour les réseaux IPv4 et entre 1 et 128 pour les réseaux IPv6."
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6450,14 +6441,14 @@ msgstr "Erreur réseau"
 
 #: ../loader2/net.c:542 ../loader2/net.c:648
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Il y a eu une erreur lors de la configuration de votre interface réseau."
+msgstr "Il y a eu une erreur lors de la configuration de votre interface réseau."
 
 #: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Utiliser une configuration dynamique (DHCP)"
 
 #: ../loader2/net.c:712
+#, fuzzy
 msgid "Avoid unwanted packet collisions"
 msgstr "Conflit de paquets vides non désiré"
 
@@ -6475,7 +6466,7 @@ msgstr "IPv4 nécessaire à NFS"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr "L'installation par NFS requiert le support de l'IPv4."
+msgstr "L'installation par NFS nécessitet la gestion de l'IPv4."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6518,8 +6509,7 @@ msgid "Missing Information"
 msgstr "Informations manquantes"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Vous devez saisir une adresse IPv4 et un masque réseau ou préfixe CIDR "
 "valide."
@@ -6535,7 +6525,7 @@ msgstr "Recherche du nom de l'hôte et du domaine."
 #: ../loader2/net.c:1494
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Argument incorrect dans la commande network de Kickstart %s : %s"
+msgstr "Argument incorrect dans la commande network de kickstart %s : %s"
 
 #: ../loader2/net.c:1517
 #, c-format
@@ -6578,8 +6568,7 @@ msgstr "Le nom d'hôte est spécifié sans DNS configuré"
 #: ../loader2/nfsinstall.c:202
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
-"Ce répertoire ne semble pas contenir une arborescence d'installation %s."
+msgstr "Ce répertoire ne semble pas contenir une arborescence d'installation %s."
 
 #: ../loader2/nfsinstall.c:214
 msgid "That directory could not be mounted from the server."
@@ -6605,7 +6594,7 @@ msgstr "Exécution d'anaconda par telnet..."
 #: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Impossible de récupérer %s://%s/%s/%s. "
+msgstr "Impossible de récupérer %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
@@ -6613,16 +6602,16 @@ msgstr "Impossible de récupérer l'image d'installation."
 
 #: ../loader2/urlinstall.c:285
 msgid "Media Detected"
-msgstr "Média détecté"
+msgstr "Médium détecté"
 
 #: ../loader2/urlinstall.c:286
 msgid "Local installation media detected..."
-msgstr "Média d'installation local détecté..."
+msgstr "Médium d'installation local détecté..."
 
 #: ../loader2/urlinstall.c:464
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Argument incorrect dans la commande méthode de Url Kickstart %s : %s"
+msgstr "Argument incorrect dans la commande méthode Url de kickstart %s : %s"
 
 #: ../loader2/urlinstall.c:473
 msgid "Must supply a --url argument to Url kickstart method."
@@ -6631,7 +6620,7 @@ msgstr "Fournir un argument --url pour la méthode Url kickstart"
 #: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Méthode Url inconnue  %s"
+msgstr "Méthode Url inconnue %s"
 
 #: ../loader2/urls.c:215
 msgid "Retrieving"
@@ -6720,7 +6709,7 @@ msgstr "Ajouter _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "Ajout d'une cible _iSCSI"
+msgstr "Ajouter une cible _iSCSI"
 
 #: tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
@@ -6732,7 +6721,7 @@ msgstr "Désactiver le périphérique _dmraid"
 
 #: tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr "Comment souhaitez-vous modifier votre configuration de partitions ?"
+msgstr "Comment souhaitez-vous modifier votre configuration de disques ?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6762,7 +6751,7 @@ msgstr "_Ajouter un dépôt"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "_Redémarrer "
+msgstr "_Redémarrer"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -6792,12 +6781,11 @@ msgstr "E_xaminer et modifier la structure de partitionnement"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "Configuration avancée de stockage"
+msgstr "Configuration _avancée de stockage"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr ""
-"_Sélectionner le(s) périphérique(s) à utiliser pour cette installation ?"
+msgstr "_Sélectionner le(s) périphérique(s) à utiliser pour cette installation."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6809,7 +6797,7 @@ msgstr "Détails sur l'_exception"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr "<b>_Mot de passe :</b>"
+msgstr "<b>Mot de _passe :</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
@@ -6817,7 +6805,7 @@ msgstr "<b>Adresse IP _cible :</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>_Nom d'utilisateur :</b>"
+msgstr "<b>Nom d'_utilisateur :</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -6825,19 +6813,20 @@ msgstr "<b>_Nom d'initiateur iSCSI :</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr "Configurer les paramètres iSCSI "
+msgstr "Configurer les paramètres iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
+#, fuzzy
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
 "Pour utiliser les disques ISCSI, vous devez fournir une adresse cible ISCSI "
-"et un nom initial que vous avez configuré pour votre client. "
+"et un nom initial que vous avez configuré pour votre client."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr "<b>Passerelle : </b>"
+msgstr "<b>Passerelle :</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
@@ -6849,7 +6838,7 @@ msgstr "<b>Adresse IPv6 :</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr "<b>Serveur de noms : </b>"
+msgstr "<b>Serveur de noms :</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
@@ -6872,12 +6861,12 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
-"Ceci requiert une connexion internet ou réseau active durant le processus "
+"Ceci requiert une connexion réseau active durant le processus "
 "d'installation. Veuillez configurer une interface réseau."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Utiliser une configuration d'IP dynamique (DHCP)"
+msgstr "Utiliser une configuration d'IP _dynamique (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6887,17 +6876,13 @@ msgstr "Personnaliser p_lus tard"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"Merci de sélectionner les dépôts que vous souhaitez utiliser pour "
-"l'installation des logiciels."
+msgstr "Merci de sélectionner les dépôts que vous souhaitez utiliser pour l'installation des logiciels."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr ""
-"Vous pouvez personnaliser la sélection de logiciels maintenant ou une fois "
-"l'installation terminée via l'application de gestion de logiciels."
+msgstr "Vous pouvez personnaliser la sélection de logiciels maintenant ou une fois l'installation terminée via l'application de gestion de logiciels."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6920,10 +6905,12 @@ msgid "Alaska Time"
 msgstr "Heure de l'Alaska"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle"
 msgstr "Heure de l'Alaska - Alaska panhandle"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle neck"
 msgstr "Heure de l'Alaska- Alaska panhandle neck"
 
@@ -6953,7 +6940,7 @@ msgstr "Îles de l'Atlantique"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "Heure normale de l'Atlantique - Quebec - Côte nord"
+msgstr "Heure normale de l'Atlantique - Québec - Côte nord"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
@@ -6965,7 +6952,7 @@ msgstr "Heure de l'Atlantique - Nouveau Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Heure de l'Atlantique - Nouvelle-Écosse (plupart du territoire), PEI"
+msgstr "Heure de l'Atlantique - Nouvelle-Écosse (la plupart du territoire), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6999,7 +6986,7 @@ msgstr "Îles Canaries"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Station Casey, péninsule Bailey "
+msgstr "Station Casey, péninsule Bailey"
 
 #. generated from zone.tab
 msgid "Catamarca (CT), Chubut (CH)"
@@ -7015,31 +7002,30 @@ msgstr "Crimée centrale"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
-"Heure légale des états du Centre des États-Unis - Saskatchewan - midwest"
+msgstr "Heure légale des états du centre des États-Unis - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
 msgstr ""
-"Heure légale des états du Centre des États-Unis - Saskatchewan - plupart du "
+"Heure légale des états du centre des États-Unis - Saskatchewan - la plupart du "
 "territoire"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr "Heure des états du Centre des États-Unis"
+msgstr "Heure des états du centre des États-Unis"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr "Heure des états du Centre des États-Unis - Campeche, Yucatan"
+msgstr "Heure des états du centre des États-Unis - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr "Heure des états du Centre des États-Unis - Nunavut central"
+msgstr "Heure des états du centre des États-Unis - Nunavut central"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr ""
-"Heure des états du Centre des États-Unis - Coahuila, Durango, Nuevo Leon, "
+"Heure des états du centre des États-Unis - Coahuila, Durango, Nuevo Leon, "
 "Tamaulipas"
 
 #. generated from zone.tab
@@ -7056,41 +7042,39 @@ msgstr "Heure centrale - Indiana - Comté Pike"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
-"Heure des états du Centre des États-Unis - Manitoba et Ontario de l'ouest"
+msgstr "Heure des états du centre des États-Unis - Manitoba et Ontario de l'ouest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Heure centrale - Comtés Michigan - Dickinson, Gogebic, Iron & Menominee"
+msgstr "Heure centrale - Comtés Michigan - Dickinson, Gogebic, Iron & Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr "Heure des états du Centre des États-Unis - plupart du territoire"
+msgstr "Heure des états du centre des États-Unis - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
 msgstr ""
-"Heure des États du Centre des États-Unis - Dakota du Nord - Comté de Morton "
+"Heure des états du centre des États-Unis - Dakota du Nord - Comté de Morton "
 "(sauf les territoires Mandans)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Heure des états du Centre des États-Unis - North Dakota - Comté Oliver"
+msgstr "Heure des états du centre des États-Unis - North Dakota - Comté Oliver"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr "Heure des états du Centre des États-Unis - Quintana Roo"
+msgstr "Heure des états du centre des États-Unis - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr ""
-"Heure des états du Centre des États-Unis - Rainy River et Fort Frances, "
+"Heure des états du centre des États-Unis - Rainy River et Fort Frances, "
 "Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr "Heure des états du Centre des États-Unis - Nunavut de l'Ouest"
+msgstr "Heure des états du centre des États-Unis - Nunavut de l'Ouest"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -7098,7 +7082,7 @@ msgstr "Ceuta et Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr "Îles Chatham "
+msgstr "Îles Chatham"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7110,7 +7094,7 @@ msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
+msgstr "Dumont-d'Urville Base, Terre Adélie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -7150,7 +7134,7 @@ msgstr "Heure de l'est - Indiana - Comté Crawford"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Heure de l'est - Indiana - plupart du territoire"
+msgstr "Heure de l'est - Indiana - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7162,7 +7146,7 @@ msgstr "Heure de l'est - Indiana - Comté Switzerland"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Heure de l'est - Kentucky - zone de Louisville "
+msgstr "Heure de l'est - Kentucky - zone de Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
@@ -7170,17 +7154,16 @@ msgstr "Heure de l'est - Kentucky - Comté Wayne"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Heure de l'est - Michigan - plupart du territoire"
+msgstr "Heure de l'est - Michigan - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
 msgstr "Heure de l'est - Ontario - la plupart du territoire"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Heure de l'est - Ontario et Québec - endroits qui n'observent pas DST 1967-"
+"Heure de l'est - Ontario et Québec - endroits qui n'observent pas l'heure d'été 1967-"
 "1973"
 
 #. generated from zone.tab
@@ -7197,8 +7180,7 @@ msgstr "Heure de l'est - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Bornéo de l'est et du sud, Celebes, Bali, Nusa Tengarra, Timor de l'ouest"
+msgstr "Bornéo de l'est et du sud, Celebes, Bali, Nusa Tengarra, Timor de l'ouest"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -7206,15 +7188,15 @@ msgstr "Ouzbékistan de l'est"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr "Les Galapagos "
+msgstr "Îles Galapagos"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "Îles Gambier "
+msgstr "Îles Gambier"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "Îles Gilbert "
+msgstr "Îles Gilbert"
 
 #. generated from zone.tab
 msgid "Hawaii"
@@ -7238,7 +7220,7 @@ msgstr "Java et Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr "Atoll de Johnston "
+msgstr "Atoll de Johnston"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
@@ -7262,7 +7244,7 @@ msgstr "Îles Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Îles Lord Howe "
+msgstr "Îles Lord Howe"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
@@ -7298,7 +7280,7 @@ msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Îles Midway "
+msgstr "Îles Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - Caspian Sea"
@@ -7330,7 +7312,7 @@ msgstr "Moscou+03 - Sibérie de l'ouest"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr "Moscou+04 - Fleuve Yenisei "
+msgstr "Moscou+04 - Fleuve Yenisei"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
@@ -7338,7 +7320,7 @@ msgstr "Moscou+05 - Lac Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr "Moscou+06 - Fleuve Lena "
+msgstr "Moscou+06 - Fleuve Lena"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
@@ -7346,7 +7328,7 @@ msgstr "Moscou+07 - Fleuve Amour"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscou+07 - Île de Sakhalin "
+msgstr "Moscou+07 - Île de Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
@@ -7362,7 +7344,7 @@ msgstr "Moscou+10 - Mer de Béring"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "plupart des territoires"
+msgstr "la plupart des territoires"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
@@ -7379,8 +7361,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Heure standard des Montagnes Rocheuses - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Heure standard des Montagnes Rocheuses - Dawson Creek et Fort Saint John, "
 "Colombie-Britannique"
@@ -7401,7 +7382,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Heure des Montagnes Rocheuses - Territoires du Nord-Ouest centraux"
+msgstr "Heure des Montagnes Rocheuses - Territoires centraux du Nord-Ouest"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -7421,11 +7402,11 @@ msgstr "Heure des Montagnes Rocheuses - Idaho du sud et Oregon de l'est"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Heure des Montagnes Rocheuses- Territoires du Nord-Ouest occidentaux"
+msgstr "Heure des Montagnes Rocheuses- Territoires occidentaux du Nord-Ouest"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Brésil du nord-est (MA, PI, CE, RN, PB) "
+msgstr "Brésil du nord-est (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Time, including SE Labrador"
@@ -7433,7 +7414,7 @@ msgstr "Heure de Newfoundland - dont Labrador (Sud Est)"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "Nouvelle-Galles du Sud - plupart du territoire"
+msgstr "Nouvelle-Galles du Sud - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
@@ -7449,7 +7430,7 @@ msgstr "Heure du Pacifique"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Heure du Pacifique- Yukon du nord"
+msgstr "Heure du Pacifique - Yukon du nord"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
@@ -7461,7 +7442,7 @@ msgstr "Heure du Pacifique - Colombie-Britannique de l'ouest"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr "Palmer Station, Île d'Anvers "
+msgstr "Palmer Station, Île d'Anvers"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -7473,7 +7454,7 @@ msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Îles Phoenix "
+msgstr "Îles Phoenix"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -7481,11 +7462,11 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Îles Holiday "
+msgstr "Queensland - Îles Holiday"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - plupart du territoire"
+msgstr "Queensland - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7545,7 +7526,7 @@ msgstr "Tasmanie - Île King"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr "Tasmanie - plupart du territoire"
+msgstr "Tasmanie - la plupart du territoire"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7572,6 +7553,7 @@ msgid "Victoria"
 msgstr "Victoria"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Vostok Station, S Magnetic Pole"
 msgstr "Station Vostok, Pôle Sud Magnétique"
 
@@ -7589,7 +7571,7 @@ msgstr "Bornéo de l'ouest et central"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "Dém. Rép. du Congo de l'ouest"
+msgstr "Rép. Dém. du Congo de l'ouest"
 
 #. generated from zone.tab
 msgid "Western Australia"
@@ -7616,6 +7598,7 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
+#, fuzzy
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
@@ -7685,7 +7668,7 @@ msgstr "Allemand"
 
 #. generated from lang-table
 msgid "Greek"
-msgstr "Grec "
+msgstr "Grec"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7765,7 +7748,7 @@ msgstr "Portugais"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Portugais(Brésilien)"
+msgstr "Portugais (Brésilien)"
 
 #. generated from lang-table
 msgid "Punjabi"
@@ -7781,7 +7764,7 @@ msgstr "Serbe"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr "Serbe(Latin)"
+msgstr "Serbe (Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7822,3 +7805,4 @@ msgstr "Gallois"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zoulou"
+
