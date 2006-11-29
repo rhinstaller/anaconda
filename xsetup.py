@@ -32,57 +32,47 @@ class XSetup:
         self.xserver.generateConfig()
         self.xserver.writeConfig(filename=fn+"/xorg.conf")
 
-    def writeKS(self, f, desktop=None):
-        # FIXME: we really should have at least the startxonboot and
-        # defaultdesktop bits on s390
-        if rhpl.getArch() == "s390":
+    def writeKS(self, f, desktop, ksconfig):
+        if self.skipx:
+            f.write("skipx\n")
             return
-        
-	if self.skipx:
-	    f.write("skipx\n")
-	    return
 
-        args = self.getArgList(self.xserver.hwstate.get_resolution(),
-			       self.xserver.hwstate.get_colordepth())
-	if desktop: 
+        # We don't want to write out the X config arguments unless they
+        # were previously specified in kickstart.
+        args = []
+        if desktop:
 	    rl = desktop.getDefaultRunLevel() 
 	    if rl and str(rl) == '5': 
-		args = args + ['--startxonboot'] 
+		args += ['--startxonboot'] 
 	    gui = desktop.getDefaultDesktop() 
 	    if gui: 
-		args = args + ['--defaultdesktop', string.lower(gui)] 
+		args += ['--defaultdesktop', string.lower(gui)] 
+
+        # We don't want anything else on s390.
+        if rhpl.getArch() == "s390" and args != []:
+            f.write("xconfig %s\n" % string.join(args, " "))
+
+        if ksconfig:
+            if ksconfig.xconfig["driver"] != "":
+                args += [ "--driver", ksconfig.xconfig["driver"] ]
+            if ksconfig.xconfig["videoRam"] != "":
+                args += [ "--videoram", ksconfig.xconfig["videoRam"] ]
+            if ksconfig.xconfig["resolution"] != "":
+                args += [ "--resolution", ksconfig.xconfig["resolution"] ]
+            if ksconfig.xconfig["depth"] != 0:
+                args += [ "--depth", str(ksconfig.xconfig["depth"]) ]
 
         if args != []:
             f.write("xconfig %s\n" % string.join(args, " "))
 
-        monitorArgs = self.getMonitorArgList()
-        if monitorArgs != []:
-            f.write("monitor %s\n" % string.join(monitorArgs, " "))
-
-    def getMonitorArgList(self):
         args = []
-        monitor = self.xserver.monitorhw
+        if ksconfig:
+            if ksconfig.monitor["monitor"] != "":
+                args += [ "--monitor", ksconfig.monitor["monitor"] ]
+            if ksconfig.monitor["hsync"] != "":
+                args += [ "--hsync", ksconfig.monitor["hsync"] ]
+            if ksconfig.monitor["vsync"] != "":
+                args += [ "--vsync", ksconfig.monitor["vsync"] ]
 
-        if monitor.getMonitorHorizSync() is not None:
-            args += [ "--hsync", monitor.getMonitorHorizSync() ]
-
-        if monitor.getMonitorVertSync() is not None:
-            args += [ "--vsync", monitor.getMonitorVertSync() ]
-
-        return args
-
-    def getArgList(self, res, depth):
-        args = []
-	vc = self.xserver.videohw
-
-	args = args + [ "--driver", '"' + vc.primaryCard().getDriver() + '"' ]
-	vram = vc.primaryCard().getVideoRam()
-	if vram is not None:
-	    args = args + [ "--videoram", vram]
-
-        # XXX this isn't really quite right, but it works for the way
-        # things are now
-        args = args + [ "--resolution", res ]
-        args = args + [ "--depth", str(depth) ]
-
-        return args
+        if args != []:
+            f.write("monitor %s\n" % string.join(args, " "))
