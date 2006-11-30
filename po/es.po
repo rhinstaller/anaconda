@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2006-11-30 17:46+1000\n"
+"PO-Revision-Date: 2006-12-01 08:42+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -8692,7 +8692,7 @@ msgstr "No puedo encontrar ks.cfg en el disco de inicio."
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "Incapaz de descargar el archivo kickstart. Por favor modifique el parámetro kickstart o presione Cancelar para continuar con una instalación interactiva."
 
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
@@ -9134,16 +9134,13 @@ msgstr "Servidor de nombres omitido"
 # ../loader/net.c:267
 # ../loader/net.c:267
 #: ../loader2/net.c:294
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"La petición dinámica IP devuelve información IP de la configuración, pero no "
-"incluye un nombre de servidor DNS. Si conoce el nombre del servidor, "
-"introdúzcalo ahora. Si no tiene esta información, puede dejar este campo en "
-"blanco y la instalación continuará."
+"La dirección IP solicitada devolvió la información de la configuración, pero no "
+"incluye la dirección de un servidor de nombres. Si no tiene esta información, puede dejar el campo en blanco y la instalación continuará."
 
 # ../loader/net.c:277
 # ../loader/net.c:277
