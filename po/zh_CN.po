@@ -200,7 +200,8 @@ msgstr "引导分区在磁盘上的位置不够靠前。OpenFirmware 无法引�
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "引导分区 %s 可能没有满足您的体系的引导制约参数。"
 
 #: ../autopart.py:1058
@@ -918,7 +919,8 @@ msgstr "保存屏幕快照时出错"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
+msgstr ""
+"保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
 #: ../gui.py:230 ../text.py:435
 msgid "Fix"
@@ -1221,7 +1223,8 @@ msgstr "缺少软件包组"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
+msgstr ""
+"您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1418,7 +1421,8 @@ msgstr "错误 - 卷组名 %s 无效。"
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
+msgstr ""
+"错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1437,7 +1441,8 @@ msgstr "错误 - 逻辑卷名称 %s 无效。"
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
+msgstr ""
+"错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1694,7 +1699,8 @@ msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: ../partIntfHelpers.py:538
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
 #: ../partitioning.py:64
@@ -1742,7 +1748,8 @@ msgid ""
 msgstr "您的引导区不是最初的四个分区之一，因此无法引导驱动器。"
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必须创建一个 FAT 类型的 /boot/efl 分区，大小为 50MB。"
 
 #: ../partitions.py:867
@@ -1761,7 +1768,8 @@ msgid ""
 msgstr "您的 %s 分区小于 %s MB，小于正常安装 %s 的建议值。"
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:945
@@ -1814,7 +1822,8 @@ msgstr "一个是 LVM 卷组成员之一的分区。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 
 #: ../partRequests.py:252
@@ -1822,7 +1831,8 @@ msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
+msgstr ""
+"挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -1876,7 +1886,8 @@ msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
+msgstr ""
+"该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:924
 msgid ""
@@ -2083,7 +2094,8 @@ msgid "Welcome to %s"
 msgstr "欢迎使用 %s"
 
 #: ../text.py:470
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1>求助 | <Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
 #: ../text.py:472
@@ -2160,14 +2172,16 @@ msgstr "挂载失败"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
+msgstr ""
+"在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:334
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr "/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
+msgstr ""
+"/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:351
 msgid ""
@@ -2430,7 +2444,8 @@ msgstr "错误运行记录"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "出现错误，原因如下：%s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
@@ -2831,7 +2846,8 @@ msgstr "安装 %s(_I)"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr "选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
+msgstr ""
+"选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
@@ -2842,7 +2858,8 @@ msgstr "升级现有安装(_U)"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr "如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
+msgstr ""
+"如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
 
 #: ../iw/examine_gui.py:114 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3658,12 +3675,14 @@ msgid "Partitioning"
 msgstr "分区"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "您所申请的分区方案存在下列严重错误。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "在继续安装 %s 之前，您一定要首先更正这些错误。"
 
 #: ../iw/partition_gui.py:642
@@ -4202,7 +4221,8 @@ msgstr "这将会更新您目前的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4324,14 +4344,16 @@ msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr "强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
+msgstr ""
+"强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "您所选的交换分区在该设备上空间不够。"
 
 #: ../iw/zipl_gui.py:28
@@ -4464,8 +4486,10 @@ msgstr ""
 "一个分区使用的标签。"
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4600,7 +4624,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "请选择您想安装的软件包"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组详情   |   <F12> 下一屏幕"
 
 #: ../textw/grpselect_text.py:117
@@ -4969,8 +4994,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5038,7 +5065,8 @@ msgstr "配置iSCSI参数"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
+msgstr ""
+"使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5418,7 +5446,8 @@ msgstr "弹出光盘"
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr "选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
+msgstr ""
+"选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5437,7 +5466,8 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr "在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
+msgstr ""
+"在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -5719,7 +5749,9 @@ msgstr "无法在引导软盘中找到 ks.cfg。"
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr "不能下载 kickstart 文件。请修改下面的 kickstart 参数或者按 Cancel 进行交互式的安装。"
+msgstr ""
+"不能下载 kickstart 文件。请修改下面的 kickstart 参数或者按 Cancel 进行交互式"
+"的安装。"
 
 #: ../loader2/kickstart.c:348
 msgid "Error downloading kickstart file"
@@ -5736,7 +5768,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "欢迎使用 %s - 援救模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../loader2/lang.c:366
@@ -6026,7 +6059,9 @@ msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
-msgstr "您的 IP 地址请求返回了 IP 配置信息，但该信息没有包含 DNS 名称服务器地址。如果您不知道这一信息，可将该字段留为空白，安装将会继续。"
+msgstr ""
+"您的 IP 地址请求返回了 IP 配置信息，但该信息没有包含 DNS 名称服务器地址。如果"
+"您不知道这一信息，可将该字段留为空白，安装将会继续。"
 
 #: ../loader2/net.c:316
 msgid "Invalid IP Information"
@@ -6095,7 +6130,8 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: ../loader2/net.c:1186
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: ../loader2/net.c:1192
@@ -6720,7 +6756,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "东部时间 - 安大略 - 多数地区"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "东部时间 - 安大略 & 魁北克 - 不使用 DST 1967-1973 的地区"
 
 #. generated from zone.tab
@@ -6918,7 +6955,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山区标准时间 - 亚利桑那"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山区标准时间 - 道森溪 & 圣约翰堡，英属哥伦比亚"
 
 #. generated from zone.tab
@@ -7374,4 +7412,3 @@ msgstr "威尔士语"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖鲁语"
-
