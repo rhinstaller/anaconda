@@ -373,30 +373,20 @@ class BaseInstallClass:
         id.xsetup.xserver.hwstate.recalc_mode()
 
     def setVideoCard(self, id, driver = None, videoRam = None):
-        import rhpxl.videocard
-	db = rhpxl.videocard.drivers
         primary = id.videocard.primaryCard()
 
-        # If we don't have any drivers (like we're on minstg2, for instance)
-        # then just trust what the user gave us.
-        if db == {}:
-            if driver:
-                log.warning("no drivers are available, using user value of %s" % driver)
-                id.xsetup.xserver.hwstate.set_videocard_driver(driver)
-        else:
-	    if driver:
-	        if db.has_key(driver):
-		    primary.setDriver(driver)
-                    id.xsetup.xserver.hwstate.set_videocard_name(primary.getDescription())
-                    id.xsetup.xserver.hwstate.set_videocard_driver(driver)
-                else:
-                    raise RuntimeError, "Unknown video driver specified: %s" %(driver,)
+        # rhpxl no longer gives us a list of drivers, so always just trust
+        # what the user gave us.
+        if driver:
+            log.info("Setting video card driver to user value of %s" % driver)
+            primary.setDriver(driver)
+            id.xsetup.xserver.hwstate.set_videocard_name(primary.getDescription())
+            id.xsetup.xserver.hwstate.set_videocard_driver(driver)
 
         if videoRam:
             # FIXME: this required casting is ugly
             primary.setVideoRam(str(videoRam))
             id.xsetup.xserver.hwstate.set_videocard_ram(int(videoRam))
-
 
     def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, startX = 0):
         self.setVideoCard(id, driver, videoRam)
