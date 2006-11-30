@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2006-11-28 10:44+1000\n"
+"PO-Revision-Date: 2006-11-30 17:46+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -187,8 +187,7 @@ msgstr "Método de instalación desconocido "
 
 #: ../anaconda:910
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Ha especificado un método de instalación que no es soportado por anaconda."
+msgstr "Ha especificado un método de instalación que no es soportado por anaconda."
 
 # ../textw/xconfig_text.py:564
 # ../textw/xconfig_text.py:576
@@ -286,8 +285,7 @@ msgstr ""
 # ../autopart.py:739
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partición  de arranque %s podría no reunir las restricciones de arranque  "
 "para su arquitectura. "
@@ -692,8 +690,7 @@ msgstr ""
 
 #: ../cmdline.py:105
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"No se pueden manejar excepciones de Parted en modo de línea de comandos!"
+msgstr "No se pueden manejar excepciones de Parted en modo de línea de comandos!"
 
 #: ../cmdline.py:150
 #, python-format
@@ -1873,8 +1870,7 @@ msgstr "El nombre de host debe ser de 64 o menos caracteres de largo."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"el nombre del host empieza con un carácter válido en el rango 'a-z' o 'A-Z'"
+msgstr "el nombre del host empieza con un carácter válido en el rango 'a-z' o 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -2276,8 +2272,7 @@ msgstr ""
 # ../partitioning.py:1647
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Esta partición cuenta con los datos para la instalación de la disquetera."
+msgstr "Esta partición cuenta con los datos para la instalación de la disquetera."
 
 # ../partitioning.py:1551
 # ../partitioning.py:1571
@@ -2304,8 +2299,7 @@ msgstr "Confirmar la eliminización"
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
+msgstr "Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
 
 # ../iw/partition_gui.py:1515
 # ../iw/partition_gui.py:1517
@@ -2571,10 +2565,8 @@ msgstr "Confirmar el reinicio"
 # ../partitioning.py:1582
 # ../partitioning.py:1585
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
 
 # ../partitioning.py:1711
 # ../partitioning.py:1731
@@ -2652,10 +2644,8 @@ msgstr ""
 # ../partitioning.py:571
 # ../partitioning.py:574
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -2678,10 +2668,8 @@ msgstr ""
 "recomienda en una instalación %s normal."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Instalando en un dispositivo USB. Esto puedo o no crear un sistema funcional."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Instalando en un dispositivo USB. Esto puedo o no crear un sistema funcional."
 
 #: ../partitions.py:945
 msgid ""
@@ -2766,8 +2754,7 @@ msgstr "una partición que es un miembro de un grupo de volumen LVM."
 # ../partitioning.py:436
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este punto de montaje no es válido.  El directorio %s debe estar en el "
 "sistema de ficheros /."
@@ -3190,8 +3177,7 @@ msgstr "Bienvenido a %s"
 # ../text.py:303
 # ../text.py:304
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> ayuda|<Tab> cambiar entre elementos|<Espacio> seleccionar|<F12> "
 "siguiente"
@@ -3203,8 +3189,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../installclasses/upgradeclass.py:8
 # ../installclasses/upgradeclass.py:8
@@ -3588,13 +3573,11 @@ msgstr "¡Finalizando los intentos de conectarse después de 50 intentos!\n"
 #: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Por favor conecte manualmente su cliente vnc a %s para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente vnc a %s para iniciar la instalación"
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Por favor conecte manualmente su cliente vnc para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente vnc para iniciar la instalación"
 
 #: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
@@ -3678,10 +3661,8 @@ msgstr "Error al ejecutar la transacción"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Ocurrió un error durante su transacción, por la(s) siguiente(s) razon(es): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Ocurrió un error durante su transacción, por la(s) siguiente(s) razon(es): %s"
 
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
@@ -3749,8 +3730,7 @@ msgstr "Inicio de la instalación"
 
 #: ../yuminstall.py:1326
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
+msgstr "Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
 
 # ../installclasses/upgradeclass.py:12
 # ../installclasses/upgradeclass.py:12
@@ -3807,8 +3787,7 @@ msgstr "No ha especificado un número de dispositivo o el número es inválido"
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"No ha especificado un nombre de puerto universal o el nombre es inválido."
+msgstr "No ha especificado un nombre de puerto universal o el nombre es inválido."
 
 #: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -3922,8 +3901,7 @@ msgstr ""
 
 #: ../iw/autopart_type.py:250 ../textw/partition_text.py:1531
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Usar espacio disponible en dispositivos seleccionados y crear disposición."
+msgstr "Usar espacio disponible en dispositivos seleccionados y crear disposición."
 
 #: ../iw/autopart_type.py:251 ../textw/partition_text.py:1532
 msgid "Create custom layout."
@@ -4531,8 +4509,7 @@ msgstr "Tamaño ilegal"
 # ../textw/upgrade_text.py:161
 #: ../iw/lvm_dialog_gui.py:523
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"El tamaño necesario como se ha introducido no es un número válido mayor de 0."
+msgstr "El tamaño necesario como se ha introducido no es un número válido mayor de 0."
 
 # ../iw/partition_gui.py:1533 ../iw/upgrade_swap_gui.py:121
 # ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
@@ -5542,18 +5519,15 @@ msgstr "Particionamiento"
 # ../iw/partition_gui.py:543
 # ../iw/partition_gui.py:543
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Existen los siguientes errores graves con su esquema de particionamiento."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Existen los siguientes errores graves con su esquema de particionamiento."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Estos errores deben ser corregidos antes de continuar con la instalación de %"
 "s."
@@ -5766,8 +5740,7 @@ msgstr "Crear un _dispositivo RAID [default=/dev/md%s]."
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
+msgstr "Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -5778,8 +5751,7 @@ msgstr "No se ha podido crear el editor de clonización del dispositivo"
 # ../loader/loader.c:1146
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por algún motivo no se ha podido crear el editor de clonización de la unidad."
+msgstr "Por algún motivo no se ha podido crear el editor de clonización de la unidad."
 
 # ../textw/partition_text.py:976
 # ../textw/partition_text.py:976
@@ -6118,8 +6090,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
+msgstr "La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -6355,8 +6326,7 @@ msgstr "Esto actualizará su gestor de arranque actual."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "El instalador ha detectado que el gestor de arranque %s está instalado en la "
 "actualidad en %s."
@@ -6564,8 +6534,7 @@ msgstr "El archivo swap debe estar entre 1 y 2000 MB de tamaño."
 # ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
 # ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "No existe espacio suficiente en el dispositivo que ha seleccionado para la "
 "partición swap."
@@ -6792,8 +6761,7 @@ msgstr ""
 "qué etiquetas quiere utilizar para cada una de ellas."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 "<Espacio> seleccionar | <F2> seleccionar predeterminada | <F4> borrar | "
 "<F12> próxima pantalla>"
@@ -7018,8 +6986,7 @@ msgstr "Por favor seleccione los grupos de paquetes que desea instalar."
 # ../textw/packages_text.py:245
 # ../textw/packages_text.py:245
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Espacio>,<+>,<-> selección | <F2> Detalles del grupo | <F12> siguiente "
 "pantalla"
@@ -7462,8 +7429,7 @@ msgstr "No está soportado"
 
 #: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
+msgstr "Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
 
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
@@ -7620,8 +7586,7 @@ msgstr "RAID"
 # ../textw/partition_text.py:979
 # ../textw/partition_text.py:990
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-"
 "Aceptar  "
@@ -8125,31 +8090,30 @@ msgstr ""
 
 #: ../installclasses/rhel.py:20
 msgid "Red Hat Enterprise Linux"
-msgstr "Linux para Empresas de Red Hat"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
 msgid "Office"
-msgstr ""
+msgstr "Oficina"
 
 #: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 # ../iw/congrats_gui.py:21 ../iw/congrats_gui.py:75
 # ../iw/congrats_gui.py:22 ../iw/congrats_gui.py:83
 # ../iw/congrats_gui.py:22 ../iw/congrats_gui.py:83
 #: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
-#, fuzzy
 msgid "Virtualization"
-msgstr "Enhorabuena"
+msgstr "Virtualización"
 
 #: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
 msgid "Clustering"
-msgstr ""
+msgstr "Clústers"
 
 #: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Clústers de almacenamiento"
 
 # ../textw/confirm_text.py:20
 # ../textw/confirm_text.py:20
@@ -8734,9 +8698,8 @@ msgstr ""
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
 #: ../loader2/kickstart.c:348
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Error al abrir el archivo kickstart %s: %s"
+msgstr "Error al descargar el archivo kickstart"
 
 # ../loader/net.c:723
 # ../loader/net.c:723
@@ -8758,10 +8721,8 @@ msgstr "Bienvenido a %s - Modo de rescate"
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../loader/lang.c:298
 # ../loader/lang.c:297
@@ -9038,8 +8999,7 @@ msgstr "Es correcto que instale de este medio."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"La información checksum no está disponible, imposible verificar el medio."
+msgstr "La información checksum no está disponible, imposible verificar el medio."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -9099,8 +9059,7 @@ msgstr "Control de integridad"
 #: ../loader2/modules.c:1058
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Mal argumento para el dispositivo del comando del método kickstart %s: %s"
+msgstr "Mal argumento para el dispositivo del comando del método kickstart %s: %s"
 
 # ../loader/net.c:180
 # ../loader/net.c:180
@@ -9168,9 +9127,8 @@ msgstr "IP del servidor de nombres"
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 #: ../loader2/net.c:293
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Servidor de nombres"
+msgstr "Servidor de nombres omitido"
 
 # ../loader/net.c:267
 # ../loader/net.c:267
@@ -9220,9 +9178,8 @@ msgid "Configure TCP/IP"
 msgstr "Configurar TCP/IP"
 
 #: ../loader2/net.c:772
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Debe seleccionar al menos un protocolo (IPv4 o IPv6) para DHCP."
+msgstr "Debe seleccionar al menos un protocolo (IPv4 o IPv6)."
 
 #: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
@@ -9289,8 +9246,7 @@ msgstr "Falta de información"
 # ../loader/net.c:405
 # ../loader/net.c:405
 #: ../loader2/net.c:1186
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Debe introducir una dirección IPv4 y una máscara de red o prefijo CIDR "
 "válidas."
@@ -9916,8 +9872,7 @@ msgstr "Hora del Atlántico - Nueva Escocia (la mayoría de lugares), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
+msgstr "Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -9987,8 +9942,7 @@ msgstr "Central Time - Coahuila, Durango, Nuevo León, Tamaulipas"
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"Hora central - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+msgstr "Hora central - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -10000,8 +9954,7 @@ msgstr "Central Time - Manitoba & Ontario del Este"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Hora central - Michigan - Condados de Dickinson, Gogebic, Iron & Menominee"
+msgstr "Hora central - Michigan - Condados de Dickinson, Gogebic, Iron & Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -10112,10 +10065,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Hora del Este - Ontario - la mayoría de localidades"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Hora del este - Ontario & Quebec - lugares que no observaban DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Hora del este - Ontario & Quebec - lugares que no observaban DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -10131,8 +10082,7 @@ msgstr "Hora del Este - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
+msgstr "Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -10316,8 +10266,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Hora de las montañas Rocayosas - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Hora de las montañas Rocayosas - Dawson Creek & Fort Saint John, British "
 "Columbia"
@@ -10332,8 +10281,7 @@ msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
+msgstr "Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -10786,16 +10734,3 @@ msgstr "Galés"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Evitar colisiones indeseadas de paquetes"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr ""
-#~ "Maximizar los valores de registro para un tráfico de red de alta velocidad"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Debe seleccionar al menos un protocolo (IPv4 o IPv6) para la "
-#~ "configuración manual."
