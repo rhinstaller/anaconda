@@ -18,6 +18,7 @@
 # translation of it.po to
 # translation of it.po to
 # translation of it.po to
+# translation of it.po to
 # translation of it.po to Italiano
 # translation of it.po to
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
@@ -37,7 +38,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2006-11-20 07:16+0100\n"
+"PO-Revision-Date: 2006-11-30 07:19+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,8 +117,7 @@ msgstr "Nessun hardware video trovato, si presume senza monitor"
 
 #: ../anaconda:479 ../anaconda:944
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-"Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
+msgstr "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
 
 #: ../anaconda:536
 msgid "Starting graphical installation..."
@@ -129,8 +129,7 @@ msgstr "Installa classe forzando l'installazione in modalità di testo"
 
 #: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Installazione grafica non disponibile...  Avvio della modalità di testo."
+msgstr "Installazione grafica non disponibile...  Avvio della modalità di testo."
 
 #: ../anaconda:848
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -142,8 +141,7 @@ msgstr "Metodo d'installazione sconosciuto"
 
 #: ../anaconda:910
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"E' stato specificato un metodo d'installazione non supportato da anaconda."
+msgstr "E' stato specificato un metodo d'installazione non supportato da anaconda."
 
 #: ../anaconda:912
 #, c-format
@@ -226,8 +224,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partizione boot %s potrebbe non rispondere alle esigenze d'avvio della "
 "vostra architettura."
@@ -504,8 +501,7 @@ msgstr "In progresso...    "
 
 #: ../cmdline.py:66 ../cmdline.py:86
 msgid "Can't have a question in command line mode!"
-msgstr ""
-"Non è possibile avere un interrogativo nella modalità a linea di comando!"
+msgstr "Non è possibile avere un interrogativo nella modalità a linea di comando!"
 
 #: ../cmdline.py:74 ../gui.py:898 ../text.py:398
 #, python-format
@@ -573,8 +569,7 @@ msgstr "Dump non scritto"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
-"Si è verificato un problema nello scrivere lo stato del sistema sul floppy."
+msgstr "Si è verificato un problema nello scrivere lo stato del sistema sul floppy."
 
 #: ../exception.py:418
 msgid ""
@@ -586,8 +581,7 @@ msgstr ""
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
+msgstr "Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
 
 #: ../fsset.py:221
 msgid "Checking for Bad Blocks"
@@ -1336,13 +1330,11 @@ msgstr "Assicurarsi che l'Hostname sia al massimo di 64 caratteri."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"L'Hostname deve iniziare con un carattere valido compreso tra 'a-z' o 'A-Z'"
+msgstr "L'Hostname deve iniziare con un carattere valido compreso tra 'a-z' o 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
+msgstr "Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1831,10 +1823,8 @@ msgid "Confirm Reset"
 msgstr "Conferma Reimposta"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Reimpostare la tabella delle partizioni secondo il suo stato originario?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Reimpostare la tabella delle partizioni secondo il suo stato originario?"
 
 #: ../partitioning.py:64
 msgid "Installation cannot continue."
@@ -1891,8 +1881,7 @@ msgstr ""
 "sarà avviabile."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Creare una partizione /boot/efi di tipo FAT di 50 megabyte."
 
 #: ../partitions.py:867
@@ -1913,8 +1902,7 @@ msgstr ""
 "capacità consigliata per una installazione di %s normale."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installazione su di un dispositivo USB in corso.  Tale operazione potrebbe, "
 "o meno, produrre un sistema funzionante."
@@ -1976,8 +1964,7 @@ msgstr "una partizione che fa parte del gruppo di volumi LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Il mount point richiesto non è valido. La directory %s deve essere sul "
 "filesystem /."
@@ -2001,8 +1988,7 @@ msgstr "Il mount point richiesto deve essere su un filesystem di Linux."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Il mount point \"%s\" è già in uso, scegliere un mount point differente."
+msgstr "Il mount point \"%s\" è già in uso, scegliere un mount point differente."
 
 #: ../partRequests.py:294
 #, python-format
@@ -2025,8 +2011,7 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
+msgstr "Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2270,10 +2255,8 @@ msgid "Welcome to %s"
 msgstr "Benvenuti in %s"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
 
 #: ../text.py:472
 msgid ""
@@ -2573,8 +2556,7 @@ msgstr ""
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Connettete manualmente il vostro client vnc per far iniziare l'installazione."
+msgstr "Connettete manualmente il vostro client vnc per far iniziare l'installazione."
 
 #: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
@@ -2643,8 +2625,7 @@ msgstr "Errore nell'esecuzione della transazione"
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Si è verificato un errore eseguendo la transazione a casua del seguente "
 "motivo(i): %s"
@@ -2704,8 +2685,7 @@ msgstr "Inizio installazione"
 
 #: ../yuminstall.py:1326
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
+msgstr "Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
 
 #: ../yuminstall.py:1342
 msgid "Post Upgrade"
@@ -2737,8 +2717,7 @@ msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
 #: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Non avete specificato il numero del dispositivo o il numero non è valido"
+msgstr "Non avete specificato il numero del dispositivo o il numero non è valido"
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -3109,8 +3088,7 @@ msgstr "Selezione della lingua"
 
 #: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Quale lingua desiderate installare durante il processo d'installazione:"
+msgstr "Quale lingua desiderate installare durante il processo d'installazione:"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3368,8 +3346,7 @@ msgstr "Nome in uso"
 #: ../iw/lvm_dialog_gui.py:906
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
+msgstr "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:950
 msgid "Not enough physical volumes"
@@ -3938,16 +3915,14 @@ msgid "Partitioning"
 msgstr "Partizionamento in corso"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "I seguenti errori critici sono relativi allo schema di partizionamento "
 "richiesto."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Correggere gli errori prima di proseguire l'installazione di %s."
 
 #: ../iw/partition_gui.py:642
@@ -3956,8 +3931,7 @@ msgstr "Errori di partizionamento"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
+msgstr "I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4516,8 +4490,7 @@ msgstr "Il boot loader verrà aggiornato."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Il programma di installazione ha individuato il boot loader %s correntemente "
 "installato su %s."
@@ -4658,8 +4631,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La dimensione del file di swap deve essere compresa fra 1 e 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Non c'è abbastanza spazio sul dispositivo selezionato per creare la "
 "partizione."
@@ -4799,8 +4771,7 @@ msgstr ""
 "Indicare le partizioni da avviare e associare ad ognuna di esse un'etichetta."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Spazio> seleziona | <F2> seleziona predefinita | <F4> cancella |<F12> "
 "schermata successiva>"
@@ -4940,12 +4911,10 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
-"Si prega di selezionare il gruppo di pacchetti che si desidera installare."
+msgstr "Si prega di selezionare il gruppo di pacchetti che si desidera installare."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Spazio>,<+>,<-> selezione   |   <F2> Descrizione   |   <F12> prossima "
 "schermata"
@@ -5327,10 +5296,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5687,24 +5654,23 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
 msgid "Office"
-msgstr ""
+msgstr "Office"
 
 #: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
-#, fuzzy
 msgid "Virtualization"
-msgstr "Congratulazioni"
+msgstr "Virtualizzazione"
 
 #: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
 msgid "Clustering"
-msgstr ""
+msgstr "Clustering"
 
 #: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Storage Clustering"
 
 #: ../installclasses/rhel.py:39
 msgid "Installation Number"
@@ -5917,8 +5883,7 @@ msgstr "Impossibile montare dal file il dischetto del driver ."
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
+msgstr "Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -5987,8 +5952,7 @@ msgstr "Sorgente del dischetto driver del kickstart sconosciuta: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Argomento non corretto per il comando kickstart disco del driver: %s:%s"
+msgstr "Argomento non corretto per il comando kickstart disco del driver: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6137,18 +6101,16 @@ msgstr "Impossibile trovare il file ks.cfg sul dischetto di avvio."
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "Impossibile scaricare il file kickstart.  Si prega di modificare il parametri kickstart sotto riportati, oppure di selezionare Cancella in modo da procedere come in una installazione interattiva."
 
 #: ../loader2/kickstart.c:348
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Errore di apertura del file kickstart %s: %s"
+msgstr "Errore durante il download del file kickstart"
 
 #: ../loader2/kickstart.c:470
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
+msgstr "Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6156,10 +6118,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Benvenuti in %s - Modalità Rescue"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6272,8 +6232,7 @@ msgstr "Sono stati trovati i seguenti dispositivi all'interno del sistema."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
+msgstr "Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
 
 #: ../loader2/loader.c:1182
 msgid "Devices"
@@ -6405,8 +6364,7 @@ msgstr "Controllo checksum"
 #: ../loader2/modules.c:1058
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
+msgstr "Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
 
 #: ../loader2/net.c:57
 #, c-format
@@ -6460,20 +6418,15 @@ msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
 #: ../loader2/net.c:293
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Nameserver mancante"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
-msgstr ""
-"Sono state ricevute le informazioni sulla configurazione della rete IP, "
-"escluso il server DNS. Inserire il server DNS oppure, se non lo si conosce, "
-"lasciare il campo vuoto e procedere con l'installazione."
+msgstr "La vostra richiesta di indirizzo IP ha ritornato le informazioni sulla configurazione, senza però includere un indirizzo del nameserver. Se non siete in possesso di queste informazioni, lasciate il campo vuoto, consentendo all'installazione di continuare."
 
 #: ../loader2/net.c:316
 msgid "Invalid IP Information"
@@ -6489,17 +6442,15 @@ msgstr "Errore di rete"
 
 #: ../loader2/net.c:564 ../loader2/net.c:672
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Si è verificato un errore durante la configurazione dell'interfaccia di rete."
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
 #: ../loader2/net.c:745
 msgid "Configure TCP/IP"
 msgstr "Configurazione TCP/IP"
 
 #: ../loader2/net.c:772
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Selezionare almeno un protocollo (IPv4 o IPv6) per il DHCP."
+msgstr "Selezionare almeno un protocollo (IPv4 or IPv6)."
 
 #: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
@@ -6545,10 +6496,8 @@ msgid "Missing Information"
 msgstr "Informazioni mancanti"
 
 #: ../loader2/net.c:1186
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
 #: ../loader2/net.c:1192
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -6995,8 +6944,7 @@ msgstr "Ora dell'Atlantico - Nuova Scozia (maggior parte del territorio), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
+msgstr "Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7080,8 +7028,7 @@ msgstr "Central Time - Manitoba e Ontario dell'Ovest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -7089,8 +7036,7 @@ msgstr "Central Time - maggior parte del territorio"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
-"Central Time - Nord Dakota - Morton County (ad eccezione dell'area di Mandan)"
+msgstr "Central Time - Nord Dakota - Morton County (ad eccezione dell'area di Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -7193,8 +7139,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Eastern Time - Ontario - maggior parte del territorio"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Eastern Time - Ontario e Quebec - aree non rientranti in DST 1967-1973"
 
 #. generated from zone.tab
@@ -7211,8 +7156,7 @@ msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
+msgstr "Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -7393,10 +7337,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7848,16 +7790,3 @@ msgstr "Gallese"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Evitare collisioni di pacchetti non desiderate"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr ""
-#~ "Massimizzare i valori di registro per l'alta velocità del traffico di rete"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Selezionare almeno un protocollo (IPv4 o IPv6) per la configurazione "
-#~ "manuale."
