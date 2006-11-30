@@ -575,7 +575,6 @@ class AnacondaYum(YumSorter):
         self.setColor()
         if not self.method.splitmethod:
             self.populateTs(keepold=0)
-            rpm.setVerbosity(rpm.RPMLOG_DEBUG)
             self.ts.check()
             self.ts.order()
             self._run(instLog, cb, intf)
