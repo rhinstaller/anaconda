@@ -6,6 +6,9 @@
 	* partedUtils.py (DiskSet.getLabels):  Scan for labels on logical
 	volumes during upgrades (#217191).
 
+	* urlinstall.py (UrlInstallMethod.__copyFileToTemp):  Fix traceback
+	that was hiding a real error.
+
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run):  Remove unused code.
 	Make sure to copy volume group format attribute to the new request
 	(#217585).
