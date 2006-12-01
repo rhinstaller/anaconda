@@ -3,6 +3,9 @@
 	* fsset.py (FileSystemSet.add):  Make sure / is mounted before /boot
 	(#217292).
 
+	* partedUtils.py (DiskSet.getLabels):  Scan for labels on logical
+	volumes during upgrades (#217191).
+
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run):  Remove unused code.
 	Make sure to copy volume group format attribute to the new request
 	(#217585).

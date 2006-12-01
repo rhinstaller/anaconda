@@ -686,6 +686,19 @@ class DiskSet:
             if label:
                 labels[dev] = label
 
+        lvm.vgscan()
+        lvm.vgactivate()
+
+        for (vg, lv, size, lvorigin) in lvm.lvlist():
+            if lvorigin:
+                continue
+            node = "%s/%s" % (vg, lv)
+            label = isys.readFSLabel("/dev/" + node, makeDevNode=0)
+            if label:
+                labels[node] = label
+
+        lvm.vgdeactivate()
+
         return labels
 
     def findExistingRootPartitions(self, anaconda, upgradeany = 0):
