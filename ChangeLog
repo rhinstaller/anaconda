@@ -1,3 +1,11 @@
+2006-12-01  Chris Lumens  <clumens@redhat.com>
+
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run):  Remove unused code.
+	Make sure to copy volume group format attribute to the new request
+	(#217585).
+	* iw/partition_gui.py (PartitionWindow.makeLvmCB):  Default new volume
+	group requests to formatted.
+
 2006-11-30  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

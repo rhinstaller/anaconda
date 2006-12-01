@@ -899,18 +899,13 @@ class VolumeGroupEditor:
 		origname = None
 
 	    if origvname != volname:
-		tmpreq = VolumeGroupRequestSpec(physvols = pvlist,
-                                                vgname = volname)
 		if self.partitions.isVolumeGroupNameInUse(volname):
 		    self.intf.messageWindow(_("Name in use"),
 					    _("The volume group name \"%s\" is "
 					      "already in use. Please pick "
 					      "another." % (volname,)),
 					    custom_icon="error")
-		    del tmpreq
 		    continue
-		
-		del tmpreq
 
 	    # get physical extent
 	    pesize = int(self.peCombo.get_active_value())
@@ -924,6 +919,8 @@ class VolumeGroupEditor:
         # if it was preexisting, it still should be
         if self.origvgrequest and self.origvgrequest.getPreExisting():
             request.preexist = 1
+        elif self.origvgrequest:
+            request.format = self.origvgrequest.format
             
 	return (request, self.logvolreqs)
 
