@@ -38,17 +38,15 @@ import rhpl
 
 # blacklist made up of (name, arch) or 
 # (name, ) to erase all matches
-upgrade_remove_blacklist = () 
+upgrade_remove_blacklist = ()
 
 if rhpl.getArch() == "x86_64":
-        upgrade_remove_blacklist.extend( [("ImageMagick","i386"), 
-                                          ("gdb", "i386"),
-                                          ("libtabe", "i386"),
-                                          ("mozilla", "i386"),
-                                          ])
-
-if iutil.getArch() == "ppc":
-    upgrade_remove_blacklist = (("samba","ppc64"),)
+    upgrade_remove_blacklist = ( ("ImageMagick","i386"), 
+                                 ("gdb", "i386"),
+                                 ("libtabe", "i386"),
+                                 ("mozilla", "i386") )
+elif iutil.getArch() == "ppc":
+    upgrade_remove_blacklist = ( ("samba","ppc64"),)
 
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
