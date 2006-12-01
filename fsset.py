@@ -1124,6 +1124,11 @@ class FileSystemSet:
 
         insertAt = 0
 
+        # Special case for /.
+        if newEntry.mountpoint == "/":
+            self.entries.insert(insertAt, newEntry)
+            return
+
         # doesn't matter where these get added, so just put them at the end
         if not newEntry.mountpoint or not newEntry.mountpoint.startswith("/") or self.entries == []:
             self.entries.append(newEntry)

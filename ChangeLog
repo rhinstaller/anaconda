@@ -1,5 +1,8 @@
 2006-12-01  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (FileSystemSet.add):  Make sure / is mounted before /boot
+	(#217292).
+
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run):  Remove unused code.
 	Make sure to copy volume group format attribute to the new request
 	(#217585).
