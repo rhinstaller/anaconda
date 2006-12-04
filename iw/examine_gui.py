@@ -48,8 +48,12 @@ class UpgradeExamineWindow (InstallWindow):
             else:
                 self.dispatch.skipStep("indivpackage")
             self.dispatch.skipStep("installtype", skip = 1)
+            # Save the user's choice for recall
+            self.id.doupgrade = True
         else:
-            self.dispatch.skipStep("installtype", skip = 0)
+            self.dispatch.skipStep("installtype", skip = 0) 
+            # Save the user's choice for recall
+            self.id.doupgrade = False
 
         return None
 
@@ -90,7 +94,11 @@ class UpgradeExamineWindow (InstallWindow):
         self.id = id
         self.chroot = chroot
 
-	self.doupgrade = dispatch.stepInSkipList("installtype")
+        if self.id.doupgrade == None:
+            self.doupgrade = dispatch.stepInSkipList("installtype")
+        else:
+            self.doupgrade = self.id.doupgrade
+        
         self.parts = self.id.rootParts 
 
         vbox = gtk.VBox (gtk.FALSE, 10)

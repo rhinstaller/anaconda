@@ -84,6 +84,8 @@ class InstallData:
         self.upgradeInfoFound = None
         self.configFileData = self.tmpData
         self.firstboot = FIRSTBOOT_DEFAULT
+        # Used to save the user's choice to upgrade or install
+        self.doupgrade = None
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c

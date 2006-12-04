@@ -420,7 +420,7 @@ void setKickstartCD(struct loaderData_s * loaderData, int argc,
 }
 
 int kickstartFromCD(char *kssrc, int flags) {
-    int rc;
+    int rc, i;
     char *p, *kspath;
     struct device ** devices;
 
@@ -441,14 +441,17 @@ int kickstartFromCD(char *kssrc, int flags) {
     if (!p || strlen(kspath) < 1)
 	kspath = "/ks.cfg";
 
-    if ((rc=getKickstartFromBlockDevice(devices[0]->device, kspath))) {
-	if (rc == 3) {
-	    startNewt(flags);
-	    newtWinMessage(_("Error"), _("OK"),
-			   _("Cannot find kickstart file on CDROM."));
-	}
-	return 1;
+    for (i=0; devices[i]; i++) {
+        if (!devices[i]->device)
+            continue;
+
+        rc = getKickstartFromBlockDevice(devices[i]->device, kspath);
+        if (rc == 0)
+            return 0;
     }
 
-    return 0;
+    startNewt();
+    newtWinMessage(_("Error"), _("OK"),
+                   _("Cannot find kickstart file on CDROM."));
+    return 1;
 }

@@ -1,3 +1,8 @@
+2006-12-04  Dave Lehman  <dlehman@redhat.com>
+
+	* loader2/cdinstall.c: check all cdroms for ks.cfg (#203344)
+	* instdata.py iw/examine_gui.py: save examine gui result (#208053)
+
 2006-12-01  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgrade_remove_blacklist): tuples aren't extendable;
