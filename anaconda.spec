@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.3
+Version: 11.2.0.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -18,7 +18,7 @@ BuildPreReq: glib2-devel >= 2.11.1-5
 BuildPreReq: libdhcp-devel >= 1.16, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
-Requires: parted >= 1.7.1, pyparted >= 1.7.2
+Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.42, yum >= 2.9.2, pirut >= 1.1.0
 Requires: libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
@@ -103,6 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 05 2006 David Cantrell <dcantrell@redhat.com> - 11.2.0.4
+- Describe nokill option (clumens, #218412)
+- Make sure / is mounted before /boot (clumens, #217292)
+- Scan for labels on logical volumes during upgrades (clumens, #217191)
+- URL install method traceback fixes (clumens)
+- Copy volume group format attribute to new request (clumens, #217585)
+- Default new volume group requests to formatted (clumens)
+- Bump parted version requirement
+
 * Thu Nov 30 2006 Chris Lumens <clumens@redhat.com> - 11.2.0.3
 - Don't look for rhpxl's list of drivers anymore (#217890).
 - Init wreq structure before use (dcantrel, #215367).
