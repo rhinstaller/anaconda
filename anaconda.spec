@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.19
+Version: 11.1.2.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec  6 2006 Peter Jones <pjones@redhat.com> - 11.1.2.20-1
+- Remove language choices for which there is no font (katzj, #217498)
+- Add stex module (katzj, #209179)
+- Fix debug output (pnasrat, #217751, #217774)
+
 * Wed Nov 29 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.19-1
 - Don't always write out xconfig and monitor lines (#211977).
 - Pull in xinf files from X driver packages on url images.
