@@ -108,6 +108,10 @@ rm -rf $RPM_BUILD_ROOT
 - Add stex module (katzj, #209179)
 - Fix debug output (pnasrat, #217751, #217774)
 
+* Fri Dec  1 2006 Dennis Gregorovic <dgregor@redhat.com> - 11.1.2.19-2
+- rebuild
+- Related: rhbz#217861
+
 * Wed Nov 29 2006 Chris Lumens <clumens@redhat.com> - 11.1.2.19-1
 - Don't always write out xconfig and monitor lines (#211977).
 - Pull in xinf files from X driver packages on url images.
