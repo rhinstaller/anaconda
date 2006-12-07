@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda cvs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-16 21:20+0200\n"
+"PO-Revision-Date: 2006-12-07 21:05+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -4342,8 +4342,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Nu se pot citi date despre pachetele din repozit.  Acest lucru poate fi din cauza "
-"unui director repodata lipsă.  Vă rugăm asiguraţi-vă că repozitul dvs. a fost "
+"Nu se pot citi date despre pachetele din depozit.  Acest lucru poate fi din cauza "
+"unui director repodata lipsă.  Vă rugăm asiguraţi-vă că depozitul dvs. a fost "
 "generat corect.\n"
 "\n"
 "%s"
@@ -4359,19 +4359,19 @@ msgstr ""
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr "Nume de repozit invalid"
+msgstr "Nume de depozit invalid"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
-msgstr "Trebuie să introduceţi un nume de repozit."
+msgstr "Trebuie să introduceţi un nume de depozit."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr "URL de repozit invalid"
+msgstr "URL de depozit invalid"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Trebuie să furnizaţi un URL HTTP sau FTP către repozit."
+msgstr "Trebuie să furnizaţi un URL HTTP sau FTP către depozit."
 
 #: ../iw/task_gui.py:146
 #, python-format
@@ -4379,7 +4379,7 @@ msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Repozitul %s a fost deja adăugat.  Vă rugăm alegeţi alt nume de repozit "
+"Depozitul %s a fost deja adăugat.  Vă rugăm alegeţi alt nume de depozit "
 "şi URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
@@ -6572,15 +6572,15 @@ msgstr "Cum aţi dori să modificaţi configuraţia actuală a unităţilor de d
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>URL repozit</b>"
+msgstr "<b>URL depozit</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nume repozit</b>"
+msgstr "<b>_Nume depozit</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Adaugă repozit"
+msgstr "Adaugă depozit"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6589,11 +6589,11 @@ msgid ""
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
 "Vă rugăm furnizaţi locaţia de unde poate fi instalat soft adiţional.  Aveţi în "
-"vedere că aceasta trebuie să fie un repozit valid pentru %s."
+"vedere că aceasta trebuie să fie un depozit valid pentru %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "_Adaugă repozit"
+msgstr "_Adaugă depozit"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6723,7 +6723,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"Vă rugăm selectaţi orice repozite adiţionale pe care doriţi să le folosiţi "
+"Vă rugăm selectaţi orice depozite adiţionale pe care doriţi să le folosiţi "
 "pentru această instalare."
 
 #: tmp/tasksel.glade.h:5
@@ -6736,7 +6736,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "_Adaugă repozite adiţionale de programe"
+msgstr "_Adaugă depozite adiţionale de programe"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
