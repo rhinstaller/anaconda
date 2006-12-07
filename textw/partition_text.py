@@ -1638,6 +1638,9 @@ class PartitionTypeWindow:
         if rhpl.getArch() in ("s390", "s390x"):
             newdrv.append( "Add zFCP LUN" )
 
+        if len(newdrv) == 0:
+            return INSTALL_BACK
+
         (button, choice) = ListboxChoiceWindow(screen,
                                    _("Advanced Storage Options"),
                                    _("How would you like to modify "
