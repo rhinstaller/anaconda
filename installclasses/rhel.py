@@ -84,12 +84,18 @@ class InstallClass(BaseInstallClass):
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
-        if instnum is not None and instnum.formatMap.has_key(len(key)) or not BETANAG: # disable hack keys for non-beta
+        try:
             inum = instnum.InstNum(key)
+        except Exception, e:
+            if not BETANAG: # disable hack keys for non-beta
+                raise
+            else:
+                inum = None
+
+        if inum is not None:
             for name, path in inum.get_repos_dict().items():
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (path,))
-
 
             # if we've got a real installation number, use it to base
             # what tasks we show.  this is pretty ugly, but alas.
