@@ -4,7 +4,8 @@
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
 ANACONDADATADIR = /usr/share/anaconda
-PYTHON = python2.4
+PYVER  := $(shell python -c 'import sys; print sys.version[0:3]')
+PYTHON = python$(PYVER)
 PYTHONINCLUDE = /usr/include/$(PYTHON)
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
