@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-08-23 01:31+0000\n"
+"PO-Revision-Date: 2006-12-08 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgstr "Uppsetningaraðferðin krefst uppsetningar í textaham"
 
 #: ../anaconda:798
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Myndrænu notendaskilin eru ekki tiltæk. Fer í textaham."
+msgstr "Myndrænu notendaskilin eru ekki tiltæk... Fer í textaham."
 
 #: ../anaconda:806
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -107,7 +107,7 @@ msgstr "Óþekkt uppsetningaraðferð"
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Þú gafst upp uppsetningaraðferð sem anaconda styður ekki."
+msgstr "Þú valdir uppsetningaraðferð sem anaconda styður ekki."
 
 #: ../anaconda:854
 #, c-format
@@ -404,7 +404,7 @@ msgstr "Fjarlægja allar Linux disksneiðar á þessari vél"
 
 #: ../autopart.py:1686
 msgid "Keep all partitions and use existing free space"
-msgstr "Fjarlægja engar sneiðar og nota einungis laust pláss"
+msgstr "Fjarlægja engar sneiðar og nota aðeins laust pláss"
 
 #: ../autopart.py:1688
 #, python-format
@@ -436,7 +436,7 @@ msgstr "Uppfæri %s\n"
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s\n"
-msgstr "Setja upp %s\n"
+msgstr "Set upp %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -522,7 +522,7 @@ msgstr "En_durræsa"
 
 #: ../exception.py:409 ../exception.py:426
 msgid "Dump Not Written"
-msgstr "Dump ekki ritað"
+msgstr "Villuboð ekki rituð"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
@@ -3523,14 +3523,13 @@ msgid "Edit Interface %s"
 msgstr "Breyta netkortinu %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "Vélbúnaðarvistfang: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Nota lausbundnar IP stillingar (DHCP)"
+msgstr "Nota lausbundnar IP stillingar (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3545,29 +3544,24 @@ msgid "_Activate on boot"
 msgstr "_Virkja við ræsingu"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
-msgstr "IPv4 vistfang:"
+msgstr "IPv_4 vistfang:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
-msgstr "IPv6 vistfang:"
+msgstr "IPv_6 vistfang:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Stað í stað (IP)"
+msgstr "_Stað í stað (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "Dulritunar_lykill"
+msgstr "Dulritunar_lykill:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3575,19 +3569,16 @@ msgid "Configure %s"
 msgstr "Stillingar %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Ógildar IP upplýsingar"
+msgstr "Ógillt forskeyti"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Stærð diskminnisskráarinnar verður að vera á milli 1 og 2000 MB."
+msgstr "IPv4 forskeyti verður að vera á milli 0 og 32."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Stærð diskminnisskráarinnar verður að vera á milli 1 og 2000 MB."
+msgstr "IPv6 forskeyti verður að vera á milli 0 og 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3601,13 +3592,12 @@ msgid "Device"
 msgstr "Tæki"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Netmöskvi"
+msgstr "IPv4/Netmöskvi"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Netmöskvi"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3626,9 +3616,8 @@ msgid "_manually"
 msgstr "_handvirkt"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(t.d. \"vél.lén.is\")"
+msgstr "(t.d. vél.lén.is)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3776,12 +3765,12 @@ msgstr "Gera að _primary disksneið"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Drif %s (stærð: %s/%s/%s) (Gerð: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Drif %s (%-0.f MB) (Gerð: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4337,6 +4326,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Get ekki fundið flokkaskrá fyrir %s.  Þetta veldur því að handvirkt val "
+"pakka úr hugbúnaðarsafninu mun ekki virka"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4355,13 +4346,13 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Þú verður að gefa upp HTTP eða FTP slóð á hugbúnaðarsafnið."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Tengipunkturinn \"%s\" er þegar í notkun. Vinsamlegast veldu annan "
-"tengipunkt."
+"Hugbúnaðarsafninu %s hefur þegar verið bætt við.  Vinsamlegast veldu "
+"annað heiti og aðra slóð."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5233,7 +5224,6 @@ msgid "Partitioning Type"
 msgstr "Disksneiðingaraðferð"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
@@ -5313,7 +5303,7 @@ msgid "Package selection"
 msgstr "Velja pakka"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5488,7 +5478,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -5733,7 +5723,7 @@ msgstr "Gat ekki tengt rekladisklinginn."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Rekladiskurinn er ógildur fyrir þessa útgáfu af %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6206,12 +6196,11 @@ msgstr ""
 "      %s fyrir vélina þína\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"CIDR möskvinn verður að vera milli 1 og 32 fyrir IPv4 net eða milli 1 og 128 "
+"Forskeytið verður að vera milli 1 og 32 fyrir IPv4 net eða milli 1 og 128 "
 "fyrir IPv6 net"
 
 #: ../loader2/net.c:232
@@ -6279,11 +6268,11 @@ msgstr "Stillingar TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFS krefst IPv4"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS uppsetning krefst IPv4 stuðnings."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6332,9 +6321,8 @@ msgstr ""
 "Þú verður að gefa upp gilt IPv4 vistfang og netmöskva eða CIDR forskeyti."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Þú verður að gefa upp gilt IPv6 vistfang og CIDR forskeyti."
+msgstr "Þú verður að gefa upp gilt IPv6 vistfang og aCIDR forskeyti."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6692,9 +6680,10 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Vinsamlegast veldu viðbótarhugbúnaðarsöfn sem þú vilt nota í þessari "
+"uppsetningu."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
@@ -6756,21 +6745,19 @@ msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantic Standard Time - Quebec - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Eastern Time - Ontario - flestir staðir"
+msgstr "Atlantic Time - Labrador - flestir staðir"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantic Time - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6809,9 +6796,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou og svo frv."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6927,9 +6913,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Eastern Standard Time - Southampton Island"
+msgstr "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7015,7 +7000,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (nema Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7094,9 +7079,8 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moscow+01 - Caspian Sea"
+msgstr "Moscow+00 - Caspian Sea"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7107,9 +7091,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moscow+09 - Kamchatka"
+msgstr "Moscow+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7165,7 +7148,7 @@ msgstr "flestir staðir (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "mest af Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7218,9 +7201,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantic Time - E Labrador"
+msgstr "Newfoundland Time, including SE Labrador"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7391,9 +7373,8 @@ msgid "West Kazakhstan"
 msgstr "West Kazakhstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & most of Xinjiang Uyghur"
+msgstr "west Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7614,60 +7595,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Skjár fundinn með DDC"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Þriðji nafnaþjónn"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "Þ_riðji nafnaþjónn"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Stilla með _DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP vistfang"
-
-#~ msgid "Net_mask"
-#~ msgstr "Net_möskvi"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Vélbúnaðarvistfang:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Skráningalykil vantar"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Þú þarft skráningalykil til að setja upp %s.  Vinsamlega hafðu samband "
-#~ "við þjónustuaðilann þinn ef þú hefur ekki fengið hann með vörunni."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Ógildur CIDR möskvi"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Gat ekki stimplað inn í %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Gat ekki lesið %s: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Sjálfgefin uppsetning %s inniheldur hugbúnað sem hentar vel til almennrar "
-#~ "notkunar internetsins. Hvað fleira viltu að vélin þín geti gert en það?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Newfoundland Island"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "southwest Xinjiang Uyghur"
