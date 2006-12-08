@@ -17,10 +17,12 @@ from installmethod import InstallMethod, FileCopyException
 import os
 import re
 import time
+import shutil
 import string
 import socket
 import urlparse
 import urlgrabber.grabber as grabber
+import isys
 
 from snack import *
 from constants import *
@@ -78,6 +80,42 @@ class UrlInstallMethod(InstallMethod):
                  "different one.\n\n"
                  "If you reboot, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
+
+    def systemUnmounted(self):
+	if self.loopbackFile:
+	    isys.makeDevInode("loop0", "/tmp/loop")
+	    isys.lochangefd("/tmp/loop", 
+			"%s/images/stage2.img" % (self.tree,))
+	    self.loopbackFile = None
+
+    def systemMounted(self, fsset, chroot):
+        if self.tree is None:
+            return
+
+        self.loopbackFile = "%s%s%s" % (chroot,
+                                        fsset.filesystemSpace(chroot)[0][0],
+                                        "/rhinstall-stage2.img")
+
+        try:
+            win = self.waitWindow (_("Copying File"),
+                                   _("Transferring install image to hard drive..."))
+            shutil.copyfile("%s/images/stage2.img" % (self.tree,), 
+                            self.loopbackFile)
+            win.pop()
+        except Exception, e:
+            if win:
+                win.pop()
+
+            log.critical("error transferring stage2.img: %s" %(e,))
+            self.messageWindow(_("Error"),
+                    _("An error occurred transferring the install image "
+                      "to your hard drive. You are probably out of disk "
+                      "space."))
+            os.unlink(self.loopbackFile)
+            return 1
+
+        isys.makeDevInode("loop0", "/tmp/loop")
+        isys.lochangefd("/tmp/loop", self.loopbackFile)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 
@@ -146,6 +184,8 @@ class UrlInstallMethod(InstallMethod):
 
     def setIntf(self, intf):
 	self.intf = intf
+        self.messageWindow = intf.messageWindow
+        self.progressWindow = intf.progressWindow
 
     def getMethodUri(self):
         return self.baseUrl
@@ -153,6 +193,40 @@ class UrlInstallMethod(InstallMethod):
     def switchMedia(self, mediano, filename=""):
         if self.splitmethod:
             self.baseUrl = self.baseUrls[mediano - 1]
+
+    def unmountCD(self):
+        if not self.tree:
+            return
+
+        done = 0
+        while done == 0:
+            try:
+                isys.umount("/mnt/source")
+                break
+            except Exception, e:
+                log.error("exception in unmountCD: %s" %(e,))
+                self.messageWindow(_("Error"),
+                                   _("An error occurred unmounting the CD.  "
+                                     "Please make sure you're not accessing "
+                                     "%s from the shell on tty2 "
+                                     "and then click OK to retry.")
+                                   % ("/mnt/source",))
+
+    def filesDone(self):
+        # we're trying to unmount the CD here.  if it fails, oh well,
+        # they'll reboot soon enough I guess :)
+        try:
+            isys.umount("/mnt/source")
+        except Exception, e:
+            log.error("unable to unmount source in filesDone: %s" %(e,))
+        
+        if not self.loopbackFile: return
+
+        try:
+            # this isn't the exact right place, but it's close enough
+            os.unlink(self.loopbackFile)
+        except SystemError:
+            pass
 
     def __checkUrlForIsoMounts(self):
         # account for multiple mounted ISOs on loopback...bleh
@@ -225,3 +299,15 @@ class UrlInstallMethod(InstallMethod):
         self.__checkUrlForIsoMounts()
 
         self.currentMedia = []
+
+        self.messageWindow = intf.messageWindow
+        self.progressWindow = intf.progressWindow
+        self.waitWindow = intf.waitWindow
+        self.loopbackFile = None
+        self.tree = "/mnt/source"
+        for path in ("/tmp/ramfs/stage2.img", "/tmp/ramfs/minstg2.img"):
+            if os.access(path, os.R_OK):
+                # we used a remote stage2. no need to worry about ejecting CDs
+                self.tree = None
+                break
+
