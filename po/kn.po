@@ -1,22 +1,24 @@
-# translation of anaconda_kn.po to Kannada
+# translation of kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Umesh Rudrapatn <urudrapatna@yahoo.com>, 2006.
 # Umesh Rudrapatna <urudrapatna@yahoo.com>, 2006.
 # Paresh <paresh_kalyan@rediffmail.com>, 2006.
+# shankar Prasad <svenkate@redhat.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda_kn\n"
+"Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2006-09-10 10:27+0530\n"
-"Last-Translator: Umesh Rudrapatna <urudrapatna@yahoo.com>\n"
-"Language-Team: Kannada <kde-l10n-kn@kde.org>\n"
+"PO-Revision-Date: 2006-12-08 10:50+0530\n"
+"Last-Translator: shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: Plural-Forms: nplural=2;plural=(n !=1);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -181,8 +183,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"ಸಜ್ಜು ವಿಭಾಗ %s VFAT ವಿಭಾಗವಲ್ಲ. EFI ಗೆ ಈ ವಿಭಾಗದಿಂದ ಕಾರ್ಯಾರಂಭಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+msgstr "ಸಜ್ಜು ವಿಭಾಗ %s VFAT ವಿಭಾಗವಲ್ಲ. EFI ಗೆ ಈ ವಿಭಾಗದಿಂದ ಕಾರ್ಯಾರಂಭಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: ../autopart.py:1025
 msgid ""
@@ -194,8 +195,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "ಸಜ್ಜು ವಿಭಾಗ %s ನಿಮ್ಮ ಗಣಕವಿನ್ಯಾಸವನ್ನು ಸಜ್ಜುಗೊಳಿಸಲು ಇರುವ ನಿಬಂಧನೆಗಳನ್ನು ಪೂರೈಸದೇ "
 "ಹೋಗಬಹುದು."
@@ -524,7 +524,7 @@ msgstr ""
 #: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr "_ಮರುಸಜ್ಜುಗೊಳಿಸು"
+msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು (_R)"
 
 #: ../exception.py:409 ../exception.py:426
 msgid "Dump Not Written"
@@ -850,7 +850,7 @@ msgstr ""
 #: ../fsset.py:1739 ../image.py:93 ../image.py:446 ../kickstart.py:921
 #: ../kickstart.py:957 ../yuminstall.py:861 ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr "ಮುಂದು_ವರೆ"
+msgstr "ಮುಂದುವರೆ (_C)"
 
 #: ../fsset.py:1747
 #, python-format
@@ -988,9 +988,8 @@ msgid "Cancel"
 msgstr "ರದ್ದುಗೊಳಿಸು"
 
 #: ../gui.py:594 ../text.py:356
-#, fuzzy
 msgid "Installation Key"
-msgstr "ಅನುಸ್ಥಾಪನಾ ವಿಧಾನ"
+msgstr "ಅನುಸ್ಥಾಪನಾ ಕೀಲಿಕೈ"
 
 #: ../gui.py:900 ../text.py:400
 msgid "Error Parsing Kickstart Config"
@@ -1025,11 +1024,11 @@ msgstr ""
 
 #: ../gui.py:1045 ../gui.py:1050 ../packages.py:303 ../packages.py:308
 msgid "_Exit"
-msgstr "_ನಿರ್ಗಮಿಸು"
+msgstr "ನಿರ್ಗಮಿಸು (_E)"
 
 #: ../gui.py:1046 ../yuminstall.py:748
 msgid "_Retry"
-msgstr "_ಮರುಪ್ರಯತ್ನಿಸು"
+msgstr "ಮರುಪ್ರಯತ್ನಿಸು (_R)"
 
 #: ../gui.py:1049 ../packages.py:307
 msgid "The installer will now exit..."
@@ -1096,7 +1095,7 @@ msgstr ""
 
 #: ../harddrive.py:81 ../image.py:520
 msgid "Re_try"
-msgstr "ಮರುಪ್ರ_ಯತ್ನಿಸು"
+msgstr "ಮರುಪ್ರಯತ್ನಿಸು (_t)"
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1121,7 +1120,7 @@ msgstr ""
 #: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "_ಹಿಂದಕ್ಕೆ"
+msgstr "ಹಿಂದಕ್ಕೆ (_B)"
 
 #: ../image.py:136
 #, python-format
@@ -1258,7 +1257,7 @@ msgstr ""
 #: ../kickstart.py:920 ../kickstart.py:956 ../yuminstall.py:861
 #: ../yuminstall.py:863
 msgid "_Abort"
-msgstr "_ರದ್ದುಗೊಳಿಸು"
+msgstr "ರದ್ದುಗೊಳಿಸು (_A)"
 
 #: ../kickstart.py:948
 msgid "Missing Group"
@@ -1288,17 +1287,15 @@ msgstr ""
 "ಚಿಹ್ನೆಗಳನ್ನೊಳಗೊಂಡಿರಬಹುದು"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP ವಿಳಾಸ ಕಾಣುತ್ತಿಲ್ಲ."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP ವಿಳಾಸಗಳು 0 ಮತ್ತು 255 ರ ನಡುವಿನ, ಬಿಂದುಳಿಂದ ವಿಭಕ್ತವಾದ, ನಾಲ್ಕು ಸಂಖ್ಯೆಗಳನ್ನು "
+"IPv4 ವಿಳಾಸಗಳು ೦ ಮತ್ತು ೨೫೫ ರ ನಡುವಿನ, ಬಿಂದುಳಿಂದ ವಿಭಕ್ತವಾದ, ನಾಲ್ಕು ಸಂಖ್ಯೆಗಳನ್ನು "
 "ಒಳಗೊಂಡಿರಬೇಕು."
 
 #: ../network.py:96
@@ -1307,24 +1304,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s ಒಂದು ಮಾನ್ಯ IPv6 ವಿಳಾಸವಲ್ಲ."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s ಒಂದು ಮಾನ್ಯ IPv6 ವಿಳಾಸವಲ್ಲ."
+msgstr "%s ಒಂದು ಮಾನ್ಯ IP ವಿಳಾಸವಲ್ಲ."
 
 #: ../packages.py:248
-#, fuzzy
 msgid "Invalid Key"
-msgstr "ಅಮಾನ್ಯ IP ಅಕ್ಷರಪುಂಜ"
+msgstr "ಅಮಾನ್ಯ ಕೀಲಿಕೈ"
 
 #: ../packages.py:249
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "ನೀವು ನಮೂದಿಸಿದ ಮೌಲ್ಯ ಮಾನ್ಯವಾದ ಸಂಖ್ಯೆಯಲ್ಲ."
+msgstr "ನೀವು ನಮೂದಿಸಿದ ಕೀಲಿಕೈ ಅಮಾನ್ಯವಾಗಿದೆ.ಯಲ್ಲ."
 
 #: ../packages.py:262
-#, fuzzy
 msgid "_Skip"
-msgstr "ಉಪೇಕ್ಷಿಸಿ"
+msgstr "ಉಪೇಕ್ಷಿಸಿ (_S)"
 
 #: ../packages.py:289
 msgid "Warning! This is pre-release software!"
@@ -1359,7 +1353,7 @@ msgstr ""
 
 #: ../packages.py:303
 msgid "_Install anyway"
-msgstr "ಪರವಾಗಿಲ್ಲ _ಅನುಸ್ಥಾಪಿಸು"
+msgstr "ಪರವಾಗಿಲ್ಲ ಅನುಸ್ಥಾಪಿಸು (_I)"
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:559
 msgid "Foreign"
@@ -1399,11 +1393,11 @@ msgstr ""
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು _ಕಡೆಗಣಿಸು"
+msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಕಡೆಗಣಿಸು (_I)"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
-msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು _ಸಪಾಟುಗೊಳಿಸು"
+msgstr "ಮುದ್ರಿಕಾಚಾಲಕವನ್ನು ಸಪಾಟುಗೊಳಿಸು (_F)"
 
 #: ../partedUtils.py:885
 msgid "Initializing"
@@ -1569,8 +1563,7 @@ msgstr "ಈ ವಿಭಾಗವು %s ಅನ್ನು ಉಳ್ಳ ವಿಸ್�
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"ಗಟ್ಟಿಮುದ್ರಿಕಾ ಚಾಲಕದಿಂದ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮಾಡಬೇಕಾದ ಮಾಹಿತಿಯನ್ನು ಈ ವಿಭಾಗ ಹೊಂದಿದೆ."
+msgstr "ಗಟ್ಟಿಮುದ್ರಿಕಾ ಚಾಲಕದಿಂದ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮಾಡಬೇಕಾದ ಮಾಹಿತಿಯನ್ನು ಈ ವಿಭಾಗ ಹೊಂದಿದೆ."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1594,7 +1587,7 @@ msgstr "ನೀವು '/dev/%s' ಸಾಧನದಲ್ಲಿರುವ ಎಲ್ಲ
 #: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1110
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1357
 msgid "_Delete"
-msgstr "_ತೆಗೆದುಹಾಕು"
+msgstr "ತೆಗೆದುಹಾಕು (_D)"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
@@ -1679,11 +1672,11 @@ msgstr "ಸಪಾಟುಗೊಳಿಸುವುದೇ?"
 
 #: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "ವಿಭಾಗವನ್ನು _ಮಾರ್ಪಡಿಸು"
+msgstr "ವಿಭಾಗವನ್ನು ಮಾರ್ಪಡಿಸು (_M)"
 
 #: ../partIntfHelpers.py:419
 msgid "Do _Not Format"
-msgstr "_ಸಪಾಟುಗೊಳಿಸದಿರು"
+msgstr "ಸಪಾಟುಗೊಳಿಸದಿರು (_N)"
 
 #: ../partIntfHelpers.py:427
 msgid "Error with Partitioning"
@@ -1775,10 +1768,8 @@ msgid "Confirm Reset"
 msgstr "ಮರುಸಂಯೋಜನೆಯನ್ನು ದೃಢೀಕರಿಸಿ"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"ನೀವು ವಿಭಾಗಿಕರಣ ಕೋಷ್ಟಕವನ್ನು ಮೂಲ ಸ್ಥಿತಿಗೆ ಮರುಸಂಯೋಜಿಸಲು ಖಚಿತವಾಗಿ ನಿಶ್ಚಯಿಸಿದ್ದೀರೇನು?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "ನೀವು ವಿಭಾಗಿಕರಣ ಕೋಷ್ಟಕವನ್ನು ಮೂಲ ಸ್ಥಿತಿಗೆ ಮರುಸಂಯೋಜಿಸಲು ಖಚಿತವಾಗಿ ನಿಶ್ಚಯಿಸಿದ್ದೀರೇನು?"
 
 #: ../partitioning.py:64
 msgid "Installation cannot continue."
@@ -1835,8 +1826,7 @@ msgstr ""
 "ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "FAT ರೀತಿಯ ೫೦ ಮೆಗಾಬೈಟ್ ಗಾತ್ರದ /boot/efi ವಿಭಾಗವನ್ನು ನೀವು ರಚಿಸಬೇಕಾಗುತ್ತದೆ."
 
 #: ../partitions.py:867
@@ -1857,8 +1847,7 @@ msgstr ""
 "ಅನುಸ್ಥಾಪನೆಗೆ ಶಿಫಾರಸುಮಾಡಿರುವುದಕ್ಕಿಂತ ಕಿರಿದಾಗಿದೆ."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ಸಾಧನದಲ್ಲಿ ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ.  ಇದು ಕಾರ್ಯೋಪಯುಕ್ತ ವ್ಯವಸ್ಥೆಯನ್ನು ನೀಡುತ್ತದೆಯೆಂಬುದು "
 "ಖಚಿತವಿಲ್ಲ."
@@ -1919,8 +1908,7 @@ msgstr "LVM ಪರಿಮಾಣ ಸಮೂಹದ ಸದಸ್ಯ ವಿಭಾಗ."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ಈ ಆರೋಹಣಾತಾಣ ಮಾನ್ಯವಾದುದಲ್ಲ. %s ಕಡತಕೋಶವು / ಕಡತವ್ಯವಸ್ಥೆಯ ಮೇಲಿರಬೇಕು."
 
 #: ../partRequests.py:252
@@ -1941,8 +1929,7 @@ msgstr "ಈ ಆರೋಹಣಾತಾಣವು ಲೈನಕ್ಸ್ ಕಡತವ
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"ಆರೋಹಣಾತಾಣ \"%s\" ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೊಂದು ಆರೋಹಣಾತಾಣವನ್ನು ಆರಿಸಿರಿ."
+msgstr "ಆರೋಹಣಾತಾಣ \"%s\" ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೊಂದು ಆರೋಹಣಾತಾಣವನ್ನು ಆರಿಸಿರಿ."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1956,8 +1943,7 @@ msgstr "%s ವಿಭಾಗದ ಗಾತ್ರ (%10.2f ಎಮ್.ಬಿ), ಗರ�
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"ನೀವು ಕೋರಿದ ವಿಭಾಗದ ಗಾತ್ರ (size = %s ಎಮ್.ಬಿ), ಗರಿಷ್ಟ ಗಾತ್ರ %s ಎಮ್.ಬಿ ಅನ್ನು ಮೀರಿದೆ."
+msgstr "ನೀವು ಕೋರಿದ ವಿಭಾಗದ ಗಾತ್ರ (size = %s ಎಮ್.ಬಿ), ಗರಿಷ್ಟ ಗಾತ್ರ %s ಎಮ್.ಬಿ ಅನ್ನು ಮೀರಿದೆ."
 
 #: ../partRequests.py:495
 #, python-format
@@ -2185,14 +2171,14 @@ msgid "No help is available for this step of the install."
 msgstr "ಅನುಸ್ಥಾಪನೆಯ ಈ ಹಂತಕ್ಕೆ ಸಹಾಯ ಲಭ್ಯವಿಲ್ಲ."
 
 #: ../text.py:361
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "ದಯವಿಟ್ಟು ಪರಿಮಾಣ ಸಮೂಹದ (volume group) ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
+msgstr "ದಯವಿಟ್ಟು ನಿಮ್ಮ %(instkey)s ಯನ್ನು್ನು ನಮೂದಿಸಿ"
 
 #: ../text.py:378 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s ಯನ್ನು ನಮೂದಿಸುವುದನ್ನು ಉಪೇಕ್ಷಿಸಿ"
 
 #: ../text.py:409
 msgid "Save Crash Dump"
@@ -2204,17 +2190,14 @@ msgid "Welcome to %s"
 msgstr "%s ಗೆ ಸುಸ್ವಾಗತ"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> ಸಹಾಯಕ್ಕೆ | <Tab> ಅಂಶಗಳ ನಡುವೆ | <Space> ಆರಿಸುತ್ತದೆ | <F12> ಮುಂದಿನ ತೆರೆ"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> ಸಹಾಯಕ್ಕೆ | <Tab> ಅಂಶಗಳ ನಡುವೆ | <Space> ಆರಿಸುತ್ತದೆ | <F12> ಮುಂದಿನ ತೆರೆ"
 
 #: ../text.py:472
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> ಅಂಶಗಳ ನಡುವೆ   |  <Space> ಆರಿಸುತ್ತದೆ   |  <F12> ಮುಂದಿನ ತೆರೆ"
+msgstr "  <Tab>/<Alt-Tab> ಅಂಶಗಳ ನಡುವೆ   |  <Space> ಆರಿಸುತ್ತದೆ   |  <F12> ಮುಂದಿನ ತೆರೆ"
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
@@ -2575,14 +2558,12 @@ msgstr "ವ್ಯವಹಾರವನ್ನು ಕಾರ್ಯಗತಗೊಳಿ�
 
 #: ../yuminstall.py:649
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"ಈ ಕೆಳಕಂಡ ಕಾರಣಗಳಿಂದಾಗಿ ನಿಮ್ಮ ವ್ಯವಹಾರಗಳನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿತು: %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "ಈ ಕೆಳಕಂಡ ಕಾರಣಗಳಿಂದಾಗಿ ನಿಮ್ಮ ವ್ಯವಹಾರಗಳನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿತು: %s"
 
 #: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
 msgid "Re_boot"
-msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು"
+msgstr "ಮರುಸಜ್ಜುಗೊಳಿಸು (_b)"
 
 #: ../yuminstall.py:837
 msgid "Retrieving installation information..."
@@ -2634,8 +2615,7 @@ msgstr "ಅನುಸ್ಥಾಪನೆ ಪ್ರಾರಂಭವಾಗುತ್�
 
 #: ../yuminstall.py:1326
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"ಅನುಸ್ಥಾಪನಾ ಪ್ರಕ್ರಿಯೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ. ಇದು ಹಲವು ನಿಮಿಷಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು..."
+msgstr "ಅನುಸ್ಥಾಪನಾ ಪ್ರಕ್ರಿಯೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ. ಇದು ಹಲವು ನಿಮಿಷಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು..."
 
 #: ../yuminstall.py:1342
 msgid "Post Upgrade"
@@ -2663,8 +2643,7 @@ msgstr "ಪರಾವಲಂಬನೆಗಳ ಪರಿಶೀಲನೆ"
 
 #: ../yuminstall.py:1540
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"ಅನುಸ್ಥಾಪನೆಗೆ ಆರಿಸಲಾಗಿರುವ ಸಂಗ್ರಹಗಳಲ್ಲಿರುವ ಪರಾವಲಂಬನೆಗಳ ಪರಿಶೀಲನೆ ನಡೆಯುತ್ತಿದೆ..."
+msgstr "ಅನುಸ್ಥಾಪನೆಗೆ ಆರಿಸಲಾಗಿರುವ ಸಂಗ್ರಹಗಳಲ್ಲಿರುವ ಪರಾವಲಂಬನೆಗಳ ಪರಿಶೀಲನೆ ನಡೆಯುತ್ತಿದೆ..."
 
 #: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
@@ -2672,8 +2651,7 @@ msgstr "ನೀವು ಸಾಧನಾಂಕಿಯನ್ನು ನಿಗದಿಪ�
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"ನೀವು ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ ಇಲ್ಲವೇ ಹೆಸರು ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
+msgstr "ನೀವು ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ ಇಲ್ಲವೇ ಹೆಸರು ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
 
 #: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2722,11 +2700,11 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr "ನಿರ್ವಹಣಾ ಗುಪ್ತ_ಪದ: "
+msgstr "ನಿರ್ವಹಣಾ ಗುಪ್ತಪದ (_P): "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "ದೃಢೀ_ಕರಿಸಿ: "
+msgstr "ದೃಢೀಕರಿಸಿ (_C): "
 
 #: ../iw/autopart_type.py:137
 msgid "Invalid Initiator Name"
@@ -2774,11 +2752,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಗುಪ್ತಪದವನ್ನು _ಬಳಸು"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಗುಪ್ತಪದವನ್ನು ಬಳಸು (_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "ಗುಪ್ತ_ಪದವನ್ನು ಬದಲಿಸಿ"
+msgstr "ಗುಪ್ತಪದವನ್ನು ಬದಲಿಸಿ (_p)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2795,11 +2773,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
-msgstr "ಗುಪ್ತ_ಪದ:"
+msgstr "ಗುಪ್ತಪದ (_P):"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "ದೃಢೀ_ಕರಿಸಿ:"
+msgstr "ದೃಢೀಕರಿಸಿ (_f):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2843,7 +2821,7 @@ msgstr "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸು"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "LBA32 ವಿಧಾನವನ್ನು _ಒತ್ತಾಯಿಸು (ಸಾಮಾನ್ಯವಾಗಿ ಇದರ ಆವಶ್ಯಕತೆ ಇರುವುದಿಲ್ಲ)"
+msgstr "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸು (ಸಾಮಾನ್ಯವಾಗಿ ಇದರ ಆವಶ್ಯಕತೆ ಇರುವುದಿಲ್ಲ) (_F)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
@@ -2855,7 +2833,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
-msgstr "ಸಾಮಾನ್ಯ ತಿರುಳು ಪ್ರಮಿತಿ_ಗಳು"
+msgstr "ಸಾಮಾನ್ಯ ತಿರುಳು ಪ್ರಮಿತಿಗಳು (_G)"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
@@ -2874,7 +2852,7 @@ msgstr "ಯಾವುದೇ ಸಜ್ಜು ಉತ್ಥಾಪಕವೂ ಅನು
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "ಪ್ರೌಢ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಆಯ್ಕೆ_ಗಳನ್ನು ಸಂರಚಿಸಿ"
+msgstr "ಪ್ರೌಢ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಆಯ್ಕೆಗಳನ್ನು ಸಂರಚಿಸಿ (_o)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2882,7 +2860,7 @@ msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ದಾಖಲೆಯನ್ನು ಇ
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕಗಳ ಕ್ರಮವನ್ನು _ಬದಲಾಯಿಸು"
+msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕಗಳ ಕ್ರಮವನ್ನು ಬದಲಾಯಿಸು (_C)"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -3000,7 +2978,7 @@ msgstr "ಊರ್ಜಿತಗೊಳಿಸುವಿಕೆಯ ಪರಿಶೀಲ�
 #: ../iw/examine_gui.py:59
 #, python-format
 msgid "_Install %s"
-msgstr "_ಅನುಸ್ಥಾಪಿಸು %s"
+msgstr "ಅನುಸ್ಥಾಪಿಸು (_I) %s"
 
 #: ../iw/examine_gui.py:61
 msgid ""
@@ -3012,7 +2990,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
-msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಊರ್ಜಿ_ತಗೊಳಿಸು"
+msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಊರ್ಜಿತಗೊಳಿಸು (_U)"
 
 #: ../iw/examine_gui.py:67
 #, python-format
@@ -3076,7 +3054,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:162 ../iw/network_gui.py:166 ../iw/network_gui.py:196
 msgid "C_ontinue"
-msgstr "ಮುಂದು_ವರೆಯಿರಿ"
+msgstr "ಮುಂದುವರೆ (_o)"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
@@ -3147,11 +3125,11 @@ msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣವನ್ನು ಸಂಪಾದ�
 #: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
-msgstr "_ಆರೋಹಣಾತಾಣ:"
+msgstr "ಆರೋಹಣಾತಾಣ (_M):"
 
 #: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
-msgstr "_ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ:"
+msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ (_F):"
 
 #: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
 #: ../iw/raid_dialog_gui.py:303
@@ -3170,7 +3148,7 @@ msgstr "ಮೂಲ ಕಡತ ವ್ಯವಸ್ಥೆಯ ಗುರುತುಪಟ
 
 #: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
-msgstr "ತಾರ್ಕಿ_ಕ ಪರಿಮಾಣದ ಹೆಸರು:"
+msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರು (_L):"
 
 #: ../iw/lvm_dialog_gui.py:432 ../textw/partition_text.py:287
 msgid "Logical Volume Name:"
@@ -3178,7 +3156,7 @@ msgstr "ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
 msgid "_Size (MB):"
-msgstr "_ಗಾತ್ರ (ಎಮ್.ಬಿ):"
+msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ) (_S):"
 
 #: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
 #: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
@@ -3259,8 +3237,7 @@ msgstr "ಮುಕ್ತ ಸೀಳುಗಂಡಿಗಳಿಲ್ಲ (slots)"
 #: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"ಪರಿಮಾಣ ಸಮೂಹವೊಂದಕ್ಕೆ  %s ಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+msgstr "ಪರಿಮಾಣ ಸಮೂಹವೊಂದಕ್ಕೆ  %s ಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
@@ -3279,8 +3256,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr ""
-"ನೀವು \"%s\" ತಾರ್ಕಿಕ ಪರಿಮಾಣವನ್ನು ತೆಗೆದುಹಾಕಬೇಕೆಂದು ಖಚಿತವಾಗಿ ನಿರ್ಧರಿಸಿರುವಿರೇನು?"
+msgstr "ನೀವು \"%s\" ತಾರ್ಕಿಕ ಪರಿಮಾಣವನ್ನು ತೆಗೆದುಹಾಕಬೇಕೆಂದು ಖಚಿತವಾಗಿ ನಿರ್ಧರಿಸಿರುವಿರೇನು?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -3327,7 +3303,7 @@ msgstr "LVM ಪರಿಮಾಣ ಸಮೂಹವನ್ನು ಸಂಪಾದಿಸ
 
 #: ../iw/lvm_dialog_gui.py:983
 msgid "_Volume Group Name:"
-msgstr "ಘ_ನಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು:"
+msgstr "ಘನಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು (_V):"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Volume Group Name:"
@@ -3335,11 +3311,11 @@ msgstr "ಪರಿಮಾಣ ಸಮೂಹದ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:999
 msgid "_Physical Extent:"
-msgstr "ಭೌತಿಕ ಗಾತ್ರ_ಮಟ್ಟ:"
+msgstr "ಭೌತಿಕ ಗಾತ್ರ ಮಟ್ಟ (_P):"
 
 #: ../iw/lvm_dialog_gui.py:1014
 msgid "Physical Volumes to _Use:"
-msgstr "_ಬಳಸಬೇಕಾದ ಭೌತಿಕ ಪರಿಮಾಣಗಳು:"
+msgstr "ಬಳಸಬೇಕಾದ ಭೌತಿಕ ಪರಿಮಾಣಗಳು (_U):"
 
 #: ../iw/lvm_dialog_gui.py:1020
 msgid "Used Space:"
@@ -3369,12 +3345,12 @@ msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ)"
 
 #: ../iw/lvm_dialog_gui.py:1104 ../iw/osbootwidget.py:96
 msgid "_Add"
-msgstr "(_ಸ)ಸೇರಿಸಿ"
+msgstr "ಸೇರಿಸಿ(_A)"
 
 #: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:744
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
-msgstr "ಸಂಪಾ_ದನೆ"
+msgstr "ಸಂಪಾದನೆ (_E)"
 
 #: ../iw/lvm_dialog_gui.py:1122
 msgid "Logical Volumes"
@@ -3402,15 +3378,15 @@ msgstr "/dev/ttyS3 (DOS ಅಡಿಯಲ್ಲಿೆ COM4)"
 
 #: ../iw/mouse_gui.py:90 ../iw/osbootwidget.py:157
 msgid "_Device"
-msgstr "ಸಾಧ_ನ"
+msgstr "ಸಾಧನ (_D)"
 
 #: ../iw/mouse_gui.py:136
 msgid "_Model"
-msgstr "ಮಾ_ದರಿ"
+msgstr "ಮಾದರಿ (_M)"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "೩ ಗುಂಡಿಗಳನ್ನು ಅನು_ಕರಿಸು"
+msgstr "೩ ಗುಂಡಿಗಳನ್ನು ಅನುಕರಿಸು (_E)"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3460,9 +3436,8 @@ msgid "Nameserver"
 msgstr "ನಾಮಪರಿಚಾರಕ"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "ನಿಮ್ಮ ಜಾಲ ಅಂತರಮುಖವನ್ನು ಸಂರಚಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ."
+msgstr "ನಿಮ್ಮ ಜಾಲಬಂಧ ಸಾಧನವನ್ನು ಸಂರಚಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:822
 msgid "Primary DNS"
@@ -3474,15 +3449,15 @@ msgstr "ದ್ವಿತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರ�
 
 #: ../iw/network_gui.py:28
 msgid "_Gateway"
-msgstr "ಮಾಹಿತಿದ್ವಾ_ರ"
+msgstr "ಮಾಹಿತಿದ್ವಾರ (_G)"
 
 #: ../iw/network_gui.py:28
 msgid "_Primary DNS"
-msgstr "ಪ್ರಾಥಮಿ_ಕ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
+msgstr "ಪ್ರಾಥಮಿಕ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ) (_P)"
 
 #: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
-msgstr "ದ್ವಿತೀ_ಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
+msgstr "ದ್ವಿತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ) (_S)"
 
 #: ../iw/network_gui.py:42
 msgid "Network Configuration"
@@ -3517,14 +3492,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:179 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "ಕ್ಷೇತ್ರ \"%s\" ಗೆ ಒಂದು ಮೌಲ್ಯದ ಅಗತ್ಯವಿದೆ."
+msgstr "ಕ್ಷೇತ್ರ %s ಗೆ ಒಂದು ಮೌಲ್ಯದ ಅಗತ್ಯವಿದೆ."
 
 #: ../iw/network_gui.py:187 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "ದತ್ತಾಂಶದಲ್ಲಿ ದೋಷವಿದೆ"
+msgstr "%s ದತ್ತಾಂಶದಲ್ಲಿ ದೋಷವಿದೆ"
 
 #: ../iw/network_gui.py:188 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3533,9 +3508,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:192 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "ನೀವು ನಮೂದಿಸಿದ IP ಮಾಹಿತಿ ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
+msgstr "ನೀವು ನಮೂದಿಸಿದ IPv4 ಮಾಹಿತಿ ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
 
 #: ../iw/network_gui.py:196
 msgid ""
@@ -3551,14 +3525,13 @@ msgid "Edit Interface %s"
 msgstr "ಅಂತರಮುಖ %s ಅನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../iw/network_gui.py:286
-#, fuzzy, python-format
+#, python-format
 msgid "Hardware address: %s"
 msgstr "ಯಂತ್ರಾಂಶ ವಿಳಾಸ: %s"
 
 #: ../iw/network_gui.py:291
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "ಜಂಗಮ IP ಸಂರಚನೆಯನ್ನು ಬಳಸು (DHCP)"
+msgstr "ಕ್ರಿಯಾತ್ಮಕ IP ಸಂರಚನೆಯನ್ನು ಬಳಸು (_DHCP)"
 
 #: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
 msgid "Enable IPv4 support"
@@ -3570,40 +3543,35 @@ msgstr "IPv6 ಸಮರ್ಥನೆಯನ್ನು ಕ್ರಿಯಾಶೀಲಗ
 
 #: ../iw/network_gui.py:308
 msgid "_Activate on boot"
-msgstr "ಸಜ್ಜುಗೊಂಡಾಗ _ಸಕ್ರಿಯಗೊಳಿಸು"
+msgstr "ಸಜ್ಜುಗೊಂಡಾಗ ಸಕ್ರಿಯಗೊಳಿಸು (_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP ವಿಳಾಸ"
+msgstr "ವಿಳಾಸ"
 
 #: ../iw/network_gui.py:337 ../textw/network_text.py:216
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "ಜಾಲಮುಸುಕು"
+msgstr "ಉಪಸರ್ಗ (ಜಾಲಮುಸುಕ)"
 
 #: ../iw/network_gui.py:342
 msgid "IPv_4:"
-msgstr ""
+msgstr "IPv_4:"
 
 #: ../iw/network_gui.py:364
 msgid "IPv_6:"
-msgstr ""
+msgstr "IPv_6:"
 
 #: ../iw/network_gui.py:395
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_ಎಡೆಯಿಂದೆಡೆಗೆ (IP)"
+msgstr "ಎಡೆಯಿಂದೆಡೆಗೆ (I_P):"
 
 #: ../iw/network_gui.py:408
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:418
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "ಗೂಢಲಿಪೀಕ_ರಣ ಕೀಲಿಕೈ"
+msgstr "ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಕೈ (_K):"
 
 #: ../iw/network_gui.py:443
 #, python-format
@@ -3615,35 +3583,30 @@ msgid "Missing Protocol"
 msgstr "ಕಾಣೆಯಾದ ಪ್ರಕ್ರಮ"
 
 #: ../iw/network_gui.py:476 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "DHCP ಗೆ ನೀವು ಒಂದಾದರೂ ಪ್ರಕ್ರಮವನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
+msgstr "ನೀವು ಬೆಂಬಲಕ್ಕಾಗಿ IPv4 ಅಥವಾ IPv6ಗಳಲ್ಲಿ ಒಂದನ್ನಾದರೂ ಆರಿಸಿಕೊಳ್ಳಬೇಕು."
 
 #: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
 #: ../textw/network_text.py:386 ../loader2/net.c:91
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "ಅಮಾನ್ಯ IP ಅಕ್ಷರಪುಂಜ"
+msgstr "ಅಮಾನ್ಯವಾದ ಉಪಸರ್ಗ"
 
 #: ../iw/network_gui.py:503 ../textw/network_text.py:354
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ ೧ ಮತ್ತು ೨೦೦೦ ಎಮ್.ಬಿ ಗಳ ನಡುವೆ ಇರಬೇಕು."
+msgstr "IPv4 ಉಪಸರ್ಗವು ೦ ಮತ್ತು ೩೨ರ ನಡುವೆ ಇರಬೇಕು."
 
 #: ../iw/network_gui.py:531 ../textw/network_text.py:381
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ ೧ ಮತ್ತು ೨೦೦೦ ಎಮ್.ಬಿ ಗಳ ನಡುವೆ ಇರಬೇಕು."
+msgstr "IPv6 ಉಪಸರ್ಗವು ೦ ಮತ್ತು ೧೨೮ರ ನಡುವೆ ಇರಬೇಕು."
 
 #: ../iw/network_gui.py:537 ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ ೧ ಮತ್ತು ೨೦೦೦ ಎಮ್.ಬಿ ಗಳ ನಡುವೆ ಇರಬೇಕು."
+msgstr "ಅಮಾನ್ಯವಾದ ಅಥವಾ ಕಾಣೆಯಾದ IPv6 ಉಪಸರ್ಗ (೦ ಮತ್ತು ೧೨೮ರ ನಡುವೆ ಇರಬೇಕು)"
 
 #: ../iw/network_gui.py:595 ../iw/network_gui.py:608
 msgid "Disabled"
-msgstr ""
+msgstr "ಅಶಕ್ತಗೊಂಡ"
 
 #: ../iw/network_gui.py:685
 msgid "Active on Boot"
@@ -3657,13 +3620,12 @@ msgid "Device"
 msgstr "ಸಾಧನ"
 
 #: ../iw/network_gui.py:689
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/ಜಾಲಮುಸುಕು"
+msgstr "IPv4/ಜಾಲಮುಸುಕು"
 
 #: ../iw/network_gui.py:691
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/ಉಪಸರ್ಗ"
 
 #: ../iw/network_gui.py:751
 msgid "Network Devices"
@@ -3675,16 +3637,15 @@ msgstr "ಆತಿಥೇಯನಾಮವನ್ನು ನಿಗದಿಗೊಳಿ�
 
 #: ../iw/network_gui.py:767
 msgid "_automatically via DHCP"
-msgstr "DHCP ಮೂಲಕ ಸ್ವಯಂಚಾಲಿ_ತವಾಗಿ"
+msgstr "DHCP ಮೂಲಕ ಸ್ವಯಂಚಾಲಿತವಾಗಿ (_a)"
 
 #: ../iw/network_gui.py:774
 msgid "_manually"
-msgstr "ಸ್ವಹಸ್ತದಿಂ_ದ"
+msgstr "ಸ್ವಹಸ್ತದಿಂದ (_m)"
 
 #: ../iw/network_gui.py:779
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(ಉದಾ. \"host.domain.com\")"
+msgstr "(ಉದಾ. host.domain.com)"
 
 #: ../iw/network_gui.py:785
 msgid "Hostname"
@@ -3731,11 +3692,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "ಗುರುತು_ಪಟ್ಟಿ"
+msgstr "ಗುರುತುಪಟ್ಟಿ (_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "ಪೂರ್ವನಿಯೋಜಿತ ಸಜ್ಜು _ಗುರಿ"
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ ಸಜ್ಜು ಗುರಿ (_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
@@ -3780,15 +3741,15 @@ msgstr "ಹೆಚ್ಚುವರಿ ಗಾತ್ರ ಆಯ್ಕೆಗಳು"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "ನಿಶ್ಚಿ_ತ ಗಾತ್ರ"
+msgstr "ನಿಶ್ಚಿ_ತ ಗಾತ್ರ (_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "ಎಲ್ಲಾ ಸ್ಥಳಗಳನ್ನೂ ಭರಿಸು (ಎಮ್.ಬಿ) ಗಳ _ವರೆಗೆ:"
+msgstr "ಎಲ್ಲಾ ಸ್ಥಳಗಳನ್ನೂ ಭರಿಸು (ಎಮ್.ಬಿ) ಗಳ ವರೆಗೆ (_u):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "_ಗರಿಷ್ಟ ಸಮ್ಮತಿತ ಗಾತ್ರದ ವರೆಗೆ ಭರಿಸು"
+msgstr "ಗರಿಷ್ಟ ಸಮ್ಮತಿತ ಗಾತ್ರದ ವರೆಗೆ ಭರಿಸು (_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3809,11 +3770,11 @@ msgstr "ವಿಭಾಗವನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "ಕಡತ ವ್ಯ_ವಸ್ಥೆಯ ಶೈಲಿ:"
+msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಶೈಲಿ (_T):"
 
 #: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
-msgstr "ಸಮ್ಮತಿತ ಮುದ್ರಿಕಾಚಾಲ_ಕಗಳು:"
+msgstr "ಸಮ್ಮತಿತ ಮುದ್ರಿಕಾಚಾಲಕಗಳು (_D):"
 
 #: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
@@ -3821,25 +3782,25 @@ msgstr "ಮುದ್ರಿಕಾಚಾಲಕ:"
 
 #: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
-msgstr "ಪ್ರಾರಂಭಿ_ಕ ಹೊರಳು:"
+msgstr "ಪ್ರಾರಂಭಿಕ ಹೊರಳು (_S):"
 
 #: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
-msgstr "ಅಂತಿ_ಮ ಹೊರಳು:"
+msgstr "ಅಂತಿಮ ಹೊರಳು (_E):"
 
 #: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
-msgstr "ಪ್ರಾಥಮಿ_ಕ ವಿಭಾಗವಾಗಿ ಪರಿಗಣಿಸಲು ಒತ್ತಾಯಿಸು"
+msgstr "ಪ್ರಾಥಮಿಕ ವಿಭಾಗವಾಗಿ ಪರಿಗಣಿಸಲು ಒತ್ತಾಯಿಸು (_p)"
 
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
 msgid "Type"
@@ -3874,14 +3835,12 @@ msgid "Partitioning"
 msgstr "ವಿಭಾಗೀಕರಣ"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "ನೀವು ಕೋರಿದ ವಿಭಾಗೀಕರಣ ಯೋಜನೆಯಲ್ಲಿ ಈ ಕೆಳಕಂಡ ವಿಷಮ ದೋಷಗಳು ಕಂಡುಬಂದವು."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ಈ ದೋಷಗಳನ್ನು %s ನ ಅನುಸ್ಥಾಪನೆಯೊಡನೆ ಮುಂದುವರೆಯುವ ಮೊದಲೇ ಸರಿಪಡಿಸಬೇಕು."
 
 #: ../iw/partition_gui.py:642
@@ -3906,7 +3865,7 @@ msgstr "ಸಪಾಟುಗೊಳಿಸುವಿಕೆಯ ಎಚ್ಚರಿಕ�
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
-msgstr "_ಸಪಾಟುಗೊಳಿಸು"
+msgstr "ಸಪಾಟುಗೊಳಿಸು (_F)"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
@@ -4016,18 +3975,17 @@ msgstr "ಈಗ ಏನು ಮಾಡಬೇಕೆಂದಿದ್ದೀರಿ?"
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
-msgstr "ತಂತ್ರಾಂಶಾತ್ಮಕ RAID ವಿಭಾ_ಗವನ್ನು ರಚಿಸು."
+msgstr "ತಂತ್ರಾಂಶಾತ್ಮಕ RAID ವಿಭಾಗವನ್ನು ರಚಿಸು (_p)."
 
 #: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "RAID ಸಾಧ_ನವನ್ನು ರಚಿಸು [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
+msgstr "RAID ಸಾಧನವನ್ನು ರಚಿಸು (_d) [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"RAID ಅನ್ನು ರಚಿಸಲು ಸ್ಮೃತಿಮುದ್ರಿಕಾ ಚಾಲಕವನ್ನು ತದ್ರೂಪಿಸು [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
+msgstr "RAID ಅನ್ನು ರಚಿಸಲು ಸ್ಮೃತಿಮುದ್ರಿಕಾ ಚಾಲಕವನ್ನು ತದ್ರೂಪಿಸು (_d) [ಪೂರ್ವನಿಯೋಜಿತ=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -4039,11 +3997,11 @@ msgstr "ಮುದ್ರಿಕಾ ಚಾಲಕ ತದ್ರೂಪಕ ಸಂಪಾ
 
 #: ../iw/partition_gui.py:1355
 msgid "Ne_w"
-msgstr "ಹೊ_ಸ"
+msgstr "ಹೊಸ (_w)"
 
 #: ../iw/partition_gui.py:1358
 msgid "Re_set"
-msgstr "_ಮರುಸಿದ್ಧಗೂಳಿಸು"
+msgstr "ಮರುಸಿದ್ಧಗೂಳಿಸು (_s)"
 
 #: ../iw/partition_gui.py:1359
 msgid "R_AID"
@@ -4055,7 +4013,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "RAID ಸಾಧನ/LVM ಪರಿಮಾಣ _ಸಮೂಹ ಸದಸ್ಯರನ್ನು ಅಡಗಿಸು"
+msgstr "RAID ಸಾಧನ/LVM ಪರಿಮಾಣ ಸಮೂಹ ಸದಸ್ಯರನ್ನು ಅಡಗಿಸು (_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
@@ -4070,19 +4028,19 @@ msgstr "ಈ ವಿಭಾಗದ ಮೇಲೆ ಕಡತ ವ್ಯವಸ್ಥೆ�
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
-msgstr "ಬ_ದಲಾಯಿಸದೆ ಬಿಡು (ದತ್ತಾಂಶವನ್ನು ಸಂರಕ್ಷಿಸು)"
+msgstr "ಬದಲಾಯಿಸದೆ ಬಿಡು (_u) (ದತ್ತಾಂಶವನ್ನು ಸಂರಕ್ಷಿಸು)"
 
 #: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
-msgstr "ವಿಭಾಗವನ್ನು ಈ ರೀತಿಯಾಗಿ _ಸಪಾಟುಗೊಳಿಸು:"
+msgstr "ವಿಭಾಗವನ್ನು ಈ ರೀತಿಯಾಗಿ ಸಪಾಟುಗೊಳಿಸು (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
-msgstr "ವಿಭಾಗವನ್ನು ಇಲ್ಲಿಗೆ ವ_ಲಸೆಹೋಗಿಸು:"
+msgstr "ವಿಭಾಗವನ್ನು ಇಲ್ಲಿಗೆ ವಲಸೆಹೋಗಿಸು (_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
-msgstr "ದೋಷಯುಕ್ತ ಖಂಡ_ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲೆ?"
+msgstr "ದೋಷಯುಕ್ತ ಖಂಡಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲೆ? (_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
@@ -4099,11 +4057,11 @@ msgstr "ಮುದ್ರಿಕಾ ವಿಭಾಗೀಕರಣ ಸಂರಚನೆ"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr "ಸ್ವಯಂಚಾಲಿ_ತವಾಗಿ ವಿಭಜಿಸಿ"
+msgstr "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ವಿಭಜಿಸಿ (_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "ಮುದ್ರಿಕಾ ಮಾಂತ್ರಿಕನನ್ನು ಬಳಸಿ ಸ್ವ_ಹಸ್ತದಿಂದ ವಿಭಜಿಸಿ"
+msgstr "ಮುದ್ರಿಕಾ ಮಾಂತ್ರಿಕನನ್ನು ಬಳಸಿ ಸ್ವಹಸ್ತದಿಂದ ವಿಭಜಿಸಿ (_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
@@ -4185,23 +4143,23 @@ msgstr "RAID ಸಾಧನವನ್ನು ಸಂಪಾದಿಸಿ"
 
 #: ../iw/raid_dialog_gui.py:322
 msgid "RAID _Device:"
-msgstr "RAID ಸಾಧ_ನ:"
+msgstr "RAI_D ಸಾಧನ:"
 
 #: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
-msgstr "RAID ಸ್ತ_ರ:"
+msgstr "RAID ಸ್ತರ (_L):"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "R_AID ಸದಸ್ಯರು:"
+msgstr "_RAID ಸದಸ್ಯರು:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr "ಬಿಡಿಭಾಗ_ಗಳ ಸಂಖ್ಯೆ:"
+msgstr "ಬಿಡಿಭಾಗಗಳ ಸಂಖ್ಯೆ (_s):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "ವಿಭಾಗವನ್ನು _ಸಪಾಟುಗೊಳಿಸಲೇ?"
+msgstr "ವಿಭಾಗವನ್ನು ಸಪಾಟುಗೊಳಿಸಲೇ? (_F)"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4266,8 +4224,7 @@ msgstr "ತದ್ರೂಪಣಾ ಕಾರ್ಯಾಚರಣೆಗೆ ಉದ್�
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"ಆಕರ ಮದ್ರಿಕಾಚಾಲಕ /dev/%s ವನ್ನು ಉದ್ದಿಷ್ಟ ಮುದ್ರಿಕಾಚಾಲಕವನ್ನಾಗಿಯೂ ಆರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+msgstr "ಆಕರ ಮದ್ರಿಕಾಚಾಲಕ /dev/%s ವನ್ನು ಉದ್ದಿಷ್ಟ ಮುದ್ರಿಕಾಚಾಲಕವನ್ನಾಗಿಯೂ ಆರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: ../iw/raid_dialog_gui.py:562
 #, python-format
@@ -4396,6 +4353,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"%s ಗೆ ಒಂದು ಸಮೂಹ ಕಡತವನ್ನು ಹುಡುಕಲಾಗಲಿಲ್ಲ.  ಇದು ಕೆಲಸಮಾಡದ "
+"ಭಂಡಾರದಿಂದ ಪ್ಯಾಕೇಜುಗಳನ್ನು ಸ್ವಹಸ್ತದಿಂದ ಅಯ್ಕೆ ಮಾಡುತ್ತದೆ"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
@@ -4414,12 +4373,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "ನೀವು ಒಂದು ಸಂಪುಟಕ್ಕೆ HTTP ಅಥವಾ FTP URL ಅನ್ನು ನೀಡಬೇಕು."
 
 #: ../iw/task_gui.py:147
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"ಆರೋಹಣಾತಾಣ \"%s\" ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೊಂದು ಆರೋಹಣಾತಾಣವನ್ನು ಆರಿಸಿರಿ."
+msgstr "ಆರೋಹಣಾತಾಣ %s ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೊಂದು ಆರೋಹಣಾತಾಣವನ್ನು ಆರಿಸಿರಿ."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4431,7 +4389,7 @@ msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು 
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು _ನವೀಕರಿಸಿ"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ನವೀಕರಿಸಿ (_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
@@ -4439,10 +4397,8 @@ msgstr "ಇದು ನಿಮ್ಮ ಸಧ್ಯದ ಸಜ್ಜು ಉತ್ಥ�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"%s ಸಜ್ಜು ಉತ್ಥಾಪಕವು %s ನ ಮೇಲೆ ಅನುಸ್ಥಾಪನೆಯಾಗಿರುವುದನ್ನು ಅನುಸ್ಥಾಪಕವು ಪತ್ತೆಹಚ್ಚಿದೆ."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "%s ಸಜ್ಜು ಉತ್ಥಾಪಕವು %s ನ ಮೇಲೆ ಅನುಸ್ಥಾಪನೆಯಾಗಿರುವುದನ್ನು ಅನುಸ್ಥಾಪಕವು ಪತ್ತೆಹಚ್ಚಿದೆ."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4458,7 +4414,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr "ಹೊಸ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು _ರಚಿಸಿ"
+msgstr "ಹೊಸ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆಯನ್ನು ರಚಿಸಿ (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -4470,7 +4426,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕ_ವನ್ನು ಊರ್ಜಿತಗೊಳಿಸುವುದನ್ನು ಉಪೇಕ್ಷಿಸಿ"
+msgstr "ಸಜ್ಜು ಉತ್ಥಾಪಕವನ್ನು ಊರ್ಜಿತಗೊಳಿಸುವುದನ್ನು ಉಪೇಕ್ಷಿಸಿ (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
@@ -4536,11 +4492,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "ನಾನು ಒಂದು ವಿನಿಮಯ ಕಡತವನ್ನು ರಚಿ_ಸಲು ಇಚ್ಛಿಸುತ್ತೇನೆ"
+msgstr "ನಾನು ಒಂದು ವಿನಿಮಯ ಕಡತವನ್ನು ರಚಿಸಲು ಇಚ್ಛಿಸುತ್ತೇನೆ (_w)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಹಾಕಲು ಒಂದು ವಿಭಾ_ಗವನ್ನು ಆರಿಸಿ:"
+msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಹಾಕಲು ಒಂದು ವಿಭಾಗವನ್ನು ಆರಿಸಿ (_p):"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4561,11 +4517,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "ವಿನಿಮಯ ಕಡತ_ದ ಗಾತ್ರ (ಎಮ್.ಬಿ):"
+msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ (ಎಮ್.ಬಿ) (_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "ವಿನಿಮ_ಯ ಕಡತವನ್ನು ಸೃಷ್ಟಿಸುಲು ನನಗೆ ಇಚ್ಛೆಯಿಲ್ಲ"
+msgstr "ವಿನಿಮಯ ಕಡತವನ್ನು ಸೃಷ್ಟಿಸುಲು ನನಗೆ ಇಚ್ಛೆಯಿಲ್ಲ (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -4582,8 +4538,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ವಿನಿಮಯ ಕಡತದ ಗಾತ್ರ ೧ ಮತ್ತು ೨೦೦೦ ಎಮ್.ಬಿ ಗಳ ನಡುವೆ ಇರಬೇಕು."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ನೀವು ವಿನಿಮಯಸ್ಮೃತಿ ವಿಭಾಗಕ್ಕೆ ಆರಿಸಿದ ಸಾಧನದಲ್ಲಿ ಅಗತ್ಯದಷ್ಟು ಸ್ಥಳಾವಕಾಶವಿಲ್ಲ."
 
 #: ../iw/zipl_gui.py:28
@@ -4722,10 +4677,8 @@ msgstr ""
 "ಬಳಸಬೇಕೆಂದಿದ್ದೀರಿ ಎಂದು ನನಗೆ ತಿಳಿಸಬೇಕಾಗುತ್ತದೆ."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-"<Space> ಆರಿಸಿ | <F2> ಪೂರ್ವನಿಯೋಜಿತ ಆಯ್ಕೆ| <F4> ತೆಗೆದುಹಾಕಿ | <F12> ಮುಂದಿನ ತೆರೆ>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr "<Space> ಆರಿಸಿ | <F2> ಪೂರ್ವನಿಯೋಜಿತ ಆಯ್ಕೆ| <F4> ತೆಗೆದುಹಾಕಿ | <F12> ಮುಂದಿನ ತೆರೆ>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4862,14 +4815,12 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ದಯವಿಟ್ಟು ನೀವು ಅನುಸ್ಥಾಪಿಸಿಕೊಳ್ಳಲಿಚ್ಛಿಸುವ ಸಂಗ್ರಹ ಸಮೂಹಗಳನ್ನು ಆರಿಸಿ."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> ಆರಿಸುವಿಕೆ   |   <F2> ಸಮೂಹದ ವಿವರಗಳು   |   <F12>ಮುಂದಿನ ತೆರೆ"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> ಆರಿಸುವಿಕೆ   |   <F2> ಸಮೂಹದ ವಿವರಗಳು   |   <F12>ಮುಂದಿನ ತೆರೆ"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡಲು ಐಚ್ಛಿಕ ಪ್ಯಾಕೇಜುಗಳಿಲ್ಲ"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -4900,12 +4851,12 @@ msgid "Mouse Selection"
 msgstr "ತೆರೆಸೂಚಿ ಆಯ್ಕೆ"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"ನೀವು \"%s\" ಕ್ಷೇತ್ರವನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ.   ನಿಮ್ಮ ಜಾಲಪರಿಸರಕ್ಕನುಗುಣವಾಗಿ, ಇದು ಮುಂದೆ "
+"ನೀವು %s ಕ್ಷೇತ್ರವನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ.   ನಿಮ್ಮ ಜಾಲಪರಿಸರಕ್ಕನುಗುಣವಾಗಿ, ಇದು ಮುಂದೆ "
 "ತೊಂದರೆಗಳನ್ನುಂಟುಮಾಡಬಹುದು."
 
 #: ../textw/network_text.py:152
@@ -4928,25 +4879,23 @@ msgstr "ಸಜ್ಜುಗೊಂಡಾಗ ಸಕ್ರಿಯಗೊಳಿಸು"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-ಇಂದ-P ಗೆ:"
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "ಕೀಲಿಕೈ:"
+msgstr "WEP ಕೀಲಿಕೈ:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5244,8 +5193,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-ಸಹಾಯ     F2-ಹೊಸ      F3-ಸಂಪಾದಿಸಿ   F4-ತೆಗೆದುಹಾಕಿ    F5-ಮರುಸಂಯೋಜಿಸಿ    "
 "F12-ಸರಿ"
@@ -5263,7 +5211,6 @@ msgid "Partitioning Type"
 msgstr "ವಿಭಾಗೀಕರಣ ಶೈಲಿ"
 
 #: ../textw/partition_text.py:1522
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
@@ -5279,10 +5226,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ಈ ಅನುಸ್ಥಾಪನೆಗೆ ಯಾವ ಮುದ್ರಿಕಾಚಾಲಕಗಳನ್ನು ಬಳಸಲು ನಿರ್ಧರಿಸಿದ್ದೀರಿ?"
 
 #: ../textw/partition_text.py:1561
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> ಆರಿಸುವಿಕೆ   |   <F2> ಸಮೂಹದ ವಿವರಗಳು   |   <F12>ಮುಂದಿನ ತೆರೆ"
+msgstr "<Space>,<+>,<-> ಆರಿಸುವಿಕೆ   |   <F2> ಮುದ್ರಿಕಾ ಚಾಲಿಕವನ್ನು ಸೇರಿಸು   |   <F12> ಮುಂದಿನ ತೆರೆ"
 
 #: ../textw/partition_text.py:1623
 msgid "Review Partition Layout"
@@ -5301,22 +5246,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "ನಿಮ್ಮ ಮುದ್ರಿಕಾ ಚಾಲಕಗಳ ಸಂರಚನೆಯನ್ನು ಮಾರ್ಪಡಿಸಲು ಇಷ್ಟಪಡುತ್ತೀರೇನು?"
 
 #: ../textw/partition_text.py:1666
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP ಸಾಧನವನ್ನು ಸೇರಿಸು"
 
 #: ../textw/partition_text.py:1667 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries ಗಣಕಗಳು ಉದ್ಯಮ-ಮಾನಕ SCSI ಸಾಧನಗಳನ್ನು ನಾರು ವಾಹಕಗಳ (Fibre Channel, FCP) "
-"ಮೂಲಕ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದು. ನೀವು ಪ್ರತಿಯೊಂದು ಸಾಧನಕ್ಕೂ ೫ ಪ್ರಮಿತಿಗಳನ್ನು "
-"ನೀಡಬೇಕಾಗುತ್ತೆದೆ.  ೧೬ ದ್ವಿಮೆಗಳ ಸಾಧನಾ ಸಂಖ್ಯೆ, ೧೬ ದ್ವಿಮೆಗಳ SCSI ಗುರುತು, ೬೪ ದ್ವಿಮೆಗಳ "
-"ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರು (WWPN), ೧೬ ದ್ವಿಮೆಗಳ SCSI LUN ಹಾಗೂ ೬೪ ದ್ವಿಮೆಗಳ FCP "
-"LUN."
+"ಮೂಲಕ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದು. ನೀವು ಪ್ರತಿ ಸಾಧನಗಳಿಗೆ ೧೬ ಬಿಟ್ ಗಳ ಸಾಧನಾ ಸಂಖ್ಯೆ,, ೬೪ ಬಿಟ್ ಗಳ "
+"ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರು (WWPN),ಹಾಗು ೬೪ ಬಿಟ್ ಗಳ FCP LUN ಅನ್ನು ನೀಡಬೇಕಾಗುತ್ತದೆ."
 
 #: ../textw/partition_text.py:1690 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5388,7 +5329,7 @@ msgid "Package selection"
 msgstr "ಸಂಗ್ರಹ ಆಯ್ಕೆ"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
@@ -5527,7 +5468,7 @@ msgstr "Chandev ಸಾಲು"
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "ಪರಿಷ್ಕೃತ"
+msgstr "ಪರಿಷ್ಕೃತ (_C)"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -5539,18 +5480,18 @@ msgstr ""
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
-msgstr "_ಫೆಡೋರಾ"
+msgstr "ಫೆಡೋರಾ (_F)"
 
 #: ../installclasses/fedora.py:13 ../installclasses/rhel.py:21
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
 "%s ನ ಪೂರ್ವನಿಯೋಜಿತ ಅನುಸ್ಥಾಪನೆಯು ಅಂತರ್ಜಾಲದ ಸಾಮಾನ್ಯ ಬಳಕೆಗೆ ಬೇಕಾಗುವಂತಹ "
-"ತಂತ್ರಾಂಶಗಳನ್ನೊಳಗೊಂಡಿದೆ.  ಮತ್ತಾವ ಹಚ್ಚುವರಿ ಕಾರ್ಯಗಳಿಗೆ ನಿಮ್ಮ ಗಣಕವು ಸಮರ್ಥನೆ ನೀಡಬೇಕೆಂದು "
-"ಅಪೇಕ್ಷಿಸುತ್ತೀರಿ?"
+"ತಂತ್ರಾಂಶಗಳನ್ನೊಳಗೊಂಡಿದೆ.  ಮತ್ತಾವ ಹಚ್ಚುವರಿ ಕಾರ್ಯಗಳಿಗೆ ನಿಮ್ಮ ಗಣಕ ಸಮರ್ಥನೆಯಲ್ಲಿ "
+"ಅಡಕಗೊಂಡಿರಬೇಕೆಂದು ಅಪೇಕ್ಷಿಸುತ್ತೀರಿ?"
 
 #: ../installclasses/fedora.py:21
 msgid "Office and Productivity"
@@ -5568,7 +5509,7 @@ msgstr "ಜಾಲ ಪರಿಚಾರಕ"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "ವೈ_ಯಕ್ತಿಕ ಗಣಕತೆರೆ"
+msgstr "ವೈಯಕ್ತಿಕ ಗಣಕತೆರೆ (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5603,35 +5544,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
 msgid "Office"
-msgstr ""
+msgstr "ಆಫೀಸ್"
 
 #: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
 msgid "Multimedia"
-msgstr ""
+msgstr "ಬಹುಮಾಧ್ಯಮ"
 
 #: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
-#, fuzzy
 msgid "Virtualization"
-msgstr "ಅಭಿನಂದನೆಗಳು"
+msgstr "ವಾಸ್ತವೀಕರಣ"
 
 #: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
 msgid "Clustering"
-msgstr ""
+msgstr "ಸಮೂಹಗೊಳಿಸು"
 
 #: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
 msgid "Storage Clustering"
-msgstr ""
+msgstr "ಶೇಖರಣಾ ಸಮೂಹಗೊಳಿಸು"
 
 #: ../installclasses/rhel.py:39
-#, fuzzy
 msgid "Installation Number"
-msgstr "ಅನುಸ್ಥಾಪನೆ ಪ್ರಾರಂಭವಾಗಲಿದೆ"
+msgstr "ಅನುಸ್ಥಾಪನಾ ಸಂಖ್ಯೆ"
 
 #: ../installclasses/rhel.py:40
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"ನಿಮ್ಮ ಪೂರ್ಣ ಪ್ರಮಾಣದ ಬೆಂಬಲಿತ ಪ್ಯಾಕೇಜುಗಳನ್ನು ಅನುಸ್ಥಾಪಿಸಲು, ದಯವಿಟ್ಟು "
+"ಅನುಸ್ಥಾಪನಾ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
 
 #: ../installclasses/rhel.py:43
 msgid ""
@@ -5646,10 +5587,19 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"ನಿಮಗೆ ಅನುಸ್ಥಾಪನಾ ಸಂಖ್ಯೆಯನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಸಾಧ್ಯವಾಗದಿದ್ದರೆ, http://www."
+"redhat.com/apps/support/in.html ಗೆ ಭೇಟಿಕೊಡಿ.\n"
+"\n"
+"ನೀವು ಇದನ್ನು ಉಪೇಕ್ಷಿಸಿದರೆ:\n"
+"*ನಿಮ್ಮ ಚಂದಾದಲ್ಲಿ ಇರುವ ಎಲ್ಲಾ ಪ್ಯಾಕೇಜುಗಳನ್ನು ನೀವು ನಿಲುಕಲಾಗುವುದಿಲ್ಲ \n"
+"* ಅದು ಬೆಂಬಲವಿಲ್ಲದ/ಪ್ರಮಾಣಿಕರಿಸದ Red Hat Enterprise Linux "
+"ಅನುಸ್ಥಾಪನೆಗೆ ಕಾರಣವಾಗುತ್ತದೆ .\n"
+"* ನಿಮ್ಮ ಚಂದಾದಲ್ಲಿ ಸೇರಿರದ ಪ್ಯಾಕೇಜುಗಳಿಗೆ ತಂತ್ರಾಂಶ ಹಾಗು ಸುರಕ್ಷತಾ "
+"ಅಪ್ಡೇಟುಗಳು  ಲಭ್ಯವಿರುವುದಿಲ್ಲ."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "_ಪರಿಚಾರಕ"
+msgstr "ಪರಿಚಾರಕ (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5663,7 +5613,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr "_ಕಾರ್ಯಕೇಂದ್ರ"
+msgstr "ಕಾರ್ಯಕೇಂದ್ರ (_W)"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5822,8 +5772,7 @@ msgstr "ಯಂತ್ರಚಾಲಕಗಳ ಮುದ್ರಿಕೆಯನ್ನ�
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"ಮುಂದುವರೆಯಲು ಯಂತ್ರಚಾಲಕಗಳ ಮುದ್ರಿಕೆಯನ್ನು /dev/%s ನಲ್ಲಿ ಅಳವಡಿಸಿ \"ಸರಿ\" ಒತ್ತಿರಿ."
+msgstr "ಮುಂದುವರೆಯಲು ಯಂತ್ರಚಾಲಕಗಳ ಮುದ್ರಿಕೆಯನ್ನು /dev/%s ನಲ್ಲಿ ಅಳವಡಿಸಿ \"ಸರಿ\" ಒತ್ತಿರಿ."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -5836,7 +5785,7 @@ msgstr "ಯಂತ್ರಚಾಲಕಗಳ ಮುದ್ರಿಕೆಯ ಆರೋ�
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "%s ನ ಬಿಡುಗಡೆಗೆ ಯಂತ್ರ ಚಾಲಿಕಾ ಮುದ್ರಕಗಳು ಅಮಾನ್ಯವಾಗಿವೆ"
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5954,8 +5903,7 @@ msgstr "ಯಂತ್ರಚಾಲಕ %s ಉತ್ಥಾಪನೆಗೊಳ್ಳ�
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ಆ ಕಡತಕೋಶದಲ್ಲಿರುವ %s ಅನುಸ್ಥಾಪನಾವೃಕ್ಷ ನಿಮ್ಮ ಸಜ್ಜು ಮಾಧ್ಯಮಗಳೊಂದಿಗೆ ಹೊಂದುವಂತೆ ತೋರುತ್ತಿಲ್ಲ."
+msgstr "ಆ ಕಡತಕೋಶದಲ್ಲಿರುವ %s ಅನುಸ್ಥಾಪನಾವೃಕ್ಷ ನಿಮ್ಮ ಸಜ್ಜು ಮಾಧ್ಯಮಗಳೊಂದಿಗೆ ಹೊಂದುವಂತೆ ತೋರುತ್ತಿಲ್ಲ."
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -6043,11 +5991,12 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ನಕಲಿಳಿಸಲಾಗಿಲ್ಲ. ದಯವಿಟ್ಟು ಕೆಳಗಿನ ನಿಯತಾಂಕವನ್ನು ಬದಲಾಯಿಸಿ. "
+"ಅಥವಾ ಸಂವಾದತ್ಮಕ ಅನುಸ್ಥಾಪನೆಯಾಗಿ ಮುಂದುವರೆಯಲು 'ರದ್ದುಮಾಡು' ಅನ್ನು ಒತ್ತಿರಿ."
 
 #: ../loader2/kickstart.c:348
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "kickstart ಕಡತ %s: %s ಅನ್ನು ತೆರೆಯುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ"
+msgstr "ಕಿಕ್ ಸ್ಟಾರ್ಟ್  ಕಡತವನ್ನು ಡೌನ್ ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ"
 
 #: ../loader2/kickstart.c:470
 #, c-format
@@ -6060,10 +6009,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s - ಪಾರುಗಾಣಿಸುವ ಸ್ಥಿತಿಗೆ ಸುಸ್ವಾಗತ"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> ಅಂಶಗಳ ನಡುವೆ  | <Space> ಆರಿಸುತ್ತದೆ | <F12> ಮುಂದಿನ ತೆರೆ "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> ಅಂಶಗಳ ನಡುವೆ  | <Space> ಆರಿಸುತ್ತದೆ | <F12> ಮುಂದಿನ ತೆರೆ "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6194,20 +6141,17 @@ msgstr "ಸಾಧನವನ್ನು ಸೇರಿಸಿ"
 #: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
-"ಉತ್ಥಾಪಕವನ್ನು ಈಗಾಗಲೇ ಕಾರ್ಯಗತಗೊಳಿಸಲಾಗಿದೆ.  ಆದೇಶತೆರೆಯನ್ನು ಪ್ರಾರಂಭಿಸುತ್ತಿದ್ದೇನೆ.\n"
+msgstr "ಉತ್ಥಾಪಕವನ್ನು ಈಗಾಗಲೇ ಕಾರ್ಯಗತಗೊಳಿಸಲಾಗಿದೆ.  ಆದೇಶತೆರೆಯನ್ನು ಪ್ರಾರಂಭಿಸುತ್ತಿದ್ದೇನೆ.\n"
 
 #: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"anaconda ಕಾರ್ಯಗತಗೊಳ್ಳುತ್ತಿದೆ, %s ನ ಪಾರುಗಾಣಿಸುವ ವಿಧಾನ - ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...\n"
+msgstr "anaconda ಕಾರ್ಯಗತಗೊಳ್ಳುತ್ತಿದೆ, %s ನ ಪಾರುಗಾಣಿಸುವ ವಿಧಾನ - ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...\n"
 
 #: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"anaconda ಕಾರ್ಯಗತಗೊಳ್ಳುತ್ತಿದೆ, %s ನ ವ್ಯವಸ್ಥಾ ಅನುಸ್ಥಾಪಕ - ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...\n"
+msgstr "anaconda ಕಾರ್ಯಗತಗೊಳ್ಳುತ್ತಿದೆ, %s ನ ವ್ಯವಸ್ಥಾ ಅನುಸ್ಥಾಪಕ - ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6326,12 +6270,11 @@ msgstr ""
 "ಉಳ್ಳ ಕಡತಕೋಶ\n"
 
 #: ../loader2/net.c:92
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"CIDR ಮುಸುಕಿನ ಮೌಲ್ಯಗಳು IPv4 ಜಾಲಗಳಿಗೆ ೧ ಮತ್ತು ೩೨ ರ ನಡುವಿನಲ್ಲಿರಬೇಕು ಅಥವಾ IPv6 "
+"ಉಪಸರ್ಗಗಳು IPv4 ಜಾಲಗಳಿಗೆ ೧ ಮತ್ತು ೩೨ ರ ನಡುವಿನಲ್ಲಿರಬೇಕು ಅಥವಾ IPv6 "
 "ಜಾಲಗಳಿಗೆ ೧ ಮತ್ತು ೧೨೮ ರ ನಡುವಿನಲ್ಲಿರಬೇಕು"
 
 #: ../loader2/net.c:248
@@ -6362,21 +6305,18 @@ msgid "Nameserver IP"
 msgstr "ನಾಮಪರಿಚಾರಕದ IP"
 
 #: ../loader2/net.c:293
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "ನಾಮಪರಿಚಾರಕ"
+msgstr "ನಾಮಪರಿಚಾರಕ ಕಾಣೆಯಾಗಿದೆ"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"ನಿಮ್ಮ ಜಂಗಮ IP ನಿವೇದನೆ, IP ಸಂರಚನಾ ಮಾಹಿತಿಯನ್ನು ಹಿಂದಿರುಗಿಸಿತು, ಆದರೆ ಅದು DNS "
-"ನಾಮಪರಿಚಾರಕವನ್ನೊಳಗೊಂಡಿಲ್ಲ. ನಿಮಗೆ ನಿಮ್ಮ ನಾಮಪರಿಚಾರಕ ಯಾವುದೆಂದು ತಿಳಿದಿದ್ದರೆ, ದಯವಿಟ್ಟು "
-"ಅದನ್ನು ಈಗ ನಮೂದಿಸಿ. ನಿಮ್ಮ ಬಳಿ ಈ ಮಾಹಿತಿ ಇರದಿದ್ದರೆ, ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿಯಾಗಿ ಬಿಡಬಹುದು, "
-"ಅನುಸ್ಥಾಪನೆ ಮುಂದುವರೆಯುತ್ತದೆ."
+"ನಿಮ್ಮ IP ವಿಳಾಸದ ಕೋರಿಕೆ ಸಂರಚನಾ ಮಾಹಿತಿಯನ್ನು ಹಿಂದಿರುಗಿಸಿತು, ಆದರೆ ಅದು "
+"ನಾಮಪರಿಚಾರಕವನ್ನೊಳಗೊಂಡಿಲ್ಲ.ನಿಮ್ಮ ಬಳಿ ಈ ಮಾಹಿತಿ ಇರದಿದ್ದರೆ, ಈ "
+"ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿಯಾಗಿ ಬಿಡಬಹುದು, ಅನುಸ್ಥಾಪನೆ ಮುಂದುವರೆಯುತ್ತದೆ."
 
 #: ../loader2/net.c:316
 msgid "Invalid IP Information"
@@ -6399,17 +6339,16 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP ಸಂರಚಿಸಿ"
 
 #: ../loader2/net.c:772
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "DHCP ಗೆ ನೀವು ಒಂದಾದರೂ ಪ್ರಕ್ರಮವನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
+msgstr "ನೀವು ಒಂದಾದರೂ ಪ್ರಕ್ರಮವನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
 
 #: ../loader2/net.c:779
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "NFSಗೆ IPv4 ನ ಆವಶ್ಯಕತೆ ಇದೆ"
 
 #: ../loader2/net.c:780
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS ಅನುಸ್ಥಾಪನಾ ಕ್ರಮಕ್ಕೆ  IPv4ನ ಸಮರ್ಥನೆಯ ಆವಶ್ಯಕತೆ ಇದೆ."
 
 #: ../loader2/net.c:900
 msgid "IPv4 address:"
@@ -6433,6 +6372,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"IPv4 ಮತ್ತು/ಅಥವಾ IPv6 ವಿಳಾಸ ಮತ್ತು ಉಪಸರ್ಗವನ್ನು(ವಿಳಾಸ / ಉಪಸರ್ಗ) ನಮೂದಿಸಿ.  "
+"IPv4ಗೆ, dotted-quad ಜಾಲಮುಸುಕು ಅಥವ CIDR-ರೀತಿಯ ಉಪಸರ್ಗಕ್ಕೆ ಒಪ್ಪಿಗೆ ಇದೆ. "
+"ಪ್ರವೇಶದ್ವಾರ ಹಾಗು ನಾಮಪರಿಚಾರಕ ಜಾಗಗಳಲ್ಲಿ ಮಾನ್ಯವಾದ IPv4 ಅಥವ IPv6 ವಿಳಾಸಗಳಿರಬೇಕು."
 
 #: ../loader2/net.c:1065
 msgid "Manual TCP/IP Configuration"
@@ -6443,13 +6385,10 @@ msgid "Missing Information"
 msgstr "ಕಾಣೆಯಾದ ಮಾಹಿತಿ"
 
 #: ../loader2/net.c:1186
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"ನೀವು ಮಾನ್ಯವಾದ IPv4 ವಿಳಾಸ ಹಾಗೂ ಜಾಲಮುಸುಕನ್ನು ಅಥವಾ CIDR ಪೂರ್ವಪ್ರತ್ಯಯವನ್ನು ನಮೂದಿಸಬೇಕು."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "ನೀವು ಮಾನ್ಯವಾದ IPv4 ವಿಳಾಸ ಹಾಗೂ ಜಾಲಮುಸುಕನ್ನು ಅಥವಾ CIDR ಪೂರ್ವಪ್ರತ್ಯಯವನ್ನು ನಮೂದಿಸಬೇಕು."
 
 #: ../loader2/net.c:1192
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "ನೀವು ಮಾನ್ಯವಾದ IPv6 ವಿಳಾಸ ಹಾಗೂ CIDR ಪೂರ್ವಪ್ರತ್ಯಯವನ್ನು ನಮೂದಿಸಬೇಕು."
 
@@ -6656,7 +6595,7 @@ msgstr "<b>ಸಂಪುಟದ _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>ಸಂಪುಟದ ಹೆ_ಸರು:</b>"
+msgstr "<b>ಸಂಪುಟದ ಹೆಸರು (_n):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6673,23 +6612,23 @@ msgstr ""
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "ಸಂಪುಟ_ವನ್ನು ಸೇರಿಸಿ"
+msgstr "ಸಂಪುಟವನ್ನು ಸೇರಿಸಿ (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "ಮರು_ಸಜ್ಜುಗೊಳಿಸಿ"
+msgstr "ಮರು ಸಜ್ಜುಗೊಳಿಸಿ (_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr "ದೋ_ಷನೇರ್ಪಡಿಸಿ"
+msgstr "ದೋಷನೇರ್ಪಡಿಸಿ (_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "ಮುಂ_ದಕ್ಕೆ"
+msgstr "ಮುಂದಕ್ಕೆ (_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "_ಸಮರ್ಪಣಾ ಟಿಪ್ಪಣಿಗಳು"
+msgstr "ಸಮರ್ಪಣಾ ಟಿಪ್ಪಣಿಗಳು (_R)"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6704,15 +6643,15 @@ msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "ವಿಭಾಗೀಕರಣ ವಿನ್ಯಾಸವನ್ನು ಮರು_ಪರಿಶೀಲಿಸಿ ಮಾರ್ಪಡಿಸಿ"
+msgstr "ವಿಭಾಗೀಕರಣ ವಿನ್ಯಾಸವನ್ನು ಮರುಪರಿಶೀಲಿಸಿ ಮಾರ್ಪಡಿಸಿ (_v)"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "ಪ್ರೌ_ಢ ಸಂಗ್ರಹಣಾ ಸಂರಚನೆ"
+msgstr "ಪ್ರೌಢ ಸಂಗ್ರಹಣಾ ಸಂರಚನೆ (_A)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "ಅನುಸ್ಥಾಪನೆಗೆ ಬಳಸಬೇಕಾದ ಚಾ_ಲಕಗಳನ್ನು ಆರಿಸಿ."
+msgstr "ಅನುಸ್ಥಾಪನೆಗೆ ಬಳಸಬೇಕಾದ ಚಾಲಕಗಳನ್ನು ಆರಿಸಿ (_S)."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6720,28 +6659,28 @@ msgstr "ತೊಡಕುಗಳ ಮಾಹಿತಿ"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr "ತೊಡಕು_ಗಳ ವಿವರಗಳು"
+msgstr "ತೊಡಕುಗಳ ವಿವರಗಳು (_E)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr "<b>ಗುಪ್ತ_ಪದ:</b>"
+msgstr "<b>ಗುಪ್ತಪದ (_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>_ಉದ್ದಿಷ್ಟ IP ವಿಳಾಸ:</b>"
+msgstr "<b>ಉದ್ದಿಷ್ಟ IP ವಿಳಾಸ (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>ಬಳಕೆದಾರನ ಹೆಸರು:</b>"
+msgstr "<b>ಬಳಕೆದಾರನ ಹೆಸರು (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI ಆರಂಭಕದ ಹೆ_ಸರು:</b>"
+msgstr "<b>iSCSI ಆರಂಭಕದ ಹೆಸರು (_N):</b>"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6761,7 +6700,7 @@ msgstr "<b>ನಾಮಪರಿಚಾರಕ:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>ಅಂತ_ರಮುಖ:</b>"
+msgstr "<b>ಅಂತರಮುಖ (_I):</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -6785,49 +6724,47 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ಜಂ_ಗಮ IP ಸಂರಚನೆಯನ್ನು ಬಳಸಿ (DHCP)"
+msgstr "ಜಂಗಮ IP ಸಂರಚನೆಯನ್ನು ಬಳಸಿ (DHCP) (_d)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "ನಂ_ತರ _ಪರಿಷ್ಕರಿಸು"
+msgstr "ನಂತರ ಪರಿಷ್ಕರಿಸು (_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"ದಯವಿಟ್ಟು ತಂತ್ರಾಶದ ಅನುಸ್ಥಾಪನೆಗೆ ನೀವು ಉಪಯೋಗಿಸಲು ಯಾವುದಾದರೂ ಹೆಚ್ಚಿನ ಭಂಡಾರಗಳನ್ನು "
+"ಆಯ್ಕೆಮಾಡಿ."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"ತಂತ್ರಾಂಶಗಳ ಆಯ್ಕೆಯ ಪರಿಷ್ಕರಣೆಯನ್ನು ಈಗ ಪೂರ್ಣಗೊಳಿಸಬಹುದು ಇಲ್ಲವೇ ಅನುಸ್ಥಾಪನೆಯ ನಂತರ ತಂತ್ರಾಂಶ "
+"ತಂತ್ರಾಂಶಗಳ ಆಯ್ಕೆಯ ಗ್ರಾಹಕೀಕರಣವನ್ನು ಈಗ ಪೂರ್ಣಗೊಳಿಸಬಹುದು ಇಲ್ಲವೇ ಅನುಸ್ಥಾಪನೆಯ ನಂತರ ತಂತ್ರಾಂಶ "
 "ನಿರ್ವಹಣಾ ಅನ್ವಯದ ಮೂಲಕ ಮಾಡಬಹುದು."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "ಹೆಚ್ಚು_ವರಿ ತಂತ್ರಾಂಶ ಸಂಪುಟಗಳನ್ನು ಸೇರಿಸು"
+msgstr "ಹೆಚ್ಚು_ವರಿ ತಂತ್ರಾಂಶ ಸಂಪುಟಗಳನ್ನು ಸೇರಿಸು (_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "ಈಗ _ಪರಿಷ್ಕರಿಸು"
+msgstr "ಈಗ ಪರಿಷ್ಕರಿಸು (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "ಸಾಧನಾಂಕಿ"
+msgstr "<b>ಸಾಧನಾಂಕಿ:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>ಗುಪ್ತ_ಪದ:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6879,23 +6816,19 @@ msgstr "ಅಟ್ಲಾಂಟಿಕ್ ದ್ವೀಪಗಳು"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "ಅಟ್ಲಾಂಟಿಕ್ ಮಾನಕ ಸಮಯ - ಕ್ಯೂಬೆಕ್ - ಲೋಯರ್ ನಾರ್ತ್ ಶೋರ್"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "ಪೂರ್ವ ಸಮಯ - ಅಂಟಾರಿಯೊ - ಬಹುತೇಕ ಪ್ರದೇಶಗಳು"
+msgstr "ಅಟ್ಲಾಂಟಿಕ ಸಮಯ - ಲ್ಯಾಬ್ರಡಾರ್ - ಬಹುತೇಕ ಪ್ರದೇಶಗಳು"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "ಅಟ್ಲಾಂಟಿಕ್ ಸಮಯ - ಹೊಸ ಬ್ರುನ್ಸ್ ವಿಕ್"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"ಅಟ್ಲಾಂಟಿಕ್ ಸಮಯ - ನೋವಾ ಸ್ಕಾಷಿಯಾ (ಬಹಳಷ್ಟು ಪ್ರದೇಶಗಳು), ಪಶ್ಚಿಮ ಲ್ಯಬ್ರಡಾರ್, ಪೂರ್ವ ಕ್ಯುಬೆಕ್ "
-"ಮತ್ತು PEI"
+msgstr "ಅಟ್ಲಾಂಟಿಕ್ ಸಮಯ - ನೋವಾ ಸ್ಕಾಷಿಯಾ (ಬಹಳಷ್ಟು ಪ್ರದೇಶಗಳು), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6934,9 +6867,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "ಕಟಾಮಾರ್ಕಾ (CT), ಚುಬುಟ್ (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "ಮಧ್ಯಮ ಚೀನಾ - ಗಾನ್ಸು, ಗುಯ್ಚೊ, ಸಿಕ್ಯೂನ್, ಯುನಾನ್, ಇತ್ಯಾದಿ."
+msgstr "ಮಧ್ಯ ಚೀನಾ - ಸಿಕ್ಯೂನ್, ಯುನಾನ್,ಗುಯಾಂಗ್ಝಿ , ಶಾಂಕ್ಝಿ, ಗುಯಿಝೊ, ಇತ್ಯಾದಿ."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6970,8 +6902,7 @@ msgstr "ಮಧ್ಯ ಸಮಯ - ಚೋವುಲಾ, ದುರಾಂಗೊ, ನ�
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"ಮಧ್ಯ ಸಮಯ - ಇಂಡಿಯಾನ - ಡೇವೀಸ್, ದುಬಾಯಿಸ್, ನಾಕ್ಸ, ಮಾರ್ಟಿನ್, ಪೆರ್ರಿ ಮತ್ತು ಪುಲಾಸ್ಕಿ ಕೌಂಟೀಸ್"
+msgstr "ಮಧ್ಯ ಸಮಯ - ಇಂಡಿಯಾನ - ಡೇವೀಸ್, ದುಬಾಯಿಸ್, ನಾಕ್ಸ, ಮಾರ್ಟಿನ್, ಪೆರ್ರಿ ಮತ್ತು ಪುಲಾಸ್ಕಿ ಕೌಂಟೀಸ್"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -7050,9 +6981,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "ಈಸ್ಟರ್ ದ್ವೀಪ ಮತ್ತು ಸಲ ವೈ ಗೋಮೆಜ್"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "ಪೂರ್ವ ಕಾಲಮಾನ ಸಮಯ - ಸೌತ್ಹಾಂಪ್ಟನ್ ದ್ವೀಪ"
+msgstr "ಪೂರ್ವ ಕಾಲಮಾನ ಸಮಯ - ಸೌತ್ಹಾಂಪ್ಟನ್ ದ್ವೀಪ, ಅಟಿಕೋಕನ್, ಓಂಟಾರಿಯೋ, ನುನಾವಟ್"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7095,10 +7025,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ಪೂರ್ವ ಸಮಯ - ಅಂಟಾರಿಯೊ - ಬಹುತೇಕ ಪ್ರದೇಶಗಳು"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"ಪೂರ್ವ ಸಮಯ - ಅಂಟಾರಿಯೊ ಮತ್ತು ಕ್ಯುಬೆಕ್ - ೧೯೬೭-೧೯೭೩ ವರಗೆ  ಡಿ.ಎಸ್.ಟಿ  ಪಾಲಿಸದ ಪ್ರದೇಶಗಳು"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "ಪೂರ್ವ ಸಮಯ - ಅಂಟಾರಿಯೊ ಮತ್ತು ಕ್ಯುಬೆಕ್ - ೧೯೬೭-೧೯೭೩ ವರಗೆ  ಡಿ.ಎಸ್.ಟಿ  ಪಾಲಿಸದ ಪ್ರದೇಶಗಳು"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7138,7 +7066,7 @@ msgstr "ಹವಾಯ್"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "ಹಿಲಾಂಗ್ಜಿಯಾಂಗ್ (ಮೊಹೆಯನ್ನು ಹೊರತುಪಡಿಸಿ), ಜಿಲಿನ್"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7217,9 +7145,8 @@ msgid "Midway Islands"
 msgstr "ಮಿಡ್ವೇ ದ್ವೀಪಗಳು"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "ಮಾಸ್ಕೋ+೦೧ - ಕೆಸಪಿಯನ್ ಸಮುದ್ರ"
+msgstr "ಮಾಸ್ಕೋ+೦೦ - ಕ್ಯಾಸ್ಪಿಯನ್ ಸಮುದ್ರ"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7230,9 +7157,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "ಮಾಸ್ಕೋ+೦೧ - ಕಾಲಿನಿನ್ಗ್ರೇಡ್"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "ಮಾಸ್ಕೋ+೦೯ - ಕಾಮ್ಚಟ್ಕಾ"
+msgstr "ಮಾಸ್ಕೋ+೦೧ - ಸಮಾರ, ಉದ್ಮುರ್ಶಿಯಾ"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7290,15 +7216,14 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "ಟಿಬೆಟ್ ಹಾಗೂ ಗ್ಝಿನ್ಜಿಯಾಂಗ್"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "ಶಿಖರ ಕಾಲಮಾನ ಸಮಯ - ಅರಿಜೋನ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ಶಿಖರ ಕಾಲಮಾನ ಸಮಯ - ದಾವ್ಸನ್ ಕ್ರಿಕ್ ಮತ್ತು ಸಂತ ಜಾನ್ ಕೋಟೆ, ಬ್ರಿಟೀಷ್ ಕೊಲಂಬಿಯಾ"
 
 #. generated from zone.tab
@@ -7342,9 +7267,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "ಈಶಾನ್ಯ ಬ್ರೆಜಿಲ್ (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "ಅಟ್ಲಾಂಟಿಕ್ ಸಮಯ - ಪೂರ್ವ ಲ್ಯಾಬ್ರಡಾರ್"
+msgstr "ನ್ಯೂಫೌಂಡ್ ಲ್ಯಾಂಡ್ ಸಮಯ, ಎಸ್ ಇ ಲ್ಯಾಬ್ರಡಾರ್ ಸೇರಿಸಿ"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7515,9 +7439,8 @@ msgid "West Kazakhstan"
 msgstr "ಪಶ್ಚಿಮ ಕಜಾಕಿಬೇಕಿಸ್ತಾನ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "ಟಿಬೆಟ್ ಮತ್ತು.ಬಹುಪಾಲು ಗ್ಸಿಂಗ್ಜಿಯಾಂಗ್ ಉಯ್ಘುರ್"
+msgstr "ಪೂರ್ವ ಟಿಬೆಟ್ ಮತ್ತು ಗ್ಸಿಂಗ್ಜಿಯಾಂಗ್"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7541,7 +7464,7 @@ msgstr "ಅರೇಬಿಕ್"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "ಅಸ್ಸಾಮಿ"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7705,7 +7628,7 @@ msgstr "ಸರ್ಬಿಯನ್(ಲಾಟಿನ್)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "ಸಿಂಹಳ"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7729,7 +7652,7 @@ msgstr "ತಮಿಳು"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "ತೆಲುಗು"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7751,159 +7674,3 @@ msgstr "ವೆಲ್ಷ್"
 msgid "Zulu"
 msgstr "ಜುಲು"
 
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "ಅನಾವಶ್ಯಕ ಕಟ್ಟುಗಳ ಘರ್ಷಣೆಯನ್ನು ತಪ್ಪಿಸಿ"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "ಅಧಿಕ ವೇಗ ಜಾಲದ ಮಾಹಿತಿದಟ್ಟಣೆಗಾಗಿ ದಾಖಲುಗಳ ಮೌಲ್ಯವನ್ನು ಗರಿಷ್ಟೀಕರಿಸಿ"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "ಸ್ವಹಸ್ತ ಸಂರಚನೆಗಾಗಿ ನೀವು ಒಂದಾದರೂ ಪ್ರಕ್ರಮವನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "ದಯವಿಟ್ಟು ನಿಮ್ಮ %s ನ ಆವೃತ್ತಿಗೆ ನೋಂದಣಿ ಕೀಲಿಕೈಯನ್ನು ನಮೂದಿಸಿ."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "ನೋಂದಣಿ ಕೀಲಿಕೈಯನ್ನು ನಮೂದಿಸಿ"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "%s: %s ನ ಮೇಲೆ ಕಡತ ವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿತು"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ಗುರುತು"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "ನಿವು SCSI ಗುರುತನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ ಇಲ್ಲವೇ ಗುರುತು ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "ನೀವು SCSI LUN ಅನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ, ಇಲ್ಲವೇ ಸಂಖ್ಯೆ ಮಾನ್ಯವಾದದ್ದಲ್ಲ."
-
-#, fuzzy
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv4 ವಿಳಾಸ:"
-
-#, fuzzy
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv6 ವಿಳಾಸ:"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP ಸಂರಚನೆ"
-
-#~ msgid "_Remove"
-#~ msgstr "_ತೆಗೆ"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP ಸಾಧನಗಳು"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP ಸಾಧನ %s ಅನ್ನು ಸಂಪಾದಿಸು"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "ನಿಮ್ಮ ಸಂರಚನೆಯಿಂದ FCP ಮುದ್ರಿಕೆಯನ್ನು ತೆಗೆದುಹಾಕಲಿದ್ದೀರಿ. ಮುಂದುವರೆಯಲು ನೀವು "
-#~ "ಖಚಿತವಾಗಿ ನಿರ್ಧರಿಸಿರುವಿರೇನು?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "ಅಮಾನ್ಯ IP ಅಕ್ಷರಪುಂಜ"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "ನೀವು ನಮೂದಿಸಿದ IP '%s' ಅಮಾನ್ಯವಾದ ಜಾಪ."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "ಎಡೆಯಿಂದೆಡೆಗೆ (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "ಜಾಲ ಸಾಧನ: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "DHCP ಬಳಸಿ ಸಂರಚಿಸಿ"
-
-#~ msgid "Invalid information"
-#~ msgstr "ಅಮಾನ್ಯ ಮಾಹಿತಿ"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "ಮುಂದುವರೆಯಲು ನೀವು ಮಾನ್ಯವಾದ ಜಾಪ(IP) ಮಾಹಿತಿಯನ್ನು ನಮೂದಿಸಬೇಕು"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "ತೃತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ):"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP ಸಾಧನ"
-
-#~ msgid "Device #"
-#~ msgstr "ಸಾಧನ #"
-
-#~ msgid "Add"
-#~ msgstr "ಸೇರಿಸು"
-
-#~ msgid "Remove"
-#~ msgstr "ತೆಗೆ"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC ಪರೀಕ್ಷಿತ ಪ್ರದರ್ಷಕ"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "ತೃತೀಯ ಜಾವಿಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "ತೃತೀಯ ಜಾವಿ_ಪ (ಜಾಲ ವಿಳಾಸ ಪರಿಚಾರಕ)"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "DHCP _ಬಳಸಿ ಸಂರಚಿಸಿ"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP ವಿಳಾಸ"
-
-#~ msgid "Net_mask"
-#~ msgstr "ಜಾ_ಲ ಮುಸುಕು"
-
-#~ msgid "Hardware address:"
-#~ msgstr "ಯಂತ್ರಾಂಶ ವಿಳಾಸ:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "ನೋಂದಣಿ ಕೀಲಿಕೈ ಆವಶ್ಯಕ"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "%s ಅನ್ನು ಅನುಸ್ಥಾಪಿಸಲು ನೋಂದಣಿ ಕೀಲಿಕೈನ ಆವಶ್ಯಕತೆಯಿದೆ.  ನಿಮ್ಮ ತಂತ್ರಾಶದೊಡನೆ ಕೀಲಿಕೈ "
-#~ "ದೊರೆಯದಿದ್ದಲ್ಲಿ ನಿಮ್ಮ ಸಮರ್ಥನಾ ಪ್ರತಿನಿಧಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "ಅಮಾನ್ಯವಾದ CIDR ಮುಸುಕು"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "%s: %s ಗೆ ಪ್ರವೇಶಪಡೆಯುವುದು ವಿಫಲವಾಯಿತು"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "%s: %s ಮರುಪಡೆಯುವಿಕೆ ವಿಫಲವಾಯಿತು"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "%s ನ ಪೂರ್ವನಿಯೋಜಿತ ಅನುಸ್ಥಾಪನೆಯು ಸಾಮಾನ್ಯ ಅಂತರ್ಜಾಲ ಬಳಕೆಗೆ ಬೇಕಾಗುವಂತಹ "
-#~ "ತಂತ್ರಾಂಶಗಳನ್ನೊಳಗೊಂಡಿದೆ.  ಮತ್ತಾವ ಹಚ್ಚುವರಿ ಕಾರ್ಯಗಳಿಗೆ ನಿಮ್ಮ ಗಣಕವು ಸಮರ್ಥನೆಯನ್ನು "
-#~ "ಒಳಗೊಂಡಿರಬೇಕೆಂದು ಅಪೇಕ್ಷಿಸುತ್ತೀರಿ?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "ಹೀಲಾಂಜಿಯಾಂಗ್"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "ನ್ಯೂಫೌಂಡ್ಲ್ಯಾಂಡ್ ದ್ವೀಪ"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "ದ.ಪ.ಗ್ಸಿಂಗ್ಜಿಯಾಂಗ್ ಉಯ್ಘುರ್"
