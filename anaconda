@@ -1005,12 +1005,6 @@ if __name__ == "__main__":
     except:
         handleException(anaconda, sys.exc_info())
 
-    # remove our libuser.conf
-    try:
-        os.unlink(os.environ["LIBUSER_CONF"])
-    except:
-        pass
-    
     if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
         isys.flushDriveDict()
         for drive in isys.cdromList():

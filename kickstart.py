@@ -755,6 +755,11 @@ class Kickstart(cobject):
         if len(postScripts) == 0:
             return
 
+        # Remove environment variables that cause problems for %post scripts.
+        for var in ["LIBUSER_CONF"]:
+            if os.environ.has_key(var):
+                del(os.environ[var])
+
 	log.info("Running kickstart %%post script(s)")
         if anaconda.intf is not None:
             w = anaconda.intf.waitWindow(_("Running..."),
