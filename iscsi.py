@@ -35,7 +35,7 @@ def has_iscsi():
     if not os.access(ISCSID, os.X_OK) or not os.access(ISCSIADM, os.X_OK):
         return False
     # make sure the module is loaded
-    if not os.access("/sys/modules/iscsi_tcp", os.X_OK):
+    if not os.access("/sys/module/iscsi_tcp", os.X_OK):
         return False
     return True
 
