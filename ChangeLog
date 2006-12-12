@@ -1,3 +1,7 @@
+2006-12-12  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (doGetBiosDisk): EDD should work on x86_64 (#218123)
+
 2006-12-12  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Kickstart.postAction):  Remove LIBUSER_CONF from the

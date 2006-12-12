@@ -443,7 +443,7 @@ def doProbeBiosDisks():
     return _isys.biosDiskProbe()
 
 def doGetBiosDisk(mbrSig):
-    if rhpl.getArch() != "i386":
+    if rhpl.getArch() not in ("i386", "x86_64"):    
         return None
     return _isys.getbiosdisk(mbrSig)
 
