@@ -2,6 +2,7 @@ from installclass import BaseInstallClass
 import rhpl
 from rhpl.translate import N_,_
 from constants import *
+from flags import flags
 import os
 import iutil
 import types
@@ -94,8 +95,16 @@ class InstallClass(BaseInstallClass):
 
         if inum is not None:
             for name, path in inum.get_repos_dict().items():
+                # virt is only supported on i386/x86_64.  so, let's nuke it
+                # from our repo list on other arches unless you boot with
+                # 'linux debug'
+                if name.lower() == "virt" and \
+                   (rhpl.getArch() not in ("x86_64","i386")
+                    and not flags.debug):
+                    log.info("VT/ is a tech-preview on this arch; disabling")
+                    continue
                 self.repopaths[name.lower()] = path
-                log.info("Adding %s repo" % (path,))
+                log.info("Adding %s repo" % (name,))
 
             # if we've got a real installation number, use it to base
             # what tasks we show.  this is pretty ugly, but alas.
