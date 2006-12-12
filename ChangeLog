@@ -1,3 +1,20 @@
+2006-12-12  David Cantrell  <dcantrell@redhat.com>
+
+	* ui/netpostconfig.glade: Defines the Edit Network Device window used
+	in the stage 2 part of anaconda.
+
+	* loader2/net.c (writeNetInfo): Write out IPv6 settings.
+
+	* network.py (Network): Move the useIPv4 and useIPv6 flags to be per
+	device rather than per system.
+
+	* iw/network_gui.py: Removed old code in editDevice(), replaced with
+	NetworkDeviceEditWindow class.  Removed the awful mess of input
+	validation code I had since the new dialog box handles all of that.
+	Support independent IPv4 and IPv6 stack configuration per device and
+	offer IPv6 automatic neighbor discovery in addition to DHCPv6 and
+	static configuration (#213110, #213112).
+
 2006-12-11  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (has_iscsi): Fix typo (#218513)

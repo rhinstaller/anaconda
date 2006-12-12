@@ -33,11 +33,6 @@ descr = { 'ipaddr':   'IPv4 address',
           'ipv6addr': 'IPv6 address'
         }
 
-# order to check input values
-checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
-              'remip', 'essid', 'key'
-             ]
-
 class NetworkWindow(InstallWindow):		
     windowTitle = N_("Network Configuration")
 
@@ -45,7 +40,6 @@ class NetworkWindow(InstallWindow):
 	InstallWindow.__init__(self, ics)
 
     def getNext(self):
-
 	if self.getNumberActiveDevices() == 0:
 	    rc = self.handleNoActiveDevices()
 	    if not rc:
@@ -170,21 +164,11 @@ class NetworkWindow(InstallWindow):
 				_("The hostname \"%s\" is not valid for the following reason:\n\n%s") % (hostname, error))
 
     def handleIPMissing(self, field):
-	try:
-	    newfield = descr[field]
-	except:
-	    newfield = field
-
 	self.intf.messageWindow(_("Error With Data"),
-	    _("A value is required for the field %s.") % (newfield,))
+	    _("A value is required for the field %s.") % (field,))
 
     def handleIPError(self, field, msg):
-	try:
-	    newfield = descr[field]
-	except:
-	    newfield = field
-
-	self.intf.messageWindow(_("Error With %s Data") % (newfield,),
+	self.intf.messageWindow(_("Error With %s Data") % (field,),
 	                        _("%s") % msg.__str__())
 
     def handleBroadCastError(self):
@@ -196,421 +180,157 @@ class NetworkWindow(InstallWindow):
 	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
     def editDevice(self, data):
-	v4list = []
-	v6list = []
-	ptplist = []
-	wifilist = []
-
-        def DHCPtoggled(widget):
-	    active = widget.get_active()
-
-	    if wifilist:
-	        for widget in wifilist:
-	            widget.set_sensitive(True)
-
-	    if active:
-	        bootproto = "dhcp"
-
-	        for widget in v4list:
-	            widget.set_sensitive(False)
-
-	        for widget in v6list:
-	            widget.set_sensitive(False)
-
-	        if ptplist:
-	            for widget in ptplist:
-	                widget.set_sensitive(False)
-	    else:
-	        bootproto = "static"
-
-	        if IPV4cb.get_active():
-	            for widget in v4list:
-	                widget.set_sensitive(True)
-
-	        if IPV6cb.get_active():
-	            for widget in v6list:
-	                widget.set_sensitive(True)
-
-	        if ptplist:
-	            for widget in ptplist:
-	                widget.set_sensitive(True)
-
-	def IPV4toggled(widget):
-	    active = widget.get_active()
-	    self.network.useIPv4 = active
-	    if not DHCPcb.get_active():
-	        if active:
-	            for widget in v4list:
-	                widget.set_sensitive(True)
-	        else:
-	            for widget in v4list:
-	                widget.set_sensitive(False)
-
-	def IPV6toggled(widget):
-	    active = widget.get_active()
-	    self.network.useIPv6 = active
-	    if not DHCPcb.get_active():
-	        if active:
-	            for widget in v6list:
-	                widget.set_sensitive(True)
-	        else:
-	            for widget in v6list:
-	                widget.set_sensitive(False)
-
-
-	if self.ignoreEvents:
-	    return
-	
-	selection = self.ethdevices.get_selection()
+        selection = self.ethdevices.get_selection()
         (model, iter) = selection.get_selected()
         if not iter:
             return None
 
         dev = model.get_value(iter, 1)
-	bootproto = model.get_value(iter, 2)
-	onboot = model.get_value(iter, 0)
+        bootproto = model.get_value(iter, 2)
+        onboot = model.get_value(iter, 0)
 
-	# create dialog box
-        editWin = gtk.Dialog(_("Edit Interface %s") % (dev,),
-			     flags=gtk.DIALOG_MODAL)
-        gui.addFrame(editWin)
-        editWin.set_modal(True)
-        editWin.set_position (gtk.WIN_POS_CENTER)
-	
-	# create contents
-	devbox = gtk.VBox()
+        # create dialog box for editing this interface
+        editwin = NetworkDeviceEditWindow(self)
+        editwin.setTitle(dev)
+        editwin.setDescription(self.devices[dev].get('desc'))
+        editwin.setHardwareAddress(self.devices[dev].get('hwaddr'))
 
-	hwaddr = self.devices[dev].get("hwaddr")
-	if hwaddr is not None and len(hwaddr) > 0:
-	    align = gtk.Alignment()
-	    label = gtk.Label(_("Hardware address: %s") % (hwaddr,))
-	    align.add(label)
-	    devbox.pack_start(align, False, padding=3)
+        ipaddr = self.devices[dev].get('ipaddr')
+        netmask = self.devices[dev].get('netmask')
+        editwin.setIPv4Manual(ipaddr, netmask)
 
-	align = gtk.Alignment()
-	DHCPcb = gtk.CheckButton(_("Use dynamic IP configuration (_DHCP)"))
-	align.add(DHCPcb)
-	devbox.pack_start(align, False, padding=3)
-
-	align = gtk.Alignment()
-	IPV4cb = gtk.CheckButton(_("Enable IPv4 support"))
-	align.add(IPV4cb)
-	devbox.pack_start(align, False, padding=3)
-
-	align = gtk.Alignment()
-	IPV6cb = gtk.CheckButton(_("Enable IPv6 support"))
-	align.add(IPV6cb)
-	devbox.pack_start(align, False, padding=3)
-
-	# FIXME: radio group to pick static or RFC2462 autoconfig
-
-	align = gtk.Alignment()
-	bootcb = gtk.CheckButton(_("_Activate on boot"))
-
-	bootcb.connect("toggled", self.onBootToggled, self.devices[dev])
-	bootcb.set_active(onboot)
-	align.add(bootcb)
-	devbox.pack_start(align, False, padding=3)
-
-        ipTableLength = 3
-
-        if (network.isPtpDev(dev)):
-            ipTableLength += 1
-
-        if (isys.isWireless(dev)):
-            ipTableLength += 2
-
-        ipTable = gtk.Table(ipTableLength, 4)
-
-	DHCPcb.connect("toggled", DHCPtoggled)
-	IPV4cb.connect("toggled", IPV4toggled)
-	IPV6cb.connect("toggled", IPV6toggled)
-
-	entrys = {}
-
-        # build the IP options table:
-
-	# put some column labels on the table
-	cl = gtk.Label(_("Address"))
-	cl.set_alignment(0.5, 0.5)
-	ipTable.attach(cl, 1, 2, 0, 1, xpadding=0, ypadding=0)
-	cl = gtk.Label(_("Prefix (Netmask)"))
-	cl.set_alignment(0.5, 0.5)
-	ipTable.attach(cl, 3, 4, 0, 1, xpadding=0, ypadding=0)
-
-        # IPv4 address and mask
-        v4list.append(gtk.Label(_("IPv_4:")))
-        v4list[0].set_alignment(0.0, 0.5)
-        v4list[0].set_property("use_underline", True)
-        ipTable.attach(v4list[0], 0, 1, 1, 2, xpadding=0, ypadding=0)
-
-        v4list.append(gtk.Entry())
-        v4list[1].set_width_chars(16)
-        v4list[1].set_text(self.devices[dev].get('ipaddr'))
-        entrys['ipaddr'] = v4list[1]
-        ipTable.attach(v4list[1], 1, 2, 1, 2, xpadding=0, ypadding=0)
-
-        v4list.append(gtk.Label("/"))
-        v4list[2].set_alignment(0.5, 0.5)
-        ipTable.attach(v4list[2], 2, 3, 1, 2, xpadding=4, ypadding=0)
-
-        v4list.append(gtk.Entry())
-        v4list[3].set_width_chars(16)
-        v4list[3].set_text(self.devices[dev].get('netmask'))
-        entrys['netmask'] = v4list[3]
-        ipTable.attach(v4list[3], 3, 4, 1, 2, xpadding=0, ypadding=0)
-
-        # IPv6 address and prefix
-        v6list.append(gtk.Label(_("IPv_6:")))
-        v6list[0].set_alignment(0.0, 0.5)
-        v6list[0].set_property("use_underline", True)
-        ipTable.attach(v6list[0], 0, 1, 2, 3, xpadding=0, ypadding=0)
-
-        v6list.append(gtk.Entry())
-        v6list[1].set_width_chars(41)
-
+        ipv6_autoconf = self.devices[dev].get('ipv6_autoconf')
         ipv6addr = self.devices[dev].get('ipv6addr')
+        ipv6prefix = self.devices[dev].get('ipv6prefix')
         brk = ipv6addr.find('/')
         if brk != -1:
             ipv6addr = ipv6addr[0:brk]
             brk += 1
             ipv6prefix = ipv6addr[brk:]
+        editwin.setIPv6Manual(ipv6addr, ipv6prefix)
 
-        v6list[1].set_text(ipv6addr)
-        entrys['ipv6addr'] = v6list[1]
-        ipTable.attach(v6list[1], 1, 2, 2, 3, xpadding=0, ypadding=0)
+        if isys.isWireless(dev):
+            editwin.showWirelessTable()
+            editwin.setESSID(self.devices[dev].get('essid'))
+            editwin.setEncKey(self.devices[dev].get('key'))
+        else:
+            editwin.hideWirelessTable()
 
-        v6list.append(gtk.Label("/"))
-        v6list[2].set_alignment(0.5, 0.5)
-        ipTable.attach(v6list[2], 2, 3, 2, 3, xpadding=4, ypadding=0)
+        if network.isPtpDev(dev):
+            editwin.showPtPTable()
+            editwin.setPtP(self.devices[dev].get('remip'))
+        else:
+            editwin.hidePtPTable()
 
-        v6list.append(gtk.Entry())
-        v6list[3].set_width_chars(4)
-        v6list[3].set_text(self.devices[dev].get('ipv6prefix'))
-        entrys['ipv6prefix'] = v6list[3]
-        ipTable.attach(v6list[3], 3, 4, 2, 3, xpadding=0, ypadding=0)
+        editwin.setActiveOnBoot(onboot)
 
-        # Point to Point address
-        if (network.isPtpDev(dev)):
-            ptplist.append(gtk.Label(_("_Point to Point (IP):")))
-            ptplist[0].set_alignment(0.0, 0.5)
-            ptplist[0].set_property("use_underline", True)
-            ipTable.attach(ptplist[0], 0, 1, 3, 4, xpadding=0, ypadding=0)
+        editwin.setEnableIPv4(self.devices[dev].get('useIPv4'))
+        editwin.selectIPv4Method(ipaddr)
 
-            ptplist.append(gtk.Entry())
-            ptplist[1].set_width_chars(41)
-            ptplist[1].set_text(self.devices[dev].get('remip'))
-            entrys['remip'] = ptplist[1]
-            ipTable.attach(ptplist[1], 1, 2, 3, 4, xpadding=0, ypadding=0)
+        editwin.setEnableIPv6(self.devices[dev].get('useIPv6'))
+        editwin.selectIPv6Method(ipv6_autoconf, ipv6addr)
 
-        # Wireless settings
-        if (isys.isWireless(dev)):
-            wifilist.append(gtk.Label(_("_ESSID:")))
-            wifilist[0].set_alignment(0.0, 0.5)
-            wifilist[0].set_property("use_underline", True)
-            ipTable.attach(wifilist[0], 0, 1, 4, 5, xpadding=0, ypadding=0)
-
-            wifilist.append(gtk.Entry())
-            wifilist[1].set_text(self.devices[dev].get('essid'))
-            entrys['essid'] = wifilist[1]
-            ipTable.attach(wifilist[1], 1, 2, 4, 5, xpadding=0, ypadding=0)
-
-            wifilist.append(gtk.Label(_("Encryption _Key:")))
-            wifilist[2].set_alignment(0.0, 0.5)
-            wifilist[2].set_property("use_underline", True)
-            ipTable.attach(wifilist[2], 0, 1, 5, 6, xpadding=0, ypadding=0)
-
-            wifilist.append(gtk.Entry())
-            wifilist[3].set_text(self.devices[dev].get('key'))
-            entrys['key'] = wifilist[3]
-            ipTable.attach(wifilist[3], 1, 2, 5, 6, xpadding=0, ypadding=0)
-
-	devbox.pack_start(ipTable, False, False, 6)
-        devbox.set_border_width(6)
-
-	# go ahead and set up DHCP on the first device
-	DHCPcb.set_active(self.devices[dev].get('bootproto').lower() == 'dhcp')
-
-	# set the IPv4 and IPv6 check boxes
-	IPV4cb.set_active(self.network.useIPv4)
-	IPV6cb.set_active(self.network.useIPv6)
-
-	# set widget sensitivity
-	DHCPtoggled(DHCPcb)
-	IPV4toggled(IPV4cb)
-	IPV6toggled(IPV6cb)
-
-	framelab = _("Configure %s") % (dev,)
-	descr = self.devices[dev].get("desc")
-	if descr is not None and len(descr) > 0:
-	    framelab += " - " + descr[:70]
-        
-        l = gtk.Label()
-        l.set_markup("<b>%s</b>" %(framelab,))
-	
-	frame = gtk.Frame()
-        frame.set_label_widget(l)
-	frame.set_border_width(12)
-	frame.add(devbox)
-        frame.set_shadow_type(gtk.SHADOW_NONE)
-	editWin.vbox.pack_start(frame, padding=6)
-        editWin.set_position(gtk.WIN_POS_CENTER)
-	editWin.show_all()
-        editWin.add_button('gtk-cancel', 2)
-	editWin.add_button('gtk-ok', 1)
-
-	while 1:
-	    rc = editWin.run()
-
-	    if rc == 2:
-                editWin.destroy()
+        rc = 1
+        while rc == 1:
+            editwin.run()
+            rc = editwin.getInputValidationResults()
+            if rc == 3:
                 return
 
-	    if DHCPcb.get_active():
-		bootproto = 'dhcp'
-	    else:
-		bootproto = 'static'
+        # collect results
+        onboot = editwin.isActiveOnBoot()
+        useipv4 = editwin.isIPv4Enabled()
+        useipv6 = editwin.isIPv6Enabled()
 
-	    if IPV4cb.get_active() is False and IPV6cb.get_active() is False:
-	        self.intf.messageWindow(_("Missing Protocol"),
-	                                _("You must select at least IPv4 "
-	                                  "or IPv6 support."))
-	        continue
+        self.devices[dev].set(('useIPv4', useipv4))
+        self.devices[dev].set(('useIPv6', useipv6))
 
-	    if bootcb.get_active():
-		onboot = 'yes'
-	    else:
-		onboot = 'no'
+        if useipv4:
+            bootproto = editwin.getIPv4Method()
 
-	    if bootproto.lower() != 'dhcp':
-		valsgood = 1
-		tmpvals = {}
+            if bootproto == 'dhcp':
+                self.devices[dev].set(('ipaddr', bootproto))
+            elif bootproto == 'static':
+                try:
+                    (net, bc) = isys.inet_calcNetBroad(editwin.getIPv4Address(),
+                                                       editwin.getIPv4Prefix())
+                    self.devices[dev].set(('network', net), ('broadcast', bc))
+                except Exception, e:
+                    self.handleBroadCastError()
+                    return
 
-		for t in checkorder:
-		    if not entrys.has_key(t):
-		        continue
+                self.devices[dev].set(('ipaddr', editwin.getIPv4Address()))
+                self.devices[dev].set(('netmask', editwin.getIPv4Prefix()))
 
-		    val = entrys[t].get_text()
+        if useipv6:
+            method = editwin.getIPv6Method()
 
-		    if ((t == 'ipaddr' or t == 'netmask') and \
-		        IPV4cb.get_active() is True) or \
-		       (t == 'ipv6addr' and IPV6cb.get_active() is True) or \
-		       (t == 'remip'):
-		        if t == 'netmask' and val.find('.') == -1:
-		            try:
-		                if int(val) > 32 or int(val) < 0:
-		                    self.intf.messageWindow(_("Invalid Prefix"),
-		                                            _("IPv4 prefix "
-		                                              "must be between "
-		                                              "0 and 32."))
-		                    valsgood = 0
-		                    break
-		                else:
-		                    val = isys.prefix2netmask(int(val))
-		            except:
-		                self.handleIPMissing(t)
-		                valsgood = 0
-		                break
+            if method == 'auto':
+                self.devices[dev].set(('ipv6_autoconf', 'yes'))
+                self.devices[dev].set(('ipv6addr', ''))
+                self.devices[dev].set(('ipv6prefix', ''))
+            elif method == 'dhcp':
+                self.devices[dev].set(('ipv6_autoconf', 'no'))
+                self.devices[dev].set(('ipv6addr', 'dhcp'))
+                self.devices[dev].set(('ipv6prefix', ''))
+            elif method == 'static':
+                self.devices[dev].set(('ipv6_autoconf', 'no'))
+                self.devices[dev].set(('ipv6addr', editwin.getIPv6Address()))
+                self.devices[dev].set(('ipv6prefix', editwin.getIPv6Prefix()))
 
-		        try:
-		            network.sanityCheckIPString(val)
-		            tmpvals[t] = val
-		        except network.IPMissing, msg:
-		            self.handleIPMissing(t)
-		            valsgood = 0
-		            break
-		        except network.IPError, msg:
-		            self.handleIPError(t, msg)
-		            valsgood = 0
-		            break
+        if editwin.isWirelessEnabled():
+            self.devices[dev].set(('essid', editwin.getESSID()))
+            self.devices[dev].set(('key', editwin.getEncKey()))
 
-		    elif t == 'ipv6prefix' and IPV6cb.get_active() is True:
-                        try:
-		            if int(val) > 128 or int(val) < 0:
-		                self.intf.messageWindow(_("Invalid Prefix"),
-		                                        _("IPv6 prefix must be "
-		                                          "between 0 and 128."))
-		                valsgood = 0
-		                break
-                        except:
-                            self.intf.messageWindow(_("Invalid Prefix"),
-                                                    _("Invalid or missing "
-                                                      "IPv6 prefix (must be "
-                                                      "between 0 and 128)."))
-                            valsgood = 0
-                            break
+        if editwin.isPtPEnabled():
+            self.devices[dev].set(('remip', editwin.getPtP()))
 
-		if valsgood == 0:
-		    continue
+        self.devices[dev].set(('bootproto', bootproto))
 
-		if IPV4cb.get_active() is True:
-		    try:
-                        (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
-                                                            tmpvals['netmask'])
-		    except Exception, e:
-                        print e
-		        self.handleBroadCastError()
-		        valsgood = 0
+        if onboot:
+            self.devices[dev].set(('onboot', 'yes'))
+        else:
+            self.devices[dev].set(('onboot', 'no'))
 
-		if not valsgood:
-		    continue
+        model.set_value(iter, 0, onboot)
+        model.set_value(iter, 2, self.createIPV4Repr(self.devices[dev]))
+        model.set_value(iter, 3, self.createIPV6Repr(self.devices[dev]))
 
-		for t in entrys.keys():
-		    if tmpvals.has_key(t):
-		        if t == 'ipv6addr':
-		            if entrys['ipv6prefix'] is not None:
-		                a = tmpvals[t]
-		                if a.find('/') != -1:
-		                    a = a[0:a.find('/')]
-		                p = entrys['ipv6prefix'].get_text()
-		                q = "%s/%s" % (a, p,)
-		            else:
-		                q = "%s" % (tmpvals[t],)
+        editwin.close()
 
-		            self.devices[dev].set((t, q))
-		        else:
-		            self.devices[dev].set((t, tmpvals[t]))
-		    else:
-		        self.devices[dev].set((t, entrys[t].get_text()))
+        self.setIPTableSensitivity()
+        self.setHostOptionsSensitivity()
 
-	        if IPV4cb.get_active() is True:
-		    self.devices[dev].set(('network', net), ('broadcast', bc))
-
-	    self.devices[dev].set(('bootproto', bootproto))
-	    self.devices[dev].set(('ONBOOT', onboot))
-	    model.set_value(iter, 0, onboot == 'yes')
-	    model.set_value(iter, 2, self.createIPV4Repr(self.devices[dev]))
-	    model.set_value(iter, 3, self.createIPV6Repr(self.devices[dev]))
-
-	    editWin.destroy()
-
-	    self.setIPTableSensitivity()
-	    self.setHostOptionsSensitivity()
-
-	    return
+        return
 
     def createIPV4Repr(self, device):
-	bootproto = device.get("bootproto")
-	if self.network.useIPv4 is False:
+	if device.get('useIPv4') is False:
 	    return _("Disabled")
 
-	if bootproto.lower() == "dhcp" and self.network.useIPv4 is True:
-	    ip = "DHCP"
+        if device.get('ipaddr').lower() == 'dhcp':
+	    ip = 'DHCP'
+        elif device.get('bootproto').lower() == 'dhcp':
+            ip = 'DHCP'
 	else:
-	    prefix = str(isys.netmask2prefix(device.get("netmask")))
-	    ip = "%s/%s" % (device.get("ipaddr"), prefix,)
+	    prefix = str(isys.netmask2prefix(device.get('netmask')))
+	    ip = "%s/%s" % (device.get('ipaddr'), prefix,)
 
 	return ip
 
     def createIPV6Repr(self, device):
-	bootproto = device.get("bootproto")
-	if self.network.useIPv6 is False:
+        if device.get('useIPv6') is False:
 	    return _("Disabled")
 
-	if bootproto.lower() == "dhcp" and self.network.useIPv6 is True:
-	    ip = "DHCP"
+        auto = device.get('ipv6_autoconf').lower()
+        addr = device.get('ipv6addr').lower()
+        pfx = device.get('ipv6prefix').lower()
+
+        if auto == 'yes' or addr == '':
+            ip = 'Auto'
+        elif addr == 'dhcp':
+	    ip = 'DHCP'
 	else:
-	    ip = "%s" % (device.get("ipv6addr"),)
+	    ip = "%s/%s" % (addr, pfx,)
 
 	return ip
 
@@ -840,6 +560,377 @@ class NetworkWindow(InstallWindow):
         self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
 
 	return box
+
+
+class NetworkDeviceEditWindow:
+    def __init__(self, netwin):
+        self.netwin = netwin
+        self.xml = gtk.glade.XML(gui.findGladeFile('netpostconfig.glade'))
+
+        # Pull in a ton of widgets.
+        self.toplevel = self.xml.get_widget("net_post_config_win")
+        gui.addFrame(self.toplevel)
+        self.button_ok = self.xml.get_widget("button_ok")
+        self.button_cancel = self.xml.get_widget("button_cancel")
+
+        self.configure_dev = self.xml.get_widget("configure_dev")
+        self.hardware_address = self.xml.get_widget("hardware_address")
+        self.activate_on_boot = self.xml.get_widget("activate_on_boot")
+
+        self.enable_ipv4 = self.xml.get_widget("enable_ipv4")
+        self.dhcp_ipv4 = self.xml.get_widget("dhcp_ipv4")
+        self.manual_ipv4 = self.xml.get_widget("manual_ipv4")
+        self.ipv4_address_label = self.xml.get_widget("ipv4_address_label")
+        self.ipv4_prefix_label = self.xml.get_widget("ipv4_prefix_label")
+        self.ipv4_address = self.xml.get_widget("ipv4_address")
+        self.ipv4_slash = self.xml.get_widget("ipv4_slash_label")
+        self.ipv4_prefix = self.xml.get_widget("ipv4_prefix")
+
+        self.enable_ipv6 = self.xml.get_widget("enable_ipv6")
+        self.auto_ipv6 = self.xml.get_widget("auto_ipv6")
+        self.dhcp_ipv6 = self.xml.get_widget("dhcp_ipv6")
+        self.manual_ipv6 = self.xml.get_widget("manual_ipv6")
+        self.ipv6_address_label = self.xml.get_widget("ipv6_address_label")
+        self.ipv6_prefix_label = self.xml.get_widget("ipv6_prefix_label")
+        self.ipv6_address = self.xml.get_widget("ipv6_address")
+        self.ipv6_slash = self.xml.get_widget("ipv6_slash_label")
+        self.ipv6_prefix = self.xml.get_widget("ipv6_prefix")
+
+        self.toplevel.connect("destroy", self.destroy)
+        self.button_ok.connect("clicked", self.okClicked)
+        self.button_cancel.connect("clicked", self.cancelClicked)
+
+        self.enable_ipv4.connect("toggled", self.ipv4_toggled)
+        self.dhcp_ipv4.connect("toggled", self.ipv4_changed)
+        self.manual_ipv4.connect("toggled", self.ipv4_changed)
+        self.enable_ipv6.connect("toggled", self.ipv6_toggled)
+        self.auto_ipv6.connect("toggled", self.ipv6_changed)
+        self.dhcp_ipv6.connect("toggled", self.ipv6_changed)
+        self.manual_ipv6.connect("toggled", self.ipv6_changed)
+
+        self.enable_wireless = False
+        self.wireless_table = self.xml.get_widget("wireless_table")
+        self.essid = self.xml.get_widget("essid")
+        self.enc_key = self.xml.get_widget("enc_key")
+
+        self.enable_ptp = 1
+        self.ptp_table = self.xml.get_widget("ptp_table")
+        self.ptp_address = self.xml.get_widget("ptp_ip")
+
+        self.valid_input = 1
+
+    def getInputValidationResults(self):
+        # 1=invalid input
+        # 2=valid input
+        # 3=cancel pressed
+        return self.valid_input
+
+    def show(self):
+        self.toplevel.show_all()
+
+    def run(self):
+        self.toplevel.run()
+
+    def close(self):
+        self.toplevel.destroy()
+
+    def setTitle(self, title):
+        self.toplevel.set_title(_('Edit Device ') + title)
+
+    def setDescription(self, desc):
+        if desc is None:
+            desc = _('Unknown Ethernet Device')
+
+        self.configure_dev.set_markup("<b>" + desc[:70] + "</b>")
+
+    def setHardwareAddress(self, mac):
+        if mac is None:
+            mac = _('unknown')
+
+        self.hardware_address.set_markup("<b>" + _("Hardware address: ") + mac + "</b>")
+
+    def setActiveOnBoot(self, onboot):
+        self.activate_on_boot.set_active(onboot)
+
+    def isActiveOnBoot(self):
+        return self.activate_on_boot.get_active()
+
+    def isWirelessEnabled(self):
+        return self.enable_wireless
+
+    def isPtPEnabled(self):
+        return self.enable_ptp
+
+    def showWirelessTable(self):
+        self.enable_wireless = True
+        self.wireless_table.show()
+        self.toplevel.resize(1, 1)
+
+    def hideWirelessTable(self):
+        self.enable_wireless = False
+        self.wireless_table.hide()
+        self.toplevel.resize(1, 1)
+
+    def showPtPTable(self):
+        self.enable_ptp = True
+        self.ptp_table.show()
+        self.toplevel.resize(1, 1)
+
+    def hidePtPTable(self):
+        self.enable_ptp = False
+        self.ptp_table.hide()
+        self.toplevel.resize(1, 1)
+
+    def setIPv4Manual(self, ipaddr, netmask):
+        if ipaddr.lower() == 'dhcp':
+            return
+
+        if ipaddr is not None:
+            self.ipv4_address.set_text(ipaddr)
+
+        if netmask is not None:
+            self.ipv4_prefix.set_text(netmask)
+
+    def getIPv4Address(self):
+        return self.ipv4_address.get_text()
+
+    def getIPv4Prefix(self):
+        return self.ipv4_prefix.get_text()
+
+    def setIPv6Manual(self, ipv6addr, ipv6prefix):
+        if ipv6addr.lower() == 'dhcp':
+            return
+
+        if ipv6addr is not None:
+            self.ipv6_address.set_text(ipv6addr)
+
+        if ipv6prefix is not None:
+            self.ipv6_prefix.set_text(ipv6prefix)
+
+    def getIPv6Address(self):
+        return self.ipv6_address.get_text()
+
+    def getIPv6Prefix(self):
+        return self.ipv6_prefix.get_text()
+
+    def setESSID(self, essid):
+        if essid is not None: 
+            self.essid.set_text(essid)
+
+    def getESSID(self):
+        return self.essid.get_text()
+
+    def setEncKey(self, key):
+        if key is not None:
+            self.enc_key.set_text(key)
+
+    def getEncKey(self):
+        return self.enc_key.get_text()
+
+    def setPtP(self, remip):
+        if remip is not None:
+            self.ptp_address.set_text(remip)
+
+    def getPtP(self):
+        return self.ptp_address.get_text()
+
+    def setEnableIPv4(self, enable_ipv4):
+        if enable_ipv4 is True:
+            self.enable_ipv4.set_active(1)
+        elif enable_ipv4 is False:
+            self.enable_ipv4.set_active(0)
+
+    def setEnableIPv6(self, enable_ipv6):
+        if enable_ipv6 is True:
+            self.enable_ipv6.set_active(1)
+        elif enable_ipv6 is False:
+            self.enable_ipv6.set_active(0)
+
+    def selectIPv4Method(self, ipaddr):
+        if ipaddr.lower() == 'dhcp':
+            self.dhcp_ipv4.set_active(1)
+        elif ipaddr != "":
+            self.manual_ipv4.set_active(1)
+
+    def selectIPv6Method(self, ipv6_autoconf, ipv6addr):
+        if ipv6_autoconf.lower() == 'yes':
+            self.auto_ipv6.set_active(1)
+        elif ipv6addr.lower() == 'dhcp':
+            self.dhcp_ipv6.set_active(1)
+        elif ipv6addr != "":
+            self.manual_ipv6.set_active(1)
+
+    def isIPv4Enabled(self):
+        return self.enable_ipv4.get_active()
+
+    def getIPv4Method(self):
+        if self.isIPv4Enabled():
+            if self.dhcp_ipv4.get_active():
+                return 'dhcp'
+            elif self.manual_ipv4.get_active():
+                return 'static'
+
+    def isIPv6Enabled(self):
+        return self.enable_ipv6.get_active()
+
+    def getIPv6Method(self):
+        if self.isIPv6Enabled():
+            if self.auto_ipv6.get_active():
+                return 'auto'
+            elif self.dhcp_ipv6.get_active():
+                return 'dhcp'
+            elif self.manual_ipv6.get_active():
+                return 'static'
+
+    # Basic callbacks.
+    def destroy(self, args):
+        self.toplevel.destroy()
+
+    def okClicked(self, args):
+        # input validation
+        if not self.isIPv4Enabled() and not self.isIPv6Enabled():
+            self.netwin.intf.messageWindow(_("Missing Protocol"),
+                                           _("You must select at least IPv4 "
+                                             "or IPv6 support."))
+            self.valid_input = 1
+            return
+
+        if self.isIPv4Enabled():
+            if self.manual_ipv4.get_active():
+                try:
+                    network.sanityCheckIPString(self.ipv4_address.get_text())
+                except network.IPMissing, msg:
+                    self.netwin.handleIPMissing('IPv4 address')
+                    self.valid_input = 1
+                    return
+                except network.IPError, msg:
+                    self.netwin.handleIPError('IPv4 address', msg)
+                    self.valid_input = 1
+                    return
+
+                val = self.ipv4_prefix.get_text()
+                if val.find('.') == -1:
+                    # user provided a CIDR prefix
+                    try:
+                        if int(val) > 32 or int(val) < 0:
+                            self.netwin.intf.messageWindow(_("Invalid Prefix"),
+                                                           _("IPv4 prefix "
+                                                             "must be between "
+                                                             "0 and 32."))
+                            self.valid_input = 1
+                            return
+                        else:
+                            self.ipv4_prefix.set_text(isys.prefix2netmask(int(val)))
+                    except:
+                        self.netwin.handleIPMissing('IPv4 network mask')
+                        self.valid_input = 1
+                        return
+                else:
+                    # user provided a dotted-quad netmask
+                    try:
+                        network.sanityCheckIPString(self.ipv4_prefix.get_text())
+                    except network.IPMissing, msg:
+                        self.netwin.handleIPMissing('IPv4 network mask')
+                        self.valid_input = 1
+                        return
+                    except network.IPError, msg:
+                        self.netwin.handleIPError('IPv4 network mask', msg)
+                        self.valid_input = 1
+                        return
+
+        if self.isIPv6Enabled():
+            if self.manual_ipv6.get_active():
+                try:
+                    network.sanityCheckIPString(self.ipv6_address.get_text())
+                except network.IPMissing, msg:
+                    self.netwin.handleIPMissing('IPv6 address')
+                    self.valid_input = 1
+                    return
+                except network.IPError, msg:
+                    self.netwin.handleIPError('IPv6 address', msg)
+                    self.valid_input = 1
+                    return
+
+                val = self.ipv6_prefix.get_text()
+                try:
+                    if int(val) > 128 or int(val) < 0:
+                        self.netwin.intf.messageWindow(_("Invalid Prefix"),
+                                                       _("IPv6 prefix must be "
+                                                         "between 0 and 128."))
+                        self.valid_input = 1
+                        return
+                except:
+                    self.netwin.intf.messageWindow(_("Invalid Prefix"),
+                                                   _("IPv6 prefix must be "
+                                                     "between 0 and 128."))
+                    self.valid_input = 1
+                    return
+
+        if self.isPtPEnabled():
+            try:
+                network.sanityCheckIPString(self.ptp_address.get_text())
+            except network.IPMissing, msg:
+                self.netwin.handleIPMissing('point-to-point IP address')
+                self.valid_input = 1
+                return
+            except network.IPError, msg:
+                self.netwin.handleIPError('point-to-point IP address', msg)
+                self.valid_input = 1
+                return
+
+        # if we made it this far, all input is good
+        self.valid_input = 2
+
+    def cancelClicked(self, args):
+        self.valid_input = 3
+        self.toplevel.destroy()
+
+    def _setManualIPv4Sensitivity(self, sensitive):
+        self.ipv4_address_label.set_sensitive(sensitive)
+        self.ipv4_prefix_label.set_sensitive(sensitive)
+        self.ipv4_address.set_sensitive(sensitive)
+        self.ipv4_slash.set_sensitive(sensitive)
+        self.ipv4_prefix.set_sensitive(sensitive)
+
+    def _setManualIPv6Sensitivity(self, sensitive):
+        self.ipv6_address_label.set_sensitive(sensitive)
+        self.ipv6_prefix_label.set_sensitive(sensitive)
+        self.ipv6_address.set_sensitive(sensitive)
+        self.ipv6_slash.set_sensitive(sensitive)
+        self.ipv6_prefix.set_sensitive(sensitive)
+
+    def _setIPv4Sensitivity(self, sensitive):
+        self.dhcp_ipv4.set_sensitive(sensitive)
+        self.manual_ipv4.set_sensitive(sensitive)
+
+        # But be careful to only set these sensitive if their corresponding
+        # radiobutton is selected.
+        if self.manual_ipv4.get_active():
+            self._setManualIPv4Sensitivity(sensitive)
+
+    def _setIPv6Sensitivity(self, sensitive):
+        self.auto_ipv6.set_sensitive(sensitive)
+        self.dhcp_ipv6.set_sensitive(sensitive)
+        self.manual_ipv6.set_sensitive(sensitive)
+
+        # But be careful to only set these sensitive if their corresponding
+        # radiobutton is selected.
+        if self.manual_ipv6.get_active():
+            self._setManualIPv6Sensitivity(sensitive)
+
+    # Called when the IPv4 and IPv6 CheckButtons are modified.
+    def ipv4_toggled(self, args):
+        self._setIPv4Sensitivity(self.enable_ipv4.get_active())
+
+    def ipv6_toggled(self, args):
+        self._setIPv6Sensitivity(self.enable_ipv6.get_active())
+
+    # Called when the dhcp/auto/manual config RadioButtons are modified.
+    def ipv4_changed(self, args):
+        self._setManualIPv4Sensitivity(self.manual_ipv4.get_active())
+
+    def ipv6_changed(self, args):
+        self._setManualIPv6Sensitivity(self.manual_ipv6.get_active())
 
 
 class NetworkDeviceCheckList(checklist.CheckList):

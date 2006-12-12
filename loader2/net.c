@@ -1364,7 +1364,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     } else {
         fprintf(f, "BOOTPROTO=static\n");
 
-        tip = &(dev->dev.ip);
+        tip = &(dev->dev.ipv4);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
         fprintf(f, "IPADDR=%s\n", ret);
 
@@ -1382,6 +1382,18 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
           tip = &(dev->dev.broadcast);
           inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
           fprintf(f, "BROADCAST=%s\n", ret);
+        }
+    }
+
+    if (!dev->noipv6) {
+        if (dev->ipv6method == IPV6_AUTO_METHOD) {
+           fprintf(f, "IPV6_AUTOCONF=yes\n");
+        } else if (dev->ipv6method == IPV6_DHCP_METHOD) {
+           fprintf(f, "IPV6ADDR=dhcp\n");
+        } else {
+           tip = &(dev->dev.ipv6);
+           inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+           fprintf(f, "IPV6ADDR=%s/%d\n", ret, dev->dev.ipv6_prefixlen);
         }
     }
 
