@@ -172,8 +172,8 @@ class Network:
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
-	self.useIPv4 = True
-	self.useIPv6 = True
+	self.useIPv4 = flags.useIPv4
+	self.useIPv6 = flags.useIPv6
 
         # if we specify a hostname and are using dhcp, do an override
         # originally used by the gui but overloaded now
@@ -499,7 +499,7 @@ class Network:
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
         f.write("127.0.0.1\t\t" + localline)
-        f.write("::1\t\t" + localline)
+        f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
 	if ip:
             nameline = "%s\t\t%s" % (ip, self.hostname)

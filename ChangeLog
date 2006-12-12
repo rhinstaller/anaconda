@@ -1,3 +1,12 @@
+2006-12-12  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network): Set useIPv4 and useIPv6 to values from flags
+	(#215451).
+	* network.py (Network): Write ::1 to /etc/hosts as localhost6 (#211800)
+
+	* iw/network_gui.py (NetworkWindow): Allow IPv6 only installs (#215451).
+	* textw/network_text.py (NetworkDeviceWindow): Likewise (#215451).
+
 2006-11-27  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/splittree.py:  Backport fixes from devel:  don't fail with

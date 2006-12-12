@@ -392,13 +392,14 @@ class NetworkDeviceWindow:
                 if valsgood == 0:
                     continue
 
-                try:
-                    (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
-                                                        tmpvals['netmask'])
-                except Exception, e:
-                    print e
-                    handleBroadCastError()
-                    valsgood = 0
+                if self.ipv4Cb.selected():
+                    try:
+                        (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
+                                                            tmpvals['netmask'])
+                    except Exception, e:
+                        print e
+                        handleBroadCastError()
+                        valsgood = 0
 
                 if not valsgood:
                     continue
@@ -421,7 +422,8 @@ class NetworkDeviceWindow:
                     else:
                         dev.set((t, entrys[t].value()))
 
-                dev.set(('network', net), ('broadcast', bc))
+                if self.ipv4Cb.selected():
+                    dev.set(('network', net), ('broadcast', bc))
 
             break
 
