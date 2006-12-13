@@ -1,3 +1,7 @@
+2006-12-13  David Cantrell  <dcantrell@redhat.com>
+
+	* partedUtils.py (DiskSet): Pass self.anaconda.intf to checkDiskLabel.
+
 2006-12-13  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/devices.h: Update for official xvc0 major/minor (#218050)

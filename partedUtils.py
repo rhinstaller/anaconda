@@ -1090,7 +1090,7 @@ class DiskSet:
             filter_partitions(disk, validateFsType)
 
             # check that their partition table is valid for their architecture
-            ret = checkDiskLabel(disk)
+            ret = checkDiskLabel(disk, self.anaconda.intf)
             if ret == 1:
                 DiskSet.skippedDisks.append(drive)
                 continue
