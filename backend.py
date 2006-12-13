@@ -144,6 +144,10 @@ class AnacondaBackend:
         log.warning("writeConfig not implemented for backend!")
         pass
 
+    def getRequiredMedia(self):
+        log.warning("getRequiredMedia not implmented for backend!")
+        pass
+
 def doRepoSetup(anaconda):
     anaconda.backend.doInitialSetup(anaconda)
     anaconda.backend.doRepoSetup(anaconda)

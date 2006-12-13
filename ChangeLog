@@ -1,5 +1,13 @@
 2006-12-13  Jeremy Katz  <katzj@redhat.com>
 
+	From Elliot Peele <elliot@rpath.com>
+	* backend.py (AnacondaBackend.getRequiredMedia): Abstract into the
+	backend 
+	* yuminstall.py (YumBackend.getRequiredMedia): Add implementation
+	* image.py (presentRequiredMediaMessage): Use the backend method
+
+2006-12-13  Jeremy Katz  <katzj@redhat.com>
+
 	* scripts/splittree.py (Timber.splitSRPMS): Fix overflow of source
 	CD (Dawei Pang <dwpang@redflag-linux.com>)
 

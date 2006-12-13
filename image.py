@@ -45,7 +45,7 @@ else:
 #
 # dialog returns a value of 0 if user selected to abort install
 def presentRequiredMediaMessage(anaconda):
-    reqcds = anaconda.backend.ayum.tsInfo.reqmedia.keys()
+    reqcds = anaconda.backend.getRequiredMedia()
 
     # if only one CD required no need to pop up a message
     if len(reqcds) < 2:

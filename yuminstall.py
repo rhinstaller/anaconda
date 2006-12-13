@@ -1479,6 +1479,9 @@ class YumBackend(AnacondaBackend):
 #             repo.enable()
 #             f.close()
 
+    def getRequiredMedia(self):
+        return self.ayum.tsInfo.reqmedia.keys()
+
 class YumProgress:
     def __init__(self, intf, text, total):
         window = intf.progressWindow(_("Installation Progress"), text,
