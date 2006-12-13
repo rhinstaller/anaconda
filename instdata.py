@@ -44,7 +44,7 @@ log = logging.getLogger("anaconda")
 
 class InstallData:
 
-    def reset(self):
+    def reset(self, anaconda):
 	# Reset everything except: 
 	#
 	#	- The mouse
@@ -65,7 +65,7 @@ class InstallData:
 	self.upgrade = None
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
-        self.diskset = partedUtils.DiskSet()
+        self.diskset = partedUtils.DiskSet(anaconda)
         self.partitions = partitions.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
@@ -267,7 +267,7 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, extraModules, floppyDevice, methodstr, displayMode, backend = None):
+    def __init__(self, anaconda, extraModules, floppyDevice, methodstr, displayMode, backend = None):
         self.displayMode = displayMode
 
 	self.instLanguage = language.Language(self.displayMode)
@@ -288,4 +288,4 @@ class InstallData:
             self.excludeDocs = 1
 
         self.methodstr = methodstr
-	self.reset()
+	self.reset(anaconda)

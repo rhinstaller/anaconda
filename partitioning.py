@@ -48,10 +48,7 @@ def partitionObjectsInitialize(anaconda):
     isys.flushDriveDict()
 
     # read in drive info
-    anaconda.id.diskset.refreshDevices(anaconda.intf,
-            anaconda.id.partitions.reinitializeDisks,
-            anaconda.id.partitions.zeroMbr,
-            anaconda.id.partitions.autoClearPartDrives)
+    anaconda.id.diskset.refreshDevices()
 
     anaconda.id.partitions.setFromDisk(anaconda.id.diskset)
     anaconda.id.partitions.setProtected(anaconda.dispatch)

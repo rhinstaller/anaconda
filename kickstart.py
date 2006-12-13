@@ -97,7 +97,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
         self.ksID = 100000
 
-        self.id = anaconda.id
+        self.anaconda = anaconda
+        self.id = self.anaconda.id
 
         self.lineno = 0
         self.currentCmd = ""
@@ -317,7 +318,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doMultiPath(self, args)
 
         from partedUtils import DiskSet
-        ds = DiskSet()
+        ds = DiskSet(self.anaconda)
         ds.startMPath()
 
         mpath = self.ksdata.mpaths[-1]
@@ -343,7 +344,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doDmRaid(self, args)
 
         from partedUtils import DiskSet
-        ds = DiskSet()
+        ds = DiskSet(self.anaconda)
         ds.startDmRaid()
 
         raid = self.ksdata.dmraids[-1]
@@ -790,12 +791,13 @@ class Kickstart(cobject):
     def setInstallData (self, anaconda):
         BaseInstallClass.setInstallData(self, anaconda)
         self.setEarlySwapOn(1)
-        self.id = anaconda.id
+        self.anaconda = anaconda
+        self.id = self.anaconda.id
         self.id.firstboot = FIRSTBOOT_SKIP
 
         # make sure our disks are alive
         from partedUtils import DiskSet
-        ds = DiskSet()
+        ds = DiskSet(self.anaconda)
         ds.startMPath()
         ds.startDmRaid()
 
