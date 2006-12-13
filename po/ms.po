@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-22 00:53+0800\n"
+"PO-Revision-Date: 2006-12-14 00:57+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5914,14 +5914,12 @@ msgid "Missing Information"
 msgstr "Maklumat Hilang"
 
 #: ../loader2/net.c:1132
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Anda mesti masukkan kedua-dua alamat IP dan netmask."
+msgstr "Anda mesti masukkan kedua-dua alamat IPv4 dan mask rangkaian atau prefiks CIDR."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Anda mesti masukkan kedua-dua alamat IP dan netmask."
+msgstr "Anda mesti masukkan kedua-dua alamat IPv6 dan prefiks aCIDR yang sah."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6102,9 +6100,8 @@ msgid "Loading SCSI driver"
 msgstr "Memuatkan jurupacu SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "Tambah peranti FCP"
+msgstr "Tambah _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
