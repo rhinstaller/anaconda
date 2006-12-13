@@ -1,3 +1,11 @@
+2006-12-12  Peter Jones  <pjones@redhat.com>
+
+	* partRequests.py (VolumGroupSpec.getActualSize): Don't clamp down one
+	extra PE any more; lvm2 is no longer losing the extra PV that goes away
+	after creating the volume group (#217913).
+
+	* iw/lvm_dialog_gui.py (VolumGroupEditor.computeVGSize): likewise.
+
 2006-12-12  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py (InstallClass.handleRegKey): Don't allow

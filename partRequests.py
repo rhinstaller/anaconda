@@ -735,6 +735,7 @@ class VolumeGroupRequestSpec(RequestSpec):
 
         if preexist and preexist_size:
             self.preexist_size = preexist_size
+            log.debug("VolumeGroupRequestSpec('%s').preexist_size is %s" % (vgname, preexist_size))
         else:
             self.preexist_size = None
 
@@ -777,15 +778,17 @@ class VolumeGroupRequestSpec(RequestSpec):
         # if we have a preexisting size, use it
         if self.preexist and self.preexist_size:
             totalspace = lvm.clampPVSize(self.preexist_size, self.pesize)
+            log.debug("using preexisting size of %s for volume group %s" % (self.preexist_size, self.volumeGroupName))
         else:
             totalspace = 0
+            log.debug("no preexisting size for volume group %s" % (self.volumeGroupName))
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
                 size = pvreq.getActualSize(partitions, diskset)
-                #log.info("size for pv %s is %s" % (pvid, size))
-                size = lvm.clampPVSize(size, self.pesize) - (self.pesize/1024)
-                #log.info("  clamped size is %s" % (size,))
-                totalspace = totalspace + size
+                clamped = lvm.clampPVSize(size, self.pesize)
+                log.debug("  got pv(%s).size of %s, clamped to %s" % (pvreq.drive, size, clamped))
+                totalspace = totalspace + clamped
+            log.debug("  total space: %s" % (totalspace,))
 
         return totalspace
 

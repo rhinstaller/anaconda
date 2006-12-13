@@ -795,12 +795,12 @@ class VolumeGroupEditor:
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
 	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
-	    pvsize = lvm.clampPVSize(pvsize, curpe) - (curpe/1024)
-
 	    # have to clamp pvsize to multiple of PE
+	    pvsize = lvm.clampPVSize(pvsize, curpe)
+
 	    availSpaceMB = availSpaceMB + pvsize
 
-        log.info("computeVGSize: vgsize is %s" % (availSpaceMB,))
+        log.debug("computeVGSize: vgsize is %s" % (availSpaceMB,))
 	return availSpaceMB
 
     def computeLVSpaceNeeded(self, logreqs):
