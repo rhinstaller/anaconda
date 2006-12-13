@@ -1,5 +1,18 @@
 2006-12-13  David Cantrell  <dcantrell@redhat.com>
 
+	* partedUtils.py (DiskSet.openDevices): Don't always dasdfmt on zSeries,
+	only do that for disks that are flagged to be cleared or if the init
+	all flag is set.
+
+	* upgrade.py (findExistingRoots): Do not pass anaconda object reference
+	to findExistingRootPartitions().
+
+	* iw/autopart_type.py (PartitionTypeWindow): Do not pass intf to
+	checkNoDisks().
+	* textw/partition_text.py: Likewise.
+
+2006-12-13  David Cantrell  <dcantrell@redhat.com>
+
 	* partedUtils.py (DiskSet): Pass self.anaconda.intf to checkDiskLabel.
 
 2006-12-13  Jeremy Katz  <katzj@redhat.com>

@@ -94,8 +94,7 @@ def findExistingRoots(anaconda, upgradeany = 0):
                               _("Searching for %s installations...") %
                               (productName,), 5)
 
-    rootparts = anaconda.id.diskset.findExistingRootPartitions(anaconda,
-                                                   upgradeany = upgradeany)
+    rootparts = anaconda.id.diskset.findExistingRootPartitions(upgradeany = upgradeany)
     for i in range(1, 6):
         time.sleep(0.25)
         win.set(i)
