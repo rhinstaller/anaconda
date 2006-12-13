@@ -378,7 +378,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                         self.logfile.append("Overflowing %s on disc%d" % (srpm_list[i][1], disc))
                         break
                     else:
-                        discsize = self.getSize("%s-disc%d" % (self.dist_dir, srpm_disc_list[i]))
+                        discsize = self.getSize("%s-disc%d" % (self.dist_dir, disc))
                         self.logfile.append("%s-disc%d size: %s" % (self.arch, disc, discsize))
                         self.src_list.pop(self.src_list.index(disc))
             os.link("%s/%s" % (self.src_dir, srpm_list[i][1]),
