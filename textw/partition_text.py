@@ -1596,7 +1596,7 @@ class PartitionTypeWindow:
             if res == TEXT_BACK_CHECK:
                 return INSTALL_BACK
 
-            if anaconda.id.diskset.checkNoDisks(anaconda.intf):
+            if anaconda.id.diskset.checkNoDisks():
                 continue
 
             if len(sel) < 1:
