@@ -28,14 +28,23 @@ class InstallClass(BaseInstallClass):
     if 0: # not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Office"), ["office"]),
-             (N_("Multimedia"), ["graphics", "sound-and-video"]),
-             (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
-             (N_("Web server"), ["web-server"]),
-             (N_("Virtualization"), ["virtualization"]),
-             (N_("Clustering"), ["clustering"]),
-             (N_("Storage Clustering"), ["cluster-storage"])
-             ]
+    taskMap = {'client'        : [(N_("Office"), ["office"]),
+                                  (N_("Multimedia"), ["graphics", 
+                                                      "sound-and-video"])],
+               'server'        : [(N_("Software Development"), 
+                                   ["development-libs", "development-tools",
+                                    "gnome-software-development", 
+                                    "x-software-development"],),
+                                  (N_("Web server"), ["web-server"])],
+               'workstation'   : [(N_("Software Development"), 
+                                   ["development-libs", "development-tools",
+                                    "gnome-software-development", 
+                                    "x-software-development"],)],
+               'vt'            : [(N_("Virtualization"), ["virtualization"])],
+               'cluster'       : [(N_("Clustering"), ["clustering"])],
+               'clusterstorage': [(N_("Storage Clustering"), 
+                                   ["cluster-storage"])]
+             }
 
     instkeyname = _("Installation Number")
     instkeydesc = _("To install the full set of supported packages included "
@@ -88,7 +97,7 @@ class InstallClass(BaseInstallClass):
         try:
             inum = instnum.InstNum(key)
         except Exception, e:
-            if not BETANAG: # disable hack keys for non-beta
+            if True or not BETANAG: # disable hack keys for non-beta
                 raise
             else:
                 inum = None
@@ -106,29 +115,6 @@ class InstallClass(BaseInstallClass):
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (name,))
 
-            # if we've got a real installation number, use it to base
-            # what tasks we show.  this is pretty ugly, but alas.
-            tasks = []
-            if inum.get_product_string() == "client":
-                tasks += [(N_("Office"), ["office"]),
-                          (N_("Multimedia"), ["graphics", "sound-and-video"])]
-            elif inum.get_product_string() == "server":
-                tasks.append( (N_("Web server"), ["web-server"]) )
-                
-            if "VT" in inum.get_repos():
-                tasks.append( (N_("Virtualization"), ["virtualization"]) )
-            if "Cluster" in inum.get_repos():
-                tasks.append( (N_("Clustering"), ["clustering"]) )
-            if "ClusterStorage" in inum.get_repos():
-                tasks.append( (N_("Storage Clustering"), ["cluster-storage"]) )
-
-            if inum.get_product_string() == "server" or "Workstation" in inum.get_repos():
-                tasks.append( (N_("Software Development"),
-                               ["development-libs", "development-tools",
-                                "gnome-software-development",
-                                "x-software-development"],) )
-            self.tasks = tasks
-            
         else:
             key = key.upper()
             # simple and stupid for now... if C is in the key, add Clustering
@@ -146,6 +132,15 @@ class InstallClass(BaseInstallClass):
                 self.repopaths["virt"] = ["VT"]
                 log.info("Adding Virtualization option")
 
+        for repo in reduce(lambda x,y: x+y, self.repopaths.values()):
+            if not self.taskMap.has_key(repo.lower()):
+                continue
+
+            for task in self.taskMap[repo.lower()]:
+                if task not in self.tasks:
+                    self.tasks.append(task)
+        self.tasks.sort()
+
         log.info("repopaths is %s" %(self.repopaths,))
 
         self.installkey = key
@@ -154,3 +149,7 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.__init__(self, expert)
 
         self.repopaths = { "base": [ "%s" %(productPath,) ] }
+
+        # minimally set up tasks in case no key is provided
+        self.tasks = self.taskMap[productPath.lower()]
+
