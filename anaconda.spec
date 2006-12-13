@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.20
+Version: 11.1.2.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 13 2006 Peter Jones <pjones@redhat.com> - 11.1.2.21-1
+- Handle reg keys with dashes (dlehman, #218716)
+- Don't traceback with no iscsi (katzj, #218513)
+- Unmount cdrom after installation when using local stage2 during http
+  install (dlehman)
+- Fix typo in iscsi code (katzj, #218513)
+- Remove LIBUSER_CONF from the environment before running
+  post (clumens, #218213)
+- Don't allow virt by default on ia64 (#215429)
+- Fix lvm off-by-one-extent problems with previously created volume groups
+  (pjones, #217913)
+
 * Wed Dec  6 2006 Peter Jones <pjones@redhat.com> - 11.1.2.20-1
 - Remove language choices for which there is no font (katzj, #217498)
 - Add stex module (katzj, #209179)
