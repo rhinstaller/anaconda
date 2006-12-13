@@ -975,11 +975,11 @@ class DiskSet:
                 continue
 
             if self.anaconda.isKickstart:
-                cdl = self.anaconda.ksdata.clearpart["drives"]
-                initlbl = self.anaconda.ksdata.clearpart["initAll"]
+                clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
+                initAll = self.anaconda.id.ksdata.clearpart["initAll"]
             else:
-                cdl = []
-                initlbl = False
+                clearDevs = []
+                initAll = False
 
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
@@ -988,7 +988,7 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
 
-                if self.anaconda.isKickstart and (drive in cdl) and initlbl:
+                if self.anaconda.isKickstart and (drive in clearDevs) and initAll:
                     rc = 1
                 else:
                     rc = self.anaconda.intf.messageWindow(_("Warning"),
@@ -1005,7 +1005,7 @@ class DiskSet:
                 if rc == 0:
                     DiskSet.skippedDisks.append(drive)
                     continue
-                else:
+                elif rc != 0:
                     if (self.dasdFmt(drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue
@@ -1015,8 +1015,9 @@ class DiskSet:
             except parted.error, msg:
                 DiskSet.skippedDisks.append(drive)
                 continue
-            
-            if not flags.test:
+
+            if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
+                       or (drive in clearDevs)) and not flags.test:
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
@@ -1049,7 +1050,7 @@ class DiskSet:
                     else:
                         format = drive
 
-                    if self.anaconda.isKickstart and (drive in cdl) and initlbl:
+                    if self.anaconda.isKickstart and (drive in clearDevs) and initAll:
                         rc = 1
                     else:
                         rc = intf.messageWindow(_("Warning"),
@@ -1065,7 +1066,7 @@ class DiskSet:
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
                         continue
-                    else:
+                    elif rc != 0:
                         recreate = 1
 
                 if recreate == 1 and not flags.test:
