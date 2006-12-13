@@ -1,3 +1,9 @@
+2006-12-13  Peter Jones  <pjones@redhat.com>
+
+	* iscsi.py (iscsiTarget.login): get the scope right for "portal" so
+	it'll actually succeed.  Also fix some log call formatting
+	throughout. (#216164)
+
 2006-12-13  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda (__main__): Pass reference to anaconda object to InstallData.

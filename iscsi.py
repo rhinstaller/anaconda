@@ -114,9 +114,9 @@ class iscsiTarget:
 
         ret = False
         for node in self.nodes:
-            if _login(node, portal):
+            if _login(node, self.portal):
                 ret = True
-                _autostart(node, portal)
+                _autostart(node, self.portal)
 
         # we return True if there were any successful logins for our portal.
         return ret
@@ -191,7 +191,7 @@ class iscsi(object):
         if self.iscsidStarted:
             return
         
-        log.info("iSCSI initiator name %s", self.initiator)
+        log.info("iSCSI initiator name %s" % (self.initiator,))
 
         if intf:
             w = intf.waitWindow(_("Initializing iSCSI initiator"),
@@ -206,7 +206,7 @@ class iscsi(object):
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
-        log.info("ISCSID is %s", ISCSID)
+        log.info("ISCSID is %s" % (ISCSID,))
         iutil.execWithRedirect(ISCSID, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
         self.iscsidStarted = True
