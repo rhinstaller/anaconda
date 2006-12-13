@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.1.3
+Version: 11.1.1.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 13 2006 David Cantrell <dcantrell@redhat.com> - 11.1.1.4-1
+- Use the correct widget names in netconfig_dialog (notting, #212018)
+- splittree.py: Don't fail with non-rpms in directory and don't link
+  rpms multiple times (clumens)
+- Allow IPv6-only installs (#215451)
+- Write ::1 to /etc/hosts as localhost6 (#211800)
+
 * Tue Oct 17 2006 Jeremy Katz <katzj@redhat.com> - 11.1.1.3-1
 - fix retry (#211117)
 
