@@ -786,7 +786,7 @@ EOF
 
     # weird xen console
     if [ "$BUILDARCH" = "i386" -o "$BUILDARCH" = "x86_64" -o "$BUILDARCH" = "ia64" ]; then
-	mknod $MBD_DIR/dev/xvc0 c 250 187
+	mknod $MBD_DIR/dev/xvc0 c 204 191
 	chown root:root $MBD_DIR/dev/xvc0
 	chmod 644 $MBD_DIR/dev/xvc0
     fi
