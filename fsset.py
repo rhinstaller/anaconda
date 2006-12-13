@@ -2465,13 +2465,15 @@ def makeDevice(dev):
     return device
 
 # XXX fix RAID
-def readFstab (path, intf = None):
+def readFstab (anaconda):
+    path = anaconda.rootPath + '/etc/fstab'
+    intf = anaconda.intf
     fsset = FileSystemSet()
 
     # first, we look at all the disks on the systems and get any ext2/3
     # labels off of the filesystem.
     # temporary, to get the labels
-    diskset = partedUtils.DiskSet()
+    diskset = partedUtils.DiskSet(anaconda)
     diskset.openDevices()
     labels = diskset.getLabels()
 
@@ -2850,26 +2852,3 @@ def getDiskPart(dev):
         partNum = None
 
     return (name, partNum)
-
-
-if __name__ == "__main__":
-    fsset = readFstab("fstab")
-
-    print fsset.fstab()
-    
-    sys.exit(0)
-    fsset = FileSystemSet()
-    proc = FileSystemSetEntry(Device(), '/proc', 'proc')
-    fsset.add(proc)
-    devpts = FileSystemSetEntry(Device(), '/dev/pts', 'devpts')
-    fsset.add(devpts)
-
-    device = LoopbackDevice("hda1", "vfat")
-    mountpoint = FileSystemSetEntry (device, '/')
-    fsset.add(mountpoint)
-
-    device = SwapFileDevice("/SWAP")
-    mountpoint = FileSystemSetEntry (device, "swap", "swap")
-    fsset.add(mountpoint)
-    
-    print fsset.fstab()

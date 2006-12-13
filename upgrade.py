@@ -123,7 +123,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 		       warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
 
-    diskset = partedUtils.DiskSet()
+    diskset = partedUtils.DiskSet(anaconda)
     diskset.openDevices()
     diskset.startMPath()
     diskset.startDmRaid()
@@ -135,7 +135,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     isys.mount(root, anaconda.rootPath, rootFs)
 
     oldfsset.reset()
-    newfsset = readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
+    newfsset = readFstab(anaconda)
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
@@ -352,7 +352,7 @@ def upgradeMountFilesystems(anaconda):
                                         type="ok")
             return DISPATCH_BACK
             
-	newfsset = readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
+	newfsset = readFstab(anaconda)
         for entry in newfsset.entries:
             anaconda.id.fsset.add(entry)
     if flags.setupFilesystems:

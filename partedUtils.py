@@ -552,9 +552,10 @@ class DiskSet:
     dmList = None
     mpList = None
 
-    def __init__ (self):
+    def __init__ (self, anaconda):
         self.disks = {}
         self.onlyPrimary = None
+        self.anaconda = anaconda
 
     def onlyPrimaryParts(self):
         for disk in self.disks.values():
@@ -701,7 +702,7 @@ class DiskSet:
 
         return labels
 
-    def findExistingRootPartitions(self, anaconda, upgradeany = 0):
+    def findExistingRootPartitions(self, upgradeany = 0):
         """Return a list of all of the partitions which look like a root fs."""
         rootparts = []
 
@@ -717,15 +718,15 @@ class DiskSet:
             found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
-                    isys.mount(dev, anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError, (errno, msg):
                     pass
 
             if found:
-                if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(anaconda.rootPath)
+                if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
+                    relstr = getReleaseString(self.anaconda.rootPath)
 
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
@@ -735,7 +736,7 @@ class DiskSet:
                             label = None
             
                         rootparts.append ((dev, fs, relstr, label))
-                isys.umount(anaconda.rootPath)
+                isys.umount(self.anaconda.rootPath)
 
         # now, look for candidate lvm roots
 	lvm.vgscan()
@@ -748,15 +749,15 @@ class DiskSet:
             found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
-                    isys.mount(dev, anaconda.rootPath, fs, readOnly = 1)
+                    isys.mount(dev, self.anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError:
                     pass
 
             if found:
-                if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(anaconda.rootPath)
+                if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
+                    relstr = getReleaseString(self.anaconda.rootPath)
                     
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
@@ -766,7 +767,7 @@ class DiskSet:
                             label = None
             
                         rootparts.append ((dev, fs, relstr, label))
-                isys.umount(anaconda.rootPath)
+                isys.umount(self.anaconda.rootPath)
 
 	lvm.vgdeactivate()
 
@@ -791,19 +792,19 @@ class DiskSet:
                     # In hard drive ISO method, don't try to mount the
                     # protected partitions because that'll throw up a
                     # useless error message.
-                    protected = anaconda.method.protectedPartitions()
+                    protected = self.anaconda.method.protectedPartitions()
 
                     if protected and node in protected:
                         part = disk.next_partition(part)
                         continue
 
 		    try:
-			isys.mount(node, anaconda.rootPath, part.fs_type.name)
+			isys.mount(node, self.anaconda.rootPath, part.fs_type.name)
 		    except SystemError, (errno, msg):
                         part = disk.next_partition(part)
 			continue
-		    if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
-                        relstr = getReleaseString(anaconda.rootPath)
+		    if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
+                        relstr = getReleaseString(self.anaconda.rootPath)
 
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
@@ -814,7 +815,7 @@ class DiskSet:
             
                             rootparts.append ((node, part.fs_type.name,
                                                relstr, label))
-		    isys.umount(anaconda.rootPath)
+		    isys.umount(self.anaconda.rootPath)
                     
                 part = disk.next_partition(part)
         return rootparts
@@ -874,12 +875,11 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
-    def refreshDevices (self, intf = None, initAll = 0,
-                        zeroMbr = 0, clearDevs = []):
+    def refreshDevices (self):
         """Reread the state of the disks as they are on disk."""
         self.closeDevices()
         self.disks = {}
-        self.openDevices(intf, initAll, zeroMbr, clearDevs)
+        self.openDevices()
 
     def closeDevices (self):
         """Close all of the disks which are open."""
@@ -889,13 +889,13 @@ class DiskSet:
             #self.disks[disk].close()
             del self.disks[disk]
 
-    def dasdFmt (self, intf = None, drive = None):
+    def dasdFmt (self, drive = None):
         """Format dasd devices (s390)."""
 
         if self.disks.has_key(drive):
             del self.disks[drive]
 
-        w = intf.progressWindow (_("Initializing"),
+        w = self.anaconda.intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
                                ) % (drive,), 100)
         try:
@@ -907,7 +907,6 @@ class DiskSet:
                     "-y",
                     "-b", "4096",
                     "-d", "cdl",
-                    "-P",
                     "-F",
                     "-f",
                     "/tmp/%s" % drive]
@@ -971,14 +970,14 @@ class DiskSet:
 
         return 1
 
-    def openDevices (self, intf = None, initAll = 0,
-                     zeroMbr = 0, clearDevs = []):
+    def openDevices (self):
         """Open the disks on the system and skip unopenable devices."""
 
         if self.disks:
             return
         self.startMPath()
         self.startDmRaid()
+
         for drive in self.driveList():
             # ignoredisk takes precedence over clearpart (#186438).
             if drive in DiskSet.skippedDisks:
@@ -987,14 +986,26 @@ class DiskSet:
             if not isys.mediaPresent(drive):
                 DiskSet.skippedDisks.append(drive)
                 continue
+
+            if self.anaconda.isKickstart:
+                cdl = self.anaconda.ksdata.clearpart["drives"]
+                initlbl = self.anaconda.ksdata.clearpart["initAll"]
+            else:
+                cdl = []
+                initlbl = False
+
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
-                if intf is None:
+                if self.anaconda.intf is None:
                     DiskSet.skippedDisks.append(drive)
                     continue
-                rc = intf.messageWindow(_("Warning"),
-                        _("The partition table on device %s (%s) was unreadable. "
+
+                if self.anaconda.isKickstart and (drive in cdl) and initlbl:
+                    rc = 1
+                else:
+                    rc = self.anaconda.intf.messageWindow(_("Warning"),
+                      _("The partition table on device %s (%s) was unreadable. "
                           "To create new partitions it must be initialized, "
                           "causing the loss of ALL DATA on this drive.\n\n"
                           "This operation will override any previous "
@@ -1003,11 +1014,12 @@ class DiskSet:
                           "Would you like to initialize this drive, "
                           "erasing ALL DATA?")
                                         % (drive, devs[drive]), type = "yesno")
+
                 if rc == 0:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
-                    if (self.dasdFmt(intf, drive)):
+                    if (self.dasdFmt(drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue
                 
@@ -1017,10 +1029,9 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             
-            if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
-                             or drive in clearDevs) and not flags.test):
+            if not flags.test:
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                    if (intf is None or self.dasdFmt(intf, drive)):
+                    if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
                 else:
@@ -1037,29 +1048,33 @@ class DiskSet:
                 self.disks[drive] = disk
             except parted.error, msg:
                 recreate = 0
-                if zeroMbr:
+                if self.anaconda.id.partitions.zeroMbr:
                     log.error("zeroMBR was set and invalid partition table "
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
-                elif not intf:
+                elif not self.anaconda.intf:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
                     if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                         devs = isys.getDasdDevPort()
-                         format = drive + " (" + devs[drive] + ")"
+                        devs = isys.getDasdDevPort()
+                        format = drive + " (" + devs[drive] + ")"
                     else:
-                         format = drive
-                    rc = intf.messageWindow(_("Warning"),
-                             _("The partition table on device %s was unreadable. "
-                               "To create new partitions it must be initialized, "
-                               "causing the loss of ALL DATA on this drive.\n\n"
-                               "This operation will override any previous "
-                               "installation choices about which drives to "
-                               "ignore.\n\n"
-                               "Would you like to initialize this drive, "
-                               "erasing ALL DATA?")
-                                           % (format,), type = "yesno")
+                        format = drive
+
+                    if self.anaconda.isKickstart and (drive in cdl) and initlbl:
+                        rc = 1
+                    else:
+                        rc = intf.messageWindow(_("Warning"),
+                           _("The partition table on device %s was unreadable. "
+                             "To create new partitions it must be initialized, "
+                             "causing the loss of ALL DATA on this drive.\n\n"
+                             "This operation will override any previous "
+                             "installation choices about which drives to "
+                             "ignore.\n\n"
+                             "Would you like to initialize this drive, "
+                             "erasing ALL DATA?") % (format,), type = "yesno")
+
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
                         continue
@@ -1068,7 +1083,7 @@ class DiskSet:
 
                 if recreate == 1 and not flags.test:
                     if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                        if (intf is None or self.dasdFmt(intf, drive)):
+                        if self.dasdFmt(drive):
                             DiskSet.skippedDisks.append(drive)
                             continue
                     else:                    
@@ -1088,13 +1103,13 @@ class DiskSet:
             filter_partitions(disk, validateFsType)
 
             # check that their partition table is valid for their architecture
-            ret = checkDiskLabel(disk, intf)
+            ret = checkDiskLabel(disk)
             if ret == 1:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                    if (intf is None or self.dasdFmt(intf, drive)):
+                    if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
                 else:
@@ -1166,10 +1181,10 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
-    def checkNoDisks(self, intf):
+    def checkNoDisks(self):
         """Check that there are valid disk devices."""
         if len(self.disks.keys()) == 0:
-            intf.messageWindow(_("No Drives Found"),
+            self.anaconda.intf.messageWindow(_("No Drives Found"),
                                _("An error has occurred - no valid devices were "
                                  "found on which to create new file systems. "
                                  "Please check your hardware for the cause "

@@ -1,3 +1,39 @@
+2006-12-13  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda (__main__): Pass reference to anaconda object to InstallData.
+
+	* fsset.py (readFstab): Take reference to anaconda object rather than
+	a path and intf.  Pass anaconda reference to DiskSet().
+	* fssey.py (__main__): Removed.
+
+	* installclass.py (BaseInstallClass): Pass anaconda reference to the
+	reset() method for InstallData.
+
+	* instdata.py (InstallData.reset): Take anaconda object reference as
+	parameter.  Pass anaconda to DiskSet().
+	* instdata.py (InstallData.__init__): Take anaconda object ref as
+	parameter, pass it to reset() method.
+
+	* kickstart.py (AnacondaKSHandlers): Store anaconda object reference,
+	pass to DiskSet() object creations.
+
+	* partedUtils.py (DiskSet): Take anaconda object reference, store.  Use
+	self.anaconda throughout DiskSet object, remove individual pass-ins
+	of intf and other anaconda object parts.
+	* partedUtils.py (DiskSet.dastFmt): Remove -P dasdfmt(8) arg (#218861).
+	* partedUtils.py (DiskSet.openDevices): Remove intf, initAll, zeroMbr,
+	and clearDevs params since those are in the anaconda object.  When a
+	kickstart install is running, the dasd found is in the clearpart list,
+	and the --initlabel option has been used, skip the interactive dialog
+	asking if you want to format the DASD and just do it (#218861).
+
+	* partitioning.py (partitionObjectsInitialize): Removed arguments since
+	the anaconda object provides those now.
+
+	* upgrade.py (mountRootPartition): Pass anaconda object ref to DiskSet.
+	Only pass anaconda ref to readFstab().
+	* upgrade.py (upgradeMountFilesystems): Likewise.
+
 2006-12-13  Jeremy Katz  <katzj@redhat.com>
 
 	From Elliot Peele <elliot@rpath.com>

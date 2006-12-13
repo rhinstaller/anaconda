@@ -738,7 +738,7 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        anaconda.id = instdata.InstallData([], "fd0", anaconda.methodstr, opts.display_mode)
+        anaconda.id = instdata.InstallData(anaconda, [], "fd0", anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda)
 
         # shouldn't get back here
