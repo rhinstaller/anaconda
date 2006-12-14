@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.21
+Version: 11.1.2.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 14 2006 Peter Jones <pjones@redhat.com> - 11.1.2.22-1
+- Only show information appropriate to the install class specified by the
+  reg key (dlehman, #218967)
+- Fix dasd formatting (dcantrell, #218861)
+- Fix iscsi portal discovery (#216164)
+- Update xvc0 major/minor (katzj, #218050)
+- Fix device node creation in 'rescue' (clumens)
+- Fix zFCP device addition (dcantrell, #210635)
+
 * Wed Dec 13 2006 Peter Jones <pjones@redhat.com> - 11.1.2.21-1
 - Handle reg keys with dashes (dlehman, #218716)
 - Don't traceback with no iscsi (katzj, #218513)
