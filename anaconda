@@ -738,6 +738,9 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
+        iutil.makeDriveDeviceNodes()
+        iutil.makeCharDeviceNodes()
+
         anaconda.id = instdata.InstallData(anaconda, [], "fd0", anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda)
 
@@ -860,6 +863,8 @@ if __name__ == "__main__":
             xserver.logfile = "/tmp/ramfs/X.log"
 
         try:
+            import pdb
+            pdb.set_trace()
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
