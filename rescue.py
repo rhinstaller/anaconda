@@ -262,10 +262,6 @@ def runRescue(anaconda):
 	runShell()
 	sys.exit(0)
 
-    # lets create some devices
-    iutil.makeDriveDeviceNodes()
-    iutil.makeCharDeviceNodes()
-
     # need loopback devices too
     for lpminor in range(8):
 	dev = "loop%s" % (lpminor,)

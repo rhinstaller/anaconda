@@ -738,6 +738,9 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
+        iutil.makeDriveDeviceNodes()
+        iutil.makeCharDeviceNodes()
+
         anaconda.id = instdata.InstallData(anaconda, [], "fd0", anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda)
 

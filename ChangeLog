@@ -1,3 +1,9 @@
+2006-12-14  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Make device nodes here instead of in runRescue so
+	cachedDrives isn't empty.
+	* rescue.py (runRescue):  Likewise.
+
 2006-12-13  David Cantrell  <dcantrell@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices): Don't always dasdfmt on zSeries,
