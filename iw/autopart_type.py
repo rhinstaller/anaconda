@@ -179,9 +179,8 @@ class PartitionTypeWindow(InstallWindow):
 
         while 1:
             rc = dialog.run()
-            if rc != gtk.RESPONSE_OK:
+            if rc != gtk.RESPONSE_APPLY:
                 break
-                return rc
 
             devnum = dxml.get_widget("devnumEntry").get_text().strip()
             wwpn = dxml.get_widget("wwpnEntry").get_text().strip()
