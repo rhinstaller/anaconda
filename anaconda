@@ -863,8 +863,6 @@ if __name__ == "__main__":
             xserver.logfile = "/tmp/ramfs/X.log"
 
         try:
-            import pdb
-            pdb.set_trace()
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
