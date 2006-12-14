@@ -1,3 +1,9 @@
+2006-12-14  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow): Break if rc does not
+	equal gtk.RESPONSE_APPLY, fixes problem where users cannot add
+	zFCP devices in the gui (#210635).
+
 2006-12-14  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Make device nodes here instead of in runRescue so
