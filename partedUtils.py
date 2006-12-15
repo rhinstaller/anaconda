@@ -552,7 +552,7 @@ class DiskSet:
     dmList = None
     mpList = None
 
-    def __init__ (self, anaconda):
+    def __init__ (self, anaconda = None):
         self.disks = {}
         self.onlyPrimary = None
         self.anaconda = anaconda
@@ -965,6 +965,13 @@ class DiskSet:
         self.startMPath()
         self.startDmRaid()
 
+        if self.anaconda is None:
+            intf = None
+            zeroMbr = None
+        else:
+            intf = self.anaconda.intf
+            zeroMbr = self.anaconda.id.partitions.zeroMbr
+
         for drive in self.driveList():
             # ignoredisk takes precedence over clearpart (#186438).
             if drive in DiskSet.skippedDisks:
@@ -974,41 +981,45 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
 
-            if self.anaconda.isKickstart:
-                clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
-                initAll = self.anaconda.id.ksdata.clearpart["initAll"]
-            else:
-                clearDevs = []
-                initAll = False
+            ks = False
+            clearDevs = []
+            initAll = False
+            if self.anaconda is not None:
+                if self.anaconda.isKickstart:
+                    ks = True
+                    clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
+                    initAll = self.anaconda.id.ksdata.clearpart["initAll"]
 
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
-                if self.anaconda.intf is None:
+                if intf is None:
                     DiskSet.skippedDisks.append(drive)
                     continue
 
-                if self.anaconda.isKickstart and (drive in clearDevs) and initAll:
-                    rc = 1
-                else:
-                    rc = self.anaconda.intf.messageWindow(_("Warning"),
-                      _("The partition table on device %s (%s) was unreadable. "
-                          "To create new partitions it must be initialized, "
-                          "causing the loss of ALL DATA on this drive.\n\n"
-                          "This operation will override any previous "
-                          "installation choices about which drives to "
-                          "ignore.\n\n"
-                          "Would you like to initialize this drive, "
-                          "erasing ALL DATA?")
+                # if anaconda is None here, we are called from labelFactory
+                if self.anaconda is not None:
+                    if ks and (drive in clearDevs) and initAll:
+                        rc = 1
+                    else:
+                        rc = intf.messageWindow(_("Warning"),
+                             _("The partition table on device %s (%s) was unreadable. "
+                               "To create new partitions it must be initialized, "
+                               "causing the loss of ALL DATA on this drive.\n\n"
+                               "This operation will override any previous "
+                               "installation choices about which drives to "
+                               "ignore.\n\n"
+                               "Would you like to initialize this drive, "
+                               "erasing ALL DATA?")
                                         % (drive, devs[drive]), type = "yesno")
 
-                if rc == 0:
-                    DiskSet.skippedDisks.append(drive)
-                    continue
-                elif rc != 0:
-                    if (self.dasdFmt(drive)):
+                    if rc == 0:
                         DiskSet.skippedDisks.append(drive)
                         continue
+                    elif rc != 0:
+                        if (self.dasdFmt(drive)):
+                            DiskSet.skippedDisks.append(drive)
+                            continue
                 
             try:
                 dev = parted.PedDevice.get (deviceFile)
@@ -1036,11 +1047,11 @@ class DiskSet:
                 self.disks[drive] = disk
             except parted.error, msg:
                 recreate = 0
-                if self.anaconda.id.partitions.zeroMbr:
+                if zeroMbr:
                     log.error("zeroMBR was set and invalid partition table "
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
-                elif not self.anaconda.intf:
+                elif intf is None:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
@@ -1050,24 +1061,29 @@ class DiskSet:
                     else:
                         format = drive
 
-                    if self.anaconda.isKickstart and (drive in clearDevs) and initAll:
-                        rc = 1
-                    else:
-                        rc = intf.messageWindow(_("Warning"),
-                           _("The partition table on device %s was unreadable. "
-                             "To create new partitions it must be initialized, "
-                             "causing the loss of ALL DATA on this drive.\n\n"
-                             "This operation will override any previous "
-                             "installation choices about which drives to "
-                             "ignore.\n\n"
-                             "Would you like to initialize this drive, "
-                             "erasing ALL DATA?") % (format,), type = "yesno")
+                    # if anaconda is None here, we are called from labelFactory
+                    if self.anaconda is not None:
+                        if ks and (drive in clearDevs) and initAll:
+                            rc = 1
+                        else:
+                            rc = intf.messageWindow(_("Warning"),
+                                 _("The partition table on device %s was unreadable. "
+                                   "To create new partitions it must be initialized, "
+                                   "causing the loss of ALL DATA on this drive.\n\n"
+                                   "This operation will override any previous "
+                                   "installation choices about which drives to "
+                                   "ignore.\n\n"
+                                   "Would you like to initialize this drive, "
+                                   "erasing ALL DATA?") % (format,), type = "yesno")
 
-                    if rc == 0:
+                        if rc == 0:
+                            DiskSet.skippedDisks.append(drive)
+                            continue
+                        elif rc != 0:
+                            recreate = 1
+                    else:
                         DiskSet.skippedDisks.append(drive)
                         continue
-                    elif rc != 0:
-                        recreate = 1
 
                 if recreate == 1 and not flags.test:
                     if rhpl.getArch() == "s390" and drive[:4] == "dasd":
