@@ -2,14 +2,6 @@
 
 	* partedUtils.py: self.anaconda.intf -> intf
 
-2006-12-15  Peter Jones  <pjones@redhat.com>
-
-	* fsset.py: add setupFileSystemTypes() to set the registered fs types'
-	'anaconda' attribute.  Add 'anaconda' param to LabelFactory.createLabel.
-
-	* anaconda (__main__): call fsset.setupFileSystemTypes() to set their
-	'anaconda' attr.
-
 2006-12-15  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py: This file is fsset.py, not fstab.py.

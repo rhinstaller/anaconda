@@ -74,10 +74,6 @@ def fileSystemTypeGet(key):
 def fileSystemTypeRegister(klass):
     fileSystemTypes[klass.getName()] = klass
 
-def setupFileSystemTypes(anaconda):
-    for v in fileSystemTypes.values():
-        v.setAnaconda(anaconda)
-
 def fileSystemTypeGetTypes():
     return fileSystemTypes.copy()
 
@@ -123,11 +119,11 @@ class LabelFactory:
     def __init__(self):
         self.labels = None
 
-    def createLabel(self, mountpoint, maxLabelChars, anaconda, kslabel = None):
+    def createLabel(self, mountpoint, maxLabelChars, kslabel = None):
         if self.labels == None:
 
             self.labels = {}
-            diskset = partedUtils.DiskSet(anaconda)
+            diskset = partedUtils.DiskSet()
             diskset.openDevices()
             diskset.stopMdRaid()
             diskset.startMdRaid()
@@ -191,10 +187,6 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
         self.packages = []
-        self.anaconda = None
-        
-    def setAnaconda(self, anaconda):
-        self.anaconda = anaconda
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0,
               instroot=""):
@@ -443,7 +435,7 @@ class reiserfsFileSystem(FileSystemType):
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         self.anaconda, kslabel = entry.label)
+                                         kslabel = entry.label)
         rc = iutil.execWithRedirect("/usr/sbin/reiserfstune",
                                     ["--label", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -490,7 +482,7 @@ class xfsFileSystem(FileSystemType):
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         self.anaconda, kslabel = entry.label)
+                                         kslabel = entry.label)
         db_cmd = "label " + label
         rc = iutil.execWithRedirect("/usr/sbin/xfs_db",
                                     ["-x", "-c", db_cmd, devicePath],
@@ -530,7 +522,7 @@ class jfsFileSystem(FileSystemType):
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         self.anaconda, kslabel = entry.label)
+                                         kslabel = entry.label)
 	rc = iutil.execWithRedirect("/usr/sbin/jfs_tune",
 	                            ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -595,7 +587,7 @@ class extFileSystem(FileSystemType):
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
-                                         self.anaconda, kslabel = entry.label)
+                                         kslabel = entry.label)
 
         rc = iutil.execWithRedirect("/usr/sbin/e2label",
                                     [devicePath, label],
@@ -833,7 +825,7 @@ class swapFileSystem(FileSystemType):
             swapLabel = "SWAP-%s" % (devName[7:],)
         else:
             swapLabel = "SWAP-%s" % (devName)
-        label = labelFactory.createLabel(swapLabel, self.maxLabelChars, self.anaconda)
+        label = labelFactory.createLabel(swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      ['-v1', "-L", label, file],
                                      stdout = "/dev/tty5",
