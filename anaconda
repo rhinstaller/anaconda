@@ -377,24 +377,6 @@ def expandFTPMethod(opts):
     os.unlink(filename)
 
 def runVNC(vncpassword, vncconnecthost, vncconnectport, vncStartedCB=None):
-    pidfile = "/tmp/vncshell.pid"
-
-    def addpid(pidnum):
-	pf = open(pidfile, "a")
-	pf.write("%s\n" %(pidnum))
-	pf.close()
-
-    def removepid(pidnum):
-	pf = open(pidfile, "r")
-	pidlist = pf.readlines()
-	pf.close()
-
-	pf = open(pidfile, "w")
-	for pid in pidlist:
-	    if not int(pid) == pidnum:
-	        pf.write("%s" %(pid))
-	pf.close()
-
     # dont run vncpassword if in test mode
     if flags.test:
 	vncpassword = ""
@@ -406,34 +388,17 @@ def runVNC(vncpassword, vncconnecthost, vncconnectport, vncStartedCB=None):
 
     child = os.fork()
     if child == 0:
-	def conthandler(signum, frame):
-	    print "\n"
-
-	signal.signal(signal.SIGCONT, conthandler)
-
-	# wait for parent to write pid (parent will send SIGCONT)
-	signal.pause()
+        for p in ('/mnt/source/RHupdates/pyrc.py', \
+                '/tmp/updates/pyrc.py', \
+                '/usr/lib/anaconda-runtime/pyrc.py'):
+            if os.access(p, os.R_OK|os.X_OK):
+                os.environ['PYTHONSTARTUP'] = p
+                break
 
 	while 1:
 	    print _("Press <enter> for a shell")
 	    sys.stdin.readline()
-
-	    shpid = os.fork()
-	    if shpid == 0:
-		for p in ('/mnt/source/RHupdates/pyrc.py', \
-			'/tmp/updates/pyrc.py', \
-			'/usr/lib/anaconda-runtime/pyrc.py'):
-		    if os.access(p, os.R_OK|os.X_OK):
-			os.environ['PYTHONSTARTUP'] = p
-			break
-                iutil.execConsole()
-	    else:
-	        addpid(shpid)
-	        os.waitpid(shpid, 0)
-	        removepid(shpid)
-    else:
-	addpid(child)
-	os.kill(child, signal.SIGCONT)
+            iutil.execConsole()
 
 def checkMemory(opts):
     if iutil.memInstalled() < isys.MIN_RAM:
