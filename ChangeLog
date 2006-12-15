@@ -1,3 +1,10 @@
+2006-12-15  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py: This file is fsset.py, not fstab.py.
+
+	* partedUtils.py (DiskSet): Handle instantiation from LabelFactory where
+	we will be handed no anaconda object reference (#219789).
+
 2006-12-15  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/wireless.c (get_wreq): Build fix for new kernel headers

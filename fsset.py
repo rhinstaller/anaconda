@@ -1,5 +1,5 @@
 #
-# fstab.py: filesystem management
+# fsset.py: filesystem management
 #
 # Matt Wilson <msw@redhat.com>
 #
@@ -112,7 +112,7 @@ class LabelFactory:
         if self.labels == None:
 
             self.labels = {}
-            diskset = partedUtils.DiskSet()            
+            diskset = partedUtils.DiskSet()
             diskset.openDevices()
             diskset.stopMdRaid()
             diskset.startMdRaid()
