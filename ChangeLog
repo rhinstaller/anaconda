@@ -1,5 +1,10 @@
 2006-12-15  Peter Jones  <pjones@redhat.com>
 
+	* backend.py (AnacondaBackend.doPostInstall): leave a way for mkinitrd
+	to discover that we don't want mpath (Related: #219843)
+
+2006-12-15  Peter Jones  <pjones@redhat.com>
+
 	* anaconda (__main__): pass 'anaconda' to instClass.installDataClass()
 	from __main__ (#219793).
 

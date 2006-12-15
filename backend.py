@@ -50,6 +50,12 @@ class AnacondaBackend:
         sys.stdout.flush()
         if flags.setupFilesystems:
             syslog.stop()
+        try:
+            if not flags.mpath:
+                f = open(self.instPath+"/etc/sysconfig/mkinitrd/multipath", "w")
+                f.write("MULTIPATH=no\n")
+        except:
+            pass
 
     def doInstall(self, anaconda):
         pass
