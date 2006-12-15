@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.4
+Version: 11.2.0.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 14 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.5-1
+- Fix adding zfcp devices (dcantrell, #210635)
+- Fix rescue mode (clumens)
+- Do dasdfmt based on initlabel (dcantrell, #218861)
+- Adjust for official xvc0 major/minor
+- Abstract required media for different backends (Elliot Peele)
+- Fix overflow of source CDs (Dawei Pang)
+- EDD should work on x86_64 (#218123)
+- Better ipv6 config for second stage (dcantrell, #213110, #213112)
+- Fix iscsi typo, don't traceback when iscsi isn't present (#218513)
+- Unmount CD after install when using local stage2 with http install (clumens)
+- Don't set LIBUSER_CONF in %%post scripts (#218213)
+- Some python 2.5 updates
+
 * Tue Dec 05 2006 David Cantrell <dcantrell@redhat.com> - 11.2.0.4
 - Describe nokill option (clumens, #218412)
 - Make sure / is mounted before /boot (clumens, #217292)
