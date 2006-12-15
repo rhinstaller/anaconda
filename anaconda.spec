@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.22
+Version: 11.1.2.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 15 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.23-1
+- Use subprocess in execConsole (clumens, #210481, #216155)
+- Leave a way for mkinited to discover lack of mpath (pjones, #219843)
+- Pass 'anaconda' to instClass.installDataClass() (pjones, #219793)
+- Use intf, not self.anaconda.intf in partedUtils
+- Handle DiskSet instantiation from LabelFactory when anaconda=None
+
 * Thu Dec 14 2006 Peter Jones <pjones@redhat.com> - 11.1.2.22-1
 - Only show information appropriate to the install class specified by the
   reg key (dlehman, #218967)
