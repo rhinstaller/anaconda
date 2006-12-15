@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.5
+Version: 11.2.0.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 14 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.6-1
+- fix build for no more md START_ARRAY; note that this leaves swraid broken
+
 * Thu Dec 14 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.5-1
 - Fix adding zfcp devices (dcantrell, #210635)
 - Fix rescue mode (clumens)

@@ -971,10 +971,16 @@ static PyObject * doRaidStart(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
+#ifdef START_ARRAY
     if (ioctl(fd, START_ARRAY, (unsigned long) sb.st_rdev)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
+#else
+    PyErr_SetString(PyExc_SystemError, "raidautorun doesn't exist anymore!");
+    return NULL;
+#endif
+
 
     Py_INCREF(Py_None);
     return Py_None;
