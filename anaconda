@@ -629,6 +629,9 @@ if __name__ == "__main__":
 
     setupEnvironment()
 
+    import fsset
+    fsset.setupFileSystemTypes(anaconda)
+
     # we need to do this really early so we make sure its done before rpm
     # is imported
     iutil.writeRpmPlatform()
