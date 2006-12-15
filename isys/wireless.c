@@ -26,14 +26,15 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include <linux/types.h>
+#include <linux/if.h>
 #include <linux/wireless.h>
 
 static struct iwreq get_wreq(char * ifname) {
     struct iwreq wreq;
 
     memset(&wreq, 0, sizeof(wreq));
-    strncpy(wreq.ifr_name, ifname, IFNAMSIZ);
-    
+    strncpy(wreq.ifr_name, ifname, IFNAMSIZ);    
     return wreq;
 }
 
