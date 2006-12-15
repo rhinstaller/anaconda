@@ -52,8 +52,11 @@ class AnacondaBackend:
             syslog.stop()
         try:
             if not flags.mpath:
-                f = open(self.instPath+"/etc/sysconfig/mkinitrd/multipath", "w")
+                path = self.instPath + "/etc/sysconfig/mkinitrd/multipath"
+                f = open(path, "w")
                 f.write("MULTIPATH=no\n")
+                f.close()
+                os.chmod(path, 0755)
         except:
             pass
 
