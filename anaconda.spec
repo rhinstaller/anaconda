@@ -109,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 - Pass 'anaconda' to instClass.installDataClass() (pjones, #219793)
 - Use intf, not self.anaconda.intf in partedUtils
 - Handle DiskSet instantiation from LabelFactory when anaconda=None
+- Resolves: rhbz#210481 rhbz#216155 rhbz#219843 rhbz#219793
 
 * Thu Dec 14 2006 Peter Jones <pjones@redhat.com> - 11.1.2.22-1
 - Only show information appropriate to the install class specified by the
