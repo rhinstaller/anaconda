@@ -241,42 +241,49 @@ class UrlInstallMethod(InstallMethod):
         # they are doing a loopback ISO install, but make a guess and
         # shove all that at yum and hope for the best   --dcantrell
 
-        discdir = os.path.basename(self.pkgUrl)
-        alpharm = re.compile("^[^0-9]+")
-        discnum = alpharm.sub("", discdir)
+        pUrl = None
+        for pkgUrl in [self.pkgUrl, "%s/%s" % (self.pkgUrl, '/disc1')]:
+            try:
+                discdir = os.path.basename(pkgUrl)
+                alpharm = re.compile("^[^0-9]+")
+                discnum = alpharm.sub("", discdir)
 
-        try:
-            discnum = int(discnum)
+                discnum = int(discnum)
+                pUrl = pkgUrl
+            except ValueError:
+                # our discnum wasn't just a number; this can't be the right dir
+                continue
+        
+            try:
+                stripnum = re.compile("%s$" % (discnum,))
+                basepath = stripnum.sub("", pUrl)
 
-            stripnum = re.compile("%s$" % (discnum,))
-            basepath = stripnum.sub("", self.pkgUrl)
+                # add all possible baseurls
+                discnum = 1
+                baseurls = []
+                while True:
+                    dirpath = "%s%s" % (basepath, discnum)
 
-            # add all possible baseurls
-            discnum = 1
-            baseurls = [] # self.pkgUrl
-            while True:
-                dirpath = "%s%s" % (basepath, discnum)
+                    try:
+                        filename = self.__copyFileToTemp(dirpath, ".discinfo",
+                            raise404=True)
+                        self.unlinkFilename(filename)
+                    except:
+                        break
 
-                try:
-                    filename = self.__copyFileToTemp(dirpath, ".discinfo")
-                    self.unlinkFilename(filename)
-                except:
+                    log.debug("Adding baseurl: %s" % (dirpath,))
+                    baseurls.append("%s" % (dirpath,))
+                    discnum += 1
+
+                if len(baseurls) > 1:
+                    self.baseUrls = tuple(baseurls)
+                    self.splitmethod = True
+                    self.baseUrl = self.pkgUrl = pUrl
                     break
 
-                log.debug("Adding baseurl: %s" % (dirpath,))
-                baseurls.append("%s" % (dirpath,))
-                try:
-                    self.unlinkFilename(filename)
-                except:
-                    pass
-                discnum += 1
-
-            if len(baseurls) > 1:
-                self.baseUrls = tuple(baseurls)
-                self.splitmethod = True
-        except ValueError:
-            # we didn't figure out the user's dir naming scheme
-            pass
+            except ValueError:
+                # we didn't figure out the user's dir naming scheme
+                pass
 
     def __init__(self, url, rootPath, intf):
 	InstallMethod.__init__(self, url, rootPath, intf)

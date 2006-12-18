@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.23
+Version: 11.1.2.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 18 2006 Peter Jones <pjones@redhat.com> - 11.1.2.24-1
+- Make sure reg keys are written out un upgrade (dlehman, #219791)
+- handle 'regkey --skip' correctly in kickstart (dlehman, #219544)
+- Allow users to go back and change regkeys (dlehman, #219361)
+- Do not accept regkeys that don't match the install media (dlehman, #219823)
+- Honor dhcpclass parameter in isys (dcantrell, #220057)
+- Pick paths better for url iso installs (#219205)
+
 * Fri Dec 15 2006 David Cantrell <dcantrell@redhat.com> - 11.1.2.23-1
 - Use subprocess in execConsole (clumens, #210481, #216155)
 - Leave a way for mkinited to discover lack of mpath (pjones, #219843)
