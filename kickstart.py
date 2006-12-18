@@ -199,8 +199,11 @@ class AnacondaKSHandlers(KickstartHandlers):
         if self.ksdata.key == KS_INSTKEY_SKIP:
             log.info("skipping install key")
             self.skipSteps.append("regkey")
+            self.id.instClass.skipkey = True
+            self.id.instClass.installkey = None
         else:
             log.info("setting install key to %s" %(self.ksdata.key,))
+            self.id.instClass.skipkey = False
             self.id.instClass.installkey = self.ksdata.key
 
     def doKeyboard(self, args):

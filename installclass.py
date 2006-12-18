@@ -71,6 +71,7 @@ class BaseInstallClass:
     allowinstkeyskip = True
     instkeydesc = None
     installkey = None
+    skipkey = False
 
     def postAction(self, anaconda, serial):
 	pass
@@ -150,6 +151,7 @@ class BaseInstallClass:
                  "dopostaction",
 		 "writexconfig",
 		 "writeksconfig",
+                 "writeregkey",
                  "methodcomplete",
                  "copylogs",
                  "setfilecon",

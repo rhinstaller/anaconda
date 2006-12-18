@@ -94,15 +94,25 @@ class InstallClass(BaseInstallClass):
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
+        self.repopaths = { "base": [ "%s" %(productPath,) ] }
+        self.tasks = self.taskMap[productPath.lower()]
+        self.installkey = key
+
         try:
             inum = instnum.InstNum(key)
         except Exception, e:
             if True or not BETANAG: # disable hack keys for non-beta
+                # make sure the log is consistent
+                log.info("repopaths is %s" %(self.repopaths,))
                 raise
             else:
                 inum = None
 
         if inum is not None:
+            # make sure the base products match
+            if inum.get_product_string().lower() != productPath.lower():
+                raise ValueError, "Installation number incompatible with media"
+
             for name, path in inum.get_repos_dict().items():
                 # virt is only supported on i386/x86_64.  so, let's nuke it
                 # from our repo list on other arches unless you boot with
@@ -142,8 +152,6 @@ class InstallClass(BaseInstallClass):
         self.tasks.sort()
 
         log.info("repopaths is %s" %(self.repopaths,))
-
-        self.installkey = key
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

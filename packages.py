@@ -52,7 +52,13 @@ def firstbootConfiguration(anaconda):
         f.close()
 
     return
-        
+       
+def writeRegKey(anaconda):
+    if anaconda.id.instClass.installkey and os.path.exists(anaconda.rootPath + "/etc/sysconfig/rhn"):
+        f = open(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
+        f.write("%s\n" %(anaconda.id.instClass.installkey,))
+        f.close()
+        os.chmod(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", 0600)
 
 def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
@@ -233,22 +239,33 @@ def recreateInitrd (kernelTag, instRoot):
                            searchPath = 1, root = instRoot)
 
 def regKeyScreen(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        return DISPATCH_NOOP
-
-    key = anaconda.id.instClass.installkey or ""
-    while 1:
-        if len(key) > 0:
-            try:
-                anaconda.id.instClass.handleRegKey(key, anaconda.intf,
-                                                   not anaconda.isKickstart)
-                break
-            except Exception, e:
+    def checkRegKey(anaconda, key, quiet=0):
+        rc = True
+        try:
+            anaconda.id.instClass.handleRegKey(key, anaconda.intf,
+                                               not anaconda.isKickstart)
+        except Exception, e:
+            if not quiet:
                 log.info("exception handling installation key: %s" %(e,))
                 anaconda.intf.messageWindow(_("Invalid Key"),
                                         _("The key you entered is invalid."),
                                         type="warning")
-            
+            rc = False
+
+        return rc
+ 
+    key = anaconda.id.instClass.installkey or ""
+
+    # handle existing key if we're headed forward
+    if key and not anaconda.id.instClass.skipkey and \
+       anaconda.dir == DISPATCH_FORWARD and checkRegKey(anaconda, key):
+        return DISPATCH_FORWARD
+
+    # if we're backing up we should allow them to reconsider skipping the key
+    if anaconda.dir == DISPATCH_BACK and anaconda.id.instClass.skipkey:
+        anaconda.id.instClass.skipkey = False
+
+    while not anaconda.id.instClass.skipkey:
         rc = anaconda.intf.getInstallKey(anaconda, key)
         if rc is None and anaconda.dispatch.canGoBack():
             return DISPATCH_BACK
@@ -262,10 +279,14 @@ def regKeyScreen(anaconda):
                                      custom_buttons=[_("_Back"), _("_Skip")])
                 if not rc:
                     continue
-                return
+                # unset the key and associated data
+                checkRegKey(anaconda, None, quiet=1)
+                anaconda.id.instClass.skipkey = True
             break
 
         key = rc
+        if checkRegKey(anaconda, key):
+            break
 
     return DISPATCH_FORWARD
 

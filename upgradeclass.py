@@ -54,6 +54,7 @@ class InstallClass(baseclass):
                     "postinstallconfig",
                     "instbootloader",
                     "dopostaction",
+                    "writeregkey",
                     "methodcomplete",
                     "copylogs",
 		    "complete"
