@@ -711,6 +711,10 @@ ncr53c8xx
 	scsi_hostadapter
 	"Symbios/NCR 53C8xx"
 
+pata_mpc52xx
+	scsi_hostadapter
+	"Freescale MPC52xx IDE/ATA libata driver"
+
 pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
@@ -826,6 +830,10 @@ sata_vsc
 siimage
         scsi_hostadapter
         "Silicon Image SATA controllers"
+
+stex
+	scsi_hostadapter
+	"Promise SuperTrak EX"
 
 sx8
 	scsi_hostadapter
