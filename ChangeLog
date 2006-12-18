@@ -3,6 +3,9 @@
 	* loader2/module-info: Added stex driver since that was added in the
 	RHEL-5 tree.  Added pata_mpc52xx (#220009).
 
+	* isys/isys.c (doDhcpNetDevice): Honor dhcpclass param (#220057).
+	* loader2/net.c: Likewise.
+
 2006-12-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

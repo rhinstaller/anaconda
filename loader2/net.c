@@ -363,6 +363,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         parseEthtoolSettings(loaderData);
     }
 
+    if (loaderData->netCls_set) {
+        cfg->vendor_class = loaderData->netCls;
+    } else {
+        cfg->vendor_class = NULL;
+    }
+
     if (loaderData->ipinfo_set) {
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
@@ -554,6 +560,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.isDynamic = cfg->isDynamic;
     newCfg.noDns = cfg->noDns;
     newCfg.preset = cfg->preset;
+    if (dhcpclass) {
+        newCfg.vendor_class = strdup(dhcpclass);
+    } else {
+        newCfg.vendor_class = NULL;
+    }
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
@@ -1287,12 +1298,17 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
 
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
-    char *r = NULL;
+    char *r = NULL, *class = NULL;
     time_t timeout = 45;
     int loglevel;
     DHCP_Preference pref = 0;
 
     i = &dev->dev;
+
+    if (dev->vendor_class != NULL)
+        class = dev->vendor_class;
+    else
+        class = "anaconda";
 
     if (getLogLevel() == DEBUGLVL)
         loglevel = LOG_DEBUG;
@@ -1318,7 +1334,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 	/* disable some things for this DHCP call */
 	pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
-    r = pumpDhcpClassRun(i,0L,"anaconda",pref,0,timeout,netlogger,loglevel);
+    r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
     return r;
 }
 
