@@ -627,10 +627,13 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
         return NULL;
 
+    if (dhcpclass == NULL)
+        dhcpclass = "anaconda";
+
     memset(&cfg, '\0', sizeof(cfg));
     strncpy(cfg.device, device, sizeof(cfg.device) - 1);
 
-    r = pumpDhcpClassRun(&cfg, 0L, "anaconda", pref, 0, timeout, NULL, 0L);
+    r = pumpDhcpClassRun(&cfg, 0L, dhcpclass, pref, 0, timeout, NULL, 0L);
     if (r) {
         Py_INCREF(Py_None);
         return Py_None;
