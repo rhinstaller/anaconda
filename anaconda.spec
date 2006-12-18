@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.6
+Version: 11.2.0.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Dec 17 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.7-1
+- Clean up execConsole to work better (clumens, #210481, #16155)
+- Fixes due to earlier changes (dcantrell, #219789)
+- Build fix for new kernel headers
+
 * Thu Dec 14 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.6-1
 - fix build for no more md START_ARRAY; note that this leaves swraid broken
 
