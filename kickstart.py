@@ -153,6 +153,7 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doClearPart(self, args):
         KickstartHandlers.doClearPart(self, args)
         dict = self.ksdata.clearpart
+        dict["done"] = False
 
         hds = isys.hardDriveDict().keys()
         for disk in dict["drives"]:

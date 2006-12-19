@@ -331,7 +331,7 @@ def runRescue(anaconda):
 
     if root:
 	try:
-	    fs = fsset.FileSystemSet()
+	    fs = fsset.FileSystemSet(anaconda)
 
 	    # only pass first two parts of tuple for root, since third
 	    # element is a comment we dont want

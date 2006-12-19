@@ -1061,7 +1061,7 @@ class BindFileSystem(PsudoFileSystem):
 fileSystemTypeRegister(BindFileSystem())        
 
 class FileSystemSet:
-    def __init__(self):
+    def __init__(self, anaconda):
         self.messageWindow = None
         self.progressWindow = None
         self.waitWindow = None
@@ -1069,6 +1069,7 @@ class FileSystemSet:
         self.migratedfs = 0
         self.reset()
         self.volumesCreated = 0
+        self.anaconda = anaconda
 
     def isActive(self):
         return self.mountcount != 0
@@ -1133,7 +1134,7 @@ class FileSystemSet:
         return None
 
     def copy (self):
-        new = FileSystemSet()
+        new = FileSystemSet(self.anaconda)
         for entry in self.entries:
             new.add (entry)
         return new
@@ -1402,6 +1403,8 @@ MAILADDR root
 
             if bootPart:
                 del bootPart
+
+            self.anaconda.id.ksdata.clearpart["done"] = True
 
     def formatSwap (self, chroot, forceFormat=False):
         formatted = []
@@ -2445,7 +2448,7 @@ def makeDevice(dev):
 def readFstab (anaconda):
     path = anaconda.rootPath + '/etc/fstab'
     intf = anaconda.intf
-    fsset = FileSystemSet()
+    fsset = FileSystemSet(anaconda)
 
     # first, we look at all the disks on the systems and get any ext2/3
     # labels off of the filesystem.

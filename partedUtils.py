@@ -989,6 +989,7 @@ class DiskSet:
                     ks = True
                     clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
                     initAll = self.anaconda.id.ksdata.clearpart["initAll"]
+                    clearDone = self.anaconda.id.ksdata.clearpart["done"]
 
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
@@ -1028,7 +1029,8 @@ class DiskSet:
                 continue
 
             if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
-                       or (drive in clearDevs)) and not flags.test:
+                       or (drive in clearDevs)) and not flags.test \
+                       and not clearDone:
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)

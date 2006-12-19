@@ -1,3 +1,18 @@
+2006-12-19  Peter Jones 
+
+	* fsset.py (FileSystemSet): Add self.anaconda .  Also set
+	ksdata.clearpart["done"] to True so we don't clear partitions again.
+
+	* instdata.py (InstallData): pass 'anaconda' object to FileSystemSet()
+
+	* rescue.py (runRescue): likewise.
+
+	* kickstart.py (AnacondaKSHandlers(doClearPart): initialize
+	ksdata.clearpart["done"] to False.
+
+	* partedUtils.py (DiskSet.openDevices): don't clear partitions if it's
+	already been done. (#220021)
+
 2006-12-19  Peter Jones  <pjones@redhat.com>
 
 	* flags.py (Flags): turn off mpath by default

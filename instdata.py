@@ -281,7 +281,7 @@ class InstallData:
         self.isHeadless = 0
 	self.extraModules = extraModules
 	self.floppyDevice = floppyDevice
-	self.fsset = fsset.FileSystemSet()
+	self.fsset = fsset.FileSystemSet(anaconda)
         self.excludeDocs = 0
 
         if flags.cmdline.has_key("excludedocs"):
