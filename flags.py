@@ -58,7 +58,7 @@ class Flags:
 	self.__dict__['flags']['autostep'] = 0
 	self.__dict__['flags']['autoscreenshot'] = 0
 	self.__dict__['flags']['usevnc'] = 0
-        self.__dict__['flags']['mpath'] = 1
+        self.__dict__['flags']['mpath'] = 0
 	self.__dict__['flags']['dmraid'] = 1
 	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
         self.__dict__['flags']['debug'] = 0
