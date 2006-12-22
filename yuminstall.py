@@ -1106,7 +1106,16 @@ class YumBackend(AnacondaBackend):
         self.selectAnacondaNeeds()
 
         if anaconda.id.getUpgrade():
-            from upgrade import upgrade_remove_blacklist
+            from upgrade import upgrade_remove_blacklist, upgrade_conditional_packages
+            for condreq, cond in upgrade_conditional_packages.iteritems():
+                pkgs = self.ayum.pkgSack.searchNevra(name=condreq)
+                if pkgs:
+                    pkgs = self.ayum.bestPackagesFromList(pkgs)
+                    if self.ayum.tsInfo.conditionals.has_key(cond):
+                        self.ayum.tsInfo.conditionals[cond].extend(pkgs)
+                    else:
+                        self.ayum.tsInfo.conditionals[cond] = pkgs
+                
             self.upgradeFindPackages()
             for pkg in upgrade_remove_blacklist:
                 pkgarch = None

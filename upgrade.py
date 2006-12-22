@@ -76,6 +76,15 @@ if rhpl.getArch() == "s390x":
                                       ("tclx", "s390")
                                      ] )
 
+# conditional package: conditions
+upgrade_conditional_packages = { 'scim-qtimm' : 'qt',
+                                 'm17n-db-bengali' : 'ttfonts-bn',
+                                 'm17n-db-gujarati' : 'ttfonts-gu',
+                                 'm17n-db-hindi' : 'ttfonts-hi',
+                                 'm17n-db-punjabi' : 'ttfonts-pa',
+                                 'm17n-db-tamil' : 'ttfonts-ta'
+                               }
+
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
         return
