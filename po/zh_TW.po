@@ -9,13 +9,14 @@
 # Chester CHENG <ccheng@redhat.com>, 2004.
 # Waika Liu <wliu@redhat.com>, 2005.
 # Walter Cheuk <wwycheuk@netvigator.com>, 2005-2006.
+# Walter Cheuk <wwycheuk@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-10-20 11:33+1000\n"
+"PO-Revision-Date: 2006-12-26 11:33+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr ""
 
 #: ../anaconda:256
 msgid "Unknown Error"
-msgstr "未知的錯誤"
+msgstr "不知名錯誤"
 
 #: ../anaconda:259
 #, c-format
@@ -109,7 +110,7 @@ msgstr "DISPLAY 變數並未設定。啟動文字模式！"
 
 #: ../anaconda:851
 msgid "Unknown install method"
-msgstr "未知的安裝方式"
+msgstr "不知名的安裝方式"
 
 #: ../anaconda:852
 msgid "You have specified an install method which isn't supported by anaconda."
@@ -118,7 +119,7 @@ msgstr "Anaconda 安裝程式並不支援您指定的安裝方法。"
 #: ../anaconda:854
 #, c-format
 msgid "unknown install method: %s"
-msgstr "未知的安裝方式：%s"
+msgstr "不知名的安裝方式：%s"
 
 #: ../autopart.py:949
 #, python-format
@@ -127,7 +128,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"無法配置磁柱為主的分割區為主要分割區。\n"
+"無法配置以磁柱為主的分割區為主要分割區。\n"
 "\n"
 "%s"
 
@@ -149,7 +150,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"無法配置磁柱為主的分割區。\n"
+"無法配置以磁柱為主的分割區。\n"
 "\n"
 "%s"
 
@@ -170,7 +171,7 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"開機分割區 %s 並不屬於一個擁有足夠剩餘空間在欲安裝開機管理程式的磁碟起始處。 "
+"開機分割區 %s 並不屬於欲安裝開機管理程式，而起始處有足夠剩餘空間的磁碟。 "
 "請確定在包含 /boot 的磁碟起始處有至少 5MB 的剩餘空間"
 
 #: ../autopart.py:1023
@@ -218,7 +219,7 @@ msgstr ""
 
 #: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
-msgstr "要求的 Raid 裝置並不存在"
+msgstr "沒有您要求的 Raid 裝置"
 
 #: ../autopart.py:1272
 #, python-format
@@ -233,7 +234,7 @@ msgstr ""
 
 #: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
-msgstr "要求的磁區群組不存在"
+msgstr "沒有您要求的磁區群組"
 
 #: ../autopart.py:1304
 #, python-format
@@ -248,7 +249,7 @@ msgstr ""
 
 #: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "要求的邏輯磁區不存在"
+msgstr "沒有您要求的邏輯磁區"
 
 #: ../autopart.py:1342
 #, python-format
@@ -329,7 +330,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"請按下「OK」，選擇不同的分割區選項。"
+"請按下「確定」，選擇不同的分割區選項。"
 
 #: ../autopart.py:1503
 #, python-format
@@ -533,7 +534,7 @@ msgstr "格式化時順便檢查是否有損壞的磁區"
 #: ../fsset.py:222
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "檢查 /dev/%s 是否有損壞的磁區..."
+msgstr "正在檢查 /dev/%s 有否損壞的磁區..."
 
 #: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
 #: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
@@ -571,7 +572,7 @@ msgid ""
 msgstr ""
 "轉換 %s 至 ext3 時發生錯誤。 若選擇不轉換則可以繼續安裝下去。\n"
 "\n"
-"您要選擇不轉換 %s 繼續安裝嗎？"
+"您要選擇不轉換 %s ，繼續安裝嗎？"
 
 #: ../fsset.py:1333
 msgid "RAID Device"
@@ -1052,7 +1053,7 @@ msgstr ""
 
 #: ../harddrive.py:81 ../image.py:518
 msgid "Re_try"
-msgstr "重試(_t)"
+msgstr "重試(_T)"
 
 #: ../image.py:82
 msgid "Required Install Media"
@@ -1565,7 +1566,7 @@ msgstr "這個分割區是包含 %s 的延伸分割區，您無法編輯它。"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
-msgstr "格式化成 swap 分割區？"
+msgstr "要格式化成 Swap 分割區嗎？"
 
 #: ../partIntfHelpers.py:385
 #, python-format
@@ -1777,11 +1778,11 @@ msgstr "安裝至火線（Firewire）裝置上。安裝後的系統可能會、�
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "啟動分割區(/boot)只能建立在 RAID 1 裝置上。"
+msgstr "可開機分割區只能建立在 RAID 1 裝置上。"
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "開機分割區不能在一個邏輯磁區上。"
+msgstr "可開機分割區不能建立在邏輯磁區上。"
 
 #: ../partitions.py:986
 msgid ""
@@ -1796,7 +1797,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援到 32 個。"
+msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援 32 個。"
 
 #: ../partitions.py:1004
 #, python-format
@@ -2097,7 +2098,7 @@ msgstr ""
 
 #: ../upgradeclass.py:22
 msgid "Upgrade Existing System"
-msgstr "升級舊有系統"
+msgstr "升級現有系統"
 
 #: ../upgradeclass.py:26
 msgid "Upgrade"
@@ -2105,7 +2106,7 @@ msgstr "升級"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr "確定系統升級?"
+msgstr "確定要升級？"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2131,7 +2132,7 @@ msgstr "正在搜尋 %s 現有安裝..."
 
 #: ../upgrade.py:150 ../upgrade.py:158
 msgid "Dirty File Systems"
-msgstr "不完整的檔案系統"
+msgstr "未經正常程序關機 (Dirty) 的檔案系統"
 
 #: ../upgrade.py:151
 #, python-format
