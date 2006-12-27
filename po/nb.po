@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-09-11 00:37+0200\n"
+"PO-Revision-Date: 2006-12-27 17:15+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -632,7 +632,7 @@ msgid "Reboot"
 msgstr "Start på nytt"
 
 #: ../fsset.py:1476
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -646,6 +646,7 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
+"er en Linux-swap-enhet med versjon 0. Hvis du vil bruke denne enheten må du formattere den på nytt som en Linux swap-enhet med versjon 1. Hvis du ikke gjør dette bil installasjonsprogrammet overse den under installasjonen."
 
 #: ../fsset.py:1483
 msgid "Reformat"
@@ -1131,7 +1132,7 @@ msgid "Unable to access the CDROM."
 msgstr "Kan ikke aksessere din CD-ROM."
 
 #: ../image.py:360
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1141,9 +1142,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken "
-"er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CDen er "
-"ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
+"Filen %s kan ikke åpnes. Dette grunnet at filen mangler eller at pakken er korrupt. Vennligst sjekk at installasjonstreet inneholder alle nødvendige pakker.\n"
+"\n"
+"Hvis du starter på nytt vil systemet være i en inkonsistent tilstand som sannsynligvis vil kreve at det installeres på nytt.\n"
 "\n"
 
 #: ../image.py:508
@@ -1803,13 +1804,13 @@ msgstr ""
 #: ../partitions.py:942
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Installerer på en USB-enhet. Det er ikke sikkert at dette gir et fungerende system."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Installerer på en FireWire-enhet. Det er ikke sikkert at dette gir et fungerende system."
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1938,7 +1939,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "Størrelse på logisk volum må være større enn volumgruppens fysiske extent-størrelse"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2364,6 +2365,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Du må oppgi et passord på minst 6 tegn for VNC.\n"
+"\n"
+"Trykk <linjeskift> for å starte systemet på nytt.\n"
 
 #: ../vnc.py:184
 msgid "Starting VNC..."
@@ -2497,13 +2501,10 @@ msgid "Error running transaction"
 msgstr "Feil under kjøring av transaksjon"
 
 #: ../yuminstall.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Vertsnavnet «%s» er ikke gyldig av følgende årsak:\n"
-"\n"
-"%s"
+msgstr "Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
@@ -3730,12 +3731,12 @@ msgstr "Gjør til en _primærpartisjon"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Stasjon %s (Geom: %s/%s/%s) (Modell: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Stasjon %s (%-0.f MB) (Modell: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4288,7 +4289,7 @@ msgstr ""
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr ""
+msgstr "Kan ikke finne en gruppefil for %s. Dette vil medføre at manualt utvalg av pakker fra lageret ikke vil virke"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -5686,7 +5687,7 @@ msgstr "Kunne ikke montere driverdisketten."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Driverdisken er ugyldig for denne versjonen av %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -6161,7 +6162,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
+msgstr "Prefiks må være mellom 1 og 32 for IPv4-nettverk eller mellom 1 og 128 for IPv6-nettverk"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6220,7 +6221,7 @@ msgstr "Unngå uønskede pakkekollisjoner"
 
 #: ../loader2/net.c:714
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maksimer registerverdiene for høyhastighets nettverkstrafikk"
 
 #: ../loader2/net.c:750
 msgid "Configure TCP/IP"
@@ -6274,15 +6275,13 @@ msgid "Missing Information"
 msgstr "Manglende informasjon"
 
 #: ../loader2/net.c:1132
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
+msgstr "Du må skrive inn en gyldig IPv4-adresse og en nettmaske eller et CIDR-prefiks."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
+msgstr "Du må skrive inn en gyldig IPv6-adresse og et CIDR-prefiks."
 
 #: ../loader2/net.c:1402
 msgid "Determining host name and domain..."
@@ -6487,9 +6486,8 @@ msgid "Disable _dmraid device"
 msgstr "Deaktiver _dmraid-tjeneste"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Hvordan ønsker du å lage plass til partisjonering?"
+msgstr "Hvordan ønsker du å endre konfigurasjonen for stasjonen?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6701,7 +6699,7 @@ msgstr "Atlanterhavsøyene"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlanterhavstid - Quebec - Lower North Shore"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
@@ -6958,7 +6956,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (unntatt Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7107,7 +7105,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "det meste av Tibet og Xinjiang"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7554,1470 +7552,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "DDC-monitor"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Tertiær DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Tertiær DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Konfigurer ved bruk av _DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP-adresse"
-
-#~ msgid "Net_mask"
-#~ msgstr "Nett_maske"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Maskinvareadresse:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Registreringsnøkkel kreves"
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Ugyldig CIDR-maske"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Klarte ikke logge inn på %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Klarte ikke å hente %s: %s"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Newfoundland"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "sydvest Xinjian Uyghur"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Kunne ikke allokere partisjoner"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Du kan velge et annet alternativ for automatisk partisjonering eller "
-#~ "trykke «Tilbake» for å velge manuell partisjonering.\n"
-#~ "\n"
-#~ "Trykk «OK» for å fortsette."
-
-#~ msgid "Upgrading %s-%s-%s.%s.\n"
-#~ msgstr "Oppgraderer %s-%s-%s.%s.\n"
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Installerer %s-%s-%s.%s\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Pakken %s-%s-%s.%s kan ikke åpnes. Det kan være pga at filen mangler "
-#~ "eller at pakken er korrupt. Hvis du installerer fra en CD betyr dette "
-#~ "vanligvis at CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese "
-#~ "den.\n"
-#~ "\n"
-#~ "Trykk «Prøv igjen» hvis du vil forsøke på nytt."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Hvis du starter på nytt vil systemet ende opp i en inkonsistent tilstand "
-#~ "som sannsynligvis vil medføre at du vil måtte installere på nytt. Er du "
-#~ "sikker på at du vil fortsette?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Avbryt"
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI-konfigurasjon"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "Ingen IP-adresse oppgitt, hopper over oppsett av iSCSI"
-
-#~ msgid "Target IP address:"
-#~ msgstr "IP-adresse for mål:"
-
-#~ msgid "Port Number:"
-#~ msgstr "Portnummer:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tAdministrasjonsverktøy\n"
-#~ "\tKonfigurasjonsverktøy for tjenere\n"
-#~ "\tWeb-tjener\n"
-#~ "\tWindows filtjener (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux skrivebord"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Vær snill og skriv inn IP-konfigurasjonen for denne maskinen. Hver "
-#~ "oppføring skal skrives inn som en IP-adresse i punktdelt desimal notasjon "
-#~ "(f.eks, 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Nettmaske:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Forvalgt gateway (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Primær navnetjener:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI-konfigurasjon"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Merknader for denne utgaven mangler."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Følgende pakker er tilgjengelige i denne versjonen men IKKE oppgradert:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Følgende pakker er tilgjengelige i denne versjonen men IKKE installert:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Finner"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Finner pakker som skal oppgraderes..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Installasjonsprogrammet er ikke instand til å oppgradere systemer med en "
-#~ "RPM-database som er eldre enn versjon 4.x. Vennligst installer "
-#~ "oppgraderte pakker for RPM på systemet ditt før du foretar oppgradering "
-#~ "av hele systemet."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
-
-#~ msgid "Installation Type"
-#~ msgstr "Installasjonstype"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Hvilken installeringstype ønsker du?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Velg pakker som skal oppgraderes"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Pakkene du har installert vil nå bli oppgradert. Entuelle andre pakker "
-#~ "som disse er avhengige av vil bli installert. Ønsker du manuelt å "
-#~ "bestemme hvilke pakker som skal oppgraderes?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Virtualisering (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Skjul _hjelp"
-
-#~ msgid "Show _Help"
-#~ msgstr "Vis _hjelp"
-
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er "
-#~ "mange flere pakker enn det som vises i alle pakkegruppene på denne siden."
-
-#~ msgid "Everything"
-#~ msgstr "Alt"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Velg denne gruppen for å få det minst mulige pakkesettet. Nyttig ved "
-#~ "installasjon av eksempelvis små rutere/brannmurer."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Forskjellig"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Du prøver å installere på en maskin som ikke er støttet av denne "
-#~ "versjonen av %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Automatisk partisjonering"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Jeg vil bruke automatisk partisjonering:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Velg stasjonen(e) vil du bruke for denne installasjonen:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "Se o_ver (og endre om nødvendig) partisjonene som opprettes"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Bytt oppstartslaster"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Du har valgt å ikke installere en oppstartslaster. Det anbefales at du "
-#~ "installerer en oppstartslaster med mindre du har helt spesielle behov. En "
-#~ "oppstartslaster er nesten alltid nødvendig for å starte systemet med "
-#~ "Linux direkte fra harddisken.\n"
-#~ "\n"
-#~ "Vil du fortsette uten installasjon av oppstartslaster?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "F_ortsett uten oppstartslaster"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Vennligst velg oppstartslaster som datamaskinen skal bruke. GRUB er "
-#~ "forvalgt oppstartslaster. Hvis du ikke vil overskrive din nåværende "
-#~ "oppstartslaster, velger du \"Ikke installer en oppstartslaster.\""
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Bruk _GRUB som oppstartslaster"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Ikke installer oppstartslaster"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Endre oppstartslaster"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Uløste avhengigheter"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Total størrelse for installasjon: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Avhengighet"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Installer pakker for å tilfredsstille avhengigheter"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "I_kke installer pakker som har avhengigheter"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "I_gnorer pakkeavhengigheter"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Forvalgt installasjonsmiljø inneholder vårt anbefalte pakkeutvalg, "
-#~ "inklusive:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Etter installasjonen kan du legge til eller fjerne pakker ved å bruke "
-#~ "verktøyet «system-config-packages».\n"
-#~ "\n"
-#~ "Hvis du er kjent med %s er det mulig at du har spesifikke pakker du "
-#~ "ønsker å installere eller unngå at blir installert. Kryss av i boksen "
-#~ "under for å tilpasse din installasjon."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Hvis du ønsker å endre forvalgt pakkesett som skal installeres kan du "
-#~ "velge å tilpasse dette under."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Installer forvalgte programvarepakker"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Tilpass programvarepakker som skal installeres"
-
-#~ msgid "Packages in %s"
-#~ msgstr "Pakker i %s"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ingen beskrivelse tilgjengelig for %s.\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%d av %d tilleggspakker installert]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Forvalgt installasjonsmiljø inneholder anbefalt pakkeutvalg. Du kan legge "
-#~ "til eller fjerne programvare etter installasjonen med verktøyet «system-"
-#~ "config-packages».\n"
-#~ "\n"
-#~ "%s inneholder også mange flere programmer, og du kan tilpasse hvilke "
-#~ "programmer som skal installeres, hvis du ønsker det."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Velg individuelle pakker"
-
-#~ msgid "Package :"
-#~ msgstr "Pakke   :"
-
-#~ msgid "Size    :"
-#~ msgstr "Størr.  :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f kB"
-
-#~ msgid "Total size"
-#~ msgstr "Total størrelse"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Individuelt pakkevalg"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Mellomrom>,<+>,<-> valg    |   <F1 hjelp   |   <F2> pakkebeskrivelse"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Pakkeavhengigheter"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Noen av pakkene du har valgt å installere trenger pakker som ikke er "
-#~ "valgt. Hvis du velger Ok vil alle de nødvendige pakkene bli installert."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Installer pakker for å tilfredsstille avhengigheter"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Ikke installer pakker som har avhengigheter"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Ignorer pakkeavhengigheter"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "Noen pakker assosiert med denne gruppen er ikke nødvendige, men tilbyr "
-#~ "tileggsfunksjonalitet. Vennligst velg pakkene du ønsker å installere."
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Ingen mus funnet. Grafisk installasjon krever at du har mus. Starter "
-#~ "tekstmodus."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Gjenkjent mustype: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Bruker mustype: %s"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Følgende ISO-bilder mangler, men kreves for å fullføre installasjonen:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Systemet vil nå starte på nytt."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Kan ikke flette headerlisten. Dette pga. en manglende fil eller et dårlig "
-#~ "media. Trykk <linjeskift> for å prøve igjen."
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Arkitekturen for utgaven av %s du oppgraderer til ser ut til å være %s "
-#~ "hvilket ikke stemmer overens med din tidligere installerte arkitektur %s. "
-#~ "Dette vil sannsynligvis ikke fungere. Er du sikker på at du ønsker å "
-#~ "fortsette oppgraderingen?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Dette systemet ser ut til å ha pakker fra tredjepart installert som "
-#~ "overlapper med pakker inkludert i %s. Da disse pakkene overlapper er det "
-#~ "mulig at du vil oppleve at disse ikke fungerer eller at systemet blir "
-#~ "ustabilt hvis du fortsetter med oppgraderingen. Vennligst les merknadene "
-#~ "for denne utgaven for mer informasjon.\n"
-#~ "\n"
-#~ "Vil du fortsette med oppgraderingen?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Dette systemet har ikke filen /etc/redhat-release. Det er mulig at dette "
-#~ "ikke er et %s-system. Hvis du fortsetter oppgraderingen kan du risikere "
-#~ "at systemet ender som ubrukelig. Vil du fortsette oppgraderingsprosessen?"
-
-#~ msgid "All Packages"
-#~ msgstr "Alle pakker"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Pakke: %s\n"
-#~ "Versjon: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_Trevisning"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Flat visning"
-
-#~ msgid "_Package"
-#~ msgstr "_Pakke"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Størrelse (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Total størrelse: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Velg _alle i gruppen"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Velg bort alle i gruppen"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimal"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Detaljer for «%s»"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "En pakkegruppe kan ha både basis- og alternative pakkemedlemmer. "
-#~ "Basispakker er alltid valgt så lenge pakkegruppen er valgt.\n"
-#~ "\n"
-#~ "Velg tilleggspakker som skal installeres:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Basispakker"
-
-#~ msgid "Details"
-#~ msgstr "Detaljer"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Velg individuelle pakker"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Systemklokken bruker _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Vennligst velg den nærmeste byen i din tidssone:"
-
-#~ msgid "_Location"
-#~ msgstr "P_lassering"
-
-#~ msgid "Description"
-#~ msgstr "Beskrivelse"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Hvis du ønsker å teste flere installeringsmedia, sett inn neste CD og "
-#~ "trykk \"%s\". Du trenger ikke teste alle CDene, selv om det er anbefalt "
-#~ "at du gjør dette ihvertfall første gangen du bruker dem.\n"
-#~ "\n"
-#~ "For å fortsette installeringsprosessen sett inn CD #1 i CD-ROM-stasjonen "
-#~ "og trykk \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Mediasjekken av %s er ferdig, og resultatet er: %s\n"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
-#~ "hele teksten fra unntaksmeldingen, og lagre informasjon om krasjet på en "
-#~ "diskett. Send så inn en detaljert feilrapport for anaconda på %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Ekstern pålogging (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Webtjener (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Filoverføring (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "E-posttjener (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Kunne ikke lage oppstartsdisk"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Størrelsen på kjernemodulene som brukes av systemet ditt gjør det umulig "
-#~ "å lage en oppstartsdisk."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Sett inn en diskett"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Vennligst fjern alle disketter fra diskettstasjonen, og sett inn en tom "
-#~ "diskett som skal bli oppstartsdiskett.\n"
-#~ "Alle data vil bli SLETTET fra disketten under oppretting av "
-#~ "oppstartsdisketten."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Lag oppstartsdiskett"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om "
-#~ "at det står en diskett i diskettstasjonen."
-
-#~ msgid "Creating"
-#~ msgstr "Oppretter"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Oppretter oppstartsdiskett..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "En feil oppstod under verifisering av oppstartsdisketten. Sjekk at det "
-#~ "står en diskett i diskettstasjonen."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Oppstartsdisketten ser ut til å være ugyldig. Det er sannsynligvis "
-#~ "forårsaket av en ødelagt diskett. Sjekk at det står en fungerende diskett "
-#~ "i diskettstasjonen."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Lagre til diskett"
-
-#~ msgid "Reading"
-#~ msgstr "Leser"
-
-#~ msgid "Reading package information..."
-#~ msgstr "Leser pakkeinformasjon..."
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Kan ikke lese headerlisten. Dette pga. en manglende fil eller et dårlig "
-#~ "media. Trykk <linjeskift> for å prøve igjen."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Filen «comps» kan ikke leses. Dette pga. en manglende fil eller et dårlig "
-#~ "media. Trykk <linjeskift> for å prøve igjen."
-
-#~ msgid "Installing..."
-#~ msgstr "Installerer..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Feil ved installering av pakke"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Det oppstod en feil ved installering av %s. Dette kan tyde på feil ved "
-#~ "installeringsmediumet, mangel på diskplass og/eller problemer med "
-#~ "maskinvaren. Dette er en fatal feil, og din installasjon vil avbrytes. "
-#~ "Sjekk installeringsmediumet og prøv på nytt.\n"
-#~ "\n"
-#~ "Trykk OK for å starte maskinen på nytt."
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Installerer %s pakker\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Følgende pakker ble automatisk valgt for\n"
-#~ "installasjon:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Det ser ikke ut til at du har nok diskplass til å installere pakkene du "
-#~ "har valgt. Du må ha mer plass på følgende filsystemer:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Nødvendig plass"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Det ser ikke ut til at du har nok filnoder til å installere pakkene du "
-#~ "har valgt. Du må ha flere filnoder på følgende filsystemer:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Manglende noder"
-
-#~ msgid "Disk Space"
-#~ msgstr "Diskplass"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Konfigurasjon av autentisering"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Bruk _MD5-passord"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Bruk sk_yggepassord"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Bruk N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "_Bruk kringkasting for å finne NIS-tjener"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS-_domene: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NI_S-tjener: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Bruk _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Bruk _TLS-oppslag"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP-_tjener:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _basis DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Bruk _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "_Område:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Admin-tjener:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "_Aktiver SMB-autentisering"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB-_tjener:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB-arbeids_gruppe:"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Oppretting av oppstartsdiskett"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "En oppstartsdiskett lar deg starte %s fra en diskett. En oppstartsdiskett "
-#~ "lar deg starte systemet hvis oppstartslasterkonfigurasjonen slutter å "
-#~ "virke, du velger å ikke installere en oppstartslaster eller hvis du har "
-#~ "en tredjeparts oppstartslaster som ikke støtter Linux.\n"
-#~ "\n"
-#~ "Det anbefales på det sterkeste at du lager en oppstartsdiskett.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ja, jeg ønsker å lage en oppstartsdiskett"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "Nei, _jeg ønsker ikke å lage en oppstartsdiskett"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Velg disk som fdasd skal kjøres på"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Formatering av den valgte DASD-enheten vil ødelegge alt innholdet på "
-#~ "enheten. Ønsker du virkelig å formatere den valgte enheten?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Partisjonerer med fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Velg disk som skal partisjoneres med fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Deaktivert"
-
-#~ msgid "Warn"
-#~ msgstr "Advar"
-
-#~ msgid "Active"
-#~ msgstr "Aktiv"
-
-#~ msgid "Firewall"
-#~ msgstr "Brannmur"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Advarsel - Ingen brannmur"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Hvis dette systemet er knyttet direkte til Internett eller er på et stort "
-#~ "offentlig nettverk anbefales det å konfigurere en brannmur for å hindre "
-#~ "uautorisert tilgang. Det ser likevel ut til at du ikke har valgt å "
-#~ "konfigurere en brannmur. Velg «Fortsett» for å gå videre uten en brannmur."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Konfigurer brannmur"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Fortsett"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "En brannmur kan hjelpe å avverge uautorisert tilgang til din datamaskin "
-#~ "fra utsiden. Vil du aktivere en brannmur?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "I_ngen brannmur"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Aktiver brannmur"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Du kan bruke en brannvegg til å gi tilgang til andre for spesifikke "
-#~ "tjenester på din datamaskin. Hvilke tjenester vil du gi tilgang til?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) gir mer finkornet kontroll over "
-#~ "sikkerhet enn det som er tilgjengelig på et vanlig Linux-system. Det kan "
-#~ "settes i deaktivert modus hvor det kun gis advarsler om ting som ville "
-#~ "blitt nektet i aktiv modus."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Aktiver _SELinux?"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Ikke-gjenkjent monitor"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Tilpass grafisk konfigurasjon"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Fargedybde:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 farger (8 bit)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Tusener av farger (16 bit)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Millioner av farger (24 bit)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Skjermoppløsning:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Vennligst velg forvalgt skrivebordsmiljø:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Ditt skrivebordsmiljø er:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Vennligst velg påloggingstype:"
-
-#~ msgid "_Text"
-#~ msgstr "_Tekst"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafisk"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Skjermkonfigurasjon"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Skjerm ikke spesifisert"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Du har ikke valgt type skjerm. Det anbefales at du velger modellen som "
-#~ "ligner mest for å få høyeste mulige kvalitet på skjermbildet."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Velg skjermtype"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "I de fleste tilfeller kan innstillinger for skjermen finnes automatisk. "
-#~ "Hvis disse innstillingene ikke er korrekte, må du selv spesifisere de "
-#~ "riktige innstillingene."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Gjenopprett _opprinnelige verdier"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Hori_sontal synkronisering:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Vertikal synkronisering:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Konfigurasjon av grafisk grensesnitt (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Ukjent skjermkort"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "En feil har oppstått ved valg av skjermkort %s. Vennligst rapporter denne "
-#~ "feilen på %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Ikke-spesifisert skjermkort"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Du må velge et skjermkort før X-konfigurasjonen kan fortsette. Hvis du "
-#~ "ønsker å hoppe over X-konfigurasjonen velg 'Hopp over konfigurasjon av X'-"
-#~ "knappen."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Systemet vil bli satt opp til å bruke frame-buffer driveren for X-"
-#~ "vindussystemet. Hvis du ikke ønsker å konfigurere X-vindussystemet kan du "
-#~ "velge «Hopp over konfigurasjon av X» under."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Størrelsen på skjermkortets RAM kunne ikke bestemmes automatisk. Velg "
-#~ "størrelsen fra listen under:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk. Hvis "
-#~ "disse innstillingene ikke er riktige må du velge de korrekte selv."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Minne på skjermkort: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Hopp over konfigurasjon av X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Oppstartsdisketten lar deg starte opp ditt %s-system fra en diskett. En "
-#~ "oppstartsdiskett lar deg starte systemet hvis oppstartslasterens "
-#~ "konfigurasjon slutter å fungere.\n"
-#~ "\n"
-#~ "Det anbefales på det sterkeste at du oppretter en oppstartsdiskiett.\n"
-#~ "\n"
-#~ "Vil du opprette en oppstartsdiskett?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Oppstartsdiskett"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Velg en disk som fdasd eller dasdfmt skal kjøres på"
-
-#~ msgid "Next"
-#~ msgstr "Neste"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Rediger partisjoner"
-
-#~ msgid "Format DASD"
-#~ msgstr "Formater DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Diskoppsett"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "En feil oppsto under kjøring av %s på stasjon %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Hvis du kjører dasdfmt vil du miste \n"
-#~ "ALLE DATA på stasjon %s.\n"
-#~ "\n"
-#~ "Vil du virkelig gjøre dette?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "En feil har oppstått - ingen gyldige enheter for oppretting av "
-#~ "filsystemer ble funnet. Sjekk maskinvaren din for å finne årsaken til "
-#~ "problemet eller bruk dasdfmt.\n"
-#~ "\n"
-#~ "Tilbake til fdasd-skjermen?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Velg en disk som fdisk skal kjøres på"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Aktiver brannmur"
-
-#~ msgid "No firewall"
-#~ msgstr "Ingen brannmur"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Tillat inngående:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Ugyldig valg"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Du kan ikke tilpasse en deaktivert brannmur."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Tilpasset konfigurasjon av brannvegg"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Du vil kanskje gi tilgang til andre for spesifikke tjenester på din "
-#~ "datamaskin med en brannvegg. Hvilke tjenester vil du gi tilgang til?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Security Enhanced Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Rediger bruker"
-
-#~ msgid "Add User"
-#~ msgstr "Legg til bruker"
-
-#~ msgid "User Name"
-#~ msgstr "Brukernavn"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Passord (bekreft)"
-
-#~ msgid "Full Name"
-#~ msgstr "Fullt navn"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Ugyldig brukernavn"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Brukernavn kan bare inneholde tegnene A-Z, a-z og 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Brukernavn mangler"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Passordet må bestå av minst 6 tegn."
-
-#~ msgid "User Exists"
-#~ msgstr "Brukeren eksisterer"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Root-brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
-#~ "brukeren her."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Systembrukeren er allerede konfigurert. Du trenger ikke å legge til denne "
-#~ "brukeren her."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Denne brukeren eksisterer allerede. Velg en annen."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Du bør bruke en vanlig brukerkonto for de fleste aktivitetene på systemet "
-#~ "ditt. Ved å ikke bruke root-kontoen reduserer du sjansene for å ødelegge "
-#~ "systemets konfigurasjon."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Oppsett av brukerkonto"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Hvilke brukerkontoer ønsker du å ha på systemet? Du bør ha minst en "
-#~ "konto , som ikke er root, til vanlig arbeid. Et flerbrukersystem kan ha "
-#~ "mange kontoer."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Skriv inn informasjon om brukeren."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Endre informasjonen om denne brukeren."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Bruk skyggepassord"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Bruk MD5-passord"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Bruk NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS-domene:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS-tjener:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Forespør tjener via kringkasting"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Bruk LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP-tjener:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP basis DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Bruk TLS-tilkoblinger"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Bruk Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Område:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Admin-tjener:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Fargedybde"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Vennligst velg fargedybden du ønsker å bruke:"
-
-#~ msgid "Resolution"
-#~ msgstr "Oppløsning"
-
-#~ msgid "X Customization"
-#~ msgstr "Tilpassing av X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr "Velg fargedybden og grafikkmodus du ønsker å bruke for ditt system."
-
-#~ msgid "Color Depth:"
-#~ msgstr "Fargedybde:"
-
-#~ msgid "Change"
-#~ msgstr "Endre"
-
-#~ msgid "Resolution:"
-#~ msgstr "Oppløsning:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Forvlagt skrivebord:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Forvalgt innlogging:"
-
-#~ msgid "Graphical"
-#~ msgstr "Grafisk"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Monitor"
-#~ msgstr "Skjerm"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Vennligst velg skjermen som er koblet til ditt system."
-
-#~ msgid "horizontal"
-#~ msgstr "horisontal"
-
-#~ msgid "vertical"
-#~ msgstr "vertikal"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Ugyldig synkroniseringsfrekvens"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "%s-synkroniseringsfrekvenser er ugyldig:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "En gyldig synkroniseringsfrekvens skal være på formen:\n"
-#~ "\n"
-#~ "      31.5                   ett enkelt tall\n"
-#~ "    50.1-90.2                et tallområde\n"
-#~ "31.5,35.0,39.3-40.0          en liste med tall/områder\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Synkroniseringsrater for skjerm"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Vennligst skriv inn synkroniseringsfrekvenser for skjermen din.\n"
-#~ "\n"
-#~ "MERK - det er vanligvis ikke nødvendig å redigere "
-#~ "synkroniseringsfrekvenser manuelt, og man bør forsikre seg om at verdiene "
-#~ "som oppgis er korrekte."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "HSync frekvens: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "VSync frekvens: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Velg skjermen for ditt system. Bruk '%s'-knappen for å gå tilbake til "
-#~ "verdiene fra autosøk."
-
-#~ msgid "Monitor:"
-#~ msgstr "Skjerm:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Hsync frekvens:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "VSync frekvens:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Velg skjermtype"
-
-#~ msgid "Proceed"
-#~ msgstr "Fortsett"
-
-#~ msgid "Video Card"
-#~ msgstr "Skjermkort"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Vennligst velg skjermkort for ditt system. Velg '%s' for å gå tilbake til "
-#~ "valget installasjonsprogrammet fant for ditt system."
-
-#~ msgid "Video RAM"
-#~ msgstr "Video-RAM"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Vennligst velg mengden video-RAM som finnes på ditt skjermkort. Velg '%s' "
-#~ "for å gå tilbake til mengden installasjonsprogrammet fant på ditt kort."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Hopp over konfigurasjon av X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Konfigurasjon av skjermkort"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Velg skjermkort og video-RAM for ditt system."
-
-#~ msgid "Video Card:"
-#~ msgstr "Skjermkort:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Ukjent kort"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Video-RAM:"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "\"Eastern Standard Time\" - midt-Nunavut."
-
-#~ msgid "Great Britain"
-#~ msgstr "Storbritannia"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Nord-Irland"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmania"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "nordøstre Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "sydvest-Mali"
