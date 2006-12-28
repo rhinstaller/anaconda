@@ -1,3 +1,12 @@
+2006-12-27  Dave Lehman  <dlehman@redhat.com>
+
+	* installclasses/rhel.py (InstallClass): handle new repo dict
+	format (one repo path per option) since we weren't handling multiple 
+	repos per option very well (#220241,#220326)
+
+	* installclasses/rhel.py (handleRegKey): Don't log message about
+	VT/ being a tech-preview to avoid confusion on s390, ppc (#220236)
+
 2006-12-22  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Add handling for upgrade conditionals

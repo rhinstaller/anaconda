@@ -82,11 +82,9 @@ class InstallClass(BaseInstallClass):
             lst = []
             if type(uri) == types.ListType:
                 for i in uri:
-                    for p in path:
-                        lst.append("%s/%s" % (i, p))
+                    lst.append("%s/%s" % (i, path))
             else:
-                for p in path:
-                    lst.append("%s/%s" % (uri, p))
+                lst.append("%s/%s" % (uri, path))
 
             rc[name] = lst
 
@@ -120,7 +118,6 @@ class InstallClass(BaseInstallClass):
                 if name.lower() == "virt" and \
                    (rhpl.getArch() not in ("x86_64","i386")
                     and not flags.debug):
-                    log.info("VT/ is a tech-preview on this arch; disabling")
                     continue
                 self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (name,))
@@ -142,7 +139,7 @@ class InstallClass(BaseInstallClass):
                 self.repopaths["virt"] = ["VT"]
                 log.info("Adding Virtualization option")
 
-        for repo in reduce(lambda x,y: x+y, self.repopaths.values()):
+        for repo in self.repopaths.values():
             if not self.taskMap.has_key(repo.lower()):
                 continue
 
