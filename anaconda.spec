@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Jan  2 2006 Peter Jones <pjones@redhat.com> - 11.1.2.25-1
+* Tue Jan  2 2007 Peter Jones <pjones@redhat.com> - 11.1.2.25-1
 - Turn off multipath support by default (enable with "mpath" during boot)
 - Don't clear partitions if it's already been done (#220021)
 - Handle upgrade conditionals better (pnasrat, #218909, #214747)
