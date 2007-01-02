@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.24
+Version: 11.1.2.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan  2 2006 Peter Jones <pjones@redhat.com> - 11.1.2.25-1
+- Turn off multipath support by default (enable with "mpath" during boot)
+- Don't clear partitions if it's already been done (#220021)
+- Handle upgrade conditionals better (pnasrat, #218909, #214747)
+- Handle new repo dict format (dlehman, #220241, #220326)
+- Don't log messages about VT tech preview on s390 and ppc (dlehman, #220236)
+
 * Mon Dec 18 2006 Peter Jones <pjones@redhat.com> - 11.1.2.24-1
 - Make sure reg keys are written out un upgrade (dlehman, #219791)
 - handle 'regkey --skip' correctly in kickstart (dlehman, #219544)
