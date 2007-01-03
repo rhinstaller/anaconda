@@ -989,6 +989,7 @@ class DiskSet:
                     ks = True
                     clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
                     initAll = self.anaconda.id.ksdata.clearpart["initAll"]
+                    self.anaconda.id.ksdata.clearpart.setdefault("done", False)
                     clearDone = self.anaconda.id.ksdata.clearpart["done"]
 
             # FIXME: need the right fix for z/VM formatted dasd
