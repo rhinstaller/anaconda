@@ -1,3 +1,8 @@
+2007-01-03  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/partition_text.py (PartitionWindow.editLVRequest): Don't
+	traceback if they neglect to enter an lvsize (#221253)
+
 2006-12-18  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/module-info: Added stex driver since that was added in the
