@@ -1,3 +1,8 @@
+2007-01-03  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (FileSystemSet.setActive):  Don't try to set on the ksdata if
+	this isn't a kickstart install (#221090).
+
 2007-01-02  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
