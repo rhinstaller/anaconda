@@ -1,3 +1,15 @@
+2007-01-03  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+2007-01-03  Peter Jones  <pjones@redhat.com>
+
+	* installclasses/rhel.py (InstallClass): Handle install paths as a list
+	again. (#221146)
+
+	* partedUtils.py (DiskSet.openDevices): use setdefault when looking up
+	clearpart["done"]
+
 2007-01-03  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.setActive):  Don't try to set on the ksdata if

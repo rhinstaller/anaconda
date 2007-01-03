@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.25
+Version: 11.1.2.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan  3 2007 Peter Jones <pjones@redhat.com> - 11.1.2.26-1
+- Fix bug trying to find repomd files (#221146)
+- Don't do 'clearpart' stuff on fsset if we're not in a kickstart (#221090)
+
 * Tue Jan  2 2007 Peter Jones <pjones@redhat.com> - 11.1.2.25-1
 - Turn off multipath support by default (enable with "mpath" during boot)
 - Don't clear partitions if it's already been done (#220021)
