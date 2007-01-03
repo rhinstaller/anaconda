@@ -82,9 +82,11 @@ class InstallClass(BaseInstallClass):
             lst = []
             if type(uri) == types.ListType:
                 for i in uri:
-                    lst.append("%s/%s" % (i, path))
+                    for p in path:
+                        lst.append("%s/%s" % (i, p))
             else:
-                lst.append("%s/%s" % (uri, path))
+                for p in path:
+                    lst.append("%s/%s" % (uri, p))
 
             rc[name] = lst
 
