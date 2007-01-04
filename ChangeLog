@@ -6,6 +6,9 @@
 	* iutil.py (mkdirChain): Don't log an error just because we're making
 	a directory that already exists.
 
+	* lvm.py (vgremove): Seriously, "pvremove -ff -y"?  You gotta be
+	kidding me.
+
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/kickstart.c: Hack to try to wait for usb floppies and
