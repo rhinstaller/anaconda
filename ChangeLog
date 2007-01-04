@@ -1,5 +1,8 @@
 2007-01-04  Chris Lumens  <clumens@redhat.com>
 
+	* text.py (InstallInterface.drawFrame):  Don't use len so we clear the
+	root window text even if it contains wide characters (#220905).
+
 	* iw/lvm_dialog_gui.py:  Use %d instead of %g for LVM size display
 	(#219414).
 	* iw/partition_gui.py:  Likewise.
