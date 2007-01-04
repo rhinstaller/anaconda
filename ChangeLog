@@ -1,5 +1,8 @@
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/task_gui.py (TaskWindow.getScreen): Translate the description
+	(#216067) 
+
 	* loader2/modules.c (scsiDiskCount): Include cdroms in the disk
 	count; may well help with #207336
 

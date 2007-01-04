@@ -239,7 +239,7 @@ class TaskWindow(InstallWindow):
 
         lbl = self.xml.get_widget("mainLabel")
         if anaconda.id.instClass.description:
-            lbl.set_text(anaconda.id.instClass.description)
+            lbl.set_text(_(anaconda.id.instClass.description))
         else:
             txt = lbl.get_text()
             lbl.set_text(txt %(productName,))
