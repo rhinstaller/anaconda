@@ -46,11 +46,11 @@ class InstallClass(BaseInstallClass):
                                    ["cluster-storage"])]
              }
 
-    instkeyname = _("Installation Number")
-    instkeydesc = _("To install the full set of supported packages included "
+    instkeyname = N_("Installation Number")
+    instkeydesc = N_("To install the full set of supported packages included "
                     "in your subscription, please enter your Installation "
                     "Number")
-    skipkeytext = _("If you're unable to locate the Installation Number, "
+    skipkeytext = N_("If you're unable to locate the Installation Number, "
                     "consult http://www.redhat.com/apps/support/in.html.\n\n"
                     "If you skip:\n"
                     "* You may not get access to the full set of "

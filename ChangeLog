@@ -1,5 +1,13 @@
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/rhel.py: Mark installation key constants to be
+	translated later so that they're translated when we're in the
+	right language (#216067)
+	* packages.py (checkRegKey): Actually use the translation
+	(#216067)
+	* gui.py (InstallKeyWindow.__init__): Likewise
+	* text.py (InstallInterface.getInstallKey): Likewise.
+
 	* iw/task_gui.py (TaskWindow.getScreen): Translate the description
 	(#216067) 
 

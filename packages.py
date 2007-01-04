@@ -274,7 +274,7 @@ def regKeyScreen(anaconda):
         elif rc == SKIP_KEY:
             if anaconda.id.instClass.skipkeytext:
                 rc = anaconda.intf.messageWindow(_("Skip"),
-                                     anaconda.id.instClass.skipkeytext,
+                                     _(anaconda.id.instClass.skipkeytext),
                                      type="custom", custom_icon="question",
                                      custom_buttons=[_("_Back"), _("_Skip")])
                 if not rc:

@@ -584,12 +584,12 @@ class InstallKeyWindow:
         (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
         if anaconda.id.instClass.instkeydesc is not None:
             w = keyxml.get_widget("instkeyLabel")
-            w.set_text(anaconda.id.instClass.instkeydesc)
+            w.set_text(_(anaconda.id.instClass.instkeydesc))
 
         if not anaconda.id.instClass.allowinstkeyskip:
             keyxml.get_widget("skipRadio").hide()
 
-        keyName = anaconda.id.instClass.instkeyname
+        keyName = _(anaconda.id.instClass.instkeyname)
         if anaconda.id.instClass.instkeyname is None:
             keyName = _("Installation Key")
 

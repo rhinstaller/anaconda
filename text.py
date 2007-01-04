@@ -351,7 +351,7 @@ class InstallInterface:
 
     def getInstallKey(self, anaconda, key = ""):
         ic = anaconda.id.instClass
-        keyname = ic.instkeyname
+        keyname = _(ic.instkeyname)
         if keyname is None:
             keyname = _("Installation Key")
         
