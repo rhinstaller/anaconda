@@ -117,11 +117,11 @@ class InstallClass(BaseInstallClass):
                 # virt is only supported on i386/x86_64.  so, let's nuke it
                 # from our repo list on other arches unless you boot with
                 # 'linux debug'
-                if name.lower() == "virt" and \
-                   (rhpl.getArch() not in ("x86_64","i386")
-                    and not flags.debug):
+                if name.lower() == "virt" and ( \
+                        rhpl.getArch() not in ("x86_64","i386")
+                        and not flags.debug):
                     continue
-                self.repopaths[name.lower()] = path
+                self.repopaths[name.lower()] = [path]
                 log.info("Adding %s repo" % (name,))
 
         else:
@@ -141,7 +141,7 @@ class InstallClass(BaseInstallClass):
                 self.repopaths["virt"] = ["VT"]
                 log.info("Adding Virtualization option")
 
-        for repo in self.repopaths.values():
+        for repo in reduce(lambda x,y: x+y, self.repopaths.values(), []):
             if not self.taskMap.has_key(repo.lower()):
                 continue
 

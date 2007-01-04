@@ -9,6 +9,9 @@
 	* lvm.py (vgremove): Seriously, "pvremove -ff -y"?  You gotta be
 	kidding me.
 
+	* installclasses/rhel.py (InstallClass.handleRegKey): add the base
+	class as a list, not a naked string. (#221260)
+
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/kickstart.c: Hack to try to wait for usb floppies and
