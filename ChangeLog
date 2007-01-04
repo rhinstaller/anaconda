@@ -1,3 +1,8 @@
+2007-01-04  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c (scsiDiskCount): Include cdroms in the disk
+	count; may well help with #207336
+
 2007-01-03  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
