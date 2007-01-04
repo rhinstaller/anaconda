@@ -983,7 +983,7 @@ class InstallControlWindow:
 	if not self.rnv.isShowing():
 		self.rnv.view()
 	else:
-		print "Release notes viewer already running"
+		log.error("Release notes viewer already running")
 
     def debugClicked (self, *args):
         try:
