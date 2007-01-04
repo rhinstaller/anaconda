@@ -110,6 +110,12 @@ static int scsiDiskCount(void) {
         for (; devices[i]; i++);
         free(devices);
     }
+    /* have to probe for usb cdrom too */
+    devices = probeDevices(CLASS_CDROM, BUS_SCSI, PROBE_LOADED);
+    if (devices) {
+        for (; devices[i]; i++);
+        free(devices);
+    }
 
     return i;
 }
