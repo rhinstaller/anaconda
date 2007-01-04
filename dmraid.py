@@ -162,11 +162,24 @@ def startAllRaid(driveList):
         flags.dmraid = 0
         dmList = []
         
+    newDmList = []
     for rs in dmList:
         rs.prefix = '/dev/mapper/'
         log.debug("starting raid %s with mknod=True" % (rs,))
-        rs.activate(mknod=True)
-    return dmList
+        try:
+            rs.activate(mknod=True)
+            newDmList.append(rs)
+        except Exception, e:
+            log.error("Activating raid %s failed: " % (rs.rs,))
+            log.error("  table: %s" % (rs.rs.table,))
+            log.error("  exception: %s" % (e,))
+            try:
+                rs.deactivate()
+                del rs
+            except:
+                pass
+
+    return newDmList
 
 def stopAllRaid(dmList):
     """Do a raid stop on each of the raid device tuples given."""

@@ -1,3 +1,8 @@
+2007-01-04  Peter Jones  <pjones@redhat.com>
+
+	* dmraid.py (startAllRaid): If we get an exception activating a raid,
+	log the error and the table and ignore the raid. (backported from HEAD)
+
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py: Mark installation key constants to be
