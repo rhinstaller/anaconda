@@ -1,3 +1,9 @@
+2007-01-04  Chris Lumens  <clumens@redhat.com>
+
+	* iw/lvm_dialog_gui.py:  Use %d instead of %g for LVM size display
+	(#219414).
+	* iw/partition_gui.py:  Likewise.
+
 2007-01-04  Peter Jones <pjones@redhat.com>
 
 	* iutil.py (mkdirChain): Don't log an error just because we're making

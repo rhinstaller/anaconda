@@ -441,7 +441,7 @@ class VolumeGroupEditor:
             sizeEntry = gtk.Entry(16)
             lbl.set_mnemonic_widget(sizeEntry)
             if logrequest:
-                sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
+                sizeEntry.set_text("%d" % (logrequest.getActualSize(self.partitions, self.diskset),))
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(logrequest.size))
@@ -668,8 +668,8 @@ class VolumeGroupEditor:
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The logical volumes you have "
-					  "configured require %g MB, but the "
-					  "volume group only has %g MB.  Please "
+					  "configured require %d MB, but the "
+					  "volume group only has %d MB.  Please "
 					  "either make the volume group larger "
 					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB), custom_icon="error")
 		del tmplogreqs
@@ -693,7 +693,7 @@ class VolumeGroupEditor:
 	else:
 	    self.logvolstore.set_value(iter, 1, "N/A")
 	    
-	self.logvolstore.set_value(iter, 2, "%g" % (size,))
+	self.logvolstore.set_value(iter, 2, "%d" % (size,))
 
 	self.updateVGSpaceLabels()
         dialog.destroy()
@@ -828,7 +828,7 @@ class VolumeGroupEditor:
 	    else:
 		self.logvolstore.set_value(iter, 1, "N/A")
                 
-            self.logvolstore.set_value(iter, 2, "%g" % (size,))
+            self.logvolstore.set_value(iter, 2, "%d" % (size,))
         
 
     def updateVGSpaceLabels(self, alt_pvlist=None):
@@ -879,8 +879,8 @@ class VolumeGroupEditor:
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The logical volumes you have "
-					  "configured require %g MB, but the "
-					  "volume group only has %g MB.  Please "
+					  "configured require %d MB, but the "
+					  "volume group only has %d MB.  Please "
 					  "either make the volume group larger "
 					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB), custom_icon="error")
 		continue
@@ -1075,7 +1075,7 @@ class VolumeGroupEditor:
 		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
 		else:
 		    self.logvolstore.set_value(iter, 1, "")
-		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.getActualSize(self.partitions, self.diskset)))
+		self.logvolstore.set_value(iter, 2, "%d" % (lvrequest.getActualSize(self.partitions, self.diskset)))
 
 	self.logvollist = gtk.TreeView(self.logvolstore)
         col = gtk.TreeViewColumn(_("Logical Volume Name"),
