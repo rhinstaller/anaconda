@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.26
+Version: 11.1.2.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan  4 2007 Peter Jones <pjones@redhat.com> - 11.1.2.27-1
+- Include cdroms in the scsi disk count (katzj, #207336)
+- Translation display fixes (katzj, #216067)
+- Wait longer for usb floppy access (#211222)
+- Make the package repo path list right (#221260)
+
 * Wed Jan  3 2007 Peter Jones <pjones@redhat.com> - 11.1.2.26-1
 - Fix bug trying to find repomd files (#221146)
 - Don't do 'clearpart' stuff on fsset if we're not in a kickstart (#221090)
