@@ -3,6 +3,9 @@
 	* dmraid.py (startAllRaid): If we get an exception activating a raid,
 	log the error and the table and ignore the raid. (backported from HEAD)
 
+	* iutil.py (mkdirChain): Don't log an error just because we're making
+	a directory that already exists.
+
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py: Mark installation key constants to be
