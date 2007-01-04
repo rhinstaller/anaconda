@@ -15,6 +15,7 @@
 
 import os, isys, string, stat
 import os.path
+from errno import *
 import rhpl
 import warnings
 import subprocess
@@ -156,8 +157,13 @@ def mkdirChain(dir):
     try:
         os.makedirs(dir, 0755)
     except OSError, (errno, msg):
+        try:
+            if errno == EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
+                return
+        except:
+            pass
+            
         log.error("could not create directory %s: %s" % (dir, msg))
-        pass
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
