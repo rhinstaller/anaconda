@@ -8,6 +8,9 @@
 
 2007-01-04  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/kickstart.c: Hack to try to wait for usb floppies and
+	avoid people having to retry (#211222)
+
 	* installclasses/rhel.py: Mark installation key constants to be
 	translated later so that they're translated when we're in the
 	right language (#216067)

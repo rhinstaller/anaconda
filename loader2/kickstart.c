@@ -240,10 +240,18 @@ int ksGetCommand(int cmd, char ** last, int * argc, char *** argv) {
 int kickstartFromFloppy(char *kssrc) {
     struct device ** devices;
     char *p, *kspath;
-    int i, rc;
+    int i = 0, rc;
 
     logMessage(INFO, "doing kickstart from floppy");
     devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, PROBE_LOADED);
+    /* usb can take some time to settle, even with the various hacks we 
+     * have in place.  so if we've been requested to ks from a floppy, try to
+     * make sure there really isn't one before bailing */
+    while (!devices && (i++ < 10)) { 
+        logMessage(DEBUGLVL, "sleeping to wait for a floppy...");
+        sleep(1);
+        devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, PROBE_LOADED);
+    }
     if (!devices) {
         logMessage(ERROR, "no floppy devices");
         return 1;
