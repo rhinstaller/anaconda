@@ -18,7 +18,8 @@ from pirut.GroupSelector import GroupSelector
 
 import gui
 from iw_gui import *
-from rhpl.translate import _, N_
+from rhpl.translate import _, N_, textdomain
+textdomain("pirut")
 
 class GroupSelectionWindow (InstallWindow):
     def getScreen(self, anaconda):
