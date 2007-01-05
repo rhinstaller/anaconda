@@ -158,7 +158,7 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 /* returns -1 if no checksum encoded in media, 0 if no match, 1 if match */
 /* mediasum is the sum encoded in media, computedsum is one we compute   */
 /* both strings must be pre-allocated at least 33 chars in length        */
-static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) {
+static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int flags) {
     int nread;
     int i, j;
     int appdata_start_offset, appdata_end_offset;
@@ -178,6 +178,13 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
     char thisfragsum[FRAGMENT_SUM_LENGTH];
     long long fragmentcount = 0;
     MD5_CTX md5ctx, fragmd5ctx;
+    int quiet;
+    int gauge;
+    int gaugeat = -1;
+    int gaugeval;
+
+    quiet = (((flags & 1) == 1) ? 1 : 0); /* bit 1: quiet */
+    gauge = (((flags & 2) == 2) ? 1 : 0); /* bit 2: gauge */
 
     if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize, &supported, fragmentsums, &fragmentcount)) < 0)
 	return -1;
@@ -273,6 +280,14 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
 	    printf("\b\b\b\b\b\b%05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
 	    fflush(stdout);
 	}
+	if (gauge) {
+	    gaugeval = (100.0*offset)/(isosize-skipsectors*2048.0);
+	    if (gaugeval != gaugeat) {
+		printf("%d\n", gaugeval);
+		fflush(stdout);
+		gaugeat = gaugeval;
+	    }
+	}
     }
 
     if (!quiet) {
@@ -318,7 +333,7 @@ static void readCB(void *co, long long pos) {
 }
 #endif
 
-static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported, int quiet) {
+static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported, int flags) {
     int rc;
     int skipsectors;
     long long fragmentcount = 0;
@@ -332,18 +347,21 @@ static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long 
 	return -1;
     }
 
-    rc = checkmd5sum(isofd, mediasum, computedsum, quiet);
+    rc = checkmd5sum(isofd, mediasum, computedsum, flags);
 
     return rc;
 }
 
-int mediaCheckFile(char *file, int quiet) {
+int mediaCheckFile(char *file, int flags) {
     int isofd;
     int rc;
     char *result;
     char mediasum[33], computedsum[33];
     long long isosize;
     int supported;
+    int quiet;
+
+    quiet = (((flags & 1) == 1) ? 1 : 0); /* bit 1: quiet */
 
     isofd = open(file, O_RDONLY);
 
@@ -352,7 +370,7 @@ int mediaCheckFile(char *file, int quiet) {
 	return -1;
     }
 
-    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize, &supported, quiet);
+    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize, &supported, flags);
 
     close(isofd);
 

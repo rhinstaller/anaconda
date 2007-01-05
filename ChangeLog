@@ -7,6 +7,10 @@
 	or ftp:// on the site name, trim that before putting it in the ui
 	structure (#220728).
 
+	* isomd5sum/checkisomd5.c, libcheckisomd5.c: Patch from Ryan Finnie
+	to add the --gauge option which outputs gauge values suitable for
+	piping in to programs like dialog(1). (#220286)
+
 2007-01-04  Peter Jones <pjones@redhat.com>
 
 	* lvm.py (vgremove): Seriously, "pvremove -ff -y"?  You gotta be
