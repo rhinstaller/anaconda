@@ -166,11 +166,22 @@ class ReleaseNotesViewer:
 
 	def setupWindow(self):
 		self.vue.set_document(self.doc)
-		self.textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+		self.textWin = gtk.Window()
+		self.textWin.connect("delete-event", self.closedCallBack)
+		mainbox = gtk.VBox(False, 6)
+		self.textWin.add(mainbox)
+
 		table = gtk.Table(3, 3, False)
-		self.textWin.vbox.pack_start(table)
-		self.textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
-		self.textWin.connect("response", self.closedCallBack)
+		mainbox.pack_start(table)
+
+		mainbox.pack_start(gtk.HSeparator(), False, False)
+		bb = gtk.HButtonBox()
+		bb.set_property("layout-style", gtk.BUTTONBOX_END)
+
+		b = gtk.Button(stock="gtk-close")
+		b.connect("clicked", self.closedCallBack)
+		bb.pack_start(b)
+		mainbox.pack_start(bb, False, False)
 
 		vbox1 = gtk.VBox()
 		vbox1.set_border_width(10)
@@ -258,7 +269,7 @@ class ReleaseNotesViewer:
 
 		return ret
 
-	def closedCallBack(self, widget, data):
+	def closedCallBack(self, *args):
 		self.textWin.hide_all()
 		self.is_showing = False
 

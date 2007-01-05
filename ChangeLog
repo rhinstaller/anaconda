@@ -1,5 +1,9 @@
 2007-01-05  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/release_notes.py (ReleaseNotesViewer.setupWindow): Switch to
+	just a GtkWindow so that we don't have annoying GtkDialog behavior
+	on press of ESC (#220418)
+
 	* iw/package_gui.py: Add pirut to our textdomain so strings get
 	translated (#216067)
 
