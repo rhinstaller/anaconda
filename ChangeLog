@@ -3,6 +3,10 @@
 	* loader2/modules.c (getModuleLocation): Log module path at debug
 	level.
 
+	* loader2/urls.c (urlMainSetupPanel): If the user specified http://
+	or ftp:// on the site name, trim that before putting it in the ui
+	structure (#220728).
+
 2007-01-04  Peter Jones <pjones@redhat.com>
 
 	* lvm.py (vgremove): Seriously, "pvremove -ff -y"?  You gotta be

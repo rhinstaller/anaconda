@@ -171,7 +171,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
         sprintf(buf, "%s%s", finalPrefix, filename);
     else
         sprintf(buf, "%s/%s", finalPrefix, filename);
-    
+
     logMessage(INFO, "transferring %s://%s%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
                ui->address, buf);
@@ -371,8 +371,14 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
         return LOADER_BACK;
     }
 
+    /* if the user entered the protocol type, trim it */
+    if (!strncmp(site, "http://", 7))
+        site += 7;
+    else if (!strncmp(site, "ftp://", 6))
+        site += 6;
+
     if (ui->address) free(ui->address);
-    ui->address = strdup(site);
+    asprintf(&ui->address, "%s", site);
 
     if (ui->prefix) free(ui->prefix);
 
