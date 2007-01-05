@@ -1241,7 +1241,7 @@ fi
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
-cd $DEST/usr/$LIBDIR/python2.4
+cd $DEST/usr/$LIBDIR/python*
 patch -p0 > /dev/null <<EOF
 --- urllib.py.orig	Thu Oct 25 17:05:06 2001
 +++ urllib.py	Thu Oct 25 17:05:34 2001
