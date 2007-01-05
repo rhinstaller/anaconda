@@ -7,9 +7,15 @@
 	or ftp:// on the site name, trim that before putting it in the ui
 	structure (#220728).
 
+	* loader2/net.c (doDhcp): If dhcpclass is empty, build one
+	from uname() like 'Linux 2.6.18-1.2869.fc6 i686' (#220082).
+
 	* isomd5sum/checkisomd5.c, libcheckisomd5.c: Patch from Ryan Finnie
 	to add the --gauge option which outputs gauge values suitable for
 	piping in to programs like dialog(1). (#220286)
+
+	* isys/isys.c (doDhcpNetDevice): If dhcpclass is empty, build one
+	from uname() like 'Linux 2.6.18-1.2869.fc6 i686' (#220082).
 
 2007-01-04  Peter Jones <pjones@redhat.com>
 

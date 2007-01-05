@@ -619,6 +619,7 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     char buf[47];
     time_t timeout = 45;
     struct pumpNetIntf cfg;
+    struct utsname kv;
     /* FIXME: we call this from rescue mode, need to pass in what user wants */
     DHCP_Preference pref = DHCPv6_DISABLE;
     ip_addr_t *tip;
@@ -627,8 +628,12 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
         return NULL;
 
-    if (dhcpclass == NULL)
-        dhcpclass = "anaconda";
+    if (dhcpclass == NULL) {
+        if (uname(&kv) == -1)
+            dhcpclass = "anaconda";
+        else
+            asprintf(&dhcpclass, "%s %s %s", kv.sysname,kv.release,kv.machine);
+    }
 
     memset(&cfg, '\0', sizeof(cfg));
     strncpy(cfg.device, device, sizeof(cfg.device) - 1);

@@ -23,6 +23,7 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/utsname.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <popt.h>
@@ -1302,13 +1303,21 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     time_t timeout = 45;
     int loglevel;
     DHCP_Preference pref = 0;
+    struct utsname kv;
 
     i = &dev->dev;
 
-    if (dev->vendor_class != NULL)
+    if (dev->vendor_class != NULL) {
         class = dev->vendor_class;
-    else
-        class = "anaconda";
+    } else {
+        if (uname(&kv) == -1) {
+            logMessage(ERROR, "failure running uname() in doDhcp()");
+            class = "anaconda";
+        } else {
+            asprintf(&class, "%s %s %s", kv.sysname, kv.release, kv.machine);
+			logMessage(DEBUGLVL, "sending %s as dhcp vendor-class", class);
+        }
+    }
 
     if (getLogLevel() == DEBUGLVL)
         loglevel = LOG_DEBUG;
