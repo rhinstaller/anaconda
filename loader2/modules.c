@@ -859,12 +859,13 @@ char * getModuleLocation(int version) {
     if (version == 1) {
         ret = malloc(strlen(u.release) + strlen(arch) + 2);
         sprintf(ret, "%s/%s", u.release, arch);
-        return ret;
     } else {
         ret = malloc(strlen(u.release) + 1);
         strcpy(ret, u.release);
-        return ret;
     }
+
+    logMessage(DEBUGLVL, "getModuleLocation: %s", ret);
+    return ret;
 }
 
 /* JKFIXME: needs a way to know about module locations.  also, we should

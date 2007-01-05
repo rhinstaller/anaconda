@@ -1,3 +1,8 @@
+2007-01-05  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/modules.c (getModuleLocation): Log module path at debug
+	level.
+
 2007-01-04  Peter Jones <pjones@redhat.com>
 
 	* lvm.py (vgremove): Seriously, "pvremove -ff -y"?  You gotta be
