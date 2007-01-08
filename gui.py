@@ -672,6 +672,7 @@ class MessageWindow:
         return self.rc
     
     def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None, run = True, destroyAfterRun = True):
+        self.debugRid = None
         self.title = title
         if flags.autostep:
             self.rc = 1
@@ -719,6 +720,11 @@ class MessageWindow:
                 rid = rid + 1
 
             defaultchoice = rid - 1
+            if flags.debug:
+                widget = self.dialog.add_button(_("_Debug"), rid)
+                self.debugRid = rid
+                rid += 1
+
         else:
             if default == "no":
                 defaultchoice = 0
@@ -752,12 +758,34 @@ class MessageWindow:
             self.rc = 0
         else:
             self.rc = rc
+
+        if not self.debugRid is None and self.rc == self.debugRid:
+            self.debugClicked(self)
+            return self.run(destroy)
+
         if destroy:
             self.dialog.destroy()
 
         # restore busy cursor
         if busycursor:
             setCursorToBusy()
+
+    def debugClicked (self, *args):
+        try:
+            # switch to VC1 so we can debug
+            isys.vtActivate (1)
+        except SystemError:
+            pass
+        import pdb
+        try:
+            pdb.set_trace()
+        except:
+            sys.exit(-1)
+        try:
+            # switch back
+            isys.vtActivate (6)
+        except SystemError:
+            pass
 
 class EntryWindow(MessageWindow):
     def __init__ (self, title, text, prompt, entrylength = None):
@@ -943,7 +971,7 @@ class InstallControlWindow:
             sys.exit(-1)
         try:
             # switch back
-            isys.vtActivate (7)
+            isys.vtActivate (6)
         except SystemError:
             pass
 
