@@ -1,3 +1,8 @@
+2007-01-08  Peter Jones  <pjones@redhat.com>
+
+	* gui.py (MessageWindow): put a 'debug' button on all dialogs with
+	custom buttons if flags.debug is set.
+
 2007-01-05  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/release_notes.py (ReleaseNotesViewer.setupWindow): Switch to
