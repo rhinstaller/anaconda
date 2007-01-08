@@ -3,6 +3,9 @@
 	* gui.py (MessageWindow): put a 'debug' button on all dialogs with
 	custom buttons if flags.debug is set.
 
+	* loader2/init.c (main): print a newline before "Greetings.", so it
+	doesn't overwrite the grub/syslinux message before it.
+
 2007-01-05  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/release_notes.py (ReleaseNotesViewer.setupWindow): Switch to
