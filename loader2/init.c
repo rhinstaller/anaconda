@@ -580,7 +580,7 @@ int main(int argc, char **argv) {
 
     umask(022);
 
-    printstr("Greetings.\n");
+    printstr("\nGreetings.\n");
 
     printf("anaconda installer init version %s starting\n", VERSION);
 
