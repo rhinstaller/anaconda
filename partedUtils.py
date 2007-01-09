@@ -983,28 +983,37 @@ class DiskSet:
                 rc = 1
             else:
                 if not intf:
+                    self._removeDisk(drive)
                     return False
-                devmsg = ""
+                msg = _("The partition table on device %s was unreadable. "
+                        "To create new partitions it must be initialized, "
+                        "causing the loss of ALL DATA on this drive.\n\n"
+                        "This operation will override any previous "
+                        "installation choices about which drives to "
+                        "ignore.\n\n"
+                        "Would you like to initialize this drive, "
+                        "erasing ALL DATA?") % (drive,)
+
                 if rhpl.getArch() == "s390" \
                         and drive[:4] == "dasd" \
                         and isys.getDasdState(drive):
                     devs = isys.getDasdDevPort()
-                    devmsg = " (%s)" % (devs[drive],)
-
-                rc = intf.messageWindow(_("Warning"),
-                     _("The partition table on device %s%s was unreadable. "
+                    msg = \
+                     _("The partition table on device %s (%s) was unreadable. "
                        "To create new partitions it must be initialized, "
                        "causing the loss of ALL DATA on this drive.\n\n"
                        "This operation will override any previous "
                        "installation choices about which drives to "
                        "ignore.\n\n"
                        "Would you like to initialize this drive, "
-                       "erasing ALL DATA?")
-                                % (drive, devmsg), type = "yesno")
+                       "erasing ALL DATA?") % (drive, devs[drive])
+
+                rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
             if rc != 0:
                 return True
         
+        self._removeDisk(drive)
         return False
 
     def _labelDevice(self, drive):
@@ -1013,22 +1022,26 @@ class DiskSet:
         deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
 
         try:
-            # FIXME: need the right fix for z/VM formatted dasd
-            if rhpl.getArch() == "s390" \
-                    and drive[:4] == "dasd" \
-                    and isys.getDasdState(drive):
-                if self.dasdFmt(drive):
-                    raise LabelError, drive
-                dev = parted.PedDevice.get(deviceFile)
-                disk = parted.PedDisk.new(dev)
-            else:
-                dev = parted.PedDevice.get(deviceFile)
-                disk = dev.disk_new_fresh(getDefaultDiskType())
-                disk.commit()
-        except parted.error, msg:
-            log.debug("parted error: %s" % (msg,))
+            try:
+                # FIXME: need the right fix for z/VM formatted dasd
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd" \
+                        and isys.getDasdState(drive):
+                    if self.dasdFmt(drive):
+                        raise LabelError, drive
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = parted.PedDisk.new(dev)
+                else:
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = dev.disk_new_fresh(getDefaultDiskType())
+                    disk.commit()
+            except parted.error, msg:
+                log.debug("parted error: %s" % (msg,))
+                raise
+        except:
             self._removeDisk(drive)
             raise LabelError, drive
+
 
         self._addDisk(drive, disk)
         return disk, dev
@@ -1119,12 +1132,11 @@ class DiskSet:
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
                 else:
-                    if self._askForLabelPermission(self, intf, drive,
+                    if not self._askForLabelPermission(self, intf, drive,
                             clearDevs, initAll, ks):
-                        recreate = 1
-                    else:
-                        self._removeDisk(drive, disk)
                         continue
+
+                    recreate = 1
 
                 if recreate == 1 and not flags.test:
                     try:
