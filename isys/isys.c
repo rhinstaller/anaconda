@@ -631,8 +631,10 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (dhcpclass == NULL) {
         if (uname(&kv) == -1)
             dhcpclass = "anaconda";
-        else
-            asprintf(&dhcpclass, "%s %s %s", kv.sysname,kv.release,kv.machine);
+        else {
+            int ret;
+            ret = asprintf(&dhcpclass, "%s %s %s", kv.sysname,kv.release,kv.machine);
+        }
     }
 
     memset(&cfg, '\0', sizeof(cfg));

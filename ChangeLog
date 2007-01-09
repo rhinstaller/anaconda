@@ -1,3 +1,10 @@
+2007-01-09  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.c (doDhcpNetDevice):  Don't care about the return value of
+	asprintf.
+	* loader2/net.c (doDhcp):  Likewise.
+	* loader2/urls.c (urlMainSetupPanel):  Likewise.
+
 2007-01-09  Peter Jones  <pjones@redhat.com>
 
 	* autopart.py (fitConstrained): Use per-arch minimum for the starting

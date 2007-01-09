@@ -1314,8 +1314,10 @@ char *doDhcp(struct networkDeviceConfig *dev) {
             logMessage(ERROR, "failure running uname() in doDhcp()");
             class = "anaconda";
         } else {
-            asprintf(&class, "%s %s %s", kv.sysname, kv.release, kv.machine);
-			logMessage(DEBUGLVL, "sending %s as dhcp vendor-class", class);
+            int ret;
+
+            ret = asprintf(&class, "%s %s %s", kv.sysname, kv.release, kv.machine);
+            logMessage(DEBUGLVL, "sending %s as dhcp vendor-class", class);
         }
     }
 

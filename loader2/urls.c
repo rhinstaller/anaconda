@@ -265,6 +265,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtGrid entryGrid, buttons, grid;
     char * chptr;
     char * buf = NULL;
+    int r;
 
     if (ui->address) {
         site = ui->address;
@@ -378,7 +379,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
         site += 6;
 
     if (ui->address) free(ui->address);
-    asprintf(&ui->address, "%s", site);
+    r = asprintf(&ui->address, "%s", site);
 
     if (ui->prefix) free(ui->prefix);
 
