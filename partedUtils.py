@@ -957,6 +957,39 @@ class DiskSet:
 
         return 1
 
+    def _askForLabelPermission(self, intf, drive, clearDevs, initAll, ks):
+        # if anaconda is None here, we are called from labelFactory
+        # XXX FIXME this test is terrible.
+        if self.anaconda is not None:
+            rc = 0
+            if ks and (drive in clearDevs) and initAll:
+                rc = 1
+            else:
+                if not intf:
+                    return False
+                devmsg = ""
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd" \
+                        and isys.getDasdState(drive):
+                    devs = isys.getDasdDevPort()
+                    devmsg = " (%s)" % (devs[drive],)
+
+                rc = intf.messageWindow(_("Warning"),
+                     _("The partition table on device %s%s was unreadable. "
+                       "To create new partitions it must be initialized, "
+                       "causing the loss of ALL DATA on this drive.\n\n"
+                       "This operation will override any previous "
+                       "installation choices about which drives to "
+                       "ignore.\n\n"
+                       "Would you like to initialize this drive, "
+                       "erasing ALL DATA?")
+                                % (drive, devmsg), type = "yesno")
+
+            if rc != 0:
+                return True
+        
+        return False
+
     def openDevices (self):
         """Open the disks on the system and skip unopenable devices."""
 
@@ -999,29 +1032,14 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
 
-                # if anaconda is None here, we are called from labelFactory
-                if self.anaconda is not None:
-                    if ks and (drive in clearDevs) and initAll:
-                        rc = 1
-                    else:
-                        rc = intf.messageWindow(_("Warning"),
-                             _("The partition table on device %s (%s) was unreadable. "
-                               "To create new partitions it must be initialized, "
-                               "causing the loss of ALL DATA on this drive.\n\n"
-                               "This operation will override any previous "
-                               "installation choices about which drives to "
-                               "ignore.\n\n"
-                               "Would you like to initialize this drive, "
-                               "erasing ALL DATA?")
-                                        % (drive, devs[drive]), type = "yesno")
-
-                    if rc == 0:
+                if not self._askForLabelPermission(intf, drive, clearDevs,
+                        initAll, ks):
+                    DiskSet.skippedDisks.append(drive)
+                    continue
+                else:
+                    if (self.dasdFmt(drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue
-                    elif rc != 0:
-                        if (self.dasdFmt(drive)):
-                            DiskSet.skippedDisks.append(drive)
-                            continue
                 
             try:
                 dev = parted.PedDevice.get (deviceFile)
@@ -1059,34 +1077,9 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
-                    if rhpl.getArch() == "s390" \
-                            and drive[:4] == "dasd" \
-                            and isys.getDasdState(drive):
-                        devs = isys.getDasdDevPort()
-                        format = drive + " (" + devs[drive] + ")"
-                    else:
-                        format = drive
-
-                    # if anaconda is None here, we are called from labelFactory
-                    if self.anaconda is not None:
-                        if ks and (drive in clearDevs) and initAll:
-                            rc = 1
-                        else:
-                            rc = intf.messageWindow(_("Warning"),
-                                 _("The partition table on device %s was unreadable. "
-                                   "To create new partitions it must be initialized, "
-                                   "causing the loss of ALL DATA on this drive.\n\n"
-                                   "This operation will override any previous "
-                                   "installation choices about which drives to "
-                                   "ignore.\n\n"
-                                   "Would you like to initialize this drive, "
-                                   "erasing ALL DATA?") % (format,), type = "yesno")
-
-                        if rc == 0:
-                            DiskSet.skippedDisks.append(drive)
-                            continue
-                        elif rc != 0:
-                            recreate = 1
+                    if self._askForLabelPermission(intf, drive, clearDevs,
+                            initAll, ks):
+                        recreate = 1
                     else:
                         DiskSet.skippedDisks.append(drive)
                         continue
