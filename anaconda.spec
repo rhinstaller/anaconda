@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.53
+Version: 10.1.1.54
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan  9 2007 Peter Jones <pjones@redhat.com> - 10.1.1.54-1
+- Check all CD-Roms for ks.cfg (dlehman, #203344)
+- Save result from upgrade vs install UI page across forward->back movement
+  (dlehman, #208053)
+
 * Tue Nov 28 2006 Jeremy Katz <katzj@redhat.com> - 10.1.1.53-1
 - Ensure we only install kernel-xenU on paravirt xen
 
