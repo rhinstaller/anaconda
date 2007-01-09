@@ -874,9 +874,11 @@ class DiskSet:
             msg += "; adding to skip list"
         log.debug(msg)
 
-        del self.disks[drive]
+        if self.disks.has_key(drive):
+            del self.disks[drive]
         if addSkip:
-            del self.initializedDisks[drive]
+            if self.initializedDisks.has_key(drive):
+                del self.initializedDisks[drive]
             DiskSet.skippedDisks.append(drive)
 
     def refreshDevices (self):
