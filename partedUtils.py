@@ -1132,8 +1132,8 @@ class DiskSet:
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
                 else:
-                    if not self._askForLabelPermission(self, intf, drive,
-                            clearDevs, initAll, ks):
+                    if not self._askForLabelPermission(intf, drive, clearDevs,
+                            initAll, ks):
                         continue
 
                     recreate = 1
