@@ -839,6 +839,110 @@ sx8
 	scsi_hostadapter
 	"Promise SATA SX8 block driver"
 
+# all the libata pata drivers
+pata_ali
+        scsi_hostadapter
+        low-level driver for ALi PATA
+pata_amd
+        scsi_hostadapter
+        low-level driver for AMD PATA IDE
+pata_artop
+        scsi_hostadapter
+        SCSI low-level driver for ARTOP PATA
+pata_atiixp
+        scsi_hostadapter
+        low-level driver for ATI IXP200/300/400
+pata_cmd64x
+        scsi_hostadapter
+        low-level driver for CMD64x series PATA controllers
+pata_cs5520
+        scsi_hostadapter
+        low-level driver for Cyrix CS5510/5520
+pata_cs5530
+        scsi_hostadapter
+        low-level driver for the Cyrix/NS/AMD 5530
+pata_cs5535
+        scsi_hostadapter
+        low-level driver for the NS/AMD 5530
+pata_cypress
+        scsi_hostadapter
+        low-level driver for the CY82C693 PATA controller
+pata_efar
+        scsi_hostadapter
+        SCSI low-level driver for EFAR PIIX clones
+pata_hpt366
+        scsi_hostadapter
+        low-level driver for the Highpoint HPT366/368
+pata_hpt37x
+        scsi_hostadapter
+        low-level driver for the Highpoint HPT37x/30x
+pata_hpt3x2n
+        scsi_hostadapter
+        low-level driver for the Highpoint HPT3x2n/30x
+pata_hpt3x3
+        scsi_hostadapter
+        low-level driver for the Highpoint HPT343/363
+pata_isapnp
+        scsi_hostadapter
+        low-level driver for ISA PnP ATA
+pata_it821x
+        scsi_hostadapter
+        low-level driver for the IT8211/IT8212 IDE RAID controller
+pata_jmicron
+        scsi_hostadapter
+        SCSI low-level driver for Jmicron PATA ports
+pata_marvell
+        scsi_hostadapter
+        SCSI low-level driver for Marvell ATA in legacy mode
+pata_mpiix
+        scsi_hostadapter
+        low-level driver for Intel MPIIX
+pata_netcell
+        scsi_hostadapter
+        SCSI low-level driver for Netcell PATA RAID
+pata_ns87410
+        scsi_hostadapter
+        low-level driver for Nat Semi 87410
+pata_oldpiix
+        scsi_hostadapter
+        SCSI low-level driver for early PIIX series controllers
+pata_optidma
+        scsi_hostadapter
+        low-level driver for Opti Firestar/Firestar Plus
+pata_opti
+        scsi_hostadapter
+        low-level driver for Opti 621/621X
+pata_pcmcia
+        scsi_hostadapter
+        low-level driver for PCMCIA ATA
+pata_pdc2027x
+        scsi_hostadapter
+        libata driver module for Promise PDC20268 to PDC20277
+pata_pdc202xx_old
+        scsi_hostadapter
+        low-level driver for Promise 2024x and 20262-20267
+pata_qdi
+        scsi_hostadapter
+        low-level driver for qdi ATA
+pata_serverworks
+        scsi_hostadapter
+        low-level driver for Serverworks OSB4/CSB5/CSB6
+pata_sil680
+        scsi_hostadapter
+        low-level driver for SI680 PATA
+pata_sis
+        scsi_hostadapter
+        SCSI low-level driver for SiS ATA
+pata_sl82c105
+        scsi_hostadapter
+        low-level driver for Sl82c105
+pata_triflex
+        scsi_hostadapter
+        low-level driver for Compaq Triflex
+pata_via
+        scsi_hostadapter
+        low-level driver for VIA PATA
+
 # needed for sparc
 sym53c8xx
 	scsi_hostadapter
