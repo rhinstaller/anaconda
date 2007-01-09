@@ -990,6 +990,32 @@ class DiskSet:
         
         return False
 
+    def _labelDevice(self, drive):
+        log.info("Reinitializing label for drive %s" % (drive,))
+
+        deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+
+        try:
+            # FIXME: need the right fix for z/VM formatted dasd
+            if rhpl.getArch() == "s390" \
+                    and drive[:4] == "dasd" \
+                    and isys.getDasdState(drive):
+                if self.dasdFmt(drive):
+                    raise LabelError, drive
+                dev = parted.PedDevice.get(deviceFile)
+                disk = parted.PedDisk.new(dev)
+            else:
+                dev = parted.PedDevice.get(deviceFile)
+                disk = dev.disk_new_fresh(getDefaultDiskType())
+                disk.commit()
+        except parted.error, msg:
+            log.debug("parted error: %s" % (msg,))
+            DiskSet.skippedDisks.append(drive)
+            raise LabelError, drive
+
+        self.disks[drive] = disk
+        return disk, dev
+
     def openDevices (self):
         """Open the disks on the system and skip unopenable devices."""
 
@@ -1014,6 +1040,9 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
 
+            disk = None
+            dev = None
+
             ks = False
             clearDevs = []
             initAll = False
@@ -1027,83 +1056,53 @@ class DiskSet:
             if rhpl.getArch() == "s390" \
                     and drive[:4] == "dasd" \
                     and isys.getDasdState(drive):
-                devs = isys.getDasdDevPort()
-                if intf is None:
-                    DiskSet.skippedDisks.append(drive)
-                    continue
+                try:
+                    if not self._askForLabelPermission(intf, drive, clearDevs,
+                            initAll, ks):
+                        raise LabelError, drive
 
-                if not self._askForLabelPermission(intf, drive, clearDevs,
-                        initAll, ks):
-                    DiskSet.skippedDisks.append(drive)
+                    disk, dev = self._labelDevice(drive)
+                except:
                     continue
-                else:
-                    if (self.dasdFmt(drive)):
-                        DiskSet.skippedDisks.append(drive)
-                        continue
                 
-            try:
-                dev = parted.PedDevice.get (deviceFile)
-            except parted.error, msg:
-                DiskSet.skippedDisks.append(drive)
-                continue
-
             if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
                        or (drive in clearDevs)) and not flags.test:
-                if rhpl.getArch() == "s390" \
-                        and drive[:4] == "dasd" \
-                        and isys.getDasdState(drive):
-                    if self.dasdFmt(drive):
-                        DiskSet.skippedDisks.append(drive)
-                        continue                    
-                else:
-                    try:
-                        disk = dev.disk_new_fresh(getDefaultDiskType())
-                        disk.commit()
-                        self.disks[drive] = disk
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
-                
+                try:
+                    disk, dev = self._labelDevice(drive)
+                except:
+                    continue
+        
             try:
-                disk = parted.PedDisk.new(dev)
-                self.disks[drive] = disk
+                if not dev:
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = None
+            except parted.error, msg:
+                log.debug("parted error: %s" % (msg,))
+                DiskSet.skippedDisks.append(drive)
+                continue
+        
+            try:
+                if not disk:
+                    disk = parted.PedDisk.new(dev)
+                    self.disks[drive] = disk
             except parted.error, msg:
                 recreate = 0
                 if zeroMbr:
                     log.error("zeroMBR was set and invalid partition table "
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
-                elif intf is None:
-                    DiskSet.skippedDisks.append(drive)
-                    continue
                 else:
-                    if self._askForLabelPermission(intf, drive, clearDevs,
-                            initAll, ks):
+                    if self._askForLabelPermission(self, intf, drive,
+                            clearDevs, initAll, ks):
                         recreate = 1
                     else:
                         DiskSet.skippedDisks.append(drive)
                         continue
 
                 if recreate == 1 and not flags.test:
-                    if rhpl.getArch() == "s390" \
-                            and drive[:4] == "dasd" \
-                            and isys.getDasdState(drive):
-                        if self.dasdFmt(drive):
-                            DiskSet.skippedDisks.append(drive)
-                            continue
-                    else:                    
-                        try:
-                            disk = dev.disk_new_fresh(getDefaultDiskType())
-                            disk.commit()
-                            self.disks[drive] = disk
-                        except parted.error, msg:
-                            DiskSet.skippedDisks.append(drive)
-                            continue
                     try:
-                        disk = parted.PedDisk.new(dev)
-                        self.disks[drive] = disk
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
+                        disk, dev = self._labelDevice(drive)
+                    except:
                         continue
 
             filter_partitions(disk, validateFsType)
@@ -1114,25 +1113,9 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
-                if rhpl.getArch() == "s390" \
-                        and drive[:4] == "dasd" \
-                        and isys.getDasdState(drive):
-                    if self.dasdFmt(drive):
-                        DiskSet.skippedDisks.append(drive)
-                        continue                    
-                else:
-                    try:
-                        disk = dev.disk_new_fresh(getDefaultDiskType())
-                        disk.commit()
-                        self.disks[drive] = disk
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
                 try:
-                    disk = parted.PedDisk.new(dev)
-                    self.disks[drive] = disk
-                except parted.error, msg:
-                    DiskSet.skippedDisks.append(drive)
+                    disk, dev = self._labelDevice(drive)
+                except:
                     continue
 
     def partitionTypes (self):
