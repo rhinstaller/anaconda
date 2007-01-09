@@ -1,5 +1,8 @@
 2007-01-09  Chris Lumens  <clumens@redhat.com>
 
+	* loader/kickstart.c (getKickstartFile):  Don't try to free ksFile on
+	ks=file: paths (#221904).
+
 	* isys/isys.c (doDhcpNetDevice):  Don't care about the return value of
 	asprintf.
 	* loader2/net.c (doDhcp):  Likewise.
