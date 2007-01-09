@@ -554,6 +554,7 @@ class DiskSet:
 
     def __init__ (self, anaconda = None):
         self.disks = {}
+        self.initializedDisks = {}
         self.onlyPrimary = None
         self.anaconda = anaconda
 
@@ -862,6 +863,22 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
+    def _addDisk(self, drive, disk):
+        log.debug("adding drive %s to disk list" % (drive,))
+        self.initializedDisks[drive] = True
+        self.disks[drive] = disk
+
+    def _removeDisk(self, drive, addSkip=True):
+        msg = "removing drive %s from disk lists" % (drive,)
+        if addSkip:
+            msg += "; adding to skip list"
+        log.debug(msg)
+
+        del self.disks[drive]
+        if addSkip:
+            del self.initializedDisks[drive]
+            DiskSet.skippedDisks.append(drive)
+
     def refreshDevices (self):
         """Reread the state of the disks as they are on disk."""
         self.closeDevices()
@@ -874,13 +891,13 @@ class DiskSet:
         self.stopMPath()
         for drive in self.disks.keys():
             #self.disks[drive].close()
-            del self.disks[drive]
+            self._removeDisk(drive, addSkip=False)
 
     def dasdFmt (self, drive = None):
         """Format dasd devices (s390)."""
 
         if self.disks.has_key(drive):
-            del self.disks[drive]
+            self.removeDisk(drive, addSkip=False)
 
         w = self.anaconda.intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
@@ -1010,10 +1027,10 @@ class DiskSet:
                 disk.commit()
         except parted.error, msg:
             log.debug("parted error: %s" % (msg,))
-            DiskSet.skippedDisks.append(drive)
+            self._removeDisk(drive)
             raise LabelError, drive
 
-        self.disks[drive] = disk
+        self._addDisk(drive, disk)
         return disk, dev
 
     def openDevices (self):
@@ -1037,11 +1054,21 @@ class DiskSet:
                 continue
             deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
             if not isys.mediaPresent(drive):
-                DiskSet.skippedDisks.append(drive)
+                self._removeDisk(drive)
                 continue
 
             disk = None
             dev = None
+
+            if self.initializedDisks.has_key(drive):
+                if not self.disks.has_key(drive):
+                    try:
+                        dev = parted.PedDevice.get(deviceFile)
+                        disk = parted.PedDisk.new(dev)
+                        self._addDisk(drive, disk)
+                    except parted.error, msg:
+                        self._removeDisk(drive)
+                continue
 
             ks = False
             clearDevs = []
@@ -1078,13 +1105,13 @@ class DiskSet:
                     disk = None
             except parted.error, msg:
                 log.debug("parted error: %s" % (msg,))
-                DiskSet.skippedDisks.append(drive)
+                self._removeDisk(drive, disk)
                 continue
         
             try:
                 if not disk:
                     disk = parted.PedDisk.new(dev)
-                    self.disks[drive] = disk
+                    self._addDisk(drive, disk)
             except parted.error, msg:
                 recreate = 0
                 if zeroMbr:
@@ -1096,7 +1123,7 @@ class DiskSet:
                             clearDevs, initAll, ks):
                         recreate = 1
                     else:
-                        DiskSet.skippedDisks.append(drive)
+                        self._removeDisk(drive, disk)
                         continue
 
                 if recreate == 1 and not flags.test:
@@ -1110,13 +1137,12 @@ class DiskSet:
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
             if ret == 1:
-                DiskSet.skippedDisks.append(drive)
-                continue
+                self._removeDisk(drive)
             elif ret == -1:
                 try:
                     disk, dev = self._labelDevice(drive)
                 except:
-                    continue
+                    pass
 
     def partitionTypes (self):
         """Return list of (partition, partition type) tuples for all parts."""
