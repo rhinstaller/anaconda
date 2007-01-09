@@ -1,3 +1,8 @@
+2007-01-09  Peter Jones  <pjones@redhat.com>
+
+	* partRequests.py (VolumeGroupRequestSpec.getActualSize): Don't log
+	pvreq.drive, because not all pv target specs have one (#221992)
+
 2007-01-08  Peter Jones  <pjones@redhat.com>
 
 	* gui.py (MessageWindow): put a 'debug' button on all dialogs with
