@@ -402,6 +402,7 @@ void getKickstartFile(struct loaderData_s *loaderData) {
             loaderData->ksFile = strdup("/tmp/ks.cfg");
         } else if (!strncmp(c, "file:", 5)) {
             loaderData->ksFile = c+5;
+            break;
         }
 
         if (rc != 0) {
