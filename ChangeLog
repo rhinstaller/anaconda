@@ -1,3 +1,16 @@
+2007-01-09  Peter Jones  <pjones@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices):
+	- Revert ksdata.clearpart["done"] patch
+	- Move stuff to helper functions
+	- only initialize disks once (#220021)
+	- hopefully, make the code a little bit more readable
+
+	* kickstart.py 
+	- Revert ksdata.clearpart["done"] patch
+
+	* partErrors.py: add LabelError
+
 2007-01-09  Chris Lumens  <clumens@redhat.com>
 
 	* loader/kickstart.c (getKickstartFile):  Don't try to free ksFile on
