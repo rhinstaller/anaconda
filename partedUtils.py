@@ -872,9 +872,9 @@ class DiskSet:
         """Close all of the disks which are open."""
         self.stopDmRaid()
         self.stopMPath()
-        for disk in self.disks.keys():
-            #self.disks[disk].close()
-            del self.disks[disk]
+        for drive in self.disks.keys():
+            #self.disks[drive].close()
+            del self.disks[drive]
 
     def dasdFmt (self, drive = None):
         """Format dasd devices (s390)."""
@@ -989,11 +989,11 @@ class DiskSet:
                     ks = True
                     clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
                     initAll = self.anaconda.id.ksdata.clearpart["initAll"]
-                    self.anaconda.id.ksdata.clearpart.setdefault("done", False)
-                    clearDone = self.anaconda.id.ksdata.clearpart["done"]
 
             # FIXME: need the right fix for z/VM formatted dasd
-            if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
+            if rhpl.getArch() == "s390" \
+                    and drive[:4] == "dasd" \
+                    and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
                 if intf is None:
                     DiskSet.skippedDisks.append(drive)
@@ -1030,9 +1030,10 @@ class DiskSet:
                 continue
 
             if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
-                       or (drive in clearDevs)) and not flags.test \
-                       and not clearDone:
-                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                       or (drive in clearDevs)) and not flags.test:
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd" \
+                        and isys.getDasdState(drive):
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
@@ -1058,7 +1059,9 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
-                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                    if rhpl.getArch() == "s390" \
+                            and drive[:4] == "dasd" \
+                            and isys.getDasdState(drive):
                         devs = isys.getDasdDevPort()
                         format = drive + " (" + devs[drive] + ")"
                     else:
@@ -1089,7 +1092,9 @@ class DiskSet:
                         continue
 
                 if recreate == 1 and not flags.test:
-                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                    if rhpl.getArch() == "s390" \
+                            and drive[:4] == "dasd" \
+                            and isys.getDasdState(drive):
                         if self.dasdFmt(drive):
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -1097,6 +1102,7 @@ class DiskSet:
                         try:
                             disk = dev.disk_new_fresh(getDefaultDiskType())
                             disk.commit()
+                            self.disks[drive] = disk
                         except parted.error, msg:
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -1115,7 +1121,9 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
-                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd" \
+                        and isys.getDasdState(drive):
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
@@ -1123,6 +1131,7 @@ class DiskSet:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
+                        self.disks[drive] = disk
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
