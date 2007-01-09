@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Automatically generated, 2004.
-# Tyronne Wickramarathne <tywickra@redhat.com>, 2006.
+# Tyronne Wickramarathne <tywickra@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-12-14 19:22+0530\n"
+"PO-Revision-Date: 2007-01-09 18:06+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -702,7 +702,7 @@ msgstr ""
 "\n"
 "ප්‍රගමනය කිරීමේදී මෙම කොටස නොසලකා හැරීමට අවශ්‍ය නම් මෙය මඟ හැර යාමට තෝරා ගන්න.  මෙය "
 "swap කොටසක් ලෙස නැවත සංයුති කිරීමට අවශ්‍ය නම් සංයුති කිරීම තෝරා ගන්න. පද්ධතිය නැවත ක්‍රියාත්මක "
-"කිරීම සඳහා Reboot තෝරාගන්න."
+"කිරීම සඳහා නැවත ක්‍රියාත්මක කරන්න් යන්න තෝරාගන්න."
 
 #: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1074,8 +1074,8 @@ msgid ""
 msgstr ""
 "ස්ථාපකය විසින් #%s පිළිඹුව සවිකිරීමට උත්සහ කල නමුත් එයදෘඪ තැටිය තුල සොයාගත නොහැකි විය.\n"
 "\n"
-"කරුණාකර මෙම පිළිඹුව ධාවකයට පිටපත් කරගෙන Retry යන්න ක්ලික් කරන්න. ස්ථාපනය නවතා දැමීම සඳහා "
-"Reboot  මත ක්ලික් කරන්න."
+"කරුණාකර මෙම පිළිඹුව ධාවකයට පිටපත් කරගෙන 'නැවත උත්සහ කරන්න' මත ක්ලික් කරන්න. ස්ථාපනය නවතා දැමීම සඳහා "
+"'නැවත ක්‍රියාත්මක කරන්න' මත ක්ලික් කරන්න."
 
 #: ../harddrive.py:81 ../image.py:520
 msgid "Re_try"
@@ -1098,7 +1098,7 @@ msgstr ""
 "\n"
 "%s\n"
 "ස්ථාපනය ආරම්භ කර ඉදිරියට කරගෙන යාමට පෙර එම සංයුක්ත තැටි සූදානම්ව තබාගන්න.  ස්ථාපනය නවතා "
-"දැමීමට අවශ්‍ය නම් \"Reboot\" සූචකය ඔබන්න."
+"දැමීමට අවශ්‍ය නම් \"නැවත ක්‍රියාත්මක කරන්න\" සූචකය ඔබන්න."
 
 #: ../image.py:93 ../packages.py:262 ../packages.py:308 ../packages.py:311
 #: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1183,7 +1183,7 @@ msgstr ""
 "ස්ථාපකය #%s සවිකිරීමට උත්සහ කල නමුත් එය සේවාදායකය තුල සොයාගත නොහැකිවිය.\n"
 "\n"
 "කරුණාකර මෙම පිළිඹුව දුර්ස්ථ සේවාදායකයේ පොදු මාර්ගය තුල තබා Retry මත ක්ලික් කරන්න. ස්ථාපනය "
-"නවතා දැමීමට Reboot මත ක්ලික් කරන්න."
+"නවතා දැමීමට නැවත 'ක්‍රියාත්මක කරන්න' මත ක්ලික් කරන්න."
 
 #: ../installclass.py:63
 msgid "Install on System"
@@ -2836,7 +2836,7 @@ msgstr "ස්ථාපනය කිරීමට සූදානම්ව"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "%s ස්ථාපනය ආරම්භ කිරීමට next යන්න ක්ලික් කරන්න"
+msgstr "%s ස්ථාපනය ආරම්භ කිරීමට මීලඟ යන්න ක්ලික් කරන්න"
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2859,7 +2859,7 @@ msgstr "ප්‍රගමනය කිරීමට සූදානම්ව"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "%s ප්‍රගමනය කිරීම ආරම්භ කිරීමට next මත ක්ලික් කරන්න"
+msgstr "%s ප්‍රගමනය කිරීම ආරම්භ කිරීමට මීලඟ යන්න මත ක්ලික් කරන්න"
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -2878,7 +2878,7 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ස්ථාපන ක්‍රියාවලියේදී භාවිත කල සියළු මාධ්‍ය ඉවත් කර, පද්ධතිය නැවත ආරම්භ කිරීම සඳහා \"Reboot\" "
+"ස්ථාපන ක්‍රියාවලියේදී භාවිත කල සියළු මාධ්‍ය ඉවත් කර, පද්ධතිය නැවත ආරම්භ කිරීම සඳහා \"නැවත ක්‍රියාත්මක කරන්න\" "
 "සූචකය ඔබන්න.\n"
 "\n"
 
