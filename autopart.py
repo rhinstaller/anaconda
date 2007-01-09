@@ -191,6 +191,11 @@ class partlist:
             
         self.parts = []
 
+def getMinimumSector():
+    # XXX really this should be based on the disk label type, not the arch
+    if rhpl.getArch() == "sparc":
+        return 1L
+    return 0L
 
 # first step of partitioning voodoo
 # partitions with a specific start and end cylinder requested are
@@ -225,8 +230,9 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."
 
             # XXX need to check overlaps properly here
-            if startSec < 0:
-                startSec = 0L
+            minSec = getMinimumSector()
+            if startSec < minSec:
+                startSec = minSec
 
             if disk.type.check_feature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
 

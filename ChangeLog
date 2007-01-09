@@ -1,3 +1,8 @@
+2007-01-09  Peter Jones  <pjones@redhat.com>
+
+	* autopart.py (fitConstrained): Use per-arch minimum for the starting
+	sector of partitions.
+
 2007-01-09  David Cantrell  <dcantrell@redhat.com>
 
 	* vnc.py (askVncWindow): Only ask the user to run VNC if Xvnc is
