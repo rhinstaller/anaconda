@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.7
+Version: 11.2.0.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan  9 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.8-1
+- Add pata* drivers
+- Fix segfault with ks= (clumens, #221904)
+- Fix starting sector for sparc (pjones)
+- Only ask about vnc if Xvnc is present (dcantrell)
+- Put a debug button on custom dialogs with flags.debug (pjones)
+- python2.5 fixes
+- Fix ftp/http being specified as the url (dcantrell, #220728)
+- Use a default dhcpclass (dcantrell, #220082)
+- Add --gaugefor checkisomd5 (Ryan Finnie, #220286)
+- Don't overly clear the root window text (clumens, #220905)
+- Handle crazy large disk sizes (clumens, #219414)
+- Try to fix USB  sleeping bits
+- Translation fix (#221253)
+- Honor dhcpclass (#220057)
+
 * Sun Dec 17 2006 Jeremy Katz <katzj@redhat.com> - 11.2.0.7-1
 - Clean up execConsole to work better (clumens, #210481, #16155)
 - Fixes due to earlier changes (dcantrell, #219789)
