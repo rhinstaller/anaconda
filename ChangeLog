@@ -1,3 +1,8 @@
+2007-01-09  David Cantrell  <dcantrell@redhat.com>
+
+	* vnc.py (askVncWindow): Only ask the user to run VNC if Xvnc is
+	present.
+
 2007-01-08  Peter Jones  <pjones@redhat.com>
 
 	* gui.py (MessageWindow): put a 'debug' button on all dialogs with
