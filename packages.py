@@ -27,6 +27,7 @@ import language
 import fsset
 import kudzu
 import shutil
+import traceback
 from flags import flags
 from product import *
 from constants import *
@@ -247,6 +248,11 @@ def regKeyScreen(anaconda):
         except Exception, e:
             if not quiet:
                 log.info("exception handling installation key: %s" %(e,))
+
+                (type, value, tb) = sys.exc_info()
+                list = traceback.format_exception(type, value, tb)
+                for l in list:
+                    log.debug(l)
                 anaconda.intf.messageWindow(_("Invalid Key"),
                                         _("The key you entered is invalid."),
                                         type="warning")

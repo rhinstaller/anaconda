@@ -1,3 +1,8 @@
+2007-01-10  Peter Jones  <pjones@redhat.com>
+
+	* packages.py (regKeyScreen): log the traceback in our exception
+	handler.
+
 2007-01-09  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices):
