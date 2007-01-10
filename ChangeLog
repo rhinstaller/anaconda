@@ -3,6 +3,8 @@
 	* packages.py (regKeyScreen): log the traceback in our exception
 	handler.
 
+	* fsset.py (FileSystemSet.setActive): don't set ksdata.clearpart["done"]
+
 2007-01-09  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices):

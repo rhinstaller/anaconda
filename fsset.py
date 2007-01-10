@@ -1404,9 +1404,6 @@ MAILADDR root
             if bootPart:
                 del bootPart
 
-            if self.anaconda.isKickstart:
-                self.anaconda.id.ksdata.clearpart["done"] = True
-
     def formatSwap (self, chroot, forceFormat=False):
         formatted = []
         notformatted = []
