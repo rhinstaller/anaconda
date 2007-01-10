@@ -887,7 +887,7 @@ if __name__ == "__main__":
     if not flags.test and flags.setupFilesystems:
         iutil.makeDriveDeviceNodes()
 
-    anaconda.id = instClass.installDataClass(extraModules, floppyDevice, anaconda.methodstr, opts.display_mode, anaconda.backend)
+    anaconda.id = instClass.installDataClass(anaconda, extraModules, floppyDevice, anaconda.methodstr, opts.display_mode, anaconda.backend)
 
     anaconda.id.x_already_set = x_already_set
 
