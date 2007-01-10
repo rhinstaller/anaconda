@@ -1,3 +1,9 @@
+2007-01-10  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py: Set NETWORKING_IPV6 in /etc/sysconfig/network to
+	yes or no depending on whether the user enabled or disabled IPv6
+	during installation (#222147).
+
 2007-01-09  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
