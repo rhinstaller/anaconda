@@ -5,6 +5,11 @@
 
 	* fsset.py (FileSystemSet.setActive): don't set ksdata.clearpart["done"]
 
+	* installclasses/rhel.py (InstallClass.getPackagePaths): handle either
+	lists or bare strings in repopath values, so we don't have to worry
+	about keeping anaconda and rhel-instnum in sync so much (#221146,
+	#221260)
+
 2007-01-09  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices):

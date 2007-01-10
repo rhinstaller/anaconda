@@ -79,14 +79,15 @@ class InstallClass(BaseInstallClass):
     def getPackagePaths(self, uri):
         rc = {}
         for (name, path) in self.repopaths.items():
+            if not type(uri) == types.ListType:
+                uri = [uri,]
+            if not type(path) == types.ListType:
+                path = [path,]
+
             lst = []
-            if type(uri) == types.ListType:
-                for i in uri:
-                    for p in path:
-                        lst.append("%s/%s" % (i, p))
-            else:
+            for i in uri:
                 for p in path:
-                    lst.append("%s/%s" % (uri, p))
+                    lst.append("%s/%s" % (i, p))
 
             rc[name] = lst
 
@@ -141,7 +142,12 @@ class InstallClass(BaseInstallClass):
                 self.repopaths["virt"] = ["VT"]
                 log.info("Adding Virtualization option")
 
-        for repo in reduce(lambda x,y: x+y, self.repopaths.values(), []):
+        def concat(x, y):
+            if not type(y) == types.ListType:
+                y = [y,]
+            return x+y
+
+        for repo in reduce(concat, self.repopaths.values(), []):
             if not self.taskMap.has_key(repo.lower()):
                 continue
 
