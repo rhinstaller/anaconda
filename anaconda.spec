@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.8
+Version: 11.2.0.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 10 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.9-1
+- Set NETWORKING_IPV6 based on whether we want ipv6 for 
+  any devices or not (dcantrell, katzj, #222147)
+- Little fixes so installs work.
+
 * Tue Jan  9 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.8-1
 - Add pata* drivers
 - Fix segfault with ks= (clumens, #221904)
