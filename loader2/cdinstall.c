@@ -450,7 +450,7 @@ int kickstartFromCD(char *kssrc, int flags) {
             return 0;
     }
 
-    startNewt();
+    startNewt(flags);
     newtWinMessage(_("Error"), _("OK"),
                    _("Cannot find kickstart file on CDROM."));
     return 1;
