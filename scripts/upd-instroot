@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils libvolume_id
+         yum-metadata-parser gfs2-utils libvolume_id nash
 	 libdhcp libnl libdhcp6client libdhcp4client
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 
@@ -389,6 +389,7 @@ usr/$LIBDIR/libcrypto*
 usr/$LIBDIR/libbz2*
 usr/$LIBDIR/libdhcp*
 usr/$LIBDIR/libelf*
+usr/$LIBDIR/libnash*
 usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libnl*
