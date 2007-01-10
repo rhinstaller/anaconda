@@ -1,5 +1,9 @@
 2007-01-10  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (NetworkDevice.__str__): Don't try to write out
+	USEIPV4/USEIPV6 on a per-device basis
+	(Network.write): Fix NETWORK_IPV6 for current code.
+
 	* anaconda (Anaconda.setMethod): Fix initialization of instdata
 
 	* scripts/upd-instroot (KEEPFILE): Add libnash
