@@ -617,7 +617,7 @@ class AnacondaYum(YumSorter):
                           rpm.RPMPROB_BADOS: _('package for incorrect os'),
             }
             uniqueProbs = {}
-            for (descr, (type, mount, need)) in probs:
+            for (descr, (type, mount, need)) in probs.value: # FIXME: probs.value???
                 log.error("%s: %s" %(probTypes[type], descr))
                 if not uniqueProbs.has_key(type) and probTypes.has_key(type):
                     uniqueProbs[type] = probTypes[type]

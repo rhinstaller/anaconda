@@ -1,3 +1,8 @@
+2007-01-11  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYum._run): Fix so that we properly show
+	error messages
+
 2007-01-11  David Cantrell  <dcantrell@redhat.com>
 
 	* ui/netpostconfig.glade: Note DHCP for IPv6 as 'DHCPv6'.  Remove
