@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2007-01-10 16:54+0200\n"
+"PO-Revision-Date: 2007-01-11 14:05+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Finnish\n"
 "X-Poedit-Country: FINLAND\n"
 
@@ -986,7 +986,7 @@ msgid "Unable to mount filesystem"
 msgstr "Tiedostojärjestelmän liittäminen epäonnistui"
 
 #: ../fsset.py:1734
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred mounting device %s as %s.  You may continue installation, but there may be problems."
 msgstr "Virhe liitettäessä laitetta %s kohtaan %s.  Voit jatkaa asennusta, mutta siinä voi olla ongelmia."
 
@@ -1523,7 +1523,7 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "”%s” ei ole kelvollinen IPv6-osoite."
 
 #: ../packages.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter the registration key for your version of %s."
 msgstr "Anna rekisteröintiavain versiollesi ohjelmasta %s."
 
@@ -2312,7 +2312,6 @@ msgstr "Tallenna"
 
 #: ../text.py:152
 #: ../text.py:166
-#, fuzzy
 msgid "Remote"
 msgstr "Etä"
 
@@ -2709,9 +2708,8 @@ msgid "insufficient disk inodes"
 msgstr "Ei tarpeeksi inodeja levyllä"
 
 #: ../yuminstall.py:475
-#, fuzzy
 msgid "package conflicts"
-msgstr "Pakettiristiriita"
+msgstr "pakettiristiriita"
 
 #: ../yuminstall.py:476
 msgid "package already installed"
@@ -2770,7 +2768,6 @@ msgid "Unable to read package metadata. This may be due to a missing repodata di
 msgstr "Pakettien metadataa ei voi lukea. Repodata-hakemisto saattaa puuttua. Varmista, että asennuspuu on luotu oikein.  %s"
 
 #: ../yuminstall.py:760
-#, fuzzy
 msgid "Uncategorized"
 msgstr "Sekalaiset"
 
@@ -2794,7 +2791,6 @@ msgstr "Asennus alkaa. Aikaa voi kulua useita minuutteja..."
 
 # ../installclasses/upgradeclass.py:12
 #: ../yuminstall.py:1198
-#, fuzzy
 msgid "Post Upgrade"
 msgstr "Päivitystä täydentävä"
 
@@ -2941,7 +2937,6 @@ msgstr ""
 # ../textw/partition_text.py:750 ../textw/partition_text.py:772
 # ../textw/partition_text.py:901
 #: ../iw/autopart_type.py:157
-#, fuzzy
 msgid "Error with Data"
 msgstr "Virheellinen data"
 
@@ -3868,21 +3863,18 @@ msgstr "Konfiguroi %s"
 #: ../iw/network_gui.py:457
 #: ../iw/network_gui.py:474
 #: ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Virheelliset IP-tiedot"
+msgstr "Virheellinen etuliite"
 
 # ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Sivutustiedoston sallittu koko on 1 - 2000 Mt."
+msgstr "IPv4-etuliitteen on oltava väliltä 0-32."
 
 # ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Sivutustiedoston sallittu koko on 1 - 2000 Mt."
+msgstr "IPv6-etuliitteen on oltava väliltä 0-128."
 
 # ../iw/network_gui.py:183
 #: ../iw/network_gui.py:629
@@ -5692,9 +5684,8 @@ msgstr "Asennusta varten tarvitaan ”/”-osio."
 # ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
 # ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
 #: ../textw/partition_text.py:1516
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Osion tyyppi"
+msgstr "Osioinnin tyyppi"
 
 #: ../textw/partition_text.py:1518
 msgid "Installation requires partitioning of your hard drive.  The default layout is reasonable for most users.  You can either choose to use this or create your own."
@@ -5706,9 +5697,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Mitä levy(j)ä käytetään tähän asennukseen?"
 
 #: ../textw/partition_text.py:1604
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
+msgstr "Tarkista luodut osiot"
 
 #: ../textw/partition_text.py:1605
 msgid "Review and modify partitioning layout?"
@@ -5971,7 +5961,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage. What additional tasks would you like your system to include support for?"
 msgstr "%s:n oletusasennus sisältää ohjelmistoja yleiseen Internet-käyttöön. Mitä muita tehtäviä haluat järjestelmän tukevan?"
 
@@ -6672,9 +6662,8 @@ msgstr ""
 "      laitteistolle sopiva %s\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
-msgstr "CIDR-maskin arvo on oltava väliltä 1-32 IPv4-verkoille tai väliltä 1-128 IPv6-verkoille"
+msgstr "Etuliitteen on oltava väliltä 1-32 IPv4-verkoille tai väliltä 1-128 IPv6-verkoille"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6723,12 +6712,10 @@ msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Säädä IP-asetukset dynaamisesti (DHCP)"
 
 #: ../loader2/net.c:712
-#, fuzzy
 msgid "Avoid unwanted packet collisions"
 msgstr "Vältä ei-toivottuja pakettien yhteentörmäyksiä"
 
 #: ../loader2/net.c:714
-#, fuzzy
 msgid "Maximize register values for high speed network traffic"
 msgstr "Maksimoi rekisteriarvot nopealle verkkoliikenteelle"
 
@@ -6794,15 +6781,13 @@ msgstr "Puuttuvat tiedot"
 
 # ../loader/net.c:405
 #: ../loader2/net.c:1132
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "On syötettävä sekä kelvollinen IPv4-osoite että verkkopeite."
+msgstr "On syötettävä sekä kelvollinen IPv4-osoite että verkkopeite tai CIDR-etuliite."
 
 # ../loader/net.c:405
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "On syötettävä sekä kelvollinen IPv6-osoite että verkkopeite."
+msgstr "On syötettävä sekä kelvollinen IPv6-osoite että CIDR-etuliite."
 
 # ../loader/net.c:611
 #: ../loader2/net.c:1402
@@ -7015,17 +7000,15 @@ msgid "Loading SCSI driver"
 msgstr "Ladataan SCSI-ajuria"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Lisää _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Lisää _iSCSI-kohde"
 
 # ../iw/partition_gui.py:803
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
 msgstr "Tallennustilan lisäasetukset"
 
@@ -7035,7 +7018,6 @@ msgstr "Ota _dmraid-laite pois käytöstä"
 
 # ../iw/partition_gui.py:998
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
 msgstr "Miten haluat muokata asemakonfiguraatiota?"
 
@@ -7052,7 +7034,7 @@ msgid "Add Repository"
 msgstr "Lisää asennuslähde"
 
 #: tmp/addrepo.glade.h:5
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
 msgstr "Anna sijainti, josta lisäohjelmia voidaan asentaa.  Sen on kelvattava asennuslähteeksi %s:lle."
 
@@ -7092,7 +7074,6 @@ msgstr "Ta_rkastele ja muuta osiointia"
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
 msgstr "Tallennustilan _lisäasetukset"
 
@@ -7103,13 +7084,11 @@ msgstr "_Valitse asennukseen käytettävä asema tai asemat."
 
 # ../exception.py:147 ../text.py:219
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
 msgstr "Tietoja poikkeuksesta"
 
 # ../exception.py:147 ../text.py:219
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
 msgstr "_Poikkeuksen yksityiskohdat"
 
@@ -7133,9 +7112,8 @@ msgstr ""
 
 # ../iw/bootloader_gui.py:326
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev-parametrit"
+msgstr "Aseta iSCSI-parametrit"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
@@ -7186,7 +7164,6 @@ msgstr "Säädä IP-asetukset _dynaamisesti (DHCP)"
 
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
 msgstr "Mukauta _myöhemmin"
 
@@ -7253,22 +7230,19 @@ msgstr "Atlantin saaret"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantin aika - Quebec - Lower North Shore"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Itäinen aikavyöhyke - Ontario - useimmat paikat"
+msgstr "Atlantin aika - Labrador - useimmat paikat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantin aika - Itä-Labrador"
+msgstr "Atlantin aika - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlantin aika - Nova Scotia (useimmat paikat), NB, Länsi-Labrador, Itä-Québec ja PEI"
+msgstr "Atlantin aika - Nova Scotia (useimmat paikat), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7303,14 +7277,12 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey-asema, Baileyn niemimaa"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Keski-Kiina - Gansu, Guizhou, Sichuan, Yünnan, jne."
+msgstr "Keski-Kiina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, jne."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -7333,9 +7305,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Keskinen aika - Campeche, Jukatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Keskinen aika - Länsi-Nunavut"
+msgstr "Keskinen aika - Keski-Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -7343,30 +7314,27 @@ msgstr "Keskinen aika - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
-msgstr ""
+msgstr "Keskinen aika - Indiana - Daviessin, Duboisin, Knoxin, Martinin, Perryn ja Pulaskin piirikunnat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Itäinen aikavyöhyke - Indiana - Starken piirikunta"
+msgstr "Itäinen aikavyöhyke - Indiana - Piken piirikunta"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Keskinen aika - Manitoba ja Länsi-Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Keskinen aika - Michigan - Wisconsinin raja"
+msgstr "Keskinen aika - Michigan - Dickinsonin, Gogebicin, Ironin & Menomineen piirikunnat"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "Keskinen aika - useimmat paikat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Keskinen aika - Pohjois-Dakota - Oliverin piirikunta"
+msgstr "Keskinen aika - Pohjois-Dakota - Mortonin piirikunta (paitsi Mandanin alue)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -7425,36 +7393,30 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Pääsiäissaari ja Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Itäinen aikavyöhyke - Itä-Nunavut"
+msgstr "Itäinen aikavyöhyke - Atikokan, Ontario ja Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Itäinen aikavyöhyke"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Itäinen aikavyöhyke - Itä-Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Itäinen aikavyöhyke - Indiana - Crawfordin piirikunta"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
 msgstr "Itäinen aikavyöhyke - Indiana - useimmat paikat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
 msgstr "Itäinen aikavyöhyke - Indiana - Starken piirikunta"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Itäinen aikavyöhyke - Indiana - Switzerlandin piirikunta"
 
@@ -7479,9 +7441,8 @@ msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-19
 msgstr "Itäinen aikavyöhyke - Ontario ja Québec - paikat, jotka eivät huomioineet kesäaikaa 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Itäinen aikavyöhyke - Pangnurtung, Nunavut"
+msgstr "Itäinen aikavyöhyke - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7517,7 +7478,7 @@ msgstr "Havaiji"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (paitsi Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7597,9 +7558,8 @@ msgid "Midway Islands"
 msgstr "Midwaysaaret"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskova+01 - Kaspianmeri"
+msgstr "Moskova+00 - Kaspianmeri"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7610,9 +7570,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskova-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskova+09 - Kamtshatka"
+msgstr "Moskova+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7669,7 +7628,7 @@ msgstr "useimmat sijainnit (CB, CC, CH, CN, ER, FM, LP, LR, MN, NQ, RN, SA, SE, 
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "suurin osa Tiibetistä ja Xinjiangista"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7721,9 +7680,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Koillis-Brasilia (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantin aika - Itä-Labrador"
+msgstr "Newfoundlandin aika, sisältäen Kaakkois-Labradorin"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7838,9 +7796,8 @@ msgid "Tasmania - King Island"
 msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - useimmat paikat"
+msgstr "Tasmania - useimmat paikat"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7855,9 +7812,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) ja Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7896,9 +7852,8 @@ msgid "West Kazakhstan"
 msgstr "Länsi-Kazakstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tiibet ja suurin osa Xinjiang Uyghurista"
+msgstr "Länsi-Tiibet ja Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -7983,9 +7938,8 @@ msgstr "saksa"
 
 # ../iw/partition_gui.py:666
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Vapaana"
+msgstr "kreikka"
 
 #. generated from lang-table
 msgid "Gujarati"
