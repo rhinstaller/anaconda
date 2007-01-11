@@ -8,8 +8,9 @@
 #include <pump.h>
 
 #define DHCP_METHOD_STR   _("Dynamic IP configuration (DHCP)")
+#define DHCPV6_METHOD_STR _("Dynamic IP configuration (DHCPv6)")
 #define MANUAL_METHOD_STR _("Manual configuration")
-#define AUTO_METHOD_STR   _("Automatic neighbor discovery (RFC 2461)")
+#define AUTO_METHOD_STR   _("Automatic neighbor discovery")
 
 /* generic names for array index positions in net.c */
 enum { IPV4, IPV6 };

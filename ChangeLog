@@ -1,3 +1,14 @@
+2007-01-11  David Cantrell  <dcantrell@redhat.com>
+
+	* ui/netpostconfig.glade: Note DHCP for IPv6 as 'DHCPv6'.  Remove
+	'RFC 2461' from the text for the automatic neighbor discovery
+	option.
+
+	* loader/net.c (configureTCPIP): Use DHCPV6_METHOD_STR for the
+	DHCP on IPv6 checkbox.
+	* loader/net.h: Define DHCPV6_METHOD_STR.  Remove 'RFC 2461' from
+	the AUTO_METHOD_STR macro.
+
 2007-01-10  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -466,7 +466,7 @@
 		<widget class="GtkRadioButton" id="auto_ipv6">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Automatic neighbor discovery (RFC 2461)</property>
+		  <property name="label" translatable="yes">Automatic neighbor discovery</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -499,7 +499,7 @@
 		<widget class="GtkRadioButton" id="dhcp_ipv6">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Dynamic IP configuration (DHCP)</property>
+		  <property name="label" translatable="yes">Dynamic IP configuration (DHCPv6)</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>

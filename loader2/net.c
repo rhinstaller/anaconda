@@ -724,7 +724,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     ipv6Checkbox = newtCheckbox(-1, -1, _("Enable IPv6 support"),
                                 opts->ipv6Choice, NULL, &(opts->ipv6Choice));
     v6Method[0] = newtRadiobutton(-1, -1, AUTO_METHOD_STR, 1, NULL);
-    v6Method[1] = newtRadiobutton(-1, -1, DHCP_METHOD_STR, 0, v6Method[0]);
+    v6Method[1] = newtRadiobutton(-1, -1, DHCPV6_METHOD_STR, 0, v6Method[0]);
     v6Method[2] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, 0, v6Method[1]);
 
     /* button bar at the bottom of the window */
