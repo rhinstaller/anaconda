@@ -9,6 +9,10 @@
 	* loader/net.h: Define DHCPV6_METHOD_STR.  Remove 'RFC 2461' from
 	the AUTO_METHOD_STR macro.
 
+	* iw/release_notes.py (ReleaseNotesViewer.setupWindow): Switch to
+	just a GtkWindow so that we don't have annoying GtkDialog behavior
+	on press of ESC (#220418).  From katzj.
+
 2007-01-10  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
