@@ -857,6 +857,7 @@ class FATFileSystem(FileSystemType):
         self.maxSizeMB = 1024 * 1024
         self.name = "vfat"
         self.packages = [ "dosfstools" ]
+        self.maxLabelChars = 11
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -869,7 +870,21 @@ class FATFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
         if rc:
             raise SystemError
-        
+
+    def labelDevice(self, entry, chroot):
+        if False and not rhpl.getArch() == 'ia64':
+            return
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+
+        rc = iutil.execWithRedirect("/sbin/dosfslabel", [devicePath, label],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
+
 fileSystemTypeRegister(FATFileSystem())
 
 class NTFSFileSystem(FileSystemType):

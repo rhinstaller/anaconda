@@ -1,3 +1,11 @@
+2007-01-12  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec: add version to dosfstools Require
+
+	* scripts/upd-instroot: need dosfslabel
+
+	* fsset.py: add labelling code for FAT (#218957)
+
 2007-01-10  Peter Jones  <pjones@redhat.com>
 
 	* packages.py (regKeyScreen): log the traceback in our exception
