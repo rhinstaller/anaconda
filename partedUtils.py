@@ -899,7 +899,7 @@ class DiskSet:
         """Format dasd devices (s390)."""
 
         if self.disks.has_key(drive):
-            self.removeDisk(drive, addSkip=False)
+            self._removeDisk(drive, addSkip=False)
 
         w = self.anaconda.intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
