@@ -28,7 +28,7 @@ import partitioning
 import partedUtils
 import raid
 import lvm
-from lvm import LvmErrors
+from LvmErrors import *
 import types
 from flags import flags
 
