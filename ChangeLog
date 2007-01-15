@@ -1,3 +1,7 @@
+2007-01-15  Peter Jones  <pjones@redhat.com>
+
+	* lvm.py: use tty5 not tty6 for lvm output, since X is on tty6.
+
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
 	* text.py (InstallInterface.run):  Don't display the unsupported

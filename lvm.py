@@ -198,7 +198,7 @@ def lvlist():
             "--nosuffix", "--separator", ":", "--options",
             "vg_name,lv_name,lv_size,origin"
            ]
-    lvscanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    lvscanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty5")
     for line in lvscanout.split("\n"):
         try:
             (vg, lv, size, origin) = line.strip().split(':')
@@ -226,7 +226,7 @@ def pvlist():
             "--nosuffix", "--separator", ":", "--options",
             "pv_name,vg_name,dev_size"
            ]
-    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty5")
     for line in scanout.split("\n"):
         try:
             (dev, vg, size) = line.strip().split(':')
@@ -248,7 +248,7 @@ def vglist():
             "--nosuffix", "--separator", ":", "--options",
             "vg_name,vg_size,vg_extent_size"
            ]
-    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty5")
     for line in scanout.split("\n"):
         try:
             (vg, size, pesize) = line.strip().split(':')
@@ -268,7 +268,7 @@ def partialvgs():
     
     vgs = []
     args = ["vgdisplay", "-C", "-P", "--noheadings", "--units", "b"]
-    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty5")
     for line in scanout.split("\n"):
         try:
             (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
