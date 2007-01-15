@@ -28,7 +28,6 @@ import partitioning
 import partedUtils
 import raid
 import lvm
-from lvmErrors import *
 import types
 from flags import flags
 
@@ -1798,7 +1797,11 @@ MAILADDR root
         
         if isinstance(root.device, LogicalVolumeDevice) or rootlvm1:
             # now make sure all of the device nodes exist.  *sigh*
-            rc = lvm.lvmExec("vgmknodes", "-v")
+            rc = iutil.execWithRedirect("lvm",
+                                        ["vgmknodes", "-v"],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
             
             rootDev = "/dev/%s" % (root.device.getDevice(),)
             rootdir = instPath + rootDev[:string.rfind(rootDev, "/")]
@@ -2250,9 +2253,14 @@ class VolumeGroupDevice(Device):
                 # XXX I don't really belong here.   should
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
                 lvm.writeForceConf()
-                rc = lvm.lvmExec("pvcreate", "-ff", "-y", "-v", node)
+                rc = iutil.execWithRedirect("lvm",
+                                            ["pvcreate", "-ff", "-y",
+                                             "-v", node],
+                                            stdout = "/tmp/lvmout",
+                                            stderr = "/tmp/lvmout",
+                                            searchPath = 1)
                 if rc:
-                    raise LvmError("pvcreate", node)
+                    raise SystemError, "pvcreate failed for %s" % (volume,)
                 lvm.unlinkConf()
 
                 lvm.wipeOtherMetadataFromPV(node)
@@ -2268,9 +2276,13 @@ class VolumeGroupDevice(Device):
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
-            rc = lvm.lvmExec(*args)
+            rc = iutil.execWithRedirect("lvm", args,
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+
             if rc:
-                raise LvmError("vgcreate", self.name)
+                raise SystemError, "vgcreate failed for %s" %(self.name,)
 
             lvm.unlinkConf()
             self.isSetup = 1
@@ -2305,15 +2317,20 @@ class LogicalVolumeDevice(Device):
     def setupDevice(self, chroot="/", devPrefix='/tmp', vgdevice = None):
         if not self.isSetup:
             lvm.writeForceConf()
-            rc = lvm.lvmExec("lvcreate", "-L", "%dM" % (self.size,), "-n",
-                             self.name, "-An", self.vgname)
+            rc = iutil.execWithRedirect("lvm",
+                                        ["lvcreate", "-L",
+                                         "%dM" % (self.size,),
+                                         "-n", self.name, "-An",
+                                         self.vgname],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
             if rc:
-                raise LvmError("lvmcreate", self.name)
+                raise SystemError, "lvcreate failed for %s" %(self.name,)
             lvm.unlinkConf()
             self.isSetup = 1
 
-            if vgdevice and vgdevice.isNetdev():
-                self.setAsNetdev()
+            if vgdevice and vgdevice.isNetdev(): self.setAsNetdev()
 
         return "/dev/%s" % (self.getDevice(),)
 

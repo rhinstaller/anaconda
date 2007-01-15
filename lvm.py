@@ -30,8 +30,6 @@ output = "/tmp/lvmout"
 
 lvmDevicePresent = 0
 
-from lvmErrors import *
-
 def has_lvm():
     global lvmDevicePresent
 
@@ -54,23 +52,7 @@ def has_lvm():
     return lvmDevicePresent
 # now check to see if lvm is available
 has_lvm()
-
-def lvmExec(*args):
-    try:
-        return iutil.execWithRedirect("lvm", args, stdout = output,
-            stderr = output, searchPath = 1)
-    except:
-        raise LvmError, args[0]
-
-def lvmCapture(*args):
-    try:
-        lvmout = iutil.execWithCapture("lvm", args, stderr = output)
-        lines = []
-        for line in lvmout.split("\n"):
-            lines.append(line.strip().split(':')
-        return lines
-    except:
-        raise LvmError, args[0]
+        
 
 def vgscan():
     """Runs vgscan."""
@@ -79,7 +61,9 @@ def vgscan():
     if flags.test or lvmDevicePresent == 0:
         return
 
-    rc = lvmExec("vgscan", "-v")
+    rc = iutil.execWithRedirect("lvm", ["vgscan", "-v"],
+                                stdout = output, stderr = output,
+                                searchPath = 1)
     if rc:
         log.error("running vgscan failed: %s" %(rc,))
 #        lvmDevicePresent = 0
@@ -96,7 +80,8 @@ def vgactivate(volgroup = None):
     args = ["vgchange", "-ay"]
     if volgroup:
         args.append(volgroup)
-    rc = lvmExec(*args)
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
     if rc:
         log.error("running vgchange failed: %s" %(rc,))
 #        lvmDevicePresent = 0
@@ -105,7 +90,8 @@ def vgactivate(volgroup = None):
     args = ["vgmknodes"]
     if volgroup:
         args.append(volgroup)
-    rc = lvmExec(*args)
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
     if rc:
         log.error("running vgmknodes failed: %s" %(rc,))
 #        lvmDevicePresent = 0
@@ -122,10 +108,12 @@ def vgdeactivate(volgroup = None):
     args = ["vgchange", "-an"]
     if volgroup:
         args.append(volgroup)
-    rc = lvmExec(*args)
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
     if rc:
         log.error("running vgchange failed: %s" %(rc,))
 #        lvmDevicePresent = 0
+    
     
 def lvremove(lvname, vgname):
     """Removes a logical volume.
@@ -141,12 +129,11 @@ def lvremove(lvname, vgname):
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
-    try:
-        rc = lvmExec(*args)
-    except:
-        rc = 1
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
     if rc:
-        raise LVRemoveError(vgname, lvname)
+        raise SystemError, "lvremove failed"
+
 
 def vgremove(vgname):
     """Removes a volume group.  Deactivates the volume group first
@@ -174,12 +161,10 @@ def vgremove(vgname):
     args = ["vgremove", vgname]
 
     log.info(string.join(args, ' '))
-    try:
-        rc = lvmExec(*args)
-    except:
-        rc = 1
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
     if rc:
-        raise VGRemoveError, vgname
+        raise SystemError, "vgremove failed"
 
     # now iterate all the PVs we've just freed up, so we reclaim the metadata
     # space.  This is an LVM bug, AFAICS.
@@ -187,22 +172,20 @@ def vgremove(vgname):
         args = ["pvremove", "-ff", "-y", pvname]
 
         log.info(string.join(args, ' '))
-        try:
-            rc = lvmExec(*args)
-        except:
-            rc = 1
+        rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                    stderr = output, searchPath = 1)
+
         if rc:
-            raise PVRemoveError, pvname
+            raise SystemError, "pvremove failed"
 
         args = ["pvcreate", "-ff", "-y", "-v", pvname]
 
         log.info(string.join(args, ' '))
-        try:
-            rc = lvmExec(*args)
-        except:
-            rc = 1
+        rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                    stderr = output, searchPath = 1)
+
         if rc:
-            raise PVCreateError, pvname
+            raise SystemError, "pvcreate failed for %s" % (pvname,)
 
 def lvlist():
     global lvmDevicePresent
@@ -215,9 +198,10 @@ def lvlist():
             "--nosuffix", "--separator", ":", "--options",
             "vg_name,lv_name,lv_size,origin"
            ]
-    for line in lvmCapture(*args):
+    lvscanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    for line in lvscanout.split("\n"):
         try:
-            (vg, lv, size, origin) = line
+            (vg, lv, size, origin) = line.strip().split(':')
             size = long(math.floor(long(size) / (1024 * 1024)))
             if origin == '':
                 origin = None
@@ -242,9 +226,10 @@ def pvlist():
             "--nosuffix", "--separator", ":", "--options",
             "pv_name,vg_name,dev_size"
            ]
-    for line in lvmCapture(*args):
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    for line in scanout.split("\n"):
         try:
-            (dev, vg, size) = line
+            (dev, vg, size) = line.strip().split(':')
             size = long(math.floor(long(size) / (1024 * 1024)))
         except:
             continue
@@ -263,9 +248,10 @@ def vglist():
             "--nosuffix", "--separator", ":", "--options",
             "vg_name,vg_size,vg_extent_size"
            ]
-    for line in lvmCapture(*args):
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    for line in scanout.split("\n"):
         try:
-            (vg, size, pesize) = line
+            (vg, size, pesize) = line.strip().split(':')
             size = long(math.floor(long(size) / (1024 * 1024)))
             pesize = long(pesize)/1024
         except:
@@ -281,11 +267,11 @@ def partialvgs():
         return []
     
     vgs = []
-    args = ["vgdisplay", "-C", "-P", "--noheadings", "--units", "b",
-            "--nosuffix", "--separator", ":"]
-    for line in lvmCapture(*args):
+    args = ["vgdisplay", "-C", "-P", "--noheadings", "--units", "b"]
+    scanout = iutil.execWithCapture("lvm", args, stderr = "/dev/tty6")
+    for line in scanout.split("\n"):
         try:
-            (vg, numpv, numlv, numsn, attr, size, free) = line
+            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
         except:
             continue
         if attr.find("p") != -1:

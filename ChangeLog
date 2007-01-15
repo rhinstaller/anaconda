@@ -2,16 +2,6 @@
 
 	* loader/loader.c (main): add RHupdates and friends to PATH
 
-2007-01-15  Peter Jones  <pjones@redhat.com>
-
-	* lvmErrors.py: (NEW) exception classes for lvm errors
-
-	* lvm.py: add lvmExec and lvmCapture, which handle e.g. /tmp/lvmout .
-	Use these wherever we're calling lvm.
-
-	* fsset.py: replace iutil.exec*("lvm",...) with lvm.lvmExec or
-	lvm.lvmCapture.
-
 2007-01-15  Dave Lehman  <dlehman@redhat.com>
 
 	* installclasses/rhel.py: don't use lists for repopath values
