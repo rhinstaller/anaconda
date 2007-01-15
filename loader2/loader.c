@@ -1338,7 +1338,6 @@ int main(int argc, char ** argv) {
 
     struct loaderData_s loaderData;
 
-    char *path = NULL;
     char * cmdLine = NULL;
     char * ksFile = NULL;
     int testing = 0;
@@ -1622,16 +1621,11 @@ int main(int argc, char ** argv) {
         useRHupdates = 0;
     }
 
-    path = getenv("PATH");
     if (useRHupdates) {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product:/mnt/source/RHupdates", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
                            LIBPATH), 1);
-        setenv("PATH",
-               sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates%s%s",
-                          path ? ":" : "", path ? path : ""), 1);
-
 #ifdef NASH_FIRMWARE_LOADER
         nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware:/mnt/source/RHupdates/firmware/");
         nashHotplugKill(nc);
@@ -1641,9 +1635,6 @@ int main(int argc, char ** argv) {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
-        setenv("PATH",
-               sdupprintf("/tmp/updates:/tmp/product%s%s",
-                          path ? ":" : "", path ? path : ""), 1);
 #ifdef NASH_FIRMWARE_LOADER
         nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
         nashHotplugKill(nc);
