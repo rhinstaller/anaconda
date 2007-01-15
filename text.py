@@ -505,11 +505,15 @@ class InstallInterface:
         instLang = anaconda.id.instLanguage
 
         if instLang.getFontFile(instLang.getCurrent()) == "none":
-            ButtonChoiceWindow(self.screen, "Language Unavailable",
-                               "%s display is unavailable in text mode.  "
-                               "The installation will continue in "
-                               "English." % (instLang.getCurrent(),),
-                               buttons=[TEXT_OK_BUTTON])
+            if self.anaconda.isKickstart and not self.anaconda.id.instClass.ksdata.interactive:
+                log.warning("%s display is unavailable in text mode.  The "
+                            "installation will continue in English.")
+            else:
+                ButtonChoiceWindow(self.screen, "Language Unavailable",
+                                   "%s display is unavailable in text mode.  "
+                                   "The installation will continue in "
+                                   "English." % (instLang.getCurrent(),),
+                                   buttons=[TEXT_OK_BUTTON])
         
 	self.screen.helpCallback(self.helpWindow)
 

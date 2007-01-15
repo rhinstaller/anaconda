@@ -1,3 +1,8 @@
+2007-01-15  Chris Lumens  <clumens@redhat.com>
+
+	* text.py (InstallInterface.run):  Don't display the unsupported
+	language message box in non-interactive kickstart installs (#222096).
+
 2007-01-15  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (doPostSelection): don't pop the depsolver progress
