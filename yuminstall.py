@@ -1142,7 +1142,6 @@ class YumBackend(AnacondaBackend):
 
                 if largePart and \
                    largePart.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < self.totalSize / 1024:
-                    dscb.pop()
                     rc = anaconda.intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
                                               "of free space for installation, but "

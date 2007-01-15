@@ -1,5 +1,10 @@
 2007-01-15  Dave Lehman  <dlehman@redhat.com>
 
+	* yuminstall.py (doPostSelection): don't pop the depsolver progress
+	meter on ENOSPC since we'll do it in the finally block anyway (#215493)
+
+2007-01-15  Dave Lehman  <dlehman@redhat.com>
+
 	* installclasses/rhel.py: don't use lists for repopath values
 
 	when given "clearpart --all --initlabel" with harddrive method,
