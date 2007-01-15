@@ -1,3 +1,8 @@
+2007-01-15  Chris Lumens  <clumens@redhat.com>
+
+	* text.py (InstallInterface.run):  Don't display the unsupported
+	language message box in non-interactive kickstart installs (#222096).
+
 2007-01-15  Peter Jones  <pjones@redhat.com>
 
 	* iutil.py (execWith{Capture,Redirect}: force argv a list, not a tuple
