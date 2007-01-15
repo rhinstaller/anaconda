@@ -32,6 +32,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
         if not searchPath and not os.access (command, os.X_OK):
             raise RuntimeError, command + " can not be run"
 
+    argv = list(argv)
     if type(stdin) == type("string"):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)
@@ -55,6 +56,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     def chroot():
         os.chroot(root)
 
+    argv = list(argv)
     if type(stdin) == type("string"):
         if os.access(stdin, os.R_OK):
             stdin = open(stdin)

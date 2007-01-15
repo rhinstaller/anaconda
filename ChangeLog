@@ -1,3 +1,7 @@
+2007-01-15  Peter Jones  <pjones@redhat.com>
+
+	* iutil.py (execWith{Capture,Redirect}: force argv a list, not a tuple
+
 2007-01-11  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYum._run): Fix so that we properly show
