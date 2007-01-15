@@ -95,7 +95,7 @@ class InstallClass(BaseInstallClass):
         return rc
 
     def handleRegKey(self, key, intf, interactive = True):
-        self.repopaths = { "base": [ "%s" %(productPath,) ] }
+        self.repopaths = { "base": "%s" %(productPath,) }
         self.tasks = self.taskMap[productPath.lower()]
         self.installkey = key
 
@@ -122,7 +122,7 @@ class InstallClass(BaseInstallClass):
                         rhpl.getArch() not in ("x86_64","i386")
                         and not flags.debug):
                     continue
-                self.repopaths[name.lower()] = [path]
+                self.repopaths[name.lower()] = path
                 log.info("Adding %s repo" % (name,))
 
         else:
@@ -130,24 +130,19 @@ class InstallClass(BaseInstallClass):
             # simple and stupid for now... if C is in the key, add Clustering
             # if V is in the key, add Virtualization. etc
             if key.find("C") != -1:
-                self.repopaths["cluster"] = ["Cluster"]
+                self.repopaths["cluster"] = "Cluster"
                 log.info("Adding Cluster option")
             if key.find("S") != -1:
-                self.repopaths["clusterstorage"] = ["ClusterStorage"]
+                self.repopaths["clusterstorage"] = "ClusterStorage"
                 log.info("Adding ClusterStorage option")
             if key.find("W") != -1:
-                self.repopaths["workstation"] = ["Workstation"]
+                self.repopaths["workstation"] = "Workstation"
                 log.info("Adding Workstation option")
             if key.find("V") != -1:
-                self.repopaths["virt"] = ["VT"]
+                self.repopaths["virt"] = "VT"
                 log.info("Adding Virtualization option")
 
-        def concat(x, y):
-            if not type(y) == types.ListType:
-                y = [y,]
-            return x+y
-
-        for repo in reduce(concat, self.repopaths.values(), []):
+        for repo in self.repopaths.values():
             if not self.taskMap.has_key(repo.lower()):
                 continue
 
@@ -161,7 +156,7 @@ class InstallClass(BaseInstallClass):
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
-        self.repopaths = { "base": [ "%s" %(productPath,) ] }
+        self.repopaths = { "base": "%s" %(productPath,) }
 
         # minimally set up tasks in case no key is provided
         self.tasks = self.taskMap[productPath.lower()]

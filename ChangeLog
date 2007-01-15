@@ -1,3 +1,19 @@
+2007-01-15  Dave Lehman  <dlehman@redhat.com>
+
+	* installclasses/rhel.py: don't use lists for repopath values
+
+	when given "clearpart --all --initlabel" with harddrive method,
+	do not relabel the disk containing the ISO images; instead, clear
+	all the non-protected partitions off of it (#220331)
+	* partedUtils.py (openDevices): don't relabel disks that contain
+	protected partitions
+
+	* autopart.py (doClearPartAction): clear all non-protected partitions
+	from disks that contain a protected partition IFF initAll is set
+
+	* partedUtils.py (hasProtectedPartitions): new method to check if a 
+	drive contains protected partitions
+
 2007-01-12  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: add version to dosfstools Require
