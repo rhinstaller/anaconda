@@ -248,8 +248,7 @@ def parseOptions():
 
 def setVNCFromKickstart(opts):
     from kickstart import pullRemainingKickstartConfig, KickstartError
-    from kickstart import VNCHandlers
-    from pykickstart.data import KickstartData
+    from kickstart import VNCHandler
     from pykickstart.parser import KickstartParser
 
     global vncpassword, vncconnecthost, vncconnectport
@@ -268,17 +267,16 @@ def setVNCFromKickstart(opts):
     # now see if they enabled vnc via the kickstart file. Note that command
     # line options for password, connect host and port override values in
     # kickstart file
-    vncksdata = KickstartData()
-    ksparser = KickstartParser(vncksdata, VNCHandlers(vncksdata),
-                               missingIncludeIsFatal=False)
+    handler = VNCHandler()
+    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
     ksparser.readKickstart(opts.ksfile)
 
-    if vncksdata.vnc["enabled"]:
-	flags.usevnc = 1
+    if handler.vnc.enabled:
+        flags.usevnc = 1
 
-	ksvncpasswd = vncksdata.vnc["password"]
-	ksvnchost = vncksdata.vnc["host"]
-	ksvncport = vncksdata.vnc["port"]
+	ksvncpasswd = handler.vnc.password
+	ksvnchost = handler.vnc.host
+	ksvncport = handler.vnc.port
 
 	if vncpassword == "":
 	    vncpassword = ksvncpasswd
@@ -289,7 +287,7 @@ def setVNCFromKickstart(opts):
 	if vncconnectport == "":
 	    vncconnectport = ksvncport
 
-    return vncksdata.vnc
+    return handler.vnc
 
 def setupPythonPath():
     # For anaconda in test mode
@@ -724,7 +722,7 @@ if __name__ == "__main__":
         anaconda.isKickstart = True
         vncksdata = setVNCFromKickstart(opts)
 
-        if vncksdata["enabled"]:
+        if vncksdata.enabled:
             opts.display_mode = 'g'
 
     #
@@ -927,7 +925,8 @@ if __name__ == "__main__":
 
     # We need to copy the VNC-related kickstart stuff into the new ksdata
     if opts.ksfile is not None:
-        instClass.ksdata.vnc = vncksdata
+        anaconda.id.ksdata.Vnc(enabled=vncksdata.enabled, host=vncksdata.host,
+                               password=vncksdata.password, port=vncksdata.port)
 
     anaconda.setDispatch()
 
@@ -973,7 +972,7 @@ if __name__ == "__main__":
     except:
         handleException(anaconda, sys.exc_info())
 
-    if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
+    if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
         isys.flushDriveDict()
         for drive in isys.cdromList():
             log.info("attempting to eject %s" % drive)

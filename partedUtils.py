@@ -1000,8 +1000,8 @@ class DiskSet:
             if self.anaconda is not None:
                 if self.anaconda.isKickstart:
                     ks = True
-                    clearDevs = self.anaconda.id.ksdata.clearpart["drives"]
-                    initAll = self.anaconda.id.ksdata.clearpart["initAll"]
+                    clearDevs = self.anaconda.id.ksdata.clearpart.drives
+                    initAll = self.anaconda.id.ksdata.clearpart.initAll
 
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):

@@ -82,8 +82,7 @@ class InstallData:
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
 
-        # XXX I expect this to die in the future when we have a single data
-        # class and translate ksdata into that instead.
+        # XXX I still expect this to die when kickstart is the data store.
         self.ksdata = None
 
     def setInstallProgressClass(self, c):
@@ -166,19 +165,19 @@ class InstallData:
                                    self.rootPassword["isCrypted"], useMD5)
 
         if anaconda.isKickstart:
-            for svc in self.ksdata.services["disabled"]:
+            for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=anaconda.rootPath)
 
-            for svc in self.ksdata.services["enabled"]:
+            for svc in self.ksdata.services.enabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=anaconda.rootPath)
 
-            for ud in self.ksdata.userList:
+            for ud in self.ksdata.user.userList:
                 if self.users.createUser(ud.name, ud.password, ud.isCrypted,
                                          ud.groups, ud.homedir, ud.shell,
                                          ud.uid, root=anaconda.rootPath) == None:

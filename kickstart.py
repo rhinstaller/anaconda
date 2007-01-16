@@ -28,8 +28,9 @@ import urlgrabber.grabber as grabber
 import lvm
 import warnings
 from pykickstart.constants import *
+from pykickstart.errors import *
 from pykickstart.parser import *
-from pykickstart.data import *
+from pykickstart.version import returnClassForVersion
 from rhpl.translate import _
 
 import logging
@@ -84,9 +85,12 @@ class AnacondaKSScript(Script):
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
 
-class AnacondaKSHandlers(KickstartHandlers):
-    def __init__ (self, ksdata, anaconda):
-        KickstartHandlers.__init__(self, ksdata)
+superclass = returnClassForVersion()
+
+class AnacondaKSHandler(superclass):
+    def __init__ (self, anaconda):
+        superclass.__init__(self)
+
         self.permanentSkipSteps = []
         self.skipSteps = []
         self.showSteps = []
@@ -100,541 +104,566 @@ class AnacondaKSHandlers(KickstartHandlers):
         self.anaconda = anaconda
         self.id = self.anaconda.id
 
-        self.lineno = 0
-        self.currentCmd = ""
+    class Authconfig(superclass.Authconfig):
+        def parse(self, args):
+            superclass.Authconfig.parse(self, args)
+            self.handler.id.auth = self.authconfig
 
-    def doAuthconfig(self, args):
-        KickstartHandlers.doAuthconfig(self, args)
-        self.id.auth = self.ksdata.authconfig
+    class AutoPart(superclass.AutoPart):
+        def parse(self, args):
+            superclass.AutoPart.parse(self, args)
 
-    def doAutoPart(self, args):
-        KickstartHandlers.doAutoPart(self, args)
+            # sets up default autopartitioning.  use clearpart separately
+            # if you want it
+            self.handler.id.instClass.setDefaultPartitioning(self.handler.id, doClear = 0)
 
-        # sets up default autopartitioning.  use clearpart separately
-        # if you want it
-        self.id.instClass.setDefaultPartitioning(self.id, doClear = 0)
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+    class AutoStep(superclass.AutoStep):
+        def parse(self, args):
+            superclass.AutoStep.parse(self, args)
+            flags.autostep = 1
+            flags.autoscreenshot = self.autoscreenshot
 
-    def doAutoStep(self, args):
-        KickstartHandlers.doAutoStep(self, args)
-        flags.autostep = 1
-        flags.autoscreenshot = self.ksdata.autostep["autoscreenshot"]
+    class Bootloader(superclass.Bootloader):
+        def parse(self, args):
+            superclass.Bootloader.parse(self, args)
 
-    def doBootloader (self, args):
-        KickstartHandlers.doBootloader(self, args)
-        dict = self.ksdata.bootloader
-
-        if dict["location"] == "none":
-            location = None
-        elif dict["location"] == "partition":
-            location = "boot"
-        else:
-            location = dict["location"]
-
-        if dict["upgrade"] and not self.id.getUpgrade():
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
-
-        if dict["upgrade"]:
-            self.id.bootloader.kickstart = 1
-            self.id.bootloader.doUpgradeOnly = 1
-
-        if location is None:
-            self.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
-        else:
-            self.showSteps.append("bootloader")
-            self.id.instClass.setBootloader(self.id, location, dict["forceLBA"],
-                                            dict["password"], dict["md5pass"],
-                                            dict["appendLine"], dict["driveorder"])
-
-        self.permanentSkipSteps.extend(["upgbootloader", "bootloader",
-                                        "bootloaderadvanced"])
-
-    def doClearPart(self, args):
-        KickstartHandlers.doClearPart(self, args)
-        dict = self.ksdata.clearpart
-
-        hds = isys.hardDriveDict().keys()
-        for disk in dict["drives"]:
-            if disk not in hds:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
-
-        self.id.instClass.setClearParts(self.id, dict["type"], drives=dict["drives"],
-                                        initAll=dict["initAll"])
-
-    def doFirewall(self, args):
-        KickstartHandlers.doFirewall(self, args)
-        dict = self.ksdata.firewall
-	self.id.instClass.setFirewall(self.id, dict["enabled"], dict["trusts"],
-                                      dict["ports"])
-
-    def doFirstboot(self, args):
-        KickstartHandlers.doFirstboot(self, args)
-        self.id.firstboot = self.ksdata.firstboot
-
-    def doIgnoreDisk(self, args):
-	KickstartHandlers.doIgnoreDisk(self, args)
-        self.id.instClass.setIgnoredDisks(self.id, self.ksdata.ignoredisk)
-
-    def doIscsi(self, args):
-        KickstartHandlers.doIscsi(self, args)
-
-        for target in self.ksdata.iscsi:
-            if self.id.iscsi.addTarget(target.ipaddr, target.port, target.user, target.password):
-                log.info("added iscsi target: %s" %(target.ipaddr,))
-
-        # FIXME: flush the drive dict so we figure drives out again
-        isys.flushDriveDict()
-
-    def doIscsiName(self, args):
-        KickstartHandlers.doIscsiName(self, args)
-        self.id.iscsi.initiator = self.ksdata.iscsiname
-
-        self.id.iscsi.startup()
-        # FIXME: flush the drive dict so we figure drives out again        
-        isys.flushDriveDict()
-
-    def doKeyboard(self, args):
-        KickstartHandlers.doKeyboard(self, args)
-        self.id.instClass.setKeyboard(self.id, self.ksdata.keyboard)
-        self.id.keyboard.beenset = 1
-	self.skipSteps.append("keyboard")
-
-    def doLang(self, args):
-        KickstartHandlers.doLang(self, args)
-        self.id.instClass.setLanguage(self.id, self.ksdata.lang)
-	self.skipSteps.append("language")
-
-    def doLogicalVolume(self, args):
-        KickstartHandlers.doLogicalVolume(self, args)
-        lvd = self.ksdata.lvList[-1]
-
-        if lvd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet("swap")
-            lvd.mountpoint = ""
-
-            if lvd.recommended:
-                (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
-                lvd.grow = True
-        else:
-            if lvd.fstype != "":
-                filesystem = fileSystemTypeGet(lvd.fstype)
+            if self.location == "none":
+                location = None
+            elif self.location == "partition":
+                location = "boot"
             else:
-                filesystem = fileSystemTypeGetDefault()
+                location = self.location
 
-	# sanity check mountpoint
-	if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
-	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
+            if self.upgrade and not self.handler.id.getUpgrade():
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
-        try:
-            vgid = self.ksVGMapping[lvd.vgname]
-        except KeyError:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
+            if self.upgrade:
+                self.handler.id.bootloader.kickstart = 1
+                self.handler.id.bootloader.doUpgradeOnly = 1
 
-	for areq in self.id.partitions.autoPartitionRequests:
-	    if areq.type == REQUEST_LV:
-		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
-		    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
-            elif areq.type == REQUEST_VG and areq.uniqueID == vgid:
-                # Store a reference to the VG so we can do the PE size check.
-                vg = areq
-
-        if not self.ksVGMapping.has_key(lvd.vgname):
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume specifies a non-existent volume group" % lvd.name)
-
-        if lvd.percent == 0 and not lvd.preexist:
-            if lvd.size == 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
-            elif not lvd.grow and lvd.size*1024 < vg.pesize:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
-        elif (lvd.percent <= 0 or lvd.percent > 100) and not lvd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
-
-        request = partRequests.LogicalVolumeRequestSpec(filesystem,
-                                      format = lvd.format,
-                                      mountpoint = lvd.mountpoint,
-                                      size = lvd.size,
-                                      percent = lvd.percent,
-                                      volgroup = vgid,
-                                      lvname = lvd.name,
-				      grow = lvd.grow,
-				      maxSizeMB = lvd.maxSizeMB,
-                                      preexist = lvd.preexist,
-                                      bytesPerInode = lvd.bytesPerInode)
-
-	if lvd.fsopts != "":
-            request.fsopts = lvd.fsopts
-
-        self.id.instClass.addPartRequest(self.id.partitions, request)
-        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
-
-    def doLogging(self, args):
-        KickstartHandlers.doLogging(self, args)
-        log.setHandlersLevel(logLevelMap[self.ksdata.logging["level"]])
-
-        if self.ksdata.logging["host"] != "" and self.ksdata.logging["port"] != "":
-            logger.addSysLogHandler(log, self.ksdata.logging["host"],
-                                    port=int(self.ksdata.logging["port"]))
-        elif self.ksdata.logging["host"] != "":
-            logger.addSysLogHandler(log, self.ksdata.logging["host"])
-
-    def doMonitor(self, args):
-        KickstartHandlers.doMonitor(self, args)
-        dict = self.ksdata.monitor
-        self.skipSteps.extend(["monitor", "checkmonitorok"])
-        self.id.instClass.setMonitor(self.id, dict["hsync"], dict["vsync"],
-                                     dict["monitor"])
-
-    def doNetwork(self, args):
-        KickstartHandlers.doNetwork(self, args)
-        nd = self.ksdata.network[-1]
-
-        try:
-            self.id.instClass.setNetwork(self.id, nd.bootProto, nd.ip, nd.netmask,
-                                         nd.ethtool, nd.device, nd.onboot,
-                                         nd.dhcpclass, nd.essid, nd.wepkey)
-        except KeyError:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
-
-        if nd.hostname != "":
-            self.id.instClass.setHostname(self.id, nd.hostname, override=1)
-
-        if nd.nameserver != "":
-            self.id.instClass.setNameserver(self.id, nd.nameserver)
-
-        if nd.gateway != "":
-            self.id.instClass.setGateway(self.id, nd.gateway)
-
-    def doMultiPath(self, args):
-        KickstartHandlers.doMultiPath(self, args)
-
-        from partedUtils import DiskSet
-        ds = DiskSet(self.anaconda)
-        ds.startMPath()
-
-        mpath = self.ksdata.mpaths[-1]
-        log.debug("Searching for mpath '%s'" % (mpath.name,))
-        for mp in DiskSet.mpList or []:
-            it = True
-            for dev in mpath.devices:
-                dev = dev.split('/')[-1]
-                log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
-                if not dev in mp.members:
-                    log.debug("mpath '%s' does not have device %s, skipping" \
-                        % (mp.name, dev))
-                    it = False
-            if it:
-                log.debug("found mpath '%s', changing name to %s" \
-                    % (mp.name, mpath.name))
-                newname = mpath.name
-                ds.renameMPath(mp, newname)
-                return
-        ds.startMPath()
-
-    def doDmRaid(self, args):
-        KickstartHandlers.doDmRaid(self, args)
-
-        from partedUtils import DiskSet
-        ds = DiskSet(self.anaconda)
-        ds.startDmRaid()
-
-        raid = self.ksdata.dmraids[-1]
-        log.debug("Searching for dmraid '%s'" % (raid.name,))
-        for rs in DiskSet.dmList or []:
-            it = True
-            for dev in raid.devices:
-                dev = dev.split('/')[-1]
-                log.debug("dmraid '%s' has members %s" % (rs.name, list(rs.members)))
-                if not dev in rs.members:
-                    log.debug("dmraid '%s' does not have device %s, skipping" \
-                        % (rs.name, dev))
-                    it = False
-            if it:
-                log.debug("found dmraid '%s', changing name to %s" \
-                    % (rs.name, raid.name))
-                # why doesn't rs.name go through the setter here?
-                newname = raid.name
-                ds.renameDmRaid(rs, newname)
-                return
-        ds.startDmRaid()
-
-    def doPartition(self, args):
-        KickstartHandlers.doPartition(self, args)
-        pd = self.ksdata.partitions[-1]
-        uniqueID = None
-
-        if pd.onbiosdisk != "":
-            pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
-
-            if pd.disk == "":
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.onbiosdisk)
-
-        if pd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet('swap')
-            pd.mountpoint = ""
-            if pd.recommended:
-                (pd.size, pd.maxSizeMB) = iutil.swapSuggestion()
-                pd.grow = True
-        # if people want to specify no mountpoint for some reason, let them
-        # this is really needed for pSeries boot partitions :(
-        elif pd.mountpoint == "None":
-            pd.mountpoint = ""
-            if pd.fstype:
-                filesystem = fileSystemTypeGet(pd.fstype)
+            if location is None:
+                self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
             else:
-                filesystem = fileSystemTypeGetDefault()
-        elif pd.mountpoint == 'appleboot':
-            filesystem = fileSystemTypeGet("Apple Bootstrap")
-            pd.mountpoint = ""
-        elif pd.mountpoint == 'prepboot':
-            filesystem = fileSystemTypeGet("PPC PReP Boot")
-            pd.mountpoint = ""
-        elif pd.mountpoint.startswith("raid."):
-            filesystem = fileSystemTypeGet("software RAID")
+                self.handler.showSteps.append("bootloader")
+                self.handler.id.instClass.setBootloader(self.handler.id, location, self.forceLBA,
+                                                        self.password, self.md5pass,
+                                                        self.appendLine, self.driveorder)
+
+            self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader",
+                                                    "bootloaderadvanced"])
+
+    class ClearPart(superclass.ClearPart):
+        def parse(self, args):
+            superclass.ClearPart.parse(self, args)
+
+            hds = isys.hardDriveDict().keys()
+            for disk in self.drives:
+                if disk not in hds:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
+
+            self.handler.id.instClass.setClearParts(self.handler.id, self.type,
+                                                    drives=self.drives, initAll=self.initAll)
+
+    class Firewall(superclass.Firewall):
+        def parse(self, args):
+            superclass.Firewall.parse(self, args)
+
+            self.handler.id.instClass.setFirewall(self.handler.id, self.enabled,
+                                                  self.trusts, self.ports)
+
+    class Firstboot(superclass.Firstboot):
+        def parse(self, args):
+            superclass.Firstboot.parse(self, args)
+            self.handler.id.firstboot = self.firstboot
+
+    class IgnoreDisk(superclass.IgnoreDisk):
+        def parse(self, args):
+            superclass.IgnoreDisk.parse(self, args)
+            self.handler.id.instClass.setIgnoredDisks(self.handler.id, self.ignoredisk)
+
+    class Iscsi(superclass.Iscsi):
+        def parse(self, args):
+            superclass.Iscsi.parse(self, args)
+
+            for target in self.iscsi:
+                if self.handler.id.iscsi.addTarget(target.ipaddr, target.port, target.user, target.password):
+                    log.info("added iscsi target: %s" %(target.ipaddr,))
+
+            # FIXME: flush the drive dict so we figure drives out again
+            isys.flushDriveDict()
+
+    class IscsiName(superclass.IscsiName):
+        def parse(self, args):
+            superclass.IscsiName.parse(self, args)
+
+            self.handler.id.iscsi.initiator = self.iscsiname
+            self.handler.id.iscsi.startup()
+            # FIXME: flush the drive dict so we figure drives out again        
+            isys.flushDriveDict()
+
+    class Keyboard(superclass.Keyboard):
+        def parse(self, args):
+            superclass.Keyboard.parse(self, args)
+            self.handler.id.instClass.setKeyboard(self.handler.id, self.keyboard)
+            self.handler.id.keyboard.beenset = 1
+            self.handler.skipSteps.append("keyboard")
+
+    class Lang(superclass.Lang):
+        def parse(self, args):
+            superclass.Lang.parse(self, args)
+            self.handler.id.instClass.setLanguage(self.handler.id, self.lang)
+            self.handler.skipSteps.append("language")
+
+    class LogVol(superclass.LogVol):
+        def parse(self, args):
+            superclass.LogVol.parse(self, args)
+
+            lvd = self.lvList[-1]
+
+            if lvd.mountpoint == "swap":
+                filesystem = fileSystemTypeGet("swap")
+                lvd.mountpoint = ""
+
+                if lvd.recommended:
+                    (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
+                    lvd.grow = True
+            else:
+                if lvd.fstype != "":
+                    filesystem = fileSystemTypeGet(lvd.fstype)
+                else:
+                    filesystem = fileSystemTypeGetDefault()
+
+            # sanity check mountpoint
+            if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
+
+            try:
+                vgid = self.handler.ksVGMapping[lvd.vgname]
+            except KeyError:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
+
+            for areq in self.handler.id.partitions.autoPartitionRequests:
+                if areq.type == REQUEST_LV:
+                    if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
+                        raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
+                elif areq.type == REQUEST_VG and areq.uniqueID == vgid:
+                    # Store a reference to the VG so we can do the PE size check.
+                    vg = areq
+
+            if not self.handler.ksVGMapping.has_key(lvd.vgname):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume specifies a non-existent volume group" % lvd.name)
+
+            if lvd.percent == 0 and not lvd.preexist:
+                if lvd.size == 0:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
+                elif not lvd.grow and lvd.size*1024 < vg.pesize:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
+            elif (lvd.percent <= 0 or lvd.percent > 100) and not lvd.preexist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
+
+            request = partRequests.LogicalVolumeRequestSpec(filesystem,
+                                          format = lvd.format,
+                                          mountpoint = lvd.mountpoint,
+                                          size = lvd.size,
+                                          percent = lvd.percent,
+                                          volgroup = vgid,
+                                          lvname = lvd.name,
+                                          grow = lvd.grow,
+                                          maxSizeMB = lvd.maxSizeMB,
+                                          preexist = lvd.preexist,
+                                          bytesPerInode = lvd.bytesPerInode)
+
+            if lvd.fsopts != "":
+                request.fsopts = lvd.fsopts
+
+            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+
+    class Logging(superclass.Logging):
+        def parse(self, args):
+            superclass.Logging.parse(self, args)
+
+            log.setHandlersLevel(logLevelMap[self.level])
+
+            if self.host != "" and self.port != "":
+                logger.addSysLogHandler(log, self.host, port=int(self.port))
+            elif self.host != "":
+                logger.addSysLogHandler(log, self.host)
+
+    class Monitor(superclass.Monitor):
+        def parse(self, args):
+            superclass.Monitor.parse(self, args)
+            self.handler.skipSteps.extend(["monitor", "checkmonitorok"])
+            self.handler.id.instClass.setMonitor(self.handler.id, self.hsync,
+                                                 self.vsync, self.monitor)
+
+    class Network(superclass.Network):
+        def parse(self, args):
+            superclass.Network.parse(self, args)
+
+            nd = self.network[-1]
+
+            try:
+                self.handler.id.instClass.setNetwork(self.handler.id, nd.bootProto, nd.ip,
+                                                     nd.netmask, nd.ethtool, nd.device,
+                                                     nd.onboot, nd.dhcpclass, nd.essid, nd.wepkey)
+            except KeyError:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
+
+            if nd.hostname != "":
+                self.handler.id.instClass.setHostname(self.handler.id, nd.hostname, override=1)
+
+            if nd.nameserver != "":
+                self.handler.id.instClass.setNameserver(self.handler.id, nd.nameserver)
+
+            if nd.gateway != "":
+                self.handler.id.instClass.setGateway(self.handler.id, nd.gateway)
+
+    class MultiPath(superclass.MultiPath):
+        def parse(self, args):
+            superclass.MultiPath.parse(self, args)
+
+            from partedUtils import DiskSet
+            ds = DiskSet(self.handler.anaconda)
+            ds.startMPath()
+
+            mpath = self.mpaths[-1]
+            log.debug("Searching for mpath '%s'" % (mpath.name,))
+            for mp in DiskSet.mpList or []:
+                it = True
+                for dev in mpath.devices:
+                    dev = dev.split('/')[-1]
+                    log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
+                    if not dev in mp.members:
+                        log.debug("mpath '%s' does not have device %s, skipping" \
+                            % (mp.name, dev))
+                        it = False
+                if it:
+                    log.debug("found mpath '%s', changing name to %s" \
+                        % (mp.name, mpath.name))
+                    newname = mpath.name
+                    ds.renameMPath(mp, newname)
+                    return
+            ds.startMPath()
+
+    class DmRaid(superclass.DmRaid):
+        def parse(self, args):
+            superclass.DmRaid.parse(self, args)
+
+            from partedUtils import DiskSet
+            ds = DiskSet(self.handler.anaconda)
+            ds.startDmRaid()
+
+            raid = self.dmraids[-1]
+            log.debug("Searching for dmraid '%s'" % (raid.name,))
+            for rs in DiskSet.dmList or []:
+                it = True
+                for dev in raid.devices:
+                    dev = dev.split('/')[-1]
+                    log.debug("dmraid '%s' has members %s" % (rs.name, list(rs.members)))
+                    if not dev in rs.members:
+                        log.debug("dmraid '%s' does not have device %s, skipping" \
+                            % (rs.name, dev))
+                        it = False
+                if it:
+                    log.debug("found dmraid '%s', changing name to %s" \
+                        % (rs.name, raid.name))
+                    # why doesn't rs.name go through the setter here?
+                    newname = raid.name
+                    ds.renameDmRaid(rs, newname)
+                    return
+            ds.startDmRaid()
+
+    class Partition(superclass.Partition):
+        def parse(self, args):
+            superclass.Partition.parse(self, args)
+
+            pd = self.partitions[-1]
+            uniqueID = None
+
+            if pd.onbiosdisk != "":
+                pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
+
+                if pd.disk == "":
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.onbiosdisk)
+
+            if pd.mountpoint == "swap":
+                filesystem = fileSystemTypeGet('swap')
+                pd.mountpoint = ""
+                if pd.recommended:
+                    (pd.size, pd.maxSizeMB) = iutil.swapSuggestion()
+                    pd.grow = True
+            # if people want to specify no mountpoint for some reason, let them
+            # this is really needed for pSeries boot partitions :(
+            elif pd.mountpoint == "None":
+                pd.mountpoint = ""
+                if pd.fstype:
+                    filesystem = fileSystemTypeGet(pd.fstype)
+                else:
+                    filesystem = fileSystemTypeGetDefault()
+            elif pd.mountpoint == 'appleboot':
+                filesystem = fileSystemTypeGet("Apple Bootstrap")
+                pd.mountpoint = ""
+            elif pd.mountpoint == 'prepboot':
+                filesystem = fileSystemTypeGet("PPC PReP Boot")
+                pd.mountpoint = ""
+            elif pd.mountpoint.startswith("raid."):
+                filesystem = fileSystemTypeGet("software RAID")
+                
+                if self.handler.ksRaidMapping.has_key(pd.mountpoint):
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined RAID partition multiple times")
+                
+                # get a sort of hackish id
+                uniqueID = self.handler.ksID
+                self.handler.ksRaidMapping[pd.mountpoint] = uniqueID
+                self.handler.ksID += 1
+                pd.mountpoint = ""
+            elif pd.mountpoint.startswith("pv."):
+                filesystem = fileSystemTypeGet("physical volume (LVM)")
+
+                if self.handler.ksPVMapping.has_key(pd.mountpoint):
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
+
+                # get a sort of hackish id
+                uniqueID = self.handler.ksID
+                self.handler.ksPVMapping[pd.mountpoint] = uniqueID
+                self.handler.ksID += 1
+                pd.mountpoint = ""
+            # XXX should we let people not do this for some reason?
+            elif pd.mountpoint == "/boot/efi":
+                filesystem = fileSystemTypeGet("vfat")
+            else:
+                if pd.fstype != "":
+                    filesystem = fileSystemTypeGet(pd.fstype)
+                else:
+                    filesystem = fileSystemTypeGetDefault()
+
+            if pd.size is None and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
+            if pd.start != 0 and pd.disk == "":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
+            hds = isys.hardDriveDict()
+            if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
+                pd.disk = 'mapper/' + pd.disk
+            if pd.disk != "" and pd.disk not in hds.keys():
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
+
+            request = partRequests.PartitionSpec(filesystem,
+                                                 mountpoint = pd.mountpoint,
+                                                 format = pd.format,
+                                                 fslabel = pd.label,
+                                                 bytesPerInode = pd.bytesPerInode)
             
-            if self.ksRaidMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined RAID partition multiple times")
-            
-            # get a sort of hackish id
-            uniqueID = self.ksID
-            self.ksRaidMapping[pd.mountpoint] = uniqueID
-            self.ksID += 1
-            pd.mountpoint = ""
-        elif pd.mountpoint.startswith("pv."):
-            filesystem = fileSystemTypeGet("physical volume (LVM)")
+            if pd.size is not None:
+                request.size = pd.size
+            if pd.start != 0:
+                request.start = pd.start
+            if pd.end != 0:
+                request.end = pd.end
+            if pd.grow:
+                request.grow = pd.grow
+            if pd.maxSizeMB != 0:
+                request.maxSizeMB = pd.maxSizeMB
+            if pd.disk != "":
+                request.drive = [ pd.disk ]
+            if pd.primOnly:
+                request.primary = pd.primOnly
+            if uniqueID:
+                request.uniqueID = uniqueID
+            if pd.onPart != "":
+                request.device = pd.onPart
+                for areq in self.handler.id.partitions.autoPartitionRequests:
+                    if areq.device is not None and areq.device == pd.onPart:
+                        raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
 
-            if self.ksPVMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
+            if pd.fsopts != "":
+                request.fsopts = pd.fsopts
 
-            # get a sort of hackish id
-            uniqueID = self.ksID
-            self.ksPVMapping[pd.mountpoint] = uniqueID
-            self.ksID += 1
-            pd.mountpoint = ""
-        # XXX should we let people not do this for some reason?
-        elif pd.mountpoint == "/boot/efi":
-            filesystem = fileSystemTypeGet("vfat")
-        else:
-            if pd.fstype != "":
-                filesystem = fileSystemTypeGet(pd.fstype)
+            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+
+    class Reboot(superclass.Reboot):
+        def parse(self, args):
+            superclass.Reboot.parse(self, args)
+            self.handler.skipSteps.append("complete")
+
+    class Raid(superclass.Raid):
+        def parse(self, args):
+            superclass.Raid.parse(self, args)
+
+            rd = self.raidList[-1]
+
+            uniqueID = None
+
+            if rd.mountpoint == "swap":
+                filesystem = fileSystemTypeGet('swap')
+                rd.mountpoint = ""
+            elif rd.mountpoint.startswith("pv."):
+                filesystem = fileSystemTypeGet("physical volume (LVM)")
+
+                if self.handler.ksPVMapping.has_key(rd.mountpoint):
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
+
+                # get a sort of hackish id
+                uniqueID = self.handler.ksID
+                self.handler.ksPVMapping[rd.mountpoint] = uniqueID
+                self.handler.ksID += 1
+                rd.mountpoint = ""
             else:
-                filesystem = fileSystemTypeGetDefault()
+                if rd.fstype != "":
+                    filesystem = fileSystemTypeGet(rd.fstype)
+                else:
+                    filesystem = fileSystemTypeGetDefault()
 
-        if pd.size is None and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
-        if pd.start != 0 and pd.disk == "":
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
-        hds = isys.hardDriveDict()
-        if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
-            pd.disk = 'mapper/' + pd.disk
-        if pd.disk != "" and pd.disk not in hds.keys():
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % pd.disk)
+            # sanity check mountpoint
+            if rd.mountpoint != "" and rd.mountpoint[0] != '/':
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point is not valid.")
 
-        request = partRequests.PartitionSpec(filesystem,
-                                             mountpoint = pd.mountpoint,
-                                             format = pd.format,
-                                             fslabel = pd.label,
-                                             bytesPerInode = pd.bytesPerInode)
-        
-        if pd.size is not None:
-            request.size = pd.size
-        if pd.start != 0:
-            request.start = pd.start
-        if pd.end != 0:
-            request.end = pd.end
-        if pd.grow:
-            request.grow = pd.grow
-        if pd.maxSizeMB != 0:
-            request.maxSizeMB = pd.maxSizeMB
-        if pd.disk != "":
-            request.drive = [ pd.disk ]
-        if pd.primOnly:
-            request.primary = pd.primOnly
-        if uniqueID:
+            raidmems = []
+
+            # get the unique ids of each of the raid members
+            for member in rd.members:
+                if member not in self.handler.ksRaidMapping.keys():
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
+                if member in self.handler.ksUsedMembers:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use RAID member %s in two or more RAID specifications" % member)
+                    
+                raidmems.append(self.handler.ksRaidMapping[member])
+                self.handler.ksUsedMembers.append(member)
+
+            if rd.level == "" and not rd.preexist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
+            if len(raidmems) == 0 and not rd.preexist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
+
+            request = partRequests.RaidRequestSpec(filesystem,
+                                                   mountpoint = rd.mountpoint,
+                                                   raidmembers = raidmems,
+                                                   raidlevel = rd.level,
+                                                   raidspares = rd.spares,
+                                                   format = rd.format,
+                                                   raidminor = rd.device,
+                                                   preexist = rd.preexist)
+
+            if uniqueID is not None:
+                request.uniqueID = uniqueID
+            if rd.preexist and rd.device != "":
+                request.device = "md%s" % rd.device
+            if rd.fsopts != "":
+                request.fsopts = rd.fsopts
+
+            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+
+    class RootPw(superclass.RootPw):
+        def parse(self, args):
+            superclass.RootPw.parse(self, args)
+
+            self.handler.id.rootPassword["password"] = self.password
+            self.handler.id.rootPassword["isCrypted"] = self.isCrypted
+            self.handler.skipSteps.append("accounts")
+
+    class SELinux(superclass.SELinux):
+        def parse(self, args):
+            superclass.SELinux.parse(self, args)
+            self.handler.id.instClass.setSELinux(self.handler.id, self.selinux)
+
+    class SkipX(superclass.SkipX):
+        def parse(self, args):
+            superclass.SkipX.parse(self, args)
+
+            self.handler.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
+                                           "monitor", "xcustom", "writexconfig"])
+
+            if self.handler.id.xsetup is not None:
+                self.handler.id.xsetup.skipx = 1
+
+    class Timezone(superclass.Timezone):
+        def parse(self, args):
+            superclass.Timezone.parse(self, args)
+
+            self.handler.id.instClass.setTimezoneInfo(self.handler.id, self.timezone, self.isUtc)
+            self.handler.skipSteps.append("timezone")
+
+    class Upgrade(superclass.Upgrade):
+        def parse(self, args):
+            superclass.Upgrade.parse(self, args)
+            self.handler.id.setUpgrade(self.upgrade)
+
+    class VolGroup(superclass.VolGroup):
+        def parse(self, args):
+            superclass.VolGroup.parse(self, args)
+
+            vgd = self.vgList[-1]
+            pvs = []
+
+            # get the unique ids of each of the physical volumes
+            for pv in vgd.physvols:
+                if pv not in self.handler.ksPVMapping.keys():
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
+                pvs.append(self.handler.ksPVMapping[pv])
+
+            if len(pvs) == 0 and not vgd.preexist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting.")
+
+            if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
+
+            # get a sort of hackish id
+            uniqueID = self.handler.ksID
+            self.handler.ksVGMapping[vgd.vgname] = uniqueID
+            self.handler.ksID += 1
+                
+            request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
+                                                          physvols = pvs,
+                                                          preexist = vgd.preexist,
+                                                          format = vgd.format,
+                                                          pesize = vgd.pesize)
             request.uniqueID = uniqueID
-        if pd.onPart != "":
-            request.device = pd.onPart
-            for areq in self.id.partitions.autoPartitionRequests:
-                if areq.device is not None and areq.device == pd.onPart:
-		    raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
+            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
 
-        if pd.fsopts != "":
-            request.fsopts = pd.fsopts
+    class XConfig(superclass.XConfig):
+        def parse(self, args):
+            superclass.XConfig.parse(self, args)
 
-        self.id.instClass.addPartRequest(self.id.partitions, request)
-        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.handler.id.instClass.configureX(self.handler.id, self.driver, self.videoRam,
+                                                 self.resolution, self.depth,
+                                                 self.startX)
+            self.handler.id.instClass.setDesktop(self.handler.id, self.defaultdesktop)
+            self.handler.skipSteps.extend(["videocard", "monitor", "xcustom",
+                                           "checkmonitorok", "setsanex"])
 
-    def doReboot(self, args):
-        KickstartHandlers.doReboot(self, args)
-        self.skipSteps.append("complete")
+    class ZeroMbr(superclass.ZeroMbr):
+        def parse(self, args):
+            superclass.ZeroMbr.parse(self, args)
+            self.handler.id.instClass.setZeroMbr(self.handler.id, 1)
 
-    def doRaid(self, args):
-        KickstartHandlers.doRaid(self, args)
-        rd = self.ksdata.raidList[-1]
+    class ZFCP(superclass.ZFCP):
+        def parse(self, args):
+            superclass.ZFCP.parse(self, args)
+            for fcp in self.zfcp:
+                self.handler.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
 
-	uniqueID = None
-
-        if rd.mountpoint == "swap":
-            filesystem = fileSystemTypeGet('swap')
-            rd.mountpoint = ""
-        elif rd.mountpoint.startswith("pv."):
-            filesystem = fileSystemTypeGet("physical volume (LVM)")
-
-            if self.ksPVMapping.has_key(rd.mountpoint):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
-
-            # get a sort of hackish id
-            uniqueID = self.ksID
-            self.ksPVMapping[rd.mountpoint] = uniqueID
-            self.ksID += 1
-            rd.mountpoint = ""
-        else:
-            if rd.fstype != "":
-                filesystem = fileSystemTypeGet(rd.fstype)
-            else:
-                filesystem = fileSystemTypeGetDefault()
-
-	# sanity check mountpoint
-	if rd.mountpoint != "" and rd.mountpoint[0] != '/':
-	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point is not valid.")
-
-        raidmems = []
-
-        # get the unique ids of each of the raid members
-        for member in rd.members:
-            if member not in self.ksRaidMapping.keys():
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
-	    if member in self.ksUsedMembers:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use RAID member %s in two or more RAID specifications" % member)
-		
-            raidmems.append(self.ksRaidMapping[member])
-	    self.ksUsedMembers.append(member)
-
-        if rd.level == "" and not rd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
-        if len(raidmems) == 0 and not rd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
-
-        request = partRequests.RaidRequestSpec(filesystem,
-                                               mountpoint = rd.mountpoint,
-                                               raidmembers = raidmems,
-                                               raidlevel = rd.level,
-                                               raidspares = rd.spares,
-                                               format = rd.format,
-                                               raidminor = rd.device,
-                                               preexist = rd.preexist)
-
-        if uniqueID is not None:
-            request.uniqueID = uniqueID
-        if rd.preexist and rd.device != "":
-            request.device = "md%s" % rd.device
-        if rd.fsopts != "":
-            request.fsopts = rd.fsopts
-
-        self.id.instClass.addPartRequest(self.id.partitions, request)
-        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
-
-    def doRootPw(self, args):
-        KickstartHandlers.doRootPw(self, args)
-        dict = self.ksdata.rootpw
-
-        self.id.rootPassword["password"] = dict["password"]
-        self.id.rootPassword["isCrypted"] = dict["isCrypted"]
-	self.skipSteps.append("accounts")
-
-    def doSELinux(self, args):
-        KickstartHandlers.doSELinux(self, args)
-        self.id.instClass.setSELinux(self.id, self.ksdata.selinux)
-
-    def doSkipX(self, args):
-        KickstartHandlers.doSkipX(self, args)
-        self.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
-                               "monitor", "xcustom", "writexconfig"])
-
-        if self.id.xsetup is not None:
-            self.id.xsetup.skipx = 1
-
-    def doTimezone(self, args):
-        KickstartHandlers.doTimezone(self, args)
-        dict = self.ksdata.timezone
-
-	self.id.instClass.setTimezoneInfo(self.id, dict["timezone"], dict["isUtc"])
-	self.skipSteps.append("timezone")
-
-    def doUpgrade(self, args):
-        KickstartHandlers.doUpgrade(self, args)
-        self.id.setUpgrade(True)
-
-    def doVolumeGroup(self, args):
-        KickstartHandlers.doVolumeGroup(self, args)
-        vgd = self.ksdata.vgList[-1]
-
-        pvs = []
-
-        # get the unique ids of each of the physical volumes
-        for pv in vgd.physvols:
-            if pv not in self.ksPVMapping.keys():
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
-            pvs.append(self.ksPVMapping[pv])
-
-        if len(pvs) == 0 and not vgd.preexist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting.")
-
-        if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
-
-        # get a sort of hackish id
-        uniqueID = self.ksID
-        self.ksVGMapping[vgd.vgname] = uniqueID
-        self.ksID += 1
-            
-        request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
-                                                      physvols = pvs,
-                                                      preexist = vgd.preexist,
-                                                      format = vgd.format,
-                                                      pesize = vgd.pesize)
-        request.uniqueID = uniqueID
-        self.id.instClass.addPartRequest(self.id.partitions, request)
-
-    def doXConfig(self, args):
-        KickstartHandlers.doXConfig(self, args)
-        dict = self.ksdata.xconfig
-
-        self.id.instClass.configureX(self.id, dict["driver"], dict["videoRam"],
-                                     dict["resolution"], dict["depth"],
-                                     dict["startX"])
-        self.id.instClass.setDesktop(self.id, dict["defaultdesktop"])
-        self.skipSteps.extend(["videocard", "monitor", "xcustom",
-                               "checkmonitorok", "setsanex"])
-
-    def doZeroMbr(self, args):
-        KickstartHandlers.doZeroMbr(self, args)
-        self.id.instClass.setZeroMbr(self.id, 1)
-
-    def doZFCP(self, args):
-        KickstartHandlers.doZFCP(self, args)
-        for fcp in self.ksdata.zfcp:
-            self.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
-
-class VNCHandlers(KickstartHandlers):
+class VNCHandler(superclass):
     # We're only interested in the handler for the VNC command.
-    def __init__ (self, ksdata):
-        KickstartHandlers.__init__(self, ksdata)
-        self.resetHandlers()
-        self.handlers["vnc"] = self.doVnc
+    def __init__(self, anaconda=None):
+        superclass.__init__(self)
+        self.empty()
+        self.registerCommand(superclass.Vnc(), ["vnc"])
 
 class KickstartPreParser(KickstartParser):
-    def __init__ (self, ksdata, kshandlers):
-        self.handler = kshandlers
-        KickstartParser.__init__(self, ksdata, kshandlers,
-                                 missingIncludeIsFatal=False)
+    def __init__ (self, handler, followIncludes=True,
+                  errorsAreFatal=True, missingIncludeIsFatal=True):
+        KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
 
     def addScript (self):
-        if self.state == STATE_PRE:
-            s = AnacondaKSScript (self.script["body"], self.script["interp"],
-			          self.script["chroot"], self.script["log"],
-				  self.script["errorOnFail"])
-            self.ksdata.scripts.append(s)
+        if self._state == STATE_PRE:
+            s = AnacondaKSScript (self._script["body"], self._script["interp"],
+			          self._script["chroot"], self._script["log"],
+				  self._script["errorOnFail"])
+            self.handler.scripts.append(s)
 
     def addPackages (self, line):
         pass
@@ -657,15 +686,16 @@ class KickstartPreParser(KickstartParser):
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        self.script["interp"] = opts.interpreter
-        self.script["log"] = opts.log
-        self.script["errorOnFail"] = opts.errorOnFail
-        self.script["chroot"] = False
+        self._script["interp"] = opts.interpreter
+        self._script["log"] = opts.log
+        self._script["errorOnFail"] = opts.errorOnFail
+        self._script["chroot"] = False
 
 class AnacondaKSParser(KickstartParser):
-    def __init__ (self, ksdata, kshandlers):
+    def __init__ (self, handler, followIncludes=True,
+                  errorsAreFatal=True, missingIncludeIsFatal=True):
+        KickstartParser.__init__(self, handler)
         self.sawPackageSection = False
-        KickstartParser.__init__(self, ksdata, kshandlers)
 
     # Map old broken Everything group to the new futuristic package globs
     def addPackages (self, line):
@@ -676,14 +706,14 @@ class AnacondaKSParser(KickstartParser):
             KickstartParser.addPackages(self, line)
 
     def addScript (self):
-        if string.join(self.script["body"]).strip() == "":
+        if string.join(self._script["body"]).strip() == "":
             return
 
-        s = AnacondaKSScript (self.script["body"], self.script["interp"],
-                              self.script["chroot"], self.script["log"],
-                              self.script["errorOnFail"], self.script["type"])
+        s = AnacondaKSScript (self._script["body"], self._script["interp"],
+                              self._script["chroot"], self._script["log"],
+                              self._script["errorOnFail"], self._script["type"])
 
-        self.ksdata.scripts.append(s)
+        self.handler.scripts.append(s)
 
     def handlePackageHdr (self, lineno, args):
         self.sawPackageSection = True
@@ -693,16 +723,7 @@ class AnacondaKSParser(KickstartParser):
         if not self.handler:
             return
 
-        cmd = args[0]
-        cmdArgs = args[1:]
-
-        if not self.handler.handlers.has_key(cmd):
-            raise KickstartParseError, formatErrorMsg(lineno)
-        else:
-            if self.handler.handlers[cmd] != None:
-                self.handler.currentCmd = cmd
-                self.handler.lineno = lineno
-                self.handler.handlers[cmd](cmdArgs)
+        KickstartParser.handleCommand(self, lineno, args)
 
 cobject = getBaseInstallClass()
 
@@ -711,8 +732,7 @@ class Kickstart(cobject):
     name = "kickstart"
 
     def __init__(self, file, serial):
-        self.ksdata = None
-        self.handlers = None
+        self.ksparser = None
         self.serial = serial
         self.file = file
 
@@ -733,7 +753,7 @@ class Kickstart(cobject):
 
     def runPreScripts(self, anaconda):
         preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE,
-                             self.ksdata.scripts)
+                             self.ksparser.handler.scripts)
 
         if len(preScripts) == 0:
             return
@@ -751,7 +771,7 @@ class Kickstart(cobject):
 
     def postAction(self, anaconda, serial):
         postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
-                              self.ksdata.scripts)
+                              self.ksparser.handler.scripts)
 
         if len(postScripts) == 0:
             return
@@ -775,7 +795,7 @@ class Kickstart(cobject):
     def runTracebackScripts(self):
 	log.info("Running kickstart %%traceback script(s)")
 	for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
-                              self.ksdata.scripts):
+                              self.ksparser.handler.scripts):
 	    script.run("/", self.serial)
         log.info("All kickstart %%traceback script(s) have been run")
 
@@ -793,8 +813,7 @@ class Kickstart(cobject):
         ds.startDmRaid()
 
         # parse the %pre
-        self.ksdata = KickstartData()
-        self.ksparser = KickstartPreParser(self.ksdata, None)
+        self.ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
 
         try:
             self.ksparser.readKickstart(self.file)
@@ -809,9 +828,8 @@ class Kickstart(cobject):
         self.runPreScripts(anaconda)
 
         # now read the kickstart file for real
-        self.ksdata = KickstartData()
-        self.handlers = AnacondaKSHandlers(self.ksdata, anaconda)
-        self.ksparser = AnacondaKSParser(self.ksdata, self.handlers)
+        self.handler = AnacondaKSHandler(anaconda)
+        self.ksparser = AnacondaKSParser(self.handler)
 
         try:
             self.ksparser.readKickstart(self.file)
@@ -822,14 +840,15 @@ class Kickstart(cobject):
             else:
                 raise KickstartError, e
 
-        self.id.setKsdata(self.ksdata)
+        self.id.setKsdata(self.handler)
 
     def _havePackages(self):
-        return len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
-               len(self.ksdata.excludedList) > 0
+        return len(self.handler.packages.groupList) > 0 or \
+               len(self.handler.packages.packageList) > 0 or \
+               len(self.handler.packages.excludedList) > 0
 
     def setSteps(self, dispatch):
-        if self.ksdata.upgrade:
+        if self.handler.upgrade.upgrade:
             from upgradeclass import InstallClass
             theUpgradeclass = InstallClass(0)
             theUpgradeclass.setSteps(dispatch)
@@ -847,7 +866,7 @@ class Kickstart(cobject):
             cobject.setSteps(self, dispatch)
             dispatch.skipStep("findrootparts")
 
-        if self.ksdata.interactive or flags.autostep:
+        if self.handler.interactive.interactive or flags.autostep:
             dispatch.skipStep("installtype")
             dispatch.skipStep("bootdisk")
 
@@ -866,46 +885,46 @@ class Kickstart(cobject):
         dispatch.skipStep("network")
 
         # Don't show confirmation screens on non-interactive installs.
-        if not self.ksdata.interactive:
+        if not self.handler.interactive.interactive:
             dispatch.skipStep("confirminstall")
             dispatch.skipStep("confirmupgrade")
             dispatch.skipStep("welcome")
 
         # Make sure to automatically reboot even in interactive if told to.
-        if self.ksdata.interactive and self.ksdata.reboot["action"] != KS_WAIT:
+        if self.handler.interactive.interactive and self.handler.reboot.action != KS_WAIT:
             dispatch.skipStep("complete")
 
         # If the package section included anything, skip group selection unless
         # they're in interactive.
-        if self.ksdata.upgrade:
-            self.handlers.skipSteps.append("group-selection")
+        if self.handler.upgrade.upgrade:
+            self.handler.skipSteps.append("group-selection")
 
             # Special check for this, since it doesn't make any sense.
             if self._havePackages():
                 warnings.warn("Ignoring contents of %packages section due to upgrade.")
         elif self._havePackages():
-            if self.ksdata.interactive:
-                self.handlers.showSteps.append("group-selection")
+            if self.handler.interactive.interactive:
+                self.handler.showSteps.append("group-selection")
             else:
-                self.handlers.skipSteps.append("group-selection")
+                self.handler.skipSteps.append("group-selection")
         else:
             if self.ksparser.sawPackageSection:
-                self.handlers.skipSteps.append("group-selection")
+                self.handler.skipSteps.append("group-selection")
             else:
-                self.handlers.showSteps.append("group-selection")
+                self.handler.showSteps.append("group-selection")
 
-        if not self.ksdata.interactive:
-            for n in self.handlers.skipSteps:
+        if not self.handler.interactive.interactive:
+            for n in self.handler.skipSteps:
                 dispatch.skipStep(n)
-            for n in self.handlers.permanentSkipSteps:
+            for n in self.handler.permanentSkipSteps:
                 dispatch.skipStep(n, permanent=1)
-        for n in self.handlers.showSteps:
+        for n in self.handler.showSteps:
             dispatch.skipStep(n, skip = 0)
 
     def setPackageSelection(self, anaconda, *args):
-        for pkg in self.ksdata.packageList:
+        for pkg in self.handler.packages.packageList:
             num = anaconda.backend.selectPackage(pkg)
-            if self.ksdata.handleMissing == KS_MISSING_IGNORE:
+            if self.handler.packages.handleMissing == KS_MISSING_IGNORE:
                 continue
             if num > 0:
                 continue
@@ -933,14 +952,14 @@ class Kickstart(cobject):
 
         anaconda.backend.selectGroup("Core")
 
-        if self.ksdata.addBase:
+        if self.handler.packages.addBase:
             anaconda.backend.selectGroup("Base")
         else:
             log.warning("not adding Base group")
 
-        for grp in self.ksdata.groupList:
+        for grp in self.handler.packages.groupList:
             num = anaconda.backend.selectGroup(grp)
-            if self.ksdata.handleMissing == KS_MISSING_IGNORE:
+            if self.handler.packages.handleMissing == KS_MISSING_IGNORE:
                 continue
             if num > 0:
                 continue
@@ -959,7 +978,7 @@ class Kickstart(cobject):
             else:
                 pass
 
-        map(anaconda.backend.deselectPackage, self.ksdata.excludedList)
+        map(anaconda.backend.deselectPackage, self.handler.packages.excludedList)
 
 #
 # look through ksfile and if it contains a line:

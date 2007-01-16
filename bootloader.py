@@ -41,7 +41,7 @@ def bootloaderSetupChoices(anaconda):
         return 
 
     if anaconda.id.ksdata:
-        anaconda.id.bootloader.updateDriveList(anaconda.id.ksdata.bootloader["driveorder"])
+        anaconda.id.bootloader.updateDriveList(anaconda.id.ksdata.bootloader.driveorder)
     else:
         anaconda.id.bootloader.updateDriveList()
 

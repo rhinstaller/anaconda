@@ -1,5 +1,22 @@
 2007-01-16  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py:  Rearrange code so each command handler is a class
+	inside AnacondaKSHandler and add __init__ and parse methods to each
+	class since pykickstart will expect those.  Subclass AnacondaKSParser
+	and KickstartPreParser from whatever class pykickstart says is the
+	latest syntax version.  Fix references throughout to refer to the new
+	pykickstart code arrangement.
+
+	* anaconda:  Fix references to ksdata for new pykickstart arrangement.
+	* bootloader.py (bootloaderSetupChoices):  Likewise.
+	* exception.py (dumpException):  Likewise.
+	* instdata.py (InstallData.write):  Likewise.
+	* partedUtils.py (DiskSet.openDevices):  Likewise.
+	* xsetup.py (XSetup.writeKS):  Likewise.
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Likewise.
+
+2007-01-16  Chris Lumens  <clumens@redhat.com>
+
 	* loader2/hdinstall.c (loadHDImages):  Fix test for NULL (#222767,
 	Zhang Yanmin <yanmin.zhang AT intel.com>)
 
