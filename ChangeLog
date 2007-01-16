@@ -1,3 +1,15 @@
+2007-01-16  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (doPostSelection): remove packages added to solve 
+	dependencies if we can't accept the package selection because of 
+	limited disk space (#222894)
+
+	* yuminstall.py (_undoDepInstalls): new method to remove transaction
+	members that are only there because something depends on them
+
+	* yuminstall.py (doPostSelection): don't pop the depsolver progress
+	meter on ENOSPC since we'll do it in the finally block anyway (#215493)
+
 2007-01-16  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py:  Rearrange code so each command handler is a class

@@ -377,6 +377,12 @@ class YumSorter(yum.YumBase):
             return best
         return None
 
+    def _undoDepInstalls(self):
+        # clean up after ourselves in the case of failures
+        for txmbr in self.tsInfo:
+            if txmbr.isDep:
+                self.tsInfo.remove(txmbr.pkgtup)
+
     def prof_resolveDeps(self):
         fn = "anaconda.prof.0"
         import hotshot, hotshot.stats
@@ -452,7 +458,7 @@ class YumSorter(yum.YumBase):
                         found = True
                         break
                 if not found:
-                    txmbr.setAsDep(member.po)
+                    member.setAsDep(txmbr.po)
 
         return unresolved
 
@@ -1114,7 +1120,6 @@ class YumBackend(AnacondaBackend):
 
                 if largePart and \
                    largePart.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < self.totalSize / 1024:
-                    dscb.pop()
                     rc = anaconda.intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
                                               "of free space for installation, but "
@@ -1127,6 +1132,7 @@ class YumBackend(AnacondaBackend):
                     if rc == 1:
                         sys.exit(1)
                     else:
+                        self.ayum._undoDepInstalls()
                         return DISPATCH_BACK
         finally:
             dscb.pop()
