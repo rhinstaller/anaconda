@@ -1,3 +1,12 @@
+2007-01-16  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (doPostSelection): remove packages added to solve 
+	dependencies if we can't accept the package selection because of 
+	limited disk space (#222894)
+
+	* yuminstall.py (_undoDepInstalls): new method to remove transaction
+	members that are only there because something depends on them
+
 2007-01-16  Peter Jones  <pjones@redhat.com>
 
 	* yuminstall.py (YumSorter.__init__): make yum use anaconda's loggers.
