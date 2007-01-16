@@ -853,11 +853,13 @@ class FATFileSystem(FileSystemType):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("fat32")
         self.formattable = 1
+        self.supported = 1
         self.checked = 0
         self.maxSizeMB = 1024 * 1024
         self.name = "vfat"
         self.packages = [ "dosfstools" ]
         self.maxLabelChars = 11
+        self.migratetofs = ['vfat']
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -872,18 +874,93 @@ class FATFileSystem(FileSystemType):
             raise SystemError
 
     def labelDevice(self, entry, chroot):
-        if False and not rhpl.getArch() == 'ia64':
+        if not rhpl.getArch() == 'ia64':
             return
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
 
-        rc = iutil.execWithRedirect("/sbin/dosfslabel", [devicePath, label],
+        rc = iutil.execWithRedirect("dosfslabel",
+                                    [devicePath, label],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
-        if rc:
-            raise SystemError
+                                    stderr = "/dev/tty5",
+                                    searchPath = 1)
+        newLabel = iutil.execWithCapture("dosfslabel", [devicePath],
+                                   stderr = "/dev/tty5")
+        newLabel = newLabel.strip()
+        if label != newLabel:
+            raise SystemError, "dosfslabel failed on device %s" % (devicePath,)
         entry.setLabel(label)
+
+    def _readFstab(self, path):
+        f = open (path, "r")
+        lines = f.readlines ()
+        f.close()
+
+        fstab = []
+        for line in lines:
+            fields = string.split(line)
+        
+            if not fields:
+                fstab.append(line)
+                continue
+        
+            if line[0] == "#":
+                fstab.append(line)
+                # skip all comments
+                continue
+        
+            # all valid fstab entries have 6 fields; if the last two are
+            # missing they are assumed to be zero per fstab(5)
+            if len(fields) < 4:
+                fstab.append(line)
+                continue
+            elif len(fields) == 4:
+                fields.append(0)
+                fields.append(0)            
+            elif len(fields) == 5:
+                fields.append(0)                        
+            elif len(fields) > 6:
+                fstab.append(line)
+                continue
+            fstab.append(fields)
+
+        return fstab
+
+    def migrateFileSystem(self, entry, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        if not entry.fsystem or not entry.origfsystem:
+            raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
+                                 "origfsystem set")
+        if entry.fsystem.getName() != "vfat":
+            raise RuntimeError, ("Trying to migrate vfat to something other "
+                                 "than vfat")
+
+        self.labelDevice(entry, chroot)
+
+        if not entry.label:
+            return
+
+        mounts = self._readFstab(chroot + "/etc/fstab")
+
+        changed = False
+        for mount in mounts:
+            if type(mount) == types.ListType:
+                if mount[0] == "/dev/%s" % (entry.device.getDevice(),):
+                    mount[0] = "LABEL=%s" % (entry.label,)
+                    changed = True
+
+        if changed:
+            os.rename(chroot + "/etc/fstab", chroot + "/etc/fstab.anaconda")
+            f = open (chroot + "/etc/fstab", "w")
+            for mount in mounts:
+                if type(mount) == types.ListType:
+                    mount = string.join(mount, "\t")
+                if mount[:-1] != "\n":
+                    mount += "\n"
+                f.write(mount)
+            f.close()
 
 fileSystemTypeRegister(FATFileSystem())
 
@@ -1657,6 +1734,8 @@ MAILADDR root
             try:
                 self.labelEntry(entry, chroot)
             except SystemError:
+                devicePath = entry.device.setupDevice(chroot)
+                log.debug("failed to label device %s" % (devicePath,))
                 # should be OK, we'll still use the device name to mount.
                 pass
 
@@ -1686,6 +1765,11 @@ MAILADDR root
         for entry in self.entries:
             if not entry.origfsystem:
                 continue
+
+            if rhpl.getArch() == 'ia64' \
+                    and entry.getMountPoint() == "/boot/efi" \
+                    and isinstance(entry.origfsystem, FATFileSystem):
+                entry.setMigrate(1)
 
             if not entry.origfsystem.isMigratable() or not entry.getMigrate():
                 continue

@@ -207,6 +207,10 @@ class RequestSpec:
 
         if self.migrate:
             entry.setMigrate(self.migrate)
+        elif rhpl.getArch() == "ia64" \
+                and entry.getMountPoint() == "/boot/efi" \
+                and isinstance(self.origfstype, fsset.FATFileSystem):
+            entry.setMigrate(1)
 
         if self.badblocks:
             entry.setBadblocks(self.badblocks)
