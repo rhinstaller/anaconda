@@ -338,6 +338,9 @@ class YumSorter(yum.YumBase):
         self.path = []
         self.loops = []
 
+        self.logger = log
+        self.verbose_logger = log
+
     def isPackageInstalled(self, pkgname):
         # FIXME: this sucks.  we should probably suck it into yum proper
         # but it'll need a bit of cleanup first.  
