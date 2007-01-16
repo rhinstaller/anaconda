@@ -1,3 +1,8 @@
+2007-01-16  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/hdinstall.c (loadHDImages):  Fix test for NULL (#222767,
+	Zhang Yanmin <yanmin.zhang AT intel.com>)
+
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
 	* text.py (InstallInterface.run):  Don't display the unsupported

@@ -70,7 +70,7 @@ static int loadHDImages(char * prefix, char * dir,
         logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
-    if (!(*target)) {
+    if (!target) {
         logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
         return 1;
     } 
