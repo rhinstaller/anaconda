@@ -230,7 +230,7 @@ def parseOptions():
     op.add_option("--noselinux", dest="selinux", action="store_false", default=True)
     op.add_option("--selinux", action="store_true")
 
-    op.add_option("--nompath", dest="mpath", action="store_false", default=True)
+    op.add_option("--nompath", dest="mpath", action="store_false", default=False)
     op.add_option("--mpath", action="store_true")
 
     op.add_option("--nodmraid", dest="dmraid", action="store_false", default=True)
