@@ -1,5 +1,9 @@
 2007-01-16  Peter Jones  <pjones@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-01-16  Peter Jones  <pjones@redhat.com>
+
 	* fsset.py: label /boot/efi on ia64 on both install and upgrade.  Also
 	update fstab (#218957)
 
@@ -43,10 +47,10 @@
 2007-01-15  Dave Lehman  <dlehman@redhat.com>
 
 	* installclasses/rhel.py: don't use lists for repopath values
-
 	when given "clearpart --all --initlabel" with harddrive method,
 	do not relabel the disk containing the ISO images; instead, clear
 	all the non-protected partitions off of it (#220331)
+
 	* partedUtils.py (openDevices): don't relabel disks that contain
 	protected partitions
 
@@ -84,7 +88,7 @@
 	- only initialize disks once (#220021)
 	- hopefully, make the code a little bit more readable
 
-	* kickstart.py 
+	* kickstart.py:
 	- Revert ksdata.clearpart["done"] patch
 
 	* partErrors.py: add LabelError

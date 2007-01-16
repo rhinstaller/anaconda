@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.27
+Version: 11.1.2.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,33 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.28-1
+- Use a GtkWindow for the release notes viewer (katzj)
+  Resolves: #220418
+- Add pirut to our textdomain so strings get translated (katzj)
+  Resolves: #216067
+- Don't log a pvrequest's "drive" attribute, since they don't all have them
+  Resolves: #221992
+- Fix "clearpart" and such to only happen once
+  Resolves: #220021
+- Handle multiple repo paths better
+  Resolves: #221146
+  Resolves: #221260
+- label fat filesystems for /boot/efi on ia64
+  Resolves: #218957
+- Don't overwrite hdinstall partition when "clearpart --all --initlabel" is
+  in ks.cfg (dlehman)
+  Resolves: #220331
+- Fix depsolver progress meter problems when there's not enough space (dlehman)
+  Resolves: #215493
+- Don't show "unsupported language" error when not in interactive mode (clumens)
+  Resolves: #222096
+- Change default mpath option to disabled
+  Related: #219843
+- Remove packages pulled in for deps when there's a space error (dlehman)
+  Resolves: #222894
+- Disable betanag (katzj)
+
 * Thu Jan  4 2007 Peter Jones <pjones@redhat.com> - 11.1.2.27-1
 - Include cdroms in the scsi disk count (katzj, #207336)
 - Translation display fixes (katzj, #216067)
