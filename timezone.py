@@ -59,6 +59,6 @@ class Timezone:
 	self.arc = asArc
 
     def __init__(self):
-	self.tz = None
+	self.tz = "America/New_York"
 	self.utc = 0
 	self.arc = 0

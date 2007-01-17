@@ -80,7 +80,7 @@ class InstallProgressWindow (InstallWindow):
 	self.progress.set_fraction (newval)
 	self.processEvents()
 
-    def completePackage(self, header, timer):
+    def completePackage(self, header = None, timer = None, pct = None):
         def formatTime(amt):
             hours = amt / 60 / 60
             amt = amt % (60 * 60)
@@ -89,6 +89,10 @@ class InstallProgressWindow (InstallWindow):
             secs = amt
 
             return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
+
+        if pct:
+            self.totalProgress.set_fraction(pct)
+            return
 
         self.numComplete = self.numComplete + 1
 

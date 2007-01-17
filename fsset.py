@@ -176,6 +176,10 @@ class FileSystemType:
         self.maxLabelChars = 16
         self.packages = []
 
+    def isKernelFS(self):
+        """Returns True if this is an in-kernel pseudo-filesystem."""
+        return False
+
     def mount(self, device, mountpoint, readOnly=0, bindMount=0,
               instroot=""):
         if not self.isMountable():
@@ -965,6 +969,9 @@ class PsudoFileSystem(FileSystemType):
         self.checked = 0
         self.name = name
         self.supported = 0
+
+    def isKernelFS(self):
+        return True
 
 class ProcFileSystem(PsudoFileSystem):
     def __init__(self):
@@ -1870,7 +1877,7 @@ MAILADDR root
 
 	return ret
 
-    def umountFilesystems(self, instPath, ignoreErrors = 0):
+    def umountFilesystems(self, instPath, ignoreErrors = 0, swapoff = True):
         # XXX remove special case
         try:
             isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
@@ -1884,6 +1891,8 @@ MAILADDR root
         reverse.reverse()
 
 	for entry in reverse:
+            if entry.mountpoint == "swap" and not swapoff:
+                continue
             entry.umount(instPath)
 
 class FileSystemSetEntry:

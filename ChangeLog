@@ -1,3 +1,21 @@
+2007-01-17  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/progress_gui.py (InstallProgressWindow.completePackage):
+	Quick and dirty way of handling-non rpm installs.  This needs to
+	be reworked more completely
+
+	* timezone.py (Timezone.__init__): Add a default in case the step
+	is skipped
+
+	* instdata.py (InstallData.write): Ensure that network is written
+	out rather than counting on our backend to do so in its preinstall
+
+	* fsset.py (FileSystemType.isKernelFS): Add a method to determine
+	if we're an in-kernel pseudo-filesystem
+	(PsudoFileSystem.isKernelFS): And implement it
+	(FileSystemSet.umountFilesystems): Allow unmounting filesystems
+	without turning off swap.
+
 2007-01-17  Dave Lehman  <dlehman@redhat.com>
 
 	* loader2/method.c (unpackCpioBall): new function to unpack a

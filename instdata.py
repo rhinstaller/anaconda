@@ -149,7 +149,8 @@ class InstallData:
                 log.error("Would have run: %s", args)
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
-	
+
+	self.network.write (anaconda.rootPath)
 	self.firewall.write (anaconda.rootPath)
         self.security.write (anaconda.rootPath)
 
