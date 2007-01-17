@@ -518,7 +518,7 @@ static int getNoKill(void) {
 
 static int getInitPid(void) {
     int fd = 0, pid = -1, ret;
-    char * buf = malloc(10);
+    char * buf = calloc(1, 10);
 
     fd = open("/var/run/init.pid", O_RDONLY);
     if (fd < 0) {
