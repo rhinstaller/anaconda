@@ -1,3 +1,9 @@
+2007-01-17  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py: Search paths for various executables that we call
+	rather than hard-coding them as being under /usr/sbin since
+	they're more normally under /sbin
+
 2007-01-17  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/network_text.py: Reference useIPv4 and useIPv6 from the

@@ -214,7 +214,7 @@ class FileSystemType:
             w = None
         
         devicePath = entry.device.setupDevice(chroot)
-        args = [ "/usr/sbin/badblocks", "-vv", devicePath ]
+        args = [ "badblocks", "-vv", devicePath ]
 
         # entirely too much cutting and pasting from ext2FormatFileSystem
         fd = os.open("/dev/tty5", os.O_RDWR | os.O_CREAT | os.O_APPEND)
@@ -226,7 +226,7 @@ class FileSystemType:
             os.dup2(p[1], 2)
             os.close(p[1])
             os.close(fd)
-            os.execv(args[0], args)
+            os.execvp(args[0], args)
             log.critical("failed to exec %s", args)
             os._exit(1)
 
@@ -411,11 +411,11 @@ class reiserfsFileSystem(FileSystemType):
         os.write(p[1], "y\n")
         os.close(p[1])
 
-        rc = iutil.execWithRedirect("/usr/sbin/mkreiserfs",
+        rc = iutil.execWithRedirect("mkreiserfs",
                                     [devicePath],
                                     stdin = p[0],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
 
         if rc:
             raise SystemError
@@ -424,10 +424,10 @@ class reiserfsFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
-        rc = iutil.execWithRedirect("/usr/sbin/reiserfstune",
+        rc = iutil.execWithRedirect("reiserfstune",
                                     ["--label", label, devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
         entry.setLabel(label)
@@ -458,11 +458,11 @@ class xfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         
-        rc = iutil.execWithRedirect("/usr/sbin/mkfs.xfs",
+        rc = iutil.execWithRedirect("mkfs.xfs",
                                     ["-f", "-l", "internal", 
                                      "-i", "attr=2", devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         
         if rc:
             raise SystemError
@@ -472,10 +472,10 @@ class xfsFileSystem(FileSystemType):
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
         db_cmd = "label " + label
-        rc = iutil.execWithRedirect("/usr/sbin/xfs_db",
+        rc = iutil.execWithRedirect("xfs_db",
                                     ["-x", "-c", db_cmd, devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
         entry.setLabel(label)
@@ -499,9 +499,6 @@ class jfsFileSystem(FileSystemType):
         else:
             self.supported = 0
 
-        if not os.access("/usr/sbin/mkfs.jfs", os.X_OK):
-            self.supported = 0
-            
         self.name = "jfs"
         self.packages = [ "jfsutils" ]
 
@@ -511,10 +508,10 @@ class jfsFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
-	rc = iutil.execWithRedirect("/usr/sbin/jfs_tune",
+	rc = iutil.execWithRedirect("jfs_tune",
 	                            ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
         entry.setLabel(label)
@@ -522,10 +519,10 @@ class jfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
-        rc = iutil.execWithRedirect("/usr/sbin/mkfs.jfs",
+        rc = iutil.execWithRedirect("mkfs.jfs",
                                     ["-q", devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         
         if rc:
             raise SystemError
@@ -551,11 +548,11 @@ class gfs2FileSystem(FileSystemType):
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
-        rc = iutil.execWithRedirect("/usr/sbin/mkfs.gfs2",
+        rc = iutil.execWithRedirect("mkfs.gfs2",
                                     ["-j", "1", "-p", "lock_nolock",
                                      "-O", devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
 
         if rc:
             raise SystemError
@@ -577,10 +574,10 @@ class extFileSystem(FileSystemType):
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
 
-        rc = iutil.execWithRedirect("/usr/sbin/e2label",
+        rc = iutil.execWithRedirect("e2label",
                                     [devicePath, label],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
         entry.setLabel(label)
@@ -588,7 +585,7 @@ class extFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "/usr/sbin/mke2fs", devicePath, "-i", str(entry.bytesPerInode) ]
+        args = [ "mke2fs", devicePath, "-i", str(entry.bytesPerInode) ]
 
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
@@ -614,11 +611,11 @@ class extFileSystem(FileSystemType):
         if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
             return
 
-        rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+        rc = iutil.execWithRedirect("tune2fs",
                                     ["-c0", "-i0", "-Odir_index",
                                      "-ouser_xattr,acl", devicePath],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
 
 class ext2FileSystem(extFileSystem):
     def __init__(self):
@@ -642,10 +639,10 @@ class ext2FileSystem(extFileSystem):
             log.info("Skipping migration of %s, has a journal already.\n" % devicePath)
             return
 
-        rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+        rc = iutil.execWithRedirect("tune2fs",
                                     ["-j", devicePath ],
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
 
         if rc:
             raise SystemError
@@ -794,7 +791,7 @@ class swapFileSystem(FileSystemType):
     
     def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
-        rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
+        rc = iutil.execWithRedirect ("mkswap",
                                      ['-v1', file],
                                      stdout = "/dev/tty5",
                                      stderr = "/dev/tty5",
@@ -814,7 +811,7 @@ class swapFileSystem(FileSystemType):
         else:
             swapLabel = "SWAP-%s" % (devName)
         label = labelFactory.createLabel(swapLabel, self.maxLabelChars)
-        rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
+        rc = iutil.execWithRedirect ("mkswap",
                                      ['-v1', "-L", label, file],
                                      stdout = "/dev/tty5",
                                      stderr = "/dev/tty5",
@@ -852,9 +849,9 @@ class FATFileSystem(FileSystemType):
         args = [ devicePath ]
         args.extend(devArgs)
         
-        rc = iutil.execWithRedirect("/usr/sbin/mkdosfs", args,
+        rc = iutil.execWithRedirect("mkdosfs", args,
                                     stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+                                    stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
         
@@ -2205,9 +2202,10 @@ class RAIDDevice(Device):
                 args.append("--spare-devices=%s" %(self.spares,),)
             
             args.extend(map(devify, self.members))
-            log.info("going to run: %s" %(["/usr/sbin/mdadm"] + args,))
-            iutil.execWithRedirect ("/usr/sbin/mdadm", args,
-                                    stderr="/dev/tty5", stdout="/dev/tty5")
+            log.info("going to run: %s" %(["mdadm"] + args,))
+            iutil.execWithRedirect ("mdadm", args,
+                                    stderr="/dev/tty5", stdout="/dev/tty5",
+                                    searchPath = 1)
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
             self.isSetup = 1
@@ -2757,7 +2755,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.dup2(fd, 2)
         os.close(p[1])
         os.close(fd)
-        os.execv(argList[0], argList)
+        os.execvp(argList[0], argList)
         log.critical("failed to exec %s", argList)
         os._exit(1)
 			    
