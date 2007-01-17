@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.28
+Version: 11.1.2.29
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 17 2007 Peter Jones <pjones@redhat.com> - 11.1.2.29-1
+- fix rhpl import 
+  Resolves: #222991
+
 * Tue Jan 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.28-1
 - Use a GtkWindow for the release notes viewer (katzj)
   Resolves: #220418

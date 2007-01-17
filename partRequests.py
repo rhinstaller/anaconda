@@ -30,6 +30,7 @@ import raid
 import lvm
 import partedUtils
 import partIntfHelpers
+import rhpl
 
 import logging
 log = logging.getLogger("anaconda")
