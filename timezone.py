@@ -62,6 +62,3 @@ class Timezone:
 	self.tz = None
 	self.utc = 0
 	self.arc = 0
-        self.utcOffset = 0
-        self.dst = 0
-
