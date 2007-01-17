@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.9
+Version: 11.2.0.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -11,7 +11,7 @@ BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
 BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
 BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
+BuildPreReq: pykickstart >= 0.90, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 16 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.10-1
+- Remove deps when going back from package selection (dlehman, #222894).
+- Fix UI when going back from package selection (dlehman, #215493).
+- Update kickstart code to use new pykickstart API.
+- Fix loader test for NULL (yanmin.zhang AT intel.com, #222767).
+- Don't display the unsupported lang box in kickstart installs (#222096).
+- Error message fixes in package installation (katzj).
+- Update DHCP UI (dcantrell).
+- Correct behavior of escape key in release notes viewer (dcantrell, #220418).
+
 * Wed Jan 10 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.9-1
 - Set NETWORKING_IPV6 based on whether we want ipv6 for 
   any devices or not (dcantrell, katzj, #222147)
