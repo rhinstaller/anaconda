@@ -110,7 +110,7 @@ class NetworkDeviceWindow:
 
         def IPV4toggled():
             active = self.ipv4Cb.selected()
-            net.useIPv4 = active
+            dev.set(('useIPv4', active))
             if not self.dhcpCb.selected():
                 if active:
                     for widget in v4list:
@@ -121,7 +121,7 @@ class NetworkDeviceWindow:
 
         def IPV6toggled():
             active = self.ipv6Cb.selected()
-            net.useIPv6 = active
+            dev.set(('useIPv6', active))
             if not self.dhcpCb.selected():
                 if active:
                     for widget in v6list:
@@ -174,13 +174,13 @@ class NetworkDeviceWindow:
         mainrow += 1
 
         # Use IPv4 option
-        self.ipv4Cb = Checkbox(_("Enable IPv4 support"), net.useIPv4)
+        self.ipv4Cb = Checkbox(_("Enable IPv4 support"), int(bool(dev.get('useIPv4'))))
         maingrid.setField(self.ipv4Cb, 0, mainrow, anchorLeft = 1, growx = 1,
                           padding = (0, 0, 0, ypad))
         mainrow += 1
 
         # Use IPv6 option
-        self.ipv6Cb = Checkbox(_("Enable IPv6 support"), net.useIPv6)
+        self.ipv6Cb = Checkbox(_("Enable IPv6 support"), int(bool(dev.get('useIPv6'))))
         maingrid.setField(self.ipv6Cb, 0, mainrow, anchorLeft = 1, growx = 1,
                           padding = (0, 0, 0, ypad))
         mainrow += 1
@@ -302,8 +302,8 @@ class NetworkDeviceWindow:
         toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
 
         self.dhcpCb.isOn = (bootproto == 'dhcp')
-        self.ipv4Cb.isOn = net.useIPv4
-        self.ipv6Cb.isOn = net.useIPv6
+        self.ipv4Cb.isOn = int(bool(dev.get('useIPv4')))
+        self.ipv6Cb.isOn = int(bool(dev.get('useIPv6')))
 
         DHCPtoggled()
         IPV4toggled()
