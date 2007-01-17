@@ -117,8 +117,11 @@ int audit_daemonize(void) {
     fd = audit_open();
     do_auditd(fd);
     audit_close(fd);
-#endif /* USESELINUX */
+#ifndef STANDALONE
     exit(0);
+#endif /* !defined(STANDALONE) */
+#endif /* USESELINUX */
+    return 0;
 }
 
 #ifdef STANDALONE

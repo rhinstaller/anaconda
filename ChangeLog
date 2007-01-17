@@ -1,3 +1,7 @@
+2007-01-17  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/auditd.c: Don't exit if we're not using SELinux (Elliot Peele)
+
 2007-01-16  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
