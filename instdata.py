@@ -68,14 +68,9 @@ class InstallData:
         self.diskset = partedUtils.DiskSet(anaconda)
         self.partitions = partitions.Partitions()
         self.bootloader = bootloader.getBootloader()
-        self.dependencies = []
-        self.dbpath = None
         self.upgradeRoot = None
         self.rootParts = None
         self.upgradeSwapInfo = None
-        self.upgradeDeps = ""
-        self.upgradeRemove = []
-        self.upgradeInfoFound = None
 
         if rhpl.getArch() == "s390":
             self.firstboot = FIRSTBOOT_SKIP
@@ -271,10 +266,6 @@ class InstallData:
 	self.extraModules = extraModules
 	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()
-        self.excludeDocs = 0
-
-        if flags.cmdline.has_key("excludedocs"):
-            self.excludeDocs = 1
 
         self.methodstr = methodstr
 	self.reset(anaconda)
