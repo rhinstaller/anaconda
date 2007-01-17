@@ -1,3 +1,11 @@
+2007-01-17  Dave Lehman  <dlehman@redhat.com>
+
+	* loader2/method.c (unpackCpioBall): new function to unpack a
+	cpio ball into a specified root directory
+
+	* loader2/method.c (copyUpdatesImg): if the updates can't be mounted
+	try unpacking them as a cpio ball
+
 2007-01-17  Peter Jones  <pjones@redhat.com>
 
 	* loader2/init.c (getInitPid): clear memory before using it (#222953)
