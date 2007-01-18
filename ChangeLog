@@ -1,3 +1,20 @@
+2007-01-18  Jeremy Katz  <katzj@redhat.com>
+
+	* installclasses/custom.py: Remove obsolete file
+	* installclasses/personal_desktop.py: Likewise.
+	* installclasses/server.py: Likewise.
+	* installclasses/workstation.py: Likewise.
+
+	* installclasses/fedora.py: Implement getMethod/getBackend
+	* installclasses/rhel.py: Likewise.
+
+	* anaconda (Anaconda.setMethod): Use installclass to determine method
+	(Anaconda.setBackend): And backend
+
+	* installclass.py (BaseInstallClass.getMethod): Add a method to
+	parse the method str and return an InstallMethod constructor
+	(BaseInstallClass.getBackend): For backend as well
+
 2007-01-17  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/progress_gui.py (InstallProgressWindow.completePackage):
