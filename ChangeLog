@@ -1,5 +1,20 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py: Tweak various dialog types to work better with a real
+	window manager; handle the case of a running system at 800x600
+	where we were a bit too constrained in screen real-estate
+	* ui/anaconda.glade: Tweak required height/width
+
+	* anaconda (doStartupX11Actions): Set a selection if we're using
+	mini-wm so that we can tell later
+	* xutils.c (getXatom): Add support for seeing if a selection is set
+	* Makefile (xutils.so): Need gdk for this
+
+	* yuminstall.py (YumBackend.__init__): We actually do want to be
+	able to do package selection with the yum backend.
+
+2007-01-18  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* loader2/method.c (unpackCpioBall): Fix the build

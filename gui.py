@@ -40,6 +40,7 @@ from constants import *
 from network import hasActiveNetDev
 import floppy
 import rhpl
+import xutils
 
 from rhpl.translate import _, N_
 
@@ -291,6 +292,9 @@ def getBusyCursorStatus():
     
     return _busyCursor
 
+def runningMiniWm():
+    return xutils.getXatom("_ANACONDA_MINI_WM_RUNNING")
+
 class MnemonicLabel(gtk.Label):
     def __init__(self, text="", alignment = None):
         gtk.Label.__init__(self, "")
@@ -342,13 +346,16 @@ def addFrame(dialog, title=None, showtitle = 1):
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
-    frame.set_shadow_type(gtk.SHADOW_OUT)
+    if not flags.rootpath and runningMiniWm():
+        frame.set_shadow_type(gtk.SHADOW_OUT)
+    else:
+        frame.set_shadow_type(gtk.SHADOW_NONE)
     box = gtk.VBox()
     try:
         if title is None:
             title = dialog.get_title()
 
-        if title and not flags.rootpath:
+        if title and not flags.rootpath and runningMiniWm():
             data = {}
             data["state"] = 0
             data["button"] = 0
@@ -374,7 +381,7 @@ def addFrame(dialog, title=None, showtitle = 1):
                 titleBox.pack_start(s)
             eventBox.show_all()
             box.pack_start(eventBox, False, False)
-        elif flags.rootpath:
+        else:
             dialog.set_title (title)
     except:
         pass
@@ -475,16 +482,18 @@ def readImageFromFile(file, height = None, width = None, dither = None,
     return p
 
 class WaitWindow:
-    def __init__(self, title, text):
-        if flags.rootpath:
+    def __init__(self, title, text, parent = None):
+        if flags.rootpath or not runningMiniWm():
             self.window = gtk.Window()
-            self.window.set_decorated(False)
-            # FIXME: we should really call set_transient_for
+            if parent:
+                self.window.set_transient_for(parent)
+            self.window.set_type_hint(gtk.gdk.WINDOW_DIALOG)
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
+            self.window.set_modal(True)
+            
         self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
-        self.window.set_modal(True)
         label = WrappingLabel(text)
         box = gtk.Frame()
         box.set_border_width(10)
@@ -500,19 +509,18 @@ class WaitWindow:
         rootPopBusyCursor()
 
 class ProgressWindow:
-    def __init__(self, title, text, total, updpct = 0.05, updsecs=10):
-        if flags.rootpath:
+    def __init__(self, title, text, total, updpct = 0.05, updsecs=10,
+                 parent = None):
+        if flags.rootpath or not runningMiniWm():
             self.window = gtk.Window()
-            self.window.set_decorated(False)
-            # FIXME: we should really call set_transient_for
-            def no_delete (window, event):
-                return True
-            self.window.connect('delete-event', no_delete)
+            if parent:
+                self.window.set_transient_for(parent)
+            self.window.set_type_hint(gtk.gdk.WINDOW_DIALOG)            
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
+            self.window.set_modal(True)            
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
-        self.window.set_modal (True)
         self.lastUpdate = int(time.time())
         self.updsecs = updsecs
         box = gtk.VBox (False, 5)
@@ -835,10 +843,10 @@ class InstallInterface:
         self.ppw = ppw
 
     def waitWindow (self, title, text):
-        return WaitWindow (title, text)
+        return WaitWindow (title, text, self.icw.window)
 
     def progressWindow (self, title, text, total, updpct = 0.05):
-        return ProgressWindow (title, text, total, updpct)
+        return ProgressWindow (title, text, total, updpct, self.icw.window)
 
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)
@@ -847,7 +855,7 @@ class InstallInterface:
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         rc = MessageWindow (title, text, type, default,
-                custom_buttons, custom_icon).getrc()
+                custom_buttons, custom_icon, self.icw.window).getrc()
         return rc
 
     def entryWindow(self, title, text, type="ok", entrylength = None):
@@ -1097,6 +1105,11 @@ class InstallControlWindow:
                               dither = False, image = i)
         if p is None:
             print _("Unable to load title bar")
+        if 1 or (gtk.gdk.screen_height() < 600) or \
+           (gtk.gdk.screen_height() <= 675 and not runningMiniWm()):
+            i.hide()
+        else:
+            self.window.set_size_request(800, 600)
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
