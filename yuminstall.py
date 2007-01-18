@@ -743,7 +743,7 @@ class YumBackend(AnacondaBackend):
     def __init__ (self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
         self.prevmedia = None
-        self.supportsPackageSelection = False        
+        self.supportsPackageSelection = True        
 
     def _handleFailure(self, url, intf):
         (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
