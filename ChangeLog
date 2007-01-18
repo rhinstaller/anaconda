@@ -1,5 +1,7 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* xsetup.py (XSetup.writeKS): Don't redefine str
+
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Fix syntax error
 
 	* Makefile.inc (M32FLAGS): Make it trivial to do a 32bit build on

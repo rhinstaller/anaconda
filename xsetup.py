@@ -53,10 +53,10 @@ class XSetup:
             f.write("xconfig %s\n" % string.join(args, " "))
 
         if ksconfig:
-            str = ksconfig.xconfig.__str__().rstrip() + string.join(args, " ")
-            f.write(str + "\n")
+            s = ksconfig.xconfig.__str__().rstrip() + string.join(args, " ")
+            f.write(s + "\n")
 
-            str = ksconfig.monitor.__str__().rstrip() + string.join(args, " ")
-            f.write(str + "\n")
+            s = ksconfig.monitor.__str__().rstrip() + string.join(args, " ")
+            f.write(s + "\n")
         elif args != []:
             f.write("xconfig %s\n" % string.join(args, " "))
