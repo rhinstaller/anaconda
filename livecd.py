@@ -188,7 +188,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                         continue
                     ret = isys.resetFileContext(os.path.normpath(f),
                                                 anaconda.rootPath)
-                    log.info("set fc of %s to %s" %(f, ret)
+                    log.info("set fc of %s to %s" %(f, ret))
 
         # ensure that non-fstab filesystems are mounted in the chroot
         if flags.selinux:
