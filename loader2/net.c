@@ -1675,6 +1675,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
      */
     if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_FTP &&
         loaderData->method != METHOD_HTTP) {
+        initLoopback();
         if (kickstartNetworkUp(loaderData, &cfg))
             logMessage(ERROR, "unable to bring up network");
     }

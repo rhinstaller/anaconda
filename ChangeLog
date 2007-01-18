@@ -1,3 +1,8 @@
+2007-01-18  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/net.c (setKickstartNetwork):  Bring up loopback as well
+	(#191424).
+
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86 (SYSLINUX): Handle doing any of vesamenu
