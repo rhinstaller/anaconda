@@ -433,13 +433,13 @@ def findIsoImages(path, messageWindow):
 		    # warn user if images appears to be wrong size
 		    if os.stat(what)[stat.ST_SIZE] % 2048:
 			rc = messageWindow(_("Warning"),
-	       "The ISO image %s has a size which is not "
+	     _("The ISO image %s has a size which is not "
 	       "a multiple of 2048 bytes.  This may mean "
 	       "it was corrupted on transfer to this computer."
 	       "\n\n"
                "It is recommended that you reboot and abort your "
                "installation, but you can choose to continue if "
-               "you think this is in error." % (file,),
+               "you think this is in error.") % (file,),
                                            type="custom",
                                            custom_icon="warning",
                                            custom_buttons= [_("_Reboot"),

@@ -1,5 +1,9 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* image.py (findIsoImages): Translate the string
+
+2007-01-18  Jeremy Katz  <katzj@redhat.com>	
+
 	* syslogd.py (InstSyslog.start): Ensure that we have a syslogd or
 	don't try to start.  Otherwise, we end up hanging things
 
