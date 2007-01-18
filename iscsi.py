@@ -171,7 +171,7 @@ class iscsi(object):
             t.logout()
 
         # XXX use iscsiadm shutdown when it's available.
-        argv = [ "--no-headers", "-C", "%s" % (ISCSID,) ]
+        argv = [ "--no-headers", "-C", "iscsid") ]
         psout = iutil.execWithCapture("/usr/bin/ps", argv)
         for line in psout.split("\n"):
             if line:
