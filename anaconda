@@ -15,7 +15,7 @@
 #
 # ... And many others
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -526,24 +526,14 @@ class Anaconda:
 
         self.intf = InstallInterface()
 
-    def setMethod(self):
-        if self.methodstr.startswith('cdrom://'):
-            from image import CdromInstallMethod
-            self.method =  CdromInstallMethod(self.methodstr, self.rootPath, self.intf)
-        elif self.methodstr.startswith('nfs:/'):
-            from image import NfsInstallMethod
-            self.method =  NfsInstallMethod(self.methodstr, self.rootPath, self.intf)
-        elif self.methodstr.startswith('nfsiso:/'):
-            from image import NfsIsoInstallMethod
-            self.method =  NfsIsoInstallMethod(self.methodstr, self.rootPath, self.intf)
-        elif self.methodstr.startswith('ftp://') or self.methodstr.startswith('http://'):
-            from urlinstall import UrlInstallMethod
-            self.method =  UrlInstallMethod(self.methodstr, self.rootPath, self.intf)
-        elif self.methodstr.startswith('hd://'):
-            from harddrive import HardDriveInstallMethod
-            self.method =  HardDriveInstallMethod(self.methodstr, self.rootPath, self.intf)
-        else:
-            self.method =  None
+    def setMethod(self, instClass):
+        m = instClass.getMethod(self.methodstr)
+        if m is not None:
+            self.method = apply(m, (self.methodstr, self.rootPath, self.intf))
+
+    def setBackend(self, instClass):
+        b = instClass.getBackend(self.methodstr)
+        self.backend = apply(b, (self.methodstr, self.rootPath))
 
 if __name__ == "__main__":
     anaconda = Anaconda()
@@ -627,12 +617,8 @@ if __name__ == "__main__":
         anaconda.updateSrc = opts.updateSrc
 
     if opts.method:
-        anaconda.methodstr = opts.method
-
-    if opts.method:
         if opts.method[0] == '@':
             expandFTPMethod(opts)
-
         anaconda.methodstr = opts.method
 
     if opts.module:
@@ -869,7 +855,7 @@ if __name__ == "__main__":
 
     # imports after setting up the path
     if anaconda.methodstr:
-        anaconda.setMethod()
+        anaconda.setMethod(instClass)
 
         if not anaconda.method:
             anaconda.intf.messageWindow(_("Unknown install method"),
@@ -878,8 +864,7 @@ if __name__ == "__main__":
             log.critical (_("unknown install method: %s"), opts.method)
             sys.exit(1)
 
-    from yuminstall import YumBackend
-    anaconda.backend = YumBackend(anaconda.method, anaconda.rootPath)
+    anaconda.setBackend(instClass)
 
     # create device nodes for detected devices if we're not running in test mode
     if not flags.test and flags.setupFilesystems:

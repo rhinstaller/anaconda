@@ -406,6 +406,30 @@ class BaseInstallClass:
         mouse.set(mouseName, emulThree, device)
         id.setMouse(mouse)
 
+    def getMethod(self, methodstr):
+        if methodstr.startswith('cdrom://'):
+            from image import CdromInstallMethod
+            return CdromInstallMethod
+        elif methodstr.startswith('nfs:/'):
+            from image import NfsInstallMethod
+            return NfsInstallMethod
+        elif methodstr.startswith('nfsiso:/'):
+            from image import NfsIsoInstallMethod
+            return NfsIsoInstallMethod
+        elif methodstr.startswith('ftp://') or methodstr.startswith('http://'):
+            from urlinstall import UrlInstallMethod
+            return UrlInstallMethod
+        elif methodstr.startswith('hd://'):
+            from harddrive import HardDriveInstallMethod
+            return HardDriveInstallMethod
+        else:
+            return None
+
+    def getBackend(self, methodstr):
+        # this should be overriden in distro install classes
+        from backend import AnacondaBackend
+        return AnacondaBackend
+
     def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
                                doClear = 1):
         autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]

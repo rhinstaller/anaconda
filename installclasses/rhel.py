@@ -91,6 +91,12 @@ class InstallClass(BaseInstallClass):
 
         self.regkey = key
 
+    def getMethod(self, methodstr):
+        return BaseInstallClass.getMethod(self, methodstr)
+
+    def getBackend(self, methodstr):
+        return yuminstall.YumBackend
+
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 

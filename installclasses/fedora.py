@@ -4,6 +4,9 @@ from constants import *
 import os
 import iutil
 
+import installmethod
+import yuminstall
+
 import rpmUtils.arch
 
 class InstallClass(BaseInstallClass):
@@ -40,6 +43,12 @@ class InstallClass(BaseInstallClass):
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("partition")
+
+    def getMethod(self, methodstr):
+        return BaseInstallClass.getMethod(self, methodstr)
+
+    def getBackend(self, methodstr):
+        return yuminstall.YumBackend
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
