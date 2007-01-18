@@ -9,7 +9,6 @@ LOADERDIR = ../loader2
 LOADLIBES =  -lpopt
 CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
-LDFLAGS = -g
 
 UTILS = modlist moddeps snarffont mapshdr readmap
 ifeq (s390, $(ARCH))

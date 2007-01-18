@@ -117,7 +117,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) -o $@ $^ $(LIBS)
+	$(CC) -g $(STATIC) -o $@ $^ $(LIBS) $(LDFLAGS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

@@ -1,5 +1,15 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/Makefile (_isys.so): Use LDFLAGS
+	* loader2/Makefile (loader): Likewise.
+	* stubs/Makefile ($(LIBUTF8)): Likewise.
+	* Makefile: Likewise.
+	* isomd5sum/Makefile (CFLAGS): Use common CFLAGS and LDFLAGS; use
+	LDFLAGS everywhere
+	* utils/Makefile: Use common LDFLAGS
+
+2007-01-18  Jeremy Katz  <katzj@redhat.com>	
+
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Remove
 	mountpoint dirs
 	(LiveCDCopyBackend._doFilesystemMangling): Hack to reset file

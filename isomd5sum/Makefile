@@ -1,11 +1,10 @@
 include ../Makefile.inc
 
-CFLAGS = -g -fPIC -D_FILE_OFFSET_BITS=64 -I$(PYTHONINCLUDE) -O -Wall -Werror \
-	-D_FORTIFY_SOURCE=2
+CFLAGS += -I$(PYTHONINCLUDE) 
 OBJECTS = md5.o libimplantisomd5.o checkisomd5.o pyisomd5sum.c \
 	  implantisomd5 checkisomd5
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS))
-LDFLAGS = -lpopt
+LDFLAGS += -lpopt
 
 PYOBJS = pyisomd5sum.o libcheckisomd5.o libimplantisomd5.o md5.o
 
@@ -25,7 +24,7 @@ implantisomd5: implantisomd5.o md5.o libimplantisomd5.o
 checkisomd5: checkisomd5.o md5.o libcheckisomd5.o
 
 pyisomd5sum.so: $(PYOBJS)
-	gcc -shared -g -o pyisomd5sum.so -fpic $(PYOBJS)
+	gcc -shared -g -o pyisomd5sum.so -fpic $(PYOBJS) $(LDFLAGS)
 
 install:
 	install -m 755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
