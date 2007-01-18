@@ -1,10 +1,10 @@
 include ../Makefile.inc
 
-CFLAGS += -I$(PYTHONINCLUDE) 
+CFLAGS += -I$(PYTHONINCLUDE)  -fPIC
 OBJECTS = md5.o libimplantisomd5.o checkisomd5.o pyisomd5sum.c \
 	  implantisomd5 checkisomd5
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS))
-LDFLAGS += -lpopt
+LDFLAGS += -lpopt -fPIC
 
 PYOBJS = pyisomd5sum.o libcheckisomd5.o libimplantisomd5.o md5.o
 

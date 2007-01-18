@@ -14,6 +14,9 @@ includedir  := $(prefix)/include
 
 ###############################################################################
 
+include ../Makefile.inc
+CDFLAGS += $(M32FLAGS)
+
 ifdef SMALL
    CDFLAGS += -DWLITE_EXTENSIONS=0
    CDFLAGS += -DWLITE_AMBI_LOCALE=0

@@ -29,22 +29,22 @@ lang-names: lang-table
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 mini-wm: mini-wm.c
-	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`$(CFLAGS)
+	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs` $(CFLAGS) $(LDFLAGS)
 
 xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c $(CFLAGS)
-	gcc -o xmouse.so -shared xmouse.o -L/usr/X11R6/$(LIBDIR) -lXxf86misc -lX11 -lXext
+	gcc -o xmouse.so -shared xmouse.o -L/usr/X11R6/$(LIBDIR) -lXxf86misc -lX11 -lXext $(LDFLAGS)
 
 xutils.so: xutils.c
 	gcc -ggdb -Wall -o xutils.o -fno-strict-aliasing -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c $(CFLAGS) `pkg-config --cflags gdk-2.0`
-	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11 `pkg-config --libs gdk-2.0`
+	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11 `pkg-config --libs gdk-2.0` $(LDFLAGS)
 
 depend:
 	rm -f *.o *.so *.pyc
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc lang-names
+	rm -f *.o *.so *.pyc lang-names mini-wm
 	rm -rf docs/api
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
