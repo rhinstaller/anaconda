@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.10
+Version: 11.2.0.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.11-1
+- Add backend for installing from a live CD
+- Make backend controllable from the installclass
+- Bring up loopback device in ks (clumens, #191424)
+- Fix traceback with writing ks.cfg (clumens)
+- Add support for new vesamenu bits in syslinux
+- Allow for updates.img to be a cpioball (dlehman)
+- Fix use of halt in ks.cfg (pjones, #222953)
+- Fix traceback in text mode network config (Elliot Peele)
+
 * Tue Jan 16 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.10-1
 - Remove deps when going back from package selection (dlehman, #222894).
 - Fix UI when going back from package selection (dlehman, #215493).
