@@ -173,6 +173,22 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             shutil.rmtree("%s/%s" %(anaconda.rootPath, tocopy))
             entry.umount(anaconda.rootPath + "/mnt")
             entry.mount(anaconda.rootPath)
+            try:
+                os.rmdir("%s/mnt/%s" %(anaconda.rootPath, tocopy))
+            except OSError, e:
+                log.debug("error removing %s" %(tocopy,))
+                pass
+
+            # XXX: we should be preserving contexts on our copy, but
+            # this will do for now
+            for dir, subdirs, files in os.walk("%s/%s" %(anaconda.rootPath, tocopy)):
+                dir = dir[anaconda.rootPath:]
+                for f in map(lambda x: "%s/%s" %(dir, x), files):
+                    if not os.access(f, os.R_OK):
+                        continue
+                    ret = isys.resetFileContext(os.path.normpath(f),
+                                                anaconda.rootPath)
+                    log.info("set fc of %s to %s" %(f, ret)
 
         # ensure that non-fstab filesystems are mounted in the chroot
         if flags.selinux:

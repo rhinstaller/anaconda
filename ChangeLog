@@ -1,5 +1,10 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Remove
+	mountpoint dirs
+	(LiveCDCopyBackend._doFilesystemMangling): Hack to reset file
+	contexts on copied directory trees.  Our copy should do the preserving.
+
 	* gui.py: Tweak various dialog types to work better with a real
 	window manager; handle the case of a running system at 800x600
 	where we were a bit too constrained in screen real-estate
