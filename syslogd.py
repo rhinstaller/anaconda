@@ -64,6 +64,9 @@ class InstSyslog:
         self.pid = -1;
 
     def start (self, root, log):
+        # don't run in the "install from livecd" case
+        if not os.path.exists("/usr/bin/syslogd"): 
+            return
         self.pid = os.fork ()
         if not self.pid:
             # look on PYTHONPATH first, so we use updated anaconda
@@ -79,7 +82,8 @@ class InstSyslog:
 
     def stop(self):
         if self.pid == -1:
-            raise RuntimeError, "syslogd not running"
+            log.warn("syslogd not running to kill!")
+            return
         try:
             os.kill (self.pid, 15)
         except OSError, (num, msg):

@@ -42,7 +42,7 @@ class BaseInstallClass:
     name = "base"
     pkgstext = ""
     # default to showing the upgrade option
-    showUpgrade = 1 # FIXME: no upgrade for now while doing yum work
+    showUpgrade = True
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
@@ -107,7 +107,8 @@ class BaseInstallClass:
         if initAll:
             id.partitions.reinitializeDisks = initAll
 
-    def setSteps(self, dispatch):
+    def setSteps(self, anaconda):
+        dispatch = anaconda.dispatch
 	dispatch.setStepList(
 		 "language",
 		 "keyboard",
@@ -156,8 +157,12 @@ class BaseInstallClass:
         if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("bootloader", permanent=1)
 
+        # allow backends to disable interactive package selection
+        if not anaconda.backend.supportsPackageSelection:
+            dispatch.skipStep("tasksel", skip = 1)
+
         # allow install classes to turn off the upgrade 
-        if self.showUpgrade == 0:
+        if not self.showUpgrade or not anaconda.backend.supportsUpgrades:
             dispatch.skipStep("findrootparts", skip = 1)
 
         # 'noupgrade' can be used on the command line to force not looking
@@ -431,7 +436,7 @@ class BaseInstallClass:
         return AnacondaBackend
 
     def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
-                               doClear = 1):
+                               doClear = 1, useLVM = True):
         autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
 
         bootreq = getAutopartitionBoot()
@@ -444,7 +449,11 @@ class BaseInstallClass:
         if doClear:
             partitions.autoClearPartType = clear
             partitions.autoClearPartDrives = []
-        partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
+
+        if useLVM:
+            partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
+        else:
+            partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)        
 
 
     def setInstallData(self, anaconda):

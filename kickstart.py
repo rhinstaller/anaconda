@@ -847,11 +847,12 @@ class Kickstart(cobject):
                len(self.handler.packages.packageList) > 0 or \
                len(self.handler.packages.excludedList) > 0
 
-    def setSteps(self, dispatch):
+    def setSteps(self, anaconda):
+        dispatch = anaconda.dispatch
         if self.handler.upgrade.upgrade:
             from upgradeclass import InstallClass
             theUpgradeclass = InstallClass(0)
-            theUpgradeclass.setSteps(dispatch)
+            theUpgradeclass.setSteps(anaconda)
 
             # we have no way to specify migrating yet
             dispatch.skipStep("upgrademigfind")
@@ -863,7 +864,7 @@ class Kickstart(cobject):
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
         else:
-            cobject.setSteps(self, dispatch)
+            cobject.setSteps(self, anaconda)
             dispatch.skipStep("findrootparts")
 
         if self.handler.interactive.interactive or flags.autostep:

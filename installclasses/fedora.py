@@ -40,14 +40,20 @@ class InstallClass(BaseInstallClass):
         grps = anaconda.backend.getDefaultGroups(anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
-    def setSteps(self, dispatch):
-	BaseInstallClass.setSteps(self, dispatch);
-	dispatch.skipStep("partition")
+    def setSteps(self, anaconda):
+	BaseInstallClass.setSteps(self, anaconda);
+	anaconda.dispatch.skipStep("partition")
 
     def getMethod(self, methodstr):
+        if methodstr.startswith("livecd://"):
+            import livecd
+            return livecd.LiveCDImageMethod
         return BaseInstallClass.getMethod(self, methodstr)
 
     def getBackend(self, methodstr):
+        if methodstr.startswith("livecd://"):
+            import livecd
+            return livecd.LiveCDCopyBackend
         return yuminstall.YumBackend
 
     def __init__(self, expert):

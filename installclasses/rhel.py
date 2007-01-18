@@ -36,7 +36,8 @@ class InstallClass(BaseInstallClass):
         grps = anaconda.backend.getDefaultGroups(anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
-    def setSteps(self, dispatch):
+    def setSteps(self, anaconda):
+        dispatch = anaconda.dispatch
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("partition")
 	dispatch.skipStep("regkey", skip = 0)        

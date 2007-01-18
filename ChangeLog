@@ -1,3 +1,34 @@
+2007-01-18  Jeremy Katz  <katzj@redhat.com>
+
+	* syslogd.py (InstSyslog.start): Ensure that we have a syslogd or
+	don't try to start.  Otherwise, we end up hanging things
+
+	* yuminstall.py (YumBackend.__init__): yum installs can do package
+	selection 
+
+	* livecd.py: Add live CD image copy backend and install method.
+
+	* installclasses/fedora.py: Handle installclass API changes; allow
+	livecd method
+
+	* installclass.py (BaseInstallClass.setSteps): Take anaconda
+	instead of dispatch as an argument; use so that the backend
+	upgrade allowing + package selection can work 
+	(BaseInstallClass.setDefaultPartitioning): Make it easier to
+	default to no-LVM
+	* kickstart.py (Kickstart.setSteps): Tweak for calling change
+	* upgradeclass.py (InstallClass.setSteps): Likewise.
+	* installclasses/rhel.py (InstallClass.setSteps): Likewise.
+	* anaconda: Pass anaconda to instClass.setSteps; don't depend on
+	the existence of /mnt/runtime/... with x_already_set
+
+	* backend.py (AnacondaBackend.__init__): Let the backend define
+	whether or not upgrades are supported
+	(AnacondaBackend.doPreInstall): postInstall kills the log, start
+	it in the pre
+	(AnacondaBackend.initLog): Ensure the dir we want to use exists
+	(writeConfiguration): Write instdata before backend bits
+
 2007-01-18  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/net.c (setKickstartNetwork):  Bring up loopback as well

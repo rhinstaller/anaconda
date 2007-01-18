@@ -28,7 +28,8 @@ class InstallClass(baseclass):
     def requiredDisplayMode(self):
         return 't'
 
-    def setSteps(self, dispatch):
+    def setSteps(self, anaconda):
+        dispatch = anaconda.dispatch
 	dispatch.setStepList(
 		    "language",
 		    "keyboard",

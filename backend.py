@@ -37,6 +37,10 @@ class AnacondaBackend:
         self.instLog = None
         self.modeText = ""
 
+        # some backends may not support upgrading
+        self.supportsUpgrades = True
+        self.supportsPackageSelection = False
+
     def doPreSelection(self, intf, id, instPath):
         pass
 
@@ -44,7 +48,7 @@ class AnacondaBackend:
         pass
 
     def doPreInstall(self, anaconda):
-        pass
+        self.initLog(anaconda.id, anaconda.rootPath)        
 
     def doPostInstall(self, anaconda):
         sys.stdout.flush()
@@ -52,10 +56,14 @@ class AnacondaBackend:
             syslog.stop()
 
     def doInstall(self, anaconda):
+        log.warning("doInstall not implemented for backend!")        
         pass
 
     def initLog(self, id, instPath):
         upgrade = id.getUpgrade()
+
+        if not os.path.isdir(instPath + "/root"):
+            iutil.mkdirChain(instPath + "/root")
 
         if upgrade:
             logname = '/root/upgrade.log'
@@ -99,7 +107,7 @@ class AnacondaBackend:
             self.modeText = _("Installing %s\n")
 
     def kernelVersionList(self):
-        pass
+        return []
 
     def doInitialSetup(self, anaconda):
         pass
@@ -174,6 +182,6 @@ def doBasePackageSelect(anaconda):
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")
     if not flags.test:
-        anaconda.backend.writeConfiguration()
         anaconda.id.write(anaconda)
+        anaconda.backend.writeConfiguration()
    
