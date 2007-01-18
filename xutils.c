@@ -18,17 +18,21 @@
 #include <Python.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#include <gdk/gdkx.h>
 
 static PyObject * getRootResources(PyObject *s, PyObject *args);
 static PyObject * setRootResource(PyObject * s, PyObject * args);
 static PyObject * screenHeight (PyObject * s, PyObject * args);
 static PyObject * screenWidth (PyObject * s, PyObject * args);
+static PyObject * getXatom(PyObject *s, PyObject *args);
+
 
 static PyMethodDef xutilsMethods[] = {
     { "getRootResources", getRootResources, 1, NULL },
     { "setRootResource", setRootResource, 1, NULL },
     { "screenHeight", screenHeight, 1, NULL },
     { "screenWidth", screenWidth, 1, NULL },
+    { "getXatom", getXatom, 1, NULL },
     { NULL, NULL, 0, NULL }
 };
 
@@ -311,6 +315,26 @@ screenWidth(PyObject *s, PyObject *args)
 
     closeDisplay(dpy);
     return rc;
+}
+
+/* this assumes you've already imported gtk and thus have a display */
+static PyObject * 
+getXatom(PyObject *s, PyObject *args)
+{
+    char *atomname;
+    Atom theatom;
+
+    if (!PyArg_ParseTuple(args, "s", &atomname)) {
+	return NULL;
+    }
+
+    theatom = gdk_x11_get_xatom_by_name(atomname);
+    if (XGetSelectionOwner (GDK_DISPLAY(), theatom) != None) {
+        Py_INCREF(Py_True);
+        return Py_True;
+    }
+    Py_INCREF(Py_False);
+    return Py_False;
 }
 
 void 

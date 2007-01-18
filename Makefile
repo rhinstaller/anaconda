@@ -36,8 +36,8 @@ xmouse.so: xmouse.c
 	gcc -o xmouse.so -shared xmouse.o -L/usr/X11R6/$(LIBDIR) -lXxf86misc -lX11 -lXext
 
 xutils.so: xutils.c
-	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c $(CFLAGS)
-	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11
+	gcc -ggdb -Wall -o xutils.o -fno-strict-aliasing -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c $(CFLAGS) `pkg-config --cflags gdk-2.0`
+	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11 `pkg-config --libs gdk-2.0`
 
 depend:
 	rm -f *.o *.so *.pyc

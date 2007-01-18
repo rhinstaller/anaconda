@@ -71,6 +71,10 @@ def doStartupX11Actions():
     try:
 	miniwm_pid = startMiniWM()
 	log.info("Started mini-wm")
+
+        import gtk
+        i = gtk.Invisible()
+        i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
     except:
 	miniwm_pid = None
 	log.error("Unable to start mini-wm")
