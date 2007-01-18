@@ -530,7 +530,7 @@ int unpackCpioBall(char * ballPath, char * rootDir) {
     buf = (char *)malloc(PATH_MAX);
     cwd = getcwd(buf, PATH_MAX);
     if ((rc = chdir(rootDir)) == 0) {
-        fd = gunzip_open(path);
+        fd = gunzip_open(ballPath);
         if (fd) {
             if (!installCpioFile(fd, NULL, NULL, 0)) {
                 logMessage(INFO, "copied contents of %s into %s", ballPath,
