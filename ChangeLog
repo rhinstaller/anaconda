@@ -38,6 +38,8 @@
 	* loader2/net.c (setKickstartNetwork):  Bring up loopback as well
 	(#191424).
 
+	* xsetup.py (XSetup.writeKS):  Don't traceback if there's no ksconfig.
+
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86 (SYSLINUX): Handle doing any of vesamenu

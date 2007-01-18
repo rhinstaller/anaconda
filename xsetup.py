@@ -52,5 +52,11 @@ class XSetup:
         if rhpl.getArch() == "s390" and args != []:
             f.write("xconfig %s\n" % string.join(args, " "))
 
-        f.write(ksconfig.xconfig.__str__())
-        f.write(ksconfig.monitor.__str__())
+        if ksconfig:
+            str = ksconfig.xconfig.__str__().rstrip() + string.join(args, " ")
+            f.write(str + "\n")
+
+            str = ksconfig.monitor.__str__().rstrip() + string.join(args, " ")
+            f.write(str + "\n")
+        elif args != []:
+            f.write("xconfig %s\n" % string.join(args, " "))
