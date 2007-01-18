@@ -1,5 +1,11 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.x86 (SYSLINUX): Handle doing any of vesamenu
+	with a jpg, using the script to convert to the lss file or just
+	having the lss file.
+	* bootdisk/i386/syslinux.cfg: Add bits so that we can support a
+	menu if desired
+
 	* installclasses/custom.py: Remove obsolete file
 	* installclasses/personal_desktop.py: Likewise.
 	* installclasses/server.py: Likewise.

@@ -18,14 +18,25 @@ prepareBootTree() {
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
 	if [ -n "$NEEDGR" ]; then
-	  $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
-	  if [ $? != 0 ]; then
-	     echo $0: Failed to create splash.lss
-	     exit 1
-	  fi	
-	  cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
-	  rm -f $MBD_BOOTTREE/syslinux-splash.png
+	    if [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.jpg ]; then
+		cp $IMGPATH/usr/lib/anaconda-runtime/splash.jpg $MBD_BOOTTREE/splash.jpg
+		cp $IMGPATH/usr/lib/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
+		sed -ie s'/default linux/default vesamenu.c32/g' $MBD_BOOTTREE/syslinux.cfg
+		sed -ie 's/prompt 1/#prompt 1/g' $MBD_BOOTTREE/syslinux.cfg
+	    elif [ -x $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh ]; then
+		$IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
+		if [ $? != 0 ]; then
+		    echo $0: Failed to create splash.lss
+		    exit 1
+		fi    
+		cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
+		rm -f $MBD_BOOTTREE/syslinux-splash.png
+	    elif [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.lss ]; then
+		cp $IMGPATH/usr/lib/anaconda-runtime/splash.lss $MBD_BOOTTREE/splash.lss
+	    fi
 	fi
+
+	sed -ie "s/@PRODUCT@/$PRODUCT/g" $MBD_BOOTTREE/syslinux.cfg
 
 	rm -f $MBD_BOOTTREE/memtest*
 	for file in $BOOTDISKDIR/*.msg; do
@@ -82,7 +93,7 @@ makeBootImages() {
 	# copy in memtest if present
 	if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* ]; then
            cp $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* $MBD_BOOTTREE/memtest
-           echo -e "label memtest86\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
+           echo -e "label memtest86\n  menu label ^Memory test\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
 	fi
     else
 	echo "No isolinux binaries.  Skipping isolinux creation"
