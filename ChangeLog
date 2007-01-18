@@ -1,9 +1,18 @@
 2007-01-18  Jeremy Katz  <katzj@redhat.com>
 
+	* Makefile.inc (M32FLAGS): Make it trivial to do a 32bit build on
+	a 64bit host
+
+	* wlite/GNUmakefile (CDFLAGS): Use M32FLAGS
+
+	* isomd5sum/Makefile (CFLAGS): Use -fPIC
+
 	* isys/Makefile (_isys.so): Use LDFLAGS
 	* loader2/Makefile (loader): Likewise.
 	* stubs/Makefile ($(LIBUTF8)): Likewise.
 	* Makefile: Likewise.
+	(clean): Nuke mini-wm on clean
+
 	* isomd5sum/Makefile (CFLAGS): Use common CFLAGS and LDFLAGS; use
 	LDFLAGS everywhere
 	* utils/Makefile: Use common LDFLAGS
