@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.11
+Version: 11.2.0.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.12-1
+- Fix so that package selection in the yum backend is actually enabled
+- UI tweaks so that we work better with a real window manager
+- Ensure that file contexts are reset to the right thing after a live CD copy
+- Fix another ks.cfg traceback
+- Make it easier to do a 32bit build on a 64bit host
+
 * Thu Jan 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.11-1
 - Add backend for installing from a live CD
 - Make backend controllable from the installclass
