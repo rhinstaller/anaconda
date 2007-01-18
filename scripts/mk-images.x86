@@ -18,8 +18,8 @@ prepareBootTree() {
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
 	if [ -n "$NEEDGR" ]; then
-	    if [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.jpg ]; then
-		cp $IMGPATH/usr/lib/anaconda-runtime/splash.jpg $MBD_BOOTTREE/splash.jpg
+	    if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then
+		cp $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg $MBD_BOOTTREE/splash.jpg
 		cp $IMGPATH/usr/lib/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
 		sed -ie s'/default linux/default vesamenu.c32/g' $MBD_BOOTTREE/syslinux.cfg
 		sed -ie 's/prompt 1/#prompt 1/g' $MBD_BOOTTREE/syslinux.cfg
