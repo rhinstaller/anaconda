@@ -824,6 +824,8 @@ class EntryWindow(MessageWindow):
     
 class InstallInterface:
     def __init__ (self):
+        self.icw = None
+
         # figure out if we want to run interface at 800x600 or 640x480
         if gtk.gdk.screen_width() >= 800:
             self.runres = "800x600"
@@ -843,10 +845,16 @@ class InstallInterface:
         self.ppw = ppw
 
     def waitWindow (self, title, text):
-        return WaitWindow (title, text, self.icw.window)
+        if self.icw:
+            return WaitWindow (title, text, self.icw.window)
+        else:
+            return WaitWindow (title, text)
 
     def progressWindow (self, title, text, total, updpct = 0.05):
-        return ProgressWindow (title, text, total, updpct, self.icw.window)
+        if self.icw:
+            return ProgressWindow (title, text, total, updpct, self.icw.window)
+        else:
+            return ProgressWindow (title, text, total, updpct)
 
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)
@@ -854,8 +862,13 @@ class InstallInterface:
 
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
         rc = MessageWindow (title, text, type, default,
-                custom_buttons, custom_icon, self.icw.window).getrc()
+                custom_buttons, custom_icon, parent).getrc()
         return rc
 
     def entryWindow(self, title, text, type="ok", entrylength = None):

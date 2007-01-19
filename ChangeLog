@@ -1,3 +1,10 @@
+2007-01-19  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py:  We don't always have an ICW.
+
+	* installclass.py (BaseInstallClass.setEarlySwapOn):  Remove unused
+	code.
+
 2007-01-19  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86: Fix sed calls, make sure we remove cruft
