@@ -162,7 +162,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help ttfonts-ko taipeifonts rhpl
            system-config-keyboard Xft fontconfig gtk2-engines gnome-themes
-           gtkhtml2 gnome-python2-gtkhtml2 gail
+           gtkhtml2 gnome-python2-gtkhtml2 gail libthai
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
            comps-extras convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
@@ -699,6 +699,7 @@ usr/$LIBDIR/libpango*
 usr/$LIBDIR/libpng.so.3*
 usr/$LIBDIR/libpng12.so*
 usr/$LIBDIR/libstdc++.so.*
+usr/$LIBDIR/libthai*
 usr/$LIBDIR/libwrap*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python?.?/site-packages/cairo/*
