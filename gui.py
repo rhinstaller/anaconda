@@ -1105,7 +1105,7 @@ class InstallControlWindow:
                               dither = False, image = i)
         if p is None:
             print _("Unable to load title bar")
-        if 1 or (gtk.gdk.screen_height() < 600) or \
+        if (gtk.gdk.screen_height() < 600) or \
            (gtk.gdk.screen_height() <= 675 and not runningMiniWm()):
             i.hide()
         else:
