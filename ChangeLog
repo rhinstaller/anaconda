@@ -1,5 +1,7 @@
 2007-01-19  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.x86: Fix sed calls, make sure we remove cruft
+
 	* anaconda (Anaconda.setBackend): Backends take the method, not
 	the methodstr
 
