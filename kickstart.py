@@ -85,12 +85,20 @@ class AnacondaKSScript(Script):
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
 
+class AnacondaKSPackages(Packages):
+    def __init__(self):
+        Packages.__init__(self)
+
+        # Has the %packages section been seen at all?
+        self.seen = False
+
 superclass = returnClassForVersion()
 
 class AnacondaKSHandler(superclass):
     def __init__ (self, anaconda):
         superclass.__init__(self)
         self.version = DEVEL
+        self.packages = AnacondaKSPackages()
 
         self.permanentSkipSteps = []
         self.skipSteps = []
@@ -698,7 +706,6 @@ class AnacondaKSParser(KickstartParser):
     def __init__ (self, handler, version=DEVEL, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler, version=version)
-        self.sawPackageSection = False
 
     # Map old broken Everything group to the new futuristic package globs
     def addPackages (self, line):
@@ -719,8 +726,8 @@ class AnacondaKSParser(KickstartParser):
         self.handler.scripts.append(s)
 
     def handlePackageHdr (self, lineno, args):
-        self.sawPackageSection = True
         KickstartParser.handlePackageHdr (self, lineno, args)
+        self.handler.packages.seen = True
 
     def handleCommand (self, lineno, args):
         if not self.handler:
@@ -898,9 +905,18 @@ def runTracebackScripts(anaconda):
     log.info("All kickstart %%traceback script(s) have been run")
 
 def selectPackages(anaconda):
-    for pkg in anaconda.id.ksdata.packages.packageList:
+    ksdata = anaconda.id.ksdata
+
+    # If no %packages header was seen, use the installclass's default group
+    # selections.  This can also be explicitly specified with %packages
+    # --default.  Otherwise, select whatever was given (even if it's nothing).
+    if not ksdata.packages.seen or ksdata.packages.default:
+        anaconda.id.instClass.setGroupSelection(anaconda)
+        return
+
+    for pkg in ksdata.packages.packageList:
         num = anaconda.backend.selectPackage(pkg)
-        if anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+        if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
             continue
         if num > 0:
             continue
@@ -918,24 +934,16 @@ def selectPackages(anaconda):
         else:
             pass
 
-    # FIXME
-#    # If there wasn't even an empty packages section, use the default
-#    # group selections.  Otherwise, select whatever was given (even if
-#    # it's nothing).
-#    if not self.ksparser.sawPackageSection:
-#        anaconda.id.instClass.setGroupSelection(anaconda)
-#        return
-
     anaconda.backend.selectGroup("Core")
 
-    if anaconda.id.ksdata.packages.addBase:
+    if ksdata.packages.addBase:
         anaconda.backend.selectGroup("Base")
     else:
         log.warning("not adding Base group")
 
-    for grp in anaconda.id.ksdata.packages.groupList:
+    for grp in ksdata.packages.groupList:
         num = anaconda.backend.selectGroup(grp)
-        if anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+        if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
             continue
         if num > 0:
             continue
@@ -954,7 +962,7 @@ def selectPackages(anaconda):
         else:
             pass
 
-    map(anaconda.backend.deselectPackage, anaconda.id.ksdata.packages.excludedList)
+    map(anaconda.backend.deselectPackage, ksdata.packages.excludedList)
 
 def setSteps(anaconda):
     def havePackages(packages):
@@ -1018,7 +1026,7 @@ def setSteps(anaconda):
         ksdata.skipSteps.append("group-selection")
 
         # Special check for this, since it doesn't make any sense.
-        if havePackages(ksdata.packages):
+        if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
         if interactive:
@@ -1027,11 +1035,10 @@ def setSteps(anaconda):
             ksdata.skipSteps.append("group-selection")
     else:
         ksdata.skipSteps.append("group-selection")
-        # FIXME
-#        if self.ksparser.sawPackageSection:
-#            self.handler.skipSteps.append("group-selection")
-#        else:
-#            self.handler.showSteps.append("group-selection")
+        if ksdata.packages.seen:
+            ksdata.skipSteps.append("group-selection")
+        else:
+            ksdata.showSteps.append("group-selection")
 
     if not interactive:
         for n in ksdata.skipSteps:

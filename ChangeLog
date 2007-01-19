@@ -1,5 +1,13 @@
 2007-01-19  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (AnacondaKSPackages):  Subclass Packages so we can keep
+	track of if the package section was seen or not.  Fix step skipping
+	for package selection.
+	(selectPackages):  Support %packages --default as an explicit way of
+	only installing the install class's default package set (#221305).
+
+2007-01-19  Chris Lumens  <clumens@redhat.com>
+
 	* gui.py:  We don't always have an ICW.
 
 	* installclass.py (BaseInstallClass.setEarlySwapOn):  Remove unused
