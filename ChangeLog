@@ -1,3 +1,8 @@
+2007-01-19  Peter Jones  <pjones@redhat.com>
+
+	* partedUtils.py (DiskSet._labelDevice): When we ask for a new label
+	on a dasd device, don't check the drive state, just do it (#223492).
+
 2007-01-18  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
