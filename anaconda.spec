@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.30
+Version: 11.1.2.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 19 2007 Peter Jones <pjones@redhat.com> - 11.1.2.31-1
+- Fix typo in yesterday's iscsi fix
+  Resolves: #223257
+
 * Thu Jan 18 2007 Peter Jones <pjones@redhat.com> - 11.1.2.30-1
 - Fix iscsi shutdown's "ps" call
   Resolves: #223257
