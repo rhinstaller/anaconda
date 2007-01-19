@@ -534,10 +534,11 @@ class Anaconda:
         m = instClass.getMethod(self.methodstr)
         if m is not None:
             self.method = apply(m, (self.methodstr, self.rootPath, self.intf))
+        print self.method
 
     def setBackend(self, instClass):
         b = instClass.getBackend(self.methodstr)
-        self.backend = apply(b, (self.methodstr, self.rootPath))
+        self.backend = apply(b, (self.method, self.rootPath))
 
 if __name__ == "__main__":
     anaconda = Anaconda()
