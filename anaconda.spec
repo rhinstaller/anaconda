@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.12
+Version: 11.2.0.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 19 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.13-1
+- Kickstart and upgrade are no longer installclasses.
+- Update x86_64 syslinux config (katzj).
+- Support %packages --default (#221305).
+- Fix early kickstart UI traceback.
+- Remove cruft in x86 images (katzj).
+- Fix error handling in loader netconfig screen (dcantrell).
+- Add libthai to graphical install (katzj).
+
 * Thu Jan 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.12-1
 - Fix so that package selection in the yum backend is actually enabled
 - UI tweaks so that we work better with a real window manager

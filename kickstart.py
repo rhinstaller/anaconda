@@ -27,6 +27,7 @@ import partRequests
 import urlgrabber.grabber as grabber
 import lvm
 import warnings
+import upgrade
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
@@ -975,9 +976,7 @@ def setSteps(anaconda):
     upgrade = ksdata.upgrade.upgrade
 
     if upgrade:
-        from upgradeclass import InstallClass
-        theUpgradeclass = InstallClass(0)
-        theUpgradeclass.setSteps(anaconda)
+        upgrade.setSteps(anaconda)
 
         # we have no way to specify migrating yet
         dispatch.skipStep("upgrademigfind")

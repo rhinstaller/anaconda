@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2006 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -359,3 +359,42 @@ def upgradeMountFilesystems(anaconda):
             anaconda.id.fsset.formatSwap(anaconda.rootPath, forceFormat=True)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
         anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
+
+def setSteps(anaconda):
+    dispatch = anaconda.dispatch
+    dispatch.setStepList(
+                "language",
+                "keyboard",
+                "welcome",
+                "installtype",
+                "findrootparts",
+                "findinstall",
+                "partitionobjinit",
+                "upgrademount",
+                "upgrademigfind",
+                "upgrademigratefs",
+                "upgradecontinue",
+                "reposetup",
+                "upgbootloader",
+                "checkdeps",
+                "dependencies",
+                "confirmupgrade",
+                "postselection",
+                "install",
+                "migratefilesystems",
+                "preinstallconfig",
+                "installpackages",
+                "postinstallconfig",
+                "instbootloader",
+                "dopostaction",
+                "methodcomplete",
+                "copylogs",
+                "complete"
+            )
+
+    if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+        dispatch.skipStep("bootloader")
+        dispatch.skipStep("bootloaderadvanced")
+
+    if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
+        dispatch.skipStep("upgbootloader")            

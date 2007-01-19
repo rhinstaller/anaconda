@@ -1,3 +1,15 @@
+2007-01-19  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* kickstart.py (setSteps):  Upgrade is no longer an installclass, so
+	call upgrade.setSteps instead.
+	* upgrade.py (setSteps):  Moved here from upgradeclass.py.
+	* upgradeclass.py:  Removed.
+	* iw/examine_gui.py (UpgradeExamineWindow.getNext):  Don't need to
+	instantiate an installclass anymore.
+	* textw/upgrade_text.py (UpgradeExamineWindow.__call__):  Likewise.
+
 2007-01-19  Jeremy Katz  <katzj@redhat.com>
 
 	* ui/anaconda.glade: Revert my changes from yesterday since they

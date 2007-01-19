@@ -17,11 +17,8 @@ from iw_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 from rhpl.translate import _, N_
 from constants import *
-from upgrade import *
+import upgrade
 from flags import flags
-
-import upgradeclass
-UpgradeClass = upgradeclass.InstallClass
 
 UPGRADE_STR = "upgrade"
 REINSTALL_STR = "reinstall"
@@ -31,11 +28,9 @@ class UpgradeExamineWindow (InstallWindow):
     windowTitle = N_("Upgrade Examine")
 
     def getNext (self):
-	if self.doupgrade:
-            # set the install class to be an upgrade
-            c = UpgradeClass(flags.expert)
-            c.setSteps(self.anaconda.dispatch)
-            c.setInstallData(self.anaconda)
+        if self.doupgrade:
+            upgrade.setSteps(self.anaconda)
+            self.anaconda.id.setUpgrade(True)
 
 	    rootfs = self.parts[self.upgradecombo.get_active()]
             self.anaconda.id.upgradeRoot = [(rootfs[0], rootfs[1])]

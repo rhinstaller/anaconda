@@ -20,8 +20,6 @@ from snack import *
 from fsset import *
 from flags import flags
 from constants import *
-import upgradeclass
-UpgradeClass = upgradeclass.InstallClass
 
 from rhpl.translate import _
 
@@ -223,9 +221,8 @@ class UpgradeExamineWindow:
                 root = parts[choice - 1]
 
         if root is not None:
-            c = UpgradeClass(flags.expert)
-            c.setSteps(anaconda.dispatch)
-            c.setInstallData(anaconda)
+            upgrade.setSteps(anaconda)
+            anaconda.id.setUpgrade(True)
 
             anaconda.id.upgradeRoot = [(root[0], root[1])]
             anaconda.id.rootParts = parts
