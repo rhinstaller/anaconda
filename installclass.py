@@ -207,9 +207,6 @@ class BaseInstallClass:
     def setZeroMbr(self, id, zeroMbr):
         id.partitions.zeroMbr = zeroMbr
 
-    def setEarlySwapOn(self, state = 0):
-	self.earlySwapOn = state
-
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
 
