@@ -1,5 +1,7 @@
 2007-01-19  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda (Anaconda.setMethod):  Don't print out the method instance.
+
 	* kickstart.py (AnacondaKSPackages):  Subclass Packages so we can keep
 	track of if the package section was seen or not.  Fix step skipping
 	for package selection.

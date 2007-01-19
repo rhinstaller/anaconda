@@ -529,7 +529,6 @@ class Anaconda:
         m = instClass.getMethod(self.methodstr)
         if m is not None:
             self.method = apply(m, (self.methodstr, self.rootPath, self.intf))
-        print self.method
 
     def setBackend(self, instClass):
         b = instClass.getBackend(self.methodstr)
