@@ -27,6 +27,7 @@ Requires: dosfstools e2fsprogs
 Requires: python-pyblock >= 0.24-1
 Requires: libbdevid >= 5.1.2-1, libbdevid-python
 Requires: audit-libs
+Requires: system-config-keyboard
 %ifnarch s390 s390x ppc64
 Requires: rhpxl >= 0.25
 %endif
