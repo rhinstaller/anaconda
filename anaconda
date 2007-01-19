@@ -348,27 +348,22 @@ def setupLoggingFromOpts(opts):
         else:
             logger.addSysLogHandler(log, opts.syslog)
 
-def getInstClass(opts):
-    # if we're not doing a kickstart install, figure out instClass from args
-    if opts.ksfile:
-        from kickstart import Kickstart
-        return Kickstart(opts.ksfile, opts.serial)
-    else:
-        from installclass import DefaultInstall, availableClasses
-        retval = DefaultInstall(flags.expert)
+def getInstClass():
+    from installclass import DefaultInstall, availableClasses
+    retval = DefaultInstall(flags.expert)
 
-        allavail = availableClasses(showHidden = 1)
-        avail = availableClasses(showHidden = 0)
-        if len(avail) == 1:
-            (cname, cobject, clogo) = avail[0]
-            log.info("%s is only installclass, using it" %(cname,))
-            retval = cobject(flags.expert)
-        elif len(allavail) == 1:
-            (cname, cobject, clogo) = allavail[0]
-            log.info("%s is only installclass, using it" %(cname,))
-            retval = cobject(flags.expert)
+    allavail = availableClasses(showHidden = 1)
+    avail = availableClasses(showHidden = 0)
+    if len(avail) == 1:
+        (cname, cobject, clogo) = avail[0]
+        log.info("%s is only installclass, using it" %(cname,))
+        retval = cobject(flags.expert)
+    elif len(allavail) == 1:
+        (cname, cobject, clogo) = allavail[0]
+        log.info("%s is only installclass, using it" %(cname,))
+        retval = cobject(flags.expert)
 
-        return retval
+    return retval
 
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it
@@ -571,6 +566,7 @@ if __name__ == "__main__":
     import rhpl
     import vnc
     import users
+    import kickstart
     from flags import flags
     from rhpl.translate import _, textdomain, addPoPath
 
@@ -604,7 +600,7 @@ if __name__ == "__main__":
     (opts, args) = parseOptions()
 
     # Now that we've got arguments, do some extra processing.
-    instClass = getInstClass(opts)
+    instClass = getInstClass()
 
     setupLoggingFromOpts(opts)
 
@@ -913,8 +909,9 @@ if __name__ == "__main__":
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
 
-    # We need to copy the VNC-related kickstart stuff into the new ksdata
-    if opts.ksfile is not None:
+    if anaconda.isKickstart:
+        kickstart.processKickstartFile(anaconda, opts.ksfile)
+        # We need to copy the VNC-related kickstart stuff into the new ksdata
         anaconda.id.ksdata.Vnc(enabled=vncksdata.enabled, host=vncksdata.host,
                                password=vncksdata.password, port=vncksdata.port)
 
@@ -950,7 +947,10 @@ if __name__ == "__main__":
         anaconda.id.setHeadless(opts.isHeadless)
         instClass.setAsHeadless(anaconda.dispatch, opts.isHeadless)
 
-    instClass.setSteps(anaconda)
+    if not anaconda.isKickstart:
+        instClass.setSteps(anaconda)
+    else:
+        kickstart.setSteps(anaconda)
 
     # comment out the next line to make exceptions non-fatal
     sys.excepthook = lambda type, value, tb, anaconda=anaconda: handleException(anaconda, (type, value, tb))

@@ -30,6 +30,7 @@ from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
 from flags import flags
+import kickstart
 
 import logging
 log = logging.getLogger("anaconda")
@@ -346,7 +347,7 @@ def handleException(anaconda, (type, value, tb)):
     # run kickstart traceback scripts (if necessary)
     try:
         if anaconda.isKickstart:
-            anaconda.id.instClass.runTracebackScripts()
+            kickstart.runTracebackScripts()
     except:
         pass
 

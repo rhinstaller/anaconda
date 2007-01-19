@@ -20,6 +20,7 @@ import os, sys
 import logging
 from syslogd import syslog
 
+import kickstart
 from rhpl.translate import _
 
 from flags import flags
@@ -176,8 +177,11 @@ def doInstall(anaconda):
 
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):
-    anaconda.id.instClass.setPackageSelection(anaconda)
-    anaconda.id.instClass.setGroupSelection(anaconda)
+    if anaconda.isKickstart:
+        kickstart.selectPackages(anaconda)
+    else:
+        anaconda.id.instClass.setPackageSelection(anaconda)
+        anaconda.id.instClass.setGroupSelection(anaconda)
 
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")

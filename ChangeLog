@@ -5,6 +5,18 @@
 	* installclass.py (BaseInstallClass.setEarlySwapOn):  Remove unused
 	code.
 
+	* anaconda:  Kickstart is no longer an install class.
+	* backend.py (doBasePackageSelection):  If this is a kickstart
+	install, apply package and group selections.
+	* dispatch.py (installSteps):  Add a step to run kickstart %post
+	scripts.
+	* exception.py (handleException):  Run kickstart %traceback scripts
+	here.
+	* kickstart.py:  Kickstart is no longer an install class, so move all
+	the methods out to package level and clean them up.  Also, subclasses
+	of KickstartParser need to accept a version argument and subclasses of
+	BaseHandler need to specify which version they are.
+
 2007-01-19  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86: Fix sed calls, make sure we remove cruft

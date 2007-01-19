@@ -36,6 +36,7 @@ from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
+from kickstart import runPostScripts
 
 from backend import doPostSelection, doRepoSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
@@ -107,6 +108,7 @@ installSteps = [
     ("setfilecon", setFileCons, ),
     ("copylogs", copyAnacondaLogs, ),
     ("methodcomplete", doMethodComplete, ),
+    ("postscripts", runPostScripts, ),
     ("dopostaction", doPostAction, ),
     ("complete", ),
     ]

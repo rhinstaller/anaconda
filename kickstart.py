@@ -1,7 +1,7 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -30,7 +30,7 @@ import warnings
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import *
 from rhpl.translate import _
 
 import logging
@@ -90,6 +90,7 @@ superclass = returnClassForVersion()
 class AnacondaKSHandler(superclass):
     def __init__ (self, anaconda):
         superclass.__init__(self)
+        self.version = DEVEL
 
         self.permanentSkipSteps = []
         self.skipSteps = []
@@ -278,7 +279,7 @@ class AnacondaKSHandler(superclass):
             if lvd.fsopts != "":
                 request.fsopts = lvd.fsopts
 
-            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            addPartRequest(self.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class Logging(superclass.Logging):
@@ -481,7 +482,7 @@ class AnacondaKSHandler(superclass):
             if pd.fsopts != "":
                 request.fsopts = pd.fsopts
 
-            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            addPartRequest(self.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class Reboot(superclass.Reboot):
@@ -554,7 +555,7 @@ class AnacondaKSHandler(superclass):
             if rd.fsopts != "":
                 request.fsopts = rd.fsopts
 
-            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            addPartRequest(self.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class RootPw(superclass.RootPw):
@@ -622,7 +623,7 @@ class AnacondaKSHandler(superclass):
                                                           format = vgd.format,
                                                           pesize = vgd.pesize)
             request.uniqueID = uniqueID
-            self.handler.id.instClass.addPartRequest(self.handler.id.partitions, request)
+            addPartRequest(self.anaconda, request)
 
     class XConfig(superclass.XConfig):
         def parse(self, args):
@@ -650,13 +651,15 @@ class VNCHandler(superclass):
     # We're only interested in the handler for the VNC command.
     def __init__(self, anaconda=None):
         superclass.__init__(self)
+        self.version = DEVEL
         self.empty()
         self.registerCommand(superclass.Vnc(), ["vnc"])
 
 class KickstartPreParser(KickstartParser):
-    def __init__ (self, handler, followIncludes=True,
+    def __init__ (self, handler, version=DEVEL, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
-        KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
+        KickstartParser.__init__(self, handler, version=version,
+                                 missingIncludeIsFatal=False)
 
     def addScript (self):
         if self._state == STATE_PRE:
@@ -692,9 +695,9 @@ class KickstartPreParser(KickstartParser):
         self._script["chroot"] = False
 
 class AnacondaKSParser(KickstartParser):
-    def __init__ (self, handler, followIncludes=True,
+    def __init__ (self, handler, version=DEVEL, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
-        KickstartParser.__init__(self, handler)
+        KickstartParser.__init__(self, handler, version=version)
         self.sawPackageSection = False
 
     # Map old broken Everything group to the new futuristic package globs
@@ -725,261 +728,55 @@ class AnacondaKSParser(KickstartParser):
 
         KickstartParser.handleCommand(self, lineno, args)
 
-cobject = getBaseInstallClass()
+# this adds a partition to the autopartition list replacing anything
+# else with this mountpoint so that you can use autopart and override /
+def addPartRequest(anaconda, request):
+    if not request.mountpoint:
+        anaconda.id.partitions.autoPartitionRequests.append(request)
+        return
 
-# The anaconda kickstart processor.
-class Kickstart(cobject):
-    name = "kickstart"
+    for req in anaconda.id.partitions.autoPartitionRequests:
+        if req.mountpoint and req.mountpoint == request.mountpoint:
+            anaconda.id.partitions.autoPartitionRequests.remove(req)
+            break
+    anaconda.id.partitions.autoPartitionRequests.append(request)            
 
-    def __init__(self, file, serial):
-        self.ksparser = None
-        self.serial = serial
-        self.file = file
+def processKickstartFile(anaconda, file):
+    # make sure our disks are alive
+    from partedUtils import DiskSet
+    ds = DiskSet(anaconda)
+    ds.startMPath()
+    ds.startDmRaid()
 
-        cobject.__init__(self, 0)
+    # parse the %pre
+    ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
 
-    # this adds a partition to the autopartition list replacing anything
-    # else with this mountpoint so that you can use autopart and override /
-    def addPartRequest(self, partitions, request):
-        if not request.mountpoint:
-            partitions.autoPartitionRequests.append(request)
-            return
+    try:
+        ksparser.readKickstart(file)
+    except KickstartError, e:
+       if anaconda.intf:
+           anaconda.intf.kickstartErrorWindow(e.__str__())
+           sys.exit(0)
+       else:
+           raise KickstartError, e
 
-        for req in partitions.autoPartitionRequests:
-            if req.mountpoint and req.mountpoint == request.mountpoint:
-                partitions.autoPartitionRequests.remove(req)
-                break
-        partitions.autoPartitionRequests.append(request)            
+    # run %pre scripts
+    runPreScripts(anaconda, ksparser.handler.scripts)
 
-    def runPreScripts(self, anaconda):
-        preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE,
-                             self.ksparser.handler.scripts)
+    # now read the kickstart file for real
+    handler = AnacondaKSHandler(anaconda)
+    ksparser = AnacondaKSParser(handler)
 
-        if len(preScripts) == 0:
-            return
-
-	log.info("Running kickstart %%pre script(s)")
-        if anaconda.intf is not None:
-            w = anaconda.intf.waitWindow(_("Running..."),
-                                _("Running pre-install scripts"))
-        
-        map (lambda s: s.run("/", self.serial, anaconda.intf), preScripts)
-
-	log.info("All kickstart %%pre script(s) have been run")
-        if anaconda.intf is not None:
-            w.pop()
-
-    def postAction(self, anaconda, serial):
-        postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
-                              self.ksparser.handler.scripts)
-
-        if len(postScripts) == 0:
-            return
-
-        # Remove environment variables that cause problems for %post scripts.
-        for var in ["LIBUSER_CONF"]:
-            if os.environ.has_key(var):
-                del(os.environ[var])
-
-	log.info("Running kickstart %%post script(s)")
-        if anaconda.intf is not None:
-            w = anaconda.intf.waitWindow(_("Running..."),
-                                _("Running post-install scripts"))
-            
-        map (lambda s: s.run(anaconda.rootPath, serial, anaconda.intf), postScripts)
-
-	log.info("All kickstart %%post script(s) have been run")
-        if anaconda.intf is not None:
-            w.pop()
-
-    def runTracebackScripts(self):
-	log.info("Running kickstart %%traceback script(s)")
-	for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
-                              self.ksparser.handler.scripts):
-	    script.run("/", self.serial)
-        log.info("All kickstart %%traceback script(s) have been run")
-
-    def setInstallData (self, anaconda):
-        BaseInstallClass.setInstallData(self, anaconda)
-        self.setEarlySwapOn(1)
-        self.anaconda = anaconda
-        self.id = self.anaconda.id
-        self.id.firstboot = FIRSTBOOT_SKIP
-
-        # make sure our disks are alive
-        from partedUtils import DiskSet
-        ds = DiskSet(self.anaconda)
-        ds.startMPath()
-        ds.startDmRaid()
-
-        # parse the %pre
-        self.ksparser = KickstartPreParser(AnacondaKSHandler(anaconda))
-
-        try:
-            self.ksparser.readKickstart(self.file)
-        except KickstartError, e:
-           if anaconda.intf:
-               anaconda.intf.kickstartErrorWindow(e.__str__())
-               sys.exit(0)
-           else:
-               raise KickstartError, e
-
-        # run %pre scripts
-        self.runPreScripts(anaconda)
-
-        # now read the kickstart file for real
-        self.handler = AnacondaKSHandler(anaconda)
-        self.ksparser = AnacondaKSParser(self.handler)
-
-        try:
-            self.ksparser.readKickstart(self.file)
-        except KickstartError, e:
-            if anaconda.intf:
-                anaconda.intf.kickstartErrorWindow(e.__str__())
-                sys.exit(0)
-            else:
-                raise KickstartError, e
-
-        self.id.setKsdata(self.handler)
-
-    def _havePackages(self):
-        return len(self.handler.packages.groupList) > 0 or \
-               len(self.handler.packages.packageList) > 0 or \
-               len(self.handler.packages.excludedList) > 0
-
-    def setSteps(self, anaconda):
-        dispatch = anaconda.dispatch
-        if self.handler.upgrade.upgrade:
-            from upgradeclass import InstallClass
-            theUpgradeclass = InstallClass(0)
-            theUpgradeclass.setSteps(anaconda)
-
-            # we have no way to specify migrating yet
-            dispatch.skipStep("upgrademigfind")
-            dispatch.skipStep("upgrademigratefs")
-            dispatch.skipStep("upgradecontinue")
-            dispatch.skipStep("findinstall", permanent = 1)
-            dispatch.skipStep("language")
-            dispatch.skipStep("keyboard")
-            dispatch.skipStep("betanag")
-            dispatch.skipStep("installtype")
+    try:
+        ksparser.readKickstart(file)
+    except KickstartError, e:
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow(e.__str__())
+            sys.exit(0)
         else:
-            cobject.setSteps(self, anaconda)
-            dispatch.skipStep("findrootparts")
+            raise KickstartError, e
 
-        if self.handler.interactive.interactive or flags.autostep:
-            dispatch.skipStep("installtype")
-            dispatch.skipStep("bootdisk")
-
-        # because these steps depend on the monitor being probed
-        # properly, and will stop you if you have an unprobed monitor,
-        # we should skip them for autostep
-        if flags.autostep:
-            dispatch.skipStep("monitor")
-            return
-
-        dispatch.skipStep("bootdisk")
-        dispatch.skipStep("betanag")
-        dispatch.skipStep("regkey")
-        dispatch.skipStep("installtype")
-        dispatch.skipStep("tasksel")            
-        dispatch.skipStep("network")
-
-        # Don't show confirmation screens on non-interactive installs.
-        if not self.handler.interactive.interactive:
-            dispatch.skipStep("confirminstall")
-            dispatch.skipStep("confirmupgrade")
-            dispatch.skipStep("welcome")
-
-        # Make sure to automatically reboot even in interactive if told to.
-        if self.handler.interactive.interactive and self.handler.reboot.action != KS_WAIT:
-            dispatch.skipStep("complete")
-
-        # If the package section included anything, skip group selection unless
-        # they're in interactive.
-        if self.handler.upgrade.upgrade:
-            self.handler.skipSteps.append("group-selection")
-
-            # Special check for this, since it doesn't make any sense.
-            if self._havePackages():
-                warnings.warn("Ignoring contents of %packages section due to upgrade.")
-        elif self._havePackages():
-            if self.handler.interactive.interactive:
-                self.handler.showSteps.append("group-selection")
-            else:
-                self.handler.skipSteps.append("group-selection")
-        else:
-            if self.ksparser.sawPackageSection:
-                self.handler.skipSteps.append("group-selection")
-            else:
-                self.handler.showSteps.append("group-selection")
-
-        if not self.handler.interactive.interactive:
-            for n in self.handler.skipSteps:
-                dispatch.skipStep(n)
-            for n in self.handler.permanentSkipSteps:
-                dispatch.skipStep(n, permanent=1)
-        for n in self.handler.showSteps:
-            dispatch.skipStep(n, skip = 0)
-
-    def setPackageSelection(self, anaconda, *args):
-        for pkg in self.handler.packages.packageList:
-            num = anaconda.backend.selectPackage(pkg)
-            if self.handler.packages.handleMissing == KS_MISSING_IGNORE:
-                continue
-            if num > 0:
-                continue
-            rc = anaconda.intf.messageWindow(_("Missing Package"),
-                                    _("You have specified that the "
-                                      "package '%s' should be installed.  "
-                                      "This package does not exist. "
-                                      "Would you like to continue or "
-                                      "abort your installation?") %(pkg,),
-                                    type="custom",
-                                    custom_buttons=[_("_Abort"),
-                                                    _("_Continue")])
-            if rc == 0:
-                sys.exit(1)
-            else:
-                pass
-
-    def setGroupSelection(self, anaconda, *args):
-        # If there wasn't even an empty packages section, use the default
-        # group selections.  Otherwise, select whatever was given (even if
-        # it's nothing).
-        if not self.ksparser.sawPackageSection:
-            cobject.setGroupSelection(self, anaconda)
-            return
-
-        anaconda.backend.selectGroup("Core")
-
-        if self.handler.packages.addBase:
-            anaconda.backend.selectGroup("Base")
-        else:
-            log.warning("not adding Base group")
-
-        for grp in self.handler.packages.groupList:
-            num = anaconda.backend.selectGroup(grp)
-            if self.handler.packages.handleMissing == KS_MISSING_IGNORE:
-                continue
-            if num > 0:
-                continue
-            rc = anaconda.intf.messageWindow(_("Missing Group"),
-                                    _("You have specified that the "
-                                      "group '%s' should be installed. "
-                                      "This group does not exist. "
-                                      "Would you like to continue or "
-                                      "abort your installation?")
-                                    %(grp,),
-                                    type="custom",
-                                    custom_buttons=[_("_Abort"),
-                                                    _("_Continue")])
-            if rc == 0:
-                sys.exit(1)
-            else:
-                pass
-
-        map(anaconda.backend.deselectPackage, self.handler.packages.excludedList)
+    anaconda.id.setKsdata(handler)
 
 #
 # look through ksfile and if it contains a line:
@@ -1053,3 +850,193 @@ def pullRemainingKickstartConfig(ksfile):
 	
     return None
 
+def runPostScripts(anaconda):
+    postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
+                          anaconda.id.ksdata.scripts)
+
+    if len(postScripts) == 0:
+        return
+
+    # Remove environment variables that cause problems for %post scripts.
+    for var in ["LIBUSER_CONF"]:
+        if os.environ.has_key(var):
+            del(os.environ[var])
+
+    log.info("Running kickstart %%post script(s)")
+    if anaconda.intf is not None:
+        w = anaconda.intf.waitWindow(_("Running..."),
+                            _("Running post-install scripts"))
+        
+    map (lambda s: s.run(anaconda.rootPath, flags.serial, anaconda.intf), postScripts)
+
+    log.info("All kickstart %%post script(s) have been run")
+    if anaconda.intf is not None:
+        w.pop()
+
+def runPreScripts(anaconda, scripts):
+    preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE, scripts)
+
+    if len(preScripts) == 0:
+        return
+
+    log.info("Running kickstart %%pre script(s)")
+    if anaconda.intf is not None:
+        w = anaconda.intf.waitWindow(_("Running..."),
+                            _("Running pre-install scripts"))
+    
+    map (lambda s: s.run("/", flags.serial, anaconda.intf), preScripts)
+
+    log.info("All kickstart %%pre script(s) have been run")
+    if anaconda.intf is not None:
+        w.pop()
+
+def runTracebackScripts(anaconda):
+    log.info("Running kickstart %%traceback script(s)")
+    for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
+                          anaconda.id.ksdata.scripts):
+        script.run("/", flags.serial)
+    log.info("All kickstart %%traceback script(s) have been run")
+
+def selectPackages(anaconda):
+    for pkg in anaconda.id.ksdata.packages.packageList:
+        num = anaconda.backend.selectPackage(pkg)
+        if anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+            continue
+        if num > 0:
+            continue
+        rc = anaconda.intf.messageWindow(_("Missing Package"),
+                                _("You have specified that the "
+                                  "package '%s' should be installed.  "
+                                  "This package does not exist. "
+                                  "Would you like to continue or "
+                                  "abort your installation?") %(pkg,),
+                                type="custom",
+                                custom_buttons=[_("_Abort"),
+                                                _("_Continue")])
+        if rc == 0:
+            sys.exit(1)
+        else:
+            pass
+
+    # FIXME
+#    # If there wasn't even an empty packages section, use the default
+#    # group selections.  Otherwise, select whatever was given (even if
+#    # it's nothing).
+#    if not self.ksparser.sawPackageSection:
+#        anaconda.id.instClass.setGroupSelection(anaconda)
+#        return
+
+    anaconda.backend.selectGroup("Core")
+
+    if anaconda.id.ksdata.packages.addBase:
+        anaconda.backend.selectGroup("Base")
+    else:
+        log.warning("not adding Base group")
+
+    for grp in anaconda.id.ksdata.packages.groupList:
+        num = anaconda.backend.selectGroup(grp)
+        if anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+            continue
+        if num > 0:
+            continue
+        rc = anaconda.intf.messageWindow(_("Missing Group"),
+                                _("You have specified that the "
+                                  "group '%s' should be installed. "
+                                  "This group does not exist. "
+                                  "Would you like to continue or "
+                                  "abort your installation?")
+                                %(grp,),
+                                type="custom",
+                                custom_buttons=[_("_Abort"),
+                                                _("_Continue")])
+        if rc == 0:
+            sys.exit(1)
+        else:
+            pass
+
+    map(anaconda.backend.deselectPackage, anaconda.id.ksdata.packages.excludedList)
+
+def setSteps(anaconda):
+    def havePackages(packages):
+        return len(packages.groupList) > 0 or len(packages.packageList) > 0 or \
+               len(packages.excludedList) > 0
+
+    dispatch = anaconda.dispatch
+    ksdata = anaconda.id.ksdata
+    interactive = ksdata.interactive.interactive
+    upgrade = ksdata.upgrade.upgrade
+
+    if upgrade:
+        from upgradeclass import InstallClass
+        theUpgradeclass = InstallClass(0)
+        theUpgradeclass.setSteps(anaconda)
+
+        # we have no way to specify migrating yet
+        dispatch.skipStep("upgrademigfind")
+        dispatch.skipStep("upgrademigratefs")
+        dispatch.skipStep("upgradecontinue")
+        dispatch.skipStep("findinstall", permanent = 1)
+        dispatch.skipStep("language")
+        dispatch.skipStep("keyboard")
+        dispatch.skipStep("betanag")
+        dispatch.skipStep("installtype")
+    else:
+        anaconda.id.instClass.setSteps(anaconda)
+        dispatch.skipStep("findrootparts")
+
+    if interactive or flags.autostep:
+        dispatch.skipStep("installtype")
+        dispatch.skipStep("bootdisk")
+
+    # because these steps depend on the monitor being probed
+    # properly, and will stop you if you have an unprobed monitor,
+    # we should skip them for autostep
+    if flags.autostep:
+        dispatch.skipStep("monitor")
+        return
+
+    dispatch.skipStep("bootdisk")
+    dispatch.skipStep("betanag")
+    dispatch.skipStep("regkey")
+    dispatch.skipStep("installtype")
+    dispatch.skipStep("tasksel")            
+    dispatch.skipStep("network")
+
+    # Don't show confirmation screens on non-interactive installs.
+    if not interactive:
+        dispatch.skipStep("confirminstall")
+        dispatch.skipStep("confirmupgrade")
+        dispatch.skipStep("welcome")
+
+    # Make sure to automatically reboot even in interactive if told to.
+    if interactive and ksdata.reboot.action != KS_WAIT:
+        dispatch.skipStep("complete")
+
+    # If the package section included anything, skip group selection unless
+    # they're in interactive.
+    if upgrade:
+        ksdata.skipSteps.append("group-selection")
+
+        # Special check for this, since it doesn't make any sense.
+        if havePackages(ksdata.packages):
+            warnings.warn("Ignoring contents of %packages section due to upgrade.")
+    elif havePackages(ksdata.packages):
+        if interactive:
+            ksdata.showSteps.append("group-selection")
+        else:
+            ksdata.skipSteps.append("group-selection")
+    else:
+        ksdata.skipSteps.append("group-selection")
+        # FIXME
+#        if self.ksparser.sawPackageSection:
+#            self.handler.skipSteps.append("group-selection")
+#        else:
+#            self.handler.showSteps.append("group-selection")
+
+    if not interactive:
+        for n in ksdata.skipSteps:
+            dispatch.skipStep(n)
+        for n in ksdata.permanentSkipSteps:
+            dispatch.skipStep(n, permanent=1)
+    for n in ksdata.showSteps:
+        dispatch.skipStep(n, skip = 0)
