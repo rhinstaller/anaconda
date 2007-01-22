@@ -942,6 +942,10 @@ class FATFileSystem(FileSystemType):
         if not entry.label:
             return
 
+        try:
+            os.stat(chroot + "/etc/fstab")
+        except:
+            return
         mounts = self._readFstab(chroot + "/etc/fstab")
 
         changed = False

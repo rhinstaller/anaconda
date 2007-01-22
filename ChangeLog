@@ -1,3 +1,8 @@
+2007-01-22  Peter Jones  <pjones@redhat.com>
+
+	* fsset.py (FATFileSystem.migrateFileSystem): if there's no fstab
+	yet, don't try to migrate it (#223554)
+
 2007-01-19  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet._labelDevice): When we ask for a new label
