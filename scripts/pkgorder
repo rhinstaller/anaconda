@@ -19,6 +19,7 @@ import sys
 import yum
 
 sys.path.append("/usr/lib/anaconda")
+sys.path.append("/usr/lib/booty")
 
 import anaconda_log
 import logging

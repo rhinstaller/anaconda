@@ -1,3 +1,8 @@
+2007-01-22  Peter Jones  <pjones@redhat.com>
+
+	* scripts/pkgorder: make sure the import path includes booty, as
+	import chains try to pull it in.
+
 2007-01-22  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): libncurses is in /lib now
