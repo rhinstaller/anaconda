@@ -122,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 17 2007 Peter Jones <pjones@redhat.com> - 11.1.2.29-1
 - fix rhpl import 
   Resolves: #222991
+- Don't use FAT/VFAT labels that are in use on other filesystems
+  Resolves: #218957
 
 * Tue Jan 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.28-1
 - Use a GtkWindow for the release notes viewer (katzj)
