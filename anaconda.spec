@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.31
+Version: 11.1.2.32
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 22 2007 Peter Jones <pjones@redhat.com> - 11.1.2.32-1
+- Don't try to migrate fat/vfat labels if there's no fstab yet.
+  Resolves: #223554
+- Always dasdfmt when we're relabeling a dasd device.
+  Resolves: #223492
+
 * Fri Jan 19 2007 Peter Jones <pjones@redhat.com> - 11.1.2.31-1
 - Fix typo in yesterday's iscsi fix
   Resolves: #223257
