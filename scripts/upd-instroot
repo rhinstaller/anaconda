@@ -168,7 +168,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            vnc-server libjpeg tcp_wrappers system-config-date
            xfsprogs xfsdump dmapi attr acl policy policycoreutils
            selinux-policy-targeted ttfonts-zh_CN redhat-artwork
-           xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts
+           xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts echo-icon-theme
            xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
            xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
            xorg-x11-base-fonts xorg-x11-ISO8859-15-75dpi-fonts
@@ -723,6 +723,9 @@ usr/share/icons/gnome/index.theme
 usr/share/icons/Bluecurve/cursors/*
 usr/share/icons/Bluecurve/*/stock/*
 usr/share/icons/Bluecurve/index.theme
+usr/share/icons/Echo/cursors/*
+usr/share/icons/Echo/*/stock/*
+usr/share/icons/Echo/index.theme
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans-Bold.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSansMono.ttf
