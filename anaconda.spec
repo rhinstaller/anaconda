@@ -104,8 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Jan 22 2007 Peter Jones <pjones@redhat.com> - 11.1.2.32-1
-- Don't try to migrate fat/vfat labels if there's no fstab yet.
-  Resolves: #223554
+- Don't try to migrate fat/vfat labels if there's no fstab yet (#223554).
 - Always dasdfmt when we're relabeling a dasd device.
   Resolves: #223492
 - Don't use FAT/VFAT labels that are in use on other filesystems
