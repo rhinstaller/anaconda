@@ -20,6 +20,7 @@ import string
 import isys 
 import iutil
 import upgrade
+import rhpl
 from fsset import *
 import gui
 import gtk
@@ -29,6 +30,9 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
     def getNext (self):
         for entry in self.migent:
+            if rhpl.getArch() == "ia64" \
+                    and entry.getMountPoint() == "/boot/efi":
+                continue
             entry.setFormat(0)
             entry.setMigrate(0)
             entry.fsystem = entry.origfsystem
@@ -66,6 +70,9 @@ class UpgradeMigrateFSWindow (InstallWindow):
         cbox = gtk.VBox(False, 5)
         self.cbs = []
         for entry in self.migent:
+            if rhpl.getArch() == "ia64" \
+                    and entry.getMountPoint() == "/boot/efi":
+                continue
             if entry.fsystem.getName() != entry.origfsystem.getName():
                 migrating = 1
             else:

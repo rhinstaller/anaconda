@@ -1,5 +1,18 @@
 2007-01-22  Peter Jones  <pjones@redhat.com>
 
+	* isys/isys.py (readFATLabel): get the ia64 check right.
+
+	* upgrade.py (upgradeMigrateFind): don't show the "upgrade
+	filesystems" window if we're on ia64 and the only upgradeable FS is
+	the vfat /boot/efi fs (#223890).
+
+	* iw/upgrade_migratefs_gui.py (UpgradeMigrateFSWindow): don't show
+	"/boot/efi" in migratable fs list.
+
+	* textw/upgrade_text.py (UpgradeMigrateFSWindow): ditto.
+
+2007-01-22  Peter Jones  <pjones@redhat.com>
+
 	* anaconda.spec: Bump version.
 
 2007-01-22  Peter Jones  <pjones@redhat.com>

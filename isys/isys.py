@@ -650,7 +650,7 @@ def _readFATLabel(device):
     return label
 
 def readFATLabel(device, makeDevNode = 1):
-    if rhpl.getArch() == "ia64":
+    if not rhpl.getArch() == "ia64":
         return None
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")

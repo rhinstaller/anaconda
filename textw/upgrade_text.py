@@ -24,6 +24,7 @@ import upgradeclass
 UpgradeClass = upgradeclass.InstallClass
 
 from rhpl.translate import _
+import rhpl
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
@@ -45,6 +46,9 @@ class UpgradeMigrateFSWindow:
 
         partlist = CheckboxTree(height=4, scroll=1)
         for entry in migent:
+            if rhpl.getArch() == "ia64" \
+                    and entry.getMountPoint() == "/boot/efi":
+                continue
             if entry.fsystem.getName() != entry.origfsystem.getName():
                 migrating = 1
             else:
@@ -71,6 +75,9 @@ class UpgradeMigrateFSWindow:
 
             # reset
             for entry in migent:
+                if rhpl.getArch() == "ia64" \
+                        and entry.getMountPoint() == "/boot/efi":
+                    continue
                 entry.setFormat(0)
                 entry.setMigrate(0)
                 entry.fsystem = entry.origfsystem

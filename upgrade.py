@@ -218,7 +218,9 @@ def bindMountDevDirectory(instPath):
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
     migents = anaconda.id.fsset.getMigratableEntries()
-    if not migents or len(migents) < 1:
+    if not migents or len(migents) < 1 or \
+            (rhpl.getArch() == "ia64" and len(migents) == 1 and \
+             migents[0].getMountPoint() == "/boot/efi"):
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
         anaconda.dispatch.skipStep("upgrademigratefs", skip = 0)
