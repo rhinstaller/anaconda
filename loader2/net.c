@@ -1317,7 +1317,8 @@ char *doDhcp(struct networkDeviceConfig *dev) {
         } else {
             int ret;
 
-            ret = asprintf(&class, "%s %s %s", kv.sysname, kv.release, kv.machine);
+            ret = asprintf(&class, "anaconda-%s %s %s",
+                           kv.sysname, kv.release, kv.machine);
             logMessage(DEBUGLVL, "sending %s as dhcp vendor-class", class);
         }
     }

@@ -633,7 +633,8 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
             dhcpclass = "anaconda";
         else {
             int ret;
-            ret = asprintf(&dhcpclass, "%s %s %s", kv.sysname,kv.release,kv.machine);
+            ret = asprintf(&dhcpclass, "anaconda-%s %s %s",
+                           kv.sysname,kv.release,kv.machine);
         }
     }
 
