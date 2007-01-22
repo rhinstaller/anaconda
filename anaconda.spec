@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #223554
 - Always dasdfmt when we're relabeling a dasd device.
   Resolves: #223492
+- Don't use FAT/VFAT labels that are in use on other filesystems
+  Resolves: #218957
 
 * Fri Jan 19 2007 Peter Jones <pjones@redhat.com> - 11.1.2.31-1
 - Fix typo in yesterday's iscsi fix
@@ -122,8 +124,6 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 17 2007 Peter Jones <pjones@redhat.com> - 11.1.2.29-1
 - fix rhpl import 
   Resolves: #222991
-- Don't use FAT/VFAT labels that are in use on other filesystems
-  Resolves: #218957
 
 * Tue Jan 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.28-1
 - Use a GtkWindow for the release notes viewer (katzj)
