@@ -7,6 +7,9 @@
 	* fsset.py (FATFileSystem.migrateFileSystem): if there's no fstab
 	yet, don't try to migrate it (#223554)
 
+	* isys/isys.py: Add code to probe FAT/VFAT labels so we don't reuse
+	them (#218957).
+
 2007-01-19  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet._labelDevice): When we ask for a new label
