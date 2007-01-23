@@ -287,7 +287,7 @@ class AnacondaKSHandler(superclass):
             if lvd.fsopts != "":
                 request.fsopts = lvd.fsopts
 
-            addPartRequest(self.anaconda, request)
+            addPartRequest(self.handler.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class Logging(superclass.Logging):
@@ -490,7 +490,7 @@ class AnacondaKSHandler(superclass):
             if pd.fsopts != "":
                 request.fsopts = pd.fsopts
 
-            addPartRequest(self.anaconda, request)
+            addPartRequest(self.handler.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class Reboot(superclass.Reboot):
@@ -563,7 +563,7 @@ class AnacondaKSHandler(superclass):
             if rd.fsopts != "":
                 request.fsopts = rd.fsopts
 
-            addPartRequest(self.anaconda, request)
+            addPartRequest(self.handler.anaconda, request)
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     class RootPw(superclass.RootPw):
@@ -631,7 +631,7 @@ class AnacondaKSHandler(superclass):
                                                           format = vgd.format,
                                                           pesize = vgd.pesize)
             request.uniqueID = uniqueID
-            addPartRequest(self.anaconda, request)
+            addPartRequest(self.handler.anaconda, request)
 
     class XConfig(superclass.XConfig):
         def parse(self, args):

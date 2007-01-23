@@ -1,3 +1,8 @@
+2007-01-23  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py:  self.anaconda -> self.handler.anaconda in the nested
+	classes (#223903).
+
 2007-01-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Requires): Don't require s-c-keyboard on weird arches
