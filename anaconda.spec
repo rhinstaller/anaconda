@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.14
+Version: 11.2.0.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -109,6 +109,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 23 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.15-1
+- Remove @everything parsing as promised
+- Package requirement fixes
+- Fix kickstart traceback (clumens, #223903)
+- Add more icons
+- Don't be too aggressive remaking device nodes
+- Fix rescue mode 
+
 * Mon Jan 22 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.14-1
 - Fix shell on tty2 with libncurses in /lib
 - Use echo icon theme
