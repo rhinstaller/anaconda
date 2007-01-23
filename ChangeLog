@@ -1,5 +1,8 @@
 2007-01-23  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (makeDevInode): Don't remake device nodes that
+	already exist.
+
 	* scripts/upd-instroot (KEEPFILEGR): More icons is more better.
 
 2007-01-23  Chris Lumens  <clumens@redhat.com>

@@ -400,6 +400,8 @@ def getDasdState(dev):
 
 def makeDevInode(name, fn=None):
     if fn:
+        if os.path.exists(fn):
+            return fn
         _isys.mkdevinode(name, fn)
         return fn
     path = '/dev/%s' % (name,)
