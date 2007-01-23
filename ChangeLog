@@ -1,5 +1,7 @@
 2007-01-23  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec (Requires): Don't require s-c-keyboard on weird arches
+
 	* kickstart.py (AnacondaKSParser.__init__): Remove @everything
 	support as promised.
 
