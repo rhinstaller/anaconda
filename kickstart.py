@@ -707,14 +707,6 @@ class AnacondaKSParser(KickstartParser):
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler, version=version)
 
-    # Map old broken Everything group to the new futuristic package globs
-    def addPackages (self, line):
-        if line[0] == '@' and line[1:].lower().strip() == "everything":
-            warnings.warn("The Everything group syntax is deprecated.  It may be removed from future releases, which will result in an error from kickstart.  Please use an asterisk on its own line instead.", DeprecationWarning)
-            KickstartParser.addPackages(self, "*")
-        else:
-            KickstartParser.addPackages(self, line)
-
     def addScript (self):
         if string.join(self._script["body"]).strip() == "":
             return
