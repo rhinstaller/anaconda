@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.32
+Version: 11.1.2.33
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 23 2007 Peter Jones <pjones@redhat.com> - 11.1.2.33-1
+- Handle FAT/VFAT labels on upgrade better 
+  Resolves: #223890
+- Include kernel-pae in the list of kernels we set up in grub.conf (#223491)
+
 * Mon Jan 22 2007 Peter Jones <pjones@redhat.com> - 11.1.2.32-1
 - Don't try to migrate fat/vfat labels if there's no fstab yet (#223554).
 - Always dasdfmt when we're relabeling a dasd device.
