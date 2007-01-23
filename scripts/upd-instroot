@@ -653,6 +653,7 @@ usr/bin/chattr*
 usr/bin/fc-cache
 usr/bin/gtk-query*
 usr/bin/gdk-pixbuf-query-loaders*
+usr/bin/gtk-update-icon-cache*
 usr/bin/head
 usr/bin/lsattr*
 usr/bin/maketilo
@@ -724,7 +725,7 @@ usr/share/icons/Bluecurve/cursors/*
 usr/share/icons/Bluecurve/*/stock/*
 usr/share/icons/Bluecurve/index.theme
 usr/share/icons/Echo/cursors/*
-usr/share/icons/Echo/*/stock/*
+usr/share/icons/Echo/*/*/*
 usr/share/icons/Echo/index.theme
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans.ttf
 usr/share/fonts/dejavu-lgc/DejaVuLGCSans-Bold.ttf
@@ -1125,6 +1126,11 @@ if [ -n "$NEEDGR" ]; then
     mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
     /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
+
+    echo "Generating icon theme caches"
+    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/Echo
+    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/default
+    /usr/sbin/chroot $DESTGR /usr/bin/gtk-update-icon-cache -q -f /usr/share/icons/Bluecurve
 fi
 
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
