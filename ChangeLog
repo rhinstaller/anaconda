@@ -1,5 +1,7 @@
 2007-01-23  Jeremy Katz  <katzj@redhat.com>
 
+	* rescue.py (runRescue): We don't really use the method for rescue
+
 	* isys/isys.py (makeDevInode): Don't remake device nodes that
 	already exist.
 
