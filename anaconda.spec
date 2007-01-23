@@ -58,6 +58,7 @@ Requires: syslinux
 Requires: openssh
 %endif
 Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-progs
+Requires: busybox-anaconda
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
