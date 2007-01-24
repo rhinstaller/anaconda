@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.16
+Version: 11.2.0.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -109,6 +109,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 24 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.17-1
+- Disable extra repo for now
+
 * Wed Jan 24 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.16-1
 - Fix rescue mode
 - Fix theming 
