@@ -1382,7 +1382,7 @@ class YumBackend(AnacondaBackend):
         kernelVersions = []
         
         # nick is used to generate the lilo name
-        for (ktag, nick) in [ ('kernel-pae', 'pae'),
+        for (ktag, nick) in [ ('kernel-PAE', 'PAE'),
                               ('kernel-smp', 'smp'),
                               ('kernel-xen0', 'xen0'),
                               ('kernel-xenU', 'xenU'),

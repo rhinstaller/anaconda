@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.33
+Version: 11.1.2.34
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 24 2007 Peter Jones <pjones@redhat.com> - 11.1.2.34-1
+- The PAE kernel isn't named according to the normal convention, so we need
+  "kernel-PAE" instead of "kernel-pae" in the list for grub.
+  Resolves: #223491
+
 * Tue Jan 23 2007 Peter Jones <pjones@redhat.com> - 11.1.2.33-1
 - Handle FAT/VFAT labels on upgrade better 
   Resolves: #223890
