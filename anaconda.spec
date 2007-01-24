@@ -106,12 +106,12 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 24 2007 Peter Jones <pjones@redhat.com> - 11.1.2.34-1
 - The PAE kernel isn't named according to the normal convention, so we need
   "kernel-PAE" instead of "kernel-pae" in the list for grub.
-  Resolves: #223491
+  Resolves: #223941
 
 * Tue Jan 23 2007 Peter Jones <pjones@redhat.com> - 11.1.2.33-1
 - Handle FAT/VFAT labels on upgrade better 
   Resolves: #223890
-- Include kernel-pae in the list of kernels we set up in grub.conf (#223491)
+- Include kernel-pae in the list of kernels we set up in grub.conf (#223941)
 
 * Mon Jan 22 2007 Peter Jones <pjones@redhat.com> - 11.1.2.32-1
 - Don't try to migrate fat/vfat labels if there's no fstab yet (#223554).
