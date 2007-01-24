@@ -67,6 +67,9 @@ def startMiniWM(root='/'):
 def doStartupX11Actions():
     global miniwm_pid
 
+    if not flags.test and flags.setupFilesystems:
+        setupGraphicalLinks()
+
     # now start up mini-wm
     try:
 	miniwm_pid = startMiniWM()
@@ -496,8 +499,6 @@ class Anaconda:
         # setup links required by graphical mode if installing and verify display mode
         if display_mode == 'g':
             stdoutLog.info (_("Starting graphical installation..."))
-            if not flags.test and flags.setupFilesystems:
-                setupGraphicalLinks()
 
             try:
                 from gui import InstallInterface
