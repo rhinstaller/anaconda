@@ -692,7 +692,7 @@ if __name__ == "__main__":
         iutil.makeCharDeviceNodes()
 
         anaconda.id = instdata.InstallData(anaconda, [], "fd0", anaconda.methodstr, opts.display_mode)
-        rescue.runRescue(anaconda)
+        rescue.runRescue(anaconda, instClass)
 
         # shouldn't get back here
         sys.exit(1)

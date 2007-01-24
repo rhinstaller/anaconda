@@ -185,7 +185,7 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def runRescue(anaconda):
+def runRescue(anaconda, instClass):
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
@@ -269,6 +269,7 @@ def runRescue(anaconda):
 
     screen = SnackScreen()
     anaconda.intf = RescueInterface(screen)
+    anaconda.setMethod(instClass)
 
     # prompt to see if we should try and find root filesystem and mount
     # everything in /etc/fstab on that root
