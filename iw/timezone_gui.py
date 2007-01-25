@@ -179,9 +179,9 @@ class AnacondaTZMap(TimezoneMap):
         self.tzCombo.connect("changed", self.selectionChanged)
         self.hbox.pack_start(self.tzCombo, False, False)
 
-        # Label for the comment (if there is one)
-        self.commentLabel = gtk.Label()
-        self.hbox.pack_start(self.commentLabel, True, True, padding=5)
+        # Label for the currently pointed at/selected city.
+        self.label = gtk.Label()
+        self.hbox.pack_start(self.label, True, True, padding=5)
 
         self.pack_start(self.hbox, False, False)
 
@@ -189,6 +189,14 @@ class AnacondaTZMap(TimezoneMap):
         iter = widget.get_active_iter()
         entry = self.zonetab.findEntryByTZ(widget.get_model().get_value(iter, 1))
         self.setCurrent(entry)
+
+    def mapEvent (self, widget, event=None):
+        TimezoneMap.mapEvent(self, widget, event)
+
+        # We need to do this when the mouse pointer goes off the edge of the
+        # world, not just leaves the map.
+        if self.region and event.type == gtk.gdk.LEAVE_NOTIFY:
+            self.setLabel(self.currentEntry.tz, self.currentEntry.comments)
 
     def overviewPressEvent(self):
         TimezoneMap.overviewPressEvent(self)
@@ -207,14 +215,24 @@ class AnacondaTZMap(TimezoneMap):
                                     self.highlightedEntry.long)
             self.arrow.set(points=(x1, y1, x2, y2))
             self.arrow.show ()
+            self.setLabel(self.highlightedEntry.tz, self.highlightedEntry.comments)
         else:
             self.arrow.hide ()
+            self.setLabel(self.currentEntry.tz, self.currentEntry.comments)
 
     def zoomPressEvent(self, event):
         TimezoneMap.zoomPressEvent(self, event)
 
         if event.button == 1:
             self.tzFilter.refilter()
+
+    def setLabel(self, tz, comments=None):
+        if comments != None:
+            labelText = "%s - %s" % (tz, comments)
+        else:
+            labelText = tz
+
+        self.label.set_text(labelText)
 
     def updateTimezoneList(self):
         # Find the currently selected item in the combo box and update both
@@ -223,11 +241,7 @@ class AnacondaTZMap(TimezoneMap):
         while iter:
             if self.tzCombo.get_model().get_value(iter, 1) == self.currentEntry.tz:
                 self.tzCombo.set_active_iter(iter)
-
-                if self.currentEntry.comments != None:
-                    self.commentLabel.set_text(self.currentEntry.comments)
-                else:
-                    self.commentLabel.set_text("")
-
+                self.setLabel(self.currentEntry.tz, self.currentEntry.comments)
                 break
+
             iter = self.tzCombo.get_model().iter_next(iter)
