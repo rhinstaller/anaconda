@@ -3532,14 +3532,12 @@ msgid "Edit Interface %s"
 msgstr "Upravit rozhraní %s"
 
 #: ../iw/network_gui.py:276
-#, fuzzy, python-format
 msgid "Hardware address: %s"
 msgstr "Hardwarová adresa: %s"
 
 #: ../iw/network_gui.py:281
-#, fuzzy
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Použít dynamické nastavení IP adresy (DHCP)"
+msgstr "Použít dynamické nastavení IP adresy (_DHCP)"
 
 #: ../iw/network_gui.py:286 ../loader2/net.c:691
 msgid "Enable IPv4 support"
@@ -3554,29 +3552,24 @@ msgid "_Activate on boot"
 msgstr "_Aktivovat při startu"
 
 #: ../iw/network_gui.py:326
-#, fuzzy
 msgid "IPv_4 Address:"
 msgstr "IPv4 adresa:"
 
 #: ../iw/network_gui.py:348
-#, fuzzy
 msgid "IPv_6 Address:"
 msgstr "IPv6 adresa:"
 
 #: ../iw/network_gui.py:371
-#, fuzzy
 msgid "_Point to Point (IP):"
-msgstr "_Point to Point (IP)"
+msgstr "_Point to Point (IP):"
 
 #: ../iw/network_gui.py:383
-#, fuzzy
 msgid "_ESSID:"
-msgstr "_ESSID"
+msgstr "_ESSID:"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "Encryption _Key:"
-msgstr "_Šifrovací klíč"
+msgstr "Šifrovací _klíč:"
 
 #: ../iw/network_gui.py:409
 #, python-format
@@ -3584,19 +3577,16 @@ msgid "Configure %s"
 msgstr "Nastavit %s"
 
 #: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Neplatný řetězec IP"
+msgstr "Neplatný prefix"
 
 #: ../iw/network_gui.py:458
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
+msgstr "Prefix IPv4 musí být mezi 0 a 32."
 
 #: ../iw/network_gui.py:475
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
+msgstr "Prefix IPv6 musí být mezi 0 a 128."
 
 #: ../iw/network_gui.py:629
 msgid "Active on Boot"
@@ -3610,13 +3600,12 @@ msgid "Device"
 msgstr "Zařízení"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Maska sítě"
+msgstr "IPv4/Maska sítě"
 
 #: ../iw/network_gui.py:635
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Prefix"
 
 #: ../iw/network_gui.py:697
 msgid "Network Devices"
@@ -3635,9 +3624,8 @@ msgid "_manually"
 msgstr "_ručně"
 
 #: ../iw/network_gui.py:725
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(př. \"host.domain.com\")"
+msgstr "(např. pocitac.domena.cz)"
 
 #: ../iw/network_gui.py:731 ../loader2/net.c:1401
 msgid "Hostname"
@@ -3786,12 +3774,12 @@ msgstr "Nastavit jako p_rimární oddíl"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Disk %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Disk %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
@@ -4347,6 +4335,8 @@ msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
+"Nelze najít soubor se skupinami pro %s. Ruční výběr balíčků nebude pro tento "
+"repozitář fungovat."
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4365,11 +4355,11 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Musíte zadat HTTP nebo FTP URL úložiště."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
+msgstr ""
+"Úložiště %s již bylo přidáno. Zvolte prosím jiné jméno úložiště a URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5240,7 +5230,6 @@ msgid "Partitioning Type"
 msgstr "Způsob rozdělení oddílů"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
@@ -5248,7 +5237,7 @@ msgid ""
 msgstr ""
 "Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
 "vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů."
-"Můžete buď zvolit toto rozložení, nebo definovat vlastní."
+"Můžete buď zvolit toto standardní rozdělení disku nebo definovat vlastní."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5320,14 +5309,13 @@ msgid "Package selection"
 msgstr "Výběr balíčků"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
 "Standardní instalace %s obsahuje sadu programů pro běžné používání "
-"internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
+"Internetu. Které další činnosti by měl váš systém podporovat?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5496,14 +5484,13 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
 "Standardní instalace %s obsahuje sadu programů pro běžné používání "
-"internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
+"Internetu. Které další činnosti by měl váš systém podporovat?"
 
 #: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
 msgid "Office and Productivity"
@@ -5705,7 +5692,7 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Na tomto zařízení je více oddílů, které by mohly obsahovat obraz diskety s "
+"Na tomto zařízení je více oddílů, které by mohly obsahovat obraz disku s "
 "ovladači. Který chcete použít?"
 
 #: ../loader2/driverdisk.c:339
@@ -5714,34 +5701,34 @@ msgstr "Nemohu připojit oddíl."
 
 #: ../loader2/driverdisk.c:347
 msgid "Select driver disk image"
-msgstr "Zvolte obraz diskety s ovladači"
+msgstr "Zvolte obraz disku s ovladači"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr "Zvolte soubor, který je obraz vaší diskety s ovladači."
+msgstr "Zvolte soubor, který je obraz vaší disk s ovladači."
 
 #: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
-msgstr "Nemohu načíst disketu s ovladači ze souboru."
+msgstr "Nemohu načíst disk s ovladači ze souboru."
 
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
+"Vložte disk s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
-msgstr "Vložení diskety s ovladači"
+msgstr "Vložte disk s ovladači"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
-msgstr "Nemohu připojit disketu s aktualizací."
+msgstr "Nemohu připojit disk s ovladači."
 
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Disk s ovladači není pro %s platný."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5749,7 +5736,7 @@ msgstr "Zvolit ručně"
 
 #: ../loader2/driverdisk.c:480
 msgid "Load another disk"
-msgstr "Načíst jinou disketu"
+msgstr "Načíst jiný disk"
 
 #: ../loader2/driverdisk.c:481
 msgid ""
@@ -5757,25 +5744,25 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Na této disketě s ovladači nebyla nalezena žádná zařízení potřebného typu. "
-"Chcete vybrat ovladač ručně, i přesto pokračovat, nebo načíst jinou disketu "
+"Na tomto disku s ovladači nebyla nalezena žádná zařízení potřebného typu. "
+"Chcete vybrat ovladač ručně, i přesto pokračovat, nebo načíst jiný disk "
 "s ovladači?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
-msgstr "Disketa s ovladači"
+msgstr "Disk s ovladači"
 
 #: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
-msgstr "Máte disketu s ovladači?"
+msgstr "Máte disk s ovladači?"
 
 #: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
-msgstr "Více disket s ovladači?"
+msgstr "Více disků s ovladači?"
 
 #: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
-msgstr "Chcete načíst více disket s ovladači?"
+msgstr "Chcete načíst další disky s ovladači?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
@@ -5821,14 +5808,14 @@ msgstr "Nenalezen žádný ovladač"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
-msgstr "Načíst disketu s ovladači"
+msgstr "Načíst disk s ovladači"
 
 #: ../loader2/driverselect.c:182
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nebyly nalezeny žádné ovladače pro ruční zavedení. Chcete použít disketu s "
+"Nebyly nalezeny žádné ovladače pro ruční zavedení. Chcete použít disk s "
 "ovladači?"
 
 #: ../loader2/driverselect.c:200
@@ -5836,8 +5823,8 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Zadejte prosím níže ovladač, který si přejete načíst. Pokud není uveden a "
-"máte disketu s ovladači, stiskněte F2."
+"Vyberte prosím ovladač, který si přejete načíst. Pokud není uveden a "
+"máte disk s ovladači, stiskněte F2."
 
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
@@ -5983,14 +5970,14 @@ msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"Máte více zařízení, která by mohla být použita jako zdroj diskety s "
+"Máte více zařízení, která by mohla být použita pro disk s "
 "aktualizací. Které chcete použít?"
 
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Vložte svou disketu s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
+"Vložte disk s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -5998,7 +5985,7 @@ msgstr "Disk s aktualizací"
 
 #: ../loader2/loader.c:363
 msgid "Failed to mount updates disk"
-msgstr "Nemohu připojit disketu s aktualizací"
+msgstr "Nemohu připojit disk s aktualizací"
 
 #: ../loader2/loader.c:366
 msgid "Updates"
@@ -6048,7 +6035,7 @@ msgstr "Vybrat ovladač"
 
 #: ../loader2/loader.c:969
 msgid "Use a driver disk"
-msgstr "Použít disketu s ovladači"
+msgstr "Použít disk s ovladači"
 
 #: ../loader2/loader.c:970
 msgid ""
@@ -6056,7 +6043,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Nemohu najít žádná zařízení, která jsou potřeba pro provedení tohoto typu "
-"instalace. Chcete vybrat ovladač ručně nebo chcete použít disketu s ovladači?"
+"instalace. Chcete vybrat ovladač ručně nebo chcete použít disk s ovladači?"
 
 #: ../loader2/loader.c:1131
 msgid "The following devices have been found on your system."
@@ -6213,13 +6200,11 @@ msgstr ""
 "      %s pro vaši architekturu\n"
 
 #: ../loader2/net.c:98
-#, fuzzy
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Hodnota masky CIDR musí být mezi 1 a 32 pro IPv4 sítě a mezi 1 a 128 pro "
-"IPv6 sítě"
+"Prefix musí být pro IPv4 sítě mezi 1 a 32 a pro IPv6 sítě mezi 1 a 128"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6286,11 +6271,11 @@ msgstr "Nastavení TCP/IP"
 
 #: ../loader2/net.c:764
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "Pro NFS je potřeba IPv4"
 
 #: ../loader2/net.c:765
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS instalace vyžaduje podporu IPv4."
 
 #: ../loader2/net.c:771 ../loader2/net.c:781
 msgid "Missing Protocol"
@@ -6338,7 +6323,6 @@ msgid ""
 msgstr "Musíte zadat platnou IPv4 adresu a masku sítě nebo CIDR prefix."
 
 #: ../loader2/net.c:1138
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
 msgstr "Musíte zadat platnou IPv6 adresu a CIDR prefix."
 
@@ -6695,15 +6679,15 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Vložte prosím další úložiště, které chce použít při instalaci."
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Další úpravy výběru softwaru mohou být provedeny teď nebo po instalaci "
-"pomocí aplikace pro správu softwaru."
+"Výběr instalovaných součástí můžete změnit teď nebo po instalaci "
+"pomocí aplikace pro správu balíčků."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6759,22 +6743,19 @@ msgstr "Atlantské ostrovy"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantický standardní čas - Quebec - Dolní severní pobřeží"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Východní čas - Ontario - většina míst"
+msgstr "Atlantický čas - Labrador - většina míst"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantický čas - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"Atlantický čas - Nové Skotsko (většina míst), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantický čas - Nové Skotsko (většina míst), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6813,9 +6794,8 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Centrální Čína - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr "Centrální Čína - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, apod."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6931,9 +6911,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Východní standardní čas - Southampton Island"
+msgstr "Východní standardní čas - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7019,7 +6998,7 @@ msgstr "Havaj"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (mimo Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7098,9 +7077,8 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskva+01 - Kaspické moře"
+msgstr "Moskva+00 - Kaspické moře"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7111,9 +7089,8 @@ msgid "Moscow-01 - Kaliningrad"
 msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskva+09 - Kamčatka"
+msgstr "Moskva+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7169,7 +7146,7 @@ msgstr "většina míst (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "Většina Tibetu & Xinjiangu"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7222,9 +7199,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "SV Brazílie (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantický čas - E Labrador"
+msgstr "Novofoundlanský čas, včetně JV Labradoru"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7395,9 +7371,8 @@ msgid "West Kazakhstan"
 msgstr "Západní Kazachstán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & většina Xinjiang Uyghur"
+msgstr "Západní Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
