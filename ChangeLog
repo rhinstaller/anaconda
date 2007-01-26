@@ -1,14 +1,14 @@
 2007-01-26  Peter Jones  <pjones@redhat.com>
 
 	* fsset.py (FileSystemSetEntry.migrateFilesystems): don't set the ia64
-	FAT label migration flag if we're formatting the drive.
+	FAT label migration flag if we're formatting the drive (#223898).
 
 	* partRequests.py (RequestSpec.toEntry): ditto.
 
 2007-01-26  Jeremy Katz  <katzj@redhat.com>
 
         * scripts/pkgorder: Use rpmlib for ordering, not incomplete bits
-	in yum
+	in yum (#223090)
 
 2007-01-26  Peter Jones  <pjones@redhat.com>
 
