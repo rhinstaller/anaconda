@@ -212,13 +212,16 @@ def setFileCons(anaconda):
 
         # ugh, this is ugly
         for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi"] + vgs:
-            def addpath(x): return dir + "/" + x
+            def findfiles(path):
+                if not os.path.isdir(anaconda.rootPath + path):
+                    files.extend(path)
+                    return
+                dirfiles = os.listdir(anaconda.rootPath + path)
+                for file in dirfiles:
+                    findfiles(path + '/' + file)
+                files.append(path)
 
-            if not os.path.isdir(anaconda.rootPath + dir):
-                continue
-            dirfiles = os.listdir(anaconda.rootPath + dir)
-            files.extend(map(addpath, dirfiles))
-            files.append(dir)
+            findfiles(dir)
 
         for f in files:
             if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
