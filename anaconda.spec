@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.34
+Version: 11.1.2.35
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 26 2007 Peter Jones <pjones@redhat.com> - 11.1.2.35-1
+- Don't set the migration flag for FAT labels if we're formatting the
+  partition (#223898)
+- Process directories recursively when relabelling
+  Resolves: #218791
+- Use rpmlib for ordering in pkgorder, not incoplete bits in yum (#223090)
+
 * Wed Jan 24 2007 Peter Jones <pjones@redhat.com> - 11.1.2.34-1
 - The PAE kernel isn't named according to the normal convention, so we need
   "kernel-PAE" instead of "kernel-pae" in the list for grub.
