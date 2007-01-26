@@ -1,3 +1,12 @@
+2007-01-26  Chris Lumens  <clumens@redhat.com>
+
+	* instdata.py (InstallData.reset):  Set firstboot to skipped if this
+	is a kickstart install, as otherwise kickstart files with no firstboot
+	command line will default to on.
+
+	* xsetup.py (XSetup.writeKS):  Don't write out --startxonboot three
+	times.
+
 2007-01-26  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

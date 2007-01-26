@@ -72,7 +72,7 @@ class InstallData:
         self.rootParts = None
         self.upgradeSwapInfo = None
 
-        if rhpl.getArch() == "s390":
+        if rhpl.getArch() == "s390" or anaconda.isKickstart:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
