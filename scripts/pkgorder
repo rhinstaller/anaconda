@@ -71,11 +71,13 @@ class PackageOrderer(YumSorter):
 #XXX: sigh
 processed = {}
 def processTransaction(ds):
-#    ds.tsInfo.makelists()
-#    print len(ds.tsInfo.installed)
-#    import pdb; pdb.set_trace()
-    for pkgtup in ds.tsInfo.sort():
-        fname = ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath')
+    del ds.ts
+    ds.initActionTs()
+    ds.populateTs(keepold=0)
+    ds.ts.check()
+    ds.ts.order()
+    for (hdr, path) in ds.ts.ts.getKeys():
+        fname = os.path.basename(path)
         fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
         printMatchingPkgs(fpattern)
 

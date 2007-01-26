@@ -1,3 +1,8 @@
+2007-01-26  Jeremy Katz  <katzj@redhat.com>
+
+        * scripts/pkgorder: Use rpmlib for ordering, not incomplete bits
+	in yum
+
 2007-01-26  Peter Jones  <pjones@redhat.com>
 
 	* packages.py (setFileCons): Process directories recursively (#218791)
