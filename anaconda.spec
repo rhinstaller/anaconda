@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.17
+Version: 11.2.0.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -109,6 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 26 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.18-1
+- Fix pkgorder 
+- Give indication of city being pointed at for timezone (clumens, #219417)
+
 * Wed Jan 24 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.17-1
 - Disable extra repo for now
 
