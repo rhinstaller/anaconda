@@ -1772,7 +1772,8 @@ MAILADDR root
 
             if rhpl.getArch() == 'ia64' \
                     and entry.getMountPoint() == "/boot/efi" \
-                    and isinstance(entry.origfsystem, FATFileSystem):
+                    and isinstance(entry.origfsystem, FATFileSystem)
+                    and not entry.getFormat():
                 entry.setMigrate(1)
 
             if not entry.origfsystem.isMigratable() or not entry.getMigrate():
