@@ -720,7 +720,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Wybierz Pomiń, jeśli chcesz, abyinstalator zignorował tę partycję podczas "
+"Wybierz Pomiń, jeśli chcesz, aby instalator zignorował tę partycję podczas "
 "aktualizacji. Wybierz Sformatuj, aby ponownie sformatować partycję jako "
 "przestrzeń wymiany. Wybierz Uruchom ponownie, aby ponownie uruchomić system."
 
@@ -824,7 +824,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas tworzenia %s wystąpił błąd. Pewny element ścieżki nie jest folderem. "
+"Podczas tworzenia %s wystąpił błąd. Pewien element ścieżki nie jest folderem. "
 "Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter>, aby ponownie uruchomić system."
@@ -935,7 +935,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"Dostęp do nich można uzyskać po ponownym uruchomieniu systemu logując się "
+"Dostęp do nich można uzyskać po ponownym uruchomieniu systemu, logując się "
 "jako root."
 
 #: ../gui.py:160
@@ -1117,7 +1117,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"Wybrane oprogramowanie wymaga następujących CD:\n"
+"Wybrane oprogramowanie wymaga następujących płyt CD:\n"
 "\n"
 "%s\n"
 "Przygotuj je przed przejściem do dalszego etapu instalacji. Jeśli chcesz "
@@ -1136,7 +1136,7 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Podczas odmontowywania CD wystąpił błąd. Sprawdź na powłoce tty2 czy nie "
+"Podczas odmontowywania CD wystąpił błąd. Sprawdź na powłoce tty2, czy nie "
 "korzystasz z położenia %s, a następnie naciśnij OK, aby ponowić."
 
 #: ../image.py:164
@@ -1162,7 +1162,7 @@ msgstr "Zmień CD-ROM"
 #: ../image.py:265
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Włóż płytę %s numer %d, aby kontynuować."
+msgstr "Włóż płytę systemu %s numer %d, aby kontynuować."
 
 #: ../image.py:300
 msgid "Wrong CDROM"
@@ -1171,7 +1171,7 @@ msgstr "Niewłaściwy CD-ROM"
 #: ../image.py:301
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "To nie jest poprawny CD-ROM %s."
+msgstr "To nie jest poprawny CD-ROM systemu %s."
 
 #: ../image.py:307
 msgid "Unable to access the CDROM."
@@ -1209,7 +1209,7 @@ msgstr ""
 "serwerze.\n"
 "\n"
 "Skopiuj ten obraz na ścieżkę współdzielenia zdalnego serwera i naciśnij "
-"Ponów. Naciśnij Uruchom ponownie, aby przerwać instalację."
+"Ponów. Naciśnij \"Uruchom ponownie\", aby przerwać instalację."
 
 #: ../installclass.py:64
 msgid "Install on System"
@@ -1259,7 +1259,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Określono, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
-"istnieje. Chcesz kontynuować czy przerwać instalację?"
+"istnieje. Chcesz kontynuować, czy przerwać instalację?"
 
 #: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
 #: ../yuminstall.py:718
@@ -1277,7 +1277,7 @@ msgid ""
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Określono, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie "
-"istnieje. Chcesz kontynuować czy przerwać instalację?"
+"istnieje. Chcesz kontynuować, czy przerwać instalację?"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1347,7 +1347,7 @@ msgstr ""
 "produkcyjnych. Celem tego wydania jest zebranie uwag od testerów i nie jest "
 "ono odpowiednie do codziennej pracy.\n"
 "\n"
-"Wszelkie uwagi proszę zgłaszać korzystając z:\n"
+"Wszelkie uwagi proszę zgłaszać, korzystając z:\n"
 "\n"
 "   %s\n"
 "\n"
@@ -1376,7 +1376,7 @@ msgstr ""
 "instalacji %s. Jeśli chcesz użyć tego dysku do instalacji, musisz go "
 "ponownie zainicjować, co spowoduje utratę WSZYSTKICH DANYCH na tym dysku.\n"
 "\n"
-"Czy chcesz ponownie sformatować urządzenie DASD używając formatu CDL?"
+"Czy chcesz ponownie sformatować urządzenie DASD, używając formatu CDL?"
 
 #: ../partedUtils.py:335
 #, python-format
@@ -2728,7 +2728,7 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"Aby kontynuować, musisz podać hasło roota i potwierdzić je wprowadzając "
+"Aby kontynuować, musisz podać hasło roota i potwierdzić je, wprowadzając "
 "ponownie."
 
 #: ../iw/account_gui.py:49
@@ -4936,7 +4936,7 @@ msgstr "Adres sprzętu: %s"
 
 #: ../textw/network_text.py:107
 msgid "Configure using DHCP"
-msgstr "Skonfiguruj używając DHCP"
+msgstr "Skonfiguruj, używając DHCP"
 
 #: ../textw/network_text.py:120
 msgid "Activate on boot"
@@ -5831,7 +5831,7 @@ msgid ""
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Podaj wszystkie parametry, które chcesz przekazać modułowi %s rozdzielone "
-"spacjami. Jeśli nie wiesz jakie parametry podać, pomiń ten ekran naciskając "
+"spacjami. Jeśli nie wiesz jakie parametry podać, pomiń ten ekran, naciskając "
 "przycisk \"OK\"."
 
 #: ../loader2/driverselect.c:80
