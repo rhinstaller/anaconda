@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2007-01-22 00:26+0800\n"
+"PO-Revision-Date: 2007-01-28 17:23+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5726,12 +5726,8 @@ msgstr ""
 "Ianya OK untuk memasang dari media ini."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"Tiada maklumat checksum yang ada, tidak dapat menentusahkan media."
+msgstr "Tiada maklumat checksum didapati, tidak dapat menentusahkan media."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -5833,15 +5829,13 @@ msgstr "Anda memasukkan alamat IP yang tidak sah."
 
 #: ../loader2/net.c:541
 #: ../loader2/net.c:647
-#, fuzzy
 msgid "Network Error"
-msgstr "Ralat menjumpai antaramuka rangkaian."
+msgstr "Ralat Rangkaian"
 
 #: ../loader2/net.c:542
 #: ../loader2/net.c:648
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "terdapat ralat mengkosongkan pemacu sasaran.  Pengklonan gagal."
+msgstr "Terdapat ralat menetapkan antaramuka rangkaian anda."
 
 #: ../loader2/net.c:684
 msgid "Use dynamic IP configuration (DHCP)"
