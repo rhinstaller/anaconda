@@ -1,3 +1,10 @@
+2007-01-29  Peter Jones  <pjones@redhat.com>
+
+	* bootdisk/i386/syslinux.cfg: use "localboot 0xffff" so we use the
+	next bios device instead of device 0x00.
+
+	* bootdisk/x86_64/syslinux.cfg: ditto
+
 2007-01-26  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.reset):  Set firstboot to skipped if this
