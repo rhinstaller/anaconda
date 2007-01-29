@@ -1,15 +1,17 @@
+# Kjartan Maraas <kmaraas@gnome.org>, 2007.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-12-27 17:15+0100\n"
-"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
-"Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
+"PO-Revision-Date: 2007-01-29 18:34+0100\n"
+"Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
+"Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Emacs 21.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:256
 msgid "Unknown Error"
@@ -646,7 +648,9 @@ msgstr ""
 "\n"
 "    /dev/%s\n"
 "\n"
-"er en Linux-swap-enhet med versjon 0. Hvis du vil bruke denne enheten må du formattere den på nytt som en Linux swap-enhet med versjon 1. Hvis du ikke gjør dette bil installasjonsprogrammet overse den under installasjonen."
+"er en Linux-swap-enhet med versjon 0. Hvis du vil bruke denne enheten må du "
+"formattere den på nytt som en Linux swap-enhet med versjon 1. Hvis du ikke "
+"gjør dette bil installasjonsprogrammet overse den under installasjonen."
 
 #: ../fsset.py:1483
 msgid "Reformat"
@@ -663,6 +667,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Swap-enhet:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil er i bruk som en partisjon for programvaresuspendering, "
+"noe som betyr at ditt system er i hvilemodus. For å utføre en oppgradering, "
+"vennligst slå av systemet, enn å sette det i hvilemodus."
 
 #: ../fsset.py:1495
 #, python-format
@@ -675,6 +686,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Swap-enhet:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil brukes i øyeblikket som en partisjon for "
+"programvaresuspendering, noe som betyr at ditt system er i hvilemodus."
+"Hvis du utfører en ny installasjon, sjekk at installasjonsprogrammet er satt "
+"opp til å formatere alle swap-partisjonene."
 
 #: ../fsset.py:1505
 msgid ""
@@ -684,6 +703,12 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Velg \"Hopp over\" hvis du vil at installasjonprogrammet skal ignorere denne "
+"partisjonen under oppgraderingen.  Velg  \"Formater\" for å reformatere "
+"partisjonen som en swap-partisjon.  Velg \"Start på nytt\" for å starte systemet "
+"på nytt."
 
 #: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
@@ -814,6 +839,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"En feil oppsto under montering av enhet %s som %s.  Du kan fortsette "
+"installasjonen, men det kan ha oppstått problemer."
 
 #: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
 #: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
@@ -1142,9 +1169,12 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åpnes. Dette grunnet at filen mangler eller at pakken er korrupt. Vennligst sjekk at installasjonstreet inneholder alle nødvendige pakker.\n"
+"Filen %s kan ikke åpnes. Dette grunnet at filen mangler eller at pakken er "
+"korrupt. Vennligst sjekk at installasjonstreet inneholder alle nødvendige "
+"pakker.\n"
 "\n"
-"Hvis du starter på nytt vil systemet være i en inkonsistent tilstand som sannsynligvis vil kreve at det installeres på nytt.\n"
+"Hvis du starter på nytt vil systemet være i en inkonsistent tilstand som "
+"sannsynligvis vil kreve at det installeres på nytt.\n"
 "\n"
 
 #: ../image.py:508
@@ -1778,6 +1808,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Din oppstartspartisjon er ikke blant de fire første partisjonene og vil derfor "
+"ikke være startbar."
 
 #: ../partitions.py:847
 msgid ""
@@ -1804,13 +1836,17 @@ msgstr ""
 #: ../partitions.py:942
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
-msgstr "Installerer på en USB-enhet. Det er ikke sikkert at dette gir et fungerende system."
+msgstr ""
+"Installerer på en USB-enhet. Det er ikke sikkert at dette gir et fungerende "
+"system."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr "Installerer på en FireWire-enhet. Det er ikke sikkert at dette gir et fungerende system."
+msgstr ""
+"Installerer på en FireWire-enhet. Det er ikke sikkert at dette gir et "
+"fungerende system."
 
 #: ../partitions.py:954 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1939,7 +1975,9 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr "Størrelse på logisk volum må være større enn volumgruppens fysiske extent-størrelse"
+msgstr ""
+"Størrelse på logisk volum må være større enn volumgruppens fysiske extent-"
+"størrelse"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2276,7 +2314,7 @@ msgid "Connecting..."
 msgstr "Kobler til..."
 
 #: ../urlinstall.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2286,10 +2324,14 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Filen %s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken "
-"er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CDen er "
-"ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
+"Filen %s kan ikke åpnes. Det kan være pga en manglende fil eller at pakken "
+"er korrupt.  Vennligst bekreft at ditt dataspeil inneholder alle pakkene, og "
+"forsøk å bruke en annen en.\n"
 "\n"
+"Hvis du starter på nytt, vil systemet være i en inkonsistent tilstand, som "
+"sannsynligvis vil kreve en reinstallasjon.\n"
+"\n"
+""
 
 #: ../vnc.py:44
 msgid "Unable to Start X"
@@ -2504,7 +2546,8 @@ msgstr "Feil under kjøring av transaksjon"
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
-msgstr "Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s"
+msgstr ""
+"Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
 msgid "Re_boot"
@@ -2540,6 +2583,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Dine valgte pakker krever %d MB med ledig plass for installasjon, men du "
+"har ikke nok ledig plass.  Du kan endre dine valg eller starte maskinen på nytt."
 
 #: ../yuminstall.py:1149
 #, python-format
@@ -3471,16 +3516,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP-informasjonen du oppgav er ugyldig."
 
 #: ../iw/network_gui.py:188
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Du har ingen aktive nettverksenheter. Systemet ditt vil ikke kunne "
-"kommunisere over et nettverk uten minst en aktiv enhet.\n"
-"\n"
-"MERK: Hvis du har et PCMCIA-basert nettverkskort bør du la dette være "
-"inaktivt. Når du starter maskinen på nytt vil kortet aktiveres automatisk."
+"kommunisere over et nettverk uten minst en aktiv enhet."
 
 #: ../iw/network_gui.py:264
 #, python-format
@@ -4272,7 +4313,7 @@ msgid "Unable to load file!"
 msgstr "Kan ikke lese filen!"
 
 #: ../iw/task_gui.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4280,16 +4321,20 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende "
+"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en manglende "
 "repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
-"korrekt måte.  %s"
+"korrekt måte.\n"
+"\n"
+"%s"
 
 #: ../iw/task_gui.py:89
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
-msgstr "Kan ikke finne en gruppefil for %s. Dette vil medføre at manualt utvalg av pakker fra lageret ikke vil virke"
+msgstr ""
+"Kan ikke finne en gruppefil for %s. Dette vil medføre at manualt utvalg av "
+"pakker fra lageret ikke vil virke"
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
@@ -4308,12 +4353,13 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Du må oppgi en HTTP eller FTP URL til et lager."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Monteringspunktet «%s» er allerede i bruk. Velg et annet monteringspunkt."
+"Datalageret %s er allerede lagt til. Vennligst angi et annet navn og URL "
+"på datalageret."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5187,14 +5233,13 @@ msgid "Partitioning Type"
 msgstr "Type partisjon"
 
 #: ../textw/partition_text.py:1518
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
 "Installasjonen krever partisjonering av harddisken. Forvalgt utforming av "
-"partisjoner er ok for de fleste brukere. Du kan velge å bruke denne eller å "
+"partisjoner er ok for de fleste brukere. Du kan velge å bruke denne eller "
 "lage din egen."
 
 #: ../textw/partition_text.py:1542
@@ -5267,13 +5312,13 @@ msgid "Package selection"
 msgstr "Pakkevalg"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
-#, fuzzy, no-c-format, python-format
+#, no-c-format, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"Forvalgt installasjon av %s inneholder et sett programmer som er tilpasset "
+"Standard installasjon av %s inneholder et sett programmer som er tilpasset "
 "vanlig bruk av internett. Hvilke tilleggsoppgaver ønsker du at systemet skal "
 "inneholde støtte for?"
 
@@ -5443,7 +5488,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:13
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
@@ -6162,7 +6207,9 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr "Prefiks må være mellom 1 og 32 for IPv4-nettverk eller mellom 1 og 128 for IPv6-nettverk"
+msgstr ""
+"Prefiks må være mellom 1 og 32 for IPv4-nettverk eller mellom 1 og 128 for "
+"IPv6-nettverk"
 
 #: ../loader2/net.c:232
 #, c-format
@@ -6277,7 +6324,9 @@ msgstr "Manglende informasjon"
 #: ../loader2/net.c:1132
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Du må skrive inn en gyldig IPv4-adresse og en nettmaske eller et CIDR-prefiks."
+msgstr ""
+"Du må skrive inn en gyldig IPv4-adresse og en nettmaske eller et CIDR-"
+"prefiks."
 
 #: ../loader2/net.c:1138
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
@@ -6637,13 +6686,12 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Videre tilpassing av programvareutvalget kan ferdigstilles nå eller etter "
-"innstallasjonen via program for pakkehåndtering."
+"Videre tilpassing av programvareutvalget kan ferdigstilles nå, eller etter "
+"installasjonen via program for pakkehåndtering."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -7552,3 +7600,4 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
