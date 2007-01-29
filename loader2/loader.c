@@ -1250,7 +1250,7 @@ int main(int argc, char ** argv) {
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride())
         flags |= LOADER_FLAGS_TEXT;
-    if (FL_SERIAL(flags))
+    if (FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags))
         flags |= LOADER_FLAGS_NOFB;
 
     setupRamfs();
