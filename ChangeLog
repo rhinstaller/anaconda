@@ -5,6 +5,9 @@
 
 2007-01-29  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.doRepoSetup): Give an error when
+	there's no comps information
+
 	* partIntfHelpers.py (mustHaveSelectedDrive): Kill useless
 	preposition at the end of the sentence.
 
