@@ -567,6 +567,7 @@ int main(int argc, char **argv) {
             console = strdup(consoles[i]);
             break;
         }
+        close(fd);
     }
 
     cfd = open("/dev/console", O_WRONLY);

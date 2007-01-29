@@ -1,3 +1,8 @@
+2007-01-29  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/init.c (main): Close xvc fd so that graphical xen can
+	work (#224405)
+
 2007-01-09  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
