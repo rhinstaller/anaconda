@@ -402,8 +402,7 @@ def checkForSwapNoMatch(anaconda):
                                                            request.fstype)
 
 def mustHaveSelectedDrive(intf):
-    txt =_("You need to select at least one hard drive to have %s installed "
-           "onto.") % (productName,)
+    txt =_("You need to select at least one hard drive to install %s on.") % (productName,)
     intf.messageWindow(_("Error"), txt, custom_icon="error")
      
 def queryNoFormatPreExisting(intf):
