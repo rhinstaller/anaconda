@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2007-01-10 13:36+0530\n"
+"PO-Revision-Date: 2007-01-30 13:28+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2721,7 +2721,7 @@ msgstr "LBA32 వత్తిడి"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "LBA32 వత్తిడి (సాధారణంగా అవసరంకాదు)"
+msgstr "LBA32 వత్తిడి (సాధారణంగా అవసరంకాదు) (_F)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
@@ -3275,7 +3275,7 @@ msgstr "మాదిరి (_M)"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "3 మీటలను అనుసరించు"
+msgstr "3 మీటలను అనుసరించు (_E)"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3418,7 +3418,7 @@ msgstr "Hardware చిరునామాలు: %s"
 
 #: ../iw/network_gui.py:291
 msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "క్రియాశీల IP ఆకృతీకరణ (_DHCP)ను ఉపయోగించు"
+msgstr "క్రియాశీల IP ఆకృతీకరణ (DHCP)ను ఉపయోగించు (_D)"
 
 #: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
 msgid "Enable IPv4 support"
@@ -3430,7 +3430,7 @@ msgstr "IPv6 మద్దతు అసాధ్యం"
 
 #: ../iw/network_gui.py:308
 msgid "_Activate on boot"
-msgstr "బూటులో క్రియాశీలత్వంగా చేయి"
+msgstr "బూటులో క్రియాశీలత్వంగా చేయి (_A)"
 
 #: ../iw/network_gui.py:334 ../textw/network_text.py:214
 msgid "Address"
@@ -3581,7 +3581,7 @@ msgstr "గుర్తు (_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "సిద్ధ బూట్ _లక్ష్యం (_T)"
+msgstr "సిద్ధ బూట్ లక్ష్యం (_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
@@ -3632,7 +3632,7 @@ msgstr "(MB) దాకా అన్ని ఖాళీలనూ నింపు 
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "గరిష్ఠంగా అనుమతించ దగ్గ పరిమాణాన్ని నింపు (-a)"
+msgstr "గరిష్ఠంగా అనుమతించ దగ్గ పరిమాణాన్ని నింపు (_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3653,11 +3653,11 @@ msgstr "విభజనని కూర్చు"
 
 #: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "ఫైళ్ల విధాన _వర్గం: (_T)"
+msgstr "ఫైళ్ల విధాన వర్గం: (_T)"
 
 #: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
-msgstr "ఆమోదకర _Driveలు: (_D)"
+msgstr "ఆమోదకర డ్రైవులు: (_D)"
 
 #: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
@@ -3861,12 +3861,12 @@ msgstr "ఒక software RAID విభజనను సృష్టించు. 
 #: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "ఒక RAID _device [default=/dev/md%s]ని సృష్టించు."
+msgstr "ఒక RAID device [default=/dev/md%s]ని సృష్టించు. (_d)"
 
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Clone a _drive to create a RAID device [default=/dev/md%s]."
+msgstr "Clone a drive to create a RAID device [default=/dev/md%s]. (_d)"
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -3886,15 +3886,15 @@ msgstr "తిరిగి అమర్చు (_s)"
 
 #: ../iw/partition_gui.py:1359
 msgid "R_AID"
-msgstr "R_AID"
+msgstr "RAID (_A)"
 
 #: ../iw/partition_gui.py:1360
 msgid "_LVM"
-msgstr "_LVM"
+msgstr "LVM (_L)"
 
 #: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "RAID సాధనం/LVM Volume _సమూహ సభ్యూలను దాయి"
+msgstr "RAID సాధనం/LVM Volume సమూహ సభ్యూలను దాయి (_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
@@ -3909,19 +3909,19 @@ msgstr "మీరు ఈ విభజనలో ఫైళ్ల విధాన�
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
-msgstr "మారని (భద్రపరచే సమాచారం) వదులు"
+msgstr "మారని (భద్రపరచే సమాచారం) వదులు (_u)"
 
 #: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
-msgstr "...వలే ఆకృతీకరణ విభజనలు: (F)"
+msgstr "...వలే ఆకృతీకరణ విభజనలు: (_F)"
 
 #: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
-msgstr "...కి విభజనల వలస:"
+msgstr "...కి విభజనల వలస: (_g)"
 
 #: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
-msgstr "చెడ్డ అడ్డంకులకొరకు అవరోధం?"
+msgstr "చెడ్డ అడ్డంకులకొరకు అవరోధం? (_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
@@ -3942,7 +3942,7 @@ msgstr "స్వయంచాలక విభజన (_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "డిస్కు Druid తో మానవీయ విభజన"
+msgstr "డిస్కు Druid తో మానవీయ విభజన (_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
@@ -4024,7 +4024,7 @@ msgstr "RAID సాధనాన్ని కూర్చు"
 
 #: ../iw/raid_dialog_gui.py:322
 msgid "RAID _Device:"
-msgstr "RAID _సాధనం:(_D)"
+msgstr "RAID సాధనం:(_D)"
 
 #: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
@@ -4387,7 +4387,7 @@ msgstr "మీ స్వాప్ ఫైలు కనీసం %d MB ఉండ�
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "స్వాప్ ఫైలు _పరిమాణం (MB): (_s):"
+msgstr "స్వాప్ ఫైలు పరిమాణం (MB): (_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
@@ -5324,7 +5324,7 @@ msgstr ""
 
 #: ../installclasses/fedora.py:12
 msgid "_Fedora"
-msgstr "_Fedora (_F)"
+msgstr "Fedora (_F)"
 
 #: ../installclasses/fedora.py:13 ../installclasses/rhel.py:21
 #, python-format
@@ -6393,19 +6393,19 @@ msgstr "ZFCP LUNను కలుపు (_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "iSCSI లక్ష్యాన్ని కలుపు"
+msgstr "iSCSI లక్ష్యాన్ని కలుపు (_i)"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr "dmraid సాధనం కుదరదు"
+msgstr "dmraid సాధనం కుదరదు (_d)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>సురక్షితస్థానం _URL:</b>"
+msgstr "<b>సురక్షితస్థానం URL:</b> (_U)"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>సురక్షితస్థానం _పేరు:</b>"
+msgstr "<b>సురక్షితస్థానం పేరు:</b> (_n)"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6434,7 +6434,7 @@ msgstr "_Debug"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr "తరువాత (_n)"
+msgstr "తరువాత (_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
@@ -6449,7 +6449,7 @@ msgstr "సమ్స్థాపనకి మీ డ్రైవు విభజ
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "పరిశీలన మరియూ విభజనా వాస్తు మార్పు"
+msgstr "పరిశీలన మరియూ విభజనా వాస్తు మార్పు (_v)"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
@@ -6457,7 +6457,7 @@ msgstr "పురోగామి నిక్షిప్త ఆఇతీకర�
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "ఈ సంస్థాపనకు ఉపయోగించే drive(లు)ను ఎన్నుకో."
+msgstr "ఈ సంస్థాపనకు ఉపయోగించే drive(లు)ను ఎన్నుకో. (_S)"
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6465,7 +6465,7 @@ msgstr "మినహాయింపు సమాచారం"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr "మినహాయింపు వివరాలు"
+msgstr "మినహాయింపు వివరాలు (_E)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6474,11 +6474,11 @@ msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
-msgstr "<b>_అనుమతిపదం:</b>"
+msgstr "<b>అనుమతిపదం:</b> (_P)"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>_లక్ష్య IP చిరునామా:</b>"
+msgstr "<b>లక్ష్య IP చిరునామాలు:</b> (_T)"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
@@ -6486,7 +6486,7 @@ msgstr "<b>వినియోగదారుని పేరు:</b>(_U)"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI నిర్దేశకుని _పేరు:</b>(_N)"
+msgstr "<b>iSCSI నిర్దేశకుని పేరు:</b> (_N)"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6506,11 +6506,11 @@ msgstr "<b>నామserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>అంతర్ముఖం:</b>"
+msgstr "<b>అంతర్ముఖం:</b> (_I)"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr "IPv_4 మద్దతు కుదరదు"
+msgstr "IPv_4 మద్దతు కుదరదు (_4)"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
@@ -6530,11 +6530,11 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "క్రియాశీల IP ఆకృతీకరణన (DHCP)ను ఉపయోగించు"
+msgstr "క్రియాశీల IP ఆకృతీకరణన (DHCP)ను ఉపయోగించు (_d)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "తరువాత వినియోగించు"
+msgstr "తరువాత వినియోగించు (_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6552,7 +6552,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "అదనపు software రక్షణలు ఉపయోగించు"
+msgstr "అదనపు software రక్షణలు ఉపయోగించు (_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
