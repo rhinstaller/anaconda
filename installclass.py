@@ -376,9 +376,6 @@ class BaseInstallClass:
     def setSELinux(self, id, sel):
         id.security.setSELinux(sel)
 
-    def setZFCP(self, id, fcpdev):
-        id.zfcp.fcpdevices = fcpdev
-
     def setFirewall(self, id, enable = 1, trusts = [], ports = []):
 	id.firewall.enabled = enable
 	id.firewall.trustdevs = trusts

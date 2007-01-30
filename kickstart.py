@@ -180,8 +180,8 @@ class KickstartBase(BaseInstallClass):
 
     def doZFCP(self, id, args):
         (args, extra) = isys.getopt(args, '',
-                                    ["devnum", "scsiid", "wwpn", "scsilun",
-                                     "fcplun"])
+                                    ["devnum=", "scsiid=", "wwpn=", "scsilun=",
+                                     "fcplun="])
 
         devnum = None
         scsiid = None
@@ -193,7 +193,7 @@ class KickstartBase(BaseInstallClass):
             (str, arg) = n
             if str == "--devnum":
                 devnum = id.zfcp.sanitizeDeviceInput(arg)
-            elif str == "--scsid":
+            elif str == "--scsiid":
                 scsiid = id.zfcp.sanitizeHexInput(arg)
             elif str == "--wwpn":
                 wwpn = id.zfcp.sanitizeHexInput(arg)
@@ -218,6 +218,7 @@ class KickstartBase(BaseInstallClass):
             raise KickstartError, "ZFCP config must specify all of devnum, scsiid, wwpn, scsilun, and fcplun"
 
         self.setZFCP(id, devnum, scsiid, wwpn, scsilun, fcplun)
+        id.zfcp.updateConfig(id.zfcp.fcpdevices, id.diskset, None)
         self.skipSteps.append("zfcpconfig")
                 
     def doAuthconfig(self, id, args):
@@ -716,6 +717,7 @@ class KickstartBase(BaseInstallClass):
                      "interactive"      : self.doInteractive    ,
                      "autostep"         : self.doAutoStep       ,
                      "firstboot"        : self.doFirstboot      ,
+                     "zfcp"             : self.doZFCP           ,
                      "vnc"              : None                  ,
 		   }
 

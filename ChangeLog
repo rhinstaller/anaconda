@@ -1,3 +1,11 @@
+2007-01-30  Dave Lehman  <dlehman@redhat.com>
+
+	* kickstart.py (doZFCP): allow use of ZFCP disks in kickstart (#188610)
+
+	* kickstart.py (readKickstart): add a handler for "zfcp" commands
+
+	* installclass.py (BaseInstallClass): remove unused setZFCP method
+
 2007-01-30  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: make bogl font (#180113)
