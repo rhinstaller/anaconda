@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.54
+Version: 10.1.1.55
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 30 2007 Peter Jones <pjones@redhat.com> - 10.1.1.55-1
+- Close xvc in the loader so graphical xen works (katzj)
+  Resolves: #224405
+- Don't load fb modules like xencons in the loader (katzj)
+  Resolves: #224200
+- Make the fonts for bogl when building the instroot
+  Resolves: #180113
+- Fix zfcp usage in kickstart (dlehman)
+  Resolves: #188610
+
 * Tue Jan  9 2007 Peter Jones <pjones@redhat.com> - 10.1.1.54-1
 - Check all CD-Roms for ks.cfg (dlehman, #203344)
 - Save result from upgrade vs install UI page across forward->back movement
