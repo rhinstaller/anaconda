@@ -1,5 +1,8 @@
 2007-01-30  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder: Clean up handling of different directory
+	layouts (Jesse Keating)
+
 	* scripts/buildinstall: Use $TMPDIR instead of hard-coded /tmp
 	(Steve Pritchard <steve@silug.org>, #224438)
 	* scripts/getkeymaps: Likewise.
