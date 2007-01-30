@@ -181,6 +181,7 @@ class AnacondaTZMap(TimezoneMap):
 
         # Label for the currently pointed at/selected city.
         self.label = gtk.Label()
+        self.label.set_line_wrap(True)
         self.hbox.pack_start(self.label, True, True, padding=5)
 
         self.pack_start(self.hbox, False, False)

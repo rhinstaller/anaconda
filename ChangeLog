@@ -1,3 +1,8 @@
+2007-01-30  Chris Lumens  <clumens@redhat.com>
+
+	* iw/timezone_gui.py (AnacondaTZMap.timezone_list_init):  Wrap the
+	label if it's too long (#225444).
+
 2007-01-29  Bill Nottingham  <notting@redhat.com>
 
 	* packages.py (betaNagScreen): Add 'Fedora' -> 'Fedora Core' mapping.
