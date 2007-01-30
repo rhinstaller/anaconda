@@ -9,8 +9,8 @@ fi
 TOPDIR=`pwd`
 OUTPUT=$2
 if [ -z "$OUTPUT" ]; then
-    echo "No output specified, using /tmp/keymaps-$ARCH.$$"
-    OUTPUT=/tmp/keymaps-$ARCH.$$
+    echo "No output specified, using ${TMPDIR:-/tmp}/keymaps-$ARCH.$$"
+    OUTPUT=${TMPDIR:-/tmp}/keymaps-$ARCH.$$
 fi
 
 UTILDIR=$3
@@ -22,10 +22,10 @@ else
     MAPSHDR=$UTILDIR/usr/lib/anaconda-runtime/mapshdr
 fi
 
-TMPDIR=/tmp/keymaps.$$
+TMP=${TMPDIR:-/tmp}/keymaps.$$
 
-rm -rf $TMPDIR
-mkdir -p $TMPDIR
+rm -rf $TMP
+mkdir -p $TMP
 
 if [ $ARCH = "sparc" ]; then
     PATTERN={i386,sun}
@@ -38,14 +38,14 @@ MAPS=$(python -c "import rhpl.keyboard_models ; rhpl.keyboard_models.get_support
 for map in $MAPS ; do 
  eval find /lib/kbd/keymaps/$PATTERN -name "$map.map*" | while read n; do
     /bin/loadkeys `basename $n .gz` >/dev/null
-    $READMAP $TMPDIR/`basename $n .map.gz`.map
+    $READMAP $TMP/`basename $n .map.gz`.map
   done
 done
 
 loadkeys us
 
-rm -f $TMPDIR/defkeymap* $TMPDIR/ANSI* $TMPDIR/lt.map
+rm -f $TMP/defkeymap* $TMP/ANSI* $TMP/lt.map
 
-(cd $TMPDIR; $MAPSHDR *.map) > $TMPDIR/hdr
-cat $TMPDIR/hdr $TMPDIR/*.map | gzip -9 > $OUTPUT
-rm -rf $TMPDIR
+(cd $TMP; $MAPSHDR *.map) > $TMP/hdr
+cat $TMP/hdr $TMP/*.map | gzip -9 > $OUTPUT
+rm -rf $TMP

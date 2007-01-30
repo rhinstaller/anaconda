@@ -97,7 +97,7 @@ if [ -z "$BUILDINSTDIR" ]; then
     rm -rf $BUILDINSTDIR
     mkdir -p $BUILDINSTDIR
 fi
-TREEDIR=/tmp/treedir.$$
+TREEDIR=${TMPDIR:-/tmp}/treedir.$$
 
 UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
 MK_IMAGES=$BUILDINSTDIR/mk-images

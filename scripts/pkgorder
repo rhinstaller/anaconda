@@ -156,7 +156,11 @@ if __name__ == "__main__":
     else:
         printMatchingPkgs("%s/%s" % (toppath, "kernel-*"))        
 
-    testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
+    if os.environ.has_key('TMPDIR'):
+        testpath = "%s/pkgorder-%d" %(os.environ['TMPDIR'],os.getpid(),)
+    else:
+        testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
+
     os.system("mkdir -p %s/var/lib/rpm" %(testpath,))
     
     ds = PackageOrderer(arch=arch)

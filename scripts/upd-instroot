@@ -93,13 +93,13 @@ die () {
 }
 
 if [ -z "$2" ]; then
-    DEST=/tmp/upd-instroot
+    DEST=${TMPDIR:-/tmp}/upd-instroot
 else
     DEST=$2
 fi
 
 if [ -z "$3" ]; then
-    DESTGR=/tmp/upd-instroot
+    DESTGR=${TMPDIR:-/tmp}/upd-instroot
 else
     DESTGR=$3
 fi
@@ -250,7 +250,7 @@ PACKAGESGR="$PACKAGESGR $XORG"
 # It also is the base on which the other install images build on top of,
 # so if something is needed by all images it should go here
 #
-KEEPFILE=/tmp/keepfile.$$
+KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
@@ -557,7 +557,7 @@ fi
 # by KEEPFILERESCUE below.  The total size of this image should be
 # under the size of the miniature CD used for the rescue CD (around 68MB).
 #
-KEEPFILEGR=/tmp/keepfilegr.$$
+KEEPFILEGR=${TMPDIR:-/tmp}/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
 boot/efi/EFI/redhat/elilo.efi
@@ -829,7 +829,7 @@ EOF
 # NOTE: hd, ftp, and http rescue mode use and image based on KEEPFILE since
 #       it has to be much smaller due to memory usage.
 #
-KEEPFILERESCUE=/tmp/keepfilerescue.$$
+KEEPFILERESCUE=${TMPDIR:-/tmp}/keepfilerescue.$$
 cat > $KEEPFILERESCUE <<EOF
 bin/gunzip
 bin/gzip
@@ -952,7 +952,7 @@ echo "Expanding graphical packages..."
 expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 
 echo "retrieving timezones"
-TZDIR=/tmp/glibc-timezone-$$
+TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
 rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
 [ $? = 0 ] || die "ERROR: Unable to expand timezone data ($TZDATA)"

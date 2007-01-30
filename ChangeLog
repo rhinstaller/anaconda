@@ -1,3 +1,14 @@
+2007-01-30  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/buildinstall: Use $TMPDIR instead of hard-coded /tmp
+	(Steve Pritchard <steve@silug.org>, #224438)
+	* scripts/getkeymaps: Likewise.
+	* scripts/mk-images: Likewise.
+	* scripts/mk-images.ia64: Likewise.
+	* scripts/pkgorder: Likewise.
+	* scripts/upd-instroot: Likewise.
+	* scripts/yumcache: Likewise.
+
 2007-01-30  Chris Lumens  <clumens@redhat.com>
 
 	* iw/timezone_gui.py (AnacondaTZMap.timezone_list_init):  Wrap the

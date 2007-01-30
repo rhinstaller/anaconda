@@ -3,6 +3,7 @@ LANG=C
 
 PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M).$(uname -i)
+TMPDIR=${TMPDIR:-/tmp}
 
 usage () {
 	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
@@ -54,12 +55,12 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     KERNELPATH=$1
     TOPDESTPATH=$2
     IMAGEPATH=$TOPDESTPATH/images
-    FULLMODPATH=/tmp/instimagemods.$$
+    FULLMODPATH=$TMPDIR/instimagemods.$$
     FINALFULLMODPATH=$4/modules
     INSTIMGPATH=$TOPDESTPATH/images
     INSTIMGTEMPLATE=$3
     IMGPATH=$4
-    KERNELBASE=/tmp/updboot.kernel.$$
+    KERNELBASE=$TMPDIR/updboot.kernel.$$
     MODDEPS=$KERNELBASE/moddeps
     MODALIAS=$KERNELBASE/modules.alias
     BUILDARCH=$5
@@ -109,7 +110,7 @@ INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
-    KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
+    KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
@@ -263,14 +264,14 @@ expandModuleSet() {
 	    NAME=$(echo $name | cut -c2-)
 
 	    # all of the modules of this type
-	    $MODLIST --modinfo-file $MODINFO $NAME > /tmp/emsAll.$$
+	    $MODLIST --modinfo-file $MODINFO $NAME > $TMPDIR/emsAll.$$
 	    # the modules used that are of this type
-	    sort -u $MODULESUSED | cat - /tmp/emsAll.$$ | sort | 
-		    uniq -d > /tmp/emsUsed.$$
+	    sort -u $MODULESUSED | cat - $TMPDIR/emsAll.$$ | sort | 
+		    uniq -d > $TMPDIR/emsUsed.$$
 	    # the modules that are of this type, but not used
-	    SET="$SET $(cat /tmp/emsAll.$$ /tmp/emsUsed.$$ | sort | uniq -u)"
+	    SET="$SET $(cat $TMPDIR/emsAll.$$ $TMPDIR/emsUsed.$$ | sort | uniq -u)"
 
-	    rm -f /tmp/emsAll.$$ /tmp/emsUsed.$$
+	    rm -f $TMPDIR/emsAll.$$ $TMPDIR/emsUsed.$$
 	else
 	    SET="$SET $name"
 	fi
@@ -571,9 +572,9 @@ makeinitrd() {
 	exit 1
     fi
 
-    MBD_DIR=/tmp/makebootdisk.dir.$$
-    MBD_FSIMAGE=/tmp/makebootdisk.initrdimage.$$
-    MBD_BOOTTREE=/tmp/makebootdisk.tree.$$
+    MBD_DIR=$TMPDIR/makebootdisk.dir.$$
+    MBD_FSIMAGE=$TMPDIR/makebootdisk.initrdimage.$$
+    MBD_BOOTTREE=$TMPDIR/makebootdisk.tree.$$
 
     rm -rf $MBD_DIR MBD_FSIMAGE
     mkdir -p $MBD_DIR/modules
@@ -684,35 +685,35 @@ EOF
 makeinstimage () {
     imagename=$1
     type=$2
-    tmpdir=/tmp/instimage.dir.$$
+    tmp=$TMPDIR/instimage.dir.$$
 
-    rm -rf $tmpimage $tmpdir
-    mkdir -p $mntpoint $tmpdir
+    rm -rf $tmpimage $tmp
+    mkdir -p $mntpoint $tmp
 
-    mkdir -p $tmpdir
-    (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
-    makeproductfile $tmpdir
+    mkdir -p $tmp
+    (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmp)
+    makeproductfile $tmp
 
     if [ -z "$type" -o "$type" = "cramfs" ]; then 
-        echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
-        mkfs.cramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
+        echo "Running mkcramfs $CRAMBS $tmp $INSTIMGPATH/${imagename}2.img"
+        mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
-        echo "Running mksquashfs $tmpdir /tmp/${imagename}2.img -all-root -no-fragments"
-        mksquashfs $tmpdir /tmp/${imagename}2.img.$$ -all-root -no-fragments
-        chmod 0644 /tmp/${imagename}2.img.$$
+        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -all-root -no-fragments"
+        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments
+        chmod 0644 $TMPDIR/${imagename}2.img.$$
     fi
-    cp /tmp/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
+    cp $TMPDIR/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
-    rm -rf $tmpdir
+    rm -rf $tmp
 }
 
 makemainimage () {
     imagename=$1
     type=$2
-    mmi_tmpimage=/tmp/instimage.img.$$
-    mmi_mntpoint=/tmp/instimage.mnt.$$
+    mmi_tmpimage=$TMPDIR/instimage.img.$$
+    mmi_mntpoint=$TMPDIR/instimage.mnt.$$
     
     rm -rf $mmi_tmpimage $mmi_mntpoint
     mkdir $mmi_mntpoint

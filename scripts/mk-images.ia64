@@ -6,8 +6,8 @@ makebootdisk() {
     INITRDFLAGS=""
     MBD_FILENAME=""
     INITRDFILE=""
-    MBD_TMPIMAGE=/tmp/makebootdisk.image.$$
-    MBD_BOOTTREE=/tmp/makebootdisk.tree.$$
+    MBD_TMPIMAGE=${TMPDIR:-/tmp}/makebootdisk.image.$$
+    MBD_BOOTTREE=${TMPDIR:-/tmp}/makebootdisk.tree.$$
     MBD_BOOTTREE_TMP=$MBD_BOOTTREE'_tmp'
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--kernelto" ]; then
