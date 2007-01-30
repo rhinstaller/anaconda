@@ -118,7 +118,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 audit-libs
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl 
+ 	 xfsprogs xfsdump dmapi libacl libattr attr acl bogl-devel
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -585,6 +585,8 @@ usr/bin/uniq
 usr/bin/Xvnc
 usr/bin/vncconfig
 usr/bin/vncpasswd
+usr/bin/reduce-font
+usr/bin/bdftobogl
 usr/lib/anaconda/iw
 usr/$LIBDIR/gconv/*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
@@ -926,6 +928,16 @@ if [ -n "$NEEDGR" ]; then
     cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^'  > $DESTGR/etc/man.config
     rm -f $DESTGR/etc/man.config-old
 fi
+
+echo "Creating bogl font.."
+OLDLANG=$LANG
+export LANG=en_US.UTF-8
+zcat $DESTGR/usr/lib/bogl/font.bdf.gz > $DESTGR/usr/lib/bogl/font.bdf
+(cat $DESTGR/usr/lib/anaconda-runtime/unicode-linedraw-chars.txt ; find $DESTGR/usr/share/locale -name '*.mo' -exec msgunfmt {} \;) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
+$DESTGR/usr/bin/bdftobogl -b $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
+rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl
+gzip -9 $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
+export LANG=$OLDLANG
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
