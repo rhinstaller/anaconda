@@ -34,8 +34,10 @@ class InstallClass(BaseInstallClass):
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
-                                                CLEARPART_TYPE_LINUX)
+
+        if not anaconda.isKickstart:
+            BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
+                                                    CLEARPART_TYPE_LINUX)
 
     def setGroupSelection(self, anaconda):
         grps = anaconda.backend.getDefaultGroups(anaconda)

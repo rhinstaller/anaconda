@@ -1,3 +1,10 @@
+2007-01-31  Chris Lumens  <clumens@redhat.com>
+
+	* installclasses/fedora.py (InstallClass.setInstallData):  Don't set
+	up the default partitions if we're on a kickstart install.  autopart
+	will handle that for us.
+	* installclasses/rhel.py (InstallClass.setInstallData):  Likewise.
+
 2007-01-30  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
