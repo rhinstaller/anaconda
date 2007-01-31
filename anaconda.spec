@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.55
+Version: 10.1.1.56
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 31 2007 Peter Jones <pjones@redhat.com> - 10.1.1.56-1
+- Add usb-storage support for the root filesystem
+  Resolves: #180550
+
 * Tue Jan 30 2007 Peter Jones <pjones@redhat.com> - 10.1.1.55-1
 - Close xvc in the loader so graphical xen works (katzj)
   Resolves: #224405
