@@ -332,6 +332,18 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = ethCount("tr") - 1;
                 } else if (mi->major == DRIVER_SCSI) {
+                    /* FIXME: this is a hack, but usb-storage seems to
+                     * like to take forever to enumerate.  try to 
+                     * give it some time */
+                    if (!strcmp(modName, "usb-storage")) {
+                        int slp;
+                        logMessage( "sleeping for usb-storage stabilize...");
+                        for (slp = 0; slp < 10; slp++) {
+                            if (scsiDiskCount() > 0) break;
+                            sleep(2);
+                        }
+                        logMessage( "slept %d seconds", slp * 2);
+                    }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();
                 }
@@ -632,14 +644,6 @@ static int writeModulesConf(moduleList list, int fd) {
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
         if (!lm->weLoaded) continue;
         if (lm->written) continue;
-
-        /* JKFIXME: this is a hack for the fact that these are now
-         * DRIVER_SCSI so we can get /tmp/scsidisks, but we don't
-         * want them in modprobe.conf  :/ */
-        if (!strcmp(lm->name, "usb-storage") ||
-            !strcmp(lm->name, "sbp2")) {
-            continue;
-        }
 
         if (lm->major != DRIVER_NONE) {
             strcpy(buf, "alias ");

@@ -1,3 +1,14 @@
+2006-05-09  Peter Jones  <pjones@redhat.com>
+
+ 	* isys/isys.py (driveIsRemovable): Split module checking out to its
+ 	own functions.  Allow usb-storage installs.
+ 	* partitions.py: warn if you're using firewire or usb
+ 	* loader2/modules.c (loadModule): Delay on reloading usb-storage, as
+ 	it takes undefined time as well.  Without this /tmp/scsidisks is
+ 	wrong.
+ 	* loader2/modules.c (writeModulesConf): don't exclude usb-storage
+ 	or sbp2.
+
 2007-01-30  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
