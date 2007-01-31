@@ -1,5 +1,8 @@
 2007-01-31  Chris Lumens  <clumens@redhat.com>
 
+	* gui.py (MessageWindow.__init__):  Add parent parameter, and fix
+	argument passing so these windows get run on kickstart installs.
+
 	* installclasses/fedora.py (InstallClass.setInstallData):  Don't set
 	up the default partitions if we're on a kickstart install.  autopart
 	will handle that for us.
