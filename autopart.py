@@ -1195,8 +1195,6 @@ def doClearPartAction(anaconda, partitions, diskset):
             continue
     
 def doAutoPartition(anaconda):
-    import pdb
-    pdb.set_trace()
     instClass = anaconda.id.instClass
     diskset = anaconda.id.diskset
     partitions = anaconda.id.partitions
