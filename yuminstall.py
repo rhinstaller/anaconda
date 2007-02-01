@@ -1462,19 +1462,40 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage(new)
 
     def writePackagesKS(self, f):
-        packages = []
+        groups = []
+        installed = []
+        removed = []
 
         self.ayum.tsInfo.makelists()
-        for txmbr in self.ayum.tsInfo.installed:
-            if not txmbr.groups:
-                packages.append(txmbr.name)
 
-        if len(self.ayum.tsInfo.instgroups) == 0 and len(packages) == 0:
+        txmbrNames = map (lambda x: x.name, self.ayum.tsInfo.getMembers())
+
+        if len(self.ayum.tsInfo.instgroups) == 0 and len(txmbrNames) == 0:
             return
 
         f.write("\n%packages\n")
-        map(lambda grp: f.write("@%s\n" % grp), self.ayum.tsInfo.instgroups)
-        map(lambda pkg: f.write("%s\n" % pkg), packages)
+
+        for grp in filter(lambda x: x.selected, self.ayum.comps.groups):
+            groups.append(grp.groupid)
+
+            defaults = grp.default_packages.keys() + grp.mandatory_packages.keys()
+            optionals = grp.optional_packages.keys()
+
+            for pkg in filter(lambda x: x in defaults and not x in txmbrNames,
+                              grp.packages):
+                removed.append(pkg)
+
+            for pkg in filter(lambda x: x in txmbrNames, optionals):
+                installed.append(pkg)
+
+        for grp in groups:
+            f.write("@%s\n" % grp.groupid)
+
+        for pkg in installed:
+            f.write("%s\n" % pkg)
+
+        for pkg in removed:
+            f.write("-%s\n" % pkg)
 
     def writeConfiguration(self):
         return
