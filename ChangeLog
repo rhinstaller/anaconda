@@ -1,8 +1,14 @@
 2007-02-01  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Pass the class to xsetup.
+
 	* installclass.py (BaseInstallClass.setMiscXSettings):  Don't try to
 	second guess any provided resolution or depth (like from a kickstart
 	file).
+
+	* xsetup.py (XSetup.write):  If a resolution was specified in a
+	kickstart file, preserve that in the installed system's xorg.conf
+	(#158089).
 
 	* yuminstall.py (YumBackend.writePackagesKS):  Do a better job about
 	writing out which packages are selected/deselected (#189873).

@@ -897,13 +897,7 @@ if __name__ == "__main__":
                 xserver.hwstate = None
 
         if xserver.hwstate is not None:
-            xsetup = xsetup.XSetup(xserver)
-
-            # HACK - if user overrides resolution then use it and disable
-            #	     choosing a sane default for them
-            if runres_override:
-                xsetup.imposed_sane_default = 1
-
+            xsetup = xsetup.XSetup(xserver, anaconda)
             anaconda.id.setXSetup(xsetup)
 
     anaconda.id.setDisplayMode(opts.display_mode)

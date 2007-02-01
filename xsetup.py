@@ -21,15 +21,23 @@ import rhpl
 from rhpl.translate import _
 
 class XSetup:
-    def __init__(self, xserver):
+    def __init__(self, xserver, anaconda):
 	self.skipx = 0
-	self.imposed_sane_default = 0
 	self.xserver = xserver
+        self.anaconda = anaconda
 
     def write(self, fn, mouse, keyboard):
         self.xserver.keyboard = keyboard
         self.xserver.mousehw = mouse
         self.xserver.generateConfig()
+
+        res = self.anaconda.id.ksdata.xconfig.resolution
+
+        if self.anaconda.isKickstart and res:
+            import xf86config
+            screen = xf86config.getPrimaryScreen(self.xserver.config)
+            screen.display[0].modes.insert(xf86config.XF86Mode(res))
+
         self.xserver.writeConfig(filename=fn+"/xorg.conf")
 
     def writeKS(self, f, desktop, ksconfig):
