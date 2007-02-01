@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2007-01-28 17:23+0800\n"
+"PO-Revision-Date: 2007-02-01 20:20+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5428,9 +5428,9 @@ msgid "The following invalid argument was specified for the kickstart driver dis
 msgstr "Hujah tidak sah berikut telah menyatakan arahan cakera jurupacu kickstart: %s: %s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "Sila masukkan sebarang parameter yang anda hendak berikan kepada modul %s diselang dengan ruang.  Jika anda tidak tahu parameter apa untuk diberikan, langkau skrin ini dengan menekan butang \"OK\".  Senarai pilihan yang ada boleh diperolehi dengan menekan kekunci F1."
+msgstr "Sila masukkan sebarang parameter yang anda hendak berikan kepada modul %s diselang dengan ruang.  Jika anda tidak tahu parameter apa untuk diberikan, langkau skrin ini dengan menekan butang \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5706,24 +5706,16 @@ msgid "FAILED"
 msgstr "GAGAL"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr ""
-"GAGAL.\n"
-"\n"
-"Imej yang baru diuji mengandungi ralat. Ini mungkin kerana pemuaturunan rosak atau cakera teruk.. Jika boleh, cuba bersihkan cakera dan cuba lagi.  Jika ujian ini terus gagal anda patut tidak meneruskan pemasangan ini."
+msgstr "Imej yang baru diuji mengandungi ralat. Ini mungkin kerana pemuaturunan rosak atau cakera teruk. Jika boleh, cuba bersihkan cakera dan cuba lagi.  Jika ujian ini terus gagal anda patut tidak meneruskan pemasangan ini."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr "LULUS"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"LULUS.\n"
-"\n"
-"Ianya OK untuk memasang dari media ini."
+msgstr "Ianya OK untuk memasang dari media ini."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
