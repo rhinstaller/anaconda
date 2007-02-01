@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.35
+Version: 11.1.2.36
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,12 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb  1 2007 Peter Jones <pjones@redhat.com> - 11.1.2.36-1
+- Fix traceback when using text mode with a language that we can't display
+  Resolves: #225528
+
 * Fri Jan 26 2007 Peter Jones <pjones@redhat.com> - 11.1.2.35-1
 - Don't set the migration flag for FAT labels if we're formatting the
-  partition (#223898)
+  partition
+  Resolves: #223898
 - Process directories recursively when relabelling
   Resolves: #218791
-- Use rpmlib for ordering in pkgorder, not incoplete bits in yum (#223090)
+
+* Fri Jan 26 2007 Jeremy Katz <katzj@redhat.com> - 11.1.2.34-2
+- fix ordering for split media installs (#223090)
 
 * Wed Jan 24 2007 Peter Jones <pjones@redhat.com> - 11.1.2.34-1
 - The PAE kernel isn't named according to the normal convention, so we need
