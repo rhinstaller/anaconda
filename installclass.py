@@ -289,30 +289,11 @@ class BaseInstallClass:
         
     def setMiscXSettings(self, id, depth = None, resolution = None,
                          desktop = None, runlevel = None):
-
         if depth:
-            availableDepths = id.xsetup.xserver.hwstate.available_color_depths()
-            if depth not in availableDepths:
-                log.warning("Requested depth %s not available, falling back "
-                            "to %s" %(depth, availableDepths[-1]))
-                depth = availableDepths[-1]
             id.xsetup.xserver.hwstate.set_colordepth(depth)
 
         if resolution:
-            availableRes = id.xsetup.xserver.hwstate.available_resolutions()
-            if resolution not in availableRes:
-                 log.warning("Requested resolution %s is not supported, "
-                             "falling back to %s. To avoid this you may need "
-                             "to specify the videocard and monitor specs on "
-                             "the xconfig ks directive if they were not probed "
-                             "correctly." %(resolution, availableRes[-1]))
-		 resolution = availableRes[-1]
             id.xsetup.xserver.hwstate.set_resolution(resolution)
-
-        if not resolution and not depth:
-            # choose a sane default
-            log.warning("resolution and depth not specified, trying to be sane")
-            id.xsetup.xserver.hwstate.choose_sane_default()
 
         if desktop is not None:
             id.desktop.setDefaultDesktop(desktop)

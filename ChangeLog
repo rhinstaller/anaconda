@@ -1,5 +1,9 @@
 2007-02-01  Chris Lumens  <clumens@redhat.com>
 
+	* installclass.py (BaseInstallClass.setMiscXSettings):  Don't try to
+	second guess any provided resolution or depth (like from a kickstart
+	file).
+
 	* yuminstall.py (YumBackend.writePackagesKS):  Do a better job about
 	writing out which packages are selected/deselected (#189873).
 
