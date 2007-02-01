@@ -3,7 +3,7 @@
 # Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
-# Milan Kerslager <kerslage@linux.cz>, 2007
+# Milan Keršláger <kerslage@linux.cz>, 2007
 #
 msgid ""
 msgstr ""
@@ -709,12 +709,12 @@ msgstr ""
 "\n"
 "\n"
 "Zvolte Přeskočit, chcete-li, aby instalátor ignoroval tento oddíl v průběhu "
-"upgradu. Zvolte Formátovat, má-li být oddíl přeformátován jako swapovací "
+"upgradu. Zvolte Formát, má-li být oddíl přeformátován jako swapovací "
 "oddíl. Zvolte Restartovat pro restartování systému."
 
 #: ../fsset.py:1511 ../iw/partition_gui.py:368
 msgid "Format"
-msgstr "Formátovat"
+msgstr "Formát"
 
 #: ../fsset.py:1518
 #, python-format
@@ -2480,7 +2480,7 @@ msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta k
 
 #: ../vnc.py:301
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta."
+msgstr "Pro spuštění instalace prosím ručně připojte svého VNC klienta."
 
 #: ../vnc.py:305
 msgid "Will try to connect again in 15 seconds..."
@@ -2604,7 +2604,7 @@ msgstr "Start instalace"
 
 #: ../yuminstall.py:1182
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Spouštím proces instalace. To může chvíli trvat..."
+msgstr "Spouštím proces instalace. Může to chvíli trvat..."
 
 #: ../yuminstall.py:1198
 msgid "Post Upgrade"
@@ -2612,7 +2612,7 @@ msgstr "Dokončení Upgrade"
 
 #: ../yuminstall.py:1199
 msgid "Performing post upgrade configuration..."
-msgstr "Provádím nastavení po provedení upgradu..."
+msgstr "Zapisuji nastavení po aktualizaci..."
 
 #: ../yuminstall.py:1201
 msgid "Post Install"
@@ -2620,7 +2620,7 @@ msgstr "Po instalaci"
 
 #: ../yuminstall.py:1202
 msgid "Performing post install configuration..."
-msgstr "Provádím zápis nastavení po instalaci..."
+msgstr "Zapisuji nastavení po instalaci..."
 
 #: ../yuminstall.py:1357
 msgid "Installation Progress"
@@ -2632,8 +2632,7 @@ msgstr "Kontrola závislostí"
 
 #: ../yuminstall.py:1393
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"Kontroluji závislosti mezi balíčky, které byly zvoleny pro instalaci..."
+msgstr "Řeším závislosti mezi balíčky vybranými pro instalaci..."
 
 #: ../zfcp.py:29
 msgid ""
@@ -2669,7 +2668,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Neurčili jste celosvětový název portu nebo název portu není platný."
+msgstr "Neurčili jste název portu nebo název portu není platný."
 
 #: ../zfcp.py:40
 msgid "SCSI LUN"
@@ -2700,9 +2699,7 @@ msgstr "Chyba v hesle"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"Pro pokračování musíte zadat své heslo uživatele root a potvrdit je jeho "
-"opakovaným zadáním."
+msgstr "Zadejte heslo pro uživatele root a potvrďte ho opakovaným zadáním."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
@@ -2716,9 +2713,7 @@ msgstr "Heslo pro uživatele root musí být alespoň šest znaků dlouhé."
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
-"Požadované heslo obsahuje ne-ASCII znaky, ne-ASCII znaky nejsou v hesle "
-"povoleny."
+msgstr "Heslo nesmí obsahovat znaky, které nepatří do ASCII."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2737,31 +2732,30 @@ msgstr "Po_tvrzení: "
 
 #: ../iw/autopart_type.py:134
 msgid "Invalid Initiator Name"
-msgstr "Neplatné jméno pro initiator"
+msgstr "Neplatné jméno pro Initiator"
 
 #: ../iw/autopart_type.py:135
 msgid "You must provide a non-zero length initiator name."
-msgstr "Musíte zadat jméno nenulové délky pro initiator."
+msgstr "Pro Initiator musíte zadat jméno nenulové délky."
 
 #: ../iw/autopart_type.py:157
 msgid "Error with Data"
-msgstr "Chyba dat"
+msgstr "Chyba v datech"
 
 #: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
-"Odstranit všechny oddíly na vybraných discích a vytvořit defaultní rozdělení."
+"Na vybraných discích odstranit všechny oddíly a vytvořit implicitní rozdělení."
 
 #: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
-"Odstranit linuxové oddíly na vybraných discích a vytvořit defaultní "
-"rozdělení."
+"Na vybraných discích odstranit linuxové oddíly a vytvořit implicitní rozdělení."
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
-"Použít volné místo na vybraných discích a vytvořit defaultní rozdělení."
+"Na vybraných discích použít jen volné místo a vytvořit implicitní rozdělení."
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
@@ -2773,16 +2767,16 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"Heslo pro zavaděč systému brání uživatelům měnit volby jádra. Pro vyšší "
-"bezpečnost se doporučuje nastavit heslo."
+"Heslo pro zavaděč systému zabraňuje uživatelům měnit volby při startu jádra systému. "
+"Pokud ho použijete, zvýšíte bezpečnost systému."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "Použít he_slo pro zavaděč systému"
+msgstr "_Použít heslo pro zavaděč systému"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "Změnit _heslo"
+msgstr "Z_měnit heslo"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2793,8 +2787,9 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Zadejte heslo zavaděče systému a potvrďte ho. (Všimněte si, že mapa kláves "
-"vašeho BIOSu může být jiná než aktuální mapa kláves, na kterou jste zvyklí.)"
+"Zadejte heslo pro zavaděč systému a potvrďte ho. POZOR: Mapa klávesnice "
+"může být při řízení BIOSem jiná, než je aktuálně používané rozložení kláves, "
+"které používáte pro běžnou práci při běhu operačního systému."
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2802,15 +2797,15 @@ msgstr "_Heslo:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "_Potvrzení:"
+msgstr "Pot_vrzení:"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
-msgstr "Hesla nesouhlasí."
+msgstr "Hesla nejsou stejná."
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
 msgid "Passwords do not match"
-msgstr "Hesla nesouhlasí."
+msgstr "Hesla nejsou stejná."
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
 msgid ""
@@ -2838,7 +2833,7 @@ msgstr ""
 "Pokud přikážete použití LBA32 a váš BIOS to nepodporuje, počítač nebude "
 "schopen nastartovat.\n"
 "\n"
-"Opravdu použití LBA32 přikázat?"
+"Opravdu vynutit použití LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2853,8 +2848,8 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Pokud si přejete přidat k zaváděcímu příkazu implicitní volby, vložte je do "
-"pole Implicitní parametry jádra."
+"Pokud si přejete, aby zavaděč systému přidal při každém zavedení systému "
+"nějaké volby jádru, vložte je do pole Implicitní parametry jádra."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -2900,12 +2895,11 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Seřaďte disky, aby byly ve stejném pořadí, jaké používá BIOS. Změna pořadí "
-"disků muže být užitečná, pokud máte více SCSI řadičů, nebo jak SCSI, tak IDE "
+"Seřaďte disky tak, aby byly ve stejném pořadí, jaké používá BIOS. Změna pořadí "
+"disků muže být užitečná, pokud máte více SCSI řadičů, případně jak SCSI, tak IDE "
 "řadiče a chcete zavádět systém ze SCSI zařízení.\n"
 "\n"
-"Změna pořadí disků ovlivní, kam instalační program umístí hlavní zaváděcí "
-"záznam (MBR)."
+"Změna pořadí disků ovlivní, kam instalační program umístí zavaděč systému."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2915,7 +2909,7 @@ msgstr "Restartovat?"
 #: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
-msgstr "Systém se nyní restartuje."
+msgstr "Systém bude restartován."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
@@ -2935,10 +2929,10 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Úplný záznam instalace najdete po restartu systému v souboru '%s'.\n"
+"Záznam průběhu instalace najdete po restartu systému v souboru '%s'.\n"
 "\n"
-"Soubor kickstart obsahující zvolené volby instalace najdete po restartu "
-"systému v souboru '%s'."
+"V souboru '%s' naleznete řídíci instrukce, které můžete použít pro "
+"opakované provedení stejné instalace."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -2954,7 +2948,8 @@ msgstr "Klikněte na Další pro zahájení aktualizace distribuce %s."
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr "Úplný záznam aktualizace najdete po restartu systému v souboru '%s'."
+msgstr ""
+"Záznam průběhu aktualizace najdete po restartu systému v souboru '%s'."
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
@@ -2966,7 +2961,7 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Vyjměte všechna média používaná při instalaci a restartujte svůj systém "
+"Vyjměte všechna média používaná při instalaci a restartujte systém "
 "stisknutím tlačítka \"Restartovat\".\n"
 
 #: ../iw/congrats_gui.py:65
@@ -2994,7 +2989,7 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:31
 msgid "Upgrade Examine"
-msgstr "Aktualizace nebo Instalace"
+msgstr "Prozkoumání aktualizaci"
 
 #: ../iw/examine_gui.py:55
 #, python-format
@@ -3052,12 +3047,12 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Velikost fyzického oddílu nelze změnit, protože velikost potřebná pro "
-"definované logické svazky by byla větší, než dostupné místo."
+"Velikost extentu nelze změnit, protože velikost potřebná pro "
+"definované logické svazky (LV) by byla větší, než je dostupné místo."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr "Potvrdit změnu fyzického oddílu"
+msgstr "Potvrdit změnu velikosti extentu."
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -3067,9 +3062,8 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Tato změna hodnoty fyzického oddílu bude znamenat, že se velikosti "
-"aktuálních požadavků logických svazků zaokrouhlí nahoru na násobek fyzického "
-"oddílu.\n"
+"Změna velikosti extentu znamená, že se velikost logického svazku (LV) "
+"zaokrouhlí nahoru na násobek velikosti extentu.\n"
 "\n"
 "Tato změna bude mít okamžitý účinek."
 
@@ -3108,8 +3102,8 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Tato změna hodnoty fyzického oddílu způsobí nezanedbatelné plýtvání místem "
-"na jednom nebo více fyzických svazcích ve skupině svazků."
+"Změna velikosti extentu způsobí nezanedbatelné plýtvání místem "
+"na jednom nebo více fyzických svazcích (PV) ve skupině svazků (VG)."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3118,30 +3112,30 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"Velikost fyzického oddílu nelze změnit, protože výsledná maximální velikost "
-"logického svazku (%10.2f MB) je menší, než jeden nebo více z aktuálně "
-"definovaných logických svazků."
+"Velikost extentu nelze změnit, protože výsledná maximální velikost "
+"logického svazku (LV, tj. %10.2f MB) je menší, než jeden nebo více z aktuálně "
+"definovaných logických svazků (LV)."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
-"Nemůžete odstranit tento fyzický svazek, protože jinak by byla skupina "
-"svazků příliš malá pro aktuálně definované logické svazky."
+"Nelze odstranit tento fyzický svazek (PV), protože jinak by byla skupina "
+"svazků (VG) příliš malá pro aktuálně definované logické svazky (LV)."
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
 msgid "Make Logical Volume"
-msgstr "Vytvořit logický svazek"
+msgstr "Vytvořit logický svazek (LV)"
 
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Upravit logický svazek: %s"
+msgstr "Upravit logický svazek (LV): %s"
 
 #: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
 msgid "Edit Logical Volume"
-msgstr "Upravit logický svazek"
+msgstr "Upravit logický svazek (LV)"
 
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
@@ -3155,7 +3149,7 @@ msgstr "Typ _systému souborů:"
 #: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
-msgstr "Původní systém souborů:"
+msgstr "Původní typ systému souborů:"
 
 #: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:308
@@ -3169,11 +3163,11 @@ msgstr "Původní jmenovka systému souborů:"
 
 #: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
-msgstr "Jméno _logického svazku:"
+msgstr "Jméno _logického svazku (LV):"
 
 #: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
-msgstr "Jméno logického svazku:"
+msgstr "Jméno logického svazku (LV):"
 
 #: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
@@ -3201,7 +3195,7 @@ msgstr "Vložená velikost není není platné číslo větší než 0."
 
 #: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
-msgstr "Místo připojení je používáno"
+msgstr "Místo připojení je již používáno"
 
 #: ../iw/lvm_dialog_gui.py:559
 #, python-format
@@ -3210,11 +3204,11 @@ msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
 
 #: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
-msgstr "Neplatné jméno logického svazku"
+msgstr "Neplatné jméno logického svazku (LV)"
 
 #: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
-msgstr "Neplatné jméno logického svazku"
+msgstr "Neplatné jméno logického svazku (LV)"
 
 #: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
@@ -3228,10 +3222,10 @@ msgid ""
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"Aktuálně požadovaná velikost (%10.2f MB) je větší, než maximální velikost "
-"logického svazku (%10.2f MB). Limit můžete zvýšit vytořením dalších "
-"fyzických svazků v dosud nerozděleném diskovém prostoru a jejich přidáním do "
-"této skupiny svazků."
+"Požadovaná velikost (%10.2f MB) je větší, než maximální velikost "
+"logického svazku (LV, tj. %10.2f MB). Limit můžete zvýšit vytořením dalších "
+"fyzických svazků (PV) ve volném diskovém prostoru a jejich přidáním do "
+"této skupiny svazků (VG)."
 
 #: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3248,9 +3242,8 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Nakonfigurované logické svazky potřebují %g MB, ale skupina svazků má jen %g "
-"MB. Prosím buď zvětšete skupinu svazků, nebo zmenšete logický svazek "
-"(svazky)."
+"Logické svazky (LV) potřebují %g MB, ale ve skupině svazků (VG) je k dispozici "
+"jen %g MB. Buď zvětšete skupinu svazků (VG), nebo zmenšete logický svazek (LV)."
 
 #: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
@@ -3259,7 +3252,7 @@ msgstr "Chybí volné pozice"
 #: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "Nemůžete vytvořit více než %s logických svazků v jedné skupině svazků."
+msgstr "Nelze vytvořit více než %s logických svazků (LV) v jedné skupině svazků (VG)."
 
 #: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
@@ -3271,31 +3264,30 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Ve skupině svazků není místo na vytvoření nových logických svazků. Pro "
-"přidání logického svazku budete muset zmenšit velikost jednoho nebo více z "
-"existujících logických svazků."
+"Ve skupině svazků (VG) není místo pro vytvoření nových logických svazků (LV). "
+"Zmenšete velikost jednoho nebo více z existujících logických svazků (LV)."
 
 #: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Opravdu chcete odstranit logický svazek \"%s\"?"
+msgstr "Opravdu chcete odstranit logický svazek (LV) \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
-msgstr "Neplatné jméno skupiny svazků"
+msgstr "Neplatné jméno skupiny svazků (VG)"
 
 #: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
-msgstr "Jméno je používáno"
+msgstr "Jméno je již používáno"
 
 #: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "Jméno skupiny svazků \"%s\" je již používáno. Prosím zadejte jiné."
+msgstr "Jméno skupiny svazků (VG) \"%s\" je již používáno. Zadejte prosím jiné."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
-msgstr "Nedostatek fyzických svazků"
+msgstr "Nedostatek fyzických svazků (PV)"
 
 #: ../iw/lvm_dialog_gui.py:953
 msgid ""
@@ -3305,40 +3297,40 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"Pro vytvoření skupiny svazků LVM je potřeba alespoň jeden oddíl s fyzickým "
-"svazkem.\n"
+"Pro vytvoření skupiny svazků (VG) v LVM je potřeba alespoň jeden oddíl s "
+"fyzickým svazkem (PV).\n"
 "\n"
-"Vytvořte oddíl nebo pole RAID typu \"fyzický svazek (LVM)\" a pak zvolte "
+"Vytvořte oddíl nebo pole RAID typu \"fyzický svazek (PV)\" a pak zvolte "
 "volbu \"LVM\" znovu."
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
-msgstr "Vytvořit skupinu svazků LVM"
+msgstr "Vytvořit skupinu svazků (VG) LVM"
 
 #: ../iw/lvm_dialog_gui.py:967
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "Upravit skupinu svazků LVM: %s"
+msgstr "Upravit skupinu svazků (VG) LVM: %s"
 
 #: ../iw/lvm_dialog_gui.py:969
 msgid "Edit LVM Volume Group"
-msgstr "Upravit skupinu svazků LVM"
+msgstr "Upravit skupinu svazků (VG) LVM"
 
 #: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
-msgstr "_Jméno skupiny svazků:"
+msgstr "_Jméno skupiny svazků (VG):"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
-msgstr "Jméno skupiny svazků:"
+msgstr "Jméno skupiny svazků (VG):"
 
 #: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
-msgstr "_Fyzický oddíl:"
+msgstr "_Fyzický extent:"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
-msgstr "_Použít fyzické svazky:"
+msgstr "_Použít fyzické svazky (PV):"
 
 #: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
@@ -3354,7 +3346,7 @@ msgstr "Celkem:"
 
 #: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
-msgstr "Jméno logického svazku"
+msgstr "Jméno logického svazku (LV)"
 
 #: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
@@ -3368,7 +3360,7 @@ msgstr "Velikost (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
-msgstr "Přid_at"
+msgstr "_Přidat"
 
 #: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
@@ -3377,7 +3369,7 @@ msgstr "_Upravit"
 
 #: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
-msgstr "Logické svazky"
+msgstr "Logické svazky (LV)"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -3769,7 +3761,7 @@ msgstr "_Koncový cylindr:"
 
 #: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
-msgstr "Nastavit jako p_rimární oddíl"
+msgstr "_Nastavit jako primární oddíl"
 
 #: ../iw/partition_gui.py:314
 #, python-format
@@ -4013,7 +4005,7 @@ msgstr "Jak chcete připravit systém souborů na tomto oddílu?"
 
 #: ../iw/partition_ui_helpers_gui.py:258
 msgid "Leave _unchanged (preserve data)"
-msgstr "Ponechat beze změny (zachovat _data)"
+msgstr "_Ponechat beze změny (zachovat data)"
 
 #: ../iw/partition_ui_helpers_gui.py:264
 msgid "_Format partition as:"
@@ -4899,7 +4891,7 @@ msgstr "Hardwarová adresa: %s"
 
 #: ../textw/network_text.py:107
 msgid "Configure using DHCP"
-msgstr "Nastavit pomocí DHCP"
+msgstr "Konfigurovat pomocí DHCP"
 
 #: ../textw/network_text.py:120
 msgid "Activate on boot"
@@ -5327,7 +5319,7 @@ msgstr "Ve které časové zóně jste?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr "Hardwarové hodiny používají UTC"
+msgstr "Systémové hodiny jsou nastaveny na čas UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6426,7 +6418,7 @@ msgstr "Kickstart metodě Url musíte zadat argument --url."
 #: ../loader2/urlinstall.c:484
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Neznámá metoda Url %s"
+msgstr "Neznámá metoda v URL %s"
 
 #: ../loader2/urls.c:215
 msgid "Retrieving"
@@ -7388,7 +7380,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr "Afrikaans"
+msgstr "Afrikánština"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -7593,60 +7585,3 @@ msgstr "Velština"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Monitor detekovaný pomocí DDC"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Terciální DNS"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Terciální DNS"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "_Nastavit pomocí DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP adresa"
-
-#~ msgid "Net_mask"
-#~ msgstr "_Maska sítě"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Hardwarová adresa:"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Je požadován registrační klíč"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Pro instalaci %s je požadován registrační klíč. Spojte se prosím se "
-#~ "zástupcem podpory, pokud jste neobdržel klíč zároveň s produktem. "
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Neplatná maska CIDR"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Nemohu zaznamenávat do %s: %s"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Nemohu načíst %s: %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "Standardní instalace %s obsahuje sadu programů pro běžné používání "
-#~ "internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Newfoundland Island"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "Jihozápadní Xinjiang Uyghur"
