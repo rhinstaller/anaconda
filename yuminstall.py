@@ -1489,7 +1489,7 @@ class YumBackend(AnacondaBackend):
                 installed.append(pkg)
 
         for grp in groups:
-            f.write("@%s\n" % grp.groupid)
+            f.write("@%s\n" % grp)
 
         for pkg in installed:
             f.write("%s\n" % pkg)
