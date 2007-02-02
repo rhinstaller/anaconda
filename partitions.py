@@ -843,7 +843,7 @@ class Partitions:
                     rc = request.sanityCheckRaid(self)
                     if rc:
                         errors.append(rc)
-            if not hasattr(request,'drive'):
+            if not getattr(request, 'drive', None):
                 continue
             for x in request.drive:
                 if isys.driveUsesModule(x, ["usb-storage", "ub"]):
