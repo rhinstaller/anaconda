@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.56
+Version: 10.1.1.57
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb  2 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.57-1
+- Fix handling of requests w/o drives in new usb-storage code
+  Resolves: #227045
+
 * Wed Jan 31 2007 Peter Jones <pjones@redhat.com> - 10.1.1.56-1
 - Add usb-storage support for the root filesystem
   Resolves: #180550
