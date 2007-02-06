@@ -14,10 +14,11 @@ class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
-    description = N_("The default installation of %s includes a set of "
+    _description = N_("The default installation of %s includes a set of "
                      "software applicable for general internet usage. "
                      "What additional tasks would you like your system "
-                     "to include support for?") %(productName,)
+                     "to include support for?")
+    _descriptionFields = (productName,)
     sortPriority = 10000
     allowExtraRepos = False
     if not productName.startswith("Red Hat Enterprise"):

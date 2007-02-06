@@ -37,7 +37,8 @@ class BaseInstallClass:
     pixmap = None
     showMinimal = 1
     showLoginChoice = 0
-    description = None
+    _description = ""
+    _descriptionFields = ()
     regkeydesc = None
     name = "base"
     pkgstext = ""
@@ -65,6 +66,10 @@ class BaseInstallClass:
 
     # we can use a different install data class
     installDataClass = InstallData
+
+    def _get_description(self):
+        return _(self._description) % self._descriptionFields
+    description = property(_get_description)
 
     def postAction(self, anaconda, serial):
 	pass
@@ -473,6 +478,10 @@ def availableClasses(showHidden=0):
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
+    elif os.access("/mnt/source/RHupdates/installclasses", os.R_OK):
+        path = "/mnt/source/RHupdates/installclasses"
+    elif os.access("/tmp/updates/installclasses", os.R_OK):
+        path = "/tmp/updates/installclasses"
     elif os.access("/tmp/product/installclasses", os.R_OK):
         path = "/tmp/product/installclasses"
     else:

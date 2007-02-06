@@ -1,3 +1,15 @@
+2007-02-06  Peter Jones  <pjones@redhat.com>
+
+	* installclass.py (BaseInstallClass): make "description" a property
+	that formats based on translated self._description and
+	self._descriptionFields, so they're translated correctly.
+	Use RHupdates if available for installclasses.
+
+	* installclasses/rhel.py: move self.description to  self._description
+	and self._descriptionFields
+
+	* installclasses/fedora.py: ditto.
+
 2007-02-06  Chris Lumens  <clumens@redhat.com>
 
 	* installclass.py (BaseInstallClass.setSteps):  Add the postscripts
