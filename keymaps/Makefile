@@ -5,7 +5,7 @@ all:
 depend:
 
 install:
-	install -m 644 keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)
+	if [ -f keymaps-$(ARCH) ]; then install -m 644 keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-$(ARCH) ; fi
 
 clean:
 
