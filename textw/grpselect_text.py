@@ -2,7 +2,7 @@
 # grpselect_text - Text mode group/package selection UI
 #
 # Jeremy Katz <katzj@redhat.com>
-# Copyright 2005-2006   Red Hat, Inc.
+# Copyright 2005-2007   Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -129,6 +129,7 @@ class GroupSelectionWindow:
 	    gct = CheckboxTree(height = 8, scroll = 1)
 
             orig = {}
+            pkgs.sort()
             for pkg in pkgs:
                 orig[pkg] = self.ayum.isPackageInstalled(pkg)
                 gct.append("%s" %(pkg,), pkg, orig[pkg])

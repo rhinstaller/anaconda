@@ -20,6 +20,9 @@
 	* loader/net.c (kickstartNetworkUp):  If the wrong interface is
 	picked, allow going back to the interface selection screen (#213787).
 
+	* textw/grpselect_text.py (GroupSelectionWindow.__call__):  Sort
+	detailed package listing.
+
 2007-02-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Pass the class to xsetup.
