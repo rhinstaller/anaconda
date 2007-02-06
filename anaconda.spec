@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.57
+Version: 10.1.1.58
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb  6 2007 Peter Jones <pjones@redhat.com> - 10.1.1.58-1
+- Fix installation of cached keymaps so we actually use them during
+  buildinstall runs
+  Resolves: #182325
+
 * Fri Feb  2 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.57-1
 - Fix handling of requests w/o drives in new usb-storage code
   Resolves: #227045
