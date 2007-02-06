@@ -328,7 +328,7 @@ class NetworkWindow(InstallWindow):
         if auto == 'yes' or addr == '':
             ip = 'Auto'
         elif addr == 'dhcp':
-	    ip = 'DHCP'
+	    ip = 'DHCPv6'
 	else:
 	    ip = "%s/%s" % (addr, pfx,)
 
