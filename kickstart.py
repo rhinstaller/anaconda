@@ -850,6 +850,9 @@ def pullRemainingKickstartConfig(ksfile):
     return None
 
 def runPostScripts(anaconda):
+    if not anaconda.id.ksdata:
+        return
+
     postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
                           anaconda.id.ksdata.scripts)
 

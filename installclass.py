@@ -143,6 +143,7 @@ class BaseInstallClass:
                  "firstboot",
 		 "instbootloader",
                  "dopostaction",
+                 "postscripts",
 		 "writexconfig",
 		 "writeksconfig",
                  "methodcomplete",

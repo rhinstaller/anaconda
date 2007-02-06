@@ -1,3 +1,10 @@
+2007-02-06  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.setSteps):  Add the postscripts
+	step (#227470).
+
+	* kickstart.py (runPostScripts):  Bail if there's no ksdata.
+
 2007-02-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Pass the class to xsetup.
