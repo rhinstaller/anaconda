@@ -5,21 +5,21 @@
 # Deepayan Sarkar <deepayan@BengaLinux.Org>, 2003.
 # Jamil Ahmed <jamil@bengalinux.org>, 2003.
 # Progga <progga@BengaLinux.Org>, 2003, 2004.
-# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006.
+# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-18 15:40-0400\n"
-"PO-Revision-Date: 2006-11-21 12:39+0530\n"
+"PO-Revision-Date: 2007-02-06 09:37+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali India\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -215,8 +215,7 @@ msgstr ""
 # modified for RHEL
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "%s নামক boot পার্টিশনের দ্বারা আপনার সিস্টেমের আর্কিটেকচার অনুযায়ী বুট সংক্রান্ত "
 "নিয়ম পালন করা সম্ভব না হতে পারে।"
@@ -1382,14 +1381,12 @@ msgstr "হোস্ট-নেম ৬৪ অক্ষরের মধ্যে �
 # modified for RHEL
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"হোস্ট-নেমের প্রারম্ভে 'a-z' অথবা 'A-Z' -র মধ্যবর্তী বৈধ অক্ষর ব্যবহার করা আবশ্যক"
+msgstr "হোস্ট-নেমের প্রারম্ভে 'a-z' অথবা 'A-Z' -র মধ্যবর্তী বৈধ অক্ষর ব্যবহার করা আবশ্যক"
 
 # modified for RHEL
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"হোস্ট-নেম লেখার জন্য শুধুমাত্র 'a-z', 'A-Z', '-' অথবা '.' অক্ষরগুলি ব্যবহার করা যাবে"
+msgstr "হোস্ট-নেম লেখার জন্য শুধুমাত্র 'a-z', 'A-Z', '-' অথবা '.' অক্ষরগুলি ব্যবহার করা যাবে"
 
 #: ../network.py:89
 msgid "IP Address is missing."
@@ -1697,8 +1694,7 @@ msgstr "LDL ফরম্যাট করা কোনো DASD পার্টি
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"%s ধারণকারী একটি extended পার্টিশন হওয়ার দরুন, এই পার্টিশনটি মুছে ফেলা সম্ভব নয়।"
+msgstr "%s ধারণকারী একটি extended পার্টিশন হওয়ার দরুন, এই পার্টিশনটি মুছে ফেলা সম্ভব নয়।"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
@@ -1774,8 +1770,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"%s ধারণকারী extended পার্টিশন হওয়ার দরুন এই পার্টিশনটি সম্পাদন করা সম্ভব নয়।"
+msgstr "%s ধারণকারী extended পার্টিশন হওয়ার দরুন এই পার্টিশনটি সম্পাদন করা সম্ভব নয়।"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:384
@@ -1933,8 +1928,7 @@ msgstr "রিসেট কর্ম নিশ্চায়ন"
 
 # modified for RHEL
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "আপনি কি নিশ্চিতরূপে পার্টিশন টেবিলটি মূল অবস্থায় প্রত্যাবর্তন করতে ইচ্ছুক?"
 
 # modified for RHEL
@@ -1999,10 +1993,8 @@ msgstr ""
 
 # modified for RHEL
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"FAT ধরনের এবং ৫০ মেগাবাইট মাপের একটি /boot/efi পার্টিশন নির্মাণ করা আবশ্যক।"
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "FAT ধরনের এবং ৫০ মেগাবাইট মাপের একটি /boot/efi পার্টিশন নির্মাণ করা আবশ্যক।"
 
 # modified for RHEL
 #: ../partitions.py:867
@@ -2025,8 +2017,7 @@ msgstr ""
 "আবশ্যক মাপের থেকেও কম।"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ডিভাইসে ইনস্টল করা হচ্ছে। এর ফলে সিস্টেমে স্বাভাবিক কর্মসঞ্চালন করা সম্ভব নাও "
 "হতে পারে।"
@@ -2096,8 +2087,7 @@ msgstr "এই পার্টিশনটি একটি LVM ভলিউম �
 # modified for RHEL
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "এই মাউন্ট-পয়েন্টটি বৈধ নয়।  %s ডিরেক্টরিটি / ফাইল-সিস্টেমের উপর অবস্থিত হওয়া "
 "আবশ্যক।"
@@ -2131,8 +2121,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s পার্টিশনের আয়তন (%10.2f মেগাবাইট) সর্বোচ্চ মাপ %10.2f মেগাবাইট অতিক্রম করছে।"
+msgstr "%s পার্টিশনের আয়তন (%10.2f মেগাবাইট) সর্বোচ্চ মাপ %10.2f মেগাবাইট অতিক্রম করছে।"
 
 #: ../partRequests.py:490
 #, python-format
@@ -2146,8 +2135,7 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"অনুরোধ করা পার্টিশনের জন্য নঞার্থক মাপ উল্লেখ করা হয়েছে! (আকার = %s মেগাবাইট)"
+msgstr "অনুরোধ করা পার্টিশনের জন্য নঞার্থক মাপ উল্লেখ করা হয়েছে! (আকার = %s মেগাবাইট)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2180,8 +2168,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
-"লজিকাল ভলিউমের মাপ ভলিউম গ্রুপের প্রকৃত এক্সটেন্টের (PE) মাপ থেকে অধিক হওয়া আবশ্যক।"
+msgstr "লজিকাল ভলিউমের মাপ ভলিউম গ্রুপের প্রকৃত এক্সটেন্টের (PE) মাপ থেকে অধিক হওয়া আবশ্যক।"
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2210,8 +2197,7 @@ msgstr "বাতিল করা হয়েছে"
 
 #: ../rescue.py:244 ../text.py:534
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
+msgstr "এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
 
 #: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
 msgid "Rescue"
@@ -2380,10 +2366,8 @@ msgid "Welcome to %s"
 msgstr "%s-এ স্বাগত"
 
 #: ../text.py:426
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> সাহায্য| <Tab> অদল বদল | <Space> নির্বাচন | <F12> পরবর্তী পর্দা প্রদর্শন"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> সাহায্য| <Tab> অদল বদল | <Space> নির্বাচন | <F12> পরবর্তী পর্দা প্রদর্শন"
 
 #: ../text.py:428
 msgid ""
@@ -2681,8 +2665,7 @@ msgstr "৫০ বার ব্যর্থ প্রচেষ্টার প�
 #: ../vnc.py:299
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে  %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
+msgstr "ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে  %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
 
 # modified for RHEL
 #: ../vnc.py:301
@@ -2760,8 +2743,7 @@ msgstr "ট্রানসাকশান সঞ্চালনে সমস্�
 
 #: ../yuminstall.py:510
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "নিম্নলিখিত কারণে আপনার ট্রানসাকসান সঞ্চালন করতে সমস্যা হয়েছে: %s"
 
 #: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
@@ -2974,8 +2956,7 @@ msgstr "নির্বাচিত ড্রাইভের সমস্ত lin
 
 #: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"নির্বাচিত ড্রাইভের সমস্ত অবশিষ্ট স্থান প্রয়োগ করে ডিফল্ট বিন্যাস স্থাপন করা হবে।"
+msgstr "নির্বাচিত ড্রাইভের সমস্ত অবশিষ্ট স্থান প্রয়োগ করে ডিফল্ট বিন্যাস স্থাপন করা হবে।"
 
 #: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Create custom layout."
@@ -4042,14 +4023,12 @@ msgid "Partitioning"
 msgstr "পার্টিশন নির্মাণ ব্যবস্থা"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "আপনার পার্টিশন পরিকল্পনায় নিম্নোক্ত গুরুতর সমস্যা রয়েছে।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "%s ইনস্টল করার পূর্বে এই সমস্যাগুলি সমাধান করা আবশ্যক।"
 
 #: ../iw/partition_gui.py:642
@@ -4195,8 +4174,7 @@ msgstr "একটি RAID ডিভাইস তৈরি করুন [ডি�
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"RAID ডিভাইস [ডিফল্ট=/dev/md%s] তৈরির জন্য কোনো একটি ড্রাইভের ক্লোন তৈরি করুন। (_d)"
+msgstr "RAID ডিভাইস [ডিফল্ট=/dev/md%s] তৈরির জন্য কোনো একটি ড্রাইভের ক্লোন তৈরি করুন। (_d)"
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
@@ -4610,10 +4588,8 @@ msgstr "এর দ্বারা বর্তমান বুট-লোডা�
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"ইনস্টলার দ্বারা সনাক্ত করা হয়েছে %s বুট-লোডারটি বর্তমানে %s-এ ইনস্টল করা রয়েছে।"
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "ইনস্টলার দ্বারা সনাক্ত করা হয়েছে %s বুট-লোডারটি বর্তমানে %s-এ ইনস্টল করা রয়েছে।"
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4749,8 +4725,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swap ফাইলের মাপ ১ থেকে ২০০০ মেগাবাইটের মধ্যে সীমাবদ্ধ রাখা আবশ্যক।"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Swap পার্টিশনের জন্য নির্ধারিত ডিভাইসে পর্যাপ্ত স্থান উপস্থিত নেই।"
 
 #: ../iw/zfcp_gui.py:24
@@ -4919,8 +4894,7 @@ msgstr ""
 "উল্লেখ করুন।"
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> নির্বাচন | <F2> ডিফল্ট বুট এন্ট্রি নির্বাচন | <F4> অপসারণ | <F12> পরবর্তী "
 "পর্দা প্রদর্শন>"
@@ -5059,8 +5033,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "ইনস্টলেশনের জন্য অনুগ্রহ করে প্যাকেজ সংকলন নির্বাচন করুন।"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> নির্বাচন   |   <F2> সংকলনের বিস্তারিত বিবরণ   |   <F12> পরবর্তী "
 "পর্দা"
@@ -5444,8 +5417,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-সহায়তা     F2-নতুন     F3-সম্পাদনা   F4-অপসারণ    F5-রিসেট    F12-ঠিক "
 "আছে        "
@@ -6088,8 +6060,7 @@ msgstr "%s ড্রাইভার লোড করা হচ্ছে..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"চিহ্নিত ডিরেক্টরির মধ্যে উপস্থিত %s ইনস্টলেশন ট্রি প্রদত্ত বুট মিডিয়ার সাথে সুসংগত নয়।"
+msgstr "চিহ্নিত ডিরেক্টরির মধ্যে উপস্থিত %s ইনস্টলেশন ট্রি প্রদত্ত বুট মিডিয়ার সাথে সুসংগত নয়।"
 
 #: ../loader2/hdinstall.c:158
 msgid ""
@@ -6103,8 +6074,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
+msgstr "আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
 
 #: ../loader2/hdinstall.c:281
 #, c-format
@@ -6182,8 +6152,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s-এ স্বাগতম - রেসকিউ মোড"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> অদল বদল  | <Space> নির্বাচন | <F12> পরবর্তী পর্দা "
 
 #: ../loader2/lang.c:366
@@ -6425,8 +6394,7 @@ msgstr "Checksum পরীক্ষা"
 #: ../loader2/modules.c:1036
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"ডিভাইস kickstart প্রণালী কমান্ড %s'র ক্ষেত্রে অশুদ্ধ আর্গুমেন্ট উল্লিখিত হয়েছে: %s"
+msgstr "ডিভাইস kickstart প্রণালী কমান্ড %s'র ক্ষেত্রে অশুদ্ধ আর্গুমেন্ট উল্লিখিত হয়েছে: %s"
 
 #: ../loader2/net.c:63
 #, c-format
@@ -6564,10 +6532,8 @@ msgid "Missing Information"
 msgstr "অনুপস্থিত তথ্য"
 
 #: ../loader2/net.c:1132
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
 
 #: ../loader2/net.c:1138
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
@@ -6884,7 +6850,7 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr "<b>গোটওয়ে:</b>"
+msgstr "<b>গেটওয়ে:</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
@@ -7017,8 +6983,7 @@ msgstr "আটলান্টিক সময় - নোভা স্কোটি�
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"আটলান্টিক সময় - নোভা স্কোটিয়া - যে সমস্ত স্থানে DST 1966-1971 অনুসরণ করা হয় না"
+msgstr "আটলান্টিক সময় - নোভা স্কোটিয়া - যে সমস্ত স্থানে DST 1966-1971 অনুসরণ করা হয় না"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7211,10 +7176,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ইস্টার্ন সময় - ওন্টারিও - অধিকাংশ অঞ্চল"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"ইস্টার্ন সময় - ওন্টারিও ও ক উবেক- যে সমস্ত স্থানে DST 1967-1973 অনুসরণ করা হয় না"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "ইস্টার্ন সময় - ওন্টারিও ও ক উবেক- যে সমস্ত স্থানে DST 1967-1973 অনুসরণ করা হয় না"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7410,8 +7373,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "মাউন্টেন স্ট্যান্ডার্ড সময় - অ্যারিজোনা"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "মাউন্টেন স্ট্যান্ডার্ড সময় - ডসন ক্রিক ও ফোর্ট সেন্ট জন, ব্রিটিশ কোলোম্বিয়া"
 
 #. generated from zone.tab
@@ -7866,3 +7828,4 @@ msgstr "ওয়েলশ"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "জুলু"
+
