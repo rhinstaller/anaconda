@@ -10,7 +10,7 @@ class InstallClass(BaseInstallClass):
     id = "server"
     name = N_("_Server")
     pixmap = "server.png"
-    description = N_("Select this installation type if you would like to "
+    _description = N_("Select this installation type if you would like to "
 		     "set up file sharing, print sharing, and Web services. "
 		     "Additional services can also be enabled, and you "
 		     "can choose whether or not to install a graphical "

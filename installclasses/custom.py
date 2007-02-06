@@ -10,7 +10,7 @@ class InstallClass(BaseInstallClass):
     id = "custom"
     name = N_("_Custom")
     pixmap = "custom.png"
-    description = N_("Select this installation type to gain complete "
+    _description = N_("Select this installation type to gain complete "
 		     "control over the installation process, including "
 		     "software package selection and partitioning.")
     sortPriority = 10000

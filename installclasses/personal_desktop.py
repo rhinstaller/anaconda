@@ -10,7 +10,7 @@ class InstallClass(BaseInstallClass):
     id = "personal desktop"
     name = N_("_Personal Desktop")
     pixmap = "workstation.png"
-    description = N_("Perfect for personal computers or laptops, select this "
+    _description = N_("Perfect for personal computers or laptops, select this "
 		     "installation type to install a graphical desktop "
 		     "environment and create a system ideal for home "
 		     "or desktop use.")

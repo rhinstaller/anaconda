@@ -14,6 +14,7 @@ class InstallClass(BaseInstallClass):
                     "software applicable for general internet usage. "
                     "What additional tasks would you like your system "
                     "to include support for?") 
+    _descriptionFields = (productName,)
     sortPriority = 10000
     if productName.startswith("Red Hat Enterprise") or 1:
         hidden = 1
@@ -23,10 +24,6 @@ class InstallClass(BaseInstallClass):
              (N_("Web server"), ["web-server"])]
 
     repos = { "Fedora Extras": ("http://download.fedora.redhat.com/pub/fedora/linux/extras/development/%s" %(rpmUtils.arch.getBaseArch() ,), None) }
-
-    def _get_description(self):
-        return _(self._description) %(productName,)
-    description = property(_get_description)
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)
