@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 10:34-0500\n"
-"PO-Revision-Date: 2007-01-30 13:28+0530\n"
+"PO-Revision-Date: 2007-02-07 16:56+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1085,7 +1085,7 @@ msgstr ""
 #: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "వెనుక _(B)"
+msgstr "వెనుక (_B)"
 
 #: ../image.py:136
 #, python-format
@@ -1346,7 +1346,7 @@ msgstr ""
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr "Drivను గుర్తించకు (_I)"
+msgstr "డ్రైవును గుర్తించకు (_I)"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
@@ -2728,7 +2728,7 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"మీరు boot ఆదేశాలకు సిద్ధ ఐచ్ఛికాలను జతచెయాలనుకుంటే, వాటిని 'General kernel parameter'ల "
+"మీరు బూటు ఆదేశాలకు సిద్ధ ఐచ్ఛికాలను జతచెయాలనుకుంటే, వాటిని 'సాధారణ కెర్నలు పారామితు'ల "
 "క్షేత్రంలోకి ప్రవేశపెట్టండి."
 
 #: ../iw/bootloader_advanced_gui.py:79
@@ -2760,7 +2760,7 @@ msgstr "బూట్ లోడర్ నమోదును సంస్థాప
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "డ్రైవు క్రమాన్ని మార్చు"
+msgstr "డ్రైవు క్రమాన్ని మార్చు (_C)"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -3458,7 +3458,7 @@ msgstr "ESSID: (_E)"
 
 #: ../iw/network_gui.py:418
 msgid "Encryption _Key:"
-msgstr "వర్ణన _కీ: (_K)"
+msgstr "వర్ణన కీ: (_K)"
 
 #: ../iw/network_gui.py:443
 #, python-format
@@ -3665,11 +3665,11 @@ msgstr "Drive:"
 
 #: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
-msgstr "Cylinderను ప్రారంభం: (_S)"
+msgstr "సిలిండరు ప్రారంభం: (_S)"
 
 #: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
-msgstr "Cylinder ముగింపు: (_E)"
+msgstr "సిలిండరు ముగింపు: (_E)"
 
 #: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
@@ -3831,12 +3831,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"Software RAID మిమ్మల్ని పెక్కు డిస్కులను పెద్ద RAID సాధనంలో కలపటానికి అనుమతిస్తుంది.  A RAID "
-"device can be configured to provide additional speed and reliability "
-"compared to using an individual drive.  For more information on using RAID "
-"devices please consult the %s documentation.\n"
+"సాఫ్టువేరు RAID మిమ్మల్ని పెక్కు డిస్కులను పెద్ద RAID సాధనంలో కలపటానికి అనుమతిస్తుంది.  సాధనం అదనపు వేగం మరియూ సామర్ధ్యం కలిగి ఉండటానికి ఉపయోగిస్తుంది.  RAID "
+"సాధనాన్ని ఉపయోగించటం గురించిన అధిక సమాచారమ్ కోసం %s డాక్యుమెంటును చూడండి.\n"
 "\n"
-"You currently have %s software RAID partition(s) free to use.\n"
+"మీరు ప్రస్తుతం %s సాఫ్టువేరు RAID విభజన(ల)ను ఉచితంగా ఉపయోగించుకోటానికి కలిగి ఉన్నారు.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1248
@@ -3856,7 +3854,7 @@ msgstr "మీరు ఇప్పుడు ఏంచేయాలనుకుం�
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
-msgstr "ఒక software RAID విభజనను సృష్టించు. (_p)"
+msgstr "ఒక సాఫ్టువేరు RAID విభజనను సృష్టించు. (_p)"
 
 #: ../iw/partition_gui.py:1266
 #, python-format
@@ -3866,15 +3864,15 @@ msgstr "ఒక RAID device [default=/dev/md%s]ని సృష్టించు
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Clone a drive to create a RAID device [default=/dev/md%s]. (_d)"
+msgstr "RAID device [default=/dev/md%s]ని సృష్టించటానికి డ్రైవును క్లోను చేయి. (_d)"
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Drive Clone కూర్పరిని సృష్టించ లేరు"
+msgstr "డ్రైవు క్లోను కూర్పరిని సృష్టించ లేరు"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr "drive clone కొన్ని కారణాలవల్ల సృష్టించబడలేదు."
+msgstr "డ్రైవు క్లోను కొన్ని కారణాలవల్ల సృష్టించబడలేదు."
 
 #: ../iw/partition_gui.py:1355
 msgid "Ne_w"
@@ -4675,7 +4673,7 @@ msgstr "<Space>,<+>,<-> ఎన్నిక   |   <F2> సమూహ వివర�
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr "ఎన్నుకోవటానికి ఏ ఐచ్ఛిక ప్యాకేజీ లే"
+msgstr "ఎన్నుకోవటానికి ఏ ఐచ్ఛిక ప్యాకేజీలూ లేవు"
 
 #: ../textw/grpselect_text.py:138
 msgid "Package Group Details"
@@ -5352,7 +5350,7 @@ msgstr "Web server"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "వ్యక్తిగత Desktop (_P)"
+msgstr "వ్యక్తిగత డెస్కుటాప్ (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5360,8 +5358,8 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"వ్యక్తిగత కంప్యూటర్లకు, laptopలకు సరైంది, చిత్ర సంబంధ desktop వాతావరణానికి మరియూ కంప్యూటరు "
-"home లేదా desktop వినియోగ సృష్టి సంస్థాపనకూ ఈ సంస్థాపనావిధానాన్ని ఎన్నుకోండి."
+"వ్యక్తిగత కంప్యూటర్లకు, లాప్ల టాప్పులకు సరైంది, చిత్ర సంబంధ డెస్కుటాప్ వాతావరణానికి మరియూ కంప్యూటరు "
+"హోం లేదా డెస్కుటాప్ వినియోగ సృష్టి సంస్థాపనకూ ఈ సంస్థాపనావిధానాన్ని ఎన్నుకోండి."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -5399,7 +5397,7 @@ msgstr "వాస్తవీకర"
 
 #: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
 msgid "Clustering"
-msgstr "సంయుక్త"
+msgstr "సంయుక్తీకరణ"
 
 #: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
 msgid "Storage Clustering"
@@ -5438,7 +5436,7 @@ msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "Server (_S)"
+msgstr "సర్వరు (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5458,7 +5456,7 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"software అభివృద్ధితోకూడిన చిత్ర సంబంధ desktop వాతావరణం మరియూ కంప్యూటరు నిర్వహణ అన్నవి ఐచ్ఛిక "
+"సాఫ్టువేరు అభివృద్ధితోకూడిన చిత్ర సంబంధ డెస్కుటాప్ వాతావరణం మరియూ కంప్యూటరు నిర్వహణ అన్నవి ఐచ్ఛిక "
 "సంస్థాపనలు. "
 
 #: ../installclasses/workstation.py:14
@@ -5716,7 +5714,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
-msgstr "ఐచ్ఛిక module అమర్పులను తెల్పండి"
+msgstr "ఐచ్ఛిక గుణకాల అమర్పులను తెల్పండి"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
@@ -6430,7 +6428,7 @@ msgstr "పునఃప్రారంభం (_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr "_Debug"
+msgstr "డిబగ్ (_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6457,7 +6455,7 @@ msgstr "పురోగామి నిక్షిప్త ఆఇతీకర�
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
-msgstr "ఈ సంస్థాపనకు ఉపయోగించే drive(లు)ను ఎన్నుకో. (_S)"
+msgstr "ఈ సంస్థాపనకు ఉపయోగించే డ్రైవు(లు)ను ఎన్నుకో. (_S)"
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6546,13 +6544,11 @@ msgstr "దయచేసి software సంస్థాపనకు మీరు 
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr ""
-"You can further customize the software selection now, or after install via "
-"the software management application."
+msgstr "మీరు ఆ సాఫ్టువేరు వినియోగాన్ని ఎన్నుకోవటం ఇప్పుడు చేయగలరు, లేదా సాఫ్టువేరు నిర్వహణ అనువర్తనం ద్వారా సంస్థాపించిన తరువాత చేయగలరు."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "అదనపు software రక్షణలు ఉపయోగించు (_A)"
+msgstr "అదనపు సాఫ్టువేరు సురక్షితస్థానాలను కలుపు (_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
