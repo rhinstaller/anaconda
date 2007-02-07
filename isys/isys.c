@@ -76,7 +76,6 @@ static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
-static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
@@ -149,7 +148,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
-    { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
@@ -675,115 +673,6 @@ static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
     inet_ntop(AF_INET, (struct in_addr *) &mask, dst, INET_ADDRSTRLEN);
 
     return Py_BuildValue("s", dst);
-}
-
-#include <linux/fb.h>
-
-static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
-    char * path;
-    int fd, size;
-    struct fb_fix_screeninfo fix;
-    struct fb_var_screeninfo var;
-    char vidres[1024], vidmode[40];
-    int depth = 0;
-
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-    
-    if ((fd = open (path, O_RDONLY)) == -1) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (ioctl(fd, FBIOGET_FSCREENINFO, &fix) < 0) {
-	close (fd);
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    vidres[0] = 0;    
-    if (ioctl(fd, FBIOGET_VSCREENINFO, &var) >= 0 && var.pixclock) {
-	int x[4], y[4], vtotal, laced = 0, dblscan = 0;
-	char *p;
-	double drate, hrate, vrate;
-#ifdef __sparc__
-	switch (fix.accel) {
-	case FB_ACCEL_SUN_CREATOR:
-	    var.bits_per_pixel = 24;
-	    /* FALLTHROUGH */
-	case FB_ACCEL_SUN_LEO:
-	case FB_ACCEL_SUN_CGSIX:
-	case FB_ACCEL_SUN_CG14:
-	case FB_ACCEL_SUN_BWTWO:
-	case FB_ACCEL_SUN_CGTHREE:
-	case FB_ACCEL_SUN_TCX:
-	    var.xres = var.xres_virtual;
-	    var.yres = var.yres_virtual;
-	    fix.smem_len = 0;
-	    break;
-	}
-#endif
-	depth = var.bits_per_pixel;
-	sprintf(vidmode, "%dx%d", var.xres, var.yres);
-	x[0] = var.xres;
-	x[1] = x[0] + var.right_margin;
-	x[2] = x[1] + var.hsync_len;
-	x[3] = x[2] + var.left_margin;
-	y[0] = var.yres;
-	y[1] = y[0] + var.lower_margin;
-	y[2] = y[1] + var.vsync_len;
-	y[3] = y[2] + var.upper_margin;
-	vtotal = y[3];
-	drate = 1E12/var.pixclock;
-	switch (var.vmode & FB_VMODE_MASK) {
-	case FB_VMODE_INTERLACED: laced = 1; break;
-	case FB_VMODE_DOUBLE: dblscan = 1; break;
-	}
-	if (dblscan) vtotal <<= 2;
-	else if (!laced) vtotal <<= 1;
-	hrate = drate / x[3];
-	vrate = hrate / vtotal * 2;
-	sprintf (vidres,
-	    "Section \"Monitor\"\n"
-	    "    Identifier  \"Probed Monitor\"\n"
-	    "    VendorName  \"Unknown\"\n"
-	    "    ModelName   \"Unknown\"\n"
-	    "    HorizSync   %5.3f\n"
-	    "    VertRefresh %5.3f\n"
-	    "    ModeLine    \"%dx%d\" %5.3f %d %d %d %d %d %d %d %d",
-	    hrate/1E3, vrate,
-	    x[0], y[0],
-	    drate/1E6+0.001,
-	    x[0], x[1], x[2], x[3],
-	    y[0], y[1], y[2], y[3]);
-	if (laced) strcat (vidres, " Interlaced");
-	if (dblscan) strcat (vidres, " DoubleScan");
-	p = strchr (vidres, 0);
-	sprintf (p, " %cHSync %cVSync",
-		 (var.sync & FB_SYNC_HOR_HIGH_ACT) ? '+' : '-',
-		 (var.sync & FB_SYNC_VERT_HIGH_ACT) ? '+' : '-');
-	if (var.sync & FB_SYNC_COMP_HIGH_ACT)
-	    strcat (vidres, " Composite");
-	if (var.sync & FB_SYNC_BROADCAST)
-	    strcat (vidres, " bcast");
-	strcat (vidres, "\nEndSection\n");
-    }
-
-    close (fd);
-    /* Allow 64K from VIDRAM to be taken for other purposes */
-    size = fix.smem_len + 65536;
-    /* And round down to some multiple of 256K */
-    size = size & ~0x3ffff;
-    /* And report in KB */
-    size >>= 10;
-
-    switch (depth) {
-    case 8:
-    case 16:
-    case 24:
-    case 32:
-    	return Py_BuildValue("(iiss)", size, depth, vidmode, vidres);
-    }
-    return Py_BuildValue("(iiss)", size, 0, "", "");
 }
 
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {

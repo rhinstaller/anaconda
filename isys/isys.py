@@ -247,9 +247,6 @@ def swapoff (path):
 def swapon (path):
     return _isys.swapon (path)
 
-def fbconProbe(path):
-    return _isys.fbconprobe (path)
-
 def loadFont():
     return _isys.loadFont ()
 
