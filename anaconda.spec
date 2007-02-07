@@ -14,7 +14,7 @@ BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart >= 0.90, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
-BuildPreReq: glib2-devel >= 2.11.1-5
+BuildPreReq: glib2-devel >= 2.11.1-5, glib2-static
 BuildPreReq: libdhcp-devel >= 1.16, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
