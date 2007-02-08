@@ -421,7 +421,7 @@ def getDasdState(dev):
         if not line.startswith(devs[dev]):
             continue
         # 2.6 seems to return basic
-        if line.find(" basic") != -1:
+        if line.find(" basic") != -1 or line.find(" unformatted") != -1:
             return 1
         
     return 0
