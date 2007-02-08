@@ -1114,7 +1114,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr "_Zpět"
+msgstr "_Předchozí"
 
 #: ../image.py:134
 #, python-format
@@ -2772,7 +2772,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Použít heslo pro zavaděč systému"
+msgstr "Použít heslo pro _zavaděč systému"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
@@ -3463,7 +3463,7 @@ msgstr "_Gateway"
 
 #: ../iw/network_gui.py:27
 msgid "_Primary DNS"
-msgstr "Pri_mární DNS"
+msgstr "Primární _DNS"
 
 #: ../iw/network_gui.py:27
 msgid "_Secondary DNS"
@@ -4316,8 +4316,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Nelze načíst metadata balíčku z úložiště. Důvodem může být chybějící adresář "
-"repodata. Zkontrolujte prosím, že vaše úložiště bylo správně vygenerováno.\n"
+"Nelze načíst metadata balíčku z repozitáře. Důvodem může být chybějící adresář "
+"repodata. Zkontrolujte prosím, zda metadata repozitáře byla správně vygenerována.\n"
 "\n"
 "%s"
 
@@ -4332,26 +4332,26 @@ msgstr ""
 
 #: ../iw/task_gui.py:121
 msgid "Invalid Repository Name"
-msgstr "Neplatné jméno úložiště"
+msgstr "Neplatné jméno repozitáře"
 
 #: ../iw/task_gui.py:122
 msgid "You must provide a non-zero length repository name."
-msgstr "Musíte zadat jméno úložiště nenulové délky."
+msgstr "Jméno repozitáře nesmí být prázdné."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
-msgstr "Neplatné URL úložiště"
+msgstr "Neplatné URL repozitáře"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Musíte zadat HTTP nebo FTP URL úložiště."
+msgstr "Musíte zadat HTTP nebo FTP URL repozitáře."
 
 #: ../iw/task_gui.py:146
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Úložiště %s již bylo přidáno. Zvolte prosím jiné jméno úložiště a URL."
+"Repozitář %s již byl přidán. Zvolte prosím jiné jméno repozitáře a URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -6521,15 +6521,15 @@ msgstr "Jak chcete upravit nastavení disku?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>_URL úložiště:</b>"
+msgstr "<b>_URL repozitáře:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Název úložiště:</b>"
+msgstr "<b>_Název repozitáře:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Přidat úložiště"
+msgstr "Přidat repozitář"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6538,11 +6538,11 @@ msgid ""
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
 "Zadejte prosím umístění, odkud má být nainstalován váš dodatečný software. "
-"Vezměte v úvahu, že to musí být platné úložiště pro %s."
+"Vezměte v úvahu, že to musí být platný repozitáře pro %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "_Přidat úložiště"
+msgstr "Přidat _repozitář"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6558,7 +6558,7 @@ msgstr "_Další"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "_Poznámky k vydání"
+msgstr "Poznámky k _vydání"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6671,7 +6671,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"Vložte prosím další úložiště, které chce použít při instalaci."
+"Vložte prosím další repozitář, který chcete pro instalaci použít."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -6683,7 +6683,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "_Přidat rozšiřující softwarová úložiště"
+msgstr "_Přidat rozšiřující repozitáře"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
