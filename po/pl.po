@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-01-03 16:31+0200\n"
+"PO-Revision-Date: 2007-02-08 22:27+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +33,8 @@ msgstr "Nieznany błąd"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"Błąd podczas odczytywania drugiej części pliku konfiguracyjnego kickstart: %"
-"s!"
+"Błąd podczas odczytywania drugiej części pliku konfiguracyjnego kickstart: "
+"%s!"
 
 #: ../anaconda:399
 msgid "Press <enter> for a shell"
@@ -1214,6 +1214,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"Obraz ISO %s ma rozmiar, który nie jest podzielny na 2048 bajtów. To może "
+"oznaczać, że został on uszkodzony podczas przesyłania na ten komputer.\n"
+"\n"
+"Zalecane jest ponowne uruchomienie i przerwanie instalacji, ale możesz "
+"kontynuować, jeśli uważasz, że jest w błędzie."
 
 #: ../image.py:510
 #, python-format
@@ -1299,32 +1304,32 @@ msgstr ""
 "istnieje. Chcesz kontynuować, czy przerwać instalację?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Nie można znaleźć obrazu instalacyjnego %s"
+msgstr "Nie można znaleźć obrazu"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"Podane położenie nie jest prawidłowym %s Live CD używanym jako źródło "
+"instalacji."
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "Instalator %s"
+msgstr "Zakończ instalator"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Instalacja %s %s"
+msgstr "Wykonywanie czynności poinstalacyjnych"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Rozpoczynanie procesu instalacji. Może to potrwać kilka minut..."
+msgstr ""
+"Wykonywanie poinstalacyjnych zmian systemu plików. Może to potrwać kilka "
+"minut..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1341,12 +1346,10 @@ msgstr ""
 "Nazwy komputerów mogą zawierać tylko znaki \"a-z\", \"A-Z\", \"-\" lub \".\""
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "Brak adresu IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -1359,9 +1362,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "\"%s\" nie jest prawidłowym adresem IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "\"%s\" nie jest prawidłowym adresem IPv6."
+msgstr "\"%s\" nie jest prawidłowym adresem IP."
 
 #: ../packages.py:241
 #, python-format
@@ -1602,10 +1605,10 @@ msgstr ""
 "Czy chcesz sformatować tę partycję jako partycję wymiany?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr ""
-"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
+"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować %s."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -2651,6 +2654,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Nie można odczytać informacji o grupach z repozytoriów. To jest problem z "
+"tworzeniem drzewa instalacji."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -3284,14 +3289,14 @@ msgid "Error With Request"
 msgstr "Błąd żądania"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Skonfigurowane woluminy logiczne wymagają %g MB, a ta grupa woluminów ma "
-"tylko %g MB. Powiększ grupę woluminów lub zmniejsz woluminy logiczne."
+"Skonfigurowane woluminy logiczne wymagają %d MB, a ta grupa woluminów ma "
+"tylko %d MB. Powiększ grupę woluminów lub zmniejsz woluminy logiczne."
 
 #: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
@@ -3501,9 +3506,8 @@ msgid "Nameserver"
 msgstr "Serwer nazw"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Podczas konfigurowania interfejsu sieciowego wystąpił błąd."
+msgstr "Podczas konfigurowania urządzenia sieciowego wystąpił błąd"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3558,14 +3562,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "W pole \"%s\" musisz wpisać wartość."
+msgstr "W pole %s musisz wpisać wartość."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Błąd danych"
+msgstr "Błąd danych %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3574,9 +3578,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Podany adres IP jest nieprawidłowy."
+msgstr "Podana informacja o IPv4 jest nieprawidłowa."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3588,7 +3591,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączone"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
@@ -3638,32 +3641,28 @@ msgid "Miscellaneous Settings"
 msgstr "Różne ustawienia"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Edytuj urządzenie RAID"
+msgstr "Edytuj urządzenie "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Nieznane urządzenie ethernet"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Nieznany"
+msgstr "nieznane"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Adres sprzętu: %s"
+msgstr "Adres sprzętu: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Brakujący protokół"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Musisz wybrać przynajmniej jeden protokół (IPv4 lub IPv6) dla DHCP."
+msgstr "Musisz wybrać przynajmniej protokół IPv4 lub IPv6."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4853,7 +4852,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Brak opcjonalnych pakietów do wybrania"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4884,13 +4883,13 @@ msgid "Mouse Selection"
 msgstr "Wybór myszy"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Nie wypełniono pola \"%s\". Przy niektórych konfiguracjach może to później "
-"spowodować problemy."
+"Nie wypełniono pola %s. W zależności od środowiska sieciowego może to "
+"później spowodować problemy."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4921,36 +4920,32 @@ msgid "Activate on boot"
 msgstr "Aktywuj przy uruchamianiu"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "Adres IP"
+msgstr "Adres"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Maska sieci"
+msgstr "Przedrostek (maska sieci)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Klucz:"
+msgstr "Klucz WEP:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4958,9 +4953,9 @@ msgid "Network Configuration for %s"
 msgstr "Konfiguracja sieci dla %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Przedrostek IPv6 musi być między 0 a 128."
+msgstr ""
+"Nieprawidłowy lub brakujący przedrostek IPv6 (musi być między 0 a 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5284,10 +5279,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Których dysków chcesz użyć do instalacji?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Spacja>,<+>,<-> wybór   |   <F2> szczegóły grupy   |   <F12> następny ekran"
+msgstr "<Space>,<+>,<-> wybór   |   <F2> Dodaj napęd   |   <F12> następny ekran"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5306,21 +5299,19 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Jak chcesz zmodyfikować konfigurację napędu?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Dodaj urządzenie FCP"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
-"Komputery typu zSeries mogą korzystać z urządzeń w standardzie SCSI przez "
-"Fibre Channel (FCP). Musisz podać 5 parametrów dla każdego urządzenia: 16-"
-"bitowy numer urządzenia, 16-bitowe SCSI ID, 64-bitowy World Wide Port Name "
-"(WWPN), 16-bitowy SCSI LUN i 64-bitowy FCP LUN."
+"Komputery zSeries mogą korzystać z urządzeń w standardzie SCSI przez "
+"Fibre Channel (FCP). Musisz podać 16-bitowy numer urządzenia, 16-bitowe SCSI "
+"ID, 64-bitowy World Wide Port Name (WWPN) oraz 64-bitowy FCP LUN dla każdego "
+"urządzenia."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5906,11 +5897,12 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Nie można pobrać pliku kickstart. Zmodyfikuj poniższy parametr kickstart lub "
+"naciśnij Anuluj, aby kontynuować jako instalacja interaktywna."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Błąd podczas otwierania pliku kickstart %s: %s"
+msgstr "Błąd podczas pobierania pliku kickstart"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6222,21 +6214,18 @@ msgid "Nameserver IP"
 msgstr "IP serwera nazw"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Serwer nazw"
+msgstr "Brak serwera nazw"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
 "Żądanie dynamicznego przydziału adresu IP zwróciło informację o "
-"konfiguracji, ale bez informacji o serwerze nazw DNS. Jeśli znasz adres "
-"serwera nazw, podaj go teraz. Jeśli nie masz tej informacji, pozostaw pole "
-"puste i kontynuuj instalację."
+"konfiguracji, ale bez adresu serwera nazw. Jeśli nie masz tej informacji, "
+"pozostaw pole puste i kontynuuj instalację."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6259,13 +6248,12 @@ msgid "Configure TCP/IP"
 msgstr "Skonfiguruj TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Musisz wybrać przynajmniej jeden protokół (IPv4 lub IPv6) dla DHCP."
+msgstr "Musisz wybrać przynajmniej jeden protokół (IPv4 lub IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
-msgstr "Ipv4 jest wymagane dla NFS"
+msgstr "IPv4 jest wymagane dla NFS"
 
 #: ../loader2/net.c:792
 msgid "NFS installation method requires IPv4 support."
@@ -6294,6 +6282,10 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Podaj adres i przedrostek IPv4 i/lub IPv6 (adres / przedrostek). Dla IPv4 "
+"akceptowalny jest przedrostek w formie maski sieciowej czterech liczb "
+"oddzielonych kropkami lub CIDR. Brama i serwer nazw muszą być prawidłowymi "
+"adresami IPv4 lub IPv6."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6311,9 +6303,8 @@ msgstr ""
 "przedrostek CIDR."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Musisz podać zarówno prawidłowy adres IPv6, jak i przedrostek aCIDR."
+msgstr "Musisz podać zarówno prawidłowy adres IPv6, jak i przedrostek CIDR."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6636,52 +6627,44 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Użyj _dynamicznej konfiguracji IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Opis: %s"
+msgstr "<b>Tutaj wpisz opis</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Adres sprzętu: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatyczne odkrywanie otoczenia"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Użyj dynamicznej konfiguracji IP (DHCP)"
+msgstr "Dynamiczna konfiguracja IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Użyj dynamicznej konfiguracji IP (DHCP)"
+msgstr "Dynamiczna konfiguracja IP (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Edytuj interfejs %s"
+msgstr "Edytuj interfejs"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "_Klucz szyfrujący:"
+msgstr "Klucz szyfrujący:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Ręczna konfiguracja TCP/IP"
+msgstr "Ręczna konfiguracja"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Punkt-punkt (IP):"
+msgstr "Punkt-punkt (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/przedrostek"
+msgstr "Przedrostek"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6712,19 +6695,16 @@ msgid "_Customize now"
 msgstr "_Dostosuj teraz"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Numer urządzenia"
+msgstr "<b>Numer urządzenia:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Hasło:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7351,14 +7331,12 @@ msgid "West Kazakhstan"
 msgstr "Zachodni Kazachstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Zachodnia Australia"
+msgstr "Zachodnia Australia - obszar Eucla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Czas środkowy - większość lokalizacji"
+msgstr "Zachodnia Australia - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7440,7 +7418,7 @@ msgstr "arabski"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "asamski"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7524,7 +7502,7 @@ msgstr "islandzki"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7608,7 +7586,7 @@ msgstr "serbski (latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "syngaleski"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7633,7 +7611,7 @@ msgstr "tamilski"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "telugu"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7654,193 +7632,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Błąd podczas montowania systemu plików na %s: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "Zaktualizuj istniejący system"
-
-#~ msgid "Upgrade"
-#~ msgstr "Zaktualizuj"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ID"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "Nie podano SCSI ID lub podane ID jest nieprawidłowe."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "Nie podano SCSI LUN lub podany numer jest nieprawidłowy."
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Użyj dynamicznej konfiguracji IP (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Aktywuj przy uruchamianiu"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "Adres IPv_4:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "Adres IPv_6:"
-
-#~ msgid "Configure %s"
-#~ msgstr "Skonfiguruj %s"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "Konfiguracja ZFCP"
-
-#~ msgid "_Remove"
-#~ msgstr "_Usuń"
-
-#~ msgid "FCP Devices"
-#~ msgstr "Urządzenia FCP"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "Edytuj urządzenie FCP %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś "
-#~ "pewny, że chcesz kontynuować?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Błędny ciąg znaków określający IP"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "\"%s\" nie jest prawidłowym adresem IP."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Punkt-punkt (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Urządzenie sieciowe: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Skonfiguruj, używając DHCP"
-
-#~ msgid "Invalid information"
-#~ msgstr "Nieprawidłowa informacja"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "Musisz podać prawidłowy adres IP, aby kontynuować"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Trzeci DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "Urządzenie FCP"
-
-#~ msgid "Device #"
-#~ msgstr "Urządzenie #"
-
-#~ msgid "Add"
-#~ msgstr "Dodaj"
-
-#~ msgid "Remove"
-#~ msgstr "Usuń"
-
-#~ msgid "_Custom"
-#~ msgstr "_Indywidualna"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "Wybierz ten typ instalacji, aby mieć pełną kontrolę nad procesem "
-#~ "instalacji, w tym nad wyborem pakietów oprogramowania i partycjonowaniem."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "_Komputer osobisty"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "Idealny dla komputerów osobistych i laptopów. Ten typ zainstaluje "
-#~ "środowisko graficzne i tworzy system doskonale nadający się do domu i "
-#~ "biura."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\tPowłoka pulpitu (GNOME)\n"
-#~ "\tPakiet biurowy (OpenOffice.org)\n"
-#~ "\tPrzeglądarka WWW \n"
-#~ "\tKlient poczty (Evolution)\n"
-#~ "\tKomunikator\n"
-#~ "\tAplikacje do obsługi dźwięku i obrazu\n"
-#~ "\tGry\n"
-
-#~ msgid "_Server"
-#~ msgstr "_Serwer"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "Wybierz ten typ instalacji, jeśli chcesz skonfigurować współdzielenie "
-#~ "plików, drukarek i usług WWW. Można włączyć również inne usługi i wybrać, "
-#~ "czy ma zostać zainstalowane środowisko graficzne."
-
-#~ msgid "_Workstation"
-#~ msgstr "_Stacja robocza"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "Ta opcja instaluje środowisko graficzne wraz z narzędziami do tworzenia "
-#~ "oprogramowania i administracji systemem. "
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tPowłoka pulpitu (GNOME)\n"
-#~ "\tPakiet biurowy (OpenOffice.org)\n"
-#~ "\tPrzeglądarka WWW \n"
-#~ "\tKlient poczty (Evolution)\n"
-#~ "\tKomunikator\n"
-#~ "\tAplikacje do obsługi dźwięku i obrazu\n"
-#~ "\tGry\n"
-#~ "\tNarzędzia programistyczne\n"
-#~ "\tNarzędzia administracyjne\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Unikaj niechcianych kolizji pakietów"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Zmaksymalizuj wartości rejestru dla szybkiego ruchu w sieci"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Musisz wybrać przynajmniej jeden protokół (IPv4 lub IPv6) dla ręcznej "
-#~ "konfiguracji."
