@@ -1,9 +1,9 @@
 # Dutch translation of anaconda
-# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 #
 # Arjan van de Ven <arjanv@redhat.com>, 2001.
 # Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
-# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006, 2007.
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2006-09-20 21:13+0200\n"
+"PO-Revision-Date: 2007-02-08 22:42+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1028,7 +1028,7 @@ msgstr "_Fout zoeken"
 
 #: ../gui.py:897 ../text.py:356
 msgid "Error Parsing Kickstart Config"
-msgstr "Fout bij verwerken kickstart configuratie"
+msgstr "Fout bij verwerken kickstart-configuratie"
 
 #: ../gui.py:905 ../text.py:366
 msgid ""
@@ -1237,6 +1237,12 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"Het ISO-bestand %s heeft een grootte die geen veelvoud is van 2048 bytes. Dit "
+"kan betekenen dat het beschadigd is geraakt tijdens de overdracht naar deze "
+"computer.\n"
+"\n"
+"Het is aanbevolen dat u herstart en uw installatie afbreekt, maar u kunt "
+"ervoor kiezen om verder te gaan als u denkt dat dit niet juist is."
 
 #: ../image.py:510
 #, python-format
@@ -1323,34 +1329,33 @@ msgstr ""
 "bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Kon installatie-image %s niet vinden"
+msgstr "Kan image niet vinden"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"De opgegeven locatie is geen geldige %s live CD om te gebruiken als "
+"installatiebron."
 
 # Grafische of Tekst installatie
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s Installatie"
+msgstr "Installatieprogramma afsluiten"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s installatie"
+msgstr "Uitvoeren van post-installatie"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr ""
-"Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
+"Uitvoeren van post-installatie veranderingen aan het bestandssysteem. Dit kan "
+"enkele minuten duren..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1366,17 +1371,15 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP-adres ontbreekt."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP-adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden "
+"IPv4-adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden "
 "door punten."
 
 #: ../network.py:96
@@ -1385,9 +1388,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' is geen geldig IPv6-adres."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' is geen geldig IPv6-adres."
+msgstr "'%s' is een ongeldig IP-adres."
 
 #: ../packages.py:241
 #, python-format
@@ -1625,11 +1628,9 @@ msgstr ""
 "Wilt u deze partitie formatteren als een wisselgeheugen-partitie?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr ""
-"U moet tenminste één harde schijf selecteren waarop %s moet worden "
-"geïnstalleerd."
+msgstr "U moet tenminste één harde schijf selecteren om %s te installeren."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1981,9 +1982,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"Omdat deze machine weinig geheugen heeft, moeten we het wisselgeheugen "
-"meteen aanzetten. Om dit te kunnen doen, moeten we nu meteen uw "
-"partitietabel naar de schijf schrijven. Is dat OK?"
+"Omdat deze machine weinig geheugen heeft moeten we het wisselgeheugen meteen "
+"aanzetten. Om dit te kunnen doen moeten we nu meteen uw partitietabel naar "
+"de schijf schrijven. Is dat OK?"
 
 #: ../partitions.py:816
 #, python-format
@@ -2032,8 +2033,8 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Uw %s partitie is minder dan %s megabytes groot; wat kleiner is dan "
-"aanbevolen voor een normale %s installatie."
+"Uw %s partitie is minder dan %s megabyte; wat kleiner is dan aanbevolen voor "
+"een normale %s installatie."
 
 #: ../partitions.py:942
 msgid ""
@@ -2696,6 +2697,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Niet in staat om de groepinformatie te lezen vanuit de repository. Dit is een "
+"probleem met de samenstelling van uw installatieomgeving."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -2736,7 +2739,7 @@ msgstr "Post-upgrade fase"
 
 #: ../yuminstall.py:1339
 msgid "Performing post upgrade configuration..."
-msgstr "Bezig met post-upgrade configuratie..."
+msgstr "Uitvoeren van post-upgrade configuratie..."
 
 #: ../yuminstall.py:1341
 msgid "Post Install"
@@ -2744,7 +2747,7 @@ msgstr "Post-installatie fase"
 
 #: ../yuminstall.py:1342
 msgid "Performing post install configuration..."
-msgstr "Bezig met post-installatie configuratie..."
+msgstr "Uitvoeren van post-installatie configuratie..."
 
 #: ../yuminstall.py:1524
 msgid "Installation Progress"
@@ -3344,14 +3347,14 @@ msgid "Error With Request"
 msgstr "Foutmelding bij dit verzoek"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"De door u geconfigureerde logical volumes hebben %g MB nodig, maar de volume "
-"group heeft slechts %g MB.  U kunt, ofwel de volume group groter maken, of "
+"De door u geconfigureerde logical volumes hebben %d MB nodig, maar de volume "
+"group heeft slechts %d MB.  U kunt, ofwel de volume group groter maken, of "
 "de logical volumes kleiner maken."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3544,7 +3547,7 @@ msgstr "Dynamisch IP"
 #: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
-msgstr "Versturen van IP-informatieverzoek voor %s..."
+msgstr "IP-informatieverzoek voor %s versturen..."
 
 #: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
 msgid "IP Address"
@@ -3564,9 +3567,8 @@ msgid "Nameserver"
 msgstr "Naamserver"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Er was een fout bij het configureren van uw netwerk-interface."
+msgstr "Fout bij het configureren van uw netwerkapparaat"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3606,8 +3608,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"U hebt het veld \"%s\" niet gespecificeerd. Afhankelijk van uw "
-"netwerkomgeving kan dit later problemen geven."
+"U hebt het veld \"%s\" niet opgegeven. Afhankelijk van uw netwerkomgeving kan "
+"dit later problemen geven."
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:625
 #, python-format
@@ -3621,14 +3623,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "Voor het veld \"%s\" is een waarde vereist."
+msgstr "Voor het veld %s is een waarde vereist."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Fout met data"
+msgstr "Fout met %s data"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3637,9 +3639,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "De ingevoerde IP-informatie is ongeldig."
+msgstr "De ingevoerde IPv4-informatie is ongeldig."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3702,32 +3703,28 @@ msgid "Miscellaneous Settings"
 msgstr "Overige instellingen"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID-opstelling bewerken"
+msgstr "Apparaat bewerken "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Onbekend ethernet-apparaat"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Onbekend"
+msgstr "onbekend"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Hardware-adres:"
+msgstr "Hardware-adres: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Ontbrekend protocol"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor DHCP."
+msgstr "U moet tenminste IPv4 of IPv6-ondersteuning kiezen."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4852,7 +4849,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr "<Enter> om te beëindigen"
+msgstr "<Enter> om af te sluiten"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4951,9 +4948,8 @@ msgstr ""
 "   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
 
 #: ../textw/grpselect_text.py:117
-#, fuzzy
 msgid "No optional packages to select"
-msgstr "[%d van %d optionele pakketten geïnstalleerd]"
+msgstr "Geen optionele pakketten om te selecteren"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4986,13 +4982,13 @@ msgid "Mouse Selection"
 msgstr "Muis keuze"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"U hebt het veld \"%s\" niet gespecificeerd. Afhankelijk van uw "
-"netwerkomgeving kan dit later problemen geven."
+"U hebt het veld %s niet opgegeven. Afhankelijk van uw netwerkomgeving kan dit "
+"later problemen geven."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -5023,36 +5019,32 @@ msgid "Activate on boot"
 msgstr "Activeren bij opstarten"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP-adres"
+msgstr "Adres"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr "Prefix (netmask)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Sleutel:"
+msgstr "WEP-sleutel:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5060,9 +5052,8 @@ msgid "Network Configuration for %s"
 msgstr "Netwerkconfiguratie voor %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
+msgstr "Ongeldige of ontbrekende IPv6-prefix (moet tussen 0 en 128 zijn)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5388,10 +5379,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Welke station(s) wilt u gebruiken voor de installatie?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
+msgstr "<Spatie>,<+>,<-> selectie  |  <F2> Station toevoegen  |  <F12> volgend scherm"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5410,21 +5399,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Hoe wilt u uw schijfconfiguratie aanpassen?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP-apparaat toevoegen"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
-"zSeries machines kunnen industrie-standaard SCSI apparaten benaderen via "
-"Fibre Channel (FCP). U dient 5 parameters op te geven voor elk apparaat: een "
-"16 bit apparaatnummer, een 16 bit SCSI ID, een 64 bit World Wide Port Name "
-"(WWPN), een 16 bit SCSI LUN en een 64 bit FCP LUN."
+"zSeries machines kunnen industrie-standaard SCSI-apparaten benaderen via "
+"Fibre Channel (FCP). U dient een 16-bit apparaatnummer, een 64-bit World Wide "
+"Port Name (WWPN) en een 64-bit FCP LUN op te geven voor elk apparaat."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5745,7 +5731,7 @@ msgstr "CD niet gevonden"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
-msgstr "Kan kickstart bestand op CDROM niet vinden."
+msgstr "Kan kickstart-bestand op CDROM niet vinden."
 
 #: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
@@ -5861,7 +5847,7 @@ msgstr "Kickstart fout"
 #: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Onbekende driver disk kickstart bron: %s"
+msgstr "Onbekende driver disk kickstart-bron: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
@@ -5869,7 +5855,7 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"Het volgende foutief argument was opgegeven voor het kickstart driver disk "
+"Het volgende ongeldig argument was opgegeven voor het kickstart driver disk "
 "commando: %s:%s"
 
 #: ../loader2/driverselect.c:60
@@ -5978,11 +5964,11 @@ msgstr "Apparaat %s bevat blijkbaar geen %s CDROM images."
 #: ../loader2/hdinstall.c:409
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Foutief argument voor harde schijf kickstart methode commando %s: %s"
+msgstr "Foutief argument voor harde schijf kickstart-methode commando %s: %s"
 
 #: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Kan het kickstart bestand niet vinden op de harddisk."
+msgstr "Kan het kickstart-bestand niet vinden op de harddisk."
 
 #: ../loader2/hdinstall.c:522
 #, c-format
@@ -6021,11 +6007,13 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Niet in staat om het kickstart-bestand te downloaden. Pas de kickstart-"
+"parameter beneden aan of druk op Annuleren om verder te gaan als een "
+"interactieve installatie."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Fout bij het openen van kickstart-bestand %s: %s"
+msgstr "Fout bij het downloaden van kickstart-bestand"
 
 # vertaling ok?
 #: ../loader2/kickstart.c:473
@@ -6208,7 +6196,7 @@ msgstr "Medium wordt nu gecontroleerd..."
 #: ../loader2/mediacheck.c:387
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Kon installatie-image %s niet vinden"
+msgstr "Kan installatie-image %s niet vinden"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
@@ -6309,8 +6297,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
-"Prefix moet tussen 1 en 32 liggen voor IPv4 netwerken of tussen 1 en 128 "
-"voor IPv6 netwerken"
+"Prefix moet tussen 1 en 32 liggen voor IPv4-netwerken of tussen 1 en 128 "
+"voor IPv6-netwerken"
 
 #: ../loader2/net.c:249
 #, c-format
@@ -6340,21 +6328,18 @@ msgid "Nameserver IP"
 msgstr "Naamserver IP"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Naamserver"
+msgstr "Ontbrekende naamserver"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Uw dynamisch IP-verzoek leverde een IP-configuratie, maar zonder een DNS-"
-"naamserver. Als u het adres van uw naamserver weet, voer die dan nu in. Als "
-"u deze informatie niet hebt, kunt u dit veld leeg laten en zal de "
-"installatie verder gaan."
+"Uw IP-adres verzoek gaf configuratieinformatie terug, maar het gaf geen "
+"nameserver-adres. Als u deze informatie niet hebt, kunt u het veld leeg "
+"houden en de installatie zal verder gaan."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6377,9 +6362,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP configureren"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor DHCP."
+msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6412,6 +6396,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Voer het IPv4 en/of het IPv6-adres en prefix (adres / prefix) in. Voor IPv4 "
+"zijn de netmask met 4 maal een punt of de CIDR-stijl prefix acceptabel. De "
+"gateway en naamserver velden dienen geldige IPv4 of IPv6-adressen te zijn."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6429,7 +6416,6 @@ msgstr ""
 "invoeren."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "U moet zowel een geldig IPv6-adres en een CIDR-prefix invoeren."
 
@@ -6758,53 +6744,45 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "_Dynamische IP-configuratie (DHCP) gebruiken"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Beschrijving: %s"
+msgstr "<b>Beschrijving komt hier</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Hardware-adres: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatische neighbor discovery"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP-configuratie (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP-configuratie (DHCPv6)"
 
 # instellen hier beter dan bewerken of aanpassen
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Interface %s instellen"
+msgstr "Interface bewerken"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Encryptie _sleutel:"
+msgstr "Encryptie sleutel:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Handmatige TCP/IP-configuratie"
+msgstr "Handmatige configuratie"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6835,19 +6813,16 @@ msgid "_Customize now"
 msgstr "_Nu aanpassen"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Apparaatnummer:"
+msgstr "<b>apparaat-nummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN:"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Wachtwoord:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7474,14 +7449,12 @@ msgid "West Kazakhstan"
 msgstr "West Kazagstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "West Australië"
+msgstr "West Australië - Eucla gebied"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Central Time - meeste locaties"
+msgstr "West Australië - meeste locaties"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7561,7 +7534,7 @@ msgstr "Arabisch"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamees"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7646,7 +7619,7 @@ msgstr "IJslands"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7733,7 +7706,7 @@ msgstr "Servisch(Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7757,7 +7730,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
