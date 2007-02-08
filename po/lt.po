@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 15:40-0400\n"
+"POT-Creation-Date: 2007-02-08 10:49-0500\n"
 "PO-Revision-Date: 2004-05-17 15:25+0300\n"
 "Last-Translator: Robertas Dereškevičius <roberto@mikrovisata.net>\n"
 "Language-Team: Lithuanian\n"
@@ -17,26 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: ../anaconda:256
+#: ../anaconda:268
 msgid "Unknown Error"
 msgstr "Nežinoma Klaida"
 
-#: ../anaconda:259
+#: ../anaconda:271
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
 
-#: ../anaconda:412
+#: ../anaconda:399
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
-#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
+#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
+#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../textw/constants_text.py:36 ../textw/network_text.py:46
+#: ../textw/network_text.py:56 ../textw/network_text.py:323
+#: ../textw/network_text.py:355 ../textw/network_text.py:382
+#: ../textw/network_text.py:388 ../textw/network_text.py:620
+#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -47,31 +49,31 @@ msgstr ""
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
 #: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
-#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
+#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
+#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
+#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
-#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
-#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
-#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
-#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
-#: ../loader2/urls.c:351 ../loader2/urls.c:455
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
+#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
+#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
+#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
+#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
+#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
+#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
+#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:450
+#: ../anaconda:421
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -79,47 +81,47 @@ msgstr ""
 "Jūs neturite pakankamai atminties(RAM), kad naudoti grafinę instaliavimo "
 "aplinką.  Paleidžiamas tekst. režimas."
 
-#: ../anaconda:466
+#: ../anaconda:437
 msgid "No video hardware found, assuming headless"
 msgstr "Nerasta video komp. įranga, aktyvuojama be jos"
 
-#: ../anaconda:473 ../anaconda:886
+#: ../anaconda:444 ../anaconda:896
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:512
+#: ../anaconda:501
 #, fuzzy
 msgid "Starting graphical installation..."
 msgstr "Ieško %s instaliacijos..."
 
-#: ../anaconda:766
+#: ../anaconda:761
 msgid "Install class forcing text mode installation"
 msgstr "Instaliavimo klasė aktyvuoja tekst. režimo instaliaciją"
 
-#: ../anaconda:798
+#: ../anaconda:793
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafinė instaliavimo aplinka negalima...  Paleidžiamas tekst. režimas"
 
-#: ../anaconda:806
+#: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:851
+#: ../anaconda:862
 #, fuzzy
 msgid "Unknown install method"
 msgstr "Nežinomas Url metodas %s"
 
-#: ../anaconda:852
+#: ../anaconda:863
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Jūs bandote įdiegti į sistemą, kuri nepalaikoma šioje versijoje %s."
 
-#: ../anaconda:854
+#: ../anaconda:865
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "Nežinomas Url metodas %s"
 
-#: ../autopart.py:949
+#: ../autopart.py:955
 #, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
@@ -127,7 +129,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:954
+#: ../autopart.py:960
 #, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
@@ -135,7 +137,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:959
+#: ../autopart.py:965
 #, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
@@ -143,7 +145,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:1019
+#: ../autopart.py:1025
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -151,7 +153,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 
-#: ../autopart.py:1021
+#: ../autopart.py:1027
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -159,37 +161,37 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 
-#: ../autopart.py:1023
+#: ../autopart.py:1029
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
 
-#: ../autopart.py:1025
+#: ../autopart.py:1031
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
 
-#: ../autopart.py:1032
+#: ../autopart.py:1038
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
-#: ../autopart.py:1058
+#: ../autopart.py:1064
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:1243
+#: ../autopart.py:1255
 msgid "Requested Partition Does Not Exist"
 msgstr ""
 
-#: ../autopart.py:1244
+#: ../autopart.py:1256
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -197,11 +199,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1271
+#: ../autopart.py:1283
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Reikalingas Raid Įrenginys Neegzistuoja"
 
-#: ../autopart.py:1272
+#: ../autopart.py:1284
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -209,11 +211,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1303
+#: ../autopart.py:1315
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Reikalinga Volume Group Neegzistuoja"
 
-#: ../autopart.py:1304
+#: ../autopart.py:1316
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -221,11 +223,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1341
+#: ../autopart.py:1353
 msgid "Requested Logical Volume Does Not Exist"
 msgstr ""
 
-#: ../autopart.py:1342
+#: ../autopart.py:1354
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -233,11 +235,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1456 ../autopart.py:1502
+#: ../autopart.py:1470 ../autopart.py:1517
 msgid "Automatic Partitioning Errors"
 msgstr "Automatiško Particijų Kurimo Klaidos"
 
-#: ../autopart.py:1457
+#: ../autopart.py:1471
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -247,11 +249,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1467
+#: ../autopart.py:1481
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: ../autopart.py:1468
+#: ../autopart.py:1482
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -259,7 +261,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:1481 ../autopart.py:1498
+#: ../autopart.py:1496 ../autopart.py:1513
 msgid ""
 "\n"
 "\n"
@@ -269,12 +271,12 @@ msgstr ""
 "\n"
 "Spauskite 'OK', kad perkrauti jūsų sistemą."
 
-#: ../autopart.py:1482 ../iw/partition_gui.py:997
-#: ../textw/partition_text.py:227
+#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Klaida kuriant particijas"
 
-#: ../autopart.py:1483
+#: ../autopart.py:1498
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -282,14 +284,14 @@ msgid ""
 "%s.%s"
 msgstr ""
 
-#: ../autopart.py:1500
+#: ../autopart.py:1515
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1503
+#: ../autopart.py:1518
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -300,27 +302,27 @@ msgid ""
 "installation.%s"
 msgstr ""
 
-#: ../autopart.py:1514
+#: ../autopart.py:1529
 msgid "Unrecoverable Error"
 msgstr "Nepataisoma Klaida"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1530
 msgid "Your system will now be rebooted."
 msgstr "Jūsų sistema dabar persikraus."
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
-#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
+#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
+#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
+#: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Įspėjimas"
 
-#: ../autopart.py:1668
+#: ../autopart.py:1683
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -330,25 +332,25 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 
-#: ../autopart.py:1679
+#: ../autopart.py:1694
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
 
-#: ../autopart.py:1684
+#: ../autopart.py:1699
 msgid "Remove all partitions on this system"
 msgstr "Ištrinti visas particijas jūsų sistemoje"
 
-#: ../autopart.py:1685
+#: ../autopart.py:1700
 msgid "Remove all Linux partitions on this system"
 msgstr "Ištrinti visas Linux particijas jūsų sistemoje"
 
-#: ../autopart.py:1686
+#: ../autopart.py:1701
 msgid "Keep all partitions and use existing free space"
 msgstr "Palikti visas particijas ir naudoti laisvą vietą"
 
-#: ../autopart.py:1688
+#: ../autopart.py:1703
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -359,7 +361,7 @@ msgstr ""
 "įrenginiuose:%s\n"
 "Ar tikrai norite tai atlikti?"
 
-#: ../autopart.py:1692
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -370,27 +372,27 @@ msgstr ""
 "įrenginiuose:%s\n"
 "Ar tikrai norite tai atlikti?"
 
-#: ../backend.py:97
+#: ../backend.py:106
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Atnaujina %s paketus\n"
 "\n"
 
-#: ../backend.py:99
+#: ../backend.py:108
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Instaliuoti %s"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Bootloader"
 msgstr "Sistemos kroviklis (Bootloader)"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Installing bootloader..."
 msgstr "Įdiegia sistemos kroviklį (bootloader).."
 
-#: ../bootloader.py:195
+#: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -404,7 +406,7 @@ msgstr "Atlikta"
 msgid "In progress...   "
 msgstr "Atliekama...   "
 
-#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -430,7 +432,7 @@ msgstr "Atlikta [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Instaliuoja %s-%s-%s... "
 
-#: ../constants.py:60
+#: ../constants.py:65
 #, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -438,11 +440,11 @@ msgid ""
 "at %s"
 msgstr ""
 
-#: ../exception.py:400 ../exception.py:417
+#: ../exception.py:401 ../exception.py:418
 msgid "Dump Written"
 msgstr ""
 
-#: ../exception.py:401
+#: ../exception.py:402
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -451,22 +453,22 @@ msgstr ""
 "Jūsų sistemos stovis gerai įrašytas į floppy įrenginį, Sistema dabar "
 "oersikraus."
 
-#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
-#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
-#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
+#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
+#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Pe_rkrauti"
 
-#: ../exception.py:409 ../exception.py:426
+#: ../exception.py:410 ../exception.py:427
 msgid "Dump Not Written"
 msgstr ""
 
-#: ../exception.py:410
+#: ../exception.py:411
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:418
+#: ../exception.py:419
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -475,46 +477,50 @@ msgstr ""
 "Jūsų sistemos stovis gerai įrašytas į floppy įrenginį, Sistema dabar "
 "oersikraus."
 
-#: ../exception.py:427
+#: ../exception.py:428
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:221
+#: ../fsset.py:214
 msgid "Checking for Bad Blocks"
 msgstr ""
 
-#: ../fsset.py:222
+#: ../fsset.py:215
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr ""
 
-#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
-#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
-#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
-#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
-#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
-#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:661 ../fsset.py:1450 ../fsset.py:1481 ../fsset.py:1542
+#: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
+#: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
+#: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
+#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
+#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
+#: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
+#: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
+#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
+#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
 #: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
+#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
+#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:348 ../loader2/urls.c:353
 msgid "Error"
 msgstr "Klaida"
 
-#: ../fsset.py:677
+#: ../fsset.py:662
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -523,27 +529,27 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:1333
+#: ../fsset.py:1357
 msgid "RAID Device"
 msgstr "RAID Įrenginys"
 
-#: ../fsset.py:1337 ../fsset.py:1343
+#: ../fsset.py:1361 ../fsset.py:1367
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: ../fsset.py:1348 ../partitions.py:900
+#: ../fsset.py:1372 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: ../fsset.py:1351
+#: ../fsset.py:1375
 msgid "First sector of boot partition"
 msgstr ""
 
-#: ../fsset.py:1352
+#: ../fsset.py:1376
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1426
+#: ../fsset.py:1451
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -552,17 +558,17 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
-#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:420
+#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
 msgid "Skip"
 msgstr "Praleisti"
 
-#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Perkrauti"
 
-#: ../fsset.py:1476
+#: ../fsset.py:1501
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -574,12 +580,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1483
+#: ../fsset.py:1508
 #, fuzzy
 msgid "Reformat"
 msgstr "Formatuoti"
 
-#: ../fsset.py:1487
+#: ../fsset.py:1512
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -591,7 +597,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1495
+#: ../fsset.py:1520
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -603,7 +609,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1505
+#: ../fsset.py:1530
 msgid ""
 "\n"
 "\n"
@@ -612,11 +618,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1511 ../iw/partition_gui.py:368
+#: ../fsset.py:1536 ../iw/partition_gui.py:367
 msgid "Format"
 msgstr "Formatuoti"
 
-#: ../fsset.py:1518
+#: ../fsset.py:1543
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -627,7 +633,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1529
+#: ../fsset.py:1554
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -637,7 +643,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1583
+#: ../fsset.py:1608
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -646,7 +652,7 @@ msgid ""
 "Press <Enter> to reboot your system"
 msgstr ""
 
-#: ../fsset.py:1594
+#: ../fsset.py:1619
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -655,7 +661,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1634
+#: ../fsset.py:1659
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -664,7 +670,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1684
+#: ../fsset.py:1709
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -673,11 +679,11 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1710 ../fsset.py:1719
+#: ../fsset.py:1735 ../fsset.py:1744
 msgid "Invalid mount point"
 msgstr "Blogas prijungimo(mount) vieta"
 
-#: ../fsset.py:1711
+#: ../fsset.py:1736
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -686,7 +692,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1720
+#: ../fsset.py:1745
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -695,24 +701,24 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1733
+#: ../fsset.py:1758
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "Negali užkrauti bylos!"
 
-#: ../fsset.py:1734
+#: ../fsset.py:1759
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
-#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
+#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Tęsti"
 
-#: ../fsset.py:1750
+#: ../fsset.py:1775
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -722,7 +728,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1769
+#: ../fsset.py:1794
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -731,11 +737,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:2462
+#: ../fsset.py:2447
 msgid "Duplicate Labels"
 msgstr ""
 
-#: ../fsset.py:2463
+#: ../fsset.py:2448
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -744,24 +750,24 @@ msgid ""
 "Please fix this problem and restart the installation process."
 msgstr ""
 
-#: ../fsset.py:2723
+#: ../fsset.py:2708
 msgid "Formatting"
 msgstr "Formatuoja"
 
-#: ../fsset.py:2724
+#: ../fsset.py:2709
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formatuoja %s failų sistemą..."
 
-#: ../gui.py:105
+#: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
 msgstr ""
 
-#: ../gui.py:116
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr ""
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -770,84 +776,87 @@ msgid ""
 "You can access these when you reboot and login as root."
 msgstr ""
 
-#: ../gui.py:160
+#: ../gui.py:161
 msgid "Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:161
+#: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
-#: ../gui.py:164
+#: ../gui.py:165
 msgid "Error Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:230 ../text.py:391
+#: ../gui.py:231 ../text.py:391
 msgid "Fix"
 msgstr ""
 
-#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
+#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "Taip"
 
-#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
+#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:403
+#: ../loader2/loader.c:405
 msgid "No"
 msgstr "Ne"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
-#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
-#: ../loader2/net.c:1137
+#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
+#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
+#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
 msgid "Retry"
 msgstr "Pakartot"
 
-#: ../gui.py:235 ../text.py:396
+#: ../gui.py:236 ../text.py:396
 msgid "Ignore"
 msgstr "Ignoruot"
 
-#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:351
+#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Atšaukti"
 
-#: ../gui.py:843 ../text.py:356
+#: ../gui.py:735 tmp/anaconda.glade.h:2
+msgid "_Debug"
+msgstr "_Debug"
+
+#: ../gui.py:897 ../text.py:356
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "Klaida atidarant kikstart bylą %s: %s"
 
-#: ../gui.py:851 ../text.py:366
+#: ../gui.py:905 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:898
+#: ../gui.py:952
 #, fuzzy
 msgid "default:LTR"
 msgstr "Standart."
 
-#: ../gui.py:982
+#: ../gui.py:1036
 msgid "Error!"
 msgstr "Klaida!"
 
-#: ../gui.py:983
+#: ../gui.py:1037
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -855,40 +864,40 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
+#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
 msgid "_Exit"
 msgstr "_Išeiti"
 
-#: ../gui.py:989 ../yuminstall.py:609
+#: ../gui.py:1043 ../yuminstall.py:754
 msgid "_Retry"
 msgstr "Paka_rtoti"
 
-#: ../gui.py:992 ../packages.py:294
+#: ../gui.py:1046 ../packages.py:295
 msgid "The installer will now exit..."
 msgstr ""
 
-#: ../gui.py:995 ../packages.py:297
+#: ../gui.py:1049 ../packages.py:298
 msgid "Your system will now be rebooted..."
 msgstr "Jūsų sitema dabar persikraus..."
 
-#: ../gui.py:998 ../packages.py:299
+#: ../gui.py:1052 ../packages.py:300
 msgid "Rebooting System"
 msgstr "Perkrauna Sistemą"
 
-#: ../gui.py:1062
+#: ../gui.py:1116
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: ../gui.py:1069
+#: ../gui.py:1123
 msgid "Unable to load title bar"
 msgstr ""
 
-#: ../gui.py:1118
+#: ../gui.py:1177
 msgid "Install Window"
 msgstr ""
 
-#: ../harddrive.py:44 ../image.py:144 ../image.py:474
+#: ../harddrive.py:44 ../image.py:146 ../image.py:476
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -900,7 +909,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../harddrive.py:71 ../image.py:507
+#: ../harddrive.py:71 ../image.py:509
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
@@ -914,16 +923,16 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: ../harddrive.py:81 ../image.py:518
+#: ../harddrive.py:81 ../image.py:520
 #, fuzzy
 msgid "Re_try"
 msgstr "Pakartot"
 
-#: ../image.py:82
+#: ../image.py:84
 msgid "Required Install Media"
 msgstr ""
 
-#: ../image.py:83
+#: ../image.py:85
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -933,56 +942,56 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
+#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Atgal"
 
-#: ../image.py:134
+#: ../image.py:136 ../urlinstall.py:209
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:164
+#: ../image.py:166 ../urlinstall.py:100
 msgid "Copying File"
 msgstr "Kopijuoja Bylą"
 
-#: ../image.py:165
+#: ../image.py:167 ../urlinstall.py:101
 msgid "Transferring install image to hard drive..."
 msgstr ""
 
-#: ../image.py:175
+#: ../image.py:177 ../urlinstall.py:111
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:264
+#: ../image.py:266
 msgid "Change CDROM"
 msgstr "Keisti CDROM"
 
-#: ../image.py:265
+#: ../image.py:267
 #, fuzzy, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Prašome įdėti diską %d, kad pratęsti."
 
-#: ../image.py:300
+#: ../image.py:302
 msgid "Wrong CDROM"
 msgstr "Neteisingas CDROM"
 
-#: ../image.py:301
+#: ../image.py:303
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Tai blogas %s CDROM."
 
-#: ../image.py:307
+#: ../image.py:309
 msgid "Unable to access the CDROM."
 msgstr ""
 
-#: ../image.py:360
+#: ../image.py:362
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -994,7 +1003,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../image.py:508
+#: ../image.py:436
+#, python-format
+msgid ""
+"The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
+"mean it was corrupted on transfer to this computer.\n"
+"\n"
+"It is recommended that you reboot and abort your installation, but you can "
+"choose to continue if you think this is in error."
+msgstr ""
+
+#: ../image.py:510
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1004,20 +1023,20 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../installclass.py:64
+#: ../installclass.py:65
 msgid "Install on System"
 msgstr "Instaliuoti į Sistemą"
 
-#: ../iscsi.py:126 ../iscsi.py:127
+#: ../iscsi.py:197 ../iscsi.py:198
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "Startuoja"
 
-#: ../kickstart.py:73
+#: ../kickstart.py:74
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1026,45 +1045,73 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../kickstart.py:764 ../kickstart.py:782
+#: ../kickstart.py:869 ../kickstart.py:886
 #, fuzzy
 msgid "Running..."
 msgstr "Jungiasi..."
 
-#: ../kickstart.py:765
-msgid "Running pre-install scripts"
-msgstr ""
-
-#: ../kickstart.py:783
+#: ../kickstart.py:870
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:926
+#: ../kickstart.py:887
+msgid "Running pre-install scripts"
+msgstr ""
+
+#: ../kickstart.py:918
 msgid "Missing Package"
 msgstr "Nerastas Paketas"
 
-#: ../kickstart.py:927
+#: ../kickstart.py:919
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
-#: ../yuminstall.py:718
+#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
+#: ../yuminstall.py:864
 msgid "_Abort"
 msgstr "_Atšaukti"
 
-#: ../kickstart.py:961
+#: ../kickstart.py:945
 msgid "Missing Group"
 msgstr "Nerasta Grupė"
 
-#: ../kickstart.py:962
+#: ../kickstart.py:946
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+
+#: ../livecd.py:77 ../livecd.py:262
+#, fuzzy
+msgid "Unable to find image"
+msgstr "Negalima rasti atvaizdo (image) %s"
+
+#: ../livecd.py:78 ../livecd.py:263
+#, python-format
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
+msgstr ""
+
+#: ../livecd.py:82 ../livecd.py:267
+#, fuzzy
+msgid "Exit installer"
+msgstr "Redaguoti Vartotoją"
+
+#: ../livecd.py:144
+#, fuzzy
+msgid "Doing post-installation"
+msgstr "%s %s instaliacija"
+
+#: ../livecd.py:145
+#, fuzzy
+msgid ""
+"Performing post-installation filesystem changes.  This may take several "
+"minutes..."
+msgstr "Prasidėjo instaliacija, tai gali užtrukti keletą minučių..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1080,19 +1127,24 @@ msgstr "Hosto vardas gali turėti tik 'a-z', 'A-Z', '-', ar '.' simbolius."
 
 #: ../network.py:89
 #, fuzzy
-msgid "IP Address is missing."
+msgid "IP address is missing."
 msgstr "IP Adresas nerastas"
 
 #: ../network.py:93
 #, fuzzy
 msgid ""
-"IP Addresses must contain four numbers between 0 and 255, separated by "
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr "IP Adresas turi turėt skaičius nuo 0 iki 255"
 
 #: ../network.py:96
 #, fuzzy, python-format
 msgid "'%s' is not a valid IPv6 address."
+msgstr "Įspėjimas: %s - neteisingas portas."
+
+#: ../network.py:98
+#, fuzzy, python-format
+msgid "'%s' is an invalid IP address."
 msgstr "Įspėjimas: %s - neteisingas portas."
 
 #: ../packages.py:241
@@ -1108,11 +1160,11 @@ msgstr ""
 msgid "Key:"
 msgstr ""
 
-#: ../packages.py:276
+#: ../packages.py:277
 msgid "Warning! This is pre-release software!"
 msgstr "Dėmesio. Tai bandomoji programinė įranga!"
 
-#: ../packages.py:277
+#: ../packages.py:278
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1128,93 +1180,9 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: ../packages.py:290
+#: ../packages.py:291
 msgid "_Install anyway"
 msgstr "_Instaliuot vistiet"
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:558
-msgid "Foreign"
-msgstr ""
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-
-#: ../partedUtils.py:344
-#, fuzzy
-msgid "_Ignore drive"
-msgstr "Ignoruot"
-
-#: ../partedUtils.py:345
-#, fuzzy
-msgid "_Format drive"
-msgstr "_Formatuoti"
-
-#: ../partedUtils.py:791
-#, python-format
-msgid "Error mounting file system on %s: %s"
-msgstr ""
-
-#: ../partedUtils.py:888
-msgid "Initializing"
-msgstr "Startuoja"
-
-#: ../partedUtils.py:889
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Prašom palaukti, kol formatuoja diską %s...\n"
-
-#: ../partedUtils.py:987
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-
-#: ../partedUtils.py:1044
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-
-#: ../partedUtils.py:1162
-msgid "No Drives Found"
-msgstr "Nerasta Diskų"
-
-#: ../partedUtils.py:1163
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1320,8 +1288,8 @@ msgstr ""
 "Jūs negalite ištrinti šios particijos:\n"
 "\n"
 
-#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
-#: ../iw/lvm_dialog_gui.py:757
+#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:528
+#: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
 msgstr "Patvirtinti Trinimą"
 
@@ -1330,9 +1298,9 @@ msgstr "Patvirtinti Trinimą"
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr ""
 
-#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
-#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
+#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:529
+#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1107
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
 msgid "_Delete"
 msgstr "_Trinti"
 
@@ -1389,10 +1357,10 @@ msgstr ""
 
 #: ../partIntfHelpers.py:405
 #, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
+msgid "You need to select at least one hard drive to install %s."
 msgstr ""
 
-#: ../partIntfHelpers.py:411
+#: ../partIntfHelpers.py:410
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1402,23 +1370,23 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:418
 msgid "Format?"
 msgstr "Formatuoti?"
 
-#: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "_Keisti Particiją"
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
 msgstr "_Neformatuoti"
 
-#: ../partIntfHelpers.py:427
+#: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
 msgstr "Klaida su Particijų Kurimu"
 
-#: ../partIntfHelpers.py:428
+#: ../partIntfHelpers.py:427
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1427,11 +1395,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partIntfHelpers.py:442
+#: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
 msgstr "Particijų kurimo Įspėjimai"
 
-#: ../partIntfHelpers.py:443
+#: ../partIntfHelpers.py:442
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1441,23 +1409,23 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partIntfHelpers.py:457 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:664
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../partIntfHelpers.py:460
+#: ../partIntfHelpers.py:459
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partIntfHelpers.py:466
+#: ../partIntfHelpers.py:465
 msgid "Format Warning"
 msgstr "Formatavimo Įspėjimai"
 
-#: ../partIntfHelpers.py:514
+#: ../partIntfHelpers.py:513
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1465,49 +1433,205 @@ msgid ""
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr ""
 
-#: ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
 msgstr ""
 
-#: ../partIntfHelpers.py:524
+#: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr ""
 
-#: ../partIntfHelpers.py:527
+#: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
 msgstr "Pasirinktos particijos bus ištrintos."
 
-#: ../partIntfHelpers.py:537
+#: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
 msgstr "Patvirtinti Reset"
 
-#: ../partIntfHelpers.py:538
+#: ../partIntfHelpers.py:537
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
-#: ../partitioning.py:62
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr ""
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr ""
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr ""
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr ""
+
+#: ../partRequests.py:669
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+
+#: ../partRequests.py:677 ../partitions.py:954
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr ""
+
+#: ../partRequests.py:681
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr ""
+
+#: ../partRequests.py:690
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+
+#: ../partRequests.py:924
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr ""
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+
+#: ../partedUtils.py:335
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this disk for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to format this drive?"
+msgstr ""
+
+#: ../partedUtils.py:344
+#, fuzzy
+msgid "_Ignore drive"
+msgstr "Ignoruot"
+
+#: ../partedUtils.py:345
+#, fuzzy
+msgid "_Format drive"
+msgstr "_Formatuoti"
+
+#: ../partedUtils.py:898
+msgid "Initializing"
+msgstr "Startuoja"
+
+#: ../partedUtils.py:899
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Prašom palaukti, kol formatuoja diską %s...\n"
+
+#: ../partedUtils.py:1019
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+
+#: ../partedUtils.py:1083
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+
+#: ../partedUtils.py:1204
+msgid "No Drives Found"
+msgstr "Nerasta Diskų"
+
+#: ../partedUtils.py:1205
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+
+#: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Instaliacija negali tęstis."
 
-#: ../partitioning.py:63
+#: ../partitioning.py:62
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:93
+#: ../partitioning.py:92
 msgid "Low Memory"
 msgstr "Mažai Atminties"
 
-#: ../partitioning.py:94
+#: ../partitioning.py:93
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1566,10 +1690,6 @@ msgid ""
 "system."
 msgstr ""
 
-#: ../partitions.py:954 ../partRequests.py:677
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr ""
@@ -1606,79 +1726,6 @@ msgstr ""
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr ""
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr ""
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr ""
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr ""
@@ -1702,19 +1749,19 @@ msgstr "Tinklo Nustatymai"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Ar jūs norite paleisti tinklo plokštes  šioj sistemoj?"
 
-#: ../rescue.py:243 ../text.py:533
+#: ../rescue.py:243 ../text.py:534
 msgid "Cancelled"
 msgstr "Atšaukta"
 
-#: ../rescue.py:244 ../text.py:534
+#: ../rescue.py:244 ../text.py:535
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Aš negaliu eiti atgal iš čia. Jūs turite pabandyti dar kartą."
 
-#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
+#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
 msgstr ""
 
-#: ../rescue.py:281
+#: ../rescue.py:277
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1728,35 +1775,36 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
-#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
+#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
+#: ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Pratęsti"
 
-#: ../rescue.py:291 ../rescue.py:296
+#: ../rescue.py:287 ../rescue.py:292
 msgid "Read-Only"
 msgstr ""
 
-#: ../rescue.py:322
+#: ../rescue.py:318
 msgid "System to Rescue"
 msgstr ""
 
-#: ../rescue.py:323
+#: ../rescue.py:319
 msgid "What partition holds the root partition of your installation?"
 msgstr ""
 
-#: ../rescue.py:325 ../rescue.py:329
+#: ../rescue.py:321 ../rescue.py:325
 msgid "Exit"
 msgstr "Išeiti"
 
-#: ../rescue.py:348
+#: ../rescue.py:344
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:356
+#: ../rescue.py:352
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1769,7 +1817,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:439
+#: ../rescue.py:435
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1779,17 +1827,17 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:445
+#: ../rescue.py:441
 msgid "Rescue Mode"
 msgstr ""
 
-#: ../rescue.py:446
+#: ../rescue.py:442
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:459
+#: ../rescue.py:455
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -1844,30 +1892,22 @@ msgstr "Nėra pagalbos šitam instaliacijos punktui."
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Sveiki atvykę į %s"
 
-#: ../text.py:426
+#: ../text.py:423
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> pagalba | <Tab> tarp elementų | <Space> žymėti | <F12> sek. ekranas"
 
-#: ../text.py:428
+#: ../text.py:425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr "  <Tab> tarp elementų | <Space> žymėti | <F12> sek. ekranas"
-
-#: ../upgradeclass.py:22
-msgid "Upgrade Existing System"
-msgstr "Atnaujinti Esančią Sistemą"
-
-#: ../upgradeclass.py:26
-msgid "Upgrade"
-msgstr "Atnaujinti"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -1893,11 +1933,11 @@ msgstr "Ieško"
 msgid "Searching for %s installations..."
 msgstr "Ieško %s instaliacijos..."
 
-#: ../upgrade.py:150 ../upgrade.py:158
+#: ../upgrade.py:149 ../upgrade.py:157
 msgid "Dirty File Systems"
 msgstr ""
 
-#: ../upgrade.py:151
+#: ../upgrade.py:150
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1906,7 +1946,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:159
+#: ../upgrade.py:158
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1914,24 +1954,24 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:296 ../upgrade.py:302
+#: ../upgrade.py:295 ../upgrade.py:301
 msgid "Mount failed"
 msgstr ""
 
-#: ../upgrade.py:297
+#: ../upgrade.py:296
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:303
+#: ../upgrade.py:302
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:320
+#: ../upgrade.py:319
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1939,11 +1979,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../upgrade.py:326
+#: ../upgrade.py:325
 msgid "Absolute Symlinks"
 msgstr ""
 
-#: ../upgrade.py:337
+#: ../upgrade.py:336
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -1951,20 +1991,20 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../upgrade.py:343
+#: ../upgrade.py:342
 msgid "Invalid Directories"
 msgstr "Blogos Direktorijos"
 
-#: ../upgrade.py:350
+#: ../upgrade.py:349
 #, python-format
 msgid "%s not found"
 msgstr "%s nerasta"
 
-#: ../urlinstall.py:36
+#: ../urlinstall.py:38
 msgid "Connecting..."
 msgstr "Jungiasi..."
 
-#: ../urlinstall.py:75
+#: ../urlinstall.py:77
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1976,104 +2016,104 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../vnc.py:44
+#: ../vnc.py:47
 #, fuzzy
 msgid "Unable to Start X"
 msgstr "Negali užkrauti bylos!"
 
-#: ../vnc.py:45
+#: ../vnc.py:48
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
 
-#: ../vnc.py:52 ../vnc.py:55
+#: ../vnc.py:55 ../vnc.py:58
 msgid "Use text mode"
 msgstr ""
 
-#: ../vnc.py:53
+#: ../vnc.py:56
 #, fuzzy
 msgid "Start VNC"
 msgstr "Paleidžia VNC..."
 
-#: ../vnc.py:63
+#: ../vnc.py:66
 #, fuzzy
 msgid "VNC Configuration"
 msgstr "Silo Nustatymai"
 
-#: ../vnc.py:67
+#: ../vnc.py:70
 #, fuzzy
 msgid "No password"
 msgstr "Supervartotojo(Root) Slaptažodis"
 
-#: ../vnc.py:70
+#: ../vnc.py:73
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
 
-#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
 msgid "Password:"
 msgstr "Slaptažodis:"
 
-#: ../vnc.py:79 ../textw/userauth_text.py:43
+#: ../vnc.py:82 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "Slaptažodis (pakartoti):"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:64
+#: ../vnc.py:104 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "Slaptažodžiai Nesutampa"
 
-#: ../vnc.py:102 ../textw/userauth_text.py:65
+#: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "Įvesti slaptažodžiai skiriasi. Prašau pakartoti."
 
-#: ../vnc.py:107 ../textw/userauth_text.py:59
+#: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "Slaptažodžio Ilgis"
 
-#: ../vnc.py:108
+#: ../vnc.py:111
 #, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "Slaptažodis turi būti min 6 simbolių ilgio."
 
-#: ../vnc.py:138
+#: ../vnc.py:141
 #, fuzzy
 msgid "VNC Password Error"
 msgstr "Supervartotojo(Root) Slaptažodis"
 
-#: ../vnc.py:139
+#: ../vnc.py:142
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: ../vnc.py:184
+#: ../vnc.py:187
 msgid "Starting VNC..."
 msgstr "Paleidžia VNC..."
 
-#: ../vnc.py:227
+#: ../vnc.py:230
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "%s %s instaliacija host'e %s"
 
-#: ../vnc.py:229
+#: ../vnc.py:232
 #, python-format
 msgid "%s %s installation"
 msgstr "%s %s instaliacija"
 
-#: ../vnc.py:249
+#: ../vnc.py:252
 msgid "Unable to set vnc password - using no password!"
 msgstr "Negali nustatyti vnc slapt. - naudojama be slaptažodžio!"
 
-#: ../vnc.py:250
+#: ../vnc.py:253
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Įsitikinkite, kad jūsų slaptažodis ne mažiau 6 simbolių ilgio."
 
-#: ../vnc.py:273
+#: ../vnc.py:276
 msgid ""
 "\n"
 "\n"
@@ -2089,104 +2129,104 @@ msgstr ""
 "jei norite apsaugoti serverį.\n"
 "\n"
 
-#: ../vnc.py:277
+#: ../vnc.py:280
 msgid "The VNC server is now running."
 msgstr "VNC serveris paleistas."
 
-#: ../vnc.py:280
+#: ../vnc.py:283
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Bandoma prisijungti prie vnc kliento į hostą %s..."
 
-#: ../vnc.py:292
+#: ../vnc.py:295
 msgid "Connected!"
 msgstr "Prisijungta!"
 
-#: ../vnc.py:297
+#: ../vnc.py:300
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Nustota jungti po 50 bandymų!\n"
 
-#: ../vnc.py:299
+#: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 "Prašome rankiniu būdu jungtis su vnc klientu į %s, kad pradėti instaliaciją."
 
-#: ../vnc.py:301
+#: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 "Prašome rankiniu būdu jungtis su vnc klientu, kad pradėti instaliaciją."
 
-#: ../vnc.py:305
+#: ../vnc.py:308
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Vėl bandys jungtis po 15 sekundžių..."
 
-#: ../vnc.py:313
+#: ../vnc.py:316
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Prašome prisijungti į %s, kad pradėti instaliuoti..."
 
-#: ../vnc.py:315
+#: ../vnc.py:318
 msgid "Please connect to begin the install..."
 msgstr "Prašome prisijungti, kad pradėti instaliuoti..."
 
-#: ../yuminstall.py:103
+#: ../yuminstall.py:100
 msgid "Processing"
 msgstr "Vykdo"
 
-#: ../yuminstall.py:104
+#: ../yuminstall.py:101
 #, fuzzy
 msgid "Preparing transaction from installation source..."
 msgstr "Bando instaliuoti..."
 
-#: ../yuminstall.py:470 ../yuminstall.py:471
+#: ../yuminstall.py:614 ../yuminstall.py:615
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:472
+#: ../yuminstall.py:616
 #, fuzzy
 msgid "older package(s)"
 msgstr "Papildom. Paketai"
 
-#: ../yuminstall.py:473
+#: ../yuminstall.py:617
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:474
+#: ../yuminstall.py:618
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:475
+#: ../yuminstall.py:619
 msgid "package conflicts"
 msgstr ""
 
-#: ../yuminstall.py:476
+#: ../yuminstall.py:620
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:477
+#: ../yuminstall.py:621
 #, fuzzy
 msgid "required package"
 msgstr "Laisva vieta"
 
-#: ../yuminstall.py:478
+#: ../yuminstall.py:622
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:479
+#: ../yuminstall.py:623
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:493
+#: ../yuminstall.py:637
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:509
+#: ../yuminstall.py:653
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Bandomas RPM perkelėlimas..."
 
-#: ../yuminstall.py:510
+#: ../yuminstall.py:654
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2195,22 +2235,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
+#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
+#: ../yuminstall.py:1140
 #, fuzzy
 msgid "Re_boot"
 msgstr "Perkrauti"
 
-#: ../yuminstall.py:697
+#: ../yuminstall.py:843
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Skaito paketo informaciją..."
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:845
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Skaito paketo informaciją..."
 
-#: ../yuminstall.py:721
+#: ../yuminstall.py:867
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2218,114 +2259,81 @@ msgid ""
 "generated.  %s"
 msgstr ""
 
-#: ../yuminstall.py:760
+#: ../yuminstall.py:883
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+
+#: ../yuminstall.py:915
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:995
+#: ../yuminstall.py:1134
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1149
+#: ../yuminstall.py:1289
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: ../yuminstall.py:1181
+#: ../yuminstall.py:1321
 msgid "Install Starting"
 msgstr "Instaliacija Prasideda"
 
-#: ../yuminstall.py:1182
+#: ../yuminstall.py:1322
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Prasidėjo instaliacija, tai gali užtrukti keletą minučių..."
 
-#: ../yuminstall.py:1198
+#: ../yuminstall.py:1338
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "Atnaujinti"
 
-#: ../yuminstall.py:1199
+#: ../yuminstall.py:1339
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Starto kroviklio(bootloader) Nustatymai"
 
-#: ../yuminstall.py:1201
+#: ../yuminstall.py:1341
 msgid "Post Install"
 msgstr ""
 
-#: ../yuminstall.py:1202
+#: ../yuminstall.py:1342
 msgid "Performing post install configuration..."
 msgstr ""
 
-#: ../yuminstall.py:1357
+#: ../yuminstall.py:1524
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Instaliacijos Tipas"
 
-#: ../yuminstall.py:1392
+#: ../yuminstall.py:1559
 msgid "Dependency Check"
 msgstr "Reikalavimų Tikrinimas"
 
-#: ../yuminstall.py:1393
+#: ../yuminstall.py:1560
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tikrina reikalavimus paketų, pasirinktų per instaliacija..."
 
-#: ../zfcp.py:29
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
-msgstr ""
-
-#: ../zfcp.py:31
-#, fuzzy
-msgid "Device number"
-msgstr "Įrenginys"
-
-#: ../zfcp.py:32
+#: ../zfcp.py:43
 #, fuzzy
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Jūs nepasirinkote hosto vardo."
 
-#: ../zfcp.py:34
-msgid "SCSI Id"
-msgstr ""
-
-#: ../zfcp.py:35
-#, fuzzy
-msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Jūs nepasirinkote hosto vardo."
-
-#: ../zfcp.py:37 ../textw/zfcp_text.py:101
-msgid "WWPN"
-msgstr ""
-
-#: ../zfcp.py:38
+#: ../zfcp.py:45
 #, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "Jūs nepasirinkote hosto vardo."
 
-#: ../zfcp.py:40
-msgid "SCSI LUN"
-msgstr ""
-
-#: ../zfcp.py:41
-#, fuzzy
-msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Jūs nepasirinkote hosto vardo."
-
-#: ../zfcp.py:43 ../textw/zfcp_text.py:101
-msgid "FCP LUN"
-msgstr ""
-
-#: ../zfcp.py:44
+#: ../zfcp.py:47
 #, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Jūs nepasirinkote hosto vardo."
@@ -2373,35 +2381,35 @@ msgstr "Root _Slaptažodis: "
 msgid "_Confirm: "
 msgstr "_Patvirtinti: "
 
-#: ../iw/autopart_type.py:134
+#: ../iw/autopart_type.py:137
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "Blogos Direktorijos"
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:138
 #, fuzzy
 msgid "You must provide a non-zero length initiator name."
 msgstr "Jūs turite įvesti vartotojo vardą"
 
-#: ../iw/autopart_type.py:157
+#: ../iw/autopart_type.py:161
 #, fuzzy
 msgid "Error with Data"
 msgstr "Klaida Su Duomenim"
 
-#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
+#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Ištrinti visas particijas jūsų sistemoje"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr ""
 
@@ -2596,7 +2604,7 @@ msgstr ""
 msgid "Drive"
 msgstr "Diskas"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1447
 msgid "Size"
 msgstr "Dydis"
 
@@ -2604,37 +2612,37 @@ msgstr "Dydis"
 msgid "Model"
 msgstr "Modelis"
 
-#: ../iw/examine_gui.py:31
+#: ../iw/examine_gui.py:28
 msgid "Upgrade Examine"
 msgstr "Atnaujinti Patikrinti"
 
-#: ../iw/examine_gui.py:55
+#: ../iw/examine_gui.py:50
 #, python-format
 msgid "_Install %s"
 msgstr "_Instaliuoti %s"
 
-#: ../iw/examine_gui.py:57
+#: ../iw/examine_gui.py:52
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:56
 msgid "_Upgrade an existing installation"
 msgstr "_Atnaujinti ęsamą instaliacija"
 
-#: ../iw/examine_gui.py:63
+#: ../iw/examine_gui.py:58
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
 
-#: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr ""
 
-#: ../iw/examine_gui.py:123
+#: ../iw/examine_gui.py:118
 msgid "Unknown Linux system"
 msgstr "Nežinoma Linux sistema"
 
@@ -2642,15 +2650,15 @@ msgstr "Nežinoma Linux sistema"
 msgid "Language Selection"
 msgstr "Kalbos Pasirinkimas"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "Kokios kalbos pageidaujate instaliacijos metu?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
-#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
-#: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
+#: ../iw/lvm_dialog_gui.py:287 ../iw/lvm_dialog_gui.py:601
+#: ../iw/lvm_dialog_gui.py:669 ../iw/lvm_dialog_gui.py:880
+#: ../textw/partition_text.py:1301 ../textw/partition_text.py:1320
 msgid "Not enough space"
 msgstr "Nera pakankamai vietos"
 
@@ -2675,7 +2683,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
+#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
 msgid "C_ontinue"
 msgstr "_Tęsti"
 
@@ -2713,104 +2721,104 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:290
+#: ../iw/lvm_dialog_gui.py:288
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
+#: ../iw/lvm_dialog_gui.py:368 ../textw/partition_text.py:1139
 msgid "Make Logical Volume"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:373
+#: ../iw/lvm_dialog_gui.py:371
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
+#: ../iw/lvm_dialog_gui.py:373 ../textw/partition_text.py:1137
 msgid "Edit Logical Volume"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
+#: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
+#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:323
 #: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:357
 #: ../iw/raid_dialog_gui.py:314
 msgid "Original File System Label:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:426
+#: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:432 ../textw/partition_text.py:287
 msgid "Logical Volume Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
 msgid "_Size (MB):"
 msgstr "_Dydis (MB):"
 
-#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
-#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
-#: ../textw/partition_text.py:378 ../textw/partition_text.py:461
-#: ../textw/partition_text.py:569
+#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
+#: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
+#: ../textw/partition_text.py:379 ../textw/partition_text.py:462
+#: ../textw/partition_text.py:570
 msgid "Size (MB):"
 msgstr "Dydis (MB):"
 
-#: ../iw/lvm_dialog_gui.py:463
+#: ../iw/lvm_dialog_gui.py:461
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Maks. dydis - %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:524
+#: ../iw/lvm_dialog_gui.py:522 ../textw/partition_text.py:1290
 msgid "Illegal size"
 msgstr "Neteisingas dydis"
 
-#: ../iw/lvm_dialog_gui.py:525
+#: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1291
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:558
+#: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:559
+#: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:587 ../textw/partition_text.py:1278
 msgid "Illegal logical volume name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:604
+#: ../iw/lvm_dialog_gui.py:602
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -2818,65 +2826,65 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
-#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
-#: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
-#: ../textw/partition_text.py:1330
+#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
+#: ../textw/partition_text.py:933 ../textw/partition_text.py:1107
+#: ../textw/partition_text.py:1340
 msgid "Error With Request"
 msgstr "Klaida Su Užklausa"
 
-#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
+#: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
 #, python-format
 msgid ""
-"The logical volumes you have configured require %g MB, but the volume group "
-"only has %g MB.  Please either make the volume group larger or make the "
+"The logical volumes you have configured require %d MB, but the volume group "
+"only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:722
+#: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:723
+#: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:729
+#: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
 msgstr "Nėra laisvo vietos"
 
-#: ../iw/lvm_dialog_gui.py:730
+#: ../iw/lvm_dialog_gui.py:728
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:758
+#: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:907
+#: ../iw/lvm_dialog_gui.py:903
 msgid "Name in use"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:908
+#: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:948
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2885,71 +2893,71 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:959
 msgid "Make LVM Volume Group"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:967
+#: ../iw/lvm_dialog_gui.py:962
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:969
+#: ../iw/lvm_dialog_gui.py:964
 msgid "Edit LVM Volume Group"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:985
+#: ../iw/lvm_dialog_gui.py:980
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:988
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:996
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1022
+#: ../iw/lvm_dialog_gui.py:1017
 msgid "Used Space:"
 msgstr "Naudoj. Vieta:"
 
-#: ../iw/lvm_dialog_gui.py:1039
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "Free Space:"
 msgstr "Laisva Vieta:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1052
 msgid "Total Space:"
 msgstr "Bendra Vieta:"
 
-#: ../iw/lvm_dialog_gui.py:1086
+#: ../iw/lvm_dialog_gui.py:1081
 msgid "Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
-#: ../textw/upgrade_text.py:108
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
+#: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Prijungimo Vieta(mount point)"
 
-#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
 msgid "Size (MB)"
 msgstr "Dydis (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Pridėti"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "R_edaguoti"
 
-#: ../iw/lvm_dialog_gui.py:1124
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volumes"
 msgstr ""
 
@@ -2989,14 +2997,15 @@ msgstr "_Emuliuoti 3 klav."
 msgid "Select the appropriate mouse for the system."
 msgstr ""
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
-#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
-#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
-#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
+#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
+#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
+#: ../textw/network_text.py:54 ../textw/network_text.py:59
+#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "Klaida Su Duomenim"
 
-#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3005,49 +3014,53 @@ msgstr ""
 "Klaida, verčiant reikšmę \"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+#: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
 msgstr "Dinaminis IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Siunčia užklausa dėl IP informacijos %s..."
 
-#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "IP Adresas"
 
-#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+#: ../iw/netconfig_dialog.py:182
 msgid "Netmask"
 msgstr "Potinklis(Netmask)"
 
-#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
-#: ../iw/network_gui.py:766
+#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
+#: ../iw/network_gui.py:540
 msgid "Gateway"
 msgstr "Šliuzas(Gateway)"
 
-#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
 msgstr "Vardų serveris"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+#: ../iw/netconfig_dialog.py:214
+msgid "Error configuring network device"
+msgstr ""
+
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
 msgstr "Pirminis DNS"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
 msgid "Secondary DNS"
 msgstr "Antrinis DNS"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Gateway"
 msgstr "_Šliuzas(Gateway)"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Primary DNS"
 msgstr "_Pirminis DNS"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
 msgstr "_Antrinis DNS"
 
@@ -3055,20 +3068,20 @@ msgstr "_Antrinis DNS"
 msgid "Network Configuration"
 msgstr "Tinklo Nustatymai"
 
-#: ../iw/network_gui.py:157
+#: ../iw/network_gui.py:156
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
 
-#: ../iw/network_gui.py:161
+#: ../iw/network_gui.py:160
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
 
-#: ../iw/network_gui.py:165 ../textw/network_text.py:404
+#: ../iw/network_gui.py:164 ../textw/network_text.py:625
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3079,139 +3092,132 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:180
-#, python-format
-msgid "A value is required for the field \"%s\"."
+#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
 msgstr "Reikšmė reikalinga \"%s\"."
 
-#: ../iw/network_gui.py:184
-msgid "The IP information you have entered is invalid."
+#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#, fuzzy, python-format
+msgid "Error With %s Data"
+msgstr "Klaida Su Duomenim"
+
+#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr ""
+
+#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#, fuzzy
+msgid "The IPv4 information you have entered is invalid."
 msgstr "Klaidingai įvesta IP informacija."
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:180
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 
-#: ../iw/network_gui.py:264
-#, python-format
-msgid "Edit Interface %s"
-msgstr "Redaguoti Interfeisą %s"
+#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+msgid "Disabled"
+msgstr "Išjungti"
 
-#: ../iw/network_gui.py:276
-#, fuzzy, python-format
-msgid "Hardware address: %s"
-msgstr "IP adresas:"
-
-#: ../iw/network_gui.py:281
-#, fuzzy
-msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
-
-#: ../iw/network_gui.py:286 ../loader2/net.c:691
-msgid "Enable IPv4 support"
-msgstr ""
-
-#: ../iw/network_gui.py:291 ../loader2/net.c:702
-msgid "Enable IPv6 support"
-msgstr ""
-
-#: ../iw/network_gui.py:296
-msgid "_Activate on boot"
-msgstr "_Aktyvuoti starto(boot) metu"
-
-#: ../iw/network_gui.py:326
-#, fuzzy
-msgid "IPv_4 Address:"
-msgstr "IP adresas:"
-
-#: ../iw/network_gui.py:348
-#, fuzzy
-msgid "IPv_6 Address:"
-msgstr "IP adresas:"
-
-#: ../iw/network_gui.py:371
-#, fuzzy
-msgid "_Point to Point (IP):"
-msgstr "_Taškas į Tašką (IP)"
-
-#: ../iw/network_gui.py:383
-msgid "_ESSID:"
-msgstr ""
-
-#: ../iw/network_gui.py:393
-msgid "Encryption _Key:"
-msgstr ""
-
-#: ../iw/network_gui.py:409
-#, python-format
-msgid "Configure %s"
-msgstr "Konfiguruoti %s"
-
-#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
-#, fuzzy
-msgid "Invalid Prefix"
-msgstr "Neteisingas IP stringas"
-
-#: ../iw/network_gui.py:458
-#, fuzzy
-msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP Adresas turi turėt skaičius nuo 1 iki 255"
-
-#: ../iw/network_gui.py:475
-#, fuzzy
-msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP Adresas turi turėt skaičius nuo 1 iki 255"
-
-#: ../iw/network_gui.py:629
+#: ../iw/network_gui.py:405
 msgid "Active on Boot"
 msgstr "Aktyvuoti Starto(Boot) metu"
 
-#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
+#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1437
+#: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "Įrenginys"
 
-#: ../iw/network_gui.py:633
+#: ../iw/network_gui.py:409
 #, fuzzy
 msgid "IPv4/Netmask"
 msgstr "IP/Potinklis"
 
-#: ../iw/network_gui.py:635
+#: ../iw/network_gui.py:411
 msgid "IPv6/Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:697
+#: ../iw/network_gui.py:471
 msgid "Network Devices"
 msgstr "Tinklo Įrenginiai"
 
-#: ../iw/network_gui.py:708
+#: ../iw/network_gui.py:482
 msgid "Set the hostname:"
 msgstr "Nustatyti host vardą:"
 
-#: ../iw/network_gui.py:713
+#: ../iw/network_gui.py:487
 msgid "_automatically via DHCP"
 msgstr "_automatiškai per DHCP"
 
-#: ../iw/network_gui.py:720
+#: ../iw/network_gui.py:494
 msgid "_manually"
 msgstr "_rankiniu"
 
-#: ../iw/network_gui.py:725
+#: ../iw/network_gui.py:499
 #, fuzzy
 msgid "(e.g., host.domain.com)"
 msgstr "(pvz. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:731 ../loader2/net.c:1401
+#: ../iw/network_gui.py:505
 msgid "Hostname"
 msgstr "Hosto vardas"
 
-#: ../iw/network_gui.py:775
+#: ../iw/network_gui.py:549
 msgid "Miscellaneous Settings"
 msgstr "Papildomi Nustatymai"
+
+#: ../iw/network_gui.py:638
+#, fuzzy
+msgid "Edit Device "
+msgstr "Redaguoti RAID Įrenginį"
+
+#: ../iw/network_gui.py:642
+msgid "Unknown Ethernet Device"
+msgstr ""
+
+#: ../iw/network_gui.py:648
+#, fuzzy
+msgid "unknown"
+msgstr "Nežinoma"
+
+#: ../iw/network_gui.py:650
+#, fuzzy
+msgid "Hardware address: "
+msgstr "IP adresas:"
+
+#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "Nerasta Grupė"
+
+#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#, fuzzy
+msgid "You must select at least IPv4 or IPv6 support."
+msgstr "Jūs turite pasirinkti bent vieną kalbą."
+
+#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
+#: ../textw/network_text.py:353 ../textw/network_text.py:380
+#: ../textw/network_text.py:386 ../loader2/net.c:92
+#, fuzzy
+msgid "Invalid Prefix"
+msgstr "Neteisingas IP stringas"
+
+#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#, fuzzy
+msgid "IPv4 prefix must be between 0 and 32."
+msgstr "IP Adresas turi turėt skaičius nuo 1 iki 255"
+
+#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
+#: ../textw/network_text.py:381
+#, fuzzy
+msgid "IPv6 prefix must be between 0 and 128."
+msgstr "IP Adresas turi turėt skaičius nuo 1 iki 255"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3303,72 +3309,72 @@ msgstr ""
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr ""
 
-#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
+#: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
 msgstr "Pridėti Particiją"
 
-#: ../iw/partition_dialog_gui.py:272
+#: ../iw/partition_dialog_gui.py:273
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Redaguoti Particiją: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:274
+#: ../iw/partition_dialog_gui.py:275
 msgid "Edit Partition"
 msgstr "Redaguoti Particiją"
 
-#: ../iw/partition_dialog_gui.py:301
+#: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
 msgstr "Failų Sistemų _Tipas:"
 
-#: ../iw/partition_dialog_gui.py:333
+#: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
 msgstr "Galimi _Diskai:"
 
-#: ../iw/partition_dialog_gui.py:346
+#: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
 msgstr "Diskas:"
 
-#: ../iw/partition_dialog_gui.py:390
+#: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
 msgstr "_Prad. Cilindro:"
 
-#: ../iw/partition_dialog_gui.py:408
+#: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
 msgstr "P_ab. Cilindro:"
 
-#: ../iw/partition_dialog_gui.py:460
+#: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
 msgstr ""
 
-#: ../iw/partition_gui.py:314
+#: ../iw/partition_gui.py:313
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:321
+#: ../iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "Tipas"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "Pradžia"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "Pabaiga"
 
-#: ../iw/partition_gui.py:408
+#: ../iw/partition_gui.py:407
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
 
-#: ../iw/partition_gui.py:410
+#: ../iw/partition_gui.py:409
 msgid ""
 "Size\n"
 "(MB)"
@@ -3376,80 +3382,80 @@ msgstr ""
 "Dydis\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "Particijų Kūrimas"
 
-#: ../iw/partition_gui.py:633
+#: ../iw/partition_gui.py:632
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:636
+#: ../iw/partition_gui.py:635
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
-#: ../iw/partition_gui.py:642
+#: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
 msgstr "Particijų Kūrimo Klaidos"
 
-#: ../iw/partition_gui.py:648
+#: ../iw/partition_gui.py:647
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:650
+#: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:655
+#: ../iw/partition_gui.py:654
 msgid "Partitioning Warnings"
 msgstr "Particijų kūrimo Įspėjimai"
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:676
 msgid "Format Warnings"
 msgstr "Formatavimo Įspėjimai"
 
-#: ../iw/partition_gui.py:682
+#: ../iw/partition_gui.py:681
 msgid "_Format"
 msgstr "_Formatuoti"
 
-#: ../iw/partition_gui.py:717
+#: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
 msgstr "LVM Volume Grupės"
 
-#: ../iw/partition_gui.py:752
+#: ../iw/partition_gui.py:753
 msgid "RAID Devices"
 msgstr "RAID Įrenginiai"
 
-#: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
-#: ../textw/partition_text.py:96 ../textw/partition_text.py:159
+#: ../iw/partition_gui.py:781 ../iw/partition_gui.py:907
+#: ../textw/partition_text.py:97 ../textw/partition_text.py:160
 msgid "None"
 msgstr "Jokia"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
 msgid "Hard Drives"
 msgstr "Kieti Diskai"
 
-#: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
-#: ../textw/partition_text.py:180
+#: ../iw/partition_gui.py:870 ../textw/partition_text.py:142
+#: ../textw/partition_text.py:181
 msgid "Free space"
 msgstr "Laisva vieta"
 
-#: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
+#: ../iw/partition_gui.py:872 ../textw/partition_text.py:144
 msgid "Extended"
 msgstr "Extended"
 
-#: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
+#: ../iw/partition_gui.py:874 ../textw/partition_text.py:146
 msgid "software RAID"
 msgstr "program. RAID"
 
-#: ../iw/partition_gui.py:908
+#: ../iw/partition_gui.py:909
 msgid "Free"
 msgstr "Laisva"
 
-#: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
+#: ../iw/partition_gui.py:998 ../textw/partition_text.py:229
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
@@ -3459,33 +3465,33 @@ msgstr ""
 msgid "Warning: %s."
 msgstr "Įspėjimas: %s."
 
-#: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "Nepalaikoma"
 
-#: ../iw/partition_gui.py:1192
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1213
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr ""
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1228
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "RAID Opcijos"
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3497,7 +3503,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3505,80 +3511,80 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1256
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "Ką jūs norite daryt dabar?"
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr "Kurti prorgraminę RAID _particiją."
 
-#: ../iw/partition_gui.py:1268
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Kurti RAID įrenginį [stand.=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1272
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1351
 msgid "Ne_w"
 msgstr "_Nauja"
 
-#: ../iw/partition_gui.py:1359
+#: ../iw/partition_gui.py:1354
 msgid "Re_set"
 msgstr "Nunulint"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1355
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1361
+#: ../iw/partition_gui.py:1356
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1402
+#: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Paslėpti RAID įrenginius/LVM Volume _Group narius"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
-#: ../textw/partition_text.py:253 ../textw/partition_text.py:255
-#: ../textw/partition_text.py:280
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:254 ../textw/partition_text.py:256
+#: ../textw/partition_text.py:281
 msgid "<Not Applicable>"
 msgstr "<Negalima>"
 
-#: ../iw/partition_ui_helpers_gui.py:250
+#: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
 msgstr ""
 
-#: ../iw/partition_ui_helpers_gui.py:258
+#: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
 msgstr "Palikti _nepakeista (išsaugoti duomenis)"
 
-#: ../iw/partition_ui_helpers_gui.py:264
+#: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
 msgstr "_Formatuoti particiją kaip:"
 
-#: ../iw/partition_ui_helpers_gui.py:287
+#: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
 msgstr "Mi_gruoti į:"
 
-#: ../iw/partition_ui_helpers_gui.py:309
+#: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
 msgstr "Tikrinti dėl _blogų blokų?"
 
-#: ../iw/partition_ui_helpers_gui.py:344
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -3621,30 +3627,30 @@ msgstr "%s Baitų"
 msgid "Installing Packages"
 msgstr "Instaliuoja Paketus"
 
-#: ../iw/progress_gui.py:166
+#: ../iw/progress_gui.py:170
 #, python-format
 msgid "Remaining time: %s minutes"
 msgstr "Reikia laiko: %s min."
 
-#: ../iw/progress_gui.py:182
+#: ../iw/progress_gui.py:186
 #, python-format
 msgid "Downloading %s"
 msgstr "Parsiunčia %s"
 
-#: ../iw/progress_gui.py:222
+#: ../iw/progress_gui.py:226
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "Instaliuoja %s-%s-%s.%s (%s)"
 
-#: ../iw/progress_gui.py:346
+#: ../iw/progress_gui.py:350
 msgid "Package"
 msgstr "Paketas"
 
-#: ../iw/progress_gui.py:347
+#: ../iw/progress_gui.py:351
 msgid "Summary"
 msgstr "Viso"
 
-#: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
+#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 msgid "Status: "
 msgstr "Statusas: "
 
@@ -3658,7 +3664,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
-#: ../textw/partition_text.py:967
+#: ../textw/partition_text.py:968
 msgid "Make RAID Device"
 msgstr "Kurti RAID Įrenginį"
 
@@ -3667,7 +3673,7 @@ msgstr "Kurti RAID Įrenginį"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Redaguoti RAID Įrenginį: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
+#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:966
 msgid "Edit RAID Device"
 msgstr "Redaguoti RAID Įrenginį"
 
@@ -3811,19 +3817,19 @@ msgstr ""
 msgid "Drives"
 msgstr "Diskai"
 
-#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../iw/release_notes.py:221
+#: ../iw/release_notes.py:236
 msgid "Release Notes"
 msgstr "Išleidimo Aprašymas"
 
-#: ../iw/release_notes.py:224
+#: ../iw/release_notes.py:239
 msgid "Unable to load file!"
 msgstr "Negali užkrauti bylos!"
 
-#: ../iw/task_gui.py:79
+#: ../iw/task_gui.py:80
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3833,32 +3839,32 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../iw/task_gui.py:89
+#: ../iw/task_gui.py:90
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
 
-#: ../iw/task_gui.py:121
+#: ../iw/task_gui.py:122
 #, fuzzy
 msgid "Invalid Repository Name"
 msgstr "Neteisingas Hosto vardas"
 
-#: ../iw/task_gui.py:122
+#: ../iw/task_gui.py:123
 #, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "Jūs turite įvesti vartotojo vardą"
 
-#: ../iw/task_gui.py:131
+#: ../iw/task_gui.py:132
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:133
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
-#: ../iw/task_gui.py:146
+#: ../iw/task_gui.py:147
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3921,11 +3927,11 @@ msgstr ""
 msgid "What would you like to do?"
 msgstr "Ką jūs norite daryti?"
 
-#: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
+#: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:31
 msgid "Migrate File Systems"
 msgstr "Migravimas Failų Sistemų"
 
-#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
+#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
 #, python-format
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
@@ -3965,7 +3971,7 @@ msgstr "Aš _noriu sukurti swap bylą"
 msgid "Select the _partition to put the swap file on:"
 msgstr "Pasirinkite _particiją, kur bus swap byla:"
 
-#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
+#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Particija"
 
@@ -3995,43 +4001,13 @@ msgid ""
 "to continue?"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
+#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
+#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
-
-#: ../iw/zfcp_gui.py:24
-#, fuzzy
-msgid "ZFCP Configuration"
-msgstr "Silo Nustatymai"
-
-#: ../iw/zfcp_gui.py:103
-msgid "_Remove"
-msgstr ""
-
-#: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
-#, fuzzy
-msgid "FCP Devices"
-msgstr "Įrenginiai"
-
-#: ../iw/zfcp_gui.py:121
-#, fuzzy
-msgid "Add FCP device"
-msgstr "Pridėti įrenginį"
-
-#: ../iw/zfcp_gui.py:184
-#, fuzzy, python-format
-msgid "Edit FCP device %s"
-msgstr "Redaguoti RAID Įrenginį"
-
-#: ../iw/zfcp_gui.py:248
-msgid ""
-"You're about to remove a FCP disk from your configuration. Are you sure that "
-"you wish to continue?"
 msgstr ""
 
 #: ../iw/zipl_gui.py:28
@@ -4133,8 +4109,7 @@ msgstr ""
 msgid "Boot label contains illegal characters."
 msgstr ""
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
-#: ../textw/zfcp_text.py:108
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Redaguoti"
 
@@ -4247,11 +4222,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
-#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:275 ../loader2/urls.c:455
+#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
+#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:283 ../loader2/urls.c:471
 msgid "Back"
 msgstr "Atgal"
 
@@ -4278,7 +4253,12 @@ msgid ""
 msgstr ""
 "   <Tarpas>,<+>,<-> pažymi     |  <F1> pagalba |   <F2> paketo aprašymas"
 
-#: ../textw/grpselect_text.py:133
+#: ../textw/grpselect_text.py:117
+#, fuzzy
+msgid "No optional packages to select"
+msgstr "Neinstaliuoti paketų, kurie turi reikalavimų"
+
+#: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
 msgstr "Paketo Grupės Aprašymas"
 
@@ -4306,96 +4286,111 @@ msgstr "Emuliuoti 3 klav.?"
 msgid "Mouse Selection"
 msgstr "Pelės Pasirinkimas"
 
-#: ../textw/network_text.py:28
-msgid "Invalid IP string"
-msgstr "Neteisingas IP stringas"
-
-#: ../textw/network_text.py:29
+#: ../textw/network_text.py:60
 #, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "Įvestas IP '%s' - neteisingas IP."
-
-#: ../textw/network_text.py:75
-msgid "Point to Point (IP)"
-msgstr "Taškas į tašką (IP)"
-
-#: ../textw/network_text.py:79 ../loader2/net.c:238
-msgid "ESSID"
+msgid ""
+"You have not specified the field %s.  Depending on your network environment "
+"this may cause problems later."
 msgstr ""
 
-#: ../textw/network_text.py:80 ../loader2/net.c:239
-msgid "Encryption Key"
-msgstr ""
-
-#: ../textw/network_text.py:92
-#, python-format
-msgid "Network Device: %s"
-msgstr "Tinklo įrenginys: %s"
-
-#: ../textw/network_text.py:98
+#: ../textw/network_text.py:152
 #, python-format
 msgid "Description: %s"
 msgstr "Aprašymas: %s"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:156
 #, python-format
 msgid "Hardware Address: %s"
 msgstr ""
 
-#: ../textw/network_text.py:107
-msgid "Configure using DHCP"
-msgstr "Konfiguruoti, naudojant DHCP"
+#: ../textw/network_text.py:170
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
+msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
 
-#: ../textw/network_text.py:120
+#: ../textw/network_text.py:177 ../loader2/net.c:711
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv4 support"
+msgstr ""
+
+#: ../textw/network_text.py:183 ../loader2/net.c:724
+#: tmp/netpostconfig.glade.h:11
+msgid "Enable IPv6 support"
+msgstr ""
+
+#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
 msgid "Activate on boot"
 msgstr "Aktyvuoti starto(boot) metu"
 
-#: ../textw/network_text.py:146
+#: ../textw/network_text.py:214
+#, fuzzy
+msgid "Address"
+msgstr "IP Adresas"
+
+#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
+#, fuzzy
+msgid "Prefix (Netmask)"
+msgstr "Potinklis(Netmask)"
+
+#: ../textw/network_text.py:217
+msgid "IPv4:"
+msgstr ""
+
+#: ../textw/network_text.py:220
+msgid "IPv6:"
+msgstr ""
+
+#: ../textw/network_text.py:258
+msgid "P-to-P:"
+msgstr ""
+
+#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+msgid "ESSID:"
+msgstr ""
+
+#: ../textw/network_text.py:279
+msgid "WEP Key:"
+msgstr ""
+
+#: ../textw/network_text.py:292
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Tinklo Nustatymai %s"
 
-#: ../textw/network_text.py:179
-msgid "Invalid information"
-msgstr "Neteisinga informacija"
+#: ../textw/network_text.py:387
+#, fuzzy
+msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+msgstr "IP Adresas turi turėt skaičius nuo 1 iki 255"
 
-#: ../textw/network_text.py:180
-msgid "You must enter valid IP information to continue"
-msgstr "Jūs turite įvesti teisingą IP informaciją, norint tęsti"
-
-#: ../textw/network_text.py:247 ../loader2/net.c:957
+#: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
 msgstr "Šliuzas(Gateway):"
 
-#: ../textw/network_text.py:256
+#: ../textw/network_text.py:482
 msgid "Primary DNS:"
 msgstr "Pirmininis DNS:"
 
-#: ../textw/network_text.py:261
+#: ../textw/network_text.py:487
 msgid "Secondary DNS:"
 msgstr "Aantrinis DNS:"
 
-#: ../textw/network_text.py:266
-msgid "Tertiary DNS:"
-msgstr "Tretinis DNS:"
-
-#: ../textw/network_text.py:273
+#: ../textw/network_text.py:494
 msgid "Miscellaneous Network Settings"
 msgstr "Special. Tinklo Nustatymai"
 
-#: ../textw/network_text.py:345
+#: ../textw/network_text.py:567
 msgid "automatically via DHCP"
 msgstr "automatiškai per DHCP"
 
-#: ../textw/network_text.py:349
+#: ../textw/network_text.py:570
 msgid "manually"
 msgstr "rankiniu"
 
-#: ../textw/network_text.py:368
+#: ../textw/network_text.py:589
 msgid "Hostname Configuration"
 msgstr "Hosto vardo Nustatymai"
 
-#: ../textw/network_text.py:371
+#: ../textw/network_text.py:592
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4403,290 +4398,328 @@ msgid ""
 "'localhost.'"
 msgstr ""
 
-#: ../textw/network_text.py:397 ../textw/network_text.py:403
+#: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
 msgstr "Neteisingas Hosto vardas"
 
-#: ../textw/network_text.py:398
+#: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
 msgstr "Jūs nepasirinkote hosto vardo."
 
-#: ../textw/partition_text.py:42
+#: ../textw/partition_text.py:43
 msgid "Must specify a value"
 msgstr "Turite įvesti reikšmę"
 
-#: ../textw/partition_text.py:45
+#: ../textw/partition_text.py:46
 msgid "Requested value is not an integer"
 msgstr "Prašoma reikšmė neskaičius"
 
-#: ../textw/partition_text.py:47
+#: ../textw/partition_text.py:48
 msgid "Requested value is too large"
 msgstr "Prašoma reikšmė per didelė"
 
-#: ../textw/partition_text.py:101
+#: ../textw/partition_text.py:102
 #, python-format
 msgid "RAID Device %s"
 msgstr "RAID Įrenginys %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:232
 #, python-format
 msgid "Warning: %s"
 msgstr "Įspėjimas: %s"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Modify Partition"
 msgstr "Keisti Particiją"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Add anyway"
 msgstr "Pridėti vistiet"
 
-#: ../textw/partition_text.py:270
+#: ../textw/partition_text.py:271
 msgid "Mount Point:"
 msgstr "Prijungimo(Mount) Vieta:"
 
-#: ../textw/partition_text.py:322
+#: ../textw/partition_text.py:323
 msgid "File System type:"
 msgstr "Failų Sistemos tipas:"
 
-#: ../textw/partition_text.py:356
+#: ../textw/partition_text.py:357
 msgid "Allowable Drives:"
 msgstr "Galimi Diskai:"
 
-#: ../textw/partition_text.py:412
+#: ../textw/partition_text.py:413
 msgid "Fixed Size:"
 msgstr "Fiks. Dydis:"
 
-#: ../textw/partition_text.py:414
+#: ../textw/partition_text.py:415
 msgid "Fill maximum size of (MB):"
 msgstr "Užpildyti max dydį (MB):"
 
-#: ../textw/partition_text.py:418
+#: ../textw/partition_text.py:419
 msgid "Fill all available space:"
 msgstr "Užpildyti visą galimą vietą:"
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:442
 msgid "Start Cylinder:"
 msgstr "Cilindro startas:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:455
 msgid "End Cylinder:"
 msgstr "Cilindro pabaiga:"
 
-#: ../textw/partition_text.py:477
+#: ../textw/partition_text.py:478
 #, fuzzy
 msgid "Volume Group:"
 msgstr "LVM Volume Grupės"
 
-#: ../textw/partition_text.py:499
+#: ../textw/partition_text.py:500
 msgid "RAID Level:"
 msgstr "RAID Lygis:"
 
-#: ../textw/partition_text.py:517
+#: ../textw/partition_text.py:518
 msgid "RAID Members:"
 msgstr "RAID Nariai:"
 
-#: ../textw/partition_text.py:536
+#: ../textw/partition_text.py:537
 msgid "Number of spares?"
 msgstr ""
 
-#: ../textw/partition_text.py:550
+#: ../textw/partition_text.py:551
 msgid "File System Type:"
 msgstr "Failų Sistemos Tipas:"
 
-#: ../textw/partition_text.py:563
+#: ../textw/partition_text.py:564
 msgid "File System Label:"
 msgstr "Failų Sistemos Pav.:"
 
-#: ../textw/partition_text.py:574
+#: ../textw/partition_text.py:575
 msgid "File System Option:"
 msgstr "Failų Sistemos Opcijos:"
 
-#: ../textw/partition_text.py:577 ../textw/partition_text.py:815
-#: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1224
 #, python-format
 msgid "Format as %s"
 msgstr "Formatuoti kaip %s"
 
-#: ../textw/partition_text.py:579 ../textw/partition_text.py:817
-#: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
+#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
+#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1226
 #, python-format
 msgid "Migrate to %s"
 msgstr "Migruoti į %s"
 
-#: ../textw/partition_text.py:581 ../textw/partition_text.py:819
-#: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
+#: ../textw/partition_text.py:582 ../textw/partition_text.py:820
+#: ../textw/partition_text.py:1057 ../textw/partition_text.py:1228
 msgid "Leave unchanged"
 msgstr "Palikti nekeista"
 
-#: ../textw/partition_text.py:597 ../textw/partition_text.py:792
-#: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
+#: ../textw/partition_text.py:598 ../textw/partition_text.py:793
+#: ../textw/partition_text.py:1033 ../textw/partition_text.py:1204
 msgid "File System Options"
 msgstr "Failų Sistemos Opcijos"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:601
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
 
-#: ../textw/partition_text.py:608
+#: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
 msgstr "Tikrinti dėl blogų blokų"
 
-#: ../textw/partition_text.py:612
+#: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
 msgstr "Palikti nepakeistą (išsaugant duomenis)"
 
-#: ../textw/partition_text.py:621
+#: ../textw/partition_text.py:622
 msgid "Format as:"
 msgstr "Formatuoti kaip:"
 
-#: ../textw/partition_text.py:641
+#: ../textw/partition_text.py:642
 msgid "Migrate to:"
 msgstr "Migruoti į:"
 
-#: ../textw/partition_text.py:753
+#: ../textw/partition_text.py:754
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:771
 msgid "Not Supported"
 msgstr "Nepalaikoma"
 
-#: ../textw/partition_text.py:771
+#: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 
-#: ../textw/partition_text.py:847 ../textw/partition_text.py:900
+#: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
 msgstr ""
 
-#: ../textw/partition_text.py:859
+#: ../textw/partition_text.py:860
 msgid "Invalid Entry for Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:878
+#: ../textw/partition_text.py:879
 msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:892
+#: ../textw/partition_text.py:893
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1006
 msgid "No RAID partitions"
 msgstr "Nerasta RAID particijų"
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:1007
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#: ../textw/partition_text.py:1019 ../textw/partition_text.py:1191
 msgid "Format partition?"
 msgstr "Formatuoti particija?"
 
-#: ../textw/partition_text.py:1080
+#: ../textw/partition_text.py:1081
 msgid "Invalid Entry for RAID Spares"
 msgstr ""
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1095
 msgid "Too many spares"
 msgstr ""
 
-#: ../textw/partition_text.py:1094
+#: ../textw/partition_text.py:1096
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1177
 #, fuzzy
 msgid "No Volume Groups"
 msgstr "LVM Volume Grupės"
 
-#: ../textw/partition_text.py:1176
+#: ../textw/partition_text.py:1178
 msgid "No volume groups in which to create a logical volume"
 msgstr ""
 
-#: ../textw/partition_text.py:1292
+#: ../textw/partition_text.py:1302
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 
-#: ../textw/partition_text.py:1311
+#: ../textw/partition_text.py:1321
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1375
 msgid "New Partition or Logical Volume?"
 msgstr ""
 
-#: ../textw/partition_text.py:1366
+#: ../textw/partition_text.py:1376
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr ""
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1378
 #, fuzzy
 msgid "partition"
 msgstr "Particija"
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1378
 msgid "logical volume"
 msgstr ""
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1451
 msgid "New"
 msgstr "Naujas"
 
-#: ../textw/partition_text.py:1443
+#: ../textw/partition_text.py:1453
 msgid "Delete"
 msgstr "Trinti"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1454
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1447
+#: ../textw/partition_text.py:1457
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Pagalba  F2-Naujas   F3-Redag. F4-Trinti    F5-Nunulint F12-OK        "
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1489
 msgid "No Root Partition"
 msgstr "Neras Root Particija"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1490
 msgid "Must have a / partition to install on."
 msgstr "Jūs turite turėti / particiją, kad instaliuot."
 
-#: ../textw/partition_text.py:1516
+#: ../textw/partition_text.py:1532
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "Particijos tipas"
 
-#: ../textw/partition_text.py:1518
+#: ../textw/partition_text.py:1534
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
 
-#: ../textw/partition_text.py:1542
+#: ../textw/partition_text.py:1558
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Kurį diską jūs norite naudoti šiai instaliacijai?"
 
-#: ../textw/partition_text.py:1604
+#: ../textw/partition_text.py:1573
+#, fuzzy
+msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
+msgstr ""
+"   <Tarpas>,<+>,<-> pažymi     |  <F1> pagalba |   <F2> paketo aprašymas"
+
+#: ../textw/partition_text.py:1635
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "Pasirinkite Particiją"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1636
 msgid "Review and modify partitioning layout?"
+msgstr ""
+
+#: ../textw/partition_text.py:1657 tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "Papildom. Dydžio Opcijos"
+
+#: ../textw/partition_text.py:1658 tmp/adddrive.glade.h:5
+msgid "How would you like to modify your drive configuration?"
+msgstr ""
+
+#: ../textw/partition_text.py:1681
+#, fuzzy
+msgid "Add FCP Device"
+msgstr "Pridėti įrenginį"
+
+#: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
+msgstr ""
+
+#: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
+#, fuzzy
+msgid "Configure iSCSI Parameters"
+msgstr "Konfiguruoti TCP/IP"
+
+#: ../textw/partition_text.py:1706 tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
 msgstr ""
 
 #: ../textw/partmethod_text.py:26
@@ -4781,7 +4814,7 @@ msgstr "Praleisti starto(boot loader) atnaujinimą"
 msgid "Create new boot loader configuration"
 msgstr "Kurti naują starto (boot loader) konfiguraciją"
 
-#: ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:89
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -4790,39 +4823,39 @@ msgid ""
 "file systems now."
 msgstr ""
 
-#: ../textw/upgrade_text.py:109
+#: ../textw/upgrade_text.py:107
 msgid "Free Space"
 msgstr "Laisva Vieta"
 
-#: ../textw/upgrade_text.py:124
+#: ../textw/upgrade_text.py:122
 msgid "RAM detected (MB):"
 msgstr "RAM rasta (MB):"
 
-#: ../textw/upgrade_text.py:127
+#: ../textw/upgrade_text.py:125
 msgid "Suggested size (MB):"
 msgstr "Rekom. dydis (MB):"
 
-#: ../textw/upgrade_text.py:130
+#: ../textw/upgrade_text.py:128
 msgid "Swap file size (MB):"
 msgstr "Swap'o bylos dydis (MB):"
 
-#: ../textw/upgrade_text.py:138
+#: ../textw/upgrade_text.py:136
 msgid "Add Swap"
 msgstr "Pridėti Swap'ą"
 
-#: ../textw/upgrade_text.py:163
+#: ../textw/upgrade_text.py:161
 msgid "The value you entered is not a valid number."
 msgstr "Įvesta reikšmė neteisingas skaičius."
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:194
 msgid "Reinstall System"
 msgstr "Perinstaliuoti Sistemą"
 
-#: ../textw/upgrade_text.py:205
+#: ../textw/upgrade_text.py:203
 msgid "System to Upgrade"
 msgstr "Atnaujinti Sistemą"
 
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:204
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
@@ -4845,11 +4878,6 @@ msgstr ""
 msgid "The root password must be at least 6 characters long."
 msgstr "Supervartotojo(root) slaptažodi turi būt min 6 simbolių."
 
-#: ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr ""
-
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
@@ -4858,24 +4886,6 @@ msgid ""
 msgstr ""
 "Sveiki atvykę į %s!\n"
 "\n"
-
-#: ../textw/zfcp_text.py:43
-#, fuzzy
-msgid "FCP Device"
-msgstr "Įrenginys"
-
-#: ../textw/zfcp_text.py:101
-#, fuzzy
-msgid "Device #"
-msgstr "Įrenginys"
-
-#: ../textw/zfcp_text.py:107
-msgid "Add"
-msgstr "Pridėti"
-
-#: ../textw/zfcp_text.py:109
-msgid "Remove"
-msgstr ""
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -4892,22 +4902,12 @@ msgstr "z/IPL Nustatymai"
 msgid "Chandev line "
 msgstr ""
 
-#: ../installclasses/custom.py:11
-msgid "_Custom"
-msgstr "_Pasirinktinai"
-
-#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
-msgid ""
-"Select this installation type to gain complete control over the installation "
-"process, including software package selection and partitioning."
-msgstr ""
-
-#: ../installclasses/fedora.py:12
+#: ../installclasses/fedora.py:15
 #, fuzzy
 msgid "_Fedora"
 msgstr "_Formatuoti"
 
-#: ../installclasses/fedora.py:13
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -4915,96 +4915,22 @@ msgid ""
 "include support for?"
 msgstr ""
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
+#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
 #, fuzzy
 msgid "Web server"
 msgstr "_Serveris"
 
-#: ../installclasses/personal_desktop.py:11
-msgid "_Personal Desktop"
-msgstr "_Asmeninis Darbastalis"
-
-#: ../installclasses/personal_desktop.py:13
-msgid ""
-"Perfect for personal computers or laptops, select this installation type to "
-"install a graphical desktop environment and create a system ideal for home "
-"or desktop use."
-msgstr ""
-
-#: ../installclasses/personal_desktop.py:18
-#, fuzzy
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-msgstr ""
-"\tDarbastalio aplinka (GNOME)\n"
-"\tOfiso programos (OpenOffice.org)\n"
-"\tNaršyklė (Mozilla) \n"
-"\tPašto pr. (Evolution)\n"
-"\tRealaus laiko susirašinėjimas\n"
-"\tGarso, vaizdo programos\n"
-"\tŽaidimai\n"
-
-#: ../installclasses/rhel.py:15
+#: ../installclasses/rhel.py:16
 msgid "Red Hat Enterprise Linux"
 msgstr ""
-
-#: ../installclasses/server.py:11
-msgid "_Server"
-msgstr "_Serveris"
-
-#: ../installclasses/server.py:13
-msgid ""
-"Select this installation type if you would like to set up file sharing, "
-"print sharing, and Web services. Additional services can also be enabled, "
-"and you can choose whether or not to install a graphical environment."
-msgstr ""
-
-#: ../installclasses/workstation.py:8
-msgid "_Workstation"
-msgstr "_Darbo vieta"
-
-#: ../installclasses/workstation.py:10
-msgid ""
-"This option installs a graphical desktop environment with tools for software "
-"development and system administration. "
-msgstr ""
-
-#: ../installclasses/workstation.py:14
-#, fuzzy
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
-msgstr ""
-"\tDarbastalio aplinka (GNOME)\n"
-"\tOfiso programos (OpenOffice.org)\n"
-"\tNaršyklė (Mozilla) \n"
-"\tPašto pr. (Evolution)\n"
-"\tRealaus laiko susirašinėjimas\n"
-"\tGarso, vaizdo programos\n"
-"\tŽaidimai\n"
-"\tProgramų kūrimo programos\n"
-"\tAdministravimo programos\n"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5013,7 +4939,7 @@ msgstr "Medija Testas"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:420
+#: ../loader2/method.c:425
 msgid "Test"
 msgstr "Testas"
 
@@ -5165,12 +5091,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "Ar jūs norite dar užkrauti papildomų tvark. diskų?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
+#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
-#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
-#: ../loader2/urlinstall.c:483
+#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
+#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Kikstart Klaida"
 
@@ -5240,7 +5166,7 @@ msgid ""
 msgstr ""
 "%s instaliacijos medis direktorijoje neatitinka jūsų starto(boot) medijos."
 
-#: ../loader2/hdinstall.c:158
+#: ../loader2/hdinstall.c:160
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5248,7 +5174,7 @@ msgstr ""
 "Klaida, skaitant ISO atvaizdus(images). Prašau patikrinti jūsų ISO atvaizdus"
 "(images) ir bandyti dar kartą."
 
-#: ../loader2/hdinstall.c:266
+#: ../loader2/hdinstall.c:268
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5256,7 +5182,7 @@ msgstr ""
 "Nemato kieto disko įrenginių jūsų sistemoje! Ar jūs norite konfiguruot "
 "papildomus įrenginius?"
 
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:283
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5267,29 +5193,29 @@ msgstr ""
 "(images)  %s? Jei jūs nematote disko įrenginių šiam sąraše, tada spauskite "
 "F2, kad konfiguruot papildomus įrenginius."
 
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:306
 msgid "Directory holding images:"
 msgstr "Direktorija, turinti atvaizdus(images):"
 
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:334
 msgid "Select Partition"
 msgstr "Pasirinkite Particiją"
 
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:374
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Įrenginys %s neturi %s CDROM atvaizdų (images)."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:409
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Blogas argumentas HD kikstart metodo komandoje %s: %s"
 
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Negali rasti kikstart bylos kietam diske."
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:522
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr ""
@@ -5321,7 +5247,18 @@ msgstr "Klaida %s eilutėje %d kikstarto byloje %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Negali rasti ks.cfg startiniame diskelyje."
 
-#: ../loader2/kickstart.c:417
+#: ../loader2/kickstart.c:341
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+
+#: ../loader2/kickstart.c:350
+#, fuzzy
+msgid "Error downloading kickstart file"
+msgstr "Klaida atidarant kikstart bylą %s: %s"
+
+#: ../loader2/kickstart.c:473
 #, fuzzy, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Blogas argumentas HD kikstart metodo komandoje %s: %s"
@@ -5384,85 +5321,85 @@ msgstr "Atnaujinimai"
 msgid "Reading anaconda updates..."
 msgstr "Nuskaito anakondos atnaujinimus..."
 
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:406
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:780
+#: ../loader2/loader.c:823
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Jūs neturi pakankamai atminties (RAM), kad instaliuoti %s į šią mašiną"
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:981
 msgid "Rescue Method"
 msgstr "Atstatymo Metodas"
 
-#: ../loader2/loader.c:939
+#: ../loader2/loader.c:982
 msgid "Installation Method"
 msgstr "Instaliacijos metodas"
 
-#: ../loader2/loader.c:941
+#: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:1011
 msgid "No driver found"
 msgstr "Nerasta tvrarkyklių (driver)"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:1011
 msgid "Select driver"
 msgstr "Pasirinkti tvarkyklę (driver)"
 
-#: ../loader2/loader.c:969
+#: ../loader2/loader.c:1012
 msgid "Use a driver disk"
 msgstr "Naudoti tvarkyklių (driver) diską"
 
-#: ../loader2/loader.c:970
+#: ../loader2/loader.c:1013
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1176
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: ../loader2/loader.c:1133
+#: ../loader2/loader.c:1178
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: ../loader2/loader.c:1137
+#: ../loader2/loader.c:1182
 msgid "Devices"
 msgstr "Įrenginiai"
 
-#: ../loader2/loader.c:1138
+#: ../loader2/loader.c:1183
 msgid "Done"
 msgstr "Atlikta"
 
-#: ../loader2/loader.c:1139
+#: ../loader2/loader.c:1184
 msgid "Add Device"
 msgstr "Pridėti įrenginį"
 
-#: ../loader2/loader.c:1347
+#: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: ../loader2/loader.c:1723
+#: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 
-#: ../loader2/loader.c:1725
+#: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -5549,12 +5486,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
+#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nepavyko nuskaityti direktorijos %s: %s"
 
-#: ../loader2/method.c:417
+#: ../loader2/method.c:422
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -5565,16 +5502,16 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:420
+#: ../loader2/method.c:425
 msgid "Checksum Test"
 msgstr "Patikrinimo testas"
 
-#: ../loader2/modules.c:1036
+#: ../loader2/modules.c:1043
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/net.c:63
+#: ../loader2/net.c:58
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -5584,13 +5521,13 @@ msgid ""
 "      %s for your architecture\n"
 msgstr ""
 
-#: ../loader2/net.c:98
+#: ../loader2/net.c:93
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:249
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -5598,140 +5535,135 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 
-#: ../loader2/net.c:242
+#: ../loader2/net.c:255
+msgid "ESSID"
+msgstr ""
+
+#: ../loader2/net.c:256
+msgid "Encryption Key"
+msgstr ""
+
+#: ../loader2/net.c:259
 #, fuzzy
 msgid "Wireless Settings"
 msgstr "Papildomi Nustatymai"
 
-#: ../loader2/net.c:273
+#: ../loader2/net.c:290
 msgid "Nameserver IP"
 msgstr "Vardų serverio IP"
 
-#: ../loader2/net.c:278
+#: ../loader2/net.c:294
+#, fuzzy
+msgid "Missing Nameserver"
+msgstr "Vardų serveris"
+
+#: ../loader2/net.c:295
 msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 msgstr ""
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:317
 msgid "Invalid IP Information"
 msgstr "Neteisinga IP Informacija"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:318
 msgid "You entered an invalid IP address."
 msgstr "Jūs įvedėte neteisingą IP adresą"
 
-#: ../loader2/net.c:541 ../loader2/net.c:647
+#: ../loader2/net.c:575 ../loader2/net.c:683
 #, fuzzy
 msgid "Network Error"
 msgstr "Supervartotojo(Root) Slaptažodis"
 
-#: ../loader2/net.c:542 ../loader2/net.c:648
+#: ../loader2/net.c:576 ../loader2/net.c:684
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: ../loader2/net.c:684
-#, fuzzy
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
-
-#: ../loader2/net.c:712
-msgid "Avoid unwanted packet collisions"
-msgstr ""
-
-#: ../loader2/net.c:714
-msgid "Maximize register values for high speed network traffic"
-msgstr ""
-
-#: ../loader2/net.c:750
+#: ../loader2/net.c:757
 msgid "Configure TCP/IP"
 msgstr "Konfiguruoti TCP/IP"
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:784
+#, fuzzy
+msgid "You must select at least one protocol (IPv4 or IPv6)."
+msgstr "Jūs turite pasirinkti bent vieną kalbą."
+
+#: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:765
+#: ../loader2/net.c:792
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
-msgid "Missing Protocol"
-msgstr "Nerasta Grupė"
-
-#: ../loader2/net.c:772
-#, fuzzy
-msgid ""
-"You must select at least one protocol (IPv4 or IPv6) for manual "
-"configuration."
-msgstr "Jūs turite pasirinkti bent vieną kalbą."
-
-#: ../loader2/net.c:782
-#, fuzzy
-msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr "Jūs turite pasirinkti bent vieną kalbą."
-
-#: ../loader2/net.c:852
+#: ../loader2/net.c:912
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "IP adresas:"
 
-#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:904
+#: ../loader2/net.c:964
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "IP adresas:"
 
-#: ../loader2/net.c:965
+#: ../loader2/net.c:1025
 #, fuzzy
 msgid "Name Server:"
 msgstr "Vardų serveris"
 
-#: ../loader2/net.c:1008
+#: ../loader2/net.c:1061
+msgid ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
+msgstr ""
+
+#: ../loader2/net.c:1077
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "z/IPL Nustatymai"
 
-#: ../loader2/net.c:1131 ../loader2/net.c:1137
+#: ../loader2/net.c:1198 ../loader2/net.c:1204
 msgid "Missing Information"
 msgstr "Trūksta Informacijos"
 
-#: ../loader2/net.c:1132
+#: ../loader2/net.c:1199
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Jūs turite įvesti teisingus IP adresą ir potinklį(netmask)."
 
-#: ../loader2/net.c:1138
+#: ../loader2/net.c:1205
 #, fuzzy
-msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Jūs turite įvesti teisingus IP adresą ir potinklį(netmask)."
 
-#: ../loader2/net.c:1402
+#: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
 msgstr "Nustatoma hosto vardas ir domeinas..."
 
-#: ../loader2/net.c:1494
+#: ../loader2/net.c:1601
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Blogas argumentas į kikstarto tinklo komandą %s: %s"
 
-#: ../loader2/net.c:1517
+#: ../loader2/net.c:1624
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Neteisingas bootproto %s tinklo komandoje"
 
-#: ../loader2/net.c:1688
+#: ../loader2/net.c:1805
 msgid "Networking Device"
 msgstr "Tinklo įrenginiai"
 
-#: ../loader2/net.c:1689
+#: ../loader2/net.c:1806
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -5743,7 +5675,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "NFS serverio vardas:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
 #, c-format
 msgid "%s directory:"
 msgstr "%s direktorija:"
@@ -5804,72 +5736,72 @@ msgstr "Medija Rasta"
 msgid "Local installation media detected..."
 msgstr "Lokalaus instaliavimo medija rasta..."
 
-#: ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Neteisingas argumentas Url kikstart methodo komandai %s: %s"
 
-#: ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Turite įvesti --url argumentą, naudojant Url kikstart metodą."
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Nežinomas Url metodas %s"
 
-#: ../loader2/urls.c:215
+#: ../loader2/urls.c:220
 msgid "Retrieving"
 msgstr "Gaunama"
 
-#: ../loader2/urls.c:279
+#: ../loader2/urls.c:287
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:284
+#: ../loader2/urls.c:292
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:301
+#: ../loader2/urls.c:309
 msgid "FTP site name:"
 msgstr "FTP svetainės vardas:"
 
-#: ../loader2/urls.c:302
+#: ../loader2/urls.c:310
 msgid "Web site name:"
 msgstr "Int. svetainės vardas:"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:329
 msgid "Use non-anonymous ftp"
 msgstr "Naudoti ne-anoniminį ftp"
 
-#: ../loader2/urls.c:330
+#: ../loader2/urls.c:338
 msgid "FTP Setup"
 msgstr "FTP Nustatymai"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:339
 msgid "HTTP Setup"
 msgstr "HTTP Nustatymai"
 
-#: ../loader2/urls.c:341
+#: ../loader2/urls.c:349
 msgid "You must enter a server name."
 msgstr "Jūs turite įvesti serverio vardą."
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:354
 #, fuzzy
 msgid "You must enter a directory."
 msgstr "Jūs turite įvesti serverio vardą."
 
-#: ../loader2/urls.c:351
+#: ../loader2/urls.c:359
 #, fuzzy
 msgid "Unknown Host"
 msgstr "Nežinoma"
 
-#: ../loader2/urls.c:352
+#: ../loader2/urls.c:360
 #, fuzzy, c-format
 msgid "%s is not a valid hostname."
 msgstr "Įspėjimas: %s - neteisingas portas."
 
-#: ../loader2/urls.c:415
+#: ../loader2/urls.c:431
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -5877,7 +5809,7 @@ msgstr ""
 "Jeigu Jūs naudojate ne anoniminį ftp, tada įveskite vartotojo varda ir "
 "slaptažodį, kuriuos naudosite."
 
-#: ../loader2/urls.c:420
+#: ../loader2/urls.c:436
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -5885,16 +5817,16 @@ msgstr ""
 "Jeigu Jūs naudojate HTTP proxy serverį, tada įveskite HTTP proxy serverio "
 "vardą, kurį naudosite."
 
-#: ../loader2/urls.c:442
+#: ../loader2/urls.c:458
 msgid "Account name:"
 msgstr "Vartotojo vardas:"
 
-#: ../loader2/urls.c:465
+#: ../loader2/urls.c:481
 #, fuzzy
 msgid "Further FTP Setup"
 msgstr "FTP Nustatymai"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:484
 #, fuzzy
 msgid "Further HTTP Setup"
 msgstr "HTTP Nustatymai"
@@ -5911,17 +5843,8 @@ msgstr ""
 msgid "Add _iSCSI target"
 msgstr ""
 
-#: tmp/adddrive.glade.h:3
-#, fuzzy
-msgid "Advanced Storage Options"
-msgstr "Papildom. Dydžio Opcijos"
-
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
-
-#: tmp/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
 msgstr ""
 
 #: tmp/addrepo.glade.h:1
@@ -5950,10 +5873,6 @@ msgstr ""
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
 msgstr "Perkrau_ti"
-
-#: tmp/anaconda.glade.h:2
-msgid "_Debug"
-msgstr "_Debug"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6010,17 +5929,6 @@ msgstr "Vart. vardas"
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
-#: tmp/iscsi-config.glade.h:5
-#, fuzzy
-msgid "Configure iSCSI Parameters"
-msgstr "Konfiguruoti TCP/IP"
-
-#: tmp/iscsi-config.glade.h:6
-msgid ""
-"To use iSCSI disks, you must provide the address of your iSCSI target and "
-"the iSCSI initiator name you've configured for your host."
-msgstr ""
-
 #: tmp/netconfig.glade.h:2
 #, fuzzy
 msgid "<b>Gateway:</b>"
@@ -6068,6 +5976,53 @@ msgstr ""
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
 
+#: tmp/netpostconfig.glade.h:2
+#, fuzzy
+msgid "<b>Description Goes Here</b>"
+msgstr "Aprašymas: %s"
+
+#: tmp/netpostconfig.glade.h:3
+msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
+
+#: tmp/netpostconfig.glade.h:7
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
+
+#: tmp/netpostconfig.glade.h:9
+#, fuzzy
+msgid "Edit Interface"
+msgstr "Redaguoti Interfeisą %s"
+
+#: tmp/netpostconfig.glade.h:12
+msgid "Encryption Key:"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:14
+#, fuzzy
+msgid "Manual configuration"
+msgstr "z/IPL Nustatymai"
+
+#: tmp/netpostconfig.glade.h:15
+#, fuzzy
+msgid "Point to Point (IP):"
+msgstr "_Taškas į Tašką (IP)"
+
+#: tmp/netpostconfig.glade.h:16
+#, fuzzy
+msgid "Prefix"
+msgstr "Neteisingas IP stringas"
+
 #: tmp/tasksel.glade.h:1
 #, fuzzy
 msgid "Customize _later"
@@ -6093,6 +6048,25 @@ msgstr ""
 #, fuzzy
 msgid "_Customize now"
 msgstr "Detaliau"
+
+#: tmp/zfcp-config.glade.h:1
+#, fuzzy
+msgid "<b>Device number:</b>"
+msgstr "Įrenginys"
+
+#: tmp/zfcp-config.glade.h:2
+msgid "<b>FCP LUN:</b>"
+msgstr ""
+
+#: tmp/zfcp-config.glade.h:3
+#, fuzzy
+msgid "<b>WWPN:</b>"
+msgstr "_Slaptažodis:"
+
+#: tmp/zfcp-config.glade.h:4
+#, fuzzy
+msgid "Add FCP device"
+msgstr "Pridėti įrenginį"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6135,10 +6109,6 @@ msgid "Aqtobe (Aktobe)"
 msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantic islands"
-
-#. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
@@ -6162,6 +6132,10 @@ msgstr ""
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6197,15 +6171,6 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "centrinė Kinija - Gansu, Guizhou, Sichuan, Yunnan, ir t.t."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "central Crimea"
-
-#. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
 msgstr "Central Standard Time - Saskatchewan - midwest"
 
@@ -6220,11 +6185,6 @@ msgstr "Central Time"
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
 msgstr "Central Time - Campeche, Yucatan"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Central Time - central Nunavut"
-msgstr "Central Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6251,10 +6211,6 @@ msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Central Time - dauguma vietų"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
 msgstr "Central Time - North Dakota - Oliver County"
@@ -6270,6 +6226,15 @@ msgstr "Central Time - Quintana Roo"
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Central Time - Rainy River & Fort Frances, Ontario"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - central Nunavut"
+msgstr "Central Time - west Nunavut"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Central Time - dauguma vietų"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -6300,18 +6265,6 @@ msgid "E Amazonas"
 msgstr "E Amazonas"
 
 #. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "rytų Kinija - Beijing, Guangdong, Shanghai, ir t.t."
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "east coast, north of Scoresbysund"
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "rytų Dem. Kongo Resp."
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
@@ -6326,18 +6279,8 @@ msgstr "Eastern Time"
 
 #. generated from zone.tab
 #, fuzzy
-msgid "Eastern Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
-
-#. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Eastern Standard Time - Indiana - Crawford County"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - dauguma vietų"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6348,6 +6291,11 @@ msgstr "Eastern Standard Time - Indiana - Starke County"
 #, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Eastern Standard Time - Indiana - dauguma vietų"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6362,14 +6310,14 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - dauguma vietų"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario - dauguma vietų"
-
-#. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+
+#. generated from zone.tab
+msgid "Eastern Time - Ontario - most locations"
+msgstr "Eastern Time - Ontario - dauguma vietų"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6385,12 +6333,9 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "rytų Uzbekistanas"
+#, fuzzy
+msgid "Eastern Time - east Nunavut"
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -6457,10 +6402,6 @@ msgid "Madeira Islands"
 msgstr "Madeira Islands"
 
 #. generated from zone.tab
-msgid "mainland"
-msgstr "mainland"
-
-#. generated from zone.tab
 msgid "Marquesas Islands"
 msgstr "Marquesas Islands"
 
@@ -6496,10 +6437,6 @@ msgstr "Maskva+01 - Kaspijos jūra"
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Maskva+00 - Vakarų Rusija"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Maskva-01 - Kaliningradas"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6551,17 +6488,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Maskva+10 - Beringo Jūra"
 
 #. generated from zone.tab
-msgid "most locations"
-msgstr "dauguma vietų"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "dauguma vietų (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Maskva-01 - Kaliningradas"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -6586,10 +6514,6 @@ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - central Northwest Territories"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "Mountain Time - Chihuahua"
 
@@ -6600,6 +6524,10 @@ msgstr "Mountain Time - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -6614,17 +6542,17 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantic Time - E Labrador"
+msgid "New South Wales - Yancowinna"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "New South Wales - dauguma vietų"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
+#, fuzzy
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -6649,10 +6577,6 @@ msgstr "Pacific Time - west British Columbia"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Palmer Station, Anvers Island"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -6691,6 +6615,10 @@ msgid "Ruthenia"
 msgstr "Ruthenia"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah & Sarawak"
 
@@ -6713,10 +6641,6 @@ msgstr "Society Islands"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "Pietų Australija"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -6765,12 +6689,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
+msgid "W Amazonas"
+msgstr "W Amazonas"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "W Para, Rondonia"
+
+#. generated from zone.tab
 msgid "Wake Island"
 msgstr "Wake Island"
 
 #. generated from zone.tab
-msgid "W Amazonas"
-msgstr "W Amazonas"
+msgid "West Kazakhstan"
+msgstr "Vakarų Kazakhstanas"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - Eucla area"
+msgstr "Vakarų Australia"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - most locations"
+msgstr "Central Time - dauguma vietų"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+msgstr "centrinė Kinija - Gansu, Guizhou, Sichuan, Yunnan, ir t.t."
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "central Crimea"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+
+#. generated from zone.tab
+msgid "east China - Beijing, Guangdong, Shanghai, etc."
+msgstr "rytų Kinija - Beijing, Guangdong, Shanghai, ir t.t."
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "rytų Dem. Kongo Resp."
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "rytų Uzbekistanas"
+
+#. generated from zone.tab
+msgid "east coast, north of Scoresbysund"
+msgstr "east coast, north of Scoresbysund"
+
+#. generated from zone.tab
+msgid "mainland"
+msgstr "mainland"
+
+#. generated from zone.tab
+msgid "most locations"
+msgstr "dauguma vietų"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "dauguma vietų (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+
+#. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -6781,14 +6777,6 @@ msgid "west Dem. Rep. of Congo"
 msgstr "Vakarų Kongo demokr. Resp."
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Vakarų Australia"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Vakarų Kazakhstanas"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "west Tibet & Xinjiang"
 msgstr "Tibet & dauguma Xinjiang Uyghur"
@@ -6797,20 +6785,16 @@ msgstr "Tibet & dauguma Xinjiang Uyghur"
 msgid "west Uzbekistan"
 msgstr "Vakarų Uzbekistanas"
 
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, E Lugansk"
-
 #. generated from lang-table
 msgid "Afrikaans"
 msgstr ""
 
 #. generated from lang-table
 msgid "Arabic"
+msgstr ""
+
+#. generated from lang-table
+msgid "Assamese"
 msgstr ""
 
 #. generated from lang-table
@@ -6898,6 +6882,10 @@ msgid "Icelandic"
 msgstr "Islandų"
 
 #. generated from lang-table
+msgid "Iloko"
+msgstr ""
+
+#. generated from lang-table
 msgid "Indonesian"
 msgstr ""
 
@@ -6983,6 +6971,10 @@ msgid "Serbian(Latin)"
 msgstr "Persų"
 
 #. generated from lang-table
+msgid "Sinhala"
+msgstr ""
+
+#. generated from lang-table
 #, fuzzy
 msgid "Slovak"
 msgstr "Slovėnų"
@@ -7005,6 +6997,10 @@ msgid "Tamil"
 msgstr "Tasmanija"
 
 #. generated from lang-table
+msgid "Telugu"
+msgstr ""
+
+#. generated from lang-table
 msgid "Turkish"
 msgstr "Turkų"
 
@@ -7023,6 +7019,147 @@ msgstr "Velso"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Upgrade Existing System"
+#~ msgstr "Atnaujinti Esančią Sistemą"
+
+#~ msgid "Upgrade"
+#~ msgstr "Atnaujinti"
+
+#, fuzzy
+#~ msgid "Device number"
+#~ msgstr "Įrenginys"
+
+#, fuzzy
+#~ msgid "You have not specified a SCSI ID or the ID is invalid."
+#~ msgstr "Jūs nepasirinkote hosto vardo."
+
+#, fuzzy
+#~ msgid "You have not specified a SCSI LUN or the number is invalid."
+#~ msgstr "Jūs nepasirinkote hosto vardo."
+
+#, fuzzy
+#~ msgid "Use dynamic IP configuration (_DHCP)"
+#~ msgstr "Naudoti dinaminį IP nustatymą (BOOTP/DHCP)"
+
+#~ msgid "_Activate on boot"
+#~ msgstr "_Aktyvuoti starto(boot) metu"
+
+#, fuzzy
+#~ msgid "IPv_4 Address:"
+#~ msgstr "IP adresas:"
+
+#, fuzzy
+#~ msgid "IPv_6 Address:"
+#~ msgstr "IP adresas:"
+
+#~ msgid "Configure %s"
+#~ msgstr "Konfiguruoti %s"
+
+#, fuzzy
+#~ msgid "ZFCP Configuration"
+#~ msgstr "Silo Nustatymai"
+
+#, fuzzy
+#~ msgid "FCP Devices"
+#~ msgstr "Įrenginiai"
+
+#, fuzzy
+#~ msgid "Edit FCP device %s"
+#~ msgstr "Redaguoti RAID Įrenginį"
+
+#~ msgid "Invalid IP string"
+#~ msgstr "Neteisingas IP stringas"
+
+#~ msgid "The entered IP '%s' is not a valid IP."
+#~ msgstr "Įvestas IP '%s' - neteisingas IP."
+
+#~ msgid "Point to Point (IP)"
+#~ msgstr "Taškas į tašką (IP)"
+
+#~ msgid "Network Device: %s"
+#~ msgstr "Tinklo įrenginys: %s"
+
+#~ msgid "Configure using DHCP"
+#~ msgstr "Konfiguruoti, naudojant DHCP"
+
+#~ msgid "Invalid information"
+#~ msgstr "Neteisinga informacija"
+
+#~ msgid "You must enter valid IP information to continue"
+#~ msgstr "Jūs turite įvesti teisingą IP informaciją, norint tęsti"
+
+#~ msgid "Tertiary DNS:"
+#~ msgstr "Tretinis DNS:"
+
+#, fuzzy
+#~ msgid "FCP Device"
+#~ msgstr "Įrenginys"
+
+#, fuzzy
+#~ msgid "Device #"
+#~ msgstr "Įrenginys"
+
+#~ msgid "Add"
+#~ msgstr "Pridėti"
+
+#~ msgid "_Custom"
+#~ msgstr "_Pasirinktinai"
+
+#~ msgid "_Personal Desktop"
+#~ msgstr "_Asmeninis Darbastalis"
+
+#, fuzzy
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tWeb browser \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ msgstr ""
+#~ "\tDarbastalio aplinka (GNOME)\n"
+#~ "\tOfiso programos (OpenOffice.org)\n"
+#~ "\tNaršyklė (Mozilla) \n"
+#~ "\tPašto pr. (Evolution)\n"
+#~ "\tRealaus laiko susirašinėjimas\n"
+#~ "\tGarso, vaizdo programos\n"
+#~ "\tŽaidimai\n"
+
+#~ msgid "_Server"
+#~ msgstr "_Serveris"
+
+#~ msgid "_Workstation"
+#~ msgstr "_Darbo vieta"
+
+#, fuzzy
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tWeb browser \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tSoftware Development Tools\n"
+#~ "\tAdministration Tools\n"
+#~ msgstr ""
+#~ "\tDarbastalio aplinka (GNOME)\n"
+#~ "\tOfiso programos (OpenOffice.org)\n"
+#~ "\tNaršyklė (Mozilla) \n"
+#~ "\tPašto pr. (Evolution)\n"
+#~ "\tRealaus laiko susirašinėjimas\n"
+#~ "\tGarso, vaizdo programos\n"
+#~ "\tŽaidimai\n"
+#~ "\tProgramų kūrimo programos\n"
+#~ "\tAdministravimo programos\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
+#~ "configuration."
+#~ msgstr "Jūs turite pasirinkti bent vieną kalbą."
 
 #~ msgid "DDC Probed Monitor"
 #~ msgstr "DDC Rastas Monitorius"
@@ -7202,9 +7339,6 @@ msgstr "Zulu"
 #~ msgid "Install packages to satisfy dependencies"
 #~ msgstr "Instaliuoti paketus, kuri tenkina reikalavimus"
 
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Neinstaliuoti paketų, kurie turi reikalavimų"
-
 #~ msgid "Ignore package dependencies"
 #~ msgstr "Ignoruoti paketų reikalavimus"
 
@@ -7339,9 +7473,6 @@ msgstr "Zulu"
 
 #~ msgid "Select a drive to partition with fdisk:"
 #~ msgstr "Pasirinkite diskė kurti particiją su fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Išjungti"
 
 #~ msgid "Warn"
 #~ msgstr "Įspėjimai"
@@ -7538,9 +7669,6 @@ msgstr "Zulu"
 
 #~ msgid "Security Enhanced Linux"
 #~ msgstr "Security Enhanced Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Redaguoti Vartotoją"
 
 #~ msgid "Add User"
 #~ msgstr "Pridėti Vartotoją"
@@ -7895,10 +8023,6 @@ msgstr "Zulu"
 
 #~ msgid "Disable SELinux"
 #~ msgstr "Išjungti SELinux"
-
-#, fuzzy
-#~ msgid "Device number:"
-#~ msgstr "Įrenginys"
 
 #~ msgid "E Argentina (BA, DF, SC, TF)"
 #~ msgstr "E Argentina (BA, DF, SC, TF)"

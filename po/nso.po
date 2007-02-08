@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 15:40-0400\n"
+"POT-Creation-Date: 2007-02-08 10:49-0500\n"
 "PO-Revision-Date: 2005-01-24 13:30+0200\n"
 "Last-Translator: Translate.org.za <info@translate.org.za>\n"
 "Language-Team: Northern Sotho <translate-discuss-nso@lists.sourceforge.net>\n"
@@ -15,27 +15,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:256
+#: ../anaconda:268
 msgid "Unknown Error"
 msgstr "Phošo e sa Tsebjwego"
 
-#: ../anaconda:259
+#: ../anaconda:271
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
 "Phošo ya go ntšha karolo ya bobedi ya go thomiša go fetola sebopego: %s!"
 
-#: ../anaconda:412
+#: ../anaconda:399
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:443 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
-#: ../rescue.py:449 ../text.py:394 ../text.py:537 ../vnc.py:141
+#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
+#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:182 ../textw/network_text.py:399
-#: ../textw/network_text.py:407 ../loader2/cdinstall.c:140
+#: ../textw/constants_text.py:36 ../textw/network_text.py:46
+#: ../textw/network_text.py:56 ../textw/network_text.py:323
+#: ../textw/network_text.py:355 ../textw/network_text.py:382
+#: ../textw/network_text.py:388 ../textw/network_text.py:620
+#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
@@ -46,31 +48,31 @@ msgstr ""
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
 #: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
-#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
+#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
+#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
+#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:416 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:783 ../loader2/loader.c:946
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/modules.c:1035 ../loader2/net.c:243
-#: ../loader2/net.c:283 ../loader2/net.c:718 ../loader2/net.c:996
-#: ../loader2/net.c:1493 ../loader2/net.c:1516 ../loader2/net.c:1692
-#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
-#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
-#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:463
-#: ../loader2/urlinstall.c:472 ../loader2/urlinstall.c:483
-#: ../loader2/urls.c:275 ../loader2/urls.c:340 ../loader2/urls.c:345
-#: ../loader2/urls.c:351 ../loader2/urls.c:455
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
+#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
+#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
+#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
+#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
+#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
+#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
+#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
+#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
 msgid "OK"
 msgstr "Go Lokile"
 
-#: ../anaconda:450
+#: ../anaconda:421
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -78,50 +80,50 @@ msgstr ""
 "Ga o na RAM (Kgopolo ya Neng le Neng) e lekanego gore o ka diriša setsenyi "
 "sa ditswantšho. Go thoma mokgwa wa sengwalwa."
 
-#: ../anaconda:466
+#: ../anaconda:437
 msgid "No video hardware found, assuming headless"
 msgstr ""
 "Ga go na lenaneo le thata la khomphuthara la bidio le hweditšwego, go "
 "naganelwa go se be le sehlogo"
 
-#: ../anaconda:473 ../anaconda:886
+#: ../anaconda:444 ../anaconda:896
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 "Ga e kgone go emela sedirišwa sa boemo bja lenaneo le thata la khomphuthara "
 "la X."
 
-#: ../anaconda:512
+#: ../anaconda:501
 msgid "Starting graphical installation..."
 msgstr "E thoma tsenyo ya diswantšho..."
 
-#: ../anaconda:766
+#: ../anaconda:761
 msgid "Install class forcing text mode installation"
 msgstr "Tsenya tsenyo ya mokgwa wa sengwalwa se gapeletšago mokgwa"
 
-#: ../anaconda:798
+#: ../anaconda:793
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Tsenyo ya diswantšho ga e gona... E thoma mokgwa wa sengwalwa."
 
-#: ../anaconda:806
+#: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:851
+#: ../anaconda:862
 #, fuzzy
 msgid "Unknown install method"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
 
-#: ../anaconda:852
+#: ../anaconda:863
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "O leka go tsenya motšheneng wo o sa thekgwego ke tokollo ye ya %s."
 
-#: ../anaconda:854
+#: ../anaconda:865
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
 
-#: ../autopart.py:949
+#: ../autopart.py:955
 #, fuzzy, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
@@ -130,7 +132,7 @@ msgid ""
 msgstr ""
 "E ka se abe dikarolo tše theilwego silintereng bjalo ka dikarolo tša motheo"
 
-#: ../autopart.py:954
+#: ../autopart.py:960
 #, fuzzy, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
@@ -138,7 +140,7 @@ msgid ""
 "%s"
 msgstr "E ka se abe dikarolo bjalo ka dikarolo tša motheo"
 
-#: ../autopart.py:959
+#: ../autopart.py:965
 #, fuzzy, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
@@ -146,7 +148,7 @@ msgid ""
 "%s"
 msgstr "E ka se abe dikarolo tše theilwego silintereng"
 
-#: ../autopart.py:1019
+#: ../autopart.py:1025
 #, fuzzy, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -157,7 +159,7 @@ msgstr ""
 "go thoma go tšwa karolong ye. Diriša karolo yeo e lego ya leswao la tisiki "
 "la BSD goba o fetole leswao le la tisiki ya sedirišwa gore e be BSD."
 
-#: ../autopart.py:1021
+#: ../autopart.py:1027
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -169,7 +171,7 @@ msgstr ""
 "tšwele pele. Kgonthišetša gore go na le bonyenyane sekgoba se se nago selo "
 "sa 5MB mathomong a tisiki yeo e nago le /boot"
 
-#: ../autopart.py:1023
+#: ../autopart.py:1029
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -178,7 +180,7 @@ msgstr ""
 "Karolo ya go thoma ya %s ga se karolo ya VFAT.  EFI e ka se kgone go thoma "
 "go tloga karolong ye."
 
-#: ../autopart.py:1025
+#: ../autopart.py:1031
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -186,7 +188,7 @@ msgstr ""
 "Karolo ya go thoma ga se ya abjwa e sa le ka pela ka mo go lekanego "
 "tisiking.  OpenFirmware e ka se kgone go thoma tsenyo ye."
 
-#: ../autopart.py:1032
+#: ../autopart.py:1038
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
@@ -194,7 +196,7 @@ msgstr ""
 "Karolo ya go thoma ya %s e ka se kgone go phethagatša ditekolo tša go thoma "
 "bakeng sa thutaboagi bja gago."
 
-#: ../autopart.py:1058
+#: ../autopart.py:1064
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -203,11 +205,11 @@ msgstr ""
 "Go oketša karolo ye go ka se tlogele sekgoba se lekanego sa tisiki bakeng sa "
 "dibolumo tšeo di šetšego di abilwe go %s."
 
-#: ../autopart.py:1243
+#: ../autopart.py:1255
 msgid "Requested Partition Does Not Exist"
 msgstr "Karolo yeo e Kgopetšwego ga e Gona"
 
-#: ../autopart.py:1244
+#: ../autopart.py:1256
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -218,11 +220,11 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' gore o thomološe tshepedišo ya gago."
 
-#: ../autopart.py:1271
+#: ../autopart.py:1283
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Sedirišwa sa go Hlasela se Kgopetšwego ga se Gona"
 
-#: ../autopart.py:1272
+#: ../autopart.py:1284
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -234,11 +236,11 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' bakeng sa go thomološa tshepedišo ya gago."
 
-#: ../autopart.py:1303
+#: ../autopart.py:1315
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Sehlopha sa Bolumo se Kgopetšwego ga se Gona"
 
-#: ../autopart.py:1304
+#: ../autopart.py:1316
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -249,11 +251,11 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' gore o thomološe tshepedišo ya gago."
 
-#: ../autopart.py:1341
+#: ../autopart.py:1353
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Bolumo e Kwagalago e Kgopetšwego ga e Gona"
 
-#: ../autopart.py:1342
+#: ../autopart.py:1354
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -264,11 +266,11 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' gore o thomološe tshepedišo ya gago."
 
-#: ../autopart.py:1456 ../autopart.py:1502
+#: ../autopart.py:1470 ../autopart.py:1517
 msgid "Automatic Partitioning Errors"
 msgstr "Diphošo tše Itiragalelago tša Karolo"
 
-#: ../autopart.py:1457
+#: ../autopart.py:1471
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -283,11 +285,11 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' gore o thomološe tshepedišo ya gago."
 
-#: ../autopart.py:1467
+#: ../autopart.py:1481
 msgid "Warnings During Automatic Partitioning"
 msgstr "Ditemošo Nakong ya Karolo e Itiragalelago"
 
-#: ../autopart.py:1468
+#: ../autopart.py:1482
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -298,7 +300,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1481 ../autopart.py:1498
+#: ../autopart.py:1496 ../autopart.py:1513
 msgid ""
 "\n"
 "\n"
@@ -308,12 +310,12 @@ msgstr ""
 "\n"
 "Kgotla 'GO LOKILE' gore o thomološe tshepedišo ya gago."
 
-#: ../autopart.py:1482 ../iw/partition_gui.py:997
-#: ../textw/partition_text.py:227
+#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Phošo ya go Arola"
 
-#: ../autopart.py:1483
+#: ../autopart.py:1498
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -324,14 +326,14 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1500
+#: ../autopart.py:1515
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1503
+#: ../autopart.py:1518
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -348,27 +350,27 @@ msgstr ""
 "Se se ka direga ge eba go se na sekgoba se lekanego (di)draeveng tša gago "
 "bakeng sa tsenyo ya %s"
 
-#: ../autopart.py:1514
+#: ../autopart.py:1529
 msgid "Unrecoverable Error"
 msgstr "Phošo e sa Bonwego"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1530
 msgid "Your system will now be rebooted."
 msgstr "Tshepedišo ya gago bjale e tla thomološwa."
 
-#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:433
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:986
-#: ../partedUtils.py:1043 ../upgrade.py:349 ../yuminstall.py:1148
+#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
+#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
-#: ../iw/task_gui.py:88 ../iw/upgrade_swap_gui.py:188
+#: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:403
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
+#: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Temošo"
 
-#: ../autopart.py:1668
+#: ../autopart.py:1683
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -386,7 +388,7 @@ msgstr ""
 "tshepedišo ya faele, dintlha tša go kgobelana, bogolo bja karolo, le tše "
 "dingwe tše dintši."
 
-#: ../autopart.py:1679
+#: ../autopart.py:1694
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -395,20 +397,20 @@ msgstr ""
 "swanetše go kgetha gore ke bjang o tla dirišago sekgoba seo se lego di-"
 "draeveng tša gago."
 
-#: ../autopart.py:1684
+#: ../autopart.py:1699
 msgid "Remove all partitions on this system"
 msgstr "Tloša dikarolo ka moka tshepedišong ye"
 
-#: ../autopart.py:1685
+#: ../autopart.py:1700
 msgid "Remove all Linux partitions on this system"
 msgstr "Tloša dikarolo ka moka tša Linux tshepedišong ye"
 
-#: ../autopart.py:1686
+#: ../autopart.py:1701
 msgid "Keep all partitions and use existing free space"
 msgstr ""
 "Boloka dikarolo ka moka gomme o diriše sekgoba se se nago seo se lego gona"
 
-#: ../autopart.py:1688
+#: ../autopart.py:1703
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -419,7 +421,7 @@ msgstr ""
 "latelago:%s\n"
 "Na o kgonthišegile gore o nyaka go dira se?"
 
-#: ../autopart.py:1692
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -430,27 +432,27 @@ msgstr ""
 "di-draeveng tše latelago:%s\n"
 "Na o kgonthišegile gore o nyaka go dira se?"
 
-#: ../backend.py:97
+#: ../backend.py:106
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Go kaonafatša diphuthelwana tša %s\n"
 "\n"
 
-#: ../backend.py:99
+#: ../backend.py:108
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Tsenya %s"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Bootloader"
 msgstr "Selaiši sa go thoma"
 
-#: ../bootloader.py:126
+#: ../bootloader.py:129
 msgid "Installing bootloader..."
 msgstr "Go tsenya selaiši sa go thoma..."
 
-#: ../bootloader.py:195
+#: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -466,7 +468,7 @@ msgstr "Phethilwe"
 msgid "In progress...   "
 msgstr "E tšwela pele...   "
 
-#: ../cmdline.py:69 ../gui.py:841 ../text.py:354
+#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -496,7 +498,7 @@ msgstr "Dirilwe [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "E tsenya %s-%s-%s... "
 
-#: ../constants.py:60
+#: ../constants.py:65
 #, fuzzy, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -508,11 +510,11 @@ msgstr ""
 "e nago le dintlha tša twatši kgahlanong le anaconda go http://bugzilla."
 "redhat.com/bugzilla/"
 
-#: ../exception.py:400 ../exception.py:417
+#: ../exception.py:401 ../exception.py:418
 msgid "Dump Written"
 msgstr "Kopi e Ngwadilwe"
 
-#: ../exception.py:401
+#: ../exception.py:402
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -521,23 +523,23 @@ msgstr ""
 "Boemo bja tshepedišo ya gago bo ngwadilwe ka katlego floping. Tshepedišo ya "
 "gago e tla beakanywa gape."
 
-#: ../exception.py:404 ../exception.py:421 ../fsset.py:1741 ../fsset.py:2470
-#: ../gui.py:846 ../gui.py:996 ../harddrive.py:80 ../image.py:91
-#: ../image.py:443 ../image.py:517 ../packages.py:298 ../iw/confirm_gui.py:32
+#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
+#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Thomološa"
 
-#: ../exception.py:409 ../exception.py:426
+#: ../exception.py:410 ../exception.py:427
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Kopi e Ngwadilwe"
 
-#: ../exception.py:410
+#: ../exception.py:411
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:418
+#: ../exception.py:419
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -546,46 +548,50 @@ msgstr ""
 "Boemo bja tshepedišo ya gago bo ngwadilwe ka katlego floping. Tshepedišo ya "
 "gago e tla beakanywa gape."
 
-#: ../exception.py:427
+#: ../exception.py:428
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:221
+#: ../fsset.py:214
 msgid "Checking for Bad Blocks"
 msgstr "Go Lekola Mapheko a Mabe"
 
-#: ../fsset.py:222
+#: ../fsset.py:215
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Go lekola mapheko a mabe go /dev/%s..."
 
-#: ../fsset.py:676 ../fsset.py:1425 ../fsset.py:1456 ../fsset.py:1517
-#: ../fsset.py:1528 ../fsset.py:1582 ../fsset.py:1593 ../fsset.py:1633
-#: ../fsset.py:1683 ../fsset.py:1749 ../fsset.py:1768 ../image.py:133
-#: ../image.py:174 ../image.py:306 ../partedUtils.py:790
-#: ../partIntfHelpers.py:407 ../yuminstall.py:606 ../yuminstall.py:720
-#: ../yuminstall.py:994 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../fsset.py:661 ../fsset.py:1450 ../fsset.py:1481 ../fsset.py:1542
+#: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
+#: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
+#: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
+#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
+#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:78 ../iw/task_gui.py:145 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
+#: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
+#: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
+#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
+#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
 #: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:783 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
-#: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
+#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
+#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:340 ../loader2/urls.c:345
+#: ../loader2/urls.c:348 ../loader2/urls.c:353
 msgid "Error"
 msgstr "Phošo"
 
-#: ../fsset.py:677
+#: ../fsset.py:662
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -598,27 +604,27 @@ msgstr ""
 "\n"
 "Na o ka rata go tšwela pele ka ntle le go huduša %s?"
 
-#: ../fsset.py:1333
+#: ../fsset.py:1357
 msgid "RAID Device"
 msgstr "Sedirišwa sa RAID"
 
-#: ../fsset.py:1337 ../fsset.py:1343
+#: ../fsset.py:1361 ../fsset.py:1367
 msgid "Apple Bootstrap"
 msgstr "Mmofo wa go thoma wa Apole"
 
-#: ../fsset.py:1348 ../partitions.py:900
+#: ../fsset.py:1372 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "Go thoma ga PPC PReP"
 
-#: ../fsset.py:1351
+#: ../fsset.py:1375
 msgid "First sector of boot partition"
 msgstr "Seripa sa mathomo sa karolo ya go thoma"
 
-#: ../fsset.py:1352
+#: ../fsset.py:1376
 msgid "Master Boot Record (MBR)"
 msgstr "Rekhoto ya go Thoma e Kgolo (MBR)"
 
-#: ../fsset.py:1426
+#: ../fsset.py:1451
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -631,17 +637,17 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1455 ../rescue.py:291 ../rescue.py:293
-#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:420
+#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
 msgid "Skip"
 msgstr "Taboga"
 
-#: ../fsset.py:1455 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Thomološa"
 
-#: ../fsset.py:1476
+#: ../fsset.py:1501
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -653,12 +659,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1483
+#: ../fsset.py:1508
 #, fuzzy
 msgid "Reformat"
 msgstr "Sebopego"
 
-#: ../fsset.py:1487
+#: ../fsset.py:1512
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -670,7 +676,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1495
+#: ../fsset.py:1520
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -682,7 +688,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1505
+#: ../fsset.py:1530
 msgid ""
 "\n"
 "\n"
@@ -691,11 +697,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1511 ../iw/partition_gui.py:368
+#: ../fsset.py:1536 ../iw/partition_gui.py:367
 msgid "Format"
 msgstr "Sebopego"
 
-#: ../fsset.py:1518
+#: ../fsset.py:1543
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -712,7 +718,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1529
+#: ../fsset.py:1554
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -727,7 +733,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1583
+#: ../fsset.py:1608
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -740,7 +746,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago"
 
-#: ../fsset.py:1594
+#: ../fsset.py:1619
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -753,7 +759,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1634
+#: ../fsset.py:1659
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -766,7 +772,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1684
+#: ../fsset.py:1709
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -779,11 +785,11 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1710 ../fsset.py:1719
+#: ../fsset.py:1735 ../fsset.py:1744
 msgid "Invalid mount point"
 msgstr "Ntlha ya go kgobelana yeo e sego ya kgonthe"
 
-#: ../fsset.py:1711
+#: ../fsset.py:1736
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -797,7 +803,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1720
+#: ../fsset.py:1745
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -810,24 +816,24 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1733
+#: ../fsset.py:1758
 #, fuzzy
 msgid "Unable to mount filesystem"
 msgstr "Ga e kgone go laiša faele!"
 
-#: ../fsset.py:1734
+#: ../fsset.py:1759
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1742 ../image.py:91 ../image.py:444 ../kickstart.py:934
-#: ../kickstart.py:970 ../yuminstall.py:716 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
+#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Tšwela pele"
 
-#: ../fsset.py:1750
+#: ../fsset.py:1775
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -842,7 +848,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1769
+#: ../fsset.py:1794
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -856,11 +862,11 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:2462
+#: ../fsset.py:2447
 msgid "Duplicate Labels"
 msgstr "Swantšha Maswao"
 
-#: ../fsset.py:2463
+#: ../fsset.py:2448
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -874,24 +880,24 @@ msgstr ""
 "\n"
 "Hle lokiša bothata bjo gomme o thome ka leswa mosepelo wa go tsenya."
 
-#: ../fsset.py:2723
+#: ../fsset.py:2708
 msgid "Formatting"
 msgstr "Go Dira Sebopego"
 
-#: ../fsset.py:2724
+#: ../fsset.py:2709
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Go dira sebopego sa %s sa tshepedišo ya faele..."
 
-#: ../gui.py:105
+#: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
 msgstr "Go tšweletše phošo ge go be go kopišwa tšeo di tšerwego sekirining."
 
-#: ../gui.py:116
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr "Tšeo di Tšerwego Sekirining tše Kopišitšwego"
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -905,20 +911,20 @@ msgstr ""
 "\n"
 "O ka tsena mo go tše ge o thomološa le go tsena bjalo ka modu."
 
-#: ../gui.py:160
+#: ../gui.py:161
 msgid "Saving Screenshot"
 msgstr "Go Boloka tše Tšerwego Sekirining"
 
-#: ../gui.py:161
+#: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Seo se tšerwego sekirining se bitšwago '%s' se bolokilwe."
 
-#: ../gui.py:164
+#: ../gui.py:165
 msgid "Error Saving Screenshot"
 msgstr "Phošo ya go Boloka se Tšerwego Sekirining"
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -927,49 +933,52 @@ msgstr ""
 "tšweletše nakong ya go tsenya sephuthelwana, go ka nyakega gore o leke ka "
 "makga a mmalwa gore go atlege."
 
-#: ../gui.py:230 ../text.py:391
+#: ../gui.py:231 ../text.py:391
 msgid "Fix"
 msgstr "Lokiša"
 
-#: ../gui.py:231 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
+#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:403
+#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "Ee"
 
-#: ../gui.py:232 ../rescue.py:203 ../rescue.py:205 ../text.py:393
+#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:403
+#: ../loader2/loader.c:405
 msgid "No"
 msgstr "Aowa"
 
-#: ../gui.py:234 ../text.py:395 ../loader2/net.c:97 ../loader2/net.c:301
-#: ../loader2/net.c:541 ../loader2/net.c:647 ../loader2/net.c:764
-#: ../loader2/net.c:771 ../loader2/net.c:781 ../loader2/net.c:1131
-#: ../loader2/net.c:1137
+#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
+#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
+#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
 msgid "Retry"
 msgstr "Leka gape"
 
-#: ../gui.py:235 ../text.py:396
+#: ../gui.py:236 ../text.py:396
 msgid "Ignore"
 msgstr "Hlokomologa"
 
-#: ../gui.py:236 ../gui.py:711 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
 #: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/loader.c:351
+#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Khansela"
 
-#: ../gui.py:843 ../text.py:356
+#: ../gui.py:735 tmp/anaconda.glade.h:2
+msgid "_Debug"
+msgstr "_Fokotša Diphošo"
+
+#: ../gui.py:897 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "Phošo ya go Arola go Fetola Sebopego sa go Thomiša"
 
-#: ../gui.py:851 ../text.py:366
+#: ../gui.py:905 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -977,15 +986,15 @@ msgstr ""
 "Hle tsenya flopi gona bjale. Dikagare tša tisiki ka moka di tla phumolwa, ka "
 "gona hle kgetha tisiki ya gago ka kelohloko."
 
-#: ../gui.py:898
+#: ../gui.py:952
 msgid "default:LTR"
 msgstr "tlhaelelo:LTR"
 
-#: ../gui.py:982
+#: ../gui.py:1036
 msgid "Error!"
 msgstr "Phošo!"
 
-#: ../gui.py:983
+#: ../gui.py:1037
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -997,40 +1006,40 @@ msgstr ""
 "\n"
 "leinalaLegoro = %s"
 
-#: ../gui.py:988 ../gui.py:993 ../packages.py:290 ../packages.py:295
+#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
 msgid "_Exit"
 msgstr "_Etšwa"
 
-#: ../gui.py:989 ../yuminstall.py:609
+#: ../gui.py:1043 ../yuminstall.py:754
 msgid "_Retry"
 msgstr "_Leka gape"
 
-#: ../gui.py:992 ../packages.py:294
+#: ../gui.py:1046 ../packages.py:295
 msgid "The installer will now exit..."
 msgstr "Setsenyi bjale se tla tšwa..."
 
-#: ../gui.py:995 ../packages.py:297
+#: ../gui.py:1049 ../packages.py:298
 msgid "Your system will now be rebooted..."
 msgstr "Tshepedišo ya gago bjale e tla thomološwa..."
 
-#: ../gui.py:998 ../packages.py:299
+#: ../gui.py:1052 ../packages.py:300
 msgid "Rebooting System"
 msgstr "Go Thomološa Tshepedišo"
 
-#: ../gui.py:1062
+#: ../gui.py:1116
 #, python-format
 msgid "%s Installer"
 msgstr "Setsenyi sa %s"
 
-#: ../gui.py:1069
+#: ../gui.py:1123
 msgid "Unable to load title bar"
 msgstr "Ga e kgone go laiša bara ya sehlogo"
 
-#: ../gui.py:1118
+#: ../gui.py:1177
 msgid "Install Window"
 msgstr "Tsenya Lefesetere"
 
-#: ../harddrive.py:44 ../image.py:144 ../image.py:474
+#: ../harddrive.py:44 ../image.py:146 ../image.py:476
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1048,7 +1057,7 @@ msgstr ""
 "\n"
 "Kgotla <boela> gore o leke gape."
 
-#: ../harddrive.py:71 ../image.py:507
+#: ../harddrive.py:71 ../image.py:509
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
@@ -1062,16 +1071,16 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: ../harddrive.py:81 ../image.py:518
+#: ../harddrive.py:81 ../image.py:520
 #, fuzzy
 msgid "Re_try"
 msgstr "Leka gape"
 
-#: ../image.py:82
+#: ../image.py:84
 msgid "Required Install Media"
 msgstr "Mothopo wa Ditaba wa go Tsenya o Nyakegago"
 
-#: ../image.py:83
+#: ../image.py:85
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1088,13 +1097,13 @@ msgstr ""
 "tsenya. Ge e ba o nyaka go fediša go tsenya le go thomološa hle kgetha "
 "\"Thomološa\"."
 
-#: ../image.py:91 ../packages.py:295 ../packages.py:298 ../yuminstall.py:1001
+#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Morago"
 
-#: ../image.py:134
+#: ../image.py:136 ../urlinstall.py:209
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1104,15 +1113,15 @@ msgstr ""
 "gore ga o tsene go %s go tšwa legaping la tty2 ke moka o kgotle GO LOKILE "
 "gore o leke gape."
 
-#: ../image.py:164
+#: ../image.py:166 ../urlinstall.py:100
 msgid "Copying File"
 msgstr "Go Kopiša Faele"
 
-#: ../image.py:165
+#: ../image.py:167 ../urlinstall.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "Go fetišetša seswantšho sa go tsenya draeveng..."
 
-#: ../image.py:175
+#: ../image.py:177 ../urlinstall.py:111
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1120,29 +1129,29 @@ msgstr ""
 "Go tšweletše phošo ge go be go fetišetšwa seswantšho sa go tsenya draeveng "
 "ya gago. Mohlomongwe sekgoba sa tisiki se fedile."
 
-#: ../image.py:264
+#: ../image.py:266
 msgid "Change CDROM"
 msgstr "Fetola CDROM"
 
-#: ../image.py:265
+#: ../image.py:267
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Hle tsenya tisiki ya %s ya %d gore o tšwele pele."
 
-#: ../image.py:300
+#: ../image.py:302
 msgid "Wrong CDROM"
 msgstr "CDROM e Fošagetšego"
 
-#: ../image.py:301
+#: ../image.py:303
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Yeo ga se CDROM ya %s e nepagetšego."
 
-#: ../image.py:307
+#: ../image.py:309
 msgid "Unable to access the CDROM."
 msgstr "Ga e kgone go tsena go CDROM."
 
-#: ../image.py:360
+#: ../image.py:362
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -1160,7 +1169,17 @@ msgstr ""
 "\n"
 "Kgotla <boela> gore o leke gape."
 
-#: ../image.py:508
+#: ../image.py:436
+#, python-format
+msgid ""
+"The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
+"mean it was corrupted on transfer to this computer.\n"
+"\n"
+"It is recommended that you reboot and abort your installation, but you can "
+"choose to continue if you think this is in error."
+msgstr ""
+
+#: ../image.py:510
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1170,20 +1189,20 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../installclass.py:64
+#: ../installclass.py:65
 msgid "Install on System"
 msgstr "Tsenya Tshepedišong"
 
-#: ../iscsi.py:126 ../iscsi.py:127
+#: ../iscsi.py:197 ../iscsi.py:198
 #, fuzzy
 msgid "Initializing iSCSI initiator"
 msgstr "Go thomiša"
 
-#: ../kickstart.py:73
+#: ../kickstart.py:74
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 #, fuzzy, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1198,24 +1217,24 @@ msgstr ""
 "\n"
 "Kgotla konope ya GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../kickstart.py:764 ../kickstart.py:782
+#: ../kickstart.py:869 ../kickstart.py:886
 #, fuzzy
 msgid "Running..."
 msgstr "Go kgokaganya..."
 
-#: ../kickstart.py:765
-msgid "Running pre-install scripts"
-msgstr ""
-
-#: ../kickstart.py:783
+#: ../kickstart.py:870
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:926
+#: ../kickstart.py:887
+msgid "Running pre-install scripts"
+msgstr ""
+
+#: ../kickstart.py:918
 msgid "Missing Package"
 msgstr "Sephuthelwana se sa Hwetšagalego"
 
-#: ../kickstart.py:927
+#: ../kickstart.py:919
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1224,16 +1243,16 @@ msgstr ""
 "O laeditše gore sephuthelwana sa '%s' se swanetše go tsenywa. Sephuthelwana "
 "se ga se gona. Na o ka rata go tšwela pele goba go fediša go tsenya ga gago?"
 
-#: ../kickstart.py:933 ../kickstart.py:969 ../yuminstall.py:716
-#: ../yuminstall.py:718
+#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
+#: ../yuminstall.py:864
 msgid "_Abort"
 msgstr "_Fediša"
 
-#: ../kickstart.py:961
+#: ../kickstart.py:945
 msgid "Missing Group"
 msgstr "Sehlopha se sa Hwetšagalego"
 
-#: ../kickstart.py:962
+#: ../kickstart.py:946
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1241,6 +1260,34 @@ msgid ""
 msgstr ""
 "O laeditše gore sehlopha sa '%s' se swanetše go tsenywa. Sehlopha se ga se "
 "gona. Na o ka rata go tšwela pele goba go fediša go tsenya ga gago?"
+
+#: ../livecd.py:77 ../livecd.py:262
+#, fuzzy
+msgid "Unable to find image"
+msgstr "Ga e kgone go hwetša seswantšho sa go tsenya %s"
+
+#: ../livecd.py:78 ../livecd.py:263
+#, python-format
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
+msgstr ""
+
+#: ../livecd.py:82 ../livecd.py:267
+#, fuzzy
+msgid "Exit installer"
+msgstr "Setsenyi sa %s"
+
+#: ../livecd.py:144
+#, fuzzy
+msgid "Doing post-installation"
+msgstr "tsenyo ya %s %s"
+
+#: ../livecd.py:145
+#, fuzzy
+msgid ""
+"Performing post-installation filesystem changes.  This may take several "
+"minutes..."
+msgstr "Go thoma mosepelo wa go tsenya, se se ka tšea metsotso e mmalwa..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1260,13 +1307,13 @@ msgstr ""
 
 #: ../network.py:89
 #, fuzzy
-msgid "IP Address is missing."
+msgid "IP address is missing."
 msgstr "Aterese ya IP ga e hwetšagale"
 
 #: ../network.py:93
 #, fuzzy
 msgid ""
-"IP Addresses must contain four numbers between 0 and 255, separated by "
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
 "Diaterese tša IP di swanetše go ba le dinomoro tša magareng ga 0 le 255"
@@ -1274,6 +1321,11 @@ msgstr ""
 #: ../network.py:96
 #, fuzzy, python-format
 msgid "'%s' is not a valid IPv6 address."
+msgstr "%s ga se leina la moswari la kgonthe."
+
+#: ../network.py:98
+#, fuzzy, python-format
+msgid "'%s' is an invalid IP address."
 msgstr "%s ga se leina la moswari la kgonthe."
 
 #: ../packages.py:241
@@ -1290,11 +1342,11 @@ msgstr "Senotlelo sa go Tsenya Khoutu"
 msgid "Key:"
 msgstr ""
 
-#: ../packages.py:276
+#: ../packages.py:277
 msgid "Warning! This is pre-release software!"
 msgstr "Temošo! Le ke lenaneo la khomphuthara le lokolotšwego pele!"
 
-#: ../packages.py:277
+#: ../packages.py:278
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1322,124 +1374,9 @@ msgstr ""
 "\n"
 "gomme o ngwale pego kgahlanong le '%s'.\n"
 
-#: ../packages.py:290
+#: ../packages.py:291
 msgid "_Install anyway"
 msgstr "_Lega go le bjalo tsenya"
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:558
-msgid "Foreign"
-msgstr "Šele"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Sedirišwa sa %s se bopilwe ka LDL go e na le go dirwa sebopego ka CDL. Di-"
-"DASD tšeo di bopilwego ka LDL ga di thekgwe bakeng sa go dirišwa nakong ya "
-"go tsenywa ga %s. Ge eba o rata go diriša tisiki ye bakeng sa go tsenya, e "
-"swanetše go thomišwa gape go baka go lahlegelwa ke TSEBIŠO KA MOKA draeveng "
-"ye.\n"
-"\n"
-"Na o ka rata go dira sebopego sa DASD ye o diriša sebopego sa CDL?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"/dev/%s gona bjale e nale ponagalo ya karolo ya %s. Gore o diriše tisiki ye "
-"bakeng sa go tsenya %s, e swanetše go thomišwa gape, e bake go lahlegelwa ke "
-"TSEBIŠO KA MOKA draeveng ye.\n"
-"\n"
-"Na o ka rata go dira sebopego bakeng sa draeve ye?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Hlokomologa draeve"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "_Dira sebopego sa draeve"
-
-#: ../partedUtils.py:791
-#, python-format
-msgid "Error mounting file system on %s: %s"
-msgstr "Phošo ya go kgobela tshepedišo ya faele go %s: %s"
-
-#: ../partedUtils.py:888
-msgid "Initializing"
-msgstr "Go thomiša"
-
-#: ../partedUtils.py:889
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Hle ema ge go dutše go dirwa sebopego sa draeve ya %s...\n"
-
-#: ../partedUtils.py:987
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Lenaneo la karolo sedirišweng sa %s (%s) le be le sa balege. Gore o hlame "
-"dikarolo tše mpsha le swanetše go thomišwa, le bake go lahlegelwa ke TSEBIŠO "
-"KA MOKA draeveng ye.\n"
-"\n"
-"Tiro ye e tla dira gore dikgetho tša go tsenya le ge ele dife tša nakong e "
-"fetilego e ba tša bohlokwa mabapi le gore ke di-draeve dife tšeo di "
-"swanetšego go hlokomologwa.\n"
-"\n"
-"Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
-
-#: ../partedUtils.py:1044
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Lenaneo la karolo sedirišweng sa %s le be le sa balege. Gore o hlame "
-"dikarolo tše mpsha le swanetše go thomišwa, le bake go lahlegelwa ke TSEBIŠO "
-"KA MOKA draeveng ye.\n"
-"\n"
-"Tiro ye e tla dira gore dikgetho tša go tsenya le ge ele dife tšeo di "
-"dirilwego nakong e fetilego e be tša bohlokwa mabapi le gore ke di-draeve "
-"dife tšeo o swanetšego go di hlokomologa.\n"
-"\n"
-"Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
-
-#: ../partedUtils.py:1162
-msgid "No Drives Found"
-msgstr "Ga go na Di-draeve tše Hweditšwego"
-
-#: ../partedUtils.py:1163
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Go tšweletše phošo - ga go na didirišwa tša kgonthe tšeo di hweditšwego tšeo "
-"go ka hlangwago ditshepedišo tše mpsha tša faele. Hle lekola lenaneo la gago "
-"le thata la khomphuthara bakeng sa sebaki sa bothata bjo."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1556,8 +1493,8 @@ msgstr ""
 "O ka se kgone go phumola karolo ye:\n"
 "\n"
 
-#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:529
-#: ../iw/lvm_dialog_gui.py:757
+#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:528
+#: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
 msgstr "Tiišetša go Phumola"
 
@@ -1566,9 +1503,9 @@ msgstr "Tiišetša go Phumola"
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "O kgauswi le go phumola dikarolo ka moka sedirišweng sa '/dev/%s'."
 
-#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
-#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
+#: ../partIntfHelpers.py:237 ../partIntfHelpers.py:529
+#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1107
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
 msgid "_Delete"
 msgstr "_Phumola"
 
@@ -1631,11 +1568,11 @@ msgstr ""
 "Na o ka rata go bopa karolo ye bjalo ka karolo ya go ananya?"
 
 #: ../partIntfHelpers.py:405
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to install %s."
 msgstr "O swanetše go kgetha bonyenyane draeve e tee gore o tsenye %s go yona."
 
-#: ../partIntfHelpers.py:411
+#: ../partIntfHelpers.py:410
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1652,23 +1589,23 @@ msgstr ""
 "bjalo ka ditšhupetšo tša mo gae, ke moka o tšwele pele ka ntle le go dira "
 "sebopego sa karolo ye."
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:418
 msgid "Format?"
 msgstr "Dira Sebopego?"
 
-#: ../partIntfHelpers.py:419 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "_Mpshafatša Karolo"
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
 msgstr "O Se _ke wa Dira Sebopego"
 
-#: ../partIntfHelpers.py:427
+#: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
 msgstr "Phošo ya go Arola"
 
-#: ../partIntfHelpers.py:428
+#: ../partIntfHelpers.py:427
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1682,11 +1619,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:442
+#: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
 msgstr "Temošo ya Karolo"
 
-#: ../partIntfHelpers.py:443
+#: ../partIntfHelpers.py:442
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1701,7 +1638,7 @@ msgstr ""
 "\n"
 "Na o tla rata go tšwela pele le sekema sa gago sa karolo seo se kgopetšwego?"
 
-#: ../partIntfHelpers.py:457 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:664
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1709,7 +1646,7 @@ msgstr ""
 "Dikarolo tše latelago tšeo di šetšego di le gona di kgethilwe gore di dirwe "
 "sebopego, di senye tsebišo ka moka."
 
-#: ../partIntfHelpers.py:460
+#: ../partIntfHelpers.py:459
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1717,11 +1654,11 @@ msgstr ""
 "Kgetha 'Ee' gore o tšwele pele o dira sebopego sa dikarolo tše, goba 'Aowa' "
 "gore o boele morago gomme o fetole dipeakanyo tše."
 
-#: ../partIntfHelpers.py:466
+#: ../partIntfHelpers.py:465
 msgid "Format Warning"
 msgstr "Temošo ya go Dira Sebopego"
 
-#: ../partIntfHelpers.py:514
+#: ../partIntfHelpers.py:513
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1732,40 +1669,242 @@ msgstr ""
 "\n"
 "Dibolumo KA MOKA tše kwagalago sehlopheng se sa bolumo di tla lahlega!"
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "O kgauswi le go phumola bolumo e kwagalago ya \"%s\"."
 
-#: ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
 msgstr "O kgauswi le go phumola sedirišwa sa RAID."
 
-#: ../partIntfHelpers.py:524
+#: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "O kgauswi le go phumola karolo ya /dev/%s."
 
-#: ../partIntfHelpers.py:527
+#: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
 msgstr "Karolo yeo o e kgethilego e tla phumolwa."
 
-#: ../partIntfHelpers.py:537
+#: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
 msgstr "Tiišetša go Beakanya ka Leswa"
 
-#: ../partIntfHelpers.py:538
+#: ../partIntfHelpers.py:537
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Na o kgonthišegile gore o nyaka go beakanya ka leswa lenaneo la karolo gore "
 "le boele boemong bja lona bja tlwaelo?"
 
-#: ../partitioning.py:62
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Ntlha ye ya go kgobelana ga se ya kgonthe.  Tšhupetšo ya %s e swanetše go ba "
+"tshepedišong ya / faele."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Ntlha ya go kgobelana ya %s e ka se dirišwe.  E swanetše go ba lomaganyo ya "
+"leswao bakeng sa go šoma ga tshwanelo ga tshepedišo.  Hle kgetha ntlha e "
+"fapanego ya go kgobelana."
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr ""
+"Ntlha ye ya go kgobelana e swanetše go ba tshepedišong ya faele ya linux."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"Ntlha ya go kgobelana \"%s\" e šetše e dirišwa, hle kgetha ntlha e fapanego "
+"ya go kgobelana."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"Bogolo bja karolo ya %s (%10.2f MB) bo feta bogolo bjo bogolo bja %10.2f MB."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"Bogolo bja karolo e kgopetšwego (bogolo = %s MB) bo feta bogolo bjo bogolo "
+"bja %s MB."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "Bogolo bja karolo e kgopetšwego bo a latola! (bogolo = %s MB)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "Dikarolo di ka se thome ka tlase ga silintere ya mathomo."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Dikarolo di ka se felele silintereng e latolago."
+
+#: ../partRequests.py:669
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+"Ga go na maloko kgopelong ya RAID, goba e sego mogato wa RAID o laeditšwego."
+
+#: ../partRequests.py:677 ../partitions.py:954
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Dikarolo tšeo di ka thongwago di ka ba feela didirišweng tša RAID1."
+
+#: ../partRequests.py:681
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "Sedirišwa sa RAID sa mohuta wa %s se nyaka bonyenyane maloko a %s."
+
+#: ../partRequests.py:690
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Sedirišwa se sa RAID se ka ba le bogolo bja dilo tše dingwe tša ka thoko tše "
+"%s. Gore o be le tše dingwe tša ka thoko tše oketšegilego go hlokega gore o "
+"oketše maloko sedirišweng sa RAID."
+
+#: ../partRequests.py:924
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Šele"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Sedirišwa sa %s se bopilwe ka LDL go e na le go dirwa sebopego ka CDL. Di-"
+"DASD tšeo di bopilwego ka LDL ga di thekgwe bakeng sa go dirišwa nakong ya "
+"go tsenywa ga %s. Ge eba o rata go diriša tisiki ye bakeng sa go tsenya, e "
+"swanetše go thomišwa gape go baka go lahlegelwa ke TSEBIŠO KA MOKA draeveng "
+"ye.\n"
+"\n"
+"Na o ka rata go dira sebopego sa DASD ye o diriša sebopego sa CDL?"
+
+#: ../partedUtils.py:335
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this disk for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to format this drive?"
+msgstr ""
+"/dev/%s gona bjale e nale ponagalo ya karolo ya %s. Gore o diriše tisiki ye "
+"bakeng sa go tsenya %s, e swanetše go thomišwa gape, e bake go lahlegelwa ke "
+"TSEBIŠO KA MOKA draeveng ye.\n"
+"\n"
+"Na o ka rata go dira sebopego bakeng sa draeve ye?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Hlokomologa draeve"
+
+#: ../partedUtils.py:345
+msgid "_Format drive"
+msgstr "_Dira sebopego sa draeve"
+
+#: ../partedUtils.py:898
+msgid "Initializing"
+msgstr "Go thomiša"
+
+#: ../partedUtils.py:899
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Hle ema ge go dutše go dirwa sebopego sa draeve ya %s...\n"
+
+#: ../partedUtils.py:1019
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Lenaneo la karolo sedirišweng sa %s (%s) le be le sa balege. Gore o hlame "
+"dikarolo tše mpsha le swanetše go thomišwa, le bake go lahlegelwa ke TSEBIŠO "
+"KA MOKA draeveng ye.\n"
+"\n"
+"Tiro ye e tla dira gore dikgetho tša go tsenya le ge ele dife tša nakong e "
+"fetilego e ba tša bohlokwa mabapi le gore ke di-draeve dife tšeo di "
+"swanetšego go hlokomologwa.\n"
+"\n"
+"Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
+
+#: ../partedUtils.py:1083
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Lenaneo la karolo sedirišweng sa %s le be le sa balege. Gore o hlame "
+"dikarolo tše mpsha le swanetše go thomišwa, le bake go lahlegelwa ke TSEBIŠO "
+"KA MOKA draeveng ye.\n"
+"\n"
+"Tiro ye e tla dira gore dikgetho tša go tsenya le ge ele dife tšeo di "
+"dirilwego nakong e fetilego e be tša bohlokwa mabapi le gore ke di-draeve "
+"dife tšeo o swanetšego go di hlokomologa.\n"
+"\n"
+"Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
+
+#: ../partedUtils.py:1204
+msgid "No Drives Found"
+msgstr "Ga go na Di-draeve tše Hweditšwego"
+
+#: ../partedUtils.py:1205
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Go tšweletše phošo - ga go na didirišwa tša kgonthe tšeo di hweditšwego tšeo "
+"go ka hlangwago ditshepedišo tše mpsha tša faele. Hle lekola lenaneo la gago "
+"le thata la khomphuthara bakeng sa sebaki sa bothata bjo."
+
+#: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Go tsenya go ka se tšwele pele."
 
-#: ../partitioning.py:63
+#: ../partitioning.py:62
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1775,11 +1914,11 @@ msgstr ""
 "sa kgona go boela sekirining tisiki sa go lokiša. Na o tla rata go tšwela "
 "pele le mosepelo wa go tsenya?"
 
-#: ../partitioning.py:93
+#: ../partitioning.py:92
 msgid "Low Memory"
 msgstr "Kgopolo ya Tlase"
 
-#: ../partitioning.py:94
+#: ../partitioning.py:93
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1849,10 +1988,6 @@ msgid ""
 "system."
 msgstr ""
 
-#: ../partitions.py:954 ../partRequests.py:677
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Dikarolo tšeo di ka thongwago di ka ba feela didirišweng tša RAID1."
-
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Dikarolo tšeo di ka thongwago di ka se be bolumong e kwagalago."
@@ -1896,94 +2031,6 @@ msgstr "karolo yeo e lego leloko la RAID e fapanego."
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "karolo yeo e lego leloko la Sehlopha sa Bolumo sa LVM."
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Ntlha ye ya go kgobelana ga se ya kgonthe.  Tšhupetšo ya %s e swanetše go ba "
-"tshepedišong ya / faele."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"Ntlha ya go kgobelana ya %s e ka se dirišwe.  E swanetše go ba lomaganyo ya "
-"leswao bakeng sa go šoma ga tshwanelo ga tshepedišo.  Hle kgetha ntlha e "
-"fapanego ya go kgobelana."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr ""
-"Ntlha ye ya go kgobelana e swanetše go ba tshepedišong ya faele ya linux."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"Ntlha ya go kgobelana \"%s\" e šetše e dirišwa, hle kgetha ntlha e fapanego "
-"ya go kgobelana."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"Bogolo bja karolo ya %s (%10.2f MB) bo feta bogolo bjo bogolo bja %10.2f MB."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"Bogolo bja karolo e kgopetšwego (bogolo = %s MB) bo feta bogolo bjo bogolo "
-"bja %s MB."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Bogolo bja karolo e kgopetšwego bo a latola! (bogolo = %s MB)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Dikarolo di ka se thome ka tlase ga silintere ya mathomo."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Dikarolo di ka se felele silintereng e latolago."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Ga go na maloko kgopelong ya RAID, goba e sego mogato wa RAID o laeditšwego."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "Sedirišwa sa RAID sa mohuta wa %s se nyaka bonyenyane maloko a %s."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Sedirišwa se sa RAID se ka ba le bogolo bja dilo tše dingwe tša ka thoko tše "
-"%s. Gore o be le tše dingwe tša ka thoko tše oketšegilego go hlokega gore o "
-"oketše maloko sedirišweng sa RAID."
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "Go Thoma Poledišano"
@@ -2006,20 +2053,20 @@ msgstr "Beakanya go dira Neteweke"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Na o nyaka go thoma dipoledišano tša neteweke tshepedišong ye?"
 
-#: ../rescue.py:243 ../text.py:533
+#: ../rescue.py:243 ../text.py:534
 msgid "Cancelled"
 msgstr "Khansetšwe"
 
-#: ../rescue.py:244 ../text.py:534
+#: ../rescue.py:244 ../text.py:535
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Nka se boele mogatong o fetilego go tloga mo. O tla swanela go leka gape."
 
-#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
+#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
 msgstr "Phološa"
 
-#: ../rescue.py:281
+#: ../rescue.py:277
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2044,28 +2091,29 @@ msgstr ""
 "lebanya.\n"
 "\n"
 
-#: ../rescue.py:291 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:113
-#: ../loader2/cdinstall.c:121 ../loader2/driverdisk.c:480
+#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
+#: ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Tšwela pele"
 
-#: ../rescue.py:291 ../rescue.py:296
+#: ../rescue.py:287 ../rescue.py:292
 msgid "Read-Only"
 msgstr "Bala Feela"
 
-#: ../rescue.py:322
+#: ../rescue.py:318
 msgid "System to Rescue"
 msgstr "Tshepedišo yeo e Phološwago"
 
-#: ../rescue.py:323
+#: ../rescue.py:319
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ke karolo efe yeo e swerego karolo ya modu ya go tsenya ga gago?"
 
-#: ../rescue.py:325 ../rescue.py:329
+#: ../rescue.py:321 ../rescue.py:325
 msgid "Exit"
 msgstr "Etšwa"
 
-#: ../rescue.py:348
+#: ../rescue.py:344
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2076,7 +2124,7 @@ msgstr ""
 "o ka lokišago le go kgobelanya dikarolo tša gago. Tshepedišo e tla "
 "ithomološa ge o tšwa legaping."
 
-#: ../rescue.py:356
+#: ../rescue.py:352
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2097,7 +2145,7 @@ msgstr ""
 "\n"
 "Tshepedišo e tla ithomološa ge go tšwa legaping."
 
-#: ../rescue.py:439
+#: ../rescue.py:435
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2113,11 +2161,11 @@ msgstr ""
 "Kgotla <boela> gore o hwetše legapi. Tshepedišo e tla ithomološa ge o tšwa "
 "legaping."
 
-#: ../rescue.py:445
+#: ../rescue.py:441
 msgid "Rescue Mode"
 msgstr "Mokgwa wa go Phološa"
 
-#: ../rescue.py:446
+#: ../rescue.py:442
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2125,7 +2173,7 @@ msgstr ""
 "Ga o na dikarolo le ge ele dife tša Linux. Kgotla boela gore o hwetša "
 "legapi. Tshepedišo e tla ithomološa ge o tšwa legaping."
 
-#: ../rescue.py:459
+#: ../rescue.py:455
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Tshepedišo ya gago e kgobelantšwe ka tlase ga tšhupetšo ya %s."
@@ -2180,33 +2228,25 @@ msgstr "Ga go na thušo yeo e lego gona bakeng sa mogato wo wa go tsentšha."
 msgid "Save Crash Dump"
 msgstr "Boloka Tsebišo e Senyegilego"
 
-#: ../text.py:419 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "O a amogelwa go %s"
 
-#: ../text.py:426
+#: ../text.py:423
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> bakeng sa thušo | <Tab> magareng ga dikarolwana | <Space> e a kgetha | "
 "<F12> sekirini se latelago"
 
-#: ../text.py:428
+#: ../text.py:425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> magareng ga dikarolwana   |  <Space> e a kgetha   |  <F12> "
 "sekirini se latelago"
-
-#: ../upgradeclass.py:22
-msgid "Upgrade Existing System"
-msgstr "Kaonafatša Tshepedišo yeo Šetšego e le Gona"
-
-#: ../upgradeclass.py:26
-msgid "Upgrade"
-msgstr "Kaonafatša"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2236,11 +2276,11 @@ msgstr "Go nyaka"
 msgid "Searching for %s installations..."
 msgstr "Go nyaka ditsenyo tša %s..."
 
-#: ../upgrade.py:150 ../upgrade.py:158
+#: ../upgrade.py:149 ../upgrade.py:157
 msgid "Dirty File Systems"
 msgstr "Ditshepedišo tša Faele ya Ditšhila"
 
-#: ../upgrade.py:151
+#: ../upgrade.py:150
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2254,7 +2294,7 @@ msgstr ""
 "hlwekilego gore go kaonafatšwe.\n"
 "%s"
 
-#: ../upgrade.py:159
+#: ../upgrade.py:158
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2266,11 +2306,11 @@ msgstr ""
 "lege go le bjalo?\n"
 "%s"
 
-#: ../upgrade.py:296 ../upgrade.py:302
+#: ../upgrade.py:295 ../upgrade.py:301
 msgid "Mount failed"
 msgstr "Go kgobelanya go padile"
 
-#: ../upgrade.py:297
+#: ../upgrade.py:296
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2279,7 +2319,7 @@ msgstr ""
 "tshepedišong ya gago ya Linux di ka se kgobelanywe. Hle lokiša bothata gomme "
 "o leke go kaonafatša gape."
 
-#: ../upgrade.py:303
+#: ../upgrade.py:302
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2289,7 +2329,7 @@ msgstr ""
 "ya tshepedišo ya gago ya Linux ga di a tsepama e bile di ka se kgobelanywe. "
 "Hle lokiša bothata bjo gomme o leke go kaonafatša gape."
 
-#: ../upgrade.py:320
+#: ../upgrade.py:319
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2301,11 +2341,11 @@ msgstr ""
 "tša mehlala gomme o thome kaonafatšo ka leswa.\n"
 "\n"
 
-#: ../upgrade.py:326
+#: ../upgrade.py:325
 msgid "Absolute Symlinks"
 msgstr "Dikgokanyo tša Mehlala tša Kgonthe"
 
-#: ../upgrade.py:337
+#: ../upgrade.py:336
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2318,20 +2358,20 @@ msgstr ""
 "kaonafatšo ka leswa.\n"
 "\n"
 
-#: ../upgrade.py:343
+#: ../upgrade.py:342
 msgid "Invalid Directories"
 msgstr "Ditšhupetšo tšeo e sego tša Kgonthe"
 
-#: ../upgrade.py:350
+#: ../upgrade.py:349
 #, python-format
 msgid "%s not found"
 msgstr "%s ga se ya hwetšwa"
 
-#: ../urlinstall.py:36
+#: ../urlinstall.py:38
 msgid "Connecting..."
 msgstr "Go kgokaganya..."
 
-#: ../urlinstall.py:75
+#: ../urlinstall.py:77
 #, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -2349,11 +2389,11 @@ msgstr ""
 "\n"
 "Kgotla <boela> gore o leke gape."
 
-#: ../vnc.py:44
+#: ../vnc.py:47
 msgid "Unable to Start X"
 msgstr "Ga e Kgone go Thoma X"
 
-#: ../vnc.py:45
+#: ../vnc.py:48
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2364,23 +2404,23 @@ msgstr ""
 "dire go tsenya ga diswantšho goba o tšwele pele le go tsenya ga mokgwa wa "
 "sengwalwa?"
 
-#: ../vnc.py:52 ../vnc.py:55
+#: ../vnc.py:55 ../vnc.py:58
 msgid "Use text mode"
 msgstr "Diriša mokgwa wa sengwalwa"
 
-#: ../vnc.py:53
+#: ../vnc.py:56
 msgid "Start VNC"
 msgstr "Thoma VNC"
 
-#: ../vnc.py:63
+#: ../vnc.py:66
 msgid "VNC Configuration"
 msgstr "Go fetola sebopego ga VNC"
 
-#: ../vnc.py:67
+#: ../vnc.py:70
 msgid "No password"
 msgstr "Ga go na lentšu-phetišo"
 
-#: ../vnc.py:70
+#: ../vnc.py:73
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2390,70 +2430,70 @@ msgstr ""
 "ikgokaganye le go bea leihlo tšwelopeleng ya gago ya go tsenya. Hle tsenya "
 "lentšu-phetišo leo le swanetšego go dirišetšwa go tsenya"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:445
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
 msgid "Password:"
 msgstr "Lentšu-phetišo:"
 
-#: ../vnc.py:79 ../textw/userauth_text.py:43
+#: ../vnc.py:82 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "Lentšu-phetišo (tiišetša):"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:64
+#: ../vnc.py:104 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "Go se Swane ga Lentšu-phetišo"
 
-#: ../vnc.py:102 ../textw/userauth_text.py:65
+#: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "Mantšu-phetišo ao o a tsentšhitšego a be a sa swane. Hle leka gape."
 
-#: ../vnc.py:107 ../textw/userauth_text.py:59
+#: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "Botelele bja Lentšu-phetišo"
 
-#: ../vnc.py:108
+#: ../vnc.py:111
 msgid "The password must be at least six characters long."
 msgstr ""
 "Lentšu-phetišo le swanetše go ba bonyenyane ditlhaka tše tshelela ka "
 "botelele."
 
-#: ../vnc.py:138
+#: ../vnc.py:141
 #, fuzzy
 msgid "VNC Password Error"
 msgstr "Ga go na lentšu-phetišo"
 
-#: ../vnc.py:139
+#: ../vnc.py:142
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: ../vnc.py:184
+#: ../vnc.py:187
 msgid "Starting VNC..."
 msgstr "Go thoma VNC..."
 
-#: ../vnc.py:227
+#: ../vnc.py:230
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "tsenyo ya %s %s moswaring wa %s"
 
-#: ../vnc.py:229
+#: ../vnc.py:232
 #, python-format
 msgid "%s %s installation"
 msgstr "tsenyo ya %s %s"
 
-#: ../vnc.py:249
+#: ../vnc.py:252
 msgid "Unable to set vnc password - using no password!"
 msgstr ""
 "Ga e kgone go beakanya lentšu-phetišo la vnc - ga e diriše lentšu-phetišo!"
 
-#: ../vnc.py:250
+#: ../vnc.py:253
 msgid "Make sure your password is at least 6 characters in length."
 msgstr ""
 "Kgonthišetša gore lentšu-phetišo la gago le nale bonyenyane ditlhaka tše 6 "
 "ka botelele."
 
-#: ../vnc.py:273
+#: ../vnc.py:276
 msgid ""
 "\n"
 "\n"
@@ -2469,104 +2509,104 @@ msgstr ""
 "ge eba o nyaka go šireletša seabi.\n"
 "\n"
 
-#: ../vnc.py:277
+#: ../vnc.py:280
 msgid "The VNC server is now running."
 msgstr "Seabi sa VNC bjale se a šoma."
 
-#: ../vnc.py:280
+#: ../vnc.py:283
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "E leka go ikgokaganya le modirelwa wa vnc go moswari wa %s..."
 
-#: ../vnc.py:292
+#: ../vnc.py:295
 msgid "Connected!"
 msgstr "Kgokagantšwe!"
 
-#: ../vnc.py:297
+#: ../vnc.py:300
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "E tlogela go leka go ikgokaganya ka morago ga go leka ka makga a 50!\n"
 
-#: ../vnc.py:299
+#: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 "Hle ikgokaganyele modirelwa wa gago wa vnc go %s gore o thome go tsenya."
 
-#: ../vnc.py:301
+#: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Hle ikgokaganyele modirelwa wa gago wa vnc gore o thome go tsenya."
 
-#: ../vnc.py:305
+#: ../vnc.py:308
 msgid "Will try to connect again in 15 seconds..."
 msgstr "E tla leka go ikgokaganya gape ka morago ga metsotswana e 15..."
 
-#: ../vnc.py:313
+#: ../vnc.py:316
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Hle kgokaganya le %s gore o thome go tsenya..."
 
-#: ../vnc.py:315
+#: ../vnc.py:318
 msgid "Please connect to begin the install..."
 msgstr "Hle kgokaganya gore o thome go tsenya..."
 
-#: ../yuminstall.py:103
+#: ../yuminstall.py:100
 msgid "Processing"
 msgstr "Go Phethagatša"
 
-#: ../yuminstall.py:104
+#: ../yuminstall.py:101
 #, fuzzy
 msgid "Preparing transaction from installation source..."
 msgstr "Itokišeletša go tsenya..."
 
-#: ../yuminstall.py:470 ../yuminstall.py:471
+#: ../yuminstall.py:614 ../yuminstall.py:615
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:472
+#: ../yuminstall.py:616
 #, fuzzy
 msgid "older package(s)"
 msgstr "Diphuthelwana tša Boikgethelo"
 
-#: ../yuminstall.py:473
+#: ../yuminstall.py:617
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:474
+#: ../yuminstall.py:618
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:475
+#: ../yuminstall.py:619
 #, fuzzy
 msgid "package conflicts"
 msgstr "Ditlhaelelo tša Sephuthelwana"
 
-#: ../yuminstall.py:476
+#: ../yuminstall.py:620
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:477
+#: ../yuminstall.py:621
 #, fuzzy
 msgid "required package"
 msgstr "Sekgoba se se nago selo"
 
-#: ../yuminstall.py:478
+#: ../yuminstall.py:622
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:479
+#: ../yuminstall.py:623
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:493
+#: ../yuminstall.py:637
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:509
+#: ../yuminstall.py:653
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Go itokišeletša go šoma ga RPM..."
 
-#: ../yuminstall.py:510
+#: ../yuminstall.py:654
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2575,21 +2615,22 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:514 ../yuminstall.py:609 ../yuminstall.py:1001
+#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
+#: ../yuminstall.py:1140
 msgid "Re_boot"
 msgstr "Thomo_loša"
 
-#: ../yuminstall.py:697
+#: ../yuminstall.py:843
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Go bala tshedimošo ya sephuthelwana..."
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:845
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Go bala tshedimošo ya sephuthelwana..."
 
-#: ../yuminstall.py:721
+#: ../yuminstall.py:867
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2600,18 +2641,24 @@ msgstr ""
 "bohlokwa. Hle kgonthišetša gore mohlare wa gago wa go tsenya o hlagišitšwe "
 "ka tshwanelo."
 
-#: ../yuminstall.py:760
+#: ../yuminstall.py:883
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+
+#: ../yuminstall.py:915
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:995
+#: ../yuminstall.py:1134
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1149
+#: ../yuminstall.py:1289
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2621,100 +2668,59 @@ msgstr ""
 "ka kaonafatša kgatišo ye ya %s.  Na o kgonthišegile gore o nyaka go tšwela "
 "pele le mosepelo wa go kaonafatša?"
 
-#: ../yuminstall.py:1181
+#: ../yuminstall.py:1321
 msgid "Install Starting"
 msgstr "Go Tsenya go a Thoma"
 
-#: ../yuminstall.py:1182
+#: ../yuminstall.py:1322
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Go thoma mosepelo wa go tsenya, se se ka tšea metsotso e mmalwa..."
 
-#: ../yuminstall.py:1198
+#: ../yuminstall.py:1338
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "Kaonafatša"
 
-#: ../yuminstall.py:1199
+#: ../yuminstall.py:1339
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Go dira go fetola sebopego sa go tsenya poso..."
 
-#: ../yuminstall.py:1201
+#: ../yuminstall.py:1341
 msgid "Post Install"
 msgstr "Go Tsenya Poso"
 
-#: ../yuminstall.py:1202
+#: ../yuminstall.py:1342
 msgid "Performing post install configuration..."
 msgstr "Go dira go fetola sebopego sa go tsenya poso..."
 
-#: ../yuminstall.py:1357
+#: ../yuminstall.py:1524
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Mohuta wa go Tsenya"
 
-#: ../yuminstall.py:1392
+#: ../yuminstall.py:1559
 msgid "Dependency Check"
 msgstr "Tekolo ya go Ithekga"
 
-#: ../yuminstall.py:1393
+#: ../yuminstall.py:1560
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Go lekola tšeo di ithekgilego diphuthelwaneng tšeo di kgethilwego bakeng sa "
 "go tsenya..."
 
-#: ../zfcp.py:29
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
-msgstr ""
-"Metšhene ya zSeries e ka tsena didirišweng tša SCSI tša motheo wa intaseteri "
-"ka Kanale ya Fibre (FCP). O swanetše go fana ka dikarolo tše 5 bakeng sa "
-"sedirišwa se sengwe le se sengwe: nomoro ya sedirišwa sa 16 bit, 16bit SCSI "
-"ID, Leina la Lefelo la Lefase ka Bophara (WWPN) la 64 bit, SCSI ya LUN ya "
-"16bit le FCP ya LUN ya 64 bit."
-
-#: ../zfcp.py:31
-msgid "Device number"
-msgstr "Nomoro ya sedirišwa"
-
-#: ../zfcp.py:32
+#: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Ga se wa laetša nomoro ya sedirišwa goba nomoro ya se ya kgonthe"
 
-#: ../zfcp.py:34
-msgid "SCSI Id"
-msgstr "Boitsebišo bja SCSI"
-
-#: ../zfcp.py:35
-msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Ga se wa laetša Boitsebišo bja SCSI goba Boitsebišo ga se bja kgonthe."
-
-#: ../zfcp.py:37 ../textw/zfcp_text.py:101
-msgid "WWPN"
-msgstr "WWPN"
-
-#: ../zfcp.py:38
+#: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr ""
 "Ga se wa laetša leina la lefelo la lefase ka bophara goba leina ga se la "
 "kgonthe."
 
-#: ../zfcp.py:40
-msgid "SCSI LUN"
-msgstr "SCSI LUN"
-
-#: ../zfcp.py:41
-msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Ga se wa laetša SCSI LUN goba nomoro ya se ya kgonthe."
-
-#: ../zfcp.py:43 ../textw/zfcp_text.py:101
-msgid "FCP LUN"
-msgstr "FCP LUN"
-
-#: ../zfcp.py:44
+#: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Ga se wa laetša FCP LUN goba nomoro ga se ya kgonthe."
 
@@ -2769,35 +2775,35 @@ msgstr "Lentšu-phetišo _la Modu: "
 msgid "_Confirm: "
 msgstr "_Tiišetša: "
 
-#: ../iw/autopart_type.py:134
+#: ../iw/autopart_type.py:137
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "Leina la Sehlopha la Bolumo leo e sego la Kgonthe"
 
-#: ../iw/autopart_type.py:135
+#: ../iw/autopart_type.py:138
 #, fuzzy
 msgid "You must provide a non-zero length initiator name."
 msgstr "O swanetše go fana ka leina la modiriši"
 
-#: ../iw/autopart_type.py:157
+#: ../iw/autopart_type.py:161
 #, fuzzy
 msgid "Error with Data"
 msgstr "Phošo Mabapi le Tsebišo"
 
-#: ../iw/autopart_type.py:210 ../textw/partition_text.py:1525
+#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Tloša dikarolo ka moka tshepedišong ye"
 
-#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr ""
 
@@ -3029,7 +3035,7 @@ msgstr ""
 msgid "Drive"
 msgstr "Draeve"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1447
 msgid "Size"
 msgstr "Bogolo"
 
@@ -3037,16 +3043,16 @@ msgstr "Bogolo"
 msgid "Model"
 msgstr "Mohuta"
 
-#: ../iw/examine_gui.py:31
+#: ../iw/examine_gui.py:28
 msgid "Upgrade Examine"
 msgstr "Kaonafatša Tlhahlobo"
 
-#: ../iw/examine_gui.py:55
+#: ../iw/examine_gui.py:50
 #, python-format
 msgid "_Install %s"
 msgstr "_Tsenya %s"
 
-#: ../iw/examine_gui.py:57
+#: ../iw/examine_gui.py:52
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -3055,11 +3061,11 @@ msgstr ""
 "khomphuthara leo le šetšego le le gona le tsebišo go ka ngwalwa godimo ga "
 "tšona go ithekgilwe ka dikgetho tša gago tša go fetola sebopego."
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:56
 msgid "_Upgrade an existing installation"
 msgstr "_Kaonafatša tsenyo yeo e šetšego e le gona"
 
-#: ../iw/examine_gui.py:63
+#: ../iw/examine_gui.py:58
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -3069,11 +3075,11 @@ msgstr ""
 "yeo e šetšego e le gona. Kgetho ye e tla boloka tsebišo yeo e šetšego e le "
 "gona di-draeveng tša gago."
 
-#: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "Tshepedišo e latelago e tsentšhitšwego e tla kaonafatšwa:"
 
-#: ../iw/examine_gui.py:123
+#: ../iw/examine_gui.py:118
 msgid "Unknown Linux system"
 msgstr "Tshepedišo e sa Tsebjwego ya Linux"
 
@@ -3081,7 +3087,7 @@ msgstr "Tshepedišo e sa Tsebjwego ya Linux"
 msgid "Language Selection"
 msgstr "Kgetho ya Leleme"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 "Ke leleme lefe leo o tla ratago go le diriša nakong ya mosepelo wo wa go "
@@ -3089,9 +3095,9 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
-#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
-#: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
+#: ../iw/lvm_dialog_gui.py:287 ../iw/lvm_dialog_gui.py:601
+#: ../iw/lvm_dialog_gui.py:669 ../iw/lvm_dialog_gui.py:880
+#: ../textw/partition_text.py:1301 ../textw/partition_text.py:1320
 msgid "Not enough space"
 msgstr "Ga go na sekgoba se lekanego"
 
@@ -3124,7 +3130,7 @@ msgstr ""
 "Phetogo ye e tla direga kapela."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:188
+#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
 msgid "C_ontinue"
 msgstr "&Tšwelapele"
 
@@ -3173,7 +3179,7 @@ msgstr ""
 "bjo kwagalago bjo bogolo (%10.2f MB) ke bjo bonyenyane go feta e tee goba "
 "tše dintši tša dibolumo tše kwagalago tšeo gona bjale di hlalositšwego."
 
-#: ../iw/lvm_dialog_gui.py:290
+#: ../iw/lvm_dialog_gui.py:288
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -3182,102 +3188,102 @@ msgstr ""
 "tla ba se senyenyane kudu gore se ka swara dibulumo tše kwagalago tšeo gona "
 "bjale di hlalositšwego."
 
-#: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
+#: ../iw/lvm_dialog_gui.py:368 ../textw/partition_text.py:1139
 msgid "Make Logical Volume"
 msgstr "Dira Bolumo e Kwagalago"
 
-#: ../iw/lvm_dialog_gui.py:373
+#: ../iw/lvm_dialog_gui.py:371
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Lokiša Bolumo e Kwagalago: %s"
 
-#: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
+#: ../iw/lvm_dialog_gui.py:373 ../textw/partition_text.py:1137
 msgid "Edit Logical Volume"
 msgstr "Lokiša Bolumo e Kwagalago"
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
+#: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
 msgstr "_Ntlha ya go Kgobelana:"
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
+#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
 msgstr "_Mohuta wa Tshepedišo ya Faele:"
 
-#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
 #: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
 msgstr "Mohuta wa Tshepedišo ya Faele wa Mathomo:"
 
-#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:323
 #: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "E sa tsebjwego"
 
-#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:357
 #: ../iw/raid_dialog_gui.py:314
 msgid "Original File System Label:"
 msgstr "Leswao la Tshepedišo la Faele la Mathomo:"
 
-#: ../iw/lvm_dialog_gui.py:426
+#: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
 msgstr "_Leina la Bolumo le Kwagalago:"
 
-#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:432 ../textw/partition_text.py:287
 msgid "Logical Volume Name:"
 msgstr "Leina la Bolumo le Kwagalago:"
 
-#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
 msgid "_Size (MB):"
 msgstr "_Bogolo (MB):"
 
-#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
-#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
-#: ../textw/partition_text.py:378 ../textw/partition_text.py:461
-#: ../textw/partition_text.py:569
+#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
+#: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
+#: ../textw/partition_text.py:379 ../textw/partition_text.py:462
+#: ../textw/partition_text.py:570
 msgid "Size (MB):"
 msgstr "Bogolo (MB):"
 
-#: ../iw/lvm_dialog_gui.py:463
+#: ../iw/lvm_dialog_gui.py:461
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Bogolo bjo bogolo ke %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:524
+#: ../iw/lvm_dialog_gui.py:522 ../textw/partition_text.py:1290
 msgid "Illegal size"
 msgstr "Bogolo bjo bo sego molaong"
 
-#: ../iw/lvm_dialog_gui.py:525
+#: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1291
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 "Bogolo bjo kgopetšwego go ya kamoo bo tsentšhitšwego ga se nomoro ya kgonthe "
 "e kgolo go feta 0."
 
-#: ../iw/lvm_dialog_gui.py:558
+#: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
 msgstr "Ntlha ya go kgobelana e a dirišwa"
 
-#: ../iw/lvm_dialog_gui.py:559
+#: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "Ntlha ya go kgobelana \"%s\" e a dirišwa, hle kgetha e nngwe."
 
-#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
 msgstr "Leina la Bolumo le Kwagalago leo le Sego Molaong"
 
-#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:587 ../textw/partition_text.py:1278
 msgid "Illegal logical volume name"
 msgstr "Leina la bolumo le kwagalago leo le sego molaong"
 
-#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Leina la bolumo le kwagalago \"%s\" le šetše le dirišwa. Hle kgetha le "
 "lengwe."
 
-#: ../iw/lvm_dialog_gui.py:604
+#: ../iw/lvm_dialog_gui.py:602
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -3288,40 +3294,40 @@ msgstr ""
 "bogolo bjo bogolo bja bolumo e kwagalago (%10.2f MB). Gore o oketše tekanyo "
 "ye o ka oketša bogolo bja Koketšo bja Kgonthe bja Sehlopha se sa Bolumo."
 
-#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
-#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
-#: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
-#: ../textw/partition_text.py:1330
+#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
+#: ../textw/partition_text.py:933 ../textw/partition_text.py:1107
+#: ../textw/partition_text.py:1340
 msgid "Error With Request"
 msgstr "Phošo Mabapi le Kgopelo"
 
-#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
-#, python-format
+#: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
+#, fuzzy, python-format
 msgid ""
-"The logical volumes you have configured require %g MB, but the volume group "
-"only has %g MB.  Please either make the volume group larger or make the "
+"The logical volumes you have configured require %d MB, but the volume group "
+"only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
 "Dibolumo tše kwagalago tšeo o di fetotšego sebopego di nyaka %g MB, eupša "
 "sehlopha sa bolumo se na le %g MB feela.  Hle dira gore sehlopha sa bolumo e "
 "be se senyenyane goba o dire gore (di)bolumo tše kwagalago e be tše nyenyane."
 
-#: ../iw/lvm_dialog_gui.py:722
+#: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
 msgstr "Ga go na dikgoba tše se nago selo"
 
-#: ../iw/lvm_dialog_gui.py:723
+#: ../iw/lvm_dialog_gui.py:721
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 "O ka se hlame dibolumo tše kwagalago tše fetago %s ka sehlopha sa bolumo."
 
-#: ../iw/lvm_dialog_gui.py:729
+#: ../iw/lvm_dialog_gui.py:727
 msgid "No free space"
 msgstr "Ga go na sekgoba se se nago selo"
 
-#: ../iw/lvm_dialog_gui.py:730
+#: ../iw/lvm_dialog_gui.py:728
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3332,31 +3338,31 @@ msgstr ""
 "hlokega gore o theoše bogolo bja e tee goba tše dintši tša dibolumo tše "
 "kwagalago tšeo di šetšego di le gona"
 
-#: ../iw/lvm_dialog_gui.py:758
+#: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Na o kgonthišegile gore o nyaka go Phumola bolumo ya kgonthe \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:894
+#: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
 msgstr "Leina la Sehlopha la Bolumo leo e sego la Kgonthe"
 
-#: ../iw/lvm_dialog_gui.py:907
+#: ../iw/lvm_dialog_gui.py:903
 msgid "Name in use"
 msgstr "Leina le dirišwago"
 
-#: ../iw/lvm_dialog_gui.py:908
+#: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Leina la sehlopha sa bolumo la \"%s\" le šetše le dirišwa. Hle kgetha le "
 "lengwe."
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
 msgstr "Ga go na dibolumo tša kgonthe tše lekanego"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:948
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3370,71 +3376,71 @@ msgstr ""
 "Hlama karolo goba peakanyo ya RAID ya mohuta wa \"bolumo ya kgonthe (LVM)\" "
 "ke moka o kgethe kgetho ya \"LVM\" gape."
 
-#: ../iw/lvm_dialog_gui.py:964
+#: ../iw/lvm_dialog_gui.py:959
 msgid "Make LVM Volume Group"
 msgstr "Dira Sehlopha sa Bolumo sa LVM"
 
-#: ../iw/lvm_dialog_gui.py:967
+#: ../iw/lvm_dialog_gui.py:962
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Lokiša Sehlopha sa Bolumo sa LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:969
+#: ../iw/lvm_dialog_gui.py:964
 msgid "Edit LVM Volume Group"
 msgstr "Lokiša Sehlopha sa Bolumo sa LVM"
 
-#: ../iw/lvm_dialog_gui.py:985
+#: ../iw/lvm_dialog_gui.py:980
 msgid "_Volume Group Name:"
 msgstr "_Leina la Sehlopha sa Bolumo:"
 
-#: ../iw/lvm_dialog_gui.py:993
+#: ../iw/lvm_dialog_gui.py:988
 msgid "Volume Group Name:"
 msgstr "Leina la Sehlopha sa Bolumo:"
 
-#: ../iw/lvm_dialog_gui.py:1001
+#: ../iw/lvm_dialog_gui.py:996
 msgid "_Physical Extent:"
 msgstr "_Koketšo ya Kgonthe:"
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Physical Volumes to _Use:"
 msgstr "Dibolumo tša Kgonthe Tšeo di Swanetšego go _Dirišwa:"
 
-#: ../iw/lvm_dialog_gui.py:1022
+#: ../iw/lvm_dialog_gui.py:1017
 msgid "Used Space:"
 msgstr "Sekgoba se Dirišitšwego:"
 
-#: ../iw/lvm_dialog_gui.py:1039
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "Free Space:"
 msgstr "Sekgoba se se Nago Selo:"
 
-#: ../iw/lvm_dialog_gui.py:1057
+#: ../iw/lvm_dialog_gui.py:1052
 msgid "Total Space:"
 msgstr "Palomoka ya Sekgoba:"
 
-#: ../iw/lvm_dialog_gui.py:1086
+#: ../iw/lvm_dialog_gui.py:1081
 msgid "Logical Volume Name"
 msgstr "Leina la Bolumo e Kwagalago"
 
-#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
-#: ../textw/upgrade_text.py:108
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
+#: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Ntlha ya go Kgobelana"
 
-#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
 msgid "Size (MB)"
 msgstr "Bogolo (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Oketša"
 
-#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:690
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_Lokiša"
 
-#: ../iw/lvm_dialog_gui.py:1124
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volumes"
 msgstr "Dibolumo tše Kwagalago"
 
@@ -3474,14 +3480,15 @@ msgstr "_Phegelela dikonope tše 3"
 msgid "Select the appropriate mouse for the system."
 msgstr "Kgetha legotlwana le swanelegilego bakeng sa tshepedišo."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:156
-#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:169
-#: ../iw/network_gui.py:179 ../iw/network_gui.py:183 ../iw/network_gui.py:188
-#: ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223 ../textw/zfcp_text.py:62
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
+#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
+#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
+#: ../textw/network_text.py:54 ../textw/network_text.py:59
+#: ../textw/network_text.py:65
 msgid "Error With Data"
 msgstr "Phošo Mabapi le Tsebišo"
 
-#: ../iw/netconfig_dialog.py:137 ../iw/network_gui.py:170
+#: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3491,49 +3498,56 @@ msgstr ""
 "\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155 ../loader2/net.c:376 ../loader2/net.c:786
+#: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
 msgstr "IP e Maatla"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:377 ../loader2/net.c:787
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Go romela dikgopelo bakeng sa tshedimošo ya IP bakeng sa %s..."
 
-#: ../iw/netconfig_dialog.py:171 ../textw/network_text.py:72
+#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "Aterese ya IP"
 
-#: ../iw/netconfig_dialog.py:177 ../textw/network_text.py:73
+#: ../iw/netconfig_dialog.py:182
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/netconfig_dialog.py:183 ../iw/network_gui.py:26
-#: ../iw/network_gui.py:766
+#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
+#: ../iw/network_gui.py:540
 msgid "Gateway"
 msgstr "Pulatsela"
 
-#: ../iw/netconfig_dialog.py:190 ../loader2/net.c:277
+#: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
 msgstr "Seabi sa leina"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:768
+#: ../iw/netconfig_dialog.py:214
+#, fuzzy
+msgid "Error configuring network device"
+msgstr ""
+"Go bile le phošo ya go hlakiša di-draeve tše lebantšwego. Go kopiša go "
+"padile."
+
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
 msgstr "DNS ya Mathomo"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:770
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
 msgid "Secondary DNS"
 msgstr "DNS ya Motheo"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Gateway"
 msgstr "_Pulatsela"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Primary DNS"
 msgstr "_DNS ya Mathomo"
 
-#: ../iw/network_gui.py:27
+#: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
 msgstr "_DNS ya Motheo"
 
@@ -3541,7 +3555,7 @@ msgstr "_DNS ya Motheo"
 msgid "Network Configuration"
 msgstr "Go Fetola Sebopego sa Neteweke"
 
-#: ../iw/network_gui.py:157
+#: ../iw/network_gui.py:156
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3549,7 +3563,7 @@ msgstr ""
 "Ga se wa laetša leina la moswari. Go ithekgilwe ka tikologo ya gago ya "
 "neteweke se se ka baka mathata ka moragonyana."
 
-#: ../iw/network_gui.py:161
+#: ../iw/network_gui.py:160
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3558,7 +3572,7 @@ msgstr ""
 "Ga se wa laetša lebala la \"%s\".  Go ithekgilwe ka tikologo ya gago ya "
 "neteweke se se ka baka mathata ka moragonyana."
 
-#: ../iw/network_gui.py:165 ../textw/network_text.py:404
+#: ../iw/network_gui.py:164 ../textw/network_text.py:625
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3569,16 +3583,28 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:180
-#, python-format
-msgid "A value is required for the field \"%s\"."
+#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
 msgstr "Boleng bo a nyakega bakeng sa lebala la \"%s\"."
 
-#: ../iw/network_gui.py:184
-msgid "The IP information you have entered is invalid."
+#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#, fuzzy, python-format
+msgid "Error With %s Data"
+msgstr "Phošo Mabapi le Tsebišo"
+
+#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
+
+#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#, fuzzy
+msgid "The IPv4 information you have entered is invalid."
 msgstr "Tshedimošo ya IP yeo o e tsentšego ga se ya kgonthe."
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:180
 #, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
@@ -3592,128 +3618,108 @@ msgstr ""
 "swanetše go se tlogela se sa šome nakong ye. Ge o thomološa tshepedišo ya "
 "gago sekopanyi se tla dirwa gore se šome ka mo go itiragalelago."
 
-#: ../iw/network_gui.py:264
-#, python-format
-msgid "Edit Interface %s"
-msgstr "Lokiša Poledišano ya %s"
+#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+msgid "Disabled"
+msgstr "Paledišitšwe"
 
-#: ../iw/network_gui.py:276
-#, fuzzy, python-format
-msgid "Hardware address: %s"
-msgstr "Aterese ya Lenaneo le Thata la Khomphuthara: %s"
+#: ../iw/network_gui.py:405
+msgid "Active on Boot"
+msgstr "E šoma go Thomeng"
 
-#: ../iw/network_gui.py:281
-#, fuzzy
-msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
-
-#: ../iw/network_gui.py:286 ../loader2/net.c:691
-msgid "Enable IPv4 support"
-msgstr ""
-
-#: ../iw/network_gui.py:291 ../loader2/net.c:702
-msgid "Enable IPv6 support"
-msgstr ""
-
-#: ../iw/network_gui.py:296
-msgid "_Activate on boot"
-msgstr "_Diragatša go thomeng"
-
-#: ../iw/network_gui.py:326
-#, fuzzy
-msgid "IPv_4 Address:"
-msgstr "Aterese ya IP:"
-
-#: ../iw/network_gui.py:348
-#, fuzzy
-msgid "IPv_6 Address:"
-msgstr "Aterese ya IP:"
-
-#: ../iw/network_gui.py:371
-#, fuzzy
-msgid "_Point to Point (IP):"
-msgstr "_Ntlha go ya Ntlheng (IP)"
-
-#: ../iw/network_gui.py:383
-#, fuzzy
-msgid "_ESSID:"
-msgstr "_ESSID"
-
-#: ../iw/network_gui.py:393
-#, fuzzy
-msgid "Encryption _Key:"
-msgstr "Senotlelo sa go Tsenya _Khoutu"
+#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
+#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../textw/partition_text.py:1447
+msgid "Device"
+msgstr "Sedirišwa"
 
 #: ../iw/network_gui.py:409
-#, python-format
-msgid "Configure %s"
-msgstr "Fetola Sebopego sa %s"
+#, fuzzy
+msgid "IPv4/Netmask"
+msgstr "IP/Netmask"
 
-#: ../iw/network_gui.py:457 ../iw/network_gui.py:474 ../loader2/net.c:97
+#: ../iw/network_gui.py:411
+msgid "IPv6/Prefix"
+msgstr ""
+
+#: ../iw/network_gui.py:471
+msgid "Network Devices"
+msgstr "Didirišwa tša Neteweke"
+
+#: ../iw/network_gui.py:482
+msgid "Set the hostname:"
+msgstr "Beakanya leina la moswari:"
+
+#: ../iw/network_gui.py:487
+msgid "_automatically via DHCP"
+msgstr "_ka mo go itiragalelago ka DHCP"
+
+#: ../iw/network_gui.py:494
+msgid "_manually"
+msgstr "_ka maitirelo"
+
+#: ../iw/network_gui.py:499
+#, fuzzy
+msgid "(e.g., host.domain.com)"
+msgstr "(ex. \"leina.la moswari.com\")"
+
+#: ../iw/network_gui.py:505
+msgid "Hostname"
+msgstr "Leina la moswari"
+
+#: ../iw/network_gui.py:549
+msgid "Miscellaneous Settings"
+msgstr "Dipeakanyo tše Fapa-fapanego"
+
+#: ../iw/network_gui.py:638
+#, fuzzy
+msgid "Edit Device "
+msgstr "Lokiša Sedirišwa sa RAID"
+
+#: ../iw/network_gui.py:642
+msgid "Unknown Ethernet Device"
+msgstr ""
+
+#: ../iw/network_gui.py:648
+#, fuzzy
+msgid "unknown"
+msgstr "E sa tsebjwego"
+
+#: ../iw/network_gui.py:650
+#, fuzzy
+msgid "Hardware address: "
+msgstr "Aterese ya Lenaneo la Khomphuthara:"
+
+#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "Sehlopha se sa Hwetšagalego"
+
+#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#, fuzzy
+msgid "You must select at least IPv4 or IPv6 support."
+msgstr ""
+"O swanetše go kgetha bonyenyane leleme le tee leo le swanetšego go tsenywa."
+
+#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
+#: ../textw/network_text.py:353 ../textw/network_text.py:380
+#: ../textw/network_text.py:386 ../loader2/net.c:92
 #, fuzzy
 msgid "Invalid Prefix"
 msgstr "Mothalo wa IP wo e sego wa kgonthe"
 
-#: ../iw/network_gui.py:458
+#: ../iw/network_gui.py:817 ../textw/network_text.py:354
 #, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr ""
 "Diaterese tša IP di swanetše go ba le dinomoro tša magareng ga 1 le 255"
 
-#: ../iw/network_gui.py:475
+#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
+#: ../textw/network_text.py:381
 #, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr ""
 "Diaterese tša IP di swanetše go ba le dinomoro tša magareng ga 1 le 255"
-
-#: ../iw/network_gui.py:629
-msgid "Active on Boot"
-msgstr "E šoma go Thomeng"
-
-#: ../iw/network_gui.py:631 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1437
-msgid "Device"
-msgstr "Sedirišwa"
-
-#: ../iw/network_gui.py:633
-#, fuzzy
-msgid "IPv4/Netmask"
-msgstr "IP/Netmask"
-
-#: ../iw/network_gui.py:635
-msgid "IPv6/Prefix"
-msgstr ""
-
-#: ../iw/network_gui.py:697
-msgid "Network Devices"
-msgstr "Didirišwa tša Neteweke"
-
-#: ../iw/network_gui.py:708
-msgid "Set the hostname:"
-msgstr "Beakanya leina la moswari:"
-
-#: ../iw/network_gui.py:713
-msgid "_automatically via DHCP"
-msgstr "_ka mo go itiragalelago ka DHCP"
-
-#: ../iw/network_gui.py:720
-msgid "_manually"
-msgstr "_ka maitirelo"
-
-#: ../iw/network_gui.py:725
-#, fuzzy
-msgid "(e.g., host.domain.com)"
-msgstr "(ex. \"leina.la moswari.com\")"
-
-#: ../iw/network_gui.py:731 ../loader2/net.c:1401
-msgid "Hostname"
-msgstr "Leina la moswari"
-
-#: ../iw/network_gui.py:775
-msgid "Miscellaneous Settings"
-msgstr "Dipeakanyo tše Fapa-fapanego"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3817,66 +3823,66 @@ msgid "The end cylinder must be greater than the start cylinder."
 msgstr ""
 "Silintere ya go fetša e swanetše go ba e kgolo go silintere ya go thoma."
 
-#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
+#: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
 msgstr "Oketša Karolo"
 
-#: ../iw/partition_dialog_gui.py:272
+#: ../iw/partition_dialog_gui.py:273
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Lokiša Karolo: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:274
+#: ../iw/partition_dialog_gui.py:275
 msgid "Edit Partition"
 msgstr "Lokiša Karolo"
 
-#: ../iw/partition_dialog_gui.py:301
+#: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
 msgstr "Mohuta wa Tshepedišo ya _Faele:"
 
-#: ../iw/partition_dialog_gui.py:333
+#: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
 msgstr "Di-draeve tše _Dumelegago:"
 
-#: ../iw/partition_dialog_gui.py:346
+#: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
 msgstr "Draeve:"
 
-#: ../iw/partition_dialog_gui.py:390
+#: ../iw/partition_dialog_gui.py:392
 msgid "_Start Cylinder:"
 msgstr "_Silintere ya go Thoma:"
 
-#: ../iw/partition_dialog_gui.py:408
+#: ../iw/partition_dialog_gui.py:410
 msgid "_End Cylinder:"
 msgstr "_Silintere ya go Fetša:"
 
-#: ../iw/partition_dialog_gui.py:460
+#: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
 msgstr "Gapeletša gore e be _karolo ya motheo"
 
-#: ../iw/partition_gui.py:314
+#: ../iw/partition_gui.py:313
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:321
+#: ../iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "Mohuta"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "Thoma"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "Fetša"
 
-#: ../iw/partition_gui.py:408
+#: ../iw/partition_gui.py:407
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3884,7 +3890,7 @@ msgstr ""
 "Ntlha ya go Kgobelana/\n"
 "RAID/Bolumo"
 
-#: ../iw/partition_gui.py:410
+#: ../iw/partition_gui.py:409
 msgid ""
 "Size\n"
 "(MB)"
@@ -3892,18 +3898,18 @@ msgstr ""
 "Bogolo\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "Go Arola"
 
-#: ../iw/partition_gui.py:633
+#: ../iw/partition_gui.py:632
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Diphošo tše latelago tše tseneletšego di gona sekemeng sa gago se "
 "kgopetšwego sa karolo."
 
-#: ../iw/partition_gui.py:636
+#: ../iw/partition_gui.py:635
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
@@ -3911,67 +3917,67 @@ msgstr ""
 "Diphošo tše di swanetše go phošollwa pele ga gore o tšwele pele le go tsenya "
 "ga gago %s."
 
-#: ../iw/partition_gui.py:642
+#: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
 msgstr "Diphošo tša Karolo"
 
-#: ../iw/partition_gui.py:648
+#: ../iw/partition_gui.py:647
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 "Ditemošo tše latelago di gona sekemeng sa gago se kgopetšwego sa karolo."
 
-#: ../iw/partition_gui.py:650
+#: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 "Na o ka rata go tšwela pele le sekema sa gago se kgopetšwego sa karolo?"
 
-#: ../iw/partition_gui.py:655
+#: ../iw/partition_gui.py:654
 msgid "Partitioning Warnings"
 msgstr "Ditemošo tša Karolo"
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:676
 msgid "Format Warnings"
 msgstr "Ditemošo tša Sebopego"
 
-#: ../iw/partition_gui.py:682
+#: ../iw/partition_gui.py:681
 msgid "_Format"
 msgstr "_Sebopego"
 
-#: ../iw/partition_gui.py:717
+#: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
 msgstr "Dihlopha tša Bolumo tša LVM"
 
-#: ../iw/partition_gui.py:752
+#: ../iw/partition_gui.py:753
 msgid "RAID Devices"
 msgstr "Didirišwa tša RAID"
 
-#: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
-#: ../textw/partition_text.py:96 ../textw/partition_text.py:159
+#: ../iw/partition_gui.py:781 ../iw/partition_gui.py:907
+#: ../textw/partition_text.py:97 ../textw/partition_text.py:160
 msgid "None"
 msgstr "Ga di gona"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:265
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
 msgid "Hard Drives"
 msgstr "Di-draeve tše Thata"
 
-#: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
-#: ../textw/partition_text.py:180
+#: ../iw/partition_gui.py:870 ../textw/partition_text.py:142
+#: ../textw/partition_text.py:181
 msgid "Free space"
 msgstr "Sekgoba se se nago selo"
 
-#: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
+#: ../iw/partition_gui.py:872 ../textw/partition_text.py:144
 msgid "Extended"
 msgstr "Okeditšwego"
 
-#: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
+#: ../iw/partition_gui.py:874 ../textw/partition_text.py:146
 msgid "software RAID"
 msgstr "lenaneo la khomphuthara la RAID"
 
-#: ../iw/partition_gui.py:908
+#: ../iw/partition_gui.py:909
 msgid "Free"
 msgstr "Se se nago selo"
 
-#: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
+#: ../iw/partition_gui.py:998 ../textw/partition_text.py:229
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "E ka se kgone go aba dikarolo tše kgopetšwego: %s."
@@ -3981,23 +3987,23 @@ msgstr "E ka se kgone go aba dikarolo tše kgopetšwego: %s."
 msgid "Warning: %s."
 msgstr "Temošo: %s."
 
-#: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "Ga e thekgwe"
 
-#: ../iw/partition_gui.py:1192
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM GA E thekgwe sethaleng se."
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr "RAID ya Lenaneo la Khomphuthara GA E thekgwe sethaleng se."
 
-#: ../iw/partition_gui.py:1213
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr "Ga go na dinomoro tša sedirišwa se senyenyane sa RAID"
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -4005,11 +4011,11 @@ msgstr ""
 "Sedirišwa sa RAID sa lenaneo la khomphuthara se ka se hlangwe ka gobane "
 "dinomoro ka moka tša sedirišwa se senyenyane sa RAID di dirišitšwe."
 
-#: ../iw/partition_gui.py:1228
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "Dikgetho tša RAID"
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4031,7 +4037,7 @@ msgstr ""
 "tšeo di se nago selo tšeo o ka di dirišago.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4043,81 +4049,81 @@ msgstr ""
 "sedirišwa sa RAID seo se ka bopšago le go kgobelanywa.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1256
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "O nyaka go dira eng gona bjale?"
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr "Hlama karolo ya RAID ya lenaneo la _khomphuthara."
 
-#: ../iw/partition_gui.py:1268
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Hlama sedirišwa sa_RAID [tlhaelelo=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1272
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "Kopiša _draeve gore o hlame sedirišwa sa RAID [tlhaelelo=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "E ka se Kgone go Hlama Morulaganyi wa Kopi ya Draeve"
 
-#: ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 "Morulaganyi wa kopi ya draeve o be a ka se hlangwe ka lebaka le itšego."
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1351
 msgid "Ne_w"
 msgstr "Mpsh_a"
 
-#: ../iw/partition_gui.py:1359
+#: ../iw/partition_gui.py:1354
 msgid "Re_set"
 msgstr "Beakanya ka_leswa"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1355
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1361
+#: ../iw/partition_gui.py:1356
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1402
+#: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Fihla sedirišwa sa RAID/maloko a Sehlopha sa _Bolumo ya LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
-#: ../textw/partition_text.py:253 ../textw/partition_text.py:255
-#: ../textw/partition_text.py:280
+#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:254 ../textw/partition_text.py:256
+#: ../textw/partition_text.py:281
 msgid "<Not Applicable>"
 msgstr "<Ga e Šome>"
 
-#: ../iw/partition_ui_helpers_gui.py:250
+#: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "O ka rata go lokišetša bjang tshepedišo ya faele karolong ye?"
 
-#: ../iw/partition_ui_helpers_gui.py:258
+#: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
 msgstr "Tlogela _e sa fetolwa (boloka tsebišo)"
 
-#: ../iw/partition_ui_helpers_gui.py:264
+#: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
 msgstr "_Bopa karolo bjalo ka:"
 
-#: ../iw/partition_ui_helpers_gui.py:287
+#: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
 msgstr "Hu_dišetša karolo go:"
 
-#: ../iw/partition_ui_helpers_gui.py:309
+#: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
 msgstr "Lekola _mapheko a mabe?"
 
-#: ../iw/partition_ui_helpers_gui.py:344
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4163,30 +4169,30 @@ msgstr "Dipaete tše %s"
 msgid "Installing Packages"
 msgstr "Go Tsenya Diphuthelwana"
 
-#: ../iw/progress_gui.py:166
+#: ../iw/progress_gui.py:170
 #, python-format
 msgid "Remaining time: %s minutes"
 msgstr "Nako e šetšego: metsotso e %s"
 
-#: ../iw/progress_gui.py:182
+#: ../iw/progress_gui.py:186
 #, python-format
 msgid "Downloading %s"
 msgstr "Go laolla %s"
 
-#: ../iw/progress_gui.py:222
+#: ../iw/progress_gui.py:226
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "Go tsenya %s-%s-%s.%s (%s)"
 
-#: ../iw/progress_gui.py:346
+#: ../iw/progress_gui.py:350
 msgid "Package"
 msgstr "Sephuthelwana"
 
-#: ../iw/progress_gui.py:347
+#: ../iw/progress_gui.py:351
 msgid "Summary"
 msgstr "Kakaretšo"
 
-#: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
+#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 msgid "Status: "
 msgstr "Boemo: "
 
@@ -4205,7 +4211,7 @@ msgstr ""
 "lenaneo la khomphuthara\", ke moka o kgethe kgetho ya \"RAID\" gape."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
-#: ../textw/partition_text.py:967
+#: ../textw/partition_text.py:968
 msgid "Make RAID Device"
 msgstr "Dira Sedirišwa sa RAID"
 
@@ -4214,7 +4220,7 @@ msgstr "Dira Sedirišwa sa RAID"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Lokiša Sedirišwa sa RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
+#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:966
 msgid "Edit RAID Device"
 msgstr "Lokiša Sedirišwa sa RAID"
 
@@ -4405,19 +4411,19 @@ msgstr "(Di)draeve tše Lebantšwego:"
 msgid "Drives"
 msgstr "Di-draeve"
 
-#: ../iw/release_notes.py:150 ../iw/release_notes.py:154
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
 msgid "Release notes are missing.\n"
 msgstr "Dintlha tša tokollo ga di hwetšagale.\n"
 
-#: ../iw/release_notes.py:221
+#: ../iw/release_notes.py:236
 msgid "Release Notes"
 msgstr "Dintlha tša Tokollo"
 
-#: ../iw/release_notes.py:224
+#: ../iw/release_notes.py:239
 msgid "Unable to load file!"
 msgstr "Ga e kgone go laiša faele!"
 
-#: ../iw/task_gui.py:79
+#: ../iw/task_gui.py:80
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -4430,33 +4436,33 @@ msgstr ""
 "bohlokwa. Hle kgonthišetša gore mohlare wa gago wa go tsenya o hlagišitšwe "
 "ka tshwanelo."
 
-#: ../iw/task_gui.py:89
+#: ../iw/task_gui.py:90
 #, python-format
 msgid ""
 "Unable to find a group file for %s.  This will make manual selection of "
 "packages from the repository not work"
 msgstr ""
 
-#: ../iw/task_gui.py:121
+#: ../iw/task_gui.py:122
 #, fuzzy
 msgid "Invalid Repository Name"
 msgstr "Leina la Moswari leo e sego la Kgonthe"
 
-#: ../iw/task_gui.py:122
+#: ../iw/task_gui.py:123
 #, fuzzy
 msgid "You must provide a non-zero length repository name."
 msgstr "O swanetše go fana ka leina la modiriši"
 
-#: ../iw/task_gui.py:131
+#: ../iw/task_gui.py:132
 #, fuzzy
 msgid "Invalid Repository URL"
 msgstr "Leswao la go Thoma leo e sego la Kgonthe"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:133
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
-#: ../iw/task_gui.py:146
+#: ../iw/task_gui.py:147
 #, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4529,11 +4535,11 @@ msgstr ""
 msgid "What would you like to do?"
 msgstr "Na o tla rata go dira eng?"
 
-#: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
+#: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:31
 msgid "Migrate File Systems"
 msgstr "Huduša Ditshepedišo tša Faele"
 
-#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
+#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
 #, python-format
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
@@ -4587,7 +4593,7 @@ msgstr "Ke _nyaka go hlama faele ya go ananya"
 msgid "Select the _partition to put the swap file on:"
 msgstr "Kgetha _karolo yeo o tla beago faele ya go ananya go yona:"
 
-#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
+#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Karolo"
 
@@ -4622,46 +4628,17 @@ msgstr ""
 "go ka baka gore setsenyi se fedišwe ka tsela yeo e sego ya tlwaelo. Na o "
 "kgonthišegile gore o nyaka go tšwela pele?"
 
-#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
+#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 "Faele ya go ananya e swanetše go ba magareng ga 1 le 2000 MB ka bogolo."
 
-#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
+#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Ga go na sekgoba se lekanego sedirišweng seo o se kgethilego bakeng sa "
 "karolo ya go ananya."
-
-#: ../iw/zfcp_gui.py:24
-msgid "ZFCP Configuration"
-msgstr "Go Fetola Sebopego sa ZFCP"
-
-#: ../iw/zfcp_gui.py:103
-msgid "_Remove"
-msgstr "_Tloša"
-
-#: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
-msgid "FCP Devices"
-msgstr "Didirišwa tša FCP"
-
-#: ../iw/zfcp_gui.py:121
-msgid "Add FCP device"
-msgstr "Oketša sedirišwa sa FCP"
-
-#: ../iw/zfcp_gui.py:184
-#, python-format
-msgid "Edit FCP device %s"
-msgstr "Lokiša sedirišwa sa FCP sa %s"
-
-#: ../iw/zfcp_gui.py:248
-msgid ""
-"You're about to remove a FCP disk from your configuration. Are you sure that "
-"you wish to continue?"
-msgstr ""
-"O kgauswi le go ntšha tisiki ya FCP go fetoleng sebopego ga gago. Na o "
-"kgonthišegile gore o nyaka go tšwela pele?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4786,8 +4763,7 @@ msgstr "Leswao la go thoma le ka no ba le nale selo."
 msgid "Boot label contains illegal characters."
 msgstr "Leswao la go thoma le nale ditlhaka tšeo di sego molaong."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
-#: ../textw/zfcp_text.py:108
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Lokiša"
 
@@ -4924,11 +4900,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:946 ../loader2/loader.c:969
-#: ../loader2/net.c:243 ../loader2/net.c:283 ../loader2/net.c:718
-#: ../loader2/net.c:996 ../loader2/net.c:1692 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:275 ../loader2/urls.c:455
+#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
+#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:283 ../loader2/urls.c:471
 msgid "Back"
 msgstr "Morago"
 
@@ -4958,7 +4934,14 @@ msgstr ""
 "<Space>,<+>,<-> kgetho   |   <F2> Dintlha tša Sehlopha   |   <F12> sekirini "
 "se latelago"
 
-#: ../textw/grpselect_text.py:133
+#: ../textw/grpselect_text.py:117
+#, fuzzy
+msgid "No optional packages to select"
+msgstr ""
+"Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
+"swanetšego go tsenywa?"
+
+#: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
 msgstr "Dintlha tša Sehlopha sa Sephuthelwana"
 
@@ -4987,96 +4970,115 @@ msgstr "Phegelela Dikonope tše 3?"
 msgid "Mouse Selection"
 msgstr "Kgetho ya Legotlwana"
 
-#: ../textw/network_text.py:28
-msgid "Invalid IP string"
-msgstr "Mothalo wa IP wo e sego wa kgonthe"
+#: ../textw/network_text.py:60
+#, fuzzy, python-format
+msgid ""
+"You have not specified the field %s.  Depending on your network environment "
+"this may cause problems later."
+msgstr ""
+"Ga se wa laetša lebala la \"%s\".  Go ithekgilwe ka tikologo ya gago ya "
+"neteweke se se ka baka mathata ka moragonyana."
 
-#: ../textw/network_text.py:29
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "IP ya '%s' yeo e tsentšhitšwego ga se IP ya kgonthe."
-
-#: ../textw/network_text.py:75
-msgid "Point to Point (IP)"
-msgstr "Ntlha go ya go Ntlha (IP)"
-
-#: ../textw/network_text.py:79 ../loader2/net.c:238
-msgid "ESSID"
-msgstr "ESSID"
-
-#: ../textw/network_text.py:80 ../loader2/net.c:239
-msgid "Encryption Key"
-msgstr "Senotlelo sa go Tsenya Khoutu"
-
-#: ../textw/network_text.py:92
-#, python-format
-msgid "Network Device: %s"
-msgstr "Sedirišwa sa Neteweke: %s"
-
-#: ../textw/network_text.py:98
+#: ../textw/network_text.py:152
 #, python-format
 msgid "Description: %s"
 msgstr "Tlhaloso: %s"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:156
 #, python-format
 msgid "Hardware Address: %s"
 msgstr "Aterese ya Lenaneo le Thata la Khomphuthara: %s"
 
-#: ../textw/network_text.py:107
-msgid "Configure using DHCP"
-msgstr "Fetola sebopego o diriša DHCP"
+#: ../textw/network_text.py:170
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
+msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
 
-#: ../textw/network_text.py:120
+#: ../textw/network_text.py:177 ../loader2/net.c:711
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv4 support"
+msgstr ""
+
+#: ../textw/network_text.py:183 ../loader2/net.c:724
+#: tmp/netpostconfig.glade.h:11
+msgid "Enable IPv6 support"
+msgstr ""
+
+#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
 msgid "Activate on boot"
 msgstr "Diragatša ge o thoma"
 
-#: ../textw/network_text.py:146
+#: ../textw/network_text.py:214
+#, fuzzy
+msgid "Address"
+msgstr "Aterese ya IP"
+
+#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
+#, fuzzy
+msgid "Prefix (Netmask)"
+msgstr "Netmask"
+
+#: ../textw/network_text.py:217
+msgid "IPv4:"
+msgstr ""
+
+#: ../textw/network_text.py:220
+msgid "IPv6:"
+msgstr ""
+
+#: ../textw/network_text.py:258
+msgid "P-to-P:"
+msgstr ""
+
+#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#, fuzzy
+msgid "ESSID:"
+msgstr "_ESSID"
+
+#: ../textw/network_text.py:279
+msgid "WEP Key:"
+msgstr ""
+
+#: ../textw/network_text.py:292
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Go Fetola Sebopego sa Neteweke bakeng sa %s"
 
-#: ../textw/network_text.py:179
-msgid "Invalid information"
-msgstr "Tshedimošo yeo e sego ya Kgonthe"
+#: ../textw/network_text.py:387
+#, fuzzy
+msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+msgstr ""
+"Diaterese tša IP di swanetše go ba le dinomoro tša magareng ga 1 le 255"
 
-#: ../textw/network_text.py:180
-msgid "You must enter valid IP information to continue"
-msgstr "O swanetše go tsenya tshedimošo ya kgonthe ya IP gore o tšwele pele"
-
-#: ../textw/network_text.py:247 ../loader2/net.c:957
+#: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
 msgstr "Pulatsela:"
 
-#: ../textw/network_text.py:256
+#: ../textw/network_text.py:482
 msgid "Primary DNS:"
 msgstr "DNS ya Mathomo:"
 
-#: ../textw/network_text.py:261
+#: ../textw/network_text.py:487
 msgid "Secondary DNS:"
 msgstr "DNS ya Motheo:"
 
-#: ../textw/network_text.py:266
-msgid "Tertiary DNS:"
-msgstr "DNS e Phagamego:"
-
-#: ../textw/network_text.py:273
+#: ../textw/network_text.py:494
 msgid "Miscellaneous Network Settings"
 msgstr "Dipeakanyo tše Fapa-fapanego tša Neteweke"
 
-#: ../textw/network_text.py:345
+#: ../textw/network_text.py:567
 msgid "automatically via DHCP"
 msgstr "ka mo go itiragalelago ka DHCP"
 
-#: ../textw/network_text.py:349
+#: ../textw/network_text.py:570
 msgid "manually"
 msgstr "ka maitirelo"
 
-#: ../textw/network_text.py:368
+#: ../textw/network_text.py:589
 msgid "Hostname Configuration"
 msgstr "Go Fetola Sebopego sa Leina la Moswari"
 
-#: ../textw/network_text.py:371
+#: ../textw/network_text.py:592
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -5089,127 +5091,127 @@ msgstr ""
 "ya gago. Ge eba o sa dire bjalo, tshepedišo ya gago e tla tsebjwa e le "
 "'localhost.'"
 
-#: ../textw/network_text.py:397 ../textw/network_text.py:403
+#: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
 msgstr "Leina la Moswari leo e sego la Kgonthe"
 
-#: ../textw/network_text.py:398
+#: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
 msgstr "Ga o a laetša leina la moswari."
 
-#: ../textw/partition_text.py:42
+#: ../textw/partition_text.py:43
 msgid "Must specify a value"
 msgstr "O swanetše go laetša boleng"
 
-#: ../textw/partition_text.py:45
+#: ../textw/partition_text.py:46
 msgid "Requested value is not an integer"
 msgstr "Boleng bjo kgopetšwego ga se nomoro ya tlhago"
 
-#: ../textw/partition_text.py:47
+#: ../textw/partition_text.py:48
 msgid "Requested value is too large"
 msgstr "Boleng bjo kgopetšwego ke bjo bogolo kudu"
 
-#: ../textw/partition_text.py:101
+#: ../textw/partition_text.py:102
 #, python-format
 msgid "RAID Device %s"
 msgstr "Sedirišwa sa RAID sa %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:232
 #, python-format
 msgid "Warning: %s"
 msgstr "Temošo: %s"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Modify Partition"
 msgstr "Mpshafatša Karolo"
 
-#: ../textw/partition_text.py:232
+#: ../textw/partition_text.py:233
 msgid "Add anyway"
 msgstr "Oketša lega go le bjalo"
 
-#: ../textw/partition_text.py:270
+#: ../textw/partition_text.py:271
 msgid "Mount Point:"
 msgstr "Ntlha ya go Kgobelana:"
 
-#: ../textw/partition_text.py:322
+#: ../textw/partition_text.py:323
 msgid "File System type:"
 msgstr "Mohuta wa Tshepedišo ya Faele:"
 
-#: ../textw/partition_text.py:356
+#: ../textw/partition_text.py:357
 msgid "Allowable Drives:"
 msgstr "Di-draeve tše Dumelegago:"
 
-#: ../textw/partition_text.py:412
+#: ../textw/partition_text.py:413
 msgid "Fixed Size:"
 msgstr "Bogolo bjo Beilwego:"
 
-#: ../textw/partition_text.py:414
+#: ../textw/partition_text.py:415
 msgid "Fill maximum size of (MB):"
 msgstr "Tlatša bogolo bjo bogolo bja (MB):"
 
-#: ../textw/partition_text.py:418
+#: ../textw/partition_text.py:419
 msgid "Fill all available space:"
 msgstr "Tlatša sekgoba ka moka seo di lego gona:"
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:442
 msgid "Start Cylinder:"
 msgstr "Silintere ya go Thoma:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:455
 msgid "End Cylinder:"
 msgstr "Silintere ya go Fetša:"
 
-#: ../textw/partition_text.py:477
+#: ../textw/partition_text.py:478
 msgid "Volume Group:"
 msgstr "Sehlopha sa Bolumo:"
 
-#: ../textw/partition_text.py:499
+#: ../textw/partition_text.py:500
 msgid "RAID Level:"
 msgstr "Mogato wa RAID:"
 
-#: ../textw/partition_text.py:517
+#: ../textw/partition_text.py:518
 msgid "RAID Members:"
 msgstr "Maloko a RAID:"
 
-#: ../textw/partition_text.py:536
+#: ../textw/partition_text.py:537
 msgid "Number of spares?"
 msgstr "Palo ya tšeo di lego ka thoko di sa dirišwego?"
 
-#: ../textw/partition_text.py:550
+#: ../textw/partition_text.py:551
 msgid "File System Type:"
 msgstr "Mohuta wa Tshepedišo ya Faele:"
 
-#: ../textw/partition_text.py:563
+#: ../textw/partition_text.py:564
 msgid "File System Label:"
 msgstr "Leswao la Tshepedišo ya Faele:"
 
-#: ../textw/partition_text.py:574
+#: ../textw/partition_text.py:575
 msgid "File System Option:"
 msgstr "Kgetho ya Tshepedišo ya Faele:"
 
-#: ../textw/partition_text.py:577 ../textw/partition_text.py:815
-#: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1224
 #, python-format
 msgid "Format as %s"
 msgstr "Dira sebopego bjalo ka %s"
 
-#: ../textw/partition_text.py:579 ../textw/partition_text.py:817
-#: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
+#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
+#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1226
 #, python-format
 msgid "Migrate to %s"
 msgstr "Hudušetša go %s"
 
-#: ../textw/partition_text.py:581 ../textw/partition_text.py:819
-#: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
+#: ../textw/partition_text.py:582 ../textw/partition_text.py:820
+#: ../textw/partition_text.py:1057 ../textw/partition_text.py:1228
 msgid "Leave unchanged"
 msgstr "Tlogela e sa fetolwa"
 
-#: ../textw/partition_text.py:597 ../textw/partition_text.py:792
-#: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
+#: ../textw/partition_text.py:598 ../textw/partition_text.py:793
+#: ../textw/partition_text.py:1033 ../textw/partition_text.py:1204
 msgid "File System Options"
 msgstr "Dikgetho tša Tshepedišo ya Faele"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:601
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
@@ -5217,86 +5219,86 @@ msgstr ""
 "Hle kgetha gore ke bjang o nyakago go lokišeletša tshepedišo ya faele "
 "karolong ye."
 
-#: ../textw/partition_text.py:608
+#: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
 msgstr "Lekola bakeng sa mapheko a mabe"
 
-#: ../textw/partition_text.py:612
+#: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
 msgstr "Tlogela e sa fetolwa (boloka tsebišo)"
 
-#: ../textw/partition_text.py:621
+#: ../textw/partition_text.py:622
 msgid "Format as:"
 msgstr "Dira sebopego bjalo ka:"
 
-#: ../textw/partition_text.py:641
+#: ../textw/partition_text.py:642
 msgid "Migrate to:"
 msgstr "Hudušetša go:"
 
-#: ../textw/partition_text.py:753
+#: ../textw/partition_text.py:754
 msgid "Force to be a primary partition"
 msgstr "Gapeletša gore e be karolo ya mathomo"
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:771
 msgid "Not Supported"
 msgstr "Ga e Thekgwe"
 
-#: ../textw/partition_text.py:771
+#: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 "Dihlopha tša Bolumo ya LVM di ka lokišwa feela go setsenyi sa diswantšho."
 
-#: ../textw/partition_text.py:847 ../textw/partition_text.py:900
+#: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
 msgstr "Botseno bjo e sego bja Kgonthe bakeng sa Bogolo bja Karolo"
 
-#: ../textw/partition_text.py:859
+#: ../textw/partition_text.py:860
 msgid "Invalid Entry for Maximum Size"
 msgstr "Botseno bjo e sego bja Kgonthe bakeng sa Bogolo bjo Bogolo"
 
-#: ../textw/partition_text.py:878
+#: ../textw/partition_text.py:879
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "Botseno bjo e sego bja Kgonthe bakeng sa Silintere ya go Thoma"
 
-#: ../textw/partition_text.py:892
+#: ../textw/partition_text.py:893
 msgid "Invalid Entry for End Cylinder"
 msgstr "Botseno bjo e sego bja Kgonthe bakeng sa Silintere ya go Fetša"
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1006
 msgid "No RAID partitions"
 msgstr "Ga go na dikarolo tša RAID"
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:1007
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 "Go hlokega bonyenyane dikarolo tše pedi tša RAID ya lenaneo la khomphuthara."
 
-#: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#: ../textw/partition_text.py:1019 ../textw/partition_text.py:1191
 msgid "Format partition?"
 msgstr "Dira sebopego sa karolo?"
 
-#: ../textw/partition_text.py:1080
+#: ../textw/partition_text.py:1081
 msgid "Invalid Entry for RAID Spares"
 msgstr ""
 "Botseno bjo e sego bja Kgonthe bakeng sa tšeo di Lego ka Thoko tša RAID"
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1095
 msgid "Too many spares"
 msgstr "Go na le dilo tša ka thoko tše dintši"
 
-#: ../textw/partition_text.py:1094
+#: ../textw/partition_text.py:1096
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Palo e kgolo ya dilo tša ka thoko ka peakanyo ya RAID0 ke 0."
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Ga go na Dihlopha tša Bolumo"
 
-#: ../textw/partition_text.py:1176
+#: ../textw/partition_text.py:1178
 msgid "No volume groups in which to create a logical volume"
 msgstr "Ga go na dihlopha tša bolumo tšeo go ka hlangwago bolumo e kwagalago"
 
-#: ../textw/partition_text.py:1292
+#: ../textw/partition_text.py:1302
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -5305,7 +5307,7 @@ msgstr ""
 "Bogolo bja gona bjale bjo kgopetšwego (%10.2f MB) ke bjo bogolo go feta "
 "bogolo bja bolumo bjo kwagalago bjo bogolo (%10.2f MB). "
 
-#: ../textw/partition_text.py:1311
+#: ../textw/partition_text.py:1321
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
@@ -5314,74 +5316,120 @@ msgstr ""
 "Bogolo bja gona bjale bjo kgopetšwego (%10.2f MB) ke bjo bogolo go feta "
 "bogolo bjo bo lego gona sehlopheng sa bolumo (%10.2f MB)."
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1375
 msgid "New Partition or Logical Volume?"
 msgstr "Karolo e Mpsha goba Bolumo e Kwagalago?"
 
-#: ../textw/partition_text.py:1366
+#: ../textw/partition_text.py:1376
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Na o ka rata go hlama karolo e mpsha goba bolumo e kwagalago e mspha?"
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1378
 msgid "partition"
 msgstr "karolo"
 
-#: ../textw/partition_text.py:1368
+#: ../textw/partition_text.py:1378
 msgid "logical volume"
 msgstr "bolumo e kwagalago"
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1451
 msgid "New"
 msgstr "Mpsha"
 
-#: ../textw/partition_text.py:1443
+#: ../textw/partition_text.py:1453
 msgid "Delete"
 msgstr "Phumola"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1454
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1447
+#: ../textw/partition_text.py:1457
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "F1-Thušo  F2-Mpsha  F3-Lokišai  F4-Phumola  F5-Beakanya ka Leswa  F12-Go "
 "Lokile"
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1489
 msgid "No Root Partition"
 msgstr "Ga go na Karolo ya Modu"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1490
 msgid "Must have a / partition to install on."
 msgstr "O swanetše go ba le karolo ya / yeo o swanetšego go tsenya go yona."
 
-#: ../textw/partition_text.py:1516
+#: ../textw/partition_text.py:1532
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "Mohuta wa karolo"
 
-#: ../textw/partition_text.py:1518
+#: ../textw/partition_text.py:1534
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
 
-#: ../textw/partition_text.py:1542
+#: ../textw/partition_text.py:1558
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ke (di) draeve dife tšeo o nyakago go di dirišetša go tsenya mo?"
 
-#: ../textw/partition_text.py:1604
+#: ../textw/partition_text.py:1573
+#, fuzzy
+msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> kgetho   |   <F2> Dintlha tša Sehlopha   |   <F12> sekirini "
+"se latelago"
+
+#: ../textw/partition_text.py:1635
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
 
-#: ../textw/partition_text.py:1605
+#: ../textw/partition_text.py:1636
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
+
+#: ../textw/partition_text.py:1657 tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "Dikgetho tše Oketšegilego tša Bogolo"
+
+#: ../textw/partition_text.py:1658 tmp/adddrive.glade.h:5
+#, fuzzy
+msgid "How would you like to modify your drive configuration?"
+msgstr "O ka rata go lokišetša bjang tshepedišo ya faele karolong ye?"
+
+#: ../textw/partition_text.py:1681
+#, fuzzy
+msgid "Add FCP Device"
+msgstr "Oketša sedirišwa sa FCP"
+
+#: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
+#, fuzzy
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
+msgstr ""
+"Metšhene ya zSeries e ka tsena didirišweng tša SCSI tša motheo wa intaseteri "
+"ka Kanale ya Fibre (FCP). O swanetše go fana ka dikarolo tše 5 bakeng sa "
+"sedirišwa se sengwe le se sengwe: nomoro ya sedirišwa sa 16 bit, 16bit SCSI "
+"ID, Leina la Lefelo la Lefase ka Bophara (WWPN) la 64 bit, SCSI ya LUN ya "
+"16bit le FCP ya LUN ya 64 bit."
+
+#: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
+#, fuzzy
+msgid "Configure iSCSI Parameters"
+msgstr "Dikarolwana tša Chandev"
+
+#: ../textw/partition_text.py:1706 tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5475,7 +5523,7 @@ msgstr "Taboga go kaonafatšwa ga selaiši sa go thoma"
 msgid "Create new boot loader configuration"
 msgstr "Hlama go fetola sebopego go goswa ga selaiši sa go thoma"
 
-#: ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:89
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -5489,39 +5537,39 @@ msgstr ""
 "dMB, eupša o ka hlama sekgoba se oketšegilego sa go ananya ditshepedišong "
 "tša gago tša faele gona bjale."
 
-#: ../textw/upgrade_text.py:109
+#: ../textw/upgrade_text.py:107
 msgid "Free Space"
 msgstr "Sekgoba se se Nago Selo"
 
-#: ../textw/upgrade_text.py:124
+#: ../textw/upgrade_text.py:122
 msgid "RAM detected (MB):"
 msgstr "RAM e utolotšwego (MB):"
 
-#: ../textw/upgrade_text.py:127
+#: ../textw/upgrade_text.py:125
 msgid "Suggested size (MB):"
 msgstr "Bogolo bjo šišinywago (MB):"
 
-#: ../textw/upgrade_text.py:130
+#: ../textw/upgrade_text.py:128
 msgid "Swap file size (MB):"
 msgstr "Bogolo bja faele ya go ananya (MB):"
 
-#: ../textw/upgrade_text.py:138
+#: ../textw/upgrade_text.py:136
 msgid "Add Swap"
 msgstr "Oketša go Ananya"
 
-#: ../textw/upgrade_text.py:163
+#: ../textw/upgrade_text.py:161
 msgid "The value you entered is not a valid number."
 msgstr "Boleng bjo o bo tsentšhitšego ga se nomoro ya kgonthe."
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:194
 msgid "Reinstall System"
 msgstr "Tsenya Gape Tshepedišong"
 
-#: ../textw/upgrade_text.py:205
+#: ../textw/upgrade_text.py:203
 msgid "System to Upgrade"
 msgstr "Tshepedišo yeo e swanetšego go Kaonafatšwa"
 
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:204
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
@@ -5555,11 +5603,6 @@ msgstr ""
 "Lentšu-phetišo la modu le swanetše go ba bonyenyane ditlhaka tše 6 ka "
 "botelele."
 
-#: ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
-
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
@@ -5568,22 +5611,6 @@ msgid ""
 msgstr ""
 "O a amogelwa go %s!\n"
 "\n"
-
-#: ../textw/zfcp_text.py:43
-msgid "FCP Device"
-msgstr "Sedirišwa sa FCP"
-
-#: ../textw/zfcp_text.py:101
-msgid "Device #"
-msgstr "Sedirišwa #"
-
-#: ../textw/zfcp_text.py:107
-msgid "Add"
-msgstr "Oketša"
-
-#: ../textw/zfcp_text.py:109
-msgid "Remove"
-msgstr "Tloša"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -5604,25 +5631,12 @@ msgstr "Go Fetola Sebopego ga z/IPL"
 msgid "Chandev line "
 msgstr "Mothaladi wa Chandev "
 
-#: ../installclasses/custom.py:11
-msgid "_Custom"
-msgstr "_Tlwaelanya"
-
-#: ../installclasses/custom.py:13 ../installclasses/rhel.py:17
-msgid ""
-"Select this installation type to gain complete control over the installation "
-"process, including software package selection and partitioning."
-msgstr ""
-"Kgetha mohuta wo wa go tsenya gore o kgone go hwetša taolo e feletšego ya "
-"mosepelo wa go tsenya, go akaretša kgetho ya sephuthelwana ya lenaneo la "
-"khomphuthara le go arola."
-
-#: ../installclasses/fedora.py:12
+#: ../installclasses/fedora.py:15
 #, fuzzy
 msgid "_Fedora"
 msgstr "_Sebopego"
 
-#: ../installclasses/fedora.py:13
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5630,104 +5644,23 @@ msgid ""
 "include support for?"
 msgstr ""
 
-#: ../installclasses/fedora.py:21 ../installclasses/rhel.py:26
+#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
 #, fuzzy
 msgid "Web server"
 msgstr "Seabi sa leina"
 
-#: ../installclasses/personal_desktop.py:11
-msgid "_Personal Desktop"
-msgstr "_Teseke ya Motho ka Noši"
-
-#: ../installclasses/personal_desktop.py:13
-msgid ""
-"Perfect for personal computers or laptops, select this installation type to "
-"install a graphical desktop environment and create a system ideal for home "
-"or desktop use."
-msgstr ""
-"Ke e swanelegago bakeng sa dikhomphuthara le di-laptop, kgetha mohuta wo wa "
-"go tsenya gore o tsenye tikologo ya teseke ya diswantšho gomme o hlame "
-"tshepedišo yeo e swanelegago bakeng sa tirišo ya gae goba teseke."
-
-#: ../installclasses/personal_desktop.py:18
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-msgstr ""
-"\tLegapi la teseke (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tSefetleki sa wepe \n"
-"\tPoso ya seelektronike (Tlhagelelo)\n"
-"\tGo romela melaetša ga kapejana\n"
-"\tDitirišo tša Modumo le bidio\n"
-"\tDipapadi\n"
-
-#: ../installclasses/rhel.py:15
+#: ../installclasses/rhel.py:16
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
 msgstr "WS ya Red Hat Enterprise Linux"
-
-#: ../installclasses/server.py:11
-msgid "_Server"
-msgstr "_Seabi"
-
-#: ../installclasses/server.py:13
-msgid ""
-"Select this installation type if you would like to set up file sharing, "
-"print sharing, and Web services. Additional services can also be enabled, "
-"and you can choose whether or not to install a graphical environment."
-msgstr ""
-"Kgetha mohuta wo wa go tsenya ge eba o tla rata go beakanya go abelana "
-"faele, go abelana go gatiša, le ditirelo tša Wepe. Ditirelo tše oketšegilego "
-"le tšona di ka kgontšha, e bile o ka kgetha ge eba o nyaka go tsenya "
-"tikologo ya diswantšho goba aowa."
-
-#: ../installclasses/workstation.py:8
-msgid "_Workstation"
-msgstr "_Seteišene sa mošomo"
-
-#: ../installclasses/workstation.py:10
-msgid ""
-"This option installs a graphical desktop environment with tools for software "
-"development and system administration. "
-msgstr ""
-"Kgetho ye e tsenya tikologo ya teseke ya diswantšho yeo e nago le didirišwa "
-"tša tšwetšopele ya lenaneo la khomphuthara le taolo ya tshepedišo. "
-
-#: ../installclasses/workstation.py:14
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
-msgstr ""
-"\tLegapi la teseke (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tSefetleki sa wepe \n"
-"\tPoso ya seelektronike (Tlhagelelo)\n"
-"\tGo romela melaetša ga kapejana\n"
-"\tDitirišo tša Modumo le bidio\n"
-"\tDipapadi\n"
-"\tDidirišwa tša Tšwetšopele ya Lenaneo la Khomphuthara\n"
-"\tDidirišwa tša Taolo\n"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5736,7 +5669,7 @@ msgstr "Go Lekolwa ga Methopo ya Ditaba"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:420
+#: ../loader2/method.c:425
 msgid "Test"
 msgstr "Leka"
 
@@ -5906,12 +5839,12 @@ msgstr ""
 "Na o rata go laiša ditisiki le ge ele dife tše oketšegilego tša mootledi?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
+#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:416 ../loader2/modules.c:1035 ../loader2/net.c:1493
-#: ../loader2/net.c:1516 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:463 ../loader2/urlinstall.c:472
-#: ../loader2/urlinstall.c:483
+#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
+#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
+#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Phošo ya go Thomiša"
 
@@ -5993,7 +5926,7 @@ msgstr ""
 "Mohlare wa go tsenya wa %s tšhupetšong ye ga o bonagale o swana le mothopo "
 "wa gago wa ditaba wa go thoma."
 
-#: ../loader2/hdinstall.c:158
+#: ../loader2/hdinstall.c:160
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6001,7 +5934,7 @@ msgstr ""
 "Go tšweletše phošo ge go be go balwa go tsenya go tšwa diswantšhong tša ISO. "
 "Hle lekola diswantšho tša gago tša ISO gomme o leke gape."
 
-#: ../loader2/hdinstall.c:266
+#: ../loader2/hdinstall.c:268
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6009,7 +5942,7 @@ msgstr ""
 "Ga o bonagale o na le di-draeve tshepedišong ya gago! Na o ka rata go fetola "
 "sebopego sa didirišwa tše oketšegilego?"
 
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:283
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6021,29 +5954,29 @@ msgstr ""
 "sa lokeletšwa mo, kgotla F2 gore o fetole sebopego sa didirišwa tše "
 "oketšegilego."
 
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:306
 msgid "Directory holding images:"
 msgstr "Tšhupetšo yeo e swerego diswantšho:"
 
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:334
 msgid "Select Partition"
 msgstr "Kgetha Karolo"
 
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:374
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Sedirišwa sa %s ga se bonagale se nale diswantšho tša CDROM tša %s."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:409
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Ngangišano e mpe go mokgwa wa go thomiša HD taelong ya %s: %s"
 
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
 msgid "Cannot find kickstart file on hard drive."
 msgstr "E ka se hwetše faele ya go thomiša draeveng."
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:522
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "E ka se hwetše draeve bakeng sa tisiki ya BIOS ya %s"
@@ -6075,7 +6008,18 @@ msgstr "Phošo ya %s mothalading wa %d wa faele ya go thomiša ya %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "E ka se kgone go hwetša ks.cfg floping ya go thoma."
 
-#: ../loader2/kickstart.c:417
+#: ../loader2/kickstart.c:341
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+
+#: ../loader2/kickstart.c:350
+#, fuzzy
+msgid "Error downloading kickstart file"
+msgstr "Phošo ya go bula faele ya go thomiša ya %s: %s"
+
+#: ../loader2/kickstart.c:473
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Ngangišano e mpe ya go tima mokgwa wa taelo ya go thomiša %s: %s"
@@ -6143,7 +6087,7 @@ msgstr "Dikaonafatšo"
 msgid "Reading anaconda updates..."
 msgstr "Go bala dikaonafatšo tša anaconda..."
 
-#: ../loader2/loader.c:404
+#: ../loader2/loader.c:406
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6153,43 +6097,43 @@ msgstr ""
 "ikgethele baotledi ba sedirišwa gore go tsenya go atlege. Na o ka rata go "
 "kgetha baotledi gona bjale?"
 
-#: ../loader2/loader.c:780
+#: ../loader2/loader.c:823
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Ga o na RAM e lekanego gore o ka tsenya %s motšheneng wo."
 
-#: ../loader2/loader.c:938
+#: ../loader2/loader.c:981
 msgid "Rescue Method"
 msgstr "Mokgwa wa go Phološa"
 
-#: ../loader2/loader.c:939
+#: ../loader2/loader.c:982
 msgid "Installation Method"
 msgstr "Mokgwa wa go Tsenya"
 
-#: ../loader2/loader.c:941
+#: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
 msgstr ""
 "Ke methopo ya mohuta ofe ya ditaba yeo e nago le seswantšho sa go phološa?"
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 "Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
 "swanetšego go tsenywa?"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:1011
 msgid "No driver found"
 msgstr "Ga go na mootledi yo a hweditšwego"
 
-#: ../loader2/loader.c:968
+#: ../loader2/loader.c:1011
 msgid "Select driver"
 msgstr "Kgetha mootledi"
 
-#: ../loader2/loader.c:969
+#: ../loader2/loader.c:1012
 msgid "Use a driver disk"
 msgstr "Diriša tisiki ya mootledi"
 
-#: ../loader2/loader.c:970
+#: ../loader2/loader.c:1013
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6198,11 +6142,11 @@ msgstr ""
 "bakeng sa mohuta wo wa go tsenya. Na o ka rata go ikgethela mootledi wa gago "
 "goba o diriše tisiki ya mootledi?"
 
-#: ../loader2/loader.c:1131
+#: ../loader2/loader.c:1176
 msgid "The following devices have been found on your system."
 msgstr "Didirišwa tše latelago di hweditšwe tshepedišong ya gago."
 
-#: ../loader2/loader.c:1133
+#: ../loader2/loader.c:1178
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6210,29 +6154,29 @@ msgstr ""
 "Ga go na baotledi ba sedirišwa bao ba laišitšwego bakeng sa tshepedišo ya "
 "gago. Na go na le bao o tla ratago go ba tsenya gona bjale?"
 
-#: ../loader2/loader.c:1137
+#: ../loader2/loader.c:1182
 msgid "Devices"
 msgstr "Didirišwa"
 
-#: ../loader2/loader.c:1138
+#: ../loader2/loader.c:1183
 msgid "Done"
 msgstr "Dirilwe"
 
-#: ../loader2/loader.c:1139
+#: ../loader2/loader.c:1184
 msgid "Add Device"
 msgstr "Oketša Sedirišwa"
 
-#: ../loader2/loader.c:1347
+#: ../loader2/loader.c:1392
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "selaiši se šetše se dirišitšwe.  Go thoma legapi.\n"
 
-#: ../loader2/loader.c:1723
+#: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Go diriša anaconda, mokgwa wa go phološa wa %s - hle ema...\n"
 
-#: ../loader2/loader.c:1725
+#: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Go diriša anaconda, setsenyi sa tshepedišo sa %s - hle ema...\n"
@@ -6324,12 +6268,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
+#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "E paletšwe go bala tšhupetšo ya %s: %s"
 
-#: ../loader2/method.c:417
+#: ../loader2/method.c:422
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6340,17 +6284,17 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:420
+#: ../loader2/method.c:425
 msgid "Checksum Test"
 msgstr "Teko ya Palomoka ya go Lekola"
 
-#: ../loader2/modules.c:1036
+#: ../loader2/modules.c:1043
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 "Ngangišano e mpe sedirišweng sa taelo ya mokgwa wa go thomiša wa %s: %s"
 
-#: ../loader2/net.c:63
+#: ../loader2/net.c:58
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6365,13 +6309,13 @@ msgstr ""
 "    o tšhupetšo seabing seo yeo e nago le\n"
 "      %s bakeng sa thutaboagi bja gago\n"
 
-#: ../loader2/net.c:98
+#: ../loader2/net.c:93
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:249
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6383,20 +6327,33 @@ msgstr ""
 "gago yeo e se nago dithapo.  Ge eba go sa nyakege senotlelo, tlogela lebala "
 "le le sa ngwalwa selo gomme go tsenya go tla tšwela pele."
 
-#: ../loader2/net.c:242
+#: ../loader2/net.c:255
+msgid "ESSID"
+msgstr "ESSID"
+
+#: ../loader2/net.c:256
+msgid "Encryption Key"
+msgstr "Senotlelo sa go Tsenya Khoutu"
+
+#: ../loader2/net.c:259
 msgid "Wireless Settings"
 msgstr "Dipeakanyo tšeo di se nago Dithapo"
 
-#: ../loader2/net.c:273
+#: ../loader2/net.c:290
 msgid "Nameserver IP"
 msgstr "IP ya seabi sa leina"
 
-#: ../loader2/net.c:278
+#: ../loader2/net.c:294
+#, fuzzy
+msgid "Missing Nameserver"
+msgstr "Seabi sa leina"
+
+#: ../loader2/net.c:295
+#, fuzzy
 msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 msgstr ""
 "Kgopelo ya gago ya IP e bušitše tshedimošo ya go fetola sebopego sa IP, "
 "eupša ga se ya akaretša seabi sa leina sa DNS. Ge eba o tseba gore seabi sa "
@@ -6404,128 +6361,110 @@ msgstr ""
 "ye, o ka tlogela lebala le le sa ngwalwa selo gomme go tsenya go tla tšwela "
 "pele."
 
-#: ../loader2/net.c:301
+#: ../loader2/net.c:317
 msgid "Invalid IP Information"
 msgstr "Tshedimošo ya IP yeo e sego ya Kgonthe"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:318
 msgid "You entered an invalid IP address."
 msgstr "O tsentšhitše aterese ya IP yeo e sego ya kgonthe."
 
-#: ../loader2/net.c:541 ../loader2/net.c:647
+#: ../loader2/net.c:575 ../loader2/net.c:683
 #, fuzzy
 msgid "Network Error"
 msgstr "Ga go na lentšu-phetišo"
 
-#: ../loader2/net.c:542 ../loader2/net.c:648
+#: ../loader2/net.c:576 ../loader2/net.c:684
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr ""
 "Go bile le phošo ya go hlakiša di-draeve tše lebantšwego. Go kopiša go "
 "padile."
 
-#: ../loader2/net.c:684
-#, fuzzy
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
-
-#: ../loader2/net.c:712
-msgid "Avoid unwanted packet collisions"
-msgstr ""
-
-#: ../loader2/net.c:714
-msgid "Maximize register values for high speed network traffic"
-msgstr ""
-
-#: ../loader2/net.c:750
+#: ../loader2/net.c:757
 msgid "Configure TCP/IP"
 msgstr "Fetola Sebopego sa TCP/IP"
 
-#: ../loader2/net.c:764
+#: ../loader2/net.c:784
+#, fuzzy
+msgid "You must select at least one protocol (IPv4 or IPv6)."
+msgstr ""
+"O swanetše go kgetha bonyenyane leleme le tee leo le swanetšego go tsenywa."
+
+#: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:765
+#: ../loader2/net.c:792
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:771 ../loader2/net.c:781
-#, fuzzy
-msgid "Missing Protocol"
-msgstr "Sehlopha se sa Hwetšagalego"
-
-#: ../loader2/net.c:772
-#, fuzzy
-msgid ""
-"You must select at least one protocol (IPv4 or IPv6) for manual "
-"configuration."
-msgstr ""
-"O swanetše go kgetha bonyenyane leleme le tee leo le swanetšego go tsenywa."
-
-#: ../loader2/net.c:782
-#, fuzzy
-msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
-"O swanetše go kgetha bonyenyane leleme le tee leo le swanetšego go tsenywa."
-
-#: ../loader2/net.c:852
+#: ../loader2/net.c:912
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "Aterese ya IP:"
 
-#: ../loader2/net.c:864 ../loader2/net.c:916 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:904
+#: ../loader2/net.c:964
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "Aterese ya IP:"
 
-#: ../loader2/net.c:965
+#: ../loader2/net.c:1025
 #, fuzzy
 msgid "Name Server:"
 msgstr "Seabi sa leina"
 
-#: ../loader2/net.c:1008
+#: ../loader2/net.c:1061
+msgid ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
+msgstr ""
+
+#: ../loader2/net.c:1077
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "Go Fetola Sebopego ga z/IPL"
 
-#: ../loader2/net.c:1131 ../loader2/net.c:1137
+#: ../loader2/net.c:1198 ../loader2/net.c:1204
 msgid "Missing Information"
 msgstr "Tshedimošo yeo e sego Gona"
 
-#: ../loader2/net.c:1132
+#: ../loader2/net.c:1199
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "O swanetše go tsenya aterese ya kgonthe ya IP le netmask ka bobedi."
 
-#: ../loader2/net.c:1138
+#: ../loader2/net.c:1205
 #, fuzzy
-msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "O swanetše go tsenya aterese ya kgonthe ya IP le netmask ka bobedi."
 
-#: ../loader2/net.c:1402
+#: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
 msgstr "Go lemoga leina la moswari le leina..."
 
-#: ../loader2/net.c:1494
+#: ../loader2/net.c:1601
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Ngangišano e mpe ya go thomiša taelo ya neteweke ya %s: %s"
 
-#: ../loader2/net.c:1517
+#: ../loader2/net.c:1624
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Porotokole ya go thoma e mpe ya %s e laeditšwego taelong ya neteweke"
 
-#: ../loader2/net.c:1688
+#: ../loader2/net.c:1805
 msgid "Networking Device"
 msgstr "Sedirišwa sa go dira Neteweke"
 
-#: ../loader2/net.c:1689
+#: ../loader2/net.c:1806
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6537,7 +6476,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Leina la seabi la NFS:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:306
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
 #, c-format
 msgid "%s directory:"
 msgstr "tšhupetšo ya %s:"
@@ -6598,70 +6537,70 @@ msgstr "Mothopo wa Ditaba o Utolotšwego"
 msgid "Local installation media detected..."
 msgstr "Mothopo wa ditaba wa mo gae wa go tsenya o utolotšwego..."
 
-#: ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Ngangišano e mpe go thomiša Url ya taelo ya mokgwa wa %s: %s"
 
-#: ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "O swanetše go aba ngangišano ya --url gore o thomiše mokgwa wa Url."
 
-#: ../loader2/urlinstall.c:484
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
 
-#: ../loader2/urls.c:215
+#: ../loader2/urls.c:220
 msgid "Retrieving"
 msgstr "Go buša"
 
-#: ../loader2/urls.c:279
+#: ../loader2/urls.c:287
 msgid "FTP"
 msgstr ""
 
-#: ../loader2/urls.c:284
+#: ../loader2/urls.c:292
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:301
+#: ../loader2/urls.c:309
 msgid "FTP site name:"
 msgstr "Leina la saete ya FTP:"
 
-#: ../loader2/urls.c:302
+#: ../loader2/urls.c:310
 msgid "Web site name:"
 msgstr "Leina la saete ya wepe:"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:329
 msgid "Use non-anonymous ftp"
 msgstr "Diriša ftp yeo e sego yeo e sa tsebjwego"
 
-#: ../loader2/urls.c:330
+#: ../loader2/urls.c:338
 msgid "FTP Setup"
 msgstr "Peakanyo ya FTP"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:339
 msgid "HTTP Setup"
 msgstr "Peakanyo ya HTTP"
 
-#: ../loader2/urls.c:341
+#: ../loader2/urls.c:349
 msgid "You must enter a server name."
 msgstr "O swanetše go tsenya leina la seabi."
 
-#: ../loader2/urls.c:346
+#: ../loader2/urls.c:354
 msgid "You must enter a directory."
 msgstr "O swanetše go tsenya tšhupetšo."
 
-#: ../loader2/urls.c:351
+#: ../loader2/urls.c:359
 msgid "Unknown Host"
 msgstr "Moswari yo a sa Tsebjwego"
 
-#: ../loader2/urls.c:352
+#: ../loader2/urls.c:360
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s ga se leina la moswari la kgonthe."
 
-#: ../loader2/urls.c:415
+#: ../loader2/urls.c:431
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6669,7 +6608,7 @@ msgstr ""
 "Ge eba o diriša ftp yeo e sego yeo e sa tsebjwego, tsenya leina la akhaonto "
 "le lentšu-phetišo tšeo o ratago go di diriša ka mo tlase."
 
-#: ../loader2/urls.c:420
+#: ../loader2/urls.c:436
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6677,15 +6616,15 @@ msgstr ""
 "Ge eba o diriša seabi sa kemedi sa HTTP tsenya leina la seabi sa kemedi sa "
 "HTTP seo se swanetšego go dirišwa."
 
-#: ../loader2/urls.c:442
+#: ../loader2/urls.c:458
 msgid "Account name:"
 msgstr "Leina la akhaonto:"
 
-#: ../loader2/urls.c:465
+#: ../loader2/urls.c:481
 msgid "Further FTP Setup"
 msgstr "Peakanyo e Oketšegilego ya FTP"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:484
 msgid "Further HTTP Setup"
 msgstr "Peakanyo e Oketšegilego ya HTTP"
 
@@ -6702,19 +6641,9 @@ msgstr "FCP LUN"
 msgid "Add _iSCSI target"
 msgstr ""
 
-#: tmp/adddrive.glade.h:3
-#, fuzzy
-msgid "Advanced Storage Options"
-msgstr "Dikgetho tše Oketšegilego tša Bogolo"
-
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
 msgstr ""
-
-#: tmp/adddrive.glade.h:5
-#, fuzzy
-msgid "How would you like to modify your drive configuration?"
-msgstr "O ka rata go lokišetša bjang tshepedišo ya faele karolong ye?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6742,10 +6671,6 @@ msgstr ""
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
 msgstr "Thomološ_a"
-
-#: tmp/anaconda.glade.h:2
-msgid "_Debug"
-msgstr "_Fokotša Diphošo"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6805,17 +6730,6 @@ msgstr "Leina la Modiriši"
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
-#: tmp/iscsi-config.glade.h:5
-#, fuzzy
-msgid "Configure iSCSI Parameters"
-msgstr "Dikarolwana tša Chandev"
-
-#: tmp/iscsi-config.glade.h:6
-msgid ""
-"To use iSCSI disks, you must provide the address of your iSCSI target and "
-"the iSCSI initiator name you've configured for your host."
-msgstr ""
-
 #: tmp/netconfig.glade.h:2
 #, fuzzy
 msgid "<b>Gateway:</b>"
@@ -6863,6 +6777,54 @@ msgstr ""
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
 
+#: tmp/netpostconfig.glade.h:2
+#, fuzzy
+msgid "<b>Description Goes Here</b>"
+msgstr "Tlhaloso: %s"
+
+#: tmp/netpostconfig.glade.h:3
+msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
+
+#: tmp/netpostconfig.glade.h:7
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
+
+#: tmp/netpostconfig.glade.h:9
+#, fuzzy
+msgid "Edit Interface"
+msgstr "Lokiša Poledišano ya %s"
+
+#: tmp/netpostconfig.glade.h:12
+#, fuzzy
+msgid "Encryption Key:"
+msgstr "Senotlelo sa go Tsenya _Khoutu"
+
+#: tmp/netpostconfig.glade.h:14
+#, fuzzy
+msgid "Manual configuration"
+msgstr "Go Fetola Sebopego ga z/IPL"
+
+#: tmp/netpostconfig.glade.h:15
+#, fuzzy
+msgid "Point to Point (IP):"
+msgstr "_Ntlha go ya Ntlheng (IP)"
+
+#: tmp/netpostconfig.glade.h:16
+#, fuzzy
+msgid "Prefix"
+msgstr "Mothalo wa IP wo e sego wa kgonthe"
+
 #: tmp/tasksel.glade.h:1
 #, fuzzy
 msgid "Customize _later"
@@ -6888,6 +6850,25 @@ msgstr ""
 #, fuzzy
 msgid "_Customize now"
 msgstr "Tlwaelanya"
+
+#: tmp/zfcp-config.glade.h:1
+#, fuzzy
+msgid "<b>Device number:</b>"
+msgstr "Nomoro ya sedirišwa"
+
+#: tmp/zfcp-config.glade.h:2
+#, fuzzy
+msgid "<b>FCP LUN:</b>"
+msgstr "FCP LUN"
+
+#: tmp/zfcp-config.glade.h:3
+#, fuzzy
+msgid "<b>WWPN:</b>"
+msgstr "_Lentšu-phetišo:"
+
+#: tmp/zfcp-config.glade.h:4
+msgid "Add FCP device"
+msgstr "Oketša sedirišwa sa FCP"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6930,10 +6911,6 @@ msgid "Aqtobe (Aktobe)"
 msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Dihlaka-hlaka tša Atlantic"
-
-#. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
@@ -6957,6 +6934,10 @@ msgstr ""
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr "Nako ya Atlantic - Nova Scotia - mafelo ao a sa lemogago DST 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Dihlaka-hlaka tša Atlantic"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6992,15 +6973,6 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "bogareng bja China - Gansu, Guizhou, Sichuan, Yunnan, bj.bj."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "bogareng bja Crimea"
-
-#. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
 msgstr "Nako ya Motheo ya Bogareng - Saskatchewan - bohlabela-magareng"
 
@@ -7015,11 +6987,6 @@ msgstr "Nako ya Bogareng"
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
 msgstr "Nako ya Bogareng - Campeche, Yucatan"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Central Time - central Nunavut"
-msgstr "Nako ya Bogareng - bodikela bja Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -7046,10 +7013,6 @@ msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr "Nako ya Bogareng - Michigan - mollwaneng wa Wisconsin"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Nako ya Bogareng - mafelong a mantši"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
 msgstr "Nako ya Bogareng - Lebowa la Dakota - Karolo ya Oliver"
@@ -7065,6 +7028,15 @@ msgstr "Nako ya Bogareng - Quintana Roo"
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Nako ya Bogareng - Rainy River & Fort Frances, Ontario"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - central Nunavut"
+msgstr "Nako ya Bogareng - bodikela bja Nunavut"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Nako ya Bogareng - mafelong a mantši"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -7095,18 +7067,6 @@ msgid "E Amazonas"
 msgstr "E Amazonas"
 
 #. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "bohlabela bja China - Beijing, Guangdong, Shanghai, bj.bj."
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "bohlabela bja lebopong, lebowa la Scoresbysund"
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "bohlabela bja Dem. Rep. of Congo"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Dihlaka-hlaka tša Bohlabela & Sala y Gomez"
 
@@ -7121,18 +7081,8 @@ msgstr "Nako ya Bohlabela"
 
 #. generated from zone.tab
 #, fuzzy
-msgid "Eastern Time - east Nunavut"
-msgstr "Nako ya Motheo ya Bohlabela - bohlabela bja Nunavut"
-
-#. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Crawford"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Nako ya Motheo ya Bohlabela - Indiana - mafelo a mantši"
 
 #. generated from zone.tab
 #, fuzzy
@@ -7143,6 +7093,11 @@ msgstr "Nako ya Motheo ya Bohlabela - Indiana - Naga ya Starke"
 #, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Switzerland"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - mafelo a mantši"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7157,14 +7112,14 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Nako ya Bohlabela - Michigan - mafelo a mantši"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Nako ya Bohlabela - Ontario - mafelo a mantši"
-
-#. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Nako ya Bohlabela - Ontario & Quebec - mafelo ao a sa lemogago DST 1967-1973"
+
+#. generated from zone.tab
+msgid "Eastern Time - Ontario - most locations"
+msgstr "Nako ya Bohlabela - Ontario - mafelo a mantši"
 
 #. generated from zone.tab
 #, fuzzy
@@ -7180,14 +7135,9 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Nako ya Bohlabela - Thunder Bay, Ontario"
 
 #. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"bohlabela & borwa bja Borneo, Celebes, Bali, Nusa Tengarra, bodikela bja "
-"Timor"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "bohlabela bja Uzbekistan"
+#, fuzzy
+msgid "Eastern Time - east Nunavut"
+msgstr "Nako ya Motheo ya Bohlabela - bohlabela bja Nunavut"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7254,10 +7204,6 @@ msgid "Madeira Islands"
 msgstr "Dihlaka-hlaka tša Madeira"
 
 #. generated from zone.tab
-msgid "mainland"
-msgstr "naga-kgolo"
-
-#. generated from zone.tab
 msgid "Marquesas Islands"
 msgstr "Dihlaka-hlaka tša Marquesas"
 
@@ -7293,10 +7239,6 @@ msgstr "Moscow+01 - Lewatle la Caspian"
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Moscow+00 - bodikela bja Russia"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 #, fuzzy
@@ -7348,16 +7290,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Lewatle la Bering"
 
 #. generated from zone.tab
-msgid "most locations"
-msgstr "mafelo a mantši"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "mafelo a mantši (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7384,10 +7318,6 @@ msgstr ""
 "Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Nako ya Thabeng -  Dinaga-selete tša Bodikela-Lebowa bja magareng"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "Nako ya Thabeng - Chihuahua"
 
@@ -7398,6 +7328,10 @@ msgstr "Nako ya Thabeng - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Nako ya Thabeng - S Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Nako ya Thabeng -  Dinaga-selete tša Bodikela-Lebowa bja magareng"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -7412,17 +7346,17 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "Nako ya Atlantic - E Labrador"
+msgid "New South Wales - Yancowinna"
+msgstr "Wales ya Borwa e Mpsha - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "Wales ya Borwa e Mpsha - mafelo a mangwe"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "Wales ya Borwa e Mpsha - Yancowinna"
+#, fuzzy
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "Nako ya Atlantic - E Labrador"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -7447,10 +7381,6 @@ msgstr "Nako ya Phasifiki - bodikela bja British Columbia"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Seteišene sa Palmer, Sehlaka-hlaka sa Anvers"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -7489,6 +7419,10 @@ msgid "Ruthenia"
 msgstr "Ruthenia"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah & Sarawak"
 
@@ -7511,10 +7445,6 @@ msgstr "Dihlaka-hlaka tša Society"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "Borwa bja Australia"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7563,12 +7493,85 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Seteišene sa Vostok, Phoule ya S Magnetic"
 
 #. generated from zone.tab
+msgid "W Amazonas"
+msgstr "W Amazonas"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "W Para, Rondonia"
+
+#. generated from zone.tab
 msgid "Wake Island"
 msgstr "Sehlaka-hlaka sa Wake"
 
 #. generated from zone.tab
-msgid "W Amazonas"
-msgstr "W Amazonas"
+msgid "West Kazakhstan"
+msgstr "Bodikela bja Kazakhstan"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - Eucla area"
+msgstr "Bodikela bja Australia"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - most locations"
+msgstr "Nako ya Bogareng - mafelong a mantši"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+msgstr "bogareng bja China - Gansu, Guizhou, Sichuan, Yunnan, bj.bj."
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "bogareng bja Crimea"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr ""
+"bohlabela & borwa bja Borneo, Celebes, Bali, Nusa Tengarra, bodikela bja "
+"Timor"
+
+#. generated from zone.tab
+msgid "east China - Beijing, Guangdong, Shanghai, etc."
+msgstr "bohlabela bja China - Beijing, Guangdong, Shanghai, bj.bj."
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "bohlabela bja Dem. Rep. of Congo"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "bohlabela bja Uzbekistan"
+
+#. generated from zone.tab
+msgid "east coast, north of Scoresbysund"
+msgstr "bohlabela bja lebopong, lebowa la Scoresbysund"
+
+#. generated from zone.tab
+msgid "mainland"
+msgstr "naga-kgolo"
+
+#. generated from zone.tab
+msgid "most locations"
+msgstr "mafelo a mantši"
+
+#. generated from zone.tab
+msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "mafelo a mantši (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+
+#. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -7579,14 +7582,6 @@ msgid "west Dem. Rep. of Congo"
 msgstr "bodikela bja Dem. Rep. of Congo"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Bodikela bja Australia"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Bodikela bja Kazakhstan"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "west Tibet & Xinjiang"
 msgstr "Tibet & bontši bja Xinjiang Uyghur"
@@ -7595,14 +7590,6 @@ msgstr "Tibet & bontši bja Xinjiang Uyghur"
 msgid "west Uzbekistan"
 msgstr "bodikela bja Uzbekistan"
 
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, E Lugansk"
-
 #. generated from lang-table
 msgid "Afrikaans"
 msgstr ""
@@ -7610,6 +7597,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Arabic"
 msgstr "Searabia"
+
+#. generated from lang-table
+msgid "Assamese"
+msgstr ""
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7691,6 +7682,10 @@ msgstr "se-Hungary"
 #. generated from lang-table
 msgid "Icelandic"
 msgstr "se-Iceland"
+
+#. generated from lang-table
+msgid "Iloko"
+msgstr ""
 
 #. generated from lang-table
 #, fuzzy
@@ -7779,6 +7774,10 @@ msgid "Serbian(Latin)"
 msgstr "se-Persia"
 
 #. generated from lang-table
+msgid "Sinhala"
+msgstr ""
+
+#. generated from lang-table
 #, fuzzy
 msgid "Slovak"
 msgstr "se-Slovenia"
@@ -7800,6 +7799,10 @@ msgid "Tamil"
 msgstr "se-Tamil"
 
 #. generated from lang-table
+msgid "Telugu"
+msgstr ""
+
+#. generated from lang-table
 msgid "Turkish"
 msgstr "se-Turkey"
 
@@ -7819,6 +7822,202 @@ msgstr "se-Welsh"
 msgid "Zulu"
 msgstr "se-Zulu"
 
+#~ msgid "Error mounting file system on %s: %s"
+#~ msgstr "Phošo ya go kgobela tshepedišo ya faele go %s: %s"
+
+#~ msgid "Upgrade Existing System"
+#~ msgstr "Kaonafatša Tshepedišo yeo Šetšego e le Gona"
+
+#~ msgid "Upgrade"
+#~ msgstr "Kaonafatša"
+
+#~ msgid "SCSI Id"
+#~ msgstr "Boitsebišo bja SCSI"
+
+#~ msgid "You have not specified a SCSI ID or the ID is invalid."
+#~ msgstr ""
+#~ "Ga se wa laetša Boitsebišo bja SCSI goba Boitsebišo ga se bja kgonthe."
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN"
+
+#~ msgid "SCSI LUN"
+#~ msgstr "SCSI LUN"
+
+#~ msgid "You have not specified a SCSI LUN or the number is invalid."
+#~ msgstr "Ga se wa laetša SCSI LUN goba nomoro ya se ya kgonthe."
+
+#, fuzzy
+#~ msgid "Hardware address: %s"
+#~ msgstr "Aterese ya Lenaneo le Thata la Khomphuthara: %s"
+
+#, fuzzy
+#~ msgid "Use dynamic IP configuration (_DHCP)"
+#~ msgstr "Diriša go fetola sebopego go maatla ga IP (BOOTP/DHCP)"
+
+#~ msgid "_Activate on boot"
+#~ msgstr "_Diragatša go thomeng"
+
+#, fuzzy
+#~ msgid "IPv_4 Address:"
+#~ msgstr "Aterese ya IP:"
+
+#, fuzzy
+#~ msgid "IPv_6 Address:"
+#~ msgstr "Aterese ya IP:"
+
+#~ msgid "Configure %s"
+#~ msgstr "Fetola Sebopego sa %s"
+
+#~ msgid "ZFCP Configuration"
+#~ msgstr "Go Fetola Sebopego sa ZFCP"
+
+#~ msgid "_Remove"
+#~ msgstr "_Tloša"
+
+#~ msgid "FCP Devices"
+#~ msgstr "Didirišwa tša FCP"
+
+#~ msgid "Edit FCP device %s"
+#~ msgstr "Lokiša sedirišwa sa FCP sa %s"
+
+#~ msgid ""
+#~ "You're about to remove a FCP disk from your configuration. Are you sure "
+#~ "that you wish to continue?"
+#~ msgstr ""
+#~ "O kgauswi le go ntšha tisiki ya FCP go fetoleng sebopego ga gago. Na o "
+#~ "kgonthišegile gore o nyaka go tšwela pele?"
+
+#~ msgid "Invalid IP string"
+#~ msgstr "Mothalo wa IP wo e sego wa kgonthe"
+
+#~ msgid "The entered IP '%s' is not a valid IP."
+#~ msgstr "IP ya '%s' yeo e tsentšhitšwego ga se IP ya kgonthe."
+
+#~ msgid "Point to Point (IP)"
+#~ msgstr "Ntlha go ya go Ntlha (IP)"
+
+#~ msgid "Network Device: %s"
+#~ msgstr "Sedirišwa sa Neteweke: %s"
+
+#~ msgid "Configure using DHCP"
+#~ msgstr "Fetola sebopego o diriša DHCP"
+
+#~ msgid "Invalid information"
+#~ msgstr "Tshedimošo yeo e sego ya Kgonthe"
+
+#~ msgid "You must enter valid IP information to continue"
+#~ msgstr "O swanetše go tsenya tshedimošo ya kgonthe ya IP gore o tšwele pele"
+
+#~ msgid "Tertiary DNS:"
+#~ msgstr "DNS e Phagamego:"
+
+#~ msgid "FCP Device"
+#~ msgstr "Sedirišwa sa FCP"
+
+#~ msgid "Device #"
+#~ msgstr "Sedirišwa #"
+
+#~ msgid "Add"
+#~ msgstr "Oketša"
+
+#~ msgid "Remove"
+#~ msgstr "Tloša"
+
+#~ msgid "_Custom"
+#~ msgstr "_Tlwaelanya"
+
+#~ msgid ""
+#~ "Select this installation type to gain complete control over the "
+#~ "installation process, including software package selection and "
+#~ "partitioning."
+#~ msgstr ""
+#~ "Kgetha mohuta wo wa go tsenya gore o kgone go hwetša taolo e feletšego ya "
+#~ "mosepelo wa go tsenya, go akaretša kgetho ya sephuthelwana ya lenaneo la "
+#~ "khomphuthara le go arola."
+
+#~ msgid "_Personal Desktop"
+#~ msgstr "_Teseke ya Motho ka Noši"
+
+#~ msgid ""
+#~ "Perfect for personal computers or laptops, select this installation type "
+#~ "to install a graphical desktop environment and create a system ideal for "
+#~ "home or desktop use."
+#~ msgstr ""
+#~ "Ke e swanelegago bakeng sa dikhomphuthara le di-laptop, kgetha mohuta wo "
+#~ "wa go tsenya gore o tsenye tikologo ya teseke ya diswantšho gomme o hlame "
+#~ "tshepedišo yeo e swanelegago bakeng sa tirišo ya gae goba teseke."
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tWeb browser \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ msgstr ""
+#~ "\tLegapi la teseke (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tSefetleki sa wepe \n"
+#~ "\tPoso ya seelektronike (Tlhagelelo)\n"
+#~ "\tGo romela melaetša ga kapejana\n"
+#~ "\tDitirišo tša Modumo le bidio\n"
+#~ "\tDipapadi\n"
+
+#~ msgid "_Server"
+#~ msgstr "_Seabi"
+
+#~ msgid ""
+#~ "Select this installation type if you would like to set up file sharing, "
+#~ "print sharing, and Web services. Additional services can also be enabled, "
+#~ "and you can choose whether or not to install a graphical environment."
+#~ msgstr ""
+#~ "Kgetha mohuta wo wa go tsenya ge eba o tla rata go beakanya go abelana "
+#~ "faele, go abelana go gatiša, le ditirelo tša Wepe. Ditirelo tše "
+#~ "oketšegilego le tšona di ka kgontšha, e bile o ka kgetha ge eba o nyaka "
+#~ "go tsenya tikologo ya diswantšho goba aowa."
+
+#~ msgid "_Workstation"
+#~ msgstr "_Seteišene sa mošomo"
+
+#~ msgid ""
+#~ "This option installs a graphical desktop environment with tools for "
+#~ "software development and system administration. "
+#~ msgstr ""
+#~ "Kgetho ye e tsenya tikologo ya teseke ya diswantšho yeo e nago le "
+#~ "didirišwa tša tšwetšopele ya lenaneo la khomphuthara le taolo ya "
+#~ "tshepedišo. "
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tWeb browser \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tSoftware Development Tools\n"
+#~ "\tAdministration Tools\n"
+#~ msgstr ""
+#~ "\tLegapi la teseke (GNOME)\n"
+#~ "\tOffice suite (OpenOffice.org)\n"
+#~ "\tSefetleki sa wepe \n"
+#~ "\tPoso ya seelektronike (Tlhagelelo)\n"
+#~ "\tGo romela melaetša ga kapejana\n"
+#~ "\tDitirišo tša Modumo le bidio\n"
+#~ "\tDipapadi\n"
+#~ "\tDidirišwa tša Tšwetšopele ya Lenaneo la Khomphuthara\n"
+#~ "\tDidirišwa tša Taolo\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
+#~ "configuration."
+#~ msgstr ""
+#~ "O swanetše go kgetha bonyenyane leleme le tee leo le swanetšego go "
+#~ "tsenywa."
+
 #~ msgid "DDC Probed Monitor"
 #~ msgstr "Selebeledi se Nyakišišitšwego sa DDC"
 
@@ -7836,9 +8035,6 @@ msgstr "se-Zulu"
 
 #~ msgid "Net_mask"
 #~ msgstr "Net_mask"
-
-#~ msgid "Hardware address:"
-#~ msgstr "Aterese ya Lenaneo la Khomphuthara:"
 
 #, fuzzy
 #~ msgid "Invalid CIDR Mask"
@@ -8201,12 +8397,6 @@ msgstr "se-Zulu"
 #, fuzzy
 #~ msgid "Packages in %s"
 #~ msgstr "Sephuthelwana :"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr ""
-#~ "Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
-#~ "swanetšego go tsenywa?"
 
 #~ msgid ""
 #~ "The default installation environment includes our recommended package "
@@ -8623,9 +8813,6 @@ msgstr "se-Zulu"
 
 #~ msgid "Select a drive to partition with fdisk:"
 #~ msgstr "Kgetha draeve yeo go tla arolwago ka tisiki ya f:"
-
-#~ msgid "Disabled"
-#~ msgstr "Paledišitšwe"
 
 #~ msgid "Warn"
 #~ msgstr "Lemoša"
