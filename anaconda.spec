@@ -111,6 +111,23 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Feb 09 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.20-1
 - Require newest libdhcp
+- Remove obsolete findpackageset.py and genheader.py (clumens)
+- Update translation files (#227775, clumens)
+- BR glib2-static (clumens)
+- Add LVM exception handling classes (pjones)
+- Wrap lvm command calls with lvmExec() and lvmCapture() (pjones)
+- Remove obsolete fbconProbe() and doFbconProbe() (katzj)
+- Display 'DHCPv6' rather than 'DHCP' for IPv6/Prefix column 
+- Make 'description' a property for correct i18n translations (pjones)
+- Add the postscripts step (#227470, clumens)
+- Do not try to run post scripts if ksdata is missing (clumens)
+- Allow going back to interface selection screen in stage1 (#213787, clumens)
+- Sort detailed package listing in text mode (clumens)
+- Don't try to second guess provided X resolutions or depths (clumens)
+- Preserve X resolution given in kickstart file (#158089, clumens)
+- Improve listing selected and deselected packages (#189873, clumens)
+- Fix argument passing for windows on kickstart installs (clumens)
+- Don't set up default partitions during kickstart installs (clumens)
 
 * Tue Jan 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.19-1
 - pkgorder cleanup for various tree layouts (jkeating)
