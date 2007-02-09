@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.19
+Version: 11.2.0.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,7 @@ BuildPreReq: pykickstart >= 0.90, yum >= 2.9.2, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5, glib2-static
-BuildPreReq: libdhcp-devel >= 1.16, mkinitrd-devel >= 5.1.2-1
+BuildPreReq: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.8.1, pyparted >= 1.8.1
@@ -109,6 +109,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 09 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.20-1
+- Require newest libdhcp
+
 * Tue Jan 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.19-1
 - pkgorder cleanup for various tree layouts (jkeating)
 - Use $TMPDIR in scripts (Steve Pritchard, #224438)
