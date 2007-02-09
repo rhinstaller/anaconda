@@ -1,16 +1,17 @@
-# translation of cs.po to Czech
 # $Id$
+#
+# translation of cs.po to Czech
 # Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
-# Milan Keršláger <kerslage@linux.cz>, 2007
+# Milan Keršláger <kerslage@linux.cz>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-08 01:51+0100\n"
+"PO-Revision-Date: 2007-02-09 11:28+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -987,7 +988,7 @@ msgstr "Ignorovat"
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
 #: ../loader2/kickstart.c:336 ../loader2/loader.c:351
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Přerušit"
 
 #: ../gui.py:735 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1200,6 +1201,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO obraz %s má velikost, která není násobkem 2048 bajtů. Obraz byl pravděpodobně "
+"při přenosu poškozen.\n"
+"\n"
+"Doporučujeme přerušit instalaci a restartovat počítač. Pokud si myslíte, že "
+"to není chyba, můžete v instalaci pokračovat."
 
 #: ../image.py:510
 #, python-format
@@ -1285,28 +1291,26 @@ msgstr ""
 "neexistuje. Chcete pokračovat nebo ukončit instalaci?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Nemohu najít instalační obraz %s"
+msgstr "Nelze najít obraz"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"Na zadaném místě není správné instalační Live CD pro %s, které by mohlo být "
+"zdrojem pro instalaci."
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s Instalační program"
+msgstr "Ukončit instalátor"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Instalace %s %s"
+msgstr "Dokončení instalace"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
@@ -1329,16 +1333,14 @@ msgstr ""
 "háčků a čárek)"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "Chybí IP adresa."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP adresy musí obsahovat čísla mezi 0 a 255 oddělená tečkami."
+msgstr "IPv4 adresy musí obsahovat čtyři čísla mezi 0 a 255 oddělená tečkami."
 
 #: ../network.py:96
 #, python-format
@@ -1346,9 +1348,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' není platná adresa IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' není platná adresa IPv6."
+msgstr "'%s' není platná IP adresa."
 
 #: ../packages.py:241
 #, python-format
@@ -1584,7 +1586,7 @@ msgstr ""
 "Chcete tento oddíl naformátovat jako swap?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Musíte vybrat alespoň jeden disk, na který nainstalujete %s."
 
@@ -2060,7 +2062,7 @@ msgstr "Chcete aktivovat síťová rozhraní?"
 
 #: ../rescue.py:243 ../text.py:534
 msgid "Cancelled"
-msgstr "Zrušeno"
+msgstr "Přerušeno"
 
 #: ../rescue.py:244 ../text.py:535
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -2222,7 +2224,7 @@ msgstr "Nápověda není k dispozici"
 
 #: ../text.py:254
 msgid "No help is available for this step of the install."
-msgstr "Pro toto místo není k dispozici žádná nápověda."
+msgstr "Žádná nápověda zde není k dispozici."
 
 #: ../text.py:365
 msgid "Save Crash Dump"
@@ -2624,6 +2626,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Ze zadaných repozitářů nelze přečíst informace o skupinách. Při generování "
+"vašeho instalačního stromu došlo k chybě."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -3246,14 +3250,14 @@ msgid "Error With Request"
 msgstr "Chyba při požadavku"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Logické svazky (LV) potřebují %g MB, ale ve skupině svazků (VG) je k "
-"dispozici jen %g MB. Buď zvětšete skupinu svazků (VG), nebo zmenšete logický "
+"Logické svazky (LV) potřebují %d MB, ale ve skupině svazků (VG) je k "
+"dispozici jen %d MB. Buď zvětšete skupinu svazků (VG), nebo zmenšete logický "
 "svazek (LV)."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3465,9 +3469,8 @@ msgid "Nameserver"
 msgstr "DNS server"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Došlo k chybě v průběhu konfigurování vašeho síťového rozhraní"
+msgstr "Chyba při konfigurování síťového rozhraní"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3522,14 +3525,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "Je nutné vyplnit pole \"%s\"."
+msgstr "V poli %s je nutné vyplnit hodnotu."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Chyba v datech"
+msgstr "Chyba v datech %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3538,9 +3541,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Zadané informace IP jsou neplatné."
+msgstr "Hodnoty pro IPv4 nejsou platné."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3552,7 +3554,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázáno"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
@@ -3602,32 +3604,28 @@ msgid "Miscellaneous Settings"
 msgstr "Různé volby"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Upravit RAID zařízení"
+msgstr "Upravit zařízení "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Neznámé Ethernet zařízení"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Neznámý"
+msgstr "neznámý"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Hardwarová adresa: %s"
+msgstr "Hardwarová adresa: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Chybějící protokol"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro DHCP."
+msgstr "Musíte vybrat alespoň jeden z protokolů IPv4 nebo IPv6."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4817,7 +4815,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Žádné volitelné balíčky"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4848,13 +4846,13 @@ msgid "Mouse Selection"
 msgstr "Výběr myši"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Nevyplnili jste pole \"%s\". To může, v závislosti na vašem síťovém "
-"prostředí, později způsobit problémy."
+"Nevyplnili jste pole %s. V závislosti na vašem síťovém "
+"prostředí to může později způsobit problémy."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4885,36 +4883,32 @@ msgid "Activate on boot"
 msgstr "Aktivovat při startu"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP adresa"
+msgstr "Adresa"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Maska sítě"
+msgstr "Prefix (maska sítě)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Klíč:"
+msgstr "WEP klíč:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4922,9 +4916,8 @@ msgid "Network Configuration for %s"
 msgstr "Nastavení sítě pro %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Prefix IPv6 musí být mezi 0 a 128."
+msgstr "Neplatný nebo chybějící IPv6 prefix (musí být mezi 0 a 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5248,10 +5241,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Který disk(y) chcete použít pro tuto instalaci?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
+msgstr "<Mezera>,<+>,<-> výběr | <F2> Detaily skupiny |  <F12> další obrazovka"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5270,21 +5261,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Jak chcete upravit nastavení disku?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "Přidat zařízení FCP"
+msgstr "Přidat FCP zařízení"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Počítače zSeries mohou používat standardní zařízení SCSI přes Fibre Channel "
-"(FCP). Pro každé zařízení musíte zadat 5 parametrů: šestnáctibitové číslo "
-"zařízení, šestnáctibitové SCSI ID, šedesátičtyřbitové World Wide Port Name "
-"(WWPN), šestnáctibitové SCSI LUN a šedesátičtyřbitové FCP LUN."
+"(FCP). Pro každé zařízení musíte zadat tyto parametry: 16 bitové číslo "
+"zařízení, 64 bitové World Wide Port Name (WWPN) a 64 bitové FCP LUN."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5329,7 +5317,7 @@ msgstr "Popis   : "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
-msgstr "    Balíčků "
+msgstr "     Balíčků"
 
 #: ../textw/progress_text.py:153
 msgid "      Bytes"
@@ -5870,11 +5858,12 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Chyba při stahování kickstart souboru. Upravte prosím umístění kickstart "
+"parametru nebo stiskněte Přerušit a instalace bude dále pokračovat interaktivně."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Chyba při otevírání souboru kickstart %s: %s"
+msgstr "Chyba při stahování kickstart souboru"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6180,20 +6169,17 @@ msgid "Nameserver IP"
 msgstr "IP DNS serveru"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "DNS server"
+msgstr "Chybí DNS server"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Odpověď na žádost o přidělení IP adresy neobsahuje jméno DNS serveru. Pokud "
-"víte, jaká je IP adresa DNS serveru, vložte ji. Pokud tuto adresu neznáte, "
-"ponechte políčko prázdné a instalace bude pokračovat."
+"Odpověď na žádost o přidělení IP adresy neobsahuje jméno DNS serveru. "
+"Pokud tuto adresu neznáte, ponechte políčko prázdné a instalace bude pokračovat."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6216,9 +6202,8 @@ msgid "Configure TCP/IP"
 msgstr "Nastavení TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro DHCP."
+msgstr "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6251,6 +6236,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Vložte IPv4 a/nebo IPv6 adresy a prefixy (adresa/prefix). V případě IPv4 můžete "
+"zadat masku ve formátu čtyř čísel oddělených tečkami nebo použít CIDR-styl. "
+"Brána a adresy DNS serverů musí být platné IPv4 nebo IPv6 adresy."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6266,9 +6254,8 @@ msgid ""
 msgstr "Musíte zadat platnou IPv4 adresu a masku sítě nebo CIDR prefix."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Musíte zadat platnou IPv6 adresu a CIDR prefix."
+msgstr "Musíte zadat platnou IPv6 adresu a platný CIDR prefix."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6588,55 +6575,47 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Použít _dynamické nastavení IP adresy (DHCP)"
+msgstr "_Dynamické nastavení IP adresy (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Popis: %s"
+msgstr "<b>Popis: %s</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Hardwarová adresa: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatické vyhledání okolních počítačů"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Použít dynamické nastavení IP adresy (DHCP)"
+msgstr "Dynamické nastavení IP adresy (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Použít dynamické nastavení IP adresy (DHCP)"
+msgstr "Dynamické nastavení IP adresy (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Upravit rozhraní %s"
+msgstr "Úprava rozhraní"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Šifrovací _klíč:"
+msgstr "Šifrovací klíč:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Ruční konfigurace TCP/IP"
+msgstr "Ruční konfigurace"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6665,19 +6644,16 @@ msgid "_Customize now"
 msgstr "_Upravit teď"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Číslo zařízení"
+msgstr "<b>Číslo zařízení:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Heslo:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7301,14 +7277,12 @@ msgid "West Kazakhstan"
 msgstr "Západní Kazachstán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Západní Austrálie"
+msgstr "Západní Austrálie - Eucla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Centrální čas - většina míst"
+msgstr "Západní Austrálie - většina míst"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7388,7 +7362,7 @@ msgstr "Arabština"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Ásámština"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7396,7 +7370,7 @@ msgstr "Bengálština"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr "Bengálština(Indie)"
+msgstr "Bengálština (Indie)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -7408,11 +7382,11 @@ msgstr "Katalánština"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Čínština(zjednodušená)"
+msgstr "Čínština (zjednodušená)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Čínština(tradiční)"
+msgstr "Čínština (tradiční)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -7472,7 +7446,7 @@ msgstr "Islandština"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7556,7 +7530,7 @@ msgstr "Srbština(Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7580,7 +7554,7 @@ msgstr "Tamilština"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7601,192 +7575,3 @@ msgstr "Velština"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Chyba při připojování systému souborů na %s: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "Aktualizace systému"
-
-#~ msgid "Upgrade"
-#~ msgstr "Aktualizace"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ID"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "Neurčili jste SCSI ID nebo ID není platné."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "Neurčili jste SCSI LUN nebo číslo není platné."
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Použít dynamické nastavení IP adresy (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Aktivovat při startu"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv4 adresa:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv6 adresa:"
-
-#~ msgid "Configure %s"
-#~ msgstr "Nastavit %s"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "Nastavení ZFCP"
-
-#~ msgid "_Remove"
-#~ msgstr "_Odstranit"
-
-#~ msgid "FCP Devices"
-#~ msgstr "Zařízení FCP"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "Upravit zařízení FCP %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Neplatný řetězec IP"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "Vložené IP '%s' není platné."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point to Point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Síťové zařízení: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Konfigurovat pomocí DHCP"
-
-#~ msgid "Invalid information"
-#~ msgstr "Chybná informace"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "Pro pokračování musíte zadat platné informace o IP"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Terciální DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "Zařízení FCP"
-
-#~ msgid "Device #"
-#~ msgstr "Č. zařízení"
-
-#~ msgid "Add"
-#~ msgstr "Přidat"
-
-#~ msgid "Remove"
-#~ msgstr "Odstranit"
-
-#~ msgid "_Custom"
-#~ msgstr "_Vlastní"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "Zvolením tohoto typu instalace získáte úplnou kontrolu nad procesem "
-#~ "instalace, včetně výběru balíčků a vytváření oddílů."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "_Osobní systém"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "Určeno pro osobní počítače nebo laptopy. Zvolením tohoto typu instalace "
-#~ "nainstalujete grafické prostředí a vytvoříte systém ideální pro domácí "
-#~ "nebo kancelářské použití."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\tProstředí pracovní plochy (GNOME)\n"
-#~ "\tKancelářský balík (OpenOffice.org)\n"
-#~ "\tWWW prohlížeč (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tAplikace pro zvuk a video\n"
-#~ "\tHry\n"
-
-#~ msgid "_Server"
-#~ msgstr "_Server"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "Zvolte tento typ instalace, pokud chcete nastavit sdílení souborů, "
-#~ "sdílení tiskáren nebo služby WWW. Můžete povolit další služby a můžete si "
-#~ "vybrat, jestli chcete instalovat grafické prostředí."
-
-#~ msgid "_Workstation"
-#~ msgstr "P_racovní stanice"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "Tato možnost nainstaluje grafické prostředí s nástroji pro vývoj programů "
-#~ "a administraci systému."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tProstředí pracovní plochy (GNOME)\n"
-#~ "\tKancelářský balík (OpenOffice.org)\n"
-#~ "\tWWW prohlížeč (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tAplikace pro zvuk a video\n"
-#~ "\tHry\n"
-#~ "\tNástroje pro vývoj programů\n"
-#~ "\tNástroje pro administraci\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Vyhnout se nechtěným kolizím paketů"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Maximalizovat registrové hodnoty pro vysokorychlostní síťový provoz"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Musíte vybrat alespoň jeden z protokolů (IPv4 nebo IPv6) pro ruční "
-#~ "konfiguraci."
