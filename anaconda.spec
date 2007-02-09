@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.58
+Version: 10.1.1.59
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb  9 2007 Peter Jones <pjones@redhat.com> - 10.1.1.59-1
+- Handle the kernel's new representation of unformatted DASD devices (dlehman)
+  Resolves: #227546
+
 * Tue Feb  6 2007 Peter Jones <pjones@redhat.com> - 10.1.1.58-1
 - Fix installation of cached keymaps so we actually use them during
   buildinstall runs
