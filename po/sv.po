@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2006-09-18 20:02-0400\n"
+"PO-Revision-Date: 2007-02-09 10:09-0500\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1202,6 +1202,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO-avbilden %s har en storlek som inte är en multipel av 2048 bytes. Det "
+"kan betyda att den blev förstörd när den överfördes till denna dator.\n"
+"\n"
+"Det är rekommenderat att du startar om och avbryter din installation, men du "
+"kan välja att fortsätta om du tror detta inte är korrekt."
 
 #: ../image.py:510
 #, python-format
@@ -1288,32 +1293,32 @@ msgstr ""
 "Vill du fortsätta eller avbryta din installation?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Kunde inte hitta installationsavbilden %s"
+msgstr "Kunde inte hitta avbild"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"Den angivna platsen är inte en giltig %s live CD som kan användas som "
+"installationskälla."
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "Installationsprogram för %s"
+msgstr "Avsluta installationsprogram"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Installation av %s %s"
+msgstr "Utför efterinstallation"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Startar installationen. Detta kan ta flera minuter..."
+msgstr ""
+"Utför filsystemsändringar i efterinstallationen. Detta kan ta flera "
+"minuter..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1331,17 +1336,15 @@ msgstr ""
 "Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"-\" eller \".\""
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP-adress saknas."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP-adresser måste innehålla fyra tal mellan 0 och 255, separerade med "
+"IPv4-adresser måste innehålla fyra tal mellan 0 och 255, separerade med "
 "punkter."
 
 #: ../network.py:96
@@ -1350,9 +1353,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' är ingen giltig IPv6-adress."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' är ingen giltig IPv6-adress."
+msgstr "'%s' är ingen giltig IP-adress."
 
 #: ../packages.py:241
 #, python-format
@@ -1590,7 +1593,7 @@ msgstr ""
 "Vill du formatera denna partition som en växlingspartition?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr ""
 "Du måste välja minst en hårddisk som du vill att %s ska installeras på."
@@ -2645,6 +2648,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Kan inte läsa gruppinformation från datalager.  Detta är ett problem med "
+"generationen av ditt installationsträd."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -3288,14 +3293,14 @@ msgid "Error With Request"
 msgstr "Fel i begäran"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"De logiska volymerna som du har konfigurerat kräver %g MB, men volymgruppen "
-"har endast %g MB. Gör antingen volymgruppen större eller de logiska "
+"De logiska volymerna som du har konfigurerat kräver %d MB, men volymgruppen "
+"har endast %d MB. Gör antingen volymgruppen större eller de logiska "
 "volymerna mindre."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3504,9 +3509,8 @@ msgid "Nameserver"
 msgstr "Namnserver"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Fel vid skapande av växlingsutrymme på enhet "
+msgstr "Fel vid konfigurering av nätverksenhet"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3561,14 +3565,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
 msgstr "Ett värde krävs i fältet \"%s\"."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Fel med data"
+msgstr "Fel med data för %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3577,9 +3581,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "IP-informationen du angav är ogiltig."
+msgstr "IPv4-informationen du angav är ogiltig."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3641,21 +3644,18 @@ msgid "Miscellaneous Settings"
 msgstr "Diverse inställningar"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Redigera RAID-enhet"
+msgstr "Redigera enhet"
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Okänd Ethernet-enhet"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Okänd"
+msgstr "okänd"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
 msgstr "Hårdvaruadress:"
 
@@ -3664,9 +3664,8 @@ msgid "Missing Protocol"
 msgstr "Protokoll saknas"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6) för DHCP."
+msgstr "Du måste välja minst stöd för IPv4 eller IPv6."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4862,9 +4861,8 @@ msgstr ""
 "<Blanksteg>,<+>,<-> val    |    <F2> Gruppdetaljer    |    <F12> nästa skärm"
 
 #: ../textw/grpselect_text.py:117
-#, fuzzy
 msgid "No optional packages to select"
-msgstr "%d av %d valfria paket installerade"
+msgstr "Inga valfria paket valda"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4895,7 +4893,7 @@ msgid "Mouse Selection"
 msgstr "Musval"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
@@ -4932,36 +4930,32 @@ msgid "Activate on boot"
 msgstr "Aktivera vid uppstart"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP-adress"
+msgstr "Adress"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Nätmask"
+msgstr "Prefix(Nätmask)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-till-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Nyckel:"
+msgstr "WEP-nyckel:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4969,9 +4963,8 @@ msgid "Network Configuration for %s"
 msgstr "Nätverkskonfiguration för %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6-prefix får bara innehålla tal mellan 0 och 128."
+msgstr "Ogiltigt eller saknat IPv6-prefix (måste vara mellan 0 och 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5295,10 +5288,10 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Vilken eller vilka enheter vill du använda för denna installation?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Blanksteg>,<+>,<-> val    |    <F2> Gruppdetaljer    |    <F12> nästa skärm"
+"<Blanksteg>,<+>,<-> val    |    <F2> Lägg till enhet    |    <F12> nästa "
+"skärm"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5317,21 +5310,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Hur vill du modifiera din diskenhetskonfiguration?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Lägg till FCP-enhet"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden via "
-"Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett 16-"
-"bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide Port "
-"Name (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+"Fibre Channel (FCP). Du måste ange ett 16-bitars enhetsnummer, ett 64-bitars "
+"World Wide Port Name (WWPN) och ett 64-bitars FCP-LUN för varje enhet."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5921,11 +5911,13 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Kunde inte ladda ner uppstartstilfen. Vänligen modifiera uppstarts-"
+"parametern nedan eller tryck Avbryt för att fortsätta en interaktiv "
+"installation."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Fel vid öppnande av kickstartfilen %s: %s"
+msgstr "Fel vid nedladdning av uppstartsfil"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6244,21 +6236,18 @@ msgid "Nameserver IP"
 msgstr "Namnserver-IP"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Namnserver"
+msgstr "Saknar namnserver"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Din begäran av dynamisk IP innehöll IP-konfigurationsinformation, men den "
-"innehöll inte en DNS-namnserver. Om du vet vad du har för namnserver bör du "
-"ange det nu. Om du inte har denna information kan du lämna fältet blankt och "
-"installationen kommer att fortsätta."
+"Din begäran av IP-adress returnerade konfigurationsinformation, men den "
+"innehöll inte en DNS-namnserver. Om du inte har denna information kan du "
+"lämna fältet blankt och installationen kommer att fortsätta."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6283,9 +6272,8 @@ msgid "Configure TCP/IP"
 msgstr "Konfigurera TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6) för DHCP."
+msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6318,6 +6306,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Ange IPv4- och/eller IPv6-adress och prefix (adress / prefix).  För IPv4 är "
+"punkt-kvadruppel nätmask eller prefix i CIDR-stil tillåtet. Fälten gateway "
+"och namnserver måste vara giltiga IPv4- eller IPv6-adresser."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6335,7 +6326,6 @@ msgstr ""
 "prefix."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
@@ -6663,52 +6653,44 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Använd dynamisk IP-konfiguration (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Beskrivning: %s"
+msgstr "<b>Beskrivning anges här</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Maskinvaru-adress: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatisk upptäckt av grannar"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Redigera gränssnittet %s"
+msgstr "Redigera gränssnitt"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "_Krypteringsnyckel:"
+msgstr "Krypteringsnyckel:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Manuell TCP/IP-konfiguration"
+msgstr "Manuell konfiguration"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Punkt till punkt (IP):"
+msgstr "Punkt till punkt (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6738,19 +6720,16 @@ msgid "_Customize now"
 msgstr "_Anpassa nu"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Enhetsnummer:"
+msgstr "<b>Enhetsnummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP-LUN:"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Lösenord:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7372,14 +7351,12 @@ msgid "West Kazakhstan"
 msgstr "Västra Kazakstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Västaustralien"
+msgstr "Västaustralien - Eucla-området"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Centraltid - större delen"
+msgstr "Västaustralien - de flesta platser"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7458,9 +7435,8 @@ msgid "Arabic"
 msgstr "Arabiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Assamese"
-msgstr "Spel"
+msgstr "Assamese"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7544,7 +7520,7 @@ msgstr "Isländska"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7628,7 +7604,7 @@ msgstr "Serbiska(latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7652,7 +7628,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
