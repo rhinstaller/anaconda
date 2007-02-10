@@ -34,7 +34,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-09 07:19+0100\n"
+"PO-Revision-Date: 2007-02-10 15:09+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -4898,7 +4898,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Nessun pacchetto opzionale da selezionare"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4929,13 +4929,13 @@ msgid "Mouse Selection"
 msgstr "Selezione del tipo di mouse"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Il campo \"%s\" non è stato specificato. In base all'ambiente di rete in uso "
-"questo può causare dei problemi."
+"Il campo %s non è stato specificato. In base all'ambiente di rete in uso "
+"questo può causare problemi successivamente."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4966,36 +4966,32 @@ msgid "Activate on boot"
 msgstr "Attiva all'avvio"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "Indirizzo IP"
+msgstr "Indirizzo"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Maschera di rete"
+msgstr "Prefisso (Netmask)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Chiave:"
+msgstr "Chiave WEP:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5003,9 +4999,8 @@ msgid "Network Configuration for %s"
 msgstr "Configurazione di rete per %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Il prefisso IPv6 deve essere fra 0 e 128."
+msgstr "Prefisso IPv6 non valido o mancante (deve essere fra 0 e 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5331,10 +5326,9 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Unità da utilizzare per l'installazione:"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Spazio>,<+>,<-> selezione   |   <F2> Descrizione   |   <F12> prossima "
+"<Spazio>,<+>,<-> selezione   |   <F2> Aggiungi disco   |   <F12> prossima "
 "schermata"
 
 #: ../textw/partition_text.py:1635
@@ -5354,22 +5348,17 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Come si desidera modificare la configurazione del disco?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Aggiungi dispositivo FCP"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Le macchine zSeries sono in grado di accedere a dispositivi SCSI standard, "
-"via Fibre Channel (FCP). È necessario fornire 5 parametri per ogni "
-"dispositivo: un numero del dispositivo a 16bit, uno SCSI ID a 16bit, un "
-"World Wide Port Name (WWPN) a 64bit, uno SCSI LUN a 16bit ed un FCP LUN a "
-"64bit."
+"via Fibre Channel (FCP). È necessario fornire un numero di dispositivo a 16bit, un World Wide Port Name (WWPN) ed un FCP LUN a 64bit per ciascun dispositivo."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5958,12 +5947,11 @@ msgstr "Impossibile trovare il file ks.cfg sul dischetto di avvio."
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "Impossibile scaricare il file kickstart.  Si prega di modificare il parametro kickstart qui sotto o premere Cancella per procedere come un installazione interattiva."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Errore di apertura del file kickstart %s: %s"
+msgstr "Errore nello scaricamento del file kickstart"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6276,20 +6264,15 @@ msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Nameserver mancante"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
-msgstr ""
-"Sono state ricevute le informazioni sulla configurazione della rete IP, "
-"escluso il server DNS. Inserire il server DNS oppure, se non lo si conosce, "
-"lasciare il campo vuoto e procedere con l'installazione."
+msgstr "La richiesta di un indirizzo IP ha ottenuto le informazioni di configurazione, ma non includono l'indirizzo di un server DNS. Se non si è a conoscenza di questa informazione, è possibile lasciare il campo vuoto e l'installazione continuerà."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6312,9 +6295,8 @@ msgid "Configure TCP/IP"
 msgstr "Configurazione TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Selezionare almeno un protocollo (IPv4 o IPv6) per il DHCP."
+msgstr "Selezionare almeno un protocollo (IPv4 o IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6346,7 +6328,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "Immettere l'indirizzo IPv4 e/o IPv6 ed il prefisso (indirizzo / prefisso).  Per l'IPv4, la netmask a quattro valori puntati o lo stile di prefisso CIDR sono accettabili. Il gateway ed il campo name server devono essere validi indirizzi IPv4 o IPv6."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6361,9 +6343,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Inserire un indirizzo IPv6 valido ed un prefisso CIDR."
+msgstr "Inserire sia un indirizzo IPv6 valido che un prefisso CIDR."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6691,52 +6672,44 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Usa la configurazione IP _dinamica (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Descrizione: %s"
+msgstr "<b>La descrizione va qui</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Indirizzo hardware: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Rilevamento automatico"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Usa la configurazione IP dinamica (DHCP)"
+msgstr "Configurazione IP dinamica (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Usa la configurazione IP dinamica (DHCP)"
+msgstr "Configurazione IP dinamica (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Modifica interfaccia %s"
+msgstr "Modifica interfaccia"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Chiave di _codifica:"
+msgstr "Chiave di codifica:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Configurazione manuale TCP/IP"
+msgstr "Configurazione manuale"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefisso"
+msgstr "Prefisso"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6768,19 +6741,16 @@ msgid "_Customize now"
 msgstr "_Personalizza ora"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Numero del Dispositivo"
+msgstr "<b>Numero dispositivo:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Password:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7401,14 +7371,12 @@ msgid "West Kazakhstan"
 msgstr "Kazakhstan occidentale"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Australia occidentale"
+msgstr "Australia occidentale - Eucla area"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Central Time - maggior parte del territorio"
+msgstr "Australia occidentale - maggior parte del territorio"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7490,7 +7458,7 @@ msgstr "Arabo"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamese"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7574,7 +7542,7 @@ msgstr "Islandese"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7658,7 +7626,7 @@ msgstr "Serbo (Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7682,7 +7650,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
