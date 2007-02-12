@@ -1,3 +1,9 @@
+2007-02-12  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py (FileSystemSet.bootloaderChoices): On zFCP-only zSeries
+	instances, do not try to grab bl.drivelist[0] when figuring out what
+	boot loader choices the user has (#165098).
+
 2007-02-09  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -1249,7 +1249,11 @@ MAILADDR root
             return ret
                 
 	ret['boot'] = (bootDev.device, N_("First sector of boot partition"))
-        ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
+        try:
+            # we won't have this on zFCP-only zSeries systems
+            ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
+        except:
+            pass
         return ret
 
     # set active partition on disks
