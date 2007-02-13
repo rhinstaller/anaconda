@@ -544,7 +544,8 @@ class NetworkDeviceWindow:
                 doIPv4 = False
 
                 if rc == INSTALL_BACK:
-                    currentDev = currentDev - 1
+                    if currentDev > 0:
+                        currentDev = currentDev - 1
                     doMain = True
                     doIPv6 = False
                     continue

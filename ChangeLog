@@ -1,5 +1,10 @@
 2007-02-13  David Cantrell  <dcantrell@redhat.com>
 
+	* textw/network_text.py: If we got INSTALL_BACK from runIPv4Screen(),
+	only decrement currentDev if it's greater than zero.
+
+2007-02-13  David Cantrell  <dcantrell@redhat.com>
+
 	* textw/network_text.py: Fix errors in the IPv6 configuration window
 	initialization.  Also fix the Back button on IPv6 window so it takes
 	you back to the main window or IPv4 window (whichever you were just
