@@ -13,6 +13,10 @@
 
 	* iw/network_gui.py: Remove descr hash, not used anymore.
 
+	* textw/network_text.py: Rewrite network interface configuration
+	screens to more closely match how we handle it in the iw interface.
+	We configure IPv4 and IPv6 independently.
+
 2007-02-09  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec:  Bump version.
