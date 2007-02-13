@@ -377,17 +377,26 @@ class NetworkDeviceWindow:
             brk += 1
             ipv6prefix = ipv6addr[brk:]
 
+        # default to automatic neighbor discovery if no ipv6 values exist
+        if ipv6autoconf == '' or ipv6autoconf is None or \
+           ipv6addr == '' or ipv6addr is None:
+            ipv6autoconf = 'yes'
+            ipv6addr = None
+            ipv6prefix = None
+            dev.unset('ipv6_autoconf')
+            dev.unset('ipv6addr')
+
         radio = RadioGroup()
 
         maingrid = Grid(1, 4)
         autoCb = radio.add(_('Automatic neighbor discovery'), 'auto',
-                           (ipv6autoconf == 'auto'))
+                           (ipv6autoconf == 'yes'))
         maingrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
         dhcpCb = radio.add(_('Dynamic IP configuration (DHCPv6)'), 'dhcp',
-                           (ipv6addr == 'dhcp'))
+                           (ipv6addr is not None and ipv6addr == 'dhcp'))
         maingrid.setField(dhcpCb, 0, 1, growx = 1, anchorLeft = 1)
         manualCb = radio.add(_('Manual address configuration'), 'static',
-                             (ipv6addr != 'dhcp'))
+                             (ipv6addr is not None and ipv6addr != 'dhcp'))
         maingrid.setField(manualCb, 0, 2, growx = 1, anchorLeft = 1)
 
         manualgrid = Grid(3, 2)
@@ -400,7 +409,7 @@ class NetworkDeviceWindow:
 
         manualgrid = self.createManualEntryGrid(ipEntry, prefixEntry,
                                                 socket.AF_INET6)
-        maingrid.setField(manualgrid, 0, 2, anchorLeft = 1, growx = 1,
+        maingrid.setField(manualgrid, 0, 3, anchorLeft = 1, growx = 1,
                           padding = (0, 1, 0, 0))
         autoCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
         dhcpCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
@@ -492,6 +501,7 @@ class NetworkDeviceWindow:
         else:
             currentDev = devLen - 1
 
+        # collect configuration data for each interface selected by the user
         doMain = True
         doIPv4 = False
         doIPv6 = False
@@ -541,11 +551,14 @@ class NetworkDeviceWindow:
 
             if doIPv6:
                 rc = self.runIPv6Screen(screen, dev)
+                doIPv4 = bool(dev.get('useIPv4'))
                 doIPv6 = False
 
                 if rc == INSTALL_BACK:
-                    doMain = False
-                    doIPv4 = True
+                    currentDev = currentDev - 1
+                    doIPv4 = bool(dev.get('useIPv4'))
+                    if not doIPv4:
+                        doMain = True
                     continue
 
         if currentDev < 0:
