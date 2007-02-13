@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.59
+Version: 10.1.1.60
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.60-1
+- Don't use the bootLoaderInfo drivelist to determine bootloader choices
+  on zFCP-only zSeries machines (dcantrell)
+  Resolves: #165098
+
 * Fri Feb  9 2007 Peter Jones <pjones@redhat.com> - 10.1.1.59-1
 - Handle the kernel's new representation of unformatted DASD devices (dlehman)
   Resolves: #227546
