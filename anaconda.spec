@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.21
+Version: 11.2.0.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -110,6 +110,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 13 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.22-1
+- Load the ext3 module earlier to fix hd installs (#223749, #224534).
+- Don't traceback in postconfig if it's not a kickstart install.
+- Fix autopart string (dcantrell, #228192).
+- Remove references to genheader (dcantrell).
+- Rework text network UI to more closely follow graphical (dcantrell).
+
 * Fri Feb 09 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.21-1
 - BR device-mapper-devel
 
