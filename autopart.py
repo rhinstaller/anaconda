@@ -1519,7 +1519,7 @@ def doAutoPartition(anaconda):
                              "partitioning:\n\n%s\n\n"
 			     "This can happen if there is not enough "
 			     "space on your hard drive(s) for the "
-			     "installation.%s")
+			     "installation. %s")
                            % (errortxt, extra),
 			   custom_icon='error')
 	#
