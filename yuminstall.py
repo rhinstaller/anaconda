@@ -34,7 +34,6 @@ from installmethod import FileCopyException
 from backend import AnacondaBackend
 from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
-from genheader import *
 from constants import *
 from rhpl.translate import _
 
