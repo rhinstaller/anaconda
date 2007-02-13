@@ -27,12 +27,6 @@ import checklist
 global_options = [_("Gateway"), _("Primary DNS"), _("Secondary DNS")]
 global_option_labels = [_("_Gateway"), _("_Primary DNS"), _("_Secondary DNS")]
 
-descr = { 'ipaddr':   'IPv4 address',
-          'netmask':  'IPv4 network mask',
-          'remip':    'point-to-point IP address',
-          'ipv6addr': 'IPv6 address'
-        }
-
 class NetworkWindow(InstallWindow):		
     windowTitle = N_("Network Configuration")
 
