@@ -6,12 +6,12 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-01-29 18:34+0100\n"
+"PO-Revision-Date: 2007-02-14 13:12+0100\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:268
 msgid "Unknown Error"
@@ -1315,17 +1315,15 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Vertsnavn kan kun inneholde tegnene «a-z», «A-Z», «-» eller «.»"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP-adresse mangler."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP-adresser må inneholde fire tall mellom 0 og 255 adskilt med punktum."
+"IPv4-adresser må inneholde fire tall mellom 0 og 255, adskilt med punktum."
 
 #: ../network.py:96
 #, python-format
@@ -1333,9 +1331,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "«%s» er ikke en gyldig IPv6-adresse."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "«%s» er ikke en gyldig IPv6-adresse."
+msgstr "«%s» er ikke en gyldig IP-adresse."
 
 #: ../packages.py:241
 #, python-format
@@ -1572,7 +1570,7 @@ msgstr ""
 "Ønsker du å formatere denne partisjonen som en swappartisjon?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Du må velge minst en harddisk du vil installere %s på."
 
@@ -3247,14 +3245,14 @@ msgid "Error With Request"
 msgstr "Feil med forespørsel"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Det logiske volumet du har konfigurert krever %g MB, men volumgruppen har "
-"kun %g MB. Vennligst gjør volumgruppen større eller det logiske volumet "
+"Det logiske volumet du har konfigurert krever %d MB, men volumgruppen har "
+"kun %d MB. Vennligst gjør volumgruppen større eller det logiske volumet "
 "mindre."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3464,9 +3462,8 @@ msgid "Nameserver"
 msgstr "Navnetjener"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Det oppsto en feil under konfigurasjon av nettverksgrensesnittet."
+msgstr "Feil under konfigurasjon av nettverksenhet"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3521,14 +3518,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
 msgstr "En verdi er krevet for feltet «%s»."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Feil med data"
+msgstr "Feil med %s data"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3537,9 +3534,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "IP-informasjonen du oppgav er ugyldig."
+msgstr "IPv4-informasjonen du oppga er ugyldig."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3601,32 +3597,28 @@ msgid "Miscellaneous Settings"
 msgstr "Forskjellige innstillinger"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Rediger RAID-enhet"
+msgstr "Rediger enhet "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
 msgstr ""
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Ukjent"
+msgstr "ukjent"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Maskinvareadresse: %s"
+msgstr "Maskinvareadresse: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Mangler protokoll"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Du må velge minst en protokoll (IPv4 eller IPv6) for DHCP."
+msgstr "Du må minimum velge IPv4 eller IPv6 støtte."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4848,12 +4840,12 @@ msgid "Mouse Selection"
 msgstr "Musvalg"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Du har ikke spesifisert felt «%s». Dette kan skape problemer senere avhengig "
+"Du har ikke spesifisert feltet «%s». Dette kan skape problemer senere avhengig "
 "av ditt nettverksmiljø."
 
 #: ../textw/network_text.py:152
@@ -4885,36 +4877,32 @@ msgid "Activate on boot"
 msgstr "Aktiver ved oppstart"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP-adresse"
+msgstr "Adresse"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Nettmaske"
+msgstr "Prefiks (nettmaske)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
 msgstr ""
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Nøkkel:"
+msgstr "WEP-nøkkel:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4922,9 +4910,8 @@ msgid "Network Configuration for %s"
 msgstr "Nettverkskonfigurasjon for %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6-prefiks må være mellom 1 og 128."
+msgstr "Ugyldig eller manglende IPv6-prefiks (må være mellom 0 og 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5251,8 +5238,7 @@ msgstr "Hvilke stasjoner vil du bruke til denne installasjonen?"
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"   <Mellomrom>,<+>,<-> valg   |  <F2> Gruppedetaljer   |   <F12> neste skjerm"
+msgstr "<Mellomrom>,<+>,<-> valg   |  <F2> Gruppedetaljer   |   <F12> neste skjerm"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5271,21 +5257,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Hvordan ønsker du å endre konfigurasjonen for stasjonen?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Legg til FCP-enhet"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries-maskiner kan aksessere industristandard SCSI-enheter via Fibre "
-"Channel (FCP). Du må oppgi 5 parametere for hver enhet: et 16-bit "
-"enhetsnummer, en 16-bit SCSI-ID, en 64-bit World Wide Port Number (WWPN), et "
-"16-bit SCSI-LUN og et 64-bit FCP-LUN"
+"Channel (FCP). Du må oppgi et 16-bit enhetsnummer, en 64-bit World Wide Port "
+"Number (WWPN) og et 64-bit FCP-LUN for hver enhet."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -6184,16 +6167,14 @@ msgid "Missing Nameserver"
 msgstr "Navnetjener"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Din forespørsel om dynamisk IP returnerte informasjon om IP-konfigurasjon, "
-"men den inkluderte ikke en DNS-navnetjener. Hvis du har informasjon om din "
-"navnetjener, skriv den inn nå. Hvis du ikke har denne informasjonen kan du "
-"la dette feltet stå tomt og installasjonen vil fortsette."
+"Din forespørsel om dynamisk IP returnerte informasjon om IP-konfigurasjonen, "
+"men den inkluderte ikke en adresse til en navnetjener. Hvis du ikke har denne "
+"informasjonen, kan du la dette feltet stå tomt og installasjonen vil fortsette."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
@@ -6216,9 +6197,8 @@ msgid "Configure TCP/IP"
 msgstr "Konfigurer TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Du må velge minst en protokoll (IPv4 eller IPv6) for DHCP."
+msgstr "Du må velge minst en protokoll (IPv4 eller IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6268,9 +6248,8 @@ msgstr ""
 "prefiks."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Du må skrive inn en gyldig IPv6-adresse og et CIDR-prefiks."
+msgstr "Du må skrive inn både en gyldig IPv6-adresse og et CIDR-prefiks."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6607,39 +6586,32 @@ msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
+msgstr "Dynamisk konfigurasjon av IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
+msgstr "Dynamisk konfigurasjon av IP (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Rediger grensesnitt %s"
+msgstr "Rediger grensesnitt"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Krypteringsnø_kkel:"
+msgstr "Krypteringsnøkkel:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Manuell TCP/IP-konfigurasjon"
+msgstr "Manuell konfigurasjon"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Punkt til punkt (IP):"
+msgstr "Punkt til punkt (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/prefiks"
+msgstr "Prefiks"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6668,19 +6640,16 @@ msgid "_Customize now"
 msgstr "Tilpass _nå"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Enhetsnummer"
+msgstr "<b>Enhetsnummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP-LUN"
+msgstr "<b>FCP-LUN</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Passord:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7306,14 +7275,12 @@ msgid "West Kazakhstan"
 msgstr "Vest-Kazakhstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Vest-Australia"
+msgstr "Vest-Australia - Eucla-området"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "De fleste steder med \"Central Time\""
+msgstr "Vest-Australia - de fleste steder"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
