@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.22
+Version: 11.2.0.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -110,6 +110,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 14 2007 Peter Jones <pjones@redhat.com> - 11.2.0.23-1
+- Get rid of unused X mouse handling (dcantrell)
+- Update for newer createrepo (jkeating)
+- Update for device-mapper/device-mapper-libs split
+
 * Tue Feb 13 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.22-1
 - Load the ext3 module earlier to fix hd installs (#223749, #224534).
 - Don't traceback in postconfig if it's not a kickstart install.
