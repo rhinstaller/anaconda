@@ -12,7 +12,8 @@ BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
 BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
 BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart >= 0.90, yum >= 2.9.2,
-BuildPreReq: device-mapper-devel >= 1.02.17-5
+%define dmver 1.02.17-6
+BuildPreReq: device-mapper-devel >= %{dmver}
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5, glib2-static
@@ -23,7 +24,7 @@ Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.42, yum >= 2.9.2, pirut >= 1.1.0
 Requires: libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
-Requires: device-mapper >= 1.01.05-3
+Requires: device-mapper >= %{dmver}, device-mapper-libs >= %{dmver}
 Requires: dosfstools e2fsprogs
 Requires: python-pyblock >= 0.24-1
 Requires: libbdevid >= 5.1.2-1, libbdevid-python
