@@ -134,7 +134,7 @@ echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
 
 echo "Creating repository metadata..."
-createrepo -g $PRODUCTPATH/base/comps.xml -q $p
+createrepo -d -g $PRODUCTPATH/base/comps.xml -q $p
 
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
