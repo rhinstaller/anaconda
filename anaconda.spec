@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.60
+Version: 10.1.1.61
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 15 2007 Peter Jones <pjones@redhat.com> - 10.1.1.61-1
+- Put the keymap for ppc with all the other keymaps, so it actually gets
+  pulled in correctly.
+  Related: #182325
+
 * Fri Feb 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.60-1
 - Don't use the bootLoaderInfo drivelist to determine bootloader choices
   on zFCP-only zSeries machines (dcantrell)
