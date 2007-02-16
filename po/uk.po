@@ -16,7 +16,7 @@ msgstr ""
 
 #: ../anaconda:268
 msgid "Unknown Error"
-msgstr "Невідома помилка"
+msgstr "Unknown Error"
 
 #: ../anaconda:271
 #, c-format
@@ -1197,6 +1197,9 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"Розмір ISO образу %s не кратний 2048 байтам. Це може означати, що він був пошкоджений при копіюванні на цю машину.\n"
+"\n"
+"Рекомендується перезавантажити комп'ютер та перервати встановлення, але ви можете продовжити встановлення, якщо вважаєте, що це не помилка."
 
 #: ../image.py:510
 #, python-format
@@ -1282,32 +1285,28 @@ msgstr ""
 "Продовжити чи перервати встановлення?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Не вдається знайти образ встановлення %s"
+msgstr "Не вдається знайти образ"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "Вказаний шлях путь не є коректним %s live CD для встановлення."
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "Програма встановлення %s"
+msgstr "Перервати встановлення"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Встановлення %s %s"
+msgstr "Завершення встановлення"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Запускається процес встановлення. Це може зайняти декілька хвилин..."
+msgstr "Виконання завершальних операцій з файловою системою. Це може зайняти декілька хвилин..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1325,26 +1324,24 @@ msgstr ""
 "чи '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "Не вказано адресу IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Адреса IP повинна містити числа від 0 до 255, розділені точкою."
+msgstr "Адреса IP повинна містити чотири числа від 0 до 255, розділені точкою."
 
 #: ../network.py:96
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s не є допустимою адресою IPv6."
+msgstr "%s не є припустимою адресою IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s не є допустимою адресою IPv6."
+msgstr "%s не є припустимою адресою IP."
 
 #: ../packages.py:241
 #, python-format
@@ -1412,7 +1409,7 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Помилка - назва групи томів містить недопустимі символи або пробіли. "
+"Помилка - назва групи томів містить неприпустимі символи або пробіли. "
 "Дозволяються літери, цифри, '.' або '_'."
 
 #: ../partIntfHelpers.py:57
@@ -1433,7 +1430,7 @@ msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Помилка - назва логічного тому містить недопустимі символи або пробіли. "
+"Помилка - назва логічного тому містить неприпустимі символи або пробіли. "
 "Дозволяються літери, цифри, '.' або '_'."
 
 #: ../partIntfHelpers.py:95
@@ -1580,7 +1577,7 @@ msgstr ""
 "Форматувати цей розділ як розділ підкачки?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Необхідно вибрати хоча б один жорсткий диск для встановлення %s."
 
@@ -2622,7 +2619,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "Неможливо прочесть информацию о группах из репозитариев. Это проблема относится к генерированию установочного дерева."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -3203,7 +3200,7 @@ msgstr "(Макс. розмір %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:522 ../textw/partition_text.py:1290
 msgid "Illegal size"
-msgstr "Недопустимий розмір"
+msgstr "Неприпустимий розмір"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1291
 msgid "The requested size as entered is not a valid number greater than 0."
@@ -3221,11 +3218,11 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
-msgstr "Недопустима назва логічного тому"
+msgstr "Неприпустима назва логічного тому"
 
 #: ../iw/lvm_dialog_gui.py:587 ../textw/partition_text.py:1278
 msgid "Illegal logical volume name"
-msgstr "Недопустима назва логічного тому"
+msgstr "Неприпустима назва логічного тому"
 
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
@@ -3252,13 +3249,13 @@ msgid "Error With Request"
 msgstr "Помилка при запиті"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Вказані вами логічні томи потребують %g МБ, але група томів має лише %g МБ.  "
+"Вказані вами логічні томи потребують %d МБ, але група томів має лише %d МБ.  "
 "Необхідно або збільшити розмір групи томів, або зменшити логічний том (томи)."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3291,7 +3288,7 @@ msgstr "Ви справді бажаєте видалити логічний т�
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
-msgstr "Недопустима назва групи томів"
+msgstr "Неприпустима назва групи томів"
 
 #: ../iw/lvm_dialog_gui.py:903
 msgid "Name in use"
@@ -3468,9 +3465,8 @@ msgid "Nameserver"
 msgstr "DNS сервер"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Помилка при налаштовуванні мережного інтерфейсу."
+msgstr "Помилка при налаштовуванні мережного інтерфейсу"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3525,14 +3521,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "Необхідно вказати значення поля \"%s\"."
+msgstr "Необхідно вказати значення поля %s."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Помилка у даних"
+msgstr "Помилка у даних %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3541,9 +3537,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Введені інформація IP неприпустима."
+msgstr "Введено неправильну інформацію IPv4."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3555,7 +3550,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "Вимкнено"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
@@ -3605,32 +3600,28 @@ msgid "Miscellaneous Settings"
 msgstr "Додаткові параметри"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Правка пристрою RAID"
+msgstr "Змінити пристрій "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Невідомий пристрій Ethernet"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
 msgstr "Невідомий"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Апаратна адреса:"
+msgstr "Апаратна адреса: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Відсутній протокол"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Необхідно вибрати принаймні один протокол (IPv4 чи IPv6) для DHCP."
+msgstr "Необхідно вибрати принаймні один протокол (IPv4 чи IPv6)."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -3696,7 +3687,7 @@ msgstr "Необхідно вказати позначку елементу"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "Позначка завантаження містить недопустимі символи"
+msgstr "Позначка завантаження містить неприпустимі символи"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
@@ -4647,7 +4638,7 @@ msgstr "Позначка системи не може бути порожньо�
 
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr "Позначка системи містить недопустимі символи."
+msgstr "Позначка системи містить неприпустимі символи."
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
 msgid "Edit"
@@ -4811,7 +4802,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Додаткових пакетів немає"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4842,12 +4833,12 @@ msgid "Mouse Selection"
 msgstr "Вибір миші"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Ви лишили незаповненим поле \"%s\".  В залежності від мережного оточення це "
+"Ви лишили незаповненим поле %s.  В залежності від мережного оточення це "
 "може призвести до виникнення проблем у майбутньому."
 
 #: ../textw/network_text.py:152
@@ -4879,36 +4870,32 @@ msgid "Activate on boot"
 msgstr "Активізувати при завантаженні"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "Адреса IP"
+msgstr "Адреса"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Маска підмережі"
+msgstr "Префікс (маска мережі)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Ключ:"
+msgstr "Ключ WEP:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4916,9 +4903,8 @@ msgid "Network Configuration for %s"
 msgstr "Налаштовування мережі для %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Префікс IPv6 повинен бути у межах від 0 до 128"
+msgstr "Префікс IPv6 непраильний або відсутній (повинен бути у межах від 0 до 128)"
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -4962,7 +4948,7 @@ msgstr ""
 
 #: ../textw/network_text.py:618 ../textw/network_text.py:624
 msgid "Invalid Hostname"
-msgstr "Недопустима назва комп'ютера"
+msgstr "Неприпустима назва комп'ютера"
 
 #: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
@@ -5242,10 +5228,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Які пристрої ви хочете використати для цього встановлення?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Пробіл>,<+>,<-> вибір     |   <F2> Опис групи   |   <F12> наступний екран"
+msgstr "<Пробіл>,<+>,<-> вибір     |   <F2> Додати диск |   <F12> наступний екран"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5264,21 +5248,19 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Як слід виконати зміну конфігурації диску?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "Додати FCP пристрій"
+msgstr "Додати пристрій FCP"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Машини zSeries можуть отримувати доступ до стандартних SCSI пристроїв через "
-"Fibre Channel (FCP). Необхідно вказати 5 параметрів дял кожного пристрою: 16-"
-"бітний номер пристрою, 16-бітний SCSI ID, 64-бітний World Wide Port Number "
-"(WWPN), 16-бітний SCSI LUN та 64-бітний FCP LUN."
+"Fibre Channel (FCP). Для кожного пристрою необхідно вказати: 16-"
+"бітний номер пристрою, 64-бітний World Wide Port Number "
+"(WWPN) та 64-бітний FCP LUN."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5823,7 +5805,7 @@ msgstr "Пристрій %s не містить образи %s CDROM."
 #: ../loader2/hdinstall.c:409
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Недопустимий аргумент команди kickstart HD-методу %s: %s"
+msgstr "Неприпустимий аргумент команди kickstart HD-методу %s: %s"
 
 #: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
 msgid "Cannot find kickstart file on hard drive."
@@ -5865,17 +5847,16 @@ msgstr "Не вдається знайти ks.cfg на завантажувал�
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "Неможливо завантажити файл kickstart. Змініть параметр kickstart чи натисніть Скасувати для продовження в інтерактивному режимі."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Помилка відкривання файлу: %s: %s"
+msgstr "Помилка відкривання файлу kickstart"
 
 #: ../loader2/kickstart.c:473
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Недопустимий аргумент команди kickstart для вимкнення %s: %s"
+msgstr "Неприпустимий аргумент команди kickstart для вимкнення %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6182,12 +6163,10 @@ msgid "Nameserver IP"
 msgstr "IP DNS сервера"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "DNS сервер"
+msgstr "Не вказано сервер DNS"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
@@ -6195,16 +6174,16 @@ msgid ""
 msgstr ""
 "Запит на отримання динамічної IP адреси повернув конфігурацію IP, але вона "
 "не містить дані про сервер DNS. Якщо ви знаєте адресу сервера DNS, введіть "
-"його зараз. Якщо такої інформації немає, можете залишити це поле порожнім, і "
+"її зараз. Якщо такої інформації немає, можете залишити це поле порожнім, і "
 "встановлення продовжиться."
 
 #: ../loader2/net.c:317
 msgid "Invalid IP Information"
-msgstr "Недопустима інформація про IP"
+msgstr "Неприпустима інформація про IP"
 
 #: ../loader2/net.c:318
 msgid "You entered an invalid IP address."
-msgstr "Ви ввели недопустиму IP-адресу."
+msgstr "Ви ввели неприпустиму IP-адресу."
 
 #: ../loader2/net.c:575 ../loader2/net.c:683
 msgid "Network Error"
@@ -6219,9 +6198,8 @@ msgid "Configure TCP/IP"
 msgstr "Налаштовування TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Необхідно вибрати принаймні один протокол (IPv4 чи IPv6) для DHCP."
+msgstr "Необхідно вибрати принаймні один протокол (IPv4 чи IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6253,7 +6231,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "Введіть адресу IPv4 та/або IPv6 та префікс (адресу / префікс). Для IPv4 можна використовувати маску з точками у якості розділювачів та префікс у стилі CIDR. Поля для шлюзу та сервера імен повинні містити коректні адреси IPv4 та IPv6."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6269,9 +6247,8 @@ msgid ""
 msgstr "Необхідно ввести правильну IP-адресу та маску мережі або префікс CIDR."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Необхідно ввести правильну адресу IPv6 та префікс aCIDR."
+msgstr "Необхідно ввести правильну адресу IPv6 та префікс CIDR."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6280,7 +6257,7 @@ msgstr "Визначення назви комп'ютера та домену...
 #: ../loader2/net.c:1601
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Недопустимий аргумент мережної команди kickstart %s: %s"
+msgstr "Неприпустимий аргумент мережної команди kickstart %s: %s"
 
 #: ../loader2/net.c:1624
 #, c-format
@@ -6424,7 +6401,7 @@ msgstr "Невідомий сервер"
 #: ../loader2/urls.c:360
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s не є допустимою назвою сервера."
+msgstr "%s не є припустимою назвою сервера."
 
 #: ../loader2/urls.c:431
 msgid ""
@@ -6598,52 +6575,44 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "_Динамічне налаштовування IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Опис: %s"
+msgstr "<b>Опис знаходиться тут</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Апаратна адреса: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Автоматичний пошук вузлів"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Використовувати динамічне налаштовування IP (DHCP)"
+msgstr "Динамічне налаштовування IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Використовувати динамічне налаштовування IP (DHCP)"
+msgstr "Динамічне налаштовування IP (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Правка інтерфейсу %s"
+msgstr "Правка інтерфейсу"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "_Ключ шифрування:"
+msgstr "Ключ шифрування:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Ручне налаштовування TCP/IP"
+msgstr "Ручне налаштовування"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Точка-точка (IP)"
+msgstr "Точка-точка (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv4/префікс"
+msgstr "Префікс"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6673,19 +6642,16 @@ msgid "_Customize now"
 msgstr "_Уточнити зараз"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Номер пристрою"
+msgstr "<b>Номер пристрою:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Пароль:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7302,27 +7268,24 @@ msgid "W Amazonas"
 msgstr "Зх Амазонка"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
+msgstr "захід Пара, Рондонія"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Wake Island"
+msgstr "острів Уейк"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
 msgstr "західний Казахстан"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Західна Австралія"
+msgstr "Західна Австралія - район Юкла"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Центральний час - більшість місць"
+msgstr "Західна Австралія - більша частина"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7403,7 +7366,7 @@ msgstr "Арабська"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Ассамська"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7487,7 +7450,7 @@ msgstr "Ісландська"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Ілокійська"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7571,7 +7534,7 @@ msgstr "Сербська(Латина)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Сенегальська"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7595,7 +7558,7 @@ msgstr "Тамільська"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Телугу"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7679,10 +7642,10 @@ msgstr "Зулу"
 #~ "продовжувати?"
 
 #~ msgid "Invalid IP string"
-#~ msgstr "Недопустимий рядок IP"
+#~ msgstr "Неприпустимий рядок IP"
 
 #~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "Вказана адреса '%s' не є допустимим IP."
+#~ msgstr "Вказана адреса '%s' не є припустимим IP."
 
 #~ msgid "Point to Point (IP)"
 #~ msgstr "Точка-точка (IP)"
@@ -7694,7 +7657,7 @@ msgstr "Зулу"
 #~ msgstr "Настроїти за допомогою DHCP"
 
 #~ msgid "Invalid information"
-#~ msgstr "Недопустима інформація"
+#~ msgstr "Неприпустима інформація"
 
 #~ msgid "You must enter valid IP information to continue"
 #~ msgstr "Необхідно ввести правильну інформацію IP для продовження"
