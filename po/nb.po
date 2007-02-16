@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-14 13:12+0100\n"
+"PO-Revision-Date: 2007-02-16 22:22+0100\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -1275,9 +1275,8 @@ msgstr ""
 "ikke. Vil du fortsette eller avbryte installasjonen?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Fant ikke installasjonsbilde %s"
+msgstr "Fant ikke bilde"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
@@ -1286,21 +1285,18 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s installering"
+msgstr "Avslutt installering"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s installasjon"
+msgstr "Sluttfører installering"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Starter installasjon. Dette kan ta flere minutter..."
+msgstr "Utfører endringer i filsystemet etter installasjon. Dette kan ta flere minutter..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -3547,7 +3543,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
@@ -3602,7 +3598,7 @@ msgstr "Rediger enhet "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Ukjent Ethernet-enhet"
 
 #: ../iw/network_gui.py:648
 msgid "unknown"
@@ -4894,7 +4890,7 @@ msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-til-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
 msgid "ESSID:"
@@ -5236,9 +5232,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke til denne installasjonen?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Mellomrom>,<+>,<-> valg   |  <F2> Gruppedetaljer   |   <F12> neste skjerm"
+msgstr "<Mellomrom>,<+>,<-> valg   |  <F2> Legg til disk   |   <F12> neste skjerm"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5853,9 +5848,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Feil under åpning av kickstart-fil %s: %s"
+msgstr "Feil under nedlasting av kickstart-fil"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6162,9 +6156,8 @@ msgid "Nameserver IP"
 msgstr "Navnetjeners IP-adresse"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Navnetjener"
+msgstr "Navnetjener mangler"
 
 #: ../loader2/net.c:295
 msgid ""
@@ -6573,17 +6566,16 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Bruk _dynamisk konfigurasjon av IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Beskrivelse: %s"
+msgstr "<b>Gi en beskrivelse her</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Maskinvareadresse: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatisk gjenkjenning av naboer"
 
 #: tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
@@ -7361,7 +7353,7 @@ msgstr "Arabisk"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamesisk"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7445,7 +7437,7 @@ msgstr "Islandsk"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7529,7 +7521,7 @@ msgstr "Serbisk (Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7553,7 +7545,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
