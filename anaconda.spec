@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.23
+Version: 11.2.0.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -111,6 +111,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 16 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.24-1
+- Fix compiler warnings in wlite code
+- Remove obsolete code from network_gui.py
+- Rebuild to link with new libdhcp6client and new libdhcp
+
 * Wed Feb 14 2007 Peter Jones <pjones@redhat.com> - 11.2.0.23-1
 - Get rid of unused X mouse handling (dcantrell)
 - Update for newer createrepo (jkeating)
