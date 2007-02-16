@@ -9,20 +9,26 @@ install:
 
 clean:
 
-i386:
-	./updkmaps i386
-
 alpha:
 	./updkmaps alpha
 
-sparc:
-	./updkmaps sparc
+i386:
+	./updkmaps i386
+
+ia64:
+	./updkmaps ia64
+
+ppc:
+	./updkmaps ppc
 
 s390:
 	./updkmaps s390
 
 s390x:
-	./updkmaps s390
+	./updkmaps s390x
 
-ppc:
-	./updkmaps ppc
+sparc:
+	./updkmaps sparc
+
+x86_64:
+	./updkmaps x86_64
