@@ -30,7 +30,7 @@
 
 int
 wlite_mbsinit(const wlite_mbstate_t *ps) {
-    if (ps == NULL || (ps->flags_ & 3 == 0))
+    if (ps == NULL || ((ps->flags_ & 3) == 0))
         return !0;
     return 0;
 }

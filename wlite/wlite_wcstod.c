@@ -33,7 +33,7 @@
 
 double
 wlite_wcstod(const wchar_t *s, wchar_t **endptr) {
-    long double f;
+    long double f = 0;
 
     //TODO
     return (double) f;
