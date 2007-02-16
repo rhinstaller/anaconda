@@ -115,13 +115,6 @@ class NetworkWindow(InstallWindow):
 
         return None
 
-    def onBootToggled(self, widget, dev):
-	if widget.get_active():
-	    onboot = "yes"
-	else:
-	    onboot = "no"
-	dev.set(("ONBOOT", onboot))
-
     def setHostOptionsSensitivity(self):
         # figure out if they have overridden using dhcp for hostname
 	if self.anyUsingDHCP():
