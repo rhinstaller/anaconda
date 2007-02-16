@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.61
+Version: 10.1.1.62
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -48,6 +48,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 strip $RPM_BUILD_ROOT/usr/lib/anaconda/*.so
 
+rm -f $RPM_BUILD_ROOT/usr/lib/anaconda-runtime/keymaps-override-s390x
+rm -f $RPM_BUILD_ROOT/usr/lib/anaconda-runtime/keymaps-override-s390
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -74,7 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Fri Feb 15 2007 Peter Jones <pjones@redhat.com> - 10.1.1.61-1
+* Fri Feb 16 2007 Peter Jones <pjones@redhat.com> - 10.1.1.62-1
+- Update the keymaps in our cache from ones generated on recent installs,
+  so they won't be missing anything.
+  Resolves: #229030
+
+* Thu Feb 15 2007 Peter Jones <pjones@redhat.com> - 10.1.1.61-1
 - Put the keymap for ppc with all the other keymaps, so it actually gets
   pulled in correctly.
   Related: #182325

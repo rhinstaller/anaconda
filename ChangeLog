@@ -1,3 +1,18 @@
+2007-02-16  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+2007-02-16  Peter Jones  <pjones@redhat.com>
+
+	* keymaps/Makefile: alphabetize the rules to make spot checking
+	easier, and add missing ones.
+
+	* keymaps/keymaps-{ppc,i386,x86_64,ia64}: update from actual rhel4.5
+	installs (#229030).
+
+	* anaconda.spec: remove keymaps-override-s390* since they're totally
+	bogus and unnecessary anyway.
+
 2007-02-09  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
