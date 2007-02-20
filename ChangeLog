@@ -17,9 +17,12 @@
 	* scripts/upd-instroot:  The shell now requires libtinfo*.
 
 	* scripts/maketreeinfo.py:  Added a script to generate a .treeinfo
-	file in the built tree (Will Woods <wwoods AT redhat.com>)
+	file in the built tree (Will Woods <wwoods AT redhat.com>).
 	* scripts/Makefile:  Install maketreeinfo.py to anaconda-runtime dir.
 	* scripts/buildinstall:  Run maketreeinfo.py.
+
+	* scripts/mk-images.*:  Generate .treeinfo files (Will Woods <wwoods
+	AT redhat.com>).
 
 2007-02-16  David Cantrell  <dcantrell@redhat.com>
 

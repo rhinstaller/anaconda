@@ -14,6 +14,12 @@ makeBootImages() {
         sed -e "s/%BITS%/64/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
 	    $BOOTDISKDIR/yaboot.conf.in > $TOPDESTPATH/ppc/ppc64/yaboot.conf
 
+    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
+[images-$KERNELARCH]
+kernel = ppc/ppc64/vmlinuz
+initrd = ppc/ppc64/ramdisk.image.gz
+__EOT__
+
 	if [ -x $IMGPATH/usr/bin/mkzimage -a -r $IMGPATH/usr/share/ppc64-utils/zImage.stub ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		pushd $TOPDESTPATH/ppc/ppc64
@@ -22,7 +28,9 @@ makeBootImages() {
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
 		popd
+        echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
 	fi
+    echo >> $TOPDESTPATH/.treeinfo
 
 
     elif [ "$KERNELARCH" = "ppc64iseries" ]; then
@@ -42,6 +50,12 @@ makeBootImages() {
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/images/iSeries/boot.img
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
 
+    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
+[images-$KERNELARCH]
+kernel = ppc/iSeries/vmlinux
+initrd = ppc/iSeries/ramdisk.image.gz
+
+__EOT__
     elif [ "$KERNELARCH" = "ppc" ]; then
 	FAKEARCH="ppc"
 	mkdir -p $TOPDESTPATH/ppc/ppc32
@@ -57,6 +71,11 @@ makeBootImages() {
         sed -e "s/%BITS%/32/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
 	    $BOOTDISKDIR/yaboot.conf.in > $TOPDESTPATH/ppc/ppc32/yaboot.conf
 
+    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
+[images-$KERNELARCH]
+kernel = ppc/ppc32/vmlinuz
+initrd = ppc/ppc32/ramdisk.image.gz
+__EOT__
 	if [ -x $IMGPATH/usr/bin/mkzimage -a -r $IMGPATH/usr/share/ppc64-utils/zImage.stub ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		pushd $TOPDESTPATH/ppc/ppc32
@@ -65,7 +84,9 @@ makeBootImages() {
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
 		popd
+        echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 	fi
+    echo >> $TOPDESTPATH/.treeinfo
 
     else
         echo "Unknown kernel arch: $KERNELARCH"
