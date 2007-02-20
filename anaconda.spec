@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.24
+Version: 11.2.0.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -11,11 +11,12 @@ BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
 BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
 BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildPreReq: pykickstart >= 0.90, yum >= 2.9.2,
+BuildPreReq: pykickstart >= 0.96, yum >= 2.9.2,
 %define dmver 1.02.17-6
 BuildPreReq: device-mapper-devel >= %{dmver}
 BuildPreReq: libsepol-devel
-BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
+BuildPreReq: pango-devel, pirut, libXt-devel
+BuildPreReq: slang-devel >= 2.0.6-2, slang-static
 BuildPreReq: glib2-devel >= 2.11.1-5, glib2-static
 BuildPreReq: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel
@@ -23,7 +24,7 @@ Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.42, yum >= 2.9.2, pirut >= 1.1.0
 Requires: libxml2-python, python-urlgrabber
-Requires: system-logos, pykickstart, system-config-date
+Requires: system-logos, pykickstart >= 0.96, system-config-date
 Requires: device-mapper >= %{dmver}, device-mapper-libs >= %{dmver}
 Requires: dosfstools e2fsprogs
 Requires: python-pyblock >= 0.24-1
@@ -111,6 +112,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 20 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.25-1
+- Add libtinfo to the stage2 images.
+- Use new pykickstart organization.
+- Change default French layout to latin9 (#229269).
+- Add maketreeinfo.py script (Will Woods <wwoods AT redhat.com>).
+
 * Fri Feb 16 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.24-1
 - Fix compiler warnings in wlite code
 - Remove obsolete code from network_gui.py
