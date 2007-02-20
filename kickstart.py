@@ -1000,8 +1000,10 @@ def selectPackages(anaconda):
     else:
         log.warning("not adding Base group")
 
+    # TODO: deal with selecting optional and only required packages from
+    # each group, depending on grp.include.
     for grp in ksdata.packages.groupList:
-        num = anaconda.backend.selectGroup(grp)
+        num = anaconda.backend.selectGroup(grp.name)
         if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
             continue
         if num > 0:
@@ -1012,7 +1014,7 @@ def selectPackages(anaconda):
                                   "This group does not exist. "
                                   "Would you like to continue or "
                                   "abort your installation?")
-                                %(grp,),
+                                %(grp.name,),
                                 type="custom",
                                 custom_buttons=[_("_Abort"),
                                                 _("_Continue")])
