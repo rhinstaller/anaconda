@@ -906,7 +906,7 @@ if __name__ == "__main__":
     if anaconda.isKickstart:
         kickstart.processKickstartFile(anaconda, opts.ksfile)
         # We need to copy the VNC-related kickstart stuff into the new ksdata
-        anaconda.id.ksdata.Vnc(enabled=vncksdata.enabled, host=vncksdata.host,
+        anaconda.id.ksdata.vnc(enabled=vncksdata.enabled, host=vncksdata.host,
                                password=vncksdata.password, port=vncksdata.port)
 
     anaconda.setDispatch()

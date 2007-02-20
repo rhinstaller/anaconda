@@ -1,3 +1,12 @@
+2007-02-20  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Vnc -> vnc.
+
+	* kickstart.py:  Move command objects back out of the handler object.
+	Add a commandMap dict patterned after what's in pykickstart to
+	override its objects.  KickstartParser no longer takes a version
+	argument.
+
 2007-02-16  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
