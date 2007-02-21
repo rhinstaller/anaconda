@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.25
+Version: 11.2.0.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 21 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.26-1
+- Add dpi flag when starting X to fix tiny font size (#224665).
+- Set the default timezone for languages we can't display (#227625).
+- Add termcap files we were missing to fix b&w console (#228596, #229236).
+- Add files from vnc-libs package to fix VNC installs.
+
 * Tue Feb 20 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.25-1
 - Add libtinfo to the stage2 images.
 - Use new pykickstart organization.
