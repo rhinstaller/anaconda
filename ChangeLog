@@ -1,6 +1,11 @@
 2007-02-20  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda: Add dpi flag when starting X (#224665).
+	Set the default timezone based on the current language even if we
+	can't display it yet (#227625).
+
+	* instdata.py (InstallData.reset):  Set the default timezone based on
+	current language.
 
 	* scripts/upd-instroot:  Several important terminfo files have moved
 	into /lib (#228596, #229236).

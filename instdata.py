@@ -58,6 +58,7 @@ class InstallData:
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
+        self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
         self.users = None
         self.rootPassword = { "isCrypted": False, "password": "" }
 	self.auth = "--enableshadow --enablemd5"
