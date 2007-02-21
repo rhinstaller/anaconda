@@ -82,7 +82,6 @@ def doStartupX11Actions():
 	miniwm_pid = None
 	log.error("Unable to start mini-wm")
 
-    # test to setup dpi
     # cant do this if miniwm didnt run because otherwise when
     # we open and close an X connection in the xutils calls
     # the X server will exit since this is the first X
@@ -91,17 +90,11 @@ def doStartupX11Actions():
 	import xutils
 
 	try:
-	    if xutils.screenWidth() > 640:
-		dpi = "96"
-	    else:
-		dpi = "75"
-
 	    xutils.setRootResource('Xcursor.size', '24')
 	    xutils.setRootResource('Xcursor.theme', 'Bluecurve')
 	    xutils.setRootResource('Xcursor.theme_core', 'true')
 
 	    xutils.setRootResource('Xft.antialias', '1')
-	    xutils.setRootResource('Xft.dpi', dpi)
 	    xutils.setRootResource('Xft.hinting', '1')
 	    xutils.setRootResource('Xft.hintstyle', 'hintslight')
 	    xutils.setRootResource('Xft.rgba', 'none')
@@ -816,7 +809,7 @@ if __name__ == "__main__":
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
-            xserver.serverflags.extend(["-screen", "Anaconda"])
+            xserver.serverflags.extend(["-screen", "Anaconda", "-dpi", "96"])
             xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
