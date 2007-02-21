@@ -166,7 +166,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
            gtkhtml2 gnome-python2-gtkhtml2 gail libthai
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
            comps-extras convertdb1 fonts-bengali
-           vnc-server libjpeg tcp_wrappers system-config-date
+           vnc-server vnc-libs libjpeg tcp_wrappers system-config-date
            xfsprogs xfsdump dmapi attr acl policy policycoreutils
            selinux-policy-targeted ttfonts-zh_CN redhat-artwork
            xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts echo-icon-theme
@@ -701,6 +701,7 @@ usr/$LIBDIR/libjpeg*
 usr/$LIBDIR/libpango*
 usr/$LIBDIR/libpng.so.3*
 usr/$LIBDIR/libpng12.so*
+usr/$LIBDIR/librfb.so*
 usr/$LIBDIR/libstdc++.so.*
 usr/$LIBDIR/libthai*
 usr/$LIBDIR/libwrap*
