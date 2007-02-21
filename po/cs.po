@@ -2270,9 +2270,9 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Následující systémy souborů ve vašem Linuxu nebyly správně odpojeny. Spusťte "
-"prosím svůj Linux a nechte jej, aby disky opravil. Pak korektně systém "
-"ukončete a proveďte čistou aktualizaci.\n"
+"Následující systémy souborů nebyly správně odpojeny. Spusťte prosím svůj "
+"Linuxový systém a nechte ho, aby disky opravil. Pak systém správně "
+"ukončete a proveďte aktualizaci.\n"
 "%s"
 
 #: ../upgrade.py:158
@@ -2282,7 +2282,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Následující systémy souborů ve vašem Linuxu nebyly správně odpojeny. Chcete "
+"Následující systémy souborů nebyly správně odpojeny. Chcete "
 "je přesto připojit?\n"
 "%s"
 
@@ -2295,9 +2295,8 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Jeden nebo více systémů souborů zapsaných v /etc/fstab na vašem "
-"Linuxovém systému nemůže být připojen. Odstraňte prosím problém a "
-"zkuste opět spustit aktualizaci."
+"Jeden nebo více systémů souborů zapsaných v /etc/fstab nemohou být "
+"připojeny. Odstraňte prosím problém a spusťte aktualizaci znovu."
 
 #: ../upgrade.py:302
 msgid ""
@@ -2305,9 +2304,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Jeden nebo více systémů souborů zapsaných v /etc/fstab na vašem "
-"Linuxovém systému je nekonzistentní a nemůže být připojen. Odstraňte prosím problém a "
-"zkuste opět spustit aktualizaci."
+"Jeden nebo více systémů souborů zapsaných v /etc/fstab nejsou konzistentní, "
+"a proto nemohou být připojeny. Odstraňte prosím problém a "
+"spusťte aktualizaci znovu."
 
 #: ../upgrade.py:319
 msgid ""
@@ -2316,14 +2315,14 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Následující soubory jsou absolutní symbolické odkazy, které nejsou při "
-"aktualizaci podporovány. Změňte je prosím na relativní a spusťte aktualizaci "
+"Níže jsou vypsány absolutní symbolické linky, které nejsou aktualizací "
+"podporovány. Změňte je prosím na relativní a spusťte aktualizaci "
 "znovu.\n"
 "\n"
 
 #: ../upgrade.py:325
 msgid "Absolute Symlinks"
-msgstr "Absolutní symbolické odkazy"
+msgstr "Absolutní symbolické linky"
 
 #: ../upgrade.py:336
 msgid ""
@@ -2332,9 +2331,9 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"Níže jsou vypsány adresáře, které mají být symbolické odkazy. To bude při "
-"aktualizaci dělat problémy. Změňte je prosím zpět do původního stavu na "
-"symbolické odkazy a spusťte aktualizaci znovu.\n"
+"Níže jsou vypsány adresáře, které však mají být symbolické linky, což při "
+"aktualizaci způsobí problémy. Změňte je prosím zpět na symbolické linky "
+"a spusťte aktualizaci znovu.\n"
 
 #: ../upgrade.py:342
 msgid "Invalid Directories"
@@ -2347,7 +2346,7 @@ msgstr "%s nenalezen"
 
 #: ../urlinstall.py:38
 msgid "Connecting..."
-msgstr "Připojuji se..."
+msgstr "Připojování..."
 
 #: ../urlinstall.py:77
 #, python-format
@@ -2360,17 +2359,17 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo možná poškození "
-"balíčku. Zkontrlujte prosím, zda zrcadlo (mirror) obsahuje všechny "
-"požadované balíčky, a případně zkuste použít jiné.\n"
+"Nelze otevřít soubor %s, protože nebyl nalezen nebo je soubor s balíček "
+"poškozen. Zkontrolujte prosím, zda zdrojový adresář obsahuje všechny "
+"požadované balíčky nebo zkuste jako zdroj použít jiné umístění.\n"
 "\n"
-"Provedete-li restart, zůstane systém v nekonzistentním stavu, což si "
-"může vyžádat opětovnou instalaci.\n"
+"Provedete-li restart, zůstane systém v nekonzistentním stavu, který "
+"bude zřejmě vyžadovat reinstalaci.\n"
 "\n"
 
 #: ../vnc.py:47
 msgid "Unable to Start X"
-msgstr "Nemohu spustit X"
+msgstr "Nelze spustit X"
 
 #: ../vnc.py:48
 msgid ""
@@ -2378,9 +2377,10 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"Na vašem počítači nešlo spustit X. Chcete spustit VNC, abyste se k \n"
-"počítači mohli připojit z jiného počítače a provést grafickou instalaci,\n"
-"nebo pokračovat v instalaci v textovém režimu?"
+"Na počítači selhalo spuštění grafického prostředí X Window System. Pokračovat "
+"můžete pomocí instalace v textovém režimu nebo můžete spustit VNC. "
+"Pomocí VNC je možné se k počítači připojit z jiného počítače a "
+"pokračovat tak v instalaci v grafickém režimu."
 
 #: ../vnc.py:55 ../vnc.py:58
 msgid "Use text mode"
@@ -2404,8 +2404,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
-"Heslo zabrání neautorizovaným posluchačům, aby se připojili a sledovali "
-"průběh vaší instalace. Zadejte prosím heslo, které používat pro instalaci"
+"Heslo zabrání neautorizovaným klientům, aby se také připojili a sledovali "
+"průběh vaší instalace. Zadejte proto heslo, které chcete pro připojení "
+"k instalaci použít."
 
 #: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
 msgid "Password:"
@@ -2417,11 +2418,11 @@ msgstr "Heslo (znovu):"
 
 #: ../vnc.py:104 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
-msgstr "Chyba při zadávání hesla"
+msgstr "Hesla nejsou stejná"
 
 #: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr "Nezadali jste dvakrát stejné heslo. Musíte jej zadat znovu."
+msgstr "Nezadali jste stejná hesla. Zadejte je prosím znovu."
 
 #: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
@@ -2429,7 +2430,7 @@ msgstr "Délka hesla"
 
 #: ../vnc.py:111
 msgid "The password must be at least six characters long."
-msgstr "Heslo musí mít délku nejméně 6 znaků."
+msgstr "Heslo musí mít délku alespoň 6 znaků."
 
 #: ../vnc.py:141
 msgid "VNC Password Error"
@@ -2441,9 +2442,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Musíte zadat vnc heslo dlouhé nejméně šest znaků.\n"
+"Pro VNC zadejte heslo délky alespoň šest znaků.\n"
 "\n"
-"Stisknutím <return> restartujte systém.\n"
+"Stisknutím <Enter> restartujte systém.\n"
 
 #: ../vnc.py:187
 msgid "Starting VNC..."
@@ -2461,11 +2462,11 @@ msgstr "Instalace %s %s"
 
 #: ../vnc.py:252
 msgid "Unable to set vnc password - using no password!"
-msgstr "Nemohu nastavit heslo vnc - nepoužívám heslo!"
+msgstr "Nelze nastavit VNC heslo - pokračuje se bez hesla!"
 
 #: ../vnc.py:253
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Zkontrolujte, zda je vaše heslo alespoň 6 znaků dlouhé."
+msgstr "Zkontrolujte, zda je heslo dlouhé alespoň 6 znaků."
 
 #: ../vnc.py:276
 msgid ""
@@ -2478,19 +2479,19 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"VAROVÁNÍ!!! VNC server běží BEZ HESLA!\n"
-"Pokud chcete server zabezpečit, můžete použít\n"
-"při zavádění volbu vncpassword=<heslo>.\n"
+"VAROVÁNÍ!!! VNC server je spuštěn BEZ HESLA!\n"
+"Pokud chcete server zabezpečit, použijte\n"
+"při startu systému parametr vncpassword=<heslo>.\n"
 "\n"
 
 #: ../vnc.py:280
 msgid "The VNC server is now running."
-msgstr "VNC server nyní běží."
+msgstr "VNC server byl spuštěn."
 
 #: ../vnc.py:283
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "Pokouším se připojit ke klientovi vnc na počítači %s..."
+msgstr "Pokouším se připojit k VNC klientovi na počítači %s..."
 
 #: ../vnc.py:295
 msgid "Connected!"
@@ -2498,37 +2499,37 @@ msgstr "Připojen!"
 
 #: ../vnc.py:300
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr "Vzdávám snahu připojit se po 50 pokusech!\n"
+msgstr "Pokusy o připojení ukončeny po 50 pokusech!\n"
 
 #: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta k %s."
+msgstr "Pro spuštění instalace se pomocí VNC klienta připojte k %s."
 
 #: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Pro spuštění instalace prosím ručně připojte svého VNC klienta."
+msgstr "Pro spuštění instalace se připojte pomocí VNC klienta."
 
 #: ../vnc.py:308
 msgid "Will try to connect again in 15 seconds..."
-msgstr "Znovu se zkusím připojit za 15 sekund..."
+msgstr "Nový pokus o připojení za 15 sekund..."
 
 #: ../vnc.py:316
 #, python-format
 msgid "Please connect to %s to begin the install..."
-msgstr "Pro spuštění instalace se prosím připojte k %s..."
+msgstr "Pro spuštění instalace se připojte k %s..."
 
 #: ../vnc.py:318
 msgid "Please connect to begin the install..."
-msgstr "Pro spuštění instalace se prosím připojte..."
+msgstr "Připojte se pro spuštění instalace..."
 
 #: ../yuminstall.py:100
 msgid "Processing"
-msgstr "Pracuji"
+msgstr "Zpracovávání"
 
 #: ../yuminstall.py:101
 msgid "Preparing transaction from installation source..."
-msgstr "Připravuji transakci z instalačního zdroje..."
+msgstr "Připravuje se transakce z instalačního zdroje..."
 
 #: ../yuminstall.py:614 ../yuminstall.py:615
 msgid "file conflicts"
@@ -2536,7 +2537,7 @@ msgstr "kolize souborů"
 
 #: ../yuminstall.py:616
 msgid "older package(s)"
-msgstr "starší balíček nebo balíčky"
+msgstr "starší balíčky"
 
 #: ../yuminstall.py:617
 msgid "insufficient disk space"
@@ -2568,7 +2569,7 @@ msgstr "balíček pro nesprávný operační systém"
 
 #: ../yuminstall.py:637
 msgid "You need more space on the following file systems:\n"
-msgstr "Je třeba více místa na následujících souborových systémech:\n"
+msgstr "Na následujících systémech souborů je potřeba více místa:\n"
 
 #: ../yuminstall.py:653
 msgid "Error running transaction"
@@ -2578,7 +2579,8 @@ msgstr "Chyba v průběhu transakce"
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
-msgstr "V průběhu vaší transakce došlo k chybě z následujících důvodů: %s"
+msgstr ""
+"V průběhu transakce došlo k chybě z následujících důvodů: %s"
 
 #: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
 #: ../yuminstall.py:1140
