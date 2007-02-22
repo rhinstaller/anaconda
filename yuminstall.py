@@ -1164,7 +1164,12 @@ class YumBackend(AnacondaBackend):
 
         if upgrade:
             # An old mtab can cause confusion (esp if loop devices are
-            # in it)
+            # in it).  Be extra special careful and delete any mtab first,
+            # in case the user has done something funny like make it into
+            # a symlink.
+            if os.access(anaconda.rootPath + "/etc/mtab", os.F_OK):
+                os.remove(anaconda.rootPath + "/etc/mtab")
+
             f = open(anaconda.rootPath + "/etc/mtab", "w+")
             f.close()
 

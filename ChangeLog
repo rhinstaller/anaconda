@@ -1,5 +1,8 @@
 2007-02-22  Chris Lumens  <clumens@redhat.com>
 
+	* yuminstall.py (YumBackend.doPreInstall):  If /etc/mtab exists,
+	delete it since it might be a symlink (#213818).
+
 	* loader2/module-info:  Added atl1.ko (#229641).
 
 	* scripts/maketreeinfo.py:  Fix typo.
