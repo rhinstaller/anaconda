@@ -27,6 +27,7 @@ from packages import betaNagScreen
 from packages import setupTimezone
 from packages import setFileCons
 from packages import regKeyScreen
+from packages import writeRegKey
 from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
 from bootloader import writeBootloader, bootloaderSetupChoices
@@ -105,6 +106,7 @@ installSteps = [
     ("instbootloader", writeBootloader, ),
     ("writexconfig", writeXConfiguration, ),
     ("writeksconfig", writeKSConfiguration, ),
+    ("writeregkey", writeRegKey, ),
     ("setfilecon", setFileCons, ),
     ("copylogs", copyAnacondaLogs, ),
     ("methodcomplete", doMethodComplete, ),

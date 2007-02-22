@@ -227,6 +227,11 @@ class InstallData:
 		    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
 		    break
 
+        if self.instClass.skipkey:
+            f.write("key --skip\n")
+        elif self.instClass.installkey:
+            f.write("key %s\n" %(self.instClass.installkey,))
+
 	self.instLanguage.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)

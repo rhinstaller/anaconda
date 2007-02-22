@@ -352,6 +352,25 @@ def checkDiskLabel(disk, intf):
     else:
         return 1
 
+def hasProtectedPartitions(drive, anaconda):
+    rc = False
+    if anaconda is None:
+        return rc
+
+    try:
+        for protected in anaconda.method.protectedPartitions():
+            if protected.startswith(drive):
+                part = protected[len(drive):]
+                if part[0] == "p":
+                    part = part[1:]
+                if part.isdigit():
+                    rc = True
+                    break
+    except:
+        pass
+
+    return rc
+
 # attempt to associate a parted filesystem type on a partition that
 # didn't probe as one type or another.
 def validateFsType(part):
@@ -1041,7 +1060,8 @@ class DiskSet:
                 continue
 
             if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
-                       or (drive in clearDevs)) and not flags.test:
+                       or (drive in clearDevs)) and not flags.test \
+                       and not hasProtectedPartitions(drive, self.anaconda):
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)

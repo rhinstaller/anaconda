@@ -2,9 +2,14 @@ from installclass import BaseInstallClass
 import rhpl
 from rhpl.translate import N_
 from constants import *
+from flags import flags
 import os
 import iutil
 import types
+try:
+    import instnum
+except ImportError:
+    instnum = None
 
 import logging
 log = logging.getLogger("anaconda")
@@ -21,18 +26,47 @@ class InstallClass(BaseInstallClass):
     _descriptionFields = (productName,)
     sortPriority = 10000
     allowExtraRepos = False
-    if not productName.startswith("Red Hat Enterprise"):
+    if 0: # not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
-             (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
-             (N_("Web server"), ["web-server"])]
+    taskMap = {'client'        : [(N_("Office"), ["office"]),
+                                  (N_("Multimedia"), ["graphics", 
+                                                      "sound-and-video"])],
+               'server'        : [(N_("Software Development"), 
+                                   ["development-libs", "development-tools",
+                                    "gnome-software-development", 
+                                    "x-software-development"],),
+                                  (N_("Web server"), ["web-server"])],
+               'workstation'   : [(N_("Software Development"), 
+                                   ["development-libs", "development-tools",
+                                    "gnome-software-development", 
+                                    "x-software-development"],)],
+               'vt'            : [(N_("Virtualization"), ["virtualization"])],
+               'cluster'       : [(N_("Clustering"), ["clustering"])],
+               'clusterstorage': [(N_("Storage Clustering"), 
+                                   ["cluster-storage"])]
+             }
+
+    instkeyname = N_("Installation Number")
+    instkeydesc = N_("To install the full set of supported packages included "
+                    "in your subscription, please enter your Installation "
+                    "Number")
+    skipkeytext = N_("If you're unable to locate the Installation Number, "
+                    "consult http://www.redhat.com/apps/support/in.html.\n\n"
+                    "If you skip:\n"
+                    "* You may not get access to the full set of "
+                    "packages included in your subscription.\n"
+                    "* It may result in an unsupported/uncertified "
+                    "installation of Red Hat Enterprise Linux.\n"
+                    "* You will not get software and security updates "
+                    "for packages not included in your subscription.")
+ 
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)
-
         if not anaconda.isKickstart:
-            BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
+            BaseInstallClass.setDefaultPartitioning(self, 
+                                                    anaconda.id.partitions,
                                                     CLEARPART_TYPE_LINUX)
 
     def setGroupSelection(self, anaconda):
@@ -49,51 +83,79 @@ class InstallClass(BaseInstallClass):
     def getPackagePaths(self, uri):
         rc = {}
         for (name, path) in self.repopaths.items():
-            if type(uri) == types.ListType:
-                lst = []
+            if not type(uri) == types.ListType:
+                uri = [uri,]
+            if not type(path) == types.ListType:
+                path = [path,]
 
-                for i in uri:
-                    lst.append("%s/%s" % (i, path))
+            lst = []
+            for i in uri:
+                for p in path:
+                    lst.append("%s/%s" % (i, p))
 
-                rc[name] = lst
-            else:
-                rc[name] = "%s/%s" %(uri, path)
+            rc[name] = lst
+
+        log.info("package paths is %s" %(rc,))
         return rc
 
-    def handleRegKey(self, key, intf):
-#         if key is None or len(key) == 0:
-#             intf.messageWindow(_("Registration Key Required"),
-#                                _("A registration key is required to "
-#                                  "install %s.  Please contact your support "
-#                                  "representative if you did not receive a "
-#                                  "key with your product." %(productName,)),
-#                                type = "ok", custom_icon="error")
-#             raise NoKeyError
+    def handleRegKey(self, key, intf, interactive = True):
+        self.repopaths = { "base": "%s" %(productPath,) }
+        self.tasks = self.taskMap[productPath.lower()]
+        self.installkey = key
 
-        # simple and stupid for now... if C is in the key, add Clustering
-        # if V is in the key, add Virtualization. etc
-        if productPath == "Server" and rhpl.getArch() in ("i386", "x86_64", "ia64"):
+        try:
+            inum = instnum.InstNum(key)
+        except Exception, e:
+            if True or not BETANAG: # disable hack keys for non-beta
+                # make sure the log is consistent
+                log.info("repopaths is %s" %(self.repopaths,))
+                raise
+            else:
+                inum = None
+
+        if inum is not None:
+            # make sure the base products match
+            if inum.get_product_string().lower() != productPath.lower():
+                raise ValueError, "Installation number incompatible with media"
+
+            for name, path in inum.get_repos_dict().items():
+                # virt is only supported on i386/x86_64.  so, let's nuke it
+                # from our repo list on other arches unless you boot with
+                # 'linux debug'
+                if name.lower() == "virt" and ( \
+                        rhpl.getArch() not in ("x86_64","i386")
+                        and not flags.debug):
+                    continue
+                self.repopaths[name.lower()] = path
+                log.info("Adding %s repo" % (name,))
+
+        else:
+            key = key.upper()
+            # simple and stupid for now... if C is in the key, add Clustering
+            # if V is in the key, add Virtualization. etc
             if key.find("C") != -1:
                 self.repopaths["cluster"] = "Cluster"
                 log.info("Adding Cluster option")
             if key.find("S") != -1:
-                self.repopaths["cs"] = "ClusterStorage"
+                self.repopaths["clusterstorage"] = "ClusterStorage"
                 log.info("Adding ClusterStorage option")
-
-        if productPath == "Client":
-#             if key.find("D") != -1:
-#                 self.repopaths["desktop"] = "Desktop"
-#                 log.info("Adding Desktop option")
             if key.find("W") != -1:
-                self.repopaths["desktop"] = "Workstation"
+                self.repopaths["workstation"] = "Workstation"
                 log.info("Adding Workstation option")
-
-        if rhpl.getArch() in ("i386", "x86_64", "ia64"):
             if key.find("V") != -1:
                 self.repopaths["virt"] = "VT"
                 log.info("Adding Virtualization option")
 
-        self.regkey = key
+        for repo in self.repopaths.values():
+            if not self.taskMap.has_key(repo.lower()):
+                continue
+
+            for task in self.taskMap[repo.lower()]:
+                if task not in self.tasks:
+                    self.tasks.append(task)
+        self.tasks.sort()
+
+        log.info("repopaths is %s" %(self.repopaths,))
 
     def getMethod(self, methodstr):
         return BaseInstallClass.getMethod(self, methodstr)
@@ -105,4 +167,7 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.__init__(self, expert)
 
         self.repopaths = { "base": "%s" %(productPath,) }
-        self.regkey = None
+
+        # minimally set up tasks in case no key is provided
+        self.tasks = self.taskMap[productPath.lower()]
+

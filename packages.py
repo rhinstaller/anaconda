@@ -53,6 +53,12 @@ def firstbootConfiguration(anaconda):
 
     return
         
+def writeRegKey(anaconda):
+    if anaconda.id.instClass.installkey and os.path.exists(anaconda.rootPath + "/etc/sysconfig/rhn"):
+        f = open(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", "w+")
+        f.write("%s\n" %(anaconda.id.instClass.installkey,))
+        f.close()
+        os.chmod(anaconda.rootPath + "/etc/sysconfig/rhn/install-num", 0600)
 
 def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
@@ -233,28 +239,61 @@ def recreateInitrd (kernelTag, instRoot):
                            searchPath = 1, root = instRoot)
 
 def regKeyScreen(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        return DISPATCH_NOOP
-
-    while 1:
-        if anaconda.id.instClass.regkeydesc is None:
-            desc = _("Please enter the registration key for your version of %s.") %(productName,)
-        else:
-            desc = anaconda.id.instClass.regkeydesc
-            
-        rc = anaconda.intf.entryWindow(_("Enter Registration Key"),
-                                       desc, _("Key:"))
-
+    def checkRegKey(anaconda, key, quiet=0):
+        rc = True
         try:
-            anaconda.id.instClass.handleRegKey(rc, anaconda.intf)
+            anaconda.id.instClass.handleRegKey(key, anaconda.intf,
+                                               not anaconda.isKickstart)
         except Exception, e:
-            log.info("exception handling regkey: %s" %(e,))
-            continue
-        break
+            if not quiet:
+                log.info("exception handling installation key: %s" %(e,))
 
-    # FIXME: currently, we only allow this screen to ever be hit _once_
-    anaconda.dispatch.skipStep("regkey", permanent = 1)
-    return 
+                (type, value, tb) = sys.exc_info()
+                list = traceback.format_exception(type, value, tb)
+                for l in list:
+                    log.debug(l)
+                anaconda.intf.messageWindow(_("Invalid Key"),
+                                        _("The key you entered is invalid."),
+                                        type="warning")
+            rc = False
+
+        return rc
+ 
+    key = anaconda.id.instClass.installkey or ""
+
+    # handle existing key if we're headed forward
+    if key and not anaconda.id.instClass.skipkey and \
+       anaconda.dir == DISPATCH_FORWARD and checkRegKey(anaconda, key):
+        return DISPATCH_FORWARD
+
+    # if we're backing up we should allow them to reconsider skipping the key
+    if anaconda.dir == DISPATCH_BACK and anaconda.id.instClass.skipkey:
+        anaconda.id.instClass.skipkey = False
+
+    while not anaconda.id.instClass.skipkey:
+        rc = anaconda.intf.getInstallKey(anaconda, key)
+        if rc is None and anaconda.dispatch.canGoBack():
+            return DISPATCH_BACK
+        elif rc is None:
+            continue
+        elif rc == SKIP_KEY:
+            if anaconda.id.instClass.skipkeytext:
+                rc = anaconda.intf.messageWindow(_("Skip"),
+                                     _(anaconda.id.instClass.skipkeytext),
+                                     type="custom", custom_icon="question",
+                                     custom_buttons=[_("_Back"), _("_Skip")])
+                if not rc:
+                    continue
+                # unset the key and associated data
+                checkRegKey(anaconda, None, quiet=1)
+                anaconda.id.instClass.skipkey = True
+            break
+
+        key = rc
+        if checkRegKey(anaconda, key):
+            break
+
+    return DISPATCH_FORWARD
 
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",

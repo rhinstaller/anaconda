@@ -67,6 +67,14 @@ class BaseInstallClass:
     # we can use a different install data class
     installDataClass = InstallData
 
+    # install key related bits
+    skipkeytext = None
+    instkeyname = None
+    allowinstkeyskip = True
+    instkeydesc = None
+    installkey = None
+    skipkey = False
+
     def _get_description(self):
         return _(self._description) % self._descriptionFields
     description = property(_get_description)
@@ -151,6 +159,7 @@ class BaseInstallClass:
                  "postscripts",
 		 "writexconfig",
 		 "writeksconfig",
+                 "writeregkey",
                  "methodcomplete",
                  "copylogs",
                  "setfilecon",
