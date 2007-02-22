@@ -63,7 +63,7 @@ if data["family"] is None:
 
 if data["variant"] is None:
     print >> sys.stderr, "--variant missing, but that's OK."
-    data["version"] = ""
+    data["variant"] = ""
 
 if data["version"] is None:
     print >> sys.stderr, "--version missing! This is probably bad!"
