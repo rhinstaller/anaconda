@@ -1,3 +1,19 @@
+2007-02-23  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (selectBestKernel): actually select kernel-xen-devel
+	when we say we're going to (#226784)
+
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen): desensitize 
+	review checkbox if we're headed backwards and the current selection is 
+	custom (#220951)
+
+	* gui.py: add class InstallKeyWindow and InstallInterface method 
+	getInstallKey
+
+	* text.py: add getInstallKey method
+
+	* ui/instkey.glade: instkey dialog (new file)
+
 2007-02-23  Chris Lumens  <clumens@redhat.com>
 
 	* network.py (Network.write):  Don't write out an extraneous "yes"
