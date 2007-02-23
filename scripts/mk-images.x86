@@ -129,7 +129,7 @@ initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
-[images-$KERNELARCH]
+[images-$BASEARCH]
 kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
 boot.iso = images/boot.iso
