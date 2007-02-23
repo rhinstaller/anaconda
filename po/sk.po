@@ -9,14 +9,12 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2006-09-14 15:34+0100\n"
+"PO-Revision-Date: 2007-02-23 16:11+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Slovak\n"
-"X-Poedit-Country: SLOVAKIA\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:268
 msgid "Unknown Error"
@@ -1281,9 +1279,8 @@ msgstr ""
 "Chcete pokračovať, alebo ukončiť inštaláciu?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Nepodarilo sa nájsť inštalačný obraz %s"
+msgstr "Nepodarilo sa nájsť inštalačný obraz"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
@@ -1292,21 +1289,18 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "Inštalátor %s"
+msgstr "Ukončiť inštalátor"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s inštalácia"
+msgstr "Prevádzam po-inštaláciu"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Začína proces inštalácie. Toto môže trvať niekoľko minút..."
+msgstr "Prevádzam po-inštalačné zmeny súborového systému.  Toto môže trvať niekoľko minút..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1321,16 +1315,15 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Meno hostiteľa môže obsahovať len znaky 'a-z', 'A-Z', '-' alebo ','"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP adresa chýba."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP adresy musia obsahovať štyri čísla medzi 0 a 255, oddelené bodkami."
+msgstr ""
+"IPv4 adresy musia obsahovať štyri čísla medzi 0 a 255, oddelené bodkami."
 
 #: ../network.py:96
 #, python-format
@@ -1338,9 +1331,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s nie je platná IPv6 adresa."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s nie je platná IPv6 adresa."
+msgstr "'%s' nie je platná IP adresa."
 
 #: ../packages.py:241
 #, python-format
@@ -1578,10 +1571,9 @@ msgstr ""
 "Chceli by ste formátovať tento oddiel ako odkladací oddiel."
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr ""
-"Potrebuje zvoliť aspoň jeden pevný disk, na ktorý chcete nainštalovať %s."
+msgstr "Potrebuje zvoliť aspoň jeden pevný disk, na ktorý chcete nainštalovať %s."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -3256,15 +3248,14 @@ msgid "Error With Request"
 msgstr "Chyba požiadavky"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Vami nakonfigurované logické zväzky vyžadujú %g MB, ale skupina zväzkov má "
-"len %g MB.  Prosím, buď zväčšite skupinu zväzkov, alebo zmenšite logické "
-"zväzky."
+"Vami nakonfigurované logické zväzky vyžadujú %d MB, ale skupina zväzkov má "
+"len %d MB.  Prosím, buď zväčšite skupinu zväzkov, alebo zmenšite logické zväzky."
 
 #: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
@@ -3473,9 +3464,8 @@ msgid "Nameserver"
 msgstr "Menný server"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Nastala chyba pri konfigurácii sieťového rozhrania."
+msgstr "Nastala chyba pri konfigurácii sieťového zariadenia"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3530,14 +3520,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "Hodnota je vyžadovaná pre pole \"%s\"."
+msgstr "Hodnota je vyžadovaná pre položku %s."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Chyba dát"
+msgstr "Chyba s údajom %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3546,9 +3536,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "IP informácie, ktoré ste zadali, nie sú platné."
+msgstr "IPv4 informácie, ktoré ste zadali, nie sú platné."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3574,9 +3563,8 @@ msgid "Device"
 msgstr "Zariadenie"
 
 #: ../iw/network_gui.py:409
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Maska siete"
+msgstr "IPv4/Maska siete"
 
 #: ../iw/network_gui.py:411
 msgid "IPv6/Prefix"
@@ -3599,9 +3587,8 @@ msgid "_manually"
 msgstr "_manuálne"
 
 #: ../iw/network_gui.py:499
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(napr. \"pocitac.domena.sk\")"
+msgstr "(napr. pocitac.domena.sk)"
 
 #: ../iw/network_gui.py:505
 msgid "Hostname"
@@ -3612,21 +3599,18 @@ msgid "Miscellaneous Settings"
 msgstr "Rôzne nastavenia"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Upraviť RAID zariadenie"
+msgstr "Upraviť zariadenie"
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
 msgstr ""
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Neznámy"
+msgstr "neznámy"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
 msgstr "Hardvérová adresa:"
 
@@ -3635,27 +3619,23 @@ msgid "Missing Protocol"
 msgstr "Chýbajúci protokol"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Musíte zvoliť aspoň jeden protokol (IPv4 alebo IPv6) pre DHCP."
+msgstr "Musíte zvoliť aspoň jeden protokol (IPv4 alebo IPv6)."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
 #: ../textw/network_text.py:386 ../loader2/net.c:92
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Neplatný IP reťazec"
+msgstr "Neplatná predpona"
 
 #: ../iw/network_gui.py:817 ../textw/network_text.py:354
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP adresy musia obsahovať čísla medzi 1 a 255"
+msgstr "IPv4 prepona musí byť medzi 0 a 32."
 
 #: ../iw/network_gui.py:858 ../iw/network_gui.py:864
 #: ../textw/network_text.py:381
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP adresy musia obsahovať čísla medzi 1 a 255"
+msgstr "IPv6 predpona musí byť medzi 0 a 128."
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -4343,12 +4323,12 @@ msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
 #: ../iw/task_gui.py:147
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"Bod pripojenia \"%s\" je už používaný, prosím zvoľte iný bod pripojenia."
+"Úložisko %s už bolo pridané.  Prosím zvoľte iné meno úložiska a URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4764,9 +4744,8 @@ msgstr ""
 "<Medzera>,<+>,<-> výber  |  <F2> Podrobnosti skupiny  |  <F12> nasl. obr."
 
 #: ../textw/grpselect_text.py:117
-#, fuzzy
 msgid "No optional packages to select"
-msgstr "Aký typ média obsahuje balíky, ktoré si želáte nainštalovať?"
+msgstr "Žiadne voliteľné balíky sa nenašli"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4797,13 +4776,12 @@ msgid "Mouse Selection"
 msgstr "Výber myši"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Nezadali ste položku \"%s\". V závislosti od vášho sieťového prostredia to "
-"môže spôsobiť problémy neskôr."
+"Nezadali ste položku %s.  V závislosti od vášho sieťového prostredia to môže spôsobiť problémy neskôr."
 
 #: ../textw/network_text.py:152
 #, python-format
@@ -4834,14 +4812,12 @@ msgid "Activate on boot"
 msgstr "Aktivovať pri štarte systému"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "IP adresa"
+msgstr "Adresa"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Maska siete"
+msgstr "Predpona (maska siete)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
@@ -4856,14 +4832,12 @@ msgid "P-to-P:"
 msgstr ""
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Kľúč:"
+msgstr "WEP kľúč:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4871,9 +4845,8 @@ msgid "Network Configuration for %s"
 msgstr "Sieťová konfigurácia pre %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IP adresy musia obsahovať čísla medzi 1 a 255"
+msgstr "Nesprávna alebo chýbajúca predpona IPv6 (musí byť medzi 0 a 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5186,10 +5159,9 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ktorú jednotku/jednotky si želáte použiť pre túto inštaláciu?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Medzera>,<+>,<-> výber  |  <F2> Podrobnosti skupiny  |  <F12> nasl. obr."
+"<Medzera>,<+>,<-> výber  |  <F2> Pridať jednotku  |  <F12> nasl. obr."
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5208,21 +5180,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Ako chcete upraviť konfiguráciu vášho disku?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Pridať FCP zariadenie"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Stroje zSeries môžu pristupovať na zariadenia priemyselného štandardu SCSI "
-"cez Fibre Channel (FCP). Potrebujete poskytnúť 5 parametrov pre každé "
-"zariadenie: 16-bitové číslo zariadenia, 16-bitové SCSI ID, 64-bitové World "
-"Wide Port Name (WWPN), 16-bitové SCSI LUN a 64-bitové FCP LUN."
+"cez Fibre Channel (FCP). Potrebujete poskytnúť 16-bitové číslo zariadenia, 64-bitové World "
+"Wide Port Name (WWPN) a 64-bitové FCP LUN pre každé zariadenie."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5778,9 +5747,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Chyba pri otváraní kickstart súboru %s: %s"
+msgstr "Chyba pri sťahovaní kickstart súboru"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6069,9 +6037,8 @@ msgid "Nameserver IP"
 msgstr "IP pre menný server"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Menný server"
+msgstr "Chýbajúci menný server"
 
 #: ../loader2/net.c:295
 msgid ""
@@ -6101,9 +6068,8 @@ msgid "Configure TCP/IP"
 msgstr "Konfigurácia TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Musíte zvoliť aspoň jeden protokol (IPv4 alebo IPv6) pre DHCP."
+msgstr "Musíte zvoliť aspoň jeden protokol (IPv4 alebo IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6151,7 +6117,6 @@ msgid ""
 msgstr "Musíte zadať platnú IPv4 adresu aj sieťovú masku alebo CIDR predponu."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Musíte zadať platnú IPv6 adresu ako aj CIDR predponu."
 
@@ -6471,9 +6436,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Použiť _dynamickú konfiguráciu IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Popis: %s"
+msgstr "<b>Popis patrí sem</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
@@ -6484,39 +6448,32 @@ msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Použiť dynamickú konfiguráciu IP (DHCP)"
+msgstr "Dynamická konfigurácia IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Použiť dynamickú konfiguráciu IP (DHCP)"
+msgstr "Dynamická konfigurácia IP (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Upraviť rozhranie %s"
+msgstr "Upraviť rozhranie"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Šifrovací _kľúč"
+msgstr "Šifrovací kľúč:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Ručná konfigurácia TCP/IP"
+msgstr "Ručná konfigurácia"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Bod-bod (IP)"
+msgstr "Bod-bod (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "Neplatný IP reťazec"
+msgstr "Predpona"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6543,19 +6500,16 @@ msgid "_Customize now"
 msgstr "_Prispôsobiť teraz"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Zariadenie"
+msgstr "<b>Číslo zariadenia:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Heslo:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6606,20 +6560,17 @@ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "Východný čas - Ontario - väčšina miest"
+msgstr "Atlantický čas - Labrador - väčšina miest"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
 msgstr "Atlantický čas - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), PEI"
 msgstr ""
-"Atlantický čas - Nova Scotia (väčšina miest), Západný Labrador, E Quebec & "
-"PEI"
+"Atlantický čas - Nova Scotia (väčšina miest), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6759,9 +6710,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Východný štandardný čas - Southampton Island"
+msgstr "Východný štandardný čas - Atikokan, Ontario and Southampton I, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6913,18 +6863,16 @@ msgid "Midway Islands"
 msgstr "Midway Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskva+01 - Kaspické more"
+msgstr "Moskva+00 - Kaspické more"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Moskva+00 - západné Rusko"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskva+09 - Kamčatka"
+msgstr "Moskva+01 - Samara, Udmurtia"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7033,9 +6981,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - väčšina miest"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Time, including SE Labrador"
-msgstr "Atlantický čas - Východný Labrador"
+msgstr "Newfoundland čas, vrátane SV Labradoru"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -7186,23 +7133,20 @@ msgid "West Kazakhstan"
 msgstr "Západný Kazachstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Západná Austrália"
+msgstr "Západná Austrália - oblasť Eucla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Centrálny čas - väčšina meist"
+msgstr "Západná Austrália - väčšina meist"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Centrálna Čína - Gansu, Guizhou, Sichuan, Yunnan, atď."
+msgstr "Centrálna Čína - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, atď."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -7257,9 +7201,8 @@ msgid "west Dem. Rep. of Congo"
 msgstr "Východná Dem. Rep. Kongo"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Tibet & Xinjiang"
-msgstr "Tibet & most of Xinjiang Uyghur"
+msgstr "západný Tibet a Xinjiang"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
