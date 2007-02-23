@@ -1,5 +1,8 @@
 2007-02-23  Chris Lumens  <clumens@redhat.com>
 
+	* network.py (Network.write):  Don't write out an extraneous "yes"
+	(#227250).
+
 	* po/Makefile:  Don't include /usr/share/zoneinfo/zone.tab for
 	translation anymore (#229729).
 	* scripts/upd-instroot:  Include system-config-date translations in

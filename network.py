@@ -436,7 +436,7 @@ class Network:
         if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
 
-        useIPV6 = False
+        useIPV6 = "no"
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
@@ -450,7 +450,7 @@ class Network:
             f.write(str(dev))
 
             if dev.get("USEIPV6"):
-                useIPV6 = True
+                useIPV6 = "yes"
 
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
             if (dev.get('bootproto').lower() == 'dhcp' and self.hostname and
@@ -476,7 +476,7 @@ class Network:
 
         f = open(instPath + "/etc/sysconfig/network", "w")
         f.write("NETWORKING=yes\n")
-        f.write("NETWORKING_IPV6=%s\n" % useIPV6 and "yes" or "no")
+        f.write("NETWORKING_IPV6=%s\n" % useIPV6)
         f.write("HOSTNAME=")
 
         # use instclass hostname if set(kickstart) to override
