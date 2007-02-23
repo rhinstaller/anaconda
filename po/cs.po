@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-10 13:22+0100\n"
+"PO-Revision-Date: 2007-02-22 23:58+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -894,7 +894,7 @@ msgstr ""
 "Několik zařízení ve vašem počítači má jmenovku %s. Aby váš systém správně "
 "fungoval, musí mít jmenovky různé názvy.\n"
 "\n"
-"Opravte prosím jmenovky a spusťte instalaci znovu."
+"Opravte jmenovky a spusťte instalaci znovu."
 
 #: ../fsset.py:2708
 msgid "Formatting"
@@ -1065,7 +1065,7 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození "
-"balíčku. Zkontrolujte prosím obrazy, z nichž instalujete, a přesvědčte se, "
+"balíčku. Zkontrolujte obrazy, z nichž instalujete, a přesvědčte se, "
 "že máte všechna potřebná média.\n"
 "\n"
 "Provedete-li restart, zůstane systém v nekonzistentním stavu, což si "
@@ -1088,7 +1088,7 @@ msgstr ""
 "Instalátor se pokusil připojit obraz #%s, ale nepodařilo se ho nalézt na "
 "pevném disku.\n"
 "\n"
-"Zkopírujte prosím požadovaný obraz na disk a stiskněte Znovu. Chcete-li instalaci "
+"Zkopírujte požadovaný obraz na disk a stiskněte 'Znovu'. Chcete-li instalaci "
 "ukončit, zvolte Restartovat."
 
 #: ../harddrive.py:81 ../image.py:520
@@ -1112,8 +1112,8 @@ msgstr ""
 "CD:\n"
 "\n"
 "%s\n"
-"Připravte si je prosím před pokračováním v instalaci. Pokud potřebujete "
-"instalaci přerušit a restartovat, zvolte \"Restartovat\"."
+"Připravte si je před pokračováním v instalaci. Pokud potřebujete "
+"instalaci přerušit a restartovat, zvolte 'Restartovat'."
 
 #: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1180,7 +1180,7 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s. Důvodem je chybějící soubor nebo poškození "
-"balíčku. Zkontrolujte prosím, zda instalační strom obsahuje všechny "
+"balíčku. Zkontrolujte si, zda instalační strom obsahuje všechny "
 "požadované balíčky.\n"
 "\n"
 "Provedete-li restart, zůstane systém v nekonzistentním stavu, což si "
@@ -1214,8 +1214,8 @@ msgstr ""
 "Instalátor se pokusil připojit obraz #%s, ale nepodařilo se mu ho na serveru "
 "nalézt.\n"
 "\n"
-"Zkopírujte prosím požadovaný obraz do sdíleného adresáře na serveru a zvolte "
-"Znovu. Chcete-li instalaci ukončit, zvolte Restartovat."
+"Zkopírujte požadovaný obraz do sdíleného adresáře na serveru a zvolte "
+"'Znovu'. Chcete-li instalaci ukončit, zvolte 'Restartovat'."
 
 #: ../installclass.py:65
 msgid "Install on System"
@@ -1223,7 +1223,7 @@ msgstr "Typ instalace"
 
 #: ../iscsi.py:197 ../iscsi.py:198
 msgid "Initializing iSCSI initiator"
-msgstr "Inicializuji iSCSI initiator"
+msgstr "Inicializace iSCSI iniciátoru"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
@@ -1394,7 +1394,7 @@ msgstr "Přesto _instalovat"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr "Prosím vložte jméno skupiny svazků (VG)."
+msgstr "Vložte jméno skupiny svazků (VG)."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
@@ -1415,7 +1415,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "Prosím vložte jméno logického svazku (LV)."
+msgstr "Vložte jméno logického svazku (LV)."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr "Zvolte prosím místo připojení oddílu."
+msgstr "Zvolte místo připojení oddílu."
 
 #: ../partIntfHelpers.py:112
 #, python-format
@@ -1602,7 +1602,7 @@ msgstr "Formátovat?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "_Upravit oddíl"
+msgstr "_Zpět na nastavení oddílu"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
@@ -1649,8 +1649,8 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Již existující oddíly budou naformátovány, což smaže "
-"všechna data, která jsou na nich uložena."
+"Uvedené oddíly budou naformátovány, což smaže všechna data, "
+"která jsou na nich uložena:"
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -1662,7 +1662,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
-msgstr "Varování při formátování"
+msgstr "Varování před formátováním"
 
 #: ../partIntfHelpers.py:513
 #, python-format
@@ -1715,8 +1715,8 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Místo připojení %s nelze použít. Pro správnou funkci systému by to musel být "
-"symbolický odkaz. Zvolte prosím jiné místo připojení."
+"Pro připojení (mount) nelze %s použít. Pro správnou funkci by to musel být "
+"symbolický odkaz. Zvolte jiné místo připojení."
 
 # Týká se jen / /boot /var /tmp /usr /home. Nemusíme uživatele strašit při
 # připojování windowsovské partition víc, než je nutné.
@@ -1729,7 +1729,7 @@ msgstr "Místo připojení musí být na linuxovém systému souborů."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr "Místo připojení \"%s\" je již používáno. Zadejte prosím jiné."
+msgstr "Místo připojení \"%s\" je již používáno. Zadejte jiné."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1838,7 +1838,7 @@ msgstr "Inicializace"
 #: ../partedUtils.py:899
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Prosím čekejte, formátuje se disk %s...\n"
+msgstr "Čekejte prosím, formátuje se disk %s...\n"
 
 #: ../partedUtils.py:1019
 #, python-format
@@ -2270,7 +2270,7 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Následující systémy souborů nebyly správně odpojeny. Spusťte prosím svůj "
+"Následující systémy souborů nebyly správně odpojeny. Spusťte svůj "
 "Linuxový systém a nechte ho, aby disky opravil. Pak systém správně "
 "ukončete a proveďte aktualizaci.\n"
 "%s"
@@ -2296,7 +2296,7 @@ msgid ""
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 "Jeden nebo více systémů souborů zapsaných v /etc/fstab nemohou být "
-"připojeny. Odstraňte prosím problém a spusťte aktualizaci znovu."
+"připojeny. Odstraňte problém a spusťte aktualizaci znovu."
 
 #: ../upgrade.py:302
 msgid ""
@@ -2305,7 +2305,7 @@ msgid ""
 "try to upgrade again."
 msgstr ""
 "Jeden nebo více systémů souborů zapsaných v /etc/fstab nejsou konzistentní, "
-"a proto nemohou být připojeny. Odstraňte prosím problém a "
+"a proto nemohou být připojeny. Odstraňte problém a "
 "spusťte aktualizaci znovu."
 
 #: ../upgrade.py:319
@@ -2316,8 +2316,7 @@ msgid ""
 "\n"
 msgstr ""
 "Níže jsou vypsány absolutní symbolické linky, které nejsou aktualizací "
-"podporovány. Změňte je prosím na relativní a spusťte aktualizaci "
-"znovu.\n"
+"podporovány. Změňte je na relativní a spusťte aktualizaci znovu.\n"
 "\n"
 
 #: ../upgrade.py:325
@@ -2332,7 +2331,7 @@ msgid ""
 "\n"
 msgstr ""
 "Níže jsou vypsány adresáře, které však mají být symbolické linky, což při "
-"aktualizaci způsobí problémy. Změňte je prosím zpět na symbolické linky "
+"aktualizaci způsobí problémy. Změňte je zpět na symbolické linky "
 "a spusťte aktualizaci znovu.\n"
 
 #: ../upgrade.py:342
@@ -2360,7 +2359,7 @@ msgid ""
 "\n"
 msgstr ""
 "Nelze otevřít soubor %s, protože nebyl nalezen nebo je soubor s balíček "
-"poškozen. Zkontrolujte prosím, zda zdrojový adresář obsahuje všechny "
+"poškozen. Zkontrolujte, zda zdrojový adresář obsahuje všechny "
 "požadované balíčky nebo zkuste jako zdroj použít jiné umístění.\n"
 "\n"
 "Provedete-li restart, zůstane systém v nekonzistentním stavu, který "
@@ -2442,7 +2441,7 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Pro VNC zadejte heslo délky alespoň šest znaků.\n"
+"Pro VNC zadejte heslo délky alespoň 6 znaků.\n"
 "\n"
 "Stisknutím <Enter> restartujte systém.\n"
 
@@ -2604,7 +2603,7 @@ msgid ""
 "generated.  %s"
 msgstr ""
 "Nelze načíst metadata balíčku. Důvodem může být chybějící adresář repodata. "
-"Zkontrolujte prosím, že byl Váš instalační strom správně vygenerován. %s"
+"Zkontrolujte, zda byl instalační strom správně vygenerován. %s"
 
 #: ../yuminstall.py:883
 msgid ""
@@ -2701,11 +2700,11 @@ msgstr "Zadejte heslo pro uživatele root a potvrďte ho opakovaným zadáním."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Hesla, která jste zadali, jsou různá. Zkuste to prosím znovu."
+msgstr "Hesla, která jste zadali, jsou různá. Zadejte je znovu."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
-msgstr "Heslo pro uživatele root musí být alespoň šest znaků dlouhé."
+msgstr "Heslo pro uživatele root musí být alespoň 6 znaků dlouhé."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
@@ -2726,15 +2725,15 @@ msgstr "_Heslo správce systému:"
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "Po_tvrzení: "
+msgstr "Heslo správce (z_novu): "
 
 #: ../iw/autopart_type.py:137
 msgid "Invalid Initiator Name"
-msgstr "Neplatné jméno pro Initiator"
+msgstr "Neplatné jméno pro iniciátor"
 
 #: ../iw/autopart_type.py:138
 msgid "You must provide a non-zero length initiator name."
-msgstr "Pro Initiator musíte zadat jméno nenulové délky."
+msgstr "Jméno iniciátoru nesmí mít nulovou délku."
 
 #: ../iw/autopart_type.py:161
 msgid "Error with Data"
@@ -2770,7 +2769,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "Použít heslo pro _zavaděč systému"
+msgstr "Použít _heslo pro zavaděč systému"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
@@ -2785,9 +2784,11 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Zadejte heslo pro zavaděč systému a potvrďte ho. POZOR: Mapa klávesnice může "
-"být při řízení BIOSem jiná, než je aktuálně používané rozložení kláves, "
-"které používáte pro běžnou práci při běhu operačního systému."
+"Zadejte heslo pro zavaděč systému (pro kontrolu dvakrát). "
+"POZOR: Mapa klávesnice může být při startu počítače jiná, "
+"než je právě používané rozložení kláves. Zavaděč používá ke "
+"čtení klávesnice BIOS, který se neřídí národními mapami "
+"klávesnic (obvykle používá anglické rozložení)."
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2795,7 +2796,7 @@ msgstr "_Heslo:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "Pot_vrzení:"
+msgstr "Heslo (_znovu):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2866,11 +2867,11 @@ msgstr "Zavaděč %s bude nainstalován na /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Nebude nainstalován žádný zavaděč."
+msgstr "Neinstalovat žádný zavaděč."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "Nastavit pokročilé _volby zavaděče"
+msgstr "_Nastavení pokročilých voleb zavaděče"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2916,7 +2917,7 @@ msgstr "Zahájení instalace"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Klikněte na Další pro zahájení instalace distribuce %s."
+msgstr "Klikněte na 'Další' pro zahájení instalace distribuce %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2939,7 +2940,7 @@ msgstr "Aktualizace systému"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Klikněte na Další pro zahájení aktualizace distribuce %s."
+msgstr "Klikněte na 'Další' pro zahájení aktualizace distribuce %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3197,7 +3198,7 @@ msgstr "Místo připojení je již používáno"
 #: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
+msgstr "Místo připojení \"%s\" je již používáno. Zadejte jiné."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3210,7 +3211,7 @@ msgstr "Neplatné jméno logického svazku (LV)"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "Jméno logického svazku \"%s\" je již používáno. Prosím zadejte jiné."
+msgstr "Jméno logického svazku \"%s\" je již používáno. Zadejte jiné."
 
 #: ../iw/lvm_dialog_gui.py:602
 #, python-format
@@ -3283,8 +3284,7 @@ msgstr "Jméno je již používáno"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Jméno skupiny svazků (VG) \"%s\" je již používáno. Zadejte prosím jiné."
+msgstr "Jméno skupiny svazků (VG) \"%s\" je již používáno. Zadejte jiné."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3656,8 +3656,8 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Vložte jmenovku, která se zobrazí v menu zavaděče. Zařízení (nebo číslo "
-"disku a oddílu) je zařízení, odkud se systém zavede."
+"Vložte jmenovku, která se zobrazí v menu zavaděče. Zařízení určuje, "
+"odkud bude systém zaveden (disk nebo oddíl na disku)."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3710,7 +3710,7 @@ msgstr "Další volby pro velikost"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "_Pevná velikost"
+msgstr "_Uvedená velikost"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
@@ -3731,11 +3731,11 @@ msgstr "Přidat oddíl"
 #: ../iw/partition_dialog_gui.py:273
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "Upravit oddíl: /dev/%s"
+msgstr "Nastavení oddílu: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:275
 msgid "Edit Partition"
-msgstr "Upravit oddíl"
+msgstr "Nastavení oddílu"
 
 #: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
@@ -3743,7 +3743,7 @@ msgstr "_Typ systému souborů:"
 
 #: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
-msgstr "Možné _disky:"
+msgstr "Výběr _disků:"
 
 #: ../iw/partition_dialog_gui.py:348
 msgid "Drive:"
@@ -3835,7 +3835,7 @@ msgstr "Varování o oddílech"
 
 #: ../iw/partition_gui.py:676
 msgid "Format Warnings"
-msgstr "Varování při formátování"
+msgstr "Varování před formátováním"
 
 #: ../iw/partition_gui.py:681
 msgid "_Format"
@@ -3999,7 +3999,7 @@ msgstr "<Není použitelné>"
 
 #: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
-msgstr "Jak chcete připravit systém souborů na oddílu?"
+msgstr "Příprava systém souborů na oddílu:"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
@@ -4023,8 +4023,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Oddíly typu '%s' musí být omezeny na jeden disk. To se provede vybráním "
-"disku v seznamu 'Možné disky'."
+"Oddíly typu '%s' musí být omezeny na jeden disk, což zajistíte výběrem "
+"disků v seznamu 'Výběr disků'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4195,7 +4195,7 @@ msgstr "Chyba cílového disku"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "Prosím vyberte cílové disky pro operaci klonování."
+msgstr "Vyberte cílové disky pro klonování."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4221,7 +4221,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
-msgstr "Prosím zvolte zdrojový disk."
+msgstr "Zvolte zdrojový disk."
 
 #: ../iw/raid_dialog_gui.py:643
 #, python-format
@@ -4315,7 +4315,7 @@ msgid ""
 "%s"
 msgstr ""
 "Nelze načíst metadata balíčku z repozitáře. Důvodem může být chybějící "
-"adresář repodata. Zkontrolujte prosím, zda metadata repozitáře byla správně "
+"adresář repodata. Zkontrolujte, zda metadata repozitáře byla správně "
 "vygenerována.\n"
 "\n"
 "%s"
@@ -4350,8 +4350,7 @@ msgstr "Musíte zadat HTTP nebo FTP URL repozitáře."
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"Repozitář %s již byl přidán. Zvolte prosím jiné jméno repozitáře a URL."
+msgstr "Repozitář %s již byl přidán. Zvolte jiné jméno repozitáře a URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4675,7 +4674,7 @@ msgstr "Heslo pro zavaděč systému:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr "Potvrzení:"
+msgstr "Heslo (znovu):"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
@@ -4787,7 +4786,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr "Zvolte prosím skupiny balíčků, které chcete nainstalovat"
+msgstr "Zvolte skupiny balíčků, které chcete nainstalovat"
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4973,7 +4972,7 @@ msgstr "Varování: %s"
 
 #: ../textw/partition_text.py:233
 msgid "Modify Partition"
-msgstr "Upravit oddíl"
+msgstr "Nastavení oddílu"
 
 #: ../textw/partition_text.py:233
 msgid "Add anyway"
@@ -4989,11 +4988,11 @@ msgstr "Typ systému souborů:"
 
 #: ../textw/partition_text.py:357
 msgid "Allowable Drives:"
-msgstr "Možné disky:"
+msgstr "Výběr disků:"
 
 #: ../textw/partition_text.py:413
 msgid "Fixed Size:"
-msgstr "Pevná velikost:"
+msgstr "Uvedená velikost:"
 
 #: ../textw/partition_text.py:415
 msgid "Fill maximum size of (MB):"
@@ -5065,7 +5064,7 @@ msgstr "Možnosti systému souborů"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr "Prosím vyberte, jak chcete připravit systém souborů na oddílu."
+msgstr "Vyberte, jak chcete připravit systém souborů na oddílu."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5265,8 +5264,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Chcete-li používat iSCSI disky, musíte zadat adresu vašeho iSCSI cíle a "
-"jméno iSCSI initiatoru, které jste konfigurovali pro váš počítač."
+"Chcete-li používat iSCSI disky, musíte zadat adresu a jméno vašeho "
+"iSCSI iniciátoru, které jste konfigurovali pro váš počítač."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5537,7 +5536,7 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nemohu nalézt CD-ROM %s v žádné jednotce CD-ROM. Prosím vložte CD-ROM s "
+"Nemohu nalézt CD-ROM %s v žádné jednotce CD-ROM. Vložte CD-ROM s "
 "distribucí %s a stiskněte tlačítko %s pro opakování."
 
 #: ../loader2/cdinstall.c:258
@@ -5561,7 +5560,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nemohu nalézt CD-ROM %s odpovídající vašemu zaváděcímu médiu. Vložte prosím "
+"Nemohu nalézt CD-ROM %s odpovídající vašemu zaváděcímu médiu. Vložte "
 "CD-ROM %s a opakujte stisknutím %s."
 
 #: ../loader2/cdinstall.c:391
@@ -5699,7 +5698,7 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Zadejte prosím parametry, které chcete předat modulu %s, oddělené mezerami. "
+"Zadejte parametry, které chcete předat modulu %s, oddělené mezerami. "
 "Pokud nevíte, jaké parametry zadat, stiskňete tlačítko \"OK\"."
 
 #: ../loader2/driverselect.c:80
@@ -5727,7 +5726,7 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Vyberte prosím ovladač, který si přejete načíst. Pokud není uveden a máte "
+"Vyberte ovladač, který si přejete načíst. Pokud není uveden a máte "
 "disk s ovladači, stiskněte F2."
 
 #: ../loader2/driverselect.c:208
@@ -5759,7 +5758,7 @@ msgid ""
 "ISO images and try again."
 msgstr ""
 "Při čtení instalačního programu z ISO obrazu došlo k chybě. Zkontrolujte "
-"prosím ISO obrazy a zkuste spustit instalaci znovu."
+"ISO obrazy a zkuste spustit instalaci znovu."
 
 #: ../loader2/hdinstall.c:268
 msgid ""
@@ -5839,8 +5838,9 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
-"Chyba při stahování kickstart souboru. Upravte prosím umístění kickstart "
-"parametru nebo stiskněte Přerušit a instalace bude dále pokračovat interaktivně."
+"Chyba při stahování kickstart souboru. Opravte umístění kickstart "
+"souboru nebo stiskněte 'Přerušit' a instalace bude dále pokračovat "
+"interaktivně."
 
 #: ../loader2/kickstart.c:350
 msgid "Error downloading kickstart file"
@@ -6033,8 +6033,8 @@ msgid ""
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
 "Obraz, který byl právě testován, má chyby. To může být kvůli chybnému "
-"stažení nebo špatnému médiu. Je-li to třeba, očistěte prosím médium a zkuste "
-"to znovu. Bude-li test nadále selhávat, neměl byste pokračovat v instalaci."
+"stažení nebo špatnému médiu. Je-li to třeba, očistěte médium a zkuste "
+"test znovu. Bude-li test nadále selhávat, neměli byste pokračovat v instalaci."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -6127,7 +6127,7 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s je adaptér pro bezdrátovou síť. Zadejte prosím ESSID a šifrovací klíč "
+"%s je adaptér pro bezdrátovou síť. Zadejte ESSID a šifrovací klíč "
 "potřebný po přístup k vaší bezdrátové síti. Pokud klíč není potřeba, nechte "
 "pole prázdné a instalace bude pokračovat."
 
@@ -6448,8 +6448,8 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
-"Zadejte prosím umístění, odkud má být nainstalován váš dodatečný software. "
-"Vezměte v úvahu, že to musí být platný repozitáře pro %s."
+"Zadejte umístění, odkud má být nainstalován dodatečný software. "
+"Pozor - umístění musí být platným repozitářem pro %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6605,7 +6605,7 @@ msgstr "Upravit po_zději"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr "Vložte prosím další repozitář, který chcete pro instalaci použít."
+msgstr "Vložte další repozitář, který chcete pro instalaci použít."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
