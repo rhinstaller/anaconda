@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-23 16:11+0100\n"
+"PO-Revision-Date: 2007-02-23 16:19+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -3568,7 +3568,7 @@ msgstr "IPv4/Maska siete"
 
 #: ../iw/network_gui.py:411
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Predpona"
 
 #: ../iw/network_gui.py:471
 msgid "Network Devices"
@@ -3777,7 +3777,7 @@ msgstr "Prinútiť aby bol _primárny oddiel"
 #: ../iw/partition_gui.py:313
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Disk %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:320
 #, python-format
@@ -4821,15 +4821,15 @@ msgstr "Predpona (maska siete)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
 msgid "ESSID:"
@@ -5941,7 +5941,7 @@ msgstr "Z tohoto média môžete inštalovať."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
+msgstr "Informácia o kontrolnom súčte nie je dostupná, nemožno skontrolovať médium."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6010,7 +6010,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
+msgstr "Predpona musí byť medzi 1 a 32 pre siete IPv4 alebo medzi 1 a 128 pre siete IPv6"
 
 #: ../loader2/net.c:249
 #, c-format
@@ -6077,7 +6077,7 @@ msgstr ""
 
 #: ../loader2/net.c:792
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Inštalačná metóda NFS vyžaduje podporu IPv4."
 
 #: ../loader2/net.c:912
 msgid "IPv4 address:"
@@ -6216,7 +6216,7 @@ msgstr "Chybný argument kickstart príkazu metódy Url %s: %s"
 
 #: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Musíte poskytnúť argument --url pre kickstart url metódu."
 
 #: ../loader2/urlinstall.c:477
 #, c-format
@@ -6483,7 +6483,7 @@ msgstr "Prispôsobiť _neskôr"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "Prosím, zvoľte ďalšie úložiská, ktoré si želáte použiť pre inštaláciu softvéru."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -6557,7 +6557,7 @@ msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
+msgstr "Atlantický štandardný čas - Quebec - Lower North Shore"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Labrador - most locations"
@@ -6788,7 +6788,7 @@ msgstr "Havaj"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
+msgstr "Heilongjiang (okrem Mohe), Jilin"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7186,7 +7186,7 @@ msgstr "väčšina miest (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
-msgstr ""
+msgstr "väčšina Tibetu a Xinjiang"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -7218,7 +7218,7 @@ msgstr "Arabčina"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamese"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7302,7 +7302,7 @@ msgstr "Islandsky"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7386,7 +7386,7 @@ msgstr "Srbsky(latinka)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7410,7 +7410,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
