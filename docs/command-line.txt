@@ -1,4 +1,4 @@
-12-04-2006
+02-23-2007
 ----------
 
 Boot time command args:
@@ -62,7 +62,7 @@ ksdevice        Takes one of 4 types of argument which tells install
 
 kssendmac	Adds HTTP headers to ks=http:// request that can be helpful
                 for provisioning systems.  Includes MAC address of all
-		nics in CGI environment variables of the form:
+                network interfaces in HTTP headers of the form:
                 "X-RHN-Provisioning-MAC-0: eth0 01:23:45:67:89:ab".
 
 lang=<lang>	Language to use for the installation.  This should be a
@@ -87,6 +87,10 @@ method=hd://<dev>/<path> Use <path> on <dev> for a hard drive installation
 method=http://<path> Use <path> for an HTTP installation
 
 method=nfs:<path> Use <path> for an NFS installation.
+
+mtu=<num>       Set the MTU (maximum transmission unit) used during
+                network installs to the given number.  Uses the network
+                stack default if this option is not specified.
 
 netmask=<nm> 	Netmask to use for a network installation.
 

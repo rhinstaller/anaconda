@@ -28,6 +28,9 @@
 
 	* scripts/mk-images.x86:  Another fix for the maketreeinfo stuff.
 
+	* docs/command-line.txt:  Update kssendmac documentation (#189292).
+	Add documentation for the mtu= parameter (#173641).
+
 2007-02-22  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doPreInstall):  If /etc/mtab exists,
