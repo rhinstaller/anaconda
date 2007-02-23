@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils libvolume_id nash
+	 yum-metadata-parser gfs2-utils libvolume_id nash
 	 libdhcp libnl libdhcp6client libdhcp4client
 	 device-mapper device-mapper-libs dmraid
 	 python-pyblock mkinitrd libbdevid libbdevid-python"
@@ -445,6 +445,7 @@ usr/lib/yaboot/ofboot
 usr/lib/yaboot/yaboot
 usr/libexec/convertdb1
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/locale.alias
 usr/sbin/anaconda
 usr/sbin/ddcprobe
