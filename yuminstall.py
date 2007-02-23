@@ -812,8 +812,10 @@ class YumBackend(AnacondaBackend):
         # some concept of which repo didn't set up correctly.
         repos = []
 
-        # Don't do this if we're going backwards
-        if anaconda.dir == DISPATCH_BACK:
+        # Don't do this if we're being called as a dispatcher step (instead
+        # of being called when a repo is added via the UI) and we're going
+        # back.
+        if thisrepo is None and anaconda.dir == DISPATCH_BACK:
             return
 
         if thisrepo is not None:
