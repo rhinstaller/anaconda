@@ -16,13 +16,12 @@ msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-16 21:26+0200\n"
+"PO-Revision-Date: 2007-02-23 23:36+0200\n"
 "Last-Translator: Mircea Daniel <visez.trance@gmail.com>\n"
 "Language-Team:  <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:268
 msgid "Unknown Error"
@@ -1316,11 +1315,12 @@ msgid "Doing post-installation"
 msgstr "Post instalare"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Rulez procesul postinstalare de schimbare al sistemului de fişiere.  Acest lucru poate dura mai multe minute..."
+msgstr ""
+"Se aplică ultimele modificări asupra sistemului de fişiere.  Acest lucru poate "
+"dura mai multe minute..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1337,17 +1337,15 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Numele gazdei poate conţine doar caracterele „a-z”, „A-Z”, „-” sau „.”"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "Lipseşte adresa IP."
+msgstr "Adresa IP lipseşte."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"Adresele IP trebuie să conţină patru numere între 0 şi 255, separate de "
+"Adresele IPv4 trebuie să conţină patru numere între 0 şi 255, separate de "
 "puncte."
 
 #: ../network.py:96
@@ -1356,9 +1354,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "„%s” nu este o adresă validă IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "„%s” nu este o adresă validă IPv6."
+msgstr "„%s” nu este o adresă IP validă."
 
 #: ../packages.py:241
 #, python-format
@@ -1596,7 +1594,7 @@ msgstr ""
 "Doriţi să formataţi această partiţie ca swap?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Trebuie să selectaţi cel puţin un disc dur pe care să instalaţi %s."
 
@@ -2639,6 +2637,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Nu se pot citi informaţii despre grupurile din depozite.  Problema aceasta e legată de "
+"generarea arborelui dumneavoastră de instalare."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -3278,14 +3278,14 @@ msgid "Error With Request"
 msgstr "Eroare în cerere"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Volumele logice pe care le-aţi configurat necesită %g MO, dar grupul de "
-"volume are doar %g MO.  Vă rugăm să măriţi grupul de volume sau să faceţi "
+"Volumele logice pe care le-aţi configurat necesită %d MO, dar grupul de "
+"volume are doar %d MO.  Vă rugăm să măriţi grupul de volume sau să faceţi "
 "volumele logice mai mici."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3495,9 +3495,8 @@ msgid "Nameserver"
 msgstr "Server de nume"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "A apărut e eroarea la configurarea interfeţei cu reţeaua."
+msgstr "Eroarea la configurarea dispozitivului de reţea"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:542
 msgid "Primary DNS"
@@ -3552,14 +3551,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "Câmpul \"%s\" trebuie completat."
+msgstr "Câmpul „%s” trebuie completat."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Eroare cu datele"
+msgstr "Eroare cu datele %s"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:46
 #: ../textw/welcome_text.py:22
@@ -3568,9 +3567,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:176 ../textw/network_text.py:66
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Informaţia IP pe care aţi introdus-o este invalidă."
+msgstr "Informaţia IPv4 pe care aţi introdus-o este invalidă."
 
 #: ../iw/network_gui.py:180
 msgid ""
@@ -3582,7 +3580,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "Dezactivat"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
@@ -3632,32 +3630,28 @@ msgid "Miscellaneous Settings"
 msgstr "Alte setări"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "Editare dispozitiv RAID"
+msgstr "Editează dispozitiv "
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Dispozitiv ethernet necunoscut"
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Necunoscut"
+msgstr "necunoscut"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Adresă IP:"
+msgstr "Adresă fizică:"
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Protocol lipsă"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Trebuie să specificaţi cel puţin un protocol (IPv4 sau IPv6) pentru DHCP."
+msgstr "Trebuie să selectaţi suport pentru măcar unul dintre IPv4 sau IPv6."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -4852,7 +4846,7 @@ msgstr "<Space>,<+>,<-> selecţie   |   <F2> Detalii Grup   |   <F12> ecranul ur
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Niciun pachet opţional de ales"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4883,12 +4877,12 @@ msgid "Mouse Selection"
 msgstr "Selecţie maus"
 
 #: ../textw/network_text.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Nu aţi specificat câmpul „%s”.  În funcţie de mediul reţelei dvs., acest "
+"Nu aţi specificat câmpul „%s”.  În funcţie de mediul reţelei dumneavoastră., acest "
 "lucru ar putea cauza probleme mai târziu."
 
 #: ../textw/network_text.py:152
@@ -4920,36 +4914,32 @@ msgid "Activate on boot"
 msgstr "Activare la pornire"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "Adresă IP"
+msgstr "Adresă"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Mască reţea"
+msgstr "Prefix (Mască reţea)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Cheie:"
+msgstr "Cheie WEP:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -4957,9 +4947,8 @@ msgid "Network Configuration for %s"
 msgstr "Configurare reţea pentru %s"
 
 #: ../textw/network_text.py:387
-#, fuzzy
 msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Prefixul IPv6 trebuie să fie între 0 şi 128."
+msgstr "Prefix IPv6 lipsă sau invalid (trebuie să fie între 0 şi 128)."
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
@@ -5280,9 +5269,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ce unităţi doriţi să folosiţi pentru această instalare?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> selecţie   |   <F2> Detalii Grup   |   <F12> ecranul următor"
+msgstr "<Space>,<+>,<-> selecţie   |   <F2> Adaugă unitate   |   <F12> ecranul următor"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5301,21 +5289,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Cum aţi dori să modificaţi configuraţia actuală a unităţilor de disc?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Adaugă dispozitiv FCP"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Maşinile zSeries pot accesa dispozitive standard SCSI prin Fibre Channel "
-"(FCP). Trebuie să furnizaţi 5 parametri pentru fiecare dispozitiv: un număr "
-"de dispozitiv de 16 biţi, un ID SCSI de 16 biţi, un nume de port World Wide "
-"(WWPN), un LUN SCSI de 16 biţi şi un LUN FCP de 64 de biţi."
+"(FCP). Trebuie să furnizaţi un număr de dispozitiv de 16 biţi, un nume de port World Wide "
+"(WWPN) cd 64 de biţi şi un LUN FCP de 64 de biţi pentru fiecare dispozitiv."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5904,11 +5889,12 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Nu se poate descărca fişierul kickstart.  Vă rugăm modificaţi parametrul kickstart "
+"mai jos sau apăsaţi renunţă pentru a continua cu o instalare interactivă."
 
 #: ../loader2/kickstart.c:350
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Eroare la deschiderea fişierului kickstart %s: %s"
+msgstr "Eroare la descărcarea fişierului kickstart"
 
 #: ../loader2/kickstart.c:473
 #, c-format
@@ -6220,20 +6206,17 @@ msgid "Nameserver IP"
 msgstr "IP server de nume"
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Server de nume"
+msgstr "Server de nume lipsă"
 
 #: ../loader2/net.c:295
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
 "Cererea de adresă IP dinamică a returnat informaţii de configurare, dar nu a "
-"inclus şi un server de nume DNS. Dacă ştiţi care vă este serverul de nume, "
-"vă rugăm introduceţi adresa lui acum. Dacă nu aveţi această informaţie, "
+"inclus şi un server de nume DNS. Dacă nu aveţi această informaţie, "
 "puteţi lăsa acest câmp gol şi instalarea va continua."
 
 #: ../loader2/net.c:317
@@ -6257,9 +6240,8 @@ msgid "Configure TCP/IP"
 msgstr "Configurare TCP/IP"
 
 #: ../loader2/net.c:784
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Trebuie să specificaţi cel puţin un protocol (IPv4 sau IPv6) pentru DHCP."
+msgstr "Trebuie să specificaţi cel puţin un protocol (IPv4 sau IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
@@ -6292,6 +6274,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Introduceti adresa IPv4 şi/sau IPv6 şi prefixul (adresă/prefix).  Pentru IPv4 se "
+"acceptă masca în format de patru grupe de numere cu puncte între ele sau prefixul "
+"în stil CIDR. Gateway-ul şi numele serverului trebuie să fie adrese valide IPv4 sau IPv6."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -6308,9 +6293,8 @@ msgstr ""
 "un prefix CIDR."
 
 #: ../loader2/net.c:1205
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Trebuie să introduceţi o adresă IPv6 validă şi un prefix CIDR."
+msgstr "Trebuie să introduceţi o adresă IPv6 şi un prefix CIDR valide."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -6637,52 +6621,44 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Configurare _dinamică a adresei IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Descriere: %s"
+msgstr "<b>Aici intră descrierea</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Adresă fizică: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Descoperire automată a vecinilor"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Configurare dinamică a adresei IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Configurare dinamică a adresei IP (DHCP)"
+msgstr "Configurare dinamică a adresei IP (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Editare interfaţă %s"
+msgstr "Editare interfaţă"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Cheie de _criptare:"
+msgstr "Cheie de criptare:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Configurare manuală TCP/IP"
+msgstr "Configurare manuală"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Punct la punct (IP):"
+msgstr "Punct la punct (IP):"
 
 #: tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "Prefix IPv6"
+msgstr "Prefix"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6713,19 +6689,16 @@ msgid "_Customize now"
 msgstr "Personalizează a_cum"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Număr dispozitiv"
+msgstr "<b>Număr dispozitiv:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Parolă:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7344,14 +7317,12 @@ msgid "West Kazakhstan"
 msgstr "Kazahstanul de vest"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Australia de vest"
+msgstr "Australia de Vest - Zona Eucla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Ora centrală - majoritatea locaţiilor"
+msgstr "Australia vestică - majoritatea locaţiilor"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7431,7 +7402,7 @@ msgstr "Arabă"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Asameză"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -7515,7 +7486,7 @@ msgstr "Islandeză"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7599,7 +7570,7 @@ msgstr "Sârbă(Latină)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7623,7 +7594,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
