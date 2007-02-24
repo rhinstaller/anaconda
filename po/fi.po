@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-21 00:25+0200\n"
+"PO-Revision-Date: 2007-02-25 01:43+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -1467,9 +1467,8 @@ msgstr "Asenna järjestelmä"
 
 #: ../iscsi.py:197
 #: ../iscsi.py:198
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Alustetaan MySQL-tietokanta: "
+msgstr "Alustetaan iSCSI-asiakaslaite"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
@@ -2939,14 +2938,13 @@ msgstr "_Vahvista: "
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../iw/autopart_type.py:137
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Epäkelpo asennuslähteen nimi"
+msgstr "Kelvoton asiakaslaitteen nimi"
 
+# (sic)
 #: ../iw/autopart_type.py:138
-#, fuzzy
 msgid "You must provide a non-zero length initiator name."
-msgstr "Asennuslähteen nimi on annettava."
+msgstr "Asiakaslaitteen nimen pituuden on oltava nollasta eroava."
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
 # ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
@@ -3254,7 +3252,6 @@ msgstr "Tuntematon Linux-järjestelmä"
 msgid "Language Selection"
 msgstr "Kielen valinta"
 
-#
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
 #: ../iw/language_gui.py:67
 #: ../textw/language_text.py:42
@@ -5735,7 +5732,7 @@ msgstr "Aseta iSCSI-parametrit"
 #: ../textw/partition_text.py:1706
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "iSCSI-levyjen käyttämiseksi on annettava iSCSI-kohteen osoite sekä konetta varten asennetun iSCSI-asiakaslaitteen nimi."
 
 # ../textw/partmethod_text.py:26
 #: ../textw/partmethod_text.py:26
@@ -7020,9 +7017,8 @@ msgid "<b>_Username:</b>"
 msgstr "<b>_Käyttäjätunnus:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "_Loogisen taltion nimi:"
+msgstr "<b>iSCSI-asiakaslaitteen _nimi:</b>"
 
 # ../iw/network_gui.py:251
 #: tmp/netconfig.glade.h:2
@@ -7490,7 +7486,7 @@ msgstr "Mawson-asema, Holme-lahti"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo Station, Ross Island"
+msgstr "McMurdo-asema, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
@@ -7751,7 +7747,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr "Vostok-asema, magneettinen etelänapa"
+msgstr "Vostok-asema, magneettinen Etelänapa"
 
 #. generated from zone.tab
 msgid "W Amazonas"
