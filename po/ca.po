@@ -1,10 +1,10 @@
 # Catalan translations for anaconda package.
-# Copyright © 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright © 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anaconda package.
 # Jordi Jover <jordijn@softcatala.org>, 2003.
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
 # Jordi Mas <jmas@softcatala.org>, 2003.
-# Josep Puigdemont <josep.puigdemont@gmail.com>, 2003, 2004, 2005, 2006.
+# Josep Puigdemont <josep.puigdemont@gmail.com>, 2003, 2004, 2005, 2006, 3007.
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2006.
 #
 # This file is translated according to the glossary and style guide of
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2006-10-28 17:09+0200\n"
+"PO-Revision-Date: 2007-02-25 12:28+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -239,7 +239,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No s'ha pogut localitzar la partició %s per usar-la per a %s.\n"
+"No s'ha pogut localitzar la partició %s per emprar-la per a %s.\n"
 "\n"
 "Premeu «D'acord» per arrencar de nou el sistema."
 
@@ -254,7 +254,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No s'ha pogut localitzar el dispositiu raid %s per usar-lo amb %s.\n"
+"No s'ha pogut localitzar el dispositiu raid %s per emprar-lo amb %s.\n"
 "\n"
 "Premeu «D'acord» per arrencar de nou el sistema."
 
@@ -269,7 +269,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No s'ha pogut localitzar el grup de volum %s per usar-lo per a %s.\n"
+"No s'ha pogut localitzar el grup de volum %s per emprar-lo per a %s.\n"
 "\n"
 "Premeu «D'acord» per arrencar de nou el sistema."
 
@@ -1321,9 +1321,8 @@ msgstr ""
 "Voleu continuar o preferiu anul·lar la instal·lació?"
 
 #: ../livecd.py:77 ../livecd.py:262
-#, fuzzy
 msgid "Unable to find image"
-msgstr "No s'ha pogut trobar la imatge d'instal·lació %s"
+msgstr "No s'ha pogut trobar la imatge"
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
@@ -1332,22 +1331,20 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:267
-#, fuzzy
 msgid "Exit installer"
-msgstr "Instal·lador %s"
+msgstr "Surt de l'instal·lador"
 
 #: ../livecd.py:144
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Instal·lació de %s %s"
+msgstr "S'està fent la post-instal·lació"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr ""
-"S'està iniciant el procés d'instal·lació. Això pot trigar uns minuts..."
+"S'estan fent els canvis de la post-instal·lació al sistema de fitxers. Això "
+"pot trigar uns minuts..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1576,7 +1573,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Les següents particions no s'han suprimit perquè s'estan usant:\n"
+"Les següents particions no s'han suprimit perquè s'estan fent servir:\n"
 "\n"
 "%s"
 
@@ -1636,12 +1633,12 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Heu escollit usar una partició existent per a la instal·lació sense formatar-"
-"la. Us recomanem que formateu aquesta partició per assegurar que fitxers "
-"d'anteriors sistemes operatius instal·lats no causen problemes amb aquesta "
-"instal·lació Linux. De tota manera, si aquesta partició conté fitxers que "
-"voleu mantenir, com ara directoris personals dels usuaris, aleshores "
-"continueu sense formatar-la."
+"Heu escollit emprar una partició existent per a la instal·lació sense "
+"formatar-la. Us recomanem que formateu aquesta partició per assegurar que "
+"fitxers d'anteriors sistemes operatius instal·lats no causen problemes amb "
+"aquesta instal·lació Linux. De tota manera, si aquesta partició conté "
+"fitxers que voleu mantenir, com ara directoris personals dels usuaris, "
+"aleshores continueu sense formatar-la."
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
@@ -2170,8 +2167,9 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "El sistema contenia sistemes de fitxers bruts que heu escollit no muntar. "
-"Premeu la tecla de retorn per anar a l'intèrpret d'ordres, on podreu usar "
-"l'fsck i muntar les particions. El sistema arrencarà de nou quan en sortiu."
+"Premeu la tecla de retorn per anar a l'intèrpret d'ordres, on podreu "
+"executar l'fsck i muntar les particions. El sistema arrencarà de nou quan en "
+"sortiu."
 
 #: ../rescue.py:352
 #, python-format
@@ -2675,6 +2673,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"No s'ha pogut llegir la informació del grup del dipòsit. Aquest és un "
+"problema en la generació del vostre arbre d'instal·lació."
 
 #: ../yuminstall.py:915
 msgid "Uncategorized"
@@ -2737,7 +2737,7 @@ msgstr "Comprova les dependències"
 #: ../yuminstall.py:1560
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
-"S'està comprovant les dependències dels paquets escollits per a la "
+"S'estan comprovant les dependències dels paquets escollits per a la "
 "instal·lació..."
 
 #: ../zfcp.py:43
@@ -2971,7 +2971,7 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Organitzeu les unitats en el mateix ordre usat per la BIOS. Canviar l'ordre "
+"Organitza les unitats en el mateix ordre emprat per la BIOS. Canviar l'ordre "
 "de les unitats pot ser útil si teniu diversos adaptadors SCSI, o adaptadors "
 "SCSI i IDE i voleu arrencar des d'una unitat SCSI.\n"
 "\n"
@@ -3416,7 +3416,7 @@ msgstr "Extensió _física:"
 
 #: ../iw/lvm_dialog_gui.py:1011
 msgid "Physical Volumes to _Use:"
-msgstr "Volums físics a _usar:"
+msgstr "Volums físics a empr_ar:"
 
 #: ../iw/lvm_dialog_gui.py:1017
 msgid "Used Space:"
@@ -3683,23 +3683,20 @@ msgid "Unknown Ethernet Device"
 msgstr ""
 
 #: ../iw/network_gui.py:648
-#, fuzzy
 msgid "unknown"
-msgstr "Desconegut"
+msgstr "desconegut"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Adreça del maquinari:"
+msgstr "Adreça del maquinari: "
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
 msgid "Missing Protocol"
 msgstr "Manca un protocol"
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Heu d'escollir almenys un protocol (IPv4 o IPv6) per a DHCP."
+msgstr "Heu d'escollir habilitar IPv4 o bé IPv6."
 
 #: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
 #: ../textw/network_text.py:353 ../textw/network_text.py:380
@@ -3774,7 +3771,8 @@ msgstr "Etiqueta duplicada"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr "Ja s'usa aquesta etiqueta en una altra entrada d'arrencada."
+msgstr ""
+"Ja s'està fent servir aquesta etiqueta en una altra entrada d'arrencada."
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
@@ -3782,7 +3780,8 @@ msgstr "Dispositiu duplicat"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr "Ja s'usa aquest dispositiu en una altra entrada d'arrencada."
+msgstr ""
+"Ja s'està fent servir aquest dispositiu en una altra entrada d'arrencada."
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
@@ -4021,9 +4020,9 @@ msgid ""
 msgstr ""
 "Un RAID de programari us permet combinar múltiples discos en un únic "
 "dispositiu RAID més gran. Es pot configurar un dispositiu RAID per obtenir "
-"velocitat i robustesa addicionals, en comparació amb usar només una unitat. "
-"Consulteu la documentació de %s per obtenir més informació quant a l'ús de "
-"dispositius RAID.\n"
+"velocitat i robustesa addicionals, en comparació amb emprar només una "
+"unitat. Consulteu la documentació de %s per obtenir més informació quant a "
+"l'ús de dispositius RAID.\n"
 "\n"
 "Podeu fer servir fins a %s particions RAID de programari.\n"
 
@@ -4034,8 +4033,8 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"Per usar un RAID, heu de crear almenys dues particions de tipus 'RAID de "
-"programari'. Després, podeu crear un dispositiu RAID per formatar-lo i "
+"Per utilitzar un RAID, heu de crear almenys dues particions de tipus 'RAID "
+"de programari'. Després, podeu crear un dispositiu RAID per formatar-lo i "
 "muntar-lo.\n"
 
 #: ../iw/partition_gui.py:1254
@@ -4411,9 +4410,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"No s'han pogut llegir les metadades del paquet del repositori. Pot ser que "
-"manquin dades del repositori al directori. Comproveu que el vostre "
-"repositori estigui generat correctament.\n"
+"No s'han pogut llegir les metadades del paquet del dipòsit. Pot ser que "
+"manquin dades del dipòsit al directori. Comproveu que el vostre dipòsit "
+"estigui generat correctament.\n"
 "\n"
 "%s"
 
@@ -4428,26 +4427,26 @@ msgstr ""
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
-msgstr "El nom del repositori no és vàlid"
+msgstr "El nom del dipòsit no és vàlid"
 
 #: ../iw/task_gui.py:123
 msgid "You must provide a non-zero length repository name."
-msgstr "El nom del repositori no pot tenir longitud zero."
+msgstr "El nom del dipòsit no pot tenir longitud zero."
 
 #: ../iw/task_gui.py:132
 msgid "Invalid Repository URL"
-msgstr "L'URL del repositori no és vàlida"
+msgstr "L'URL del dipòsit no és vàlida"
 
 #: ../iw/task_gui.py:133
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr "Heu de proporcionar una url HTTP o FTP a un repositori."
+msgstr "Heu de proporcionar una URL HTTP o FTP a un dipòsit."
 
 #: ../iw/task_gui.py:147
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Ja s'ha afegit el dipòsit %s. Escolliu un nom i URL diferents."
+msgstr "Ja s'ha afegit el dipòsit %s. Escolliu un nom i una URL diferents."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4507,7 +4506,8 @@ msgid ""
 "third party boot loader, you should choose this."
 msgstr ""
 "No es farà cap canvi a la vostra configuració del carregador de l'arrencada. "
-"Escolliu aquesta opció si esteu usant un carregador d'un altre fabricant."
+"Escolliu aquesta opció si esteu fent servir un carregador d'un altre "
+"fabricant."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4645,7 +4645,7 @@ msgstr ""
 "La partició arrel serà la que hagueu seleccionat anteriorment en la "
 "configuració de les particions.\n"
 "\n"
-"El nucli que s'usarà per iniciar l'ordinador serà el que instal·leu per "
+"El nucli que s'emprarà per iniciar l'ordinador serà el que instal·leu per "
 "defecte.\n"
 "\n"
 "Després de la instal·lació, podeu fer els canvis corresponents en el fitxer "
@@ -4667,7 +4667,7 @@ msgstr "Quin carregador de l'arrencada fareu servir?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "Usa el carregador GRUB"
+msgstr "Empra el carregador GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
@@ -4769,7 +4769,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr "Usa una contrasenya per al GRUB"
+msgstr "Utilitza una contrasenya per al GRUB"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
@@ -4809,7 +4809,7 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
-"Extraieu qualsevol medi d'instal·lació que hagueu usat durant el procés "
+"Extraieu qualsevol medi d'instal·lació que hagueu emprat durant el procés "
 "d'instal·lació i premeu <retorn> per arrencar de nou el sistema.\n"
 "\n"
 
@@ -4900,9 +4900,8 @@ msgstr ""
 "<Espai>,<+>,<-> selecció  | <F2> Detalls de grup | <F12> Pantalla següent"
 
 #: ../textw/grpselect_text.py:117
-#, fuzzy
 msgid "No optional packages to select"
-msgstr "[%d de %d paquets opcionals instal·lats]"
+msgstr "No hi ha paquets opcionals per seleccionar"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4970,36 +4969,32 @@ msgid "Activate on boot"
 msgstr "Activa en arrencar"
 
 #: ../textw/network_text.py:214
-#, fuzzy
 msgid "Address"
-msgstr "Adreça IP"
+msgstr "Adreça"
 
 #: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Màscara de xarxa"
+msgstr "Prefixe (màscara de xarxa)"
 
 #: ../textw/network_text.py:217
 msgid "IPv4:"
-msgstr ""
+msgstr "IPv4:"
 
 #: ../textw/network_text.py:220
 msgid "IPv6:"
-msgstr ""
+msgstr "IPv6:"
 
 #: ../textw/network_text.py:258
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-a-P:"
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Clau:"
+msgstr "Clau WEP:"
 
 #: ../textw/network_text.py:292
 #, python-format
@@ -5382,8 +5377,9 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Per usar discs iSCSI, heu de proporcionar l'adreça del vostre destí iSCSI i "
-"el nom de l'iniciador iSCSI que heu configurat per a la vostra màquina."
+"Per fer servir discs iSCSI, heu de proporcionar l'adreça del vostre destí "
+"iSCSI i el nom de l'iniciador iSCSI que heu configurat per a la vostra "
+"màquina."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5840,8 +5836,8 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"No s'han trobat controladors per inserir manualment. Voleu usar un disc de "
-"controladors?"
+"No s'han trobat controladors per inserir manualment. Voleu fer servir un "
+"disc de controladors?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -6574,15 +6570,15 @@ msgstr "Inhabilita el dispositiu _dmraid"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr "<b>_URL del repositori:</b>"
+msgstr "<b>_URL del dipòsit:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nom del repositori:</b>"
+msgstr "<b>_Nom del dipòsit:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Afegeix repositori"
+msgstr "Afegeix un dipòsit"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6591,11 +6587,11 @@ msgid ""
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
 "Heu de proporcionar la ubicació des d'on es pot afegir programari addiciona. "
-"Tingueu en compte que ha de ser un repositori vàlid per a %s."
+"Tingueu en compte que ha de ser un dipòsit vàlid per a %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "_Afegeix repositori"
+msgstr "_Afegeix un dipòsit"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6769,26 +6765,23 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "_Afegeix d'altres repositoris de programari"
+msgstr "_Afegeix més dipòsits de programari"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
 msgstr "Personalitza _ara"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Número de dispositiu:"
+msgstr "<b>Número de dispositiu:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN:"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Contrasenya:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
