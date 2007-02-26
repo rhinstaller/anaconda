@@ -26,7 +26,7 @@ class InstallClass(BaseInstallClass):
     _descriptionFields = (productName,)
     sortPriority = 10000
     allowExtraRepos = False
-    if 0: # not productName.startswith("Red Hat Enterprise"):
+    if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
     taskMap = {'client'        : [(N_("Office"), ["office"]),
