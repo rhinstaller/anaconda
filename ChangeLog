@@ -15,6 +15,9 @@
 
 	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive):  Simplify
 	string (#229959).
+	(PartitionTypeWindow.comboChanged):  Drive selection box shouldn't be
+	sensitive if custom layout is selected (#219207).
+
 	* iw/task_gui.py (TaskWindow._addRepo):  Likewise.
 
 	* kickstart.py (selectPackages):  Pass selectGroup the right options

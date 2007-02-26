@@ -90,6 +90,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
+            self.xml.get_widget("driveScroll").set_sensitive(False)
         else:
             if self.prevrev == None:
                self.xml.get_widget("reviewButton").set_active(self.review)
@@ -98,6 +99,7 @@ class PartitionTypeWindow(InstallWindow):
                self.prevrev = None
 
             self.xml.get_widget("reviewButton").set_sensitive(True)
+            self.xml.get_widget("driveScroll").set_sensitive(True)
 
     def addIscsiDrive(self):
         if not network.hasActiveNetDev():
