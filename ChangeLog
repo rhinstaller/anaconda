@@ -1,5 +1,7 @@
 2007-02-26  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (checkDiskLabel): Clean up text (#228198)
+
 	* packages.py (doMigrateFilesystems): Write out the fstab after
 	migrate (#223215) 
 
