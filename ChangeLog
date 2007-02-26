@@ -17,6 +17,12 @@
 	string (#229959).
 	* iw/task_gui.py (TaskWindow._addRepo):  Likewise.
 
+	* kickstart.py (selectPackages):  Pass selectGroup the right options
+	for selecting mandatory-only or optional packages.
+	* yuminstall.py (YumBackend._selectDefaultOptGroup):  Add a method to
+	deselect default packages and select optional ones.  This is required
+	for supporting the extended kickstart group selection syntax.
+
 2007-02-23  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (selectBestKernel): actually select kernel-xen-devel

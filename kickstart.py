@@ -1000,10 +1000,18 @@ def selectPackages(anaconda):
     else:
         log.warning("not adding Base group")
 
-    # TODO: deal with selecting optional and only required packages from
-    # each group, depending on grp.include.
     for grp in ksdata.packages.groupList:
-        num = anaconda.backend.selectGroup(grp.name)
+        default = False
+        optional = False
+
+        if grp.include == GROUP_DEFAULT:
+            default = True
+        elif grp.include == GROUP_ALL:
+            default = True
+            optional = True
+
+        num = anaconda.backend.selectGroup(grp.name, (default, optional))
+
         if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
             continue
         if num > 0:
