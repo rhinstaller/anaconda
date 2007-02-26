@@ -877,7 +877,7 @@ if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.
 if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and flags.display_mode == 'g' and mousedev[0] == "No - mouse":
+    if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and flags.display_mode == 'g' and mousedev[0] == "No - mouse" and not os.path.exists("/proc/xen"):
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
