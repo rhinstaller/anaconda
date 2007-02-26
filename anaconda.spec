@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.26
+Version: 11.2.0.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,28 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 26 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.27-1
+- Clean up partitioning text (katzj, #228198, #221791).
+- Write out the fstab after migrating (katzj, #223215).
+- More partitioning text fixes (#229959).
+- Desensitize drive selection box for custom layouts (#219207).
+- Support new kickstart extended group syntax.
+- Handle port numbers in the exception scp dialog (#227909).
+- Don't attempt to load a module when the device line is wrong (#227510).
+- Fix selecting the kernel-xen-devel package (dlehman, #226784).
+- Desensitize partition review checkbox when going back (dlehman, #220951).
+- Add key handling UI (dlehman).
+- Fix writing out /etc/sysconfig/network-scripts/ files (#227250).
+- Verify added repos when going back to the tasksel screen (#227762).
+- Don't include /usr/share/zonetab/zone.tab for translation (#229729).
+- Documentation updates (#189292, #173641).
+- Delete /etc/mtab if it exists on upgrade (#213818).
+- Add atl1.ko module to loader (#229641).
+- Don't traceback when cancel is pressed on iscsi add dialog (#229694).
+- Don't relabel disks that contain protected partitions (dlehman, #220331).
+- Clear non-protected partitions from disks if initAll is set (dlehman).
+- Allow access to regkey screen when going back (dlehman, #219361).
+
 * Wed Feb 21 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.26-1
 - Add dpi flag when starting X to fix tiny font size (#224665).
 - Set the default timezone for languages we can't display (#227625).

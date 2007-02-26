@@ -1,3 +1,7 @@
+2007-02-26  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
 2007-02-26  Jeremy Katz  <katzj@redhat.com>
 
 	* partedUtils.py (checkDiskLabel): Clean up text (#228198)
@@ -17,10 +21,11 @@
 
 	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive):  Simplify
 	string (#229959).
-	(PartitionTypeWindow.comboChanged):  Drive selection box shouldn't be
-	sensitive if custom layout is selected (#219207).
-
 	* iw/task_gui.py (TaskWindow._addRepo):  Likewise.
+
+	* iw/autopart_type.py (PartitionTypeWindow.comboChanged):  Drive
+	selection box shouldn't be sensitive if custom layout is selected
+	(#219207).
 
 	* kickstart.py (selectPackages):  Pass selectGroup the right options
 	for selecting mandatory-only or optional packages.
