@@ -34,6 +34,9 @@
 	* exception.py (copyExceptionToRemote):  Handle port numbers in the
 	host string (#227909).
 
+	* loader2/modules.c (loadKickstartModule):  Don't attempt to load a
+	module when the kickstart device line is incorrect (#227510).
+
 2007-02-23  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (selectBestKernel): actually select kernel-xen-devel
