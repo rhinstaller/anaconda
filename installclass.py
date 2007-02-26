@@ -18,6 +18,7 @@ import os, sys, iutil
 import string
 import language
 import rhpl
+import imputil
 
 from instdata import InstallData
 from partitioning import *
@@ -224,16 +225,6 @@ class BaseInstallClass:
 
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
-
-        # activate the keyboard changes
-#        id.keyboard.activate()
-
-	# XXX
-        #apply (todo.x.setKeyboard, xkb)
-
-	## hack - apply to instclass preset if present as well
-	#if (todo.instClass.x):
-	#apply (todo.instClass.x.setKeyboard, xkb)
 
     def setHostname(self, id, hostname, override = 0):
 	id.network.setHostname(hostname);
@@ -513,11 +504,17 @@ def availableClasses(showHidden=0):
 	if done.has_key(mainName): continue
 	done[mainName] = 1
 
-	obj = None
-	cmd = "import %s\nif %s.__dict__.has_key('InstallClass'): obj = %s.InstallClass\n" % (mainName, mainName, mainName)
-	exec(cmd)
+        try:
+            found = imputil.imp.find_module(mainName)
+        except:
+            log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
+            continue
 
-	if obj:
+        try:
+            loaded = imputil.imp.load_module(mainName, found[0], found[1], found[2])
+
+            obj = loaded.InstallClass
+
 	    if obj.__dict__.has_key('sortPriority'):
 		sortOrder = obj.sortPriority
 	    else:
@@ -529,6 +526,8 @@ def availableClasses(showHidden=0):
                 
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
+        except:
+            pass
 
     list.sort(ordering)
     for (item, priority) in list:

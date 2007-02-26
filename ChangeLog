@@ -1,5 +1,7 @@
 2007-02-26  Chris Lumens  <clumens@redhat.com>
 
+	* installclass.py (availableClasses):  Use imputil instead of exec.
+
 	* installclasses/rhel.py (InstallClass):  The RHEL installclass is
 	hidden in Fedora.
 
