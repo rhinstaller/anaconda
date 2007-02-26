@@ -1,5 +1,8 @@
 2007-02-26  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (doMigrateFilesystems): Write out the fstab after
+	migrate (#223215) 
+
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Wrap before
 	the requested width (#221791)
 
