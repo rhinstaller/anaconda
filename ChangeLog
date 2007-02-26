@@ -28,6 +28,12 @@
 	deselect default packages and select optional ones.  This is required
 	for supporting the extended kickstart group selection syntax.
 
+	* ui/scp.glade:  Center scp window.  Change label to let the user know
+	port numbers are accepted.
+
+	* exception.py (copyExceptionToRemote):  Handle port numbers in the
+	host string (#227909).
+
 2007-02-23  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (selectBestKernel): actually select kernel-xen-devel

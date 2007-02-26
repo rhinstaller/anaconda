@@ -224,6 +224,20 @@ def copyExceptionToRemote(intf):
 
         (host, path, user, password) = scpInfo
 
+        if host.find(":") != -1:
+            (host, port) = host.split(":")
+
+            # Try to convert the port to an integer just as a check to see
+            # if it's a valid port number.  If not, they'll get a chance to
+            # correct the information when scp fails.
+            try:
+                int(port)
+                portArgs = ["-P", port]
+            except ValueError:
+                portArgs = []
+        else:
+            portArgs = []
+
         # Thanks to Will Woods <wwoods@redhat.com> for the scp control
         # here and in scpAuthenticate.
 
@@ -236,8 +250,8 @@ def copyExceptionToRemote(intf):
         elif childpid == 0:
             # child process - run scp
             args = ["scp", "-oNumberOfPasswordPrompts=1",
-                    "-oStrictHostKeyChecking=no", "/tmp/anacdump.txt",
-                    "%s@%s:%s" % (user, host, path)]
+                    "-oStrictHostKeyChecking=no"] + portArgs + \
+                   ["/tmp/anacdump.txt", "%s@%s:%s" % (user, host, path)]
             os.execvp("scp", args)
 
         # parent process

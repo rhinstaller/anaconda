@@ -4,6 +4,7 @@
         <property name="gravity">center</property>
         <property name="resizable">False</property>
         <property name="title" context="True" translatable="True">Save to Remote Host</property>
+        <property name="window_position">GTK_WIN_POS_CENTER</property>
         <property name="resize_mode">queue</property>
         <property name="events"></property>
         <property name="allow_grow">False</property>
@@ -41,7 +42,7 @@
                                 <property name="visible">True</property>
                                 <child>
                                     <widget class="GtkLabel" id="hostLabel">
-                                        <property name="label" context="True" translatable="True">Host</property>
+                                        <property name="label" context="True" translatable="True">Host (host:port)</property>
                                         <property name="events"></property>
                                         <property name="xalign">0.0</property>
                                         <property name="visible">True</property>
