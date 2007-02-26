@@ -120,8 +120,7 @@ class TaskWindow(InstallWindow):
             reponame.strip()
             if len(reponame) == 0:
                 self.intf.messageWindow(_("Invalid Repository Name"),
-                                        _("You must provide a non-zero length "
-                                          "repository name."))
+                                        _("You must provide a repository name."))
                 continue
 
             repourl = dxml.get_widget("urlEntry").get_text()

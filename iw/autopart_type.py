@@ -135,8 +135,7 @@ class PartitionTypeWindow(InstallWindow):
             initiator.strip()
             if len(initiator) == 0:
                 self.intf.messageWindow(_("Invalid Initiator Name"),
-                                        _("You must provide a non-zero length "
-                                          "initiator name."))
+                                        _("You must provide an initiator name."))
                 continue
             self.anaconda.id.iscsi.initiator = initiator
 
