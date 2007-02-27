@@ -100,8 +100,6 @@ class AccountWindow (InstallWindow):
 
         box.pack_start(hbox, False)
        
-        self.forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
-        
         table = gtk.Table (2, 2)
         table.set_size_request(365, -1)
         table.set_row_spacings (5)
@@ -116,12 +114,12 @@ class AccountWindow (InstallWindow):
         self.pw = gtk.Entry (128)
         pass1.set_mnemonic_widget(self.pw)
         
-        self.pw.connect ("activate", self.forward)
+        self.pw.connect ("activate", lambda widget, box=box: box.emit("focus", gtk.DIR_TAB_FORWARD))
         self.pw.connect ("map-event", self.setFocus)
         self.pw.set_visibility (False)
         self.confirm = gtk.Entry (128)
         pass2.set_mnemonic_widget(self.confirm)
-        self.confirm.connect ("activate", self.forward)
+        self.confirm.connect ("activate", lambda widget, box=box: self.ics.setGrabNext(1))
         self.confirm.set_visibility (False)
         table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
         table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
