@@ -21,13 +21,13 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-19 19:04-0300\n"
+"PO-Revision-Date: 2007-02-27 14:36-0300\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../anaconda:268
 msgid "Unknown Error"
@@ -4062,9 +4062,9 @@ msgid ""
 msgstr ""
 "Ferramenta de Clonagem de Discos\n"
 "\n"
-"Esta ferramenta permite que você reduza significativamente a quantidade de esforço necessária  para configurar dispositivos RAID.  A idéia é pegar um disco de origem que foi preparado com o layout de particionamento desejado e copiar este layout para outros discos de tamanho similar.  Desta forma, um dispositivo RAID pode ser criado.\n"
+"Esta ferramenta permite que você reduza significativamente a quantidade de esforço necessária para configurar dispositivos RAID.  A idéia é pegar um disco de origem que foi preparado com o layout de particionamento desejado e copiar este layout para outros discos de tamanho similar.  Desta forma, um dispositivo RAID pode ser criado.\n"
 "\n"
-"NOTA: O disco de origem deve ter partições que se restrinjam apenas a ele mesmo, e só poderá conter partições de software RAID não utilizadas. Não são permitidos outros tipos de partições.\n"
+"NOTA: O disco de origem deve ter partições que se restrinjam apenas a ele mesmo e só poderá conter partições de software RAID não utilizadas. Não são permitidos outros tipos de partições.\n"
 "\n"
 "TUDO que estiver no(s) disco(s) de destino será destruído por este processo."
 
@@ -4128,7 +4128,7 @@ msgstr "Você deve informar uma URL do tipo HTTP ou FTP para um repositório."
 #: ../iw/task_gui.py:147
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
-msgstr "O repositório %s já foi adicionado.  Por favor selecione outro nome de repositório e URL."
+msgstr "O repositório %s já foi adicionado.  Por favor, selecione outro nome de repositório e URL."
 
 #: ../iw/timezone_gui.py:61
 #: ../textw/timezone_text.py:89
@@ -4181,7 +4181,7 @@ msgstr "Isto não alterará a configuração do gerenciador de inicialização. 
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
-msgstr "O que deseja fazer?"
+msgstr "O que você deseja fazer?"
 
 #: ../iw/upgrade_migratefs_gui.py:28
 #: ../textw/upgrade_text.py:31
@@ -4207,7 +4207,7 @@ msgstr "Atualizar Partição de Troca (Swap)"
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que kernels mais antigos, em torno do dobro da memória RAM do sistema.  No momento você tem %dMB de memória virtual configurado, mas você pode aumentar o espaço em um dos seus sistemas de arquivos agora."
+msgstr "O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que kernels mais antigos, em torno do dobro da memória RAM do sistema.  No momento você tem %d MB de memória virtual configurado, mas você pode aumentar o espaço em um dos seus sistemas de arquivos agora."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4240,7 +4240,7 @@ msgstr "Espaço Livre (MB)"
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
 msgid "It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:"
-msgstr "Recomendamos que o seu arquivo de memória virtual tenha pelo menos %d MB. Por favor insira o tamanho do arquivo de memória virtual:"
+msgstr "Recomendamos que o seu arquivo de memória virtual tenha pelo menos %d MB. Por favor, insira o tamanho do arquivo de memória virtual:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4252,7 +4252,7 @@ msgstr "Não quero criar um arquivo _de memória virtual"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
-msgstr "É altamente recomendável que você crie um arquivo de memória virtual. Se não o fizer, o instalador pode abortar anormalmente. Tem certeza que deseja continuar?"
+msgstr "É altamente recomendável que você crie um arquivo de memória virtual. Se não o fizer, o instalador pode abortar anormalmente. Tem certeza de que deseja continuar?"
 
 #: ../iw/upgrade_swap_gui.py:197
 #: ../textw/upgrade_text.py:173
@@ -4310,7 +4310,7 @@ msgstr "Qual gerenciador de inicialização você gostaria de usar?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "Usar Gerenciador de Inicialização GRUB"
+msgstr "Usar o Gerenciador de Inicialização GRUB"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
@@ -4326,9 +4326,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Você optou por não instalar um gerenciador de inicialização. É altamente recomendável instalar um gerenciador de inicialização, a não ser que você tenha necessidades avançadas que impeçam a instalação do mesmo. Um gerenciador de inicialização é quase sempre necessário para reinicializar seu sistema em Linux diretamente do disco rígido.\n"
+"Você optou por não instalar um gerenciador de inicialização. É altamente recomendável instalar um gerenciador de inicialização, a não ser que você tenha necessidades avançadas que impeçam a instalação do mesmo. Um gerenciador de inicialização é quase sempre necessário para reinicializar seu sistema no Linux diretamente do disco rígido.\n"
 "\n"
-"Tem certeza que deseja pular a instalação do gerenciador de inicialização?"
+"Tem certeza de que deseja pular a instalação do gerenciador de inicialização?"
 
 #: ../textw/bootloader_text.py:93
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
@@ -4380,7 +4380,7 @@ msgstr "O gerenciador de inicialização usado pelo %s também pode carregar out
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Espaço> selecionar | <F2> selecionar padrão | <F4> excluir | <F12> continuar>"
+msgstr " <Espaço> selecionar | <F2> selecionar padrão | <F4> apagar | <F12> continuar>"
 
 #: ../textw/bootloader_text.py:387
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."
@@ -4427,7 +4427,7 @@ msgid ""
 "Remove any media used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Remova qualquer mídia utilizada no processo de instalação e pressione <Enter> para reinicializar seu sistema.\n"
+"Remova quaisquer mídias utilizadas no processo de instalação e pressione <Enter> para reinicializar seu sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -4452,7 +4452,7 @@ msgid ""
 "\n"
 "Information on using your system is available in the %s manuals at http://www.redhat.com/docs/."
 msgstr ""
-"Para informações sobre a errata (atualizações e correções de erros),visite http://www.redhat.com/errata.\n"
+"Para informações sobre a errata (atualizações e correções de erros),visite http://www.redhat.com/errata/.\n"
 "\n"
 "Informações sobre como utilizar seu sistema estão disponíveis nos manuais do %s no site http://www.redhat.com/docs/."
 
@@ -4509,7 +4509,7 @@ msgstr "Um relatório completo da atualização estará em %s após reinicializa
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr "Por favor selecione os grupos de pacotes que você gostaria de ter instalados."
+msgstr "Por favor, selecione os grupos de pacotes que você gostaria de ter instalados."
 
 #: ../textw/grpselect_text.py:105
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4649,20 +4649,20 @@ msgstr "manualmente"
 
 #: ../textw/network_text.py:589
 msgid "Hostname Configuration"
-msgstr "Configuração do nome de host"
+msgstr "Configuração do nome de máquina"
 
 #: ../textw/network_text.py:592
 msgid "If your system is part of a larger network where hostnames are assigned by DHCP, select automatically via DHCP. Otherwise, select manually and enter in a hostname for your system. If you do not, your system will be known as 'localhost.'"
-msgstr "Se o seu sistema faz parte de uma rede grande na qual os nomes das máquinas são atribuídos pelo DHCP, selecione 'automaticamente via DHCP'. Caso contrário, selecione 'manualmente' e indique o nome de host para seu sistema. Se você não o fizer, seu sistema será conhecido como 'localhost'."
+msgstr "Se o seu sistema faz parte de uma rede grande na qual os nomes das máquinas são atribuídos pelo DHCP, selecione 'automaticamente via DHCP'. Caso contrário, selecione 'manualmente' e indique um nome de máquina para o seu sistema. Se você não o fizer, seu sistema será conhecido como 'localhost'."
 
 #: ../textw/network_text.py:618
 #: ../textw/network_text.py:624
 msgid "Invalid Hostname"
-msgstr "Nome de Host Inválido"
+msgstr "Nome de Máquina Inválido"
 
 #: ../textw/network_text.py:619
 msgid "You have not specified a hostname."
-msgstr "Você não especificou o nome de host."
+msgstr "Você não especificou o nome de máquina."
 
 #: ../textw/partition_text.py:43
 msgid "Must specify a value"
@@ -4748,7 +4748,7 @@ msgstr "Tipo de Sistema de Arquivos:"
 
 #: ../textw/partition_text.py:564
 msgid "File System Label:"
-msgstr "Nome do Sistema de Arquivos:"
+msgstr "Etiqueta do Sistema de Arquivos:"
 
 #: ../textw/partition_text.py:575
 msgid "File System Option:"
@@ -4786,7 +4786,7 @@ msgstr "Opções do Sistema de Arquivos"
 
 #: ../textw/partition_text.py:601
 msgid "Please choose how you would like to prepare the file system on this partition."
-msgstr "Por favor escolha como você deseja preparar o sistema de arquivos nesta partição."
+msgstr "Por favor, escolha como você deseja preparar o sistema de arquivos nesta partição."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -4971,7 +4971,7 @@ msgstr "Para usar discos iSCSI, você deve informar o endereço do seu destino i
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr "Auto-Particionamento"
+msgstr "Auto-particionamento"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -5030,7 +5030,7 @@ msgstr "Seleção de pacotes"
 #: tmp/tasksel.glade.h:4
 #, no-c-format, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?"
-msgstr "A instalação padrão do %s inclui um conjunto de programas aplicáveis para uso geral na Internet.  Quais tarefas adicionais você gostaria que seu sistema suportasse?"
+msgstr "A instalação padrão do %s inclui um conjunto de programas aplicáveis para uso geral na Internet.  Você deseja que o seu sistema suporte quais tarefas adicionais?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5038,7 +5038,7 @@ msgstr "Personalizar seleção de programas"
 
 #: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
-msgstr "Em que fuso horário você está localizado?"
+msgstr "Em qual fuso horário você está localizado?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5060,7 +5060,7 @@ msgstr "Criar nova configuração do gerenciador de inicialização"
 #: ../textw/upgrade_text.py:89
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que um kernel mais antigo, em torno do dobro da memória RAM do sistema. No momento você tem %dMB de espaço de memória virtual configurado, mas pode criar mais espaço em um dos seus sistemas de arquivos agora."
+msgstr "O kernel 2.4 precisa de muito mais espaço para memória virtual (swap) do que um kernel mais antigo, em torno do dobro da memória RAM do sistema. No momento você tem %d MB de espaço de memória virtual configurado, mas pode criar mais espaço em um dos seus sistemas de arquivos agora."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -5072,7 +5072,7 @@ msgstr "Memória RAM detectada (MB):"
 
 #: ../textw/upgrade_text.py:125
 msgid "Suggested size (MB):"
-msgstr "Tamanho sugerido (MB)"
+msgstr "Tamanho sugerido (MB):"
 
 #: ../textw/upgrade_text.py:128
 msgid "Swap file size (MB):"
@@ -5080,7 +5080,7 @@ msgstr "Tamanho do arquivo de memória virtual (MB):"
 
 #: ../textw/upgrade_text.py:136
 msgid "Add Swap"
-msgstr "Adicionar Memória Virtual"
+msgstr "Adicionar Swap"
 
 #: ../textw/upgrade_text.py:161
 msgid "The value you entered is not a valid number."
@@ -5088,7 +5088,7 @@ msgstr "O valor inserido não é um número válido."
 
 #: ../textw/upgrade_text.py:194
 msgid "Reinstall System"
-msgstr "Reinstalar o Sistema"
+msgstr "Reinstalar Sistema"
 
 #: ../textw/upgrade_text.py:203
 msgid "System to Upgrade"
@@ -5102,7 +5102,7 @@ msgid ""
 msgstr ""
 "Uma ou mais instalações Linux existentes foram encontradas em seu sistema.\n"
 "\n"
-"Por favor escolha uma para atualizar, ou selecione 'Reinstalar Sistema' para executar uma instalação limpa do sistema."
+"Por favor, escolha uma para atualizar, ou selecione 'Reinstalar Sistema' para executar uma instalação limpa do sistema."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
@@ -5110,7 +5110,7 @@ msgstr "Senha do Root (Administrador)"
 
 #: ../textw/userauth_text.py:29
 msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "Escolha uma senha para o root. Você deverá digitá-la duas vezes para garantir que não há erros. Lembre-se que a senha do root, por ser a senha do administrador,  é uma parte crítica da segurança do seu sistema!"
+msgstr "Escolha uma senha para o root. Você deverá digitá-la duas vezes para garantir que não há erros. Lembre-se de que a senha do root, por ser a senha do administrador, é uma parte crítica da segurança do seu sistema!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5127,7 +5127,7 @@ msgstr ""
 
 #: ../textw/zipl_text.py:26
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup may require."
-msgstr "O gerenciador de inicialização z/IPL será instalado em seu sistema após completar a instalação. Agora você pode indicar quaisquer parâmetros adicionais para o kernel e chandev que sua máquina ou sua configuração possam precisar."
+msgstr "O gerenciador de inicialização z/IPL será instalado em seu sistema após completar a instalação. Agora você pode indicar quaisquer parâmetros adicionais para o kernel e para o chandev de que sua máquina ou sua configuração possam precisar."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5146,7 +5146,7 @@ msgstr "_Fedora"
 #: ../installclasses/rhel.py:17
 #, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage. What additional tasks would you like your system to include support for?"
-msgstr "A instalação padrão do %s inclui um conjunto de programas aplicáveis para uso geral na Internet.  Quais tarefas adicionais você gostaria que seu sistema suportasse?"
+msgstr "A instalação padrão do %s inclui um conjunto de programas aplicáveis para uso geral na Internet. Você deseja que o seu sistema suporte quais tarefas adicionais?"
 
 #: ../installclasses/fedora.py:25
 #: ../installclasses/rhel.py:27
@@ -5194,13 +5194,13 @@ msgstr "Escolha \"%s\" para testar o CD que está na unidade, ou \"%s\" para eje
 #: ../loader2/cdinstall.c:114
 #, c-format
 msgid "If you would like to test additional media, insert the next CD and press \"%s\". Testing each CD is not strictly required, however it is highly recommended.  Minimally, the CDs should be tested prior to using them for the first time. After they have been successfully tested, it is not required to retest each CD prior to using it again."
-msgstr "Se você quiser testar mídias adicionais, insira o próximo CD e pressione \"%s\". Testar cada CD não é estritamente requerido, porém é altamente recomendado. No mínimo, os CDs devem ser testados antes de serem usados pela primeira vez. Depois que forem testados com sucesso, não é necessário testar novamente cada CD quando for usá-los novamente."
+msgstr "Se você quiser testar mídias adicionais, insira o próximo CD e pressione \"%s\". Testar cada CD não é estritamente necessário, porém é altamente recomendável. No mínimo, os CDs devem ser testados antes de serem usados pela primeira vez. Depois que forem testados com sucesso, não é necessário testar novamente cada CD quando for usá-los novamente."
 
 #: ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:384
 #, c-format
 msgid "The %s CD was not found in any of your CDROM drives. Please insert the %s CD and press %s to retry."
-msgstr "O CD %s não foi encontrado em nenhuma das unidades de CDROM. Por favor insira o CD %s e pressione %s para tentar novamente."
+msgstr "O CD %s não foi encontrado em nenhuma das unidades de CDROM. Por favor, insira o CD %s e pressione %s para tentar novamente."
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -5220,7 +5220,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:379
 #, c-format
 msgid "No %s CD was found which matches your boot media.  Please insert the %s CD and press %s to retry."
-msgstr "O CD %s que condiz com sua mídia de inicialização não foi encontrado.  Por favor insira o CD %s e pressione %s para tentar novamente."
+msgstr "O CD %s que condiz com sua mídia de inicialização não foi encontrado.  Por favor, insira o CD %s e pressione %s para tentar novamente."
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5271,7 +5271,7 @@ msgstr "Não foi possível montar o disco de drivers a partir do arquivo."
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Insira um disco de drivers em /dev/%s e pressione \"OK\" para continuar."
+msgstr "Insira o seu disco de drivers em /dev/%s e pressione \"OK\" para continuar."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -5284,7 +5284,7 @@ msgstr "Não foi possível montar o disco de drivers."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr "Disco de driver não é válido para este lançamento do %s."
+msgstr "Este disco de drivers não é válido para esta versão do %s."
 
 #: ../loader2/driverdisk.c:479
 msgid "Manually choose"
@@ -5296,7 +5296,7 @@ msgstr "Carregar outro disco"
 
 #: ../loader2/driverdisk.c:481
 msgid "No devices of the appropriate type were found on this driver disk.  Would you like to manually select the driver, continue anyway, or load another driver disk?"
-msgstr "Nenhum dispositivo apropriado foi encontrado neste disco de drivers.  Você prefere selecionar o driver manualmente, continuar mesmo assim, ou carregar outro disco?"
+msgstr "Nenhum dispositivo do tipo apropriado foi encontrado neste disco de drivers.  Você prefere selecionar o driver manualmente, continuar assim mesmo ou carregar outro disco?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
@@ -5339,16 +5339,16 @@ msgstr "Fonte kickstart do disco de driver desconhecida: %s"
 #: ../loader2/driverdisk.c:619
 #, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s:%s"
-msgstr "O argumento inválido a seguir foi especificado no comando do disco de driver kickstart: %s:%s"
+msgstr "O argumento inválido a seguir foi especificado no comando kickstart do disco de drivers: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "Por favor insira todos os parâmetros que você deseja passar para o módulo %s separados por espaços.  Se você não sabe os parâmetros a fornecer, pule esta tela pressionando o botão \"OK\"."
+msgstr "Por favor, insira todos os parâmetros que você deseja passar para o módulo %s separados por espaços.  Se você não sabe os parâmetros a fornecer, pule esta tela pressionando o botão \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr "Indique os Parâmetros do Módulo"
+msgstr "Insira os Parâmetros do Módulo"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
@@ -5364,7 +5364,7 @@ msgstr "Nenhum driver foi encontrado para inserção manual.  Deseja utilizar um
 
 #: ../loader2/driverselect.c:200
 msgid "Please select the driver below which you wish to load.  If it does not appear and you have a driver disk, press F2."
-msgstr "Por favor selecione o driver que você deseja carregar abaixo.  Se ele não aparecer e você tiver um disco de drivers, pressione F2."
+msgstr "Por favor, selecione o driver que você deseja carregar abaixo.  Se ele não aparecer e você tiver um disco de drivers, pressione F2."
 
 #: ../loader2/driverselect.c:208
 msgid "Specify optional module arguments"
@@ -5385,20 +5385,20 @@ msgstr "Carregando driver %s..."
 #: ../loader2/urlinstall.c:160
 #, c-format
 msgid "The %s installation tree in that directory does not seem to match your boot media."
-msgstr "A árvore de instalação %s deste diretório não parece combinar com a mídia de inicialização."
+msgstr "A árvore de instalação do %s neste diretório não parece combinar com a mídia de inicialização."
 
 #: ../loader2/hdinstall.c:160
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
-msgstr "Ocorreu um erro ao ler a instalação das imagens ISO. Por favor verifique as imagens ISO e tente novamente."
+msgstr "Ocorreu um erro ao ler a instalação a partir das imagens ISO. Por favor, verifique as imagens ISO e tente novamente."
 
 #: ../loader2/hdinstall.c:268
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "O seu computador parece não ter nenhuma unidade de disco rígido! Você deseja configurar mais algum dispositivo adicional?"
+msgstr "O seu computador parece não ter nenhuma unidade de disco rígido! Você deseja configurar algum dispositivo adicional?"
 
 #: ../loader2/hdinstall.c:283
 #, c-format
 msgid "What partition and directory on that partition hold the CD (iso9660) images for %s? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Em qual partição e em qual diretório desta partição se encontram as imagens do CD (iso9660) para %s? Se você não vê a unidade que está utilizando listada aqui, pressione F2 para configurar dispositivos adicionais."
+msgstr "Em qual partição e em qual diretório desta partição se encontram as imagens do CD (iso9660) para o %s? Se você não vê a unidade que está utilizando listada aqui, pressione F2 para configurar dispositivos adicionais."
 
 #: ../loader2/hdinstall.c:306
 msgid "Directory holding images:"
@@ -5411,7 +5411,7 @@ msgstr "Selecione a Partição"
 #: ../loader2/hdinstall.c:374
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Dispositivo %s não parece conter as imagens dos CD-ROMs do %s."
+msgstr "O dispositivo %s não parece conter as imagens dos CD-ROMs do %s."
 
 #: ../loader2/hdinstall.c:409
 #, c-format
@@ -5471,7 +5471,7 @@ msgstr "Argumento inválido para desligar o método kickstart com o comando %s: 
 #: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Bem-vindo ao %s  - Modo de Recuperação"
+msgstr "Bem-vindo ao %s - Modo de Recuperação"
 
 #: ../loader2/lang.c:57
 #: ../loader2/loader.c:161
@@ -5525,7 +5525,7 @@ msgstr "Lendo atualizações do anaconda..."
 
 #: ../loader2/loader.c:406
 msgid "No hard drives have been found.  You probably need to manually choose device drivers for the installation to succeed.  Would you like to select drivers now?"
-msgstr "Nenhum disco rígido foi encontrado.  Provavelmente você precisa selecionar os drivers dos dispositivos manualmente para efetuar a instalação com sucesso.  Você gostaria de selecionar os drivers agora?"
+msgstr "Nenhum disco rígido foi encontrado.  Provavelmente, você precisa selecionar os drivers dos dispositivos manualmente para efetuar a instalação com sucesso.  Você gostaria de selecionar os drivers agora?"
 
 #: ../loader2/loader.c:823
 #, c-format
@@ -5592,16 +5592,16 @@ msgstr "o carregador já foi executado.  Iniciando janela de comandos.\n"
 #: ../loader2/loader.c:1779
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Executando Anaconda, o modo de recuperação %s - por favor aguarde...\n"
+msgstr "Executando o Anaconda, o modo de recuperação do %s - por favor aguarde...\n"
 
 #: ../loader2/loader.c:1781
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Executando Anaconda, o instalador do sistema %s - por favor aguarde...\n"
+msgstr "Executando o Anaconda, o instalador do sistema %s - por favor aguarde...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
-msgstr "Não foi possível ler a assinatura do descritor de volume primário. Isto provavelmente significa que o disco foi criado sem uma assinatura."
+msgstr "Não foi possível ler o checksum do descritor de volume primário. Isto provavelmente significa que o disco foi criado sem um checksum."
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5637,7 +5637,7 @@ msgstr "Está OK para ser instalado a partir desta mídia."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr "Nenhum informação de checksum disponível, incapaz de verificar mídia."
+msgstr "Nenhuma informação de checksum disponível, incapaz de verificar mídia."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -5679,7 +5679,7 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"Você deseja efetuar uma verificação da consistência da imagem ISO?:\n"
+"Você deseja efetuar uma verificação da consistência da imagem ISO:\n"
 "\n"
 "   %s?"
 
@@ -5701,20 +5701,20 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
-"Por favor insira as seguintes informações:\n"
+"Por favor, insira as seguintes informações:\n"
 "\n"
-"    o o nome ou o endereço IP do servidor %s\n"
-"    o o diretório neste servidor que contém o\n"
-"      %s para a sua arquitetura\n"
+"    o nome ou o endereço IP do servidor %s\n"
+"    o diretório neste servidor que contém o\n"
+"     %s para a sua arquitetura\n"
 
 #: ../loader2/net.c:93
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
-msgstr "Prefixo deve ser entre 1 e 32 para redes IPv4 ou entre 1 e 128 para redes IPv6"
+msgstr "O prefixo deve ser entre 1 e 32 para redes IPv4 ou entre 1 e 128 para redes IPv6"
 
 #: ../loader2/net.c:249
 #, c-format
 msgid "%s is a wireless network adapter.  Please provide the ESSID and encryption key needed to access your wireless network.  If no key is needed, leave this field blank and the install will continue."
-msgstr "%s é um adaptador de rede sem fio. Por favor , defina o ESSID e a chave de criptografia necessária para acessar a sua rede sem fio. Se nenhuma chave é necessária, deixe este campo em branco e a instalação irá continuar."
+msgstr "%s é um adaptador de rede sem fio. Por favor, defina o ESSID e a chave de criptografia necessária para acessar a sua rede sem fio. Se nenhuma chave é necessária, deixe este campo em branco e a instalação irá continuar."
 
 #: ../loader2/net.c:255
 msgid "ESSID"
@@ -5730,7 +5730,7 @@ msgstr "Configurações da Rede Sem Fio"
 
 #: ../loader2/net.c:290
 msgid "Nameserver IP"
-msgstr "Servidor de nomes IP"
+msgstr "IP do servidor de nomes"
 
 #: ../loader2/net.c:294
 msgid "Missing Nameserver"
@@ -5768,11 +5768,11 @@ msgstr "Você deve selecionar pelo menos um protocolo (IPv4 ou IPv6)."
 
 #: ../loader2/net.c:791
 msgid "IPv4 Needed for NFS"
-msgstr "IPv4 Necessário para o NFS"
+msgstr "IPv4 necessário para o NFS"
 
 #: ../loader2/net.c:792
 msgid "NFS installation method requires IPv4 support."
-msgstr "Método de instalação do NFS requer suporte para IPv4."
+msgstr "Método de instalação NFS requer suporte para IPv4."
 
 #: ../loader2/net.c:912
 msgid "IPv4 address:"
@@ -5795,7 +5795,7 @@ msgstr "Servidor de Nomes:"
 
 #: ../loader2/net.c:1061
 msgid "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "Insira o endereço e o prefixo (endereço / prefixo) IPv4 e/ou IPv6. Para IPv4, são aceitos a máscara de rede dotted-quad ou o prefixo no estilo CIDR. Os campos gateway e servidor de nomes devem conter endereços IPv4 ou IPv6 válidos."
+msgstr "Insira o endereço e o prefixo (endereço / prefixo) IPv4 e/ou IPv6. Para IPv4, são aceitas a máscara de rede dotted-quad ou o prefixo no estilo CIDR. Os campos gateway e servidor de nomes devem conter endereços IPv4 ou IPv6 válidos."
 
 #: ../loader2/net.c:1077
 msgid "Manual TCP/IP Configuration"
@@ -5812,7 +5812,7 @@ msgstr "Você deve inserir um endereço IPv4 válido e uma máscara de rede ou u
 
 #: ../loader2/net.c:1205
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Você deve inserir um endereço IPv6 válido e um prefixo CIDR."
+msgstr "Você deve inserir um endereço IPv6 e um prefixo CIDR válidos."
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
@@ -5883,7 +5883,7 @@ msgstr "Aguardando a conexão telnet..."
 
 #: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
-msgstr "Executando Anaconda através do telnet..."
+msgstr "Executando o Anaconda através do telnet..."
 
 #: ../loader2/urlinstall.c:80
 #, c-format
@@ -5914,7 +5914,7 @@ msgstr "Deve indicar um parâmetro --url ao método kickstart URL."
 #: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Método URL desconhecido %s"
+msgstr "Método URL %s desconhecido"
 
 #: ../loader2/urls.c:220
 msgid "Retrieving"
@@ -6016,7 +6016,7 @@ msgstr "Adicionar Repositório"
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid "Please provide the location where your additional software can be installed from.  Note that this must be a valid repository for %s."
-msgstr "Por favor, informe o local de onde o seu software adicional pode ser instalado.  Note que deverá ser um repositório válido para o %s."
+msgstr "Por favor, informe o local de onde os seus programas adicionais podem ser instalados.  Note que deverá ser um repositório válido para o %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6032,7 +6032,7 @@ msgstr "_Próximo"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "Notas de _Lançamento"
+msgstr "Notas de Ve_rsão"
 
 #: tmp/autopart.glade.h:1
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
@@ -6044,7 +6044,7 @@ msgstr "Re_ver e modificar o layout do particionamento"
 
 #: tmp/autopart.glade.h:3
 msgid "_Advanced storage configuration"
-msgstr "Configuração _avançada de armazenamento"
+msgstr "Configurações _avançadas de armazenamento"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6164,7 +6164,7 @@ msgstr "Por favor, selecione os repositórios adicionais que você quer usar par
 
 #: tmp/tasksel.glade.h:5
 msgid "You can further customize the software selection now, or after install via the software management application."
-msgstr "As personalizações adicionais da seleção de programas podem ser concluídas agora ou após a instalação através da aplicação de gerenciamento de software."
+msgstr "As personalizações adicionais da seleção de programas podem ser concluídas agora ou após a instalação, através da aplicação de gerenciamento de programas."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6204,7 +6204,7 @@ msgstr "Hora do Alasca"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr "Hora do Alasca - Alasca panhandle (costa do Alasca)"
+msgstr "Hora do Alasca - Alasca panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
@@ -6416,11 +6416,11 @@ msgstr "Hora Oriental - Michigan - maioria das localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Hora Oriental - Ontario & Quebec - locais não regidos pelo DST 1966-1971"
+msgstr "Hora Oriental - Ontário & Quebec - locais não regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Hora Oriental - Ontario & Quebec - maioria das localidades"
+msgstr "Hora Oriental - Ontário & Quebec - maioria das localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -6428,7 +6428,7 @@ msgstr "Hora Oriental - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Hora Oriental - Ontario & Quebec - maioria das localidades"
+msgstr "Hora Oriental - Quebec - maioria das localidades"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -6608,7 +6608,7 @@ msgstr "Hora da Montanha"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Hora da Montanha - Alberta, leste da Columbia Britânical & oeste de Saskatchewan"
+msgstr "Hora da Montanha - Alberta, leste da Columbia Britânica & oeste de Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -6668,7 +6668,7 @@ msgstr "Hora do Pacífico - sul de Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "Hora do Pacífico - oeste de Columbia Britânica"
+msgstr "Hora do Pacífico - oeste da Columbia Britânica"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
@@ -6768,7 +6768,7 @@ msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk) and Yap"
+msgstr "Truk (Chuuk) e Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -6776,7 +6776,7 @@ msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr "Vitória (Austrália)"
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -6892,7 +6892,7 @@ msgstr "Bengali"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr "Bengali(Índia)"
+msgstr "Bengali (Índia)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -6904,11 +6904,11 @@ msgstr "Catalão"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Chinês(Simplificado)"
+msgstr "Chinês (Simplificado)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Chinês(Tradicional)"
+msgstr "Chinês (Tradicional)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -7048,7 +7048,7 @@ msgstr "Sérvio"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr "Sérvio(Latin)"
+msgstr "Sérvio (Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
@@ -7248,4 +7248,3 @@ msgstr "Zulu"
 #~ msgstr ""
 #~ "Você deve selecionar pelo menos um protocolo (IPv4 ou IPv6) para "
 #~ "configuração manual."
-
