@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2007-02-22 23:58+0100\n"
+"PO-Revision-Date: 2007-02-27 10:29+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -983,7 +983,7 @@ msgstr "Ignorovat"
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
 #: ../loader2/kickstart.c:336 ../loader2/loader.c:351
 msgid "Cancel"
-msgstr "Přerušit"
+msgstr "Zrušit"
 
 #: ../gui.py:735 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -2222,14 +2222,14 @@ msgstr "Vítá vás %s"
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-"  <F1> nápověda | <Tab> mezi položkami | <Mezera> výběr | <F12> pokračovat"
+"<F1> nápověda  |  <Tab> další položka  |  <Mezera> vybrat  |  <F12> pokračovat"
 
 #: ../text.py:425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> mezi položkami  |  <Mezera> výběr  |  <F12> pokračovat"
+"  <Tab>/<Alt-Tab> další položka   |   <Mezera> vybrat   |   <F12> pokračovat"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2741,22 +2741,19 @@ msgstr "Chyba v datech"
 
 #: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Na vybraných discích odstranit všechny oddíly a vytvořit implicitní rozdělení"
+msgstr "Odstranit všechny oddíly a vytvořit implicitní rozdělení"
 
 #: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Na vybraných discích odstranit linuxové oddíly a vytvořit implicitní rozdělení"
+msgstr "Odstranit linuxové oddíly a vytvořit implicitní rozdělení"
 
 #: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Na vybraných discích použít jen volné místo a vytvořit implicitní rozdělení"
+msgstr "Použít jen volné místo a vytvořit implicitní rozdělení"
 
 #: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
 msgid "Create custom layout."
-msgstr "Vytvořit vlastní rozdělení"
+msgstr "Vytvořit oddíly ručně"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3138,7 +3135,7 @@ msgstr "Upravit logický svazek (LV)"
 #: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
 msgid "_Mount Point:"
-msgstr "_Místo připojení:"
+msgstr "_Připojit do:"
 
 #: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
@@ -3353,7 +3350,7 @@ msgstr "Jméno logického svazku (LV)"
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
-msgstr "Místo připojení"
+msgstr "Připojit do"
 
 #: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
 msgid "Size (MB)"
@@ -3788,7 +3785,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Místo připojení/\n"
+"Připojit do/\n"
 "RAID/svazek"
 
 #: ../iw/partition_gui.py:409
@@ -4596,9 +4593,9 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"U některých systémů je třeba pro jejich správnou funkci předat jádru "
-"speciální parametry. Jestliže musíte předávat zaváděcí parametry jádru, "
-"zadejte je teď. Pokud žádné nepotřebujete nebo je nevíte, nezadávejte nic."
+"U některých systémů je při startu potřeba předat jádru "
+"speciální parametry. Máte-li takové, můžete je zde uvést. "
+"Pokud nevíte, co byste měli zadat, nezadávejte nic."
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
@@ -4643,16 +4640,15 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Zavaděč, který používá %s, lze použít i pro zavádění jiných operačních "
-"systémů. Je třeba zadat, ve kterých oddílech jsou tyto systémy a jméno, "
-"které bude použito pro jejich výběr při startu počítače."
+"Zavaděč, který používá %s, lze použít při startu systému i pro zavedení "
+"jiných operačních systémů. Je potřeba zadat, ve kterých oddílech "
+"jsou a jméno, které bude použito v menu."
 
 #: ../textw/bootloader_text.py:291
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> vybrat | <F2> vybrat default | <F4> odstranit | <F12> další "
-"obrazovka>"
+" <Mezera> zvolit | <F2> jako implicitní | <F4> odstranit | <F12> pokračovat"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4660,21 +4656,21 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Heslo pro zavaděč systému brání uživatelům měnit parametry jádra při jeho "
-"zavedení. Pro dosažení vyššího zabezpečení doporučujeme nastavit heslo, ale "
-"pro běžné použití to není nutné."
+"Heslo pro zavaděč systému brání uživatelům, aby při startu systému měnili "
+"nebo přidávali jádru dodatečné parametry. Chcete-li systém zabezpečit, "
+"nastavte heslo. Pro běžné použití to však není nutné."
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr "Použít heslo pro GRUB"
+msgstr "Chránit GRUB heslem"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Heslo pro zavaděč systému:"
+msgstr "Heslo pro zavaděč GRUB:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr "Heslo (znovu):"
+msgstr "Heslo pro GRUB (znovu):"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
@@ -4792,7 +4788,7 @@ msgstr "Zvolte skupiny balíčků, které chcete nainstalovat"
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
+"  <Mezera>,<+>,<-> vybrat   |   <F2> Detaily skupiny   |   <F12> pokračovat"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -4980,7 +4976,7 @@ msgstr "Přesto použít"
 
 #: ../textw/partition_text.py:271
 msgid "Mount Point:"
-msgstr "Místo připojení:"
+msgstr "Připojeno do:"
 
 #: ../textw/partition_text.py:323
 msgid "File System type:"
@@ -5036,7 +5032,7 @@ msgstr "Jmenovka systému souborů:"
 
 #: ../textw/partition_text.py:575
 msgid "File System Option:"
-msgstr "Možnosti systému souborů:"
+msgstr "Nastavení systému souborů:"
 
 #: ../textw/partition_text.py:578 ../textw/partition_text.py:816
 #: ../textw/partition_text.py:1053 ../textw/partition_text.py:1224
@@ -5058,7 +5054,7 @@ msgstr "Ponechat beze změny"
 #: ../textw/partition_text.py:598 ../textw/partition_text.py:793
 #: ../textw/partition_text.py:1033 ../textw/partition_text.py:1204
 msgid "File System Options"
-msgstr "Možnosti systému souborů"
+msgstr "Nastavení systému souborů"
 
 #: ../textw/partition_text.py:601
 msgid ""
@@ -5193,7 +5189,7 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
+"   F1-Nápověda   F2-Nový   F3-Upravit   F4-Odstranit   F5-Obnovit   F12-Ok   "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -5213,17 +5209,18 @@ msgid ""
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
-"Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
-"vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů. "
-"Můžete buď zvolit standardní rozdělení disku nebo definovat vlastní."
+"Před instalací je potřeba rozdělit disk na oddíly a určit, kam se bude "
+"instalovat. Automatické rozdělení vytvoří implicitní rozdělení, které "
+"bude ve většině případů vyhovovat. Můžete také vytvořit oddíly ručně "
+"a sami určit, kam budou připojeny."
 
 #: ../textw/partition_text.py:1558
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Které disky chcete použít pro instalaci?"
+msgstr "Které disky chcete pro instalaci použít?"
 
 #: ../textw/partition_text.py:1573
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Mezera>,<+>,<-> výběr | <F2> Detaily skupiny |  <F12> další obrazovka"
+msgstr "<Mezera>,<+>,<-> vybrat  |  <F2> přidat jednotku  |  <F12> pokračovat"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5860,7 +5857,7 @@ msgstr "Vítá vás %s - Záchranný režim"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-" <Tab>/<Alt-Tab> přepíná mezi položkami  | <Mezera> výběr | <F12> pokračovat"
+"  <Tab>/<Alt-Tab> další položka   |  <Mezera> vybrat   |  <F12> pokračovat "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
