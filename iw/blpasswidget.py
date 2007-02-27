@@ -143,7 +143,7 @@ class BootloaderPasswordWidget:
                 continue
             if len(thePass) < 6:
                 ret = self.intf.messageWindow(_("Warning"),
-                                    _("Your boot loader password is less than "
+                                    _("Your boot loader password is shorter than "
                                       "six characters.  We recommend a longer "
                                       "boot loader password."
                                       "\n\n"

@@ -39,10 +39,10 @@ class AdvancedBootloaderWindow(InstallWindow):
         # forcing lba32 can be a bad idea.. make sure they really want to
         if (self.forceLBA.get_active() and not self.bl.forceLBA32):
             rc = self.intf.messageWindow(_("Warning"),
-                    _("Forcing the use of LBA32 for your bootloader when "
-                      "not supported by the BIOS can cause your machine "
-                      "to be unable to boot.\n\n"
-                      "Would you like to continue and force LBA32 mode?"),
+                        _("If LBA32 is not supported by your system's BIOS, "
+                          "forcing its use can prevent your machine from "
+                          "booting.\n\n"
+                          "Would you like to continue and force LBA32 mode?"),
                                          type = "custom",
                                          custom_buttons = [_("Cancel"),
                                                            _("Force LBA32")])

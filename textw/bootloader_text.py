@@ -57,13 +57,12 @@ class BootloaderChoiceWindow:
 
             if blradio.getSelection() == "nobl":
                 rc = ButtonChoiceWindow(screen, _("Skip Boot Loader"),
-				_("You have elected to not install "
-				  "any boot loader. It is strongly recommended "
-				  "that you install a boot loader unless "
-				  "you have an advanced need.  A boot loader "
-				  "is almost always required in order "
-				  "to reboot your system into Linux "
-				  "directly from the hard drive.\n\n"
+				_("You have elected not to install "
+				  "any boot loader, which is not recommended "
+				  "unless you have an advanced need. Booting "
+             "your system into Linux directly from the "
+             "hard drive almost always requires a boot "
+             "loader.\n\n"
 				  "Are you sure you want to skip boot loader "
 				  "installation?"),
 				[ (_("Yes"), "yes"), (_("No"), "no") ],
@@ -90,8 +89,8 @@ class BootloaderAppendWindow:
 	if anaconda.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
         
 	t = TextboxReflowed(53,
-		     _("A few systems will need to pass special options "
-		       "to the kernel at boot time for the system to function "
+		     _("A few systems need to pass special options "
+		       "to the kernel at boot time to function "
 		       "properly. If you need to pass boot options to the "
 		       "kernel, enter them now. If you don't need any or "
 		       "aren't sure, leave this blank."))
@@ -122,9 +121,9 @@ class BootloaderAppendWindow:
 
             if cb.selected() and not anaconda.id.bootloader.forceLBA32:
                 rc = anaconda.intf.messageWindow(_("Warning"),
-                        _("Forcing the use of LBA32 for your bootloader when "
-                          "not supported by the BIOS can cause your machine "
-                          "to be unable to boot.\n\n"                          
+                        _("If LBA32 is not supported by your system's BIOS, "
+                          "forcing its use can prevent your machine from "
+                          "booting.\n\n"
                           "Would you like to continue and force LBA32 mode?"),
                                              type = "yesno")
 
@@ -276,7 +275,7 @@ class BootloaderImagesWindow:
 
 	text = TextboxReflowed(55,
 		    _("The boot manager %s uses can boot other " 
-		      "operating systems as well. You need to tell me " 
+		      "operating systems as well.  Please tell me " 
 		      "what partitions you would like to be able to boot " 
 		      "and what label you want to use for each of them.") % (productName,))
 
@@ -385,8 +384,8 @@ class BootloaderPasswordWindow:
 
 	text = TextboxReflowed(55,
 		    _("A boot loader password prevents users from passing arbitrary "
-                      "options to the kernel.  For highest security, we "
-                      "recommend setting a password, but this is not "
+                      "options to the kernel.  For highest security, you "
+                      "should set a password, but a password is not "
                       "necessary for more casual users."))
 
 	g = GridFormHelp(screen, _("Boot Loader Configuration"), 
@@ -447,7 +446,7 @@ class BootloaderPasswordWindow:
 
             if len(pw) < 6:
                 rc = anaconda.intf.messageWindow(_("Warning"),
-                                    _("Your boot loader password is less than "
+                                    _("Your boot loader password is shorter than "
                                       "six characters.  We recommend a longer "
                                       "boot loader password."
                                       "\n\n"

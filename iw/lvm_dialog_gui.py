@@ -130,7 +130,7 @@ class VolumeGroupEditor:
 					   "up in size to an integer multiple "
 					   "of the "
 					   "physical extent.\n\nThis change "
-					   "will take affect immediately."),
+					   "will take effect immediately."),
 					 type="custom", custom_icon="question",
 					 custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
@@ -555,7 +555,7 @@ class VolumeGroupEditor:
 		if used:
 		    self.intf.messageWindow(_("Mount point in use"),
 					    _("The mount point \"%s\" is in "
-					      "use, please pick another.") %
+					      "use. Please pick another.") %
 					    (mntpt,), custom_icon="error")
 		    continue
 
@@ -600,7 +600,7 @@ class VolumeGroupEditor:
 	    if size > maxlv:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The current requested size "
-					  "(%10.2f MB) is larger than maximum "
+					  "(%10.2f MB) is larger than the maximum "
 					  "logical volume size (%10.2f MB). "
 					  "To increase this limit you can "
 					  "create more Physical Volumes from "
@@ -728,8 +728,8 @@ class VolumeGroupEditor:
 				    _("There is no room left in the "
 				      "volume group to create new logical "
 				      "volumes. "
-				      "To add a logical volume you will need "
-				      "to reduce the size of one or more of "
+				      "To add a logical volume you must "
+				      "reduce the size of one or more of "
 				      "the currently existing "
 				      "logical volumes"), custom_icon="error")
 	    return
@@ -753,7 +753,7 @@ class VolumeGroupEditor:
 	    return
 
 	rc = self.intf.messageWindow(_("Confirm Delete"),
-				_("Are you sure you want to Delete the "
+				_("Are you sure you want to delete the "
 				"logical volume \"%s\"?") % (logvolname,),
 				type = "custom", custom_buttons=["gtk-cancel", _("_Delete")], custom_icon="warning")
 	if not rc:

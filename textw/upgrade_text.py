@@ -31,9 +31,9 @@ class UpgradeMigrateFSWindow:
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
 	text = _("This release of %s supports "
-                 "the ext3 journalling file system.  It has several "
+                 "the ext3 journaling file system, which has several "
                  "benefits over the ext2 file system traditionally shipped "
-                 "in %s.  It is possible to migrate the ext2 "
+                 "in %s.  This installation program can migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?"
                  % (productName, productName))
@@ -86,8 +86,8 @@ class UpgradeSwapWindow:
 
         ramDetected = iutil.memInstalled()/1024
 
-	text = _("The 2.4 kernel needs significantly more swap than older "
-		 "kernels, as much as twice as much swap space as RAM on the "
+	text = _("Recent kernels (2.4 or newer) need significantly more swap than older "
+		 "kernels, up to twice the amount of RAM on the "
 		 "system. You currently have %dMB of swap configured, but "
 		 "you may create additional swap space on one of your "
 		 "file systems now.") % (iutil.swapAmount() / 1024)
@@ -201,8 +201,7 @@ class UpgradeExamineWindow:
             partList.append("%s (%s)" %(desc, drive))
 
         (button, choice) =  ListboxChoiceWindow(screen, _("System to Upgrade"),
-                            _("One or more existing Linux installations "
-			      "have been found "
+                            _("There seem to be one or more existing Linux installations "
                               "on your system.\n\nPlease choose one to upgrade, "
 			      "or select 'Reinstall System' to freshly install "
 			      "your system."), partList,

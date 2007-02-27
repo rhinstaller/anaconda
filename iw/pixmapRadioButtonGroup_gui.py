@@ -224,7 +224,7 @@ if __name__ == "__main__":
     r.addEntry("upgrade", "_Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing %s system.  This option will preserve the data on your drive" % (productName,), userdata="data")
 
     r.addEntry("install", "_Reinstall %s" %(productName,), pixmap=readPixmap("../pixmaps/install.png"),
-	       descr="Choose this option to reinstall your system.  Depending on how you partition your system your previous data may or may not be lost.", userdata="data2")
+	       descr="Choose this option to reinstall your system.  Depending on how you partition your system, your previous data may be lost.", userdata="data2")
     b = r.render()
     r.setCurrent("Don't Upgrade")
 

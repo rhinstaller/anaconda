@@ -86,9 +86,9 @@ class UpgradeSwapWindow (InstallWindow):
         box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
-	label = gtk.Label (_("The 2.4 kernel needs significantly more "
-                            "swap than older kernels, as much as twice "
-                            "as much swap space as RAM on the system.  "
+	label = gtk.Label (_("Recent kernels (2.4 or newer) need significantly more "
+                            "swap than older kernels, up to twice "
+                            "the amount of RAM on the system.  "
                             "You currently have %dMB of swap configured, but "
                             "you may create additional swap space on one of "
                             "your file systems now.")
@@ -151,8 +151,8 @@ class UpgradeSwapWindow (InstallWindow):
 	sel = self.view.get_selection()
 	sel.select_iter(rootiter)
 
-        label = gtk.Label (_("It is recommended that your swap file be at "
-                            "least %d MB.  Please enter a size for the swap "
+        label = gtk.Label (_("A minimum swap file size of "
+                            "%d MB is recommended.  Please enter a size for the swap "
                             "file:") % suggSize)
         label.set_size_request(400, 40)
         label.set_line_wrap (True)
@@ -186,9 +186,9 @@ class UpgradeSwapWindow (InstallWindow):
 
     def warning(self):
         rc = self.intf.messageWindow(_("Warning"), 
-                    _("It is stongly recommended that you create a swap "
-                      "file.  Failure to do so could cause the installer "
-                      "to abort abnormally.  Are you sure that you wish "
+                    _("A swap file is stongly recommended. "
+                      "Failure to create one could cause the installer "
+                      "to abort abnormally.  Are you sure you wish "
                       "to continue?"), type = "yesno")
         return rc
 

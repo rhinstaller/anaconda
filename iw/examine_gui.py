@@ -57,7 +57,7 @@ class UpgradeExamineWindow (InstallWindow):
 		   pixmap=gui.readImageFromFile("upgrade.png"),
 		   descr=_("Choose this option if you would like "
                            "to upgrade your existing %s system.  "
-                           "This option will preserve the "
+                           "This option preserves the "
                            "existing data on your drives.") %(productName,))
         
 	return r

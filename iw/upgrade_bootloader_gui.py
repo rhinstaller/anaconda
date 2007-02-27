@@ -86,7 +86,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.newbl_radio = gtk.RadioButton(self.update_radio,
                                           _("_Create new boot loader "
                                             "configuration"))
-        self.newbl_label = gtk.Label(_("This will let you create a "
+        self.newbl_label = gtk.Label(_("This option creates a "
                                       "new boot loader configuration.  If "
                                       "you wish to switch boot loaders, you "
                                       "should choose this."))
@@ -94,7 +94,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.newbl_radio.set_active(False)
         self.nobl_radio = gtk.RadioButton(self.update_radio,
                                          _("_Skip boot loader updating"))
-        self.nobl_label = gtk.Label(_("This will make no changes to boot "
+        self.nobl_label = gtk.Label(_("This option makes no changes to boot "
                                      "loader configuration.  If you are "
                                      "using a third party boot loader, you "
                                      "should choose this."))

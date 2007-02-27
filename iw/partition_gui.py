@@ -630,11 +630,10 @@ class PartitionWindow(InstallWindow):
         (errors, warnings) = self.partitions.sanityCheckAllRequests(self.diskset)
 
         if errors:
-            labelstr1 =  _("The following critical errors exist "
-                           "with your requested partitioning "
-                           "scheme.")
-            labelstr2 = _("These errors must be corrected prior "
-                          "to continuing with your install of "
+            labelstr1 =  _("The partitioning scheme you requested "
+                           "caused the following critical errors.")
+            labelstr2 = _("You must correct these errors before "
+                          "you continue your installation of "
                           "%s.") % (productName,)
 
             commentstr = string.join(errors, "\n\n")
@@ -645,8 +644,8 @@ class PartitionWindow(InstallWindow):
             raise gui.StayOnScreen
         
         if warnings:
-            labelstr1 = _("The following warnings exist with "
-                         "your requested partition scheme.")
+            labelstr1 = _("The partitioning scheme you requested"
+                          "generated the following warnings.")
             labelstr2 = _("Would you like to continue with "
                          "your requested partitioning "
                          "scheme?")
@@ -1249,7 +1248,7 @@ class PartitionWindow(InstallWindow):
 	    lbltxt = lbltxt + _("To use RAID you must first "
 				"create at least two partitions of type "
 				"'software RAID'.  Then you can "
-				"create a RAID device which can "
+				"create a RAID device that can "
 				"be formatted and mounted.\n\n")
 	    
 	lbltxt = lbltxt + _("What do you want to do now?")

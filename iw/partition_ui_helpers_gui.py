@@ -343,7 +343,7 @@ def doUIRAIDLVMChecks(request, diskset):
     if fstype and fstype.getName() in ["physical volume (LVM)", "software RAID"]:
 	if numdrives > 1 and (request.drive is None or len(request.drive) > 1):
 	    return (_("Partitions of type '%s' must be constrained to "
-		      "a single drive.  This is done by selecting the "
+		      "a single drive.  To do this, select the "
 		      "drive in the 'Allowable Drives' checklist.")) % (fstype.getName(),)
     
     return None

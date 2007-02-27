@@ -28,8 +28,8 @@ class RootPasswordWindow:
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
 				"type it twice to ensure you know "
-				"what it is and didn't make a mistake "
-				"in typing. Remember that the "
+				"it and do not make a typing mistake. "
+				"Remember that the "
 				"root password is a critical part "
 				"of system security!")), 0, 0, (0, 0, 0, 1))
 
@@ -67,8 +67,8 @@ class RootPasswordWindow:
 		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             elif has_bad_chars(entry1.value()):
                 ButtonChoiceWindow(screen, _("Error with Password"),
-		       _("Requested password contains non-ascii characters "
-                         "which are not allowed for use in password."),
+		       _("Requested password contains non-ASCII characters, "
+                         "which are not allowed."),
 		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
                 break

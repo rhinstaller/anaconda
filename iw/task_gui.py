@@ -88,8 +88,8 @@ class TaskWindow(InstallWindow):
         if not repo.groups_added:
             self.intf.messageWindow(_("Warning"),
                            _("Unable to find a group file for %s.  "
-                             "This will make manual selection of packages "
-                             "from the repository not work") %(repo.id,),
+                             "This will prevent manual selection of packages "
+                             "from the repository from working") %(repo.id,),
                                     type="warning")
 
         return True

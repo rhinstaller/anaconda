@@ -63,8 +63,8 @@ class AccountWindow (InstallWindow):
             if letter not in allowed:
                 self.intf.messageWindow(_("Error with Password"),
                                         _("Requested password contains "
-                                          "non-ascii characters which are "
-                                          "not allowed for use in password."),
+                                          "non-ASCII characters, which are "
+                                          "not allowed."),
                                         custom_icon="error")
                 passwordError()
 

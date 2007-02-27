@@ -50,9 +50,9 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box.set_border_width (5)
 
 	text = N_("This release of %s supports "
-                 "the ext3 journalling file system.  It has several "
+                 "the ext3 journaling file system, which has several "
                  "benefits over the ext2 file system traditionally shipped "
-                 "in %s.  It is possible to migrate the ext2 "
+                 "in %s.  This installation program can migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?" %
                   (productName, productName))

@@ -702,7 +702,7 @@ class HostnameWindow:
                                _("If your system is part of a larger network "
                                  "where hostnames are assigned by DHCP, "
                                  "select automatically via DHCP. Otherwise, "
-                                 "select manually and enter in a hostname for "
+                                 "select manually and enter a hostname for "
                                  "your system. If you do not, your system "
                                  "will be known as 'localhost.'"))
         toplevel.add(text, 0, 0, (0, 0, 0, 1))

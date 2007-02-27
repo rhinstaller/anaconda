@@ -85,7 +85,7 @@ class GroupSelectionWindow:
                          "packagetree", 1, 5)
 
         t = TextboxReflowed(50, _("Please select the package groups you "
-                                  "would like to have installed."))
+                                  "would like to install."))
         g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
 
         # FIXME: this is very yum backend specific...

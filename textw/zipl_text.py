@@ -27,7 +27,7 @@ class ZiplWindow:
                            "on your system after installation is complete. "
                            "You can now enter any additional kernel and "
                            "chandev parameters which your machine or your "
-                           "setup may require."))
+                           "setup require."))
 
         kernelparms = ""
         kernelentry = Entry(48, scroll = 1, returnExit = 1)

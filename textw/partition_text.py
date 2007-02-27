@@ -769,8 +769,8 @@ class PartitionWindow:
 
 	elif origrequest.type == REQUEST_VG:
 	    self.intf.messageWindow(_("Not Supported"),
-				    _("LVM Volume Groups can only be "
-				      "edited in the graphical installer."))
+				    _("You can only edit LVM Volume Groups "
+				      "in the graphical installer."))
 	    return
 
         elif (origrequest.type == REQUEST_LV or origrequest.type == REQUEST_PREEXIST) and origrequest.fstype:
@@ -1093,8 +1093,8 @@ class PartitionWindow:
 
 		if request.raidlevel == "RAID0" and request.raidspares > 0:
 		    self.intf.messageWindow(_("Too many spares"),
-					      _("The maximum number of spares with "
-					      "a RAID0 array is 0."))
+					      _("You may not use any spares "
+					      "with a RAID0 array."))
 		    continue
 	    else:                
 		request.format = format
@@ -1175,7 +1175,7 @@ class PartitionWindow:
             vgs = self.partitions.getLVMVGRequests()
             if len(vgs) < 1:
                 ButtonChoiceWindow (self.screen, _("No Volume Groups"),
-                                    _("No volume groups in which to create "
+                                    _("No volume groups exist in which to create "
                                       "a logical volume"),[ TEXT_OK_BUTTON ])
                 return
 
@@ -1300,7 +1300,7 @@ class PartitionWindow:
                 if size > lvm.getMaxLVSize(pesize):
                     self.intf.messageWindow(_("Not enough space"),
                                             _("The current requested size "
-                                              "(%10.2f MB) is larger than "
+                                              "(%10.2f MB) is larger than the "
                                               "maximum logical volume "
                                               "size (%10.2f MB). ") % (size,
                                                                        maxlv),
@@ -1487,7 +1487,7 @@ class PartitionWindow:
             else:
                 if not self.partitions.getRequestByMountPoint("/"):
                     self.intf.messageWindow(_("No Root Partition"),
-                        _("Must have a / partition to install on."))
+                        _("Installation requires a / partition."))
                     continue
                 
                 (errors, warnings) = self.partitions.sanityCheckAllRequests(self.diskset)

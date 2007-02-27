@@ -495,11 +495,11 @@ class RaidCloneDialog:
         for req in requests:
             if not req.fstype or req.fstype.getName() != "software RAID":
                 self.intf.messageWindow(_("Source Drive Error"),
-                                        _("The source drive selected has "
-                                          "partitions on it which are not of "
+                                        _("The source drive you selected has "
+                                          "partitions which are not of "
                                           "type 'software RAID'.\n\n"
-                                          "These "
-                                          "partitions will have to be removed "
+                                          "You must remove these "
+                                          "partitions "
                                           "before this drive can be cloned. "),
 					custom_icon="error")
                 return 1
@@ -507,11 +507,11 @@ class RaidCloneDialog:
         for req in requests:
             if not req.drive or req.drive[0] != self.sourceDrive or len(req.drive) > 1:
                 self.intf.messageWindow(_("Source Drive Error"),
-                                        _("The source drive selected has "
+                                        _("The source drive you selected has "
                                           "partitions which are not "
                                           "constrained to the drive /dev/%s.\n\n"
-                                          "These partitions will have to be "
-                                          "removed or restricted to this "
+                                          "You must remove these partitions "
+                                          "or restrict them to this "
                                           "drive "
                                           "before this drive can be cloned. ")
                                         %(self.sourceDrive,), custom_icon="error")
@@ -520,12 +520,12 @@ class RaidCloneDialog:
         for req in requests:
             if self.partitions.isRaidMember(req):
                 self.intf.messageWindow(_("Source Drive Error"),
-                                        _("The source drive selected has "
+                                        _("The source drive you selected has "
                                           "software RAID partition(s) which "
                                           "are members of an active "
                                           "software RAID device.\n\n"
-                                          "These partitions will have to be "
-                                          "removed before this drive "
+                                          "You must remove these partitions "
+                                          "before this drive "
                                           "can be cloned."), custom_icon="error")
                 return 1
 
@@ -563,7 +563,7 @@ class RaidCloneDialog:
                                               "has a partition which cannot "
                                               "be removed for the following "
                                               "reason:\n\n\"%s\"\n\n"
-                                              "This partition must be removed "
+                                              "You must remove this partition "
                                               "before "
                                               "this drive can be a target.") %
                                             (drive, rc), custom_icon="error")
@@ -696,10 +696,10 @@ class RaidCloneDialog:
         lbl = gui.WrappingLabel(_("Clone Drive Tool\n\n"
                                   "This tool allows you to significantly "
                                   "reduce the amount of effort required "
-                                  "to setup RAID arrays.  The idea is to "
-                                  "take a source drive which has been "
+                                  "to setup RAID arrays.  This tool "
+                                  "uses a source drive which has been "
                                   "prepared with the desired partitioning "
-                                  "layout, and clone this layout onto other "
+                                  "layout, and clones this layout onto other "
                                   "similar sized drives.  Then a RAID device "
                                   "can be created.\n\n"
                                   "NOTE: The source drive must have "
