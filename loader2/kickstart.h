@@ -20,6 +20,7 @@
 #define KS_CMD_HALT        15
 #define KS_CMD_SHUTDOWN    16
 #define KS_CMD_MEDIACHECK  17
+#define KS_CMD_UPDATES     18
 
 int ksReadCommands(char * cmdFile);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);

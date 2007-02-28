@@ -79,6 +79,8 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
                         char ** argv);
 static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
                           char ** argv);
+static void setUpdates(struct loaderData_s * loaderData, int argc,
+                       char ** argv);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv);
 
@@ -100,6 +102,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_HALT, "halt", setHalt },
     { KS_CMD_SHUTDOWN, "shutdown", setShutdown },
     { KS_CMD_MEDIACHECK, "mediacheck", setMediaCheck },
+    { KS_CMD_UPDATES, "updates", setUpdates },
     { KS_CMD_NONE, NULL, NULL }
 };
 
@@ -414,6 +417,16 @@ void getKickstartFile(struct loaderData_s *loaderData) {
 
     flags |= LOADER_FLAGS_KICKSTART;
     return;
+}
+
+static void setUpdates(struct loaderData_s * loaderData, int argc,
+                       char ** argv) {
+   if (argc == 1)
+      flags |= LOADER_FLAGS_UPDATES;
+   else if (argc == 2)
+      loaderData->updatessrc = strdup(argv[1]);
+   else
+      logMessage(WARNING, "updates command given with incorrect arguments");
 }
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 

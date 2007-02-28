@@ -3,6 +3,11 @@
 	* anaconda (setVNCFromKickstart):  Handle any kickstart exceptions
 	instead of just printing a traceback.
 
+	* loader2/kickstart.h:  Add support for an updates command.
+	* loader2/kickstart.c:  Likewise.
+
+	* docs/kickstart-docs.txt:  Describe new updates command.
+
 2007-02-28  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/splittree.py (usage): Fix reserve-size (#230343)

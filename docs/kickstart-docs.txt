@@ -1,6 +1,6 @@
                                    Kickstart
 
-   Copyright (c) 2003-2006 by Red Hat, Inc.
+   Copyright (c) 2003-2007 by Red Hat, Inc.
 
    This material may be distributed only subject to the terms and 
    conditions set forth in the Open Publication License, V1.0 or later 
@@ -1110,6 +1110,19 @@ Creating the Kickstart File
 
            If present, the system assumes the hardware clock is set to UTC
            (Greenwich Mean) time.
+
+   updates (optional)
+
+       Specify the location of an updates.img for use in installation.
+       See anaconda-release-notes.txt for a description of how to make an
+       updates.img.
+
+       updates [url]
+
+       url
+
+           If present, the URL for an updates image.  If not present,
+           anaconda will attempt to load from a floppy disk.
 
    upgrade (optional)
 
