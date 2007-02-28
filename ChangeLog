@@ -1,3 +1,8 @@
+2007-02-28  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda (setVNCFromKickstart):  Handle any kickstart exceptions
+	instead of just printing a traceback.
+
 2007-02-28  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/splittree.py (usage): Fix reserve-size (#230343)

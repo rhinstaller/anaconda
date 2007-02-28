@@ -269,7 +269,15 @@ def setVNCFromKickstart(opts):
     # kickstart file
     handler = VNCHandler()
     ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
-    ksparser.readKickstart(opts.ksfile)
+
+    # We don't have an intf by now so the best we can do is just print the
+    # exception out.
+    try:
+        ksparser.readKickstart(opts.ksfile)
+    except KickstartError, e:
+        print _("The following error was found while parsing your "
+                "kickstart configuration:\n\n%s") % e
+        sys.exit(1)
 
     if handler.vnc.enabled:
         flags.usevnc = 1
