@@ -13,6 +13,9 @@
 	* partRequests.py:  Likewise.
 	* raid.py:  Likewise.
 
+	* gui.py (InstallControlWindow.setScreen):  exec must die.
+	* text.py (InstallInterface.run):  Likewise.
+
 2007-02-28  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/splittree.py (usage): Fix reserve-size (#230343)

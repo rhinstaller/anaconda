@@ -30,6 +30,7 @@ from constants_text import *
 from constants import *
 from network import hasActiveNetDev
 import floppy
+import imputil
 
 import rhpl
 from rhpl.translate import _, cat, N_
@@ -549,11 +550,26 @@ class InstallInterface:
 	    while step >= 0 and step < len(classNames):
                 # reget the args.  they could change (especially direction)
                 (foo, args) = anaconda.dispatch.currentStep()
-
                 nextWindow = None
-		s = "from %s import %s; nextWindow = %s" % \
-			(file, classNames[step], classNames[step])
-		exec s
+
+                while 1:
+                    try:
+                        found = imputil.imp.find_module(file)
+                        loaded = imputil.imp.load_module(classNames[step],
+                                                         found[0], found[1],
+                                                         found[2])
+                        nextWindow = loaded.__dict__[classNames[step]]
+                        break
+                    except ImportError, e:
+                        rc = ButtonChoiceWindow(self.screen, _("Error!"),
+                                          _("An error occurred when attempting "
+                                            "to load an installer interface "
+                                            "component.\n\nclassName = %s")
+                                          % (classNames[step],),
+                                          buttons=[_("Exit"), _("Retry")])
+
+                        if rc == string.lower(_("Exit")):
+                            sys.exit(0)
 
 		win = nextWindow()
 

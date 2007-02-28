@@ -41,6 +41,7 @@ from network import hasActiveNetDev
 import floppy
 import rhpl
 import xutils
+import imputil
 
 from rhpl.translate import _, N_
 
@@ -1086,11 +1087,13 @@ class InstallControlWindow:
 
         (file, className) = stepToClass[step]
         newScreenClass = None
-        s = "from %s import %s; newScreenClass = %s" % (file, className,
-                                                            className)
+
         while 1:
             try:
-                exec s
+                found = imputil.imp.find_module(file)
+                loaded = imputil.imp.load_module(className, found[0], found[1],
+                                                 found[2])
+                newScreenClass = loaded.__dict__[className]
                 break
             except ImportError, e:
                 print e
