@@ -468,7 +468,7 @@ if "__main__" == __name__:
         timber.product_path = options["--productpath"]
 
     if options.has_key("--reserve-size"):
-        timber.reserve_size = float(options["--reserve_size"])
+        timber.reserve_size = float(options["--reserve-size"])
 
     logfile = timber.main()
     
