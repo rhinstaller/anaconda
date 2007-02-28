@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com
 #
-# Copyright 2003 Red Hat, Inc.
+# Copyright 2003-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -17,7 +17,7 @@ import sys, os
 import isys, iutil
 import time
 import signal
-import parted, rpm
+import parted
 from constants import *
 from flags import flags
 
@@ -133,38 +133,24 @@ class InstallInterface:
 
 class progressDisplay:
     def __init__(self):
-        pass
+        self.pct = 0
+        self.display = ""
 
     def __del__(self):
         pass
 
-    def completePackage(self, hdr, timer):
-        self.numComplete = self.numComplete + 1
-	self.sizeComplete = self.sizeComplete + (hdr[rpm.RPMTAG_SIZE] / 1024)
-
-        print _("Done [%d/%d]" %(self.numComplete, self.total))
-
-    def setPackageScale(self, amount, total):
-        pass
-
-    def setPackage(self, hdr):
-        print _("Installing %s-%s-%s... ") %(hdr[rpm.RPMTAG_NAME],
-                                             hdr[rpm.RPMTAG_VERSION],
-                                             hdr[rpm.RPMTAG_RELEASE]),
-
     def processEvents(self):
         pass
-
-    def setSizes(self, total, totalSize, totalFiles):
-        self.total = total
-        self.totalSize = totalSize
-        self.numComplete = 0
-        self.sizeComplete = 0
-
-    def setPackageStatus(self, state, amount):
-        if state != "downloading":
-            print state
-
+    def get_fraction(self):
+        return self.pct
+    def set_fraction(self, pct):
+        self.pct = pct
+    def set_text(self, txt):
+        pass
+    def set_label(self, txt):
+        if txt != self.display:
+            self.display = txt
+            print self.display
 
 def setupProgressDisplay(anaconda):
     if anaconda.dir == DISPATCH_BACK:

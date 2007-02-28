@@ -110,6 +110,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             return
 
         progress = anaconda.id.instProgress
+        progress.set_label(_("Copying live image to hard drive."))
         progress.processEvents()
 
         osimg = "/mnt/installer/squashed/os.img" # the real image
@@ -128,7 +129,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             if (written < readamt) and (written < len(buf)):
                 raise RuntimeError, "error copying filesystem!"
             copied += written
-            progress.completePackage(pct = copied / size)
+            progress.set_fraction(pct = copied / size)
             progress.processEvents()
 
         os.close(osfd)

@@ -18,6 +18,7 @@ import shutil
 import timer
 import warnings
 import types
+import locale
 
 import rpm
 import rpmUtils
@@ -64,26 +65,55 @@ def getcd(po):
     except (AttributeError, KeyError):
         return 0
 
+def size_string (size):
+    def number_format(s):
+        return locale.format("%s", s, 1)
+
+    if size > 1024 * 1024:
+        size = size / (1024*1024)
+        return _("%s MB") %(number_format(size),)
+    elif size > 1024:
+        size = size / 1024
+        return _("%s KB") %(number_format(size),)        
+    else:
+        if size == 1:
+            return _("%s Byte") %(number_format(size),)                    
+        else:
+            return _("%s Bytes") %(number_format(size),)
 
 class simpleCallback:
 
-    def __init__(self, repos, messageWindow, progress, pkgTimer, method,
+    def __init__(self, repos, messageWindow, progress, method,
                  progressWindowClass, instLog, modeText, ts):
+        self.method = method
         self.repos = repos
+        self.ts = ts
+        
         self.messageWindow = messageWindow
         self.progress = progress
-        self.pkgTimer = pkgTimer
-        self.method = method
         self.progressWindowClass = progressWindowClass
+
+        self.beenCalled = 0
+        self.initWindow = None
+
         self.progressWindow = None
         self.lastprogress = 0
         self.incr = 20
+
         self.instLog = instLog
         self.modeText = modeText
-        self.beenCalled = 0
-        self.initWindow = None
-        self.ts = ts
-        self.files = {}
+
+        self.files = {} 
+
+    def setSizes(self, numpkgs, totalSize, totalFiles):
+        self.numpkgs = numpkgs
+        self.totalSize = totalSize
+        self.totalFiles = totalFiles
+
+        self.donepkgs = 0
+        self.doneSize = 0
+        self.doneFiles = 0
+        
 
     def callback(self, what, amount, total, h, user):
         # first time here means we should pop the window telling
@@ -113,23 +143,19 @@ class simpleCallback:
             self.progressWindow.pop()
 
         if what == rpm.RPMCALLBACK_INST_OPEN_FILE:
-            self.pkgTimer.start()
-
             po = h
             hdr = po.returnLocalHeader()
-            path = po.returnSimple('relativepath')
             repo = self.repos.getRepo(po.repoid)
 
-            self.progress.setPackage(hdr)
-            self.progress.setPackageScale(0, 1)
-
+            s = _("<b>Installing %s</b> (%s)\n") %(po, size_string(hdr['size']))
+            s += (hdr['summary'] or "")
+            self.progress.set_label(s)
+            
             nvra = "%s" %(po,)
             self.instLog.write(self.modeText % (nvra,))
 
             self.instLog.flush()
             self.files[nvra] = None
-
-            self.size = po.returnSimple('installedsize')
 
             while self.files[nvra] == None:
                 try:
@@ -142,24 +168,24 @@ class simpleCallback:
 
             return self.files[nvra].fileno()
 
-        elif what == rpm.RPMCALLBACK_INST_PROGRESS:
-            if amount > total:
-                amount = total
-            if not total or total == 0 or total == "0":
-                total = amount
-            self.progress.setPackageScale(amount, total)
-
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
             po = h
             hdr = po.returnLocalHeader()
-            path = po.returnSimple('relativepath')
 
             nvra = "%s" %(po,)
 
             fn = self.files[nvra].name
             self.files[nvra].close()
             self.method.unlinkFilename(fn)
-            self.progress.completePackage(hdr, self.pkgTimer)
+
+            self.donepkgs += 1
+            self.doneSize += hdr['size']/1024.0
+            self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
+
+            self.progress.set_label("")
+            self.progress.set_text(_("%s of %s packages completed")
+                                   %(self.donepkgs, self.numpkgs))
+            self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
 
         else:
@@ -570,7 +596,7 @@ class AnacondaYum(YumSorter):
                 return -1
             if a < b:
                 return -1
-            elif b > a:
+            elif a > b:
                 return 1
             return 0
             
@@ -1317,12 +1343,11 @@ class YumBackend(AnacondaBackend):
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
-        pkgTimer = timer.Timer(start = 0)
+#        anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
+#        anaconda.id.instProgress.processEvents()
 
-        anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
-        anaconda.id.instProgress.processEvents()
-
-        cb = simpleCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
