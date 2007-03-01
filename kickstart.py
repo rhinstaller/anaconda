@@ -1084,7 +1084,7 @@ def setSteps(anaconda):
         dispatch.skipStep("welcome")
 
     # Make sure to automatically reboot even in interactive if told to.
-    if interactive and ksdata.reboot.action != KS_WAIT:
+    if interactive and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
         dispatch.skipStep("complete")
 
     # If the package section included anything, skip group selection unless

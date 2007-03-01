@@ -3,6 +3,8 @@
 	* anaconda:  Set the kickstart data after setting any initial timezone
 	info so we don't wipe out what was in the ksfile (#230472).
 
+	* kickstart.py (setSteps):  ksdata.reboot.action could be None.
+
 2007-02-28  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py: Use new progress API
