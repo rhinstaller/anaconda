@@ -904,12 +904,6 @@ if __name__ == "__main__":
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
 
-    if anaconda.isKickstart:
-        kickstart.processKickstartFile(anaconda, opts.ksfile)
-        # We need to copy the VNC-related kickstart stuff into the new ksdata
-        anaconda.id.ksdata.vnc(enabled=vncksdata.enabled, host=vncksdata.host,
-                               password=vncksdata.password, port=vncksdata.port)
-
     anaconda.setDispatch()
 
     if opts.lang:
@@ -921,6 +915,12 @@ if __name__ == "__main__":
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
         instClass.setKeyboard(anaconda.id, opts.keymap)
+
+    if anaconda.isKickstart:
+        kickstart.processKickstartFile(anaconda, opts.ksfile)
+        # We need to copy the VNC-related kickstart stuff into the new ksdata
+        anaconda.id.ksdata.vnc(enabled=vncksdata.enabled, host=vncksdata.host,
+                               password=vncksdata.password, port=vncksdata.port)
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:
