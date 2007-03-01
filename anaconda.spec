@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.27
+Version: 11.2.0.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 01 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.28-1
+- Support multiple %ksappend lines (#222201).
+- Set the ksdata after setting the initial timezone values (#230472).
+- New progress screen interface that's easier on backends (katzj).
+- Handle KickstartError exns better than just dumping a backtrace.
+- Add an updates ks command.
+- Apply a patch to support RAID10 (Orion Poplawski <orion AT cora.nwra.com>,
+  #230268).
+- Fix reserve-size option on splittree.py (katzj, #230343).
+- Apply a patch to clean up strings (Paul W. Frields <stickster AT gmail.com>,
+  #204564).
+- Focus the next button when enter is pressed on the password screen (#206568).
+
 * Mon Feb 26 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.27-1
 - Clean up partitioning text (katzj, #228198, #221791).
 - Write out the fstab after migrating (katzj, #223215).
