@@ -197,8 +197,7 @@ def register_raid_device(mdname, newdevices, newlevel, newnumActive):
     """Register a new RAID device in the mdlist."""
     for dev, devices, level, numActive in partedUtils.DiskSet.mdList:
         if mdname == dev:
-            if (devices != newdevices or level != newlevel or
-                numActive != newnumActive):
+            if (devices != newdevices or level != newlevel or numActive != newnumActive):
                 raise ValueError, "%s is already in the mdList!" % (mdname,)
             else:
                 return
