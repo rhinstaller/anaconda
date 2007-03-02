@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Automatically generated, 2004.
-# George Machitidze <giomac@gmail.com>, 2006.
+# George Machitidze <giomac@gmail.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: ka\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-08 10:49-0500\n"
-"PO-Revision-Date: 2006-09-27 00:48+0400\n"
+"PO-Revision-Date: 2007-03-03 01:26+0400\n"
 "Last-Translator: George Machitidze <giomac@gmail.com>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -172,8 +172,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1064
@@ -366,9 +365,9 @@ msgid "Upgrading %s\n"
 msgstr ""
 
 #: ../backend.py:108
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "ჩადგმა..."
+msgstr ""
 
 #: ../bootloader.py:129
 msgid "Bootloader"
@@ -411,7 +410,7 @@ msgstr ""
 #: ../cmdline.py:145
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "დასრულებულია [%d/%d]"
 
 #: ../cmdline.py:151
 #, python-format
@@ -599,6 +598,7 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1536 ../iw/partition_gui.py:367
+#, fuzzy
 msgid "Format"
 msgstr "ფორმატი"
 
@@ -762,7 +762,7 @@ msgstr ""
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "წკრანის ანაბეჭდი შეინახა სახელით '%s'."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
@@ -827,7 +827,7 @@ msgstr ""
 
 #: ../gui.py:952
 msgid "default:LTR"
-msgstr ""
+msgstr "ნაგულისხმები:LTR"
 
 #: ../gui.py:1036
 msgid "Error!"
@@ -843,7 +843,7 @@ msgstr ""
 
 #: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
 msgid "_Exit"
-msgstr ""
+msgstr "_გასვლა"
 
 #: ../gui.py:1043 ../yuminstall.py:754
 msgid "_Retry"
@@ -934,7 +934,7 @@ msgstr ""
 
 #: ../image.py:166 ../urlinstall.py:100
 msgid "Copying File"
-msgstr ""
+msgstr "ფაილის კოპირება"
 
 #: ../image.py:167 ../urlinstall.py:101
 msgid "Transferring install image to hard drive..."
@@ -1036,9 +1036,8 @@ msgid "Running pre-install scripts"
 msgstr ""
 
 #: ../kickstart.py:918
-#, fuzzy
 msgid "Missing Package"
-msgstr "პაკეტების ჩადგმა"
+msgstr ""
 
 #: ../kickstart.py:919
 #, python-format
@@ -1049,9 +1048,8 @@ msgstr ""
 
 #: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
 #: ../yuminstall.py:864
-#, fuzzy
 msgid "_Abort"
-msgstr "_გადატვირთვა"
+msgstr "_შეწყვეტა"
 
 #: ../kickstart.py:945
 msgid "Missing Group"
@@ -1070,8 +1068,7 @@ msgstr ""
 
 #: ../livecd.py:78 ../livecd.py:263
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:267
@@ -1080,7 +1077,7 @@ msgstr ""
 
 #: ../livecd.py:144
 msgid "Doing post-installation"
-msgstr ""
+msgstr "ინსტალაციისშემდგომი ოპერაციები"
 
 #: ../livecd.py:145
 msgid ""
@@ -1101,9 +1098,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "IP მისამართი"
+msgstr ""
 
 #: ../network.py:93
 msgid ""
@@ -1348,7 +1344,7 @@ msgstr "დანაყოფის _შეცვლა"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
-msgstr ""
+msgstr "არ დაა_ფორმატო"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
@@ -1424,14 +1420,12 @@ msgid "Confirm Reset"
 msgstr ""
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "ნამდვილად გსურთ დანაყოფების ცხრილის საწყის მდგომარეობაში დაბრუნება?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:252
@@ -1490,7 +1484,7 @@ msgstr ""
 #: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%s ტიპის RAID მოწყობილობა მოითხოვს მინიმუმ %s ელემენტს."
 
 #: ../partRequests.py:690
 #, python-format
@@ -1625,8 +1619,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
 #: ../partitions.py:867
@@ -1645,8 +1638,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:945
@@ -1698,7 +1690,7 @@ msgstr ""
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s-ის გაშვების მცდელობა"
 
 #: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1816,7 +1808,7 @@ msgstr "ამოღება"
 
 #: ../text.py:154 ../text.py:162
 msgid "Debug"
-msgstr ""
+msgstr "გამართვა"
 
 #: ../text.py:158
 msgid "Exception Occurred"
@@ -1861,8 +1853,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../text.py:423
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:425
@@ -1897,7 +1888,7 @@ msgstr ""
 
 #: ../upgrade.py:149 ../upgrade.py:157
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "დანაგვიანებული ფაილური სისტემა"
 
 #: ../upgrade.py:150
 #, python-format
@@ -2088,7 +2079,7 @@ msgstr ""
 #: ../vnc.py:283
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "%s ჰოსტზე vnc კლიენტით დაკავშირების მცდელობა..."
 
 #: ../vnc.py:295
 msgid "Connected!"
@@ -2175,8 +2166,7 @@ msgstr ""
 
 #: ../yuminstall.py:654
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 
 #: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
@@ -2396,7 +2386,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr ""
+msgstr "ჩამთვირთავის დამატებითი პარამეტრები"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
 msgid ""
@@ -2449,7 +2439,7 @@ msgstr ""
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "_მოწყობილობების რიგის შეცვლა"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
@@ -2482,7 +2472,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "%s-ის ჩადგმის გასაგრძელებლად დააჭირეთ შემდეგს."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2501,7 +2491,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "%s-ის განახლებისთვის დააჭირეთ შემდეგს."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -2512,7 +2502,7 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
-msgstr ""
+msgstr "გილოცავთ"
 
 #: ../iw/congrats_gui.py:60
 msgid ""
@@ -2663,11 +2653,11 @@ msgstr "ლოგიკური ტომის შექმნა"
 #: ../iw/lvm_dialog_gui.py:371
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr ""
+msgstr "ლოგიკური ტომის რედაქტირება: %s"
 
 #: ../iw/lvm_dialog_gui.py:373 ../textw/partition_text.py:1137
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "ლოგიკური ტომის რედაქტირება"
 
 #: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
 #: ../iw/raid_dialog_gui.py:284
@@ -2794,7 +2784,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr ""
+msgstr "ნამდვილად გსურთ წაშალოთ ლოგიკური ტომი \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -2829,11 +2819,11 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:962
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr ""
+msgstr "LVM ტომების ჯგუფის რედაქტირება: %s"
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Edit LVM Volume Group"
-msgstr ""
+msgstr "LVM ტომების ჯგუფის რედაქტირება"
 
 #: ../iw/lvm_dialog_gui.py:980
 msgid "_Volume Group Name:"
@@ -3019,7 +3009,7 @@ msgstr ""
 #: ../iw/network_gui.py:168 ../textw/network_text.py:55
 #, python-format
 msgid "A value is required for the field %s."
-msgstr ""
+msgstr "%s ველისთვის მნიშვნელობის მითითება აუცილებელია."
 
 #: ../iw/network_gui.py:171 ../textw/network_text.py:45
 #, python-format
@@ -3044,11 +3034,11 @@ msgstr ""
 
 #: ../iw/network_gui.py:308 ../iw/network_gui.py:322
 msgid "Disabled"
-msgstr ""
+msgstr "გამორთული"
 
 #: ../iw/network_gui.py:405
 msgid "Active on Boot"
-msgstr ""
+msgstr "ჩატვირთვისას აქტიური"
 
 #: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
@@ -3075,7 +3065,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:487
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "_ავტომატურად, DHCP-ის საშუალებით"
 
 #: ../iw/network_gui.py:494
 msgid "_manually"
@@ -3083,7 +3073,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:499
 msgid "(e.g., host.domain.com)"
-msgstr ""
+msgstr "(მაგ., host.domain.com)"
 
 #: ../iw/network_gui.py:505
 msgid "Hostname"
@@ -3094,9 +3084,8 @@ msgid "Miscellaneous Settings"
 msgstr "სხვადასხვა პარამეტრები"
 
 #: ../iw/network_gui.py:638
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID-მოწყობილობის რედაქტირება"
+msgstr "მოწყობილობის რედაქტირება"
 
 #: ../iw/network_gui.py:642
 msgid "Unknown Ethernet Device"
@@ -3108,14 +3097,12 @@ msgid "unknown"
 msgstr "უცნობი"
 
 #: ../iw/network_gui.py:650
-#, fuzzy
 msgid "Hardware address: "
-msgstr "IP მისამართი:"
+msgstr "აპარატურული მისამართი:"
 
 #: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "პაკეტების ჩადგმა"
+msgstr ""
 
 #: ../iw/network_gui.py:793 ../textw/network_text.py:322
 msgid "You must select at least IPv4 or IPv6 support."
@@ -3189,7 +3176,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr ""
+msgstr "მოწყობილობის დუბლირება"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
@@ -3209,7 +3196,7 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "ზომის დამატებითი პარამეტრები"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
@@ -3305,14 +3292,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:632
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:641
@@ -3500,7 +3485,7 @@ msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "შემოწმდეს დაზიანებულ _ბლოკებზე?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
@@ -3511,7 +3496,7 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "დისკის დაყოფა"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
@@ -3553,7 +3538,7 @@ msgstr ""
 #: ../iw/progress_gui.py:186
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "ჩამოტვირთვა - %s"
 
 #: ../iw/progress_gui.py:226
 #, python-format
@@ -3701,7 +3686,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
-msgstr ""
+msgstr "მოწყობილობების კლონირება"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
@@ -3805,8 +3790,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -3922,8 +3906,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zipl_gui.py:28
@@ -3957,7 +3940,7 @@ msgstr "ბირთვის პარამეტრები"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Chandev-ის პარამეტრები"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
@@ -4038,8 +4021,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:387
@@ -4114,7 +4096,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
-msgstr ""
+msgstr "დასრულებულია"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -4157,8 +4139,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr ""
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/grpselect_text.py:117
@@ -4208,7 +4189,7 @@ msgstr "აღწერა: %s"
 #: ../textw/network_text.py:156
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "აპარატურული მისამართი: %s"
 
 #: ../textw/network_text.py:170
 msgid "Use dynamic IP configuration (DHCP)"
@@ -4217,16 +4198,16 @@ msgstr ""
 #: ../textw/network_text.py:177 ../loader2/net.c:711
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "IPv4-ის მხარდაჭერის ჩართვა"
 
 #: ../textw/network_text.py:183 ../loader2/net.c:724
 #: tmp/netpostconfig.glade.h:11
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "IPv6-ის მხარდაჭერის ჩართვა"
 
 #: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
 msgid "Activate on boot"
-msgstr ""
+msgstr "ჩატვირთვისას აქტივირება"
 
 #: ../textw/network_text.py:214
 #, fuzzy
@@ -4252,7 +4233,7 @@ msgstr ""
 
 #: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
 msgid "ESSID:"
-msgstr ""
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:279
 msgid "WEP Key:"
@@ -4269,7 +4250,7 @@ msgstr ""
 
 #: ../textw/network_text.py:473 ../loader2/net.c:1017
 msgid "Gateway:"
-msgstr "პირველადი DNS:"
+msgstr ""
 
 #: ../textw/network_text.py:482
 msgid "Primary DNS:"
@@ -4285,7 +4266,7 @@ msgstr ""
 
 #: ../textw/network_text.py:567
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "ავტომატურად, DHCP-ის საშუალებით"
 
 #: ../textw/network_text.py:570
 msgid "manually"
@@ -4431,7 +4412,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "დაზიანებულ ბლოკებზე შემოწმება"
 
 #: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
@@ -4479,7 +4460,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1007
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "საჭიროა ორი პროგრამული RAID დანაყოფი მაინც."
 
 #: ../textw/partition_text.py:1019 ../textw/partition_text.py:1191
 msgid "Format partition?"
@@ -4548,8 +4529,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1489
@@ -4561,9 +4541,8 @@ msgid "Must have a / partition to install on."
 msgstr ""
 
 #: ../textw/partition_text.py:1532
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "დანაყოფი"
+msgstr ""
 
 #: ../textw/partition_text.py:1534
 msgid ""
@@ -4597,9 +4576,8 @@ msgid "How would you like to modify your drive configuration?"
 msgstr ""
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "მოწყობილობის დამატება"
+msgstr "FCP მოწყობილობის დამატება"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
 msgid ""
@@ -4630,7 +4608,7 @@ msgstr ""
 #: ../textw/progress_text.py:66
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "ჩამოტვირთვა - %s"
 
 #: ../textw/progress_text.py:103
 msgid "Package Installation"
@@ -4795,12 +4773,11 @@ msgstr ""
 
 #: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev-ის სტრიქონი"
 
 #: ../installclasses/fedora.py:15
-#, fuzzy
 msgid "_Fedora"
-msgstr "ფორმატი"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
 #, python-format
@@ -4867,7 +4844,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
-msgstr ""
+msgstr "CD ნაპოვნია"
 
 #: ../loader2/cdinstall.c:259
 #, c-format
@@ -4967,11 +4944,11 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
-msgstr ""
+msgstr "დრაივერის დისკი"
 
 #: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "გაქვთ დრაივერის დისკი?"
 
 #: ../loader2/driverdisk.c:531
 msgid "More Driver Disks?"
@@ -5078,7 +5055,7 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:306
 msgid "Directory holding images:"
-msgstr ""
+msgstr "დირექტორია რომელიც შეიცავს გამოსახულებებს:"
 
 #: ../loader2/hdinstall.c:334
 msgid "Select Partition"
@@ -5151,14 +5128,12 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:366
-#, fuzzy
 msgid "Choose a Language"
-msgstr "ენის არჩევა"
+msgstr "აირჩიეთ ენა"
 
 #: ../loader2/loader.c:120
 msgid "Local CDROM"
@@ -5398,11 +5373,11 @@ msgstr ""
 
 #: ../loader2/net.c:255
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:256
 msgid "Encryption Key"
-msgstr ""
+msgstr "კოდირების გასაღები"
 
 #: ../loader2/net.c:259
 msgid "Wireless Settings"
@@ -5413,9 +5388,8 @@ msgid "Nameserver IP"
 msgstr ""
 
 #: ../loader2/net.c:294
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "პაკეტების ჩადგმა"
+msgstr ""
 
 #: ../loader2/net.c:295
 msgid ""
@@ -5433,9 +5407,8 @@ msgid "You entered an invalid IP address."
 msgstr ""
 
 #: ../loader2/net.c:575 ../loader2/net.c:683
-#, fuzzy
 msgid "Network Error"
-msgstr "პაროლი"
+msgstr "პა"
 
 #: ../loader2/net.c:576 ../loader2/net.c:684
 msgid "There was an error configuring your network interface."
@@ -5443,7 +5416,7 @@ msgstr ""
 
 #: ../loader2/net.c:757
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "TCP/IP-ის კონფიგურირება"
 
 #: ../loader2/net.c:784
 msgid "You must select at least one protocol (IPv4 or IPv6)."
@@ -5468,9 +5441,8 @@ msgid "/"
 msgstr "/"
 
 #: ../loader2/net.c:964
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP მისამართი:"
+msgstr ""
 
 #: ../loader2/net.c:1025
 msgid "Name Server:"
@@ -5484,17 +5456,15 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:1077
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "თაგუნას კონფიგურაცია"
+msgstr ""
 
 #: ../loader2/net.c:1198 ../loader2/net.c:1204
 msgid "Missing Information"
 msgstr ""
 
 #: ../loader2/net.c:1199
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
 #: ../loader2/net.c:1205
@@ -5503,7 +5473,7 @@ msgstr ""
 
 #: ../loader2/net.c:1508
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "ჰოსტის სახელის და დომენის განსაზღვრა..."
 
 #: ../loader2/net.c:1601
 #, c-format
@@ -5683,23 +5653,23 @@ msgstr ""
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
-msgstr ""
+msgstr "_ZFCP LUN-ის დამატება"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "_iSCSI-ის დამატება"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "_dmraid მოწყობილობის გამოთიშვა"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>რეპოზიტორიის _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>რეპოზიტორიის დასახე_ლება:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -5758,56 +5728,52 @@ msgid "_Exception details"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_პაროლი:"
+msgstr "<b>_პაროლი:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>სამი_ზნე IP მისამართი:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr ""
+msgstr "<b>მომ_ხმარებელი:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI ინიციატორის _სახელი:</b>"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "პირველადი DNS:"
+msgstr ""
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "IP მისამართი"
+msgstr "<b>IPv4 მისამართი:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "IP მისამართი"
+msgstr "<b>IPv6 მისამართი:</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr ""
+msgstr "<b>DNS სერვერი:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>_ინტერფეისი:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "IPv_4-ის მხარდაჭერის ჩართვა"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "IPv_6-ის მხარდაჭერის ჩართვა"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "ქსელური ინტერფეისის ჩართვა"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
@@ -5820,41 +5786,36 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "აღწერა: %s"
+msgstr "<b>აღწერა მითითებულია აქ</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>აპარატურული მისამართი: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "მეზობლების ავტომატური აღმოჩენა"
 
 #: tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "თაგუნას კონფიგურაცია"
+msgstr "დინამიური IP-ის კონფიგურაცია (DHCP)"
 
 #: tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "თაგუნას კონფიგურაცია"
+msgstr "დინამიური IP-ის კონფიგურაცია (DHCPv6)"
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "RAID-მოწყობილობის რედაქტირება"
+msgstr "ინტერფეისის რედაქტირება"
 
 #: tmp/netpostconfig.glade.h:12
 msgid "Encryption Key:"
-msgstr ""
+msgstr "კოდირების გასაღები:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "თაგუნას კონფიგურაცია"
+msgstr ""
 
 #: tmp/netpostconfig.glade.h:15
 #, fuzzy
@@ -5886,23 +5847,20 @@ msgid "_Add additional software repositories"
 msgstr "დ_ამატებითი პროგრამების რეპოზიტორიების დამატება"
 
 #: tmp/tasksel.glade.h:7
-#, fuzzy
 msgid "_Customize now"
-msgstr "ს_ხვა"
+msgstr ""
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "მოწყობილობის ნომერი"
+msgstr "<b>მოწყობილობის ნომერი:</b>"
 
 #: tmp/zfcp-config.glade.h:2
 msgid "<b>FCP LUN:</b>"
-msgstr ""
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "_პაროლი:"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -5942,7 +5900,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "ამინდსენ-სკორის სადგური, სამხრეთი პოლუსი"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
@@ -5953,9 +5911,8 @@ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Labrador - most locations"
-msgstr "აღმოსავლეთი დრო"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
@@ -5991,7 +5948,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "ბუენოს აირესი (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -6019,7 +5976,7 @@ msgstr "ცენტრალური დრო"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "ცენტრალური დრო - კამპეჩე, იუკატანი"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6037,7 +5994,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "ცენტრალური დრო - მანიტობა და დასავლეთი ონტარიო"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
@@ -6061,7 +6018,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "ცენტრალური დრო - ცენტრალური ნუნავუტი"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6069,7 +6026,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "ცენტრალური დრო - დასავლეთი ნუნავუტი"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -6112,19 +6069,16 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "აღმოსავლეთი დრო"
+msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "აღმოსავლეთი დრო"
+msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "აღმოსავლეთი დრო"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6139,8 +6093,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6160,9 +6113,8 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "აღმოსავლეთი დრო"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -6178,7 +6130,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "ჰავაი"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
@@ -6323,8 +6275,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -6678,9 +6629,8 @@ msgid "German"
 msgstr "გერმანული"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "თავისუფალი"
+msgstr "ბერძნული"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -6833,28 +6783,3 @@ msgstr ""
 msgid "Zulu"
 msgstr "ზულუ"
 
-#, fuzzy
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IP მისამართი:"
-
-#, fuzzy
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IP მისამართი:"
-
-#~ msgid "_Remove"
-#~ msgstr "ამო_ღება"
-
-#~ msgid "Device #"
-#~ msgstr "მოწყობილობა #"
-
-#~ msgid "Add"
-#~ msgstr "დამატება"
-
-#~ msgid "Remove"
-#~ msgstr "ამოღება"
-
-#~ msgid "_Custom"
-#~ msgstr "ს_ხვა"
-
-#~ msgid "_Server"
-#~ msgstr "_სერვერი"
