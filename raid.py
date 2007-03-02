@@ -188,8 +188,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     """Return the maximum number of raid spares for raidlevel."""
     if isRaid0(raidlevel):
         return 0
-    elif (isRaid1(raidlevel) or isRaid5(raidlevel) or isRaid6(raidlevel) or
-          isRaid10(raidLevel):
+    elif isRaid1(raidlevel) or isRaid5(raidlevel) or isRaid6(raidlevel) or isRaid10(raidLevel):
         return max(0, nummembers - get_raid_min_members(raidlevel))
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"
