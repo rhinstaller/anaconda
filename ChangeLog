@@ -1,3 +1,10 @@
+2007-03-05  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.c (doRaidStart): Check for START_ARRAY macro.
+	* isys/wireless.c: Add missing <linux/types.h> and <linux/if.h>
+	includes.
+	* isys/wireless.c (set_essid): Zero out wreq before using it.
+
 2006-12-13  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
