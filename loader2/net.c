@@ -1077,9 +1077,10 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtGridFree(grid, 1);
 
     /* run the form */
-    have[IPV4] = 0;
-    have[IPV6] = 0;
     while ((have[IPV4] != 2) || (have[IPV6] != 2)) {
+        have[IPV4] = 0;
+        have[IPV6] = 0;
+
         for (i = 0; i < 2; i++)
             if (!stack[i]) have[i] = 2;
 

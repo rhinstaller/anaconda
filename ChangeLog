@@ -7,6 +7,8 @@
 	* network.py (Network): If IPv6 is disabled during install, write out
 	NETWORKING_IPV6=no to /etc/sysconfig/network (#226911)
 
+	* loader2/net.c (manualNetConfig): Fix input validation loop (#223193).
+
 2007-02-06  Peter Jones  <pjones@redhat.com>
 
 	* installclass.py (BaseInstallClass): make "description" a property
