@@ -1,5 +1,7 @@
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
+	* text.py (ProgressWindow): Pass ints to snack Scale (#230951)
+
 	* whiteout.py: Don't import rpm.  We don't use it here.  And nuke
 	other old code too.
 

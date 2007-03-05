@@ -114,7 +114,7 @@ class ProgressWindow:
         self.scale = None
 
     def set(self, amount):
-        self.scale.set(float(amount) * self.multiplier)
+        self.scale.set(int(float(amount) * self.multiplier))
         self.screen.refresh()
 
     def refresh(self):
@@ -133,7 +133,7 @@ class ProgressWindow:
 	g = GridForm(self.screen, title, 1, 2)
 	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
 
-        self.scale = Scale(int(width), float(total) * self.multiplier)
+        self.scale = Scale(int(width), int(float(total) * self.multiplier))
         g.add(self.scale, 0, 1)
                 
 	g.draw()
