@@ -1,5 +1,11 @@
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
+	* backend.py (AnacondaBackend.copyDriverDiskModules): Move to here so
+	that it can be used generically or overridden per-backend
+	(AnacondaBackend.doPostInstall): And call it.
+	* yuminstall.py (YumBackend.doPostInstall): Remove specific module
+	copy.
+
 	* yuminstall.py : Remove lots of old code related to making
 	depsolving internal to anaconda.  The yum bits should be good
 	enough here.
