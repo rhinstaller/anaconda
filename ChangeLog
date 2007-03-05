@@ -1,3 +1,11 @@
+2007-03-05  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (doLoaderMain): Set ipinfo_set and ipv6info_set
+	in loaderData depending on what happened in readNetConfig() (#210370)
+
+	* loader2/net.c (kickstartNetworkUp): If IPv4 or IPv6 networking is
+	already set up, return (#210370)
+
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
 	* text.py (ProgressWindow): Pass ints to snack Scale (#230951)
