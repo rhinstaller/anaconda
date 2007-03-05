@@ -257,7 +257,8 @@ def setVNCFromKickstart(opts):
 	rc = pullRemainingKickstartConfig(opts.ksfile)
     except KickstartError, msg:
 	rc = msg
-    except:
+    except Exception, e:
+        log.error("Unknown error grabbing ks.cfg: %s" %(e,))
 	rc = _("Unknown Error")
 
     if rc is not None:
