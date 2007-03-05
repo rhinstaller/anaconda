@@ -1,5 +1,18 @@
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py : Remove lots of old code related to making
+	depsolving internal to anaconda.  The yum bits should be good
+	enough here.
+	(AnacondaCallback.__init__): Rename from
+	simpleCallback.  Take yum object as an argument.  Make keeping
+	track of the open file simpler.
+	(AnacondaCallback.callback): Adjust to use the normal yum API for 
+	the actual callback.
+	(AnacondaYum.doConfigSetup): Add a temporary workaround for an API
+	breakage in yum 3.0.3
+	(YumDepSolveProgress.__init__): Fix definition of noop methods
+	(YumDepSolveProgress.noop): Take any arguments and ignore them.
+
 	* anaconda (setVNCFromKickstart): Log the real error.
 
 	* kickstart.py (pullRemainingKickstartConfig): Fix a few syntax errors.

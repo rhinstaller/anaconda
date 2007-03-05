@@ -81,13 +81,14 @@ def size_string (size):
         else:
             return _("%s Bytes") %(number_format(size),)
 
-class simpleCallback:
+class AnacondaCallback:
 
     def __init__(self, repos, messageWindow, progress, method,
-                 progressWindowClass, instLog, modeText, ts):
+                 progressWindowClass, instLog, modeText, ts, ayum):
         self.method = method
         self.repos = repos
         self.ts = ts
+        self.ayum = ayum
         
         self.messageWindow = messageWindow
         self.progress = progress
@@ -103,7 +104,7 @@ class simpleCallback:
         self.instLog = instLog
         self.modeText = modeText
 
-        self.files = {} 
+        self.openfile = None
 
     def setSizes(self, numpkgs, totalSize, totalFiles):
         self.numpkgs = numpkgs
@@ -143,8 +144,18 @@ class simpleCallback:
             self.progressWindow.pop()
 
         if what == rpm.RPMCALLBACK_INST_OPEN_FILE:
-            po = h
-            hdr = po.returnLocalHeader()
+            (hdr, rpmloc) = h
+            # hate hate hate at epochs...
+            epoch = hdr['epoch']
+            if epoch is not None:
+                epoch = str(epoch)
+            txmbrs = self.ayum.tsInfo.matchNaevr(hdr['name'], hdr['arch'],
+                                                 epoch, hdr['version'],
+                                                 hdr['release'])
+            if len(txmbrs) == 0:
+                raise RuntimeError, "Unable to find package %s-%s-%s.%s" %(hdr['name'], hdr['version'], hdr['release'], hdr['arch'])
+            po = txmbrs[0].po
+
             repo = self.repos.getRepo(po.repoid)
 
             s = _("<b>Installing %s</b> (%s)\n") %(po, size_string(hdr['size']))
@@ -155,27 +166,25 @@ class simpleCallback:
             self.instLog.write(self.modeText % (nvra,))
 
             self.instLog.flush()
-            self.files[nvra] = None
+            self.openfile = None
 
-            while self.files[nvra] == None:
+            while self.openfile is None:
                 try:
                     fn = repo.getPackage(po)
 
                     f = open(fn, 'r')
-                    self.files[nvra] = f
+                    self.openfile = f
                 except yum.Errors.RepoError, e:
                     continue
 
-            return self.files[nvra].fileno()
+            return self.openfile.fileno()
 
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
-            po = h
-            hdr = po.returnLocalHeader()
+            (hdr, rpmloc) = h
 
-            nvra = "%s" %(po,)
-
-            fn = self.files[nvra].name
-            self.files[nvra].close()
+            fn = self.openfile.name
+            self.openfile.close()
+            self.openfile = None
             self.method.unlinkFilename(fn)
 
             self.donepkgs += 1
@@ -363,129 +372,11 @@ class YumSorter(yum.YumBase):
         self.path = []
         self.loops = []
 
-    def isPackageInstalled(self, pkgname):
-        # FIXME: this sucks.  we should probably suck it into yum proper
-        # but it'll need a bit of cleanup first.  
-        installed = False
-        if self.rpmdb.installed(name = pkgname):
-            installed = True
-            
-        lst = self.tsInfo.matchNaevr(name = pkgname)
-        for txmbr in lst:
-            if txmbr.output_state in TS_INSTALL_STATES:
-                return True
-        if installed and len(lst) > 0:
-            # if we get here, then it was installed, but it's in the tsInfo
-            # for an erase or obsoleted --> not going to be installed at end
-            return False
-        return installed
-
-    def _provideToPkg(self, req):
-        best = None
-        (r, f, v) = req
-
-        satisfiers = []
-        for po in self.whatProvides(r, f, v):
-            # if we already have something installed which does the provide
-            # then that's obviously the one we want to use.  this takes
-            # care of the case that we select, eg, kernel-smp and then
-            # have something which requires kernel
-            if self.tsInfo.getMembers(po.pkgtup):
-                self.deps[req] = po
-                return po
-            if po not in satisfiers:
-                satisfiers.append(po)
-
-        if satisfiers:
-            best = self.bestPackagesFromList(satisfiers)[0]
-            self.deps[req] = best
-            return best
-        return None
-
     def _undoDepInstalls(self):
         # clean up after ourselves in the case of failures
         for txmbr in self.tsInfo:
             if txmbr.isDep:
                 self.tsInfo.remove(txmbr.pkgtup)
-
-    def prof_resolveDeps(self):
-        fn = "anaconda.prof.0"
-        import hotshot, hotshot.stats
-        prof = hotshot.Profile(fn)
-        rc = prof.runcall(self._resolveDeps)
-        prof.close()
-        print "done running depcheck"
-        stats = hotshot.stats.load(fn)
-        stats.strip_dirs()
-        stats.sort_stats('time', 'calls')
-        stats.print_stats(20)
-        return rc
-
-    def resolveDeps(self):
-        if self.dsCallback: self.dsCallback.start()
-        unresolved = self.tsInfo.getMembers()
-        while len(unresolved) > 0:
-            if self.dsCallback: self.dsCallback.tscheck(len(unresolved))
-            unresolved = self.tsCheck(unresolved)
-            if self.dsCallback: self.dsCallback.restartLoop()
-        self.deps = {}
-        self.loops = []
-        self.path = []
-        return (2, ['Success - deps resolved'])
-
-    def tsCheck(self, tocheck):
-        unresolved = []
-
-        for txmbr in tocheck:
-            if txmbr.name == "redhat-lsb" and len(tocheck) > 2: # FIXME: this speeds things up a lot
-                unresolved.append(txmbr)
-                continue
-            if self.dsCallback: self.dsCallback.pkgAdded()
-            if txmbr.output_state not in TS_INSTALL_STATES:
-                continue
-            reqs = txmbr.po.returnPrco('requires')
-            provs = txmbr.po.returnPrco('provides')
-
-            for req in reqs:
-                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
-                    continue
-                if req in provs:
-                    continue
-                dep = self.deps.get(req, None)
-                if dep is None:
-                    dep = self._provideToPkg(req)
-                    if dep is None:
-                        log.warning("Unresolvable dependency %s in %s"
-                                    %(req[0], txmbr.name))
-                        continue
-
-                # Skip filebased requires on self, etc
-                if txmbr.name == dep.name:
-                    continue
-
-                if (dep.name, txmbr.name) in whiteout.whitetup:
-                    log.debug("ignoring %s>%s in whiteout" %(dep.name, txmbr.name))
-                    continue
-                if self.tsInfo.exists(dep.pkgtup):
-                    pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
-                    member = self.bestPackagesFromList(pkgs)[0]
-                else:
-                    if dep.name != req[0]:
-                        log.info("adding %s for %s, required by %s" %(dep.name, req[0], txmbr.name))
-
-                    member = self.tsInfo.addInstall(dep)
-                    unresolved.append(member)
-
-                #Add relationship
-                found = False
-                for dependspo in txmbr.depends_on:
-                    if member.po == dependspo:
-                        found = True
-                        break
-                if not found:
-                    member.setAsDep(txmbr.po)
-
-        return unresolved
 
     def _transactionDataFactory(self):
         return SplitMediaTransactionData()
@@ -525,6 +416,8 @@ class AnacondaYum(YumSorter):
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
+        # FIXME: temporary workaround until yum 3.0.4 comes out
+        self.conf._reposlist = []
         
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
@@ -686,69 +579,6 @@ class AnacondaYum(YumSorter):
     def doMacros(self):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
-
-#From yum depsolve.py
-    def populateTs(self, test=0, keepold=1):
-        """take transactionData class and populate transaction set"""
-
-        if self.dsCallback: self.dsCallback.transactionPopulation()
-        ts_elem = {}
-        if keepold:
-            for te in self.ts:
-                epoch = te.E()
-                if epoch is None:
-                    epoch = '0'
-                pkginfo = (te.N(), te.A(), epoch, te.V(), te.R())
-                if te.Type() == 1:
-                    mode = 'i'
-                elif te.Type() == 2:
-                    mode = 'e'
-                
-                ts_elem[(pkginfo, mode)] = 1
-                
-        for txmbr in self.tsInfo.getMembers():
-            log.debug('Member: %s' % txmbr)
-            if txmbr.ts_state in ['u', 'i']:
-                if ts_elem.has_key((txmbr.pkgtup, 'i')):
-                    continue
-
-                # If we get a URLGrabError, that means we had trouble getting
-                # the package.  However, the user clicked retry in the
-                # urlgrabberFailureCB (since if they clicked Reboot, we exited)
-                # so use this as the indication to try again.
-                while True:
-                    try:
-                        self.downloadHeader(txmbr.po)
-                        break
-                    except RepoError:
-                        pass
-
-                hdr = txmbr.po.returnLocalHeader()
-                rpmfile = txmbr.po.localPkg()
-                
-                if txmbr.ts_state == 'u':
-                    # XXX: kernel-module-* support not in yum
-                    #if txmbr.po.name.startswith("kernel-module-"):
-                    #    self.handleKernelModule(txmbr)
-                    if self.allowedMultipleInstalls(txmbr.po):
-                        log.debug('%s converted to install' % (txmbr.po))
-                        txmbr.ts_state = 'i'
-                        txmbr.output_state = TS_INSTALL
-
-#XXX: Changed callback api to take a package object
-                self.ts.addInstall(hdr, txmbr.po, txmbr.ts_state)
-                log.debug('Adding Package %s in mode %s' % (txmbr.po, txmbr.ts_state))
-                if self.dsCallback: 
-                    self.dsCallback.pkgAdded(txmbr.pkgtup, txmbr.ts_state)
-            
-            elif txmbr.ts_state in ['e']:
-                if ts_elem.has_key((txmbr.pkgtup, txmbr.ts_state)):
-                    continue
-                indexes = self.rpmdb.returnIndexByTuple(txmbr.pkgtup)
-                for idx in indexes:
-                    self.ts.addErase(idx)
-                    if self.dsCallback: self.dsCallback.pkgAdded(txmbr.pkgtup, 'e')
-                    log.debug('Removing Package %s' % txmbr.po)
 
     def isGroupInstalled(self, grp):
         # FIXME: move down to yum itself.
@@ -1173,7 +1003,8 @@ class YumBackend(AnacondaBackend):
                         return DISPATCH_BACK
         finally:
             dscb.pop()
-            self.ayum.dsCallback = None
+
+        self.ayum.dsCallback = None
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
@@ -1343,10 +1174,7 @@ class YumBackend(AnacondaBackend):
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
-#        anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
-#        anaconda.id.instProgress.processEvents()
-
-        cb = simpleCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = AnacondaCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts, self.ayum)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
@@ -1559,22 +1387,6 @@ class YumBackend(AnacondaBackend):
 
     def writeConfiguration(self):
         return
-#         emptyRepoConf = yum.config.RepoConf()
-#         compulsorySettings = [ 'enabled' ]
-#         for repo in self.ayum.repos.listEnabled():
-#             repo.disable()
-#             fn = "%s/etc/yum.repos.d/%s.repo" % (self.instPath, repo.id)
-#             f = open(fn , 'w')
-#             f.write('[%s]\n' % (repo.id,))
-#             for k, v in emptyRepoConf.iteritems():
-#                 repoval = repo.getAttribute(k)
-#                 if k not in compulsorySettings:
-#                     if not repoval or repoval == v:
-#                         continue
-#                 val = emptyRepoConf.optionobj(k).tostring(repoval)
-#                 f.write("%s=%s\n" % (k,val))
-#             repo.enable()
-#             f.close()
 
     def getRequiredMedia(self):
         return self.ayum.tsInfo.reqmedia.keys()
@@ -1626,7 +1438,7 @@ class YumDepSolveProgress:
         self.incr = None
         
         self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
-        self.procReq = self.procConflict = self.unresolved = self.noop()
+        self.procReq = self.procConflict = self.unresolved = self.noop
 
     def tscheck(self, num = None):
         self.refresh()
@@ -1639,7 +1451,7 @@ class YumDepSolveProgress:
         if self.numpkgs:
             self.set(self.current + self.incr)
 
-    def noop(self):
+    def noop(self, *args, **kwargs):
         pass
 
     def refresh(self, *args):
