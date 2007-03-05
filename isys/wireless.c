@@ -26,6 +26,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include <linux/types.h>
+#include <linux/if.h>
 #include <linux/wireless.h>
 
 static struct iwreq get_wreq(char * ifname) {
