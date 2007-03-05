@@ -1,25 +1,26 @@
 Name: anaconda
-Version: 11.2.0.28
+Version: 11.2.0.29
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: kudzu-devel >= 1.2.42, pciutils-devel
-BuildPreReq: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
-BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
-BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
-BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
-BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildPreReq: pykickstart >= 0.96, yum >= 2.9.2,
+BuildRequires: kudzu-devel >= 1.2.42, pciutils-devel
+BuildRequires: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
+BuildRequires: rpm-python >= 4.2-0.61, rpm-devel, gettext >= 0.11
+BuildRequires: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
+BuildRequires: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
+BuildRequires: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
+BuildRequires: pykickstart >= 0.96, yum >= 2.9.2,
 %define dmver 1.02.17-6
-BuildPreReq: device-mapper-devel >= %{dmver}
-BuildPreReq: libsepol-devel
-BuildPreReq: pango-devel, pirut, libXt-devel
-BuildPreReq: slang-devel >= 2.0.6-2, slang-static
-BuildPreReq: glib2-devel >= 2.11.1-5, glib2-static
-BuildPreReq: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
-BuildPreReq: audit-libs-devel
+BuildRequires: device-mapper-devel >= %{dmver}
+BuildRequires: libsepol-devel
+BuildRequires: pango-devel, pirut, libXt-devel
+BuildRequires: slang-devel >= 2.0.6-2, slang-static
+BuildRequires: newt-devel, newt-static
+BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
+BuildRequires: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
+BuildRequires: audit-libs-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.42, yum >= 2.9.2, pirut >= 1.1.0
@@ -112,6 +113,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.29-1
+- Fix some typos (clumens, dcantrell, katzj)
+- Use depsolving from yum instead of our own stuff now that the yum 
+  depsolving doesn't require header downloads
+- Misc backend cleanups
+- Fix deprecation warnings (#230951)
+- Networking fixing (#210370)
+- BR newt-static
+
 * Thu Mar 01 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.28-1
 - Support multiple %ksappend lines (#222201).
 - Set the ksdata after setting the initial timezone values (#230472).

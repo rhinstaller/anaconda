@@ -1,3 +1,8 @@
+2007-03-05  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.  BuildRequire newt-static.
+	s/BuildPreReq/BuildRequires/
+
 2007-03-05  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (doLoaderMain): Set ipinfo_set and ipv6info_set
