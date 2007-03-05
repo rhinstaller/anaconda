@@ -1,5 +1,8 @@
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
+	* whiteout.py: Don't import rpm.  We don't use it here.  And nuke
+	other old code too.
+
 	* backend.py (AnacondaBackend.copyDriverDiskModules): Move to here so
 	that it can be used generically or overridden per-backend
 	(AnacondaBackend.doPostInstall): And call it.

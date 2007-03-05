@@ -5,32 +5,12 @@
 #
 
 import os
-import rpm
 import rhpl.arch
 from flags import flags
 
 import logging
 log = logging.getLogger("anaconda")
 
-# set DB_PRIVATE to make rpm happy...  do it in here since we include
-# this with all of the useful rpm bits
-#rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
-
-## assuming that SELinux is set up, tell rpm where to pull file contexts from
-#if flags.selinux:
-#    for dir in ("/tmp/updates", "/mnt/source/RHupdates",
-#                "/etc/selinux/targeted/contexts/files",
-#                "/etc/security/selinux/src/policy/file_contexts",
-#                "/etc/security/selinux"):
-#        fn = "%s/file_contexts" %(dir,)
-#        if os.access(fn, os.R_OK):
-#            break
-#    rpm.addMacro("__file_context_path", fn)
-#    log.info("setting file_context_path to %s" %(fn,))    
-#else:
-#    log.info("setting file_context_path to nil")
-#    rpm.addMacro("__file_context_path", "%{nil}")
-#
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
 	XFree86>Mesa			\
@@ -87,10 +67,3 @@ whiteout="""
 """
 
 whitetup = map(lambda x: (x.split(">")[0], x.split(">")[1]), whiteout.split())
-
-#rpm.addMacro("_dependency_whiteout", whiteout)
-
-# ts coloring, more hacks to workaround #92285
-#if (rhpl.arch.canonArch.startswith("ppc64") or
-#    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
-#    rpm.addMacro("_transaction_color", "3")
