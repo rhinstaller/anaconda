@@ -871,7 +871,7 @@ def pullRemainingKickstartConfig(ksfile):
 
         ll = l.strip()
         if string.find(ll, "%ksappend") == -1:
-            outF.write(l)
+            os.write(outF, l)
             continue
 
         # Try to pull down the remote file.
@@ -902,12 +902,12 @@ def pullRemainingKickstartConfig(ksfile):
         # farther ahead in the input file.  This allows multiple %ksappend
         # lines to exist.
         if url is not None:
-            outF.write(url.read())
+            os.write(outF, url.read())
             url.close()
 
     # All done - move the temp output file to the expected location.
-    outF.close()
-    os.rename(outname, "/tmp/ks.cfg")
+    os.close(outF)
+    os.rename(outName, "/tmp/ks.cfg")
     return None
 
 def runPostScripts(anaconda):
