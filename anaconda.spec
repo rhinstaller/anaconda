@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.29
+Version: 11.2.0.30
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -113,6 +113,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.30-1
+- ext2 is a module now
+- add a basic boot drive selector to the graphical autopartitioning screen
+
 * Mon Mar  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.29-1
 - Fix some typos (clumens, dcantrell, katzj)
 - Use depsolving from yum instead of our own stuff now that the yum 
