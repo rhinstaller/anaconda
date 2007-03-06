@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.30
+Version: 11.2.0.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -113,6 +113,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar  6 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.31-1
+- Smaller required height for main window for livecd installs (katzj)
+- Move utility functions around in isys
+- Init loopback in stage 1 using ioctl() rather than netlink (#229670)
+- Handle netlink messages for RTM_GETLINK that are larger than 4K (#230525)
+
 * Mon Mar  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.30-1
 - ext2 is a module now
 - add a basic boot drive selector to the graphical autopartitioning screen
