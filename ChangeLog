@@ -1,3 +1,10 @@
+2007-03-06  Jeremy Katz  <katzj@redhat.com>
+
+	* ui/anaconda.glade: Back to the smaller required height width so
+	that things work better with livecd installs at 800x600
+	* gui.py (InstallControlWindow.createWidgets): Ensure the window
+	is centered in the case where the window is at 800x600 
+
 2007-03-06  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/urls.c (convertURLToUI): Whitespace cleanup before code changes.

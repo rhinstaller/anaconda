@@ -1190,6 +1190,7 @@ class InstallControlWindow:
             i.hide()
         else:
             self.window.set_size_request(800, 600)
+            self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
