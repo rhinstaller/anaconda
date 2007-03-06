@@ -1895,21 +1895,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     return 0;
 }
 
-static int strcount (char *str, int ch)
-{
-    int retval = 0;
-    char *tmp = str;
-
-    do {
-        if ((tmp = index(tmp, ch)) != NULL) {
-            tmp++;
-            retval++;
-        }
-    } while (tmp != NULL);
-
-    return retval;
-}
-
 void splitHostname (char *str, char **host, char **port)
 {
     char *rightbrack = strchr(str, ']');

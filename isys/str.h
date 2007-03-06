@@ -17,5 +17,7 @@
 char *str2case(char *str, char lower, char upper, int shift);
 char *str2upper(char *str);
 char *str2lower(char *str);
+int strcount(char *str, int ch);
+char *strindex(char *str, int ch);
 
 /* vim:set shiftwidth=4 softtabstop=4: */

@@ -73,4 +73,44 @@ char *str2lower(char *str) {
     return str2case(str, 'A', 'Z', 32);
 }
 
+/**
+ * Pretty much an exact copy of index(3) from the C library.
+ * @param str String to scan.
+ * @param ch Character to scan for.
+ * @return Position of ch in str, NULL if not found.
+ */
+char *strindex(char *str, int ch) {
+    if (str == NULL)
+        return NULL;
+
+    do {
+        if (*str == ch)
+            return str;
+        else
+            str++;
+    } while (str != NULL);
+
+    return NULL;
+}
+
+/**
+ * Return number of occurrences of a character in a string.
+ * @param str String to scan.
+ * @param ch Character to scan for.
+ * @return Number of occurrences of ch in str.
+ */
+int strcount(char *str, int ch) {
+    int retval = 0;
+    char *tmp = str;
+
+    do {
+        if ((tmp = strindex(tmp, ch)) != NULL) {
+            tmp++;
+            retval++;
+        }
+    } while (tmp != NULL);
+
+    return retval;
+}
+
 /* vim:set shiftwidth=4 softtabstop=4: */

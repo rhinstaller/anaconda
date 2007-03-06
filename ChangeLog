@@ -1,6 +1,9 @@
 2007-03-06  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/urls.c (convertURLToUI): Whitespace cleanup before code changes.
+	* loader2/net.c (strcount): Moved to isys/str.c.
+	* isys/str.c: Added strcount() function.
+	* isys/str.h: Prototype for strcount.
 
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
