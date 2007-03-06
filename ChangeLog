@@ -12,6 +12,9 @@
 	* isys/str.c: Added strcount() function.
 	* isys/str.h: Prototype for strcount.
 
+	* loader2/net.c (initLoopback): Init loopback correctly, have to go back
+	to using ioctl() rather than netlink. (#229670)
+
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

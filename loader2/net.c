@@ -22,6 +22,7 @@
  */
 
 #include <sys/types.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/utsname.h>
 #include <arpa/inet.h>
@@ -210,23 +211,30 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
 }
 
 void initLoopback(void) {
-    NLH_t nh;
-    NIC_t nic;
-    uint32_t nflags;
+    struct ifreq req;
+    int s;
 
-    /* open nic handle and set device name */
-    nh = nic_open(nic_sys_logger);
-    nic = nic_by_name(nh, "lo");
+    s = socket(AF_INET, SOCK_DGRAM, 0);
 
-    /* bring the interface up */
-    nflags = nic_get_flags(nic);
-    if ((nflags & (IFF_UP | IFF_RUNNING)) == 0) {
-        nic_set_flags(nic, nflags | IFF_UP | IFF_RUNNING);
-        nic_update(nic);
+    memset(&req, 0, sizeof(req));
+    strcpy(req.ifr_name, "lo");
+
+    if (ioctl(s, SIOCGIFFLAGS, &req)) {
+        logMessage(LOG_ERR, "ioctl SIOCGIFFLAGS failed: %d %s\n", errno,
+                   strerror(errno));
+        close(s);
+        return;
     }
 
-    /* clean up */
-    nic_close(&nh);
+    req.ifr_flags |= (IFF_UP | IFF_RUNNING);
+    if (ioctl(s, SIOCSIFFLAGS, &req)) {
+        logMessage(LOG_ERR, "ioctl SIOCSIFFLAGS failed: %d %s\n", errno,
+                   strerror(errno));
+        close(s);
+        return;
+    }
+
+    close(s);
 
     return;
 }
