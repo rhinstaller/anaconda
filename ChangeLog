@@ -1,5 +1,10 @@
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Add a combo
+	to select where to install the bootloader.  This is extra needed
+	with the combination of installing to USB and EDD.
+	* ui/autopart.glade: Add the UI bits. 
+
 	* scripts/mk-images (FSMODS): Hey, lookie there... someone made
 	ext2 a module.
 

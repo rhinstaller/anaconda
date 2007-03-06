@@ -68,6 +68,12 @@ class PartitionTypeWindow(InstallWindow):
             if not autopart.queryAutoPartitionOK(self.anaconda):
                 raise gui.StayOnScreen
 
+            # pop the boot device to be first in the drive list
+            defiter = self.bootcombo.get_active_iter()
+            defboot = self.bootcombo.get_model().get_value(defiter, 1)
+            self.anaconda.id.bootloader.drivelist.remove(defboot)
+            self.anaconda.id.bootloader.drivelist.insert(0, defboot)            
+
             if self.xml.get_widget("reviewButton").get_active():
                 self.dispatch.skipStep("partition", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 0)
@@ -91,6 +97,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
             self.xml.get_widget("driveScroll").set_sensitive(False)
+            self.xml.get_widget("bootDriveCombo").set_sensitive(False)
         else:
             if self.prevrev == None:
                self.xml.get_widget("reviewButton").set_active(self.review)
@@ -100,6 +107,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_sensitive(True)
             self.xml.get_widget("driveScroll").set_sensitive(True)
+            self.xml.get_widget("bootDriveCombo").set_sensitive(True)
 
     def addIscsiDrive(self):
         if not network.hasActiveNetDev():
@@ -236,12 +244,15 @@ class PartitionTypeWindow(InstallWindow):
 
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
 
+        gui.widgetExpander(self.xml.get_widget("mainlabel"))
+
         self.combo = self.xml.get_widget("partitionTypeCombo")
+        gui.widgetExpander(self.combo)
         cell = gtk.CellRendererText()
         self.combo.pack_start(cell, True)
         self.combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 475)        
-        self.combo.set_size_request(480, -1)
+        cell.set_property("wrap-width", 495)        
+        self.combo.set_size_request(500, -1)
 
         store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.combo.set_model(store)
@@ -266,6 +277,24 @@ class PartitionTypeWindow(InstallWindow):
 
         self.xml.get_widget("driveScroll").add(self.drivelist)
 
+        self.bootcombo = self.xml.get_widget("bootDriveCombo")
+        thecell = gtk.CellRendererText()
+        self.bootcombo.pack_start(thecell, True)
+
+        bootstore = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        self.bootcombo.set_model(bootstore)
+        defaultBoot = self.anaconda.id.bootloader.drivelist[0]
+        for disk in self.diskset.disks.values():
+            size = partedUtils.getDeviceSizeMB(disk.dev)
+            dispstr = "%s %8.0f MB %s" %(disk.dev.path[5:], size, disk.dev.model)
+            i = bootstore.append(None)
+            bootstore[i] = (dispstr, disk.dev.path[5:])
+            if disk.dev.path[5:] == defaultBoot:
+                self.bootcombo.set_active_iter(i)
+
+        if len(bootstore) <= 1:
+            self.bootcombo.set_sensitive(False)
+
         self.prevrev = None
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
@@ -281,6 +310,9 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
+
+            self.xml.get_widget("driveScroll").set_sensitive(False)
+            self.xml.get_widget("bootDriveCombo").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
