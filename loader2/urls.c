@@ -48,32 +48,32 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
     memset(ui, 0, sizeof(*ui));
     
     if (!strncmp("ftp://", url, 6)) {
-	ui->protocol = URL_METHOD_FTP;
-	url += 6;
+        ui->protocol = URL_METHOD_FTP;
+        url += 6;
 	
-	/* There could be a username/password on here */
-	if ((chptr = strchr(url, '@'))) {
-	    if ((chptr = strchr(url, ':'))) {
-		*chptr = '\0';
-		ui->login = strdup(url);
-		url = chptr + 1;
-		
-		chptr = strchr(url, '@');
-		*chptr = '\0';
-		ui->password = strdup(url);
-		url = chptr + 1;
-	    } else {
-		*chptr = '\0';
-		ui->login = strdup(url);
-		url = chptr + 1;
-	    }
-	}
+        /* There could be a username/password on here */
+        if ((chptr = strchr(url, '@'))) {
+            if ((chptr = strchr(url, ':'))) {
+                *chptr = '\0';
+                ui->login = strdup(url);
+                url = chptr + 1;
+
+                chptr = strchr(url, '@');
+                *chptr = '\0';
+                ui->password = strdup(url);
+                url = chptr + 1;
+            } else {
+                *chptr = '\0';
+                ui->login = strdup(url);
+                url = chptr + 1;
+            }
+        }
     } else if (!strncmp("http://", url, 7)) {
-	ui->protocol = URL_METHOD_HTTP;
-	url +=7;
+        ui->protocol = URL_METHOD_HTTP;
+        url += 7;
     } else {
-	logMessage(ERROR, "unknown url protocol '%s'", url);
-	return -1;
+        logMessage(ERROR, "unknown url protocol '%s'", url);
+        return -1;
     }
     
     /* url is left pointing at the hostname */
@@ -84,8 +84,7 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
         url = chptr;
         *url = '/';
         ui->prefix = strdup(url);
-    }
-    else {
+    } else {
        ui->address = strdup(url);
        ui->prefix = strdup("/");
     }
