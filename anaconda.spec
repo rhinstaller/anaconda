@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.62
+Version: 10.1.1.63
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
+- Allow graphical xen installs to proceed with no mouse
+  Resolves: #229588
+- Add qla2400 to the list of drivers that get loaded later than ipr
+  Resolves: #230644
+- Add support for IBM HEA devices
+  Resolves: #225451
+
 * Fri Feb 16 2007 Peter Jones <pjones@redhat.com> - 10.1.1.62-1
 - Update the keymaps in our cache from ones generated on recent installs,
   so they won't be missing anything.
