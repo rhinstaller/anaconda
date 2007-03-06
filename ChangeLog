@@ -16,6 +16,10 @@
 	* loader2/net.c (initLoopback): Init loopback correctly, have to go
 	back to using ioctl() rather than netlink. (#229670)
 
+	* isys/nl.c (netlink_init_interfaces_list): Handle netlink messages
+	for RTM_GETLINK that are larger than 4K.  This allows us to handle a
+	variable number of network devices in the system (#230525).
+
 2007-03-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

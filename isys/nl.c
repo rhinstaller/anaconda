@@ -258,7 +258,8 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
  */
 int netlink_init_interfaces_list(void) {
     int sock, ret, len, alen, r;
-    char buf[4096];
+    char chunk[4096];
+    char *buf = NULL;
     struct nlmsghdr *nlh;
     struct ifinfomsg *ifi;
     struct rtattr *rta;
@@ -267,25 +268,48 @@ int netlink_init_interfaces_list(void) {
 
     /* get a socket */
     if ((sock = netlink_create_socket()) == -1) {
-        perror("netlink_create_socket in netlink_init_interfaces_table");
+        perror("netlink_create_socket in netlink_init_interfaces_list");
         close(sock);
         return -1;
     }
 
     /* send dump request */
     if (netlink_send_dump_request(sock, RTM_GETLINK, AF_NETLINK) == -1) {
-        perror("netlink_send_dump_request in netlink_init_interfaces_table");
+        perror("netlink_send_dump_request in netlink_init_interfaces_list");
         close(sock);
         return -1;
     }
 
     /* read back messages */
-    memset(buf, 0, sizeof(buf));
-    ret = recvfrom(sock, buf, sizeof(buf), 0, NULL, 0);
-    if (ret < 0) {
-        perror("recvfrom in netlink_init_interfaces_table");
+    if ((buf = calloc(4096, sizeof(char))) == NULL) {
+        perror("malloc on buf in netlink_init_interfaces_list");
         close(sock);
         return -1;
+    }
+
+    ret = recvfrom(sock, chunk, sizeof(chunk), MSG_DONTWAIT, NULL, 0);
+    if (ret < 0) {
+        perror("recvfrom in netlink_init_interfaces_list");
+        close(sock);
+        return -1;
+    } else {
+        buf = strncat(buf, chunk, strlen(chunk));
+    }
+
+    /* read remaining part of message */
+    while (ret != -1) {
+        ret = recvfrom(sock, chunk, sizeof(chunk), MSG_DONTWAIT, NULL, 0);
+
+        if (ret > 0) {
+            buf = realloc(buf, strlen(buf) + ret + 1);
+            if (buf == NULL) {
+                perror("realloc on buf in netlink_init_interfaces_list");
+                close(sock);
+                return -1;
+            }
+
+            buf = strncat(buf, chunk, strlen(chunk));
+        }
     }
 
     nlh = (struct nlmsghdr *) buf;
@@ -327,7 +351,7 @@ int netlink_init_interfaces_list(void) {
             /* make some room! */
             intfinfo = malloc(sizeof(struct _interface_info_t));
             if (intfinfo == NULL) {
-                perror("malloc in netlink_init_interfaces_table");
+                perror("malloc in netlink_init_interfaces_list");
                 close(sock);
                 return -1;
             }
