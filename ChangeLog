@@ -1,5 +1,7 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/splittree.py: Don't generate RPMS/ dir (Jesse Keating)
+
 	* iw/progress_gui.py (InstallProgressWindow.setShowPercentage):
 	Add method to say that we should just show the percentage in the
 	progress bar like newt does.  If this is set, ignore any calls to

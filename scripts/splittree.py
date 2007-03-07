@@ -204,7 +204,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                 p.close()
                 filelist = string.split(filelist)
                 
-                p = os.popen('find %s/ -type d -not -name RPMS -not -name SRPMS' % self.dist_dir, 'r')
+                p = os.popen('find %s/ -type d -not -name SRPMS' % self.dist_dir, 'r')
                 dirlist = p.read()
                 p.close()
                 dirlist = string.split(dirlist)
@@ -227,11 +227,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                     except OSError, (errno, msg):
                         pass
 
-                # now create the product/RPMS dir
-                os.makedirs("%s-disc%d/%s/RPMS" % (self.dist_dir, i, self.product_path))
-                
             else:
-                os.makedirs("%s-disc%d/%s/RPMS" % (self.dist_dir, i, self.product_path))
                 self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
             self.createDiscInfo(i)
             
@@ -250,10 +246,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         
         packages = {}
 
-        if os.path.isdir("%s/%s/RPMS" %(self.dist_dir, self.product_path)):
-            pkgdir = "%s/RPMS" %(self.product_path, )
-        else:
-            pkgdir = "%s" %(self.product_path,)
+        pkgdir = "%s" %(self.product_path,)
             
         rpmlist = os.listdir("%s/%s" %(self.dist_dir, pkgdir))
         rpmlist.sort()
