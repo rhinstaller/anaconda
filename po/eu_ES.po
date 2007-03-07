@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -446,13 +446,13 @@ msgstr ""
 "Horrela gertatzea nahi al duzu?"
 
 # ../todo.py:1556
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr "%s eguneratzen.\n"
 
 # ../iw/installpath_gui.py:184
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "Ezarketa"
@@ -509,12 +509,12 @@ msgstr ""
 "com/bugzilla -ra mamorro honi buruzko txozten bat bidal ezazu mesedez."
 
 # ../exception.py:91
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Gertaeraren buruzkoak gorde dira"
 
 # ../exception.py:92
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -523,7 +523,7 @@ msgstr ""
 "Zure sistemako egoera disketean zuzen gorde da. Sistema berpiztu daiteke."
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
@@ -532,17 +532,17 @@ msgid "_Reboot"
 msgstr "_Garbitu"
 
 # ../exception.py:91
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Gertaeraren buruzkoak gorde dira"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
 # ../exception.py:92
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -550,7 +550,7 @@ msgid ""
 msgstr ""
 "Zure sistemako egoera disketean zuzen gorde da. Sistema berpiztu daiteke."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -4207,7 +4207,7 @@ msgid "Partitioning Errors"
 msgstr "Disko Zatiketa"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 # ../iw/welcome_gui.py:80
@@ -4828,7 +4828,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Raid Disko Zatia"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5984,15 +5984,6 @@ msgstr "Abiaketaren Izena"
 #, fuzzy
 msgid "Create new boot loader configuration"
 msgstr "Abiatze disketea sortu"
-
-#: ../textw/upgrade_text.py:89
-#, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
 
 # ../todo.py:1599
 #: ../textw/upgrade_text.py:107

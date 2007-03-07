@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-09-19 12:08+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -451,12 +451,12 @@ msgstr ""
 "ମାନଙ୍କୁ ଅପସାରିତ କରିବାର ସିଦ୍ଧାନ୍ତ ନେଇଛନ୍ତି:%s\n"
 "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏପରି କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s ର ଉନ୍ନୟନ କରୁଅଛି\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s କୁ ସ୍ଥାପନ କରୁଅଛି\n"
@@ -503,33 +503,33 @@ msgstr ""
 "ଗୋଟିଏ ଅନିୟନ୍ତ୍ରିତ ଅପବାଦ ଘଟିଲା। ଏହା ସମ୍ଭବତଃ ଗୋଟିଏ ତୃଟି ଅଟେ। ଦୟାକରି ବିସ୍ତ୍ରୁତ ବ୍ଯତିକ୍ରମର ଗୋଟିଏ "
 "ନକଲକୁ ସଂରକ୍ଷଣ କରନ୍ତୁ ଏବଂ %sରେ ଗୋଟିଏ ତୃଟି ବିବରଣୀ ଦାଖଲ କରନ୍ତୁ।"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇଛି"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
 "ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "ପୁନର୍ଚାଳିତ କରନ୍ତୁ (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇନାହିଁ"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "ଫ୍ଲଫି ରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -537,7 +537,7 @@ msgstr ""
 "ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ "
 "ହେବ।"
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
@@ -3867,7 +3867,7 @@ msgid "Partitioning Errors"
 msgstr "ବିଭାଜନୀୟ ତୃଟି ମାନ"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4441,7 +4441,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "ଅଦଳ ବଦଳ ବିଭାଜନ ର ଉନ୍ନୟନ କରନ୍ତୁ"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5411,18 +5411,6 @@ msgstr "ବୁଟ-ଲୋଡର ଅଦ୍ଯତନ କୁ ଛାଡି ଦିଅ�
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "ନୂତନ ବୁଟ-ଲୋଡର ବିନ୍ଯାସ କୁ ସୃଷ୍ଟି କରନ୍ତୁ"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"ପୁରାତନ କର୍ଣ୍ଣଲ ତୁଳନାରେ 2.4 କର୍ଣ୍ଣଲ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ଅଧିକ ଅଦଳ ବଦଳ ଆବଶ୍ୟକ କରିଥାଏ, ତନ୍ତ୍ରରେ "
-"ଥିବା RAM ର ଦୁଇଗୁଣ ସ୍ବାପ ସ୍ଥାନ ଆବଶ୍ୟକ।  ଆପଣଙ୍କ ନିକଟରେ ବର୍ତ୍ତମାନ %d ମେଗା-ବାଇଟ ସ୍ବାପ ବିନ୍ଯାସ "
-"କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ ବର୍ତ୍ତମାନ ଆପମଙ୍କ ଫାଇଲ ତନ୍ତ୍ରରେ ଅତିରିକ୍ତ ସ୍ବାପ ସ୍ଥାନ ସୃଷ୍ଟି କରିପାରିବେ।"
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6985,6 +6973,18 @@ msgstr "ୱେଲଶ୍"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "ଜୁଲୁ"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "ପୁରାତନ କର୍ଣ୍ଣଲ ତୁଳନାରେ 2.4 କର୍ଣ୍ଣଲ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ଅଧିକ ଅଦଳ ବଦଳ ଆବଶ୍ୟକ କରିଥାଏ, "
+#~ "ତନ୍ତ୍ରରେ ଥିବା RAM ର ଦୁଇଗୁଣ ସ୍ବାପ ସ୍ଥାନ ଆବଶ୍ୟକ।  ଆପଣଙ୍କ ନିକଟରେ ବର୍ତ୍ତମାନ %d ମେଗା-ବାଇଟ "
+#~ "ସ୍ବାପ ବିନ୍ଯାସ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ ବର୍ତ୍ତମାନ ଆପମଙ୍କ ଫାଇଲ ତନ୍ତ୍ରରେ ଅତିରିକ୍ତ ସ୍ବାପ ସ୍ଥାନ ସୃଷ୍ଟି "
+#~ "କରିପାରିବେ।"
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "[%d/%d] ସମ୍ପନ୍ନ ହେଲା"

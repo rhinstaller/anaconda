@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-08-18 21:49-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -441,12 +441,12 @@ msgstr ""
 "disgiau canlynol: %s\n"
 "A ydych yn sicr eich bod am wneud hyn?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Yn uwchraddio %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "Wrthi'n arsefydlu %s\n"
@@ -494,11 +494,11 @@ msgstr ""
 "hwn.  A wnewch chi gadw copi manwl o'r eithriad, a mynd i %s er mwyn cofnodi "
 "gwall o fewn anaconda"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Ysgrifennwyd Tomen"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -506,22 +506,22 @@ msgstr ""
 "Mae copi o gyflwr eich system yn ddiogel ar y ddisg hyblyg. Bydd eich system "
 "yn awr yn cael ei hail-gychwyn."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Ailgychwyn"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Tomen heb ei hysgrifennu"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Roedd gwall wrth gadw cyflwr eich system ar y ddisg hyblyg."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -529,7 +529,7 @@ msgstr ""
 "Mae copi o gyflwr eich system yn ddiogel ar y gwesteiwr pell. Bydd eich "
 "system yn awr yn cael ei hail-gychwyn."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Roedd gwall wrth gadw cyflwr eich system ar y gwesteiwr pell."
 
@@ -3915,7 +3915,7 @@ msgid "Partitioning Errors"
 msgstr "Gwallau Rhannu"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4491,7 +4491,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Uwchraddio Rhaniad Cyfnewid"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5465,19 +5465,6 @@ msgstr "Hepgor diweddaru cychwynnydd"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Creu cyfluniad cychwynnydd newydd"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Mae angen llawer mwy o gyfnewidfa ar y cnewyllyn 2.4 nag oedd ar gnewyll "
-"henach, cymaint â dwywaith cymaint o le cyfnewid ag o RAM ar y system.  Mae "
-"gennych %dMB o gyfnewidfa wedi'i chyflunio'n gyfredol, ond cewch greu lle "
-"cyfnewid ychwanegol ar un o'ch systemau ffeil nawr."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7036,6 +7023,18 @@ msgstr "Cymraeg"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zwlŵeg"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Mae angen llawer mwy o gyfnewidfa ar y cnewyllyn 2.4 nag oedd ar gnewyll "
+#~ "henach, cymaint â dwywaith cymaint o le cyfnewid ag o RAM ar y system.  "
+#~ "Mae gennych %dMB o gyfnewidfa wedi'i chyflunio'n gyfredol, ond cewch greu "
+#~ "lle cyfnewid ychwanegol ar un o'ch systemau ffeil nawr."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Wedi gorffen [%d/%d]"

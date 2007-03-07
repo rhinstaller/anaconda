@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2005-04-27 22:11+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -442,14 +442,14 @@ msgstr ""
 "следниве дискови: %s\n"
 "Сигурно сакате тоа да го направите?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Надградба на %s пакетите\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "Инсталирај %s"
@@ -499,11 +499,11 @@ msgstr ""
 "од целиот текст на овој исклучок и пријавете детален извештај за грешката на "
 "програмата анаконда на страницата %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Податоците се запишани"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -512,23 +512,23 @@ msgstr ""
 "Состојбата на вашиот систем е успешно запишана на дискета. Вашиот систем "
 "сега ќе се ресетира."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Рестартирај"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Податоците се запишани"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -537,7 +537,7 @@ msgstr ""
 "Состојбата на вашиот систем е успешно запишана на дискета. Вашиот систем "
 "сега ќе се ресетира."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -3885,7 +3885,7 @@ msgid "Partitioning Errors"
 msgstr "Грешки при партиционирање"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4440,7 +4440,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Надградба на swap партиција"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5404,19 +5404,6 @@ msgstr "Прескокни ја надградбата на подигнувач
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Креирај нова конфигурација за подигнувачот"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Кернелот 2.4 има потреба од поголем swap простор за разлика од постарите "
-"кернели. Тој има потреба од два пати повеќе RAM и swap простор на системот.  "
-"Моментално имате %dMB swap простор, но можете да креирате и додатен swap "
-"простор на еден од вашите датотечни системи."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6992,6 +6979,18 @@ msgstr "Welsh"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Кернелот 2.4 има потреба од поголем swap простор за разлика од постарите "
+#~ "кернели. Тој има потреба од два пати повеќе RAM и swap простор на "
+#~ "системот.  Моментално имате %dMB swap простор, но можете да креирате и "
+#~ "додатен swap простор на еден од вашите датотечни системи."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Извршено [%d/%d]"

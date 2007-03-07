@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-09-23 21:23+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
@@ -445,12 +445,12 @@ msgstr ""
 "következő meghajtóknál: %s\n"
 "Biztosan ezt szeretné?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s frissítése \n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s telepítése\n"
@@ -498,33 +498,33 @@ msgstr ""
 "ki a kivétel teljes szövegét és jelentse be a hibát az Anaconda kategóriában "
 "a(z) %s címen."
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "A dump-fájl kiírva"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
 "A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Ú_jraindítás"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "A dump-fájl nem lett kiírva"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Hiba történt a rendszerállapot floppy-ra írása közben."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -532,7 +532,7 @@ msgstr ""
 "A rendszer állapotát sikerült a távoli gépre menteni.  A rendszer most "
 "újraindul."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Hiba történt a rendszer állapotának távoli gépre történő írása közben."
 
@@ -3919,7 +3919,7 @@ msgid "Partitioning Errors"
 msgstr "Partícionálási hibák"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4503,7 +4503,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "A lapozási (swap) partíciót felfrissíteni"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5478,18 +5478,6 @@ msgstr "A rendszerbetöltő frissítésének kihagyása"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Új rendszerbetöltő létrehozása"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"A 2.4-es rendszermag a régebbi verzióknál lényegesen több lapozási területet "
-"igényel, kb. a rendelkezésre álló memória (RAM) kétszeresét. Jelenleg %dMB "
-"van beállítva, de lapozási terület más fájlrendszereken is kialakítható."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7060,6 +7048,18 @@ msgstr "velszi"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "A 2.4-es rendszermag a régebbi verzióknál lényegesen több lapozási "
+#~ "területet igényel, kb. a rendelkezésre álló memória (RAM) kétszeresét. "
+#~ "Jelenleg %dMB van beállítva, de lapozási terület más fájlrendszereken is "
+#~ "kialakítható."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Kész [%d/%d]"

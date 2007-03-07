@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-09-19 11:51+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -443,12 +443,12 @@ msgstr ""
 "자료를) 삭제합니다:%s\n"
 "정말로 삭제하시겠습니까?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s(을)를 업그레이드 합니다.\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s 설치\n"
@@ -496,11 +496,11 @@ msgstr ""
 "현재 발생된 예외적인 오류의 자세한 내용을 %s 의 anaconda 항목에 자세히 보고"
 "해 주시기 바랍니다"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "덤프(dump)를 기록했습니다"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -508,22 +508,22 @@ msgstr ""
 "현재 시스템의 상태는 플로피 디스켓에 성공적으로 기록되었습니다. 시스템을 재부"
 "팅 합니다."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "재부팅(_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "덤프(dump)에 기록되지 않음"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "시스템 상태를 플로피에 기록하는데 문제가 발생했습니다."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -531,7 +531,7 @@ msgstr ""
 "현재 시스템의 상태를 원격 호스트에 성공적으로 기록했습니다.  시스템을 재부팅"
 "합니다."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "시스템 상태를 원격 호스트에 기록하는데 문제가 발생했습니다."
 
@@ -3871,7 +3871,7 @@ msgid "Partitioning Errors"
 msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4447,7 +4447,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "스왑 파티션 업그레이드"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5414,19 +5414,6 @@ msgstr "부트로더 업데이트 생략"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "새로운 부트로더 설정 작성하기"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"커널 2.4 부터는 이전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상을 스"
-"왑 공간으로 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요로 합니다. "
-"현재 여러분이 스왑 공간으로 설정하신 용량은 %d MB 입니다. 필요하시다면, 추가"
-"로 스왑 공간을 더 생성하실 수 있습니다."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6987,6 +6974,18 @@ msgstr "웨일스어"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "줄루어"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "커널 2.4 부터는 이전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상"
+#~ "을 스왑 공간으로 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요로 "
+#~ "합니다. 현재 여러분이 스왑 공간으로 설정하신 용량은 %d MB 입니다. 필요하시"
+#~ "다면, 추가로 스왑 공간을 더 생성하실 수 있습니다."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "마침 [%d/%d]"

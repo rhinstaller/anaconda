@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-10-16 18:01+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -443,12 +443,12 @@ msgstr ""
 "s\n"
 "మీరు ఇది నిజంగా చెయాలనుకుంటున్నారా?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "స్థాయీవృద్ధి %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "సంస్థాపన %s\n"
@@ -494,32 +494,32 @@ msgstr ""
 "వీలుకాని అపవాదం సంభవించింది.  ఇది చాలావరకూ bug లాంటిది.  దయచేసి అపవాదంయొక్క ఒక వివరణాత్మక ప్రతిని "
 "భద్రపరవండి మరియూ అనకొండకు ప్రతికూలంగా ఒక bug ఫిర్యాదును %sలో ఫైలు చెయండి."
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "లేఖన రాశి"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr "మీ కంప్యూటరు ప్లాపూలో రాయగల స్థితిలో ఉంది. మీ కంప్యూటరును ఇప్పుడు పునఃప్రారంభించండి."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "పునఃప్రారంభించు (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Dump రాయబడలేదు"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "కంప్యూటరు స్థితిని ప్లాపీలోకి రాయటంలో ఇబ్బంది ఉంది."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -527,7 +527,7 @@ msgstr ""
 "మీ కంప్యూటరు స్థితి విజయవంతంగా remote hostలో రాయబడుతోంది. మీ కంప్యూటరు ఇప్పుడు "
 "పునఃప్రారంభించాలి."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "కంప్యూటరు స్థితిని remote hostకి రాయటంలో ఇబ్బంది ఉంది."
 
@@ -3807,7 +3807,7 @@ msgid "Partitioning Errors"
 msgstr "విభజనా దోషాలు"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4377,7 +4377,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Swap విభజనని నవీకరించు"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5339,19 +5339,6 @@ msgstr "boot loader నవీకరణను దాటవేయి"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "కొత్త boot loader ఆకృతీకరణను సృష్టించు"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6895,6 +6882,18 @@ msgstr "Welsh"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "The 2.4 kernel needs significantly more swap than older kernels, as much "
+#~ "as twice as much swap space as RAM on the system. You currently have %dMB "
+#~ "of swap configured, but you may create additional swap space on one of "
+#~ "your file systems now."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "పూర్తయ్యింది [%d/%d]"

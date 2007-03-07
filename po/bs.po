@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-01-22 00:30+0100\n"
 "Last-Translator: Adnan Hodzic <AbsintheSyringe@gmail.com>\n"
 "Language-Team: Bosnian <lokal@linux.org.ba>\n"
@@ -444,12 +444,12 @@ msgstr ""
 "sljedećim diskovima:%s\n"
 "Jeste li sigurni da želite to uraditi?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Nadograđivanje %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "Instaliranje paketa: %s\n"
@@ -497,11 +497,11 @@ msgstr ""
 "Kopirajte cijeli opis ove pogrešku i prijavite detaljan izvještaj o programu "
 "Anaconda na adresu %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Izbačeni podaci su zapisani"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -509,22 +509,22 @@ msgstr ""
 "Stanje vašeg sistema uspješno je zapisano na disketu. Vaš će sistem biti "
 "resetovan."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Resetuj"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Izbačeni podaci nisu zapisani"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Došlo je do problema pri zapisivanju stanja sistema na disketu."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -532,7 +532,7 @@ msgstr ""
 "Stanje vašeg sistema uspješno je zapisano na udaljeno računar. Vaš će sistem "
 "biti resetovan."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Došlo je do problema pri zapisivanju stanja sistema na udaljeni računar."
@@ -3933,7 +3933,7 @@ msgid "Partitioning Errors"
 msgstr "Pogreške particioniranja"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4518,7 +4518,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Nadograditi razmjensku particiju"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5501,19 +5501,6 @@ msgstr "Bez ažuriranja konfiguracije pokretača"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Izradi novu konfiguraciju pokretača"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Kernel 2.4 potražuje daleko više razmjenskog prostora u odnosu na starije "
-"kernele: dvostruko više razmjenskog prostora od radne memorije računara. "
-"Trenutno je konfigurirano %dMB razmjenskog prostora, ali možete izraditi "
-"dodatne razmjenske prostore na još nekom od datotečnih sistema."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7084,6 +7071,18 @@ msgstr "Velški"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Kernel 2.4 potražuje daleko više razmjenskog prostora u odnosu na starije "
+#~ "kernele: dvostruko više razmjenskog prostora od radne memorije računara. "
+#~ "Trenutno je konfigurirano %dMB razmjenskog prostora, ali možete izraditi "
+#~ "dodatne razmjenske prostore na još nekom od datotečnih sistema."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Gotovo [%d/%d]"

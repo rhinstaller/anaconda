@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-12-06 11:51+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -447,12 +447,12 @@ msgstr ""
 "किया है:%s\n"
 "क्या आप यह करने के लिए निश्चित हैं?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s का उन्नयन कर रहा है\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s अधिष्ठापित कर रहा है\n"
@@ -499,11 +499,11 @@ msgstr ""
 "एक अनियंत्रित अपवाद घटित हुआ. ज्यादा संभावना यह एक बग है. कृपया इस अपवाद के पूरे पाठ "
 "को कॉपी करें और एनाकोंडा में एक विस्तारित (बग) सूचना %s पर भेजें."
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "संनिक्षेप लिखा गया"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -511,22 +511,22 @@ msgstr ""
 "आपके सिस्टम की स्थिति सफलता पूर्वक फ्लॉपी पर लिखी जा चुकी है. आपका सिस्टम अब पुनःआरंभ "
 "होगा."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "रिबूट करें (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "संनिक्षेप नहीं लिखा गया"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "फ्लॉपी में सिस्टम स्थिति को लिखने में समस्या थी."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -534,7 +534,7 @@ msgstr ""
 "आपके सिस्टम की स्थिति सफलता पूर्वक दूरस्थ मेजबान पर लिखी जा चुकी है. आपका सिस्टम अब पुनः "
 "बूट किया जायेगा."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "दूरस्थ मेजबान में सिस्टम स्थिति लिखने में समस्या थी."
 
@@ -3851,7 +3851,7 @@ msgid "Partitioning Errors"
 msgstr "विभाजन करने में त्रुटि"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4421,7 +4421,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "स्वैप विभाजन का उन्नयन करें"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5383,18 +5383,6 @@ msgstr "बूट लोडर अद्यतन छोड़ें"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "नया बूट लोडर विन्यास बनाएँ"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"2.4 कर्नल को पुराने कर्नलों से अधिक स्वैप स्थान की आवश्यकता होती है, जो सिस्टम के RAM से "
-"दुगुने हैं. आपके पास वर्तमान में %dMB के स्वैप विन्यस्त है, परंतु अब आप, अपने फाइल सिस्टमों में से "
-"एक पर अतिरिक्त स्वैप स्थान बनाएँ."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6945,6 +6933,17 @@ msgstr "वेल्श"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "जुलु"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "2.4 कर्नल को पुराने कर्नलों से अधिक स्वैप स्थान की आवश्यकता होती है, जो सिस्टम के RAM "
+#~ "से दुगुने हैं. आपके पास वर्तमान में %dMB के स्वैप विन्यस्त है, परंतु अब आप, अपने फाइल सिस्टमों "
+#~ "में से एक पर अतिरिक्त स्वैप स्थान बनाएँ."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "[%d/%d] संपन्न"

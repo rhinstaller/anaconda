@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-12-26 11:33+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -434,12 +434,12 @@ msgstr ""
 "您選擇了移除以下磁碟機中所有的 Linux 分割區（包含其上的所有資料）:%s\n"
 "您確定要繼續嗎？"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "正在升級 %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "正在安裝 %s\n"
@@ -484,38 +484,38 @@ msgstr ""
 "發生無法處理的例外狀況。這極可能是一個程式錯誤。請複製一份完整的文字敘述，並"
 "針對 anaconda 回報給 %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Dump 寫入"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr "你系統的狀態已經成功地寫入軟碟。現在系統將重新啟動。"
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "重新開機(_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Dump 並未寫入"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "將系統狀態寫入軟碟時出現問題。"
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr "你的系統狀態已經成功寫入到遠端機器中。現在系統將重新啟動。"
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "將系統狀態寫入遠端機器時出現問題。"
 
@@ -3747,7 +3747,7 @@ msgid "Partitioning Errors"
 msgstr "磁碟分割錯誤"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4306,7 +4306,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "升級 Swap 分割區"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5251,17 +5251,6 @@ msgstr "略過更新開機管理程式"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "建立新的開機管理程式設定"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"2.4 版的核心比舊版的核心需要更多的 swap 空間，約是您系統記憶體的兩倍。 您現在"
-"配置了 %d MB 的 swap 空間，您現在可以新增另一個 swap 空間於您的系統上。"
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6768,6 +6757,17 @@ msgstr "威爾斯語"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖魯語"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "2.4 版的核心比舊版的核心需要更多的 swap 空間，約是您系統記憶體的兩倍。 您"
+#~ "現在配置了 %d MB 的 swap 空間，您現在可以新增另一個 swap 空間於您的系統"
+#~ "上。"
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "已完成 [%d/%d]"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-09-22 14:51+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
@@ -437,12 +437,12 @@ msgstr ""
 "您已选择了要在下列驱动器内删除所有 Linux 分区（及其所有数据）：%s\n"
 "是否确定要执行该项操作？"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "升级 %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "安装 %s\n"
@@ -487,38 +487,38 @@ msgstr ""
 "出现了一个无法处理的例外。这极可能是一个程序错误。请将此例外的完整原文复制下"
 "来，然后向 %s 提交一份详细的安装程序错误报告。"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "已写完转储信息"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr "您的系统状态已被成功地写入软盘，系统将被重新启动。"
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "重新引导(_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "未写完转储信息"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "将系统状态写入软盘时出现问题。"
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr "您的系统状态已被成功地写入远程主机。系统将被重启。"
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "将系统状态存入远程主机时出现问题。"
 
@@ -3727,7 +3727,7 @@ msgid "Partitioning Errors"
 msgstr "分区错误"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4283,7 +4283,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "升级交换分区"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5229,17 +5229,6 @@ msgstr "跳过引导装载程序的更新"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "创建新的引导装载程序配置"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"2.4内核所需交换区要比老版内核大得多，大至您系统内存的两倍。您目前配置了%dMB "
-"交换区，但现在您可以在任何一个文件系统中创建额外的交换区。"
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6747,6 +6736,16 @@ msgstr "威尔士语"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖鲁语"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "2.4内核所需交换区要比老版内核大得多，大至您系统内存的两倍。您目前配置了%"
+#~ "dMB 交换区，但现在您可以在任何一个文件系统中创建额外的交换区。"
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "完成 [%d/%d]"

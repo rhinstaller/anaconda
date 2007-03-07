@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-03-07 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
@@ -441,12 +441,12 @@ msgstr ""
 "eftirtöldum drifum:%s\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Uppfæri %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "Set upp %s\n"
@@ -493,11 +493,11 @@ msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa. Vinsamlegast "
 "afritaðu allan textann hérna og sendu inn villutilkynningu um anaconda á %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Dump ritað"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -505,22 +505,22 @@ msgstr ""
 "Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
 "endurræsa."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "En_durræsa"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Villuboð ekki rituð"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Það kom upp villa við að skrifa stöðu kerfisins á disklinginn."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -528,7 +528,7 @@ msgstr ""
 "Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Vélin þín "
 "mun nú endurræsa."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Það kom upp villa við að skrifa stöðu kerfisins á fjartengdu vélina."
 
@@ -3880,7 +3880,7 @@ msgid "Partitioning Errors"
 msgstr "Disksneiðingavillur"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4459,7 +4459,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Uppfæra diskminnissneið"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5420,19 +5420,6 @@ msgstr "sleppa uppfærslu ræsistjóra"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Búa til nýjar ræsistjórastillingar"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Linux 2.4 kjarninn þarfnast meira diskminnis en eldri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
-"diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6987,6 +6974,18 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Linux 2.4 kjarninn þarfnast meira diskminnis en eldri kjarnar. Magn "
+#~ "diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+#~ "stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til "
+#~ "viðbótar diskminni á einhverju af skráarkerfunum þínum núna."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Lokið [%d/%d]"

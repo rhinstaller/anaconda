@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-02-09 16:02+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
@@ -531,12 +531,12 @@ msgstr ""
 "contêm) nos seguintes discos:%s\n"
 "Tem a certeza que quer fazer isso?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "A actualizar o %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "A instalar o %s\n"
@@ -584,11 +584,11 @@ msgstr ""
 "Por favor copie o texto da excepção ocorrida e comunique um erro no "
 "componente 'anaconda' em %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Mensagem de erro escrita"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -596,22 +596,22 @@ msgstr ""
 "O estado do seu sistema foi escrito para a disquete. O seu computador será "
 "agora reiniciado."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Reiniciar"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "O Resultado Não Foi Escrito"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Ocorreu um problema ao gravar o estado do sistema na disquete."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -619,7 +619,7 @@ msgstr ""
 "O estado do seu sistema foi escrito com sucesso na máquina remota. O seu "
 "computador será agora reiniciado."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Ocorreu um erro ao gravar o estado do sistema na máquina remota."
 
@@ -4025,7 +4025,7 @@ msgid "Partitioning Errors"
 msgstr "Erros de Particionamento"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4615,7 +4615,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Actualização de Partição de Memoria Virtual"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5585,19 +5585,6 @@ msgstr "Não actualizar o gestor de arranque"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Criar nova configuração de gestor de arranque"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"O kernel 2.4 precisa de mais memória virtual do que um kernel mais antigo, "
-"por vezes o dobro de memória virtual do que a RAM no seu computador. "
-"Actualmente tem %d MB de memória virtual configurada, mas pode criar mais "
-"memória virtual num dos seus sistemas de ficheiros agora."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7162,6 +7149,18 @@ msgstr "Galês"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "O kernel 2.4 precisa de mais memória virtual do que um kernel mais "
+#~ "antigo, por vezes o dobro de memória virtual do que a RAM no seu "
+#~ "computador. Actualmente tem %d MB de memória virtual configurada, mas "
+#~ "pode criar mais memória virtual num dos seus sistemas de ficheiros agora."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Concluído [%d/%d]"

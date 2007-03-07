@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-03-01 16:47+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -449,12 +449,12 @@ msgstr ""
 "ആവശ്യപ്പെട്ടിരിക്കുന്നത്:%s \n"
 "നിങ്ങള്‍ക്ക് ഇത് ചെയ്യണമെന്ന് ഉറപ്പ് വരുത്തുക?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s പുതുക്കുന്നു\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നു    \n"
@@ -502,11 +502,11 @@ msgstr ""
 "s-ല്‍ anaconda-യ്ക്ക് എതിരായി ഒരു ബഗ് രേഖപ്പെടുത്തുക. ഇതിന്‍റെ ഒരു പകര്‍പ്പ് നിങ്ങളും "
 "സംരക്ഷിക്കേണ്ടതാണ്."
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Dump എഴുതിയിരിക്കുന്നു"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -514,23 +514,23 @@ msgstr ""
 "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി ഫ്ളോപ്പിയിലേക്ക് വിജയകരമായി രേഖപ്പെടുത്തിയിരിക്കുന്നു. "
 "കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "വീണ്ടും കംപ്യൂട്ടറ്‍ ഓണ്‍ ചെയ്യുക (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Dump എഴുതിയിട്ടില്ല"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി ഫ്ളോപ്പിയിലേക്ക് രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു. "
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -538,7 +538,7 @@ msgstr ""
 "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി റിമോട്ട് ഹോസ്റ്റിലേക്ക് വിജയകരമായി രേഖപ്പെടുത്തിയിരിക്കുന്നു."
 "കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീസെറ്റ് ചെയ്യപ്പെടും."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ സ്ഥിതി റിമോട്ട് ഹോസ്റ്റില്‍ രേഖപ്പെടുത്തുന്നതില്‍ തകരാറു സംഭവിച്ചിരിക്കുന്നു."
@@ -3905,7 +3905,7 @@ msgid "Partitioning Errors"
 msgstr "പാര്‍ട്ടീഷനിങ് പിഴവുകള്‍"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4481,7 +4481,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Swap പാര്‍ട്ടീഷന്‍ പരിഷ്കരിക്കുക"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5439,18 +5439,6 @@ msgstr "ബൂട്ട് ലോഡര്‍ പരിവര്‍ത്തന�
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "പുതിയ ബൂട്ട് ലോഡര്‍ കോണ്‍ഫിഗറേഷന്‍ നിര്‍മ്മിക്കുക"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"മറ്റ് പഴയ കേര്‍ണലുകളേക്കാള്‍, RAM-ന്‍റെ രണ്ടിരട്ടി സ്ഥലം 2.4 കേര്‍ണലുകളുടെ swap-ന് ആവശ്യമുണ്ട്. "
-"നിങ്ങള്‍ക്ക് നിലവില്‍ %dMB swap ലഭ്യമാണ്, പക്ഷേ നിങ്ങള്‍ കൂടുതല്‍ swap-നുളള സ്ഥലം ഏതെങ്കിലും ഒരു "
-"ഫയല്‍ സിസ്റ്റമില്‍ ഉണ്ടാക്കേണ്ടതാണ്."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6995,6 +6983,17 @@ msgstr "വെല്‍ഷ്"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "സുളു"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "മറ്റ് പഴയ കേര്‍ണലുകളേക്കാള്‍, RAM-ന്‍റെ രണ്ടിരട്ടി സ്ഥലം 2.4 കേര്‍ണലുകളുടെ swap-ന് ആവശ്യമുണ്ട്. "
+#~ "നിങ്ങള്‍ക്ക് നിലവില്‍ %dMB swap ലഭ്യമാണ്, പക്ഷേ നിങ്ങള്‍ കൂടുതല്‍ swap-നുളള സ്ഥലം ഏതെങ്കിലും "
+#~ "ഒരു ഫയല്‍ സിസ്റ്റമില്‍ ഉണ്ടാക്കേണ്ടതാണ്."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "കഴിഞ്ഞിരിക്കുന്നു [%d/%d]"

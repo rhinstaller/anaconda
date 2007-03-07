@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-05-17 03:37+0900\n"
 "Last-Translator: Nam <lhnam29vn@yahoo.co.jp>\n"
 "Language-Team: Vietnamese\n"
@@ -424,14 +424,14 @@ msgstr ""
 "trên những ổ đĩa sau:%s\n"
 "Bạn có chắc muốn thực hiện điều này không?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Đang nâng cấp gói %s\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Cài đặt %s"
@@ -479,11 +479,11 @@ msgstr ""
 "toàn bộ văn bản của lỗi này hoặc điền một bản báo cáo lỗi cho mục anaconda "
 "tại http://bugzilla.redhat.com/bugzilla/"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Đã ghi dump"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -492,22 +492,22 @@ msgstr ""
 "Trạng thái hệ thống đã được ghi vào đĩa mềm thành công. Hệ thống này sẽ được "
 "reset."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Khởi động _lại"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Dump chưa được ghi"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Có lỗi khi ghi tình trạng của hệ thống lên đĩa mềm."
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -516,7 +516,7 @@ msgstr ""
 "Trạng thái hệ thống đã được ghi vào đĩa mềm thành công. Hệ thống này sẽ được "
 "reset."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Có lỗi khi ghi tình trạng của hệ thống tới máy tính điều khiển từ xa (remote "
@@ -3810,7 +3810,7 @@ msgid "Partitioning Errors"
 msgstr "Lỗi phân partition"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4364,7 +4364,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Nâng cấp partition swap"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5329,18 +5329,6 @@ msgstr "Bỏ qua cập nhật boot loader"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Tạo cấu hình boot loader mới"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Hạt nhân 2.4 cần nhiều swap hơn đáng kể so với các hạt nhân trước, khoảng "
-"gấp hai lần lượng RAM hệ thống. Bạn hiện có %dMB swap, bạn có thể tạo swap "
-"bổ sung bây giờ."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6921,6 +6909,17 @@ msgstr "tiếng Mỹ (Welsh)"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "tiếng Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Hạt nhân 2.4 cần nhiều swap hơn đáng kể so với các hạt nhân trước, khoảng "
+#~ "gấp hai lần lượng RAM hệ thống. Bạn hiện có %dMB swap, bạn có thể tạo "
+#~ "swap bổ sung bây giờ."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Xong [%d/%d]"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-02-09 10:07-0300\n"
 "Last-Translator: Domingo Becker <beckerde@hotmail.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
@@ -637,7 +637,7 @@ msgstr ""
 # ../packages.py:508
 # ../packages.py:515
 # ../packages.py:516
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Actualizando %s\n"
@@ -645,7 +645,7 @@ msgstr "Actualizando %s\n"
 # ../installclass.py:27
 # ../installclass.py:27
 # ../installclass.py:28
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "Instalando %s\n"
@@ -713,14 +713,14 @@ msgstr ""
 # ../exception.py:150
 # ../exception.py:150
 # ../exception.py:150
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Escrito vacío"
 
 # ../exception.py:151
 # ../exception.py:151
 # ../exception.py:151
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -731,7 +731,7 @@ msgstr ""
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
 # ../iw/partition_gui.py:1526
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
@@ -742,18 +742,18 @@ msgstr "_Reiniciar"
 # ../exception.py:150
 # ../exception.py:150
 # ../exception.py:150
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Vaciado no escrito"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Hubo un problema al escribir el estado del sistema al disquete."
 
 # ../exception.py:151
 # ../exception.py:151
 # ../exception.py:151
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -761,7 +761,7 @@ msgstr ""
 "El estado de su sistema ha sido grabado satisfactoriamente en el host "
 "remoto. Su sistema será reiniciado en estos momentos. "
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Hubo un problema al escribir el estado del sistema en el host remoto."
 
@@ -5593,7 +5593,7 @@ msgid "Partitioning Errors"
 msgstr "Errores de particionamiento"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 # ../iw/partition_gui.py:561
@@ -6410,7 +6410,7 @@ msgstr "Actualización de la partición swap"
 # ../iw/upgrade_swap_gui.py:88
 # ../iw/upgrade_swap_gui.py:88
 # ../iw/upgrade_swap_gui.py:90
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -7911,22 +7911,6 @@ msgstr "Omitir la actualización del cargador de arranque"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Creación de una nueva configuración del cargador de arranque"
-
-# ../textw/upgrade_text.py:89
-# ../textw/upgrade_text.py:89
-# ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"El Kernel 2.4 necesita más swap que los kernels anteriores, el doble de "
-"espacio swap que de RAM de su sistema. Actualmente tiene %dMB de swap "
-"configurado, pero puede crear ahora espacio swap adicional en uno de sus "
-"sistemas de ficheros."
 
 # ../textw/upgrade_text.py:107
 # ../textw/upgrade_text.py:107
@@ -10055,6 +10039,21 @@ msgstr "Galés"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+# ../textw/upgrade_text.py:89
+# ../textw/upgrade_text.py:89
+# ../textw/upgrade_text.py:89
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "El Kernel 2.4 necesita más swap que los kernels anteriores, el doble de "
+#~ "espacio swap que de RAM de su sistema. Actualmente tiene %dMB de swap "
+#~ "configurado, pero puede crear ahora espacio swap adicional en uno de sus "
+#~ "sistemas de ficheros."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Listo [%d/%d]"

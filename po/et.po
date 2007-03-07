@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2005-07-27 13:13+0200\n"
 "Last-Translator: Allan Sims <allan.sims@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -436,14 +436,14 @@ msgstr ""
 "kustutada:%s\n"
 "Oled kindel, et soovid seda teha?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Uuendatakse %s pakette\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Installeeri %s"
@@ -489,11 +489,11 @@ msgstr ""
 "kirjuta kogu veateate tekst üles ning koosta seejärel detailne veaaruanne "
 "anaconda kohta aadressil %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Tõmmis (dump) kirjutatud"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -501,23 +501,23 @@ msgid ""
 msgstr ""
 "Arvuti olek salvestati edukalt disketile. Arvuti lähtestatakse (reset)."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Taaskäivita"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Tõmmis (dump) kirjutatud"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -525,7 +525,7 @@ msgid ""
 msgstr ""
 "Arvuti olek salvestati edukalt disketile. Arvuti lähtestatakse (reset)."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -3818,7 +3818,7 @@ msgid "Partitioning Errors"
 msgstr "Partitsioneerimise vead"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4389,7 +4389,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Uuenda saaleala"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5347,17 +5347,6 @@ msgstr "Ära värskenda alglaaduri seadeid"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Uue alglaaduri seadistamine"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"2.4 kernel vajab eelmistest tunduvalt suuremat saaleala (kuni 2x RAM maht). "
-"Hetkel on saaleala suuruseks %dMB, kuid seda saab juurde teha."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6932,6 +6921,16 @@ msgstr "welsi keel"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "suulu keel"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "2.4 kernel vajab eelmistest tunduvalt suuremat saaleala (kuni 2x RAM "
+#~ "maht). Hetkel on saaleala suuruseks %dMB, kuid seda saab juurde teha."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Valmis [%d/%d]"

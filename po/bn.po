@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-09-22 04:52+0600\n"
 "Last-Translator: Mahay Alam Khan (মাহে আলম) <makl10n@yahoo.com>\n"
 "Language-Team: Bangla <redhat-translation@bengalinux.org>\n"
@@ -446,12 +446,12 @@ msgstr ""
 "সিদ্ধান্ত নিয়েছেন:%s\n"
 "আপনি কি এ ব্যাপারে নিশ্চিত?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s আপগ্রেড\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s ইনস্টল করা হচ্ছে \n"
@@ -500,33 +500,33 @@ msgstr ""
 "একটি বাগ।  অনুগ্রহপূর্বক এই Exception বার্তাটি কপি করে সংরক্ষণ করুন এবং %s -এই "
 "ঠিকানায় অ্যানাকোন্ডার বিপরীতে একটি বাগ বিবরণী দাখিল করুন।"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "ডাম্প (Dump) সংরক্ষণ করা হয়েছে"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
 "আপনার সিস্টেমের অবস্থা সফলভাবে ফ্লপিতে লেখা হয়েছে। এখন সিস্টেমকে রিবুট করা হবে।"
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "রিবুট (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "ডাম্প (Dump) সংরক্ষণ করা হয় নি"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "সিস্টেমের অবস্থা ফ্লপি ডিস্কে লিখতে সমস্যা হয়েছে।"
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -534,7 +534,7 @@ msgstr ""
 "আপনার সিস্টেমের অবস্থাকে সফলভাবে দূরবর্তী হোস্টে লেখা হয়েছে।\n"
 "এখন আপনার সিস্টেমকে রিবুট করা হবে।"
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "সিস্টেমের অবস্থা দূরবর্তী কম্পিউটারে লিখতে সমস্যা হয়েছে।"
 
@@ -3935,7 +3935,7 @@ msgid "Partitioning Errors"
 msgstr "পার্টিশন প্রক্রিয়ায় উদ্ভূত সমস্যা"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4515,7 +4515,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "সোয়াপ (Swap) পার্টিশনকে পরিবর্তন (Upgrade) করো"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5495,19 +5495,6 @@ msgstr "বুট লোডার আপডেটের প্রক্রিয়
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "বুট লোডারের জন্য নতুন কনফিগারেশন তৈরি করো"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"কার্নেলের ২.৪ সংস্করণের জন্য পুরাতন কার্নেলগুলো অপেক্ষা প্রায় দ্বিগুণ সোয়াপ (Swap) "
-"প্রয়োজন হয়, যা প্রায় সিস্টেমের র্যামের দ্বিগুণ। বর্তমানে সিস্টেমে %d মেগাবাইট সোয়াপ "
-"ব্যবহৃত হচ্ছে, তবে বিদ্যমান কোন একটি ফাইল সিস্টেমে সোয়াপের জন্য আপনি অতিরিক্ত স্থান "
-"বরাদ্দ করতে পারেন।"
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7088,6 +7075,18 @@ msgstr "ওয়েলস"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "জুলু"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "কার্নেলের ২.৪ সংস্করণের জন্য পুরাতন কার্নেলগুলো অপেক্ষা প্রায় দ্বিগুণ সোয়াপ (Swap) "
+#~ "প্রয়োজন হয়, যা প্রায় সিস্টেমের র্যামের দ্বিগুণ। বর্তমানে সিস্টেমে %d মেগাবাইট "
+#~ "সোয়াপ ব্যবহৃত হচ্ছে, তবে বিদ্যমান কোন একটি ফাইল সিস্টেমে সোয়াপের জন্য আপনি "
+#~ "অতিরিক্ত স্থান বরাদ্দ করতে পারেন।"
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "সম্পন্ন [%d%d]"

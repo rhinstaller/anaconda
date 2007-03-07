@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-03-25 21:52+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
 "Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu."
@@ -429,12 +429,12 @@ msgstr ""
 "کیا آپ کو یقین ھے کہ آپ یہ کرنا چاھتے ھیں\n"
 "%s:آپ نے دی گی ڈراو سے سب لینکس پاٹیشن ختم کرنے کو چن لیا ھے"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr "اپگریڈانگ %s-%s-%s.%s.\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "تنصیب_ %s"
@@ -482,11 +482,11 @@ msgstr ""
 "عام طور پر ایک بگ ھے۔ مہربانی فرما کر ایکسیپشن  کے سارے  ٹیکسٹ کو کاپی "
 "کریں   کریش ڈنپanacondaکو ہھاں%s بیجھیں"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "ڈنپ لکھا گیا"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -494,22 +494,22 @@ msgstr ""
 "آپ کے سسٹم کی حالت کامیابی سے فلاپی پر لکھ دی گی ھے۔ اب آپ کا سسٹم دوبارہ "
 "شروع ھو گا"
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "دوبارہ چلاؤ _"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "ڈنپ نہیں لکھا گیا"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "فلاپی پر سسٹم کی حالت لکھنے میں ایک مسُلہ درپیش تھا۔"
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -518,7 +518,7 @@ msgstr ""
 "آپ کے سسٹم کی حالت کامیابی سے ریموٹ ہوسٹ پر لکھ دی گی ھے۔ اب آپ کا سسٹم "
 "دوبارہ سیٹ ھو گا"
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "ریموٹ میزبان  پر سسٹم کی حالت لکھنے میں ایک مسُلہ درپیش تھا۔"
 
@@ -3847,7 +3847,7 @@ msgid "Partitioning Errors"
 msgstr "پارٹیشن کرتے ہوئے غلطیاں ہیں"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4418,7 +4418,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "سویپ حصہ کے لیے بھتری "
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5381,18 +5381,6 @@ msgstr "نیّ بو ٹ لو ڈر کو ر ھنے دے"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "بوٹ لو ڈر کی نیّ تر تیب بنا ییّں"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"کر نل2٫4کو سو یپ کے لےّ دوسرے کرنل سے زیادھ جگہ کی ضرورت ھے۔جتنی RAMھے یس سے "
-"دگنی ضرورت ھے۔آپکی مو جو د ھ سویپ تر تیب%dMBکسی فا یل میں نیی سو یپ سپیس بنا "
-"سکتے ھیں ھے۔لیکن آپ اپنے "
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6972,6 +6960,17 @@ msgstr "ویلش"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "زولو"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "کر نل2٫4کو سو یپ کے لےّ دوسرے کرنل سے زیادھ جگہ کی ضرورت ھے۔جتنی RAMھے یس "
+#~ "سے دگنی ضرورت ھے۔آپکی مو جو د ھ سویپ تر تیب%dMBکسی فا یل میں نیی سو یپ "
+#~ "سپیس بنا سکتے ھیں ھے۔لیکن آپ اپنے "
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "[%d/%d]کر لیا"

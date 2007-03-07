@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2007-02-25 13:00+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -466,12 +466,12 @@ msgstr ""
 "de les unitats següents:%s\n"
 "Esteu segur que ho voleu fer?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "S'està actualitzant %s\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "S'està instal·lant %s\n"
@@ -520,11 +520,11 @@ msgstr ""
 "error de programació. Feu una còpia completa del text d'aquesta excepció i "
 "informeu de l'error produït a l'anaconda a %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "S'ha escrit el bolcat"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -532,23 +532,23 @@ msgstr ""
 "L'estat del sistema s'ha escrit correctament al disquet. Ara s'arrencarà de "
 "nou el sistema."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "A_rrenca de nou"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "S'ha escrit el bolcat"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "Hi ha hagut un problema quan s'escrivia l'estat del sistema al disquet."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -556,7 +556,7 @@ msgstr ""
 "L'estat del sistema s'ha escrit correctament a l'ordinador remot. Ara es "
 "reiniciarà el vostre sistema."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Hi ha hagut un problema quan s'escrivia l'estat del sistema a l'ordinador "
@@ -3964,7 +3964,7 @@ msgid "Partitioning Errors"
 msgstr "Errors del particionat"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4546,7 +4546,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Actualitza la partició d'intercanvi"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5518,19 +5518,6 @@ msgstr "Omet l'actualització del carregador de l'arrencada"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Crea una nova configuració per al carregador de l'arrencada"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"El nucli 2.4 necessita força més memòria d'intercanvi que anteriors nuclis, "
-"almenys el doble de la memòria RAM del sistema. Actualment teniu %dMB de "
-"memòria d'intercanvi configurada, però podeu crear espai d'intercanvi "
-"addicional en un dels sistemes de fitxers ara."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7099,6 +7086,18 @@ msgstr "Gal·lès"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "El nucli 2.4 necessita força més memòria d'intercanvi que anteriors "
+#~ "nuclis, almenys el doble de la memòria RAM del sistema. Actualment teniu %"
+#~ "dMB de memòria d'intercanvi configurada, però podeu crear espai "
+#~ "d'intercanvi addicional en un dels sistemes de fitxers ara."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Fet [%d/%d]"

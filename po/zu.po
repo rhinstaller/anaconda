@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2004-02-22 09:09+0200\n"
 "Last-Translator: Thobile Mhlongo <thobile@obsidian.co.za>\n"
 "Language-Team: Zulu <zulu@translate.org.za>\n"
@@ -424,14 +424,14 @@ msgstr ""
 "olukuwona) kulaba shayeli abalandelayo:%s\n"
 "Uqinisekile ufuna ukwenza lokhu?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Ivuselela %s amaphakethe\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Fakal %s"
@@ -480,11 +480,11 @@ msgstr ""
 "wegciwane onemininingwane ngokwedlulela kwi-http://bugzilla.redhat.com/"
 "bugzilla/ ye-anaconda."
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Okubhaliwe Kutshingiwe"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -493,23 +493,23 @@ msgstr ""
 "Isimo sesistimu yakho sibhalwe kwidiski ethambile ngokunempumelelo. Isistimu "
 "yakho uzomiswa kabusha njengamanje."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Layisha kabusha"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Okubhaliwe Kutshingiwe"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -518,7 +518,7 @@ msgstr ""
 "Isimo sesistimu yakho sibhalwe kwidiski ethambile ngokunempumelelo. Isistimu "
 "yakho uzomiswa kabusha njengamanje."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -3919,7 +3919,7 @@ msgid "Partitioning Errors"
 msgstr "Amaphutha Okwahlula"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4505,7 +4505,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Vuselela Ukwahlula Kokushinthsha"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5496,19 +5496,6 @@ msgstr "Yeqa ukuvuselelwa komlayishi"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Dala inhlanganiselo yomlayishi"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Isigodi esingu-2.4.sidinga ukushintshwa okuningi kunezigodi ezindala, "
-"okungenani kuphindwe kabili kanye nesikhala sokushintsha esiningi kune-RAM "
-"yesistimu.  Njengamanje unokushintsha okungu-%dMB okuhlanganisiwe, kodwa "
-"kumele udale isikhala sokushintsha kwisistimu eyodwa yefayela."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7115,6 +7102,18 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Isigodi esingu-2.4.sidinga ukushintshwa okuningi kunezigodi ezindala, "
+#~ "okungenani kuphindwe kabili kanye nesikhala sokushintsha esiningi kune-"
+#~ "RAM yesistimu.  Njengamanje unokushintsha okungu-%dMB okuhlanganisiwe, "
+#~ "kodwa kumele udale isikhala sokushintsha kwisistimu eyodwa yefayela."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Kwenziwe [%d/%d]"

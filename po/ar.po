@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-07-15 03:38+0200\n"
 "Last-Translator: Maha <ms.helwa@gmail.com>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
@@ -429,12 +429,12 @@ msgstr ""
 "التّالية:%s\n"
 "هل أنت متأكّد أنّك تريد القيام بهذا؟"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr "جاري تحديث %s-%s-%s.%s.\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_ثبّت %s"
@@ -479,11 +479,11 @@ msgstr ""
 "حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ الكامل "
 "لهذا الاستثناء أو أرسل تقرير عَيْب برمجيّ مفصّل بخصوص  anaconda على %s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "كتبت مخرجات الخلل"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -491,23 +491,23 @@ msgid ""
 msgstr ""
 "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "ا_عد التّشغيل"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "كتبت مخرجات الخلل"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "حدثت مشكلة أثناء كتابة حالة النظام على القرص المرن."
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -515,7 +515,7 @@ msgid ""
 msgstr ""
 "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "حدثت مشكلة أثناء كتابة حالة النظام إلى المضيف البعيد remote host. "
 
@@ -3780,7 +3780,7 @@ msgid "Partitioning Errors"
 msgstr "أخطاء التّجزئة"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4345,7 +4345,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "طوّر قسم الذّاكرة البديلة"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5318,18 +5318,6 @@ msgstr "تخطّ تحديث مُحمّل الإقلاع"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "أنشئ تهيئة جديدة لمُحمّل الإقلاع "
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"النّواة 2.4 تحتاج إلى ذاكرة بديلة أكثر بكثير من الأنوية الأقدم، تقريباً ضعف "
-"حجم الذّاكرة المُؤقّتة (RAM) على النّظام. لديك حاليّاً %d م.ب. من الذّاكرة البديلة "
-"مُهيّئة، لكن يمكنك إنشاء مساحة إضافيّة على واحد من أنظمة ملفّاتك الآن."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6900,6 +6888,17 @@ msgstr "وِلْش"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "الزولو"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "النّواة 2.4 تحتاج إلى ذاكرة بديلة أكثر بكثير من الأنوية الأقدم، تقريباً ضعف "
+#~ "حجم الذّاكرة المُؤقّتة (RAM) على النّظام. لديك حاليّاً %d م.ب. من الذّاكرة "
+#~ "البديلة مُهيّئة، لكن يمكنك إنشاء مساحة إضافيّة على واحد من أنظمة ملفّاتك الآن."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "تمّ [%d/%d]"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2005-02-18 13:30+0200\n"
 "Last-Translator: Translate.org.za <info@translate.org.za>\n"
 "Language-Team: Afrikaans <translate-discuss-af@lists.sourceforge.net>\n"
@@ -434,14 +434,14 @@ msgstr ""
 "aandrywers te verwyder:%s\n"
 "Is jy seker jy wil dit doen?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Gradeer %s-pakkette op\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Installeer %s"
@@ -490,11 +490,11 @@ msgstr ""
 "gedetailleerde verslag oor anaconda in by http://bugzilla.redhat.com/"
 "bugzilla/"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Storting geskryf"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -503,23 +503,23 @@ msgstr ""
 "Jou rekenaar se staat is suksesvol na die stiffie geskryf. Jou rekenaar sal "
 "jou teruggestel word."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Herselflaai"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Storting geskryf"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -528,7 +528,7 @@ msgstr ""
 "Jou rekenaar se staat is suksesvol na die stiffie geskryf. Jou rekenaar sal "
 "jou teruggestel word."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -3892,7 +3892,7 @@ msgid "Partitioning Errors"
 msgstr "Partisiëring-foute"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4481,7 +4481,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Opgradeer ruilpartisie"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5462,19 +5462,6 @@ msgstr "Slaan selflaaier-opdatering oor"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Skep nuwe selflaaier-instelling"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"Die 2.4-kern verg heelwat meer ruilruimte as ouer kerne - so veel soos twee "
-"keer soveel ruilruimte as geheue op die rekenaar. Jou rekenaar is tans met %"
-"d megagreep ruilruimte ingestel, maar jy kan nou bykomende ruilruimte op een "
-"van jou lêerstelsels skep."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -7066,6 +7053,18 @@ msgstr "Wallies"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "Die 2.4-kern verg heelwat meer ruilruimte as ouer kerne - so veel soos "
+#~ "twee keer soveel ruilruimte as geheue op die rekenaar. Jou rekenaar is "
+#~ "tans met %d megagreep ruilruimte ingestel, maar jy kan nou bykomende "
+#~ "ruilruimte op een van jou lêerstelsels skep."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "Klaar [%d/%d]"

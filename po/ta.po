@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2006-10-20 16:01+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
@@ -453,12 +453,12 @@ msgstr ""
 "தேர்ந்தெடுக்கப்பட்டுள்ளது:%s\n"
 "இதை செய்ய வேண்டுமா?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s ஐ மேம்படுத்துகிறது\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, python-format
 msgid "Installing %s\n"
 msgstr "%sஐ நிறுவுகிறது\n"
@@ -505,11 +505,11 @@ msgstr ""
 "கையாள முடியாத விதிவிலக்கு ஏற்பட்டுள்ளது. இது பிழை போல உள்ளது. விரிவான இந்த "
 "விதிவிலக்கு உரையை நகலெடுத்து அதை அனகோண்டா பிழை அறிக்கையாக அனுப்பவும்.%s"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Dump எழுதப்பட்டது"
 
-#: ../exception.py:416
+#: ../exception.py:415
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -517,22 +517,22 @@ msgstr ""
 "உங்கள் கணினியின் நிலை நெகிழ்வட்டில் எழுதப்பட்டது. உங்கள் கணினி இப்போது மீண்டும் "
 "துவக்கப்படுகிறது."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "மறு துவக்கம் (_R)"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 msgid "Dump Not Written"
 msgstr "Dump எழுதப்படவில்லை"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr "நெகிழ்வட்டில் கணினி நிலையை எழுதும் போது சிக்கல் ஏற்பட்டுள்ளது."
 
-#: ../exception.py:433
+#: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -540,7 +540,7 @@ msgstr ""
 "உங்கள் கணினியின் நிலை வெற்றிகரமாக தொலை புரவலனில் எழுதப்பட்டது.உங்கள் கணினி இப்போது "
 "மீண்டும் துவக்கப்படுகிறது."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr "கணினி நிலையை தொலை புரவலனுக்கு எழுதுவதில் சிக்கல் ஏற்பட்டுள்ளது."
 
@@ -3871,7 +3871,7 @@ msgid "Partitioning Errors"
 msgstr "பகிர்தல் பிழைகள்"
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4446,7 +4446,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "இடமாற்று பகிர்வை மேம்படுத்தவும்"
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -5415,18 +5415,6 @@ msgstr "boot loader மேம்படுத்தலை தவிர்"
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "புதிய boot loader கட்டமைப்பினை உருவாக்கவும்"
-
-#: ../textw/upgrade_text.py:89
-#, fuzzy, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
-"பழைய கர்னலை விட 2.4 கர்னலின் இடமாற்று அளவு அதிகமாக இருக்க வேண்டும். RAM அளவு விட "
-"இரண்டு மடங்கு பெரிய அளவு தேவை. உங்களிடம் தற்போது %dMB அளவு இடமாற்று "
-"அமைக்கப்பட்டுள்ளது, ஆனால் கூடுதல் இடத்தை நீங்கள் உருவாக்க வேண்டும்."
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -6972,6 +6960,17 @@ msgstr "வெல்ஸ்"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "சூலு"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
+#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
+#~ "dMB of swap configured, but you may create additional swap space on one "
+#~ "of your file systems now."
+#~ msgstr ""
+#~ "பழைய கர்னலை விட 2.4 கர்னலின் இடமாற்று அளவு அதிகமாக இருக்க வேண்டும். RAM அளவு விட "
+#~ "இரண்டு மடங்கு பெரிய அளவு தேவை. உங்களிடம் தற்போது %dMB அளவு இடமாற்று "
+#~ "அமைக்கப்பட்டுள்ளது, ஆனால் கூடுதல் இடத்தை நீங்கள் உருவாக்க வேண்டும்."
 
 #~ msgid "Done [%d/%d]"
 #~ msgstr "முடிந்தது [%d/%d]"

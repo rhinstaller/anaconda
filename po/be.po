@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 11:24-0500\n"
+"POT-Creation-Date: 2007-03-07 17:53-0500\n"
 "PO-Revision-Date: 2004-09-26 18:13+0300\n"
 "Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
 "Language-Team: Belorussian\n"
@@ -428,14 +428,14 @@ msgstr ""
 "s\n"
 "Вы насамрэч жадаеце зрабіць гэта?"
 
-#: ../backend.py:176
+#: ../backend.py:164
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 "Абнаўленьне %s пакетаў\n"
 "\n"
 
-#: ../backend.py:178
+#: ../backend.py:166
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_Усталяваць %s"
@@ -486,11 +486,11 @@ msgstr ""
 "падрабязнае паведамленьне аб памылцы ў Анакондзе на http://bugzilla.redhat."
 "com/bugzilla/"
 
-#: ../exception.py:415 ../exception.py:432
+#: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Дамп запісаны"
 
-#: ../exception.py:416
+#: ../exception.py:415
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -499,23 +499,23 @@ msgstr ""
 "Стан сыстэмы быў пасьпяхова запісаны на гнуткі дыск. Зараз сыстэма будзе "
 "перазагружана."
 
-#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
 #: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Перазагруз_іць"
 
-#: ../exception.py:424 ../exception.py:441
+#: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Дамп запісаны"
 
-#: ../exception.py:425
+#: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:433
+#: ../exception.py:432
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -524,7 +524,7 @@ msgstr ""
 "Стан сыстэмы быў пасьпяхова запісаны на гнуткі дыск. Зараз сыстэма будзе "
 "перазагружана."
 
-#: ../exception.py:442
+#: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -3544,7 +3544,7 @@ msgid "Partitioning Errors"
 msgstr ""
 
 #: ../iw/partition_gui.py:647
-msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
 #: ../iw/partition_gui.py:649
@@ -4044,7 +4044,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:89
+#: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -4939,15 +4939,6 @@ msgstr "Абмінуць абнаўленьне наладкі загрузчы�
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Стварыць новую наладку загрузчыка"
-
-#: ../textw/upgrade_text.py:89
-#, python-format
-msgid ""
-"Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system. You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
-"your file systems now."
-msgstr ""
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
