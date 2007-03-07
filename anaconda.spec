@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.31
+Version: 11.2.0.32
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -113,6 +113,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar  7 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.32-1
+- Various buildinstall and splittree fixes to make things work better 
+  without an RPMS dir (Jesse Keating)
+- Minor package progress API changes
+- Minor backend fixes (Elliot Peele)
+- Minor translation related fixes
+
 * Tue Mar  6 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.31-1
 - Smaller required height for main window for livecd installs (katzj)
 - Move utility functions around in isys
