@@ -90,11 +90,7 @@ if [ -z "$BUGURL" ]; then
 fi
 
 p=`cd $DIR; /bin/pwd`
-if [ -d $DIR/$PRODUCTPATH/RPMS ]; then
-    PKGDIR=$p/$PRODUCTPATH/RPMS
-else
-    PKGDIR=$p/$PRODUCTPATH
-fi
+PKGDIR=$p/$PRODUCTPATH
 
 if [ -z "$BUILDINSTDIR" ]; then
     BUILDINSTDIR=$p/buildinstall.tree.$$

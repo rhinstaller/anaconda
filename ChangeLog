@@ -1,5 +1,8 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/buildinstall: And don't worry about existence of the
+	RPMS/ dir anymore. (Jesse Keating)
+
 	* scripts/buildinstall: Don't call createrepo (Jesse Keating)
 
 	* iw/partition_gui.py (PartitionWindow.getNext): Typo fix (Renato 
