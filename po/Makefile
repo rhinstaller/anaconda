@@ -22,7 +22,7 @@ NONPOTFILES = ../lang-table
 all: $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) glade-po
-	xgettext --default-domain=$(NLSPACKAGE) \
+	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) \
 		 --keyword=_ --keyword=N_ $(POTFILES) tmp/*.h
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \

@@ -1,5 +1,8 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* po/Makefile ($(NLSPACKAGE).pot): Specify that we're starting
+	from UTF-8 to make xgettext happy
+
 	* textw/partition_text.py
 	(PartitionTypeWindow.addIscsiDriveDialog): Mark prompts for
 	translation (#231274)
