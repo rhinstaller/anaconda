@@ -113,6 +113,12 @@ BUILDARCH=`rpm -qp --qf "%{ARCH}" $PKGDIR/anaconda-runtime-[0-9]*`
 
 echo "Running buildinstall..."
 
+echo "Checking for repository metadata..."
+if ! [ -d $p/repodata ]; then
+    echo "Repodata must exist in the tree!" >&2
+    exit 1 
+fi
+
 pushd $BUILDINSTDIR
 rpm2cpio $PKGDIR/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
 popd
@@ -139,9 +145,6 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 echo "Building images..."
 $UPD_INSTROOT $DEBUGSTR $NOGRSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
-
-echo "Creating repository metadata..."
-createrepo -d -g $PRODUCTPATH/base/comps.xml -q $p
 
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
