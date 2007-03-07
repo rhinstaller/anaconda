@@ -3642,7 +3642,7 @@ msgstr "Implicitní"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr "Jmenovka"
+msgstr "Název"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
@@ -3658,7 +3658,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "_Jmenovka"
+msgstr "_Název"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
@@ -3670,15 +3670,15 @@ msgstr "Musíte zvolit jmenovku pro položku"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "Jmenovka systému obsahuje nedovolené znaky"
+msgstr "Název systému obsahuje nedovolené znaky"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "Jmenovka je používána"
+msgstr "Název je již používán"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr "Jmenovka je již používána v jiné položce zavaděče."
+msgstr "Název je již používána v jiné položce zavaděče."
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
@@ -3756,7 +3756,7 @@ msgstr "_Koncový cylindr:"
 
 #: ../iw/partition_dialog_gui.py:462
 msgid "Force to be a _primary partition"
-msgstr "_Nastavit jako primární oddíl"
+msgstr "Vytvořit jako _primární oddíl"
 
 #: ../iw/partition_gui.py:313
 #, python-format
@@ -3943,7 +3943,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
-msgstr "Co teď chcete provést?"
+msgstr "Co chcete provést?"
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
@@ -3985,7 +3985,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "_Skrýt členy zařízení RAID/skupiny svazků LVM"
+msgstr "_Skrýt členy zařízení RAID a skupin svazků LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
@@ -3996,7 +3996,7 @@ msgstr "<Není použitelné>"
 
 #: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
-msgstr "Příprava systém souborů na oddílu:"
+msgstr "Příprava systému souborů na oddílu:"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
@@ -6500,7 +6500,7 @@ msgstr "<b>_Heslo:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>_Cílová IP adresa:</b>"
+msgstr "<b>_IP adresa cíle:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
