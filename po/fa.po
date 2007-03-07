@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-08 10:49-0500\n"
+"POT-Creation-Date: 2007-03-07 11:24-0500\n"
 "PO-Revision-Date: 2006-05-13 15:09+0330\n"
 "Last-Translator: Meelad Zakaria <meelad@farsiweb.info>\n"
 "Language-Team: Persian\n"
@@ -22,63 +22,74 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:268
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "خطای نامعلوم"
 
-#: ../anaconda:271
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "خطا در گرفتن قسمت دوم پیکربندی kickstart‏: %s!"
 
-#: ../anaconda:399
+#: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
+#, c-format, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"خطای زیر هنگام تجزیهٔ پیکربندی kickstart پیدا شد:\n"
+"\n"
+"‏%s"
+
+#: ../anaconda:401
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
+#: ../rescue.py:445 ../text.py:440 ../text.py:599 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
-#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
-#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
-#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
-#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
-#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:36
+#: ../textw/network_text.py:46 ../textw/network_text.py:68
+#: ../textw/network_text.py:74 ../textw/network_text.py:222
+#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
+#: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
+#: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
-#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "تأیید"
 
-#: ../anaconda:421
+#: ../anaconda:423
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -86,39 +97,39 @@ msgstr ""
 "برای استفاده از نصب کنندهٔ گرافیکی به قدر کافی حافظهٔ RAM ندارید. حالت متنی "
 "آغاز می‌شود."
 
-#: ../anaconda:437
+#: ../anaconda:439
 msgid "No video hardware found, assuming headless"
 msgstr "هیچ سخت‌افزار ویدیویی‌ای پیدا نشد. فرض بر عدم وجود نمایشگر گذاشته می‌شود"
 
-#: ../anaconda:444 ../anaconda:896
+#: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
 msgstr "نمونه‌سازی شیء وضعیت سخت‌افزاری X ممکن نیست."
 
-#: ../anaconda:501
+#: ../anaconda:503
 msgid "Starting graphical installation..."
 msgstr "نصب گرافیکی آغاز می‌شود..."
 
-#: ../anaconda:761
+#: ../anaconda:763
 msgid "Install class forcing text mode installation"
 msgstr "ردهٔ نصبی‌ای که نصب در حالت متنی را اجباری می‌کند"
 
-#: ../anaconda:793
+#: ../anaconda:795
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "نصب گرافیکی ممکن نیست...  حالت متنی آغاز می‌شود."
 
-#: ../anaconda:801
+#: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:862
+#: ../anaconda:864
 msgid "Unknown install method"
 msgstr ""
 
-#: ../anaconda:863
+#: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "unknown install method: %s"
 msgstr ""
@@ -203,11 +214,11 @@ msgstr ""
 "اضافه کردن این افراز برای جلدهای منطقی از قبل تخصیص داده شده در %s فضای آزاد "
 "کافی در دیسک باقی نخواهد گذاشت."
 
-#: ../autopart.py:1255
+#: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
 msgstr "افراز درخواست شده وجود ندارد"
 
-#: ../autopart.py:1256
+#: ../autopart.py:1260
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -218,11 +229,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1283
+#: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "دستگاه Raid درخواست شده وجود ندارد"
 
-#: ../autopart.py:1284
+#: ../autopart.py:1288
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -233,11 +244,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1315
+#: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "گروه جلد درخواست شده وجود ندارد"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1320
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -248,11 +259,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1353
+#: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "جلد منطقی درخواست شده وجود ندارد"
 
-#: ../autopart.py:1354
+#: ../autopart.py:1358
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -263,11 +274,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1470 ../autopart.py:1517
+#: ../autopart.py:1474 ../autopart.py:1521
 msgid "Automatic Partitioning Errors"
 msgstr "خطاهای افرازبندی خودکار"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1475
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -282,11 +293,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1481
+#: ../autopart.py:1485
 msgid "Warnings During Automatic Partitioning"
 msgstr "اخطارهای هنگام افرازبندی خودکار"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1486
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -297,7 +308,7 @@ msgstr ""
 "\n"
 "‏%s"
 
-#: ../autopart.py:1496 ../autopart.py:1513
+#: ../autopart.py:1500 ../autopart.py:1517
 msgid ""
 "\n"
 "\n"
@@ -307,12 +318,12 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../autopart.py:1501 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "خطا در افرازبندی"
 
-#: ../autopart.py:1498
+#: ../autopart.py:1502
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -323,22 +334,22 @@ msgstr ""
 "\n"
 "‏%s.%s"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1519
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: ../autopart.py:1518
-#, python-format
+#: ../autopart.py:1522
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 msgstr ""
 "خطاهای زیر در افرازبندی دیسک شما رخ داده‌اند:\n"
 "\n"
@@ -347,27 +358,27 @@ msgstr ""
 "ممکن است دلیل این اتفاق این باشد که در دیسک(های) شما فضای کافی برای نصب وجود "
 "ندارد.%s"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1533
 msgid "Unrecoverable Error"
 msgstr "خطای غیرقابل ترمیم"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1534
 msgid "Your system will now be rebooted."
 msgstr "حالا سیستم شما دوباره راه‌اندازی خواهد شد."
 
-#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
-#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
+#: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
+#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:448
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "اخطار"
 
-#: ../autopart.py:1683
+#: ../autopart.py:1687
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -383,7 +394,7 @@ msgstr ""
 "افرازها را ایجاد کنید. می‌توانید انواع سیستم پرونده، نقاط سوار کردن، "
 "اندازه‌های افراز و غیره را تنظیم کنید."
 
-#: ../autopart.py:1694
+#: ../autopart.py:1698
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -391,19 +402,19 @@ msgstr ""
 "قبل از آن که برنامهٔ نصب بتواند افرازبندی خودکار را برپاسازد، شما باید چگونگی "
 "استفاده از فضای دیسک‌های سخت خود را انتخاب کنید."
 
-#: ../autopart.py:1699
+#: ../autopart.py:1703
 msgid "Remove all partitions on this system"
 msgstr "حذف همهٔ افرازهای این سیستم"
 
-#: ../autopart.py:1700
+#: ../autopart.py:1704
 msgid "Remove all Linux partitions on this system"
 msgstr "حذف همهٔ افرازهای لینوکسی این سیستم"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1705
 msgid "Keep all partitions and use existing free space"
 msgstr "نگه داشتن همهٔ افراز‌ها و استفاده از فضای آزاد موجود"
 
-#: ../autopart.py:1703
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -414,7 +425,7 @@ msgstr ""
 "s‏\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
-#: ../autopart.py:1707
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -425,12 +436,12 @@ msgstr ""
 "انتخاب کرده‌اید:%s\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
-#: ../backend.py:106
+#: ../backend.py:176
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
 msgstr "در حال ارتقاء دادن %s-%s-%s.%s.\n"
 
-#: ../backend.py:108
+#: ../backend.py:178
 #, fuzzy, python-format
 msgid "Installing %s\n"
 msgstr "_نصب %s"
@@ -459,17 +470,6 @@ msgstr "تمام شد"
 msgid "In progress...   "
 msgstr "در حال پیشرفت...   "
 
-#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"خطای زیر هنگام تجزیهٔ پیکربندی kickstart پیدا شد:\n"
-"\n"
-"‏%s"
-
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "در حالت سطر فرمان نمی‌شود سؤال پرسید!"
@@ -477,16 +477,6 @@ msgstr "در حالت سطر فرمان نمی‌شود سؤال پرسید!"
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr ""
-
-#: ../cmdline.py:145
-#, python-format
-msgid "Done [%d/%d]"
-msgstr "انجام شد [%d/%d]"
-
-#: ../cmdline.py:151
-#, python-format
-msgid "Installing %s-%s-%s... "
-msgstr "در حال نصب %s-%s-%s... "
 
 #: ../constants.py:65
 #, python-format
@@ -496,38 +486,38 @@ msgid ""
 "at %s"
 msgstr ""
 
-#: ../exception.py:401 ../exception.py:418
+#: ../exception.py:415 ../exception.py:432
 msgid "Dump Written"
 msgstr "تخلیه نوشته شد"
 
-#: ../exception.py:402
+#: ../exception.py:416
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
 
-#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
-#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
+#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_راه‌اندازی مجدد"
 
-#: ../exception.py:410 ../exception.py:427
+#: ../exception.py:424 ../exception.py:441
 msgid "Dump Not Written"
 msgstr ""
 
-#: ../exception.py:411
+#: ../exception.py:425
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:419
+#: ../exception.py:433
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
 
-#: ../exception.py:428
+#: ../exception.py:442
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -544,29 +534,29 @@ msgstr "بررسی برای بلوک‌های خراب روی ‎/dev/%s‎..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
-#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
-#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
+#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
-#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
 #: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
-#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:348 ../loader2/urls.c:353
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "خطا"
 
@@ -616,9 +606,9 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود کلید <ورود> را فشار دهید."
 
-#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1480 ../packages.py:283 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
 msgstr "پرش"
 
@@ -675,7 +665,7 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1536 ../iw/partition_gui.py:367
+#: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "قالب‌بندی"
 
@@ -803,8 +793,8 @@ msgid ""
 "but there may be problems."
 msgstr ""
 
-#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
-#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
+#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_ادامه"
 
@@ -837,11 +827,11 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../fsset.py:2447
+#: ../fsset.py:2448
 msgid "Duplicate Labels"
 msgstr "برچسب‌های تکراری"
 
-#: ../fsset.py:2448
+#: ../fsset.py:2449
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -854,24 +844,24 @@ msgstr ""
 "\n"
 "لطفاً این اشکال را برطرف کنید و روند نصب را مجدداً آغاز کنید."
 
-#: ../fsset.py:2708
+#: ../fsset.py:2709
 msgid "Formatting"
 msgstr "در حال قالب‌بندی"
 
-#: ../fsset.py:2709
+#: ../fsset.py:2710
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "در حال قالب‌بندی سیستم پرونده‌ای ‎%s..."
 
-#: ../gui.py:106
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "هنگام نسخه‌برداری از عکس‌های ‌صفحه خطایی رخ داد."
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "عکس‌های ‌صفحه نسخه‌برداری شد"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -886,20 +876,20 @@ msgstr ""
 "شما می‌توانید با راه‌اندازی مجدد و ورود به سیستم به عنوان root به آنها دست "
 "یابید."
 
-#: ../gui.py:161
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr "در حال ذخیرهٔ عکس‌صفحه"
 
-#: ../gui.py:162
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "عکس‌صفحه‌ای به نام «%s» ذخیره شد."
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr "خطا در ذخیرهٔ عکس‌صفحه"
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -907,52 +897,58 @@ msgstr ""
 "هنگام ذخیرهٔ عکس‌صفحه خطایی رخ داد. اگر خطا هنگام نصب بسته رخ داده است، شاید "
 "لازم باشد چندین بار تلاش کنید تا موفق شوید."
 
-#: ../gui.py:231 ../text.py:391
+#: ../gui.py:232 ../text.py:437
 msgid "Fix"
 msgstr "ترمیم"
 
-#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
+#: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "بله"
 
-#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
+#: ../gui.py:234 ../rescue.py:203 ../rescue.py:205 ../text.py:439
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:405
 msgid "No"
 msgstr "خیر"
 
-#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
-#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
-#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../gui.py:236 ../text.py:441 ../text.py:569 ../loader2/net.c:93
+#: ../loader2/net.c:325 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1206
+#: ../loader2/net.c:1212
 msgid "Retry"
 msgstr "دوباره سعی شود"
 
-#: ../gui.py:236 ../text.py:396
+#: ../gui.py:237 ../text.py:442
 msgid "Ignore"
 msgstr "نادیده گرفته شود"
 
-#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
-#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
+#: ../text.py:416 ../text.py:443 ../iw/bootloader_advanced_gui.py:47
+#: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:339 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "انصراف"
 
-#: ../gui.py:735 tmp/anaconda.glade.h:2
+#: ../gui.py:604 ../text.py:357
+#, fuzzy
+msgid "Installation Key"
+msgstr "روش نصب"
+
+#: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_اشکال‌زدایی"
 
-#: ../gui.py:897 ../text.py:356
+#: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr "خطا در تجزیهٔ پیکربندی kickstart"
 
-#: ../gui.py:905 ../text.py:366
+#: ../gui.py:967 ../text.py:412
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -960,15 +956,15 @@ msgstr ""
 "حالا لطفاً یک دیسک نرم وارد کنید. تمام محتویات دیسک نرم پاک خواهد شد، پس لطفاً "
 "در انتخاب دیسک نرم دقت کنید."
 
-#: ../gui.py:952
+#: ../gui.py:1014
 msgid "default:LTR"
 msgstr "default:RTL"
 
-#: ../gui.py:1036
+#: ../gui.py:1100 ../text.py:564
 msgid "Error!"
 msgstr "خطا!"
 
-#: ../gui.py:1037
+#: ../gui.py:1101 ../text.py:565
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -979,36 +975,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
+#: ../gui.py:1106 ../gui.py:1111 ../packages.py:332 ../packages.py:337
 msgid "_Exit"
 msgstr "_خروج"
 
-#: ../gui.py:1043 ../yuminstall.py:754
+#: ../gui.py:1107 ../yuminstall.py:608
 msgid "_Retry"
 msgstr "_دوباره سعی شود"
 
-#: ../gui.py:1046 ../packages.py:295
+#: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
 msgstr "حالا برنامه نصب خارج می‌شود..."
 
-#: ../gui.py:1049 ../packages.py:298
+#: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
 msgstr "حالا سیستم شما مجدداً راه‌اندازی می‌شود..."
 
-#: ../gui.py:1052 ../packages.py:300
+#: ../gui.py:1116 ../packages.py:341
 msgid "Rebooting System"
 msgstr "در حال راه‌اندازی مجدد سیستم"
 
-#: ../gui.py:1116
+#: ../gui.py:1180
 #, python-format
 msgid "%s Installer"
 msgstr "نصب کنندهٔ %s"
 
-#: ../gui.py:1123
+#: ../gui.py:1187
 msgid "Unable to load title bar"
 msgstr "بار کردن نوار عنوان ممکن نیست"
 
-#: ../gui.py:1177
+#: ../gui.py:1242
 msgid "Install Window"
 msgstr "پنجرهٔ نصب"
 
@@ -1062,8 +1058,8 @@ msgstr ""
 "لطفاً قبل از ادامهٔ نصب آنها را آماده داشته باشید. اگر احتیاج به قطع کردن نصب "
 "و راه‌اندازی مجدد دارید لطفاً روی دکمهٔ «راه‌اندازی مجدد» کلیک کنید."
 
-#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
+#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_عقب"
@@ -1146,7 +1142,7 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../installclass.py:65
+#: ../installclass.py:66
 msgid "Install on System"
 msgstr "نصب روی سیستم"
 
@@ -1155,11 +1151,11 @@ msgstr "نصب روی سیستم"
 msgid "Initializing iSCSI initiator"
 msgstr "راه‌اندازی"
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 msgid "Scriptlet Failure"
 msgstr "خرابی کدنوشتک"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:76
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1172,23 +1168,23 @@ msgstr ""
 "\n"
 "برای راه‌اندازی مجدد سیستم روی دکمهٔ «تأیید» کلیک کنید."
 
-#: ../kickstart.py:869 ../kickstart.py:886
+#: ../kickstart.py:930 ../kickstart.py:947
 msgid "Running..."
 msgstr ""
 
-#: ../kickstart.py:870
+#: ../kickstart.py:931
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:887
+#: ../kickstart.py:948
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:918
+#: ../kickstart.py:979
 msgid "Missing Package"
 msgstr "بستهٔ ناموجود"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:980
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1197,44 +1193,49 @@ msgstr ""
 "شما مشخص کرده‌اید که بستهٔ «%s» نصب شود. این بسته وجود ندارد. مایلید ادامه "
 "دهید یا نصب خود را قطع می‌کنید؟"
 
-#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
-#: ../yuminstall.py:864
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
+#: ../yuminstall.py:720
 msgid "_Abort"
 msgstr "_قطع شود"
 
-#: ../kickstart.py:945
+#: ../kickstart.py:1016
 msgid "Missing Group"
 msgstr "گروه ناموجود"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:1017
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../livecd.py:77 ../livecd.py:262
+#: ../livecd.py:77 ../livecd.py:263
 #, fuzzy
 msgid "Unable to find image"
 msgstr "تصویر نصب %s پیدا نشد"
 
-#: ../livecd.py:78 ../livecd.py:263
+#: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:82 ../livecd.py:267
+#: ../livecd.py:82 ../livecd.py:268
 #, fuzzy
 msgid "Exit installer"
 msgstr "نصب کنندهٔ %s"
 
-#: ../livecd.py:144
+#: ../livecd.py:113
+#, fuzzy
+msgid "Copying live image to hard drive."
+msgstr "در حال انتقال تصویر نصب به دیسک‌سخت..."
+
+#: ../livecd.py:145
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "نصب %s %s"
 
-#: ../livecd.py:145
+#: ../livecd.py:146
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
@@ -1274,25 +1275,26 @@ msgstr "%s نام میزبان معتبری نیست."
 msgid "'%s' is an invalid IP address."
 msgstr "%s نام میزبان معتبری نیست."
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr ""
-
-#: ../packages.py:245
+#: ../packages.py:257
 #, fuzzy
-msgid "Enter Registration Key"
-msgstr "کلید رمزنگاری"
+msgid "Invalid Key"
+msgstr "رشتهٔ IP‏ نامعتبر"
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr ""
+#: ../packages.py:258
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "مقداری که وارد کرده‌اید عدد معتبری نیست."
 
-#: ../packages.py:277
+#: ../packages.py:286
+#, fuzzy
+msgid "_Skip"
+msgstr "پرش"
+
+#: ../packages.py:318
 msgid "Warning! This is pre-release software!"
 msgstr "اخطار! این نرم‌افزار نسخهٔ آزمایشی است!"
 
-#: ../packages.py:278
+#: ../packages.py:319
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1319,9 +1321,115 @@ msgstr ""
 "\n"
 "مراجعه کنید و گزارشی برای «%s» ثبت کنید.\n"
 
-#: ../packages.py:291
+#: ../packages.py:332
 msgid "_Install anyway"
 msgstr "_با این وجود نصب شود"
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "بیگانه"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"دستگاه %s به جای قالب‌بندی CDL، قالب‌بندی LDL شده است. استفاده از DASD های با "
+"قالب‌بندی LDL در طول نصب %s پشتیبانی نمی‌شود. اگر می‌خواهید از این دیسک برای "
+"نصب استفاده کنید، باید آن را دوباره راه‌اندازی کرد که باعث از دست رفتن همهٔ "
+"داده‌های روی این دیسک‌گردان می‌شود.\n"
+"\n"
+"آیا می‌خواهید این DASD را با استفاده از قالب CDL دوباره قالب‌بندی کنید؟"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"‏‎/dev/%s در حال حاضر یک چیدمان افراز %s دارد. برای استفاده از این دیسک برای "
+"نصب %s، باید آن را دوباره راه‌اندازی کرد که باعث از رفتن همهٔ داده‌های روی آن "
+"می‌شود.\n"
+"\n"
+"آیا می‌خواهید این دیسک‌گردان را قالب‌بندی کنید؟"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "دیسک‌گردان _نادیده گرفته شود"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "راه‌اندازی"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "لطفاً در مدت قالب‌بندی دیسک‌گردان %s صبر کنید...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"جدول افرازبندی در دستگاه %s ‏(%s) غیر قابل خواندن است. برای ایجاد افرازهای "
+"جدید  باید راه‌اندازی شود، که باعث از دست رفتن همهٔ داده‌های روی این دیسک‌گردان "
+"خواهد شد.\n"
+"\n"
+"این عملیات بر همهٔ انتخاب‌های پیشین نصب شما دربارهٔ این که کدام دیسک‌گردان‌ها "
+"نادیده گرفته شوند پیشی خواهد گرفت.\n"
+"\n"
+"آیا می‌خواهید این دیسک‌گردان را با پاک کردن همهٔ داده‌ها راه‌اندازی کنید؟"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"جدول افرازبندی در دستگاه %s غیر قابل خواندن است. برای ایجاد افرازهای جدید "
+"باید راه‌اندازی شود، که باعث از دست رفتن همهٔ داده‌های روی این دیسک‌گردان خواهد "
+"شد.\n"
+"\n"
+"این عملیات بر همهٔ انتخاب‌های پیشین نصب شما دربارهٔ این که کدام دیسک‌گردان‌ها "
+"نادیده گرفته شوند پیشی خواهد گرفت.\n"
+"\n"
+"آیا می‌خواهید این دیسک‌گردان را، با پاک کردن همهٔ داده‌ها، راه‌اندازی کنید؟"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "دیسک‌گردانی پیدا نشد"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"خطایی رخ داد ‐ دستگاه معتبری برای ایجاد سیستم‌های پرونده‌ای جدید پیدا نشد. "
+"لطفاً برای پیدا کردن علت این مشکل سخت‌افزارتان را بررسی کنید."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1633,200 +1741,6 @@ msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "آیا مطمئنید که می‌خواهید جدول افرازها را به وضعیت اولیهٔ خود بازگردانید؟"
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"این نقطهٔ سوار کردن نامعتبر است. شاخهٔ %s باید روی سیستم پرونده‌ای / باشد."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"نمی‌توان از نقطهٔ سوار کردن %s استفاده کرد. برای عملیات سیستمی مناسب، این نقطهٔ "
-"سوار کردن باید پیوندی نمادی باشد. لطفاً نقطهٔ سوار کردن دیگری انتخاب کنید."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "این نقطهٔ سوار کردن باید روی یک سیستم پرونده‌ای لینوکسی باشد."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"نقطهٔ سوار کردن «%s» از قبل مورد استفاده است، لطفاً نقطهٔ سوار کردن دیگری "
-"انتخاب کنید."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"اندازهٔ افراز %s  (%10.2f مگابایت) از حداکثر اندازهٔ %10.2f مگابایت فراتر رفته "
-"است."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"اندازهٔ افراز درخواست شده (اندازه = %s مگابایت) از حداکثر اندازهٔ %s مگابایت "
-"بیشتر شده است."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "اندازهٔ افراز درخواست شده منفی است! (اندازه = %s مگابایت)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "افرازها نمی‌توانند زیر اولین استوانه شروع شوند."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "افرازها نمی‌توانند در یک استوانه منفی تمام شوند."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "عضوی در درخواست RAID، یا سطح غیر RAID مشخص نشده است."
-
-#: ../partRequests.py:677 ../partitions.py:954
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "افرازهای قابل راه‌اندازی فقط می‌توانند روی دستگاه‌های RAID1 باشند."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "دستگاه RAID از نوع %s به حداقل %s عضو نیاز دارد."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"این دستگاه RAID می‌تواند حداکثر %s قطعهٔ یدکی داشته باشد. برای داشتن قطعات "
-"یدکی بیشتر باید به دستگاه RAID عضو اضافه کنید."
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "بیگانه"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"دستگاه %s به جای قالب‌بندی CDL، قالب‌بندی LDL شده است. استفاده از DASD های با "
-"قالب‌بندی LDL در طول نصب %s پشتیبانی نمی‌شود. اگر می‌خواهید از این دیسک برای "
-"نصب استفاده کنید، باید آن را دوباره راه‌اندازی کرد که باعث از دست رفتن همهٔ "
-"داده‌های روی این دیسک‌گردان می‌شود.\n"
-"\n"
-"آیا می‌خواهید این DASD را با استفاده از قالب CDL دوباره قالب‌بندی کنید؟"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"‏‎/dev/%s در حال حاضر یک چیدمان افراز %s دارد. برای استفاده از این دیسک برای "
-"نصب %s، باید آن را دوباره راه‌اندازی کرد که باعث از رفتن همهٔ داده‌های روی آن "
-"می‌شود.\n"
-"\n"
-"آیا می‌خواهید این دیسک‌گردان را قالب‌بندی کنید؟"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "دیسک‌گردان _نادیده گرفته شود"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "دیسک‌گردان _قالب‌بندی شود"
-
-#: ../partedUtils.py:898
-msgid "Initializing"
-msgstr "راه‌اندازی"
-
-#: ../partedUtils.py:899
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "لطفاً در مدت قالب‌بندی دیسک‌گردان %s صبر کنید...\n"
-
-#: ../partedUtils.py:1019
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"جدول افرازبندی در دستگاه %s ‏(%s) غیر قابل خواندن است. برای ایجاد افرازهای "
-"جدید  باید راه‌اندازی شود، که باعث از دست رفتن همهٔ داده‌های روی این دیسک‌گردان "
-"خواهد شد.\n"
-"\n"
-"این عملیات بر همهٔ انتخاب‌های پیشین نصب شما دربارهٔ این که کدام دیسک‌گردان‌ها "
-"نادیده گرفته شوند پیشی خواهد گرفت.\n"
-"\n"
-"آیا می‌خواهید این دیسک‌گردان را با پاک کردن همهٔ داده‌ها راه‌اندازی کنید؟"
-
-#: ../partedUtils.py:1083
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"جدول افرازبندی در دستگاه %s غیر قابل خواندن است. برای ایجاد افرازهای جدید "
-"باید راه‌اندازی شود، که باعث از دست رفتن همهٔ داده‌های روی این دیسک‌گردان خواهد "
-"شد.\n"
-"\n"
-"این عملیات بر همهٔ انتخاب‌های پیشین نصب شما دربارهٔ این که کدام دیسک‌گردان‌ها "
-"نادیده گرفته شوند پیشی خواهد گرفت.\n"
-"\n"
-"آیا می‌خواهید این دیسک‌گردان را، با پاک کردن همهٔ داده‌ها، راه‌اندازی کنید؟"
-
-#: ../partedUtils.py:1204
-msgid "No Drives Found"
-msgstr "دیسک‌گردانی پیدا نشد"
-
-#: ../partedUtils.py:1205
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"خطایی رخ داد ‐ دستگاه معتبری برای ایجاد سیستم‌های پرونده‌ای جدید پیدا نشد. "
-"لطفاً برای پیدا کردن علت این مشکل سخت‌افزارتان را بررسی کنید."
-
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "نمی‌توان نصب را ادامه داد."
@@ -1909,6 +1823,10 @@ msgid ""
 "system."
 msgstr ""
 
+#: ../partitions.py:954 ../partRequests.py:679
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "افرازهای قابل راه‌اندازی فقط می‌توانند روی دستگاه‌های RAID1 باشند."
+
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "افرازهای قابل راه‌اندازی نمی‌توانند روی یک جلد منطقی باشند."
@@ -1952,6 +1870,90 @@ msgstr "افرازی که عضوی از آرایهٔ RAID است. "
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "افرازی که عضوی از گروه جلدی LVM است."
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"این نقطهٔ سوار کردن نامعتبر است. شاخهٔ %s باید روی سیستم پرونده‌ای / باشد."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"نمی‌توان از نقطهٔ سوار کردن %s استفاده کرد. برای عملیات سیستمی مناسب، این نقطهٔ "
+"سوار کردن باید پیوندی نمادی باشد. لطفاً نقطهٔ سوار کردن دیگری انتخاب کنید."
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr "این نقطهٔ سوار کردن باید روی یک سیستم پرونده‌ای لینوکسی باشد."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"نقطهٔ سوار کردن «%s» از قبل مورد استفاده است، لطفاً نقطهٔ سوار کردن دیگری "
+"انتخاب کنید."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"اندازهٔ افراز %s  (%10.2f مگابایت) از حداکثر اندازهٔ %10.2f مگابایت فراتر رفته "
+"است."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"اندازهٔ افراز درخواست شده (اندازه = %s مگابایت) از حداکثر اندازهٔ %s مگابایت "
+"بیشتر شده است."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "اندازهٔ افراز درخواست شده منفی است! (اندازه = %s مگابایت)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "افرازها نمی‌توانند زیر اولین استوانه شروع شوند."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "افرازها نمی‌توانند در یک استوانه منفی تمام شوند."
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr "عضوی در درخواست RAID، یا سطح غیر RAID مشخص نشده است."
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "دستگاه RAID از نوع %s به حداقل %s عضو نیاز دارد."
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"این دستگاه RAID می‌تواند حداکثر %s قطعهٔ یدکی داشته باشد. برای داشتن قطعات "
+"یدکی بیشتر باید به دستگاه RAID عضو اضافه کنید."
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "در حال راه‌اندازی واسط"
@@ -1974,11 +1976,11 @@ msgstr "برپاسازی شبکه"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "آیا می‌خواهید واسط‌های شبکه را روی این سیستم آغاز کنید؟"
 
-#: ../rescue.py:243 ../text.py:534
+#: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
 msgstr "لغو شد"
 
-#: ../rescue.py:244 ../text.py:535
+#: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "نمی‌توان از اینجا به مرحلهٔ قبلی رفت. مجبورید دوباره امتحان کنید."
 
@@ -2009,7 +2011,7 @@ msgstr ""
 "مرحله نادیده گرفته خواهد شد و شما مستقیماً به پوستهٔ سطر فرمان خواهید رفت.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
@@ -2027,7 +2029,7 @@ msgstr "نجات سیستم"
 msgid "What partition holds the root partition of your installation?"
 msgstr "افراز ریشهٔ نصب شما در کدام افراز قرار دارد؟"
 
-#: ../rescue.py:321 ../rescue.py:325
+#: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
 msgstr "خروج"
 
@@ -2095,65 +2097,75 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "سیستم شما در شاخهٔ %s سوار شد."
 
-#: ../text.py:149 ../text.py:164
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "ذخیره"
 
-#: ../text.py:152 ../text.py:166
+#: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr ""
 
-#: ../text.py:154 ../text.py:162
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "اشکال‌زدایی"
 
-#: ../text.py:158
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "استثنایی رخ داد"
 
-#: ../text.py:187
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Host"
 msgstr ""
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:194
+#: ../text.py:195
 msgid "User name"
 msgstr "نام کاربر"
 
-#: ../text.py:196
+#: ../text.py:197
 msgid "Password"
 msgstr "گذرواژه"
 
-#: ../text.py:253
+#: ../text.py:254
 msgid "Help not available"
 msgstr "راهنما موجود نیست"
 
-#: ../text.py:254
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "راهنمایی برای این مرحله از نصب موجود نیست."
 
-#: ../text.py:365
+#: ../text.py:362
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "لطفاً نام گروه جلد را وارد کنید."
+
+#: ../text.py:379 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:411
 msgid "Save Crash Dump"
 msgstr "ذخیرهٔ تخلیهٔ حافظهٔ فروپاشی"
 
-#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "به %s خوش آمدید"
 
-#: ../text.py:423
+#: ../text.py:469
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> برای راهنمایی | <Tab> بین اجزا | <Space> انتخاب | <F12> صفحهٔ بعد"
 
-#: ../text.py:425
+#: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2327,7 +2339,7 @@ msgstr ""
 "گذرواژه مانع از آن خواهد شد که شنوندگان تأیید هویت نشده متصل شوند و پیشرفت "
 "نصب شما را ببینند. لطفاً گذرواژه‌ای برای استفاده در نصب وارد کنید."
 
-#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
 msgstr "گذرواژه:"
 
@@ -2438,59 +2450,89 @@ msgstr "برای شروع نصب لطفاً به %s متصل شوید..."
 msgid "Please connect to begin the install..."
 msgstr "برای شروع نصب لطفاً متصل شوید..."
 
-#: ../yuminstall.py:100
+#: ../yuminstall.py:73
+#, python-format
+msgid "%s MB"
+msgstr "‏%s مگابایت"
+
+#: ../yuminstall.py:76
+#, python-format
+msgid "%s KB"
+msgstr "‏%s کیلوبایت"
+
+#: ../yuminstall.py:79
+#, python-format
+msgid "%s Byte"
+msgstr "‏%s بایت"
+
+#: ../yuminstall.py:81
+#, python-format
+msgid "%s Bytes"
+msgstr "‏%s بایت"
+
+#: ../yuminstall.py:129
 msgid "Processing"
 msgstr "در حال پردازش"
 
-#: ../yuminstall.py:101
+#: ../yuminstall.py:130
 msgid "Preparing transaction from installation source..."
 msgstr ""
 
-#: ../yuminstall.py:614 ../yuminstall.py:615
+#: ../yuminstall.py:160
+#, fuzzy, python-format
+msgid "<b>Installing %s</b> (%s)\n"
+msgstr "_نصب %s"
+
+#: ../yuminstall.py:194
+#, python-format
+msgid "%s of %s packages completed"
+msgstr ""
+
+#: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:533
 msgid "older package(s)"
 msgstr ""
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:534
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:535
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:619
+#: ../yuminstall.py:536
 msgid "package conflicts"
 msgstr ""
 
-#: ../yuminstall.py:620
+#: ../yuminstall.py:537
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:621
+#: ../yuminstall.py:538
 msgid "required package"
 msgstr ""
 
-#: ../yuminstall.py:622
+#: ../yuminstall.py:539
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:623
+#: ../yuminstall.py:540
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:637
+#: ../yuminstall.py:554
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:653
+#: ../yuminstall.py:570
 msgid "Error running transaction"
 msgstr ""
 
-#: ../yuminstall.py:654
+#: ../yuminstall.py:571
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2499,21 +2541,21 @@ msgstr ""
 "\n"
 "‏%s"
 
-#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
+#: ../yuminstall.py:930
 msgid "Re_boot"
 msgstr "_راه‌اندازی مجدد"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:699
 msgid "Retrieving installation information..."
 msgstr ""
 
-#: ../yuminstall.py:845
+#: ../yuminstall.py:701
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "در حال فرستادن درخواست برای اطلاعات IP‏ برای %s..."
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2521,24 +2563,24 @@ msgid ""
 "generated.  %s"
 msgstr ""
 
-#: ../yuminstall.py:883
+#: ../yuminstall.py:739
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:915
+#: ../yuminstall.py:771
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:924
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1289
+#: ../yuminstall.py:1085
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2547,39 +2589,39 @@ msgstr ""
 "به نظر می‌رسد سیستم شما قدیمی‌تر از آن است که بتوان آن را به این نسخهٔ %s "
 "ارتقاء داد. مطمئنید که می‌خواهید روند ارتقاء را ادامه دهید؟"
 
-#: ../yuminstall.py:1321
+#: ../yuminstall.py:1113
 msgid "Install Starting"
 msgstr "نصب آغاز می‌شود"
 
-#: ../yuminstall.py:1322
+#: ../yuminstall.py:1114
 msgid "Starting install process.  This may take several minutes..."
 msgstr ""
 
-#: ../yuminstall.py:1338
+#: ../yuminstall.py:1130
 msgid "Post Upgrade"
 msgstr ""
 
-#: ../yuminstall.py:1339
+#: ../yuminstall.py:1131
 msgid "Performing post upgrade configuration..."
 msgstr ""
 
-#: ../yuminstall.py:1341
+#: ../yuminstall.py:1133
 msgid "Post Install"
 msgstr "پس از نصب"
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1134
 msgid "Performing post install configuration..."
 msgstr "در حال انجام پیکربندی پس از نصب..."
 
-#: ../yuminstall.py:1524
+#: ../yuminstall.py:1327
 msgid "Installation Progress"
 msgstr ""
 
-#: ../yuminstall.py:1559
+#: ../yuminstall.py:1362
 msgid "Dependency Check"
 msgstr "بررسی وابستگی"
 
-#: ../yuminstall.py:1560
+#: ../yuminstall.py:1363
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "در حال بررسی وابستگی‌ها در بسته‌های انتخاب شدهٔ برای نصب..."
 
@@ -2621,9 +2663,9 @@ msgid "The root password must be at least six characters long."
 msgstr "طول گذرواژهٔ root باید حداقل شش نویسه باشد."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "گذرواژهٔ درخواست شده دارای نویسه‌های غیراَسکی است که استفاده از آنها در گذرواژه "
 "مجاز نیست."
@@ -2636,40 +2678,41 @@ msgstr ""
 "حساب root برای مدیریت سیستم استفاده می‌شود. برای کاربر root گذرواژه‌ای وارد "
 "کنید."
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:108
 msgid "Root _Password: "
 msgstr "_گذرواژهٔ root: "
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:111
 msgid "_Confirm: "
 msgstr "_تکرار گذرواژه: "
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:147
 #, fuzzy
 msgid "Invalid Initiator Name"
 msgstr "نام نامعتبر گروه جلد"
 
-#: ../iw/autopart_type.py:138
-msgid "You must provide a non-zero length initiator name."
-msgstr ""
+#: ../iw/autopart_type.py:148
+#, fuzzy
+msgid "You must provide an initiator name."
+msgstr "باید نام کارگزاری وارد کنید."
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr ""
 
-#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
+#: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
+#: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
+#: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
+#: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr ""
 
@@ -2715,13 +2758,14 @@ msgstr "ت_کرار:"
 msgid "Passwords don't match"
 msgstr "گذرواژه‌ها مطابقت نمی‌کنند"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:439
 msgid "Passwords do not match"
 msgstr "گذرواژه‌ها مطابقت نمی‌کنند."
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
+#, fuzzy
 msgid ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -2735,10 +2779,11 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "پیکربندی پیشرفتهٔ بارکنندهٔ راه‌انداز"
 
-#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
+#, fuzzy
 msgid ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
@@ -2768,8 +2813,8 @@ msgid "_General kernel parameters"
 msgstr "پا_رامترهای عمومی هسته"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
-#: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
 msgstr "پیکربندی بارکنندهٔ راه‌انداز"
 
@@ -2923,10 +2968,10 @@ msgid "_Upgrade an existing installation"
 msgstr "_ارتقاء دادن نصب موجود"
 
 #: ../iw/examine_gui.py:58
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 msgstr ""
 "اگر می‌خواهید سیستم %s موجود خود را ارتقاء دهید این گزینه را انتخاب کنید. این "
 "گزینه داده‌های موجود در دیسک‌گردان‌های شما را حفظ خواهد کرد."
@@ -2969,12 +3014,13 @@ msgid "Confirm Physical Extent Change"
 msgstr "تصدیق تغییر گسترهٔ فیزیکی"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 msgstr ""
 "برای انجام این تغییر در مقدار گسترهٔ فیزیکی لازم خواهد بود که اندازه‌های "
 "درخواست شدهٔ فعلی برای ‌جلد‌های منطقی به مضرب صحیحی از گسترهٔ فیزیکی به بالا گرد "
@@ -2983,7 +3029,7 @@ msgstr ""
 "این تغییر بلافاصله اثر خواهد کرد."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "ا_دامه"
 
@@ -3112,8 +3158,8 @@ msgid "Mount point in use"
 msgstr "نقطهٔ سوار کردن مورد استفاده است"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, python-format
-msgid "The mount point \"%s\" is in use, please pick another."
+#, fuzzy, python-format
+msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "نقطهٔ سوار کردن «%s» مورد استفاده است، لطفاً یکی دیگر انتخاب کنید."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
@@ -3133,8 +3179,8 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:602
 #, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can create more Physical "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 
@@ -3171,17 +3217,18 @@ msgid "No free space"
 msgstr "فضای آزادی وجود ندارد"
 
 #: ../iw/lvm_dialog_gui.py:728
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
-"add a logical volume you will need to reduce the size of one or more of the "
+"add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "جایی برای ایجاد جلد منطقی در گروه جلدی باقی نمانده است. برای اضافه کردن یک "
 "جلد منطقی باید اندازهٔ یک یا چند جلد منطقی موجود فعلی را کم کنید."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, python-format
-msgid "Are you sure you want to Delete the logical volume \"%s\"?"
+#, fuzzy, python-format
+msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "آیا مطمئنید می‌خواهید جلد منطقی «%s» را حذف کنید؟"
 
 #: ../iw/lvm_dialog_gui.py:892
@@ -3260,13 +3307,13 @@ msgstr "فضای کل:"
 msgid "Logical Volume Name"
 msgstr "نام جلد منطقی"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "نقطهٔ سوار کردن"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "اندازه (مگابایت)"
 
@@ -3274,7 +3321,7 @@ msgstr "اندازه (مگابایت)"
 msgid "_Add"
 msgstr "ا_ضافه کردن"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_ویرایش"
@@ -3319,11 +3366,11 @@ msgstr "_شبیه‌سازی ۳ دکمه‌ای"
 msgid "Select the appropriate mouse for the system."
 msgstr "موشی مناسب را برای سیستم انتخاب کنید."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
-#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
-#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:44 ../textw/network_text.py:49
+#: ../textw/network_text.py:55
 msgid "Error With Data"
 msgstr "خطای داده‌ها"
 
@@ -3340,12 +3387,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "‏IP‏ پویا"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "در حال فرستادن درخواست برای اطلاعات IP‏ برای %s..."
 
-#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
+#: tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "نشانی IP"
 
@@ -3354,7 +3402,7 @@ msgid "Netmask"
 msgstr "نقاب شبکه"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:540
+#: ../iw/network_gui.py:527
 msgid "Gateway"
 msgstr "دروازه"
 
@@ -3367,11 +3415,11 @@ msgstr "کارگزار نام"
 msgid "Error configuring network device"
 msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
 msgstr "‏DNS اول"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
 msgstr "‏DNS دوم"
 
@@ -3387,11 +3435,11 @@ msgstr "‏DNS _اول"
 msgid "_Secondary DNS"
 msgstr "‏DNS _دوم"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:31
 msgid "Network Configuration"
 msgstr "پیکربندی شبکه"
 
-#: ../iw/network_gui.py:156
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3399,7 +3447,7 @@ msgstr ""
 "شما نام  میزبانی مشخص نکرده‌اید. بسته به محیط شبکهٔ شما، ممکن است این مسأله "
 "بعداً مشکلاتی ایجاد کند."
 
-#: ../iw/network_gui.py:160
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3408,7 +3456,7 @@ msgstr ""
 "شما فیلد «%s» را مشخص نکرده‌اید. بسته به محیط شبکهٔ شما، ممکن است این مسأله "
 "بعداً مشکلاتی ایجاد کند."
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:735
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3419,28 +3467,29 @@ msgstr ""
 "\n"
 "‏%s"
 
-#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, fuzzy, python-format
 msgid "A value is required for the field %s."
 msgstr "مقداری برای فیلد «%s» لازم است."
 
-#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "خطای داده‌ها"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:36
+#: ../textw/network_text.py:521 ../textw/network_text.py:525
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "‏%s"
 
-#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:56
 #, fuzzy
 msgid "The IPv4 information you have entered is invalid."
 msgstr "اطلاعات IP‏ که وارد کرده‌اید نامعتبر است."
 
-#: ../iw/network_gui.py:180
+#: ../iw/network_gui.py:167
 #, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
@@ -3453,112 +3502,110 @@ msgstr ""
 "باقی بگذارید. وقتی سیستم را مجدداً راه‌اندازی کنید کارت به طور خودکار فعال "
 "خواهد شد."
 
-#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/network_gui.py:405
+#: ../iw/network_gui.py:392
 msgid "Active on Boot"
 msgstr "فعال هنگام راه‌اندازی"
 
-#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "دستگاه"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:396
 #, fuzzy
 msgid "IPv4/Netmask"
 msgstr "‏IP‏/نقاب شبکه"
 
-#: ../iw/network_gui.py:411
+#: ../iw/network_gui.py:398
 msgid "IPv6/Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:458
 msgid "Network Devices"
 msgstr "دستگاه‌های شبکه‌ای"
 
-#: ../iw/network_gui.py:482
+#: ../iw/network_gui.py:469
 msgid "Set the hostname:"
 msgstr "تنظیم نام میزبان:"
 
-#: ../iw/network_gui.py:487
+#: ../iw/network_gui.py:474
 msgid "_automatically via DHCP"
 msgstr "به طور _خودکار از طریق DHCP"
 
-#: ../iw/network_gui.py:494
+#: ../iw/network_gui.py:481
 msgid "_manually"
 msgstr "_دستی"
 
-#: ../iw/network_gui.py:499
+#: ../iw/network_gui.py:486
 #, fuzzy
 msgid "(e.g., host.domain.com)"
 msgstr "(مثال «host.domain.com»)"
 
-#: ../iw/network_gui.py:505
+#: ../iw/network_gui.py:492
 msgid "Hostname"
 msgstr "نام میزبان"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:536
 msgid "Miscellaneous Settings"
 msgstr "تنظیمات متفرقه"
 
-#: ../iw/network_gui.py:638
+#: ../iw/network_gui.py:625
 #, fuzzy
 msgid "Edit Device "
 msgstr "ویرایش دستگاه RAID"
 
-#: ../iw/network_gui.py:642
+#: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
 msgstr ""
 
-#: ../iw/network_gui.py:648
+#: ../iw/network_gui.py:635
 #, fuzzy
 msgid "unknown"
 msgstr "نامعلوم"
 
-#: ../iw/network_gui.py:650
+#: ../iw/network_gui.py:637
 #, fuzzy
 msgid "Hardware address: "
 msgstr "نشانی سخت‌افزاری:"
 
-#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 #, fuzzy
 msgid "Missing Protocol"
 msgstr "گروه ناموجود"
 
-#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#: ../iw/network_gui.py:780 ../textw/network_text.py:221
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr ""
 
-#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:92
+#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../textw/network_text.py:66 ../loader2/net.c:93
 #, fuzzy
 msgid "Invalid Prefix"
 msgstr "رشتهٔ IP‏ نامعتبر"
 
-#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#: ../iw/network_gui.py:804
 #, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
 
-#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
-#: ../textw/network_text.py:381
+#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
 #, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 msgstr ""
 "شما می‌توانید بارکنندهٔ راه‌انداز را برای راه‌اندازی سیستم‌عامل‌های دیگر پیکربندی "
 "کنید. این کار شما را قادر می‌سازد از فهرست سیستم عاملی را برای راه‌اندازی "
@@ -3567,7 +3614,7 @@ msgstr ""
 "طور پیش‌فرض راه‌اندازی می‌شود، «پیش‌فرض» را کنار سیستم عامل مورد نظرتان انتخاب "
 "کنید. "
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
 msgstr "پیش‌فرض"
 
@@ -3580,9 +3627,10 @@ msgid "Image"
 msgstr "تصویر"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 msgstr ""
 "برچسبی را که در منوی بارکنندهٔ راه‌انداز نمایش داده می‌شود وارد کنید. دستگاه "
 "(یا دیسک سخت و شمارهٔ افراز) دستگاهی است که از آن راه‌اندازی می‌شود."
@@ -3619,11 +3667,11 @@ msgstr "تکثیر دستگاه"
 msgid "This device is already being used for another boot entry."
 msgstr "این دستگاه از قبل برای مدخل راه‌اندازی دیگری استفاده می‌شود."
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
 msgstr "نمی‌توان حذف کرد"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3689,29 +3737,29 @@ msgstr "_استوانه آخر:"
 msgid "Force to be a _primary partition"
 msgstr "حتماً افراز ا_صلی باشد"
 
-#: ../iw/partition_gui.py:313
+#: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:320
+#: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "نوع"
 
-#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "آغاز"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "پایان"
 
-#: ../iw/partition_gui.py:407
+#: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3719,7 +3767,7 @@ msgstr ""
 "نقطهٔ سوار کردن/\n"
 "‏RAID/جلد"
 
-#: ../iw/partition_gui.py:409
+#: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
@@ -3727,19 +3775,19 @@ msgstr ""
 "اندازه\n"
 "(مگابایت)"
 
-#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "افرازبندی"
 
-#: ../iw/partition_gui.py:632
+#: ../iw/partition_gui.py:633
 msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr "خطاهای بحرانی زیر در شِمای افرازبندی درخواست شدهٔ شما وجود دارند."
+"The partitioning scheme you requested caused the following critical errors."
+msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+"You must correct these errors before you continue your installation of %s."
 msgstr "پیش از ادامهٔ نصب %s این خطاها باید برطرف شوند."
 
 #: ../iw/partition_gui.py:641
@@ -3747,8 +3795,8 @@ msgid "Partitioning Errors"
 msgstr "خطاهای افرازبندی"
 
 #: ../iw/partition_gui.py:647
-msgid "The following warnings exist with your requested partition scheme."
-msgstr "اخطارهای زیر در شِمای افراز درخواست شدهٔ شما وجود دارند."
+msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgstr ""
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3779,7 +3827,7 @@ msgstr "دستگاه‌های RAID"
 msgid "None"
 msgstr "هیچ‌کدام"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "‌دیسک‌گردان‌های سخت"
 
@@ -3859,9 +3907,10 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device which can be formatted and "
+"RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
@@ -3944,10 +3993,10 @@ msgid "Check for _bad blocks?"
 msgstr "برای پیدا کردن بلوک‌های خراب بررسی شود؟"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "افرازهایی از نوع «%s» باید درون یک دیسک‌گردان جا بگیرند. این کار با انتخاب "
 "دیسک‌گردان در فهرست «دیسک‌گردان‌های مجاز» انجام می‌گیرد."
@@ -3964,56 +4013,9 @@ msgstr "افرازبندی _خودکار"
 msgid "Manually partition with _Disk Druid"
 msgstr "افرازبندی دستی با _دیسک دروئید"
 
-#: ../iw/progress_gui.py:43
-#, python-format
-msgid "%s MB"
-msgstr "‏%s مگابایت"
-
-#: ../iw/progress_gui.py:46
-#, python-format
-msgid "%s KB"
-msgstr "‏%s کیلوبایت"
-
-#: ../iw/progress_gui.py:49
-#, python-format
-msgid "%s Byte"
-msgstr "‏%s بایت"
-
-#: ../iw/progress_gui.py:51
-#, python-format
-msgid "%s Bytes"
-msgstr "‏%s بایت"
-
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:31
 msgid "Installing Packages"
 msgstr "در حال نصب بسته‌ها"
-
-#: ../iw/progress_gui.py:170
-#, python-format
-msgid "Remaining time: %s minutes"
-msgstr ""
-
-#: ../iw/progress_gui.py:186
-#, python-format
-msgid "Downloading %s"
-msgstr "در حال بارگیری %s"
-
-#: ../iw/progress_gui.py:226
-#, python-format
-msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "در حال نصب ‎%s-%s-%s.%s ‏(%s)"
-
-#: ../iw/progress_gui.py:350
-msgid "Package"
-msgstr "بسته"
-
-#: ../iw/progress_gui.py:351
-msgid "Summary"
-msgstr "خلاصه"
-
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
-msgid "Status: "
-msgstr "وضعیت: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4077,11 +4079,12 @@ msgid "Source Drive Error"
 msgstr "خطای دیسک‌گردان مبدأ"
 
 #: ../iw/raid_dialog_gui.py:498
+#, fuzzy
 msgid ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 msgstr ""
 "دیسک‌گردان مبدأ دارای افرازهایی است که از نوع «RAID نرم‌افزاری» نیستند.\n"
 "\n"
@@ -4089,13 +4092,13 @@ msgstr ""
 "شوند."
 
 #: ../iw/raid_dialog_gui.py:510
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 msgstr ""
 "دیسک‌گردان مبدأ انتخاب شده دارای افرازهایی است که در دیسک‌گردان ‏/dev/%s جا "
 "داده نشده‌اند.\n"
@@ -4104,11 +4107,12 @@ msgstr ""
 "محدود به این دیسک‌گردان شوند."
 
 #: ../iw/raid_dialog_gui.py:523
+#, fuzzy
 msgid ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 msgstr ""
 "دیسک‌گردان مبدأ دارای افرازهای RAID نرم‌افزاری است که اعضای یک دستگاه RAID "
 "نرم‌افزاری فعال هستند.\n"
@@ -4132,14 +4136,14 @@ msgstr ""
 "نمی‌توان دیسک‌گردان مبدأ ‎/dev/%s را به عنوان دیسک‌گردان هدف هم انتخاب کرد."
 
 #: ../iw/raid_dialog_gui.py:562
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 msgstr ""
 "دیسک‌گردان هدف ‎/dev/%s دارای افرازی است که به دلایل زیر نمی‌توان آن را حذف "
 "کرد:\n"
@@ -4184,13 +4188,14 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
 
 #: ../iw/raid_dialog_gui.py:696
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4248,8 +4253,8 @@ msgstr ""
 #: ../iw/task_gui.py:90
 #, python-format
 msgid ""
-"Unable to find a group file for %s.  This will make manual selection of "
-"packages from the repository not work"
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 msgstr ""
 
 #: ../iw/task_gui.py:122
@@ -4259,19 +4264,19 @@ msgstr "نام میزبان نامعتبر"
 
 #: ../iw/task_gui.py:123
 #, fuzzy
-msgid "You must provide a non-zero length repository name."
+msgid "You must provide a repository name."
 msgstr "باید نام کارگزاری وارد کنید."
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:131
 #, fuzzy
 msgid "Invalid Repository URL"
 msgstr "برچسب راه‌اندازی نامعتبر"
 
-#: ../iw/task_gui.py:133
+#: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr ""
 
-#: ../iw/task_gui.py:147
+#: ../iw/task_gui.py:146
 #, fuzzy, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4318,9 +4323,10 @@ msgid "_Create new boot loader configuration"
 msgstr "ای_جاد پیکربندی بارکنندهٔ راه‌انداز جدید"
 
 #: ../iw/upgrade_bootloader_gui.py:89
+#, fuzzy
 msgid ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 msgstr ""
 "این کار شما را قادر می‌سازد پیکربندی بارکنندهٔ راه‌انداز جدیدی ایجاد کنید. اگر "
 "می‌خواهید بتوانید بارکننده‌های راه‌انداز را تعویض کنید، باید این گزینه را "
@@ -4331,9 +4337,10 @@ msgid "_Skip boot loader updating"
 msgstr "_پرش از روی به‌هنگام‌سازی بارکنندهٔ راه‌انداز"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 msgstr ""
 "این کار هیچ تغییری در پیکربندی بارکنندهٔ راه‌انداز نخواهد داد. اگر از بارکنندهٔ "
 "راه‌اندازی طرف سومی استفاده می‌کنید، باید این را انتخاب کنید."
@@ -4347,12 +4354,12 @@ msgid "Migrate File Systems"
 msgstr "کوچ‌دادن سیستم پرونده‌ای"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -4368,12 +4375,12 @@ msgid "Upgrade Swap Partition"
 msgstr "ارتقاء دادن افراز حافظهٔ مبادله"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "هستهٔ ‎2.4 به حافظهٔ مبادلهٔ بسیار بیشتری از هسته‌های قدیمی‌تر نیاز دارد، تقریباً "
 "به اندازهٔ دو برابر حافظهٔ RAM سیستم. شما در حال حاضر %d مگابایت حافظهٔ مبادله "
@@ -4408,10 +4415,10 @@ msgid "Free Space (MB)"
 msgstr "فضای آزاد (مگابایت)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr ""
 "توصیه می‌شود که پروندهٔ مبادله حداقل %d مگابایت باشد. لطفاً اندازهٔ پروندهٔ "
 "مبادله را وارد کنید:"
@@ -4425,10 +4432,10 @@ msgid "I _don't want to create a swap file"
 msgstr "_نمی خواهم پروندهٔ مبادله ایجاد کنم"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is stongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "اکیداً توصیه می‌شود پروندهٔ مبادله‌ای ایجاد کنید. شکست در این کار ممکن است باعث "
 "شود برنامهٔ نصب به طور غیر عادی قطع شود. آیا مطمئنید که می‌خواهید ادامه دهید؟"
@@ -4505,11 +4512,11 @@ msgid "Skip Boot Loader"
 msgstr "پرش از بارکنندهٔ راه‌انداز"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
@@ -4520,101 +4527,102 @@ msgstr ""
 "\n"
 "آیا مطمئنید که می‌خواهید از نصب بارکنندهٔ راه‌انداز بپرید؟"
 
-#: ../textw/bootloader_text.py:93
+#: ../textw/bootloader_text.py:92
+#, fuzzy
 msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "سیستم‌های معدودی در زمان راه‌اندازی نیاز به رد کردن گزینه‌های مخصوصی به هسته "
 "دارند تا سیستم درست کار کند. اگر  لازم دارید گزینه‌های راه‌اندازی به هسته رد "
 "شود، آنها را اکنون وارد کنید. اگر نیازی ندارید یا مطمئن نیستید، این قسمت را "
 "خالی بگذارید."
 
-#: ../textw/bootloader_text.py:102
+#: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
 msgstr "اجبار به استفاده از LBA32 (معمولاً لازم نیست)"
 
-#: ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
 msgstr "کجا می‌خواهید بارکنندهٔ راه‌انداز را نصب کنید؟"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
+#: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
 msgstr "برچسب راه‌اندازی"
 
-#: ../textw/bootloader_text.py:198
+#: ../textw/bootloader_text.py:197
 msgid "Clear"
 msgstr "پاک کردن"
 
-#: ../textw/bootloader_text.py:206
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
 msgstr "ویرایش برچسب راه‌اندازی"
 
-#: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "برچسب راه‌اندازی نامعتبر"
 
-#: ../textw/bootloader_text.py:225
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "برچسب راه‌اندازی نمی‌تواند خالی باشد."
 
-#: ../textw/bootloader_text.py:230
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "برچسب راه‌اندازی دارای نویسه‌های غیرمجاز است."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "ویرایش"
 
-#: ../textw/bootloader_text.py:278
-#, python-format
+#: ../textw/bootloader_text.py:277
+#, fuzzy, python-format
 msgid ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 msgstr ""
 "مدیر راه‌اندازی‌ای که %s استفاده می‌کند می‌تواند سیستم‌عامل‌های دیگر را نیز "
 "راه‌اندازی کند. لازم است بگویید چه افرازهایی را می‌خواهید بتوانید راه‌اندازی "
 "کنید و برای هر کدام از چه برچسبی می‌خواهید استفاده کنید."
 
-#: ../textw/bootloader_text.py:291
+#: ../textw/bootloader_text.py:290
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:386
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "گذرواژهٔ بارکنندهٔ راه‌انداز مانع از آن می‌شود که کاربرها گزینه‌های اختیاری به "
 "هسته  رد کنند. برای بالاترین امنیت، توصیه می‌شود که گذرواژه‌ای تنظیم کنید، ولی "
 "این کار برای اغلب کاربرهای بی‌قید ضروری نیست."
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
 msgstr "استفاده از گذرواژهٔ GRUB"
 
-#: ../textw/bootloader_text.py:409
+#: ../textw/bootloader_text.py:408
 msgid "Boot Loader Password:"
 msgstr "گذرواژهٔ بارکنندهٔ راه‌انداز:"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:409
 msgid "Confirm:"
 msgstr "تکرار گذرواژه:"
 
-#: ../textw/bootloader_text.py:439
+#: ../textw/bootloader_text.py:438
 msgid "Passwords Do Not Match"
 msgstr "گذرواژه‌ها تطبیق نمی‌کنند"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:443
 msgid "Password Too Short"
 msgstr "گذرواژه خیلی کوتاه است"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:444
 msgid "Boot loader password is too short"
 msgstr "گذرواژهٔ بارکنندهٔ راه‌انداز خیلی کوتاه است"
 
@@ -4690,11 +4698,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
 #: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
-#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:283 ../loader2/urls.c:471
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "عقب"
 
@@ -4712,8 +4720,9 @@ msgstr ""
 "است بخواهید این پرونده را برای مراجعهٔ بعدی نگه دارید."
 
 #: ../textw/grpselect_text.py:87
-msgid "Please select the package groups you would like to have installed."
-msgstr ""
+#, fuzzy
+msgid "Please select the package groups you would like to install."
+msgstr "لطفاً دیسک‌گردان‌های هدف را برای عملیات همانندسازی انتخاب کنید."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4752,7 +4761,7 @@ msgstr "۳ دکمه‌ای شبیه‌سازی شود؟"
 msgid "Mouse Selection"
 msgstr "انتخاب موشی"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:50
 #, fuzzy, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
@@ -4761,109 +4770,174 @@ msgstr ""
 "شما فیلد «%s» را مشخص نکرده‌اید. بسته به محیط شبکهٔ شما، ممکن است این مسأله "
 "بعداً مشکلاتی ایجاد کند."
 
-#: ../textw/network_text.py:152
-#, python-format
-msgid "Description: %s"
-msgstr "شرح: %s"
+#: ../textw/network_text.py:67
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "نشانی سخت‌افزاری: %s"
-
-#: ../textw/network_text.py:170
-#, fuzzy
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
-
-#: ../textw/network_text.py:177 ../loader2/net.c:711
-#: tmp/netpostconfig.glade.h:10
-msgid "Enable IPv4 support"
+#: ../textw/network_text.py:71
+msgid "Integer Required for Prefix"
 msgstr ""
 
-#: ../textw/network_text.py:183 ../loader2/net.c:724
-#: tmp/netpostconfig.glade.h:11
-msgid "Enable IPv6 support"
+#: ../textw/network_text.py:72
+#, python-format
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
 
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
-msgid "Activate on boot"
-msgstr "فعال کردن هنگام راه‌اندازی"
-
-#: ../textw/network_text.py:214
-#, fuzzy
-msgid "Address"
-msgstr "نشانی IP"
-
-#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 #, fuzzy
 msgid "Prefix (Netmask)"
 msgstr "نقاب شبکه"
 
-#: ../textw/network_text.py:217
-msgid "IPv4:"
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+#, fuzzy
+msgid "Prefix"
+msgstr "رشتهٔ IP‏ نامعتبر"
+
+#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+msgid "Activate on boot"
+msgstr "فعال کردن هنگام راه‌اندازی"
+
+#: ../textw/network_text.py:141 ../loader2/net.c:719
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv4 support"
 msgstr ""
 
-#: ../textw/network_text.py:220
-msgid "IPv6:"
+#: ../textw/network_text.py:148 ../loader2/net.c:732
+#: tmp/netpostconfig.glade.h:11
+msgid "Enable IPv6 support"
 msgstr ""
 
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:161
 msgid "P-to-P:"
 msgstr ""
 
-#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
 #, fuzzy
 msgid "ESSID:"
 msgstr "‎_ESSID"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:188
 msgid "WEP Key:"
 msgstr ""
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:201
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "پیکربندی شبکه برای %s"
 
-#: ../textw/network_text.py:387
-#, fuzzy
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
+#: ../textw/network_text.py:238 ../textw/network_text.py:241
+msgid "point-to-point IP address"
+msgstr ""
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1017
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
+
+#: ../textw/network_text.py:267 ../textw/network_text.py:398
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "پیکربندی z/IPL"
+
+#: ../textw/network_text.py:287
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "پیکربندی شبکه برای %s"
+
+#: ../textw/network_text.py:317 ../textw/network_text.py:329
+#: ../textw/network_text.py:332
+#, fuzzy
+msgid "IPv4 address"
+msgstr "نشانی IP:"
+
+#: ../textw/network_text.py:321
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "‏IP‏/نقاب شبکه"
+
+#: ../textw/network_text.py:347 ../textw/network_text.py:350
+#: ../textw/network_text.py:353
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "نقاب شبکه"
+
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
+
+#: ../textw/network_text.py:422
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "پیکربندی شبکه برای %s"
+
+#: ../textw/network_text.py:452 ../textw/network_text.py:463
+#: ../textw/network_text.py:466
+#, fuzzy
+msgid "IPv6 address"
+msgstr "نشانی IP:"
+
+#: ../textw/network_text.py:456 ../textw/network_text.py:475
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "رشتهٔ IP‏ نامعتبر"
+
+#: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "دروازه:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:592
 msgid "Primary DNS:"
 msgstr "کارگزار نام اول:"
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:597
 msgid "Secondary DNS:"
 msgstr "کارگزار نام دوم:"
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "تنظیمات متفرقهٔ شبکه"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#, fuzzy
+msgid "gateway"
+msgstr "دروازه"
+
+#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#, fuzzy
+msgid "primary DNS"
+msgstr "‏DNS اول"
+
+#: ../textw/network_text.py:643
+#, fuzzy
+msgid "secondary DNS"
+msgstr "‏DNS دوم"
+
+#: ../textw/network_text.py:677
 msgid "automatically via DHCP"
 msgstr "به طور خودکار از طریق DHCP"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:680
 msgid "manually"
 msgstr "دستی"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:699
 msgid "Hostname Configuration"
 msgstr "پیکربندی نام‌میزبان"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:702
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "اگر سیستم شما جزئی از شبکه بزرگتری است که نام‌های میزبان به وسیلهٔ DHCP گذاشته "
@@ -4871,11 +4945,11 @@ msgstr ""
 "و نام میزبانی برای سیستم خود وارد کنید. اگر این کار را نکنید، سیستم شما به "
 "عنوان «localhost» شناخته خواهد شد."
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
 msgstr "نام میزبان نامعتبر"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:729
 msgid "You have not specified a hostname."
 msgstr "نام میزبان را مشخص نکرده‌اید."
 
@@ -5022,7 +5096,8 @@ msgid "Not Supported"
 msgstr "پشتیبانی نمی‌شود"
 
 #: ../textw/partition_text.py:772
-msgid "LVM Volume Groups can only be edited in the graphical installer."
+#, fuzzy
+msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "گروه‌های جلد LVM فقط در نصب‌کنندهٔ گرافیکی می‌توانند ویرایش شوند."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
@@ -5062,7 +5137,8 @@ msgid "Too many spares"
 msgstr "تعداد یدکی بسیار زیاد است"
 
 #: ../textw/partition_text.py:1096
-msgid "The maximum number of spares with a RAID0 array is 0."
+#, fuzzy
+msgid "You may not use any spares with a RAID0 array."
 msgstr "حداکثر تعداد قطعات یدکی با آرایهٔ RAID0 صفر است."
 
 #: ../textw/partition_text.py:1177
@@ -5070,14 +5146,15 @@ msgid "No Volume Groups"
 msgstr "بدون گروه جلد"
 
 #: ../textw/partition_text.py:1178
-msgid "No volume groups in which to create a logical volume"
+#, fuzzy
+msgid "No volume groups exist in which to create a logical volume"
 msgstr "گروه جلدی نیست که در آن جلد منطقی ایجاد شود"
 
 #: ../textw/partition_text.py:1302
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 msgstr ""
 "اندازهٔ درخواست شدهٔ فعلی (%10.2f مگابایت) بیشتر از حداکثر اندازهٔ جلد منطقی (%"
 "10.2f مگابایت) است. "
@@ -5131,8 +5208,9 @@ msgid "No Root Partition"
 msgstr "افراز root وجود ندارد"
 
 #: ../textw/partition_text.py:1490
-msgid "Must have a / partition to install on."
-msgstr "برای نصب باید یک افراز / داشت."
+#, fuzzy
+msgid "Installation requires a / partition."
+msgstr "نمی‌توان افرازهای درخواست شده را تخصیص داد: %s."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5200,6 +5278,16 @@ msgid ""
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
 
+#: ../textw/partition_text.py:1707
+#, fuzzy
+msgid "Target IP Address"
+msgstr "نشانی IP"
+
+#: ../textw/partition_text.py:1708
+#, fuzzy
+msgid "iSCSI Initiator Name"
+msgstr "نام نامعتبر گروه جلد"
+
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
 msgstr "افرازبندی خودکار"
@@ -5208,50 +5296,9 @@ msgstr "افرازبندی خودکار"
 msgid "Disk Druid"
 msgstr "دیسک دروئید"
 
-#: ../textw/progress_text.py:66
-#, python-format
-msgid "Downloading - %s"
-msgstr "در حال بارگیری ‐ %s"
-
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:51
 msgid "Package Installation"
 msgstr "نصب بسته"
-
-#: ../textw/progress_text.py:105
-msgid " Name   : "
-msgstr " نام   : "
-
-#: ../textw/progress_text.py:106
-msgid " Size   : "
-msgstr " اندازه   : "
-
-#: ../textw/progress_text.py:107
-msgid " Summary: "
-msgstr " خلاصه: "
-
-#: ../textw/progress_text.py:152
-msgid "    Packages"
-msgstr "    بسته"
-
-#: ../textw/progress_text.py:153
-msgid "      Bytes"
-msgstr "      بایت"
-
-#: ../textw/progress_text.py:154
-msgid "        Time"
-msgstr "        زمان"
-
-#: ../textw/progress_text.py:156
-msgid "Total    :"
-msgstr "جمع کل    :"
-
-#: ../textw/progress_text.py:163
-msgid "Completed:   "
-msgstr "انجام شده:   "
-
-#: ../textw/progress_text.py:173
-msgid "Remaining:  "
-msgstr "باقی‌مانده:  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5270,7 +5317,8 @@ msgid "Customize software selection"
 msgstr "سفارشی‌سازی انتخاب نرم‌افزار"
 
 #: ../textw/timezone_text.py:68
-msgid "What time zone are you located in?"
+#, fuzzy
+msgid "In which time zone are you located?"
 msgstr "در چه منطقهٔ زمانی‌ای قرار دارید؟"
 
 #: ../textw/timezone_text.py:86
@@ -5291,12 +5339,12 @@ msgid "Create new boot loader configuration"
 msgstr "ایجاد پیکربندی جدید بارکنندهٔ راه‌انداز"
 
 #: ../textw/upgrade_text.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system. You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "هستهٔ ‎2.4 نیاز به حافظهٔ مبادلهٔ بسیار بیشتری از هسته‌های قدیمی‌تر دارد، حدود دو "
 "برابر حافظهٔ RAM سیستم. شما در حال حاضر %d مگابایت حافظهٔ مبادله دارید ولی "
@@ -5336,8 +5384,9 @@ msgid "System to Upgrade"
 msgstr "سیستمی که ارتقاء داده شود"
 
 #: ../textw/upgrade_text.py:204
+#, fuzzy
 msgid ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -5352,10 +5401,11 @@ msgid "Root Password"
 msgstr "گذرواژهٔ root"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 msgstr ""
 "گذرواژهٔ root را انتخاب کنید. برای اطمینان از دانستن آن و عدم اشتباه در تایپ "
 "باید آن را دوبار تایپ کنید. به یاد داشته باشید که گذرواژهٔ root بخشی بحرانی "
@@ -5375,10 +5425,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 msgstr ""
 "بارکنندهٔ راه‌انداز z/IPL بعد از تمام شدن نصب روی سیستم شما نصب خواهد شد. "
 "اکنون می‌توانید هر پارامتر اضافی chandev و هسته را که رایانه یا برپاسازی شما "
@@ -5396,7 +5447,7 @@ msgstr "خط Chandev "
 msgid "_Fedora"
 msgstr ""
 
-#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5404,22 +5455,69 @@ msgid ""
 "include support for?"
 msgstr ""
 
-#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr ""
 
-#: ../installclasses/rhel.py:16
+#: ../installclasses/rhel.py:21
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
 msgstr "‏Red Hat Enterprise Linux WS"
+
+#: ../installclasses/rhel.py:32
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:33
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:44
+#, fuzzy
+msgid "Virtualization"
+msgstr "تبریک"
+
+#: ../installclasses/rhel.py:45
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:46
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:50
+#, fuzzy
+msgid "Installation Number"
+msgstr "نصبی که آغاز شود"
+
+#: ../installclasses/rhel.py:51
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:54
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5428,7 +5526,7 @@ msgstr "بررسی رسانه"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Test"
 msgstr "آزمایش"
 
@@ -5595,12 +5693,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "آیا می‌خواهید دیسک‌های گردانندهٔ دیگری را بار کنید؟"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
+#: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
+#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "خطای راه‌اندازی"
 
@@ -5676,7 +5774,7 @@ msgid ""
 msgstr ""
 "به نظر نمی‌رسد درخت نصب %s در این شاخه با رسانهٔ راه‌اندازی شما مطابق باشد."
 
-#: ../loader2/hdinstall.c:160
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5684,7 +5782,7 @@ msgstr ""
 "هنگام خواندن نصب از تصاویر ایزو خطایی رخ داد. لطفاً تصاویر ایزو خود را بررسی "
 "کرده و دوباره امتحان کنید."
 
-#: ../loader2/hdinstall.c:268
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5692,7 +5790,7 @@ msgstr ""
 "به‌نظر نمی‌رسد که هیچ دیسک سختی روی سیستم‌تان داشته باشید! آیا می‌خواهید "
 "دستگاه‌های اضافی را پیکربندی کنید؟"
 
-#: ../loader2/hdinstall.c:283
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5703,29 +5801,29 @@ msgstr ""
 "دیسک‌گردانی که از آن استفاده می‌کنید اینجا فهرست نشده است، F2 را برای پیکربندی "
 "دستگاه‌های بیشتر فشار دهید."
 
-#: ../loader2/hdinstall.c:306
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "شاخهٔ حاوی تصاویر:"
 
-#: ../loader2/hdinstall.c:334
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "انتخاب افراز"
 
-#: ../loader2/hdinstall.c:374
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "به‌نظر نمی‌رسد دستگاه %s حاوی تصاویر سی‌دی %s باشد."
 
-#: ../loader2/hdinstall.c:409
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "آرگومان بد برای فرمان روش راه‌اندازی دیسک سخت %s : %s"
 
-#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "نمی‌توان پروندهٔ راه‌اندازی را روی دیسک سخت پیدا کرد."
 
-#: ../loader2/hdinstall.c:522
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "نمی‌توان دیسک سخت را برای دیسک BIOS ‏%s پیدا کرد"
@@ -5738,37 +5836,37 @@ msgstr "نوع صفحه‌کلید"
 msgid "What type of keyboard do you have?"
 msgstr "چه نوع صفحه‌کلیدی دارید؟"
 
-#: ../loader2/kickstart.c:125
+#: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "خطا در باز کردن پروندهٔ راه‌اندازی %s:‏ %s"
 
-#: ../loader2/kickstart.c:135
+#: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "خطا در خواندن محتویات پروندهٔ راه‌اندازی %s: ‏%s"
 
-#: ../loader2/kickstart.c:178
+#: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "خطا در %s در سطر %Id پروندهٔ راه‌اندازی %s."
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "نمی‌توان ks.cfg را در دیسک نرم راه‌اندازی پیدا کرد."
 
-#: ../loader2/kickstart.c:341
+#: ../loader2/kickstart.c:344
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: ../loader2/kickstart.c:350
+#: ../loader2/kickstart.c:353
 #, fuzzy
 msgid "Error downloading kickstart file"
 msgstr "خطا در باز کردن پروندهٔ راه‌اندازی %s:‏ %s"
 
-#: ../loader2/kickstart.c:473
+#: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "آرگومان بد برای فرمان روش راه‌اندازی دیسک سخت %s : %s"
@@ -5885,11 +5983,11 @@ msgstr ""
 "می‌خواهید گردانندهٔ خود را دستی انتخاب کنید یا از یک دیسکِ گرداننده استفاده "
 "کنید؟"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1184
 msgid "The following devices have been found on your system."
 msgstr "دستگاه‌های زیر در سیستم شما پیدا شده‌اند."
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1186
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -5897,29 +5995,29 @@ msgstr ""
 "هیچ گردانندهٔ دستگاهی برای سیستم‌تان بار نشده است. آیا می‌خواهید حالا یک "
 "گرداننده بار کنید؟"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1190
 msgid "Devices"
 msgstr "دستگاه‌ها"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1191
 msgid "Done"
 msgstr "انجام شد"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1192
 msgid "Add Device"
 msgstr "اضافه کردن دستگاه"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1400
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "بارکننده قبلاً اجرا شده است. پوسته آغاز می‌شود.\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "در حال اجرای آناکوندا، حالت نجات %s ‐ لطفاً صبر کنید...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1789
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "در حال اجرای آناکوندا، برنامهٔ نصب سیستم %s ‐ لطفاً صبر کنید...\n"
@@ -5990,12 +6088,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "خواندن شاخهٔ %s شکست خورد: %s"
 
-#: ../loader2/method.c:422
+#: ../loader2/method.c:418
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6006,7 +6104,7 @@ msgstr ""
 "\n"
 "‏   %s؟"
 
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Checksum Test"
 msgstr "آزمایش مجموع مقابله‌ای"
 
@@ -6015,7 +6113,15 @@ msgstr "آزمایش مجموع مقابله‌ای"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "آرگومان بد برای فرمان روش راه‌اندازی دستگاه %s : %s"
 
-#: ../loader2/net.c:58
+#: ../loader2/modules.c:1056
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr ""
+"آرگومان‌های نامعتبر زیر برای فرمان راه‌اندازی دیسک گرداننده مشخص شده بودند: %s:"
+"%s"
+
+#: ../loader2/net.c:59
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6029,13 +6135,13 @@ msgstr ""
 "    ‐ نام یا شمارهٔ IP کارگزار %s شما\n"
 "    ـ شاخه‌ای در آن کارگزار که حاوی %s برای معماری شماست\n"
 
-#: ../loader2/net.c:93
+#: ../loader2/net.c:94
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:249
+#: ../loader2/net.c:257
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6046,28 +6152,28 @@ msgstr ""
 "به شبکهٔ بی‌سیم‌تان را وارد کنید. اگر کلید لازم نیست، فیلد آن را خالی بگذارید و "
 "نصب ادامه پیدا خواهد کرد."
 
-#: ../loader2/net.c:255
+#: ../loader2/net.c:263
 msgid "ESSID"
 msgstr "‎ESSID"
 
-#: ../loader2/net.c:256
+#: ../loader2/net.c:264
 msgid "Encryption Key"
 msgstr "کلید رمزنگاری"
 
-#: ../loader2/net.c:259
+#: ../loader2/net.c:267
 msgid "Wireless Settings"
 msgstr "تنظیمات بی‌سیم"
 
-#: ../loader2/net.c:290
+#: ../loader2/net.c:298
 msgid "Nameserver IP"
 msgstr "نشانی IP کارگزار نام"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:302
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "کارگزار نام"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:303
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6079,105 +6185,105 @@ msgstr ""
 "کنید. اگر چنین اطلاعاتی ندارید، می‌توانید این فیلد را خالی بگذارید و نصب را "
 "ادامه دهید."
 
-#: ../loader2/net.c:317
+#: ../loader2/net.c:325
 msgid "Invalid IP Information"
 msgstr "اطلاعات IP‏ نامعتبر است"
 
-#: ../loader2/net.c:318
+#: ../loader2/net.c:326
 msgid "You entered an invalid IP address."
 msgstr "نشانی IP نامعتبری وارد کرده‌اید."
 
-#: ../loader2/net.c:575 ../loader2/net.c:683
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr ""
 
-#: ../loader2/net.c:576 ../loader2/net.c:684
+#: ../loader2/net.c:584 ../loader2/net.c:692
 #, fuzzy
 msgid "There was an error configuring your network interface."
 msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
 
-#: ../loader2/net.c:757
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "پیکربندی TCP/IP"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:792
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: ../loader2/net.c:791
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:792
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:912
+#: ../loader2/net.c:920
 #, fuzzy
 msgid "IPv4 address:"
 msgstr "نشانی IP:"
 
-#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: ../loader2/net.c:964
+#: ../loader2/net.c:972
 #, fuzzy
 msgid "IPv6 address:"
 msgstr "نشانی IP:"
 
-#: ../loader2/net.c:1025
+#: ../loader2/net.c:1033
 #, fuzzy
 msgid "Name Server:"
 msgstr "کارگزار نام"
 
-#: ../loader2/net.c:1061
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1077
+#: ../loader2/net.c:1085
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
 msgstr "پیکربندی z/IPL"
 
-#: ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "اطلاعات کم است"
 
-#: ../loader2/net.c:1199
+#: ../loader2/net.c:1207
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "باید هم نشانی IP معتبر و هم نقاب شبکه را وارد کنید."
 
-#: ../loader2/net.c:1205
+#: ../loader2/net.c:1213
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "باید هم نشانی IP معتبر و هم نقاب شبکه را وارد کنید."
 
-#: ../loader2/net.c:1508
+#: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
 msgstr "در حال تعیین نام و دامنهٔ میزبان..."
 
-#: ../loader2/net.c:1601
+#: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "آرگومان بد برای فرمان شبکه‌ای راه‌اندازی %s: ‏%s"
 
-#: ../loader2/net.c:1624
+#: ../loader2/net.c:1632
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader2/net.c:1805
+#: ../loader2/net.c:1813
 msgid "Networking Device"
 msgstr "دستگاه شبکه‌ای"
 
-#: ../loader2/net.c:1806
+#: ../loader2/net.c:1814
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6189,7 +6295,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "نام کارگزار NFS:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "شاخهٔ %s:"
@@ -6263,56 +6369,56 @@ msgstr "باید یک آرگومان ‎--url به روش راه‌اندازی 
 msgid "Unknown Url method %s"
 msgstr "روش نشانی اینترنتی نامعلوم %s"
 
-#: ../loader2/urls.c:220
+#: ../loader2/urls.c:219
 msgid "Retrieving"
 msgstr "در حال بازیابی"
 
-#: ../loader2/urls.c:287
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr ""
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "نام پایگاه FTP:"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "نام وب‌گاه:"
 
-#: ../loader2/urls.c:329
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "استفاده از ftp غیرناشناس"
 
-#: ../loader2/urls.c:338
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "برپاسازی FTP"
 
-#: ../loader2/urls.c:339
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "برپاسازی HTTP"
 
-#: ../loader2/urls.c:349
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "باید نام کارگزاری وارد کنید."
 
-#: ../loader2/urls.c:354
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "باید شاخه‌ای وارد کنید."
 
-#: ../loader2/urls.c:359
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "میزبان نامعلوم"
 
-#: ../loader2/urls.c:360
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s نام میزبان معتبری نیست."
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:430
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6320,7 +6426,7 @@ msgstr ""
 "اگر از FTP غیرناشناس استفاده می‌کنید، نام حساب و گذرواژه‌ای را که می‌خواهید "
 "استفاده کنید در زیر وارد کنید."
 
-#: ../loader2/urls.c:436
+#: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6328,15 +6434,15 @@ msgstr ""
 "اگر از کارگزار پیشکار HTTP استفاده می‌کنید، نام کارگزار پیشکار HTTP مورد "
 "استفاده را وارد کنید."
 
-#: ../loader2/urls.c:458
+#: ../loader2/urls.c:457
 msgid "Account name:"
 msgstr "نام حساب:"
 
-#: ../loader2/urls.c:481
+#: ../loader2/urls.c:480
 msgid "Further FTP Setup"
 msgstr "برپاسازی بیشتر FTP"
 
-#: ../loader2/urls.c:484
+#: ../loader2/urls.c:483
 msgid "Further HTTP Setup"
 msgstr "برپاسازی بیشتر HTTP"
 
@@ -6405,10 +6511,15 @@ msgstr ""
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
+msgid "What drive would you like to boot this installation from?"
+msgstr "در طی روند نصب می‌خواهید از چه زبانی استفاده کنید؟"
+
+#: tmp/autopart.glade.h:4
+#, fuzzy
 msgid "_Advanced storage configuration"
 msgstr "پیکربندی پیشرفتهٔ بارکنندهٔ راه‌انداز"
 
-#: tmp/autopart.glade.h:4
+#: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
 msgstr ""
 
@@ -6418,6 +6529,11 @@ msgstr ""
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
+msgstr ""
+
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
@@ -6494,20 +6610,6 @@ msgstr "شرح: %s"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
-#: tmp/netpostconfig.glade.h:5
-msgid "Automatic neighbor discovery"
-msgstr ""
-
-#: tmp/netpostconfig.glade.h:6
-#, fuzzy
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
-
-#: tmp/netpostconfig.glade.h:7
-#, fuzzy
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
-
 #: tmp/netpostconfig.glade.h:9
 #, fuzzy
 msgid "Edit Interface"
@@ -6527,11 +6629,6 @@ msgstr "پیکربندی z/IPL"
 #, fuzzy
 msgid "Point to Point (IP):"
 msgstr "_نقطه به نقطه (IP‏)"
-
-#: tmp/netpostconfig.glade.h:16
-#, fuzzy
-msgid "Prefix"
-msgstr "رشتهٔ IP‏ نامعتبر"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6575,713 +6672,6 @@ msgstr "_گذرواژه:"
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
 msgstr "اضافه کردن دستگاه FCP"
-
-#. generated from zone.tab
-msgid "Acre"
-msgstr "آکری"
-
-#. generated from zone.tab
-msgid "Alagoas, Sergipe"
-msgstr "آلاگوئاس، سرژیپی"
-
-#. generated from zone.tab
-msgid "Alaska Time"
-msgstr "وقت آلاسکا"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle"
-msgstr "وقت آلاسکا ـ باریکهٔ آلاسکا"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle neck"
-msgstr "وقت آلاسکا ـ گردنهٔ باریکهٔ آلاسکا"
-
-#. generated from zone.tab
-msgid "Alaska Time - west Alaska"
-msgstr "وقت آلاسکا ـ غرب آلاسکا"
-
-#. generated from zone.tab
-msgid "Aleutian Islands"
-msgstr "جزایر الوشن"
-
-#. generated from zone.tab
-msgid "Amapa, E Para"
-msgstr "اماپا، شرق پارا"
-
-#. generated from zone.tab
-msgid "Amundsen-Scott Station, South Pole"
-msgstr "ایستگاه آمونسن‐اسکات، قطب جنوب"
-
-#. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr "آق‌توبه"
-
-#. generated from zone.tab
-msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Atlantic Time - Labrador - most locations"
-msgstr "وقت شرقی ـ اونتاریو ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Atlantic Time - New Brunswick"
-msgstr "وقت اقیانوس اطلس ـ نیو برانزویک"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr ""
-"وقت اقیانوس اطلس ـ نوواسکوشا (اکثر جاها)، غرب لبرادور، شرق کبک، و جزیرهٔ "
-"پرینس ادوارد"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"وقت اقیانوس اطلس ـ نوواسکوشا ـ جاهایی که از ۱۹۶۶ تا ۱۹۷۱ از وقت تابستانی "
-"استفاده نمی‌کردند"
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "جزایر اقیانوس اطلس"
-
-#. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "آتیراو (گوریف)، مانگقیستاو"
-
-#. generated from zone.tab
-msgid "Azores"
-msgstr "جزایر آزور"
-
-#. generated from zone.tab
-msgid "Bahia"
-msgstr "بائیا"
-
-#. generated from zone.tab
-msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "بایان‐اولگی، گووی‐آلتای، هوود، اووس، زاوخان"
-
-#. generated from zone.tab
-msgid "Buenos Aires (BA, CF)"
-msgstr "بوئنوس آیرس (BA،‏ CF)"
-
-#. generated from zone.tab
-msgid "Canary Islands"
-msgstr "جزایر قناری"
-
-#. generated from zone.tab
-msgid "Casey Station, Bailey Peninsula"
-msgstr "ایستگاه کیسی، شبه جزیرهٔ بیلی"
-
-#. generated from zone.tab
-msgid "Catamarca (CT), Chubut (CH)"
-msgstr "کاتامارکا، چوووت"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "وقت استاندارد مرکزی ـ ساسکچیوان ـ غرب میانه"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "وقت استاندارد مرکزی ـ ساسکاچوان - بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Central Time"
-msgstr "وقت مرکزی"
-
-#. generated from zone.tab
-msgid "Central Time - Campeche, Yucatan"
-msgstr "وقت مرکزی ـ کامپچه، یوکاتان"
-
-#. generated from zone.tab
-msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "وقت مرکزی ـ کوائوئیلا، دورانگو، نوئوا لئون، تاماولیپاس"
-
-#. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Central Time - Indiana - Pike County"
-msgstr "وقت مرکزی ـ ایندیانا ـ پایک کانتی"
-
-#. generated from zone.tab
-msgid "Central Time - Manitoba & west Ontario"
-msgstr "وقت مرکزی ـ مانیتوبا و غرب اونتاریو"
-
-#. generated from zone.tab
-msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "وقت مرکزی ـ میشیگان ـ کانتی‌های دیکینسون، گوگبیک، آیرن، و منوماینی"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "وقت مرکزی ـ داکوتای شمالی ـ آلیور کانتی (به جز ناحیهٔ مَندن)"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "وقت مرکزی ـ داکوتای شمالی ـ آلیور کانتی"
-
-#. generated from zone.tab
-msgid "Central Time - Quintana Roo"
-msgstr "وقت مرکزی ـ کینتانا رو"
-
-#. generated from zone.tab
-msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "وقت مرکزی ـ رینی ریور و فورت فرانسس، اونتاریو"
-
-#. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "وقت مرکزی ـ مرکز نوناووت"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "وقت مرکزی ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Central Time - west Nunavut"
-msgstr "وقت مرکزی ـ غرب نوناووت"
-
-#. generated from zone.tab
-msgid "Ceuta & Melilla"
-msgstr "سئوتا و ملیا"
-
-#. generated from zone.tab
-msgid "Chatham Islands"
-msgstr "جزایر چتم"
-
-#. generated from zone.tab
-msgid "Davis Station, Vestfold Hills"
-msgstr "ایستگاه دیویس، وست‌فول هیلز"
-
-#. generated from zone.tab
-msgid "Dornod, Sukhbaatar"
-msgstr "دورنود، سوخباتار"
-
-#. generated from zone.tab
-msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "پایگاه دومون دورویل، سرزمین ادلی"
-
-#. generated from zone.tab
-msgid "E Amazonas"
-msgstr "شرق امازونس"
-
-#. generated from zone.tab
-msgid "Easter Island & Sala y Gomez"
-msgstr "جزیرهٔ ایستر و سالائی‌گومس"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "وقت استاندارد شرقی ـ جزیرهٔ ساوتمپتون"
-
-#. generated from zone.tab
-msgid "Eastern Time"
-msgstr "وقت شرقی"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Crawford County"
-msgstr "وقت شرقی ـ ایندیانا ـ کروفورد کانتی"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Starke County"
-msgstr "وقت شرقی ـ ایندیانا ـ استارک کانتی"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "وقت شرقی ـ ایندیانا ـ سویتزرلند کانتی"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "وقت شرقی ـ ایندیانا ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "وقت شرقی ـ کنتاکی ـ منطقهٔ لوئیزویل"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "وقت شرقی ـ کنتاکی ـ وین کانتی"
-
-#. generated from zone.tab
-msgid "Eastern Time - Michigan - most locations"
-msgstr "وقت شرقی ـ میشیگان ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"وقت شرقی ـ اونتاریو و کبک ـ محل‌هایی که از ۱۹۶۷ تا ۱۹۷۳ از وقت تابستانی "
-"استفاده نمی‌کردند"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "وقت شرقی ـ اونتاریو ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "وقت شرقی ـ پانگنیرتونگ، نوناووت"
-
-#. generated from zone.tab
-msgid "Eastern Time - Quebec - most locations"
-msgstr "وقت شرقی ـ کبک ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "وقت شرقی ـ تاندر بی، اونتاریو"
-
-#. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "وقت  شرقی ـ شرق نوناووت"
-
-#. generated from zone.tab
-msgid "Galapagos Islands"
-msgstr "جزایر گالاپاگوس"
-
-#. generated from zone.tab
-msgid "Gambier Islands"
-msgstr "جزایر گامبیه"
-
-#. generated from zone.tab
-msgid "Gilbert Islands"
-msgstr "جزایر گیلبرت"
-
-#. generated from zone.tab
-msgid "Hawaii"
-msgstr "هاوائی"
-
-#. generated from zone.tab
-msgid "Heilongjiang (except Mohe), Jilin"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Irian Jaya & the Moluccas"
-msgstr "ایریان جایا و ملوک"
-
-#. generated from zone.tab
-msgid "Jan Mayen"
-msgstr "یان ماین"
-
-#. generated from zone.tab
-msgid "Java & Sumatra"
-msgstr "جاوه و سوماترا"
-
-#. generated from zone.tab
-msgid "Johnston Atoll"
-msgstr "آتول جانستون"
-
-#. generated from zone.tab
-msgid "Jujuy (JY)"
-msgstr "خوخوئی"
-
-#. generated from zone.tab
-msgid "Kosrae"
-msgstr "کوسرای"
-
-#. generated from zone.tab
-msgid "Kwajalein"
-msgstr "کواجالین"
-
-#. generated from zone.tab
-msgid "La Rioja (LR)"
-msgstr "لاریوخا"
-
-#. generated from zone.tab
-msgid "Line Islands"
-msgstr "جزایر لاین"
-
-#. generated from zone.tab
-msgid "Lord Howe Island"
-msgstr "جزیرهٔ لرد هاو"
-
-#. generated from zone.tab
-msgid "Madeira Islands"
-msgstr "جزایر مادئیرا"
-
-#. generated from zone.tab
-msgid "Marquesas Islands"
-msgstr "جزایر مارکیزاس"
-
-#. generated from zone.tab
-msgid "Mato Grosso"
-msgstr "ماتو گروسو"
-
-#. generated from zone.tab
-msgid "Mato Grosso do Sul"
-msgstr "ماتو گروسو دو سول"
-
-#. generated from zone.tab
-msgid "Mawson Station, Holme Bay"
-msgstr "ایستگاه موسن، خلیج هوم"
-
-#. generated from zone.tab
-msgid "McMurdo Station, Ross Island"
-msgstr "ایستگاه مک‌مردو، جزیرهٔ راس"
-
-#. generated from zone.tab
-msgid "Mendoza (MZ)"
-msgstr "مندوسا"
-
-#. generated from zone.tab
-msgid "Midway Islands"
-msgstr "جزایر میدوی"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Moscow+00 - Caspian Sea"
-msgstr "مسکو+۰۱ ـ دریای خزر"
-
-#. generated from zone.tab
-msgid "Moscow+00 - west Russia"
-msgstr "مسکو+۰۰ ـ غرب روسیه"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "مسکو+۰۹ ـ کامچاتکا"
-
-#. generated from zone.tab
-msgid "Moscow+02 - Urals"
-msgstr "مسکو+۰۲ ـ کوههای اورال"
-
-#. generated from zone.tab
-msgid "Moscow+03 - Novosibirsk"
-msgstr "مسکو+۰۳ - نوسیبیرسک"
-
-#. generated from zone.tab
-msgid "Moscow+03 - west Siberia"
-msgstr "مسکو+۰۳ ـ غرب سیبری"
-
-#. generated from zone.tab
-msgid "Moscow+04 - Yenisei River"
-msgstr "مسکو+۰۴ ـ رود یینی‌سئی"
-
-#. generated from zone.tab
-msgid "Moscow+05 - Lake Baikal"
-msgstr "مسکو+۰۵ - دریاچهٔ بایکال"
-
-#. generated from zone.tab
-msgid "Moscow+06 - Lena River"
-msgstr "مسکو+۰۶ ـ رود لنا"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Amur River"
-msgstr "مسکو+۰۷ ـ رود آمور"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "مسکو+۰۷ ـ جزیره ساخالین"
-
-#. generated from zone.tab
-msgid "Moscow+08 - Magadan"
-msgstr "مسکو+۰۸ ـ مگادان"
-
-#. generated from zone.tab
-msgid "Moscow+09 - Kamchatka"
-msgstr "مسکو+۰۹ ـ کامچاتکا"
-
-#. generated from zone.tab
-msgid "Moscow+10 - Bering Sea"
-msgstr "مسکو+۱۰ ـ دریای برینگ"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "مسکو−۰۱ ـ کالینینگراد"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Arizona"
-msgstr "وقت استاندارد کوهستانی ـ آریزونا"
-
-#. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "وقت استاندارد کوهستانی ـ داوسون کریک و فورت سنت جان، بریتیش کلمبیا"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Sonora"
-msgstr "وقت استاندارد کوهستانی ـ سونورا"
-
-#. generated from zone.tab
-msgid "Mountain Time"
-msgstr "وقت کوهستانی"
-
-#. generated from zone.tab
-msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "وقت کوهستانی ـ آلبرتا، شرق بریتیش کلمبیا، و غرب ساسکچیوان"
-
-#. generated from zone.tab
-msgid "Mountain Time - Chihuahua"
-msgstr "وقت کوهستانی ـ چیئوائوا"
-
-#. generated from zone.tab
-msgid "Mountain Time - Navajo"
-msgstr "وقت کوهستانی ـ نواهو"
-
-#. generated from zone.tab
-msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "وقت کوهستانی ـ جنوب باخا، نایاریت، سینالوئا"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "وقت کوهستانی ـ مرکز سرزمین شمال غربی"
-
-#. generated from zone.tab
-msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "وقت کوهستانی ـ جنوب آیداهو و شرق اورگون"
-
-#. generated from zone.tab
-msgid "Mountain Time - west Northwest Territories"
-msgstr "وقت کوهستانی ـ غرب سرزمین شمال غربی"
-
-#. generated from zone.tab
-msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
-"شمال شرقی برزیل (مارانیاون، پیاوئی، سئارا، ریو گرانده د نورته، پارائیبا)‏"
-
-#. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "نیو ویلز جنوبی ـ ینکاوینا"
-
-#. generated from zone.tab
-msgid "New South Wales - most locations"
-msgstr "نیو ویلز جنوبی ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "وقت اقیانوس اطلس ـ شرق لبرادور"
-
-#. generated from zone.tab
-msgid "Northern Territory"
-msgstr "سرزمین شمالی"
-
-#. generated from zone.tab
-msgid "Pacific Time"
-msgstr "وقت اقیانوس آرام"
-
-#. generated from zone.tab
-msgid "Pacific Time - north Yukon"
-msgstr "وقت اقیانوس آرام ـ شمال یوکان"
-
-#. generated from zone.tab
-msgid "Pacific Time - south Yukon"
-msgstr "وقت اقیانوس آرام ـ شمال یوکان"
-
-#. generated from zone.tab
-msgid "Pacific Time - west British Columbia"
-msgstr "وقت اقیانوس آرام ـ غرب بریتیش کلمبیا"
-
-#. generated from zone.tab
-msgid "Palmer Station, Anvers Island"
-msgstr "ایستگاه پالمر، جزیرهٔ آنوِر"
-
-#. generated from zone.tab
-msgid "Pernambuco"
-msgstr "پرنمبوکو"
-
-#. generated from zone.tab
-msgid "Phoenix Islands"
-msgstr "جزایر فینیکس"
-
-#. generated from zone.tab
-msgid "Ponape (Pohnpei)"
-msgstr "پوناپی"
-
-#. generated from zone.tab
-msgid "Queensland - Holiday Islands"
-msgstr "کوئینزلند ـ جزایر هالیدی"
-
-#. generated from zone.tab
-msgid "Queensland - most locations"
-msgstr "کوئینزلند ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr "قزل‌اوردا"
-
-#. generated from zone.tab
-msgid "Roraima"
-msgstr "رورایما"
-
-#. generated from zone.tab
-msgid "Rothera Station, Adelaide Island"
-msgstr "ایستگاه رادرا، جزایر ادلید"
-
-#. generated from zone.tab
-msgid "Ruthenia"
-msgstr "روتنیا"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
-"جنوب و جنوب شرقی برزیل (گوئیاس، بخش فدرال، میناژرایس، اسپیریتو سانتو، "
-"ریودژانیرو، سائوپائولو، پارانا، سانتا کاتارینا، و ریو گرانده د سول)"
-
-#. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "صباح و ساراواک"
-
-#. generated from zone.tab
-msgid "San Juan (SJ)"
-msgstr "سان خوان"
-
-#. generated from zone.tab
-msgid "Santa Cruz (SC)"
-msgstr "سانتا کروس"
-
-#. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "اسکورسبیسون / ایتوککورتورمیت"
-
-#. generated from zone.tab
-msgid "Society Islands"
-msgstr "جزایر سوسایتی"
-
-#. generated from zone.tab
-msgid "South Australia"
-msgstr "جنوب استرالیا"
-
-#. generated from zone.tab
-msgid "Svalbard"
-msgstr "اسوالبار"
-
-#. generated from zone.tab
-msgid "Syowa Station, E Ongul I"
-msgstr "ایستگاه سیووا"
-
-#. generated from zone.tab
-msgid "Tasmania - King Island"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Tasmania - most locations"
-msgstr "تاسمانی ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr "توله / پیتوفیک"
-
-#. generated from zone.tab
-msgid "Tierra del Fuego (TF)"
-msgstr "تیرا دل فوئگو"
-
-#. generated from zone.tab
-msgid "Tocantins"
-msgstr "توکنتینس"
-
-#. generated from zone.tab
-msgid "Truk (Chuuk) and Yap"
-msgstr "تروک (چوئوک) و یپ"
-
-#. generated from zone.tab
-msgid "Tucuman (TM)"
-msgstr "توکومان"
-
-#. generated from zone.tab
-msgid "Victoria"
-msgstr "ویکتوریا"
-
-#. generated from zone.tab
-msgid "Vostok Station, S Magnetic Pole"
-msgstr "ایستگاه واستوک، قطب مغناطیسی جنوب"
-
-#. generated from zone.tab
-msgid "W Amazonas"
-msgstr "غرب امازوناس"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "غرب پارا، رودونیا"
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr "جزیرهٔ ویک"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "غرب قزاقستان"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - Eucla area"
-msgstr "غرب استرالیا"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - most locations"
-msgstr "وقت مرکزی ـ بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "زاپاروژیه، شرق لوگانسک"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "مرکز چین ـ گانسو، گوئیژو، سیچوان، یونان، و غیره"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "مرکز کریمه"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "شرق و جنوب بورنئو، سلبس، بالی، نوسا تنگارا، غرب تیمور"
-
-#. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "شرق چین ـ پکن، گوانگ‌دونگ، شانگهای، و غیره"
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "شرق جمهوری دموکراتیک کنگو"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "شرق ازبکستان"
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "ساحل شرقی، شمال اسکورسبیسون"
-
-#. generated from zone.tab
-msgid "mainland"
-msgstr "سرزمین اصلی"
-
-#. generated from zone.tab
-msgid "most locations"
-msgstr "بیشتر مکان‌ها"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "بیشتر مکان‌ها (CB،‏ CC،‏ CN،‏ ER،‏ FM،‏ LP،‏ MN،‏ NQ،‏ RN،‏ SA،‏ SE،‏ SF،‏ SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr ""
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "شبه جزیرهٔ مالزی"
-
-#. generated from zone.tab
-msgid "west & central Borneo"
-msgstr "غرب و مرکز بورنئو"
-
-#. generated from zone.tab
-msgid "west Dem. Rep. of Congo"
-msgstr "غرب جمهوری دموکراتیک کنگو"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "west Tibet & Xinjiang"
-msgstr "تبت و بیشتر شین‌جیانگ اویغور"
-
-#. generated from zone.tab
-msgid "west Uzbekistan"
-msgstr "غرب ازبکستان"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7509,6 +6899,615 @@ msgstr "ویلزی"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "زولویی"
+
+#~ msgid "Done [%d/%d]"
+#~ msgstr "انجام شد [%d/%d]"
+
+#~ msgid "Installing %s-%s-%s... "
+#~ msgstr "در حال نصب %s-%s-%s... "
+
+#, fuzzy
+#~ msgid "Enter Registration Key"
+#~ msgstr "کلید رمزنگاری"
+
+#~ msgid "_Format drive"
+#~ msgstr "دیسک‌گردان _قالب‌بندی شود"
+
+#~ msgid ""
+#~ "The following critical errors exist with your requested partitioning "
+#~ "scheme."
+#~ msgstr "خطاهای بحرانی زیر در شِمای افرازبندی درخواست شدهٔ شما وجود دارند."
+
+#~ msgid "The following warnings exist with your requested partition scheme."
+#~ msgstr "اخطارهای زیر در شِمای افراز درخواست شدهٔ شما وجود دارند."
+
+#~ msgid "Downloading %s"
+#~ msgstr "در حال بارگیری %s"
+
+#~ msgid "Installing %s-%s-%s.%s (%s)"
+#~ msgstr "در حال نصب ‎%s-%s-%s.%s ‏(%s)"
+
+#~ msgid "Package"
+#~ msgstr "بسته"
+
+#~ msgid "Summary"
+#~ msgstr "خلاصه"
+
+#~ msgid "Status: "
+#~ msgstr "وضعیت: "
+
+#~ msgid "Description: %s"
+#~ msgstr "شرح: %s"
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "نشانی سخت‌افزاری: %s"
+
+#, fuzzy
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "استفاده از پیکربندی پویای IP‏ (BOOTP/DHCP)"
+
+#, fuzzy
+#~ msgid "Address"
+#~ msgstr "نشانی IP"
+
+#, fuzzy
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
+
+#~ msgid "Must have a / partition to install on."
+#~ msgstr "برای نصب باید یک افراز / داشت."
+
+#~ msgid "Downloading - %s"
+#~ msgstr "در حال بارگیری ‐ %s"
+
+#~ msgid " Name   : "
+#~ msgstr " نام   : "
+
+#~ msgid " Size   : "
+#~ msgstr " اندازه   : "
+
+#~ msgid " Summary: "
+#~ msgstr " خلاصه: "
+
+#~ msgid "    Packages"
+#~ msgstr "    بسته"
+
+#~ msgid "      Bytes"
+#~ msgstr "      بایت"
+
+#~ msgid "        Time"
+#~ msgstr "        زمان"
+
+#~ msgid "Total    :"
+#~ msgstr "جمع کل    :"
+
+#~ msgid "Completed:   "
+#~ msgstr "انجام شده:   "
+
+#~ msgid "Remaining:  "
+#~ msgstr "باقی‌مانده:  "
+
+#~ msgid "Acre"
+#~ msgstr "آکری"
+
+#~ msgid "Alagoas, Sergipe"
+#~ msgstr "آلاگوئاس، سرژیپی"
+
+#~ msgid "Alaska Time"
+#~ msgstr "وقت آلاسکا"
+
+#~ msgid "Alaska Time - Alaska panhandle"
+#~ msgstr "وقت آلاسکا ـ باریکهٔ آلاسکا"
+
+#~ msgid "Alaska Time - Alaska panhandle neck"
+#~ msgstr "وقت آلاسکا ـ گردنهٔ باریکهٔ آلاسکا"
+
+#~ msgid "Alaska Time - west Alaska"
+#~ msgstr "وقت آلاسکا ـ غرب آلاسکا"
+
+#~ msgid "Aleutian Islands"
+#~ msgstr "جزایر الوشن"
+
+#~ msgid "Amapa, E Para"
+#~ msgstr "اماپا، شرق پارا"
+
+#~ msgid "Amundsen-Scott Station, South Pole"
+#~ msgstr "ایستگاه آمونسن‐اسکات، قطب جنوب"
+
+#~ msgid "Aqtobe (Aktobe)"
+#~ msgstr "آق‌توبه"
+
+#, fuzzy
+#~ msgid "Atlantic Time - Labrador - most locations"
+#~ msgstr "وقت شرقی ـ اونتاریو ـ بیشتر مکان‌ها"
+
+#~ msgid "Atlantic Time - New Brunswick"
+#~ msgstr "وقت اقیانوس اطلس ـ نیو برانزویک"
+
+#, fuzzy
+#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
+#~ msgstr ""
+#~ "وقت اقیانوس اطلس ـ نوواسکوشا (اکثر جاها)، غرب لبرادور، شرق کبک، و جزیرهٔ "
+#~ "پرینس ادوارد"
+
+#~ msgid ""
+#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+#~ msgstr ""
+#~ "وقت اقیانوس اطلس ـ نوواسکوشا ـ جاهایی که از ۱۹۶۶ تا ۱۹۷۱ از وقت تابستانی "
+#~ "استفاده نمی‌کردند"
+
+#~ msgid "Atlantic islands"
+#~ msgstr "جزایر اقیانوس اطلس"
+
+#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+#~ msgstr "آتیراو (گوریف)، مانگقیستاو"
+
+#~ msgid "Azores"
+#~ msgstr "جزایر آزور"
+
+#~ msgid "Bahia"
+#~ msgstr "بائیا"
+
+#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+#~ msgstr "بایان‐اولگی، گووی‐آلتای، هوود، اووس، زاوخان"
+
+#~ msgid "Buenos Aires (BA, CF)"
+#~ msgstr "بوئنوس آیرس (BA،‏ CF)"
+
+#~ msgid "Canary Islands"
+#~ msgstr "جزایر قناری"
+
+#~ msgid "Casey Station, Bailey Peninsula"
+#~ msgstr "ایستگاه کیسی، شبه جزیرهٔ بیلی"
+
+#~ msgid "Catamarca (CT), Chubut (CH)"
+#~ msgstr "کاتامارکا، چوووت"
+
+#~ msgid "Central Standard Time - Saskatchewan - midwest"
+#~ msgstr "وقت استاندارد مرکزی ـ ساسکچیوان ـ غرب میانه"
+
+#~ msgid "Central Standard Time - Saskatchewan - most locations"
+#~ msgstr "وقت استاندارد مرکزی ـ ساسکاچوان - بیشتر مکان‌ها"
+
+#~ msgid "Central Time"
+#~ msgstr "وقت مرکزی"
+
+#~ msgid "Central Time - Campeche, Yucatan"
+#~ msgstr "وقت مرکزی ـ کامپچه، یوکاتان"
+
+#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+#~ msgstr "وقت مرکزی ـ کوائوئیلا، دورانگو، نوئوا لئون، تاماولیپاس"
+
+#~ msgid "Central Time - Indiana - Pike County"
+#~ msgstr "وقت مرکزی ـ ایندیانا ـ پایک کانتی"
+
+#~ msgid "Central Time - Manitoba & west Ontario"
+#~ msgstr "وقت مرکزی ـ مانیتوبا و غرب اونتاریو"
+
+#~ msgid ""
+#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+#~ msgstr "وقت مرکزی ـ میشیگان ـ کانتی‌های دیکینسون، گوگبیک، آیرن، و منوماینی"
+
+#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+#~ msgstr "وقت مرکزی ـ داکوتای شمالی ـ آلیور کانتی (به جز ناحیهٔ مَندن)"
+
+#~ msgid "Central Time - North Dakota - Oliver County"
+#~ msgstr "وقت مرکزی ـ داکوتای شمالی ـ آلیور کانتی"
+
+#~ msgid "Central Time - Quintana Roo"
+#~ msgstr "وقت مرکزی ـ کینتانا رو"
+
+#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
+#~ msgstr "وقت مرکزی ـ رینی ریور و فورت فرانسس، اونتاریو"
+
+#~ msgid "Central Time - central Nunavut"
+#~ msgstr "وقت مرکزی ـ مرکز نوناووت"
+
+#~ msgid "Central Time - most locations"
+#~ msgstr "وقت مرکزی ـ بیشتر مکان‌ها"
+
+#~ msgid "Central Time - west Nunavut"
+#~ msgstr "وقت مرکزی ـ غرب نوناووت"
+
+#~ msgid "Ceuta & Melilla"
+#~ msgstr "سئوتا و ملیا"
+
+#~ msgid "Chatham Islands"
+#~ msgstr "جزایر چتم"
+
+#~ msgid "Davis Station, Vestfold Hills"
+#~ msgstr "ایستگاه دیویس، وست‌فول هیلز"
+
+#~ msgid "Dornod, Sukhbaatar"
+#~ msgstr "دورنود، سوخباتار"
+
+#~ msgid "Dumont-d'Urville Base, Terre Adelie"
+#~ msgstr "پایگاه دومون دورویل، سرزمین ادلی"
+
+#~ msgid "E Amazonas"
+#~ msgstr "شرق امازونس"
+
+#~ msgid "Easter Island & Sala y Gomez"
+#~ msgstr "جزیرهٔ ایستر و سالائی‌گومس"
+
+#, fuzzy
+#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
+#~ msgstr "وقت استاندارد شرقی ـ جزیرهٔ ساوتمپتون"
+
+#~ msgid "Eastern Time"
+#~ msgstr "وقت شرقی"
+
+#~ msgid "Eastern Time - Indiana - Crawford County"
+#~ msgstr "وقت شرقی ـ ایندیانا ـ کروفورد کانتی"
+
+#~ msgid "Eastern Time - Indiana - Starke County"
+#~ msgstr "وقت شرقی ـ ایندیانا ـ استارک کانتی"
+
+#~ msgid "Eastern Time - Indiana - Switzerland County"
+#~ msgstr "وقت شرقی ـ ایندیانا ـ سویتزرلند کانتی"
+
+#~ msgid "Eastern Time - Indiana - most locations"
+#~ msgstr "وقت شرقی ـ ایندیانا ـ بیشتر مکان‌ها"
+
+#~ msgid "Eastern Time - Kentucky - Louisville area"
+#~ msgstr "وقت شرقی ـ کنتاکی ـ منطقهٔ لوئیزویل"
+
+#~ msgid "Eastern Time - Kentucky - Wayne County"
+#~ msgstr "وقت شرقی ـ کنتاکی ـ وین کانتی"
+
+#~ msgid "Eastern Time - Michigan - most locations"
+#~ msgstr "وقت شرقی ـ میشیگان ـ بیشتر مکان‌ها"
+
+#~ msgid ""
+#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
+#~ "1973"
+#~ msgstr ""
+#~ "وقت شرقی ـ اونتاریو و کبک ـ محل‌هایی که از ۱۹۶۷ تا ۱۹۷۳ از وقت تابستانی "
+#~ "استفاده نمی‌کردند"
+
+#~ msgid "Eastern Time - Ontario - most locations"
+#~ msgstr "وقت شرقی ـ اونتاریو ـ بیشتر مکان‌ها"
+
+#~ msgid "Eastern Time - Pangnirtung, Nunavut"
+#~ msgstr "وقت شرقی ـ پانگنیرتونگ، نوناووت"
+
+#~ msgid "Eastern Time - Quebec - most locations"
+#~ msgstr "وقت شرقی ـ کبک ـ بیشتر مکان‌ها"
+
+#~ msgid "Eastern Time - Thunder Bay, Ontario"
+#~ msgstr "وقت شرقی ـ تاندر بی، اونتاریو"
+
+#~ msgid "Eastern Time - east Nunavut"
+#~ msgstr "وقت  شرقی ـ شرق نوناووت"
+
+#~ msgid "Galapagos Islands"
+#~ msgstr "جزایر گالاپاگوس"
+
+#~ msgid "Gambier Islands"
+#~ msgstr "جزایر گامبیه"
+
+#~ msgid "Gilbert Islands"
+#~ msgstr "جزایر گیلبرت"
+
+#~ msgid "Hawaii"
+#~ msgstr "هاوائی"
+
+#~ msgid "Irian Jaya & the Moluccas"
+#~ msgstr "ایریان جایا و ملوک"
+
+#~ msgid "Jan Mayen"
+#~ msgstr "یان ماین"
+
+#~ msgid "Java & Sumatra"
+#~ msgstr "جاوه و سوماترا"
+
+#~ msgid "Johnston Atoll"
+#~ msgstr "آتول جانستون"
+
+#~ msgid "Jujuy (JY)"
+#~ msgstr "خوخوئی"
+
+#~ msgid "Kosrae"
+#~ msgstr "کوسرای"
+
+#~ msgid "Kwajalein"
+#~ msgstr "کواجالین"
+
+#~ msgid "La Rioja (LR)"
+#~ msgstr "لاریوخا"
+
+#~ msgid "Line Islands"
+#~ msgstr "جزایر لاین"
+
+#~ msgid "Lord Howe Island"
+#~ msgstr "جزیرهٔ لرد هاو"
+
+#~ msgid "Madeira Islands"
+#~ msgstr "جزایر مادئیرا"
+
+#~ msgid "Marquesas Islands"
+#~ msgstr "جزایر مارکیزاس"
+
+#~ msgid "Mato Grosso"
+#~ msgstr "ماتو گروسو"
+
+#~ msgid "Mato Grosso do Sul"
+#~ msgstr "ماتو گروسو دو سول"
+
+#~ msgid "Mawson Station, Holme Bay"
+#~ msgstr "ایستگاه موسن، خلیج هوم"
+
+#~ msgid "McMurdo Station, Ross Island"
+#~ msgstr "ایستگاه مک‌مردو، جزیرهٔ راس"
+
+#~ msgid "Mendoza (MZ)"
+#~ msgstr "مندوسا"
+
+#~ msgid "Midway Islands"
+#~ msgstr "جزایر میدوی"
+
+#, fuzzy
+#~ msgid "Moscow+00 - Caspian Sea"
+#~ msgstr "مسکو+۰۱ ـ دریای خزر"
+
+#~ msgid "Moscow+00 - west Russia"
+#~ msgstr "مسکو+۰۰ ـ غرب روسیه"
+
+#, fuzzy
+#~ msgid "Moscow+01 - Samara, Udmurtia"
+#~ msgstr "مسکو+۰۹ ـ کامچاتکا"
+
+#~ msgid "Moscow+02 - Urals"
+#~ msgstr "مسکو+۰۲ ـ کوههای اورال"
+
+#~ msgid "Moscow+03 - Novosibirsk"
+#~ msgstr "مسکو+۰۳ - نوسیبیرسک"
+
+#~ msgid "Moscow+03 - west Siberia"
+#~ msgstr "مسکو+۰۳ ـ غرب سیبری"
+
+#~ msgid "Moscow+04 - Yenisei River"
+#~ msgstr "مسکو+۰۴ ـ رود یینی‌سئی"
+
+#~ msgid "Moscow+05 - Lake Baikal"
+#~ msgstr "مسکو+۰۵ - دریاچهٔ بایکال"
+
+#~ msgid "Moscow+06 - Lena River"
+#~ msgstr "مسکو+۰۶ ـ رود لنا"
+
+#~ msgid "Moscow+07 - Amur River"
+#~ msgstr "مسکو+۰۷ ـ رود آمور"
+
+#~ msgid "Moscow+07 - Sakhalin Island"
+#~ msgstr "مسکو+۰۷ ـ جزیره ساخالین"
+
+#~ msgid "Moscow+08 - Magadan"
+#~ msgstr "مسکو+۰۸ ـ مگادان"
+
+#~ msgid "Moscow+09 - Kamchatka"
+#~ msgstr "مسکو+۰۹ ـ کامچاتکا"
+
+#~ msgid "Moscow+10 - Bering Sea"
+#~ msgstr "مسکو+۱۰ ـ دریای برینگ"
+
+#~ msgid "Moscow-01 - Kaliningrad"
+#~ msgstr "مسکو−۰۱ ـ کالینینگراد"
+
+#~ msgid "Mountain Standard Time - Arizona"
+#~ msgstr "وقت استاندارد کوهستانی ـ آریزونا"
+
+#~ msgid ""
+#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+#~ msgstr "وقت استاندارد کوهستانی ـ داوسون کریک و فورت سنت جان، بریتیش کلمبیا"
+
+#~ msgid "Mountain Standard Time - Sonora"
+#~ msgstr "وقت استاندارد کوهستانی ـ سونورا"
+
+#~ msgid "Mountain Time"
+#~ msgstr "وقت کوهستانی"
+
+#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+#~ msgstr "وقت کوهستانی ـ آلبرتا، شرق بریتیش کلمبیا، و غرب ساسکچیوان"
+
+#~ msgid "Mountain Time - Chihuahua"
+#~ msgstr "وقت کوهستانی ـ چیئوائوا"
+
+#~ msgid "Mountain Time - Navajo"
+#~ msgstr "وقت کوهستانی ـ نواهو"
+
+#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+#~ msgstr "وقت کوهستانی ـ جنوب باخا، نایاریت، سینالوئا"
+
+#~ msgid "Mountain Time - central Northwest Territories"
+#~ msgstr "وقت کوهستانی ـ مرکز سرزمین شمال غربی"
+
+#~ msgid "Mountain Time - south Idaho & east Oregon"
+#~ msgstr "وقت کوهستانی ـ جنوب آیداهو و شرق اورگون"
+
+#~ msgid "Mountain Time - west Northwest Territories"
+#~ msgstr "وقت کوهستانی ـ غرب سرزمین شمال غربی"
+
+#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
+#~ msgstr ""
+#~ "شمال شرقی برزیل (مارانیاون، پیاوئی، سئارا، ریو گرانده د نورته، پارائیبا)‏"
+
+#~ msgid "New South Wales - Yancowinna"
+#~ msgstr "نیو ویلز جنوبی ـ ینکاوینا"
+
+#~ msgid "New South Wales - most locations"
+#~ msgstr "نیو ویلز جنوبی ـ بیشتر مکان‌ها"
+
+#, fuzzy
+#~ msgid "Newfoundland Time, including SE Labrador"
+#~ msgstr "وقت اقیانوس اطلس ـ شرق لبرادور"
+
+#~ msgid "Northern Territory"
+#~ msgstr "سرزمین شمالی"
+
+#~ msgid "Pacific Time"
+#~ msgstr "وقت اقیانوس آرام"
+
+#~ msgid "Pacific Time - north Yukon"
+#~ msgstr "وقت اقیانوس آرام ـ شمال یوکان"
+
+#~ msgid "Pacific Time - south Yukon"
+#~ msgstr "وقت اقیانوس آرام ـ شمال یوکان"
+
+#~ msgid "Pacific Time - west British Columbia"
+#~ msgstr "وقت اقیانوس آرام ـ غرب بریتیش کلمبیا"
+
+#~ msgid "Palmer Station, Anvers Island"
+#~ msgstr "ایستگاه پالمر، جزیرهٔ آنوِر"
+
+#~ msgid "Pernambuco"
+#~ msgstr "پرنمبوکو"
+
+#~ msgid "Phoenix Islands"
+#~ msgstr "جزایر فینیکس"
+
+#~ msgid "Ponape (Pohnpei)"
+#~ msgstr "پوناپی"
+
+#~ msgid "Queensland - Holiday Islands"
+#~ msgstr "کوئینزلند ـ جزایر هالیدی"
+
+#~ msgid "Queensland - most locations"
+#~ msgstr "کوئینزلند ـ بیشتر مکان‌ها"
+
+#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+#~ msgstr "قزل‌اوردا"
+
+#~ msgid "Roraima"
+#~ msgstr "رورایما"
+
+#~ msgid "Rothera Station, Adelaide Island"
+#~ msgstr "ایستگاه رادرا، جزایر ادلید"
+
+#~ msgid "Ruthenia"
+#~ msgstr "روتنیا"
+
+#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+#~ msgstr ""
+#~ "جنوب و جنوب شرقی برزیل (گوئیاس، بخش فدرال، میناژرایس، اسپیریتو سانتو، "
+#~ "ریودژانیرو، سائوپائولو، پارانا، سانتا کاتارینا، و ریو گرانده د سول)"
+
+#~ msgid "Sabah & Sarawak"
+#~ msgstr "صباح و ساراواک"
+
+#~ msgid "San Juan (SJ)"
+#~ msgstr "سان خوان"
+
+#~ msgid "Santa Cruz (SC)"
+#~ msgstr "سانتا کروس"
+
+#~ msgid "Scoresbysund / Ittoqqortoormiit"
+#~ msgstr "اسکورسبیسون / ایتوککورتورمیت"
+
+#~ msgid "Society Islands"
+#~ msgstr "جزایر سوسایتی"
+
+#~ msgid "South Australia"
+#~ msgstr "جنوب استرالیا"
+
+#~ msgid "Svalbard"
+#~ msgstr "اسوالبار"
+
+#~ msgid "Syowa Station, E Ongul I"
+#~ msgstr "ایستگاه سیووا"
+
+#~ msgid "Tasmania - most locations"
+#~ msgstr "تاسمانی ـ بیشتر مکان‌ها"
+
+#~ msgid "Thule / Pituffik"
+#~ msgstr "توله / پیتوفیک"
+
+#~ msgid "Tierra del Fuego (TF)"
+#~ msgstr "تیرا دل فوئگو"
+
+#~ msgid "Tocantins"
+#~ msgstr "توکنتینس"
+
+#~ msgid "Truk (Chuuk) and Yap"
+#~ msgstr "تروک (چوئوک) و یپ"
+
+#~ msgid "Tucuman (TM)"
+#~ msgstr "توکومان"
+
+#~ msgid "Victoria"
+#~ msgstr "ویکتوریا"
+
+#~ msgid "Vostok Station, S Magnetic Pole"
+#~ msgstr "ایستگاه واستوک، قطب مغناطیسی جنوب"
+
+#~ msgid "W Amazonas"
+#~ msgstr "غرب امازوناس"
+
+#~ msgid "W Para, Rondonia"
+#~ msgstr "غرب پارا، رودونیا"
+
+#~ msgid "Wake Island"
+#~ msgstr "جزیرهٔ ویک"
+
+#~ msgid "West Kazakhstan"
+#~ msgstr "غرب قزاقستان"
+
+#, fuzzy
+#~ msgid "Western Australia - Eucla area"
+#~ msgstr "غرب استرالیا"
+
+#, fuzzy
+#~ msgid "Western Australia - most locations"
+#~ msgstr "وقت مرکزی ـ بیشتر مکان‌ها"
+
+#~ msgid "Zaporozh'ye, E Lugansk"
+#~ msgstr "زاپاروژیه، شرق لوگانسک"
+
+#, fuzzy
+#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+#~ msgstr "مرکز چین ـ گانسو، گوئیژو، سیچوان، یونان، و غیره"
+
+#~ msgid "central Crimea"
+#~ msgstr "مرکز کریمه"
+
+#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+#~ msgstr "شرق و جنوب بورنئو، سلبس، بالی، نوسا تنگارا، غرب تیمور"
+
+#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
+#~ msgstr "شرق چین ـ پکن، گوانگ‌دونگ، شانگهای، و غیره"
+
+#~ msgid "east Dem. Rep. of Congo"
+#~ msgstr "شرق جمهوری دموکراتیک کنگو"
+
+#~ msgid "east Uzbekistan"
+#~ msgstr "شرق ازبکستان"
+
+#~ msgid "east coast, north of Scoresbysund"
+#~ msgstr "ساحل شرقی، شمال اسکورسبیسون"
+
+#~ msgid "mainland"
+#~ msgstr "سرزمین اصلی"
+
+#~ msgid "most locations"
+#~ msgstr "بیشتر مکان‌ها"
+
+#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+#~ msgstr "بیشتر مکان‌ها (CB،‏ CC،‏ CN،‏ ER،‏ FM،‏ LP،‏ MN،‏ NQ،‏ RN،‏ SA،‏ SE،‏ SF،‏ SL)"
+
+#~ msgid "peninsular Malaysia"
+#~ msgstr "شبه جزیرهٔ مالزی"
+
+#~ msgid "west & central Borneo"
+#~ msgstr "غرب و مرکز بورنئو"
+
+#~ msgid "west Dem. Rep. of Congo"
+#~ msgstr "غرب جمهوری دموکراتیک کنگو"
+
+#, fuzzy
+#~ msgid "west Tibet & Xinjiang"
+#~ msgstr "تبت و بیشتر شین‌جیانگ اویغور"
+
+#~ msgid "west Uzbekistan"
+#~ msgstr "غرب ازبکستان"
 
 #~ msgid "Error mounting file system on %s: %s"
 #~ msgstr "خطا در سوار کردن سیستم پرونده‌ای بر %s: %s"

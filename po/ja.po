@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-08 10:49-0500\n"
+"POT-Creation-Date: 2007-03-07 11:24-0500\n"
 "PO-Revision-Date: 2007-03-02 07:48+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <ja@li.org>\n"
@@ -27,63 +27,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../anaconda:268
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "不明なエラーです"
 
-#: ../anaconda:271
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "キックスタート設定の第2部分を取り出し中にエラー: %s!"
 
-#: ../anaconda:399
+#: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
+#, c-format, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"キックスタート設定の解析中に次のエラーが見つかりました。\n"
+"\n"
+"%s"
+
+#: ../anaconda:401
 msgid "Press <enter> for a shell"
 msgstr "<enter> を押すと shell"
 
-#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
+#: ../rescue.py:445 ../text.py:440 ../text.py:599 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
-#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
-#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
-#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
-#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
-#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:36
+#: ../textw/network_text.py:46 ../textw/network_text.py:68
+#: ../textw/network_text.py:74 ../textw/network_text.py:222
+#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
+#: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
+#: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
-#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:421
+#: ../anaconda:423
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -91,39 +102,40 @@ msgstr ""
 "グラフィカルインストーラを使用するにはメモリが足りません。テキストモードを起"
 "動します"
 
-#: ../anaconda:437
+#: ../anaconda:439
 msgid "No video hardware found, assuming headless"
 msgstr "ビデオハードウェアが検出されませんでした。モニターがないとみなします。"
 
-#: ../anaconda:444 ../anaconda:896
+#: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X ハードウェア状態オブジェクトのインスタンス生成ができません。"
 
-#: ../anaconda:501
+#: ../anaconda:503
 msgid "Starting graphical installation..."
 msgstr "グラフィカルインストールを開始中..."
 
-#: ../anaconda:761
+#: ../anaconda:763
 msgid "Install class forcing text mode installation"
 msgstr "テキストモードインストールを強制するインストールクラス"
 
-#: ../anaconda:793
+#: ../anaconda:795
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
+msgstr ""
+"グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
-#: ../anaconda:801
+#: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY 変数がセットされていません。テキストモードで起動します!"
 
-#: ../anaconda:862
+#: ../anaconda:864
 msgid "Unknown install method"
 msgstr "不明なインストール方法です"
 
-#: ../anaconda:863
+#: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "anaconda がサポートしていないインストール方法が指定されています。"
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "unknown install method: %s"
 msgstr "不明なインストール方法です: %s"
@@ -203,7 +215,8 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "ブートパーティション %s は、ご使用のアーキテクチャに関するブート制限を満たし"
 "ていない可能性があります。"
@@ -217,11 +230,11 @@ msgstr ""
 "このパーティションを追加すると、既に割り当てられている %s 内の論理ボリューム"
 "に十分な領域が残りません。"
 
-#: ../autopart.py:1255
+#: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
 msgstr "要求されたパーティションは存在しません"
 
-#: ../autopart.py:1256
+#: ../autopart.py:1260
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -232,11 +245,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します。"
 
-#: ../autopart.py:1283
+#: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "要求された RAID デバイスは存在しません"
 
-#: ../autopart.py:1284
+#: ../autopart.py:1288
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -247,11 +260,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します。"
 
-#: ../autopart.py:1315
+#: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "要求されたボリュームグループは存在しません"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1320
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -262,11 +275,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します。"
 
-#: ../autopart.py:1353
+#: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "要求された論理ボリュームは存在しません"
 
-#: ../autopart.py:1354
+#: ../autopart.py:1358
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -277,11 +290,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します。"
 
-#: ../autopart.py:1470 ../autopart.py:1517
+#: ../autopart.py:1474 ../autopart.py:1521
 msgid "Automatic Partitioning Errors"
 msgstr "自動パーティション設定のエラーです"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1475
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -296,11 +309,11 @@ msgstr ""
 "\n"
 "「OK」を押すとシステムを再起動します。"
 
-#: ../autopart.py:1481
+#: ../autopart.py:1485
 msgid "Warnings During Automatic Partitioning"
 msgstr "自動パーティション設定中の警告"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1486
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -311,7 +324,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1496 ../autopart.py:1513
+#: ../autopart.py:1500 ../autopart.py:1517
 msgid ""
 "\n"
 "\n"
@@ -321,12 +334,12 @@ msgstr ""
 "\n"
 "「OK」を押すとシステムを再起動します。"
 
-#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../autopart.py:1501 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "パーティション設定エラー"
 
-#: ../autopart.py:1498
+#: ../autopart.py:1502
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -337,7 +350,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1519
 msgid ""
 "\n"
 "\n"
@@ -347,15 +360,15 @@ msgstr ""
 "\n"
 "「OK」を押して別のパーティション設定オプションを選択してください。"
 
-#: ../autopart.py:1518
-#, python-format
+#: ../autopart.py:1522
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 msgstr ""
 "パーティション作成中に次のエラーが発生しました:\n"
 "\n"
@@ -363,27 +376,27 @@ msgstr ""
 "\n"
 "インストールに十分な領域がハードドライブ上にない場合に発生します。%s"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1533
 msgid "Unrecoverable Error"
 msgstr "修復不能なエラー"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1534
 msgid "Your system will now be rebooted."
 msgstr "システムが再起動します。"
 
-#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
-#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
+#: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
+#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:448
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "警告"
 
-#: ../autopart.py:1683
+#: ../autopart.py:1687
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -400,7 +413,7 @@ msgstr ""
 "パーティションを設定することができます。ファイルシステムの種類、マウントポイ"
 "ント、パーティションのサイズ、その他が設定できます。"
 
-#: ../autopart.py:1694
+#: ../autopart.py:1698
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -408,19 +421,19 @@ msgstr ""
 "インストールプログラムで自動パーティション設定する前に、ハードドライブの領域"
 "の使用法を選択しておく必要があります。"
 
-#: ../autopart.py:1699
+#: ../autopart.py:1703
 msgid "Remove all partitions on this system"
 msgstr "このシステムのすべてのパーティションを削除"
 
-#: ../autopart.py:1700
+#: ../autopart.py:1704
 msgid "Remove all Linux partitions on this system"
 msgstr "このシステムのすべての Linux パーティションを削除"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1705
 msgid "Keep all partitions and use existing free space"
 msgstr "すべてのパーティションを保持し、既存の空き領域を使用"
 
-#: ../autopart.py:1703
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -431,7 +444,7 @@ msgstr ""
 "ます:%s\n"
 "本当にすべて削除しますか?"
 
-#: ../autopart.py:1707
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -442,12 +455,12 @@ msgstr ""
 "全データ)を削除することを選択しています:%s\n"
 "本当にすべてを削除しますか?"
 
-#: ../backend.py:106
+#: ../backend.py:176
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s のアップグレード\n"
 
-#: ../backend.py:108
+#: ../backend.py:178
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s のインストール\n"
@@ -476,17 +489,6 @@ msgstr "完了"
 msgid "In progress...   "
 msgstr "進捗中...   "
 
-#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"キックスタート設定の解析中に次のエラーが見つかりました。\n"
-"\n"
-"%s"
-
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "コマンドラインモードでは質問できません!"
@@ -494,16 +496,6 @@ msgstr "コマンドラインモードでは質問できません!"
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Parted の例外はコマンドラインモードでは処理できません!"
-
-#: ../cmdline.py:145
-#, python-format
-msgid "Done [%d/%d]"
-msgstr "完了 [%d/%d]"
-
-#: ../cmdline.py:151
-#, python-format
-msgid "Installing %s-%s-%s... "
-msgstr "%s-%s-%s のインストール中... "
 
 #: ../constants.py:65
 #, python-format
@@ -515,32 +507,33 @@ msgstr ""
 "未処理の例外が発生しました。バグの可能性が考えられます。この例外の全メッセー"
 "ジをコピーし、 %s で anaconda のバグとして報告を行ってください。"
 
-#: ../exception.py:401 ../exception.py:418
+#: ../exception.py:415 ../exception.py:432
 msgid "Dump Written"
 msgstr "dump が書き込まれました"
 
-#: ../exception.py:402
+#: ../exception.py:416
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr "システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
+msgstr ""
+"システムの状態が正常にフロッピーに書き込まれました。システムを再起動します。"
 
-#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
-#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
+#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "再起動(_R)"
 
-#: ../exception.py:410 ../exception.py:427
+#: ../exception.py:424 ../exception.py:441
 msgid "Dump Not Written"
 msgstr "dump が書き込まれませんでした"
 
-#: ../exception.py:411
+#: ../exception.py:425
 msgid "There was a problem writing the system state to the floppy."
 msgstr "フロッピーにシステム状態を書き込んでいる際に問題が発生しました。"
 
-#: ../exception.py:419
+#: ../exception.py:433
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -548,7 +541,7 @@ msgstr ""
 "システムの状態が正常にリモートホストに書き込まれました。  システムが再起動さ"
 "れます。"
 
-#: ../exception.py:428
+#: ../exception.py:442
 msgid "There was a problem writing the system state to the remote host."
 msgstr "リモートホストにシステム状態を書き込んでいる際に問題が発生しました。"
 
@@ -565,29 +558,29 @@ msgstr "/dev/%s の不良ブロックを検査中..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
-#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
-#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
+#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
-#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
 #: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
-#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:348 ../loader2/urls.c:353
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "エラー"
 
@@ -637,9 +630,9 @@ msgstr ""
 "\n"
 "[Enter] を押してシステムを再起動してください。"
 
-#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1480 ../packages.py:283 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
 msgstr "スキップする"
 
@@ -724,7 +717,7 @@ msgstr ""
 "swap 領域として再フォーマットします。「再起動する」を選択してシステムを再起動"
 "します。"
 
-#: ../fsset.py:1536 ../iw/partition_gui.py:367
+#: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "フォーマットする"
 
@@ -855,8 +848,8 @@ msgstr ""
 "デバイス %s を %s としてマウントする際にエラーが発生しました。インストールは"
 "続行できますが、問題が生じる場合があります。"
 
-#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
-#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
+#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "続行(_C)"
 
@@ -889,11 +882,11 @@ msgstr ""
 "\n"
 "OK を押してシステムを再起動してください。"
 
-#: ../fsset.py:2447
+#: ../fsset.py:2448
 msgid "Duplicate Labels"
 msgstr "ラベルの重複"
 
-#: ../fsset.py:2448
+#: ../fsset.py:2449
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -906,24 +899,24 @@ msgstr ""
 "\n"
 "この問題を解決してからインストールをやり直してください。"
 
-#: ../fsset.py:2708
+#: ../fsset.py:2709
 msgid "Formatting"
 msgstr "フォーマット中"
 
-#: ../fsset.py:2709
+#: ../fsset.py:2710
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s ファイルシステムのフォーマット中..."
 
-#: ../gui.py:106
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "スクリーンショットのコピー中にエラーが発生しました。"
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "スクリーンショットがコピーされました"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -937,20 +930,20 @@ msgstr ""
 "\n"
 "再起動して root でログインするとアクセスできます。"
 
-#: ../gui.py:161
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr "スクリーンショットを保存中"
 
-#: ../gui.py:162
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "「%s」 と言う名前のスクリーンショットが保存されました。"
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr "スクリーンショット保存中にエラー発生"
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -958,52 +951,58 @@ msgstr ""
 "スクリーンショット保存中にエラーが発生しました。パッケージインストール中に発"
 "生した場合、完了するには数回試行する必要があるかもしれません。"
 
-#: ../gui.py:231 ../text.py:391
+#: ../gui.py:232 ../text.py:437
 msgid "Fix"
 msgstr "修正"
 
-#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
+#: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "はい"
 
-#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
+#: ../gui.py:234 ../rescue.py:203 ../rescue.py:205 ../text.py:439
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:405
 msgid "No"
 msgstr "いいえ"
 
-#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
-#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
-#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../gui.py:236 ../text.py:441 ../text.py:569 ../loader2/net.c:93
+#: ../loader2/net.c:325 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1206
+#: ../loader2/net.c:1212
 msgid "Retry"
 msgstr "再試行"
 
-#: ../gui.py:236 ../text.py:396
+#: ../gui.py:237 ../text.py:442
 msgid "Ignore"
 msgstr "無視"
 
-#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
-#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
+#: ../text.py:416 ../text.py:443 ../iw/bootloader_advanced_gui.py:47
+#: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:339 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "取り消し"
 
-#: ../gui.py:735 tmp/anaconda.glade.h:2
+#: ../gui.py:604 ../text.py:357
+#, fuzzy
+msgid "Installation Key"
+msgstr "インストール方法"
+
+#: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "デバッグ(_D)"
 
-#: ../gui.py:897 ../text.py:356
+#: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr "キックスタート設定ファイル解析エラー"
 
-#: ../gui.py:905 ../text.py:366
+#: ../gui.py:967 ../text.py:412
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1011,15 +1010,15 @@ msgstr ""
 "フロッピーディスクを挿入してください。ディスクの内容はすべて消去されますの"
 "で、注意してディスクを選択してください。"
 
-#: ../gui.py:952
+#: ../gui.py:1014
 msgid "default:LTR"
 msgstr "デフォルト:LTR"
 
-#: ../gui.py:1036
+#: ../gui.py:1100 ../text.py:564
 msgid "Error!"
 msgstr "エラー!"
 
-#: ../gui.py:1037
+#: ../gui.py:1101 ../text.py:565
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1031,36 +1030,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
+#: ../gui.py:1106 ../gui.py:1111 ../packages.py:332 ../packages.py:337
 msgid "_Exit"
 msgstr "終了(_E)"
 
-#: ../gui.py:1043 ../yuminstall.py:754
+#: ../gui.py:1107 ../yuminstall.py:608
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: ../gui.py:1046 ../packages.py:295
+#: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
 msgstr "インストーラが終了します..."
 
-#: ../gui.py:1049 ../packages.py:298
+#: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
 msgstr "システムが再起動します..."
 
-#: ../gui.py:1052 ../packages.py:300
+#: ../gui.py:1116 ../packages.py:341
 msgid "Rebooting System"
 msgstr "システムを再起動中"
 
-#: ../gui.py:1116
+#: ../gui.py:1180
 #, python-format
 msgid "%s Installer"
 msgstr "%s インストーラ"
 
-#: ../gui.py:1123
+#: ../gui.py:1187
 msgid "Unable to load title bar"
 msgstr "タイトルバーを読み込めません"
 
-#: ../gui.py:1177
+#: ../gui.py:1242
 msgid "Install Window"
 msgstr "インストールウィンドウ"
 
@@ -1125,8 +1124,8 @@ msgstr ""
 "インストールを続行する前にこれらの CD を用意してください。インストールを中止"
 "して再起動しなければならない場合は「再起動」を選択します。"
 
-#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
+#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "戻る(_B)"
@@ -1206,9 +1205,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
-"この ISO イメージ %s は、2048 バイトの倍数ではないサイズを持っています。これは、このコンピュータへの転送の際に、それが破壊されたことを意味します。\n"
+"この ISO イメージ %s は、2048 バイトの倍数ではないサイズを持っています。これ"
+"は、このコンピュータへの転送の際に、それが破壊されたことを意味します。\n"
 "\n"
-"リブートし、インストールを中止することをお勧めしますが、もしこれがエラーに入っていると思う場合は、続行することができます。 "
+"リブートし、インストールを中止することをお勧めしますが、もしこれがエラーに"
+"入っていると思う場合は、続行することができます。 "
 
 #: ../image.py:510
 #, python-format
@@ -1225,7 +1226,7 @@ msgstr ""
 "このイメージをリモートサーバーの共有パスにコピーしてから再試行をクリックして"
 "ください。インストールを中止するには再起動をクリックします。"
 
-#: ../installclass.py:65
+#: ../installclass.py:66
 msgid "Install on System"
 msgstr "システム上にインストール"
 
@@ -1233,11 +1234,11 @@ msgstr "システム上にインストール"
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI イニシエータの初期化中"
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 msgid "Scriptlet Failure"
 msgstr "Scriptlet の失敗"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:76
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1250,23 +1251,23 @@ msgstr ""
 " \n"
 "OK ボタンを押すとシステムを再起動します。"
 
-#: ../kickstart.py:869 ../kickstart.py:886
+#: ../kickstart.py:930 ../kickstart.py:947
 msgid "Running..."
 msgstr "実行中..."
 
-#: ../kickstart.py:870
+#: ../kickstart.py:931
 msgid "Running post-install scripts"
 msgstr "post-install スクリプトを実行中"
 
-#: ../kickstart.py:887
+#: ../kickstart.py:948
 msgid "Running pre-install scripts"
 msgstr "pre-install スクリプトを実行中"
 
-#: ../kickstart.py:918
+#: ../kickstart.py:979
 msgid "Missing Package"
 msgstr "見つからないパッケージ"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:980
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1275,16 +1276,16 @@ msgstr ""
 "パッケージ '%s'をインストールするように指定しています。このパッケージは存在し"
 "ません。インストールを続行しますか、中止しますか?"
 
-#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
-#: ../yuminstall.py:864
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
+#: ../yuminstall.py:720
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: ../kickstart.py:945
+#: ../kickstart.py:1016
 msgid "Missing Group"
 msgstr "見つからないグループ"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:1017
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1293,28 +1294,38 @@ msgstr ""
 "グループ '%s'をインストールするように指定しています。このグループは存在しませ"
 "ん。インストールを継続しますか、中止しますか?"
 
-#: ../livecd.py:77 ../livecd.py:262
+#: ../livecd.py:77 ../livecd.py:263
 msgid "Unable to find image"
 msgstr "イメージを検出できません。"
 
-#: ../livecd.py:78 ../livecd.py:263
+#: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "与えられた場所は、インストールソースとして使用するための有効な %s ライブ CD ではありません。"
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
+msgstr ""
+"与えられた場所は、インストールソースとして使用するための有効な %s ライブ CD "
+"ではありません。"
 
-#: ../livecd.py:82 ../livecd.py:267
+#: ../livecd.py:82 ../livecd.py:268
 msgid "Exit installer"
 msgstr "インストーラを終了する"
 
-#: ../livecd.py:144
+#: ../livecd.py:113
+#, fuzzy
+msgid "Copying live image to hard drive."
+msgstr "インストールイメージをハードドライブに転送中..."
+
+#: ../livecd.py:145
 msgid "Doing post-installation"
 msgstr "ポストインストールの実行"
 
-#: ../livecd.py:145
+#: ../livecd.py:146
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "ポストインストールのファイルシステムの変更を開始しています。これには、数分かかることがあります..."
+msgstr ""
+"ポストインストールのファイルシステムの変更を開始しています。これには、数分か"
+"かることがあります..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1326,7 +1337,8 @@ msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字�
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
+msgstr ""
+"ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1336,7 +1348,9 @@ msgstr "IP アドレスがありません。"
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IPv4 アドレスは、ピリオドで区切られた 0 から 255 までの 4 つの数字を含まなければなりません。"
+msgstr ""
+"IPv4 アドレスは、ピリオドで区切られた 0 から 255 までの 4 つの数字を含まなけ"
+"ればなりません。"
 
 #: ../network.py:96
 #, python-format
@@ -1348,24 +1362,26 @@ msgstr "%s は有効な IPv6 アドレスではありません。"
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' は、有効な IP アドレスではありません。"
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr "使用している %s のバージョンの登録キーを入力してください。"
+#: ../packages.py:257
+#, fuzzy
+msgid "Invalid Key"
+msgstr "無効なプレフィックス"
 
-#: ../packages.py:245
-msgid "Enter Registration Key"
-msgstr "登録キーの入力"
+#: ../packages.py:258
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "入力した値は無効な数です。"
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr "キー:"
+#: ../packages.py:286
+#, fuzzy
+msgid "_Skip"
+msgstr "スキップする"
 
-#: ../packages.py:277
+#: ../packages.py:318
 msgid "Warning! This is pre-release software!"
 msgstr "警告! これはベータ版のソフトウェアです!"
 
-#: ../packages.py:278
+#: ../packages.py:319
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1392,9 +1408,115 @@ msgstr ""
 "\n"
 "上記ののサイトに行き、「%s」に対して報告をファイルしてください。\n"
 
-#: ../packages.py:291
+#: ../packages.py:332
 msgid "_Install anyway"
 msgstr "とにかくインストールする(_I)"
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "その他"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"デバイス %s は、CDL 形式ではなく、LDL 形式でフォーマットされています。LDL 形"
+"式でフォーマットされた DASD の利用は %s のインストールではサポートされていま"
+"せん。インストール用にこのディスクを使用するには、再度初期化する必要がありま"
+"すが、このドライブ上の「すべてのデータ」を失うことになります。\n"
+"\n"
+"この DASD を CDL 形式で初期化しますか?"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s は現在、%s パーティションレイアウトになっています。%s のインストール"
+"にこのディスクを使用するには、再度初期化する必要がありますが、このドライブ上"
+"にあるすべてのデータを失うことになります。\n"
+"\n"
+"このドライブをフォーマット化しますか?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "ドライブを無視(_I)"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "初期化中"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "ドライブ %s をフォーマット中です、しばらくお待ちください...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"デバイス %s にあるパーティションテーブルを読み込めませんでした (%s)。新規パー"
+"ティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを"
+"失うことになります。\n"
+"\n"
+"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
+"上書きしてしまいます。\n"
+"\n"
+"すべてのデータを消去して、このドライブを初期化しますか?"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"デバイス %s のパーティションテーブルが読み込めませんでした。新規パーティショ"
+"ンを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを失うこと"
+"になります。\n"
+"\n"
+"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
+"上書きしてしまいます。\n"
+"\n"
+"すべてのデータを消去して、このドライブを初期化しますか?"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "ドライブがみつかりませんでした。"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。"
+"ハードウェアをチェックして、この問題の原因を調査してください。"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1497,7 +1619,8 @@ msgstr "これは %s を含む拡張パーティションなので削除でき�
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr ""
+"このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1515,7 +1638,8 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
+msgstr ""
+"デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1107
@@ -1582,7 +1706,9 @@ msgstr ""
 #: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "%s をインストールするには、少なくともハードドライブを 1 つ選択しなければなりません。"
+msgstr ""
+"%s をインストールするには、少なくともハードドライブを 1 つ選択しなければなり"
+"ません。"
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1701,202 +1827,9 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:537
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
-
-#: ../partRequests.py:249
-#, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"マウントポイントが不適切です。 %s ディレクトリは / ファイルシステム上になけれ"
-"ばなりません。"
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"マウントポイント %s は使用できません。正常なシステム動作が行われるためのシン"
-"ボリックリンクのはずです。別のマウントポイントを選択してください。"
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "このマウントポイントは linux のファイルシステム上になければなりません。"
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"マウントポイント \"%s\" はすでに使用されています。別のマウントポイントを選択"
-"してください。"
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr "%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"要求されたパーティションのサイズ（サイズ = %s MB) は最大サイズの %s MBを超え"
-"ています。"
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "要求されたパーティションのサイズ(サイズ = %s MB)が負数です!"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "第一シリンダよりも前からパーティションを始めることはできません。"
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "パーティションが負のシリンダで終ることはできません。"
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
-
-#: ../partRequests.py:677 ../partitions.py:954
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "RAID1 デバイス上にしか起動可能なパーティションは存在できません。"
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "タイプ %s の RAID デバイスは最低でも %s メンバーを必要とします。"
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"この RAID デバイスは最大 %s スペアを持つことができます。スペアを増やすには、 "
-"RAID デバイスにメンバーを追加する必要があります。"
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-"論理ボリュームのサイズは、ボリュームグループの物理エクステントのサイズより大"
-"きくなければなりません。"
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "その他"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"デバイス %s は、CDL 形式ではなく、LDL 形式でフォーマットされています。LDL 形"
-"式でフォーマットされた DASD の利用は %s のインストールではサポートされていま"
-"せん。インストール用にこのディスクを使用するには、再度初期化する必要がありま"
-"すが、このドライブ上の「すべてのデータ」を失うことになります。\n"
-"\n"
-"この DASD を CDL 形式で初期化しますか?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"/dev/%s は現在、%s パーティションレイアウトになっています。%s のインストール"
-"にこのディスクを使用するには、再度初期化する必要がありますが、このドライブ上"
-"にあるすべてのデータを失うことになります。\n"
-"\n"
-"このドライブをフォーマット化しますか?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "ドライブを無視(_I)"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "ドライブをフォーマット(_F)"
-
-#: ../partedUtils.py:898
-msgid "Initializing"
-msgstr "初期化中"
-
-#: ../partedUtils.py:899
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "ドライブ %s をフォーマット中です、しばらくお待ちください...\n"
-
-#: ../partedUtils.py:1019
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"デバイス %s にあるパーティションテーブルを読み込めませんでした (%s)。新規パー"
-"ティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを"
-"失うことになります。\n"
-"\n"
-"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
-"上書きしてしまいます。\n"
-"\n"
-"すべてのデータを消去して、このドライブを初期化しますか?"
-
-#: ../partedUtils.py:1083
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"デバイス %s のパーティションテーブルが読み込めませんでした。新規パーティショ"
-"ンを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを失うこと"
-"になります。\n"
-"\n"
-"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて"
-"上書きしてしまいます。\n"
-"\n"
-"すべてのデータを消去して、このドライブを初期化しますか?"
-
-#: ../partedUtils.py:1204
-msgid "No Drives Found"
-msgstr "ドライブがみつかりませんでした。"
-
-#: ../partedUtils.py:1205
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。"
-"ハードウェアをチェックして、この問題の原因を調査してください。"
 
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
@@ -1952,7 +1885,8 @@ msgstr ""
 "ブートできません。"
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "/boot/efi パーティションはタイプが FAT、サイズが 50MB で作成しなければなりま"
 "せん。"
@@ -1975,7 +1909,8 @@ msgstr ""
 "量には不足しています。"
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -1987,6 +1922,10 @@ msgid ""
 msgstr ""
 "FireWire デバイス上にインストールしています。稼動するシステムが作成されること"
 "もありますが、されないこともあります。"
+
+#: ../partitions.py:954 ../partRequests.py:679
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "RAID1 デバイス上にしか起動可能なパーティションは存在できません。"
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2030,6 +1969,94 @@ msgstr "RAID アレイのメンバーであるパーティションです。"
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "LVM ボリュームグループのメンバーであるパーティションです。"
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"マウントポイントが不適切です。 %s ディレクトリは / ファイルシステム上になけれ"
+"ばなりません。"
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"マウントポイント %s は使用できません。正常なシステム動作が行われるためのシン"
+"ボリックリンクのはずです。別のマウントポイントを選択してください。"
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr ""
+"このマウントポイントは linux のファイルシステム上になければなりません。"
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"マウントポイント \"%s\" はすでに使用されています。別のマウントポイントを選択"
+"してください。"
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"%s パーティションのサイズ (%10.2f MB) は最大サイズ %10.2f MB を超えています。"
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"要求されたパーティションのサイズ（サイズ = %s MB) は最大サイズの %s MBを超え"
+"ています。"
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "要求されたパーティションのサイズ(サイズ = %s MB)が負数です!"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "第一シリンダよりも前からパーティションを始めることはできません。"
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "パーティションが負のシリンダで終ることはできません。"
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+"RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "タイプ %s の RAID デバイスは最低でも %s メンバーを必要とします。"
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"この RAID デバイスは最大 %s スペアを持つことができます。スペアを増やすには、 "
+"RAID デバイスにメンバーを追加する必要があります。"
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"論理ボリュームのサイズは、ボリュームグループの物理エクステントのサイズより大"
+"きくなければなりません。"
+
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "インターフェースを起動中"
@@ -2051,11 +2078,11 @@ msgstr "ネットワークの設定"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "このシステムでネットワークインターフェースを開始しますか?"
 
-#: ../rescue.py:243 ../text.py:534
+#: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
 msgstr "取り消されました"
 
-#: ../rescue.py:244 ../text.py:535
+#: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "直前のステップに戻ることはできません。もう一度やり直してください。"
 
@@ -2086,7 +2113,7 @@ msgstr ""
 "セスをとばして直接コマンドシェルに行くことができます。\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
@@ -2106,7 +2133,7 @@ msgstr ""
 "インストールの root パーティションを格納しているパーティションを指定してくだ"
 "さい。"
 
-#: ../rescue.py:321 ../rescue.py:325
+#: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
 msgstr "終了"
 
@@ -2173,64 +2200,75 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "システムは %s ディレクトリ配下にマウントされます。"
 
-#: ../text.py:149 ../text.py:164
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "保存"
 
-#: ../text.py:152 ../text.py:166
+#: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr "リモート"
 
-#: ../text.py:154 ../text.py:162
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "デバッグ"
 
-#: ../text.py:158
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "例外が発生しました"
 
-#: ../text.py:187
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr "リモートホストに保存"
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Host"
 msgstr "ホスト"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Remote path"
 msgstr "リモートパス"
 
-#: ../text.py:194
+#: ../text.py:195
 msgid "User name"
 msgstr "ユーザ名"
 
-#: ../text.py:196
+#: ../text.py:197
 msgid "Password"
 msgstr "パスワード"
 
-#: ../text.py:253
+#: ../text.py:254
 msgid "Help not available"
 msgstr "ヘルプ情報はありません"
 
-#: ../text.py:254
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "このインストールステップについてのヘルプはありません"
 
-#: ../text.py:365
+#: ../text.py:362
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "ボリュームグループ名を入力してください。"
+
+#: ../text.py:379 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:411
 msgid "Save Crash Dump"
 msgstr "クラッシュダンプの保存"
 
-#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s へようこそ"
 
-#: ../text.py:423
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+#: ../text.py:469
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ | <Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面"
 
-#: ../text.py:425
+#: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2412,7 +2450,7 @@ msgstr ""
 "パスワードによって許可のないリスナーが接続してインストールの進捗を傍受するの"
 "を防ぎます。インストールに使用するパスワードを入力してください。"
 
-#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
 msgstr "パスワード:"
 
@@ -2531,78 +2569,109 @@ msgstr "インストールを開始するには %s に接続してください..
 msgid "Please connect to begin the install..."
 msgstr "インストールを開始するために接続してください..."
 
-#: ../yuminstall.py:100
+#: ../yuminstall.py:73
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../yuminstall.py:76
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../yuminstall.py:79
+#, python-format
+msgid "%s Byte"
+msgstr "%s バイト"
+
+#: ../yuminstall.py:81
+#, python-format
+msgid "%s Bytes"
+msgstr "%s バイト"
+
+#: ../yuminstall.py:129
 msgid "Processing"
 msgstr "処理中"
 
-#: ../yuminstall.py:101
+#: ../yuminstall.py:130
 msgid "Preparing transaction from installation source..."
 msgstr "インストールソースからのトランザクションを準備中..."
 
-#: ../yuminstall.py:614 ../yuminstall.py:615
+#: ../yuminstall.py:160
+#, fuzzy, python-format
+msgid "<b>Installing %s</b> (%s)\n"
+msgstr "%s のインストール\n"
+
+#: ../yuminstall.py:194
+#, python-format
+msgid "%s of %s packages completed"
+msgstr ""
+
+#: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
 msgstr "ファイル競合"
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:533
 msgid "older package(s)"
 msgstr "旧パッケージ"
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:534
 msgid "insufficient disk space"
 msgstr "ディスク容量の不足"
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:535
 msgid "insufficient disk inodes"
 msgstr "ディスク inode の不足"
 
-#: ../yuminstall.py:619
+#: ../yuminstall.py:536
 msgid "package conflicts"
 msgstr "パッケージ競合"
 
-#: ../yuminstall.py:620
+#: ../yuminstall.py:537
 msgid "package already installed"
 msgstr "パッケージは既にインストールされています"
 
-#: ../yuminstall.py:621
+#: ../yuminstall.py:538
 msgid "required package"
 msgstr "必要なパッケージ"
 
-#: ../yuminstall.py:622
+#: ../yuminstall.py:539
 msgid "package for incorrect arch"
 msgstr "不適切なアーキテクチャ用のパッケージ"
 
-#: ../yuminstall.py:623
+#: ../yuminstall.py:540
 msgid "package for incorrect os"
 msgstr "不適切な OS 用のパッケージ"
 
-#: ../yuminstall.py:637
+#: ../yuminstall.py:554
 msgid "You need more space on the following file systems:\n"
 msgstr "以下のファイルシステムは容量を増やす必要があります。\n"
 
-#: ../yuminstall.py:653
+#: ../yuminstall.py:570
 msgid "Error running transaction"
 msgstr "トランザクション実行中にエラーが発生"
 
-#: ../yuminstall.py:654
+#: ../yuminstall.py:571
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s"
 
-#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
+#: ../yuminstall.py:930
 msgid "Re_boot"
 msgstr "再起動"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:699
 msgid "Retrieving installation information..."
 msgstr "インストール情報を読み出し中..."
 
-#: ../yuminstall.py:845
+#: ../yuminstall.py:701
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s に関するインストール情報を読み出し中..."
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2613,17 +2682,19 @@ msgstr ""
 "が原因の可能性があります。インストールツリーが正しく生成されているか確認して"
 "ください。  %s"
 
-#: ../yuminstall.py:883
+#: ../yuminstall.py:739
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr "レポジトリからグループ情報を読み取ることはできません。これは、インストールツリーの生成の問題です。"
+msgstr ""
+"レポジトリからグループ情報を読み取ることはできません。これは、インストールツ"
+"リーの生成の問題です。"
 
-#: ../yuminstall.py:915
+#: ../yuminstall.py:771
 msgid "Uncategorized"
 msgstr "カテゴリなし"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:924
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2632,7 +2703,7 @@ msgstr ""
 "選択したパッケージはインストールに %d MB の空き領域を必要としますが、充分な空"
 "きがありません。選択を変更するか、または再起動することができます。"
 
-#: ../yuminstall.py:1289
+#: ../yuminstall.py:1085
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2641,39 +2712,39 @@ msgstr ""
 "%s のこのバージョンに対してアップグレードを行うには古過ぎるシステムからアップ"
 "グレートしているようです。本当にこのアップグレードのプロセスを続行しますか?"
 
-#: ../yuminstall.py:1321
+#: ../yuminstall.py:1113
 msgid "Install Starting"
 msgstr "インストールを開始しています"
 
-#: ../yuminstall.py:1322
+#: ../yuminstall.py:1114
 msgid "Starting install process.  This may take several minutes..."
 msgstr "インストールプロセスを開始しています。数分かかることがあります..."
 
-#: ../yuminstall.py:1338
+#: ../yuminstall.py:1130
 msgid "Post Upgrade"
 msgstr "Post Upgrade"
 
-#: ../yuminstall.py:1339
+#: ../yuminstall.py:1131
 msgid "Performing post upgrade configuration..."
 msgstr "post upgrade の設定を実行中..."
 
-#: ../yuminstall.py:1341
+#: ../yuminstall.py:1133
 msgid "Post Install"
 msgstr "Post Install"
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1134
 msgid "Performing post install configuration..."
 msgstr "post install の設定を実行中..."
 
-#: ../yuminstall.py:1524
+#: ../yuminstall.py:1327
 msgid "Installation Progress"
 msgstr "インストールの進捗"
 
-#: ../yuminstall.py:1559
+#: ../yuminstall.py:1362
 msgid "Dependency Check"
 msgstr "依存関係チェック"
 
-#: ../yuminstall.py:1560
+#: ../yuminstall.py:1363
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "インストール対象パッケージの依存関係をチェック中..."
 
@@ -2715,9 +2786,9 @@ msgid "The root password must be at least six characters long."
 msgstr "root パスワードは最低 6 文字以上でなければなりません。"
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "要求されたパスワードには、パスワードに使用できない非 ascii 文字が含まれていま"
 "す。"
@@ -2730,45 +2801,46 @@ msgstr ""
 "root アカウントはシステムの管理に使用します。 root ユーザーのパスワードを入力"
 "してください。"
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:108
 msgid "Root _Password: "
 msgstr "Root パスワード(_P): "
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:111
 msgid "_Confirm: "
 msgstr "確認(_C): "
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:147
 msgid "Invalid Initiator Name"
 msgstr "無効なイニシエータ名です"
 
-#: ../iw/autopart_type.py:138
-msgid "You must provide a non-zero length initiator name."
+#: ../iw/autopart_type.py:148
+#, fuzzy
+msgid "You must provide an initiator name."
 msgstr "長さがゼロにならないようイニシエータ名を入力してください。"
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "データにエラー発生"
 
-#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
+#: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 "選択したドライブ上のすべてのパーティションを削除してデフォルトの\n"
 "レイアウトを作成します。"
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
+#: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "選択したドライブ上の linux パーティションを削除してデフォルトの\n"
 "レイアウトを作成します。"
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
+#: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 "選択したドライブ上の空き領域を使用して、デフォルトレイアウトを\n"
 "作成します。"
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
+#: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr "カスタムレイアウトを作成します。"
 
@@ -2815,13 +2887,14 @@ msgstr "確認(_F):"
 msgid "Passwords don't match"
 msgstr "パスワードが一致しません"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:439
 msgid "Passwords do not match"
 msgstr "パスワードが一致しません"
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
+#, fuzzy
 msgid ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -2835,10 +2908,11 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "高度なブートローダの設定"
 
-#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
+#, fuzzy
 msgid ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
@@ -2868,8 +2942,8 @@ msgid "_General kernel parameters"
 msgstr "一般カーネルパラメータ(_G)"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
-#: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
 msgstr "ブートローダの設定"
 
@@ -3025,10 +3099,10 @@ msgid "_Upgrade an existing installation"
 msgstr "既存インストールのアップグレード(_U)"
 
 #: ../iw/examine_gui.py:58
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 msgstr ""
 "既存の %s システムをアップグレードする場合に、このオプションを選択します。こ"
 "のオプションはドライブ上の既存データを保持します。"
@@ -3071,12 +3145,13 @@ msgid "Confirm Physical Extent Change"
 msgstr "物理エクステントの変更を確認"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 msgstr ""
 "この物理エクステントの値の変更により、現在の論理ボリューム要求サイズを物理エ"
 "クステントの整数倍に切り上げる必要があります。\n"
@@ -3084,7 +3159,7 @@ msgstr ""
 "この変更は直ちに反映されます。"
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "続行(_O)"
 
@@ -3214,8 +3289,8 @@ msgid "Mount point in use"
 msgstr "使用中のマウントポイント"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, python-format
-msgid "The mount point \"%s\" is in use, please pick another."
+#, fuzzy, python-format
+msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
 "マウントポイント \"%s\" は使用中です。別のマウントポイントを選択してくださ"
 "い。"
@@ -3231,13 +3306,14 @@ msgstr "不適切な論理ボリューム名"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr ""
+"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:602
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can create more Physical "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "現在の要求サイズ (%10.2f MB) は、最大論理ボリュームサイズ (%10.2f MB) より大"
@@ -3277,9 +3353,10 @@ msgid "No free space"
 msgstr "空き領域はありません"
 
 #: ../iw/lvm_dialog_gui.py:728
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
-"add a logical volume you will need to reduce the size of one or more of the "
+"add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "新規の論理ボリュームを作成する空き領域がボリュームグループには残っていませ"
@@ -3287,8 +3364,8 @@ msgstr ""
 "ズを縮小する必要があります。"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, python-format
-msgid "Are you sure you want to Delete the logical volume \"%s\"?"
+#, fuzzy, python-format
+msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "本当に論理ボリューム 「%s」 を削除しますか?"
 
 #: ../iw/lvm_dialog_gui.py:892
@@ -3369,13 +3446,13 @@ msgstr "合計領域:"
 msgid "Logical Volume Name"
 msgstr "論理ボリューム名"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "マウントポイント"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "サイズ (MB)"
 
@@ -3383,7 +3460,7 @@ msgstr "サイズ (MB)"
 msgid "_Add"
 msgstr "追加(_A)"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "編集(_E)"
@@ -3428,11 +3505,11 @@ msgstr "3 ボタンマウスのエミュレート(_E)"
 msgid "Select the appropriate mouse for the system."
 msgstr "システム用の適切なマウスを選択してください。"
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
-#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
-#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:44 ../textw/network_text.py:49
+#: ../textw/network_text.py:55
 msgid "Error With Data"
 msgstr "データにエラーがあります"
 
@@ -3449,12 +3526,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "動的 IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s の IP 情報の要求を送信中..."
 
-#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
+#: tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "IP アドレス"
 
@@ -3463,7 +3541,7 @@ msgid "Netmask"
 msgstr "ネットマスク"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:540
+#: ../iw/network_gui.py:527
 msgid "Gateway"
 msgstr "ゲートウェイ"
 
@@ -3475,11 +3553,11 @@ msgstr "ネームサーバー"
 msgid "Error configuring network device"
 msgstr "ネットワークデバイス設定中にエラーが発生しました。"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
 msgstr "1 番目の DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
 msgstr "2 番目の DNS"
 
@@ -3495,11 +3573,11 @@ msgstr "1 番目の DNS(_P)"
 msgid "_Secondary DNS"
 msgstr "2 番目の DNS(_S)"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:31
 msgid "Network Configuration"
 msgstr "ネットワークの設定"
 
-#: ../iw/network_gui.py:156
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3507,7 +3585,7 @@ msgstr ""
 "ホスト名を指定していません。ネットワーク環境によっては後で問題となる可能性が"
 "あります。"
 
-#: ../iw/network_gui.py:160
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3516,7 +3594,7 @@ msgstr ""
 "フィールド \"%s\" を指定していません。ネットワーク環境によっては後で問題とな"
 "る可能性があります。"
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:735
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3527,27 +3605,28 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "フィールド %s には値が必要です。"
 
-#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, python-format
 msgid "Error With %s Data"
 msgstr "%s データにエラーがあります"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:36
+#: ../textw/network_text.py:521 ../textw/network_text.py:525
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:56
 msgid "The IPv4 information you have entered is invalid."
 msgstr "入力した IPv4 情報は無効です。"
 
-#: ../iw/network_gui.py:180
+#: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3555,103 +3634,101 @@ msgstr ""
 "アクティブなネットワークデバイスがありません。少なくとも 1 つのデバイスがアク"
 "ティブでないとデフォルトではシステムがネットワーク上で通信できません。"
 
-#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
 msgstr "使用不可"
 
-#: ../iw/network_gui.py:405
+#: ../iw/network_gui.py:392
 msgid "Active on Boot"
 msgstr "起動時にアクティブ"
 
-#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "デバイス"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:396
 msgid "IPv4/Netmask"
 msgstr "IPv4/ネットマスク"
 
-#: ../iw/network_gui.py:411
+#: ../iw/network_gui.py:398
 msgid "IPv6/Prefix"
 msgstr "IPv6/プレフィックス"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:458
 msgid "Network Devices"
 msgstr "ネットワークデバイス"
 
-#: ../iw/network_gui.py:482
+#: ../iw/network_gui.py:469
 msgid "Set the hostname:"
 msgstr "ホスト名を設定:"
 
-#: ../iw/network_gui.py:487
+#: ../iw/network_gui.py:474
 msgid "_automatically via DHCP"
 msgstr "DHCP経由で自動設定(_A)"
 
-#: ../iw/network_gui.py:494
+#: ../iw/network_gui.py:481
 msgid "_manually"
 msgstr "手動設定(_M)"
 
-#: ../iw/network_gui.py:499
+#: ../iw/network_gui.py:486
 msgid "(e.g., host.domain.com)"
 msgstr "(例、 host.domain.com)"
 
-#: ../iw/network_gui.py:505
+#: ../iw/network_gui.py:492
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:536
 msgid "Miscellaneous Settings"
 msgstr "その他の設定"
 
-#: ../iw/network_gui.py:638
+#: ../iw/network_gui.py:625
 msgid "Edit Device "
 msgstr "デバイスの編集"
 
-#: ../iw/network_gui.py:642
+#: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
 msgstr "不明なイーサネットデバイス"
 
-#: ../iw/network_gui.py:648
+#: ../iw/network_gui.py:635
 msgid "unknown"
 msgstr "不明"
 
-#: ../iw/network_gui.py:650
+#: ../iw/network_gui.py:637
 msgid "Hardware address: "
 msgstr "ハードウェアのアドレス: "
 
-#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "見つからないプロトコル"
 
-#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#: ../iw/network_gui.py:780 ../textw/network_text.py:221
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr "少なくとも、 IPv4 または IPv6 サポートを選択しなくてはなりません。"
 
-#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:92
+#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../textw/network_text.py:66 ../loader2/net.c:93
 msgid "Invalid Prefix"
 msgstr "無効なプレフィックス"
 
-#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#: ../iw/network_gui.py:804
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "IPv4 のプレフィックスは 0 から 32 の間にしてください。"
 
-#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
-#: ../textw/network_text.py:381
+#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 のプレフィックスは 0 から 128 の間にしてください。"
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 msgstr ""
 "他のオペレーティングシステムがブートできるようにブートローダを設定できます。 "
 "これにより、一覧からブートするオペレーティングシステムを選択できる様になりま"
@@ -3659,7 +3736,7 @@ msgstr ""
 "をクリックします。デフォルトでブートするオペレーティングシステムを変更するに"
 "は、目的のオペレーティングシステムで「デフォルト」を選択します。"
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
 msgstr "デフォルト"
 
@@ -3672,9 +3749,10 @@ msgid "Image"
 msgstr "イメージ"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 msgstr ""
 "ブートローダメニューに表示されるラベルを入力します。デバイス(または、ハードド"
 "ライブとパーティション番号)とは、起動用に使うデバイスのことです。"
@@ -3711,11 +3789,11 @@ msgstr "デバイスが重複しています"
 msgid "This device is already being used for another boot entry."
 msgstr "このデバイスは既に別のブートエントリに使用されています。"
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
 msgstr "削除できません"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3781,29 +3859,29 @@ msgstr "終了シリンダ(_E):"
 msgid "Force to be a _primary partition"
 msgstr "基本パーティションにする(_P)"
 
-#: ../iw/partition_gui.py:313
+#: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr "ドライブ %s (Geom: %s/%s/%s) (モデル: %s)"
 
-#: ../iw/partition_gui.py:320
+#: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "ドライブ %s (%-0.f MB) (モデル: %s)"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "タイプ"
 
-#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "開始"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "終了"
 
-#: ../iw/partition_gui.py:407
+#: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3811,7 +3889,7 @@ msgstr ""
 "マウントポイント/\n"
 "RAID/ボリューム"
 
-#: ../iw/partition_gui.py:409
+#: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
@@ -3819,26 +3897,29 @@ msgstr ""
 "容量\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "パーティション設定"
 
-#: ../iw/partition_gui.py:632
-msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr "要求されたパーティション設定に次の致命的なエラーが存在しています。"
+#: ../iw/partition_gui.py:633
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
+msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+#, fuzzy, python-format
+msgid ""
+"You must correct these errors before you continue your installation of %s."
+msgstr ""
+"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
 msgstr "パーティション設定エラー"
 
 #: ../iw/partition_gui.py:647
-msgid "The following warnings exist with your requested partition scheme."
-msgstr "要求されたパーティション設定に次の警告があります。"
+msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgstr ""
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3869,7 +3950,7 @@ msgstr "RAID デバイス"
 msgid "None"
 msgstr "なし"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "ハードドライブ"
 
@@ -3948,9 +4029,10 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device which can be formatted and "
+"RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
@@ -4035,10 +4117,10 @@ msgid "Check for _bad blocks?"
 msgstr "不良ブロックをチェックしますか(_B)?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "タイプ '%s' のパーティションは単独ドライブに入れる必要があります。これは行う"
 "には、「選択可能なドライブ」のチックリストからそのドライブを選択します。"
@@ -4055,56 +4137,9 @@ msgstr "自動パーティション設定(_A)"
 msgid "Manually partition with _Disk Druid"
 msgstr "Disk Druid を使用して手動パーティション設定(_D)"
 
-#: ../iw/progress_gui.py:43
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../iw/progress_gui.py:46
-#, python-format
-msgid "%s KB"
-msgstr "%s KB"
-
-#: ../iw/progress_gui.py:49
-#, python-format
-msgid "%s Byte"
-msgstr "%s バイト"
-
-#: ../iw/progress_gui.py:51
-#, python-format
-msgid "%s Bytes"
-msgstr "%s バイト"
-
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:31
 msgid "Installing Packages"
 msgstr "パッケージをインストール中"
-
-#: ../iw/progress_gui.py:170
-#, python-format
-msgid "Remaining time: %s minutes"
-msgstr "残り時間: %s 分"
-
-#: ../iw/progress_gui.py:186
-#, python-format
-msgid "Downloading %s"
-msgstr "%s をダウンロード中"
-
-#: ../iw/progress_gui.py:226
-#, python-format
-msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "%s-%s-%s.%s(%s) をインストール中"
-
-#: ../iw/progress_gui.py:350
-msgid "Package"
-msgstr "パッケージ"
-
-#: ../iw/progress_gui.py:351
-msgid "Summary"
-msgstr "説明"
-
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
-msgid "Status: "
-msgstr "状態: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4169,11 +4204,12 @@ msgid "Source Drive Error"
 msgstr "ソースドライブエラーです"
 
 #: ../iw/raid_dialog_gui.py:498
+#, fuzzy
 msgid ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 msgstr ""
 "選択されたソースドライブには「ソフトウェア RAID」タイプではないパーティション"
 "があります。\n"
@@ -4182,13 +4218,13 @@ msgstr ""
 "あります。"
 
 #: ../iw/raid_dialog_gui.py:510
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 msgstr ""
 "選択されたソースドライブにはドライブ /dev/%s に拘束されていないパーティション"
 "があります。\n"
@@ -4197,11 +4233,12 @@ msgstr ""
 "のドライブに拘束する必要があります。"
 
 #: ../iw/raid_dialog_gui.py:523
+#, fuzzy
 msgid ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 msgstr ""
 "選択されたソースドライブにはアクティブなソフトウェア RAID デバイスのメンバー"
 "であるソフトウェア RAID パーティションがあります。\n"
@@ -4221,17 +4258,18 @@ msgstr "クローン作成を行うターゲットドライブを選択してく
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr ""
+"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:562
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 msgstr ""
 "ターゲットドライブ /dev/%s には、次の理由で削除できないパーティションがありま"
 "す。\n"
@@ -4279,13 +4317,14 @@ msgstr ""
 "敗しました。"
 
 #: ../iw/raid_dialog_gui.py:696
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4346,10 +4385,10 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Unable to find a group file for %s.  This will make manual selection of "
-"packages from the repository not work"
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 msgstr ""
 "%s のグループファイルが見つかりません。 このためリポジトリから手作業による"
 "パッケージ選択ができません。"
@@ -4359,18 +4398,19 @@ msgid "Invalid Repository Name"
 msgstr "無効なリポジトリ名です"
 
 #: ../iw/task_gui.py:123
-msgid "You must provide a non-zero length repository name."
+#, fuzzy
+msgid "You must provide a repository name."
 msgstr "長さがゼロにならないようリポジトリ名を入力してください。"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
 msgstr "無効なリポジトリ URL です。"
 
-#: ../iw/task_gui.py:133
+#: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "リポジトリに HTTP または FTP の URL を入力する必要があります。"
 
-#: ../iw/task_gui.py:147
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4397,7 +4437,8 @@ msgstr "これで現在のブートローダを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %s にインストールされている %s ブートローダを検出しまし"
 "た。"
@@ -4417,9 +4458,10 @@ msgid "_Create new boot loader configuration"
 msgstr "新しいブートローダ設定を作成(_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
+#, fuzzy
 msgid ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 msgstr ""
 "新しいブートローダ設定を作成することができます。ブートローダを切替る場合は、"
 "これを選択してください。"
@@ -4429,9 +4471,10 @@ msgid "_Skip boot loader updating"
 msgstr "ブートローダの更新をスキップ(_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 msgstr ""
 "ブートローダ設定にまったく変更を行いません。他社製ブートローダを使用している"
 "場合は、これを選択してください。"
@@ -4445,12 +4488,12 @@ msgid "Migrate File Systems"
 msgstr "ファイルシステムの転換"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -4465,12 +4508,12 @@ msgid "Upgrade Swap Partition"
 msgstr "swap パーティションのアップグレード"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4 カーネルは旧式のカーネルに比べ、システムの RAM の 最大 2 倍となる膨大な "
 "swap 領域を必要とします。現在、 %dMB の swap 領域を確保していますが、ここで"
@@ -4504,10 +4547,10 @@ msgid "Free Space (MB)"
 msgstr "空き領域 (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr ""
 "最低でも %d MB の swap ファイルにすることを推奨します。swap ファイルの容量を"
 "入力してください。"
@@ -4521,10 +4564,10 @@ msgid "I _don't want to create a swap file"
 msgstr "swap ファイルを作成しません(_D)"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is stongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "swap ファイルの作成を強く推奨します。 swap ファイルを作成しないと、インストー"
 "ラーが異常終了する原因となる場合があります。本当に続行しますか?"
@@ -4534,7 +4577,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: ../iw/zipl_gui.py:28
@@ -4600,11 +4644,11 @@ msgid "Skip Boot Loader"
 msgstr "ブートローダ(設定)をスキップ"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
@@ -4615,100 +4659,102 @@ msgstr ""
 "\n"
 "本当にブートローダのインストールをスキップしますか?"
 
-#: ../textw/bootloader_text.py:93
+#: ../textw/bootloader_text.py:92
+#, fuzzy
 msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "システムが正しく機能するには起動時に特殊なオプションをカーネルに対して渡す必"
 "要がある場合があります。カーネルにブートオプションを渡す必要がある場合は、こ"
 "こでそのオプションを入力してください。オプションが必要ない、またはよくわから"
 "ない場合は空白にしておいてください。"
 
-#: ../textw/bootloader_text.py:102
+#: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
 msgstr "LBA32 の強制使用(通常は必要なし)"
 
-#: ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
 msgstr "ブートローダのインストール場所を指定してください。"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
+#: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
 msgstr "ブートラベル"
 
-#: ../textw/bootloader_text.py:198
+#: ../textw/bootloader_text.py:197
 msgid "Clear"
 msgstr "消去"
 
-#: ../textw/bootloader_text.py:206
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
 msgstr "ブートラベルの編集"
 
-#: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "無効なブートラベル"
 
-#: ../textw/bootloader_text.py:225
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "ブートラベルは空白にできません。"
 
-#: ../textw/bootloader_text.py:230
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "ブートラベルに不適切な文字が含まれています。"
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "編集"
 
-#: ../textw/bootloader_text.py:278
-#, python-format
+#: ../textw/bootloader_text.py:277
+#, fuzzy, python-format
 msgid ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 msgstr ""
 "%s が使用するブートマネージャは他のオペレーティングシステムの起動に使用するこ"
 "ともできます。ブート可能にするパーティションとそのパーティション用に使用する"
 "ブートラベルを設定してください。"
 
-#: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+#: ../textw/bootloader_text.py:290
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Space> 選択 | <F2> デフォルト選択 | <F4> 削除 | <F12> 次の画面"
 
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:386
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "ブートローダのパスワードはユーザーが任意のオプションをカーネルに渡してしまう"
 "のを防ぎます。安全性を最大限に高めるにはパスワードの設定を推奨しますが、これ"
 "を必要としない一般的なユーザには必ずしも必要ではありません。"
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
 msgstr "GRUB パスワードを使用する"
 
-#: ../textw/bootloader_text.py:409
+#: ../textw/bootloader_text.py:408
 msgid "Boot Loader Password:"
 msgstr "ブートローダのパスワード:"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:409
 msgid "Confirm:"
 msgstr "確認:"
 
-#: ../textw/bootloader_text.py:439
+#: ../textw/bootloader_text.py:438
 msgid "Passwords Do Not Match"
 msgstr "パスワードが一致していません"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:443
 msgid "Password Too Short"
 msgstr "パスワードが短かすぎます"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:444
 msgid "Boot loader password is too short"
 msgstr "ブートローダのパスワードが短かすぎます"
 
@@ -4787,11 +4833,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
 #: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
-#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:283 ../loader2/urls.c:471
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "戻る"
 
@@ -4809,11 +4855,13 @@ msgstr ""
 "参照できるようにこのファイルを保管しておくことをお勧めします。"
 
 #: ../textw/grpselect_text.py:87
-msgid "Please select the package groups you would like to have installed."
+#, fuzzy
+msgid "Please select the package groups you would like to install."
 msgstr "インストールするパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Space>,<+>,<-> 選択   |   <F2> グループの詳細   |   <F12> 次の画面"
 
 #: ../textw/grpselect_text.py:117
@@ -4848,113 +4896,178 @@ msgstr "3 ボタンマウスをエミュレートしますか?"
 msgid "Mouse Selection"
 msgstr "マウスの選択"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:50
 #, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"フィールド %s を指定していません。ネットワーク環境によっては後で問題とな"
-"る可能性があります。"
+"フィールド %s を指定していません。ネットワーク環境によっては後で問題となる可"
+"能性があります。"
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:67
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "IPv4 のプレフィックスは 0 から 32 の間にしてください。"
+
+#: ../textw/network_text.py:71
+msgid "Integer Required for Prefix"
+msgstr ""
+
+#: ../textw/network_text.py:72
 #, python-format
-msgid "Description: %s"
-msgstr "説明: %s"
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
+msgstr ""
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "ハードウェアアドレス: %s"
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
+msgid "Prefix (Netmask)"
+msgstr "プレフィックス (ネットマスク)"
 
-#: ../textw/network_text.py:170
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定を使用する (DHCP)"
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+msgid "Prefix"
+msgstr "プレフィックス"
 
-#: ../textw/network_text.py:177 ../loader2/net.c:711
+#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+msgid "Activate on boot"
+msgstr "起動時にアクティブにする"
+
+#: ../textw/network_text.py:141 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv4 support"
 msgstr "IPv4 サポートを有効にする"
 
-#: ../textw/network_text.py:183 ../loader2/net.c:724
+#: ../textw/network_text.py:148 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:11
 msgid "Enable IPv6 support"
 msgstr "IPv6 サポートを有効にする"
 
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
-msgid "Activate on boot"
-msgstr "起動時にアクティブにする"
-
-#: ../textw/network_text.py:214
-msgid "Address"
-msgstr "アドレス"
-
-#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-msgid "Prefix (Netmask)"
-msgstr "プレフィックス (ネットマスク)"
-
-#: ../textw/network_text.py:217
-msgid "IPv4:"
-msgstr "IPv4:"
-
-#: ../textw/network_text.py:220
-msgid "IPv6:"
-msgstr "IPv6:"
-
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:161
 msgid "P-to-P:"
 msgstr "P-to-P:"
 
-#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
 msgid "ESSID:"
 msgstr "ESSID:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:188
 msgid "WEP Key:"
 msgstr "WEP キー:"
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:201
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "%s 用のネットワーク設定"
 
-#: ../textw/network_text.py:387
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "無効又は欠落した IPv6 プレフィックス (0 から 128 の間でなくてはいけません)。"
+#: ../textw/network_text.py:238 ../textw/network_text.py:241
+msgid "point-to-point IP address"
+msgstr ""
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1017
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "動的 IP 設定 (DHCP)"
+
+#: ../textw/network_text.py:267 ../textw/network_text.py:398
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "手動による設定"
+
+#: ../textw/network_text.py:287
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "%s 用のネットワーク設定"
+
+#: ../textw/network_text.py:317 ../textw/network_text.py:329
+#: ../textw/network_text.py:332
+#, fuzzy
+msgid "IPv4 address"
+msgstr "IPv4 アドレス:"
+
+#: ../textw/network_text.py:321
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "IPv4/ネットマスク"
+
+#: ../textw/network_text.py:347 ../textw/network_text.py:350
+#: ../textw/network_text.py:353
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "プレフィックス (ネットマスク)"
+
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr "自動の隣接者探索"
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "動的 IP 設定 (DHCPv6)"
+
+#: ../textw/network_text.py:422
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "%s 用のネットワーク設定"
+
+#: ../textw/network_text.py:452 ../textw/network_text.py:463
+#: ../textw/network_text.py:466
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IPv6 アドレス:"
+
+#: ../textw/network_text.py:456 ../textw/network_text.py:475
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "IPv6/プレフィックス"
+
+#: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "ゲートウェイ:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:592
 msgid "Primary DNS:"
 msgstr "1 番目の DNS:"
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:597
 msgid "Secondary DNS:"
 msgstr "2 番目の DNS:"
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "その他ネットワークの設定"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#, fuzzy
+msgid "gateway"
+msgstr "ゲートウェイ"
+
+#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#, fuzzy
+msgid "primary DNS"
+msgstr "1 番目の DNS"
+
+#: ../textw/network_text.py:643
+#, fuzzy
+msgid "secondary DNS"
+msgstr "2 番目の DNS"
+
+#: ../textw/network_text.py:677
 msgid "automatically via DHCP"
 msgstr "DHCP 経由で自動設定"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:680
 msgid "manually"
 msgstr "手動設定"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:699
 msgid "Hostname Configuration"
 msgstr "ホスト名の設定"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:702
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "システムが大きなネットワークの一部になっていて、ホスト名が DHCP で割り当てら"
@@ -4962,11 +5075,11 @@ msgstr ""
 "択してシステムのホスト名を入力します。ホスト名を入力しなかった場合、"
 "「localhost」になります。"
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
 msgstr "無効なホスト名です"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:729
 msgid "You have not specified a hostname."
 msgstr "ホスト名を指定していません。"
 
@@ -5086,7 +5199,8 @@ msgstr "ファイルシステムのオプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr "このパーティションのファイルシステムをどのようにするか選択してください。"
+msgstr ""
+"このパーティションのファイルシステムをどのようにするか選択してください。"
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5113,8 +5227,10 @@ msgid "Not Supported"
 msgstr "サポートされていません"
 
 #: ../textw/partition_text.py:772
-msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
+#, fuzzy
+msgid "You can only edit LVM Volume Groups in the graphical installer."
+msgstr ""
+"LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5153,7 +5269,8 @@ msgid "Too many spares"
 msgstr "スペア数が多過ぎます"
 
 #: ../textw/partition_text.py:1096
-msgid "The maximum number of spares with a RAID0 array is 0."
+#, fuzzy
+msgid "You may not use any spares with a RAID0 array."
 msgstr "RAID0 アレイでの最大スペア数は 0 です。"
 
 #: ../textw/partition_text.py:1177
@@ -5161,14 +5278,15 @@ msgid "No Volume Groups"
 msgstr "ボリュームグループがありません"
 
 #: ../textw/partition_text.py:1178
-msgid "No volume groups in which to create a logical volume"
+#, fuzzy
+msgid "No volume groups exist in which to create a logical volume"
 msgstr "論理ボリュームを作成するためのボリュームグループがありません"
 
 #: ../textw/partition_text.py:1302
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 msgstr ""
 "現在の要求サイズ(%10.2f MB)は、最大論理ボリュームサイズ(%10.2f MB)を超えてい"
 "ます。"
@@ -5188,7 +5306,8 @@ msgstr "新規のパーティションにしますか、新規の論理ボリュ
 
 #: ../textw/partition_text.py:1376
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
+msgstr ""
+"新規のパーティションを作成しますか、新規の論理ボリュームを作成しますか?"
 
 #: ../textw/partition_text.py:1378
 msgid "partition"
@@ -5211,7 +5330,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  <F1>-ヘルプ   <F2>-新規    <F3>-編集  <F4>-削除    <F5>-リセット  <F12>-"
 "OK    "
@@ -5221,8 +5341,9 @@ msgid "No Root Partition"
 msgstr "root パーティションがありません"
 
 #: ../textw/partition_text.py:1490
-msgid "Must have a / partition to install on."
-msgstr "インストールするには / パーティションが必要です。"
+#, fuzzy
+msgid "Installation requires a / partition."
+msgstr "NFS インストールを行うには IPv4 のサポートが必要になります。"
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5273,7 +5394,9 @@ msgid ""
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries マシンはファイバーチャンネル (FCP) によって業界基準 SCSI デバイスにア"
-"クセスすることができます。それぞれのデバイスに 16 ビットのデバイス番号、64 ビットの World Wide Port Name (WWPN) および 64 ビットの FCP LUN を提供する必要があります。"
+"クセスすることができます。それぞれのデバイスに 16 ビットのデバイス番号、64 "
+"ビットの World Wide Port Name (WWPN) および 64 ビットの FCP LUN を提供する必"
+"要があります。"
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5287,6 +5410,16 @@ msgstr ""
 "iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエータ名及び"
 "iSCSI ターゲットのアドレスを入力してください。"
 
+#: ../textw/partition_text.py:1707
+#, fuzzy
+msgid "Target IP Address"
+msgstr "<b>対象 IP アドレス(_T):</b>"
+
+#: ../textw/partition_text.py:1708
+#, fuzzy
+msgid "iSCSI Initiator Name"
+msgstr "<b>iSCSI イニシエータ名(_N):</b>"
+
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
 msgstr "自動パーティション設定"
@@ -5295,50 +5428,9 @@ msgstr "自動パーティション設定"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../textw/progress_text.py:66
-#, python-format
-msgid "Downloading - %s"
-msgstr "ダウンロード中 - %s"
-
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:51
 msgid "Package Installation"
 msgstr "パッケージのインストール"
-
-#: ../textw/progress_text.py:105
-msgid " Name   : "
-msgstr "名前    : "
-
-#: ../textw/progress_text.py:106
-msgid " Size   : "
-msgstr "容量    : "
-
-#: ../textw/progress_text.py:107
-msgid " Summary: "
-msgstr "説明    : "
-
-#: ../textw/progress_text.py:152
-msgid "    Packages"
-msgstr "    パッケージ"
-
-#: ../textw/progress_text.py:153
-msgid "      Bytes"
-msgstr "       バイト"
-
-#: ../textw/progress_text.py:154
-msgid "        Time"
-msgstr "        時間"
-
-#: ../textw/progress_text.py:156
-msgid "Total    :"
-msgstr "合計     :"
-
-#: ../textw/progress_text.py:163
-msgid "Completed:   "
-msgstr "完了:       "
-
-#: ../textw/progress_text.py:173
-msgid "Remaining:  "
-msgstr "残り:      "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5360,7 +5452,8 @@ msgid "Customize software selection"
 msgstr "ソフトウェア選択のカスタマイズ"
 
 #: ../textw/timezone_text.py:68
-msgid "What time zone are you located in?"
+#, fuzzy
+msgid "In which time zone are you located?"
 msgstr "タイムゾーンを指定してください。"
 
 #: ../textw/timezone_text.py:86
@@ -5381,12 +5474,12 @@ msgid "Create new boot loader configuration"
 msgstr "新しいブートローダ設定の作成"
 
 #: ../textw/upgrade_text.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system. You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4 カーネルは旧式のカーネルに比べ、システムの RAM の 最大 2 倍となる膨大な "
 "swap 領域を必要とします。現在、 %dMB の swap 領域を確保していますが、ここで"
@@ -5425,8 +5518,9 @@ msgid "System to Upgrade"
 msgstr "アップグレード対象システム"
 
 #: ../textw/upgrade_text.py:204
+#, fuzzy
 msgid ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -5442,10 +5536,11 @@ msgid "Root Password"
 msgstr "root パスワード"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 msgstr ""
 "root パスワードを設定してください。パスワードを2回入力してパスワードに間違い"
 "がないことをを確認します。 root パスワードはシステムのセキュリティ上、重要な"
@@ -5465,10 +5560,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 msgstr ""
 "z/IPL ブートローダはインストールが完了してからシステム上にインストールされま"
 "す。ここで、ご使用のマシンまたは設定が必要とする追加のカーネル及び chandev パ"
@@ -5486,7 +5582,7 @@ msgstr "Chandev 行"
 msgid "_Fedora"
 msgstr "Fedora(_F)"
 
-#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5497,21 +5593,68 @@ msgstr ""
 "ウェアのセットが含まれています。システムにサポートさせる追加タスクを指定して"
 "ください。"
 
-#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
 msgstr "オフィスとプロダクティビティ"
 
-#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr "ソフトウェア開発"
 
-#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr "ウェブサーバー"
 
-#: ../installclasses/rhel.py:16
+#: ../installclasses/rhel.py:21
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
+
+#: ../installclasses/rhel.py:32
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:33
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:44
+#, fuzzy
+msgid "Virtualization"
+msgstr "おめでとうございます"
+
+#: ../installclasses/rhel.py:45
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:46
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:50
+#, fuzzy
+msgid "Installation Number"
+msgstr "インストール開始"
+
+#: ../installclasses/rhel.py:51
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:54
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5520,7 +5663,7 @@ msgstr "メディアチェック"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Test"
 msgstr "テスト"
 
@@ -5689,12 +5832,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "他のドライバディスクを読み込みますか?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
+#: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
+#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "キックスタートエラー"
 
@@ -5708,7 +5851,8 @@ msgstr "キックスタートの元となるドライバディスクが不明で
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+msgstr ""
+"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5737,7 +5881,8 @@ msgstr "ドライバディスクの読み込み"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
+msgstr ""
+"手動で挿入するドライバが見つかりませんでした。ドライバディスクを使用しますか?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5770,7 +5915,7 @@ msgstr ""
 "そのディレクトリの %s インストールツリーはブートメディアと適合しないようで"
 "す。"
 
-#: ../loader2/hdinstall.c:160
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5778,13 +5923,14 @@ msgstr ""
 "ISO イメージからのインストールを読み込み中にエラーが発生しました。ISO イメー"
 "ジを確認してからやり直してください。"
 
-#: ../loader2/hdinstall.c:268
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr ""
+"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
-#: ../loader2/hdinstall.c:283
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5795,29 +5941,29 @@ msgstr ""
 "内のディレクトリを指定してください。一覧に使用しているディスクドライブがなけ"
 "れば、 F2 を押して追加デバイスの設定を行ってください。"
 
-#: ../loader2/hdinstall.c:306
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "イメージを格納しているディレクトリ:"
 
-#: ../loader2/hdinstall.c:334
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "パーティションを選択してください"
 
-#: ../loader2/hdinstall.c:374
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "デバイス %s には %s CDROM イメージが含まれていないようです。"
 
-#: ../loader2/hdinstall.c:409
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "HD キックスタートコマンド %s に対する引数が不正です: %s"
 
-#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "ハードドライブにキックスタートファイルが見つかりません。"
 
-#: ../loader2/hdinstall.c:522
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS ディスク %s 用のハードドライブが見つかりません"
@@ -5830,36 +5976,39 @@ msgstr "キーボードの種類"
 msgid "What type of keyboard do you have?"
 msgstr "ご使用のキーボードの種類を指定してください。"
 
-#: ../loader2/kickstart.c:125
+#: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "キックスタートファイル %sを開く際にエラー発生: %s"
 
-#: ../loader2/kickstart.c:135
+#: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "キックスタートファイル %s の読み込み時にエラー発生: %s"
 
-#: ../loader2/kickstart.c:178
+#: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "キックスタートファイル %s の %d 行の %s でエラーが発生しました。"
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ブートフロッピーに ks.cfg が見つかりません。"
 
-#: ../loader2/kickstart.c:341
+#: ../loader2/kickstart.c:344
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr "キックスタートファイルをダウンロードすることができません。以下のキックスタートパラメータを変更するか、対話インストールとして続行するために Cancel を押してください。"
+msgstr ""
+"キックスタートファイルをダウンロードすることができません。以下のキックスター"
+"トパラメータを変更するか、対話インストールとして続行するために Cancel を押し"
+"てください。"
 
-#: ../loader2/kickstart.c:350
+#: ../loader2/kickstart.c:353
 msgid "Error downloading kickstart file"
 msgstr "キックスタートファイルをダウンロードする際にエラー発生"
 
-#: ../loader2/kickstart.c:473
+#: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "キックスタートコマンド %s のシャットダウンに対する引数が不正です: %s"
@@ -5870,7 +6019,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s へようこそ - レスキューモード"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: ../loader2/lang.c:366
@@ -5972,42 +6122,44 @@ msgstr ""
 "このインストールタイプに必要な種類のデバイスを見つけることができません。  手"
 "動でドライバを選択しますか、またはドライバディスクを使用しますか?"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1184
 msgid "The following devices have been found on your system."
 msgstr "システム上で次のデバイスが検出されました。"
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1186
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
+msgstr ""
+"デバイスドライバはシステムにロードされていません。ドライバをロードしますか?"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1190
 msgid "Devices"
 msgstr "デバイス"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1191
 msgid "Done"
 msgstr "終了"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1192
 msgid "Add Device"
 msgstr "デバイスの追加"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1400
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ローダはすでに実行されています。シェルの起動中です。\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "anaconda を %s レスキューモードで実行中 - しばらくお待ちください...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1789
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
+msgstr ""
+"anaconda %s システムインストーラーを実行中 - しばらくお待ちください...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6084,12 +6236,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s ディレクトリの読み込みに失敗: %s"
 
-#: ../loader2/method.c:422
+#: ../loader2/method.c:418
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6100,7 +6252,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Checksum Test"
 msgstr "チェックサムテスト"
 
@@ -6109,7 +6261,14 @@ msgstr "チェックサムテスト"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "デバイスキックスタートのコマンド %s に対する引数が不正です: %s"
 
-#: ../loader2/net.c:58
+#: ../loader2/modules.c:1056
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr ""
+"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+
+#: ../loader2/net.c:59
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6124,7 +6283,7 @@ msgstr ""
 "    o そのサーバーにあるご使用のアーキテクチャ用の\n"
 "       %s を含むディレクトリ\n"
 
-#: ../loader2/net.c:93
+#: ../loader2/net.c:94
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6132,7 +6291,7 @@ msgstr ""
 "プレフィックスは、IPv4 ネットワークなら 1 から 32 まで、IPv6 ネットワークな"
 "ら 1 から 128 までの数値にしなければなりません。"
 
-#: ../loader2/net.c:249
+#: ../loader2/net.c:257
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6143,128 +6302,135 @@ msgstr ""
 "必要な暗号キーと ESSID を入力してください。暗号キーが必要ない場合は、この"
 "フィールドを空白にしたままインストールを続行します。"
 
-#: ../loader2/net.c:255
+#: ../loader2/net.c:263
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:256
+#: ../loader2/net.c:264
 msgid "Encryption Key"
 msgstr "暗号キー"
 
-#: ../loader2/net.c:259
+#: ../loader2/net.c:267
 msgid "Wireless Settings"
 msgstr "ワイヤレスの設定"
 
-#: ../loader2/net.c:290
+#: ../loader2/net.c:298
 msgid "Nameserver IP"
 msgstr "ネームサーバーの IP"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:302
 msgid "Missing Nameserver"
 msgstr "ネームサーバーの欠落"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:303
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
-msgstr "IP アドレス要求は設定情報を返しましたが、それはネームサーバーのアドレスを含みませんでした。もしこの情報を持っていないなら、このフィールドを空白にしてインストールを続行できます。"
+msgstr ""
+"IP アドレス要求は設定情報を返しましたが、それはネームサーバーのアドレスを含み"
+"ませんでした。もしこの情報を持っていないなら、このフィールドを空白にしてイン"
+"ストールを続行できます。"
 
-#: ../loader2/net.c:317
+#: ../loader2/net.c:325
 msgid "Invalid IP Information"
 msgstr "無効な IP 情報"
 
-#: ../loader2/net.c:318
+#: ../loader2/net.c:326
 msgid "You entered an invalid IP address."
 msgstr "無効な IP アドレスが入力されました。"
 
-#: ../loader2/net.c:575 ../loader2/net.c:683
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "ネットワークエラー"
 
-#: ../loader2/net.c:576 ../loader2/net.c:684
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "ネットワークインターフェースの設定中にエラーが発生しました。"
 
-#: ../loader2/net.c:757
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "TCP/IP の設定"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:792
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr ""
-"少くともプロトコルを 1 つ選択しなければなりません (IPv4 または "
-"IPv6)。"
+msgstr "少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
 
-#: ../loader2/net.c:791
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "NFS には IPv4 が必要です"
 
-#: ../loader2/net.c:792
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS インストールを行うには IPv4 のサポートが必要になります。"
 
-#: ../loader2/net.c:912
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4 アドレス:"
 
-#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:964
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6 アドレス:"
 
-#: ../loader2/net.c:1025
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "ネームサーバー:"
 
-#: ../loader2/net.c:1061
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "IPv4 および/または IPv6 アドレスとプレフィックス (アドレス / プレフィックス) を入力してください。 IPv4 では、ドット10進表記のネットマスクか CIDR 形式のプレフィックスが可能です。ゲートウェイとネームサーバーのフィールドは、必ず有効な IPv4 または IPv6 アドレスでなければなりません。"
+msgstr ""
+"IPv4 および/または IPv6 アドレスとプレフィックス (アドレス / プレフィックス) "
+"を入力してください。 IPv4 では、ドット10進表記のネットマスクか CIDR 形式のプ"
+"レフィックスが可能です。ゲートウェイとネームサーバーのフィールドは、必ず有効"
+"な IPv4 または IPv6 アドレスでなければなりません。"
 
-#: ../loader2/net.c:1077
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "手動による TCP/IP 設定"
 
-#: ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "情報が不足しています"
 
-#: ../loader2/net.c:1199
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1207
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
 "必要があります。"
 
-#: ../loader2/net.c:1205
+#: ../loader2/net.c:1213
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr ""
+"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
-#: ../loader2/net.c:1508
+#: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
 msgstr "ホスト名とドメインを確定中..."
 
-#: ../loader2/net.c:1601
+#: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "キックスタートネットワークコマンド %s に対する引数が不正です: %s"
 
-#: ../loader2/net.c:1624
+#: ../loader2/net.c:1632
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
 
-#: ../loader2/net.c:1805
+#: ../loader2/net.c:1813
 msgid "Networking Device"
 msgstr "ネットワーク構築デバイス"
 
-#: ../loader2/net.c:1806
+#: ../loader2/net.c:1814
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6276,7 +6442,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "NFS サーバー名:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "%s ディレクトリ:"
@@ -6350,56 +6516,56 @@ msgstr "Url キックスタート方法には、 --url の引数を使用する�
 msgid "Unknown Url method %s"
 msgstr "%s は不明な Url 方法です"
 
-#: ../loader2/urls.c:220
+#: ../loader2/urls.c:219
 msgid "Retrieving"
 msgstr "取り込み中"
 
-#: ../loader2/urls.c:287
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr "ウェブ"
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "FTP サイト名:"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "Web サイト名:"
 
-#: ../loader2/urls.c:329
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "非 anonymous (匿名) FTP を使用"
 
-#: ../loader2/urls.c:338
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "FTP の設定"
 
-#: ../loader2/urls.c:339
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "HTTP の設定"
 
-#: ../loader2/urls.c:349
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "サーバー名を入力してください。"
 
-#: ../loader2/urls.c:354
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "ディレクトリを入力してください。"
 
-#: ../loader2/urls.c:359
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "不明なホスト"
 
-#: ../loader2/urls.c:360
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s は有効なホスト名ではありません。"
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:430
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6407,7 +6573,7 @@ msgstr ""
 "anonymous (匿名)ではない FTP を使用している場合、使用するアカウント名およびパ"
 "スワードを以下に入力してください。"
 
-#: ../loader2/urls.c:436
+#: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6415,15 +6581,15 @@ msgstr ""
 "HTTP プロキシサーバーを使用している場合、使用する HTTP プロキシサーバーの名前"
 "を入力してください。"
 
-#: ../loader2/urls.c:458
+#: ../loader2/urls.c:457
 msgid "Account name:"
 msgstr "アカウント名:"
 
-#: ../loader2/urls.c:481
+#: ../loader2/urls.c:480
 msgid "Further FTP Setup"
 msgstr "FTP の追加設定"
 
-#: ../loader2/urls.c:484
+#: ../loader2/urls.c:483
 msgid "Further HTTP Setup"
 msgstr "HTTP の追加設定"
 
@@ -6495,10 +6661,15 @@ msgid "Re_view and modify partitioning layout"
 msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:3
+#, fuzzy
+msgid "What drive would you like to boot this installation from?"
+msgstr "インストール時に使用する言語を選択してください。"
+
+#: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
 msgstr "高度なストレージ設定 (_A)"
 
-#: tmp/autopart.glade.h:4
+#: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
 msgstr "このインストールに使用するドライブを選択してください(_S)。"
 
@@ -6509,6 +6680,11 @@ msgstr "例外の情報"
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
 msgstr "例外の詳細(_E)"
+
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6578,18 +6754,6 @@ msgstr "<b>説明はここに入ります</b>"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr "<b>ハードウェアのアドレス: DE:AD:00:BE:EF:00</b>"
 
-#: tmp/netpostconfig.glade.h:5
-msgid "Automatic neighbor discovery"
-msgstr "自動の隣接者探索"
-
-#: tmp/netpostconfig.glade.h:6
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定 (DHCP)"
-
-#: tmp/netpostconfig.glade.h:7
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "動的 IP 設定 (DHCPv6)"
-
 #: tmp/netpostconfig.glade.h:9
 msgid "Edit Interface"
 msgstr "インターフェイスを編集"
@@ -6606,10 +6770,6 @@ msgstr "手動による設定"
 msgid "Point to Point (IP):"
 msgstr "ポイントツーポイント (IP):"
 
-#: tmp/netpostconfig.glade.h:16
-msgid "Prefix"
-msgstr "プレフィックス"
-
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
 msgstr "後でカスタマイズする(_l)"
@@ -6618,7 +6778,8 @@ msgstr "後でカスタマイズする(_l)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr "ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
+msgstr ""
+"ソフトウェアのインストールに使用する予定の追加リポジトリを選択してください。"
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -6651,705 +6812,6 @@ msgstr "<b>WWPN:</b>"
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
 msgstr "FCP デバイスの追加"
-
-#. generated from zone.tab
-msgid "Acre"
-msgstr "アクレ"
-
-#. generated from zone.tab
-msgid "Alagoas, Sergipe"
-msgstr "アラゴス、セルジペ"
-
-#. generated from zone.tab
-msgid "Alaska Time"
-msgstr "アラスカ時間"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle"
-msgstr "アラスカ時間 - アラスカ パンハンドル"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle neck"
-msgstr "アラスカ時間 - アラスカ パンハンドル ネック"
-
-#. generated from zone.tab
-msgid "Alaska Time - west Alaska"
-msgstr "アラスカ時間 - 西アラスカ"
-
-#. generated from zone.tab
-msgid "Aleutian Islands"
-msgstr "アリューシャン列島"
-
-#. generated from zone.tab
-msgid "Amapa, E Para"
-msgstr "アマパ、東パラ"
-
-#. generated from zone.tab
-msgid "Amundsen-Scott Station, South Pole"
-msgstr "アムンゼン-スコット基地、南極"
-
-#. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr "アクトベ (カザフスタン)"
-
-#. generated from zone.tab
-msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "大西洋標準時間 - ケベック - 南北部海岸"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Labrador - most locations"
-msgstr "大西洋時間 - ラブラドール - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Atlantic Time - New Brunswick"
-msgstr "大西洋時間 - ニューブランズウィック"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "大西洋時間 - ノバスコシア (ほとんどの地域)、 PEI"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "大西洋時間 - ノバスコシア -  DST 1966-1971で認識されていない地域"
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "大西洋諸島"
-
-#. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "アティラウ、マンギスタウ (カザフスタン)"
-
-#. generated from zone.tab
-msgid "Azores"
-msgstr "アゾレス"
-
-#. generated from zone.tab
-msgid "Bahia"
-msgstr "バイア"
-
-#. generated from zone.tab
-msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "バヤンウルギー、ゴビアルタイ、ホブド、オブス、ザブハン (モンゴル)"
-
-#. generated from zone.tab
-msgid "Buenos Aires (BA, CF)"
-msgstr "ブエノスアイリス (BA, CF)"
-
-#. generated from zone.tab
-msgid "Canary Islands"
-msgstr "カナリア諸島"
-
-#. generated from zone.tab
-msgid "Casey Station, Bailey Peninsula"
-msgstr "ケイシー基地、ベイリー半島"
-
-#. generated from zone.tab
-msgid "Catamarca (CT), Chubut (CH)"
-msgstr "カタマルカ (CT)、チュブト (CH)"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "中央標準時間 - サスカチュアン - 中央西部"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "中央標準時間 - サスカチュアン--ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Central Time"
-msgstr "中央時間"
-
-#. generated from zone.tab
-msgid "Central Time - Campeche, Yucatan"
-msgstr "中央時間 - カンペチェ、ユカタン"
-
-# Mexico
-#. generated from zone.tab
-msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン、タモゥリパス"
-
-#. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-msgstr ""
-"中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーとプ"
-"ラスキ地区"
-
-#. generated from zone.tab
-msgid "Central Time - Indiana - Pike County"
-msgstr "中央時間 - インディアナ - パイク郡"
-
-#. generated from zone.tab
-msgid "Central Time - Manitoba & west Ontario"
-msgstr "中央時間 - マニトバ、西オンタリオ"
-
-#. generated from zone.tab
-msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "中央時間 - ノースダコタ.-.モートン地区(マンダン区を除く)"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "中央時間 - ノースダコタ..オリバー地区"
-
-#. generated from zone.tab
-msgid "Central Time - Quintana Roo"
-msgstr "中央時間 - キンタナロー"
-
-#. generated from zone.tab
-msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "中央時間 - レイニー川、フォートフランセ、オンタリオ"
-
-# イヌイット自治州
-#. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "中央時間 - 西ヌナブット"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "中央時間 - ほとんどの地域"
-
-# イヌイット自治州
-#. generated from zone.tab
-msgid "Central Time - west Nunavut"
-msgstr "中央時間 - 西ヌナブット"
-
-# スペイン領北アフリカ
-#. generated from zone.tab
-msgid "Ceuta & Melilla"
-msgstr "セウタ・メリリャ"
-
-# ガラパゴス諸島一部?
-#. generated from zone.tab
-msgid "Chatham Islands"
-msgstr "チャタム島"
-
-#. generated from zone.tab
-msgid "Davis Station, Vestfold Hills"
-msgstr "デーヴィス基地、ヴェストフォールド丘陵"
-
-# モンゴル
-#. generated from zone.tab
-msgid "Dornod, Sukhbaatar"
-msgstr "ドルノド、スフバータル(モンゴル)"
-
-# 南極
-#. generated from zone.tab
-msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "デュモン-デュルヴィル基地、テレ=アデリー"
-
-#. generated from zone.tab
-msgid "E Amazonas"
-msgstr "東アマゾン"
-
-#. generated from zone.tab
-msgid "Easter Island & Sala y Gomez"
-msgstr "イースター諸島、サライゴメス"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "東部標準時間 - サウサンプトン島"
-
-#. generated from zone.tab
-msgid "Eastern Time"
-msgstr "東部時間"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Crawford County"
-msgstr "東部時間 - インディアナ - クロフォード郡"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Starke County"
-msgstr "東部時間 - インディアナ - スターク郡"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "東部時間 - インディアナ - スイス郡"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "東部時間 - インディアナ - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "東部時間 - ケンタッキー、ルイヴィル地区"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "東部時間 - ケンタッキー、ウェイネ郡"
-
-#. generated from zone.tab
-msgid "Eastern Time - Michigan - most locations"
-msgstr "東部時間 - ミシガン--ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "東部時間 - オンタリオ - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "東部時間 - パングニルチュング、ヌナブット"
-
-#. generated from zone.tab
-msgid "Eastern Time - Quebec - most locations"
-msgstr "東部時間 - ケベック - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "東部時間 - サンダーベイ、オンタリオ"
-
-#. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "東部時間 - 東ヌナブット"
-
-#. generated from zone.tab
-msgid "Galapagos Islands"
-msgstr "ガラパゴス諸島"
-
-#. generated from zone.tab
-msgid "Gambier Islands"
-msgstr "ガンビア諸島"
-
-#. generated from zone.tab
-msgid "Gilbert Islands"
-msgstr "ギルバート諸島"
-
-#. generated from zone.tab
-msgid "Hawaii"
-msgstr "ハワイ"
-
-#. generated from zone.tab
-msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "黒竜江 (モーホーを除く)、吉林"
-
-#. generated from zone.tab
-msgid "Irian Jaya & the Moluccas"
-msgstr "イリアンジャヤ、モルサス"
-
-#. generated from zone.tab
-msgid "Jan Mayen"
-msgstr "ジャンマイェン"
-
-#. generated from zone.tab
-msgid "Java & Sumatra"
-msgstr "ジャワ及びスマトラ"
-
-#. generated from zone.tab
-msgid "Johnston Atoll"
-msgstr "ジョンストンアトール"
-
-#. generated from zone.tab
-msgid "Jujuy (JY)"
-msgstr "ジュジュイ (JY)"
-
-#. generated from zone.tab
-msgid "Kosrae"
-msgstr "コスラエ"
-
-# フィリピン?
-#. generated from zone.tab
-msgid "Kwajalein"
-msgstr "カワジャライン"
-
-#. generated from zone.tab
-msgid "La Rioja (LR)"
-msgstr "ラリオハ (LR)"
-
-#. generated from zone.tab
-msgid "Line Islands"
-msgstr "ライン諸島"
-
-#. generated from zone.tab
-msgid "Lord Howe Island"
-msgstr "ロードハウ諸島"
-
-#. generated from zone.tab
-msgid "Madeira Islands"
-msgstr "マデイラ諸島"
-
-#. generated from zone.tab
-msgid "Marquesas Islands"
-msgstr "マルケサス諸島"
-
-#. generated from zone.tab
-msgid "Mato Grosso"
-msgstr "マトグロッソ"
-
-#. generated from zone.tab
-msgid "Mato Grosso do Sul"
-msgstr "マトグロッソ=デュ=ソル"
-
-#. generated from zone.tab
-msgid "Mawson Station, Holme Bay"
-msgstr "モーソン基地、ホーム湾"
-
-#. generated from zone.tab
-msgid "McMurdo Station, Ross Island"
-msgstr "マクマルド基地、ロス諸島"
-
-#. generated from zone.tab
-msgid "Mendoza (MZ)"
-msgstr "メンドーザ (MZ)"
-
-#. generated from zone.tab
-msgid "Midway Islands"
-msgstr "ミッドウェー諸島"
-
-#. generated from zone.tab
-msgid "Moscow+00 - Caspian Sea"
-msgstr "モスクワ+00 - カスピ海"
-
-#. generated from zone.tab
-msgid "Moscow+00 - west Russia"
-msgstr "モスクワ+00 - 西ロシア"
-
-#. generated from zone.tab
-msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "モスクワ+01 - サマラ、ウドムルト"
-
-#. generated from zone.tab
-msgid "Moscow+02 - Urals"
-msgstr "モスクワ+01 - ウラル"
-
-#. generated from zone.tab
-msgid "Moscow+03 - Novosibirsk"
-msgstr "モスクワ+03 - ノボシビルスク"
-
-#. generated from zone.tab
-msgid "Moscow+03 - west Siberia"
-msgstr "モスクワ+03 - 西シベリア"
-
-#. generated from zone.tab
-msgid "Moscow+04 - Yenisei River"
-msgstr "モスクワ+06 - ヤニセイ川"
-
-#. generated from zone.tab
-msgid "Moscow+05 - Lake Baikal"
-msgstr "モスクワ+05 - バイカル湖"
-
-#. generated from zone.tab
-msgid "Moscow+06 - Lena River"
-msgstr "モスクワ+06 - レナ川"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Amur River"
-msgstr "モスクワ+07 - アムール川"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "モスクワ+07- サハリン島"
-
-#. generated from zone.tab
-msgid "Moscow+08 - Magadan"
-msgstr "モスクワ+08 - マガダン"
-
-#. generated from zone.tab
-msgid "Moscow+09 - Kamchatka"
-msgstr "モスクワ+09 - カムチャッカ"
-
-#. generated from zone.tab
-msgid "Moscow+10 - Bering Sea"
-msgstr "モスクワ+10 - ベーリング海"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "モスクワ-01 - カリニングラッド"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Arizona"
-msgstr "山岳標準時 - アリゾナ"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Sonora"
-msgstr "山岳標準時 - ソノラ"
-
-#. generated from zone.tab
-msgid "Mountain Time"
-msgstr "山岳標準時"
-
-#. generated from zone.tab
-msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
-
-#. generated from zone.tab
-msgid "Mountain Time - Chihuahua"
-msgstr "山岳標準時 - チワワ"
-
-#. generated from zone.tab
-msgid "Mountain Time - Navajo"
-msgstr "山岳標準時 - ナバホ"
-
-#. generated from zone.tab
-msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "山岳標準時 - 南バハ、ナヤリット、シナロア"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "山岳標準時 - 中央北西地方"
-
-#. generated from zone.tab
-msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "山岳標準時 - 南アイダホ、東オレゴン"
-
-#. generated from zone.tab
-msgid "Mountain Time - west Northwest Territories"
-msgstr "山岳標準時 - 西北西地方"
-
-#. generated from zone.tab
-msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "北東 ブラジル (MA, PI, CE, RN, PB)"
-
-#. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "ニューサウスウェールズ - Yancowinna"
-
-#. generated from zone.tab
-msgid "New South Wales - most locations"
-msgstr "ニューサウスウェールズ - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "ニューファンドランド時間、 SE ラブラドールを含む"
-
-#. generated from zone.tab
-msgid "Northern Territory"
-msgstr "ノーザンテリトリー"
-
-#. generated from zone.tab
-msgid "Pacific Time"
-msgstr "太平洋時間"
-
-#. generated from zone.tab
-msgid "Pacific Time - north Yukon"
-msgstr "太平洋時間 - 北ユーコン"
-
-#. generated from zone.tab
-msgid "Pacific Time - south Yukon"
-msgstr "太平洋時間 - 南ユーコン"
-
-#. generated from zone.tab
-msgid "Pacific Time - west British Columbia"
-msgstr "太平洋時間 - 西ブリティッシュコロンビア"
-
-#. generated from zone.tab
-msgid "Palmer Station, Anvers Island"
-msgstr "パーマーステーション、アンバーズ島"
-
-# ブラジルの州名らしい
-#. generated from zone.tab
-msgid "Pernambuco"
-msgstr "ペルナンブッコ"
-
-#. generated from zone.tab
-msgid "Phoenix Islands"
-msgstr "フェニックス諸島"
-
-#. generated from zone.tab
-msgid "Ponape (Pohnpei)"
-msgstr "ポナペ (ポンペイ)"
-
-#. generated from zone.tab
-msgid "Queensland - Holiday Islands"
-msgstr "クィーンズランド - ホリディ諸島"
-
-#. generated from zone.tab
-msgid "Queensland - most locations"
-msgstr "クィーンズランド - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)(カザフスタン)"
-
-#. generated from zone.tab
-msgid "Roraima"
-msgstr "ロライマ"
-
-#. generated from zone.tab
-msgid "Rothera Station, Adelaide Island"
-msgstr "ローテラステーション、アデレード島"
-
-#. generated from zone.tab
-msgid "Ruthenia"
-msgstr "ルテニア"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "南及び南東 ブラジル(GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-# ボルネオ半島、東マレーシア
-#. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "サバ・サラワク"
-
-#. generated from zone.tab
-msgid "San Juan (SJ)"
-msgstr "サンファン (SJ)"
-
-#. generated from zone.tab
-msgid "Santa Cruz (SC)"
-msgstr "サンタクルーズ (SC)"
-
-#. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Scoresbysund / Ittoqqortoormiit(グリーンランド)"
-
-#. generated from zone.tab
-msgid "Society Islands"
-msgstr "ソシエテ諸島"
-
-#. generated from zone.tab
-msgid "South Australia"
-msgstr "サウスオーストラリア"
-
-# Norway
-#. generated from zone.tab
-msgid "Svalbard"
-msgstr "スバールバル"
-
-#. generated from zone.tab
-msgid "Syowa Station, E Ongul I"
-msgstr "昭和基地、東オングル島"
-
-#. generated from zone.tab
-msgid "Tasmania - King Island"
-msgstr "タスマニア - キング島"
-
-#. generated from zone.tab
-msgid "Tasmania - most locations"
-msgstr "タスマニア - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr "チューレ/Pituffik(グリーンランド)"
-
-#. generated from zone.tab
-msgid "Tierra del Fuego (TF)"
-msgstr "ティエラデルフエゴ"
-
-#. generated from zone.tab
-msgid "Tocantins"
-msgstr "トカンチン"
-
-#. generated from zone.tab
-msgid "Truk (Chuuk) and Yap"
-msgstr "トラック (チューク環礁) とヤップ島"
-
-#. generated from zone.tab
-msgid "Tucuman (TM)"
-msgstr "ツクマン"
-
-#. generated from zone.tab
-msgid "Victoria"
-msgstr "ヴィクトリア"
-
-#. generated from zone.tab
-msgid "Vostok Station, S Magnetic Pole"
-msgstr "ヴォストーク基地、南極"
-
-#. generated from zone.tab
-msgid "W Amazonas"
-msgstr "西アマゾン"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "西パラ、ロンドニア"
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr "ウェイク諸島"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "西カザフスタン"
-
-#. generated from zone.tab
-msgid "Western Australia - Eucla area"
-msgstr "西オーストラリア - ユークラ地域"
-
-#. generated from zone.tab
-msgid "Western Australia - most locations"
-msgstr "西オーストラリア - ほとんどの地域"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "ザポロージェ/東ルガンスク"
-
-#. generated from zone.tab
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "中国中央部 - 四川、雲南、広西、陝西、貴州など"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "中央クリミア"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
-
-#. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "中国東部---北京、広東、上海など"
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "東コンゴ民主共和国"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "東ウズベキスタン"
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "東海岸 --Scoresbysundの北部"
-
-#. generated from zone.tab
-msgid "mainland"
-msgstr "本土"
-
-#. generated from zone.tab
-msgid "most locations"
-msgstr "ほとんどの地域"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "ほとんどの地域(CB, CC, CH, ER, FM, LP, LR, MN, NQ, RN, SE, SF, SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr "チベット及び新疆のほとんど"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "マレーシア半島"
-
-#. generated from zone.tab
-msgid "west & central Borneo"
-msgstr "西、中央ボルネオ"
-
-#. generated from zone.tab
-msgid "west Dem. Rep. of Congo"
-msgstr "西コンゴ民主共和国"
-
-#. generated from zone.tab
-msgid "west Tibet & Xinjiang"
-msgstr "西チベット及び新疆"
-
-#. generated from zone.tab
-msgid "west Uzbekistan"
-msgstr "西ウズベキスタン"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7575,3 +7037,639 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
+#~ msgid "Done [%d/%d]"
+#~ msgstr "完了 [%d/%d]"
+
+#~ msgid "Installing %s-%s-%s... "
+#~ msgstr "%s-%s-%s のインストール中... "
+
+#~ msgid "Please enter the registration key for your version of %s."
+#~ msgstr "使用している %s のバージョンの登録キーを入力してください。"
+
+#~ msgid "Enter Registration Key"
+#~ msgstr "登録キーの入力"
+
+#~ msgid "Key:"
+#~ msgstr "キー:"
+
+#~ msgid "_Format drive"
+#~ msgstr "ドライブをフォーマット(_F)"
+
+#~ msgid ""
+#~ "The following critical errors exist with your requested partitioning "
+#~ "scheme."
+#~ msgstr "要求されたパーティション設定に次の致命的なエラーが存在しています。"
+
+#~ msgid "The following warnings exist with your requested partition scheme."
+#~ msgstr "要求されたパーティション設定に次の警告があります。"
+
+#~ msgid "Remaining time: %s minutes"
+#~ msgstr "残り時間: %s 分"
+
+#~ msgid "Downloading %s"
+#~ msgstr "%s をダウンロード中"
+
+#~ msgid "Installing %s-%s-%s.%s (%s)"
+#~ msgstr "%s-%s-%s.%s(%s) をインストール中"
+
+#~ msgid "Package"
+#~ msgstr "パッケージ"
+
+#~ msgid "Summary"
+#~ msgstr "説明"
+
+#~ msgid "Status: "
+#~ msgstr "状態: "
+
+#~ msgid "Description: %s"
+#~ msgstr "説明: %s"
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "ハードウェアアドレス: %s"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "動的 IP 設定を使用する (DHCP)"
+
+#~ msgid "Address"
+#~ msgstr "アドレス"
+
+#~ msgid "IPv4:"
+#~ msgstr "IPv4:"
+
+#~ msgid "IPv6:"
+#~ msgstr "IPv6:"
+
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr ""
+#~ "無効又は欠落した IPv6 プレフィックス (0 から 128 の間でなくてはいけませ"
+#~ "ん)。"
+
+#~ msgid "Must have a / partition to install on."
+#~ msgstr "インストールするには / パーティションが必要です。"
+
+#~ msgid "Downloading - %s"
+#~ msgstr "ダウンロード中 - %s"
+
+#~ msgid " Name   : "
+#~ msgstr "名前    : "
+
+#~ msgid " Size   : "
+#~ msgstr "容量    : "
+
+#~ msgid " Summary: "
+#~ msgstr "説明    : "
+
+#~ msgid "    Packages"
+#~ msgstr "    パッケージ"
+
+#~ msgid "      Bytes"
+#~ msgstr "       バイト"
+
+#~ msgid "        Time"
+#~ msgstr "        時間"
+
+#~ msgid "Total    :"
+#~ msgstr "合計     :"
+
+#~ msgid "Completed:   "
+#~ msgstr "完了:       "
+
+#~ msgid "Remaining:  "
+#~ msgstr "残り:      "
+
+#~ msgid "Acre"
+#~ msgstr "アクレ"
+
+#~ msgid "Alagoas, Sergipe"
+#~ msgstr "アラゴス、セルジペ"
+
+#~ msgid "Alaska Time"
+#~ msgstr "アラスカ時間"
+
+#~ msgid "Alaska Time - Alaska panhandle"
+#~ msgstr "アラスカ時間 - アラスカ パンハンドル"
+
+#~ msgid "Alaska Time - Alaska panhandle neck"
+#~ msgstr "アラスカ時間 - アラスカ パンハンドル ネック"
+
+#~ msgid "Alaska Time - west Alaska"
+#~ msgstr "アラスカ時間 - 西アラスカ"
+
+#~ msgid "Aleutian Islands"
+#~ msgstr "アリューシャン列島"
+
+#~ msgid "Amapa, E Para"
+#~ msgstr "アマパ、東パラ"
+
+#~ msgid "Amundsen-Scott Station, South Pole"
+#~ msgstr "アムンゼン-スコット基地、南極"
+
+#~ msgid "Aqtobe (Aktobe)"
+#~ msgstr "アクトベ (カザフスタン)"
+
+#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+#~ msgstr "大西洋標準時間 - ケベック - 南北部海岸"
+
+#~ msgid "Atlantic Time - Labrador - most locations"
+#~ msgstr "大西洋時間 - ラブラドール - ほとんどの地域"
+
+#~ msgid "Atlantic Time - New Brunswick"
+#~ msgstr "大西洋時間 - ニューブランズウィック"
+
+#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
+#~ msgstr "大西洋時間 - ノバスコシア (ほとんどの地域)、 PEI"
+
+#~ msgid ""
+#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+#~ msgstr "大西洋時間 - ノバスコシア -  DST 1966-1971で認識されていない地域"
+
+#~ msgid "Atlantic islands"
+#~ msgstr "大西洋諸島"
+
+#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+#~ msgstr "アティラウ、マンギスタウ (カザフスタン)"
+
+#~ msgid "Azores"
+#~ msgstr "アゾレス"
+
+#~ msgid "Bahia"
+#~ msgstr "バイア"
+
+#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+#~ msgstr "バヤンウルギー、ゴビアルタイ、ホブド、オブス、ザブハン (モンゴル)"
+
+#~ msgid "Buenos Aires (BA, CF)"
+#~ msgstr "ブエノスアイリス (BA, CF)"
+
+#~ msgid "Canary Islands"
+#~ msgstr "カナリア諸島"
+
+#~ msgid "Casey Station, Bailey Peninsula"
+#~ msgstr "ケイシー基地、ベイリー半島"
+
+#~ msgid "Catamarca (CT), Chubut (CH)"
+#~ msgstr "カタマルカ (CT)、チュブト (CH)"
+
+#~ msgid "Central Standard Time - Saskatchewan - midwest"
+#~ msgstr "中央標準時間 - サスカチュアン - 中央西部"
+
+#~ msgid "Central Standard Time - Saskatchewan - most locations"
+#~ msgstr "中央標準時間 - サスカチュアン--ほとんどの地域"
+
+#~ msgid "Central Time"
+#~ msgstr "中央時間"
+
+#~ msgid "Central Time - Campeche, Yucatan"
+#~ msgstr "中央時間 - カンペチェ、ユカタン"
+
+# Mexico
+#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+#~ msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン、タモゥリパス"
+
+#~ msgid ""
+#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+#~ "Counties"
+#~ msgstr ""
+#~ "中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーと"
+#~ "プラスキ地区"
+
+#~ msgid "Central Time - Indiana - Pike County"
+#~ msgstr "中央時間 - インディアナ - パイク郡"
+
+#~ msgid "Central Time - Manitoba & west Ontario"
+#~ msgstr "中央時間 - マニトバ、西オンタリオ"
+
+#~ msgid ""
+#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+#~ msgstr ""
+#~ "中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー"
+#~ "郡"
+
+#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+#~ msgstr "中央時間 - ノースダコタ.-.モートン地区(マンダン区を除く)"
+
+#~ msgid "Central Time - North Dakota - Oliver County"
+#~ msgstr "中央時間 - ノースダコタ..オリバー地区"
+
+#~ msgid "Central Time - Quintana Roo"
+#~ msgstr "中央時間 - キンタナロー"
+
+#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
+#~ msgstr "中央時間 - レイニー川、フォートフランセ、オンタリオ"
+
+# イヌイット自治州
+#~ msgid "Central Time - central Nunavut"
+#~ msgstr "中央時間 - 西ヌナブット"
+
+#~ msgid "Central Time - most locations"
+#~ msgstr "中央時間 - ほとんどの地域"
+
+# イヌイット自治州
+#~ msgid "Central Time - west Nunavut"
+#~ msgstr "中央時間 - 西ヌナブット"
+
+# スペイン領北アフリカ
+#~ msgid "Ceuta & Melilla"
+#~ msgstr "セウタ・メリリャ"
+
+# ガラパゴス諸島一部?
+#~ msgid "Chatham Islands"
+#~ msgstr "チャタム島"
+
+#~ msgid "Davis Station, Vestfold Hills"
+#~ msgstr "デーヴィス基地、ヴェストフォールド丘陵"
+
+# モンゴル
+#~ msgid "Dornod, Sukhbaatar"
+#~ msgstr "ドルノド、スフバータル(モンゴル)"
+
+# 南極
+#~ msgid "Dumont-d'Urville Base, Terre Adelie"
+#~ msgstr "デュモン-デュルヴィル基地、テレ=アデリー"
+
+#~ msgid "E Amazonas"
+#~ msgstr "東アマゾン"
+
+#~ msgid "Easter Island & Sala y Gomez"
+#~ msgstr "イースター諸島、サライゴメス"
+
+#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
+#~ msgstr "東部標準時間 - サウサンプトン島"
+
+#~ msgid "Eastern Time"
+#~ msgstr "東部時間"
+
+#~ msgid "Eastern Time - Indiana - Crawford County"
+#~ msgstr "東部時間 - インディアナ - クロフォード郡"
+
+#~ msgid "Eastern Time - Indiana - Starke County"
+#~ msgstr "東部時間 - インディアナ - スターク郡"
+
+#~ msgid "Eastern Time - Indiana - Switzerland County"
+#~ msgstr "東部時間 - インディアナ - スイス郡"
+
+#~ msgid "Eastern Time - Indiana - most locations"
+#~ msgstr "東部時間 - インディアナ - ほとんどの地域"
+
+#~ msgid "Eastern Time - Kentucky - Louisville area"
+#~ msgstr "東部時間 - ケンタッキー、ルイヴィル地区"
+
+#~ msgid "Eastern Time - Kentucky - Wayne County"
+#~ msgstr "東部時間 - ケンタッキー、ウェイネ郡"
+
+#~ msgid "Eastern Time - Michigan - most locations"
+#~ msgstr "東部時間 - ミシガン--ほとんどの地域"
+
+#~ msgid ""
+#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
+#~ "1973"
+#~ msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
+
+#~ msgid "Eastern Time - Ontario - most locations"
+#~ msgstr "東部時間 - オンタリオ - ほとんどの地域"
+
+#~ msgid "Eastern Time - Pangnirtung, Nunavut"
+#~ msgstr "東部時間 - パングニルチュング、ヌナブット"
+
+#~ msgid "Eastern Time - Quebec - most locations"
+#~ msgstr "東部時間 - ケベック - ほとんどの地域"
+
+#~ msgid "Eastern Time - Thunder Bay, Ontario"
+#~ msgstr "東部時間 - サンダーベイ、オンタリオ"
+
+#~ msgid "Eastern Time - east Nunavut"
+#~ msgstr "東部時間 - 東ヌナブット"
+
+#~ msgid "Galapagos Islands"
+#~ msgstr "ガラパゴス諸島"
+
+#~ msgid "Gambier Islands"
+#~ msgstr "ガンビア諸島"
+
+#~ msgid "Gilbert Islands"
+#~ msgstr "ギルバート諸島"
+
+#~ msgid "Hawaii"
+#~ msgstr "ハワイ"
+
+#~ msgid "Heilongjiang (except Mohe), Jilin"
+#~ msgstr "黒竜江 (モーホーを除く)、吉林"
+
+#~ msgid "Irian Jaya & the Moluccas"
+#~ msgstr "イリアンジャヤ、モルサス"
+
+#~ msgid "Jan Mayen"
+#~ msgstr "ジャンマイェン"
+
+#~ msgid "Java & Sumatra"
+#~ msgstr "ジャワ及びスマトラ"
+
+#~ msgid "Johnston Atoll"
+#~ msgstr "ジョンストンアトール"
+
+#~ msgid "Jujuy (JY)"
+#~ msgstr "ジュジュイ (JY)"
+
+#~ msgid "Kosrae"
+#~ msgstr "コスラエ"
+
+# フィリピン?
+#~ msgid "Kwajalein"
+#~ msgstr "カワジャライン"
+
+#~ msgid "La Rioja (LR)"
+#~ msgstr "ラリオハ (LR)"
+
+#~ msgid "Line Islands"
+#~ msgstr "ライン諸島"
+
+#~ msgid "Lord Howe Island"
+#~ msgstr "ロードハウ諸島"
+
+#~ msgid "Madeira Islands"
+#~ msgstr "マデイラ諸島"
+
+#~ msgid "Marquesas Islands"
+#~ msgstr "マルケサス諸島"
+
+#~ msgid "Mato Grosso"
+#~ msgstr "マトグロッソ"
+
+#~ msgid "Mato Grosso do Sul"
+#~ msgstr "マトグロッソ=デュ=ソル"
+
+#~ msgid "Mawson Station, Holme Bay"
+#~ msgstr "モーソン基地、ホーム湾"
+
+#~ msgid "McMurdo Station, Ross Island"
+#~ msgstr "マクマルド基地、ロス諸島"
+
+#~ msgid "Mendoza (MZ)"
+#~ msgstr "メンドーザ (MZ)"
+
+#~ msgid "Midway Islands"
+#~ msgstr "ミッドウェー諸島"
+
+#~ msgid "Moscow+00 - Caspian Sea"
+#~ msgstr "モスクワ+00 - カスピ海"
+
+#~ msgid "Moscow+00 - west Russia"
+#~ msgstr "モスクワ+00 - 西ロシア"
+
+#~ msgid "Moscow+01 - Samara, Udmurtia"
+#~ msgstr "モスクワ+01 - サマラ、ウドムルト"
+
+#~ msgid "Moscow+02 - Urals"
+#~ msgstr "モスクワ+01 - ウラル"
+
+#~ msgid "Moscow+03 - Novosibirsk"
+#~ msgstr "モスクワ+03 - ノボシビルスク"
+
+#~ msgid "Moscow+03 - west Siberia"
+#~ msgstr "モスクワ+03 - 西シベリア"
+
+#~ msgid "Moscow+04 - Yenisei River"
+#~ msgstr "モスクワ+06 - ヤニセイ川"
+
+#~ msgid "Moscow+05 - Lake Baikal"
+#~ msgstr "モスクワ+05 - バイカル湖"
+
+#~ msgid "Moscow+06 - Lena River"
+#~ msgstr "モスクワ+06 - レナ川"
+
+#~ msgid "Moscow+07 - Amur River"
+#~ msgstr "モスクワ+07 - アムール川"
+
+#~ msgid "Moscow+07 - Sakhalin Island"
+#~ msgstr "モスクワ+07- サハリン島"
+
+#~ msgid "Moscow+08 - Magadan"
+#~ msgstr "モスクワ+08 - マガダン"
+
+#~ msgid "Moscow+09 - Kamchatka"
+#~ msgstr "モスクワ+09 - カムチャッカ"
+
+#~ msgid "Moscow+10 - Bering Sea"
+#~ msgstr "モスクワ+10 - ベーリング海"
+
+#~ msgid "Moscow-01 - Kaliningrad"
+#~ msgstr "モスクワ-01 - カリニングラッド"
+
+#~ msgid "Mountain Standard Time - Arizona"
+#~ msgstr "山岳標準時 - アリゾナ"
+
+#~ msgid ""
+#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+#~ msgstr ""
+#~ "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
+
+#~ msgid "Mountain Standard Time - Sonora"
+#~ msgstr "山岳標準時 - ソノラ"
+
+#~ msgid "Mountain Time"
+#~ msgstr "山岳標準時"
+
+#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+#~ msgstr ""
+#~ "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
+
+#~ msgid "Mountain Time - Chihuahua"
+#~ msgstr "山岳標準時 - チワワ"
+
+#~ msgid "Mountain Time - Navajo"
+#~ msgstr "山岳標準時 - ナバホ"
+
+#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+#~ msgstr "山岳標準時 - 南バハ、ナヤリット、シナロア"
+
+#~ msgid "Mountain Time - central Northwest Territories"
+#~ msgstr "山岳標準時 - 中央北西地方"
+
+#~ msgid "Mountain Time - south Idaho & east Oregon"
+#~ msgstr "山岳標準時 - 南アイダホ、東オレゴン"
+
+#~ msgid "Mountain Time - west Northwest Territories"
+#~ msgstr "山岳標準時 - 西北西地方"
+
+#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
+#~ msgstr "北東 ブラジル (MA, PI, CE, RN, PB)"
+
+#~ msgid "New South Wales - Yancowinna"
+#~ msgstr "ニューサウスウェールズ - Yancowinna"
+
+#~ msgid "New South Wales - most locations"
+#~ msgstr "ニューサウスウェールズ - ほとんどの地域"
+
+#~ msgid "Newfoundland Time, including SE Labrador"
+#~ msgstr "ニューファンドランド時間、 SE ラブラドールを含む"
+
+#~ msgid "Northern Territory"
+#~ msgstr "ノーザンテリトリー"
+
+#~ msgid "Pacific Time"
+#~ msgstr "太平洋時間"
+
+#~ msgid "Pacific Time - north Yukon"
+#~ msgstr "太平洋時間 - 北ユーコン"
+
+#~ msgid "Pacific Time - south Yukon"
+#~ msgstr "太平洋時間 - 南ユーコン"
+
+#~ msgid "Pacific Time - west British Columbia"
+#~ msgstr "太平洋時間 - 西ブリティッシュコロンビア"
+
+#~ msgid "Palmer Station, Anvers Island"
+#~ msgstr "パーマーステーション、アンバーズ島"
+
+# ブラジルの州名らしい
+#~ msgid "Pernambuco"
+#~ msgstr "ペルナンブッコ"
+
+#~ msgid "Phoenix Islands"
+#~ msgstr "フェニックス諸島"
+
+#~ msgid "Ponape (Pohnpei)"
+#~ msgstr "ポナペ (ポンペイ)"
+
+#~ msgid "Queensland - Holiday Islands"
+#~ msgstr "クィーンズランド - ホリディ諸島"
+
+#~ msgid "Queensland - most locations"
+#~ msgstr "クィーンズランド - ほとんどの地域"
+
+#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)(カザフスタン)"
+
+#~ msgid "Roraima"
+#~ msgstr "ロライマ"
+
+#~ msgid "Rothera Station, Adelaide Island"
+#~ msgstr "ローテラステーション、アデレード島"
+
+#~ msgid "Ruthenia"
+#~ msgstr "ルテニア"
+
+#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+#~ msgstr "南及び南東 ブラジル(GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+# ボルネオ半島、東マレーシア
+#~ msgid "Sabah & Sarawak"
+#~ msgstr "サバ・サラワク"
+
+#~ msgid "San Juan (SJ)"
+#~ msgstr "サンファン (SJ)"
+
+#~ msgid "Santa Cruz (SC)"
+#~ msgstr "サンタクルーズ (SC)"
+
+#~ msgid "Scoresbysund / Ittoqqortoormiit"
+#~ msgstr "Scoresbysund / Ittoqqortoormiit(グリーンランド)"
+
+#~ msgid "Society Islands"
+#~ msgstr "ソシエテ諸島"
+
+#~ msgid "South Australia"
+#~ msgstr "サウスオーストラリア"
+
+# Norway
+#~ msgid "Svalbard"
+#~ msgstr "スバールバル"
+
+#~ msgid "Syowa Station, E Ongul I"
+#~ msgstr "昭和基地、東オングル島"
+
+#~ msgid "Tasmania - King Island"
+#~ msgstr "タスマニア - キング島"
+
+#~ msgid "Tasmania - most locations"
+#~ msgstr "タスマニア - ほとんどの地域"
+
+#~ msgid "Thule / Pituffik"
+#~ msgstr "チューレ/Pituffik(グリーンランド)"
+
+#~ msgid "Tierra del Fuego (TF)"
+#~ msgstr "ティエラデルフエゴ"
+
+#~ msgid "Tocantins"
+#~ msgstr "トカンチン"
+
+#~ msgid "Truk (Chuuk) and Yap"
+#~ msgstr "トラック (チューク環礁) とヤップ島"
+
+#~ msgid "Tucuman (TM)"
+#~ msgstr "ツクマン"
+
+#~ msgid "Victoria"
+#~ msgstr "ヴィクトリア"
+
+#~ msgid "Vostok Station, S Magnetic Pole"
+#~ msgstr "ヴォストーク基地、南極"
+
+#~ msgid "W Amazonas"
+#~ msgstr "西アマゾン"
+
+#~ msgid "W Para, Rondonia"
+#~ msgstr "西パラ、ロンドニア"
+
+#~ msgid "Wake Island"
+#~ msgstr "ウェイク諸島"
+
+#~ msgid "West Kazakhstan"
+#~ msgstr "西カザフスタン"
+
+#~ msgid "Western Australia - Eucla area"
+#~ msgstr "西オーストラリア - ユークラ地域"
+
+#~ msgid "Western Australia - most locations"
+#~ msgstr "西オーストラリア - ほとんどの地域"
+
+#~ msgid "Zaporozh'ye, E Lugansk"
+#~ msgstr "ザポロージェ/東ルガンスク"
+
+#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+#~ msgstr "中国中央部 - 四川、雲南、広西、陝西、貴州など"
+
+#~ msgid "central Crimea"
+#~ msgstr "中央クリミア"
+
+#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+#~ msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
+
+#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
+#~ msgstr "中国東部---北京、広東、上海など"
+
+#~ msgid "east Dem. Rep. of Congo"
+#~ msgstr "東コンゴ民主共和国"
+
+#~ msgid "east Uzbekistan"
+#~ msgstr "東ウズベキスタン"
+
+#~ msgid "east coast, north of Scoresbysund"
+#~ msgstr "東海岸 --Scoresbysundの北部"
+
+#~ msgid "mainland"
+#~ msgstr "本土"
+
+#~ msgid "most locations"
+#~ msgstr "ほとんどの地域"
+
+#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+#~ msgstr "ほとんどの地域(CB, CC, CH, ER, FM, LP, LR, MN, NQ, RN, SE, SF, SL)"
+
+#~ msgid "most of Tibet & Xinjiang"
+#~ msgstr "チベット及び新疆のほとんど"
+
+#~ msgid "peninsular Malaysia"
+#~ msgstr "マレーシア半島"
+
+#~ msgid "west & central Borneo"
+#~ msgstr "西、中央ボルネオ"
+
+#~ msgid "west Dem. Rep. of Congo"
+#~ msgstr "西コンゴ民主共和国"
+
+#~ msgid "west Tibet & Xinjiang"
+#~ msgstr "西チベット及び新疆"
+
+#~ msgid "west Uzbekistan"
+#~ msgstr "西ウズベキスタン"

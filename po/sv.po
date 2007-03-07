@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-08 10:49-0500\n"
+"POT-Creation-Date: 2007-03-07 11:24-0500\n"
 "PO-Revision-Date: 2007-02-09 10:09-0500\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -11,63 +11,74 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:268
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "Okänt fel"
 
-#: ../anaconda:271
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Fel vid hämtning av andra delen av kickstartkonfigurationen: %s!"
 
-#: ../anaconda:399
+#: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
+#, c-format, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Följande fel upptäcktes vid tolkning av din kickstart-konfiguration:\n"
+"\n"
+"%s"
+
+#: ../anaconda:401
 msgid "Press <enter> for a shell"
 msgstr "Tryck <retur> för ett skal"
 
-#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
+#: ../rescue.py:445 ../text.py:440 ../text.py:599 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
-#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
-#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
-#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
-#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
-#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:36
+#: ../textw/network_text.py:46 ../textw/network_text.py:68
+#: ../textw/network_text.py:74 ../textw/network_text.py:222
+#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
+#: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
+#: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
-#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:421
+#: ../anaconda:423
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -75,39 +86,39 @@ msgstr ""
 "Du har inte tillräckligt med minne för att använda det grafiska "
 "installationsprogrammet. Startar textläge."
 
-#: ../anaconda:437
+#: ../anaconda:439
 msgid "No video hardware found, assuming headless"
 msgstr "Ingen grafikhårdvara hittades, antar huvudlöst"
 
-#: ../anaconda:444 ../anaconda:896
+#: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Kan inte skapa en instans av ett X-hårdvarutillståndsobjekt."
 
-#: ../anaconda:501
+#: ../anaconda:503
 msgid "Starting graphical installation..."
 msgstr "Startar grafisk installation..."
 
-#: ../anaconda:761
+#: ../anaconda:763
 msgid "Install class forcing text mode installation"
 msgstr "Installationsklassen påtvingar textlägesinstallation"
 
-#: ../anaconda:793
+#: ../anaconda:795
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafisk installation är inte tillgänglig... Startar textläge."
 
-#: ../anaconda:801
+#: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY-variabeln är inte satt. Startar textläge!"
 
-#: ../anaconda:862
+#: ../anaconda:864
 msgid "Unknown install method"
 msgstr "Okänd installationsmetod"
 
-#: ../anaconda:863
+#: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Du har angivit en installationsmetod som inte stöds av anaconda."
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "unknown install method: %s"
 msgstr "okänd installationsmetod: %s"
@@ -200,11 +211,11 @@ msgstr ""
 "Att lägga till denna partition skulle inte lämna tillräckligt med utrymme "
 "för redan allokerade logiska volymer i %s."
 
-#: ../autopart.py:1255
+#: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
 msgstr "Begärd partition finns inte"
 
-#: ../autopart.py:1256
+#: ../autopart.py:1260
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -215,11 +226,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1283
+#: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Begärd raid-enhet finns inte"
 
-#: ../autopart.py:1284
+#: ../autopart.py:1288
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -230,11 +241,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1315
+#: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Begärd volymgrupp finns inte"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1320
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -245,11 +256,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1353
+#: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Begärd logisk volym finns inte"
 
-#: ../autopart.py:1354
+#: ../autopart.py:1358
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -260,11 +271,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1470 ../autopart.py:1517
+#: ../autopart.py:1474 ../autopart.py:1521
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1475
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -279,11 +290,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1481
+#: ../autopart.py:1485
 msgid "Warnings During Automatic Partitioning"
 msgstr "Varningar under automatisk partitionering"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1486
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -294,7 +305,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1496 ../autopart.py:1513
+#: ../autopart.py:1500 ../autopart.py:1517
 msgid ""
 "\n"
 "\n"
@@ -304,12 +315,12 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../autopart.py:1501 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Fel vid partitionering"
 
-#: ../autopart.py:1498
+#: ../autopart.py:1502
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -320,7 +331,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1519
 msgid ""
 "\n"
 "\n"
@@ -330,15 +341,15 @@ msgstr ""
 "\n"
 "Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
-#: ../autopart.py:1518
-#, python-format
+#: ../autopart.py:1522
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 msgstr ""
 "Följande fel inträffade med din partitionering:\n"
 "\n"
@@ -347,27 +358,27 @@ msgstr ""
 "Detta kan inträffa om det inte finns tillräckligt med utrymme på din(a) "
 "hårddisk(ar) för installationen.%s"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1533
 msgid "Unrecoverable Error"
 msgstr "Olösligt fel"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1534
 msgid "Your system will now be rebooted."
 msgstr "Ditt system kommer nu att startas om."
 
-#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
-#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
+#: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
+#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:448
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Varning"
 
-#: ../autopart.py:1683
+#: ../autopart.py:1687
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -384,7 +395,7 @@ msgstr ""
 "partitioner i en interaktiv miljö. Du kan ange filsystemstyper, "
 "monteringspunkter, storlek med mera."
 
-#: ../autopart.py:1694
+#: ../autopart.py:1698
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -392,19 +403,19 @@ msgstr ""
 "Innan installationsprogrammet kan genomföra automatisk partitionering måste "
 "du välja hur utrymmet på dina hårddiskar ska användas."
 
-#: ../autopart.py:1699
+#: ../autopart.py:1703
 msgid "Remove all partitions on this system"
 msgstr "Ta bort alla partitioner på detta system"
 
-#: ../autopart.py:1700
+#: ../autopart.py:1704
 msgid "Remove all Linux partitions on this system"
 msgstr "Ta bort alla Linuxpartitioner på detta system"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1705
 msgid "Keep all partitions and use existing free space"
 msgstr "Behåll alla partitioner och använd befintligt ledigt utrymme"
 
-#: ../autopart.py:1703
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -415,7 +426,7 @@ msgstr ""
 "s\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../autopart.py:1707
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -426,12 +437,12 @@ msgstr ""
 "följande hårddiskar:%s\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../backend.py:106
+#: ../backend.py:176
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Uppgraderar %s\n"
 
-#: ../backend.py:108
+#: ../backend.py:178
 #, python-format
 msgid "Installing %s\n"
 msgstr "Installerar %s\n"
@@ -460,17 +471,6 @@ msgstr "Färdigt"
 msgid "In progress...   "
 msgstr "Pågår...   "
 
-#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"Följande fel upptäcktes vid tolkning av din kickstart-konfiguration:\n"
-"\n"
-"%s"
-
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "Kan inte ha en fråga i kommandoradsläge!"
@@ -478,16 +478,6 @@ msgstr "Kan inte ha en fråga i kommandoradsläge!"
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Parted-undantag kan inte hanteras i kommandoradsläge!"
-
-#: ../cmdline.py:145
-#, python-format
-msgid "Done [%d/%d]"
-msgstr "Klart [%d/%d]"
-
-#: ../cmdline.py:151
-#, python-format
-msgid "Installing %s-%s-%s... "
-msgstr "Installerar %s-%s-%s... "
 
 #: ../constants.py:65
 #, python-format
@@ -500,11 +490,11 @@ msgstr ""
 "sannolikhet ett fel. Var vänlig och spara en kopia av detaljerna från detta "
 "undantagsfel och skapa en felrapport för anaconda på %s"
 
-#: ../exception.py:401 ../exception.py:418
+#: ../exception.py:415 ../exception.py:432
 msgid "Dump Written"
 msgstr "Minnesdump skriven"
 
-#: ../exception.py:402
+#: ../exception.py:416
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -512,23 +502,23 @@ msgstr ""
 "Ditt systemtillstånd har skrivits till disketten utan problem. Ditt system "
 "kommer nu att startas om."
 
-#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
-#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
+#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: ../exception.py:410 ../exception.py:427
+#: ../exception.py:424 ../exception.py:441
 msgid "Dump Not Written"
 msgstr "Minnesdump inte skriven"
 
-#: ../exception.py:411
+#: ../exception.py:425
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "Det uppstod ett problem vid skrivning av systemtillståndet till en diskett."
 
-#: ../exception.py:419
+#: ../exception.py:433
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -536,7 +526,7 @@ msgstr ""
 "Ditt systemtillstånd har skrivits till fjärrvärden utan problem. Ditt system "
 "kommer nu att startas om."
 
-#: ../exception.py:428
+#: ../exception.py:442
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Det uppstod ett problem med att skriva systemtillståndet till en fjärrvärd."
@@ -554,29 +544,29 @@ msgstr "Söker efter skadade block på /dev/%s..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
-#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
-#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
+#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
-#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
 #: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
-#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:348 ../loader2/urls.c:353
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Fel"
 
@@ -627,9 +617,9 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1480 ../packages.py:283 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
 msgstr "Hoppa över"
 
@@ -715,7 +705,7 @@ msgstr ""
 "partition under uppgraderingen. Välj Formatera för att formatera partitionen "
 "som växlingsutrymme. Välj Starta om för att starta om systemet."
 
-#: ../fsset.py:1536 ../iw/partition_gui.py:367
+#: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formatera"
 
@@ -847,8 +837,8 @@ msgstr ""
 "Ett fel inträffade vid montering av enhet %s som %s.  Du kan fortsätta "
 "installationen men det kan bli problem."
 
-#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
-#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
+#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Fortsätt"
 
@@ -881,11 +871,11 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:2447
+#: ../fsset.py:2448
 msgid "Duplicate Labels"
 msgstr "Dublettetiketter"
 
-#: ../fsset.py:2448
+#: ../fsset.py:2449
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -898,24 +888,24 @@ msgstr ""
 "\n"
 "Korrigera detta problem och starta om installationen."
 
-#: ../fsset.py:2708
+#: ../fsset.py:2709
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:2709
+#: ../fsset.py:2710
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterar %s-filsystem..."
 
-#: ../gui.py:106
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "Ett fel inträffade vid kopiering av skärmdumparna."
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "Skärmdumpar kopierade"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -929,20 +919,20 @@ msgstr ""
 "\n"
 "Du kan komma åt dessa när du startar om och loggar in som root."
 
-#: ../gui.py:161
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr "Sparar skärmdump"
 
-#: ../gui.py:162
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "En skärmdump med namnet \"%s\" har sparats."
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr "Fel vid sparande av skärmdump"
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -951,52 +941,58 @@ msgstr ""
 "installation av paket kan du behöva försöka flera gånger för att det ska "
 "lyckas."
 
-#: ../gui.py:231 ../text.py:391
+#: ../gui.py:232 ../text.py:437
 msgid "Fix"
 msgstr "Fixa"
 
-#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
+#: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
+#: ../gui.py:234 ../rescue.py:203 ../rescue.py:205 ../text.py:439
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:405
 msgid "No"
 msgstr "Nej"
 
-#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
-#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
-#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../gui.py:236 ../text.py:441 ../text.py:569 ../loader2/net.c:93
+#: ../loader2/net.c:325 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1206
+#: ../loader2/net.c:1212
 msgid "Retry"
 msgstr "Försök igen"
 
-#: ../gui.py:236 ../text.py:396
+#: ../gui.py:237 ../text.py:442
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
-#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
+#: ../text.py:416 ../text.py:443 ../iw/bootloader_advanced_gui.py:47
+#: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:339 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:735 tmp/anaconda.glade.h:2
+#: ../gui.py:604 ../text.py:357
+#, fuzzy
+msgid "Installation Key"
+msgstr "Installationstyp"
+
+#: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_Felsök"
 
-#: ../gui.py:897 ../text.py:356
+#: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr "Fel vid tolkning av kickstartkonfigurationen"
 
-#: ../gui.py:905 ../text.py:366
+#: ../gui.py:967 ../text.py:412
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1005,15 +1001,15 @@ msgstr ""
 "var noga med valet av diskett."
 
 # Antar att detta är vänster-till-höger.
-#: ../gui.py:952
+#: ../gui.py:1014
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1036
+#: ../gui.py:1100 ../text.py:564
 msgid "Error!"
 msgstr "Fel!"
 
-#: ../gui.py:1037
+#: ../gui.py:1101 ../text.py:565
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1025,36 +1021,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
+#: ../gui.py:1106 ../gui.py:1111 ../packages.py:332 ../packages.py:337
 msgid "_Exit"
 msgstr "_Avsluta"
 
-#: ../gui.py:1043 ../yuminstall.py:754
+#: ../gui.py:1107 ../yuminstall.py:608
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: ../gui.py:1046 ../packages.py:295
+#: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
 msgstr "Installationsprogrammet kommer nu att avslutas..."
 
-#: ../gui.py:1049 ../packages.py:298
+#: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
 msgstr "Ditt system kommer nu att startas om..."
 
-#: ../gui.py:1052 ../packages.py:300
+#: ../gui.py:1116 ../packages.py:341
 msgid "Rebooting System"
 msgstr "Startar om system"
 
-#: ../gui.py:1116
+#: ../gui.py:1180
 #, python-format
 msgid "%s Installer"
 msgstr "Installationsprogram för %s"
 
-#: ../gui.py:1123
+#: ../gui.py:1187
 msgid "Unable to load title bar"
 msgstr "Kan inte läsa in titelrad"
 
-#: ../gui.py:1177
+#: ../gui.py:1242
 msgid "Install Window"
 msgstr "Installationsfönster"
 
@@ -1120,8 +1116,8 @@ msgstr ""
 "Ha dessa tillhands innan du fortsätter med installationen. Om du måste "
 "avbryta installationen och starta om bör du välja \"Starta om\"."
 
-#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
+#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "Till_baka"
@@ -1224,7 +1220,7 @@ msgstr ""
 "Försök igen.\n"
 "Klicka på Starta om för att avbryta installationen."
 
-#: ../installclass.py:65
+#: ../installclass.py:66
 msgid "Install on System"
 msgstr "Installera på system"
 
@@ -1232,11 +1228,11 @@ msgstr "Installera på system"
 msgid "Initializing iSCSI initiator"
 msgstr "Initierar iSCSI initierare"
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 msgid "Scriptlet Failure"
 msgstr "Skriptfel"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:76
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1249,23 +1245,23 @@ msgstr ""
 "\n"
 "Tryck OK-knappen för att starta om ditt system."
 
-#: ../kickstart.py:869 ../kickstart.py:886
+#: ../kickstart.py:930 ../kickstart.py:947
 msgid "Running..."
 msgstr "Kör..."
 
-#: ../kickstart.py:870
+#: ../kickstart.py:931
 msgid "Running post-install scripts"
 msgstr "Kör efterinstallationsskript"
 
-#: ../kickstart.py:887
+#: ../kickstart.py:948
 msgid "Running pre-install scripts"
 msgstr "Kör förinstallationsskript"
 
-#: ../kickstart.py:918
+#: ../kickstart.py:979
 msgid "Missing Package"
 msgstr "Paket saknas"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:980
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1274,16 +1270,16 @@ msgstr ""
 "Du har angivit att paketet \"%s\" ska installeras. Detta paket finns inte. "
 "Vill du fortsätta eller avbryta din installation?"
 
-#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
-#: ../yuminstall.py:864
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
+#: ../yuminstall.py:720
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: ../kickstart.py:945
+#: ../kickstart.py:1016
 msgid "Missing Group"
 msgstr "Grupp saknas"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:1017
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1292,11 +1288,11 @@ msgstr ""
 "Du har angivit att gruppen \"%s\" ska installeras. Denna grupp finns inte. "
 "Vill du fortsätta eller avbryta din installation?"
 
-#: ../livecd.py:77 ../livecd.py:262
+#: ../livecd.py:77 ../livecd.py:263
 msgid "Unable to find image"
 msgstr "Kunde inte hitta avbild"
 
-#: ../livecd.py:78 ../livecd.py:263
+#: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
@@ -1304,15 +1300,20 @@ msgstr ""
 "Den angivna platsen är inte en giltig %s live CD som kan användas som "
 "installationskälla."
 
-#: ../livecd.py:82 ../livecd.py:267
+#: ../livecd.py:82 ../livecd.py:268
 msgid "Exit installer"
 msgstr "Avsluta installationsprogram"
 
-#: ../livecd.py:144
+#: ../livecd.py:113
+#, fuzzy
+msgid "Copying live image to hard drive."
+msgstr "Överför installationsavbilden till hårddisken..."
+
+#: ../livecd.py:145
 msgid "Doing post-installation"
 msgstr "Utför efterinstallation"
 
-#: ../livecd.py:145
+#: ../livecd.py:146
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
@@ -1357,24 +1358,26 @@ msgstr "'%s' är ingen giltig IPv6-adress."
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' är ingen giltig IP-adress."
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr "Ange registreringsnyckeln för din version av %s."
+#: ../packages.py:257
+#, fuzzy
+msgid "Invalid Key"
+msgstr "Ogiltigt prefix"
 
-#: ../packages.py:245
-msgid "Enter Registration Key"
-msgstr "Ange registreringsnyckel"
+#: ../packages.py:258
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "Värdet du angav är inte ett giltigt tal."
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr "Nyckel:"
+#: ../packages.py:286
+#, fuzzy
+msgid "_Skip"
+msgstr "Hoppa över"
 
-#: ../packages.py:277
+#: ../packages.py:318
 msgid "Warning! This is pre-release software!"
 msgstr "Varning! Detta är en förhandsutgåva!"
 
-#: ../packages.py:278
+#: ../packages.py:319
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1401,9 +1404,115 @@ msgstr ""
 "\n"
 "och fyller i en felrapport mot \"%s\".\n"
 
-#: ../packages.py:291
+#: ../packages.py:332
 msgid "_Install anyway"
 msgstr "_Installera ändå"
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Främmande"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
+"DASD:er stöds inte för användning under en installation av %s. Om du vill "
+"använda denna hårddisk för installation måste den initieras om, vilket "
+"kommer att förstöra ALL DATA på denna enhet.\n"
+"\n"
+"Vill du formatera om denna DASD med CDL-format?"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s har en %s-partitionslayout. För att denna disk ska kunna användas "
+"för installation av %s måste den initieras om, vilket kommer att förstöra "
+"ALL DATA på denna enhet.\n"
+"\n"
+"Vill du initiera denna enhet?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Ignorera enhet"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "Initierar"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Vänta medan enhet %s formateras...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Partitionstabellen på enhet %s (%s) är oläsbar. För att skapa nya "
+"partitioner måste den initieras, vilket kommer att förstöra ALL DATA på "
+"denna enhet.\n"
+"\n"
+"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
+"vilka enheter som ska ignoreras.\n"
+"\n"
+"Vill du initiera denna enhet och ta bort ALL DATA?"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
+"måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
+"\n"
+"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
+"vilka enheter som ska ignoreras.\n"
+"\n"
+"Vill du initiera denna enhet och ta bort ALL DATA?"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "Inga hårddiskar hittades"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Ett fel har uppstått - inga giltiga enheter som kan användas för att skapa "
+"nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
+"problem."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1722,200 +1831,6 @@ msgstr ""
 "Är du säker på att du vill återställa partitionstabellen till dess "
 "ursprungliga tillstånd?"
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Denna monteringspunkt är ogiltig. Katalogen %s måste vara på /-filsystemet."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"Monteringspunkten %s kan inte användas. Den måste vara en symbolisk länk för "
-"att systemet ska fungera korrekt. Välj en annan monteringspunkt."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "Denna monteringspunkt måste vara på ett Linuxfilsystem."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr "Monteringspunkten \"%s\" används redan, välj en annan monteringspunkt."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"Storleken på %s-partitionen (%10.2f MB) överskrider maxstorleken på %10.2f "
-"MB."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"Storleken på den begärda partitionen (storlek = %s MB) överskrider "
-"maxstorleken på %s MB."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Storleken på den begärda partitionen är negativ! (storlek = %s MB)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Partitioner kan inte börja innan den första cylindern."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Partitioner kan inte sluta på en negativ cylinder."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "Inga medlemmar i RAID-begäran, eller ingen RAID-nivå angiven."
-
-#: ../partRequests.py:677 ../partitions.py:954
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "En RAID-enhet av typ %s kräver minst %s medlemmar."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Denna RAID-enhet kan maximalt ha %s reserver. För att lägga till reserver "
-"måste du lägga till medlemmar i RAID-enheten."
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-"Logiska volymstorleken måste vara större än volymgruppens fysiska extent "
-"storlek."
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "Främmande"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
-"DASD:er stöds inte för användning under en installation av %s. Om du vill "
-"använda denna hårddisk för installation måste den initieras om, vilket "
-"kommer att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Vill du formatera om denna DASD med CDL-format?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"/dev/%s har en %s-partitionslayout. För att denna disk ska kunna användas "
-"för installation av %s måste den initieras om, vilket kommer att förstöra "
-"ALL DATA på denna enhet.\n"
-"\n"
-"Vill du initiera denna enhet?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Ignorera enhet"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "_Formatera enhet"
-
-#: ../partedUtils.py:898
-msgid "Initializing"
-msgstr "Initierar"
-
-#: ../partedUtils.py:899
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Vänta medan enhet %s formateras...\n"
-
-#: ../partedUtils.py:1019
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Partitionstabellen på enhet %s (%s) är oläsbar. För att skapa nya "
-"partitioner måste den initieras, vilket kommer att förstöra ALL DATA på "
-"denna enhet.\n"
-"\n"
-"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
-"vilka enheter som ska ignoreras.\n"
-"\n"
-"Vill du initiera denna enhet och ta bort ALL DATA?"
-
-#: ../partedUtils.py:1083
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
-"måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
-"\n"
-"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
-"vilka enheter som ska ignoreras.\n"
-"\n"
-"Vill du initiera denna enhet och ta bort ALL DATA?"
-
-#: ../partedUtils.py:1204
-msgid "No Drives Found"
-msgstr "Inga hårddiskar hittades"
-
-#: ../partedUtils.py:1205
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Ett fel har uppstått - inga giltiga enheter som kan användas för att skapa "
-"nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
-"problem."
-
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Installationen kan inte fortsätta."
@@ -2009,6 +1924,10 @@ msgstr ""
 "Installerar på en FireWire-enhet. Detta kan skapa ett fungerande system, men "
 "det är inte säkert."
 
+#: ../partitions.py:954 ../partRequests.py:679
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
+
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Startbara partitioner kan endast finnas på en logisk volym."
@@ -2052,6 +1971,90 @@ msgstr "en partition som är medlem i en RAID-kedja."
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "en partition som är medlem i en LVM-volymgrupp."
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Denna monteringspunkt är ogiltig. Katalogen %s måste vara på /-filsystemet."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Monteringspunkten %s kan inte användas. Den måste vara en symbolisk länk för "
+"att systemet ska fungera korrekt. Välj en annan monteringspunkt."
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr "Denna monteringspunkt måste vara på ett Linuxfilsystem."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr "Monteringspunkten \"%s\" används redan, välj en annan monteringspunkt."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"Storleken på %s-partitionen (%10.2f MB) överskrider maxstorleken på %10.2f "
+"MB."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"Storleken på den begärda partitionen (storlek = %s MB) överskrider "
+"maxstorleken på %s MB."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "Storleken på den begärda partitionen är negativ! (storlek = %s MB)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "Partitioner kan inte börja innan den första cylindern."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Partitioner kan inte sluta på en negativ cylinder."
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr "Inga medlemmar i RAID-begäran, eller ingen RAID-nivå angiven."
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "En RAID-enhet av typ %s kräver minst %s medlemmar."
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Denna RAID-enhet kan maximalt ha %s reserver. För att lägga till reserver "
+"måste du lägga till medlemmar i RAID-enheten."
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"Logiska volymstorleken måste vara större än volymgruppens fysiska extent "
+"storlek."
+
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "Startar gränssnittet"
@@ -2074,11 +2077,11 @@ msgstr "Konfigurera nätverk"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
-#: ../rescue.py:243 ../text.py:534
+#: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
 msgstr "Avbruten"
 
-#: ../rescue.py:244 ../text.py:535
+#: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
@@ -2111,7 +2114,7 @@ msgstr ""
 "direkt.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
@@ -2129,7 +2132,7 @@ msgstr "System att rädda"
 msgid "What partition holds the root partition of your installation?"
 msgstr "Vilken partition innehåller rotpartitionen i din installation?"
 
-#: ../rescue.py:321 ../rescue.py:325
+#: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
 msgstr "Avsluta"
 
@@ -2197,67 +2200,77 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Ditt system är monterat under katalogen %s."
 
-#: ../text.py:149 ../text.py:164
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "Spara"
 
-#: ../text.py:152 ../text.py:166
+#: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr "Fjärr"
 
-#: ../text.py:154 ../text.py:162
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "Felsökning"
 
-#: ../text.py:158
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "Undantagsfel inträffade"
 
-#: ../text.py:187
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr "Spara till fjärrvärd"
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Host"
 msgstr "Värd"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Remote path"
 msgstr "Fjärrsökväg"
 
-#: ../text.py:194
+#: ../text.py:195
 msgid "User name"
 msgstr "Användarnamn"
 
-#: ../text.py:196
+#: ../text.py:197
 msgid "Password"
 msgstr "Lösenord"
 
-#: ../text.py:253
+#: ../text.py:254
 msgid "Help not available"
 msgstr "Hjälp inte tillgänglig"
 
-#: ../text.py:254
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "Ingen hjälp finns tillgänglig för detta steg i installationen."
 
-#: ../text.py:365
+#: ../text.py:362
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "Ange användarnamn"
+
+#: ../text.py:379 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:411
 msgid "Save Crash Dump"
 msgstr "Spara kraschdump"
 
-#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Välkommen till %s"
 
-#: ../text.py:423
+#: ../text.py:469
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> för hjälp | <Tab> mellan element | <Blanksteg> väljer | <F12> nästa "
 "skärm"
 
-#: ../text.py:425
+#: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2444,7 +2457,7 @@ msgstr ""
 "övervaka installationsförloppet. Ange ett lösenord att använda för "
 "installationen"
 
-#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
 msgstr "Lösenord:"
 
@@ -2559,59 +2572,89 @@ msgstr "Anslut till %s för att påbörja installationen..."
 msgid "Please connect to begin the install..."
 msgstr "Anslut för att påbörja installationen..."
 
-#: ../yuminstall.py:100
+#: ../yuminstall.py:73
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../yuminstall.py:76
+#, python-format
+msgid "%s KB"
+msgstr "%s kB"
+
+#: ../yuminstall.py:79
+#, python-format
+msgid "%s Byte"
+msgstr "%s byte"
+
+#: ../yuminstall.py:81
+#, python-format
+msgid "%s Bytes"
+msgstr "%s byte"
+
+#: ../yuminstall.py:129
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../yuminstall.py:101
+#: ../yuminstall.py:130
 msgid "Preparing transaction from installation source..."
 msgstr "Förbereder transaktion från installationskälla..."
 
-#: ../yuminstall.py:614 ../yuminstall.py:615
+#: ../yuminstall.py:160
+#, fuzzy, python-format
+msgid "<b>Installing %s</b> (%s)\n"
+msgstr "Installerar %s\n"
+
+#: ../yuminstall.py:194
+#, python-format
+msgid "%s of %s packages completed"
+msgstr ""
+
+#: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:533
 msgid "older package(s)"
 msgstr "äldre paket"
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:534
 msgid "insufficient disk space"
 msgstr "inte tillräckligt med diskutrymme"
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:535
 msgid "insufficient disk inodes"
 msgstr "inte tillräckligt med diskinoder"
 
-#: ../yuminstall.py:619
+#: ../yuminstall.py:536
 msgid "package conflicts"
 msgstr "paketkonflikter"
 
-#: ../yuminstall.py:620
+#: ../yuminstall.py:537
 msgid "package already installed"
 msgstr "paket som redan är installerat"
 
-#: ../yuminstall.py:621
+#: ../yuminstall.py:538
 msgid "required package"
 msgstr "paket som krävs"
 
-#: ../yuminstall.py:622
+#: ../yuminstall.py:539
 msgid "package for incorrect arch"
 msgstr "paket för felaktig arkitektur"
 
-#: ../yuminstall.py:623
+#: ../yuminstall.py:540
 msgid "package for incorrect os"
 msgstr "paket för felaktigt os"
 
-#: ../yuminstall.py:637
+#: ../yuminstall.py:554
 msgid "You need more space on the following file systems:\n"
 msgstr "Du behöver mer utrymme på följande filsystem:\n"
 
-#: ../yuminstall.py:653
+#: ../yuminstall.py:570
 msgid "Error running transaction"
 msgstr "Fel vid körning av transaktion"
 
-#: ../yuminstall.py:654
+#: ../yuminstall.py:571
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2619,21 +2662,21 @@ msgstr ""
 "Ett fel uppstod under körningen av transaktionen, av följande anledning(ar): "
 "%s"
 
-#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
+#: ../yuminstall.py:930
 msgid "Re_boot"
 msgstr "Starta _om"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:699
 msgid "Retrieving installation information..."
 msgstr "Hämtar installationsinformation..."
 
-#: ../yuminstall.py:845
+#: ../yuminstall.py:701
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Hämtar installationsinformation för %s..."
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2643,7 +2686,7 @@ msgstr ""
 "Kan inte läsa paketmetadata. Detta kan bero på att repodata-katalogen "
 "saknas. Försäkra dig om att ditt installationsträd genererats korrekt. %s"
 
-#: ../yuminstall.py:883
+#: ../yuminstall.py:739
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2651,11 +2694,11 @@ msgstr ""
 "Kan inte läsa gruppinformation från datalager.  Detta är ett problem med "
 "generationen av ditt installationsträd."
 
-#: ../yuminstall.py:915
+#: ../yuminstall.py:771
 msgid "Uncategorized"
 msgstr "Okategoriserat"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:924
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2665,7 +2708,7 @@ msgstr ""
 "du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller starta "
 "om."
 
-#: ../yuminstall.py:1289
+#: ../yuminstall.py:1085
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2675,45 +2718,45 @@ msgstr ""
 "uppgradera till denna version av %s. Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../yuminstall.py:1321
+#: ../yuminstall.py:1113
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../yuminstall.py:1322
+#: ../yuminstall.py:1114
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Startar installationen. Detta kan ta flera minuter..."
 
-#: ../yuminstall.py:1338
+#: ../yuminstall.py:1130
 msgid "Post Upgrade"
 msgstr "Efteruppgradering"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället, och motsvarande.
-#: ../yuminstall.py:1339
+#: ../yuminstall.py:1131
 msgid "Performing post upgrade configuration..."
 msgstr "Utför konfigurering efter uppgradering..."
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
-#: ../yuminstall.py:1341
+#: ../yuminstall.py:1133
 msgid "Post Install"
 msgstr "Efter installation"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället.
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1134
 msgid "Performing post install configuration..."
 msgstr "Utför konfiguration efter installation..."
 
-#: ../yuminstall.py:1524
+#: ../yuminstall.py:1327
 msgid "Installation Progress"
 msgstr "Installationsförlopp"
 
-#: ../yuminstall.py:1559
+#: ../yuminstall.py:1362
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../yuminstall.py:1560
+#: ../yuminstall.py:1363
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
@@ -2757,9 +2800,9 @@ msgid "The root password must be at least six characters long."
 msgstr "Root-lösenordet måste vara minst sex tecken långt."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Det begärda lösenordet innehåller tecken som inte är ascii och som inte är "
 "tillåtna för användning i lösenord."
@@ -2772,41 +2815,42 @@ msgstr ""
 "root-kontot används för administration av systemet. Ange ett lösenord för "
 "root-användaren."
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:108
 msgid "Root _Password: "
 msgstr "R_oot-lösenord: "
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:111
 msgid "_Confirm: "
 msgstr "B_ekräfta: "
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:147
 msgid "Invalid Initiator Name"
 msgstr "Ogiltigt initierarnamn"
 
-#: ../iw/autopart_type.py:138
-msgid "You must provide a non-zero length initiator name."
+#: ../iw/autopart_type.py:148
+#, fuzzy
+msgid "You must provide an initiator name."
 msgstr "Du måste ange ett initierarnamn."
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Fel med data"
 
-#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
+#: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 "Ta bort alla partitioner på valda enheter och skapa en anpassad layout."
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
+#: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Ta bort Linuxpartitioner på valda enheter och skapa en anpassad layout."
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
+#: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr "Använd ledigt utrymme på valda enheter och skapa en anpassad layout."
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
+#: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr "Skapa anpassad layout."
 
@@ -2852,13 +2896,14 @@ msgstr "B_ekräfta:"
 msgid "Passwords don't match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:439
 msgid "Passwords do not match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
+#, fuzzy
 msgid ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -2872,10 +2917,11 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "Avancerad konfiguration av startprogram"
 
-#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
+#, fuzzy
 msgid ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
@@ -2905,8 +2951,8 @@ msgid "_General kernel parameters"
 msgstr "_Allmänna parametrar till kärnan"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
-#: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
 msgstr "Konfiguration av startprogram"
 
@@ -3063,10 +3109,10 @@ msgid "_Upgrade an existing installation"
 msgstr "_Uppgradera en befintlig installation"
 
 #: ../iw/examine_gui.py:58
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 msgstr ""
 "Välj detta alternativ om du vill uppgradera ditt befintliga %s-system. Detta "
 "alternativ kommer att bevara befintlig data på dina hårddiskar."
@@ -3110,12 +3156,13 @@ msgid "Confirm Physical Extent Change"
 msgstr "Bekräfta ändring av fysisk yta"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 msgstr ""
 "Denna ändring i värdet på den fysiska ytan kommer att kräva att kraven på "
 "storleken på den aktuella logiska volymen avrundas uppåt i storlek till en "
@@ -3124,7 +3171,7 @@ msgstr ""
 "Denna ändring kommer att börja gälla omedelbart."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "F_ortsätt"
 
@@ -3255,8 +3302,8 @@ msgid "Mount point in use"
 msgstr "Monteringspunkten används"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, python-format
-msgid "The mount point \"%s\" is in use, please pick another."
+#, fuzzy, python-format
+msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Monteringspunkten \"%s\" används, välj en annan."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
@@ -3273,10 +3320,10 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiska volymnamnet \"%s\" används redan. Välj ett annat."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can create more Physical "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
@@ -3317,9 +3364,10 @@ msgid "No free space"
 msgstr "Inget ledigt utrymme"
 
 #: ../iw/lvm_dialog_gui.py:728
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
-"add a logical volume you will need to reduce the size of one or more of the "
+"add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "Det finns inget utrymme ledigt i volymgruppen för att skapa nya logiska "
@@ -3327,8 +3375,8 @@ msgstr ""
 "eller flera av de befintliga logiska volymerna"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, python-format
-msgid "Are you sure you want to Delete the logical volume \"%s\"?"
+#, fuzzy, python-format
+msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Är du säker på att du vill ta bort den logiska volymen \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
@@ -3406,13 +3454,13 @@ msgstr "Totalt utrymme:"
 msgid "Logical Volume Name"
 msgstr "Namn på logisk volym"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Storlek (MB)"
 
@@ -3420,7 +3468,7 @@ msgstr "Storlek (MB)"
 msgid "_Add"
 msgstr "_Lägg till"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_Redigera"
@@ -3465,11 +3513,11 @@ msgstr "E_mulera 3 knappar"
 msgid "Select the appropriate mouse for the system."
 msgstr "Välj lämplig mus för systemet."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
-#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
-#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:44 ../textw/network_text.py:49
+#: ../textw/network_text.py:55
 msgid "Error With Data"
 msgstr "Fel med data"
 
@@ -3486,12 +3534,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Skickar förfrågan om IP-information för %s..."
 
-#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
+#: tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "IP-adress"
 
@@ -3500,7 +3549,7 @@ msgid "Netmask"
 msgstr "Nätmask"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:540
+#: ../iw/network_gui.py:527
 msgid "Gateway"
 msgstr "Gateway"
 
@@ -3512,11 +3561,11 @@ msgstr "Namnserver"
 msgid "Error configuring network device"
 msgstr "Fel vid konfigurering av nätverksenhet"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
 msgstr "Primär DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
 msgstr "Sekundär DNS"
 
@@ -3532,11 +3581,11 @@ msgstr "_Primär DNS"
 msgid "_Secondary DNS"
 msgstr "_Sekundär DNS"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:31
 msgid "Network Configuration"
 msgstr "Nätverkskonfiguration"
 
-#: ../iw/network_gui.py:156
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3544,7 +3593,7 @@ msgstr ""
 "Du har inte angivit ett värdnamn. Beroende på din nätverksmiljö kan detta "
 "orsaka problem senare."
 
-#: ../iw/network_gui.py:160
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3553,7 +3602,7 @@ msgstr ""
 "Du har inte angivit ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
 "kan detta orsaka problem senare."
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:735
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3564,27 +3613,28 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "Ett värde krävs i fältet \"%s\"."
 
-#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, python-format
 msgid "Error With %s Data"
 msgstr "Fel med data för %s"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:36
+#: ../textw/network_text.py:521 ../textw/network_text.py:525
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:56
 msgid "The IPv4 information you have entered is invalid."
 msgstr "IPv4-informationen du angav är ogiltig."
 
-#: ../iw/network_gui.py:180
+#: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3592,103 +3642,101 @@ msgstr ""
 "Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
 "kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
 
-#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: ../iw/network_gui.py:405
+#: ../iw/network_gui.py:392
 msgid "Active on Boot"
 msgstr "Aktivera vid uppstart"
 
-#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "Enhet"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:396
 msgid "IPv4/Netmask"
 msgstr "IPv4/Nätmask"
 
-#: ../iw/network_gui.py:411
+#: ../iw/network_gui.py:398
 msgid "IPv6/Prefix"
 msgstr "IPv6/Prefix"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:458
 msgid "Network Devices"
 msgstr "Nätverksenheter"
 
-#: ../iw/network_gui.py:482
+#: ../iw/network_gui.py:469
 msgid "Set the hostname:"
 msgstr "Ställ in värdnamnet:"
 
-#: ../iw/network_gui.py:487
+#: ../iw/network_gui.py:474
 msgid "_automatically via DHCP"
 msgstr "_automatiskt via DHCP"
 
-#: ../iw/network_gui.py:494
+#: ../iw/network_gui.py:481
 msgid "_manually"
 msgstr "_manuellt"
 
-#: ../iw/network_gui.py:499
+#: ../iw/network_gui.py:486
 msgid "(e.g., host.domain.com)"
 msgstr "(t.ex. värd.domän.se)"
 
-#: ../iw/network_gui.py:505
+#: ../iw/network_gui.py:492
 msgid "Hostname"
 msgstr "Värdnamn"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:536
 msgid "Miscellaneous Settings"
 msgstr "Diverse inställningar"
 
-#: ../iw/network_gui.py:638
+#: ../iw/network_gui.py:625
 msgid "Edit Device "
 msgstr "Redigera enhet"
 
-#: ../iw/network_gui.py:642
+#: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
 msgstr "Okänd Ethernet-enhet"
 
-#: ../iw/network_gui.py:648
+#: ../iw/network_gui.py:635
 msgid "unknown"
 msgstr "okänd"
 
-#: ../iw/network_gui.py:650
+#: ../iw/network_gui.py:637
 msgid "Hardware address: "
 msgstr "Hårdvaruadress:"
 
-#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Protokoll saknas"
 
-#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#: ../iw/network_gui.py:780 ../textw/network_text.py:221
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr "Du måste välja minst stöd för IPv4 eller IPv6."
 
-#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:92
+#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../textw/network_text.py:66 ../loader2/net.c:93
 msgid "Invalid Prefix"
 msgstr "Ogiltigt prefix"
 
-#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#: ../iw/network_gui.py:804
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
 
-#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
-#: ../textw/network_text.py:381
+#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefix får bara innehålla tal mellan 0 och 128."
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Du kan konfigurera startprogrammet att starta andra operativsystem. Det "
 "kommer att låta dig välja ett operativsystem att starta från listan. För att "
@@ -3696,7 +3744,7 @@ msgstr ""
 "klickar du på \"Lägg till\". För att ändra det operativsystem som startas "
 "som standard väljer du \"Standard\" bredvid det önskade operativsystemet."
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
 msgstr "Standard"
 
@@ -3709,9 +3757,10 @@ msgid "Image"
 msgstr "Avbild"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 msgstr ""
 "Ange en etikett som visas i startprogramsmenyn. Enheten (eller hårddisk och "
 "partitionsnummer) är den enhet som det startar från."
@@ -3748,11 +3797,11 @@ msgstr "Dublettenhet"
 msgid "This device is already being used for another boot entry."
 msgstr "Denna enhet används redan för en annan startpost."
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
 msgstr "Kan inte ta bort"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3818,29 +3867,29 @@ msgstr "Slut_cylinder:"
 msgid "Force to be a _primary partition"
 msgstr "Tvinga att vara en _primär partition"
 
-#: ../iw/partition_gui.py:313
+#: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr "Enhet %s (Geom: %s/%s/%s) (Modell: %s)"
 
-#: ../iw/partition_gui.py:320
+#: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "Enhet %s (%-0.f MB) (Modell: %s)"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "Typ"
 
-#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "Slut"
 
-#: ../iw/partition_gui.py:407
+#: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3848,7 +3897,7 @@ msgstr ""
 "Monteringspunkt/\n"
 "RAID/Volym"
 
-#: ../iw/partition_gui.py:409
+#: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
@@ -3856,20 +3905,19 @@ msgstr ""
 "Storlek\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "Partitionering"
 
-#: ../iw/partition_gui.py:632
+#: ../iw/partition_gui.py:633
 msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+"The partitioning scheme you requested caused the following critical errors."
 msgstr ""
-"De följande ödesdigra felen finns hos ditt begärda partitioneringsschema."
 
 #: ../iw/partition_gui.py:635
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+"You must correct these errors before you continue your installation of %s."
 msgstr ""
 "Dessa fel måste åtgärdas innan du kan fortsätta med installationen av %s."
 
@@ -3878,8 +3926,8 @@ msgid "Partitioning Errors"
 msgstr "Partitioneringsfel"
 
 #: ../iw/partition_gui.py:647
-msgid "The following warnings exist with your requested partition scheme."
-msgstr "De följande varningarna finns hos ditt begärda partitioneringsschema."
+msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgstr ""
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3910,7 +3958,7 @@ msgstr "RAID-enheter"
 msgid "None"
 msgstr "Ingen"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "Hårddiskar"
 
@@ -3989,9 +4037,10 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device which can be formatted and "
+"RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
@@ -4074,10 +4123,10 @@ msgid "Check for _bad blocks?"
 msgstr "Sök efter s_kadade block?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Partitioner av typen \"%s\" måste begränsas till en ensam hårddisk. Detta "
 "görs genom att välja hårddisken i krysslistan \"Tillåtna hårddiskar\"."
@@ -4094,56 +4143,9 @@ msgstr "Partitionera _automatiskt"
 msgid "Manually partition with _Disk Druid"
 msgstr "Partitionera manuellt med _Disk Druid"
 
-#: ../iw/progress_gui.py:43
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../iw/progress_gui.py:46
-#, python-format
-msgid "%s KB"
-msgstr "%s kB"
-
-#: ../iw/progress_gui.py:49
-#, python-format
-msgid "%s Byte"
-msgstr "%s byte"
-
-#: ../iw/progress_gui.py:51
-#, python-format
-msgid "%s Bytes"
-msgstr "%s byte"
-
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:31
 msgid "Installing Packages"
 msgstr "Installerar paket"
-
-#: ../iw/progress_gui.py:170
-#, python-format
-msgid "Remaining time: %s minutes"
-msgstr "Återstående tid: %s minuter"
-
-#: ../iw/progress_gui.py:186
-#, python-format
-msgid "Downloading %s"
-msgstr "Hämtar %s"
-
-#: ../iw/progress_gui.py:226
-#, python-format
-msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Installerar %s-%s-%s.%s (%s)"
-
-#: ../iw/progress_gui.py:350
-msgid "Package"
-msgstr "Paket"
-
-#: ../iw/progress_gui.py:351
-msgid "Summary"
-msgstr "Sammanfattning"
-
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
-msgid "Status: "
-msgstr "Status: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4207,11 +4209,12 @@ msgid "Source Drive Error"
 msgstr "Källhårddiskfel"
 
 #: ../iw/raid_dialog_gui.py:498
+#, fuzzy
 msgid ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 msgstr ""
 "Källhårddisken som valdes har partitioner på sig som inte är av typen "
 "\"programvaru-RAID\".\n"
@@ -4219,13 +4222,13 @@ msgstr ""
 "Dessa partitioner måste tas bort innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:510
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 msgstr ""
 "Källhårddisken har partitioner som inte begränsas till hårddisken /dev/%s.\n"
 "\n"
@@ -4233,11 +4236,12 @@ msgstr ""
 "hårddisk innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:523
+#, fuzzy
 msgid ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 msgstr ""
 "Källhårddisken som valts har programvaru-RAID-partition(er) som är medlemmar "
 "i en aktiv programvaru-RAID-enhet.\n"
@@ -4259,14 +4263,14 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Källhårddisken /dev/%s kan inte även väljas som en målhårddisk."
 
 #: ../iw/raid_dialog_gui.py:562
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 msgstr ""
 "Målhårddisken /dev/%s har en partition som, av följande skäl, inte kan tas "
 "bort:\n"
@@ -4312,13 +4316,14 @@ msgstr ""
 "Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
 
 #: ../iw/raid_dialog_gui.py:696
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4378,10 +4383,10 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Unable to find a group file for %s.  This will make manual selection of "
-"packages from the repository not work"
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 msgstr ""
 "Kan inte hitta en gruppfil för %s.  Detta gör att manuell väljning av paket "
 "från datalagret inte kommer fungera"
@@ -4391,18 +4396,19 @@ msgid "Invalid Repository Name"
 msgstr "Ogiltigt Repository-namn"
 
 #: ../iw/task_gui.py:123
-msgid "You must provide a non-zero length repository name."
+#, fuzzy
+msgid "You must provide a repository name."
 msgstr "Du måste ange ett Repository-namn"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
 msgstr "Ogiltig Repository-URL"
 
-#: ../iw/task_gui.py:133
+#: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Du måste ange en HTTP- eller FTP-URL till ett repository"
 
-#: ../iw/task_gui.py:147
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4451,9 +4457,10 @@ msgid "_Create new boot loader configuration"
 msgstr "_Skapa ny konfiguration av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:89
+#, fuzzy
 msgid ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 msgstr ""
 "Detta kommer att låta dig skapa en ny startprogramskonfiguration. Om du vill "
 "byta startprogram bör du välja detta."
@@ -4463,9 +4470,10 @@ msgid "_Skip boot loader updating"
 msgstr "_Hoppa över uppdatering av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 msgstr ""
 "Detta kommer inte att göra några ändringar i din startprogramskonfiguration. "
 "Om du använder ett startprogram från en tredje part bör du välja detta."
@@ -4479,12 +4487,12 @@ msgid "Migrate File Systems"
 msgstr "Migrera filsystem"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -4499,12 +4507,12 @@ msgid "Upgrade Swap Partition"
 msgstr "Uppgradera växlingspartition"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4-kärnan behöver avsevärt mer växlingsutrymme (swap) än tidigare kärnor, "
 "så mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. "
@@ -4539,10 +4547,10 @@ msgid "Free Space (MB)"
 msgstr "Ledigt utrymme (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr ""
 "Det rekommenderas att din växlingsfil är minst %d MB. Ange en storlek för "
 "växlingsfilen:"
@@ -4556,10 +4564,10 @@ msgid "I _don't want to create a swap file"
 msgstr "Jag vill i_nte skapa en växlingsfil"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is stongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Det rekommenderas varmt att du skapar en växlingsfil. Om du inte gör det kan "
 "installationsprogrammet komma att avslutas onormalt. Är du säker på att du "
@@ -4639,11 +4647,11 @@ msgid "Skip Boot Loader"
 msgstr "Hoppa över startprogram"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
@@ -4654,75 +4662,76 @@ msgstr ""
 "\n"
 "Är du säker på att du vill hoppa över installationen av startprogram?"
 
-#: ../textw/bootloader_text.py:93
+#: ../textw/bootloader_text.py:92
+#, fuzzy
 msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Några system behöver skicka speciella flaggor till kärnan vid start för att "
 "systemet ska fungera ordentligt. Om du behöver skicka sådana flaggor, ange "
 "dem nu. Om du inte behöver några, eller om du inte är säker, låter du fältet "
 "vara tomt."
 
-#: ../textw/bootloader_text.py:102
+#: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Tvinga fram användning av LBA32 (behövs normalt inte)"
 
-#: ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
 msgstr "Var vill du installera startprogrammet?"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
+#: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
 msgstr "Startetikett"
 
-#: ../textw/bootloader_text.py:198
+#: ../textw/bootloader_text.py:197
 msgid "Clear"
 msgstr "Töm"
 
-#: ../textw/bootloader_text.py:206
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
 msgstr "Redigera startetikett"
 
-#: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "Ogiltig startetikett"
 
-#: ../textw/bootloader_text.py:225
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "Startetiketten får inte vara tom."
 
-#: ../textw/bootloader_text.py:230
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "Startetiketten innehåller otillåtna tecken."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../textw/bootloader_text.py:278
-#, python-format
+#: ../textw/bootloader_text.py:277
+#, fuzzy, python-format
 msgid ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 msgstr ""
 "Starthanteraren som %s använder kan också starta andra operativsystem. Du "
 "måste berätta vilka andra partitioner du vill kunna starta och vilka "
 "startetiketter du vill använda för att starta dem."
 
-#: ../textw/bootloader_text.py:291
+#: ../textw/bootloader_text.py:290
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Blanksteg> välj | <F2> välj standard | <F4> ta bort | <F12> nästa skärm>"
 
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:386
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "Ett startprogramslösenord förhindrar användare från att skicka godtyckliga "
@@ -4730,27 +4739,27 @@ msgstr ""
 "möjliga säkerhet, men detta är inte nödvändigt för användare som inte har så "
 "stort behov av säkerhet."
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
 msgstr "Använd ett GRUB-lösenord"
 
-#: ../textw/bootloader_text.py:409
+#: ../textw/bootloader_text.py:408
 msgid "Boot Loader Password:"
 msgstr "Lösenord för startprogram:"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:409
 msgid "Confirm:"
 msgstr "Bekräfta:"
 
-#: ../textw/bootloader_text.py:439
+#: ../textw/bootloader_text.py:438
 msgid "Passwords Do Not Match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:443
 msgid "Password Too Short"
 msgstr "Lösenordet är för kort"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:444
 msgid "Boot loader password is too short"
 msgstr "Lösenordet till startprogrammet är för kort"
 
@@ -4829,11 +4838,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
 #: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
-#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:283 ../loader2/urls.c:471
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "Tillbaka"
 
@@ -4851,7 +4860,8 @@ msgstr ""
 "systemet. Denna fil kan vara bra att spara och använda som referens senare."
 
 #: ../textw/grpselect_text.py:87
-msgid "Please select the package groups you would like to have installed."
+#, fuzzy
+msgid "Please select the package groups you would like to install."
 msgstr "Välj de paketgrupper som du vill ska installeras."
 
 #: ../textw/grpselect_text.py:105
@@ -4892,7 +4902,7 @@ msgstr "Emulera 3 knappar?"
 msgid "Mouse Selection"
 msgstr "Musval"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:50
 #, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
@@ -4901,104 +4911,169 @@ msgstr ""
 "Du har inte angivit ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
 "kan detta orsaka problem senare."
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:67
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
+
+#: ../textw/network_text.py:71
+msgid "Integer Required for Prefix"
+msgstr ""
+
+#: ../textw/network_text.py:72
 #, python-format
-msgid "Description: %s"
-msgstr "Beskrivning: %s"
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
+msgstr ""
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "Hårdvaruadress: %s"
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
+msgid "Prefix (Netmask)"
+msgstr "Prefix(Nätmask)"
 
-#: ../textw/network_text.py:170
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+msgid "Prefix"
+msgstr "Prefix"
 
-#: ../textw/network_text.py:177 ../loader2/net.c:711
+#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+msgid "Activate on boot"
+msgstr "Aktivera vid uppstart"
+
+#: ../textw/network_text.py:141 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv4 support"
 msgstr "Slå på IPv4 stöd"
 
-#: ../textw/network_text.py:183 ../loader2/net.c:724
+#: ../textw/network_text.py:148 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:11
 msgid "Enable IPv6 support"
 msgstr "Slå på IPv6 stöd"
 
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
-msgid "Activate on boot"
-msgstr "Aktivera vid uppstart"
-
-#: ../textw/network_text.py:214
-msgid "Address"
-msgstr "Adress"
-
-#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
-msgid "Prefix (Netmask)"
-msgstr "Prefix(Nätmask)"
-
-#: ../textw/network_text.py:217
-msgid "IPv4:"
-msgstr "IPv4:"
-
-#: ../textw/network_text.py:220
-msgid "IPv6:"
-msgstr "IPv6:"
-
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:161
 msgid "P-to-P:"
 msgstr "P-till-P:"
 
-#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
 msgid "ESSID:"
 msgstr "ESSID:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:188
 msgid "WEP Key:"
 msgstr "WEP-nyckel:"
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:201
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Nätverkskonfiguration för %s"
 
-#: ../textw/network_text.py:387
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Ogiltigt eller saknat IPv6-prefix (måste vara mellan 0 och 128)."
+#: ../textw/network_text.py:238 ../textw/network_text.py:241
+msgid "point-to-point IP address"
+msgstr ""
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1017
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCP)"
+
+#: ../textw/network_text.py:267 ../textw/network_text.py:398
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "Manuell konfiguration"
+
+#: ../textw/network_text.py:287
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "Nätverkskonfiguration för %s"
+
+#: ../textw/network_text.py:317 ../textw/network_text.py:329
+#: ../textw/network_text.py:332
+#, fuzzy
+msgid "IPv4 address"
+msgstr "IPv4-adress:"
+
+#: ../textw/network_text.py:321
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "IPv4/Nätmask"
+
+#: ../textw/network_text.py:347 ../textw/network_text.py:350
+#: ../textw/network_text.py:353
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "Prefix(Nätmask)"
+
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr "Automatisk upptäckt av grannar"
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Dynamisk IP-konfiguration (DHCPv6)"
+
+#: ../textw/network_text.py:422
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "Nätverkskonfiguration för %s"
+
+#: ../textw/network_text.py:452 ../textw/network_text.py:463
+#: ../textw/network_text.py:466
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IPv6-adress:"
+
+#: ../textw/network_text.py:456 ../textw/network_text.py:475
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "IPv6/Prefix"
+
+#: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:592
 msgid "Primary DNS:"
 msgstr "Primär DNS:"
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:597
 msgid "Secondary DNS:"
 msgstr "Sekundär DNS:"
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "Diverse nätverksinställningar"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#, fuzzy
+msgid "gateway"
+msgstr "Gateway"
+
+#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#, fuzzy
+msgid "primary DNS"
+msgstr "Primär DNS"
+
+#: ../textw/network_text.py:643
+#, fuzzy
+msgid "secondary DNS"
+msgstr "Sekundär DNS"
+
+#: ../textw/network_text.py:677
 msgid "automatically via DHCP"
 msgstr "automatiskt via DHCP"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:680
 msgid "manually"
 msgstr "manuellt"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:699
 msgid "Hostname Configuration"
 msgstr "Värdnamnskonfiguration"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:702
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "Om ditt system är en del av ett större nätverk där värdnamn tilldelas med "
@@ -5006,11 +5081,11 @@ msgstr ""
 "manuellt och ange ett värdnamn för ditt system. Om du inte gör detta kommer "
 "ditt system att gå under namnet \"localhost\"."
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
 msgstr "Ogiltigt värdnamn"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:729
 msgid "You have not specified a hostname."
 msgstr "Du har inte angivit ett värdnamn."
 
@@ -5157,7 +5232,8 @@ msgid "Not Supported"
 msgstr "Stöds inte"
 
 #: ../textw/partition_text.py:772
-msgid "LVM Volume Groups can only be edited in the graphical installer."
+#, fuzzy
+msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
 "LVM-volymgrupper kan endast redigeras i det grafiska installationsprogrammet."
 
@@ -5198,7 +5274,8 @@ msgid "Too many spares"
 msgstr "För många reserver"
 
 #: ../textw/partition_text.py:1096
-msgid "The maximum number of spares with a RAID0 array is 0."
+#, fuzzy
+msgid "You may not use any spares with a RAID0 array."
 msgstr "Det största antalet reserver hos en RAID0-enhet är 0."
 
 #: ../textw/partition_text.py:1177
@@ -5206,14 +5283,15 @@ msgid "No Volume Groups"
 msgstr "Inga volymgrupper"
 
 #: ../textw/partition_text.py:1178
-msgid "No volume groups in which to create a logical volume"
+#, fuzzy
+msgid "No volume groups exist in which to create a logical volume"
 msgstr "Inga volymgrupper att skapa en logisk volym i"
 
 #: ../textw/partition_text.py:1302
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 msgstr ""
 "Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
 "logiska volymstorleken (%10.2f MB). "
@@ -5266,8 +5344,9 @@ msgid "No Root Partition"
 msgstr "Ingen rotpartition"
 
 #: ../textw/partition_text.py:1490
-msgid "Must have a / partition to install on."
-msgstr "Måste ha en /-partition att installera på."
+#, fuzzy
+msgid "Installation requires a / partition."
+msgstr "NFS-installationsmetod kräver IPv4-stöd."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5335,6 +5414,16 @@ msgstr ""
 "För att använda iSCSI diskar måste du ange adressen till ditt iSCSI-mål "
 "ochiSCSI-initiatorns namn som du har konfigurerat för din maskin."
 
+#: ../textw/partition_text.py:1707
+#, fuzzy
+msgid "Target IP Address"
+msgstr "_Mål-IP-adress:"
+
+#: ../textw/partition_text.py:1708
+#, fuzzy
+msgid "iSCSI Initiator Name"
+msgstr "iSCSI-initierar_namn:"
+
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
 msgstr "Partitionera automatiskt"
@@ -5343,50 +5432,9 @@ msgstr "Partitionera automatiskt"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../textw/progress_text.py:66
-#, python-format
-msgid "Downloading - %s"
-msgstr "Hämtar - %s"
-
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:51
 msgid "Package Installation"
 msgstr "Paketinstallation"
-
-#: ../textw/progress_text.py:105
-msgid " Name   : "
-msgstr " Namn    : "
-
-#: ../textw/progress_text.py:106
-msgid " Size   : "
-msgstr " Storlek : "
-
-#: ../textw/progress_text.py:107
-msgid " Summary: "
-msgstr " Sammanf.: "
-
-#: ../textw/progress_text.py:152
-msgid "    Packages"
-msgstr "       Paket"
-
-#: ../textw/progress_text.py:153
-msgid "      Bytes"
-msgstr "        Byte"
-
-#: ../textw/progress_text.py:154
-msgid "        Time"
-msgstr "         Tid"
-
-#: ../textw/progress_text.py:156
-msgid "Total    :"
-msgstr "Totalt   :"
-
-#: ../textw/progress_text.py:163
-msgid "Completed:   "
-msgstr "Färdigt  :   "
-
-#: ../textw/progress_text.py:173
-msgid "Remaining:  "
-msgstr "Återstår :  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5408,7 +5456,8 @@ msgid "Customize software selection"
 msgstr "Anpassa valet av programvara"
 
 #: ../textw/timezone_text.py:68
-msgid "What time zone are you located in?"
+#, fuzzy
+msgid "In which time zone are you located?"
 msgstr "Vilken tidszon befinner du dig i?"
 
 #: ../textw/timezone_text.py:86
@@ -5429,12 +5478,12 @@ msgid "Create new boot loader configuration"
 msgstr "Skapa ny konfiguration av startprogram"
 
 #: ../textw/upgrade_text.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system. You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4-kärnan behöver avsevärt mer växlingsutrymme (swap) än tidigare kärnor, "
 "så mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. "
@@ -5474,8 +5523,9 @@ msgid "System to Upgrade"
 msgstr "System att uppgradera"
 
 #: ../textw/upgrade_text.py:204
+#, fuzzy
 msgid ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -5490,10 +5540,11 @@ msgid "Root Password"
 msgstr "Root-lösenord"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 msgstr ""
 "Välj ett root-lösenord. Du måste skriva det två gånger för att säkerställa "
 "att du vet vad det var och att du inte skrev fel. Kom ihåg att root-"
@@ -5513,10 +5564,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 msgstr ""
 "Startprogrammet z/IPL kommer att installeras på ditt system efter det att "
 "installationen är färdig. Du kan nu ange eventuella ytterligare kärn- och "
@@ -5534,7 +5586,7 @@ msgstr "Chandev-rad "
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5545,21 +5597,67 @@ msgstr ""
 "för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
 "systemet ska ha stöd för?"
 
-#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
 msgstr "Kontor och produktivitet"
 
-#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr "Programvaruutveckling"
 
-#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr "Webbserver"
 
-#: ../installclasses/rhel.py:16
+#: ../installclasses/rhel.py:21
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
+
+#: ../installclasses/rhel.py:32
+msgid "Office"
+msgstr "Kontor"
+
+#: ../installclasses/rhel.py:33
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:44
+msgid "Virtualization"
+msgstr "Virtualisering"
+
+#: ../installclasses/rhel.py:45
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:46
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:50
+#, fuzzy
+msgid "Installation Number"
+msgstr "Installationstyp"
+
+#: ../installclasses/rhel.py:51
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:54
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5568,7 +5666,7 @@ msgstr "Mediakontroll"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Test"
 msgstr "Testa"
 
@@ -5740,12 +5838,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "Vill du läsa in fler drivrutinsdisketter?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
+#: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
+#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Kickstartfel"
 
@@ -5825,7 +5923,7 @@ msgstr ""
 "%s-installationsträdet i den katalogen verkar inte stämma överens med ditt "
 "startmedium."
 
-#: ../loader2/hdinstall.c:160
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5833,7 +5931,7 @@ msgstr ""
 "Det inträffade ett fel vid läsning av installationen från ISO-avbilderna. "
 "Kontrollera dina ISO-avbilder och försök igen."
 
-#: ../loader2/hdinstall.c:268
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5841,7 +5939,7 @@ msgstr ""
 "Du verkar inte ha några hårddiskar på ditt system! Vill du konfigurera "
 "ytterligare enheter?"
 
-#: ../loader2/hdinstall.c:283
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5852,29 +5950,29 @@ msgstr ""
 "(iso9660) av %s? Tryck F2 för att konfigurera ytterligare enheter om du inte "
 "ser den disk du använder i denna lista."
 
-#: ../loader2/hdinstall.c:306
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "Katalog som innehåller avbilder:"
 
-#: ../loader2/hdinstall.c:334
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "Välj partition"
 
-#: ../loader2/hdinstall.c:374
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Enheten %s ser inte ut att innehålla cd-romavbilder med %s."
 
-#: ../loader2/hdinstall.c:409
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
 
-#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Kan inte hitta kickstartfil på hårddisken."
 
-#: ../loader2/hdinstall.c:522
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Kan inte hitta hårddisk för BIOS-disk %s"
@@ -5887,26 +5985,26 @@ msgstr "Tangentbordstyp"
 msgid "What type of keyboard do you have?"
 msgstr "Vilken typ av tangentbord har du?"
 
-#: ../loader2/kickstart.c:125
+#: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Fel vid öppnande av kickstartfilen %s: %s"
 
-#: ../loader2/kickstart.c:135
+#: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Fel vid läsning av innehållet i kickstartfil %s: %s"
 
-#: ../loader2/kickstart.c:178
+#: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Fel i %s på rad %d i kickstartfilen %s."
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Hittade inte ks.cfg på startdisketten."
 
-#: ../loader2/kickstart.c:341
+#: ../loader2/kickstart.c:344
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
@@ -5915,11 +6013,11 @@ msgstr ""
 "parametern nedan eller tryck Avbryt för att fortsätta en interaktiv "
 "installation."
 
-#: ../loader2/kickstart.c:350
+#: ../loader2/kickstart.c:353
 msgid "Error downloading kickstart file"
 msgstr "Fel vid nedladdning av uppstartsfil"
 
-#: ../loader2/kickstart.c:473
+#: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr ""
@@ -6039,11 +6137,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1184
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1186
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6051,29 +6149,29 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1190
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1191
 msgid "Done"
 msgstr "Färdig"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1192
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1400
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "inläsaren har redan körts. Startar skal.\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Kör anaconda, räddningsläget för %s - var vänlig vänta...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1789
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6160,12 +6258,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Kunde inte läsa katalogen %s: %s"
 
-#: ../loader2/method.c:422
+#: ../loader2/method.c:418
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6176,7 +6274,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Checksum Test"
 msgstr "Test av kontrollsumma"
 
@@ -6185,7 +6283,15 @@ msgstr "Test av kontrollsumma"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Felaktigt argument till enhetskickstartmetodkommandot %s: %s"
 
-#: ../loader2/net.c:58
+#: ../loader2/modules.c:1056
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr ""
+"Följande ogiltiga argument angavs till kickstartkommandot för "
+"drivrutinsdiskett: %s:%s"
+
+#: ../loader2/net.c:59
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6200,7 +6306,7 @@ msgstr ""
 "    o katalogen på denna server som innehåller\n"
 "      %s för din arkitektur\n"
 
-#: ../loader2/net.c:93
+#: ../loader2/net.c:94
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6208,7 +6314,7 @@ msgstr ""
 "Prefix måste vara mellan 1 och 32 för IPv4-nätverk eller mellan 1 och 128 "
 "för IPv6-nätverk"
 
-#: ../loader2/net.c:249
+#: ../loader2/net.c:257
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6219,27 +6325,27 @@ msgstr ""
 "behövs för åtkomst at ditt trådlösa nätverk. Om ingen nyckel behövs bör du "
 "lämna fältet tomt, och installationen kommer att fortsätta."
 
-#: ../loader2/net.c:255
+#: ../loader2/net.c:263
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:256
+#: ../loader2/net.c:264
 msgid "Encryption Key"
 msgstr "Krypteringsnyckel"
 
-#: ../loader2/net.c:259
+#: ../loader2/net.c:267
 msgid "Wireless Settings"
 msgstr "Inställningar för trådlöst nätverk"
 
-#: ../loader2/net.c:290
+#: ../loader2/net.c:298
 msgid "Nameserver IP"
 msgstr "Namnserver-IP"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:302
 msgid "Missing Nameserver"
 msgstr "Saknar namnserver"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:303
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
@@ -6249,58 +6355,58 @@ msgstr ""
 "innehöll inte en DNS-namnserver. Om du inte har denna information kan du "
 "lämna fältet blankt och installationen kommer att fortsätta."
 
-#: ../loader2/net.c:317
+#: ../loader2/net.c:325
 msgid "Invalid IP Information"
 msgstr "Ogiltig IP-information"
 
-#: ../loader2/net.c:318
+#: ../loader2/net.c:326
 msgid "You entered an invalid IP address."
 msgstr "Du skrev in en ogiltig IP-adress."
 
-#: ../loader2/net.c:575 ../loader2/net.c:683
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Nätverksfel"
 
-#: ../loader2/net.c:576 ../loader2/net.c:684
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr ""
 "Ett fel inträffade vid konfigurertömning av målhårddiskarna. Kloning "
 "misslyckades."
 
-#: ../loader2/net.c:757
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "Konfigurera TCP/IP"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:792
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Du måste välja minst ett protokoll (IPv4 eller IPv6)."
 
-#: ../loader2/net.c:791
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 behövs för NFS"
 
-#: ../loader2/net.c:792
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS-installationsmetod kräver IPv4-stöd."
 
-#: ../loader2/net.c:912
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4-adress:"
 
-#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:964
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6-adress:"
 
-#: ../loader2/net.c:1025
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Namnserver:"
 
-#: ../loader2/net.c:1061
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -6310,44 +6416,44 @@ msgstr ""
 "punkt-kvadruppel nätmask eller prefix i CIDR-stil tillåtet. Fälten gateway "
 "och namnserver måste vara giltiga IPv4- eller IPv6-adresser."
 
-#: ../loader2/net.c:1077
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Manuell TCP/IP-konfiguration"
 
-#: ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "Information saknas"
 
-#: ../loader2/net.c:1199
+#: ../loader2/net.c:1207
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Du måste skriva in både en giltig IPv4-adress och en nätmask eller CIDR "
 "prefix."
 
-#: ../loader2/net.c:1205
+#: ../loader2/net.c:1213
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
-#: ../loader2/net.c:1508
+#: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
 msgstr "Undersöker värdnamn och domän..."
 
-#: ../loader2/net.c:1601
+#: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Felaktigt argument till kickstartnätverkskommandot %s: %s"
 
-#: ../loader2/net.c:1624
+#: ../loader2/net.c:1632
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
 
-#: ../loader2/net.c:1805
+#: ../loader2/net.c:1813
 msgid "Networking Device"
 msgstr "Nätverksenhet"
 
-#: ../loader2/net.c:1806
+#: ../loader2/net.c:1814
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6358,7 +6464,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Namn på NFS-server:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "%s-katalog:"
@@ -6432,56 +6538,56 @@ msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
 msgid "Unknown Url method %s"
 msgstr "Url-metoden %s är okänd"
 
-#: ../loader2/urls.c:220
+#: ../loader2/urls.c:219
 msgid "Retrieving"
 msgstr "Hämtar"
 
-#: ../loader2/urls.c:287
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr "Webb"
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "FTP-serverns namn:"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "Webbserverns namn:"
 
-#: ../loader2/urls.c:329
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "Använd icke-anonym ftp"
 
-#: ../loader2/urls.c:338
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "FTP-konfiguration"
 
-#: ../loader2/urls.c:339
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "HTTP-konfiguration"
 
-#: ../loader2/urls.c:349
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "Du måste ange ett servernamn."
 
-#: ../loader2/urls.c:354
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "Du måste ange en katalog."
 
-#: ../loader2/urls.c:359
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "Okänd värd"
 
-#: ../loader2/urls.c:360
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s är inget giltigt värdnamn."
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:430
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6489,7 +6595,7 @@ msgstr ""
 "Om du använder icke-anonym ftp anger du kontonamnet och lösenordet som du "
 "vill använda nedan."
 
-#: ../loader2/urls.c:436
+#: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6497,15 +6603,15 @@ msgstr ""
 "Om du använder en HTTP-proxy anger du namnet på den HTTP-proxyserver som ska "
 "användas."
 
-#: ../loader2/urls.c:458
+#: ../loader2/urls.c:457
 msgid "Account name:"
 msgstr "Kontonamn:"
 
-#: ../loader2/urls.c:481
+#: ../loader2/urls.c:480
 msgid "Further FTP Setup"
 msgstr "Ytterligare FTP-konfiguration"
 
-#: ../loader2/urls.c:484
+#: ../loader2/urls.c:483
 msgid "Further HTTP Setup"
 msgstr "Ytterligare HTTP-konfiguration"
 
@@ -6577,10 +6683,15 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:3
+#, fuzzy
+msgid "What drive would you like to boot this installation from?"
+msgstr "Vilket språk vill du använda under installationen?"
+
+#: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
 msgstr "Avancerad lagringskonfiguration"
 
-#: tmp/autopart.glade.h:4
+#: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Välj den eller de hårddiskar som ska användas för denna installation."
 
@@ -6591,6 +6702,11 @@ msgstr "Information om undantagsfel"
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
 msgstr "_Detaljer om undantagsfel"
+
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6660,18 +6776,6 @@ msgstr "<b>Beskrivning anges här</b>"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr "<b>Maskinvaru-adress: DE:AD:00:BE:EF:00</b>"
 
-#: tmp/netpostconfig.glade.h:5
-msgid "Automatic neighbor discovery"
-msgstr "Automatisk upptäckt av grannar"
-
-#: tmp/netpostconfig.glade.h:6
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "Dynamisk IP-konfiguration (DHCP)"
-
-#: tmp/netpostconfig.glade.h:7
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Dynamisk IP-konfiguration (DHCPv6)"
-
 #: tmp/netpostconfig.glade.h:9
 msgid "Edit Interface"
 msgstr "Redigera gränssnitt"
@@ -6687,10 +6791,6 @@ msgstr "Manuell konfiguration"
 #: tmp/netpostconfig.glade.h:15
 msgid "Point to Point (IP):"
 msgstr "Punkt till punkt (IP):"
-
-#: tmp/netpostconfig.glade.h:16
-msgid "Prefix"
-msgstr "Prefix"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6734,697 +6834,6 @@ msgstr "<b>WWPN:</b>"
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
 msgstr "Lägg till FCP-enhet"
-
-#. generated from zone.tab
-msgid "Acre"
-msgstr "Acre"
-
-#. generated from zone.tab
-msgid "Alagoas, Sergipe"
-msgstr "Alagoas, Sergipe"
-
-#. generated from zone.tab
-msgid "Alaska Time"
-msgstr "Alaskatid"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle"
-msgstr "Alaskatid - Alaska-utlöparen"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle neck"
-msgstr "Alaskatid - Alaska-utlöparkroken"
-
-#. generated from zone.tab
-msgid "Alaska Time - west Alaska"
-msgstr "Alaskatid - västra Alaska"
-
-#. generated from zone.tab
-msgid "Aleutian Islands"
-msgstr "Aleuterna"
-
-#. generated from zone.tab
-msgid "Amapa, E Para"
-msgstr "Amapá, Ö Pará"
-
-#. generated from zone.tab
-msgid "Amundsen-Scott Station, South Pole"
-msgstr "Amundsen-Scott-stationen, Sydpolen"
-
-#. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr "Aqtobe (Aktiubinsk)"
-
-#. generated from zone.tab
-msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "Atlantisk Standard Tid - Quebec - Lägre norra kusten"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Labrador - most locations"
-msgstr "Atlanttid - Labrador - större delen"
-
-#. generated from zone.tab
-msgid "Atlantic Time - New Brunswick"
-msgstr "Atlanttid - New Brunswick"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlanttid - Nova Scotia (de flesta ställen) och PEI"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Atlanttid - Nova Scotia - orter som inte hade sommartid 1966-1971"
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantöarna"
-
-#. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "Atyrau (Atirau, Gurjev), Mangghystau (Mankistau)"
-
-#. generated from zone.tab
-msgid "Azores"
-msgstr "Azorerna"
-
-#. generated from zone.tab
-msgid "Bahia"
-msgstr "Bahia"
-
-#. generated from zone.tab
-msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#. generated from zone.tab
-msgid "Buenos Aires (BA, CF)"
-msgstr "Buenos Aires (BA, CF)"
-
-#. generated from zone.tab
-msgid "Canary Islands"
-msgstr "Kanarieöarna"
-
-#. generated from zone.tab
-msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey-stationen, Bailey-halvön"
-
-#. generated from zone.tab
-msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT), Chubut (CH)"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "Central standardtid - Saskatchewan - mellanvästern"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Central standardtid - Saskatchewan - större delen"
-
-#. generated from zone.tab
-msgid "Central Time"
-msgstr "Centraltid"
-
-#. generated from zone.tab
-msgid "Central Time - Campeche, Yucatan"
-msgstr "Centraltid - Campeche, Yucatan"
-
-#. generated from zone.tab
-msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "Centraltid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-msgstr ""
-"Centraltid - Indiana - Daviess-, Dubois-, Knox-, Martin-, Perry- och Pulaski-"
-"länen"
-
-#. generated from zone.tab
-msgid "Central Time - Indiana - Pike County"
-msgstr "Centraltid - Indiana - Pike County"
-
-#. generated from zone.tab
-msgid "Central Time - Manitoba & west Ontario"
-msgstr "Centraltid - Manitoba och västra Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Centraltid - Michigan - Länen Dickinson, Gogebic, Iron och Menominee"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Centraltid - North Dakota - Morton County (utom Mandan-området)"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "Centraltid - North Dakota - Oliver County"
-
-#. generated from zone.tab
-msgid "Central Time - Quintana Roo"
-msgstr "Centraltid - Quintana Roo"
-
-#. generated from zone.tab
-msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Centraltid - Rainy River och Fort Frances, Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "Centraltid - centrala Nunavut"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Centraltid - större delen"
-
-#. generated from zone.tab
-msgid "Central Time - west Nunavut"
-msgstr "Centraltid - västra Nunavut"
-
-#. generated from zone.tab
-msgid "Ceuta & Melilla"
-msgstr "Ceuta och Melilla"
-
-#. generated from zone.tab
-msgid "Chatham Islands"
-msgstr "Chatham-öarna"
-
-#. generated from zone.tab
-msgid "Davis Station, Vestfold Hills"
-msgstr "Davis-stationen, Vestfold Hills"
-
-#. generated from zone.tab
-msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sübaatar"
-
-#. generated from zone.tab
-msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
-
-#. generated from zone.tab
-msgid "E Amazonas"
-msgstr "Ö Amazonas"
-
-#. generated from zone.tab
-msgid "Easter Island & Sala y Gomez"
-msgstr "Påskön och Sala y Gomez"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Östlig standardtid - Atikokan, Ontario och Southamptonön"
-
-#. generated from zone.tab
-msgid "Eastern Time"
-msgstr "Östlig tid"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Östlig tid - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Starke County"
-msgstr "Östlig tid - Indiana - Starke County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Östlig tid - Indiana - Switzerland County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Östlig tid - Indiana - större delen"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Östlig tid - Kentucky - Louisville-området"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Östlig tid - Kentucky - Wayne County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Michigan - most locations"
-msgstr "Östlig tid - Michigan - större delen"
-
-#. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Östlig tid - Ontario och Quebec - orter som inte hade sommartid 1967-1973"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Östlig tid - Ontario - större delen"
-
-#. generated from zone.tab
-msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Östlig tid - Pangnirtung, Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Time - Quebec - most locations"
-msgstr "Östlig tid - Quebec - större delen"
-
-#. generated from zone.tab
-msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Östlig tid - Thunder Bay, Ontario"
-
-#. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "Östlig tid - östra Nunavut"
-
-#. generated from zone.tab
-msgid "Galapagos Islands"
-msgstr "Galapagosöarna"
-
-#. generated from zone.tab
-msgid "Gambier Islands"
-msgstr "Gambieröarna"
-
-#. generated from zone.tab
-msgid "Gilbert Islands"
-msgstr "Gilbertöarna"
-
-#. generated from zone.tab
-msgid "Hawaii"
-msgstr "Hawaii"
-
-#. generated from zone.tab
-msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "Heilongjiang (förutom Mohe), Jilin"
-
-#. generated from zone.tab
-msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya och Moluckerna"
-
-#. generated from zone.tab
-msgid "Jan Mayen"
-msgstr "Jan Mayen"
-
-#. generated from zone.tab
-msgid "Java & Sumatra"
-msgstr "Java och Sumatra"
-
-#. generated from zone.tab
-msgid "Johnston Atoll"
-msgstr "Johnstonatollen"
-
-#. generated from zone.tab
-msgid "Jujuy (JY)"
-msgstr "Jujuy (JY)"
-
-#. generated from zone.tab
-msgid "Kosrae"
-msgstr "Kosrae"
-
-#. generated from zone.tab
-msgid "Kwajalein"
-msgstr "Kwajalein"
-
-#. generated from zone.tab
-msgid "La Rioja (LR)"
-msgstr "La Rioja (LR)"
-
-#. generated from zone.tab
-msgid "Line Islands"
-msgstr "Lineöarna"
-
-#. generated from zone.tab
-msgid "Lord Howe Island"
-msgstr "Lord Howe-ön"
-
-#. generated from zone.tab
-msgid "Madeira Islands"
-msgstr "Madeira"
-
-#. generated from zone.tab
-msgid "Marquesas Islands"
-msgstr "Marquesasöarna"
-
-#. generated from zone.tab
-msgid "Mato Grosso"
-msgstr "Mato Grosso"
-
-#. generated from zone.tab
-msgid "Mato Grosso do Sul"
-msgstr "södra Mato Grosso"
-
-#. generated from zone.tab
-msgid "Mawson Station, Holme Bay"
-msgstr "Mawson-stationen, Holme Bay"
-
-#. generated from zone.tab
-msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo-stationen, Rossön"
-
-#. generated from zone.tab
-msgid "Mendoza (MZ)"
-msgstr "Mendoza (MZ)"
-
-#. generated from zone.tab
-msgid "Midway Islands"
-msgstr "Midwayöarna"
-
-#. generated from zone.tab
-msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskva+00 - Kaspiska havet"
-
-#. generated from zone.tab
-msgid "Moscow+00 - west Russia"
-msgstr "Moskva+00 - västra Ryssland"
-
-#. generated from zone.tab
-msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskva+01 - Samara, Udmurtia"
-
-#. generated from zone.tab
-msgid "Moscow+02 - Urals"
-msgstr "Moskva+02 - Uralbergen"
-
-#. generated from zone.tab
-msgid "Moscow+03 - Novosibirsk"
-msgstr "Moskva+03 - Novosibirsk"
-
-#. generated from zone.tab
-msgid "Moscow+03 - west Siberia"
-msgstr "Moskva+03 - västra Sibirien"
-
-#. generated from zone.tab
-msgid "Moscow+04 - Yenisei River"
-msgstr "Moskva+04 - Jenisejfloden"
-
-#. generated from zone.tab
-msgid "Moscow+05 - Lake Baikal"
-msgstr "Moskva+05 - Bajkalsjön"
-
-#. generated from zone.tab
-msgid "Moscow+06 - Lena River"
-msgstr "Moskva+06 - Lenafloden"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Amur River"
-msgstr "Moskva+07 - Amurfloden"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moskva+07 - Sachalin"
-
-#. generated from zone.tab
-msgid "Moscow+08 - Magadan"
-msgstr "Moskva+08 - Magadan"
-
-#. generated from zone.tab
-msgid "Moscow+09 - Kamchatka"
-msgstr "Moskva+09 - Kamtjatka"
-
-#. generated from zone.tab
-msgid "Moscow+10 - Bering Sea"
-msgstr "Moskva+10 - Berings hav"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moskva-01 - Kaliningrad"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Arizona"
-msgstr "Normal bergstid - Arizona"
-
-#. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Normal bergstid - Dawson Creek och Fort Saint John, British Columbia"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Sonora"
-msgstr "Normal bergstid - Sonora"
-
-#. generated from zone.tab
-msgid "Mountain Time"
-msgstr "Bergstid"
-
-#. generated from zone.tab
-msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Bergstid - Alberta, östra British Columbia och västra Saskatchewan"
-
-#. generated from zone.tab
-msgid "Mountain Time - Chihuahua"
-msgstr "Bergstid - Chihuahua"
-
-#. generated from zone.tab
-msgid "Mountain Time - Navajo"
-msgstr "Bergstid - Navajo"
-
-#. generated from zone.tab
-msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Bergstid - S Baja, Nayarit, Sinaloa"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Bergstid - mellersta Nordvästterritorierna"
-
-#. generated from zone.tab
-msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Bergstid - södra Idaho och östra Oregon"
-
-#. generated from zone.tab
-msgid "Mountain Time - west Northwest Territories"
-msgstr "Bergstid - västra Nordvästterritorierna"
-
-#. generated from zone.tab
-msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "NÖ Brasilien (MA, PI, CE, RN, PB)"
-
-#. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
-
-#. generated from zone.tab
-msgid "New South Wales - most locations"
-msgstr "New South Wales - större delen"
-
-#. generated from zone.tab
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "Newfoundlandtid, inklusive SÖ Labrador"
-
-#. generated from zone.tab
-msgid "Northern Territory"
-msgstr "Nordterritoriet"
-
-#. generated from zone.tab
-msgid "Pacific Time"
-msgstr "Stillahavstid"
-
-#. generated from zone.tab
-msgid "Pacific Time - north Yukon"
-msgstr "Stillahavstid - norra Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - south Yukon"
-msgstr "Stillahavstid - södra Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - west British Columbia"
-msgstr "Stillahavstid - västra British Columbia"
-
-#. generated from zone.tab
-msgid "Palmer Station, Anvers Island"
-msgstr "Palmer-stationen, Anversön"
-
-#. generated from zone.tab
-msgid "Pernambuco"
-msgstr "Pernambuco"
-
-#. generated from zone.tab
-msgid "Phoenix Islands"
-msgstr "Phoenixöarna"
-
-#. generated from zone.tab
-msgid "Ponape (Pohnpei)"
-msgstr "Ponape (Pohnpei)"
-
-#. generated from zone.tab
-msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Helgöarna"
-
-#. generated from zone.tab
-msgid "Queensland - most locations"
-msgstr "Queensland - större delen"
-
-#. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr "Qyzylorda (Kzyl-Orda)"
-
-#. generated from zone.tab
-msgid "Roraima"
-msgstr "Roraima"
-
-#. generated from zone.tab
-msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera-stationen, Adelaide-ön"
-
-#. generated from zone.tab
-msgid "Ruthenia"
-msgstr "Rutenien"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S och SÖ Brasilien (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "Sabah och Sarawak"
-
-#. generated from zone.tab
-msgid "San Juan (SJ)"
-msgstr "San Juan (SJ)"
-
-#. generated from zone.tab
-msgid "Santa Cruz (SC)"
-msgstr "Santa Cruz (SC)"
-
-#. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#. generated from zone.tab
-msgid "Society Islands"
-msgstr "Societetsöarna"
-
-#. generated from zone.tab
-msgid "South Australia"
-msgstr "Södra Australien"
-
-#. generated from zone.tab
-msgid "Svalbard"
-msgstr "Svalbard"
-
-#. generated from zone.tab
-msgid "Syowa Station, E Ongul I"
-msgstr "Syowa-stationen, Ö Ongul I"
-
-#. generated from zone.tab
-msgid "Tasmania - King Island"
-msgstr "Tasmanien - King Island"
-
-#. generated from zone.tab
-msgid "Tasmania - most locations"
-msgstr "Tasmanien - större delen"
-
-#. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tierra del Fuego (TF)"
-msgstr "Eldslandet (TF)"
-
-#. generated from zone.tab
-msgid "Tocantins"
-msgstr "Tocantins"
-
-#. generated from zone.tab
-msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk) och Yap"
-
-#. generated from zone.tab
-msgid "Tucuman (TM)"
-msgstr "Tucuman (TM)"
-
-#. generated from zone.tab
-msgid "Victoria"
-msgstr "Victoria"
-
-#. generated from zone.tab
-msgid "Vostok Station, S Magnetic Pole"
-msgstr "Vostok-stationen, magnetiska Sydpolen"
-
-#. generated from zone.tab
-msgid "W Amazonas"
-msgstr "V Amazonas"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "V Pará, Rondônia"
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wakeön"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Västra Kazakstan"
-
-#. generated from zone.tab
-msgid "Western Australia - Eucla area"
-msgstr "Västaustralien - Eucla-området"
-
-#. generated from zone.tab
-msgid "Western Australia - most locations"
-msgstr "Västaustralien - de flesta platser"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporizjzja, Ö Lugansk"
-
-#. generated from zone.tab
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "centrala Kina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou m.m."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "mellersta Krim"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "östra och södra Borneo, Celeberna, Bali, Nusa Tengarra, Västtimor"
-
-#. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "östra Kina - Beijing, Guangdong, Shanghai, etc."
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "östra Dem. Rep. Kongo"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "östra Uzbekistan"
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "östkusten, norr om Scoresbysund"
-
-#. generated from zone.tab
-msgid "mainland"
-msgstr "fastlandet"
-
-#. generated from zone.tab
-msgid "most locations"
-msgstr "större delen"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "större delen (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr "de mesta av Tibet och Xinjiang"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "Malaysiska halvön"
-
-#. generated from zone.tab
-msgid "west & central Borneo"
-msgstr "västra och mellersta Borneo"
-
-#. generated from zone.tab
-msgid "west Dem. Rep. of Congo"
-msgstr "västra Dem. Rep. Kongo"
-
-#. generated from zone.tab
-msgid "west Tibet & Xinjiang"
-msgstr "västra Tibet och Xinjiang"
-
-#. generated from zone.tab
-msgid "west Uzbekistan"
-msgstr "västra Uzbekistan"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7649,6 +7058,631 @@ msgstr "Kymriska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Done [%d/%d]"
+#~ msgstr "Klart [%d/%d]"
+
+#~ msgid "Installing %s-%s-%s... "
+#~ msgstr "Installerar %s-%s-%s... "
+
+#~ msgid "Please enter the registration key for your version of %s."
+#~ msgstr "Ange registreringsnyckeln för din version av %s."
+
+#~ msgid "Enter Registration Key"
+#~ msgstr "Ange registreringsnyckel"
+
+#~ msgid "Key:"
+#~ msgstr "Nyckel:"
+
+#~ msgid "_Format drive"
+#~ msgstr "_Formatera enhet"
+
+#~ msgid ""
+#~ "The following critical errors exist with your requested partitioning "
+#~ "scheme."
+#~ msgstr ""
+#~ "De följande ödesdigra felen finns hos ditt begärda partitioneringsschema."
+
+#~ msgid "The following warnings exist with your requested partition scheme."
+#~ msgstr ""
+#~ "De följande varningarna finns hos ditt begärda partitioneringsschema."
+
+#~ msgid "Remaining time: %s minutes"
+#~ msgstr "Återstående tid: %s minuter"
+
+#~ msgid "Downloading %s"
+#~ msgstr "Hämtar %s"
+
+#~ msgid "Installing %s-%s-%s.%s (%s)"
+#~ msgstr "Installerar %s-%s-%s.%s (%s)"
+
+#~ msgid "Package"
+#~ msgstr "Paket"
+
+#~ msgid "Summary"
+#~ msgstr "Sammanfattning"
+
+#~ msgid "Status: "
+#~ msgstr "Status: "
+
+#~ msgid "Description: %s"
+#~ msgstr "Beskrivning: %s"
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "Hårdvaruadress: %s"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+
+#~ msgid "Address"
+#~ msgstr "Adress"
+
+#~ msgid "IPv4:"
+#~ msgstr "IPv4:"
+
+#~ msgid "IPv6:"
+#~ msgstr "IPv6:"
+
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr "Ogiltigt eller saknat IPv6-prefix (måste vara mellan 0 och 128)."
+
+#~ msgid "Must have a / partition to install on."
+#~ msgstr "Måste ha en /-partition att installera på."
+
+#~ msgid "Downloading - %s"
+#~ msgstr "Hämtar - %s"
+
+#~ msgid " Name   : "
+#~ msgstr " Namn    : "
+
+#~ msgid " Size   : "
+#~ msgstr " Storlek : "
+
+#~ msgid " Summary: "
+#~ msgstr " Sammanf.: "
+
+#~ msgid "    Packages"
+#~ msgstr "       Paket"
+
+#~ msgid "      Bytes"
+#~ msgstr "        Byte"
+
+#~ msgid "        Time"
+#~ msgstr "         Tid"
+
+#~ msgid "Total    :"
+#~ msgstr "Totalt   :"
+
+#~ msgid "Completed:   "
+#~ msgstr "Färdigt  :   "
+
+#~ msgid "Remaining:  "
+#~ msgstr "Återstår :  "
+
+#~ msgid "Acre"
+#~ msgstr "Acre"
+
+#~ msgid "Alagoas, Sergipe"
+#~ msgstr "Alagoas, Sergipe"
+
+#~ msgid "Alaska Time"
+#~ msgstr "Alaskatid"
+
+#~ msgid "Alaska Time - Alaska panhandle"
+#~ msgstr "Alaskatid - Alaska-utlöparen"
+
+#~ msgid "Alaska Time - Alaska panhandle neck"
+#~ msgstr "Alaskatid - Alaska-utlöparkroken"
+
+#~ msgid "Alaska Time - west Alaska"
+#~ msgstr "Alaskatid - västra Alaska"
+
+#~ msgid "Aleutian Islands"
+#~ msgstr "Aleuterna"
+
+#~ msgid "Amapa, E Para"
+#~ msgstr "Amapá, Ö Pará"
+
+#~ msgid "Amundsen-Scott Station, South Pole"
+#~ msgstr "Amundsen-Scott-stationen, Sydpolen"
+
+#~ msgid "Aqtobe (Aktobe)"
+#~ msgstr "Aqtobe (Aktiubinsk)"
+
+#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+#~ msgstr "Atlantisk Standard Tid - Quebec - Lägre norra kusten"
+
+#~ msgid "Atlantic Time - Labrador - most locations"
+#~ msgstr "Atlanttid - Labrador - större delen"
+
+#~ msgid "Atlantic Time - New Brunswick"
+#~ msgstr "Atlanttid - New Brunswick"
+
+#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
+#~ msgstr "Atlanttid - Nova Scotia (de flesta ställen) och PEI"
+
+#~ msgid ""
+#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+#~ msgstr "Atlanttid - Nova Scotia - orter som inte hade sommartid 1966-1971"
+
+#~ msgid "Atlantic islands"
+#~ msgstr "Atlantöarna"
+
+#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+#~ msgstr "Atyrau (Atirau, Gurjev), Mangghystau (Mankistau)"
+
+#~ msgid "Azores"
+#~ msgstr "Azorerna"
+
+#~ msgid "Bahia"
+#~ msgstr "Bahia"
+
+#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+
+#~ msgid "Buenos Aires (BA, CF)"
+#~ msgstr "Buenos Aires (BA, CF)"
+
+#~ msgid "Canary Islands"
+#~ msgstr "Kanarieöarna"
+
+#~ msgid "Casey Station, Bailey Peninsula"
+#~ msgstr "Casey-stationen, Bailey-halvön"
+
+#~ msgid "Catamarca (CT), Chubut (CH)"
+#~ msgstr "Catamarca (CT), Chubut (CH)"
+
+#~ msgid "Central Standard Time - Saskatchewan - midwest"
+#~ msgstr "Central standardtid - Saskatchewan - mellanvästern"
+
+#~ msgid "Central Standard Time - Saskatchewan - most locations"
+#~ msgstr "Central standardtid - Saskatchewan - större delen"
+
+#~ msgid "Central Time"
+#~ msgstr "Centraltid"
+
+#~ msgid "Central Time - Campeche, Yucatan"
+#~ msgstr "Centraltid - Campeche, Yucatan"
+
+#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+#~ msgstr "Centraltid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+
+#~ msgid ""
+#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+#~ "Counties"
+#~ msgstr ""
+#~ "Centraltid - Indiana - Daviess-, Dubois-, Knox-, Martin-, Perry- och "
+#~ "Pulaski-länen"
+
+#~ msgid "Central Time - Indiana - Pike County"
+#~ msgstr "Centraltid - Indiana - Pike County"
+
+#~ msgid "Central Time - Manitoba & west Ontario"
+#~ msgstr "Centraltid - Manitoba och västra Ontario"
+
+#~ msgid ""
+#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+#~ msgstr ""
+#~ "Centraltid - Michigan - Länen Dickinson, Gogebic, Iron och Menominee"
+
+#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+#~ msgstr "Centraltid - North Dakota - Morton County (utom Mandan-området)"
+
+#~ msgid "Central Time - North Dakota - Oliver County"
+#~ msgstr "Centraltid - North Dakota - Oliver County"
+
+#~ msgid "Central Time - Quintana Roo"
+#~ msgstr "Centraltid - Quintana Roo"
+
+#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
+#~ msgstr "Centraltid - Rainy River och Fort Frances, Ontario"
+
+#~ msgid "Central Time - central Nunavut"
+#~ msgstr "Centraltid - centrala Nunavut"
+
+#~ msgid "Central Time - most locations"
+#~ msgstr "Centraltid - större delen"
+
+#~ msgid "Central Time - west Nunavut"
+#~ msgstr "Centraltid - västra Nunavut"
+
+#~ msgid "Ceuta & Melilla"
+#~ msgstr "Ceuta och Melilla"
+
+#~ msgid "Chatham Islands"
+#~ msgstr "Chatham-öarna"
+
+#~ msgid "Davis Station, Vestfold Hills"
+#~ msgstr "Davis-stationen, Vestfold Hills"
+
+#~ msgid "Dornod, Sukhbaatar"
+#~ msgstr "Dornod, Sübaatar"
+
+#~ msgid "Dumont-d'Urville Base, Terre Adelie"
+#~ msgstr "Dumont-d'Urville Base, Terre Adelie"
+
+#~ msgid "E Amazonas"
+#~ msgstr "Ö Amazonas"
+
+#~ msgid "Easter Island & Sala y Gomez"
+#~ msgstr "Påskön och Sala y Gomez"
+
+#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
+#~ msgstr "Östlig standardtid - Atikokan, Ontario och Southamptonön"
+
+#~ msgid "Eastern Time"
+#~ msgstr "Östlig tid"
+
+#~ msgid "Eastern Time - Indiana - Crawford County"
+#~ msgstr "Östlig tid - Indiana - Crawford County"
+
+#~ msgid "Eastern Time - Indiana - Starke County"
+#~ msgstr "Östlig tid - Indiana - Starke County"
+
+#~ msgid "Eastern Time - Indiana - Switzerland County"
+#~ msgstr "Östlig tid - Indiana - Switzerland County"
+
+#~ msgid "Eastern Time - Indiana - most locations"
+#~ msgstr "Östlig tid - Indiana - större delen"
+
+#~ msgid "Eastern Time - Kentucky - Louisville area"
+#~ msgstr "Östlig tid - Kentucky - Louisville-området"
+
+#~ msgid "Eastern Time - Kentucky - Wayne County"
+#~ msgstr "Östlig tid - Kentucky - Wayne County"
+
+#~ msgid "Eastern Time - Michigan - most locations"
+#~ msgstr "Östlig tid - Michigan - större delen"
+
+#~ msgid ""
+#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
+#~ "1973"
+#~ msgstr ""
+#~ "Östlig tid - Ontario och Quebec - orter som inte hade sommartid 1967-1973"
+
+#~ msgid "Eastern Time - Ontario - most locations"
+#~ msgstr "Östlig tid - Ontario - större delen"
+
+#~ msgid "Eastern Time - Pangnirtung, Nunavut"
+#~ msgstr "Östlig tid - Pangnirtung, Nunavut"
+
+#~ msgid "Eastern Time - Quebec - most locations"
+#~ msgstr "Östlig tid - Quebec - större delen"
+
+#~ msgid "Eastern Time - Thunder Bay, Ontario"
+#~ msgstr "Östlig tid - Thunder Bay, Ontario"
+
+#~ msgid "Eastern Time - east Nunavut"
+#~ msgstr "Östlig tid - östra Nunavut"
+
+#~ msgid "Galapagos Islands"
+#~ msgstr "Galapagosöarna"
+
+#~ msgid "Gambier Islands"
+#~ msgstr "Gambieröarna"
+
+#~ msgid "Gilbert Islands"
+#~ msgstr "Gilbertöarna"
+
+#~ msgid "Hawaii"
+#~ msgstr "Hawaii"
+
+#~ msgid "Heilongjiang (except Mohe), Jilin"
+#~ msgstr "Heilongjiang (förutom Mohe), Jilin"
+
+#~ msgid "Irian Jaya & the Moluccas"
+#~ msgstr "Irian Jaya och Moluckerna"
+
+#~ msgid "Jan Mayen"
+#~ msgstr "Jan Mayen"
+
+#~ msgid "Java & Sumatra"
+#~ msgstr "Java och Sumatra"
+
+#~ msgid "Johnston Atoll"
+#~ msgstr "Johnstonatollen"
+
+#~ msgid "Jujuy (JY)"
+#~ msgstr "Jujuy (JY)"
+
+#~ msgid "Kosrae"
+#~ msgstr "Kosrae"
+
+#~ msgid "Kwajalein"
+#~ msgstr "Kwajalein"
+
+#~ msgid "La Rioja (LR)"
+#~ msgstr "La Rioja (LR)"
+
+#~ msgid "Line Islands"
+#~ msgstr "Lineöarna"
+
+#~ msgid "Lord Howe Island"
+#~ msgstr "Lord Howe-ön"
+
+#~ msgid "Madeira Islands"
+#~ msgstr "Madeira"
+
+#~ msgid "Marquesas Islands"
+#~ msgstr "Marquesasöarna"
+
+#~ msgid "Mato Grosso"
+#~ msgstr "Mato Grosso"
+
+#~ msgid "Mato Grosso do Sul"
+#~ msgstr "södra Mato Grosso"
+
+#~ msgid "Mawson Station, Holme Bay"
+#~ msgstr "Mawson-stationen, Holme Bay"
+
+#~ msgid "McMurdo Station, Ross Island"
+#~ msgstr "McMurdo-stationen, Rossön"
+
+#~ msgid "Mendoza (MZ)"
+#~ msgstr "Mendoza (MZ)"
+
+#~ msgid "Midway Islands"
+#~ msgstr "Midwayöarna"
+
+#~ msgid "Moscow+00 - Caspian Sea"
+#~ msgstr "Moskva+00 - Kaspiska havet"
+
+#~ msgid "Moscow+00 - west Russia"
+#~ msgstr "Moskva+00 - västra Ryssland"
+
+#~ msgid "Moscow+01 - Samara, Udmurtia"
+#~ msgstr "Moskva+01 - Samara, Udmurtia"
+
+#~ msgid "Moscow+02 - Urals"
+#~ msgstr "Moskva+02 - Uralbergen"
+
+#~ msgid "Moscow+03 - Novosibirsk"
+#~ msgstr "Moskva+03 - Novosibirsk"
+
+#~ msgid "Moscow+03 - west Siberia"
+#~ msgstr "Moskva+03 - västra Sibirien"
+
+#~ msgid "Moscow+04 - Yenisei River"
+#~ msgstr "Moskva+04 - Jenisejfloden"
+
+#~ msgid "Moscow+05 - Lake Baikal"
+#~ msgstr "Moskva+05 - Bajkalsjön"
+
+#~ msgid "Moscow+06 - Lena River"
+#~ msgstr "Moskva+06 - Lenafloden"
+
+#~ msgid "Moscow+07 - Amur River"
+#~ msgstr "Moskva+07 - Amurfloden"
+
+#~ msgid "Moscow+07 - Sakhalin Island"
+#~ msgstr "Moskva+07 - Sachalin"
+
+#~ msgid "Moscow+08 - Magadan"
+#~ msgstr "Moskva+08 - Magadan"
+
+#~ msgid "Moscow+09 - Kamchatka"
+#~ msgstr "Moskva+09 - Kamtjatka"
+
+#~ msgid "Moscow+10 - Bering Sea"
+#~ msgstr "Moskva+10 - Berings hav"
+
+#~ msgid "Moscow-01 - Kaliningrad"
+#~ msgstr "Moskva-01 - Kaliningrad"
+
+#~ msgid "Mountain Standard Time - Arizona"
+#~ msgstr "Normal bergstid - Arizona"
+
+#~ msgid ""
+#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+#~ msgstr ""
+#~ "Normal bergstid - Dawson Creek och Fort Saint John, British Columbia"
+
+#~ msgid "Mountain Standard Time - Sonora"
+#~ msgstr "Normal bergstid - Sonora"
+
+#~ msgid "Mountain Time"
+#~ msgstr "Bergstid"
+
+#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+#~ msgstr "Bergstid - Alberta, östra British Columbia och västra Saskatchewan"
+
+#~ msgid "Mountain Time - Chihuahua"
+#~ msgstr "Bergstid - Chihuahua"
+
+#~ msgid "Mountain Time - Navajo"
+#~ msgstr "Bergstid - Navajo"
+
+#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+#~ msgstr "Bergstid - S Baja, Nayarit, Sinaloa"
+
+#~ msgid "Mountain Time - central Northwest Territories"
+#~ msgstr "Bergstid - mellersta Nordvästterritorierna"
+
+#~ msgid "Mountain Time - south Idaho & east Oregon"
+#~ msgstr "Bergstid - södra Idaho och östra Oregon"
+
+#~ msgid "Mountain Time - west Northwest Territories"
+#~ msgstr "Bergstid - västra Nordvästterritorierna"
+
+#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
+#~ msgstr "NÖ Brasilien (MA, PI, CE, RN, PB)"
+
+#~ msgid "New South Wales - Yancowinna"
+#~ msgstr "New South Wales - Yancowinna"
+
+#~ msgid "New South Wales - most locations"
+#~ msgstr "New South Wales - större delen"
+
+#~ msgid "Newfoundland Time, including SE Labrador"
+#~ msgstr "Newfoundlandtid, inklusive SÖ Labrador"
+
+#~ msgid "Northern Territory"
+#~ msgstr "Nordterritoriet"
+
+#~ msgid "Pacific Time"
+#~ msgstr "Stillahavstid"
+
+#~ msgid "Pacific Time - north Yukon"
+#~ msgstr "Stillahavstid - norra Yukon"
+
+#~ msgid "Pacific Time - south Yukon"
+#~ msgstr "Stillahavstid - södra Yukon"
+
+#~ msgid "Pacific Time - west British Columbia"
+#~ msgstr "Stillahavstid - västra British Columbia"
+
+#~ msgid "Palmer Station, Anvers Island"
+#~ msgstr "Palmer-stationen, Anversön"
+
+#~ msgid "Pernambuco"
+#~ msgstr "Pernambuco"
+
+#~ msgid "Phoenix Islands"
+#~ msgstr "Phoenixöarna"
+
+#~ msgid "Ponape (Pohnpei)"
+#~ msgstr "Ponape (Pohnpei)"
+
+#~ msgid "Queensland - Holiday Islands"
+#~ msgstr "Queensland - Helgöarna"
+
+#~ msgid "Queensland - most locations"
+#~ msgstr "Queensland - större delen"
+
+#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+#~ msgstr "Qyzylorda (Kzyl-Orda)"
+
+#~ msgid "Roraima"
+#~ msgstr "Roraima"
+
+#~ msgid "Rothera Station, Adelaide Island"
+#~ msgstr "Rothera-stationen, Adelaide-ön"
+
+#~ msgid "Ruthenia"
+#~ msgstr "Rutenien"
+
+#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+#~ msgstr "S och SÖ Brasilien (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#~ msgid "Sabah & Sarawak"
+#~ msgstr "Sabah och Sarawak"
+
+#~ msgid "San Juan (SJ)"
+#~ msgstr "San Juan (SJ)"
+
+#~ msgid "Santa Cruz (SC)"
+#~ msgstr "Santa Cruz (SC)"
+
+#~ msgid "Scoresbysund / Ittoqqortoormiit"
+#~ msgstr "Scoresbysund / Ittoqqortoormiit"
+
+#~ msgid "Society Islands"
+#~ msgstr "Societetsöarna"
+
+#~ msgid "South Australia"
+#~ msgstr "Södra Australien"
+
+#~ msgid "Svalbard"
+#~ msgstr "Svalbard"
+
+#~ msgid "Syowa Station, E Ongul I"
+#~ msgstr "Syowa-stationen, Ö Ongul I"
+
+#~ msgid "Tasmania - King Island"
+#~ msgstr "Tasmanien - King Island"
+
+#~ msgid "Tasmania - most locations"
+#~ msgstr "Tasmanien - större delen"
+
+#~ msgid "Thule / Pituffik"
+#~ msgstr "Thule / Pituffik"
+
+#~ msgid "Tierra del Fuego (TF)"
+#~ msgstr "Eldslandet (TF)"
+
+#~ msgid "Tocantins"
+#~ msgstr "Tocantins"
+
+#~ msgid "Truk (Chuuk) and Yap"
+#~ msgstr "Truk (Chuuk) och Yap"
+
+#~ msgid "Tucuman (TM)"
+#~ msgstr "Tucuman (TM)"
+
+#~ msgid "Victoria"
+#~ msgstr "Victoria"
+
+#~ msgid "Vostok Station, S Magnetic Pole"
+#~ msgstr "Vostok-stationen, magnetiska Sydpolen"
+
+#~ msgid "W Amazonas"
+#~ msgstr "V Amazonas"
+
+#~ msgid "W Para, Rondonia"
+#~ msgstr "V Pará, Rondônia"
+
+#~ msgid "Wake Island"
+#~ msgstr "Wakeön"
+
+#~ msgid "West Kazakhstan"
+#~ msgstr "Västra Kazakstan"
+
+#~ msgid "Western Australia - Eucla area"
+#~ msgstr "Västaustralien - Eucla-området"
+
+#~ msgid "Western Australia - most locations"
+#~ msgstr "Västaustralien - de flesta platser"
+
+#~ msgid "Zaporozh'ye, E Lugansk"
+#~ msgstr "Zaporizjzja, Ö Lugansk"
+
+#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+#~ msgstr "centrala Kina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou m.m."
+
+#~ msgid "central Crimea"
+#~ msgstr "mellersta Krim"
+
+#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+#~ msgstr "östra och södra Borneo, Celeberna, Bali, Nusa Tengarra, Västtimor"
+
+#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
+#~ msgstr "östra Kina - Beijing, Guangdong, Shanghai, etc."
+
+#~ msgid "east Dem. Rep. of Congo"
+#~ msgstr "östra Dem. Rep. Kongo"
+
+#~ msgid "east Uzbekistan"
+#~ msgstr "östra Uzbekistan"
+
+#~ msgid "east coast, north of Scoresbysund"
+#~ msgstr "östkusten, norr om Scoresbysund"
+
+#~ msgid "mainland"
+#~ msgstr "fastlandet"
+
+#~ msgid "most locations"
+#~ msgstr "större delen"
+
+#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+#~ msgstr "större delen (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+
+#~ msgid "most of Tibet & Xinjiang"
+#~ msgstr "de mesta av Tibet och Xinjiang"
+
+#~ msgid "peninsular Malaysia"
+#~ msgstr "Malaysiska halvön"
+
+#~ msgid "west & central Borneo"
+#~ msgstr "västra och mellersta Borneo"
+
+#~ msgid "west Dem. Rep. of Congo"
+#~ msgstr "västra Dem. Rep. Kongo"
+
+#~ msgid "west Tibet & Xinjiang"
+#~ msgstr "västra Tibet och Xinjiang"
+
+#~ msgid "west Uzbekistan"
+#~ msgstr "västra Uzbekistan"
 
 #~ msgid "Error mounting file system on %s: %s"
 #~ msgstr "Fel vid montering av filsystem på %s: %s"
@@ -8111,9 +8145,6 @@ msgstr "Zulu"
 #~ msgid "An error occurred when finding the packages to upgrade."
 #~ msgstr "Ett fel inträffade vid sökning efter paketen att uppgradera."
 
-#~ msgid "Installation Type"
-#~ msgstr "Installationstyp"
-
 #~ msgid "Error with data"
 #~ msgstr "Fel med data"
 
@@ -8159,12 +8190,6 @@ msgstr "Zulu"
 #~ msgid "_Port Number:"
 #~ msgstr "_Portnummer:"
 
-#~ msgid "_Target IP Address:"
-#~ msgstr "_Mål-IP-adress:"
-
-#~ msgid "iSCSI Initiator _Name:"
-#~ msgstr "iSCSI-initierar_namn:"
-
 #~ msgid "Amharic"
 #~ msgstr "Amhariska"
 
@@ -8206,14 +8231,8 @@ msgstr "Zulu"
 #~ "lämpliga för allmän Internetanvändning. Vilka ytterligare uppgifter vill "
 #~ "du att systemet ska ha stöd för?"
 
-#~ msgid "Office"
-#~ msgstr "Kontor"
-
 #~ msgid "Productivity"
 #~ msgstr "Produktivitet"
-
-#~ msgid "Virtualization"
-#~ msgstr "Virtualisering"
 
 #~ msgid ""
 #~ "Installing %s requires partitioning of your hard drive.  You can either "
@@ -10810,9 +10829,6 @@ msgstr "Zulu"
 
 #~ msgid "_Full Name:"
 #~ msgstr "_Fullständigt namn:"
-
-#~ msgid "Please enter user name"
-#~ msgstr "Ange användarnamn"
 
 #~ msgid "Account Name"
 #~ msgstr "Kontonamn"

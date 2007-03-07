@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-08 10:49-0500\n"
+"POT-Creation-Date: 2007-03-07 11:24-0500\n"
 "PO-Revision-Date: 2006-09-28 22:42+0300\n"
 "Last-Translator: Egemen Metin Turan <mturan@aegee-ankara.org>\n"
 "Language-Team:  Turkish <fedora-trans-tr@redhat.com>\n"
@@ -26,103 +26,114 @@ msgstr ""
 "Plural-Forms:  nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../anaconda:268
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "Bilinmeyen Hata"
 
-#: ../anaconda:271
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "kickstart yapılandırmasının ikinci bölümü alınırken hata: %s!"
 
-#: ../anaconda:399
+#: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
+#, c-format, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Kickstart ayarlarınızı derlerken aşağıdaki hata ile karşılaşıldı:\n"
+"\n"
+"%s"
+
+#: ../anaconda:401
 msgid "Press <enter> for a shell"
 msgstr "Kabuk için <enter>'a basınız."
 
-#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
+#: ../rescue.py:445 ../text.py:440 ../text.py:599 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
-#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
-#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
-#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
-#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
-#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:36
+#: ../textw/network_text.py:46 ../textw/network_text.py:68
+#: ../textw/network_text.py:74 ../textw/network_text.py:222
+#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
+#: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
+#: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
-#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "Tamam"
 
-#: ../anaconda:421
+#: ../anaconda:423
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 "Grafik kip kurulumu için belleğiniz yetersiz.  Metin kipi kuruluma geçilecek."
 
-#: ../anaconda:437
+#: ../anaconda:439
 msgid "No video hardware found, assuming headless"
 msgstr ""
 "Ekran ile ilgili donanım bilgileri bulunamadı, monitörsüz olduğu varsayılacak"
 
-#: ../anaconda:444 ../anaconda:896
+#: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Bir X donanım durum nesnesi gerçeklenemedi."
 
-#: ../anaconda:501
+#: ../anaconda:503
 msgid "Starting graphical installation..."
 msgstr "Grafik kurulum başlatılıyor..."
 
-#: ../anaconda:761
+#: ../anaconda:763
 msgid "Install class forcing text mode installation"
 msgstr "Kurulum metin kipinde devam edecek"
 
-#: ../anaconda:793
+#: ../anaconda:795
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafik kipte kurulum yapılamıyor.  Metin kipi kuruluma geçiliyor."
 
-#: ../anaconda:801
+#: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY değişkeni ayarlanmamış. Metin modu başlatılıyor!"
 
-#: ../anaconda:862
+#: ../anaconda:864
 msgid "Unknown install method"
 msgstr "Bilinmeyen kurulum yöntemi"
 
-#: ../anaconda:863
+#: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Anaconda tarafından desteklenmeyen bir kurulum yöntemi belirttiniz."
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "unknown install method: %s"
 msgstr "bilinmeyen kurulum yöntemi: %s"
@@ -213,11 +224,11 @@ msgstr ""
 "Bu bölümün eklenmesi ile önceden ayrılmış %s mantıksal oylumlarında yeterli "
 "disk alanı kalmayacaktı."
 
-#: ../autopart.py:1255
+#: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
 msgstr "İstenen Disk Bölümü Mevcut Değil"
 
-#: ../autopart.py:1256
+#: ../autopart.py:1260
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -228,11 +239,11 @@ msgstr ""
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
-#: ../autopart.py:1283
+#: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "İstenen RAID Aygıtı Mevcut Değil"
 
-#: ../autopart.py:1284
+#: ../autopart.py:1288
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -243,11 +254,11 @@ msgstr ""
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
-#: ../autopart.py:1315
+#: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "İstenen Oylum Grubu Mevcut Değil"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1320
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -258,11 +269,11 @@ msgstr ""
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
-#: ../autopart.py:1353
+#: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "İstenen Mantıksal Oylum Mevcut Değil"
 
-#: ../autopart.py:1354
+#: ../autopart.py:1358
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -273,11 +284,11 @@ msgstr ""
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
-#: ../autopart.py:1470 ../autopart.py:1517
+#: ../autopart.py:1474 ../autopart.py:1521
 msgid "Automatic Partitioning Errors"
 msgstr "Otomatik Bölümlendirme Hataları"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1475
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -292,11 +303,11 @@ msgstr ""
 "\n"
 "'Tamam' düğmesine bastığınızda sistem yeniden başlatılacaktır."
 
-#: ../autopart.py:1481
+#: ../autopart.py:1485
 msgid "Warnings During Automatic Partitioning"
 msgstr "Otomatik Bölümlendirme Sırasındaki Uyarılar"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1486
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -307,7 +318,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1496 ../autopart.py:1513
+#: ../autopart.py:1500 ../autopart.py:1517
 msgid ""
 "\n"
 "\n"
@@ -317,12 +328,12 @@ msgstr ""
 "\n"
 "Sisteminizi yeniden başlatmak için 'Tamam' düğmesine tıklayınız."
 
-#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../autopart.py:1501 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Hatalı Bölümlendirme"
 
-#: ../autopart.py:1498
+#: ../autopart.py:1502
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -333,7 +344,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1519
 msgid ""
 "\n"
 "\n"
@@ -343,15 +354,15 @@ msgstr ""
 "\n"
 "Farklı bir bölümleme seçeneği seçmek için 'Tamam' düğmesine tıklayınız."
 
-#: ../autopart.py:1518
-#, python-format
+#: ../autopart.py:1522
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 msgstr ""
 "Bölümlendirme sırasında aşağıdaki hatalar oluştu:\n"
 "\n"
@@ -360,27 +371,27 @@ msgstr ""
 "Bu durum genellikle otomatik bölümlendirmenin başarımı için yeterli disk "
 "alanı olmadığında ortaya çıkar.%s"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1533
 msgid "Unrecoverable Error"
 msgstr "Kurtarılamayan Hata"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1534
 msgid "Your system will now be rebooted."
 msgstr "Sisteminiz şimdi yeniden başlatılacak..."
 
-#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
-#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
+#: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
+#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:448
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Uyarı"
 
-#: ../autopart.py:1683
+#: ../autopart.py:1687
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -396,7 +407,7 @@ msgstr ""
 "olarak yapabilirsiniz. DiskDruid'in görsel arayüzü ile dosya sistemi türü, "
 "bağlama noktası, bölüm boyları ve daha bir çok özelliği belirleyebilirsiniz."
 
-#: ../autopart.py:1694
+#: ../autopart.py:1698
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -404,19 +415,19 @@ msgstr ""
 "Otomatik bölümlendirme öncesi, sabit disk alanlarının nasıl kullanılacağını "
 "belirtmelisiniz."
 
-#: ../autopart.py:1699
+#: ../autopart.py:1703
 msgid "Remove all partitions on this system"
 msgstr "Tüm disk bölümlerini sil"
 
-#: ../autopart.py:1700
+#: ../autopart.py:1704
 msgid "Remove all Linux partitions on this system"
 msgstr "Tüm Linux disk bölümlerini sil"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1705
 msgid "Keep all partitions and use existing free space"
 msgstr "Disk bölümlerine dokunma, sadece boş alanı kullan"
 
-#: ../autopart.py:1703
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -428,7 +439,7 @@ msgstr ""
 "SİLİNMESİNİ) seçtiniz.\n"
 "Böyle yapmak istediğinizden emin misiniz?"
 
-#: ../autopart.py:1707
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -440,12 +451,12 @@ msgstr ""
 "SİLİNMESİNİ) seçtiniz.\n"
 "Böyle yapmak istediğinizden emin misiniz?"
 
-#: ../backend.py:106
+#: ../backend.py:176
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s güncelleniyor.\n"
 
-#: ../backend.py:108
+#: ../backend.py:178
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s kurulumu yapılıyor.\n"
@@ -474,17 +485,6 @@ msgstr "Bitti"
 msgid "In progress...   "
 msgstr "İşlem yapılıyor... "
 
-#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"Kickstart ayarlarınızı derlerken aşağıdaki hata ile karşılaşıldı:\n"
-"\n"
-"%s"
-
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "Komut satırı kipinde bir soru olamaz!"
@@ -492,16 +492,6 @@ msgstr "Komut satırı kipinde bir soru olamaz!"
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Parted hata yakalaması komut satırı kipinde çalışmaz!"
-
-#: ../cmdline.py:145
-#, python-format
-msgid "Done [%d/%d]"
-msgstr "%d/%d tamamlandı"
-
-#: ../cmdline.py:151
-#, python-format
-msgid "Installing %s-%s-%s... "
-msgstr "%s-%s-%s kuruluyor..."
 
 #: ../constants.py:65
 #, python-format
@@ -514,11 +504,11 @@ msgstr ""
 "Ayrıntılı hata mesajının bir kopyasını kaydedin ve anaconda için %s "
 "adresinde hata raporu girin."
 
-#: ../exception.py:401 ../exception.py:418
+#: ../exception.py:415 ../exception.py:432
 msgid "Dump Written"
 msgstr "Bellek Kopyası Yazıldı"
 
-#: ../exception.py:402
+#: ../exception.py:416
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -526,22 +516,22 @@ msgstr ""
 "Sisteminizin durumu başarıyla diskete kaydedildi. Sisteminiz şimdi yeniden "
 "başlatılacak."
 
-#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
-#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
+#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Yeniden _Başlat"
 
-#: ../exception.py:410 ../exception.py:427
+#: ../exception.py:424 ../exception.py:441
 msgid "Dump Not Written"
 msgstr "Döküm Yazılamadı"
 
-#: ../exception.py:411
+#: ../exception.py:425
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Sistem durumunu diskete yazarkan bir sorun oluştu."
 
-#: ../exception.py:419
+#: ../exception.py:433
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -549,7 +539,7 @@ msgstr ""
 "Sisteminizin durumu başarıyla uzak sunucuya yazıldı.  Sisteminiz şimdi "
 "yeniden başlatılacak."
 
-#: ../exception.py:428
+#: ../exception.py:442
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Sistem durumunu uzak sunucuya yazmakta bir sorun oluştu."
 
@@ -566,29 +556,29 @@ msgstr "/dev/%s üzerinde hatalı disk blokları için denetim yapılıyor..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
-#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
-#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
+#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
-#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
 #: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
-#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:348 ../loader2/urls.c:353
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Hata"
 
@@ -639,9 +629,9 @@ msgstr ""
 "\n"
 "Sistem <Enter> tuşuna bastığınızda yeniden başlatılacaktır."
 
-#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1480 ../packages.py:283 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
 msgstr "Atla"
 
@@ -725,7 +715,7 @@ msgstr ""
 "takas alanı olarak tekrar biçimlendirmek için \"Biçimlendir\" i seçin.  "
 "Sistemi yeniden başlatmak için \"Yeniden Başlat\" ı seçin."
 
-#: ../fsset.py:1536 ../iw/partition_gui.py:367
+#: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Biçim"
 
@@ -855,8 +845,8 @@ msgstr ""
 "Cihaz %s, %s olarak bağlanmaya çalışılırken hata oluştu. Kuruluma devam "
 "edebilirsiniz ancak sorunlar olabilir."
 
-#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
-#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
+#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Devam"
 
@@ -889,11 +879,11 @@ msgstr ""
 "\n"
 "Sistemi yeniden başlatmak için Tamam'a basınız."
 
-#: ../fsset.py:2447
+#: ../fsset.py:2448
 msgid "Duplicate Labels"
 msgstr "Etiket Tekrarı"
 
-#: ../fsset.py:2448
+#: ../fsset.py:2449
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -906,24 +896,24 @@ msgstr ""
 "\n"
 "Bu sorunu hallettikten sonra kurulumu tekrar başlatın."
 
-#: ../fsset.py:2708
+#: ../fsset.py:2709
 msgid "Formatting"
 msgstr "Biçimlendiriliyor"
 
-#: ../fsset.py:2709
+#: ../fsset.py:2710
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s dosya sistemi biçimlendiriliyor..."
 
-#: ../gui.py:106
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "Üzerine görüntü kopyalanırken bir hata oluştu."
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "Görüntüler Kopyalandı"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -938,20 +928,20 @@ msgstr ""
 "dizinine kopyalandı. Bunlara sistemi yeniden başlatıp root olduğunuzda "
 "ulaşabilirsiniz."
 
-#: ../gui.py:161
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr "Ekran Görüntülerinin Kaydedilmesi"
 
-#: ../gui.py:162
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Bir ekran görüntüsü '%s' ismiyle kaydedildi."
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr "Ekran Görüntüleri Kaydedilirken Hata"
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -960,52 +950,58 @@ msgstr ""
 "ortaya çıkmışsa, bu hata oluşmayana kadar işlemi defalarca tekrarlamanız "
 "gerekebilir."
 
-#: ../gui.py:231 ../text.py:391
+#: ../gui.py:232 ../text.py:437
 msgid "Fix"
 msgstr "Düzelt"
 
-#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
+#: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "Evet"
 
-#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
+#: ../gui.py:234 ../rescue.py:203 ../rescue.py:205 ../text.py:439
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:405
 msgid "No"
 msgstr "Hayır"
 
-#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
-#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
-#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../gui.py:236 ../text.py:441 ../text.py:569 ../loader2/net.c:93
+#: ../loader2/net.c:325 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1206
+#: ../loader2/net.c:1212
 msgid "Retry"
 msgstr "Tekrar dene"
 
-#: ../gui.py:236 ../text.py:396
+#: ../gui.py:237 ../text.py:442
 msgid "Ignore"
 msgstr "Yoksay"
 
-#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
-#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
+#: ../text.py:416 ../text.py:443 ../iw/bootloader_advanced_gui.py:47
+#: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:339 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "İptal"
 
-#: ../gui.py:735 tmp/anaconda.glade.h:2
+#: ../gui.py:604 ../text.py:357
+#, fuzzy
+msgid "Installation Key"
+msgstr "Kurulum Yöntemi"
+
+#: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_Hata Ayıklama"
 
-#: ../gui.py:897 ../text.py:356
+#: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr "%s kickstart ayar dosyası derlenirken hata: %s"
 
-#: ../gui.py:905 ../text.py:366
+#: ../gui.py:967 ../text.py:412
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1013,15 +1009,15 @@ msgstr ""
 "Lütfen sürücüye bir disket yerleştirin. Disket içindeki tüm veriler "
 "silineceğinden disketi dikkatli seçin."
 
-#: ../gui.py:952
+#: ../gui.py:1014
 msgid "default:LTR"
 msgstr "Öntanımlı:LTR"
 
-#: ../gui.py:1036
+#: ../gui.py:1100 ../text.py:564
 msgid "Error!"
 msgstr "Hata!"
 
-#: ../gui.py:1037
+#: ../gui.py:1101 ../text.py:565
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1032,36 +1028,36 @@ msgstr ""
 "oluştu.\n"
 "sınıfİsmi = %s"
 
-#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
+#: ../gui.py:1106 ../gui.py:1111 ../packages.py:332 ../packages.py:337
 msgid "_Exit"
 msgstr "Çı_kış"
 
-#: ../gui.py:1043 ../yuminstall.py:754
+#: ../gui.py:1107 ../yuminstall.py:608
 msgid "_Retry"
 msgstr "_Tekrar dene"
 
-#: ../gui.py:1046 ../packages.py:295
+#: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
 msgstr "Kurulum programı şimdi sonlanacaktır..."
 
-#: ../gui.py:1049 ../packages.py:298
+#: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
 msgstr "Sisteminiz şimdi yeniden başlatılacak..."
 
-#: ../gui.py:1052 ../packages.py:300
+#: ../gui.py:1116 ../packages.py:341
 msgid "Rebooting System"
 msgstr "Sistemin Yeniden Başlatılması"
 
-#: ../gui.py:1116
+#: ../gui.py:1180
 #, python-format
 msgid "%s Installer"
 msgstr "%s Kurulum Programı"
 
-#: ../gui.py:1123
+#: ../gui.py:1187
 msgid "Unable to load title bar"
 msgstr "Başlık çubuğu yüklenemedi"
 
-#: ../gui.py:1177
+#: ../gui.py:1242
 msgid "Install Window"
 msgstr "Kurulum Penceresi"
 
@@ -1124,8 +1120,8 @@ msgstr ""
 "Kuruluma başlamadan önce bu CD'leri hazır tutun.  Eğer kurulumu iptal etmek "
 "ve bilgisayarınızı yeniden başlatmanız gerekiyorsa \"Yeniden Başlat\"ı seçin."
 
-#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
+#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Geri"
@@ -1220,7 +1216,7 @@ msgstr ""
 "Lütfen imajı uzak sunucudaki paylaşıma kopyalayıp Yeniden Dene'ye basınız. "
 "Yeniden başlatmak için Yeniden Başlat butonunu kullanabilirsiniz."
 
-#: ../installclass.py:65
+#: ../installclass.py:66
 msgid "Install on System"
 msgstr "Sistemde Kurulum"
 
@@ -1228,11 +1224,11 @@ msgstr "Sistemde Kurulum"
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI başlatıcısı hazırlanıyor"
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 msgid "Scriptlet Failure"
 msgstr "Betikcik Hatası"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:76
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1246,23 +1242,23 @@ msgstr ""
 "\n"
 "Sistemi yeniden başlatmak için Tamam'a basınız."
 
-#: ../kickstart.py:869 ../kickstart.py:886
+#: ../kickstart.py:930 ../kickstart.py:947
 msgid "Running..."
 msgstr "Çalışıyor..."
 
-#: ../kickstart.py:870
+#: ../kickstart.py:931
 msgid "Running post-install scripts"
 msgstr "Kurulum sonrası betikleri çalıştırılıyor."
 
-#: ../kickstart.py:887
+#: ../kickstart.py:948
 msgid "Running pre-install scripts"
 msgstr "Kurulum öncesi betikleri çalıştırılıyor"
 
-#: ../kickstart.py:918
+#: ../kickstart.py:979
 msgid "Missing Package"
 msgstr "Kayıp paket"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:980
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1271,16 +1267,16 @@ msgstr ""
 "'%s' paketinin kurumunu belirlediniz.. Böyle bir paket yok. Devam etmek mi "
 "yoksa kurulumu iptal etmek mi istersiniz?"
 
-#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
-#: ../yuminstall.py:864
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
+#: ../yuminstall.py:720
 msgid "_Abort"
 msgstr "İ_ptal et"
 
-#: ../kickstart.py:945
+#: ../kickstart.py:1016
 msgid "Missing Group"
 msgstr "Eksik Grup"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:1017
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1289,28 +1285,33 @@ msgstr ""
 "'%s' grubunun kurulumunu belirlediniz.. Böyle bir grup yok. Devam etmek mi "
 "yoksa kurulumu iptal etmek mi istersiniz?"
 
-#: ../livecd.py:77 ../livecd.py:262
+#: ../livecd.py:77 ../livecd.py:263
 #, fuzzy
 msgid "Unable to find image"
 msgstr "Kurulum kaydı %s bulunamıyor"
 
-#: ../livecd.py:78 ../livecd.py:263
+#: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:82 ../livecd.py:267
+#: ../livecd.py:82 ../livecd.py:268
 #, fuzzy
 msgid "Exit installer"
 msgstr "%s Kurulum Programı"
 
-#: ../livecd.py:144
+#: ../livecd.py:113
+#, fuzzy
+msgid "Copying live image to hard drive."
+msgstr "Kurulum dosyaları sabit diske aktarılıyor..."
+
+#: ../livecd.py:145
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "%s %s kurulumu"
 
-#: ../livecd.py:145
+#: ../livecd.py:146
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
@@ -1356,24 +1357,26 @@ msgstr "%s geçerli bir IPv6 adresi değil."
 msgid "'%s' is an invalid IP address."
 msgstr "%s geçerli bir IPv6 adresi değil."
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr "%s sürümünüz için kayıt anahtarını giriniz."
+#: ../packages.py:257
+#, fuzzy
+msgid "Invalid Key"
+msgstr "Geçersiz Öntakı"
 
-#: ../packages.py:245
-msgid "Enter Registration Key"
-msgstr "Kayıt Anahtarını Giriniz"
+#: ../packages.py:258
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "Girilen değer geçerli bir sayı değil."
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr "Anahtar:"
+#: ../packages.py:286
+#, fuzzy
+msgid "_Skip"
+msgstr "Atla"
 
-#: ../packages.py:277
+#: ../packages.py:318
 msgid "Warning! This is pre-release software!"
 msgstr "Uyarı! Bu bir beta sürümüdür!"
 
-#: ../packages.py:278
+#: ../packages.py:319
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1400,9 +1403,116 @@ msgstr ""
 "\n"
 "adresini kullanınız ve '%s' konu başlığı ile raporunuzu gönderiniz.\n"
 
-#: ../packages.py:291
+#: ../packages.py:332
 msgid "_Install anyway"
 msgstr "_Yinede Kur"
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Yabancı"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"%s aygıtı CDL değil LDL biçimli. LDL biçimli DASD'lerin %s kurulumu "
+"sırasında kullanımı desteklenmiyor. Bu diski kurulum amacıyla kullanmak "
+"isterseniz, disk yeniden yapılandırılacak ve bu işlem sonunda disk "
+"üzerinideki TÜM VERİLERİ kaybedeceksiniz.\n"
+"\n"
+"Bu DASD'nin LDL olarak yeniden biçimlenmesini ister misiniz?"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"/dev/%s aygıtındaki (%s) bölümlendirme tablosu sizin mimariniz için uygun "
+"değil. Bu disk üzerine %s kurulumu bu disk üzerindeki TÜM VERİNİN "
+"SİLİNMESİne sebep olacaktır.\n"
+"\n"
+"Bu sürücünün ilklendirilmesini istiyor musunuz?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Disk sürücüyü yoksay"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "Hazırlanıyor"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "%s sürücüsü biçimlendiriliyor. Lütfen bekleyiniz...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"%s (%s) aygıtındaki bölümlendirme tablosu okunamadı. Yeni bölümleri yaratmak "
+"için bu tablonun ilk haline getirilmesi gerekiyor, bu da bu disk üzerindeki "
+"BÜTÜN VERİLERİN kaybına yol açar.\n"
+"\n"
+"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinizi "
+"görmezden gelecek.\n"
+"\n"
+"Diskin ilk haline getirilmesini ister misiniz, BÜTÜN VERİLERİN silineceğini "
+"bilerek?"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"%s aygıtındaki bölümlendirme tablosunda hata var. Yeni disk bölümleri "
+"yaratmak için bu tablonun yeniden düzenlenmesi gerekiyor. Bu durumda DİSK "
+"ÜZERİNDE BULUNAN TÜM BİLGİLER SİLİNECEKTİR.\n"
+"\n"
+"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinize "
+"uygun olmayabilir.\n"
+"\n"
+"Bunun yine de yapılmasını (TÜM BİLGİLERİN SİLİNMESİNİ) istiyor musunuz?"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "Hiç Sürücü Bulunamadı"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Bir hata oluştu - yeni bir dosya sistemi yaratmak için kullanılabilecek bir "
+"aygıt bulunamadı. Lütfen donanımınızı kontrol ediniz."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1719,201 +1829,6 @@ msgid ""
 msgstr ""
 "Bu bölümü eski (orjinal) durumuna getirmek istediğinizden emin misiniz?"
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Bu bağlama noktası geçersiz. %s dizini / dosya sisteminde bulunmalıdır."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"Bağlama noktası \"%s\" kullanılamaz. İşlemlerin olması gibi yürüyebilmesi "
-"için onun bir sembolik bağ olması gerekir. Lütfen başka bir bağlama noktası "
-"seçiniz."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "Bu bağlama noktası bir Linux dosya sisteminde olmalıdır."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"İstenen bağlama noktası \"%s\" kullanımda, lütfen başka bir bağlama noktası "
-"seçin."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"%s bölümünün boyu (%10.2f MB) %10.2f MB'lık mümkün en büyük boyuttan fazla."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr "İstenen bölüm (%s MB) %s MB'lık mümkün en büyük boyuttan büyük."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "İstenen bölümünün boyu negatif! (%s MB)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Disk bölümleri ilk silindirin öncesinden başlatılamaz."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Disk bölümleri bir negatif numaralı silindirde bitemez."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "RAID isteğinde hiç üye yok ya da RAID seviyesi belirtilmemiş."
-
-#: ../partRequests.py:677 ../partitions.py:954
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Önyükleme bölümleri sadece RAID1 aygıtlarda olabilir."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "%s türündeki bir RAID aygıtı en az %s üye gerektirir."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Bu RAID aygıtı en çok %s yedek içerebilir. Daha fazla yedeğe ihtiyacınız "
-"varsa RAID aygıtına yeni üyeler eklemelisiniz."
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-"Matıksal oylum boyutu oylum grubunun fiziksel kaplam boyutundan daha büyük "
-"olmalıdır."
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "Yabancı"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"%s aygıtı CDL değil LDL biçimli. LDL biçimli DASD'lerin %s kurulumu "
-"sırasında kullanımı desteklenmiyor. Bu diski kurulum amacıyla kullanmak "
-"isterseniz, disk yeniden yapılandırılacak ve bu işlem sonunda disk "
-"üzerinideki TÜM VERİLERİ kaybedeceksiniz.\n"
-"\n"
-"Bu DASD'nin LDL olarak yeniden biçimlenmesini ister misiniz?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"/dev/%s aygıtındaki (%s) bölümlendirme tablosu sizin mimariniz için uygun "
-"değil. Bu disk üzerine %s kurulumu bu disk üzerindeki TÜM VERİNİN "
-"SİLİNMESİne sebep olacaktır.\n"
-"\n"
-"Bu sürücünün ilklendirilmesini istiyor musunuz?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Disk sürücüyü yoksay"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "_Sürücüyü Biçimle"
-
-#: ../partedUtils.py:898
-msgid "Initializing"
-msgstr "Hazırlanıyor"
-
-#: ../partedUtils.py:899
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "%s sürücüsü biçimlendiriliyor. Lütfen bekleyiniz...\n"
-
-#: ../partedUtils.py:1019
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"%s (%s) aygıtındaki bölümlendirme tablosu okunamadı. Yeni bölümleri yaratmak "
-"için bu tablonun ilk haline getirilmesi gerekiyor, bu da bu disk üzerindeki "
-"BÜTÜN VERİLERİN kaybına yol açar.\n"
-"\n"
-"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinizi "
-"görmezden gelecek.\n"
-"\n"
-"Diskin ilk haline getirilmesini ister misiniz, BÜTÜN VERİLERİN silineceğini "
-"bilerek?"
-
-#: ../partedUtils.py:1083
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"%s aygıtındaki bölümlendirme tablosunda hata var. Yeni disk bölümleri "
-"yaratmak için bu tablonun yeniden düzenlenmesi gerekiyor. Bu durumda DİSK "
-"ÜZERİNDE BULUNAN TÜM BİLGİLER SİLİNECEKTİR.\n"
-"\n"
-"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinize "
-"uygun olmayabilir.\n"
-"\n"
-"Bunun yine de yapılmasını (TÜM BİLGİLERİN SİLİNMESİNİ) istiyor musunuz?"
-
-#: ../partedUtils.py:1204
-msgid "No Drives Found"
-msgstr "Hiç Sürücü Bulunamadı"
-
-#: ../partedUtils.py:1205
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Bir hata oluştu - yeni bir dosya sistemi yaratmak için kullanılabilecek bir "
-"aygıt bulunamadı. Lütfen donanımınızı kontrol ediniz."
-
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Kuruluma devam edilemiyor."
@@ -1999,6 +1914,10 @@ msgstr ""
 "Bir FireWire aygıtı üzerine kuruluyor.  Bunun sonucunda düzgün çalışan bir "
 "sistem elde edilemeyebilir."
 
+#: ../partitions.py:954 ../partRequests.py:679
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Önyükleme bölümleri sadece RAID1 aygıtlarda olabilir."
+
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Önyükleme bölümleri mantıksal oylumlarda olamaz."
@@ -2041,6 +1960,90 @@ msgstr "bir RAID dizisinin üyesi olan bir bölüm."
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "bir LVM Oylum Grubunun üyesi olan bir bölüm."
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Bu bağlama noktası geçersiz. %s dizini / dosya sisteminde bulunmalıdır."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Bağlama noktası \"%s\" kullanılamaz. İşlemlerin olması gibi yürüyebilmesi "
+"için onun bir sembolik bağ olması gerekir. Lütfen başka bir bağlama noktası "
+"seçiniz."
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr "Bu bağlama noktası bir Linux dosya sisteminde olmalıdır."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"İstenen bağlama noktası \"%s\" kullanımda, lütfen başka bir bağlama noktası "
+"seçin."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"%s bölümünün boyu (%10.2f MB) %10.2f MB'lık mümkün en büyük boyuttan fazla."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr "İstenen bölüm (%s MB) %s MB'lık mümkün en büyük boyuttan büyük."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "İstenen bölümünün boyu negatif! (%s MB)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "Disk bölümleri ilk silindirin öncesinden başlatılamaz."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Disk bölümleri bir negatif numaralı silindirde bitemez."
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr "RAID isteğinde hiç üye yok ya da RAID seviyesi belirtilmemiş."
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "%s türündeki bir RAID aygıtı en az %s üye gerektirir."
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Bu RAID aygıtı en çok %s yedek içerebilir. Daha fazla yedeğe ihtiyacınız "
+"varsa RAID aygıtına yeni üyeler eklemelisiniz."
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"Matıksal oylum boyutu oylum grubunun fiziksel kaplam boyutundan daha büyük "
+"olmalıdır."
+
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "Arayüz Başlatılıyor"
@@ -2062,11 +2065,11 @@ msgstr "Ağ Ayarları"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Bu sistemde ağ bağdaştırıcılarını başlatmak ister misiniz?"
 
-#: ../rescue.py:243 ../text.py:534
+#: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
 msgstr "Vazgeçildi"
 
-#: ../rescue.py:244 ../text.py:535
+#: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adımdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
@@ -2097,7 +2100,7 @@ msgstr ""
 "geçebilir ve doğrudan kabuğa düşebilirsiniz.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
@@ -2115,7 +2118,7 @@ msgstr "Kurtarılacak Sistem"
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kurulumun kök dizini hangi disk bölümünde bulunuyor?"
 
-#: ../rescue.py:321 ../rescue.py:325
+#: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
 msgstr "Çıkış"
 
@@ -2184,66 +2187,76 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Dosya sisteminiz %s altına bağlandı."
 
-#: ../text.py:149 ../text.py:164
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "Kaydet"
 
-#: ../text.py:152 ../text.py:166
+#: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr "Uzak"
 
-#: ../text.py:154 ../text.py:162
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "Hata Ayıklama"
 
-#: ../text.py:158
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "Bir sorun oluştu"
 
-#: ../text.py:187
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr "Uzak Sunucuya Kaydet"
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Host"
 msgstr "Makine adı"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Remote path"
 msgstr "Uzak yol"
 
-#: ../text.py:194
+#: ../text.py:195
 msgid "User name"
 msgstr "Kullanıcı adı"
 
-#: ../text.py:196
+#: ../text.py:197
 msgid "Password"
 msgstr "Parola"
 
-#: ../text.py:253
+#: ../text.py:254
 msgid "Help not available"
 msgstr "Bu konuda yardım yok"
 
-#: ../text.py:254
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "Kurulumun bu adımı için yardım bulunmuyor."
 
-#: ../text.py:365
+#: ../text.py:362
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "Lütfen bir oylum grubu ismi girin."
+
+#: ../text.py:379 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:411
 msgid "Save Crash Dump"
 msgstr "Bellekteki Bilgiyi Kaydet"
 
-#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s'a Hoş Geldiniz"
 
-#: ../text.py:423
+#: ../text.py:469
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> yardım  |  Gezinmek için <Tab>  |  <Boşluk> seçer  | <F12> sonraki ekran"
 
-#: ../text.py:425
+#: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2426,7 +2439,7 @@ msgstr ""
 "Şifre kullanımı yetkisiz dinleyicilerin kurulum sürecinize bağlanmalarını ve "
 "izlemelerini önleyecektir. Lütfen kurulumda kullanılmak üzere bir şifre girin"
 
-#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
 msgstr "Parola:"
 
@@ -2541,80 +2554,110 @@ msgstr "Kuruluma başlamak için lütfen %s'a bağlanın..."
 msgid "Please connect to begin the install..."
 msgstr "Kuruluma başlamak için lütfen bağlanın..."
 
-#: ../yuminstall.py:100
+#: ../yuminstall.py:73
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../yuminstall.py:76
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../yuminstall.py:79
+#, python-format
+msgid "%s Byte"
+msgstr "%s Bayt"
+
+#: ../yuminstall.py:81
+#, python-format
+msgid "%s Bytes"
+msgstr "%s Bayt"
+
+#: ../yuminstall.py:129
 msgid "Processing"
 msgstr "İşleniyor"
 
-#: ../yuminstall.py:101
+#: ../yuminstall.py:130
 msgid "Preparing transaction from installation source..."
 msgstr "Kurulum kaynağından aktarıma hazırlanılıyor..."
 
-#: ../yuminstall.py:614 ../yuminstall.py:615
+#: ../yuminstall.py:160
+#, fuzzy, python-format
+msgid "<b>Installing %s</b> (%s)\n"
+msgstr "%s kurulumu yapılıyor.\n"
+
+#: ../yuminstall.py:194
+#, python-format
+msgid "%s of %s packages completed"
+msgstr ""
+
+#: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
 msgstr "dosya çakışması"
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:533
 msgid "older package(s)"
 msgstr "eski paket(ler)"
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:534
 msgid "insufficient disk space"
 msgstr "yetersiz disk alanı"
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:535
 msgid "insufficient disk inodes"
 msgstr "yetersiz disk inode'u"
 
-#: ../yuminstall.py:619
+#: ../yuminstall.py:536
 msgid "package conflicts"
 msgstr "paket çakışması"
 
-#: ../yuminstall.py:620
+#: ../yuminstall.py:537
 msgid "package already installed"
 msgstr "paket zaten kurulu"
 
-#: ../yuminstall.py:621
+#: ../yuminstall.py:538
 msgid "required package"
 msgstr "gerekli paket"
 
-#: ../yuminstall.py:622
+#: ../yuminstall.py:539
 msgid "package for incorrect arch"
 msgstr "yanlış mimari için paket"
 
-#: ../yuminstall.py:623
+#: ../yuminstall.py:540
 msgid "package for incorrect os"
 msgstr "yanlış işletim sistemi için paket"
 
-#: ../yuminstall.py:637
+#: ../yuminstall.py:554
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 "Aşağıdaki dosya sistemleri üzerinde daha fazla boş alana gereksiminiz var:\n"
 
-#: ../yuminstall.py:653
+#: ../yuminstall.py:570
 msgid "Error running transaction"
 msgstr "RPM aktarımında hata"
 
-#: ../yuminstall.py:654
+#: ../yuminstall.py:571
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr "Hareketinizde hata oluştu, aşağıdaki neden(ler)le: %s"
 
-#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
+#: ../yuminstall.py:930
 msgid "Re_boot"
 msgstr "Yeniden_Başlat"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:699
 msgid "Retrieving installation information..."
 msgstr "Kurulum bilgisine erişiliyor..."
 
-#: ../yuminstall.py:845
+#: ../yuminstall.py:701
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s için kurulum bilgisine erişiliyor..."
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2624,17 +2667,17 @@ msgstr ""
 "Paket yardımcı verisi okunamıyor. Eksik depo bilgisi buna neden olabilir. "
 "Kurulum ağacının düzgün oluşturulduğundan emin olun.  %s"
 
-#: ../yuminstall.py:883
+#: ../yuminstall.py:739
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:915
+#: ../yuminstall.py:771
 msgid "Uncategorized"
 msgstr "Sınıflandırılmamış"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:924
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2644,7 +2687,7 @@ msgstr ""
 "disk alanınız bulunmamaktadır. Seçiminizi değiştirebilir veya yeniden "
 "başlatabilirsiniz."
 
-#: ../yuminstall.py:1289
+#: ../yuminstall.py:1085
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2653,39 +2696,39 @@ msgstr ""
 "Güncelleme yaptığınız mevcut sisteminiz, güncellemeye çalıştığınız %s için "
 "çok eski. Güncelleme işlemine devam etmek istiyor musunuz?"
 
-#: ../yuminstall.py:1321
+#: ../yuminstall.py:1113
 msgid "Install Starting"
 msgstr "Kurulum Başlıyor"
 
-#: ../yuminstall.py:1322
+#: ../yuminstall.py:1114
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Kurulum süreci başlatılıyor. Bu işlem biraz uzun sürebilir..."
 
-#: ../yuminstall.py:1338
+#: ../yuminstall.py:1130
 msgid "Post Upgrade"
 msgstr "Sonra Güncelle"
 
-#: ../yuminstall.py:1339
+#: ../yuminstall.py:1131
 msgid "Performing post upgrade configuration..."
 msgstr "sürüm yükseltme sonrası ayarlar yapılıyor..."
 
-#: ../yuminstall.py:1341
+#: ../yuminstall.py:1133
 msgid "Post Install"
 msgstr "Kurulum Sonrası"
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1134
 msgid "Performing post install configuration..."
 msgstr "Kurulum sonrası ayarlar yapılıyor..."
 
-#: ../yuminstall.py:1524
+#: ../yuminstall.py:1327
 msgid "Installation Progress"
 msgstr "Kurulum Süreci"
 
-#: ../yuminstall.py:1559
+#: ../yuminstall.py:1362
 msgid "Dependency Check"
 msgstr "Bağımlılık Denetimi"
 
-#: ../yuminstall.py:1560
+#: ../yuminstall.py:1363
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kurulacak paketlerdeki bağımlılıklar denetleniyor..."
 
@@ -2726,9 +2769,9 @@ msgid "The root password must be at least six characters long."
 msgstr "root parolası en az 6 karakterlik olmalı."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Verdiğiniz parola, parolalarda kullanılmasına izin verilmeyen karakterler "
 "içeriyor. (Türkçe karakter kullanmayın)"
@@ -2741,44 +2784,45 @@ msgstr ""
 "root hesabı sistemi yönetmek için kullanılır. root kullanıcısı için bir "
 "parola girin."
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:108
 msgid "Root _Password: "
 msgstr "Root _Parolası: "
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:111
 msgid "_Confirm: "
 msgstr "O_nayla: "
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:147
 msgid "Invalid Initiator Name"
 msgstr "Geçersiz iSCSI Başlatıcı Adı"
 
-#: ../iw/autopart_type.py:138
-msgid "You must provide a non-zero length initiator name."
+#: ../iw/autopart_type.py:148
+#, fuzzy
+msgid "You must provide an initiator name."
 msgstr "Başlatıcı adı girmelisiniz."
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Veriyle birlikte Hata"
 
-#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
+#: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 "Seçili aygıtlar üzerindeki tüm disk bölümlerini kaldır ve öntanımlı şablonu "
 "kullan."
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
+#: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Seçili sürücüler üzerindeki Linux disk bölümlerini kaldır ve öntanımlı "
 "yerleşimi oluştur."
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
+#: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 "Seçili sürücüler üzerindeki boş alanı kullan ve öntanımlı yerleşimi oluştur."
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
+#: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr "Özel yerleşim oluştur."
 
@@ -2825,13 +2869,14 @@ msgstr "O_nayla:"
 msgid "Passwords don't match"
 msgstr "Parolalar uyuşmuyor"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:439
 msgid "Passwords do not match"
 msgstr "Parolalar uyuşmuyor"
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
+#, fuzzy
 msgid ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -2845,10 +2890,11 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "İleri Düzey Önyükleyici Yapılandırması"
 
-#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
+#, fuzzy
 msgid ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
@@ -2879,8 +2925,8 @@ msgid "_General kernel parameters"
 msgstr "_Genel çekirdek parametreleri"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
-#: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
 msgstr "Önyükleyici Yapılandırması"
 
@@ -3037,10 +3083,10 @@ msgid "_Upgrade an existing installation"
 msgstr "Mevcut Sistemi _Güncelle"
 
 #: ../iw/examine_gui.py:58
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 msgstr ""
 "Mevcut %s sisteminizi güncellemek istiyorsanız bu seçeneği kullanın.  Bu "
 "seçenekle sürücülerinizdeki verileriniz korunacaktır."
@@ -3083,12 +3129,13 @@ msgid "Confirm Physical Extent Change"
 msgstr "Fiziksel Kaplam Değişikliği Onayı"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 msgstr ""
 "Fiziksel kaplamın değerindeki bu değişiklik, mevcut mantıksal oylum "
 "isteklerinin fiziksel kaplamın tam katları seviyesinde yuvarlanmasını "
@@ -3097,7 +3144,7 @@ msgstr ""
 "Bu değişiklik anında etkisini gösterecektir."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "_Devam"
 
@@ -3227,8 +3274,8 @@ msgid "Mount point in use"
 msgstr "Bağlama noktası kullanımda"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, python-format
-msgid "The mount point \"%s\" is in use, please pick another."
+#, fuzzy, python-format
+msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
 "İstenen bağlama noktası \"%s\" kullanımda, lütfen başka bağlama noktası "
 "seçin."
@@ -3248,10 +3295,10 @@ msgstr ""
 "Mantıksal oylum ismi \"%s\" kullanımda. Lütfen başka bir isim belirtin."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can create more Physical "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "İstenen boyut (%10.2f MB) mümkün mantıksal oylum boyutundan (%10.2f MB) daha "
@@ -3291,9 +3338,10 @@ msgid "No free space"
 msgstr "Boş alan yok"
 
 #: ../iw/lvm_dialog_gui.py:728
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
-"add a logical volume you will need to reduce the size of one or more of the "
+"add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "Oylum grubunda yeni mantıksal oylumlar oluşturulabilecek yer yok. Bir "
@@ -3301,8 +3349,8 @@ msgstr ""
 "boyutunu küçültmeniz gerekiyor."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, python-format
-msgid "Are you sure you want to Delete the logical volume \"%s\"?"
+#, fuzzy, python-format
+msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "\"%s\" mantıksal oylumunu Silmek istediğinizden emin misiniz?"
 
 #: ../iw/lvm_dialog_gui.py:892
@@ -3381,13 +3429,13 @@ msgstr "Toplam Alan:"
 msgid "Logical Volume Name"
 msgstr "Mantıksal Oylum İsmi"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Bağlama Noktası"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Boy (MB):"
 
@@ -3395,7 +3443,7 @@ msgstr "Boy (MB):"
 msgid "_Add"
 msgstr "_Ekle"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_Düzenle"
@@ -3440,11 +3488,11 @@ msgstr "3. _Düğmeyi Taklit Et"
 msgid "Select the appropriate mouse for the system."
 msgstr "Sisteminizdeki fareye en uygununu seçiniz."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
-#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
-#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:44 ../textw/network_text.py:49
+#: ../textw/network_text.py:55
 msgid "Error With Data"
 msgstr "Veri hataya yol açtı"
 
@@ -3461,12 +3509,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "Dinamik IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s IP bilgisi için istek gönderiliyor..."
 
-#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
+#: tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "IP Adresi"
 
@@ -3475,7 +3524,7 @@ msgid "Netmask"
 msgstr "Ağ maskesi"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:540
+#: ../iw/network_gui.py:527
 msgid "Gateway"
 msgstr "Ağ Geçidi"
 
@@ -3488,11 +3537,11 @@ msgstr "Alan adı sunucu"
 msgid "Error configuring network device"
 msgstr "Ağ bağdaştıcınız yapılandırılırken bir hata oluştu."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
 msgstr "Birincil DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
 msgstr "İkincil DNS"
 
@@ -3508,11 +3557,11 @@ msgstr "_Birincil DNS"
 msgid "_Secondary DNS"
 msgstr "İ_kincil DNS"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:31
 msgid "Network Configuration"
 msgstr "Ağ Yapılandırması"
 
-#: ../iw/network_gui.py:156
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3520,7 +3569,7 @@ msgstr ""
 "Bir konak ismi belirtmediniz. Ağ ortamınıza bağlı olarak ilerde bu bazı "
 "sorunlara yol açabilir."
 
-#: ../iw/network_gui.py:160
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3529,7 +3578,7 @@ msgstr ""
 "\"%s\" alanını belirtmediniz. Ağ ortamınıza bağlı olarak ilerde bu bazı "
 "sorunlara yol açabilir."
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:735
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3540,28 +3589,29 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, fuzzy, python-format
 msgid "A value is required for the field %s."
 msgstr "\"%s\" alanı için bir değer gereklidir."
 
-#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "Veri hataya yol açtı"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:36
+#: ../textw/network_text.py:521 ../textw/network_text.py:525
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:56
 #, fuzzy
 msgid "The IPv4 information you have entered is invalid."
 msgstr "Girilen IP bilgisi geçersiz."
 
-#: ../iw/network_gui.py:180
+#: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3569,107 +3619,105 @@ msgstr ""
 "Etkin bir ağ aygıtınız yok. En az bir aygıt etkin olmadıkça sisteminiz bir "
 "ağ üzerinden haberleşme yapamayacaktır."
 
-#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/network_gui.py:405
+#: ../iw/network_gui.py:392
 msgid "Active on Boot"
 msgstr "Açılışta etkinleştirilsin"
 
-#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "Aygıt"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:396
 msgid "IPv4/Netmask"
 msgstr "IPv4/Ağ maskesi"
 
-#: ../iw/network_gui.py:411
+#: ../iw/network_gui.py:398
 msgid "IPv6/Prefix"
 msgstr "IPv6/Öntakı"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:458
 msgid "Network Devices"
 msgstr "Ağ Aygıtları"
 
-#: ../iw/network_gui.py:482
+#: ../iw/network_gui.py:469
 msgid "Set the hostname:"
 msgstr "Konak Adı:"
 
-#: ../iw/network_gui.py:487
+#: ../iw/network_gui.py:474
 msgid "_automatically via DHCP"
 msgstr "_DHCP üzerinden"
 
-#: ../iw/network_gui.py:494
+#: ../iw/network_gui.py:481
 msgid "_manually"
 msgstr "_elle"
 
-#: ../iw/network_gui.py:499
+#: ../iw/network_gui.py:486
 msgid "(e.g., host.domain.com)"
 msgstr "(örn. konak.alan.com)"
 
-#: ../iw/network_gui.py:505
+#: ../iw/network_gui.py:492
 msgid "Hostname"
 msgstr "Konak Adı"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:536
 msgid "Miscellaneous Settings"
 msgstr "Çeşitli Ayarlar"
 
-#: ../iw/network_gui.py:638
+#: ../iw/network_gui.py:625
 #, fuzzy
 msgid "Edit Device "
 msgstr "RAID Aygıtını Düzenle"
 
-#: ../iw/network_gui.py:642
+#: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
 msgstr ""
 
-#: ../iw/network_gui.py:648
+#: ../iw/network_gui.py:635
 #, fuzzy
 msgid "unknown"
 msgstr "Bilinmiyor"
 
-#: ../iw/network_gui.py:650
+#: ../iw/network_gui.py:637
 #, fuzzy
 msgid "Hardware address: "
 msgstr "Donanım adresi: %s"
 
-#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Eksik Protokol"
 
-#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#: ../iw/network_gui.py:780 ../textw/network_text.py:221
 #, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr "DHCP için en azından bir protokol (IPv4 veya IPv6) seçmelisiniz."
 
-#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:92
+#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../textw/network_text.py:66 ../loader2/net.c:93
 msgid "Invalid Prefix"
 msgstr "Geçersiz Öntakı"
 
-#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#: ../iw/network_gui.py:804
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "IPv4 öntakıları 0 ile 32 arasındaki sayılardan oluşabilir."
 
-#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
-#: ../textw/network_text.py:381
+#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 öntakıları 1 ile 128 arasındaki sayılardan oluşabilir."
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Önyükleyiciyi başka işletim sistemlerini açabilmek içinde "
 "yapılandırabilirsiniz. Önyükleyici açılış sırasında bu işletim sistemlerini "
@@ -3678,7 +3726,7 @@ msgstr ""
 "öntanımlı olarak yüklenmesini istediğiniz işletim sistemini belirlemek "
 "isterseniz, bu işletim sistemini 'Öntanımlı' düğmesi ile belirleyebilirsiniz."
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
 msgstr "Öntanımlı"
 
@@ -3691,9 +3739,10 @@ msgid "Image"
 msgstr "İmge"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 msgstr ""
 "Önyükleme etiketi açılışını yapmak istediğiniz işletim sistemini seçmenizi "
 "sağlayan ve önyükleyiciye gösterilen bir isimdir. Önyükleme aygıtı ise "
@@ -3732,11 +3781,11 @@ msgstr "Aygıt Tekrarı"
 msgid "This device is already being used for another boot entry."
 msgstr "Bu aygıt başka bir girdide kullanılmış."
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
 msgstr "Silinemez"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3802,29 +3851,29 @@ msgstr "Bi_tiş Silindiri:"
 msgid "Force to be a _primary partition"
 msgstr "_Birincil disk bölümü olmaya zorla"
 
-#: ../iw/partition_gui.py:313
+#: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr "Sürücü %s (Geom: %s/%s/%s) (Model: %s)"
 
-#: ../iw/partition_gui.py:320
+#: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "Sürücü %s (%0.f MB) (Model: %s)"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "Türü"
 
-#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "Başlangıç"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "Bitiş"
 
-#: ../iw/partition_gui.py:407
+#: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3832,7 +3881,7 @@ msgstr ""
 "Bağlama Noktası/\n"
 "RAID/Oylum"
 
-#: ../iw/partition_gui.py:409
+#: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
@@ -3840,19 +3889,19 @@ msgstr ""
 "Boyut\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "Bölümleme"
 
-#: ../iw/partition_gui.py:632
+#: ../iw/partition_gui.py:633
 msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr "İstediğiniz bölümleme şemasına bağlı olarak aşağıdaki hatalar oluştu."
+"The partitioning scheme you requested caused the following critical errors."
+msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+"You must correct these errors before you continue your installation of %s."
 msgstr "%s kurulumuna devam etmeden önce bu hatalar giderilmelidir."
 
 #: ../iw/partition_gui.py:641
@@ -3860,8 +3909,8 @@ msgid "Partitioning Errors"
 msgstr "Bölümleme Hataları"
 
 #: ../iw/partition_gui.py:647
-msgid "The following warnings exist with your requested partition scheme."
-msgstr "İstediğiniz bölümleme şemasına bağlı olarak aşağıdaki uyarılar alındı."
+msgid "The partitioning scheme you requestedgenerated the following warnings."
+msgstr ""
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3892,7 +3941,7 @@ msgstr "RAID Aygıtları"
 msgid "None"
 msgstr "Hiçbiri"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "Sabit Diskler"
 
@@ -3970,9 +4019,10 @@ msgstr ""
 "Şu anda kullanıma hazır %s yazılımsal RAID disk bölümünüz var.\n"
 
 #: ../iw/partition_gui.py:1248
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device which can be formatted and "
+"RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
@@ -4055,10 +4105,10 @@ msgid "Check for _bad blocks?"
 msgstr "_Hatalı disk blokları için sınansın mı?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "'%s' türündeki bölümler bir tek sürücüyle sınırlanmalıdır. Bu, "
 "'Kullanılabilir Sürücüler' listesinden sürücü seçerek yapılır."
@@ -4075,56 +4125,9 @@ msgstr "_Otomatik olarak bölümlendir"
 msgid "Manually partition with _Disk Druid"
 msgstr "_Disk Druid yardımıyla elle bölümlendir"
 
-#: ../iw/progress_gui.py:43
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../iw/progress_gui.py:46
-#, python-format
-msgid "%s KB"
-msgstr "%s KB"
-
-#: ../iw/progress_gui.py:49
-#, python-format
-msgid "%s Byte"
-msgstr "%s Bayt"
-
-#: ../iw/progress_gui.py:51
-#, python-format
-msgid "%s Bytes"
-msgstr "%s Bayt"
-
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:31
 msgid "Installing Packages"
 msgstr "Paketler Kuruluyor"
-
-#: ../iw/progress_gui.py:170
-#, python-format
-msgid "Remaining time: %s minutes"
-msgstr "Kalan süre: %s dakika"
-
-#: ../iw/progress_gui.py:186
-#, python-format
-msgid "Downloading %s"
-msgstr "%s indiriliyor"
-
-#: ../iw/progress_gui.py:226
-#, python-format
-msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "%s-%s-%s.%s (%s) kuruluyor."
-
-#: ../iw/progress_gui.py:350
-msgid "Package"
-msgstr "Paket"
-
-#: ../iw/progress_gui.py:351
-msgid "Summary"
-msgstr "Özet"
-
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
-msgid "Status: "
-msgstr "Durum: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4188,24 +4191,25 @@ msgid "Source Drive Error"
 msgstr "Kaynak Sürücü Hatası"
 
 #: ../iw/raid_dialog_gui.py:498
+#, fuzzy
 msgid ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 msgstr ""
 "Kaynak sürücü, 'yazılımsal RAID' türünde olmayan bölümlerden seçildi.\n"
 "\n"
 "Bu bölümler bu sürücü kopyalanmadan önce silinmiş olacaktır."
 
 #: ../iw/raid_dialog_gui.py:510
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 msgstr ""
 "Kaynak sürücü, /dev/%s sürücüsüyle sınırlı olmayan bölümlerden seçildi.\n"
 "\n"
@@ -4213,11 +4217,12 @@ msgstr ""
 "olacaktır."
 
 #: ../iw/raid_dialog_gui.py:523
+#, fuzzy
 msgid ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 msgstr ""
 "Kaynak sürücü, bir etkin yazılımsal RAID aygıtının üyeleri olan yazılımsal "
 "RAID bölümlerinden seçildi.\n"
@@ -4239,14 +4244,14 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Kaynak sürücü /dev/%s hedef sürücü olarak da seçilemez."
 
 #: ../iw/raid_dialog_gui.py:562
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 msgstr ""
 "Hedef sürücü /dev/%s aşağıdaki sebepten dolayı silinemeyen bir bölüm "
 "içeriyor:\n"
@@ -4291,13 +4296,14 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Hedef sürücüler temizlenirken bir hata oluştu. Kopyalama başarılamadı."
 
 #: ../iw/raid_dialog_gui.py:696
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4357,10 +4363,10 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Unable to find a group file for %s.  This will make manual selection of "
-"packages from the repository not work"
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 msgstr ""
 "%s için bir grup dosyası bulanamadı. Bu depodan depodan elle paket seçimini "
 "olanaksız kılar"
@@ -4370,18 +4376,19 @@ msgid "Invalid Repository Name"
 msgstr "Geçersiz Depo Adı"
 
 #: ../iw/task_gui.py:123
-msgid "You must provide a non-zero length repository name."
+#, fuzzy
+msgid "You must provide a repository name."
 msgstr "Bir depo sunucu adı girmelisiniz"
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
 msgstr "Geçersiz Depo URL adresi"
 
-#: ../iw/task_gui.py:133
+#: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Depo için bir HTTP veya FTP URL adresi girmelisiniz."
 
-#: ../iw/task_gui.py:147
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4427,9 +4434,10 @@ msgid "_Create new boot loader configuration"
 msgstr "_Yeni önyükleyici yapılandırması oluştur"
 
 #: ../iw/upgrade_bootloader_gui.py:89
+#, fuzzy
 msgid ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 msgstr ""
 "Bu, bir yeni önyükleyici yapılandırması oluşturmanızı sağlayacak. "
 "Önyükleyiciler arasında bir seçim yapabilmek için bunu seçmelisiniz."
@@ -4439,9 +4447,10 @@ msgid "_Skip boot loader updating"
 msgstr "Önyükleyici güncellemesini _atla"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 msgstr ""
 "Bu, önyükleyici yapılandırmanızı değiştirmeyecek. Üçüncü el bir önyükleyici "
 "kullanıyorsanız bunu seçmelisiniz."
@@ -4455,12 +4464,12 @@ msgid "Migrate File Systems"
 msgstr "Dosya Sistemlerini Dönüştür"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -4476,12 +4485,12 @@ msgid "Upgrade Swap Partition"
 msgstr "Takas Bölümünün Güncellenmesi"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4 çekirdekler sisteminizdeki RAM'in iki katına kadar bir takas alanına "
 "gereksinim duyar. %dMB'lık takas alanınınız var ama dosya sisteminizde başka "
@@ -4515,10 +4524,10 @@ msgid "Free Space (MB)"
 msgstr "Boş Alan (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr ""
 "Bir takas dosyasının en azından %d MB olması önerilir. Lütfen takas "
 "dosyasının uzunluğunu giriniz:"
@@ -4532,10 +4541,10 @@ msgid "I _don't want to create a swap file"
 msgstr "Bir takas dosyası oluşturul_masın"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is stongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Bir takas dosyası oluşturmanız önemle tavsiye edilir. Bir başarısızlık "
 "kurulum programını kontrol dışı sonlandırabilir. Devam etmek istediğinize "
@@ -4613,11 +4622,11 @@ msgid "Skip Boot Loader"
 msgstr "Önyükleyiciyi Atla"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
@@ -4628,74 +4637,75 @@ msgstr ""
 "\n"
 "Önyükleyici kurmaksızın kuruluma devam etmek istediğinizden emin misiniz?"
 
-#: ../textw/bootloader_text.py:93
+#: ../textw/bootloader_text.py:92
+#, fuzzy
 msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Bazı sistemlerde açılış sırasında çekirdeğe özel parametreler geçirilmesi "
 "gerekir. Sizin sisteminizde de gerekiyorsa bu parametreleri şimdi belirtin. "
 "Emin değilseniz boş bırakın."
 
-#: ../textw/bootloader_text.py:102
+#: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
 msgstr "LBA32 mutlaka kullanılsın (normalde gerekmez)"
 
-#: ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
 msgstr "Önyükleyiciyi nereye kurmak istiyorsunuz?"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
+#: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
 msgstr "Önyükleme Etiketi"
 
-#: ../textw/bootloader_text.py:198
+#: ../textw/bootloader_text.py:197
 msgid "Clear"
 msgstr "Sil"
 
-#: ../textw/bootloader_text.py:206
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
 msgstr "Önyükleyici Etiketinin Düzenlenmesi"
 
-#: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "Geçersiz Önyükleme Etiketi"
 
-#: ../textw/bootloader_text.py:225
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "Önyükleme etiketi boş olamaz."
 
-#: ../textw/bootloader_text.py:230
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "Önyükleme etiketinde geçersiz karakterler."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Düzenle"
 
-#: ../textw/bootloader_text.py:278
-#, python-format
+#: ../textw/bootloader_text.py:277
+#, fuzzy, python-format
 msgid ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 msgstr ""
 "%s tarafından kullanılan sistem yükleyicisi başka işletim sistemlerini de "
 "yükleyebilir. Lütfen hangi bölümlerin açılış bölümü olabileceklerini ve "
 "etiketlerini belirtin."
 
-#: ../textw/bootloader_text.py:291
+#: ../textw/bootloader_text.py:290
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> seçim | <F2> öntanımlıyı seç | <F4> sil | <F12> sonraki ekran>"
 
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:386
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "Bir önyükleme parolası yetkisiz kullanıcıların çekirdeğe ne ettiği belirsiz "
@@ -4703,27 +4713,27 @@ msgstr ""
 "istiyorsanız bir parolalı açılış tavsiye edilirse de sistemi sizden başka "
 "birinin açması söz konusu değilse gereksizdir."
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
 msgstr "GRUB Parolası Kullanılsın"
 
-#: ../textw/bootloader_text.py:409
+#: ../textw/bootloader_text.py:408
 msgid "Boot Loader Password:"
 msgstr "Önyükleyici Parolası: "
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:409
 msgid "Confirm:"
 msgstr "Onayla: "
 
-#: ../textw/bootloader_text.py:439
+#: ../textw/bootloader_text.py:438
 msgid "Passwords Do Not Match"
 msgstr "Parolalar Uyuşmuyor"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:443
 msgid "Password Too Short"
 msgstr "Parola Çok Kısa."
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:444
 msgid "Boot loader password is too short"
 msgstr "Önyükleyici parolası çok kısa."
 
@@ -4802,11 +4812,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
 #: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
-#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:283 ../loader2/urls.c:471
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "Geri"
 
@@ -4824,7 +4834,8 @@ msgstr ""
 "sonra %s dosyasında bulabilirsiniz."
 
 #: ../textw/grpselect_text.py:87
-msgid "Please select the package groups you would like to have installed."
+#, fuzzy
+msgid "Please select the package groups you would like to install."
 msgstr "Kurmak istediğiniz paket gruplarını seçiniz."
 
 #: ../textw/grpselect_text.py:105
@@ -4865,7 +4876,7 @@ msgstr "3. Tuş Taklit Edilsin mi?"
 msgid "Mouse Selection"
 msgstr "Fare Seçimi"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:50
 #, fuzzy, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
@@ -4874,109 +4885,175 @@ msgstr ""
 "\"%s\" alanını belirtmediniz. Ağ ortamınıza bağlı olarak ilerde bu bazı "
 "sorunlara yol açabilir."
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:67
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "IPv4 öntakıları 0 ile 32 arasındaki sayılardan oluşabilir."
+
+#: ../textw/network_text.py:71
+msgid "Integer Required for Prefix"
+msgstr ""
+
+#: ../textw/network_text.py:72
 #, python-format
-msgid "Description: %s"
-msgstr "Açıklama: %s"
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
+msgstr ""
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "Donanım Adresi: %s"
-
-#: ../textw/network_text.py:170
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Dinamik IP yapılandırması kullan (DHCP)"
-
-#: ../textw/network_text.py:177 ../loader2/net.c:711
-#: tmp/netpostconfig.glade.h:10
-msgid "Enable IPv4 support"
-msgstr "IPv4 desteğini etkinleştir"
-
-#: ../textw/network_text.py:183 ../loader2/net.c:724
-#: tmp/netpostconfig.glade.h:11
-msgid "Enable IPv6 support"
-msgstr "IPv6 desteğini etkinleştir"
-
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
-msgid "Activate on boot"
-msgstr "Açılışta etkinleştir"
-
-#: ../textw/network_text.py:214
-#, fuzzy
-msgid "Address"
-msgstr "IP Adresi"
-
-#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 #, fuzzy
 msgid "Prefix (Netmask)"
 msgstr "Ağ maskesi"
 
-#: ../textw/network_text.py:217
-msgid "IPv4:"
-msgstr ""
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+#, fuzzy
+msgid "Prefix"
+msgstr "IPv6/Öntakı"
 
-#: ../textw/network_text.py:220
-msgid "IPv6:"
-msgstr ""
+#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+msgid "Activate on boot"
+msgstr "Açılışta etkinleştir"
 
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:141 ../loader2/net.c:719
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv4 support"
+msgstr "IPv4 desteğini etkinleştir"
+
+#: ../textw/network_text.py:148 ../loader2/net.c:732
+#: tmp/netpostconfig.glade.h:11
+msgid "Enable IPv6 support"
+msgstr "IPv6 desteğini etkinleştir"
+
+#: ../textw/network_text.py:161
 msgid "P-to-P:"
 msgstr ""
 
-#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
 #, fuzzy
 msgid "ESSID:"
 msgstr "_ESSID:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:188
 #, fuzzy
 msgid "WEP Key:"
 msgstr "Anahtar:"
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:201
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "%s Ağ Ayarları"
 
-#: ../textw/network_text.py:387
-#, fuzzy
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "IPv6 öntakıları 1 ile 128 arasındaki sayılardan oluşabilir."
+#: ../textw/network_text.py:238 ../textw/network_text.py:241
+msgid "point-to-point IP address"
+msgstr ""
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1017
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Dinamik IP yapılandırması kullan (DHCP)"
+
+#: ../textw/network_text.py:267 ../textw/network_text.py:398
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "Ele TCP/IP Yapılandırması"
+
+#: ../textw/network_text.py:287
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "%s Ağ Ayarları"
+
+#: ../textw/network_text.py:317 ../textw/network_text.py:329
+#: ../textw/network_text.py:332
+#, fuzzy
+msgid "IPv4 address"
+msgstr "IPv4 adresi:"
+
+#: ../textw/network_text.py:321
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "IPv4/Ağ maskesi"
+
+#: ../textw/network_text.py:347 ../textw/network_text.py:350
+#: ../textw/network_text.py:353
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "Ağ maskesi"
+
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Dinamik IP yapılandırması kullan (DHCP)"
+
+#: ../textw/network_text.py:422
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "%s Ağ Ayarları"
+
+#: ../textw/network_text.py:452 ../textw/network_text.py:463
+#: ../textw/network_text.py:466
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IPv6 adresi:"
+
+#: ../textw/network_text.py:456 ../textw/network_text.py:475
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "IPv6/Öntakı"
+
+#: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Ağ geçidi:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:592
 msgid "Primary DNS:"
 msgstr "Birincil DNS: "
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:597
 msgid "Secondary DNS:"
 msgstr "İkincil DNS: "
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "Çeşitli Ağ Ayarları"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#, fuzzy
+msgid "gateway"
+msgstr "Ağ Geçidi"
+
+#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#, fuzzy
+msgid "primary DNS"
+msgstr "Birincil DNS"
+
+#: ../textw/network_text.py:643
+#, fuzzy
+msgid "secondary DNS"
+msgstr "İkincil DNS"
+
+#: ../textw/network_text.py:677
 msgid "automatically via DHCP"
 msgstr "DHCP üzerinden kendiliğinden"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:680
 msgid "manually"
 msgstr "elle"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:699
 msgid "Hostname Configuration"
 msgstr "Konak Adı Yapılandırması"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:702
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "Sisteminiz, konak isimlerinin DHCP üzerinden atandığı büyük bir ağın üyesi "
@@ -4984,11 +5061,11 @@ msgstr ""
 "seçimi yapın ve sisteminiz için bir konak ismi girin. Konak ismi "
 "belirtmezseniz sisteminiz 'localhost' olarak bilinecektir."
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
 msgstr "Geçersiz Konak Adı"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:729
 msgid "You have not specified a hostname."
 msgstr "Bir konak ismi belirtmediniz."
 
@@ -5137,7 +5214,8 @@ msgid "Not Supported"
 msgstr "Desteklenmiyor"
 
 #: ../textw/partition_text.py:772
-msgid "LVM Volume Groups can only be edited in the graphical installer."
+#, fuzzy
+msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "LVM Oylum Grupları sadece grafiksel kurulum sırasında düzenlenebilir."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
@@ -5177,7 +5255,8 @@ msgid "Too many spares"
 msgstr "Çok fazla yedek"
 
 #: ../textw/partition_text.py:1096
-msgid "The maximum number of spares with a RAID0 array is 0."
+#, fuzzy
+msgid "You may not use any spares with a RAID0 array."
 msgstr "Bir RAID0 dizili yedeklerin max. sayısı 0 dır."
 
 #: ../textw/partition_text.py:1177
@@ -5185,14 +5264,15 @@ msgid "No Volume Groups"
 msgstr "Oylum Grubu BulunamadıLVM Oylum Grupları"
 
 #: ../textw/partition_text.py:1178
-msgid "No volume groups in which to create a logical volume"
+#, fuzzy
+msgid "No volume groups exist in which to create a logical volume"
 msgstr "içinde mantıksal oylum oluşturulacak oylum grubu yok"
 
 #: ../textw/partition_text.py:1302
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 msgstr ""
 "İstenen boyut (%10.2f MB) mümkün mantıksal oylum boyutundan (%10.2f MB) daha "
 "büyük. "
@@ -5245,8 +5325,9 @@ msgid "No Root Partition"
 msgstr "Kök Bölümü Yok"
 
 #: ../textw/partition_text.py:1490
-msgid "Must have a / partition to install on."
-msgstr "Kurulumun sürebilmesi için bir / bölümü seçmelisiniz."
+#, fuzzy
+msgid "Installation requires a / partition."
+msgstr "NFS kurulum yöntemi IPv4 desteği gerektirmektedir."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5317,6 +5398,16 @@ msgstr ""
 "iSCSI disk kullanmak için iSCSI hedefinizin adresi girmelisiniz ve iSCSI "
 "başlatıcısının adını konak siteminiz için yapılandırmalısınız."
 
+#: ../textw/partition_text.py:1707
+#, fuzzy
+msgid "Target IP Address"
+msgstr "<b>_Hedef·IP·Adresi:</b>"
+
+#: ../textw/partition_text.py:1708
+#, fuzzy
+msgid "iSCSI Initiator Name"
+msgstr "<b> iSCSI Başlatıcı _Adı:</b>"
+
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
 msgstr "Otomatik Bölümleme"
@@ -5325,50 +5416,9 @@ msgstr "Otomatik Bölümleme"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../textw/progress_text.py:66
-#, python-format
-msgid "Downloading - %s"
-msgstr "İndiriliyor - %s"
-
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:51
 msgid "Package Installation"
 msgstr "Paket Kurulumu"
-
-#: ../textw/progress_text.py:105
-msgid " Name   : "
-msgstr " İsim:     "
-
-#: ../textw/progress_text.py:106
-msgid " Size   : "
-msgstr " Boy:     "
-
-#: ../textw/progress_text.py:107
-msgid " Summary: "
-msgstr " Özet:    "
-
-#: ../textw/progress_text.py:152
-msgid "    Packages"
-msgstr "       Paket"
-
-#: ../textw/progress_text.py:153
-msgid "      Bytes"
-msgstr "      Bayt"
-
-#: ../textw/progress_text.py:154
-msgid "        Time"
-msgstr "       Zaman"
-
-#: ../textw/progress_text.py:156
-msgid "Total    :"
-msgstr "Toplam:   "
-
-#: ../textw/progress_text.py:163
-msgid "Completed:   "
-msgstr "Biten:       "
-
-#: ../textw/progress_text.py:173
-msgid "Remaining:  "
-msgstr "Kalan:      "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5390,7 +5440,8 @@ msgid "Customize software selection"
 msgstr "Yazılım seçimini özelleştir"
 
 #: ../textw/timezone_text.py:68
-msgid "What time zone are you located in?"
+#, fuzzy
+msgid "In which time zone are you located?"
 msgstr "Hangi zaman diliminde yeralıyorsunuz?"
 
 #: ../textw/timezone_text.py:86
@@ -5411,12 +5462,12 @@ msgid "Create new boot loader configuration"
 msgstr "Yeni önyükleyici yapılandırması oluştur"
 
 #: ../textw/upgrade_text.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system. You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "2.4 çekirdekler eski çekirdeklere göre daha büyük takas alanlarına "
 "gereksinim duymaktadır. Bu miktar sistem belleğinin iki katı kadardır. Şu "
@@ -5456,8 +5507,9 @@ msgid "System to Upgrade"
 msgstr "Güncellenecek Sistem"
 
 #: ../textw/upgrade_text.py:204
+#, fuzzy
 msgid ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -5472,10 +5524,11 @@ msgid "Root Password"
 msgstr "Root Parolası"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 msgstr ""
 "Bir root parolası seçin. Yazarken hata olmadığından emin olabilmek için iki "
 "kere girmeniz isteniyor. root parolasının sistem güvenliğinin en kritik "
@@ -5495,10 +5548,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 msgstr ""
 "Kurulum tamamlandıktan sonra z/IPL Önyükleyicisi sisteminize kurulmuş "
 "olacak. Makinenizin veya yapılandırmanızın gerektirdiği ek çekirdek ve "
@@ -5516,7 +5570,7 @@ msgstr "Chandev Satırı"
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5527,21 +5581,68 @@ msgstr ""
 "s·genel·internet·kullanımı·için·uygun·yazılımları·içeriyor. "
 "Sisteminizin·desteğini içereceği·hangi·görevleri·eklemek·istersiniz?"
 
-#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
 msgstr "Ofis ve Üretkenlik"
 
-#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr "Yazılım Geliştirme"
 
-#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr "Web Sunucusu"
 
-#: ../installclasses/rhel.py:16
+#: ../installclasses/rhel.py:21
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
+
+#: ../installclasses/rhel.py:32
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:33
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:44
+#, fuzzy
+msgid "Virtualization"
+msgstr "Tebrikler"
+
+#: ../installclasses/rhel.py:45
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:46
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:50
+#, fuzzy
+msgid "Installation Number"
+msgstr "Kuruluma başlangıç"
+
+#: ../installclasses/rhel.py:51
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:54
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5550,7 +5651,7 @@ msgstr "Ortam Sınaması"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Test"
 msgstr "Test"
 
@@ -5719,12 +5820,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "Yüklemek istediğiniz başka sürücü diskiniz var mı?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
+#: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
+#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Kickstart Hatası"
 
@@ -5802,7 +5903,7 @@ msgid ""
 msgstr ""
 "Bu dizindeki %s kurulum ağacı sizin önyükleme ortamınıza uygun görünmüyor."
 
-#: ../loader2/hdinstall.c:160
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5810,7 +5911,7 @@ msgstr ""
 "ISO kayıtlarından kurulum okunurken bir hata oluştu. ISO kayıtlarını kontrol "
 "ettikten sonra tekrar deneyiniz."
 
-#: ../loader2/hdinstall.c:268
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5818,7 +5919,7 @@ msgstr ""
 "Tanımlı hiç sabit diskiniz bulunmuyor. Ek aygıt ayarları yapmak ister "
 "misiniz?"
 
-#: ../loader2/hdinstall.c:283
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5829,29 +5930,29 @@ msgstr ""
 "Eğer kullandığınız diski bu listede göremiyorsanız, F2 tuşuna basıp ek aygıt "
 "yapılandırabilirsiniz."
 
-#: ../loader2/hdinstall.c:306
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "İmgelerin bulunduğu dizin:"
 
-#: ../loader2/hdinstall.c:334
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
-#: ../loader2/hdinstall.c:374
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "%s aygıtı %s CDROM imgelerini içeriyor gibi görünmüyor."
 
-#: ../loader2/hdinstall.c:409
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Sabit diskli kickstart yönteminin komutu %s için hatalı argüman: %s"
 
-#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Sabit disk üzerinde kickstart dosyası bulunamıyor."
 
-#: ../loader2/hdinstall.c:522
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS disk için sabit disk bulunamadı: %s"
@@ -5864,37 +5965,37 @@ msgstr "Klavye Türü"
 msgid "What type of keyboard do you have?"
 msgstr "Klavyenizin türü nedir?"
 
-#: ../loader2/kickstart.c:125
+#: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "%s kickstart dosyası açılırken hata: %s"
 
-#: ../loader2/kickstart.c:135
+#: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "%s kickstart dosyasının içeriği okunurken hata: %s"
 
-#: ../loader2/kickstart.c:178
+#: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "%3$s dosyasının %2$d. satırındaki %1$s hatalı"
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açılış disketinde ks.cfg dosyası bulunamadı."
 
-#: ../loader2/kickstart.c:341
+#: ../loader2/kickstart.c:344
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: ../loader2/kickstart.c:350
+#: ../loader2/kickstart.c:353
 #, fuzzy
 msgid "Error downloading kickstart file"
 msgstr "%s kickstart dosyası açılırken hata: %s"
 
-#: ../loader2/kickstart.c:473
+#: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "kickstart yönteminin kapatılması için hatalı argüman %s: %s"
@@ -6010,40 +6111,40 @@ msgstr ""
 "Bu kurulum türünün gerektirdiği bir aygıt bulunamıyor. Sürücüyü kendiniz "
 "seçmek ya da bir sürücü diski kullanmak ister misiniz?"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1184
 msgid "The following devices have been found on your system."
 msgstr "Sisteminizde aşağıdaki aygıtlar bulundu."
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1186
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Sistemde yüklü bir aygıt sürücüsü yok. Bunları şimdi yüklemek ister misiniz?"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1190
 msgid "Devices"
 msgstr "Aygıtlar"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1191
 msgid "Done"
 msgstr "Yapıldı"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1192
 msgid "Add Device"
 msgstr "Aygıt Ekle"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1400
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "yükleyici zaten çalıştırıldı. Kabuk başlatılıyor.\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Anaconda çalıştırılıyor, %s kurtarma kipi - lütfen bekleyiniz...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1789
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6125,12 +6226,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s dizini okunamadı: %s"
 
-#: ../loader2/method.c:422
+#: ../loader2/method.c:418
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6141,7 +6242,7 @@ msgstr ""
 "\n"
 "   %s"
 
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Checksum Test"
 msgstr "Sağlama Testi"
 
@@ -6150,7 +6251,13 @@ msgstr "Sağlama Testi"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Aygıtlı kickstart yönteminin komutu %s için hatalı argüman: %s"
 
-#: ../loader2/net.c:58
+#: ../loader2/modules.c:1056
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr "Kickstart sürücü disk komutu için hatalı argüman: %s:%s"
+
+#: ../loader2/net.c:59
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6165,7 +6272,7 @@ msgstr ""
 "    o Sunucuda donanımınıza ilişkin\n"
 "      %s'un bulunduğu dizin\n"
 
-#: ../loader2/net.c:93
+#: ../loader2/net.c:94
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6173,7 +6280,7 @@ msgstr ""
 "Öntakı değerleri IPv4 ağlar için 1 ile 32 arasında veya IPv6 ağlar için 1 "
 "ile 128 arasında olmalıdır"
 
-#: ../loader2/net.c:249
+#: ../loader2/net.c:257
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6184,28 +6291,28 @@ msgstr ""
 "ESSID ve şifreleme anahtarını girin. Eğer şifre gerekmiyorsa, bu alanı boş "
 "bırakın, kurulum devam edecektir."
 
-#: ../loader2/net.c:255
+#: ../loader2/net.c:263
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:256
+#: ../loader2/net.c:264
 msgid "Encryption Key"
 msgstr "Şifreleme Anahtarı"
 
-#: ../loader2/net.c:259
+#: ../loader2/net.c:267
 msgid "Wireless Settings"
 msgstr "Kablosuz Ayarlar"
 
-#: ../loader2/net.c:290
+#: ../loader2/net.c:298
 msgid "Nameserver IP"
 msgstr "Alan adı sunucu IP'si"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:302
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "Alan adı sunucu"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:303
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6216,103 +6323,103 @@ msgstr ""
 "bilgi içinde DNS sunucusu yok. Eğer DNS sunucusunu biliyorsanız, lütfen "
 "girin. Eğer bilmiyorsanız boş bırakabilir ve kuruluma devam edebilirsiniz."
 
-#: ../loader2/net.c:317
+#: ../loader2/net.c:325
 msgid "Invalid IP Information"
 msgstr "Geçersiz IP Bilgisi"
 
-#: ../loader2/net.c:318
+#: ../loader2/net.c:326
 msgid "You entered an invalid IP address."
 msgstr "Geçersiz bir IP adresi girdiniz."
 
-#: ../loader2/net.c:575 ../loader2/net.c:683
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Ağ Hatası"
 
-#: ../loader2/net.c:576 ../loader2/net.c:684
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "Ağ bağdaştıcınız yapılandırılırken bir hata oluştu."
 
-#: ../loader2/net.c:757
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "TCP/IP Yapılandırması"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "DHCP için en azından bir protokol (IPv4 veya IPv6) seçmelisiniz."
 
-#: ../loader2/net.c:791
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "NFS için IPv4 Gerekmektedir"
 
-#: ../loader2/net.c:792
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS kurulum yöntemi IPv4 desteği gerektirmektedir."
 
-#: ../loader2/net.c:912
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4 adresi:"
 
-#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:964
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6 adresi:"
 
-#: ../loader2/net.c:1025
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Alan Adı Sunucusu:"
 
-#: ../loader2/net.c:1061
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1077
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Ele TCP/IP Yapılandırması"
 
-#: ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "Eksik Bilgi"
 
-#: ../loader2/net.c:1199
+#: ../loader2/net.c:1207
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Devam etmek için geçerli bir IPv4 adresi ve ağ maskesi veya CIDR öntakısı "
 "girmelisiniz."
 
-#: ../loader2/net.c:1205
+#: ../loader2/net.c:1213
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 "Devam etmek için geçerli bir IPv6 adresi ve bir CIDR öntakısı girmelisiniz."
 
-#: ../loader2/net.c:1508
+#: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
 msgstr "Konak ismi ve alan adı belirleniyor..."
 
-#: ../loader2/net.c:1601
+#: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "kickstart ağ komutu %s için hatalı argüman: %s"
 
-#: ../loader2/net.c:1624
+#: ../loader2/net.c:1632
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ağ komutunda hatalı bootproto %s belirtilmiş"
 
-#: ../loader2/net.c:1805
+#: ../loader2/net.c:1813
 msgid "Networking Device"
 msgstr "Ağ Aygıtı"
 
-#: ../loader2/net.c:1806
+#: ../loader2/net.c:1814
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6324,7 +6431,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "NFS sunucu adı:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "%s dizini:"
@@ -6399,77 +6506,77 @@ msgstr ""
 msgid "Unknown Url method %s"
 msgstr "URL yöntemi %s bilinmiyor"
 
-#: ../loader2/urls.c:220
+#: ../loader2/urls.c:219
 msgid "Retrieving"
 msgstr "Alınıyor"
 
-#: ../loader2/urls.c:287
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr "Web"
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "FTP makina adı:"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "Web sitesi adı:"
 
-#: ../loader2/urls.c:329
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "Kullanıcı adıyla ftp kullan"
 
-#: ../loader2/urls.c:338
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "FTP Ayarları"
 
-#: ../loader2/urls.c:339
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "HTTP Ayarları"
 
-#: ../loader2/urls.c:349
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "Bir sunucu adı girmelisiniz"
 
-#: ../loader2/urls.c:354
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "Bir dizin adı girmelisiniz"
 
-#: ../loader2/urls.c:359
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "Bilinmeyen Konak"
 
-#: ../loader2/urls.c:360
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s tanımlı bir konak ismi değil."
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:430
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
 "Anonim olmayan FTP yapılacaksa kullanıcı adı ve parolayı aşağıda belirtin. "
 
-#: ../loader2/urls.c:436
+#: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "Eğer bir HTTP vekil sunucu kullanılacaksa bu sunucunun adını belirtin."
 
-#: ../loader2/urls.c:458
+#: ../loader2/urls.c:457
 msgid "Account name:"
 msgstr "Hesap Adı:"
 
-#: ../loader2/urls.c:481
+#: ../loader2/urls.c:480
 msgid "Further FTP Setup"
 msgstr "Gelişmiş FTP Ayarları"
 
-#: ../loader2/urls.c:484
+#: ../loader2/urls.c:483
 msgid "Further HTTP Setup"
 msgstr "Gelişmiş HTTP Ayarları"
 
@@ -6541,10 +6648,15 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Disk Bölümleme bilgisini gözden geçir _ve düzenle"
 
 #: tmp/autopart.glade.h:3
+#, fuzzy
+msgid "What drive would you like to boot this installation from?"
+msgstr "Kurulum sırasında hangi dili kullanmak istiyorsunuz?"
+
+#: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
 msgstr "_İleri düzey depolama yapılandırması"
 
-#: tmp/autopart.glade.h:4
+#: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Bu kurulum için kullanılacak disk(leri)i seçiniz."
 
@@ -6555,6 +6667,11 @@ msgstr "Hata Bilgisi"
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
 msgstr "_Hata ayrıntıları"
+
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6625,20 +6742,6 @@ msgstr "Açıklama: %s"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
-#: tmp/netpostconfig.glade.h:5
-msgid "Automatic neighbor discovery"
-msgstr ""
-
-#: tmp/netpostconfig.glade.h:6
-#, fuzzy
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "Dinamik IP yapılandırması kullan (DHCP)"
-
-#: tmp/netpostconfig.glade.h:7
-#, fuzzy
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Dinamik IP yapılandırması kullan (DHCP)"
-
 #: tmp/netpostconfig.glade.h:9
 #, fuzzy
 msgid "Edit Interface"
@@ -6658,11 +6761,6 @@ msgstr "Ele TCP/IP Yapılandırması"
 #, fuzzy
 msgid "Point to Point (IP):"
 msgstr "_Uçtan Uca (IP)"
-
-#: tmp/netpostconfig.glade.h:16
-#, fuzzy
-msgid "Prefix"
-msgstr "IPv6/Öntakı"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6708,699 +6806,6 @@ msgstr "<b>_Parola:</b>"
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
 msgstr "FCP Aygıtı Ekle"
-
-#. generated from zone.tab
-msgid "Acre"
-msgstr "Acre"
-
-#. generated from zone.tab
-msgid "Alagoas, Sergipe"
-msgstr "Alagoas, Sergipe"
-
-#. generated from zone.tab
-msgid "Alaska Time"
-msgstr "Alaska Zamanı"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle"
-msgstr "Alaska Zamanı - Alaska panhandle"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle neck"
-msgstr "Alaska Zamanı - Alaska panhandle neck"
-
-#. generated from zone.tab
-msgid "Alaska Time - west Alaska"
-msgstr "Alaska Zamanı - Batı Alaska"
-
-#. generated from zone.tab
-msgid "Aleutian Islands"
-msgstr "Aleutian Adaları"
-
-#. generated from zone.tab
-msgid "Amapa, E Para"
-msgstr "Amapa, E Para"
-
-#. generated from zone.tab
-msgid "Amundsen-Scott Station, South Pole"
-msgstr "Amundsen-Scott İstasyonu, Güney Kutbu"
-
-#. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr "Aqtobe (Aktobe)"
-
-#. generated from zone.tab
-msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr "Atlantik Standart Zamanı - Quebec - Lower North Shore"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Labrador - most locations"
-msgstr "Atlantik Zamanı - Labrador - çoğu yerleri"
-
-#. generated from zone.tab
-msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantik Zamanı- New Brunswick"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Atlantik Zamanı - Nova Scotia (çoğu yerler), PEI"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantik Zamanı - Nova Scotia - 1966-1971 arasında DST uygulanmamış yerler"
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantik adaları"
-
-#. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#. generated from zone.tab
-msgid "Azores"
-msgstr "Azorlar"
-
-#. generated from zone.tab
-msgid "Bahia"
-msgstr "Bahia"
-
-#. generated from zone.tab
-msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#. generated from zone.tab
-msgid "Buenos Aires (BA, CF)"
-msgstr "Buenos Aires (BA, CF)"
-
-#. generated from zone.tab
-msgid "Canary Islands"
-msgstr "Kanarya Adaları"
-
-#. generated from zone.tab
-msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey İstasyonu, Bailey Yarımadası"
-
-#. generated from zone.tab
-msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT), Chubut (CH)"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "Orta Standart Zaman - Saskatchewan - ortabatı"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Orta Standart Zaman - Saskatchewan - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "Central Time"
-msgstr "Orta Zaman"
-
-#. generated from zone.tab
-msgid "Central Time - Campeche, Yucatan"
-msgstr "Orta Zaman - Campeche, Yucatan"
-
-#. generated from zone.tab
-msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "Orta Zaman - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-msgstr "Orta Zaman Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-
-#. generated from zone.tab
-msgid "Central Time - Indiana - Pike County"
-msgstr "Orta Zaman Indiana - Pike County"
-
-#. generated from zone.tab
-msgid "Central Time - Manitoba & west Ontario"
-msgstr "Orta Zaman - Manitoba ve batı Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Orta Zaman - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Orta Zaman - North·Dakota·-·Morton·County·(Mandan·bölgesi hariç)"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "Orta Zaman - North Dakota - Oliver County"
-
-#. generated from zone.tab
-msgid "Central Time - Quintana Roo"
-msgstr "Orta Zaman - Quintana Roo"
-
-#. generated from zone.tab
-msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Orta Zaman - Rainy River ve Fort Frances, Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "Orta Zaman - Merkezi Nunavut"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Orta Zaman - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "Central Time - west Nunavut"
-msgstr "Orta Zaman - batı Nunavut"
-
-#. generated from zone.tab
-msgid "Ceuta & Melilla"
-msgstr "Ceuta ve Melilla"
-
-#. generated from zone.tab
-msgid "Chatham Islands"
-msgstr "Chatham Adaları"
-
-#. generated from zone.tab
-msgid "Davis Station, Vestfold Hills"
-msgstr "Davis İstasyonu, Vestfold Tepeleri"
-
-#. generated from zone.tab
-msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar"
-
-#. generated from zone.tab
-msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
-
-#. generated from zone.tab
-msgid "E Amazonas"
-msgstr "E Amazonas"
-
-#. generated from zone.tab
-msgid "Easter Island & Sala y Gomez"
-msgstr "Paskalya Adası & Sala y Gomez"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Doğu Standart Zamanı - Atikokan, Ontario ve Southampton Adası, Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Time"
-msgstr "Doğu Zamanı"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Doğu Zamanı - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Starke County"
-msgstr "Doğu Zamanı - Indiana - Starke County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Doğu Zamanı - Indiana - Switzerland County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Doğu Zamanı - Indiana - tüm yerler"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Doğu Zamanı - Kentucky - Louisville bölgesi"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Doğu Zamanı - Kentucky - Wayne County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Michigan - most locations"
-msgstr "Doğu Zamanı - Mişigan - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Doğu Zamanı - Ontario ve Quebec - 1967-1973 arasında DST uygulanmamış yerler"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Doğu Zamanı - Ontario - çoğu yerleri"
-
-#. generated from zone.tab
-msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Doğu Zamanı - Pangnirtung, Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Time - Quebec - most locations"
-msgstr "Doğu Zamanı - Quebec - çoğu yerleri"
-
-#. generated from zone.tab
-msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Doğu Zamanı - Thunder Körfezi, Ontario"
-
-#. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "Doğu Zamanı - doğu Nunavut"
-
-#. generated from zone.tab
-msgid "Galapagos Islands"
-msgstr "Galapagos Adaları"
-
-#. generated from zone.tab
-msgid "Gambier Islands"
-msgstr "Gambiya Adaları"
-
-#. generated from zone.tab
-msgid "Gilbert Islands"
-msgstr "Gilbert Adaları"
-
-#. generated from zone.tab
-msgid "Hawaii"
-msgstr "Hawaii"
-
-#. generated from zone.tab
-msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "Heilongjiang (Mohe hariç), Jilin"
-
-#. generated from zone.tab
-msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya ve the Moluccas"
-
-#. generated from zone.tab
-msgid "Jan Mayen"
-msgstr "Jan Mayen"
-
-#. generated from zone.tab
-msgid "Java & Sumatra"
-msgstr "Java ve Sumatra"
-
-#. generated from zone.tab
-msgid "Johnston Atoll"
-msgstr "Johnston Atolü"
-
-#. generated from zone.tab
-msgid "Jujuy (JY)"
-msgstr "Jujuy (JY)"
-
-#. generated from zone.tab
-msgid "Kosrae"
-msgstr "Kosrae"
-
-#. generated from zone.tab
-msgid "Kwajalein"
-msgstr "Kwajalein"
-
-#. generated from zone.tab
-msgid "La Rioja (LR)"
-msgstr "La Rioja (LR)"
-
-#. generated from zone.tab
-msgid "Line Islands"
-msgstr "Line Adaları"
-
-#. generated from zone.tab
-msgid "Lord Howe Island"
-msgstr "Lord Howe Adası"
-
-#. generated from zone.tab
-msgid "Madeira Islands"
-msgstr "Maderya Adaları"
-
-#. generated from zone.tab
-msgid "Marquesas Islands"
-msgstr "Markiz Adaları"
-
-#. generated from zone.tab
-msgid "Mato Grosso"
-msgstr "Mato·Grosso"
-
-#. generated from zone.tab
-msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso do Sul"
-
-#. generated from zone.tab
-msgid "Mawson Station, Holme Bay"
-msgstr "Mawson İstasyonu, Holme Körfezi"
-
-#. generated from zone.tab
-msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo İstasyonu, Ross Adası"
-
-#. generated from zone.tab
-msgid "Mendoza (MZ)"
-msgstr "Mendoza (MZ)"
-
-#. generated from zone.tab
-msgid "Midway Islands"
-msgstr "Midway Adaları"
-
-#. generated from zone.tab
-msgid "Moscow+00 - Caspian Sea"
-msgstr "Moskova+00 - Hazar Denizi"
-
-#. generated from zone.tab
-msgid "Moscow+00 - west Russia"
-msgstr "Moskova+00 - batı Rusya"
-
-#. generated from zone.tab
-msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Moskova+01 - Samara, Udmurtia"
-
-#. generated from zone.tab
-msgid "Moscow+02 - Urals"
-msgstr "Moskova+02 - Urallar"
-
-#. generated from zone.tab
-msgid "Moscow+03 - Novosibirsk"
-msgstr "Moskova+03 - Novosibirsk"
-
-#. generated from zone.tab
-msgid "Moscow+03 - west Siberia"
-msgstr "Moskova+03 - batı Sibirya"
-
-#. generated from zone.tab
-msgid "Moscow+04 - Yenisei River"
-msgstr "Moskova+04 - Yenisey Irmağı"
-
-#. generated from zone.tab
-msgid "Moscow+05 - Lake Baikal"
-msgstr "Moskova+05 - Baykal Gölü"
-
-#. generated from zone.tab
-msgid "Moscow+06 - Lena River"
-msgstr "Moskova+06 - Lena Irmağı"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Amur River"
-msgstr "Moskova+07 - Amur Irmağı"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moskova+07 - Sakhalin Adası"
-
-#. generated from zone.tab
-msgid "Moscow+08 - Magadan"
-msgstr "Moskova+08 - Magadan"
-
-#. generated from zone.tab
-msgid "Moscow+09 - Kamchatka"
-msgstr "Moskova+09 - Kamçatka"
-
-#. generated from zone.tab
-msgid "Moscow+10 - Bering Sea"
-msgstr "Moskova+10 - Bering Denizi"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moskova-01 - Kaliningrad"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Arizona"
-msgstr "Dağ Standart Zamanı - Arizona"
-
-#. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Dağ Standart Zamanı - Dawson Creek ve Fort Saint John, British Columbia"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Sonora"
-msgstr "Dağ Standart Zamanı - Sonora"
-
-#. generated from zone.tab
-msgid "Mountain Time"
-msgstr "Dağ Zamanı"
-
-#. generated from zone.tab
-msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Dağ Zamanı - Alberta, güney İngiliz Kolombiyası ve batı Saskaçewan"
-
-#. generated from zone.tab
-msgid "Mountain Time - Chihuahua"
-msgstr "Dağ Zamanı - Chihuahua"
-
-#. generated from zone.tab
-msgid "Mountain Time - Navajo"
-msgstr "Dağ Zamanı - Navajo"
-
-#. generated from zone.tab
-msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Dağ Zamanı - S Baja, Nayarit, Sinaloa"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Dağ Zamanı - orta kuzeybatı toprakları"
-
-#. generated from zone.tab
-msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Dağ Zamanı - güney Idaho ve doğu Oregon"
-
-#. generated from zone.tab
-msgid "Mountain Time - west Northwest Territories"
-msgstr "Dağ Zamanı - batı Kuzeybatı Toprakları"
-
-#. generated from zone.tab
-msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Kuzeydoğu Brezilya (MA, PI, CE, RN, PB)"
-
-#. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "Yeni Güney Galler - Yancowinna"
-
-#. generated from zone.tab
-msgid "New South Wales - most locations"
-msgstr "Yeni Güney Galler - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "Newfoundland Zamanı, güneydoğu Labrador dahil"
-
-#. generated from zone.tab
-msgid "Northern Territory"
-msgstr "Kuzey Toprakları"
-
-#. generated from zone.tab
-msgid "Pacific Time"
-msgstr "Pasifik Zamanı"
-
-#. generated from zone.tab
-msgid "Pacific Time - north Yukon"
-msgstr "Pasifik Zamanı - kuzey Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - south Yukon"
-msgstr "Pasifik Zamanı - güney Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - west British Columbia"
-msgstr "Pasifik Zamanı - batı İngiliz Kolombiyası"
-
-#. generated from zone.tab
-msgid "Palmer Station, Anvers Island"
-msgstr "Palmer İstasyonu, Anvers Adası"
-
-#. generated from zone.tab
-msgid "Pernambuco"
-msgstr "Pernambuco"
-
-#. generated from zone.tab
-msgid "Phoenix Islands"
-msgstr "Phoenix Adaları"
-
-#. generated from zone.tab
-msgid "Ponape (Pohnpei)"
-msgstr "Ponape (Pohnpei)"
-
-#. generated from zone.tab
-msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Holiday Adaları"
-
-#. generated from zone.tab
-msgid "Queensland - most locations"
-msgstr "Queensland - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#. generated from zone.tab
-msgid "Roraima"
-msgstr "Roraima"
-
-#. generated from zone.tab
-msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera İstasyonu, Adelaide Adası"
-
-#. generated from zone.tab
-msgid "Ruthenia"
-msgstr "Ruthenia"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Güney ve Güneydoğu Brezilya (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "Sabah ve Sarawak"
-
-#. generated from zone.tab
-msgid "San Juan (SJ)"
-msgstr "San Juan (SJ)"
-
-#. generated from zone.tab
-msgid "Santa Cruz (SC)"
-msgstr "Santa Cruz (SC)"
-
-#. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#. generated from zone.tab
-msgid "Society Islands"
-msgstr "Sosyete Adaları"
-
-#. generated from zone.tab
-msgid "South Australia"
-msgstr "Güney Avustralya"
-
-#. generated from zone.tab
-msgid "Svalbard"
-msgstr "Svalbard"
-
-#. generated from zone.tab
-msgid "Syowa Station, E Ongul I"
-msgstr "Syowa İstasyonu, E Ongul I"
-
-#. generated from zone.tab
-msgid "Tasmania - King Island"
-msgstr "Tazmanya - King Adası"
-
-#. generated from zone.tab
-msgid "Tasmania - most locations"
-msgstr "Tazmanya - tüm bölgeler"
-
-#. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tierra del Fuego (TF)"
-msgstr "Tierra del Fuego (TF)"
-
-#. generated from zone.tab
-msgid "Tocantins"
-msgstr "Tocantins"
-
-#. generated from zone.tab
-msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk) veYap"
-
-#. generated from zone.tab
-msgid "Tucuman (TM)"
-msgstr "Tucuman (TM)"
-
-#. generated from zone.tab
-msgid "Victoria"
-msgstr "Victoria"
-
-#. generated from zone.tab
-msgid "Vostok Station, S Magnetic Pole"
-msgstr "Vostok İstasyonu, Güney Kutbu"
-
-#. generated from zone.tab
-msgid "W Amazonas"
-msgstr "Batı Amazonlar"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wake Adası"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Batı Kazakistan"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - Eucla area"
-msgstr "Batı Avustralya"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - most locations"
-msgstr "Orta Zaman - çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, E Lugansk"
-
-#. generated from zone.tab
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "orta Çin - Gansu, Guizhou, Sichuan, Yunnan, vs."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "Orta Kırım"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "doğu ve güney Borneo, Celebes, Bali, Nusa Tengarra, batı Timor"
-
-#. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "doğu Çin - Beijing, Guangdong, Şangay, vs."
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "doğu Kongo Dem. Halk Cumh."
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "doğu Özbekistan"
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "doğu kıyısı, Scoresbysund'un kuzeyi"
-
-#. generated from zone.tab
-msgid "mainland"
-msgstr "mainland"
-
-#. generated from zone.tab
-msgid "most locations"
-msgstr "çoğu bölgeleri"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "çoğu bölgeler (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr "Tibet ve Sincan Uygur Bölgesi çoğu"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "Malezya Yarımadası"
-
-#. generated from zone.tab
-msgid "west & central Borneo"
-msgstr "Batı ve orta Borneo"
-
-#. generated from zone.tab
-msgid "west Dem. Rep. of Congo"
-msgstr "batı Kongo Dem. Halk Cumhuriyeti"
-
-#. generated from zone.tab
-msgid "west Tibet & Xinjiang"
-msgstr "batı Tibet ve Sincan Uygur Bölgesi"
-
-#. generated from zone.tab
-msgid "west Uzbekistan"
-msgstr "batı Özbekistan"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7625,6 +7030,631 @@ msgstr "Gal Dili"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu Dili"
+
+#~ msgid "Done [%d/%d]"
+#~ msgstr "%d/%d tamamlandı"
+
+#~ msgid "Installing %s-%s-%s... "
+#~ msgstr "%s-%s-%s kuruluyor..."
+
+#~ msgid "Please enter the registration key for your version of %s."
+#~ msgstr "%s sürümünüz için kayıt anahtarını giriniz."
+
+#~ msgid "Enter Registration Key"
+#~ msgstr "Kayıt Anahtarını Giriniz"
+
+#~ msgid "Key:"
+#~ msgstr "Anahtar:"
+
+#~ msgid "_Format drive"
+#~ msgstr "_Sürücüyü Biçimle"
+
+#~ msgid ""
+#~ "The following critical errors exist with your requested partitioning "
+#~ "scheme."
+#~ msgstr ""
+#~ "İstediğiniz bölümleme şemasına bağlı olarak aşağıdaki hatalar oluştu."
+
+#~ msgid "The following warnings exist with your requested partition scheme."
+#~ msgstr ""
+#~ "İstediğiniz bölümleme şemasına bağlı olarak aşağıdaki uyarılar alındı."
+
+#~ msgid "Remaining time: %s minutes"
+#~ msgstr "Kalan süre: %s dakika"
+
+#~ msgid "Downloading %s"
+#~ msgstr "%s indiriliyor"
+
+#~ msgid "Installing %s-%s-%s.%s (%s)"
+#~ msgstr "%s-%s-%s.%s (%s) kuruluyor."
+
+#~ msgid "Package"
+#~ msgstr "Paket"
+
+#~ msgid "Summary"
+#~ msgstr "Özet"
+
+#~ msgid "Status: "
+#~ msgstr "Durum: "
+
+#~ msgid "Description: %s"
+#~ msgstr "Açıklama: %s"
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "Donanım Adresi: %s"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "Dinamik IP yapılandırması kullan (DHCP)"
+
+#, fuzzy
+#~ msgid "Address"
+#~ msgstr "IP Adresi"
+
+#, fuzzy
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr "IPv6 öntakıları 1 ile 128 arasındaki sayılardan oluşabilir."
+
+#~ msgid "Must have a / partition to install on."
+#~ msgstr "Kurulumun sürebilmesi için bir / bölümü seçmelisiniz."
+
+#~ msgid "Downloading - %s"
+#~ msgstr "İndiriliyor - %s"
+
+#~ msgid " Name   : "
+#~ msgstr " İsim:     "
+
+#~ msgid " Size   : "
+#~ msgstr " Boy:     "
+
+#~ msgid " Summary: "
+#~ msgstr " Özet:    "
+
+#~ msgid "    Packages"
+#~ msgstr "       Paket"
+
+#~ msgid "      Bytes"
+#~ msgstr "      Bayt"
+
+#~ msgid "        Time"
+#~ msgstr "       Zaman"
+
+#~ msgid "Total    :"
+#~ msgstr "Toplam:   "
+
+#~ msgid "Completed:   "
+#~ msgstr "Biten:       "
+
+#~ msgid "Remaining:  "
+#~ msgstr "Kalan:      "
+
+#~ msgid "Acre"
+#~ msgstr "Acre"
+
+#~ msgid "Alagoas, Sergipe"
+#~ msgstr "Alagoas, Sergipe"
+
+#~ msgid "Alaska Time"
+#~ msgstr "Alaska Zamanı"
+
+#~ msgid "Alaska Time - Alaska panhandle"
+#~ msgstr "Alaska Zamanı - Alaska panhandle"
+
+#~ msgid "Alaska Time - Alaska panhandle neck"
+#~ msgstr "Alaska Zamanı - Alaska panhandle neck"
+
+#~ msgid "Alaska Time - west Alaska"
+#~ msgstr "Alaska Zamanı - Batı Alaska"
+
+#~ msgid "Aleutian Islands"
+#~ msgstr "Aleutian Adaları"
+
+#~ msgid "Amapa, E Para"
+#~ msgstr "Amapa, E Para"
+
+#~ msgid "Amundsen-Scott Station, South Pole"
+#~ msgstr "Amundsen-Scott İstasyonu, Güney Kutbu"
+
+#~ msgid "Aqtobe (Aktobe)"
+#~ msgstr "Aqtobe (Aktobe)"
+
+#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+#~ msgstr "Atlantik Standart Zamanı - Quebec - Lower North Shore"
+
+#~ msgid "Atlantic Time - Labrador - most locations"
+#~ msgstr "Atlantik Zamanı - Labrador - çoğu yerleri"
+
+#~ msgid "Atlantic Time - New Brunswick"
+#~ msgstr "Atlantik Zamanı- New Brunswick"
+
+#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
+#~ msgstr "Atlantik Zamanı - Nova Scotia (çoğu yerler), PEI"
+
+#~ msgid ""
+#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+#~ msgstr ""
+#~ "Atlantik Zamanı - Nova Scotia - 1966-1971 arasında DST uygulanmamış yerler"
+
+#~ msgid "Atlantic islands"
+#~ msgstr "Atlantik adaları"
+
+#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+
+#~ msgid "Azores"
+#~ msgstr "Azorlar"
+
+#~ msgid "Bahia"
+#~ msgstr "Bahia"
+
+#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+
+#~ msgid "Buenos Aires (BA, CF)"
+#~ msgstr "Buenos Aires (BA, CF)"
+
+#~ msgid "Canary Islands"
+#~ msgstr "Kanarya Adaları"
+
+#~ msgid "Casey Station, Bailey Peninsula"
+#~ msgstr "Casey İstasyonu, Bailey Yarımadası"
+
+#~ msgid "Catamarca (CT), Chubut (CH)"
+#~ msgstr "Catamarca (CT), Chubut (CH)"
+
+#~ msgid "Central Standard Time - Saskatchewan - midwest"
+#~ msgstr "Orta Standart Zaman - Saskatchewan - ortabatı"
+
+#~ msgid "Central Standard Time - Saskatchewan - most locations"
+#~ msgstr "Orta Standart Zaman - Saskatchewan - çoğu bölgeleri"
+
+#~ msgid "Central Time"
+#~ msgstr "Orta Zaman"
+
+#~ msgid "Central Time - Campeche, Yucatan"
+#~ msgstr "Orta Zaman - Campeche, Yucatan"
+
+#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+#~ msgstr "Orta Zaman - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+
+#~ msgid ""
+#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+#~ "Counties"
+#~ msgstr "Orta Zaman Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+
+#~ msgid "Central Time - Indiana - Pike County"
+#~ msgstr "Orta Zaman Indiana - Pike County"
+
+#~ msgid "Central Time - Manitoba & west Ontario"
+#~ msgstr "Orta Zaman - Manitoba ve batı Ontario"
+
+#~ msgid ""
+#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+#~ msgstr ""
+#~ "Orta Zaman - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+
+#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+#~ msgstr "Orta Zaman - North·Dakota·-·Morton·County·(Mandan·bölgesi hariç)"
+
+#~ msgid "Central Time - North Dakota - Oliver County"
+#~ msgstr "Orta Zaman - North Dakota - Oliver County"
+
+#~ msgid "Central Time - Quintana Roo"
+#~ msgstr "Orta Zaman - Quintana Roo"
+
+#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
+#~ msgstr "Orta Zaman - Rainy River ve Fort Frances, Ontario"
+
+#~ msgid "Central Time - central Nunavut"
+#~ msgstr "Orta Zaman - Merkezi Nunavut"
+
+#~ msgid "Central Time - most locations"
+#~ msgstr "Orta Zaman - çoğu bölgeleri"
+
+#~ msgid "Central Time - west Nunavut"
+#~ msgstr "Orta Zaman - batı Nunavut"
+
+#~ msgid "Ceuta & Melilla"
+#~ msgstr "Ceuta ve Melilla"
+
+#~ msgid "Chatham Islands"
+#~ msgstr "Chatham Adaları"
+
+#~ msgid "Davis Station, Vestfold Hills"
+#~ msgstr "Davis İstasyonu, Vestfold Tepeleri"
+
+#~ msgid "Dornod, Sukhbaatar"
+#~ msgstr "Dornod, Sukhbaatar"
+
+#~ msgid "Dumont-d'Urville Base, Terre Adelie"
+#~ msgstr "Dumont-d'Urville Base, Terre Adelie"
+
+#~ msgid "E Amazonas"
+#~ msgstr "E Amazonas"
+
+#~ msgid "Easter Island & Sala y Gomez"
+#~ msgstr "Paskalya Adası & Sala y Gomez"
+
+#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
+#~ msgstr ""
+#~ "Doğu Standart Zamanı - Atikokan, Ontario ve Southampton Adası, Nunavut"
+
+#~ msgid "Eastern Time"
+#~ msgstr "Doğu Zamanı"
+
+#~ msgid "Eastern Time - Indiana - Crawford County"
+#~ msgstr "Doğu Zamanı - Indiana - Crawford County"
+
+#~ msgid "Eastern Time - Indiana - Starke County"
+#~ msgstr "Doğu Zamanı - Indiana - Starke County"
+
+#~ msgid "Eastern Time - Indiana - Switzerland County"
+#~ msgstr "Doğu Zamanı - Indiana - Switzerland County"
+
+#~ msgid "Eastern Time - Indiana - most locations"
+#~ msgstr "Doğu Zamanı - Indiana - tüm yerler"
+
+#~ msgid "Eastern Time - Kentucky - Louisville area"
+#~ msgstr "Doğu Zamanı - Kentucky - Louisville bölgesi"
+
+#~ msgid "Eastern Time - Kentucky - Wayne County"
+#~ msgstr "Doğu Zamanı - Kentucky - Wayne County"
+
+#~ msgid "Eastern Time - Michigan - most locations"
+#~ msgstr "Doğu Zamanı - Mişigan - çoğu bölgeleri"
+
+#~ msgid ""
+#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
+#~ "1973"
+#~ msgstr ""
+#~ "Doğu Zamanı - Ontario ve Quebec - 1967-1973 arasında DST uygulanmamış "
+#~ "yerler"
+
+#~ msgid "Eastern Time - Ontario - most locations"
+#~ msgstr "Doğu Zamanı - Ontario - çoğu yerleri"
+
+#~ msgid "Eastern Time - Pangnirtung, Nunavut"
+#~ msgstr "Doğu Zamanı - Pangnirtung, Nunavut"
+
+#~ msgid "Eastern Time - Quebec - most locations"
+#~ msgstr "Doğu Zamanı - Quebec - çoğu yerleri"
+
+#~ msgid "Eastern Time - Thunder Bay, Ontario"
+#~ msgstr "Doğu Zamanı - Thunder Körfezi, Ontario"
+
+#~ msgid "Eastern Time - east Nunavut"
+#~ msgstr "Doğu Zamanı - doğu Nunavut"
+
+#~ msgid "Galapagos Islands"
+#~ msgstr "Galapagos Adaları"
+
+#~ msgid "Gambier Islands"
+#~ msgstr "Gambiya Adaları"
+
+#~ msgid "Gilbert Islands"
+#~ msgstr "Gilbert Adaları"
+
+#~ msgid "Hawaii"
+#~ msgstr "Hawaii"
+
+#~ msgid "Heilongjiang (except Mohe), Jilin"
+#~ msgstr "Heilongjiang (Mohe hariç), Jilin"
+
+#~ msgid "Irian Jaya & the Moluccas"
+#~ msgstr "Irian Jaya ve the Moluccas"
+
+#~ msgid "Jan Mayen"
+#~ msgstr "Jan Mayen"
+
+#~ msgid "Java & Sumatra"
+#~ msgstr "Java ve Sumatra"
+
+#~ msgid "Johnston Atoll"
+#~ msgstr "Johnston Atolü"
+
+#~ msgid "Jujuy (JY)"
+#~ msgstr "Jujuy (JY)"
+
+#~ msgid "Kosrae"
+#~ msgstr "Kosrae"
+
+#~ msgid "Kwajalein"
+#~ msgstr "Kwajalein"
+
+#~ msgid "La Rioja (LR)"
+#~ msgstr "La Rioja (LR)"
+
+#~ msgid "Line Islands"
+#~ msgstr "Line Adaları"
+
+#~ msgid "Lord Howe Island"
+#~ msgstr "Lord Howe Adası"
+
+#~ msgid "Madeira Islands"
+#~ msgstr "Maderya Adaları"
+
+#~ msgid "Marquesas Islands"
+#~ msgstr "Markiz Adaları"
+
+#~ msgid "Mato Grosso"
+#~ msgstr "Mato·Grosso"
+
+#~ msgid "Mato Grosso do Sul"
+#~ msgstr "Mato Grosso do Sul"
+
+#~ msgid "Mawson Station, Holme Bay"
+#~ msgstr "Mawson İstasyonu, Holme Körfezi"
+
+#~ msgid "McMurdo Station, Ross Island"
+#~ msgstr "McMurdo İstasyonu, Ross Adası"
+
+#~ msgid "Mendoza (MZ)"
+#~ msgstr "Mendoza (MZ)"
+
+#~ msgid "Midway Islands"
+#~ msgstr "Midway Adaları"
+
+#~ msgid "Moscow+00 - Caspian Sea"
+#~ msgstr "Moskova+00 - Hazar Denizi"
+
+#~ msgid "Moscow+00 - west Russia"
+#~ msgstr "Moskova+00 - batı Rusya"
+
+#~ msgid "Moscow+01 - Samara, Udmurtia"
+#~ msgstr "Moskova+01 - Samara, Udmurtia"
+
+#~ msgid "Moscow+02 - Urals"
+#~ msgstr "Moskova+02 - Urallar"
+
+#~ msgid "Moscow+03 - Novosibirsk"
+#~ msgstr "Moskova+03 - Novosibirsk"
+
+#~ msgid "Moscow+03 - west Siberia"
+#~ msgstr "Moskova+03 - batı Sibirya"
+
+#~ msgid "Moscow+04 - Yenisei River"
+#~ msgstr "Moskova+04 - Yenisey Irmağı"
+
+#~ msgid "Moscow+05 - Lake Baikal"
+#~ msgstr "Moskova+05 - Baykal Gölü"
+
+#~ msgid "Moscow+06 - Lena River"
+#~ msgstr "Moskova+06 - Lena Irmağı"
+
+#~ msgid "Moscow+07 - Amur River"
+#~ msgstr "Moskova+07 - Amur Irmağı"
+
+#~ msgid "Moscow+07 - Sakhalin Island"
+#~ msgstr "Moskova+07 - Sakhalin Adası"
+
+#~ msgid "Moscow+08 - Magadan"
+#~ msgstr "Moskova+08 - Magadan"
+
+#~ msgid "Moscow+09 - Kamchatka"
+#~ msgstr "Moskova+09 - Kamçatka"
+
+#~ msgid "Moscow+10 - Bering Sea"
+#~ msgstr "Moskova+10 - Bering Denizi"
+
+#~ msgid "Moscow-01 - Kaliningrad"
+#~ msgstr "Moskova-01 - Kaliningrad"
+
+#~ msgid "Mountain Standard Time - Arizona"
+#~ msgstr "Dağ Standart Zamanı - Arizona"
+
+#~ msgid ""
+#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+#~ msgstr ""
+#~ "Dağ Standart Zamanı - Dawson Creek ve Fort Saint John, British Columbia"
+
+#~ msgid "Mountain Standard Time - Sonora"
+#~ msgstr "Dağ Standart Zamanı - Sonora"
+
+#~ msgid "Mountain Time"
+#~ msgstr "Dağ Zamanı"
+
+#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+#~ msgstr "Dağ Zamanı - Alberta, güney İngiliz Kolombiyası ve batı Saskaçewan"
+
+#~ msgid "Mountain Time - Chihuahua"
+#~ msgstr "Dağ Zamanı - Chihuahua"
+
+#~ msgid "Mountain Time - Navajo"
+#~ msgstr "Dağ Zamanı - Navajo"
+
+#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+#~ msgstr "Dağ Zamanı - S Baja, Nayarit, Sinaloa"
+
+#~ msgid "Mountain Time - central Northwest Territories"
+#~ msgstr "Dağ Zamanı - orta kuzeybatı toprakları"
+
+#~ msgid "Mountain Time - south Idaho & east Oregon"
+#~ msgstr "Dağ Zamanı - güney Idaho ve doğu Oregon"
+
+#~ msgid "Mountain Time - west Northwest Territories"
+#~ msgstr "Dağ Zamanı - batı Kuzeybatı Toprakları"
+
+#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
+#~ msgstr "Kuzeydoğu Brezilya (MA, PI, CE, RN, PB)"
+
+#~ msgid "New South Wales - Yancowinna"
+#~ msgstr "Yeni Güney Galler - Yancowinna"
+
+#~ msgid "New South Wales - most locations"
+#~ msgstr "Yeni Güney Galler - çoğu bölgeleri"
+
+#~ msgid "Newfoundland Time, including SE Labrador"
+#~ msgstr "Newfoundland Zamanı, güneydoğu Labrador dahil"
+
+#~ msgid "Northern Territory"
+#~ msgstr "Kuzey Toprakları"
+
+#~ msgid "Pacific Time"
+#~ msgstr "Pasifik Zamanı"
+
+#~ msgid "Pacific Time - north Yukon"
+#~ msgstr "Pasifik Zamanı - kuzey Yukon"
+
+#~ msgid "Pacific Time - south Yukon"
+#~ msgstr "Pasifik Zamanı - güney Yukon"
+
+#~ msgid "Pacific Time - west British Columbia"
+#~ msgstr "Pasifik Zamanı - batı İngiliz Kolombiyası"
+
+#~ msgid "Palmer Station, Anvers Island"
+#~ msgstr "Palmer İstasyonu, Anvers Adası"
+
+#~ msgid "Pernambuco"
+#~ msgstr "Pernambuco"
+
+#~ msgid "Phoenix Islands"
+#~ msgstr "Phoenix Adaları"
+
+#~ msgid "Ponape (Pohnpei)"
+#~ msgstr "Ponape (Pohnpei)"
+
+#~ msgid "Queensland - Holiday Islands"
+#~ msgstr "Queensland - Holiday Adaları"
+
+#~ msgid "Queensland - most locations"
+#~ msgstr "Queensland - çoğu bölgeleri"
+
+#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+
+#~ msgid "Roraima"
+#~ msgstr "Roraima"
+
+#~ msgid "Rothera Station, Adelaide Island"
+#~ msgstr "Rothera İstasyonu, Adelaide Adası"
+
+#~ msgid "Ruthenia"
+#~ msgstr "Ruthenia"
+
+#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+#~ msgstr ""
+#~ "Güney ve Güneydoğu Brezilya (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#~ msgid "Sabah & Sarawak"
+#~ msgstr "Sabah ve Sarawak"
+
+#~ msgid "San Juan (SJ)"
+#~ msgstr "San Juan (SJ)"
+
+#~ msgid "Santa Cruz (SC)"
+#~ msgstr "Santa Cruz (SC)"
+
+#~ msgid "Scoresbysund / Ittoqqortoormiit"
+#~ msgstr "Scoresbysund / Ittoqqortoormiit"
+
+#~ msgid "Society Islands"
+#~ msgstr "Sosyete Adaları"
+
+#~ msgid "South Australia"
+#~ msgstr "Güney Avustralya"
+
+#~ msgid "Svalbard"
+#~ msgstr "Svalbard"
+
+#~ msgid "Syowa Station, E Ongul I"
+#~ msgstr "Syowa İstasyonu, E Ongul I"
+
+#~ msgid "Tasmania - King Island"
+#~ msgstr "Tazmanya - King Adası"
+
+#~ msgid "Tasmania - most locations"
+#~ msgstr "Tazmanya - tüm bölgeler"
+
+#~ msgid "Thule / Pituffik"
+#~ msgstr "Thule / Pituffik"
+
+#~ msgid "Tierra del Fuego (TF)"
+#~ msgstr "Tierra del Fuego (TF)"
+
+#~ msgid "Tocantins"
+#~ msgstr "Tocantins"
+
+#~ msgid "Truk (Chuuk) and Yap"
+#~ msgstr "Truk (Chuuk) veYap"
+
+#~ msgid "Tucuman (TM)"
+#~ msgstr "Tucuman (TM)"
+
+#~ msgid "Victoria"
+#~ msgstr "Victoria"
+
+#~ msgid "Vostok Station, S Magnetic Pole"
+#~ msgstr "Vostok İstasyonu, Güney Kutbu"
+
+#~ msgid "W Amazonas"
+#~ msgstr "Batı Amazonlar"
+
+#~ msgid "W Para, Rondonia"
+#~ msgstr "W Para, Rondonia"
+
+#~ msgid "Wake Island"
+#~ msgstr "Wake Adası"
+
+#~ msgid "West Kazakhstan"
+#~ msgstr "Batı Kazakistan"
+
+#, fuzzy
+#~ msgid "Western Australia - Eucla area"
+#~ msgstr "Batı Avustralya"
+
+#, fuzzy
+#~ msgid "Western Australia - most locations"
+#~ msgstr "Orta Zaman - çoğu bölgeleri"
+
+#~ msgid "Zaporozh'ye, E Lugansk"
+#~ msgstr "Zaporozh'ye, E Lugansk"
+
+#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+#~ msgstr "orta Çin - Gansu, Guizhou, Sichuan, Yunnan, vs."
+
+#~ msgid "central Crimea"
+#~ msgstr "Orta Kırım"
+
+#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+#~ msgstr "doğu ve güney Borneo, Celebes, Bali, Nusa Tengarra, batı Timor"
+
+#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
+#~ msgstr "doğu Çin - Beijing, Guangdong, Şangay, vs."
+
+#~ msgid "east Dem. Rep. of Congo"
+#~ msgstr "doğu Kongo Dem. Halk Cumh."
+
+#~ msgid "east Uzbekistan"
+#~ msgstr "doğu Özbekistan"
+
+#~ msgid "east coast, north of Scoresbysund"
+#~ msgstr "doğu kıyısı, Scoresbysund'un kuzeyi"
+
+#~ msgid "mainland"
+#~ msgstr "mainland"
+
+#~ msgid "most locations"
+#~ msgstr "çoğu bölgeleri"
+
+#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+#~ msgstr "çoğu bölgeler (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+
+#~ msgid "most of Tibet & Xinjiang"
+#~ msgstr "Tibet ve Sincan Uygur Bölgesi çoğu"
+
+#~ msgid "peninsular Malaysia"
+#~ msgstr "Malezya Yarımadası"
+
+#~ msgid "west & central Borneo"
+#~ msgstr "Batı ve orta Borneo"
+
+#~ msgid "west Dem. Rep. of Congo"
+#~ msgstr "batı Kongo Dem. Halk Cumhuriyeti"
+
+#~ msgid "west Tibet & Xinjiang"
+#~ msgstr "batı Tibet ve Sincan Uygur Bölgesi"
+
+#~ msgid "west Uzbekistan"
+#~ msgstr "batı Özbekistan"
 
 #~ msgid "Error mounting file system on %s: %s"
 #~ msgstr "%s üzerine dosya sistemi bağlanırken hata: %s"

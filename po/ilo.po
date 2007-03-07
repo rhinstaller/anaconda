@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-08 10:49-0500\n"
+"POT-Creation-Date: 2007-03-07 11:24-0500\n"
 "PO-Revision-Date: 2007-01-12 14:02+0800\n"
 "Last-Translator: rva <rvaragon@gmail.com>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
@@ -13,65 +13,76 @@ msgstr ""
 "X-Poedit-Country: PHILIPPINES\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../anaconda:268
+#: ../anaconda:262
 msgid "Unknown Error"
 msgstr "Saan nga Am-ammo a Biddut"
 
-#: ../anaconda:271
+#: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
 "Rimsua ti biddut iti pannakabasa ti maikadua a paset ti intar ti kickstart: %"
 "s!"
 
-#: ../anaconda:399
+#: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
+#, c-format, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
+"%s"
+msgstr ""
+"Nasarak dagiti sumaruno a biddut iti pannakaanalisa ti intar ti kickstart:\n"
+"\n"
+"%s"
+
+#: ../anaconda:401
 msgid "Press <enter> for a shell"
 msgstr "Talmeganyo ti <ENTER> tapno maipakita ti shell"
 
-#: ../anaconda:414 ../gui.py:234 ../rescue.py:46 ../rescue.py:247
+#: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:394 ../text.py:538 ../vnc.py:144
+#: ../rescue.py:445 ../text.py:440 ../text.py:599 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:322
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:408
-#: ../loader2/hdinstall.c:478 ../loader2/hdinstall.c:521
-#: ../loader2/hdinstall.c:534 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:336
-#: ../loader2/kickstart.c:472 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:156 ../loader2/method.c:378 ../loader2/method.c:463
-#: ../loader2/modules.c:1042 ../loader2/net.c:260 ../loader2/net.c:299
-#: ../loader2/net.c:731 ../loader2/net.c:1056 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:36
+#: ../textw/network_text.py:46 ../textw/network_text.py:68
+#: ../textw/network_text.py:74 ../textw/network_text.py:222
+#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
+#: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
+#: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476 ../loader2/urls.c:283 ../loader2/urls.c:348
-#: ../loader2/urls.c:353 ../loader2/urls.c:359 ../loader2/urls.c:471
+#: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "Mayat"
 
-#: ../anaconda:421
+#: ../anaconda:423
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -79,42 +90,42 @@ msgstr ""
 "Kurang ti RAM tapno maaramat ti grapikal a panangikapet. Marugrugian ti text "
 "a wagas. "
 
-#: ../anaconda:437
+#: ../anaconda:439
 msgid "No video hardware found, assuming headless"
 msgstr "Awan ti naduktalan a video a hardware, maipato a kas awanan ulo"
 
-#: ../anaconda:444 ../anaconda:896
+#: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Saan a marugian ti banag ti kasasaad maipaay ti X a hardware."
 
-#: ../anaconda:501
+#: ../anaconda:503
 msgid "Starting graphical installation..."
 msgstr "Marugrugian ti grapikal a panangikapet..."
 
-#: ../anaconda:761
+#: ../anaconda:763
 msgid "Install class forcing text mode installation"
 msgstr "Pilpiliten ti klases ti panangikapet ti wagas a texto."
 
-#: ../anaconda:793
+#: ../anaconda:795
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 "Saan a maaramat ti grapikal a panangikapet... Marugrugian ti wagas a texto."
 
-#: ../anaconda:801
+#: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 "Saan a naituding ti agbaliwbaliw a pateg a DISPLAY. Marugrugian iti wagas a "
 "texto!"
 
-#: ../anaconda:862
+#: ../anaconda:864
 msgid "Unknown install method"
 msgstr "Saan nga am-ammo a wagas ti panangikapet"
 
-#: ../anaconda:863
+#: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Saan a maisayangkat ti Anaconda ti napili a panangikapet."
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "unknown install method: %s"
 msgstr "saan nga am-ammo a panangikapet: %s"
@@ -210,11 +221,11 @@ msgstr ""
 "Ti pannakanayonan daytoy a benneg ket makapagpakurang iti espasio ti disk "
 "maipapan ti naidisso a lohikal a volume iti %s."
 
-#: ../autopart.py:1255
+#: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
 msgstr "Ti Dinawat a Benneg ket Saan a Panagadda"
 
-#: ../autopart.py:1256
+#: ../autopart.py:1260
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -225,11 +236,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1283
+#: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Ti dinawat nga aparato ti RAID ket saan a panagadda"
 
-#: ../autopart.py:1284
+#: ../autopart.py:1288
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -240,11 +251,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1315
+#: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Ti dinawat a grupo ti tomo ket saan a panagadda"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1320
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -255,11 +266,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1353
+#: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Ti dinawat a lohikal a tomo ket saan a panagadda"
 
-#: ../autopart.py:1354
+#: ../autopart.py:1358
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -270,11 +281,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1470 ../autopart.py:1517
+#: ../autopart.py:1474 ../autopart.py:1521
 msgid "Automatic Partitioning Errors"
 msgstr "Biddut ti Otomatiko a Panagbenneg"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1475
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -289,11 +300,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1481
+#: ../autopart.py:1485
 msgid "Warnings During Automatic Partitioning"
 msgstr "Pagtimaan bayat ti Otomatiko a Panagbenneg"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1486
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -304,7 +315,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1496 ../autopart.py:1513
+#: ../autopart.py:1500 ../autopart.py:1517
 msgid ""
 "\n"
 "\n"
@@ -314,12 +325,12 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../autopart.py:1497 ../iw/partition_gui.py:997
+#: ../autopart.py:1501 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Biddut iti Panagbebenneg"
 
-#: ../autopart.py:1498
+#: ../autopart.py:1502
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -330,7 +341,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1515
+#: ../autopart.py:1519
 msgid ""
 "\n"
 "\n"
@@ -340,15 +351,15 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno makapilikayo iti dadduma a pagbenneg nga opsion."
 
-#: ../autopart.py:1518
-#, python-format
+#: ../autopart.py:1522
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 msgstr ""
 "Rimsua ti sumaro a biddut iti panagbebenneg:\n"
 "\n"
@@ -357,27 +368,27 @@ msgstr ""
 "Makarussua dagitoy no kurang ti espasio kadagiti harddrive maipapan ti "
 "panaginstala.%s"
 
-#: ../autopart.py:1529
+#: ../autopart.py:1533
 msgid "Unrecoverable Error"
 msgstr "Saan a Mapulangan a Biddut"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1534
 msgid "Your system will now be rebooted."
 msgstr "Marugian manen ti sistema ita."
 
-#: ../autopart.py:1677 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1018
-#: ../partedUtils.py:1082 ../upgrade.py:348 ../yuminstall.py:1288
+#: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
+#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:448
 #: ../textw/partition_text.py:232 ../textw/upgrade_text.py:172
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Patigmaan"
 
-#: ../autopart.py:1683
+#: ../autopart.py:1687
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -394,7 +405,7 @@ msgstr ""
 "ti sistema ti intar, dagiti pagisagpatan, dagiti kadakkel ti benneg, ken "
 "dadduma pay. "
 
-#: ../autopart.py:1694
+#: ../autopart.py:1698
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -402,19 +413,19 @@ msgstr ""
 "Sakbay maisagana ti programa ti panaginstala ti otomatiko a panagbenneg, "
 "naskenyo ti agpili iti panangaramat ti espasio ti harddrive."
 
-#: ../autopart.py:1699
+#: ../autopart.py:1703
 msgid "Remove all partitions on this system"
 msgstr "Ikkaten amin a benneg kadaytoy a sistema"
 
-#: ../autopart.py:1700
+#: ../autopart.py:1704
 msgid "Remove all Linux partitions on this system"
 msgstr "Ikkaten amin a benneg ti kita a Linux kadagitoy a sistema"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1705
 msgid "Keep all partitions and use existing free space"
 msgstr "Aluadan amin a benneg, santo aramaten ti nawaya nga espasio"
 
-#: ../autopart.py:1703
+#: ../autopart.py:1707
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -425,7 +436,7 @@ msgstr ""
 "kadagiti sumaruno a harddrive:%s\n"
 "Sigurado a kayatyo ti agpatuloy?"
 
-#: ../autopart.py:1707
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -436,12 +447,12 @@ msgstr ""
 "nga adda kadagiti sumaruno a harddrive:%s\n"
 "Sigurado a kayatyo ti agpatuloy?"
 
-#: ../backend.py:106
+#: ../backend.py:176
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Pinapasayaat ti %s\n"
 
-#: ../backend.py:108
+#: ../backend.py:178
 #, python-format
 msgid "Installing %s\n"
 msgstr "Main-instala ti %s\n"
@@ -470,17 +481,6 @@ msgstr "Nalpas"
 msgid "In progress...   "
 msgstr "Matungtungpal..."
 
-#: ../cmdline.py:69 ../gui.py:895 ../text.py:354
-#, python-format
-msgid ""
-"The following error was found while parsing your kickstart configuration:\n"
-"\n"
-"%s"
-msgstr ""
-"Nasarak dagiti sumaruno a biddut iti pannakaanalisa ti intar ti kickstart:\n"
-"\n"
-"%s"
-
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
 msgstr "Saan a maisurat ti salusod it wagas a pammilin!"
@@ -488,16 +488,6 @@ msgstr "Saan a maisurat ti salusod it wagas a pammilin!"
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Ti naisina a laksid ket saanda maasikasuan iti wagas a pammilin!"
-
-#: ../cmdline.py:145
-#, python-format
-msgid "Done [%d/%d]"
-msgstr "[%d/%d] ket nalpas"
-
-#: ../cmdline.py:151
-#, python-format
-msgid "Installing %s-%s-%s... "
-msgstr "Main-instala ti %s-%s-%s... "
 
 #: ../constants.py:65
 #, python-format
@@ -510,11 +500,11 @@ msgstr ""
 "ti kopia ti laksid, sayonto idatag ti padamag ti biddut maisuppiat ti "
 "anaconda ditoy: %s"
 
-#: ../exception.py:401 ../exception.py:418
+#: ../exception.py:415 ../exception.py:432
 msgid "Dump Written"
 msgstr "Naisurat ti pangusisa nga intar"
 
-#: ../exception.py:402
+#: ../exception.py:416
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -522,23 +512,23 @@ msgstr ""
 "Ti kasasaad ti sistema ket naisurat iti floppy a disk. Marugian manen ti "
 "sistema."
 
-#: ../exception.py:405 ../exception.py:422 ../fsset.py:1766 ../fsset.py:2455
-#: ../gui.py:900 ../gui.py:1050 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:299 ../iw/confirm_gui.py:32
+#: ../exception.py:419 ../exception.py:436 ../fsset.py:1766 ../fsset.py:2456
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Mangrugi manen"
 
-#: ../exception.py:410 ../exception.py:427
+#: ../exception.py:424 ../exception.py:441
 msgid "Dump Not Written"
 msgstr "Saan a nasurat ti pangusisa nga intar"
 
-#: ../exception.py:411
+#: ../exception.py:425
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "Rimsua ti problema bayat ti pannakaisurat ti kasasaad ti sistema iti floppy."
 
-#: ../exception.py:419
+#: ../exception.py:433
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -546,7 +536,7 @@ msgstr ""
 "Nagballigi ti pannakaidulin ti kasasaad ti sistema iti adayot a host. "
 "Marugian manen ti sistema."
 
-#: ../exception.py:428
+#: ../exception.py:442
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Rimsua ti biddut bayat ti pannakaisurat ti kasasaad ti sistema iti adayo a "
@@ -565,29 +555,29 @@ msgstr "Agsuksukimat iti madi a paset ti /dev/%s..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:751
-#: ../yuminstall.py:866 ../yuminstall.py:882 ../yuminstall.py:1133
-#: ../iw/autopart_type.py:192 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
+#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
-#: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
+#: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
-#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:373 ../loader2/hdinstall.c:478
-#: ../loader2/hdinstall.c:521 ../loader2/hdinstall.c:534
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
 #: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:378
-#: ../loader2/method.c:463 ../loader2/nfsinstall.c:125
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
+#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
 #: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:348 ../loader2/urls.c:353
+#: ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Biddut"
 
@@ -637,9 +627,9 @@ msgstr ""
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1480 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1480 ../packages.py:283 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:425
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
 msgstr "Laktawen"
 
@@ -725,7 +715,7 @@ msgstr ""
 "kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian "
 "manen ti sistema."
 
-#: ../fsset.py:1536 ../iw/partition_gui.py:367
+#: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Ipormato"
 
@@ -857,8 +847,8 @@ msgstr ""
 "Rimsua ti biddut iti panagisasagpat ti aparato a %s a kas %s. "
 "Makapagpatuloyyo iti panaginstal, ngem mabalin nga addanto ti problema."
 
-#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:926
-#: ../kickstart.py:954 ../yuminstall.py:862 ../iw/partition_gui.py:1011
+#: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
+#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "Ipatul_oy"
 
@@ -891,11 +881,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:2447
+#: ../fsset.py:2448
 msgid "Duplicate Labels"
 msgstr "Nakopia nga etiketa"
 
-#: ../fsset.py:2448
+#: ../fsset.py:2449
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -909,24 +899,24 @@ msgstr ""
 "\n"
 "Tarimaanyo daytoy a problema, sayonto uliten ti panagrugi ti panaginstala."
 
-#: ../fsset.py:2708
+#: ../fsset.py:2709
 msgid "Formatting"
 msgstr "Agporpormato"
 
-#: ../fsset.py:2709
+#: ../fsset.py:2710
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Naporpormato ti sistema a %s ti intar..."
 
-#: ../gui.py:106
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "Rimsua ti biddut iti pannakakopia ti ladawan ti screen."
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "Nakopia ti ladawan ti screen"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -940,20 +930,20 @@ msgstr ""
 "\n"
 "Maaksesyo ida no iparugiyo manen ti sistema, sayonto sumrek a kas root."
 
-#: ../gui.py:161
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr "Iduldulin ti ladawan ti screen"
 
-#: ../gui.py:162
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Naidulin ti ladawan ti screen a '%s'."
 
-#: ../gui.py:165
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr "Biddut iti Pannakaidulin ti Ladawan ti Pantalia"
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -961,52 +951,58 @@ msgstr ""
 "Rimsua ti biddut iti pannakaidulin ti natukmaan a pantalia. No rimsua iti "
 "panagin-instala ti pakete, siguro maminmanoyo a padasen tapno agballigi."
 
-#: ../gui.py:231 ../text.py:391
+#: ../gui.py:232 ../text.py:437
 msgid "Fix"
 msgstr "Isaad"
 
-#: ../gui.py:232 ../rescue.py:203 ../text.py:392 ../upgrade.py:59
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
+#: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:267 ../loader2/loader.c:405
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
 msgid "Yes"
 msgstr "Wen"
 
-#: ../gui.py:233 ../rescue.py:203 ../rescue.py:205 ../text.py:393
-#: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
+#: ../gui.py:234 ../rescue.py:203 ../rescue.py:205 ../text.py:439
+#: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/loader.c:405
 msgid "No"
 msgstr "Saan"
 
-#: ../gui.py:235 ../text.py:395 ../loader2/net.c:92 ../loader2/net.c:317
-#: ../loader2/net.c:575 ../loader2/net.c:683 ../loader2/net.c:783
-#: ../loader2/net.c:791 ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../gui.py:236 ../text.py:441 ../text.py:569 ../loader2/net.c:93
+#: ../loader2/net.c:325 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1206
+#: ../loader2/net.c:1212
 msgid "Retry"
 msgstr "Padasen manen"
 
-#: ../gui.py:236 ../text.py:396
+#: ../gui.py:237 ../text.py:442
 msgid "Ignore"
 msgstr "Bay-an"
 
-#: ../gui.py:237 ../gui.py:725 ../partIntfHelpers.py:237
-#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
-#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
-#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
+#: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
+#: ../text.py:416 ../text.py:443 ../iw/bootloader_advanced_gui.py:47
+#: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:336 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:339 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Ukasen"
 
-#: ../gui.py:735 tmp/anaconda.glade.h:2
+#: ../gui.py:604 ../text.py:357
+#, fuzzy
+msgid "Installation Key"
+msgstr "panaginstala"
+
+#: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_Linisen"
 
-#: ../gui.py:897 ../text.py:356
+#: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr "Biddut iti Pannakaanalisa ti Intar ti Kickstart"
 
-#: ../gui.py:905 ../text.py:366
+#: ../gui.py:967 ../text.py:412
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1014,15 +1010,15 @@ msgstr ""
 "Isengngatyo ti floppy a disk itan. Amin a laonna ket maikkatto, isu nga "
 "annadanyo ti panagpili ti floppy."
 
-#: ../gui.py:952
+#: ../gui.py:1014
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1036
+#: ../gui.py:1100 ../text.py:564
 msgid "Error!"
 msgstr "Biddut!"
 
-#: ../gui.py:1037
+#: ../gui.py:1101 ../text.py:565
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1034,36 +1030,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1042 ../gui.py:1047 ../packages.py:291 ../packages.py:296
+#: ../gui.py:1106 ../gui.py:1111 ../packages.py:332 ../packages.py:337
 msgid "_Exit"
 msgstr "_Turposen"
 
-#: ../gui.py:1043 ../yuminstall.py:754
+#: ../gui.py:1107 ../yuminstall.py:608
 msgid "_Retry"
 msgstr "_Padasen manen"
 
-#: ../gui.py:1046 ../packages.py:295
+#: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
 msgstr "Agturturpos ita ti paginstala..."
 
-#: ../gui.py:1049 ../packages.py:298
+#: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
 msgstr "Marugian manen ita ti sistema..."
 
-#: ../gui.py:1052 ../packages.py:300
+#: ../gui.py:1116 ../packages.py:341
 msgid "Rebooting System"
 msgstr "Agrugrugi manen ti Sistema"
 
-#: ../gui.py:1116
+#: ../gui.py:1180
 #, python-format
 msgid "%s Installer"
 msgstr "Paginstala ti %s"
 
-#: ../gui.py:1123
+#: ../gui.py:1187
 msgid "Unable to load title bar"
 msgstr "Saan a maawit ti barras ti titulo"
 
-#: ../gui.py:1177
+#: ../gui.py:1242
 msgid "Install Window"
 msgstr "Tawa ti panaginstala"
 
@@ -1128,8 +1124,8 @@ msgstr ""
 "Isaganayo dagiti CD sakbayyo ipatuloy ti panaginstala. No masapolyo nga "
 "ukasen ti panaginstala, santo marugian manen, pillienyo ti \"Rugian manen\"."
 
-#: ../image.py:93 ../packages.py:296 ../packages.py:299 ../yuminstall.py:1140
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
+#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Agatras"
@@ -1227,7 +1223,7 @@ msgstr ""
 "serbidor, sayonto klikan ti 'Uliten'. Klikanyo ti 'Rugian manen' tapno "
 "maukas ti panaginstala."
 
-#: ../installclass.py:65
+#: ../installclass.py:66
 msgid "Install on System"
 msgstr "Mainstalaan ti Sistema"
 
@@ -1235,11 +1231,11 @@ msgstr "Mainstalaan ti Sistema"
 msgid "Initializing iSCSI initiator"
 msgstr "Mairugrugi ti iSCSI nga mangirugi"
 
-#: ../kickstart.py:74
+#: ../kickstart.py:75
 msgid "Scriptlet Failure"
 msgstr "Saan a matungpal ti scriptlet"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:76
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1252,23 +1248,23 @@ msgstr ""
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../kickstart.py:869 ../kickstart.py:886
+#: ../kickstart.py:930 ../kickstart.py:947
 msgid "Running..."
 msgstr "Agtungtungpal..."
 
-#: ../kickstart.py:870
+#: ../kickstart.py:931
 msgid "Running post-install scripts"
 msgstr "Tungtungpalen dagiti script ti kalpasan"
 
-#: ../kickstart.py:887
+#: ../kickstart.py:948
 msgid "Running pre-install scripts"
 msgstr "Tungtungpalen dagiti kasakbay ti panaginstala nga eskrito"
 
-#: ../kickstart.py:918
+#: ../kickstart.py:979
 msgid "Missing Package"
 msgstr "Nalabsan ti pakete"
 
-#: ../kickstart.py:919
+#: ../kickstart.py:980
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1277,16 +1273,16 @@ msgstr ""
 "Naituding a mainstala ti pakete a '%s'. Saan a panagadda daytoy a pakete. "
 "Kayatyo ti agpatuloy wenno agukas ti panaginstala?"
 
-#: ../kickstart.py:925 ../kickstart.py:953 ../yuminstall.py:862
-#: ../yuminstall.py:864
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
+#: ../yuminstall.py:720
 msgid "_Abort"
 msgstr "_Ukasen"
 
-#: ../kickstart.py:945
+#: ../kickstart.py:1016
 msgid "Missing Group"
 msgstr "Nalabsan A Grupo"
 
-#: ../kickstart.py:946
+#: ../kickstart.py:1017
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1295,28 +1291,33 @@ msgstr ""
 "Nadutokan a ti grupo a '%s' ket mainstala. Saan a panagadda daytoy a grupo. "
 "Kayatyo ti agpatuloy wenno agukas iti panaginstala?"
 
-#: ../livecd.py:77 ../livecd.py:262
+#: ../livecd.py:77 ../livecd.py:263
 #, fuzzy
 msgid "Unable to find image"
 msgstr "Saan a maduktalan ti panginstala nga imahen ti %s"
 
-#: ../livecd.py:78 ../livecd.py:263
+#: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:82 ../livecd.py:267
+#: ../livecd.py:82 ../livecd.py:268
 #, fuzzy
 msgid "Exit installer"
 msgstr "Paginstala ti %s"
 
-#: ../livecd.py:144
+#: ../livecd.py:113
+#, fuzzy
+msgid "Copying live image to hard drive."
+msgstr "Iyakyakar ti paginstala nga imahen iti harddrive..."
+
+#: ../livecd.py:145
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "%s %s panaginstala"
 
-#: ../livecd.py:145
+#: ../livecd.py:146
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
@@ -1364,24 +1365,26 @@ msgstr "Ti '%s' ket saan a maaramat a pagtaengan ti IPv6."
 msgid "'%s' is an invalid IP address."
 msgstr "Ti '%s' ket saan a maaramat a pagtaengan ti IPv6."
 
-#: ../packages.py:241
-#, python-format
-msgid "Please enter the registration key for your version of %s."
-msgstr "Idatagyo ti pangrehistro a tulbek ti bersionyo ti %s."
+#: ../packages.py:257
+#, fuzzy
+msgid "Invalid Key"
+msgstr "Saan a Matutop nga Unlapi"
 
-#: ../packages.py:245
-msgid "Enter Registration Key"
-msgstr "Isuratyo ti pangrehistro a tulbek"
+#: ../packages.py:258
+#, fuzzy
+msgid "The key you entered is invalid."
+msgstr "Saan a matutop a numero ti pateg a naisurat."
 
-#: ../packages.py:246
-msgid "Key:"
-msgstr "Klabe:"
+#: ../packages.py:286
+#, fuzzy
+msgid "_Skip"
+msgstr "Laktawen"
 
-#: ../packages.py:277
+#: ../packages.py:318
 msgid "Warning! This is pre-release software!"
 msgstr "Patigmaan! Sakbay ti pannakaibbat daytoy!"
 
-#: ../packages.py:278
+#: ../packages.py:319
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1409,9 +1412,114 @@ msgstr ""
 "    %s\n"
 "sayonto idatag ti padamag maisuppiat ti '%s'.\n"
 
-#: ../packages.py:291
+#: ../packages.py:332
 msgid "_Install anyway"
 msgstr "_Mainstala no aniaman"
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Sangsangaili"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti "
+"LDL a DASD ket saan a masayangkat tapno maaramat iti panaginstala ti %s. No "
+"kayatyo nga aramaten daytoy a harddisk maipapan ti panaginstala, naksen a "
+"marugianto ngem mabura ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
+"\n"
+"Kayatyo a maipormato daytoy a DASD babaen ti CDL?"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat "
+"daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem "
+"mabura ti SIBUBUKEL a DATOS a nakasurat kadaytoy a harddrive.\n"
+"\n"
+"Kayatyo a maipormato daytoy a drive?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Bay-an ti harddrive"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "Agirubrubbuat"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Aguraykayo bayat ti panagpormato ti harddrive a %s...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Saan a mabasa ti tabula ti benneg nga naisurat iti aparato a %s (%s). Tapno "
+"maparsua ti baro a benneg, kailangan a mairugi ket mapukaw ti SIBUBUKEL a "
+"DATOS a naisurat kadaytoy a harddrive.\n"
+"\n"
+"Daytoy nga aramid ket \n"
+"\n"
+"Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL a DATOS?"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro "
+"a benneg, nasken a marugian ket maburanto ti SIBUBUKEL A DATOS nga "
+"nakaisurat kadaytoy a harddisk.\n"
+"\n"
+"Waswasen daytoy nga aramid ti keddeng a maipanggep ania a harddrive a "
+"mabaybay-an.\n"
+"\n"
+"Kayatyo a marugian daytoy a harddrive ket mabura ti SIBUBUKEL A DATOS?"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "Awan ti masarakan a harddrive"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Rimsua ti biddut - Awan ti naduktalan nga aparato a maparsuaan ti baro a "
+"sistema ti intar. Sukimatanyo ti hardware ti puon ti problema."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1736,203 +1844,6 @@ msgid ""
 msgstr ""
 "Sigurado a kayatyo a maisubli ti rehistro ti benneg iti sigud a kasasaadna?"
 
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Saan a maaramat ti pagisagpatan. Ti direkotrio a %s ket masapol a maisagpat "
-"iti sistema a '/' ti intar."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr "Saan a maaramat ti pagisagpatan a %s. ???"
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr ""
-"Daytoy a pagisagpatan ket naksen a naidisso iti Linux a sistema ti intar."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"Inar-aramaten ti pagisagpatan a \"%s\". Pillieny ti sabali a pagisagpatan."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"Ri kadakkel ti benneg a %s (%10.2f a MB) ket aglaplapus iti kadakkelan a %"
-"10.2f a MB."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"Ti kadakkel ti nadawat a benneg (%s MB) ket aglaplapus iti kadakkelan a %s a "
-"MB."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Ti kaddakel ti nadawat a benneg ket negatibo. (%s MB)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Dagiti benneg ket saanda a makarugi iti baba ti umuna a silindro."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Dagiti benneg ket saanda makatungpal iti negatibo a silindro."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Awan ti miembro ti padawat ti RAID, wenno awan ti tukad a naituding ti RAID."
-
-#: ../partRequests.py:677 ../partitions.py:954
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Dagiti makarugi a benneg ket maidisso iti aparato ti RAID1 laeng."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"Naksen ti RAID nga aparato ti kita a %s ti saan a nakurkurang ngem %s a "
-"miembro."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Mabalin nga adda kadaytoy nga aparato ti RAID ti kadakkelan a %s a pagnayon. "
-"Tapno umado, masapol a mainayon ti miembro iti aparato ti RAID. "
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-"Masapol a ti kadakkel ti lohikal a tomo ket dakdakkel ngem ti pisikal a "
-"kadakkel ti grupo ti tomo."
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "Sangsangaili"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Naipormato ti aparato a %s babaen ti LDL iti saad ti CDL. Ti naipormato ti "
-"LDL a DASD ket saan a masayangkat tapno maaramat iti panaginstala ti %s. No "
-"kayatyo nga aramaten daytoy a harddisk maipapan ti panaginstala, naksen a "
-"marugianto ngem mabura ti SIBUBUKEL a DATOS nga nakasurat kadaytoy a drive.\n"
-"\n"
-"Kayatyo a maipormato daytoy a DASD babaen ti CDL?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"Agdinama, iti /dev/%s ket addan ti%s a panagurnos ti benneg. Tapno maaramat "
-"daytoy a disk maipapan ti panaginstala ti %s, nasken a marugian manen ngem "
-"mabura ti SIBUBUKEL a DATOS a nakasurat kadaytoy a harddrive.\n"
-"\n"
-"Kayatyo a maipormato daytoy a drive?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Bay-an ti harddrive"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "Ipormato ti _harddrive"
-
-#: ../partedUtils.py:898
-msgid "Initializing"
-msgstr "Agirubrubbuat"
-
-#: ../partedUtils.py:899
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Aguraykayo bayat ti panagpormato ti harddrive a %s...\n"
-
-#: ../partedUtils.py:1019
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Saan a mabasa ti tabula ti benneg nga naisurat iti aparato a %s (%s). Tapno "
-"maparsua ti baro a benneg, kailangan a mairugi ket mapukaw ti SIBUBUKEL a "
-"DATOS a naisurat kadaytoy a harddrive.\n"
-"\n"
-"Daytoy nga aramid ket \n"
-"\n"
-"Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL a DATOS?"
-
-#: ../partedUtils.py:1083
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Saan a mabasa ti rehistro ti benneg iti aparto a %s. Tapno maparsua ti baro "
-"a benneg, nasken a marugian ket maburanto ti SIBUBUKEL A DATOS nga "
-"nakaisurat kadaytoy a harddisk.\n"
-"\n"
-"Waswasen daytoy nga aramid ti keddeng a maipanggep ania a harddrive a "
-"mabaybay-an.\n"
-"\n"
-"Kayatyo a marugian daytoy a harddrive ket mabura ti SIBUBUKEL A DATOS?"
-
-#: ../partedUtils.py:1204
-msgid "No Drives Found"
-msgstr "Awan ti masarakan a harddrive"
-
-#: ../partedUtils.py:1205
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Rimsua ti biddut - Awan ti naduktalan nga aparato a maparsuaan ti baro a "
-"sistema ti intar. Sukimatanyo ti hardware ti puon ti problema."
-
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Saan a makapagpatuloy ti panaginstala."
@@ -2026,6 +1937,10 @@ msgstr ""
 "Agsimsimpa iti aparato a FireWire. Makapagtungpal iti makaandar a sistema "
 "wenno saan."
 
+#: ../partitions.py:954 ../partRequests.py:679
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Dagiti makarugi a benneg ket maidisso iti aparato ti RAID1 laeng."
+
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Saan a maidisso ti mairubbuat a benneg iti lohikal a tomo."
@@ -2069,6 +1984,94 @@ msgstr "benneg nga makimiembro iti urnong ti RAID."
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "benneg a makimiebro ti grupo ti tomo ti LVM."
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Saan a maaramat ti pagisagpatan. Ti direkotrio a %s ket masapol a maisagpat "
+"iti sistema a '/' ti intar."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr "Saan a maaramat ti pagisagpatan a %s. ???"
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr ""
+"Daytoy a pagisagpatan ket naksen a naidisso iti Linux a sistema ti intar."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"Inar-aramaten ti pagisagpatan a \"%s\". Pillieny ti sabali a pagisagpatan."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"Ri kadakkel ti benneg a %s (%10.2f a MB) ket aglaplapus iti kadakkelan a %"
+"10.2f a MB."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"Ti kadakkel ti nadawat a benneg (%s MB) ket aglaplapus iti kadakkelan a %s a "
+"MB."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "Ti kaddakel ti nadawat a benneg ket negatibo. (%s MB)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "Dagiti benneg ket saanda a makarugi iti baba ti umuna a silindro."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Dagiti benneg ket saanda makatungpal iti negatibo a silindro."
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+"Awan ti miembro ti padawat ti RAID, wenno awan ti tukad a naituding ti RAID."
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr ""
+"Naksen ti RAID nga aparato ti kita a %s ti saan a nakurkurang ngem %s a "
+"miembro."
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Mabalin nga adda kadaytoy nga aparato ti RAID ti kadakkelan a %s a pagnayon. "
+"Tapno umado, masapol a mainayon ti miembro iti aparato ti RAID. "
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"Masapol a ti kadakkel ti lohikal a tomo ket dakdakkel ngem ti pisikal a "
+"kadakkel ti grupo ti tomo."
+
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "Irugrugi ti Pagsilpuan"
@@ -2090,11 +2093,11 @@ msgstr "Ituding ti Ikit"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Kayatyo irugi dagiti pagsilpuan ti iket kadaytoy a sistema?"
 
-#: ../rescue.py:243 ../text.py:534
+#: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
 msgstr "Naukas"
 
-#: ../rescue.py:244 ../text.py:535
+#: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Saan a maiyaddang ti kasakbayan aggapu ditoy. Masapol a mapadas manen."
 
@@ -2126,7 +2129,7 @@ msgstr ""
 "pammilin.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:566 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
@@ -2144,7 +2147,7 @@ msgstr "Ti Sistema a Maisalakan"
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ania a benneg ti pagdissuan ti kangrunaan a benneg ti panaginstala?"
 
-#: ../rescue.py:321 ../rescue.py:325
+#: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
 msgstr "Ileppas"
 
@@ -2211,66 +2214,76 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Nakaisagpat ti sistema babaen ti direktorio a %s."
 
-#: ../text.py:149 ../text.py:164
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "Idulin"
 
-#: ../text.py:152 ../text.py:166
+#: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr "Adayo"
 
-#: ../text.py:154 ../text.py:162
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "Linisen"
 
-#: ../text.py:158
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "Rimsua ti Laksid"
 
-#: ../text.py:187
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr "Idulin iti adayo a host."
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Host"
 msgstr "Host"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Remote path"
 msgstr "Adayo a Dana"
 
-#: ../text.py:194
+#: ../text.py:195
 msgid "User name"
 msgstr "Mangaramat"
 
-#: ../text.py:196
+#: ../text.py:197
 msgid "Password"
 msgstr "Kontrasenias"
 
-#: ../text.py:253
+#: ../text.py:254
 msgid "Help not available"
 msgstr "Saan a maala ti tulong"
 
-#: ../text.py:254
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "Awan ti tulong maipaay daytoy nga addang ti panaginstala."
 
-#: ../text.py:365
+#: ../text.py:362
+#, fuzzy, python-format
+msgid "Please enter your %(instkey)s"
+msgstr "Inagananyo man ti grupo ti tomo."
+
+#: ../text.py:379 tmp/instkey.glade.h:4
+#, no-c-format, python-format
+msgid "Skip entering %(instkey)s"
+msgstr ""
+
+#: ../text.py:411
 msgid "Save Crash Dump"
 msgstr "Idulin ti pangusisa nga intar"
 
-#: ../text.py:420 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s"
 
-#: ../text.py:423
+#: ../text.py:469
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> Tulong | <Tab> Mangsukat | <Space> Mangpili | <F12> Sumaruno a Pantalia"
 
-#: ../text.py:425
+#: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2457,7 +2470,7 @@ msgstr ""
 "makasilpo ken makapaliiw ti kasasaad ti panaginstala. Isuratyo ti "
 "kontrasenias a maaramatto maipaay ti panaginstala."
 
-#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:461
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
 msgstr "Kontrasenias:"
 
@@ -2578,59 +2591,89 @@ msgstr "Ikasilpuanyo ti %s tapno makapagrugi ti panaginstala..."
 msgid "Please connect to begin the install..."
 msgstr "Agkasilpokayo tapno makapagrugi ti panaginstala..."
 
-#: ../yuminstall.py:100
+#: ../yuminstall.py:73
+#, python-format
+msgid "%s MB"
+msgstr "%s a MB"
+
+#: ../yuminstall.py:76
+#, python-format
+msgid "%s KB"
+msgstr "%s a KB"
+
+#: ../yuminstall.py:79
+#, python-format
+msgid "%s Byte"
+msgstr "%s a Byte"
+
+#: ../yuminstall.py:81
+#, python-format
+msgid "%s Bytes"
+msgstr "%s a Byte"
+
+#: ../yuminstall.py:129
 msgid "Processing"
 msgstr "Aga-analisa"
 
-#: ../yuminstall.py:101
+#: ../yuminstall.py:130
 msgid "Preparing transaction from installation source..."
 msgstr "Isagsagana ti transaksion aggapo ti pagtataudan ti panaginstala..."
 
-#: ../yuminstall.py:614 ../yuminstall.py:615
+#: ../yuminstall.py:160
+#, fuzzy, python-format
+msgid "<b>Installing %s</b> (%s)\n"
+msgstr "Main-instala ti %s\n"
+
+#: ../yuminstall.py:194
+#, python-format
+msgid "%s of %s packages completed"
+msgstr ""
+
+#: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
 msgstr "masuppiat ti intar"
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:533
 msgid "older package(s)"
 msgstr "daddaan a pakete"
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:534
 msgid "insufficient disk space"
 msgstr "kurang nga espasio ti disk"
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:535
 msgid "insufficient disk inodes"
 msgstr "kurang nga inode ti disk"
 
-#: ../yuminstall.py:619
+#: ../yuminstall.py:536
 msgid "package conflicts"
 msgstr "masuppiat ti pakete"
 
-#: ../yuminstall.py:620
+#: ../yuminstall.py:537
 msgid "package already installed"
 msgstr "nakainstalan ti pakete"
 
-#: ../yuminstall.py:621
+#: ../yuminstall.py:538
 msgid "required package"
 msgstr "masapol a pakete"
 
-#: ../yuminstall.py:622
+#: ../yuminstall.py:539
 msgid "package for incorrect arch"
 msgstr "pakete ti madi nga arkitektura"
 
-#: ../yuminstall.py:623
+#: ../yuminstall.py:540
 msgid "package for incorrect os"
 msgstr "pakete ti madi a sistema ti panangpaandar"
 
-#: ../yuminstall.py:637
+#: ../yuminstall.py:554
 msgid "You need more space on the following file systems:\n"
 msgstr "Masapol ti adu pay nga espasio kadagiti sumaruno a sistema ti intar:\n"
 
-#: ../yuminstall.py:653
+#: ../yuminstall.py:570
 msgid "Error running transaction"
 msgstr "Biddut iti panagtutungpal ti transaksion"
 
-#: ../yuminstall.py:654
+#: ../yuminstall.py:571
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2638,21 +2681,21 @@ msgstr ""
 "Rimsua ti biddut iti panagtutungpal ti transaksion, maigapo ti sumaruno a "
 "rason: %s"
 
-#: ../yuminstall.py:658 ../yuminstall.py:754 ../yuminstall.py:888
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
+#: ../yuminstall.py:930
 msgid "Re_boot"
 msgstr "Uliten ti panagrugi"
 
-#: ../yuminstall.py:843
+#: ../yuminstall.py:699
 msgid "Retrieving installation information..."
 msgstr "Ab-abruten ti datos ti panaginstala..."
 
-#: ../yuminstall.py:845
+#: ../yuminstall.py:701
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Ab-abruten ti datos ti panaginstala maipaay ti %s..."
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2663,17 +2706,17 @@ msgstr ""
 "datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti "
 "panaginstala. %s"
 
-#: ../yuminstall.py:883
+#: ../yuminstall.py:739
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:915
+#: ../yuminstall.py:771
 msgid "Uncategorized"
 msgstr "Awan ti Kategoria"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:924
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2683,7 +2726,7 @@ msgstr ""
 "tapno mainstalada, ngem kurang ti espasio. Maisukatyo ti pakapilianyo wenno "
 "marugian manen."
 
-#: ../yuminstall.py:1289
+#: ../yuminstall.py:1085
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2693,39 +2736,39 @@ msgstr ""
 "mapasayaat daytoy a bersion ti %s. Sigurado a kayatyo nga ipatuloy daytoy a "
 "panagpasayaat?"
 
-#: ../yuminstall.py:1321
+#: ../yuminstall.py:1113
 msgid "Install Starting"
 msgstr "Mangrugrugi ti panaginstala"
 
-#: ../yuminstall.py:1322
+#: ../yuminstall.py:1114
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Mangrugrugi ti panaginstala. Mabaybayag ti nadumaduma a minuto..."
 
-#: ../yuminstall.py:1338
+#: ../yuminstall.py:1130
 msgid "Post Upgrade"
 msgstr "Kalpasan ti Panagpasayaat"
 
-#: ../yuminstall.py:1339
+#: ../yuminstall.py:1131
 msgid "Performing post upgrade configuration..."
 msgstr "Agdaldalimanek iti kalpasan ti panagpasayaat..."
 
-#: ../yuminstall.py:1341
+#: ../yuminstall.py:1133
 msgid "Post Install"
 msgstr "Kalpasan ti panaginstala"
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1134
 msgid "Performing post install configuration..."
 msgstr "Agur-urnos, kalpasan ti panaginstala..."
 
-#: ../yuminstall.py:1524
+#: ../yuminstall.py:1327
 msgid "Installation Progress"
 msgstr "Kasasaad ti panaginstala"
 
-#: ../yuminstall.py:1559
+#: ../yuminstall.py:1362
 msgid "Dependency Check"
 msgstr "Panagsukimat ti Agtaltalek "
 
-#: ../yuminstall.py:1560
+#: ../yuminstall.py:1363
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Agsuksukimat iti agtaltalek ti napili a pakete ti panaginstala..."
 
@@ -2772,9 +2815,9 @@ msgstr ""
 "ti root."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Ti dinawat a kontrasenias ket aglallaon ti saan nga ASCII a kurdit a saan a "
 "mapatubuyan iti kontrasenias."
@@ -2787,45 +2830,46 @@ msgstr ""
 "Ti kuenta ti Root ket pagim-imaton ti sistema. Isuratyo ti kontrasenias ti "
 "mangaramat a Root."
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:108
 msgid "Root _Password: "
 msgstr "Kontrasenias ti _Root:"
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:111
 msgid "_Confirm: "
 msgstr "_Patalgedan:"
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:147
 msgid "Invalid Initiator Name"
 msgstr "Saan a Matutop to Nagan ti Mangrugi"
 
-#: ../iw/autopart_type.py:138
-msgid "You must provide a non-zero length initiator name."
+#: ../iw/autopart_type.py:148
+#, fuzzy
+msgid "You must provide an initiator name."
 msgstr "Masapol a maikkan ti nagan ti pangrugian a saan a sero ti kaatiddogna."
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Biddut ti Datos"
 
-#: ../iw/autopart_type.py:247 ../textw/partition_text.py:1541
+#: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr ""
 "Ikkaten amin a benneg a nakaidisso kadagiti napili a harddrive, santo "
 "maparsua ti sigud a panangurnos."
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1542
+#: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 "Ikkaten amin a benneg ti Linux a nakaidisso kadagiti napili a harddrive, "
 "santo parsuaen ti nakaisigudan a panangurnos."
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1543
+#: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 "Aramaten ti nawaya nga espasio iti pinili a harddrive, santo parsuaen ti "
 "nakaisigudan a panangurnos."
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1544
+#: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
 msgstr "Parsuaen ti kabukbukudan a panagipinipin."
 
@@ -2872,13 +2916,14 @@ msgstr "_Patalgedan:"
 msgid "Passwords don't match"
 msgstr "Saan nga agkapasang ti kontrasenias"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:439
 msgid "Passwords do not match"
 msgstr "Saan nga agkapasang ti kontrasenias"
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
+#, fuzzy
 msgid ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -2892,10 +2937,11 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "Natukad a Panagidalimanek ti Mangimaton ti Panagrubbuat "
 
-#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
+#, fuzzy
 msgid ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
@@ -2925,8 +2971,8 @@ msgid "_General kernel parameters"
 msgstr "_Sapasap nga alagad ti kernel"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
-#: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
 msgstr "Panagidalimanek ti Mangimaton ti Panangirubbuat"
 
@@ -3084,10 +3130,10 @@ msgid "_Upgrade an existing installation"
 msgstr "_Pasayaat ti panagadda a panaginstala"
 
 #: ../iw/examine_gui.py:58
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 msgstr ""
 "Pilienyo ti opsion no kayatyo a pasayaat ti panagadda a sistema a %s. Daytoy "
 "nga opsion ket taginayonen ti datos a nakasurat kadagiti harddrive."
@@ -3131,12 +3177,13 @@ msgid "Confirm Physical Extent Change"
 msgstr "Patalgedan ti Panagsukat ti Pisikal a Kalawa"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 msgstr ""
 "Daytoy a panagsukat ti pateg ti pisikal a kalawa ket masapolto a mapaadu "
 "dagiti kadakkel ti dawat ti agdama a lohikal a tomo iti sangamano a "
@@ -3145,7 +3192,7 @@ msgstr ""
 "Daytoy a panagsukat ket maibanag a dagus."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:180
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "Ipat_uloy"
 
@@ -3278,8 +3325,8 @@ msgid "Mount point in use"
 msgstr "Naar-aramat ti pagisagpatan"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, python-format
-msgid "The mount point \"%s\" is in use, please pick another."
+#, fuzzy, python-format
+msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Naar-aramat ti pagisagpatan a \"%s\", pillienyo ti sabali."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
@@ -3296,10 +3343,10 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Naar-aramat ti nagan a \"%s\" ti lohikal a tomo. Pilienyo ti sabali."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can create more Physical "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Dakdakkel ti nadawat nga ittatta a kadakkel (%10.2f a MB) ngem ti kadakkelan "
@@ -3340,9 +3387,10 @@ msgid "No free space"
 msgstr "Awan ti nawaya nga espasio"
 
 #: ../iw/lvm_dialog_gui.py:728
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
-"add a logical volume you will need to reduce the size of one or more of the "
+"add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "Awan ti nabati nga espasio iti grupo ti tomo a maparsuaan ti baro a lohikal "
@@ -3350,8 +3398,8 @@ msgstr ""
 "maysa wenno ad-adu a panagadda a ittata a lohikal a tomo."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, python-format
-msgid "Are you sure you want to Delete the logical volume \"%s\"?"
+#, fuzzy, python-format
+msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Sigurado a kayatyo Buraen ti lohikal a tomo a \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
@@ -3430,13 +3478,13 @@ msgstr "Kadagupan nga Espasio:"
 msgid "Logical Volume Name"
 msgstr "Nagan ti Lohikal a Tomo"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Pagisagpatan"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:368
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Kadakkel (MB)"
 
@@ -3444,7 +3492,7 @@ msgstr "Kadakkel (MB)"
 msgid "_Add"
 msgstr "I_nayon"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:464
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_Baliwan"
@@ -3489,11 +3537,11 @@ msgstr "_Taudan ti 3 a butones"
 msgid "Select the appropriate mouse for the system."
 msgstr "Pilienyo ti matutop a mouse ti sistema."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:155
-#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
-#: ../iw/network_gui.py:175 ../iw/network_gui.py:180
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:44 ../textw/network_text.py:49
+#: ../textw/network_text.py:55
 msgid "Error With Data"
 msgstr "Biddut ti Datos"
 
@@ -3510,12 +3558,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "Agsabsabali nga IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:401 ../loader2/net.c:822
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Ipatultulod ti dawat ti datos ti IP maipaay ti %s..."
 
-#: ../iw/netconfig_dialog.py:176 tmp/netpostconfig.glade.h:13
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
+#: tmp/netpostconfig.glade.h:13
 msgid "IP Address"
 msgstr "Pagtaengan nga IP"
 
@@ -3524,7 +3573,7 @@ msgid "Netmask"
 msgstr "Maskara ti ikit"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:540
+#: ../iw/network_gui.py:527
 msgid "Gateway"
 msgstr "Paglasatan"
 
@@ -3537,11 +3586,11 @@ msgstr "Serbidor ti nagan"
 msgid "Error configuring network device"
 msgstr "Rimsua ti biddut iti panagidadalimanek ti pagsilpuan ti iket."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:542
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
 msgstr "Kangrunaan a DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:544
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
 msgstr "Maikaddua a DNS"
 
@@ -3557,11 +3606,11 @@ msgstr "_Kangrunaa a DNS"
 msgid "_Secondary DNS"
 msgstr "_Maikadkadua a DNS"
 
-#: ../iw/network_gui.py:37
+#: ../iw/network_gui.py:31
 msgid "Network Configuration"
 msgstr "Panagidalimanek ti Iket"
 
-#: ../iw/network_gui.py:156
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3569,7 +3618,7 @@ msgstr ""
 "Saan a natudingan ti nagan ti host. Depende ti iket, mabalin ti agpaproblema "
 "intono madamdama."
 
-#: ../iw/network_gui.py:160
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3578,7 +3627,7 @@ msgstr ""
 "Saan a natudingan ti kampo a \"%s\". Depende ti iket, mabalin ti "
 "agpaproblema intono madamdama."
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:735
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3589,28 +3638,29 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:168 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, fuzzy, python-format
 msgid "A value is required for the field %s."
 msgstr "Nasken ti pateg maipaay ti blangko a \"%s\"."
 
-#: ../iw/network_gui.py:171 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "Biddut ti Datos"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:36
+#: ../textw/network_text.py:521 ../textw/network_text.py:525
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/network_gui.py:176 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:56
 #, fuzzy
 msgid "The IPv4 information you have entered is invalid."
 msgstr "Saan a matutop ti impormasion a naidatag ti IP."
 
-#: ../iw/network_gui.py:180
+#: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3619,109 +3669,107 @@ msgstr ""
 "makapagsinnarita babaen ti iket no awan ania man ti saan a nakurkuran ngem "
 "maysa nga aparato iti nakairugian nga aparato ti iket."
 
-#: ../iw/network_gui.py:308 ../iw/network_gui.py:322
+#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/network_gui.py:405
+#: ../iw/network_gui.py:392
 msgid "Active on Boot"
 msgstr "Agrugi iti Panagrubrubbuat"
 
-#: ../iw/network_gui.py:407 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:362 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "Aparato"
 
-#: ../iw/network_gui.py:409
+#: ../iw/network_gui.py:396
 msgid "IPv4/Netmask"
 msgstr "IPv4/Maskara ti Ikit"
 
-#: ../iw/network_gui.py:411
+#: ../iw/network_gui.py:398
 msgid "IPv6/Prefix"
 msgstr "IPv6/Unlapi"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:458
 msgid "Network Devices"
 msgstr "Aparato ti Iket"
 
-#: ../iw/network_gui.py:482
+#: ../iw/network_gui.py:469
 msgid "Set the hostname:"
 msgstr "Isurat ti nagan ti host:"
 
-#: ../iw/network_gui.py:487
+#: ../iw/network_gui.py:474
 msgid "_automatically via DHCP"
 msgstr "_nga atomatiko babaen ti DHCP"
 
-#: ../iw/network_gui.py:494
+#: ../iw/network_gui.py:481
 msgid "_manually"
 msgstr "a _demano"
 
-#: ../iw/network_gui.py:499
+#: ../iw/network_gui.py:486
 msgid "(e.g., host.domain.com)"
 msgstr "(kas pagarigan, host.sakup.com)"
 
-#: ../iw/network_gui.py:505
+#: ../iw/network_gui.py:492
 msgid "Hostname"
 msgstr "Nagan ti host"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:536
 msgid "Miscellaneous Settings"
 msgstr "Dadduma a Pakaitudingan"
 
-#: ../iw/network_gui.py:638
+#: ../iw/network_gui.py:625
 #, fuzzy
 msgid "Edit Device "
 msgstr "Baliwan ti Aparato ti RAID"
 
-#: ../iw/network_gui.py:642
+#: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
 msgstr ""
 
-#: ../iw/network_gui.py:648
+#: ../iw/network_gui.py:635
 #, fuzzy
 msgid "unknown"
 msgstr "Saan nga Am-ammo"
 
-#: ../iw/network_gui.py:650
+#: ../iw/network_gui.py:637
 #, fuzzy
 msgid "Hardware address: "
 msgstr "Pagtaengan ti hardware: %s"
 
-#: ../iw/network_gui.py:792 ../textw/network_text.py:321 ../loader2/net.c:783
+#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Nalabsan a Protokol"
 
-#: ../iw/network_gui.py:793 ../textw/network_text.py:322
+#: ../iw/network_gui.py:780 ../textw/network_text.py:221
 #, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr ""
 "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno "
 "IPv6) maipaay ti DHCP."
 
-#: ../iw/network_gui.py:816 ../iw/network_gui.py:857 ../iw/network_gui.py:863
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:92
+#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../textw/network_text.py:66 ../loader2/net.c:93
 msgid "Invalid Prefix"
 msgstr "Saan a Matutop nga Unlapi"
 
-#: ../iw/network_gui.py:817 ../textw/network_text.py:354
+#: ../iw/network_gui.py:804
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr "Ti unlapi ti IPv4 ket masapol nga agbaet ti 0 ketn 32."
 
-#: ../iw/network_gui.py:858 ../iw/network_gui.py:864
-#: ../textw/network_text.py:381
+#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Ti unlapi ti IPv6 ket masapol nga agbaet ti 0 ken 128."
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Maidalimanek ti mangimaton ti rubbuat a makarubbuat ti sabali a sistema ti "
 "panangpaandar. Ikkannakayo ti pannakabael ti agpili ti sistema ti "
@@ -3731,7 +3779,7 @@ msgstr ""
 "sigud, pilienyo ti 'Sigud' nga adda iti bangir ti sistema ti panangpaandar a "
 "kayatyo."
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
 msgstr "Sigud"
 
@@ -3744,9 +3792,10 @@ msgid "Image"
 msgstr "Imahen"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 msgstr ""
 "Isuratyo ti etiketa a maipakita iti menu ti mangimaton ti rubbuat. Ti "
 "aparato (wenno harddrive ken numero ti benneg) ket ti pagrubbuatanna."
@@ -3785,11 +3834,11 @@ msgid "This device is already being used for another boot entry."
 msgstr ""
 "Maaramat daytoy nga aparato maipaay ti sabali a pangrubbuat a pakasuratan."
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
 msgstr "Saan a Mabura"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3854,29 +3903,29 @@ msgstr "Pagturposan a _Silindro:"
 msgid "Force to be a _primary partition"
 msgstr "Pilitin kas kangrunaan a _benneg"
 
-#: ../iw/partition_gui.py:313
+#: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 msgstr "Harddrive a %s (Rukod: %s/%s/%s) (Model: %s)"
 
-#: ../iw/partition_gui.py:320
+#: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "Harddrive %s (%-0.f a MB) (Model: %s)"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
 msgstr "Kita"
 
-#: ../iw/partition_gui.py:369 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
 msgid "Start"
 msgstr "Rugi"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1447
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1447
 msgid "End"
 msgstr "Gibus"
 
-#: ../iw/partition_gui.py:407
+#: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3884,7 +3933,7 @@ msgstr ""
 "Pagisagpatan/\n"
 "RAID/Tomo"
 
-#: ../iw/partition_gui.py:409
+#: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
@@ -3892,21 +3941,19 @@ msgstr ""
 "Kadakkel\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:541 ../textw/partition_text.py:1441
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1441
 msgid "Partitioning"
 msgstr "Panagbenneg"
 
-#: ../iw/partition_gui.py:632
+#: ../iw/partition_gui.py:633
 msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+"The partitioning scheme you requested caused the following critical errors."
 msgstr ""
-"Panagad-adda ti sumaruno a nakaro a biddut iti dinawatyo a gandat ti "
-"panagbenneg."
 
 #: ../iw/partition_gui.py:635
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+"You must correct these errors before you continue your installation of %s."
 msgstr ""
 "Dagiti biddut ket nasken a mapalaingan kasakbayan ti panagipatuloy ti "
 "panaginstala ti %s."
@@ -3916,9 +3963,8 @@ msgid "Partitioning Errors"
 msgstr "Biddut iti Panagbebenneg"
 
 #: ../iw/partition_gui.py:647
-msgid "The following warnings exist with your requested partition scheme."
+msgid "The partitioning scheme you requestedgenerated the following warnings."
 msgstr ""
-"Panagad-adda ti sumaruno a patigmaan iti dinawatyo a gandat ti panagbenneg."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3949,7 +3995,7 @@ msgstr "Aparato ti RAID"
 msgid "None"
 msgstr "Awan"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:267
+#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
 msgstr "Harddrive"
 
@@ -4029,9 +4075,10 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device which can be formatted and "
+"RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
@@ -4116,10 +4163,10 @@ msgid "Check for _bad blocks?"
 msgstr "_Sukimaten ti nadadael a paset?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Nasken a mapatingga ti benneg ti kita a '%s' iti maymaysa a harddrive. "
 "Maaramat daytoy no mapili ti drive iti listaan a 'Mapalubusan a Harddrive'."
@@ -4136,56 +4183,9 @@ msgstr "_Bennegen nga otomatiko"
 msgid "Manually partition with _Disk Druid"
 msgstr "Ibenneg a demano ti _Disk Druid"
 
-#: ../iw/progress_gui.py:43
-#, python-format
-msgid "%s MB"
-msgstr "%s a MB"
-
-#: ../iw/progress_gui.py:46
-#, python-format
-msgid "%s KB"
-msgstr "%s a KB"
-
-#: ../iw/progress_gui.py:49
-#, python-format
-msgid "%s Byte"
-msgstr "%s a Byte"
-
-#: ../iw/progress_gui.py:51
-#, python-format
-msgid "%s Bytes"
-msgstr "%s a Byte"
-
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:31
 msgid "Installing Packages"
 msgstr "Isimsimpa ti Pakete"
-
-#: ../iw/progress_gui.py:170
-#, python-format
-msgid "Remaining time: %s minutes"
-msgstr "Mabatbati nga oras: %s a minuto"
-
-#: ../iw/progress_gui.py:186
-#, python-format
-msgid "Downloading %s"
-msgstr "Iyulyulog ti %s"
-
-#: ../iw/progress_gui.py:226
-#, python-format
-msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Maisimsimpa ti %s-%s-%s.%s (%s)"
-
-#: ../iw/progress_gui.py:350
-msgid "Package"
-msgstr "Pakete"
-
-#: ../iw/progress_gui.py:351
-msgid "Summary"
-msgstr "Kadagupan"
-
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
-msgid "Status: "
-msgstr "Kasasaad:"
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4249,11 +4249,12 @@ msgid "Source Drive Error"
 msgstr "Biddut ti Pagtataudan a Harddrive"
 
 #: ../iw/raid_dialog_gui.py:498
+#, fuzzy
 msgid ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 msgstr ""
 "Lallaonen ti napili a pagtataudan a harddrive ti benneg a saan ti kita "
 "'software a RAID'.\n"
@@ -4261,13 +4262,13 @@ msgstr ""
 "Nasken a maikkatto dagitoy a benneg kasakbay maipapada daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:510
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 msgstr ""
 "Lallaonen ti napili a pagtataudan a drive ti benneg a saan a napatingga ti /"
 "dev/%s.\n"
@@ -4276,11 +4277,12 @@ msgstr ""
 "kasakbay maipapada daytoy a harddrive."
 
 #: ../iw/raid_dialog_gui.py:523
+#, fuzzy
 msgid ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 msgstr ""
 "Lallaonen ti napili a pagtataudan a drive ti benneg ti software a RAID a "
 "miembro ti aktibo nga aparato ti software RAID.\n"
@@ -4303,14 +4305,14 @@ msgstr ""
 "harddrive met."
 
 #: ../iw/raid_dialog_gui.py:562
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 msgstr ""
 "Iti pagtatarusan a harddrive a /dev/%s ket ti benneg a saan a maikkat "
 "maigapu ti sumaruno a rason:\n"
@@ -4358,13 +4360,14 @@ msgstr ""
 "maipapada."
 
 #: ../iw/raid_dialog_gui.py:696
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4426,10 +4429,10 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"Unable to find a group file for %s.  This will make manual selection of "
-"packages from the repository not work"
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 msgstr ""
 "Saan a mabirokan ti intar ti grupo a maipaay ti %s. Ti panagpili a demano ti "
 "pakete ket saan a matungpal."
@@ -4439,19 +4442,20 @@ msgid "Invalid Repository Name"
 msgstr "Saan a Maaramat ti Nagan ti Nakaikabilan"
 
 #: ../iw/task_gui.py:123
-msgid "You must provide a non-zero length repository name."
+#, fuzzy
+msgid "You must provide a repository name."
 msgstr ""
 "Masapol a maikkan ti nagan ti nakaikabilan a saan a sero ti kaatiddogna."
 
-#: ../iw/task_gui.py:132
+#: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
 msgstr "Saan a Maaramat ti URL ti Nakaikabilan"
 
-#: ../iw/task_gui.py:133
+#: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Nasken a maikkan ti URL a HTTP wenno FTP ti nakaikabilan."
 
-#: ../iw/task_gui.py:147
+#: ../iw/task_gui.py:146
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -4501,9 +4505,10 @@ msgid "_Create new boot loader configuration"
 msgstr "_Parsuaen ti baro pannakaidalimanek ti mangimaton ti rubbuat"
 
 #: ../iw/upgrade_bootloader_gui.py:89
+#, fuzzy
 msgid ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 msgstr ""
 "Daytoy ket ikkannakayo ti pannakabael ti agparsua iti baro a "
 "pannakaidalimanek ti mangimaton ti rubbuat. No kayatyo ti agsukat iti "
@@ -4514,9 +4519,10 @@ msgid "_Skip boot loader updating"
 msgstr "_Libtawan ti panagsayaat ti mangimaton ti rubbuat"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 msgstr ""
 "Saanto a mabliwan ti pannakaidalimanek ti mangimaton ti rubbuat. No mar-"
 "armat ti mangimaton ti rubbuat ti maikatlo a partido, nasken a mapiliyo "
@@ -4531,12 +4537,12 @@ msgid "Migrate File Systems"
 msgstr "Iyakat ti Sistema ti Intar"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -4551,12 +4557,12 @@ msgid "Upgrade Swap Partition"
 msgstr "Pasayaat ti Pangsinnukat a Benneg"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "Nasken ti 2.4 a kernal ti nabagas nga ad-adu a pangsinnukat nga espasio ngem "
 "ti daydi a daddaan a kernel. Agdinama, adda ti %d a MB ti pangsinnukat nga "
@@ -4591,10 +4597,10 @@ msgid "Free Space (MB)"
 msgstr "Nawaya nga Espasio (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr ""
 "Naisingasing  a saan a nakurkurang ngem %d a MB ti pangsinnukat nga intar. "
 "Isuratyo ti kadakkel ti pangsinnukat nga intar:"
@@ -4608,10 +4614,10 @@ msgid "I _don't want to create a swap file"
 msgstr "Saanko kayat ti agparsua ti pangsinnukat nga intar"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is stongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Naisingasing a maparsua ti pangsinnukat nga intar. No saan, maipalpas a saan "
 "a kadaywan ti paginstala. Sigurado a kayatyo ti agpatuloy?"
@@ -4689,11 +4695,11 @@ msgid "Skip Boot Loader"
 msgstr "Laktawen ti Mangimaton ti Rubbuat"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
@@ -4704,77 +4710,78 @@ msgstr ""
 " \n"
 "Sigurado a kayatyo a laktawen ti panaginstala ti mangimaton ti rubbuat?"
 
-#: ../textw/bootloader_text.py:93
+#: ../textw/bootloader_text.py:92
+#, fuzzy
 msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Nasken nga agpasa ti manmano a sistema iti naipangpangruna nga opsion ti "
 "pangarubrubbuat maipaay ti kernel tapno makaandarda a matutop. No naskenyo "
 "ti agpasa iti panagrubrubbuat nga opsion iti kernel, isuratyo ita. No saanyo "
 "a nasken ida wenno saankayo sigurado, bay-anyo a kalakaw daytoy. "
 
-#: ../textw/bootloader_text.py:102
+#: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Pilitin ti panagaramat ti LBA32 (saan kadaywan a naisingasing)"
 
-#: ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
 msgstr "Ania ti kayatyo a paginstalaan ti mangimaton ti panagrubbuat?"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
+#: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
 msgstr "Etiketa ti Rubbuat"
 
-#: ../textw/bootloader_text.py:198
+#: ../textw/bootloader_text.py:197
 msgid "Clear"
 msgstr "Pakalawakawen"
 
-#: ../textw/bootloader_text.py:206
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
 msgstr "Baliwan ti Mangimaton ti Rubbuat"
 
-#: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "Saan a Matutop ti Etiketa ti Rubbuat"
 
-#: ../textw/bootloader_text.py:225
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "Saan a mabalin a kalawakaw ti etiketa ti rubbuat."
 
-#: ../textw/bootloader_text.py:230
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "Lallaonen ti etiketa ti rubbuat ti saan a matutop a kurdit."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Baliwan"
 
-#: ../textw/bootloader_text.py:278
-#, python-format
+#: ../textw/bootloader_text.py:277
+#, fuzzy, python-format
 msgid ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 msgstr ""
 "Ti mangimaton ti rubbuat nga ar-aramaten ti %s ket makarubbuat met iti "
 "sabali a sistema ti panangpaandar. Saan a nasken a maibaga ti ania a benneg "
 "a kayatyo nga aramaten ken ania nga etiketa a kayatyo nga aramaten maipaay "
 "ida."
 
-#: ../textw/bootloader_text.py:291
+#: ../textw/bootloader_text.py:290
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> Agpili | <F2> Agpili iti Sigud | <F4> Buraen | <F12> Sumaruno a "
 "Pantalia>"
 
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:386
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "Laplapdan ti kontrasenias ti mangimaton ti rubbuat nga agpasa ti mangaramat "
@@ -4782,27 +4789,27 @@ msgstr ""
 "kontrasenia maigapu ti nangatngato a seguridad, ngem saan a nasken maipaay "
 "ti no sagpaminsan a mangaramat."
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
 msgstr "Aramaten ti Kontrasenias ti GRUB"
 
-#: ../textw/bootloader_text.py:409
+#: ../textw/bootloader_text.py:408
 msgid "Boot Loader Password:"
 msgstr "Kontrasenias ti Mangimaton ti Rubbuat:"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:409
 msgid "Confirm:"
 msgstr "Patalgedan:"
 
-#: ../textw/bootloader_text.py:439
+#: ../textw/bootloader_text.py:438
 msgid "Passwords Do Not Match"
 msgstr "Saan nga Agkapasang ti Kontrasenias"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:443
 msgid "Password Too Short"
 msgstr "Nakaab-ababa ti Kontrasenias"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:444
 msgid "Boot loader password is too short"
 msgstr "Nakaab-ababa ti kontrasenias ti mangimaton ti rubbuat"
 
@@ -4882,11 +4889,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:322 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
 #: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:260 ../loader2/net.c:299 ../loader2/net.c:731
-#: ../loader2/net.c:1056 ../loader2/net.c:1809 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:283 ../loader2/urls.c:471
+#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "Agatras"
 
@@ -4905,7 +4912,8 @@ msgstr ""
 "a reperensia."
 
 #: ../textw/grpselect_text.py:87
-msgid "Please select the package groups you would like to have installed."
+#, fuzzy
+msgid "Please select the package groups you would like to install."
 msgstr "Pilieyo dagiti grupo ti pakete a kayatyo maipainstala."
 
 #: ../textw/grpselect_text.py:105
@@ -4947,7 +4955,7 @@ msgstr "Ipada ti 3 a Butones?"
 msgid "Mouse Selection"
 msgstr "Panagpili ti Mouse"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:50
 #, fuzzy, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
@@ -4956,109 +4964,175 @@ msgstr ""
 "Saan a natudingan ti kampo a \"%s\". Depende ti iket, mabalin ti "
 "agpaproblema intono madamdama."
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:67
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "Ti unlapi ti IPv4 ket masapol nga agbaet ti 0 ketn 32."
+
+#: ../textw/network_text.py:71
+msgid "Integer Required for Prefix"
+msgstr ""
+
+#: ../textw/network_text.py:72
 #, python-format
-msgid "Description: %s"
-msgstr "Pagilawlawag: %s"
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
+msgstr ""
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "Pagtaengan ti Hardware: %s"
-
-#: ../textw/network_text.py:170
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
-
-#: ../textw/network_text.py:177 ../loader2/net.c:711
-#: tmp/netpostconfig.glade.h:10
-msgid "Enable IPv4 support"
-msgstr "Irugi ti panagisayangkat ti IPv4"
-
-#: ../textw/network_text.py:183 ../loader2/net.c:724
-#: tmp/netpostconfig.glade.h:11
-msgid "Enable IPv6 support"
-msgstr "Irugi ti panagisayangkat ti IPv6"
-
-#: ../textw/network_text.py:189 tmp/netpostconfig.glade.h:4
-msgid "Activate on boot"
-msgstr "Ilukat iti panagrubbuat"
-
-#: ../textw/network_text.py:214
-#, fuzzy
-msgid "Address"
-msgstr "Pagtaengan nga IP"
-
-#: ../textw/network_text.py:216 tmp/netpostconfig.glade.h:17
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 #, fuzzy
 msgid "Prefix (Netmask)"
 msgstr "Maskara ti ikit"
 
-#: ../textw/network_text.py:217
-msgid "IPv4:"
-msgstr ""
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+#, fuzzy
+msgid "Prefix"
+msgstr "IPv6/Unlapi"
 
-#: ../textw/network_text.py:220
-msgid "IPv6:"
-msgstr ""
+#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+msgid "Activate on boot"
+msgstr "Ilukat iti panagrubbuat"
 
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:141 ../loader2/net.c:719
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv4 support"
+msgstr "Irugi ti panagisayangkat ti IPv4"
+
+#: ../textw/network_text.py:148 ../loader2/net.c:732
+#: tmp/netpostconfig.glade.h:11
+msgid "Enable IPv6 support"
+msgstr "Irugi ti panagisayangkat ti IPv6"
+
+#: ../textw/network_text.py:161
 msgid "P-to-P:"
 msgstr ""
 
-#: ../textw/network_text.py:270 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
 #, fuzzy
 msgid "ESSID:"
 msgstr "_ESSID:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:188
 #, fuzzy
 msgid "WEP Key:"
 msgstr "Klabe:"
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:201
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Panagidalimanek ti Iket maipaay ti %s"
 
-#: ../textw/network_text.py:387
-#, fuzzy
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Ti unlapi ti IPv6 ket masapol nga agbaet ti 0 ken 128."
+#: ../textw/network_text.py:238 ../textw/network_text.py:241
+msgid "point-to-point IP address"
+msgstr ""
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1017
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
+
+#: ../textw/network_text.py:267 ../textw/network_text.py:398
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "Panagidalimanek a Demano ti TCP/IP"
+
+#: ../textw/network_text.py:287
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "Panagidalimanek ti Iket maipaay ti %s"
+
+#: ../textw/network_text.py:317 ../textw/network_text.py:329
+#: ../textw/network_text.py:332
+#, fuzzy
+msgid "IPv4 address"
+msgstr "IPv4 a Pagtaengan:"
+
+#: ../textw/network_text.py:321
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "IPv4/Maskara ti Ikit"
+
+#: ../textw/network_text.py:347 ../textw/network_text.py:350
+#: ../textw/network_text.py:353
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "Maskara ti ikit"
+
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
+
+#: ../textw/network_text.py:422
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "Panagidalimanek ti Iket maipaay ti %s"
+
+#: ../textw/network_text.py:452 ../textw/network_text.py:463
+#: ../textw/network_text.py:466
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IPv6 a Pagtaengan:"
+
+#: ../textw/network_text.py:456 ../textw/network_text.py:475
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "IPv6/Unlapi"
+
+#: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Pagbaetan:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:592
 msgid "Primary DNS:"
 msgstr "Kangrunaan a DNS:"
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:597
 msgid "Secondary DNS:"
 msgstr "Maikadkadua a DNS:"
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "Dadduma a Panangtudingan ti Iket"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#, fuzzy
+msgid "gateway"
+msgstr "Paglasatan"
+
+#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#, fuzzy
+msgid "primary DNS"
+msgstr "Kangrunaan a DNS"
+
+#: ../textw/network_text.py:643
+#, fuzzy
+msgid "secondary DNS"
+msgstr "Maikaddua a DNS"
+
+#: ../textw/network_text.py:677
 msgid "automatically via DHCP"
 msgstr "Otomatiko babaen ti DHCP"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:680
 msgid "manually"
 msgstr "demano"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:699
 msgid "Hostname Configuration"
 msgstr "Panagidalimanek ti Nagan ti Host"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:702
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "No ti sistemayo ket miembro ti dakdakkel nga iket ayan ti DHCP ket "
@@ -5066,11 +5140,11 @@ msgstr ""
 "dadduma, pilienyo ti 'Demano', ken isuratyo ti nagan ti host maipaay ti "
 "sistemayo. No diyo isurat, ti sistemayo ket mailasin babaen ti 'localhost'."
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
 msgstr "Saan a Matutop ti Nagan ti Host"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:729
 msgid "You have not specified a hostname."
 msgstr "Saan a naituding ti nagan ti host."
 
@@ -5218,7 +5292,8 @@ msgid "Not Supported"
 msgstr "Saan a Maipakat"
 
 #: ../textw/partition_text.py:772
-msgid "LVM Volume Groups can only be edited in the graphical installer."
+#, fuzzy
+msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "Mabaliwan ti grupo ti LVM a tomo ti grapikal a paginstala laeng."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
@@ -5258,7 +5333,8 @@ msgid "Too many spares"
 msgstr "Nakaad-adu ti Pagnayon"
 
 #: ../textw/partition_text.py:1096
-msgid "The maximum number of spares with a RAID0 array is 0."
+#, fuzzy
+msgid "You may not use any spares with a RAID0 array."
 msgstr "Ti kadakkelan a numero ti pagnayon ti RAID0 a tinipon ket 0."
 
 #: ../textw/partition_text.py:1177
@@ -5266,14 +5342,15 @@ msgid "No Volume Groups"
 msgstr "Awan ti grupo ti tomo"
 
 #: ../textw/partition_text.py:1178
-msgid "No volume groups in which to create a logical volume"
+#, fuzzy
+msgid "No volume groups exist in which to create a logical volume"
 msgstr "Awan ti grupo ti tomo a maparsuaan ti lohikal a tomo"
 
 #: ../textw/partition_text.py:1302
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 msgstr ""
 "Kadakdakkel ti nadawat nga ittata kadakkel (%10.2f a MB) ngem ti kadaklan ti "
 "lohikal a tomo (%10.2f a MB)."
@@ -5327,8 +5404,9 @@ msgid "No Root Partition"
 msgstr "Awan ti kangrunaan a benneg"
 
 #: ../textw/partition_text.py:1490
-msgid "Must have a / partition to install on."
-msgstr "Masapol ti benneg a / a mainstalaan."
+#, fuzzy
+msgid "Installation requires a / partition."
+msgstr "Tuntonen ti wagas ti panaginstala ti NFS ti pannakaipakat ti IPv4."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5401,6 +5479,16 @@ msgstr ""
 "Tapno maaramat ti iSCSI a disk, nasken a maikkanyo ti pagtaengan ti iSCSI a "
 "pagtatarusan ken nagan a naidalimanekyo maipaay ti host ti iSCSI a mangirugi."
 
+#: ../textw/partition_text.py:1707
+#, fuzzy
+msgid "Target IP Address"
+msgstr "<b>_Pagtaengan nga IP ti Pagtatarusan:</b>"
+
+#: ../textw/partition_text.py:1708
+#, fuzzy
+msgid "iSCSI Initiator Name"
+msgstr "<b>_Nagan ti Mangrugi ti iSCSI:</b>"
+
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
 msgstr "Ibenneg nga awtomatiko"
@@ -5409,50 +5497,9 @@ msgstr "Ibenneg nga awtomatiko"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../textw/progress_text.py:66
-#, python-format
-msgid "Downloading - %s"
-msgstr "Iyulyulog - %s"
-
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:51
 msgid "Package Installation"
 msgstr "panaginstala ti Pakete"
-
-#: ../textw/progress_text.py:105
-msgid " Name   : "
-msgstr "Nagan:"
-
-#: ../textw/progress_text.py:106
-msgid " Size   : "
-msgstr "Kadakkelan:"
-
-#: ../textw/progress_text.py:107
-msgid " Summary: "
-msgstr "Kadagupan:"
-
-#: ../textw/progress_text.py:152
-msgid "    Packages"
-msgstr "Pakete"
-
-#: ../textw/progress_text.py:153
-msgid "      Bytes"
-msgstr "Byte"
-
-#: ../textw/progress_text.py:154
-msgid "        Time"
-msgstr "Oras"
-
-#: ../textw/progress_text.py:156
-msgid "Total    :"
-msgstr "Dagup:"
-
-#: ../textw/progress_text.py:163
-msgid "Completed:   "
-msgstr "Nalpas:"
-
-#: ../textw/progress_text.py:173
-msgid "Remaining:  "
-msgstr "Agbatbati:"
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
@@ -5474,7 +5521,8 @@ msgid "Customize software selection"
 msgstr "Ipabukod ti pakapilian ti software"
 
 #: ../textw/timezone_text.py:68
-msgid "What time zone are you located in?"
+#, fuzzy
+msgid "In which time zone are you located?"
 msgstr "Ania ti sona ti oras ti pagyananyo?"
 
 #: ../textw/timezone_text.py:86
@@ -5495,12 +5543,12 @@ msgid "Create new boot loader configuration"
 msgstr "Parsuaen ti baro a pannkaidalimanek ti mangimaton ti rubbuat"
 
 #: ../textw/upgrade_text.py:89
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system. You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 msgstr ""
 "Masapul a madlaw ti 2.4 a kernel ti ad-adu a pangsinnukat nga espasio ngem "
 "daydi daddaan a kernel, pamindua a pangsinnukat nga espasio a kas ti RAM ti "
@@ -5540,8 +5588,9 @@ msgid "System to Upgrade"
 msgstr "Sistema a Pasayaatto"
 
 #: ../textw/upgrade_text.py:204
+#, fuzzy
 msgid ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -5557,10 +5606,11 @@ msgid "Root Password"
 msgstr "Kontrasenias ti root"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 msgstr ""
 "Pilienyo ti kontrasenias ti root. Nasken a mamindua a maisurat tapno matalek "
 "nga ammoyo ken saanyo nagkammali iti panagsursuratyo. Laglagipenyo ti "
@@ -5582,10 +5632,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 msgstr ""
 "Mainstalaan ti sistema ti mangimaton ti rubbuat ti z/IPL kalpasan ti "
 "panaginstala. Maisurat ti aniaman a nayon a parametro ti kernel ken chandev "
@@ -5603,7 +5654,7 @@ msgstr "Linia ti Chandev"
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:17
+#: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5614,21 +5665,68 @@ msgstr ""
 "maipaay ti sapasa a pannakaaramat ti Internet. Ania a nayon a maaramid a "
 "kayatyo a maipakat ti sistema?"
 
-#: ../installclasses/fedora.py:25 ../installclasses/rhel.py:27
+#: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
 msgstr "Opisina ken Pannakaibunga"
 
-#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:28
+#: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr "Pannakabukel ti Software"
 
-#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:29
+#: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr "Serbidor ti Saput"
 
-#: ../installclasses/rhel.py:16
+#: ../installclasses/rhel.py:21
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
+
+#: ../installclasses/rhel.py:32
+msgid "Office"
+msgstr ""
+
+#: ../installclasses/rhel.py:33
+msgid "Multimedia"
+msgstr ""
+
+#: ../installclasses/rhel.py:44
+#, fuzzy
+msgid "Virtualization"
+msgstr "Kablaawan"
+
+#: ../installclasses/rhel.py:45
+msgid "Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:46
+msgid "Storage Clustering"
+msgstr ""
+
+#: ../installclasses/rhel.py:50
+#, fuzzy
+msgid "Installation Number"
+msgstr "panaginstala nga Irugianto"
+
+#: ../installclasses/rhel.py:51
+msgid ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
+msgstr ""
+
+#: ../installclasses/rhel.py:54
+msgid ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5637,7 +5735,7 @@ msgstr "Panagpaneknek ti Media"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Test"
 msgstr "Sukimaten"
 
@@ -5811,12 +5909,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "Kayatyo nga awiten pay ti ad-adu a disk ti pagtengngel? "
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:408 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:472 ../loader2/modules.c:1042 ../loader2/net.c:1600
-#: ../loader2/net.c:1623 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
+#: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
+#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Biddut ti Kickstart"
 
@@ -5896,7 +5994,7 @@ msgstr ""
 "Saan nga agpada ti kayo ti instalasion ti %s nga adda kadayta a direktorio "
 "ti warnakan ti panagrubbuat."
 
-#: ../loader2/hdinstall.c:160
+#: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5904,14 +6002,14 @@ msgstr ""
 "Rimsua ti biddut iti pannakabasa ti pakainstala nga aggapu ti imahen nga "
 "ISO. Sukimatenyo ti imahen nga ISO, sayonto padasen manen."
 
-#: ../loader2/hdinstall.c:268
+#: ../loader2/hdinstall.c:266
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
 "Awan ti harddrive ti sistema. Kayatyo nga idalimanek ti dadduma nga aparato?"
 
-#: ../loader2/hdinstall.c:283
+#: ../loader2/hdinstall.c:281
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5922,30 +6020,30 @@ msgstr ""
 "(ISO9660) nga imahen ti %s? No saan a makita ti drive ti disk a ar-aramtenyo "
 "ditoy, talmeganyo ti 'F2' tapno maidalimanek ti nayon nga aparato."
 
-#: ../loader2/hdinstall.c:306
+#: ../loader2/hdinstall.c:304
 msgid "Directory holding images:"
 msgstr "Direktorio nga aglallaon iti imahen:"
 
-#: ../loader2/hdinstall.c:334
+#: ../loader2/hdinstall.c:332
 msgid "Select Partition"
 msgstr "Pilien ti Benneg"
 
-#: ../loader2/hdinstall.c:374
+#: ../loader2/hdinstall.c:372
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr ""
 "Agar-arup nga saan a linlinaon ti aparato a %s ti %s nga CDROM nga imahen."
 
-#: ../loader2/hdinstall.c:409
+#: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Madi ti argumento ti wagas a pammilin a %s ti HD kickstart: %s"
 
-#: ../loader2/hdinstall.c:479 ../loader2/hdinstall.c:535
+#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Saan a masarakan ti harddrive ti intar ti kickstart."
 
-#: ../loader2/hdinstall.c:522
+#: ../loader2/hdinstall.c:520
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Saan a maduktalan ti nalagda a harddrive maipaay ti disk a %s ti BIOS"
@@ -5958,37 +6056,37 @@ msgstr "Kita ti Teklado"
 msgid "What type of keyboard do you have?"
 msgstr "Ania a kita ti tekladoyo?"
 
-#: ../loader2/kickstart.c:125
+#: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Rimsua ti biddut iti pannakabasa ti kickstart nga intar a %s: %s"
 
-#: ../loader2/kickstart.c:135
+#: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Rimsua ti biddut iti pannakabasa ti intar a %s ti kickstart: %s"
 
-#: ../loader2/kickstart.c:178
+#: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Rimsua ti biddut iti %s ti linia a %d ti intar %s ti kickstart."
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saan a maduktalan ti pangrubbuat a floppy ti ks.cfg."
 
-#: ../loader2/kickstart.c:341
+#: ../loader2/kickstart.c:344
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: ../loader2/kickstart.c:350
+#: ../loader2/kickstart.c:353
 #, fuzzy
 msgid "Error downloading kickstart file"
 msgstr "Rimsua ti biddut iti pannakabasa ti kickstart nga intar a %s: %s"
 
-#: ../loader2/kickstart.c:473
+#: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr ""
@@ -6110,11 +6208,11 @@ msgstr ""
 "a kita ti panaginstala. Kayatyo ti agpili a demano ti pagtengngel wenno "
 "agaramat ti disk ti agtengnel?"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1184
 msgid "The following devices have been found on your system."
 msgstr "Naduktalan ti sistema ti sumaruno nga aparato. "
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1186
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6122,31 +6220,31 @@ msgstr ""
 "Awan ti naawit a pagtengngel ti aparato maipaay ti sistema. Kayatyo nga "
 "awiten ita?"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1190
 msgid "Devices"
 msgstr "Aparato"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1191
 msgid "Done"
 msgstr "Nalpas"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1192
 msgid "Add Device"
 msgstr "Inayon ti Aparato"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1400
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "nagtarayen ti pagawit. Ipaan-andar ti shell.\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "Ipatartaray ti Anaconda, ti pansalak a wagas ti sistema a %s - Aguraykayo "
 "man...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1789
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6229,12 +6327,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:379 ../loader2/method.c:464
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Saan a nabasa ti directorio a %s: %s"
 
-#: ../loader2/method.c:422
+#: ../loader2/method.c:418
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6245,7 +6343,7 @@ msgstr ""
 "\n"
 "    %s?"
 
-#: ../loader2/method.c:425
+#: ../loader2/method.c:421
 msgid "Checksum Test"
 msgstr "Panagpaneknek ti Panenglan"
 
@@ -6254,7 +6352,15 @@ msgstr "Panagpaneknek ti Panenglan"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Madi ti argumento ti pammilin a %s ti aparato ti kickstart a wagas: %s"
 
-#: ../loader2/net.c:58
+#: ../loader2/modules.c:1056
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr ""
+"Naituding ti sumaruno a saan a matutop nga argumento maipaay ti pammilin ti "
+"disk ti pagtengngel ti kickstart: %s:%s"
+
+#: ../loader2/net.c:59
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6269,7 +6375,7 @@ msgstr ""
 "    o direktorio nga aglallaon iti %s maipaay\n"
 "       ti arkitekturayo\n"
 
-#: ../loader2/net.c:93
+#: ../loader2/net.c:94
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6277,7 +6383,7 @@ msgstr ""
 "Naksen nga agbaet ti unlapi iti 1 ken 32 maipaay ti IPv4 nga iket wenno 1 "
 "ken 128 maipaay ti IPv6 nga iket."
 
-#: ../loader2/net.c:249
+#: ../loader2/net.c:257
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6288,28 +6394,28 @@ msgstr ""
 "encryption a nasken a maaramat ti iket nga awan ti alambre. No saan a "
 "nasken, bay-anyo a kalakaw daytoy a kampo, santo agpatuloy ti panaginstala."
 
-#: ../loader2/net.c:255
+#: ../loader2/net.c:263
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:256
+#: ../loader2/net.c:264
 msgid "Encryption Key"
 msgstr "Klabe ti Encryption"
 
-#: ../loader2/net.c:259
+#: ../loader2/net.c:267
 msgid "Wireless Settings"
 msgstr "Pakaitudingan ti Wireless"
 
-#: ../loader2/net.c:290
+#: ../loader2/net.c:298
 msgid "Nameserver IP"
 msgstr "IP ti Serbidor ti Nagan"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:302
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "Serbidor ti nagan"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:303
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6321,106 +6427,106 @@ msgstr ""
 "serbidor ti nagan, isuratyo ita. No saanyo ammo daytoy nga impormasion, "
 "mabay-anyo a kalakaw daytoy a kampo, santo agpatuloy ti panaginstala."
 
-#: ../loader2/net.c:317
+#: ../loader2/net.c:325
 msgid "Invalid IP Information"
 msgstr "Saan a Matutop ti Impormasion ti IP"
 
-#: ../loader2/net.c:318
+#: ../loader2/net.c:326
 msgid "You entered an invalid IP address."
 msgstr "Naidatag ti saan a matutop a pagtaengan a IP."
 
-#: ../loader2/net.c:575 ../loader2/net.c:683
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Biddut ti Iket"
 
-#: ../loader2/net.c:576 ../loader2/net.c:684
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "Rimsua ti biddut iti panagidadalimanek ti pagsilpuan ti iket."
 
-#: ../loader2/net.c:757
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "Panagidalimanek ti TCP/IP"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno "
 "IPv6) maipaay ti DHCP."
 
-#: ../loader2/net.c:791
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "Masapul ti IPv4 maipaay ti NFS"
 
-#: ../loader2/net.c:792
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "Tuntonen ti wagas ti panaginstala ti NFS ti pannakaipakat ti IPv4."
 
-#: ../loader2/net.c:912
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4 a Pagtaengan:"
 
-#: ../loader2/net.c:924 ../loader2/net.c:976 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:964
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6 a Pagtaengan:"
 
-#: ../loader2/net.c:1025
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Serbidor ti Nagnagan:"
 
-#: ../loader2/net.c:1061
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1077
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Panagidalimanek a Demano ti TCP/IP"
 
-#: ../loader2/net.c:1198 ../loader2/net.c:1204
+#: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "Nalabsan a datos"
 
-#: ../loader2/net.c:1199
+#: ../loader2/net.c:1207
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Nasken a maisurat isuda a dua a matutop a IPv4 a pagtaengan ken maskara ti "
 "iket wenno unlapi ti CIDR. "
 
-#: ../loader2/net.c:1205
+#: ../loader2/net.c:1213
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 "Nasken a maisurat isuda a dua a matutop a IPv6 a pagtaengan ken unlapi ti "
 "CIDR."
 
-#: ../loader2/net.c:1508
+#: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
 msgstr "Ikedkedding ti nagan ti host ken ti sakup..."
 
-#: ../loader2/net.c:1601
+#: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Madi ti argumento ti pammilin a %s ti iket ti kickstart: %s"
 
-#: ../loader2/net.c:1624
+#: ../loader2/net.c:1632
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Madi ti booproto a %s a naituding iti pammilin ti iket"
 
-#: ../loader2/net.c:1805
+#: ../loader2/net.c:1813
 msgid "Networking Device"
 msgstr "Pangiket nga Aparato"
 
-#: ../loader2/net.c:1806
+#: ../loader2/net.c:1814
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6432,7 +6538,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Nagan ti NFS a serbidor:"
 
-#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:314
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:313
 #, c-format
 msgid "%s directory:"
 msgstr "%s a direktorio:"
@@ -6507,56 +6613,56 @@ msgstr "Nasken a maikkanan ti URL a wagas ti kickstart ti --url nga argumento."
 msgid "Unknown Url method %s"
 msgstr "Saan nga am-ammo a URL a wagas a %s "
 
-#: ../loader2/urls.c:220
+#: ../loader2/urls.c:219
 msgid "Retrieving"
 msgstr "Inal-ala"
 
-#: ../loader2/urls.c:287
+#: ../loader2/urls.c:286
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:291
 msgid "Web"
 msgstr "Sapot"
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:308
 msgid "FTP site name:"
 msgstr "Nagan ti sitio ti FTP:"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:309
 msgid "Web site name:"
 msgstr "Nagan ti sitio ti Sapot:"
 
-#: ../loader2/urls.c:329
+#: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
 msgstr "Aramaten ti saan nga anonima a FTP"
 
-#: ../loader2/urls.c:338
+#: ../loader2/urls.c:337
 msgid "FTP Setup"
 msgstr "Pannakaituding ti FTP"
 
-#: ../loader2/urls.c:339
+#: ../loader2/urls.c:338
 msgid "HTTP Setup"
 msgstr "Pannakaituding ti HTTP"
 
-#: ../loader2/urls.c:349
+#: ../loader2/urls.c:348
 msgid "You must enter a server name."
 msgstr "Masapol a maisurat ti nagan ti serbidor."
 
-#: ../loader2/urls.c:354
+#: ../loader2/urls.c:353
 msgid "You must enter a directory."
 msgstr "Masapol a maisurat ti direktorio."
 
-#: ../loader2/urls.c:359
+#: ../loader2/urls.c:358
 msgid "Unknown Host"
 msgstr "Saan nga am-ammo a host"
 
-#: ../loader2/urls.c:360
+#: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "Ti %s ket saan a matutop a nagan ti host."
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:430
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6564,7 +6670,7 @@ msgstr ""
 "No ar-aramatenyo ti saan nga anonima a FTP, isuratyo ti nagan ti kuento ken "
 "kontrasenias a kayatyo nga aramaten iti baba."
 
-#: ../loader2/urls.c:436
+#: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6572,15 +6678,15 @@ msgstr ""
 "No ar-aramatenyo ti HTTP a pannakaserbidor, isuratyo ti nagan ti HTTP a "
 "pannakaserbidor nga maaramatto."
 
-#: ../loader2/urls.c:458
+#: ../loader2/urls.c:457
 msgid "Account name:"
 msgstr "Nagan ti kuento:"
 
-#: ../loader2/urls.c:481
+#: ../loader2/urls.c:480
 msgid "Further FTP Setup"
 msgstr "Dadduma a Pannakaituding ti FTP"
 
-#: ../loader2/urls.c:484
+#: ../loader2/urls.c:483
 msgid "Further HTTP Setup"
 msgstr "Dadduma a Pannakaituding ti HTTP"
 
@@ -6652,10 +6758,15 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Repasuen ken _baliwan ti panagurnos ti benneg"
 
 #: tmp/autopart.glade.h:3
+#, fuzzy
+msgid "What drive would you like to boot this installation from?"
+msgstr "Ania a pagsasao a kayatyo nga aramaten iti panaginstala?"
+
+#: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
 msgstr "_Natukad a pannakaidalimanek ti pannakaidulinan"
 
-#: tmp/autopart.glade.h:4
+#: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Pilien ti drive a maaramat maipaay daytoy a panaginstala."
 
@@ -6666,6 +6777,11 @@ msgstr "Impormasion ti Laksid"
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
 msgstr "_Detalie ti Laksid"
+
+#: tmp/instkey.glade.h:2
+#, no-c-format
+msgid "%(instkey)s:"
+msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6736,20 +6852,6 @@ msgstr "Pagilawlawag: %s"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
-#: tmp/netpostconfig.glade.h:5
-msgid "Automatic neighbor discovery"
-msgstr ""
-
-#: tmp/netpostconfig.glade.h:6
-#, fuzzy
-msgid "Dynamic IP configuration (DHCP)"
-msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
-
-#: tmp/netpostconfig.glade.h:7
-#, fuzzy
-msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
-
 #: tmp/netpostconfig.glade.h:9
 #, fuzzy
 msgid "Edit Interface"
@@ -6769,11 +6871,6 @@ msgstr "Panagidalimanek a Demano ti TCP/IP"
 #, fuzzy
 msgid "Point to Point (IP):"
 msgstr "_Punto-Punto (IP):"
-
-#: tmp/netpostconfig.glade.h:16
-#, fuzzy
-msgid "Prefix"
-msgstr "IPv6/Unlapi"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6821,712 +6918,6 @@ msgstr "<b>_Kontrasenias:</b>"
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
 msgstr "Inayon ti aparato a FCP"
-
-#. generated from zone.tab
-msgid "Acre"
-msgstr "Acre"
-
-#. generated from zone.tab
-msgid "Alagoas, Sergipe"
-msgstr "Alagoas, Sergipe"
-
-#. generated from zone.tab
-msgid "Alaska Time"
-msgstr "Oras ti Alaska"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle"
-msgstr "Oras ti Alaska - Peninsula ti Alaska"
-
-#. generated from zone.tab
-msgid "Alaska Time - Alaska panhandle neck"
-msgstr "Oras ti Alaska - Peninsula ti Alaska (tengnga)"
-
-#. generated from zone.tab
-msgid "Alaska Time - west Alaska"
-msgstr "Oras ti Alaska - Laud ti Alaska"
-
-#. generated from zone.tab
-msgid "Aleutian Islands"
-msgstr "Purpuro nga Aleut"
-
-#. generated from zone.tab
-msgid "Amapa, E Para"
-msgstr "Amapa, Daya ti Para"
-
-#. generated from zone.tab
-msgid "Amundsen-Scott Station, South Pole"
-msgstr "Estasion nga Amundsen-Scott, Abagatan nga Ungto"
-
-#. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr "Aktobe"
-
-#. generated from zone.tab
-msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-msgstr ""
-"Rukod nga Oras ti Atlantiko - Quebec - Amianan a Nababbaba nga Igid ti Baybay"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Labrador - most locations"
-msgstr "Oras ti Atlantiko - Labrador - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Atlantic Time - New Brunswick"
-msgstr "Oras ti Atlantiko - Baro a Brunswick"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), PEI"
-msgstr "Oras ti Atlantiko - Baro nga Eskosia (kaaduan ti yan), PEI"
-
-#. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Oras ti Atlantiko - Bara nga Eskosia - yan a saan nga immatangan ti DST 1966-"
-"1971"
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Purpuro ti Atlantiko"
-
-#. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#. generated from zone.tab
-msgid "Azores"
-msgstr "Azores"
-
-#. generated from zone.tab
-msgid "Bahia"
-msgstr "Bahia"
-
-#. generated from zone.tab
-msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#. generated from zone.tab
-msgid "Buenos Aires (BA, CF)"
-msgstr "Buenos Aires (BA, CF)"
-
-#. generated from zone.tab
-msgid "Canary Islands"
-msgstr "Purpuro a Kanaria"
-
-#. generated from zone.tab
-msgid "Casey Station, Bailey Peninsula"
-msgstr "Estasion a Casey, Peninsula a Bailey"
-
-#. generated from zone.tab
-msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT), Chubut (CH)"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "Rukod nga Oras ti Tengnga - Saskatchewan - Natengnga a Laud"
-
-#. generated from zone.tab
-msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Rukod nga Oras ti Tengnga - Saskatchewan - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Central Time"
-msgstr "Oras ti Tengnga"
-
-#. generated from zone.tab
-msgid "Central Time - Campeche, Yucatan"
-msgstr "Oras ti Tengnga - Campeche, Yucatan"
-
-#. generated from zone.tab
-msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "Oras ti Tengnga - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-msgstr ""
-"Oras ti Tengnga -  Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
-
-#. generated from zone.tab
-msgid "Central Time - Indiana - Pike County"
-msgstr "Oras ti Tengnga - Indiana - Pike County"
-
-#. generated from zone.tab
-msgid "Central Time - Manitoba & west Ontario"
-msgstr "Oras ti Tengnga - Manitoba ken Laud ti Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Oras ti Tengnga - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
-"Oras ti Tengnga - Amianan a Dakota - Morton County (malaksid ti area ti "
-"Mandan)"
-
-#. generated from zone.tab
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "Oras ti Tengnga - North Dakota - Oliver County"
-
-#. generated from zone.tab
-msgid "Central Time - Quintana Roo"
-msgstr "Oras ti Tengnga - Quintana Roo"
-
-#. generated from zone.tab
-msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Oras ti Tengnga - Rainy River ken Fort Frances, Ontario"
-
-#. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "Oras ti Tengnga - Tengnga ti Nunavut"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Oras ti Tengnga - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Central Time - west Nunavut"
-msgstr "Oras ti Tengnga - Laud ti  Nunavut"
-
-#. generated from zone.tab
-msgid "Ceuta & Melilla"
-msgstr "Ceuta ken Melilla"
-
-#. generated from zone.tab
-msgid "Chatham Islands"
-msgstr "Purpuro a Chatham"
-
-#. generated from zone.tab
-msgid "Davis Station, Vestfold Hills"
-msgstr "Estasion a Davis, Turod a Vestfold"
-
-#. generated from zone.tab
-msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar"
-
-#. generated from zone.tab
-msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Base a Dumont-d'Urville, Terre Adelie"
-
-#. generated from zone.tab
-msgid "E Amazonas"
-msgstr "Daya ti Amazonas"
-
-#. generated from zone.tab
-msgid "Easter Island & Sala y Gomez"
-msgstr "Puro nga Easter ken Sala y Gomez"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Rukod nga Oras ti Daya - Atikokan, Ontario and Southampton I, Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Time"
-msgstr "Oras ti Daya"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Oras ti Daya - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Starke County"
-msgstr "Oras ti Daya - Indiana - Starke County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Oras ti Daya - Indiana - Switzerland County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Oras ti Daya - Indiana - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Oras ti Daya - Kentucky - Area ti Louisville"
-
-#. generated from zone.tab
-msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Oras ti Daya - Kentucky - Wayne County"
-
-#. generated from zone.tab
-msgid "Eastern Time - Michigan - most locations"
-msgstr "Oras ti Daya - Michigan - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Oras ti Daya - Ontario ken Quebec - yan a saan nga immatangan ti DST 1967-"
-"1973"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Oras ti Daya - Ontario - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Oras ti Daya - Pangnirtung, Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Time - Quebec - most locations"
-msgstr "Oras ti Daya - Quebec - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Oras ti Daya - Thunder Bay, Ontario"
-
-#. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "Oras ti Daya - Daya ti Nunavut"
-
-#. generated from zone.tab
-msgid "Galapagos Islands"
-msgstr "Purpuro a Galapagos"
-
-#. generated from zone.tab
-msgid "Gambier Islands"
-msgstr "Purpuro a Gambier"
-
-#. generated from zone.tab
-msgid "Gilbert Islands"
-msgstr "Purpuro a Gilbert"
-
-#. generated from zone.tab
-msgid "Hawaii"
-msgstr "Haway"
-
-#. generated from zone.tab
-msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "Heilongjiang (malaksid ti Mohe), Jilin"
-
-#. generated from zone.tab
-msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya ken dagiti Purpuro a Moluka"
-
-#. generated from zone.tab
-msgid "Jan Mayen"
-msgstr "Jan Mayen"
-
-#. generated from zone.tab
-msgid "Java & Sumatra"
-msgstr "Jaba ken Sumatra"
-
-#. generated from zone.tab
-msgid "Johnston Atoll"
-msgstr "Johnston Atoll"
-
-#. generated from zone.tab
-msgid "Jujuy (JY)"
-msgstr "Jujuy (JY)"
-
-#. generated from zone.tab
-msgid "Kosrae"
-msgstr "Kosrae"
-
-#. generated from zone.tab
-msgid "Kwajalein"
-msgstr "Kwajalein"
-
-#. generated from zone.tab
-msgid "La Rioja (LR)"
-msgstr "La Rioja (LR)"
-
-#. generated from zone.tab
-msgid "Line Islands"
-msgstr "Purpuro a Line"
-
-#. generated from zone.tab
-msgid "Lord Howe Island"
-msgstr "Puro ni Apo Howe"
-
-#. generated from zone.tab
-msgid "Madeira Islands"
-msgstr "Purpuro a Madeira"
-
-#. generated from zone.tab
-msgid "Marquesas Islands"
-msgstr "Purpuro a Marquesas"
-
-#. generated from zone.tab
-msgid "Mato Grosso"
-msgstr "Mato Grosso"
-
-#. generated from zone.tab
-msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso do Sul (Mato Grosso ti Abagatan)"
-
-#. generated from zone.tab
-msgid "Mawson Station, Holme Bay"
-msgstr "Estasion a Mawson, Luok a Holme"
-
-#. generated from zone.tab
-msgid "McMurdo Station, Ross Island"
-msgstr "Estasion a McMurdo, Puro a Ross"
-
-#. generated from zone.tab
-msgid "Mendoza (MZ)"
-msgstr "Mendoza (MZ)"
-
-#. generated from zone.tab
-msgid "Midway Islands"
-msgstr "Purpuro a Midway"
-
-#. generated from zone.tab
-msgid "Moscow+00 - Caspian Sea"
-msgstr "Mosku +00 - Baybay a Kaspio"
-
-#. generated from zone.tab
-msgid "Moscow+00 - west Russia"
-msgstr "Mosku +00 - Laud ti Rusia"
-
-#. generated from zone.tab
-msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "Mosku +01 - Samara, Udmurtia"
-
-#. generated from zone.tab
-msgid "Moscow+02 - Urals"
-msgstr "Mosku +02 - Kabantayan nga Ural"
-
-#. generated from zone.tab
-msgid "Moscow+03 - Novosibirsk"
-msgstr "Mosku +03 - Novosibirsk"
-
-#. generated from zone.tab
-msgid "Moscow+03 - west Siberia"
-msgstr "Mosku +03 - Laud ti Siberia"
-
-#. generated from zone.tab
-msgid "Moscow+04 - Yenisei River"
-msgstr "Mosku +04 - Karayan a Yenisei"
-
-#. generated from zone.tab
-msgid "Moscow+05 - Lake Baikal"
-msgstr "Mosku +05 - Danaw a Baikal"
-
-#. generated from zone.tab
-msgid "Moscow+06 - Lena River"
-msgstr "Mosku +06 - Karayan a Lena"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Amur River"
-msgstr "Mosku +07 - Karayan nga Amur"
-
-#. generated from zone.tab
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "Mosku +07 - Puro a Sakhalin"
-
-#. generated from zone.tab
-msgid "Moscow+08 - Magadan"
-msgstr "Mosku +08 - Magadan"
-
-#. generated from zone.tab
-msgid "Moscow+09 - Kamchatka"
-msgstr "Mosku +09 - Kamchatka"
-
-#. generated from zone.tab
-msgid "Moscow+10 - Bering Sea"
-msgstr "Mosku +10 - Baybay a Bering"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Mosku -01 - Kaliningrad"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Arizona"
-msgstr "Rukod nga Oras ti Bantay - Arizona"
-
-#. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Rukod nga Oras ti Bantay - Waig a Dawson ken Fort Saint John, Britaniko a "
-"Kolombia"
-
-#. generated from zone.tab
-msgid "Mountain Standard Time - Sonora"
-msgstr "Rukod nga Oras ti Bantay - Sonora"
-
-#. generated from zone.tab
-msgid "Mountain Time"
-msgstr "Oras ti Bantay"
-
-#. generated from zone.tab
-msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Oras ti Bantay - Alberta, Daya ti Britaniko a Kolombia ken Laud ti "
-"Saskatchewan"
-
-#. generated from zone.tab
-msgid "Mountain Time - Chihuahua"
-msgstr "Oras ti Bantay - Chihuahua"
-
-#. generated from zone.tab
-msgid "Mountain Time - Navajo"
-msgstr "Oras ti Bantay - Nabaho"
-
-#. generated from zone.tab
-msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Oras ti Bantay - Akinabagatan a Baja, Nayarit, Sinaloa"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Oras ti Bantay - Tengnga dagiti Amianan a Laud a Kasakupan"
-
-#. generated from zone.tab
-msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Oras ti Bantay - Abagatan ti Idaho ken Daya ti Oregon"
-
-#. generated from zone.tab
-msgid "Mountain Time - west Northwest Territories"
-msgstr "Oras ti Bantay - Laud ti Amianan a Laud a Kasakupan"
-
-#. generated from zone.tab
-msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Amianan a Daya ti Brasil (MA, PI, CE, RN, PB)"
-
-#. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "Baro nga Abagatan a Gales - Yancowinna"
-
-#. generated from zone.tab
-msgid "New South Wales - most locations"
-msgstr "Baro nga Abagatan a Gales - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "Oras ti Newfoundland, maikapet ti Abagatan a Daya ti Labrador"
-
-#. generated from zone.tab
-msgid "Northern Territory"
-msgstr "Akinamianan a Kasakupan"
-
-#. generated from zone.tab
-msgid "Pacific Time"
-msgstr "Oras ti Pasipiko"
-
-#. generated from zone.tab
-msgid "Pacific Time - north Yukon"
-msgstr "Oras ti Pasipiko - Amianan ti Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - south Yukon"
-msgstr "Oras ti Pasipiko - Abagatan ti Yukon"
-
-#. generated from zone.tab
-msgid "Pacific Time - west British Columbia"
-msgstr "Oras ti Pasipiko - Laud ti Britaniko a Kolumbia"
-
-#. generated from zone.tab
-msgid "Palmer Station, Anvers Island"
-msgstr "Estasion a Palmer, Puro nga Anvers"
-
-#. generated from zone.tab
-msgid "Pernambuco"
-msgstr "Pernambuco"
-
-#. generated from zone.tab
-msgid "Phoenix Islands"
-msgstr "Purpuro a Phoenix"
-
-#. generated from zone.tab
-msgid "Ponape (Pohnpei)"
-msgstr "Ponape (Pohnpei)"
-
-#. generated from zone.tab
-msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Purpuro a Holiday"
-
-#. generated from zone.tab
-msgid "Queensland - most locations"
-msgstr "Queensland - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#. generated from zone.tab
-msgid "Roraima"
-msgstr "Roraima"
-
-#. generated from zone.tab
-msgid "Rothera Station, Adelaide Island"
-msgstr "Estasion a Rothera, Puro nga Adelaide"
-
-#. generated from zone.tab
-msgid "Ruthenia"
-msgstr "Ruthenia"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
-"Abagatan ken Abagatan a Daya ti Brasil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "Sabah ken Sarawak"
-
-#. generated from zone.tab
-msgid "San Juan (SJ)"
-msgstr "San Juan (SJ)"
-
-#. generated from zone.tab
-msgid "Santa Cruz (SC)"
-msgstr "Santa Cruz (SC)"
-
-#. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#. generated from zone.tab
-msgid "Society Islands"
-msgstr "Purpuro a Society"
-
-#. generated from zone.tab
-msgid "South Australia"
-msgstr "Abagatan ti Awstralia"
-
-#. generated from zone.tab
-msgid "Svalbard"
-msgstr "Svalbard"
-
-#. generated from zone.tab
-msgid "Syowa Station, E Ongul I"
-msgstr "Estasion Syowa, Laud ti Purpuro nga Ongul"
-
-#. generated from zone.tab
-msgid "Tasmania - King Island"
-msgstr "Tasmania - Puro a King"
-
-#. generated from zone.tab
-msgid "Tasmania - most locations"
-msgstr "Tasmania - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr "Thule / Pituffik"
-
-#. generated from zone.tab
-msgid "Tierra del Fuego (TF)"
-msgstr "Tierra del Fuego (TF)"
-
-#. generated from zone.tab
-msgid "Tocantins"
-msgstr "Tocantins"
-
-#. generated from zone.tab
-msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk) ken Yap"
-
-#. generated from zone.tab
-msgid "Tucuman (TM)"
-msgstr "Tucuman (TM)"
-
-#. generated from zone.tab
-msgid "Victoria"
-msgstr "Victoria"
-
-#. generated from zone.tab
-msgid "Vostok Station, S Magnetic Pole"
-msgstr "Estasion a Vostok, Abagatan a Nabutombalani nga Ungto"
-
-#. generated from zone.tab
-msgid "W Amazonas"
-msgstr "Laud ti Amazonas"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "Laud ti Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr "Puro a Wake"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Laud a Kazakhstan"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - Eucla area"
-msgstr "Akinlaud nga Awstralia"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Western Australia - most locations"
-msgstr "Oras ti Tengnga - Kaaduan ti Yan"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, Daya ti Lugansk (Luhansk)"
-
-#. generated from zone.tab
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "Tengnga ti Insik - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, kdp."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "Tengnga ti Krimea"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Daya ken Abagatan ti Borneo, Celebes, Bali, Nusa Tengarra, Laud a Timor"
-
-#. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "Daya ti Insik - Beijing, Guangdong, Shanghai, kdp."
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "Daya a Demokratiko a Republika ti Konggo"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "Daya ti Uzbekistan"
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "Daya a pantar, Akinamianan ti Scoresbysund"
-
-#. generated from zone.tab
-msgid "mainland"
-msgstr "peninsular"
-
-#. generated from zone.tab
-msgid "most locations"
-msgstr "kaaduan ti yan"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "kaaduan ti yan (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr "kaaduan ti Tibet ken Xinjiang"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "Malaysia a peninsular"
-
-#. generated from zone.tab
-msgid "west & central Borneo"
-msgstr "Laud ken Tengnga ti Borneo"
-
-#. generated from zone.tab
-msgid "west Dem. Rep. of Congo"
-msgstr "Laud ti Demokratiko a Republika ti Konggo"
-
-#. generated from zone.tab
-msgid "west Tibet & Xinjiang"
-msgstr "Laud ti Tibet ken Xinjiang"
-
-#. generated from zone.tab
-msgid "west Uzbekistan"
-msgstr "Laud ti Uzbekistan"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7751,6 +7142,645 @@ msgstr "Gales"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Done [%d/%d]"
+#~ msgstr "[%d/%d] ket nalpas"
+
+#~ msgid "Installing %s-%s-%s... "
+#~ msgstr "Main-instala ti %s-%s-%s... "
+
+#~ msgid "Please enter the registration key for your version of %s."
+#~ msgstr "Idatagyo ti pangrehistro a tulbek ti bersionyo ti %s."
+
+#~ msgid "Enter Registration Key"
+#~ msgstr "Isuratyo ti pangrehistro a tulbek"
+
+#~ msgid "Key:"
+#~ msgstr "Klabe:"
+
+#~ msgid "_Format drive"
+#~ msgstr "Ipormato ti _harddrive"
+
+#~ msgid ""
+#~ "The following critical errors exist with your requested partitioning "
+#~ "scheme."
+#~ msgstr ""
+#~ "Panagad-adda ti sumaruno a nakaro a biddut iti dinawatyo a gandat ti "
+#~ "panagbenneg."
+
+#~ msgid "The following warnings exist with your requested partition scheme."
+#~ msgstr ""
+#~ "Panagad-adda ti sumaruno a patigmaan iti dinawatyo a gandat ti "
+#~ "panagbenneg."
+
+#~ msgid "Remaining time: %s minutes"
+#~ msgstr "Mabatbati nga oras: %s a minuto"
+
+#~ msgid "Downloading %s"
+#~ msgstr "Iyulyulog ti %s"
+
+#~ msgid "Installing %s-%s-%s.%s (%s)"
+#~ msgstr "Maisimsimpa ti %s-%s-%s.%s (%s)"
+
+#~ msgid "Package"
+#~ msgstr "Pakete"
+
+#~ msgid "Summary"
+#~ msgstr "Kadagupan"
+
+#~ msgid "Status: "
+#~ msgstr "Kasasaad:"
+
+#~ msgid "Description: %s"
+#~ msgstr "Pagilawlawag: %s"
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "Pagtaengan ti Hardware: %s"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "Aramaten ti agbalbaliw a panagidalimanek ti IP (DHCP)"
+
+#, fuzzy
+#~ msgid "Address"
+#~ msgstr "Pagtaengan nga IP"
+
+#, fuzzy
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr "Ti unlapi ti IPv6 ket masapol nga agbaet ti 0 ken 128."
+
+#~ msgid "Must have a / partition to install on."
+#~ msgstr "Masapol ti benneg a / a mainstalaan."
+
+#~ msgid "Downloading - %s"
+#~ msgstr "Iyulyulog - %s"
+
+#~ msgid " Name   : "
+#~ msgstr "Nagan:"
+
+#~ msgid " Size   : "
+#~ msgstr "Kadakkelan:"
+
+#~ msgid " Summary: "
+#~ msgstr "Kadagupan:"
+
+#~ msgid "    Packages"
+#~ msgstr "Pakete"
+
+#~ msgid "      Bytes"
+#~ msgstr "Byte"
+
+#~ msgid "        Time"
+#~ msgstr "Oras"
+
+#~ msgid "Total    :"
+#~ msgstr "Dagup:"
+
+#~ msgid "Completed:   "
+#~ msgstr "Nalpas:"
+
+#~ msgid "Remaining:  "
+#~ msgstr "Agbatbati:"
+
+#~ msgid "Acre"
+#~ msgstr "Acre"
+
+#~ msgid "Alagoas, Sergipe"
+#~ msgstr "Alagoas, Sergipe"
+
+#~ msgid "Alaska Time"
+#~ msgstr "Oras ti Alaska"
+
+#~ msgid "Alaska Time - Alaska panhandle"
+#~ msgstr "Oras ti Alaska - Peninsula ti Alaska"
+
+#~ msgid "Alaska Time - Alaska panhandle neck"
+#~ msgstr "Oras ti Alaska - Peninsula ti Alaska (tengnga)"
+
+#~ msgid "Alaska Time - west Alaska"
+#~ msgstr "Oras ti Alaska - Laud ti Alaska"
+
+#~ msgid "Aleutian Islands"
+#~ msgstr "Purpuro nga Aleut"
+
+#~ msgid "Amapa, E Para"
+#~ msgstr "Amapa, Daya ti Para"
+
+#~ msgid "Amundsen-Scott Station, South Pole"
+#~ msgstr "Estasion nga Amundsen-Scott, Abagatan nga Ungto"
+
+#~ msgid "Aqtobe (Aktobe)"
+#~ msgstr "Aktobe"
+
+#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
+#~ msgstr ""
+#~ "Rukod nga Oras ti Atlantiko - Quebec - Amianan a Nababbaba nga Igid ti "
+#~ "Baybay"
+
+#~ msgid "Atlantic Time - Labrador - most locations"
+#~ msgstr "Oras ti Atlantiko - Labrador - Kaaduan ti Yan"
+
+#~ msgid "Atlantic Time - New Brunswick"
+#~ msgstr "Oras ti Atlantiko - Baro a Brunswick"
+
+#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
+#~ msgstr "Oras ti Atlantiko - Baro nga Eskosia (kaaduan ti yan), PEI"
+
+#~ msgid ""
+#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+#~ msgstr ""
+#~ "Oras ti Atlantiko - Bara nga Eskosia - yan a saan nga immatangan ti DST "
+#~ "1966-1971"
+
+#~ msgid "Atlantic islands"
+#~ msgstr "Purpuro ti Atlantiko"
+
+#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+
+#~ msgid "Azores"
+#~ msgstr "Azores"
+
+#~ msgid "Bahia"
+#~ msgstr "Bahia"
+
+#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+
+#~ msgid "Buenos Aires (BA, CF)"
+#~ msgstr "Buenos Aires (BA, CF)"
+
+#~ msgid "Canary Islands"
+#~ msgstr "Purpuro a Kanaria"
+
+#~ msgid "Casey Station, Bailey Peninsula"
+#~ msgstr "Estasion a Casey, Peninsula a Bailey"
+
+#~ msgid "Catamarca (CT), Chubut (CH)"
+#~ msgstr "Catamarca (CT), Chubut (CH)"
+
+#~ msgid "Central Standard Time - Saskatchewan - midwest"
+#~ msgstr "Rukod nga Oras ti Tengnga - Saskatchewan - Natengnga a Laud"
+
+#~ msgid "Central Standard Time - Saskatchewan - most locations"
+#~ msgstr "Rukod nga Oras ti Tengnga - Saskatchewan - Kaaduan ti Yan"
+
+#~ msgid "Central Time"
+#~ msgstr "Oras ti Tengnga"
+
+#~ msgid "Central Time - Campeche, Yucatan"
+#~ msgstr "Oras ti Tengnga - Campeche, Yucatan"
+
+#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+#~ msgstr "Oras ti Tengnga - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+
+#~ msgid ""
+#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+#~ "Counties"
+#~ msgstr ""
+#~ "Oras ti Tengnga -  Indiana - Daviess, Dubois, Knox, Martin, Perry & "
+#~ "Pulaski Counties"
+
+#~ msgid "Central Time - Indiana - Pike County"
+#~ msgstr "Oras ti Tengnga - Indiana - Pike County"
+
+#~ msgid "Central Time - Manitoba & west Ontario"
+#~ msgstr "Oras ti Tengnga - Manitoba ken Laud ti Ontario"
+
+#~ msgid ""
+#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+#~ msgstr ""
+#~ "Oras ti Tengnga - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+
+#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+#~ msgstr ""
+#~ "Oras ti Tengnga - Amianan a Dakota - Morton County (malaksid ti area ti "
+#~ "Mandan)"
+
+#~ msgid "Central Time - North Dakota - Oliver County"
+#~ msgstr "Oras ti Tengnga - North Dakota - Oliver County"
+
+#~ msgid "Central Time - Quintana Roo"
+#~ msgstr "Oras ti Tengnga - Quintana Roo"
+
+#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
+#~ msgstr "Oras ti Tengnga - Rainy River ken Fort Frances, Ontario"
+
+#~ msgid "Central Time - central Nunavut"
+#~ msgstr "Oras ti Tengnga - Tengnga ti Nunavut"
+
+#~ msgid "Central Time - most locations"
+#~ msgstr "Oras ti Tengnga - Kaaduan ti Yan"
+
+#~ msgid "Central Time - west Nunavut"
+#~ msgstr "Oras ti Tengnga - Laud ti  Nunavut"
+
+#~ msgid "Ceuta & Melilla"
+#~ msgstr "Ceuta ken Melilla"
+
+#~ msgid "Chatham Islands"
+#~ msgstr "Purpuro a Chatham"
+
+#~ msgid "Davis Station, Vestfold Hills"
+#~ msgstr "Estasion a Davis, Turod a Vestfold"
+
+#~ msgid "Dornod, Sukhbaatar"
+#~ msgstr "Dornod, Sukhbaatar"
+
+#~ msgid "Dumont-d'Urville Base, Terre Adelie"
+#~ msgstr "Base a Dumont-d'Urville, Terre Adelie"
+
+#~ msgid "E Amazonas"
+#~ msgstr "Daya ti Amazonas"
+
+#~ msgid "Easter Island & Sala y Gomez"
+#~ msgstr "Puro nga Easter ken Sala y Gomez"
+
+#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
+#~ msgstr ""
+#~ "Rukod nga Oras ti Daya - Atikokan, Ontario and Southampton I, Nunavut"
+
+#~ msgid "Eastern Time"
+#~ msgstr "Oras ti Daya"
+
+#~ msgid "Eastern Time - Indiana - Crawford County"
+#~ msgstr "Oras ti Daya - Indiana - Crawford County"
+
+#~ msgid "Eastern Time - Indiana - Starke County"
+#~ msgstr "Oras ti Daya - Indiana - Starke County"
+
+#~ msgid "Eastern Time - Indiana - Switzerland County"
+#~ msgstr "Oras ti Daya - Indiana - Switzerland County"
+
+#~ msgid "Eastern Time - Indiana - most locations"
+#~ msgstr "Oras ti Daya - Indiana - Kaaduan ti Yan"
+
+#~ msgid "Eastern Time - Kentucky - Louisville area"
+#~ msgstr "Oras ti Daya - Kentucky - Area ti Louisville"
+
+#~ msgid "Eastern Time - Kentucky - Wayne County"
+#~ msgstr "Oras ti Daya - Kentucky - Wayne County"
+
+#~ msgid "Eastern Time - Michigan - most locations"
+#~ msgstr "Oras ti Daya - Michigan - Kaaduan ti Yan"
+
+#~ msgid ""
+#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
+#~ "1973"
+#~ msgstr ""
+#~ "Oras ti Daya - Ontario ken Quebec - yan a saan nga immatangan ti DST 1967-"
+#~ "1973"
+
+#~ msgid "Eastern Time - Ontario - most locations"
+#~ msgstr "Oras ti Daya - Ontario - Kaaduan ti Yan"
+
+#~ msgid "Eastern Time - Pangnirtung, Nunavut"
+#~ msgstr "Oras ti Daya - Pangnirtung, Nunavut"
+
+#~ msgid "Eastern Time - Quebec - most locations"
+#~ msgstr "Oras ti Daya - Quebec - Kaaduan ti Yan"
+
+#~ msgid "Eastern Time - Thunder Bay, Ontario"
+#~ msgstr "Oras ti Daya - Thunder Bay, Ontario"
+
+#~ msgid "Eastern Time - east Nunavut"
+#~ msgstr "Oras ti Daya - Daya ti Nunavut"
+
+#~ msgid "Galapagos Islands"
+#~ msgstr "Purpuro a Galapagos"
+
+#~ msgid "Gambier Islands"
+#~ msgstr "Purpuro a Gambier"
+
+#~ msgid "Gilbert Islands"
+#~ msgstr "Purpuro a Gilbert"
+
+#~ msgid "Hawaii"
+#~ msgstr "Haway"
+
+#~ msgid "Heilongjiang (except Mohe), Jilin"
+#~ msgstr "Heilongjiang (malaksid ti Mohe), Jilin"
+
+#~ msgid "Irian Jaya & the Moluccas"
+#~ msgstr "Irian Jaya ken dagiti Purpuro a Moluka"
+
+#~ msgid "Jan Mayen"
+#~ msgstr "Jan Mayen"
+
+#~ msgid "Java & Sumatra"
+#~ msgstr "Jaba ken Sumatra"
+
+#~ msgid "Johnston Atoll"
+#~ msgstr "Johnston Atoll"
+
+#~ msgid "Jujuy (JY)"
+#~ msgstr "Jujuy (JY)"
+
+#~ msgid "Kosrae"
+#~ msgstr "Kosrae"
+
+#~ msgid "Kwajalein"
+#~ msgstr "Kwajalein"
+
+#~ msgid "La Rioja (LR)"
+#~ msgstr "La Rioja (LR)"
+
+#~ msgid "Line Islands"
+#~ msgstr "Purpuro a Line"
+
+#~ msgid "Lord Howe Island"
+#~ msgstr "Puro ni Apo Howe"
+
+#~ msgid "Madeira Islands"
+#~ msgstr "Purpuro a Madeira"
+
+#~ msgid "Marquesas Islands"
+#~ msgstr "Purpuro a Marquesas"
+
+#~ msgid "Mato Grosso"
+#~ msgstr "Mato Grosso"
+
+#~ msgid "Mato Grosso do Sul"
+#~ msgstr "Mato Grosso do Sul (Mato Grosso ti Abagatan)"
+
+#~ msgid "Mawson Station, Holme Bay"
+#~ msgstr "Estasion a Mawson, Luok a Holme"
+
+#~ msgid "McMurdo Station, Ross Island"
+#~ msgstr "Estasion a McMurdo, Puro a Ross"
+
+#~ msgid "Mendoza (MZ)"
+#~ msgstr "Mendoza (MZ)"
+
+#~ msgid "Midway Islands"
+#~ msgstr "Purpuro a Midway"
+
+#~ msgid "Moscow+00 - Caspian Sea"
+#~ msgstr "Mosku +00 - Baybay a Kaspio"
+
+#~ msgid "Moscow+00 - west Russia"
+#~ msgstr "Mosku +00 - Laud ti Rusia"
+
+#~ msgid "Moscow+01 - Samara, Udmurtia"
+#~ msgstr "Mosku +01 - Samara, Udmurtia"
+
+#~ msgid "Moscow+02 - Urals"
+#~ msgstr "Mosku +02 - Kabantayan nga Ural"
+
+#~ msgid "Moscow+03 - Novosibirsk"
+#~ msgstr "Mosku +03 - Novosibirsk"
+
+#~ msgid "Moscow+03 - west Siberia"
+#~ msgstr "Mosku +03 - Laud ti Siberia"
+
+#~ msgid "Moscow+04 - Yenisei River"
+#~ msgstr "Mosku +04 - Karayan a Yenisei"
+
+#~ msgid "Moscow+05 - Lake Baikal"
+#~ msgstr "Mosku +05 - Danaw a Baikal"
+
+#~ msgid "Moscow+06 - Lena River"
+#~ msgstr "Mosku +06 - Karayan a Lena"
+
+#~ msgid "Moscow+07 - Amur River"
+#~ msgstr "Mosku +07 - Karayan nga Amur"
+
+#~ msgid "Moscow+07 - Sakhalin Island"
+#~ msgstr "Mosku +07 - Puro a Sakhalin"
+
+#~ msgid "Moscow+08 - Magadan"
+#~ msgstr "Mosku +08 - Magadan"
+
+#~ msgid "Moscow+09 - Kamchatka"
+#~ msgstr "Mosku +09 - Kamchatka"
+
+#~ msgid "Moscow+10 - Bering Sea"
+#~ msgstr "Mosku +10 - Baybay a Bering"
+
+#~ msgid "Moscow-01 - Kaliningrad"
+#~ msgstr "Mosku -01 - Kaliningrad"
+
+#~ msgid "Mountain Standard Time - Arizona"
+#~ msgstr "Rukod nga Oras ti Bantay - Arizona"
+
+#~ msgid ""
+#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+#~ msgstr ""
+#~ "Rukod nga Oras ti Bantay - Waig a Dawson ken Fort Saint John, Britaniko a "
+#~ "Kolombia"
+
+#~ msgid "Mountain Standard Time - Sonora"
+#~ msgstr "Rukod nga Oras ti Bantay - Sonora"
+
+#~ msgid "Mountain Time"
+#~ msgstr "Oras ti Bantay"
+
+#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+#~ msgstr ""
+#~ "Oras ti Bantay - Alberta, Daya ti Britaniko a Kolombia ken Laud ti "
+#~ "Saskatchewan"
+
+#~ msgid "Mountain Time - Chihuahua"
+#~ msgstr "Oras ti Bantay - Chihuahua"
+
+#~ msgid "Mountain Time - Navajo"
+#~ msgstr "Oras ti Bantay - Nabaho"
+
+#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+#~ msgstr "Oras ti Bantay - Akinabagatan a Baja, Nayarit, Sinaloa"
+
+#~ msgid "Mountain Time - central Northwest Territories"
+#~ msgstr "Oras ti Bantay - Tengnga dagiti Amianan a Laud a Kasakupan"
+
+#~ msgid "Mountain Time - south Idaho & east Oregon"
+#~ msgstr "Oras ti Bantay - Abagatan ti Idaho ken Daya ti Oregon"
+
+#~ msgid "Mountain Time - west Northwest Territories"
+#~ msgstr "Oras ti Bantay - Laud ti Amianan a Laud a Kasakupan"
+
+#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
+#~ msgstr "Amianan a Daya ti Brasil (MA, PI, CE, RN, PB)"
+
+#~ msgid "New South Wales - Yancowinna"
+#~ msgstr "Baro nga Abagatan a Gales - Yancowinna"
+
+#~ msgid "New South Wales - most locations"
+#~ msgstr "Baro nga Abagatan a Gales - Kaaduan ti Yan"
+
+#~ msgid "Newfoundland Time, including SE Labrador"
+#~ msgstr "Oras ti Newfoundland, maikapet ti Abagatan a Daya ti Labrador"
+
+#~ msgid "Northern Territory"
+#~ msgstr "Akinamianan a Kasakupan"
+
+#~ msgid "Pacific Time"
+#~ msgstr "Oras ti Pasipiko"
+
+#~ msgid "Pacific Time - north Yukon"
+#~ msgstr "Oras ti Pasipiko - Amianan ti Yukon"
+
+#~ msgid "Pacific Time - south Yukon"
+#~ msgstr "Oras ti Pasipiko - Abagatan ti Yukon"
+
+#~ msgid "Pacific Time - west British Columbia"
+#~ msgstr "Oras ti Pasipiko - Laud ti Britaniko a Kolumbia"
+
+#~ msgid "Palmer Station, Anvers Island"
+#~ msgstr "Estasion a Palmer, Puro nga Anvers"
+
+#~ msgid "Pernambuco"
+#~ msgstr "Pernambuco"
+
+#~ msgid "Phoenix Islands"
+#~ msgstr "Purpuro a Phoenix"
+
+#~ msgid "Ponape (Pohnpei)"
+#~ msgstr "Ponape (Pohnpei)"
+
+#~ msgid "Queensland - Holiday Islands"
+#~ msgstr "Queensland - Purpuro a Holiday"
+
+#~ msgid "Queensland - most locations"
+#~ msgstr "Queensland - Kaaduan ti Yan"
+
+#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+
+#~ msgid "Roraima"
+#~ msgstr "Roraima"
+
+#~ msgid "Rothera Station, Adelaide Island"
+#~ msgstr "Estasion a Rothera, Puro nga Adelaide"
+
+#~ msgid "Ruthenia"
+#~ msgstr "Ruthenia"
+
+#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+#~ msgstr ""
+#~ "Abagatan ken Abagatan a Daya ti Brasil (GO, DF, MG, ES, RJ, SP, PR, SC, "
+#~ "RS)"
+
+#~ msgid "Sabah & Sarawak"
+#~ msgstr "Sabah ken Sarawak"
+
+#~ msgid "San Juan (SJ)"
+#~ msgstr "San Juan (SJ)"
+
+#~ msgid "Santa Cruz (SC)"
+#~ msgstr "Santa Cruz (SC)"
+
+#~ msgid "Scoresbysund / Ittoqqortoormiit"
+#~ msgstr "Scoresbysund / Ittoqqortoormiit"
+
+#~ msgid "Society Islands"
+#~ msgstr "Purpuro a Society"
+
+#~ msgid "South Australia"
+#~ msgstr "Abagatan ti Awstralia"
+
+#~ msgid "Svalbard"
+#~ msgstr "Svalbard"
+
+#~ msgid "Syowa Station, E Ongul I"
+#~ msgstr "Estasion Syowa, Laud ti Purpuro nga Ongul"
+
+#~ msgid "Tasmania - King Island"
+#~ msgstr "Tasmania - Puro a King"
+
+#~ msgid "Tasmania - most locations"
+#~ msgstr "Tasmania - Kaaduan ti Yan"
+
+#~ msgid "Thule / Pituffik"
+#~ msgstr "Thule / Pituffik"
+
+#~ msgid "Tierra del Fuego (TF)"
+#~ msgstr "Tierra del Fuego (TF)"
+
+#~ msgid "Tocantins"
+#~ msgstr "Tocantins"
+
+#~ msgid "Truk (Chuuk) and Yap"
+#~ msgstr "Truk (Chuuk) ken Yap"
+
+#~ msgid "Tucuman (TM)"
+#~ msgstr "Tucuman (TM)"
+
+#~ msgid "Victoria"
+#~ msgstr "Victoria"
+
+#~ msgid "Vostok Station, S Magnetic Pole"
+#~ msgstr "Estasion a Vostok, Abagatan a Nabutombalani nga Ungto"
+
+#~ msgid "W Amazonas"
+#~ msgstr "Laud ti Amazonas"
+
+#~ msgid "W Para, Rondonia"
+#~ msgstr "Laud ti Para, Rondonia"
+
+#~ msgid "Wake Island"
+#~ msgstr "Puro a Wake"
+
+#~ msgid "West Kazakhstan"
+#~ msgstr "Laud a Kazakhstan"
+
+#, fuzzy
+#~ msgid "Western Australia - Eucla area"
+#~ msgstr "Akinlaud nga Awstralia"
+
+#, fuzzy
+#~ msgid "Western Australia - most locations"
+#~ msgstr "Oras ti Tengnga - Kaaduan ti Yan"
+
+#~ msgid "Zaporozh'ye, E Lugansk"
+#~ msgstr "Zaporozh'ye, Daya ti Lugansk (Luhansk)"
+
+#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+#~ msgstr "Tengnga ti Insik - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, kdp."
+
+#~ msgid "central Crimea"
+#~ msgstr "Tengnga ti Krimea"
+
+#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+#~ msgstr ""
+#~ "Daya ken Abagatan ti Borneo, Celebes, Bali, Nusa Tengarra, Laud a Timor"
+
+#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
+#~ msgstr "Daya ti Insik - Beijing, Guangdong, Shanghai, kdp."
+
+#~ msgid "east Dem. Rep. of Congo"
+#~ msgstr "Daya a Demokratiko a Republika ti Konggo"
+
+#~ msgid "east Uzbekistan"
+#~ msgstr "Daya ti Uzbekistan"
+
+#~ msgid "east coast, north of Scoresbysund"
+#~ msgstr "Daya a pantar, Akinamianan ti Scoresbysund"
+
+#~ msgid "mainland"
+#~ msgstr "peninsular"
+
+#~ msgid "most locations"
+#~ msgstr "kaaduan ti yan"
+
+#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+#~ msgstr "kaaduan ti yan (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+
+#~ msgid "most of Tibet & Xinjiang"
+#~ msgstr "kaaduan ti Tibet ken Xinjiang"
+
+#~ msgid "peninsular Malaysia"
+#~ msgstr "Malaysia a peninsular"
+
+#~ msgid "west & central Borneo"
+#~ msgstr "Laud ken Tengnga ti Borneo"
+
+#~ msgid "west Dem. Rep. of Congo"
+#~ msgstr "Laud ti Demokratiko a Republika ti Konggo"
+
+#~ msgid "west Tibet & Xinjiang"
+#~ msgstr "Laud ti Tibet ken Xinjiang"
+
+#~ msgid "west Uzbekistan"
+#~ msgstr "Laud ti Uzbekistan"
 
 #~ msgid "Error mounting file system on %s: %s"
 #~ msgstr "Rimsua ti biddut iti pannakaisagpat ti sistema ti intar iti %s: %s"
