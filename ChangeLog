@@ -1,5 +1,13 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* backend.py (AnacondaBackend.initLog): Don't open the install log
+	twice (Elliot Peele)
+
+	* installclass.py (availableClasses): Log a warning when there's
+	an error loading an installclass; raise it in debug mode (Elliot Peele)
+
+	* exception.py: rpm import not used (Elliot Peele)
+
 	* po/Makefile ($(NLSPACKAGE).pot): Specify that we're starting
 	from UTF-8 to make xgettext happy
 

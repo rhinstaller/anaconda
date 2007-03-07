@@ -527,7 +527,9 @@ def availableClasses(showHidden=0):
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
         except:
-            pass
+            log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
+            if flags.debug: raise
+            else: continue
 
     list.sort(ordering)
     for (item, priority) in list:

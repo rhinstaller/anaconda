@@ -22,7 +22,6 @@ import signal
 import traceback
 import iutil
 import types
-import rpm
 import bdb
 import rhpl
 import time

@@ -148,18 +148,6 @@ class AnacondaBackend:
             pass
 
         instLog = open(instLogName, "w+")
-        if upgrade:
-            logname = '/root/upgrade.log'
-        else:
-            logname = '/root/install.log'
-
-        instLogName = instPath + logname
-        try:
-            shutil.rmtree (instLogName)
-        except OSError:
-            pass
-
-        self.instLog = open(instLogName, "w+")
 
        # dont start syslogd if we arent creating filesystems
         if flags.setupFilesystems:
