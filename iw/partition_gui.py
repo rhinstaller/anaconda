@@ -644,7 +644,7 @@ class PartitionWindow(InstallWindow):
             raise gui.StayOnScreen
         
         if warnings:
-            labelstr1 = _("The partitioning scheme you requested"
+            labelstr1 = _("The partitioning scheme you requested "
                           "generated the following warnings.")
             labelstr2 = _("Would you like to continue with "
                          "your requested partitioning "

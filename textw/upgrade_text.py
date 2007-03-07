@@ -88,7 +88,7 @@ class UpgradeSwapWindow:
 
 	text = _("Recent kernels (2.4 or newer) need significantly more swap than older "
 		 "kernels, up to twice the amount of RAM on the "
-		 "system. You currently have %dMB of swap configured, but "
+		 "system.  You currently have %dMB of swap configured, but "
 		 "you may create additional swap space on one of your "
 		 "file systems now.") % (iutil.swapAmount() / 1024)
 

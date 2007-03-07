@@ -1,5 +1,9 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_gui.py (PartitionWindow.getNext): Typo fix (Renato 
+	Pavičić)	
+	* textw/upgrade_text.py (UpgradeSwapWindow.__call__): Likewise.
+
 	* scripts/splittree.py: Don't generate RPMS/ dir (Jesse Keating)
 
 	* iw/progress_gui.py (InstallProgressWindow.setShowPercentage):
