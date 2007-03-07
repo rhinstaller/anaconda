@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 11:24-0500\n"
-"PO-Revision-Date: 2007-02-08 22:42+0100\n"
+"PO-Revision-Date: 2007-03-07 23:21+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,7 +362,7 @@ msgstr ""
 "Druk op 'OK' om een andere partitioneringsoptie te kiezen."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -376,7 +376,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Dit kan gebeuren als er te weinig ruimte op de harde schijf is voor de "
-"installatie.%s"
+"installatie. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -1014,9 +1014,8 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Soort installatie"
+msgstr "Installatiesleutel"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1326,7 +1325,7 @@ msgstr ""
 
 #: ../livecd.py:77 ../livecd.py:263
 msgid "Unable to find image"
-msgstr "Kan image niet vinden"
+msgstr "Kan image-bestand niet vinden"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
@@ -1342,9 +1341,8 @@ msgid "Exit installer"
 msgstr "Installatieprogramma afsluiten"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Het installatiebestand wordt nu naar de harde schijf overgezet..."
+msgstr "Het live image-bestand wordt naar de harde schijf gekopieerd."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1394,19 +1392,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' is een ongeldig IP-adres."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ongeldige prefix"
+msgstr "Ongeldige sleutel"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "De ingevoerde waarde is geen geldig getal."
+msgstr "De sleutel die u hebt ingevoerd is ongeldig."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Overslaan"
+msgstr "_Overslaan"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1466,7 +1461,7 @@ msgstr ""
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1474,11 +1469,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"De partitieopmaak op apparaat /dev/%s is van een type %s. Om deze schijf te "
+"De partitieopmaak op apparaat /dev/%s is van een type %s. Om dit station te "
 "gebruiken voor de installatie van %s, moet deze opnieuw geïnitialiseerd "
 "worden. Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
-"Wilt u dit station initialiseren?"
+"Wilt u dit station opnieuw initialiseren?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -2291,9 +2286,9 @@ msgid "No help is available for this step of the install."
 msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Een gebruikersnaam invoeren"
+msgstr "Voer uw %(instkey)s in"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
@@ -2515,7 +2510,8 @@ msgstr "Wachtwoorden komen niet overeen"
 
 #: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr "De wachtwoorden zijn verschillend. Probeer opnieuw."
+msgstr ""
+"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
@@ -2648,13 +2644,10 @@ msgstr "Verwerken"
 msgid "Preparing transaction from installation source..."
 msgstr "De transactie vanaf de installatiebron wordt nu voorbereid..."
 
-# sneltoets op de _n omdat de andere optie een _U heeft en de
-# i en de u zitten vlak naast elkaar, dus om vergissingen te
-# voorkomen...
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Installeren van %s\n"
+msgstr "<b>Installeren van %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
@@ -2848,12 +2841,10 @@ msgstr "Het root-wachtwoord moet tenminste 6 tekens lang zijn."
 
 # misschien 'gevraagde' beter weglaten voor duidelijkheid
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"Het gevraagde wachtwoord bevat non-ascii tekens hetgeen niet is toegestaan "
-"in wachtwoorden."
+"Het gevraagde wachtwoord bevat non-ASCII tekens, hetgeen niet is toegestaan."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2876,9 +2867,8 @@ msgid "Invalid Initiator Name"
 msgstr "Ongeldige initiator-naam"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "U moet een initiator-naam opgeven met een lengte die niet-nul is."
+msgstr "U moet een initiator-naam opgeven."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
@@ -2948,14 +2938,13 @@ msgid "Passwords do not match"
 msgstr "De wachtwoorden komen niet overeen"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Uw bootloader-wachtwoord is minder dan 6 tekens.  Wij raden aan om een "
+"Uw bootloader-wachtwoord is korter dan 6 tekens.  Wij raden aan om een "
 "langer bootloader-wachtwoord te kiezen.\n"
 "\n"
 "Wilt u dit wachtwoord blijven gebruiken?"
@@ -2965,18 +2954,17 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Geavanceerde bootloader-configuratie"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Het gebruik forceren van LBA32 voor uw bootloader terwijl dit niet in het "
-"BIOS wordt ondersteund kan tot gevolg hebben dat uw computer niet meer kan "
+"Het gebruik forceren van LBA32, terwijl dit niet in het BIOS van uw systeem "
+"wordt ondersteund, kan tot gevolg hebben dat uw computer niet meer kan "
 "opstarten.\n"
 "\n"
-"Wilt u doorgaan en LBA32-modus forceren?"
+"Wilt u doorgaan en de LBA32-modus forceren?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -3161,14 +3149,13 @@ msgid "_Upgrade an existing installation"
 msgstr "_Upgraden van een reeds bestaande installatie"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Kies voor deze optie als u uw huidige %s systeem een upgrade wilt geven. Met "
-"deze optie zullen de gegevens die nu op uw harde schijf staan, behouden "
-"blijven."
+"Kies voor deze optie als u uw huidige %s systeem wilt upgraden. Deze optie "
+"behoudt de bestaande data op uw harde schijven."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3209,7 +3196,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Aanpassing Physical Extent bevestigen"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3359,7 +3345,7 @@ msgid "Mount point in use"
 msgstr "Koppelpunt in gebruik"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Het koppelpunt \"%s\" is in gebruik. Kies een andere."
 
@@ -3377,7 +3363,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "De logical volume naam \"%s\" is reeds in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3386,7 +3372,7 @@ msgstr ""
 "De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
 "maximum logical volume grootte (%10.2f MB). Om deze limiet te verhogen kunt "
 "u meer Physical Volumes vanuit ongepartioneerde diskruimte creëren en deze "
-"toe voegen aan deze Volume Group."
+"toevoegen aan deze Volume Group."
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3421,7 +3407,6 @@ msgid "No free space"
 msgstr "Geen vrije ruimte"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3432,7 +3417,7 @@ msgstr ""
 "van de huidige logical volumes verkleinen"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Weet u zeker dat u logical volume \"%s\" wilt verwijderen?"
 
