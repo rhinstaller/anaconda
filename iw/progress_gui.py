@@ -36,6 +36,7 @@ class InstallProgressWindow (InstallWindow):
         ics.setNextEnabled (False)
 
         self._updateChange = 0.01
+        self._showPercentage = False
 
     def processEvents(self):
         gui.processEvents()
@@ -46,6 +47,8 @@ class InstallProgressWindow (InstallWindow):
         cur = self.get_fraction()
         if pct - cur > self._updateChange:
             self.progress.set_fraction(pct)
+            if self._showPercentage:
+                self.progress.set_text("%d %" %(pct * 100,))
             self.processEvents()
 
     def set_label(self, txt):
@@ -54,11 +57,19 @@ class InstallProgressWindow (InstallWindow):
         self.processEvents()
 
     def set_text(self, txt):
+        if self._showPercentage:
+            log.debug("Setting progress text with showPercentage set")
+            return
         self.progress.set_text(txt)
         self.processEvents()
 
     def renderCallback(self):
         self.intf.icw.nextClicked()
+
+    def setShowPercentage(self, val):
+        if val not in (True, False):
+            raise ValueError, "Invalid value passed to setShowPercentage"
+        self._showPercentage = val
 
     def _getRnotes(self):
         langs = []

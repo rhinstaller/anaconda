@@ -70,6 +70,9 @@ class InstallProgressWindow:
         self.grid.draw()
         self.screen.refresh()
 
+    def setShowPercentage(self, val):
+        pass
+
     def get_fraction(self):
         return self.pct
 

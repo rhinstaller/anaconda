@@ -141,6 +141,8 @@ class progressDisplay:
 
     def processEvents(self):
         pass
+    def setShowPercentage(self, val):
+        pass
     def get_fraction(self):
         return self.pct
     def set_fraction(self, pct):

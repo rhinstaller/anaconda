@@ -1,5 +1,15 @@
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/progress_gui.py (InstallProgressWindow.setShowPercentage):
+	Add method to say that we should just show the percentage in the
+	progress bar like newt does.  If this is set, ignore any calls to
+	set_text().
+	* textw/progress_text.py
+	(InstallProgressWindow.setShowPercentage): Placeholder method,
+	doesn't actually do anything for text mode given the way newt works. 
+	* cmdline.py (progressDisplay.setShowPercentage): Add placeholder
+	here too.
+
 	* po/: Refresh-po
 
 	* backend.py (AnacondaBackend.initLog): Don't open the install log
