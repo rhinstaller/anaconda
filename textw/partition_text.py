@@ -1704,8 +1704,8 @@ class PartitionTypeWindow:
         (button, entries) = EntryWindow(screen,
                                         _("Configure iSCSI Parameters"),
                                         _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
-                                        prompts = [ "Target IP Address",
-                                                    "iSCSI Initiator Name" ])
+                                        prompts = [ _("Target IP Address"),
+                                                    _("iSCSI Initiator Name") ])
         if button == TEXT_CANCEL_CHECK:
             return INSTALL_BACK
 
