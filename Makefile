@@ -83,7 +83,7 @@ install:
 CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
 SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
-	@cvs tag -cR $(CVSTAG)
+	@cvs tag -cFR $(CVSTAG)
 	@echo "Tagged as $(CVSTAG)"
 
 archive: create-archive
