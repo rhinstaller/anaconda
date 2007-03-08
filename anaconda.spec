@@ -120,6 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 - Replace hyphens in BOOTIF= parameter with colons (#209284)
 - In strcount() in libisys, return 0 if tmp is NULL (#231290)
 - Subclass Raid class in kickstart.py from F7_Raid (clumens)
+- Make sure ext2 filesystem module is loaded early (clumens, #230946)
 
 * Thu Mar  8 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.33-1
 - Fix translations to build correctly.
