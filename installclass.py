@@ -560,9 +560,7 @@ def ordering(first, second):
     return 0
 
 def getBaseInstallClass():
-    # figure out what installclass we should base on. this is largely needed
-    # due to nonsense about how things like upgrades and kickstart are
-    # implemented as installclasses :/
+    # figure out what installclass we should base on.
     allavail = availableClasses(showHidden = 1)
     avail = availableClasses(showHidden = 0)
     if len(avail) == 1:
