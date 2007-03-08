@@ -26,6 +26,9 @@
 
 	* kickstart.py (Raid):  Subclass from F7_Raid instead.
 
+	* loader2/loader.c (main):  Make sure ext2 filesystem module is loaded
+	early (#230946).
+
 2007-03-08  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  New version.
