@@ -827,7 +827,8 @@ class DiskSet:
         if self.disks:
             return
         for drive in self.driveList ():
-            if drive in DiskSet.skippedDisks and not initAll:
+            # ignoredisk takes precedence over clearpart (#186438).
+            if drive in DiskSet.skippedDisks:
                 continue
             deviceFile = isys.makeDevInode(drive)
             if isys.driveIsRemovable(drive) and not flags.expert:

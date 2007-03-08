@@ -1,3 +1,8 @@
+2007-03-08  Chris Lumens  <clumens@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices):  Ignore disks listed in
+	ignoredisks, even if we have clearpart --all (#186438).
+
 2007-03-06  Dave Lehman  <dlehman@redhat.com>
 
 	* anaconda.spec: Bump version.
