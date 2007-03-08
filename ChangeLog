@@ -1,3 +1,9 @@
+2007-03-08  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (doDhcp): Need DHCPv6_DISABLE set as well as
+	DHCPv6_DISABLE_ADDRESSES when auto neighbor discovery is selected for
+	IPv6 (#230941, #230949).
+
 2007-03-08  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Raid):  Subclass from F7_Raid instead.
