@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.33
+Version: 11.2.0.34
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -113,6 +113,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar  8 2007 David Cantrell <david@burdell.org> - 11.2.0.34-1
+- Remove duplicate Activate On Boot checkbox in iw netconfig
+- Set DHCPv6_DISABLE flag for auto neighbor discovery (#230941, #230949)
+- Set loaderData->ip appropriately in STEP_IP (#231290)
+- Replace hyphens in BOOTIF= parameter with colons (#209284)
+- In strcount() in libisys, return 0 if tmp is NULL (#231290)
+- Subclass Raid class in kickstart.py from F7_Raid (clumens)
+
 * Thu Mar  8 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.33-1
 - Fix translations to build correctly.
 - Fix traceback on upgrade due to yum API change.
