@@ -850,6 +850,7 @@ static char *doLoaderMain(char * location,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
            STEP_IP, STEP_URL, STEP_DONE } step;
     char * url = NULL;
+    char ret[48];
     int dir = 1;
     int rc, i;
 
@@ -1100,15 +1101,37 @@ static char *doLoaderMain(char * location,
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
-            if ((loaderData->noipv4 = netDev.noipv4) == 1)
+            if ((loaderData->noipv4 = netDev.noipv4) == 1) {
                 loaderData->ipinfo_set = 0;
-            else
-                loaderData->ipinfo_set = 1;
+            } else {
+                if (!loaderData->ip) {
+                    if (netDev.isDynamic) {
+                        loaderData->ip = strdup("dhcp");
+                    } else {
+                        inet_ntop(AF_INET, IP_ADDR(&(netDev.dev.ipv4)), ret,
+                                  IP_STRLEN(&(netDev.dev.ipv4)));
+                        loaderData->ip = strdup(ret);
+                    }
+                }
 
-            if ((loaderData->noipv6 = netDev.noipv6) == 1)
+                loaderData->ipinfo_set = 1;
+            }
+
+            if ((loaderData->noipv6 = netDev.noipv6) == 1) {
                 loaderData->ipv6info_set = 0;
-            else
+            } else {
+                if (!loaderData->ip) {
+                    if (netDev.isDynamic) {
+                        loaderData->ipv6 = strdup("dhcpv6");
+                    } else {
+                        inet_ntop(AF_INET6, IP_ADDR(&(netDev.dev.ipv6)), ret,
+                                  IP_STRLEN(&(netDev.dev.ipv6)));
+                        loaderData->ipv6 = strdup(ret);
+                    }
+                }
+
                 loaderData->ipv6info_set = 1;
+            }
 
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
