@@ -11,6 +11,8 @@
 	argument, pull the MAC address from it and replace hyphens with colons
 	so that the MAC address is usable in loader (#209284).
 
+	* isys/str.c (strcount): If tmp is NULL, return 0 (#231290).
+
 2007-03-08  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Raid):  Subclass from F7_Raid instead.

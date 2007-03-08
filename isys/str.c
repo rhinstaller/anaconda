@@ -103,6 +103,9 @@ int strcount(char *str, int ch) {
     int retval = 0;
     char *tmp = str;
 
+    if (tmp == NULL)
+        return retval;
+
     do {
         if ((tmp = strindex(tmp, ch)) != NULL) {
             tmp++;
