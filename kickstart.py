@@ -483,7 +483,7 @@ class Reboot(commands.reboot.FC6_Reboot):
         commands.reboot.FC6_Reboot.parse(self, args)
         self.handler.skipSteps.append("complete")
 
-class Raid(commands.raid.FC5_Raid):
+class Raid(commands.raid.F7_Raid):
     def parse(self, args):
         commands.raid.FC5_Raid.parse(self, args)
 
