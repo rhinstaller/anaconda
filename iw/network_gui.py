@@ -209,8 +209,6 @@ class NetworkWindow(InstallWindow):
         else:
             editwin.hidePtPTable()
 
-        editwin.setActiveOnBoot(onboot)
-
         editwin.setEnableIPv4(self.devices[dev].get('useIPv4'))
         editwin.selectIPv4Method(ipaddr)
 
@@ -225,7 +223,6 @@ class NetworkWindow(InstallWindow):
                 return
 
         # collect results
-        onboot = editwin.isActiveOnBoot()
         useipv4 = editwin.isIPv4Enabled()
         useipv6 = editwin.isIPv6Enabled()
 
@@ -562,7 +559,6 @@ class NetworkDeviceEditWindow:
 
         self.configure_dev = self.xml.get_widget("configure_dev")
         self.hardware_address = self.xml.get_widget("hardware_address")
-        self.activate_on_boot = self.xml.get_widget("activate_on_boot")
 
         self.enable_ipv4 = self.xml.get_widget("enable_ipv4")
         self.dhcp_ipv4 = self.xml.get_widget("dhcp_ipv4")
@@ -635,12 +631,6 @@ class NetworkDeviceEditWindow:
             mac = _('unknown')
 
         self.hardware_address.set_markup("<b>" + _("Hardware address: ") + mac + "</b>")
-
-    def setActiveOnBoot(self, onboot):
-        self.activate_on_boot.set_active(onboot)
-
-    def isActiveOnBoot(self):
-        return self.activate_on_boot.get_active()
 
     def isWirelessEnabled(self):
         return self.enable_wireless

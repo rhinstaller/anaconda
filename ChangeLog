@@ -13,6 +13,11 @@
 
 	* isys/str.c (strcount): If tmp is NULL, return 0 (#231290).
 
+	* ui/netpostconfig.glade: Remove enable at boot checkbox since it's
+	already in the list of devices on the main screen.
+
+	* iw/network_gui.py: Remove references to activate_on_boot widget.
+
 2007-03-08  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Raid):  Subclass from F7_Raid instead.
