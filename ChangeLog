@@ -1,6 +1,10 @@
 2007-03-08  Chris Lumens  <clumens@redhat.com>
 
 	* po/is.po:  Fix translation so anaconda will build.
+	* po/:  Remove ancient translation cruft.
+
+	* sortedtransaction.py (SplitMediaTransactionData.getMembers):  Fix
+	for yum API change.
 
 2007-03-07  Jeremy Katz  <katzj@redhat.com>
 
