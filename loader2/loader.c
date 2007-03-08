@@ -578,6 +578,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     int argc;
     int numExtraArgs = 0;
     int i;
+    char *front;
 
     /* if we have any explicit cmdline (probably test mode), we don't want
      * to parse /proc/cmdline */
@@ -693,6 +694,17 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncmp(argv[i], "BOOTIF=", 7)) {
             /* +10 so that we skip over the leading 01- */
             loaderData->bootIf = strdup(argv[i] + 10);
+
+            /* scan the BOOTIF value and replace '-' with ':' */
+            front = loaderData->bootIf;
+            if (front) {
+                while (*front != '\0') {
+                    if (*front == '-')
+                        *front = ':';
+                    front++;
+                }
+            }
+
             loaderData->bootIf_set = 1;
         } else if (!strncasecmp(argv[i], "dhcpclass=", 10)) {
             loaderData->netCls = strdup(argv[i] + 10);
