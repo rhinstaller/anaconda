@@ -1,10 +1,10 @@
 Name: anaconda
-Version: 11.2.0.34
+Version: 11.2.0.35
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
-Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
+Source: anaconda-%{version}.tar.bz2
 BuildRequires: kudzu-devel >= 1.2.42, pciutils-devel
 BuildRequires: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
 BuildRequires: rpm-python >= 4.2-0.61, rpm-devel, gettext >= 0.11
@@ -42,7 +42,7 @@ Requires: system-config-keyboard
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
 
-BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 The anaconda package contains the program which was used to install your 
@@ -70,7 +70,6 @@ are needed for installing new systems.  These files are used to build media
 sets, but are not meant for use on already installed systems.
 
 %prep
-
 %setup -q
 
 %build
@@ -113,7 +112,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Mar  8 2007 David Cantrell <david@burdell.org> - 11.2.0.34-1
+* Fri Mar  9 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.35-1
+- Fix SIGSEGV for HTTP installs (#231576)
+- Some spec file cleanups to adhere to Fedora packaging guidelines
+
+* Thu Mar  8 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.34-1
 - Remove duplicate Activate On Boot checkbox in iw netconfig
 - Set DHCPv6_DISABLE flag for auto neighbor discovery (#230941, #230949)
 - Set loaderData->ip appropriately in STEP_IP (#231290)
