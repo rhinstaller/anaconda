@@ -1,3 +1,8 @@
+2007-03-09  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/str.c (strindex): (str != NULL) -> (*str != '\0').  Fixes
+	HTTP install method SIGSEGV, among other things.
+
 2007-03-08  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -88,7 +88,7 @@ char *strindex(char *str, int ch) {
             return str;
         else
             str++;
-    } while (str != NULL);
+    } while (*str != '\0');
 
     return NULL;
 }
