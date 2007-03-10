@@ -1,10 +1,13 @@
+# Svenska translation of anaconda.
+# Copyright (C) 2006 Free Software Foundation
+# Magnus Larsson <fedoratrans@gmail.com>, 2007.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-02-09 10:09-0500\n"
+"PO-Revision-Date: 2007-03-09 20:07-0500\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -342,7 +345,7 @@ msgstr ""
 "Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -356,7 +359,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Detta kan inträffa om det inte finns tillräckligt med utrymme på din(a) "
-"hårddisk(ar) för installationen.%s"
+"hårddisk(ar) för installationen. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -980,9 +983,8 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Installationstyp"
+msgstr "Installationsnyckel"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1305,9 +1307,8 @@ msgid "Exit installer"
 msgstr "Avsluta installationsprogram"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Överför installationsavbilden till hårddisken..."
+msgstr "Överför installationsavbilden till hårddisken."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1359,19 +1360,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' är ingen giltig IP-adress."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ogiltigt prefix"
+msgstr "Ogiltig nyckel"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Värdet du angav är inte ett giltigt tal."
+msgstr "Nyckeln du angav är inte giltig."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Hoppa över"
+msgstr "_Hoppa över"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1430,7 +1428,7 @@ msgstr ""
 "Vill du formatera om denna DASD med CDL-format?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1438,11 +1436,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s har en %s-partitionslayout. För att denna disk ska kunna användas "
-"för installation av %s måste den initieras om, vilket kommer att förstöra "
-"ALL DATA på denna enhet.\n"
+"/dev/%s har för närvarande en %s-partitionslayout. För att denna enhet ska "
+"kunna användas för installation av %s måste den initieras om, vilket kommer "
+"att förstöra ALL DATA på denna enhet.\n"
 "\n"
-"Vill du initiera denna enhet?"
+"Vill du initiera om denna enhet?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1450,7 +1448,7 @@ msgstr "_Ignorera enhet"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Återinitiera enhet"
 
 #: ../partedUtils.py:917
 msgid "Initializing"
@@ -2245,14 +2243,14 @@ msgid "No help is available for this step of the install."
 msgstr "Ingen hjälp finns tillgänglig för detta steg i installationen."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Ange användarnamn"
+msgstr "Ange din %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Hoppa över inmatning %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2601,14 +2599,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Förbereder transaktion från installationskälla..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Installerar %s\n"
+msgstr "<b>Installerar %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s av %s paket slutförda"
 
 #: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
@@ -2800,12 +2798,11 @@ msgid "The root password must be at least six characters long."
 msgstr "Root-lösenordet måste vara minst sex tecken långt."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"Det begärda lösenordet innehåller tecken som inte är ascii och som inte är "
-"tillåtna för användning i lösenord."
+"Det begärda lösenordet innehåller tecken som inte är ASCII och det är inte "
+"tillåtet."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2828,7 +2825,6 @@ msgid "Invalid Initiator Name"
 msgstr "Ogiltigt initierarnamn"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Du måste ange ett initierarnamn."
 
@@ -2901,15 +2897,14 @@ msgid "Passwords do not match"
 msgstr "Lösenorden stämmer inte överens"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Ditt lösenord för startprogrammet innehåller mindre än sex tecken. Vi "
-"rekommenderar ett längre lösenord för startprogrammet.\n"
+"Ditt lösenord för startprogrammet är kortare än sex tecken. Vi rekommenderar "
+"ett längre lösenord för startprogrammet.\n"
 "\n"
 "Vill du fortsätta med detta lösenord?"
 
@@ -3302,9 +3297,9 @@ msgid "Mount point in use"
 msgstr "Monteringspunkten används"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Monteringspunkten \"%s\" används, välj en annan."
+msgstr "Monteringspunkten \"%s\" används. Välj en annan."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3912,14 +3907,14 @@ msgstr "Partitionering"
 #: ../iw/partition_gui.py:633
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "Partitioneringsschemat du begärde orsakade följande kritiska fel."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
-"Dessa fel måste åtgärdas innan du kan fortsätta med installationen av %s."
+"Du måste åtgärda dessa fel innan du kan fortsätta med installationen av %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3927,7 +3922,7 @@ msgstr "Partitioneringsfel"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Partitioningsschemat du begärde genererade följande varningar."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4263,7 +4258,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Källhårddisken /dev/%s kan inte även väljas som en målhårddisk."
 
 #: ../iw/raid_dialog_gui.py:562
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4272,12 +4267,12 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Målhårddisken /dev/%s har en partition som, av följande skäl, inte kan tas "
+"Målhårddisken /dev/%s har en partition som av följande skäl inte kan tas "
 "bort:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Denna partition måste tas bort innan hårddisken kan vara ett mål."
+"Du måste ta bort denna partition innan hårddisken kan vara ett mål."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
@@ -4860,9 +4855,8 @@ msgstr ""
 "systemet. Denna fil kan vara bra att spara och använda som referens senare."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Välj de paketgrupper som du vill ska installeras."
+msgstr "Välj de paketgrupper du vill installera."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4912,13 +4906,13 @@ msgstr ""
 "kan detta orsaka problem senare."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
+msgstr "IPv%d-prefix får bara innehålla tal mellan 0 och %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Heltal krävs för prefix"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4926,6 +4920,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Du måste ange ett giltigt heltal för %s. För IPv4, kan värdet vara mellan 0 "
+"och 32. För IPv6 kan det vara mellan 0 och 128."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 msgid "Prefix (Netmask)"
@@ -4975,31 +4971,27 @@ msgid "Dynamic IP configuration (DHCP)"
 msgstr "Dynamisk IP-konfiguration (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Manuell konfiguration"
+msgstr "Manuell adresskonfiguration"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Nätverkskonfiguration för %s"
+msgstr "IPv4-konfiguration för %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4-adress:"
+msgstr "IPv4-adress"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Nätmask"
+msgstr "IPv4-nätmask"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefix(Nätmask)"
+msgstr "IPv4-prefix(nätmask)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
@@ -5010,20 +5002,18 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Dynamisk IP-konfiguration (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Nätverkskonfiguration för %s"
+msgstr "IPv6-konfiguration för %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6-adress:"
+msgstr "IPv6-adress"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefix"
+msgstr "IPv6-prefix"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5042,19 +5032,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Diverse nätverksinställningar"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
-msgstr "Primär DNS"
+msgstr "primär DNS"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Sekundär DNS"
+msgstr "sekundär DNS"
 
 #: ../textw/network_text.py:677
 msgid "automatically via DHCP"
@@ -5232,10 +5219,10 @@ msgid "Not Supported"
 msgstr "Stöds inte"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
-"LVM-volymgrupper kan endast redigeras i det grafiska installationsprogrammet."
+"Du kan endast redigera LVM-volymgrupper i det grafiska "
+"installationsprogrammet."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5283,9 +5270,8 @@ msgid "No Volume Groups"
 msgstr "Inga volymgrupper"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Inga volymgrupper att skapa en logisk volym i"
+msgstr "Inga volymgrupper finns för att skapa en logisk volym i"
 
 #: ../textw/partition_text.py:1302
 #, fuzzy, python-format
@@ -5415,14 +5401,12 @@ msgstr ""
 "ochiSCSI-initiatorns namn som du har konfigurerat för din maskin."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "_Mål-IP-adress:"
+msgstr "IP-adress för mål"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "iSCSI-initierar_namn:"
+msgstr "iSCSI-initierarnamn"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5551,15 +5535,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"Startprogrammet z/IPL kommer att installeras på ditt system efter det att "
-"installationen är färdig. Du kan nu ange eventuella ytterligare kärn- och "
-"chandev-parametrar som din maskin eller din konfiguration kanske kräver."
+"Startprogrammet z/IPL kommer att installeras på ditt system efter "
+"installationen är färdig. Du kan nu ange ytterligare kärn- och chandev-"
+"parametrar som din maskin eller konfiguration kanske kräver."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5607,7 +5590,7 @@ msgstr "Kontor"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
 msgid "Virtualization"
@@ -5615,11 +5598,11 @@ msgstr "Virtualisering"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Klustring"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Lagringsklustring"
 
 #: ../installclasses/rhel.py:50
 #, fuzzy
@@ -5631,6 +5614,8 @@ msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"För att installera hela setet av de paket som stöds  och som är inkluderade "
+"i din prenumeration, ange ditt Installationsnummer"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -6670,9 +6655,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Vilket språk vill du använda under installationen?"
+msgstr "Vilken enhet vill starta denna installation från?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6693,7 +6677,7 @@ msgstr "_Detaljer om undantagsfel"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
