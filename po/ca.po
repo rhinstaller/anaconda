@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-02-25 13:00+0100\n"
+"PO-Revision-Date: 2007-03-10 20:47+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -1013,9 +1013,8 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Tipus d'instal·lació"
+msgstr "Clau de la instal·lació"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1484,7 +1483,7 @@ msgstr "Omet la un_itat"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Reinicialitza la unitat"
 
 #: ../partedUtils.py:917
 msgid "Initializing"
@@ -2277,15 +2276,16 @@ msgstr "No hi ha ajuda disponible"
 msgid "No help is available for this step of the install."
 msgstr "No hi ha ajuda disponible per a aquest pas de la instal·lació."
 
+# FIXME
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Indiqueu el nom del grup de volum."
+msgstr "Introduïu la vostra %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Omet la introducció de %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2630,14 +2630,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "S'està preparant la transacció de la font de la instal·lació..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "S'està instal·lant %s\n"
+msgstr "<b>S'està instal·lant %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "S'han completat %s de %s paquets"
 
 #: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
@@ -2827,12 +2827,11 @@ msgid "The root password must be at least six characters long."
 msgstr "La contrasenya del superusuari ha de tenir com a mínim sis caràcters."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"La contrasenya sol·licitada conté caràcters no ascii, els quals no es poden "
-"fer servir per a la contrasenya."
+"La contrasenya sol·licitada conté caràcters no ascii, els quals no estan "
+"permesos."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2855,9 +2854,8 @@ msgid "Invalid Initiator Name"
 msgstr "El nom de l'inicialitzador no és vàlid"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "El nom de l'iniciador no pot tenir longitud zero."
+msgstr "Heu de proporcionar un nom per a l'iniciador."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
@@ -2933,7 +2931,6 @@ msgid "Passwords do not match"
 msgstr "Les contrasenyes són diferents"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2941,7 +2938,7 @@ msgid ""
 "Would you like to continue with this password?"
 msgstr ""
 "La contrasenya per al carregador de l'arrencada té menys de sis caràcters. "
-"Es recomana utilitzar una contrasenya més llarga.\n"
+"Es recomana utilitzar-ne una de més llarga.\n"
 "\n"
 "Voleu continuar amb aquesta contrasenya?"
 
@@ -2950,15 +2947,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Configuració avançada del carregador de l'arrencada"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Si es força l'ús d'LBA32 en el carregador de l'arrencada per a una BIOS que "
-"no ho implementa, pot fer que la màquina no pugui arrencar.\n"
+"Si es força l'ús de l'LBA32 en el carregador de l'arrencada per a una BIOS "
+"que no ho implementa, pot fer que la màquina no pugui arrencar.\n"
 "\n"
 "Voleu continuar i forçar el mode LBA32?"
 
@@ -3141,13 +3137,13 @@ msgid "_Upgrade an existing installation"
 msgstr "Act_ualitza una instal·lació existent"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
 "Escolliu aquesta opció si voleu actualitzar el sistema %s. Aquesta opció "
-"conservarà les dades existents en les unitats."
+"conservarà les dades existents a les unitats."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3950,14 +3946,15 @@ msgstr "Particionat"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"L'esquema de particions que heu demanat ha causat els següents errors "
+"crítics."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
-"S'han de corregir aquests errors abans de continuar amb la instal·lació de %"
-"s."
+"Heu de corregir aquests errors abans de continuar la instal·lació de %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3965,7 +3962,7 @@ msgstr "Errors del particionat"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "L'esquema de particions que heu demanat ha causat els següents avisos."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4075,16 +4072,16 @@ msgstr ""
 "Podeu fer servir fins a %s particions RAID de programari.\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
-"Per utilitzar un RAID, heu de crear almenys dues particions de tipus 'RAID "
-"de programari'. Després, podeu crear un dispositiu RAID per formatar-lo i "
-"muntar-lo.\n"
+"Per utilitzar un RAID, heu de crear almenys dues particions de tipus «RAID "
+"de programari». Després, podreu crear un dispositiu RAID que podreu formatar "
+"i muntar.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
@@ -4161,13 +4158,13 @@ msgid "Check for _bad blocks?"
 msgstr "Comprova si hi ha _blocs malmesos"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Les particions de tipus '%s' s'han de restringir a només una unitat. Podeu "
-"fer-ho seleccionant el dispositiu a la llista 'Unitats permeses'."
+"Les particions de tipus «%s» s'han de restringir a només una unitat. Podeu "
+"fer-ho seleccionant el dispositiu a la llista «Unitats permeses»."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4246,20 +4243,19 @@ msgid "Source Drive Error"
 msgstr "S'ha produït un error en la unitat origen"
 
 #: ../iw/raid_dialog_gui.py:498
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"La unitat origen seleccionada té particions que no són de tipus 'RAID de "
-"programari'.\n"
+"La unitat origen seleccionada té particions que no són de tipus «RAID de "
+"programari».\n"
 "\n"
-"S'han d'esborrar aquestes particions per poder clonar la unitat."
+"S'han de suprimir aquestes particions per a poder clonar la unitat."
 
 #: ../iw/raid_dialog_gui.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4270,11 +4266,10 @@ msgstr ""
 "La unitat origen seleccionada té particions que no estan restringides a la "
 "unitat /dev/%s.\n"
 "\n"
-"S'han d'esborrar les particions o restringir-les a aquesta unitat abans que "
+"S'han de suprimir les particions o restringir-les a aquesta unitat abans que "
 "es pugui clonar aquesta unitat. "
 
 #: ../iw/raid_dialog_gui.py:523
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4284,7 +4279,7 @@ msgstr ""
 "La unitat origen té particions RAID de programari que formen part d'un "
 "dispositiu RAID de programari actiu.\n"
 "\n"
-"S'han d'esborrar aquestes particions abans que es cloni la unitat."
+"S'han de suprimir aquestes particions abans que es cloni la unitat."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4301,7 +4296,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "No es pot seleccionar la unitat origen /dev/%s com a unitat destí."
 
 #: ../iw/raid_dialog_gui.py:562
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4310,12 +4305,12 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"La unitat destí /dev/%s té una partició que no es pot esborrar per la "
-"següent raó:\n"
+"La unitat de destí /dev/%s té una partició que no es pot suprimir perl "
+"següent motiu:\n"
 "\n"
-"\"%s\"\n"
+"«%s»\n"
 "\n"
-"S'ha d'esborrar aquesta partició perquè aquesta unitat sigui un destí."
+"S'ha de suprimir aquesta partició perquè aquesta unitat pugui ser un destí."
 
 #: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
@@ -4354,7 +4349,6 @@ msgstr ""
 "S'ha produït un error en netejar les unitats destí. Ha fallat la clonació."
 
 #: ../iw/raid_dialog_gui.py:696
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4369,18 +4363,18 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Eina per clonar unitats\n"
+"Eina per a clonar unitats\n"
 "\n"
-"Amb aquesta eina reduireu l'esforç necessari per configurar grups RAID. Es "
+"Amb aquesta eina reduireu l'esforç necessari per a configurar grups RAID. Es "
 "tracta de seleccionar la unitat origen que s'ha preparat amb l'esquema de "
 "particions apropiada i clonar l'esquema en unitats de mides similars. Així "
 "podreu crear un dispositiu RAID.\n"
 "\n"
-"Atenció: la unitat origen ha de tenir particions restringides a aquesta "
-"unitat només, i tan sols poden contenir particions RAID de programari sense "
+"Atenció: la unitat origen ha de tenir particions restringides únicament a "
+"aquesta unitat, i només poden contenir particions RAID de programari sense "
 "fer servir. No es permeten altres tipus de particions.\n"
 "\n"
-"S'esborraran totes les dades de les unitats destí."
+"Se suprimiran totes les dades de les unitats destí."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
@@ -4435,9 +4429,8 @@ msgid "Invalid Repository Name"
 msgstr "El nom del dipòsit no és vàlid"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "El nom del dipòsit no pot tenir longitud zero."
+msgstr "Heu de proporcionar el nom del dipòsit."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4495,27 +4488,25 @@ msgid "_Create new boot loader configuration"
 msgstr "_Crea una nova configuració per al carregador de l'arrencada"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Es crearà una nova configuració del carregador de l'arrencada. Si voleu "
-"commutar entre carregadors de l'arrencada, escolliu aquesta opció."
+"Aquesta opció crea una configuració nova del carregador de l'arrencada. Si "
+"voleu commutar entre carregadors de l'arrencada, escolliu aquesta opció."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
 msgstr "_Omet l'actualització del carregador de l'arrencada"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"No es farà cap canvi a la vostra configuració del carregador de l'arrencada. "
-"Escolliu aquesta opció si esteu fent servir un carregador d'un altre "
-"fabricant."
+"Aquesta opció no farà cap canvi a la configuració del carregador de "
+"l'arrencada. Escolliu aquesta opció si feu servir un carregador de "
+"l'arrencada d'un altre fabricant."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4951,13 +4942,13 @@ msgstr ""
 "problemes més endavant."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Els prefixos IPv4 han de ser entre 0 i 32."
+msgstr "Els prefixos IPv%d han de ser entre 0 i %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "El prefix requereix un nombre enter"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4965,10 +4956,12 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Heu d'introduir un enter vàlid per a %s. Per a IPv4, el valor pot estar "
+"entre 0 i 32, i per a IPv6 entre 0 i 128. "
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 msgid "Prefix (Netmask)"
-msgstr "Prefixe (màscara de xarxa)"
+msgstr "Prefix (màscara de xarxa)"
 
 #: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
 msgid "Prefix"
@@ -5007,38 +5000,34 @@ msgstr "Configuració de xarxa per a %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "Adreça IP punt-a-punt"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Configuració d'IP dinàmica (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Configuració manual"
+msgstr "Configuració manual de l'adreça"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Configuració de xarxa per a %s"
+msgstr "Configuració de l'IPv4 per a %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "Adreça IPv4:"
+msgstr "Adreça IPv4"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Màscara de xarxa"
+msgstr "Màscara de xarxa IPv4"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefixe (màscara de xarxa)"
+msgstr "Prefix IPv4 (màscara de xarxa)"
 
 # FIXME
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
@@ -5050,20 +5039,18 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Configuració d'IP dinàmica (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Configuració de xarxa per a %s"
+msgstr "Configuració de l'IPv6 per a %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "Adreça IPv6:"
+msgstr "Adreça IPv6"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix IPv6"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5082,17 +5069,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "Altres paràmetres de xarxa"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
-msgstr "Passarel·la"
+msgstr "passarel·la"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
 msgstr "DNS primari"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
 msgstr "DNS secundari"
 
