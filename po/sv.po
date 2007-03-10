@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-09 20:07-0500\n"
+"PO-Revision-Date: 2007-03-09 20:57-0500\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2913,15 +2913,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Avancerad konfiguration av startprogram"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Att tvinga fram användandet av LBA32 för ditt startprogram kan göra att din "
-"dator inte startar om detta inte också stöds av datorns BIOS.\n"
+"Att tvinga fram användandet av LBA32 kan göra att din dator inte startar om "
+"LBA32 inte också stöds av systems BIOS.\n"
 "\n"
 "Vill du fortsätta och tvinga fram LBA32-läge?"
 
@@ -3104,7 +3103,7 @@ msgid "_Upgrade an existing installation"
 msgstr "_Uppgradera en befintlig installation"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3151,7 +3150,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Bekräfta ändring av fysisk yta"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3159,8 +3157,8 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"Denna ändring i värdet på den fysiska ytan kommer att kräva att kraven på "
-"storleken på den aktuella logiska volymen avrundas uppåt i storlek till en "
+"Denna ändring i värdet på den fysiska ytan kommer att kräva att storleken på "
+"den aktuella logiska volymen avrundas uppåt i storlek till en "
 "heltalsmultipel av den fysiska ytan.\n"
 "\n"
 "Denna ändring kommer att börja gälla omedelbart."
@@ -3315,7 +3313,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiska volymnamnet \"%s\" används redan. Välj ett annat."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3323,8 +3321,8 @@ msgid ""
 msgstr ""
 "Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
 "logiska volymstorleken (%10.2f MB). För att höja denna gräns kan du skapa "
-"fler fysiska volymer från opartitionerad diskyta och lägga till dem i denna "
-"volymgrupp."
+"fler fysiska volymer från opartitionerat diskutrymme och lägga till dem i "
+"denna volymgrupp."
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3359,18 +3357,17 @@ msgid "No free space"
 msgstr "Inget ledigt utrymme"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Det finns inget utrymme ledigt i volymgruppen för att skapa nya logiska "
+"Det finns inget ledigt utrymme i volymgruppen för att skapa nya logiska "
 "volymer. För att lägga till en logisk volym måste du minska storleken på en "
 "eller flera av de befintliga logiska volymerna"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Är du säker på att du vill ta bort den logiska volymen \"%s\"?"
 
@@ -3726,18 +3723,17 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefix får bara innehålla tal mellan 0 och 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"Du kan konfigurera startprogrammet att starta andra operativsystem. Det "
-"kommer att låta dig välja ett operativsystem att starta från listan. För att "
-"lägga till ytterligare operativsystem, som inte detekterats automatiskt, "
-"klickar du på \"Lägg till\". För att ändra det operativsystem som startas "
-"som standard väljer du \"Standard\" bredvid det önskade operativsystemet."
+"Du kan konfigurera startprogrammet att starta andra operativsystem genom att "
+"välja ett från listan. För att lägga till ett operativsystem som inte "
+"upptäckts automatiskt, klicka på \"Lägg till\". För att ändra det "
+"operativsystem som startas som standard väljer du \"Standard\" bredvid det "
+"önskade operativsystemet."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3752,7 +3748,6 @@ msgid "Image"
 msgstr "Avbild"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -4032,7 +4027,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4118,12 +4112,12 @@ msgid "Check for _bad blocks?"
 msgstr "Sök efter s_kadade block?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Partitioner av typen \"%s\" måste begränsas till en ensam hårddisk. Detta "
+"Partitioner av typen \"%s\" måste begränsas till en enda hårddisk. Detta "
 "görs genom att välja hårddisken i krysslistan \"Tillåtna hårddiskar\"."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4204,20 +4198,19 @@ msgid "Source Drive Error"
 msgstr "Källhårddiskfel"
 
 #: ../iw/raid_dialog_gui.py:498
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"Källhårddisken som valdes har partitioner på sig som inte är av typen "
-"\"programvaru-RAID\".\n"
+"Källhårddisken som valdes har partitioner som inte är av typen \"programvaru-"
+"RAID\".\n"
 "\n"
-"Dessa partitioner måste tas bort innan hårddisken kan klonas. "
+"Du måste ta bort dessa partitioner innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4225,23 +4218,23 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Källhårddisken har partitioner som inte begränsas till hårddisken /dev/%s.\n"
+"Källhårddisken du valt har partitioner som inte begränsas till enhetens /dev/"
+"%s.\n"
 "\n"
-"Dessa partitioner kommer att behöva tas bort eller begränsas till denna "
-"hårddisk innan hårddisken kan klonas. "
+"Du måste ta bort dessa partitioner eller begränsa dem till denna enhet innan "
+"hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:523
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
-"Källhårddisken som valts har programvaru-RAID-partition(er) som är medlemmar "
-"i en aktiv programvaru-RAID-enhet.\n"
+"Källenheten som valts har programvaru-RAID-partition(er) som är medlemmar i "
+"en aktiv programvaru-RAID-enhet.\n"
 "\n"
-"Dessa partitioner kommer att behöva tas bort innan hårddisken kan klonas."
+"Du måste ta bort dessa partitioner innan denna enhet kan klonas."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4311,7 +4304,6 @@ msgstr ""
 "Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
 
 #: ../iw/raid_dialog_gui.py:696
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4326,18 +4318,19 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Hårddiskkloningsverktyg\n"
+"Enhetskloningsverktyg\n"
 "\n"
 "Detta verktyg låter dig avsevärt minska mängden arbete som krävs för att "
-"konfigurera RAID-kedjor. Tanken är att ta en källhårddisk som har förberetts "
-"med den önskade partitionsstrukturen och sedan klona denna struktur på andra "
-"liknande hårddiskar med samma storlek. Då kan en RAID-enhet skapas.\n"
+"konfigurera RAID-kedjor. Detta verktyg använder en källenhet som har "
+"förberetts med den önskade partitionsstrukturen och klonar sedan denna "
+"struktur till andra liknande enheter med samma storlek. Då kan en RAID-enhet "
+"skapas.\n"
 "\n"
-"OBS: Källhårddisken måste ha partitioner som är begränsade till att endast "
-"vara på den hårddisken, och får endast innehålla oanvända programvaru-RAID-"
+"OBS: Källenheten måste ha partitioner som är begränsade till att endast vara "
+"på den enheten, och får endast innehålla oanvända programvaru-RAID-"
 "partitioner. Andra partitionstyper är inte tillåtna.\n"
 "\n"
-"ALLTING på målhårddiskarna kommer att förstöras i denna process."
+"ALLTING på målenheterna kommer att förstöras av denna process."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
@@ -4378,22 +4371,21 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"Kan inte hitta en gruppfil för %s.  Detta gör att manuell väljning av paket "
-"från datalagret inte kommer fungera"
+"Kan inte hitta en gruppfil för %s. Detta förhindrar att man manuellt kan "
+"välja paket från datalagret"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
 msgstr "Ogiltigt Repository-namn"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Du måste ange ett Repository-namn"
+msgstr "Du måste ange ett datalagernamn."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4452,12 +4444,11 @@ msgid "_Create new boot loader configuration"
 msgstr "_Skapa ny konfiguration av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Detta kommer att låta dig skapa en ny startprogramskonfiguration. Om du vill "
+"Detta alternativ skapar en ny konfiguration för startprogrammet. Om du vill "
 "byta startprogram bör du välja detta."
 
 #: ../iw/upgrade_bootloader_gui.py:96
@@ -4465,13 +4456,13 @@ msgid "_Skip boot loader updating"
 msgstr "_Hoppa över uppdatering av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Detta kommer inte att göra några ändringar i din startprogramskonfiguration. "
-"Om du använder ett startprogram från en tredje part bör du välja detta."
+"Detta alternativ kommer inte att göra några ändringar i din konfiguration "
+"för startprogrammet. Om du använder ett startprogram från en tredje part bör "
+"du välja detta."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4482,7 +4473,7 @@ msgid "Migrate File Systems"
 msgstr "Migrera filsystem"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4491,9 +4482,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denna version av %s stöder journalfilsystemet ext3. Det har flera fördelar "
-"framför ext2-filsystemet som normalt använts i %s. Det är möjligt att "
-"migrera de ext2-formaterade partitionerna till ext3 utan förlust av data.\n"
+"Denna utgåva av %s stöder journalfilsystemet ext3. Det har flera fördelar "
+"framför ext2-filsystemet som normalt använts i %s. Installationsprogrammet "
+"kan migrera ext2-formaterade partitioner till ext3 utan förlust av data.\n"
 "\n"
 "Vilka av dessa partitioner vill du migrera?"
 
@@ -4502,17 +4493,17 @@ msgid "Upgrade Swap Partition"
 msgstr "Uppgradera växlingspartition"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"2.4-kärnan behöver avsevärt mer växlingsutrymme (swap) än tidigare kärnor, "
-"så mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. "
-"Du har för tillfället %d MB växlingsutrymme konfigurerat, men du kan skapa "
-"ytterligare växlingsutrymme på ett av dina filsystem nu."
+"Nyare kärnor (2.4 eller nyare) behöver avsevärt mer växlingsutrymme (swap) "
+"än tidigare kärnor, upp till dubbelt så mycket som mängden RAM-minne på "
+"systemet. Du har för tillfället %d MB växlingsutrymme konfigurerat, men du "
+"kan skapa ytterligare växlingsutrymme på ett av dina filsystem nu."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4542,7 +4533,7 @@ msgid "Free Space (MB)"
 msgstr "Ledigt utrymme (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4559,7 +4550,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Jag vill i_nte skapa en växlingsfil"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is stongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4642,7 +4632,6 @@ msgid "Skip Boot Loader"
 msgstr "Hoppa över startprogram"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4652,22 +4641,21 @@ msgid ""
 msgstr ""
 "Du har valt att inte installera något startprogram. Det rekommenderas varmt "
 "att du installerar ett startprogram om du inte har särskilda behov. Ett "
-"startprogram  behövs nästan alltid för att ditt system ska kunna startas om "
-"i Linux direkt från hårddisken.\n"
+"startprogram behövs nästan alltid för att ditt system ska kunna starta Linux "
+"direkt från hårddisken.\n"
 "\n"
 "Är du säker på att du vill hoppa över installationen av startprogram?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
-"Några system behöver skicka speciella flaggor till kärnan vid start för att "
-"systemet ska fungera ordentligt. Om du behöver skicka sådana flaggor, ange "
-"dem nu. Om du inte behöver några, eller om du inte är säker, låter du fältet "
-"vara tomt."
+"Ett fåtal system behöver skicka speciella flaggor till kärnan vid start för "
+"att fungera ordentligt. Om du behöver skicka sådana startflaggor till "
+"kärnan, ange dem nu. Om du inte behöver några, eller om du inte är säker, "
+"låter du fältet vara tomt."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4706,15 +4694,15 @@ msgid "Edit"
 msgstr "Redigera"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
 "Starthanteraren som %s använder kan också starta andra operativsystem. Du "
-"måste berätta vilka andra partitioner du vill kunna starta och vilka "
-"startetiketter du vill använda för att starta dem."
+"måste ange vilka andra partitioner du vill kunna starta och vilka "
+"startetiketter du vill använda för var och en av dem."
 
 #: ../textw/bootloader_text.py:290
 msgid ""
@@ -4723,16 +4711,15 @@ msgstr ""
 " <Blanksteg> välj | <F2> välj standard | <F4> ta bort | <F12> nästa skärm>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"Ett startprogramslösenord förhindrar användare från att skicka godtyckliga "
-"alternativ till kärnan. Vi rekommenderar att ett lösenord anges för största "
-"möjliga säkerhet, men detta är inte nödvändigt för användare som inte har så "
-"stort behov av säkerhet."
+"Ett lösenord för startprogrammet förhindrar användare från att skicka "
+"godtyckliga alternativ till kärnan. För störst säkerhet ska du sätta en "
+"lösenord, men ett lösenord inte för användare som inte har så stort behov av "
+"säkerhet."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4964,7 +4951,7 @@ msgstr "Nätverkskonfiguration för %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "IP-adress för punkt-till-punkt"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
@@ -5056,7 +5043,6 @@ msgid "Hostname Configuration"
 msgstr "Värdnamnskonfiguration"
 
 #: ../textw/network_text.py:702
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5261,9 +5247,8 @@ msgid "Too many spares"
 msgstr "För många reserver"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Det största antalet reserver hos en RAID0-enhet är 0."
+msgstr "Du får inte använda några reserver för en RAID0-kedja."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
@@ -5274,7 +5259,7 @@ msgid "No volume groups exist in which to create a logical volume"
 msgstr "Inga volymgrupper finns för att skapa en logisk volym i"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5330,9 +5315,8 @@ msgid "No Root Partition"
 msgstr "Ingen rotpartition"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS-installationsmetod kräver IPv4-stöd."
+msgstr "Installationen kräver en /-partition."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5440,7 +5424,6 @@ msgid "Customize software selection"
 msgstr "Anpassa valet av programvara"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "Vilken tidszon befinner du dig i?"
 
@@ -5494,14 +5477,13 @@ msgid "System to Upgrade"
 msgstr "System att uppgradera"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"En eller flera Linux-installationer har hittats på ditt system.\n"
+"Det verkar finnas en eller flera Linux-installationer på ditt system.\n"
 "\n"
 "Välj en att uppgradera, eller välj \"Installera om system\" för att "
 "installera ditt system från grunden."
@@ -5511,15 +5493,14 @@ msgid "Root Password"
 msgstr "Root-lösenord"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
 msgstr ""
-"Välj ett root-lösenord. Du måste skriva det två gånger för att säkerställa "
-"att du vet vad det var och att du inte skrev fel. Kom ihåg att root-"
-"lösenordet är en kritisk del av systemets säkerhet!"
+"Välj ett lösenord för root. Du måste skriva det två gånger för att "
+"säkerställa att du vet vad det var och att du inte skrev fel. Kom ihåg att "
+"lösenordet för root är en kritisk del av systemets säkerhet!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5605,9 +5586,8 @@ msgid "Storage Clustering"
 msgstr "Lagringsklustring"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Installationstyp"
+msgstr "Installationsnummer"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -5630,6 +5610,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Om du inte kan hitta Installationsnumret, se http://www.redhat.com/apps/"
+"support/in.html.\n"
+"\n"
+"Om du hoppar över detta:\n"
+"* Kanske du inte får full tillgång till hela setet av paket som ingår i "
+"dinprenumeration.\n"
+"* Det kan resultera i en installation av Red Hat Enterprise Linux som inte "
+"stöds eller är certifierad.\n"
+"* Du får inte program- och säkerhetsuppdateringar för paket som inte ingår i "
+"din prenumeration."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6256,12 +6246,9 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Felaktigt argument till enhetskickstartmetodkommandot %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"Följande ogiltiga argument angavs till kickstartkommandot för "
-"drivrutinsdiskett: %s:%s"
+msgstr "Både modultyp och namn måste anges för kommandot för kickstartenheten."
 
 #: ../loader2/net.c:59
 #, c-format
