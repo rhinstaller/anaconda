@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-08 17:11+0200\n"
+"PO-Revision-Date: 2007-03-10 20:25+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -619,7 +619,7 @@ msgstr "Pierwszy sektor partycji startowej"
 
 #: ../fsset.py:1376
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record (MBR)"
+msgstr "Główny sektor startowy (MBR)"
 
 #: ../fsset.py:1451
 #, python-format
@@ -2979,7 +2979,7 @@ msgstr ""
 "zarówno SCSI jak i IDE, a chcesz uruchamiać system z urządzenia SCSI.\n"
 "\n"
 "Zmiana kolejności dysków zmieni miejsce, które program instalacyjny uznaje "
-"za Master Boot Record (MBR)."
+"za główny sektor startowy (MBR)."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
