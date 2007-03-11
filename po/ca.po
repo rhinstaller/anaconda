@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-10 20:47+0100\n"
+"PO-Revision-Date: 2007-03-11 04:11+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,7 @@ msgstr "Error desconegut"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"S'ha produït un error en extreure la segona part del fitxer d'arrencada "
-"ràpida: %s"
+"S'ha produït un error en extreure la segona part del fitxer del kickstart: %s"
 
 #: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
 #, c-format, python-format
@@ -49,8 +48,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"S'ha trobat el següent error en analitzar la configuració de l'arrencada "
-"ràpida:n\n"
+"S'ha trobat el següent error en analitzar la configuració del kickstart:\n"
 "\n"
 "%s"
 
@@ -371,7 +369,7 @@ msgstr ""
 "Premeu «D'acord» per escollir una opció de particionat diferent."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -384,8 +382,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Això pot passar si no hi ha prou espai als discos durs per a la instal·lació."
-"%s"
+"Això pot passar si no hi ha prou espai als discos durs per a la "
+"instal·lació. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -1337,9 +1335,8 @@ msgid "Exit installer"
 msgstr "Surt de l'instal·lador"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "S'està transferint la imatge d'instal·lació al disc dur..."
+msgstr "S'està transferint la imatge d'instal·lació al disc dur."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1392,19 +1389,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "«%s» no és una adreça IP vàlida."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "El prefix no és vàlid"
+msgstr "La klau no és vàlida"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "El valor que heu indicat no és un nombre vàlid."
+msgstr "La clau que heu introduït no és vàlida."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Omet"
+msgstr "_Omet"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1463,7 +1457,7 @@ msgstr ""
 "Voleu formatar aquest DASD amb el format CDL?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1475,7 +1469,7 @@ msgstr ""
 "per a la instal·lació de %s, s'ha de reinicialitzar, causant-ne la pèrdua de "
 "totes les dades.\n"
 "\n"
-"Voleu formatar aquesta unitat?"
+"Voleu reinicialitzar aquesta unitat?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -3053,11 +3047,11 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Podeu trobar el fitxer de registre de la instal·lació a '%s' després "
+"Podeu trobar el fitxer de registre de la instal·lació a «%s» després "
 "d'arrencar de nou el sistema.\n"
 "\n"
-"Després d'arrencar de nou el sistema, podeu trobar un fitxer d'arrencada "
-"ràpida que conté les opcions d'instal·lació seleccionades a '%s'."
+"Després d'arrencar de nou el sistema, podeu trobar un fitxer kickstart que "
+"conté les opcions d'instal·lació seleccionades a «%s»."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -3184,7 +3178,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Confirmeu el canvi d'extensió física"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3330,7 +3323,7 @@ msgid "Mount point in use"
 msgstr "El punt de muntatge ja està en ús"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "El punt de muntatge «%s» ja s'utilitza. Escolliu-ne un altre."
 
@@ -3348,7 +3341,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "El nom del volum lògic «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3392,18 +3385,17 @@ msgid "No free space"
 msgstr "No hi ha espai lliure"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"No hi ha espai lliure en el grup de volum per crear més volums lògics. Per "
+"No hi ha espai lliure en el grup de volum per a crear més volums lògics. Per "
 "afegir un volum lògic necessiteu reduir la mida d'un o més dels volums "
-"lògics existents."
+"lògics existents"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Esteu segur que voleu suprimir el volum lògic «%s»?"
 
@@ -3760,7 +3752,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Els prefixos IPv6 han de ser entre 0 i 255."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3768,11 +3759,9 @@ msgid ""
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Podeu configurar el carregador de l'arrencada per arrencar altres sistemes "
-"operatius. Se us permetrà seleccionar quin sistema arrencar d'una llista. "
-"Per afegir sistemes operatius addicionals que no es detectin automàticament, "
-"feu clic a 'Afegeix'. Per canviar quin sistema operatiu arrenca de manera "
-"predeterminada, seleccioneu com a 'Predeterminat' el sistema operatiu "
-"desitjat."
+"operatius. Per afegir sistemes operatius addicionals que no es detectin "
+"automàticament, feu clic a «Afegeix». Per canviar quin sistema operatiu "
+"arrencarà de manera predeterminada, seleccioneu-lo com a «Predeterminat»."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3787,14 +3776,13 @@ msgid "Image"
 msgstr "Imatge"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"Introduïu l'etiqueta que es mostrarà en el menú del carregador de "
-"l'arrencada. El dispositiu (o el disc dur i el número de la partició) és el "
-"dispositiu des del qual s'arrenca."
+"Introduïu l'etiqueta que es mostrarà al menú del carregador de l'arrencada. "
+"El dispositiu (o el disc dur i el número de la partició) és el dispositiu "
+"des del qual s'arrencarà."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -4416,7 +4404,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4517,7 +4505,7 @@ msgid "Migrate File Systems"
 msgstr "Convertir els sistemes de fitxers"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4526,28 +4514,28 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Aquesta versió de %s pot fer servir el sistema de fitxers journalling ext3. "
+"Aquesta versió de %s pot fer servir el sistema de fitxers journaling ext3. "
 "L'ext3 proporciona alguns beneficis comparat amb el sistema de fitxers ext2, "
 "que s'ha fet servir tradicionalment en %s. Es pot convertir una partició "
-"formatada amb ext2 en ext3 sense que es perdin les dades.\n"
+"formatada amb ext2 a ext3 sense que se'n perdin les dades.\n"
 "\n"
-"Escolliu quines particions voleu convertir."
+"Quines d'aquestes particions voleu convertir?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "Actualitza la partició d'intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"El nucli 2.4 necessita força més memòria d'intercanvi que els anteriors "
-"nuclis, almenys el doble de la memòria RAM del sistema. Actualment teniu %"
-"dMB de memòria d'intercanvi configurada, però ara podreu crear espai "
+"Nuclis recents (2.4 i posteriors) necessiten força més memòria d'intercanvi "
+"que els anteriors, fins el doble de la memòria RAM del sistema. Actualment "
+"teniu %dMB de memòria d'intercanvi configurada, però ara podreu crear espai "
 "d'intercanvi addicional en un dels sistemes de fitxers."
 
 #: ../iw/upgrade_swap_gui.py:96
@@ -4578,7 +4566,7 @@ msgid "Free Space (MB)"
 msgstr "Espai lliure (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4595,7 +4583,6 @@ msgid "I _don't want to create a swap file"
 msgstr "No creïs cap fitxer _d'intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is stongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4677,7 +4664,6 @@ msgid "Skip Boot Loader"
 msgstr "Omet el carregador"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4686,14 +4672,13 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Heu decidit no instal·lar cap carregador de l'arrencada. És molt recomanable "
-"que n'instal·leu un, a no ser que tingueu necessitats fora del comú. Gairebé "
-"en tots els casos es necessita un carregador de l'arrencada per reiniciar "
-"aquest sistema a Linux des del disc dur.\n"
+"que n'instal·leu un, si no és que requeriu res fora del comú. Gairebé en "
+"tots els casos es necessita un carregador de l'arrencada per iniciar aquest "
+"sistema a Linux des del disc dur.\n"
 "\n"
 "Esteu segur que no voleu instal·lar cap carregador de l'arrencada?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4740,7 +4725,7 @@ msgid "Edit"
 msgstr "Edita"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
@@ -4757,15 +4742,14 @@ msgstr ""
 " <Espai> selecciona | <F2> predeterminat | <F4> suprimeix | <F12> següent>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"La contrasenya del carregador de l'arrencada evita que els usuaris passin "
-"opcions arbitràries al nucli. Per a més seguretat, es recomana definir una "
-"contrasenya, però la majoria dels usuaris no ho necessiten."
+"La contrasenya del carregador de l'arrencada evita que els usuaris puguin "
+"passar opcions arbitràries al nucli. Per a més seguretat, es recomana "
+"establir una contrasenya, tot i que la majoria dels usuaris no ho necessitin."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4890,9 +4874,8 @@ msgstr ""
 "per si us cal més endavant."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Seleccioneu els grups de paquets que vulgueu tenir instal·lats."
+msgstr "Seleccioneu els grups de paquets que vulgueu instal·lar."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -5093,7 +5076,6 @@ msgid "Hostname Configuration"
 msgstr "Configuració del nom de l'ordinador"
 
 #: ../textw/network_text.py:702
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5103,7 +5085,7 @@ msgstr ""
 "Si el sistema forma part d'una xarxa gran on els noms d'ordinador s'assignen "
 "a través de DHCP, seleccioneu automàticament mitjançant DHCP. Altrament, "
 "seleccioneu manualment i indiqueu el nom de l'ordinador d'aquest sistema. Si "
-"no ho feu, el sistema s'anomenarà 'localhost'."
+"no ho feu, el sistema s'anomenarà «localhost»."
 
 #: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
@@ -5256,7 +5238,6 @@ msgid "Not Supported"
 msgstr "No està implementat"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
 "Els grups de volum LVM només es poden editar amb l'instal·lador gràfic."
@@ -5298,22 +5279,19 @@ msgid "Too many spares"
 msgstr "Hi ha massa discos de recanvi"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr ""
-"La quantitat màxima de discos de recanvi per a una matriu RAID0 és de 0."
+msgstr "No podeu fer servir discos de recanvi en un RAID0."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Cap grup de volum"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "No hi ha cap grup de volum on crear un volum lògic"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5369,9 +5347,8 @@ msgid "No Root Partition"
 msgstr "No hi ha partició arrel"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "El mètode d'instal·lació per NFS requereix IPv4."
+msgstr "La instal·lació requereix una partició arrel («/»)."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5441,14 +5418,12 @@ msgstr ""
 "màquina."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "Adreça IP de destí:"
+msgstr "Adreça IP objectiu"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Nom de l'inicialitzador iSCSI:</b>"
+msgstr "Nom de l'inicialitzador iSCSI"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5482,7 +5457,6 @@ msgid "Customize software selection"
 msgstr "Personalitza la selecció del programari"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "En quin fus horari esteu?"
 
@@ -5536,7 +5510,6 @@ msgid "System to Upgrade"
 msgstr "Sistema a actualitzar"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5545,7 +5518,7 @@ msgid ""
 msgstr ""
 "S'ha trobat una o més instal·lacions de Linux en aquest sistema.\n"
 "\n"
-"Escolliu quina actualitzar, o seleccioneu 'Reinstal·la el sistema' per a una "
+"Escolliu quina actualitzar, o seleccioneu «Reinstal·la el sistema» per a una "
 "instal·lació des de zero del sistema."
 
 #: ../textw/userauth_text.py:27
@@ -5553,7 +5526,6 @@ msgid "Root Password"
 msgstr "Contrasenya del superusuari"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5578,7 +5550,6 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5630,35 +5601,36 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Oficina"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimèdia"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Virtualització (Xen)"
+msgstr "Virtualització"
 
+# FIXME FIXME FIXME (josep)
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Clusterització"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Emmagatzemament en clústers"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Tipus d'instal·lació"
+msgstr "Número d'instal·lació"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"Per a instal·lar tots els paquets disponibles inclosos a la vostra "
+"subscripció, introduïu el vostre número d'instal·lació"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5673,6 +5645,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Si no podeu localitzar el Número d'Instal·lació, consulteu http://www.redhat."
+"com/apps/support/in.html\n"
+"\n"
+"Si ometeu el pas:\n"
+"* No podreu obtenir accés a tota la col·lecció de paquets inclosos a la "
+"vostra subscripció.\n"
+"* Pot ser que resulti ser una instal·lació no suportada o certificada de Red "
+"Hat Enterprise Linux.\n"
+"* No obtindreu actualitzacions del programari ni de seguretat per als "
+"paquets que no estiguin inclosos a la subscripció."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5751,7 +5733,7 @@ msgstr "No s'ha trobat el CD"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
-msgstr "No s'ha pogut trobar el fitxer d'arrencada ràpida al CDROM."
+msgstr "No s'ha pogut trobar el fitxer kickstart al CDROM."
 
 #: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
 msgid "Loading"
@@ -5858,12 +5840,12 @@ msgstr "Voleu carregar més discos de controladors?"
 #: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
 #: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
-msgstr "S'ha produït un error en l'arrencada ràpida"
+msgstr "S'ha produït un error en el kickstart"
 
 #: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "No es coneix cap font d'arrencada ràpida de discos de controladors: %s"
+msgstr "No es coneix cap font de discos de controladors del kickstart: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
@@ -5872,7 +5854,7 @@ msgid ""
 "command: %s:%s"
 msgstr ""
 "S'ha especificat el següent argument invàlid de la comanda per al disc de "
-"controladors de l'arrencada ràpida: %s:%s"
+"controladors del kickstart: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5979,11 +5961,11 @@ msgstr "El dispositiu %s no sembla que contingui imatges de CDROM de %s."
 #: ../loader2/hdinstall.c:407
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre HD d'arrencada ràpida %s: %s"
+msgstr "Argument erroni per a l'ordre HD del kickstart %s: %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
-msgstr "No s'ha pogut trobar el fitxer d'arrencada ràpida al disc dur."
+msgstr "No s'ha pogut trobar el fitxer del kickstart al disc dur."
 
 #: ../loader2/hdinstall.c:520
 #, c-format
@@ -6001,19 +5983,19 @@ msgstr "Quin tipus de teclat teniu?"
 #: ../loader2/kickstart.c:128
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "S'ha produït un error en obrir el fitxer d'arrencada ràpida %s: %s"
+msgstr "S'ha produït un error en obrir el fitxer kickstart %s: %s"
 
 #: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr ""
-"S'ha produït un error en llegir els continguts del fitxer d'arrencada ràpida "
-"%s: %s"
+"S'ha produït un error en llegir els continguts del fitxer del kickstart %s: %"
+"s"
 
 #: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Hi ha un error a %s a la línia %d del fitxer d'arrencada ràpida %s."
+msgstr "Hi ha un error a %s a la línia %d del fitxer kickstart %s."
 
 #: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
@@ -6035,8 +6017,7 @@ msgstr "S'ha produït un error en baixar el fitxer kickstart"
 #: ../loader2/kickstart.c:486
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argument erroni per aturar l'ordre del mètode de l'arrencada ràpida %s: %s"
+msgstr "Argument erroni per aturar l'ordre del mètode del kickstart %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6293,16 +6274,14 @@ msgstr "Comprovació de les sumes de verificació"
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
-"Argument erroni al dispositiu de l'ordre del mètode de l'arrencada ràpida %"
-"s: %s"
+"Argument erroni al dispositiu de l'ordre del mètode del kickstart %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"S'ha especificat el següent argument invàlid de la comanda per al disc de "
-"controladors de l'arrencada ràpida: %s:%s"
+"S'ha d'especificar tan el tipus com el nom del mòdul per a la comanda de la "
+"unitat del kickstart."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6452,7 +6431,7 @@ msgstr "S'està determinant el nom de la màquina i el domini..."
 #: ../loader2/net.c:1609
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Argument erroni per a l'ordre de xarxa de l'arrencada ràpida %s: %s"
+msgstr "Argument erroni per a l'ordre de xarxa del kickstart %s: %s"
 
 #: ../loader2/net.c:1632
 #, c-format
@@ -6504,7 +6483,7 @@ msgstr "No s'ha pogut muntar aquell directori des del servidor."
 #: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre de l'arrencada ràpida NFS %s: %s"
+msgstr "Argument erroni per a l'ordre del kickstart NFS %s: %s"
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
@@ -6540,11 +6519,11 @@ msgstr "S'ha detectat el medi per a la instal·lació local..."
 #: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre de l'arrenca ràpida url %s: %s"
+msgstr "Argument erroni per a l'ordre Url del mètode del kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Cal indicar l'argument --url al mètode url de l'arrencada ràpida."
+msgstr "Cal indicar l'argument --url al mètode Url del kickstart."
 
 #: ../loader2/urlinstall.c:477
 #, c-format
@@ -6694,9 +6673,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_visa i modifica l'esquema de particions"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Quin idioma voleu fer servir durant el procés d'instal·lació?"
+msgstr "Des de quina unitat voleu arrencar aquesta instal·lació?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6717,7 +6695,7 @@ msgstr "Detalls de l'_excepció"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
