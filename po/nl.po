@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-07 23:21+0100\n"
+"PO-Revision-Date: 2007-03-11 13:48+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Gevraagd RAID-apparaat bestaat niet"
+msgstr "Gevraagde RAID-opstelling bestaat niet"
 
 #: ../autopart.py:1288
 #, python-format
@@ -257,7 +257,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Niet in staat raid-apparaat %s te vinden om te gebruiken voor %s.\n"
+"Niet in staat RAID-opstelling %s te vinden om te gebruiken voor %s.\n"
 "\n"
 "Druk op 'OK' om uw systeem te herstarten."
 
@@ -1481,7 +1481,7 @@ msgstr "_Negeer station"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "Station _opnieuw initialiseren"
 
 #: ../partedUtils.py:917
 msgid "Initializing"
@@ -2652,7 +2652,7 @@ msgstr "<b>Installeren van %s</b> (%s)\n"
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s van %s pakketten voltooid"
 
 #: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
@@ -3609,11 +3609,11 @@ msgstr "Fout bij het configureren van uw netwerkapparaat"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
-msgstr "Eerste DNS-server"
+msgstr "Primaire DNS-server"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:531
 msgid "Secondary DNS"
-msgstr "Tweede DNS-server"
+msgstr "Secundaire DNS-server"
 
 #: ../iw/network_gui.py:28
 msgid "_Gateway"
@@ -3621,11 +3621,11 @@ msgstr "_Gateway"
 
 #: ../iw/network_gui.py:28
 msgid "_Primary DNS"
-msgstr "_Eerste DNS-server"
+msgstr "_Primaire DNS-server"
 
 #: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
-msgstr "_Tweede DNS-server"
+msgstr "_Secundaire DNS-server"
 
 #: ../iw/network_gui.py:31
 msgid "Network Configuration"
@@ -3778,19 +3778,17 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"U kunt met een bootloader ook andere besturingssystemen opstarten. Zo kunt u "
-"de bootloader zo instellen dat het een keuzelijst toont met alle "
-"besturingssystemen. Om nu besturingssystemen toe te voegen die niet "
-"automatisch werden gedetecteerd, klikt u op 'Toevoegen'. Het "
-"besturingssysteem dat standaard moet worden opgestart geeft u een vinkje in "
-"de kolom 'Standaard'."
+"U kunt de bootloader configureren om andere besturingssystemen op te starten "
+"door te selecteren uit de lijst. Klik op 'Toevoegen' om een besturingssysteem "
+"dat niet automatisch gedetecteerd werd toe te voegen. Selecteer 'Standaard' "
+"naast het gewenste besturingssysteem om het besturingssysteem dat standaard "
+"wordt opgestart te veranderen."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3805,13 +3803,12 @@ msgid "Image"
 msgstr "Image"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
 "Voer een label in dat in het bootloader-menu zal verschijnen. Het apparaat "
-"(of harde schijf en partitienummer) is de partitie waarvan het wordt "
+"(of harde schijf en partitienummer) is het apparaat waarvan het wordt "
 "opgestart."
 
 #: ../iw/osbootwidget.py:149
@@ -3966,12 +3963,11 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
-"Deze fouten moeten worden hersteld voordat u verder kunt gaan met de "
-"installatie van %s."
+"U moet deze fouten herstellen voordat u verder gaat met uw installatie van %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4090,7 +4086,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4098,7 +4093,7 @@ msgid ""
 "\n"
 msgstr ""
 "Om RAID te gebruiken moet u eerst tenminste twee partities aanmaken van het "
-"type 'softwarematig RAID'.  Daarna kunt u een RAID-opstelling maken welke "
+"type 'softwarematig RAID'.  Daarna kunt u een RAID-opstelling aanmaken welke "
 "geformatteerd en aangekoppeld kan worden.\n"
 "\n"
 
@@ -4179,13 +4174,14 @@ msgid "Check for _bad blocks?"
 msgstr "Controleren op schijf_fouten?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Partities van type '%s' moeten beperkt zijn tot een enkel station.  Dit "
-"bereikt u door het station te kiezen in de checklist: 'Toegestane stations'."
+"bereikt u door het station te selecteren in de checklist: 'Toegestane "
+"stations'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4266,21 +4262,19 @@ msgid "Source Drive Error"
 msgstr "Bronstation fout"
 
 #: ../iw/raid_dialog_gui.py:498
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"Het geselecteerde bronstation bevat partities die niet van type "
+"Het bronstation dat u hebt geselecteerd bevat partities die niet van type "
 "'softwarematig RAID' zijn.\n"
 "\n"
-"Deze partities zullen moeten worden verwijderd voordat dit station kan "
-"worden gekloond. "
+"U moet deze partities verwijderen voordat dit station kan worden gekloond. "
 
 #: ../iw/raid_dialog_gui.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4288,25 +4282,23 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Het geselecteerde bronstation bevat partities die niet beperkt zijn tot het "
-"station /dev/%s.\n"
+"Het bronstation dat u hebt geselecteerd bevat partities die niet beperkt "
+"zijn tot het station /dev/%s.\n"
 "\n"
-"Deze partities zullen moeten worden verwijderd of worden beperkt tot dit "
-"station voordat dit station kan worden gekloond. "
+"U moet deze partities verwijderen of beperken tot dit station voordat dit "
+"station kan worden gekloond. "
 
 #: ../iw/raid_dialog_gui.py:523
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
-"Het geselecteerde bronstation bevat softwarematige RAID-partitie(s) die deel "
-"uitmaken van een werkzame softwarematige RAID-opstelling.\n"
+"Het bronstation dat u hebt geselecteerd bevat softwarematige RAID-partitie(s) "
+"die deel uitmaken van een actieve softwarematige RAID-opstelling.\n"
 "\n"
-"Deze partities zullen moeten worden verwijderd voordat dit station kan "
-"worden gekloond."
+"U moet deze partities verwijderen voordat dit station kan worden gekloond."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:561
@@ -4325,7 +4317,7 @@ msgstr ""
 "geselecteerd."
 
 #: ../iw/raid_dialog_gui.py:562
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4339,7 +4331,7 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"Deze partitie moet worden verwijderd voordat dit station als doel kan worden "
+"U moet deze partitie verwijderen voordat dit station als doel kan worden "
 "gebruikt."
 
 #: ../iw/raid_dialog_gui.py:623
@@ -4379,7 +4371,6 @@ msgstr ""
 "Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
 
 #: ../iw/raid_dialog_gui.py:696
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4394,19 +4385,18 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Station klonen hulp\n"
+"Station klonen hulpmiddel\n"
 "\n"
-"Deze hulp biedt u de mogelijkheid om zonder veel moeite een RAID-opstelling "
-"te maken. Het idee is om een bron-station te nemen die opgezet is met de "
-"gewenste partitieopmaak en deze opmaak vervolgens te klonen naar andere "
-"stations van gelijke grootte.  Daarna kan eenvoudig een RAID-opstelling "
-"worden gemaakt.\n"
+"Dit hulpmiddel biedt u de mogelijkheid om zonder veel moeite een RAID-"
+"opstelling te maken. Dit hulpmiddel gebruikt een bronstation dat opgezet is "
+"met de gewenste partitieopmaak en kloont deze opmaak naar andere stations van "
+"gelijke grootte.  Daarna kan een RAID-opstelling worden gemaakt.\n"
 "\n"
-"LET WEL: De partities op het het bron-station mogen zich enkel op dat "
-"station bevinden en mogen alleen ongebruikte softwarematig-RAID partities "
-"bevatten.  Andere partitie-typen zijn niet toegestaan.\n"
+"LET OP: De partities op het bronstation mogen zich enkel op dat station "
+"bevinden en mogen alleen ongebruikte softwarematig-RAID partities bevatten. "
+"Andere partitie-typen zijn niet toegestaan.\n"
 "\n"
-"ALLES op de doel-station(s) zal door dit proces worden vernietigd."
+"ALLES op de doelstation(s) zal door dit proces worden vernietigd."
 
 #: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
@@ -4448,12 +4438,12 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"Er is geen groepsbestand gevonden voor %s. Dit maakt een handmatige selectie "
+"Er is geen groepsbestand voor %s gevonden. Dit maakt een handmatige selectie "
 "van pakketten uit de repository niet mogelijk"
 
 #: ../iw/task_gui.py:122
@@ -4461,9 +4451,8 @@ msgid "Invalid Repository Name"
 msgstr "Ongeldige repository-naam"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "U moet een repository-naam opgeven met een lengte die niet-nul is."
+msgstr "U moet een repository-naam opgeven."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4929,9 +4918,8 @@ msgstr ""
 "in %s. Het is handig dit bestand te bewaren voor referentiedoeleinden."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Selecteer de pakketgroepen die u geïnstalleerd wilt hebben."
+msgstr "Selecteer de pakketgroepen die u wilt installeren."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4983,9 +4971,9 @@ msgstr ""
 "dit later problemen geven."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
+msgstr "IPv%d-prefix moet tussen 0 en %d liggen."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
@@ -5046,31 +5034,27 @@ msgid "Dynamic IP configuration (DHCP)"
 msgstr "Dynamische IP-configuratie (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Handmatige configuratie"
+msgstr "Handmatige adresconfiguratie"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Netwerkconfiguratie voor %s"
+msgstr "IPv4-configuratie voor %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4-adres:"
+msgstr "IPv4-adres"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmask"
+msgstr "IPv4-netwerkmasker"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefix (netmask)"
+msgstr "IPv4-prefix (netwerkmasker)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
@@ -5081,20 +5065,18 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Dynamische IP-configuratie (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Netwerkconfiguratie voor %s"
+msgstr "IPv6-configuratie voor %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6-adres:"
+msgstr "IPv6-adres"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefix"
+msgstr "IPv6-prefix"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5102,30 +5084,27 @@ msgstr "Gateway:"
 
 #: ../textw/network_text.py:592
 msgid "Primary DNS:"
-msgstr "Eerste DNS-server:"
+msgstr "Primaire DNS-server:"
 
 #: ../textw/network_text.py:597
 msgid "Secondary DNS:"
-msgstr "Tweede DNS-server:"
+msgstr "Secundaire DNS-server:"
 
 #: ../textw/network_text.py:604
 msgid "Miscellaneous Network Settings"
 msgstr "Overige netwerk instellingen"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
-msgstr "Eerste DNS-server"
+msgstr "primaire DNS-server"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Tweede DNS-server"
+msgstr "secundaire DNS-server"
 
 #: ../textw/network_text.py:677
 msgid "automatically via DHCP"
@@ -5141,7 +5120,6 @@ msgid "Hostname Configuration"
 msgstr "Computernaam configureren"
 
 #: ../textw/network_text.py:702
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5487,14 +5465,12 @@ msgstr ""
 "van de iSCSI initiator opgeven die u hebt geconfigureerd voor uw host."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "Doel IP-adres:"
+msgstr "Doel IP-adres"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI initiator _naam:</b>"
+msgstr "iSCSI initiator-naam"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5684,9 +5660,8 @@ msgid "Multimedia"
 msgstr ""
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Virtualisatie (Xen)"
+msgstr "Virtualisatie"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
@@ -5697,9 +5672,8 @@ msgid "Storage Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Soort installatie"
+msgstr "Installatienummer"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -6768,7 +6742,7 @@ msgstr "_Uitzondering details"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
