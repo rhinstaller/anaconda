@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-11 13:48+0100\n"
+"PO-Revision-Date: 2007-03-12 22:14+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -4511,12 +4511,11 @@ msgid "_Create new boot loader configuration"
 msgstr "Nieuwe bootloader-_configuratie maken"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Dit laat u een nieuwe bootloader-configuratie maken. Als u van bootloader "
+"Deze optie maakt een nieuwe bootloader-configuratie aan. Als u van bootloader "
 "wilt veranderen, moet u dit kiezen."
 
 #: ../iw/upgrade_bootloader_gui.py:96
@@ -4524,13 +4523,12 @@ msgid "_Skip boot loader updating"
 msgstr "Bootloader bijwerken _overslaan"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Dit brengt geen veranderingen aan in de configuratie van de bootloader. Als "
-"u een aparte bootloader heeft, moet u dit kiezen."
+"Deze optie brengt geen veranderingen aan in de bootloader-configuratie. Als u "
+"een aparte bootloader gebruikt, moet u dit kiezen."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4541,7 +4539,7 @@ msgid "Migrate File Systems"
 msgstr "Bestandssystemen migreren"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4550,29 +4548,30 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Deze versie van %s ondersteunt het ext3 journalling bestandssysteem, wat "
-"verschillende voordelen biedt over het ext2 bestandssysteem dat traditioneel "
-"bij %s geleverd werd.  Het is mogelijk om de als ext2 geformatteerde "
-"partities over te zetten naar ext3 zonder gegevensverlies.\n"
+"Deze versie van %s biedt ondersteuning voor het ext3 journaling "
+"bestandssysteem, dat verschillende voordelen biedt ten opzichte van het "
+"ext2 bestandssysteem dat traditioneel bij %s geleverd werd. Dit "
+"installatieprogramma kan de ext2-geformatteerde partities zonder "
+"gegevensverlies naar ext3 migreren.\n"
 "\n"
-"Welke van deze partities wilt u overzetten?"
+"Welke van deze partities wilt u migreren?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "Swap-partitie upgraden"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"De 2.4 kernel heeft aanzienlijk meer wisselgeheugen nodig dan oudere "
-"kernels; Tot twee keer de hoeveelheid RAM-geheugen die in het systeem zit. U "
-"hebt momenteel %dMB wisselgeheugen geconfigureerd, maar u kunt nu extra "
-"wisselgeheugen maken op een van uw bestandssystemen."
+"Recente kernels (2.4 of nieuwer) hebben aanzienlijk meer wisselgeheugen nodig "
+"dan oudere kernels; tot twee keer de hoeveelheid RAM-geheugen dat in het "
+"systeem zit. U hebt momenteel %dMB wisselgeheugen geconfigureerd, maar u kunt "
+"nu extra wisselgeheugen aanmaken op een van uw bestandssystemen."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4603,12 +4602,12 @@ msgid "Free Space (MB)"
 msgstr "Vrije ruimte (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Het is aanbevolen dat uw wisselbestand tenminste %d MB groot is. Voer een "
+"Een wisselbestand met een minimale grootte van %d MB is aanbevolen. Voer een "
 "grootte voor het wisselbestand in:"
 
 #: ../iw/upgrade_swap_gui.py:169
@@ -4620,13 +4619,12 @@ msgid "I _don't want to create a swap file"
 msgstr "Ik wil _geen wisselbestand aanmaken"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is stongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Het wordt sterk aangeraden een wisselbestand te maken.  Als u dat niet doet "
-"kan het installatieprogramma abnormaal afbreken.  Weet u zeker dat u wilt "
+"Een wisselbestand is sterk aanbevolen. Als u geen wisselbestand aanmaakt kan "
+"het installatieprogramma abnormaal afbreken.  Weet u zeker dat u wilt "
 "doorgaan?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
@@ -4703,7 +4701,6 @@ msgid "Skip Boot Loader"
 msgstr "Bootloader overslaan"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4711,24 +4708,23 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"U hebt de keuze gemaakt om geen bootloader te installeren. Het wordt sterk "
-"aanbevolen wel een bootloader te installeren tenzij het een bijzondere "
-"noodzaak betreft.  Om uw systeem direkt vanaf de harde schijf op te kunnen "
-"starten in Linux, is een bootloader eigenlijk altijd vereist.\n"
+"U hebt deze keuze gemaakt om geen bootloader te installeren, dit is niet "
+"aanbevolen tenzij u een bijzondere noodzaak hebt. Om uw systeem rechtstreeks "
+"in Linux op te starten vanaf de harde schijf is een bootloader bijna altijd "
+"vereist.\n"
 "\n"
 "Weet u zeker dat u het installeren van de bootloader wilt overslaan?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Een aantal systemen moeten bij het opstarten speciale opties aan de kernel "
-"meegeven om juist te kunnen functioneren. Als u opstartopties aan de kernel "
-"moet meegeven, voer deze dan nu in. Als u geen opties nodig hebt of u bent "
-"er niet zeker van, laat dit dan open."
+"meegeven om goed te functioneren. Als u opstartopties aan de kernel moet "
+"meegeven, voer deze dan nu in. Als u geen opties nodig hebt of als u er niet "
+"zeker van bent, laat dit dan open."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -5395,9 +5391,8 @@ msgid "No Root Partition"
 msgstr "Geen root-partitie"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "Installatie via NFS vereist IPv4-ondersteuning."
+msgstr "Installatie vereist een / partitie."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
