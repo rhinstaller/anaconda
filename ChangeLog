@@ -3,6 +3,9 @@
 	* fsset.py:  String fix (#231761).
 	* iw/upgrade_swap_gui.py:  Likewise.
 
+	* backend.py (AnacondaBackend.initLog):  Set instLog attribute on the
+	backend so yum has somewhere to log to.
+
 2007-03-12  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (doDhcp): Return NULL in instances where DHCPv4_DISABLE

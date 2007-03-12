@@ -147,7 +147,7 @@ class AnacondaBackend:
         except OSError:
             pass
 
-        instLog = open(instLogName, "w+")
+        self.instLog = open(instLogName, "w+")
 
        # dont start syslogd if we arent creating filesystems
         if flags.setupFilesystems:
