@@ -1130,6 +1130,11 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev))
 	return NULL;
 
+    /* We might have a cached list of interfaces without IP address
+     * information, so clear it out here to reinit.
+     */
+    netlink_interfaces_list_free();
+
     ret = netlink_interfaces_ip2str(dev);
 
     return Py_BuildValue("s", ret);

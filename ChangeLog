@@ -6,6 +6,9 @@
 	* backend.py (AnacondaBackend.initLog):  Set instLog attribute on the
 	backend so yum has somewhere to log to.
 
+	* isys/isys.c (doGetIPAddress):  Clear out cached netlink information
+	so we display the Remote button on the exception window.
+
 2007-03-12  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (doDhcp): Return NULL in instances where DHCPv4_DISABLE
