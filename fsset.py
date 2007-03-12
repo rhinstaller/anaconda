@@ -1522,7 +1522,7 @@ MAILADDR root
                                     "use as a software suspend partition, "
                                     "which means your system is hibernating. "
                                     "If you are performing a new install, "
-                                    "make sure the installer is set to "
+                                    "make sure the installer is set "
                                     "to format all swap partitions.") \
                                   % (entry.device.getDevice())
 

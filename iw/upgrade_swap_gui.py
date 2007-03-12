@@ -186,7 +186,7 @@ class UpgradeSwapWindow (InstallWindow):
 
     def warning(self):
         rc = self.intf.messageWindow(_("Warning"), 
-                    _("A swap file is stongly recommended. "
+                    _("A swap file is strongly recommended. "
                       "Failure to create one could cause the installer "
                       "to abort abnormally.  Are you sure you wish "
                       "to continue?"), type = "yesno")
