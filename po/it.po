@@ -1,4 +1,4 @@
-# translation of it.po to italiano
+# translation of it.po to Italiano
 # Copyright (C) 2001,2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 #
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-10 22:40+0100\n"
+"PO-Revision-Date: 2007-03-12 06:29+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: italiano <fedora-trans-it@redhat.com>\n"
+"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3161,7 +3161,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Confermare modifica estensione fisica"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3170,8 +3169,7 @@ msgid ""
 "This change will take effect immediately."
 msgstr ""
 "Con la modifica del valore dell'estensione fisica, le dimensioni dei volumi "
-"logici attuali dovranno essere arrotondati a un intero multiplo della "
-"dimensione fisica.\n"
+"logici attuali dovranno essere arrotondati a un intero multiplo dell'estensione fisica.\n"
 "\n"
 "Tale modifica avrà effetto immediato."
 
@@ -3308,9 +3306,9 @@ msgid "Mount point in use"
 msgstr "Mount point in uso"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Il mount point \"%s\" è già in uso, selezionarne un altro."
+msgstr "Il mount point \"%s\" è già in uso. Si prega di selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3326,14 +3324,14 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Il nome del volume logico \"%s\" è già in uso. Selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "La dimensione richiesta (%10.2f MB) è superiore alla dimensione massima del "
-"volume logico (%10.2f MB). Per aumentare questo limite puoi creare più "
+"volume logico (%10.2f MB). Per aumentare questo limite è possibile creare più "
 "Volumi Fisici dallo spazio del disco non partizionato, ed aggiungerli a "
 "questo Gruppo di Volumi."
 
@@ -3370,7 +3368,6 @@ msgid "No free space"
 msgstr "Nessuno spazio libero disponibile"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3381,9 +3378,9 @@ msgstr ""
 "volumi logici esistenti"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Siete sicuri di voler cancellare il volume logico \"%s\"?"
+msgstr "Si è sicuri di voler cancellare il volume logico \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -3739,19 +3736,12 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Il prefisso IPv6 deve essere fra 0 e 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
-msgstr ""
-"E' possibile configurare il boot loader per avviare altri sistemi operativi. "
-"E'possibile eseguire l'avvio di un altro sistema operativo presente "
-"nell'elenco. Per aggiungere altri sistemi operativi, non rilevati "
-"automaticamente, fare clic su 'Aggiungi.' Per cambiare il sistema operativo "
-"avviato per impostazione predefinita, selezionare 'Predefinito' per il "
-"sistema operativo desiderato."
+msgstr "E' possibile configurare il boot loader per avviare altri sistemi operativi selezionandoli dall'elenco. Per aggiungere altri sistemi operativi, non rilevati automaticamente, fare click su 'Aggiungi'. Per cambiare il sistema operativo avviato per impostazione predefinita, selezionare 'Predefinito' per il sistema operativo desiderato."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3766,14 +3756,10 @@ msgid "Image"
 msgstr "Immagine"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
-msgstr ""
-"Inserire un'etichetta da visualizzare nel menu del boot loader. Il "
-"dispositivo (o disco fisso e numero di partizione) è quello da cui viene "
-"eseguito l'avvio."
+msgstr "Inserire un'etichetta da visualizzare nel menu del boot loader. Il dispositivo (o disco fisso e numero di partizione) è quello da cui viene eseguito l'avvio."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3921,10 +3907,10 @@ msgstr "Partizionamento in corso"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "Lo schema di partizionamento richiesto ha causato i seguenti errori critici."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Correggere gli errori prima di proseguire l'installazione di %s."
 
@@ -3934,7 +3920,7 @@ msgstr "Errori di partizionamento"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Lo schema di partizionamento richiesto ha causato i seguenti avvisi."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
