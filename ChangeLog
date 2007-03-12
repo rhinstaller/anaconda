@@ -1,3 +1,8 @@
+2007-03-12  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (doDhcp): Return NULL in instances where DHCPv4_DISABLE
+	and DHCPv6_DISABLE have been set (#230941).
+
 2007-03-09  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
