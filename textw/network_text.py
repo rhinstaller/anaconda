@@ -488,25 +488,88 @@ class NetworkDeviceWindow:
         screen.popWindow()
         return INSTALL_OK
 
+    def chooseNetworkDevice(self, screen):
+        devs = self.devices.keys()
+        devs.sort(cmp=isys.compareNetDevices)
+
+        # return if there are no NICs
+        if len(devs) == 0:
+            return INSTALL_OK
+
+        # only ask Yes/No if this system has just one NIC (most end users)
+        if len(devs) == 1:
+            rc = self.intf.messageWindow(_("Configure Network Interface"),
+                     _("Would you like to configure the %s network "
+                       "interface in your system?") % (devs[0],),
+                     type = "yesno")
+
+            if rc == 1:
+                return self.devices[devs[0]]
+            else:
+                return INSTALL_OK
+
+        # create list box of network devices
+        devList = Listbox(height=5, scroll=1)
+        for item in devs:
+            try:
+                if self.devListDescs[item] is None:
+                    self.devListDescs[item] = _("UNCONFIGURED")
+            except KeyError, e:
+                self.devListDescs[item] = _("UNCONFIGURED")
+
+            desc = "%s: %s" % (item, self.devListDescs[item],)
+            devList.append(desc, item)
+
+        # create some sort of dialog box
+        toplevel = GridFormHelp(screen, _("Network Configuration"),
+                                "netconfig", 1, 5)
+        text = TextboxReflowed(65,
+                               _("The current configuration settings for each "
+                                 "interface are listed next to the device "
+                                 "name.  Unconfigured interfaces are shown as "
+                                 "UNCONFIGURED.  To configure an interface, "
+                                 "highlight it and choose Edit.  When you are "
+                                 "finished, press OK to continue."))
+        toplevel.add(text, 0, 0, (0, 0, 0, 1))
+
+        bb = ButtonBar(screen, (TEXT_EDIT_BUTTON,
+                                TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        toplevel.add(devList, 0, 1, padding = (0, 0, 0, 0))
+        toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed (result)
+
+            devname = devList.current()
+
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+            elif rc == TEXT_OK_CHECK:
+                return INSTALL_OK
+            elif rc == TEXT_EDIT_CHECK:
+                return self.devices[devname]
+
     def __call__(self, screen, anaconda, showonboot=1):
+        self.intf = anaconda.intf
+        self.devListDescs = {}
         self.devices = anaconda.id.network.available()
+
         if not self.devices:
             return INSTALL_NOOP
 
-        list = self.devices.keys()
-        list.sort(cmp=isys.compareNetDevices)
-        devLen = len(list)
-        if anaconda.dir == DISPATCH_FORWARD:
-            currentDev = 0
-        else:
-            currentDev = devLen - 1
-
         # collect configuration data for each interface selected by the user
-        doMain = True
-        doIPv4 = False
-        doIPv6 = False
-        while currentDev < devLen and currentDev >= 0:
-            dev = self.devices[list[currentDev]]
+        doConf = True
+        while 1:
+            if len(self.devices) == 1 and doConf is False:
+                return INSTALL_OK
+
+            dev = self.chooseNetworkDevice(screen)
+
+            if dev == INSTALL_OK or dev == INSTALL_BACK:
+                screen.popWindow()
+                return dev
 
             descr = dev.get('desc')
             hwaddr = dev.get('hwaddr')
@@ -526,46 +589,56 @@ class NetworkDeviceWindow:
                                       0, 1, padding = (0, 0, 0, 1),
                                       anchorLeft = 1, growx = 1)
 
-            if doMain:
-                rc = self.runMainScreen(screen, dev, showonboot)
+            # 1st netconfig dialog: protocol and active on boot
+            rc = self.runMainScreen(screen, dev, showonboot)
+            if rc == INSTALL_BACK:
+                continue
+            else:
+                doIPv4 = bool(dev.get('useIPv4'))
+                doIPv6 = bool(dev.get('useIPv6'))
 
-                if rc == INSTALL_BACK:
-                    currentDev = currentDev - 1
-                    doMain = True
-                    continue
-                else:
-                    currentDev = currentDev + 1
-                    doMain = False
-                    doIPv4 = bool(dev.get('useIPv4'))
-                    doIPv6 = bool(dev.get('useIPv6'))
-
+            # 2nd netconfig dialog: IPv4 settings
             if doIPv4:
                 rc = self.runIPv4Screen(screen, dev)
-                doIPv4 = False
-
                 if rc == INSTALL_BACK:
-                    if currentDev > 0:
-                        currentDev = currentDev - 1
-                    doMain = True
-                    doIPv6 = False
                     continue
 
+            # 3rd netconfig dialog: IPv6 settings
             if doIPv6:
                 rc = self.runIPv6Screen(screen, dev)
-                doIPv4 = bool(dev.get('useIPv4'))
-                doIPv6 = False
-
                 if rc == INSTALL_BACK:
-                    currentDev = currentDev - 1
-                    doIPv4 = bool(dev.get('useIPv4'))
-                    if not doIPv4:
-                        doMain = True
                     continue
 
-        if currentDev < 0:
-            return INSTALL_BACK
-        else:
-            return INSTALL_OK
+            # set the listbox description text
+            if bool(dev.get('onboot')):
+                onboot = _("Active on boot")
+            else:
+                onboot = _("Inactive on boot")
+
+            if dev.get('bootproto').lower() == 'dhcp':
+                ipv4 = _("DHCP")
+            else:
+                ipv4 = dev.get('ipaddr')
+
+            if bool(dev.get('ipv6_autoconf')):
+                ipv6 = _("Auto IPv6")
+            elif dev.get('ipv6addr').lower() == 'dhcp':
+                ipv6 = _("DHCPv6")
+            else:
+                ipv6 = dev.get('ipv6addr')
+
+            devname = dev.get('device').lower()
+            if ipv4 is not None and ipv6 is not None:
+                desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
+            elif ipv4 is not None and ipv6 is None:
+                desc = _("%s, %s") % (onboot, ipv4,)
+            elif ipv4 is None and ipv6 is not None:
+                desc = _("%s, %s") % (onboot, ipv6,)
+            self.devListDescs[devname] = desc
+
+            if len(self.devices) == 1 and doConf is True:
+                doConf = False
+
 
 class NetworkGlobalWindow:
     def __call__(self, screen, anaconda, showonboot = 1):
