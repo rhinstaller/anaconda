@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-12 22:14+0100\n"
+"PO-Revision-Date: 2007-03-13 22:15+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2293,7 +2293,7 @@ msgstr "Voer uw %(instkey)s in"
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Invoeren van %(instkey)s overslaan"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -4763,7 +4763,7 @@ msgid "Edit"
 msgstr "Bewerken"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
@@ -4771,7 +4771,7 @@ msgid ""
 msgstr ""
 "De bootloader die %s gebruikt kan ook andere besturingssystemen opstarten. U "
 "moet aangeven van welke partities u wilt kunnen opstarten en welk label u "
-"elk van deze partities wilt geven."
+"voor elk van deze partities wilt gebruiken."
 
 #: ../textw/bootloader_text.py:290
 msgid ""
@@ -4780,16 +4780,14 @@ msgstr ""
 " <Spatie> selecteer | <F2> standaard | <F4> verwijder | <F12> volgend scherm"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "Een bootloader-wachtwoord weerhoudt gebruikers ervan willekeurige opties aan "
-"de kernel mee te geven.  Voor de beste beveiliging raden we dan ook aan om "
-"een wachtwoord in te stellen. Voor normaal gebruik is dit echter niet "
-"noodzakelijk."
+"de kernel mee te geven. Voor de beste beveiliging dient u een wachtwoord in "
+"te stellen. Voor normaal gebruik is een wachtwoord echter niet noodzakelijk."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4973,7 +4971,7 @@ msgstr "IPv%d-prefix moet tussen 0 en %d liggen."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Integer vereist voor prefix"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -5023,7 +5021,7 @@ msgstr "Netwerkconfiguratie voor %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "point-to-point IP-adres"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
@@ -5278,10 +5276,9 @@ msgid "Not Supported"
 msgstr "Niet ondersteund"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
-"LVM Volume Groups kunnen alleen bij een grafische installatie bewerkt worden."
+"U kunt LVM Volume Groups alleen tijdens de grafische installatie bewerken."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5320,21 +5317,19 @@ msgid "Too many spares"
 msgstr "Te veel reserves"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Het maximum aantal reserves bij een RAID0 opstelling is 0."
+msgstr "U mag geen reserves gebruiken bij een RAID0-opstelling."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Geen Volume Groups"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Er zijn geen volume groups om een logical volume in aan te maken"
+msgstr "Er bestaan geen volume groups om een logical volume in aan te maken"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5499,7 +5494,6 @@ msgid "Customize software selection"
 msgstr "Sofware-selectie aanpassen"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "In welke tijdzone bevindt u zich?"
 
@@ -5554,14 +5548,14 @@ msgid "System to Upgrade"
 msgstr "Te upgraden systeem"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"Er zijn een of meerdere Linux installaties gevonden op uw systeem.\n"
+"Het lijkt erop dat er een of meerdere Linux installaties op uw systeem "
+"bestaan.\n"
 "\n"
 "Kies er een om te upgraden of selecteer 'Systeem herinstalleren' om uw "
 "systeem opnieuw te installeren."
@@ -5648,11 +5642,11 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Kantoor"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
 msgid "Virtualization"
@@ -5660,11 +5654,11 @@ msgstr "Virtualisatie"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Clusteren"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Opslag clusteren"
 
 #: ../installclasses/rhel.py:50
 msgid "Installation Number"
