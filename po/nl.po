@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-13 22:15+0100\n"
+"PO-Revision-Date: 2007-03-14 23:19+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -3961,6 +3961,8 @@ msgstr "Partitioneren"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"Het door u aangevraagde partitioneringsschema zorgde voor de volgende "
+"kritische fouten."
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3976,6 +3978,8 @@ msgstr "Partitioneringsfouten"
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
+"Het door u aangevraagde partitioneringsschema genereerde de volgende "
+"waarschuwingen."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -5565,16 +5569,14 @@ msgid "Root Password"
 msgstr "Root-wachtwoord"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
 msgstr ""
-"Kies een wachtwoord voor de 'root' gebruiker. U moet het wachtwoord twee "
-"maal invoeren om er zeker van te zijn dat u geen typfout hebt gemaakt. Denk "
-"er aan dat het root-wachtwoord een kritiek onderdeel van de "
-"systeembeveiliging is!"
+"Kies een root-wachtwoord. U moet het wachtwoord tweemaal invoeren om er "
+"zeker van te zijn dat u het weet en geen typefout hebt gemaakt. Denk er aan "
+"dat het root-wachtwoord een kritiek onderdeel van de systeembeveiliging is!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5590,15 +5592,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
 "Na afloop van de installatie zal de z/IPL bootloader op uw systeem worden "
-"geïnstalleerd. U kunt hier nu alvast extra kernel en chandev-parameters "
-"invoeren die voor uw machine of opstelling benodigd zijn."
+"geïnstalleerd. U kunt nu extra kernel en chandev-parameters invoeren die "
+"voor uw machine of opstelling benodigd zijn."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -6310,12 +6311,11 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Het volgende ongeldig argument was opgegeven voor het kickstart driver disk "
-"commando: %s:%s"
+"Zowel module-type en naam moeten worden opgeven voor het kickstart-apparaat "
+"commando."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6708,9 +6708,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Welke taal wilt u gebruiken tijdens het installatieproces?"
+msgstr "Vanaf welk station wilt u deze installatie opstarten?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
