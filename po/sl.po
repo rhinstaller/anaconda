@@ -1,12 +1,13 @@
+# translation of sl.po to Slovenian
 # translation of sl.po to
 # Translation of anaconda.po to Slovenian
 # SLOVENIAN TRANSLATION OF ANACONDA.
-# Copyright (C) 2003,2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2003,2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # $Id$
 # $Source$
 #
 # Roman Maurer <roman@lugos.si>, 2002,2003.
-# Rok Papez <rok.papez@lugos.si>, 2004, 2006.
+# Rok Papez <rok.papez@lugos.si>, 2004, 2006, 2007.
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2005.
 # Jure Repinc <jlp@holodeck1.com>, 2005.
 # Jure Cuhalev <gandalf@owca.info>, 2005.
@@ -16,15 +17,14 @@ msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2004-07-20 09:33+0200\n"
-"Last-Translator: Jan Birsa <jan@fedoraproject.org>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2007-03-14 23:30+0100\n"
+"Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -213,8 +213,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zagonski razdelek %s morda ne ustreza omejitvam za zagon ki jih ima vaša "
 "arhitektura."
@@ -359,7 +358,7 @@ msgstr ""
 "Pritisnite 'Naprej' za izbiro drugega načina izdelave razdelkov."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -368,11 +367,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"Pri vašem razdeljevanju je prišlo do naslednjih napak:\n"
+"Pri razdeljevanju diska je prišlo do naslednjih napak:\n"
 "\n"
 "%s\n"
 "\n"
-"To se lahko zgodi, če v disku ni dovolj prostora za namestitev %s"
+"To se lahko zgodi, če na diskih ni dovolj prostora za namestitev. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -987,9 +986,8 @@ msgid "Cancel"
 msgstr "Prekliči"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Metoda namestitve"
+msgstr "Namestitveni Ključ"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1201,6 +1199,9 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"Slika ISO %s je velikosti, ki ni večkratnik 2048 bajtov. Verjetno je bila okvarjeni pri prenosu v računalnik.\n"
+"\n"
+"Priporočamo, da računalnik poženete znova in prekinete namestitev. Če menite, da to ni napaka, lahko z namestitvijo tudi nadaljujete."
 
 #: ../image.py:510
 #, python-format
@@ -1286,37 +1287,31 @@ msgstr ""
 "nadaljevali z namestitvijo ali jo želite prekiniti?"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Ni moč najti namestitvene slike %s"
+msgstr "Ne morem najti slike"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgstr "Navedeno mesto ni veljavni CD %s in ne morem biti uporabljen kot namestitveni vir."
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "Namestitev %s"
+msgstr "Izhod iz namestitve"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Namestitvena slika se prenaša v disk..."
+msgstr "Živa namestitvena slika se prenaša v disk."
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Namestitev %s %s"
+msgstr "Opravljam po-namestitvena opravila"
 
 #: ../livecd.py:146
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Zaganjanje namestitve. To lahko traja nekaj minut ..."
+msgstr "Opravljam po-namestitvene spremembe v datotečnem sistemu. To lahko traja nekaj minut ..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1324,25 +1319,21 @@ msgstr "Ime računalnika mora imeti manj kot 65 znakov."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
+msgstr "Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
+msgstr "Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "Manjka naslov IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Naslovi IP morajo vsebovati številke med 0 in 255, ločene z piko."
+msgstr "Naslovi IPv4 morajo vsebovati številke med 0 in 255, ločene z piko."
 
 #: ../network.py:96
 #, python-format
@@ -1350,24 +1341,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s ni veljavni naslov IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s ni veljavni naslov IPv6."
+msgstr "'%s' ni veljavni naslov IP."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Neveljavna predpona"
+msgstr "Neveljavni Ključ"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Vnešena vrednost ni veljavno število."
+msgstr "Vnešeni ključ ni veljaven."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Preskoči"
+msgstr "_Preskoči"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1426,7 +1414,7 @@ msgstr ""
 "Ali želite ta DASD reformatirati v format CDL?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1434,11 +1422,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"Naprava /dev/%s im razdelitveno tabelo %s.  Preden boste lahko ta disk "
-"uporabili za namestitev %s, ga morate znova inicializirati, kar bo "
+"Naprava /dev/%s ima razdelitveno tabelo %s.  Preden boste lahko ta disk"
+"uporabili za namestitev %s, ga morate znova vzpostaviti, kar bo "
 "povzročilo izgubo VSEH PODATKOV na tem pogonu.\n"
 "\n"
-"Ali želite ta pogon formatirati?"
+"Ali želite ta pogon znova vzpostaviti?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1446,7 +1434,7 @@ msgstr "Prezr_i pogon"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Znova vzpostavi pogon"
 
 #: ../partedUtils.py:917
 msgid "Initializing"
@@ -1608,8 +1596,7 @@ msgstr "Ne morete odstraniti razdelka LDL formatiranega DASD."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
@@ -1676,8 +1663,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1697,7 +1683,7 @@ msgstr ""
 "Bi radi formatirali ta razdelek kot izmenjevalnega?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Izbrati morate vsaj en pogon, v katerega želite namestiti %s."
 
@@ -1819,8 +1805,7 @@ msgid "Confirm Reset"
 msgstr "Potrdite resetiranje"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Ste prepričani, da želite obnoviti razdelitveno tabelo v njenem izvirnem "
 "stanju?"
@@ -1877,10 +1862,8 @@ msgid ""
 msgstr "Zagonski razdelek ni med prvimi štirimi. Zagon ne bo mogoč."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1900,17 +1883,14 @@ msgstr ""
 "velikosti za običajno namestitev sistema %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Nameščam na napravo USB. Odvisno od sistema, zagon morda ne bo deloval."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Nameščam na napravo USB. Odvisno od sistema, zagon morda ne bo deloval."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
-"Nameščan na napravo FireWire. Odvisno od sistema zagon morda ne bo deloval."
+msgstr "Nameščan na napravo FireWire. Odvisno od sistema zagon morda ne bo deloval."
 
 #: ../partitions.py:954 ../partRequests.py:679
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1960,10 +1940,8 @@ msgstr "razdelek, ki je član skupine nosilcev LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
 
 #: ../partRequests.py:252
 #, python-format
@@ -2229,14 +2207,14 @@ msgid "No help is available for this step of the install."
 msgstr "Za ta korak namestitve pomoč ni dostopna."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Prosimo, vnesite ime skupine nosilcev"
+msgstr "Vnesite svoje namestitvene ključe %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Preskočite svoje namestitvene ključe %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2248,8 +2226,7 @@ msgid "Welcome to %s"
 msgstr "Dobrodošli v %s"
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> pomoč | <Tab>/<Alt-Tab> med elementi | <presl> izbira | <F12> nasl. "
 "zaslon"
@@ -2258,8 +2235,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
+msgstr "  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2537,8 +2513,7 @@ msgstr "Po 50 poskusih je poskus povezovanja opuščen!\n"
 #: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
+msgstr "Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
 
 #: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
@@ -2641,8 +2616,7 @@ msgstr "Napaka pri prenosu"
 
 #: ../yuminstall.py:571
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "Pri prenosu je prišlo do napake zaradi naslednjega: %s"
 
 #: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
@@ -2773,10 +2747,8 @@ msgstr "Geslo roota mora imeti najmanj 6 znakov."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2809,8 +2781,7 @@ msgstr "Napaka v Podatkih"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Odstranimo vse razdelke na izbranih diskih in naredi privzeto razmestitev."
+msgstr "Odstranimo vse razdelke na izbranih diskih in naredi privzeto razmestitev."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -2820,8 +2791,7 @@ msgstr ""
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Uporabi prosti prostor na izbranih diskih in izdelaj privzeto razdelitev."
+msgstr "Uporabi prosti prostor na izbranih diskih in izdelaj privzeto razdelitev."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
 msgid "Create custom layout."
@@ -3362,8 +3332,7 @@ msgstr "Ime v uporabi"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
+msgstr "Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3787,8 +3756,7 @@ msgstr "Ni moč izbrisati"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
+msgstr "Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3890,16 +3858,13 @@ msgid "Partitioning"
 msgstr "Razdeljevanje"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
-msgstr ""
-"Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
+msgid "You must correct these errors before you continue your installation of %s."
+msgstr "Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4052,8 +4017,7 @@ msgstr "Urejevalnika kloniranih pogonov ni moč narediti"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
+msgstr "Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4292,8 +4256,7 @@ msgstr "Kloniraj pogone"
 
 #: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
+msgstr "Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
 
 #: ../iw/raid_dialog_gui.py:696
 #, fuzzy
@@ -4413,8 +4376,7 @@ msgstr "To bo osvežilo vaš trenutni zagonski nalagalnik."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno nameščen v %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4557,8 +4519,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost izmenjevalne datoteke mora biti med 1 in 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na izbrani napravi ni dovolj prostora še za izmenjevalni razdelek."
 
 #: ../iw/zipl_gui.py:28
@@ -4698,10 +4659,8 @@ msgstr ""
 "jim želite dodeliti."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <presl> izbere | <F2> izbere privzeto | <F4> briše <F12> nasl. zaslon>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <presl> izbere | <F2> izbere privzeto | <F4> briše <F12> nasl. zaslon>"
 
 #: ../textw/bootloader_text.py:386
 #, fuzzy
@@ -4840,10 +4799,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Izberite skupino paketov, ki jo želite namestiti."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-" <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr " <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5186,8 +5143,7 @@ msgstr "Izbire datotečnega sistema"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
+msgstr "Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5216,8 +5172,7 @@ msgstr "Ni podprto"
 #: ../textw/partition_text.py:772
 #, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
+msgstr "Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5317,10 +5272,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -5352,8 +5305,7 @@ msgstr "Katere pogone bi radi uporabili za to namestitev?"
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-" <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
+msgstr " <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5996,10 +5948,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Dobrodošli v %s - način za reševanje"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6032,8 +5982,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
+msgstr "Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -6109,8 +6058,7 @@ msgstr "V vašem sistemu so bile najdene sledeče naprave."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
+msgstr "Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
 
 #: ../loader2/loader.c:1190
 msgid "Devices"
@@ -6242,8 +6190,7 @@ msgstr "Slab argument ukaza za hitri zagon naprave %s: %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Naslednji neveljaven argument je bil določen za ukaz hitrega zagona diska z "
 "gonilniki: %s:%s"
@@ -6267,8 +6214,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"Dolžina naslova IPv4 mora biti med 1 in 32 ali med 1 in 128 za naslov IPv6"
+msgstr "Dolžina naslova IPv4 mora biti med 1 in 32 ali med 1 in 128 za naslov IPv6"
 
 #: ../loader2/net.c:257
 #, c-format
@@ -6380,8 +6326,7 @@ msgid "Missing Information"
 msgstr "Manjkajoči podatki"
 
 #: ../loader2/net.c:1207
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Vnesti morate veljaven naslov IP in mrežno masko ali masko CIDR."
 
 #: ../loader2/net.c:1213
@@ -6544,8 +6489,7 @@ msgstr "%s ni veljavno ime gostitelja"
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
-"Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
+msgstr "Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
 
 #: ../loader2/urls.c:435
 msgid ""
@@ -7018,643 +6962,3 @@ msgstr "velščina"
 msgid "Zulu"
 msgstr "zulujščina"
 
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "Jedro 2.4 potrebuje znatno več izmenjevalnega prostora na disku (swap) "
-#~ "kot starejša jedra; do dvakrat toliko izmenjalnega prostora kot je v "
-#~ "sistemu pomnilnika RAM.  Trenutno imate nastavljenega %d MB "
-#~ "izmenjevalnega prostora, zdaj pa lahko ustvarite v enem od vaših "
-#~ "datotečnih sistemov še dodaten izmenjevalni prostor."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "Narejeno [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "Namešča se %s-%s-%s..."
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Vnesite ključ za registracijo %s."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Vnesi ključ za registracijo"
-
-#~ msgid "Key:"
-#~ msgstr "Ključ:"
-
-#~ msgid "_Format drive"
-#~ msgstr "_Formatiraj pogon"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr "V vaši razdelitveni shemi so sledeče kritične napake."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr "Pri vaši razdelitveni shemi se pojavljajo naslednja opozorila."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "Preostali čas: %s minut"
-
-#~ msgid "Downloading %s"
-#~ msgstr "Prenaša se %s"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "Namešča se %s-%s-%s.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "Paket"
-
-#~ msgid "Summary"
-#~ msgstr "Povzetek"
-
-#~ msgid "Status: "
-#~ msgstr "Stanje: "
-
-#~ msgid "Description: %s"
-#~ msgstr "Opis: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Strojni naslov: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "Uporabi samodejno nastavljanje IP (DHCP)"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "Naslov IP"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "Predpona IPv6 mora biti med 0 in 128."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "Imeti morate razdelek /, da vanj nameščate."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "Prenaša se - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " Ime    :"
-
-#~ msgid " Size   : "
-#~ msgstr " Velikost:"
-
-#~ msgid " Summary: "
-#~ msgstr " Opis   :"
-
-#~ msgid "    Packages"
-#~ msgstr "      Paketi"
-
-#~ msgid "      Bytes"
-#~ msgstr "     bajtov"
-
-#~ msgid "        Time"
-#~ msgstr "         Čas"
-
-#~ msgid "Total    :"
-#~ msgstr "Skupno   :"
-
-#~ msgid "Completed:   "
-#~ msgstr "Opravljeno:  "
-
-#~ msgid "Remaining:  "
-#~ msgstr "Preostanek: "
-
-#~ msgid "Acre"
-#~ msgstr "Akra"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "Alagoas, Sergipe"
-
-#~ msgid "Alaska Time"
-#~ msgstr "Aljaska"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "Aljaska - Aljaskin pas"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "Aljaska - vrh pasu na Aljaski"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "Aljaska - zahodna Aljaska"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "Aleutski otoki"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "Amapa, V. Para"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "Postaja Amundsen-Scott, Južni tečaj"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aqtobe (Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "Atlantski Standardni Čas - Quebec - Lower North Shore"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "Atlantski čas - Labrador - večina krajev"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "Atlantski čas - New Brunswick"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "Atlantski čas - Nova Škotska (večina krajev), PEI"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr ""
-#~ "Atlantski čas - Nova Škotska - kraji, ki niso upoštevali DST 1966-1971"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "Atlantski otoki"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#~ msgid "Azores"
-#~ msgstr "Azuri"
-
-#~ msgid "Bahia"
-#~ msgstr "Bahija"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "Buenos Aires (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "Kanarski otoki"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "Postaja Casey, polotok Bailey"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "Katamarka (CT), Chubut (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "Srednjeameriški standardni čas - Saskatchewan - srednji zahod"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "Srednjeameriški standardni čas - Saskatchewan - večina krajev"
-
-#~ msgid "Central Time"
-#~ msgstr "Srednjeameriški čas"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "Srednjeameriški čas - Campeche, Yucatan"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "Srednjeameriški čas - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "Srednjeameriški čas - Indiana - Daviess, Dubois, Knox, Martin, Perry & "
-#~ "Pulaski Counties"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "Srednjeameriški čas - Indiana - okrožje Pike"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "Srednjeameriški čas - Manitoba in zahodni Ontario"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "Srednjeameriški čas - Michigan - Dickinson, Gogebic, okrožje Iron & "
-#~ "Menominee"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr ""
-#~ "Srednjeameriški čas - Severna Dakota - okrožje Morton (razen področja "
-#~ "Mandan)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "Srednjeameriški čas - Severna Dakota - okrožje Oliver"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "Srednjeameriški čas - Quintana Roo"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "Srednjeameriški čas - Rainy River in Fort Frances, Ontario"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "Srednjeameriški čas - centralni Nunavut"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "Srednjeameriški čas - večina krajev"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "Srednjeameriški čas - zahodni Nunavut"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "Ceuta & Melilla"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "Čatamski otoki"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "Postaja Davis, Vestfold Hills"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod, Sukbatar"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "Dumont-d'Urville Base, Terre Adelie"
-
-#~ msgid "E Amazonas"
-#~ msgstr "V. Amazonka"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "Velikonočni otok in Sala y Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr "Vzhodnjeameriški čas - Atikokan, Ontario in Southampton, Nunavut"
-
-#~ msgid "Eastern Time"
-#~ msgstr "Vzhodnjeameriški čas"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "Vzhodnjeameriški čas - Indiana - okrožje Crawford"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "Vzhodnjeameriški čas - Indiana - okrožje Starke"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "Vzhodnjeameriški čas - Indiana - okrožje Switzerland"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "Vzhodnjeameriški čas - Indiana - večina krajev"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "Vzhodnjeameriški čas - Kentucky - področje Louisvillea"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "Vzhodnjeameriški čas - Kentucky - okrožje Wayne"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "Vzhodnjeameriški čas - Michigan - večina krajev"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "Vzhodnjeameriški čas - Ontario & Quebec - kraji, ki niso upoštevali DST "
-#~ "1967-1973"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "Vzhodnjeameriški čas - Ontario - večina krajev"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "Vzhodnjeameriški čas - Pangnirtung, Nunavu"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "Vzhodnjeameriški čas - Quebec - večina krajev"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "Vzhodnjeameriški čas - Thunder Bay, Ontario"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "Vzhodnjeameriški čas - vzhodni Nunavut"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "Galapaško otočje"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Gambierjevi otoki"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "Gilbertovi otoki"
-
-#~ msgid "Hawaii"
-#~ msgstr "Havaji"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "Heilongjiang (razen Mohe), Jilin"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "Irian Jaya in Moluccas"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "Java in Sumatra"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "Johnstonov atol"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "Jujuy (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "Kosrae"
-
-#~ msgid "Kwajalein"
-#~ msgstr "Kvajalejn"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "La Rioja (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "Otoki Line"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "Otok Lorda Howea"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "Otoki Madeira"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "Marqueški otoki"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "Mato Grosso"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "Mato Grosso do Sul"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Postaja Mawson, Holme Bay"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "Postaja McMurdo, Ross Island"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "Mendoza (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "Otočje Midway"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "Moskva+00 - Kaspijsko morje"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "Moskva+00 - zahodna Rusija"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "Moskva+01 - Samara, Udmurtia"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "Moskva+02 - Ural"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "Moskva+03 - Novosibirsk"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "Moskva+03 - zahodna Sibirija"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "Moskva+04 - reka Jenisej"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "Moskva+05 - Bajkalsko jezero"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "Moskva+06 - reka Lena"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "Moskva+07 - reka Amur"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "Moskva+07 - otok Sahalin"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "Moskva+08 - Magadan"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "Moskva+09 - Kamčatka"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "Moskva+10 - Beringovo morje"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "Moskva-01 - Kaliningrad"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "Standardni gorski čas - Arizona"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr ""
-#~ "Standardni gorski čas - Dawson Creek in Fort Saint John, British Columbia"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "Standardni gorski čas - Sonora"
-
-#~ msgid "Mountain Time"
-#~ msgstr "Gorski čas"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "Gorski čas - Alberta, vzhodna Britanska Kolumbija in zahodni Saskatchewan"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "Gorski čas - Chihuahua"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "Gorski čas - Navajo"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "Gorski čas - J. Baja, Nayarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "Gorski čas - centralna Severozahodna področja"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "Gorski čas - južni Idaho in vzhodni Oregon"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "Gorski čas - zahodna Severozahodna področja"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "SV Brazilija (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "Novi Južni Wales - Yancowinna"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "Novi Južni Wales - večina krajev"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "Novofundlandski čas, vključno z JV Labrador"
-
-#~ msgid "Northern Territory"
-#~ msgstr "Severno področje"
-
-#~ msgid "Pacific Time"
-#~ msgstr "Pacifiški čas"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "Pacifiški čas - severni Jukon"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "Pacifiški čas - južni Jukon"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "Pacifiški čas - zahodna Britanska Kolumbija"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Postaja Palmer, otok Anvers"
-
-#~ msgid "Pernambuco"
-#~ msgstr "Pernambuco"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "Otoki Phoenix"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "Ponape (Pohnpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "Queensland - otoki Holiday"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "Queensland - večina krajev"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Roraima"
-#~ msgstr "Roraima"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Postaja Rothera, otok Adelaide"
-
-#~ msgid "Ruthenia"
-#~ msgstr "Rutenija"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "J & JV Brazilija (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "Sabah in Sarawak"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "San Juan (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "Santa Cruz (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#~ msgid "Society Islands"
-#~ msgstr "Society Islands"
-
-#~ msgid "South Australia"
-#~ msgstr "Južna Avstralija"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Postaja Syowa, V Ongul I"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "Tasmania - King Island"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "Tasmania - večina krajev"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Thule / Pitufik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "Ognjena zemlja"
-
-#~ msgid "Tocantins"
-#~ msgstr "Tokantini"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "Truk (Čuuk) in Yap"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "Tucuman (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "Victoria"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "Postaja Vostok, J magnetni pol"
-
-#~ msgid "W Amazonas"
-#~ msgstr "Z Amazonka"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "Z Para, Rondonija"
-
-#~ msgid "Wake Island"
-#~ msgstr "Otok Wake"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "Zahodni Kazahstan"
-
-#, fuzzy
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "Zahodna Avstralija"
-
-#, fuzzy
-#~ msgid "Western Australia - most locations"
-#~ msgstr "Srednjeameriški čas - večina krajev"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporožje, V. Lugansk"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "osrednja Kitajska - Sečuan, Jinnan, Gansu, Gvidžov, itn."
-
-#~ msgid "central Crimea"
-#~ msgstr "osrednja Krimeja"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr ""
-#~ "vzhodni in južni Borneo, Celebes, Bali, Nusa Tengarra, zahodni Timor"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "vzhodna Kitajska - Peking, Gvandung, Šanghaj, itd."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "vzhodna Dem. Rep. Kongo"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "vzhodni Uzbekistan"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "vzhodna obala, severno od Scoresbysunda"
-
-#~ msgid "mainland"
-#~ msgstr "celina"
-
-#~ msgid "most locations"
-#~ msgstr "večina krajev"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr "večina krajev (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "večino Tibeta & Xinjiang"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "polotoška Malezija"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "zahodni in osrednji Borneo"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "zahodna Dem. Rep. Kongo"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "zahodni Tibet in Xinjiang"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "zahodni Uzbekistan"
