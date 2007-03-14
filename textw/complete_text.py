@@ -23,14 +23,8 @@ class FinishedWindow:
   def __call__ (self, screen, anaconda):
         bootstr = ""
 
-        if rhpl.getArch() == "s390":
-          floppystr = _("Press <Enter> to end the installation process.\n\n")
-          bottomstr = _("<Enter> to exit")
-        else:
-          floppystr = _("Remove any media used during the installation "
-                        "process and press <Enter> to reboot your system."
-                        "\n\n")
-          bottomstr = _("<Enter> to reboot")
+        floppystr = _("Press <Enter> to end the installation process.\n\n")
+        bottomstr = _("<Enter> to exit")
 
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 

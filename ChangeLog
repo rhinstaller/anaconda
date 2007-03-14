@@ -6,6 +6,10 @@
 	* packages.py (selectLanguageSupportGroups, fixupConditionals,
 	selectPackageConditionals):  Remove unused functions.
 
+	* iw/congrats_gui.py (CongratulationWindow.getScreen):  Since you
+	can't always eject the CD, don't tell the user to do it (#137275).
+	* textw/complete_text.py (FinishedWindow.__call__):  Likewise.
+
 2007-03-13  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec: Bump version.

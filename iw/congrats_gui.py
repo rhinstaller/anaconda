@@ -57,9 +57,7 @@ class CongratulationWindow (InstallWindow):
         if rhpl.getArch() == "s390":
             floppystr = ""
         else:
-            floppystr = _("Remove any media used during the installation "
-                          "process and press the \"Reboot\" button to "
-                          "reboot your system."
+            floppystr = _("Press the \"Reboot\" button to reboot your system."
                           "\n\n")
 
         txt = _("Congratulations, the installation is complete.\n\n"
