@@ -1,5 +1,8 @@
 2007-03-14  Chris Lumens  <clumens@redhat.com>
 
+	* scripts/splittree.py (Timber.splitRPMS):  More intelligent error
+	handling when there's too many packages for the CD size (#232104).
+
 	* packages.py (selectLanguageSupportGroups, fixupConditionals,
 	selectPackageConditionals):  Remove unused functions.
 

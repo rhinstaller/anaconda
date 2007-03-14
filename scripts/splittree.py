@@ -278,6 +278,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         file.close()
 
         # last package is the last package placed on the disc
+        firstpackage = ''
         lastpackage = ''
         
         # packagenum resets when we change discs. It's used to
@@ -330,6 +331,9 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                     lastpackage = file_name
 
         if reportSize == 1:
+            if firstpackage == '':
+                raise RuntimeError, "CRITICAL ERROR : Packages do not fit in given CD size"
+
             self.reportSizes(disc, firstpkg=firstpackage, lastpkg=lastpackage)
 
         
