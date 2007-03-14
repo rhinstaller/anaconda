@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.35
+Version: 11.2.0.36
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 13 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.36-1
+- String fixes (#231761).
+- Fix yum logging traceback.
+- Restore "Save to Remote" button on exception dialog.
+- Return NULL when dhcpv4 and dhcpv6 are disabled (dcantrell, #230941).
+- Handle configuration of lots of NICs much better (dcantrell, #228512).
+
 * Fri Mar  9 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.35-1
 - Fix SIGSEGV for HTTP installs (#231576)
 - Some spec file cleanups to adhere to Fedora packaging guidelines
