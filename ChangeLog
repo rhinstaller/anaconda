@@ -10,6 +10,8 @@
 	can't always eject the CD, don't tell the user to do it (#137275).
 	* textw/complete_text.py (FinishedWindow.__call__):  Likewise.
 
+	* loader2/loader.c (installMethods):  Fix confusing wording (#163329).
+
 2007-03-13  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec: Bump version.

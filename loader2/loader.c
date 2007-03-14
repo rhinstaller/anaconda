@@ -120,7 +120,7 @@ static struct installMethod installMethods[] = {
     { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
 #endif
     { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
-    { N_("NFS image"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
+    { N_("NFS directory"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
     { "FTP", "ftp", 1, CLASS_NETWORK, mountUrlImage },
     { "HTTP", "http", 1, CLASS_NETWORK, mountUrlImage },
 };
