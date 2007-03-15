@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-15 16:20+0530\n"
+"PO-Revision-Date: 2007-03-15 19:11+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -356,7 +356,7 @@ msgstr ""
 "ଗୋଟିଏ ଭିନ୍ନ ବିଭାଜନ ବିକଲ୍ପକୁ ଚୟନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -365,11 +365,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"ଆପଣଙ୍କର ବିଭାଜନ ସମୟରେ ନିମ୍ନଲିଖିତ ତୃଟି ମାନ ପରିଲିଖିତ ହେଲା:\n"
+"ଆପଣଙ୍କର ବିଭାଜନ ସମୟରେ ନିମ୍ନଲିଖିତ ତୃଟି ଗୁଡିକ ଘଟିଲା:\n"
 "\n"
 "%s\n"
 "\n"
-"ଏହା ସମ୍ଭବପର ଯଦି ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭ(ରେ/ମାନଙ୍କରେ) ସ୍ଥାପନ ପାଇଁ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ।%s"
+"ଏହା ସମ୍ଭବପର ଯଦି ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭ(ରେ/ମାନଙ୍କରେ) ସ୍ଥାପନ ପାଇଁ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ। %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -1015,7 +1015,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"ଗୋଟିଏ ସ୍ଥାପକ ଅନ୍ତରାପ୍ରୁଷ୍ଠ ଉପାଦାନକୁ ଧାରଣ କରିବାର ପ୍ରଚେଷ୍ଟା କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ "
+"ଗୋଟିଏ ସ୍ଥାପକ ଅନ୍ତରାପୃଷ୍ଠ ଉପାଦାନକୁ ଧାରଣ କରିବାର ପ୍ରଚେଷ୍ଟା କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ "
 "ହେଲା।\n"
 "\n"
 "ଶ୍ରେଣୀନାମ = %s"
@@ -1292,21 +1292,18 @@ msgid "Exit installer"
 msgstr "ସ୍ଥାପକକୁ ବନ୍ଦ କରନ୍ତୁ"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "ସ୍ଥାପନ ପ୍ରତିଛିବିକୁ ହାର୍ଡ ଡ୍ରାଇଭକୁ ସ୍ଥାନାନ୍ତରିତ କରୁଅଛି..."
+msgstr "ପ୍ରତ୍ଯେକ୍ଷ ପ୍ରତିଛବିକୁ ହାର୍ଡ ଡ୍ରାଇଭକୁ ନକଲ କରୁଅଛି।"
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s ସ୍ଥାପନ"
+msgstr "ସ୍ଥାପନ ପରବର୍ତ୍ତୀ ପ୍ରକ୍ରିୟା ସମ୍ପାଦନ କରୁଅଛି"
 
 #: ../livecd.py:146
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପ୍ରାରମ୍ଭ କରୁଅଛି। ଏହି କିଛି ସମୟ ନେଇପାରେ..."
+msgstr "ସ୍ଥାପନ ପରେ ଫାଇଲ ତନ୍ତ୍ର ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ କରୁଅଛି।  ଏହା କିଛି ମିନିଟ ନେଇପାରେ ..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1321,18 +1318,14 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ଆଧାରନାମଟି କେବଳ 'a-z', 'A-Z', '-', କିମ୍ବା '.' ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରି ପାରିବ।"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "ଆଇ.ପି. ଠିକଣାଟି ମିଳୁନାହିଁ"
+msgstr "ଆଇ.ପି. ଠିକଣା ମିଳୁନାହିଁ।"
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
-"ଆଇ.ପି. ଠିକଣା 0 ଏବଂ 255 ମଧ୍ଯରେ ଚାରିଟି ସଂଖ୍ଯା ଧାରଣ କରିଥାଏ, ଏବଂ ପ୍ରତି ସଂଖ୍ଯାକୁ ବିନ୍ଦୁ ଦ୍ବାରା "
-"ପୃଥକ କରାଯାଇଥାଏ।"
+msgstr "IPv4 ଠିକଣା ଗୁଡିକ ବିନ୍ଦୁ ଦ୍ବାରା ପୃଥକ 0 ଏବଂ 255 ମଧ୍ଯରେ ଚାରିଟି ସଂଖ୍ଯା ଧାରଣ କରିବା ଉଚିତ।"
 
 #: ../network.py:96
 #, python-format
@@ -1340,24 +1333,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s ଟି ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ନୁହେଁ।"
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s ଟି ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ନୁହେଁ।"
+msgstr "'%s' ଗୋଟିଏ ଅବୈଧ ଆଇ.ପି. ଠିକଣା ଅଟେ।"
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "ଅବୈଧ ଉପସର୍ଗ"
+msgstr "ଅବୈଧ ଚାବି"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "ଆପଣ ଭରଣ କରିଥିବା ମୂଲ୍ଯ ଗୋଟିଏ ବୈଧ ନମ୍ବର ନୁହେଁ।"
+msgstr "ଆପଣ ଭରଣ କରିଥିବା ଚାବି ଅବୈଧ ଅଟେ।"
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "ଛାଡି ଦିଅନ୍ତୁ"
+msgstr "ବାଦ ଦିଅନ୍ତୁ (_S)"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1416,7 +1406,7 @@ msgstr ""
 "ଆପଣ CDL ଶୈଳୀ ବ୍ଯବହାର କରି DASDକୁ ପୁନଃ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1424,10 +1414,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"ବର୍ତମାନ /dev/%s ପାଖରେ ଗୋଟିଏ %s ବିଭାଜନ ଢାଞ୍ଚା ଅଛି। %sର ସ୍ଥାପନ ପାଇଁ ଏହି ଡିସ୍କକୁ ବ୍ଯବହାର "
-"କରିବାକୁ, ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ, ଯେପରି ଏହି ଚାଳନରେ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ ହୋଇଯିବ।\n"
+"/dev/%s ନିକଟରେ ବର୍ତମାନ ଗୋଟିଏ %s ବିଭାଜନ ବିନ୍ଯାସ ଅଛି। %sର ସ୍ଥାପନ ପାଇଁ ଏହି ଡ୍ରାଇଭକୁ ବ୍ଯବହାର "
+"କରିବା ପାଇଁ, ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ, ଯେପରି ଏହି ଡ୍ରାଇଭରେ ଥିବା ସମସ୍ତ ତଥ୍ଯ ଗୁଡିକ ନଷ୍ଟ "
+"ହୋଇଯିବ।\n"
 "\n"
-"ଆପଣ ଏହି ଚାଳନକୁ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
+"ଆପଣ ଏହି ଡ୍ରାଇଭକୁ ପୁନଃପ୍ରାରମ୍ଭିକୃତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1681,9 +1672,9 @@ msgstr ""
 "ଆପଣ ଏହି ବିଭାଜନକୁ ଗୋଟିଏ ସ୍ବାପ ବିଭାଜନ ରୂପରେ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "%sକୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଆପଣ ଅତି କମରେ ଗୋଟିଏ ହାର୍ଡ-ଡ୍ରାଇଭକୁ ଚୟନ କରିବା ଉଚିତ।"
+msgstr "%s କୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଆପଣ ଅତି କମରେ ଗୋଟିଏ ହାର୍ଡ-ଡ୍ରାଇଭକୁ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -2194,9 +2185,9 @@ msgid "No help is available for this step of the install."
 msgstr "ସ୍ଥାପନର ଏହି ପଦକ୍ଷେପ ପାଇଁ କୌଣସି ସହାୟତା ଉପଲବ୍ଧ ନାହିଁ।"
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "ଦୟାକରି ଗୋଟିଏ ଘନଫଳ ସମୂହକୁ ଭରଣ କରନ୍ତୁ।"
+msgstr "ଦୟାକରି ଆପଣଙ୍କ %(instkey)s କୁ ଭରଣ କରନ୍ତୁ"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
@@ -2543,9 +2534,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "ସ୍ଥାପନ ଉତ୍ସରୁ ବିନିମୟ ପାଇଁ ପ୍ରସ୍ତୁତ କରୁଅଛି..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "%s କୁ ସ୍ଥାପନ କରୁଅଛି\n"
+msgstr "<b>%s କୁ ସ୍ଥାପନ କରୁଅଛି</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
@@ -2727,11 +2718,8 @@ msgid "The root password must be at least six characters long."
 msgstr "ପ୍ରମୂଖ ଚାଳକ ର ପ୍ରବେଶ ସଙ୍କେତ ଟି ଅତିକମ ରେ ୬ଟି ଅକ୍ଷର ବିଶିଷ୍ଟ ହେବା ଉଚିତ।"
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତଟି ଆସ୍କି-ବିହୀନ ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରିଅଛି, ପ୍ରବେଶ ସଙ୍କେତରେ "
-"ଯାହାର ବ୍ଯବହାର ସ୍ବୀକୃତ ନୁହେଁ।"
+msgstr "ଆପଣ ଭରଣ କରିଥିବା ପ୍ରବେଶ ସଙ୍କେତଟି ଆସ୍କି-ବିହୀନ ଅକ୍ଷର ମାନଙ୍କୁ ଧାରଣ କରିଅଛି, ଯାହାକି ସ୍ବୀକାର୍ଯ୍ଯ ନୁହେଁ।ବହାର ସ୍ବୀକୃତ ନୁହେଁ।"
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2754,9 +2742,8 @@ msgid "Invalid Initiator Name"
 msgstr "ଅବୈଧ ପ୍ରାରମ୍ଭକଙ୍କ ନାମ:"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "ଆପଣ ଗୋଟିଏ ଖାଲି ନଥିବା ପ୍ରାରମ୍ଭକ ନାମକୁ ଭରଣ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଗୋଟିଏ ପ୍ରାରମ୍ଭକ ନାମ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
@@ -2824,15 +2811,14 @@ msgid "Passwords do not match"
 msgstr "ପ୍ରବେଶ ସଙ୍କେତ ଗୁଡିକ ମିଶୁ ନାହିଁ"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"ଆପଣଙ୍କ ବୁଟ-ଲୋଡର ପ୍ରବେଶ ସଙ୍କେତଟି ୬ଟି ଅକ୍ଷରରୁ କମ ଅଟେ।  ଗୋଟିଏ ଅଧିକ ଲମ୍ବ ବିଶିଷ୍ଟ ବୁଟ-ଲୋଡର ପ୍ରବେଶ "
-"ସଙ୍କେତ ଭରଣ କରିବା ପାଇଁ ପରାମର୍ଶ ଦିଆଯାଉଛି।\n"
+"ଆପଣଙ୍କ ବୁଟ-ଲୋଡର ପ୍ରବେଶ ସଙ୍କେତଟି ୬ଟି ଅକ୍ଷରରୁ କମ ଅଟେ।  ଗୋଟିଏ ଅଧିକ ଲମ୍ବ ବିଶିଷ୍ଟ ବୁଟ-ଲୋଡର "
+"ପ୍ରବେଶ ସଙ୍କେତ ଭରଣ କରିବା ପାଇଁ ଆମେ ପରାମର୍ଶ କରୁଅଛୁ।\n"
 "\n"
 "ଆପଣ ଏହି ପ୍ରବେଶ ସଙ୍କେତ ସହିତ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
@@ -3470,9 +3456,8 @@ msgid "Nameserver"
 msgstr "ନାମ ସେବକ"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "ଆପଣଙ୍କ ନେଟୱାର୍କ ଅନ୍ତରାପୃଷ୍ଠକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
+msgstr "ନେଟୱାର୍କ ଉପକରଣକୁ ବିନ୍ଯାସ କରିବା ସମୟରେ ତୃଟି"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:529
 msgid "Primary DNS"
@@ -3527,14 +3512,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:155 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "\"%s\" କ୍ଷେତ୍ର ପାଇଁ ଗୋଟିଏ ମୂଲ୍ଯ ଆବଶ୍ୟକ।"
+msgstr "%s କ୍ଷେତ୍ର ପାଇଁ ଗୋଟିଏ ମୂଲ୍ଯ ଆବଶ୍ୟକ।"
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "ତଥ୍ଯ ସହିତ ତୃଟି"
+msgstr "%s ତଥ୍ଯରେ ତୃଟି"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:521 ../textw/network_text.py:525
@@ -3544,9 +3529,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:56
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "ଆପଣ ଭରଣ କରିଥିବା ଆଇ.ପି. ସୂଚନା ଟି ଅବୈଧ ଅଟେ।"
+msgstr "ଆପଣ ଭରଣ କରିଥିବା IPv4 ସୂଚନାଟି ଅବୈଧ ଅଟେ।"
 
 #: ../iw/network_gui.py:167
 msgid ""
@@ -3558,7 +3542,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:295 ../iw/network_gui.py:309
 msgid "Disabled"
-msgstr ""
+msgstr "ନିଷ୍କ୍ରିୟ"
 
 #: ../iw/network_gui.py:392
 msgid "Active on Boot"
@@ -3608,32 +3592,28 @@ msgid "Miscellaneous Settings"
 msgstr "ବିବିଧ ବିନ୍ଯାସ"
 
 #: ../iw/network_gui.py:625
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID ଯନ୍ତ୍ର କୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
+msgstr "ଉପକରଣକୁ ସମ୍ପାଦନ କରନ୍ତୁ "
 
 #: ../iw/network_gui.py:629
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "ଅଜଣା ଇଥରନେଟ ଉପକରଣ"
 
 #: ../iw/network_gui.py:635
-#, fuzzy
 msgid "unknown"
-msgstr "ଅଜଣା"
+msgstr "ଅଜ୍ଞାତ"
 
 #: ../iw/network_gui.py:637
-#, fuzzy
 msgid "Hardware address: "
-msgstr "ହାର୍ଡୱେର ଠିକଣା: %s"
+msgstr "ହାର୍ଡୱେର ଠିକଣା: "
 
 #: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "ଅନୁପସ୍ଥିତ ପ୍ରୋଟୋକଲ"
 
 #: ../iw/network_gui.py:780 ../textw/network_text.py:221
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "DHCP ପାଇଁ ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) ଚୟନ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଅତିକମରେ IPକଲ (IPv4 କିମ୍ବ ସମର୍ଥନ IPv6) ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -4307,9 +4287,8 @@ msgid "Invalid Repository Name"
 msgstr "ଅବୈଧ ଭଣ୍ଡାର ନାମ"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "ଆପଣ ଗୋଟିଏ ଖାଲି ନଥିବା ଭଣ୍ଡାର ନାମକୁ ପ୍ରଦାନ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଗୋଟିଏ ଭଣ୍ଡାର ନାମକୁ ପ୍ରଦାନ କରିବା ଉଚିତ।"
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4364,26 +4343,24 @@ msgid "_Create new boot loader configuration"
 msgstr "ନୂତନ ବୁଟ-ଲୋଡର ବିନ୍ଯାସ କୁ ସୃଷ୍ଟି କରନ୍ତୁ (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Dette vil la deg lage en ny konfigurasjon for din oppstartslaster. Hvis du "
-"ønsker å bytte oppstartslaster, bør du velge dette."
+"ଏହି ବିକଳ୍ପ ଗୋଟିଏ ନୂତନ ବୁଟ ଲୋଡର ବିନ୍ୟାସ ସୃଷ୍ଟି କରିଥାଏ।  ଯଦି ଆପଣ ବୁଟ ଲୋଡର ମାନଙ୍କୁ ପରିବର୍ତ୍ତନ "
+"କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ତାହାହେଲେ ଆପଣ ଏହାକୁ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
 msgstr "ବୁଟ-ଲୋଡର ଅଦ୍ଯତନ କୁ ଛାଡି ଦିଅନ୍ତୁ (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Dette vil ikke endre konfigurasjonen av din oppstartslaster. Du bør velge "
-"dette dersom du bruker en tredjeparts oppstartslaster."
+"ଏହି ବିକଳ୍ପ ଗୋଟିଏ ନୂତନ ବୁଟ ଲୋଡର ବିନ୍ୟାସ ସୃଷ୍ଟି କରିଥାଏ।  ଯଦି ଆପଣ ଗୋଟିଏ ତୃତୀୟ ପକ୍ଷ ବୁଟ ଲୋଡର ବ୍ଯବହାର "
+"କରୁଛନ୍ତିିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ତାହାହେଲେ ଆପଣ ଏହାକୁ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4758,9 +4735,8 @@ msgstr ""
 "ନିର୍ଣ୍ଣୟ ପାଇଁ ଆପଣ ଏହି ଫାଇଲକୁ ରଖିବା ପାଇଁ ଚାହିଁ ପାରନ୍ତୁ।"
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "ଦୟାକରି ସେହି ପ୍ଯାକେଜ ସମୂହ କୁ ଚୟନ କରନ୍ତୁ ଯାହାକୁ ଆପଣ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହିଁବେ।"
+msgstr "ଦୟାକରି ଆପଣ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହୁଁଥିବା ପ୍ଯାକେଜ ସମୂହ ମାନଙ୍କୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../textw/grpselect_text.py:105
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4768,7 +4744,7 @@ msgstr "<Space>,<+>,<-> ଚୟନ   |   <F2> ସମୂହ ବିବରଣୀ   |
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "ଚୟନ କରିବା ପାଇଁ କୌଣସି ଇଚ୍ଛାଧୀନ ପ୍ଯାକେଜ ନାହିଁ"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4808,13 +4784,13 @@ msgstr ""
 "ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv6 ଉପସର୍ଗର ମୂଲ୍ଯ ୦ ଏବଂ ୩୨ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
+msgstr "IPv%d ଉପସର୍ଗର ମୂଲ୍ଯ 0 ଏବଂ %d ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "ଉପସର୍ଗ ପାଇଁ ପୂର୍ଣ୍ଣସଂଖ୍ଯା ଆବଶ୍ଯକ"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4824,14 +4800,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "ନେଟମାସ୍କ"
+msgstr "ଉପସର୍ଗ (ନେଟମାସ୍କ)"
 
 #: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/ଉପସର୍ଗ"
+msgstr "ଉପସର୍ଗ"
 
 #: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
 msgid "Activate on boot"
@@ -4849,17 +4823,15 @@ msgstr "IPv6 ସହାୟତାକୁ ସକ୍ରିୟ କରନ୍ତୁ"
 
 #: ../textw/network_text.py:161
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:188
-#, fuzzy
 msgid "WEP Key:"
-msgstr "ଚାବି:"
+msgstr "WEP ଚାବି:"
 
 #: ../textw/network_text.py:201
 #, python-format
@@ -4868,64 +4840,56 @@ msgstr "%s ପାଇଁ ନେଟୱାର୍କ ବିନ୍ଯାସ"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "ପଏଣ୍ଟ-to-ପଏଣ୍ଟ ଆଇ.ପି. ଠିକଣା"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)  କୁ ବ୍ଯବହାର କରନ୍ତୁ"
+msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "ହସ୍ତକୃତ TCP/IP ବିନ୍ଯାସ"
+msgstr "ହସ୍ତକୃତ ଠିକଣା ବିନ୍ଯାସ"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s ପାଇଁ ନେଟୱାର୍କ ବିନ୍ଯାସ"
+msgstr "%s ପାଇଁ IPv4 ବିନ୍ଯାସ"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 ଠିକଣା:"
+msgstr "IPv4 ଠିକଣା"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/ନେଟମାସ୍କ"
+msgstr "IPv4 ନେଟୱାର୍କ ନେଟମାସ୍କ"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "ନେଟମାସ୍କ"
+msgstr "IPv4 ଉପସର୍ଗ (ନେଟୱାର୍କ ନେଟମାସ୍କ)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "ସ୍ବୟଂଚାଳିତ ପଡୋଶୀ ଅନୁସନ୍ଧାନ"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP)  କୁ ବ୍ଯବହାର କରନ୍ତୁ"
+msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s ପାଇଁ ନେଟୱାର୍କ ବିନ୍ଯାସ"
+msgstr "%s ପାଇଁ IPv6 ବିନ୍ଯାସ"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 ଠିକଣା:"
+msgstr "IPv6 ଠିକଣା"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/ଉପସର୍ଗ"
+msgstr "IPv6 ଉପସର୍ଗ"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -4944,17 +4908,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "ବିବିଧ ନେଟୱାର୍କ ବିନ୍ଯାସ"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
 msgstr "ଗେଟ-ୱେ"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
 msgstr "ପ୍ରାଥମିକ DNS"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
 msgstr "ଦ୍ବିତୀୟକ DNS"
 
@@ -5175,18 +5136,16 @@ msgid "Too many spares"
 msgstr "ଅତ୍ୟଧିକ ଅତିରିକ୍ତ"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "RAID0 ସାରଣୀ ସହିତ ସର୍ବାଧିକ ଅତିରିକ୍ତ କ୍ରମାଙ୍କ ୦ ଅଟେ।"
+msgstr "ଗୋଟିଏ RAID0 ଧାଡି ଆପଣ କୌଣସି ଅତିରିକ୍ତ ମାନଙ୍କୁ ବ୍ଯବହାର କରି ନ ପାରନ୍ତି।"
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "ଘନଫଳ ସମୂହ ନାହିଁ"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "ତାର୍କିକ ଘନଫଳ ସୃଷ୍ଟି କରିବା ପାଇଁ କୌଣସି ଘନଫଳ ସମୂହ ନାହିଁ"
+msgstr "ଗୋଟିଏ ତାର୍କିକ ଘନଫଳ ସୃଷ୍ଟି କରିବା ପାଇଁ କୌଣସି ଘନଫଳ ସମୂହ ଅବସ୍ଥିତ ନାହିଁ"
 
 #: ../textw/partition_text.py:1302
 #, fuzzy, python-format
@@ -5245,9 +5204,8 @@ msgid "No Root Partition"
 msgstr "ରୁଟ ବିଭାଜନ ନାହିଁ"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS ସ୍ଥାପନ ପ୍ରଣାଳୀ IPv4 ସମର୍ଥନ ଆବଶ୍ୟକ କରିଥାଏ।"
+msgstr "ସ୍ଥାପନ ପଦ୍ଧତି ଗୋଟିଏ / ସମର୍ଥନ ଆବଶ୍ୟକ କରିଥାଏ।"
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5268,9 +5226,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ଏହି ସ୍ଥାପନ ପାଇଁ ଆପଣ କେଉଁ ଡ୍ରାଇଭ (କୁ/ମାନଙ୍କୁ) ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> ଚୟନ   |   <F2> ସମୂହ ବିବରଣୀ   |   <F12> ପରବର୍ତ୍ତୀ ପରଦା"
+msgstr "<Space>,<+>,<-> ଚୟନ   |   <F2> ଡ୍ରାଇଭ ଯୋଗକରନ୍ତୁ   |   <F12> ପରବର୍ତ୍ତୀ ପରଦା"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5289,9 +5246,8 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "ଆପଣ ଆପଣଙ୍କ ଡ୍ରାଇଭ ବିନ୍ଯାସକୁ ବଦଳାଇବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "FCP ଯନ୍ତ୍ର କୁ ଯୋଗ କରନ୍ତୁ"
+msgstr "FCP ଉପକରଣକୁ ଯୋଗ କରନ୍ତୁ"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
 #, fuzzy
@@ -5318,14 +5274,12 @@ msgstr ""
 "ଏବଂ iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ ପ୍ରଦାନ କରିବା ଉଟିତ।"
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>ଲକ୍ଷସ୍ଥ ଆଇ.ପି. ଠିକଣା (_T):</b>"
+msgstr "ଲକ୍ଷ୍ଯସ୍ଥ ଆଇ.ପି. ଠିକଣା"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ (_N):</b>"
+msgstr "iSCSI ପ୍ରାରମ୍ଭକଙ୍କ ନାମ"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5359,9 +5313,8 @@ msgid "Customize software selection"
 msgstr "ସଫଟ୍ଟୱେର ଚୟନ କୁ ଇଚ୍ଛାରୂପଣ କରନ୍ତୁ"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "କେଉଁ ସମୟ ମଣ୍ଡଳ ରେ ଆପଣ ଅବସ୍ଥିତ ଅଛନ୍ତି?"
+msgstr "ଆପଣ କେଉଁ ସମୟ ମଣ୍ଡଳରେ ଅବସ୍ଥିତ ଅଛନ୍ତି?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5513,9 +5466,8 @@ msgid "Multimedia"
 msgstr ""
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "ଅଭିନନ୍ଦନ"
+msgstr "ଆଭାସୀକରଣ"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
@@ -5526,9 +5478,8 @@ msgid "Storage Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ ସ୍ଥାପନ"
+msgstr "ସ୍ଥାପନ ସଂଖ୍ଯା"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -5896,9 +5847,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:353
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "%s କିକ୍-ଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ଖୋଲିବାରେ ତୃଟି: %s"
+msgstr "କିକ-ଷ୍ଟାର୍ଟ ଫାଇଲ ଆହରଣ କରିବା ସମୟରେ ତୃଟି"
 
 #: ../loader2/kickstart.c:486
 #, c-format
@@ -6210,9 +6160,8 @@ msgid "Nameserver IP"
 msgstr "ନାମ ସେବକ ଆଇ.ପି."
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "ନାମ ସେବକ"
+msgstr "ଅନୁପସ୍ଥିତ ନାମ ସେବକ"
 
 #: ../loader2/net.c:303
 #, fuzzy
@@ -6247,9 +6196,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP କୁ ବିନ୍ଯାସ କରନ୍ତୁ"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "DHCP ପାଇଁ ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) ଚୟନ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଟୋକଲ (IPv4 କିମ୍ବା IPv6) ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6296,9 +6244,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv4 ଠିକଣା ଏବଂ ଗୋଟିଏ ନେଟମାସ୍କ କିମ୍ବା CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ଏବଂ aCIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
+msgstr "ଆପଣ ଉଭୟ ଗୋଟିଏ ବୈଧ IPv6 ଠିକଣା ଏବଂ ଗୋଟିଏ CIDR ଉପସର୍ଗକୁ ଭରଣ କରିବା ଉଚିତ।"
 
 #: ../loader2/net.c:1516
 msgid "Determining host name and domain..."
@@ -6549,9 +6496,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "ବିଭାଜନକାରୀ ବିନ୍ଯାସ କୁ ସମୀକ୍ଷା ଏବଂ ରୂପାନ୍ତରିତ କରନ୍ତୁ (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସମୟରେ ଆପଣ କେଉଁ ଭାଷା ର ପ୍ରୟୋଗ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
+msgstr "କେଉଁ ଡ୍ରାଇଭରୁ ଆପଣ ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ବୁଟ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6635,33 +6581,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ଗତିଶୀଳ ଆଇ.ପି. ବିନ୍ଯାସ (DHCP) କୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "ବର୍ଣ୍ଣନା: %s"
+msgstr "<b>ଏଠାରେ ବର୍ଣ୍ଣନା କରାଯାଇଛି</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:9
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s ଅନ୍ତରାପ୍ରୁଷ୍ଠ ର ସମ୍ପାଦନ କରନ୍ତୁ"
+msgstr "ଅନ୍ତରାପୃଷ୍ଠ ସମ୍ପାଦନ କରନ୍ତୁ"
 
 #: tmp/netpostconfig.glade.h:12
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "ଗୋପନୀୟ ଚାବି (_K):"
+msgstr "ଗୋପନୀୟ ଚାବି:"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Manual configuration"
-msgstr "ହସ୍ତକୃତ TCP/IP ବିନ୍ଯାସ"
+msgstr "ହସ୍ତକୃତ ବିନ୍ଯାସ"
 
 #: tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "ପଏଣ୍ଟ to ପଏଣ୍ଟ (ଆଇ.ପି.) (_P):"
+msgstr "ପଏଣ୍ଟ to ପଏଣ୍ଟ (ଆଇ.ପି.)):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6690,19 +6631,16 @@ msgid "_Customize now"
 msgstr "ବର୍ତମାନ ଇଚ୍ଛାରୂପଣ କରନ୍ତୁ (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "ଯନ୍ତ୍ରର ନମ୍ବର"
+msgstr "<b>ଉପକରଣ ସଂଖ୍ଯା:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>ପ୍ରବେଶ ସଙ୍କେତ (_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
