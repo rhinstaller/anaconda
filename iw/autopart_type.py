@@ -256,10 +256,10 @@ class PartitionTypeWindow(InstallWindow):
 
         store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
         self.combo.set_model(store)
-        opts = ((_("Remove all partitions on selected drives and create default layout."), CLEARPART_TYPE_ALL),
-                (_("Remove linux partitions on selected drives and create default layout."), CLEARPART_TYPE_LINUX),
-                (_("Use free space on selected drives and create default layout."), CLEARPART_TYPE_NONE),
-                (_("Create custom layout."), -1))
+        opts = ((_("Remove all partitions on selected drives and create default layout"), CLEARPART_TYPE_ALL),
+                (_("Remove Linux partitions on selected drives and create default layout"), CLEARPART_TYPE_LINUX),
+                (_("Use free space on selected drives and create default layout"), CLEARPART_TYPE_NONE),
+                (_("Create custom layout"), -1))
         for (txt, val) in opts:
             iter = store.append(None)
             store[iter] = (txt, val)
