@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.36
+Version: 11.2.0.37
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 15 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.37-1
+- Fix confusing wording in loader (clumens, #163329)
+- Don't tell the user to eject the CD at the end (clumens, #137275)
+- Remove some unused functions (clumens)
+- More intelligent error handling when the number of packages exceeds
+  the CD size (clumens, #232104)
+- Partitioning UI string fixes (clumens, #203346)
+- Name the cciss module 'HP/Compaq Smart Array Controller (#210414)
+- More partitioning UI string fixes (#208394)
+
 * Tue Mar 13 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.36-1
 - String fixes (#231761).
 - Fix yum logging traceback.
