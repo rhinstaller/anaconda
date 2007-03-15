@@ -1,4 +1,4 @@
-# translation of it.po to Italiano
+# translation of it.po to italiano
 # Copyright (C) 2001,2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 #
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-12 06:29+0100\n"
+"PO-Revision-Date: 2007-03-15 07:30+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
+"Language-Team: italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4031,7 +4031,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4039,7 +4038,7 @@ msgid ""
 "\n"
 msgstr ""
 "Per usare RAID è necessario innanzitutto creare almeno due partizioni di "
-"tipo 'software RAID'. Quindi occorre creare un dispositivo RAID che possa "
+"tipo 'software RAID'. Poi sarà possibile creare un dispositivo RAID che possa "
 "essere formattato e montato.\n"
 "\n"
 
@@ -4117,13 +4116,13 @@ msgid "Check for _bad blocks?"
 msgstr "Controllo dei _blocchi difettosi?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Le partizioni di tipo '%s' devono essere vincolate a un solo disco. Questo "
-"avviene selezionando il disco nell'elenco di controllo 'Unità consentite'."
+"Le partizioni di tipo '%s' devono essere vincolate in un solo disco. Per farlo, "
+"selezionare il disco nell'elenco delle 'Unità disponibili'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4204,7 +4203,6 @@ msgid "Source Drive Error"
 msgstr "Errore dell'unità sorgente"
 
 #: ../iw/raid_dialog_gui.py:498
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4217,7 +4215,7 @@ msgstr ""
 "Queste partizioni devono essere rimosse prima che l'unità venga clonata."
 
 #: ../iw/raid_dialog_gui.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4229,10 +4227,9 @@ msgstr ""
 "vincolate all'unità /dev/%s.\n"
 "\n"
 "Queste partizioni devono essere rimosse o ristrette a questa unità prima "
-"della clonazione. "
+"della clonazione."
 
 #: ../iw/raid_dialog_gui.py:523
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4261,7 +4258,7 @@ msgstr ""
 "destinazione."
 
 #: ../iw/raid_dialog_gui.py:562
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4317,7 +4314,6 @@ msgstr ""
 "destinazione. Clonazione fallita."
 
 #: ../iw/raid_dialog_gui.py:696
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4335,7 +4331,7 @@ msgstr ""
 "Strumento di clonazione unità\n"
 "\n"
 "Questo strumento consente di ridurre enormemente il tempo per configurare "
-"gli array RAID. L'idea è di prendere un'unità sorgente che è stata preparata "
+"gli array RAID.  Questo strumento usa un'unità sorgente che è stata preparata "
 "con il layout di partizionamento desiderato, e clonare il layout su altre "
 "unità di dimensioni simili.  Quindi è possibile creare un dispositivo RAID.\n"
 "\n"
@@ -4385,7 +4381,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4398,9 +4394,8 @@ msgid "Invalid Repository Name"
 msgstr "Nome repositorio non valido"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Fornire un nome del repositorio di lunghezza diversa da zero"
+msgstr "E' necessario fornire il nome di un repositorio."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4459,12 +4454,11 @@ msgid "_Create new boot loader configuration"
 msgstr "_Crea una nuova configurazione del boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Questo consentirà di creare una nuova configurazione del boot loader. Se si "
+"Questa opzione creerà una nuova configurazione del boot loader.  Se si "
 "desidera cambiare boot loader, scegliere questa opzione."
 
 #: ../iw/upgrade_bootloader_gui.py:96
@@ -4472,13 +4466,10 @@ msgid "_Skip boot loader updating"
 msgstr "_Ignora l'aggiornamento del boot loader"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
-msgstr ""
-"La configurazione del boot loader rimarrà immutata. Se si usa un boot loader "
-"di terzi, scegliere questa opzione."
+msgstr "Questa opzione non farà cambiamenti alla configurazione del boot loader.  Se si sta usando un boot loader di terze parti, scegliere questa opzione."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4489,7 +4480,7 @@ msgid "Migrate File Systems"
 msgstr "Migra i file system"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4498,28 +4489,24 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Questa versione di %s supporta il file system di tipo journalling ext3. Esso "
-"offre diversi vantaggi rispetto al file system ext2 generalmente fornito con "
-"%s. E' possibile migrare le partizioni formattate di tipo ext2 a ext3 senza "
-"perdere i dati.\n"
+"Questa versione di %s supporta il file system di tipo journaling ext3 che offre diversi vantaggi rispetto al file system ext2 generalmente fornito con "
+"%s.  E' possibile migrare le partizioni formattate ext2 in ext3 senza perdita di dati.\n"
 "\n"
-"Quali di queste partizioni migrare?"
+"Quali di queste partizioni si desidera migrare?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "Aggiorna la partizione di swap"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Il kernel 2.4 richiede molto più spazio di swap delle versioni precedenti: "
-"lo spazio di swap deve essere doppio rispetto alla quantità di RAM presente "
-"nel sistema. Al momento sono presenti %dMB di spazio di swap configurati, ma "
+"I kernels recenti (2.4 o superiori) richiedono molto più spazio di swap delle versioni precedenti, fino al doppio dell'ammontare della quantità di RAM sul sistema.  Al momento sono presenti %dMB di spazio di swap configurati, ma "
 "ulteriore spazio di swap può essere aggiunto su uno dei filesystem."
 
 #: ../iw/upgrade_swap_gui.py:96
@@ -4550,13 +4537,11 @@ msgid "Free Space (MB)"
 msgstr "Spazio libero (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
-msgstr ""
-"Crea un file di swap di almeno %d MB. Inserire le dimensioni del file di "
-"swap da creare:"
+msgstr "Si raccomanda un file di swap di almeno %d MB.  Inserire le dimensioni del file di swap da creare:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4567,13 +4552,10 @@ msgid "I _don't want to create a swap file"
 msgstr "_Non creare alcun file di swap"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is stongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr ""
-"Si raccomanda vivamente di creare un file di swap, altrimenti il programma "
-"di installazione potrebbe interrompersi in modo anomalo. Proseguire?"
+msgstr "Si raccomanda vivamente di creare un file di swap.  Se non lo si crea il programma di installazione potrebbe interrompersi in modo anomalo. Si desidera continuare?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4647,7 +4629,6 @@ msgid "Skip Boot Loader"
 msgstr "Ignora il boot loader"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4655,10 +4636,7 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"E' stato scelto di non installare alcun boot loader. Si consiglia vivamente "
-"di installare un boot loader tranne in caso di particolari esigenze. Il boot "
-"loader è quasi sempre richiesto per riavviare Linux direttamente dal disco "
-"fisso.\n"
+"Si è scelto di non installare alcun boot loader, il che non è raccomandabile, tranne in caso di particolari esigenze. Il boot loader è quasi sempre richiesto per avviare Linux direttamente dal disco fisso.\n"
 "\n"
 "Saltare l'installazione del boot loader?"
 
