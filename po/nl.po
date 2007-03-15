@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-14 23:19+0100\n"
+"PO-Revision-Date: 2007-03-16 00:25+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Onbekende fout"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"Fout bij het lezen van het tweede deel van de kickstartconfiguratie: %s!"
+"Fout bij het lezen van het tweede deel van de kickstart-configuratie: %s!"
 
 #: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
 #, c-format, python-format
@@ -40,7 +40,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"De volgende fout is opgetreden tijdens het verwerken van uw kickstart "
+"De volgende fout is opgetreden tijdens het verwerken van uw kickstart-"
 "configuratie:\n"
 "\n"
 "%s"
@@ -1436,7 +1436,7 @@ msgstr ""
 
 #: ../packages.py:332
 msgid "_Install anyway"
-msgstr "_Installeer toch"
+msgstr "Toch _installeren"
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:559
 msgid "Foreign"
@@ -1455,8 +1455,8 @@ msgstr ""
 "Het apparaat %s is geformatteerd met LDL in plaats van CDL.  LDL "
 "geformatteerde DASDs zijn niet ondersteund voor gebruik gedurende een "
 "installatie van %s.  Als u deze disk voor installatie wilt gebruiken dient "
-"deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE DATA op dit "
-"station verloren zal gaan.\n"
+"deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE GEGEVENS op dit "
+"station verloren zullen gaan.\n"
 "\n"
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
 
@@ -1650,7 +1650,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Deze partitie bevat de data voor installatie vanaf de harde schijf."
+msgstr "Deze partitie bevat de gegevens voor installatie vanaf de harde schijf."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -2125,7 +2125,7 @@ msgstr ""
 
 #: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
-msgstr "Redding"
+msgstr "Herstel"
 
 #: ../rescue.py:277
 #, python-format
@@ -2140,7 +2140,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"De reddingsomgeving zal nu trachten uw Linux installatie te vinden en aan te "
+"De herstelomgeving zal nu trachten uw Linux installatie te vinden en aan te "
 "koppelen onder de map %s.  U kunt dan eventueel benodigde veranderingen "
 "aanbrengen in uw systeem.  Als u met deze stap wilt doorgaan kiest u: "
 "'Doorgaan'.  U kunt er ook voor kiezen om uw bestandssystemen aan te "
@@ -2148,7 +2148,7 @@ msgstr ""
 "Hiervoor kiest u: 'Alleen-lezen'.\n"
 "\n"
 "Als dit door een of andere reden niet lukt kunt u kiezen voor: 'Overslaan' "
-"waardoor deze stap zal worden overgeslagen. U krijgt dan direkt een shell-"
+"waardoor deze stap zal worden overgeslagen. U krijgt dan direct een shell-"
 "prompt.\n"
 "\n"
 
@@ -2225,7 +2225,7 @@ msgstr ""
 
 #: ../rescue.py:441
 msgid "Rescue Mode"
-msgstr "Herstel modus"
+msgstr "Herstelmodus"
 
 # return -> enter
 #: ../rescue.py:442
@@ -2872,7 +2872,7 @@ msgstr "U moet een initiator-naam opgeven."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
-msgstr "Fout met data"
+msgstr "Fout met gegevens"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 msgid "Remove all partitions on selected drives and create default layout."
@@ -3142,7 +3142,7 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "Kies deze optie om uw systeem opnieuw te installeren. Bestaande software en "
-"data kan (afhankelijk van uw configuratiekeuzes) overschreven worden."
+"gegevens kunnen (afhankelijk van uw configuratiekeuzes) overschreven worden."
 
 #: ../iw/examine_gui.py:56
 msgid "_Upgrade an existing installation"
@@ -3154,8 +3154,8 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Kies voor deze optie als u uw huidige %s systeem wilt upgraden. Deze optie "
-"behoudt de bestaande data op uw harde schijven."
+"Kies deze optie als u uw huidige %s systeem wilt upgraden. Deze optie "
+"behoudt de bestaande gegevens op uw harde schijven."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3564,7 +3564,7 @@ msgstr "Kies de juiste muis voor dit systeem."
 #: ../textw/network_text.py:44 ../textw/network_text.py:49
 #: ../textw/network_text.py:55
 msgid "Error With Data"
-msgstr "Fout met data"
+msgstr "Fout met gegevens"
 
 #: ../iw/netconfig_dialog.py:137
 #, python-format
@@ -3583,7 +3583,7 @@ msgstr "Dynamisch IP"
 #: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
-msgstr "IP-informatieverzoek voor %s versturen..."
+msgstr "Verzenden van IP-informatieverzoek voor %s..."
 
 #: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
 #: tmp/netpostconfig.glade.h:13
@@ -3667,7 +3667,7 @@ msgstr "Voor het veld %s is een waarde vereist."
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, python-format
 msgid "Error With %s Data"
-msgstr "Fout met %s data"
+msgstr "Fout met %s gegevens"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:521 ../textw/network_text.py:525
@@ -3788,7 +3788,7 @@ msgstr ""
 "door te selecteren uit de lijst. Klik op 'Toevoegen' om een besturingssysteem "
 "dat niet automatisch gedetecteerd werd toe te voegen. Selecteer 'Standaard' "
 "naast het gewenste besturingssysteem om het besturingssysteem dat standaard "
-"wordt opgestart te veranderen."
+"moet worden opgestart te veranderen."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -4163,7 +4163,7 @@ msgstr "Wat wilt u met het bestandssysteem op deze partitie doen?"
 # De 'O' wordt al gebruikt voor OK
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
-msgstr "O_nveranderd laten (data behouden)"
+msgstr "O_nveranderd laten (gegevens behouden)"
 
 #: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
@@ -4359,7 +4359,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"WAARSCHUWING! ALLE DATA OP DE DOELSTATIONS WORDT VERNIETIGD."
+"WAARSCHUWING! ALLE GEGEVENS OP DE DOELSTATIONS WORDEN VERNIETIGD."
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
@@ -4712,9 +4712,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"U hebt deze keuze gemaakt om geen bootloader te installeren, dit is niet "
+"U hebt de keuze gemaakt om geen bootloader te installeren, dit is niet "
 "aanbevolen tenzij u een bijzondere noodzaak hebt. Om uw systeem rechtstreeks "
-"in Linux op te starten vanaf de harde schijf is een bootloader bijna altijd "
+"vanaf de harde schijf in Linux op te starten is een bootloader bijna altijd "
 "vereist.\n"
 "\n"
 "Weet u zeker dat u het installeren van de bootloader wilt overslaan?"
@@ -4983,6 +4983,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"U dient een geldige integer op te geven voor de %s.  Voor IPv4 kan de waarde "
+"tussen 0 en 32 liggen.  Voor IPv6 kan de waarde tussen 0 en 128 liggen."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 msgid "Prefix (Netmask)"
@@ -5261,7 +5263,7 @@ msgstr "Controleren op schijffouten"
 
 #: ../textw/partition_text.py:613
 msgid "Leave unchanged (preserve data)"
-msgstr "Onveranderd laten (data behouden)"
+msgstr "Onveranderd laten (gegevens behouden)"
 
 #: ../textw/partition_text.py:622
 msgid "Format as:"
@@ -5670,6 +5672,8 @@ msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"Voer uw installatienummer in om de volledige verzameling van ondersteunde "
+"pakketten in uw abonnement te installeren"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5684,6 +5688,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Als u het installatienummer niet kunt vinden, raadpleeg dan http://www.redhat."
+"com/apps/support/in.html.\n"
+"\n"
+"Als u deze stap overslaat:\n"
+"* Kunt u wellicht geen toegang krijgen tot de volledige verzameling van "
+"pakketten in uw abonnement.\n"
+"* Kan dit resulteren in een niet-ondersteunde/niet-gecertificeerde "
+"installatie van Red Hat Enterprise Linux.\n"
+"* Zult u geen software en beveiligingsupdates kunnen krijgen voor pakketten "
+"die niet in uw abonnement zitten."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6057,7 +6071,7 @@ msgstr "Foutief argument voor 'uitschakelen' kickstart methode commando %s: %s"
 #: ../loader2/lang.c:56
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Welkom bij %s - Herstel modus"
+msgstr "Welkom bij %s - Herstelmodus"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
 msgid ""
@@ -6132,7 +6146,7 @@ msgstr ""
 
 #: ../loader2/loader.c:981
 msgid "Rescue Method"
-msgstr "Redding-methode"
+msgstr "Herstelmethode"
 
 #: ../loader2/loader.c:982
 msgid "Installation Method"
@@ -6140,7 +6154,7 @@ msgstr "Installatiemethode"
 
 #: ../loader2/loader.c:984
 msgid "What type of media contains the rescue image?"
-msgstr "Op wat voor medium staat het reddings-image?"
+msgstr "Op wat voor medium staat het herstel-image?"
 
 #: ../loader2/loader.c:986
 msgid "What type of media contains the packages to be installed?"
@@ -6200,7 +6214,7 @@ msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 #: ../loader2/loader.c:1787
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Opstarten van Anaconda, de %s herstel modus - even geduld...\n"
+msgstr "Opstarten van Anaconda, de %s herstelmodus - even geduld...\n"
 
 #: ../loader2/loader.c:1789
 #, c-format
@@ -6847,7 +6861,7 @@ msgstr "_Nu aanpassen"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
-msgstr "<b>apparaat-nummer:</b>"
+msgstr "<b>apparaatnummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
 msgid "<b>FCP LUN:</b>"
