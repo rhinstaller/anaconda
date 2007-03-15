@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-03-15 07:30+0100\n"
+"PO-Revision-Date: 2007-03-15 22:38+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -4641,15 +4641,13 @@ msgstr ""
 "Saltare l'installazione del boot loader?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Alcuni sistemi hanno bisogno di passare particolari opzioni al kernel in "
-"fase di avvio. Inserire qui le opzioni di boot da passare al kernel o "
-"lasciare la riga vuota."
+"fase di avvio per funzionare correttamente. Se si ha la necessità di passare opzioni al kernel, inserirle qui. Se non se ne ha bisogno o non si è sicuri, lasciare la riga vuota."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4688,14 +4686,12 @@ msgid "Edit"
 msgstr "Modifica"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
-msgstr ""
-"Il boot manager di %s può gestire l'avvio di altri sistemi operativi. "
-"Indicare le partizioni da avviare e associare ad ognuna di esse un'etichetta."
+msgstr "Il boot manager di %s può gestire l'avvio di altri sistemi operativi.  Si prega di indicare quali partizioni si desidera poter avviare e quale etichetta usare per ciascuna di loro."
 
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -4704,16 +4700,14 @@ msgstr ""
 "schermata successiva>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "La password per il boot loader impedisce agli utenti di passare al kernel "
-"informazioni arbitrarie. Per maggiore sicurezza è consigliabile impostare "
-"una password, ma per gli utenti occasionali questa operazione non è "
-"necessaria."
+"informazioni arbitrarie.  Per maggiore sicurezza è consigliabile impostare "
+"una password, ma per la maggior parte degli utenti generici questa non è necessaria."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4838,9 +4832,8 @@ msgstr ""
 "consultazioni future."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Si prega di selezionare il gruppo di pacchetti che si desidera installare."
+msgstr "Si prega di selezionare i gruppi di pacchetti che si desidera installare."
 
 #: ../textw/grpselect_text.py:105
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4890,13 +4883,13 @@ msgstr ""
 "questo può causare problemi successivamente."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Il prefisso IPv4 deve essere fra 0 e 32."
+msgstr "Il prefisso IPv%d deve essere fra 0 e %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Il prefisso deve essere un intero"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4904,6 +4897,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Si immetta un intero valido per il %s.  Per IPv4, il valore può essere "
+"fra 0 e 32.  Per IPv6 può essere fra 0 e 128."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 msgid "Prefix (Netmask)"
@@ -4946,38 +4941,34 @@ msgstr "Configurazione di rete per %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "Indirizzo IP point-to-point"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Configurazione IP dinamica (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Configurazione manuale"
+msgstr "Configurazione indirizzo manuale"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Configurazione di rete per %s"
+msgstr "Configurazione IPv4 per %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "Indirizzo IPv4:"
+msgstr "Indirizzo IPv4"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmask"
+msgstr "Maschera di rete IPv4"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefisso (Netmask)"
+msgstr "Prefisso IPv4 (maschera di rete)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
@@ -4988,20 +4979,18 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Configurazione IP dinamica (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Configurazione di rete per %s"
+msgstr "Configurazione IPv6 per %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "Indirizzo IPv6:"
+msgstr "Indirizzo IPv6"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefisso"
+msgstr "Prefisso IPv6"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5020,17 +5009,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "Impostazioni varie della rete"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
 msgstr "DNS primario"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
 msgstr "DNS secondario"
 
@@ -5047,18 +5033,12 @@ msgid "Hostname Configuration"
 msgstr "Configurazione dell'hostname"
 
 #: ../textw/network_text.py:702
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr ""
-"Se il vostro sistema fa parte di una rete più grande, dove gli hostname sono "
-"assegnati da DHCP, selezionate 'automaticamente tramite DHCP'. Altrimenti "
-"selezionate 'manualmente' e inserite un hostname per il vostro sistema. Se "
-"non effettuate quanto detto, il vostro sistema sarà conosciuto come host "
-"locale o 'localhost.'"
+msgstr "Se il sistema fa parte di una rete più grande, dove gli hostname sono assegnati da DHCP, si selezioni 'automaticamente tramite DHCP'. Altrimenti si selezioni 'manualmente' e si inserisca un hostname per il sistema. Se non lo si farà, il sistema sarà conosciuto come 'localhost.'"
 
 #: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
@@ -5212,11 +5192,8 @@ msgid "Not Supported"
 msgstr "Non supportato"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"I gruppi di volumi LVM possono essere modificati solo nel programma di "
-"installazione grafico."
+msgstr "E' possibile editare i Gruppi di Volumi LVM solo nel programma di installazione grafico."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5255,27 +5232,23 @@ msgid "Too many spares"
 msgstr "Troppi spare"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Il numero massimo di spare consentito per un dispositivo RAID0 è 0."
+msgstr "Non è possibile usare alcuno spares con un array RAID0."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Nessun gruppo di volumi"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Nessun gruppo di volumi presente nel quale creare un volume logico"
+msgstr "Non esiste alcun gruppo di volumi in cui creare un volume logico"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
-msgstr ""
-"La dimensione richiesta (%10.2f MB) è superiore a quella del volume logico (%"
-"10.2f MB)."
+msgstr "La dimensione attualmente richiesta (%10.2f MB) è superiore alla massima dimensione del volume logico (%10.2f MB)."
 
 #: ../textw/partition_text.py:1321
 #, python-format
@@ -5323,9 +5296,8 @@ msgid "No Root Partition"
 msgstr "Nessuna partizione root"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "Il metodo di installazione NFS richiede il supporto IPv4."
+msgstr "L'installazione richiede una partizione / ."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5397,14 +5369,12 @@ msgstr ""
 "host."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>Indirizzo IP _Destinazione:</b>"
+msgstr "Indirizzo IP destinazione"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Nome inizializzatore iSCSI:</b>"
+msgstr "Nome inizializzatore iSCSI"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5438,9 +5408,8 @@ msgid "Customize software selection"
 msgstr "Selezione personalizzata del software"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "In quale fuso orario vi trovate?"
+msgstr "In quale fuso orario ci si trova?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5492,33 +5461,26 @@ msgid "System to Upgrade"
 msgstr "Sistema da aggiornare"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"Una o più installazioni attuali di Linux sono state trovate sul vostro "
-"sistema.\n"
+"Sul sistema sembrerebbero esservi una o più installazioni di Linux.\n"
 "\n"
-"Sceglietene una da aggiornare, oppure selezionate 'Reinstallazione del "
-"sistema' per una nuova installazione."
+"Sceglierne una da aggiornare, o selezionare 'Reinstallazione del sistema' per una nuova installazione."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
 msgstr "Password di root"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
-msgstr ""
-"Inserire la password di root. Digitarla una seconda volta per evitare errori "
-"di battitura. La password di root è molto importante per la sicurezza del "
-"sistema!"
+msgstr "Scegliere la password di root. Si deve digitarla due volte per assicurarsi di conoscerla ed evitare errori di battitura. Si ricordi che la password di root è una componente critica per la sicurezza del sistema!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5534,16 +5496,11 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
-msgstr ""
-"Il Boot Loader z/IPL verrà installato sul vostro sistema dopo che "
-"l'installazione è stata completata. Potete ora inserire tutti i parametri "
-"supplementari del chandev e del kernel che la vostra macchina o la vostra "
-"configurazione potrebbe richiedere."
+msgstr "Il Boot Loader z/IPL verrà installato sul sistema dopo che l'installazione sarà stata completata. E' ora possibile inserire tutti i parametri supplementari del kernel e di chandev che la macchina o la configurazione richiedono."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5587,35 +5544,33 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Ufficio"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Congratulazioni"
+msgstr "Virtualizzazione"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Clustering"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Storage Clustering"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "L'installazione sta per iniziare"
+msgstr "Numero di installazione"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "Per installare il gruppo completo di pacchetti supportati inclusi nella sottoscrizione, si immetta il Numero di Installazione"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5630,6 +5585,12 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Se non si è in grado di localizzare il Numero di Installazione, consultare http://www.redhat.com/apps/support/in.html.\n"
+"\n"
+"Se si salta questo passaggio:\n"
+"* Non sarà possibile avere accesso al gruppo completo di pacchetti inclusi nella propria sottoscrizione.\n"
+"* Si potrà incorrere in una installazione di Red Hat Enterprise Linux non supportata/non certificata.\n"
+"* Non si sarà in grado di ottenere aggiornamenti software e di sicurezza per i pacchetti non inclusi nella propria sottoscrizione."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6245,9 +6206,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr "Argomento non corretto per il comando kickstart disco del driver: %s:%s"
+msgstr "Sia il tipo di modulo che il nome devono essere specificati per il comando kickstart device."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6641,9 +6601,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Ri_vedere e modificare lo schema di partizionamento"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Quale lingua desiderate installare durante il processo d'installazione:"
+msgstr "Da quale drive si desidera avviare questa installazione?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6664,7 +6623,7 @@ msgstr "Dettagli _eccezione"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
