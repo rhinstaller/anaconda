@@ -1028,7 +1028,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     elif ret == BOOTEFI_NOT_VFAT:
         raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTIPSERIES_TOO_HIGH:
-        raise PartitioningError, _("Boot partition isn't located early enough on the disk.  OpenFirmware won't be able to boot this installation.")
+        raise PartitioningError, _("The boot partition must entirely be in the first 4GB of the disk.  OpenFirmware won't be able to boot this installation.")
     elif ret == BOOT_ABOVE_1024:
         # we can't make boot disks anymore and this isn't much of a problem
         # for "modern" hardware. (#122535)
