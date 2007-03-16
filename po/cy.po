@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 17:53-0500\n"
+"POT-Creation-Date: 2007-03-16 15:11-0400\n"
 "PO-Revision-Date: 2006-08-18 21:49-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Pwyswch <enter> i gael plisgyn"
 #: ../textw/constants_text.py:36 ../textw/network_text.py:36
 #: ../textw/network_text.py:46 ../textw/network_text.py:68
 #: ../textw/network_text.py:74 ../textw/network_text.py:222
-#: ../textw/network_text.py:730 ../textw/network_text.py:738
+#: ../textw/network_text.py:803 ../textw/network_text.py:811
 #: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
 #: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
@@ -65,13 +65,13 @@ msgstr "Pwyswch <enter> i gael plisgyn"
 #: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
 #: ../loader2/kickstart.c:339 ../loader2/kickstart.c:485 ../loader2/lang.c:106
 #: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:826 ../loader2/loader.c:989
+#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/loader.c:1002
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
 #: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
 #: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
-#: ../loader2/net.c:1064 ../loader2/net.c:1608 ../loader2/net.c:1631
-#: ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/net.c:1064 ../loader2/net.c:1611 ../loader2/net.c:1634
+#: ../loader2/net.c:1820 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
@@ -192,9 +192,10 @@ msgstr ""
 "rhaniad hwn."
 
 #: ../autopart.py:1031
+#, fuzzy
 msgid ""
-"Boot partition isn't located early enough on the disk.  OpenFirmware won't "
-"be able to boot this installation."
+"The boot partition must entirely be in the first 4GB of the disk.  "
+"OpenFirmware won't be able to boot this installation."
 msgstr ""
 "Nid yw'r rhaniad cychwyn wedi'i leoli'n ddigon cynnar ar y ddisg.  Ni fydd "
 "modd i OpenFirmware gychwyn yr arsefydliad yma."
@@ -550,7 +551,7 @@ msgstr "Yn gwirio am flociau gwael ar /dev/%s..."
 #: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
-#: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
+#: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
 #: ../iw/task_gui.py:79 ../iw/task_gui.py:145 ../textw/grpselect_text.py:116
 #: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
 #: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:160
@@ -562,7 +563,7 @@ msgstr "Yn gwirio am flociau gwael ar /dev/%s..."
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
 #: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
+#: ../loader2/loader.c:838 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
 #: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -624,7 +625,7 @@ msgstr ""
 msgid "Skip"
 msgstr "Hepgor"
 
-#: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:47
+#: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:41
 msgid "Reboot"
 msgstr "Ailgychwyn"
 
@@ -672,7 +673,7 @@ msgstr ""
 "uwchraddio'r system, diffoddwch hi yn hytrach na'i gorffwys."
 
 #: ../fsset.py:1520
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -680,7 +681,7 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, "
 "which means your system is hibernating. If you are performing a new install, "
-"make sure the installer is set to to format all swap partitions."
+"make sure the installer is set to format all swap partitions."
 msgstr ""
 "Mae'r ddyfais gyfnewid:\n"
 "\n"
@@ -1399,112 +1400,6 @@ msgstr ""
 msgid "_Install anyway"
 msgstr "_Arsefydlu beth bynnag"
 
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "Dieithr"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Mae'r ddyfais %s wedi'i fformadu'n LDL yn lle wedi'i fformadu'n CDL.  Ni "
-"chynhelir DASDau wedi'u fformadu'n LDL i'w defnyddio yn ystod arsefydliad o %"
-"s.  Os hoffech ddefnyddio'r ddisg yma ar gyfer arsefydlu, rhaid ei hail- "
-"ymgychwyn gan achosi colled yr HOLL DDATA arni.\n"
-"\n"
-"A hoffech chi ail-fformadu'r DASD yma gan ddefnyddio fformat CDL?"
-
-#: ../partedUtils.py:335
-#, fuzzy, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this drive for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to re-initialize this drive?"
-msgstr ""
-"Mae'r tabl raniadau ar y ddyfais /dev/%s o fath %s. I ddefnyddio'r ddisg hon "
-"ar gyfer arsefydliad o %s, rhaid ei hail-ymgychwyn gan achosi colled yr HOLL "
-"DDATA arni.\n"
-"\n"
-"A hoffech ymgychwyn y gyrrydd yma?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Anwybyddu disc"
-
-#: ../partedUtils.py:345
-msgid "_Re-initialize drive"
-msgstr ""
-
-#: ../partedUtils.py:917
-msgid "Initializing"
-msgstr "Yn ymgychwyn"
-
-#: ../partedUtils.py:918
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Arhoswch tra fformatir y gyrrydd %s...\n"
-
-#: ../partedUtils.py:1038
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Roedd y tabl raniadau ar y ddyfais %s (%s) yn annarllenadwy. I greu "
-"rhaniadau newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y "
-"gyriant yma.\n"
-"\n"
-"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
-"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
-"\n"
-"A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
-
-#: ../partedUtils.py:1103
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Roedd y tabl raniadau ar y ddyfais %s yn annarllenadwy. I greu rhaniadau "
-"newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
-"yma.\n"
-"\n"
-"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
-"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
-"\n"
-"A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
-
-#: ../partedUtils.py:1224
-msgid "No Drives Found"
-msgstr "Ni Chanfuwyd Gyriannau"
-
-#: ../partedUtils.py:1225
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Digwyddodd gwall - ni chanfuwyd unrhyw ddyfeisiau dilys i greu systemau "
-"ffeil newydd arnynt. Gwiriwch eich caledwedd am sail y broblem yma."
-
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
 msgstr "Rhowch enw grŵp cyfrolau."
@@ -1606,7 +1501,7 @@ msgstr ""
 "Ni allwch ddileu'r rhaniad yma, gan ei fod yn rhaniad estynedig sy'n cynnwys "
 "%s"
 
-#: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
+#: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:554
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Mae'r rhaniad yma'n dal y data ar gyfer yr arsefydliad disg galed."
 
@@ -1820,6 +1715,201 @@ msgid ""
 msgstr ""
 "A ydych yn sicr eich bod am ailosod y tabl rhaniadau i'w chyflwr gwreiddiol?"
 
+#: ../partRequests.py:249
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Mae'r man gosod yma'n annilys.  Rhaid i'r cyfeiriadur %s fod ar y system /"
+"file."
+
+#: ../partRequests.py:252
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Ni ellir defnyddio'r man gosod %s.  Rhaid ei fod yn gyswllt symbolaidd er "
+"gweithredu cywir y system.  Dewiswch fan gosod gwahanol."
+
+#: ../partRequests.py:259
+msgid "This mount point must be on a linux file system."
+msgstr "Rhaid i'r man gosod yma fod ar system ffeil Linux."
+
+#: ../partRequests.py:280
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"Mae'r man gosod \"%s\" eisoes mewn defnydd, dewiswch fan gosod gwahanol, os "
+"gwelwch yn dda."
+
+#: ../partRequests.py:294
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"Mae maint y rhaniad %s (%10.2f MB) y tu hwnt i'r uchafswm maint %10.2f MB."
+
+#: ../partRequests.py:490
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"Mae'r maint rhaniad gofynnol (maint = %s MB) y tu hwnt i'r uchafswm maint "
+"sef %s MB."
+
+#: ../partRequests.py:495
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "Mae maint y rhaniad gofynnol yn negatif! (maint = %s MB)"
+
+#: ../partRequests.py:499
+msgid "Partitions can't start below the first cylinder."
+msgstr "Ni all raniad ddechrau islaw'r silindr cyntaf."
+
+#: ../partRequests.py:502
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Ni all raniad orffen ar silindr negatif."
+
+#: ../partRequests.py:671
+msgid "No members in RAID request, or not RAID level specified."
+msgstr "Dim aelodau mewn cais RAID, neu nid y lefel RAID a benodwyd."
+
+#: ../partRequests.py:679 ../partitions.py:954
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Gall raniadau cychwynadwy fod ar ddyfeisiau RAID1 yn unig."
+
+#: ../partRequests.py:683
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "Mae ar ddyfais RAID o fath %s angen o leiaf %s o aelodau."
+
+#: ../partRequests.py:692
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Gall fod gan y ddyfais RAID yma uchafswm o %s o sbarion. Er mwyn cael rhagor "
+"o sbarion, bydd angen i chi ychwanegu aelodau at y ddyfais RAID."
+
+#: ../partRequests.py:926
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"Rhaid i gyfrol resymegol fod yn fwy na maint ystod corfforol grŵp y gyfrol."
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Dieithr"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Mae'r ddyfais %s wedi'i fformadu'n LDL yn lle wedi'i fformadu'n CDL.  Ni "
+"chynhelir DASDau wedi'u fformadu'n LDL i'w defnyddio yn ystod arsefydliad o %"
+"s.  Os hoffech ddefnyddio'r ddisg yma ar gyfer arsefydlu, rhaid ei hail- "
+"ymgychwyn gan achosi colled yr HOLL DDATA arni.\n"
+"\n"
+"A hoffech chi ail-fformadu'r DASD yma gan ddefnyddio fformat CDL?"
+
+#: ../partedUtils.py:335
+#, fuzzy, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to re-initialize this drive?"
+msgstr ""
+"Mae'r tabl raniadau ar y ddyfais /dev/%s o fath %s. I ddefnyddio'r ddisg hon "
+"ar gyfer arsefydliad o %s, rhaid ei hail-ymgychwyn gan achosi colled yr HOLL "
+"DDATA arni.\n"
+"\n"
+"A hoffech ymgychwyn y gyrrydd yma?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Anwybyddu disc"
+
+#: ../partedUtils.py:345
+msgid "_Re-initialize drive"
+msgstr ""
+
+#: ../partedUtils.py:917
+msgid "Initializing"
+msgstr "Yn ymgychwyn"
+
+#: ../partedUtils.py:918
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Arhoswch tra fformatir y gyrrydd %s...\n"
+
+#: ../partedUtils.py:1038
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Roedd y tabl raniadau ar y ddyfais %s (%s) yn annarllenadwy. I greu "
+"rhaniadau newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y "
+"gyriant yma.\n"
+"\n"
+"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
+"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
+"\n"
+"A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
+
+#: ../partedUtils.py:1103
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Roedd y tabl raniadau ar y ddyfais %s yn annarllenadwy. I greu rhaniadau "
+"newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
+"yma.\n"
+"\n"
+"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
+"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
+"\n"
+"A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
+
+#: ../partedUtils.py:1224
+msgid "No Drives Found"
+msgstr "Ni Chanfuwyd Gyriannau"
+
+#: ../partedUtils.py:1225
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Digwyddodd gwall - ni chanfuwyd unrhyw ddyfeisiau dilys i greu systemau "
+"ffeil newydd arnynt. Gwiriwch eich caledwedd am sail y broblem yma."
+
 #: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Ni all arsefydlu barhau."
@@ -1910,10 +2000,6 @@ msgstr ""
 "Wrthi'n arsefydlu ar ddyfais FireWire.  Mae'n bosib na fydd hyn yn creu "
 "system sy'n gweithredu'n gywir."
 
-#: ../partitions.py:954 ../partRequests.py:679
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Gall raniadau cychwynadwy fod ar ddyfeisiau RAID1 yn unig."
-
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Ni all raniadau cychwynadwy fod ar gyfrol resymegol."
@@ -1956,91 +2042,6 @@ msgstr "rhaniad sy'n aelod o aräe RAID."
 #: ../partitions.py:1310
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "rhaniad sy'n aelod o Grŵp Cyfrolau LVM."
-
-#: ../partRequests.py:249
-#, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Mae'r man gosod yma'n annilys.  Rhaid i'r cyfeiriadur %s fod ar y system /"
-"file."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"Ni ellir defnyddio'r man gosod %s.  Rhaid ei fod yn gyswllt symbolaidd er "
-"gweithredu cywir y system.  Dewiswch fan gosod gwahanol."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "Rhaid i'r man gosod yma fod ar system ffeil Linux."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"Mae'r man gosod \"%s\" eisoes mewn defnydd, dewiswch fan gosod gwahanol, os "
-"gwelwch yn dda."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"Mae maint y rhaniad %s (%10.2f MB) y tu hwnt i'r uchafswm maint %10.2f MB."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"Mae'r maint rhaniad gofynnol (maint = %s MB) y tu hwnt i'r uchafswm maint "
-"sef %s MB."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Mae maint y rhaniad gofynnol yn negatif! (maint = %s MB)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Ni all raniad ddechrau islaw'r silindr cyntaf."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Ni all raniad orffen ar silindr negatif."
-
-#: ../partRequests.py:671
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "Dim aelodau mewn cais RAID, neu nid y lefel RAID a benodwyd."
-
-#: ../partRequests.py:683
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "Mae ar ddyfais RAID o fath %s angen o leiaf %s o aelodau."
-
-#: ../partRequests.py:692
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Gall fod gan y ddyfais RAID yma uchafswm o %s o sbarion. Er mwyn cael rhagor "
-"o sbarion, bydd angen i chi ychwanegu aelodau at y ddyfais RAID."
-
-#: ../partRequests.py:926
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr ""
-"Rhaid i gyfrol resymegol fod yn fwy na maint ystod corfforol grŵp y gyfrol."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2749,16 +2750,20 @@ msgstr "Nid ydych wedi penodi enw porth byd-eang neu annilys yw'r enw."
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Nid ydych wedi penodi LUN FCP neu annilys yw'r rhif."
 
-#: ../iw/account_gui.py:25
+#: ../iw/account_gui.py:26
+msgid "<b>Caps Lock is on.</b>"
+msgstr ""
+
+#: ../iw/account_gui.py:33
 msgid "Set Root Password"
 msgstr "Gosod Cyfrinair Gwraidd"
 
-#: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
-#: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
+#: ../iw/account_gui.py:48 ../iw/account_gui.py:56 ../iw/account_gui.py:63
+#: ../iw/account_gui.py:72 ../textw/userauth_text.py:69
 msgid "Error with Password"
 msgstr "Gwall â Chyfrinair"
 
-#: ../iw/account_gui.py:41
+#: ../iw/account_gui.py:49
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2766,15 +2771,15 @@ msgstr ""
 "Rhaid i chi roi'ch cyfrinair gwraidd a'i wirio drwy ei deipio eilwaith er "
 "mwyn parhau."
 
-#: ../iw/account_gui.py:49
+#: ../iw/account_gui.py:57
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Roedd y cyfrineiriau a roddoch yn wahanol.  Ceisiwch eto."
 
-#: ../iw/account_gui.py:56
+#: ../iw/account_gui.py:64
 msgid "The root password must be at least six characters long."
 msgstr "Rhaid i gyfrinair y gwraidd fod yn 6 nod o hyd o leiaf."
 
-#: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
@@ -2782,7 +2787,7 @@ msgstr ""
 "Mae'r cyfrinair gofynnol yn cynnwys nodau di-ascii nas caniateir mewn "
 "cyfrineiriau."
 
-#: ../iw/account_gui.py:93
+#: ../iw/account_gui.py:107
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
@@ -2790,11 +2795,11 @@ msgstr ""
 "Defnyddir cyfrif gwraidd i weinyddu'r system hon. Rhowch gyfrinair ar gyfer "
 "y defnyddiwr gwraidd."
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:122
 msgid "Root _Password: "
 msgstr "_Cyfrinair Gwraidd:"
 
-#: ../iw/account_gui.py:111
+#: ../iw/account_gui.py:125
 msgid "_Confirm: "
 msgstr "Cadarn_hau: "
 
@@ -2812,25 +2817,29 @@ msgid "Error with Data"
 msgstr "Gwall yn y Data"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-msgid "Remove all partitions on selected drives and create default layout."
+#, fuzzy
+msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Tynnu pob rhaniad o'r gyriannau sydd wedi eu dewis a chreu'r cynllun "
 "rhagosodedig."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-msgid "Remove linux partitions on selected drives and create default layout."
+#, fuzzy
+msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
 "Tynnu pob rhaniad Linux o'r gyriannau sydd wedi eu dewis a chreu'r cynllun "
 "rhagosodedig."
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-msgid "Use free space on selected drives and create default layout."
+#, fuzzy
+msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Defnyddio'r gofod gwag ar y gyriannau sydd wedi'u dewis, i greu'r cynllun "
 "rhagosodedig."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-msgid "Create custom layout."
+#, fuzzy
+msgid "Create custom layout"
 msgstr "Creu cynllun addasedig."
 
 #: ../iw/blpasswidget.py:37
@@ -3033,16 +3042,16 @@ msgid "Congratulations"
 msgstr "Llongyfarchiadau"
 
 #: ../iw/congrats_gui.py:60
+#, fuzzy
 msgid ""
-"Remove any media used during the installation process and press the \"Reboot"
-"\" button to reboot your system.\n"
+"Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Tynnwch unrhyw ddisg neu gyfrwng a ddefnyddiwyd yn ystod y broses arsefydlu "
-"a phwyswch y botwm \"Ail-gychwyn\" i ail-gychwyn eich system.\n"
 "\n"
+"\n"
+"Gwasgwch 'Iawn' i ailgychwyn eich system."
 
-#: ../iw/congrats_gui.py:65
+#: ../iw/congrats_gui.py:63
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
@@ -3220,26 +3229,26 @@ msgid "Edit Logical Volume"
 msgstr "Golygu Cyfrol Resymegol"
 
 #: ../iw/lvm_dialog_gui.py:386 ../iw/partition_dialog_gui.py:293
-#: ../iw/raid_dialog_gui.py:284
+#: ../iw/raid_dialog_gui.py:280
 msgid "_Mount Point:"
 msgstr "_Man Gosod:"
 
-#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:293
+#: ../iw/lvm_dialog_gui.py:394 ../iw/raid_dialog_gui.py:289
 msgid "_File System Type:"
 msgstr "Math System _Ffeil:"
 
 #: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:312
-#: ../iw/raid_dialog_gui.py:303
+#: ../iw/raid_dialog_gui.py:299
 msgid "Original File System Type:"
 msgstr "Math System Ffeil Gwreiddiol:"
 
 #: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:323
-#: ../iw/raid_dialog_gui.py:308
+#: ../iw/raid_dialog_gui.py:304
 msgid "Unknown"
 msgstr "Anhysbys"
 
-#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:357
-#: ../iw/raid_dialog_gui.py:314
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:358
+#: ../iw/raid_dialog_gui.py:310
 msgid "Original File System Label:"
 msgstr "Label System Ffeiliau Gwreiddiol:"
 
@@ -3251,12 +3260,12 @@ msgstr "Enw Cyfrol _Resymegol:"
 msgid "Logical Volume Name:"
 msgstr "Enw Cyfrol Resymegol:"
 
-#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:369
+#: ../iw/lvm_dialog_gui.py:440 ../iw/partition_dialog_gui.py:370
 msgid "_Size (MB):"
 msgstr "_Maint (MB):"
 
-#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:386
-#: ../iw/partition_dialog_gui.py:429 ../textw/partition_text.py:302
+#: ../iw/lvm_dialog_gui.py:446 ../iw/partition_dialog_gui.py:387
+#: ../iw/partition_dialog_gui.py:430 ../textw/partition_text.py:302
 #: ../textw/partition_text.py:379 ../textw/partition_text.py:462
 #: ../textw/partition_text.py:570
 msgid "Size (MB):"
@@ -3314,7 +3323,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
-#: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
+#: ../iw/raid_dialog_gui.py:207 ../textw/partition_text.py:911
 #: ../textw/partition_text.py:933 ../textw/partition_text.py:1107
 #: ../textw/partition_text.py:1340
 msgid "Error With Request"
@@ -3452,7 +3461,7 @@ msgstr "Maint (MB)"
 msgid "_Add"
 msgstr "_Ychwanegu"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:451
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
 msgid "_Edit"
 msgstr "_Golygu"
@@ -3524,7 +3533,7 @@ msgid "Sending request for IP information for %s..."
 msgstr "Yn anfon cais am wybodaeth IP ar gyfer %s..."
 
 #: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:85
-#: tmp/netpostconfig.glade.h:13
+#: tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "Cyfeiriad IP"
 
@@ -3533,7 +3542,7 @@ msgid "Netmask"
 msgstr "Masg Rhwyd"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:527
+#: ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "Porth"
 
@@ -3546,11 +3555,11 @@ msgstr "Gweinydd Enwau"
 msgid "Error configuring network device"
 msgstr "Roedd gwall wrth gyflunio eich rhyngwyneb rhwydwaith."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:529
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
 msgstr "DNS Cynradd"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:531
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:528
 msgid "Secondary DNS"
 msgstr "DNS Eilaidd"
 
@@ -3566,7 +3575,7 @@ msgstr "DNS _Cynradd"
 msgid "_Secondary DNS"
 msgstr "DNS _Eilaidd"
 
-#: ../iw/network_gui.py:31
+#: ../iw/network_gui.py:31 ../textw/network_text.py:524
 msgid "Network Configuration"
 msgstr "Cyfluniad Rhwydwaith"
 
@@ -3587,7 +3596,7 @@ msgstr ""
 "Nid ydych wedi penodi'r maes \"%s\".  Yn dibynnu ar eich amgylchedd "
 "rhwydwaith gall hyn achosi problemau nes ymlaen."
 
-#: ../iw/network_gui.py:151 ../textw/network_text.py:735
+#: ../iw/network_gui.py:151 ../textw/network_text.py:808
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3609,7 +3618,7 @@ msgid "Error With %s Data"
 msgstr "Gwall â Data"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
-#: ../textw/network_text.py:521 ../textw/network_text.py:525
+#: ../textw/network_text.py:584 ../textw/network_text.py:588
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
@@ -3628,95 +3637,95 @@ msgstr ""
 "Does dim dyfeisiau rhwydwaith ar waith.  Rhaid i un ddyfais o leiaf fod ar "
 "waith er mwyn i'ch system gyfathrebu ar y rhwydwaith fel rhagosodiad."
 
-#: ../iw/network_gui.py:295 ../iw/network_gui.py:309
+#: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/network_gui.py:392
+#: ../iw/network_gui.py:389
 msgid "Active on Boot"
 msgstr "Gweithredol ar Gychwyn"
 
-#: ../iw/network_gui.py:394 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:391 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
 #: ../textw/bootloader_text.py:258 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1447
 msgid "Device"
 msgstr "Dyfais"
 
-#: ../iw/network_gui.py:396
+#: ../iw/network_gui.py:393
 msgid "IPv4/Netmask"
 msgstr "Masg IPv4/Rhwyd"
 
-#: ../iw/network_gui.py:398
+#: ../iw/network_gui.py:395
 msgid "IPv6/Prefix"
 msgstr "Masg IPv6/Rhwyd"
 
-#: ../iw/network_gui.py:458
+#: ../iw/network_gui.py:455
 msgid "Network Devices"
 msgstr "Dyfeisiau Rhwydwaith"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:466
 msgid "Set the hostname:"
 msgstr "Rhowch enw'r gwesteiwr:"
 
-#: ../iw/network_gui.py:474
+#: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
 msgstr "yn _awtomatig drwy DHCP"
 
-#: ../iw/network_gui.py:481
+#: ../iw/network_gui.py:478
 msgid "_manually"
 msgstr "â _llaw"
 
-#: ../iw/network_gui.py:486
+#: ../iw/network_gui.py:483
 msgid "(e.g., host.domain.com)"
 msgstr "(e.e., \"gwesteiwr.parth.com\")"
 
-#: ../iw/network_gui.py:492
+#: ../iw/network_gui.py:489
 msgid "Hostname"
 msgstr "Enw gwesteiwr"
 
-#: ../iw/network_gui.py:536
+#: ../iw/network_gui.py:533
 msgid "Miscellaneous Settings"
 msgstr "Gosodiadau Amrywiol"
 
-#: ../iw/network_gui.py:625
+#: ../iw/network_gui.py:621
 #, fuzzy
 msgid "Edit Device "
 msgstr "Golygu Dyfais RAID"
 
-#: ../iw/network_gui.py:629
+#: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
 msgstr ""
 
-#: ../iw/network_gui.py:635
+#: ../iw/network_gui.py:631
 #, fuzzy
 msgid "unknown"
 msgstr "Anhysbys"
 
-#: ../iw/network_gui.py:637
+#: ../iw/network_gui.py:633
 #, fuzzy
 msgid "Hardware address: "
 msgstr "Cyfeiriad caledwedd:"
 
-#: ../iw/network_gui.py:779 ../textw/network_text.py:220 ../loader2/net.c:791
+#: ../iw/network_gui.py:769 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Protocol ar Goll"
 
-#: ../iw/network_gui.py:780 ../textw/network_text.py:221
+#: ../iw/network_gui.py:770 ../textw/network_text.py:221
 #, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
 msgstr "Rhaid i chi ddewis un protocol o leiaf (IPv4 neu IPv6) ar gyfer DHCP."
 
-#: ../iw/network_gui.py:803 ../iw/network_gui.py:844 ../iw/network_gui.py:850
+#: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
 msgid "Invalid Prefix"
 msgstr ""
 
-#: ../iw/network_gui.py:804
+#: ../iw/network_gui.py:794
 msgid "IPv4 prefix must be between 0 and 32."
 msgstr ""
 
-#: ../iw/network_gui.py:845 ../iw/network_gui.py:851
+#: ../iw/network_gui.py:835 ../iw/network_gui.py:841
 msgid "IPv6 prefix must be between 0 and 128."
 msgstr ""
 
@@ -3841,19 +3850,19 @@ msgstr "_Math System Ffeil:"
 msgid "Allowable _Drives:"
 msgstr "_Gyriannau Caniataol:"
 
-#: ../iw/partition_dialog_gui.py:348
+#: ../iw/partition_dialog_gui.py:349
 msgid "Drive:"
 msgstr "Gyriant:"
 
-#: ../iw/partition_dialog_gui.py:392
+#: ../iw/partition_dialog_gui.py:393
 msgid "_Start Cylinder:"
 msgstr "Silindr _Dechrau:"
 
-#: ../iw/partition_dialog_gui.py:410
+#: ../iw/partition_dialog_gui.py:411
 msgid "_End Cylinder:"
 msgstr "Silindr Di_wedd:"
 
-#: ../iw/partition_dialog_gui.py:462
+#: ../iw/partition_dialog_gui.py:463
 msgid "Force to be a _primary partition"
 msgstr "Gorfodi i fod yn rhaniad _cynradd"
 
@@ -4091,27 +4100,27 @@ msgstr "Cuddio aelodau dyfais RAID/_Grŵp Cyfrolau LVM"
 msgid "<Not Applicable>"
 msgstr "<Amherthnasol>"
 
-#: ../iw/partition_ui_helpers_gui.py:251
+#: ../iw/partition_ui_helpers_gui.py:255
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "Sut hoffech baratoi'r system ffeiliau ar y rhaniad yma?"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:263
 msgid "Leave _unchanged (preserve data)"
 msgstr "Gadael _heb newid (cadw data)"
 
-#: ../iw/partition_ui_helpers_gui.py:265
+#: ../iw/partition_ui_helpers_gui.py:269
 msgid "_Format partition as:"
 msgstr "_Fformadu'r rhaniad fel:"
 
-#: ../iw/partition_ui_helpers_gui.py:288
+#: ../iw/partition_ui_helpers_gui.py:292
 msgid "Mi_grate partition to:"
 msgstr "Mu_do rhaniad at:"
 
-#: ../iw/partition_ui_helpers_gui.py:310
+#: ../iw/partition_ui_helpers_gui.py:314
 msgid "Check for _bad blocks?"
 msgstr "Gwirio am flociau _gwael?"
 
-#: ../iw/partition_ui_helpers_gui.py:345
+#: ../iw/partition_ui_helpers_gui.py:349
 #, fuzzy, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -4136,7 +4145,7 @@ msgstr "Rhannu â llaw ä'r Derwydd _Disgiau"
 msgid "Installing Packages"
 msgstr "Yn Arsefydlu Pecynnau"
 
-#: ../iw/raid_dialog_gui.py:251
+#: ../iw/raid_dialog_gui.py:247
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4150,41 +4159,41 @@ msgstr ""
 "Yn gyntaf crëwch ddau raniad o fath \"RAID meddalweddol\", wedyn dewiswch y "
 "dewisiad \"RAID\" eto."
 
-#: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
+#: ../iw/raid_dialog_gui.py:261 ../iw/raid_dialog_gui.py:682
 #: ../textw/partition_text.py:968
 msgid "Make RAID Device"
 msgstr "Creu Dyfais RAID"
 
-#: ../iw/raid_dialog_gui.py:268
+#: ../iw/raid_dialog_gui.py:264
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Golygu Dyfais RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:966
+#: ../iw/raid_dialog_gui.py:266 ../textw/partition_text.py:966
 msgid "Edit RAID Device"
 msgstr "Golygu Dyfais RAID"
 
-#: ../iw/raid_dialog_gui.py:322
+#: ../iw/raid_dialog_gui.py:318
 msgid "RAID _Device:"
 msgstr "_Dyfais RAID:"
 
-#: ../iw/raid_dialog_gui.py:340
+#: ../iw/raid_dialog_gui.py:336
 msgid "RAID _Level:"
 msgstr "_Lefel RAID:"
 
-#: ../iw/raid_dialog_gui.py:381
+#: ../iw/raid_dialog_gui.py:377
 msgid "_RAID Members:"
 msgstr "Aelodau _RAID:"
 
-#: ../iw/raid_dialog_gui.py:398
+#: ../iw/raid_dialog_gui.py:394
 msgid "Number of _spares:"
 msgstr "Nifer _sbarion:"
 
-#: ../iw/raid_dialog_gui.py:408
+#: ../iw/raid_dialog_gui.py:404
 msgid "_Format partition?"
 msgstr "_Fformadu rhaniad?"
 
-#: ../iw/raid_dialog_gui.py:487
+#: ../iw/raid_dialog_gui.py:483
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4193,12 +4202,12 @@ msgstr ""
 "ddiffinio rhaniadau o fath 'RAID meddalweddol' ar y gyriant hwn cyn y gellir "
 "ei chlonio."
 
-#: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
-#: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
+#: ../iw/raid_dialog_gui.py:487 ../iw/raid_dialog_gui.py:493
+#: ../iw/raid_dialog_gui.py:505 ../iw/raid_dialog_gui.py:518
 msgid "Source Drive Error"
 msgstr "Gwall Gyriant Tarddiad"
 
-#: ../iw/raid_dialog_gui.py:498
+#: ../iw/raid_dialog_gui.py:494
 #, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
@@ -4210,7 +4219,7 @@ msgstr ""
 "\n"
 "Bydd rhaid gwaredu'r rhaniadau yma cyn y gellir clonio'r gyriant hwn. "
 
-#: ../iw/raid_dialog_gui.py:510
+#: ../iw/raid_dialog_gui.py:506
 #, fuzzy, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -4224,7 +4233,7 @@ msgstr ""
 "Bydd rhaid gwaredu neu gyfyngu'r rhaniadau yma cyn y gellir clonio'r gyriant "
 "hwn. "
 
-#: ../iw/raid_dialog_gui.py:523
+#: ../iw/raid_dialog_gui.py:519
 #, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
@@ -4237,21 +4246,21 @@ msgstr ""
 "\n"
 "Bydd rhaid gwaredu'r rhaniadau yma cyn y gellir clonio'r gyriant hwn. "
 
-#: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
-#: ../iw/raid_dialog_gui.py:561
+#: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
+#: ../iw/raid_dialog_gui.py:557
 msgid "Target Drive Error"
 msgstr "Gwall Gyriant Targed"
 
-#: ../iw/raid_dialog_gui.py:537
+#: ../iw/raid_dialog_gui.py:533
 msgid "Please select the target drives for the clone operation."
 msgstr "Dewiswch y gyriannau targed ar gyfer y weithred glonio."
 
-#: ../iw/raid_dialog_gui.py:543
+#: ../iw/raid_dialog_gui.py:539
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Ni ellir dewis y gyriant tarddiad /dev/%s yn yriant targed hefyd."
 
-#: ../iw/raid_dialog_gui.py:562
+#: ../iw/raid_dialog_gui.py:558
 #, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4268,11 +4277,11 @@ msgstr ""
 "\n"
 "Rhaid gwaredu'r rhaniad yma cyn gall y gyriant hwn fod yn darged."
 
-#: ../iw/raid_dialog_gui.py:623
+#: ../iw/raid_dialog_gui.py:619
 msgid "Please select a source drive."
 msgstr "Dewiswch yriant tarddiad."
 
-#: ../iw/raid_dialog_gui.py:643
+#: ../iw/raid_dialog_gui.py:639
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4281,7 +4290,7 @@ msgstr ""
 "Fe glonir y gyriant /dev/%s i'r gyriannau canlynol:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:648
+#: ../iw/raid_dialog_gui.py:644
 msgid ""
 "\n"
 "\n"
@@ -4291,19 +4300,19 @@ msgstr ""
 "\n"
 "RHYBUDD! DINISTRIR YR HOLL DDATA AR Y GYRIANNAU TARGED."
 
-#: ../iw/raid_dialog_gui.py:651
+#: ../iw/raid_dialog_gui.py:647
 msgid "Final Warning"
 msgstr "Rhybudd Olaf"
 
-#: ../iw/raid_dialog_gui.py:653
+#: ../iw/raid_dialog_gui.py:649
 msgid "Clone Drives"
 msgstr "Clonio Gyriannau"
 
-#: ../iw/raid_dialog_gui.py:662
+#: ../iw/raid_dialog_gui.py:658
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Bu gwall wrth wagio'r gyriannau targed.  Methodd y clonio."
 
-#: ../iw/raid_dialog_gui.py:696
+#: ../iw/raid_dialog_gui.py:692
 #, fuzzy
 msgid ""
 "Clone Drive Tool\n"
@@ -4332,15 +4341,15 @@ msgstr ""
 "\n"
 "Dinistrir POPETH ar y gyriant/gyriannau targed gan y broses hon."
 
-#: ../iw/raid_dialog_gui.py:716
+#: ../iw/raid_dialog_gui.py:712
 msgid "Source Drive:"
 msgstr "Gyriant Tarddiad:"
 
-#: ../iw/raid_dialog_gui.py:724
+#: ../iw/raid_dialog_gui.py:720
 msgid "Target Drive(s):"
 msgstr "Gyriant/Gyriannau Targed:"
 
-#: ../iw/raid_dialog_gui.py:732
+#: ../iw/raid_dialog_gui.py:728
 msgid "Drives"
 msgstr "Gyriannau"
 
@@ -4551,7 +4560,7 @@ msgstr "_Na hoffwn greu ffeil gyfnewid"
 #: ../iw/upgrade_swap_gui.py:189
 #, fuzzy
 msgid ""
-"A swap file is stongly recommended. Failure to create one could cause the "
+"A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Argymhellir yn gryf eich bod yn creu ffeil gyfnewid.  Gallai methu gwneud "
@@ -4690,7 +4699,8 @@ msgstr "Gall label cychwyn ddim bod yn wag"
 msgid "Boot label contains illegal characters."
 msgstr "Mae'r label cychwyn yn cynnwys nodau anghyfreithlon."
 
-#: ../textw/bootloader_text.py:273 ../textw/partition_text.py:1452
+#: ../textw/bootloader_text.py:273 ../textw/constants_text.py:56
+#: ../textw/partition_text.py:1452
 msgid "Edit"
 msgstr "Golygu"
 
@@ -4747,7 +4757,7 @@ msgstr "Cyfrinair Rhy Fyr"
 msgid "Boot loader password is too short"
 msgstr "Mae'r cyfrinair cychwynnydd rhy fyr"
 
-#: ../textw/complete_text.py:27
+#: ../textw/complete_text.py:26
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
@@ -4755,25 +4765,11 @@ msgstr ""
 "Gwasgwch y <Dychwelydd> i orffen y broses arsefydlu.\n"
 "\n"
 
-#: ../textw/complete_text.py:28
+#: ../textw/complete_text.py:27
 msgid "<Enter> to exit"
 msgstr "<Dychwelydd> i adael"
 
-#: ../textw/complete_text.py:30
-msgid ""
-"Remove any media used during the installation process and press <Enter> to "
-"reboot your system.\n"
-"\n"
-msgstr ""
-"Tynnwch unrhyw ddisgiau neu gyfryngau eraill ddefnyddiwyd yn ystod y broses "
-"arsefydlu, a phwyswch <Enter> i ail-gychwyn eich system.\n"
-"\n"
-
-#: ../textw/complete_text.py:33
-msgid "<Enter> to reboot"
-msgstr "<Dychwelydd> i ailgychwyn"
-
-#: ../textw/complete_text.py:37
+#: ../textw/complete_text.py:31
 #, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -4784,7 +4780,7 @@ msgstr ""
 "\n"
 "%s%s"
 
-#: ../textw/complete_text.py:40
+#: ../textw/complete_text.py:34
 #, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
@@ -4799,7 +4795,7 @@ msgstr ""
 "Mae gwybodaeth am ddefnyddio'ch system ar gael yn y llawlyfrau %s yn http://"
 "www.redhat.com/docs/."
 
-#: ../textw/complete_text.py:46
+#: ../textw/complete_text.py:40
 msgid "Complete"
 msgstr "Cwblhawyd"
 
@@ -4823,9 +4819,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
+#: ../loader2/loader.c:338 ../loader2/loader.c:1002 ../loader2/loader.c:1025
 #: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:739
-#: ../loader2/net.c:1064 ../loader2/net.c:1817 ../loader2/nfsinstall.c:57
+#: ../loader2/net.c:1064 ../loader2/net.c:1820 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:282 ../loader2/urls.c:470
 msgid "Back"
 msgstr "Yn Ôl"
@@ -4911,27 +4907,27 @@ msgid ""
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
 
-#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
+#: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 #, fuzzy
 msgid "Prefix (Netmask)"
 msgstr "Masg Rhwyd"
 
-#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:16
+#: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:15
 #, fuzzy
 msgid "Prefix"
 msgstr "Masg IPv6/Rhwyd"
 
-#: ../textw/network_text.py:134 tmp/netpostconfig.glade.h:4
+#: ../textw/network_text.py:134
 msgid "Activate on boot"
 msgstr "Gweithredoli ar gychwyn"
 
 #: ../textw/network_text.py:141 ../loader2/net.c:719
-#: tmp/netpostconfig.glade.h:10
+#: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
 msgstr "Galluogi cynnal IPv4"
 
 #: ../textw/network_text.py:148 ../loader2/net.c:732
-#: tmp/netpostconfig.glade.h:11
+#: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
 msgstr "Galluogi cynnal IPv6"
 
@@ -4939,7 +4935,7 @@ msgstr "Galluogi cynnal IPv6"
 msgid "P-to-P:"
 msgstr ""
 
-#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:8
+#: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:7
 #, fuzzy
 msgid "ESSID:"
 msgstr "_ESSID:"
@@ -4958,7 +4954,7 @@ msgstr "Cyfluniad Rhwydwaith ar gyfer %s"
 msgid "point-to-point IP address"
 msgstr ""
 
-#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
+#: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:5
 #, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Defnyddio cyflunio IP dynamig (DHCP)"
@@ -4990,11 +4986,11 @@ msgstr "Masg IPv4/Rhwyd"
 msgid "IPv4 prefix (network mask)"
 msgstr "Masg Rhwyd"
 
-#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
+#: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
 msgstr ""
 
-#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:7
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:6
 #, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Defnyddio cyflunio IP dynamig (DHCP)"
@@ -5015,50 +5011,104 @@ msgstr "Cyfeiriad IPv6:"
 msgid "IPv6 prefix"
 msgstr "Masg IPv6/Rhwyd"
 
-#: ../textw/network_text.py:583 ../loader2/net.c:1025
+#: ../textw/network_text.py:501
+#, fuzzy
+msgid "Configure Network Interface"
+msgstr "Galluogi rhyngwyneb y rhwydwaith"
+
+#: ../textw/network_text.py:502
+#, fuzzy, python-format
+msgid "Would you like to configure the %s network interface in your system?"
+msgstr "A ydych am ddechrau'r rhyngwynebau rhwydwaith ar y system yma?"
+
+#: ../textw/network_text.py:516 ../textw/network_text.py:518
+msgid "UNCONFIGURED"
+msgstr ""
+
+#: ../textw/network_text.py:527
+msgid ""
+"The current configuration settings for each interface are listed next to the "
+"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
+"configure an interface, highlight it and choose Edit.  When you are "
+"finished, press OK to continue."
+msgstr ""
+
+#: ../textw/network_text.py:614
+#, fuzzy
+msgid "Active on boot"
+msgstr "Gweithredoli ar gychwyn"
+
+#: ../textw/network_text.py:616
+#, fuzzy
+msgid "Inactive on boot"
+msgstr "Gweithredoli ar gychwyn"
+
+#: ../textw/network_text.py:619
+msgid "DHCP"
+msgstr ""
+
+#: ../textw/network_text.py:624
+msgid "Auto IPv6"
+msgstr ""
+
+#: ../textw/network_text.py:626
+msgid "DHCPv6"
+msgstr ""
+
+#: ../textw/network_text.py:632
+#, python-format
+msgid "%s, %s, %s"
+msgstr ""
+
+#: ../textw/network_text.py:634 ../textw/network_text.py:636
+#, python-format
+msgid "%s, %s"
+msgstr ""
+
+#: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Porth:"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:665
 msgid "Primary DNS:"
 msgstr "DNS Cynradd:"
 
-#: ../textw/network_text.py:597
+#: ../textw/network_text.py:670
 msgid "Secondary DNS:"
 msgstr "DNS Eilaidd:"
 
-#: ../textw/network_text.py:604
+#: ../textw/network_text.py:677
 msgid "Miscellaneous Network Settings"
 msgstr "Gosodiadau Rhwydwaith Amrywiol"
 
-#: ../textw/network_text.py:621 ../textw/network_text.py:624
+#: ../textw/network_text.py:694 ../textw/network_text.py:697
 #, fuzzy
 msgid "gateway"
 msgstr "Porth"
 
-#: ../textw/network_text.py:631 ../textw/network_text.py:634
+#: ../textw/network_text.py:704 ../textw/network_text.py:707
 #, fuzzy
 msgid "primary DNS"
 msgstr "DNS Cynradd"
 
-#: ../textw/network_text.py:643
+#: ../textw/network_text.py:716
 #, fuzzy
 msgid "secondary DNS"
 msgstr "DNS Eilaidd"
 
-#: ../textw/network_text.py:677
+#: ../textw/network_text.py:750
 msgid "automatically via DHCP"
 msgstr "yn awtomatig drwy DHCP"
 
-#: ../textw/network_text.py:680
+#: ../textw/network_text.py:753
 msgid "manually"
 msgstr "â llaw"
 
-#: ../textw/network_text.py:699
+#: ../textw/network_text.py:772
 msgid "Hostname Configuration"
 msgstr "Cyflunio Enw Gwesteiwr"
 
-#: ../textw/network_text.py:702
+#: ../textw/network_text.py:775
 #, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
@@ -5071,11 +5121,11 @@ msgstr ""
 "enw gwesteiwr i'ch system. Os na wnewch hynny, gelwir eich system yn "
 "'localhost.'"
 
-#: ../textw/network_text.py:728 ../textw/network_text.py:734
+#: ../textw/network_text.py:801 ../textw/network_text.py:807
 msgid "Invalid Hostname"
 msgstr "Enw Gwesteiwr Annilys"
 
-#: ../textw/network_text.py:729
+#: ../textw/network_text.py:802
 msgid "You have not specified a hostname."
 msgstr "Nid ydych wedi penodi enw gwesteiwr."
 
@@ -5811,7 +5861,7 @@ msgstr "A hoffech lwytho rhagor o ddisgiau gyrrydd?"
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
 #: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
 #: ../loader2/kickstart.c:485 ../loader2/modules.c:1042
-#: ../loader2/modules.c:1055 ../loader2/net.c:1608 ../loader2/net.c:1631
+#: ../loader2/modules.c:1055 ../loader2/net.c:1611 ../loader2/net.c:1634
 #: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
 #: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
@@ -6014,8 +6064,9 @@ msgid "Hard drive"
 msgstr "Disg galed"
 
 #: ../loader2/loader.c:123
-msgid "NFS image"
-msgstr "Delwedd NFS"
+#, fuzzy
+msgid "NFS directory"
+msgstr "Cyfeiriadur %s:"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6060,40 +6111,40 @@ msgstr ""
 "gyrwyr dyfeisiau er mwyn i'r arsefydlu lwyddo.  A hoffech ddewis gyrrwyr "
 "nawr?"
 
-#: ../loader2/loader.c:823
+#: ../loader2/loader.c:835
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nid oes gennych ddigon o RAM i arsefydlu %s ar y peiriant yma."
 
-#: ../loader2/loader.c:981
+#: ../loader2/loader.c:994
 msgid "Rescue Method"
 msgstr "Dull Achub"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:995
 msgid "Installation Method"
 msgstr "Dull Arsefydlu"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:997
 msgid "What type of media contains the rescue image?"
 msgstr "Pa fath o gyfrwng sy'n cynnwys y ddelwedd achub?"
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:999
 msgid "What type of media contains the packages to be installed?"
 msgstr "Pa fath o gyfrwng sy'n cynnwys y pecynnau i'w harsefydlu?"
 
-#: ../loader2/loader.c:1011
+#: ../loader2/loader.c:1024
 msgid "No driver found"
 msgstr "Dim gyrrydd wedi'i ganfod"
 
-#: ../loader2/loader.c:1011
+#: ../loader2/loader.c:1024
 msgid "Select driver"
 msgstr "Dewiswch yrrydd"
 
-#: ../loader2/loader.c:1012
+#: ../loader2/loader.c:1025
 msgid "Use a driver disk"
 msgstr "Defnyddio disg yrrydd"
 
-#: ../loader2/loader.c:1013
+#: ../loader2/loader.c:1026
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6102,11 +6153,11 @@ msgstr ""
 "arsefydliad. A hoffech ddewis eich gyrrydd â llaw, neu ddefnyddio disg "
 "yrrydd?"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1219
 msgid "The following devices have been found on your system."
 msgstr "Canfuwyd y dyfeisiau canlynol ar eich system."
 
-#: ../loader2/loader.c:1186
+#: ../loader2/loader.c:1221
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6114,29 +6165,29 @@ msgstr ""
 "Ni lwythwyd unrhyw yrwyr dyfeisiau ar gyfer eich system. A hoffech lwytho "
 "rhai nawr?"
 
-#: ../loader2/loader.c:1190
+#: ../loader2/loader.c:1225
 msgid "Devices"
 msgstr "Dyfeisiau"
 
-#: ../loader2/loader.c:1191
+#: ../loader2/loader.c:1226
 msgid "Done"
 msgstr "Wedi gorffen"
 
-#: ../loader2/loader.c:1192
+#: ../loader2/loader.c:1227
 msgid "Add Device"
 msgstr "Ychwanegu Dyfais"
 
-#: ../loader2/loader.c:1400
+#: ../loader2/loader.c:1435
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "rhedwyd y llwythwr eisioes.  Yn dechrau plisgyn.\n"
 
-#: ../loader2/loader.c:1787
+#: ../loader2/loader.c:1822
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Yn rhedeg anaconda, y modd achub %s - arhoswch...\n"
 
-#: ../loader2/loader.c:1789
+#: ../loader2/loader.c:1824
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Yn rhedeg anaconda, yr arsefydlydd system %s - arhoswch...\n"
@@ -6394,25 +6445,25 @@ msgstr ""
 "Rhaid i chi roi cyfeiriad IPv4 dilys yn ogystal â masg rhwydwaith, neu "
 "ragddodiad CIDR."
 
-#: ../loader2/net.c:1516
+#: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
 msgstr "Yn pennu enw gwesteiwr a pharth..."
 
-#: ../loader2/net.c:1609
+#: ../loader2/net.c:1612
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn rhwydwaith kickstart %s: %s"
 
-#: ../loader2/net.c:1632
+#: ../loader2/net.c:1635
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Protocol cychwyn gwael %s wedi'i benodi mewn gorchymyn rhwydwaith"
 
-#: ../loader2/net.c:1813
+#: ../loader2/net.c:1816
 msgid "Networking Device"
 msgstr "Dyfais Rwydweithio"
 
-#: ../loader2/net.c:1814
+#: ../loader2/net.c:1817
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6737,22 +6788,22 @@ msgstr "Disgrifiad: %s"
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
-#: tmp/netpostconfig.glade.h:9
+#: tmp/netpostconfig.glade.h:8
 #, fuzzy
 msgid "Edit Interface"
 msgstr "Golygu Rhyngwyneb %s"
 
-#: tmp/netpostconfig.glade.h:12
+#: tmp/netpostconfig.glade.h:11
 #, fuzzy
 msgid "Encryption Key:"
 msgstr "_Allwedd Amgryptio:"
 
-#: tmp/netpostconfig.glade.h:14
+#: tmp/netpostconfig.glade.h:13
 #, fuzzy
 msgid "Manual configuration"
 msgstr "Cyflunio TCP/IP â llaw"
 
-#: tmp/netpostconfig.glade.h:15
+#: tmp/netpostconfig.glade.h:14
 #, fuzzy
 msgid "Point to Point (IP):"
 msgstr "_Pwynt i Bwynt (IP):"
@@ -7023,6 +7074,30 @@ msgstr "Cymraeg"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zwlŵeg"
+
+#~ msgid ""
+#~ "Remove any media used during the installation process and press the "
+#~ "\"Reboot\" button to reboot your system.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Tynnwch unrhyw ddisg neu gyfrwng a ddefnyddiwyd yn ystod y broses "
+#~ "arsefydlu a phwyswch y botwm \"Ail-gychwyn\" i ail-gychwyn eich system.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "Remove any media used during the installation process and press <Enter> "
+#~ "to reboot your system.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Tynnwch unrhyw ddisgiau neu gyfryngau eraill ddefnyddiwyd yn ystod y "
+#~ "broses arsefydlu, a phwyswch <Enter> i ail-gychwyn eich system.\n"
+#~ "\n"
+
+#~ msgid "<Enter> to reboot"
+#~ msgstr "<Dychwelydd> i ailgychwyn"
+
+#~ msgid "NFS image"
+#~ msgstr "Delwedd NFS"
 
 #, fuzzy
 #~ msgid ""
