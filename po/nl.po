@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-16 00:25+0100\n"
+"PO-Revision-Date: 2007-03-16 23:20+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,13 +207,13 @@ msgstr ""
 "van deze partitie op te starten."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Opstartpartitie staat niet genoeg aan het begin van de disk.  OpenFirmware "
-"zal niet in staat zijn om van deze partitie op te starten."
+"De opstartpartitie dient zich geheel in de eerste 4GB van de schijf te "
+"bevinden. OpenFirmware zal niet in staat zijn om van deze partitie op te "
+"starten."
 
 #: ../autopart.py:1038
 #, python-format
@@ -701,7 +701,7 @@ msgstr ""
 "systeem in een slaapstand te brengen."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -716,8 +716,8 @@ msgstr ""
 "     /dev/%s\n"
 "\n"
 "in uw /etc/fstab bestand is momenteel in gebruik als een software-suspend "
-"partitie. Dit houdt in dat uw systeem zich in een slaapstand bevindt. Om een "
-"nieuwe installatie uit te voeren dient u ervoor te zorgen dat het "
+"partitie. Dit houdt in dat uw systeem zich in een slaapstand bevindt. Als u "
+"een nieuwe installatie uitvoert dient u ervoor te zorgen dat het "
 "installatieprogramma alle wisselpartities zal formatteren."
 
 #: ../fsset.py:1530
@@ -2817,7 +2817,7 @@ msgstr "U hebt geen FCP LUN opgegeven of het nummer is ongeldig."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock staat aan.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2881,24 +2881,20 @@ msgid "Error with Data"
 msgstr "Fout met gegevens"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Verwijder alle partities op de stations en gebruik standaard opmaak."
+msgstr "Alle partities op de stations verwijderen en standaard opmaak gebruiken"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Verwijder Linux partities op de stations en gebruik standaard opmaak."
+msgstr "Linux partities op de stations verwijderen en standaard opmaak gebruiken"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Gebruik vrije ruimte op de stations en gebruik standaard opmaak."
+msgstr "Vrije ruimte op de stations gebruiken en standaard opmaak gebruiken"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Gebruik aangepaste opmaak."
+msgstr "Aangepaste opmaak gebruiken"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3102,14 +3098,12 @@ msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Druk op \"Herstarten\" om uw systeem te herstarten.\n"
 "\n"
-"\n"
-"Druk op 'OK' om uw systeem te herstarten."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3639,7 +3633,7 @@ msgstr "_Secundaire DNS-server"
 
 #: ../iw/network_gui.py:31 ../textw/network_text.py:524
 msgid "Network Configuration"
-msgstr "Netwerk configureren"
+msgstr "Netwerkconfiguratie"
 
 #: ../iw/network_gui.py:143
 msgid ""
@@ -3704,7 +3698,7 @@ msgstr "Uitgezet"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
-msgstr "Actief bij opstarten"
+msgstr "Actief bij het opstarten"
 
 #: ../iw/network_gui.py:391 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:192
@@ -4634,7 +4628,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Ik wil _geen wisselbestand aanmaken"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4995,7 +4988,7 @@ msgstr "Prefix"
 
 #: ../textw/network_text.py:134
 msgid "Activate on boot"
-msgstr "Activeren bij opstarten"
+msgstr "Activeren bij het opstarten"
 
 #: ../textw/network_text.py:141 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:9
@@ -5078,19 +5071,18 @@ msgid "IPv6 prefix"
 msgstr "IPv6-prefix"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Netwerk-interface aanzetten"
+msgstr "Netwerk-interface configureren"
 
 # Interfaces hier niet vertaald
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Wilt u de netwerk-interfaces op dit systeem starten?"
+msgstr "Wilt u de %s netwerk-interface op dit systeem configureren?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NIET-GECONFIGUREERD"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5099,38 +5091,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"De huidige configuratie-instellingen voor elke interface worden naast de "
+"apparaatnaam getoond.  Niet-geconfigureerde interfaces worden weergegeven "
+"als NIET-GECONFIGUREERD.  Om een interface te configureren, markeer deze en "
+"kies Bewerken.  Druk op OK om door te gaan als u klaar bent."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Activeren bij opstarten"
+msgstr "Actief bij het opstarten"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Activeren bij opstarten"
+msgstr "Inactief bij het opstarten"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Automatisch IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5800,7 +5794,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "De %s CD werd niet in een van uw CDROM-stations gevonden. Voer de %s CD in "
-"en klik op %s om opnieuw te proberen."
+"en druk op %s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -5813,7 +5807,7 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Om de CD mediadrager voor het begin van de installatie te testen, klik %s.\n"
+"Om de CD mediadrager voor het begin van de installatie te testen, druk %s.\n"
 "\n"
 "Kies %s om de mediatest over te slaan en met de installatie te beginnen."
 
@@ -5823,7 +5817,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"De %s CD werd niet in uw CDROM-station gevonden. Voer de %s CD in en klik op "
+"De %s CD werd niet in uw CDROM-station gevonden. Voer de %s CD in en druk op "
 "%s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:391
@@ -5968,7 +5962,7 @@ msgid ""
 msgstr ""
 "De module %s kan parameters (gescheiden door spaties) meekrijgen die de "
 "werking beïnvloeden. Als u niet weet welke parameters u moet opgeven, kunt u "
-"dit scherm gewoon overslaan door nu op \"OK\" te klikken."
+"dit scherm gewoon overslaan door nu op \"OK\" te drukken."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6146,9 +6140,8 @@ msgid "Hard drive"
 msgstr "Harde schijf"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s map:"
+msgstr "NFS-map"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6165,7 +6158,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Voer uw updates-diskette in /dev/%s en klik op \"OK\" om door te gaan."
+msgstr "Voer uw updates-diskette in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
