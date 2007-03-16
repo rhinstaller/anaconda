@@ -6,12 +6,12 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 17:53-0500\n"
-"PO-Revision-Date: 2007-02-16 22:22+0100\n"
+"PO-Revision-Date: 2007-03-16 14:38+0100\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -345,7 +345,7 @@ msgstr ""
 "Trykk «OK» for å velge et annet alternativ for partisjonering."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -358,8 +358,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Dette kan skje hvis det ikke er nok plass på harddisken(e) for "
-"installasjonen.%s"
+"Dette kan skje hvis det ikke er nok ledig plass på harddisken(e) for "
+"installasjonen. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -981,9 +981,8 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Installasjonsmetode"
+msgstr "Installasjonsnøkkel"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1086,6 +1085,10 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"Installasjonen har prøvd å montere bildefilen #%s, men kan ikke finne det på harddisken.\n"
+"\n"
+"Vennligst kopier dette bildet til harddisken og klikk \"Prøv på nytt\". Kill \"Start på nytt\" for "
+"å avbryte installasjonen."
 
 #: ../harddrive.py:81 ../image.py:520
 msgid "Re_try"
@@ -1191,6 +1194,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO-bildefilen %s har en størrelse som ikke er delbar med 2048 bytes. Dette kan "
+"bety at den har blitt ødelagt da den ble kopiert til denne maskinen.\n"
+"\n"
+"Det er anbefalt at du avbryter installasjonen og starter på nytt, men du kan velge "
+"å fortsette hvis du tror dette er en feil."
 
 #: ../image.py:510
 #, python-format
@@ -1201,6 +1209,10 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Installasjonen har prøvd å montere bildefilen #&s, men kan ikke finne det på tjeneren.\n"
+"\n"
+"Vennligst kopier dette bildet til den utdelte katalogen på den eksterne tjeneren og "
+"klikk på \"Prøv på nytt\". Klikk på \"Start på nytt\" for å avbryte installasjonen."
 
 #: ../installclass.py:66
 msgid "Install on System"
@@ -1279,13 +1291,13 @@ msgstr "Fant ikke bilde"
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"Den angitte plassen er ikke en gyldig %s live-CD for å bruke som installasjonskilde."
 
 #: ../livecd.py:82 ../livecd.py:268
 msgid "Exit installer"
 msgstr "Avslutt installering"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
 msgstr "Overfører installasjonsbildet til harddisken..."
 
@@ -1335,19 +1347,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "«%s» er ikke en gyldig IP-adresse."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ugyldig prefiks"
+msgstr "Ugyldig nøkkel"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Størrelsen du oppgav er ikke et gyldig tall."
+msgstr "Nøkkelen du oppgav er ikke gyldig."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Hopp over"
+msgstr "_Hopp over"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1406,7 +1415,7 @@ msgstr ""
 "Vil du reformattere denne DASDen med CDL-format?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1414,11 +1423,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s har nå partisjonsutforming %s. For å bruke denne disken med en "
+"/dev/%s har nå partisjonsutforming %s. For å bruke denne enheten med en "
 "installasjon av %s må den re-initieres. Dette medfører tap av ALLE DATA på "
-"denne disken.\n"
+"denne denheten.\n"
 "\n"
-"Ønsker du å formatere denne stasjonen?"
+"Ønsker du å re-initiere denne enheten?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1426,7 +1435,7 @@ msgstr "_Overse stasjon"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Re-initialiser enheten"
 
 #: ../partedUtils.py:917
 msgid "Initializing"
@@ -2213,14 +2222,14 @@ msgid "No help is available for this step of the install."
 msgstr "Ingen hjelp tilgjengelig for denne delen av installeringen."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Vennligst oppgi et gruppenavn for volumet."
+msgstr "Vennligst oppgi ditt %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Hopp over å angi %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2569,14 +2578,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Forbereder transaksjon fra installasjonskilden..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Installerer %s\n"
+msgstr "<b>Installerer %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s av %s pakker er fullført"
 
 #: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
@@ -2659,6 +2668,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Kan ikke lese gruppeinformasjonen fra lageret. Det er et problem med "
+"genereringen av ditt installasjonstre."
 
 #: ../yuminstall.py:771
 msgid "Uncategorized"
@@ -2757,10 +2768,10 @@ msgid "The root password must be at least six characters long."
 msgstr "Root-passordet må være minst seks tegn langt."
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
-msgstr "Oppgitt passord inneholder ugyldige tegn. Bruk kun ASCII-tegn."
+msgstr ""
+"Oppgitt passord inneholder ugyldige tegn. Bruk kun ASCII-tegn."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2783,9 +2794,8 @@ msgid "Invalid Initiator Name"
 msgstr "Ugyldig navn på initiator"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Du må oppgi et gyldig navn på initiatoren."
+msgstr "Du må oppgi et navn på initiatoren."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
@@ -2854,15 +2864,14 @@ msgid "Passwords do not match"
 msgstr "Passordene er ikke like"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Passordet for oppstartslasteren er kortere enn seks tegn. Vi anbefaler et "
-"lengre passord for oppstartskasteren.\n"
+"Passordet for oppstartslasteren er mindre enn seks tegn. Vi anbefaler et "
+"lengre passord for oppstartslasteren.\n"
 "\n"
 "Vil du fortsette med dette passordet?"
 
@@ -2871,7 +2880,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Avansert konfigurasjon av oppstartslaster"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
@@ -2880,7 +2888,7 @@ msgid ""
 msgstr ""
 "Tvungen bruk av LBA32 for din oppstartslaster kan medføre at maskinen ikke "
 "kan startes hvis BIOS ikke støtter dette.\n"
-" \n"
+"\n"
 "Vil du fortsette med tvungen bruk av LBA32-modus?"
 
 #: ../iw/bootloader_advanced_gui.py:48
@@ -3061,7 +3069,7 @@ msgid "_Upgrade an existing installation"
 msgstr "_Oppgrader en eksisterende installasjon"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3107,7 +3115,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Bekreft endring i fysisk utbredelse"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3115,9 +3122,8 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"Denne endringen i verdien for fysisk område vil kreve at størrelsene på "
-"nåværende forespurte størrelser på aktivt logisk volum rundes opp til et "
-"heltall ganger fysisk område.\n"
+"Denne endringen i verdien for fysisk område vil kreve at størrelsen på "
+"det aktuelle logiske volumet rundes opp i størrelse til et heltall ganger fysisk område.\n"
 "\n"
 "Denne endringen vil aktiveres med en gang."
 
@@ -3252,7 +3258,7 @@ msgid "Mount point in use"
 msgstr "Monteringspunktet er i bruk"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Monteringspunktet «%s» er allerede i bruk. Velg et annet."
 
@@ -3270,7 +3276,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Navn på logisk volum «%s» er allerede i bruk. Vennligst velg et annet."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3314,18 +3320,17 @@ msgid "No free space"
 msgstr "Ingen ledig plass"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "Det er ikke ledig plass i volumgruppen til å opprette nye logiske volum. For "
-"å gjøre dette må du redusere størrelsen på ett eller flere av de "
+"å legge til et logisk volum, må du redusere størrelsen på ett eller flere av de "
 "eksisterende logiske volumene."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Er du sikker på at du vil slette logisk volum «%s»?"
 
@@ -3682,18 +3687,16 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-prefiks må være mellom 1 og 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"Du kan konfigurere oppstartslasteren til å starte andre operativsystemer. "
-"Den vil la deg velge et operativsystem som du vil starte fra listen. For å "
-"legge til flere operativsystemer som ikke detekteres automatisk, klikker du "
-"på «Legg til». For å endre hvilket operativsystem som settes som forvalgt "
-"velger du «Forvalgt» for ønsket operativsystem."
+"Du kan konfigurere oppstartslasteren til å starte andre operativsystemer, "
+"ved å velge fra listen. For å  legge til flere operativsystemer som ikke detekteres "
+"automatisk, klikker du på «Legg til». For å endre hvilket operativsystem som settes "
+"som forvalgt, velger du «Forvalgt» for ønsket operativsystem."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3708,7 +3711,6 @@ msgid "Image"
 msgstr "Bilde"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3864,9 +3866,10 @@ msgstr "Partisjonering"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"Partisjoneringsskjemaet du krevde, forårsaket følgende kritiske feil."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
@@ -3878,7 +3881,7 @@ msgstr "Feil under partisjonering"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Partisjoneringsskjemaet du krevde, genererte følgende advarseler."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3988,7 +3991,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4074,7 +4076,7 @@ msgid "Check for _bad blocks?"
 msgstr "Sjekk etter _dårlige blokker?"
 
 #: ../iw/partition_ui_helpers_gui.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
@@ -4160,7 +4162,6 @@ msgid "Source Drive Error"
 msgstr "Feil med kildestasjon"
 
 #: ../iw/raid_dialog_gui.py:498
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4173,7 +4174,7 @@ msgstr ""
 "Disse partisjonene vil måtte fjernes før denne stasjonen kan klones. "
 
 #: ../iw/raid_dialog_gui.py:510
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4188,7 +4189,6 @@ msgstr ""
 "den kan klones. "
 
 #: ../iw/raid_dialog_gui.py:523
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4215,7 +4215,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Kildestasjon /dev/%s kan ikke velges som målstasjon også."
 
 #: ../iw/raid_dialog_gui.py:562
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4224,7 +4224,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Målstasjon /dev/%s har en partisjon som ikke kan fjernes av følgende årsak:\n"
+"Målstasjonen /dev/%s har en partisjon som ikke kan fjernes av følgende årsak:\n"
 "\n"
 "«%s»\n"
 "\n"
@@ -4266,7 +4266,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Det oppsto en feil under tømming av målstasjonene.  Kloning feilet."
 
 #: ../iw/raid_dialog_gui.py:696
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4334,12 +4333,12 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"Kan ikke finne en gruppefil for %s. Dette vil medføre at manualt utvalg av "
+"Kan ikke finne en gruppefil for %s. Dette vil medføre at manuelt valg av "
 "pakker fra lageret ikke vil virke"
 
 #: ../iw/task_gui.py:122
@@ -4347,9 +4346,8 @@ msgid "Invalid Repository Name"
 msgstr "Ugyldig navn på lager"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Du må oppgi et gyldig navn på lageret."
+msgstr "Du må oppgi et navn på lageret."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4409,12 +4407,11 @@ msgid "_Create new boot loader configuration"
 msgstr "_Lag ny konfigurasjon for oppstartslaster"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Dette vil la deg lage en ny konfigurasjon for din oppstartslaster. Hvis du "
+"Dette valget vil la deg lage en ny konfigurasjon for din oppstartslaster. Hvis du "
 "ønsker å bytte oppstartslaster, bør du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:96
@@ -4422,12 +4419,11 @@ msgid "_Skip boot loader updating"
 msgstr "_Hopp over oppdatering av oppstartslaster"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Dette vil ikke endre konfigurasjonen av din oppstartslaster. Du bør velge "
+"Dette valget vil ikke endre konfigurasjonen av din oppstartslaster. Du bør velge "
 "dette dersom du bruker en tredjeparts oppstartslaster."
 
 #: ../iw/upgrade_bootloader_gui.py:109
@@ -4439,7 +4435,7 @@ msgid "Migrate File Systems"
 msgstr "Migrer filsystemer"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4460,16 +4456,16 @@ msgid "Upgrade Swap Partition"
 msgstr "Swap for oppgradering"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, så mye som\n"
-"det dobbelte av systemets RAM. Du har nå %d MB av swap konfigurert,\n"
-"men du kan opprette mer swap på et av dine filsystemer nå."
+"Nyere kjerner (2.4 eller nyere) trenger vesentlig mer swap enn eldre kjerner, opptil "
+"det dobbelte av systemets RAM. Du har nå %d MB av swap konfigurert,"
+"men du kan opprette ekstra swap på et av dine filsystemer nå."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4499,12 +4495,13 @@ msgid "Free Space (MB)"
 msgstr "Ledig diskplass (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Det anbefales at swapfilen er minst %d MB. Oppgi en størrelse for swapfilen:"
+"Det anbefales at swapfilen er minst %d MB. Vennligst oppgi en størrelse for "
+"swapfilen:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4515,12 +4512,11 @@ msgid "I _don't want to create a swap file"
 msgstr "Jeg ønsker _ikke å lage en swapfil"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is stongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Det anbefales sterkt at du lager en swapfil. Hvis dette ikke gjøres, kan "
+"Det anbefales på det sterkeste at du lager en swapfil. Hvis dette ikke gjøres, kan "
 "installeringsprogrammet få problemer under installasjonen. Er du sikker på "
 "at du vil fortsette?"
 
@@ -4595,7 +4591,6 @@ msgid "Skip Boot Loader"
 msgstr "Hopp over oppstartslaster"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4603,15 +4598,14 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Du har valgt å ikke installere en oppstartslaster. Det anbefales at du "
-"installerer en oppstartslaster med mindre du har helt spesielle behov. En "
+"Du har valgt å ikke installere en oppstartslaster,. Det anbefales at du "
+"installerer en oppstartslaster, med mindre du har helt spesielle behov. En "
 "oppstartslaster er nesten alltid nødvendig for å starte systemet med Linux "
 "direkte fra harddisken.\n"
 "\n"
 "Er du sikker på at du vil hoppe over installasjon av oppstartslaster?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4659,13 +4653,13 @@ msgid "Edit"
 msgstr "Rediger"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"Oppstartslasteren %s kan starte andre operativsystemer også. Du må fortelle "
+"Oppstartslasteren %s kan starte andre operativsystemer også. Vennligst oppgi "
 "hvilke partisjoner du ønsker å starte andre systemer fra, og hvilket navn du "
 "vil gi hvert av dem."
 
@@ -4675,7 +4669,6 @@ msgid ""
 msgstr "<Mellomrom> velg | <F2> velg forvalg | <F4> slett | <F12> neste skjerm"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
@@ -4683,7 +4676,7 @@ msgid ""
 msgstr ""
 "Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til "
 "kjernen. For høyest mulig sikkerhet anbefaler vi å sette et passord, men "
-"dette er ikke nødvendig for brukere med mindre krav til sikkerhet."
+"dette er ikke nødvendig for mere vanlige brukere."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4806,9 +4799,8 @@ msgstr ""
 "systemet. Du vil kanskje beholde denne filen som referansepunkt til senere."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Vennligst velg pakkegruppene du ønsker å ha installert."
+msgstr "Vennligst velg pakkegruppene du ønsker å installere."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4818,7 +4810,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Ingen valgfrie pakker valgt"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4858,13 +4850,13 @@ msgstr ""
 "avhengig av ditt nettverksmiljø."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4-prefiks må være mellom 0 og 32."
+msgstr "IPv%d-prefiks må være mellom 0 og %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Heltall er nødvendig for prefiks"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4872,6 +4864,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Du må oppgi et yldig heltall for %s. For IPv4, må verdien være mellom "
+"0 "
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:17
 msgid "Prefix (Netmask)"
@@ -4914,38 +4908,34 @@ msgstr "Nettverkskonfigurasjon for %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "IP-adresse for punkt-til-punkt"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Dynamisk konfigurasjon av IP (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Manuell konfigurasjon"
+msgstr "Manuell adressekonfigurasjon"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Nettverkskonfigurasjon for %s"
+msgstr "IPv4-konfigurasjon for %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4-adresse:"
+msgstr "IPv4-adresse"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/nettmaske"
+msgstr "IPv4-nettmaske"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefiks (nettmaske)"
+msgstr "IPv4-prefiks (nettmaske)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:5
 msgid "Automatic neighbor discovery"
@@ -4956,20 +4946,18 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Dynamisk konfigurasjon av IP (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Nettverkskonfigurasjon for %s"
+msgstr "IPv6-konfigurasjon for %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6-adresse:"
+msgstr "IPv6-adresse"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/prefiks"
+msgstr "IPv6-prefiks"
 
 #: ../textw/network_text.py:583 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -4988,19 +4976,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Forskjellige innstillinger for nettverk"
 
 #: ../textw/network_text.py:621 ../textw/network_text.py:624
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:631 ../textw/network_text.py:634
-#, fuzzy
 msgid "primary DNS"
-msgstr "Primær DNS"
+msgstr "primær DNS"
 
 #: ../textw/network_text.py:643
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Sekundær DNS"
+msgstr "sekundær DNS"
 
 #: ../textw/network_text.py:677
 msgid "automatically via DHCP"
@@ -5015,7 +5000,6 @@ msgid "Hostname Configuration"
 msgstr "Konfigurasjon av vertsnavn"
 
 #: ../textw/network_text.py:702
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5024,8 +5008,8 @@ msgid ""
 msgstr ""
 "Hvis ditt system er del av et større nettverk hvor vertsnavn tildeles via "
 "DHCP må du velge automatisk tildeling via DHCP. Ellers velg manuell "
-"tildeling og oppgi et vertsnavn for ditt system. Hvis du ikke gjør dette får "
-"systemet navnet «localhost»."
+"tildeling og oppgi et vertsnavn for ditt system. Hvis du ikke gjør dette, vil "
+"systemet få navnet «localhost»."
 
 #: ../textw/network_text.py:728 ../textw/network_text.py:734
 msgid "Invalid Hostname"
@@ -5180,7 +5164,6 @@ msgid "Not Supported"
 msgstr "Ikke støttet"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "LVM volumgrupper kan kun redigeres i den grafiske installasjonen."
 
@@ -5221,21 +5204,19 @@ msgid "Too many spares"
 msgstr "For mange reservedisker"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Maksimalt antall reservedisker med for et RAID0 array er 0."
+msgstr "Du kan ikke bruke noen reserver for et RAID0-array."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Ingen volumgrupper"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "Det finnes ingen volumgrupper for oppretting av et logisk volum"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5291,9 +5272,8 @@ msgid "No Root Partition"
 msgstr "Ingen rotpartisjon"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS-installasjonsmetoden krever støtte for IPv4."
+msgstr "Installasjonen krever en / partisjon."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5357,16 +5337,16 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"For å bruke iSCSI-disker, må du oppgi adressen til ditt iSCSI-mål og "
+"iSCSI-initiatorens navn, som du har konfigurert for din maskin."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>IP-adresse for _mål:</b>"
+msgstr "IP-adresse for mål"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Navn på iSCSI-initiator:</b>"
+msgstr "Navn på iSCSI-initiator"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5400,9 +5380,8 @@ msgid "Customize software selection"
 msgstr "Tilpass valg av programvare"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "Hvilken tidssone befinner du deg i?"
+msgstr "I hvilken tidssone befinner du deg?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5454,15 +5433,13 @@ msgid "System to Upgrade"
 msgstr "System som skal oppgraderes"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"En eller flere eksisterende Linux-installasjoner ble funnet på systemet "
-"ditt.\n"
+"En eller flere eksisterende Linux-installasjoner ble funnet på systemet ditt.\n"
 "\n"
 "Vennligst velg hvilken som skal oppgraderes, eller velg «Installer systemet "
 "på nytt» for å installere helt på nytt."
@@ -5472,7 +5449,6 @@ msgid "Root Password"
 msgstr "Root-passord"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5496,15 +5472,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"Oppstartslasteren z/IPL vil bli installert på systemet ditt etter at resten "
-"av installasjonen er ferdig. Du kan nå spesifisere nødvendige parametre for "
-"kjernen og chandev på systemet ditt."
+"Oppstartslasteren z/IPL vil bli installert på systemet ditt etter at "
+"installasjonen er ferdig. Du kan nå spesifisere nødvendige parametre for "
+"kjernen og chandev som ditt system eller oppsett krever."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5548,35 +5523,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Gratulerer"
+msgstr "Virtualisering"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Klynge"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Lagringsklynge"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Installeringen startes"
+msgstr "Installasjonsnummer"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"For å installere hele settet av pakker som støttes og som er inkludert i ditt"
+"abonnement, vennligst angi ditt Installasjonsnummer."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5591,6 +5566,14 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Om du ikke kan finne Installasjonsnummeret, http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"Om du hopper over dette:\n"
+"* Du får kanskje ikke tilgang til hele settet av pakker som inngår i ditt abonnement.\n"
+"* Det kan resultere i en usupportert/usertifisert installasjon av Red Hat Enterprise Linux.\n"
+"* Du vil ikke få program- og sikkerhetsoppdateringer for pakker som ikke inngår "
+"i ditt abonnement."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5937,6 +5920,8 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Kan ikke laste ned kickstart-filen. Vennligst endre kickstart-parametrene under, "
+"eller velg \"Avbryt\" for å fortsette som en interaktiv installasjon."
 
 #: ../loader2/kickstart.c:353
 msgid "Error downloading kickstart file"
@@ -6197,12 +6182,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Ugyldig argument til enhetskommando for kickstart %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Følgende ugyldig argument ble oppgitt for kommando for driverdisk i "
-"kickstart: %s:%s"
+"Både modultype og -navn må spesifiseres for kommandoen for kickstartenheten."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6324,6 +6307,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Angi IPv4- og/eller IPv6-adressen og prefiks (adresse / prefiks). For IPv4 er"
+"punkt-kvadruppel nettmaske eller prefiks i CIDR-stil tillatt. Feltet gateway og "
+"navnetjener må være gyldige IPv4- eller IPv6-adresser."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6560,6 +6546,8 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Vennligst oppgi plassen hvor din ekstra programvare kan installere fra. Husk at "
+"dette må være et gyldig lager for %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
@@ -6592,9 +6580,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Se o_ver og endre utforming av partisjoner"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Hvilket språk ønsker du å bruke under installeringen?"
+msgstr "Hvilken enhet vil du starte opp denne installasjonen fra?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6615,7 +6602,7 @@ msgstr "D_etaljer om unntak"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6670,6 +6657,8 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"Dette krever at du har en fungerende nettverkstilkobling under installasjonen. "
+"Vennligst konfigurer en nettverkstilkobling."
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
@@ -6708,6 +6697,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Vennligst velg hvile ekstra lagere du vil bruke for å installere programmer fra."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
