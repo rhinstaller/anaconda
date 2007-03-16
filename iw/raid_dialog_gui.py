@@ -48,13 +48,9 @@ class RaidEditor:
 	for part, size, used in allraidparts:
 	    partname = "%s" % part
 	    partsize = "%8.0f MB" % size
-	    if used or not reqraidpart:
-		selected = 1
-	    else:
-		selected = 0
 
-            if preexist == 0 or selected == 1:
-                partlist.append_row((partname, partsize), selected)
+            if preexist == 0:
+                partlist.append_row((partname, partsize), False)
 
 	return (partlist, sw)
 

@@ -336,7 +336,8 @@ class PartitionEditor:
 
                 self.driveview = createAllowedDrivesList(self.diskset.disks,
                                                          self.origrequest.drive,
-                                                         self.anaconda.updateSrc)
+                                                         selectDrives=False,
+                                                         disallowDrives=[self.anaconda.updateSrc])
 		lbl.set_mnemonic_widget(self.driveview)
                 sw = gtk.ScrolledWindow()
                 sw.add(self.driveview)

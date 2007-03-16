@@ -232,7 +232,7 @@ class PartitionTypeWindow(InstallWindow):
             createAllowedDrivesStore(self.diskset.disks,
                                      self.partitions.autoClearPartDrives,
                                      self.drivelist,
-                                     self.anaconda.updateSrc)
+                                     disallowDrives=[self.anaconda.updateSrc])
         
 
     def getScreen(self, anaconda):
@@ -272,7 +272,7 @@ class PartitionTypeWindow(InstallWindow):
 
         self.drivelist = createAllowedDrivesList(self.diskset.disks,
                                                  self.partitions.autoClearPartDrives,
-                                                 self.anaconda.updateSrc)
+                                                 disallowDrives=[self.anaconda.updateSrc])
         self.drivelist.set_size_request(375, 80)
 
         self.xml.get_widget("driveScroll").add(self.drivelist)

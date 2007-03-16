@@ -120,35 +120,39 @@ def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
 
-def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
+def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
+                             disallowDrives=[]):
     drivelist.clear()
     drives = disks.keys()
     drives.sort()
     for drive in drives:
         size = getDeviceSizeMB(disks[drive].dev)
-	selected = 0
-        if reqdrives:
-            if drive in reqdrives:
-		selected = 1
-        else:
-            if drive != updateSrc:
-                selected = 1
+	selected = False
+
+        if selectDrives:
+            if reqdrives:
+                if drive in reqdrives:
+                    selected = 1
+            else:
+                if drive not in disallowDrives:
+                    selected = 1
 
 	sizestr = "%8.0f MB" % size
-	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
+	drivelist.append_row((drive, sizestr, disks[drive].dev.model), selected)
 
     if len(disks.keys()) < 2:
 	drivelist.set_sensitive(False)
     else:
         drivelist.set_sensitive(True)
 
-def createAllowedDrivesList(disks, reqdrives, updateSrc):
+def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=[]):
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			  gobject.TYPE_STRING,
 			  gobject.TYPE_STRING,
 			  gobject.TYPE_STRING)
     drivelist = WideCheckList(3, store)
-    createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc)
+    createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=selectDrives,
+                             disallowDrives=disallowDrives)
 
     return drivelist
     

@@ -1,3 +1,13 @@
+2007-03-16  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore):  Add a
+	parameter to allow not selecting any drives.
+
+	* iw/partition_dialog_gui.py (PartitionEditor.__init__):  Default to
+	no drives selected (#195636).
+	* iw/raid_dialog_gui.py (RaidEditor.createAllowedRaidPartitionsList):
+	Likewise.
+
 2007-03-15  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
