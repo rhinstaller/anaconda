@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-10 20:25+0200\n"
+"PO-Revision-Date: 2007-03-16 21:09+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,12 +205,11 @@ msgstr ""
 "z tej partycji."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Partycja startowa nie jest położona odpowiednio wcześnie na dysku. "
+"Partycja startowa musi znajdować się w całości na pierwszych 4GB dysku. "
 "OpenFirmware nie będzie mógł uruchomić tej instalacji."
 
 #: ../autopart.py:1038
@@ -688,7 +687,7 @@ msgstr ""
 "przeprowadzić aktualizację, wyłącz system zamiast hibernować go."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -702,10 +701,10 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"w pliku /etc/fstab jest aktualnie użyty jako partycja wstrzymania "
-"systemowego, co oznacza, że system jest w stanie hibernacji. Aby "
-"przeprowadzić nową instalację, upewnij się, że instalator jest ustawiony "
-"tak, aby sformatować wszystkie partycje wymiany."
+"w pliku /etc/fstab jest aktualnie użyte jako partycja wstrzymania "
+"systemu, co oznacza, że system jest w stanie hibernacji. Aby przeprowadzić "
+"nową instalację, upewnij się, że instalator jest ustawiony tak, aby "
+"sformatować wszystkie partycje wymiany."
 
 #: ../fsset.py:1530
 msgid ""
@@ -2768,7 +2767,7 @@ msgstr "Nie podano FCP LUN lub podany numer jest nieprawidłowy."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock jest włączony.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2830,24 +2829,20 @@ msgid "Error with Data"
 msgstr "Błąd danych"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Usuń wszystkie partycje na wybranych dyskach i utwórz domyślny układ."
+msgstr "Usuń wszystkie partycje na wybranych dyskach i utwórz domyślny układ"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Usuń partycje linuksowe na wybranych dyskach i utwórz domyślny układ."
+msgstr "Usuń partycje linuksowe na wybranych dyskach i utwórz domyślny układ"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Użyj wolnego miejsca na wybranych dyskach i utwórz domyślny układ."
+msgstr "Użyj wolnego miejsca na wybranych dyskach i utwórz domyślny układ"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Utwórz indywidualny układ."
+msgstr "Utwórz indywidualny układ"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3047,14 +3042,12 @@ msgid "Congratulations"
 msgstr "Gratulacje"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Naciśnij \"uruchom ponownie\", aby ponownie uruchomić system.\n"
 "\n"
-"\n"
-"Naciśnij \"OK\", aby ponownie uruchomić system."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4545,7 +4538,6 @@ msgid "I _don't want to create a swap file"
 msgstr "_Nie chcę tworzyć obszaru wymiany"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4982,18 +4974,17 @@ msgid "IPv6 prefix"
 msgstr "Przedrostek IPv6"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Włącz interfejs sieciowy"
+msgstr "Skonfiguruj interfejs sieciowy"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Czy chcesz uruchomić interfejsy sieciowe?"
+msgstr "Czy chcesz skonfigurować interfejs sieciowy %s w systemie?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NIESKONFIGUROWANE"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5002,38 +4993,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Obecne ustawienia konfiguracji dla każdego interfejsu zostały wyświetlone "
+"obok nazwy urządzenia. Nieskonfigurowane interfejsy są wyświetlane jako "
+"NIESKONFIGUROWANE. Aby skonfigurować interfejs, podświetl go i wybierz "
+"Edytuj. Kiedy skończysz naciśnij OK, aby kontynuować."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
 msgstr "Aktywuj przy uruchamianiu"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktywuj przy uruchamianiu"
+msgstr "Nieaktywne przy uruchamianiu"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Automatycznie IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -6035,9 +6028,8 @@ msgid "Hard drive"
 msgstr "Dysk twardy"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "Folder %s:"
+msgstr "Folder NFS"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -7036,27 +7028,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i naciśnij "
-#~ "przycisk \"Uruchom ponownie\", aby ponownie uruchomić system.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i naciśnij "
-#~ "<Enter>, aby ponownie uruchomić system.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter>, aby uruchomić ponownie"
-
-#~ msgid "NFS image"
-#~ msgstr "Obraz NFS"
