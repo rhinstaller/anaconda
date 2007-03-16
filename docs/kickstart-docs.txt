@@ -1299,13 +1299,13 @@ Creating the Kickstart File
 
    Packages can be specified by group or by individual package name. The
    installation program defines several groups that contain related packages.
-   Refer to the RedHat/base/comps.xml file on the first Red Hat Enterprise
-   Linux CD-ROM for a list of groups. Each group has an id, user visibility
-   value, name, description, and package list. In the package list, the
-   packages marked as mandatory are always installed if the group is
-   selected, the packages marked default are selected by default if the group
-   is selected, and the packages marked optional must be specifically
-   selected even if the group is selected to be installed.
+   Refer to the repodata/comps.xml file on the first CD-ROM for a list of
+   groups. Each group has an id, user visibility value, name, description,
+   and package list. In the package list, the packages marked as mandatory
+   are always installed if the group is selected, the packages marked default
+   are selected by default if the group is selected, and the packages marked
+   optional must be specifically selected even if the group is selected to be
+   installed.
 
    In most cases, it is only necessary to list the desired groups and not
    individual packages. Note that the Core and Base groups are always
@@ -1345,9 +1345,12 @@ Creating the Kickstart File
 
    --ignoremissing
 
-       Ignore the missing packages and groups instead of halting the
-       installation to ask if the installation should be aborted or
-       continued. For example:
+       Ignore any packages or groups specified in the packages section
+       that are not found in any configured repository.  The default
+       behavior is to halt the installation and ask the user if the
+       installation should be aborted or continued.  This option allows
+       fully automated installation even in the error case.  It is used
+       as follows:
 
        %packages --ignoremissing                                   
 
