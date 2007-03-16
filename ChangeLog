@@ -8,6 +8,9 @@
 	* iw/raid_dialog_gui.py (RaidEditor.createAllowedRaidPartitionsList):
 	Likewise.
 
+	* iw/account_gui.py (handleCapsLockRelease):  Display a warning
+	message if caps lock is on (#207894).
+
 	* docs/kickstart-docs.txt:  Update to describe --ignoremissing better
 	(#209966).
 

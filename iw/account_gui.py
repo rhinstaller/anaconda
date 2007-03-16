@@ -1,7 +1,7 @@
 #
 # account_gui.py: gui root password and user creation dialog
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,6 +19,14 @@ import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 from flags import flags
+
+def handleCapsLockRelease(window, event, label):
+    if event.keyval == gtk.keysyms.Caps_Lock and event.state & gtk.gdk.LOCK_MASK:
+        if label.get_text() == "":
+            label.set_text(_("<b>Caps Lock is on.</b>"))
+            label.set_use_markup(True)
+        else:
+            label.set_text("")
 
 class AccountWindow (InstallWindow):
 
@@ -80,6 +88,12 @@ class AccountWindow (InstallWindow):
 	self.rootPassword = anaconda.id.rootPassword
         self.intf = anaconda.intf
 
+        self.capsLabel = gtk.Label()
+        self.capsLabel.set_alignment(0.0, 0.5)
+
+        self.intf.icw.window.connect("key-release-event",
+                                     lambda w, e: handleCapsLockRelease(w, e, self.capsLabel))
+
 	self.passwords = {}
 
         box = gtk.VBox ()
@@ -100,7 +114,7 @@ class AccountWindow (InstallWindow):
 
         box.pack_start(hbox, False)
        
-        table = gtk.Table (2, 2)
+        table = gtk.Table (3, 2)
         table.set_size_request(365, -1)
         table.set_row_spacings (5)
 	table.set_col_spacings (5)
@@ -121,11 +135,13 @@ class AccountWindow (InstallWindow):
         pass2.set_mnemonic_widget(self.confirm)
         self.confirm.connect ("activate", lambda widget, box=box: self.ics.setGrabNext(1))
         self.confirm.set_visibility (False)
-        table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
-        table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
+        table.attach (self.pw,        1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
+        table.attach (self.confirm,   1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
+        table.attach (self.capsLabel, 1, 2, 2, 3, gtk.FILL|gtk.EXPAND, 5)
 
         hbox = gtk.HBox()
         hbox.pack_start(table, False)
+
         box.pack_start (hbox, False)
 
         # root password statusbar
