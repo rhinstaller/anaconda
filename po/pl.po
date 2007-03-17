@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-16 21:09+0200\n"
+"PO-Revision-Date: 2007-03-17 17:38+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -443,7 +443,7 @@ msgid ""
 msgstr ""
 "Wybrano usunięcie wszystkich partycji (WSZYSTKICH DANYCH) na następujących "
 "dyskach:%s\n"
-"Czy jesteś pewny, że tego chcesz?"
+"Czy na pewno tego chcesz?"
 
 #: ../autopart.py:1711
 #, python-format
@@ -454,7 +454,7 @@ msgid ""
 msgstr ""
 "Wybrano usunięcie wszystkich partycji linuksowych (oraz WSZYSTKICH DANYCH) "
 "na następujących dyskach:%s\n"
-"Czy jesteś pewny, że tego chcesz?"
+"Czy na pewno tego chcesz?"
 
 #: ../backend.py:164
 #, python-format
@@ -1727,8 +1727,7 @@ msgstr "Potwierdź przywrócenie"
 #: ../partIntfHelpers.py:537
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Czy jesteś pewny, że chcesz przywrócić tablicę partycji do pierwotnego stanu?"
+msgstr "Czy na pewno chcesz przywrócić tablicę partycji do pierwotnego stanu?"
 
 #: ../partRequests.py:249
 #, python-format
@@ -2714,7 +2713,7 @@ msgid ""
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Zdaje się, że chcesz zaktualizować system, który jest za stary, aby można "
-"było go zaktualizować do tej wersji systemu %s. Czy jesteś pewny, że chcesz "
+"było go zaktualizować do tej wersji systemu %s. Czy na pewno chcesz "
 "kontynuować aktualizację?"
 
 #: ../yuminstall.py:1113
@@ -3361,7 +3360,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Czy jesteś pewny, że chcesz usunąć wolumin logiczny \"%s\"?"
+msgstr "Czy na pewno chcesz usunąć wolumin logiczny \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -4543,7 +4542,7 @@ msgid ""
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Utworzenie obszaru wymiany jest zdecydowanie zalecane. Bez niego instalator "
-"może przerwać działanie. Czy jesteś pewny, że chcesz kontynuować?"
+"może przerwać działanie. Czy na pewno chcesz kontynuować?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4628,7 +4627,7 @@ msgstr ""
 "zawsze konieczny do uruchomienia systemu Linux bezpośrednio z dysku "
 "twardego.\n"
 "\n"
-"Czy jesteś pewny, że chcesz pominąć instalację programu startowego?"
+"Czy na pewno chcesz pominąć instalację programu startowego?"
 
 #: ../textw/bootloader_text.py:92
 msgid ""
