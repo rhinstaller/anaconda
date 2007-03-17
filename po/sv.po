@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-09 20:57-0500\n"
+"PO-Revision-Date: 2007-03-16 17:10-0400\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -191,12 +191,11 @@ msgstr ""
 "starta från denna partition."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Startpartitionen ligger inte tillräckligt tidigt på hårddisken. OpenFirmware "
+"Startpartitionen måste ligga inom de 4 första GB på hårddisken. OpenFirmware "
 "kommer inte att kunna starta denna installation."
 
 #: ../autopart.py:1038
@@ -676,7 +675,7 @@ msgstr ""
 "försätta det i viloläge."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -2775,7 +2774,7 @@ msgstr "Du har inte angivit ett FCP-LUN eller så är numret ogiltigt."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock är påslaget.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2838,26 +2837,20 @@ msgid "Error with Data"
 msgstr "Fel med data"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Ta bort alla partitioner på valda enheter och skapa en anpassad layout."
+msgstr "Ta bort alla partitioner på valda enheter och skapa en standardlayout."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"Ta bort Linuxpartitioner på valda enheter och skapa en anpassad layout."
+msgstr "Ta bort Linuxpartitioner på valda enheter och skapa en standardlayout."
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Använd ledigt utrymme på valda enheter och skapa en anpassad layout."
+msgstr "Använd ledigt utrymme på valda enheter och skapa en standardlayout."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Skapa anpassad layout."
+msgstr "Skapa anpassad layout"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3057,14 +3050,12 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Tryck \"Starta Om\" för att starta om ditt system.\n"
 "\n"
-"\n"
-"Tryck \"OK\" för att starta om ditt system."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4559,7 +4550,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Jag vill i_nte skapa en växlingsfil"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -5000,18 +4990,17 @@ msgid "IPv6 prefix"
 msgstr "IPv6-prefix"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Slå på nätverksinterfacet"
+msgstr "Konfigurera nätverksgränssnittet"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Vill du starta nätverksgränssnitten på detta system?"
+msgstr "Vill du konfigurera nätverksgränssnittet %s på ditt system?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "OKONFIGURERAD"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5020,38 +5009,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"De nuvarande konfigurationsinställningarna för varje gränssnitt är listade "
+"brevid enhetsnamnet. Okonfigurerade gränssnitt visas som OKONFIGURERAD. För "
+"att konfigurera ett gränssnitt, markera det och välj Redigera. När du är "
+"klar, tryck OK för att att fortsätta."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
 msgstr "Aktivera vid uppstart"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktivera vid uppstart"
+msgstr "Avaktivera vid uppstart"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -6060,9 +6051,8 @@ msgid "Hard drive"
 msgstr "Hårddisk"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s-katalog:"
+msgstr "NFS-katalog"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
