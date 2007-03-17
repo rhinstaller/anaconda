@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-11 04:11+0100\n"
+"PO-Revision-Date: 2007-03-17 13:16+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -214,13 +214,12 @@ msgstr ""
 "des d'aquesta partició."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"La partició d'arrencada no es troba prou a l'inici del disc. OpenFirmware no "
-"podrà arrencar aquesta instal·lació."
+"La partició d'arrencada ha de ser dins dels primer 4GB del dosc. "
+"L'OpenFirmware no podrà arrencar aquesta instal·lació."
 
 #: ../autopart.py:1038
 #, python-format
@@ -701,7 +700,7 @@ msgstr ""
 "comptes d'aturar-lo temporalment."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -715,11 +714,10 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"al vostre fitxer /etc/fstab s'està fent servir com a partició de suspensió "
-"del programari, el que significa que el vostre sistema està aturat "
-"temporalment. Si esteu fent una nova instal·lació, assegureu-vos que "
-"l'instal·lador està configurat per formatar totes les particions "
-"d'intercanvi."
+"al vostre fitxer /etc/fstab s'està fent servir com a partició per a "
+"l'aturada temporal, que vol dir que el vostre sistema està hibernant. Si "
+"esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està "
+"configurat per formatar totes les particions d'intercanvi."
 
 #: ../fsset.py:1530
 msgid ""
@@ -2798,7 +2796,7 @@ msgstr "No heu indicat cap FCP LUN, o aquest no és vàlid."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>La tecla de fixació de majúscules està habilitada.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2861,30 +2859,26 @@ msgid "Error with Data"
 msgstr "Error amb les dades"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Suprimeix totes les particions a les unitats seleccionades i crea la "
-"disposició predeterminada."
+"disposició predeterminada"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Suprimeix les particions del linux a les unitats seleccionades i crea una "
-"disposició predeterminada."
+"Suprimeix les particions linux de les unitats seleccionades i crea una "
+"disposició predeterminada"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
-"Useu l'espai lliure a les unitats seleccionades i creeu la disposició "
-"predeterminada."
+"Utilitza l'espai lliure de les unitats seleccionades i crea una disposició "
+"predeterminada"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Crea una disposició personalitzada."
+msgstr "Crea una disposició personalitzada"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3085,14 +3079,12 @@ msgid "Congratulations"
 msgstr "Felicitats"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Pitgeu el botó «Reinicia» per arrencar de nou el sistema.\n"
 "\n"
-"\n"
-"Premeu «D'acord» per arrencar de nou el sistema."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4591,7 +4583,6 @@ msgid "I _don't want to create a swap file"
 msgstr "No creïs cap fitxer _d'intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -5032,18 +5023,17 @@ msgid "IPv6 prefix"
 msgstr "Prefix IPv6"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Habilita la intefície de xarxa"
+msgstr "Configura la intefície de xarxa"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Voleu iniciar les interfícies de xarxa del sistema?"
+msgstr "Voleu configurar la interfície de xarxa %s d'aquest sistema?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "SENSE_CONFIGURAR"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5052,38 +5042,41 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Al costat del nom de cada dispositiu es mostren els paràmetres de "
+"configuració actuals per a cada interfície. Les interfícies que no estan "
+"configurades es mostren amb SENSE_CONFIGURAR. Per a configurar una "
+"interfície, marqueu-la i feu clic a Edita. Quan hagueg acabat, feu clic a "
+"D'acord per a continuar."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Activa en arrencar"
+msgstr "Habilita en arrencar"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Activa en arrencar"
+msgstr "Inhabilita en arrencar"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -6092,9 +6085,8 @@ msgid "Hard drive"
 msgstr "Disc dur"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "Directori %s:"
+msgstr "Directori NFS"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
