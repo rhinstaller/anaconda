@@ -11,6 +11,9 @@
 
 	* iw/timezone_gui.py:  Updated for new system-config-date (#232905).
 
+	* yuminstall.py (AnacondaYum.isPackageInstalled):  Bring back working
+	method to fix optional package selection for now (#232701).
+
 2007-03-16  Chris Lumens  <clumens@redhat.com>
 
 	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore):  Add a

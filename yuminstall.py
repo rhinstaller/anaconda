@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005-2006 Red Hat, Inc.
+# Copyright (c) 2005-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -578,6 +578,22 @@ class AnacondaYum(YumSorter):
     def doMacros(self):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
+
+    # FIXME:  remove when yum-3.1.5 is out.
+    def isPackageInstalled(self, pkgname):
+        installed = False
+        if self.rpmdb.installed(name = pkgname):
+            installed = True
+            
+        lst = self.tsInfo.matchNaevr(name = pkgname)
+        for txmbr in lst:
+            if txmbr.output_state in TS_INSTALL_STATES:
+                return True
+        if installed and len(lst) > 0:
+            # if we get here, then it was installed, but it's in the tsInfo
+            # for an erase or obsoleted --> not going to be installed at end
+            return False
+        return installed
 
     def isGroupInstalled(self, grp):
         # FIXME: move down to yum itself.
