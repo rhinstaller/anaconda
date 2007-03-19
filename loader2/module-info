@@ -1029,6 +1029,11 @@ sbp2
 	scsi_hostadapter
 	"IEEE-1394 SBP-2 protocol driver"
 
+# drivers/firewire
+fw-sbp2
+	scsi_hostadapter
+	"IEEE-1394 SBP-2 protocol driver"
+
 # drivers/usb
 usb-storage
 	scsi_hostadapter
