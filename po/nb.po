@@ -6,12 +6,12 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-16 14:38+0100\n"
+"PO-Revision-Date: 2007-03-19 13:43+0100\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -190,13 +190,12 @@ msgstr ""
 "operativsystemet fra denne partisjonen."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Oppstartspartisjonen langt nok fremme på disken. OpenFirmware vil ikke kunne "
-"starte denne installasjonen."
+"Hele oppstartspartisjonen må være blant de første 4GB på harddisken. "
+"OpenFirmware vil ikke kunne starte denne installasjonen."
 
 #: ../autopart.py:1038
 #, python-format
@@ -673,7 +672,7 @@ msgstr ""
 "vennligst slå av systemet, enn å sette det i hvilemodus."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -687,10 +686,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"i din /etc/fstab-fil brukes i øyeblikket som en partisjon for "
-"programvaresuspendering, noe som betyr at ditt system er i hvilemodus.Hvis "
-"du utfører en ny installasjon, sjekk at installasjonsprogrammet er satt opp "
-"til å formatere alle swap-partisjonene."
+"i din /etc/fstab-fil brukes i øyeblikket som en partisjon for programvaresuspendering, "
+"noe som betyr at ditt system er i hvilemodus. Hvis du utfører en ny installasjon, sjekk "
+"at installasjonsprogrammet er satt opp til å formatere alle swap-partisjonene."
 
 #: ../fsset.py:1530
 msgid ""
@@ -1211,7 +1209,7 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"Installasjonen har prøvd å montere bildefilen #&s, men kan ikke finne det på "
+"Installasjonen har prøvd å montere bildefilen #%s, men kan ikke finne det på "
 "tjeneren.\n"
 "\n"
 "Vennligst kopier dette bildet til den utdelte katalogen på den eksterne "
@@ -2749,7 +2747,7 @@ msgstr "FC-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock er på.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2810,25 +2808,20 @@ msgid "Error with Data"
 msgstr "Feil med data"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Fjern alle partisjoner valgte stasjoner og opprett forvalgt utforming."
+msgstr "Fjern alle partisjoner på valgte stasjoner og opprett forvalgt utforming"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming."
+msgstr "Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Bruk ledig plass på valgte stasjoner og opprett forvalgt utforming."
+msgstr "Bruk ledig plass på valgte stasjoner og opprett forvalgt utforming"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Opprett egendefinert utforming."
+msgstr "Opprett egendefinert utforming"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3027,14 +3020,12 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Trykk på «Starte på nytt» for å starte systemet på nytt.\n"
 "\n"
-"\n"
-"Trykk «OK» for å starte systemet på nytt."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4527,14 +4518,12 @@ msgid "I _don't want to create a swap file"
 msgstr "Jeg ønsker _ikke å lage en swapfil"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Det anbefales på det sterkeste at du lager en swapfil. Hvis dette ikke "
-"gjøres, kan installeringsprogrammet få problemer under installasjonen. Er du "
-"sikker på at du vil fortsette?"
+"Det anbefales på det sterkeste at du lager en swapfil. Hvis dette ikke gjøres, kan "
+"installeringsprogrammet få problemer og avbryte. Er du sikker på at du vil fortsette?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4963,18 +4952,17 @@ msgid "IPv6 prefix"
 msgstr "IPv6-prefiks"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Aktiver nettverksgrensesnitt"
+msgstr "Konfigurer nettverksgrensesnitt"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
+msgstr "Ønsker du å konfigurere nettverksgrensesnittet %s på ditt systemet?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "IKKE KONFIGURERT"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -4983,38 +4971,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"De nåværende konfigurasjonsinnstillingene for hvert grensesnitt er listet opp "
+"ved siden av navnet på enheten. Ikke konfigurerte grensesnitt er vist som "
+"IKKE KONFIGURERT. For å konfigurerer en grensesnitt, marker det og velg "
+"Rediger. Når du er ferdig, trykk på OK for å fortsette."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktiver ved oppstart"
+msgstr "Aktiv ved oppstart"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktiver ved oppstart"
+msgstr "Uvirksom ved oppstart"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -6016,9 +6006,8 @@ msgid "Hard drive"
 msgstr "Harddisk"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "Katalog for %s:"
+msgstr "NFS-katalog"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
