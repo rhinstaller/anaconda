@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-08 01:11+0100\n"
+"PO-Revision-Date: 2007-03-20 17:59+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -197,13 +197,12 @@ msgstr ""
 "Zaváděcí oddíl %s není typu VFAT, a proto z něj EFI nemůže načíst systém."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Zaváděcí oddíl není umístěn dostatečně blízko začátku disku, a proto z něj "
-"OpenFirmware nemůže načíst systém."
+"Zaváděcí oddíl musí být celý umístěn v prvních 4GB disku. "
+"OpenFirmware nebude moct systém nastartovat."
 
 #: ../autopart.py:1038
 #, python-format
@@ -674,7 +673,7 @@ msgstr ""
 "aktualizace systém raději úplně vypněte a nepoužívejte přitom režim spánku."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -2726,7 +2725,7 @@ msgstr "Neurčili jste FCP LUN nebo číslo není platné."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock je aktivní.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2784,22 +2783,18 @@ msgid "Error with Data"
 msgstr "Chyba v datech"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Odstranit všechny oddíly a vytvořit implicitní rozdělení"
+msgstr "Odstranit všechny oddíly a vytvořit oddíly dle vzoru"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Odstranit linuxové oddíly a vytvořit implicitní rozdělení"
+msgstr "Odstranit linuxové oddíly a vytvořit oddíly dle vzoru"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Použít jen volné místo a vytvořit implicitní rozdělení"
+msgstr "Použít jen volné místo a vytvořit oddíly dle vzoru"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
 msgstr "Vytvořit oddíly ručně"
 
@@ -2999,14 +2994,12 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Klikněte na 'OK' pro restart počítače.\n"
 "\n"
-"\n"
-"Klikněte na 'OK' pro restart počítače."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4493,13 +4486,12 @@ msgid "I _don't want to create a swap file"
 msgstr "_Nechci vytvořit odkládací soubor"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Důrazně doporučujeme vytvořit odkládací soubor. Pokud jej nevytvoříte, může "
-"být běh instalačního programu předčasně ukončen. Opravdu chcete pokračovat?"
+"být běh instalačního programu neočekávaně ukončen. Opravdu chcete pokračovat?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4926,18 +4918,17 @@ msgid "IPv6 prefix"
 msgstr "IPv6 prefix"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Povolit síťové rozhraní"
+msgstr "Nastavení síťového rozhraní"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Chcete aktivovat síťová rozhraní?"
+msgstr "Chcete nastavit síťové rozhraní %s?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NENASTAVENO"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -4946,38 +4937,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Aktuální nastavení všech síťových zařízení je vypsáno vedle jeho názvu. "
+"Zařízení, která nejsou nakonfigurována, jsou označena NENASTAVENO. "
+"Chcete-li nastavení změnit, klikněte na zařízení a pak na Upravit. Po "
+"dokončení stiskněte OK pro pokračování."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktivovat při startu"
+msgstr "Aktivní při startu"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktivovat při startu"
+msgstr "Neaktivní při startu"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5972,9 +5965,8 @@ msgid "Hard drive"
 msgstr "Pevný disk"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "Adresář %s:"
+msgstr "NFS adresář"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
