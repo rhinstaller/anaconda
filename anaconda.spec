@@ -23,7 +23,7 @@ BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
 BuildRequires: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
-%ifarch livearches
+%ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
@@ -44,7 +44,7 @@ Requires: system-config-securitylevel
 Requires: rhpxl >= 0.25
 Requires: system-config-keyboard
 %endif
-%ifarch livearches
+%ifarch %livearches
 Requires: usermode
 Requires: zenity
 Requires(post): desktop-file-utils >= 0.8
@@ -91,20 +91,19 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 
-%ifarch livearches
-desktop-file-install --vendor="" --dir=$RPM_BUILD_ROOT/%{_datadir}/applications 
-$RPM_BUILD_ROOT/%{_datadir}/applications/liveinst.desktop
+%ifarch %livearches
+desktop-file-install --vendor="" --dir=$RPM_BUILD_ROOT/%{_datadir}/applications  $RPM_BUILD_ROOT/%{_datadir}/applications/liveinst.desktop
 %endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%ifarch livearches
+%ifarch %livearches
 %post
 /usr/bin/update-desktop-database %{_datadir}/applications
 %endif
 
-%ifarch livearches
+%ifarch %livearches
 %postun 
 /usr/bin/update-desktop-database %{_datadir}/applications
 %endif
@@ -120,16 +119,17 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/anaconda-release-notes.txt
 /usr/bin/mini-wm
 /usr/sbin/anaconda
-%ifarch i386
+%ifarch i386 x86_64
 /usr/sbin/gptsync
 %endif
 /usr/share/anaconda
 /usr/share/locale/*/*/*
 /usr/lib/anaconda
-%ifarch livearches
+%ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
 %{_sysconfdir}/pam.d/*
+%{_sysconfdir}/X11/xinit/xinitrc.d/*
 %{_sysconfdir}/security/console.apps/*
 %{_datadir}/applications/*.desktop
 %endif
