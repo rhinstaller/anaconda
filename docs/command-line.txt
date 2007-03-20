@@ -7,6 +7,9 @@ Boot time command args:
 askmethod       Do not automatically use the CD-ROM as the install
 		source if we detect a Red Hat Linux CD in your CD-ROM drive.
 
+asknetwork      Prompt for network configuration in the first stage of
+                installation regardless of installation method.
+
 dd              Use a driver disk.
 
 dhcpclass=<class> Sends a custom DHCP vendor class identifier. ISC's dhcpcd can
