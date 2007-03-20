@@ -161,14 +161,23 @@ def startNetworking(network, intf):
 
         f.close()
 	
-def runShell():
-    shpid = os.fork()
-    if shpid == 0:
-        os.setsid()
-        fcntl.ioctl(0, termios.TIOCSCTTY)
-        os.execv("/bin/sh", ["-/bin/sh"])
+def runShell(screen, msg=""):
+    screen.suspend()
+
+    print
+    if msg:
+        print (msg)
+    print _("When finished please exit from the shell and your "
+            "system will reboot.")
+    print
+
+    if os.path.exists("/bin/sh"):
+        iutil.execWithRedirect("/bin/sh", ["-/bin/sh"])
     else:
-        os.waitpid(shpid, 0)
+        print "Unable to find /bin/sh to execute!  Not starting shell"
+        time.sleep(5)
+
+    screen.finish()
 
 def runRescue(instPath, mountroot, id):
 
@@ -243,11 +252,7 @@ def runRescue(instPath, mountroot, id):
 	screen.finish()
 
     if (not mountroot):
-        print
-        print _("When finished please exit from the shell and your "
-                "system will reboot.")
-        print
-	runShell()
+        runShell(screen)
 	sys.exit(0)
 
     # lets create some devices
@@ -277,12 +282,8 @@ def runRescue(instPath, mountroot, id):
           [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
-        screen.finish()
-        print
-        print _("When finished please exit from the shell and your "
-                "system will reboot.")
-        print
-        runShell()
+        runShell(screen)
+        sys.exit(0)
     elif rc == string.lower(_("Read-Only")):
         readOnly = 1
     else:
@@ -424,17 +425,12 @@ def runRescue(instPath, mountroot, id):
 			     "automatically when you exit from the shell."),
 			   [ _("OK") ], width = 50)
 
-    screen.finish()
+    msgStr = ""
 
-    print
     if rootmounted and not readOnly:
         makeMtab(instPath, fs)
         makeResolvConf(instPath)
-        print _("Your system is mounted under the %s directory.") % (instPath,)
-        print
-
-    print _("When finished please exit from the shell and your "
-                "system will reboot.")
-    print
-    runShell()
+        msgStr = _("Your system is mounted under the %s directory.") % (instPath,)
+    
+    runShell(screen, msgStr)
     sys.exit(0)
