@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.2.0.37
+Version: 11.2.0.38
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 19 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.38-1
+- Add new firewire modules (katzj, #231708).
+- String fixes (#232778).
+- Update for new system-config-date (#232905).
+- Fix package selection (#232701).
+- Default to no drives selected on the RAID screen (#195636).
+- Display a caps lock warning on the password screen (#207894).
+- Kickstart documentation updates (#209966).
+
 * Thu Mar 15 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.37-1
 - Fix confusing wording in loader (clumens, #163329)
 - Don't tell the user to eject the CD at the end (clumens, #137275)
