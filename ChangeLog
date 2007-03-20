@@ -1,5 +1,9 @@
 2007-03-20  Chris Lumens  <clumens@redhat.com>
 
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore):  False
+	and 0 are not the same.  Fixes no drives being selected by default on
+	the autopart screen.
+
 	* docs/command-line.txt:  Document "asknetwork" option (#233035).
 
 2007-03-19  Chris Lumens  <clumens@redhat.com>
