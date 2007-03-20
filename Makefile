@@ -8,14 +8,14 @@ SUBDIRS = isys wlite stubs loader2 po \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps isomd5sum command-stubs ui
 # fonts aren't on s390/s390x
-ifneq (s390, $(ARCH))
-ifneq (s390x, $(ARCH))
+ifeq (,$(filter s390 s390x, $(ARCH)))
 SUBDIRS += fonts
 endif
-endif
 
+ifneq (,$(filter i386 x86_64,$(ARCH)))
+# we only do the liveinst bits on i386/x86_64 for now
+SUBDIRS += liveinst
 # gptsync only on x86 for mactels right now
-ifeq (i386, $(ARCH))
 SUBDIRS += gptsync
 endif
 

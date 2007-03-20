@@ -1,3 +1,5 @@
+%define livearches %{ix86} x86_64
+
 Name: anaconda
 Version: 11.2.0.38
 Release: 1
@@ -21,6 +23,9 @@ BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
 BuildRequires: libdhcp-devel >= 1.19, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
+%ifarch livearches
+BuildRequires: desktop-file-utils
+%endif
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.8.1, pyparted >= 1.8.1
 Requires: kudzu >= 1.2.42, yum >= 2.9.2, pirut >= 1.1.0
@@ -38,6 +43,12 @@ Requires: system-config-securitylevel
 %ifnarch s390 s390x ppc64
 Requires: rhpxl >= 0.25
 Requires: system-config-keyboard
+%endif
+%ifarch livearches
+Requires: usermode
+Requires: zenity
+Requires(post): desktop-file-utils >= 0.8
+Requires(postun): desktop-file-utils >= 0.8
 %endif
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
@@ -79,12 +90,24 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
-#strip $RPM_BUILD_ROOT/usr/sbin/ddcprobe
 
-strip $RPM_BUILD_ROOT/usr/lib/anaconda/*.so
+%ifarch livearches
+desktop-file-install --vendor="" --dir=$RPM_BUILD_ROOT/%{_datadir}/applications 
+$RPM_BUILD_ROOT/%{_datadir}/applications/liveinst.desktop
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%ifarch livearches
+%post
+/usr/bin/update-desktop-database %{_datadir}/applications
+%endif
+
+%ifarch livearches
+%postun 
+/usr/bin/update-desktop-database %{_datadir}/applications
+%endif
 
 %files
 %defattr(-,root,root)
@@ -103,6 +126,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/anaconda
 /usr/share/locale/*/*/*
 /usr/lib/anaconda
+%ifarch livearches
+%{_bindir}/liveinst
+%{_sbindir}/liveinst
+%{_sysconfdir}/pam.d/*
+%{_sysconfdir}/security/console.apps/*
+%{_datadir}/applications/*.desktop
+%endif
 
 %files runtime
 %defattr(-,root,root)
