@@ -80,7 +80,7 @@ class TimezoneWindow:
         for tz in timezones:
 	    self.l.append(_(tz), tz)
 
-	self.l.setCurrent(default)
+	self.l.setCurrent(default.replace("_", " "))
 #	self.l.setCallback(self.updateClock)
         
 	self.c = Checkbox(_("System clock uses UTC"), isOn = asUtc)
@@ -118,7 +118,7 @@ class TimezoneWindow:
                 break
 
         screen.popWindow()
-	anaconda.id.timezone.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
+	anaconda.id.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
 
 	return INSTALL_OK
 
