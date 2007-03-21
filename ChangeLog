@@ -1,3 +1,9 @@
+2007-03-21  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (parseCmdLineIp): Don't set ipinfo_set to true here,
+	otherwise we don't bring the interface up later when we need to.  Just
+	collect information here (#233152).
+
 2007-03-21  Chris Lumens  <clumens@redhat.com>
 
 	* textw/timezone_text.py (TimezoneWindow.__call__):  Fix traceback
