@@ -4,6 +4,9 @@
 	otherwise we don't bring the interface up later when we need to.  Just
 	collect information here (#233152).
 
+	* loader2/module-info: Added cdc_ether, which is the other part of USB
+	networking that you need, the first is usbnet (#174229).
+
 2007-03-21  Chris Lumens  <clumens@redhat.com>
 
 	* textw/timezone_text.py (TimezoneWindow.__call__):  Fix traceback
