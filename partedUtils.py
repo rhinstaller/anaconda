@@ -549,7 +549,8 @@ def productMatches(oldproduct, newproduct):
         "Red Hat Enterprise Linux Client": ("Red Hat Enterprise Linux WS",
                                             "Red Hat Enterprise Linux Desktop",
                                             "Red Hat Enterprise Linux"),
-        "Fedora Core": ("Red Hat Linux",)
+        "Fedora Core": ("Red Hat Linux",),
+        "Fedora": ("Fedora Core",)
         }
 
     if productUpgrades.has_key(newproduct):

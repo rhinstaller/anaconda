@@ -10,6 +10,9 @@
 	* kickstart.py (Timezone):  Inherit from FC6_Timezone to make the
 	--isUtc option work.
 
+	* partedUtils.py (productMatches):  Allow upgrades from Fedora Core to
+	Fedora.
+
 	* yuminstall.py:  Remove a couple FIXMEs for things that are now in
 	yum.
 
