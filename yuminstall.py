@@ -415,8 +415,6 @@ class AnacondaYum(YumSorter):
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
-        # FIXME: temporary workaround until yum 3.0.4 comes out
-        self.conf._reposlist = []
         
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
@@ -578,22 +576,6 @@ class AnacondaYum(YumSorter):
     def doMacros(self):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
-
-    # FIXME:  remove when yum-3.1.5 is out.
-    def isPackageInstalled(self, pkgname):
-        installed = False
-        if self.rpmdb.installed(name = pkgname):
-            installed = True
-            
-        lst = self.tsInfo.matchNaevr(name = pkgname)
-        for txmbr in lst:
-            if txmbr.output_state in TS_INSTALL_STATES:
-                return True
-        if installed and len(lst) > 0:
-            # if we get here, then it was installed, but it's in the tsInfo
-            # for an erase or obsoleted --> not going to be installed at end
-            return False
-        return installed
 
     def isGroupInstalled(self, grp):
         # FIXME: move down to yum itself.
