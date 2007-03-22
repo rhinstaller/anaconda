@@ -17,15 +17,14 @@ msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-14 23:30+0100\n"
+"PO-Revision-Date: 2007-03-22 08:30+0100\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -205,18 +204,16 @@ msgstr ""
 "razdelka."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Zagonski razdelek se ne nahaja dovolj zgodaj v disku.  OpenFirmware ne bo "
+"Zagonski razdelek se ne nahaja znotraj prvih 4GB diska.  OpenFirmware ne bo "
 "mogel zagnati te namestitve."
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zagonski razdelek %s morda ne ustreza omejitvam za zagon ki jih ima vaša "
 "arhitektura."
@@ -682,7 +679,7 @@ msgstr ""
 "morate ustaviti in ne uspavati"
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -698,8 +695,7 @@ msgstr ""
 "\n"
 "vpisana v datoteki /etc/fstab je trenutno uporabljena kot razdelek za "
 "spanje, kar pomeni, da je vaš sistem uspavan. Da bi sistem ponovno namestili "
-"morate v namestitvenem programu nastaviti, da znova oblikuje vse izmenjalne "
-"datoteke."
+"morate v namestitvenem programu nastaviti, da se naj izmenjalni razdelke formatira."
 
 #: ../fsset.py:1530
 msgid ""
@@ -1297,8 +1293,7 @@ msgstr "Ne morem najti slike"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "Navedeno mesto ni veljavni CD %s in ne morem biti uporabljen kot "
 "namestitveni vir."
@@ -1329,13 +1324,11 @@ msgstr "Ime računalnika mora imeti manj kot 65 znakov."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
+msgstr "Ime računalnika se mora začeti z veljavno angleško črko med 'a-z' ali 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
+msgstr "Imena računalnikov lahko vsebujejo le angleške črke 'a-z', 'A-Z', '-' ali '.'"
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1501,8 +1494,7 @@ msgstr "Ne morete odstraniti razdelka LDL formatiranega DASD."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete odstraniti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:554
 msgid "This partition is holding the data for the hard drive install."
@@ -1569,8 +1561,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
+msgstr "Tega razdelka ne morete urediti, saj je podaljšani razdelek, ki vsebuje %s"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1712,18 +1703,15 @@ msgid "Confirm Reset"
 msgstr "Potrdite resetiranje"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Ste prepričani, da želite obnoviti razdelitveno tabelo v njenem izvirnem "
 "stanju?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Ta točka priklopa ni veljavna. Imenik %s mora biti v datotečnem sistemu /."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1965,10 +1953,8 @@ msgid ""
 msgstr "Zagonski razdelek ni med prvimi štirimi. Zagon ne bo mogoč."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1988,17 +1974,14 @@ msgstr ""
 "velikosti za običajno namestitev sistema %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Nameščam na napravo USB. Odvisno od sistema, zagon morda ne bo deloval."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Nameščam na napravo USB. Odvisno od sistema, zagon morda ne bo deloval."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
-"Nameščan na napravo FireWire. Odvisno od sistema zagon morda ne bo deloval."
+msgstr "Nameščan na napravo FireWire. Odvisno od sistema zagon morda ne bo deloval."
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2248,8 +2231,7 @@ msgid "Welcome to %s"
 msgstr "Dobrodošli v %s"
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> pomoč | <Tab>/<Alt-Tab> med elementi | <presl> izbira | <F12> nasl. "
 "zaslon"
@@ -2258,8 +2240,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
+msgstr "  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2537,8 +2518,7 @@ msgstr "Po 50 poskusih je poskus povezovanja opuščen!\n"
 #: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
+msgstr "Ročno povežite vašega odjemalca VNC z %s, da se namestitev lahko prične."
 
 #: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
@@ -2586,14 +2566,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Pripravljam prenos z namestitvenega izvora..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Nameščam %s\n"
+msgstr "<b>Nameščam %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "dokončano %s od %s paketov"
 
 #: ../yuminstall.py:531 ../yuminstall.py:532
 msgid "file conflicts"
@@ -2641,8 +2621,7 @@ msgstr "Napaka pri prenosu"
 
 #: ../yuminstall.py:571
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "Pri prenosu je prišlo do napake zaradi naslednjega: %s"
 
 #: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
@@ -2673,7 +2652,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "Ne morem prebrati informacij o skupinah iz repozitorija. To je težava z vzpostavljanjem namestitvenega drevesa."
 
 #: ../yuminstall.py:771
 msgid "Uncategorized"
@@ -2748,7 +2727,7 @@ msgstr "Niste določili FCP LUN ali pa je številka neveljavna."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock - Velike tipke so vključene.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2776,11 +2755,8 @@ msgid "The root password must be at least six characters long."
 msgstr "Geslo roota mora imeti najmanj 6 znakov."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "Zahtevano geslo vsebuje ne-ASCII znake, kar ni dovoljeno."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2803,37 +2779,28 @@ msgid "Invalid Initiator Name"
 msgstr "Neveljavno ime 'Initiator'"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Priskrbeti morate ime 'Initiator', ki je daljše od 0."
+msgstr "Priskrbeti morate ime za 'Initiator'."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Napaka v Podatkih"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Odstranimo vse razdelke na izbranih diskih in naredi privzeto razmestitev."
+msgstr "Odstrani vse razdelke na izbranih diskih in opravi privzeto razdelitev"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"Odstrani vse razdelke Linux na izbranih diskih in uporabi privzeto "
-"razdelitev."
+msgstr "Odstrani vse razdelke Linux na izbranih diskih in opravi privzeto razdelitev"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr ""
-"Uporabi prosti prostor na izbranih diskih in izdelaj privzeto razdelitev."
+msgstr "Uporabi prosti prostor na izbranih diskih in opravi privzeto razdelitev"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Ročna razdelitev."
+msgstr "Ročna razdelitev"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3369,8 +3336,7 @@ msgstr "Ime v uporabi"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
+msgstr "Ime skupine nosilcev \"%s\" je že uporabljeno. Prosimo, izberite drugo."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3794,8 +3760,7 @@ msgstr "Ni moč izbrisati"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
+msgstr "Tega zagonskega cilja ni moč izbrisati, ker je za sistem %s, ki ga nameščate."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3897,16 +3862,13 @@ msgid "Partitioning"
 msgstr "Razdeljevanje"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
-msgstr ""
-"Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
+msgid "You must correct these errors before you continue your installation of %s."
+msgstr "Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4059,8 +4021,7 @@ msgstr "Urejevalnika kloniranih pogonov ni moč narediti"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
+msgstr "Iz nekega razloga ni bilo moč narediti urejevalnika kloniranih pogonov."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4299,8 +4260,7 @@ msgstr "Kloniraj pogone"
 
 #: ../iw/raid_dialog_gui.py:658
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
+msgstr "Pri brisanju ciljnih pogonov je prišlo do napake.  Kloniranje je spodletelo."
 
 #: ../iw/raid_dialog_gui.py:692
 #, fuzzy
@@ -4420,8 +4380,7 @@ msgstr "To bo osvežilo vaš trenutni zagonski nalagalnik."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno nameščen v %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4564,8 +4523,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost izmenjevalne datoteke mora biti med 1 in 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na izbrani napravi ni dovolj prostora še za izmenjevalni razdelek."
 
 #: ../iw/zipl_gui.py:28
@@ -4706,10 +4664,8 @@ msgstr ""
 "jim želite dodeliti."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <presl> izbere | <F2> izbere privzeto | <F4> briše <F12> nasl. zaslon>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <presl> izbere | <F2> izbere privzeto | <F4> briše <F12> nasl. zaslon>"
 
 #: ../textw/bootloader_text.py:386
 #, fuzzy
@@ -4834,10 +4790,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Izberite skupino paketov, ki jo želite namestiti."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-" <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr " <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5234,8 +5188,7 @@ msgstr "Izbire datotečnega sistema"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
+msgstr "Prosimo, izberite, kako bi radi pripravili datotečni sistem tega razdelka."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5264,8 +5217,7 @@ msgstr "Ni podprto"
 #: ../textw/partition_text.py:772
 #, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
+msgstr "Skupine nosilcev LVM lahko urejate le v grafičnem namestitvenem programu."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5365,10 +5317,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Pomoč   F2-Dodaj    F3-Uredi   F4-Zbriši    F5-Povrni   F12-V redu     "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -5400,8 +5350,7 @@ msgstr "Katere pogone bi radi uporabili za to namestitev?"
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-" <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
+msgstr " <Space>,<+>,<-> izbira | <F2> podrobnosti skupin | <F12> naslednji zaslon"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -6044,10 +5993,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Dobrodošli v %s - način za reševanje"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6081,8 +6028,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
+msgstr "Vstavite disk s popravki v /dev/%s in pritisnite \"V redu\" za nadaljevanje."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -6158,8 +6104,7 @@ msgstr "V vašem sistemu so bile najdene sledeče naprave."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
+msgstr "Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
 
 #: ../loader2/loader.c:1225
 msgid "Devices"
@@ -6291,8 +6236,7 @@ msgstr "Slab argument ukaza za hitri zagon naprave %s: %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Naslednji neveljaven argument je bil določen za ukaz hitrega zagona diska z "
 "gonilniki: %s:%s"
@@ -6316,8 +6260,7 @@ msgstr ""
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
-"Dolžina naslova IPv4 mora biti med 1 in 32 ali med 1 in 128 za naslov IPv6"
+msgstr "Dolžina naslova IPv4 mora biti med 1 in 32 ali med 1 in 128 za naslov IPv6"
 
 #: ../loader2/net.c:257
 #, c-format
@@ -6429,8 +6372,7 @@ msgid "Missing Information"
 msgstr "Manjkajoči podatki"
 
 #: ../loader2/net.c:1207
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Vnesti morate veljaven naslov IP in mrežno masko ali masko CIDR."
 
 #: ../loader2/net.c:1213
@@ -6593,8 +6535,7 @@ msgstr "%s ni veljavno ime gostitelja"
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
-"Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
+msgstr "Če uporabljate neanonimni FTP, v spodnje polje vnesite ime računa in geslo. "
 
 #: ../loader2/urls.c:435
 msgid ""
@@ -7067,27 +7008,3 @@ msgstr "velščina"
 msgid "Zulu"
 msgstr "zulujščina"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Odstranite vse namestitvene nosilce, ki ste jih uporabljali med "
-#~ "namestitvijo, in pritisnite gumb \"Znova zaženi\" za vnovičen zagon "
-#~ "sistema.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Odstranite vse namestitvene nosilce, ki ste jih uporabljali med "
-#~ "namestitvijo, in pritisnite <Enter> za vnovičen zagon sistema.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> za vnovičen zagon"
-
-#~ msgid "NFS image"
-#~ msgstr "Slika NFS"
