@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-22 19:11+0530\n"
+"PO-Revision-Date: 2007-03-22 20:06+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <assam@mm.assam-glug.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../anaconda:401
 msgid "Press <enter> for a shell"
-msgstr " শেলৰ বাবে <enter> টিপক ।"
+msgstr "শ্বেলৰ বাবে <enter> টিপক ।"
 
 #: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
@@ -4436,13 +4436,12 @@ msgid "I _don't want to create a swap file"
 msgstr "মই শ্বেপ নথিপত্ৰ সৃষ্টি কৰিব নোখোজোঁ (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"এইটো গভীৰ ভাবে উপদেশ দিয়া হয় যে আপুনি এটা শ্বেপ নথিপত্ৰ সৃষ্টি কৰক । কৰিবলৈ অক্ষম "
-"হ'লে সংস্থাপক অস্বাভাবিক ভাবে ব্যৰ্থ হ'ব । আগবাঢ়িব'লৈ আপুনি সুনিশ্চিত নে?"
+"এটা শ্বেপ নথিপত্ৰৰ গভীৰ ভাবে উপদেশ দিয়া হয় । সৃষ্টি কৰিবলৈ অক্ষম "
+"হ'লে সংস্থাপক অস্বাভাবিক ভাবে বাতিল হ'ব । আগবাঢ়িব'লৈ আপুনি সুনিশ্চিত নে?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4513,7 +4512,6 @@ msgid "Skip Boot Loader"
 msgstr "বুটলোডাৰ এৰি যাওক"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4521,8 +4519,8 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"আপুনি কোনো বুটলোডাৰ সংস্থাপন নকৰিবলৈ নিৰ্বাচিত কৰিছে । এইটো গভীৰ ভাবে উপদেশ "
-"দিয়া হয় যে আপুনি এটা বুটলোডাৰ সংস্থাপন কৰক যদিহে আপোনাৰ কোনো উন্নত প্ৰয়োজন নাই । "
+"আপুনি বুটলোডাৰ সংস্থাপন নকৰিবলৈ নিৰ্বাচিত কৰিছে, যিটোৰ উপদেশ "
+"দিয়া নহয় যদিহে আপোনাৰ কোনো উন্নত প্ৰয়োজন নাই । "
 "এটা বুটলোডাৰ প্ৰায় সদায় প্ৰয়োজনীয় হয় হাৰ্ড ড্ৰাইভৰ পৰা অবিলম্বে লিনাক্সলৈ আপোনাৰ "
 "ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ।\n"
 "\n"
