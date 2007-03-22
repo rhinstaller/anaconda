@@ -1,5 +1,8 @@
 2007-03-22  Chris Lumens  <clumens@redhat.com>
 
+	* harddrive.py (HardDriveInstallMethod.mountDirectory):  Handle the
+	exception if we're unable to mount the ISO source device (#124793).
+
 	* kickstart.py (Timezone):  Inherit from FC6_Timezone to make the
 	--isUtc option work.
 

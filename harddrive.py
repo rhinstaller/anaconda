@@ -109,8 +109,24 @@ class HardDriveInstallMethod(ImageInstallMethod):
 		self.isoDir = s[1] + "/"
 		return
 	
-	isys.mount(self.device, "/tmp/isodir", fstype = self.fstype, 
-		   readOnly = 1);
+        try:
+            isys.mount(self.device, "/tmp/isodir", fstype = self.fstype, 
+                       readOnly = 1);
+        except SystemError, msg:
+            log.error("couldn't mount ISO source directory: %s" % msg)
+            self.messageWindow(_("Couldn't Mount ISO Source"),
+                               _("An error occurred mounting the source "
+                                 "device %s.  This may happen if your ISO "
+                                 "images are located on an advanced storage "
+                                 "device like LVM or RAID, or if there was a "
+                                 "problem mounting a partition.  Click reboot "
+                                 "to abort the installation.")
+                               % (self.device,), type="custom",
+                               custom_icon="error",
+                               custom_buttons=[_("_Reboot")])
+            sys.exit(0)
+
+
 	self.isoDir = "/tmp/isodir/"
 	self.isoDirIsMounted = 1
 
