@@ -1,3 +1,8 @@
+2007-03-22  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Timezone):  Inherit from FC6_Timezone to make the
+	--isUtc option work.
+
 2007-03-21  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (parseCmdLineIp): Don't set ipinfo_set to true here,

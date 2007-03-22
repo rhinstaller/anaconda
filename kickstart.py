@@ -574,9 +574,9 @@ class SkipX(commands.skipx.FC3_SkipX):
         if self.handler.id.xsetup is not None:
             self.handler.id.xsetup.skipx = 1
 
-class Timezone(commands.timezone.FC3_Timezone):
+class Timezone(commands.timezone.FC6_Timezone):
     def parse(self, args):
-        commands.timezone.FC3_Timezone.parse(self, args)
+        commands.timezone.FC6_Timezone.parse(self, args)
 
         self.handler.id.instClass.setTimezoneInfo(self.handler.id, self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
