@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 15:11-0400\n"
+"POT-Creation-Date: 2007-03-22 14:36-0400\n"
 "PO-Revision-Date: 2007-03-16 17:10-0400\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -370,8 +370,8 @@ msgid "Your system will now be rebooted."
 msgstr "Ditt system kommer nu att startas om."
 
 #: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
-#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1038
+#: ../partedUtils.py:1103 ../upgrade.py:348 ../yuminstall.py:1082
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
@@ -506,9 +506,10 @@ msgstr ""
 "kommer nu att startas om."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
-#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
+#: ../image.py:93 ../image.py:445 ../image.py:519 ../packages.py:340
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Starta _om"
 
@@ -547,8 +548,8 @@ msgstr "Söker efter skadade block på /dev/%s..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
-#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:603
+#: ../yuminstall.py:720 ../yuminstall.py:736 ../yuminstall.py:921
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
@@ -841,7 +842,7 @@ msgstr ""
 "installationen men det kan bli problem."
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
-#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
+#: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Fortsätt"
 
@@ -986,7 +987,7 @@ msgstr "Avbryt"
 msgid "Installation Key"
 msgstr "Installationsnyckel"
 
-#: ../gui.py:787 tmp/anaconda.glade.h:2
+#: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
 msgstr "_Felsök"
 
@@ -1027,7 +1028,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "_Avsluta"
 
-#: ../gui.py:1107 ../yuminstall.py:608
+#: ../gui.py:1107 ../yuminstall.py:606
 msgid "_Retry"
 msgstr "_Försök igen"
 
@@ -1098,6 +1099,19 @@ msgstr ""
 msgid "Re_try"
 msgstr "_Försök igen"
 
+#: ../harddrive.py:117
+msgid "Couldn't Mount ISO Source"
+msgstr ""
+
+#: ../harddrive.py:118
+#, python-format
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
+msgstr ""
+
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Nödvändiga installationsmedia"
@@ -1119,7 +1133,7 @@ msgstr ""
 "avbryta installationen och starta om bör du välja \"Starta om\"."
 
 #: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
-#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../yuminstall.py:928 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "Till_baka"
@@ -1272,8 +1286,8 @@ msgstr ""
 "Du har angivit att paketet \"%s\" ska installeras. Detta paket finns inte. "
 "Vill du fortsätta eller avbryta din installation?"
 
-#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
-#: ../yuminstall.py:720
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_Avbryt"
 
@@ -1855,16 +1869,16 @@ msgstr "_Ignorera enhet"
 msgid "_Re-initialize drive"
 msgstr "_Återinitiera enhet"
 
-#: ../partedUtils.py:917
+#: ../partedUtils.py:918
 msgid "Initializing"
 msgstr "Initierar"
 
-#: ../partedUtils.py:918
+#: ../partedUtils.py:919
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vänta medan enhet %s formateras...\n"
 
-#: ../partedUtils.py:1038
+#: ../partedUtils.py:1039
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1885,7 +1899,7 @@ msgstr ""
 "\n"
 "Vill du initiera denna enhet och ta bort ALL DATA?"
 
-#: ../partedUtils.py:1103
+#: ../partedUtils.py:1104
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1904,11 +1918,11 @@ msgstr ""
 "\n"
 "Vill du initiera denna enhet och ta bort ALL DATA?"
 
-#: ../partedUtils.py:1224
+#: ../partedUtils.py:1225
 msgid "No Drives Found"
 msgstr "Inga hårddiskar hittades"
 
-#: ../partedUtils.py:1225
+#: ../partedUtils.py:1226
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2247,7 +2261,7 @@ msgstr "Ingen hjälp finns tillgänglig för detta steg i installationen."
 msgid "Please enter your %(instkey)s"
 msgstr "Ange din %(instkey)s"
 
-#: ../text.py:379 tmp/instkey.glade.h:4
+#: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr "Hoppa över inmatning %(instkey)s"
@@ -2608,51 +2622,51 @@ msgstr "<b>Installerar %s</b> (%s)\n"
 msgid "%s of %s packages completed"
 msgstr "%s av %s paket slutförda"
 
-#: ../yuminstall.py:531 ../yuminstall.py:532
+#: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:531
 msgid "older package(s)"
 msgstr "äldre paket"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:532
 msgid "insufficient disk space"
 msgstr "inte tillräckligt med diskutrymme"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:533
 msgid "insufficient disk inodes"
 msgstr "inte tillräckligt med diskinoder"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:534
 msgid "package conflicts"
 msgstr "paketkonflikter"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:535
 msgid "package already installed"
 msgstr "paket som redan är installerat"
 
-#: ../yuminstall.py:538
+#: ../yuminstall.py:536
 msgid "required package"
 msgstr "paket som krävs"
 
-#: ../yuminstall.py:539
+#: ../yuminstall.py:537
 msgid "package for incorrect arch"
 msgstr "paket för felaktig arkitektur"
 
-#: ../yuminstall.py:540
+#: ../yuminstall.py:538
 msgid "package for incorrect os"
 msgstr "paket för felaktigt os"
 
-#: ../yuminstall.py:554
+#: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
 msgstr "Du behöver mer utrymme på följande filsystem:\n"
 
-#: ../yuminstall.py:570
+#: ../yuminstall.py:568
 msgid "Error running transaction"
 msgstr "Fel vid körning av transaktion"
 
-#: ../yuminstall.py:571
+#: ../yuminstall.py:569
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2660,21 +2674,21 @@ msgstr ""
 "Ett fel uppstod under körningen av transaktionen, av följande anledning(ar): "
 "%s"
 
-#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
-#: ../yuminstall.py:930
+#: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
+#: ../yuminstall.py:928
 msgid "Re_boot"
 msgstr "Starta _om"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "Hämtar installationsinformation..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Hämtar installationsinformation för %s..."
 
-#: ../yuminstall.py:723
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2684,7 +2698,7 @@ msgstr ""
 "Kan inte läsa paketmetadata. Detta kan bero på att repodata-katalogen "
 "saknas. Försäkra dig om att ditt installationsträd genererats korrekt. %s"
 
-#: ../yuminstall.py:739
+#: ../yuminstall.py:737
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2692,11 +2706,11 @@ msgstr ""
 "Kan inte läsa gruppinformation från datalager.  Detta är ett problem med "
 "generationen av ditt installationsträd."
 
-#: ../yuminstall.py:771
+#: ../yuminstall.py:769
 msgid "Uncategorized"
 msgstr "Okategoriserat"
 
-#: ../yuminstall.py:924
+#: ../yuminstall.py:922
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2706,7 +2720,7 @@ msgstr ""
 "du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller starta "
 "om."
 
-#: ../yuminstall.py:1085
+#: ../yuminstall.py:1083
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2716,45 +2730,45 @@ msgstr ""
 "uppgradera till denna version av %s. Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1111
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1112
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Startar installationen. Detta kan ta flera minuter..."
 
-#: ../yuminstall.py:1130
+#: ../yuminstall.py:1128
 msgid "Post Upgrade"
 msgstr "Efteruppgradering"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället, och motsvarande.
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1129
 msgid "Performing post upgrade configuration..."
 msgstr "Utför konfigurering efter uppgradering..."
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
-#: ../yuminstall.py:1133
+#: ../yuminstall.py:1131
 msgid "Post Install"
 msgstr "Efter installation"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället.
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1132
 msgid "Performing post install configuration..."
 msgstr "Utför konfiguration efter installation..."
 
-#: ../yuminstall.py:1327
+#: ../yuminstall.py:1325
 msgid "Installation Progress"
 msgstr "Installationsförlopp"
 
-#: ../yuminstall.py:1362
+#: ../yuminstall.py:1360
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1361
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
@@ -4403,7 +4417,7 @@ msgid ""
 msgstr ""
 "Datalagret %s har redan lagts till. Välj ett annat datalagernamn och URL."
 
-#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "Tidszonsval"
 
@@ -6632,6 +6646,11 @@ msgstr "Lägg till _iSCSI destination"
 msgid "Disable _dmraid device"
 msgstr "Slå av _dmraid-enhet"
 
+#: tmp/adddrive.glade.h:6
+#, fuzzy
+msgid "_Add drive"
+msgstr "Hårddisk"
+
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr "<b>Repository·_URL:</b>"
@@ -6700,13 +6719,27 @@ msgid "Exception Info"
 msgstr "Information om undantagsfel"
 
 #: tmp/exn.glade.h:2
+#, fuzzy
+msgid "Save to _Remote"
+msgstr "Spara till fjärrvärd"
+
+#: tmp/exn.glade.h:4
 msgid "_Exception details"
 msgstr "_Detaljer om undantagsfel"
+
+#: tmp/exn.glade.h:5
+msgid "_Save to floppy"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
+
+#: tmp/instkey.glade.h:4
+#, fuzzy, no-c-format
+msgid "Please enter your %(instkey)s."
+msgstr "Ange din %(instkey)s"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6723,6 +6756,11 @@ msgstr "<b>_Användarnamn:</b>"
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI-initierar_namn:</b>"
+
+#: tmp/iscsi-config.glade.h:7
+#, fuzzy
+msgid "_Add target"
+msgstr "Lägg till _iSCSI destination"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"

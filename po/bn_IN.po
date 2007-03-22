@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 15:11-0400\n"
+"POT-Creation-Date: 2007-03-22 14:36-0400\n"
 "PO-Revision-Date: 2007-03-05 11:26+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali India\n"
@@ -416,8 +416,8 @@ msgid "Your system will now be rebooted."
 msgstr "আপনার কম্পিউটার এখন রিবুট করা হবে।"
 
 #: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
-#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1038
+#: ../partedUtils.py:1103 ../upgrade.py:348 ../yuminstall.py:1082
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
@@ -568,9 +568,10 @@ msgstr ""
 
 # modified for RHEL
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
-#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
+#: ../image.py:93 ../image.py:445 ../image.py:519 ../packages.py:340
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "পুনরায় বুট করুন (_R)"
 
@@ -613,8 +614,8 @@ msgstr "/dev/%s-এ ক্ষতিগ্রস্ত ব্লক অনুস�
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
-#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:603
+#: ../yuminstall.py:720 ../yuminstall.py:736 ../yuminstall.py:921
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
@@ -919,7 +920,7 @@ msgstr ""
 
 # modified for RHEL
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
-#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
+#: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "অগ্রসর (_C)"
 
@@ -1075,7 +1076,7 @@ msgstr "বাতিল"
 msgid "Installation Key"
 msgstr "ইনস্টলেশনের প্রণালী"
 
-#: ../gui.py:787 tmp/anaconda.glade.h:2
+#: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
 msgstr "ডিবাগ করুন (_D)"
 
@@ -1117,7 +1118,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "প্রস্থান (_E)"
 
-#: ../gui.py:1107 ../yuminstall.py:608
+#: ../gui.py:1107 ../yuminstall.py:606
 msgid "_Retry"
 msgstr "পুনঃপ্রচেষ্টা (_R)"
 
@@ -1191,6 +1192,19 @@ msgstr ""
 msgid "Re_try"
 msgstr "পুনঃপ্রচেষ্টা (_t)"
 
+#: ../harddrive.py:117
+msgid "Couldn't Mount ISO Source"
+msgstr ""
+
+#: ../harddrive.py:118
+#, python-format
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
+msgstr ""
+
 # FIXME: ভাল শোনাচ্ছে না ;-(
 # modified for RHEL
 #: ../image.py:84
@@ -1214,7 +1228,7 @@ msgstr ""
 "করে কম্পিউটার রিবুট করতে হলে অনুগ্রহ করে \"রিবুট\" চাপুন।"
 
 #: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
-#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../yuminstall.py:928 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "পূর্ববর্তী (_B)"
@@ -1373,8 +1387,8 @@ msgstr ""
 "উপস্থিত নেই। ইনস্টলেশন কর্ম চালিয়ে যাবেন নাকি পরিত্যাগ করবেন?"
 
 # modified for RHEL
-#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
-#: ../yuminstall.py:720
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "পরিত্যাগ (_A)"
 
@@ -2016,18 +2030,18 @@ msgid "_Re-initialize drive"
 msgstr ""
 
 # modified for RHEL
-#: ../partedUtils.py:917
+#: ../partedUtils.py:918
 msgid "Initializing"
 msgstr "প্রস্তুত করা হচ্ছে"
 
 # modified for RHEL
-#: ../partedUtils.py:918
+#: ../partedUtils.py:919
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "ড্রাইভ %s ফরম্যাট করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...\n"
 
 # modified for RHEL
-#: ../partedUtils.py:1038
+#: ../partedUtils.py:1039
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -2049,7 +2063,7 @@ msgstr ""
 "সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
 
 # modified for RHEL
-#: ../partedUtils.py:1103
+#: ../partedUtils.py:1104
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -2070,12 +2084,12 @@ msgstr ""
 "সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
 
 # modified for RHEL
-#: ../partedUtils.py:1224
+#: ../partedUtils.py:1225
 msgid "No Drives Found"
 msgstr "কোনো ড্রাইভ পাওয়া যায়নি"
 
 # modified for RHEL
-#: ../partedUtils.py:1225
+#: ../partedUtils.py:1226
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2429,7 +2443,7 @@ msgstr "ইনস্টলেশন প্রক্রিয়ার এই ধা
 msgid "Please enter your %(instkey)s"
 msgstr "অনুগ্রহ করে একটি ভলিউম গ্রুপের নাম লিখুন।"
 
-#: ../text.py:379 tmp/instkey.glade.h:4
+#: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
@@ -2799,72 +2813,72 @@ msgstr "%s ইনস্টল করা হচ্ছে\n"
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:531 ../yuminstall.py:532
+#: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
 msgstr "ফাইলে দ্বন্দ্ব"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:531
 msgid "older package(s)"
 msgstr "পুরোনো প্যাকেজ"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:532
 msgid "insufficient disk space"
 msgstr "ডিস্কে অপর্যাপ্ত অবশিষ্ট স্থান"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:533
 msgid "insufficient disk inodes"
 msgstr "অপর্যাপ্ত ডিস্ক inode"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:534
 msgid "package conflicts"
 msgstr "প্যাকেজে দ্বন্দ্ব"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:535
 msgid "package already installed"
 msgstr "বর্তমানে ইনস্টল করা প্যাকেজ"
 
-#: ../yuminstall.py:538
+#: ../yuminstall.py:536
 msgid "required package"
 msgstr "আবশ্যক প্যাকেজ"
 
-#: ../yuminstall.py:539
+#: ../yuminstall.py:537
 msgid "package for incorrect arch"
 msgstr "ভুল আর্কিটেকচারের প্যাকেজ"
 
-#: ../yuminstall.py:540
+#: ../yuminstall.py:538
 msgid "package for incorrect os"
 msgstr "ভুল অপারেটিং সিস্টেমের প্যাকেজ"
 
-#: ../yuminstall.py:554
+#: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
 msgstr "নিম্নলিখিত ফাইল-সিস্টেমের মধ্যে অতিরিক্ত স্থান প্রয়োজন:\n"
 
 # modified for RHEL
-#: ../yuminstall.py:570
+#: ../yuminstall.py:568
 msgid "Error running transaction"
 msgstr "ট্রানসাকশান সঞ্চালনে সমস্যা"
 
-#: ../yuminstall.py:571
+#: ../yuminstall.py:569
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr "নিম্নলিখিত কারণে আপনার ট্রানসাকসান সঞ্চালন করতে সমস্যা হয়েছে: %s"
 
-#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
-#: ../yuminstall.py:930
+#: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
+#: ../yuminstall.py:928
 msgid "Re_boot"
 msgstr "পুনরায় বুট করুন (_b)"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "ইনস্টলেশন সংক্রান্ত তথ্য আহরণ করা হচ্ছে..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s'র ইনস্টলেশন সংক্রান্ত তথ্য আহরণ করা হচ্ছে..."
 
-#: ../yuminstall.py:723
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2875,7 +2889,7 @@ msgstr ""
 "দেওয়ার সম্ভাবনা রয়েছে।  অনুগ্রহ করে পরীক্ষা করুন ইনস্টলেশন-ট্রি সঠিকরূপে নির্মিত "
 "হয়েছে কি না।  %s"
 
-#: ../yuminstall.py:739
+#: ../yuminstall.py:737
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2883,11 +2897,11 @@ msgstr ""
 "সংগ্রহস্থল থেকে সংকলন সংক্রান্ত তথ্য পড়তে ব্যর্থ। ইনস্টল-ট্রি নির্মাণে ত্রুটির ফলে এই "
 "সমস্যা।"
 
-#: ../yuminstall.py:771
+#: ../yuminstall.py:769
 msgid "Uncategorized"
 msgstr "শ্রেণীবহির্ভূত"
 
-#: ../yuminstall.py:924
+#: ../yuminstall.py:922
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2897,7 +2911,7 @@ msgstr ""
 "থাকা আবশ্যক যা বর্তমানে উপলব্ধ নয়। আপনার নির্বাচিত বৈশিষ্ট্য পরিবর্তন করুন অথবা পুনরয় "
 "বুট করুন।"
 
-#: ../yuminstall.py:1085
+#: ../yuminstall.py:1083
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2907,41 +2921,41 @@ msgstr ""
 "অবস্থায় আপনি কি উন্নীতকরণ কর্ম চালিয়ে যেতে ইচ্ছুক?"
 
 # modified for RHEL
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1111
 msgid "Install Starting"
 msgstr "ইনস্টলেশন কর্ম আরম্ভ"
 
 # modified for RHEL
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1112
 msgid "Starting install process.  This may take several minutes..."
 msgstr "ইনস্টলেশন কর্ম আরম্ভ হচ্ছে।  এই কর্মে কয়েক মিনিট ব্যয় হতে পারে..."
 
-#: ../yuminstall.py:1130
+#: ../yuminstall.py:1128
 msgid "Post Upgrade"
 msgstr "উন্নীতকরণের পরে"
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1129
 msgid "Performing post upgrade configuration..."
 msgstr "উন্নীতকরণ কর্ম পশ্চাত কনফিগারেশন করা হচ্ছে..."
 
-#: ../yuminstall.py:1133
+#: ../yuminstall.py:1131
 msgid "Post Install"
 msgstr "ইনস্টলেশনোত্তর ব্যবস্থাপনা"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1132
 msgid "Performing post install configuration..."
 msgstr "ইনস্টলেশনোত্তর কনফিগারেশন করা হচ্ছে..."
 
-#: ../yuminstall.py:1327
+#: ../yuminstall.py:1325
 msgid "Installation Progress"
 msgstr "ইনস্টলেশন কর্মের প্রগতি"
 
-#: ../yuminstall.py:1362
+#: ../yuminstall.py:1360
 msgid "Dependency Check"
 msgstr "নির্ভরতা পরীক্ষণ"
 
 # modified for RHEL
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1361
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "ইনস্টলেশনের জন্য নির্বাচিত প্যাকেজগুলির নির্ভরতা পরীক্ষা করা হচ্ছে..."
 
@@ -4616,7 +4630,7 @@ msgstr ""
 "%s সংগ্রহস্থল বর্তমানে যোগ করা হয়েছে।  অনুগ্রহ করে একটি পৃথক সংগ্রহস্থলের নাম ও URL "
 "নির্বাচন করুন।"
 
-#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "সময় অঞ্চল নির্বাচন"
 
@@ -6837,6 +6851,11 @@ msgstr "iSCSI গন্তব্যস্থল যোগ করুন (_i)"
 msgid "Disable _dmraid device"
 msgstr "dmraid নিষ্ক্রিয় করুন (_d)"
 
+#: tmp/adddrive.glade.h:6
+#, fuzzy
+msgid "_Add drive"
+msgstr "হার্ড-ড্রাইভ"
+
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr "<b>সংগ্রহস্থলের URL: (_U)</b>"
@@ -6907,15 +6926,30 @@ msgstr "এই ইনস্টলেশনের জন্য ড্রাইভ
 msgid "Exception Info"
 msgstr "এক্সেপশন সংক্রান্ত তথ্য"
 
-# modified for RHEL
 #: tmp/exn.glade.h:2
+#, fuzzy
+msgid "Save to _Remote"
+msgstr "দূরবর্তী হোস্টে সংরক্ষণ করা হবে"
+
+# modified for RHEL
+#: tmp/exn.glade.h:4
 msgid "_Exception details"
 msgstr "এক্সেপশনের বিবরণ (_E)"
+
+#: tmp/exn.glade.h:5
+msgid "_Save to floppy"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
 msgstr ""
+
+# modified for RHEL
+#: tmp/instkey.glade.h:4
+#, fuzzy, no-c-format
+msgid "Please enter your %(instkey)s."
+msgstr "অনুগ্রহ করে একটি ভলিউম গ্রুপের নাম লিখুন।"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6932,6 +6966,11 @@ msgstr "<b>ব্যবহারকারীর নাম: (_U)</b>"
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI প্রারম্ভকারীর নাম: (_N)</b>"
+
+#: tmp/iscsi-config.glade.h:7
+#, fuzzy
+msgid "_Add target"
+msgstr "iSCSI গন্তব্যস্থল যোগ করুন (_i)"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"

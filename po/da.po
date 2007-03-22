@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: da1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 15:11-0400\n"
+"POT-Creation-Date: 2007-03-22 14:36-0400\n"
 "PO-Revision-Date: 2006-10-09 22:57+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
@@ -380,8 +380,8 @@ msgid "Your system will now be rebooted."
 msgstr "Dit system vil nu blive genstartet."
 
 #: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
-#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1038
+#: ../partedUtils.py:1103 ../upgrade.py:348 ../yuminstall.py:1082
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
@@ -514,9 +514,10 @@ msgstr ""
 "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
-#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
+#: ../image.py:93 ../image.py:445 ../image.py:519 ../packages.py:340
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Genstart"
 
@@ -555,8 +556,8 @@ msgstr "Kontrollerer for dårlige blokke på /dev/%s..."
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
-#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:603
+#: ../yuminstall.py:720 ../yuminstall.py:736 ../yuminstall.py:921
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
@@ -849,7 +850,7 @@ msgstr ""
 "installationen men det kan komme problemer."
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
-#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
+#: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Fortsæt"
 
@@ -995,7 +996,7 @@ msgstr "Annullér"
 msgid "Installation Key"
 msgstr "Installationsmetode"
 
-#: ../gui.py:787 tmp/anaconda.glade.h:2
+#: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
 msgstr "_Fejlsøg"
 
@@ -1035,7 +1036,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "_Afslut"
 
-#: ../gui.py:1107 ../yuminstall.py:608
+#: ../gui.py:1107 ../yuminstall.py:606
 msgid "_Retry"
 msgstr "_Prøv igen"
 
@@ -1106,6 +1107,19 @@ msgstr ""
 msgid "Re_try"
 msgstr "_Prøv igen"
 
+#: ../harddrive.py:117
+msgid "Couldn't Mount ISO Source"
+msgstr ""
+
+#: ../harddrive.py:118
+#, python-format
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
+msgstr ""
+
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Nødvendige installationsmedier"
@@ -1126,7 +1140,7 @@ msgstr ""
 "installationen og genstarte bør du vælge \"Genstart\"."
 
 #: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
-#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../yuminstall.py:928 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Tilbage"
@@ -1272,8 +1286,8 @@ msgstr ""
 "Du har angivet at pakken \"%s\" skal installeres. Denne pakke findes ikke. "
 "Vil du fortsætte eller afbryde din installation?"
 
-#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
-#: ../yuminstall.py:720
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_Afbryd"
 
@@ -1860,16 +1874,16 @@ msgstr "Ignorér drev"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:917
+#: ../partedUtils.py:918
 msgid "Initializing"
 msgstr "Initierer"
 
-#: ../partedUtils.py:918
+#: ../partedUtils.py:919
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vent venligst mens enhed %s formateres...\n"
 
-#: ../partedUtils.py:1038
+#: ../partedUtils.py:1039
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1890,7 +1904,7 @@ msgstr ""
 "\n"
 "Vil du initiere denne enhed og fjerne ALLE DATA?"
 
-#: ../partedUtils.py:1103
+#: ../partedUtils.py:1104
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1909,11 +1923,11 @@ msgstr ""
 "\n"
 "Vil du initiere denne enhed og fjerne ALLE DATA?"
 
-#: ../partedUtils.py:1224
+#: ../partedUtils.py:1225
 msgid "No Drives Found"
 msgstr "Ingen drev fundet"
 
-#: ../partedUtils.py:1225
+#: ../partedUtils.py:1226
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2249,7 +2263,7 @@ msgstr "Ingen hjælp er tilgængelig for dette trin af installationen."
 msgid "Please enter your %(instkey)s"
 msgstr "Angiv et afsnitsgruppenavn."
 
-#: ../text.py:379 tmp/instkey.glade.h:4
+#: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
@@ -2605,72 +2619,72 @@ msgstr "Installerer %s\n"
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:531 ../yuminstall.py:532
+#: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:531
 msgid "older package(s)"
 msgstr "ældre pakker"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:532
 msgid "insufficient disk space"
 msgstr "ikke tilstrækkeligt med diskplads"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:533
 msgid "insufficient disk inodes"
 msgstr "ikke tilstrækkeligt med diskinoder"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:534
 msgid "package conflicts"
 msgstr "pakkekonflikter"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:535
 msgid "package already installed"
 msgstr "pakke er allerede installeret"
 
-#: ../yuminstall.py:538
+#: ../yuminstall.py:536
 msgid "required package"
 msgstr "nødvendig pakke"
 
-#: ../yuminstall.py:539
+#: ../yuminstall.py:537
 msgid "package for incorrect arch"
 msgstr "pakke for fejlagtig arkitektur"
 
-#: ../yuminstall.py:540
+#: ../yuminstall.py:538
 msgid "package for incorrect os"
 msgstr "pakke for fejlagtigt os"
 
-#: ../yuminstall.py:554
+#: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
 msgstr "Du behøver mere plads på følgende filsystem:\n"
 
-#: ../yuminstall.py:570
+#: ../yuminstall.py:568
 msgid "Error running transaction"
 msgstr "Fejl ved kørsel af transaktion..."
 
-#: ../yuminstall.py:571
+#: ../yuminstall.py:569
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
 
-#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
-#: ../yuminstall.py:930
+#: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
+#: ../yuminstall.py:928
 msgid "Re_boot"
 msgstr "_Genstart"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "Modtager installationsinformation..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Modtager installationsinformation for %s..."
 
-#: ../yuminstall.py:723
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2681,17 +2695,17 @@ msgstr ""
 "manglende 'repodata'-katalog.Forsikr dig venligst om at dit installationstræ "
 "er blevet genereret korrekt.  %s"
 
-#: ../yuminstall.py:739
+#: ../yuminstall.py:737
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:771
+#: ../yuminstall.py:769
 msgid "Uncategorized"
 msgstr "Ukategoriseret"
 
-#: ../yuminstall.py:924
+#: ../yuminstall.py:922
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2700,7 +2714,7 @@ msgstr ""
 "De pakker som du har valgt kræver %d MB fri plads for installationen, men du "
 "har ikke nok fri plads. Du kan ændre dine valg eller genstarte."
 
-#: ../yuminstall.py:1085
+#: ../yuminstall.py:1083
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2710,39 +2724,39 @@ msgstr ""
 "opgradere til denne version af %s. Er du sikker på at du vil fortsætte "
 "opgraderingen?"
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1111
 msgid "Install Starting"
 msgstr "Installationen starter"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1112
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Starter installationsproces. Dette kan tage adskillige minutter..."
 
-#: ../yuminstall.py:1130
+#: ../yuminstall.py:1128
 msgid "Post Upgrade"
 msgstr "Efter opgradering"
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1129
 msgid "Performing post upgrade configuration..."
 msgstr "Udfører konfiguration af systemet efter installation..."
 
-#: ../yuminstall.py:1133
+#: ../yuminstall.py:1131
 msgid "Post Install"
 msgstr "Efter installation"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1132
 msgid "Performing post install configuration..."
 msgstr "Konfigurerer systemet efter installation..."
 
-#: ../yuminstall.py:1327
+#: ../yuminstall.py:1325
 msgid "Installation Progress"
 msgstr "Installationsfremskridt"
 
-#: ../yuminstall.py:1362
+#: ../yuminstall.py:1360
 msgid "Dependency Check"
 msgstr "Afhængighedstjek"
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1361
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tjekker afhængigheder i pakkerne som er valgt til installering....."
 
@@ -4412,7 +4426,7 @@ msgstr ""
 "Registeret %s er allerede blevet tilføjet. Vælg venligst et andet "
 "registernavn og URL."
 
-#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "Tidszone valg"
 
@@ -6652,6 +6666,11 @@ msgstr "Tilføj _iSCSI destination"
 msgid "Disable _dmraid device"
 msgstr "Deaktivér _dmraid-enhed"
 
+#: tmp/adddrive.glade.h:6
+#, fuzzy
+msgid "_Add drive"
+msgstr "Harddisk"
+
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr "<b>Repository·_URL:</b>"
@@ -6721,13 +6740,27 @@ msgid "Exception Info"
 msgstr "Info om undtagelse"
 
 #: tmp/exn.glade.h:2
+#, fuzzy
+msgid "Save to _Remote"
+msgstr "Gem på ekstern vært"
+
+#: tmp/exn.glade.h:4
 msgid "_Exception details"
 msgstr "_Detaljer om undtagelse"
+
+#: tmp/exn.glade.h:5
+msgid "_Save to floppy"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
 msgstr ""
+
+#: tmp/instkey.glade.h:4
+#, fuzzy, no-c-format
+msgid "Please enter your %(instkey)s."
+msgstr "Angiv et afsnitsgruppenavn."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6744,6 +6777,11 @@ msgstr "<b>_Brugernavn:</b>"
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI initiator_navn:</b>"
+
+#: tmp/iscsi-config.glade.h:7
+#, fuzzy
+msgid "_Add target"
+msgstr "Tilføj _iSCSI destination"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"

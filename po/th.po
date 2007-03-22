@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 15:11-0400\n"
+"POT-Creation-Date: 2007-03-22 14:36-0400\n"
 "PO-Revision-Date: 2005-12-31 18:44+0700\n"
 "Last-Translator: Vorasilp Kijchavengkul <vorasilp@gmail.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
@@ -359,8 +359,8 @@ msgid "Your system will now be rebooted."
 msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
 #: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
-#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1038
+#: ../partedUtils.py:1103 ../upgrade.py:348 ../yuminstall.py:1082
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
@@ -493,9 +493,10 @@ msgstr ""
 "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
-#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
+#: ../image.py:93 ../image.py:445 ../image.py:519 ../packages.py:340
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_รีบูต"
 
@@ -533,8 +534,8 @@ msgstr "กำลังตรวจสอบหาพื้นที่เสี
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
-#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:603
+#: ../yuminstall.py:720 ../yuminstall.py:736 ../yuminstall.py:921
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
@@ -793,7 +794,7 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
-#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
+#: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_ต่อไป"
 
@@ -939,7 +940,7 @@ msgstr "ยกเลิก"
 msgid "Installation Key"
 msgstr "ประเภทของการติดตั้ง"
 
-#: ../gui.py:787 tmp/anaconda.glade.h:2
+#: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
 msgstr "_ดีบั๊ก"
 
@@ -976,7 +977,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "_ออกจากโปรแกรม"
 
-#: ../gui.py:1107 ../yuminstall.py:608
+#: ../gui.py:1107 ../yuminstall.py:606
 msgid "_Retry"
 msgstr "_ลองใหม่"
 
@@ -1040,6 +1041,19 @@ msgstr ""
 msgid "Re_try"
 msgstr "ลองใหม่"
 
+#: ../harddrive.py:117
+msgid "Couldn't Mount ISO Source"
+msgstr ""
+
+#: ../harddrive.py:118
+#, python-format
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
+msgstr ""
+
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "สื่อสำหรับติดตั้งที่ต้องการ"
@@ -1059,7 +1073,7 @@ msgstr ""
 "กรุณาเตรียมไว้ให้พร้อมก่อนทำการติดตั้ง ถ้าคุณต้องการยกเลิกและจะรีบูต ให้เลือก \"รีบูต\""
 
 #: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
-#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../yuminstall.py:928 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_ย้อนกลับ"
@@ -1200,8 +1214,8 @@ msgstr ""
 "คุณได้กำหนดไว้ว่าแพ็กเกจ '%s' ต้องถูกติดตั้ง แต่แพ็กเกจนี้ไม่ได้มีอยู่ "
 "คุณยังอยากจะดำเนินการต่อไปหรือยกเลิกการติดตั้ง?"
 
-#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
-#: ../yuminstall.py:720
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "_ยกเลิก"
 
@@ -1760,16 +1774,16 @@ msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:917
+#: ../partedUtils.py:918
 msgid "Initializing"
 msgstr "กำลังเตรียมความพร้อม..."
 
-#: ../partedUtils.py:918
+#: ../partedUtils.py:919
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "กรุณารอสักครู่ กำลังฟอร์แมตไดรฟ์ %s...\n"
 
-#: ../partedUtils.py:1038
+#: ../partedUtils.py:1039
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1789,7 +1803,7 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:1103
+#: ../partedUtils.py:1104
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1808,11 +1822,11 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:1224
+#: ../partedUtils.py:1225
 msgid "No Drives Found"
 msgstr "ไม่พบไดรฟ์ในเครื่อง"
 
-#: ../partedUtils.py:1225
+#: ../partedUtils.py:1226
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2132,7 +2146,7 @@ msgstr "ไม่มีคำแนะนำสำหรับขั้นตอ
 msgid "Please enter your %(instkey)s"
 msgstr "กรุณาป้อนชื่อของ volume group"
 
-#: ../text.py:379 tmp/instkey.glade.h:4
+#: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
@@ -2481,55 +2495,55 @@ msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:531 ../yuminstall.py:532
+#: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:531
 #, fuzzy
 msgid "older package(s)"
 msgstr "แพ็กเกจเสริม"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:532
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:533
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:534
 #, fuzzy
 msgid "package conflicts"
 msgstr "แพ็กเกจปริยาย"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:535
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:538
+#: ../yuminstall.py:536
 #, fuzzy
 msgid "required package"
 msgstr "พื้นที่ว่าง"
 
-#: ../yuminstall.py:539
+#: ../yuminstall.py:537
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:540
+#: ../yuminstall.py:538
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:554
+#: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:570
+#: ../yuminstall.py:568
 #, fuzzy
 msgid "Error running transaction"
 msgstr "กำลังเตรียมตั้งชุดคำสั่งสำหรับติดตั้ง RPM..."
 
-#: ../yuminstall.py:571
+#: ../yuminstall.py:569
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2538,23 +2552,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
-#: ../yuminstall.py:930
+#: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
+#: ../yuminstall.py:928
 #, fuzzy
 msgid "Re_boot"
 msgstr "รีบูต"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:697
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:699
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
 
-#: ../yuminstall.py:723
+#: ../yuminstall.py:721
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2564,24 +2578,24 @@ msgstr ""
 "ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
 "กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
 
-#: ../yuminstall.py:739
+#: ../yuminstall.py:737
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:771
+#: ../yuminstall.py:769
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:924
+#: ../yuminstall.py:922
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:1085
+#: ../yuminstall.py:1083
 #, fuzzy, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2590,43 +2604,43 @@ msgstr ""
 "สถาปัตยกรรมของรีลีสของ %s ที่คุณกำลังอัพเกรดคือ %s ซึ่งไม่เข้ากันกับระบบที่ติดตั้งไว้ก่อนหน้านี้สำหรับ "
 "%s  เป็นไปได้ว่าการอัพเกรดจะไม่สำเร็จ  คุณแน่ใจว่ายังต้องการจะอัพเกรดต่อหรือไม่?"
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1111
 msgid "Install Starting"
 msgstr "เริ่มการติดตั้ง"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1112
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
 
-#: ../yuminstall.py:1130
+#: ../yuminstall.py:1128
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "อัพเกรด"
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1129
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
 
-#: ../yuminstall.py:1133
+#: ../yuminstall.py:1131
 msgid "Post Install"
 msgstr "ช่วงหลังติดตั้ง"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1132
 msgid "Performing post install configuration..."
 msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
 
-#: ../yuminstall.py:1327
+#: ../yuminstall.py:1325
 #, fuzzy
 msgid "Installation Progress"
 msgstr "ประเภทของการติดตั้ง"
 
-#: ../yuminstall.py:1362
+#: ../yuminstall.py:1360
 msgid "Dependency Check"
 msgstr "การตรวจสอบการขึ้นต่อกัน"
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1361
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "กำลังตรวจสอบการขึ้นต่อกันของแพ็กเกจที่เลือกเพื่อใช้สำหรับการติดตั้ง..."
 
@@ -4268,7 +4282,7 @@ msgid ""
 "repository name and URL."
 msgstr "ตำแหน่งเมานท์ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกตำแหน่งเมานท์อื่น"
 
-#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "การเลือกเขตเวลา"
 
@@ -6445,6 +6459,11 @@ msgstr ""
 msgid "Disable _dmraid device"
 msgstr ""
 
+#: tmp/adddrive.glade.h:6
+#, fuzzy
+msgid "_Add drive"
+msgstr "ฮาร์ดไดรฟ์"
+
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr ""
@@ -6513,14 +6532,27 @@ msgid "Exception Info"
 msgstr "มีความผิดปกติเกิดขึ้น"
 
 #: tmp/exn.glade.h:2
+msgid "Save to _Remote"
+msgstr ""
+
+#: tmp/exn.glade.h:4
 #, fuzzy
 msgid "_Exception details"
 msgstr "มีความผิดปกติเกิดขึ้น"
+
+#: tmp/exn.glade.h:5
+msgid "_Save to floppy"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
 msgstr ""
+
+#: tmp/instkey.glade.h:4
+#, fuzzy, no-c-format
+msgid "Please enter your %(instkey)s."
+msgstr "กรุณาป้อนชื่อของ volume group"
 
 #: tmp/iscsi-config.glade.h:1
 #, fuzzy
@@ -6538,6 +6570,10 @@ msgstr "ชื่อผู้ใช้"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:7
+msgid "_Add target"
 msgstr ""
 
 #: tmp/netconfig.glade.h:2

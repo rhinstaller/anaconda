@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-16 15:11-0400\n"
+"POT-Creation-Date: 2007-03-22 14:36-0400\n"
 "PO-Revision-Date: 2007-03-01 16:47+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -380,8 +380,8 @@ msgid "Your system will now be rebooted."
 msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
 #: ../autopart.py:1681 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1037
-#: ../partedUtils.py:1102 ../upgrade.py:348 ../yuminstall.py:1084
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1038
+#: ../partedUtils.py:1103 ../upgrade.py:348 ../yuminstall.py:1082
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
@@ -516,9 +516,10 @@ msgstr ""
 "കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
-#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:340 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
+#: ../image.py:93 ../image.py:445 ../image.py:519 ../packages.py:340
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "വീണ്ടും കംപ്യൂട്ടറ്‍ ഓണ്‍ ചെയ്യുക (_R)"
 
@@ -557,8 +558,8 @@ msgstr "/dev/%sല്‍ തകരാറുളള ബ്ളോക്കുകള
 #: ../fsset.py:1553 ../fsset.py:1607 ../fsset.py:1618 ../fsset.py:1658
 #: ../fsset.py:1708 ../fsset.py:1774 ../fsset.py:1793 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:406
-#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:605
-#: ../yuminstall.py:722 ../yuminstall.py:738 ../yuminstall.py:923
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:603
+#: ../yuminstall.py:720 ../yuminstall.py:736 ../yuminstall.py:921
 #: ../iw/autopart_type.py:201 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:618 ../iw/raid_dialog_gui.py:657
@@ -847,7 +848,7 @@ msgstr ""
 "പ്രശ്നങ്ങള്‍ ഉണ്ടാകാന്‍ സാധ്യതയുണ്ട്."
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
-#: ../kickstart.py:1025 ../yuminstall.py:718 ../iw/partition_gui.py:1011
+#: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "തുടരുക (_C)"
 
@@ -992,7 +993,7 @@ msgstr "റദ്ദാക്കുക"
 msgid "Installation Key"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ മെഥേഡ്"
 
-#: ../gui.py:787 tmp/anaconda.glade.h:2
+#: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
 msgstr "ഡീബഗ് ചെയ്യുക(_D)"
 
@@ -1032,7 +1033,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "പുറത്തേക്ക് പോവുക(_E)"
 
-#: ../gui.py:1107 ../yuminstall.py:608
+#: ../gui.py:1107 ../yuminstall.py:606
 msgid "_Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 
@@ -1103,6 +1104,19 @@ msgstr ""
 msgid "Re_try"
 msgstr "വീണ്ടും ശ്രമിക്കുക(_t)"
 
+#: ../harddrive.py:117
+msgid "Couldn't Mount ISO Source"
+msgstr ""
+
+#: ../harddrive.py:118
+#, python-format
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
+msgstr ""
+
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "മീഡിയ ഇന്‍സ്റ്റേള്‍ ചെയ്യേണ്ടതാണ്"
@@ -1124,7 +1138,7 @@ msgstr ""
 "നിര്‍ത്തലാക്കി റീബൂട്ട് ചെയ്യണമെങ്കില്‍ ദയവായി \"റീബൂട്ട് ചെയ്യുക\"തിരഞ്ഞെടുക്കുക."
 
 #: ../image.py:93 ../packages.py:286 ../packages.py:337 ../packages.py:340
-#: ../yuminstall.py:930 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../yuminstall.py:928 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "പുറകോട്ട് പോവുക (_B)"
@@ -1276,8 +1290,8 @@ msgstr ""
 "'%s' എന്ന പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്യണമെന്ന് നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നു.  ഈ പാക്കേജ് "
 "നിലവിലില്ല. നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകണമോ അതോ നിര്‍ത്തലാക്കണമോ?"
 
-#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:718
-#: ../yuminstall.py:720
+#: ../kickstart.py:986 ../kickstart.py:1024 ../yuminstall.py:716
+#: ../yuminstall.py:718
 msgid "_Abort"
 msgstr "വീണ്ടും കംപ്യൂട്ടര്‍ ഓണ്‍ ചെയ്യുക (_A)"
 
@@ -1854,16 +1868,16 @@ msgstr "ഡ്രൈവ് അവഗണിക്കുക (I)"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:917
+#: ../partedUtils.py:918
 msgid "Initializing"
 msgstr "ഇനിഷ്യലൈസിങ്"
 
-#: ../partedUtils.py:918
+#: ../partedUtils.py:919
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "%s എന്ന ഡ്രൈവ് ഫോര്‍മാറ്റ് ചെയ്യപ്പെടുന്നു... ദയവായി കാത്തിരിക്കുക\n"
 
-#: ../partedUtils.py:1038
+#: ../partedUtils.py:1039
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1884,7 +1898,7 @@ msgstr ""
 "\n"
 "എല്ലാ വിവരങ്ങളും മായിച്ച്, നിങ്ങള്‍ക്ക് ഈ ഡ്രൈവ് വീണ്ടും ആരംഭിക്കണമോ?"
 
-#: ../partedUtils.py:1103
+#: ../partedUtils.py:1104
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1903,11 +1917,11 @@ msgstr ""
 "\n"
 "എല്ലാ വിവരങ്ങളും(ALL DATA) മായിച്ച്, നിങ്ങള്‍ക്ക് ഈ ഡ്രൈവ് ഇനിഷ്യലൈസ് ചെയ്യണമോ?"
 
-#: ../partedUtils.py:1224
+#: ../partedUtils.py:1225
 msgid "No Drives Found"
 msgstr "ഡ്രൈവുകള്‍ കാണ്മാനില്ല"
 
-#: ../partedUtils.py:1225
+#: ../partedUtils.py:1226
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2241,7 +2255,7 @@ msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാനു�
 msgid "Please enter your %(instkey)s"
 msgstr "വോള്യം ഗ്രൂപ്പിന് ഒരു പേര് എന്‍ററ്‍ ചെയ്യുക."
 
-#: ../text.py:379 tmp/instkey.glade.h:4
+#: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
 msgstr ""
@@ -2602,71 +2616,71 @@ msgstr "%s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്ന�
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:531 ../yuminstall.py:532
+#: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
 msgstr "ഫൈലിലെ പൊരുത്തക്കേടുകള്‍"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:531
 msgid "older package(s)"
 msgstr "പഴയ പാക്കേജുകള്‍"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:532
 msgid "insufficient disk space"
 msgstr "മതിയാകാത്ത ഡിസ്ക്ക് സ്പെയ്സ്"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:533
 msgid "insufficient disk inodes"
 msgstr "മതിയാകാത്ത ഡിസ്ക്ക് ഐനോഡുകള്‍"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:534
 msgid "package conflicts"
 msgstr "പാക്കേജിലെ പൊരുത്തക്കേടുകള്‍"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:535
 msgid "package already installed"
 msgstr "പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടുളളതാണ്"
 
-#: ../yuminstall.py:538
+#: ../yuminstall.py:536
 msgid "required package"
 msgstr "ആവശ്യമുളള പാക്കേജ്"
 
-#: ../yuminstall.py:539
+#: ../yuminstall.py:537
 msgid "package for incorrect arch"
 msgstr "തെറ്റായ ആര്‍ക്കിനുളള പാക്കേജ്"
 
-#: ../yuminstall.py:540
+#: ../yuminstall.py:538
 msgid "package for incorrect os"
 msgstr "തെറ്റായ os നുളള പാക്കേജ്"
 
-#: ../yuminstall.py:554
+#: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
 msgstr "താഴെ കാണിക്കുന്ന ഫൈല്‍ സിസ്റ്റമുകളില്‍ നിങ്ങള്‍ക്ക് ഇനിയും സ്ഥലം ആവശ്യമുണ്ട്:\n"
 
-#: ../yuminstall.py:570
+#: ../yuminstall.py:568
 msgid "Error running transaction"
 msgstr "ട്രാന്‍സാക്ഷന്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിഴവ്"
 
-#: ../yuminstall.py:571
+#: ../yuminstall.py:569
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr "താഴെ പറയുന്ന കാരണങ്ങള്‍ കൊണ്ട് നിങ്ങളുടെ നടപടികള്‍ പ്രവര്‍ത്തിക്കുന്നതില്‍ പിശക്: %s"
 
-#: ../yuminstall.py:575 ../yuminstall.py:608 ../yuminstall.py:744
-#: ../yuminstall.py:930
+#: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
+#: ../yuminstall.py:928
 msgid "Re_boot"
 msgstr "റീബൂട്ട് ചെയ്യുക(_b)"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:697
 msgid "Retrieving installation information..."
 msgstr "ഇന്‍സ്റ്റലേഷന്‍റെ വിവരങ്ങള്‍ ലഭ്യമാക്കുന്നു..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:699
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%sനുളള ഇന്‍സ്റ്റലേഷന്‍ വിവരങ്ങള്‍ ലഭ്യമാക്കുന്നു..."
 
-#: ../yuminstall.py:723
+#: ../yuminstall.py:721
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2676,7 +2690,7 @@ msgstr ""
 "മെറ്റാഡേറ്റാ പാക്കേജ് വായിക്കുവാന്‍ സാധിക്കുന്നില്ല. ഒരു റിപോഡേറ്റാ ഡയറക്ടറി ഇല്ലാത്തതാവും "
 "ഇതിന് കാരണം.  നിങ്ങളുടെ ഇന്‍സ്റ്റോള്‍ ട്രീ ശരിയായി ആണ് ഉണ്ടായിരിക്കുന്നതെന്ന് ഉറപ്പ് വരുത്തുക.  %s"
 
-#: ../yuminstall.py:739
+#: ../yuminstall.py:737
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2684,11 +2698,11 @@ msgstr ""
 "റിപ്പോസിറ്ററികളില്‍ നിന്നും ഗ്റൂപ്പ് സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമാകുന്നില്ല.  ഇന്‍സ്റ്റോള്‍ ട്റീ "
 "ഉണ്ടാക്കിയതില്‍ ഉളള പിശകാവാം."
 
-#: ../yuminstall.py:771
+#: ../yuminstall.py:769
 msgid "Uncategorized"
 msgstr "വേര്‍തിരിച്ചിട്ടില്ലാത്തത്"
 
-#: ../yuminstall.py:924
+#: ../yuminstall.py:922
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2698,7 +2712,7 @@ msgstr ""
 "പക്ഷേ, നിങ്ങള്‍ക്ക് ഇത്രയും ലഭ്യമല്ല. ഒന്നുകില്‍ നിങ്ങള്‍ തിരഞ്ഞെടുത്തവയില്‍ മാറ്റം വരുത്തുക അല്ലെങ്കില്‍ "
 "റീബൂട്ട് ചെയ്യുക."
 
-#: ../yuminstall.py:1085
+#: ../yuminstall.py:1083
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2707,39 +2721,39 @@ msgstr ""
 "%s-ന്‍റെ വേര്‍ഷന്‍ അപ്ഗ്രേഡ് ചെയ്യുന്നത് ഒരു പഴയ സിസ്റ്റമില്‍ നിന്നാണ്. നിങ്ങള്‍ക്ക് ഈ അപ്ഗ്രേഡുമായി "
 "മുന്പോട്ട് തുടരണമോ?"
 
-#: ../yuminstall.py:1113
+#: ../yuminstall.py:1111
 msgid "Install Starting"
 msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാന്‍ ആരംഭിക്കുന്നു"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1112
 msgid "Starting install process.  This may take several minutes..."
 msgstr "ഇന്‍സ്റ്റോലേഷന്‍ ആരംഭിക്കുന്നു.  ഇത് ഒരു പക്ഷേ അധികം സമയമെടുത്തേക്കാം..."
 
-#: ../yuminstall.py:1130
+#: ../yuminstall.py:1128
 msgid "Post Upgrade"
 msgstr "പോസ്റ്റ് അപ്രഗേഡ്"
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1129
 msgid "Performing post upgrade configuration..."
 msgstr "പോസ്റ്റ് അപ്രഗേഡ് കോണ്‍ഫിഗറേഷന്‍ നടത്തുന്നു..."
 
-#: ../yuminstall.py:1133
+#: ../yuminstall.py:1131
 msgid "Post Install"
 msgstr "പോസ്റ്റ് ഇന്‍സ്റ്റോള്‍"
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1132
 msgid "Performing post install configuration..."
 msgstr "പോസ്റ്റ് ഇന്‍സ്റ്റോള്‍ കോണ്‍ഫിഗറേഷന്‍ നടത്തുന്നു..."
 
-#: ../yuminstall.py:1327
+#: ../yuminstall.py:1325
 msgid "Installation Progress"
 msgstr "ഇന്‍സ്റ്റോലേഷന്‍റെ സ്ഥിതി"
 
-#: ../yuminstall.py:1362
+#: ../yuminstall.py:1360
 msgid "Dependency Check"
 msgstr "ഡിപഡന്‍സിയുടെ പരിശോധന"
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1361
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "ഇന്‍സ്റ്റലേഷനായി തിരഞ്ഞെടുത്തിരിക്കുന്ന പാക്കേജുകളില്‍ ഡിപഡന്‍സികളുടെ പരിശോധന നടത്തുന്നു..."
 
@@ -4402,7 +4416,7 @@ msgstr ""
 "റിപോസിറ്ററി %s നിലവില്‍ ചേര്‍ത്തിട്ടുണ്ട്.  ദയവായി മറ്റൊരു റിപോസിറ്ററി പേരും URL-ഉം "
 "തിരഞ്ഞെടുക്കുക."
 
-#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "സമയ മേഘല തിരഞ്ഞെടുത്തുക"
 
@@ -6606,6 +6620,11 @@ msgstr "ലക്ഷ്യസ്ഥാനത്തുളള iSCSI ചേര്�
 msgid "Disable _dmraid device"
 msgstr "dmraid ഡിവൈസ് അപ്രാപ്യമാക്കുക (_d)"
 
+#: tmp/adddrive.glade.h:6
+#, fuzzy
+msgid "_Add drive"
+msgstr "ഹാര്‍ഡ് ഡ്രൈവ്"
+
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr "<b>റിപോസിറ്ററിയുടെ URL:</b> (_U)"
@@ -6675,13 +6694,27 @@ msgid "Exception Info"
 msgstr "എക്സ്പ്പഷന്‍ ഇന്‍ഫോ"
 
 #: tmp/exn.glade.h:2
+#, fuzzy
+msgid "Save to _Remote"
+msgstr "റിമോട്ട് ഹോസ്റ്റിലേക്ക് സംരക്ഷിക്കുക"
+
+#: tmp/exn.glade.h:4
 msgid "_Exception details"
 msgstr "എക്സ്പ്പഷന്‍റെ (_E) വിവരങ്ങള്‍"
+
+#: tmp/exn.glade.h:5
+msgid "_Save to floppy"
+msgstr ""
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
 msgstr ""
+
+#: tmp/instkey.glade.h:4
+#, fuzzy, no-c-format
+msgid "Please enter your %(instkey)s."
+msgstr "വോള്യം ഗ്രൂപ്പിന് ഒരു പേര് എന്‍ററ്‍ ചെയ്യുക."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6698,6 +6731,11 @@ msgstr "<b>ഉപയോഗിക്കുന്ന പേര്:</b> (_U)"
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI ഇനിഷ്യേറ്റരിന്‍റെ പേര്(_N):</b>"
+
+#: tmp/iscsi-config.glade.h:7
+#, fuzzy
+msgid "_Add target"
+msgstr "ലക്ഷ്യസ്ഥാനത്തുളള iSCSI ചേര്‍ക്കുക (_i)"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
