@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-16 15:11-0400\n"
-"PO-Revision-Date: 2007-03-22 16:39+0530\n"
+"PO-Revision-Date: 2007-03-22 21:46+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -1287,7 +1287,7 @@ msgstr "ପ୍ରତିଛବିକୁ ଖୋଜିବାରେ ଅସମର୍�
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "ଗୋଟିଏ ସ୍ଥାପନ ଉତ୍ସ ଭାବରେ ବ୍ଯବହାର କରିବା ପାଇଁ ପ୍ରଦତ୍ତ ଗୋଟିଏ ବୈଧ %s ପ୍ରତ୍ଯେକ୍ଷ ସି.ଡି. ନୁହେଁ।"
 
 #: ../livecd.py:82 ../livecd.py:268
 msgid "Exit installer"
@@ -2623,6 +2623,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"ଭଣ୍ଡାରରୁ ସମୂହ ସୂଚନା ପଢିବାରେ ଅସମର୍ଥ। ଏହା ଆପଣଙ୍କ ସ୍ଥାପନ ବୃକ୍ଷର ଉତ୍ପତ୍ତ ସମୟରେ ଗୋଟିଏ "
+"ସମସ୍ଯା ଅଟେ।"
 
 #: ../yuminstall.py:771
 msgid "Uncategorized"
@@ -3821,7 +3823,7 @@ msgstr "ବିଭାଜନ କରୁଅଛି"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ବିଭାଜନୀୟ ଯୋଜନା ଯୋଗୁଁ ନିମ୍ନଲିଖିତ ଗୁରୁତର ତୃଟି ଗୁଡିକ ଘଟିଲା।"
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
@@ -3834,7 +3836,7 @@ msgstr "ବିଭାଜନୀୟ ତୃଟି ମାନ"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ବିଭାଜନୀୟ ଯୋଜନା ନିମ୍ନଲିଖିତ ଚେତାବନୀ ଦେଲା।"
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4797,6 +4799,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"ଆପଣ %s ପାଇଁ ଗୋଟିଏ ବୈଧ ପୂର୍ଣ୍ଣ ସଂଖ୍ଯା ଭରଣ କରିବା ଉଚିତ।  IPv4 ପାଇଁ, ମୂଲ୍ଯଟି 0 ଏବଂ 32 "
+"ମଧ୍ଯରେ ରହିପାରିବ।  IPv6 ପାଇଁ ଏହା 0 ଏବଂ 128 ମଧ୍ଯରେ ରହିପାରିବ।"
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -5539,6 +5543,8 @@ msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"ଆପଣଙ୍କ ସଦସ୍ଯତା ସହିତ ଅନ୍ତର୍ଭୂକ୍ତ ସମର୍ଥିତ ପ୍ଯାକେଜ ମାନଙ୍କର ସମ୍ପୂର୍ଣ୍ଣ ସେଟକୁ ସ୍ଥାପନ କରିବା ପାଇଁ, ଦୟାକରି "
+"ଆପଣଙ୍କ ସ୍ଥାପନ ସଂଖ୍ଯାକୁ ଭରଣ କରନ୍ତୁ"
 
 #: ../installclasses/rhel.py:54
 msgid ""
