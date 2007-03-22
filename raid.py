@@ -4,7 +4,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -25,10 +25,12 @@ def getRaidLevels():
         for l in f.readlines():
             if not l.startswith("Personalities"):
                 continue
-            for tok in l.split():
-                for lev in ("RAID0", "RAID1", "RAID5", "RAID6", "RAID10"):
-                    if tok.upper().find(lev) != -1:
-                        avail.append(lev)
+
+            lst = l.split()
+
+            for lev in ["RAID0", "RAID1", "RAID5", "RAID6", "RAID10"]:
+                if "[" + lev + "]" in lst or "[" + lev.lower() + "]" in lst:
+                    avail.append(lev)
 
         f.close()
 

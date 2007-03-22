@@ -623,7 +623,7 @@ class RaidRequestSpec(RequestSpec):
         raidmems = []
         for member in self.raidmembers:
             raidmems.append(partitions.getRequestByID(member).device)
-        self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
+        self.dev = fsset.RAIDDevice(int(self.raidlevel[4:]),
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,
                                     existing = self.preexist,

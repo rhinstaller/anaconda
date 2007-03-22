@@ -13,6 +13,13 @@
 	* yuminstall.py:  Remove a couple FIXMEs for things that are now in
 	yum.
 
+	* raid.py (getRaidLevels):  Don't confuse "raid1" and "raid10".
+	* partRequests.py (RaidRequestSpec.getDevice):  RAID levels aren't
+	guaranteed to be one digit.
+	* loader2/loader.c (main):  Load RAID10 module.
+	* scripts/mk-images:  Include RAID10 module.  Patch for all this from
+	Paul P Komkoff Jr <i AT stingr.net> (#230268).
+
 2007-03-21  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (parseCmdLineIp): Don't set ipinfo_set to true here,
