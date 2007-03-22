@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.39
+Version: 11.2.0.40
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 21 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.40-1
+- livecd X fixes (katzj).
+- Handle mounting errors on the harddrive image method (#124793).
+- Fix timezone --isUtc for real.
+- More kickstart RAID10 fixes (#230268).
+- Fix ip=dhcp command line option (dcantrell, #233152).
+- Add cdc_ether module for USB networking (dcantrell, #174229).
+- Fix text mode timezone traceback.
+
 * Tue Mar 20 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.39-1
 - Document asknetwork (clumens, #233035)
 - Fix no drives being selected by default with autopart (clumens)
