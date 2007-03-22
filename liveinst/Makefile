@@ -15,7 +15,7 @@ install:
 
 	install -m 0644 liveinst.desktop $(DESTDIR)/usr/share/applications
 
-	install -m 0755 liveinst.xinit $(DESTDIR)/etc/X11/xinit/xinitrc.d/zz-liveinst
+	install -m 0755 liveinst.xinit $(DESTDIR)/etc/X11/xinit/xinitrc.d/zz-liveinst.sh
 
 clean:
 	rm -f *~
