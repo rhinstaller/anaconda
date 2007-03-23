@@ -99,7 +99,7 @@ struct loaderData_s {
     int bootIf_set;
     char * netCls;
     int netCls_set;
-    char *ip, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot;
+    char *ipv4, *ipv6, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot;
     int mtu;
     int noDns;
     int ipinfo_set;

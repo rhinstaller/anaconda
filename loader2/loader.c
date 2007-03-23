@@ -464,7 +464,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
                 continue;
 
             if (!strncmp(vname, "IPADDR", 6)) {
-                loaderData->ip = strdup(vparm);
+                loaderData->ipv4 = strdup(vparm);
                 loaderData->ipinfo_set = 1;
             }
 
@@ -513,7 +513,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
     /* IP */
     start = argv + 3;
     end = strstr(start, ":");
-    loaderData->ip = strndup(start, end-start);
+    loaderData->ipv4 = strndup(start, end-start);
     loaderData->ipinfo_set = 0;
 
     /* Boot server */
@@ -541,7 +541,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
     start = end + 1;
     loaderData->netmask = strdup(start);
   } else {
-    loaderData->ip = strdup(argv + 3);
+    loaderData->ipv4 = strdup(argv + 3);
     loaderData->ipinfo_set = 0;
   }
 }
@@ -862,7 +862,7 @@ static char *doLoaderMain(char * location,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
            STEP_IP, STEP_URL, STEP_DONE } step;
     char * url = NULL;
-    char ret[48];
+    char * ret = NULL;
     int dir = 1;
     int rc, i;
 
@@ -1020,7 +1020,6 @@ static char *doLoaderMain(char * location,
                 break;
             }
 
-
             rc = newtWinTernary(_("No driver found"), _("Select driver"),
                                 _("Use a driver disk"), _("Back"),
                                 _("Unable to find any devices of the type "
@@ -1105,6 +1104,11 @@ static char *doLoaderMain(char * location,
                 break;
             }
 
+            if ((ret = malloc(48)) == NULL) {
+                logMessage(ERROR, "malloc failure for ret in STEP_IP");
+                exit(EXIT_FAILURE);
+            }
+
             logMessage(INFO, "going to do getNetConfig");
             /* populate netDev based on any kickstart data */
             if (loaderData->ipinfo_set) {
@@ -1116,13 +1120,14 @@ static char *doLoaderMain(char * location,
             if ((loaderData->noipv4 = netDev.noipv4) == 1) {
                 loaderData->ipinfo_set = 0;
             } else {
-                if (!loaderData->ip) {
-                    if (netDev.isDynamic) {
-                        loaderData->ip = strdup("dhcp");
+                if (loaderData->ipv4 == NULL) {
+                    ret = (char *) inet_ntop(AF_INET,
+                                             IP_ADDR(&(netDev.dev.ip)), ret,
+                                             IP_STRLEN(&(netDev.dev.ip)));
+                    if (netDev.isDynamic || ret == NULL) {
+                        loaderData->ipv4 = strdup("dhcp");
                     } else {
-                        inet_ntop(AF_INET, IP_ADDR(&(netDev.dev.ipv4)), ret,
-                                  IP_STRLEN(&(netDev.dev.ipv4)));
-                        loaderData->ip = strdup(ret);
+                        loaderData->ipv4 = strdup(ret);
                     }
                 }
 
@@ -1132,18 +1137,22 @@ static char *doLoaderMain(char * location,
             if ((loaderData->noipv6 = netDev.noipv6) == 1) {
                 loaderData->ipv6info_set = 0;
             } else {
-                if (!loaderData->ip) {
-                    if (netDev.isDynamic) {
+                if (loaderData->ipv6 == NULL) {
+                    ret = (char *) inet_ntop(AF_INET6,
+                                             IP_ADDR(&(netDev.dev.ip)), ret,
+                                             IP_STRLEN(&(netDev.dev.ip)));
+                    if (netDev.isDynamic || ret == NULL) {
                         loaderData->ipv6 = strdup("dhcpv6");
                     } else {
-                        inet_ntop(AF_INET6, IP_ADDR(&(netDev.dev.ipv6)), ret,
-                                  IP_STRLEN(&(netDev.dev.ipv6)));
                         loaderData->ipv6 = strdup(ret);
                     }
                 }
 
                 loaderData->ipv6info_set = 1;
             }
+
+            free(ret);
+            ret = NULL;
 
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {

@@ -335,7 +335,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
 void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage(DEBUGLVL, "loaderData->ipinfo_set   = |%d|", loaderData->ipinfo_set);
-    logMessage(DEBUGLVL, "loaderData->ip           = |%s|", loaderData->ip);
+    logMessage(DEBUGLVL, "loaderData->ipv4         = |%s|", loaderData->ipv4);
     logMessage(DEBUGLVL, "loaderData->ipv6info_set = |%d|", loaderData->ipv6info_set);
     logMessage(DEBUGLVL, "loaderData->ipv6         = |%s|", loaderData->ipv6);
     logMessage(DEBUGLVL, "loaderData->netmask      = |%s|", loaderData->netmask);
@@ -395,7 +395,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         }
 
         /* this is how we specify dhcp */
-        if (!strncmp(loaderData->ip, "dhcp", 4)) {
+        if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
             char *ret = NULL;
 
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
@@ -431,13 +431,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             cfg->isDynamic = 1;
             cfg->preset = 1;
-        } else if (inet_pton(AF_INET, loaderData->ip, &addr) >= 1) {
+        } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
             cfg->dev.ip = ip_addr_in(&addr);
             cfg->dev.ipv4 = ip_addr_in(&addr);
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV4_IP;
             cfg->isDynamic = 0;
             cfg->preset = 1;
-        } else if (inet_pton(AF_INET6, loaderData->ip, &addr6) >= 1) {
+        } else if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
             cfg->dev.ip = ip_addr_in6(&addr6);
             cfg->dev.ipv6 = ip_addr_in6(&addr6);
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP|PUMP_INTFINFO_HAS_IPV6_IP;
@@ -446,7 +446,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
             cfg->isDynamic = 0;
-            loaderData->ip = NULL;
+            loaderData->ipv4 = NULL;
+            loaderData->ipv6 = NULL;
         }
     }
 
@@ -1591,7 +1592,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
             loaderData->gateway = strdup(arg);
             break;
         case 'i':
-            loaderData->ip = strdup(arg);
+            loaderData->ipv4 = strdup(arg);
             break;
         case 'n':
             loaderData->dns = strdup(arg);
@@ -1620,10 +1621,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
      * use dhcp for the interface */
     if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
                        !strncmp(bootProto, "bootp", 4))) ||
-        (!bootProto && !loaderData->ip)) {
-        loaderData->ip = strdup("dhcp");
+        (!bootProto && !loaderData->ipv4)) {
+        loaderData->ipv4 = strdup("dhcp");
         loaderData->ipinfo_set = 1;
-    } else if (loaderData->ip) {
+    } else if (loaderData->ipv4) {
         /* JKFIXME: this assumes a bit... */
         loaderData->ipinfo_set = 1;
     }
@@ -1877,8 +1878,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         /* JKFIXME: this is kind of crufty, we depend on the fact that the
          * ip is set and then just get the network up.  we should probably
          * add a way to do asking about static here and not be such a hack */
-        if (!loaderData->ip) {
-            loaderData->ip = strdup("dhcp");
+        if (!loaderData->ipv4) {
+            loaderData->ipv4 = strdup("dhcp");
         } 
         loaderData->ipinfo_set = 1;
 
@@ -1896,7 +1897,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
              * we set before attempting to bring the incorrect interface up.
              */
             loaderData->netDev_set = 0;
-            free(loaderData->ip);
+            free(loaderData->ipv4);
             loaderData->ipinfo_set = 0;
         }
         else

@@ -1,3 +1,18 @@
+2007-03-23  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.h: Change 'ip' structure member to 'ipv4'.
+	* loader2/loader.c (readNetInfo, parseCmdLineIp, doLoaderMain): Where
+	the 'ip' structure member was referenced in loaderData, change it to
+	'ipv4'.
+	* loader2/net.c: Likewise.
+
+	* loader2/loader.c (doLoaderMain): In STEP_IP, handle inet_ntop()
+	return values more gracefully when setting loaderData fields after
+	readNetConfig() has been called.
+
+	* anaconda.spec: Require libdhcp-devel >= 1.24 to handle dual-stack
+	manual IP configuration correctly (#232690).
+
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda (getInstClass): Don't duplicate code (Elliot Peele) 
