@@ -1,5 +1,7 @@
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* ui/autopart.glade: Make things not go off the screen at lower res 
+
 	* iw/welcome_gui.py (WelcomeWindow.getScreen): Scale the splash
 	image if we're not at 800x600
 
