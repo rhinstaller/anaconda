@@ -1166,8 +1166,7 @@ class InstallControlWindow:
         if ((event.keyval == gtk.keysyms.KP_Delete
              or event.keyval == gtk.keysyms.Delete)
             and (event.state & (gtk.gdk.CONTROL_MASK | gtk.gdk.MOD1_MASK))):
-            gtk.main_quit()
-            os._exit(0)
+            self._doExit()
         # XXX hack: remove me when the accelerators work again.
         elif (event.keyval == gtk.keysyms.F12
               and self.currentWindow.getICS().getNextEnabled()):
@@ -1175,6 +1174,10 @@ class InstallControlWindow:
         elif (event.keyval == gtk.keysyms.Print
               and event.state & gtk.gdk.SHIFT_MASK):
             takeScreenShot()
+
+    def _doExit (self, *args):
+        gtk.main_quit()
+        os._exit(0)
 
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
@@ -1197,15 +1200,13 @@ class InstallControlWindow:
         self.installFrame = self.mainxml.get_widget("installFrame")
 
     def connectSignals(self):
-        def noop (window, event):
-            return True
         sigs = { "on_nextButton_clicked": self.nextClicked,
             "on_rebootButton_clicked": self.nextClicked,
             "on_backButton_clicked": self.prevClicked,
             "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
             "on_debugButton_clicked": self.debugClicked,
             "on_mainWindow_key_release_event": self.keyRelease,
-            "on_mainWindow_delete_event": noop, }
+            "on_mainWindow_delete_event": self._doExit, }
         self.mainxml.signal_autoconnect(sigs)
 
     def loadGlade(self):

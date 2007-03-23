@@ -1,3 +1,8 @@
+2007-03-23  Jeremy Katz  <katzj@redhat.com>
+
+	* gui.py (InstallControlWindow.connectSignals): Exit if the close
+	button is clicked (#231775)
+
 2007-03-23  Chris Lumens  <clumens@redhat.com>
 
 	* vnc.py (startVNCServer):  If we've got an IP address, display it
