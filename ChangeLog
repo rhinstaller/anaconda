@@ -1,5 +1,7 @@
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* liveinst/liveinst.xinit: Don't cause xinit to exit
+
 	* gui.py (InstallControlWindow.connectSignals): Exit if the close
 	button is clicked (#231775)
 
