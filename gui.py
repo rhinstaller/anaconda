@@ -447,17 +447,17 @@ def getPixbuf(file):
     
     return pixbuf
 
-def readImageFromFile(file, height = None, width = None, dither = None,
+def readImageFromFile(file, width = None, height = None, dither = None,
                       image = None):
     pixbuf = getPixbuf(file)
     if pixbuf is None:
         log.warning("can't find pixmap %s" %(file,))
         return None
 
-    if (height is not None and width is not None
+    if (width is not None and height is not None
         and height != pixbuf.get_height()
         and width != pixbuf.get_width()):
-        pixbuf = pixbuf.scale_simple(height, width,
+        pixbuf = pixbuf.scale_simple(width, height,
                                      gtk.gdk.INTERP_BILINEAR)
 
     if image is None:

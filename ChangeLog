@@ -1,5 +1,8 @@
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (readImageFromFile): Make width/height args be in the
+	same order as GTK functions
+
 	* iw/network_gui.py (NetworkWindow.getScreen): Shorten entry box
 	so that things fit on the screen better.
 
