@@ -1,5 +1,8 @@
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/welcome_gui.py (WelcomeWindow.getScreen): Scale the splash
+	image if we're not at 800x600
+
 	* liveinst/liveinst.xinit: Don't cause xinit to exit
 
 	* gui.py (InstallControlWindow.connectSignals): Exit if the close
