@@ -1,3 +1,9 @@
+2007-03-22  Jeremy Katz  <katzj@redhat.com>
+
+	* desktop.py (Desktop.write): Only write out
+	/etc/sysconfig/desktop if the default desktop is set in the
+	install (#233472)
+
 2007-03-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

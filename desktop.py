@@ -60,6 +60,7 @@ class Desktop (SimpleConfigFile):
             inittab.write (line)
         inittab.close ()
 
-	f = open(instPath + "/etc/sysconfig/desktop", "w")
-	f.write(str (self))
-	f.close()
+        if self.getDefaultDesktop():
+            f = open(instPath + "/etc/sysconfig/desktop", "w")
+            f.write(str (self))
+            f.close()
