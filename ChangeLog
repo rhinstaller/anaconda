@@ -1,3 +1,8 @@
+2007-03-23  Chris Lumens  <clumens@redhat.com>
+
+	* vnc.py (startVNCServer):  If we've got an IP address, display it
+	(#231934).
+
 2007-03-23  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.h: Change 'ip' structure member to 'ipv4'.

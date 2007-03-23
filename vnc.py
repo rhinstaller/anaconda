@@ -1,7 +1,7 @@
 #
 # vnc.py: VNC related installer functionality
 #
-# Copyright 2004 Red Hat, Inc.
+# Copyright 2004,2007 Red Hat, Inc.
 #
 # Jeremy Katz <katzj@redhat.com>
 #
@@ -22,6 +22,7 @@ import network
 import isys
 import product
 import iutil
+import network
 
 import logging
 log = logging.getLogger("anaconda")
@@ -189,42 +190,43 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
     # figure out host info
     connxinfo = None
     srvname = None
+    ip = None
+
+    # try to load /tmp/netinfo and see if we can sniff out network info
+    netinfo = network.Network()
+
+    # Look for the first configured interface and use its IP address for
+    # the computer to connect to.
+    dev = netinfo.getFirstDeviceName()
+
     try:
-	import network
+        ip = isys.getIPAddress(dev)
+        log.info("ip of %s is %s" % (dev, ip))
 
-	# try to load /tmp/netinfo and see if we can sniff out network info
-	netinfo = network.Network()
-	srvname = None
+        if ip == "127.0.0.1":
+            ip = None
+    except Exception, e:
+        log.warning("Got an exception trying to get the ip addr "
+                    "of %s: %s" % (dev, e))
 
-        # If we have a real hostname that resolves against configured DNS
-        # servers, use that for the name to connect to.
-        if netinfo.hostname != "localhost.localdomain" and netinfo.lookupHostname() is not None:
-	    srvname = netinfo.hostname
-	else:
-            # Otherwise, look for the first configured interface and use its
-            # IP address for the name to connect to.
-            dev = netinfo.getFirstDeviceName()
+    # If we have a real hostname that resolves against configured DNS
+    # servers, use that for the name to connect to.
+    if netinfo.hostname != "localhost.localdomain" and netinfo.lookupHostname() is not None:
+        srvname = netinfo.hostname
+    elif ip is None:
+        # If we get here and there's no valid IP address, just use the
+        # hostname and hope for the best (better than displaying nothing)
+        srvname = netinfo.hostname
 
-            try:
-                ip = isys.getIPAddress(dev)
-                log.info("ip of %s is %s" % (dev, ip))
-            except Exception, e:
-                log.warning("Got an exception trying to get the ip addr "
-                            "of %s: %s" % (dev, e))
+    if srvname is not None:
+        connxinfo = "%s:1" % srvname
 
-            if ip != "127.0.0.1" and ip is not None:
-                srvname = ip
-            else:
-                # If we get here and there's no valid IP address, just use the
-                # hostname and hope for the best (better than displaying nothing)
-                srvname = netinfo.hostname
+    if ip is not None:
+        if connxinfo is not None:
+            connxinfo = "%s:1" % ip
+        else:
+            connxinfo += " (%s)" % ip
 
-	if srvname is not None:
-	    connxinfo = "%s:1" % (srvname,)
-
-    except:
-	log.error("Unable to determine VNC server network info")
-	
     # figure out product info
     if srvname is not None:
 	desktopname = _("%s %s installation on host %s") % (product.productName, product.productVersion, srvname)
