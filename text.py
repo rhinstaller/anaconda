@@ -364,7 +364,7 @@ class InstallInterface:
 
 
         radio = RadioGroup()
-        keyradio = radio.add(keyname, "key", 1)
+        keyradio = radio.add(keyname, "key", int(not ic.skipkey))
         keyentry = Entry(24)
         keyentry.set(key)
 
@@ -376,7 +376,7 @@ class InstallInterface:
 
         if ic.allowinstkeyskip:
             skipradio = radio.add(_("Skip entering %(instkey)s") %
-                                  {"instkey": keyname}, "skip", 0)
+                                  {"instkey": keyname}, "skip", int(ic.skipkey))
             g.add(skipradio, 0, 2)
 
         bb = ButtonBar(self.screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])

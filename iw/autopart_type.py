@@ -269,6 +269,18 @@ class PartitionTypeWindow(InstallWindow):
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
+        active = self.combo.get_active_iter()
+        val = self.combo.get_model().get_value(active, 1)
+
+        # -1 is the combo box choice for 'create custom layout'
+        if val == -1:
+            # make sure reviewButton is active and not sensitive
+            if self.prevrev == None:
+               self.prevrev = self.xml.get_widget("reviewButton").get_active()
+
+            self.xml.get_widget("reviewButton").set_active(True)
+            self.xml.get_widget("reviewButton").set_sensitive(False)
+
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
         self.xml.signal_autoconnect(sigs)

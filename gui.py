@@ -607,10 +607,15 @@ class InstallKeyWindow:
         self.skipradio = keyxml.get_widget("skipRadio")
         self.rc = 0
 
+        if anaconda.id.instClass.skipkey:
+            self.skipradio.set_active(True)
+
         addFrame(self.win, title=keyName)        
 
     def run(self):
         self.win.show()
+        if self.keyradio.get_active():
+            self.entry.grab_focus()
         self.rc = self.win.run()
         return self.rc
 

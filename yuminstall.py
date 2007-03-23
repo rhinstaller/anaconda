@@ -1024,7 +1024,7 @@ class YumBackend(AnacondaBackend):
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen-devel")
-
+                    self.selectPackage("kernel-xen-devel.%s" % (kxen.arch,))
 
         if not foundkernel and flags.cmdline.has_key("xen0"):
             try:

@@ -1,3 +1,22 @@
+2007-03-23  Dave Lehman  <dlehman@redhat.com>
+
+	* gui.py (InstallKeyWindow): populate fields appropriately and grab
+	focus for key entry if needed (#223831)
+
+	* text.py (getInstallKey): ditto (except for the focus part)
+
+	* instdata.py (writeKS): make sure regkey settings are propagated to
+	anaconda-ks.cfg (#221450)
+
+	* yuminstall.py (selectBestKernel): really select kernel-xen-devel
+	when we say we're going to (#226784)
+
+	* installclasses/rhel.py (InstallClass): fix a little typo in 
+	InstallClass.skipkeytext (#224491)
+
+	* iw/autopart_type.py (getScreen): make sure review checkbox is both
+	active and not sensitive if current selection is "custom" (#220951)
+
 2007-03-05  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/isys.c (doRaidStart): Check for START_ARRAY macro.

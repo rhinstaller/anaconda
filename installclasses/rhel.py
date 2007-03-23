@@ -59,7 +59,7 @@ class InstallClass(BaseInstallClass):
                     "* It may result in an unsupported/uncertified "
                     "installation of Red Hat Enterprise Linux.\n"
                     "* You will not get software and security updates "
-                    "for packages not included in your subscription.")
+                    "for packages included in your subscription.")
  
 
     def setInstallData(self, anaconda):
