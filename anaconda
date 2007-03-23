@@ -354,21 +354,8 @@ def setupLoggingFromOpts(opts):
             logger.addSysLogHandler(log, opts.syslog)
 
 def getInstClass():
-    from installclass import DefaultInstall, availableClasses
-    retval = DefaultInstall(flags.expert)
-
-    allavail = availableClasses(showHidden = 1)
-    avail = availableClasses(showHidden = 0)
-    if len(avail) == 1:
-        (cname, cobject, clogo) = avail[0]
-        log.info("%s is only installclass, using it" %(cname,))
-        retval = cobject(flags.expert)
-    elif len(allavail) == 1:
-        (cname, cobject, clogo) = allavail[0]
-        log.info("%s is only installclass, using it" %(cname,))
-        retval = cobject(flags.expert)
-
-    return retval
+    from installclass import DefaultInstall
+    return DefaultInstall(flags.expert)
 
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it

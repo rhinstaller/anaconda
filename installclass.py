@@ -566,15 +566,24 @@ def getBaseInstallClass():
     if len(avail) == 1:
         (cname, cobject, clogo) = avail[0]
         log.info("using only installclass %s" %(cname,))
-        return cobject
     elif len(allavail) == 1:
         (cname, cobject, clogo) = allavail[0]
         log.info("using only installclass %s" %(cname,))
-        return cobject
+
+    # Use the highest priority install class if more than one found.
+    elif len(avail) > 1:
+        (cname, cobject, clogo) = avail.pop()
+        log.info('%s is the highest priority installclass, using it' % cname)
+    elif len(allavail) > 1:
+        (cname, cobject, clogo) = allavail.pop()
+        log.info('%s is the highest priority installclass, using it' % cname)
+
+    # Default to the base installclass if nothing else is found.
     else:
         cobject = BaseInstallClass
         log.info("using baseinstallclass as base")
-        return BaseInstallClass
+
+    return cobject
 
 baseclass = getBaseInstallClass()
 

@@ -1,5 +1,8 @@
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda (getInstClass): Don't duplicate code (Elliot Peele) 
+	* installclass.py (getBaseInstallClass): Likewise.
+
 	* scripts/upd-instroot (KEEPFILE): zlib is moving to /lib
 
 2007-03-22  Jeremy Katz  <katzj@redhat.com>
