@@ -478,7 +478,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameManual = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox.pack_start(self.hostnameManual, False, False)
 	self.hostnameEntry = gtk.Entry()
-	self.hostnameEntry.set_width_chars(41)
+	self.hostnameEntry.set_width_chars(32)
 	tmphbox.pack_start(self.hostnameEntry, False, False)
 	tmphbox.pack_start(gtk.Label(_('(e.g., host.domain.com)')), False, False)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
