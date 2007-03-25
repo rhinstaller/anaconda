@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-02-10 18:05-0000\n"
+"PO-Revision-Date: 2007-03-25 22:58-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -193,13 +193,12 @@ msgstr ""
 "sa ove particije."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Pokretačka particija se ne nalazi dovoljno rano na disku.  OpenFirmware neće "
-"moći da pokrene ovu instalaciju."
+"Pokretačka particija se mora cela nalaziti u prvih 4GB diska.  OpenFirmware "
+"neće moći da pokrene ovu instalaciju."
 
 #: ../autopart.py:1038
 #, python-format
@@ -349,7 +348,7 @@ msgstr ""
 "Pritisnite „U redu“ da bi izabrali drugu opciju podele diska."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -362,8 +361,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Ovo se može desiti kada ne postoji dovoljno prostora za instalaciju na Vašem "
-"čvrstom disku.%s"
+"Ovo se može desiti kada ne postoji dovoljno prostora za instalaciju na "
+"čvrstom disku. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -675,7 +674,7 @@ msgstr ""
 "molim ugasite Vaš sistem umesto da ga uspavljujete."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -689,9 +688,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"u Vašoj /etc/fstab datoteci se trenutno koristi kao particija za softverski "
-"prekid, što znači da se Vaš sistem uspavljuje. Ako vršite novu instalaciju, "
-"uverite se da je instalater podešen da formatira sve svap particije."
+"u /etc/fstab datoteci se trenutno koristi kao particija za softverski "
+"prekid, što znači da se sistem uspavljuje. Ako vršite novu instalaciju, "
+"potvrdite da je instalater podešen za formatiranje svih svap particija."
 
 #: ../fsset.py:1530
 msgid ""
@@ -982,9 +981,8 @@ msgid "Cancel"
 msgstr "Otkaži"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Način instalacije"
+msgstr "Instalacioni ključ"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1099,7 +1097,7 @@ msgstr "Po_kušaj ponovo"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Ne mogu da montiram ISO izvor"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1109,6 +1107,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"Došlo je do greške pri montiranju izvornog uređaja %s.  Ovo se može dogoditi "
+"ako su ISO otisci smešteni na naprednim skladišnim uređajima kao što su LVM "
+"ili RAID, ili ako postoji problem sa montiranjem particije.  Pritisnite "
+"„Pokreni ponovo“ za prekid instalacije."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1315,9 +1317,8 @@ msgid "Exit installer"
 msgstr "Izlaz iz instalatera"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Prebacujem odraz instalacije na čvrsti disk..."
+msgstr "Prebacujem živi odraz na čvrsti disk."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1365,19 +1366,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "„%s“ nije ispravna IP adresa."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Neispravan predmetak"
+msgstr "Neispravan ključ"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Vrednost koju ste uneli nije valjan broj."
+msgstr "Ključ koji ste uneli nije ispravan."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Preskoči"
+msgstr "Pres_koči"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1616,7 +1614,7 @@ msgstr ""
 "Odabrali ste da koristite već postojeću particiju za ovu instalaciju bez "
 "njenog formatiranja. Preporučujemo da formatirate ovu particiju kako bi "
 "osigurali da datoteke od instalacije prethodnog operativnog sistema ne bi "
-"izazivale probleme sa ovom instalacijom Linux-a. Međutim, ako ova particija "
+"izazivale probleme sa ovom instalacijom Linuxa. Međutim, ako ova particija "
 "sadrži datoteke koje želite da zadržite, kao lične direktorijume, onda "
 "nastavite bez formatiranja ove particije."
 
@@ -1838,7 +1836,7 @@ msgstr ""
 "Želite li da iznova formatirate ovaj DASD koristeći CDL format?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1850,7 +1848,7 @@ msgstr ""
 "s instalaciju, on mora biti iznova inicijalizovan, izazivajući time gubitak "
 "SVIH PODATAKA na ovom disku.\n"
 "\n"
-"Želite li da formatirate ovaj disk?"
+"Želite li da ponovo inicijalizujete ovaj disk?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1858,7 +1856,7 @@ msgstr "_Zanemari disk"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "Pono_vo inicijalizuj disk"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -2246,14 +2244,14 @@ msgid "No help is available for this step of the install."
 msgstr "Nikakva pomoć nije dostupna za ovaj korak u instalaciji."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Molim unesite ime disk grupe."
+msgstr "Molim unesite %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Preskoči unos %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2600,14 +2598,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Pripremam transakciju sa izvora instalacije..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Instaliram %s\n"
+msgstr "<b>Instaliram %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s od %s paketa završeno"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
@@ -2690,7 +2688,7 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
-"Ne mogu da pročitam podtake o grupama iz riznica.  Ovo je problem kod "
+"Ne mogu da pročitam podatke o grupama iz riznica.  Ovo je problem kod "
 "pravljenja Vašeg stabla instalacije."
 
 #: ../yuminstall.py:769
@@ -2766,7 +2764,7 @@ msgstr "Niste naveli FCP LUN ili broj nije ispravan."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Uključena su velika slova.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2794,12 +2792,9 @@ msgid "The root password must be at least six characters long."
 msgstr "Root lozinka mora biti duga najmanje šest znakova."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Zahtevana lozinka sadrži znakove koji nisu ascii i nisu dozvoljeni za "
-"upotrebu u lozinci."
+msgstr "Zahtevana lozinka sadrži znakove koji nisu ASCII, i nisu dozvoljeni."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2822,38 +2817,32 @@ msgid "Invalid Initiator Name"
 msgstr "Neispravno ime začetnika:"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Morate navesti ime začetnika sa dužinom koja nije nula."
+msgstr "Morate navesti ime začetnika."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Greška sa podacima"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
-"Ukloni sve particije na izabranim diskovima i napravi podrazumevani nacrt."
+"Ukloni sve particije na izabranim diskovima i napravi podrazumevani nacrt"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Ukloni sve Linux particije na izabranim diskovima i napravi podrazumevani "
-"nacrt."
+"Ukloni Linux particije na izabranim diskovima i napravi podrazumevani nacrt"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Iskoristi slobodan prostor na izabranim diskovima i napravi podrazumevani "
-"nacrt."
+"nacrt"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Napravi prilagođeni nacrt."
+msgstr "Napravi prilagođeni nacrt"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2902,15 +2891,14 @@ msgid "Passwords do not match"
 msgstr "Lozinke nisu usaglašene."
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Vaša lozinka za pokretački program je kraća od šest znakova.  Preporučujemo "
-"dužu lozinku za pokretački program.\n"
+"Lozinka za pokretački program je kraća od šest znakova.  Preporučujemo dužu "
+"lozinku za pokretački program.\n"
 "\n"
 "Da li hoćete da nastavite sa ovom lozinkom?"
 
@@ -2919,15 +2907,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Napredno podešavanje pokretačkog programa"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Nametanje upotrebe LBA32 za Vaš pokretački program, a kada nije podržan u "
-"BIOS-u, može prouzrokovati da Vaša mašina ne može biti pokrenuta.\n"
+"Ako LBA32 nije podržan u BIOS-u sistema, nametanje njegove upotrebe može "
+"sprečiti pokretanje mašine.\n"
 "\n"
 "Želite li da nastavite sa nametanjem LBA32 režima?"
 
@@ -3055,14 +3042,12 @@ msgid "Congratulations"
 msgstr "Čestitamo"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Pritisnite dugme „Pokreni ponovo“ za ponovno pokretanje sistema.\n"
 "\n"
-"\n"
-"Pritisnite „U redu“ za ponovno pokretanje Vašeg sistema."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3109,13 +3094,13 @@ msgid "_Upgrade an existing installation"
 msgstr "Nado_gradi postojeću instalaciju"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Odaberite ovu opciju ako želite da nadogradite Vaš postojeći %s sistem.  Ova "
-"opcija će očuvati postojeće podatke na Vašim diskovima."
+"Odaberite ovu opciju ako želite da nadogradite postojeći %s sistem.  Ova "
+"opcija će očuvati postojeće podatke na diskovima."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3156,7 +3141,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Potvrdi promenu fizičkog opsega"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3301,9 +3285,9 @@ msgid "Mount point in use"
 msgstr "Tačka montiranja u upotrebi"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "„%s“ tačka montiranja je u upotrebi, molim odaberite neku drugu."
+msgstr "„%s“ tačka montiranja je u upotrebi. Molim odaberite neku drugu."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3319,7 +3303,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Ime „%s“ logičkog diska je već u upotrebi. Molim odaberite neko drugo."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3362,7 +3346,6 @@ msgid "No free space"
 msgstr "Nema slobodnog prostora"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3373,7 +3356,7 @@ msgstr ""
 "postojećih logičkih diskova."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Sigurno želite da obrišete „%s“ logički disk?"
 
@@ -3465,7 +3448,7 @@ msgstr "Veličina (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
-msgstr "Dod_aj"
+msgstr "D_odaj"
 
 #: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
@@ -3730,7 +3713,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 predmetak mora biti između 0 i 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3738,11 +3720,10 @@ msgid ""
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Možete da podesite pokretački program za pokretanje drugih operativnih "
-"sistema. To će Vam dopustiti da sa liste izaberete operativni sistem za "
-"pokretanje. Pritisnite „Dodaj“ za dodavanje dodatnih operativnih sistema "
-"koji nisu samostalno otkriveni. Za promenu operativnog sistema koji se "
-"podrazumevano pokreće, izaberite „Podrazumevan“ pored željenog operativnog "
-"sistema."
+"sistema biranjem sa spiska. Pritisnite „Dodaj“ za dodavanje operativnih "
+"sistema koji nisu samostalno otkriveni. Za promenu operativnog sistema koji "
+"se podrazumevano pokreće, izaberite „Podrazumevan“ pored željenog "
+"operativnog sistema."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3757,7 +3738,6 @@ msgid "Image"
 msgstr "Odraz"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3913,12 +3893,13 @@ msgstr "Podela diska"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"Nacrt podele diska koji ste zatražili je izazvao sledeće presudne greške."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
-msgstr "Ove greške moraju biti ispravljene pre nastavka Vaše %s instalacije."
+msgstr "Morate ispraviti ove greške pre nego što nastavite %s instalaciju."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3926,7 +3907,7 @@ msgstr "Greške pri podeli diska"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Nacrt podele diska koji ste zatražili je proizveo sledeća upozorenja."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4036,7 +4017,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4122,13 +4102,13 @@ msgid "Check for _bad blocks?"
 msgstr "Da proverim za _loše blokove?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Particije vrste „%s“ moraju da budu ograničene na jedan disk.  Ovo se "
-"postiže izborom diska u listi „Dozvoljeni diskovi“."
+"postiže izborom diska u kontrolnom spisku „Dozvoljeni diskovi“."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4209,7 +4189,6 @@ msgid "Source Drive Error"
 msgstr "Greška na izvornom disku"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4219,11 +4198,10 @@ msgstr ""
 "Na izabranom izvornom disku ima particija koje nisu vrste „softverski "
 "RAID“.\n"
 "\n"
-"Ove particije će morati da budu uklonjene pre nego što ovaj disk može biti "
-"kloniran."
+"Morate ukloniti ove particije pre nego što ovaj disk može da se klonira."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4233,11 +4211,10 @@ msgid ""
 msgstr ""
 "Izabrani izvorni disk ima particije koje nisu ograničene na disk /dev/%s.\n"
 "\n"
-"Ove particije će morati da budu uklonjene ili ograničene na ovaj disk pre "
-"nego što ovaj disk može da se klonira. "
+"Morate ukloniti ove particije ili ograničiti na ovaj disk pre nego što ovaj "
+"disk može da se klonira. "
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4247,8 +4224,7 @@ msgstr ""
 "Izabrani izvorni disk ima softverske RAID particije koje su članovi aktivnog "
 "softverskog RAID uređaja.\n"
 "\n"
-"Ove particije će morati da budu uklonjene pre nego što ovaj disk može da se "
-"klonira."
+"Morate ukloniti ove particije pre nego što ovaj disk može da se klonira."
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4265,7 +4241,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Izvorni disk /dev/%s ne može da bude takođe izabran kao i ciljni disk."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4279,7 +4255,7 @@ msgstr ""
 "\n"
 "„%s“\n"
 "\n"
-"Ova particija mora biti uklonjena pre nego što ovaj disk može biti ciljni."
+"Morate ukloniti ove particije pre nego što ovaj disk može postati ciljni."
 
 #: ../iw/raid_dialog_gui.py:619
 msgid "Please select a source drive."
@@ -4318,7 +4294,6 @@ msgstr ""
 "Došlo je do greške pri brisanju ciljnog diska.  Kloniranje nije uspelo."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4335,8 +4310,8 @@ msgid ""
 msgstr ""
 "Alat za kloniranje diskova\n"
 "\n"
-"Ovaj alat Vam dopušta da primetno umanjite količinu napora potrebnog za "
-"postavljanje RAID nizova.  Ideja je da se uzme izvorni disk koji je već "
+"Ovaj alat dopušta da primetno umanjite količinu napora potrebnog za "
+"postavljanje RAID nizova.  Ovaj alat koristi izvorni disk koji je već "
 "pripremljen sa željenim rasporedom particija, i taj raspored klonira na "
 "diskove slične veličine.  Nakon toga može da se napravi RAID uređaj.\n"
 "\n"
@@ -4386,7 +4361,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4399,9 +4374,8 @@ msgid "Invalid Repository Name"
 msgstr "Neispravno ime riznice"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Morate navesti ime riznice sa dužinom koja nije nula."
+msgstr "Morate navesti ime riznice."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4458,26 +4432,24 @@ msgid "_Create new boot loader configuration"
 msgstr "Napravi no_va podešavanja pokretačkog programa"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Ovo Vam dopušta da napravite novo podešavanje pokretačkog programa.  Ako "
-"želite da zamenite pokretačke programe, izaberite ovo."
+"Ova opcija pravi novo podešavanje pokretačkog programa.  Ako želite da "
+"zamenite pokretačke programe, izaberite ovo."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
 msgstr "Pres_koči ažuriranje pokretačkog programa"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Ovo neće napraviti bilo kakve promene podešavanju pokretačkog programa.  Ako "
-"koristite neki pokretački program sa strane, izaberite ovo."
+"Ova opcija neće napraviti bilo kakve promene u podešavanju pokretačkog "
+"programa.  Ako koristite neki pokretački program sa strane, izaberite ovo."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4488,7 +4460,7 @@ msgid "Migrate File Systems"
 msgstr "Preseli sisteme datoteka"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4497,10 +4469,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Ovo %s izdanje podržava ext3 sistem datoteka sa dnevnikom.  On ima nekoliko "
+"Ovo %s izdanje podržava ext3 sistem datoteka sa dnevnikom, koji ima nekoliko "
 "prednosti nad ext2 sistemom datoteka tradicionalno isporučivanim uz %s.  "
-"Moguće je preseliti ext2 formatirane particije na ext3 bez gubitka "
-"podataka.\n"
+"Instalacioni program može da preseli ext2 formatirane particije na ext3 bez "
+"gubitka podataka.\n"
 "\n"
 "Koje od ovih particija biste želeli da preselite?"
 
@@ -4509,17 +4481,17 @@ msgid "Upgrade Swap Partition"
 msgstr "Nadogradi svap particiju"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Jezgru 2.4 verzije je potrebno značajno više svap prostora nego starijim "
-"jezgrima, barem toliko da svap prostor bude duplo veći od RAM-a u sistemu.  "
-"Trenutno imate podešeno %dMB svap prostora, ali sada možete da napravite "
-"dodatni svap prostor na jednom od Vaših sistema datoteka."
+"Skorijim jezgrima (2.4 i novijim) je potrebno značajno više svap prostora "
+"nego starijim jezgrima, barem toliko da svap prostor bude duplo veći od RAM-"
+"a u sistemu.  Trenutno imate podešeno %dMB svap prostora, ali sada možete da "
+"napravite dodatni svap prostor na jednom od sistema datoteka."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4549,13 +4521,13 @@ msgid "Free Space (MB)"
 msgstr "Slobodan prostor (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Preporučujemo da Vaša svap datoteka bude najmanje %d MB.  Molim unesite "
-"veličinu za svap datoteku."
+"Preporučujemo da svap datoteka bude najmanje %d MB.  Molim unesite veličinu "
+"za svap datoteku:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4566,13 +4538,12 @@ msgid "I _don't want to create a swap file"
 msgstr "_Ne želim da napravim svap datoteku"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Jako je preporučljivo da napravite svap datoteku.  Neizvršavanje toga može "
-"da izazove nenormalno odustajanje instalatera. Sigurno želite da nastavite?"
+"Jako je preporučljivo da napravite svap datoteku. Neizvršavanje toga može da "
+"izazove nenormalno odustajanje instalatera. Sigurno želite da nastavite?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4647,7 +4618,6 @@ msgid "Skip Boot Loader"
 msgstr "Preskoči pokretački program"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4655,15 +4625,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Izabrali ste da ne instalirate pokretački program. Jako je preporučljivo da "
-"instalirate pokretački program, osim ako nemate napredne potrebe.  "
-"Pokretački program je skoro uvek potreban da bi ponovo pokrenuo Vaš Linux "
-"sistem pravo sa čvrstog diska.\n"
+"Izabrali ste da ne instalirate pokretački program, što se ne preporučuje "
+"osim ako nemate napredne potrebe. Pokretački program je skoro uvek potreban "
+"da bi ponovo pokrenuo sistem u Linuxu pravo sa čvrstog diska.\n"
 "\n"
-"Želite li da preskočite instalaciju pokretačkog programa?"
+"Sigurno želite da preskočite instalaciju pokretačkog programa?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4671,7 +4639,7 @@ msgid ""
 msgstr ""
 "Neki sistemi moraju da proslede specijalne opcije jezgru pri pokretanju da "
 "bi sistem pravilno radio. Ako su i Vama potrebne neke od tih opcija, unesite "
-"ih sada. Ako Vam nijedna nije potrebna, ili niste sigurni, ostavite ovo "
+"ih sada. Ako nijedna opcija nije potrebna, ili niste sigurni, ostavite ovo "
 "polje prazno."
 
 #: ../textw/bootloader_text.py:101
@@ -4712,15 +4680,15 @@ msgid "Edit"
 msgstr "Uredi"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
 "Pokretački program koji koristi %s može da pokrene i druge operativne "
-"sisteme. Morate mi reći koje biste particije želeli da pokrenete i koje "
-"oznake želite da koristite za svaku od njih."
+"sisteme. Recite koje biste particije želeli da pokrenete i koje oznake "
+"želite da koristite za svaku od njih."
 
 #: ../textw/bootloader_text.py:290
 msgid ""
@@ -4730,7 +4698,6 @@ msgstr ""
 "ekran"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
@@ -4847,9 +4814,8 @@ msgstr ""
 "sistema. Zadržite ovu datoteku jer može da Vam zatreba kasnije."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Molim izaberite grupe paketa koje želite da budu instalirani."
+msgstr "Molim izaberite grupe paketa koje želite da instalirate."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4899,13 +4865,13 @@ msgstr ""
 "izazove probleme kasnije."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 predmetak mora biti između 0 i 32."
+msgstr "IPv%d predmetak mora biti između 0 i %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Neophodan je ceo broj za predmetak"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4913,6 +4879,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Morate uneti ispravan ceo broj za %s.  Za IPv4, vrednost može biti između 0 "
+"i 32.  Za IPv6 može biti između 0 i 128."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4955,76 +4923,69 @@ msgstr "Podešavanje mreže za %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "IP adresa od-tačke-do-tačke"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:5
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Dinamičko IP podešavanje (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Ručno podešavanje"
+msgstr "Ručno podešavanje adrese"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Podešavanje mreže za %s"
+msgstr "IPv4 podešavanje za %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 adresa:"
+msgstr "IPv4 adresa"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/mrežna maska"
+msgstr "IPv4 mrežna maska"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Predmetak (mrežna maska)"
+msgstr "IPv4 predmetak (mrežna maska)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr "Samostalno otkrivanje komišija"
+msgstr "Samostalno otkrivanje suseda"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Dinamičko IP podešavanje (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Podešavanje mreže za %s"
+msgstr "IPv6 podešavanje za %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 adresa:"
+msgstr "IPv6 adresa"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/predmetak"
+msgstr "IPv6 predmetak"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Uključi mrežni uređaj"
+msgstr "Podesi mrežnu spregu"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Želite li da pokrenete mrežne sprege na ovom sistemu?"
+msgstr "Želite li da podesite mrežnu spregu %s na ovom sistemu?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NEPODEŠENO"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5033,38 +4994,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Trenutna podešavanja za svaku spregu su ispisana pored imena uređaja.  "
+"Nepodešene sprege su prikazane kao NEPODEŠENO.  Da bi podesili spregu, "
+"označite je i izaberite „Uredi“.  Kada završite, pritisnite „U redu“ za "
+"nastavak."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktiviraj pri pokretanju sistema"
+msgstr "Aktivno po pokretanju sistema"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktiviraj pri pokretanju sistema"
+msgstr "Neaktivno po pokretanju sistema"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5083,19 +5046,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Razne postavke za mrežu"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
-#, fuzzy
 msgid "gateway"
-msgstr "Mrežni prolaz"
+msgstr "mrežni prolaz"
 
 #: ../textw/network_text.py:704 ../textw/network_text.py:707
-#, fuzzy
 msgid "primary DNS"
-msgstr "Osnovni DNS"
+msgstr "osnovni DNS"
 
 #: ../textw/network_text.py:716
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Sporedni DNS"
+msgstr "sporedni DNS"
 
 #: ../textw/network_text.py:750
 msgid "automatically via DHCP"
@@ -5110,16 +5070,15 @@ msgid "Hostname Configuration"
 msgstr "Podešavanje imena domaćina"
 
 #: ../textw/network_text.py:775
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Ako je Vaš sistem deo veće mreže gde imena domaćina dodeljuje DHCP, "
+"Ako je ovaj sistem deo veće mreže gde imena domaćina dodeljuje DHCP, "
 "izaberite „samostalno kroz DHCP“. U suprotnom izaberite „ručno“ i unesite "
-"ime domaćina za Vaš sistem. Ako ne unesete, Vaš sistem će biti poznat kao "
+"ime domaćina za sistem. Ako ne unesete, ovaj sistem će biti poznat kao "
 "„localhost“."
 
 #: ../textw/network_text.py:801 ../textw/network_text.py:807
@@ -5274,7 +5233,6 @@ msgid "Not Supported"
 msgstr "Nije podržano"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "LVM disk grupe je moguće urediti samo u grafičkom instalateru."
 
@@ -5315,21 +5273,19 @@ msgid "Too many spares"
 msgstr "Previše rezervi"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Najveći broj rezervi sa RAID0 nizom je 0."
+msgstr "Ne možete koristiti rezerve sa RAID0 nizom."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Nema disk grupa"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "Nema disk grupa u kojima se da napraviti logički disk"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5385,9 +5341,8 @@ msgid "No Root Partition"
 msgstr "Nema korene particije"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS metod instalacije zahteva IPv4 podršku."
+msgstr "Instalacija zahteva / particiju."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5455,14 +5410,12 @@ msgstr ""
 "začetnika koje ste podesili za Vašeg domaćina."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>_Ciljna IP adresa:</b>"
+msgstr "Ciljna IP adresa"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Ime iSCSI začetnika:</b>"
+msgstr "Ime iSCSI začetnika"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5495,9 +5448,8 @@ msgid "Customize software selection"
 msgstr "Prilagodi izbor softvera"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "U kojoj ste vremenskoj zoni?"
+msgstr "U kojoj se vremenskoj zoni nalazite?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5549,25 +5501,22 @@ msgid "System to Upgrade"
 msgstr "Sistem za nadogradnju"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"Jedna ili više postojećih instalacija Linux-a je pronađena na Vašem "
-"sistemu.\n"
+"Izgleda da ima jedna ili više postojećih Linux instalacija na sistemu.\n"
 "\n"
-"Molim odaberite jedan za nadogradnju, ili izaberite „Preinstaliraj sistem“ "
-"za svežu instalaciju Vašeg sistema."
+"Molim odaberite jednu za nadogradnju, ili izaberite „Preinstaliraj sistem“ "
+"za svežu instalaciju sistema."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
 msgstr "Root lozinka"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5575,7 +5524,7 @@ msgid ""
 msgstr ""
 "Izaberite root lozinku. Morate je otkucati dvaput da biste se uverili da je "
 "znate i utvrdili da nema grešaka u kucanju. Upamtite da je root lozinka "
-"presudan deo sigurnosti sistema!"
+"presudan deo bezbednosti sistema!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5591,15 +5540,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"Pokretački program z/IPL će biti instaliran na Vaš sistem po završetku "
+"Pokretački program z/IPL će biti instaliran na sistem po završetku "
 "instalacije. Sada možete uneti bilo koje dodatne parametre za jezgro i "
-"chandev koje Vaša mašina ili Vaša postavka može da zahteva."
+"chandev koje Vaša mašina ili postavka zahtevaju."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5643,35 +5591,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Kancelarija"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedija"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Čestitamo"
+msgstr "Virtualizacija"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Učvoravanje"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Učvoravanje skladištenja"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Instalacija počinje"
+msgstr "Broj instalacije"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"Molim unesite instalacioni broj za instalaciju punog skupa podržanih paketa "
+"koji dolaze sa Vašom pretplatom."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5686,6 +5634,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Ako ne možete da nađete instalacioni broj, pogledajte http://www.redhat.com/"
+"apps/support/in.html.\n"
+"\n"
+"Ako preskočite:\n"
+"* Možda nećete imati pristup punom skupu paketa koji dolaze sa Vašom "
+"pretplatom.\n"
+"* Ishod može biti nepodržana/neoverena instalacija Red Hat Enterprise "
+"Linuxa.\n"
+"* Nećete dobiti softverska i bezbednosna ažuriranja paketa za koje niste "
+"pretplaćeni."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6072,9 +6030,8 @@ msgid "Hard drive"
 msgstr "Čvrsti disk"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s direktorijum:"
+msgstr "NFS direktorijum"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6305,12 +6262,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Loš argument za komandu uređajske kickstart metode %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Sledeći neispravan argument je naveden za komandu kickstart upravljačke "
-"diskete: %s:%s"
+"I vrsta modula i ime moraju biti navedeni za kickstart naredbu uređaja."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6649,9 +6604,8 @@ msgid "Disable _dmraid device"
 msgstr "Isključi _dmraid uređaj"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Čvrsti disk"
+msgstr "D_odaj disk"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6705,9 +6659,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Preg_ledaj i promeni nacrt particija"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Koji jezik biste želeli da koristite tokom procesa instalacije?"
+msgstr "Sa kog diska biste želeli da pokrenete ovu instalaciju?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6722,9 +6675,8 @@ msgid "Exception Info"
 msgstr "Informacije o odstupanju"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "Sačuvaj na udaljenom domaćinu"
+msgstr "Saču_vaj na udaljenom domaćinu"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6732,17 +6684,17 @@ msgstr "De_talji odstupanja"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "Sa_čuvaj na disketu"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Molim unesite ime disk grupe."
+msgstr "Molim unesite%(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6761,9 +6713,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Ime iSCSI začetnika:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Dodaj _iSCSI cilj"
+msgstr "D_odaj cilj"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7100,648 +7051,3 @@ msgstr "velški"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Uklonite ma koje medijume korišćene tokom procesa instalacije i "
-#~ "pritisnite dugme „Pokreni ponovo“ za ponovno pokretanje Vašeg sistema.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Uklonite ma koje medijume korišćene tokom procesa instalacije i "
-#~ "pritisnite <Enter> za ponovno pokretanje Vašeg sistema.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> za ponovno pokretanje"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS odraz"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "Jezgru 2.4 verzije je potrebno značajno više svap prostora nego starijim "
-#~ "jezgrima, barem toliko da svap prostor bude duplo veći od RAM-a u "
-#~ "sistemu. Trenutno imate podešeno %dMB svap prostora, ali sada možete da "
-#~ "napravite dodatni svap prostor na jednom od Vaših sistema datoteka."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "Urađeno [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "Instaliram %s-%s-%s... "
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Molim unesite registracioni ključ za Vašu %s verziju."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Unesite registracioni ključ"
-
-#~ msgid "Key:"
-#~ msgstr "Ključ:"
-
-#~ msgid "_Format drive"
-#~ msgstr "_Formatiraj disk"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr ""
-#~ "Postoje sledeće presudne greške sa Vašim zahtevanim nacrtom podela diska."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr "Postoje sledeća upozorenja za Vaš zahtevani nacrt podele diska."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "Preostalo vreme: %s minuta"
-
-#~ msgid "Downloading %s"
-#~ msgstr "Preuzimam %s"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "Instaliram %s-%s-%s.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "Paket"
-
-#~ msgid "Summary"
-#~ msgstr "Sažetak"
-
-#~ msgid "Status: "
-#~ msgstr "Status: "
-
-#~ msgid "Description: %s"
-#~ msgstr "Opis: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Adresa hardvera: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "Koristi dinamičko IP podešavanje (DHCP)"
-
-#~ msgid "Address"
-#~ msgstr "Adresa"
-
-#~ msgid "IPv4:"
-#~ msgstr "IPv4:"
-
-#~ msgid "IPv6:"
-#~ msgstr "IPv6:"
-
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "Neispravan ili nedostaje IPv6 predmetak (mora biti između 0 i 128)."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "Moram imati jednu / particiju za instalaciju."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "Preuzimam - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " Ime    : "
-
-#~ msgid " Size   : "
-#~ msgstr "Veličina: "
-
-#~ msgid " Summary: "
-#~ msgstr " Pregled: "
-
-#~ msgid "    Packages"
-#~ msgstr "      Paketa"
-
-#~ msgid "      Bytes"
-#~ msgstr "    Bajtova"
-
-#~ msgid "        Time"
-#~ msgstr "       Vreme"
-
-#~ msgid "Total    :"
-#~ msgstr "Ukupno   :"
-
-#~ msgid "Completed:   "
-#~ msgstr "Završeno:    "
-
-#~ msgid "Remaining:  "
-#~ msgstr "Ostalo:     "
-
-#~ msgid "Acre"
-#~ msgstr "Akra"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "Alagoas, Seržipe"
-
-#~ msgid "Alaska Time"
-#~ msgstr "Aljaško vreme"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "Aljaško vreme - drška tiganja Aljaske"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "Aljaško vreme - vrat drške tiganja Aljaske"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "Aljaško vreme - zapadna Aljaska"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "Aleutska ostrva"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "Amapa, I Para"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "Amundsen-Skot stanica, Južni pol"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aktobe"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "Atlatnsko standardno vreme - Kvebek - niža Severna obala"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "Atlantsko vreme - Labrador - većina mesta"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "Atlantsko vreme - Nju Branzvik"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "Atlantsko vreme - Nova Škotska (većina mesta), OPE"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr ""
-#~ "Atlantsko vreme - Nova Škotska - mesta koja nisu pratila DST 1966-1971"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "Atlantska ostrva"
-
-#~ msgid "Azores"
-#~ msgstr "Azorska ostrva"
-
-#~ msgid "Bahia"
-#~ msgstr "Baija"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "Buenos Ajres (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "Kanarska ostrva"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "Kejsi stanica, Poluostrvo Bejli"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "Katamarka (CT), Čubut (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "Centralno standardno vreme - Saskačevan - srednji zapad"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "Centralno standardno vreme - Saskačevan - većina mesta"
-
-#~ msgid "Central Time"
-#~ msgstr "Centralno vreme"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "Centralno vreme - Kampeće, Jukatan"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "Centralno vreme - Koauila, Durango, Nuevo Leon, Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "Centralno vreme - Indijana - Okruzi Davis, Duboa, Noks, Martin, Peri i "
-#~ "Pulaski"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "Centralno vreme - Indijana - Okrug Pajk"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "Centralno vreme - Manitoba i zapadni Ontario"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "Centralno vreme - Mičigen - Okruzi Dikinskon, Gogebik, Ajron i Menomini"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr ""
-#~ "Centralno vreme - Severna Dakota - Okrug Oliver (izuzev Mandan područja)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "Centralno vreme - Severna Dakota - Okrug Oliver"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "Centralno vreme - Kvintana Ru"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "Centralno vreme - Rejni River & Fort Frasis, Ontario"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "Centralno vreme - centralni Nunavut"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "Centralno vreme - većina mesta"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "Centralno vreme - zapadni Nunavut"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "Seuta i Melilja"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "Ostrva Čatam"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "Dejvis stanica, Vestfold Hils"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod, Suhbatar"
-
-#~ msgid "E Amazonas"
-#~ msgstr "I Amazonija"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "Uskršnje ostrvo i Sala i Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr ""
-#~ "Istočno standardno vreme - Atikokan, Ontario i Sautempton I, Nunavut"
-
-#~ msgid "Eastern Time"
-#~ msgstr "Istočno vreme"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "Istočno vreme - Indijana - Okrug Kroford"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "Istočno vreme - Indijana - Okrug Stark"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "Istočno vreme - Indijana - Okrug Svicerlend"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "Istočno vreme - Indijana - većina mesta"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "Istočno vreme - Kentaki - oblast Luivil"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "Istočno vreme - Kentaki - Okrug Bejn"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "Istočno vreme - Mičigen - većina mesta"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "Istočno vreme - Ontario i Kvebek - mesta koja nisu pratila DST 1967-1973"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "Istočno vreme - Ontario - većina mesta"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "Istočno vreme - Pangnirtung, Nunavut"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "Istočno vreme - Kvebek - većina mesta"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "Istočno vreme - Tander Bej, Ontario"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "Istočno vreme - istočni Nunavut"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "Ostrva Galapagos"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Ostrva Gambier"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "Ostrva Gilbert"
-
-#~ msgid "Hawaii"
-#~ msgstr "Havaji"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "Irijan Džaja i Moluci"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Majen"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "Java i Sumatra"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "Džonston atol"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "Huhoj (JY)"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "La Rioha (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "Linijska ostrva"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "Ostrvo Lorda Houa"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "Ostrva Madeira"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "Ostrva Markezas"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "Mato Groso"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "Mato Groso do Sul"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Moson stanica, Holm zaliv"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "Mekmurdo stanica, Ostrvo Ros"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "Mendoza (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "Ostrva Midvej"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "Moskva+00 - Kaspijsko more"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "Moskva+00 - zapadna Rusija"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "Moskva+01 - Samara, Udmurtija"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "Moskva+02 - Ural"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "Moskva+03 - Novosibirsk"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "Moskva+03 - zapadni Sibir"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "Moskva+04 - Reka Jenisej"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "Moskva+05 - Bajkalsko jezero"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "Moskva+06 - Reka Lena"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "Moskva+07 - Reka Amur"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "Moskva+07 - Ostrvo Sahalin"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "Moskva+08 - Magadan"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "Moskva+09 - Kamčatka"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "Moskva+10 - Beringovo more"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "Moskva-01 - Kaljiningrad"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "Planinsko standardno vreme - Arizona"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr ""
-#~ "Planinsko standardno vreme - Doson Krik i Fort Sent Džon, Britanska "
-#~ "Kolumbija"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "Planinsko standardno vreme - Sonora"
-
-#~ msgid "Mountain Time"
-#~ msgstr "Planinsko vreme"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "Planinsko vreme - Alberta, istočna Britanska Kolumbija i zapadni "
-#~ "Saskačevan"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "Planinsko vreme - Čivava"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "Planinsko vreme - Navaho"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "Planinsko vreme - J Baha, Najarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "Planinsko vreme - centralne Severozapadne teritorije"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "Planinsko vreme - južni Ajdaho i istočni Oregon"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "Planinsko vreme - zapadne Severozapadne teritorije"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "SI Brazil (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "Novi Južni Vels - Jankovina"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "Novi Južni Vels - većina mesta"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "Njufaundlendsko vreme, uključujući JI Labrador"
-
-#~ msgid "Northern Territory"
-#~ msgstr "Severna teritorija"
-
-#~ msgid "Pacific Time"
-#~ msgstr "Pacifičko vreme"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "Pacifičko vreme - severni Jukon"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "Pacifičko vreme - južni Jukon"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "Pacifičko vreme - zapadna Britanska Kolumbija"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Palmer stanica, Ostrvo Anvers"
-
-#~ msgid "Pernambuco"
-#~ msgstr "Pernambuko"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "Ostrva Feniks"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "Ponape (Ponpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "Kvinslend - Holiday Islands"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "Kvinslend - većina mesta"
-
-#~ msgid "Roraima"
-#~ msgstr "Roraima"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Rotera stanica, Ostrvo Adelejd"
-
-#~ msgid "Ruthenia"
-#~ msgstr "Rutenija"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "J i JI Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "Saba i Saravak"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "San Huan (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "Santa Kruz (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Skorzbisund / Itokoktokmit"
-
-#~ msgid "Society Islands"
-#~ msgstr "Društvena ostrva"
-
-#~ msgid "South Australia"
-#~ msgstr "Južna Australija"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Sjova stanica, I Ongul o."
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "Tasmanija - Ostrvo King"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "Tasmanija - većina mesta"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Tul / Pitufik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "Ognjena Zemlja (TF)"
-
-#~ msgid "Tocantins"
-#~ msgstr "Tokantins"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "Truk (Čuuk) i Jap"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "Tukuman (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "Viktorija"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "Vostok stanica, južni magnetni pol"
-
-#~ msgid "W Amazonas"
-#~ msgstr "Z Amazonija"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "Z Para, Rondonija"
-
-#~ msgid "Wake Island"
-#~ msgstr "Ostrvo Vejk"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "Zapadni Kazahstan"
-
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "Zapadna Australija - Jukla oblast"
-
-#~ msgid "Western Australia - most locations"
-#~ msgstr "Zapadna Australija - većina mesta"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporožje, I Lugansk"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "centralna Kina - Sečuan, Junan, Guangsi, Šansi, Guidžou, itd."
-
-#~ msgid "central Crimea"
-#~ msgstr "centralni Krim"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr "istočni i južni Borneo, Selebes, Bali, Nusa Tengara, zapadni Timor"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "istočna Kina - Peking, Guangdong, Šangaj, itd."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "istok Dem. Rep. Kongo"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "istočni Uzbekistan"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "istočna obala, severno od Skorzbisunda"
-
-#~ msgid "mainland"
-#~ msgstr "matično kopno"
-
-#~ msgid "most locations"
-#~ msgstr "većina mesta"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr "većina mesta (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "većina Tibeta i Sincianga"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "poluostrvska Malezija"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "zapadni i centralni Borneo"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "zapad Dem. Rep. Kongo"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "zapadni Tibet i Sinciang"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "zapadni Uzbekistan"
