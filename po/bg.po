@@ -1,47 +1,24 @@
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to Български
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
-# translation of bg.po to
 # Translation of anaconda to Bulgarian
 # This file is distributed under the same license as the anaconda package.
 # Contributed to Fedora Project by:
 # Yovko Lambrev <yovko@openintegra.com>, 2003.
 # Mladen Milev <mladen@openintegra.com>, 2003.
-# Николай Сърмаджиев,преносим <nikolayds@msn.com>, 2004.
 # Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>, 2004.
 # Nikolay Sarmadzhiev <nikolay@localhost.localdomain>, 2005.
 # Николай Сърмаджиев <nikolay@sarmadzhiev.com>, 2005.
+# Doncho N. Gunchev <gunchev@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: bg\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2005-05-04 15:24-0700\n"
-"Last-Translator: Николай Сърмаджиев <nikolay@sarmadzhiev.com>\n"
-"Language-Team: Български <en@li.org>\n"
+"PO-Revision-Date: 2007-03-26 00:58+0300\n"
+"Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
+"Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -50,8 +27,7 @@ msgstr "Неизвестна грешка"
 #: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
+msgstr "Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
 
 #: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
 #, c-format, python-format
@@ -66,7 +42,7 @@ msgstr ""
 
 #: ../anaconda:401
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Натиснете <enter> за обвивка(shell)"
 
 #: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
@@ -109,7 +85,7 @@ msgstr ""
 #: ../loader2/urlinstall.c:476 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
-msgstr "Добре"
+msgstr "Да"
 
 #: ../anaconda:423
 msgid ""
@@ -143,48 +119,53 @@ msgstr "Графичния инсталатор е недостъпен ...  С�
 
 #: ../anaconda:803
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Променливата DISPLAY липсва. Стартиране в текстови режим!"
 
 #: ../anaconda:864
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Непознат Url метод %s"
+msgstr "Непознат инсталационен метод"
 
 #: ../anaconda:865
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Опитвате се да инсталирате Линукс на машина, която не е поддържана от този "
-"пуск на %s."
+msgstr "Указали сте не поддържан от anaconda метод за инсталация."
 
 #: ../anaconda:867
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Непознат Url метод %s"
+msgstr "непознат метод за инсталация: %s"
 
 #: ../autopart.py:955
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Невъзможно е заделянето на цилиндър-базирани основни (primary) дялове"
+msgstr ""
+"Не могат да бъдат заделени цилиндър-базирани дялове за основни.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:960
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Невъзможно е заделяното на основни (primary) дялове"
+msgstr ""
+"Невъзможно е заделяното дялове като основни.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:965
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Невъзможно е създаването на цилиндър-базирани дялове"
+msgstr ""
+"Невъзможно е заделянето на цилиндър-базирани дялове\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1025
 #, python-format
@@ -218,18 +199,16 @@ msgstr ""
 "него."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Дялът за първоначално зареждане не се намира достатъчно напред в диска. "
-"OpenFirmware няма да може да зареди инсталацията."
+"Дялът за първоначално зареждане трябва изцяло да е в първите 4ГБ от диска.  "
+"OpenFirmware няма да може да зареди тази инсталация."
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Дялът за първоначално зареждане %s може би не отговаря на изискванията на "
 "архитектурата."
@@ -370,6 +349,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Натиснете 'Да' за да изберете друга схема за заделяне на дялове."
 
 #: ../autopart.py:1522
 #, fuzzy, python-format
@@ -1292,8 +1274,7 @@ msgstr "Не може да бъде намерен инсталационния 
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:268
@@ -1316,8 +1297,7 @@ msgstr "Инсталиране на %s %s"
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr ""
-"Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1567,8 +1547,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
+msgstr "Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
@@ -1709,16 +1688,14 @@ msgid "Confirm Reset"
 msgstr "Потвърдете"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното "
 "състояние?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Тази точка на монтиране е невалидна. Директорията %s трябва да е на / "
 "файловата система."
@@ -1748,16 +1725,14 @@ msgstr "Точката на монтиране \"%s\" е заета, моля и
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
+msgstr "Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
+msgstr "Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
 
 #: ../partRequests.py:495
 #, python-format
@@ -1780,8 +1755,7 @@ msgstr "Не за зададени членове на RAID или не е ук�
 
 #: ../partRequests.py:679 ../partitions.py:954
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-"Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
+msgstr "Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
 
 #: ../partRequests.py:683
 #, python-format
@@ -1963,8 +1937,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Трябва да създадете /boot/efi FAT дял с размер от 50 МБ."
 
 #: ../partitions.py:867
@@ -1985,8 +1958,7 @@ msgstr ""
 "нормална инсталация на %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:945
@@ -2246,10 +2218,8 @@ msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
 
 #: ../text.py:471
 msgid ""
@@ -2529,8 +2499,7 @@ msgstr "Прекратяване след 50 неуспешни опита!\n"
 #: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
+msgstr "Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
 
 #: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
@@ -2638,8 +2607,7 @@ msgstr "Подготвяне RPM прехвърлянето..."
 
 #: ../yuminstall.py:569
 #, fuzzy, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Хост името \"%s\" е невалидно поради следната причина:\n"
 "\n"
@@ -2703,8 +2671,7 @@ msgstr "Стартиране на инсталацията"
 #: ../yuminstall.py:1112
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
 
 #: ../yuminstall.py:1128
 #, fuzzy
@@ -2780,8 +2747,7 @@ msgstr "Уверете се, че паролата съдържа поне 6 с�
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Зададена парола съдържа не-аscii символи, които не са разрешени за "
 "използване в паролата."
@@ -3544,8 +3510,7 @@ msgstr "Nameserver"
 #: ../iw/netconfig_dialog.py:214
 #, fuzzy
 msgid "Error configuring network device"
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -3913,14 +3878,12 @@ msgid "Partitioning"
 msgstr "Разделяне"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Грешките трябва да се отстранят преди да продължи инсталацията на %s."
 
 #: ../iw/partition_gui.py:641
@@ -4076,8 +4039,7 @@ msgstr "Не може да се създаде клонинг устройств
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Клон-редактор за устройство не може да бъде създаден по някаква причина."
+msgstr "Клон-редактор за устройство не може да бъде създаден по някаква причина."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4263,8 +4225,7 @@ msgstr "Моля изберете target устройства за клонир�
 #: ../iw/raid_dialog_gui.py:539
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Устройството източник /dev/%s не може да се избира като желано устройство."
+msgstr "Устройството източник /dev/%s не може да се избира като желано устройство."
 
 #: ../iw/raid_dialog_gui.py:558
 #, fuzzy, python-format
@@ -4317,8 +4278,7 @@ msgstr "Клониране на Устройствата"
 
 #: ../iw/raid_dialog_gui.py:658
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../iw/raid_dialog_gui.py:692
 #, fuzzy
@@ -4436,8 +4396,7 @@ msgstr "Ще се обнови конфигурацията на текущия 
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Инсталатора намери %s начален зареждач, инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4448,8 +4407,7 @@ msgstr "Опцията е препоръчителна."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"Инсталатора не може да намери начален зареждач, инсталиран на системата."
+msgstr "Инсталатора не може да намери начален зареждач, инсталиран на системата."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4578,8 +4536,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Слуап файла трябва да е между 1 и 2000 МБ."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Няма достатъчно място на устройството което сте избрали за слуап дял."
 
 #: ../iw/zipl_gui.py:28
@@ -4722,8 +4679,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:290
 #, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> избира бутон | <F2> избира подразбиращ се дял за начално зареждане "
 "| <F12> следващ екран>"
@@ -4851,10 +4807,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Моля изберете разделителната способност, която да бъде използвана:"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
 
 #: ../textw/grpselect_text.py:117
 #, fuzzy
@@ -5020,8 +4974,7 @@ msgstr "Невалиден IP низ"
 #: ../textw/network_text.py:501
 #, fuzzy
 msgid "Configure Network Interface"
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../textw/network_text.py:502
 #, fuzzy, python-format
@@ -5252,8 +5205,7 @@ msgstr "Файлова Система Опции"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Моля изберете как желаете да се приготви файловата система на този дял."
+msgstr "Моля изберете как желаете да се приготви файловата система на този дял."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5381,8 +5333,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    "
 "F12-Добре     "
@@ -5415,8 +5366,7 @@ msgstr "Кое устройство(а) искате да бъде използ�
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
+msgstr "<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
 
 #: ../textw/partition_text.py:1635
 #, fuzzy
@@ -5820,8 +5770,7 @@ msgstr "Провали се зареждането на диска с драйв
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
+msgstr "Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -6060,10 +6009,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добре дошли в %s -- Спасителен режим"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6320,8 +6267,7 @@ msgstr "Невалиден аргумент за командата за уст�
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Следните невалидни аргументи са зададени за командата за кикстарт диска с "
 "драйвери: %s:%s"
@@ -6406,8 +6352,7 @@ msgstr "Няма парола"
 #: ../loader2/net.c:584 ../loader2/net.c:692
 #, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../loader2/net.c:765
 msgid "Configure TCP/IP"
@@ -6464,8 +6409,7 @@ msgstr "Липсваща информация"
 
 #: ../loader2/net.c:1207
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Трябва да въведете валидни IP адрес и нетмаска."
 
 #: ../loader2/net.c:1213
@@ -6637,8 +6581,7 @@ msgstr "Ако не използвате анонимно ftp, въведете 
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
+msgstr "Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
 
 #: ../loader2/urls.c:457
 msgid "Account name:"
@@ -7136,28 +7079,3 @@ msgstr "Уелски"
 msgid "Zulu"
 msgstr "Зулу"
 
-#, fuzzy
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Махнете всякаква инсталационна медия, която сте използвали за "
-#~ "инсталацията и натиснете \"Рестартиране\" за да презаредите системата.\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Извадете всякаква инсталационна медия използвана през инсталационния "
-#~ "процес и натиснете <Enter> за да презаредите системата.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> за презареждане"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS образ"
