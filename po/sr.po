@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-02-10 18:05-0000\n"
+"PO-Revision-Date: 2007-03-25 22:58-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -193,13 +193,12 @@ msgstr ""
 "са ове партиције."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Покретачка партиција се не налази довољно рано на диску.  OpenFirmware неће "
-"моћи да покрене ову инсталацију."
+"Покретачка партиција се мора цела налазити у првих 4ГБ диска.  OpenFirmware "
+"неће моћи да покрене ову инсталацију."
 
 #: ../autopart.py:1038
 #, python-format
@@ -349,7 +348,7 @@ msgstr ""
 "Притисните „У реду“ да би изабрали другу опцију поделе диска."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -362,8 +361,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Ово се може десити када не постоји довољно простора за инсталацију на Вашем "
-"чврстом диску.%s"
+"Ово се може десити када не постоји довољно простора за инсталацију на "
+"чврстом диску. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -675,7 +674,7 @@ msgstr ""
 "молим угасите Ваш систем уместо да га успављујете."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -689,9 +688,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"у Вашој /etc/fstab датотеци се тренутно користи као партиција за софтверски "
-"прекид, што значи да се Ваш систем успављује. Ако вршите нову инсталацију, "
-"уверите се да је инсталатер подешен да форматира све свап партиције."
+"у /etc/fstab датотеци се тренутно користи као партиција за софтверски "
+"прекид, што значи да се систем успављује. Ако вршите нову инсталацију, "
+"потврдите да је инсталатер подешен за форматирање свих свап партиција."
 
 #: ../fsset.py:1530
 msgid ""
@@ -981,9 +980,8 @@ msgid "Cancel"
 msgstr "Откажи"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Начин инсталације"
+msgstr "Инсталациони кључ"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1098,7 +1096,7 @@ msgstr "По_кушај поново"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Не могу да монтирам ISO извор"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1108,6 +1106,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"Дошло је до грешке при монтирању изворног уређаја %s.  Ово се може догодити "
+"ако су ISO отисци смештени на напредним складишним уређајима као што су LVM "
+"или RAID, или ако постоји проблем са монтирањем партиције.  Притисните "
+"„Покрени поново“ за прекид инсталације."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1314,9 +1316,8 @@ msgid "Exit installer"
 msgstr "Излаз из инсталатера"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Пребацујем одраз инсталације на чврсти диск..."
+msgstr "Пребацујем живи одраз на чврсти диск."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1364,19 +1365,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "„%s“ није исправна IP адреса."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Неисправан предметак"
+msgstr "Неисправан кључ"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Вредност коју сте унели није ваљан број."
+msgstr "Кључ који сте унели није исправан."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Прескочи"
+msgstr "Прес_кочи"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1837,7 +1835,7 @@ msgstr ""
 "Желите ли да изнова форматирате овај DASD користећи CDL формат?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1849,7 +1847,7 @@ msgstr ""
 "s инсталацију, он мора бити изнова иницијализован, изазивајући тиме губитак "
 "СВИХ ПОДАТАКА на овом диску.\n"
 "\n"
-"Желите ли да форматирате овај диск?"
+"Желите ли да поново иницијализујете овај диск?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1857,7 +1855,7 @@ msgstr "_Занемари диск"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "Поно_во иницијализуј диск"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -2244,14 +2242,14 @@ msgid "No help is available for this step of the install."
 msgstr "Никаква помоћ није доступна за овај корак у инсталацији."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Молим унесите име диск групе."
+msgstr "Молим унесите %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Прескочи унос %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2597,14 +2595,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Припремам трансакцију са извора инсталације..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Инсталирам %s\n"
+msgstr "<b>Инсталирам %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s од %s пакета завршено"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
@@ -2687,7 +2685,7 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
-"Не могу да прочитам подтаке о групама из ризница.  Ово је проблем код "
+"Не могу да прочитам податке о групама из ризница.  Ово је проблем код "
 "прављења Вашег стабла инсталације."
 
 #: ../yuminstall.py:769
@@ -2763,7 +2761,7 @@ msgstr "Нисте навели FCP LUN или број није исправа�
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Укључена су велика слова.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2791,12 +2789,9 @@ msgid "The root password must be at least six characters long."
 msgstr "Root лозинка мора бити дуга најмање шест знакова."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Захтевана лозинка садржи знакове који нису ascii и нису дозвољени за "
-"употребу у лозинци."
+msgstr "Захтевана лозинка садржи знакове који нису ASCII, и нису дозвољени."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2819,38 +2814,32 @@ msgid "Invalid Initiator Name"
 msgstr "Неисправно име зачетника:"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Морате навести име зачетника са дужином која није нула."
+msgstr "Морате навести име зачетника."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Грешка са подацима"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
-"Уклони све партиције на изабраним дисковима и направи подразумевани нацрт."
+"Уклони све партиције на изабраним дисковима и направи подразумевани нацрт"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Уклони све Linux партиције на изабраним дисковима и направи подразумевани "
-"нацрт."
+"Уклони Linux партиције на изабраним дисковима и направи подразумевани нацрт"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Искористи слободан простор на изабраним дисковима и направи подразумевани "
-"нацрт."
+"нацрт"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Направи прилагођени нацрт."
+msgstr "Направи прилагођени нацрт"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2898,15 +2887,14 @@ msgid "Passwords do not match"
 msgstr "Лозинке нису усаглашене."
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Ваша лозинка за покретачки програм је краћа од шест знакова.  Препоручујемо "
-"дужу лозинку за покретачки програм.\n"
+"Лозинка за покретачки програм је краћа од шест знакова.  Препоручујемо дужу "
+"лозинку за покретачки програм.\n"
 "\n"
 "Да ли хоћете да наставите са овом лозинком?"
 
@@ -2915,15 +2903,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Напредно подешавање покретачког програма"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Наметање употребе LBA32 за Ваш покретачки програм, а када није подржан у "
-"BIOS-у, може проузроковати да Ваша машина не може бити покренута.\n"
+"Ако LBA32 није подржан у BIOS-у система, наметање његове употребе може "
+"спречити покретање машине.\n"
 "\n"
 "Желите ли да наставите са наметањем LBA32 режима?"
 
@@ -3051,14 +3038,12 @@ msgid "Congratulations"
 msgstr "Честитамо"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Притисните дугме „Покрени поново“ за поновно покретање система.\n"
 "\n"
-"\n"
-"Притисните „У реду“ за поновно покретање Вашег система."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3105,13 +3090,13 @@ msgid "_Upgrade an existing installation"
 msgstr "Надо_гради постојећу инсталацију"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Одаберите ову опцију ако желите да надоградите Ваш постојећи %s систем.  Ова "
-"опција ће очувати постојеће податке на Вашим дисковима."
+"Одаберите ову опцију ако желите да надоградите постојећи %s систем.  Ова "
+"опција ће очувати постојеће податке на дисковима."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3152,7 +3137,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Потврди промену физичког опсега"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3297,9 +3281,9 @@ msgid "Mount point in use"
 msgstr "Тачка монтирања у употреби"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "„%s“ тачка монтирања је у употреби, молим одаберите неку другу."
+msgstr "„%s“ тачка монтирања је у употреби. Молим одаберите неку другу."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3315,7 +3299,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Име „%s“ логичког диска је већ у употреби. Молим одаберите неко друго."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3357,7 +3341,6 @@ msgid "No free space"
 msgstr "Нема слободног простора"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3368,7 +3351,7 @@ msgstr ""
 "постојећих логичких дискова."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Сигурно желите да обришете „%s“ логички диск?"
 
@@ -3460,7 +3443,7 @@ msgstr "Величина (МБ)"
 
 #: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
-msgstr "Дод_ај"
+msgstr "Д_одај"
 
 #: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
@@ -3725,7 +3708,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 предметак мора бити између 0 и 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3733,10 +3715,9 @@ msgid ""
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
 "Можете да подесите покретачки програм за покретање других оперативних "
-"система. То ће Вам допустити да са листе изаберете оперативни систем за "
-"покретање. Притисните „Додај“ за додавање додатних оперативних система који "
-"нису самостално откривени. За промену оперативног система који се "
-"подразумевано покреће, изаберите „Подразумеван“ поред жељеног оперативног "
+"система бирањем са списка. Притисните „Додај“ за додавање оперативних "
+"система који нису самостално откривени. За промену оперативног система који "
+"се подразумевано покреће, изаберите „Подразумеван“ поред жељеног оперативног "
 "система."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
@@ -3752,7 +3733,6 @@ msgid "Image"
 msgstr "Одраз"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3908,12 +3888,13 @@ msgstr "Подела диска"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"Нацрт поделе диска који сте затражили је изазвао следеће пресудне грешке."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
-msgstr "Ове грешке морају бити исправљене пре наставка Ваше %s инсталације."
+msgstr "Морате исправити ове грешке пре него што наставите %s инсталацију."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3921,7 +3902,7 @@ msgstr "Грешке при подели диска"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Нацрт поделе диска који сте затражили је произвео следећа упозорења."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4031,7 +4012,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4117,13 +4097,13 @@ msgid "Check for _bad blocks?"
 msgstr "Да проверим за _лоше блокове?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Партиције врсте „%s“ морају да буду ограничене на један диск.  Ово се "
-"постиже избором диска у листи „Дозвољени дискови“."
+"постиже избором диска у контролном списку „Дозвољени дискови“."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4204,7 +4184,6 @@ msgid "Source Drive Error"
 msgstr "Грешка на изворном диску"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4214,11 +4193,10 @@ msgstr ""
 "На изабраном изворном диску има партиција које нису врсте „софтверски "
 "RAID“.\n"
 "\n"
-"Ове партиције ће морати да буду уклоњене пре него што овај диск може бити "
-"клониран."
+"Морате уклонити ове партиције пре него што овај диск може да се клонира."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4228,11 +4206,10 @@ msgid ""
 msgstr ""
 "Изабрани изворни диск има партиције које нису ограничене на диск /dev/%s.\n"
 "\n"
-"Ове партиције ће морати да буду уклоњене или ограничене на овај диск пре "
-"него што овај диск може да се клонира. "
+"Морате уклонити ове партиције или ограничити на овај диск пре него што овај "
+"диск може да се клонира. "
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4242,8 +4219,7 @@ msgstr ""
 "Изабрани изворни диск има софтверске RAID партиције које су чланови активног "
 "софтверског RAID уређаја.\n"
 "\n"
-"Ове партиције ће морати да буду уклоњене пре него што овај диск може да се "
-"клонира."
+"Морате уклонити ове партиције пре него што овај диск може да се клонира."
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4260,7 +4236,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Изворни диск /dev/%s не може да буде такође изабран као и циљни диск."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4274,7 +4250,7 @@ msgstr ""
 "\n"
 "„%s“\n"
 "\n"
-"Ова партиција мора бити уклоњена пре него што овај диск може бити циљни."
+"Морате уклонити ове партиције пре него што овај диск може постати циљни."
 
 #: ../iw/raid_dialog_gui.py:619
 msgid "Please select a source drive."
@@ -4312,7 +4288,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Дошло је до грешке при брисању циљног диска.  Клонирање није успело."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4329,8 +4304,8 @@ msgid ""
 msgstr ""
 "Алат за клонирање дискова\n"
 "\n"
-"Овај алат Вам допушта да приметно умањите количину напора потребног за "
-"постављање RAID низова.  Идеја је да се узме изворни диск који је већ "
+"Овај алат допушта да приметно умањите количину напора потребног за "
+"постављање RAID низова.  Овај алат користи изворни диск који је већ "
 "припремљен са жељеним распоредом партиција, и тај распоред клонира на "
 "дискове сличне величине.  Након тога може да се направи RAID уређај.\n"
 "\n"
@@ -4380,7 +4355,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4393,9 +4368,8 @@ msgid "Invalid Repository Name"
 msgstr "Неисправно име ризнице"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Морате навести име ризнице са дужином која није нула."
+msgstr "Морате навести име ризнице."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4452,26 +4426,24 @@ msgid "_Create new boot loader configuration"
 msgstr "Направи но_ва подешавања покретачког програма"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Ово Вам допушта да направите ново подешавање покретачког програма.  Ако "
-"желите да замените покретачке програме, изаберите ово."
+"Ова опција прави ново подешавање покретачког програма.  Ако желите да "
+"замените покретачке програме, изаберите ово."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
 msgstr "Прес_кочи ажурирање покретачког програма"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"Ово неће направити било какве промене подешавању покретачког програма.  Ако "
-"користите неки покретачки програм са стране, изаберите ово."
+"Ова опција неће направити било какве промене у подешавању покретачког "
+"програма.  Ако користите неки покретачки програм са стране, изаберите ово."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
@@ -4482,7 +4454,7 @@ msgid "Migrate File Systems"
 msgstr "Пресели системе датотека"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4491,10 +4463,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Ово %s издање подржава ext3 систем датотека са дневником.  Он има неколико "
+"Ово %s издање подржава ext3 систем датотека са дневником, који има неколико "
 "предности над ext2 системом датотека традиционално испоручиваним уз %s.  "
-"Могуће је преселити ext2 форматиране партиције на ext3 без губитка "
-"података.\n"
+"Инсталациони програм може да пресели ext2 форматиране партиције на ext3 без "
+"губитка података.\n"
 "\n"
 "Које од ових партиција бисте желели да преселите?"
 
@@ -4503,17 +4475,17 @@ msgid "Upgrade Swap Partition"
 msgstr "Надогради свап партицију"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Језгру 2.4 верзије је потребно значајно више свап простора него старијим "
-"језгрима, барем толико да свап простор буде дупло већи од RAM-а у систему.  "
-"Тренутно имате подешено %dМБ свап простора, али сада можете да направите "
-"додатни свап простор на једном од Ваших система датотека."
+"Скоријим језгрима (2.4 и новијим) је потребно значајно више свап простора "
+"него старијим језгрима, барем толико да свап простор буде дупло већи од RAM-"
+"а у систему.  Тренутно имате подешено %dМБ свап простора, али сада можете да "
+"направите додатни свап простор на једном од система датотека."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4543,13 +4515,13 @@ msgid "Free Space (MB)"
 msgstr "Слободан простор (МБ)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Препоручујемо да Ваша свап датотека буде најмање %d МБ.  Молим унесите "
-"величину за свап датотеку."
+"Препоручујемо да свап датотека буде најмање %d МБ.  Молим унесите величину "
+"за свап датотеку:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4560,12 +4532,11 @@ msgid "I _don't want to create a swap file"
 msgstr "_Не желим да направим свап датотеку"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Јако је препоручљиво да направите свап датотеку.  Неизвршавање тога може да "
+"Јако је препоручљиво да направите свап датотеку. Неизвршавање тога може да "
 "изазове ненормално одустајање инсталатера. Сигурно желите да наставите?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
@@ -4640,7 +4611,6 @@ msgid "Skip Boot Loader"
 msgstr "Прескочи покретачки програм"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4648,15 +4618,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Изабрали сте да не инсталирате покретачки програм. Јако је препоручљиво да "
-"инсталирате покретачки програм, осим ако немате напредне потребе.  "
-"Покретачки програм је скоро увек потребан да би поново покренуо Ваш Linux "
-"систем право са чврстог диска.\n"
+"Изабрали сте да не инсталирате покретачки програм, што се не препоручује "
+"осим ако немате напредне потребе. Покретачки програм је скоро увек потребан "
+"да би поново покренуо систем у Linux-у право са чврстог диска.\n"
 "\n"
-"Желите ли да прескочите инсталацију покретачког програма?"
+"Сигурно желите да прескочите инсталацију покретачког програма?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4664,7 +4632,7 @@ msgid ""
 msgstr ""
 "Неки системи морају да проследе специјалне опције језгру при покретању да би "
 "систем правилно радио. Ако су и Вама потребне неке од тих опција, унесите их "
-"сада. Ако Вам ниједна није потребна, или нисте сигурни, оставите ово поље "
+"сада. Ако ниједна опција није потребна, или нисте сигурни, оставите ово поље "
 "празно."
 
 #: ../textw/bootloader_text.py:101
@@ -4705,15 +4673,15 @@ msgid "Edit"
 msgstr "Уреди"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
 "Покретачки програм који користи %s може да покрене и друге оперативне "
-"системе. Морате ми рећи које бисте партиције желели да покренете и које "
-"ознаке желите да користите за сваку од њих."
+"системе. Реците које бисте партиције желели да покренете и које ознаке "
+"желите да користите за сваку од њих."
 
 #: ../textw/bootloader_text.py:290
 msgid ""
@@ -4723,7 +4691,6 @@ msgstr ""
 "екран"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
@@ -4840,9 +4807,8 @@ msgstr ""
 "система. Задржите ову датотеку јер може да Вам затреба касније."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Молим изаберите групе пакета које желите да буду инсталирани."
+msgstr "Молим изаберите групе пакета које желите да инсталирате."
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4892,13 +4858,13 @@ msgstr ""
 "проблеме касније."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 предметак мора бити између 0 и 32."
+msgstr "IPv%d предметак мора бити између 0 и %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Неопходан је цео број за предметак"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4906,6 +4872,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Морате унети исправан цео број за %s.  За IPv4, вредност може бити између 0 "
+"и 32.  За IPv6 може бити између 0 и 128."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4948,76 +4916,69 @@ msgstr "Подешавање мреже за %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "IP адреса од-тачке-до-тачке"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:5
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Динамичко IP подешавање (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Ручно подешавање"
+msgstr "Ручно подешавање адресе"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Подешавање мреже за %s"
+msgstr "IPv4 подешавање за %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 адреса:"
+msgstr "IPv4 адреса"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/мрежна маска"
+msgstr "IPv4 мрежна маска"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Предметак (мрежна маска)"
+msgstr "IPv4 предметак (мрежна маска)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr "Самостално откривање комишија"
+msgstr "Самостално откривање суседа"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Динамичко IP подешавање (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Подешавање мреже за %s"
+msgstr "IPv6 подешавање за %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 адреса:"
+msgstr "IPv6 адреса"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/предметак"
+msgstr "IPv6 предметак"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Укључи мрежни уређај"
+msgstr "Подеси мрежну спрегу"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Желите ли да покренете мрежне спреге на овом систему?"
+msgstr "Желите ли да подесите мрежну спрегу %s на овом систему?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "НЕПОДЕШЕНО"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5026,38 +4987,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Тренутна подешавања за сваку спрегу су исписана поред имена уређаја.  "
+"Неподешене спреге су приказане као НЕПОДЕШЕНО.  Да би подесили спрегу, "
+"означите је и изаберите „Уреди“.  Када завршите, притисните „У реду“ за "
+"наставак."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Активирај при покретању система"
+msgstr "Активно по покретању система"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Активирај при покретању система"
+msgstr "Неактивно по покретању система"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Ауто IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5076,19 +5039,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Разне поставке за мрежу"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
-#, fuzzy
 msgid "gateway"
-msgstr "Мрежни пролаз"
+msgstr "мрежни пролаз"
 
 #: ../textw/network_text.py:704 ../textw/network_text.py:707
-#, fuzzy
 msgid "primary DNS"
-msgstr "Основни DNS"
+msgstr "основни DNS"
 
 #: ../textw/network_text.py:716
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Споредни DNS"
+msgstr "споредни DNS"
 
 #: ../textw/network_text.py:750
 msgid "automatically via DHCP"
@@ -5103,16 +5063,16 @@ msgid "Hostname Configuration"
 msgstr "Подешавање имена домаћина"
 
 #: ../textw/network_text.py:775
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Ако је Ваш систем део веће мреже где имена домаћина додељује DHCP, изаберите "
-"„самостално кроз DHCP“. У супротном изаберите „ручно“ и унесите име домаћина "
-"за Ваш систем. Ако не унесете, Ваш систем ће бити познат као „localhost“."
+"Ако је овај систем део веће мреже где имена домаћина додељује DHCP, "
+"изаберите „самостално кроз DHCP“. У супротном изаберите „ручно“ и унесите "
+"име домаћина за систем. Ако не унесете, овај систем ће бити познат као "
+"„localhost“."
 
 #: ../textw/network_text.py:801 ../textw/network_text.py:807
 msgid "Invalid Hostname"
@@ -5266,7 +5226,6 @@ msgid "Not Supported"
 msgstr "Није подржано"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "LVM диск групе је могуће уредити само у графичком инсталатеру."
 
@@ -5307,21 +5266,19 @@ msgid "Too many spares"
 msgstr "Превише резерви"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Највећи број резерви са RAID0 низом је 0."
+msgstr "Не можете користити резерве са RAID0 низом."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Нема диск група"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "Нема диск група у којима се да направити логички диск"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5377,9 +5334,8 @@ msgid "No Root Partition"
 msgstr "Нема корене партиције"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS метод инсталације захтева IPv4 подршку."
+msgstr "Инсталација захтева / партицију."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5447,14 +5403,12 @@ msgstr ""
 "зачетника које сте подесили за Вашег домаћина."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>_Циљна IP адреса:</b>"
+msgstr "Циљна IP адреса"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>_Име iSCSI зачетника:</b>"
+msgstr "Име iSCSI зачетника"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5487,9 +5441,8 @@ msgid "Customize software selection"
 msgstr "Прилагоди избор софтвера"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "У којој сте временској зони?"
+msgstr "У којој се временској зони налазите?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5541,25 +5494,22 @@ msgid "System to Upgrade"
 msgstr "Систем за надоградњу"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"Једна или више постојећих инсталација Linux-а је пронађена на Вашем "
-"систему.\n"
+"Изгледа да има једна или више постојећих Linux инсталација на систему.\n"
 "\n"
-"Молим одаберите један за надоградњу, или изаберите „Преинсталирај систем“ за "
-"свежу инсталацију Вашег система."
+"Молим одаберите једну за надоградњу, или изаберите „Преинсталирај систем“ за "
+"свежу инсталацију система."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
 msgstr "Root лозинка"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5567,7 +5517,7 @@ msgid ""
 msgstr ""
 "Изаберите root лозинку. Морате је откуцати двапут да бисте се уверили да је "
 "знате и утврдили да нема грешака у куцању. Упамтите да је root лозинка "
-"пресудан део сигурности система!"
+"пресудан део безбедности система!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5583,15 +5533,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"Покретачки програм z/IPL ће бити инсталиран на Ваш систем по завршетку "
+"Покретачки програм z/IPL ће бити инсталиран на систем по завршетку "
 "инсталације. Сада можете унети било које додатне параметре за језгро и "
-"chandev које Ваша машина или Ваша поставка може да захтева."
+"chandev које Ваша машина или поставка захтевају."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5635,35 +5584,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Канцеларија"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Мултимедија"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Честитамо"
+msgstr "Виртуализација"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Учворавање"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Учворавање складиштења"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Инсталација почиње"
+msgstr "Број инсталације"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"Молим унесите инсталациони број за инсталацију пуног скупа подржаних пакета "
+"који долазе са Вашом претплатом."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5678,6 +5627,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Ако не можете да нађете инсталациони број, погледајте http://www.redhat.com/"
+"apps/support/in.html.\n"
+"\n"
+"Ако прескочите:\n"
+"* Можда нећете имати приступ пуном скупу пакета који долазе са Вашом "
+"претплатом.\n"
+"* Исход може бити неподржана/неоверена инсталација Red Hat Enterprise Linux-"
+"а.\n"
+"* Нећете добити софтверска и безбедносна ажурирања пакета за које нисте "
+"претплаћени."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6064,9 +6023,8 @@ msgid "Hard drive"
 msgstr "Чврсти диск"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s директоријум:"
+msgstr "NFS директоријум"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6297,12 +6255,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Лош аргумент за команду уређајске kickstart методе %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Следећи неисправан аргумент је наведен за команду kickstart управљачке "
-"дискете: %s:%s"
+"И врста модула и име морају бити наведени за kickstart наредбу уређаја."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6641,9 +6597,8 @@ msgid "Disable _dmraid device"
 msgstr "Искључи _dmraid уређај"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Чврсти диск"
+msgstr "Д_одај диск"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6697,9 +6652,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Прег_ледај и промени нацрт партиција"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Који језик бисте желели да користите током процеса инсталације?"
+msgstr "Са ког диска бисте желели да покренете ову инсталацију?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6714,9 +6668,8 @@ msgid "Exception Info"
 msgstr "Информације о одступању"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "Сачувај на удаљеном домаћину"
+msgstr "Сачу_вај на удаљеном домаћину"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6724,17 +6677,17 @@ msgstr "Де_таљи одступања"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "Са_чувај на дискету"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Молим унесите име диск групе."
+msgstr "Молим унесите%(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6753,9 +6706,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Име iSCSI зачетника:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Додај _iSCSI циљ"
+msgstr "Д_одај циљ"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7092,27 +7044,3 @@ msgstr "велшки"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "зулу"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Уклоните ма које медијуме коришћене током процеса инсталације и "
-#~ "притисните дугме „Покрени поново“ за поновно покретање Вашег система.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Уклоните ма које медијуме коришћене током процеса инсталације и "
-#~ "притисните <Enter> за поновно покретање Вашег система.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> за поновно покретање"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS одраз"
