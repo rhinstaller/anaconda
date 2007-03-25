@@ -1,4 +1,4 @@
-# Translation of anaconda to Bulgarian
+# Translation of anaconda.pot to Bulgarian
 # This file is distributed under the same license as the anaconda package.
 # Contributed to Fedora Project by:
 # Yovko Lambrev <yovko@openintegra.com>, 2003.
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-26 00:58+0300\n"
+"PO-Revision-Date: 2007-03-26 02:24+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
@@ -354,7 +354,7 @@ msgstr ""
 "Натиснете 'Да' за да изберете друга схема за заделяне на дялове."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -363,11 +363,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"Възникнаха следните грешки по време на разделянето:\n"
+"Възникнаха следните грешки с вашето разделяне:\n"
 "\n"
 "%s\n"
 "\n"
-"Възможна причина е недостатъчно място на диска за инсталацията.%s"
+"Възможна причина е недостатъчно място на вашия диск(ове) за "
+"инсталацията. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -452,16 +453,14 @@ msgstr ""
 "Сигурни ли сте, че желаете да направите това?"
 
 #: ../backend.py:164
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"Обновяване на %s пакетите\n"
-"\n"
+msgstr "Обновяване на %s\n"
 
 #: ../backend.py:166
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Инсталиране на %s"
+msgstr "Инсталиране на %s\n"
 
 #: ../bootloader.py:129
 msgid "Bootloader"
@@ -496,28 +495,27 @@ msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "Изключенията не могат да бъдат обработени в режим на командния ред!"
 
 #: ../constants.py:65
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
-"Възникна необработено изключение. Най-вероятно това е недокументирана грешка "
-"в програмата.  Моля копирайте пълния текст на това съобщение и непременно "
-"информирайте подробно екипа на анаконда за проблема на %s"
+"Възникна необработено изключение. Най-вероятно това е грешка.  Моля "
+"копирайте пълния текст на това съобщение и попълнете рапорт за грешка "
+"в анаконда на %s"
 
 #: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
 msgstr "Дъмпа е записан"
 
 #: ../exception.py:415
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"Статуса на системата успешно е записан на дискетата. Системата ще бъде "
-"принудително рестартирана сега."
+"Състоянието на системата Ви бе успешно записан на дискетата. Системата "
+"Ви сега ще бъде рестартирана."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
@@ -528,26 +526,24 @@ msgid "_Reboot"
 msgstr "_Рестартиране"
 
 #: ../exception.py:423 ../exception.py:440
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Дъмпа е записан"
+msgstr ""
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Възникна проблем при записа на състоянието на системата върху дискетата."
 
 #: ../exception.py:432
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Статуса на системата успешно е записан на дискетата. Системата ще бъде "
-"принудително рестартирана сега."
+"Състоянието на системата Ви бе успешно записан на отдалечената машина. Системата "
+"Ви сега ще бъде рестартирана."
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Възникна проблем при записа на състоянието на системата на отдалечената машина."
 
 #: ../fsset.py:214
 msgid "Checking for Bad Blocks"
@@ -642,7 +638,7 @@ msgstr "Пропусни"
 
 #: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:41
 msgid "Reboot"
-msgstr "Презареждане"
+msgstr "Рестартиране"
 
 #: ../fsset.py:1501
 #, python-format
@@ -655,11 +651,17 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Swap устройството:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"е версия 0 Линукс swap дял. Ако искате да ползвате това устройство "
+"трябва да го преформатирате като версия 1 Линукс swap дял. Ако пропуснете "
+"тази стъпка, то инсталатора ще го игнорира по време на инсталацията."
 
 #: ../fsset.py:1508
-#, fuzzy
 msgid "Reformat"
-msgstr "Формат"
+msgstr "Преформатиране"
 
 #: ../fsset.py:1512
 #, python-format
@@ -672,6 +674,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Swap устройството:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"във вашия /etc/fstab файл в момента се ползва като дял за софтуерна хибернация, "
+"което значи че системата Ви е хибернирана. Моля изключете я (вместо да я "
+"хибернирате) преди да се опитате да я обновите."
 
 #: ../fsset.py:1520
 #, python-format
@@ -684,6 +693,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap partitions."
 msgstr ""
+"Swap устройството:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"във вашия /etc/fstab файл в момента се ползва като дял за софтуерна хибернация, "
+"което значи че системата Ви е хибернирана. Ако правите нова инсталация, "
+"осигурете на инсталатора да му е зададено да форматира всички swap дялове."
 
 #: ../fsset.py:1530
 msgid ""
@@ -693,6 +709,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Изберете пропуск ако искате инсталатора да игнорира този дял по време на "
+"обновяването.  Изберете форматиране за да преформатирате дяла като swap.  Изберете "
+"рестарт за да рестартирате системата."
 
 #: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
@@ -812,9 +833,8 @@ msgstr ""
 "Натиснете <Enter> за рестартиране на системата."
 
 #: ../fsset.py:1758
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Не мога да заредя файла!"
+msgstr "Невъзможно монтирането на файлова система"
 
 #: ../fsset.py:1759
 #, python-format
@@ -822,6 +842,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"Възникна грешка при монтиране на устройство %s като %s.  Можете да продължите "
+"с инсталацията, но може да възникнат проблеми."
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
 #: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
@@ -837,11 +859,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Грешка при създаването на връзка с устройство %s като %s: %s\n"
+"Грешка при монтиране на устройство %s като %s: %s\n"
 "\n"
-"Вероятна причина е неформатиран дял.\n"
+"Най-вероятно това занчи че дяла не е бил форматиран.\n"
 "\n"
-"Натиснете <Enter> за рестартиране на системата."
+"Натиснете Да за рестартиране на системата."
 
 #: ../fsset.py:1794
 msgid ""
@@ -965,9 +987,8 @@ msgid "Cancel"
 msgstr "Отказ"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Вид на инсталацията"
+msgstr "Инсталационен ключ"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1039,7 +1060,7 @@ msgid "Install Window"
 msgstr "Инсталационен прозорец"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:476
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1049,15 +1070,17 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Пакетът %s-%s-%s не може да се отвори. Това е поради липсващ файл или може "
-"би повреден пакет.  Ако инсталирате от CD, това обикновено означава ще CD e "
-"повредено или CD устройството не може да го прочете.\n"
+"Файла %s не може да бъде отворен. Това е поради липсващ файл или може "
+"би повреден пакет.  Моля проверете инсталационните си образи и дали имате "
+"всички необходими такива.\n"
 "\n"
-"Натиснете <Enter> за да опитате отново."
+"Ако рестартирате, вашата система ще остане в нецялостно състояние, което "
+"най-вероятно ще изисква инсталиране отново.\n"
+"\n"
 
 #: ../harddrive.py:71 ../image.py:509
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Липсващ ISO 9660 Образ"
 
 #: ../harddrive.py:72
 #, python-format
@@ -1068,15 +1091,19 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"Инсталатора се опита да монтира образ #%s, но не може да го намери "
+"на твърдия диск.\n"
+"\n"
+"Моля копирайте този образ на устройството и натиснете Отново. Натиснете "
+"Рестарт за да отмените инсталацията."
 
 #: ../harddrive.py:81 ../image.py:520
-#, fuzzy
 msgid "Re_try"
-msgstr "Отново"
+msgstr "_Отново"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Не може да бъде монтиран ISO източника"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1086,6 +1113,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"Възникна грешка при монтиране на устройството източник %s.  Това може да се случи ако "
+"вашите ISO образи се намират на сложно устройство за съхранение като LVM или RAID, или "
+"пък ако е имало проблем при монтиране на дял.  Натиснете рестарт за да прекратите "
+"инсталацията."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1161,7 +1192,7 @@ msgid "Unable to access the CDROM."
 msgstr "Не може да прочете CDROM-а."
 
 #: ../image.py:362
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1171,11 +1202,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Пакетът %s-%s-%s не може да се отвори. Това е поради липсващ файл или може "
-"би повреден пакет.  Ако инсталирате от CD, това обикновено означава ще CD e "
-"повредено или CD устройството не може да го прочете.\n"
+"Пакетът %s не може да бъде отворен. Това е поради липсващ файл или може "
+"би повреден пакет.  Моля проверете дали инсталационното Ви дърво съдържа "
+"всички изисквани пакети.\n"
 "\n"
-"Натиснете <Enter> за да опитате отново."
+"Ако рестартирате, вашата система ще остане в нецялостна състояние, което "
+"най-вероятно ще изисква инсталиране отново.\n"
+"\n"
 
 #: ../image.py:436
 #, python-format
@@ -1186,6 +1219,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO образа %s има размер който не е произведение на 2048 байта.  Това може "
+"да значи че е бил неправилно прехвърлен на този компютър.\n"
+"\n"
+"Препоръчително е да рестартирате и прекратите своята инсталация, но можете "
+"и да продължите ако мислите че това е грешка (в преценката на инсталатора)."
 
 #: ../image.py:510
 #, python-format
@@ -1196,15 +1234,19 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Инсталатора се опита да монтира образ #%s, но не може да го намери "
+"на сървъра.\n"
+"\n"
+"Моля копирайте този образ в споделения ресурс на сървъра и изберете Отново. "
+"Натиснете Рестарт за да прекратите инсталацията."
 
 #: ../installclass.py:66
 msgid "Install on System"
-msgstr "Инсталира на машината"
+msgstr "Инсталира на машина"
 
 #: ../iscsi.py:197 ../iscsi.py:198
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Инициализиране"
+msgstr "Инициализиране на iSCSI initiator"
 
 #: ../kickstart.py:75
 msgid "Scriptlet Failure"
@@ -1224,17 +1266,16 @@ msgstr ""
 "Натиснете 'Добре' за рестартиране на системата."
 
 #: ../kickstart.py:930 ../kickstart.py:947
-#, fuzzy
 msgid "Running..."
-msgstr "Свързване..."
+msgstr "Изпълнение..."
 
 #: ../kickstart.py:931
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Изпълнение на пост-инсталационни скриптове"
 
 #: ../kickstart.py:948
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Изпълнение на пред-инсталационни скриптове"
 
 #: ../kickstart.py:979
 msgid "Missing Package"
@@ -1259,94 +1300,88 @@ msgid "Missing Group"
 msgstr "Липсваща група"
 
 #: ../kickstart.py:1017
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Избрали сте, че групата '%s' трябва да се инсталира.  Тази група не "
+"Избрали сте, че групата '%s' трябва да бъде инсталирана.  Тази група не "
 "съществува. Искате ли да продължите или ще прекратите инсталацията?"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Не може да бъде намерен инсталационния образ %s"
+msgstr "Не може да бъде намерен образа"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "Указаното място не е валидно %s живо CD което да се ползва за инсталационен източник."
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s инсталатор"
+msgstr "Изход от инсталатора"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Прехвърляне на инсталационния образ на твърдия диск..."
+msgstr "Копиране на живия образ на твърдия диск."
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "Инсталиране на %s %s"
+msgstr "Изпълняване на пост-инсталационни процедури"
 
 #: ../livecd.py:146
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr ""
+"Изпълнение на пост-инсталационни промени по файловите системи.  Това може да "
+"отнеме до няколко минути..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Хост-името трябва да бъде с дължина до 64 символа."
+msgstr "Името на хоста трябва да бъде до 64 знака дълго."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "Хост-името трябва да почва с валиден символ 'a-z' или 'A-Z'"
+msgstr "Името на хоста трябва да започва с валиден символ в интервала 'a-z' или 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Хост-името може да съдържа само символите 'a-z', 'A-Z', '-' или '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "Липсва IP адрес"
+msgstr "Липсва IP адрес."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP Адресите трябва да съдържат числа между 0 и 255"
+msgstr ""
+"IPv4 адресите трябва да съдържат четири числа между 0 и 255, разделени от "
+"точки."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s е невалидно име на машина."
+msgstr "'%s' не е валиден IPv6 адрес."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s е невалидно име на машина."
+msgstr "'%s' е невалиден IP адрес."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Невалиден IP низ"
+msgstr "Невалиден ключ"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Стойността, която сте въвели е невалидно число."
+msgstr "Ключа който въведохте не е валиден."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Пропусни"
+msgstr "_Пропуск"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1426,14 +1461,13 @@ msgstr ""
 "символи са букви, цифри, '.' или '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Точката за монтиране е невалидна.  Точките на монтиране трябва да започват с "
-"'/', не могат да завършват с '/' и трябва да съдържат изписващи се символи "
-"(не празни) символи."
+"Точката за монтиране '%s' е невалидна.  Точките на монтиране трябва да започват с "
+"'/', не могат да завършват с '/' и трябва да съдържат печатими символи без интервали."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1567,9 +1601,9 @@ msgstr ""
 "Желаете ли да форматирате този дял като слуап?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "Трябва да изберете поне един твърд диск за инсталиране на %s."
+msgstr "Трябва да изберете поне един твърд диск за да инсталирате %s."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1592,11 +1626,11 @@ msgstr "Форматиране?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "Модифициране на дял"
+msgstr "_Модифициране на дял"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
-msgstr "Не форматирай"
+msgstr "_Без форматиране"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
@@ -1776,6 +1810,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Размера на логическия дял трябва да бъде по-голям от размера на "
+"физическите разширения на групата томове."
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:559
 msgid "Foreign"
@@ -1820,7 +1856,7 @@ msgstr "_Пренебрегване"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Ре-инициализиране на устройството"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -1935,14 +1971,16 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Дяла Ви за начално зареждане не се намира на един от първите четири дяла "
+"и поради това ще бъде незареждаем."
 
 #: ../partitions.py:847
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "Трябва да създадете /boot/efi FAT дял с размер от 50 МБ."
+msgstr "Трябва да създадете /boot/efi FAT дял с размер 50 мегабайта."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Трябва да създадете Апъл Bootstrap дял."
+msgstr "Трябва да създадете Apple Bootstrap дял."
 
 #: ../partitions.py:889
 msgid "You must create a PPC PReP Boot partition."
@@ -1959,13 +1997,13 @@ msgstr ""
 
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Инсталиране на USB устройство.  Не е сигурно дали това ще създаде работеща система."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Инсталиране на FireWire устройство.  Не е сигурно дали това ще създаде работеща система."
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2157,9 +2195,8 @@ msgid "Save"
 msgstr "Запис"
 
 #: ../text.py:153 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Премахване"
+msgstr "Отдалечен"
 
 #: ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2171,16 +2208,15 @@ msgstr "Възникна изключение"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Запис на отдалечена машина"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
 msgstr "Хост-име"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Отдалечен път"
 
 #: ../text.py:195
 msgid "User name"
@@ -2199,9 +2235,9 @@ msgid "No help is available for this step of the install."
 msgstr "Не е налична помощ за тази стъпка от инсталацията."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Моля въведете име на групата томове."
+msgstr ""
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
@@ -2349,7 +2385,7 @@ msgid "Connecting..."
 msgstr "Свързване..."
 
 #: ../urlinstall.py:77
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2359,11 +2395,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Пакетът %s-%s-%s не може да се отвори. Това е поради липсващ файл или може "
-"би повреден пакет.  Ако инсталирате от CD, това обикновено означава ще CD e "
-"повредено или CD устройството не може да го прочете.\n"
+"Пакетът %s не може да бъде отворен. Това е поради липсващ файл или може "
+"би повреден пакет.  Моля проверете дали вашето огледало съдържа всички "
+"необходими пакети и опитайте с друго.\n"
 "\n"
-"Натиснете <Enter> за да опитате отново."
+"Ако рестартирате, вашата система ще остане в нецялостно състояние, което "
+"най-вероятно ще изисква инсталиране отново.\n"
+"\n"
 
 #: ../vnc.py:47
 msgid "Unable to Start X"
@@ -2430,9 +2468,8 @@ msgid "The password must be at least six characters long."
 msgstr "Паролата трябва да съдържа поне 6 символа."
 
 #: ../vnc.py:141
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Няма парола"
+msgstr "Грешна VNC парола"
 
 #: ../vnc.py:142
 msgid ""
@@ -2440,6 +2477,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Следва да укажете vnc парола от поне 6 знака.\n"
+"\n"
+"Натиснете <return> за да рестартирате системата си.\n"
 
 #: ../vnc.py:187
 msgid "Starting VNC..."
@@ -2543,100 +2583,89 @@ msgid "Processing"
 msgstr "Обработване"
 
 #: ../yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Подготовка за инсталиране..."
+msgstr "Подготовка на транзакция от инсталационния източник..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "_Инсталиране на %s"
+msgstr "<b>Инсталиране на %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s от %s пакета готови"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
-msgstr ""
+msgstr "файлов конфликт"
 
 #: ../yuminstall.py:531
-#, fuzzy
 msgid "older package(s)"
-msgstr "Допълнителни пакети"
+msgstr "стар(и) пакет(и)"
 
 #: ../yuminstall.py:532
 msgid "insufficient disk space"
-msgstr ""
+msgstr "недостатъчно дисково място"
 
 #: ../yuminstall.py:533
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "недостатъчно дискови inodes"
 
 #: ../yuminstall.py:534
-#, fuzzy
 msgid "package conflicts"
-msgstr "Подразбиращи се пакети"
+msgstr "конфликтни пакети"
 
 #: ../yuminstall.py:535
 msgid "package already installed"
-msgstr ""
+msgstr "пакета вече е инсталиран"
 
 #: ../yuminstall.py:536
-#, fuzzy
 msgid "required package"
-msgstr "Свободно място"
+msgstr "изискван пакет"
 
 #: ../yuminstall.py:537
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "пакет за друга архитектура"
 
 #: ../yuminstall.py:538
 msgid "package for incorrect os"
-msgstr ""
+msgstr "пакет за друга ОС"
 
 #: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Необходимо Ви е повече място на следните файлови системи:\n"
 
 #: ../yuminstall.py:568
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Подготвяне RPM прехвърлянето..."
+msgstr "Грешка при изпълнение на транзакцията"
 
 #: ../yuminstall.py:569
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Хост името \"%s\" е невалидно поради следната причина:\n"
-"\n"
-"%s"
+msgstr "Възникна грешка при изпълнение на транзакцията по следните причини: %s"
 
 #: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
 #: ../yuminstall.py:928
 msgid "Re_boot"
-msgstr "Пр_езареждане"
+msgstr "Ре_старт"
 
 #: ../yuminstall.py:697
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Четене на пакетната информация..."
+msgstr "Извличане на информация за инсталацията..."
 
 #: ../yuminstall.py:699
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Четене на пакетната информация..."
+msgstr "Извличане на информация за инсталация на %s..."
 
 #: ../yuminstall.py:721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Липсват важни групи във файлът comps в инсталационното дърво.  Моля уверете "
-"се, че Вашето инсталационно дърво е генерирано правилно."
 
 #: ../yuminstall.py:737
 msgid ""
