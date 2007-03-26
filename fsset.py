@@ -2445,15 +2445,24 @@ def readFstab (anaconda):
         if not labelToDevice.has_key(label):
             labelToDevice[label] = device
         elif intf is not None:
-            intf.messageWindow(_("Duplicate Labels"),
-                               _("Multiple devices on your system are "
-                                 "labelled %s.  Labels across devices must be "
-                                 "unique for your system to function "
-                                 "properly.\n\n"
-                                 "Please fix this problem and restart the "
-                                 "installation process.") %(label,),
-                               type="custom", custom_icon="error",
-                               custom_buttons=[_("_Reboot")])
+            try:
+                intf.messageWindow(_("Duplicate Labels"),
+                                   _("Multiple devices on your system are "
+                                     "labelled %s.  Labels across devices must be "
+                                     "unique for your system to function "
+                                     "properly.\n\n"
+                                     "Please fix this problem and restart the "
+                                     "installation process.") %(label,),
+                                   type="custom", custom_icon="error",
+                                   custom_buttons=[_("_Reboot")])
+            except TypeError:
+                intf.messageWindow(_("Invalid Label"),
+                                   _("An invalid label was found on device "
+                                     "%s.  Please fix this problem and restart "
+                                     "the installation process.") %(device,),
+                                   type="custom", custom_icon="error",
+                                   custom_buttons=[_("_Reboot")])
+
             sys.exit(0)
         else:
             log.warning("Duplicate labels for %s, but no intf so trying "

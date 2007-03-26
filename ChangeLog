@@ -1,3 +1,8 @@
+2007-03-26  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (readFstab):  Catch errors on unprintable labels and tell
+	the user what device is causing problems (#191679).
+
 2007-03-23  Jeremy Katz  <katzj@redhat.com>
 
 	* gui.py (readImageFromFile): Make width/height args be in the
