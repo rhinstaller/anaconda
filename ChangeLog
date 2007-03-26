@@ -4,6 +4,9 @@
 	minimize the rapid eye movement for those if us trying to read names
 	and descriptions.
 
+	* network.py: When gathering network device description from kudzu,
+	only probe for devices with modules currently loaded (#233507).
+
 2007-03-26  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (readFstab):  Catch errors on unprintable labels and tell
