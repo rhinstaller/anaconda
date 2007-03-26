@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-26 03:26+0300\n"
+"PO-Revision-Date: 2007-03-26 04:07+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
@@ -3267,9 +3267,9 @@ msgid "Mount point in use"
 msgstr "Точката на монтиране се използва"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "Точката на монтиране \"%s\" вече е заета, моля изберете друга."
+msgstr "Точката на монтиране \"%s\" се ползва, моля изберете друга."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3285,15 +3285,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Името на логическия том \"%s\" вече е заето. Моля изберете друго."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Текущия поискан размер (%10.2f МБ) е по-голям от максималния размер за "
-"логически том (%10.2f МБ). За да увеличите този лимит може да увеличите "
-"размера на Физическия еxtent за групата томове."
+"логически том (%10.2f МБ). За да увеличите този лимит може да създадете "
+"повече физически томове от незаделеното дисково пространсто и да ги "
+"добавите в тази група томове."
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3304,14 +3305,14 @@ msgid "Error With Request"
 msgstr "Грешка при заявката"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Логическите томове, които сте конфигурирали изискват %g МБ, но групата "
-"томове има само %g МБ. Моля или направете групата по-голяма или направете "
+"Логическите томове, които сте конфигурирали изискват %d МБ, но групата "
+"томове има само %d МБ.  Моля направете групата по-голяма или направете "
 "някой том по-малък."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3328,20 +3329,19 @@ msgid "No free space"
 msgstr "Няма свободно място"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "Няма останало свободно място в групата томове за да създаде нов том. За да "
-"добавите логически том, ще трябва да намалите размера на един или повече от "
-"сега съществуващите томове"
+"добавите логически том, ще трябва да намалите размера на един или повече "
+"от вече съществуващите томове"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Сигурен ли сте, че искате да Премахнете логическия том \"%s\"?"
+msgstr "Сигурен ли сте, че искате да изтриете логическия том \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -3523,13 +3523,12 @@ msgid "Nameserver"
 msgstr "Nameserver"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Грешка при конфигуриране на мрежово устройство"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
-msgstr "Базов DNS"
+msgstr "Първичен DNS"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:528
 msgid "Secondary DNS"
@@ -3537,19 +3536,19 @@ msgstr "Вторичен DNS"
 
 #: ../iw/network_gui.py:28
 msgid "_Gateway"
-msgstr "Шлюз"
+msgstr "_Шлюз"
 
 #: ../iw/network_gui.py:28
 msgid "_Primary DNS"
-msgstr "Базов DNS"
+msgstr "_Първичен DNS"
 
 #: ../iw/network_gui.py:28
 msgid "_Secondary DNS"
-msgstr "Вторичен DNS"
+msgstr "_Вторичен DNS"
 
 #: ../iw/network_gui.py:31 ../textw/network_text.py:524
 msgid "Network Configuration"
-msgstr "Конфигуриране на мрежата"
+msgstr "Мрежата конфигурация"
 
 #: ../iw/network_gui.py:143
 msgid ""
@@ -3580,14 +3579,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:155 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
 msgstr "Необходима е стойност за полето \"%s\"."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Грешка с информацията"
+msgstr "Грешка в %s данни"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:584 ../textw/network_text.py:588
@@ -3597,22 +3596,16 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:56
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "IP информацията, която сте въвели е невалидна."
+msgstr "IPv4 информацията, която сте въвели, е невалидна."
 
 #: ../iw/network_gui.py:167
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Вие нямате активни мрежови устройства. Вашата система няма де може да "
-"комуникира през мрежата по подразбиране без поне едно активно устройство.\n"
-"\n"
-"Забележка: Ако имате PCMCIA-базиран мрежови адаптер, Вие трябва да го "
-"оставите не е активиран за момента. Когато презаредите системата адаптера ще "
-"се активира автоматично."
+"комуникира през мрежата по подразбиране без поне едно активно устройство."
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
@@ -3630,13 +3623,12 @@ msgid "Device"
 msgstr "Устройство"
 
 #: ../iw/network_gui.py:393
-#, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Нетмаска"
+msgstr "IPv4/Мрежова маска"
 
 #: ../iw/network_gui.py:395
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Префикс"
 
 #: ../iw/network_gui.py:455
 msgid "Network Devices"
@@ -3644,20 +3636,19 @@ msgstr "Мрежови устройства"
 
 #: ../iw/network_gui.py:466
 msgid "Set the hostname:"
-msgstr "Установете хост-име:"
+msgstr "Име на хоста:"
 
 #: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
-msgstr "автоматично чрез DCHP"
+msgstr "_автоматично чрез DCHP"
 
 #: ../iw/network_gui.py:478
 msgid "_manually"
-msgstr "ръчно"
+msgstr "_ръчно"
 
 #: ../iw/network_gui.py:483
-#, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(напр. \"host.domain.com\")"
+msgstr "(напр.: host.domain.com)"
 
 #: ../iw/network_gui.py:489
 msgid "Hostname"
@@ -3668,63 +3659,49 @@ msgid "Miscellaneous Settings"
 msgstr "Разни"
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "Редактиране RAID устройство"
+msgstr "Радакция на устройството"
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Неизвестно Ehternet устройство"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
-msgstr "Непознат"
+msgstr "непознат"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Хардуерен адрес:"
+msgstr "Хардуерен адрес: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:220 ../loader2/net.c:791
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Липсваща група"
+msgstr "Липсващ протокол"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Трябва да изберете поне един език за инсталиране."
+msgstr "Трябва поне да изберете IPv4 или IPv6 поддръжка."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "Невалиден IP низ"
+msgstr "Невалиден префикс"
 
 #: ../iw/network_gui.py:794
-#, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP Адресите трябва да съдържат числа между 1 и 255"
+msgstr "Префикса при IPv4 следва да е можеду 0 и 32."
 
 #: ../iw/network_gui.py:835 ../iw/network_gui.py:841
-#, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP Адресите трябва да съдържат числа между 1 и 255"
+msgstr "IPv6 префикса трябва да е между 0 и 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"Може да настойте началния зареждач да зарежда други операционни системи. "
-"Това ще ви позволи да заредите операционна система от списъка. За да "
-"добавите допълнителна операционна система, която не е намерена автоматично, "
-"натиснете 'Добавяне'. За да промените операционната система, зареждаща се по-"
-"подразбиране натиснете 'Подразбиращ' за желаната операционна система."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -4422,7 +4399,8 @@ msgstr "Опцията е препоръчителна."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "Инсталатора не може да разпознае програмата за начално зареждане във "
+msgstr ""
+"Инсталатора не може да разпознае програмата за начално зареждане във "
 "вашата система."
 
 #: ../iw/upgrade_bootloader_gui.py:87
