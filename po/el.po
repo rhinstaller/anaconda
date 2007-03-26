@@ -369,7 +369,7 @@ msgstr ""
 "Επιλέξτε 'Εντάξει' για να επιλέξετε μια διαφορετική επιλογή κατάτμησης."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -378,12 +378,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"Δημιουργήθηκαν τα παρακάτω σφάλματα με τα τμήματα δίσκου σας:\n"
+"Δημιουργήθηκαν τα παρακάτω σφάλματα με την κατάτμηση του δίσκου σας:\n"
 "\n"
 "%s\n"
 "\n"
 "Αυτό μπορεί να συμβαίνει αν δεν υπάρχει αρκετός ελεύθερος χώρος στο δίσκο (ή "
-"δίσκους) σας για την εγκατάσταση.%s"
+"δίσκους) σας για την εγκατάσταση. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -720,7 +720,7 @@ msgid ""
 msgstr ""
 "Η συσκευή swap:\n"
 "\n"
-"/dev/%s\n"
+"     /dev/%s\n"
 "\n"
 "στο αρχείο /etc/fstab χρησιμοποιείται ως τμήμα δίσκου software suspend,που "
 "σημαίνει ότι το σύστημα σας βρίσκεται σε λειτουργία αναστολής. Αν κάνετε μια "
@@ -1338,9 +1338,8 @@ msgstr ""
 "υπάρχει. Θέλετε να συνεχίσετε ή να τερματίσετε την εγκατάσταση;"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Δε βρέθηκε η εικόνα εγκατάστασης %s"
+msgstr "Δε βρέθηκε η εικόνα"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
@@ -1349,9 +1348,8 @@ msgid ""
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "Εγκατάσταση %s"
+msgstr "Έξοδος από το πρόγραμμα εγκατάστασης"
 
 #: ../livecd.py:113
 #, fuzzy
@@ -1359,9 +1357,8 @@ msgid "Copying live image to hard drive."
 msgstr "Μεταφορά εικόνας εγκατάστασης στο σκληρό δίσκο..."
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "εγκατάσταση %s %s"
+msgstr "Ολοκλήρωση εγκατάστασης"
 
 #: ../livecd.py:146
 #, fuzzy
@@ -1388,17 +1385,15 @@ msgstr ""
 "'-', ή '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "Λείπει η διεύθυνση IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"Οι διευθύνσεις IP πρέπει να περιέχουν τέσσερις αριθμούς από 0 μέχρι 255, "
+"Οι διευθύνσεις IPv4 πρέπει να περιέχουν τέσσερις αριθμούς από 0 μέχρι 255, "
 "χωρισμένους με τελείες."
 
 #: ../network.py:96
@@ -1407,9 +1402,9 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "Η '%s' δεν είναι μία έγκυρη διεύθυνση IPv6."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "Η '%s' δεν είναι μία έγκυρη διεύθυνση IPv6."
+msgstr "Η '%s' δεν είναι μία έγκυρη διεύθυνση IP."
 
 #: ../packages.py:257
 #, fuzzy
@@ -1660,11 +1655,10 @@ msgstr ""
 "Θέλετε να διαμορφώσετε αυτό το τμήμα δίσκου ως τμήμα δίσκου swap;"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr ""
-"Πρέπει να επιλέξτε τουλάχιστον ένα σκληρό δίσκο για να εγκαταστήσετε το %s "
-"σε αυτόν."
+"Πρέπει να επιλέξτε τουλάχιστον ένα σκληρό δίσκο για να εγκαταστήσετε το %s."
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -2689,9 +2683,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "Προετοιμασία συναλλαγής από την πηγή εγκατάστασης..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Εγκατάσταση του %s\n"
+msgstr "<b>Εγκατάσταση του %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
@@ -2886,11 +2880,10 @@ msgstr ""
 "Το συνθηματικό υπερχρήστη πρέπει να έχει μήκος τουλάχιστον έξι χαρακτήρες."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"Το συνθηματικό που ζητήσατε περιέχει χαρακτήρες οι οποίοι βρίσκονται εκτός "
+"Το συνθηματικό που επιλέξατε περιέχει χαρακτήρες οι οποίοι βρίσκονται εκτός "
 "του συνόλου ascii και δεν είναι αποδεκτοί για χρήση σε συνθηματικά."
 
 #: ../iw/account_gui.py:107
