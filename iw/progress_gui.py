@@ -129,6 +129,7 @@ class InstallProgressWindow (InstallWindow):
         vbox.pack_start(self.progress, False)
 
         self.infolabel = gui.WrappingLabel("")
+        self.infolabel.set_alignment(0,0)
         vbox.pack_start(self.infolabel)
 
 	# All done with creating components of UI

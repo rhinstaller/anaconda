@@ -1,3 +1,9 @@
+2007-03-26  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/progress_gui.py: Set the infolabel to left justify text so as to
+	minimize the rapid eye movement for those if us trying to read names
+	and descriptions.
+
 2007-03-26  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (readFstab):  Catch errors on unprintable labels and tell
