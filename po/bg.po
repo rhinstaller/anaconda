@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-26 04:07+0300\n"
+"PO-Revision-Date: 2007-03-27 02:34+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Неизвестна грешка"
 #: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
+msgstr "Грешка при изтегляне втората част от kickstart конфигурацията:%s!"
 
 #: ../anaconda:279 ../cmdline.py:69 ../gui.py:957 ../text.py:400
 #, c-format, python-format
@@ -35,13 +35,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Намерена е следната грешка при четенето на кикстарт конфигурацията:\n"
+"Намерена бе следната грешка при разбор на kickstart конфигурацията:\n"
 "\n"
 "%s"
 
 #: ../anaconda:401
 msgid "Press <enter> for a shell"
-msgstr "Натиснете <enter> за обвивка(shell)"
+msgstr "Натиснете <enter> преход към текстова обвивка(shell)"
 
 #: ../anaconda:416 ../gui.py:235 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
@@ -91,12 +91,12 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Не разполагате с достатъчно RAM памет, за ползването на графичен режим. "
-"Стартиране в текстов режим."
+"Не разполагате с достатъчно RAM памет за графичен режим.  Стартиране "
+"на текстов режим."
 
 #: ../anaconda:439
 msgid "No video hardware found, assuming headless"
-msgstr "Не е намерено видео устройство, предполагам, че липсва"
+msgstr "Не е намерено видео устройство, приема се че липсва"
 
 #: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
@@ -232,9 +232,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Не е открит дела %s, който да се ползва като %s.\n"
+"Не може да бъде открит дяла %s, който да се ползва за %s.\n"
 "\n"
-"Натиснете 'Добре' за рестартиране на системата."
+"Натиснете 'Да' за рестартиране на системата."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
@@ -624,8 +624,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка при опита за инициализиране на слуап дял върху устройство %"
-"s.  Проблема е сериозен и инсталацията не може да продължи.\n"
+"Грешка при опита за инициализиране на swap дал на устройство %s.  Това е "
+"сериозен проблем и инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
@@ -633,7 +633,7 @@ msgstr ""
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:421
 msgid "Skip"
-msgstr "Пропусни"
+msgstr "Пропускане"
 
 #: ../fsset.py:1480 ../upgrade.py:59 ../textw/complete_text.py:41
 msgid "Reboot"
@@ -654,9 +654,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"е версия 0 Линукс swap дял. Ако искате да ползвате това устройство "
-"трябва да го преформатирате като версия 1 Линукс swap дял. Ако пропуснете "
-"тази стъпка, то инсталатора ще го игнорира по време на инсталацията."
+"е Линукс swap дял версия 0. Ако искате да ползвате това устройство "
+"трябва да го преформатирате като Линукс swap дял версия 1. Ако не го "
+"направите инсталатора ще го игнорира по време на инсталацията."
 
 #: ../fsset.py:1508
 msgid "Reformat"
@@ -677,9 +677,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"във вашия /etc/fstab файл в момента се ползва като дял за софтуерна хибернация, "
-"което значи че системата Ви е хибернирана. Моля изключете я (вместо да я "
-"хибернирате) преди да се опитате да я обновите."
+"във файла /etc/fstab в момента се ползва като софтуерен дял за приспиване, "
+"което значи че системата Ви е приспана. Моля изключете я (вместо да я "
+"приспивате) преди да се опитате да я обновите."
 
 #: ../fsset.py:1520
 #, python-format
@@ -696,8 +696,8 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"във вашия /etc/fstab файл в момента се ползва като дял за софтуерна хибернация, "
-"което значи че системата Ви е хибернирана. Ако правите нова инсталация, "
+"във файла /etc/fstab в момента се ползва като софтуерен дял за приспиване, "
+"което значи че системата Ви е приспана. Ако правите нова инсталация, "
 "осигурете на инсталатора да му е зададено да форматира всички swap дялове."
 
 #: ../fsset.py:1530
@@ -711,7 +711,7 @@ msgstr ""
 "\n"
 "\n"
 "Изберете пропуск ако искате инсталатора да игнорира този дял по време на "
-"обновяването.  Изберете форматиране за да преформатирате дяла като swap.  Изберете "
+"обновяването.  Изберете форматиране за преформатиране на дяла на swap.  Изберете "
 "рестарт за да рестартирате системата."
 
 #: ../fsset.py:1536 ../iw/partition_gui.py:368
@@ -728,12 +728,12 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Грешка при включването на слуап устройство %s: %s\n"
+"Грешка при активиране на swap устройство %s: %s\n"
 "\n"
-"Във файлът /etc/fstab на обновения дял няма препрадка към валиден слуап "
+"Файла /etc/fstab на дяла за обновяване не сочи валиден swap "
 "дял.\n"
 "\n"
-"Натиснете 'Добре' за рестартиране на системата."
+"Натиснете Да за рестартиране на системата."
 
 #: ../fsset.py:1554
 #, python-format
@@ -744,10 +744,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Грешка при включването на слуап устройство %s: %s\n"
+"Грешка при активиране на swap устройство %s: %s\n"
 "\n"
-"Най-често това е индикация за грешка при инициализацията на слуапът.\n"
-"Натиснете 'Добре' за рестартиране на системата."
+"По всяка вероятност това означава че swap дяла не е инициализиран.\n"
+"\n"
+"Натиснете Да за рестартиране на системата."
 
 #: ../fsset.py:1608
 #, python-format
@@ -757,8 +758,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Повредени сектори са открити на устройство /dev/%s. Не се препоръчва "
-"използването му.\n"
+"Открити са лоши сектори на устройство /dev/%s. Не се препоръчва "
+"ползването му.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата"
 
@@ -770,7 +771,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка по време на проверката за лоши блокове на устройство %s.  "
+"Възникна грешка по време на проверката за лоши сектори на устройство %s.  "
 "Проблемът е сериозен и инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
@@ -813,8 +814,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка при опита за създаване на %s. Част от пътя не е директория. "
-"Проблемът е сериозен и инсталацията не може да продължи.\n"
+"Възникна грешка при опита за създаване на %s. Някой елемент от пътя "
+"не е директория. Проблемът е фатален и инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
@@ -826,7 +827,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка при опита за създаване на %s: %s. Проблемът е сериозен и "
+"Възникна грешка при опита за създаване на %s: %s. Проблемът е фатален и "
 "инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
@@ -841,8 +842,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
-"Възникна грешка при монтиране на устройство %s като %s.  Можете да продължите "
-"с инсталацията, но може да възникнат проблеми."
+"Възникна грешка при монтиране на устройство %s като %s.  Можете да "
+"продължите с инсталацията, но може да възникнат проблеми."
 
 #: ../fsset.py:1767 ../image.py:93 ../image.py:446 ../kickstart.py:987
 #: ../kickstart.py:1025 ../yuminstall.py:716 ../iw/partition_gui.py:1011
@@ -860,7 +861,7 @@ msgid ""
 msgstr ""
 "Грешка при монтиране на устройство %s като %s: %s\n"
 "\n"
-"Най-вероятно това занчи че дяла не е бил форматиран.\n"
+"Най-вероятно това означава че дяла не е форматиран.\n"
 "\n"
 "Натиснете Да за рестартиране на системата."
 
@@ -876,7 +877,7 @@ msgstr ""
 "\n"
 "Вероятна причина - неправилен fstab.\n"
 "\n"
-"Натиснете Добре за рестартиране на системата."
+"Натиснете Да за рестартиране на системата."
 
 #: ../fsset.py:2448
 msgid "Duplicate Labels"
@@ -890,10 +891,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Повече от едно устройство е наименувано като %s.  Етикетите на различните "
+"Повече от едно устройство е с етикет %s.  Етикетите на различните "
 "устройства трябва да бъдат уникални за правилната работа на системата.\n"
 "\n"
-"Моля отстранете проблема и започнете отново процеса на инсталация."
+"Моля отстранете проблема и започнете отново инсталацията."
 
 #: ../fsset.py:2709
 msgid "Formatting"
@@ -906,11 +907,11 @@ msgstr "Форматиране на файлова система %s..."
 
 #: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
-msgstr "Възникна грешка при прекопирането на screenshots."
+msgstr "Възникна грешка при копиране на кадър."
 
 #: ../gui.py:118
 msgid "Screenshots Copied"
-msgstr "Screenshots са изкопирани"
+msgstr "Кадрите са копирани"
 
 #: ../gui.py:119
 msgid ""
@@ -920,7 +921,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"Screenshots са запазени в директорията:\n"
+"Кадрите от инсталацията са запазени в директория:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
@@ -928,28 +929,28 @@ msgstr ""
 
 #: ../gui.py:162
 msgid "Saving Screenshot"
-msgstr "Записване на Screenshot"
+msgstr "Записване на кадрите"
 
 #: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Screenshot, наречен %s е запазен."
+msgstr "Кадъра с име %s бе записан."
 
 #: ../gui.py:166
 msgid "Error Saving Screenshot"
-msgstr "Грешка при записването на Screenshot"
+msgstr "Грешка при записа на кадъра"
 
 #: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Възникна грешка, при записването на Screenshot-а. Ако е възникнала по време "
-"на пакетна инсталация, може би трябва да опитате няколко пъти."
+"Възникна грешка при запис на кадър.  Ако това възникна при инсталация "
+"на пакет може да трябва да опитате няколко пъти за да успеете."
 
 #: ../gui.py:232 ../text.py:437
 msgid "Fix"
-msgstr "Коригиране"
+msgstr "Корекция"
 
 #: ../gui.py:233 ../rescue.py:203 ../text.py:438 ../upgrade.py:59
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
@@ -974,7 +975,7 @@ msgstr "Отново"
 
 #: ../gui.py:237 ../text.py:442
 msgid "Ignore"
-msgstr "Пренебрегване"
+msgstr "Игнориране"
 
 #: ../gui.py:238 ../gui.py:777 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:529 ../text.py:103 ../text.py:104 ../text.py:414
@@ -991,11 +992,11 @@ msgstr "Инсталационен ключ"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
-msgstr "_Дебъг"
+msgstr "_Чистене на грешки"
 
 #: ../gui.py:959 ../text.py:402
 msgid "Error Parsing Kickstart Config"
-msgstr "Грешка при четенето на \"кикстарт\" конфигурацията"
+msgstr "Грешка при разбор на kickstart конфигурация"
 
 #: ../gui.py:967 ../text.py:412
 msgid ""
@@ -1008,7 +1009,7 @@ msgstr ""
 
 #: ../gui.py:1014
 msgid "default:LTR"
-msgstr "подразбиращо:LTR"
+msgstr "по подразбиране:LTR"
 
 #: ../gui.py:1100 ../text.py:564
 msgid "Error!"
@@ -1021,7 +1022,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Възникна грешка при опит за зареждане на компонент от инсталатора.\n"
+"Възникна грешка при опит за зареждане на интерфейсен компонент от инсталатора.\n"
 "\n"
 "className = %s"
 
@@ -1035,7 +1036,7 @@ msgstr "_Отново"
 
 #: ../gui.py:1110 ../packages.py:336
 msgid "The installer will now exit..."
-msgstr "Инсталатора сега ще излезе..."
+msgstr "Инсталатора ще излезе..."
 
 #: ../gui.py:1113 ../packages.py:339
 msgid "Your system will now be rebooted..."
@@ -1338,15 +1339,15 @@ msgstr ""
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Името на хоста трябва да бъде до 64 знака дълго."
+msgstr "Името на машината трябва да бъде до 64 знака дълго."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "Името на хоста трябва да започва с валиден символ в интервала 'a-z' или 'A-Z'"
+msgstr "Името на машината трябва да започва с валиден символ в интервала 'a-z' и 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Хост-името може да съдържа само символите 'a-z', 'A-Z', '-' или '.'"
+msgstr "Името на машината може да съдържа само символите 'a-z', 'A-Z', '-' или '.'"
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1357,7 +1358,7 @@ msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IPv4 адресите трябва да съдържат четири числа между 0 и 255, разделени от "
+"IPv4 адресите трябва да съдържат четири числа от 0 до 255, разделени от "
 "точки."
 
 #: ../network.py:96
@@ -1376,11 +1377,11 @@ msgstr "Невалиден ключ"
 
 #: ../packages.py:258
 msgid "The key you entered is invalid."
-msgstr "Ключа който въведохте не е валиден."
+msgstr "Въведения ключ е невалиден."
 
 #: ../packages.py:286
 msgid "_Skip"
-msgstr "_Пропуск"
+msgstr "_Пропускане"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1403,19 +1404,19 @@ msgid ""
 msgstr ""
 "Благодарим ви за свалянето на този пред-пуск на %s\n"
 "\n"
-"Това не е финална версия и не е направна за използване на продуктови "
-"системи.  Целта на този пуск е да се съберат отзиви от тестърите и той не е "
-"подходящ за всекидневна употреба.\n"
+"Това не е финална версия и не е направена за ползване на продукционни "
+"системи.  Целта на тази версия е събирането на отзиви от тествали я и не е "
+"подходяща за всекидневна употреба.\n"
 "\n"
 "За да дадете оценка или препоръка, моля посетете:\n"
 "\n"
 "    %s\n"
 "\n"
-"И опишете Вашите впечатления за '%s'.\n"
+"и напишете рапорт за '%s'.\n"
 
 #: ../packages.py:332
 msgid "_Install anyway"
-msgstr "_Инсталирай въпреки това"
+msgstr "_Инсталиране въпреки това"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1470,7 +1471,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr "Моля, задайте точка за монтиране за дела."
+msgstr "Моля, задайте точка за монтиране на дяла."
 
 #: ../partIntfHelpers.py:112
 #, python-format
@@ -1479,30 +1480,30 @@ msgstr "Дела е част от RAID устройството /dev/md%s."
 
 #: ../partIntfHelpers.py:115
 msgid "This partition is part of a RAID device."
-msgstr "Дела е част от RAID устройство."
+msgstr "Дяла е част от RAID устройство."
 
 #: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Дела е част от LVM групата томове '%s'."
+msgstr "Дяла е част от LVM групата томове '%s'."
 
 #: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
-msgstr "Дела е част от LVM група томове."
+msgstr "Дяла е част от LVM група томове."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
 #: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
 #: ../partIntfHelpers.py:187
 msgid "Unable To Delete"
-msgstr "Не може да премахне"
+msgstr "Не може да се изтрие"
 
 #: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
-msgstr "Трябва първо да изберете дял за премахване."
+msgstr "Трябва първо да изберете дял за изтриване."
 
 #: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
-msgstr "Не може да премахне свободно място."
+msgstr "Свободното място не може да се трие."
 
 #: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -1513,35 +1514,37 @@ msgstr "Не може да премахне дял на LDL форматиран
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr "Не може да премахнете дела, защото е extended дял, който съдържа %s"
+msgstr ""
+"Дяла на може да бъде изтрит, тъй като той е разширен дял "
+"съдържащ %s"
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:554
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Дела съдържа информацията за инсталацията на твърдия диск."
+msgstr "Дяла съдържа данните за инсталация от твърд диск."
 
 #: ../partIntfHelpers.py:188
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"Не може да премахнете този дял:\n"
+"Не може да изтриете този дял:\n"
 "\n"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
-msgstr "Потвърдете изтриването"
+msgstr "Потвърждаване на изтриването"
 
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "Вие сте ще изтриете всички дялове на устройството '/dev/%s'."
+msgstr "На път сте да изтриете всички дялове на устройство '/dev/%s'."
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:529
 #: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1107
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
 msgid "_Delete"
-msgstr "Изтриване"
+msgstr "_Изтриване"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
@@ -1554,14 +1557,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Следните дялове не са премахнати, защото се използват:\n"
+"Следните дялове не са премахнати, защото се ползват:\n"
 "\n"
 "%s"
 
 #: ../partIntfHelpers.py:312 ../partIntfHelpers.py:325
 #: ../partIntfHelpers.py:351 ../partIntfHelpers.py:362
 msgid "Unable To Edit"
-msgstr "Не може да редактира"
+msgstr "Не може да се редактира"
 
 #: ../partIntfHelpers.py:313
 msgid "You must select a partition to edit"
@@ -1580,11 +1583,13 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
+msgstr ""
+"Не може да редактирате този дял, той е разширен дял "
+"съдържащ %s"
 
 #: ../partIntfHelpers.py:384
 msgid "Format as Swap?"
-msgstr "Форматиране като слуап?"
+msgstr "Форматиране на swap?"
 
 #: ../partIntfHelpers.py:385
 #, python-format
@@ -1594,10 +1599,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s има дял от вида 0х82 (Линукс слуап) но изглежда не е форматиран като "
-"Линукс слуап дял.\n"
+"/dev/%s съдържа дял от тип 0x82 (Линукс swap) но не изглежда като "
+"форматирана като Линукс swap дял.\n"
 "\n"
-"Желаете ли да форматирате този дял като слуап?"
+"Желаете ли да форматирате този дял като swap?"
 
 #: ../partIntfHelpers.py:405
 #, python-format
@@ -1616,8 +1621,8 @@ msgstr ""
 "Избрахте да използвате съществуващ дял за тази инсталация без да го "
 "форматирате. Ние препоръчваме да форматирате този дял за да сте сигурни, че "
 "файловете от предходна операционна система няма да създават проблеми с тази "
-"Линукс инсталация. Въпреки това, ако този дял съдържа файлове, които да се "
-"запазят (напр. домашни директори) може да продължите без да го форматирате."
+"Линукс инсталация. Въпреки това, ако този дял съдържа файлове, които трябва да "
+"запазите (например домашни директории), то продължете без да го форматирате."
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
@@ -1625,7 +1630,7 @@ msgstr "Форматиране?"
 
 #: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr "_Модифициране на дял"
+msgstr "_Промяна на дял"
 
 #: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
@@ -1942,9 +1947,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"Тъй като нямате много памет на тази машина, веднага ще трябва да стартираме "
-"слуап пространството. За да направим това, ще трябва да запишем новата "
-"таблица на дяловете сега. Има ли Проблем?"
+"Тъй като няма много памет на тази машина, ще трябва веднага да се активира "
+"swap паметта. За целта ще трябва да бъде записана новата таблица на "
+"дяловете на диска веднага. Има ли проблем?"
 
 #: ../partitions.py:816
 #, python-format
@@ -1952,8 +1957,8 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Не сте задали главен дял (/), който е необходим за да продължи инсталацията на "
-"%s."
+"Не сте задали главен дял (/), който е необходим за да "
+"инсталация на %s."
 
 #: ../partitions.py:821
 #, python-format
@@ -1961,16 +1966,16 @@ msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-"Вашия основен дял е по-малко от 250 мегабайта, което обикновено е твърде малко "
-"за инсталация на %s."
+"Вашия основен дял е по-малко от 250 мегабайта, което обикновено е "
+"твърде малко за инсталация на %s."
 
 #: ../partitions.py:840
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
-"Дяла Ви за начално зареждане не се намира на един от първите четири дяла "
-"и поради това ще бъде незареждаем."
+"Дяла за начално зареждане не е един от първите четири и няма "
+"да може да бъде зареден."
 
 #: ../partitions.py:847
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1990,30 +1995,32 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Вашия дял %s е по-малък от %s МБ, което е по-малко от препоръчителното за "
-"нормална инсталация на %s."
+"Дяла %s е по-малък от %s мегабайта, което е по-малко от препоръчителното "
+"за нормална инсталация на %s."
 
 #: ../partitions.py:942
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "Инсталиране на USB устройство.  Не е сигурно дали това ще създаде работеща система."
+msgstr "Инсталиране на USB устройство.  Не е сигурно дали системата ще бъде работеща."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr "Инсталиране на FireWire устройство.  Не е сигурно дали това ще създаде работеща система."
+msgstr ""
+"Инсталиране на FireWire устройство.  Не е сигурно дали системата "
+"ще бъде работеща."
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Дяловете за Началното зареждане не могат да са на логически томове."
+msgstr "Дяловете за начално зареждане не могат да са на логически томове."
 
 #: ../partitions.py:986
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"Не сте задали слуап дял. Въпреки че не е задължителен при всички случай, той "
-"ще подобри доста производителността за повечето инсталации."
+"Не е зададен swap дял.  Въпреки че не се изисква задължително във всички "
+"случаи, той чувствително подобрява производителността на повечето инсталации."
 
 #: ../partitions.py:993
 #, python-format
@@ -2021,8 +2028,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Вие сте задали повече от 32 слуап устройства. Ядрото за %s поддържа само 32 "
-"устройства."
+"Указали сте повече от 32 swap дяла.  Ядрото на %s поддържа "
+"максимум 32 swap дяла."
 
 #: ../partitions.py:1004
 #, python-format
@@ -2030,13 +2037,12 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Вие сте резервирали по-малко слуап място (%dM) от колкото е наличната РАМ (%"
-"d) за Вашата система.  Това може да се отрази негативно на "
-"непроизводителността."
+"Резервирали сте по-малко swap памет (%dM) от наличната RAM (%dM) в "
+"системата.  Това може да повлияе зле на производителността."
 
 #: ../partitions.py:1304
 msgid "the partition in use by the installer."
-msgstr "Дялът е използван от инсталатора."
+msgstr "дяла се ползва от инсталатора."
 
 #: ../partitions.py:1307
 msgid "a partition which is a member of a RAID array."
@@ -2044,28 +2050,28 @@ msgstr "дял, който е член на RAID масив."
 
 #: ../partitions.py:1310
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "дял, който е член на LVM Група от Томове."
+msgstr "дял, който е член на LVM група томове."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
-msgstr "Стартиращ Интерфейс"
+msgstr "Стартиране на интерфейс"
 
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr "Пробване да стартира %s"
+msgstr "Опит за стартиране на %s"
 
 #: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Когато приключите, излезте от обвивката и системата ще се рестартира."
+msgstr "Като приключите, моля излезте от обвивката и системата ще се рестартира."
 
 #: ../rescue.py:201
 msgid "Setup Networking"
-msgstr "Установяване на Мрежата"
+msgstr "Настройка на мрежата"
 
 #: ../rescue.py:202
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "Желаете ли да стартирате мрежовия интерфейс на системата?"
+msgstr "Желаете ли да се стартират мрежовите интерфейси на системата?"
 
 #: ../rescue.py:243 ../text.py:595
 msgid "Cancelled"
@@ -2073,7 +2079,7 @@ msgstr "Прекъснато"
 
 #: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Не мога да се върна назад от тук. Трябва да опитате отново."
+msgstr "От тук не може да се връща назад. Ще трябва да опитате отново."
 
 #: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
@@ -2092,14 +2098,14 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Спасителната среда сега ще се опита да намери Линукс инсталацията и ще я "
-"монтира по директорията %s.  Тогава може да направите всякакви промени "
+"Спасителната среда ще се опита да намери Вашата Линукс инсталация и да я "
+"монтира в директория %s.  Тогава може да направите всякакви промени "
 "необходими на системата.  Ако искате да продължите с процедурата натиснете "
 "'Продължение'.  Можете също така да монтирате файловата система в режим "
-"'само за четене' като изберете 'Само За Четене'.\n"
+"'само за четене' като изберете 'Само за четене'.\n"
 "\n"
-"Ако поради някаква причина този процес пропадне изберете 'Пропусни' и тази "
-"стъпка ще бъде пропусната и ще отидете директно в командната обвивка.\n"
+"Ако поради някаква причина този процес не успее, изберете 'Пропускане' и "
+"тази стъпка ще бъде пропусната и ще отидете директно на команден ред.\n"
 "\n"
 
 #: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:52
@@ -2110,15 +2116,15 @@ msgstr "Продължение"
 
 #: ../rescue.py:287 ../rescue.py:292
 msgid "Read-Only"
-msgstr "Само За Четене"
+msgstr "Само за четене"
 
 #: ../rescue.py:318
 msgid "System to Rescue"
-msgstr "Система за Спасяване"
+msgstr "Система за спасяване"
 
 #: ../rescue.py:319
 msgid "What partition holds the root partition of your installation?"
-msgstr "Кой е главния дял на вашата инсталация?"
+msgstr "Кой е главния дял на инсталацията?"
 
 #: ../rescue.py:321 ../rescue.py:325 ../text.py:569 ../text.py:571
 msgid "Exit"
@@ -2131,9 +2137,9 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Системата има 'мръсна' файлова система, която Вие избрахте да не монтирате.  "
-"Натиснете <return> за да отидете в обвивката от където може да изпълните "
-"fsck и монтирате дяловете.  Системата ще се рестартира автоматично, когато "
-"напуснете обвивката."
+"Натиснете return за да отидете в командния ред, от където може да изпълните "
+"fsck и монтирате дяловете.  Системата ще се рестартира автоматично след "
+"като напуснете обвивката."
 
 #: ../rescue.py:352
 #, python-format
@@ -2147,12 +2153,12 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Системата беше монтирана под %s.\n"
+"Системата бе монтирана в %s.\n"
 "\n"
-"Натиснете <return> за излезете в обвивката. Ако желаете да направите "
-"системата си основна среда, изпълнете командата:\n"
+"Натиснете <return> за команден ред. Ако желаете да направите системата "
+"си основна среда, то изпълнете командата:\n"
 "\n"
-"\tchroot%s\n"
+"\tchroot %s\n"
 "\n"
 "Системата ще се рестартира автоматично, когато напуснете обвивката."
 
@@ -2165,28 +2171,28 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Получи се грешка при опита за монтиране на някой или всички Ваши системи. "
-"Някой от тях може би са монтирани под %s.\n"
+"Възникна грешка при опит за монтиране на части от или цялата система. Някой "
+"може да са монтирани под %s.\n"
 "\n"
-"Натиснете <return> за да излезете в обвивката. Системата ще се рестартира "
-"автоматично, когато напуснете обвивката."
+"Натиснете <return> за команден ред. Системата ще се рестартира автоматично, "
+"когато напуснете обвивката."
 
 #: ../rescue.py:441
 msgid "Rescue Mode"
-msgstr "Спасителен Режим"
+msgstr "Спасителен режим"
 
 #: ../rescue.py:442
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Вие нямате Линукс дялове. Натиснете <return> за да излезете в обвивка. "
-"Системата ще се презареди автоматично, когато излезете от обвивката."
+"Няма Линукс дялове. Натиснете return за команден ред.  Системата ще "
+"се рестартира автоматично, когато излезете от обвивката."
 
 #: ../rescue.py:455
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "Вашата система е монтирана под %s директорията."
+msgstr "Системата е монтирана под в директория %s."
 
 #: ../text.py:150 ../text.py:165
 msgid "Save"
@@ -2198,7 +2204,7 @@ msgstr "Отдалечен"
 
 #: ../text.py:155 ../text.py:163
 msgid "Debug"
-msgstr "Дебъг"
+msgstr "Търсене на грешки"
 
 #: ../text.py:159
 msgid "Exception Occurred"
@@ -2210,7 +2216,7 @@ msgstr "Запис на отдалечена машина"
 
 #: ../text.py:191
 msgid "Host"
-msgstr "Хост-име"
+msgstr "Машина"
 
 #: ../text.py:193
 msgid "Remote path"
@@ -2226,11 +2232,11 @@ msgstr "Парола"
 
 #: ../text.py:254
 msgid "Help not available"
-msgstr "Няма налична помощ"
+msgstr "Няма помощна информация"
 
 #: ../text.py:255
 msgid "No help is available for this step of the install."
-msgstr "Не е налична помощ за тази стъпка от инсталацията."
+msgstr "Не помощна информация за тази стъпка от инсталацията."
 
 #: ../text.py:362
 #, python-format
@@ -2244,7 +2250,7 @@ msgstr "Прескачане въвеждането на %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
-msgstr "Записване на дъмп-а от катастрофата"
+msgstr "Запис на Crash Dump"
 
 #: ../text.py:466 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
@@ -2265,7 +2271,7 @@ msgstr ""
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
-msgstr "Да продължа с обновлението?"
+msgstr "Продължаване с обновлението?"
 
 #: ../upgrade.py:53
 msgid ""
@@ -2302,9 +2308,9 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Следните файлови системи за Линукс не са монтирани чисто.  Моля заредете "
-"Линукс инсталацията, оставете да бъдат проверени файловите системи и "
-"изключете компютъра чисто за да го обновите.\n"
+"Следните файлови системи за Линукс не са демонтирани чисто.  Моля "
+"заредете Линукс инсталацията, оставете да бъдат проверени файловите "
+"системи и изключете компютъра чисто за да го обновите.\n"
 "%s"
 
 #: ../upgrade.py:158
@@ -2314,8 +2320,8 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Следните файлови системи на Линукс не са демонтирани чисто.  Желаете ли да "
-"ги монтирате въпреки това?\n"
+"Следните файлови системи на Линукс не са демонтирани чисто.  Желаете "
+"ли да ги монтирате въпреки това?\n"
 "%s"
 
 #: ../upgrade.py:295 ../upgrade.py:301
@@ -2437,9 +2443,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
-"Паролата не ще допусне не регламентирани слушалки да се вържат и наблюдават "
-"Вашия инсталационен процес. Моля въведете парола, която да бъде използвана "
-"за инсталацията"
+"Паролата ще попречи на неоторизирани слушатели да се вържат и наблюдават "
+"инсталационния процес.  Моля въведете парола за инсталацията"
 
 #: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
@@ -2455,7 +2460,7 @@ msgstr "Различни пароли"
 
 #: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr "Паролите, които сте въвели за различни. Моля опитайте пак."
+msgstr "Паролите, които въведохте, са различни. Моля опитайте пак."
 
 #: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
@@ -2477,7 +2482,7 @@ msgid ""
 msgstr ""
 "Следва да укажете vnc парола от поне 6 знака.\n"
 "\n"
-"Натиснете <return> за да рестартирате системата си.\n"
+"Натиснете <return> за да рестартирате системата.\n"
 
 #: ../vnc.py:187
 msgid "Starting VNC..."
@@ -2486,7 +2491,7 @@ msgstr "Стартиране на VNC..."
 #: ../vnc.py:230
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr "Инсталиране на %s %s на хоста %s"
+msgstr "Инсталиране %s %s на машина %s"
 
 #: ../vnc.py:232
 #, python-format
@@ -2903,15 +2908,15 @@ msgstr "Налагане LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "Налагане LBA32 (обикновено е нужно)"
+msgstr "_Налагане LBA32 (обикновено е ненужно)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Ако желаете да въведете подразбиращи се параметри на реда за зареждане, моля "
-"въведете ги в полето 'Общи параметри на ядрото'."
+"Ако желаете да въведете подразбиращи се параметри на реда за зареждане, "
+"моля въведете ги в поле 'Общи параметри на ядрото'."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -2921,7 +2926,7 @@ msgstr "_Общи параметри на ядрото"
 #: ../textw/bootloader_text.py:107 ../textw/bootloader_text.py:164
 #: ../textw/bootloader_text.py:282 ../textw/bootloader_text.py:391
 msgid "Boot Loader Configuration"
-msgstr "Конфигурация за начално зареждане"
+msgstr "Настройка на началното зареждане"
 
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
@@ -2934,7 +2939,7 @@ msgstr "Няма да се инсталира програма за началн
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "Настройка на _разширените опции за начално зареждане"
+msgstr "_Разширените настройки на началното зареждане"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2942,11 +2947,11 @@ msgstr "Инсталиране записа за начално зареждан
 
 #: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
-msgstr "Промяна реда на _устройствата"
+msgstr "_Пререждане на устройствата"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
-msgstr "Редакция реда на устройствата"
+msgstr "Пререждане на устройствата"
 
 #: ../iw/bootlocwidget.py:89
 msgid ""
@@ -2957,12 +2962,12 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Подреди устройствата да се използват в същия ред какво е в BIOS. Промяна в "
-"реда на устройствата може да е необходимо, ако имате множество SCSI адаптери "
-"или SCSI и IDE адаптери и искате да заредите от SCSI устройство.\n"
+"Подредете устройствата в същия ред в който се ползват от BIOS. Промяна в "
+"реда на устройствата може да се налага, ако имате множество SCSI адаптери "
+"или и SCSI и IDE адаптери и искате да заредите от SCSI устройство.\n"
 "\n"
-"Промяната на реда на устройствата ще промени, къде инсталационната програма "
-"намира MBR (сектора с началния запис)."
+"Промяната в реда на устройствата променя къде инсталационната програма "
+"ще търси главния запис за зареждане (MBR)."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2972,16 +2977,16 @@ msgstr "Рестартиране?"
 #: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
-msgstr "Системата ще се рестартира."
+msgstr "Сега системата ще бъде рестартирана."
 
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
-msgstr "Готов за инсталиране"
+msgstr "Инсталацията е подготвена"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Натиснете напред за да започнете инсталацията на %s."
+msgstr "Изберете напред за начало на инсталацията на %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2992,20 +2997,20 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Пълен журнал на инсталацията може да бъде намерен във файла '%s' след "
-"рестартирането на системата.\n"
+"Пълни записки от инсталацията можете да намерите във файла '%s' след "
+"като рестартирате системата.\n"
 "\n"
-"Кикстарт файл, съдържащ инсталационните параметри може да бъде намерен във "
-"файла '%s' след рестартирането на системата."
+"Kickstart файл съдържащ избраните инсталационни настройки може да "
+"бъде намерен във файла '%s' след рестартиране на системата."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
-msgstr "Готов за обновяване"
+msgstr "Обновяването е подготвено"
 
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Натиснете напред за да започне обновлението към %s."
+msgstr "Натиснете напред за да започне обновяване към %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3013,19 +3018,19 @@ msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"Пълен журнал на обновлението може да бъде намерен във файла '%s' след "
+"Пълни записки по обновяването може да бъдат намерен във файла '%s' след "
 "рестартирането на системата."
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
-msgstr "Честито"
+msgstr "Поздравления"
 
 #: ../iw/congrats_gui.py:60
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Натиснете бутона 'Рестарт' за рестартиране на системата.\n"
+"Натиснете бутона \"Рестартиране\" за рестартиране на системата.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:63
@@ -3035,7 +3040,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Честито, инсталацията е завършена.\n"
+"Поздравления, инсталацията завърши.\n"
 "\n"
 "%s%s"
 
@@ -3053,7 +3058,7 @@ msgstr "Модел"
 
 #: ../iw/examine_gui.py:28
 msgid "Upgrade Examine"
-msgstr "Проверка за обновление"
+msgstr "Проверка на обновяването"
 
 #: ../iw/examine_gui.py:50
 #, python-format
@@ -3066,12 +3071,11 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "Изберете тази опция за нова инсталация на системата. Съществуващия софтуер и "
-"информация може да бъдат припокрити, в зависимост от зададената от Вас "
-"конфигурация."
+"информация може да бъдат препокрити в зависимост от избраните настройки."
 
 #: ../iw/examine_gui.py:56
 msgid "_Upgrade an existing installation"
-msgstr "Обновление на съществуваща система"
+msgstr "_Обновление на съществуваща система"
 
 #: ../iw/examine_gui.py:58
 #, python-format
@@ -3079,12 +3083,12 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"Изберете тази опция, ако желаете да обновите съществуващата %s система.  "
+"Изберете тази опция, ако желаете да обновите съществуваща %s система.  "
 "Опцията ще запази съществуващата информация на устройствата."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr "Следната система ще бъде обновена:"
+msgstr "Следната инсталирана система ще бъде обновена:"
 
 #: ../iw/examine_gui.py:118
 msgid "Unknown Linux system"
@@ -3113,7 +3117,7 @@ msgid ""
 "than the available space."
 msgstr ""
 "Физическия размер не може да бъде променен, защото иначе размера необходим "
-"за дефинираните по настоящем логически томове ще стане по-голям от наличното "
+"за дефинираните понастоящем логически томове ще стане по-голям от наличното "
 "пространство."
 
 #: ../iw/lvm_dialog_gui.py:125
@@ -3555,8 +3559,8 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Не сте задали хост-име.  В зависимост от мрежовата Ви среда, по-късно това "
-"може да предизвика проблеми."
+"Не е указано име на машината.  В зависимост от мрежовата среда "
+"това може по-късно да създаде проблеми."
 
 #: ../iw/network_gui.py:147
 #, python-format
@@ -3564,8 +3568,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"Не сте задали полето \"%s\". В зависимост от мрежовата среда, това по-късно "
-"може да създаде проблеми."
+"Не сте задали полето \"%s\". В зависимост от мрежовата среда това "
+"може по-късно да създаде проблеми."
 
 #: ../iw/network_gui.py:151 ../textw/network_text.py:808
 #, python-format
@@ -3574,14 +3578,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Хост името \"%s\" е невалидно поради следната причина:\n"
+"Името \"%s\" не е валидно за машината поради:\n"
 "\n"
 "%s"
 
 #: ../iw/network_gui.py:155 ../textw/network_text.py:45
 #, python-format
 msgid "A value is required for the field %s."
-msgstr "Необходима е стойност за полето \"%s\"."
+msgstr "Необходима е стойност за полето %s."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
 #, python-format
@@ -3636,7 +3640,7 @@ msgstr "Мрежови устройства"
 
 #: ../iw/network_gui.py:466
 msgid "Set the hostname:"
-msgstr "Име на хоста:"
+msgstr "Име на машината:"
 
 #: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
@@ -3648,19 +3652,19 @@ msgstr "_ръчно"
 
 #: ../iw/network_gui.py:483
 msgid "(e.g., host.domain.com)"
-msgstr "(напр.: host.domain.com)"
+msgstr "(например: host.domain.com)"
 
 #: ../iw/network_gui.py:489
 msgid "Hostname"
-msgstr "Хост-име"
+msgstr "Име на машина"
 
 #: ../iw/network_gui.py:533
 msgid "Miscellaneous Settings"
-msgstr "Разни"
+msgstr "Разни настройки"
 
 #: ../iw/network_gui.py:621
 msgid "Edit Device "
-msgstr "Радакция на устройството"
+msgstr "Редакция на устройство"
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
@@ -3680,7 +3684,7 @@ msgstr "Липсващ протокол"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Трябва поне да изберете IPv4 или IPv6 поддръжка."
+msgstr "Трябва да изберете поне IPv4 или IPv6 поддръжка."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -3689,11 +3693,11 @@ msgstr "Невалиден префикс"
 
 #: ../iw/network_gui.py:794
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Префикса при IPv4 следва да е можеду 0 и 32."
+msgstr "Префикса при IPv4 следва да е межеду 0 и 32."
 
 #: ../iw/network_gui.py:835 ../iw/network_gui.py:841
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IPv6 префикса трябва да е между 0 и 128."
+msgstr "Префикса при IPv6 следва да е между 0 и 128."
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3702,40 +3706,43 @@ msgid ""
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
+"Можете да настроите програмата за начално зареждане да зарежда друга "
+"операционна система избирайки ост списъка. За да добавите операционна "
+"система, която не е намерена автоматично, натиснете 'Добавяне'. За да "
+"смените подразбиращата се при зареждане операционна система изберете "
+"'По подразбиране' точно до исканата такава."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
-msgstr "Подразбиращ"
+msgstr "По подразбиране"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr "Име"
+msgstr "Етикет"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Образ"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"Въведете етикет, които да се показва в менюто на началния зареждач. "
-"Устройството (твърд диск или номер на дял) е устройството от което ще се "
-"зарежда."
+"Въведете етикет, които да се показва в менюто при начално зареждане. Устройството "
+"(или твърд диск или номер на дял) е устройството от което ще се зареди."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "Име"
+msgstr "_Етикет"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "Подразбираща се инсталация"
+msgstr "Подразбиращ се _избор"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "Трябва да зададете име за записа"
+msgstr "Трябва да зададете име за елемента"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
@@ -3747,19 +3754,19 @@ msgstr "Повтарящ се Етикет"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr "Етикета се използва от друго зареждаща дефиниция."
+msgstr "Етикета се използва от друга дефиниция за зареждане."
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr "Повтарящо се Устройство"
+msgstr "Повтарящо се устройство"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr "Устройството вече се използва от друга зареждаща дефиниция."
+msgstr "Устройството вече се използва от друга дефиниция за зареждане."
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:341
 msgid "Cannot Delete"
-msgstr "Не може да Премахне"
+msgstr "Не може да се изтрие"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:342
 #, python-format
@@ -3767,28 +3774,28 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Зареждащия се target не може да се изтрие защото е за %s системата, която "
-"Вие ще инсталирате сега."
+"Дефиницията за зареждане не може да се изтрие защото е за %s системата, "
+"която Вие ще инсталирате сега."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr "Допълнителен размер опции"
+msgstr "Допълнителни опции за размер"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "Фиксиран размер"
+msgstr "_Фиксиран размер"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "Запълни пространството до (МБ):"
+msgstr "Запълни пространството _до (МБ):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "Запълни до максималния разрешен размер"
+msgstr "Запълване до _максималния разрешен размер"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "Крайния цилиндър трябва да е с по-голям номер от началния (номер)."
+msgstr "Крайния цилиндър трябва да е по-голям от началния."
 
 #: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
@@ -3805,11 +3812,11 @@ msgstr "Редактиране на дял"
 
 #: ../iw/partition_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "Тип на файловата система:"
+msgstr "_Тип на файловата система:"
 
 #: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
-msgstr "Разрешени устройства:"
+msgstr "Разрешени _устройства:"
 
 #: ../iw/partition_dialog_gui.py:349
 msgid "Drive:"
@@ -3817,25 +3824,25 @@ msgstr "Устройство:"
 
 #: ../iw/partition_dialog_gui.py:393
 msgid "_Start Cylinder:"
-msgstr "Начален цилиндър:"
+msgstr "_Начален цилиндър:"
 
 #: ../iw/partition_dialog_gui.py:411
 msgid "_End Cylinder:"
-msgstr "Краен цилиндър:"
+msgstr "_Краен цилиндър:"
 
 #: ../iw/partition_dialog_gui.py:463
 msgid "Force to be a _primary partition"
-msgstr "Наложи първичен дял"
+msgstr "Наложи _първичен дял"
 
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Устройство %s (Геометрия: %s/%s/%s) (Модел: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Устройство %s (%-0.f MB) (Модел: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1447
 msgid "Type"
@@ -3854,7 +3861,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Точка на монтиране\n"
+"Точка на монтиране/\n"
 "RAID/Том"
 
 #: ../iw/partition_gui.py:410
@@ -3871,10 +3878,10 @@ msgstr "Разделяне"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "Избраната схемата на разделяне доведе до следните критични грешки."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Грешките трябва да се отстранят преди да продължи инсталацията на %s."
 
@@ -3884,7 +3891,7 @@ msgstr "Грешки при разделянето"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Към избраната схемата на разделяне има следните предупреждения."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3900,7 +3907,7 @@ msgstr "Предупреждения при форматирането"
 
 #: ../iw/partition_gui.py:681
 msgid "_Format"
-msgstr "Формат"
+msgstr "_Формат"
 
 #: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
@@ -3917,7 +3924,7 @@ msgstr "Няма"
 
 #: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:265
 msgid "Hard Drives"
-msgstr "Твърди Дискове"
+msgstr "Твърди дискове"
 
 #: ../iw/partition_gui.py:870 ../textw/partition_text.py:142
 #: ../textw/partition_text.py:181
@@ -3939,7 +3946,7 @@ msgstr "Свободен"
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:229
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "Не може да се създадат зададените дялове: %s."
+msgstr "Не може да се заделят зададените дялове: %s."
 
 #: ../iw/partition_gui.py:1007
 #, python-format
@@ -3956,11 +3963,11 @@ msgstr "LVM не е поддържа на платформата."
 
 #: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
-msgstr "Софтуерен RAID НЕ е поддържан на платформата."
+msgstr "Софтуерен RAID НЕ се поддържа на платформата."
 
 #: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
-msgstr "Няма наличен номер на RAID младши устройство"
+msgstr "Няма налични номера за RAID под-устройство"
 
 #: ../iw/partition_gui.py:1212
 msgid ""
@@ -3995,16 +4002,15 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
-"За да използвате RAID трябва да създадете поне два дяла от типа 'софтуерен "
-"RAID'.  Тогава ще може да създадете RAID устройство, което може да се "
-"форматира и монтира.\n"
+"За да използвате RAID трябва първи да създадете поне два дяла от тип "
+"'софтуерен RAID'.  След това ще може да създадете RAID устройство, което "
+"може да се форматира и монтира.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1254
@@ -4081,21 +4087,21 @@ msgid "Check for _bad blocks?"
 msgstr "Проверка за лоши блокове?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Дяловете от тип %s трябва да бъдат ограничени до отделно устройство. Това "
-"става като се избере устройство от списъка разрешени устройства."
+"Дяловете от тип '%s' трябва да бъдат ограничени в едно устройство. Това "
+"става като се избере устройство от списъка разрешени такива."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Дисково Разделение Установка"
+msgstr "Дисково разделяне"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr "Автоматично разделяне"
+msgstr "_Автоматично разделяне"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
@@ -4103,7 +4109,7 @@ msgstr "Ръчно разделяне с _Disk Druid"
 
 #: ../iw/progress_gui.py:31
 msgid "Installing Packages"
-msgstr "Инсталира пакетите"
+msgstr "Инсталиране на пакети"
 
 #: ../iw/raid_dialog_gui.py:247
 msgid ""
@@ -4166,7 +4172,6 @@ msgid "Source Drive Error"
 msgstr "Грешка в източника"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4175,7 +4180,7 @@ msgid ""
 msgstr ""
 "Избрания източник има дялове, които не са от типа 'софтуерен RAID'.\n"
 "\n"
-"Тези дялове трябва да се премахнат преди клонирането. "
+"Тези дялове трябва да се премахнат устройството да може да бъде клонирано. "
 
 #: ../iw/raid_dialog_gui.py:506
 #, fuzzy, python-format
@@ -4345,46 +4350,45 @@ msgid ""
 msgstr ""
 
 #: ../iw/task_gui.py:122
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Невалидно Хостиме"
+msgstr "Невалидно име на хранилище"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Трябва да зададете потребителско име"
+msgstr "Трябва да зададете потребителско име."
 
 #: ../iw/task_gui.py:131
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Невалиден етикет"
+msgstr "Невалиден URL на хранилище"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Следва да зададете HTTP или FTP URL за хранилище."
 
 #: ../iw/task_gui.py:146
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Точката на монтиране \"%s\" е заета, моля изберете друга."
+msgstr ""
+"Хранилището %s вече е добавено.  Моля изберете друго име "
+"на хранилище и URL."
 
 #: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
-msgstr "Избор на времеви пояс"
+msgstr "Избор на часови пояс"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Обновяване конфигурацията за нач. зареждане"
+msgstr "Обновяване конфигурацията за начално зареждане"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr "_Обновяване конфигурацията за нач. зареждане"
+msgstr "_Обновяване конфигурацията за начално зареждане"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr "Това ше обнови процеса на начално зареждане."
+msgstr "Това ще обнови процеса за начално зареждане."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
@@ -4455,6 +4459,7 @@ msgstr ""
 "Кои от тези дялове желаете да мигрирате?"
 
 #: ../iw/upgrade_swap_gui.py:29
+#, fuzzy
 msgid "Upgrade Swap Partition"
 msgstr "Обновяване на слуап дела"
 
@@ -4483,10 +4488,12 @@ msgstr ""
 "Инсталатора намери %s МБ РАМ.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
+#, fuzzy
 msgid "I _want to create a swap file"
 msgstr "Искам да създам слуап файл"
 
 #: ../iw/upgrade_swap_gui.py:117
+#, fuzzy
 msgid "Select the _partition to put the swap file on:"
 msgstr "Изберете дял където да се постави слуап файла:"
 
@@ -4499,21 +4506,21 @@ msgid "Free Space (MB)"
 msgstr "Свободно място (МБ)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Препоръчително е слуап файла да бъде поне %d МБ.  Моля въведете размера на "
-"слуап файла:"
+"Минималния препоръчван swap файл е %d MB.  Моля въведете размер на "
+"swap файла:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "Размер на Слуап файла (МБ):"
+msgstr "_Размер на swap файла (МБ):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "Не искам да създавам слуап файл"
+msgstr "_Без swap файл"
 
 #: ../iw/upgrade_swap_gui.py:189
 #, fuzzy
@@ -4527,9 +4534,10 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Слуап файла трябва да е между 1 и 2000 МБ."
+msgstr "Swap файла трябва да е с размер между 1 и 2000 МБ."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
+#, fuzzy
 msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Няма достатъчно място на устройството което сте избрали за слуап дял."
 
@@ -5059,6 +5067,7 @@ msgid "manually"
 msgstr "ръчно"
 
 #: ../textw/network_text.py:772
+#, fuzzy
 msgid "Hostname Configuration"
 msgstr "Конфигурация на хост-името"
 
@@ -5076,10 +5085,12 @@ msgstr ""
 "известна като 'localhost'."
 
 #: ../textw/network_text.py:801 ../textw/network_text.py:807
+#, fuzzy
 msgid "Invalid Hostname"
 msgstr "Невалидно Хостиме"
 
 #: ../textw/network_text.py:802
+#, fuzzy
 msgid "You have not specified a hostname."
 msgstr "Не сте задали хост-име."
 
@@ -5484,10 +5495,12 @@ msgid "Suggested size (MB):"
 msgstr "Предложен размер (МБ):"
 
 #: ../textw/upgrade_text.py:128
+#, fuzzy
 msgid "Swap file size (MB):"
 msgstr "Слуап Файл Размер (МБ):"
 
 #: ../textw/upgrade_text.py:136
+#, fuzzy
 msgid "Add Swap"
 msgstr "Добавяне на Слуап"
 
@@ -5714,6 +5727,7 @@ msgid "CD Not Found"
 msgstr "Не намерено CD"
 
 #: ../loader2/cdinstall.c:464
+#, fuzzy
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Не мога да намеря кикстарт файл на CDROM-a."
 
@@ -5825,11 +5839,13 @@ msgstr "Кискстарт грешка"
 
 #: ../loader2/driverdisk.c:582
 #, c-format
+#, fuzzy
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Непознат дисков кикстарт източник: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
+#, fuzzy
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
@@ -5942,10 +5958,12 @@ msgstr "Устройството %s изглежда не съдържа %s CDRO
 
 #: ../loader2/hdinstall.c:407
 #, c-format
+#, fuzzy
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Невалиден аргумент за команда на HD кикстарт метода %s: %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Не може да намери кикстарт файл на твърдия диск."
 
@@ -5964,16 +5982,19 @@ msgstr "Какъв тип клавиатура имате?"
 
 #: ../loader2/kickstart.c:128
 #, c-format
+#, fuzzy
 msgid "Error opening kickstart file %s: %s"
 msgstr "Грешка при отварянето на кикстарт файла %s: %s"
 
 #: ../loader2/kickstart.c:138
 #, c-format
+#, fuzzy
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Грешка при четенето на съдържанието на кикстарт файла %s: %s"
 
 #: ../loader2/kickstart.c:181
 #, c-format
+#, fuzzy
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Грешка в %s линия %d на кикстарт файла %s."
 
@@ -5994,6 +6015,7 @@ msgstr "Грешка при отварянето на кикстарт файл�
 
 #: ../loader2/kickstart.c:486
 #, c-format
+#, fuzzy
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Невалиден аргумент за командата за спиране на кикстарт метода %s: %s"
 
@@ -6256,6 +6278,7 @@ msgstr "Проверка на контролната сума"
 
 #: ../loader2/modules.c:1043
 #, c-format
+#, fuzzy
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Невалиден аргумент за командата за устройствения кикстарт метод %s: %s"
 
@@ -6412,30 +6435,31 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Трябва да въведете валидни IP адрес и нетмаска."
 
 #: ../loader2/net.c:1519
+#, fuzzy
 msgid "Determining host name and domain..."
 msgstr "Разрешаване на хост името и домейна..."
 
 #: ../loader2/net.c:1612
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Невалиден аргумент за командата за мрежовия кикстарт %s: %s"
+msgstr "Лош аргумент към мрежовата kickstart команда %s: %s"
 
 #: ../loader2/net.c:1635
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Невалидно bootproto %s зададено в мрежовата команда"
+msgstr "В мрежовата команда е указан лош протокол за зареждане %s"
 
 #: ../loader2/net.c:1816
 msgid "Networking Device"
-msgstr "Мрежово Устройство"
+msgstr "Мрежово устройство"
 
 #: ../loader2/net.c:1817
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Имате няколко мрежови устройства на системата. През кое, желаете да продължи "
-"инсталацията?"
+"Имате няколко мрежови устройства в системата. Чрез кое, желаете да "
+"инсталирате?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -6453,11 +6477,11 @@ msgstr "NIS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
-msgstr "NFS установяване"
+msgstr "NFS настройки"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Зададено име на машина без конфигуриран DNS"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
@@ -6471,7 +6495,7 @@ msgstr "Директорията не може да се монтира от с�
 #: ../loader2/nfsinstall.c:252
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Невалиден аргумент за командата на NFS кикстарт метода %s: %s"
+msgstr "Лош аргумент за командата на NFS kikstart метода %s: %s"
 
 #: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
@@ -6505,11 +6529,11 @@ msgstr "Местна инсталационна медия е намерена..
 #: ../loader2/urlinstall.c:457
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Невалиден аргумент за командата за URL кикстарт метода %s: %s"
+msgstr "Лош аргумент за командата за Url kickstart метода %s: %s"
 
 #: ../loader2/urlinstall.c:466
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Трябва да зададе --url аргумент за кикстарт метода."
+msgstr "Трябва да зададе --url аргумент за Url kickstart метода."
 
 #: ../loader2/urlinstall.c:477
 #, c-format
@@ -6522,11 +6546,11 @@ msgstr "Извличане"
 
 #: ../loader2/urls.c:286
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:291
 msgid "Web"
-msgstr ""
+msgstr "Уеб"
 
 #: ../loader2/urls.c:308
 msgid "FTP site name:"
@@ -6538,7 +6562,7 @@ msgstr "Име на уеб сайт:"
 
 #: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
-msgstr "използване на анонимен достъп по ftp"
+msgstr "Ползване на не-анонимно ftp"
 
 #: ../loader2/urls.c:337
 msgid "FTP Setup"
@@ -6550,11 +6574,11 @@ msgstr "Настройка на HTTP"
 
 #: ../loader2/urls.c:348
 msgid "You must enter a server name."
-msgstr "Необходимо е да въведете име на сървър."
+msgstr "Трябва да въведете име на сървър."
 
 #: ../loader2/urls.c:353
 msgid "You must enter a directory."
-msgstr "Необходимо е да въведете директория."
+msgstr "Трябва да въведете директория."
 
 #: ../loader2/urls.c:358
 msgid "Unknown Host"
@@ -6569,17 +6593,19 @@ msgstr "%s е невалидно име на машина."
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr "Ако не използвате анонимно ftp, въведете име и парола по-долу."
+msgstr "Ако не ползвате анонимно ftp, въведете име и парола по-долу."
 
 #: ../loader2/urls.c:435
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
+msgstr ""
+"Ако използвате HTTP прокси, въведете името на проксито, което да се "
+"ползва."
 
 #: ../loader2/urls.c:457
 msgid "Account name:"
-msgstr "Име на Акаунт:"
+msgstr "Име на акаунт:"
 
 #: ../loader2/urls.c:480
 msgid "Further FTP Setup"
@@ -6594,34 +6620,32 @@ msgid "Loading SCSI driver"
 msgstr "Зареждане на SCSI драйвер"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Добавяне на _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Добавяне на _iSCSI target"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Изключване на _dmraid устройство"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Твърд Диск"
+msgstr "_Добавяне на устройство"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL на хранилището:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>_Име на хранилището:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Добавяне на хранилище"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -6629,14 +6653,16 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Моля въведете от къде може да бъде инсталиран вашия допълнителен "
+"софтуер.  Забележете, че това трябва да е валидно за %s хранилище."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Собавяне на хранилище"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "Рестартиране"
+msgstr "_Рестартиране"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
