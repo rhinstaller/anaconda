@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-16 14:30+0100\n"
+"PO-Revision-Date: 2007-03-21 08:43+0100\n"
 "Last-Translator: Alain PORTAL <aportal@univ-montp2.fr>\n"
 "Language-Team: Français <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,13 +221,12 @@ msgstr ""
 "démarrer à partir de cette partition."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"La partition boot n'est pas située assez tôt sur le disque. OpenFirmware ne "
-"pourra pas démarrer cette installation."
+"La partition boot doit être située entièrement sur les 4 premiers Go du "
+"disque. OpenFirmware ne pourra pas démarrer cette installation."
 
 #: ../autopart.py:1038
 #, python-format
@@ -716,7 +715,7 @@ msgstr ""
 "mettre en hibernation."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -1367,7 +1366,6 @@ msgid "Exit installer"
 msgstr "Quitter l'installeur"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
 msgstr "Copie de l'image du CD live sur le disque dur."
 
@@ -2866,7 +2864,7 @@ msgstr "Vous n'avez pas spécifié de LUN FCP ou le numéro n'est pas valide."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Le verrouillage « Majuscule » est activé.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2930,26 +2928,24 @@ msgid "Error with Data"
 msgstr "Erreur de données"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Supprimer toutes les partitions sur les disques sélectionnés et utiliser le "
 "partitionnement par défaut."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Supprimer les partitions Linux et utiliser le partitionnement par défaut."
+"Supprimer les partitions Linux sur les disques sélectionnés et utiliser le "
+"partitionnement par défaut."
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
-"Utiliser l'espace libre sur les disques pour le partitionnement par défaut."
+"Utiliser l'espace libre sur les disques sélectionnés pour créer le "
+"partitionnement par défaut."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
 msgstr "Créer un partitionnement personnalisé."
 
@@ -3155,14 +3151,12 @@ msgid "Congratulations"
 msgstr "Félicitations"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Appuyez sur le bouton « Redémarrez » pour redémarrer le système.\n"
 "\n"
-"\n"
-"Appuyez sur OK pour redémarrer le système."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -4684,7 +4678,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Je _ne veux pas créer de fichier swap"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -5024,7 +5017,6 @@ msgid "IPv%d prefix must be between 0 and %d."
 msgstr "La valeur du préfixe de l'IPv%d doit être comprise entre 0 et %d."
 
 #: ../textw/network_text.py:71
-#, fuzzy
 msgid "Integer Required for Prefix"
 msgstr "Un entier est requis comme préfixe"
 
@@ -5130,18 +5122,17 @@ msgid "IPv6 prefix"
 msgstr "Préfixe IPv6"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Activer l'interface réseau"
+msgstr "Configurer l'interface réseau"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Souhaitez-vous démarrer les interfaces réseau sur ce système ?"
+msgstr "Souhaitez-vous configurer l'interface réseau %s sur votre système ?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "NON CONFIGURÉ"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5150,38 +5141,41 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Les paramètres de la configuration actuelle de chaque interface sont "
+"affichés à coté du nom du périphérique. Les interfaces non configurées sont "
+"indiquées par NON CONFIGURÉ. Pour configurer une interface, mettez-la en "
+"surbrillance et choisissez Éditer. lorsque vous avez fini, appuyez sur OK "
+"pour continuer."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Activation au démarrage"
+msgstr "Actif au démarrage"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Activation au démarrage"
+msgstr "Inactif au démarrage"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "IPv6 automatique"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5431,7 +5425,6 @@ msgid "Too many spares"
 msgstr "Trop de disques restants"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
 msgstr ""
 "Vous ne pouvez pas utiliser de disque de rechange avec une matrice RAID0."
@@ -6205,9 +6198,8 @@ msgid "Hard drive"
 msgstr "Disque dur"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "Répertoire %s :"
+msgstr "Répertoire NFS"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6855,7 +6847,6 @@ msgid "Re_view and modify partitioning layout"
 msgstr "E_xaminer et modifier la structure de partitionnement"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
 msgstr ""
 "À partir de quel disque souhaitez-vous que démarre cette installation ?"
@@ -6887,7 +6878,7 @@ msgid "_Save to floppy"
 msgstr ""
 
 #: tmp/instkey.glade.h:2
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "%(instkey)s:"
 msgstr "%(instkey)s :"
 
@@ -7252,29 +7243,3 @@ msgstr "Gallois"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zoulou"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Retirez les média d'installation (disquettes ou CD-ROM) que vous avez "
-#~ "utilisés au cours de l'installation, puis cliquez sur le bouton "
-#~ "« Redémarrer » pour redémarrer votre système.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Retirez les média d'installation (disquettes ou CD-ROM) que vous avez "
-#~ "utilisés au cours du processus d'installation, puis appuyez sur <Entrée> "
-#~ "pour redémarrer votre système.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Entrée> pour redémarrer"
-
-#~ msgid "NFS image"
-#~ msgstr "Image NFS"
