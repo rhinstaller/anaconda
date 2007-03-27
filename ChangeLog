@@ -4,6 +4,8 @@
 	INSTALL_OK or INSTALL_BACK from chooseNetworkDevice() as that causes
 	the next window to not be displayed.
 
+	* loader2/linuxrc.s390: Add IPv4 address validation (#234152).
+
 2007-03-26  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/progress_gui.py: Set the infolabel to left justify text so as to
