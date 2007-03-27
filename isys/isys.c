@@ -1497,7 +1497,7 @@ int silraid_dev_running_raid(int fd);
 
 static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args) {
 #ifndef __i386__
-    return Py_BuildValue("i", 0);
+    return Py_None;
 #else
     char *dev;
     char * path;
