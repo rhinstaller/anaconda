@@ -26,6 +26,9 @@ from constants_text import *
 from constants import *
 from rhpl.translate import _
 
+import logging
+log = logging.getLogger("anaconda")
+
 def handleIPError(screen, field, msg):
     try:
         newfield = descr[field]
@@ -561,14 +564,14 @@ class NetworkDeviceWindow:
 
         # collect configuration data for each interface selected by the user
         doConf = True
-        while 1:
+        while doConf is True:
             if len(self.devices) == 1 and doConf is False:
                 return INSTALL_OK
 
             dev = self.chooseNetworkDevice(screen)
 
             if dev == INSTALL_OK or dev == INSTALL_BACK:
-                screen.popWindow()
+                doConf = False
                 return dev
 
             descr = dev.get('desc')
@@ -638,6 +641,9 @@ class NetworkDeviceWindow:
 
             if len(self.devices) == 1 and doConf is True:
                 doConf = False
+
+        screen.popWindow()
+        return INSTALL_OK
 
 
 class NetworkGlobalWindow:
