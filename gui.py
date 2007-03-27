@@ -1039,10 +1039,10 @@ class InstallControlWindow:
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-	if not self.rnv.isShowing():
-		self.rnv.view()
-	else:
-		print "Release notes viewer already running"
+        if not self.rnv.isShowing():
+            self.rnv.view()
+        else:
+            print "Release notes viewer already running"
 
     def debugClicked (self, *args):
         try:

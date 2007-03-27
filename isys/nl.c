@@ -188,7 +188,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
     memset(buf, 0, sizeof(buf));
     ret = recvfrom(sock, buf, sizeof(buf), 0, NULL, 0);
     if (ret < 0) {
-        perror("recvfrom in netlink_init_interfaces_table");
+        perror("recvfrom in netlink_get_interface_ip");
         close(sock);
         return -1;
     }
@@ -265,6 +265,10 @@ int netlink_init_interfaces_list(void) {
     struct rtattr *rta;
     struct rtattr *tb[IFLA_MAX+1];
     interface_info_t *intfinfo;
+
+    /* if interfaces has stuff, free it now and read again */
+    if (interfaces != NULL)
+        netlink_interfaces_list_free();
 
     /* get a socket */
     if ((sock = netlink_create_socket()) == -1) {
@@ -412,14 +416,16 @@ char *netlink_interfaces_ip2str(char *ifname) {
     if (ifname == NULL)
         return NULL;
 
-    /* init the interfaces list if it's empty */
-    if (interfaces == NULL) {
+    /* init the interfaces list if it's empty or if nothing is found */
+    e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
+    if (interfaces == NULL || e == NULL) {
         if (netlink_init_interfaces_list() == -1) {
-            perror("netlink_init_interfaces_list in netlink_interface_mac2str");
+            perror("netlink_init_interfaces_list in netlink_interface_ip2str");
             return NULL;
         }
     }
 
+    /* search */
     e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
     if (e == NULL) {
         return NULL;

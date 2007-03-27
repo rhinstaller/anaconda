@@ -10,6 +10,15 @@
 
 	* loader2/linuxrc.s390: Add IPv4 address validation (#234152).
 
+	* gui.py (releaseNotesButtonClicked): Spaces vs. tabs, tonight at 11.
+
+	* network.py (hasActiveDev): Use isys.getLinkStatus() rather than
+	isys.getIPAddress() (#232512).
+
+	* isys/isys.c (doGetIPAddress): Do not clear netlink cache.
+
+	* isys/nl.c: Netlink cache searching cleanups.
+
 2007-03-26  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/progress_gui.py: Set the infolabel to left justify text so as to
