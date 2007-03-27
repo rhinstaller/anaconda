@@ -1,17 +1,18 @@
-# Translation of anaconda.pot to Bulgarian
-# This file is distributed under the same license as the anaconda package.
-# Contributed to Fedora Project by:
+# translation of anaconda.pot to Bulgarian
 # Yovko Lambrev <yovko@openintegra.com>, 2003.
 # Mladen Milev <mladen@openintegra.com>, 2003.
 # Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>, 2004.
 # Николай Сърмаджиев <nikolay@sarmadzhiev.com>, 2005.
 # Doncho N. Gunchev <gunchev@gmail.com>, 2007.
+# Translation of anaconda.pot to Bulgarian
+# This file is distributed under the same license as the anaconda package.
+# Contributed to Fedora Project by:
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-27 02:34+0300\n"
+"PO-Revision-Date: 2007-03-27 03:52+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
@@ -5963,9 +5964,8 @@ msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Невалиден аргумент за команда на HD кикстарт метода %s: %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Не може да намери кикстарт файл на твърдия диск."
+msgstr "Не може да бъде намерен kickstart файл на твърдия диск."
 
 #: ../loader2/hdinstall.c:520
 #, c-format
@@ -5982,21 +5982,18 @@ msgstr "Какъв тип клавиатура имате?"
 
 #: ../loader2/kickstart.c:128
 #, c-format
-#, fuzzy
 msgid "Error opening kickstart file %s: %s"
-msgstr "Грешка при отварянето на кикстарт файла %s: %s"
+msgstr "Грешка при отварянето на kickstart файл %s: %s"
 
 #: ../loader2/kickstart.c:138
 #, c-format
-#, fuzzy
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Грешка при четенето на съдържанието на кикстарт файла %s: %s"
+msgstr "Грешка при четене на съдържанието на kickstart файл %s: %s"
 
 #: ../loader2/kickstart.c:181
 #, c-format
-#, fuzzy
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Грешка в %s линия %d на кикстарт файла %s."
+msgstr "Грешка в %s на ред %d от kickstart файл %s."
 
 #: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
@@ -6007,17 +6004,18 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Не може да бъде свален kickstart файла.  Моля променете kickstart "
+"параметъра по-долу или натиснете Отказ за да продължите с "
+"интерактивна инсталация."
 
 #: ../loader2/kickstart.c:353
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Грешка при отварянето на кикстарт файла %s: %s"
+msgstr "Грешка при сваляне на kickstart файл"
 
 #: ../loader2/kickstart.c:486
 #, c-format
-#, fuzzy
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Невалиден аргумент за командата за спиране на кикстарт метода %s: %s"
+msgstr "Невалиден аргумент за командата за спиране на kickstart метода %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6041,9 +6039,8 @@ msgid "Hard drive"
 msgstr "Твърд Диск"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s директория:"
+msgstr "NFS директория"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6183,12 +6180,12 @@ msgstr ""
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Проверява \"%s\"..."
+msgstr "Проверява се \"%s\"..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr "Проверяване на медията..."
+msgstr "Проверка на медията..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
@@ -6197,56 +6194,44 @@ msgstr "Не може да бъде намерен инсталационния 
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "НЕУСПЕХ"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"ПРОВАЛ.\n"
-"\n"
-"Текущо тествания образ има грешки. Това може да е зари повредено сваляне или "
-"диск.  Ако е възможно почистете диска и опитайте отново. Ако този тест "
-"продължава да се проваля,  Вие не трябва да продължавате с инсталацията."
+"Току що тествания образ има грешки. Това може да е зари повредено сваляне "
+"или лош диск.  Ако е възможно почистете диска и опитайте отново.  Ако този "
+"тест продължава да пропада не трябва да продължавате инсталацията."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "МИНАТ"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"ПРЕМИНА\n"
-"\n"
-"Диска е добър, може да инсталирате от тази медия."
+msgstr "Наред е, може да се инсталира от тази медия."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"Няма контролна сума и не е е възможно да се провери медията."
+msgstr "Няма контролна сума, невъзможно е да се провери медията."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Резултат от проверката на медиите"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"на образа:\n"
+"%s за образа:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6255,11 +6240,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Проверката на медията %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "провал при четенето от директорията %s: %s"
+msgstr "Неуешно четене на директория %s: %s"
 
 #: ../loader2/method.c:418
 #, c-format
@@ -6278,16 +6266,12 @@ msgstr "Проверка на контролната сума"
 
 #: ../loader2/modules.c:1043
 #, c-format
-#, fuzzy
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Невалиден аргумент за командата за устройствения кикстарт метод %s: %s"
+msgstr "Лош аргумент към kickstart метода за устройството %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"Следните невалидни аргументи са зададени за командата за кикстарт диска с "
-"драйвери: %s:%s"
+msgstr "И типа на модула и името му следва да бъдат указани в kickstart командите към устройства."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6309,6 +6293,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"Префикса трябва да бъде между 1 и 32 за IPv4 мрежи или между 1 и 128 за "
+"IPv6 мрежи"
 
 #: ../loader2/net.c:257
 #, c-format
@@ -6327,7 +6313,7 @@ msgstr "ESSID"
 
 #: ../loader2/net.c:264
 msgid "Encryption Key"
-msgstr "Криптиращ Ключ"
+msgstr "Криптиращ ключ"
 
 #: ../loader2/net.c:267
 msgid "Wireless Settings"
@@ -6335,23 +6321,18 @@ msgstr "Безжични параметри"
 
 #: ../loader2/net.c:298
 msgid "Nameserver IP"
-msgstr "Nameserver IP"
+msgstr "IP на сървъра за имена"
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Липсва сървър за имена"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Заявката за динамично IP върна IP  конфиг. информация, но не съдържа DNS "
-"nameserver. Ако знаете nameserver си, моля въведете го сега. Ако нямате тази "
-"информация, може да оставите полето празно и инсталацията ще продължи."
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6362,51 +6343,45 @@ msgid "You entered an invalid IP address."
 msgstr "Въвели сте невалиден IP адрес."
 
 #: ../loader2/net.c:583 ../loader2/net.c:691
-#, fuzzy
 msgid "Network Error"
-msgstr "Няма парола"
+msgstr "Мрежова грешка"
 
 #: ../loader2/net.c:584 ../loader2/net.c:692
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Имаше грешка при настройката на мрежовия интерфейс."
 
 #: ../loader2/net.c:765
 msgid "Configure TCP/IP"
-msgstr "Конфигуриране на TCP/IP"
+msgstr "Настройка на TCP/IP"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Трябва да изберете поне един език за инсталиране."
+msgstr "Трябва да изберете поне един протокол (IPv4 или IPv6)."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 трябва за NFS"
 
 #: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "Инсталационния метод през NFS изисква IPv4 поддръжка."
 
 #: ../loader2/net.c:920
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "IP адрес:"
+msgstr "IPv4 адрес:"
 
 #: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:972
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "IP адрес:"
+msgstr "IPv6 адрес:"
 
 #: ../loader2/net.c:1033
-#, fuzzy
 msgid "Name Server:"
-msgstr "Nameserver"
+msgstr "Сървър за имена:"
 
 #: ../loader2/net.c:1069
 msgid ""
@@ -6416,28 +6391,24 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL конфигурация"
+msgstr "Ръчна TCP/IP настройка"
 
 #: ../loader2/net.c:1206 ../loader2/net.c:1212
 msgid "Missing Information"
 msgstr "Липсваща информация"
 
 #: ../loader2/net.c:1207
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Трябва да въведете валидни IP адрес и нетмаска."
+msgstr "Трябва да въведете валидни IPv4 адрес и мрежова маска или CIDR префикс."
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Трябва да въведете валидни IP адрес и нетмаска."
+msgstr "Трябва да въведете валидни IPv6 адрес и CIDR префикс."
 
 #: ../loader2/net.c:1519
-#, fuzzy
 msgid "Determining host name and domain..."
-msgstr "Разрешаване на хост името и домейна..."
+msgstr "Определяне името на машината и домейна..."
 
 #: ../loader2/net.c:1612
 #, c-format
@@ -6471,9 +6442,8 @@ msgid "%s directory:"
 msgstr "%s директория:"
 
 #: ../loader2/nfsinstall.c:55
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
