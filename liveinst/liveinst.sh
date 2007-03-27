@@ -8,7 +8,7 @@ if [ -z "$LIVE_MOUNT_PATH" ]; then
 fi
 
 if [ ! -f /.livecd-configured ]; then
-  zenity --error --title="Not a Live CD" --text "Can't do live CD installation unless running on a live CD"
+  zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
 fi
 
 export ANACONDA_PRODUCTNAME="Fedora"
@@ -22,4 +22,10 @@ if [ -z "$LANG" ]; then
 fi
 
 # eventually, we might want to allow a more "normal" install path
-/usr/sbin/anaconda --method=livecd://$LIVE_MOUNT_PATH --lang $LANG
+ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_MOUNT_PATH --lang $LANG"
+
+if [ -x /usr/bin/hal-lock ]; then
+    /usr/bin/hal-lock --exclusive --run "$ANACONDA"
+else
+    $ANACONDA
+fi
