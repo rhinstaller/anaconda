@@ -1,3 +1,8 @@
+2007-03-28  Jeremy Katz  <katzj@redhat.com>
+
+	* liveinst/liveinst.sh: Load modules so that we can do filesystem
+	stuff, etc (#230945)
+
 2007-03-28  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
