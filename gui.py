@@ -488,7 +488,6 @@ class WaitWindow:
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
-            self.window.set_type_hint(gtk.gdk.WINDOW_DIALOG)
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
             self.window.set_modal(True)
@@ -516,7 +515,6 @@ class ProgressWindow:
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
-            self.window.set_type_hint(gtk.gdk.WINDOW_DIALOG)            
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
             self.window.set_modal(True)            
