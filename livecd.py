@@ -284,6 +284,31 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                %(productName,), type = "custom",
                                custom_icon="error",
                                custom_buttons=[_("Exit installer")])
+            isys.umount("/mnt/installer/squashed")
+            isys.unlosetup("/dev/loop4")
+            sys.exit(1)
+
+        # ensure there's enough space on the rootfs
+        # FIXME: really, this should be in the general sanity checking, but
+        # trying to weave that in is a little tricky at present.
+        ossize = os.stat("/mnt/installer/squashed/os.img")[stat.ST_SIZE] / 1024.0 / 1024.0
+        slash = anaconda.id.partitions.getRequestByMountPoint("/")
+        if slash and \
+           slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:
+            rc = anaconda.intf.messageWindow(_("Error"),
+                                        ("The root filesystem you created is "
+                                         "not large enough for this live "
+                                         "image."), type = "custom",
+                                        custom_icon = "error",
+                                        custom_buttons=[_("Back"),
+                                                        _("Exit installer")])
+            if rc == 0:
+                isys.umount("/mnt/installer/squashed")
+                isys.unlosetup("/dev/loop4")
+                return DISPATCH_BACK
+            else:
+                sys.exit(1)
+        
 
     # package/group selection doesn't apply for this backend
     def groupExists(self, group):

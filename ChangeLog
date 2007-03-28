@@ -1,5 +1,9 @@
 2007-03-28  Jeremy Katz  <katzj@redhat.com>
 
+	* livecd.py (LiveCDCopyBackend.doRepoSetup): Check that we have
+	sufficient disk space for the os.img.  (#230943)
+	* backend.py (doRepoSetup): If repo setup fails, go back.
+
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Call
 	refresh method so that we don't end up with a hung looking UI
 	during filesystem resizing, etc (#224213)

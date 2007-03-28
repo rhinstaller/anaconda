@@ -217,7 +217,8 @@ class AnacondaBackend:
 
 def doRepoSetup(anaconda):
     anaconda.backend.doInitialSetup(anaconda)
-    anaconda.backend.doRepoSetup(anaconda)
+    if anaconda.backend.doRepoSetup(anaconda) == DISPATCH_BACK:
+        return DISPATCH_BACK
     if anaconda.id.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
 
