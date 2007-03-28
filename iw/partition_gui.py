@@ -327,7 +327,7 @@ class DiskStripeGraph:
         text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
                  weight=pango.WEIGHT_BOLD)
         (xxx1, yyy1, xxx2, yyy2) =  text.get_bounds()
-        textheight = yyy2 - yyy1
+        textheight = yyy2 - yyy1 + 2
         self.textlabels.append(text)
         group = self.canvas.root().add(gnomecanvas.CanvasGroup,
                                        x=0, y=yoff+textheight)

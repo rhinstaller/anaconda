@@ -6,6 +6,10 @@
 	* packages.py (turnOnFilesystems):  Call clearDevices.
 	* partitioning.py (partitioningComplete):  Likewise.
 
+	* iw/partition_gui.py (DiskStripeGraph.add):  Add a little more space
+	between the device description and the stripe for tall languages
+	(#217294).
+
 2007-03-27  Jeremy Katz  <katzj@redhat.com>
 
 	* liveinst/liveinst.sh: Support using hal locking by running
