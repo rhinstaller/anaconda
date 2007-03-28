@@ -100,6 +100,7 @@ def partitioningComplete(anaconda):
         
     if rc:
         anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)        
+        anaconda.id.diskset.clearDevices()
         anaconda.id.fsset.setActive(anaconda.id.diskset)
         anaconda.id.diskset.savePartitions ()
         anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)        

@@ -990,6 +990,48 @@ class DiskSet:
 
         return 1
 
+    def clearDevices (self):
+        def inClearDevs (drive, clearDevs):
+            return (clearDevs is None) or (len(clearDevs) == 0) or (drive in clearDevs)
+
+        clearDevs = []
+        initAll = False
+
+        if self.anaconda is not None and self.anaconda.isKickstart:
+            clearDevs = self.anaconda.id.ksdata.clearpart.drives
+            initAll = self.anaconda.id.ksdata.clearpart.initAll
+
+        for drive in self.driveList():
+            # ignoredisk takes precedence over clearpart (#186438).
+            if drive in DiskSet.skippedDisks:
+                continue
+
+            deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+
+            if not isys.mediaPresent(drive):
+                DiskSet.skippedDisks.append(drive)
+                continue
+
+            try:
+                dev = parted.PedDevice.get (deviceFile)
+            except parted.error, msg:
+                DiskSet.skippedDisks.append(drive)
+                continue
+
+            if initAll and inClearDevs(drive, clearDevs) and not flags.test \
+                       and not hasProtectedPartitions(drive, self.anaconda):
+                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                    if self.dasdFmt(drive):
+                        DiskSet.skippedDrives.append(drive)
+                        continue
+                else:
+                    try:
+                        disk = dev.disk_new_fresh(getDefaultDiskType())
+                        disk.commit()
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
+
     def openDevices (self):
         """Open the disks on the system and skip unopenable devices."""
 
@@ -1017,11 +1059,11 @@ class DiskSet:
             ks = False
             clearDevs = []
             initAll = False
-            if self.anaconda is not None:
-                if self.anaconda.isKickstart:
-                    ks = True
-                    clearDevs = self.anaconda.id.ksdata.clearpart.drives
-                    initAll = self.anaconda.id.ksdata.clearpart.initAll
+
+            if self.anaconda is not None and self.anaconda.isKickstart:
+                ks = True
+                clearDevs = self.anaconda.id.ksdata.clearpart.drives
+                initAll = self.anaconda.id.ksdata.clearpart.initAll
 
             # FIXME: need the right fix for z/VM formatted dasd
             if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
@@ -1060,22 +1102,6 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
 
-            if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
-                       or (drive in clearDevs)) and not flags.test \
-                       and not hasProtectedPartitions(drive, self.anaconda):
-                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                    if self.dasdFmt(drive):
-                        DiskSet.skippedDisks.append(drive)
-                        continue                    
-                else:
-                    try:
-                        disk = dev.disk_new_fresh(getDefaultDiskType())
-                        disk.commit()
-                        self.disks[drive] = disk
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
-                
             try:
                 disk = parted.PedDisk.new(dev)
                 self.disks[drive] = disk
