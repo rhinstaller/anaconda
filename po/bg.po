@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-27 15:49+0300\n"
+"PO-Revision-Date: 2007-03-28 10:41+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <Bulgarian Translators' Team <dict@fsa-bg.org>>\n"
 "MIME-Version: 1.0\n"
@@ -5377,6 +5377,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"За ползване на iSCSI дискове следва да се въведат адреса на iSCSI целта и "
+"на името на iSCSI инициатора конфигурирани за тази машина."
 
 #: ../textw/partition_text.py:1707
 msgid "Target IP Address"
@@ -5384,7 +5386,7 @@ msgstr "Отсрещен IP адрес"
 
 #: ../textw/partition_text.py:1708
 msgid "iSCSI Initiator Name"
-msgstr ""
+msgstr "Име на iSCSI инициатор"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5409,6 +5411,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
+"Подразбиращата се инсталация на %s включва набор от софтуер подходящ за "
+"общо ползване на Интернет.  Поддръжка за какви допълнителни задачи да "
+"има системата?"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5507,15 +5512,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"z/IPL Началния зареждач ще бъде инсталиран на системата след като "
-"инсталацията приключи. Сега може да добавите допълнителни  параметри за "
-"ядрото или за chandev, от които системата може да има нужда."
+"След инсталацията ще бъде добавен софтуер за поддръжка на z/IPL начално "
+"зареждане. Можете да въведете допълнителни параметри към ядрото и "
+"chandev, от които системата може да се нуждае."
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5602,6 +5606,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Ако не можете да откриете инсталационния номер, погледнете на http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"Ако го пропуснете:\n"
+"* Може да нямате достъп до пълния набор пакети включени във вашия "
+"абонамент.\n"
+"* Може да получите неподдържана/несертифицирана инсталация на Red Hat "
+"Enterprise Linux.\n"
+"* Няма да получите софтуерна и свързана със сигурността поддръжка за "
+"софтуерните пакети невключени във вашия абонамент."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5636,6 +5650,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Ако искате да тествате допълнителни носители, поставете следващото "
+"CD и натиснете \"%s\". Тестването на всяко CD не задължително, но е "
+"силно препоръчително.  Най-малко всяко от CD-тата трябва да бъде тествано "
+"преди да бъде ползвано за първи път. След успешен тест, не е необходимо "
+"повторно тестване на всяко CD преди повторна употреба."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, c-format
@@ -5754,6 +5773,9 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"Не са намерени устройства от подходящия тип на този диск.  Ще искате "
+"ли ръчно да изберете драйвер, продължите въпреки това, или да сложите "
+"друг диск?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
@@ -5788,25 +5810,23 @@ msgstr "Непознат дисков източник в kickstart: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
-#, fuzzy
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"Следните невалидни аргументи са зададени за командата за кикстарт диска с "
-"драйвери: %s:%s"
+"Следните невалидни аргументи бяха указани към kickstart командата за "
+"инсталация от диск: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Моля въведете параметри които искате да се зададат на модула %s разделени с "
-"шпации.  Ако не знаете какви параметри да зададе, пропуснете този екран с "
-"натискането на \"Добре\" бутона. Списък с валидните параметри може да бъде "
-"видян при натискането на F1."
+"Моля въведете параметрите към модул %s, които искате да зададете, "
+"разделени с интервали.  Ако не знаете какви параметри да зададете, просто "
+"пропуснете този екран натискайки бутона \"Да\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5901,9 +5921,8 @@ msgstr "Устройството %s изглежда не съдържа %s CDRO
 
 #: ../loader2/hdinstall.c:407
 #, c-format
-#, fuzzy
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Невалиден аргумент за команда на HD кикстарт метода %s: %s"
+msgstr "Невалиден аргумент към kickstart командата на инсталация от твърд диск %s: %s"
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
@@ -6275,6 +6294,9 @@ msgid ""
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
+"Запитването за IP адрес върна конфигурационна информация, но тя не "
+"включваше DNS сървър. Ако не разполагате с тази информация, можете "
+"да оставите полето празно и инсталацията ще продължи."
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6331,6 +6353,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Въведете информацията за IPv4 и/или IPv6 адрес и префикс (адрес / префикс).  За "
+"IPv4 мрежова маска са приложими четири цифри с точки или префикс в CIDR стил. "
+"Шлюза и сървъра за имена трябва да са валидни IPv4 или IPv6 адреси."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
