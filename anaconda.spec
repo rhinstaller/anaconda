@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.40
+Version: 11.2.0.41
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,25 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 28 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.41-1
+- Fix partitioning under kickstart when using clearpart (#232936).
+- Add padding on the device stripe graph (#217294).
+- Fix probing RAID superblocks (#172648, #208970, #215231).
+- Support using hal locking on the live CD (katzj, #231201).
+- Fix text install UI flow (dcantrell).
+- Add IPv4 address validation for s390 (dcantrell, #234152).
+- Don't unnecessarily run DHCP on the add repos screen (dcantrell, #232512).
+- Netlink cache cleanups (dcantrell).
+- Package installation progress UI cleanups (dcantrell).
+- Only probe for network devices with loaded modules (dcantrell, #233507).
+- Better error handling on unprintable filesystem labels (#191679).
+- Live CD and lowres UI fixes (katzj).
+- Exit if the close button is clicked (katzj, #231775).
+- Always display an IP address in the VNC info message (#231934).
+- Handle dual IP stack manual configuration correctly (dcantrell, #232690).
+- zlib has moved (katzj).
+- Write out /etc/sysconfig/desktop file if there's a default (katzj, #233472).
+
 * Wed Mar 21 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.40-1
 - livecd X fixes (katzj).
 - Handle mounting errors on the harddrive image method (#124793).
