@@ -82,6 +82,9 @@ class WaitWindow:
 	self.screen.popWindow()
 	self.screen.refresh()
 
+    def refresh():
+        self.screen.refresh()
+
     def __init__(self, screen, title, text):
 	self.screen = screen
 	width = 40

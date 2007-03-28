@@ -503,6 +503,9 @@ class WaitWindow:
         addFrame(self.window, showtitle = 0)
         self.window.show_all()
         rootPushBusyCursor()
+
+    def refresh(self):
+        processEvents()
             
     def pop(self):
         self.window.destroy()

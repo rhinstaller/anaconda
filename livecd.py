@@ -20,6 +20,7 @@
 import os, sys
 import stat
 import shutil
+import time
 
 from rhpl.translate import _, N_
 
@@ -165,6 +166,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             if tocopy is None or tocopy == "/" or tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
 
+            # FIXME: all calls to wait.refresh() are kind of a hack... we
+            # should do better about not doing blocking things in the
+            # main thread.  but threading anaconda is a job for another
+            # time.
+            wait.refresh()
+
             log.info("doing the copy for %s" %(tocopy,))
             entry.umount(anaconda.rootPath)
             entry.mount(anaconda.rootPath + "/mnt")
@@ -172,6 +179,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             copytree("%s/%s" %(anaconda.rootPath, tocopy),
                      "%s/mnt/%s" %(anaconda.rootPath, tocopy))
             shutil.rmtree("%s/%s" %(anaconda.rootPath, tocopy))
+            wait.refresh()            
             entry.umount(anaconda.rootPath + "/mnt")
             entry.mount(anaconda.rootPath)
             try:
@@ -180,6 +188,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 log.debug("error removing %s" %(tocopy,))
                 pass
 
+            wait.refresh()
             # XXX: we should be preserving contexts on our copy, but
             # this will do for now
             for dir, subdirs, files in os.walk("%s/%s" %(anaconda.rootPath, tocopy)):
@@ -190,6 +199,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                     ret = isys.resetFileContext(os.path.normpath(f),
                                                 anaconda.rootPath)
                     log.info("set fc of %s to %s" %(f, ret))
+            wait.refresh()                    
 
         # ensure that non-fstab filesystems are mounted in the chroot
         if flags.selinux:
@@ -199,18 +209,26 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 log.error("error mounting selinuxfs: %s" %(e,))
         isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
 
-        self._resizeRootfs(anaconda)
-
+        self._resizeRootfs(anaconda, wait)
         wait.pop()
 
-    def _resizeRootfs(self, anaconda):
+    def _resizeRootfs(self, anaconda, win = None):
         log.info("going to do resize")
         r = anaconda.id.fsset.getEntryByMountPoint("/")        
-        rootdev = r.device.getDevice()        
-        rc = iutil.execWithRedirect("resize2fs",
-                                    [ "/dev/%s" %(rootdev,), "-p" ],
-                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                    searchPath = 1)
+        rootdev = r.device.getDevice()
+
+        # FIXME: we'd like to have progress here to give an idea of
+        # how long it will take.  or at least, to give an indefinite
+        # progress window.  but, not for this time
+        cmd = ["resize2fs", "/dev/%s" %(rootdev,), "-p"]
+        out = open("/dev/tty5", "w")
+        proc = subprocess.Popen(cmd, stdout=out, stderr=out)
+        rc = proc.poll()
+        while rc is None:
+            win and win.refresh()
+            time.sleep(0.5)
+            rc = proc.poll()
+
         if rc:
             log.error("error running resize2fs; leaving filesystem as is")
 

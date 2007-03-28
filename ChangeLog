@@ -1,5 +1,13 @@
 2007-03-28  Jeremy Katz  <katzj@redhat.com>
 
+	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Call
+	refresh method so that we don't end up with a hung looking UI
+	during filesystem resizing, etc (#224213)
+
+	* gui.py (WaitWindow.refresh): Add refresh method
+	* cmdline.py (WaitWindow.refresh): Likewise.
+	* text.py (WaitWindow.refresh): Likewise.
+
 	* gui.py: Fix windows to be more sane for livecd install case (#224208)
 
 	* liveinst/liveinst.sh: Load modules so that we can do filesystem

@@ -31,7 +31,8 @@ stepToClasses = { "install" : "setupProgressDisplay" }
 class WaitWindow:
     def pop(self):
         pass
-
+    def refresh(self):
+        pass
     def __init__(self, title, text):
         print text
 
