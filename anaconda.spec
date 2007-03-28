@@ -161,6 +161,9 @@ rm -rf $RPM_BUILD_ROOT
 - zlib has moved (katzj).
 - Write out /etc/sysconfig/desktop file if there's a default (katzj, #233472).
 
+* Fri Mar 23 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.40-2
+- fix xinit exiting
+
 * Wed Mar 21 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.40-1
 - livecd X fixes (katzj).
 - Handle mounting errors on the harddrive image method (#124793).
