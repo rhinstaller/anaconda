@@ -10,6 +10,9 @@
 	between the device description and the stripe for tall languages
 	(#217294).
 
+	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
+	instead of recycling the same node in /tmp (#172648, #208970, #215231).
+
 2007-03-27  Jeremy Katz  <katzj@redhat.com>
 
 	* liveinst/liveinst.sh: Support using hal locking by running
