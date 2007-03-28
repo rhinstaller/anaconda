@@ -18,6 +18,7 @@ import upgrade
 from snack import *
 from constants_text import *
 from text import WaitWindow, OkCancelWindow, ProgressWindow, stepToClasses
+from flags import flags
 import sys
 import os
 import isys
@@ -368,9 +369,9 @@ def runRescue(instPath, mountroot, id):
                 isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
 
                 # and /selinux too
-                if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
+                if flags.selinux and os.path.isdir("%s/selinux" %(instPath,)):
                     try:
-                        isys.mount("/selinux", "%s/selinux" %(anaconda.rootPath,),         
+                        isys.mount("/selinux", "%s/selinux" %(instPath,),
                                    "selinuxfs")
                     except Exception, e:
                         log.error("error mounting selinuxfs: %s" %(e,))
