@@ -1,20 +1,20 @@
-# Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005, 2006.
+# Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005, 2006, 2007.
 # Széll Tamás <tomi@digiflex.hu>, 2004.
 # Gabor SUVEG <gabor@suveg.hu>, 2004.
 # Szentiványi Gábor <szentivanyi.gabor@ulx.hu>, 2006.
 # Gábor Szentiványi <szenti@ulx.hu>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: hu\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2006-09-23 21:23+0200\n"
+"PO-Revision-Date: 2007-03-28 23:06+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
-"Language-Team: Hungarian\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:262
@@ -194,18 +194,16 @@ msgstr ""
 "erről a partícióról rendszert indítani."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"A rendszerindítási partíció nincs elég közel a lemez elejéhez. Az "
-"OpenFirmware így nem tudja elindítani a rendszert."
+"A rendszerindítási partíciónak teljes egészében a lemez első 4 GB-jában "
+"kell lennie. Az OpenFirmware így nem tudja elindítani a rendszert."
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek."
@@ -351,7 +349,7 @@ msgstr ""
 "Nyomja meg az 'OK' gombot, ha egy más partícionálási opciót szeretne."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -365,7 +363,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Ez akkor fordulhat elő, ha nincs elég szabad hely a meghajtó(ko)n a "
-"telepítéshez.%s"
+"telepítéshez. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -482,11 +480,11 @@ msgstr "Folyamatban...   "
 
 #: ../cmdline.py:81
 msgid "Can't have a question in command line mode!"
-msgstr "Nem lehet kérdezni parancssoros módban!"
+msgstr "Nem lehet kérdezni parancssoros módban."
 
 #: ../cmdline.py:100
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr "A Parted által generált kivételek nem kezelhetők parancssoros módban!"
+msgstr "A Parted által generált kivételek nem kezelhetők parancssoros módban."
 
 #: ../constants.py:65
 #, python-format
@@ -507,8 +505,7 @@ msgstr "A dump-fájl kiírva"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
+msgstr "A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
@@ -524,14 +521,14 @@ msgstr "A dump-fájl nem lett kiírva"
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr "Hiba történt a rendszerállapot floppy-ra írása közben."
+msgstr "Hiba történt a rendszerállapot floppyra írása közben."
 
 #: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"A rendszer állapotát sikerült a távoli gépre menteni.  A rendszer most "
+"A rendszer állapotát sikerült a távoli gépre menteni. A rendszer most "
 "újraindul."
 
 #: ../exception.py:441
@@ -648,8 +645,8 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"cserepartíció-eszköz 0-ás verziójú Linux cserepartíció. Ha használni akarja "
-"ezt az eszközt,1-es verziójú cserepartícióként kell újraformáznia. Ha ezt "
+"cserepartíció-eszköz 0-s verziójú Linux-cserepartíció. Ha használni akarja "
+"ezt az eszközt, 1-es verziójú cserepartícióként kell újraformáznia. Ha ezt "
 "most átugorja, a telepítő nem veszi figyelembe az eszközt a telepítésnél."
 
 #: ../fsset.py:1508
@@ -677,7 +674,7 @@ msgstr ""
 "hibernálja."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -687,14 +684,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap partitions."
 msgstr ""
-"A\n"
+"A /etc/fstab fájlban szereplő\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"cserepartíció eszköz az /etc/fstab fájl szerint jelenleg szoftveres "
-"felfüggesztéshez van használva, ami annyit jelent, hogy a rendszer hibernált "
-"állapotban van. Ha új telepítést végez, bizonyosodjon meg róla, hogy a "
-"telepítő úgy van beállítva, hogy minden cserepartíciót formázzon."
+"cserepartíció-eszköz jelenleg szoftveres felfüggesztéshez van "
+"használva, ami annyit jelent, hogy a rendszer hibernálás alatt áll. "
+"Ha új telepítést végez, bizonyosodjon meg róla, hogy a telepítő "
+"úgy van beállítva, hogy minden cserepartíciót formázzon meg."
 
 #: ../fsset.py:1530
 msgid ""
@@ -706,9 +703,10 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Válassza aChoose Skip if you want the installer to ignore this partition "
-"during the upgrade.  Choose Format to reformat the partition as swap space.  "
-"Choose Reboot to restart the system."
+"Ha azt szeretné, hogy ez a partíció figyelmen kívül legyen hagyva a "
+"frissítés során, akkor válassza a Kihagyás lehetőséget. Ha csereterületnek "
+"(swap) kívánja formázni a partíciót, akkor válassza a Formázás funkciót. "
+"Ha újra kívánja indítani a rendszert, akkor az Újraindítás funkciót használja."
 
 #: ../fsset.py:1536 ../iw/partition_gui.py:368
 msgid "Format"
@@ -984,9 +982,8 @@ msgid "Cancel"
 msgstr "Mégsem"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Telepítési módszer"
+msgstr "Telepítési kulcs"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1100,7 +1097,7 @@ msgstr "Ú_jra"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Nem sikerült csatolni az ISO-forrást"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1298,37 +1295,33 @@ msgstr ""
 "Folytatni akarja, vagy megszakítja a telepítést?"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Nem található ez a telepítési képmás: %s"
+msgstr "Képmás nem található"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgstr "A megadott hely nem egy érvényes, telepítési forrásként használható %s \"live\" CD."
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s telepítő"
+msgstr "Kilépés a telepítőből"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Telepítési képmás másolása a merevlemezre..."
+msgstr "A \"live\" képmás másolása a merevlemezre."
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s telepítés"
+msgstr "Telepítés utáni műveletek"
 
 #: ../livecd.py:146
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Kezdődik a telepítési folyamat. Ez néhány percig eltarthat..."
+msgstr ""
+"Telepítés utáni fájlrendszer-módosítások elvégzése. Ez néhány "
+"percig eltarthat..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1343,9 +1336,8 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "A gépnévben engedélyezett karakterek: 'a-z', 'A-Z', '-' és '.'."
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
-msgstr "Nincs megadva IP-cím"
+msgstr "Nincs megadva IP-cím."
 
 #: ../network.py:93
 #, fuzzy
@@ -1520,8 +1512,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:554
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1729,14 +1720,12 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -1963,8 +1952,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:821
 #, python-format
@@ -1984,8 +1972,7 @@ msgstr ""
 "ezért nem lesz indítható."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:867
@@ -2006,8 +1993,7 @@ msgstr ""
 "normál %s-telepítésnél."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Telepítés USB eszközre. Ez a megoldás működésképtelen rendszert is "
 "eredményezhet."
@@ -2091,8 +2077,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:244 ../text.py:596
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
@@ -2273,17 +2258,14 @@ msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2660,8 +2642,7 @@ msgstr "Hiba a tranzakció futtatása közben"
 
 #: ../yuminstall.py:569
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "A trenzakció futtatása hibát eredményezett, az alábbi ok(ok) miatt: %s"
 
 #: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
@@ -2796,8 +2777,7 @@ msgstr "A rendszergazdai jelszónak legalább 6 karakter hosszúnak kell lennie.
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "A kért jelszó olyan nem-ASCII karaktereket tartalmaz, melyek nem "
 "szerepelhetnek jelszóban."
@@ -3042,8 +3022,7 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
-"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3308,8 +3287,7 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:557
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3726,8 +3704,7 @@ msgstr "Hiányzó protokoll"
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
 #, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr ""
-"Legalább egy IP protokollt (IPv4 vagy IPv6) ki kell választania a DHCP-hez."
+msgstr "Legalább egy IP protokollt (IPv4 vagy IPv6) ki kell választania a DHCP-hez."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -3925,14 +3902,12 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -4091,8 +4066,7 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4457,8 +4431,7 @@ msgstr "Ez felfrissíti az aktuális rendszerbetöltőt."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4597,8 +4570,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/zipl_gui.py:28
@@ -4737,8 +4709,7 @@ msgstr ""
 "néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> választ | <F2> alapértelmezett | <F4> töröl | <F12> következő "
 "képernyő>"
@@ -4863,14 +4834,11 @@ msgstr ""
 #: ../textw/grpselect_text.py:87
 #, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr ""
-"Kérem válassza ki azokat a csomagcsoportokat, amiket telepíteni szeretne."
+msgstr "Kérem válassza ki azokat a csomagcsoportokat, amiket telepíteni szeretne."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5397,10 +5365,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -5432,8 +5398,7 @@ msgstr "Mely partíciókat szeretné használni a telepítéshez?"
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5942,8 +5907,7 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -6079,10 +6043,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Üdvözöljük - %s (helyreállítási mód)"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6216,8 +6178,7 @@ msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 #: ../loader2/loader.c:1822
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
 #: ../loader2/loader.c:1824
 #, c-format
@@ -6274,8 +6235,7 @@ msgstr "Az adathordozó alkalmas a telepítésre."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
+msgstr "Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6330,8 +6290,7 @@ msgstr "Hibás argumentum a 'device' Kickstart-parancsban (%s): %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "A következő érvénytelen argumentum volt megadva a Kickstart-meghajtólemez "
 "egyik parancsában: %s:%s"
@@ -6426,8 +6385,7 @@ msgstr "TCP/IP-beállítások"
 #: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr ""
-"Legalább egy IP protokollt (IPv4 vagy IPv6) ki kell választania a DHCP-hez."
+msgstr "Legalább egy IP protokollt (IPv4 vagy IPv6) ki kell választania a DHCP-hez."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6470,8 +6428,7 @@ msgid "Missing Information"
 msgstr "Hiányzó információ"
 
 #: ../loader2/net.c:1207
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Meg kell adnia egy érvényes IPv4-címet, valamint vagy egy alhálózati "
 "maszkot, vagy egy CIDR-előtagot."
@@ -7138,853 +7095,3 @@ msgstr "velszi"
 msgid "Zulu"
 msgstr "zulu"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Távolítsa el a telepítési lemezt (floppy, CD, DVD, ...) a meghajtóból és "
-#~ "nyomja meg az \"Újraindítás\" gombot a rendszer újraindításához.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Távolítsa el a telepítési lemezt (floppy, CD, DVD, ...) a meghajtóból és "
-#~ "nyomja meg az <Enter>-t a rendszer újraindításához.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "Újraindítás: <Enter>"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS-megosztás"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "A 2.4-es rendszermag a régebbi verzióknál lényegesen több lapozási "
-#~ "területet igényel, kb. a rendelkezésre álló memória (RAM) kétszeresét. "
-#~ "Jelenleg %dMB van beállítva, de lapozási terület más fájlrendszereken is "
-#~ "kialakítható."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "Kész [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "%s-%s-%s telepítése folyik..."
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Kérem, adja meg a regisztrációs kulcsot a(z) %s verzióhoz."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Adja meg a regisztrációs kulcsot"
-
-#~ msgid "Key:"
-#~ msgstr "Kulcs:"
-
-#~ msgid "_Format drive"
-#~ msgstr "_Formázás"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr "A következő kritikus hibák találhatók a partícionálási sémában."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr ""
-#~ "A következő figyelmeztetések keletkeztek a kért partícionálási sémával "
-#~ "kapcsolatban."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "Hátralévő idő: %s perc"
-
-#~ msgid "Downloading %s"
-#~ msgstr "%s letöltése"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "%s-%s-%s.%s (%s) telepítése"
-
-#~ msgid "Package"
-#~ msgstr "Csomag"
-
-#~ msgid "Summary"
-#~ msgstr "Leírás"
-
-#~ msgid "Status: "
-#~ msgstr "Állapot: "
-
-#~ msgid "Description: %s"
-#~ msgstr "Leírás: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Hardvercím: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "Dinamikus IP címbeállítás (DHCP)"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "IP-cím"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "Az IPv6-előtagnak 0 és 128 közé kell esnie."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "A telepítéshez gyökérpartíció (/) szükséges."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "Letöltés - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " Név    : "
-
-#~ msgid " Size   : "
-#~ msgstr " Méret  : "
-
-#~ msgid " Summary: "
-#~ msgstr " Leírás : "
-
-#~ msgid "    Packages"
-#~ msgstr "    Csomag"
-
-#~ msgid "      Bytes"
-#~ msgstr "      Bájt"
-
-#~ msgid "        Time"
-#~ msgstr "         Idő"
-
-#~ msgid "Total    :"
-#~ msgstr "Összesen    :"
-
-#~ msgid "Completed:   "
-#~ msgstr "Kész        :"
-
-#~ msgid "Remaining:  "
-#~ msgstr "Hátralévő   :"
-
-#~ msgid "Acre"
-#~ msgstr "Acre"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "Alagoas, Sergipe"
-
-#~ msgid "Alaska Time"
-#~ msgstr "Alaszkai idő"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "Alaszkai idő - Alaszka panhandle"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "Alaszkai idő - Alaszka panhandle neck"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "Alaszkai idő - Nyugat-Alaszka"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "Aleut-szigetek"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "Amapa, E Para"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "Amundsen-Scott állomás, Déli-sark"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aqtobe (Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "Standard Atlanti idő - Quebec - az északi part alsó része"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "Atlanti idő - Labrador - a legtöbb hely"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "Atlanti idő - New Brunswick"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "Atlanti idő - Nova Scotia (legnagyobb része), PEI"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr "Atlanti idő - Nova Scotia - a DST 1966-1971-en kívüli helyek"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "Atlanti-szigetek"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#~ msgid "Azores"
-#~ msgstr "Azori-szigetek"
-
-#~ msgid "Bahia"
-#~ msgstr "Bahia"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "Buenos Aires (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "Kanári-szigetek"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "Casey állomás, Bailey félsziget"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "Catamarca (CT), Chubut (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "Közép-idő - Saskatchewan, közép-nyugati rész"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "Közép-idő - Saskatchewan (nagy része)"
-
-#~ msgid "Central Time"
-#~ msgstr "Közép-idő"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "Közép-idő - Campeche, Yucatán"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "Közép-idő - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "Közép-idő - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "megyék"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "Közép-idő- Indiana, Pike County"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "Közép-idő - Manitoba és Nyugat-Ontario"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "Közép-idő - Michigan - Dickinson, Gogebic, Iron & Menominee területek"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr "Közép-idő - Észak-Dakota, Morton County (kiv. Mandan terület)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "Közép-idő - Észak-Dakota, Oliver County"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "Közép-idő - Quintana Roo"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "Közép-idő - Rainy River & Fort Frances, Ontario"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "Közép-idő - Közép-Nunavut"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "Közép-idő - a legtöbb hely"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "Közép-idő - Nyugat-Nunavut"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "Ceuta és Melilla"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "Chatham-szigetek"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "Davis állomás, Vestfold Hills"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod, Sukhbaatar"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "Dumont-d'Urville bázis, Terre Adelie"
-
-#~ msgid "E Amazonas"
-#~ msgstr "K-Amazonas"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "Húsvét-sziget, Sala y Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr ""
-#~ "Standard keleti idő - Atikokan, Ontario és Southampton-sziget, Nunavut"
-
-#~ msgid "Eastern Time"
-#~ msgstr "Keleti idő"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "Keleti idő - Indiana - Crawford County"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "Keleti idő - Indiana - Starke County"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "Keleti idő - Indiana, Switzerland County"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "Keleti idő - Indiana nagy része"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "Keleti idő - Kentucky, Louisville-i terület"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "Keleti idő - Kentucky, Wayne County"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "Keleti idő - Michigan (a legtöbb hely)"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "Keleti idő - Ontario (a legtöbb hely)"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "Keleti idő - Pangnirtung, Nunavut"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "Keleti idő - Quebec (a legtöbb hely)"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "Keleti idő - Thunder Bay, Ontario"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "Keleti idő - Kelet-Nunavut"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "Galapagos-szigetek"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Gambier-szigetek"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "Gilbert-szigetek"
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "Heilongjiang (Mohe kivételével), Jilin"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "Irian Jaya, Moluccas"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "Jáva és Szumátra"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "Johnston-atoll"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "Jujuy (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "Kosrae"
-
-#~ msgid "Kwajalein"
-#~ msgstr "Kwajalein"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "La Rioja (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "Line-szigetek"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "Lord Howe-szigetek"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "Madeira"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "Marquesas-szigetek"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "Mato Grosso"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "Mato Grosso do Sul"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Mawson-állomás, Holme Bay"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "McMurdo-állomás, Ross Island"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "Mendoza (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "Midway-szigetek"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "Moszkva+00 - Kaszpi-tenger"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "Moszkva+00 - Nyugat-Oroszország"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "Moszkva+01 - Samara, Udmurtia"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "Moszkva+02 - Urál"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "Moszkva+03 - Novoszibirszk"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "Moszkva+03 - Nyugat-Szibéria"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "Moszkva+04 - Jenyiszej"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "Moszkva+05 - Bajkál-tó"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "Moszkva+06 - Léna"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "Moszkva+07 - Amur"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "Moszkva+07 - Szahalin"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "Moszkva+08 - Magadán"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "Moszkva+09 - Kamcsatka"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "Moszkva+10 - Bering-tenger"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "Moszkva-01 - Kalinyingrád"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "Sziklás-hegységi idő (MST) - Arizona"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr "Sziklás-hegységi idő - Dawson Creek, Fort Saint John, Brit-Kolumbia"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "Sziklás-hegységi idő - Sonora"
-
-#~ msgid "Mountain Time"
-#~ msgstr "Sziklás-hegységi idő"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "Sziklás-hegységi idő - Alberta, Brit-Kolumbia keleti része, Nyugat-"
-#~ "Saskatchewan"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "Sziklás-hegységi idő - Chihuahua"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "Sziklás-hegységi idő - Navajo"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "Sziklás-hegységi idő - Dél-Baja, Nayarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "Sziklás-hegységi idő - az Északnyugati Területek középső része"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "Sziklás-hegységi idő - Dél-Idaho és Oregon keleti része"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "Sziklás-hegységi idő - az Északnyugati Területek nyugati része"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "Brazília, északkeleti rész (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "Új Dél-Wales - Yancowinna"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "Új Dél-Wales - a legtöbb hely"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "Újfundlandi idő, beleértve Délkelet-Labradort"
-
-#~ msgid "Northern Territory"
-#~ msgstr "Északi területek"
-
-#~ msgid "Pacific Time"
-#~ msgstr "Csendes-óceáni idő"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "Csendes-óceáni idő - Észak-Yukon"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "Csendes-óceáni idő - Dél-Yukon"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "Csendes-óceáni idő - nyugati Brit-Kolumbia"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Palmer állomás, Anvers-szigetek"
-
-#~ msgid "Pernambuco"
-#~ msgstr "Pernambuco"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "Főnix-szigetek"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "Ponape (Pohnpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "Queensland - Holiday-szigetek"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "Queensland (a legtöbb hely)"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Roraima"
-#~ msgstr "Roraima"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Rothera állomás, Adelaide-szigetek"
-
-#~ msgid "Ruthenia"
-#~ msgstr "Ruténia"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "Dél- és Délkelet-Brazília (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "Sabah és Sarawak"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "San Juan (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "Santa Cruz (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#~ msgid "Society Islands"
-#~ msgstr "Society-szigetek"
-
-#~ msgid "South Australia"
-#~ msgstr "Dél-Ausztrália"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Syowa állomás, Kelet-Ongul I"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "Tasmánia - King-sziget"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "Tasmánia - a legtöbb hely"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Thule/Pituffik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "Tierra del Fuego (TF)"
-
-#~ msgid "Tocantins"
-#~ msgstr "Tocantins"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "Truk (Chuuk) és Yap"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "Tucuman (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "Victoria"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "Vosztok állomás, Déli Mágneses Sark"
-
-#~ msgid "W Amazonas"
-#~ msgstr "Nyugat-Amazonas"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "Nyugat-Para, Rondónia"
-
-#~ msgid "Wake Island"
-#~ msgstr "Wake-szigetek"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "Nyugat-Kazahsztán"
-
-#, fuzzy
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "Nyugat-Ausztrália"
-
-#, fuzzy
-#~ msgid "Western Australia - most locations"
-#~ msgstr "Közép-idő - a legtöbb hely"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporozsje (Luganszk)"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "Közép-Kína - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, ..."
-
-#~ msgid "central Crimea"
-#~ msgstr "Közép-Krím"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr "Kelet- és Dél-Borneó, Celebes, Bali, Nusa Tengarra, Nyugat-Timor"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "K-Kína - Peking, Guangdong, Sanghaj stb."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "Kongói Demokratikus Köztársaság, keleti rész"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "Kelet-Üzbegisztán"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "Keleti part, Scoresbysundtól északra"
-
-#~ msgid "mainland"
-#~ msgstr "szárazföld"
-
-#~ msgid "most locations"
-#~ msgstr "a legtöbb rész"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr "a legtöbb rész (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "Tibet legnagyobb része és Xinjiang"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "Malajzia félszigeti része"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "Nyugat- és Közép-Borneó"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "Nyugat-Kongói Demokratikus Köztársaság"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "Nyugat-Tibet és Xinjiang"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "Nyugat-Üzbegisztán"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Hiba történt a fájlrendszer csatlakoztatásakor (%s): %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "A meglévő rendszer frissítése"
-
-#~ msgid "Upgrade"
-#~ msgstr "Frissítés"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ID"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "Nem adott meg SCSI ID-t, vagy az ID érvénytelen."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "Nem adott meg SCSI LUN számot, vagy a szám érvénytelen."
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Dinamikus IP-címbeállítás (D_HCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "Akti_válás rendszerindításkor"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4-cím:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6-cím:"
-
-#~ msgid "Configure %s"
-#~ msgstr "%s beállítása"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "A ZFCP beállítása"
-
-#~ msgid "_Remove"
-#~ msgstr "_Eltávolítás"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP-eszközök"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP-eszköz szerkesztése: %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr "Egy FCP-lemez eltávolítására készül. Biztosan ezt szeretné?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Érvénytelen IP-sztring"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "A megadott IP-cím ('%s') érvénytelen."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point-to-point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Hálózati eszköz: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Beállítás DHCP-vel"
-
-#~ msgid "Invalid information"
-#~ msgstr "Érvénytelen információ"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "A folytatáshoz érvényes IP-információt kell megadnia."
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Harmadlagos DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP-eszköz"
-
-#~ msgid "Device #"
-#~ msgstr "Eszköz #"
-
-#~ msgid "Add"
-#~ msgstr "Hozzáadás"
-
-#~ msgid "Remove"
-#~ msgstr "Eltávolítás"
-
-#~ msgid "_Custom"
-#~ msgstr "Egyé_ni"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "Akkor válassza ezt a telepítési típust, ha maximális rugalmasságot "
-#~ "szeretne a telepítés folyamán, beleértve a csomagok kiválasztását és a "
-#~ "partícionálást."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "_Otthoni/irodai számítógép"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "Személyi felhasználásra szánt gép vagy noteszgép esetén ajánlott. A "
-#~ "telepítés magában foglalja a grafikus felhasználói környezetet, a gép "
-#~ "beállításai otthoni/irodai felhasználásra lesznek optimalizálva."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\tGrafikus környezet (GNOME)\n"
-#~ "\tIrodai programcsomag (OpenOffice.org)\n"
-#~ "\tWebböngésző\n"
-#~ "\tLevelezőprogram (Evolution)\n"
-#~ "\tAzonnali üzenetküldő program\n"
-#~ "\tHang- és videóalkalmazások\n"
-#~ "\tJátékok\n"
-
-#~ msgid "_Server"
-#~ msgstr "K_iszolgáló"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "Akkor válassza ezt a telepítési típust, ha fájlmegosztási, nyomtatási "
-#~ "vagy webes szolgáltatásokat szeretne működtetni. További szolgáltatások "
-#~ "is engedélyezhetők, és megadható, hogy telepítve legyen-e grafikus "
-#~ "környezet."
-
-#~ msgid "_Workstation"
-#~ msgstr "M_unkaállomás"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "Ez a telepítési típus a grafikus környezeten kívül telepíteni fog "
-#~ "szoftverfejlesztő és rendszeradminisztrációs alkalmazásokat is. "
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tGrafikus környezet (GNOME)\n"
-#~ "\tIrodai programcsomag (OpenOffice.org)\n"
-#~ "\tWebböngésző\n"
-#~ "\tLevelezőprogram (Evolution)\n"
-#~ "\tAzonnali üzenetküldő program\n"
-#~ "\tHang- és videóalkalmazások\n"
-#~ "\tJátékok\n"
-#~ "\tSzoftverfejlesztő eszközök\n"
-#~ "\tAdminisztrációs eszközök\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Nem szándékos csomagütközések elkerülése"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Regiszterértékek maximalizálása nagysebességű hálózati forgalomhoz"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Legalább egy IP protokollt (IPv4 vagy IPv6) ki kell választania a kézi "
-#~ "beállításhoz."
