@@ -2907,9 +2907,8 @@ msgid "Invalid Initiator Name"
 msgstr "Μη έγκυρο όνομα Initiator"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Πρέπει να εισάγετε ένα όνομα initiator με μη μηδενικό μέγεθος."
+msgstr "Πρέπει να εισάγετε ένα όνομα initiator."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
@@ -2917,28 +2916,24 @@ msgstr "Σφάλμα δεδομένων"
 
 #
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
-"Αφαίρεση όλων των τμημάτων δίσκου από τις επιλεγμένες συσκευές και "
-"δημιουργία προεπιλεγμένης διάταξης."
+"Αφαίρεση όλων των τμημάτων δίσκου από τους επιλεγμένους δίσκους και "
+"δημιουργία της προεπιλεγμένης διάταξης."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Αφαίρεση όλων των τμημάτων δίσκου linux από επιλεγμένους δίσκους και "
-"δημιουργία προεπιλεγμένης διάταξης."
+"Αφαίρεση όλων των τμημάτων δίσκου linux από τους επιλεγμένους δίσκους και "
+"δημιουργία της προεπιλεγμένης διάταξης."
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
-"Χρήση του ελεύθερου χώρου στους επιλεγμένους δίσκους και δημιουργία "
+"Χρήση του ελεύθερου χώρου στους επιλεγμένους δίσκους και δημιουργία της "
 "προεπιλεγμένης διάταξης."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
 msgstr "Δημιουργία προσαρμοσμένης διάταξης."
 
@@ -2990,7 +2985,6 @@ msgid "Passwords do not match"
 msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -3000,14 +2994,13 @@ msgstr ""
 "Το συνθηματικό του boot loader είναι μικρότερο από έξι χαρακτήρες. Σας "
 "συστήνουμε να χρησιμοποιήσετε ένα μεγαλύτερο συνθηματικό.\n"
 "\n"
-"Θέλετε να συνεχίσετε με αυτόν τον κωδικό;"
+"Θέλετε να συνεχίσετε με αυτό το συνθηματικό;"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
 msgstr "Προχωρημένη ρύθμιση Boot Loader"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
@@ -3144,14 +3137,12 @@ msgid "Congratulations"
 msgstr "Συγχαρητήρια"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Επιλέξτε \"Επανεκκίνηση\" για να επανεκκινήσει το σύστημα σας.\n"
 "\n"
-"\n"
-"Επιλέξτε 'Εντάξει' για να επανεκκινήσει το σύστημα σας."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3200,7 +3191,7 @@ msgid "_Upgrade an existing installation"
 msgstr "_Αναβάθμιση μιας ήδη υπάρχουσας εγκατάστασης"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3249,7 +3240,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Επικύρωση αλλαγών στο φυσικό μήκος"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3261,7 +3251,7 @@ msgstr ""
 "αιτήσεις για το μέγεθος του τρέχοντος λογικού τόμου προς τα πάνω, σε ένα "
 "ακέραιο πολλαπλάσιο της φυσικής έκτασης.\n"
 "\n"
-"Αυτή η αλλαγή θα γίνει αμέσως."
+"Η αλλαγή θα γίνει αμέσως."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
@@ -3399,10 +3389,10 @@ msgid "Mount point in use"
 msgstr "Το σημείο προσάρτησης ήδη χρησιμοποιείται"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
-"Το σημείο προσάρτησης \"%s\" ήδη χρησιμοποιείται, παρακαλώ επιλέξτε ένα άλλο."
+"Το σημείο προσάρτησης \"%s\" χρησιμοποιείται ήδη, παρακαλώ επιλέξτε ένα άλλο."
 
 #
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
@@ -3422,7 +3412,7 @@ msgstr ""
 "άλλο."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3442,14 +3432,14 @@ msgid "Error With Request"
 msgstr "Σφάλμα στην αίτηση"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Οι λογικοί τόμοι που ρυθμίσατε απαιτούν %g MB, αλλά η ομάδα τόμων έχει μόνο %"
-"g MB.  Παρακαλώ είτε κάντε πιο μεγάλη την ομάδα τόμων είτε κάντε πιο μικρό "
+"Οι λογικοί τόμοι που ρυθμίσατε απαιτούν %g MB, αλλά η ομάδα τόμων έχει μόνο "
+"%d MB.  Παρακαλώ είτε κάντε πιο μεγάλη την ομάδα τόμων είτε κάντε πιο μικρό "
 "το λογικό τόμο (ή τόμους)."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3468,18 +3458,17 @@ msgid "No free space"
 msgstr "Δεν υπάρχει ελεύθερος χώρος"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Δεν υπάρχει ελεύθερος χώρος στην ομάδα τόμων για τη δημιουργία νέων λογικών "
+"Δεν απομένει ελεύθερος χώρος στην ομάδα τόμων για τη δημιουργία νέων λογικών "
 "τόμων. Για να προσθέσετε ένα λογικό τόμο θα πρέπει να μειώσετε το μέγεθος "
 "ενός ή περισσοτέρων λογικών τόμων που ήδη υπάρχουν"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Είστε βέβαιοι πως θέλετε να διαγράψετε το λογικό τόμο \"%s\";"
 
@@ -3727,9 +3716,9 @@ msgid "A value is required for the field %s."
 msgstr "Μία τιμή απαιτείται για το πεδίο \"%s\"."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Σφάλμα με τα δεδομένα"
+msgstr "Σφάλμα με τα δεδομένα %s"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:584 ../textw/network_text.py:588
@@ -3740,9 +3729,8 @@ msgstr "%s"
 
 #
 #: ../iw/network_gui.py:163 ../textw/network_text.py:56
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Οι πληροφορίες για την IP που εισαγάγατε δεν είναι έγκυρες."
+msgstr "Οι πληροφορίες για την IPv4 που εισαγάγατε δεν είναι έγκυρες."
 
 #: ../iw/network_gui.py:167
 msgid ""
@@ -3805,32 +3793,29 @@ msgid "Miscellaneous Settings"
 msgstr "Διάφορες ρυθμίσεις"
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "Επεξεργασία συσκευής RAID"
+msgstr "Επεξεργασία συσκευής "
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Άγνωστη συσκευή ethernet"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
-msgstr "Άγνωστο"
+msgstr "άγνωστο"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Διεύθυνση υλικού: %s"
+msgstr "Διεύθυνση υλικού: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Πρωτόκολλο που λείπει"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Πρέπει να επιλέξετε τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6) για DHCP."
+msgstr ""
+"Πρέπει να επιλέξετε υποστήριξη για τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6)."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -3846,7 +3831,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "Το πρόθεμα IPv6 πρέπει να είναι μεταξύ 0 και 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3873,7 +3857,6 @@ msgid "Image"
 msgstr "Εικόνα"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -4034,12 +4017,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
-"Αυτά τα σφάλματα πρέπει να διορθωθούν πριν να συνεχίσετε με την εγκατάσταση "
-"του %s."
+"Πρέπει να διορθώσετε αυτά τα σφάλματα πριν συνεχίσετε με την εγκατάσταση του "
+"%s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4160,7 +4143,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4253,14 +4235,14 @@ msgid "Check for _bad blocks?"
 msgstr "Έλεγχος για _ακατάλληλα μπλοκ;"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "Τα τμήματα δίσκου του τύπου '%s' θα πρέπει να περιορίζονται σε ένα δίσκο. "
 "Αυτό μπορεί να γίνει με την επιλογή του δίσκου στη λίστα 'Επιτρεπόμενοι "
-"τόμοι'."
+"δίσκοι'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4341,7 +4323,6 @@ msgid "Source Drive Error"
 msgstr "Σφάλμα πηγαίου δίσκου"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4355,7 +4336,7 @@ msgstr ""
 "να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4400,7 +4381,7 @@ msgstr ""
 "Ο πηγαίος δίσκος /dev/%s δε μπορεί να επιλεχθεί και ως δίσκος προορισμού."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4409,12 +4390,12 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Ο πηγαίος δίσκος /dev/%s έχει ένα τμήμα δίσκου που δε μπορεί να απομακρυνθεί "
-"για τον παρακάτω λόγο\n"
+"Ο δίσκος προορισμού /dev/%s έχει ένα τμήμα δίσκου που δε μπορεί να "
+"απομακρυνθεί για τον παρακάτω λόγο:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Αυτό το τμήμα δίσκου πρέπει να απομακρυνθεί πριν αυτός ο δίσκος γίνει δίσκος "
+"Πρέπει να απομακρύνετε αυτό το τμήμα δίσκου πριν ο δίσκος γίνει δίσκος "
 "προορισμού."
 
 #: ../iw/raid_dialog_gui.py:619
@@ -4454,7 +4435,6 @@ msgstr ""
 "Υπήρξε ένα σφάλμα κατά την εκκαθάριση των δίσκων. Η κλωνοποίηση απέτυχε."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4471,8 +4451,8 @@ msgid ""
 msgstr ""
 "Εργαλείο κλωνοποίησης δίσκου\n"
 "\n"
-"Αυτό το εργαλείο σας επιτρέπει να ρυθμίσετε εύκολα τις σειρές RAID. Μέσω "
-"αυτού του εργαλείου γίνεται κλωνοποίηση ενός πηγαίου δίσκου που έχει "
+"Αυτό το εργαλείο σας επιτρέπει να ρυθμίσετε εύκολα τις συστοιχίες RAID. "
+"Μέσω αυτού του εργαλείου γίνεται κλωνοποίηση ενός πηγαίου δίσκου που έχει "
 "μορφοποιηθεί με την επιθυμητή διάταξη, σε άλλους παρόμοιους δίσκους. Μετά "
 "δημιουργείται μια συσκευή RAID.\n"
 "\n"
@@ -4535,9 +4515,8 @@ msgid "Invalid Repository Name"
 msgstr "Μη έγκυρο όνομα αποθετηρίου"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Πρέπει να εισάγετε ένα όνομα αποθετηρίου με μη μηδενικό μέγεθος."
+msgstr "Πρέπει να εισάγετε ένα όνομα αποθετηρίου."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4627,7 +4606,7 @@ msgid "Migrate File Systems"
 msgstr "Εισαγωγή συστημάτων αρχείων"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4638,7 +4617,7 @@ msgid ""
 msgstr ""
 "Αυτή η έκδοση του %s υποστηρίζει το σύστημα αρχείων ext3 journalling. Έχει "
 "αρκετά πλεονεκτήματα σε σχέση με το ext2 που παραδοσιακά έρχεται με το %s. "
-"Είναι δυνατόν να εισάγετε τα ήδη διαμορφωμένα τμήματα δίσκου ext2 σας σε "
+"Είναι δυνατόν να μετατρέψετε τα ήδη διαμορφωμένα τμήματα δίσκου ext2 σας σε "
 "ext3 χωρίς να υπάρχει απώλεια δεδομένων.\n"
 "\n"
 "Ποια από αυτά τα τμήματα δίσκου θα θέλατε να εισάγετε;"
