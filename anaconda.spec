@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.41
+Version: 11.2.0.42
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 30 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.42-1
+- LiveCD fixes (katzj, #230945, #224208, #224213, #230943)
+- Handle IOErrors if we can't find the kickstart file (clumens)
+
 * Wed Mar 28 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.41-1
 - Fix partitioning under kickstart when using clearpart (#232936).
 - Add padding on the device stripe graph (#217294).
