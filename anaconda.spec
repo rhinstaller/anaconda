@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.15
+Version: 9.1.6.16
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 30 2007 Dave Lehman <dlehman@redhat.com> - 9.1.6.16-1.RHEL
+- Fix detection of IDe raid on non-i386
+  Resolves: #196520
+- Fix traceback in runShell for rescue mode
+  Resolves: #209015
+
 * Wed Jul 12 2006 Peter Jones <pjones@redhat.com> - 9.1.6.15-1.RHEL
 - Make the driver image fit on a disk again (#192005).  Again.
 
