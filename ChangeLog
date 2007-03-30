@@ -1,3 +1,8 @@
+2007-03-30  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (processKickstartFile):  Handle IOErrors if we can't
+	find the kickstart file.
+
 2007-03-28  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDCopyBackend.doRepoSetup): Check that we have

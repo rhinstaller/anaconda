@@ -817,12 +817,18 @@ def processKickstartFile(anaconda, file):
 
     try:
         ksparser.readKickstart(file)
+    except IOError, e:
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
+            sys.exit(0)
+        else:
+            raise
     except KickstartError, e:
        if anaconda.intf:
            anaconda.intf.kickstartErrorWindow(e.__str__())
            sys.exit(0)
        else:
-           raise KickstartError, e
+           raise
 
     # run %pre scripts
     runPreScripts(anaconda, ksparser.handler.scripts)
@@ -833,12 +839,18 @@ def processKickstartFile(anaconda, file):
 
     try:
         ksparser.readKickstart(file)
+    except IOError, e:
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
+            sys.exit(0)
+        else:
+            raise
     except KickstartError, e:
         if anaconda.intf:
             anaconda.intf.kickstartErrorWindow(e.__str__())
             sys.exit(0)
         else:
-            raise KickstartError, e
+            raise
 
     anaconda.id.setKsdata(handler)
 
