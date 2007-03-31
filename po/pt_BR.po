@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-23 00:14-0300\n"
+"PO-Revision-Date: 2007-03-31 02:08-0300\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1377,11 +1377,11 @@ msgstr "Realizando mudanças pós-instalação no sistema de arquivos.  Isso pod
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
-msgstr "O nome do host deve ter no máximo 64 caracteres."
+msgstr "O nome da máquina deve ter no máximo 64 caracteres."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "O nome do host deve começar com caracteres do intervalo de 'a-z' ou 'A-Z'"
+msgstr "O nome da máquina deve começar com caracteres do intervalo de 'a-z' ou 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -2457,7 +2457,7 @@ msgstr "<b>Instalando %s</b> (%s)\n"
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr "%s de %s pacotes completos"
+msgstr "%s pacotes instalados de %s no total"
 
 #: ../yuminstall.py:529
 #: ../yuminstall.py:530
@@ -2815,7 +2815,7 @@ msgstr "Prestes a Instalar"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Clique em próximo para começar a instalação do %s."
+msgstr "Clique em \"Próximo\" para começar a instalação do %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2835,7 +2835,7 @@ msgstr "Prestes a Atualizar"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Clique em próximo para começar a atualização do %s."
+msgstr "Clique em \"Próximo\" para começar a atualização do %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3367,7 +3367,7 @@ msgstr "Configuração de Rede"
 
 #: ../iw/network_gui.py:143
 msgid "You have not specified a hostname.  Depending on your network environment this may cause problems later."
-msgstr "Você não especificou o nome do host. Dependendo do seu ambiente de rede, isto poderá causar problemas posteriormente."
+msgstr "Você não especificou o nome da máquina. Dependendo do seu ambiente de rede, isto poderá causar problemas posteriormente."
 
 #: ../iw/network_gui.py:147
 #, python-format
@@ -3382,7 +3382,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"O nome do host \"%s\" não é válido pela seguinte razão:\n"
+"O nome de máquina \"%s\" não é válido pela seguinte razão:\n"
 "\n"
 "%s"
 
@@ -3449,7 +3449,7 @@ msgstr "Dispositivos de Rede"
 
 #: ../iw/network_gui.py:466
 msgid "Set the hostname:"
-msgstr "Definir nome do host:"
+msgstr "Definir o nome da máquina:"
 
 #: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
@@ -3465,7 +3465,7 @@ msgstr "(ex.: nome.dominio.com)"
 
 #: ../iw/network_gui.py:489
 msgid "Hostname"
-msgstr "Nome de Máquina"
+msgstr "Nome da Máquina"
 
 #: ../iw/network_gui.py:533
 msgid "Miscellaneous Settings"
@@ -4766,7 +4766,7 @@ msgstr "manualmente"
 
 #: ../textw/network_text.py:772
 msgid "Hostname Configuration"
-msgstr "Configuração do nome de máquina"
+msgstr "Configuração do nome da máquina"
 
 #: ../textw/network_text.py:775
 msgid "If your system is part of a larger network where hostnames are assigned by DHCP, select automatically via DHCP. Otherwise, select manually and enter a hostname for your system. If you do not, your system will be known as 'localhost.'"
@@ -4779,7 +4779,7 @@ msgstr "Nome de Máquina Inválido"
 
 #: ../textw/network_text.py:802
 msgid "You have not specified a hostname."
-msgstr "Você não especificou o nome de máquina."
+msgstr "Você não especificou o nome da máquina."
 
 #: ../textw/partition_text.py:43
 msgid "Must specify a value"
@@ -5984,7 +5984,7 @@ msgstr "Configuração do NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr "Nome de host especificado sem DNS configurado"
+msgstr "Nome da máquina especificado sem DNS configurado"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
@@ -6091,7 +6091,7 @@ msgstr "Host Desconhecido"
 #: ../loader2/urls.c:359
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s não é um nome de host válido."
+msgstr "%s não é um nome de máquina válido."
 
 #: ../loader2/urls.c:430
 msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below."
