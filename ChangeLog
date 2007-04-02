@@ -1,3 +1,9 @@
+2007-04-02  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow._fillBootStore): Work
+	to ensure that we don't traceback here in cases where there aren't
+	drives (#234697 and others)
+
 2007-04-02  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/module-info: Add fec_mpc52xx, ps3_storage, and gelic_net

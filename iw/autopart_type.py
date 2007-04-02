@@ -70,6 +70,13 @@ class PartitionTypeWindow(InstallWindow):
 
             # pop the boot device to be first in the drive list
             defiter = self.bootcombo.get_active_iter()
+            if defiter is None:
+                self.intf.messageWindow(_("Error"),
+                                        "Must select a drive to use as "
+                                        "the bootable device.",
+                                        type="warning", custom_icon="error")
+                raise gui.StayOnScreen
+            
             defboot = self.bootcombo.get_model().get_value(defiter, 1)
             self.anaconda.id.bootloader.drivelist.remove(defboot)
             self.anaconda.id.bootloader.drivelist.insert(0, defboot)            
@@ -233,6 +240,25 @@ class PartitionTypeWindow(InstallWindow):
                                      self.partitions.autoClearPartDrives,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
+            self._fillBootStore()
+
+    def _fillBootStore(self):
+        bootstore = self.bootcombo.get_model()
+        bootstore.clear()
+        if len(self.anaconda.id.bootloader.drivelist) > 0:
+            defaultBoot = self.anaconda.id.bootloader.drivelist[0]
+        else:
+            defaultBoot = None
+        for disk in self.diskset.disks.values():
+            size = partedUtils.getDeviceSizeMB(disk.dev)
+            dispstr = "%s %8.0f MB %s" %(disk.dev.path[5:], size, disk.dev.model)
+            i = bootstore.append(None)
+            bootstore[i] = (dispstr, disk.dev.path[5:])
+            if disk.dev.path[5:] == defaultBoot:
+                self.bootcombo.set_active_iter(i)
+
+        if len(bootstore) <= 1:
+            self.bootcombo.set_sensitive(False)
         
 
     def getScreen(self, anaconda):
@@ -283,17 +309,7 @@ class PartitionTypeWindow(InstallWindow):
 
         bootstore = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
         self.bootcombo.set_model(bootstore)
-        defaultBoot = self.anaconda.id.bootloader.drivelist[0]
-        for disk in self.diskset.disks.values():
-            size = partedUtils.getDeviceSizeMB(disk.dev)
-            dispstr = "%s %8.0f MB %s" %(disk.dev.path[5:], size, disk.dev.model)
-            i = bootstore.append(None)
-            bootstore[i] = (dispstr, disk.dev.path[5:])
-            if disk.dev.path[5:] == defaultBoot:
-                self.bootcombo.set_active_iter(i)
-
-        if len(bootstore) <= 1:
-            self.bootcombo.set_sensitive(False)
+        self._fillBootStore()
 
         self.prevrev = None
         self.review = not self.dispatch.stepInSkipList("partition")
