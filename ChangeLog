@@ -18,6 +18,9 @@
 	* loader2/loader.c (doLoaderMain): Correct control flow problems in
 	STEP_IFACE (#233655).
 
+	* loader2/linuxrc.s390: Add OSA layer 2 network support for System Z
+	platform (patch from Brad Hinson <bhinson@redhat.com>, #233376)
+
 2007-04-02  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py:  Import constants (#234782).
