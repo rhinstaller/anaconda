@@ -1088,7 +1088,7 @@ static char *doLoaderMain(char * location,
             logMessage(INFO, "going to pick interface");
             rc = chooseNetworkInterface(loaderData);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) {
+                (rc == LOADER_NOOP)) {
                 step = STEP_METHOD;
                 dir = -1;
                 break;
@@ -1097,7 +1097,10 @@ static char *doLoaderMain(char * location,
             devName = loaderData->netDev;
             strcpy(netDev.dev.device, devName);
 
-            /* fall through to ip config */
+            /* continue to ip config */
+            step = STEP_IP;
+            dir = 1;
+            break;
         case STEP_IP:
             if (!needsNetwork) {
                 step = STEP_METHOD; /* only hit going back */
@@ -1164,7 +1167,7 @@ static char *doLoaderMain(char * location,
             writeNetInfo("/tmp/netinfo", &netDev);
             step = STEP_URL;
             dir = 1;
-            
+            break;
         case STEP_URL:
             logMessage(INFO, "starting to STEP_URL");
             /* if we found a CD already short circuit out */

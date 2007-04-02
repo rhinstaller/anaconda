@@ -15,6 +15,9 @@
 	when telling the user what to connect to.  During DHCP install
 	scenarios, users might not know the address they are assigned (#234747)
 
+	* loader2/loader.c (doLoaderMain): Correct control flow problems in
+	STEP_IFACE (#233655).
+
 2007-04-02  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py:  Import constants (#234782).
