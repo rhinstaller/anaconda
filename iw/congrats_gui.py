@@ -63,6 +63,7 @@ class CongratulationWindow (InstallWindow):
         txt = _("Congratulations, the installation is complete.\n\n"
                 "%s%s") %(floppystr, bootstr)
 	label = gui.WrappingLabel(txt)
+        label.set_size_request(250, -1)
 
         hbox.pack_start (label, True, True)
 
