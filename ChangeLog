@@ -3,6 +3,10 @@
 	* loader2/module-info: Add fec_mpc52xx, ps3_storage, and gelic_net
 	(#220009).
 
+	* vnc.py (startVNCServer): Display the IP address of the VNC server
+	when telling the user what to connect to.  During DHCP install
+	scenarios, users might not know the address they are assigned (#234747)
+
 2007-04-02  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py:  Import constants (#234782).

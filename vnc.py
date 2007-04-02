@@ -283,8 +283,20 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 
     if vncconnecthost != "":
 	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
-	
-	hostarg = vncconnecthost
+
+	res = []
+	try:
+	    res = socket.getaddrinfo(vncconnecthost, None, socket.AF_INET6, socket.SOCK_STREAM)
+	except socket.gaierror:
+	    try:
+	        res = socket.getaddrinfo(vncconnecthost, None, socket.AF_INET, socket.SOCK_STREAM)
+	    except socket.gaierror:
+	        hostarg = vncconnecthost
+
+	if res != []:
+	    for (family, socktype, proto, canonname, sockaddr,) in res:
+	        (hostarg, port,) = sockaddr
+
         if vncconnectport != "":
 	    hostarg = hostarg + ":" + vncconnectport
 	    
