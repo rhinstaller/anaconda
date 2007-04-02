@@ -237,6 +237,10 @@ fealnx
 	eth
 	"Myson MTD-8xx 100/10M Ethernet PCI Adapter"
 
+fec_mpc52xx
+	eth
+	"Motorola MPC52xx on-chip Ethernet"
+
 forcedeth
 	eth
 	"nForce Ethernet Driver"
@@ -246,6 +250,10 @@ fmv18x
 	"Fujitsu FMV-181/182/183/184"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
+
+gelic_net
+	eth
+	"PlayStation 3 Gigabit Ethernet"
 
 hamachi
 	eth
@@ -600,8 +608,8 @@ a100u2w
 	"Initio A100U2W SCSI"
 
 aacraid
-        scsi_hostadapter
-        "Adaptec AACRAID"
+	scsi_hostadapter
+	"Adaptec AACRAID"
 
 aic94xx
 	scsi_hostadapter
@@ -629,8 +637,8 @@ aic79xx
 	"Adaptec Aic79xx SCSI Host Bus Adapter driver"
 
 ata_piix
-        scsi_hostadapter
-        "Intel PIIX/ICH ATA controllers"
+	scsi_hostadapter
+	"Intel PIIX/ICH ATA controllers"
 
 atp870u
 	scsi_hostadapter
@@ -668,8 +676,8 @@ hptiop
 # gvp11
 
 i2o_block
-        scsi
-        "I2O Block driver"
+	scsi
+	"I2O Block driver"
 
 ipr
 	scsi_hostadapter
@@ -719,13 +727,17 @@ pata_mpc52xx
 	scsi_hostadapter
 	"Freescale MPC52xx IDE/ATA libata driver"
 
+pcd
+	block-major-46  cdrom
+	"Parallel-port IDE CDROM"
+
 pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
 
-pcd
-	block-major-46  cdrom
-	"Parallel-port IDE CDROM"
+ps3_storage
+	scsi_hostadapter
+	"PlayStation 3 internal storage"
 
 qla1280
 	scsi_hostadapter
