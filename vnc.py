@@ -203,7 +203,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
         ip = isys.getIPAddress(dev)
         log.info("ip of %s is %s" % (dev, ip))
 
-        if ip == "127.0.0.1":
+        if ip == "127.0.0.1" or ip == "::1":
             ip = None
     except Exception, e:
         log.warning("Got an exception trying to get the ip addr "
@@ -211,21 +211,33 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 
     # If we have a real hostname that resolves against configured DNS
     # servers, use that for the name to connect to.
-    if netinfo.hostname != "localhost.localdomain" and netinfo.lookupHostname() is not None:
-        srvname = netinfo.hostname
-    elif ip is None:
-        # If we get here and there's no valid IP address, just use the
-        # hostname and hope for the best (better than displaying nothing)
-        srvname = netinfo.hostname
+    if netinfo.hostname != "localhost.localdomain":
+        if netinfo.lookupHostname() is not None:
+            srvname = netinfo.hostname
+        elif ip is None:
+            # If we get here and there's no valid IP address, just use the
+            # hostname and hope for the best (better than displaying nothing)
+            srvname = netinfo.hostname
 
     if srvname is not None:
         connxinfo = "%s:1" % srvname
 
     if ip is not None:
-        if connxinfo is not None:
-            connxinfo = "%s:1" % ip
+        try:
+            tmp = socket.inet_pton(socket.AF_INET6, ip)
+            family = socket.AF_INET6
+        except socket.error:
+            family = socket.AF_INET
+
+        if family == socket.AF_INET6:
+            ipstr = "[%s]" % ip
         else:
-            connxinfo += " (%s)" % ip
+            ipstr = ip
+
+        if connxinfo is not None:
+            connxinfo = "%s:1" % ipstr
+        else:
+            connxinfo += " (%s)" % ipstr
 
     # figure out product info
     if srvname is not None:
@@ -284,21 +296,8 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
     if vncconnecthost != "":
 	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
 
-	res = []
-	try:
-	    res = socket.getaddrinfo(vncconnecthost, None, socket.AF_INET6, socket.SOCK_STREAM)
-	except socket.gaierror:
-	    try:
-	        res = socket.getaddrinfo(vncconnecthost, None, socket.AF_INET, socket.SOCK_STREAM)
-	    except socket.gaierror:
-	        hostarg = vncconnecthost
-
-	if res != []:
-	    for (family, socktype, proto, canonname, sockaddr,) in res:
-	        (hostarg, port,) = sockaddr
-
         if vncconnectport != "":
-	    hostarg = hostarg + ":" + vncconnectport
+	    hostarg = vncconnecthost + ":" + vncconnectport
 	    
 	argv = ["-display", ":1", "-connect", hostarg]
 	ntries = 0
