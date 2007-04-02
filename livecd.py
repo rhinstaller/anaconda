@@ -21,6 +21,7 @@ import os, sys
 import stat
 import shutil
 import time
+import subprocess
 
 from rhpl.translate import _, N_
 
