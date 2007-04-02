@@ -128,13 +128,27 @@ EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
     chmod 111 $MBD_DIR/var/empty/sshd
     for i in pam_stack.so pam_nologin.so pam_limits.so pam_console.so \
-         pam_env.so pam_unix.so pam_deny.so \
+         pam_env.so pam_unix.so pam_deny.so pam_securetty.so \
          pam_limits.so; do
        cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
     done
-    for i in sshd other; do 
-       cp -f $IMGPATH/etc/pam.d/$i $MBD_DIR/etc/pam.d
-    done
+    cat > $MBD_DIR/etc/pam.d/sshd << EOF
+#%PAM-1.0
+auth       required     pam_stack.so service=system-auth
+auth       required     pam_nologin.so
+account    required     pam_stack.so service=system-auth
+password   required     pam_stack.so service=system-auth
+session    required     pam_stack.so service=system-auth
+session    required     pam_limits.so
+session    optional     pam_console.so
+EOF
+    cat > $MBD_DIR/etc/pam.d/other << EOF
+#%PAM-1.0
+auth       required     pam_deny.so
+account    required     pam_deny.so
+password   required     pam_deny.so
+session    required     pam_deny.so
+EOF
     cat > $MBD_DIR/etc/pam.d/login << EOF
 #%PAM-1.0
 auth       required     pam_stack.so service=system-auth
@@ -144,16 +158,26 @@ password   required     pam_stack.so service=system-auth
 session    required     pam_stack.so service=system-auth
 session    optional     pam_console.so
 EOF
+    cat > $MBD_DIR/etc/pam.d/remote << EOF
+#%PAM-1.0
+auth       required     pam_securetty.so
+auth       required     pam_stack.so service=system-auth
+auth       required     pam_nologin.so
+account    required     pam_stack.so service=system-auth
+password   required     pam_stack.so service=system-auth
+session    required     pam_stack.so service=system-auth
+session    optional     pam_console.so
+EOF
     cat > $MBD_DIR/etc/pam.d/system-auth << EOF
 #%PAM-1.0
-auth        required      pam_env.so
-auth        sufficient    pam_unix.so likeauth nullok
-auth        required      pam_deny.so
-account     required      pam_unix.so
-password    sufficient    pam_unix.so nullok use_authtok md5 shadow
-password    required      pam_deny.so
-session     required      pam_limits.so
-session     required      pam_unix.so
+auth        required    pam_env.so
+auth        sufficient  pam_unix.so likeauth nullok
+auth        required    pam_deny.so
+account     required    pam_unix.so
+password    sufficient  pam_unix.so nullok use_authtok md5 shadow
+password    required    pam_deny.so
+session     required    pam_limits.so
+session     required    pam_unix.so
 EOF
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
