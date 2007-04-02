@@ -28,7 +28,7 @@ fi
 ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_MOUNT_PATH --lang $LANG"
 
 if [ -x /usr/bin/hal-lock ]; then
-    /usr/bin/hal-lock --exclusive --run "$ANACONDA"
+    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA"
 else
     $ANACONDA
 fi

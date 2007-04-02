@@ -1,5 +1,7 @@
 2007-04-02  Jeremy Katz  <katzj@redhat.com>
 
+	* liveinst/liveinst.sh: Use the right syntax for hal-lock
+
 	* iw/autopart_type.py (PartitionTypeWindow._fillBootStore): Work
 	to ensure that we don't traceback here in cases where there aren't
 	drives (#234697 and others)
