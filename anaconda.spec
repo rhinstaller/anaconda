@@ -77,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #199181
 
 * Fri Mar 30 2007 Dave Lehman <dlehman@redhat.com> - 9.1.6.16-1.RHEL
-- Fix detection of IDe raid on non-i386
+- Fix detection of IDE raid on non-i386
   Resolves: #196520
 - Fix traceback in runShell for rescue mode
   Resolves: #209015
