@@ -1546,16 +1546,24 @@ class AutoPartitionWindow:
         disks = diskset.disks.keys()
         disks.sort()
         drivelist = CheckboxTree(height=3, scroll=1)
-        if not cleardrives or len(cleardrives) < 1:
-            for disk in disks:
-                drivelist.append(disk, selected = 1)
-        else:
-            for disk in disks:
+
+        for disk in disks:
+            size = getDeviceSizeMB(diskset.disks[disk].dev)
+            model = diskset.disks[disk].dev.model
+
+            if not cleardrives or len(cleardrives) < 1:
+                selected = 1
+            else:
                 if disk in cleardrives:
                     selected = 1
                 else:
                     selected = 0
-                drivelist.append(disk, selected = selected)
+
+            sizestr = "%8.0f MB" % (size,)
+            diskdesc = "%6s %s (%s)" % (disk, sizestr, model[:24],)
+
+            drivelist.append(diskdesc, selected = selected)
+
         subgrid.setField(drivelist, 0, 1)
         self.g.add(subgrid, 0, 3, (0,1,0,0))
 
@@ -1576,7 +1584,7 @@ class AutoPartitionWindow:
                 return INSTALL_BACK
 
             partitions.autoClearPartType = typebox.current()
-            partitions.autoClearPartDrives = self.drivelist.getSelection()
+            partitions.autoClearPartDrives = [self.drivelist.getSelection()[0].split()[0]]
 
             if queryAutoPartitionOK(intf, diskset, partitions):
                 self.shutdownUI()

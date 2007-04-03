@@ -1,3 +1,11 @@
+2007-04-03  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/linuxrc.s390: Add OSA layer 2 network support for System Z
+	platform (patch from Brad Hinson <bhinson@redhat.com>, #233357)
+
+	* text/partition_text.py (AutoPartitionWindow): Modify device list
+	to provide size and model information like we do in iw mode (#233606)
+
 2007-03-27  Dave Lehman  <dlehman@redhat.com>
 
 	* rescue.py (runRescue): fix selinux mount in rescue mode (#234137)

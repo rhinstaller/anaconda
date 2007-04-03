@@ -139,6 +139,9 @@ setupdevice()
    if [ -n "$CTCPROT" -a "$NETTYPE" = "ctc" ]; then
       sysecho /sys/bus/ccwgroup/drivers/ctc/${SYSDIR}/protocol "$CTCPROT"
    fi
+   if [ -n "$LAYER2" -a "$NETTYPE" = "qeth" ]; then
+      sysecho /sys/bus/ccwgroup/drivers/qeth/${SYSDIR}/layer2 "$LAYER2"
+   fi
    sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/online 1
 }
 
@@ -227,6 +230,12 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 			echo $"APARs VM63308 and PQ73878"
 			echo $"Press enter if you don't want to enter a portname"
 			read PORTNAME
+		fi
+ 		if [ -z "$LAYER2" ]; then
+			echo $"Enter the mode of operation for the OSA device"
+			echo $"0 for layer 3 mode (default)"
+			echo $"1 for layer 2 mode"
+			read LAYER2
 		fi
    fi
 fi
