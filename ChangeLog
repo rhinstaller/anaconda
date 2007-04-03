@@ -6,6 +6,9 @@
 	* text/partition_text.py (AutoPartitionWindow): Modify device list
 	to provide size and model information like we do in iw mode (#233606)
 
+	* loader2/net.c (chooseNetworkInterface): Honor nicdelay= when
+	ksdevice=link is used (#207546)
+
 2007-03-27  Dave Lehman  <dlehman@redhat.com>
 
 	* rescue.py (runRescue): fix selinux mount in rescue mode (#234137)
