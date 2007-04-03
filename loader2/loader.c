@@ -1088,7 +1088,7 @@ static char *doLoaderMain(char * location,
             logMessage(INFO, "going to pick interface");
             rc = chooseNetworkInterface(loaderData);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                (rc == LOADER_NOOP)) {
+                ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_METHOD;
                 dir = -1;
                 break;
