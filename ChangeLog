@@ -10,6 +10,11 @@
 
 	* loader2/loader.c (doLoaderMain): Revert change from yesterday.
 
+	* loader2/kickstart.c: Support fetching kickstart files from HTTP
+	URLs that require login information (<bnocera@redhat.com>, #194247)
+	* loader2/kickstart.h: Likewise
+	* loader2/urlinstall.c: Likewise
+
 2007-04-02  David Cantrell  <dcantrell@redhat.com>
 
 	* vnc.py (startVNCServer): Better fix (#234747)

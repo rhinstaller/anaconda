@@ -340,7 +340,7 @@ int getFileFromUrl(char * url, char * dest,
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
-    char * host = NULL, * file = NULL, * chptr = NULL;
+    char * host = NULL, * file = NULL, * chptr = NULL, *login = NULL, *password = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
     char * ehdrs = NULL;
@@ -356,8 +356,8 @@ int getFileFromUrl(char * url, char * dest,
 
     tip = &(netCfg.dev.ip);
     inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-    getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
-                   &host, &file, ret);
+    getHostPathandLogin((proto == URL_METHOD_FTP ? url + 6 : url + 7),
+                   &host, &file, &login, &password, ret);
 
     logMessage(INFO, "file location: %s://%s%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
@@ -373,6 +373,11 @@ int getFileFromUrl(char * url, char * dest,
         *host = '/';
         ui.prefix = strdup(host);
     }
+
+    if (password[0] != '\0')
+        ui.password = strdup (password);
+    if (login[0] != '\0')
+        ui.login = strdup (login);
 
     if (proto == URL_METHOD_HTTP) {
         ehdrs = (char *) malloc(24+strlen(VERSION));

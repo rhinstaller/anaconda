@@ -296,7 +296,7 @@ int getKickstartFromBlockDevice(char *device, char *path) {
     return getFileFromBlockDevice(device, path, "/tmp/ks.cfg");
 }
 
-void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
+void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** login, char ** password, char * ip) {
     char *tmp;
 
     *host = strdup(ksSource);
@@ -322,6 +322,33 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
         *file = sdupprintf("%s%s-kickstart", *file, ip);
         logMessage(DEBUGLVL, "getHostandPath file(2): |%s|", *file);
     }
+
+    /* Do we have a password? */
+    tmp = strchr(*host, '@');
+    if (tmp != NULL) {
+        *login = *host;
+        *tmp = '\0';
+        *host = tmp + 1;
+
+        tmp = strchr(*login, ':');
+        if (tmp != NULL) {
+            *password = tmp + 1;
+            *tmp = '\0';
+        } else {
+            *password = malloc(sizeof(char *));
+            **password = '\0';
+        }
+    } else {
+        *login = malloc(sizeof(char *));
+        **login = '\0';
+        *password = malloc(sizeof(char *));
+        **password = '\0';
+    }
+}
+
+void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
+    char *password, *login;
+    getHostPathandLogin (ksSource, host, file, &login, &password, ip);
 }
 
 static char *newKickstartLocation(char *origLocation) {
