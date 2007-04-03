@@ -1,3 +1,8 @@
+2007-04-03  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.mirrorFailureCB):  Correctly detect if
+	there are no more mirrors to try (#232639).
+
 2007-04-03  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow): Modify device list

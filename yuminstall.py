@@ -613,8 +613,10 @@ class YumBackend(AnacondaBackend):
 
     def mirrorFailureCB (self, obj, *args, **kwargs):
         log.warning("Failed to get %s from mirror" % obj.url)
-        
-        if kwargs["grab"]._next >= len(kwargs["grab"].mirrors):
+
+        # We don't increment the mirror index until after running this
+        # callback, so check if _next is one less.
+        if kwargs["grab"]._next == len(kwargs["grab"].mirrors) - 1:
             if self.method.currentMedia:
                 if kwargs.has_key("tsInfo"):
                     self.prevmedia = kwargs["tsInfo"].curmedia
