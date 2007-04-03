@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.42
+Version: 11.2.0.43
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 03 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.43-1
+- Correctly detect if there are no more mirrors to try (clumens, #232639)
+- Display size and model info per disk in PartitionTypeWindow in textw
+- Support fetching kickstart files from HTTP URLs that require login
+  information (bnocera@redhat.com, #194247)
+- Improve CongratulationWindow.getScreen (katzj)
+- Add missing import to livecd.py (katzj)
+- Use correct syntax for hal-lock (katzj)
+- Don't traceback in cases where there are no drives (katzj, #234697)
+- Add fec_mpc52xx, ps3_storage, and gelic_net (#220009)
+- Display IP address of the VNC server (#234747)
+- Add OSA layer 2 support for System Z (bhinson@redhat.com, #233376)
+- Import constants in backend.py (clumens, #234782)
+- Add netxen_nic driver (clumens, #230245)
+
 * Fri Mar 30 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.42-1
 - LiveCD fixes (katzj, #230945, #224208, #224213, #230943)
 - Handle IOErrors if we can't find the kickstart file (clumens)
