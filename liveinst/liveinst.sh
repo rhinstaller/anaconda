@@ -27,8 +27,17 @@ fi
 # eventually, we might want to allow a more "normal" install path
 ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_MOUNT_PATH --lang $LANG"
 
+if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
+    current=$(cat /selinux/enforce)
+    /usr/sbin/setenforce 0
+fi
+
 if [ -x /usr/bin/hal-lock ]; then
     /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA"
 else
     $ANACONDA
+fi
+
+if [ -n $current ]; then
+    /usr/sbin/setenforce $current
 fi

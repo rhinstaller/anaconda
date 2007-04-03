@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.43
+Version: 11.2.0.44
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr  3 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.44-1
+- Clean up depsolve callback to work with yum depsolver
+- More live CD fixing
+
 * Tue Apr 03 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.43-1
 - Correctly detect if there are no more mirrors to try (clumens, #232639)
 - Display size and model info per disk in PartitionTypeWindow in textw
