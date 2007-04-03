@@ -3,8 +3,6 @@
 	* textw/partition_text.py (PartitionTypeWindow): Modify device list
 	to provide size and model information like we do in iw mode.
 
-	* scripts/mk-images: Add libata and the scsi_transport_ kernel modules.
-
 	* loader2/loader.c (doLoaderMain): Revert change from yesterday.
 
 2007-04-02  David Cantrell  <dcantrell@redhat.com>
