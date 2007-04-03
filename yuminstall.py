@@ -882,7 +882,7 @@ class YumBackend(AnacondaBackend):
         if anaconda.dir == DISPATCH_BACK:
             return
 
-        dscb = YumDepSolveProgress(anaconda.intf)
+        dscb = YumDepSolveProgress(anaconda.intf, self.ayum)
         self.ayum.dsCallback = dscb
 
         # do some sanity checks for kernel and bootloader
@@ -1358,7 +1358,7 @@ class YumProgress:
                           RuntimeWarning, stacklevel=2)             
 
 class YumDepSolveProgress:
-    def __init__(self, intf):
+    def __init__(self, intf, ayum = None):
         window = intf.progressWindow(_("Dependency Check"),
         _("Checking dependencies in packages selected for installation..."),
                                      1.0, 0.01)
@@ -1367,12 +1367,16 @@ class YumDepSolveProgress:
         self.numpkgs = None
         self.loopstart = None
         self.incr = None
+        self.ayum = ayum
         
         self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
         self.procReq = self.procConflict = self.unresolved = self.noop
 
     def tscheck(self, num = None):
         self.refresh()
+        if num is None and self.ayum is not None and self.ayum.tsInfo is not None:
+            num = len(self.ayum.tsInfo.getMembers())
+            
         if num is not None:
             self.numpkgs = num
             self.loopstart = self.current
