@@ -88,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #233606
 - Honor nicdelay when ksdevice=link is used (dcantrell)
   Resolves: #207546
+- Actually create the /bin/echo symlink on all arches
+  Resolves: #178781
 
 * Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
 - Allow graphical xen installs to proceed with no mouse

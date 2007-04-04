@@ -470,7 +470,6 @@ EOF
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
-    ln -sf /usr/bin/echo $MBD_DIR/bin/echo
     (cd $MBD_DIR/sbin;
     	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
     	while [ -n "$1" ]; do
@@ -688,6 +687,7 @@ EOF
     ln -s /sbin/init $MBD_DIR/linuxrc
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
+    ln -s /usr/bin/echo $MBD_DIR/bin/echo
 
     awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
 	   printf("chmod %s %s/dev/%s\n", $6, $1, $2);
