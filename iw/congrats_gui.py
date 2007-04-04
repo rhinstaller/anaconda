@@ -18,6 +18,7 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
 import iutil
+import os
 
 class CongratulationWindow (InstallWindow):		
 
@@ -34,8 +35,12 @@ class CongratulationWindow (InstallWindow):
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
-	ics.cw.mainxml.get_widget("rebootButton").show()
-	ics.cw.mainxml.get_widget("rebootButton").grab_focus()
+        if os.path.exists("/dev/live-osimg"):
+            ics.cw.mainxml.get_widget("closeButton").show()
+            ics.cw.mainxml.get_widget("closeButton").grab_focus()
+        else:
+            ics.cw.mainxml.get_widget("rebootButton").show()
+            ics.cw.mainxml.get_widget("rebootButton").grab_focus()
 
     def getNext(self):
 	# XXX - copy any screenshots over
@@ -54,11 +59,12 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, False, False, 36)
 
         bootstr = ""
-        if rhpl.getArch() == "s390":
+        if rhpl.getArch() == "s390" or os.path.exists("/dev/live-osimg"):
             floppystr = ""
         else:
             floppystr = _("Press the \"Reboot\" button to reboot your system."
                           "\n\n")
+
 
         txt = _("Congratulations, the installation is complete.\n\n"
                 "%s%s") %(floppystr, bootstr)

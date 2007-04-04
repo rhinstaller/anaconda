@@ -5,6 +5,10 @@
 
 2007-04-04  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/congrats_gui.py (CongratulationWindow.__init__): Add support
+	for close button to be used with the live install (#225168)
+	* ui/anaconda.glade: Likewise.
+
 	* liveinst/liveinst.xinit: Work with changes for running from
 	RAM/usb stick
 

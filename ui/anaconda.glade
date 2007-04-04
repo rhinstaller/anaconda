@@ -51,7 +51,7 @@
 	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="n_rows">1</property>
-	  <property name="n_columns">1</property>
+	  <property name="n_columns">2</property>
 	  <property name="homogeneous">False</property>
 	  <property name="row_spacing">0</property>
 	  <property name="column_spacing">0</property>
@@ -88,7 +88,6 @@
 	      <property name="bottom_attach">1</property>
 	    </packing>
 	  </child>
-
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
@@ -435,6 +434,18 @@
 		      </child>
 		    </widget>
 		  </child>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="GtkButton" id="closeButton">
+		  <property name="can_default">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="label">gtk-close</property>
+		  <property name="use_stock">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_closeButton_clicked" last_modification_time="Wed, 04 Apr 2007 20:23:13 GMT"/>
 		</widget>
 	      </child>
 	    </widget>
