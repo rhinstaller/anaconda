@@ -81,7 +81,7 @@ class BaseInstallClass:
     description = property(_get_description)
 
     def postAction(self, anaconda, serial):
-	pass
+        anaconda.method.postAction(anaconda)
 
     def setBootloader(self, id, location=None, forceLBA=0, password=None,
                       md5pass=None, appendLine="", driveorder = []):

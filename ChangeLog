@@ -1,3 +1,12 @@
+2007-04-04  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDImageMethod.postAction): Unmount filesystems
+	in the live case before continuing on. 
+	* installclass.py (BaseInstallClass.postAction): Call the method 
+	postAction
+	* installmethod.py (InstallMethod.postAction): Add a method to be
+	called in post action for unmounting things in the live case 
+
 2007-04-04  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Removing items from a list you're

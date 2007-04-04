@@ -82,6 +82,11 @@ class InstallMethod:
     def switchMedia(self, mediano, filename=""):
 	pass
 
+    # this is very very very late.  it's even after kickstart %post.
+    # only use this if you really know what you're doing.
+    def postAction(self, anaconda):
+        pass
+
 
 # this handles any cleanup needed for the method.  it occurs *very* late
 # (ie immediately before the congratulations screen).  main use right now
