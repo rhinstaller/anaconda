@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.63
+Version: 10.1.1.64
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.64-1
+- Fix rescue mode selinuxfs mount
+  Resolves: #234137
+- Add stex driver to module-info
+  Resolves: #230214
+- Add OSA layer 2 network support for zSeries (dcantrell)
+  Resolves: #233357
+- Add size and model info to text mode drive selection (dcantrell)
+  Resolves: #233606
+- Honor nicdelay when ksdevice=link is used (dcantrell)
+  Resolves: #207546
+
 * Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
 - Allow graphical xen installs to proceed with no mouse
   Resolves: #229588
