@@ -3,12 +3,13 @@
 # Simple script to kick off an install from a live CD
 #
 
-if [ -z "$LIVE_MOUNT_PATH" ]; then
-    LIVE_MOUNT_PATH="/mnt/livecd"
+if [ -z "$LIVE_BLOCK" ]; then
+    LIVE_BLOCK="/dev/live-osimg"
 fi
 
-if [ ! -f /.livecd-configured ]; then
+if [ ! -b $LIVE_BLOCK ]; then
   zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
+  exit 1
 fi
 
 # load modules that would get loaded by the loader... (#230945)
@@ -25,7 +26,7 @@ if [ -z "$LANG" ]; then
 fi
 
 # eventually, we might want to allow a more "normal" install path
-ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_MOUNT_PATH --lang $LANG"
+ANACONDA="/usr/sbin/anaconda --method=livecd://$LIVE_BLOCK --lang $LANG"
 
 if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     current=$(cat /selinux/enforce)

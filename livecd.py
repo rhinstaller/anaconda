@@ -71,11 +71,11 @@ def copytree(src, dst, symlinks=False):
 
 class LiveCDImageMethod(installmethod.InstallMethod):
     def __init__(self, method, rootpath, intf):
-        """@param method livecd://mountedlocation """
+        """@param method livecd://live-block-device"""
         installmethod.InstallMethod.__init__(self, method, rootpath, intf)
 
-        self.cdmntpt = method[8:]
-        if not os.path.exists("%s/squashfs.img" %(self.cdmntpt,)):
+        self.osimg = method[8:]
+        if not stat.S_ISBLK(os.stat(self.osimg)[stat.ST_MODE]):
             intf.messageWindow(_("Unable to find image"),
                                _("The given location isn't a valid %s "
                                  "live CD to use as an installation source.")
@@ -84,8 +84,27 @@ class LiveCDImageMethod(installmethod.InstallMethod):
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
 
-    def getLiveCDMountPoint(self):
-        return self.cdmntpt
+    def getLiveBlockDevice(self):
+        return self.osimg
+
+    def getLiveSizeMB(self):
+        lnk = os.readlink(self.osimg)
+        if lnk[0] != "/":
+            lnk = os.path.join(os.path.dirname(self.osimg), lnk)
+        blk = os.path.basename(lnk)
+
+        if not os.path.exists("/sys/block/%s/size" %(blk,)):
+            log.debug("Unable to determine the actual size of the live image")
+            return 0
+
+        size = open("/sys/block/%s/size" %(blk,), "r").read()
+        try:
+            size = int(size)
+        except ValueError:
+            log.debug("Unable to handle live size conversion: %s" %(size,))
+            return 0
+
+        return (size * 512) / 1024 / 1024
         
 
 class LiveCDCopyBackend(backend.AnacondaBackend):
@@ -115,7 +134,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         progress.set_label(_("Copying live image to hard drive."))
         progress.processEvents()
 
-        osimg = "/mnt/installer/squashed/os.img" # the real image
+        osimg = anaconda.method.getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
         r = anaconda.id.fsset.getEntryByMountPoint("/")
@@ -123,7 +142,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         rootfd = os.open("/dev/" + rootfs, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
-        size = float(os.stat(osimg)[stat.ST_SIZE])
+        size = anaconda.method.getLiveSizeMB() * 1024 * 1024
         copied = 0
         while copied < size:
             buf = os.read(osfd, readamt)
@@ -137,9 +156,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         os.close(osfd)
         os.close(rootfd)
 
-        # unset-up the image
-        isys.umount("/mnt/installer/squashed")
-        isys.unlosetup("/dev/loop4")
         anaconda.id.instProgress = None
 
     def _doFilesystemMangling(self, anaconda):
@@ -271,28 +287,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def doInitialSetup(self, anaconda):
         pass
     def doRepoSetup(self, anaconda):
-        # mount the squashfs.img to find the real os.img
-        iutil.mkdirChain("/mnt/installer/squashed")
-        isys.losetup("/dev/loop4", "%s/squashfs.img"
-                     %(anaconda.method.getLiveCDMountPoint(),), readOnly = 1)
-        isys.mount("/dev/loop4", "/mnt/installer/squashed",
-                   fstype="squashfs", readOnly = 1)
-
-        if not os.path.exists("/mnt/installer/squashed/os.img"):
-            anaconda.intf.messageWindow(_("Unable to find image"),
-                               _("The given location isn't a valid %s "
-                                 "live CD to use as an installation source.")
-                               %(productName,), type = "custom",
-                               custom_icon="error",
-                               custom_buttons=[_("Exit installer")])
-            isys.umount("/mnt/installer/squashed")
-            isys.unlosetup("/dev/loop4")
-            sys.exit(1)
-
         # ensure there's enough space on the rootfs
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
-        ossize = os.stat("/mnt/installer/squashed/os.img")[stat.ST_SIZE] / 1024.0 / 1024.0
+        ossize = anaconda.method.getLiveSizeMB()
         slash = anaconda.id.partitions.getRequestByMountPoint("/")
         if slash and \
            slash.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < ossize:
@@ -304,8 +302,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                         custom_buttons=[_("Back"),
                                                         _("Exit installer")])
             if rc == 0:
-                isys.umount("/mnt/installer/squashed")
-                isys.unlosetup("/dev/loop4")
                 return DISPATCH_BACK
             else:
                 sys.exit(1)
