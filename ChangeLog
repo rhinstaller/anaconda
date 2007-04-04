@@ -1,3 +1,8 @@
+2007-04-04  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (doAutoPartition):  Removing items from a list you're
+	iterating over confuses python (#235279).
+
 2007-04-04  Jeremy Katz  <katzj@redhat.com>
 
 	* liveinst/liveinst.xinit: Work with changes for running from

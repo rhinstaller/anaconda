@@ -1449,6 +1449,8 @@ def doAutoPartition(anaconda):
     # requests.  These VGs should only be present on installs where we're
     # using preexisting partitions that already have LVM information.  We
     # need to do the same thing for preexisting RAID requests, as well.
+    removeReqs = []
+
     for req in partitions.requests:
         if isinstance(req, partRequests.VolumeGroupRequestSpec):
             lst = req.physicalVolumes
@@ -1458,13 +1460,21 @@ def doAutoPartition(anaconda):
             continue
 
         if len(filter (lambda id: partitions.getRequestByID(id) != None, lst)) == 0:
-            partitions.removeRequest (req)
+            removeReqs.append(req)
+
+    for req in removeReqs:
+        partitions.removeRequest(req)
+
+    removeReqs = []
 
     # Now that we've removed bad VGs, remove all LVs that would have
     # resided on those VGs.
     for req in filter (lambda r: isinstance(r, partRequests.LogicalVolumeRequestSpec), partitions.requests):
         if partitions.getRequestByID(req.volumeGroup) == None:
-            partitions.removeRequest (req)
+            removeReqs.append(req)
+
+    for req in removeReqs:
+        partitions.removeRequest(req)
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane
