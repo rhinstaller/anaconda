@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.44
+Version: 11.2.0.45
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr  4 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.45-1
+- More live changes to fix installing from the live image running from RAM 
+  or a USB stick.  Note: requires a livecd created with livecd-tools >= 006
+- Make the end button Close for the live case (#225168)
+- Unmount installed filesystems at the end of the live install
+- Fix an autopart bug (clumens, #235279)
+
 * Tue Apr  3 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.44-1
 - Clean up depsolve callback to work with yum depsolver
 - More live CD fixing
