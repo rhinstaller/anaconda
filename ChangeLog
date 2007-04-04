@@ -1,3 +1,14 @@
+2007-04-04  Jeremy Katz  <katzj@redhat.com>
+
+	* liveinst/liveinst.xinit: Work with changes for running from
+	RAM/usb stick
+
+	* liveinst/liveinst.sh: Adjust to use the block device instead of
+	the mount point as the interesting part of the live image.
+
+	* livecd.py: Changes so that we can work with the live image
+	running from RAM or from a USB stick
+
 2007-04-03  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
