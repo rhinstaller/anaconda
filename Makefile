@@ -5,7 +5,7 @@ RELEASE=$(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 
 SUBDIRS = isys loader2 po stubs \
 	    textw utils scripts bootdisk installclasses \
-	    iw pixmaps isomd5sum command-stubs
+	    iw pixmaps isomd5sum command-stubs keymaps
 # fonts aren't on s390/s390x
 ifneq (s390, $(ARCH))
 ifneq (s390x, $(ARCH))
