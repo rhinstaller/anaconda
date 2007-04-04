@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.17
+Version: 9.1.6.18
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr  4 2007 Peter Jones <pjones@redhat.com> - 9.1.6.18-1.RHEL
+- Fix keymap lookaside cache and update the maps
+  Resolves: #235098
+
 * Mon Apr 02 2007 David Cantrell <dcantrell@redhat.com> - 9.1.6.17-1.RHEL
 - Fix broken telnetd on s390
   Resolves: #199181
