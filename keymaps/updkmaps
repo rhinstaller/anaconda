@@ -15,7 +15,7 @@ mkdir -p $TMPDIR
 if [ $ARCH = "sparc" ]; then
     PATTERN={i386,sun}
 else
-    PETTERN=i386
+    PATTERN=i386
 fi
 
 eval find /lib/kbd/keymaps/$PATTERN -name "*.map*" | while read n; do
