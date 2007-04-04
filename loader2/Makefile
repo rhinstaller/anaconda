@@ -137,7 +137,6 @@ install: all
 	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
 	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n || :; \
 	done
-	if [ -f keymaps-$(ARCH) ]; then cp keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-$(ARCH) ; fi
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
