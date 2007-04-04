@@ -84,7 +84,7 @@ int isUsableDasd(char *device) {
 	memset(v4_hex, 0, 9);
 	strncpy(label, vlabel.volkey, 4);
 	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
-        
+
 	if(!strncmp(v4_hex, cms1_hex, 9)) {
 		return 0;
 	}
@@ -117,7 +117,11 @@ char *getDasdPorts() {
                 if ((strstr(line, "unknown") != NULL)) {
                         continue;
                 }
-                ret = sscanf (line, "%[A-Za-z.0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+                if (strstr(line, "(FBA )") != NULL) {
+                        ret = sscanf (line, "%[A-Za-z.0-9](FBA ) at ( %*d: %*d) is %s : %*s", port, devname);
+                } else {
+                        ret = sscanf (line, "%[A-Za-z.0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+                }
 		if (ret == 2) {
 			if(!ports) {
 				ports = (char *)malloc(strlen(port) + 1);

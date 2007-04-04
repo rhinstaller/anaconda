@@ -294,7 +294,6 @@ def driveDict(klassArg):
     
     ret = {}
 
-    # FIXME: need to add dasd probing to kudzu
     devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | kudzu.CLASS_FLOPPY,
                        kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
     for dev in devs:
@@ -367,7 +366,7 @@ def hardDriveDict():
         else:
             log("%s has a %s raid signature but no windows parts" %(dev, ret))
         
-    return driveDict("disk")
+    return dict
 
 def floppyDriveDict():
     return driveDict("floppy")
