@@ -90,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #207546
 - Actually create the /bin/echo symlink on all arches
   Resolves: #178781
+- Detect FBA storage devices on zSeries
+  Resolves: #227913
 
 * Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
 - Allow graphical xen installs to proceed with no mouse
