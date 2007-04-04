@@ -1,3 +1,16 @@
+2007-04-02  Peter Jones  <pjones@redhat.com>
+
+	* keymaps/Makefile: sort rules, add some arches, and fix the install
+	rule.
+
+	* keymaps/updkmap: fix typo.
+
+	* loader2/Makefile: get rid of keymap installation here
+
+	* keymaps/keymaps-*: update these (and move one from loader2/ as well)
+
+	* Makefile: add keymaps subdir
+
 2007-04-02  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version
