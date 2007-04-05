@@ -1,5 +1,10 @@
 2007-04-05  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/dasd.c: Fix the formatting and check return values on
+	things that give us return values.
+
+2007-04-05  David Cantrell  <dcantrell@redhat.com>
+
 	* isys/dasd.c: Condense read_vlabel() in to read_volume_label(), new
 	function is named read_vlabel().  Support reading FBA entries in
 	addition to EKCD entries from /proc/dasd/devices.
