@@ -146,7 +146,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         rootfd = os.open("/dev/" + rootfs, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
-        size = anaconda.method.getLiveSizeMB() * 1024 * 1024
+        size = float(anaconda.method.getLiveSizeMB() * 1024 * 1024)
         copied = 0
         while copied < size:
             buf = os.read(osfd, readamt)
