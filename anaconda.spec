@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.45
+Version: 11.2.0.46
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.46-1
+- Minor live install fixes
+- dasd fixes (dcantrell)
+
 * Wed Apr  4 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.45-1
 - More live changes to fix installing from the live image running from RAM 
   or a USB stick.  Note: requires a livecd created with livecd-tools >= 006
