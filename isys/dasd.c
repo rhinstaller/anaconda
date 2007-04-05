@@ -24,28 +24,25 @@ typedef struct vtoc_volume_label volume_label_t;
 
 #if defined(__s390__) || defined(__s390x__)
 /* s390 stuff to detect DASDs */
-static int read_volume_label (int fd, unsigned long vlabel_start,
-		volume_label_t *vlabel) {
+static int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize,
+                       volume_label_t *vlabel) {
 	int rc;
+	unsigned long vlabel_start = dasd_info->label_block * blksize;
+
+	memset(vlabel, 0, sizeof(volume_label_t));
+
 	if (lseek(fd, vlabel_start, SEEK_SET) < 0) {
 		/* fprintf(stderr, "Could not read volume label.\n"); */
 		return 2;
 	}
+
 	rc = read(fd, vlabel, sizeof(volume_label_t));
 	if (rc != sizeof(volume_label_t)) {
 		/* fprintf(stderr, "Could not read volume label, DASD is probably unformatted\n"); */
 		return 1;
 	}
+
 	return 0;
-}
-
-static int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
-	unsigned long  pos;
-
-	pos = dasd_info->label_block * blksize;
-
-	memset(vlabel, 0, sizeof(volume_label_t));
-	return read_volume_label(fd, pos, vlabel);
 }
 #endif
 
@@ -123,7 +120,11 @@ char *getDasdPorts() {
                 if ((strstr(line, "unknown") != NULL)) {
                         continue;
                 }
-                ret = sscanf (line, "%[A-Za-z.0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+                if (strstr(line, "(FBA )") != NULL) {
+                        ret = sscanf (line, "%[A-Za-z.0-9](FBA ) at ( %*d: %*d) is %s : %*s", port, devname);
+                } else {
+                        ret = sscanf (line, "%[A-Za-z.0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+                }
 		if (ret == 2) {
 			if(!ports) {
 				ports = (char *)malloc(strlen(port) + 1);

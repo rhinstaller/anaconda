@@ -1,3 +1,9 @@
+2007-04-05  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/dasd.c: Condense read_vlabel() in to read_volume_label(), new
+	function is named read_vlabel().  Support reading FBA entries in
+	addition to EKCD entries from /proc/dasd/devices.
+
 2007-04-04  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
