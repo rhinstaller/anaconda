@@ -84,9 +84,9 @@ class LiveCDImageMethod(installmethod.InstallMethod):
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
 
-    def postAction(self, anaconda):
-        anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
-                                            swapoff = False)        
+#     def postAction(self, anaconda):
+#         anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
+#                                             swapoff = False)        
 
     def getLiveBlockDevice(self):
         return self.osimg
