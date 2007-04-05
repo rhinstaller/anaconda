@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-05 00:11+0530\n"
+"PO-Revision-Date: 2007-04-05 17:26+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1356,13 +1356,10 @@ msgid "IP address is missing."
 msgstr "IP ವಿಳಾಸ ನಾಪತ್ತೆಯಾಗಿದೆ."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
-"IP ವಿಳಾಸಗಳು ೦ ಮತ್ತು ೨೫೫ ರ ನಡುವಿನ, ಬಿಂದುಗಳಿಂದ ವಿಭಕ್ತವಾದ, ನಾಲ್ಕು ಸಂಖ್ಯೆಗಳನ್ನು "
-"ಒಳಗೊಂಡಿರಬೇಕು."
+msgstr "IP ವಿಳಾಸಗಳು ೦ ಮತ್ತು ೨೫೫ ರ ನಡುವಿನ ನಾಲ್ಕು ಸಂಖ್ಯೆಗಳನ್ನು ಒಳಗೊಂಡಿದ್ದು, ಆವರ್ತಕವನ್ನು ಹೊಂದಿರಬೇಕು."
 
 #: ../network.py:96
 #, python-format
@@ -2900,15 +2897,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "ಪ್ರೌಢ ಸಜ್ಜು ಉತ್ಥಾಪಕ ಸಂರಚನೆ"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"BIOS ಸಮರ್ಥಿಸದಿದ್ದರೂ ಸಜ್ಜು ಉತ್ಥಾಪಕದಲ್ಲಿ LBA32 ವಿನ ಉಪಯೋಗವನ್ನು ಒತ್ತಾಯಿಸಿದರೆ ನಿಮ್ಮ "
-"ಗಣಕವನ್ನು ಸಜ್ಜುಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗದೇ ಹೋಗಬಹುದು.\n"
+"ನಿಮ್ಮ ಗಣಕದಲ್ಲಿನ BIOS ನಲ್ಲಿ LBA32 ಬೆಂಬಲಿತವಾಗಿರದೇ ಇದ್ದರೆ, ಒತ್ತಾಯಪೂರ್ವಕವಾಗಿ ಉಪಯೋಗಿಸುವುದರಿಂದ "
+"ನಿಮ್ಮ ಗಣಕವನ್ನು ಬೂಟ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗದೇ ಹೋಗಬಹುದು.\n"
 "\n"
 "LBA32 ವಿಧಾನವನ್ನು ಒತ್ತಾಯಿಸಿ ಮುಂದುವರೆಯಲು ನಿರ್ಧರಿಸಿದ್ದೀರೇನು?"
 
@@ -3036,14 +3032,12 @@ msgid "Congratulations"
 msgstr "ಅಭಿನಂದನೆಗಳು"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"ನಿಮ್ಮ ಗಣಕವನ್ನು ಪುನರ್ ಬೂಟಿಸಲಿ \"ಪುನರ್-ಬೂಟಿಸು\" ಗುಂಡಿಯನ್ನು ಕ್ಲಿಕ್ಕಿಸಿ.\n"
 "\n"
-"\n"
-"ಗಣಕವನ್ನು ಮರುಸಜ್ಜುಗೊಳಿಸಲು 'ಸರಿ' ಗುಂಡಿಯನ್ನೊತ್ತಿರಿ."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
