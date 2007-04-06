@@ -56,8 +56,8 @@ int isUsableDasd(char *device) {
     volume_label_t vlabel;
 
     memset(&dasd_info, 0, sizeof(dasd_info));
-    devname = strcpy(devname, "/dev/");
-    devname = strcat(devname, device);
+    strcpy(devname, "/dev/");
+    strcat(devname, device);
     devMakeInode(device, devname);
 
     if ((f = open(devname, O_RDONLY)) == -1)
@@ -83,7 +83,7 @@ int isUsableDasd(char *device) {
 
     memset(label, 0, 5);
     memset(v4_hex, 0, 9);
-    label = strncpy(label, vlabel.volkey, 4);
+    strncpy(label, vlabel.volkey, 4);
 
     ret = sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1],
                                               label[2], label[3]);
