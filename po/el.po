@@ -1,5 +1,3 @@
-# translation of el.po to Greek
-# translation of el.po to
 # Anaconda installer in Greek
 # This file is distributed under the same license as the Anaconda package.
 # Copyright (C) 2002 Simos Xenitellis.
@@ -12,6 +10,7 @@
 # Dimitrios Michelinakis <dimitris@michelinakis.gr>, 2006.
 # Kostas Papadimas <pkst@gnome.org>, 2006.
 # Dimitris Glezos <dimitris@glezos.com>, 2006, 2007.
+# Stavros Giannouris <stavrosg@hellug.gr>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
@@ -1132,7 +1131,7 @@ msgstr "Προσπάθεια _ξανά"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr "Δε μπόρεσε να προσαρτηθεί το ISO source"
+msgstr "Δε μπόρεσε να προσαρτηθεί η πηγή ISO"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1237,14 +1236,19 @@ msgstr ""
 
 #: ../image.py:436
 #, python-format
-#, fuzzy
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
 "\n"
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
-msgstr "ISO εικόνα a μέγεθος είναι όχι a από ενεργό n είναι υποφαινόμενο και υποφαινόμενο υποφαινόμενο είναι μέσα σφάλμα."
+msgstr ""
+"Η εικόνα ISO %s έχει μέγεθος που δεν είναι πολλαπλάσιο των 2048 bytes. Αυτό "
+"μπορεί να σημαίνει οτι έχει καταστραφεί κατά τη μεταφορά σε αυτό τον "
+"υπολογιστή.\n"
+"\n"
+"Συνιστάται να επανεκκινήσετε και να ακυρώσετε την εγκατάσταση, αλλά μπορείτε "
+"να επιλέξετε να συνεχίσετε αν νομίζετε οτι το μήνυμα προέκυψε από λάθος."
 
 #: ../image.py:510
 #, python-format
@@ -3972,9 +3976,8 @@ msgid "Partitioning"
 msgstr "Κατάτμηση"
 
 #: ../iw/partition_gui.py:633
-#, fuzzy
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "υποφαινόμενο."
+msgstr "Το σχήμα κατατμήσεων που ορίσατε προκάλεσε τα εξής κρίσιμα σφάλματα."
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3988,9 +3991,8 @@ msgid "Partitioning Errors"
 msgstr "Σφάλματα κατάτμησης"
 
 #: ../iw/partition_gui.py:647
-#, fuzzy
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "υποφαινόμενο."
+msgstr "Το σχήμα κατατμήσεων που ορίσατε προκάλεσε τις εξής προειδοποιήσεις."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4310,7 +4312,6 @@ msgstr ""
 "δίσκο πριν μπορέσει να κλωνοποιηθεί."
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4718,7 +4719,6 @@ msgid "Skip Boot Loader"
 msgstr "Παράκαμψη Boot Loader"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4734,7 +4734,6 @@ msgstr ""
 "Είστε σίγουροι πως θέλετε να παρακάμψετε την εγκατάσταση boot loader;"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4783,15 +4782,15 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
 "Ο διαχειριστής εκκίνησης %s έχει τη δυνατότητα να εκκινήσει και άλλα "
-"λειτουργικά συστήματα. Πρέπει να διαλέξετε τα τμήματα δίσκου που θέλετε να "
-"μπορείτε να εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
+"λειτουργικά συστήματα. Επιλέξετε τα τμήματα δίσκου που θέλετε να μπορείτε να "
+"εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
 
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -4800,14 +4799,13 @@ msgstr ""
 "οθόνη>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"Ένα συνθηματικό για τον bootloader αποτρέπει κακόβουλους χρήστες να δώσουν "
-"παραμέτρους κατά την εκκίνηση στον πυρήνα.  Αν θέλετε υψηλό επίπεδο "
+"Ένα συνθηματικό για τον boot loader αποτρέπει τους χρήστες να δώσουν "
+"αυθαίρετες παραμέτρους κατά την εκκίνηση στον πυρήνα. Αν θέλετε υψηλό επίπεδο "
 "ασφάλειας, προτείνουμε να ορίσετε ένα συνθηματικό, αυτό όμως δεν είναι "
 "αναγκαίο για τις περισσότερες χρήσεις."
 
@@ -4920,7 +4918,6 @@ msgstr ""
 "μελλοντική αναφορά."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "Παρακαλώ επιλέξτε τις ομάδες πακέτων που θέλετε να εγκατασταθούν."
 
@@ -4970,26 +4967,26 @@ msgstr ""
 "μπορεί προκαλέσει προβλήματα αργότερα."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Το πρόθεμα IPv4 πρέπει να είναι μεταξύ 0 και 32."
+msgstr "Το πρόθεμα IPv%d πρέπει να είναι μεταξύ 0 και %d."
 
 #: ../textw/network_text.py:71
-#, fuzzy
 msgid "Integer Required for Prefix"
-msgstr "Ακέραιος Απαιτείται για Πρόθεμα"
+msgstr "Απαιτείται ακέραιος για πρόθεμα"
 
 #: ../textw/network_text.py:72
 #, python-format
-#, fuzzy
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr "a integer για Για τιμή ανάμεσα σε και Για ανάμεσα σε και."
+msgstr ""
+"Πρέπει να εισάγετε έναν έγκυρο ακέραιο για το %s. Για IPv4, η τιμή μπορεί να "
+"είναι μεταξύ 0 και 32. Για IPv6 μπορεί να είναι μεταξύ 0 και 128. "
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
-msgstr "Prefix (Netmask)"
+msgstr "Πρόθεμα (Netmask)"
 
 #: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:15
 msgid "Prefix"
@@ -5092,53 +5089,53 @@ msgstr "Θα θέλατε να ρυθμίσετε τη διεπαφή δικτύ
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "ΜΗ ΡΥΘΜΙΣΜΕΝΟ"
 
 #: ../textw/network_text.py:527
-#, fuzzy
 msgid ""
 "The current configuration settings for each interface are listed next to the "
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr "για περιβάλλον συσκευή όνομα περιβάλλον και Επεξεργασία υποφαινόμενο ολοκληρώθηκε Εντάξει."
+msgstr ""
+"Οι τρέχουσες ρυθμίσεις για κάθε διεπαφή εμφανίζονται δίπλα στο όνομα της "
+"συσκευής. Όσες διεπαφές δεν έχουν ρυθμιστεί εμφανίζονται ως ΜΗ ΡΥΘΜΙΣΜΕΝΟ. "
+"Για να ρυθμίσετε μια διεπαφή, επιλέξτε την και πατήστε Επεξεργασία. Όταν "
+"τελειώσετε, πατήστε Εντάξει για να συνεχίσετε."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Ενεργοποίηση κατά την εκκίνηση"
+msgstr "Ενεργό κατά την εκκίνηση"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Ενεργοποίηση κατά την εκκίνηση"
+msgstr "Μη ενεργό κατά την εκκίνηση"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Αυτόματο IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
-#, fuzzy
 msgid "%s, %s"
 msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
-msgstr "Gateway:"
+msgstr "Πύλη:"
 
 #: ../textw/network_text.py:665
 msgid "Primary DNS:"
@@ -5153,19 +5150,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Διάφορες ρυθμίσεις δικτύου"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
-#, fuzzy
 msgid "gateway"
-msgstr "Πύλη"
+msgstr "πύλη"
 
 #: ../textw/network_text.py:704 ../textw/network_text.py:707
-#, fuzzy
 msgid "primary DNS"
-msgstr "Πρωτεύον DNS"
+msgstr "πρωτεύον DNS"
 
 #: ../textw/network_text.py:716
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Δευτερεύον DNS"
+msgstr "δευτερεύον DNS"
 
 #: ../textw/network_text.py:750
 msgid "automatically via DHCP"
@@ -5180,17 +5174,16 @@ msgid "Hostname Configuration"
 msgstr "Ρύθμιση ονόματος συστήματος"
 
 #: ../textw/network_text.py:775
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Αν το σύστημα σας είναι μέλος σε ένα μεγαλύτερο δίκτυο όπου τα ονόματα των "
-"υπολογιστών αποδίδονται από το DHCP, επιλέξτε αυτόματα μέσω DHCP. "
-"Διαφορετικά επιλέξτε μη αυτόματη επιλογή και εισάγετε ένα όνομα για το "
-"σύστημα. Αν δεν ορίσετε ένα όνομα, το σύστημα σας θα ονομαστεί 'localhost.'"
+"Αν το σύστημα σας είναι μέρος ενός μεγαλύτερου δικτύου όπου τα ονόματα των "
+"υπολογιστών αποδίδονται μέσω DHCP, επιλέξτε αυτόματα μέσω DHCP. Διαφορετικά, "
+"επιλέξτε μη αυτόματη επιλογή και εισάγετε ένα όνομα για το σύστημα. Αν δεν "
+"ορίσετε ένα όνομα, το σύστημα σας θα ονομαστεί 'localhost.'"
 
 #: ../textw/network_text.py:801 ../textw/network_text.py:807
 msgid "Invalid Hostname"
@@ -5349,10 +5342,9 @@ msgid "Not Supported"
 msgstr "Δεν υποστηρίζεται"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
-"Οι ομάδες τόμου LVM μπορούν να τροποποιηθούν μόνο μέσω της γραφικής "
+"Μπορείτε να τροποποιήσετε τις ομάδες τόμου LVM μόνο μέσω της γραφικής "
 "εγκατάστασης."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
@@ -5387,23 +5379,19 @@ msgstr "Διαμόρφωση τμήματος δίσκου;"
 msgid "Invalid Entry for RAID Spares"
 msgstr "Μη έγκυρη επιλογή για εφεδρικά RAID"
 
-#
 #: ../textw/partition_text.py:1095
 msgid "Too many spares"
 msgstr "Πάρα πολλές εφεδρικές"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Ο μέγιστος αριθμός των εφεδρικών με RAID0 είναι 0."
+msgstr "Δε μπορείτε να έχετε εφεδρεία σε μια συστοιχία RAID0."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Δεν υπάρχουν ομάδες τόμων"
 
-#
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "Δεν υπάρχουν ομάδες τόμων για τη δημιουργία ενός λογικού τόμου σε αυτές"
 
@@ -5466,9 +5454,8 @@ msgid "No Root Partition"
 msgstr "Χωρίς τμήμα δίσκου Root"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "Η μέθοδος εγκατάστασης NFS απαιτεί υποστήριξη IPv4."
+msgstr "Η εγκατάσταση απαιτεί τμήμα δίσκου /."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5489,9 +5476,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ποιο δίσκο (ή δίσκους) θέλετε να χρησιμοποιήσετε για αυτήν την εγκατάσταση;"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> επιλογή | <F2> Λεπτομέρειες ομάδας | <F12> επόμενη οθόνη"
+msgstr "<Space>,<+>,<-> επιλογή | <F2> προσθήκη δίσκου | <F12> επόμενη οθόνη"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5511,22 +5497,19 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Με ποιο τρόπο θα θέλατε να τροποποιηθεί η ρύθμιση του δίσκου σας;"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Προσθήκη συσκευής FCP"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "Τα μηχανήματα zSeries μπορούν να έχουν πρόσβαση σε industry-standard "
-"συσκευές SCSI μέσω του Fibre Channel(FCP). Θα χρειαστεί να παρέχετε 5 "
-"παραμέτρους για κάθε συσκευή: ένα 16 bit αριθμό συσκευής, ένα 16bit SCSI ID, "
-"ένα 64 bit World Wide Port Name (WWPN), ένα 16bit SCSILUN και ένα 64 bit FCP "
-"LUN."
+"συσκευές SCSI μέσω του Fibre Channel(FCP). Θα χρειαστεί να παρέχετε ένα 16 "
+"bit αριθμό συσκευής, ένα 64 bit World Wide Port Name (WWPN), και ένα 64 bit "
+"FCP LUN για κάθε συσκευή."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5542,14 +5525,12 @@ msgstr ""
 "διακομιστή σας."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>IP Address _στόχου:</b>"
+msgstr "Διεύθυνση IP στόχου"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI Initiator _Name:</b>"
+msgstr "iSCSI Initiator Name"
 
 #
 #: ../textw/partmethod_text.py:26
@@ -5584,7 +5565,6 @@ msgid "Customize software selection"
 msgstr "Προσαρμογή επιλεγμένου λογισμικού"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "Σε ποια ζώνη ώρας βρίσκεστε;"
 
@@ -5639,7 +5619,6 @@ msgid "System to Upgrade"
 msgstr "Σύστημα για αναβάθμιση"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5656,7 +5635,6 @@ msgid "Root Password"
 msgstr "Κωδικός λογαριασμού Root"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5682,7 +5660,6 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5733,12 +5710,10 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
-#, fuzzy
 msgid "Office"
 msgstr "Γραφείο"
 
 #: ../installclasses/rhel.py:33
-#, fuzzy
 msgid "Multimedia"
 msgstr "Πολυμέσα"
 
@@ -5758,19 +5733,18 @@ msgid "Storage Clustering"
 msgstr "Αποθήκευση Συστοίχιση"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Εγκατάσταση για εκκίνηση"
+msgstr "Αριθμός εγκατάστασης"
 
 #: ../installclasses/rhel.py:51
-#, fuzzy
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr "πλήρης set από υποστηρίζεται πακέτα μέσα Εγκατάσταση Αριθμός"
+msgstr ""
+"Για να εγκαταστήσετε όλα τα υποστηριζόμενα πακέτα που περιλαμβάνονται στη "
+"συνδρομή σας, παρακαλώ εισάγετε τον αριθμό εγκατάστασης σας"
 
 #: ../installclasses/rhel.py:54
-#, fuzzy
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5782,7 +5756,7 @@ msgid ""
 "Enterprise Linux.\n"
 "* You will not get software and security updates for packages not included "
 "in your subscription."
-msgstr "υποφαινόμενο Εγκατάσταση Αριθμόςhttp://www.redhat.com/apps/support/in.html. n υποφαινόμενο n όχι get πλήρης set από πακέτα μέσα n μέσα από Κόκκινο Επιχείρηση Linux n όχι get και για πακέτα όχι μέσα."
+msgstr ""
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6146,9 +6120,8 @@ msgstr "αρχείο ή Ακύρωση."
 
 # gconf/gconfd.c:1676
 #: ../loader2/kickstart.c:353
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Σφάλμα ανοίγματος αρχείου kickstart %s: %s"
+msgstr "Σφάλμα λήψης αρχείου kickstart"
 
 #: ../loader2/kickstart.c:486
 #, c-format
@@ -6178,9 +6151,8 @@ msgid "Hard drive"
 msgstr "Σκληρός δίσκος"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s κατάλογος:"
+msgstr "Κατάλογος NFS"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6514,9 +6486,8 @@ msgid "Configure TCP/IP"
 msgstr "Ρύθμιση TCP/IP"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Πρέπει να επιλέξετε τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6) για DHCP."
+msgstr "Πρέπει να επιλέξετε τουλάχιστον ένα πρωτόκολλο (IPv4 ή IPv6)."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6546,12 +6517,11 @@ msgid "Name Server:"
 msgstr "Nameserver:"
 
 #: ../loader2/net.c:1069
-#, fuzzy
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "και ή διεύθυνση και πρόθεμα διεύθυνση πρόθεμα Για ή πρόθεμα και όνομα ή διευθύνσεις."
+msgstr ""
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6568,9 +6538,9 @@ msgstr ""
 "ή πρόθεμα CIDR."
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Πρέπει να εισάγετε τόσο μια έγκυρη διεύθυνση IPv6 όσο και ένα πρόθεμα aCIDR."
+msgstr ""
+"Πρέπει να εισάγετε τόσο μια έγκυρη διεύθυνση IPv6 όσο και ένα πρόθεμα CIDR."
 
 #: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
@@ -6831,9 +6801,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Επισ_κόπηση και τροποποίηση διάταξης κατάτμησης"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Ποια γλώσσα θα θέλατε να χρησιμοποιηθεί κατά τη διαδικασία εγκατάστασης;"
+msgstr "Ποια γλώσσα θα θέλατε να χρησιμοποιηθεί στην εκκίνηση αυτής της εγκατάστασης;"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6857,9 +6826,8 @@ msgid "_Exception details"
 msgstr "Λεπτομέρειες _εξαίρεσης"
 
 #: tmp/exn.glade.h:5
-#, fuzzy
 msgid "_Save to floppy"
-msgstr "Αποθήκευση"
+msgstr "Απο_θήκευση σε δισκέττα"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6868,9 +6836,9 @@ msgstr "κλειδί εγκατάστασης:"
 
 #
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Παρακαλώ εισάγετε ένα όνομα για την ομάδα τόμων."
+msgstr "Παρακαλώ εισάγετε το %(instkey)s σας."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6889,9 +6857,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI Initiator _Name:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Προσθήκη στό_χου iSCSI"
+msgstr "Προσθήκη στό_χου"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6938,34 +6905,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Χρήση _δυναμικής ρύθμισης IP (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Περιγραφή %s"
+msgstr "<b>Εδώ μπαίνει η περιγραφή</b>"
 
 #: tmp/netpostconfig.glade.h:3
-#, fuzzy
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr "<b> Υλικό διεύθυνση</b>"
+msgstr "<b>Διεύθυνση υλικού: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Επεξεργασία διεπαφής %s"
+msgstr "Επεξεργασία διεπαφής"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "_Κλειδί κρυπτογράφησης:"
+msgstr "Κλειδί κρυπτογράφησης:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Μη αυτόματη ρύθμιση TCP/IP"
+msgstr "Μη αυτόματη ρύθμιση"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Σημείο σε σημείο (IP, Point to Point):"
+msgstr "Σημείο προς σημείο (IP, Point to Point):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6997,19 +6958,16 @@ msgstr "Προσαρμο_γή τώρα"
 
 #
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Αριθμός συσκευής"
+msgstr "<b>Αριθμός συσκευής:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Κωδικός:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
