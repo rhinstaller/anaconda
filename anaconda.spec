@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Apr  8 2007 Peter Jones <pjones@redhat.com> - 11.2.0.46-2
+- Rebuild because aparently the s390 build produced a corrupt package...
+
 * Thu Apr  5 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.46-1
 - Minor live install fixes
 - dasd fixes (dcantrell)
