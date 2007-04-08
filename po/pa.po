@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-23 22:10+0530\n"
+"PO-Revision-Date: 2007-04-08 18:04+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi <punjabi-l10n@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -3171,7 +3171,7 @@ msgstr "ਆਕਾਰ(MB):"
 #: ../iw/lvm_dialog_gui.py:461
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(ਅਧਿਕਤਮ ਆਕਾਰ %s MB ਹੈ)"
+msgstr "(ਵੱਧੋ-ਵੱਧ ਆਕਾਰ %s MB ਹੈ)"
 
 #: ../iw/lvm_dialog_gui.py:522 ../textw/partition_text.py:1290
 msgid "Illegal size"
@@ -3183,12 +3183,12 @@ msgstr "ਦਿੱਤਾ ਆਕਾਰ ਇੱਕ ਠੀਕ 0 ਤੋ ਵੱਡਾ �
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
-msgstr "ਮਾਊਟ ਸਥਿਤੀ ਵਰਤੋਂ ਅਧੀਨ ਹੈ"
+msgstr "ਮਾਊਟ ਥਾਂ ਵਰਤੋਂ ਅਧੀਨ ਹੈ"
 
 #: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
+msgstr "ਮਾਊਟ ਥਾਂ \"%s\" ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3201,7 +3201,7 @@ msgstr "ਗਲਤ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ \"%s\"  ਪਹਿਲਾਂ ਹੀ ਵਰਤੋ ਅਧੀਨ ਹੈ। ਕੋਈ ਹੋਰ ਚੁਣੋ ਜੀ।"
+msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਕੋਈ ਹੋਰ ਚੁਣੋ ਜੀ।"
 
 #: ../iw/lvm_dialog_gui.py:602
 #, python-format
@@ -3284,31 +3284,31 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"ਇੱਕ LVM ਵਾਲੀਅਮ ਸਮੂਹ ਬਣਾਉਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਅਣਵਰਤਿਆ ਭੌਤਿਕ ਵਾਲੀਅਮ ਭਾਗ ਲੋਡ਼ੀਦਾ ਹੈ।\n"
+"ਇੱਕ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਬਣਾਉਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਅਣਵਰਤਿਆ ਭੌਤਿਕ ਵਾਲੀਅਮ ਭਾਗ ਲੋਡ਼ੀਦਾ ਹੈ।\n"
 "\n"
 "ਇੱਕ ਭਾਗ ਬਣਾਓ ਜਾਂ ਰੇਡ  ਲਡ਼ੀ ਦੀ ਕਿਸਮ \"ਭੌਤਿਕ ਵਾਲੀਅਮ (LVM)\" ਬਣਾਓ ਅਤੇ ਮੁਡ਼ \"LVM\" ਚੋਣ ਨੂੰ "
 "ਚੁਣੋ।"
 
 #: ../iw/lvm_dialog_gui.py:959
 msgid "Make LVM Volume Group"
-msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ ਬਣਾਉ"
+msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਬਣਾਓ"
 
 #: ../iw/lvm_dialog_gui.py:962
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ ਸੋਧ: %s"
+msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ: %s"
 
 #: ../iw/lvm_dialog_gui.py:964
 msgid "Edit LVM Volume Group"
-msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ ਸੋਧ"
+msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ"
 
 #: ../iw/lvm_dialog_gui.py:980
 msgid "_Volume Group Name:"
-msgstr "ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂ(_V):"
+msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ(_V):"
 
 #: ../iw/lvm_dialog_gui.py:988
 msgid "Volume Group Name:"
-msgstr "ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂ:"
+msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ:"
 
 #: ../iw/lvm_dialog_gui.py:996
 msgid "_Physical Extent:"
@@ -3338,7 +3338,7 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1447
 #: ../textw/upgrade_text.py:106
 msgid "Mount Point"
-msgstr "ਮਾਊਸ ਸਥਿਤੀ"
+msgstr "ਮਾਊਸ ਥਾਂ"
 
 #: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
@@ -3346,7 +3346,7 @@ msgstr "ਆਕਾਰ(MB)"
 
 #: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
-msgstr "ਸ਼ਾਮਿਲ(_A)"
+msgstr "ਸ਼ਾਮਲ(_A)"
 
 #: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352
@@ -3363,7 +3363,7 @@ msgstr "ਮਾਊਸ ਸੰਰਚਨਾ"
 
 #: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (ਡਾਸ ਵਿੱਚ COM1 )"
+msgstr "/dev/ttyS0 (ਡਾਸ ਵਿੱਚ COM1)"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
@@ -3407,12 +3407,12 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"\"%s\" ਲਈ ਦਿੱਤੇ ਮੁੱਲ ਨੂੰ ਤਬਦੀਲ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ:\n"
+"\"%s\" ਲਈ ਦਿੱਤੇ ਮੁੱਲ ਬਦਲਣ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ:\n"
 "%s"
 
 #: ../iw/netconfig_dialog.py:155
 msgid "Dynamic IP"
-msgstr "ਡਾਇਆਨਮਿਕ IP"
+msgstr "ਡਾਇਨੈਮਿਕ IP"
 
 #: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:830
 #, c-format, python-format
@@ -3470,7 +3470,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"ਤੁਸੀਂ ਮੇਜ਼ਬਾਨ ਦਾ ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
+"ਤੁਸੀਂ ਹੋਸਟ ਦਾ ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
 "ਸਕਦੀ ਹੈ।"
 
 #: ../iw/network_gui.py:147
@@ -3479,7 +3479,7 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"ਤੁਸੀਂ ਖੇਤਰ \"%s\" ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
+"ਤੁਸੀਂ ਖੇਤਰ \"%s\" ਦਿੱਤਾ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਸੰਰਚਨਾ ਮੁਤਾਬਕ ਤੁਹਾਨੂੰ ਮੁਸ਼ਕਿਲ ਆ "
 "ਸਕਦੀ ਹੈ।"
 
 #: ../iw/network_gui.py:151 ../textw/network_text.py:808
@@ -3571,7 +3571,7 @@ msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ"
 
 #: ../iw/network_gui.py:533
 msgid "Miscellaneous Settings"
-msgstr "ਫੁਟਕਲ ਸਥਾਪਨ"
+msgstr "ਫੁਟਕਲ ਸੈਟਿੰਗ"
 
 #: ../iw/network_gui.py:621
 msgid "Edit Device "
@@ -3652,7 +3652,7 @@ msgstr "ਮੂਲ ਬੂਟ ਟੀਚਾ(_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "ਇੰਦਰਾਜ਼ ਲਈ ਤੁਹਾਨੂੰ ਲੇਬਲ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਜ਼ਰੂਰੀ ਹੈ"
+msgstr "ਇੰਦਰਾਜ਼ ਲਈ ਤੁਹਾਨੂੰ ਲੇਬਲ ਦੇਣਾ ਪਵੇਗਾ"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
@@ -3660,7 +3660,7 @@ msgstr "ਬੂਟ-ਲੇਬਲ ਗਲਤ ਅੱਖਰ ਰੱਖਦਾ ਹੈ"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "ਹੂਬਹੂ ਲੇਬਲ"
+msgstr "ਡੁਪਲੀਕੇਟ ਲੇਬਲ"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
@@ -3668,7 +3668,7 @@ msgstr "ਇਹ ਲੇਬਲ ਪਹਿਲਾਂ ਹੀ ਬੂਟ ਇੰਦਰਾ�
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr "ਨਕਲੀ ਜੰਤਰ"
+msgstr "ਡੁਪਲੀਕੇਟ ਜੰਤਰ"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
@@ -3701,7 +3701,7 @@ msgstr "ਇਸ ਤੱਕ ਸਾਰੀ ਥਾਂ ਭਰੋ(MB)(_U):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "ਅਧਿਕਤਮ ਮਨਜ਼ੂਰ ਥਾਂ ਭਰੋ(_A)"
+msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਮਨਜ਼ੂਰਸ਼ੁੱਦਾ ਥਾਂ ਭਰੋ(_A)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3709,7 +3709,7 @@ msgstr "ਆਖਰੀ ਸਿੰਲਡਰ ਸ਼ੁਰੂਆਤੀ ਸਿੰਲਡ
 
 #: ../iw/partition_dialog_gui.py:270 ../textw/partition_text.py:712
 msgid "Add Partition"
-msgstr "ਭਾਗ ਸ਼ਾਮਿਲ"
+msgstr "ਭਾਗ ਸ਼ਾਮਲ"
 
 #: ../iw/partition_dialog_gui.py:273
 #, python-format
@@ -3726,7 +3726,7 @@ msgstr "ਫਾਇਲ ਸਿਸਟਮ ਕਿਸਮ(_T):"
 
 #: ../iw/partition_dialog_gui.py:334
 msgid "Allowable _Drives:"
-msgstr "ਉਪਲੱਬਧ ਜੰਤਰ(_D):"
+msgstr "ਮਨਜ਼ੂਰ ਜੰਤਰ(_D):"
 
 #: ../iw/partition_dialog_gui.py:349
 msgid "Drive:"
@@ -3771,7 +3771,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"ਮਾਊਟ ਸਥਿਤੀ/\n"
+"ਮਾਊਟ ਥਾਂ/\n"
 "ਰੇਡ/ਵਾਲੀਅਮ"
 
 #: ../iw/partition_gui.py:410
@@ -3788,7 +3788,7 @@ msgstr "ਵਿਭਾਗੀਕਰਨ"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "ਵਿਭਾਗੀਕਰਨ ਸਕੀਮ, ਜਿਸ ਦੀ ਤੁਸੀਂ ਚੋਣ ਕੀਤੀ ਹੈ, ਨੇ ਹੇਠ ਦਿੱਤੀਆਂ ਘਾਤਕ ਗਲਤੀਆਂ ਦਿੱਤੀਆਂ ਹਨ।"
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3801,7 +3801,7 @@ msgstr "ਵਿਭਾਗੀਕਰਨ ਗਲਤੀਆਂ"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "ਭਾਗ ਸਕੀਮ, ਜੋ ਤੁਸੀਂ ਮੰਗੀ ਹੈ, ਉਸ ਨੇ ਇਹ ਗਲਤੀਆਂ ਵਾਪਸ ਕੀਤੀਆਂ ਹਨ।"
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3821,7 +3821,7 @@ msgstr "ਫਾਰਮੈਟ(_F)"
 
 #: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
-msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ"
+msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ"
 
 #: ../iw/partition_gui.py:753
 msgid "RAID Devices"
@@ -3843,7 +3843,7 @@ msgstr "ਖਾਲੀ ਥਾਂ"
 
 #: ../iw/partition_gui.py:872 ../textw/partition_text.py:144
 msgid "Extended"
-msgstr "ਐਕਸਟੇੱਡ"
+msgstr "ਐਕਸਟੈੱਡ"
 
 #: ../iw/partition_gui.py:874 ../textw/partition_text.py:146
 msgid "software RAID"
@@ -3865,7 +3865,7 @@ msgstr "ਚੇਤਾਵਨੀ: %s।"
 
 #: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
-msgstr "ਸਹਾਇਕ ਨਹੀ"
+msgstr "ਸਹਾਇਕ ਨਹੀਂ"
 
 #: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
@@ -3924,7 +3924,7 @@ msgstr "ਹੁਣ ਤੁਸੀਂ ਕੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹ�
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
-msgstr "ਸਾਫਟਵੇਅਰ ਰੇਡ ਭਾਗ ਬਣਾਉ(_P)।"
+msgstr "ਸਾਫਟਵੇਅਰ ਰੇਡ ਭਾਗ ਬਣਾਓ(_P)।"
 
 #: ../iw/partition_gui.py:1266
 #, python-format
@@ -3934,11 +3934,11 @@ msgstr "ਰੇਡ ਜੰਤਰ ਬਣਾਓ [ਮੂਲ=/dev/md%s](_D)।"
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "ਸਮਰੂਪੀ ਡਰਾਇਵ, ਰੇਡ ਜੰਤਰ ਬਣਾਉਣ ਲਈ [ਮੂਲ=/dev/md%s] (_D)।"
+msgstr "ਕਲੋਨ ਡਰਾਇਵ, ਰੇਡ ਜੰਤਰ ਬਣਾਉਣ ਲਈ [ਮੂਲ=/dev/md%s] (_D)।"
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "ਡਰਾਇਵ ਸਮਰੂਪੀ ਸੰਪਾਦਕ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
+msgstr "ਡਰਾਇਵ ਕਲੋਨ ਸੰਪਾਦਕ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
@@ -3962,7 +3962,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "ਰੇਡ ਜੰਤਰ/LVM ਵਾਲੀਅਮ ਸਮੂਹ ਮੈਂਬਰ ਉਹਲੇ ਕਰੋ(_G)"
+msgstr "ਰੇਡ ਜੰਤਰ/LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਮੈਂਬਰ ਉਹਲੇ ਕਰੋ(_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
@@ -3977,7 +3977,7 @@ msgstr "ਇਸ ਭਾਗ ਤੇ ਤੁਸੀਂ ਫਾਇਲ-ਸਿਸਟਮ ਕ
 
 #: ../iw/partition_ui_helpers_gui.py:263
 msgid "Leave _unchanged (preserve data)"
-msgstr "ਨਾ-ਤਬਦੀਲ ਹੀ ਰੱਖੋ (ਡਾਟਾ ਸੰਭਾਲੋ)(_U)"
+msgstr "ਨਾ-ਬਦਲਿਆ ਹੀ ਰੱਖੋ (ਡਾਟਾ ਸੰਭਾਲੋ)(_U)"
 
 #: ../iw/partition_ui_helpers_gui.py:269
 msgid "_Format partition as:"
@@ -3985,7 +3985,7 @@ msgstr "ਭਾਗ ਨੂੰ ਫਾਰਮੈਟ(_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:292
 msgid "Mi_grate partition to:"
-msgstr "ਭਾਗ ਨੂੰ ਤਬਦੀਲ(_G):"
+msgstr "ਭਾਗ ਮਾਈਗਰੇਟ(_G):"
 
 #: ../iw/partition_ui_helpers_gui.py:314
 msgid "Check for _bad blocks?"
@@ -3996,7 +3996,7 @@ msgstr "ਕੀ ਨਕਾਰਾ ਬਲਾਕਾਂ ਦੀ ਜਾਂਚ(_B)?"
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
-msgstr "'%s' ਕਿਸਮ ਦੇ ਭਾਗ ਸਿਰਫ ਇੱਕ ਡਰਾਇਵ ਲਈ ਹੀ ਸੀਮਿਤ ਹਨ। ਇਹ ਕਰਨ ਲਈ, ਇਸ ਨੂੰ\"ਮਨਜ਼ੂਰ ਡਰਾਇਵਾਂ\" ਲਿਸਟ ਵਿੱਚੋਂ ਡਰਾਇਵ ਚੁਣ ਸਕਦੇ ਹੋ।"
+msgstr "'%s' ਕਿਸਮ ਦੇ ਭਾਗ ਸਿਰਫ ਇੱਕ ਡਰਾਇਵ ਲਈ ਹੀ ਸੀਮਿਤ ਹਨ। ਇਹ ਕਰਨ ਲਈ, ਇਸ ਨੂੰ \"ਮਨਜ਼ੂਰ ਡਰਾਇਵਾਂ\" ਲਿਸਟ ਵਿੱਚੋਂ ਡਰਾਇਵ ਚੁਣ ਸਕਦੇ ਹੋ।"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4004,7 +4004,7 @@ msgstr "ਡਿਸਕ ਵਿਭਾਗੀਕਰਨ ਸੈੱਟਅੱਪ"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr "ਸਵੈਚਾਲਿਤ ਭਾਗ(_A)"
+msgstr "ਆਟੋਮੈਟਿਕ ਭਾਗ(_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
@@ -4050,7 +4050,7 @@ msgstr "ਰੇਡ ਲੇਬਲ(_L):"
 
 #: ../iw/raid_dialog_gui.py:377
 msgid "_RAID Members:"
-msgstr "ਰੇਡ ਅੰਗ(_R):"
+msgstr "ਰੇਡ ਮੈਂਬਰ(_R):"
 
 #: ../iw/raid_dialog_gui.py:394
 msgid "Number of _spares:"
@@ -4149,7 +4149,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"ਡਰਾਇਵ /dev/%s ਹੇਠ ਲਿਖੀਆਂ ਡਾਰਇਵਾਂ ਨਾਲ ਸਮਰੂਪ ਕੀਤੀ ਜਾਵੇਗੀ:\n"
+"ਡਰਾਇਵ /dev/%s ਹੇਠ ਲਿਖੀਆਂ ਡਾਰਇਵਾਂ ਨਾਲ ਕਲੋਨ ਕੀਤੀ ਜਾਵੇਗੀ:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:644
@@ -4168,7 +4168,7 @@ msgstr "ਆਖਰੀ ਚੇਤਾਵਨੀ"
 
 #: ../iw/raid_dialog_gui.py:649
 msgid "Clone Drives"
-msgstr "ਸਮਰੂਪੀ ਡਰਾਇਵ"
+msgstr "ਕਲੋਨ ਡਰਾਇਵ"
 
 #: ../iw/raid_dialog_gui.py:658
 msgid "There was an error clearing the target drives.  Cloning failed."
@@ -4214,11 +4214,11 @@ msgstr "ਡਰਾਈਵਾਂ"
 
 #: ../iw/release_notes.py:151 ../iw/release_notes.py:156
 msgid "Release notes are missing.\n"
-msgstr "ਜਾਰੀ ਸੂਚਨਾ ਗੁੰਮ ਹੈ।\n"
+msgstr "ਰੀਲਿਜ਼ ਨੋਟਿਸ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।\n"
 
 #: ../iw/release_notes.py:236
 msgid "Release Notes"
-msgstr "ਜਾਰੀ ਸੂਚਨਾ"
+msgstr "ਰੀਲਿਜ਼ ਨੋਟਿਸ"
 
 #: ../iw/release_notes.py:239
 msgid "Unable to load file!"
@@ -4300,7 +4300,7 @@ msgstr "ਇਹ ਸਿਫਾਰਸ਼ੀ ਚੋਣ ਹੈ।"
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "ਇੰਸਟਾਲਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਸ ਸਮੇਂ ਬੂਟ-ਲੋਡਰ ਖੋਜਣ ਵਿੱਚ ਅਸਫ਼ਲ ਰਿਹਾ ਹੈ।"
+msgstr "ਇੰਸਟਾਲਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਉੱਤੇ ਇਸ ਸਮੇਂ ਬੂਟ-ਲੋਡਰ ਖੋਜਣ ਵਿੱਚ ਅਸਫ਼ਲ ਰਿਹਾ ਹੈ।"
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4363,8 +4363,8 @@ msgid ""
 "your file systems now."
 msgstr ""
 "ਤਾਜ਼ਾ ਕਰਨਲ (2.4 ਜਾਂ ਨਵਾਂ) ਨੂੰ ਹੋਰ ਕਰਨਲਾਂ ਦੀ ਬਜਾਏ ਵੱਧ ਸਵੈਪ ਲੋੜੀਂਦੀ ਹੈ, ਲਗਭੱਗ ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੀ ਰੈਮ ਮੈਮੋਰੀ ਤੋਂ "
-"ਲੱਗਭਗ ਦੋ-ਗੁਣਾ। ਤੁਸੀਂ ਇਸ ਸਮੇਂ ਕੇਵਲ %dMB ਸਵੈਪ ਦੀ ਸੰਰਚਨਾ ਕੀਤੀ। ਪਰ ਤੁਸੀਂ ਆਪਣੇ ਫਾਇਲ-ਸਿਸਟਮ ਤੇ "
-"ਹੋਰ ਵਧੇਰੇ  ਸਵੈਪ ਥਾਂ ਬਣਾ ਸਕਦੇ ਹੋ।"
+"ਲੱਗਭਗ ਦੋ-ਗੁਣਾ। ਤੁਸੀਂ ਇਸ ਸਮੇਂ ਕੇਵਲ %dMB ਸਵੈਪ ਦੀ ਸੰਰਚਨਾ ਕੀਤੀ। ਪਰ ਤੁਸੀਂ ਆਪਣੇ ਫਾਇਲ-ਸਿਸਟਮ ਉੱਤੇ "
+"ਹੋਰ ਵਧੇਰੇ ਸਵੈਪ ਥਾਂ ਬਣਾ ਸਕਦੇ ਹੋ।"
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4404,7 +4404,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "ਸਵੈਪ ਫਾਇਲ ਆਕਾਰ(MB)(_s):"
+msgstr "ਸਵੈਪ ਫਾਇਲ ਆਕਾਰ (MB)(_s):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
@@ -4476,7 +4476,7 @@ msgstr "ਤੁਸੀਂ ਕਿਹਡ਼ਾ ਬੂਟ ਲੋਡਰ ਵਰਤਣ�
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "ਗਰਬ (GRUB ) ਬੂਟ ਲੋਡਰ ਵਰਤੋ"
+msgstr "ਗਰਬ (GRUB ) ਬੂਟ ਲੋਡਰ ਵਰਤੋਂ"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
@@ -4688,7 +4688,7 @@ msgstr "ਕੋਈ ਚੋਣਵਾਂ ਪੈਕੇਜ ਨਹੀਂ ਚੁਣਿ�
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
-msgstr "ਪੈਕੇਜ ਸਮੂਹ ਵੇਰਵਾ"
+msgstr "ਪੈਕੇਜ ਗਰੁੱਪ ਵੇਰਵਾ"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
@@ -4700,7 +4700,7 @@ msgstr "ਤੁਹਾਡੇ ਕੰਪਿਊਟਰ ਨਾਲ ਕਿਹਡ਼ੇ �
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr "ਕਿਸ ਸਥਿਤੀ ਤੇ ਤੁਹਾਡਾ ਮਾਊਸ ਲੱਗਾ ਹੈ?"
+msgstr "ਕਿਸ ਸਥਿਤੀ ਉੱਤੇ ਤੁਹਾਡਾ ਮਾਊਸ ਲੱਗਾ ਹੈ?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
@@ -4896,7 +4896,7 @@ msgstr "ਸੈਕੰਡਰੀ DNS:"
 
 #: ../textw/network_text.py:677
 msgid "Miscellaneous Network Settings"
-msgstr "ਫੁਟਕਲ ਨੈੱਟਵਰਕ ਸਥਾਪਨ"
+msgstr "ਫੁਟਕਲ ਨੈੱਟਵਰਕ ਸੈਟਿੰਗ"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
 msgid "gateway"
@@ -5460,6 +5460,8 @@ msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"ਆਪਣੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਲ ਪੈਕੇਜ ਦੇ ਪੂਰੇ ਸੈੱਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਆਪਣਾ ਇੰਸਟਾਲੇਸ਼ਨ "
+"ਨੰਬਰ ਦਿਓ"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5474,11 +5476,18 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"ਜੇ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਲੱਭਣ ਲਈ ਅਸਫ਼ਲ ਰਹੇ ਤਾਂ ਵੇਖੋ:"
+"http://www.redhat.com/apps/support/in.html\n"
+"\n"
+"ਜੇ ਤੁਸੀਂ ਛੱਡ ਦਿੱਤਾ ਤਾਂ:\n"
+"* ਤੁਸੀਂ ਆਪਣੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਲ ਸਾਰੇ ਪੈਕੇਜ ਸੈੱਟ ਨਹੀਂ ਲੈ ਸਕੋਗੇ।\n"
+"* ਇਹ Red Hat Enterprise Linux ਦੀ ਨਾ-ਸਹਾਇਕ/ਨਾ-ਸਰਟੀਫਾਇਡ ਇੰਸਟਾਲੇਸ਼ਨ ਹੋ ਸਕਦੀ ਹੈ।\n"
+"* ਤੁਸੀਂ ਆਪਣੀ ਮੈਂਬਰੀ ਵਿੱਚ ਸ਼ਾਮਲ ਪੈਕੇਜਾਂ ਲਈ ਸਾਫਟਵੇਅਰ ਅਤੇ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨਹੀਂ ਲੈ ਸਕੋਗੇ।"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr "ਮਾਧਿਅਮ ਜਾਂਚ"
+msgstr "ਮੀਡਿਆ ਜਾਂਚ"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
@@ -5609,7 +5618,7 @@ msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਪਾਓ"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
-msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਨੂੰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਨੂੰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ"
 
 #: ../loader2/driverdisk.c:415
 #, c-format
@@ -5683,7 +5692,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
-msgstr "ਮੈਡੀਊਲ ਪੈਰਾਮੀਟਰ ਦਿਉ"
+msgstr "ਮੋਡੀਊਲ ਪੈਰਾਮੀਟਰ ਦਿਓ"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
@@ -5726,14 +5735,14 @@ msgstr "ਡਰਾਈਵਰ %s ਲੋਡ ਕਰ ਰਿਹਾ ਹੈ..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr "%s ਇੰਸਟਾਲੇਸ਼ਨ ਲਡ਼ੀ, ਉਸ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ, ਤੁਹਾਡੇ ਬੂਟ-ਮਾਧਿਅਮ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੀ ਹੈ।"
+msgstr "%s ਇੰਸਟਾਲੇਸ਼ਨ ਲਡ਼ੀ, ਉਸ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ, ਤੁਹਾਡੇ ਬੂਟ ਮੀਡਿਆ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੀ ਹੈ।"
 
 #: ../loader2/hdinstall.c:158
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"ਆਈਸੋ(ISO) ਈਮੇਜ਼ ਤੋਂ ਇੰਸਟਾਲ ਪੜਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ।  ਆਪਣੇ ਆਈਸੋ(ISO) ਈਮੇਜ਼ ਦੀ ਜਾਂਚ "
+"ਆਈਸੋ(ISO) ਈਮੇਜ਼ ਤੋਂ ਇੰਸਟਾਲ ਪੜਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ।  ਆਪਣੇ ਆਈਸੋ (ISO) ਈਮੇਜ਼ ਦੀ ਜਾਂਚ "
 "ਕਰਕੇ ਮੁਡ਼ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ।"
 
 #: ../loader2/hdinstall.c:266
@@ -5772,7 +5781,7 @@ msgstr "HD ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ %s ਲਈ ਗ�
 
 #: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
 msgid "Cannot find kickstart file on hard drive."
-msgstr "ਹਾਰਡ ਡਿਸਕ ਤੇ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਖੋਜ ਨਹੀਂ ਸਕਿਆ।"
+msgstr "ਹਾਰਡ ਡਿਸਕ ਉੱਤੇ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਖੋਜ ਨਹੀਂ ਸਕੀ।"
 
 #: ../loader2/hdinstall.c:520
 #, c-format
@@ -5795,12 +5804,12 @@ msgstr "ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਖੋਲ੍ਹਣ ਵਿੱ
 #: ../loader2/kickstart.c:138
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਦੇ ਭਾਗ ਪੜਨ ਵਿੱਚ ਅਸਫਲ: %s"
+msgstr "ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਦੇ ਭਾਗ ਪੜਨ ਵਿੱਚ ਅਸਫ਼ਲ: %s"
 
 #: ../loader2/kickstart.c:181
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "%s ਵਿੱਚ ਲਾਇਨ %d ਤੇ ਗਲਤੀ ਹੈ, ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਵਿੱਚ"
+msgstr "%s ਵਿੱਚ ਲਾਈਨ %d ਉੱਤੇ ਗਲਤੀ ਹੈ, ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ %s ਵਿੱਚ"
 
 #: ../loader2/kickstart.c:280
 msgid "Cannot find ks.cfg on boot floppy."
@@ -5905,11 +5914,11 @@ msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ"
 
 #: ../loader2/loader.c:997
 msgid "What type of media contains the rescue image?"
-msgstr "ਬਚਾਉ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮਾਧਿਅਮ ਤੇ ਹਨ?"
+msgstr "ਬਚਾਉ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
 #: ../loader2/loader.c:999
 msgid "What type of media contains the packages to be installed?"
-msgstr "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਪੈਕੇਜ ਕਿਸ ਕਿਸਮ ਦੇ ਮਾਧਿਅਮ ਤੇ ਹਨ?"
+msgstr "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਪੈਕੇਜ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
 #: ../loader2/loader.c:1024
 msgid "No driver found"
@@ -6210,7 +6219,7 @@ msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv6 ਸ
 
 #: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
-msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ ਅਤੇ ਡੋਮੇਨ ਜਾਣ ਰਿਹਾ ਹੈ..."
+msgstr "ਹੋਸਟ ਨਾਂ ਅਤੇ ਡੋਮੇਨ ਜਾਣ ਰਿਹਾ ਹੈ..."
 
 #: ../loader2/net.c:1612
 #, c-format
@@ -6230,7 +6239,7 @@ msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਜ਼ਿਆਦਾ ਨੈੱਟਵਰਕ ਜੰਤਰ ਹਨ, ਤੁਸੀਂ ਕਿਸ ਤੋਂ ਇੰਸਟਾਲ ਕਰਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
+msgstr "ਇਹ ਸਿਸਟਮ ਉੱਤੇ ਜ਼ਿਆਦਾ ਨੈੱਟਵਰਕ ਜੰਤਰ ਹਨ, ਤੁਸੀਂ ਕਿਸ ਤੋਂ ਇੰਸਟਾਲ ਕਰਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -6364,7 +6373,7 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"ਜੇਕਰ ਤੁਸੀਂ ਅਗਿਆਤ ਐਪਟੀਪੀ(ftp) ਨਹੀਂ ਵਰਤਣਾ ਹੈ ਤਾਂ ਖਾਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ, ਜੋ ਕਿ ਤੁਸੀਂ ਚਾਹੁੰਦੇ ਹੋ "
+"ਜੇਕਰ ਤੁਸੀਂ ਅਗਿਆਤ ftp ਨਹੀਂ ਵਰਤਣਾ ਹੈ ਤਾਂ ਖਾਤਾ ਨਾਂ ਅਤੇ ਗੁਪਤ-ਕੋਡ, ਜੋ ਕਿ ਤੁਸੀਂ ਚਾਹੁੰਦੇ ਹੋ "
 "ਹੇਠਾਂ ਭਰੋ।"
 
 #: ../loader2/urls.c:435
@@ -6440,7 +6449,7 @@ msgstr "ਅੱਗੇ(_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "ਜਾਰੀ ਸੂਚਨਾ(_R)"
+msgstr "ਰੀਲਿਜ਼ ਨੋਟਿਸ(_R)"
 
 #: tmp/autopart.glade.h:1
 msgid ""
@@ -6508,7 +6517,7 @@ msgstr "<b>ਉਪਭੋਗੀ ਨਾਂ(_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI Initiator ਨਾਂ(_N):</b>"
+msgstr "<b>iSCSI I_nitiator ਨਾਂ:</b>"
 
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
@@ -6602,7 +6611,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਰਿਪੋਜ਼ਟਰੀਆਂ ਸ਼ਾਮਿਲ(_A)"
+msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਰਿਪੋਜ਼ਟਰੀਆਂ ਸ਼ਾਮਲ(_A)"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
@@ -6646,7 +6655,7 @@ msgstr "ਬੰਗਾਲੀ (ਭਾਰਤੀ)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr "ਬੁਲਗਾਰੀਅਨ"
+msgstr "ਬੁਲਗਾਰੀਆਈ"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -6682,7 +6691,7 @@ msgstr "ਅੰਗਰੇਜ਼ੀ"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr "ਈਸਟਨੀਅਨ"
+msgstr "ਈਸਟਨੀਆਈ"
 
 #. generated from lang-table
 msgid "Finnish"
@@ -6738,11 +6747,11 @@ msgstr "ਕੰਨੜ"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "ਕੋਰੀਅਨ"
+msgstr "ਕੋਰੀਆਈ"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr "ਮੇਕਾਡੋਨੀਅਨ"
+msgstr "ਮੇਕਾਡੋਨੀਆਈ"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6758,7 +6767,7 @@ msgstr "ਮਰਾਠੀ"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "ਨਾਰਵੇਗੀਅਨ"
+msgstr "ਨਾਰਵੇਗੀਆਈ"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -6770,7 +6779,7 @@ msgstr "ਓੜੀਆ"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr "ਪਰਸੀਅਨ"
+msgstr "ਫਾਰਸੀ"
 
 #. generated from lang-table
 msgid "Polish"
@@ -6794,7 +6803,7 @@ msgstr "ਰੂਸੀ"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr "ਸਰਬੀਆ"
+msgstr "ਸਰਬੀਆਈ"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
@@ -6810,7 +6819,7 @@ msgstr "ਸਲੋਵਾਕ"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr "ਸਲੋਵੀਨੀਅਨ"
+msgstr "ਸਲੋਵੀਨੀਆਈ"
 
 #. generated from lang-table
 msgid "Spanish"
@@ -6830,7 +6839,7 @@ msgstr "ਤੇਲਗੂ"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr "ਤੁਰਕਿਸ਼"
+msgstr "ਤੁਰਕ"
 
 #. generated from lang-table
 msgid "Ukrainian"
@@ -6838,7 +6847,7 @@ msgstr "ਯੂਕਰੇਨੀ"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr "ਵੀਅਤਨਾਮ"
+msgstr "ਵੀਅਤਨਾਮੀ"
 
 #. generated from lang-table
 msgid "Welsh"
