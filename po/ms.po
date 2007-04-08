@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-01 16:06+0800\n"
+"PO-Revision-Date: 2007-04-08 18:51+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5968,9 +5968,8 @@ msgid "Missing Nameserver"
 msgstr "IP Pelayan Nama"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid "Your IP address request returned configuration information, but it did not include a nameserver address. If you do not have this information, you can leave the field blank and the install will continue."
-msgstr "Permintaan IP dinamik anda memulangkan maklumat konfigurasi IP, tetapi ia tidak menyertakan pelayannama DNS. Jika anda tahu apa pelayannama anda, sila masukkan sekarang. Jika anda tidak mempunyai maklumat ini, anda boleh membiarkan medan ini kosong dan pemasangan akan diteruskan."
+msgstr "Permintaan alamat IP anda memulangkan maklumat tetapan, tetapi ia tidak menyertakan alamat pelayan nama. Jika anda tidak mempunyai maklumat ini, anda boleh membiarkan medan tersebut kosong dan pemasangan akan diteruskan."
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6043,9 +6042,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "Anda mesti masukkan kedua-dua alamat IPv4 dan mask rangkaian atau prefiks CIDR."
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "Anda mesti masukkan kedua-dua alamat IPv6 dan prefiks aCIDR yang sah."
+msgstr "Anda mesti masukkan kedua-dua alamat IPv6 dan prefiks CIDR yang sah."
 
 #: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
@@ -6238,9 +6236,8 @@ msgid "Disable _dmraid device"
 msgstr "Matikan peranti _dmraid"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Tambah pemacu"
+msgstr "T_ambah pemacu"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
