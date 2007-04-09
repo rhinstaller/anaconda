@@ -90,7 +90,7 @@ IDEMODS=""
 SCSIMODS="sd_mod sg sr_mod st"
 
 FSMODS="msdos vfat ext3 reiserfs jfs"
-SECSTAGE="agpgart md raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
+SECSTAGE="agpgart md raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st"
 
 BTERMMODULES="vga16fb"
 COMMONMODULES="vfat nfs floppy $USBMODS $BTERMMODULES"

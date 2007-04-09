@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.18
+Version: 9.1.6.19
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr  9 2007 Peter Jones <pjones@redhat.com> - 9.1.6.19-1.RHEL
+- Try to make the boot disk a little smaller
+  Related: #235670
+
 * Wed Apr  4 2007 Peter Jones <pjones@redhat.com> - 9.1.6.18-1.RHEL
 - Fix keymap lookaside cache and update the maps
   Resolves: #235098
