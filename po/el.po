@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-30 13:56+0100\n"
-"Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
+"PO-Revision-Date: 2007-04-09 11:03+0200\n"
+"Last-Translator: Stavros Giannouris <stavrosg@hellug.gr>\n"
 "Language-Team: Greek <fedora-trans-el@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5396,7 +5396,7 @@ msgid "No volume groups exist in which to create a logical volume"
 msgstr "Δεν υπάρχουν ομάδες τόμων για τη δημιουργία ενός λογικού τόμου σε αυτές"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5720,7 +5720,7 @@ msgstr "Πολυμέσα"
 #: ../installclasses/rhel.py:44
 #, fuzzy
 msgid "Virtualization"
-msgstr "Συγχαρητήρια"
+msgstr "Εικονικοποίηση"
 
 #: ../installclasses/rhel.py:45
 #, fuzzy
@@ -5730,7 +5730,7 @@ msgstr "Συστοίχιση"
 #: ../installclasses/rhel.py:46
 #, fuzzy
 msgid "Storage Clustering"
-msgstr "Αποθήκευση Συστοίχιση"
+msgstr "Συστοίχιση αποθηκευτικών μέσων"
 
 #: ../installclasses/rhel.py:50
 msgid "Installation Number"
@@ -5757,6 +5757,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Αν δε μπορείτε να βρείτε τον αριθμό εγκατάστασης, συμβουλευτείτε το http://"
+"www.redhat.com/apps/support/in.html.\n"
+"\n"
+"Αν το προσπεράσετε:\n"
+"* Μπορεί να μην έχετε πρόσβαση σε όλα τα πακέτα που περιλαμβάνονται στη "
+"συνδρομή σας.\n"
+"* Μπορεί να καταλήξει σε μια μη υποστηριζόμενη/μη πιστοποιημένη εγκατάσταση "
+"του Red Hat Enterprise Linux.\n"
+"* Δεν θα λάβετε ενημερώσεις λογισμικού και ασφαλείας για τα πακέτα που δεν "
+"περιλαμβάνονται στη συνδρομή σας."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6112,11 +6122,13 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Αδυναμία εύρεσης ks.cfg στη δισκέτα εκκίνησης."
 
 #: ../loader2/kickstart.c:344
-#, fuzzy
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr "αρχείο ή Ακύρωση."
+msgstr ""
+"Δεν είναι δυνατή η λήψη του αρχείου kickstart. Παρακαλώ αλλάξτε την "
+"παράμετρο kickstart παρακάτω ή πατήστε Άκυρο για να προχωρήσετε με "
+"διαδραστική εγκατάσταση."
 
 # gconf/gconfd.c:1676
 #: ../loader2/kickstart.c:353
@@ -6391,11 +6403,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Λάθος όρισμα στην εντολή της μεθόδου έναρξης της συσκευής %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Καθορίστηκε η ακόλουθη άκυρη παράμετρος για την εντολή kickstart driver "
-"disk: %s:%s"
+"Πρέπει να οριστούν τόσο ο τύπος του αρθρώματος όσο και το όνομα του για την "
+"εντολή συσκευής kickstart."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6451,10 +6462,9 @@ msgstr "Nameserver IP"
 #: ../loader2/net.c:302
 #, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Ελλείπων nameserver"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
@@ -6517,11 +6527,16 @@ msgid "Name Server:"
 msgstr "Nameserver:"
 
 #: ../loader2/net.c:1069
+#, fuzzy
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Εισάγετε την διεύθυνση IPv4 ή/και IPv6 και το πρόθεμα (διεύθυνση / πρόθεμα)."
+"Για το IPv4, είναι αποδεκτά (...) ή το πρόθεμα τύπου CIDR. Τα πεδία για την "
+"πύλη και τον εξυπηρετητή ονοματοδοσίας πρέπει να είναι έγκυρες διευθύνσεις "
+"IPv4 ή IPv6."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6743,9 +6758,8 @@ msgid "Disable _dmraid device"
 msgstr "Απενεργοποίηση συσκευής _dmraid"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Σκληρός δίσκος"
+msgstr "Προσθήκη _δίσκου"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6817,9 +6831,8 @@ msgid "Exception Info"
 msgstr "Πληροφορίες εξαίρεσης"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "Αποθήκευση σε απομακρυσμένο σύστημα"
+msgstr "Αποθήκευση σε απομακ_ρυσμένο σύστημα"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6982,7 +6995,6 @@ msgid "Arabic"
 msgstr "Αραβική"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Assamese"
 msgstr "Ασαμίγια"
 
@@ -7068,7 +7080,7 @@ msgstr "Ισλανδική"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Ιλόκο"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -7152,7 +7164,7 @@ msgstr "Σερβική(Λατινική)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Σινχαλα"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7176,7 +7188,7 @@ msgstr "Ταμίλ"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Τελουγκου"
 
 #. generated from lang-table
 msgid "Turkish"
