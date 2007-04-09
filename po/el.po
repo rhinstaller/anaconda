@@ -3977,7 +3977,7 @@ msgstr "Κατάτμηση"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "Το σχήμα κατατμήσεων που ορίσατε προκάλεσε τα εξής κρίσιμα σφάλματα."
+msgstr "Το σχήμα κατάτμησης που ορίσατε προκάλεσε τα εξής κρίσιμα σφάλματα."
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3992,7 +3992,7 @@ msgstr "Σφάλματα κατάτμησης"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "Το σχήμα κατατμήσεων που ορίσατε προκάλεσε τις εξής προειδοποιήσεις."
+msgstr "Το σχήμα κατάτμησης που ορίσατε προκάλεσε τις εξής προειδοποιήσεις."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4621,7 +4621,7 @@ msgid "Free Space (MB)"
 msgstr "Ελεύθερος χώρος (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4789,8 +4789,8 @@ msgid ""
 "want to use for each of them."
 msgstr ""
 "Ο διαχειριστής εκκίνησης %s έχει τη δυνατότητα να εκκινήσει και άλλα "
-"λειτουργικά συστήματα. Επιλέξετε τα τμήματα δίσκου που θέλετε να μπορείτε να "
-"εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
+"λειτουργικά συστήματα. Πρέπει να διαλέξετε τα τμήματα δίσκου που θέλετε να "
+"μπορείτε να εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
 
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
@@ -5455,7 +5455,7 @@ msgstr "Χωρίς τμήμα δίσκου Root"
 
 #: ../textw/partition_text.py:1490
 msgid "Installation requires a / partition."
-msgstr "Η εγκατάσταση απαιτεί τμήμα δίσκου /."
+msgstr "Η εγκατάσταση απαιτεί ένα τμήμα δίσκου /."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5718,17 +5718,14 @@ msgid "Multimedia"
 msgstr "Πολυμέσα"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
 msgstr "Εικονικοποίηση"
 
 #: ../installclasses/rhel.py:45
-#, fuzzy
 msgid "Clustering"
 msgstr "Συστοίχιση"
 
 #: ../installclasses/rhel.py:46
-#, fuzzy
 msgid "Storage Clustering"
 msgstr "Συστοίχιση αποθηκευτικών μέσων"
 
@@ -6460,9 +6457,8 @@ msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Ελλείπων nameserver"
+msgstr "Λείπει nameserver"
 
 #: ../loader2/net.c:303
 msgid ""
@@ -6527,16 +6523,15 @@ msgid "Name Server:"
 msgstr "Nameserver:"
 
 #: ../loader2/net.c:1069
-#, fuzzy
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 "Εισάγετε την διεύθυνση IPv4 ή/και IPv6 και το πρόθεμα (διεύθυνση / πρόθεμα)."
-"Για το IPv4, είναι αποδεκτά (...) ή το πρόθεμα τύπου CIDR. Τα πεδία για την "
-"πύλη και τον εξυπηρετητή ονοματοδοσίας πρέπει να είναι έγκυρες διευθύνσεις "
-"IPv4 ή IPv6."
+"Για το IPv4, είναι αποδεκτά η μάσκα δικτύου σε μορφή τεσσάρων αριθμών "
+"χωρισμένων με τελείες ή το πρόθεμα τύπου CIDR. Τα πεδία για την πύλη και τον "
+"εξυπηρετητή ονοματοδοσίας πρέπει να είναι έγκυρες διευθύνσεις IPv4 ή IPv6."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -7164,7 +7159,7 @@ msgstr "Σερβική(Λατινική)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr "Σινχαλα"
+msgstr "Σινχάλα"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7188,7 +7183,7 @@ msgstr "Ταμίλ"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr "Τελουγκου"
+msgstr "Τελούγκου"
 
 #. generated from lang-table
 msgid "Turkish"
