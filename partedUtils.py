@@ -850,39 +850,6 @@ class DiskSet:
         """Return a dictionary of the drives on the system."""
 	return isys.hardDriveDict()
 
-    def addPartition (self, device, type, spec):
-        """Add a new partition to the device. - UNUSED."""
-        if not self.disks.has_key (device):
-            raise PartitioningError, ("unknown device passed to "
-                                      "addPartition: %s" % (device,))
-        disk = self.disks[device]
-
-        part = disk.next_partition ()
-        status = 0
-        while part:
-            if (part.type == parted.PARTITION_FREESPACE
-                and part.geom.length >= spec.size):
-                newp = disk.partition_new (type, spec.fs_type,
-                                           part.geom.start,
-                                           part.geom.start + spec.size)
-                constraint = disk.dev.constraint_any ()
-                try:
-                    disk.add_partition (newp, constraint)
-                    status = 1
-                    break
-                except parted.error, msg:
-                    raise PartitioningError, msg
-            part = disk.next_partition (part)
-        if not status:
-            raise PartitioningError, ("Not enough free space on %s to create "
-                                      "new partition" % (device,))
-        return newp
-    
-    def deleteAllPartitions (self):
-        """Delete all partitions from all disks. - UNUSED."""
-        for disk in self.disks.values():
-            disk.delete_all ()
-
     def savePartitions (self):
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
