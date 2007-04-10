@@ -1202,7 +1202,8 @@ class InstallControlWindow:
 
     def connectSignals(self):
         sigs = { "on_nextButton_clicked": self.nextClicked,
-            "on_rebootButton_clicked": self.nextClicked,
+            "on_rebootButton_clicked": self._doExit,
+            "on_closeButton_clicked": self._doExit,                 
             "on_backButton_clicked": self.prevClicked,
             "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
             "on_debugButton_clicked": self.debugClicked,

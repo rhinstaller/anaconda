@@ -1,3 +1,10 @@
+2007-04-09  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* gui.py (InstallControlWindow.connectSignals): Exit when clicking
+	reboot/close.
+
 2007-04-05  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/dasd.c: Fix the build
