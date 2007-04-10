@@ -1285,6 +1285,11 @@ class YumBackend(AnacondaBackend):
         installed = []
         removed = []
 
+        # Faster to grab all the package names up front rather than call
+        # searchNevra in the loop below.
+        allPkgNames = map(lambda pkg: pkg.name, self.ayum.pkgSack.returnPackages())
+        allPkgNames.sort()
+
         self.ayum.tsInfo.makelists()
 
         txmbrNames = map (lambda x: x.name, self.ayum.tsInfo.getMembers())
@@ -1300,8 +1305,7 @@ class YumBackend(AnacondaBackend):
             defaults = grp.default_packages.keys() + grp.mandatory_packages.keys()
             optionals = grp.optional_packages.keys()
 
-            for pkg in filter(lambda x: x in defaults and not x in txmbrNames,
-                              grp.packages):
+            for pkg in filter(lambda x: x in defaults and (not x in txmbrNames and x in allPkgNames), grp.packages):
                 removed.append(pkg)
 
             for pkg in filter(lambda x: x in txmbrNames, optionals):

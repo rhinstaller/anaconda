@@ -3,6 +3,9 @@
 	* partedUtils.py (DiskSet.addPartition, DiskSet.deleteAllPartitions):
 	Removed unused code.
 
+	* yuminstall.py (YumBackend.writePackagesKS):  Don't write out remove
+	lines for packages that don't exist on the installation arch.
+
 2007-04-09  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
