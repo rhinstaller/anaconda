@@ -11,7 +11,7 @@ BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.95.16, pciutils-devel, bzi
 BuildRequires: dietlibc
 %endif
 Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
-Requires: pyparted, libxml2-python
+Requires: pyparted, libxml2-python, dosfstools >= 2.8-17
 Requires: anaconda-help, system-logos
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
