@@ -21,7 +21,7 @@ BuildRequires: pango-devel, pirut, libXt-devel
 BuildRequires: slang-devel >= 2.0.6-2, slang-static
 BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
-BuildRequires: libdhcp-devel >= 1.24, mkinitrd-devel >= 5.1.2-1
+BuildRequires: libdhcp-devel >= 1.24-2, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
