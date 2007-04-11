@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-05 18:15+0530\n"
+"PO-Revision-Date: 2007-04-11 16:59+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -3252,15 +3254,15 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" ତାର୍କିକ ଘନଫଳ ନାମ ଟି ପୂର୍ବରୁ ବ୍ଯବହୃତ ହେଉଅଛି। ଦୟାକରି ଅନ୍ଯ ଗୋଟିଏ ନାମ ବାଛନ୍ତୁ।"
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "ବର୍ତ୍ତମାନ ନିବେଦିତ ଆକାର (%10.2f ମେଗା-ବାଇଟ) ସର୍ବାଧିକ ତାର୍କିକ ଘନଫଳ ଆକାର (%10.2f ମେଗା-"
-"ବାଇଟ) ଠାରୁ ବୃହତର ଅଟେ। ଏହି ସୀମାକୁ ବୃଦ୍ଧି କରିବା ପାଇଁ ଆପଣ ଅବିଭାଜିତ ଡିସ୍କ ସ୍ଥାନରୁ ଅଧିକ ଭୌତିକ ଘନଫଳ "
-"ସୃଷ୍ଟି କରିବା ଉଚିତ ଏବଂ ଏହାକୁ ଘନଫଳ ସମୂହରେ ଯୋଗ କରନ୍ତୁ।"
+"ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ। ଏହି ସୀମାକୁ ବୃଦ୍ଧି କରିବା ପାଇଁ ଆପଣ ଅବିଭାଜିତ ଡିସ୍କ ସ୍ଥାନରୁ ଅଧିକ ଭୌତିକ ଘନଫଳ "
+"ସୃଷ୍ଟି କରିପାରିବେ ଏବଂ ଏହାକୁ ଘନଫଳ ସମୂହରେ ଯୋଗ କରିପାରିବେ।"
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3271,14 +3273,14 @@ msgid "Error With Request"
 msgstr "ନିବେଦନ ସହିତ ତୃଟି"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"ଆପଣ ବିନ୍ଯାସ କରିଥିବା ତାର୍କିକ ଘନଫଳ ଗୁଡିକ %g ମେଗା-ବାଇଟ ଆବଶ୍ୟକ କରନ୍ତି, କିନ୍ତୁ ଘନଫଳ ସମୂହରେ କେବଳ %"
-"g ମେଗା-ବାଇଟ ଅଛି।  ଦୟାକରି ଘନଫଳ ସମୂହକୁ ବଡ କରନ୍ତୁ କିମ୍ବା ତାର୍କିକ ଘନଫଳକୁ ଛୋଟ କରନ୍ତୁ।"
+"ଆପଣ ବିନ୍ଯାସ କରିଥିବା ତାର୍କିକ ଘନଫଳ ଗୁଡିକ %d ମେଗା-ବାଇଟ ଆବଶ୍ୟକ କରନ୍ତି, କିନ୍ତୁ ଘନଫଳ ସମୂହରେ କେବଳ %d "
+"ମେଗା-ବାଇଟ ଅଛି।  ଦୟାକରି ଘନଫଳ ସମୂହକୁ ବଡ କରନ୍ତୁ କିମ୍ବା ତାର୍କିକ ଘନଫଳକୁ (ମାନଙ୍କୁ) ଛୋଟ କରନ୍ତୁ।"
 
 #: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
@@ -3294,14 +3296,13 @@ msgid "No free space"
 msgstr "କୌଣସି ଖାଲି ସ୍ଥାନ ନାହିଁ"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "ଘନଫଳ ସମୂହରେ ନୂତନ ତାର୍କିକ ଘନଫଳ ସୃଷ୍ଟି କରିବା ପାଇଁ କୌଣସି ବଳକା କକ୍ଷ ନାହିଁ। ଗୋଟିଏ ତାର୍କିକ ଘନଫଳକୁ "
-"ଯୋଗ କରିବା ପାଇଁ ବର୍ତ୍ତମାନ ଅବସ୍ଥିତ ଏକ କିମ୍ବା ଏକାଧିକ ତାର୍କିକ ଘନଫଳର ଆକାରକୁ ହ୍ରାସ କରିବା ଉଚିତ।"
+"ଯୋଗ କରିବା ପାଇଁ ବର୍ତ୍ତମାନ ଅବସ୍ଥିତ ଏକ କିମ୍ବା ଏକାଧିକ ତାର୍କିକ ଘନଫଳ ମାନଙ୍କ ଆକାରକୁ ହ୍ରାସ କରିବା ଉଚିତ।"
 
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
@@ -3660,18 +3661,16 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 ଉପସର୍ଗର ମୂଲ୍ଯ୦ ଏବଂ ୧୨୮ ମଧ୍ଯରେ ରହିବା ଉଚିତ।"
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"ଅନ୍ଯାନ୍ଯ ପ୍ରଚାଳନ ତନ୍ତ୍ର ମାନଙ୍କୁ ବୁଟ କରିବା ପାଇଁ ଆପଣ ବୁଟ-ଲୋଡରକୁ ବିନ୍ଯାସ କରିପାରିବେ।  ତାଲିକାରୁ "
-"ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ବୁଟ କରିବା ପାଇଁ ଏହା ଆପଣଙ୍କୁ ଅନୁମତି ପ୍ରଦାନ କରିବ।ସ୍ବତଃ ଅନୁସନ୍ଧାନ କରି  ନ ହେଉଥିବା "
-"ଅତିରିକ୍ତ ପ୍ରଚାଳନ ତନ୍ତ୍ର ମାନଙ୍କୁ ଯୋଗ କରିବା ପାଇଁ 'ଯୋଗ କରନ୍ତୁ' ବଟନକୁ ଦବାନ୍ତୁ। ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଭାବରେ "
-"ବୁଟ କରାଯାଇଥିବା ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ବଦଳାଇବା ପାଇଁ, ବାଞ୍ଛନୀୟ ପ୍ରଚାଳନ ତନ୍ତ୍ର ଦ୍ବାରା "
-"'ପୂର୍ବନିର୍ଦ୍ଧାରିତ' ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।  "
+"ତାଲିକାରୁ ଚୟନ କରି ଅନ୍ଯାନ୍ଯ ପ୍ରଚାଳନ ତନ୍ତ୍ର ମାନଙ୍କୁ ବୁଟ କରିବା ପାଇଁ ଆପଣ ବୁଟ-ଲୋଡରକୁ ବିନ୍ଯାସ କରିପାରିବେ। "
+"ସ୍ବତଃ ଅନୁସନ୍ଧାନ କରି ନ ହେଉଥିବା ଗୋଟିଏ ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ଯୋଗ କରିବା ପାଇଁ 'ଯୋଗ କରନ୍ତୁ' ବଟନକୁ ଦବାନ୍ତୁ। "
+"ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଭାବରେ ବୁଟ କରାଯାଇଥିବା ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ବଦଳାଇବା ପାଇଁ, ବାଞ୍ଛନୀୟ ପ୍ରଚାଳନ ତନ୍ତ୍ର ଦ୍ବାରା "
+"'ପୂର୍ବନିର୍ଦ୍ଧାରିତ' ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3686,13 +3685,12 @@ msgid "Image"
 msgstr "ପ୍ରତିଛବି"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"ବୁଟ-ଲୋଡର ତାଲିକାରେ ପ୍ରଦର୍ଶିତ ହେବା ପାଇଁ ଗୋଟିଏ ସୂଚକକୁ ଭରଣ କରନ୍ତୁ। ଉପକରଣଟି (କିମ୍ବା ହାର୍ଡ ଡ୍ରାଇଭ "
-"ଏବଂ ବିଭାଜନ ସଂଖ୍ଯା) ଏପରି ସାଧନ ଅଟେ ଯେଉଁଠାରୁ ଏହା ବୁଟ କରିଥାଏ।"
+"ବୁଟ-ଲୋଡର ତାଲିକାକୁ ପ୍ରଦର୍ଶିତ କରିବା ପାଇଁ ଗୋଟିଏ ସୂଚକକୁ ଭରଣ କରନ୍ତୁ। ଉପକରଣଟି (କିମ୍ବା ହାର୍ଡ ଡ୍ରାଇଭ "
+"ଏବଂ ବିଭାଜନ ସଂଖ୍ଯା) ଏପରି ଉପକରଣ ଅଟେ ଯେଉଁଠାରୁ ଏହା ବୁଟ କରିଥାଏ।"
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3963,7 +3961,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4051,13 +4048,13 @@ msgid "Check for _bad blocks?"
 msgstr "ଖରାପ ଖଣ୍ଡ ପାଇଁ ଯାଞ୍ଚ କରନ୍ତୁ (_b)?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"ଗୋଟିଏ ଡ୍ରାଇଭରେ '%s' ପ୍ରକାରର ବିଭାଜନ କରିବା ପାଇଁ ଚାପ ପକାନ୍ତୁ।  ଏହାକୁ 'ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ' ର "
-"ଯାଞ୍ଚସୂଚୀ ମଧ୍ଯରୁ ଚଯିତ ଡ୍ରାଇଭ ଦ୍ବାରା ସମ୍ପନ୍ନ କରାଯାଇଥାଏ।"
+"ଗୋଟିଏ ଡ୍ରାଇଭରେ '%s' ପ୍ରକାରର ବିଭାଜନ କରିବା ପାଇଁ ଚାପ ପକାନ୍ତୁ।  ଏପରି କରିବା ପାଇଁ, 'ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ' "
+"ଯାଞ୍ଚସୂଚୀ ମଧ୍ଯରୁ ଡ୍ରାଇଭ ଚୟନ କରନ୍ତୁ।"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4136,19 +4133,18 @@ msgid "Source Drive Error"
 msgstr "ଉତ୍ସ ଡ୍ରାଇଭରେ ତୃଟି"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"ଚୟିତ ଉତ୍ସ ଡ୍ରାଇଭ ର ଏଠାରେ ବିଭାଜନ ମାନ ଅଛି ଯାହାକି 'ସଫଟୱେର ରେଡ' ର ପ୍ରକାର ନୁହଁନ୍ତି।\n"
+"ଆପଣ ଚୟନ କରିଥିବା ଉତ୍ସ ଡ୍ରାଇଭରେ ବିଭାଜନ ମାନ ଅଛି ଯାହାକି 'ସଫଟୱେର ରେଡ' ର ପ୍ରକାର ନୁହଁନ୍ତି।\n"
 "\n"
-"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରିଯିବା ଆବଶ୍ୟକ।"
+"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରିବା ଉଚିତ। "
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4156,22 +4152,21 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"ଚୟିତ ଉତ୍ସ ଡ୍ରାଇଭରେ ବିଭାଜନ ଅଛି ଯାହାକି /dev/%s ପାଇଁ ଉଦ୍ଦିଷ୍ଟ ନୁହଁନ୍ତି।\n"
+"ଆପଣ ଚୟନ କରିଥିବା ଉତ୍ସ ଡ୍ରାଇଭରେ ବିଭାଜନ ମାନ ଅଛି ଯାହାକି /dev/%s ପାଇଁ ଉଦ୍ଦିଷ୍ଟ ନୁହେଁ।\n"
 "\n"
-"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଏହି ଡ୍ରାଇଭରୁ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କିମ୍ବା ନିଷେଧ କରାଯିବା ଉଚିତ।"
+"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ଡ୍ରାଇଭରୁ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କିମ୍ବା ନିଷେଧ କରାଯିବା ଉଚିତ।"
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
-"ଚୟିତ ଉତ୍ସ ଡ୍ରାଇଭରେ ସଫଟୱେର ରେଡ ବିଭାଜନ (ମାନ) ଅଛନ୍ତି ଯେଉଁ ଗୁଡିକ ଗୋଟିଏ ସକ୍ରିୟ ସଫଟୱେର ରେଡ "
+"ଆପଣ ଚୟନ କରିଥିବା ଉତ୍ସ ଡ୍ରାଇଭରେ ସଫଟୱେର ରେଡ ବିଭାଜନ (ମାନ) ଅଛି ଯାହା ଗୋଟିଏ ସକ୍ରିୟ ସଫଟୱେର ରେଡ "
 "ଉପକରଣର ସଦସ୍ଯ ଅଟନ୍ତି।\n"
 "\n"
-"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରାଯିବା ପୂର୍ବରୁ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରାଯିବ।"
+"ଡ୍ରାଇଭକୁ କ୍ଲୋନ କରାଯିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରଣ କରିବା ଉଚିତ।"
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4188,7 +4183,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "ଉତ୍ସ ଡ୍ରାଇଭ /dev/%s କୁ ଗୋଟିଏ ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭ ଭାବରେ ମଧ୍ଯ ଚଯନ କରିହେବ ନାହିଁ।"
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4197,11 +4192,11 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭ /dev/%s ର ଗୋଟିଏ ବିଭାଜନ ଯାହାକୁ ନିମ୍ନଲିଖିତ କାରଣ ବଶତଃ ଅପସାରଣ କରିହେବ ନାହିଁ:\n"
+"ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭ /dev/%s ର ଗୋଟିଏ ବିଭାଜନ ଅଛି ଯାହାକୁ ନିମ୍ନଲିଖିତ କାରଣ ବଶତଃ ଅପସାରଣ କରିହେବ ନାହିଁ:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"ଡ୍ରାଇଭକୁ ଲକ୍ଷ୍ଯ କରିବା ପୂର୍ବରୁ ଏହି ବିଭାଜନକୁ ଅପସାରଣ କରାଯିବା ଉଚିତ।"
+"ଡ୍ରାଇଭକୁ ଲକ୍ଷ୍ଯ କରିବା ପୂର୍ବରୁ ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରଣ କରିବା ଉଚିତ।"
 
 #: ../iw/raid_dialog_gui.py:619
 msgid "Please select a source drive."
@@ -4239,7 +4234,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "ଲକ୍ଷସ୍ଥ ଡ୍ରାଇଭ ମାନଙ୍କୁ ସଫା କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା। କ୍ଲୋନିଙ୍ଗ ବିଫଳ ହୋଇଗଲା।"
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4256,15 +4250,15 @@ msgid ""
 msgstr ""
 "କ୍ଲୋନ ଡ୍ରାଇଭ ଉପକରଣ\n"
 "\n"
-"ରେଡ ସାରଣୀର ବ୍ଯବସ୍ଥାପନ ପାଇଁ ଆବଶ୍ୟକ ଉଦ୍ଯମକୁ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ହ୍ରାସ କରିବା ପାଇଁ ଏହି ଉପକରଣଟି "
-"ଆପଣଙ୍କୁ ଅନୁମତି ପ୍ରଦାନ କରିଥାଏ।  ଏହି ଯୋଜନା ଅନୁସାରେ ଆବଶ୍ୟକ ବିଭାଜନ ବିନ୍ଯାସ ଉପକରଣ ପାଇଁ ପ୍ରସ୍ତୁତ "
-"ଉତ୍ସ ଡ୍ରାଇଭକୁ ନିଆଯିବ, ଏବଂ ସମ ଆକାର ବିଶିଷ୍ଟ ଅନ୍ଯାନ୍ଯ ଡ୍ରାଇଭରେ ଏହି ବିନ୍ଯାସକୁ କ୍ଲୋନ କରାଯିବ।  "
-"ତା'ପରେ ଗୋଟିଏ ରେଡ ଉପକରଣକୁ ସୃଷ୍ଟି କରିହେବ।\n"
+"ରେଡ ଆରେର ବ୍ଯବସ୍ଥାପନ ପାଇଁ ଆବଶ୍ୟକ ଉଦ୍ଯମକୁ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ହ୍ରାସ କରିବା ପାଇଁ ଏହି ଉପକରଣଟି "
+"ଆପଣଙ୍କୁ ଅନୁମତି ପ୍ରଦାନ କରିଥାଏ।  ଏହି ଉପକରଣ ଗୋଟିଏ ଉତ୍ସ ଡ୍ରାଇଭ ବ୍ଯବହାର କରିଥାଏ ଯାହାକୁ ଆବଶ୍ଯକ "
+"ବିଭାଜନୀୟ ବିନ୍ଯାସ ସହିତ ପ୍ରସ୍ତୁତ କରାଯାଇଛି, ଏବଂ ଏହି ବିନ୍ଯାସକୁ ଅନ୍ଯାନ୍ଯ ସମାନ ଆକାରର ଡ୍ରାଇଭ ମାନଙ୍କରେ "
+"କ୍ଲୋନ କରାଯାଇଛି।  ତା'ପରେ ଗୋଟିଏ ରେଡ ଉପକରଣକୁ ସୃଷ୍ଟି କରିହେବ।\n"
 "\n"
 "ଟିପ୍ପଣୀ: ଉତ୍ସ ଡ୍ରାଇଭରେ ଏପରି ବିଭାଜନ ରହିବା ଉଚିତ ଯାହାକି କେବଳ ସେହି ଡ୍ରାଇଭ ପାଇଁ ଉଦ୍ଦିଷ୍ଟ, ଏବଂ "
 "କେବଳ ଅବ୍ଯବହୃତ ସଫଟୱେର ରେଡ ବିଭାଜନକୁ ଧାରଣ କରିପାରିବ।  ଅନ୍ଯାନ୍ଯ ବିଭାଜନ ପ୍ରକାର ଗୁଡିକ ଗ୍ରହଣୀୟ "
 "ନୁହଁନ୍ତି। \n"
-"ଏହି ପ୍ରକ୍ରିୟା ଦ୍ବାରା ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭରେ ସବୁକିଛି ନଷ୍ଟ ହୋଇଯିବ।"
+"ଏହି ପ୍ରକ୍ରିୟା ଦ୍ବାରା ଲକ୍ଷ୍ଯ ଡ୍ରାଇଭରେ (ମାନଙ୍କରେ) ସବୁକିଛି ନଷ୍ଟ ହୋଇଯିବ।"
 
 #: ../iw/raid_dialog_gui.py:712
 msgid "Source Drive:"
@@ -4305,13 +4299,13 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
-"%s ପାଇଁ ଗୋଟିଏ ସମୂହ ଫାଇଲ ପାଇବାରେ ଅସମର୍ଥ।  ଏହା ଭଣ୍ଡାରରୁ ହସ୍ତକୃତ ଭାବରେ ଚୟିତ ପ୍ଯାକେଜ ମାନଙ୍କୁ "
-"ଅକାମି କରିଦେବ।"
+"%s ପାଇଁ ଗୋଟିଏ ସମୂହ ଫାଇଲ ପାଇବାରେ ଅସମର୍ଥ।  ଏହା ଭଣ୍ଡାରରୁ ହସ୍ତକୃତ ଭାବରେ ଚୟନ କରାଯାଇଥିବା "
+"ପ୍ଯାକେଜ ମାନଙ୍କୁ କାର୍ଯ୍ଯ କରିବାରୁ ଅଟକାଇବ"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
