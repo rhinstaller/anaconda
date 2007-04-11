@@ -137,7 +137,7 @@ class ReleaseNotesViewer:
 					headers = f.info()
 
 					mime = headers.getheader('Content-type')
-					if mime:
+					if mime == 'text/html':
 						self.doc.open_stream(mime)
 						self.doc.write_stream(f.read())
 					else:
