@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.19
+Version: 9.1.6.20
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 11 2007 Peter Jones <pjones@redhat.com> - 9.1.6.20-1.RHEL
+- Use the keymap we shipped in 3u8 on i386, because it's much smaller
+  and might actually fit on the boot disk.
+  Related: #235670
+
 * Mon Apr  9 2007 Peter Jones <pjones@redhat.com> - 9.1.6.19-1.RHEL
 - Try to make the boot disk a little smaller
   Related: #235670
