@@ -1,4 +1,9 @@
-2007-04.11  David Cantrell  <dcantrell@redhat.com>
+2007-04-11  Chris Lumens  <clumens@redhat.com>
+
+	* textw/partition_text.py (PartitionWindow.populate):  More
+	intelligently assign RAID minor numbers in the text interface.
+
+2007-04-11  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/release_notes.py: Fix handling of plain text release notes (patch
 	from Elliot Peele).

@@ -50,6 +50,16 @@ def invalidInteger(str):
     return None
 
 class PartitionWindow:
+    def _findFirstUnused(self, dict):
+        keys = dict.keys()
+        i = 0
+
+        while True:
+            if i in keys:
+                i += 1
+            else:
+                return i
+
     def populate(self):
         # XXX we really should separate this stuff out into interface
         # independent bits...
@@ -82,7 +92,7 @@ class PartitionWindow:
 
 
         # next, add the raid partitions
-        self.raidcounter = 0
+        self.raidminors = {}
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
             for request in raidrequests:
@@ -97,17 +107,18 @@ class PartitionWindow:
                     ptype = _("None")
 
 		try:
+                    self.raidminors[request.raidminor] = True
 		    device = "/dev/md%d" % (request.raidminor,)
 		except:
-		    device = _("RAID Device %s" %(str(self.raidcounter)))
-		    
+                    minor = self._findFirstUnused(self.raidminors)
+                    self.raidminors[minor] = True
+		    device = _("RAID Device %s" %(str(minor)))
+
                 size = request.size
                 self.lb.append(["%s" %(device),
                                 "", "", "%dM" %(size),
                                 "%s" %(ptype), "%s" %(mount)], str(request.uniqueID),
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
-                self.raidcounter += 1
-        
 
         # next, add the drives and partitions to the list
         drives = self.diskset.disks.keys()
@@ -1084,7 +1095,8 @@ class PartitionWindow:
 
 		request.raidspares = int(spares.value())
 		request.raidlevel = raidtype.current()
-                request.raidminor = self.raidcounter
+                request.raidminor = self._findFirstUnused(self.raidminors)
+                self.raidminors[request.raidminor] = True
 
 		if format:
 		    request.format = format.selected()
@@ -1408,14 +1420,17 @@ class PartitionWindow:
                 self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
-        
+
     def deleteCb(self):
         partition = self.lb.current()
 
+        req = self.partitions.getRequestByID(partition)
+        if req and isinstance(req, RaidRequestSpec):
+            del(self.raidminors[req.raidminor])
+
         if doDeletePartitionByRequest(self.intf, self.partitions, partition):
             self.refresh()
-        
-        
+
     def resetCb(self):
         if not confirmResetPartitionState(self.intf):
             return
