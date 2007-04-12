@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-11 16:59+0530\n"
+"PO-Revision-Date: 2007-04-12 18:09+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -4396,7 +4398,7 @@ msgid "Migrate File Systems"
 msgstr "ଫାଇଲ ତନ୍ତ୍ରକୁ ଉତ୍ପ୍ରବାସିତ କରନ୍ତୁ"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4405,27 +4407,27 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s ର ଏହି ସଂସ୍କରଣ ext3 ଗତାନୁଗତିକ ଫାଇଲ ତନ୍ତ୍ରକୁ ସମର୍ଥ କରିଥାଏ।  %s ରେ ପାରମ୍ପରିକ ଭାବରେ "
-"ପଠାଯାଇଥିବା ext2 ଫାଇଲ ତନ୍ତ୍ର ତୁଳନାରେ ଏହାର ବିଭିନ୍ନ ଉପଯୋଗୀତା ଅଛି।  ext2 ସଂରୂପିତ ବିଭାଜନ "
-"ମାନଙ୍କୁ ବିନା କୌଣସି ତଥ୍ଯ ହାନିରେ ext3 କୁ ଉତ୍ପ୍ରବାସିତ କରିହେବ।\n"
+"%s ର ଏହି ସଂସ୍କରଣ ext3 ଗତାନୁଗତିକ ଫାଇଲ ତନ୍ତ୍ରକୁ ସମର୍ଥ କରିଥାଏ, ଯାହାର %s ରେ ପାରମ୍ପରିକ ଭାବରେ "
+"ପଠାଯାଇଥିବା ext2 ଫାଇଲ ତନ୍ତ୍ର ଅପେକ୍ଷା ଅଧିକ ଉପଯୋଗୀତା ଅଛି।  ଏହି ସ୍ଥାପନ ପ୍ରୋଗ୍ରାମ ext2 ସଂରୂପୀତ "
+"ବିଭାଜନ ମାନଙ୍କୁ ବିନା ତଥ୍ଯ ହାନିରେ ext3 କୁ ଉତ୍ପ୍ରବାସିତ କରିପାରିବ।\n"
 "\n"
-"ଏହି ବିଭାଜନ ମାନଙ୍କ ମଧ୍ଯରୁ ଆପଣ କାହାକୁ ଉତ୍ପ୍ରବାସନ କରିବା ପାଇଁ ଚାହିଁବେ?"
+"ଏହି ବିଭାଜନ ମାନଙ୍କ ମଧ୍ଯରୁ ଆପଣ କାହାକୁ ଉତ୍ପ୍ରବାସନ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "swap ବିଭାଜନ ର ଉନ୍ନୟନ କରନ୍ତୁ"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"ପୁରାତନ କର୍ଣ୍ଣଲ ତୁଳନାରେ 2.4 କର୍ଣ୍ଣଲ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ଅଧିକ swap ଆବଶ୍ୟକ କରିଥାଏ, ତନ୍ତ୍ରରେ "
-"ଥିବା RAM ର ଦୁଇଗୁଣ ସ୍ବାପ ସ୍ଥାନ ଆବଶ୍ୟକ।  ଆପଣଙ୍କ ନିକଟରେ ବର୍ତ୍ତମାନ %d ମେଗା-ବାଇଟ ସ୍ବାପ ବିନ୍ଯାସ "
-"କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ ବର୍ତ୍ତମାନ ଆପମଙ୍କ ଫାଇଲ ତନ୍ତ୍ରରେ ଅତିରିକ୍ତ ସ୍ବାପ ସ୍ଥାନ ସୃଷ୍ଟି କରିପାରିବେ।"
+"ପୁରାତନ କର୍ଣ୍ଣଲ ତୁଳନାରେ ଆଧୁନିକ (2.4 କିମ୍ବା ନବୀନତମ) କର୍ଣ୍ଣଲ ଉଲ୍ଲେଖନୀୟ ଭାବରେ ତନ୍ତ୍ରରେ ଥିବା RAM ର ଦୁଇଗୁଣ "
+"ସ୍ବାପ ସ୍ଥାନ ଆବଶ୍ୟକ କରିଥାଏ।  ଆପଣଙ୍କ ନିକଟରେ ବର୍ତ୍ତମାନ %d ମେଗା-ବାଇଟ ସ୍ବାପ ବିନ୍ଯାସ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ "
+"ବର୍ତ୍ତମାନ ଆପମଙ୍କ ଫାଇଲ ତନ୍ତ୍ରରେ ଅତିରିକ୍ତ ସ୍ବାପ ସ୍ଥାନ ସୃଷ୍ଟି କରିପାରିବେ।"
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4455,12 +4457,12 @@ msgid "Free Space (MB)"
 msgstr "ଖାଲି ସ୍ଥାନ (ମେଗା ବାଇଟ୍)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"ଆପଣଙ୍କ swap ଫାଇଲଟି ଅତିକମରେ %d ମେଗା-ବାଇଟ ହେବା ଉଚିତ।  ଦୟାକରି swap ଫାଇଲ ପାଇଁ "
+"swap ଫାଇଲର ଗୋଟିଏ ସର୍ବନିମ୍ନ %d ମେଗା-ବାଇଟ ପରାମର୍ଶିତ।  ଦୟାକରି swap ଫାଇଲ ପାଇଁ "
 "ଗୋଟିଏ ଆକାର ଭରଣ କରନ୍ତୁ:"
 
 #: ../iw/upgrade_swap_gui.py:169
