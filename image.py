@@ -158,6 +158,10 @@ class CdromInstallMethod(ImageInstallMethod):
 	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot):
+        if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
+            log.debug("Not copying non-existent stage2.img")
+            return
+        
 	self.loopbackFile = "%s%s%s" % (chroot,
                                         fsset.filesystemSpace(chroot)[0][0],
                                         "/rhinstall-stage2.img")

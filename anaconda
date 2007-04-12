@@ -337,6 +337,9 @@ def setupEnvironment():
     # In theory, this gets rid of our LVM file descriptor warnings
     os.environ["LVM_SUPPRESS_FD_WARNINGS"] = "1"
 
+    # make sure we have /sbin and /usr/sbin in our path
+    os.environ["PATH"] += ":/sbin:/usr/sbin"
+
     # we can't let the LD_PRELOAD hang around because it will leak into
     # rpm %post and the like.  ick :/
     if os.environ.has_key("LD_PRELOAD"):

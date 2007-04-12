@@ -1,3 +1,12 @@
+2007-04-12  Jeremy Katz  <katzj@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.systemMounted): Don't copy
+	stage2.img if we can't find it
+	* image.py (CdromInstallMethod.systemMounted): Likewise.
+
+	* anaconda (setupEnvironment): Make sure we have /sbin and
+	/usr/sbin in our path
+
 2007-04-11  Chris Lumens  <clumens@redhat.com>
 
 	* textw/partition_text.py (PartitionWindow.populate):  More

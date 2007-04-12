@@ -91,6 +91,9 @@ class UrlInstallMethod(InstallMethod):
     def systemMounted(self, fsset, chroot):
         if self.tree is None:
             return
+        if not os.path.exists("%s/images/stage2.img" %(self.tree,)):
+            log.debug("Not copying stage2.img as we can't find it")
+            return
 
         self.loopbackFile = "%s%s%s" % (chroot,
                                         fsset.filesystemSpace(chroot)[0][0],
@@ -310,4 +313,3 @@ class UrlInstallMethod(InstallMethod):
                 # we used a remote stage2. no need to worry about ejecting CDs
                 self.tree = None
                 break
-
