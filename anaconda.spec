@@ -21,7 +21,7 @@ BuildRequires: pango-devel, pirut, libXt-devel
 BuildRequires: slang-devel >= 2.0.6-2, slang-static
 BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
-BuildRequires: libdhcp-devel >= 1.24-2, mkinitrd-devel >= 5.1.2-1
+BuildRequires: libdhcp-devel-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
@@ -144,7 +144,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Apr  9 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.47-1
 - Fix build on s390
-- Ensure we exit at the end of the install. 
+- Ensure we exit at the end of the install.
 
 * Sun Apr  8 2007 Peter Jones <pjones@redhat.com> - 11.2.0.46-2
 - Rebuild because aparently the s390 build produced a corrupt package...

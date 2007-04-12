@@ -5,6 +5,8 @@
 	be doing an HTTP or FTP install, do a test download of .discinfo to
 	ensure they have entered the correct path (#232509).
 
+	* anaconda.spec: BR libdhcp-devel-static.
+
 2007-04-12  Jeremy Katz  <katzj@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.systemMounted): Don't copy
