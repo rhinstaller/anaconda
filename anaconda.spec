@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.47
+Version: 11.2.0.48
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 12 2007 David Cantrell <dcantrell@redhat.com - 11.2.0.48-1
+- Don't write out remove lines for packages that don't exist on the
+  installation arch (clumens)
+- Remove unused code from partedUtils.py (clumens)
+- Fix handling of plain text release notes (Elliot Peele)
+- Fix RAID minor number allocation in text mode UI (clumens)
+- Force /sbin and /usr/sbin in the PATH (katzj)
+- Don't copy stage2.img if it is not found (katzj)
+- Test given URL for HTTP/FTP install modes when stage2 is loaded from CD
+
 * Mon Apr  9 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.47-1
 - Fix build on s390
 - Ensure we exit at the end of the install.

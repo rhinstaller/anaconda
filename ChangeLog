@@ -1,5 +1,9 @@
 2007-04-12  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-04-12  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/urlinstall.c (mountUrlImage):  For instances where we prefer
 	to load stage2 from the boot CD-ROM (e.g., rescuecd) but the user will
 	be doing an HTTP or FTP install, do a test download of .discinfo to
