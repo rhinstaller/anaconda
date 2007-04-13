@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.48
+Version: 11.2.0.49
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,7 +142,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Apr 12 2007 David Cantrell <dcantrell@redhat.com - 11.2.0.48-1
+* Fri Apr 13 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.49-1
+- Fix SELinux labels on moved files with live install (#236282)
+- Add vmmouse driver
+
+* Thu Apr 12 2007 David Cantrell <dcantrell@redhat.com> - 11.2.0.48-1
 - Don't write out remove lines for packages that don't exist on the
   installation arch (clumens)
 - Remove unused code from partedUtils.py (clumens)

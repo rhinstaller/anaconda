@@ -1,5 +1,9 @@
 2007-04-13  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+	* scripts/upd-instroot: add vmmouse driver
+
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Fix
 	restorecon to do the right thing; we were ending up with files
 	starting with // and then files were mis-labeled (#236282)
