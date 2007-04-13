@@ -212,10 +212,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             wait.refresh()
             # XXX: we should be preserving contexts on our copy, but
             # this will do for now
-            for dir, subdirs, files in os.walk("%s/%s" %(anaconda.rootPath, tocopy)):
+            for dir, subdirs, files in os.walk(os.path.normpath("%s/%s" %(anaconda.rootPath, tocopy))):
                 dir = dir[len(anaconda.rootPath):]
-                for f in map(lambda x: "%s/%s" %(dir, x), files):
-                    if not os.access(f, os.R_OK):
+                for f in map(lambda x: "%s/%s" %(dir, x), files) + [dir]:
+                    if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
                         continue
                     ret = isys.resetFileContext(os.path.normpath(f),
                                                 anaconda.rootPath)
