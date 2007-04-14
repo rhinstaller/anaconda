@@ -3609,7 +3609,7 @@ msgstr "Διεύθυνση IP"
 
 #: ../iw/netconfig_dialog.py:182
 msgid "Netmask"
-msgstr "Netmask"
+msgstr "Μάσκα δικτύου"
 
 #: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
 #: ../iw/network_gui.py:524
@@ -3618,7 +3618,7 @@ msgstr "Πύλη"
 
 #: ../iw/netconfig_dialog.py:195
 msgid "Nameserver"
-msgstr "Nameserver"
+msgstr "Εξυπηρετητής ονομάτων"
 
 #: ../iw/netconfig_dialog.py:214
 msgid "Error configuring network device"
@@ -6454,11 +6454,11 @@ msgstr "Ασύρματες ρυθμίσεις"
 
 #: ../loader2/net.c:298
 msgid "Nameserver IP"
-msgstr "Nameserver IP"
+msgstr "IP εξυπηρετητή ονομάτων"
 
 #: ../loader2/net.c:302
 msgid "Missing Nameserver"
-msgstr "Λείπει nameserver"
+msgstr "Λείπει ο εξυπηρετητής ονομάτων"
 
 #: ../loader2/net.c:303
 msgid ""
@@ -6467,9 +6467,10 @@ msgid ""
 "leave the field blank and the install will continue."
 msgstr ""
 "Η αίτηση σας για δυναμική IP επέστρεψε πληροφορίες ρύθμισης IP, αλλά δεν "
-"περιείχε κάποιο DNS nameserver. Αν γνωρίζετε ποιος είναι ο nameserver σας, "
-"παρακαλώ εισάγετε τον τώρα. Αν δεν έχετε αυτήν την πληροφορία, μπορείτε να "
-"αφήσετε αυτό το πεδίο κενό και η εγκατάσταση θα συνεχίσει."
+"περιείχε κάποιο εξυπηρετητή ονομάτων DNS. Αν γνωρίζετε ποιος είναι ο "
+"εξυπηρετητής ονομάτων σας, παρακαλώ εισάγετε τον τώρα. Αν δεν έχετε αυτή "
+"την πληροφορία, μπορείτε να αφήσετε αυτό το πεδίο κενό και η εγκατάσταση θα "
+"συνεχίσει."
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6520,7 +6521,7 @@ msgstr "Διεύθυνση IPv6:"
 
 #: ../loader2/net.c:1033
 msgid "Name Server:"
-msgstr "Nameserver:"
+msgstr "Εξυπηρετητής ονομάτων:"
 
 #: ../loader2/net.c:1069
 msgid ""
@@ -6531,7 +6532,7 @@ msgstr ""
 "Εισάγετε την διεύθυνση IPv4 ή/και IPv6 και το πρόθεμα (διεύθυνση / πρόθεμα)."
 "Για το IPv4, είναι αποδεκτά η μάσκα δικτύου σε μορφή τεσσάρων αριθμών "
 "χωρισμένων με τελείες ή το πρόθεμα τύπου CIDR. Τα πεδία για την πύλη και τον "
-"εξυπηρετητή ονοματοδοσίας πρέπει να είναι έγκυρες διευθύνσεις IPv4 ή IPv6."
+"εξυπηρετητή ονομάτων πρέπει να είναι έγκυρες διευθύνσεις IPv4 ή IPv6."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6854,7 +6855,7 @@ msgstr "<b>_Κωδικός:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>IP Address _στόχου:</b>"
+msgstr "<b>Διεύθυνση IP _στόχου:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
@@ -6870,7 +6871,7 @@ msgstr "Προσθήκη στό_χου"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
-msgstr "<b>Gateway:</b>"
+msgstr "<b>Πύλη:</b>"
 
 #: tmp/netconfig.glade.h:3
 msgid "<b>IPv4 Address:</b>"
@@ -6882,7 +6883,7 @@ msgstr "<b>Διεύθυνση IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
 msgid "<b>Nameserver:</b>"
-msgstr "<b>Nameserver:</b>"
+msgstr "<b>Εξυπηρετητής ονομάτων:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
@@ -6898,7 +6899,7 @@ msgstr "Ενεργοποίηση υποστήριξης IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr "Ενεργοποίηση επιφάνειας δικτύου"
+msgstr "Ενεργοποίηση διεπαφής δικτύου"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
