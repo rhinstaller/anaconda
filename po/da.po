@@ -6,14 +6,14 @@
 # This file is distributed under the same license as the anaconda package.
 # Keld Simonsen <keld@dkuug.dk>, 2004, 2005.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004.
-# Keld Simonsen <keld@rap.dk>, 2005, 2006.
+# Keld Simonsen <keld@rap.dk>, 2005, 2006, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: da1\n"
+"Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2006-10-09 22:57+0200\n"
+"PO-Revision-Date: 2007-04-15 12:43+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -126,8 +126,7 @@ msgstr "Ukendt installerings-metode"
 
 #: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du har angivet en installeringsmetode som ikke understøttes af anaconda."
+msgstr "Du har angivet en installeringsmetode som ikke understøttes af anaconda."
 
 #: ../anaconda:867
 #, c-format
@@ -199,18 +198,16 @@ msgstr ""
 "denne partition."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Startpartitionen er ikke placeret tidligt nok på disken. OpenFirmware vil "
+"Startpartitionen skal være placeret fuldtud inden for de første 4 GB på disken. OpenFirmware vil "
 "ikke kunne opstarte denne installation."
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
 "maskinarkitektur. "
@@ -355,7 +352,7 @@ msgstr ""
 "Tryk 'O.k.' for at vælge et andet partitioneringsalternativ."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -364,12 +361,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"Følgende fejl skete med din partitionering:\n"
+"De følgende fejl skete med din partitionering:\n"
 "\n"
 "%s\n"
 "\n"
 "Dette kan ske hvis det ikke findes tilstrækkeligt med plads til "
-"installationen på dine diske.%s"
+"installationen på dine diske. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -510,8 +507,7 @@ msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+msgstr "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1766 ../fsset.py:2456
 #: ../gui.py:962 ../gui.py:1114 ../harddrive.py:80 ../harddrive.py:126
@@ -527,8 +523,7 @@ msgstr "Dumpet blev ikke skrevet"
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
-"Der var et problem ved skrivning af dit systems tilstand til disketten. "
+msgstr "Der var et problem ved skrivning af dit systems tilstand til disketten. "
 
 #: ../exception.py:432
 msgid ""
@@ -540,8 +535,7 @@ msgstr ""
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
+msgstr "Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
 
 #: ../fsset.py:214
 msgid "Checking for Bad Blocks"
@@ -684,7 +678,7 @@ msgstr ""
 "det i hviletilstand."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -700,7 +694,7 @@ msgstr ""
 "\n"
 "i din /etc/fstab-fil bruges i øjeblikket som en partition for "
 "programmelsuspendering, hvilket indebærer at dit system er i hviletilstand. "
-"Hvis du laver en ny installation bør du se til at installationsprogrammet er "
+"Hvis du er i gang med en ny installation bør du se til at installationsprogrammet er "
 "sat op til at formatere alle swappartitioner."
 
 #: ../fsset.py:1530
@@ -992,9 +986,8 @@ msgid "Cancel"
 msgstr "Annullér"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Installationsmetode"
+msgstr "Installationsnøgle"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1305,37 +1298,31 @@ msgstr ""
 "Vil du fortsætte eller afbryde din installation?"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Kunne ikke installere det første installeringsbillede %s"
+msgstr "Kunne ikke finde installeringsbillede"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s-installation"
+msgstr "Afslut installering"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Overfører installationsbillede til harddisken..."
+msgstr "Overfører live installationsbillede til harddisken..."
 
 #: ../livecd.py:145
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s-installation"
+msgstr "Laver efter-installation"
 
 #: ../livecd.py:146
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Starter installationsproces. Dette kan tage adskillige minutter..."
+msgstr "Udfører filsystemændringer efter installationen. Dette kan tage adskillige minutter..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1343,25 +1330,22 @@ msgstr "Værtsnavnet skal være højst 64 tegn langt."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
+msgstr "Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Værtsnavne må kun indeholde tegnene 'a-z', 'A-Z', '-' og '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP-adresse mangler."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP-adresser skal indeholde fire tal tal mellem 0 og 255, adskilt af "
+"IPv4-adresser skal indeholde fire tal tal mellem 0 og 255, adskilt af "
 "punktummer."
 
 #: ../network.py:96
@@ -1370,19 +1354,17 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s er ikke en gyldig IPv6-adresse."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s er ikke en gyldig IPv6-adresse."
+msgstr "%s er en ugyldig IP-adresse."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ugyldigt præfiks"
+msgstr "Ugyldig nøgle"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Den værdi, du angav, er ikke et gyldigt tal."
+msgstr "Den nøgle, du angav, er ugyldig."
 
 #: ../packages.py:286
 #, fuzzy
@@ -1734,18 +1716,15 @@ msgid "Confirm Reset"
 msgstr "Bekræft nulstilling"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til oprindelig "
 "tilstand?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1991,10 +1970,8 @@ msgstr ""
 "derfor ikke være startbar."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -2014,8 +1991,7 @@ msgstr ""
 "for en almindelig installation af %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installerer på en USB-enhed. Dette kan give et fungerende system, men det er "
 "ikke sikkert."
@@ -2278,17 +2254,14 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
 #: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
+msgstr "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2665,10 +2638,8 @@ msgstr "Fejl ved kørsel af transaktion..."
 
 #: ../yuminstall.py:569
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
 
 #: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
 #: ../yuminstall.py:928
@@ -2803,8 +2774,7 @@ msgstr "'root'-adgangskoden skal være mindst 6 tegn lang."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Den udbedte adgangskode indeholder ikke-ascii tegn som ikke er tilladt til "
 "brug i en adgangskode."
@@ -2841,8 +2811,7 @@ msgstr "Fejl med Data"
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Fjern alle partitioner på valgte partitioner og opret standardudlægning."
+msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægning."
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 #, fuzzy
@@ -3299,8 +3268,7 @@ msgstr "Ugyldig størrelse"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1291
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
+msgstr "Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
@@ -3309,8 +3277,7 @@ msgstr "Monteringspunkt i brug"
 #: ../iw/lvm_dialog_gui.py:557
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-"Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
+msgstr "Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3395,8 +3362,7 @@ msgstr "Navnet er i brug"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
+msgstr "Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3922,14 +3888,12 @@ msgid "Partitioning"
 msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Disse fejl skal rettes op før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:641
@@ -4444,10 +4408,8 @@ msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4588,8 +4550,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../iw/zipl_gui.py:28
@@ -4731,8 +4692,7 @@ msgstr ""
 "hvilket navn du vil bruge for hvert af dem."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Mellemrum> vælg | <F2> vælg standard | <F4> slet | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:386
@@ -4859,10 +4819,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Venligst vælg de pakkegrupper du ønsker at installere."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5259,8 +5217,7 @@ msgstr "Filsystemsvalgmuligheder"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
+msgstr "Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
 
 #: ../textw/partition_text.py:609
 msgid "Check for bad blocks"
@@ -5289,8 +5246,7 @@ msgstr "Ikke understøttet"
 #: ../textw/partition_text.py:772
 #, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
+msgstr "LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5389,10 +5345,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -5424,8 +5378,7 @@ msgstr "Hvilke drev vil du bruge til denne installation?"
 #: ../textw/partition_text.py:1573
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -6070,10 +6023,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Velkommen til %s - redningstilstand"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6107,8 +6058,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -6319,8 +6269,7 @@ msgstr "Fejlagtigt argument til enhedskickstartmetodekommandoen %s: %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Det følgende ugyldige argument blev angivet til kickstartkommandoen for "
 "drivrutinediskette: %s:%s"
@@ -6459,8 +6408,7 @@ msgid "Missing Information"
 msgstr "Manglende information"
 
 #: ../loader2/net.c:1207
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Du skal indtaste både en gyldig IPv4-adresse og en netmaske eller et CIDR-"
 "præfiks."
@@ -6635,8 +6583,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
+msgstr "Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
 
 #: ../loader2/urls.c:457
 msgid "Account name:"
@@ -6864,8 +6811,7 @@ msgstr "Tilpas _senere"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"Vælg de yderligere datalagre du vil bruge for installation af programmer."
+msgstr "Vælg de yderligere datalagre du vil bruge for installation af programmer."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7126,859 +7072,3 @@ msgstr "Walisisk"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fjern alle medier brugt under installationsprocessen og tryk på "
-#~ "'Genstart'-knappen for at genstarte dit system.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fjern alle medier, som du har brugt i installationsprocessen og tryk "
-#~ "<Retur> for at genstarte dit system.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Retur> for at genstarte"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS-billede"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "Kerne 2.4 kræver betydeligt mere swap end ældre kerner. Faktisk helst det "
-#~ "dobbelte af den mængde RAM, systemet har. Du har konfigureret %dMb swap, "
-#~ "men du kan oprette mere swapplads på en af dine filsystemer nu."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "Færdigt [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "Installerer %s-%s-%s... "
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Angiv registreringsnøglen for din version af %s."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Indtast registreringsnøgle"
-
-#~ msgid "Key:"
-#~ msgstr "Nøgle:"
-
-#~ msgid "_Format drive"
-#~ msgstr "_Formatér drev"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr "Følgende advarsler opstod med dit partitioneringsoplæg."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "Resterende tid: %s minuter"
-
-#~ msgid "Downloading %s"
-#~ msgstr "Henter %s"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "Installerer %s-%s-%s.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "Pakke"
-
-#~ msgid "Summary"
-#~ msgstr "Resumé"
-
-#~ msgid "Status: "
-#~ msgstr "Status: "
-
-#~ msgid "Description: %s"
-#~ msgstr "Beskrivelse: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Maskin-adresse: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "Brug dynamisk IP-konfiguration (DHCP)"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "IP-adresse"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "IPv6-præfiks må kun indeholde tal mellem 0 og 128."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "Skal have en \"/\"-partition at installere på."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "Henter - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " Navn   : "
-
-#~ msgid " Size   : "
-#~ msgstr " Størrelse: "
-
-#~ msgid " Summary: "
-#~ msgstr " Resumé: "
-
-#~ msgid "    Packages"
-#~ msgstr "      Pakker"
-
-#~ msgid "      Bytes"
-#~ msgstr "      Byte"
-
-#~ msgid "        Time"
-#~ msgstr "         Tid"
-
-#~ msgid "Total    :"
-#~ msgstr "Total    :"
-
-#~ msgid "Completed:   "
-#~ msgstr "Færdig   :   "
-
-#~ msgid "Remaining:  "
-#~ msgstr "Tilbage  :  "
-
-#~ msgid "Acre"
-#~ msgstr "Acre"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "Alagoas, Sergipe"
-
-#~ msgid "Alaska Time"
-#~ msgstr "Alaska-tid"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "Alaska-tid - Alaska-halvøen"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "Alaska-tid - Alaska-halvøens fod"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "Alaska-tid - vestlige Alaska"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "Aleuterne"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "Amapa, Østpara"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "Amundsen-Scott-stationen, Sydpolen"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aqtobe (Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "Atlantisk Standard Tid - Québec - Nedre nordre kyst"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "Atlantisk tid - Labrador - de fleste steder"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "Atlantisk tid - New Brunswick"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "Atlantisk tid - (det meste af) Nova Scotia, PEI"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr ""
-#~ "Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "Atlantiske øer"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#~ msgid "Azores"
-#~ msgstr "Azorerne"
-
-#~ msgid "Bahia"
-#~ msgstr "Bahia"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "Buenos Aires (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "Kanarieøerne"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "Casey-stationen, Bailey-halvøen"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "Catamarca (CT), Chubut (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "Centralamerikansk standardtid - Saskatchewan - midtvesten"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "Centralamerikansk standardtid - Saskatchewan - de fleste steder"
-
-#~ msgid "Central Time"
-#~ msgstr "Centralamerikansk tid"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "Centralamerikansk tid - Campeche, Yucatan"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "Centralamerikansk tid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "Centralamerikansk tid - Indiana - Daviess, Dubois, Knox, Martin, Perry & "
-#~ "Pulaski amter"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "Centralamerikansk tid - Indiana - Pike County"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "Centralamerikansk tid - Manitoba & vestlige Ontario"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "Centralamerikansk tid - Michigan -  Dickinson, Gogebic, Iron & Menominee "
-#~ "amter"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr ""
-#~ "Centralamerikansk tid - North Dakota - Morton County (undtagen Mandan-"
-#~ "området)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "Centralamerikansk tid - North Dakota - Oliver County"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "Centralamerikansk tid - Quintana Roo"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "Centralamerikansk tid - Rainy-floden & Fort Frances, Ontario"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "Centralamerikansk tid - Centrale Nunavut"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "Centralamerikansk tid - de fleste steder"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "Centralamerikansk tid - Vestnunavut"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "Ceuta & Melilla"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "Chathamøerne"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "Davis-stationen, Vestfold Hills"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod, Sukhbaatar"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "Dumont-d'Urville Base, Terre Adelie"
-
-#~ msgid "E Amazonas"
-#~ msgstr "Østamazonas"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "Påskeøen & Sala y Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr ""
-#~ "Østamerikansk standardtid - Atikokan, Ontario and Southampton I, Nunavut"
-
-#~ msgid "Eastern Time"
-#~ msgstr "Østamerikansk tid"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "Østamerikansk tid - Indiana - Crawford County"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "Østamerikansk tid - Indiana - Starke County"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "Østamerikansk tid - Indiana - Switzerland County"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "Østamerikansk tid - Indiana - de fleste steder"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "Østamerikansk tid - Kentucky - Louisville-området"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "Østamerikansk tid - Kentucky - Wayne County"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "Østamerikansk tid - Michigan - de fleste steder"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "Østamerikansk tid - Ontario & Québec - steder, der ikke havde sommertid i "
-#~ "1967-1973"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "Østamerikansk tid - Ontario - de fleste steder"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "Østamerikansk tid - Pangnirtung, Nunavut"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "Østamerikansk tid - Québec - de fleste steder"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "Østamerikansk tid - Thunder Bay, Ontario"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "Østamerikansk standardtid - Østnunavut"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "Galapagosøerne"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Gambierøerne"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "Gilbertøerne"
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "Heilongjiang (undtagen Mohe), Jilin"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "Irlandsk Jaya & Moluccaerne"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "Java & Sumatra"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "Johnston-atollen"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "Jujuy (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "Kosrae"
-
-#~ msgid "Kwajalein"
-#~ msgstr "Kwajalein"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "La Rioja (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "Linieøerne"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "Lord Howe-øen"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "Madeiraøerne"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "Marquesasøerne"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "Mato Grosso"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "Mato Grosso do Sul"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Mawson-stationen, Holme Bay"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "McMurdo-stationen, Ross-øen"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "Mendoza (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "Midway-øerne"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "Moskva+00 - Kaspiske Hav"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "Moskva+00 - vestlige Rusland"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "Moskva+01 - Samara, Udmurtia"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "Moskva+02 - Uralbjergene"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "Moskva+03 - Novosibirsk"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "Moskva+03 - vestlige Sibirien"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "Moskva+04 - Yeniseifloden"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "Moskva+05 - Baikalsøen"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "Moskva+06 - Lenafloden"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "Moskva+07 - Amurfloden"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "Moskva+07 - Sakhalin-øen"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "Moskva+08 - Magadan"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "Moskva+09 - Kamchatka"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "Moskva+10 - Beringstrædet"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "Moskva-01 - Kaliningrad"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "Amerikansk bjerg-standardtid - Arizona"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr ""
-#~ "Amerikansk bjerg-standardtid - Dawson Creek & Fort Saint John, Britisk "
-#~ "Columbia"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "Amerikansk bjerg-standardtid - Sonora"
-
-#~ msgid "Mountain Time"
-#~ msgstr "Amerikansk bjergtid"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "Amerikansk bjergtid - Alberta, østlige Britisk Columbia & vestlige "
-#~ "Saskatchewan"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "Amerikansk bjergtid - Chihuahua"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "Amerikansk bjergtid - Navajo"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "Amerikansk bjergtid - Syedbaja, Nayarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "Amerikansk bjergtid - midt Nordvest-territorierne"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "Amerikansk bjergtid - Sydlige Idaho & Østlige Oregon"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "Amerikansk bjergtid - vestlige nordvestterritorier"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "Nordøstbrasilien (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "New South Wales - Yancowinna"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "New South Wales - de fleste steder"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "Newfoundlandtid, inklusive SØ Labrador"
-
-#~ msgid "Northern Territory"
-#~ msgstr "Nord-territoriet"
-
-#~ msgid "Pacific Time"
-#~ msgstr "Stillehavstid"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "Stillehavstid - nordlige Yukon"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "Stillehavstid - sydlige Yukon"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "Pacific Time - vestlige Britisk Columbia"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Palmer-stationen, Anversøen"
-
-#~ msgid "Pernambuco"
-#~ msgstr "Pernambuco"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "Fønixøerne"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "Ponape (Pohnpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "Queensland - Ferieøerne"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "Queensland - de fleste steder"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Roraima"
-#~ msgstr "Roraima"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Rothera-stationen, Adelaide-øen"
-
-#~ msgid "Ruthenia"
-#~ msgstr "Ruthenia"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "Sydlige & sydøstlige Brasilien (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "Sabah & Sarawak"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "San Juan (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "Santa Cruz (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#~ msgid "Society Islands"
-#~ msgstr "Selskabsøerne"
-
-#~ msgid "South Australia"
-#~ msgstr "Sydlige Australien"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Syowa-stationen, Østongul"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "Tasmania - King Island"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "Tasmania - de fleste steder"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Thule / Pituffik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "Tierra del Fuego (TF)"
-
-#~ msgid "Tocantins"
-#~ msgstr "Tocantinerne"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "Truk (Chuuk) og Yap"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "Tucuman (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "Victoria"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "Vostok-stationen, Magnetisk sydpol"
-
-#~ msgid "W Amazonas"
-#~ msgstr "Vestamazonas"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "Vestpara, Rondonien"
-
-#~ msgid "Wake Island"
-#~ msgstr "Wake Island"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "Vestlige Kazakhstan"
-
-#, fuzzy
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "vestlige Australien"
-
-#, fuzzy
-#~ msgid "Western Australia - most locations"
-#~ msgstr "Centralamerikansk tid - de fleste steder"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporozh'ye, Østlugansk"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "centrale Kina - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, osv."
-
-#~ msgid "central Crimea"
-#~ msgstr "centrale Krim"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "østlige Kina - Beijing, Guangdong, Shanghai, osv."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "Demokratiske Republik Congo - øst"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "Østlige Uzbekistan"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "østkysten, nord for Scoresbysund"
-
-#~ msgid "mainland"
-#~ msgstr "hovedlandet"
-
-#~ msgid "most locations"
-#~ msgstr "de fleste steder"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr ""
-#~ "de fleste steder (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "de meste af Tibet og Xinjiang"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "Malaysia-halvøen"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "Vest- og Central-Borneo"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "vestlige Dem. Republik Congo"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "Vesttibet og Xinjiang"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "vestlige Uzbekistan"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Fejl ved montering af filsystem på %s: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "Opgradér eksisterende system"
-
-#~ msgid "Upgrade"
-#~ msgstr "Opgradér"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI-id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "Du har ikke angivet en SCSI-id eller ID'en er ugyldigt."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "Du har ikke angivet et SCSI LUN eller nummeret er ugyldigt."
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Brug dynamisk IP-konfiguration (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Aktivér ved opstart"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4-adresse:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6-adresse:"
-
-#~ msgid "Configure %s"
-#~ msgstr "Konfigurér %s"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP-opsætning"
-
-#~ msgid "_Remove"
-#~ msgstr "_Fjern"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP-enheder"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "Redigér FCP-enhed %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "Du er ved at fjerne en FCP-disk fra din konfiguration. Er du sikker på at "
-#~ "du ønsker at fortsætte?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Ugyldig IP-streng"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "Den angivne IP-adresse \"%s\" er ikke en gyldig IP-adresse."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Punkt-til-punkt (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Netværksenhed: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Konfigurér ved brug af DHCP"
-
-#~ msgid "Invalid information"
-#~ msgstr "Ugyldig information"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "Du skal indtaste gyldig IP-information for at fortsætte"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Tertiær DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP-enhed"
-
-#~ msgid "Device #"
-#~ msgstr "Enhedsnummer"
-
-#~ msgid "Add"
-#~ msgstr "Tilføj"
-
-#~ msgid "Remove"
-#~ msgstr "Fjern"
-
-#~ msgid "_Custom"
-#~ msgstr "_Tilpasset"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "Vælg denne installationstype for at få fuldstændig kontrol over "
-#~ "installationsprocessen, inklusive valg af programpakker og partitionering."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "_Personligt skrivebord"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "Denne installationstype er perfekt for personmaskiner eller bærbare "
-#~ "maskiner. Vælg denne installationstype for at installere et grafisk "
-#~ "skrivebordsmiljø og skabe et system som er perfekt for hjemme- eller "
-#~ "skrivebordsbrug."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\tSkrivebordsskal (GNOME)\n"
-#~ "\tKontorprogrammel (OpenOffice.org)\n"
-#~ "\tWeblæser\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tHurtig-meddelelser\n"
-#~ "\tProgrammer for lyd og video\n"
-#~ "\tSpil\n"
-
-#~ msgid "_Server"
-#~ msgstr "_Server"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "Vælg denne installationstype hvis du vil konfigurere fildeling, "
-#~ "udskriftsdeling og webtjenester. Yderligere tjenester kan desuden "
-#~ "aktiveres, og du kan vælge om du vil installere et grafisk miljø eller ej."
-
-#~ msgid "_Workstation"
-#~ msgstr "_Arbejdsstation"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "Dette alternativ installerer et grafisk skrivebordsmiljø med værktøjer "
-#~ "for programmeludvikling og systemadministration. "
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsskal (GNOME)\n"
-#~ "\tKontorprogrammel (OpenOffice.org)\n"
-#~ "\tWeblæser\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tHurtig-meddelelser\n"
-#~ "\tProgrammer for lyd og video\n"
-#~ "\tSpil\n"
-#~ "\tProgramudviklingsværktøjer\n"
-#~ "\tAdministrationsværktøjer\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Undgå uønskede pakkekollisioner"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Maksimér registerværdier for højhastighedsnetværkstrafik"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "Du skal vælge mindst en protokol (IPv4 eller IPv6) for manuel "
-#~ "konfiguration."
