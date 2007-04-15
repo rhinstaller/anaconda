@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-15 12:43+0200\n"
+"PO-Revision-Date: 2007-04-16 01:35+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1367,9 +1367,8 @@ msgid "The key you entered is invalid."
 msgstr "Den nøgle, du angav, er ugyldig."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Overspring"
+msgstr "_Overspring"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1594,7 +1593,7 @@ msgstr ""
 "Ønsker du at formatere denne partition som en swappartition?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Du skal vælge mindst et drev, som du skal installere %s på."
 
@@ -1831,7 +1830,7 @@ msgstr ""
 "Vil du omformatere denne DASD med CDL-format?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1839,11 +1838,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s har nuværende et %s partitions layout. For at bruge denne disk til "
-"installationen af %s, må den først blive re-initialiseret, hvilket medfører "
-"tab af ALLE DATA på denne disk.\n"
+"/dev/%s har i øjeblikket et %s partitions layout. For at bruge dette diskdrev til "
+"installationen af %s, skal den først re-initialiseres, hvilket medfører "
+"tab af ALLE DATA på dette diskdrev.\n"
 "\n"
-"Ønsker du at initiere denne disk?"
+"Ønsker du at re-initiere dette diskdrev?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1851,7 +1850,7 @@ msgstr "Ignorér drev"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Re-initialisér diskdrev"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -2235,9 +2234,9 @@ msgid "No help is available for this step of the install."
 msgstr "Ingen hjælp er tilgængelig for dette trin af installationen."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Angiv et afsnitsgruppenavn."
+msgstr "Angiv din %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
@@ -2583,14 +2582,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Forbereder installation fra installationskilde..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Installerer %s\n"
+msgstr "<b>Installerer %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s af %s pakker fuldførte"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
@@ -2745,7 +2744,7 @@ msgstr "Du har ikke angivet et FCP LUN, eller nummeret er ugyldigt."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Lås skift er slået til</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2773,11 +2772,8 @@ msgid "The root password must be at least six characters long."
 msgstr "'root'-adgangskoden skal være mindst 6 tegn lang."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Den udbedte adgangskode indeholder ikke-ascii tegn som ikke er tilladt til "
-"brug i en adgangskode."
+msgstr "Den udbedte adgangskode indeholder ikke-ascii tegn som ikke er tilladt."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2800,23 +2796,20 @@ msgid "Invalid Initiator Name"
 msgstr "Ugyldigt Initiator-navn"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Du skal angive et ikke-tomt initiator-navn."
+msgstr "Du skal angive et initiator-navn."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "Fejl med Data"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægning."
+msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægning"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Fjern Linuxpartitioner på valgte enheder og opret et forvalgt layout."
+msgstr "Fjern Linuxpartitioner på valgte enheder og opret et forvalgt layout"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 #, fuzzy
@@ -3336,18 +3329,17 @@ msgid "No free space"
 msgstr "Ingen ledig plads"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Der findes ingen plads ledigt i afsnitgruppen til at oprette nye logiske "
+"Der er ingen plads ledig i afsnitgruppen til at oprette nye logiske "
 "afsnit. Før at tilføje et logisk afsnit skal du formindske størrelsen på en "
 "eller flere af de nuværende logiske afsnit"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Er du sikker på at du vil slette det logiske afsnit '%s'?"
 
@@ -3530,9 +3522,8 @@ msgid "Nameserver"
 msgstr "Navneserver"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Et fejl skete ved konfigurering af netværksgrænsesnittet."
+msgstr "Fejl ved konfigurering af netværksenhed"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -3587,14 +3578,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:155 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "En værdi kræves i feltet \"%s\"."
+msgstr "En værdi kræves for feltet %s."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "Fejl med data"
+msgstr "Fejl med %s data"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:584 ../textw/network_text.py:588
@@ -3604,9 +3595,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:56
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "Den IP-information, du angav, er ikke gyldig."
+msgstr "Den IPv4-information, du angav, er ugyldig."
 
 #: ../iw/network_gui.py:167
 msgid ""
@@ -3618,7 +3608,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiveret"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
@@ -3668,32 +3658,28 @@ msgid "Miscellaneous Settings"
 msgstr "Diverse indstillinger"
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "Redigér RAID-enhed"
+msgstr "Redigér enhed "
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Ukeldt Ethernet-enhed"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
-msgstr "Ukendt"
+msgstr "ukendt"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Maskin-adresse: %s"
+msgstr "Maskinel-adresse: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Manglende protokol"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Du skal vælge mindst en protokol (IPv4 eller IPv6) for DHCP."
+msgstr "Du skal vælge mindst IPv4 eller IPv6 understøttelse."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -3709,16 +3695,15 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6-præfiks må kun indeholde tal mellem 0 og 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"Du kan konfigurere opstartsindlæseren til at starte andre operativsystemer. "
-"Det lader dig vælge et operativsystem der kan startes fra listen. For at "
-"tilføje yderligere operativsystemer, som ikke opdages automatisk, klikker du "
+"Du kan konfigurere opstartsindlæseren til at starte andre operativsystemer ved at vælge fra listen. "
+"For at "
+"tilføje endnu et operativsystem, som ikke blev opdaget automatisk, klikker du "
 "på \"Tilføj\". Før at ændre det operativsystem som startes som standard "
 "vælger du \"Standard\" ved siden af det ønskede operativsystem."
 
@@ -3735,13 +3720,12 @@ msgid "Image"
 msgstr "Aftryk"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"Angiv en etikette som vises i opstartsindlæsermenuen. Enheden (eller disk og "
-"partitionsnummer) er den enhed som den starter fra."
+"Angiv en etikette som vises af opstartsindlæser-menuen. Enheden (eller disk og "
+"partitionsnummer) er den enhed som den starter op fra."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3892,9 +3876,9 @@ msgid "The partitioning scheme you requested caused the following critical error
 msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr "Disse fejl skal rettes op før du fortsætter med installationen af %s."
+msgstr "Du skal rette disse fejl før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4012,7 +3996,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4098,13 +4081,11 @@ msgid "Check for _bad blocks?"
 msgstr "Se efter _beskadigede blokke?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
-msgstr ""
-"Partitioner af typen \"%s\" skal begrænses til en enkelt disk. Dette gøres "
-"ved at vælge disken i tjeklisten \"Tilladte diske\"."
+msgstr "Partitioner af typen '%s' skal begrænses til et enkelt diskdrev. Dette gøres ved at vælge diskdrevet i tjeklisten \"Tilladte diskdrev\"."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4184,20 +4165,19 @@ msgid "Source Drive Error"
 msgstr "Kildediskfejl"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"Kildedisken som valgtes har partitioner på sig som ikke er af typen "
+"Kildedrevet som valgtes har partitioner på sig som ikke er af typen "
 "\"programmel-RAID\".\n"
 "\n"
-"Disse partitioner skal fjernes inden denne disk kan klones. "
+"Disse partitioner skal fjernes inden dette diskdrev kan klones. "
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4205,23 +4185,22 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Kildedisken har partitioner som ikke er begrænset til disken /dev/%s.\n"
+"Kildedrevet har partitioner som ikke er begrænset til diskdrevet /dev/%s.\n"
 "\n"
-"Disse partitioner skal fjernes eller begrænses til kun denne disk inden "
-"denne disk kan klones. "
+"Disse partitioner skal fjernes eller begrænses til kun dette diskdrev inden "
+"dette diskdrev kan klones. "
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
 "\n"
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
-"Kildedisken som valgtes har programmel-RAID-partitioner som er medlemmer i "
+"Kildedrevet som valgtes har programmel-RAID-partitioner som er medlemmer i "
 "en aktiv programmel-RAID-enhed.\n"
 "\n"
-"Disse partitioner skal fjernes inden denne disk kan klones."
+"Disse partitioner skal fjernes inden dette diskdrev kan klones."
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4238,7 +4217,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Kildedisken /dev/%s kan ikke også vælges som en måldisk."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4247,12 +4226,12 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Måldisken /dev/%s har en partitionstabel som ikke kan fjernes af følgende "
+"Måldrevet /dev/%s har en partition som ikke kan fjernes af følgende "
 "grund:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Denne partition skal fjernes inden denne disk kan være et mål."
+"Denne partition skal fjernes inden dette diskdrev kan blive et mål."
 
 #: ../iw/raid_dialog_gui.py:619
 msgid "Please select a source drive."
@@ -4290,7 +4269,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "En fejl skete ved tømning af måldiskene. Kloning mislykkedes."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4310,13 +4288,13 @@ msgstr ""
 "Dette værktøj lader dig reducere mængden af arbejde som kræves for at "
 "konfigurere RAID-kæder betydeligt. Tanken er at tage et kildedrev som er "
 "forberedt med den ønskede partitionsstruktur og dernæst klone denne struktur "
-"på andre lignende diske med samme størrelse. Da kan en RAID-enhed oprettes.\n"
+"på andre diskdrev med lignende størrelse. Da kan en RAID-enhed oprettes.\n"
 "\n"
-"OBS: Kildedisken skal have partitioner som er begrænsede til at kun være på "
-"den disk, og får kun indeholde ubrugte programmel-RAID-partitioner. Andre "
+"OBS: Kildedrevet skal have partitioner som er begrænsede til at kun være på "
+"dette diskdrev, og må kun indeholde ubrugte programmel-RAID-partitioner. Andre "
 "partitionstyper er ikke tilladte.\n"
 "\n"
-"ALLE DATA på måldiskene vil blive ødelagt i denne proces."
+"ALLE DATA på måldrevene vil blive ødelagt ved denne proces."
 
 #: ../iw/raid_dialog_gui.py:712
 msgid "Source Drive:"
@@ -4356,22 +4334,19 @@ msgstr ""
 "er blevet genereret korrekt.  %s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
-msgstr ""
-"Kan ikke finde en gruppefil for %s.  Dette gør at manuelt valg af pakker fra "
-"datalagret ikke vil fungere"
+msgstr "Kan ikke finde en gruppefil for %s.  Dette vil forhindre manuelt valg af pakker fra datalagret i at fungere"
 
 #: ../iw/task_gui.py:122
 msgid "Invalid Repository Name"
 msgstr "Ugyldigt registernavn"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "Det er nødvendigt at du angiver et ikke-tomt navn på registeret."
+msgstr "Du skal angive et navn på registret."
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4459,7 +4434,7 @@ msgid "Migrate File Systems"
 msgstr "Migrér filsystemer"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4468,9 +4443,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne udgave af %s understøtter det journaliserende ext3-filsystem. Det har "
-"flere fordele fremfor ext2-filsystemet som traditionelt har vært brugt i %s. "
-"Det er muligt at migrere ext2-formaterede partitioner til ext3 uden tab af "
+"Denne udgave af %s understøtter det journaliserende ext3-filsystem, som har "
+"flere fordele fremfor ext2-filsystemet traditionelt leveret med %s. "
+"Dette installationsprogram kan migrere ext2-formaterede partitioner til ext3 uden tab af "
 "data.\n"
 "\n"
 "Hvilke af disse partitioner ønsker du at migrere?"
