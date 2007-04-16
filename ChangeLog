@@ -1,3 +1,9 @@
+2007-04-16  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/usb.c (usbInitialize):  Probe PS3 bus for hardware
+	(#236480, dwmw2 AT redhat.com).
+	* loader2/hardware.c (detectHardware):  Likewise.
+
 2007-04-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

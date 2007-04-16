@@ -63,16 +63,16 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
     char ** modList;
     int numMods;
     char *driver;
-    
+
     logMessage(DEBUGLVL, "probing buses");
-    
+
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
-                           BUS_PCMCIA | BUS_XEN,
+                           BUS_PCMCIA | BUS_XEN | BUS_PS3,
                            PROBE_ALL);
 
     logMessage(DEBUGLVL, "finished bus probing");
-    
+
     if (devices == NULL) {
         *modules = NULL;
         return LOADER_OK;
