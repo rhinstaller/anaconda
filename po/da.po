@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-16 01:35+0200\n"
+"PO-Revision-Date: 2007-04-16 22:16+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4455,14 +4455,14 @@ msgid "Upgrade Swap Partition"
 msgstr "Opgradér swappartition"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Kerne 2.4 kræver betydeligt mere swap end ældre kerner, så meget som det "
+"Nyere kerner (2.4 eller nyere) kræver betydeligt mere swap end ældre kerner, så meget som det "
 "dobbelte swapplads som den mængde RAM, systemet har. Du har konfigureret %"
 "dMb swap, men du kan oprette mere swapplads på et af dine filsystemer nu."
 
@@ -4511,7 +4511,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Jeg vil _ikke oprette en swapfil"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4591,7 +4590,6 @@ msgid "Skip Boot Loader"
 msgstr "Overspring opstartsindlæser"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4599,22 +4597,20 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Du har valgt ikke at installere nogen opstartsindlæser. Det anbefales "
-"kraftigt, at du installerer en opstartsindlæser medmindre du har avancerede "
+"Du har valgt ikke at installere nogen opstartsindlæser, hvilket ikke er anbefalet, medmindre du har avancerede "
 "behov. En opstartsindlæser er næsten altid påkrævet for at genstarte dit "
 "system med Linux direkte fra harddisken.\n"
 "\n"
 "Er du sikker på, at du vil springe installationen af opstartsindlæser over?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "Nogle få systemer har brug for angive særlige parametre til kernen under "
-"opstarten for at systemet kan fungere. Hvis du har brug for at tilføje "
+"opstarten for at systemet kan fungere ordentligt. Hvis du har brug for at overføre "
 "opstartsparametre til kernen, så indtast dem nu. Hvis du ikke behøver det "
 "eller er i tvivl, så lad dette felt stå tomt."
 
@@ -4656,7 +4652,7 @@ msgid "Edit"
 msgstr "Redigér"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
@@ -4671,14 +4667,13 @@ msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Mellemrum> vælg | <F2> vælg standard | <F4> slet | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "En adgangskode for opstartsindlæseren hindrer brugere i at give tilfældige "
-"flag til kernen. For højest mulig sikkerhed anbefaler vi at sætte en "
+"flag til kernen. For at få højest mulig sikkerhed bør du sætte en "
 "adgangskode, men dette er ikke nødvendig for brugere med mindre krav til "
 "sikkerhed."
 
@@ -4789,7 +4784,6 @@ msgstr ""
 "genstartet dit system. Du kan beholde denne fil til senere reference."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "Venligst vælg de pakkegrupper du ønsker at installere."
 
@@ -4799,7 +4793,7 @@ msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste sk
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "Ingen yderligere pakker at vælge"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4830,22 +4824,22 @@ msgid "Mouse Selection"
 msgstr "Musevalg"
 
 #: ../textw/network_text.py:50
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Du har ikke angivet en værdi i feltet \"%s\". Afhængigt af dit netværksmiljø "
+"Du har ikke angivet noget i feltet \"%s\". Afhængigt af dit netværksmiljø "
 "kan dette give problemer senere."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4-præfiks må kun indeholde tal mellem 0 og 32."
+msgstr "IPv%d-præfiks skal være mellem 0 og %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "heltal krævet for præfiks"
 
 #: ../textw/network_text.py:72
 #, python-format
