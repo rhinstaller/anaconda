@@ -4,14 +4,15 @@
 #
 # Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006.
 # hi <ssad@dwsdk>, 2007.
+# hi <rranjan@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-12 16:22+0530\n"
-"Last-Translator: hi <ssad@dwsdk>\n"
-"Language-Team: Hindi <en@li.org>\n"
+"PO-Revision-Date: 2007-04-16 16:28+0530\n"
+"Last-Translator: hi <rranjan@redhat.com>\n"
+"Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -201,12 +202,11 @@ msgid ""
 msgstr "%s बूट विभाजन एक VFAT विभाजन नहीं है. EFI इस विभाजन से बूट नहीं कर सकता."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"बूट विभाजन डिस्क में काफी पहले से स्थित नहीं है. ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर "
+"बूट विभाजन जरूर डिस्क में पहले 4GB में स्थित होना चाहिये है. ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर "
 "सकता."
 
 #: ../autopart.py:1038
@@ -354,7 +354,7 @@ msgstr ""
 "'ठीक' को अलग विभाजनकारी विकल्प के लिये चुनें."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -367,7 +367,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"यह तब हो सकता है जब अधिष्ठापन के लिए आपके हार्ड ड्राइव पर पर्याप्त स्थान न हो.%s"
+"यह तब हो सकता है जब अधिष्ठापन के लिए आपके हार्ड ड्राइव पर अधिष्ठापन के लिये पर्याप्त स्थान न हो.%s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -677,7 +677,7 @@ msgstr ""
 "सिस्टम को बंद कीजिये."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -1104,7 +1104,7 @@ msgid ""
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
-msgstr ""
+msgstr "श्रोत युक्ति %s के आरोहन के दौरान त्रुटि घटित हुआ.  यह हो सकता है अगर आपका ISO बिंब उन्नत भंडारण युक्ति पर अवस्थित है LVM या RAID की तरह, या अगर विभाजन आरोहित करने में समस्या थी.  अधिष्ठापन फिर बूट करने के लिये क्लिक करें."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1206,6 +1206,9 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO बिंब %s के पास एक आकार है जो 2048 बाइट का गुणक नहीं है.  इसका मतलब है कि यह इस कंप्यूटर पर हस्तांतरण के दौरान खराब हो गया.\n"
+"\n"
+"इसकी अनुशंसा की जाती है कि आप अपना अधिष्ठापन रोककर फिर बूट करें, लेकिन जारी रखने के लिये चुन सकते हैं अगर आप सोचते हैं कि यह एक त्रुटि है."
 
 #: ../image.py:510
 #, python-format
@@ -1580,7 +1583,7 @@ msgstr ""
 "क्या आप इस विभाजन को एक स्वैप विभाजन की तरह संरुपित करना चाहेंगे?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "आपको %s अधिष्ठापन करने के लिए कम से कम एक हार्ड ड्राइव अवश्य चुनना है."
 
@@ -1803,7 +1806,7 @@ msgstr ""
 "क्या आप CDL संरुप के प्रयोग से इस DASD का पुनःसंरुपण करना चाहेंगे?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1822,7 +1825,7 @@ msgstr "चालन अनदेखा करें (_I)"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "चालन पुनर्प्रारंभीकृत करें (_R)"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -2197,14 +2200,14 @@ msgid "No help is available for this step of the install."
 msgstr "अधिष्ठापन के इस चरण के लिए मदद उपलब्ध नहीं है."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "कृपया एक वॉल्यूम ग्रूप नाम दाखिल करें."
+msgstr "कृपया अपना %(instkey)s डालें"
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s डालना छोडें"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2542,14 +2545,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "अधिष्ठापन श्रोत से विनिमय के लिए तैयार कर रहा है..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "%s अधिष्ठापित कर रहा है\n"
+msgstr "<b>%s अधिष्ठापित कर रहा है</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s %s संकुल का पूर्ण हुआ"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
@@ -2628,7 +2631,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "भंडारण से समूह सूचना पढ़ने में असमर्थ.  यह एक समस्या थी आपके अधिष्ठापन तरू के साथ."
 
 #: ../yuminstall.py:769
 msgid "Uncategorized"
@@ -2702,7 +2705,7 @@ msgstr "आपने एक FCP LUN निर्दिष्ट नहीं क
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>कैप्स लॉक चालू है.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2730,11 +2733,8 @@ msgid "The root password must be at least six characters long."
 msgstr "रूट शब्दकूट कम से कम छः संप्रतीकों का अवश्य होना चाहिए."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"निवेदित शब्दकूट में non-ascii संप्रतीक समाहित है जो कि शब्दकूट में प्रयोग के लिए अनुमति नहीं "
-"है."
+msgstr "निवेदित शब्दकूट में गैर-ASCII संप्रतीक समाहित है जिसकी अनुमति नहीं है."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2757,31 +2757,26 @@ msgid "Invalid Initiator Name"
 msgstr "अवैध आरंभकर्ता नाम"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "आपको जरूर गैर शून्य लंबाई आरंभकर्ता नाम देना चाहिये."
+msgstr "आपको जरूर आरंभकर्ता नाम देना चाहिये."
 
 #: ../iw/autopart_type.py:170
 msgid "Error with Data"
 msgstr "आंकड़ों के साथ त्रुटि"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "चयनित ड्राइव पर सभी विभाजनों को हटाएँ और मूलभूत लेआउट बनायें"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "linux विभाजन को चयनित ड्राइव पर हटायें और मूलभूत लेआउट बनायें."
+msgstr "Linux विभाजन को चयनित ड्राइव पर हटायें और मूलभूत लेआउट बनायें."
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr "चयनित ड्राइव पर मुक्त स्थान का प्रयोग करें और मूलभूत लेआउट बनायें."
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
 msgstr "पसंदीदा लेआउट बनायें."
 
@@ -2831,7 +2826,6 @@ msgid "Passwords do not match"
 msgstr "शब्दकूट मेल नहीं खाता है"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2847,14 +2841,13 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "उन्नत बूट लोडर विन्यास"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"BIOS द्वारा असमर्थित स्थिति में आपके बूटलोडर के लिए LBA32 के उपयोग पर दबाब डालने से "
+"अगर LBA32 आपके सिस्टम के BIOS द्वारा असमर्थित है, इसके उपयोग पर दबाब डालने से "
 "आपकी मशीन बूट होने में असमर्थ होगी.\n"
 "\n"
 "क्या आप जारी करके और LBA32 मोड पर दबाव डालना चाहते हैं?"
@@ -2980,14 +2973,12 @@ msgid "Congratulations"
 msgstr "बधाई"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"अपने सिस्टम को रिबूट करने के लिये \"रिबूट\" दबाएं.\n"
 "\n"
-"\n"
-"अपने सिस्टम को रिबूट करने के लिए 'ठीक' दबाएं."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3034,12 +3025,12 @@ msgid "_Upgrade an existing installation"
 msgstr "एक उपस्थित अधिष्ठापन का उन्नयन करें (_U)"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"यदि आप, अपने उपस्थित %s सिस्टम का उन्नयन करना चाहते हैं तो यह विकल्प चुनें. यह विकल्प "
+"यदि आप अपने उपस्थित %s सिस्टम का उन्नयन करना चाहते हैं तो यह विकल्प चुनें. यह विकल्प "
 "आपके चालन पर उपस्थित आंकड़ें सुरक्षित करेगा."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -3080,7 +3071,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "भौतिक विस्तार बदलाव निश्चित करें"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3222,7 +3212,7 @@ msgid "Mount point in use"
 msgstr "आरोह बिंदु प्रयोग में है"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "\"%s\" आरोह बिंदु प्रयोग में है, कृपया दूसरा लें."
 
@@ -3240,15 +3230,15 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" लॉजिकल वॉल्यूम नाम पहले से प्रयोग में है. कृपया दूसरा लें."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम लॉजिकल वॉल्यूम (%10.2f MB) से बड़ा हैं. इस "
-"सीमा को बढ़ाने के लिए आप इस वॉल्यूम ग्रूप के लिए भौतिक विस्तार आकार बढ़ा सकते हैं और उन्हें "
-"वॉल्यूम ग्रूप से जोड़ सकते हैं."
+"सीमा को बढ़ाने के लिए आप इस वॉल्यूम समूह के लिए भौतिक विस्तार आकार बढ़ा सकते हैं और उन्हें "
+"वॉल्यूम समूह से जोड़ सकते हैं."
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3259,14 +3249,14 @@ msgid "Error With Request"
 msgstr "निवेदन के साथ त्रुटि "
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"जिन लॉजिकल वॉल्यूमों को आपने विन्यस्त किया था उन्हें %g MB की आवश्यकता है, परंतु वॉल्यूम "
-"ग्रूप को केवल %g MB है. कृपया या तो वॉल्यूम ग्रूप को बड़ा बनाएँ या लॉजिकल वॉल्यूम को छोटा "
+"जिन लॉजिकल वॉल्यूमों को आपने विन्यस्त किया था उन्हें %d MB की आवश्यकता है, परंतु वॉल्यूम "
+"ग्रूप को केवल %d MB है. कृपया या तो वॉल्यूम ग्रूप को बड़ा बनाएँ या लॉजिकल वॉल्यूम को छोटा "
 "बनाएँ."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3283,7 +3273,6 @@ msgid "No free space"
 msgstr "कोई मुक्त स्थान नहीं "
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3294,7 +3283,7 @@ msgstr ""
 "अवश्य घटा देना चाहिए."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "क्या आप निश्चित हैं कि \"%s\" लॉजिकल वॉल्यूम को विलोपित करना चाहते हैं?"
 
@@ -3478,9 +3467,8 @@ msgid "Nameserver"
 msgstr "नामसर्वर"
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "आपके संजाल अंतरफलक विन्यासन में एक त्रुटि थी."
+msgstr "आपके संजाल युक्ति विन्यासन में एक त्रुटि थी."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -3535,14 +3523,14 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:155 ../textw/network_text.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "\"%s\"  क्षेत्र के लिए एक मान आवश्यक है."
+msgstr "%s क्षेत्र के लिए एक मान आवश्यक है."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:35
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "आकड़े के साथ त्रुटि"
+msgstr "%s आकड़े के साथ त्रुटि"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:36
 #: ../textw/network_text.py:584 ../textw/network_text.py:588
@@ -3552,9 +3540,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:56
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "आपने जो IP जानकारी दाखिल की है वह अमान्य है."
+msgstr "आपने जो IPv4 जानकारी दाखिल की है वह अमान्य है."
 
 #: ../iw/network_gui.py:167
 msgid ""
@@ -3566,7 +3553,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
-msgstr ""
+msgstr "निष्क्रिय"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
@@ -3616,32 +3603,28 @@ msgid "Miscellaneous Settings"
 msgstr "विविध जमावट"
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID युक्ति संपादन करें"
+msgstr "युक्ति संपादन करें"
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "अज्ञात इथरनेट युक्ति"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
 msgstr "अज्ञात"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "हार्डवेयर पता: %s"
+msgstr "हार्डवेयर पता: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:220 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "गुम प्रोटोकॉल"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:221
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "आपको कम से कम एक प्रोटोकॉल (IPv4 या IPv6) DHCP के लिये जरूर चुनना चाहिये."
+msgstr "आपको कम से कम IPv4 या IPv6) समर्थन जरूर चुनें."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:66 ../loader2/net.c:93
@@ -3657,7 +3640,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 उपसर्ग को 0 और 128 के बीच होना चाहिये."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3667,7 +3649,7 @@ msgstr ""
 "अन्य ऑपरेटिंग सिस्टमों को बूट करने के लिए आप बूटलोडर विन्यस्त कर सकते हैं. यह आपको सूची से "
 "बूट के लिए एक ऑपरेटिंग सिस्टम चुनने की अनुमति देता हैं. अतिरिक्त ऑपरेटिंग सिस्टमों को जोड़ने के "
 "लिए, जो स्वतः खोजे नहीं जा सकते, 'जोड़ें' दबाएँ. मूलभूत द्वारा बूट किये गये ऑपरेटिंग सिस्टम "
-"को बदलने के लिए, उल्लिखित ऑपरेटिंग सिस्टम द्वारा 'मूलभूत' चुनें."
+"को बदलने के लिए, इच्छित ऑपरेटिंग सिस्टम द्वारा 'मूलभूत' चुनें."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3682,7 +3664,6 @@ msgid "Image"
 msgstr "बिंब"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3836,12 +3817,12 @@ msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "विभाजन योजना जिसके लिये आपने आग्रह किया है के कारण निम्न गंभीर त्रुटि आयी."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr "आपके %s के अधिष्ठापन से जारी होने से पहले यह त्रुटि सही किया जाना जरूरी है."
+msgstr "आपके %s अधिष्ठापन के जारी रहने के पहले आपको जरूर इन त्रुटियों को सही करना चाहिये."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -3849,7 +3830,7 @@ msgstr "विभाजन करने में त्रुटि"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "विभाजनकारी योजना जिसके लिये आपने निवेदन किया है के कारण निम्न चेतावनी उत्पन्न हुई."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3958,14 +3939,13 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
 "mounted.\n"
 "\n"
 msgstr ""
-"RAID उपयोग के लिए, आप सर्वप्रथम 'सॉफ्टवेयर RAID' प्रकार के कम से कम दो विभाजन अवश्य "
+"RAID के उपयोग के लिए, आप सर्वप्रथम 'सॉफ्टवेयर RAID' प्रकार के कम से कम दो विभाजन अवश्य "
 "बनाएँ. तब आप एक RAID युक्ति बना सकते हैं जो संरूपित और आरोहित हो सकती हैं.\n"
 "\n"
 
@@ -4043,13 +4023,13 @@ msgid "Check for _bad blocks?"
 msgstr "बुरे खण्डों के लिए जाँचें? (_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "'%s' प्रकार के विभाजनों को आवश्य एक एकल चालन के लिए निर्धारित होना चाहिए . यह "
-"'स्वीकृत चालन' जाँच-सूची में चालन चुनने से होता है."
+"'अनुमतिप्राप्त चालन' जाँच-सूची में चालन चुनने से होता है."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4129,7 +4109,6 @@ msgid "Source Drive Error"
 msgstr "स्रोत चालन त्रुटि"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4141,7 +4120,7 @@ msgstr ""
 "इस चालन के क्लोन करने से पहले, इन विभाजनों को हटाना पड़ेगा."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4149,12 +4128,11 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"चयनित स्रोत चालन पर विभाजन हैं जो  /dev/%s चालन के लिए निरूद्ध नहीं हैं .\n"
+"चयनित स्रोत चालन पर विभाजन हैं जो /dev/%s चालन के लिए परिसीमित नहीं हैं .\n"
 "\n"
 "इस चालन को क्लोन करने से पहले इन विभाजनों को चालन में से हटाना या रोकना पड़ेगा."
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4181,7 +4159,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "स्रोत चालन /dev/%s को एक लक्ष्य चालन के रूप में चयनित नहीं हो सकता है:"
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4232,7 +4210,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "लक्ष्य चालनों को साफ करने में एक त्रुटि था. क्लोनिंग असफल."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4250,15 +4227,13 @@ msgstr ""
 "क्लोन चालन उपकरण\n"
 "\n"
 "यह उपकरण आपको RAID सरणियों की व्यवस्था में आवश्यक प्रयास को महत्वपूर्ण रूप से कम करने की "
-"अनुमति देता है. विचार यह है कि अपेक्षित विभाजन लेआउट से तैयार किया गया एक स्रोत चालन "
-"को लें और इस लेआउट को अन्य समान आकार की चालनों पर क्लोन करें. तब एक RAID युक्ति बनाई "
-"जा सकती है.\n"
+"अनुमति देता है. यह औजार एक स्रोत चालन का प्रयोग करता है जिसे एक इच्छित विभाजनकारी लेआउट के साथ तैयार किया गया है. तब एक RAID युक्ति बनाई जा सकती है.\n"
 "\n"
 "नोट: स्रोत चालन में अवश्य वो विभाजन होना चाहिए जो केवल उस चालन पर निरुद्ध हैं और केवल "
 "अनुपयोगी सॉफ्टवेयर RAID विभाजनों को समाहित कर सकते हैं. अन्य प्रकार के विभाजन को अनुमति "
 "नहीं हैं.\n"
 "\n"
-"इस प्रक्रम से लक्ष्य चालन पर सब नष्ट हो जाएगा."
+"इस प्रक्रिया से लक्ष्य चालन पर सब नष्ट हो जाएगा."
 
 #: ../iw/raid_dialog_gui.py:712
 msgid "Source Drive:"
@@ -4299,7 +4274,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4312,7 +4287,6 @@ msgid "Invalid Repository Name"
 msgstr "अमान्य रिपॉजिटरी नाम"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
 msgstr "आपको कुछ न कुछ रिपॉजिटरी नाम अवश्य देना है."
 
@@ -4367,12 +4341,11 @@ msgid "_Create new boot loader configuration"
 msgstr "नया बूट लोडर विन्यास बनाएँ (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"यह आपको एक नया बूट लोडर विन्यास बनाने में लागू करेगा. यदि आप बूट लोडरों को स्विच करना "
+"यह विकल्प एक नया बूट लोडर विन्यास बनाता है. यदि आप बूट लोडरों को स्विच करना "
 "चाहते हैं आपको इसे चुनना हैं."
 
 #: ../iw/upgrade_bootloader_gui.py:96
@@ -4380,12 +4353,11 @@ msgid "_Skip boot loader updating"
 msgstr "बूट लोडर अद्यतन छोड़ें (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"यह बूट लोडर विन्यास में कोई परिवर्तन नहीं लाएगा. यदि आप एक तृतीय बूट लोडर समूह का "
+"यह विकल्प बूट लोडर विन्यास में कोई परिवर्तन नहीं लाएगा. यदि आप एक तृतीय बूट लोडर समूह का "
 "उपयोग कर रहे हैं, आप इसे चुनें."
 
 #: ../iw/upgrade_bootloader_gui.py:109
@@ -4397,7 +4369,7 @@ msgid "Migrate File Systems"
 msgstr "फाइल सिस्टमों का उत्प्रवासन करें"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4406,7 +4378,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s का यह विमोचन ext3 जर्नलिंग फाइल सिस्टम का समर्थन करता है. यह पारंपरिक रूप से %s में "
+"%s समर्थ का यह विमोचन ext3 जर्नलिंग फाइल सिस्टम का समर्थन करता है. यह पारंपरिक रूप से %s में "
 "लाये गये ext2 फाइल सिस्टम के बनिस्पत कई लाभ देता है. यह संभव है कि ext2 संरूपित विभाजनों "
 "से ext3 में बिना आंकड़ा हानि के उत्प्रवास हो जाए.\n"
 "\n"
@@ -4417,14 +4389,14 @@ msgid "Upgrade Swap Partition"
 msgstr "स्वैप विभाजन का उन्नयन करें"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"2.4 कर्नल को पुराने कर्नलों से अधिक स्वैप स्थान की आवश्यकता होती है, जो सिस्टम के RAM से "
+"हाल के कर्नल (2.4 या नये) को पुराने कर्नलों से अधिक स्वैप स्थान की आवश्यकता होती है, जो सिस्टम के RAM से "
 "दुगुना हैं. आपके पास वर्तमान में %dMB का स्वैप विन्यस्त है, परंतु अब आप आपके फाइल सिस्टमों में से "
 "एक पर अतिरिक्त स्वैप स्थान बना सकते हैं."
 
@@ -4456,7 +4428,7 @@ msgid "Free Space (MB)"
 msgstr "मुक्त स्थान (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4473,12 +4445,11 @@ msgid "I _don't want to create a swap file"
 msgstr "मैं एक स्वैप फाइल नहीं बनाना चाहता हूं (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"यह अनुशंसित हैं कि आप एक स्वैप फाइल बनाएँ. इसमें असफल रहने से अधिष्ठापक असामान्य रूप से "
+"एक स्वैप फाइल का निर्माण बहुत अनुशंसित है. इसमें असफल रहने से अधिष्ठापक असामान्य रूप से "
 "विफल होगा. क्या आप निश्चित हैं कि आप जारी रखना चाहते हैं?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
@@ -4550,7 +4521,6 @@ msgid "Skip Boot Loader"
 msgstr "बूट लोडर छोड़ें "
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4558,14 +4528,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"आपने कोई बूट लोडर अधिष्ठापन करने के लिए चयनित नहीं किया है. यह अनुशंसित है कि आप एक बूट "
-"लोडर अधिष्ठापन करें जब तक आपको एक अग्रिम आवश्यकता नहीं है. एक बूट लोडर की हमेशा "
+"आपने कोई बूट लोडर अधिष्ठापन करने के लिए चयनित नहीं किया है. यह अनुशंसित नहीं है कि आप एक बूट "
+"लोडर अधिष्ठापन करें जब तक आपको एक ज्यादा आवश्यकता नहीं है. एक बूट लोडर की हमेशा "
 "आवश्यकता होती है जब भी हार्डड्राइव से आपके सिस्टम को Linux के लिए रिबूट करना है.\n"
 "\n"
 "क्या आप निश्चित हैं कि बूट लोडर का अधिष्ठापन छोड़ना चाहते हैं?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4613,7 +4582,7 @@ msgid "Edit"
 msgstr "संपादन करें"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
@@ -4628,15 +4597,14 @@ msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> चुनें | <F2> मूलभूत चुनिये | <F4> मिटायें | <F12> अगला स्क्रीन>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
 "उपयोक्ताओं को एक बूट लोडर शब्दकूट कर्नल को काल्पनिक विकल्प भेजने से रोकता है. अधिकतम "
-"सुरक्षा के लिए हम शब्दकूट व्यवस्था के लिए अनुशंसित करते हैं, परंतु यह अधिक साधारण उपयोक्ताओं "
-"के लिए आवश्यक नहीं हैं."
+"सुरक्षा के लिए आपको शब्दकूट सेट करना चाहिये, परंतु यह अधिक साधारण उपयोक्ताओं "
+"के लिए एक शब्दकूट आवश्यक नहीं हैं."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4744,7 +4712,6 @@ msgstr ""
 "लिए आप इस फाइल को रख सकते हैं."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "संकुल समूह चुनें जिसे आप अधिष्ठापित करना चाहेंगे."
 
@@ -4754,7 +4721,7 @@ msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण 
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "चुनने के लिये कोई वैकल्पिक संकुल नहीं"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4785,39 +4752,37 @@ msgid "Mouse Selection"
 msgstr "माउस चुनाव"
 
 #: ../textw/network_text.py:50
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"आपने \"%s\" क्षेत्र को निर्दिष्ट नहीं किया हैं. आपके संजाल वातावरण पर आश्रित यह आगे समस्या "
+"आपने %s क्षेत्र को निर्दिष्ट नहीं किया हैं. आपके संजाल वातावरण पर आश्रित यह आगे समस्या "
 "बना सकती है."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 उपसर्ग को 0 और 32 के बीच होना चाहिये."
+msgstr "IPv%d उपसर्ग को 0 और %d के बीच होना चाहिये."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "उपसर्ग के लिये पूर्णांक जरूरी"
 
 #: ../textw/network_text.py:72
 #, python-format
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "आपको जरूर एक वैध पूर्णांक %s के लिये दाखिल करना चाहिये.  IPv4 के लिये, मान 0 और 32 के बीच होना चाहिये.  IPv6 के लिये यह 0 और 128 के बीच हो सकता है."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "नेटमास्क"
+msgstr "उपसर्ग (नेटमास्क)"
 
 #: ../textw/network_text.py:81 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/उपसर्ग"
+msgstr "उपसर्ग"
 
 #: ../textw/network_text.py:134
 msgid "Activate on boot"
@@ -4835,17 +4800,15 @@ msgstr "IPv6 समर्थन सक्रिय करें"
 
 #: ../textw/network_text.py:161
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:179 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:188
-#, fuzzy
 msgid "WEP Key:"
-msgstr "कुंजी:"
+msgstr "WEP कुंजी:"
 
 #: ../textw/network_text.py:201
 #, python-format
@@ -4854,78 +4817,69 @@ msgstr "%s के लिए संजाल विन्यास"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "बिंदु से बिंदु IP पता"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "गतिक IP विन्यास (DHCP) का प्रयोग करें"
+msgstr "गतिक IP विन्यास (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "दस्ती TCP/IP विन्यास"
+msgstr "दस्ती पता विन्यास"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s के लिए संजाल विन्यास"
+msgstr "IPv4 विन्यास %s के लिये"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 पता:"
+msgstr "IPv4 पता"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/नेटमास्क"
+msgstr "IPv4 संजाल मास्क"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "नेटमास्क"
+msgstr "IPv4 उपसर्ग (संजाल मास्क)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "स्वचालित पड़ोसी खोज"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "गतिक IP विन्यास (DHCP) का प्रयोग करें"
+msgstr "गतिक IP विन्यास (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s के लिए संजाल विन्यास"
+msgstr "%s के लिए IPv6 विन्यास"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 पता:"
+msgstr "IPv6 पता"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/उपसर्ग"
+msgstr "IPv6 उपसर्ग"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "संजाल अंतरफलक सक्रिय करें"
+msgstr "संजाल अंतरफलक विन्यस्त करें"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "क्या आप इस सिस्टम पर संजाल अंतरफलकों को प्रारंभ करना चाहते हैं?"
+msgstr "क्या आप इस सिस्टम पर %s संजाल अंतरफलक को विन्यस्त करना चाहते हैं?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "गैर विन्यस्त"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -4933,39 +4887,37 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "हर अंतरफलक के लिये मौजूदा विन्यास जमावट युक्ति नाम के बदल में सूचीबद्ध है.  गैर विन्यस्त के रूप में अंतरफलक अब दिखाया गया है.  एक अंतरफलक विन्यस्त करने के लिये, इसे ऊभारें और संपादन के लिये चुनें.  जब समाप्त हो जाता है तब जारी रखने के लिये ठीक दबायें."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "बूट पर सक्रिय करें"
+msgstr "बूट पर सक्रिय"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "बूट पर सक्रिय करें"
+msgstr "बूट पर निष्क्रिय"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -4984,17 +4936,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "विविध संजाल जमावट"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
-#, fuzzy
 msgid "gateway"
 msgstr "गेटवे"
 
 #: ../textw/network_text.py:704 ../textw/network_text.py:707
-#, fuzzy
 msgid "primary DNS"
 msgstr "प्राथमिक DNS"
 
 #: ../textw/network_text.py:716
-#, fuzzy
 msgid "secondary DNS"
 msgstr "द्वितीयक DNS"
 
@@ -5011,7 +4960,6 @@ msgid "Hostname Configuration"
 msgstr "मेजबाननाम विन्यास"
 
 #: ../textw/network_text.py:775
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5173,7 +5121,6 @@ msgid "Not Supported"
 msgstr "समर्थित नहीं"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "केवल आलेखी अधिष्ठापक में LVM वॉल्यूम ग्रूपों को संपादित किया जा सकता है."
 
@@ -5214,21 +5161,19 @@ msgid "Too many spares"
 msgstr "बहुत सारे अतिरिक्त"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "RAID0 सरणी के साथ अधिकतम अतिरिक्त क्रमांक 0 हैं."
+msgstr "RAID0 सरणी के साथ कोई बचा हुआ बहुत प्रयोग का नहीं दिखता है."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "कोई वॉल्यूम ग्रूप नहीं"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "लॉजिकल वॉल्यूम बनाने के लिए कोई वॉल्यूम ग्रूप नहीं है"
+msgstr "लॉजिकल वॉल्यूम बनाने के लिए कोई वॉल्यूम ग्रूप मौजूद नहीं है"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5282,9 +5227,8 @@ msgid "No Root Partition"
 msgstr "रूट विभाजन नहीं"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS अधिष्ठापन विधि के लिये IPv4 समर्थन जरूरी."
+msgstr "अधिष्ठापन के लिये एक / विभाजन जरूरी."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5304,9 +5248,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "इस अधिष्ठापन के लिए किन चालन का आप प्रयोग करना चाहते हैं?"
 
 #: ../textw/partition_text.py:1573
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
+msgstr "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 
 #: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
@@ -5325,21 +5268,18 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "अपने चालन विन्यास को आप कैसे रूपांतरित करना चाहते हैं?"
 
 #: ../textw/partition_text.py:1681
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP युक्ति जोड़ें"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries मशीन फाइबर चैनल (FCP) के मार्फत उद्योग मानक SCSI युक्तियों का अभिगम कर सकता "
-"है. प्रत्येक युक्ति के लिए आपको 5 पैरामीटर उपलब्ध कराना है: एक 16 बिट युक्ति संख्या, एक 16 "
-"बिट SCSI ID, एक 64 बिट वर्ल्ड वाइड पोर्ट संख्या (WWPN), एक 16 बिट SCSI LUN और a "
-"64 बिट FCP LUN."
+"है. एक 16 बिट युक्ति संख्या, एक 64 बिट वर्ल्ड वाइड पोर्ट संख्या (WWPN), एक 64 बिट SCSI LUN और एक "
+"64 बिट FCP LUN के लिये."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5354,14 +5294,12 @@ msgstr ""
 "चाहिये जिसे आपने आपके मेजबान के लिये विन्यस्त किया है."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>लक्ष्य IP पता (_T):</b>"
+msgstr "लक्ष्य IP पता"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI आरंभकर्ता नाम (_N):</b>"
+msgstr "iSCSI आरंभकर्ता नाम"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5394,7 +5332,6 @@ msgid "Customize software selection"
 msgstr "पसंदीदा सॉफ्टवेयर चुनाव"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "किस समय क्षेत्र में आप अवस्थित हैं?"
 
@@ -5448,14 +5385,13 @@ msgid "System to Upgrade"
 msgstr "सिस्टम उन्नयन किया जाना है"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"आपके सिस्टम पर एक या अधिक उपस्थित अधिष्ठापन पाए गए हैं.\n"
+"आपके सिस्टम पर एक या अधिक उपस्थित Linux अधिष्ठापन पाए गए हैं.\n"
 "\n"
 "कृपया उन्नयन के लिए एक चुनें या 'सिस्टम पुनःअधिष्ठापित करें ' चुनकर अपने सिस्टम का नवीन "
 "अधिष्ठापन करें."
@@ -5465,7 +5401,6 @@ msgid "Root Password"
 msgstr "रूट शब्दकूट"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5489,7 +5424,6 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5540,35 +5474,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "कार्यालय"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "मल्टीमीडिया"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "बधाई"
+msgstr "वर्चुअलाइजेशन"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "क्लस्टरिंग"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "भंडारण क्लस्टरिंग"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "आरंभ करने के लिये अधिष्ठापन"
+msgstr "अधिष्ठापन संख्या"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"अपनी सदस्यता में समर्थित संकुल का पूर्ण सेट अधिष्ठापित करने के लिये, "
+"कृपया अपनी अधिष्ठापन संख्या डालें"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5583,6 +5517,14 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"अगर आप अधिष्ठापन संख्या ढूंढ़ने में असमर्थ हैं, http://www."
+"redhat.com/apps/support/in.html की सलाह लें\n"
+"\n"
+"अगर आप छोड़कर आगे बढ़ते हैं:\n"
+"* आप अपनी सदस्यता के साथ संकुलों के पूर्ण सेट का अभिगम नहीं पा सकते हैं.\n"
+"* यह Red Hat "
+"Enterprise Linux के एक असमर्थित/अप्रमाणित परिणाम देगा.\n"
+"* आपको सॉफ्टवेयर व सुरक्षा अद्यतन नहीं मिल पायेंगे जो संकुल शामिल नहीं होंगे आपकी सदस्यता में."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5924,12 +5866,11 @@ msgstr "बूट फ्लापी पर ks.cfg खोज नहीं सक
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "किकस्टार्ट फाइल डाउनलोड करने में असमर्थ.  नीचे किकस्टार्ट पैरामीटर निर्दिष्ट करें या एक अंतःक्रियात्मक अधिष्ठापन के लिये आगे बढ़ें."
 
 #: ../loader2/kickstart.c:353
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "%s किकस्टार्ट फाइल खोलने में त्रुटि: %s"
+msgstr "किकस्टार्ट फाइल डाउनलोड करने में त्रुटि"
 
 #: ../loader2/kickstart.c:486
 #, c-format
@@ -5958,9 +5899,8 @@ msgid "Hard drive"
 msgstr "हार्ड ड्राइव"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s निर्देशिका:"
+msgstr "NFS निर्देशिका"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6185,9 +6125,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "%s युक्ति किकस्टार्ट प्रक्रिया कमांड को बुरा तर्क: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr "निम्नांकित अमान्य तर्क किकस्टार्ट डिस्क कमांड के लिए निर्दिष्ट था: %s:%s"
+msgstr "मॉड्यूल प्रकार और नाम को किकस्टार्ट युक्ति कमांड के लिये निर्दिष्ट किया जायेगा."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6240,20 +6179,17 @@ msgid "Nameserver IP"
 msgstr "नामसर्वर IP"
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "नामसर्वर"
+msgstr "गुम नामसर्वर"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"आपकी गतिशील IP आग्रह ने IP विन्यास सूचना को वापस कर दिया है, परंतु इसमें DNS नामसर्वर "
-"शामिल नहीं हैं. यदि आप जानते हैं कि आपका नामसर्वर कौन-सा है , इसे अब दाखिल करें. यदि "
-"आपके पास यह जानकारी नहीं हैं, आप इस क्षेत्र को खाली छोड़ सकते हैं और अधिष्ठापन जारी करेगा."
+"आपकी IP पता आग्रह ने विन्यास सूचना को वापस कर दिया है, परंतु इसमें नामसर्वर "
+"शामिल नहीं था. यदि आपके पास यह सूचना नहीं है, आप इस क्षेत्र को खाली छोड़ सकते हैं और अधिष्ठापन जारी करेगा."
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6276,9 +6212,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP का विन्यास करें"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "आपको कम से कम एक प्रोटोकॉल (IPv4 या IPv6) DHCP के लिये जरूर चुनना चाहिये."
+msgstr "आपको कम से कम एक प्रोटोकॉल (IPv4 या IPv6) जरूर चुनना चाहिये."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6310,7 +6245,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "IPv4 और/या IPv6 पता और उपसर्ग (पता / उपसर्ग) दाखिल करें.  IPv4 के लिये, बिंदु दिया-quad नेटमास्क या CIDR-शैली उपसर्ग स्वीकार्य है. गेटवे और नेमसर्वर क्षेत्र को जरूर वैध IPv4 या IPv6 पता रहना चाहिये."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6325,9 +6260,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "आप जरूर एक वैध IPv4 पता और संजाल मास्क या CIDR प्रत्यय डालें."
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "आपको जरूर दोनों के लिये वैध IPv6 पता और CIDR उपसर्ग डालना चाहिये."
+msgstr "आपको जरूर वैध IPv6 पता और CIDR उपसर्ग दोनों के लिये डालना चाहिये."
 
 #: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
@@ -6525,9 +6459,8 @@ msgid "Disable _dmraid device"
 msgstr "_dmraid युक्ति निष्क्रिय करें"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "हार्ड ड्राइव"
+msgstr "ड्राइव जोड़ें (_A)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6581,9 +6514,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "विभाजनकारी लेआउट की समीक्षा व रूपांतरण करें (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "अधिष्ठापन प्रक्रिया के समय आप कौन सी भाषा का प्रयोग करना चाहते हैं?"
+msgstr "इस अधिष्ठापन प्रपत्र को बूट करने के लिये क्या ड्राइव आप बूट करना चाहेंगे?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6598,9 +6530,8 @@ msgid "Exception Info"
 msgstr "अपवाद सूचना"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "दूरस्थ मेजबान सहेजें"
+msgstr "दूरस्थ में सहेजें (_R)"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6608,17 +6539,17 @@ msgstr "अपवाद विवरण (_E)"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "फ्लॉपी में सहेजें (_S)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "कृपया एक वॉल्यूम ग्रूप नाम दाखिल करें."
+msgstr "कृपया अपना %(instkey)s दाखिल करें."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6637,9 +6568,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI आरंभकर्ता नाम (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "_iSCSI लक्ष्य जोड़ें"
+msgstr "लक्ष्य जोड़ें (_A)"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6686,33 +6616,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "गतिक IP विन्यास (DHCP) का प्रयोग करें (_d)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "वर्णन: %s"
+msgstr "<b>विवरण यहां है</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>हार्डवेयर पता: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s अंतरफलक का संपादन करें"
+msgstr "अंतरफलक का संपादन करें"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "गोपन कुंजी (_K):"
+msgstr "गोपन कुंजी"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "दस्ती TCP/IP विन्यास"
+msgstr "दस्ती विन्यास"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "बिंदु से बिंदु (IP) (_P)"
+msgstr "बिंदु से बिंदु (IP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6741,19 +6666,16 @@ msgid "_Customize now"
 msgstr "अब पसंद करें (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "युक्ति संख्या"
+msgstr "<b>युक्ति संख्या:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>शब्दकूट (_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6769,7 +6691,7 @@ msgstr "अरेबिक"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "असामी"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6853,7 +6775,7 @@ msgstr "आइसलैंडिक"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -6937,7 +6859,7 @@ msgstr "सर्वियन (लैटिन)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "सिंहाला"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -6961,7 +6883,7 @@ msgstr "तमिल"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "तेलुगु"
 
 #. generated from lang-table
 msgid "Turkish"
