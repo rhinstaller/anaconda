@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-12 18:09+0530\n"
+"PO-Revision-Date: 2007-04-16 18:52+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -4474,14 +4475,12 @@ msgid "I _don't want to create a swap file"
 msgstr "ମୁଁ swap ଫାଇଲ ସୃଷ୍ଟି କରିବା ପାଇଁ ଚାହୁଁନାହିଁ (_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"ଏହା ବିଶେଷ ଭାବରେ ପରାମର୍ଶିତ ଯେ ଆପଣ ଗୋଟିଏ swap ଫାଇଲ ସୃଷ୍ଟି କରିବା ଉଚିତ।  ଏପରି କରିବାରେ "
-"ବିଫଳ ହେଲେ ସ୍ଥାପକଟି ଅପ୍ରତ୍ଯାଶିତ ଭାବରେ ପ୍ରସ୍ଥାନ କରିବ।  ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଆଗକୁ ବଢିବା ପାଇଁ "
-"ଚାହୁଁଛନ୍ତି?"
+"ଗୋଟିଏ swap ଫାଇଲ ବିଶେଷ ଭାବରେ ପରାମର୍ଶିତ ଅଟେ। ଏହାକୁ ସୃଷ୍ଟି କରିବାରେ ବିଫଳ ହେଲେ ସ୍ଥାପକଟି "
+"ଅପ୍ରତ୍ଯାଶିତ ଭାବରେ ବନ୍ଦ ହୋଇଯିବ।  ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4552,7 +4551,6 @@ msgid "Skip Boot Loader"
 msgstr "ବୁଟ-ଲୋଡର କୁ ଛାଡି ଦିଅନ୍ତୁ"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4560,12 +4558,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"କୌଣସି ବୁଟ-ଲୋଡରକୁ ସ୍ଥାପନ ନ କରିବା ପାଇଁ ଆପଣ ଚୟନ କରିଛନ୍ତି। ଏହା ବିଶେଷ ଭାବରେ ପରାମର୍ଶିତ ଯେ ଗୋଟିଏ "
-"ଉନ୍ନତ ବିନ୍ଯାସ ଆବଶ୍ୟକ ନ ହେବା ପର୍ଯ୍ଯନ୍ତ ଆପଣ ଗୋଟିଏ ବୁଟ-ଲୋଡରକୁ ସ୍ଥାପନ କରନ୍ତୁ।  ହାର୍ଡ ଡ୍ରାଇଭରୁ "
-"ସିଧାସଳଖ ଭାବରେ ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ Linux ରେ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ ପ୍ରାୟତ ସବୁବେଳେ ଗୋଟିଏ ବୁଟ-ଲୋଡର "
-"ଆବଶ୍ୟକ।\n"
+"କୌଣସି ବୁଟ-ଲୋଡରକୁ ସ୍ଥାପନ ନ କରିବା ପାଇଁ ଆପଣ ଚୟନ କରିଛନ୍ତି, ଅତ୍ଯନ୍ତ ଆବଶ୍ଯକ ନ ହେବା ପର୍ଯ୍ଯନ୍ତ ଏହା "
+"ପରାମର୍ଶିତ ନୁହେଁ। ହାର୍ଡ ଡ୍ରାଇଭରୁ ସିଧାସଳଖ ଭାବରେ ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ Linux ରେ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ ପ୍ରାୟତଃ "
+"ସର୍ବଦା ଗୋଟିଏ ବୁଟ-ଲୋଡର ଆବଶ୍ୟକ।\n"
 "\n"
-"ଆପଣ ନିଶ୍ତିତ କି ଆପଣ ବୁଟ-ଲୋଡର ସ୍ଥାପନକୁ ଆଗ୍ରହ୍ଯ କରିଦେବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବୁଟ-ଲୋଡର ସ୍ଥାପନକୁ ଆଗ୍ରହ୍ଯ କରିଦେବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../textw/bootloader_text.py:92
 #, fuzzy
@@ -4789,13 +4786,13 @@ msgid "Mouse Selection"
 msgstr "ମାଉସ ଚୟନ"
 
 #: ../textw/network_text.py:50
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"ଆପଣ \"%s\" କ୍ଷେତ୍ରକୁ ଉଲ୍ଲେଖ କରି ନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ ନିର୍ଭର କରି ଏହା "
-"ପରବର୍ତ୍ତୀ ସମଯରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
+"ଆପଣ %s କ୍ଷେତ୍ରକୁ ନିର୍ଦ୍ଦିଷ୍ଟ କରି ନାହାଁନ୍ତି।  ଆପଣଙ୍କ ନେଟୱାର୍କ ପରିବେଶ ଉପରେ ନିର୍ଭର କରି ଏହା "
+"ପରବର୍ତ୍ତୀ ସମୟରେ ସମସ୍ଯା ସୃଷ୍ଟି କରିପାରେ।"
 
 #: ../textw/network_text.py:67
 #, python-format
@@ -5214,13 +5211,13 @@ msgid "No volume groups exist in which to create a logical volume"
 msgstr "ଗୋଟିଏ ତାର୍କିକ ଘନଫଳ ସୃଷ୍ଟି କରିବା ପାଇଁ କୌଣସି ଘନଫଳ ସମୂହ ଅବସ୍ଥିତ ନାହିଁ"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
 msgstr ""
 "ବର୍ତ୍ତମାନ ନିବେଦିତ ଆକାର (%10.2f ମେଗା-ବାଇଟ) ସର୍ବାଧିକ ତାର୍କିକ ଘନଫଳ ଆକାର (%10.2f ମେଗା-"
-"ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ। "
+"ବାଇଟ) ଠାରୁ ଅଧିକ ଅଟେ।"
 
 #: ../textw/partition_text.py:1321
 #, python-format
@@ -6173,9 +6170,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "%s ଯନ୍ତ୍ର କିକ୍-ଷ୍ଟାର୍ଟ ପ୍ରକ୍ରିୟା ନିର୍ଦ୍ଦେଶ ପାଇଁ ଖରାପ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr "କିକ-ଷ୍ଟାର୍ଟ ଡ୍ରାଇଭର ଡିସ୍କ ନିର୍ଦ୍ଦେଶ ପାଇଁ ନିମ୍ନଲିଖିତ ଅବୈଧ ସ୍ବତନ୍ତ୍ରଚର ମାନ ଉଲ୍ଲେଖ କରାଯାଇଛି: %s:%s"
+msgstr "କିକ-ଷ୍ଟାର୍ଟ ଉପକରଣ ନିର୍ଦ୍ଦେଶ ପାଇଁ ଉଭୟ ଏକକାଂଶ ପ୍ରକାର ଏବଂ ନାମ ଉଲ୍ଲେଖ କରାଯିବା ଉଚିତ।"
 
 #: ../loader2/net.c:59
 #, c-format
