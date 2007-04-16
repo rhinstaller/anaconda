@@ -4,6 +4,8 @@
 	(#236480, dwmw2 AT redhat.com).
 	* loader2/hardware.c (detectHardware):  Likewise.
 
+	* loader2/hardware.c (ideSetup):  Remove historical artifacts.
+
 2007-04-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

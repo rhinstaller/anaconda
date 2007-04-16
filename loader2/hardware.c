@@ -260,47 +260,7 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               moduleInfoSet modInfo) {
-#if 0
-    struct device ** devices;
-    int fd, i;
-#endif
-
     mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo);
-
-    /* nuke this for now */
-#if 0
-    /* FIXME: having dma on for CD devices seems to break media check
-     * as well as causing other problems for people.  To avoid having
-     * to tell everyone to use ide=nodma all the time, let's do it 
-     * ourselves.
-     */
-    if (FL_ENABLECDDMA(flags))
-        return;
-    devices = probeDevices(CLASS_CDROM, BUS_IDE, 0);
-    if (!devices)
-        return;
-
-    for (i = 0; devices[i]; i++) {
-        if ((devices[i]->detached != 0) || (devices[i]->device == NULL)) 
-            continue;
-        devMakeInode(devices[i]->device, "/tmp/cdrom");
-        fd = open("/tmp/cdrom", O_RDONLY|O_NONBLOCK);
-        if (fd == -1) {
-            logMessage(ERROR, "failed to open /tmp/cdrom: %s", strerror(errno));
-            unlink("/tmp/cdrom");
-            continue;
-        }
-        if (ioctl(fd, HDIO_SET_DMA, 0) == -1)
-            logMessage(ERROR, "failed to disable dma for %s: %s",
-                       devices[i]->device, strerror(errno));
-        else
-            logMessage(WARNING, "disabled DMA for CD devices %s",
-                       devices[i]->device);
-        close(fd);
-        unlink("/tmp/cdrom");
-    }
-#endif
-    
 }
 
 
