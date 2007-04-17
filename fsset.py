@@ -1245,62 +1245,6 @@ MAILADDR root
         open (prefix + "/etc/mtab", "w+")
         f.close ()
 
-    def restoreMigratedFstab(self, prefix):
-        if not self.migratedfs:
-            return
-
-        fname = prefix + "/etc/fstab"
-        if os.access(fname + ".rpmsave", os.R_OK):
-            os.rename(fname + ".rpmsave", fname)
-
-    def migratewrite(self, prefix):
-        if not self.migratedfs:
-            return
-        
-        fname = prefix + "/etc/fstab"
-        f = open (fname, "r")
-        lines = f.readlines()
-        f.close()
-
-        perms = os.stat(fname)[0] & 0777
-        os.rename(fname, fname + ".rpmsave")
-        f = open (fname, "w+")
-        os.chmod(fname, perms)
-        
-        for line in lines:
-            fields = string.split(line)
-
-            # try to be smart like in fsset.py::readFstab()
-            if not fields or line[0] == "#":
-                f.write(line)
-                continue
-            
-            if len (fields) < 4 or len (fields) > 6:
-                f.write(line)
-                continue
-                
-            if string.find(fields[3], "noauto") != -1:
-                f.write(line)
-                continue
-            
-            mntpt = fields[1]
-            entry = self.getEntryByMountPoint(mntpt)
-            if not entry or not entry.getMigrate():
-                f.write(line)
-            elif entry.origfsystem.getName() != fields[2]:
-                f.write(line)
-            else:
-                fields[2] = entry.fsystem.getName()
-                newline = "%-23s %-23s %-7s %-15s %s %s\n" % (fields[0],
-                                                              fields[1],
-                                                              fields[2],
-                                                              fields[3],
-                                                              fields[4],
-                                                              fields[5])
-                f.write(newline)
-
-        f.close()
-
     def mkDevRoot(self, instPath):
         root = self.getEntryByMountPoint("/")
         dev = "%s/dev/%s" % (instPath, root.device.getDevice())
