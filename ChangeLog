@@ -2,6 +2,8 @@
 
 	* partedUtils.py (DiskSet.openDevices): Better message and give
 	option to reboot or continue anyway in the too many partitions case
+	(DiskSet.savePartitions): Don't try to commit disks with > 15 
+	partitions.
 
 2007-04-17  David Cantrell  <dcantrell@redhat.com>
 

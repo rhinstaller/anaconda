@@ -853,6 +853,11 @@ class DiskSet:
     def savePartitions (self):
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
+            if disk.dev.path[5:].startswith("sd") and disk.get_last_partition_num() > 15:
+                log.debug("not saving partition table of disk with > 15 partitions")
+                del disk
+                continue
+            
             disk.commit()
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
@@ -1141,8 +1146,10 @@ class DiskSet:
                                          "subsystem in the Linux kernel does "
                                          "not allow for more than 15 partitons "
                                          "at this time.  You will not be able "
-                                         "to use any partitions beyond "
-                                         "this in %s") %(drive, productName),
+                                         "to make changes to the partitioning "
+                                         "of this disk or use any partitions "
+                                         "beyond %s15 in %s")
+                                        % (drive, drive, productName),
                                         type="custom",
                                         custom_buttons = [_("_Reboot"),
                                                           _("_Continue")],
