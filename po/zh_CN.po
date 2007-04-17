@@ -1062,7 +1062,7 @@ msgid "Couldn't Mount ISO Source"
 msgstr "无法挂载ISO镜像"
 
 #: ../harddrive.py:118
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1159,7 +1159,7 @@ msgstr ""
 "您如果现在重启，您的系统会要求您重新安装。\n"
 
 #: ../image.py:436
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1254,7 +1254,7 @@ msgid "Unable to find image"
 msgstr "找不到安装映像"
 
 #: ../livecd.py:78 ../livecd.py:264
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
@@ -4695,7 +4695,7 @@ msgid "Integer Required for Prefix"
 msgstr "前缀必需是整数"
 
 #: ../textw/network_text.py:72
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
