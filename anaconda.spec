@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.50
+Version: 11.2.0.51
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,7 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Apr 17 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.50-1
+* Tue Apr 17 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.51-1
 - Some PS3 fixes (dwmw2)
 - Try to handle some of the problem cases with the ide -> libata driver 
   changes (clumens, katzj, #229704)
