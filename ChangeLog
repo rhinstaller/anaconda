@@ -1,3 +1,11 @@
+2007-04-17  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network.write): Do not write out NETWORKING_IPV6 line
+	to /etc/sysconfig/network anymore, initscripts does not use it.
+	Instead, write a file to /etc/modprobe.d containing
+	'install ipv6 /bin/true' in the cases where users want the IPv6
+	stack completely disabled.
+
 2007-04-17  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.migratewrite,

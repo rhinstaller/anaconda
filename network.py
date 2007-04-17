@@ -433,17 +433,17 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
-	    fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
+            fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
                                                                 device)
             f = open(fn, "w")
-	    os.chmod(fn, 0644)
-	    if len(dev.get("DESC")) > 0:
-		f.write("# %s\n" % (dev.get("DESC"),))
-		
-            f.write(str(dev))
+            os.chmod(fn, 0644)
+            if len(dev.get("DESC")) > 0:
+                f.write("# %s\n" % (dev.get("DESC"),))
 
             if dev.get("USEIPV6"):
-                useIPV6 = "yes"
+               useIPV6 = "yes"
+
+            f.write(str(dev))
 
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
             if (dev.get('bootproto').lower() == 'dhcp' and self.hostname and
@@ -466,20 +466,27 @@ class Network:
                 f.close()
 
         # /etc/sysconfig/network
-
         f = open(instPath + "/etc/sysconfig/network", "w")
         f.write("NETWORKING=yes\n")
-        f.write("NETWORKING_IPV6=%s\n" % useIPV6)
         f.write("HOSTNAME=")
 
         # use instclass hostname if set(kickstart) to override
         if self.hostname:
-	    f.write(self.hostname + "\n")
-	else:
-	    f.write("localhost.localdomain\n")
-	if self.gateway:
-	    f.write("GATEWAY=%s\n" % (self.gateway,))
+            f.write(self.hostname + "\n")
+        else:
+            f.write("localhost.localdomain\n")
+        if self.gateway:
+            f.write("GATEWAY=%s\n" % (self.gateway,))
         f.close()
+
+        # /etc/modprobe.d/disable-ipv6
+        if not useIPv6:
+            fn = "%s/etc/modprobe.d/disable-ipv6" % (instPath,)
+
+            f = open(fn, "w")
+            os.chmod(fn, 0644)
+            f.write("install ipv6 /bin/true\n")
+            f.close()
 
         # /etc/hosts
         f = open(instPath + "/etc/hosts", "w")
@@ -487,45 +494,44 @@ class Network:
 
         log.info("self.hostname = %s", self.hostname)
 
-	ip = self.lookupHostname()
+        ip = self.lookupHostname()
 
-	# If the hostname is not resolvable, tie it to 127.0.0.1
-	if not ip and self.hostname != "localhost.localdomain":
-	    localline += self.hostname + " "
-	    l = string.split(self.hostname, ".")
-	    if len(l) > 1:
-		localline += l[0] + " "
-                
-	localline += "localhost.localdomain localhost\n"
+        # If the hostname is not resolvable, tie it to 127.0.0.1
+        if not ip and self.hostname != "localhost.localdomain":
+            localline += self.hostname + " "
+            l = string.split(self.hostname, ".")
+            if len(l) > 1:
+                localline += l[0] + " "
+
+        localline += "localhost.localdomain localhost\n"
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
         f.write("127.0.0.1\t\t" + localline)
         f.write("::1\t\tlocalhost6.localdomain6 localhost6\n")
 
-	if ip:
+        if ip:
             nameline = "%s\t\t%s" % (ip, self.hostname)
             n = string.split(self.hostname, ".")
             if len(n) > 1:
                 nameline = nameline + " " + n[0]
             f.write("%s\n" %(nameline,))
 
-	# If the hostname was not looked up, but typed in by the user,
-	# domain might not be computed, so do it now.
-	if self.domains == ["localdomain"] or not self.domains:
-	    if '.' in self.hostname:
-		# chop off everything before the leading '.'
-		domain = self.hostname[(string.find(self.hostname, '.') + 1):]
-		self.domains = [domain]
+        # If the hostname was not looked up, but typed in by the user,
+        # domain might not be computed, so do it now.
+        if self.domains == ["localdomain"] or not self.domains:
+            if '.' in self.hostname:
+                # chop off everything before the leading '.'
+                domain = self.hostname[(string.find(self.hostname, '.') + 1):]
+                self.domains = [domain]
 
         # /etc/resolv.conf
         f = open(instPath + "/etc/resolv.conf", "w")
 
-	if self.domains != ['localdomain'] and self.domains:
-	    f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
+        if self.domains != ['localdomain'] and self.domains:
+            f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
         for ns in self.nameservers():
             if ns:
                 f.write("nameserver %s\n" % (ns,))
 
         f.close()
-
