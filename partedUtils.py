@@ -1134,17 +1134,21 @@ class DiskSet:
             filter_partitions(disk, validateFsType)
 
             # check for more than 15 partitions (libata limit)
-            if drive.startswith('sd'):
-                if disk.get_last_partition_num() > 15:
-                    intf.messageWindow(_("Error"),
+            if drive.startswith('sd') and disk.get_last_partition_num() > 15:
+                rc = intf.messageWindow(_("Warning"),
                                        _("The drive %s has more than 15 "
-                                         "partitions on it.  The libata "
+                                         "partitions on it.  The SCSI "
                                          "subsystem in the Linux kernel does "
                                          "not allow for more than 15 partitons "
-                                         "at this time.  To use this drive in "
-                                         "Linux, you will need to reduce the "
-                                         "number of partitions."))
-                    return
+                                         "at this time.  You will not be able "
+                                         "to use any partitions beyond "
+                                         "this in %s") %(drive, productName),
+                                        type="custom",
+                                        custom_buttons = [_("_Reboot"),
+                                                          _("_Continue")],
+                                        custom_icon="warning")
+                if rc == 1:
+                    sys.exit(0)
 
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
