@@ -1,5 +1,8 @@
 2007-04-17  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (upgrade_remove_blacklist): Add hal and mysql to
+	upgrade blacklists
+
 	* iw/upgrade_bootloader_gui.py
 	(UpgradeBootloaderWindow._newToLibata): Ensure that we've actually
 	switched to using libata for something
