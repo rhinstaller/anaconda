@@ -1,5 +1,7 @@
 2007-04-17  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* partedUtils.py (DiskSet.openDevices): Better message and give
 	option to reboot or continue anyway in the too many partitions case
 	(DiskSet.savePartitions): Don't try to commit disks with > 15 

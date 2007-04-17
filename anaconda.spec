@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.49
+Version: 11.2.0.50
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 17 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.50-1
+- Some PS3 fixes (dwmw2)
+- Try to handle some of the problem cases with the ide -> libata driver 
+  changes (clumens, katzj, #229704)
+- Fix text mode package descriptions (clumens, #233662)
+- Fix netlink buffer size (dcantrell, #234764)
+- Fix how we disable ipv6 (dcantrell)
+- Add a few more packages to upgrade blacklists
+- Warn and try not to blow up with scsi disks with more than
+  15 partitions (dcantrell, katzj)
+
 * Fri Apr 13 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.49-1
 - Fix SELinux labels on moved files with live install (#236282)
 - Add vmmouse driver
