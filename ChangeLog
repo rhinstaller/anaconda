@@ -3,6 +3,10 @@
 	* fsset.py (FileSystemSet.migratewrite,
 	FileSystemSet.restoreMigratedFstab):  Remove unused code.
 
+	* yuminstall.py (AnacondaCallback.callback):  Convert text from the
+	package header out of Unicode since we can't put that into the text UI
+	widgets (#233662).
+
 2007-04-17  Paul Nasrat <pnasrat@redhat.com>
 
 	* isys/isys.py: Ignore ps3 flash (#236481)

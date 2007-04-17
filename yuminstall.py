@@ -157,10 +157,10 @@ class AnacondaCallback:
 
             repo = self.repos.getRepo(po.repoid)
 
-            s = _("<b>Installing %s</b> (%s)\n") %(po, size_string(hdr['size']))
+            s = str(_("<b>Installing %s</b> (%s)\n") %(po, size_string(hdr['size'])))
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
-            
+
             nvra = "%s" %(po,)
             self.instLog.write(self.modeText % (nvra,))
 
