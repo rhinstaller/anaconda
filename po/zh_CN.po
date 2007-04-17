@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-16 15:52+0800\n"
+"PO-Revision-Date: 2007-04-17 18:29+0800\n"
 "Last-Translator:  <>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -201,11 +201,11 @@ msgid ""
 msgstr "引导分区 %s 不是 VFAT 分区。EFI 无法从该分区引导。"
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
-msgstr "引导分区在磁盘上的位置不够靠前。OpenFirmware 无法引导该安装。"
+msgstr ""
+"引导分区在磁盘上的位置不够靠前。OpenFirmware 无法引导该安装。"
 
 #: ../autopart.py:1038
 #, python-format
@@ -951,9 +951,8 @@ msgid "Cancel"
 msgstr "取消"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "安装方法"
+msgstr "安装码"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1251,9 +1250,8 @@ msgstr ""
 "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: ../livecd.py:77 ../livecd.py:263
-#, fuzzy
 msgid "Unable to find image"
-msgstr "找不到安装映像 %s"
+msgstr "找不到安装映像"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
@@ -1263,9 +1261,8 @@ msgstr ""
 "给出的位置不是一个有效的liveCD使用的安装源。"
 
 #: ../livecd.py:82 ../livecd.py:268
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s 安装程序"
+msgstr "退出安装程序"
 
 #: ../livecd.py:113
 #, fuzzy
@@ -4854,7 +4851,7 @@ msgstr "自动 IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
@@ -6486,7 +6483,7 @@ msgstr "保存到软盘"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
 #, fuzzy, no-c-format
@@ -6723,7 +6720,7 @@ msgstr "冰岛语"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
