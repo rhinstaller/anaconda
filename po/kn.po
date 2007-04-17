@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-16 18:47+0530\n"
+"PO-Revision-Date: 2007-04-17 10:50+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr ""
 
 #: ../anaconda:439
 msgid "No video hardware found, assuming headless"
-msgstr "ಚಿತ್ರಣ ಯಂತ್ರಾಂಶ ಕಂಡುಬರಲಿಲ್ಲ"
+msgstr "ಚಿತ್ರಣ ಯಂತ್ರಾಂಶ ಕಂಡುಬರಲಿಲ್ಲ, ಶೀರ್ಷಿಕೆ ಇಲ್ಲವೆಂದು ಊಹಿಸಲಾಗುತ್ತದೆ"
 
 #: ../anaconda:446 ../anaconda:898
 msgid "Unable to instantiate a X hardware state object."
@@ -4928,9 +4928,8 @@ msgid "IPv4 prefix (network mask)"
 msgstr "IPv4 ಪೂರ್ವಪ್ರತ್ಯಯ (ಜಾಲಮುಸುಕು)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
-#, fuzzy
 msgid "Automatic neighbor discovery"
-msgstr "ಸ್ವಯಂ ಚಾಲಿತ ನೆರೆಯ "
+msgstr "ನೆರೆಯ ಸ್ವಯಂ ಚಾಲಿತ ಶೋಧನೆ"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCPv6)"
@@ -4970,6 +4969,10 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"ಪ್ರತಿಯೊಂದು ಅಂತರ್ಮುಖಿಗಳಿಗಾಗಿನ ಸಂರಚನೆಯ ಪ್ರಸ್ತುತ ಹೊಂದಾಣಿಕೆಗಳು ಸಾಧನದ ಹೆಸರುಗಳು ಪಕ್ಕದಲ್ಲಿ "
+"ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ.  ಸಂರಚಿತವಾಗಿರದೇ ಇರೋ ಅಂತರ್ಮುಖಿಗಳನ್ನು UNCONFIGURED ಎಂದು ತೋರಿಸಲಾಗಿದೆ.  "
+"ಒಂದು ಅಂತರ್ಮುಖಿಯನ್ನು ಸಂರಚಿಸಲು, ಅದನ್ನು ಹೈಲೈಟ್ ಮಾಡಿ ಹಾಗು ಪರಿಷ್ಕರಿಸುವುದನ್ನು ಆರಿಸಿ.  ಮುಗಿಸಿದ ನಂತರ, "
+"ಮುಂದುವರೆಯಲು OK ಅನ್ನು ಒತ್ತಿರಿ."
 
 #: ../textw/network_text.py:614
 msgid "Active on boot"
@@ -5360,17 +5363,15 @@ msgid "Add FCP Device"
 msgstr "FCP ಸಾಧನವನ್ನು ಸೇರಿಸು"
 
 #: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries ಗಣಕಗಳು ಉದ್ಯಮ-ಮಾನಕ SCSI ಸಾಧನಗಳನ್ನು ನಾರು ವಾಹಕಗಳ (Fibre Channel, FCP) "
-"ಮೂಲಕ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದು. ನೀವು ಪ್ರತಿಯೊಂದು ಸಾಧನಕ್ಕೂ ೧೬ ಬಿಟ್ ಗಳ ಪ್ರಮಿತಿಗಳನ್ನು "
-"ನೀಡಬೇಕಾಗುತ್ತೆದೆ.  ೧೬ ದ್ವಿಮೆಗಳ ಸಾಧನಾ ಸಂಖ್ಯೆ, ೧೬ ದ್ವಿಮೆಗಳ SCSI ಗುರುತು, ೬೪ ದ್ವಿಮೆಗಳ "
-"ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರು (WWPN), ೧೬ ದ್ವಿಮೆಗಳ SCSI LUN ಹಾಗೂ ೬೪ ದ್ವಿಮೆಗಳ FCP "
-"LUN."
+"ಮೂಲಕ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದು. ನೀವು ಪ್ರತಿಯೊಂದು ಸಾಧನಕ್ಕೂ ೧೬ ಬಿಟ್ ಗಳ ಸಾಧನ ಸಂಖ್ಯೆಗಳನ್ನು, ೬೪ "
+"ಬಿಟ್ ಗಳ ವಿಶ್ವವ್ಯಾಪಿ ಸಂಪರ್ಕದ್ವಾರದ ಹೆಸರು (WWPN), ಹಾಗೂ ೬೪ ಬಿಟ್ ಗಳ FCP LUN ಗಳನ್ನು "
+"ಒದಗಿಸಬೇಕಾಗುತ್ತದೆ."
 
 #: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5583,7 +5584,7 @@ msgstr "ಕ್ಲಸ್ಟರೀಕರಣ"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "ಶೇಖರಣಾ ಕ್ಲಸ್ಟರಿಂಗ್"
 
 #: ../installclasses/rhel.py:50
 msgid "Installation Number"
@@ -5594,6 +5595,8 @@ msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"ನಿಮ್ಮ ಚಂದಾದಲ್ಲಿ ಒಳಗೊಂಡಂತಹ ಪ್ಯಾಕೇಜುಗಳ ಸಂಪೂರ್ಣ ಸೆಟ್ಟನ್ನು ಅನುಸ್ಥಾಪಿಸಲು, ದಯವಿಟ್ಟು ನಿಮ್ಮ "
+"ಅನುಸ್ಥಾಪನ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5608,6 +5611,15 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"ನಿಮಗೆ ಅನುಸ್ಥಾಪನ ಸಂಖ್ಯೆಯನ್ನು ಪತ್ತೆ ಮಾಡಲು ಆಗದೇ ಇದ್ದ ಪಕ್ಷದಲ್ಲಿ, http://www."
+"redhat.com/apps/support/in.html ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.\n"
+"\n"
+"ನೀವಿದನ್ನು ತೊರೆದು ಮುಂದೆ ಹೋದರೆ:\n"
+"* ನಿಮ್ಮ ಚಂದಾದಲ್ಲಿ ಒಳಗೊಂಡಂತಹ ಪ್ಯಾಕೇಜುಗಳ ಸಂಪೂರ್ಣ ಸೆಟ್ ನಿಮಗೆ ನಿಲುಕದೇ ಇರಬಹುದು.\n"
+"* ಇದು ಬೆಂಬಲಿತವಾಗದೇ/ಪ್ರಮಾಣಿತವಾಗಿರದೇ ಇರುವ Red Hat Enterprise Linux ನ "
+"ಅನುಸ್ಥಾಪನೆಗೆ ಕಾರಣವಾಗಬಹುದು.\n"
+"* ನಿಮ್ಮ ಚಂದಾದಲ್ಲಿ ಒಳಗೊಳ್ಳದೇ ಇರುವಂತಹ ಪ್ಯಾಕೇಜುಗಳಿಗಾಗಿನ ತಂತ್ರಾಂಶ ಹಾಗು ಭದ್ರತಾ ಅಪ್ಡೇಟುಗಳು "
+"ನಿಮಗೆ ಲಭ್ಯವಾಗುವುದಿಲ್ಲ."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5955,6 +5967,8 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಡೌನ್ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿಲ್ಲ.  ಈ ಕೆಳಗೆ ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ನಿಯತಾಂಕಗಳನ್ನು "
+"ಮಾರ್ಪಡಿಸಿ ಅಥವ ಒಂದು ಸಂವಾದಾತ್ಮಕ ಅನುಸ್ಥಾಪನೆಯಲ್ಲಿ ಮುಂದುವರೆಯಲು ರದ್ದು ಮಾಡು ಅನ್ನು ಒತ್ತಿ."
 
 #: ../loader2/kickstart.c:353
 msgid "Error downloading kickstart file"
@@ -6217,11 +6231,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "ಸಾಧನ ಕಿಕ್ ಸ್ಟಾಟ್೯ ವಿಧಾನ ಆದೇಶ %s: %s ಕ್ಕೆ ಅಮಾನ್ಯವಾದ ಆದಾನ"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"ಕಿಕ್ ಸ್ಟಾಟ್೯ ಯಂತ್ರಚಾಲಕಗಳ ಮುದ್ರಿಕೆ ಆದೇಶಕ್ಕೆ ಕೆಳಕಂಡ ಅಮಾನ್ಯ ಆದಾನಗಳು ನಿರ್ದೇಶಿಸಲ್ಪಟ್ಟವು: %s:"
-"%s"
+msgstr "ಕಿಕ್ ಸ್ಟಾಟ್೯ ಸಾಧನ ಆದೇಶಕ್ಕೆ ಮಾಡ್ಯೂಲಿನ ಪ್ರಕಾರ ಹಾಗು ಹೆಸರು ಎರಡನ್ನೂ ನಿಶ್ಚಿತ ಪಡಿಸಬೇಕು."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6274,20 +6285,17 @@ msgid "Nameserver IP"
 msgstr "ನಾಮಪರಿಚಾರಕದ IP"
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "ನಾಮಪರಿಚಾರಕ"
+msgstr "ನಾಮಪರಿಚಾರಕ ಕಾಣೆಯಾಗಿದೆ"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"ನಿಮ್ಮ ಸಕ್ರಿಯ IP ನಿವೇದನೆ, IP ಸಂರಚನಾ ಮಾಹಿತಿಯನ್ನು ಹಿಂದಿರುಗಿಸಿತು, ಆದರೆ ಅದು DNS "
-"ನಾಮಪರಿಚಾರಕವನ್ನೊಳಗೊಂಡಿಲ್ಲ. ನಿಮಗೆ ನಿಮ್ಮ ನಾಮಪರಿಚಾರಕ ಯಾವುದೆಂದು ತಿಳಿದಿದ್ದರೆ, ದಯವಿಟ್ಟು "
-"ಅದನ್ನು ಈಗ ನಮೂದಿಸಿ. ನಿಮ್ಮ ಬಳಿ ಈ ಮಾಹಿತಿ ಇರದಿದ್ದರೆ, ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿಯಾಗಿ ಬಿಡಬಹುದು, "
+"ನಿಮ್ಮ IP ವಿಳಾಸ ನಿವೇದನೆ, ಸಂರಚನಾ ಮಾಹಿತಿಯನ್ನು ಹಿಂದಿರುಗಿಸಿತು, ಆದರೆ ಅದು ಒಂದು ನಾಮಪರಿಚಾರಕ "
+"ವಿಳಾಸವನ್ನೊಳಗೊಂಡಿಲ್ಲ. ನಿಮ್ಮ ಬಳಿ ಈ ಮಾಹಿತಿ ಇರದಿದ್ದರೆ, ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿಯಾಗಿ ಬಿಡಬಹುದು, "
 "ಅನುಸ್ಥಾಪನೆ ಮುಂದುವರೆಯುತ್ತದೆ."
 
 #: ../loader2/net.c:325
@@ -6311,9 +6319,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP ಸಂರಚಿಸಿ"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "DHCP ಗೆ ನೀವು ಒಂದಾದರೂ ಪ್ರಕ್ರಮವನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
+msgstr "ನೀವು ಒಂದಾದರೂ ಪ್ರೋಟೋಕಾಲನ್ನು ಆರಿಸಿಕೊಳ್ಳಬೇಕು (IPv4 ಅಥವಾ IPv6)."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6346,6 +6353,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"IPv4 ಮತ್ತು/ಅಥವ IPv6 ವಿಳಾಸ ಮತ್ತು ಪೂರ್ವ ಪ್ರತ್ಯಯಗಳನ್ನು (ವಿಳಾಸ / ಪೂರ್ವಪ್ರತ್ಯಯ) ನಮೂದಿಸಿ.  "
+"IPv4 ಗೆ, ಚುಕ್ಕಿಯಿಂದಾದ-quad ನೆಟ್-ಮಾಸ್ಕ್ ಅಥವ CIDR-ರೀತಿಯ ಪೂರ್ವ ಪ್ರತ್ಯಯಗಳು ಮಾನ್ಯವಾದವಾಗಿರುತ್ತವೆ.  "
+"gateway ಹಾಗು ನಾಮ ಪರಿಚಾರಕ ಕ್ಷೇತ್ರಗಳು ಒಂದು ಸಮಂಜಸವಾದ IPv4 ಅಥವ IPv6 ವಿಳಾಸಗಳನ್ನು ಹೊಂದಿರಬೇಕು."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6360,9 +6370,8 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "ನೀವು ಮಾನ್ಯವಾದ IPv4 ವಿಳಾಸ ಹಾಗೂ ಜಾಲಮುಸುಕನ್ನು ಅಥವಾ CIDR ಪೂರ್ವಪ್ರತ್ಯಯವನ್ನು ನಮೂದಿಸಬೇಕು."
 
 #: ../loader2/net.c:1213
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "ನೀವು ಮಾನ್ಯವಾದ IPv6 ವಿಳಾಸ ಹಾಗೂ CIDR ಪೂರ್ವಪ್ರತ್ಯಯವನ್ನು ನಮೂದಿಸಬೇಕು."
+msgstr "ನೀವು ಮಾನ್ಯವಾದ IPv6 ವಿಳಾಸ ಹಾಗೂ CIDR ಪೂರ್ವಪ್ರತ್ಯಯ ಎರಡನ್ನೂ ನಮೂದಿಸಬೇಕು."
 
 #: ../loader2/net.c:1519
 msgid "Determining host name and domain..."
@@ -6562,9 +6571,8 @@ msgid "Disable _dmraid device"
 msgstr "_dmraid ಸಾಧನವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "ಸ್ಮತಿಮುದ್ರಿಕಾ ಚಾಲಕ"
+msgstr "ಡ್ರೈವನ್ನು ಸೇರಿಸು (_A)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6619,9 +6627,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "ವಿಭಾಗೀಕರಣ ವಿನ್ಯಾಸವನ್ನು ಮರುಪರಿಶೀಲಿಸಿ ಮಾರ್ಪಡಿಸಿ (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "ಅನುಸ್ಥಾಪನಾ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿ ಯಾವ ಭಾಷೆಯನ್ನು ಬಳಸಬೇಕೆಂದಿದ್ದೀರಿ?"
+msgstr "ಈ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಯಾವ ಡ್ರೈವಿನ ಮೂಲಕ ಬೂಟ್ ಮಾಡಬೇಕೆಂದು ನೀವು ಬಯಸಿದ್ದೀರಿ?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6636,9 +6643,8 @@ msgid "Exception Info"
 msgstr "ತೊಡಕುಗಳ ಮಾಹಿತಿ"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "ದೂರಸ್ಥ ಆತಿಥೇಯ ಗಣಕಕ್ಕೆ ಉಳಿಸು"
+msgstr "ದೂರಸ್ಥಕ್ಕೆ ಉಳಿಸು (_R)"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6646,17 +6652,17 @@ msgstr "ತೊಡಕುಗಳ ವಿವರಗಳು (_E)"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "ಫ್ಲಾಪಿಗೆ ಉಳಿಸು (_S)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "ದಯವಿಟ್ಟು ಪರಿಮಾಣ ಸಮೂಹದ (volume group) ಹೆಸರನ್ನು ನಮೂದಿಸಿ."
+msgstr "ದಯವಿಟ್ಟು ನಿಮ್ಮ %(instkey)s ಅನ್ನು ನಮೂದಿಸಿ."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6675,9 +6681,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI ಆರಂಭಕದ ಹೆಸರು (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "_iSCSI ಉದ್ದಿಷ್ಟವನ್ನು ಸೇರಿಸಿ"
+msgstr "ಉದ್ದೇಶಿತವನ್ನು ಸೇರಿಸಿ (_A)"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6724,33 +6729,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ಸಕ್ರಿಯ IP ಸಂರಚನೆಯನ್ನು ಬಳಸಿ (DHCP) (_d)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "ವಿವರಣೆ: %s"
+msgstr "<b>ವಿವರಣೆಯು ಇಲ್ಲಿ ಸಾಗುತ್ತದೆ</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>ಯಂತ್ರಾಂಶ ವಿಳಾಸ: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "ಅಂತರಮುಖ %s ಅನ್ನು ಸಂಪಾದಿಸಿ"
+msgstr "ಅಂತರಮುಖಿಯನ್ನು ಪರಿಷ್ಕರಿಸು"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಕೈ (_K)"
+msgstr "ಗೂಢಲಿಪೀಕರಣ ಕೀಲಿಕೈ"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "ಸ್ವಹಸ್ತ TCP/IP ಸಂರಚನೆ"
+msgstr "ಸ್ವಹಸ್ತ ಸಂರಚನೆ"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "ಶೃಂಗದಿಂದ ಶೃಂಗಕ್ಕೆ (I_P):"
+msgstr "ಶೃಂಗದಿಂದ ಶೃಂಗಕ್ಕೆ (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6779,19 +6779,16 @@ msgid "_Customize now"
 msgstr "ಈಗ ಪರಿಷ್ಕರಿಸು (_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "ಸಾಧನಾಂಕಿ"
+msgstr "<b>ಸಾಧನದ ಸಂಖ್ಯೆ:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>ಗುಪ್ತಪದ (_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6807,7 +6804,7 @@ msgstr "ಅರೇಬಿಕ್"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "ಅಸ್ಸಾಮಿ"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6891,7 +6888,7 @@ msgstr "ಐಸ್ಲ್ಯಾಂಡಿಕ್"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "ಇಲೋಕೊ"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -6975,7 +6972,7 @@ msgstr "ಸರ್ಬಿಯನ್(ಲಾಟಿನ್)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "ಸಿಂಹಳ"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -6999,7 +6996,7 @@ msgstr "ತಮಿಳು"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "ತೆಲುಗು"
 
 #. generated from lang-table
 msgid "Turkish"
