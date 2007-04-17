@@ -302,6 +302,14 @@ def driveDict(klassArg):
                         del peddev
                         continue
 
+                    # blacklist PS3 flash 
+                    if rhpl.getArch() == "ppc" and \
+                            model.find("SCEI Flash-5") != -1:
+                        log.info("%s looks like PS3 flash, ignoring" % \
+                            (device,))
+                        del peddev
+                        continue
+
                     # blacklist DGC/EMC LUNs for which we have no ACL.
                     # We should be ignoring LUN_Z for all vendors, but I
                     # don't know how (if) other vendors encode this into
