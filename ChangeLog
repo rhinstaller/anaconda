@@ -36,6 +36,10 @@
 	libata, default to writing out a new bootloader config and take away
 	the update option (#229704).
 
+	* fsset.py (FileSystemSet.mountFilesystems):  Print a better error
+	message when devices are mentioned by name instead of by label and we
+	can't mount them.
+
 2007-04-17  Paul Nasrat <pnasrat@redhat.com>
 
 	* isys/isys.py: Ignore ps3 flash (#236481)
