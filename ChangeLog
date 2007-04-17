@@ -1,3 +1,10 @@
+2007-04-17  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/upgrade_bootloader_gui.py
+	(UpgradeBootloaderWindow._newToLibata): Ensure that we've actually
+	switched to using libata for something
+	* textw/upgrade_bootloader_text.py: And do the checks in text-mode too.
+
 2007-04-17  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network.write): Do not write out NETWORKING_IPV6 line

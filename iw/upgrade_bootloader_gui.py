@@ -54,10 +54,21 @@ class UpgradeBootloaderWindow (InstallWindow):
                 self.bl.useGrubVal = 0
             self.bl.setDevice(self.bootDev)
 
-    def _usedLibataPreviously(self, rootPath):
+    def _newToLibata(self, rootPath):
+        # NOTE: any changes here need to be done in upgrade_bootloader_text too
+        try:
+            f = open("/proc/modules", "r")
+            buf = f.read()
+            if buf.find("libata") == -1:
+                return False
+        except:
+            log.debug("error reading /proc/modules")
+            pass
+        
         try:
             f = open(rootPath + "/etc/modprobe.conf")
         except:
+            log.debug("error reading /etc/modprobe.conf")
             return False
 
         lines = f.readlines()
@@ -67,7 +78,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             if l.strip()[0] == "#":
                 continue
 
-            if l.find("scsi_hostadapter") != -1:
+            if l.find("scsi_hostadapter") == -1:
                 return True
 
         return False
@@ -76,7 +87,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.id.bootloader
 
-        usedLibata = self._usedLibataPreviously(anaconda.rootPath)
+        newToLibata = self._newToLibata(anaconda.rootPath)
 
         (self.type, self.bootDev) = \
                     checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
@@ -84,7 +95,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
-        if not usedLibata or (self.type is None or self.bootDev is None):
+        if newToLibata or (self.type is None or self.bootDev is None):
             current = _("The installer is unable to detect the boot loader "
                         "currently in use on your system.")
             self.update_label = gtk.Label("%s" % (updatestr,))
@@ -127,7 +138,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         # default is to not touch anything
         if update == 1:
             default = self.update_radio
-        elif not usedLibata:
+        elif newToLibata:
             default = self.newbl_radio
         else:
             default = self.nobl_radio

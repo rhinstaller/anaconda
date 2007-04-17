@@ -23,11 +23,39 @@ import iutil
 import checkbootloader
 
 class UpgradeBootloaderWindow:
+    def _ideToLibata(self, rootPath):
+        try:
+            f = open("/proc/modules", "r")
+            buf = f.read()
+            if buf.find("libata") == -1:
+                return False
+        except:
+            log.debug("error reading /proc/modules")
+            pass
+        
+        try:
+            f = open(rootPath + "/etc/modprobe.conf")
+        except:
+            log.debug("error reading /etc/modprobe.conf")
+            return False
+
+        lines = f.readlines()
+        f.close()
+
+        for l in lines:
+            if l.strip()[0] == "#":
+                continue
+
+            if l.find("scsi_hostadapter") != -1:
+                return True
+
+        return False
 
     def __call__(self, screen, anaconda):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.id.bootloader
 
+        newToLibata = self._ideToLibata(anaconda.rootPath)
         (self.type, self.bootDev) = \
                     checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
 
@@ -39,20 +67,12 @@ class UpgradeBootloaderWindow:
         elif self.dispatch.stepInSkipList("instbootloader"):
             nobl = 1
         else:
-            if self.type is not None and self.bootDev is not None:
-                update = 1
+            if newToLibata or self.type is None or self.bootDev is None:
+                newbl = 1
             else:
-                nobl = 1
+                update = 1
         
-        if self.type is not None and self.bootDev is not None:
-            t = TextboxReflowed(53,
-                                _("The installer has detected the %s boot "
-                                  "loader currently installed on %s.")
-                                % (self.type, self.bootDev))
-
-            self.update_radio = blradio.add(_("Update boot loader configuration"),
-                                            "update", update)
-        else:
+        if newToLibata or self.type is None or self.bootDev is None:
             t = TextboxReflowed(53,
                   _("The installer is unable to detect the boot loader "
                     "currently in use on your system."))
@@ -60,6 +80,14 @@ class UpgradeBootloaderWindow:
             self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
             self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+        else:
+            t = TextboxReflowed(53,
+                                _("The installer has detected the %s boot "
+                                  "loader currently installed on %s.")
+                                % (self.type, self.bootDev))
+
+            self.update_radio = blradio.add(_("Update boot loader configuration"),
+                                            "update", update)
 
         self.nobl_radio = blradio.add(_("Skip boot loader updating"),
                                       "nobl", nobl)
