@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright, 2002 Red Hat, Inc.
+# Copyright, 2002, 2007 Red Hat, Inc.
 #
 #
 # This software may be freely redistributed under the terms of the GNU
@@ -45,7 +45,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.dispatch.skipStep("bootloadersetup", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 1)
             self.dispatch.skipStep("bootloaderadvanced", skip = 1)
-            self.dispatch.skipStep("instbootloader", skip = 0)            
+            self.dispatch.skipStep("instbootloader", skip = 0)
             self.bl.doUpgradeOnly = 1
 
             if self.type == "GRUB":
@@ -54,19 +54,44 @@ class UpgradeBootloaderWindow (InstallWindow):
                 self.bl.useGrubVal = 0
             self.bl.setDevice(self.bootDev)
 
+    def _usedLibataPreviously(self, rootPath):
+        try:
+            f = open(rootPath + "/etc/modprobe.conf")
+        except:
+            return False
+
+        lines = f.readlines()
+        f.close()
+
+        for l in lines:
+            if l.strip()[0] == "#":
+                continue
+
+            if l.find("scsi_hostadapter") != -1:
+                return True
+
+        return False
 
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.id.bootloader
 
+        usedLibata = self._usedLibataPreviously(anaconda.rootPath)
+
         (self.type, self.bootDev) = \
                     checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
-
 
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
-        if self.type is not None and self.bootDev is not None:
+        if not usedLibata or (self.type is None or self.bootDev is None):
+            current = _("The installer is unable to detect the boot loader "
+                        "currently in use on your system.")
+            self.update_label = gtk.Label("%s" % (updatestr,))
+            self.update_radio.set_sensitive(False)
+            self.update_label.set_sensitive(False)
+            update = 0
+        else:
             current = _("The installer has detected the %s boot loader "
                         "currently installed on %s.") % (self.type,
                                                          self.bootDev)
@@ -74,15 +99,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                                          _("This is the recommended option.")))
             self.update_radio.set_active(False)
             update = 1
-        else:
-            current = _("The installer is unable to detect the boot loader "
-                        "currently in use on your system.")
-            self.update_label = gtk.Label("%s" % (updatestr,))
-            self.update_radio.set_sensitive(False)
-            self.update_label.set_sensitive(False)
-            update = 0
-            
-    
+
         self.newbl_radio = gtk.RadioButton(self.update_radio,
                                           _("_Create new boot loader "
                                             "configuration"))
@@ -90,7 +107,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                                       "new boot loader configuration.  If "
                                       "you wish to switch boot loaders, you "
                                       "should choose this."))
-                                      
+
         self.newbl_radio.set_active(False)
         self.nobl_radio = gtk.RadioButton(self.update_radio,
                                          _("_Skip boot loader updating"))
@@ -105,15 +122,15 @@ class UpgradeBootloaderWindow (InstallWindow):
             label.set_size_request(275, -1)
             label.set_line_wrap(True)
 
-
         str = _("What would you like to do?")
         # if they have one, the default is to update, otherwise the
         # default is to not touch anything
         if update == 1:
             default = self.update_radio
+        elif not usedLibata:
+            default = self.newbl_radio
         else:
             default = self.nobl_radio
-        
 
         if not self.dispatch.stepInSkipList("bootloader"):
             self.newbl_radio.set_active(True)
@@ -121,7 +138,6 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.nobl_radio.set_active(True)
         else:
             default.set_active(True)
-
 
         box = gtk.VBox(False, 5)
 
@@ -142,7 +158,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         box.pack_start(self.nobl_radio, False)
         box.pack_start(self.nobl_label, False)
         box.pack_start(self.newbl_radio, False)
-        box.pack_start(self.newbl_label, False)        
+        box.pack_start(self.newbl_label, False)
 
         a = gtk.Alignment(0.2, 0.1)
         a.add(box)
