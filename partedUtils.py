@@ -1062,7 +1062,7 @@ class DiskSet:
                         if (self.dasdFmt(drive)):
                             DiskSet.skippedDisks.append(drive)
                             continue
-                
+
             try:
                 dev = parted.PedDevice.get (deviceFile)
             except parted.error, msg:
@@ -1117,7 +1117,7 @@ class DiskSet:
                         if self.dasdFmt(drive):
                             DiskSet.skippedDisks.append(drive)
                             continue
-                    else:                    
+                    else:
                         try:
                             disk = dev.disk_new_fresh(getDefaultDiskType())
                             disk.commit()
@@ -1133,6 +1133,19 @@ class DiskSet:
 
             filter_partitions(disk, validateFsType)
 
+            # check for more than 15 partitions (libata limit)
+            if drive.startswith('sd'):
+                if disk.get_last_partition_num() > 15:
+                    intf.messageWindow(_("Error"),
+                                       _("The drive %s has more than 15 "
+                                         "partitions on it.  The libata "
+                                         "subsystem in the Linux kernel does "
+                                         "not allow for more than 15 partitons "
+                                         "at this time.  To use this drive in "
+                                         "Linux, you will need to reduce the "
+                                         "number of partitions."))
+                    return
+
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
             if ret == 1:
@@ -1142,7 +1155,7 @@ class DiskSet:
                 if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
                         DiskSet.skippedDisks.append(drive)
-                        continue                    
+                        continue
                 else:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())

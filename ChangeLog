@@ -1,3 +1,10 @@
+2007-04-17  David Cantrell  <dcantrell@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices): Check for more than 15
+	partitions on the disk we are scanning.  If more than 15 are found,
+	alert the user and return.  libata won't allow more than 15 partitions
+	at the moment.
+
 2007-04-17  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgrade_remove_blacklist): Add hal and mysql to
