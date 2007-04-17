@@ -40,6 +40,10 @@
 	message when devices are mentioned by name instead of by label and we
 	can't mount them.
 
+	* loader2/usb.c (usbInitialize):  Back out PS3 patch for now since
+	support's not yet present in kudzu.
+	* loader2/hardware.c (detectHardware):  Likewise.
+
 2007-04-17  Paul Nasrat <pnasrat@redhat.com>
 
 	* isys/isys.py: Ignore ps3 flash (#236481)
