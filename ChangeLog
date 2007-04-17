@@ -6,6 +6,13 @@
 	'install ipv6 /bin/true' in the cases where users want the IPv6
 	stack completely disabled.
 
+	* isys/nl.c (netlink_init_interfaces_list): Fix RTM_GETLINK message
+	reassembly.  Also, make sure we read the entire interface name rather
+	than just the first four characters.  Use BUFSZ macro throughout code.
+	Fixes numerous problems, including the missing HWADDR line (#234764)
+	* isys/nl.h: Define BUFSZ.
+	* isys/isys.c: Looks like I fixed some whitespace.
+
 2007-04-17  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.migratewrite,

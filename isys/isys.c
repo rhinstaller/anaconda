@@ -1104,7 +1104,7 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     char *ret;
 
     if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
+        return NULL;
 
     ret = netlink_interfaces_mac2str(dev);
 

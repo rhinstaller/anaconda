@@ -117,35 +117,35 @@ class NetworkDevice(SimpleConfigFile):
         keys = self.info.keys()
         keys.sort()
         keys.remove("DEVICE")
-	if "DESC" in keys:
-	    keys.remove("DESC")
+        if "DESC" in keys:
+            keys.remove("DESC")
         if "KEY" in keys:
             keys.remove("KEY")
 
-	# Don't let onboot be turned on unless we have config information
-	# to go along with it
-	if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
-	    forceOffOnBoot = 1
-	else:
-	    forceOffOnBoot = 0
+        # Don't let onboot be turned on unless we have config information
+        # to go along with it
+        if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
+            forceOffOnBoot = 1
+        else:
+            forceOffOnBoot = 0
 
-	onBootWritten = 0
+        onBootWritten = 0
         for key in keys:
             if key in ("USEIPV4", "USEIPV6"): # XXX: these are per-device, but not written out
                 continue
-	    if key == 'ONBOOT' and forceOffOnBoot:
-		s = s + key + "=" + 'no' + "\n"
+            if key == 'ONBOOT' and forceOffOnBoot:
+                s = s + key + "=" + 'no' + "\n"
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
                 s = s + key + """="autoneg off %s"\n""" % (self.info[key])
-	    elif self.info[key] is not None:
-		s = s + key + "=" + self.info[key] + "\n"
+            elif self.info[key] is not None:
+                s = s + key + "=" + self.info[key] + "\n"
 
-	    if key == 'ONBOOT':
-		onBootWritten = 1
+            if key == 'ONBOOT':
+                onBootWritten = 1
 
-	if not onBootWritten:
-	    s = s + 'ONBOOT=no\n'
+        if not onBootWritten:
+            s = s + 'ONBOOT=no\n'
 
         return s
 
@@ -429,7 +429,7 @@ class Network:
         if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
 
-        useIPV6 = "no"
+        useIPv6 = False
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
@@ -441,7 +441,7 @@ class Network:
                 f.write("# %s\n" % (dev.get("DESC"),))
 
             if dev.get("USEIPV6"):
-               useIPV6 = "yes"
+               useIPv6 = True
 
             f.write(str(dev))
 
@@ -481,7 +481,15 @@ class Network:
 
         # /etc/modprobe.d/disable-ipv6
         if not useIPv6:
-            fn = "%s/etc/modprobe.d/disable-ipv6" % (instPath,)
+            mpdir = "%s/etc/modprobe.d" % (instPath,)
+            if not os.path.isdir(mpdir):
+                os.makedirs(mpdir, 0755)
+
+            fn = "%s/disable-ipv6" % (mpdir,)
+            idx = 0
+            while os.path.isfile(fn):
+                fn = "%s/disable-ipv6-%d" % (mpdir, idx,)
+                idx += 1
 
             f = open(fn, "w")
             os.chmod(fn, 0644)

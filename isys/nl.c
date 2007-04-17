@@ -127,7 +127,7 @@ int netlink_create_socket(void) {
  */
 int netlink_send_dump_request(int sock, int type, int family) {
     int ret;
-    char buf[4096];
+    char buf[BUFSZ];
     struct sockaddr_nl snl;
     struct nlmsghdr *nlh;
     struct rtgenmsg *g;
@@ -164,7 +164,7 @@ int netlink_send_dump_request(int sock, int type, int family) {
  */
 int netlink_get_interface_ip(int index, int family, void *addr) {
     int sock, ret, len, alen;
-    char buf[4096];
+    char buf[BUFSZ];
     struct nlmsghdr *nlh;
     struct ifaddrmsg *ifa;
     struct rtattr *rta;
@@ -257,8 +257,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
  * @return 0 on succes, -1 on error.
  */
 int netlink_init_interfaces_list(void) {
-    int sock, ret, len, alen, r;
-    char chunk[4096];
+    int sock, len, alen, r, bufsz, havemsg, namelen;
     char *buf = NULL;
     struct nlmsghdr *nlh;
     struct ifinfomsg *ifi;
@@ -285,46 +284,43 @@ int netlink_init_interfaces_list(void) {
     }
 
     /* read back messages */
-    if ((buf = calloc(4096, sizeof(char))) == NULL) {
-        perror("malloc on buf in netlink_init_interfaces_list");
+    if ((buf = calloc(BUFSZ, sizeof(char))) == NULL) {
+        perror("calloc on 1st buf in netlink_init_interfaces_list");
         close(sock);
         return -1;
     }
 
-    ret = recvfrom(sock, chunk, sizeof(chunk), MSG_DONTWAIT, NULL, 0);
-    if (ret < 0) {
-        perror("recvfrom in netlink_init_interfaces_list");
-        close(sock);
-        return -1;
-    } else {
-        buf = strncat(buf, chunk, strlen(chunk));
-    }
+    havemsg = 0;
+    while (!havemsg) {
+        bufsz = recvfrom(sock, buf, BUFSZ, 0, NULL, 0);
 
-    /* read remaining part of message */
-    while (ret != -1) {
-        ret = recvfrom(sock, chunk, sizeof(chunk), MSG_DONTWAIT, NULL, 0);
+        if (bufsz < 0) {
+            perror("recvfrom in netlink_init_interfaces_list");
+            close(sock);
+            return -1;
+        } else if (bufsz > BUFSZ) {
+            free(buf);
+            buf = NULL;
 
-        if (ret > 0) {
-            buf = realloc(buf, strlen(buf) + ret + 1);
-            if (buf == NULL) {
-                perror("realloc on buf in netlink_init_interfaces_list");
+            if ((buf = calloc(bufsz, sizeof(char))) == NULL) {
+                perror("calloc on 2nd buf in netlink_init_interfaces_list");
                 close(sock);
                 return -1;
             }
-
-            buf = strncat(buf, chunk, strlen(chunk));
+        } else  {
+            havemsg = 1;
         }
     }
 
     nlh = (struct nlmsghdr *) buf;
-    while (NLMSG_OK(nlh, ret)) {
+    while (NLMSG_OK(nlh, bufsz)) {
         switch (nlh->nlmsg_type) {
             case NLMSG_DONE:
                 break;
             case RTM_NEWLINK:
                 break;
             default:
-                nlh = NLMSG_NEXT(nlh, ret);
+                nlh = NLMSG_NEXT(nlh, bufsz);
                 continue;
         }
 
@@ -338,13 +334,21 @@ int netlink_init_interfaces_list(void) {
 
         /* we only do things with ethernet mac addrs, so ... */
         if (ifi->ifi_type != ARPHRD_ETHER) {
-            nlh = NLMSG_NEXT(nlh, ret);
+            nlh = NLMSG_NEXT(nlh, bufsz);
             continue;
         }
 
+        namelen = 0;
+
         while (RTA_OK(rta, len)) {
-            if (rta->rta_type <= len)
+            if (rta->rta_type <= len) {
+                if (rta->rta_type == IFLA_IFNAME) {
+                   namelen = rta->rta_len;
+                }
+
                 tb[rta->rta_type] = rta;
+            }
+
             rta = RTA_NEXT(rta, len);
         }
 
@@ -365,7 +369,7 @@ int netlink_init_interfaces_list(void) {
 
             /* copy the interface name (eth0, eth1, ...) */
             intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
-                                             sizeof(RTA_DATA(tb[IFLA_IFNAME])));
+                                     namelen);
 
             /* copy the MAC addr */
             memcpy(&intfinfo->mac, RTA_DATA(tb[IFLA_ADDRESS]), alen);
@@ -390,7 +394,7 @@ int netlink_init_interfaces_list(void) {
         }
 
         /* next netlink msg */
-        nlh = NLMSG_NEXT(nlh, ret);
+        nlh = NLMSG_NEXT(nlh, bufsz);
     }
 
     close(sock);
@@ -491,6 +495,7 @@ void netlink_interfaces_list_free(void) {
     g_slist_foreach(interfaces, &_netlink_interfaces_elem_free, NULL);
     g_slist_free(interfaces);
     interfaces = NULL;
+    return;
 }
 
 /**
@@ -501,6 +506,7 @@ void netlink_interfaces_list_free(void) {
  */
 void _netlink_interfaces_elem_free(gpointer data, gpointer user_data) {
     free(data);
+    data = NULL;
     return;
 }
 
