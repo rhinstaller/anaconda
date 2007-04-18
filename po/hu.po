@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-10 21:34+0200\n"
+"PO-Revision-Date: 2007-04-18 21:31+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "Ismeretlen telepítési eljárás: %s"
 
 #: ../anaconda:865
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Olyan módon próbál telepíteni, amelyet az anaconda nem támogat."
+msgstr "Olyan módon próbál telepíteni, amelyet az Anaconda nem támogat."
 
 #: ../anaconda:867
 #, c-format
@@ -668,9 +668,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"cserepartíció eszköz az /etc/fstab fájl szerint jelenleg szoftveres "
+"cserepartíció-eszköz az /etc/fstab fájl szerint jelenleg szoftveres "
 "felfüggesztéshez van használva, ami annyit jelent, hogy a rendszer hibernált "
-"állapotban van. A rendszerfrissítés elvégzéséhezkapcsolja ki a gépét és ne "
+"állapotban van. A rendszerfrissítés elvégzéséhez kapcsolja ki a gépét és ne "
 "hibernálja."
 
 #: ../fsset.py:1520
@@ -1085,7 +1085,7 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"A telepítő megpróbálta a(z) #%s képmásfájt csatolni, de az nem található a "
+"A telepítő megpróbálta a(z) #%s képmásfájlt csatolni, de az nem található a "
 "merevlemezen.\n"
 "\n"
 "Másolja a fenti képmást a merevlemezre és kattintson az Újra gombra. "
@@ -1150,7 +1150,7 @@ msgstr ""
 
 #: ../image.py:166 ../urlinstall.py:100
 msgid "Copying File"
-msgstr "File másolása"
+msgstr "Fájl másolása"
 
 #: ../image.py:167 ../urlinstall.py:101
 msgid "Transferring install image to hard drive..."
@@ -1166,7 +1166,7 @@ msgstr ""
 
 #: ../image.py:266
 msgid "Change CDROM"
-msgstr "Cseréljen CDROM-ot"
+msgstr "Cseréljen CD-t"
 
 #: ../image.py:267
 #, python-format
@@ -1230,7 +1230,7 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"A telepítő megpróbálta a(z) \"#%s\" képmásfájt csatolni, de az nem található a "
+"A telepítő megpróbálta a(z) \"#%s\" képmásfájlt csatolni, de az nem található a "
 "kiszolgálón.\n"
 "\n"
 "Másolja a fenti képmást a kiszolgáló kiajánlott útvonalába és "
@@ -1797,7 +1797,7 @@ msgstr "Nincs tag a RAID-kérésben, vagy a RAID-szint nincs megadva."
 
 #: ../partRequests.py:679 ../partitions.py:954
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "A rendszerindítási partíció csak RAID-1-es meghajtón lehet."
+msgstr "Rendszerindítási partíció csak RAID-1-es eszközön lehet."
 
 #: ../partRequests.py:683
 #, python-format
@@ -1917,7 +1917,7 @@ msgstr ""
 
 #: ../partedUtils.py:1225
 msgid "No Drives Found"
-msgstr "Nem találtam meghajtókat"
+msgstr "Meghajtó nem található"
 
 #: ../partedUtils.py:1226
 msgid ""
@@ -2476,7 +2476,7 @@ msgstr "A jelszónak legalább 6 karakter hosszúnak kell lennie."
 
 #: ../vnc.py:141
 msgid "VNC Password Error"
-msgstr "VNC jelszó hiba"
+msgstr "VNC-jelszóhiba"
 
 #: ../vnc.py:142
 msgid ""
@@ -2484,9 +2484,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"Meg kell adnia egy vnc jelszót, ami legalább 6 karakter hosszú.\n"
+"Meg kell adnia egy VNC-jelszót, amely legalább 6 karakter hosszú.\n"
 "\n"
-"Nyomja meg a <return>-t a rendszer újraindításához.\n"
+"Nyomja meg a <Return>-t a rendszer újraindításához.\n"
 
 #: ../vnc.py:187
 msgid "Starting VNC..."
@@ -2495,12 +2495,12 @@ msgstr "A VNC indítása..."
 #: ../vnc.py:230
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr "%s %s telepítés erre a gépre: %s"
+msgstr "%s %s-telepítés erre a gépre: %s"
 
 #: ../vnc.py:232
 #, python-format
 msgid "%s %s installation"
-msgstr "%s %s telepítés"
+msgstr "%s %s-telepítés"
 
 #: ../vnc.py:252
 msgid "Unable to set vnc password - using no password!"
@@ -2637,11 +2637,11 @@ msgstr "nem megfelelő architektúrához készült csomag"
 
 #: ../yuminstall.py:538
 msgid "package for incorrect os"
-msgstr "nem megfeleő operációs rendszerhez készült csomag"
+msgstr "nem megfelelő operációs rendszerhez készült csomag"
 
 #: ../yuminstall.py:552
 msgid "You need more space on the following file systems:\n"
-msgstr "Több szabad helyre van szüksége az alábbi fájlrenbdszereken:\n"
+msgstr "Több szabad helyre van szüksége az alábbi fájlrendszereken:\n"
 
 #: ../yuminstall.py:568
 msgid "Error running transaction"
@@ -2650,7 +2650,7 @@ msgstr "Hiba a tranzakció futtatása közben"
 #: ../yuminstall.py:569
 #, python-format
 msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr "A trenzakció futtatása hibát eredményezett, az alábbi ok(ok) miatt: %s"
+msgstr "A tranzakció futtatása hibát eredményezett az alábbi ok(ok) miatt: %s"
 
 #: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
 #: ../yuminstall.py:928
@@ -2674,7 +2674,7 @@ msgid ""
 "generated.  %s"
 msgstr ""
 "Hiba a csomag metaadatok olvasása közben. Ennek egy hiányzó repodata "
-"könyvtár lehet az oka.Ellenőrizze, hogy helyesen lett-e létrehozva a "
+"könyvtár lehet az oka. Ellenőrizze, hogy helyesen lett-e létrehozva a "
 "telepítési fa.  %s"
 
 #: ../yuminstall.py:737
@@ -2749,7 +2749,7 @@ msgstr "Nem adott meg eszközszámot, vagy a szám érvénytelen"
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nem adott meg worldwide port nevet, vagy a név érvénytelen."
+msgstr "Nem adott meg egyedi (worldwide) portnevet, vagy a név érvénytelen."
 
 #: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -4694,7 +4694,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> választ | <F2> alapértelmezett | <F4> töröl | <F12> következő "
+"<Szóköz> választ | <F2> alapértelmezés | <F4> töröl | <F12> következő "
 "képernyő>"
 
 #: ../textw/bootloader_text.py:386
@@ -5152,7 +5152,7 @@ msgstr "Zárócilinder:"
 
 #: ../textw/partition_text.py:478
 msgid "Volume Group:"
-msgstr "A kötetcsoport neve:"
+msgstr "Kötetcsoport:"
 
 #: ../textw/partition_text.py:500
 msgid "RAID Level:"
@@ -5336,7 +5336,7 @@ msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot 
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
-msgstr "Nincs root-partíció"
+msgstr "Nincs gyökérpartíció"
 
 #: ../textw/partition_text.py:1490
 msgid "Installation requires a / partition."
@@ -5678,9 +5678,9 @@ msgid ""
 "to retest each CD prior to using it again."
 msgstr ""
 "Amennyiben további adathordozót is akar még tesztelni, helyezze be a "
-"következő CD-t és nyomja meg a \"%s\" gombot. Minden egyes CD tesztelése nem "
+"következő CD-t és nyomja meg a(z) \"%s\" gombot. Minden egyes CD tesztelése nem "
 "feltétlenül szükséges, azonban ajánlatos. Legalább az első használat "
-"előttérdemes a CD-ket tesztelni. Amennyiben más sikeresen tesztelve lettek, "
+"előtt érdemes a CD-ket tesztelni. Amennyiben már sikeresen tesztelve lettek, "
 "nem szükséges az újbóli tesztelés."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
@@ -5777,7 +5777,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
-msgstr "Helyezze be a meghajtólemezt"
+msgstr "Helyezze be a meghajtóprogram-lemezt"
 
 #: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
@@ -5803,12 +5803,12 @@ msgid ""
 "driver disk?"
 msgstr ""
 "Nem található a várt típusú eszköz a meghajtólemezen. Kézzel szeretné "
-"kiválasztani a meghajtót, inkább továbblép vagy betölt egy másik "
+"kiválasztani a meghajtóprogramot, inkább továbblép vagy betölt egy másik "
 "meghajtólemezt?"
 
 #: ../loader2/driverdisk.c:520
 msgid "Driver disk"
-msgstr "Meghajtólemez"
+msgstr "Meghajtóprogram-lemez"
 
 #: ../loader2/driverdisk.c:521
 msgid "Do you have a driver disk?"
@@ -5820,7 +5820,7 @@ msgstr "Van még meghajtólemez?"
 
 #: ../loader2/driverdisk.c:532
 msgid "Do you wish to load any more driver disks?"
-msgstr "Szeretne további meghajtólemezeket betölteni?"
+msgstr "Szeretne további meghajtólemezt betölteni?"
 
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
@@ -5863,7 +5863,7 @@ msgstr "Modulparaméterek"
 
 #: ../loader2/driverselect.c:181
 msgid "No drivers found"
-msgstr "Nem található meghajtó"
+msgstr "Nem található meghajtóprogram"
 
 #: ../loader2/driverselect.c:181
 msgid "Load driver disk"
@@ -5873,14 +5873,14 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr "Nem található kézzel beszúrható meghajtóprogram. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Válassza ki alább a betölteni kívánt meghajtót. Ha nem jelenik meg, és "
+"Válassza ki alább a betölteni kívánt meghajtóprogramot. Ha nem jelenik meg, és "
 "rendelkezik meghajtólemezzel, nyomja meg az F2 gombot."
 
 #: ../loader2/driverselect.c:208
@@ -5889,12 +5889,12 @@ msgstr "Modulargumentumok megadása"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
-msgstr "Válassza ki a betöltendő meghajtót"
+msgstr "Válassza ki a betöltendő meghajtóprogramot"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
 msgid "Loading %s driver..."
-msgstr "A(z) %s-meghajtó betöltése folyik..."
+msgstr "A(z) %s-meghajtóprogram betöltése folyik..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
 #: ../loader2/urlinstall.c:160
@@ -6097,11 +6097,11 @@ msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
 
 #: ../loader2/loader.c:1024
 msgid "No driver found"
-msgstr "Nem található meghajtó"
+msgstr "Nem található meghajtóprogram"
 
 #: ../loader2/loader.c:1024
 msgid "Select driver"
-msgstr "Válassza ki a meghajtót"
+msgstr "Válassza ki a meghajtóprogramot"
 
 #: ../loader2/loader.c:1025
 msgid "Use a driver disk"
@@ -6519,11 +6519,11 @@ msgstr "Web"
 
 #: ../loader2/urls.c:308
 msgid "FTP site name:"
-msgstr "FTP-site-név:"
+msgstr "Az FTP-hely neve:"
 
 #: ../loader2/urls.c:309
 msgid "Web site name:"
-msgstr "Website-név:"
+msgstr "A webhely neve:"
 
 #: ../loader2/urls.c:328
 msgid "Use non-anonymous ftp"
@@ -6559,8 +6559,8 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Ha nem anonymous FTP-t használ, adja meg a felhasználónevet és a jelszót "
-"alább."
+"Ha nem anonymous (azaz nem névtelen) FTP-t használ, akkor adja meg a "
+"felhasználónevet és a jelszót lentebb."
 
 #: ../loader2/urls.c:435
 msgid ""
@@ -6582,7 +6582,7 @@ msgstr "További HTTP-beállítás"
 
 #: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
-msgstr "SCSI-meghajtó betöltése"
+msgstr "SCSI-meghajtóprogram betöltése"
 
 #: tmp/adddrive.glade.h:1
 msgid "Add _ZFCP LUN"
