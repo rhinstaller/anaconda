@@ -377,13 +377,13 @@ int mediaCheckFile(char *file, int flags) {
     /*    printf("isosize = %lld\n", isosize); 
 	  printf("%s\n%s\n", mediasum, computedsum);*/
 
-    if (!quiet)
-	fprintf(stderr, "The supported flag value is %d\n", supported);
+    /*    if (!quiet)
+          fprintf(stderr, "The supported flag value is %d\n", supported);*/
 
     if (rc == 0)
 	result = "FAIL.\n\nIt is not recommended to use this media.";
     else if (rc > 0)
-	result = "PASS.\n\nIt is OK to install from this media.";
+	result = "PASS.\n\nIt is OK to use this media.";
     else
 	result = "NA.\n\nNo checksum information available, unable to verify media.";
 
