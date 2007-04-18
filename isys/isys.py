@@ -20,6 +20,7 @@ import string
 import os
 import os.path
 import socket
+import stat
 import posix
 import sys
 import kudzu
@@ -290,6 +291,17 @@ def driveDict(klassArg):
                 if not mediaPresent (device):
                     new[device] = dev
                     continue
+
+                # blacklist the device which the live image is running from
+                # installing over that is almost certainly the wrong
+                # thing to do.
+                if os.path.exists("/dev/live") and \
+                       stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+                    livetarget = os.path.realpath("/dev/live")
+                    if livetarget.startswith(devName):
+                        log.info("%s looks to be the live device; ignoring" % (device,))
+                        continue
+                    
 
                 if device.startswith("sd"):
                     peddev = parted.PedDevice.get(devName)

@@ -1,3 +1,15 @@
+2007-04-18  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (driveDict): Ignore drives that the live install is
+	running from.  This should help avoid trying to install the
+	bootloader to the USB key that you're running the live image off of
+
+	* livecd.py (LiveCDImageMethod.postAction): Fix unmount to work
+	and re-enable it so that people aren't left with /mnt/sysimage
+	mounted in most cases
+	(LiveCDImageMethod.protectedPartitions): Mark the live image
+	partition as protected
+
 2007-04-18  David Cantrell  <dcantrell@redhat.com>
 
 	* vnc.py: import socket

@@ -84,9 +84,27 @@ class LiveCDImageMethod(installmethod.InstallMethod):
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
 
-#     def postAction(self, anaconda):
-#         anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
-#                                             swapoff = False)        
+    def postAction(self, anaconda):
+        # unmount things that aren't listed in /etc/fstab.  *sigh*
+        for dir in ("/selinux", "/dev"):
+            try:
+                isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
+            except Exception, e:
+                log.error("unable to unmount %s: %s" %(d, e))
+
+        try:
+            anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
+                                                swapoff = False)
+            os.rmdir(anaconda.rootPath)
+        except Exception, e:
+            log.error("Unable to unmount filesystems.") 
+
+    def protectedPartitions(self):
+        if os.path.exists("/dev/live") and \
+           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+            target = os.readlink("/dev/live")
+            return [target]
+        return []
 
     def getLiveBlockDevice(self):
         return self.osimg
