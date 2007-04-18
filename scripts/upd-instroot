@@ -997,7 +997,7 @@ cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
 ' | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DESTGR/locales
 for p in lib share; do (
 cd $DESTGR/usr/$p/locale && {
-ls | grep -v locale.alias | LC_ALL=C sort > $DESTGR/locales.list
+ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DESTGR/locales.list
 LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 }
 ); done

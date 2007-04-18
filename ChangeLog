@@ -11,6 +11,10 @@
 	* scripts/mk-rescueimage.i386:  The default option has changed
 	locations for the menus (#236453).
 
+	* scripts/upd-instroot:  Don't delete locale-archive when trying to
+	save space, since that's where all the locales are now stored
+	(#236978).
+
 2007-04-18  Jeremy Katz  <katzj@redhat.com>
 
 	* isomd5sum/libcheckisomd5.c (mediaCheckFile): Change the text a
