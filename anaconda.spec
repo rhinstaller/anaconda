@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.51
+Version: 11.2.0.52
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,7 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Wed Apr 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.51-1
+* Wed Apr 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.52-1
 - More PS3 fixes (dwmw2, #236480, #236508)
 - Fix broadcast calculation (dcantrell, #236266)
 - Allow anaconda to install debuginfo (#236033)
