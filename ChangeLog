@@ -1,3 +1,11 @@
+2007-04-18  Paul Nasrat <pnasrat@redhat.com>
+
+	* anaconda.spec: Update kudzu requirement for ps3 probing.
+
+	* loader2/usb.c (usbInitialize):  Probe PS3 bus for hardware
+	(#236480, dwmw2 AT redhat.com).
+	* loader2/hardware.c (detectHardware):  Likewise.
+
 2007-04-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
