@@ -8,6 +8,9 @@
 	* yuminstall.py (YumDepSolveProgress.tscheck):  Don't traceback if
 	there's no packages to update.
 
+	* scripts/mk-rescueimage.i386:  The default option has changed
+	locations for the menus (#236453).
+
 2007-04-18  Jeremy Katz  <katzj@redhat.com>
 
 	* isomd5sum/libcheckisomd5.c (mediaCheckFile): Change the text a

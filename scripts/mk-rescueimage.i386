@@ -57,17 +57,24 @@ cfgfile = open("%s/isolinux/isolinux.cfg" % (destdir,), "w+")
 fndit = 0
 indefault = 0
 defaultimg = None
+usingmenu = False
+
 for l in cfglines:
     if string.find(l, "default ") != -1:
 	defaultimg = string.strip(string.split(l,' ')[1])
-	cfgfile.write("default rescue\n")
+        if defaultimg.startswith("vesamenu"):
+            usingmenu = True
+            defaultimg = "rescue"
+            cfgfile.write(l)
+        else:
+            cfgfile.write("default rescue\n")
 	continue
     elif string.find(l, "label ") != -1:
 	# see if we've left default stanza and entered a new one
 	if fndit and indefault:
 	    indefault = 0
 	    cfgfile.write(rescuestanza)
-	    
+
 	if defaultimg is not None:
 	    curimg = string.strip(string.split(l, ' ')[1])
 	    if curimg == defaultimg:
@@ -76,7 +83,10 @@ for l in cfglines:
 
 		# build up the rescue stanza based on whats in the
 		# default stanza as we echo it out
-		rescuestanza = "label rescue\n"
+                if usingmenu:
+                    rescuestanza = "  menu default\n"
+                else:
+                    rescuestanza = "label rescue\n"
 
 	# if we fall through then write it out
 	cfgfile.write(l)
@@ -89,7 +99,8 @@ for l in cfglines:
 	    else:
 		rescuestanza = rescuestanza + l
 
-	cfgfile.write(l)
+        if usingmenu and string.find(l, "menu default") == -1:
+            cfgfile.write(l)
 
 cfgfile.close()
 
