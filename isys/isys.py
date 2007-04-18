@@ -432,16 +432,17 @@ def mknod(pathname, mode, dev):
     return os.mknod(pathname, mode, dev)
 
 def inet_calcNetBroad (ip, nm):
-    (ipaddr,) = struct.unpack('!I', socket.inet_pton(socket.AF_INET, ip))
+    (ipaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, ip))
     ipaddr = socket.ntohl(ipaddr)
 
-    (nmaddr,) = struct.unpack('!I', socket.inet_pton(socket.AF_INET, nm))
+    (nmaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, nm))
     nmaddr = socket.ntohl(nmaddr)
 
     netaddr = ipaddr & nmaddr
     bcaddr = netaddr | (~nmaddr)
-    nw = socket.inet_ntop(socket.AF_INET, struct.pack('I', netaddr))
-    bc = socket.inet_ntop(socket.AF_INET, struct.pack('I', bcaddr))
+
+    nw = socket.inet_ntop(socket.AF_INET, struct.pack('!I', netaddr))
+    bc = socket.inet_ntop(socket.AF_INET, struct.pack('!I', bcaddr))
 
     return (nw, bc)
 

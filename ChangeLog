@@ -1,3 +1,11 @@
+2007-04-18  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/nl.c (netlink_init_interfaces_list): Should catch instances
+	where namelen is zero.
+
+	* isys/isys.py (inet_calcNetBroad): Fix broadcast address
+	calculation (#236266).
+
 2007-04-18  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Update kudzu requirement for ps3 probing.

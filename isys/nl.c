@@ -368,8 +368,12 @@ int netlink_init_interfaces_list(void) {
             intfinfo->i = ifi->ifi_index;
 
             /* copy the interface name (eth0, eth1, ...) */
-            intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
-                                     namelen);
+            if (namelen > 0) {
+                intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
+                                         namelen);
+            } else {
+                intfinfo->name = NULL;
+            }
 
             /* copy the MAC addr */
             memcpy(&intfinfo->mac, RTA_DATA(tb[IFLA_ADDRESS]), alen);
