@@ -1371,7 +1371,7 @@ class YumDepSolveProgress:
         self.loopstart = None
         self.incr = None
         self.ayum = ayum
-        
+
         self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
         self.procReq = self.procConflict = self.unresolved = self.noop
 
@@ -1379,8 +1379,8 @@ class YumDepSolveProgress:
         self.refresh()
         if num is None and self.ayum is not None and self.ayum.tsInfo is not None:
             num = len(self.ayum.tsInfo.getMembers())
-            
-        if num is not None:
+
+        if num:
             self.numpkgs = num
             self.loopstart = self.current
             self.incr = (1.0 / num) * ((1.0 - self.loopstart) / 2)
