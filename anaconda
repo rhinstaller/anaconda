@@ -767,6 +767,14 @@ if __name__ == "__main__":
     if not opts.isHeadless:
         xserver = rhpxl.xserver.XServer()
         xserver.resolution = opts.runres
+        # hack for PS3 video (#236510)
+        if rhpl.getArch() == "ppc":
+            try:
+                (x, y, bpp) = isys.fbinfo()
+                if x < 800 or y < 600:
+                    xserver.resolution = "640x480"
+            except Exception, e:
+                log.debug("error getting fbinfo: %s" %(e,))
     else:
         xserver = None
 
