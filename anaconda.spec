@@ -142,6 +142,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.51-1
+- More PS3 fixes (dwmw2, #236480, #236508)
+- Fix broadcast calculation (dcantrell, #236266)
+- Allow anaconda to install debuginfo (#236033)
+- Fixes for installs from live image running off of USB key
+- Don't nuke locale-archive (clumens, #236978)
+- Fix rescue image default (clumens, #236453)
+- Try to be smarter about resolution for 480i ps3 (#236510)
+
 * Tue Apr 17 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.51-1
 - Some PS3 fixes (dwmw2)
 - Try to handle some of the problem cases with the ide -> libata driver 
