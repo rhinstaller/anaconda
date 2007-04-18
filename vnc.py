@@ -23,6 +23,7 @@ import isys
 import product
 import iutil
 import network
+import socket
 
 import logging
 log = logging.getLogger("anaconda")
