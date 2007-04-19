@@ -1,3 +1,8 @@
+2007-04-19  David Cantrell  <dcantrell@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices): Add /dev/ to the device node
+	indicated in the >15 partitions error dialog (#234686).
+
 2007-04-19  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -107,7 +112,7 @@
 	* partedUtils.py (DiskSet.openDevices): Check for more than 15
 	partitions on the disk we are scanning.  If more than 15 are found,
 	alert the user and return.  libata won't allow more than 15 partitions
-	at the moment.
+	at the moment (#234686).
 
 2007-04-17  Jeremy Katz  <katzj@redhat.com>
 
