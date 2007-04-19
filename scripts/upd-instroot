@@ -549,7 +549,7 @@ usr/$LIBDIR/libXxf86misc.so*
 usr/bin/xauth
 EOF
 fi
-      
+
 #
 # KEEPFILEGR is all files to keep from the packages in PACKAGESGR
 #
@@ -982,6 +982,10 @@ done
 for p in $DEST $DESTGR; do
     $p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
 done
+
+if [ -f $DESTGR/usr/lib/locale/locale-archive.tmpl ]; then
+   mv $DESTGR/usr/lib/locale/locale-archive.tmpl $DESTGR/usr/lib/locale/locale-archive
+fi
 
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
