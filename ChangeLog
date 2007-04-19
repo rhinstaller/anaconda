@@ -1,3 +1,8 @@
+2007-04-19  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDImageMethod.getFilename): Handle getting the
+	release notes for the live CD.
+
 2007-04-19  David Cantrell  <dcantrell@redhat.com>
 
 	* gui.py: Make StayOnScreen an Exception class rather than a string.
