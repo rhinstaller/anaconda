@@ -9,6 +9,11 @@
 
 2007-04-19  Chris Lumens <clumens@redhat.com>
 
+	* fsset.py (devify):  Don't map pseudofilesystems like tmpfs to device
+	names like /dev/tmpfs.
+	(FileSystemSet.add):  Smarten up the entry adding code to not
+	duplicate pseudofilesystem entries (#236477).
+
 	* scripts/upd-instroot:  Move locale-archive.tmpl into place.
 
 2007-04-19  Jeremy Katz  <katzj@redhat.com>

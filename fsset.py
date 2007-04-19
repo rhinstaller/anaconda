@@ -93,7 +93,7 @@ def getUsableLinuxFs():
     return rc
 
 def devify(device):
-    if device == "proc" or device == "devpts":
+    if device in ["proc", "devpts", "sysfs", "tmpfs"]:
         return device
     elif device == "sys":
         return "sysfs"
@@ -1113,10 +1113,12 @@ class FileSystemSet:
             else:
                 return False
 
-        # remove preexisting duplicate entries
+        # Remove preexisting duplicate entries - pseudo filesystems are
+        # duplicate if they have the same filesystem type as an existing one.
+        # Otherwise, they have to have the same device and mount point
+        # (required to check for bind mounts).
         for existing in self.entries:
-            if (existing.device.getDevice() == newEntry.device.getDevice()
-                and existing.mountpoint == newEntry.mountpoint):
+            if (isinstance (newEntry.fsystem, PsudoFileSystem) and existing.fsystem.getName() == newEntry.fsystem.getName()) or (existing.device.getDevice() == newEntry.device.getDevice() and existing.mountpoint == newEntry.mountpoint):
                 self.remove(existing)
 
         # XXX debuggin'
