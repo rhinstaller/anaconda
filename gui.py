@@ -52,7 +52,9 @@ log = logging.getLogger("anaconda")
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
-StayOnScreen = "stayOnScreen"
+class StayOnScreen(Exception):
+    pass
+
 mainWindow = None
 
 stepToClass = {
