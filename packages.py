@@ -213,7 +213,7 @@ def setFileCons(anaconda):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi"] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/etc/modprobe.d"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):

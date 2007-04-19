@@ -4,6 +4,9 @@
 
 2007-04-19  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (setFileCons): Add /etc/modprobe.d to our list of
+	dirs that we have to restorecon
+
 	* lang-table: Romanian returns (#237060)
 
 2007-04-18  Jeremy Katz  <katzj@redhat.com>
