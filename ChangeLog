@@ -1,7 +1,8 @@
 2007-04-19  David Cantrell  <dcantrell@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices): Add /dev/ to the device node
-	indicated in the >15 partitions error dialog (#234686).
+	indicated in the >15 partitions error dialog.  Also, exit the installer
+	if Reboot is selected (#234686).
 
 2007-04-19  Jeremy Katz  <katzj@redhat.com>
 

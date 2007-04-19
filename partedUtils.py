@@ -1154,7 +1154,7 @@ class DiskSet:
                                         custom_buttons = [_("_Reboot"),
                                                           _("_Continue")],
                                         custom_icon="warning")
-                if rc == 1:
+                if rc == 0:
                     sys.exit(0)
 
             # check that their partition table is valid for their architecture
