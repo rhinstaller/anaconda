@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.52
+Version: 11.2.0.53
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 19 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.53-1
+- Add Romanian to language list (#237060)
+- Fix selinux context of /etc/modprobe.d
+- Move locale-archive.tmpl into the right place (clumens)
+- Don't duplicate filesystem entries (clumens, #236477)
+- Fix a python warning (dcantrell)
+- Fix release notes with live CD
+
 * Wed Apr 18 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.52-1
 - More PS3 fixes (dwmw2, #236480, #236508)
 - Fix broadcast calculation (dcantrell, #236266)
