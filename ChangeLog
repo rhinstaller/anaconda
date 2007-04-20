@@ -1,3 +1,10 @@
+2007-04-20  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (getLinkStatus): Be a little more intelligent about what
+	we get from _isys.getLinkStatus().  -1 is unknown state, which will map
+	to True in the calling Python function.  Only return True when we get a
+	1 back, otherwise False (#236483).
+
 2007-04-20  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  New version.

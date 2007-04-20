@@ -876,7 +876,14 @@ def ideCdRwList():
     return newList
 
 def getLinkStatus(dev):
-    return _isys.getLinkStatus(dev)
+    if dev == '' or dev is None:
+        return False
+
+    # getLinkStatus returns 1 for link, 0 for no link, -1 for unknown state
+    if _isys.getLinkStatus(dev) == 1:
+        return True
+    else:
+        return False
 
 def getMacAddress(dev):
     return _isys.getMacAddress(dev)
