@@ -143,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Apr 20 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.54-1
+- Be smarter about detecting network link status (dcantrell, #236483).
 - Lots of yum mirror list and retry fixes (dlehman).
 - BR libdhcp-static (dcantrell).
 - Add Mist theme (katzj).
