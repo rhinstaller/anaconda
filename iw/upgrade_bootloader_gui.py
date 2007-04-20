@@ -96,8 +96,12 @@ class UpgradeBootloaderWindow (InstallWindow):
         updatestr = _("This will update your current boot loader.")
 
         if newToLibata or (self.type is None or self.bootDev is None):
-            current = _("The installer is unable to detect the boot loader "
-                        "currently in use on your system.")
+            if newToLibata:
+                current = _("Due to system changes, your boot loader "
+                            "configuration can not be automatically updated.")
+            else:
+                current = _("The installer is unable to detect the boot loader "
+                            "currently in use on your system.")
             self.update_label = gtk.Label("%s" % (updatestr,))
             self.update_radio.set_sensitive(False)
             self.update_label.set_sensitive(False)

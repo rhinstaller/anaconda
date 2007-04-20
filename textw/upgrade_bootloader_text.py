@@ -73,9 +73,15 @@ class UpgradeBootloaderWindow:
                 update = 1
         
         if newToLibata or self.type is None or self.bootDev is None:
-            t = TextboxReflowed(53,
+            if newToLibata:
+                t = TextboxReflowed(53,
+                    _("Due to system changes, your boot loader "
+                      "configuration can not be automatically updated."))
+            else:
+                t = TextboxReflowed(53,
                   _("The installer is unable to detect the boot loader "
                     "currently in use on your system."))
+            
 
             self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
