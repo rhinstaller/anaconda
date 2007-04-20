@@ -1,5 +1,10 @@
 2007-04-20  Chris Lumens  <clumens@redhat.com>
 
+	* loader2/urlinstall.c (mountUrlImage):  Fix test for .discinfo file
+	on a good tree.
+
+2007-04-20  Chris Lumens  <clumens@redhat.com>
+
 	* anaconda.spec:  New version.
 
 2007-04-20  David Cantrell  <dcantrell@redhat.com>
