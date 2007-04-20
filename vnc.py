@@ -235,7 +235,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
         else:
             ipstr = ip
 
-        if connxinfo is not None:
+        if connxinfo is None:
             connxinfo = "%s:1" % ipstr
         else:
             connxinfo += " (%s)" % ipstr
