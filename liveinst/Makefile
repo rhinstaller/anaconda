@@ -1,4 +1,5 @@
 all:
+	LC_ALL=C intltool-merge -d -u ../po liveinst.desktop.in liveinst.desktop
 
 install:
 	mkdir -p $(DESTDIR)/usr/bin
@@ -18,4 +19,4 @@ install:
 	install -m 0755 liveinst.xinit $(DESTDIR)/etc/X11/xinit/xinitrc.d/zz-liveinst.sh
 
 clean:
-	rm -f *~
+	rm -f *~ liveinst.desktop
