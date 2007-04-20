@@ -1,3 +1,8 @@
+2007-04-20  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec: Make anaconda-runtime require genisoimage instead of
+	mkisofs.
+
 2007-04-19  David Cantrell  <dcantrell@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices): Add /dev/ to the device node

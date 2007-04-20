@@ -65,7 +65,7 @@ Group: Applications/System
 AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61
 Requires: anaconda = %{version}-%{release}
-Requires: createrepo >= 0.4.7, squashfs-tools, mkisofs
+Requires: createrepo >= 0.4.7, squashfs-tools, genisoimage
 %ifarch %{ix86} x86_64
 Requires: syslinux
 %endif
