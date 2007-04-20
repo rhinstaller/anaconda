@@ -1,3 +1,44 @@
+2007-04-18  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo._getFile): re-raise "no more mirrors"
+	URLGrabError instead of masking it with a RepoError
+
+	* yuminstall.py (AnacondaYumRepo._getFile): renamed from _get to 
+	_getFile so everyone will use it
+
+	* yuminstall.py (AnacondaCallback.callback): handle "no more mirrors"
+	when trying to retrieve a package to install
+
+	* yuminstall.py (AnacondaYumRepo.__init__): allow both uri and 
+	mirrorlist to be specified
+
+	* yuminstall.py (AnacondaYumRepo.getHeader): call self._getFile instead
+	of self._get
+
+	* yuminstall.py (AnacondaYumRepo.getPackage): ditto
+
+	* yuminstall.py (AnacondaYum.downloadHeader): copied from YumBase
+	with the addition of a loop to handle retries if we run out of mirrors
+
+	* yuminstall.py (AnacondaYumBackend.doRepoSetup): set the failure 
+	callbacks individually for each repo
+
+	* yuminstall.py: move _handleFailure, urlgrabberFailureCB,
+	mirrorFailureCB, and prevmedia from AnacondaYumBackend into AnacondaYum
+
+	* yuminstall.py (AnacondaYum.mirrorFailureCB): remove checks for "no
+	more mirrors" (we now catch the exception properly in _getFile)
+
+	* yuminstall.py (AnacondaYum.urlgrabberFailureCB): remove everything 
+	except the log message since everything we did in here was also done 
+	immediately afterward in the mirror failure callback
+
+	* yuminstall.py (AnacondaYumBackend.doRepoSetup): catch a wider range
+	of exceptions potentially raised by doGroupSetup
+
+	* yuminstall.py (AnacondaYumBackend.doRepoSetup): really reboot when
+	doGroupSetup fails
+
 2007-04-20  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: BR libdhcp-static

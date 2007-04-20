@@ -175,6 +175,10 @@ class AnacondaCallback:
                     self.openfile = f
                 except yum.Errors.RepoError, e:
                     continue
+                except URLGrabError, e:
+                    # the only URLGrabError we can get here is "no more mirrors"
+                    self.ayum._handleFailure(po)
+                    continue
 
             return self.openfile.fileno()
 
@@ -215,13 +219,12 @@ class AnacondaYumRepo(YumRepository):
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         self.keepalive = False
         
-        if uri and not mirrorlist:
-            if type(uri) == types.ListType:
-                self.baseurl = uri
-            else:
-                self.baseurl = [ uri ]
-        elif mirrorlist and not uri:
-            self.mirrorlist = mirrorlist
+        if type(uri) == types.ListType:
+            self.baseurl = uri
+        else:
+            self.baseurl = [ uri ]
+
+        self.mirrorlist = mirrorlist
 
         self.setAttribute('cachedir', '/tmp/cache/')
         self.setAttribute('pkgdir', root)
@@ -238,8 +241,8 @@ class AnacondaYumRepo(YumRepository):
 
         return headers
 
-    #XXX: FIXME duplicated from YumRepository due to namespacing
-    def __get(self, url=None, relative=None, local=None, start=None, end=None,
+    # adds handling of "no more mirrors" exception
+    def __getFile(self, url=None, relative=None, local=None, start=None, end=None,
             copy_local=0, checkfunc=None, text=None, reget='simple', cache=True):
         """retrieve file from the mirrorgroup for the repo
            relative to local, optionally get range from
@@ -263,10 +266,6 @@ class AnacondaYumRepo(YumRepository):
         if local is None or relative is None:
             raise yum.Errors.RepoError, \
                   "get request for Repo %s, gave no source or dest" % self.id
-
-        if self.failure_obj:
-            (f_func, f_args, f_kwargs) = self.failure_obj
-            self.failure_obj = (f_func, f_args, f_kwargs)
 
         if self.cache == 1:
             if os.path.exists(local): # FIXME - we should figure out a way
@@ -301,8 +300,11 @@ class AnacondaYumRepo(YumRepository):
                                     range=(start, end),
                                     )
             except URLGrabError, e:
-                raise yum.Errors.RepoError, \
-                    "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
+                if e.errno == 256: # no more mirrors
+                    raise
+                else:
+                    raise yum.Errors.RepoError, \
+                        "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
 
         else:
             try:
@@ -316,7 +318,10 @@ class AnacondaYumRepo(YumRepository):
                                            http_headers=headers,
                                            )
             except URLGrabError, e:
-                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                if e.errno == 256: # no more mirrors
+                    raise
+                else:
+                    raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
 
@@ -337,10 +342,15 @@ class AnacondaYumRepo(YumRepository):
                     discurl = self.method.getMethodUri()
                     url = repourl.replace(baseurl, discurl)
 
-        return self.__get(url=url, relative=remote, local=local, start=start,
-                        reget=None, end=end, checkfunc=checkfunc, copy_local=1,
-                        cache=cache,
-                        )
+        return self.__getFile(url=url,
+                              relative=remote,
+                              local=local, 
+                              start=start,
+                              reget=None,
+                              end=end,
+                              checkfunc=checkfunc,
+                              copy_local=1,
+                              cache=cache)
 
     def getPackage(self, package, checkfunc = None, text = None, cache = True):
         remote = package.returnSimple('relativepath')
@@ -355,13 +365,12 @@ class AnacondaYumRepo(YumRepository):
                     discurl = self.method.getMethodUri()
                     url = repourl.replace(baseurl, discurl)
 
-        return self.__get(url=url,
-                          relative=remote,
-                          local=local,
-                          checkfunc=checkfunc,
-                          text=text,
-                          cache=cache
-                         )
+        return self.__getFile(url=url,
+                              relative=remote,
+                              local=local,
+                              checkfunc=checkfunc,
+                              text=text,
+                              cache=cache)
 
 class YumSorter(yum.YumBase):
     
@@ -385,6 +394,7 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self.method = anaconda.method
+        self.prevmedia = None
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
         self.macros = {}
@@ -451,6 +461,91 @@ class AnacondaYum(YumSorter):
                     log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
 
         self.repos.setCacheDir('/tmp/cache')
+
+    def _handleFailure(self, package):
+        pkgFile = os.path.basename(package.returnSimple('relativepath'))
+        rc = self.anaconda.intf.messageWindow(_("Error"),
+                                    self.method.badPackageError(pkgFile),
+                                    type="custom", custom_icon="error",
+                                    custom_buttons=[_("Re_boot"), _("_Retry")])
+
+        if rc == 0:
+            sys.exit(0)
+        else:
+            if self.prevmedia:
+                self.method.switchMedia(self.prevmedia)
+
+    def mirrorFailureCB (self, obj, *args, **kwargs):
+        # This gets called when a mirror fails, but it cannot know whether
+        # or not there are other mirrors left to try, since it cannot know
+        # which mirror we were on when we started this particular download. 
+        # Whenever we have run out of mirrors the grabber's get/open/retrieve
+        # method will raise a URLGrabError exception with errno 256.
+        grab = self.repos.getRepo(kwargs["repo"]).grab
+        log.warning("Failed to get %s from mirror %d/%d" % (obj.url, 
+                                                            grab._next + 1,
+                                                            len(grab.mirrors)))
+        
+        if self.method.currentMedia:
+            if kwargs.get("tsInfo") and kwargs["tsInfo"].curmedia > 0:
+                self.prevmedia = kwargs["tsInfo"].curmedia
+
+            self.method.unmountCD()
+
+    def urlgrabberFailureCB (self, obj, *args, **kwargs):
+        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
+
+    # copied from YumBase to insert handling for "no more mirrors" failure
+    def downloadHeader(self, po):
+        """download a header from a package object.
+           output based on callback, raise yum.Errors.YumBaseError on problems"""
+
+        if hasattr(po, 'pkgtype') and po.pkgtype == 'local':
+            return
+                
+        errors = {}
+        local =  po.localHdr()
+        repo = self.repos.getRepo(po.repoid)
+        if os.path.exists(local):
+            try:
+                result = self.verifyHeader(local, po, raiseError=1)
+            except URLGrabError, e:
+                # might add a check for length of file - if it is < 
+                # required doing a reget
+                try:
+                    os.unlink(local)
+                except OSError, e:
+                    pass
+            else:
+                po.hdrpath = local
+                return
+        else:
+            if self.conf.cache:
+                raise yum.Errors.RepoError, \
+                'Header not in local cache and caching-only mode enabled. Cannot download %s' % po.hdrpath
+        
+        if self.dsCallback: self.dsCallback.downloadHeader(po.name)
+        
+        while 1:
+            try:
+                checkfunc = (self.verifyHeader, (po, 1), {})
+                hdrpath = repo.getHeader(po, checkfunc=checkfunc,
+                                         cache=repo.http_caching != 'none')
+            except yum.Errors.RepoError, e:
+                saved_repo_error = e
+                try:
+                    os.unlink(local)
+                except OSError, e:
+                    raise yum.Errors.RepoError, saved_repo_error
+                else:
+                    raise
+            except URLGrabError, e:
+                # the only URLGrabError we can get here is "no more mirrors"
+                self._handleFailure(po)
+                continue
+            else:
+                po.hdrpath = hdrpath
+                return
 
     def getDownloadPkgs(self):
         downloadpkgs = []
@@ -593,48 +688,7 @@ class AnacondaYum(YumSorter):
 class YumBackend(AnacondaBackend):
     def __init__ (self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
-        self.prevmedia = None
         self.supportsPackageSelection = True        
-
-    def _handleFailure(self, url, intf):
-        (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
-
-        rc = intf.messageWindow(_("Error"),
-                                self.method.badPackageError(os.path.basename(path)),
-                                type="custom", custom_icon="error",
-                                custom_buttons=[_("Re_boot"), _("_Retry")])
-
-        if rc == 0:
-            sys.exit(0)
-        else:
-            if self.prevmedia:
-                self.method.switchMedia(self.prevmedia)
-
-    def mirrorFailureCB (self, obj, *args, **kwargs):
-        log.warning("Failed to get %s from mirror" % obj.url)
-
-        # We don't increment the mirror index until after running this
-        # callback, so check if _next is one less.
-        if kwargs["grab"]._next == len(kwargs["grab"].mirrors) - 1:
-            if self.method.currentMedia:
-                if kwargs.has_key("tsInfo"):
-                    self.prevmedia = kwargs["tsInfo"].curmedia
-                self.method.unmountCD()
-
-            if kwargs.has_key("intf") and kwargs["intf"]:
-                self._handleFailure(obj.url, kwargs["intf"])
-
-    def urlgrabberFailureCB (self, obj, *args, **kwargs):
-        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
-
-        if obj.tries >= obj.retry:
-            if self.method.currentMedia:
-                if kwargs.has_key("tsInfo"):
-                    self.prevmedia = kwargs["tsInfo"].curmedia
-                self.method.unmountCD()
-
-            if kwargs.has_key("intf") and kwargs["intf"]:
-                self._handleFailure(obj.url, kwargs["intf"])
 
     def doInitialSetup(self, anaconda):
         if anaconda.id.getUpgrade():
@@ -731,9 +785,14 @@ class YumBackend(AnacondaBackend):
                     self.ayum.repos.delete(repo.id)
                     continue
 
+            repo.setFailureObj(self.ayum.urlgrabberFailureCB)
+            repo.setMirrorFailureObj((self.ayum.mirrorFailureCB, (),
+                                     {"tsInfo":self.ayum.tsInfo, 
+                                      "repo": repo.id}))
+
         try:
             self.doGroupSetup()
-        except yum.Errors.GroupsError:
+        except (yum.Errors.GroupsError, URLGrabError, RepoError):
             anaconda.intf.messageWindow(_("Error"),
                                         _("Unable to read group information "
                                           "from repositories.  This is "
@@ -741,13 +800,10 @@ class YumBackend(AnacondaBackend):
                                           "of your install tree."),
                                         type="custom", custom_icon="error",
                                         custom_buttons = [_("Re_boot")])
-        self._catchallCategory()
+            sys.exit(0)
 
+        self._catchallCategory()
         self.ayum.repos.callback = None
-        self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
-                                           {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
-        self.ayum.repos.setMirrorFailureCallback((self.mirrorFailureCB, (),
-                                                 {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo, "grab": repo.grab}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
