@@ -1,4 +1,8 @@
-2007-04-18  Dave Lehman  <dlehman@redhat.com>
+2007-04-20  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  New version.
+
+2007-04-20  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo._getFile): re-raise "no more mirrors"
 	URLGrabError instead of masking it with a RepoError
