@@ -12,6 +12,8 @@ POS = $(wildcard *.po)
 FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
 GLADEFILES = ../ui/*.glade
+DESKTOPFILES = ../liveinst/*.desktop.in
+INTLFILES = $(GLADEFILES) $(DESKTOPFILES)
 
 POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
@@ -21,7 +23,7 @@ NONPOTFILES = ../lang-table
 
 all: $(FMTCATALOGS)
 
-$(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) glade-po
+$(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) intltool-po
 	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) \
 		 --keyword=_ --keyword=N_ $(POTFILES) tmp/*.h
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
@@ -31,10 +33,13 @@ $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) glade-po
 	    mv $(NLSPACKAGE).po $(NLSPACKAGE).pot; \
 	fi
 
-glade-po: $(GLADEFILES)
+intltool-po: $(INTLFILES)
 	rm -rf tmp/
 	for f in $(GLADEFILES); do \
 		intltool-extract --type=gettext/glade -l $$f ;\
+	done
+	for f in $(DESKTOPFILES); do \
+		intltool-extract --type=gettext/keys -l $$f ;\
 	done
 
 update-po: Makefile $(NLSPACKAGE).pot refresh-po
