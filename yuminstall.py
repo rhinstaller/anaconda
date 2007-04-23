@@ -224,7 +224,8 @@ class AnacondaYumRepo(YumRepository):
         else:
             self.baseurl = [ uri ]
 
-        self.mirrorlist = mirrorlist
+        if mirrorlist:
+            self.mirrorlist = mirrorlist
 
         self.setAttribute('cachedir', '/tmp/cache/')
         self.setAttribute('pkgdir', root)
@@ -424,7 +425,7 @@ class AnacondaYum(YumSorter):
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
-        
+
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
             repo = AnacondaYumRepo(uri,

@@ -1,3 +1,8 @@
+2007-04-23  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.__init__): Only set up the
+	mirrorlist if we have one (#231543)
+
 2007-04-23  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/isys.py (compareNetDevices): If either device lacks an int in
