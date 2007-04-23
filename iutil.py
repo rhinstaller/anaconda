@@ -24,7 +24,7 @@ from flags import flags
 import logging
 log = logging.getLogger("anaconda")
 
-def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
+def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
                      searchPath = 0, root = '/'):
     def chroot ():
         os.chroot(root)
@@ -45,7 +45,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin, stdout=stdout,
-                                stderr=stderr, preexec_fn=chroot)
+                                stderr=stderr, preexec_fn=chroot, cwd=root)
         ret = proc.wait()
     except OSError, (errno, msg):
         raise RuntimeError, "Error running " + command + ": " + msg
@@ -69,7 +69,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
         pipe = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT,
-                                preexec_fn=chroot)
+                                preexec_fn=chroot, cwd=root)
     except OSError, (errno, msg):
         raise RuntimeError, "Error running " + command + ": " + msg
 

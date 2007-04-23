@@ -12,6 +12,9 @@
 
 	* anaconda.spec:  Update URL (#237364).
 
+	* iutil.py (execWithRedirect, execWithCapture):  Make sure kickstart
+	scripts execute with the correct cwd (#237317).
+
 2007-04-20  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/urlinstall.c (mountUrlImage):  Fix test for .discinfo file
