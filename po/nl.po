@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-03-22 22:47+0100\n"
+"PO-Revision-Date: 2007-04-24 00:09+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -875,7 +875,7 @@ msgid "_Continue"
 msgstr "_Doorgaan"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -885,8 +885,8 @@ msgid ""
 msgstr ""
 "Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s: %s\n"
 "\n"
-"Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformatteerd "
-"is.\n"
+"Apparaten in /etc/fstab dienen aangegeven te worden via een label, niet via "
+"een apparaatnaam.\n"
 "\n"
 "Druk op OK om uw systeem te herstarten."
 
@@ -940,21 +940,17 @@ msgstr ""
 "Verhelp dit probleem en start het installatieproces opnieuw."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Ongeldig bootlabel"
+msgstr "Ongeldig label"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Meerdere apparaten op uw systeem hebben het label %s.  Labels bij gebruik "
-"van meerdere apparaten moeten uniek zijn voor uw systeem om goed te "
-"functioneren.\n"
-"\n"
-"Verhelp dit probleem en start het installatieproces opnieuw."
+"Er was een ongeldig label gevonden op apparaat %s.  Verhelp dit probleem "
+"en start het installatieproces opnieuw."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1611,6 +1607,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Het station /dev/%s bevat meer dan 15 partities.  Het SCSI-subsysteem in de "
+"Linux kernel staat op dit moment niet meer dan 15 partities toe.  U zult "
+"geen aanpassingen meer aan de partitionering van dit station kunnen doen of "
+"partities verder dan /dev/%s15 in %s kunnen gebruiken"
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -3866,7 +3866,7 @@ msgid ""
 msgstr ""
 "U kunt de bootloader configureren om andere besturingssystemen op te starten "
 "door te selecteren uit de lijst. Klik op 'Toevoegen' om een "
-"besturingssysteem dat niet automatisch gedetecteerd werd toe te voegen. "
+"besturingssysteem dat niet automatisch werd gedetecteerd toe te voegen. "
 "Selecteer 'Standaard' naast het gewenste besturingssysteem om het "
 "besturingssysteem dat standaard moet worden opgestart te veranderen."
 
@@ -4216,7 +4216,7 @@ msgstr "_Nieuw"
 
 #: ../iw/partition_gui.py:1354
 msgid "Re_set"
-msgstr "Re_setten"
+msgstr "Her_stellen"
 
 #: ../iw/partition_gui.py:1355
 msgid "R_AID"
@@ -4576,6 +4576,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Wegens veranderingen aan het systeem kan uw bootloader-configuratie niet "
+"meer automatisch worden bijgewerkt."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -6899,22 +6901,17 @@ msgstr "<b>iSCSI initiator _naam:</b>"
 msgid "_Add target"
 msgstr "Target _toevoegen"
 
-# sneltoets op de _n omdat de andere optie een _U heeft en de
-# i en de u zitten vlak naast elkaar, dus om vergissingen te
-# voorkomen...
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "%s i_nstalleren"
+msgstr "Installeren"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "De live CD op uw harde schijf installeren"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "De installatie gaat nu beginnen"
+msgstr "Naar harde schijf installeren"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7196,9 +7193,8 @@ msgid "Punjabi"
 msgstr "Punjabi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Kroatisch"
+msgstr "Roemeens"
 
 #. generated from lang-table
 msgid "Russian"
