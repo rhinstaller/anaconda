@@ -3,6 +3,11 @@
 	* isys/isys.py (compareNetDevices): If either device lacks an int in
 	its name, return 0 (#237431).
 
+	* loader2/init.c (main): Remove message about cereal being an important
+	part of a nutritionally balanced breakfast and replaced it with a note
+	about needing eggs, bacon, sausage, toast, pancakes, and home fries.
+	Well, not really.
+
 2007-04-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Requires): Back to mkisofs due to silliness with

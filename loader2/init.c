@@ -669,20 +669,18 @@ int main(int argc, char **argv) {
     close(cfd); 
 
     if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
-	isSerial = 2;
+        isSerial = 2;
+
         if (ioctl(0, TIOCGSERIAL, &si) == -1) {
             isSerial = 0;
         }
     }
-    
+
     if (isSerial && (isSerial != 3)) {
         char *device = "/dev/ttyS0";
 
         printf("anaconda installer init version %s using a serial console\n", 
                VERSION);
-
-        printf("remember, cereal is an important part of a nutritionally "
-               "balanced breakfast.\n\n");
 
         if (isSerial == 2)
             device = "/dev/console";
