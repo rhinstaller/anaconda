@@ -51,7 +51,7 @@ Requires(post): desktop-file-utils >= 0.8
 Requires(postun): desktop-file-utils >= 0.8
 %endif
 Obsoletes: anaconda-images <= 10
-Url: http://fedora.redhat.com/projects/anaconda-installer/
+Url: http://fedoraproject.org/wiki/Anaconda
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
