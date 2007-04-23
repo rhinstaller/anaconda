@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.54
+Version: 11.2.0.55
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 23 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.55-1
+- Fix FTP/HTTP installs booted from disc1/rescueCD
+- Ensure kickstart scripts are executed with the right cwd (clumens, #237317)
+- Fix net device comparison (dcantrell, #237431)
+- Fix multiple repos some more (#231543)
+
 * Fri Apr 20 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.54-1
 - Be smarter about detecting network link status (dcantrell, #236483).
 - Lots of yum mirror list and retry fixes (dlehman).
