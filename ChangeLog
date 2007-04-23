@@ -1,3 +1,8 @@
+2007-04-23  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (compareNetDevices): If either device lacks an int in
+	its name, return 0 (#237431).
+
 2007-04-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Requires): Back to mkisofs due to silliness with
