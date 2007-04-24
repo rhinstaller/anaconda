@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-03-07 01:31+0000\n"
+"PO-Revision-Date: 2007-04-24 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -192,13 +192,12 @@ msgstr ""
 "sneið."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Ræsisneiðin er ekki staðsett nógu framarlega á disknum. OpenFirmware mun "
-"ekki geta ræst úr þessari sneið."
+"Ræsisneiðin verður að vera innan fyrstu 4ra GB af disknum. "
+"OpenFirmware mun ekki geta ræst úr þessari sneið."
 
 #: ../autopart.py:1038
 #, python-format
@@ -347,7 +346,7 @@ msgstr ""
 "Veldu 'Í lagi' til að velja annan disksneiðamöguleika."
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -361,7 +360,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Þetta getur átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
-"uppsetninguna.%s"
+"uppsetninguna. %s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -672,7 +671,7 @@ msgstr ""
 "í stað þess að svæfa hana."
 
 #: ../fsset.py:1520
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -979,9 +978,8 @@ msgid "Cancel"
 msgstr "Hætta við"
 
 #: ../gui.py:604 ../text.py:357
-#, fuzzy
 msgid "Installation Key"
-msgstr "Tegund uppsetningar"
+msgstr "Uppsetningarlykill"
 
 #: ../gui.py:787 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1095,7 +1093,7 @@ msgstr "Reyna af_tur"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Gat ekki tengt ISO diskmynd"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1105,6 +1103,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"Það kom upp villa við að tengja tækið %s.  Þetta getur gerst ef ISO "
+"diskmyndirnar eru geymdar á flóknum geymslumiðlum eins og til dæmis "
+"LVM eða RAID tækjum eða annar vandi hafi komið upp við að tengja "
+"disksneið.  Smeltu á endurræsa til að hætta við uppsetninguna."
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1197,7 +1199,7 @@ msgstr ""
 "\n"
 
 #: ../image.py:436
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1205,7 +1207,7 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
-"Stærð ISO diskmyndarinnar er ekki margfeldi af 2048 bætum.  Þetta gæti þýtt "
+"Stærð ISO diskmyndarinnar %s er ekki margfeldi af 2048 bætum.  Þetta gæti þýtt "
 "að hún hafi skemmst þegar hún var flutt á þessa vél.\n"
 "\n"
 "Við mælum með að þú endurræsir og hættir við uppsetninguna en þú getur "
@@ -1311,9 +1313,8 @@ msgid "Exit installer"
 msgstr "Loka uppsetningarforritinu"
 
 #: ../livecd.py:113
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Flyt uppsetningarskrár á harða diskinn..."
+msgstr "Flyt lifandi diskmyndir á harða diskinn."
 
 #: ../livecd.py:145
 msgid "Doing post-installation"
@@ -1362,19 +1363,16 @@ msgid "'%s' is an invalid IP address."
 msgstr "'%s' er ekki gilt IP vistfang."
 
 #: ../packages.py:257
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ógillt forskeyti"
+msgstr "Ógildur lykill"
 
 #: ../packages.py:258
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "Það sem þú slóst inn er ekki gild tala."
+msgstr "Lykillinn sem þú slóst inn er ógildur."
 
 #: ../packages.py:286
-#, fuzzy
 msgid "_Skip"
-msgstr "Sleppa"
+msgstr "_Sleppa"
 
 #: ../packages.py:318
 msgid "Warning! This is pre-release software!"
@@ -1834,7 +1832,7 @@ msgstr ""
 "Viltu endurforsníða þennan DASD með CDL sniði?"
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1854,7 +1852,7 @@ msgstr "_Hunsa drif"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Frumstilla diskinn"
 
 #: ../partedUtils.py:918
 msgid "Initializing"
@@ -2234,14 +2232,14 @@ msgid "No help is available for this step of the install."
 msgstr "Engin hjálp er tiltæk fyrir þetta þrep uppsetningarinnar."
 
 #: ../text.py:362
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Vinsamlegast sláðu inn heiti sýndardiskhóps."
+msgstr "Vinsamlegast sláðu inn %(instkey)s"
 
 #: ../text.py:379 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Sleppa %(instkey)s"
 
 #: ../text.py:411
 msgid "Save Crash Dump"
@@ -2586,14 +2584,14 @@ msgid "Preparing transaction from installation source..."
 msgstr "Undirbý uppsetningu..."
 
 #: ../yuminstall.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "Set upp %s\n"
+msgstr "<b>Set upp %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s af %s pökkum lokið"
 
 #: ../yuminstall.py:529 ../yuminstall.py:530
 msgid "file conflicts"
@@ -2751,7 +2749,7 @@ msgstr "Þú hefur ekki skilgreint FCP LUN eða það er ógilt."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock er á.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2779,7 +2777,6 @@ msgid "The root password must be at least six characters long."
 msgstr "Rótarlykilorðið verður að vera a.m.k. 6 stafir að lengd."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2807,7 +2804,6 @@ msgid "Invalid Initiator Name"
 msgstr "Ógilt heiti rekils"
 
 #: ../iw/autopart_type.py:148
-#, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Þú verður að gefa upp heiti rekilsins."
 
@@ -2816,26 +2812,22 @@ msgid "Error with Data"
 msgstr "Gagnavilla"
 
 #: ../iw/autopart_type.py:259 ../textw/partition_text.py:1541
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
-"Fjarlægja allar disksneiðar völdum drifum og smíða sjálfgefnar disksneiðar."
+"Fjarlægja allar disksneiðar völdum drifum og smíða sjálfgefnar disksneiðar"
 
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
-"Fjarlægja linux disksneiðar á völdum drifum og smíða sjálfgefnar disksneiðar."
+"Fjarlægja Linux disksneiðar á völdum drifum og smíða sjálfgefnar disksneiðar"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Nota laust pláss á völdum drifum og smíða sjálfgefnar disksneiðar."
+msgstr "Nota laust pláss á völdum drifum og smíða sjálfgefnar disksneiðar"
 
 #: ../iw/autopart_type.py:262 ../textw/partition_text.py:1544
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Búa til sérsniðnar disksneiðar."
+msgstr "Búa til sérsniðnar disksneiðar"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2883,7 +2875,6 @@ msgid "Passwords do not match"
 msgstr "Lykilorðin stemma ekki"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2900,7 +2891,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Frekari stillingar ræsistjóra"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
@@ -3034,14 +3024,12 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:60
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Veldu \"Endurræsa\" til að endurræsa vélina.\n"
 "\n"
-"\n"
-"Veldu 'Í lagi' til að endurræsa."
 
 #: ../iw/congrats_gui.py:63
 #, python-format
@@ -3088,7 +3076,7 @@ msgid "_Upgrade an existing installation"
 msgstr "_Uppfæra núverandi stýrikerfi"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3135,7 +3123,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Staðfestu breytingu raundiskabúta"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3279,7 +3266,7 @@ msgid "Mount point in use"
 msgstr "Tengipunktur í notkun"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Tengipunkturinn \"%s\" er þegar í notkun. Vinsamlegast veldu annan."
 
@@ -3298,7 +3285,7 @@ msgstr ""
 "Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3341,7 +3328,6 @@ msgid "No free space"
 msgstr "Ekkert laust pláss"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3352,7 +3338,7 @@ msgstr ""
 "sýndardiskhópnum"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Ertu viss um að þú viljir eyða sýndardisknum \"%s\"?"
 
@@ -3709,7 +3695,6 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 forskeyti verður að vera á milli 0 og 128."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
@@ -3734,7 +3719,6 @@ msgid "Image"
 msgstr "Mynd"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3890,9 +3874,10 @@ msgstr "Disksneiðing"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"Disksneiðarnar sem þú bjóst til ollu eftirfarandi villum."
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
@@ -3904,7 +3889,7 @@ msgstr "Disksneiðingavillur"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Disksneiðarnar sem þú bjóst til ollu eftirfarandi aðvörunum."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4014,7 +3999,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4100,12 +4084,12 @@ msgid "Check for _bad blocks?"
 msgstr "Leita að _skemmdum blokkum?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Disksneiðar af gerðinni '%s' verða að vera bundnar við eitt drif. Þetta er "
+"Disksneiðar af gerðinni '%s' verða að vera bundnar við eitt drif.  Þetta er "
 "gert með því að velja drifið í 'Leyfileg drif' listanum."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4185,7 +4169,6 @@ msgid "Source Drive Error"
 msgstr "Villa á frumdrifi"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4198,7 +4181,7 @@ msgstr ""
 "Þessum disksneiðum þarf að eyða áður en hægt er að afrita diskinn."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4206,14 +4189,13 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"Diskurinn sem afrita á hefur RAID disksneiðar sem ekki eru bundnar við "
+"Diskurinn sem afrita á hefur disksneiðar sem ekki eru bundnar við "
 "drifið /dev/%s.\n"
 "\n"
 "Þessum disksneiðum þarf að eyða eða binda við drifið áður en hægt er að "
 "afrita diskinn."
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4240,7 +4222,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "Ekki er hægt að afrita á frumdiskinn /dev/%s líka."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4292,7 +4274,6 @@ msgstr ""
 "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4310,8 +4291,8 @@ msgstr ""
 "Diskafritunartól\n"
 "\n"
 "Þetta tól hjálpar til við gerð RAID diska með því að taka disk sem þú hefur "
-"sett upp á þær disksneiðar sem þarf og afrita þá uppsetningu á önnur drif "
-"svo unnt sé að búa til RAID tæki.\n"
+"sett upp á þær disksneiðar sem þarf og afrita þá uppsetningu á önnur sambærileg "
+"drif svo unnt sé að búa til RAID tæki.\n"
 "\n"
 "ATH: Frumdiskurinn má einungis innihalda disksneiðar sem eiga að vera á "
 "honum sjálfum og má einungis innihalda ónotaðar RAID disksneiðar. Aðrar "
@@ -4359,7 +4340,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4372,7 +4353,6 @@ msgid "Invalid Repository Name"
 msgstr "Ógilt heiti hugbúnaðarsafns"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
 msgstr "Hugbúnaðarsafnið verður að hafa heiti."
 
@@ -4432,7 +4412,6 @@ msgid "_Create new boot loader configuration"
 msgstr "_Búa til nýjar ræsistjórastillingar"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
@@ -4445,7 +4424,6 @@ msgid "_Skip boot loader updating"
 msgstr "_Sleppa uppfærslu ræsistjóra"
 
 #: ../iw/upgrade_bootloader_gui.py:97
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
@@ -4462,7 +4440,7 @@ msgid "Migrate File Systems"
 msgstr "Breyta skráarkerfum"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4483,17 +4461,17 @@ msgid "Upgrade Swap Partition"
 msgstr "Uppfæra diskminnissneið"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Linux 2.4 kjarninn þarfnast talvert meira diskminnis en eldri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú ert núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
-"diskminni á einhverju af skráarkerfunum þínum núna."
+"Nýlegir kjarnar (2.4 og nýrra) þarfnast talvert meira diskminnis en eldri "
+"kjarnar. Magn diskminnis ætti nú að vera allt að tvöfalt vinnsluminni "
+"vélarinnar að stærð. Þú ert núna með %dMB af diskminni skilgreint og "
+"getur búið til viðbótar diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4523,7 +4501,7 @@ msgid "Free Space (MB)"
 msgstr "Laust pláss (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4540,7 +4518,6 @@ msgid "I _don't want to create a swap file"
 msgstr "Ég _vil ekki búa til diskminnisskrá"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4619,7 +4596,6 @@ msgid "Skip Boot Loader"
 msgstr "Sleppa ræsistjóra"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4634,7 +4610,6 @@ msgstr ""
 "Ertu viss um að þú viljir sleppa uppsetningu ræsistjóra?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4642,7 +4617,7 @@ msgid ""
 msgstr ""
 "Á sumum vélum er nauðsynlegt að gefa kjarnanum sérstök viðföng við ræsingu "
 "svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
-"viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
+"viðföngin núna. Ef engra er þörf eða þú ert ekki viss hafðu þetta autt."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4682,13 +4657,13 @@ msgid "Edit"
 msgstr "Breyta"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"Ræsistjórinn sem fylgir %s getur einnig ræst upp önnur stýrikerfi. Þú þarft "
+"Ræsistjórinn %s getur einnig ræst upp önnur stýrikerfi. Þú þarft "
 "að að merkja við þær sneiðar sem þú vilt geta ræst upp af og hvaða heiti þær "
 "eiga að fá."
 
@@ -4699,7 +4674,6 @@ msgstr ""
 " <Bilslá> velur | <F2> velur sjálfgefið | <F4> eyðir | <F12> Næsti skjár>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
@@ -4817,7 +4791,6 @@ msgstr ""
 "Honum ættir þú að halda til haga."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "Vinsamlega veldu þá pakkahópa sem þú vilt setja inn."
 
@@ -4869,13 +4842,13 @@ msgstr ""
 "síðar."
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 forskeyti verður að vera á milli 0 og 32."
+msgstr "IPv%d forskeyti verður að vera á milli 0 og %d."
 
 #: ../textw/network_text.py:71
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Forskeytið verður að vera heiltala"
 
 #: ../textw/network_text.py:72
 #, python-format
@@ -4883,6 +4856,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"Þú verður að slá inn heiltölu fyrir %s.  Fyrir IPv4 getur gildið verið á "
+"milli 0 og 32.  Fyrir IPv6 er það á milli 0 og 128."
 
 #: ../textw/network_text.py:79 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4925,38 +4900,34 @@ msgstr "Stillingar nets %s"
 
 #: ../textw/network_text.py:238 ../textw/network_text.py:241
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "stað-í-stað IP vistfang"
 
 #: ../textw/network_text.py:264 tmp/netpostconfig.glade.h:5
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Lausbundnar IP stillingar (DHCP)"
 
 #: ../textw/network_text.py:267 ../textw/network_text.py:398
-#, fuzzy
 msgid "Manual address configuration"
 msgstr "Handvirkar stillingar"
 
 #: ../textw/network_text.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Stillingar nets %s"
+msgstr "IPv4 stillingar fyrir %s"
 
 #: ../textw/network_text.py:317 ../textw/network_text.py:329
 #: ../textw/network_text.py:332
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 vistfang:"
+msgstr "IPv4 vistfang"
 
 #: ../textw/network_text.py:321
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmöskvi"
+msgstr "IPv4 netmöskvi"
 
 #: ../textw/network_text.py:347 ../textw/network_text.py:350
 #: ../textw/network_text.py:353
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Forskeyti (Netmöskvi)"
+msgstr "Forskeyti (netmöskvi)"
 
 #: ../textw/network_text.py:392 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
@@ -4967,34 +4938,31 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Lausbundnar IP stillingar (DHCPv6)"
 
 #: ../textw/network_text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Stillingar nets %s"
+msgstr "IPv4 stillingar fyrir %s"
 
 #: ../textw/network_text.py:452 ../textw/network_text.py:463
 #: ../textw/network_text.py:466
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 vistfang:"
+msgstr "IPv6 vistfang"
 
 #: ../textw/network_text.py:456 ../textw/network_text.py:475
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Netmöskvi"
+msgstr "IPv6 netmöskvi"
 
 #: ../textw/network_text.py:501
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Virkja netkort"
+msgstr "Stilla netkort"
 
 #: ../textw/network_text.py:502
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Viltu ræsa netkortin í þessari vél þegar vélin ræsir?"
+msgstr "Viltu stilla netkortið %s í vélinni þinni?"
 
 #: ../textw/network_text.py:516 ../textw/network_text.py:518
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "EKKI STILLT"
 
 #: ../textw/network_text.py:527
 msgid ""
@@ -5003,38 +4971,40 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"Núverandi stillingar fyrir hvert netkort er að finna við hlið heiti netkortsins. "
+"Netkort sem ekki er búið að stilla eru merkt sem EKKI STILLT. Ef þú vilt "
+"breyta stillingum netkorta skaltu velja það í listanum og velja Breyta. Þegar "
+"stillingum er lokið skaltu smella á Í lagi til að halda áfram."
 
 #: ../textw/network_text.py:614
-#, fuzzy
 msgid "Active on boot"
-msgstr "Virkja við ræsingu"
+msgstr "Virkt við ræsingu"
 
 #: ../textw/network_text.py:616
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Virkja við ræsingu"
+msgstr "Óvirkt við ræsingu"
 
 #: ../textw/network_text.py:619
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:624
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Sjálfvirkt IPv6"
 
 #: ../textw/network_text.py:626
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:632
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:634 ../textw/network_text.py:636
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:656 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5053,19 +5023,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Ýmsar netstillingar"
 
 #: ../textw/network_text.py:694 ../textw/network_text.py:697
-#, fuzzy
 msgid "gateway"
-msgstr "Gátt"
+msgstr "gátt"
 
 #: ../textw/network_text.py:704 ../textw/network_text.py:707
-#, fuzzy
 msgid "primary DNS"
-msgstr "Aðalnafnaþjónn"
+msgstr "aðalnafnaþjónn"
 
 #: ../textw/network_text.py:716
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Annar nafnaþjónn"
+msgstr "annar nafnaþjónn"
 
 #: ../textw/network_text.py:750
 msgid "automatically via DHCP"
@@ -5080,7 +5047,6 @@ msgid "Hostname Configuration"
 msgstr "Stillingar vélarheitis"
 
 #: ../textw/network_text.py:775
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5244,7 +5210,6 @@ msgid "Not Supported"
 msgstr "Ekki stutt"
 
 #: ../textw/partition_text.py:772
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
 "LVM sýndardiskum er einungis hægt að breyta í myndræna uppsetningartólinu."
@@ -5286,21 +5251,19 @@ msgid "Too many spares"
 msgstr "Of mörg varadrif"
 
 #: ../textw/partition_text.py:1096
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Hámarksfjöldi varadiska í RAID0 drifi er 0."
+msgstr "Það er ekki hægt að nota varadiska í RAID0 drifi."
 
 #: ../textw/partition_text.py:1177
 msgid "No Volume Groups"
 msgstr "Engir sýndardiskhópar"
 
 #: ../textw/partition_text.py:1178
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Engir sýndardiskhópar til að búa til sýndardisk í."
+msgstr "Engir sýndardiskhópar til að búa til sýndardisk í"
 
 #: ../textw/partition_text.py:1302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5355,9 +5318,8 @@ msgid "No Root Partition"
 msgstr "Engin rótarsneið"
 
 #: ../textw/partition_text.py:1490
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS uppsetning krefst IPv4 stuðnings."
+msgstr "Uppsetningin krefst rótardisksneiðar (/)."
 
 #: ../textw/partition_text.py:1532
 msgid "Partitioning Type"
@@ -5424,14 +5386,12 @@ msgstr ""
 "iSCSI rekilsins sem þú hefur stillt fyrir vélina þína."
 
 #: ../textw/partition_text.py:1707
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>_IP vistfang viðtakanda:</b>"
+msgstr "IP vistfang viðtakanda"
 
 #: ../textw/partition_text.py:1708
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>Heiti iSCSI _rekils:</b>"
+msgstr "Heiti iSCSI _rekils"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5464,7 +5424,6 @@ msgid "Customize software selection"
 msgstr "Sérsníða hugbúnaðarval"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "Í hvaða tímabelti ertu?"
 
@@ -5518,7 +5477,6 @@ msgid "System to Upgrade"
 msgstr "Kerfi sem á að uppfæra"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5527,7 +5485,7 @@ msgid ""
 msgstr ""
 "Ein eða fleiri Linux uppsetning hefur fundist á vélinni þinni.\n"
 "\n"
-"Vinsamlegast veldu eitt til að uppfæra eða veldu 'Setja upp aftur' til \n"
+"Vinsamlegast veldu eitt til að uppfæra eða veldu 'Setja upp aftur' til "
 "að setja upp kerfið uppá nýtt."
 
 #: ../textw/userauth_text.py:27
@@ -5535,7 +5493,6 @@ msgid "Root Password"
 msgstr "Rótarlykilorð"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5559,7 +5516,6 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5610,35 +5566,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Skrifstofa"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Margmiðlun"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Til hamingju"
+msgstr "Sýndarvélar"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Klösun"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Klösun diska"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Uppsetning að hefjast"
+msgstr "Uppsetningartala"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"Til að geta sett upp alla pakkana sem tilheyra áskriftinni þinni þarftu "
+"að slá inn uppsetningartöluna þína."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5653,6 +5609,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Ef þú getur ekki fundið uppsetningarnúmerið skaltu fara á http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"Ef þú sleppir þessi skréfi:\n"
+"* færðu kanski ekki aðgang í alla pakkana sem tilheyra áskriftinni "
+"þinni.\n"
+"* getur það ollið því að uppsetningin þín af Red Hat Enterprise Linux "
+"sé ekki studd og ekki vottuð.\n"
+"* muntu ekki fá aðgang í hugbúnaðar og öryggisuppfærslur sem áskriftin "
+"þín veitir þér rétt á."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6039,9 +6005,8 @@ msgid "Hard drive"
 msgstr "Harðir diskar"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s mappa:"
+msgstr "NFS mappa"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6267,12 +6232,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Óleyfilegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Eftirfarandi er óleyfilegt viðfang við rekladiskskipun hraðuppsetningar: %s:%"
-"s"
+"Bæði heiti og gerð rekils þarf að gefa upp í tækjaskipun hraðuppsetningar."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6612,9 +6575,8 @@ msgid "Disable _dmraid device"
 msgstr "Slökkva á _dmraid tæki"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Harðir diskar"
+msgstr "_Bæta við drifi"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6668,9 +6630,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
+msgstr "Hvaða disk viltu nota til að ræsa þessaru uppsetningu af?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6685,9 +6646,8 @@ msgid "Exception Info"
 msgstr "Óeðlilegt ástand, upplýsingar"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "Vista á fjartengda vél"
+msgstr "Vista á _fjartengda vél"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6695,17 +6655,17 @@ msgstr "_Upplýsingar um óeðlilega ástandið"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "Vi_sta á diskling"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Vinsamlegast sláðu inn heiti sýndardiskhóps."
+msgstr "Vinsamlegast sláðu inn %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6724,9 +6684,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>Heiti iSCSI _rekils:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Bæta við _iSCSI tæki"
+msgstr "_Bæta við tæki"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7063,27 +7022,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vinsamlegast fjarlægðu uppsetningardiska úr drifunum og smelltu á "
-#~ "\"Endurræsa\" hnappinn til að endurræsa vélina.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vinsamlegast fjarlægðu uppsetningardiska úr drifunum (disklinga eða "
-#~ "geisladiska) og sláðu á <Enter> til að endurræsa vélina.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "<Enter> til að endurræsa"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS svæði"
