@@ -1,3 +1,8 @@
+2007-04-24  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c (lateModuleSort): Add pata_pcmcia to the late
+	list (#237674)
+
 2007-04-24  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network.write): Only write out one disable-ipv6 file to
