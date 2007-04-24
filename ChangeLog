@@ -1,5 +1,8 @@
 2007-04-24  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/release_notes.py (ReleaseNotesViewer.resize): Don't take up
+	too much of the screen with the livecd and 800x600
+
 	* loader2/modules.c (lateModuleSort): Add pata_pcmcia to the late
 	list (#237674)
 

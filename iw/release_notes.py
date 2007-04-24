@@ -86,7 +86,7 @@ class ReleaseNotesViewer:
 		(step, args) = self.anaconda.dispatch.currentStep()
 
 		if w is None:
-			if sw >= 800:
+			if sw > 800 or (sw == 800 and gui.runningMiniWm()):
 				self.width = 800
 			else:
 				self.width = 640
