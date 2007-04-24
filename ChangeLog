@@ -1,3 +1,8 @@
+2007-04-24  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network.write): Only write out one disable-ipv6 file to
+	the /etc/modprobe.d directory as the setting is global (#237642).
+
 2007-04-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

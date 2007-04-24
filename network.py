@@ -480,19 +480,14 @@ class Network:
         f.close()
 
         # /etc/modprobe.d/disable-ipv6
-        if not useIPv6:
-            mpdir = "%s/etc/modprobe.d" % (instPath,)
+        mpdir = "%s/etc/modprobe.d" % (instPath,)
+        blacklist = "%s/disable-ipv6" % (mpdir,)
+        if not useIPv6 and not os.path.isfile(blacklist):
             if not os.path.isdir(mpdir):
                 os.makedirs(mpdir, 0755)
 
-            fn = "%s/disable-ipv6" % (mpdir,)
-            idx = 0
-            while os.path.isfile(fn):
-                fn = "%s/disable-ipv6-%d" % (mpdir, idx,)
-                idx += 1
-
-            f = open(fn, "w")
-            os.chmod(fn, 0644)
+            f = open(blacklist, "w")
+            os.chmod(blacklist, 0644)
             f.write("install ipv6 /bin/true\n")
             f.close()
 
