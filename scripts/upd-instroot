@@ -190,7 +190,7 @@ PACKAGESGR="anaconda libpng gtk2 libglade2 fonts-ISO8859-2 fonts-ISO8859-9
 #
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
-PACKAGESRESCUE="bzip2 bzip2-libs dump
+PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
@@ -903,6 +903,7 @@ usr/bin/shred
 usr/bin/ssh
 usr/bin/termidx
 usr/bin/xargs
+usr/$LIBDIR/libidn*
 usr/kerberos/$LIBDIR/libgssapi*
 usr/kerberos/$LIBDIR/libkrb5*
 usr/kerberos/$LIBDIR/libk5crypto*
