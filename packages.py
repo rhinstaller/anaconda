@@ -191,7 +191,7 @@ def setupTimezone(anaconda):
 # created by anaconda so that we can not be killed by selinux
 def setFileCons(anaconda):
     import partRequests
-    
+
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
@@ -213,7 +213,7 @@ def setFileCons(anaconda):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/etc/modprobe.d"] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/etc/modprobe.d", "/root"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):
@@ -229,7 +229,6 @@ def setFileCons(anaconda):
             ret = isys.resetFileContext(os.path.normpath(f),
                                         anaconda.rootPath)
             log.info("set fc of %s to %s" %(f, ret))
-            
 
     return
 
