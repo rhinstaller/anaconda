@@ -99,6 +99,8 @@ def devify(device):
         return "sysfs"
     elif device == "shm":
         return "tmpfs"
+    elif device == "spufs":
+	return "spufs"
     elif device != "none" and device[0] != '/':
         return "/dev/" + device
     else:
@@ -972,6 +974,12 @@ class PsudoFileSystem(FileSystemType):
 
     def isKernelFS(self):
         return True
+
+class SpuFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "spufs")
+
+fileSystemTypeRegister(SpuFileSystem())
 
 class ProcFileSystem(PsudoFileSystem):
     def __init__(self):
