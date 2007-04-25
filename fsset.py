@@ -1097,6 +1097,11 @@ class FileSystemSet:
                                  fileSystemTypeGet("tmpfs"))
         self.add(shm)
 
+        if iutil.isCell():
+            spu = FileSystemSetEntry(Device(device="spufs"), '/spu',
+                                 fileSystemTypeGet("spufs"))
+            self.add(spu)
+
     def verify (self):
         for entry in self.entries:
             if type(entry.__dict__) != type({}):
