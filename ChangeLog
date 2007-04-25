@@ -1,3 +1,28 @@
+2007-04-25  Dave Lehman  <dlehman@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo): add new member, nomoremirrors, to
+	flag "no more mirrors" without having to change the whole exception
+	handling stack to preserve the original URLGrabError
+
+	* yuminstall.py (AnacondaYumRepo._getFile): renamed from __getFile to
+	match the method within yum we want to override
+
+	* yuminstall.py (AnacondaYumRepo._getFile): set self.nomoremirrors and
+	raise RepoError instead of re-raising URLGrabError when we run out of
+	mirrors
+
+	* yuminstall.py: look for repo.nomoremirrors instead of URLGrabError
+	with errno of 256 when checking for "no more mirrors", except in 
+	_getFile where nomoremirrors is actually being set
+
+	* yuminstall.py: call _getFile instead of __getFile
+
+	* yuminstall.py (AnacondaYumBackend.doRepoSetup): add handling for
+	failures encountered retrieving repo metadata and group info
+
+	* yuminstall.py (AnacondaYumBackend.doPostSelection): add handling for
+	failures encountered while setting up depsolver
+
 2007-04-25  Chris Lumens  <clumens@redhat.com>
 
 	* packages.py (setFileCons):  anaconda makes /root, so make sure to

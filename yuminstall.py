@@ -174,10 +174,9 @@ class AnacondaCallback:
                     f = open(fn, 'r')
                     self.openfile = f
                 except yum.Errors.RepoError, e:
-                    continue
-                except URLGrabError, e:
-                    # the only URLGrabError we can get here is "no more mirrors"
-                    self.ayum._handleFailure(po)
+                    if repo.nomoremirrors:
+                        self.ayum._handleFailure(po)
+                        repo.nomoremirrors = False
                     continue
 
             return self.openfile.fileno()
@@ -211,6 +210,7 @@ class AnacondaYumRepo(YumRepository):
                   root = "/mnt/sysimage/", method=None):
         YumRepository.__init__(self, repoid)
         self.method = method
+        self.nomoremirrors = False
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
             if v or not self.getAttribute(k):
@@ -243,7 +243,7 @@ class AnacondaYumRepo(YumRepository):
         return headers
 
     # adds handling of "no more mirrors" exception
-    def __getFile(self, url=None, relative=None, local=None, start=None, end=None,
+    def _getFile(self, url=None, relative=None, local=None, start=None, end=None,
             copy_local=0, checkfunc=None, text=None, reget='simple', cache=True):
         """retrieve file from the mirrorgroup for the repo
            relative to local, optionally get range from
@@ -302,10 +302,9 @@ class AnacondaYumRepo(YumRepository):
                                     )
             except URLGrabError, e:
                 if e.errno == 256: # no more mirrors
-                    raise
-                else:
-                    raise yum.Errors.RepoError, \
-                        "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
+                    self.nomoremirrors = True
+                raise yum.Errors.RepoError, \
+                    "failed to retrieve %s from %s\nerror was %s" % (relative, self.id, e)
 
         else:
             try:
@@ -320,9 +319,9 @@ class AnacondaYumRepo(YumRepository):
                                            )
             except URLGrabError, e:
                 if e.errno == 256: # no more mirrors
-                    raise
-                else:
-                    raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
+                    self.nomoremirrors = True
+                    
+                raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
 
@@ -343,15 +342,15 @@ class AnacondaYumRepo(YumRepository):
                     discurl = self.method.getMethodUri()
                     url = repourl.replace(baseurl, discurl)
 
-        return self.__getFile(url=url,
-                              relative=remote,
-                              local=local, 
-                              start=start,
-                              reget=None,
-                              end=end,
-                              checkfunc=checkfunc,
-                              copy_local=1,
-                              cache=cache)
+        return self._getFile(url=url,
+                             relative=remote,
+                             local=local, 
+                             start=start,
+                             reget=None,
+                             end=end,
+                             checkfunc=checkfunc,
+                             copy_local=1,
+                             cache=cache)
 
     def getPackage(self, package, checkfunc = None, text = None, cache = True):
         remote = package.returnSimple('relativepath')
@@ -366,12 +365,12 @@ class AnacondaYumRepo(YumRepository):
                     discurl = self.method.getMethodUri()
                     url = repourl.replace(baseurl, discurl)
 
-        return self.__getFile(url=url,
-                              relative=remote,
-                              local=local,
-                              checkfunc=checkfunc,
-                              text=text,
-                              cache=cache)
+        return self._getFile(url=url,
+                             relative=remote,
+                             local=local,
+                             checkfunc=checkfunc,
+                             text=text,
+                             cache=cache)
 
 class YumSorter(yum.YumBase):
     
@@ -533,6 +532,10 @@ class AnacondaYum(YumSorter):
                 hdrpath = repo.getHeader(po, checkfunc=checkfunc,
                                          cache=repo.http_caching != 'none')
             except yum.Errors.RepoError, e:
+                if repo.nomoremirrors:
+                    self._handleFailure(po)
+                    repo.nomoremirrors = False
+                    continue
                 saved_repo_error = e
                 try:
                     os.unlink(local)
@@ -540,10 +543,6 @@ class AnacondaYum(YumSorter):
                     raise yum.Errors.RepoError, saved_repo_error
                 else:
                     raise
-            except URLGrabError, e:
-                # the only URLGrabError we can get here is "no more mirrors"
-                self._handleFailure(po)
-                continue
             else:
                 po.hdrpath = hdrpath
                 return
@@ -753,25 +752,31 @@ class YumBackend(AnacondaBackend):
                 txt = _("Retrieving installation information...")
             else:
                 txt = _("Retrieving installation information for %s...")%(repo.name)
-            waitwin = YumProgress(anaconda.intf, txt, tot)
-            self.ayum.repos.callback = waitwin
+            while 1:
+                waitwin = YumProgress(anaconda.intf, txt, tot)
+                self.ayum.repos.callback = waitwin
 
-            try:
-                for (task, incr) in longtasks:
-                    waitwin.set_incr(incr)
-                    task(thisrepo = repo.id)
-                    waitwin.next_task()
-                waitwin.pop()
-            except RepoError, e:
-                log.error("reading package metadata: %s" %(e,))
+                try:
+                    for (task, incr) in longtasks:
+                        waitwin.set_incr(incr)
+                        task(thisrepo = repo.id)
+                        waitwin.next_task()
+                    waitwin.pop()
+                except RepoError, e:
+                    if repo.nomoremirrors:
+                        buttons = [_("_Abort"), _("_Retry")]
+                        repo.nomoremirrors = False
+                    else:
+                        buttons = [_("_Abort")]
+
+                    if anaconda.isKickstart:
+                        buttons.append(_("_Continue"))
+                else:
+                    break # success
+
                 waitwin.pop()
                 if not fatalerrors:
                     raise RepoError, e
-
-                if anaconda.isKickstart:
-                    buttons = [_("_Abort"), _("_Continue")]
-                else:
-                    buttons = [_("_Abort")]
 
                 rc = anaconda.intf.messageWindow(_("Error"),
                                    _("Unable to read package metadata. This may be "
@@ -782,26 +787,49 @@ class YumBackend(AnacondaBackend):
                                      custom_buttons=buttons)
                 if rc == 0:
                     sys.exit(0)
-                else:
+                elif rc == 2:
                     self.ayum.repos.delete(repo.id)
+                    break
+                else:
                     continue
+
+            # if we're in kickstart the repo may have been deleted just above
+            try:
+                self.ayum.repos.getRepo(repo.id)
+            except RepoError:
+                log.debug("repo %s has been removed" % (repo.id,))
+                continue
 
             repo.setFailureObj(self.ayum.urlgrabberFailureCB)
             repo.setMirrorFailureObj((self.ayum.mirrorFailureCB, (),
                                      {"tsInfo":self.ayum.tsInfo, 
                                       "repo": repo.id}))
 
-        try:
-            self.doGroupSetup()
-        except (yum.Errors.GroupsError, URLGrabError, RepoError):
-            anaconda.intf.messageWindow(_("Error"),
+        while 1:
+            try:
+                self.doGroupSetup()
+            except (yum.Errors.GroupsError, yum.Errors.RepoError):
+                buttons = [_("Re_boot")]
+                for repo in self.ayum.repos.listEnabled():
+                    if repo.nomoremirrors:
+                        buttons = [_("Re_boot"), _("_Retry")]
+                        repo.nomoremirrors = False
+                        break
+            else:
+                break # success
+
+            rc = anaconda.intf.messageWindow(_("Error"),
                                         _("Unable to read group information "
                                           "from repositories.  This is "
                                           "a problem with the generation "
                                           "of your install tree."),
                                         type="custom", custom_icon="error",
-                                        custom_buttons = [_("Re_boot")])
-            sys.exit(0)
+                                        custom_buttons = buttons)
+            if rc == 0:
+                sys.exit(0)
+            else:
+                self.ayum._setGroups(None)
+                continue
 
         self._catchallCategory()
         self.ayum.repos.callback = None
@@ -964,7 +992,31 @@ class YumBackend(AnacondaBackend):
             self.ayum.update()
 
         try:
-            (code, msgs) = self.ayum.buildTransaction()
+            while 1:
+                try:
+                    (code, msgs) = self.ayum.buildTransaction()
+                except RepoError, e:
+                    buttons = [_("Re_boot")]
+                    for repo in self.ayum.repos.listEnabled():
+                        if repo.nomoremirrors:
+                            buttons = [_("Re_boot"), _("_Retry")]
+                            repo.nomoremirrors = False
+                            break
+                    # FIXME: this message isn't ideal, but it'll do for now
+                    rc = anaconda.intf.messageWindow(_("Error"),
+                               _("Unable to read package metadata. This may be "
+                                 "due to a missing repodata directory.  Please "
+                                 "ensure that your install tree has been "
+                                 "correctly generated.  %s" % e),
+                                 type="custom", custom_icon="error",
+                                 custom_buttons=buttons)
+                    if rc == 0:
+                        sys.exit(0)
+                    else:
+                        continue
+                else:
+                    break
+
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
