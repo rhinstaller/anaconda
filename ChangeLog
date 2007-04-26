@@ -1,3 +1,11 @@
+2007-04-26  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py (Network.write): Do not write out a disable-ipv6 file
+	in /etc/modprobe.d if the user has disabled IPv6 during
+	install (#237642).
+	* packages.py (setFileCons): Remove /etc/modprobe.d from the
+	list (#237642).
+
 2007-04-26  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Add support for spufs (#237725)

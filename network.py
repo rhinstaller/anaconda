@@ -429,7 +429,6 @@ class Network:
         if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
 
-        useIPv6 = False
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
@@ -439,9 +438,6 @@ class Network:
             os.chmod(fn, 0644)
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
-
-            if dev.get("USEIPV6"):
-               useIPv6 = True
 
             f.write(str(dev))
 
@@ -478,18 +474,6 @@ class Network:
         if self.gateway:
             f.write("GATEWAY=%s\n" % (self.gateway,))
         f.close()
-
-        # /etc/modprobe.d/disable-ipv6
-        mpdir = "%s/etc/modprobe.d" % (instPath,)
-        blacklist = "%s/disable-ipv6" % (mpdir,)
-        if not useIPv6 and not os.path.isfile(blacklist):
-            if not os.path.isdir(mpdir):
-                os.makedirs(mpdir, 0755)
-
-            f = open(blacklist, "w")
-            os.chmod(blacklist, 0644)
-            f.write("install ipv6 /bin/true\n")
-            f.close()
 
         # /etc/hosts
         f = open(instPath + "/etc/hosts", "w")
