@@ -228,6 +228,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                         pass
 
             else:
+                os.makedirs("%s-disc%d/%s" % (self.dist_dir, i, self.product_path))
                 self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
             self.createDiscInfo(i)
             

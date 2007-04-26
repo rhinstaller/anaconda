@@ -1,3 +1,8 @@
+2007-04-26  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/splittree.py (Timber.createSplitDirs): Fix splitting
+	(Joel Andres Granados, #233384)
+
 2007-04-26  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network.write): Do not write out a disable-ipv6 file
