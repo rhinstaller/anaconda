@@ -4,10 +4,6 @@
 # Copyright 2002-2004  Red Hat, Inc.
 #
 
-import os
-import rhpl.arch
-from flags import flags
-
 import logging
 log = logging.getLogger("anaconda")
 
