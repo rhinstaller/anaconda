@@ -35,28 +35,28 @@ log = logging.getLogger("anaconda")
 
 class RescueInterface:
     def waitWindow(self, title, text):
-	return WaitWindow(self.screen, title, text)
+        return WaitWindow(self.screen, title, text)
 
     def progressWindow(self, title, text, total):
-	return ProgressWindow(self.screen, title, text, total)
-	
+        return ProgressWindow(self.screen, title, text, total)
+
     def messageWindow(self, title, text, type = "ok"):
-	if type == "ok":
-	    ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons = [ _("OK") ])
+        if type == "ok":
+            ButtonChoiceWindow(self.screen, _(title), _(text),
+                               buttons = [ _("OK") ])
         elif type == "yesno":
             btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
-	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons=btnlist)
+            rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+                               buttons=btnlist)
             if rc == "yes":
                 return 1
             else:
                 return 0
-	else:
-	    return OkCancelWindow(self.screen, _(title), _(text))
+        else:
+            return OkCancelWindow(self.screen, _(title), _(text))
 
     def __init__(self, screen):
-	self.screen = screen
+        self.screen = screen
 
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
@@ -74,7 +74,7 @@ def makeMtab(instPath, theFsset):
 def makeResolvConf(instPath):
     if not os.access("/etc/resolv.conf", os.R_OK):
         return
-    
+
     if os.access("%s/etc/resolv.conf" %(instPath,), os.R_OK):
         f = open("%s/etc/resolv.conf" %(instPath,), "r")
         buf = f.read()
@@ -105,8 +105,8 @@ def makeResolvConf(instPath):
 #
 def methodUsesNetworking(methodstr):
     for m in ['http://', 'ftp://', 'nfs:/', 'nfsiso:/']:
-	if methodstr.startswith(m):
-	    return 1
+        if methodstr.startswith(m):
+            return 1
     return 0
 
 # XXX
@@ -116,48 +116,48 @@ def startNetworking(network, intf):
 
     # do lo first
     try:
-	os.system("/usr/sbin/ifconfig lo 127.0.0.1")
+        os.system("/usr/sbin/ifconfig lo 127.0.0.1")
     except:
-	log.error("Error trying to start lo in rescue.py::startNetworking()")
+        log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
     dhcpGotNS = 0
     devs = network.netdevices.keys()
     devs.sort()
     for devname in devs:
-	dev = network.netdevices[devname]
-	waitwin = intf.waitWindow(_("Starting Interface"),
-				  _("Attempting to start %s") % (dev.get('device'),))
-	log.info("Attempting to start %s", dev.get('device'))
-	if dev.get('bootproto') == "dhcp":
-	    try:
-		ns = isys.pumpNetDevice(dev.get('device'))
-		if ns:
-		    if not dhcpGotNS:
-			dhcpGotNS = 1
+        dev = network.netdevices[devname]
+        waitwin = intf.waitWindow(_("Starting Interface"),
+                                  _("Attempting to start %s") % (dev.get('device'),))
+        log.info("Attempting to start %s", dev.get('device'))
+        if dev.get('bootproto') == "dhcp":
+            try:
+                ns = isys.pumpNetDevice(dev.get('device'))
+                if ns:
+                    if not dhcpGotNS:
+                        dhcpGotNS = 1
 
-			f = open("/etc/resolv.conf", "w")
-			f.write("nameserver %s\n" % ns)
-			f.close()
-	    except:
-		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-	elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
-	    try:
-		isys.configNetDevice(dev.get('device'),
-				     dev.get('ipaddr'),
-				     dev.get('netmask'),
-				     network.gateway)
-	    except:
-		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+                        f = open("/etc/resolv.conf", "w")
+                        f.write("nameserver %s\n" % ns)
+                        f.close()
+            except:
+                log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+        elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
+            try:
+                isys.configNetDevice(dev.get('device'),
+                                     dev.get('ipaddr'),
+                                     dev.get('netmask'),
+                                     network.gateway)
+            except:
+                log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
 
-	waitwin.pop()
-	
+        waitwin.pop()
+
     # write out resolv.conf if dhcp didnt get us one
     if not dhcpGotNS:
         f = open("/etc/resolv.conf", "w")
 
-	if network.domains != ['localdomain'] and network.domains:
-	    f.write("search %s\n" % (string.joinfields(network.domains, ' '),))
+        if network.domains != ['localdomain'] and network.domains:
+            f.write("search %s\n" % (string.joinfields(network.domains, ' '),))
 
         for ns in network.nameservers():
             if ns:
@@ -195,77 +195,76 @@ def runRescue(anaconda, instClass):
 
     # see if they would like networking enabled
     if not methodUsesNetworking(anaconda.id.methodstr):
-	screen = SnackScreen()
+        screen = SnackScreen()
 
-	while 1:
-	    rc = ButtonChoiceWindow(screen, _("Setup Networking"),
-		_("Do you want to start the network interfaces on "
-		  "this system?"), [_("Yes"), _("No")])
+        while 1:
+            rc = ButtonChoiceWindow(screen, _("Setup Networking"),
+                _("Do you want to start the network interfaces on "
+                  "this system?"), [_("Yes"), _("No")])
 
-	    if rc != string.lower(_("No")):
-		anaconda.intf = RescueInterface(screen)
+            if rc != string.lower(_("No")):
+                anaconda.intf = RescueInterface(screen)
 
-		# need to call sequence of screens, have to look in text.py
-		#
-		# this code is based on main loop in text.py, and if it
-		# or the network step in dispatch.py change significantly
-		# then this will certainly break
-		#
+                # need to call sequence of screens, have to look in text.py
+                #
+                # this code is based on main loop in text.py, and if it
+                # or the network step in dispatch.py change significantly
+                # then this will certainly break
                 pyfile = "network_text"
-		classNames = ("NetworkDeviceWindow", "NetworkGlobalWindow")
+                classNames = ("NetworkDeviceWindow", "NetworkGlobalWindow")
 
-		lastrc = INSTALL_OK
-		step = 0
-		anaconda.dir = 1
+                lastrc = INSTALL_OK
+                step = 0
+                anaconda.dir = 1
 
-		while 1:
-		    s = "from %s import %s; nextWindow = %s" % \
-			(pyfile, classNames[step], classNames[step])
-		    exec s
+                while 1:
+                    s = "from %s import %s; nextWindow = %s" % \
+                        (pyfile, classNames[step], classNames[step])
+                    exec s
 
-		    win = nextWindow()
+                    win = nextWindow()
 
                     rc = win(screen, anaconda, showonboot = 0)
 
-		    if rc == INSTALL_NOOP:
-			rc = lastrc
-			
-		    if rc == INSTALL_BACK:
-			step = step - 1
-			anaconda.dir = - 1
-		    elif rc == INSTALL_OK:
-			step = step + 1
-			anaconda.dir = 1
+                    if rc == INSTALL_NOOP:
+                        rc = lastrc
 
-		    lastrc = rc
+                    if rc == INSTALL_BACK:
+                        step = step - 1
+                        anaconda.dir = - 1
+                    elif rc == INSTALL_OK:
+                        step = step + 1
+                        anaconda.dir = 1
 
-		    if step == -1:
-			ButtonChoiceWindow(screen, _("Cancelled"),
-					   _("I can't go to the previous step "
-					     "from here. You will have to try "
-					     "again."),
-					   buttons=[_("OK")])
+                    lastrc = rc
+
+                    if step == -1:
+                        ButtonChoiceWindow(screen, _("Cancelled"),
+                                           _("I can't go to the previous step "
+                                             "from here. You will have to try "
+                                             "again."),
+                                           buttons=[_("OK")])
                         anaconda.dir = 1
                         step = 0
-		    elif step >= len(classNames):
-			break
+                    elif step >= len(classNames):
+                        break
 
-		startNetworking(anaconda.id.network, anaconda.intf)
-		break
-	    else:
-		break
+                startNetworking(anaconda.id.network, anaconda.intf)
+                break
+            else:
+                break
 
-	screen.finish()
+        screen.finish()
 
     # Early shell access with no disk access attempts
     if not anaconda.rescue_mount:
-	runShell()
-	sys.exit(0)
+        runShell()
+        sys.exit(0)
 
     # need loopback devices too
     for lpminor in range(8):
-	dev = "loop%s" % (lpminor,)
-	isys.makeDevInode(dev, "/dev/" + dev)
+        dev = "loop%s" % (lpminor,)
+        isys.makeDevInode(dev, "/dev/" + dev)
 
     screen = SnackScreen()
     anaconda.intf = RescueInterface(screen)
@@ -297,45 +296,45 @@ def runRescue(anaconda, instClass):
     disks = upgrade.findExistingRoots(anaconda, upgradeany = 1)
 
     if not disks:
-	root = None
+        root = None
     elif len(disks) == 1:
-	root = disks[0]
+        root = disks[0]
     else:
-	height = min (len (disks), 12)
-	if height == 12:
-	    scroll = 1
-	else:
-	    scroll = 0
+        height = min (len (disks), 12)
+        if height == 12:
+            scroll = 1
+        else:
+            scroll = 0
 
-	partList = []
-	for (drive, fs, relstr, label) in disks:
+        partList = []
+        for (drive, fs, relstr, label) in disks:
             if label:
-	        partList.append("%s (%s)" % (drive, label))
+                partList.append("%s (%s)" % (drive, label))
             else:
                 partList.append(drive)
 
-	(button, choice) = \
-	    ListboxChoiceWindow(screen, _("System to Rescue"),
-				_("What partition holds the root partition "
-				  "of your installation?"), partList, 
-				[ _("OK"), _("Exit") ], width = 30,
-				scroll = scroll, height = height,
-				help = "multipleroot")
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("System to Rescue"),
+                                _("What partition holds the root partition "
+                                  "of your installation?"), partList,
+                                [ _("OK"), _("Exit") ], width = 30,
+                                scroll = scroll, height = height,
+                                help = "multipleroot")
 
-	if button == string.lower (_("Exit")):
-	    root = None
-	else:
-	    root = disks[choice]
+        if button == string.lower (_("Exit")):
+            root = None
+        else:
+            root = disks[choice]
 
     rootmounted = 0
 
     if root:
-	try:
-	    fs = fsset.FileSystemSet()
+        try:
+            fs = fsset.FileSystemSet()
 
-	    # only pass first two parts of tuple for root, since third
-	    # element is a comment we dont want
-	    rc = upgrade.mountRootPartition(anaconda, root[:2], fs,
+            # only pass first two parts of tuple for root, since third
+            # element is a comment we dont want
+            rc = upgrade.mountRootPartition(anaconda, root[:2], fs,
                                             allowDirty = 1, warnDirty = 1,
                                             readOnly = readOnly)
 
@@ -349,7 +348,7 @@ def runRescue(anaconda, instClass):
                 rootmounted = 0
             else:
                 ButtonChoiceWindow(screen, _("Rescue"),
-		   _("Your system has been mounted under %s.\n\n"
+                   _("Your system has been mounted under %s.\n\n"
                      "Press <return> to get a shell. If you would like to "
                      "make your system the root environment, run the command:\n\n"
                      "\tchroot %s\n\nThe system will reboot "
@@ -358,12 +357,12 @@ def runRescue(anaconda, instClass):
                                    [_("OK")] )
                 rootmounted = 1
 
-		# now turn on swap
-		if not readOnly:
-		    try:
-			fs.turnOnSwap("/")
-		    except:
-			log.error("Error enabling swap")
+                # now turn on swap
+                if not readOnly:
+                    try:
+                        fs.turnOnSwap("/")
+                    except:
+                        log.error("Error enabling swap")
 
                 # now that dev is udev, bind mount the installer dev there
                 isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
@@ -376,73 +375,68 @@ def runRescue(anaconda, instClass):
                     except Exception, e:
                         log.error("error mounting selinuxfs: %s" %(e,))
 
-		# set a library path to use mounted fs
-		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
+                # set a library path to use mounted fs
+                os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
 
-		# get man pages to work
-		os.environ["MANPATH"] = "/mnt/sysimage/usr/share/man:/mnt/sysimage/usr/local/share/man"
+                # get man pages to work
+                os.environ["MANPATH"] = "/mnt/sysimage/usr/share/man:/mnt/sysimage/usr/local/share/man"
 
-		# find groff data dir
-		try:
-		    glst = os.listdir("/mnt/sysimage/usr/share/groff")
+                # find groff data dir
+                try:
+                    glst = os.listdir("/mnt/sysimage/usr/share/groff")
 
-		    # find a directory which is a numeral, its where
-		    # data files are
-		    gversion = None
-		    for gdir in glst:
-			try:
-			    isone = 1
-			    for idx in range(0, len(gdir)):
-				if string.find(string.digits + '.', gdir[idx]) == -1:
-				    isone = 0
-				    break
-			    if isone:
-				gversion = gdir
-				break
-				
-			except:
-			    gversion = None
-			    continue
-			
-		except:
-		    gversion = None
+                    # find a directory which is a numeral, its where
+                    # data files are
+                    gversion = None
+                    for gdir in glst:
+                        try:
+                            isone = 1
+                            for idx in range(0, len(gdir)):
+                                if string.find(string.digits + '.', gdir[idx]) == -1:
+                                    isone = 0
+                                    break
+                            if isone:
+                                gversion = gdir
+                                break
+                        except:
+                            gversion = None
+                            continue
+                except:
+                    gversion = None
 
-		if gversion is not None:
-		    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
-		    os.environ["GROFF_FONT_PATH"] = gpath + '/font'
-		    os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
-		    
+                if gversion is not None:
+                    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
+                    os.environ["GROFF_FONT_PATH"] = gpath + '/font'
+                    os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
 
-		# do we have bash?
-		try:
-		    if os.access("/usr/bin/bash", os.R_OK):
-			os.symlink ("/usr/bin/bash", "/bin/bash")
-		except:
-		    pass
-		    
-			
-	except:
-	    # This looks horrible, but all it does is catch every exception,
-	    # and reraise those in the tuple check. This lets programming
-	    # errors raise exceptions, while any runtime error will
-	    # still result in a shell. 
-	    (exc, val) = sys.exc_info()[0:2]
+                # do we have bash?
+                try:
+                    if os.access("/usr/bin/bash", os.R_OK):
+                        os.symlink ("/usr/bin/bash", "/bin/bash")
+                except:
+                    pass
+        except:
+            # This looks horrible, but all it does is catch every exception,
+            # and reraise those in the tuple check. This lets programming
+            # errors raise exceptions, while any runtime error will
+            # still result in a shell
+            (exc, val) = sys.exc_info()[0:2]
             log.error(val)
-	    if exc in (IndexError, ValueError, SyntaxError):
-		raise exc, val, sys.exc_info()[2]
+            if exc in (IndexError, ValueError, SyntaxError):
+                raise exc, val, sys.exc_info()[2]
 
-	    ButtonChoiceWindow(screen, _("Rescue"),
-		_("An error occurred trying to mount some or all of your "
-		  "system. Some of it may be mounted under %s.\n\n"
-		  "Press <return> to get a shell. The system will reboot "
-		  "automatically when you exit from the shell.") % (anaconda.rootPath,),
-		  [_("OK")] )
+            ButtonChoiceWindow(screen, _("Rescue"),
+                _("An error occurred trying to mount some or all of your "
+                  "system. Some of it may be mounted under %s.\n\n"
+                  "Press <return> to get a shell. The system will reboot "
+                  "automatically when you exit from the shell.") % (anaconda.rootPath,),
+                  [_("OK")] )
     else:
-	ButtonChoiceWindow(screen, _("Rescue Mode"),
-			   _("You don't have any Linux partitions. Press "
-			     "return to get a shell. The system will reboot "
-			     "automatically when you exit from the shell."),
-			   [ _("OK") ], width = 50)
+        ButtonChoiceWindow(screen, _("Rescue Mode"),
+                           _("You don't have any Linux partitions. Press "
+                             "return to get a shell. The system will reboot "
+                             "automatically when you exit from the shell."),
+                           [ _("OK") ], width = 50)
 
     msgStr = ""
 
