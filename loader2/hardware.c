@@ -318,3 +318,27 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
 #endif
 }
 
+void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
+               moduleInfoSet modInfo) {
+#if !defined(__powerpc__)
+    return;
+#else
+    FILE *fd;
+    fd = fopen("/proc/cpuinfo", "r");
+    if(fd) {
+        char buf[1024];
+        while (fgets(buf, 1024, f) != NULL) {
+            if(!strncmp(buf, "cpu\t\t:", 5)) {
+                if(strstr(buf, "Cell")) {
+                    mlLoadModule("spufs", modLoaded, modDeps, modInfo, NULL);
+                    break;
+                }
+            }
+        }
+        fclose(fd);
+        return;
+    } else {
+        return;
+    }
+#endif
+}

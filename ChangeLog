@@ -1,5 +1,12 @@
 2007-04-27  Paul Nasrat <pnasrat@redhat.com>
 
+	* yuminstall.py: Remove spufs mountpoint force, we'll make the
+	mountpoint if the module is loaded.  
+	* loader2/loader.c: Call spufsSetup
+	* loader2/hardware.c (spufsSetup): Load spufs module on cell (#237725) 
+	* loader2/hardware.h: Add spufsSetup
+	* scripts/mk-images.ppc: Ship spufs module 
+
 	* scripts/mk-images.ppc: Fix ppc32 netboot (#237988)
 
 2007-04-26  Chris Lumens  <clumens@redhat.com>

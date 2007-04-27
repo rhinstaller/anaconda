@@ -8,7 +8,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$INITRDMODS"
+	    --modules "$INITRDMODS spufs"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc64/vmlinuz
         sed -e "s/%BITS%/64/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \

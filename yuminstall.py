@@ -1094,9 +1094,6 @@ class YumBackend(AnacondaBackend):
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
                    '/var/cache/yum']
 
-        if iutil.isCell():
-            dirList.append('/spu')
-
         # If there are any protected partitions we want to mount, create their
         # mount points now.
         protected = self.method.protectedPartitions()
