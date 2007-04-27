@@ -553,50 +553,50 @@ void init_isys(void) {
     PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
 }
 
-/* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
-    char * dev, * ip, * netmask;
-    char * gateway;
+    int i;
+    char *dev, *ipv4, *netmask, *ipv6, *prefix, *gateway;
     struct pumpNetIntf cfg;
     struct in_addr addr, nm, nw;
     struct in6_addr addr6;
 
-    if (!PyArg_ParseTuple(args, "ssss", &dev, &ip, &netmask, &gateway))
+    if (!PyArg_ParseTuple(args, "ssssss", &dev, &ipv4, &netmask,
+                          &ipv6, &prefix, &gateway))
         return NULL;
 
-    memset(&cfg,'\0',sizeof(struct pumpNetIntf));
+    memset(&cfg, '\0', sizeof(struct pumpNetIntf));
     strncpy(cfg.device, dev, sizeof(cfg.device) - 1);
 
-    if (inet_pton(AF_INET, ip, &addr) >= 1) {
-        /* IPv4 */
-        cfg.ip = ip_addr_in(&addr);
-        cfg.set |= PUMP_INTFINFO_HAS_IP;
+    /* IPv4 */
+    if (inet_pton(AF_INET, ipv4, &addr) >= 1) {
+        cfg.ipv4 = ip_addr_in(&addr);
 
         if (inet_pton(AF_INET, netmask, &nm) >= 1) {
             cfg.netmask = ip_addr_in(&nm);
-            cfg.set |= PUMP_INTFINFO_HAS_NETMASK;
+
+            /* we have IP and netmask, calculate network and broadcast */
+            cfg.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
+            nw = ip_in_addr(&cfg.network);
+            cfg.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
         }
-
-        cfg.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
-        nw = ip_in_addr(&cfg.network);
-        cfg.set |= PUMP_INTFINFO_HAS_NETWORK;
-
-        cfg.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
-        cfg.set |= PUMP_INTFINFO_HAS_BROADCAST;
-    } else if (inet_pton(AF_INET6, ip, &addr) >= 1) {
-        /* IPv6 */
-
-        /* FIXME */
-        return NULL;
     }
 
+    /* IPv6 */
+    if (inet_pton(AF_INET6, ipv6, &addr6) >= 1) {
+        cfg.ipv6 = ip_addr_in6(&addr6);
+
+        if (strlen(prefix))
+            i = atoi(prefix);
+            if (i > 0 && i <= 128)
+                cfg.ipv6_prefixlen = i;
+    }
+
+    /* Global */
     if (strlen(gateway)) {
         if (inet_pton(AF_INET, gateway, &addr) >= 1) {
             cfg.gateway = ip_addr_in(&addr);
-            cfg.set |= PUMP_NETINFO_HAS_GATEWAY;
         } else if (inet_pton(AF_INET6, gateway, &addr6) >= 1) {
-            /* FIXME */
-            return NULL;
+            cfg.gateway = ip_addr_in6(&addr6);
         }
     }
 
@@ -609,21 +609,18 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-/* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
-    char * device;
-    char * dhcpclass = NULL;
-    char * r;
+    char *device, *r, *ipv4method = NULL, *ipv6method = NULL, *dhcpclass = NULL;
+    int useipv4, useipv6;
     char buf[47];
     time_t timeout = 45;
     struct pumpNetIntf cfg;
     struct utsname kv;
-    /* FIXME: we call this from rescue mode, need to pass in what user wants */
-    DHCP_Preference pref = DHCPv6_DISABLE;
+    DHCP_Preference pref = 0;
     ip_addr_t *tip;
     PyObject * rc;
 
-    if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
+    if (!PyArg_ParseTuple(args, "sisis|s", &device, &useipv4, &ipv4method, &useipv6, &ipv6method, &dhcpclass))
         return NULL;
 
     if (dhcpclass == NULL) {
@@ -632,23 +629,34 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
         else {
             int ret;
             ret = asprintf(&dhcpclass, "anaconda-%s %s %s",
-                           kv.sysname,kv.release,kv.machine);
+                           kv.sysname, kv.release, kv.machine);
         }
     }
 
     memset(&cfg, '\0', sizeof(cfg));
-    strncpy(cfg.device, device, sizeof(cfg.device) - 1);
+    strcpy(cfg.device, device);
 
-    r = pumpDhcpClassRun(&cfg, 0L, dhcpclass, pref, 0, timeout, NULL, 0L);
-    if (r) {
-        Py_INCREF(Py_None);
-        return Py_None;
+    if (!useipv4 || !strncmp(ipv4method, "manual", 6)) {
+        /* IPv4 disabled entirely -or- manual IPv4 config selected */
+        pref |= DHCPv4_DISABLE;
     }
 
-    r = pumpSetupInterface(&cfg);
-    if (r) {
-        Py_INCREF(Py_None);
-        return Py_None;
+    if (useipv6 && !strncmp(ipv6method, "auto", 4)) {
+        /* IPv6 enabled -and- auto neighbor discovery selected */
+        pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
+    } else if (!useipv6 || !strncmp(ipv6method, "manual", 6)) {
+        /* IPv6 disabled entirely -or- manual IPv6 config selected */
+        pref |= DHCPv6_DISABLE;
+    }
+
+    pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
+
+    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)) {
+        r = pumpDhcpClassRun(&cfg, 0, dhcpclass, pref, 0, timeout, NULL, 0);
+        if (r) {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
     }
 
     if (cfg.numDns) {

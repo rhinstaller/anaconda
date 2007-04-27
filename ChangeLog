@@ -1,3 +1,17 @@
+2007-04-27  David Cantrell  <dcantrell@redhat.com>
+
+	* rescue.py (startNetworking): Call the right functions to bring up
+	networking in rescue mode when booting from CD or DVD (#238080)
+
+	* isys/isys.py: Remove pumpNetDevice, replace with dhcpNetDevice that
+	can handle IPv4 and IPv6 (#238080).
+
+	* isys/isys.c (doDhcpNetDevice): Handle IPv4 and IPv6 stacks (#238080).
+	* isys/isys.c (doConfigNetDevice): Likewise.
+
+	* loader2/net.c (setupNetworkDeviceConfig): The netmask will never be
+	an IPv6 address.
+
 2007-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.writePackagesKS):  Fix %packages section

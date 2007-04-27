@@ -109,11 +109,10 @@ def methodUsesNetworking(methodstr):
             return 1
     return 0
 
-# XXX
-#     hack to write out something useful for networking and start interfaces
+#
+# Write out something useful for networking and start interfaces
 #
 def startNetworking(network, intf):
-
     # do lo first
     try:
         os.system("/usr/sbin/ifconfig lo 127.0.0.1")
@@ -129,9 +128,9 @@ def startNetworking(network, intf):
         waitwin = intf.waitWindow(_("Starting Interface"),
                                   _("Attempting to start %s") % (dev.get('device'),))
         log.info("Attempting to start %s", dev.get('device'))
-        if dev.get('bootproto') == "dhcp":
+        if dev.get('bootproto').lower() == "dhcp":
             try:
-                ns = isys.pumpNetDevice(dev.get('device'))
+                ns = isys.dhcpNetDevice(dev)
                 if ns:
                     if not dhcpGotNS:
                         dhcpGotNS = 1
@@ -141,18 +140,15 @@ def startNetworking(network, intf):
                         f.close()
             except:
                 log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-        elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
+        else:
             try:
-                isys.configNetDevice(dev.get('device'),
-                                     dev.get('ipaddr'),
-                                     dev.get('netmask'),
-                                     network.gateway)
+                isys.configNetDevice(dev, network.gateway)
             except:
                 log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
 
         waitwin.pop()
 
-    # write out resolv.conf if dhcp didnt get us one
+    # write out resolv.conf if dhcp didn't get us one
     if not dhcpGotNS:
         f = open("/etc/resolv.conf", "w")
 

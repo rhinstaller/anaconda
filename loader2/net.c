@@ -456,11 +456,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
     }
 
-    if (loaderData->netmask && (inet_pton(AF_INET6, loaderData->netmask, &addr6) >= 1)) {
-        cfg->dev.netmask = ip_addr_in6(&addr6);
-        cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-    }
-
     if (loaderData->gateway && (inet_pton(AF_INET, loaderData->gateway, &addr) >= 1)) {
         cfg->dev.gateway = ip_addr_in(&addr);
         cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
