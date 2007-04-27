@@ -1564,23 +1564,27 @@ class PartitionTypeWindow:
             disks = anaconda.id.diskset.disks.keys()
             disks.sort()
             cleardrives = anaconda.id.partitions.autoClearPartDrives
-            if not cleardrives or len(cleardrives) < 1:
-                cleardrives = disks
 
             for disk in disks:
-                if disk in cleardrives:
-                    if disk != self.anaconda.updateSrc:
+                size = getDeviceSizeMB(anaconda.id.diskset.disks[disk].dev)
+                model = anaconda.id.diskset.disks[disk].dev.model
+
+                if not cleardrives or len(cleardrives) < 1:
+                    selected = 1
+                else:
+                    if disk in cleardrives:
                         selected = 1
                     else:
                         selected = 0
-                else:
-                    selected = 0
-                self.drivelist.append(disk, selected = selected)
 
-            
+                sizestr = "%8.0f MB" % (size,)
+                diskdesc = "%6s %s (%s)" % (disk, sizestr, model[:24],)
+
+                drivelist.append(diskdesc, selected = selected)
+
             rc = g.run()
 
-            sel = self.drivelist.getSelection()
+            sel = [self.drivelist.getSelection()[0].split()[0]]
             partmethod_ans = typebox.current()
             res = bb.buttonPressed(rc)
             

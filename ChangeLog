@@ -1,3 +1,9 @@
+2007-04-27  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/partition_text.py (PartitionTypeWindow): Provide detailed
+	disk information (display size and partition in addition to the
+	device name) in text mode (#235054).
+
 2007-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* loader/net.c (kickstartNetworkUp):  If the wrong interface is
