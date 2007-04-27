@@ -79,10 +79,10 @@ __EOT__
 	if [ -x $IMGPATH/usr/bin/mkzimage -a -r $IMGPATH/usr/share/ppc64-utils/zImage.stub ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		pushd $TOPDESTPATH/ppc/ppc32
-		cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/ppc64/zImage.lds
+		cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/ppc32/zImage.lds
 		$IMGPATH/usr/bin/mkzimage $TOPDESTPATH/ppc/ppc32/vmlinuz no no $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz $IMGPATH/usr/share/ppc64-utils/zImage.stub $TOPDESTPATH/images/netboot/ppc32.img
 		rmdir $TOPDESTPATH/images/netboot || :
-		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
+		rm -f $TOPDESTPATH/ppc/ppc32/zImage.lds
 		popd
         echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 	fi
