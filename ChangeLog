@@ -1,3 +1,8 @@
+2007-04-27  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.writePackagesKS):  Fix %packages section
+	for ISO media installs (#231121, 235881).
+
 2007-04-27  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Remove spufs mountpoint force, we'll make the

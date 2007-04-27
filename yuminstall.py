@@ -1398,9 +1398,16 @@ class YumBackend(AnacondaBackend):
         allPkgNames = map(lambda pkg: pkg.name, self.ayum.pkgSack.returnPackages())
         allPkgNames.sort()
 
-        self.ayum.tsInfo.makelists()
+        # On CD/DVD installs, we have one transaction per CD and will end up
+        # checking allPkgNames against a very short list of packages.  So we
+        # have to reset to media #0, which is an all packages transaction.
+        old = self.ayum.tsInfo.curmedia
+        self.ayum.tsInfo.curmedia = 0
 
+        self.ayum.tsInfo.makelists()
         txmbrNames = map (lambda x: x.name, self.ayum.tsInfo.getMembers())
+
+        self.ayum.tsInfo.curmedia = old
 
         if len(self.ayum.tsInfo.instgroups) == 0 and len(txmbrNames) == 0:
             return
