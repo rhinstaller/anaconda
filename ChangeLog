@@ -1,5 +1,11 @@
 2007-04-27  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/isys.c (doDhcpNetDevice): Pass pumplogger to pumpDhcpClassRun()
+	so we can see error messages in the syslog.
+	* isys/isys.c: Add pumplogger() pass-through.
+
+2007-04-27  David Cantrell  <dcantrell@redhat.com>
+
 	* rescue.py (startNetworking): Call the right functions to bring up
 	networking in rescue mode when booting from CD or DVD (#238080)
 
