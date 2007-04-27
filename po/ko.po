@@ -1,23 +1,23 @@
 # translation of ko.po to
 # translation of ko.po to
 # translation of ko.po to Korean
+#
 # Michelle J Kim <mkim@redhat.com>, 2003,2004.
 # David Sungmin Joo <djoo@redhat.com>, 2004.
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005, 2006.
-# Eunju Kim <eukim@redhat.com>, 2006.
-#
+# Eunju Kim <eukim@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2006-09-19 11:51+1000\n"
+"PO-Revision-Date: 2007-04-27 11:35+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -196,20 +196,17 @@ msgstr ""
 "니다."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"부트 파티션은 디스크 상 유효한 위치 (첫 부분)에 위치하지 않았습니다.  "
-"OpenFirmware는 이 설치를 부팅하지 못 할 것입니다."
+"부트 파티션은 디스크 상의 처음 4GB에 위치해야 합니다.  "
+"OpenFirmware는 이러한 설치를 부팅할 수 없게 됩니다."
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1064
 #, python-format
@@ -351,7 +348,7 @@ msgstr ""
 "'확인' 버튼은 누르시면 다다른 파티션 옵션이 선택됩니다"
 
 #: ../autopart.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -360,12 +357,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %s"
 msgstr ""
-"파티션 작업 도중 다음과 같은 오류가 발생하였습니다:\n"
+"파티션 작업 도중 다음과 같은 오류가 발생했습니다:\n"
 "\n"
 "%s\n"
 "\n"
-"파티션이 성공적으로 이루어지기에 하드 드라이브 공간이 부족한 경우 이와 같은 "
-"오류가 발생할 수 있습니다.%s"
+"하드 드라이브에 설치를 위한 공간이 충분하지 않을 경우 이와 같은 오류가 발생할 수 "
+"있습니다.%s"
 
 #: ../autopart.py:1533
 msgid "Unrecoverable Error"
@@ -1293,8 +1290,7 @@ msgstr "%s 설치 이미지를 읽어올 수 없습니다"
 
 #: ../livecd.py:78 ../livecd.py:264
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:82 ../livecd.py:268
@@ -1718,14 +1714,12 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일 시스"
 "템 상에 위치해야 합니다."
@@ -1748,8 +1742,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1780,8 +1773,7 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:671
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:679 ../partitions.py:954
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1790,8 +1782,7 @@ msgstr "부트 파티션은 'RAID1' 장치에서만 지정하실 수 있습니�
 #: ../partRequests.py:683
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:692
 #, python-format
@@ -1962,12 +1953,10 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
+msgstr "부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1990,8 +1979,7 @@ msgstr ""
 "요한 기본 용량보다 적습니다."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 "
 "수 도 있습니다."
@@ -2250,17 +2238,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:469
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:471
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2636,8 +2621,7 @@ msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:569
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "트랜젝션은 다음과 같은 이유로 실행되지 않았습니다:%s"
 
 #: ../yuminstall.py:573 ../yuminstall.py:606 ../yuminstall.py:742
@@ -2770,10 +2754,8 @@ msgstr "루트(root) 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니다."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니다."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2812,8 +2794,7 @@ msgstr "선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트
 #: ../iw/autopart_type.py:260 ../textw/partition_text.py:1542
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr "선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:261 ../textw/partition_text.py:1543
 #, fuzzy
@@ -3256,8 +3237,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1291
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
@@ -3266,8 +3246,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:557
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1261
 msgid "Illegal Logical Volume Name"
@@ -3280,8 +3259,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1279
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:602
 #, fuzzy, python-format
@@ -3351,8 +3329,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3774,8 +3751,7 @@ msgstr "삭제할 수 없습니다."
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
+msgstr "이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3877,14 +3853,12 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -4399,10 +4373,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -4412,8 +4384,7 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4542,8 +4513,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zipl_gui.py:28
@@ -4681,8 +4651,7 @@ msgstr ""
 "시오."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 디폴트 선택하기 | <F4> 는 지우기 | <F12> 는 "
 "다음 화면으로 가기>"
@@ -4810,8 +4779,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "설치하시려는 패키지 그룹을 선택하십시오."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/grpselect_text.py:117
@@ -5304,8 +5272,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
+msgstr "현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
 
 #: ../textw/partition_text.py:1375
 msgid "New Partition or Logical Volume?"
@@ -5336,10 +5303,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1457
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1489
 msgid "No Root Partition"
@@ -6011,10 +5976,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6153,8 +6116,7 @@ msgstr "%s 복구 모드로 anaconda를 실행 중 - 잠시만 기다려 주십�
 #: ../loader2/loader.c:1824
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6258,8 +6220,7 @@ msgstr "장치 킥스타트 방식 명령 %s에 잘못된 인수 값이 지정�
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "킥스타트 드라이버 디스켓 명령에 다음과 같은 잘못된 인수 값이 지정되었습니다: "
 "%s:%s"
@@ -6397,10 +6358,8 @@ msgid "Missing Information"
 msgstr "정보 부족"
 
 #: ../loader2/net.c:1207
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1213
 #, fuzzy
@@ -6802,8 +6761,7 @@ msgstr "후의 사용자 설정(_L)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
+msgstr "소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7064,873 +7022,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "설치에 사용된 설치 매체를 제거하신 후 \"재부팅\" 키를 눌러 시스템을 재부팅"
-#~ "하십시오.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "설치에 사용된 설치 매체를 제거하신 후 <Enter> 키를 눌러 시스템을 재부팅하"
-#~ "십시오.\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "재부팅 하시려면, [ENTER] 키를 누르십시오"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS 이미지"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "커널 2.4 부터는 이전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상"
-#~ "을 스왑 공간으로 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요로 "
-#~ "합니다. 현재 여러분이 스왑 공간으로 설정하신 용량은 %d MB 입니다. 필요하시"
-#~ "다면, 추가로 스왑 공간을 더 생성하실 수 있습니다."
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "마침 [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "%s-%s-%s (을)를 설치합니다... "
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "%s 버전에 대한 인증키를 입력해 주십시오."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "인증키를 입력합니다"
-
-#~ msgid "Key:"
-#~ msgstr "키:"
-
-#~ msgid "_Format drive"
-#~ msgstr "드라이브 포맷(_F)"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr ""
-#~ "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였"
-#~ "습니다."
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr ""
-#~ "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "남은 시간: %s 분"
-
-#~ msgid "Downloading %s"
-#~ msgstr "%s 다운로드 중"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "%s-%s-%s (을)를 설치합니다.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "패키지"
-
-#~ msgid "Summary"
-#~ msgstr "설명"
-
-#~ msgid "Status: "
-#~ msgstr "상태: "
-
-#~ msgid "Description: %s"
-#~ msgstr "설명: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "하드웨어 주소: %s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "동적 IP 주소 설정 사용 (DHCP)"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "IP 주소"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "IPv6 접두부는 0과 128 사이의 값이어야 합니다."
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "설치를 계속 진행하시려면, 반드시 '/' 파티션을 지정해 주셔야 합니다."
-
-#~ msgid "Downloading - %s"
-#~ msgstr "다운로드 중 - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " 이름   : "
-
-#~ msgid " Size   : "
-#~ msgstr " 용량   : "
-
-#~ msgid " Summary: "
-#~ msgstr " 설명: "
-
-#~ msgid "    Packages"
-#~ msgstr "    패키지 수"
-
-#~ msgid "      Bytes"
-#~ msgstr "      바이트"
-
-#~ msgid "        Time"
-#~ msgstr "        소요시간"
-
-#~ msgid "Total    :"
-#~ msgstr "전체    :"
-
-#~ msgid "Completed:   "
-#~ msgstr "완료됨:   "
-
-#~ msgid "Remaining:  "
-#~ msgstr "남음:  "
-
-#~ msgid "Acre"
-#~ msgstr "아크레(Acre)"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "알라고아스(Alagoas), 세르지페(Sergipe)"
-
-#~ msgid "Alaska Time"
-#~ msgstr "알래스카 시간"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "알래스카 시간 - Alaska panhandle"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "알래스카 시간 - Alaska panhandle neck"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "알래스카 시간 - 알래스카 서부"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "알류샨 열도(Aleutian Islands)"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "아마파(Amapa), 파라 동부(E Para)"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "아문센-스콧 기지(Amundsen-Scott Station), 남극"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "악토브(Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "대서양 표준시 - 퀘백(Quebec) - 로어 노스 쇼어(Lower North Shore)"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "대서양 시간 - 래브라도(Labrador) - 대부분 지역"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "대서양 시간 - 뉴브런즈윅(New Brunswick)"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "대서양 시간 - 노바스코샤 (대부분의 장소), 프린스 에드워드 섬(PEI)"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr ""
-#~ "대서양 시간 - 노바 스코샤 - places that did not observe DST 1966-1971"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "대서양 제도"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "아티라우(Atyrau), 맨히스타우(Mangghystau)"
-
-#~ msgid "Azores"
-#~ msgstr "아조레스(Azores)"
-
-#~ msgid "Bahia"
-#~ msgstr "바이아(Bahia)"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr ""
-#~ "바얀-올기(Bayan-Olgiy), 고비-알타이(Govi-Altai), 호브드(Hovd), 오브스"
-#~ "(Uvs), 자브한(Zavkhan)"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "부에노스 아이레스 (BA, CF)"
-
-#~ msgid "Canary Islands"
-#~ msgstr "카나리 제도(Canary Islands)"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "케이시 기지(Casey Station), 베일리 반도(Bailey Peninsula)"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "카타마르카 (CT), 추부트 (CH)"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "중부 표준시 - 서스캐춰원(Saskatchewan) - 중서부"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "중부 표준시 - 서스캐처원(Saskatchewan) - 대부분 지역"
-
-#~ msgid "Central Time"
-#~ msgstr "중부 시"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "중부시 - 캄페체(Campeche), 유카탄(Yucatan)"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr ""
-#~ "중부시 - 코아우일라(Coahuila), 두랑고(Durango), 누에보 레온(Nuevo Leon), "
-#~ "타마울리파스(Tamaulipas)"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "중부 시 - 인디애나 - 데이비스(Daviess), 두보이스(Dubois), 녹스(Knox), 마틴"
-#~ "(Martin), 페리(Perry) & 풀라스키(Pulaski) 국가 "
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "중부 시 - 인디애나(Indiana)- 파이크(Pike) 군"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "중부시 - 매니토바(Manitoba) & 온타리오 서부(west Ontario)"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr ""
-#~ "중부시 - 미시건 - 딕킨슨(Dickinson), 고기빅(Gogebic), 아이언(Iron) & 메노"
-#~ "미니(Menominee) 군들"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr ""
-#~ "중부시 - 노스 다코타(North Dakota) - 모튼 카운티(Morton County) (만단 지"
-#~ "역 제외)"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "중부시 - 노스 다코타(orth Dakota) - 올리버(Oliver) 군"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "중부시 - 킨타나로오(Quintana Roo)"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr ""
-#~ "중부시 - 레이니 리버(Rainy River) & 포르 프랑스(Fort Frances), 온타리오"
-#~ "(Ontario)"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "중부시 - 중부 누나부트(Nunavut)"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "중부시 - 대부분 지역"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "중부시 - 누나부트 서부(west Nunavut)"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "세우따(Ceuta) & 멜리야(Melilla)"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "채텀 군도 (Chatham Islands)"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "데이비스 기지 (Davis Station), 베스트폴드 힐스(Vestfold Hills)"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "도르노드(Dornod), 수흐바타르(Sukhbaatar)"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "뒤몽-뒤르빌 기지(Dumont-d'Urville Base), 테르 아델리(Terre Adelie)"
-
-#~ msgid "E Amazonas"
-#~ msgstr "아마조나스 동부(E Amazonas)"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "이스터 섬(Easter Island) & 살라이 고메즈(Sala y Gomez)"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr ""
-#~ "동부 표준시 - 아티코칸(Atikokan), 온타리오(Ontario), 사우샘프턴 섬"
-#~ "(Southampton Island), 누나부트(Nunavut)"
-
-#~ msgid "Eastern Time"
-#~ msgstr "동부시"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "동부 표준시 - 인디애나(Indiana) - 크로포드(Crawford) 군"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "동부 표준시 - 인디애나 - 슈트라크(Starke) 군"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "동부 표준시 - 인디애나 - 스위스(Switzerland) 군"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "동부 표준시 - 인디애나 - 대부분 지역"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "동부시 - 켄터키(Kentucky) - 루이빌 지역(Louisville area)"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "동부시 - 캔터키 - 웨인(Wayne) 군"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "동부시 - 미시간(Michigan) - 대부분 지역"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr ""
-#~ "동부시 - 온타리오(Ontario) & 퀘벡(Quebec) - places that did not observe "
-#~ "DST 1967-1973"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "동부시 - 온타리오(Ontario) - 대부분 지역"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "동부시 - 팡니르퉁(Pangnirtung), 누나부트(Nunavut)"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "동부시 - 퀘벡(Quebec) - 대부분 지역"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "동부시 - 선더베이(Thunder Bay), 온타리오(Ontario)"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "동부시 - 동부 누나보트(Nunavut)"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "갈라파고스 군도(Galapagos Islands)"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "갬비어 제도(Gambier Islands)"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "길버트 군도(Gilbert Islands)"
-
-#~ msgid "Hawaii"
-#~ msgstr "하와이(Hawaii)"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "흑룡강(Heilongjiang) (모허(Mohe) 제외), 길림(Jilin)"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "일리안 자야 (Irian Jaya) & 모루카스 (Moluccas)"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "얀마웬(Jan Mayen)"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "자바(Java ) & 수마트라(Sumatra)"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "존스턴 섬(Johnston Atoll)"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "후후이(Jujuy) (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "코스라에(Kosrae)"
-
-#~ msgid "Kwajalein"
-#~ msgstr "콰잘린(Kwajalein)"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "라 리오하 (LR)"
-
-#~ msgid "Line Islands"
-#~ msgstr "라인 아일랜드(Line Islands)"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "로드 하우 아일랜드(Lord Howe Island)"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "마데이라 섬(Madeira Islands)"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "마르퀘사스 제도(Marquesas Islands)"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "마투 그로수(Mato Grosso)"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "마쿠 그로수 두 솔(Mato Grosso do Sul)"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "모슨 기지(Mawson Station), 홈스 베이(Holme Bay)"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "멕머도 기지(McMurdo Station), 로스 섬(Ross Island)"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "멘도사(Mendoza) (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "미드웨이 섬(Midway Islands)"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "모스코바+00 - 카스피해(Caspian Sea)"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "모스코바+00 - 서부 러시아(west Russia)"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "모스코바+01 - 사마라(Samara), 우드무르트(Udmurtia)"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "모스코바+02 - 우랄(Urals)"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "모스코바+03 - 노보시비르스크(Novosibirsk)"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "모스코바+03 - 서부 시베리아(west Siberia)"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "모스코바+04 - 에네세이 강(Yenisei River)"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "모스코바+05 - 바이칼호(Lake Baikal)"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "모스코바+06 - 레나강(Lena River)"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "모스코바+07 - 아무르강(Amur River)"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "모스코바+07 - 사할린 섬(Sakhalin Island)"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "모스코바+08 - 마가단(Magadan)"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "모스코바+09 - 캄챠카(Kamchatka)"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "모스코바+10 - 베링해(Bering Sea)"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "모스코바-01 - 칼리닌그라드(Kaliningrad)"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "산악지대 표준시(MST) - 아리조나(Arizona)"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr ""
-#~ "산악지대 표준시(MST) - 도슨 크릭(Dawson Creek) & 포트 세인트 존(Fort "
-#~ "Saint John), 브리티시 컬럼비아(British Columbia)"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "산악지대 표준시(MST) - 소노라(Sonora)"
-
-#~ msgid "Mountain Time"
-#~ msgstr "산지 표준시"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr ""
-#~ "산지 표준시 - 알버타(Alberta), 브리티시 컬럼비아 동부(east British "
-#~ "Columbia) & 사스켓츄완 서부(west Saskatchewan)"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "산지 표준시 - 치와와(Chihuahua)"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "산지 표준시 - 나바조(Navajo)"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr ""
-#~ "산지 표준시 - 바자 남부(S Baja), 나야리트(Nayarit), 시나로아(Sinaloa)"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr ""
-#~ "산지 표준시 - 노스웨스트 테리토리 중앙 지역(central Northwest Territories)"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "산지 표준시 - 아이다호 남부(south Idaho) & 오리건 동부(east Oregon)"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "산지 표준시 - 노스웨스트 서부 지역(west Northwest Territories)"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "브라질 북동부 (MA, PI, CE, RN, PR)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "뉴 사우스 웨일즈(New South Wales) - 얀커윈나(Yancowinna)"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "뉴 사우스 웨일즈(New South Wales) - 대부분 지역"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "뉴펀들랜드 시, 래브라도 동서부(SE Labrador) 포함"
-
-#~ msgid "Northern Territory"
-#~ msgstr "노던 테리토리(Northern Territory)"
-
-#~ msgid "Pacific Time"
-#~ msgstr "태평양 시간"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "태평양 시간 - 유콘 북부(north Yukon)"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "태평양 시간 - 유콘 남부(south Yukon)"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "태평양 시간 - 브리티시 콜럼비아 서부(west British Columbia)"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "팔머 기지(Palmer Station), 앤버스 섬(Anvers Island)"
-
-#~ msgid "Pernambuco"
-#~ msgstr "페르남부쿠(Pernambuco)"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "피닉스 섬(Phoenix Islands)"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "포나페 (Ponape) (폰페이 Pohnpei)"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "퀸즐랜드(Queensland) - 홀리데이 섬(Holiday Islands)"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "퀸즐랜드(Queensland) - 대부분 지역"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "키질로르다(Qyzylorda) (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Roraima"
-#~ msgstr "로라이마 (Roraima)"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "로데라 스테이션(Rothera Station), 아들레이드 섬(Adelaide Island)"
-
-#~ msgid "Ruthenia"
-#~ msgstr "루데니아 (Ruthenia)"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "브라질 남부와 남동부 (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "사바주 (Sabah) & 사라와크주 (Sarawak)"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "산 후안 (SJ)"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "산타 크루즈 (SC)"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "스코스바이선드(Scoresbysund) / 이토코투미트(Ittoqqortoormiit)"
-
-#~ msgid "Society Islands"
-#~ msgstr "소사이어티 군도 (Society Islands)"
-
-#~ msgid "South Australia"
-#~ msgstr "호주 남부(South Australia)"
-
-#~ msgid "Svalbard"
-#~ msgstr "스발바르 (Svalbard)"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "쇼와 기지 (Syowa Station), 동부 옹굴 섬 (E Ongul I)"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "태즈메이니아(Tasmania) - 킹 아일랜드(King Island)"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "태즈메이니아(Tasmania) - 대부분 지역"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "툴레(Thule) / 피투픽(Pituffik)"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "티에라 델 푸에고 (TF)"
-
-#~ msgid "Tocantins"
-#~ msgstr "토칸틴스 (Tocantins)"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "트루크 제도 (츄크 Chuuk)와 얍(Yap)"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "투쿠만 (TM)"
-
-#~ msgid "Victoria"
-#~ msgstr "빅토리아(Victoria)"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "보스토크 기지(Vostok Station), 자남극(S Magnetic Pole)"
-
-#~ msgid "W Amazonas"
-#~ msgstr "아마조나스주 서부(W Amazonas)"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "파라 서부(W Para), 론도니아(Rondonia)"
-
-#~ msgid "Wake Island"
-#~ msgstr "웨이크섬(Wake Island)"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "카자흐스탄 서부(West Kazakhstan)"
-
-#, fuzzy
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "호주 서부(Western Australia)"
-
-#, fuzzy
-#~ msgid "Western Australia - most locations"
-#~ msgstr "중부시 - 대부분 지역"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "자포로즈예(Zaporozh'ye), 루간스크 동부(E Lugansk)"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr ""
-#~ "중국 중부- 스촨(Sichuan), 윈난(Yunnan), 광시(Guangxi), 산시(Shaanxi), 귀주"
-#~ "(Guizhou), 등."
-
-#~ msgid "central Crimea"
-#~ msgstr "중부 크리미아 (Crimea)"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr ""
-#~ "보르네오(Borneo) 동부& 남부, 셀레베스(Celebes), 발리(Bali), 누사 텐가라"
-#~ "(Nusa Tengarra), 서티모르(west Timor)"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "중국 동부 - 북경(Beijing), 광동(Guangdong), 상해(Shanghai) 등."
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "콩고민주공화국 동부(east Dem. Rep. of Congo)"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "우즈베키스탄 동부(east Uzbekistan)"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr ""
-#~ "이스트 코스트(east coast), 스코스바이선드 북부(north of Scoresbysund)"
-
-#~ msgid "mainland"
-#~ msgstr "본토(mainland)"
-
-#~ msgid "most locations"
-#~ msgstr "대부분 지역"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr "대부분 지역 (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "티벳(Tibet) & 신장(Xinjiang)의 대부분 지역"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "말레이시아 반도(peninsular Malaysia)"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "보르네오 서부 & 중부(west & central Borneo)"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "콩고 민주 공화국 서부(west Dem. Rep. of Congo)"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "티벳 서부(west Tibet) & 신장 (Xinjiang)"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "우즈베키스탄 서부(west Uzbekistan)"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "%s에 파일 시스템을 마운트하는 도중 오류가 발생하였습니다: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "이전 시스템 업그레이드"
-
-#~ msgid "Upgrade"
-#~ msgstr "업그레이드"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI Id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "SCSI ID를 지정하지 않으셨거나, ID가 맞지 않습니다"
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "SCSI LUN을 지정하지 않으셨거나, 번호가 맞지 않습니다"
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "동적 IP 설정 사용 (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "부팅시 활성화(_A)"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4 주소:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6 주소:"
-
-#~ msgid "Configure %s"
-#~ msgstr "%s 설정"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP 설정"
-
-#~ msgid "_Remove"
-#~ msgstr "제거(_R)"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP 장치"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP 장치 %s 편집"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr "지금 설정에서 FCP 디스크를 제거 하시려 합니다. 계속 하시겠습니까?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "잘못된 IP 주소"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "입력하신 IP '%s'은 잘못된 IP 주소입니다."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point to Point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "네트워크 장치:%s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "DHCP 사용 환경으로 설정"
-
-#~ msgid "Invalid information"
-#~ msgstr "입력된 정보의 오류"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "올바른 IP 주소를 입력해 주십시오"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "3차 DNS:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP 장치"
-
-#~ msgid "Device #"
-#~ msgstr "장치 #"
-
-#~ msgid "Add"
-#~ msgstr "추가"
-
-#~ msgid "Remove"
-#~ msgstr "제거"
-
-#~ msgid "_Custom"
-#~ msgstr "사용자 정의(_C)"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "이 설치 유형을 선택하여 소프트웨어 패키지 선택과 파티션 하기와 같은 설치 "
-#~ "과정에 대한 완전한 제어권을 갖습니다."
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "개인용 데스크탑(_P)"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "이 설치 유형을 선택하시면 그래픽 데스크탑을 설치 후 가정용이나 데스크탑 용"
-#~ "도로 적합한 시스템을 생성합니다. 이 설치 유형은 개인용 컴퓨터나 랩탑에 적"
-#~ "합합니다."
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t사무용 도구 모음 (OpenOffice.org)\n"
-#~ "\t웹 브라우저 (Mozilla) \n"
-#~ "\t이메일 (Evolution)\n"
-#~ "\t인스턴트 메세지\n"
-#~ "\t사운드와 비디오 프로그램\n"
-#~ "\t게임\n"
-
-#~ msgid "_Server"
-#~ msgstr "서버(_S)"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "파일 공유, 인쇄 공유와 웹 서비스를 설정하시려면 이 설치 유형을 선택하십시"
-#~ "오. 추가 서비스도 사용 가능하며 그래픽 환경 설치 여부를 선택하실 수 있습니"
-#~ "다."
-
-#~ msgid "_Workstation"
-#~ msgstr "워크스테이션(_W)"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr ""
-#~ "이 옵션은 소프트웨어 개발과 시스템 관리에 사용되는 도구를 사용하여 그래픽 "
-#~ "데스크탑 환경을 설치합니다. "
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t사무용 도구 모음 (OpenOffice.org)\n"
-#~ "\t웹 브라우저 (Mozilla) \n"
-#~ "\t이메일 (Evolution)\n"
-#~ "\t인스턴트 메세지\n"
-#~ "\t사운드와 비디오 프로그램\n"
-#~ "\t게임\n"
-#~ "\t소프트웨어 개발용 도구\n"
-#~ "\t관리 도구\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "원하지 않는 패킷 충돌을 피함"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "고속 네트워크 소통을 위한 최대 등록 값"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "수동 설정에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니"
-#~ "다."
