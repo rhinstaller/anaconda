@@ -1801,44 +1801,57 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     memset(netCfgPtr, 0, sizeof(*netCfgPtr));
 
     do {
-        /* this is smart and does the right thing based on whether or not
-         * we have ksdevice= specified */
-        rc = chooseNetworkInterface(loaderData);
-        
+        do {
+            /* this is smart and does the right thing based on whether or not
+             * we have ksdevice= specified */
+            rc = chooseNetworkInterface(loaderData);
+
+            if (rc == LOADER_ERROR) {
+                /* JKFIXME: ask for a driver disk? */
+                logMessage(ERROR, "no network drivers for doing kickstart");
+                return -1;
+            } else if (rc == LOADER_BACK) {
+                return -1;
+            }
+
+            /* insert device into pump structure */
+            strcpy(netCfgPtr->dev.device, loaderData->netDev);
+
+            break;
+        } while (1);
+
+        /* we don't want to end up asking about interface more than once
+         * if we're in a kickstart-ish case (#100724) */
+        loaderData->netDev_set = 1;
+
+        /* JKFIXME: this is kind of crufty, we depend on the fact that the
+         * ip is set and then just get the network up.  we should probably
+         * add a way to do asking about static here and not be such a hack */
+        if (!loaderData->ip) {
+            loaderData->ip = strdup("dhcp");
+        } 
+        loaderData->ipinfo_set = 1;
+
+        setupNetworkDeviceConfig(netCfgPtr, loaderData);
+
+        rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls,
+                           loaderData->method);
+
         if (rc == LOADER_ERROR) {
-            /* JKFIXME: ask for a driver disk? */
-            logMessage(ERROR, "no network drivers for doing kickstart");
-            return -1;
-        } else if (rc == LOADER_BACK) {
+            logMessage(ERROR, "unable to setup networking");
             return -1;
         }
-
-        /* insert device into pump structure */
-        strcpy(netCfgPtr->dev.device, loaderData->netDev);
-
-        break;
+        else if (rc == LOADER_BACK) {
+            /* Going back to the interface selection screen, so unset anything
+             * we set before attempting to bring the incorrect interface up.
+             */
+            loaderData->netDev_set = 0;
+            free(loaderData->ip);
+            loaderData->ipinfo_set = 0;
+        }
+        else
+            break;
     } while (1);
-
-    /* we don't want to end up asking about interface more than once
-     * if we're in a kickstart-ish case (#100724) */
-    loaderData->netDev_set = 1;
-
-    /* JKFIXME: this is kind of crufty, we depend on the fact that the
-     * ip is set and then just get the network up.  we should probably
-     * add a way to do asking about static here and not be such a hack */
-    if (!loaderData->ip) {
-        loaderData->ip = strdup("dhcp");
-    } 
-    loaderData->ipinfo_set = 1;
-
-    setupNetworkDeviceConfig(netCfgPtr, loaderData);
-
-    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls,
-                       loaderData->method);
-    if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
-        logMessage(ERROR, "unable to setup networking");
-        return -1;
-    }
 
     return 0;
 }

@@ -1,3 +1,8 @@
+2007-04-27  Chris Lumens  <clumens@redhat.com>
+
+	* loader/net.c (kickstartNetworkUp):  If the wrong interface is
+	picked, allow going back to the interface selection screen (#213787).
+
 2007-03-23  Dave Lehman  <dlehman@redhat.com>
 
 	* gui.py (InstallKeyWindow): populate fields appropriately and grab
