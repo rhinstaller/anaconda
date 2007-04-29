@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the anaconda package.
 # Zoltan Čala <zolika@sezampro.yu>, 1999.
 # Miloš Komarčević <kmilos@gmail.com>, 2005.
-# Igor Miletic <grejigl-gnomeprevod@yahoo.ca>, 2007. 
+# Igor Miletić <grejigl-gnomeprevod@yahoo.ca>, 2007. 
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-21 02:15-0000\n"
+"PO-Revision-Date: 2007-04-29 11:20-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
-"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
+"Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -33,7 +35,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Пронађена је следећа грешка при тумачењу Ваших kickstart подешавања:\n"
+"Пронађена је следећа грешка при тумачењу kickstart подешавања:\n"
 "\n"
 "%s"
 
@@ -89,8 +91,8 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Немате довољно RAM-а за коришћење графичког инсталатера. Покрећем текстуални "
-"режим."
+"Немате довољно RAM-а за коришћење графичког инсталатера.  Покрећем "
+"текстуални режим."
 
 #: ../anaconda:429
 msgid "No video hardware found, assuming headless"
@@ -110,7 +112,7 @@ msgstr "Класа инсталације намеће текстуални ре
 
 #: ../anaconda:793
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Графичка инсталација није доступна... Покрећем текстуални режим."
+msgstr "Графичка инсталација није доступна...  Покрећем текстуални режим."
 
 #: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -1310,7 +1312,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Назначили сте да пакет „%s“ треба да буде инсталиран.  Овај пакет не "
-"постоји. Желите ли да наставите или прекинете Вашу инсталацију?"
+"постоји. Желите ли да наставите или прекинете инсталацију?"
 
 #: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
 #: ../yuminstall.py:721
@@ -1328,7 +1330,7 @@ msgid ""
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Назначили сте да група „%s“ треба да буде инсталирана.  Ова група не "
-"постоји. Желите ли да наставите или прекинете Вашу инсталацију?"
+"постоји. Желите ли да наставите или прекинете инсталацију?"
 
 #: ../livecd.py:79
 msgid "Unable to find image"
@@ -2028,7 +2030,7 @@ msgstr "партиција која је члан LVM диск групе."
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
-"Ова тачка монтирања је неисправна. Директоријум %s мора бити на / систему "
+"Ова тачка монтирања је неисправна.  Директоријум %s мора бити на / систему "
 "датотека."
 
 #: ../partRequests.py:252
@@ -2037,8 +2039,8 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"%s тачка монтирања се не може користити. Она мора бити симболичка веза да би "
-"систем радио правилно. Молим одаберите другачију тачку монтирања."
+"%s тачка монтирања се не може користити.  Она мора бити симболичка веза да "
+"би систем радио правилно.  Молим одаберите другачију тачку монтирања."
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -2432,7 +2434,7 @@ msgid ""
 "\n"
 msgstr ""
 "Следе директоријуми који би уместо тога требало да буду симболичке везе, што "
-"ће изазвати проблеме при надоградњи. Молим вратите их у њихово првобитно "
+"ће изазвати проблеме при надоградњи.  Молим вратите их у њихово првобитно "
 "стање симболичке везе и поново покрените надоградњу.\n"
 "\n"
 
@@ -2461,8 +2463,8 @@ msgid ""
 "\n"
 msgstr ""
 "Датотека %s не може да се отвори.  Ово је због одсутне датотеке или можда "
-"исквареног пакета.  Молим проверите да ли Ваш сервер одраза садржи све "
-"потребне пакете, и пробајте неки други.\n"
+"исквареног пакета.  Молим проверите да ли сервер одраза садржи све потребне "
+"пакете, и пробајте неки други.\n"
 "\n"
 "Ако поново покренете систем, он може остати у неконзистентном стању које ће "
 "вероватно захтевати поновну инсталацију.\n"
@@ -2733,7 +2735,7 @@ msgid ""
 "generated.  %s"
 msgstr ""
 "Не могу да прочитам метаподатке о пакетима.  Ово је можда због недостајућег "
-"repodata директоријума.  Молим осигурајте да је Ваше стабло инсталације било "
+"repodata директоријума.  Молим осигурајте да је стабло инсталације било "
 "исправно направљено.  %s"
 
 #: ../yuminstall.py:740
@@ -2742,7 +2744,7 @@ msgid ""
 "the generation of your install tree."
 msgstr ""
 "Не могу да прочитам податке о групама из ризница.  Ово је проблем код "
-"прављења Вашег стабла инсталације."
+"прављења стабла инсталације."
 
 #: ../yuminstall.py:772
 msgid "Uncategorized"
@@ -2755,7 +2757,7 @@ msgid ""
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 "Ваш изабрани пакет захтева %d МБ слободног простора за инсталацију, али "
-"немате довољно на располагању.  Можете да измените Ваше изборе или да поново "
+"немате довољно на располагању.  Можете да измените изборе или да поново "
 "покренете систем."
 
 #: ../yuminstall.py:1086
@@ -2773,7 +2775,7 @@ msgstr "Инсталација почиње"
 
 #: ../yuminstall.py:1115
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Покрећем процес инсталације. Ово може да потраје неколико минута..."
+msgstr "Покрећем процес инсталације.  Ово може да потраје неколико минута..."
 
 #: ../yuminstall.py:1131
 msgid "Post Upgrade"
@@ -2838,7 +2840,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:57
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Лозинке које сте унели се разликују. Молим покушајте опет."
+msgstr "Лозинке које сте унели се разликују.  Молим покушајте опет."
 
 #: ../iw/account_gui.py:64
 msgid "The root password must be at least six characters long."
@@ -2854,7 +2856,7 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Root налог се користи за администрацију система. Унесите лозинку за root "
+"Root налог се користи за администрацију система.  Унесите лозинку за root "
 "корисника."
 
 #: ../iw/account_gui.py:122
@@ -2976,7 +2978,7 @@ msgstr "Наметни LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "На_метни LBA32 (обично није потребно)"
+msgstr "Наме_тни LBA32 (обично није потребно)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
@@ -3032,7 +3034,7 @@ msgid ""
 msgstr ""
 "Распоредите дискове тако да су у истом редоследу као што их BIOS користи. "
 "Промена редоследа дискова може бити корисна ако имате више SCSI контролера, "
-"или и SCSI и IDE контролере, а желите да покренете систем са  SCSI уређаја.\n"
+"или и SCSI и IDE контролере, а желите да покренете систем са SCSI уређаја.\n"
 "\n"
 "Промена редоследа дискова ће променити место где инсталациони програм смешта "
 "главни покретачки запис (MBR)."
@@ -4405,8 +4407,8 @@ msgid ""
 "%s"
 msgstr ""
 "Не могу да прочитам метаподатке о пакетима из ризнице.  Ово је можда због "
-"недостајућег repodata директоријума.  Молим осигурајте да је Ваша ризница "
-"била исправно направљена.\n"
+"недостајућег repodata директоријума.  Молим осигурајте да је ризница била "
+"исправно направљена.\n"
 "\n"
 "%s"
 
@@ -4601,7 +4603,7 @@ msgid ""
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "Јако је препоручљиво да направите свап датотеку. Неизвршавање тога може да "
-"изазове ненормално одустајање инсталатера. Сигурно желите да наставите?"
+"изазове ненормално одустајање инсталатера.  Сигурно желите да наставите?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4744,7 +4746,7 @@ msgid ""
 "want to use for each of them."
 msgstr ""
 "Покретачки програм који користи %s може да покрене и друге оперативне "
-"системе. Реците које бисте партиције желели да покренете и које ознаке "
+"системе.  Реците које бисте партиције желели да покренете и које ознаке "
 "желите да користите за сваку од њих."
 
 #: ../textw/bootloader_text.py:290
@@ -5377,7 +5379,7 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-Помоћ    F2-Ново    F3-Уреди   F4-Обриши   F5-Врати   F12-У реду     "
+"    F1-Помоћ    F2-Ново    F3-Уреди   F4-Обриши    F5-Врати    F12-У реду    "
 
 #: ../textw/partition_text.py:1504
 msgid "No Root Partition"
@@ -5612,7 +5614,7 @@ msgid ""
 "include support for?"
 msgstr ""
 "Подразумевана %s инсталација укључује скуп софтвера који је применљив за "
-"општу употребу интернета.  За које додатне радње желите да Ваш систем "
+"општу употребу интернета. За које додатне радње желите да Ваш систем "
 "укључује подршку?"
 
 #: ../installclasses/fedora.py:25
@@ -5757,7 +5759,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Ниједан %s CD који одговара Вашем покретачком медијуму није пронађен. Молим "
+"Ниједан %s CD који одговара Вашем покретачком медијуму није пронађен.  Молим "
 "уметните %s CD и притисните %s да покушате поново."
 
 #: ../loader2/cdinstall.c:391
@@ -5897,7 +5899,7 @@ msgid ""
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Молим унесите ма које параметре које желите да проследите %s модулу, "
-"раздвојене размаком. Ако не знате које параметре да наведете, једноставно "
+"раздвојене размаком.  Ако не знате које параметре да наведете, једноставно "
 "прескочите овај екран притиском на дугме „У реду“."
 
 #: ../loader2/driverselect.c:80
@@ -5917,7 +5919,7 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Није пронађен ниједан управљачки програм за ручно убацивање. Желите ли да "
+"Није пронађен ниједан управљачки програм за ручно убацивање.  Желите ли да "
 "користите управљачку дискету?"
 
 #: ../loader2/driverselect.c:200
@@ -5925,7 +5927,7 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Молим изаберите испод управљачки програм који желите да учитате. Ако се не "
+"Молим изаберите испод управљачки програм који желите да учитате.  Ако се не "
 "појављује на списку, а имате управљачку дискету, притисните F2."
 
 #: ../loader2/driverselect.c:208
@@ -5948,7 +5950,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"Изгледа да стабло инсталације %s  у том директоријуму не одговара Вашем "
+"Изгледа да стабло инсталације %s у том директоријуму не одговара Вашем "
 "покретачком медијуму."
 
 #: ../loader2/hdinstall.c:158
@@ -6117,8 +6119,8 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-"Ниједан чврсти диск није пронађен. Вероватно треба да ручно одаберете "
-"управљачке програме да би инсталација успела. Желите ли сада да изаберете "
+"Ниједан чврсти диск није пронађен.  Вероватно треба да ручно одаберете "
+"управљачке програме да би инсталација успела.  Желите ли сада да изаберете "
 "управљачке програме?"
 
 #: ../loader2/loader.c:835
@@ -6160,7 +6162,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "Не могу да нађем ниједан уређај оног облика који је потребан за инсталацију "
-"ове врсте. Желите ли да ручно изаберете Ваш управљачки програм или "
+"ове врсте.  Желите ли да ручно изаберете Ваш управљачки програм или "
 "употребите управљачку дискету?"
 
 #: ../loader2/loader.c:1231
@@ -6172,7 +6174,7 @@ msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"Ниједан управљач уређаја није учитан за Ваш систем. Желите ли да сада "
+"Ниједан управљач уређаја није учитан за Ваш систем.  Желите ли да сада "
 "учитате неки?"
 
 #: ../loader2/loader.c:1237
@@ -6190,7 +6192,7 @@ msgstr "Додај уређај"
 #: ../loader2/loader.c:1447
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "покретач је већ извршен. Покрећем љуску.\n"
+msgstr "покретач је већ извршен.  Покрећем љуску.\n"
 
 #: ../loader2/loader.c:1834
 #, c-format
@@ -6431,8 +6433,8 @@ msgid ""
 msgstr ""
 "Унесите IPv4 и/или IPv6 адресу и предметак (адреса / предметак).  За IPv4, "
 "прихватљива је мрежна маска као четворочлана група са тачкама или предметак "
-"у CIDR стилу. Поља за мрежни пролаз и сервер имена морају бити исправне IPv4 "
-"или IPv6 адресе."
+"у CIDR стилу.  Поља за мрежни пролаз и сервер имена морају бити исправне "
+"IPv4 или IPv6 адресе."
 
 #: ../loader2/net.c:1086
 msgid "Manual TCP/IP Configuration"
