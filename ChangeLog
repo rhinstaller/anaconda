@@ -3,6 +3,10 @@
 	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
 	instead of recycling the same node in /tmp (#208970).
 
+	* iw/partition_gui.py (DiskStripeGraph.add):  Add a little more space
+	between the device description and the stripe for tall languages
+	(#217294).
+
 	* loader2/module-info:  Add the netxen_nic driver (#230245).
 
 2007-04-27  David Cantrell  <dcantrell@redhat.com>
