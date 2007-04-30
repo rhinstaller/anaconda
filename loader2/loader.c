@@ -591,6 +591,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         buf[len] = '\0';
         cmdLine = buf;
     }
+
+    logMessage(INFO, "kernel command line: %s", cmdLine);
     
     if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
         return;
