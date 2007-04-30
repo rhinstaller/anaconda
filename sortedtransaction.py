@@ -28,14 +28,13 @@ class SplitMediaTransactionData(SortableTransactionData):
         except (KeyError, AttributeError):
             return -99
 
-    def getMembers(self, pkgtup=None, output_states=None):
+    def getMembers(self, pkgtup=None):
         if not self.curmedia:
-            return TransactionData.getMembers(self, pkgtup, output_states)
+            return TransactionData.getMembers(self, pkgtup)
         if pkgtup is None:
             returnlist = []
             for key in self.reqmedia[self.curmedia]:
-                if not output_states or self.pkgdict[key].output_state in output_states:
-                    returnlist.extend(self.pkgdict[key])
+                returnlist.extend(self.pkgdict[key])
 
             return returnlist
 

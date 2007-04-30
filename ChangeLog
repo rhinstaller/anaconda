@@ -1,3 +1,8 @@
+2007-04-30  Jeremy Katz  <katzj@redhat.com>
+
+	* sortedtransaction.py (SplitMediaTransactionData.getMembers):
+	Yum was fixed to not break API here; revert our change.
+
 2007-04-27  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/isys.c (doDhcpNetDevice): Pass pumplogger to pumpDhcpClassRun()
