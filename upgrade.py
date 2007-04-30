@@ -142,7 +142,6 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(anaconda.rootPath)
     if not allowDirty and dirtyDevs != []:
-        lvm.vgdeactivate()
         diskset.stopMdRaid()
         diskset.stopDmRaid()
         diskset.stopMPath()
@@ -162,6 +161,11 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
                                 type = "yesno")
         if rc == 0:
             return -1
+
+    # FIXME: diskset.getLabels() called from readFstab up above turns off LVM
+    # so we have to call this yet again.  Really need a better fix though.
+    lvm.vgscan()
+    lvm.vgactivate()
 
     if flags.setupFilesystems:
         oldfsset.mountFilesystems(anaconda, readOnly = readOnly)

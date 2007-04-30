@@ -1,3 +1,9 @@
+2007-04-30  Chris lumens  <clumens@redhat.com>
+
+	* upgrade.py (mountRootPartition):  We have to reactivate LVM before
+	attempting to mount filesystems, since the label reading code
+	deactivates (#234938).
+
 2007-04-30  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.addDrive): Don't let
