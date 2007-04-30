@@ -580,13 +580,19 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     int i;
     char *front;
 
+    /* we want to default to graphical and allow override with 'text' */
+    flags |= LOADER_FLAGS_GRAPHICAL;
+
     /* if we have any explicit cmdline (probably test mode), we don't want
      * to parse /proc/cmdline */
     if (!cmdLine) {
         if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return;
         len = read(fd, buf, sizeof(buf) - 1);
         close(fd);
-        if (len <= 0) return;
+        if (len <= 0) {
+            logMessage(INFO, "kernel command line was empty");
+            return;
+        }
         
         buf[len] = '\0';
         cmdLine = buf;
@@ -596,9 +602,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     
     if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
         return;
-
-    /* we want to default to graphical and allow override with 'text' */
-    flags |= LOADER_FLAGS_GRAPHICAL;
 
     for (i=0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert")) {

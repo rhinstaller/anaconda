@@ -1,5 +1,8 @@
 2007-04-30  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c (parseCmdLineFlags): Default to graphical
+	earlier; mention empty kernel cmdline also
+
 	* anaconda (__main__): Log anaconda cmdline args
 
 	* loader2/loader.c: Log when we force graphical, text or cmdline modes
