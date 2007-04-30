@@ -60,9 +60,11 @@ def raidstop(mdDevice):
             return
         del raidCount[mdDevice]
 
-    makeDevInode(mdDevice, "/tmp/md")
-    fd = os.open("/tmp/md", os.O_RDONLY)
-    os.remove("/tmp/md")
+    devInode = "/dev/%s" % mdDevice
+
+    makeDevInode(mdDevice, devInode)
+    fd = os.open(devInode, os.O_RDONLY)
+
     try:
         _isys.raidstop(fd)
     except:
@@ -76,16 +78,18 @@ def raidstart(mdDevice, aMember):
 
     raidCount[mdDevice] = 1
 
-    makeDevInode(mdDevice, "/tmp/md")
-    makeDevInode(aMember, "/tmp/member")
-    fd = os.open("/tmp/md", os.O_RDONLY)
-    os.remove("/tmp/md")
+    mdInode = "/dev/%s" % mdDevice
+    mbrInode = "/dev/%s" % aMember
+
+    makeDevInode(mdDevice, mdInode)
+    makeDevInode(aMember, mbrInode)
+    fd = os.open(mdInode, os.O_RDONLY)
+
     try:
-        _isys.raidstart(fd, "/tmp/member")
+        _isys.raidstart(fd, mbrInode)
     except:
         pass
     os.close(fd)
-    os.remove("/tmp/member")
 
 def wipeRaidSB(device):
     try:
@@ -101,8 +105,8 @@ def wipeRaidSB(device):
     return
 
 def raidsb(mdDevice):
-    makeDevInode(mdDevice, "/tmp/md")
-    return raidsbFromDevice("/tmp/md")
+    makeDevInode(mdDevice, "/dev/%s" % mdDevice)
+    return raidsbFromDevice("/dev/%s" % mdDevice)
 
 def raidsbFromDevice(device):
     fd = os.open(device, os.O_RDONLY)

@@ -1,5 +1,8 @@
 2007-04-30  Chris Lumens  <clumens@redhat.com>
 
+	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
+	instead of recycling the same node in /tmp (#208970).
+
 	* loader2/module-info:  Add the netxen_nic driver (#230245).
 
 2007-04-27  David Cantrell  <dcantrell@redhat.com>
