@@ -1,5 +1,8 @@
 2007-04-30  Jeremy Katz  <katzj@redhat.com>
 
+	* rescue.py (RescueInterface.messageWindow): Add support for
+	custom_buttons (#238261)
+
 	* loader2/loader.c (parseCmdLineFlags): Default to graphical
 	earlier; mention empty kernel cmdline also
 
