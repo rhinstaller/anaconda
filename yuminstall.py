@@ -82,18 +82,17 @@ def size_string (size):
 
 class AnacondaCallback:
 
-    def __init__(self, repos, messageWindow, progress, method,
-                 progressWindowClass, instLog, modeText, ts, ayum):
+    def __init__(self, ayum, anaconda, method, instLog, modeText):
         self.method = method
-        self.repos = repos
-        self.ts = ts
+        self.repos = ayum.repos
+        self.ts = ayum.ts
         self.ayum = ayum
         
-        self.messageWindow = messageWindow
-        self.progress = progress
-        self.progressWindowClass = progressWindowClass
+        self.messageWindow = anaconda.intf.messageWindow
+        self.waitWindow = anaconda.intf.waitWindow        
+        self.progress = anaconda.id.instProgress
+        self.progressWindowClass = anaconda.intf.progressWindow
 
-        self.beenCalled = 0
         self.initWindow = None
 
         self.progressWindow = None
@@ -118,9 +117,9 @@ class AnacondaCallback:
     def callback(self, what, amount, total, h, user):
         # first time here means we should pop the window telling
         # user to wait until we get here
-        if not self.beenCalled:
-            self.beenCalled = 1
+        if self.initWindow is not None:
             self.initWindow.pop()
+            self.initWindow = None
 
         if what == rpm.RPMCALLBACK_TRANS_START:
             # step 6 is the bulk of the ts processing time
@@ -198,6 +197,16 @@ class AnacondaCallback:
                                    %(self.donepkgs, self.numpkgs))
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
+
+        # FIXME: we should probably integrate this into the progress bar
+        # and actually show progress on cleanups.....
+        elif what in (rpm.RPMCALLBACK_UNINST_START,
+                      rpm.RPMCALLBACK_UNINST_STOP):
+            if self.initWindow is None:
+                self.initWindow = self.waitWindow("Finishing upgrade",
+                                                  "Finishing upgrade progress.  This may take several minutes...")
+            else:
+                self.initWindow.refresh()
 
         else:
             pass
@@ -1215,7 +1224,8 @@ class YumBackend(AnacondaBackend):
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
-        cb = AnacondaCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts, self.ayum)
+        cb = AnacondaCallback(self.ayum, anaconda, self.method,
+                              self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
@@ -1223,7 +1233,7 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
 
-        if not cb.beenCalled:
+        if cb.initWindow is not None:
             cb.initWindow.pop()
 
         self.instLog.close ()
