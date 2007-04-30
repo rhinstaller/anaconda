@@ -738,8 +738,9 @@ if __name__ == "__main__":
             opts.isHeadless = 1
     import rhpl.keyboard as keyboard
 
-    log.info("Display mode = %s", opts.display_mode)
-    log.info("Method = %s", anaconda.methodstr)
+    log.info("anaconda called with cmdline = %s" %(sys.argv,))
+    log.info("Display mode = %s" %(opts.display_mode,))
+    log.info("Method = %s" %(anaconda.methodstr,))
 
     checkMemory(opts)
 

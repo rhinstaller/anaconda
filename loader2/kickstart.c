@@ -458,18 +458,21 @@ static void setUpdates(struct loaderData_s * loaderData, int argc,
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv) {
+    logMessage(INFO, "kickstart forcing text mode");
     flags |= LOADER_FLAGS_TEXT;
     return;
 }
 
 static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv) {
+    logMessage(INFO, "kickstart forcing graphical mode");
     flags |= LOADER_FLAGS_GRAPHICAL;
     return;
 }
 
 static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
                            char ** argv) {
+    logMessage(INFO, "kickstart forcing cmdline mode");
     flags |= LOADER_FLAGS_CMDLINE;
     return;
 }

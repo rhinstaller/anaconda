@@ -633,14 +633,17 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "nopcmcia"))
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text")) {
+            logMessage(INFO, "text mode forced from cmdline");
             flags |= LOADER_FLAGS_TEXT;
             flags &= ~LOADER_FLAGS_GRAPHICAL;
         }
-        else if (!strcasecmp(argv[i], "graphical"))
+        else if (!strcasecmp(argv[i], "graphical")) {
+            logMessage(INFO, "graphical mode forced from cmdline");
             flags |= LOADER_FLAGS_GRAPHICAL;
-        else if (!strcasecmp(argv[i], "cmdline"))
+        } else if (!strcasecmp(argv[i], "cmdline")) {
+            logMessage(INFO, "cmdline mode forced from cmdline");
             flags |= LOADER_FLAGS_CMDLINE;
-        else if (!strncasecmp(argv[i], "updates=", 8))
+        } else if (!strncasecmp(argv[i], "updates=", 8))
             loaderData->updatessrc = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "updates", 7))
             flags |= LOADER_FLAGS_UPDATES;
@@ -778,8 +781,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                      !strncasecmp(argv[i], "syslog=", 7)) { 
 
                 /* vnc implies graphical */
-                if (!strncasecmp(argv[i], "vnc", 3))
+                if (!strncasecmp(argv[i], "vnc", 3)) {
+                    logMessage(INFO, "vnc forced cmdline mode from cmdline");
                     flags |= LOADER_FLAGS_GRAPHICAL;
+                }
 
                 if (!strncasecmp(argv[i], "vesa", 4)) {
                     if (asprintf(&extraArgs[numExtraArgs],
@@ -1492,8 +1497,10 @@ int main(int argc, char ** argv) {
     parseCmdLineFlags(&loaderData, cmdLine);
 
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
-        !hasGraphicalOverride())
+        !hasGraphicalOverride()) {
+        logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
+    }
     if (FL_SERIAL(flags))
         flags |= LOADER_FLAGS_NOFB;
 
