@@ -1,5 +1,8 @@
 2007-04-30  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.addDrive): Don't let
+	them try to do iscsi if the tools aren't there (#238424)
+
 	* rescue.py (RescueInterface.messageWindow): Add support for
 	custom_buttons (#238261)
 

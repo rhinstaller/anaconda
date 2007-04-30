@@ -228,7 +228,7 @@ class PartitionTypeWindow(InstallWindow):
         dialog.hide()
         if rc == gtk.RESPONSE_CANCEL:
             return
-        if dxml.get_widget("iscsiRadio").get_active():
+        if dxml.get_widget("iscsiRadio").get_active() and iscsi.has_iscsi():
             rc = self.addIscsiDrive()
         elif dxml.get_widget("zfcpRadio").get_active():
             rc = self.addZfcpDrive()
