@@ -6,6 +6,10 @@
 	* packages.py (doMigrateFilesystems): Write out the fstab after
 	migrate (#223215).
 
+	* yuminstall.py (YumBackend.writePackagesKS):  Make the %packages
+	section of the generated kickstart file match the UI selections made
+	(#227383, #231121, #235881).
+
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run): Make sure to copy
 	volume group format attribute to the new request (#217585).
 
