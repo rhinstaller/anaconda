@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.55
+Version: 11.2.0.56
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,24 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.56-1
+- Don't write out ipv6 disabling bits (dcantrell, #237642)
+- Load pata_pcmcia late (#237674)
+- Fix release notes to display nicely with the livecd running at 800x600
+- Add support for spufs (pnasrat, #237725)
+- Add libidn for ping (#237745)
+- Fix selinux context of /root (clumens, #237834) 
+- Fix for mirror errors (dlehman)
+- Fix splittree (Joel Andres Granados, #233384)
+- Fix ppc32 netboot (pnasrat, #237988)
+- Fix %packages for media installs (clumens, #231121, #235881)
+- Fix rescue mode networking (dcantrell, #238080)
+- Adjust for unbreaking the yum API
+- Fix rescue mode traceback (#238261)
+- Fix for iscsi not being present (#238424)
+- Fix for upgrades with LVM (clumens, #234938)
+- Give some feedback while erases are being processed (#238256)
+
 * Mon Apr 23 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.55-1
 - Fix FTP/HTTP installs booted from disc1/rescueCD
 - Ensure kickstart scripts are executed with the right cwd (clumens, #237317)
