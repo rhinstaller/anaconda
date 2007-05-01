@@ -1,4 +1,10 @@
-2005-05-01  Prarit Bhargava <prarit@redhat.com>
+2007-05-01  Chris Lumens  <clumens@redhat.com>
+
+	* iutil.py (execWithCapture, execWithRedirect):  Log the failing
+	command as well as raising an exception, as some callers just throw
+	away the exception.
+
+2007-05-01  Prarit Bhargava <prarit@redhat.com>
 
 	* Added mk-rescueimage.ia64 (#236221)
 

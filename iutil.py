@@ -48,6 +48,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
                                 stderr=stderr, preexec_fn=chroot, cwd=root)
         ret = proc.wait()
     except OSError, (errno, msg):
+        log.error ("Error running " + command + ": " + msg)
         raise RuntimeError, "Error running " + command + ": " + msg
 
     return ret
@@ -71,6 +72,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
                                 stderr=subprocess.STDOUT,
                                 preexec_fn=chroot, cwd=root)
     except OSError, (errno, msg):
+        log.error ("Error running " + command + ": " + msg)
         raise RuntimeError, "Error running " + command + ": " + msg
 
     rc = pipe.stdout.read()
