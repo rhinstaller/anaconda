@@ -453,5 +453,8 @@ def writeRpmPlatform(root="/"):
         return
     f = open("%s/etc/rpm/macros" %(root,), 'w+')
     f.write("%_transaction_color   3\n")
+    if myarch.startswith("ppc64") or myarch == "sparc64":
+        f.write("%_prefer_color   1\n")
+
     f.close()
     
