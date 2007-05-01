@@ -1,3 +1,8 @@
+2007-05-01  Chris Lumens  <clumens@redhat.com>
+
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run): Make sure to copy
+	volume group format attribute to the new request (#217585).
+
 2007-04-30  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
