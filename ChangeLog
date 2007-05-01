@@ -1,5 +1,8 @@
 2007-05-01  Chris Lumens  <clumens@redhat.com>
 
+	* iutil.py (execWithRedirect, execWithCapture):  Make sure kickstart
+	scripts execute with the correct cwd (#237317).
+
 	* packages.py (doMigrateFilesystems): Write out the fstab after
 	migrate (#223215).
 
