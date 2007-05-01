@@ -1,0 +1,60 @@
+#!/usr/bin/python
+#
+# mk-rescueimage.ia64 - builds a rescue image from an existing tree
+#                       which can be converted into a isolinux bootable
+#                       iso and used as a sysadmin rescue image.
+#
+#
+# Usage: mk-rescueimage.ia64 <src-tree> <dest-dir> <productname>
+#
+# the rescue image will be created as <dest-dir>/ia64-rescueimage
+#
+
+import os
+import sys
+import string
+
+def usage():
+    print "usage: mk-rescueimage.ia64 <toplevel> <dest-dir> <productname> <productpath>"
+
+if len(sys.argv) < 5:
+    usage()
+    sys.exit(1)
+    
+if not os.access("%s" % (sys.argv[2],), os.F_OK):
+    print "ERROR - Destination directory %s does not exist!" % (sys.argv[2],)
+    sys.exit(1)
+
+srcdir  = sys.argv[1]
+destdir = sys.argv[2]+"/ia64-rescueimage"
+productname = sys.argv[3]
+productpath = sys.argv[4]
+
+# clean and create destination directory
+os.system("rm -rf %s" % (destdir,))
+os.system("mkdir %s" % (destdir,))
+
+# copy documentation
+for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
+    os.system("cp -p %s/%s       %s/ 2>/dev/null" % (srcdir, pat, destdir))
+
+# cp boot.img, etc., into images
+os.system("mkdir -p %s/images" % (destdir,))
+os.system("cp -ar %s/images/*    %s/images" % (srcdir, destdir))
+
+# PRARIT did not execute the below ...
+
+# munge elilo.conf to have a default of rescue mode
+os.system("mkdir %s/mnt" % (destdir,))
+os.system("mount -oloop %s/images/boot.img %s/mnt" % (destdir, destdir))
+elilofile = open("%s/mnt/elilo.conf" % (destdir,), "r")
+elilolines = elilofile.readlines()
+elilofile.close()
+
+# backup old one
+os.system("echo \"\tappend=\"rescue\"\" >>  %s/mnt/elilo.conf" % (destdir,))
+os.system("cp -f %s/mnt/elilo.conf %s/mnt/efi/boot/elilo.conf" % (destdir, destdir))
+
+# cleanup
+os.system("umount %s/mnt" % (destdir,))
+os.system("rm -rf %s/mnt" % (destdir,))
