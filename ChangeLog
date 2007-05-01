@@ -1,5 +1,8 @@
 2007-05-01  Chris Lumens  <clumens@redhat.com>
 
+	* packages.py (doMigrateFilesystems): Write out the fstab after
+	migrate (#223215).
+
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.run): Make sure to copy
 	volume group format attribute to the new request (#217585).
 

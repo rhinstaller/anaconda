@@ -126,9 +126,11 @@ def doMigrateFilesystems(anaconda):
 
     anaconda.id.fsset.migrateFilesystems (anaconda.rootPath)
 
-    # if we're upgrading, we may need to do lvm device node hackery
     if anaconda.id.upgrade:
+        # if we're upgrading, we may need to do lvm device node hackery
         anaconda.id.fsset.makeLVMNodes(anaconda.rootPath, trylvm1 = 1)
+        # and we should write out a new fstab with the migrated fstype
+        anaconda.id.fsset.write(anaconda.rootPath)
     
 
 def turnOnFilesystems(anaconda):
