@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.56
+Version: 11.2.0.57
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.57-1
+- fix build
+
 * Mon Apr 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.56-1
 - Don't write out ipv6 disabling bits (dcantrell, #237642)
 - Load pata_pcmcia late (#237674)

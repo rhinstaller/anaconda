@@ -1,5 +1,9 @@
 2007-04-30  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.	
+
+	* loader2/hardware.c (spufsSetup): Fix build
+
 	* anaconda.spec: Bump version.
 
 	* yuminstall.py (AnacondaCallback.callback): Add a window for the

@@ -327,7 +327,7 @@ void spufsSetup(moduleList modLoaded, moduleDeps modDeps,
     fd = fopen("/proc/cpuinfo", "r");
     if(fd) {
         char buf[1024];
-        while (fgets(buf, 1024, f) != NULL) {
+        while (fgets(buf, 1024, fd) != NULL) {
             if(!strncmp(buf, "cpu\t\t:", 5)) {
                 if(strstr(buf, "Cell")) {
                     mlLoadModule("spufs", modLoaded, modDeps, modInfo, NULL);
