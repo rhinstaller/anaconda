@@ -3,6 +3,9 @@
 	* iutil.py (execWithRedirect, execWithCapture):  Make sure kickstart
 	scripts execute with the correct cwd (#237317).
 
+	* kickstart.py (pullRemainingKickstartConfig):  Support multiple
+	%ksappend lines (#222201).
+
 	* packages.py (doMigrateFilesystems): Write out the fstab after
 	migrate (#223215).
 

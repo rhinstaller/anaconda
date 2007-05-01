@@ -972,44 +972,50 @@ class Kickstart(cobject):
 
         map(anaconda.backend.deselectPackage, self.ksdata.excludedList)
 
-#
-# look through ksfile and if it contains a line:
+# look through ksfile and if it contains any lines:
 #
 # %ksappend <url>
 #
-# pull <url> down and append to /tmp/ks.cfg. This is run before we actually
-# parse the complete kickstart file.
+# pull <url> down and stick it in /tmp/ks.cfg in place of the %ksappend line.
+# This is run before we actually parse the complete kickstart file.
 #
 # Main use is to have the ks.cfg you send to the loader be minimal, and then
 # use %ksappend to pull via https anything private (like passwords, etc) in
 # the second stage.
-#
 def pullRemainingKickstartConfig(ksfile):
+    # Open the input kickstart file and read it all into a list.
     try:
-	f = open(ksfile, "r")
+        inF = open(ksfile, "r")
     except:
-	raise KickstartError ("Unable to open ks file %s for append" % ksfile)
+        raise KickstartError ("Unable to open ks file %s for reading" % ksfile)
 
-    lines = f.readlines()
-    f.close()
+    lines = inF.readlines()
+    inF.close()
 
-    url = None
+    # Now open an output kickstart file that we are going to write to one
+    # line at a time.
+    (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+
     for l in lines:
-	ll = l.strip()
-	if string.find(ll, "%ksappend") == -1:
-	    continue
+        url = None
 
-	try:
-	    (xxx, ksurl) = string.split(ll, ' ')
-	except:
-	    raise KickstartError ("Illegal url for %%ksappend - %s" % ll)
+        ll = l.strip()
+        if string.find(ll, "%ksappend") == -1:
+            os.write(outF, l)
+            continue
 
-	log.info("Attempting to pull second part of ks.cfg from url %s" % ksurl)
+        # Try to pull down the remote file.
+        try:
+            ksurl = string.split(ll, ' ')[1]
+        except:
+            raise KickstartError ("Illegal url for %%ksappend: %s" % ll)
 
-	try:
-	    url = grabber.urlopen (ksurl)
-	except grabber.URLGrabError, e:
-	    raise KickstartError ("IOError: %s" % e.strerror)
+	log.info("Attempting to pull additional part of ks.cfg from url %s" % ksurl)
+
+        try:
+            url = grabber.urlopen (ksurl)
+        except grabber.URLGrabError, e:
+            raise KickstartError ("IOError: %s" % e.strerror)
 	else:
 	    # sanity check result - sometimes FTP doesnt
 	    # catch a file is missing
@@ -1021,26 +1027,16 @@ def pullRemainingKickstartConfig(ksfile):
 	    if clen < 1:
 		raise KickstartError ("IOError: -1:File not found")
 
-        break
+        # If that worked, now write the remote file to the output kickstart
+        # file in one burst.  Then close everything up to get ready to read
+        # farther ahead in the input file.  This allows multiple %ksappend
+        # lines to exist.
+        if url is not None:
+            os.write(outF, url.read())
+            url.close()
 
-    # if we got something then rewrite /tmp/ks.cfg with new information
-    if url is not None:
-	os.rename("/tmp/ks.cfg", "/tmp/ks.cfg-part1")
-
-	# insert contents of original /tmp/ks.cfg w/o %ksappend line
-	f = open("/tmp/ks.cfg", 'w+')
-	for l in lines:
-	    ll = l.strip()
-	    if string.find(ll, "%ksappend") != -1:
-		continue
-	    f.write(l)
-
-	# now write part we just grabbed
-	f.write(url.read())
-	f.close()
-
-	# close up url and we're done
-	url.close()
-	
+    # All done - move the temp output file to the expected location.
+    os.close(outF)
+    os.rename(outName, "/tmp/ks.cfg")
     return None
 
