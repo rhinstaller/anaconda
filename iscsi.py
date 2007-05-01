@@ -171,13 +171,12 @@ class iscsi(object):
             t.logout()
 
         # XXX use iscsiadm shutdown when it's available.
-        argv = [ "--no-headers", "-C", "%s" % (ISCSID,) ]
-        psout = iutil.execWithCapture("/usr/bin/ps", argv)
-        for line in psout.split("\n"):
-            if line:
-                pid = string.atoi(string.split(line)[0])
-                log.info("Killing %s %d" % (ISCSID, pid))
-                os.kill(pid, signal.SIGKILL)
+        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsiadm"])
+        if psout.strip() != "":
+            pid = string.atoi(psout.split()[0])
+            log.info("Killing %s %d" % (ISCSID, pid))
+            os.kill(pid, signal.SIGKILL)
+
         self.iscsidStarted = False;
 
     def startup(self, intf = None):

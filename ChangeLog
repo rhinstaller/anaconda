@@ -1,5 +1,8 @@
 2007-05-01  Chris Lumens  <clumens@redhat.com>
 
+	* iscsi.py (iscsi.shutdown):  Be smarter about getting the PID of
+	iscsiadm to avoid a traceback (#223257).
+
 	* iutil.py (execWithCapture, execWithRedirect):  Log the failing
 	command as well as raising an exception, as some callers just throw
 	away the exception.
