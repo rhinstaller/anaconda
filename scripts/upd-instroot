@@ -114,7 +114,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt
-	 rhpl pyxf86config libxml2 glib2 sqlite neon
+	 rhpl pyxf86config libxml2 glib2 sqlite neon libselinux-python
 	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
 	 policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
@@ -429,6 +429,7 @@ usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/$LIBDIR/python?.?/site-packages/cElementTree.so
 usr/$LIBDIR/python?.?/site-packages/block
 usr/$LIBDIR/python?.?/site-packages/*.pth
+usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/elementtree/*
 usr/lib/python?.?/site-packages/rpmUtils/*

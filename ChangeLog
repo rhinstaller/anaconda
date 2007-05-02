@@ -1,5 +1,8 @@
 2007-05-02  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot (KEEPFILE): Add selinux-python to unbreak
+	genhomedircon (#238277)
+
 	* scripts/mk-images (USBMODS): Add appletouch so we load it as
 	needed (#238355)
 	* loader2/usb.c (usbInitializeMouse): Load appletouch
