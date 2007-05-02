@@ -204,8 +204,7 @@ def setFileCons(anaconda):
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
                  "/root/install.log", "/root/install.log.syslog",
-                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
-                 "/var/log/lastlog", "/var/log/btmp"]
+                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
@@ -213,7 +212,7 @@ def setFileCons(anaconda):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root"] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):
