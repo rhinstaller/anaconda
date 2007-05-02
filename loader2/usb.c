@@ -133,7 +133,7 @@ void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
     logMessage(INFO, "looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
         logMessage(INFO, "USB mouse found, loading mousedev module");
-        if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo)) {
+        if (mlLoadModuleSet("mousedev:appletouch", modLoaded, modDeps, modInfo)) {
             logMessage (DEBUGLVL, "failed to loading mousedev module");
             return;
         }

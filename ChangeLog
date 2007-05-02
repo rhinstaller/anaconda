@@ -1,5 +1,9 @@
 2007-05-02  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images (USBMODS): Add appletouch so we load it as
+	needed (#238355)
+	* loader2/usb.c (usbInitializeMouse): Load appletouch
+
 	* packages.py (setFileCons): Just relabel all of /var/log (#236774)
 
 2007-05-01  Chris Lumens  <clumens@redhat.com>
