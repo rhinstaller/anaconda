@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-18 21:31+0200\n"
+"PO-Revision-Date: 2007-05-02 22:24+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../anaconda:391
 msgid "Press <enter> for a shell"
-msgstr "Nyomja meg az <enter> billentyűt, hogy burkot kapjon"
+msgstr "Nyomja meg az <Enter> billentyűt, ha parancsértelmezőt szeretne"
 
 #: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
@@ -115,11 +115,11 @@ msgstr "Grafikus telepítés nem választható... Indulás karakteres módban."
 
 #: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "A DISPLAY változó nincs beállítva. Szöveges módot indítok!"
+msgstr "A DISPLAY változó nincs beállítva. Indítás szöveges módban..."
 
 #: ../anaconda:862
 msgid "Unknown install method"
-msgstr "Ismeretlen telepítési eljárás: %s"
+msgstr "Ismeretlen telepítési eljárás"
 
 #: ../anaconda:863
 msgid "You have specified an install method which isn't supported by anaconda."
@@ -204,8 +204,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek."
@@ -507,8 +506,7 @@ msgstr "A dump-fájl kiírva"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
+msgstr "A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
 #: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
@@ -850,7 +848,7 @@ msgid "_Continue"
 msgstr "_Tovább"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -860,7 +858,7 @@ msgid ""
 msgstr ""
 "Hiba történt a(z) %s eszköz csatlakoztatásakor (mint %s): %s\n"
 "\n"
-"A hibát valószínűleg az okozta, hogy a partíció nem volt megformázva.\n"
+"A /etc/fstab fájlban levő eszközöket címkével kell megadni, nem pedig eszköznévvel.\n"
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
@@ -911,20 +909,17 @@ msgstr ""
 "Javítsa ki ezt a hibát és indítsa újra a telepítési folyamatot."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Érvénytelen rendszerindítási címke"
+msgstr "Érvénytelen címke"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Több eszközhöz is a(z) %s címke van hozzárendelve. A rendszer megfelelő "
-"működéséhez minden eszköznek egyedi címkével kell rendelkeznie.\n"
-"\n"
-"Javítsa ki ezt a hibát és indítsa újra a telepítési folyamatot."
+"A(z) %s eszközön érvénytelen címke van. Javítsa ki ezt a hibát és "
+"indítsa újra a telepítési folyamatot."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1344,8 +1339,7 @@ msgstr "Képmás nem található"
 
 #: ../livecd.py:80
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "A megadott hely nem egy érvényes, telepítési forrásként használható %s \"live"
 "\" CD."
@@ -1561,12 +1555,17 @@ msgstr ""
 
 #: ../partedUtils.py:1144
 #, python-format
+# 3. %s: productName
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"A /dev/%s meghajtón több mint 15 partíció van. A Linux kernel jelenlegi "
+"SCSI-alrendszere nem engedélyez 15-nél több partíciót. Ezen lemez "
+"partícionálásának módosítására nem lesz lehetőség, továbbá a /dev/%s15 "
+"utáni partíciók használata nem lesz lehetséges a(z) %s rendszerben."
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -1684,8 +1683,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:554
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:188
 msgid ""
@@ -1893,8 +1891,7 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partitioning.py:61
@@ -1929,8 +1926,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:821
 #, python-format
@@ -1950,8 +1946,7 @@ msgstr ""
 "ezért nem lesz indítható."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:867
@@ -1972,8 +1967,7 @@ msgstr ""
 "normál %s-telepítésnél."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Telepítés USB eszközre. Ez a megoldás működésképtelen rendszert is "
 "eredményezhet."
@@ -2034,8 +2028,7 @@ msgstr "egy olyan partíció, amely egy LVM-kötetcsoport része."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -2149,8 +2142,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:244 ../text.py:599
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
 msgid "Rescue"
@@ -2331,17 +2323,14 @@ msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:474
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2718,8 +2707,7 @@ msgstr "Hiba a tranzakció futtatása közben"
 
 #: ../yuminstall.py:568
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "A tranzakció futtatása hibát eredményezett az alábbi ok(ok) miatt: %s"
 
 #: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
@@ -2855,8 +2843,7 @@ msgid "The root password must be at least six characters long."
 msgstr "A rendszergazdai jelszónak legalább 6 karakter hosszúnak kell lennie."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "A kért jelszó tartalmaz nem-ASCII karaktereket - ez nem engedélyezett."
 
 #: ../iw/account_gui.py:107
@@ -3091,8 +3078,7 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
-"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3354,8 +3340,7 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:557
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már használatban van; válasszon másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már használatban van; válasszon másikat."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1273
 msgid "Illegal Logical Volume Name"
@@ -3963,15 +3948,12 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
-"Az Ön által kért partícionálási mód a következő kritikus hibákat okozta:"
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "Az Ön által kért partícionálási mód a következő kritikus hibákat okozta:"
 
 #: ../iw/partition_gui.py:635
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -4131,8 +4113,7 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4497,6 +4478,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"A rendszerben történt módosítások miatt a rendszerindító beállításai "
+"nem frissíthetők automatikusan."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -4506,8 +4489,7 @@ msgstr "A telepítő nem tudta felismerni a most használt rendszerindítót."
 
 #: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:114
@@ -4638,8 +4620,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/zipl_gui.py:28
@@ -4777,8 +4758,7 @@ msgstr ""
 "milyen néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 "<Szóköz> választ | <F2> alapértelmezés | <F4> töröl | <F12> következő "
 "képernyő>"
@@ -4890,10 +4870,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Válassza ki azokat a csomagcsoportokat, amelyeket telepíteni szeretne."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5404,10 +5382,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1504
 msgid "No Root Partition"
@@ -6088,10 +6064,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Üdvözöljük - %s (helyreállítási mód)"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6224,8 +6198,7 @@ msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 #: ../loader2/loader.c:1834
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
 #: ../loader2/loader.c:1836
 #, c-format
@@ -6282,8 +6255,7 @@ msgstr "Az adathordozó alkalmas a telepítésre."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
+msgstr "Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6337,10 +6309,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Hibás argumentum a \"device\" Kickstart-parancsban (%s): %s"
 
 #: ../loader2/modules.c:1056
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"Modultípust és nevet is meg kell adni a \"device\" Kickstart-parancsban."
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "Modultípust és nevet is meg kell adni a \"device\" Kickstart-parancsban."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6476,8 +6446,7 @@ msgid "Missing Information"
 msgstr "Hiányzó információ"
 
 #: ../loader2/net.c:1208
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Meg kell adnia egy érvényes IPv4-címet, valamint vagy egy alhálózati "
 "maszkot, vagy egy CIDR-előtagot."
@@ -6796,18 +6765,16 @@ msgid "_Add target"
 msgstr "_Cél hozzáadása"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "%s tele_pítése"
+msgstr "Telepítés"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "A \"live\" CD telepítése a merevlemezre"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Kezdődik a telepítés"
+msgstr "Telepítés merevlemezre"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7086,9 +7053,8 @@ msgid "Punjabi"
 msgstr "pandzsábi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "horvát"
+msgstr "román"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7149,3 +7115,4 @@ msgstr "velszi"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
+
