@@ -1,3 +1,8 @@
+2007-05-02  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (YumBackend.doRepoSetup):  Handle errors resulting
+	from malformed repositories (#219274).
+
 2007-05-01  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Removing items from a list you're

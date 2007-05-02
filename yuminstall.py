@@ -883,7 +883,16 @@ class YumBackend(AnacondaBackend):
                     self.ayum.repos.delete(repo.id)
                     continue
 
-        self.doGroupSetup()
+        try:
+            self.doGroupSetup()
+        except yum.Errors.GroupsError:
+            anaconda.intf.messageWindow(_("Error"),
+                                        _("Unable to read group information "
+                                          "from repositories.  This is "
+                                          "a problem with the generation "
+                                          "of your install tree."),
+                                        type="custom", custom_icon="error",
+                                        custom_buttons = [_("Re_boot")])
         self._catchallCategory()
 
         self.ayum.repos.callback = None
