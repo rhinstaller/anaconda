@@ -1611,7 +1611,10 @@ class PartitionTypeWindow:
 
             rc = g.run()
 
-            sel = [self.drivelist.getSelection()[0].split()[0]]
+            if len(self.drivelist.getSelection()) > 0:
+                sel = [self.drivelist.getSelection()[0].split()[0]]
+            else:
+                sel = []
             partmethod_ans = typebox.current()
             res = bb.buttonPressed(rc)
             

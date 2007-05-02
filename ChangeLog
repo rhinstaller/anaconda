@@ -1,5 +1,8 @@
 2007-05-02  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/partition_text.py (PartitionTypeWindow.__call__): Don't
+	traceback if there aren't disks (#238695)
+
 	* scripts/upd-instroot (KEEPFILE): Add selinux-python to unbreak
 	genhomedircon (#238277)
 
