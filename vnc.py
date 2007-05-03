@@ -35,7 +35,7 @@ def askVncWindow():
 
     if network.hasActiveNetDev() == False:
         return -1
-    
+
     screen = SnackScreen()
     vncpass = None
     vncconnect = 0
@@ -56,7 +56,7 @@ def askVncWindow():
                                           "with a text mode install?"),
                                         buttons = [ _("Use text mode"),
                                                     _("Start VNC") ])
-	    
+
 	    if button == string.lower (_("Use text mode")):
                 screen.finish()
                 return -1
@@ -154,7 +154,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 		   vncconnectport="", vncStartedCB=None):
 
     stdoutLog = logging.getLogger("anaconda.stdout")
-    
+
     def set_vnc_password(root, passwd, passwd_file):
 	(pid, fd) = os.forkpty()
 
@@ -271,7 +271,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 	else:
 	    # needed if no password specified
 	    args = args + ["SecurityTypes=None",]
-			     
+
 	tmplogFile = "/tmp/vncserver.log"
 	try:
 	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
@@ -291,7 +291,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
 			 "You can use the vncpassword=<password> boot option\n"
 			 "if you would like to secure the server.\n\n"))
-	
+
     stdoutLog.info(_("The VNC server is now running."))
 
     if vncconnecthost != "":
@@ -299,7 +299,9 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 
         if vncconnectport != "":
 	    hostarg = vncconnecthost + ":" + vncconnectport
-	    
+        else:
+            hostarg = vncconnecthost
+
 	argv = ["-display", ":1", "-connect", hostarg]
 	ntries = 0
 	while 1:
@@ -314,10 +316,10 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
 		    if connxinfo is not None:
 			stdoutLog.info(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
-		    else:	    
+		    else:
 			stdoutLog.info(_("Please manually connect your vnc client to begin the install."))
 		    break
-		    
+
 		stdoutLog.info(output)
 		stdoutLog.info(_("Will try to connect again in 15 seconds..."))
 		time.sleep(15)

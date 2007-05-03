@@ -1,3 +1,7 @@
+2007-05-03  Chris Lumens  <clumens@redhat.com>
+
+	* vnc.py (startVNCServer):  Fix vncconnect mode (#238827).
+
 2007-05-02  Jeremy Katz  <katzj@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow.__call__): Don't
