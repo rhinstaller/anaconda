@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-03-24 13:02+0000\n"
+"PO-Revision-Date: 2007-05-02 21:43+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -939,7 +939,7 @@ msgid "_Continue"
 msgstr "_Continuar"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -949,7 +949,7 @@ msgid ""
 msgstr ""
 "Erro ao montar o dispositivo %s como %s: %s\n"
 "\n"
-"Provavelmente isto significa que a partição não foi formatada.\n"
+"Os dispositivos na /etc/fstab deverão ser indicados por legenda, não por nome do dispositivo.\n"
 "\n"
 "Carregue em OK para reiniciar o sistema."
 
@@ -994,28 +994,20 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Existes vários dispositivos no seu sistema com o nome %s.  Os nomes em todos "
-"os dispositivos devem ser únicos para que o seu sistema funcione "
-"correctamente.\n"
+"Existem vários dispositivos no seu sistema com o nome %s.  Os nomes em todos os dispositivos devem ser únicos para que o seu sistema funcione correctamente.\n"
 "\n"
 "Por favor corrija este problema e reinicie o processo de instalação."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Nome de Arranque Inválido"
+msgstr "Legenda Inválida"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
-msgstr ""
-"Existes vários dispositivos no seu sistema com o nome %s.  Os nomes em todos "
-"os dispositivos devem ser únicos para que o seu sistema funcione "
-"correctamente.\n"
-"\n"
-"Por favor corrija este problema e reinicie o processo de instalação."
+msgstr "Foi indicada uma legenda inválida no dispositivo %s. Por favor corrija este problema e reinicie o processo de instalação."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1656,7 +1648,7 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "A unidade /dev/%s tem mais de 15 partições. O sub-sistema de SCSI do 'kernel' do Linux não permite mais de 15 partições nesta altura. Não poderá fazer alterações ao particionamento do disco ou usar as partições além da /dev/%s15 no %s"
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -4611,7 +4603,7 @@ msgstr "Isto irá actualizar o gestor de arranque."
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "Devido a alterações no sistema, a sua configuração do gestor de arranque não pode ser actualizada automaticamente."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -6921,18 +6913,16 @@ msgid "_Add target"
 msgstr "_Adicionar um destino"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_Instalar o %s"
+msgstr "Instalar"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Instalar o Live CD no seu disco rígido"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Início da Instalação"
+msgstr "Instalar no Disco Rígido"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7211,9 +7201,8 @@ msgid "Punjabi"
 msgstr "Punjabi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Croata"
+msgstr "Romeno"
 
 #. generated from lang-table
 msgid "Russian"
