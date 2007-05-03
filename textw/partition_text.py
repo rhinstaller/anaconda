@@ -1283,7 +1283,15 @@ class PartitionWindow:
                     
                 request.logicalVolumeName = lvn
 
-                size = int(lvsize.value().strip())
+                try:
+                    size = int(lvsize.value().strip())
+                except:
+                    self.intf.messageWindow(_("Illegal size"),
+                                            _("The requested size as entered is "
+                                              "not a valid number greater "
+                                              "than 0."), custom_icon="error")
+                    continue
+                                            
                 pesize = vgreq.pesize
                 size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 

@@ -1,3 +1,8 @@
+2007-05-03  Chris Lumens  <clumens@redhat.com>
+
+	* textw/partition_text.py (PartitionWindow.editLVRequest):  Don't
+	traceback if they neglect to enter an lvsize (#221253).
+
 2007-05-02  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doRepoSetup):  Handle errors resulting
