@@ -1,5 +1,9 @@
 2007-05-03  Chris Lumens  <clumens@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.comboChanged):  Drive
+	selection box shouldn't be sensitive if custom layout is selected
+	(#219207).
+
 	* textw/partition_text.py (PartitionWindow.editLVRequest):  Don't
 	traceback if they neglect to enter an lvsize (#221253).
 
