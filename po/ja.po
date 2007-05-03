@@ -13,14 +13,15 @@
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005, 2006.
 # Kiyoto James Hashida <khashida@redhat.com>, 2006, 2007.
+# Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-03-02 07:48+1000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2007-05-03 11:30+0900\n"
+"Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,13 +207,12 @@ msgstr ""
 "ティションから起動できません。"
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"ブートパーティションはディスクの十分手前に位置していません。オープンファーム"
-"ウェアをこのインストールでブートさせることはできません。"
+"ブートパーティションは全体がディスクの先頭 4GB 以内に位置しなければなりません。"
+"オープンファームウェアをこのインストールでブートさせることはできません。"
 
 #: ../autopart.py:1038
 #, python-format
@@ -362,7 +362,6 @@ msgstr ""
 "「OK」を押して別のパーティション設定オプションを選択してください。"
 
 #: ../autopart.py:1532
-#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -685,7 +684,6 @@ msgstr ""
 "システムをハイバネートするのではなく、シャットダウンしてください。"
 
 #: ../fsset.py:1466
-#, fuzzy, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -695,9 +693,9 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap partitions."
 msgstr ""
-" swap デバイス:\n"
+" /etc/fstab ファイル内の swap デバイス:\n"
 "\n"
-"     /etc/fstab ファイル内の /dev/%s\n"
+"     /dev/%s\n"
 "\n"
 "は現在、ソフトウェアサスペンドパーティションとして使用されており、これはシス"
 "テムがハイバネート状態であることを意味します。新規のインストールを実行してい"
@@ -857,7 +855,6 @@ msgid "_Continue"
 msgstr "続行(_C)"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -867,7 +864,7 @@ msgid ""
 msgstr ""
 "デバイス %s を %s としてマウントする際にエラーが発生しました:%s。\n"
 "\n"
-"このパーティションがフォーマットされていない可能性があります。\n"
+"/etc/fstab 内のデバイスはデバイス名ではなく、ラベルで指定されるべきです。\n"
 "\n"
 "「OK」を押してシステムを再起動してください。"
 
@@ -918,9 +915,8 @@ msgstr ""
 "この問題を解決してからインストールをやり直してください。"
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "無効なブートラベル"
+msgstr "無効なラベル"
 
 #: ../fsset.py:2414
 #, fuzzy, python-format
