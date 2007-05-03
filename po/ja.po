@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-03 14:16+0900\n"
+"PO-Revision-Date: 2007-05-03 14:56+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3145,7 +3145,7 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "新しくシステムをインストールするにはこのオプションを選択します。 既存のソフト"
-"ウェアやデータは選択した構成によっては上書きされるかもしれません。"
+"ウェアやデータは選択した設定によっては上書きされるかもしれません。"
 
 #: ../iw/examine_gui.py:56
 msgid "_Upgrade an existing installation"
@@ -3776,7 +3776,7 @@ msgid ""
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
 "一覧から選択することで他のオペレーティングシステムをブートできるようにブート"
-"ローダーを構成することができます。 "
+"ローダーを設定することができます。 "
 "自動的に認識されない他のオペレーティングシステムを追加するには、「追加」"
 "をクリックします。デフォルトでブートするオペレーティングシステムを変更するに"
 "は、そうしたいオペレーティングシステムの横の「デフォルト」を選択します。"
@@ -4471,7 +4471,7 @@ msgstr "これで現在のブートローダーを更新します。"
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr "システムが変わったので、ブートローダー構成は自動的には更新されません。"
+msgstr "システムが変わったので、ブートローダー設定は自動的には更新されません。"
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -4693,7 +4693,6 @@ msgstr ""
 "本当にブートローダーのインストールをスキップしますか?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
@@ -4702,7 +4701,7 @@ msgstr ""
 "システムが正しく機能するには起動時に特殊なオプションをカーネルに対して渡す必"
 "要がある場合があります。カーネルにブートオプションを渡す必要がある場合は、こ"
 "こでそのオプションを入力してください。オプションが必要ない、またはよくわから"
-"ない場合は空白にしておいてください。"
+"ない場合は空白のままにしておいてください。"
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4742,14 +4741,13 @@ msgid "Edit"
 msgstr "編集"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"%s が使用するブートマネージャは他のオペレーティングシステムの起動に使用するこ"
-"ともできます。ブート可能にするパーティションとそのパーティション用に使用する"
+"%s が使用するブートマネージャーは他のオペレーティングシステムの起動にも使用するこ"
+"とができます。ブート可能にするパーティションとそのパーティション用に使用する"
 "ブートラベルを設定してください。"
 
 #: ../textw/bootloader_text.py:290
@@ -4758,15 +4756,14 @@ msgid ""
 msgstr "<Space> 選択 | <F2> デフォルト選択 | <F4> 削除 | <F12> 次の画面"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"ブートローダのパスワードはユーザーが任意のオプションをカーネルに渡してしまう"
+"ブートローダーのパスワードはユーザーが任意のオプションをカーネルに渡してしまう"
 "のを防ぎます。安全性を最大限に高めるにはパスワードの設定を推奨しますが、これ"
-"を必要としない一般的なユーザには必ずしも必要ではありません。"
+"を必要としない一般的なユーザーには必ずしも必要ではありません。"
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4861,9 +4858,8 @@ msgstr ""
 "参照できるようにこのファイルを保管しておくことをお勧めします。"
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "インストールするパッケージグループを選択してください。"
+msgstr "インストールしたいパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:105
 msgid ""
@@ -4892,7 +4888,7 @@ msgstr "マウスを接続するデバイスを指定してください。"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "このコンピュータに接続されるマウスのモデルを選択してください。"
+msgstr "このコンピューターに接続されるマウスのモデルを選択してください。"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
@@ -4912,13 +4908,12 @@ msgstr ""
 "能性があります。"
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 のプレフィックスは 0 から 32 の間にしてください。"
+msgstr "IPv%d のプレフィックスは 0 から %d の間にしてください。"
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "プレフィックスには数字を指定してください"
 
 #: ../textw/network_text.py:75
 #, python-format
@@ -4926,6 +4921,7 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"%s には正しい数字を指定してください。IPv4 では 0 から 32、IPv6 では 0 から 128 です。"
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4975,31 +4971,26 @@ msgid "Dynamic IP configuration (DHCP)"
 msgstr "動的 IP 設定 (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "手動による設定"
+msgstr "手動によるアドレス設定"
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s 用のネットワーク設定"
+msgstr "%s 用の IPv4 設定"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 アドレス:"
+msgstr "IPv4 アドレス"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/ネットマスク"
+msgstr "IPv4 ネットマスク"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "プレフィックス (ネットマスク)"
+msgstr "IPv4 プレフィックス (ネットマスク)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
@@ -5010,34 +5001,29 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "動的 IP 設定 (DHCPv6)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s 用のネットワーク設定"
+msgstr "%s 用のIPv6 設定"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 アドレス:"
+msgstr "IPv6 アドレス"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/プレフィックス"
+msgstr "IPv6 プレフィックス"
 
 #: ../textw/network_text.py:504
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "ネットワークインターフェースを有効にする"
+msgstr "ネットワークインターフェースを設定する"
 
 #: ../textw/network_text.py:505
-#, fuzzy, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "このシステムでネットワークインターフェースを開始しますか?"
+msgstr "システムの %s ネットワークインターフェースを設定しますか?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "未設定"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -5046,38 +5032,39 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"現在の個々のインターフェースの設定はデバイス名の横に表示されます。未設定の"
+"インターフェースは未設定と表示されます。あるインターフェースを設定するには"
+"それを選択し、編集を選びます。完了したら OK を押して続けます。"
 
 #: ../textw/network_text.py:617
-#, fuzzy
 msgid "Active on boot"
 msgstr "起動時にアクティブにする"
 
 #: ../textw/network_text.py:619
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "起動時にアクティブにする"
+msgstr "起動時にアクティブにしない"
 
 #: ../textw/network_text.py:622
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:627
 msgid "Auto IPv6"
-msgstr ""
+msgstr "自動 IPv6"
 
 #: ../textw/network_text.py:629
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:635
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:637 ../textw/network_text.py:639
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:661 ../loader2/net.c:1026
 msgid "Gateway:"
