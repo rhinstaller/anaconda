@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-27 00:52+0100\n"
+"PO-Revision-Date: 2007-05-03 15:13+0100\n"
 "Last-Translator: Espen A. Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -1568,7 +1568,7 @@ msgstr ""
 #: ../partedUtils.py:1144
 #, python-format
 msgid "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in the Linux kernel does not allow for more than 15 partitons at this time.  You will not be able to make changes to the partitioning of this disk or use any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "Enheten /dev/%s har flere enn 15 partisjoner. SCSI-subsystemet i Linux-kjernen tillater ikke flere enn 15 partisjoner for øyeblikket. Du vil ikke ha mulighet til å gjøre endringer i partisjoneringen av denne enheten eller bruker noen partisjoner etter /dev/%s15 på %s."
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
