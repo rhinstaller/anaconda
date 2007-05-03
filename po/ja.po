@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-03 15:58+0900\n"
+"PO-Revision-Date: 2007-05-03 16:45+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1133,7 +1133,7 @@ msgstr "再試行(_t)"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "ISO ソースをマウントできない"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1143,6 +1143,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"ソースデバイス %s のマウントでエラーが起きました。LVM や RAID のような"
+"進化したストレージ装置に ISO イメージが置かれたときや、パーティションの"
+"マウントに問題がある場合に発生します。再起動をクリックしてインストールを"
+"中止してください。"
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1502,7 +1506,7 @@ msgstr "ドライブを無視(_I)"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "ドライブの再初期化 (_R)"
 
 #: ../partedUtils.py:890
 msgid "Initializing"
@@ -1556,12 +1560,17 @@ msgstr ""
 
 #: ../partedUtils.py:1144
 #, python-format
+# fuzzy
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"ドライブ /dev/%s には 15 を超えるパーティションがあります。現在の Linux カーネルの"
+"SCSI サブシステムは 15 を超えるパーティションを認めていません。"
+"このディスクのパーティション構成に変更を加えることはできず、/dev/%s15 を超える "
+"%sのどのパーティションも使用できません。"
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -6690,9 +6699,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "インストール時に使用する言語を選択してください。"
+msgstr "このインストールをどのドライブから起動しますか?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6707,9 +6715,8 @@ msgid "Exception Info"
 msgstr "例外の情報"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "リモートホストに保存"
+msgstr "リモートに保存 (_R)"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6717,17 +6724,16 @@ msgstr "例外の詳細(_E)"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "フロッピーに保存 (_S)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey):"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "ボリュームグループ名を入力してください。"
+msgstr "%(instkey)を入力してください。"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6746,23 +6752,20 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI イニシエータ名(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "iSCSI ターゲットの追加 (_I)"
+msgstr "ターゲットの追加 (_A)"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "インストール(_I) %s"
+msgstr "インストール"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "ライブ CD をハードディスクにインストール"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "インストールを開始しています"
+msgstr "ハードドライブにインストール"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7040,9 +7043,8 @@ msgid "Punjabi"
 msgstr "パンジャブ語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "クロアチア語"
+msgstr "ルーマニア語"
 
 #. generated from lang-table
 msgid "Russian"
