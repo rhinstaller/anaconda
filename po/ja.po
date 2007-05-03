@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-03 14:56+0900\n"
+"PO-Revision-Date: 2007-05-03 15:58+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5080,20 +5080,17 @@ msgstr "2 番目の DNS:"
 
 #: ../textw/network_text.py:682
 msgid "Miscellaneous Network Settings"
-msgstr "その他ネットワークの設定"
+msgstr "その他のネットワーク設定"
 
 #: ../textw/network_text.py:699 ../textw/network_text.py:702
-#, fuzzy
 msgid "gateway"
 msgstr "ゲートウェイ"
 
 #: ../textw/network_text.py:709 ../textw/network_text.py:712
-#, fuzzy
 msgid "primary DNS"
 msgstr "1 番目の DNS"
 
 #: ../textw/network_text.py:721
-#, fuzzy
 msgid "secondary DNS"
 msgstr "2 番目の DNS"
 
@@ -5110,7 +5107,6 @@ msgid "Hostname Configuration"
 msgstr "ホスト名の設定"
 
 #: ../textw/network_text.py:780
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5118,7 +5114,7 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "システムが大きなネットワークの一部になっていて、ホスト名が DHCP で割り当てら"
-"れる場合、 「DHCP 経由で自動設定」を選択します。これ以外は、「自動設定」を選"
+"れる場合、 「DHCP 経由で自動設定」を選択します。これ以外は、「手動設定」を選"
 "択してシステムのホスト名を入力します。ホスト名を入力しなかった場合、"
 "「localhost」になります。"
 
@@ -5274,7 +5270,6 @@ msgid "Not Supported"
 msgstr "サポートされていません"
 
 #: ../textw/partition_text.py:783
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr ""
 "LVM ボリュームグループはグラフィカルインストーラーでしか編集できません。"
@@ -5289,11 +5284,11 @@ msgstr "最大容量には無効な値です"
 
 #: ../textw/partition_text.py:890
 msgid "Invalid Entry for Starting Cylinder"
-msgstr "開始シリンダには無効な値です"
+msgstr "開始シリンダーには無効な値です"
 
 #: ../textw/partition_text.py:904
 msgid "Invalid Entry for End Cylinder"
-msgstr "終了シリンダには無効な値です"
+msgstr "終了シリンダーには無効な値です"
 
 #: ../textw/partition_text.py:1017
 msgid "No RAID partitions"
@@ -5316,21 +5311,18 @@ msgid "Too many spares"
 msgstr "スペア数が多過ぎます"
 
 #: ../textw/partition_text.py:1108
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "RAID0 アレイでの最大スペア数は 0 です。"
+msgstr "RAID0 アレイではスペアは使えません。"
 
 #: ../textw/partition_text.py:1189
 msgid "No Volume Groups"
 msgstr "ボリュームグループがありません"
 
 #: ../textw/partition_text.py:1190
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
 msgstr "論理ボリュームを作成するためのボリュームグループがありません"
 
 #: ../textw/partition_text.py:1314
-#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5388,13 +5380,12 @@ msgid "No Root Partition"
 msgstr "root パーティションがありません"
 
 #: ../textw/partition_text.py:1505
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS インストールを行うには IPv4 のサポートが必要になります。"
+msgstr "インストールには / パーティションが必要です。"
 
 #: ../textw/partition_text.py:1547
 msgid "Partitioning Type"
-msgstr "パーティション設定タイプ"
+msgstr "パーティションタイプ"
 
 #: ../textw/partition_text.py:1549
 msgid ""
@@ -5440,32 +5431,30 @@ msgid ""
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
-"zSeries マシンはファイバーチャンネル (FCP) によって業界基準 SCSI デバイスにア"
+"zSeries マシンはファイバーチャネル (FCP) によって業界基準 SCSI デバイスにア"
 "クセスすることができます。それぞれのデバイスに 16 ビットのデバイス番号、64 "
 "ビットの World Wide Port Name (WWPN) および 64 ビットの FCP LUN を提供する必"
 "要があります。"
 
 #: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
-msgstr "iSCSI パラメータの設定"
+msgstr "iSCSI パラメーターの設定"
 
 #: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエータ名及び"
+"iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエーター名及び"
 "iSCSI ターゲットのアドレスを入力してください。"
 
 #: ../textw/partition_text.py:1726
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>対象 IP アドレス(_T):</b>"
+msgstr "対象 IP アドレス"
 
 #: ../textw/partition_text.py:1727
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI イニシエータ名(_N):</b>"
+msgstr "iSCSI イニシエーター名"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5499,9 +5488,8 @@ msgid "Customize software selection"
 msgstr "ソフトウェア選択のカスタマイズ"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "タイムゾーンを指定してください。"
+msgstr "どのタイムゾーンに位置しますか?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5510,15 +5498,15 @@ msgstr "システムクロックに UTC を使用"
 #: ../textw/upgrade_bootloader_text.py:86
 #: ../textw/upgrade_bootloader_text.py:95
 msgid "Update boot loader configuration"
-msgstr "ブートローダ設定の更新"
+msgstr "ブートローダー設定の更新"
 
 #: ../textw/upgrade_bootloader_text.py:98
 msgid "Skip boot loader updating"
-msgstr "ブートローダ更新のスキップ"
+msgstr "ブートローダー更新のスキップ"
 
 #: ../textw/upgrade_bootloader_text.py:100
 msgid "Create new boot loader configuration"
-msgstr "新しいブートローダ設定の作成"
+msgstr "新しいブートローダー設定の作成"
 
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
@@ -5553,32 +5541,29 @@ msgid "System to Upgrade"
 msgstr "アップグレード対象システム"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"システム上に 1つまたは複数の Linux インストールが存在しているのが見つかりまし"
-"た。\n"
+"システム上に 既存の Linux インストールが一つ以上あるようです。\n"
 "\n"
-"いずれかを選択してアップグレードするか、「システムの再インストール」を選び新"
-"規にシステムをインストールします。"
+"アップグレードするには一つを選び、新規にシステムをインストールするには。"
+"「システムの再インストール」を選んでください。"
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
 msgstr "root パスワード"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
 msgstr ""
-"root パスワードを設定してください。パスワードを2回入力してパスワードに間違い"
-"がないことをを確認します。 root パスワードはシステムのセキュリティ上、重要な"
+"root パスワードを設定してください。パスワードを2回入力し、パスワードを覚えており、"
+"タイプミスがないことを確実にします。 root パスワードはシステムのセキュリティ上、重要な"
 "部分を占めることを忘れないでください。"
 
 #: ../textw/userauth_text.py:60
@@ -5595,15 +5580,14 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"z/IPL ブートローダはインストールが完了してからシステム上にインストールされま"
+"z/IPL ブートローダーはインストールが完了してからシステム上にインストールされま"
 "す。ここで、ご使用のマシンまたは設定が必要とする追加のカーネル及び chandev パ"
-"ラメータを入力することができます。"
+"ラメーターを入力することができます。"
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
@@ -5647,35 +5631,35 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "オフィス"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "マルチメディア"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "おめでとうございます"
+msgstr "仮想化"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "クラスタリング"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "ストレージのクラスタリング"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "インストール開始"
+msgstr "インストール番号"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"申込分を含めたすべてのサポートパッケージをインストールするには、インストール"
+"番号を入力してください。"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5690,6 +5674,13 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"インストール番号を見つけることができないときは、 http://www."
+"redhat.com/apps/support/in.html に相談してください。\n"
+"\n"
+"スキップしたら:\n"
+"* 申込分を含めたすべてのパッケージにアクセスできないかもしれません。\n"
+"* Red Hat Enterprise Linux の未サポート/未保証のインストールになりかねません。\n"
+"* 申込分に含まれていないパッケージのソフトウェアやセキュリティ更新は受け取れません。"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6071,9 +6062,8 @@ msgid "Hard drive"
 msgstr "ハードドライブ"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s ディレクトリ:"
+msgstr "NFS ディレクトリ:"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6298,11 +6288,10 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "デバイスキックスタートのコマンド %s に対する引数が不正です: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"キックスタートのドライバディスクコマンドに不正な引数が指定されました: %s %s"
+"キックスタートデバイスコマンドにはモジュールタイプと名前とを指定しなければなりません"
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6646,9 +6635,8 @@ msgid "Disable _dmraid device"
 msgstr "dmraid デバイスを無効にする (_D)"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "ハードドライブ"
+msgstr "ドライブ追加 (_A)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
