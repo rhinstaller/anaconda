@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-03 11:43+0900\n"
+"PO-Revision-Date: 2007-05-03 12:22+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3152,7 +3152,6 @@ msgid "_Upgrade an existing installation"
 msgstr "既存インストールのアップグレード(_U)"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3198,7 +3197,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "物理エクステントの変更を確認"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3342,11 +3340,9 @@ msgid "Mount point in use"
 msgstr "使用中のマウントポイント"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
-"マウントポイント \"%s\" は使用中です。別のマウントポイントを選択してくださ"
-"い。"
+"マウントポイント \"%s\" は使用中です。他を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1273
 msgid "Illegal Logical Volume Name"
@@ -3363,7 +3359,6 @@ msgstr ""
 "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3406,18 +3401,16 @@ msgid "No free space"
 msgstr "空き領域はありません"
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "新規の論理ボリュームを作成する空き領域がボリュームグループには残っていませ"
-"ん。論理ボリュームを追加するには、現存の論理ボリュームの 1 つまたは複数のサイ"
+"ん。論理ボリュームを追加するには、一つ以上の既存の論理ボリュームのサイ"
 "ズを縮小する必要があります。"
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "本当に論理ボリューム 「%s」 を削除しますか?"
 
@@ -3776,18 +3769,17 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 のプレフィックスは 0 から 128 の間にしてください。"
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"他のオペレーティングシステムがブートできるようにブートローダを設定できます。 "
-"これにより、一覧からブートするオペレーティングシステムを選択できる様になりま"
-"す。 自動的に認識されない他のオペレーティングシステムを追加するには、「追加」"
+"一覧から選択することで他のオペレーティングシステムをブートできるようにブート"
+"ローダーを構成することができます。 "
+"自動的に認識されない他のオペレーティングシステムを追加するには、「追加」"
 "をクリックします。デフォルトでブートするオペレーティングシステムを変更するに"
-"は、目的のオペレーティングシステムで「デフォルト」を選択します。"
+"は、そうしたいオペレーティングシステムの横の「デフォルト」を選択します。"
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 msgid "Default"
@@ -3802,12 +3794,11 @@ msgid "Image"
 msgstr "イメージ"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"ブートローダメニューに表示されるラベルを入力します。デバイス(または、ハードド"
+"ブートローダーメニューに表示されるラベルを入力します。デバイス(または、ハードド"
 "ライブとパーティション番号)とは、起動用に使うデバイスのことです。"
 
 #: ../iw/osbootwidget.py:149
@@ -3957,10 +3948,9 @@ msgstr "パーティション設定"
 #: ../iw/partition_gui.py:633
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
@@ -3972,7 +3962,7 @@ msgstr "パーティション設定エラー"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "あなたが要求したパーティション設定案には以下の警告があります。"
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4082,7 +4072,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4090,8 +4079,8 @@ msgid ""
 "\n"
 msgstr ""
 "RAIDを使用するには、まず「ソフトウェア RAID」タイプのパーティションを少くと"
-"も 2 つ作成する必要があります。次に、フォーマット及びマウントが可能な RAID デ"
-"バイスを作成します。\n"
+"も 2 つ作成する必要があります。そうすると、フォーマット及びマウントが可能な RAID デ"
+"バイスが作成できるようになります。\n"
 "\n"
 
 #: ../iw/partition_gui.py:1254
@@ -4170,13 +4159,12 @@ msgid "Check for _bad blocks?"
 msgstr "不良ブロックをチェックしますか(_B)?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 "タイプ '%s' のパーティションは単独ドライブに入れる必要があります。これは行う"
-"には、「選択可能なドライブ」のチックリストからそのドライブを選択します。"
+"には、「選択可能なドライブ」のチェックリストからそのドライブを選択します。"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
