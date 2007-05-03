@@ -1072,8 +1072,11 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     module = (char *) poptGetArg(optCon);
 
     if (!type || !module) {
-        logMessage(WARNING, "type and module should be specified for kickstart "
-                   "device command");
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Both module type and name must be specified for "
+                         "the kickstart device command."));
+        return;
     }
 
     if (opts) {

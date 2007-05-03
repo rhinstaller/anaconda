@@ -7,6 +7,9 @@
 	* textw/partition_text.py (PartitionWindow.editLVRequest):  Don't
 	traceback if they neglect to enter an lvsize (#221253).
 
+	* loader2/modules.c (loadKickstartModule):  Don't attempt to load a
+	module when the kickstart device line is incorrect (#227510).
+
 2007-05-02  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doRepoSetup):  Handle errors resulting
