@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-03 12:22+0900\n"
+"PO-Revision-Date: 2007-05-03 14:16+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4245,7 +4245,6 @@ msgid "Source Drive Error"
 msgstr "ソースドライブエラーです"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4255,11 +4254,9 @@ msgstr ""
 "選択されたソースドライブには「ソフトウェア RAID」タイプではないパーティション"
 "があります。\n"
 "\n"
-"このドライブのクローンを作成する前に、これらのパーティションを削除する必要が"
-"あります。"
+"これらのパーティションを削除しないと、このドライブのクローンを作成できません。"
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4267,14 +4264,13 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"選択されたソースドライブにはドライブ /dev/%s に拘束されていないパーティション"
+"選択されたソースドライブにはドライブ /dev/%s に入っていないパーティション"
 "があります。\n"
 "\n"
-"このドライブのクローンを作成する前に、これらのパーティションを削除するか、 こ"
-"のドライブに拘束する必要があります。"
+"これらのパーティションを削除するか、このドライブに制限しないと、このドライブ"
+"のクローンを作成できません。"
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4284,8 +4280,7 @@ msgstr ""
 "選択されたソースドライブにはアクティブなソフトウェア RAID デバイスのメンバー"
 "であるソフトウェア RAID パーティションがあります。\n"
 "\n"
-"このドライブのクローンを作成する前に、これらのパーティションを削除する必要が"
-"あります。"
+"これらのパーティションを削除しないと、このドライブのクローンを作成できません。"
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4303,7 +4298,6 @@ msgstr ""
 "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4358,7 +4352,6 @@ msgstr ""
 "敗しました。"
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4375,13 +4368,13 @@ msgid ""
 msgstr ""
 "クローンドライブツール\n"
 "\n"
-"このツールを使用すると RAID アレイの設定に必要な手間を大幅に省くことができる"
-"ようになります。目的のパーティション設定でレイアウトしたソースドライブを使っ"
-"て、このレイアウトのクローンを同じサイズのドライブに作成するという発想です。"
-"これで、 RAID デバイスを作成することができます。\n"
+"このツールを使用すると RAID アレイの設定に必要な手間を大幅に省くことができ"
+"ます。希望するパーティションレイアウトで準備したソースドライブを使い、"
+"このレイアウトを他の類似サイズのドライブにクローニングします。"
+"そうすると、 RAID デバイスを作成することができます。\n"
 " \n"
-"注意：ソースドライブは、そのドライブ以外に存在するパーティションを持つことは"
-"できません。また、未使用のソフトウェア RAID パーティションに限られ、他のパー"
+"注意：ソースドライブは、そのドライブ以外に存在するパーティションを持てず、"
+"また、未使用のソフトウェア RAID パーティションしか持てません。他のパー"
 "ティションタイプは使用できません。\n"
 "\n"
 "ターゲットドライブ上にあるものはすべてこのプロセスによって消去されます。"
@@ -4426,7 +4419,6 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4439,9 +4431,8 @@ msgid "Invalid Repository Name"
 msgstr "無効なリポジトリ名です"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "長さがゼロにならないようリポジトリ名を入力してください。"
+msgstr "リポジトリ名を入力しなければなりません。"
 
 #: ../iw/task_gui.py:131
 msgid "Invalid Repository URL"
@@ -4466,34 +4457,34 @@ msgstr "タイムゾーンの選択"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:106
 msgid "Upgrade Boot Loader Configuration"
-msgstr "ブートローダ設定のアップグレード"
+msgstr "ブートローダー設定のアップグレード"
 
 #: ../iw/upgrade_bootloader_gui.py:95
 msgid "_Update boot loader configuration"
-msgstr "ブートローダ設定の更新(_U)"
+msgstr "ブートローダー設定の更新(_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "This will update your current boot loader."
-msgstr "これで現在のブートローダを更新します。"
+msgstr "これで現在のブートローダーを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:100 ../textw/upgrade_bootloader_text.py:78
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "システムが変わったので、ブートローダー構成は自動的には更新されません。"
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "インストーラーは現在システムで使用中のブートローダを検出できません。"
+msgstr "インストーラーは現在システムで使用中のブートローダーを検出できません。"
 
 #: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
-"インストーラーが現在 %s にインストールされている %s ブートローダを検出しまし"
+"インストーラーが現在 %s にインストールされている %s ブートローダーを検出しまし"
 "た。"
 
 #: ../iw/upgrade_bootloader_gui.py:114
@@ -4502,29 +4493,27 @@ msgstr "これは推奨されるオプションです。"
 
 #: ../iw/upgrade_bootloader_gui.py:119
 msgid "_Create new boot loader configuration"
-msgstr "新しいブートローダ設定を作成(_C)"
+msgstr "新しいブートローダー設定を作成(_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:121
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"新しいブートローダ設定を作成することができます。ブートローダを切替る場合は、"
-"これを選択してください。"
+"このオプションは新しいブートローダー設定を作成します。ブートローダーを変更"
+"したい場合は、これを選択してください。"
 
 #: ../iw/upgrade_bootloader_gui.py:128
 msgid "_Skip boot loader updating"
-msgstr "ブートローダの更新をスキップ(_S)"
+msgstr "ブートローダーの更新をスキップ(_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:129
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"ブートローダ設定にまったく変更を行いません。他社製ブートローダを使用している"
-"場合は、これを選択してください。"
+"このオプションはブートローダー設定をまったく変更しません。他社製ブートローダー"
+"を使用している場合は、これを選択してください。"
 
 #: ../iw/upgrade_bootloader_gui.py:140
 msgid "What would you like to do?"
@@ -4535,7 +4524,6 @@ msgid "Migrate File Systems"
 msgstr "ファイルシステムの転換"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4544,8 +4532,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s の本リリースでは ext3 ジャーナリングファイルシステムをサポートしています。"
-"従来、 %s で配付されてきた ext2 に比べ優れた点をいくつか備えています。データ"
+"本リリース %s では ext3 ジャーナリングファイルシステムをサポートしています。"
+"従来、 %s で配付されてきた ext2 に比べ優れた点をいくつか備えています。インス"
+"トールプログラムでデータ"
 "を失うことなく ext2 形式の パーティションを ext3 に転換することができます。\n"
 "\n"
 "どのパーティションを転換しますか?"
@@ -4555,15 +4544,15 @@ msgid "Upgrade Swap Partition"
 msgstr "swap パーティションのアップグレード"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"2.4 カーネルは旧式のカーネルに比べ、システムの RAM の 最大 2 倍となる膨大な "
-"swap 領域を必要とします。現在、 %dMB の swap 領域を確保していますが、ここで"
+"最近のカーネル(2.4以降)では旧来のカーネルに比べ、膨大な swap 領域を必要とし、"
+"最大でシステムの RAM の 2 倍が必要です。"
+"現在、 %dMB の swap 領域を確保していますが、ここで"
 "ファイルシステムのいずれかに追加の swap 領域を作成することができます。"
 
 #: ../iw/upgrade_swap_gui.py:96
@@ -4594,7 +4583,6 @@ msgid "Free Space (MB)"
 msgstr "空き領域 (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -4611,7 +4599,6 @@ msgid "I _don't want to create a swap file"
 msgstr "swap ファイルを作成しません(_D)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -4630,11 +4617,11 @@ msgstr "swap パーティション用に選択したデバイスには十分な�
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr "z/IPL ブートローダの設定"
+msgstr "z/IPL ブートローダーの設定"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "z/IPL ブートローダがシステムにインストールされます。"
+msgstr "z/IPL ブートローダーがシステムにインストールされます。"
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4652,7 +4639,7 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"z/IPL ブートローダがシステムにインストールされます。\n"
+"z/IPL ブートローダーがシステムにインストールされます。\n"
 "\n"
 "root パーティションはパーティションの設定で既に選択したパーティションになりま"
 "す。\n"
@@ -4663,35 +4650,34 @@ msgstr ""
 "インストール後に変更を加える場合は、/etc/zipl.conf の設定ファイルを自由に変更"
 "できます。\n"
 "\n"
-"ここでご使用のマシンまたは設定が必要とする追加のカーネルパラメータを入力する"
+"ここでご使用のマシンまたは設定が必要とする追加のカーネルパラメーターを入力する"
 "ことができます。"
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr "カーネルパラメータ"
+msgstr "カーネルパラメーター"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr "Chandev パラメータ"
+msgstr "Chandev パラメーター"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr "使用するブートローダを選択してください。"
+msgstr "使用するブートローダーを選択してください。"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr "GRUB ブートローダを使用する"
+msgstr "GRUB ブートローダーを使用する"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr "ブートローダを使用しない"
+msgstr "ブートローダーを使用しない"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr "ブートローダ(設定)をスキップ"
+msgstr "ブートローダー(設定)をスキップ"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4699,12 +4685,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"いずれのブートローダもインストールしないよう選択しています。優先される特定の"
-"必要性がない限り、ブートローダのインストールを強く推奨します。ハードドライブ"
+"いずれのブートローダーもインストールしないよう選択していますが、特段の"
+"必要性がない限り、推奨できません。ハードドライブ"
 "からシステムを Linux で直接起動するには、ほとんどの場合においてブートローダー"
 "が必要となります。\n"
 "\n"
-"本当にブートローダのインストールをスキップしますか?"
+"本当にブートローダーのインストールをスキップしますか?"
 
 #: ../textw/bootloader_text.py:92
 #, fuzzy
@@ -4724,7 +4710,7 @@ msgstr "LBA32 の強制使用(通常は必要なし)"
 
 #: ../textw/bootloader_text.py:165
 msgid "Where do you want to install the boot loader?"
-msgstr "ブートローダのインストール場所を指定してください。"
+msgstr "ブートローダーのインストール場所を指定してください。"
 
 #: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
