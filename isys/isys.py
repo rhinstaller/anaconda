@@ -358,7 +358,10 @@ def umount(what, removeDir = 1):
     rc = _isys.umount(what)
 
     if removeDir and os.path.isdir(what):
-	os.rmdir(what)
+        try:
+            os.rmdir(what)
+        except:
+            pass
 
     if not rc and mountCount.has_key(what):
 	del mountCount[what]
