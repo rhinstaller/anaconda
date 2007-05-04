@@ -3,6 +3,11 @@
 	* loader2/linuxrc.s390: Sanity check network information so we get
 	correct data written to the ifcfg-ethX scripts (#234152).
 
+	* loader2/loader.c (doLoaderMain): Remember early network bring-up
+	so we don't try to bring networking up in stage 2 if we already have
+	it. Prompt for information when DHCP fails (#232400).
+	* loader2/net.c (kickstartNetworkUp): Likewise.
+
 2007-05-03  Chris Lumens  <clumens@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.comboChanged):  Drive

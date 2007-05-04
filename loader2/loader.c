@@ -1100,8 +1100,16 @@ static char *doLoaderMain(char * location,
             setupNetworkDeviceConfig(&netDev, loaderData);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
-            loaderData->noipv4 = netDev.noipv4;
-            loaderData->noipv6 = netDev.noipv6;
+            if ((loaderData->noipv4 = netDev.noipv4) == 1)
+                loaderData->ipinfo_set = 0;
+            else
+                loaderData->ipinfo_set = 1;
+
+            if ((loaderData->noipv6 = netDev.noipv6) == 1)
+                loaderData->ipv6info_set = 0;
+            else
+                loaderData->ipv6info_set = 1;
+
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_IFACE;

@@ -1796,6 +1796,10 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr) {
     int rc;
 
+    /* we may have networking already, so return to the caller */
+    if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1))
+        return 0;
+
     initLoopback();
 
     memset(netCfgPtr, 0, sizeof(*netCfgPtr));
