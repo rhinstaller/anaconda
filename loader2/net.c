@@ -933,8 +933,8 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newtGridSetField(egrid, 1, pos, NEWT_GRID_SUBGRID, qgrid,
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        newtComponentAddCallback(ipcomps->ipv4Entry, ipCallback, &ipcomps);
-        newtComponentAddCallback(ipcomps->cidr4Entry, cidrCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->ipv4Entry, ipCallback, ipcomps);
+        newtComponentAddCallback(ipcomps->cidr4Entry, cidrCallback, ipcomps);
 
         /* populate fields if we have data already */
         tip = NULL;
@@ -985,8 +985,8 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newtGridSetField(egrid, 1, pos, NEWT_GRID_SUBGRID, rgrid,
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        newtComponentAddCallback(ipcomps->ipv6Entry, ipCallback, &ipcomps);
-        newtComponentAddCallback(ipcomps->cidr6Entry, cidrCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->ipv6Entry, ipCallback, ipcomps);
+        newtComponentAddCallback(ipcomps->cidr6Entry, cidrCallback, ipcomps);
 
         /* populate fields if we have data already */
         tip = NULL;
@@ -1053,8 +1053,8 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         newtEntrySet(ipcomps->nsEntry, ret, 1);
     }
 
-    newtComponentAddCallback(ipcomps->gwEntry, ipCallback, &ipcomps);
-    newtComponentAddCallback(ipcomps->nsEntry, ipCallback, &ipcomps);
+    newtComponentAddCallback(ipcomps->gwEntry, ipCallback, ipcomps);
+    newtComponentAddCallback(ipcomps->nsEntry, ipCallback, ipcomps);
 
     /* button bar at the bottom of the window */
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
