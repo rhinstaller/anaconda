@@ -94,6 +94,32 @@ def vgmknodes(volgroup=None):
         log.error("running vgmknodes failed: %s" %(rc,))
 #        lvmDevicePresent = 0
 
+def vgcheckactive(volgroup = None):
+    """Check if volume groups are active
+
+    volgroup - optional parameter to inquire about a specific volume group.
+    """
+    global lvmDevicePresent
+    if flags.test or lvmDevicePresent == 0:
+        return False
+
+    args = ["lvs", "--noheadings", "--units", "b", "--nosuffix",
+            "--separator", ":", "--options", "vg_name,lv_name,attr"]
+    for line in lvmCapture(*args):
+        try:
+            (vg, lv, attr) = line
+        except:
+            continue
+
+        log.info("lv %s/%s, attr is %s" %(vg, lv, attr))
+        if attr.find("a") == -1:
+            continue
+
+        if volgroup is None or volgroup == vg:
+            return True
+
+    return False
+
 def vgactivate(volgroup = None):
     """Activate volume groups by running vgchange -ay.
 

@@ -707,8 +707,10 @@ class DiskSet:
             if label:
                 labels[dev] = label
 
-        lvm.vgscan()
-        lvm.vgactivate()
+        active = lvm.vgcheckactive()
+        if not active:
+            lvm.vgscan()
+            lvm.vgactivate()
 
         for (vg, lv, size, lvorigin) in lvm.lvlist():
             if lvorigin:
@@ -718,7 +720,8 @@ class DiskSet:
             if label:
                 labels[node] = label
 
-        lvm.vgdeactivate()
+        if not active:
+            lvm.vgdeactivate()
 
         return labels
 

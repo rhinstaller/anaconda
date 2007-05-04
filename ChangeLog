@@ -1,3 +1,10 @@
+2007-05-04  Peter Jones  <pjones@redhat.com>
+
+	* lvm.py: add lvm.vgcheckactive(), which tells you if lvm is active.
+
+	* partedUtils.py (DiskSet.getLabels): only activate/deactivate lvm
+	if it's not already active.
+
 2007-05-04  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c: Patch from Dawei Pang <dwpang AT redflag-linux.com>
