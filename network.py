@@ -468,7 +468,8 @@ class Network:
 
         f = open(instPath + "/etc/sysconfig/network", "w")
         f.write("NETWORKING=yes\n")
-        f.write("NETWORKING_IPV6=%s\n" % useIPV6)
+        f.write("NETWORKING_IPV6=")
+        f.write("%s\n" % self.useIPv6 and "yes" or "no")
         f.write("HOSTNAME=")
 
         # use instclass hostname if set(kickstart) to override
