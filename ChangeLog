@@ -8,6 +8,11 @@
 	it. Prompt for information when DHCP fails (#232400).
 	* loader2/net.c (kickstartNetworkUp): Likewise.
 
+	* isys/isys.py (umount): Don't traceback when trying to remove the
+	/mnt/sysimage tree because we may have /var/lib/rpm data in there
+	already. Occurs when users start a new install and then decide to
+	cancel it and proceed with an upgrade (#227650).
+
 2007-05-03  Chris Lumens  <clumens@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.comboChanged):  Drive
