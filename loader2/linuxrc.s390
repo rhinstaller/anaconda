@@ -28,6 +28,29 @@ VERSION=1.1
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
 
+# check IP address format
+# param: IP string
+# return: 0 (valid IP) or 1 (invalid IP)
+checkip()
+{
+    checkipv6 $1 || checkipv4 $1
+    return $?
+}
+
+checkipv6()
+{
+    ip=$1
+    echo $ip | awk -F':' 'BEGIN{ error = 0} { if (NF > 8) error=1;  i = 1; while (i++<=NF) {if (!match(toupper($i), "^[0-9A-F]*$")){ error=1}}exit error}'
+    return $?;
+}
+
+checkipv4()
+{
+    ip=$1
+    echo $ip | awk -F'.' '{ if (NF != 4) { exit 1 } i=1; while (i<=NF) { if ($i>255 || $i<0) { exit 1 }; i=i+1; } exit 0 }'
+    return $?
+}
+
 doshutdown()
 {
 	 exec /sbin/shutdown
@@ -184,7 +207,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-PATH="PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/X11R6/bin"
+PATH="$PATH:/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/X11R6/bin"
 export PATH
 HOME=/
 export HOME
@@ -262,25 +285,55 @@ while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
 	read HOSTNAME
 done
 while [ -z "$IPADDR" ]; do
-  echo $"Enter the IP address of your new Linux guest:"
+  echo $"Enter a valid IP address of your new Linux guest:"
   read IPADDR
+  checkip $IPADDR
+  ret=$?
+  if [ $ret -eq 1 ]; then
+    echo -n "Invalid IP address format. "
+    unset IPADDR
+  fi
 done
 while [ -z "$NETWORK" ]; do
-  echo $"Enter the network address of the new Linux guest:"
+  echo $"Enter a valid network address of the new Linux guest:"
   read NETWORK
+  checkip $NETWORK
+  ret=$?
+  if [ $ret -eq 1 ]; then
+    echo -n "Invalid network address format. "
+    unset NETWORK
+  fi
 done
 if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK
+		  checkip $NETMASK
+		  ret=$?
+		  if [ $ret -eq 1 ]; then
+		    echo -n "Invalid netmask format. "
+		    unset NETMASK
+		  fi
 	 done
 	 while [ -z "$BROADCAST" ]; do
 		  echo $"Enter the broadcast address for the new Linux guest:"
 		  read BROADCAST
+		  checkip $BROADCAST
+		  ret=$?
+		  if [ $ret -eq 1 ]; then
+		    echo -n "Invalid broadcast address format. "
+		    unset BROADCAST
+		  fi
 	 done
 	 while [ -z "$GATEWAY" ]; do
 		  echo $"Enter your default gateway:"
 		  read GATEWAY
+		  checkip $GATEWAY
+		  ret=$?
+		  if [ $ret -eq 1 ]; then
+		    echo -n "Invalid gateway address format. "
+		    unset GATEWAY
+		  fi
 	 done
     if [ ":$NETTYPE" = ":lcs" ]; then
         if [ -n "$RUNKS" -a -z "$PORTNAME" ]; then
