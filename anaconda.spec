@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.57
+Version: 11.2.0.58
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May  4 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.58-1
+- Set preferred rpm color (pnasrat, #235757)
+- Add mk-rescueimage.ia64 (prarit, #236221)
+- Be smarter about getting pid of iscsiadm (clumens, #223257)
+- Relabel all of /var/log (#236774)
+- Fixes for appletouch (#238355)
+- Fix homedir labeling (#238277)
+- Don't traceback in text mode without disks (#238695)
+- Fix vncconnect (clumens, #238827)
+- Don't eject too soon in kickstart (clumens, #238711, #239002)
+- Fix lvm activation/deactivation (pjones, #224635)
+
 * Mon Apr 30 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.57-1
 - fix build
 
