@@ -16,13 +16,12 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-04 11:33+1000\n"
+"PO-Revision-Date: 2007-05-06 00:36+0200\n"
 "Last-Translator: PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -876,7 +875,7 @@ msgid "_Continue"
 msgstr "_Weiter"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -886,7 +885,7 @@ msgid ""
 msgstr ""
 "Fehler beim Einhängen des Geräts %s als %s: %s\n"
 "\n"
-"Das heißt, dass diese Partition nicht formatiert wurde.\n"
+"Geräte in /etc/fstab sollten durch ihre Bezeichnung und nicht durch den Gerätenamen spezifiziert werden.\n"
 "\n"
 "Drücken Sie OK, um Ihr System neu zu starten."
 
@@ -937,20 +936,17 @@ msgstr ""
 "Bitte beheben Sie das Problem und starten Sie den Installationsprozess neu."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Ungültige Bootkennung"
+msgstr "Ungültige Bezeichnung"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Mehrere Geräte auf Ihrem System haben das Etikett %s.  Etiketten müssen über "
-"Ihre Geräte hinweg eindeutig sein, um fehlerfrei zu arbeiten.\n"
-"\n"
-"Bitte beheben Sie das Problem und starten Sie den Installationsprozess neu."
+"Es wurde eine ungültige Bezeichnung für Gerät %s gefunden.  Bitte beheben Sie das Problem und "
+"starten Sie den Installationsprozess erneut."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -4606,6 +4602,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Aufgrund von Systemänderungen kann Ihre Bootloader-Konfiguration nicht"
+"automatisch aktualisiert werden."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -6948,18 +6946,16 @@ msgid "_Add target"
 msgstr "Ziel _hinzufügen"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "%s _installieren"
+msgstr "Installieren"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Installieren der Live CD auf der Festplatte"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Installation startet"
+msgstr "Auf der Festplatte installieren"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7238,9 +7234,8 @@ msgid "Punjabi"
 msgstr "Punjabi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Kroatisch"
+msgstr "Romänisch"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7301,3 +7296,4 @@ msgstr "Walisisch"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
