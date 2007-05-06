@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-03-28 13:00+0100\n"
+"PO-Revision-Date: 2007-05-06 16:01+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -844,7 +844,7 @@ msgid "_Continue"
 msgstr "_Pokračovat"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -854,7 +854,7 @@ msgid ""
 msgstr ""
 "Chyba při připojování zařízení %s jako %s: %s\n"
 "\n"
-"Problém je obvykle způsoben tím, že zařízení není naformátováno.\n"
+"Zařízení v souboru /etc/fstab musí být určena jmenovkou (label) a ne názvem zařízení.\n"
 "\n"
 "Klikněte na 'OK' pro restart počítače."
 
@@ -905,20 +905,17 @@ msgstr ""
 "Opravte jmenovky a spusťte instalaci znovu."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Neplatný název v zavaděči"
+msgstr "Neplatná jmenovka"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Několik zařízení ve vašem počítači má jmenovku %s. Aby váš systém správně "
-"fungoval, musí mít jmenovky různé názvy.\n"
-"\n"
-"Opravte jmenovky a spusťte instalaci znovu."
+"Na zařízení %s je neplatná jmenovka (label). Opravte problém a "
+"spusťte instalační program znovu."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1555,6 +1552,9 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Zařízení /dev/%s obsahuje více než 15 oddílů. SCSI subsystém v jádře Linuxu "
+"zatím více, než 15 zařízení neumožňuje. Nebude možné provádět změny v "
+"rozdělení disku ani používat oddíly za 15. oddílem /dev/%s v %s."
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -4434,6 +4434,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Konfigurace zavaděče nemůže být kvůli systémovým změnám automaticky "
+"aktualizována."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -6704,18 +6706,16 @@ msgid "_Add target"
 msgstr "_Přidat cíl"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_Instalovat %s"
+msgstr "_Instalovat"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Nainstalovat Live CD na pevný disk"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Start instalace"
+msgstr "Instalovat na pevný disk"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6992,9 +6992,8 @@ msgid "Punjabi"
 msgstr "Paňdžábština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Chorvatština"
+msgstr "Rumunština"
 
 #. generated from lang-table
 msgid "Russian"
