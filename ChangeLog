@@ -1,3 +1,8 @@
+2007-05-07  Chris Lumens  <clumens@redhat.com>
+
+	* upgrade.py (mountRootPartition):  Back out fix from 2007-04-30 now
+	that we have smarter activation/deactivation code.
+
 2007-05-04  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
