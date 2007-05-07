@@ -2,6 +2,8 @@
 
 	* network.py: Update calls to configNetDevice() and dhcpNetDevice() in
 	isys to match new parameter list.
+	* isys/isys.py (dhcpNetDevice): Don't need to take dhcpclass as a
+	seperate argument since we have that in the dev object.
 
 2007-05-07  Jeremy Katz  <katzj@redhat.com>
 

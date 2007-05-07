@@ -560,7 +560,7 @@ def setResolvRetry(count):
 
 # called from anaconda to run DHCP (that's DHCP, DHCPv6, or auto neighbor
 # discovery) on a particular interface
-def dhcpNetDevice(device, klass = None):
+def dhcpNetDevice(device):
     # returns None on failure, "" if no nameserver is found, nameserver IP
     # otherwise
     devname = device.get('device')
@@ -568,6 +568,7 @@ def dhcpNetDevice(device, klass = None):
     v6 = 0
     v4method = ''
     v6method = ''
+    klass = device.get('dhcpclass')
 
     if device.get('useipv4'):
         v4 = 1
