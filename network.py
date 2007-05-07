@@ -324,7 +324,7 @@ class Network:
 	    for dev in self.netdevices.values():
                 if (dev.get('bootproto').lower() == "dhcp" and
                     dev.get('onboot') == "yes"):
-		    ret = isys.pumpNetDevice(dev.get('device'), dev.get('dhcpclass'))
+		    ret = isys.dhcpNetDevice(dev)
                     if ret is None:
                         continue
                     myns = ret
@@ -333,10 +333,7 @@ class Network:
                 elif (dev.get('ipaddr') and dev.get('netmask') and
                       self.gateway is not None and dev.get('onboot') == "yes"):
                     try:
-                        isys.configNetDevice(dev.get('device'),
-                                             dev.get('ipaddr'),
-                                             dev.get('netmask'),
-                                             self.gateway)
+                        isys.configNetDevice(dev, self.gateway)
                         self.isConfigured = 1
                         break
                     except SystemError:

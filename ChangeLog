@@ -1,3 +1,8 @@
+2007-05-07  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py: Update calls to configNetDevice() and dhcpNetDevice() in
+	isys to match new parameter list.
+
 2007-05-07  Jeremy Katz  <katzj@redhat.com>
 
 	* bootdisk/i386/syslinux.cfg: Make sure the highlighting is sane
