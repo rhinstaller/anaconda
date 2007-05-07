@@ -1,3 +1,9 @@
+2007-05-07  Jeremy Katz  <katzj@redhat.com>
+
+	* bootdisk/i386/syslinux.cfg: Make sure the highlighting is sane
+	when the menu falls back to text mode
+	* bootdisk/x86_64/syslinux.cfg: Likewise.
+
 2007-05-07  Chris Lumens  <clumens@redhat.com>
 
 	* upgrade.py (mountRootPartition):  Back out fix from 2007-04-30 now
