@@ -3,7 +3,11 @@
 
 #define MIN_RAM			64000	    
 #define MIN_GUI_RAM		128000
+#if defined(__x86_64__) || defined(__ia64__) || defined(__s390x__) || defined(__ppc64__)
+#define EARLY_SWAP_RAM		400000
+#else
 #define EARLY_SWAP_RAM		240000
+#endif
 
 /* returns -2 for errno, -1 for unknown device */
 int devMakeInode(char * devName, char * path);
