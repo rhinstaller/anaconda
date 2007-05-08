@@ -1,6 +1,6 @@
                                    Kickstart
 
-   Copyright (c) 2003-2006 by Red Hat, Inc.
+   Copyright (c) 2003-2007 by Red Hat, Inc.
 
    This material may be distributed only subject to the terms and 
    conditions set forth in the Open Publication License, V1.0 or later 
@@ -429,9 +429,12 @@ Creating the Kickstart File
               Directory containing the RedHat directory of the installation
               tree.
 
-	    * --opts=
+            * --opts=
 
-              Mount options to use for mounting the NFS export. (optional)
+              Mount options to use for mounting the NFS export.  Any
+              options that can be specified in /etc/fstab for an NFS mount
+              are allowed.  The options are listed in the nfs(5) man page.
+              Multiple options are separated with a comma.
 
             For example:
 
