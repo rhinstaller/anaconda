@@ -1,3 +1,9 @@
+2007-05-08  Chris Lumens  <clumens@redhat.com>
+
+	* docs/kickstart-docs.txt:  Describe nfs --opts (#234187).
+	Remove user and service examples from %post script section.
+	Explain %packages --default.
+
 2007-05-07  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.h (EARLY_SWAP_RAM): Bump early swap on 64bit

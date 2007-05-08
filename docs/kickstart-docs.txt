@@ -128,10 +128,10 @@ Creating the Kickstart File
    use a graphical interface for creating your kickstart file, you can use
    the Kickstart Configurator application.
 
-     Note                                                                     
-     If the option is followed by an equals mark (=), a value must be         
-     specified after it. In the example commands, options in brackets ([])    
-     are optional arguments for the command.                                  
+     Note
+     If the option is followed by an equals mark (=), a value must be
+     specified after it. In the example commands, options in brackets ([])
+     are optional arguments for the command.
 
    auth or authconfig (required)
 
@@ -177,7 +177,7 @@ Creating the Kickstart File
             Specify which drive is first in the BIOS boot order.  For
             example:
 
-            bootloader --driveorder=sda,hda                 
+            bootloader --driveorder=sda,hda
 
        --location=
 
@@ -212,7 +212,7 @@ Creating the Kickstart File
        Removes partitions from the system, prior to creation of new
        partitions. By default, no partitions are removed.
 
-       Note                                                      
+       Note
        If the clearpart command is used, then the --onpart command cannot
        be used on a logical partition.
 
@@ -226,7 +226,7 @@ Creating the Kickstart File
             the following clears the partitions on the first two drives on
             the primary IDE controller:
 
-            clearpart --drives hda,hdb                      
+            clearpart --drives hda,hdb
 
        --initlabel
 
@@ -258,7 +258,7 @@ Creating the Kickstart File
        devices. The device command, which tells the installation program
        to install extra modules, is in this format:
 
-       device <type> <moduleName> --opts=<options>                 
+       device <type> <moduleName> --opts=<options>
 
        <type>
 
@@ -288,14 +288,14 @@ Creating the Kickstart File
        driverdisk command to tell the installation program where to look
        for the driver disk.
 
-       driverdisk <partition> [--type=<fstype>]                    
+       driverdisk <partition> [--type=<fstype>]
 
        Alternatively, a network location can be specified for the driver
        diskette:
 
-       driverdisk --source=ftp://path/to/dd.img                    
-       driverdisk --source=http://path/to/dd.img                   
-       driverdisk --source=nfs:host:/path/to/img                   
+       driverdisk --source=ftp://path/to/dd.img
+       driverdisk --source=http://path/to/dd.img
+       driverdisk --source=nfs:host:/path/to/img
 
        <partition>
 
@@ -429,13 +429,16 @@ Creating the Kickstart File
               Directory containing the RedHat directory of the installation
               tree.
 
-	    * --opts=
+            * --opts=
 
-              Mount options to use for mounting the NFS export. (optional)
+              Mount options to use for mounting the NFS export.  Any
+              options that can be specified in /etc/fstab for an NFS mount
+              are allowed.  The options are listed in the nfs(5) man page.
+              Multiple options are separated with a comma.
 
             For example:
 
-            nfs --server=nfsserver.example.com --dir=/tmp/install-tree 
+            nfs --server=nfsserver.example.com --dir=/tmp/install-tree
 
        url
 
@@ -444,7 +447,7 @@ Creating the Kickstart File
 
             For example:
 
-            url --url http://<server>/<dir>                 
+            url --url http://<server>/<dir>
 
             or:
 
@@ -520,7 +523,7 @@ Creating the Kickstart File
        the language to English, the kickstart file should contain the
        following line:
 
-       lang en_US                                                  
+       lang en_US
 
        The file /usr/share/system-config-language/locale-list provides a
        list the valid language codes in the first column of each line and
@@ -601,9 +604,9 @@ Creating the Kickstart File
        Create the partition first, create the logical volume group, and
        then create the logical volume. For example:
 
-       part pv.01 --size 3000                                      
-       volgroup myvg pv.01                                         
-       logvol / --vgname=myvg --size=2000 --name=rootvol           
+       part pv.01 --size 3000
+       volgroup myvg pv.01
+       logvol / --vgname=myvg --size=2000 --name=rootvol
 
    logging (optional)
 
@@ -693,12 +696,12 @@ Creating the Kickstart File
            is similar, requiring a BOOTP server to supply the networking
            configuration. To direct a system to use DHCP:
 
-           network --bootproto=dhcp                        
+           network --bootproto=dhcp
 
            To direct a machine to use BOOTP to obtain its networking
            configuration, use the following line in the kickstart file:
 
-           network --bootproto=bootp                       
+           network --bootproto=bootp
 
            The static method requires that you enter all the required
            networking information in the kickstart file.  As the name
@@ -711,7 +714,7 @@ Creating the Kickstart File
 
            network --bootproto=static --ip=10.0.2.15 \
                    --netmask=255.255.255.0 --gateway=10.0.2.254 \
-                   --nameserver=10.0.2.1                          
+                   --nameserver=10.0.2.1
 
            If you use the static method, be aware of the following two
            restrictions:
@@ -733,7 +736,7 @@ Creating the Kickstart File
            installation program will configure the network to find the
            kickstart file.  For example:
 
-           network --bootproto=dhcp --device=eth0          
+           network --bootproto=dhcp --device=eth0
 
        --ip=
 
@@ -804,7 +807,7 @@ Creating the Kickstart File
        the system on different partitions, the installation program
        prompts the user and asks which installation to upgrade.
 
-       Warning                                                   
+       Warning
        All partitions created will be formatted as part of the
        installation process unless --noformat and --onpart are used.
 
@@ -824,7 +827,7 @@ Creating the Kickstart File
              To determine the size of the swap partition automatically,
              use the --recommended option:
 
-             swap --recommended                          
+             swap --recommended
 
              The minimum size of the automatically-generated swap
              partition will be no smaller than the amount of RAM in the
@@ -864,7 +867,7 @@ Creating the Kickstart File
 
            Put the partition on the already existing device. For example:
 
-           partition /home --onpart=hda1                   
+           partition /home --onpart=hda1
 
            will put /home on /dev/hda1, which must already exist.
 
@@ -928,7 +931,7 @@ Creating the Kickstart File
            Forces the partition to be created on a particular disk as
            discovered by the BIOS.
 
-       Note                                                      
+       Note
        If partitioning fails for any reason, diagnostic messages will
        appear on virtual console 3.
 
@@ -994,20 +997,20 @@ Creating the Kickstart File
        disks on the system. It also creates three swap partitions, one on
        each drive.
 
-       part raid.01 --size=60 --ondisk=sda                         
-       part raid.02 --size=60 --ondisk=sdb                         
-       part raid.03 --size=60 --ondisk=sdc                         
+       part raid.01 --size=60 --ondisk=sda
+       part raid.02 --size=60 --ondisk=sdb
+       part raid.03 --size=60 --ondisk=sdc
 
-       part swap --size=128 --ondisk=sda                           
-       part swap --size=128 --ondisk=sdb                           
-       part swap --size=128 --ondisk=sdc                           
+       part swap --size=128 --ondisk=sda
+       part swap --size=128 --ondisk=sdb
+       part swap --size=128 --ondisk=sdc
 
-       part raid.11 --size=1 --grow --ondisk=sda                   
-       part raid.12 --size=1 --grow --ondisk=sdb                   
-       part raid.13 --size=1 --grow --ondisk=sdc                   
+       part raid.11 --size=1 --grow --ondisk=sda
+       part raid.12 --size=1 --grow --ondisk=sdb
+       part raid.13 --size=1 --grow --ondisk=sdc
 
-       raid / --level=1 --device=md0 raid.01 raid.02 raid.03       
-       raid /usr --level=5 --device=md1 raid.11 raid.12 raid.13    
+       raid / --level=1 --device=md0 raid.01 raid.02 raid.03
+       raid /usr --level=5 --device=md1 raid.11 raid.12 raid.13
 
    reboot (optional)
 
@@ -1047,7 +1050,7 @@ Creating the Kickstart File
 
        Sets the system's root password to the <password> argument.
 
-       rootpw [--iscrypted] <password>                             
+       rootpw [--iscrypted] <password>
 
        --iscrypted
 
@@ -1104,7 +1107,7 @@ Creating the Kickstart File
        Sets the system time zone to <timezone> which may be any of the
        time zones listed by timeconfig.
 
-       timezone [--utc] <timezone>                                 
+       timezone [--utc] <timezone>
 
        --utc
 
@@ -1203,7 +1206,7 @@ Creating the Kickstart File
        Use to create a Logical Volume Management (LVM) group with the
        syntax:
 
-       volgroup <name> <partition> <options>                       
+       volgroup <name> <partition> <options>
 
        The options are as follows:
 
@@ -1222,9 +1225,9 @@ Creating the Kickstart File
        Create the partition first, create the logical volume group, and
        then create the logical volume. For example:
 
-       part pv.01 --size 3000                                      
-       volgroup myvg pv.01                                         
-       logvol / --vgname=myvg --size=2000 --name=rootvol           
+       part pv.01 --size 3000
+       volgroup myvg pv.01
+       logvol / --vgname=myvg --size=2000 --name=rootvol
 
    xconfig (optional)
 
@@ -1314,12 +1317,12 @@ Creating the Kickstart File
 
    Here is an example %packages selection:
 
-   %packages                                                                  
-   @ X Window System                                                          
-   @ GNOME Desktop Environment                                                
-   @ Graphical Internet                                                       
-   @ Sound and Video                                                          
-   dhcp                                                                       
+   %packages
+   @ X Window System
+   @ GNOME Desktop Environment
+   @ Graphical Internet
+   @ Sound and Video
+   dhcp
 
    As you can see, groups are specified, one to a line, starting with an @
    symbol, a space, and then the full group name as given in the comps.xml
@@ -1339,9 +1342,15 @@ Creating the Kickstart File
    You can also specify which packages not to install from the default
    package list:
 
-   -autofs                                                                    
+   -autofs
 
    The following options are available for the %packages option:
+
+   --default
+
+       Install the default package set.  This corresponds to the package
+       set that would be installed if no other selections were made on the
+       package customization screen during an interactive install.
 
    --ignoremissing
 
@@ -1352,7 +1361,7 @@ Creating the Kickstart File
        fully automated installation even in the error case.  It is used
        as follows:
 
-       %packages --ignoremissing                                   
+       %packages --ignoremissing
 
    --nobase
 
@@ -1372,9 +1381,9 @@ Creating the Kickstart File
    network in the %pre section; however, name service has not been configured
    at this point, so only IP addresses will work.
 
-   Note                                                                     
+   Note
    Note that the pre-install script is not run in the change root
-   environment.                                                             
+   environment.
 
    --interpreter /usr/bin/python
 
@@ -1441,7 +1450,7 @@ fi
    has one or two drives. Instead of having a set of partitioning commands in
    the kickstart file, include the line:
 
-   %include /tmp/part-include                                                 
+   %include /tmp/part-include
 
    The partitioning commands selected in the script will be used.
 
@@ -1455,19 +1464,19 @@ fi
    functions such as installing additional software and configuring an
    additional nameserver.
 
-   Note                                                                     
+   Note
    If you configured the network with static IP information, including a
-   nameserver, you can access the network and resolve IP addresses in the   
-   %post section. If you configured the network for DHCP, the               
+   nameserver, you can access the network and resolve IP addresses in the
+   %post section. If you configured the network for DHCP, the
    /etc/resolv.conf file has not been completed when the installation
    executes the %post section. You can access the network, but you can not
    resolve IP addresses. Thus, if you are using DHCP, you must specify IP
-   addresses in the %post section.                                          
+   addresses in the %post section.
 
-   Note                                                                     
+   Note
    The post-install script is run in a chroot environment; therefore,
    performing tasks such as copying scripts or RPMs from the installation
-   media will not work.                                                     
+   media will not work.
 
    --nochroot
 
@@ -1477,8 +1486,8 @@ fi
        The following example copies the file /etc/resolv.conf to the file
        system that was just installed.
 
-       %post --nochroot                                            
-       cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf           
+       %post --nochroot
+       cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
 
    --interpreter /usr/bin/python
 
@@ -1499,25 +1508,12 @@ fi
 
 Examples
 
-   Turn services on and off:
-
-   /sbin/chkconfig --level 345 telnet off                                     
-   /sbin/chkconfig --level 345 finger off                                     
-   /sbin/chkconfig --level 345 lpd off                                        
-   /sbin/chkconfig --level 345 httpd on                                       
-
    Run a script named runme from an NFS share:
 
-   mkdir /mnt/temp                                                            
-   mount 10.10.0.2:/usr/new-machines /mnt/temp                                
-   open -s -w -- /mnt/temp/runme                                              
-   umount /mnt/temp                                                           
-
-   Add a user to the system:
-
-   /usr/sbin/useradd bob                                                      
-   /usr/bin/chfn -f "Bob Smith" bob                                           
-   /usr/sbin/usermod -p 'kjdf$04930FTH/ ' bob                                 
+   mkdir /mnt/temp
+   mount 10.10.0.2:/usr/new-machines /mnt/temp
+   open -s -w -- /mnt/temp/runme
+   umount /mnt/temp
 
      ----------------------------------------------------------------------
 
@@ -1548,7 +1544,7 @@ Creating a Kickstart Boot Diskette
    creating a boot diskette. Because the boot diskettes are in MS-DOS format,
    it is easy to copy the kickstart file under Linux using the mcopy command:
 
-   mcopy ks.cfg a:                                                            
+   mcopy ks.cfg a:
 
    Alternatively, you can use Windows to copy the file. You can also mount
    the MS-DOS boot diskette in Red Hat Enterprise Linux with the file system
@@ -1589,8 +1585,8 @@ Making the Kickstart File Available on the Network
 
    Here is an example of a line from the dhcpd.conf file for the DHCP server:
 
-   filename "/usr/new-machine/kickstart/";                                    
-   next-server blarg.redhat.com;                                              
+   filename "/usr/new-machine/kickstart/";
+   next-server blarg.redhat.com;
 
    Note that you should replace the value after filename with the name of the
    kickstart file (or the directory in which the kickstart file resides) and
@@ -1601,7 +1597,7 @@ Making the Kickstart File Available on the Network
    mounts that path using NFS, and searches for a particular file. The
    filename the client searches for is:
 
-   <ip-addr>-kickstart                                                        
+   <ip-addr>-kickstart
 
    The <ip-addr> section of the filename should be replaced with the client's
    IP address in dotted decimal notation. For example, the filename for a
@@ -1652,7 +1648,7 @@ Making the Kickstart File Available on the Network
        boot the system with the diskette in the drive, and enter the
        following command at the boot: prompt:
 
-       linux ks=floppy                                             
+       linux ks=floppy
 
    CD-ROM #1 and Diskette
 
@@ -1665,7 +1661,7 @@ Making the Kickstart File Available on the Network
        system on a diskette. To do so, enter the following command at the
        boot: prompt:
 
-       linux ks=hd:fd0:/ks.cfg                                     
+       linux ks=hd:fd0:/ks.cfg
 
    With Driver Disk
 
@@ -1673,7 +1669,7 @@ Making the Kickstart File Available on the Network
        option as well. For example, to boot off a boot diskette and use a
        driver disk, enter the following command at the boot: prompt:
 
-       linux ks=floppy dd                                          
+       linux ks=floppy dd
 
    Boot CD-ROM
 
@@ -1683,7 +1679,7 @@ Making the Kickstart File Available on the Network
        following command at the boot: prompt (where ks.cfg is the name of
        the kickstart file):
 
-       linux ks=cdrom:/ks.cfg                                      
+       linux ks=cdrom:/ks.cfg
 
    Other options to start a kickstart installation are as follows:
 
