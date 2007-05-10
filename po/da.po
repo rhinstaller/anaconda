@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-10 17:52+0200\n"
+"PO-Revision-Date: 2007-05-10 20:20+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1139,6 +1139,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"Der skete en fejl ved montering af kildeenheden %s. Dette kan ske "
+"hvis dine ISO-aftryk ligger på et avanceret lagringsmedie som LVM eller "
+"RAID, eller hvis der var et problem med at montere en partition. "
+"Klik genstart for at afbryde installationen. "
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1240,6 +1244,10 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"ISO-aftrykket %s har en størrelse som ikke er et multiplum af 2048 byte. Dette kan betyde at det blev beskadiget ved overførsel til denne maskine. \n"
+"\n"
+"Det anbefales at du afbryder installationen og genstarter, men du "
+"kan vælge at fortsætte, hvis du mener det er fejlagtigt."
 
 #: ../image.py:514
 #, python-format
@@ -1331,7 +1339,7 @@ msgstr "Kunne ikke finde installeringsbillede"
 #: ../livecd.py:80
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "Det angivne sted er ikke en gyldig %s live-cd som kan bruges som installationskilde."
 
 #: ../livecd.py:84 ../livecd.py:329
 msgid "Exit installer"
@@ -1549,6 +1557,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Diskdrevet /dev/%s har mere end 15 partitioner på den. SCSI-undersystemet i "
+"Linux-kernen tillader ikke mere end 15 partitoner i øjeblikket.  "
+"Du vil ikke kunne lave ændringer til partitioneringen af dette diskdrev eller bruge nogen "
+"partitioner ud over /dev/%s15 i %s"
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
@@ -2293,7 +2305,7 @@ msgstr "Angiv din %(instkey)s"
 #: ../text.py:382 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Overspring indtastning af %(instkey)r"
 
 #: ../text.py:414
 msgid "Save Crash Dump"
@@ -2721,7 +2733,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "Kan ikke læse gruppeinformation fra repositorier.  Dette er et problem med genereringen af dit installationstræ."
 
 #: ../yuminstall.py:772
 msgid "Uncategorized"
@@ -3917,7 +3929,7 @@ msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "Partitioneringsoplægget som du bad om gav de følgende kritiske fejl."
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3930,7 +3942,7 @@ msgstr "Fejl under partitionering"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "Partitioneringsoplægget som du bad om gav de følgende advarsler."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4432,7 +4444,7 @@ msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "På grund af systemændringer kan din konfiguration af opstartsindlæser ikke blive automatisk opdateret."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 msgid ""
@@ -4885,7 +4897,7 @@ msgstr "heltal krævet for præfiks"
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "Du skal indtaste et gyldigt heltal for %s.  For IPv4 kan værdien være mellem 0 og 32.  For IPv6 kan det være mellem 0 og 128."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4959,7 +4971,7 @@ msgstr "IPv4-præfiks (netmaske)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatisk opdagelse af naboer"
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCPv6)"
@@ -4998,7 +5010,7 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "De nuværende konfigurationsinstillinger for hvert grænsesnit er vist ved siden af enhedsnavnet.  Ukonfigurerede grænsesnit vises som IKKE KONFIGURERET. For at konfigurere et grænsesnit skal du fremhæve det og vælge Redigér. Når du er færdig skal du trykke 'O.k.' for at fortsætte."
 
 #: ../textw/network_text.py:617
 msgid "Active on boot"
@@ -5598,11 +5610,11 @@ msgstr "Virtualisation"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Klynger"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Klynger af lagerplads"
 
 #: ../installclasses/rhel.py:50
 msgid "Installation Number"
@@ -5612,7 +5624,7 @@ msgstr "Installation nummer"
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "For at installere det fulde sæt af understøttede pakker indeholdt i dit abonnement skal du indtaste dit installationsnummer"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5627,6 +5639,14 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"Hvis du ikke kan finde installationsnummeret, kan du gå på http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"Hvis du springer dette over:\n"
+"* Du kan ikke få adgang til det fulde sæt af understøttede pakker indeholdt i dit abonnement.\n"
+"* Dette kan resultere i et ikke-understøttet/ucertificeret installation af Red Hat "
+"Enterprise Linux.\n"
+"* Du vil ikke få programmel- og sikkerheds-opdateringer for pakker der ikke er indeholdt i dit abonnement."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5976,6 +5996,8 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Kunne ikke hente kickstart-filen. Ændr kickstart-"
+"parameteren nedenfor eller tryk Afbryd for at fortsætte som en interaktiv installation."
 
 #: ../loader2/kickstart.c:380
 msgid "Error downloading kickstart file"
@@ -6359,6 +6381,8 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Indtast IPv4- og/eller IPv6-adressen og præfiks (adresse / præfiks).  For "
+"IPv4 er firetals-med-punktummer netmasken eller CIDR-stils præfiks accepteret. Gateway- og navneserver-felterne skal være gyldige IPv4 eller IPv6-adresser."
 
 #: ../loader2/net.c:1086
 msgid "Manual TCP/IP Configuration"
@@ -6654,12 +6678,12 @@ msgstr "_Detaljer om undtagelse"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Gem på diskette"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)r:"
 
 #: tmp/instkey.glade.h:4
 #, no-c-format
@@ -6692,7 +6716,7 @@ msgstr "Installér"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Installér live-cd til din disk"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
@@ -6748,7 +6772,7 @@ msgstr "<b>Beskrivelse kommer her</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Maskinel-adresse: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
 msgid "Edit Interface"
@@ -6818,7 +6842,7 @@ msgstr "Arabisk"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamesisk"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6902,7 +6926,7 @@ msgstr "Islandsk"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -6990,7 +7014,7 @@ msgstr "Serbisk (Latinsk)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhalesisk"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7014,7 +7038,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
