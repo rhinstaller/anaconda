@@ -82,7 +82,7 @@ class WaitWindow:
 	self.screen.popWindow()
 	self.screen.refresh()
 
-    def refresh():
+    def refresh(self):
         self.screen.refresh()
 
     def __init__(self, screen, title, text):
