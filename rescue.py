@@ -368,6 +368,9 @@ def runRescue(anaconda):
                 # now that dev is udev, bind mount the installer dev there
                 isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
 
+                # and /dev/pts
+                isys.mount("/dev/pts", "%s/dev/pts" %(anaconda.rootPath,), bindMount = 1)
+
                 # and /selinux too
                 if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
                     try:

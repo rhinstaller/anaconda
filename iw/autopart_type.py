@@ -241,7 +241,7 @@ class PartitionTypeWindow(InstallWindow):
         cell = gtk.CellRendererText()
         self.combo.pack_start(cell, True)
         self.combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 525)        
+        cell.set_property("wrap-width", 475)
         self.combo.set_size_request(480, -1)
 
         store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)

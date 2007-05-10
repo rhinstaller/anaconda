@@ -97,27 +97,27 @@ static int scsiCount(char *conf) {
 
 static int scsiDiskCount(void) {
     struct device ** devices;
-    int i = 0;
+    int i = 0, count = 0;
 
     devices = probeDevices(CLASS_HD, BUS_SCSI, PROBE_LOADED);
     if (devices) {
-        for (; devices[i]; i++);
+        for (i=0; devices[i]; i++, count++);
         free(devices);
     }
     /* have to probe for usb floppies too */
     devices = probeDevices(CLASS_FLOPPY, BUS_SCSI, PROBE_LOADED);
     if (devices) {
-        for (; devices[i]; i++);
+        for (i=0; devices[i]; i++, count++);
         free(devices);
     }
     /* we want to probe for usb cds too (related to #207336) */
     devices = probeDevices(CLASS_CDROM, BUS_SCSI, PROBE_LOADED);
     if (devices) {
-        for (; devices[i]; i++);
+        for (i=0; devices[i]; i++, count++);
         free(devices);
     }
 
-    return i;
+    return count;
 }
 
 int mlReadLoadedList(moduleList * mlp) {

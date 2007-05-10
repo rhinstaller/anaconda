@@ -126,7 +126,11 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES pcmciautils dmidecode"
+    PACKAGES="$PACKAGES pcmciautils"
+fi
+
+if [ $ARCH = i386 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
+    PACKAGES="$PACKAGES dmidecode"
 fi
 
 if [ $ARCH = ia64 ]; then

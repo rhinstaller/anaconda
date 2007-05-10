@@ -1,3 +1,17 @@
+2007-05-10  Dave Lehman  <dlehman@redhat.com>
+
+	* iw/autopart_type.py (getScreen): fix text wrap width to match the
+	widget's width (#221791)
+
+	* loader2/modules.c (scsiDiskCount): correctly count SCSI disk 
+	devices (#230526)
+
+	* scripts/upd-instroot: include dmidecode on ia64 (#232947)
+
+	* rescue.py (runShell): bind mount /dev/pts in rescue mode (#228714)
+
+	* scripts/pkgorder: backport some fixes for finding packages (#230487)
+
 2007-05-08  Chris Lumens  <clumens@redhat.com>
 
 	* docs/kickstart-docs.txt:  Describe nfs --opts (#234187).

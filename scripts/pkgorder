@@ -78,13 +78,18 @@ def processTransaction(ds):
     ds.ts.order()
     for (hdr, path) in ds.ts.ts.getKeys():
         fname = os.path.basename(path)
-        fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
+        fpattern = "%s*" % fname.rsplit('.', 2)[0]
         printMatchingPkgs(fpattern)
 
 def printMatchingPkgs(fpattern):
     global processed
 
-    matches = glob.glob(fpattern)
+    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
+        matches = glob.glob("%s/%s/RPMS/%s" % (toppath, product, fpattern))
+    elif os.path.isdir("%s/%s" %(toppath, product)):
+        matches = glob.glob("%s/%s/%s" % (toppath, product, fpattern))
+    else:
+        matches = glob.glob("%s/%s" % (toppath, fpattern))
 
     for match in matches:
         mname = os.path.basename(match)
@@ -148,12 +153,7 @@ if __name__ == "__main__":
         arch = "i686"
 
     # print out kernel related packages first
-    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
-        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "kernel-*"))
-    elif os.path.isdir("%s/%s" %(toppath, product)):
-        printMatchingPkgs("%s/%s/%s" % (toppath, product, "kernel-*"))
-    else:
-        printMatchingPkgs("%s/%s" % (toppath, "kernel-*"))        
+    printMatchingPkgs("kernel-*")
 
     testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
     os.system("mkdir -p %s/var/lib/rpm" %(testpath,))
@@ -164,12 +164,7 @@ if __name__ == "__main__":
     addGroups(ds, ["core", "base", "text-internet"])
 
     # hack, hack, hack... make sure iscsi ends up on disc1 (#208832)
-    if os.path.isdir("%s/%s/RPMS" % (toppath, product)):
-        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "iscsi-*"))
-    elif os.path.isdir("%s/%s" %(toppath, product)):
-        printMatchingPkgs("%s/%s/%s" % (toppath, product, "iscsi-*"))
-    else:
-        printMatchingPkgs("%s/%s" % (toppath, "iscsi-*"))        
+    printMatchingPkgs("iscsi-*")
 
     addGroups(ds, ["base-x", "dial-up",
                    "graphical-internet", "editors", 
