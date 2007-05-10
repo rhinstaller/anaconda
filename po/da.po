@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-16 22:16+0200\n"
+"PO-Revision-Date: 2007-05-10 17:52+0200\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -126,8 +126,7 @@ msgstr "Ukendt installerings-metode"
 
 #: ../anaconda:863
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du har angivet en installeringsmetode som ikke understøttes af anaconda."
+msgstr "Du har angivet en installeringsmetode som ikke understøttes af anaconda."
 
 #: ../anaconda:865
 #, c-format
@@ -208,8 +207,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
 "maskinarkitektur. "
@@ -509,8 +507,7 @@ msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+msgstr "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
 #: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
@@ -526,8 +523,7 @@ msgstr "Dumpet blev ikke skrevet"
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
-"Der var et problem ved skrivning af dit systems tilstand til disketten. "
+msgstr "Der var et problem ved skrivning af dit systems tilstand til disketten. "
 
 #: ../exception.py:432
 msgid ""
@@ -539,8 +535,7 @@ msgstr ""
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
+msgstr "Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
 
 #: ../fsset.py:214
 msgid "Checking for Bad Blocks"
@@ -855,7 +850,7 @@ msgid "_Continue"
 msgstr "_Fortsæt"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -865,8 +860,7 @@ msgid ""
 msgstr ""
 "Fejl ved montering af enhed %s som %s: %s\n"
 "\n"
-"Dette betyder højst sandsynligt at denne partition ikke er blevet "
-"formateret.\n"
+"Enheder i /etc/fstab bør angives ved etikette, ikke ved enhedsnavn.\n"
 "\n"
 "Tryk O.k. for at genstarte, dit system."
 
@@ -918,20 +912,15 @@ msgstr ""
 "Ret dette problem og genstart installationsprocessen."
 
 #: ../fsset.py:2413
-#, fuzzy
 msgid "Invalid Label"
-msgstr "ugyldigt opstartsnavn"
+msgstr "Ugyldig etikette"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
-msgstr ""
-"Flere enheder på dit system er benævnt %s. Etiketter skal være unikke for "
-"hver enhed på dit system for atfungere rigtigt.\n"
-"\n"
-"Ret dette problem og genstart installationsprocessen."
+msgstr "En ugyldig etikette blev fundet på enhed %s. Ret dette problem og genstart installationsprocessen."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1140,7 +1129,7 @@ msgstr "_Prøv igen"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Kunne ikke montere ISO-kilde"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1341,8 +1330,7 @@ msgstr "Kunne ikke finde installeringsbillede"
 
 #: ../livecd.py:80
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:84 ../livecd.py:329
@@ -1385,8 +1373,7 @@ msgstr "Værtsnavnet skal være højst 64 tegn langt."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
+msgstr "Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1886,8 +1873,7 @@ msgid "Confirm Reset"
 msgstr "Bekræft nulstilling"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til oprindelig "
 "tilstand?"
@@ -1947,10 +1933,8 @@ msgstr ""
 "derfor ikke være startbar."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:867
 msgid "You must create an Apple Bootstrap partition."
@@ -1970,8 +1954,7 @@ msgstr ""
 "for en almindelig installation af %s."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installerer på en USB-enhed. Dette kan give et fungerende system, men det er "
 "ikke sikkert."
@@ -2033,10 +2016,8 @@ msgstr "en partition som er medlem af en LVM-afsnitsgruppe."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:252
 #, python-format
@@ -2324,17 +2305,14 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
 #: ../text.py:474
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
+msgstr "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2711,10 +2689,8 @@ msgstr "Fejl ved kørsel af transaktion..."
 
 #: ../yuminstall.py:568
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
+msgstr "Der var en fejl ved kørsel af din transaktion på grund af følgende årsag: %s"
 
 #: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
 #: ../yuminstall.py:931
@@ -2848,10 +2824,8 @@ msgid "The root password must be at least six characters long."
 msgstr "'root'-adgangskoden skal være mindst 6 tegn lang."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"Den udbedte adgangskode indeholder ikke-ascii tegn som ikke er tilladt."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "Den udbedte adgangskode indeholder ikke-ascii tegn som ikke er tilladt."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2883,22 +2857,19 @@ msgstr "Fejl med Data"
 
 #: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr ""
-"Fjern alle partitioner på valgte partitioner og opret standardudlægning"
+msgstr "Fjern alle partitioner på valgte partitioner og opret standardudlægning"
 
 #: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Fjern Linuxpartitioner på valgte enheder og opret et forvalgt layout"
 
 #: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Brug fri plads på valgte enheder og opret et forvalgt layout."
+msgstr "Brug fri plads på valgte drev og opret et standard-layout"
 
 #: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
-#, fuzzy
 msgid "Create custom layout"
-msgstr "Opret egendefineret layout."
+msgstr "Opret egendefineret layout"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2946,7 +2917,6 @@ msgid "Passwords do not match"
 msgstr "Adgangskoder er ikke ens."
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2963,15 +2933,13 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Avanceret konfiguration af opstartsindlæser"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Tvungen brug af LBA32 for din opstartsindlæser uden at BIOS understøtter "
-"dette kan forårsage at maskinen ikke kan starte.\n"
+"Hvis LBA32 ikke er understøttet af BIOS, kan gennemtvingning af brug af dette forhindre at maskinen starter op.\n"
 "\n"
 "Vil du fortsætte med tvungen brug af LBA32-tilstand?"
 
@@ -3099,14 +3067,12 @@ msgid "Congratulations"
 msgstr "Tillykke"
 
 #: ../iw/congrats_gui.py:65
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Tryk på 'Genstart'-knappen for at starte systemet igen.\n"
 "\n"
-"\n"
-"Tryk O.k. for at starte systemet igen."
 
 #: ../iw/congrats_gui.py:69
 #, python-format
@@ -3154,7 +3120,7 @@ msgid "_Upgrade an existing installation"
 msgstr "_Opgradér en eksisterende installation"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3201,7 +3167,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "Bekræft ændring af fysisk størrelse"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3340,18 +3305,16 @@ msgstr "Ugyldig størrelse"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1303
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
+msgstr "Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
 msgstr "Monteringspunkt i brug"
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-"Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
+msgstr "Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1273
 msgid "Illegal Logical Volume Name"
@@ -3367,7 +3330,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiske afsnitnavn \"%s\" er allerede i brug. Vælg et andet."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3387,14 +3350,14 @@ msgid "Error With Request"
 msgstr "Fejl med forespørgsel"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"De logiske afsnit som du har konfigureret kræver %g MB, men afsnitgruppen "
-"har kun %g MB. Gør enten afsnitgruppen større eller de logiske afsnit mindre."
+"De logiske afsnit som du har konfigureret kræver %d MB, men afsnitgruppen "
+"har kun %d MB. Gør enten afsnitgruppen større eller de logiske afsnit mindre."
 
 #: ../iw/lvm_dialog_gui.py:720
 msgid "No free slots"
@@ -3435,8 +3398,7 @@ msgstr "Navnet er i brug"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
+msgstr "Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3954,14 +3916,12 @@ msgid "Partitioning"
 msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Du skal rette disse fejl før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:641
@@ -4484,10 +4444,8 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:114
 msgid "This is the recommended option."
@@ -4498,12 +4456,11 @@ msgid "_Create new boot loader configuration"
 msgstr "_Opret ny konfiguration af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:121
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"Dette vil lade dig oprette en ny konfiguration for opstartsindlæser. Hvis du "
+"Denne mulighed opretter en ny konfiguration for opstartsindlæser. Hvis du "
 "ønsker at skifte opstartsindlæser bør du vælge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:128
@@ -4511,7 +4468,6 @@ msgid "_Skip boot loader updating"
 msgstr "_Overspring opdatering af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:129
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
@@ -4590,12 +4546,12 @@ msgid "Free Space (MB)"
 msgstr "Ledig plads (Mb)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Det anbefales, at din swapfil er mindst %d Mb. Angiv ønsket størrelse på "
+"Det anbefales, at din swapfil er mindst %d MB. Angiv størrelse på "
 "swapfilen:"
 
 #: ../iw/upgrade_swap_gui.py:169
@@ -4620,8 +4576,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../iw/zipl_gui.py:28
@@ -4761,8 +4716,7 @@ msgstr ""
 "hvilket navn du vil bruge for hvert af dem."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr "<Mellemrum> vælg | <F2> vælg standard | <F4> slet | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:386
@@ -4873,10 +4827,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "Venligst vælg de pakkegrupper du ønsker at installere."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -4936,14 +4888,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmaske"
+msgstr "Præfiks (netmaske)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Præfiks"
+msgstr "Præfiks"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -4961,17 +4911,15 @@ msgstr "Aktivér IPv6 understøttelse"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "Punkt-til-punkt:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:191
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Nøgle:"
+msgstr "WEP-nøgle:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -4980,78 +4928,69 @@ msgstr "Konfiguration af netværk for %s"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "punkt-til-punkt IP-adresse"
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Brug dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Manuel TCP/IP-konfiguration"
+msgstr "Manuel adresse-konfiguration"
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Konfiguration af netværk for %s"
+msgstr "IPv4-konfiguration for %s"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4-adresse:"
+msgstr "IPv4-adresse"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmaske"
+msgstr "IPv4-netmaske"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Netmaske"
+msgstr "IPv4-præfiks (netmaske)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Brug dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCP)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Konfiguration af netværk for %s"
+msgstr "IPv6-konfiguration for %s"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6-adresse:"
+msgstr "IPv6-adresse"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Præfiks"
+msgstr "IPv6-præfiks"
 
 #: ../textw/network_text.py:504
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Aktivér netværksgrænsesnittet"
+msgstr "Konfigurér netværksgrænsesnittet"
 
 #: ../textw/network_text.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Vil du starte netværksgrænsefladen på dette system?"
+msgstr "Vil du gerne konfigurere %s-netværksgrænsefladen på dette system?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "IKKE KONFIGURERET"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -5062,36 +5001,34 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:617
-#, fuzzy
 msgid "Active on boot"
-msgstr "Aktivér ved opstart"
+msgstr "Aktiv ved opstart"
 
 #: ../textw/network_text.py:619
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Aktivér ved opstart"
+msgstr "Inaktiv ved opstart"
 
 #: ../textw/network_text.py:622
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:627
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:629
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:635
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:637 ../textw/network_text.py:639
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:661 ../loader2/net.c:1026
 msgid "Gateway:"
@@ -5110,19 +5047,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Diverse netværksindstillinger"
 
 #: ../textw/network_text.py:699 ../textw/network_text.py:702
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:709 ../textw/network_text.py:712
-#, fuzzy
 msgid "primary DNS"
-msgstr "Primær DNS"
+msgstr "primær DNS"
 
 #: ../textw/network_text.py:721
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Sekundær DNS"
+msgstr "sekundær DNS"
 
 #: ../textw/network_text.py:755
 msgid "automatically via DHCP"
@@ -5137,7 +5071,6 @@ msgid "Hostname Configuration"
 msgstr "Opsætning af værtsnavn"
 
 #: ../textw/network_text.py:780
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5273,8 +5206,7 @@ msgstr "Filsystemsvalgmuligheder"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
+msgstr "Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
 
 #: ../textw/partition_text.py:620
 msgid "Check for bad blocks"
@@ -5301,10 +5233,8 @@ msgid "Not Supported"
 msgstr "Ikke understøttet"
 
 #: ../textw/partition_text.py:783
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr ""
-"LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
+msgstr "Du kan kun redigere LVM-afsnitsgrupper i det grafiske installationsprogram."
 
 #: ../textw/partition_text.py:859 ../textw/partition_text.py:912
 msgid "Invalid Entry for Partition Size"
@@ -5343,21 +5273,19 @@ msgid "Too many spares"
 msgstr "For mange reservediske"
 
 #: ../textw/partition_text.py:1108
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "Maksimalt antal reservediske med en RAID0-række er 0."
+msgstr "Du kan ikke bruge nogen reservediske med et RAID0-array."
 
 #: ../textw/partition_text.py:1189
 msgid "No Volume Groups"
 msgstr "Ingen afsnitgrupper"
 
 #: ../textw/partition_text.py:1190
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "Ingen afsnitsgruppe hvori der skal oprettes et  logisk afsnit"
+msgstr "Der er Ingen afsnitsgruppe, hvori der skal oprettes et logisk afsnit"
 
 #: ../textw/partition_text.py:1314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
@@ -5403,19 +5331,16 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../textw/partition_text.py:1504
 msgid "No Root Partition"
 msgstr "Ingen rodpartition"
 
 #: ../textw/partition_text.py:1505
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS-installationsmetode kræver IPv4-understøttelse."
+msgstr "Installationen kræver en /-partition."
 
 #: ../textw/partition_text.py:1547
 msgid "Partitioning Type"
@@ -5436,10 +5361,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke drev vil du bruge til denne installation?"
 
 #: ../textw/partition_text.py:1588
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> Tilføj drev   |   <F12> næste skærm"
 
 #: ../textw/partition_text.py:1654
 msgid "Review Partition Layout"
@@ -5458,21 +5381,17 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Hvordan vil du ændre din diskenhedskonfiguration?"
 
 #: ../textw/partition_text.py:1700
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "Tilføj FCP-enhed"
 
 #: ../textw/partition_text.py:1701 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries-maskiner kan bruge industristandard SCSI-enheder via Fiber-Kanal "
-"(FCP). Du skal opgive 5 parametre for hver enhed: et 16-bit enhedsnummer, en "
-"16-bit SCSI-ID, et 64-bit verdenskendt portnavn (WWPN), et 16-bit SCSI LUN "
-"og et 64-bit FCP LUN."
+"(FCP). Du skal opgive et 16-bit enhedsnummer, et 64-bit verdenskendt portnavn (WWPN) og et 64-bit FCP LUN for hver enhed."
 
 #: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5487,14 +5406,12 @@ msgstr ""
 "initiatorens navn som du har konfigureret for din maskine."
 
 #: ../textw/partition_text.py:1726
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>IP-addresse på målet:</b>"
+msgstr "IP-addresse på målet"
 
 #: ../textw/partition_text.py:1727
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI initiator_navn:</b>"
+msgstr "iSCSI initiator-navn"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5528,7 +5445,6 @@ msgid "Customize software selection"
 msgstr "Tilpas valg af programmel"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "Hvilken tidszone befinder du dig i?"
 
@@ -5582,32 +5498,28 @@ msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"En eller flere Linux-installationer har hittats på dit system.\n"
+"Der ser ud til at være en eller flere Linux-installationer på dit system.\n"
 "\n"
-"Vælg en at opgradera, eller vælg \"Installera om system\" for at installera "
-"dit system fra grunden."
+"Vælg en der skal opgraderes, eller vælg \"Geninstallerér system\" for at installere dit system forfra."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
 msgstr "'root'-adgangskode"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
 msgstr ""
 "Vælg en 'root'-adgangskode. Du skal skrive det to gange for at sikre at du "
-"ved hvad det er og får ikke tastet forkert. Husk at 'root'-adgangskoden er "
-"meget vigtig del af systemets sikkerhed!"
+"ved hvad det er og ikke får tastet forkert. Husk at 'root'-adgangskoden er en afgørende del af systemets sikkerhed!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -5623,13 +5535,12 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
-"Startprogrammet z/IPL vil blive installeret på dit system efter at "
+"Opstartprogrammet z/IPL vil blive installeret på dit system efter at "
 "installationen er færdig. Du kan nu indtaste eventuelle yderligere kerne- og "
 "chandev-parametre som din maskine eller din konfiguration monne kræve."
 
@@ -5675,16 +5586,15 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedie"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Tillykke"
+msgstr "Virtualisation"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
@@ -5695,9 +5605,8 @@ msgid "Storage Clustering"
 msgstr ""
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Installation begynder"
+msgstr "Installation nummer"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -6069,9 +5978,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:380
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Fejl ved åbning af kickstartsfil %s: %s"
+msgstr "Fejl ved hentning af kickstartsfil"
 
 #: ../loader2/kickstart.c:513
 #, c-format
@@ -6084,10 +5992,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Velkommen til %s - redningstilstand"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6102,9 +6008,8 @@ msgid "Hard drive"
 msgstr "Harddisk"
 
 #: ../loader2/loader.c:123
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s-katalog:"
+msgstr "NFS-katalog"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
@@ -6121,8 +6026,7 @@ msgstr ""
 #: ../loader2/loader.c:349
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader2/loader.c:351
 msgid "Updates Disk"
@@ -6332,12 +6236,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Fejlagtigt argument til enhedskickstartmetodekommandoen %s: %s"
 
 #: ../loader2/modules.c:1056
-#, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"Det følgende ugyldige argument blev angivet til kickstartkommandoen for "
-"drivrutinediskette: %s:%s"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "Både modultype og -navn skal angives til kickstartenheds-kommandoen."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6391,20 +6291,17 @@ msgid "Nameserver IP"
 msgstr "Navneserver-IP"
 
 #: ../loader2/net.c:302
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Navneserver"
+msgstr "Mangler navneserver"
 
 #: ../loader2/net.c:303
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Din dynamiske IP-anmodning returnerede IP-konfigurationsinformation, men "
-"dette indeholdt ikke en DNS navneserver. Hvis du ved hvor din navneserver "
-"er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
+"Din IP-adresseanmodning returnerede IP-konfigurationsinformation, men "
+"dette indeholdt ikke en adresse på en navneserver. Hvis du ikke har denne information kan du lade dette "
 "felt være blankt, og installationen vil fortsætte."
 
 #: ../loader2/net.c:325
@@ -6428,9 +6325,8 @@ msgid "Configure TCP/IP"
 msgstr "Konfigurér TCP/IP"
 
 #: ../loader2/net.c:793
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "Du skal vælge mindst en protokol (IPv4 eller IPv6) for DHCP."
+msgstr "Du skal vælge mindst en protokol (IPv4 eller IPv6)."
 
 #: ../loader2/net.c:800
 msgid "IPv4 Needed for NFS"
@@ -6473,14 +6369,12 @@ msgid "Missing Information"
 msgstr "Manglende information"
 
 #: ../loader2/net.c:1208
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Du skal indtaste både en gyldig IPv4-adresse og en netmaske eller et CIDR-"
 "præfiks."
 
 #: ../loader2/net.c:1214
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du skal indtaste både en gyldig IPv6-adresse og et CIDR-præfiks."
 
@@ -6649,8 +6543,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
+msgstr "Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
 
 #: ../loader2/urls.c:457
 msgid "Account name:"
@@ -6681,9 +6574,8 @@ msgid "Disable _dmraid device"
 msgstr "Deaktivér _dmraid-enhed"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "Harddisk"
+msgstr "_Tilføj diskdrev"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6737,9 +6629,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "Hvilket sprog ønsker du at benytte under installationsprocessen?"
+msgstr "Hvilket diskdrev ønsker du at starte denne installation op fra?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
@@ -6754,9 +6645,8 @@ msgid "Exception Info"
 msgstr "Info om undtagelse"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "Gem på ekstern vært"
+msgstr "Gem på _ekstern vært"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6772,9 +6662,9 @@ msgid "%(instkey)s:"
 msgstr ""
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Angiv et afsnitsgruppenavn."
+msgstr "Indtast dine %(instkey)r."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6793,23 +6683,20 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI initiator_navn:</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "Tilføj _iSCSI destination"
+msgstr "_Tilføj mål"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_Installér %s"
+msgstr "Installér"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Installationen starter"
+msgstr "Installér på diskdrev"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6856,33 +6743,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Brug dynamisk IP-konfiguration (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Beskrivelse: %s"
+msgstr "<b>Beskrivelse kommer her</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr ""
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Redigér grænsefladen %s"
+msgstr "Redigér grænseflade"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "_Krypteringsnøgle:"
+msgstr "Krypteringsnøgle:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Manuel TCP/IP-konfiguration"
+msgstr "Manuel konfiguration"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Punkt-til-punkt (IP):"
+msgstr "Punkt-til-punkt (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6892,8 +6774,7 @@ msgstr "Tilpas _senere"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"Vælg de yderligere datalagre du vil bruge for installation af programmer."
+msgstr "Vælg de yderligere datalagre du vil bruge for installation af programmer."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -6912,19 +6793,16 @@ msgid "_Customize now"
 msgstr "_Tilpas nu"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Enhedsnummer"
+msgstr "<b>Enhedsnummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Adgangskode:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7095,9 +6973,8 @@ msgid "Punjabi"
 msgstr "Punjabi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Kroatisk"
+msgstr "Rumænsk"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7158,3 +7035,4 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
