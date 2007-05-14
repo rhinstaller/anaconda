@@ -448,11 +448,24 @@ def writeRpmPlatform(root="/"):
 
     # FIXME: writing /etc/rpm/macros feels wrong somehow
     # temporary workaround for #92285
-    if os.access("%s/etc/rpm/macros" %(root,), os.R_OK):
-        return
     if not (myarch.startswith("ppc64") or
             myarch in ("s390x", "sparc64", "x86_64", "ia64")):
         return
+    if os.access("%s/etc/rpm/macros" %(root,), os.R_OK):
+        if myarch.startswith("ppc64") or myarch == "sparc64":
+            f = open("%s/etc/rpm/macros" %(root,), 'r+')
+            lines = f.readlines()
+            addPrefer = True
+            for line in lines:
+                if line.startswith("%_prefer_color"):
+                    addPrefer = False
+            if addPrefer:    
+                f.write("%_prefer_color   1\n")
+            f.close()
+            return
+        else:
+            return
+
     f = open("%s/etc/rpm/macros" %(root,), 'w+')
     f.write("%_transaction_color   3\n")
     if myarch.startswith("ppc64") or myarch == "sparc64":
