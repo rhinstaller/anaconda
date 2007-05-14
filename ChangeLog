@@ -1,3 +1,13 @@
+2007-05-14  David Cantrell  <dcantrell@redhat.com>
+
+	* network.py: Patch from Brad Hinson <bhison AT redhat.com> to support
+	OSA layer 2 networking (#233357).
+	* loader2/linuxrc.s390: Likewise.
+	* loader2/loader.c: Likewise.
+	* loader2/loader.h: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/net.h: Likewise.
+
 2007-04-04  Dave Lehman  <dlehman@redhat.com>
 
 	* anaconda.spec: bump version.

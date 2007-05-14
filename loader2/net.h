@@ -18,7 +18,7 @@ struct networkDeviceConfig {
     int preset;
 
     /* s390 settings */
-    char *subchannels, *portname, *peerid, *nettype, *ctcprot;
+    char *subchannels, *portname, *peerid, *nettype, *ctcprot, *layer2;
 };
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 

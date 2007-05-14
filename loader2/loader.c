@@ -454,6 +454,9 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "CTCPROT")) {
                loaderData->ctcprot = strdup(vparm);
            }
+           if (strstr(vname, "LAYER2")) {
+               loaderData->layer2 = strdup(vparm);
+           }
        }
    }
    fclose(f);

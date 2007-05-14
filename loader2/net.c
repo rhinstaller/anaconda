@@ -446,6 +446,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         parseEthtoolSettings(loaderData);
     }
 
+    if (loaderData->layer2) {
+        cfg->layer2 = strdup(loaderData->layer2);
+    }
+
     cfg->noDns = loaderData->noDns;
 }
 
@@ -761,6 +765,10 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "NETTYPE=%s\n", dev->nettype);
     if (dev->ctcprot)
         fprintf(f, "CTCPROT=%s\n", dev->ctcprot);
+    if (dev->layer2 && !strncmp(dev->layer2, "1", 1))
+        fprintf(f, "OPTIONS=\"layer2=1\"\n");
+    else if (dev->subchannels)
+       fprintf(f, "ARP=no\n");
 
     if (dev->essid)
         fprintf(f, "ESSID=%s\n", dev->essid);

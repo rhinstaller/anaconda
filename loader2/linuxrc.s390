@@ -480,6 +480,7 @@ EOF
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> /tmp/netinfo
+[ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
