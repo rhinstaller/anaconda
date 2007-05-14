@@ -507,7 +507,7 @@ class InstallInterface:
         instLang = anaconda.id.instLanguage
 
         if instLang.getFontFile(instLang.getCurrent()) == "none":
-            if self.anaconda.isKickstart and not self.anaconda.id.instClass.ksdata.interactive:
+            if anaconda.isKickstart and not anaconda.id.instClass.ksdata.interactive:
                 log.warning("%s display is unavailable in text mode.  The "
                             "installation will continue in English.")
             else:
@@ -516,7 +516,7 @@ class InstallInterface:
                                    "The installation will continue in "
                                    "English." % (instLang.getCurrent(),),
                                    buttons=[TEXT_OK_BUTTON])
-        
+
 	self.screen.helpCallback(self.helpWindow)
 
 	if not self.isRealConsole():
@@ -533,10 +533,10 @@ class InstallInterface:
 
         anaconda.id.fsset.registerMessageWindow(self.messageWindow)
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
-        anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
+        anaconda.id.fsset.registerWaitWindow(self.waitWindow)
 
-	parted.exception_set_handler(self.partedExceptionWindow)        
-        
+	parted.exception_set_handler(self.partedExceptionWindow)
+
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
 	while step:
