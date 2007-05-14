@@ -1153,7 +1153,8 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
-	cp $p/usr/lib/anaconda/pump-stub $p/usr/bin/pump
+	cp $p/usr/lib/anaconda/dhcpclient-stub $p/usr/bin/dhcpclient
+	( cd $p/usr/bin && rm -f pump && ln -sf dhcpclient pump )
 	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys

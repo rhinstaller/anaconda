@@ -1,3 +1,11 @@
+2007-05-14  David Cantrell  <dcantrell@redhat.com>
+
+	* command-stubs/pump-stub: Removed (#239427).
+	* command-stubs/dhcpclient-stub: Wrote new command to provide an IPv4
+	and IPv6 dhcp/auto client at the command line in rescue mode (#239427).
+	* scripts/upd-instroot: Install dhcpclient-stub, symlink /usr/bin/pump
+	to /usr/bin/dhcpclient (#239427).
+
 2007-05-14  Paul Nasrat <pnasrat@redhat.com>
 
 	* iutil.py (writeRpmPlatform): Set preferred color on upgrades (#235757)
