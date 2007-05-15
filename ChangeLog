@@ -1,5 +1,10 @@
 2007-05-15  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/init.c (setupTerminal): For /dev/hvc0 terminals, set TERM to
+	vt320 (#219556).
+	* scripts/upd-instroot: Add vt320 terminfo files, remove bterm from the
+	terminfo list (#219556).
+
 	* loader2/net.c (doDhcp): Set DHCPv6_DISABLE flag when IPv6 auto
 	neighbor discovery is selected (#231645).
 
