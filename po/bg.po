@@ -9,13 +9,12 @@
 # Николай Сърмаджиев <nikolay@sarmadzhiev.com>, 2004, 2005.
 # Doncho N. Gunchev <gunchev@gmail.com>, 2007.
 # Miroslav Ivanov <satyr@globalnet.bg>, 2007.
-
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-21 14:05+0300\n"
+"PO-Revision-Date: 2007-05-15 09:00+0300\n"
 "Last-Translator: Doncho N. Gunchev <gunchev@gmail.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -1435,7 +1434,7 @@ msgstr "_Пропускане"
 
 #: ../packages.py:319
 msgid "Warning! This is pre-release software!"
-msgstr "Внимание! Това е пред-пусков софтуер!"
+msgstr "Внимание! Това е нестабилен тестов софтуер!"
 
 #: ../packages.py:320
 #, python-format
@@ -1452,7 +1451,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Благодарим ви за свалянето на този пред-пуск на %s\n"
+"Благодарим ви за свалянето на тази тестова версия на %s\n"
 "\n"
 "Това не е финална версия и не е направена за ползване на продукционни "
 "системи.  Целта на тази версия е събирането на отзиви от тествали я и не е "
@@ -1533,14 +1532,14 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Таблицата на дяловете на устройството %s (%s) не се чете. За да създам нов "
-"дял то трябва да бъде инициализирано и това ще доведе до загуба на ЦЯЛАТА "
+"Таблицата на дяловете на устройството %s (%s) не се чете. За да се създаде нов "
+"дял то трябва да бъде инициализирано, а това ще доведе до загуба на ЦЯЛАТА "
 "ИНФОРМАЦИЯ на това устройство.\n"
 "\n"
-"Тази операция ще при покрие всички предходни инсталационни отметки за това "
-"кои устройства да се пропуснат.\n"
+"Тази операция ще презапише всички преди това направени решения за инсталацията "
+"относно това, кои устройства да бъдат игнорирани.\n"
 "\n"
-"Желаете ли да се инициализира устройството, изтривайки ЦЯЛАТА ИНФОРМАЦИЯ?"
+"Желаете ли инициализиране на устройството и изтриване на ЦЯЛАТА ИНФОРМАЦИЯ?"
 
 #: ../partedUtils.py:1102
 #, python-format
@@ -2314,7 +2313,7 @@ msgstr "Запис на Crash Dump"
 #: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:155
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr "Добре дошли в %s"
+msgstr "Добре дошли във %s"
 
 #: ../text.py:472
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
@@ -2351,7 +2350,7 @@ msgstr "Търсене"
 #: ../upgrade.py:94
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Търсене на %s инсталации..."
+msgstr "Търсене на инсталации на %s..."
 
 #: ../upgrade.py:149 ../upgrade.py:157
 msgid "Dirty File Systems"
@@ -2970,18 +2969,18 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
-msgstr "Налагане LBA32"
+msgstr "Задължително ползване на LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Налагане LBA32 (обикновено е ненужно)"
+msgstr "_Задължително ползване на LBA32 (обикновено е ненужно)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Ако желаете да въведете подразбиращи се параметри на реда за зареждане, моля "
+"Ако желаете да въведете подразбиращи се параметри за реда за начално зареждане, моля "
 "въведете ги в поле 'Общи параметри на ядрото'."
 
 #: ../iw/bootloader_advanced_gui.py:79
@@ -2997,11 +2996,11 @@ msgstr "Настройка на началното зареждане"
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "Програмата за начално зареждане %s ще бъде инсталиран на /dev/%s."
+msgstr "Програмата за начално зареждане %s да се инсталира върху /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr "Няма да се инсталира програма за начално зареждане."
+msgstr "Да не се инсталира програма за начално зареждане."
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
@@ -3853,11 +3852,11 @@ msgstr "_Фиксиран размер"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "Запълни пространството _до (МБ):"
+msgstr "Запълване на пространството максимум _до (МБ):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "Запълване до _максималния разрешен размер"
+msgstr "Запълване до _максималния възможен размер"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3898,7 +3897,7 @@ msgstr "_Краен цилиндър:"
 
 #: ../iw/partition_dialog_gui.py:463
 msgid "Force to be a _primary partition"
-msgstr "Наложи _първичен дял"
+msgstr "Да бъде _първичен дял"
 
 #: ../iw/partition_gui.py:314
 #, python-format
@@ -4122,7 +4121,7 @@ msgstr "LVM"
 
 #: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Скриване на членовете на RAID/LVM том група"
+msgstr "Скриване на членовете на групите от RAID/LVM томове"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:263
@@ -5483,7 +5482,7 @@ msgstr "В коя часова зона се намирате?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
-msgstr "Системния часовник използва UTC"
+msgstr "Системният часовник използва UTC време"
 
 #: ../textw/upgrade_bootloader_text.py:86
 #: ../textw/upgrade_bootloader_text.py:95
@@ -6183,7 +6182,7 @@ msgstr "Изпълнение на анаконда, %s спасителен ре
 #: ../loader2/loader.c:1836
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Изпълнение на анаконда, %s системен инсталатор - моля изчакайте...\n"
+msgstr "Стартиране на анаконда, системният инсталатор на %s - моля изчакайте...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6537,7 +6536,7 @@ msgstr "Непознат Url метод %s"
 
 #: ../loader2/urls.c:219
 msgid "Retrieving"
-msgstr "Извличане"
+msgstr "Извличане на ... "
 
 #: ../loader2/urls.c:286
 msgid "FTP"
@@ -6685,7 +6684,7 @@ msgstr "От кое устройство да зарежда тази инста
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
-msgstr "Настройка на _Сложно устройство за информация"
+msgstr "_Разширена настройка на устройствата за съхранение на информация"
 
 #: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
