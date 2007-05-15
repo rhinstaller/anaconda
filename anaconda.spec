@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.58
+Version: 11.2.0.59
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 15 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.59-1
+- Set the timezone when language is changed in text mode (#239826).
+- Replace pump-stub with dhcpclient-stub (dcantrell, #239427).
+- Set preferred color on upgrades (pnasrat, #235757).
+- Fix livecd text mode traceback (katzj).
+- Kickstart documentation updates (#234187).
+- Increase early swap size on 64bit platforms (katzj, #238266).
+- Various network fixes (dcantrell).
+- Fix syslinux highlighting (katzk).
+
 * Fri May  4 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.58-1
 - Set preferred rpm color (pnasrat, #235757)
 - Add mk-rescueimage.ia64 (prarit, #236221)
