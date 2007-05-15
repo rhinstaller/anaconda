@@ -19,6 +19,9 @@
 	* loader2/net.c: Likewise.
 	* loader2/net.h: Likewise.
 
+	* loader2/loader.c (parseCmdLineFlags): Handle ksdevice=BOOTIF
+	correctly (#209284).
+
 2007-05-10  Dave Lehman  <dlehman@redhat.com>
 
 	* iw/autopart_type.py (getScreen): fix text wrap width to match the
