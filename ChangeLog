@@ -11,6 +11,14 @@
 	* isys/nl.c: Handle more than 10 ethernet cards (#230525).
 	* isys/nl.h: Likewise.
 
+	* network.py: Patch from Brad Hinson (bhinson AT redhat.com> to support
+	OSA layer 2 networking (#233376).
+	* loader2/linuxrc.s390: Likewise.
+	* loader2/loader.c: Likewise.
+	* loader2/loader.h: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/net.h: Likewise.
+
 2007-05-10  Dave Lehman  <dlehman@redhat.com>
 
 	* iw/autopart_type.py (getScreen): fix text wrap width to match the

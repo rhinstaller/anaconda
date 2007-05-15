@@ -35,7 +35,7 @@ struct networkDeviceConfig {
 
     /* s390 settings */
     int mtu;
-    char *subchannels, *portname, *peerid, *nettype, *ctcprot;
+    char *subchannels, *portname, *peerid, *nettype, *ctcprot, *layer2;
 };
 
 struct intfconfig_s {
