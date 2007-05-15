@@ -1,3 +1,8 @@
+2007-05-15  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (doDhcp): Set DHCPv6_DISABLE flag when IPv6 auto
+	neighbor discovery is selected (#231645).
+
 2007-05-10  Dave Lehman  <dlehman@redhat.com>
 
 	* iw/autopart_type.py (getScreen): fix text wrap width to match the

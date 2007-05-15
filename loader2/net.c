@@ -1326,7 +1326,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 
     if (!dev->noipv6 && dev->ipv6method == IPV6_AUTO_METHOD) {
         /* IPv6 enabled -and- auto neighbor discovery selected */
-        pref |= DHCPv6_DISABLE_ADDRESSES;
+        pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
     } else if (dev->noipv6 || dev->ipv6method == IPV6_MANUAL_METHOD) {
         /* IPv6 disabled entirely -or- manual IPv6 config selected */
         pref |= DHCPv6_DISABLE;
