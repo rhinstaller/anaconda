@@ -16,6 +16,8 @@
 #include <netinet/in.h>
 #include <glib.h>
 
+#define BUFSZ 4096
+
 /* Information per interface */
 typedef struct _interface_info_t {
    int i;                            /* interface index        */

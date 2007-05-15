@@ -3,6 +3,9 @@
 	* loader2/net.c (doDhcp): Set DHCPv6_DISABLE flag when IPv6 auto
 	neighbor discovery is selected (#231645).
 
+	* isys/nl.c: Handle more than 10 ethernet cards (#230525).
+	* isys/nl.h: Likewise.
+
 2007-05-10  Dave Lehman  <dlehman@redhat.com>
 
 	* iw/autopart_type.py (getScreen): fix text wrap width to match the

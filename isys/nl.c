@@ -127,7 +127,7 @@ int netlink_create_socket(void) {
  */
 int netlink_send_dump_request(int sock, int type, int family) {
     int ret;
-    char buf[4096];
+    char buf[BUFSZ];
     struct sockaddr_nl snl;
     struct nlmsghdr *nlh;
     struct rtgenmsg *g;
@@ -164,7 +164,7 @@ int netlink_send_dump_request(int sock, int type, int family) {
  */
 int netlink_get_interface_ip(int index, int family, void *addr) {
     int sock, ret, len, alen;
-    char buf[4096];
+    char buf[BUFSZ];
     struct nlmsghdr *nlh;
     struct ifaddrmsg *ifa;
     struct rtattr *rta;
@@ -188,7 +188,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
     memset(buf, 0, sizeof(buf));
     ret = recvfrom(sock, buf, sizeof(buf), 0, NULL, 0);
     if (ret < 0) {
-        perror("recvfrom in netlink_init_interfaces_table");
+        perror("recvfrom in netlink_init_interfaces_ip");
         close(sock);
         return -1;
     }
@@ -258,7 +258,7 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
  */
 int netlink_init_interfaces_list(void) {
     int sock, ret, len, alen, r;
-    char buf[4096];
+    char buf[BUFSZ];
     struct nlmsghdr *nlh;
     struct ifinfomsg *ifi;
     struct rtattr *rta;
@@ -267,25 +267,45 @@ int netlink_init_interfaces_list(void) {
 
     /* get a socket */
     if ((sock = netlink_create_socket()) == -1) {
-        perror("netlink_create_socket in netlink_init_interfaces_table");
+        perror("netlink_create_socket in netlink_init_interfaces_list");
         close(sock);
         return -1;
     }
 
     /* send dump request */
     if (netlink_send_dump_request(sock, RTM_GETLINK, AF_NETLINK) == -1) {
-        perror("netlink_send_dump_request in netlink_init_interfaces_table");
+        perror("netlink_send_dump_request in netlink_init_interfaces_list");
         close(sock);
         return -1;
     }
 
     /* read back messages */
-    memset(buf, 0, sizeof(buf));
-    ret = recvfrom(sock, buf, sizeof(buf), 0, NULL, 0);
-    if (ret < 0) {
-        perror("recvfrom in netlink_init_interfaces_table");
+    if ((buf = calloc(BUFSZ, sizeof(char))) == NULL) {
+        perror("calloc on 1st buf in netlink_init_interfaces_list");
         close(sock);
         return -1;
+    }
+
+    havemsg = 0;
+    while (!havemsg) {
+        bufsz = recvfrom(sock, buf, BUFSZ, 0, NULL, 0);
+
+        if (bufsz < 0) {
+            perror("recvfrom in netlink_init_interfaces_list");
+            close(sock);
+            return -1;
+        } else if (bufsz > BUFSZ) {
+            free(buf);
+            buf = NULL;
+
+            if ((buf = calloc(bufsz, sizeof(char))) == NULL) {
+                perror("calloc on 2nd buf in netlink_init_interfaces_list");
+                close(sock);
+                return -1;
+            }
+        } else {
+            havemsg = 1;
+        }
     }
 
     nlh = (struct nlmsghdr *) buf;
@@ -314,9 +334,17 @@ int netlink_init_interfaces_list(void) {
             continue;
         }
 
+        namelen = 0;
+
         while (RTA_OK(rta, len)) {
-            if (rta->rta_type <= len)
+            if (rta->rta_type <= len) {
+                if (rta->rta_type == IFLA_IFNAME) {
+                    namelen = rta->rta_len;
+                }
+
                 tb[rta->rta_type] = rta;
+            }
+
             rta = RTA_NEXT(rta, len);
         }
 
@@ -327,7 +355,7 @@ int netlink_init_interfaces_list(void) {
             /* make some room! */
             intfinfo = malloc(sizeof(struct _interface_info_t));
             if (intfinfo == NULL) {
-                perror("malloc in netlink_init_interfaces_table");
+                perror("malloc in netlink_init_interfaces_init");
                 close(sock);
                 return -1;
             }
@@ -336,8 +364,12 @@ int netlink_init_interfaces_list(void) {
             intfinfo->i = ifi->ifi_index;
 
             /* copy the interface name (eth0, eth1, ...) */
-            intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
-                                             sizeof(RTA_DATA(tb[IFLA_IFNAME])));
+            if (namelen > 0) {
+                intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
+                                         namelen);
+            } else {
+                intinfo->name = NULL;
+            }
 
             /* copy the MAC addr */
             memcpy(&intfinfo->mac, RTA_DATA(tb[IFLA_ADDRESS]), alen);
