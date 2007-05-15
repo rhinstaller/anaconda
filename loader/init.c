@@ -317,15 +317,20 @@ static int setupTerminal(int fd) {
         fatal_error(1);
     }
 
-    /* use the no-advanced-video vt100 definition */
-    env[ENV_TERM] = "TERM=vt100-nav";
+    if (!strcmp(ttyname(fd), "/dev/hvc0")) {
+        /* using an HMC on a POWER system, use vt320 */
+        env[ENV_TERM] = "TERM=vt320";
+    } else {
+        /* use the no-advanced-video vt100 definition */
+        env[ENV_TERM] = "TERM=vt100-nav";
 
-    /* unless the user specifies that they want utf8 */
-    if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
-        len = read(fdn, buf, sizeof(buf) - 1);
-        close(fdn);
-        if ((len > 0) && strstr(buf, "utf8"))
-            env[ENV_TERM] = "TERM=vt100";
+        /* unless the user specifies that they want utf8 */
+        if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
+            len = read(fdn, buf, sizeof(buf) - 1);
+            close(fdn);
+            if (len > 0 && mystrstr(buf, "utf8"))
+                env[ENV_TERM] = "TERM=vt100";
+        }
     }
 
     return 0;
