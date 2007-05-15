@@ -1,7 +1,7 @@
 #
 # language_text.py: text mode language selection dialog
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -11,13 +11,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os
-import isys
-import iutil
-import time
 from snack import *
 from constants_text import *
-from flags import flags
 
 from rhpl.translate import _
 
@@ -47,7 +42,7 @@ class LanguageWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        if ((anaconda.id.instLanguage.getFontFile(choice) == "none")):
+        if anaconda.id.instLanguage.getFontFile(choice) == "none":
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
@@ -55,20 +50,9 @@ class LanguageWindow:
             anaconda.id.instLanguage.setRuntimeDefaults(choice)
             return INSTALL_OK
 
-        if (flags.setupFilesystems and
-            anaconda.id.instLanguage.getFontFile(choice) == "none"
-            and anaconda.intf.isRealConsole()):
-            ButtonChoiceWindow(screen, "Language Unavailable",
-                               "%s display is unavailable in text mode.  "
-                               "The installation will continue in "
-                               "English." % (choice,),
-                               buttons=[TEXT_OK_BUTTON])
-            anaconda.id.instLanguage.setRuntimeDefaults(choice)
-            return INSTALL_OK
-
 	anaconda.id.instLanguage.setRuntimeLanguage(choice)
 	anaconda.id.instLanguage.setDefault(choice)
-                
+
 	anaconda.intf.drawFrame()
-	    
+
         return INSTALL_OK
