@@ -1,3 +1,10 @@
+2007-05-16  David Cantrell  <dcantrell@redhat.com>
+
+	* Makefile.inc: Taken from devel, figure out Python include path.
+
+	* isys/nl.c (netlink_init_interfaces_list): Add missing variable
+	declarations, correct some typos.
+
 2007-05-15  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/upd-instroot: Add /sbin/sfdisk (#224297).

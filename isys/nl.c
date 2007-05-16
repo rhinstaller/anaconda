@@ -257,8 +257,8 @@ int netlink_get_interface_ip(int index, int family, void *addr) {
  * @return 0 on succes, -1 on error.
  */
 int netlink_init_interfaces_list(void) {
-    int sock, ret, len, alen, r;
-    char buf[BUFSZ];
+    int sock, ret, len, alen, r, bufsz, havemsg, namelen;
+    char *buf = NULL;
     struct nlmsghdr *nlh;
     struct ifinfomsg *ifi;
     struct rtattr *rta;
@@ -309,7 +309,7 @@ int netlink_init_interfaces_list(void) {
     }
 
     nlh = (struct nlmsghdr *) buf;
-    while (NLMSG_OK(nlh, ret)) {
+    while (NLMSG_OK(nlh, bufsz)) {
         switch (nlh->nlmsg_type) {
             case NLMSG_DONE:
                 break;
@@ -368,7 +368,7 @@ int netlink_init_interfaces_list(void) {
                 intfinfo->name = strndup((char *) RTA_DATA(tb[IFLA_IFNAME]),
                                          namelen);
             } else {
-                intinfo->name = NULL;
+                intfinfo->name = NULL;
             }
 
             /* copy the MAC addr */
