@@ -587,7 +587,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (!cfg->noDns)
             writeResolvConf(cfg);
         return LOADER_NOOP;
-    }        
+    }
 
     /* handle wireless device configuration */
     if (is_wireless_interface(device)) {
@@ -1851,7 +1851,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
             /* this is smart and does the right thing based on whether or not
              * we have ksdevice= specified */
             rc = chooseNetworkInterface(loaderData);
-            
+
             if (rc == LOADER_ERROR) {
                 /* JKFIXME: ask for a driver disk? */
                 logMessage(ERROR, "no network drivers for doing kickstart");
