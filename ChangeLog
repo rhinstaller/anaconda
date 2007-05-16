@@ -5,6 +5,8 @@
 	* loader2/selinux.c (loadpolicy):  -b option now causes a warning
 	message to be printed.
 
+	* textw/language_text.py:  Fix tracebacks from yesterday's changes.
+
 2007-05-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
