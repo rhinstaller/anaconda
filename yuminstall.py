@@ -434,6 +434,10 @@ class AnacondaYum(YumSorter):
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
 
+        # set up logging to log to our logs
+        ylog = logging.getLogger("yum")
+        map(lambda x: ylog.addHandler(x), log.handlers)
+
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
             repo = AnacondaYumRepo(uri,
