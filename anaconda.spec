@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.59
+Version: 11.2.0.60
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 16 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.60-1
+- Add yum logger (katzj, #240226).
+- Fix up Bulgarian keyboard support (#240087).
+- Fix text mode language selection tracebacks.
+
 * Tue May 15 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.59-1
 - Set the timezone when language is changed in text mode (#239826).
 - Replace pump-stub with dhcpclient-stub (dcantrell, #239427).
