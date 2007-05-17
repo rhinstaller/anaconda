@@ -30,7 +30,7 @@ log = logging.getLogger("anaconda")
 
 # return -1 to use text mode, None for no vncpass, or vncpass otherwise
 def askVncWindow():
-    if not os.path.isfile('/usr/bin/Xvnc'):
+    if not os.access('/usr/bin/Xvnc', os.X_OK):
         return -1
 
     if network.hasActiveNetDev() == False:

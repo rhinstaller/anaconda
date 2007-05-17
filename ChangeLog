@@ -1,3 +1,7 @@
+2007-05-17  David Cantrell  <dcantrell@redhat.com>
+
+	* vnc.py (askVncWindow): Check for an executable Xvnc.
+
 2007-05-17  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgrade_remove_blacklist): Add esound to the list
