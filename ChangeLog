@@ -1,3 +1,8 @@
+2007-05-17  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Add logging for yum
+	logging (from katzj AT redhat.com) (#212259).
+
 2007-05-16  David Cantrell  <dcantrell@redhat.com>
 
 	* Makefile.inc: Taken from devel, figure out Python include path.
