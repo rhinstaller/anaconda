@@ -716,7 +716,13 @@ class YumBackend(AnacondaBackend):
         self.ayum = AnacondaYum(anaconda)
 
     def doGroupSetup(self):
+        # FIXME: this is a pretty ugly hack to make it so that we don't lose
+        # groups being selected (#237708)
+        sel = filter(lambda g: g.selected, self.ayum.comps.get_groups())
         self.ayum.doGroupSetup()
+        # now we'll actually reselect groups..
+        map(lambda g: self.selectGroup(g.groupid), sel)
+
         # FIXME: this is a bad hack to remove support for xen on xen (#179387)
         if os.path.exists("/proc/xen"):
             if self.ayum.comps._groups.has_key("virtualization"):
@@ -726,7 +732,7 @@ class YumBackend(AnacondaBackend):
         if rpmUtils.arch.getBaseArch() == "i386" and "pae" not in iutil.cpuFeatureFlags():
             if self.ayum.comps._groups.has_key("virtualization"):
                 del self.ayum.comps._groups["virtualization"]
-                
+
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         # We want to call ayum.doRepoSetup one repo at a time so we have
