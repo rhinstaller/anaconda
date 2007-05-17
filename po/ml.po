@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-16 17:20+0530\n"
+"PO-Revision-Date: 2007-05-17 17:16+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -200,13 +200,12 @@ msgstr ""
 "സാധ്യമല്ല."
 
 #: ../autopart.py:1031
-#, fuzzy
 msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"ബൂട്ട് പാറ്‍ട്ടിഷന്‍ ഈ ഡിസ്കില്‍ നേരത്തെ തന്നെ കാണാത്തത് കൊണ്ട്  OpenFirmware ഇന്‍സ്റ്റലേഷന്‍ ബൂട്ട് "
-"ചെയ്യുവാന്‍ കഴിയില്ല."
+"ബൂട്ട് പാറ്‍ട്ടിഷന്‍ പൂറ്‍ണ്ണമായി ഈ ഡിസ്കിന്‍റെ ആദ്യ 4GB-യില്‍ ഉണ്ടായിരിക്കണം. "
+"OpenFirmware-ന് ഈ ഇന്‍സ്റ്റലേഷന്‍ ബൂട്ട് ചെയ്യുവാന്‍ കഴിയില്ല."
 
 #: ../autopart.py:1038
 #, python-format
@@ -679,7 +678,7 @@ msgstr ""
 "ചെയ്യണമെങ്കില്‍, സിസ്റ്റം ഷട്ട് ഡൌണ്‍ ചെയ്യുന്നതാണ് ഉചിതം."
 
 #: ../fsset.py:1466
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -691,12 +690,12 @@ msgid ""
 msgstr ""
 "swap ഡിവൈസ്:\n"
 "\n"
-"     /dev/%s\n"
+"     /dev/%s - \n"
 "\n"
-"നിങ്ങളുടെ /etc/fstab ഫയലിലുളള ഡിവൈസ് ഇപ്പോള്‍ സോഫ്റ്റ്‍വയര്‍ സസ്പന്‍ഡ് പാര്‍ട്ടീഷനായി "
-"ഉപയോഗിക്കുന്നു. ഇതിനര്‍ത്ഥം നിങ്ങളുടെ സിസ്റ്റം ഹൈബര്‍ണേറ്റ് ചെയ്യുന്നു എന്നാണ്. നിങ്ങള്‍ പുതുതായി "
-"ഇന്‍സ്റ്റോള്‍ ചെയ്യുകയാണ് എങ്കില്‍,എല്ലാ swap പാര്‍ട്ടീഷനുകളും ഫോര്‍മാറ്റ് ചെയ്യുന്നതിന് ഇന്‍സ്റ്റോളര്‍ സെറ്റ് "
-"ചെയ്തിട്ടുണ്ട് എന്നുറപ്പ് വരുത്തുക."
+"നിങ്ങളുടെ /etc/fstab ഫയലിലുളള ഈ ഡിവൈസ് നിലവില്‍ ഒരു സോഫ്റ്റ്‌വെയറ്‍ സസ്പന്‍ഡ് "
+"പാര്‍ട്ടീഷനായി ഉപയോഗിക്കുന്നു. ഇതിനര്‍ത്ഥം നിങ്ങളുടെ സിസ്റ്റം ഹൈബര്‍ണേറ്റ് ചെയ്യുന്നു "
+"എന്നാണ്. നിങ്ങള്‍ പുതുതായി ഇന്‍സ്റ്റോള്‍ ചെയ്യുകയാണ് എങ്കില്‍,എല്ലാ swap പാര്‍ട്ടീഷനുകളും "
+"ഫോര്‍മാറ്റ് ചെയ്യുന്നതിന് ഇന്‍സ്റ്റോളര്‍ സെറ്റ് ചെയ്തിട്ടുണ്ട് എന്നുറപ്പ് വരുത്തുക."
 
 #: ../fsset.py:1476
 msgid ""
@@ -850,7 +849,7 @@ msgid "_Continue"
 msgstr "തുടരുക (_C)"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -860,9 +859,9 @@ msgid ""
 msgstr ""
 "%s എന്ന ഡിവൈസ് %s ആയി മൌണ്ട് ചെയ്യുന്നതില്‍ പിഴവ്: %s\n"
 "\n"
-"ഇതിനര്‍ത്ഥം പാര്‍ട്ടീഷന്‍ ഫോര്‍മാറ്റ് ചെയ്തിട്ടില്ല എന്നാണ്.\n"
+"/etc/fstab-ലുളള ഡിവൈസുകള്‍ പേരിന് പകരം ലേബല്‍ ഉപയോഗിച്ചാവണം അറിയപ്പടേണ്ടത്.\n"
 "\n"
-"കംപ്യൂട്ടര്‍ വീണ്ടും ഓണ്‍ ചെയ്യുവാനായി <Enter> അമര്‍ത്തുക."
+"കംപ്യൂട്ടര്‍ റീബൂട്ട് ചെയ്യുവാനായി ശരി അമര്‍ത്തുക."
 
 #: ../fsset.py:1728
 #, python-format
@@ -915,15 +914,13 @@ msgid "Invalid Label"
 msgstr "അസാധുവായ ലേബല്‍"
 
 #: ../fsset.py:2414
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"%s എന്ന ലേബല്‍ കംപ്യൂട്ടറില്‍ ഒന്നില്‍ കൂടുതല്‍ ഡിവൈസുകള്‍ക്ക് കാണപ്പെട്ടിരിക്കുന്നു.  കംപ്യൂട്ടറ്‍ ശരിയായി "
-"പ്രവറ്‍ത്തിക്കുന്നതിനായി ഓരോ ഡിവൈസിനും വ്യത്യസ്ഥ ലേബലുകള്‍ ആയിരിക്കണം.\n"
-"\n"
-"ഈ പ്രശ്നം പരിഹരിച്ച് ഇന്‍സ്റ്റലേഷന്‍ വീണ്ടും ആരംഭിക്കുക."
+"%s എന്ന ഡിവൈസിന് തെറ്റായ ലേബല്‍ നല്‍കിയിരിക്കുന്നു. ഈ പ്രശ്നം പരിഹരിച്ച് "
+"ഇന്‍സ്റ്റലേഷന്‍ വീണ്ടും ആരംഭിക്കുക."
 
 #: ../fsset.py:2672
 msgid "Formatting"
@@ -1479,7 +1476,7 @@ msgstr ""
 "CDL ഫോര്‍മാറ്റ് ഉപയോഗിച്ച് DASD റീഫോര്‍മാറ്റ് ചെയ്യുവാന്‍ നിങ്ങള്‍ ആഗ്രഹിക്കുന്നുവോ? "
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1487,9 +1484,9 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"നിലവില്‍ /dev/%sന്‍റെ പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് %s ആണ്.  %s ന്‍റെ ഇന്‍സ്റ്റലേഷനായി ഈ ഡിസ്ക്ക് "
-"ഉപയോഗിക്കണമെങ്കില്‍,ഇതിലുളള എല്ലാ വിവരങ്ങളും(ALL DATA) നഷ്ടപ്പെടുത്തണം, അതിനായി ഇത് റീ-"
-"ഇനിഷ്യലൈസ് ചെയ്തിരിക്കണം.\n"
+"നിലവില്‍ /dev/%s-ന്‍റെ പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് %s ആണ്.  %s ന്‍റെ ഇന്‍സ്റ്റലേഷനായി ഈ ഡിസ്ക്ക് "
+"ഉപയോഗിക്കണമെങ്കില്‍,ഇതിലുളള എല്ലാ വിവരങ്ങളും(ALL DATA) നഷ്ടപ്പെടുത്തണം, "
+"അതിനായി ഇത് റീ-ഇനിഷ്യലൈസ് ചെയ്തിരിക്കണം.\n"
 "\n"
 "ഈ ഡ്രൈവ് ഫോര്‍മാറ്റ് ചെയ്യുവാന്‍ നിങ്ങള്‍ ആഗ്രഹിക്കുന്നുവോ?"
 
@@ -2946,15 +2943,13 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "അഡ്വാന്‍സ്ഡ് ബൂട്ട് ലോഡര്‍ കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS-"
-"ന്‍റെ പിന്തുണയില്ലാതെ നിങ്ങളുടെ ബൂട്ട് ലോഡറിന് വേണ്ടി LBA32 ഉപയോഗിക്കുന്നതിനായി "
+"BIOS-ന്‍റെ പിന്തുണയില്ലാതെ നിങ്ങളുടെ ബൂട്ട് ലോഡറിന് വേണ്ടി LBA32 ഉപയോഗിക്കുന്നതിനായി "
 "നിര്‍ബന്ധിക്കുന്നത് നിങ്ങളുടെ കംപ്യൂട്ടര്‍ ബൂട്ട് ചെയ്യല്‍ പ്രക്രിയ അസാധ്യമാക്കുന്നു.\n"
 "\n"
 "നിങ്ങള്‍ക്ക് LBA32 രീതിയില്‍ തുടര്‍ന്ന് നിര്‍ബന്ധിക്കണമോ?"
@@ -3132,13 +3127,13 @@ msgid "_Upgrade an existing installation"
 msgstr "നിലവിലുളള ഒരു കംപ്യൂട്ടര്‍ അപ്ഗ്രേഡ്(_U) ചെയ്യുക"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
 msgstr ""
-"നിലവിലുളള നിങ്ങളുടെ %s എന്ന സിസ്റ്റം അപ്ഗ്രേഡ് ചെയ്യണമെങ്കില്‍ ഈ ഉപാധി തിരഞ്ഞെടുക്കുക.  ഈ "
-"ഉപാധി നിങ്ങളുടെ ഡ്രൈവുകളിലുളള വിവരങ്ങള്‍ കാത്തുകൊള്ളും."
+"നിലവിലുളള നിങ്ങളുടെ %s എന്ന സിസ്റ്റം അപ്ഗ്രേഡ് ചെയ്യണമെങ്കില്‍ ഈ ഉപാധി "
+"തിരഞ്ഞെടുക്കുക.  ഈ ഉപാധി നിങ്ങളുടെ ഡ്രൈവുകളിലുളള വിവരങ്ങള്‍ കാത്തുകൊള്ളും."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3178,7 +3173,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "ഫിസിക്കല്‍ എക്സ്റ്റന്‍ഡ് ചെയിഞ്ച് ഉറപ്പാക്കുക"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3186,8 +3180,8 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"സ്ഥല വ്യാപ്തിയില്‍ വരുത്തിയ മാറ്റം പ്രാഭല്യത്തില്‍ വരണമെങ്കില്‍ നിലവിലുളള ലോജിക്കല്‍ വോള്യത്തിന്‍റെ "
-"വലുപ്പം ദശാംശമില്ലാത്ത ഗുണിതങ്ങളാക്കി നിര്‍വചിക്കുക.\n"
+"സ്ഥല വ്യാപ്തിയില്‍ വരുത്തിയ മാറ്റം പ്രാഭല്യത്തില്‍ വരണമെങ്കില്‍ നിലവിലുളള ലോജിക്കല്‍ "
+"വോള്യത്തിന്‍റെ വലുപ്പം ദശാംശമില്ലാത്ത ഗുണിതങ്ങളാക്കി നിര്‍വചിക്കുക.\n"
 "\n"
 "ഈ മാറ്റങ്ങള്‍ ഉടനടി പ്രാഗല്‍ഭ്യത്തില്‍ വരുന്നതാണ്."
 
