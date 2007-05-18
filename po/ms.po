@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-11 21:35+0800\n"
+"PO-Revision-Date: 2007-05-17 22:22+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5402,14 +5402,12 @@ msgid "Clustering"
 msgstr "Gugusan"
 
 #: ../installclasses/rhel.py:46
-#, fuzzy
 msgid "Storage Clustering"
-msgstr "Sokongan Gugusan."
+msgstr "Gugusan Storan"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Numbor peranti"
+msgstr "Numbor Pemasangan"
 
 #: ../installclasses/rhel.py:51
 msgid "To install the full set of supported packages included in your subscription, please enter your Installation Number"
@@ -5722,9 +5720,8 @@ msgid "Unable to download the kickstart file.  Please modify the kickstart param
 msgstr ""
 
 #: ../loader2/kickstart.c:380
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Ralat membuka fail kickstart %s: %s"
+msgstr "Ralat memuatturun fail kickstart"
 
 # lom
 #: ../loader2/kickstart.c:513
