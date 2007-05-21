@@ -123,7 +123,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
 	 yum-metadata-parser gfs2-utils libvolume_id nash
 	 libdhcp libnl libdhcp6client libdhcp4client
-	 device-mapper device-mapper-libs dmraid
+	 device-mapper device-mapper-libs dmraid keyutils-libs
 	 python-pyblock mkinitrd libbdevid libbdevid-python"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -290,6 +290,7 @@ $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libexpat*
 $LIBDIR/libext2fs*
+$LIBDIR/libkeyutils*
 $LIBDIR/liblvm-10.so*
 $LIBDIR/libgcc_s*
 $LIBDIR/libnsl*
