@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.60
+Version: 11.2.0.61
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 21 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.61-1
+- add esound to upgrade handling
+- fix selected group display when adding repos with the same groups (#237708)
+- check for Xvnc being executable (dcantrell)
+- add keyutils-libs (#240629)
+
 * Wed May 16 2007 Chris Lumens <clumens@redhat.com> - 11.2.0.60-1
 - Add yum logger (katzj, #240226).
 - Fix up Bulgarian keyboard support (#240087).
