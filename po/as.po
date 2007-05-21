@@ -1,15 +1,15 @@
-# translation of as.po to Assamese
+# translation of temp.po to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
-# Amitakhya Phukan <aphukan@redhat.com>, 2007.
+# Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: as\n"
+"Project-Id-Version: temp\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-14 14:18+0530\n"
+"PO-Revision-Date: 2007-05-21 14:50+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 
 #: ../anaconda:262
 msgid "Unknown Error"
-msgstr " অজ্ঞাত ভূল"
+msgstr "অজ্ঞাত ভূল"
 
 #: ../anaconda:265
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr " kickstart config: %s ৰ দ্বিতীয় ভাগ টানোতে ভুল হ'ল"
+msgstr "kickstart বিন্যাস: %s ৰ দ্বিতীয় ভাগ টানোতে ভুল হ'ল !"
 
 #: ../anaconda:279 ../cmdline.py:70 ../gui.py:960 ../text.py:403
 #, c-format, python-format
@@ -83,52 +83,52 @@ msgstr "শ্বেলৰ বাবে <enter> টিপক"
 #: ../loader2/urlinstall.c:493 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
-msgstr " ঠিক অাছে"
+msgstr "ঠিক অাছে"
 
 #: ../anaconda:413
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-" চিত্ৰিত সংস্থাপক প্ৰয়োগ কৰিবলৈ অাপোনাৰ ওচৰত পৰ্যাপ্ত RAM নাই । লিখিত ৰূপত অাৰম্ভ "
-"কৰা হ'ল ।"
+"চিত্ৰাংকিত সংস্থাপক প্ৰয়োগ কৰিবলৈ অাপোনাৰ ওচৰত পৰ্য্যাপ্ত RAM নাই । লিখিত ৰূপত "
+"অাৰম্ভ কৰা হ'ল ।"
 
 #: ../anaconda:429
 msgid "No video hardware found, assuming headless"
-msgstr " কোনো ভিডিও যন্ত্ৰ পোৱা ন'গ'ল, মস্তিষ্কহীন ধৰি লোৱা হ'ল"
+msgstr "কোনো ভিডিও যন্ত্ৰ পোৱা ন'গ'ল, মস্তিষ্কহীন ধৰি লোৱা হৈছে"
 
 #: ../anaconda:436 ../anaconda:896
 msgid "Unable to instantiate a X hardware state object."
-msgstr " X যন্ত্ৰ‌-সংক্ৰান্তৰ বস্তু সৃষ্টি কৰিব নোৱাৰি ।"
+msgstr "X যন্ত্ৰ‌-সংক্ৰান্তৰ বস্তু সৃষ্টি কৰিব নোৱাৰি ।"
 
 #: ../anaconda:493
 msgid "Starting graphical installation..."
-msgstr " চিত্ৰিত সংস্থাপন অাৰম্ভ কৰা হ'ল..."
+msgstr "চিত্ৰাংকিত সংস্থাপন অাৰম্ভ কৰা হ'ল..."
 
 #: ../anaconda:753
 msgid "Install class forcing text mode installation"
-msgstr " সংস্থাপন শ্ৰেণীয়ে লিখিত সংস্থাপন ধৰণ বাধ্য কৰিছে"
+msgstr "সংস্থাপন শ্ৰেণীয়ে লিখিত সংস্থাপন ধৰণ বাধ্য কৰিছে"
 
 #: ../anaconda:793
 msgid "Graphical installation not available...  Starting text mode."
-msgstr " চিত্ৰিত সংস্থাপন পোৱা নাযাই... লিখিত ধৰণ অাৰম্ভ কৰা হৈছে ।"
+msgstr "চিত্ৰাংকিত সংস্থাপন পোৱা নাযাই... লিখিত ৰূপত অাৰম্ভ কৰা হৈছে ।"
 
 #: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr " DISPLAY মান নিৰ্ধাৰিত কৰা হোৱা নাই । লিখিত ধৰণ অাৰম্ভ কৰা হ'ল!"
+msgstr "DISPLAY মান নিৰ্ধাৰিত কৰা হোৱা নাই । লিখিত ৰূপত অাৰম্ভ কৰা হ'ল !"
 
 #: ../anaconda:862
 msgid "Unknown install method"
-msgstr "অজ্ঞাত সংস্থাপন প্ৰক্ৰীয়া"
+msgstr "অজ্ঞাত সংস্থাপনৰ ধৰণ"
 
 #: ../anaconda:863
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr " অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যিটো anacondaই যোগান নধৰে ।"
+msgstr "অাপুনি এনেধৰণৰ সংস্থাপন প্ৰক্ৰীয়া নিৰ্দিষ্ট কৰিছে যাৰ anaconda ই যোগান নধৰে ।"
 
 #: ../anaconda:865
 #, c-format
 msgid "unknown install method: %s"
-msgstr " অজ্ঞাত সংস্থাপন প্ৰক্ৰীয়া: %s"
+msgstr "অজ্ঞাত সংস্থাপন প্ৰক্ৰীয়া: %s"
 
 #: ../autopart.py:955
 #, python-format
@@ -137,7 +137,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-" স্তম্ভক‌-ভিত্তিৰ অাধাৰত কৰা বিভাজনসমূহক প্ৰধান বিভাজন ভাবে বিতৰণ কৰিব নোৱাৰি ।\n"
+"স্তম্ভক‌-ভিত্তিৰ অাধাৰত কৰা বিভাজনসমূহক প্ৰধান বিভাজন ভাবে বিতৰণ কৰিব নোৱাৰি ।\n"
 " \n"
 " %s  "
 
@@ -148,7 +148,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-" বিভাজনসমূহক প্ৰধান বিভাজন ভাবে বিতৰণ কৰিব নোৱাৰি ।\n"
+"বিভাজনসমূহক প্ৰধান বিভাজন ভাবে বিতৰণ কৰিব নোৱাৰি ।\n"
 " \n"
 " %s"
 
@@ -159,7 +159,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-" স্তম্ভক‌-ভিত্তিত কৰা বিভাজনসমূহক বিতৰণ কৰিব নোৱাৰি ।\n"
+"স্তম্ভক‌-ভিত্তিত কৰা বিভাজনসমূহক বিতৰণ কৰিব নোৱাৰি ।\n"
 " \n"
 " %s"
 
@@ -170,9 +170,9 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-" Boot বিভাজন %s কোনো BSD ডিস্কৰ লেবেলৰ অংশ নহয় । এই বিভাজনৰ পৰা SRM-এ boot "
-"কৰিব নোৱাৰিব । BSD ডিস্ক লেবেল থকা কোনো বিভাজন প্ৰয়োগ কৰক নতুবা এই সঁজুলিৰ ডিস্ক "
-"লেবেল BSDলৈ পৰিবৰ্ত্তণ কৰক ।"
+"বুট বিভাজন %s কোনো BSD ডিস্কৰ লেবেলৰ অংশ নহয় । এই বিভাজনৰ পৰা SRM-এ বুট কৰিব "
+"নোৱাৰিব । BSD ডিস্ক লেবেল থকা কোনো বিভাজন প্ৰয়োগ কৰক নতুবা এই সঁজুলিৰ ডিস্ক লেবেল "
+"BSDলৈ পৰিবৰ্ত্তন কৰক ।"
 
 #: ../autopart.py:1027
 #, python-format
@@ -181,15 +181,15 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-" Boot বিভাজন %s কোনো মুক্ত ভাগ থকা ডিস্কৰ অংশ নহয় যাৰ অাৰম্ভনিত বুটলোডাৰ থাকিব । "
-"অান একো নহ'লেও ৫MBৰ মুক্ত ভাগ /boot থকা ডিস্কৰ অাৰম্ভনিত থকাতো সুনিশ্চিত কৰক ।"
+"বুট বিভাজন %s কোনো মুক্ত ভাগ থকা ডিস্কৰ অংশ নহয় যাৰ অাৰম্ভনিত বুটলোডাৰ থাকিব । অান "
+"একো নহ'লেও ৫MBৰ মুক্ত ভাগ /বুট থকা ডিস্কৰ অাৰম্ভনিত থকাতো সুনিশ্চিত কৰক ।"
 
 #: ../autopart.py:1029
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr " Boot বিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFIয়ে boot কৰিব নোৱাৰিব । "
+msgstr "বুট nবিভাজন %s VFAT বিভাজন নহয় । এই বিভাজনৰ পৰা EFI য়ে বুট কৰিব নোৱাৰিব । "
 
 #: ../autopart.py:1031
 msgid ""
@@ -202,7 +202,7 @@ msgstr ""
 #: ../autopart.py:1038
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr " অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুত বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে ।"
+msgstr "অাপোনাৰ স্থাপত্যৰ বুট কৰাৰ বাধ্যবাধকতাৰ বাবে বুট বিভাজন %s‌ উপযুক্ত নহ'বও পাৰে। "
 
 #: ../autopart.py:1064
 #, python-format
@@ -210,12 +210,12 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-" এই বিভাজন যোগ কৰিলে ইতিমধ্যে বিতৰণ কৰা %sত থকা লজিকেল আয়তনলৈ ডিষ্কত পৰ্যাপ্ত "
+"এই বিভাজন যোগ কৰিলে ইতিমধ্যে বিতৰণ কৰা %sত থকা লজিকেল আয়তনলৈ ডিষ্কত পৰ্য্যাপ্ত "
 "স্থান নাথাকিব ।"
 
 #: ../autopart.py:1259
 msgid "Requested Partition Does Not Exist"
-msgstr " বিচৰা বিভাজন বাস নকৰে"
+msgstr "অনুৰোধ কৰা বিভাজন নাই"
 
 #: ../autopart.py:1260
 #, python-format
@@ -224,13 +224,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-" %sৰ বাবে প্ৰয়োগ কৰা বিভাজন %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"%sৰ বাবে প্ৰয়োগ কৰিবলৈ বিভাজন %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
 "\n"
-"ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
-msgstr " বিচৰা Raid যন্ত্ৰ পোৱা ন'গ'ল"
+msgstr "বিচৰা Raid যন্ত্ৰ নাই ।"
 
 #: ../autopart.py:1288
 #, python-format
@@ -239,13 +239,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-" %sৰ বাবে প্ৰয়োগ কৰা raid যন্ত্ৰ %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"%sৰ বাবে প্ৰয়োগ কৰা raid যন্ত্ৰ %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
 "\n"
-"ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
-msgstr " বিচৰা Volume সমষ্টি বাস নকৰে"
+msgstr "বিচৰা আয়তন সমষ্টি নাই"
 
 #: ../autopart.py:1320
 #, python-format
@@ -254,13 +254,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-" %sৰ বাবে প্ৰয়োগ কৰা আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"%sৰ বাবে প্ৰয়োগ কৰা আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
 "\n"
-"ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
-msgstr " বিচৰা লজিকেল আয়তন বাস নকৰে"
+msgstr "বিচৰা লজিকেল আয়তন নাই "
 
 #: ../autopart.py:1358
 #, python-format
@@ -269,13 +269,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-" %sৰ বাবে প্ৰয়োগ কৰা লজিকেল আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
+"%sৰ বাবে প্ৰয়োগ কৰা লজিকেল আয়তন সমষ্টি %sৰ সন্ধান পোৱা ন'গ'ল ।\n"
 "\n"
-"ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
-msgstr " স্বয়ংক্ৰিয় বিভাজনৰ ভুল"
+msgstr "স্বয়ংক্ৰিয় বিভাজন কৰাৰ ভুলসমূহ"
 
 #: ../autopart.py:1485
 #, python-format
@@ -286,15 +286,15 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-" বিভাজন কৰোতে নিম্নলিখিত ভুল সংঘটিত হৈছে:\n"
+"বিভাজন কৰোতে নিম্নলিখিত ভুল সংঘটিত হৈছে:\n"
 "\n"
 "%s\n"
 "\n"
-" ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
-msgstr " স্বয়ংক্ৰিয় বিভাজনৰ সময়ত সকীয়নী"
+msgstr "স্বয়ংক্ৰিয় বিভাজনৰ সময়ত সকীয়নী"
 
 #: ../autopart.py:1496
 #, python-format
@@ -303,7 +303,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-" নিম্নলিখিত সকীয়নী সমূহ স্বয়ংক্ৰিয় বিভাজনৰ সময়ত হৈছিল:\n"
+"নিম্নলিখিত সকীয়নী সমূহ স্বয়ংক্ৰিয় বিভাজনৰ সময়ত হৈছিল:\n"
 "\n"
 "%s"
 
@@ -315,7 +315,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"ব্যৱস্থা প্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'OK' টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ 'ঠিক আছে' টিপক ।"
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -331,7 +331,7 @@ msgid ""
 msgstr ""
 "অনুৰোধ কৰা বিভাজন বিতৰণ কৰিব নোৱাৰি: \n"
 "\n"
-"%s.%s"
+"%s ।%s"
 
 #: ../autopart.py:1529
 msgid ""
@@ -341,7 +341,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"কোনো বেলেগ ধৰণৰ বিভাজনৰ বিকল্পৰ বাবে 'OK' নিৰ্বাচন কৰক ।"
+"কোনো বেলেগ বিভাজনৰ বিকল্পৰ বাবে 'ঠিক আছে' নিৰ্বাচন কৰক ।"
 
 #: ../autopart.py:1532
 #, python-format
@@ -366,7 +366,7 @@ msgstr "অপ্ৰাপ্তিসাধ্য ভুল"
 
 #: ../autopart.py:1544
 msgid "Your system will now be rebooted."
-msgstr "অাপোনাৰ ব্যৱস্থাপ্ৰণালী এতিয়া পুনৰাৰম্ভ কৰা হ'ব"
+msgstr "অাপোনাৰ ব্যৱস্থাপ্ৰণালী এতিয়া পুনৰাৰম্ভ কৰা হ'ব ।"
 
 #: ../autopart.py:1691 ../bootloader.py:197 ../image.py:439
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1052
@@ -389,11 +389,11 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-" নিৰ্বাচিত সংস্থাপন ধৰণৰ অাধাৰত স্বয়ংক্ৰিয় বিভাজনে বিভাজন সমূহ নিৰ্ধাৰিত কৰে । "
-"সৃষ্টি হোৱাৰ পিছত অাপুনি এই বিভাজন সমূহ পছন্দ মতে নিৰ্ধাৰিত কৰিব পাৰে ।\n"
+"নিৰ্ব্বাচিত সংস্থাপন ধৰণৰ অাধাৰত স্বয়ংক্ৰিয় বিভাজনে বিভাজন সমূহ নিৰ্ধাৰিত কৰে । সৃষ্টি "
+"হোৱাৰ পিছত অাপুনি এই বিভাজন সমূহ পছন্দ মতে নিৰ্ধাৰিত কৰিব পাৰে ।\n"
 "\n"
-" Disk Druid নামৰ হস্ত-সঞ্চালিত ডিষ্ক বিভাজন যন্ত্ৰয়ে অাপোনাক পাৰস্পৰিক পৰিবেশত "
-"বিভাজন কৰিবলৈ দিয়ে । অাপুনি file systemৰ ধৰণ, অভ্যুত্থানৰ স্থান, বিভাজনৰ পৰিমাণৰ "
+"Disk Druid নামৰ হস্ত-সঞ্চালিত ডিষ্ক বিভাজন যন্ত্ৰয়ে অাপোনাক পাৰস্পৰিক পৰিবেশত "
+"বিভাজন কৰিবলৈ দিয়ে । অাপুনি নথিপত্ৰপ্ৰণালীৰ ধৰণ, অভ্যুত্থানৰ স্থান, বিভাজনৰ পৰিমাণৰ "
 "দৰে অন্যান্য বহু গুন নিৰ্ধাৰিত কৰিব পাৰে ।"
 
 #: ../autopart.py:1708
@@ -401,20 +401,20 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
-"সংস্থাপন কাৰ্যক্ৰমৰ দ্বাৰা স্বয়ংক্ৰিয় বিভাজন অধিষ্ঠাপন কৰাৰ পূৰ্বে অাপুনি হাৰ্ড ড্ৰাইভৰ "
-"স্থান কেনেদৰে ব্যৱহাৰ কৰিব,বাছিব লাগিব ।"
+"সংস্থাপন কাৰ্য্যক্ৰমে স্বয়ংক্ৰিয় বিভাজন নিৰ্ধাৰিত কৰাৰ অাগতে অাপুনি হাৰ্ড ড্ৰাইভৰ স্থান "
+"কেনেদৰে ব্যৱহাৰ কৰিব খোজে, বাছিব লাগিব ।"
 
 #: ../autopart.py:1713
 msgid "Remove all partitions on this system"
-msgstr " এই ব্যৱস্থা-প্ৰণালীৰ সকলো বিভাজন অাঁতৰাই দিয়ক"
+msgstr "এই ব্যৱস্থাপ্ৰণালীৰ সকলো বিভাজন অাঁতৰাই দিয়ক"
 
 #: ../autopart.py:1714
 msgid "Remove all Linux partitions on this system"
-msgstr "এই ব্যৱস্থা-প্ৰণালীৰ সকলো Linux বিভাজন অাঁতৰাই দিয়ক"
+msgstr "এই ব্যৱস্থাপ্ৰণালীৰ সকলো লিনাক্স বিভাজন অাঁতৰাই দিয়ক"
 
 #: ../autopart.py:1715
 msgid "Keep all partitions and use existing free space"
-msgstr "সকলো বিভাজন ৰক্ষা কৰক অাৰু বৰ্ত্তমানে থকা ৰিক্ত স্থান ব্যৱহাৰ কৰক"
+msgstr "সকলো বিভাজন ৰক্ষা কৰক অাৰু বৰ্ত্তমানৰ ৰিক্ত স্থান ব্যৱহাৰ কৰক"
 
 #: ../autopart.py:1717
 #, python-format
@@ -423,9 +423,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-" নিম্নলিখিত driveসমূহৰ সকলো বিভাজন (সকলো তথ্য) অাপুনি অাঁতৰাই দিবলৈ নিৰ্ধাৰিত "
-"কৰিছে:%s\n"
-"এই কাৰ্য কৰিবলৈ অাপুনি নিশ্চিতনে?"
+"নিম্নলিখিত ড্ৰাইভসমূহৰ সকলো বিভাজন (সকলো তথ্য) অাপুনি অাঁতৰাই দিবলৈ নিৰ্ধাৰিত কৰিছে:"
+"%s\n"
+"এই কাৰ্য্য কৰিবলৈ অাপুনি নিশ্চিতনে?"
 
 #: ../autopart.py:1721
 #, python-format
@@ -434,9 +434,9 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"নিম্নলিখিত driveসমূহৰ সকলো Linux বিভাজন (অাৰু সেই বিভাজনসমূহৰ সকলো তথ্য) অাপুনি "
-"অাঁতৰাই দিবলৈ নিৰ্ধাৰিত কৰিছে:%s\n"
-"এই কাৰ্য কৰিবলৈ অাপুনি নিশ্চিতনে?"
+"নিম্নলিখিত ড্ৰাইভসমূহৰ সকলো লিনাক্স বিভাজন (অাৰু সেই বিভাজনসমূহৰ সকলো তথ্য) অাপুনি "
+"অাঁতৰাবলৈ নিৰ্ধাৰিত কৰিছে:%s\n"
+"এই কাৰ্য্য কৰিবলৈ অাপুনি নিশ্চিতনে?"
 
 #: ../backend.py:165
 #, python-format
@@ -454,14 +454,14 @@ msgstr "বুটল'ডাৰ"
 
 #: ../bootloader.py:129
 msgid "Installing bootloader..."
-msgstr "বুটল'ডাৰ সংস্থাপন কৰা হৈছে"
+msgstr "বুটল'ডাৰ সংস্থাপন কৰা হৈছে..."
 
 #: ../bootloader.py:198
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"ব্যৱস্থাপ্ৰণালীত কোনো kernel সৰঞ্জাম সংস্থাপন কৰা হোৱা নাছিল । অাপোনাৰ বুটল'ডাৰৰ "
+"ব্যৱস্থাপ্ৰণালীত কোনো কাৰ্ণেলৰ সৰঞ্জাম সংস্থাপন কৰা হোৱা নাছিল । অাপোনাৰ বুটল'ডাৰৰ "
 "বিন্যাস সলনি কৰা ন'হ'ব ।"
 
 #: ../cmdline.py:45
@@ -474,7 +474,7 @@ msgstr "প্ৰগতি কৰা হৈছে... "
 
 #: ../cmdline.py:82
 msgid "Can't have a question in command line mode!"
-msgstr " অাদেশ বাক্যৰ ৰূপত প্ৰশ্ন হ'ব নোৱাৰে!"
+msgstr "অাদেশ বাক্যৰ ৰূপত প্ৰশ্ন হ'ব নোৱাৰে !"
 
 #: ../cmdline.py:101
 msgid "Parted exceptions can't be handled in command line mode!"
@@ -487,8 +487,8 @@ msgid ""
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
-" অনিয়ন্ত্ৰিত ব্যতিক্ৰম ঘটিছে । এইটো সম্ভৱতঃ এটা বাগ । বিস্তাৰিত ব্যতিক্ৰমৰ এটা অনুকৃতি "
-"একত্ৰিত কৰি anacondaৰ বিৰুদ্ধে এটা বাগৰ প্ৰতিবেদন নথিভুক্ত কৰক  %s-ত ।"
+"অনিয়ন্ত্ৰিত ব্যতিক্ৰম ঘটিছে । এইটো সম্ভৱতঃ এটা বাগ । বিস্তাৰিত ব্যতিক্ৰমৰ এটা অনুকৃতি "
+"একত্ৰিত কৰি anacondaৰ বিৰুদ্ধে এটা বাগৰ প্ৰতিবেদন %s-ত নথিভুক্ত কৰক ।"
 
 #: ../exception.py:414 ../exception.py:431
 msgid "Dump Written"
@@ -499,7 +499,7 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-" আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ অৱস্থা সফল ভাবে ফ্লপিলৈ লিখা গ'ল ।আপোনাৰ ব্যৱস্থাপ্ৰণালী "
+"আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ অৱস্থা সফল ভাবে ফ্ল'পিলৈ লিখা গ'ল । আপোনাৰ ব্যৱস্থাপ্ৰণালী "
 "এতিয়া পুনৰাৰম্ভ কৰা হ'ব ।"
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
@@ -516,28 +516,28 @@ msgstr "আবৰ্জনা লিখা ন'গ'ল"
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ফ্লপিলৈ লিখোঁতে কোনো সমস্যা ন'হ'ল । "
+msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা ফ্ল'পিলৈ লিখোঁতে সমস্যা হ'ল । "
 
 #: ../exception.py:432
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ লিখোঁতে কোনো সমস্যা ন'হ'ল । আপোনাৰ ব্যৱস্থাপ্ৰণালী "
-"এতিয়া পুনৰাৰম্ভ কৰা হ'ব ।"
+"ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ সফল ভাবে লিখা হ'ল । আপোনাৰ ব্যৱস্থাপ্ৰণালী এতিয়া "
+"পুনৰাৰম্ভ কৰা হ'ব ।"
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
-msgstr " ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ লিখোঁতে এটা সমস্যা হ'ল ।"
+msgstr "ব্যৱস্থাপ্ৰণালীৰ অৱস্থা দূৰৰ গৃহস্থলৈ লিখোঁতে এটা সমস্যা হ'ল ।"
 
 #: ../fsset.py:214
 msgid "Checking for Bad Blocks"
-msgstr "বেয়া ব্ল'কৰ বাবে অনুসন্ধান কৰা হৈছে ।"
+msgstr "বেয়া ব্ল'কৰ বাবে অনুসন্ধান কৰা হৈছে"
 
 #: ../fsset.py:215
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "/dev/%s...-ত বেয়া ব্ল'কৰ বাবে অনুসন্ধান কৰা হৈছে ।"
+msgstr "/dev/%s...ত বেয়া ব্ল'কৰ বাবে অনুসন্ধান কৰা হৈছে"
 
 #: ../fsset.py:661 ../fsset.py:1396 ../fsset.py:1427 ../fsset.py:1488
 #: ../fsset.py:1499 ../fsset.py:1553 ../fsset.py:1564 ../fsset.py:1604
@@ -588,7 +588,7 @@ msgstr "RAID যন্ত্ৰ"
 
 #: ../fsset.py:1307 ../fsset.py:1313
 msgid "Apple Bootstrap"
-msgstr " Apple বুটস্ত্ৰেপ"
+msgstr "Apple বুটস্ত্ৰেপ"
 
 #: ../fsset.py:1318 ../partitions.py:900
 msgid "PPC PReP Boot"
@@ -600,7 +600,7 @@ msgstr " বুট বিভাজনৰ প্ৰথম খণ্ড"
 
 #: ../fsset.py:1322
 msgid "Master Boot Record (MBR)"
-msgstr "ম্যাচ্ট্যাৰ্ বুট ৰেকৰ্ড (এমবিআৰ)"
+msgstr "ম্যাচ্‌ট্যাৰ বুট ৰেকৰ্ড (MBR)"
 
 #: ../fsset.py:1397
 #, python-format
@@ -610,10 +610,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s যন্ত্ৰত শ্বেপ আৰম্ভ কৰোঁতে এটা ভুল হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়েব "
+"%s যন্ত্ৰত স্বেপ আৰম্ভ কৰোঁতে এটা ভুল হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব "
 "নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰনালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1426 ../packages.py:284 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -636,17 +636,17 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
-"শ্বেপ যন্ত্ৰ:\n"
+"স্বেপ যন্ত্ৰ:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"-টো Linux শ্বেপ বিভাজনৰ  0 সংস্কৰণ । এই বিভাজন প্ৰয়োগ কৰিব হ'লে, আপুনি এই "
-"বিভাজনটো Linux শ্বেপ বিভাজনৰ ১ সংস্কৰণ হিচাপে পুনৰাকৃতি দিব লাগিব । আপুনি যদি "
-"এতিয়া এইটো বাদ দিয়ে, তেনেহ'লে সংস্থাপকে সংস্থাপন কৰোঁতে উপেক্ষা কৰা হ'ব ।"
+"-টো Linux স্বেপ বিভাজনৰ  0 সংস্কৰণ । এই বিভাজন প্ৰয়োগ কৰিব হ'লে, আপুনি এই "
+"বিভাজনটোক Linux স্বেপ বিভাজনৰ ১ সংস্কৰণ হিচাপে পুনৰাকৃতি দিব লাগিব । আপুনি যদি "
+"এতিয়া এইটো বাদ দিয়ে, তেনেহ'লে সংস্থাপকে সংস্থাপন কৰোঁতে উপেক্ষা কৰিব ।"
 
 #: ../fsset.py:1454
 msgid "Reformat"
-msgstr " পুনৰাকৃতি দিয়ক"
+msgstr "পুনৰাকৃতি দিয়ক"
 
 #: ../fsset.py:1458
 #, python-format
@@ -659,7 +659,7 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-"আপোনাৰ /etc/fstab নথি‌পত্ৰৰ শ্বেপ যন্ত্ৰ:\n"
+"আপোনাৰ /etc/fstab নথি‌পত্ৰৰ স্বেপ যন্ত্ৰ:\n"
 "\n"
 "     /dev/%s\n"
 "\n"
@@ -697,8 +697,8 @@ msgstr ""
 "\n"
 "\n"
 "এৰি যোৱাতো নিৰ্ব্বাচন কৰক যদি আপুনি উন্নয়নৰ সময়ত এই বিভাজন সংস্থাপকৰ দ্বাৰা আওকাণ "
-"কৰা বিচাৰে । বিভাজনক শ্বেপ স্থান হিচাপে পুনৰাকৃতি দিব'লৈ আকৃতি দিয়া নিৰ্বাচন কৰক । "
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ পুনৰাৰম্ভ নিৰ্বাচন কৰক ।"
+"কৰা বিচাৰে । বিভাজনক স্বেপ স্থান হিচাপে পুনৰাকৃতি দিব'লৈ আকৃতি দিয়া নিৰ্বাচন কৰক । "
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ পুনৰাৰম্ভ নিৰ্বাচন কৰক ।"
 
 #: ../fsset.py:1482 ../iw/partition_gui.py:368
 msgid "Format"
@@ -714,11 +714,12 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"শ্বেপ যন্ত্ৰ %s সক্ৰিয় কৰোঁতে ভ্ৰান্তি হ'ল:%s\n"
+"স্বেপ যন্ত্ৰ %s সক্ৰিয় কৰোঁতে ভ্ৰান্তি হ'ল:%s\n"
 "\n"
-"আপোনাৰ উন্নত বিভাজন /etc/fstab কোনো আইনসংগত শ্বেপ বিভাজনলৈ উল্লেখ নকৰে ।\n"
+"আপোনাৰ উন্নত বিভাজনত থকা /etc/fstab এ কোনো আইনসংগত স্বেপ বিভাজনলৈ উল্লেখ নকৰে "
+"।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1500
 #, python-format
@@ -729,11 +730,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"শ্বেপ যন্ত্ৰ %s সক্ৰিয় কৰোঁতে ভ্ৰান্তি হ'ল: %s\n"
+"স্বেপ যন্ত্ৰ %s সক্ৰিয় কৰোঁতে ভ্ৰান্তি হ'ল: %s\n"
 "\n"
-"অতি সম্ভৱ ইয়াৰ মানে এই শ্বেপ বিভাজন আৰম্ভ কৰা হোৱা নাই ।\n"
+"অতি সম্ভৱ ইয়াৰ মানে এই স্বেপ বিভাজন আৰম্ভ কৰা হোৱা নাই ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1554
 #, python-format
@@ -743,10 +744,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"/dev/%s যন্ত্ৰত বেয়া খণ্ডৰ উদ্ঘাটন কৰা হৈছে । এই যন্ত্ৰ ব্যৱহাৰ কৰিবলৈ আপোনাক আমি "
+"/dev/%s যন্ত্ৰত বেয়া খণ্ডৰ উদ্ঘাটন কৰা হৈছে । এই যন্ত্ৰ ব্যৱহাৰ কৰিব'লৈ আপোনাক আমি "
 "উপদেশ নিদিওঁ ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1565
 #, python-format
@@ -759,7 +760,7 @@ msgstr ""
 "%s-ত বেয়া খণ্ড বিচাৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1605
 #, python-format
@@ -772,7 +773,7 @@ msgstr ""
 "%s ক আকৃতি দিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন আগবাঢ়িব "
 "নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1655
 #, python-format
@@ -782,10 +783,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s ক অভিগমন কৰিবলৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন "
+"%s ক অভিগমন কৰিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই সমস্যা গম্ভীৰ আৰু সংস্থাপন "
 "আগবাঢ়িব নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1681 ../fsset.py:1690
 msgid "Invalid mount point"
@@ -799,10 +800,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s ক সৃষ্টি কৰিবলৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই পথৰ কিছু পদাৰ্থ পঞ্জিকা নহয় । এইটো "
-"ধ্বংসকাৰী ভ্ৰান্তি আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে ।\n"
+"%s ক সৃষ্টি কৰিব'লৈ চেষ্টা কৰোঁতে ভ্ৰান্তি হ'ল । এই পথৰ কিছু পদাৰ্থ পঞ্জিকা নহয় । "
+"এইটো ধ্বংসকাৰী ভ্ৰান্তি আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1691
 #, python-format
@@ -815,11 +816,11 @@ msgstr ""
 "%s সৃষ্টি কৰোঁতে ভ্ৰান্তি হ'ল:%s । এইটো ধ্বংসকাৰী ভ্ৰান্তি আৰু সংস্থাপন আগবাঢ়িব নোৱাৰে "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <Enter> টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <Enter> টিপক ।"
 
 #: ../fsset.py:1704
 msgid "Unable to mount filesystem"
-msgstr "নথিপত্ৰৰপ্ৰণালী অভ্যুত্থান কৰিব পৰা ন'গ'ল ।"
+msgstr "নথিপত্ৰৰপ্ৰণালী অভ্যুত্থান কৰিব পৰা ন'গ'ল"
 
 #: ../fsset.py:1705
 #, python-format
@@ -864,7 +865,7 @@ msgstr ""
 "\n"
 "অতি সম্ভৱ ইয়াৰ মানে এই বিভাজনত আকৃতি তৈয়াৰ কৰা হোৱা নাই ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:1748
 msgid ""
@@ -878,7 +879,7 @@ msgstr ""
 "\n"
 "অতি সম্ভৱ ইয়াৰ মানে আপোনাৰ fstab ভুল ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../fsset.py:2403
 msgid "Duplicate Labels"
@@ -915,7 +916,7 @@ msgstr "আকৃতি দিয়া হৈছে"
 #: ../fsset.py:2673
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "%s নথিপত্ৰ প্ৰণালীক আকৃতি দিয়া হৈছে..."
+msgstr "%s নথিপত্ৰ প্ৰণালী পুনৰাকৃত কৰা হৈছে..."
 
 #: ../gui.py:109
 msgid "An error occurred copying the screenshots over."
@@ -923,7 +924,7 @@ msgstr "পৰ্দ্দাৰ চিত্ৰ লওঁতে ভ্ৰান
 
 #: ../gui.py:120
 msgid "Screenshots Copied"
-msgstr "পৰ্দ্দাৰ চিত্ৰ লোৱা গ'ল ।"
+msgstr "পৰ্দ্দাৰ চিত্ৰ লোৱা গ'ল"
 
 #: ../gui.py:121
 msgid ""
@@ -946,7 +947,7 @@ msgstr "পৰ্দ্দাৰ চিত্ৰ সংৰক্ষিত কৰ
 #: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "'%s' নামৰ পৰ্দ্দাৰ চিত্ৰ সংৰক্ষিত কৰা হ'ল"
+msgstr "'%s' নামৰ পৰ্দ্দাৰ চিত্ৰ সংৰক্ষিত কৰা হ'ল ।"
 
 #: ../gui.py:168
 msgid "Error Saving Screenshot"
@@ -958,11 +959,11 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 "পৰ্দ্দাৰ চিত্ৰ সংৰক্ষিত কৰোঁতে ভ্ৰান্তি হ'ল । যদি সৰঞ্জাম সংস্থাপনৰ সময়ত সংঘটিত হৈছে, "
-"তেনেহ'লে আপুনি সফল হ'ব'লৈ হয়তো বহুবাৰ চেষ্টা কৰিব লাগিব ।"
+"তেনেহ'লে সফল হ'বলৈ আপুনি হয়তো বহুবাৰ চেষ্টা কৰিব লাগিব ।"
 
 #: ../gui.py:234 ../text.py:440
 msgid "Fix"
-msgstr "থিৰ কৰক"
+msgstr "শুধৰাওক"
 
 #: ../gui.py:235 ../rescue.py:203 ../text.py:441 ../upgrade.py:59
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
@@ -1015,7 +1016,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"অনুগ্ৰহ কৰি এখন floppy ভৰাই দিয়ক । ডিষ্কৰ সকলো বিষয়সূচি লুপ্ত কৰা হ'ব,সেইবাবে "
+"অনুগ্ৰহ কৰি এখন ফ্ল'পি ভৰাই দিয়ক । ডিষ্কৰ সকলো বিষয়সূচি লুপ্ত কৰা হ'ব,সেইবাবে "
 "আপোনাৰ ডিষ্কেট সতৰ্কতাৰে নিৰ্বাচন কৰিব ।"
 
 #: ../gui.py:1017
@@ -1033,7 +1034,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"সংস্থাপক সংযোগ মাধ্যমৰ অংশ এটা তুলি ল'ব'লৈ চেষ্টা কৰোঁতে ভুল হ'ল ।\n"
+"সংস্থাপক সংযোগ মাধ্যমৰ অংশ এটা তুলি ল'বলৈ চেষ্টা কৰোঁতে ভুল হ'ল ।\n"
 "\n"
 "className = %s"
 
@@ -1081,9 +1082,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s নথিপত্ৰ খোলা ন'গ'ল । এইটো কোনো লুপ্ত নথিপত্ৰ বা কোনো অশুদ্ধ সৰঞ্জাম । অনুগ্ৰহ কৰি "
-"আপোনাৰ সংস্থাপন প্ৰতিমূৰ্ত্তিৰ সত্যাখ্যান কৰক আৰু আপোনাৰ ওচৰত সকলো প্ৰয়োজনীয় "
-"মিডিয়াআছে । \n"
+"%s নথিপত্ৰ খোলা ন'গ'ল । এইটো কোনো লুপ্ত নথিপত্ৰ বা কোনো অশুদ্ধ সৰঞ্জামৰ বাবে হৈছে । "
+"অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপন প্ৰতিমূৰ্ত্তিৰ আৰু আপোনাৰ ওচৰত সকলো প্ৰয়োজনীয় মিডিয়া "
+"হোৱাৰ সত্যাখ্যান কৰক । \n"
 "\n"
 "পুনৰাৰম্ভ কৰিলে, আপোনাৰ ব্যৱস্থাপ্ৰণালী স্থিৰতাহীন অৱস্থাত থাকিব যিটোক পুনঃসংস্থাপনৰ "
 "প্ৰয়োগ হ'ব ।\n"
@@ -1104,7 +1105,7 @@ msgid ""
 msgstr ""
 "প্ৰতিমূৰ্ত্তি #%s তুলিল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল, কিন্তু হাৰ্ড ড্ৰাইভত নেপালে ।\n"
 "\n"
-"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্ত্তি ড্ৰাইভত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন বন্ধ কৰিবলৈ "
+"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্তি ড্ৰাইভত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন বন্ধ কৰিব'লৈ "
 "পুনৰাৰম্ভ টিপক ।"
 
 #: ../harddrive.py:81 ../image.py:524
@@ -1140,11 +1141,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"আপুনি বিচৰা চালনাজ্ঞান সংস্থাপন কৰিবলৈ নিম্নলিখিত CDৰ প্ৰয়োজন হ'ব:\n"
+"আপুনি বিচৰা চালনাজ্ঞান সংস্থাপন কৰিব'লৈ নিম্নলিখিত CDৰ প্ৰয়োজন হ'ব:\n"
 "\n"
 "%s\n"
-"সংস্থাপনৰ কাৰ্য্যত আগবঢ়াৰ আগতে এইকেইখন সাজু থ'ব । যদি আপোনাক সংস্থাপন বন্ধ কৰি "
-"পুনৰাৰম্ভ কৰাৰ প্ৰয়োজন হয়, অনুগ্ৰহ কৰি  \"Reboot\" নিৰ্বাচন কৰক ।"
+"সংস্থাপনত আগবঢ়াৰ আগতে এইকেইখন সাজু থ'ব । যদি অপোনাক সংস্থাপন বন্ধ কৰি পুনৰাৰম্ভ "
+"কৰাৰ প্ৰয়োজন হয়, অনুগ্ৰহ কৰি  \"পুনৰাৰম্ভট\" নিৰ্বাচন কৰক ।"
 
 #: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
 #: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1158,8 +1159,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"CD বাহিৰ কৰোঁতে ভ্ৰান্তি হ'ল । অনুগ্ৰহ কৰি আপুনি tty2-ত শ্বেলৰ পৰা  %s-ক অভিগম নকৰা "
-"নিশ্চিত কৰক আৰু পুনৰ চেষ্টা কৰিবলৈ ঠিক আছে টিপক ।"
+"CD বাহিৰ কৰোঁতে ভ্ৰান্তি হ'ল । অনুগ্ৰহ কৰি আপুনি tty2-ত শ্বেলৰ পৰা %s-ক অভিগম নকৰা "
+"নিশ্চিত কৰক আৰু পুনৰ চেষ্টা কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../image.py:170 ../urlinstall.py:103
 msgid "Copying File"
@@ -1167,14 +1168,14 @@ msgstr "নথিপত্ৰ নকল কৰা হৈছে"
 
 #: ../image.py:171 ../urlinstall.py:104
 msgid "Transferring install image to hard drive..."
-msgstr "সংস্থাপন প্ৰতিমুৰ্ত্তি হাৰ্ড ড্ৰাইভলৈ স্থানান্তৰ কৰা হৈছে..."
+msgstr "সংস্থাপন প্ৰতিমুৰ্তি হাৰ্ড ড্ৰাইভলৈ স্থানান্তৰ কৰা হৈছে..."
 
 #: ../image.py:181 ../urlinstall.py:114
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"সংস্থাপন প্ৰতিমুৰ্ত্তি হাৰ্ড ড্ৰাইভলৈ স্থানান্তৰ কৰোঁতে ভ্ৰান্তি হৈছে ।বোধকৰো আপোনাৰ "
+"সংস্থাপন প্ৰতিমুৰ্তি হাৰ্ড ড্ৰাইভলৈ স্থানান্তৰ কৰোঁতে ভ্ৰান্তি হৈছে । বোধকৰো আপোনাৰ "
 "ডিষ্কত আৰু ৰিক্ত স্থান নাই ।"
 
 #: ../image.py:270
@@ -1197,7 +1198,7 @@ msgstr "সেইখন %s শুদ্ধ CDROM নহয় ।"
 
 #: ../image.py:313
 msgid "Unable to access the CDROM."
-msgstr "CDROM অভিগমন কৰিবলৈ অক্ষম ।"
+msgstr "CDROM অভিগমন কৰিব'লৈ অক্ষম ।"
 
 #: ../image.py:366
 #, python-format
@@ -1210,10 +1211,11 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"%s নথিপত্ৰ খোলা ন'গ'ল । এইটো সম্ভৱতঃ কোনো বিচাৰি নোপোৱা নথিপত্ৰ বা কোনো অশুদ্ধ "
-"সৰঞ্জাম । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপন তথ্য আকাৰত সকলো সৰঞ্জাম আছে ।\n"
+"%s নথিপত্ৰ খোলা ন'গ'ল । এইটো সম্ভৱতঃ কোনো সন্ধানহীন নথিপত্ৰ বা কোনো অশুদ্ধ সৰঞ্জামৰ "
+"কাৰণে হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপন তথ্য আকাৰত সকলো সৰঞ্জাম থকাতো সত্যাখ্যান "
+"কৰক ।\n"
 "\n"
-"পুনৰাৰম্ভ কৰিলে আপোনাৰ ব্যৱস্থাপ্ৰণালী একোটা স্থিৰতাহীন অৱস্থাত থাকিব যিটোক "
+"পুনৰাৰম্ভ কৰিলে আপোনাৰ ব্যৱস্থাপ্ৰণালী এটা স্থিৰতাহীন অৱস্থাত থাকিব যিটোক "
 "পুনঃসংস্থাপনৰ প্ৰয়োগ হ'ব ।\n"
 "\n"
 
@@ -1227,7 +1229,7 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 "%s ISO প্ৰতিমুৰ্তিৰ এটা আকাৰ আছে যি ২০৪৮ বাইটৰ গুণিতক নহয় । ইয়াৰ মানে এই "
-"কম্পপিউটাৰলৈ স্থানান্তৰ কৰাৰ সময়ত এইটো দূষিত হ'ব পাৰে ।\n"
+"কম্পিউটাৰলৈ স্থানান্তৰ কৰাৰ সময়ত এইটো দূষিত হ'ব পাৰে ।\n"
 "\n"
 "আপোনাৰ সংস্থাপন বাতিল কৰা আৰু পুনৰাৰম্ভ কৰা উপদেশিত, কিন্তু আপুনি আগবাঢ়িব পাৰে যদি "
 "আপুনি এইটো এটা বুল বুলি ভাবে ।"
@@ -1241,10 +1243,10 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"#%s প্ৰতিমুৰ্ত্তি তুলিল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল কিন্তু চাৰ্ভাৰত নেপালে ।\n"
+"#%s প্ৰতিমুৰ্তি তুলি ল'ব'লৈ সংস্থাপকে চেষ্টা কৰিছিল কিন্তু সেৱকত নেপালে ।\n"
 "\n"
-"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্ত্তি দূৰৰ চাৰ্ভাৰৰ পথত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন বন্ধ "
-"কৰিবলৈ পুনৰাৰম্ভ টিপক ।"
+"অনুগ্ৰহ কৰি এই প্ৰতিমুৰ্তি দূৰৰ সেৱকৰ পথত নকল কৰি পুনৰচেষ্টা টিপক । সংস্থাপন বন্ধ "
+"কৰিব'লৈ পুনৰাৰম্ভ টিপক ।"
 
 #: ../installclass.py:66
 msgid "Install on System"
@@ -1252,11 +1254,11 @@ msgstr "ব্যৱস্থাপ্ৰণালীত সংস্থাপ�
 
 #: ../iscsi.py:197 ../iscsi.py:198
 msgid "Initializing iSCSI initiator"
-msgstr "iSCSI আৰম্ভকৰোঁতাক আৰম্ভ কৰা হৈছে"
+msgstr "iSCSI আৰম্ভকৰ্ত্তাক আৰম্ভ কৰা হৈছে"
 
 #: ../kickstart.py:75
 msgid "Scriptlet Failure"
-msgstr "লিপি বিফলতা"
+msgstr "লিপিৰ বিফলতা"
 
 #: ../kickstart.py:76
 #, python-format
@@ -1269,7 +1271,7 @@ msgstr ""
 "লিপি চলাওঁতে ভুল হ'ল । %s-ত আপুনি উৎপাদন কাৰ্য্যৰ পৰীক্ষা কৰিব পাৰে । এইটো "
 "ধ্বংসকাৰী ভ্ৰান্তি আৰু আপোনাৰ সংস্থাপন বন্ধ কৰা হ'ব ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ঠিক আছে টিপক ।"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ ঠিক আছে টিপক ।"
 
 #: ../kickstart.py:942 ../kickstart.py:959
 msgid "Running..."
@@ -1395,7 +1397,7 @@ msgstr "অবৈধ চাবি"
 
 #: ../packages.py:259
 msgid "The key you entered is invalid."
-msgstr "আপুনি দিয়া চাবি অবৈধ হয় ।"
+msgstr "আপুনি দিয়া চাবি অবৈধ ।"
 
 #: ../packages.py:287
 msgid "_Skip"
@@ -1420,7 +1422,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"%s-ৰ এই বীটা চালনাজ্ঞান ডাউনল'ড কৰাৰ বাবে ধন্যবাদ ।\n"
+"%s-ৰ এই পূব‌মুক্ত পোৱা চালনাজ্ঞান ডাউনল'ড কৰাৰ বাবে ধন্যবাদ ।\n"
 "\n"
 "এইটো চূড়ান্ত মুকলি নহয় আৰু উৎপাদনৰ ব্যৱস্থাপ্ৰণালীত ব্যৱহাৰৰ বাবে অভিলষিত নহয় । এই "
 "মুকলিৰ লক্ষ্য হৈছে পৰীক্ষকৰ পৰা প্ৰত্যাৱৰ্তন সংগ্ৰহ কৰা আৰু এইটো নিত্য ব্যৱহাৰৰ বাবে "
@@ -1450,9 +1452,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"%s যন্ত্ৰ CDL আকৃতিৰ সলনি LDL আকৃতিত । LDL আকৃতিৰ DSAD সমূহ %s সংস্থাপনৰ সময়ত "
-"ব্যৱহাৰৰ সময়ত সমৰ্থন কৰা নহয় । এই ডিষ্ক সংস্থাপনৰ সময়ত ব্যৱহাৰ কৰিআ বিচাৰিলে, "
-"ইয়াক পুনৰাৰম্ভ কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব ।\n"
+"%s যন্ত্ৰ CDL আকৃতিৰ সলনি LDL আকৃতিৰ । %s ৰ সংস্থাপনৰ সময়ত ব্যৱহাৰৰ বাবে LDL আকৃতিৰ "
+"DSAD সমূহ  সমৰ্থিত নহয় । এই ডিষ্ক সংস্থাপনৰ সময়ত ব্যৱহাৰ কৰিব বিচাৰিলে, ইয়াক "
+"পুনৰাৰম্ভ কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব ।\n"
 "\n"
 "আপুনি এই DSAD-টো CDL আকৃতিলৈ পুনৰাকৃত কৰিব খোজে নেকি?"
 
@@ -1481,7 +1483,7 @@ msgstr "ড্ৰাইভ পুনৰাৰম্ভ কৰক (_R)"
 
 #: ../partedUtils.py:890
 msgid "Initializing"
-msgstr "আৰম্ভ কৰিছোঁ"
+msgstr "আৰম্ভ কৰা হৈছে"
 
 #: ../partedUtils.py:891
 #, python-format
@@ -1500,11 +1502,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"%s যন্ত্ৰত (%s) থকা আকৃতিৰ সূচি পঢ়িব পৰা ন'গ'ল । নতুন আকৃতি সৃষ্টি কৰিব হ'লে পুনৰাৰম্ভ "
+"%s (%s) যন্ত্ৰত থকা আকৃতিৰ সূচি পঢ়িব পৰা ন'গ'ল । নতুন আকৃতি সৃষ্টি কৰিব হ'লে পুনৰাৰম্ভ "
 "কৰিব লাগিব, যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব। \n"
 "\n"
 "এই কাৰ্য্যকৰণে পূৰ্ব্বৰ সকলো সংস্থাপনৰ পছন্দ গৰকি যাব য'ত কোনটো ড্ৰাইভ আওকাণ কৰিব "
-"লাগিব, সেই কথা নিৰ্বাচিত কৰা হৈছিল ।\n"
+"লাগিব, সেই কথা নিৰ্ব্বাচিত কৰা হৈছিল ।\n"
 "\n"
 "সকলো তথ্য নাশ কৰি আপুনি এই ড্ৰাইভ আৰম্ভ কৰিব খোজে নেকি?"
 
@@ -1519,8 +1521,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"%s যন্ত্ৰৰ বিভাজন সূচি পঢ়িব পৰা ন'গ'ল । নতুন বিভাগন সৃষ্টি কৰিবলৈ ইয়াক পুনৰাৰম্ভ "
-"কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব।\n"
+"%s যন্ত্ৰৰ বিভাজন সূচি পঢ়িব পৰা ন'গ'ল । নতুন বিভাজন সৃষ্টি কৰিব'লৈ ইয়াক পুনৰাৰম্ভ "
+"কৰিব লাগিব যাৰ ফলত এই ড্ৰাইভত থকা সকলো তথ্যৰ নাশ হ'ব ।\n"
 "\n"
 "এই কাৰ্য্যকৰণে পূৰ্বৰ সকলো সংস্থাপন সকলো পছন্দ গৰকি যাব য'ত কোন ড্ৰাইভ আওকাণ কৰিব "
 "লাগে, নিৰ্দ্দিষ্ট কৰা হৈছিল ।\n"
@@ -1538,14 +1540,14 @@ msgstr "/dev/%s ড্ৰাইভত ১৫ টা‌-তকৈ অধিক �
 
 #: ../partedUtils.py:1242
 msgid "No Drives Found"
-msgstr "কোনো ড্ৰাইভ পোৱা ন'গ'ল ।"
+msgstr "কোনো ড্ৰাইভ পোৱা ন'গ'ল"
 
 #: ../partedUtils.py:1243
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"এটা ভ্ৰান্তি হৈছে ‌‌‌- নতুন নথিপত্ৰৰ প্ৰণালী সৃষ্টি কৰিবলৈ কোনো বৈধ যন্ত্ৰ পোৱা ন'গ'ল । "
+"এটা ভ্ৰান্তি হৈছে ‌‌‌- নতুন নথিপত্ৰৰ প্ৰণালী সৃষ্টি কৰিব'লৈ কোনো বৈধ যন্ত্ৰ পোৱা ন'গ'ল । "
 "এই সমস্যাৰ মূল কাৰণৰ বাবে অনুগ্ৰহ কৰি আপোনাৰ যান্ত্ৰিক সামগ্ৰীৰ পৰীক্ষা কৰক ।"
 
 #: ../partIntfHelpers.py:35
@@ -1567,7 +1569,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "ভুল - আয়তন সমষ্টিৰ নামত অবৈধ আখৰ বা ৰিক্ত স্থান আছে । কোনো বৰ্ণ, সংখ্যা, '.' বা "
-"'_'.' হে গ্ৰহণযোগ্য ।"
+"'_' হে গ্ৰহণযোগ্য ।"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1588,7 +1590,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "ভুল - লজিকেল আয়তনৰ নামত অবৈধ আখৰ বা ৰিক্ত স্থান আছে । কোনো বৰ্ণ, সংখ্যা, '.' বা "
-"'_'.' হে গ্ৰহণযোগ্য ।"
+"'_' হে গ্ৰহণযোগ্য ।"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1596,7 +1598,7 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"%s অভ্যুত্থানৰ স্থান অসিদ্ধ। অভ্যুত্থানৰ স্থান '/' দি আৰম্ভ হ'ব লাগিব কিন্তু '/' দি অন্ত "
+"%s অভ্যুত্থানৰ স্থান অসিদ্ধ । অভ্যুত্থানৰ স্থান '/' দি আৰম্ভ হ'ব লাগিব কিন্তু '/' দি অন্ত "
 "হ'ব নোৱাৰে, মুদ্ৰণ কৰিব পৰা আখৰ থাকিব লাগিব আৰু কোনো ৰিক্ত স্থান থাকিব নোৱাৰে ।"
 
 #: ../partIntfHelpers.py:102
@@ -1661,7 +1663,7 @@ msgstr ""
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:755
 msgid "Confirm Delete"
-msgstr "গুচোৱা সমৰ্থন কৰক ।"
+msgstr "গুচোৱা সমৰ্থন কৰক"
 
 #: ../partIntfHelpers.py:234
 #, python-format
@@ -1676,7 +1678,7 @@ msgstr "গুচাওক (_D)"
 
 #: ../partIntfHelpers.py:295
 msgid "Notice"
-msgstr "জাননি"
+msgstr "মন কৰক"
 
 #: ../partIntfHelpers.py:296
 #, python-format
@@ -1696,7 +1698,7 @@ msgstr "সম্পাদনা কৰিব পৰা ন'গ'ল"
 
 #: ../partIntfHelpers.py:313
 msgid "You must select a partition to edit"
-msgstr "সম্পাদনা কৰিবলৈ আপুনি বিভাজন নিৰ্দ্দিষ্ট কৰিব লাগিব"
+msgstr "সম্পাদনা কৰিব'লৈ আপুনি বিভাজন নিৰ্দ্দিষ্ট কৰিব লাগিব"
 
 #: ../partIntfHelpers.py:325 ../partIntfHelpers.py:363
 msgid ""
@@ -1725,7 +1727,7 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s ত 0x82 (Linux swap) ধৰণৰ বিভাজন আছে যদিও শ্বেপ বিভাজন হিচাপে আকৃতি "
+"/dev/%s ত 0x82 (লিনাক্স শ্বেপ) ধৰণৰ বিভাজন আছে যদিও শ্বেপ বিভাজন হিচাপে আকৃতি "
 "দিয়া হোৱা নাই ।\n"
 "\n"
 "এই বিভাজন শ্বেপ বিভাজন হিচাপে পুনৰাকৃত কৰিব বিচাৰে নেকি?"
@@ -1733,7 +1735,7 @@ msgstr ""
 #: ../partIntfHelpers.py:405
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "আপুনি অতি কমেও এটা হাৰ্ড ড্ৰাইভ নিৰ্বাচিত কৰিব লাগিব %s সংস্থাপন কৰিবলৈ ।"
+msgstr "আপুনি অতি কমেও এটা হাৰ্ড ড্ৰাইভ নিৰ্ব্বাচিত কৰিব লাগিব %s সংস্থাপন কৰিবলৈ ।"
 
 #: ../partIntfHelpers.py:410
 msgid ""
@@ -1744,11 +1746,11 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"আপুনি এটা পূৰ্ব-অৱস্থিত বিভাজন এই সংস্থাপনৰ বাবে নিৰ্বাচিত কৰিছে  পুনৰাকৃত কৰাৰ "
-"অবিহনে । এই বিভাজন পুনৰাকৃত কৰিবলৈ আমি উপদেশ দিওঁ যাতে পুৰ্ব্বৰ কাৰ্য্যকৰ "
-"ব্যৱস্থাপ্ৰণালীৰ সংস্থাপনৰ নথিপত্ৰই এই লিনাক্সৰ সংস্থাপনত কোনো সমস্যা নকৰাটো আপুনি "
-"সুনিশ্চিত কৰিব পাৰে । তথাপিও, যদি এই বিভাজনত আপুনি ৰাখিব লগা নথিপত্ৰ আছে, যেনে "
-"প্ৰণালীৰ ঘৰৰ পঞ্জিকা, তেনেহ'লে এই বিভাজন পুনৰাকৃত নকৰাকৈ আগবাঢ়ক ।"
+"আপুনি এটা পূৰ্ব-অৱস্থিত বিভাজন এই সংস্থাপনৰ বাবে নিৰ্ব্বাচিত কৰিছে পুনৰাকৃত কৰাৰ "
+"অবিহনে । আপুনি এই বিভাজন পুনৰাকৃত কৰিব'লৈ আমি উপদেশ দিওঁ যাতে পূৰ্ব্বৰ কাৰ্য্যকৰ "
+"ব্যৱস্থাপ্ৰণালীৰ সংস্থাপনৰ নথিপত্ৰই এই লিনাক্সৰ সংস্থাপনত কোনো সমস্যা নকৰে । তথাপিও, "
+"যদি এই বিভাজনত আপুনি ৰাখিব লগা নথিপত্ৰ আছে, যেনে প্ৰণালীৰ ঘৰৰ পঞ্জিকা, তেনেহ'লে "
+"এই বিভাজন পুনৰাকৃত নকৰাকৈ আগবাঢ়ক ।"
 
 #: ../partIntfHelpers.py:418
 msgid "Format?"
@@ -1764,7 +1766,7 @@ msgstr "পুনৰাকৃত নকৰিব (_N)"
 
 #: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
-msgstr "বিভাজন নকৰাকৈ ভুল ।"
+msgstr "বিভাজন কৰোতে ভুল ।"
 
 #: ../partIntfHelpers.py:427
 #, python-format
@@ -1803,7 +1805,7 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"নিম্নলিখিত পূৰ্ব - অৱস্থিত বিভাজন সমূহ পুনৰাকৃত কৰি সকলো তথ্য নাশ কৰিবলৈ নিৰ্ব্বাচন "
+"নিম্নলিখিত পূৰ্ব - অৱস্থিত বিভাজন সমূহ পুনৰাকৃত কৰি সকলো তথ্য নাশ কৰিব'লৈ নিৰ্ব্বাচন "
 "কৰা হৈছে ।"
 
 #: ../partIntfHelpers.py:459
@@ -1811,7 +1813,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"আগবাঢ়িব'লৈ আৰু বিভাজন সমূহ পুনৰাকৃত কৰিবলৈ 'হয়' নিৰ্ব্বাচন কৰক ন'হ'লে পিছলৈ গৈ আৰু "
+"আগবাঢ়িব'লৈ আৰু বিভাজন সমূহ পুনৰাকৃত কৰিব'লৈ 'হয়' নিৰ্ব্বাচন কৰক ন'হ'লে পিছলৈ গৈ আৰু "
 "পছন্দ সমূহ সলনি কৰিবলৈ 'নহয়' নিৰ্ব্বাচন কৰক ।"
 
 #: ../partIntfHelpers.py:465
@@ -1878,9 +1880,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"যিহেতু আপোনাৰ যন্ত্ৰত অধিক স্মৃতিশক্তি নাই, শ্বেপৰ স্থান তৎক্ষণাত আৰম্ভ কৰি দিছোঁ । এই "
-"কাৰ্য্য কৰিবলৈ আমি আপোনাৰ নতুন বিভাজন সূচি ডিষ্কত লগে লগে লিখিব লাগিব ? সেইটো ঠিক "
-"আছেনে ?"
+"যিহেতু আপোনাৰ যন্ত্ৰত অধিক স্মৃতিশক্তি নাই, শ্বেপৰ স্থান তৎক্ষণাৎ আৰম্ভ কৰি দিছোঁ । এই "
+"কাৰ্য্য কৰিব'লৈ আমি আপোনাৰ নতুন বিভাজন সূচি ডিষ্কত লগে লগে লিখিব লাগিব ? সেইটো "
+"ঠিক আছেনে ?"
 
 #: ../partitions.py:816
 #, python-format
@@ -2071,7 +2073,7 @@ msgstr "সংযোগ মাধ্যম আৰম্ভ কৰা হৈছ�
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr "%s আৰম্ভ কৰিবলৈ চেষ্টা কৰা হৈছে"
+msgstr "%s আৰম্ভ কৰিব'লৈ চেষ্টা কৰা হৈছে"
 
 #: ../rescue.py:175
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2184,7 +2186,7 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"আপোনাৰ ব্যৱস্থাপ্ৰনালীৰ কোনো বা সকলো তুলি লওঁতে এটা ভ্ৰান্তি হ'ল । ইয়াৰে কোনো কোনো %"
+"আপোনাৰ ব্যৱস্থাপ্ৰণালীৰ কোনো বা সকলো তুলি লওঁতে এটা ভ্ৰান্তি হ'ল । ইয়াৰে কোনো কোনো %"
 "sৰ তলত তুলি লোৱা হ'ব পাৰে ।\n"
 "\n"
 "শ্বেল এটা পাব'লৈ <return> টিপক । আপুনি শ্বেলৰ পৰা প্ৰস্থান কৰিলে ব্যৱহাৰপ্ৰণালী "
@@ -2199,7 +2201,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"আপেনাৰ লগত কোনো লিনাক্স বিভাজন নাই । শ্বেল এটা পাব'লৈ return টিপক । শ্বেলৰ পৰা "
+"আপোনাৰ লগত কোনো লিনাক্স বিভাজন নাই । শ্বেল এটা পাব'লৈ return টিপক । শ্বেলৰ পৰা "
 "প্ৰস্থান কৰিলে ব্যৱস্থাপ্ৰণালী স্বযংক্ৰিয় ভাবে পুনৰাৰম্ভ হ'ব ।"
 
 #: ../rescue.py:455
@@ -2237,7 +2239,7 @@ msgstr "দূৰৰ মাৰ্গ"
 
 #: ../text.py:198
 msgid "User name"
-msgstr "ব্যৱহাৰকৰোঁতাৰ নাম"
+msgstr "ব্যৱহাৰকৰ্তাৰ নাম"
 
 #: ../text.py:200
 msgid "Password"
@@ -2254,7 +2256,7 @@ msgstr "এই সংস্থাপনৰ পৰ্য্যায়ৰ বা
 #: ../text.py:365
 #, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "অনুগ্ৰহ কৰি আপোনাৰ %(instkey)s সমূহ দিয়ক"
+msgstr "অনুগ্ৰহ কৰি আপোনাৰ %(instkey)s দিয়ক"
 
 #: ../text.py:382 tmp/instkey.glade.h:6
 #, no-c-format, python-format
@@ -2295,7 +2297,7 @@ msgid ""
 "\n"
 msgstr ""
 "আপুনি উন্নয়নৰ বাবে বিচৰা লিনাক্স সংস্থাপনৰ নথিপত্ৰৰ প্ৰণালী ইতিমধ্যে তুলি লোৱা হৈছে "
-"। এই স্থানৰ পৰা পিছলৈ যোৱা আপেনাৰ বাবে সম্ভৱ নহয় ।\n"
+"। এই স্থানৰ পৰা পিছলৈ যোৱা আপোনাৰ বাবে সম্ভৱ নহয় ।\n"
 "\n"
 
 #: ../upgrade.py:57
@@ -2323,7 +2325,7 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"আপেনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথিপত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা "
+"আপোনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথিপত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা "
 "ন'গ'ল ।অনুগ্ৰহ কৰি উন্নয়নৰ বাবে আপোনাৰ লিনাক্স সংস্থাপন প্ৰাৰম্ভ কৰক, নথিপত্ৰৰ "
 "প্ৰণালীসমূহ পৰীক্ষা কৰি নিকা ভাবে ব্যৱস্থাপ্ৰণনালী বন্ধ কৰক ।\n"
 "%s"
@@ -2335,7 +2337,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"আপেনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথিপত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা "
+"আপোনাৰ লিনাক্স ব্যৱস্থাপ্ৰণালীৰ নিম্নলিখিত নথিপত্ৰৰ প্ৰণালী নিকাকৈ অৱৰোহন কৰিব পৰা "
 "ন'গ'ল । তথাপিও যিকোনো উপায়ে আপুনি তুলি ল'ব খোজে নেকি?\n"
 "%s"
 
@@ -2384,7 +2386,7 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"তলত উল্লেখ কৰা সমূহ সাঙ্কেতিক সংযোগৰ সলনি পঞ্জিকা হয় যিবোেেৰে উন্নয়ন হেতু সমস্যা "
+"তলত উল্লেখ কৰা সমূহ সাঙ্কেতিক সংযোগৰ সলনি পঞ্জিকা হয় যিবোৰে  উন্নয়ন হেতু সমস্যা "
 "সৃষ্টি কৰিব পাৰে । অনুগ্ৰহ কৰি ইহঁতক সাঙ্কেতিক সংযোগ হিচাপে প্ৰাক্তন অৱস্থালৈ নিয়ক আৰু "
 "উন্নয়ন আৰম্ভ কৰক । \n"
 "\n"
@@ -2415,7 +2417,7 @@ msgid ""
 msgstr ""
 "%s নথিপত্ৰ খুলিব পৰা ন'গ'ল । এইটো কোনো লুপ্ত নথিপত্ৰ বা বিকৃত সৰঞ্জামৰ বাবে হৈছে । "
 "অনুগ্ৰহ কৰি প্ৰতিবিম্বত সকলো আৱশ্যকীয় সৰঞ্জাম থকাতো নিৰ্দ্দিষ্ট কৰক আৰু কোনো বেলেগ "
-"প্ৰতিবিম্ব এটা ব্যৱহাৰ কৰিবলৈ চেষ্টা কৰক ।\n"
+"প্ৰতিবিম্ব এটা ব্যৱহাৰ কৰিব'লৈ চেষ্টা কৰক ।\n"
 "\n"
 "পুনৰাৰম্ভ কৰিলে, আপোনাৰ ব্যৱস্থাপ্ৰণালী অস্থিৰ অৱস্থালৈ পৰিণত হ'ব আৰু সম্ভৱতঃ "
 "পুনঃসংস্থাপনৰ আৱশ্যক হ'ব । \n"
@@ -2458,8 +2460,8 @@ msgid ""
 "installation"
 msgstr ""
 "এটা গুপ্ত শব্দই আপোনাৰ সংস্থাপন কাৰ্য্যৰ প্ৰগতি অনুমতি নোহোৱা শ্ৰোতাক সংযোগ আৰু "
-"নিৰীক্ষণ কৰাৰ পৰা প্ৰতিৰোধ কৰিব । অনুগ্ৰহ কৰি সংস্থাপনত ব্যৱহাৰ কৰিবলৈ এটা গুপ্ত শব্দ "
-"দিয়ক ।"
+"নিৰীক্ষণ কৰাৰ পৰা প্ৰতিৰোধ কৰিব । অনুগ্ৰহ কৰি সংস্থাপনত ব্যৱহাৰ কৰিব'লৈ এটা গুপ্ত "
+"শব্দ দিয়ক ।"
 
 #: ../vnc.py:83 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
@@ -2497,7 +2499,7 @@ msgid ""
 msgstr ""
 "আপুনি অতি কমেও ৬টা আখৰ দীঘল vnc গুপ্ত শব্দ নিৰ্দ্দিষ্ট কৰিব লাগে ।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ <return> টিপক ।\n"
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিব'লৈ <return> টিপক ।\n"
 
 #: ../vnc.py:189
 msgid "Starting VNC..."
@@ -2533,7 +2535,7 @@ msgstr ""
 "\n"
 "\n"
 "সকীয়নি !!! VNC সেৱক কোনো গুপ্ত শব্দ নোহোৱাকে চলি আছে !\n"
-"সেৱকক নিৰাপদ কৰিবলৈ আপুনি vncpassword=<password> বুট বিকল্প প্ৰয়োগ কৰিব পাৰে ।\n"
+"সেৱকক নিৰাপদ কৰিব'লৈ আপুনি vncpassword=<password> বুট বিকল্প প্ৰয়োগ কৰিব পাৰে ।\n"
 "\n"
 "\n"
 
@@ -2544,7 +2546,7 @@ msgstr "VNC সেৱক এতিয়া চলি আছে ।"
 #: ../vnc.py:298
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "%s গৃহস্থত vnc গ্ৰাহক সংযোগ কৰাাৰ চেষ্টা কৰা হৈছে..."
+msgstr "%s গৃহস্থত vnc গ্ৰাহক সংযোগ কৰাৰ চেষ্টা কৰা হৈছে..."
 
 #: ../vnc.py:309
 msgid "Connected!"
@@ -2557,24 +2559,24 @@ msgstr "৫০ টা চেষ্টাৰ পিছত সংযোগ কৰ�
 #: ../vnc.py:316
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "সংস্থাপন আৰম্ভ কৰিবলৈ অনুগ্ৰহ কৰি %s লৈ আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
+msgstr "সংস্থাপন আৰম্ভ কৰিব'লৈ অনুগ্ৰহ কৰি %s লৈ আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
 
 #: ../vnc.py:318
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "সংস্থাপন আৰম্ভ কৰিবলৈ অনুগ্ৰহ কৰি আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
+msgstr "সংস্থাপন আৰম্ভ কৰিব'লৈ অনুগ্ৰহ কৰি আপোনাৰ vnc গ্ৰাহকক নিজে সংযোগ কৰক ।"
 
 #: ../vnc.py:322
 msgid "Will try to connect again in 15 seconds..."
-msgstr "সংযোগ কৰিবলৈ পুনৰ ১৫ ছেকেণ্ডত চেষ্টা কৰিম..."
+msgstr "সংযোগ কৰিব'লৈ পুনৰ ১৫ ছেকেণ্ডত চেষ্টা কৰিম..."
 
 #: ../vnc.py:330
 #, python-format
 msgid "Please connect to %s to begin the install..."
-msgstr "অনুগ্ৰহ কৰি সংস্থাপন আৰম্ভ কৰিবলৈ %s লৈ সংযোগ কৰক..."
+msgstr "অনুগ্ৰহ কৰি সংস্থাপন আৰম্ভ কৰিব'লৈ %s লৈ সংযোগ কৰক..."
 
 #: ../vnc.py:332
 msgid "Please connect to begin the install..."
-msgstr "অনুগ্ৰহ কৰি সংস্থাপন আৰম্ভ কৰিবলৈ সংযোগ কৰক..."
+msgstr "অনুগ্ৰহ কৰি সংস্থাপন আৰম্ভ কৰিব'লৈ সংযোগ কৰক..."
 
 #: ../yuminstall.py:73
 #, python-format
@@ -2612,7 +2614,7 @@ msgstr "<b>%s সংস্থাপন কৰা হৈছে</b> (%s)\n"
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr "%s সৰঞ্জামৰ %s সম্পূৰ্ণ কৰা হ'ল"
+msgstr "%sটা, মুঠ %sটা সৰঞ্জামৰ, সম্পূৰ্ণ কৰা হ'ল"
 
 #: ../yuminstall.py:528 ../yuminstall.py:529
 msgid "file conflicts"
@@ -2685,7 +2687,7 @@ msgid ""
 "generated.  %s"
 msgstr ""
 "সৰঞ্জাম সম্বন্ধিয় তথ্য পঢ়িব পৰা ন'গ'ল । কোনো নোহোৱা তথ্য পাত্ৰ পঞ্জিকাৰ কাৰণে এইটো "
-"হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ নক্সা শুদ্ধকৈ উৎপন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক । %s"
+"হৈছে । অনুগ্ৰহ কৰি আপোনাৰ সংস্থাপনৰ নক্সা শুদ্ধকৈ উত্‌পন্ন হোৱাতো সুনিৰ্দ্দিষ্ট কৰক । %s"
 
 #: ../yuminstall.py:740
 msgid ""
@@ -2715,8 +2717,8 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"%s লৈ উন্নত কৰিব বিচৰা আপোনাৰ প্ৰণালী বৰ পুৰণি । ইচ্ছা কৰা উন্নয়ন প্ৰক্ৰীয়াত "
-"আগবাঢ়িব'লৈ আপুনি নিশ্চিত নে ?"
+"%s লৈ উন্নত কৰিব বিচৰা আপোনাৰ প্ৰণালী অত্যাধিককৈ পুৰণি । ইচ্ছা কৰা উন্নয়ন "
+"প্ৰক্ৰীয়াত  আগবাঢ়িব'লৈ আপুনি নিশ্চিগ নে ?"
 
 #: ../yuminstall.py:1114
 msgid "Install Starting"
@@ -2724,7 +2726,7 @@ msgstr "সংস্থাপন আৰম্ভ কৰা হৈছে"
 
 #: ../yuminstall.py:1115
 msgid "Starting install process.  This may take several minutes..."
-msgstr "সংস্থাপন প্ৰক্ৰীয়া আৰম্ভ কৰা হৈছে । কেইবা মিনিটো লাগিব পাৰে..."
+msgstr "সংস্থাপন প্ৰক্ৰীয়া আৰম্ভ কৰা হৈছে । কেইবাটাও মিনিটৰ প্ৰয়োজন হ'ব পাৰে..."
 
 #: ../yuminstall.py:1131
 msgid "Post Upgrade"
@@ -2795,15 +2797,13 @@ msgstr "ৰূটৰ গুপ্ত শব্দ অতি কমেও ৬ট�
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr "বিচৰা গুপ্ত শব্দত non-ascii আখৰ আছে, যাৰ অনুমতি দিয়া নহয় ।"
+msgstr "বিচৰা গুপ্ত শব্দত non-ASCII আখৰ আছে, যাৰ অনুমতি দিয়া নহয় ।"
 
 #: ../iw/account_gui.py:107
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰোঁতাৰ বাবে গুপ্ত শব্দ দিয়ক "
-"।"
+msgstr "ৰূটৰ হিচাপ ব্যৱস্থাপ্ৰণালীৰ পৰিচালনাৰ বাবেহে । ৰূট ব্যৱহাৰকৰ্তাৰ বাবে গুপ্ত শব্দ দিয়ক ।"
 
 #: ../iw/account_gui.py:122
 msgid "Root _Password: "
@@ -2827,15 +2827,15 @@ msgstr "তথ্যৰ লগত ভুল"
 
 #: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "নিৰ্বাচিত ড্ৰাইভসমূহৰ সকলো বিভাজন আঁতৰাওক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
+msgstr "নিৰ্ব্বাচিত ড্ৰাইভসমূহৰ সকলো বিভাজন আঁতৰাওক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
 
 #: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "নিৰ্বাচিত ড্ৰাইভসমূহৰ লিনাক্স বিভাজন আঁতৰাওক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
+msgstr "নিৰ্ব্বাচিত ড্ৰাইভসমূহৰ লিনাক্স বিভাজন আঁতৰাওক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
 
 #: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
 msgid "Use free space on selected drives and create default layout"
-msgstr "নিৰ্বাচিত ড্ৰাইভসমূহৰ ৰিক্ত স্থান প্ৰয়োগ কৰক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
+msgstr "নিৰ্ব্বাচিত ড্ৰাইভসমূহৰ ৰিক্ত স্থান প্ৰয়োগ কৰক আৰু অবিকল্পিত পৰিকল্পনা সৃষ্টি কৰক"
 
 #: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
 msgid "Create custom layout"
@@ -2999,7 +2999,7 @@ msgstr "সংস্থাপন কৰা হ'ব"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "%sৰ সংস্থাপন আৰম্ভ কৰিবলৈ পৰবৰ্তী টিপক ।"
+msgstr "%sৰ সংস্থাপন আৰম্ভ কৰিব'লৈ পৰবৰ্তী টিপক ।"
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -3013,8 +3013,8 @@ msgstr ""
 "সংস্থাপনৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথিপত্ৰত পোৱা যাব "
 "।\n"
 "\n"
-"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাাৰ পিছত সংস্থাপনৰ বিকল্প সমূহ থকা এটা kickstart নথিপত্ৰ "
-"'%s' নথিপত্ৰত পোৱা যাব । "
+"ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত সংস্থাপনৰ বিকল্প সমূহ থকা এটা kickstart নথিপত্ৰ '%"
+"s' নথিপত্ৰত পোৱা যাব । "
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -3023,7 +3023,7 @@ msgstr "উন্নয়ন কৰা হ'ব"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "%sৰ উন্নয়ন আৰম্ভ কৰিবলৈ পৰবৰ্তী টিপক ।"
+msgstr "%sৰ উন্নয়ন আৰম্ভ কৰিব'লৈ পৰবৰ্তী টিপক ।"
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3081,7 +3081,7 @@ msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
-"পৰিষ্কাৰ ভাবে ব্যৱস্থাপ্ৰণালী সংস্থাপন কৰিবলৈ এই বিকল্প নিৰ্ব্বাচন কৰক । আপোনাৰ "
+"পৰিষ্কাৰ ভাবে ব্যৱস্থাপ্ৰণালী সংস্থাপন কৰিব'লৈ এই বিকল্প নিৰ্ব্বাচন কৰক । আপোনাৰ "
 "বিন্যাসৰ পছন্দৰ ওপৰত নিৰ্ভৰ কৰি বৰ্ত্তমানে অৱস্থিত চালনাজ্ঞান আৰু তথ্য পুনঃ লিখা যাব "
 "পাৰে ।"
 
@@ -3375,7 +3375,7 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"এটা LVM আয়তন সমষ্টি গোট সৃষ্টি কৰিবলৈ অতি কমেও এটা ব্যৱহাৰ নোহোৱা দৈহিক আয়তন "
+"এটা LVM আয়তন সমষ্টি গোট সৃষ্টি কৰিব'লৈ অতি কমেও এটা ব্যৱহাৰ নোহোৱা দৈহিক আয়তন "
 "বিভাজনৰ প্ৰয়োজন হয় । \n"
 "\n"
 "এটা  বিভাজন বা \"দৈহিক আয়তন (LVM)\" ধৰণৰ RAID শাৰী সৃষ্টি কৰক আৰু তাৰ পিছত \"LVM"
@@ -3408,7 +3408,7 @@ msgstr "দৈহিক বিস্তাৰ(_P):"
 
 #: ../iw/lvm_dialog_gui.py:1011
 msgid "Physical Volumes to _Use:"
-msgstr "ব্যৱহাৰ কৰিবলৈ দৈহিক আয়তন(_U):"
+msgstr "ব্যৱহাৰ কৰিব'লৈ দৈহিক আয়তন(_U):"
 
 #: ../iw/lvm_dialog_gui.py:1017
 msgid "Used Space:"
@@ -3531,7 +3531,7 @@ msgstr "নামাঙ্কৰণৰ সেৱক"
 
 #: ../iw/netconfig_dialog.py:214
 msgid "Error configuring network device"
-msgstr "নে'টৱৰ্ক যন্ত্ৰ বিন্যাস কৰোঁতে ভুল হ'ল"
+msgstr "আপোনাৰ নে'টৱৰ্ক সংযোগ-মাধ্যম বিন্যাস কৰোঁতে ভুল হ'ল"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -3604,19 +3604,19 @@ msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:59
 msgid "The IPv4 information you have entered is invalid."
-msgstr "আপুনি দিয়া IPv4 তথ্য অবৈধ ।"
+msgstr "আপুনি দিয়া IPv4ৰ তথ্য অবৈধ ।"
 
 #: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"আপোনাৰ কোনো সক্ৰীয় নে'টৱৰ্ক যন্ত্ৰ নাই । আপোনাৰ ব্যৱস্থাপ্ৰণালীয়ে নে'টৱৰ্কত অবিকল্পিত "
-"ভাবে যোগাযোগ কৰিব নোৱাৰিব যদি অতি কমে এটাও সক্ৰীয় যন্ত্ৰ নাই ।"
+"আপোনাৰ কোনো সক্ৰীয় নে'টৱৰ্ক যন্ত্ৰ নাই । আপোনাৰ ব্যৱস্থাপ্ৰণালীীয়ে নে'টৱৰ্কত "
+"অবিকল্পিত ভাবে যোগাযোগ কৰিব নোৱাৰিব যদি অতি কমে এটাও সক্ৰীয় যন্ত্ৰ নাই ।"
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
-msgstr "নিষ্ক্ৰীয় কৰা হ'ল"
+msgstr "নিষ্ক্ৰীয় কৰা হৈছে"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
@@ -3687,7 +3687,7 @@ msgstr "অনুপস্থিত আচাৰ বিধি"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:224
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "অতি কমেও এটা IPv4 বা IPv6 নিৰ্ব্বাচন কৰিব লাগিব ।"
+msgstr "IPv4 বা IPv6 ৰ ভিতৰত অতি কমেও এটা আচাৰ বিধি নিৰ্ব্বাচন কৰিব লাগিব ।"
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:69 ../loader2/net.c:93
@@ -3997,7 +3997,7 @@ msgstr ""
 "কৰিব পাৰি । RAID যন্ত্ৰ ব্যৱহাৰৰ অধিক তথ্যৰ বাবে অনুগ্ৰহ কৰি %s আলেখ্যণ মন্ত্ৰণা কৰক "
 "। \n"
 "\n"
-"বৰ্ত্তমানে আপোনাৰ ওচৰত %s চালনাজ্ঞান RAID বিভাজন(সমূহ) ব্যৱহাৰ কৰিবলৈ মুক্ত আছে ।\n"
+"বৰ্ত্তমানে আপোনাৰ ওচৰত %s চালনাজ্ঞান RAID বিভাজন(সমূহ) ব্যৱহাৰ কৰিব'লৈ মুক্ত আছে ।\n"
 "\n"
 
 #: ../iw/partition_gui.py:1248
@@ -4028,7 +4028,7 @@ msgstr "RAID যন্ত্ৰ সৃষ্টি কৰক [অবিকল্
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "RAID যন্ত্ৰ [অবিকল্পিত=/dev/md%s] সৃষ্টি কৰিবলৈ এটা ড্ৰাইভ কৃত্তক কৰক (_d) ।"
+msgstr "RAID যন্ত্ৰ [অবিকল্পিত=/dev/md%s] সৃষ্টি কৰিব'লৈ এটা ড্ৰাইভ কৃত্তক কৰক (_d) ।"
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -4063,7 +4063,7 @@ msgstr "RAID যন্ত্ৰ/LVM আয়তন সমষ্টিৰ সদস
 #: ../textw/partition_text.py:265 ../textw/partition_text.py:267
 #: ../textw/partition_text.py:292
 msgid "<Not Applicable>"
-msgstr "<অপ্ৰযোজ্য>"
+msgstr "<Not Applicable>"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "How would you like to prepare the file system on this partition?"
@@ -4118,7 +4118,7 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"RAID যন্ত্ৰ সৃষ্টি কৰিবলৈ অতি কমেও দুটা অব্যৱহৃত চালনাজ্ঞান RAID বিভাজনৰ প্ৰয়োজন হয় "
+"RAID যন্ত্ৰ সৃষ্টি কৰিব'লৈ অতি কমেও দুটা অব্যৱহৃত চালনাজ্ঞান RAID বিভাজনৰ প্ৰয়োজন হয় "
 "।\n"
 "\n"
 "প্ৰথমে অতি কমেও দুটা \"চালনাজ্ঞান RAID\" বিধৰ বিভাজন সৃষ্টি কৰক, আৰু তাৰ পিছত "
@@ -4163,7 +4163,7 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"উৎসৰ ড্ৰাইভত কৃত্তক কৰিবলৈ কোনো বিভাজন নাই । কৃত্তক কৰাৰ পূৰ্বে আপুনি প্ৰথমে "
+"উৎসৰ ড্ৰাইভত কৃত্তক কৰিব'লৈ কোনো বিভাজন নাই । কৃত্তক কৰাৰ পূৰ্বে আপুনি প্ৰথমে "
 "'চালনাজ্ঞান RAID' বিধৰ বিভাজন সমূহ সংজ্ঞাবদ্ধ কৰিব লাগিব ।"
 
 #: ../iw/raid_dialog_gui.py:487 ../iw/raid_dialog_gui.py:493
@@ -4215,12 +4215,12 @@ msgstr "লক্ষ্য কৰা ড্ৰাইভত ভুল"
 
 #: ../iw/raid_dialog_gui.py:533
 msgid "Please select the target drives for the clone operation."
-msgstr "কৃত্তক কাৰ্য্যকৰণৰ বাবে লক্ষ্য কৰা ড্ৰাইভ নিৰ্ব্চিত কৰক ।"
+msgstr "কৃত্তক কাৰ্য্যকৰণৰ বাবে লক্ষ্য কৰা ড্ৰাইভ নিৰ্ব্বাচন কৰক ।"
 
 #: ../iw/raid_dialog_gui.py:539
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "উৎসৰ ড্ৰাইভ /dev/%s লক্ষ্য কৰা ড্ৰাইভ ভাবেও নিৰ্ব্বাচন কৰিব নোৱাৰি ।"
+msgstr "উত্‌সৰ ড্ৰাইভ /dev/%s লক্ষ্য কৰা ড্ৰাইভ ভাবেও নিৰ্ব্বাচন কৰিব নোৱাৰি ।"
 
 #: ../iw/raid_dialog_gui.py:558
 #, python-format
@@ -4487,7 +4487,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"সংষ্তাপকে %s MB ৰ RAM উদ্ঘাটন কৰিছে ।\n"
+"সংস্থাপকে %s MB ৰ RAM উদ্ঘাটন কৰিছে ।\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
@@ -4544,7 +4544,7 @@ msgstr "z/IPL বুটলোডাৰৰ বিন্যাস"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "z/IPL বুটলোডাৰ আপপেনাৰ ব্যৱস্থাপ।ৰণালীত সংস্থাপন কৰা হ'ব ।"
+msgstr "z/IPL বুটলোডাৰ আপোনাৰ ব্যৱস্থাপ্ৰণালীত সংস্থাপন কৰা হ'ব ।"
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4562,14 +4562,14 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"z/IPL বুটলোডাৰ আপপেনাৰ ব্যৱস্থাপ।ৰণালীত সংস্থাপন কৰা হ'ব ।\n"
+"z/IPL বুটলোডাৰ আপোনাৰ ব্যৱস্থাপ্ৰণালীত সংস্থাপন কৰা হ'ব ।\n"
 "\n"
 "বিভাজন প্ৰতিষ্ঠা কৰোঁতে পূৰ্বে ননিৰ্ব্বাচন কৰা মূল বিভাজনেই মূল বিভাজন হ'ব ।\n"
 "\n"
-"যন্ত্ৰ আৰম্ভ কৰিবলৈ ব্যৱহাৰ কৰা কাৰ্ণেল অবিকল্পিত ভাবে সংস্থাপন কৰাতো হ'ব ।\n"
+"যন্ত্ৰ আৰম্ভ কৰিব'লৈ ব্যৱহাৰ কৰা কাৰ্ণেল অবিকল্পিত ভাবে সংস্থাপন কৰাতো হ'ব ।\n"
 "\n"
-"সংস্থাপনৰ পিছত সলনি কৰিব খোজিলে /etc/zipl.conf বিন্যাস নথিপত্ৰ সলনি কৰিবলৈ সংকা "
-"বোধ নকৰিব ।\n"
+"সংস্থাপনৰ পিছত সলনি কৰিব খোজিলে /etc/zipl.conf বিন্যাস নথিপত্ৰ সলনি কৰিব'লৈ "
+"সংকা বোধ নকৰিব ।\n"
 "\n"
 "আপুনি এতিয়া অতিৰিক্ত কাৰ্ণেল স্থিতিমাপসমূহ দিব পাৰে যিবোৰ আপোনাৰ যন্ত্ৰত বা "
 "প্ৰতিষ্ঠাপনত প্ৰয়োগ হ'ব পাৰে ।"
@@ -4606,7 +4606,7 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"আপুনি বুটলোডাৰ সংস্থাপন নকৰিবলৈ নিৰ্বাচিত কৰিছে, যিটোৰ উপদেশ দিয়া নহয় যদিহে "
+"আপুনি বুটলোডাৰ সংস্থাপন নকৰিবলৈ নিৰ্ব্বাচিত কৰিছে, যিটোৰ উপদেশ দিয়া নহয় যদিহে "
 "আপোনাৰ কোনো উন্নত প্ৰয়োজন নাই । এটা বুটলোডাৰ প্ৰায় সদায় প্ৰয়োজনীয় হয় হাৰ্ড ড্ৰাইভৰ "
 "পৰা অবিলম্বে লিনাক্সলৈ আপোনাৰ ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰিবলৈ ।\n"
 "\n"
@@ -4715,12 +4715,12 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"সংস্থাপন প্ৰক্ৰীয়া অন্ত কৰিবলৈ <Enter> টিপক ।\n"
+"সংস্থাপন প্ৰক্ৰীয়া অন্ত কৰিব'লৈ <Enter> টিপক ।\n"
 "\n"
 
 #: ../textw/complete_text.py:27
 msgid "<Enter> to exit"
-msgstr "প্ৰস্থান কৰিবলৈ <Enter>"
+msgstr "প্ৰস্থান কৰিব'লৈ <Enter>"
 
 #: ../textw/complete_text.py:31
 #, python-format
@@ -4745,7 +4745,7 @@ msgstr ""
 "শুধৰণিৰ তথ্যৰ বাবে (ব্যৱস্থাপ্ৰণালী বৰ্ত্তমানলৈ অনাৰ আৰু দোষ আৰোগ্য), চাওক http://www."
 "redhat.com/errata/.\n"
 "\n"
-"আপোনাৰ ব্যৱস্থাপ্ৰণালী ব্যৱহাৰ কৰিবলৈ তথ্য http://www.redhat.com/docs/ ৰ %s "
+"আপোনাৰ ব্যৱস্থাপ্ৰণালী ব্যৱহাৰ কৰিব'লৈ তথ্য http://www.redhat.com/docs/ ৰ %s "
 "নিবন্ধপুথিত আছে ।"
 
 #: ../textw/complete_text.py:40
@@ -4763,7 +4763,7 @@ msgid ""
 "system. You may want to keep this file for later reference."
 msgstr ""
 "সংস্থাপনৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথিপত্ৰত পোৱা যাব । "
-"আপুন এই নথিপত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিবলৈ থ'ব খোজিব পাৰে ।"
+"আপুনি এই নথিপত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিব'লৈ থ'ব খোজিব পাৰে ।"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4776,7 +4776,7 @@ msgid ""
 "You may want to keep this file for later reference."
 msgstr ""
 "উন্নয়নৰ সমপূৰ্ণ বৃত্তান্ত ব্যৱস্থাপ্ৰণালী পুনৰাৰম্ভ কৰাৰ পিছত '%s' নথিপত্ৰত পোৱা যাব । "
-"আপুন এই নথিপত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিবলৈ থ'ব খোজিব পাৰে ।"
+"আপুন এই নথিপত্ৰ পিছলৈ অভিমত গ্ৰহণ কৰিব'লৈ থ'ব খোজিব পাৰে ।"
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to install."
@@ -4790,7 +4790,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr "নিৰ্ব্বাচন কৰিবলৈ কোনো বৈল্পিক সৰঞ্জাম নাই"
+msgstr "নিৰ্ব্বাচন কৰিব'লৈ কোনো বেকল্পিক সৰঞ্জাম নাই"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4826,7 +4826,7 @@ msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"%s ক্ষেত্ৰ আপুনি নিৰ্ধাৰিত কৰা নাই । আপোনাৰ নে'টৱৰ্ক পৰিবেশত নিৰ্ভৰ কৰি এইটোৱে "
+"%s ক্ষেত্ৰ আপুনি নিৰ্ধাৰিত কৰা নাই । আপোনাৰ নে'টৱৰ্কৰ পৰিবেশত নিৰ্ভৰ কৰি এইটোৱে "
 "পিছলৈ সমস্যা সৃষ্টি কৰিব পাৰে ।"
 
 #: ../textw/network_text.py:70
@@ -4849,7 +4849,7 @@ msgstr ""
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
-msgstr "Prefix (Netmask)"
+msgstr "উপসৰ্গ (নেটমাস্ক)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
 msgid "Prefix"
@@ -4879,7 +4879,7 @@ msgstr "ESSID:"
 
 #: ../textw/network_text.py:191
 msgid "WEP Key:"
-msgstr "WEP Key:"
+msgstr "WEP চাবি:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -5236,7 +5236,7 @@ msgstr "RAID অতিৰিক্তৰ বাবে অসিদ্ধ ভৰ�
 
 #: ../textw/partition_text.py:1107
 msgid "Too many spares"
-msgstr "বুহু অতিৰিক্ত বস্তু"
+msgstr "বুহুতো অতিৰিক্তসমূহ "
 
 #: ../textw/partition_text.py:1108
 msgid "You may not use any spares with a RAID0 array."
@@ -5321,7 +5321,7 @@ msgid ""
 "your own."
 msgstr ""
 "সংস্থাপনৰ বাবে আপোনাৰ হাৰ্ড ড্ৰাইভ বিভাজন কৰাৰ প্ৰয়োজন । অবিকল্পিত ভাবে, এটা "
-"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰোঁতাৰ বাবে যুক্তিসঙ্গত । আপুনি "
+"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰ্তাৰ বাবে যুক্তিসঙ্গত । আপুনি "
 "এইটোকে ব্যৱহাৰ কৰিব পাৰে বা আপোনাৰ নিজৰ সৃষ্টি কৰিব পাৰে ।"
 
 #: ../textw/partition_text.py:1573
@@ -5330,7 +5330,9 @@ msgstr "সংস্থাপনৰ বাবে কোনটো ড্ৰাই
 
 #: ../textw/partition_text.py:1588
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> নিৰ্ব্বাচন   |   <F2> ড্ৰাইভ যোগ কৰক   |   <F12> পিছৰ পৰ্দ্দা"
+msgstr ""
+"<Space>,<+>,<-> নিৰ্ব্বাচন কৰা   |   <F2> ড্ৰাইভ যোগ কৰক   |   <F12> পৰৱৰ্তী "
+"পৰ্দ্দা"
 
 #: ../textw/partition_text.py:1654
 msgid "Review Partition Layout"
@@ -5359,9 +5361,8 @@ msgid ""
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "ফাইবাৰ চেনেল (FCP)ৰ যোগেদি zSeries ৰ যন্ত্ৰ সমূহে উদ্যোগ-মানদণ্ডৰ SCSI যন্ত্ৰ "
-"অভিগমন কৰিব পাৰে । তাৰ বাবে আপুনি প্ৰত্যেক যন্ত্ৰৰ বাবে এটা ১৬ বিট যন্ত্ৰ সংখ্যা, "
-"এটা ৬৪ বিট World Wide Port Name (WWPN), আৰু এটা ৬৪ বিট FCP LUN ৰ যোগান ধৰিব "
-"লাগিব:  ।"
+"অভিগমন কৰিব পাৰে । তাৰ বাবে আপুনি এটা ১৬ বিট যন্ত্ৰ সংখ্যা, এটা ৬৪ বিট World "
+"Wide Port Name (WWPN) আৰু এটা ৬৪ বিট FCP LUN ৰ যোগান ধৰিব লাগিব।"
 
 #: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5372,7 +5373,7 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"iSCSI ডিষ্ক ব্যৱহাৰ কৰিবলৈ, আপুনি iSCSI লক্ষ্যৰ ঠিকনা আৰু আপেনাৰ গৃহস্থত বিন্যাস কৰা "
+"iSCSI ডিষ্ক ব্যৱহাৰ কৰিব'লৈ, আপুনি iSCSI লক্ষ্যৰ ঠিকনা আৰু আপোনাৰ গৃহস্থত বিন্যাস কৰা "
 "iSCSI আৰম্ভ কৰোঁতাৰ নাম দিব লাগিব ।"
 
 #: ../textw/partition_text.py:1726
@@ -5406,8 +5407,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"%s-ৰ অবিকল্পিত সংস্থাপনত আছে সাধাৰণ ভাবে ইন্টাৰণেট ব্যৱহাৰ কৰিবলৈ এটা সমষ্টিৰ "
-"চালনাজ্ঞান ।  আপেনাৰ ব্যৱস্থাপ্ৰনালীত আৰু অতিৰিক্ত কোনবোৰ কামৰ বাবে সমৰ্থন হোৱাতো "
+"%s-ৰ অবিকল্পিত সংস্থাপনত আছে সাধাৰণ ভাবে ইন্টাৰণেট ব্যৱহাৰ কৰিব'লৈ এটা সমষ্টিৰ "
+"চালনাজ্ঞান ।  আপোনাৰ ব্যৱস্থাপ্ৰণালীত আৰু অতিৰিক্ত কোনবোৰ কামৰ বাবে সমৰ্থন হোৱাতো "
 "বিচাৰে?"
 
 #: ../textw/task_text.py:63
@@ -5535,13 +5536,13 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
-"%s-ৰ অবিকল্পিত সংস্থাপনত আছে সাধাৰণ ভাবে ইন্টাৰণেট ব্যৱহাৰ কৰিবলৈ এটা সমষ্টিৰ "
-"চালনাজ্ঞান ।  আপেনাৰ ব্যৱস্থাপ্ৰনালীত আৰু অতিৰিক্ত কোনবোৰ কামৰ বাবে সমৰ্থন হোৱাতো "
+"%s-ৰ অবিকল্পিত সংস্থাপনত আছে সাধাৰণ ভাবে ইন্টাৰণেট ব্যৱহাৰ কৰিব'লৈ এটা সমষ্টিৰ "
+"চালনাজ্ঞান ।  আপোনাৰ ব্যৱস্থাপ্ৰণালীত আৰু অতিৰিক্ত কোনবোৰ কামৰ বাবে সমৰ্থন হোৱাতো "
 "বিচাৰে?"
 
 #: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
-msgstr "কাৰ্য্যালয় আৰু উৎপাদন ক্ষমতা"
+msgstr "কাৰ্য্যালন আৰু উত্‌পাদন ক্ষমতা"
 
 #: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
 #: ../installclasses/rhel.py:40
@@ -5562,31 +5563,31 @@ msgstr "কাৰ্য্যালয়"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr "ম্যাল্টিমিডীয়্যা"
+msgstr "মাল্টিমিডিয়া"
 
 #: ../installclasses/rhel.py:44
 msgid "Virtualization"
-msgstr "ভাৰ্চুৱেলাইজেছন"
+msgstr "ভাৰ্চুৱেলাইজেছন্"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr "কম্পিউটাৰ থুপ খোওৱা (ক্লাস্টাৰিং)"
+msgstr "কম্পিউটাৰৰ থুপ খোওৱা"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr "ভঁৰালৰ ক্লাস্টাৰিং"
+msgstr "ভঁৰালৰ থুপ খোওৱা"
 
 #: ../installclasses/rhel.py:50
 msgid "Installation Number"
-msgstr "সংস্থাপনৰ সংখ্যা"
+msgstr "সংস্থাপন সংখ্যা"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
-"আপোনাৰ বৰঙনিত অনতৰ্ভুক্ত থকা সমৰ্থিত সৰঞ্জামৰ সম্পূৰ্ণ গোট সংস্থাপন কৰিবলৈ, অনুগ্ৰহ কৰি "
-"আপোনাৰ সংস্থাপন সংখ্যা দিয়ক "
+"অপোনাৰ বৰঙনিত থকা সকলো সমৰ্থিত সৰঞ্জামৰ গোট সংস্থাপন কৰিব'লৈ অনুগ্ৰহ কৰি অপোনাৰ "
+"সংস্থাপন সংখ্যা দিয়ক ।"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5631,8 +5632,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"বৰ্ত্তমানে ড্ৰাইভত থকা CD পৰীক্ষা কৰিবলৈ \"%s\" নিৰ্ব্বাচন কৰক, বা  \"%s\" "
-"নিৰ্ব্বাচন কৰি CD বহিষ্কাৰ কৰক আৰু বেলেগ এখন পৰীক্ষা কৰিবলৈ ভৰাওক ।"
+"বৰ্ত্তমানে ড্ৰাইভত থকা CD পৰীক্ষা কৰিব'লৈ \"%s\" নিৰ্ব্বাচন কৰক, বা  \"%s\" "
+"নিৰ্ব্বাচন কৰি CD বহিষ্কাৰ কৰক আৰু বেলেগ এখন পৰীক্ষা কৰিব'লৈ ভৰাওক ।"
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5655,7 +5656,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "%s CD আপোনাৰ কোনো CDROM ড্ৰাইভত পোৱা ন'গ'ল । অনুগ্ৰহ কৰি %s CD ভৰাওক আৰু পুনঃ "
-"চেষ্টা কৰিবলৈ %s টিপক ।"
+"চেষ্টা কৰিব'লৈ %s টিপক ।"
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -5668,7 +5669,7 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"সংস্থাপন প্ৰক্ৰীয়াৰ পূৰ্বে CD মাধ্যম পৰীক্ষা কৰা আৰম্ভ কৰিবলৈ %s টিপক ।\n"
+"সংস্থাপন প্ৰক্ৰীয়াৰ পূৰ্বে CD মাধ্যম পৰীক্ষা কৰা আৰম্ভ কৰিব'লৈ %s টিপক ।\n"
 "\n"
 "মাধ্যমৰ পৰীক্ষা এৰি যাবলৈ %s নিৰ্ব্বাচন কৰক আৰু সংস্থাপন আৰম্ভ কৰক ।"
 
@@ -5679,7 +5680,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "আপোনাৰ মাধ্যমৰ সৈতে সমানতা থকা কোনো %s CD পোৱা ন'গ'ল । অনুগ্ৰহ কৰি %s CD ভৰাওক "
-"আৰু পুনঃ চেষ্টা কৰিবলৈ %s টিপক ।"
+"আৰু পুনঃ চেষ্টা কৰিব'লৈ %s টিপক ।"
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5797,7 +5798,7 @@ msgstr "Kickstart ভুল"
 #: ../loader2/driverdisk.c:582
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "অজ্ঞাত চালক ডিষ্ক kickstart উৎস: %s"
+msgstr "অজ্ঞাত চালক ডিষ্ক kickstart উত্‌স: %s"
 
 #: ../loader2/driverdisk.c:619
 #, c-format
@@ -5814,9 +5815,7 @@ msgid ""
 "screen by pressing the \"OK\" button."
 msgstr ""
 "বিক্ত স্থানেৰে পৃথক কৰি %s ক্ষুদ্ৰাংশলৈ আগবঢ়াব খোজা যিকোনো স্থিতিমাপ দিব পাৰে । যদি "
-"কি স্থিতিমাপ দিয় লাগে আপুনি নেজানে, \"ঠিক আছে\" বুটাম টিপি এই পৰ্দ্দা এৰি যাওক "
-"।separated by spaces.  If you don't know what parameters to supply, skip "
-"this screen by pressing the \"OK\" button."
+"কি স্থিতিমাপ দিয় লাগে আপুনি নেজানে, \"ঠিক আছে\" বুটাম টিপি এই পৰ্দ্দা এৰি যাওক ।"
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5953,17 +5952,17 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
-"kickstart নথিপত্ৰ ডাউনলোড কৰোঁতে অক্ষম । অনুগ্ৰহ কৰি তলত দিয়া kickstart স্থিতিমাপ "
-"সলনি কৰক বা পাৰস্পৰিক সংস্থাপন হিচাপে আগবাঢ়িব'লৈ বাতিল কৰক টিপক ।"
+"kickstart নথিপত্ৰ ডাউন্লোড কৰোঁতে ভুল হ'ল । অনুগ্ৰহ কৰি তলৰ kickstart স্থিতিমাপ "
+"সলনি কৰক বা বাতিল কৰক টিপি পাৰস্পৰিক পৰিবেশত সংস্থাপন আৰম্ভ কৰক ।"
 
 #: ../loader2/kickstart.c:380
 msgid "Error downloading kickstart file"
-msgstr "kickstart নথিপত্ৰ খোলোঁতে ভুল হ'ল"
+msgstr "kickstart নথিপত্ৰ ডাউন্লোড কৰোঁতে ভুল"
 
 #: ../loader2/kickstart.c:513
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "বন্ধ কৰিবলৈ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
+msgstr "বন্ধ কৰিব'লৈ kickstart প্ৰক্ৰীয়া আদেশ %s লৈ বেয়া তৰ্ক দিয়া হৈছে: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -5992,7 +5991,7 @@ msgstr "NFS পঞ্জিকা"
 
 #: ../loader2/loader.c:333
 msgid "Update Disk Source"
-msgstr "ডিষ্কৰ উৎস বৰ্ত্তমানলৈ আনক"
+msgstr "ডিষ্কৰ উত্‌স বৰ্ত্তমানলৈ আনক"
 
 #: ../loader2/loader.c:334
 msgid ""
@@ -6037,7 +6036,7 @@ msgstr ""
 #: ../loader2/loader.c:835
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "আপোনাৰ ওচৰত এই যন্ত্ৰত %s সংস্থাপন কৰিবলৈ পৰ্যাপ্ত RAM নাই ।"
+msgstr "আপোনাৰ ওচৰত এই যন্ত্ৰত %s সংস্থাপন কৰিব'লৈ পৰ্যাপ্ত RAM নাই ।"
 
 #: ../loader2/loader.c:994
 msgid "Rescue Method"
@@ -6073,7 +6072,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "সংস্থাপন বিধৰ বাবে প্ৰয়োজনীয় ধৰণৰ যন্ত্ৰ পোৱা ন'গ'ল । আপুনি নিজেই কোনো চালক "
-"নিৰ্ব্বাচন কৰিব খোজে নে কোনো চালক ডিষ্ক ব্যৱহাৰ কৰিব খোজে ?"
+"নিৰ্ব্বাচন কৰিব খোজে নে কোনো চালক ডিষ্ক ব্যৱহাৰ কৰিব খোজে?"
 
 #: ../loader2/loader.c:1231
 msgid "The following devices have been found on your system."
@@ -6230,7 +6229,7 @@ msgstr ""
 "অনুগ্ৰহ কৰি নিম্নলিখিত তথ্য সমূহ দিয়ক:\n"
 "\n"
 "    o আপোনাৰ %s সেৱকৰ নাম বা IP সংখ্যা \n"
-"    o সেৱা প্ৰদান কৰোঁতাত আপোনাৰ স্থাপত্যৰ বাবে %s থকা পঞ্জিকা\n"
+"    o সেৱকত আপোনাৰ স্থাপত্যৰ বাবে %s থকা পঞ্জিকা\n"
 "       \n"
 
 #: ../loader2/net.c:94
@@ -6248,7 +6247,7 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s এটা অনাতাঁৰ নে'টৱৰ্ক উপযোজক । অনুগ্ৰহ কৰি অনাতাঁৰ নে'টৱৰ্ক অভিগমন কৰিবলৈ ESSID "
+"%s এটা অনাতাঁৰ নে'টৱৰ্ক উপযোজক । অনুগ্ৰহ কৰি অনাতাঁৰ নে'টৱৰ্ক অভিগমন কৰিব'লৈ ESSID "
 "আৰু গোপনীয় কৰাৰ চাবিৰ যোগান ধৰক । যদি কোনো চাবিৰ প্ৰয়োজন নাই, তেন্তে এই ক্ষেত্ৰ "
 "ৰিক্ত ৰাখক আৰু সংস্থাপন আগবাঢ়িব । "
 
@@ -6278,9 +6277,8 @@ msgid ""
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"আপোনাৰ গতিশীল IP অনুৰোধে বিন্যাস তথ্য ঘূৰাই দিছে, কিন্তু তা কোনো নামাঙ্কৰণ সেৱক "
-"নাছিল । যদি আপোনাৰ ওচৰত এই তথ্য নাই, তেন্তে এই ক্ষেত্ৰ এৰি যাওক আৰু সংস্থাপন "
-"আগবাঢ়িব ।"
+"আপোনাৰ IP ঠিকনাৰ অনুৰোধে বিন্যাস তথ্য ঘূৰাই দিছে, কিন্তু কোনো নামাংকৰণ সেৱক নাছিল "
+"। যদি আপুনি এই বিষয়ে জানে, আপুনি এই ক্ষেত্ৰ ৰিক্ত ৰাখক আৰু সংস্থাপন আগবাঢ়িব ।"
 
 #: ../loader2/net.c:325
 msgid "Invalid IP Information"
@@ -6308,7 +6306,7 @@ msgstr "অতি কমেও এটা আচাৰ বিধি (IPv4 বা 
 
 #: ../loader2/net.c:800
 msgid "IPv4 Needed for NFS"
-msgstr "NFSৰ বাবে IPv4ৰ প্ৰয়োজন ।"
+msgstr "NFSৰ বাবে IPv4ৰ প্ৰয়োজন"
 
 #: ../loader2/net.c:801
 msgid "NFS installation method requires IPv4 support."
@@ -6337,9 +6335,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
-"IPv4 আৰু/বা IPv6 ঠিকনা আৰু উপসৰ্গ (ঠিকনা / উপসৰ্গ) দিয়ক । IPv4 ৰ বাবে, ফোঁট থকা "
-"quad netmask বা CIDR ধৰণৰ উপসৰ্গ গ্ৰহণযোগ্য । দ্বাৰ আৰু নামাঙ্কৰণ সেৱকৰ ক্ষেত্ৰ IPv4 "
-"বা IPv6 ঠিকনাসমূহৰ বাবে বৈধ হ'ব লাগিব ।"
+"IPv4 আৰু/বা IPv6 ঠিকনা আৰু উপসৰ্গ (ঠিকনা / উপসৰ্গ) দিয়ক । IPv4 ৰ বাবে, বিন্দুযুক্ত "
+"চতুৰ্গুণ নে'টমাস্ক বা CIDR ধৰণৰ উপসৰ্গ গ্ৰহণযোগ্য । দ্বাৰ আৰু নামাঙ্কৰণ সেৱকৰ ক্ষেত্ৰ "
+"বৈধ IPv4 বা IPv6 ঠিকনা হ'ব লাগিব ।"
 
 #: ../loader2/net.c:1086
 msgid "Manual TCP/IP Configuration"
@@ -6402,7 +6400,7 @@ msgstr "NFS প্ৰতিষ্ঠাপন"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr "গৃহস্থৰনাম কোনোে DNS বিন্যাস নকৰাকৈ নিৰ্ধাৰিত কৰা হৈছে"
+msgstr "গৃহস্থৰনাম কোনো DNS বিন্যাস নকৰাকৈ নিৰ্ধাৰিত কৰা হৈছে"
 
 #: ../loader2/nfsinstall.c:202
 #, c-format
@@ -6523,7 +6521,7 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"যদি আপুনি HTTP সেৱকৰ নিযুক্তক ব্যৱহাৰ কৰিছে তেন্তে ব্যৱহাৰ কৰিবলৈ HTTP সেৱকৰ "
+"যদি আপুনি HTTP সেৱকৰ নিযুক্তক ব্যৱহাৰ কৰিছে তেন্তে ব্যৱহাৰ কৰিব'লৈ HTTP সেৱকৰ "
 "নিযুক্তকৰ নাম দিয়ক ।"
 
 #: ../loader2/urls.c:457
@@ -6602,7 +6600,7 @@ msgid ""
 "either choose to use this or create your own."
 msgstr ""
 "সংস্থাপনৰ বাবে আপোনাৰ হাৰ্ড ড্ৰাইভ বিভাজন কৰাৰ প্ৰয়োজন । অবিকল্পিত ভাবে, এটা "
-"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰোঁতাৰ বাবে যুক্তিসঙ্গত । আপুনি "
+"বিভাজনৰ পৰিকল্পনা বাচি লোৱা যি সৰ্বাধিক ব্যৱহাৰকৰ্তাৰ বাবে যুক্তিসঙ্গত । আপুনি "
 "এইটোকে ব্যৱহাৰ কৰিব পাৰে বা আপোনাৰ নিজৰ সৃষ্টি কৰিব পাৰে ।"
 
 #: tmp/autopart.glade.h:2
@@ -6619,7 +6617,7 @@ msgstr "উন্নত ভঁৰালৰ বিন্যাস (_A)"
 
 #: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
-msgstr "সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিবলৈ ড্ৰাইভ(সমূহ) নিৰ্ব্বাচন কৰক (_S)।"
+msgstr "সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিব'লৈ ড্ৰাইভ(সমূহ) নিৰ্ব্বাচন কৰক (_S)।"
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6657,7 +6655,7 @@ msgstr "<b>লক্ষ্যৰ IP ঠিকনা (_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
-msgstr "<b>ব্যৱহাৰকৰোঁতাৰ নাম (_U):</b>"
+msgstr "<b>ব্যৱহাৰকৰ্তাৰ নাম (_U):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -6756,7 +6754,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"অনুগ্ৰহ কৰি চালনাজ্ঞানৰ সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিবলৈ কোনো অতিৰিক্ত ভঁৰাল নিৰ্ধাৰিত "
+"অনুগ্ৰহ কৰি চালনাজ্ঞানৰ সংস্থাপনৰ বাবে ব্যৱহাৰ কৰিব'লৈ কোনো অতিৰিক্ত ভঁৰাল নিৰ্ধাৰিত "
 "কৰক ।"
 
 #: tmp/tasksel.glade.h:5
@@ -6765,7 +6763,7 @@ msgid ""
 "the software management application."
 msgstr ""
 "আপুনি এতিয়া চালনাজ্ঞানৰ নিৰ্ব্বাচন পছন্দ মতে নিৰ্ধাৰিত কৰিব পাৰে, বা সংস্থাপনৰ পিছত "
-"চালন্জ্ঞান পৰিচালনাৰ প্ৰযুক্তিৰ দ্বাৰা ।"
+"চালনাজ্ঞান পৰিচালনাৰ প্ৰযুক্তিৰ দ্বাৰা ।"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6997,7 +6995,7 @@ msgstr "তামিল"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr "টেলুগু"
+msgstr "তেলুগু"
 
 #. generated from lang-table
 msgid "Turkish"
