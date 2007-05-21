@@ -132,10 +132,11 @@ class NetworkConfigurator:
         self.window.destroy()
 
     def _handleIPError(self, field, errmsg):
-        d = gtk.MessageDialog(_("Error With Data"), 0, gtk.MESSAGE_ERROR,
+        d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
                               gtk.BUTTONS_OK,
                                 _("An error occurred converting the value "
                                   "entered for \"%s\":\n%s") %(field, errmsg))
+        d.set_title(_("Error With Data"))
         d.run()
         d.destroy()
 
@@ -149,13 +150,15 @@ class NetworkConfigurator:
         val = combo.get_model().get_value(active, 1)
         netdev = self.network.available()[val]
 
+        netdev.set(('useipv4', True))
+
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():
             self.window.hide()
             w = gui.WaitWindow(_("Dynamic IP"),
                                _("Sending request for IP information "
                                  "for %s...") %(netdev.get("device")))
-            ns = isys.dhcpNetDevice(netdev.get("device"))
+            ns = isys.dhcpNetDevice(netdev)
             w.pop()
             if ns is not None:
                 self.rc = gtk.RESPONSE_OK
@@ -172,12 +175,14 @@ class NetworkConfigurator:
 
             try:
                 network.sanityCheckIPString(ipv4addr)
+                netdev.set(('ipaddr', ipv4addr))
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
                 return
 
             try:
                 network.sanityCheckIPString(ipv4nm)
+                netdev.set(('netmask', ipv4nm))
             except network.IPError, msg:
                 self._handleIPError(_("Netmask"), msg)
                 return
@@ -197,8 +202,7 @@ class NetworkConfigurator:
                 
 
             try:
-                isys.configNetDevice(netdev.get("device"),
-                                     ipv4addr, ipv4nm, gateway)
+                isys.configNetDevice(netdev, gateway)
             except Exception, e:
                 log.error("Error configuring network device: %s" %(e,))
             self.rc = gtk.RESPONSE_OK

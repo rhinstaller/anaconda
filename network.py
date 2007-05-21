@@ -106,6 +106,14 @@ def hasActiveNetDev():
     # try to load /tmp/netinfo and see if we can sniff out network info
     netinfo = Network()
     for dev in netinfo.netdevices.keys():
+        try:
+            ip = isys.getIPAddress(dev)
+        except Exception, e:
+            log.error("Got an exception trying to get the ip addr of %s: "
+                      "%s" %(dev, e))
+            continue
+        if ip == '127.0.0.1' or ip is None:
+            continue
         if isys.getLinkStatus(dev):
             return True
     return False

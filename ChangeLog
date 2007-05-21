@@ -1,5 +1,13 @@
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/netconfig_dialog.py (NetworkConfigurator._handleIPError): Fix
+	syntax error
+	(NetworkConfigurator._ok): Set useipv4 to true, call netconfig
+	methods with the right args (#240804)
+
+	* network.py (hasActiveNetDev): Ensure we have an IP as
+	otherwise, the network device isn't really all that active.
+
 	* yuminstall.py (AnacondaCallback.callback): Fix tyop. 
 
 	* constants.py (BETANAG): Turn off betanag for release branch
