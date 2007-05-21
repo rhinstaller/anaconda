@@ -1,9 +1,10 @@
-2007-05-21  Jeremy Katz  <katzj@redhat.com>
+2007-05-21  Peter Jones  <pjones@redhat.com>
 
-	* isys/isys.c: Remove raid start and raid stop methods using old
-	mdautorun bits (Peter Jones)
-	* isys/isys.py: Adjust raid stuff to use mdadm instead of old raid
-	ioctls (Peter Jones)
+	* isys/isys.c: get rid of doRaidStop() and doRaidStart()
+
+	* isys/isys.py: wrap mdadm to do raid stuff
+
+2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
 	* lvm.py: Still log real errors instead of hiding in lvmError
 

@@ -40,8 +40,7 @@ raidCount = {}
 
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
-EARLY_SWAP_RAM = 400000
-#_isys.EARLY_SWAP_RAM
+EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 
 def pathSpaceAvailable(path, fsystem = "ext2"):
     return _isys.devSpaceFree(path)
