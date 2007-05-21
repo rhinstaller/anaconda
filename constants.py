@@ -15,7 +15,7 @@
 
 from rhpl.translate import _, N_
 
-BETANAG = 1
+BETANAG = 0
 
 SELINUX_DEFAULT = 1
 
