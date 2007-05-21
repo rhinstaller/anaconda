@@ -59,7 +59,8 @@ def lvmExec(*args):
     try:
         return iutil.execWithRedirect("lvm", args, stdout = output,
             stderr = output, searchPath = 1)
-    except:
+    except Exception, e:
+        log.error("error running lvm command: %s" %(e,)) 
         raise LvmError, args[0]
 
 def lvmCapture(*args):
@@ -69,7 +70,8 @@ def lvmCapture(*args):
         for line in lvmout.split("\n"):
             lines.append(line.strip().split(':'))
         return lines
-    except:
+    except Exception, e:
+        log.error("error running lvm command: %s" %(e,))
         raise LvmError, args[0]
 
 def vgscan():
