@@ -1,5 +1,8 @@
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaCallback.callback): Fix tyop, mark for 
+	translation
+
 	* isys/isys.c: Remove raid start and raid stop methods using old
 	mdautorun bits (Peter Jones)
 	* isys/isys.py: Adjust raid stuff to use mdadm instead of old raid

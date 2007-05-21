@@ -203,8 +203,8 @@ class AnacondaCallback:
         elif what in (rpm.RPMCALLBACK_UNINST_START,
                       rpm.RPMCALLBACK_UNINST_STOP):
             if self.initWindow is None:
-                self.initWindow = self.waitWindow("Finishing upgrade",
-                                                  "Finishing upgrade progress.  This may take a little while...")
+                self.initWindow = self.waitWindow(_("Finishing upgrade"),
+                                                  _("Finishing upgrade process.  This may take a little while..."))
             else:
                 self.initWindow.refresh()
 
