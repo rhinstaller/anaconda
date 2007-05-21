@@ -40,7 +40,8 @@ raidCount = {}
 
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
-EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
+EARLY_SWAP_RAM = 400000
+#_isys.EARLY_SWAP_RAM
 
 def pathSpaceAvailable(path, fsystem = "ext2"):
     return _isys.devSpaceFree(path)
@@ -54,6 +55,90 @@ def spaceAvailable(device, fsystem = "ext2"):
 def fsSpaceAvailable(fsystem):
     return _isys.devSpaceFree(fsystem)
 
+mdadmOutput = "/tmp/mdadmout"
+
+class MdadmError(Exception):
+    """An error occurred when running mdadm."""
+
+    def __init__(self, args, name=None):
+        self.args = args
+        self.name = name
+        self.log = self.getCmdOutput()
+
+    def getCmdOutput(self):
+        f = open(mdadmOutput, "r")
+        lines = reduce(lambda x,y: x + [string.strip(y),], f.readlines(), [])
+        lines = string.join(reduce(lambda x,y: x + ["   %s" % (y,)], \
+                                    lines, []), "\n")
+        return lines
+
+    def __str__(self):
+        s = ""
+        if not self.name is None:
+            s = " for device %s" % (self.name,)
+        command = "mdadm " + string.join(self.args, " ")
+        return "'%s' failed%s\nLog:\n%s" % (command, s, self.log)
+
+def _mdadm(*args):
+    try:
+        lines = iutil.execWithCapture("mdadm", args, stderr = mdadmOutput)
+        lines = string.split(lines, '\n')
+        lines = reduce(lambda x,y: x + [y.strip(),], lines, [])
+        return lines
+    except:
+        raise MdadmError, args
+
+def _getRaidInfo(drive):
+    log.info("mdadm -E %s" % (drive,))
+    try:
+        lines = _mdadm("-E", drive)
+    except MdadmError:
+        ei = sys.exc_info()
+        ei[1].name = drive
+        raise ei[0], ei[1], ei[2]
+
+    info = {
+            'major': "-1",
+            'minor': "-1",
+            'uuid' : "",
+            'level': -1,
+            'nrDisks': -1,
+            'totalDisks': -1,
+            'mdMinor': -1,
+        }
+
+    for line in lines:
+        vals = string.split(string.strip(line), ' : ')
+        if len(vals) != 2:
+            continue
+        if vals[0] == "Version":
+            vals = string.split(vals[1], ".")
+            info['major'] = vals[0]
+            info['minor'] = vals[1]
+        elif vals[0] == "UUID":
+            info['uuid'] = vals[1]
+        elif vals[0] == "Raid Level":
+            info['level'] = int(vals[1][4:])
+        elif vals[0] == "Raid Devices":
+            info['nrDisks'] = int(vals[1])
+        elif vals[0] == "Total Devices":
+            info['totalDisks'] = int(vals[1])
+        elif vals[0] == "Preferred Minor":
+            info['mdMinor'] = int(vals[1])
+        else:
+            continue
+
+    return info
+
+def _stopRaid(mdDevice):
+    log.info("mdadm -A --stop %s" % (mdDevice,))
+    try:
+        _mdadm("-A", "--stop", mdDevice)
+    except MdadmError:
+        ei = sys.exc_info()
+        ei[1].name = mdDevice
+        raise ei[0], ei[1], ei[2]
+
 def raidstop(mdDevice):
     if raidCount.has_key (mdDevice):
         if raidCount[mdDevice] > 1:
@@ -64,13 +149,20 @@ def raidstop(mdDevice):
     devInode = "/dev/%s" % mdDevice
 
     makeDevInode(mdDevice, devInode)
-    fd = os.open(devInode, os.O_RDONLY)
-
     try:
-        _isys.raidstop(fd)
+        _stopRaid(devInode)
     except:
         pass
-    os.close(fd)
+
+def _startRaid(mdDevice, mdMinor, uuid):
+    log.info("mdadm -A --uuid=%s --super-minor=%s %s" % (uuid, mdMinor, mdDevice))
+    try:
+        _mdadm("-A", "--uuid=%s" % (uuid,), "--super-minor=%s" % (mdMinor,), \
+                mdDevice)
+    except MdadmError:
+        ei = sys.exc_info()
+        ei[1].name = mdDevice
+        raise ei[0], ei[1], ei[2]
 
 def raidstart(mdDevice, aMember):
     if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
@@ -84,13 +176,15 @@ def raidstart(mdDevice, aMember):
 
     makeDevInode(mdDevice, mdInode)
     makeDevInode(aMember, mbrInode)
-    fd = os.open(mdInode, os.O_RDONLY)
 
+    minor = os.minor(os.stat(mdInode).st_rdev)
     try:
-        _isys.raidstart(fd, mbrInode)
+        info = _getRaidInfo(mbrInode)
+        if info.has_key('mdMinor'):
+            minor = info['mdMinor']
+        _startRaid(mdInode, minor, info['uuid'])
     except:
         pass
-    os.close(fd)
 
 def wipeRaidSB(device):
     try:
@@ -110,13 +204,12 @@ def raidsb(mdDevice):
     return raidsbFromDevice("/dev/%s" % mdDevice)
 
 def raidsbFromDevice(device):
-    fd = os.open(device, os.O_RDONLY)
-    rc = 0
     try:
-        rc = _isys.getraidsb(fd)
-    finally:
-        os.close(fd)
-    return rc
+        info = _getRaidInfo(device)
+        return (info['major'], info['minor'], info['uuid'], info['level'],
+                info['nrDisks'], info['totalDisks'], info['mdMinor'])
+    except:
+        raise ValueError
 
 def getRaidChunkFromDevice(device):
     fd = os.open(device, os.O_RDONLY)

@@ -84,8 +84,6 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
-static PyObject * doRaidStart(PyObject * s, PyObject * args);
-static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
@@ -128,8 +126,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
     { "e2fsclobber", (PyCFunction) doClobberExt2, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
-    { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
-    { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
@@ -825,20 +821,6 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {
     return PyLong_FromUnsignedLongLong(size>>20);
 }
 
-static PyObject * doRaidStop(PyObject * s, PyObject * args) {
-    int fd;
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-
-    if (ioctl(fd, STOP_ARRAY, 0)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
 static PyObject * doLoadFont (PyObject * s, PyObject * args) {
     int ret;
 
@@ -868,33 +850,6 @@ static PyObject * doLoadKeymap (PyObject * s, PyObject * args) {
 	return NULL;
     }
     
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doRaidStart(PyObject * s, PyObject * args) {
-    int fd;
-    char * dev;
-    struct stat sb;
-
-    if (!PyArg_ParseTuple(args, "is", &fd, &dev)) return NULL;
-
-    if (stat(dev, &sb)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-#ifdef START_ARRAY
-    if (ioctl(fd, START_ARRAY, (unsigned long) sb.st_rdev)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-#else
-    PyErr_SetString(PyExc_SystemError, "raidautorun doesn't exist anymore!");
-    return NULL;
-#endif
-
-
     Py_INCREF(Py_None);
     return Py_None;
 }
