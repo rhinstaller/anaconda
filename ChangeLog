@@ -1,5 +1,12 @@
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/netconfig_dialog.py (NetworkConfigurator._handleIPError): Add
+	a frame so things look right
+
+	* isys/isys.c: Handle the case where the class is just an empty
+	string also.  This gets back to this segfaulting, but at least
+	we're trying to do netconfig.  
+
 	* iw/netconfig_dialog.py (NetworkConfigurator._handleIPError): Fix
 	syntax error
 	(NetworkConfigurator._ok): Set useipv4 to true, call netconfig

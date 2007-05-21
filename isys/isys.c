@@ -623,7 +623,7 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "sisis|s", &device, &useipv4, &ipv4method, &useipv6, &ipv6method, &dhcpclass))
         return NULL;
 
-    if (dhcpclass == NULL) {
+    if ((dhcpclass == NULL) || (strlen(dhcpclass) == 0))  {
         if (uname(&kv) == -1)
             dhcpclass = "anaconda";
         else {

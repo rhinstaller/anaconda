@@ -137,6 +137,7 @@ class NetworkConfigurator:
                                 _("An error occurred converting the value "
                                   "entered for \"%s\":\n%s") %(field, errmsg))
         d.set_title(_("Error With Data"))
+        gui.addFrame(d)        
         d.run()
         d.destroy()
 
