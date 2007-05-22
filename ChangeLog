@@ -1,5 +1,8 @@
 2007-05-22  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (_stopRaid): Fix raidstop.  I have no clue how
+	things were working here...
+
 	* upgrade.py: More blacklist
 
 	* scripts/getlangnames.py: Fix for unicode shenanigans
