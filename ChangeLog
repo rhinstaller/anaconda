@@ -1,3 +1,10 @@
+2007-05-22  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py: Be a little more careful about certain assumptions so we
+	avoid tracebacks for strange error conditions in the partitioning
+	code.
+	* partedUtils.py: Likewise.
+
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

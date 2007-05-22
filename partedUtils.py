@@ -434,19 +434,25 @@ def sniffFilesystemType(device):
         num = pagesize
     else:
         num = 2048
+
     try:
         fd = os.open(dev, os.O_RDONLY)
         buf = os.read(fd, num)
-        os.close(fd)
     except:
         return None
+    finally:
+        try:
+            os.close(fd)
+        except:
+            pass
 
     if len(buf) < pagesize:
-	try:
-	    log.error("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
-	except:
-	    pass
-	return None
+        try:
+            log.error("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
+        except:
+            pass
+
+        return None
 
     # physical volumes start with HM (see linux/lvm.h
     # and LVM/ver/tools/lib/pv_copy.c)
@@ -860,8 +866,17 @@ class DiskSet:
                 log.debug("not saving partition table of disk with > 15 partitions")
                 del disk
                 continue
-            
-            disk.commit()
+
+            log.info("disk.commit() for %s" % (disk.dev.path,))
+            try:
+                disk.commit()
+            except:
+                # if this fails, remove the disk so we don't use it later
+                # Basically if we get here, badness has happened and we want
+                # to prevent tracebacks from ruining the day any more.
+                del disk
+                continue
+
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
                    os.path.exists("/usr/sbin/gptsync"):
@@ -1003,6 +1018,8 @@ class DiskSet:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
+                        del disk
+                        del dev
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
