@@ -5,6 +5,10 @@
 	code.
 	* partedUtils.py: Likewise.
 
+	* isys/isys.py: If klass is None, set to empty string.  Always send
+	klass to doDhcpNetDevice.
+	* isys/isys.c: Do not segfault (#240804).
+
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaCallback.callback): Fix tyop, mark for 
