@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.61
+Version: 11.2.0.62
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 21 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.62-1
+- Switch to mdadm internally for raid handling instead of raidautorun
+- Slight changes to early swap requirements (#232862)
+- Fixes to help with DVD install + adding a network repo (#240804)
+- Turn off betanag
+
 * Mon May 21 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.61-1
 - add esound to upgrade handling
 - fix selected group display when adding repos with the same groups (#237708)
