@@ -680,10 +680,10 @@ def dhcpNetDevice(device):
         else:
             v6method = 'manual'
 
-    if klass is not None:
-        return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
-    else:
-        return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method)
+    if klass is None:
+        klass = ''
+
+    return _isys.dhcpnetdevice(devname, v4, v4method, v6, v6method, klass)
 
 def readXFSLabel_int(device):
     try:

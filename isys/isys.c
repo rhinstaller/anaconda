@@ -623,6 +623,7 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "sisis|s", &device, &useipv4, &ipv4method, &useipv6, &ipv6method, &dhcpclass))
         return NULL;
 
+    /* if we lack a user-provided dhcpclass, construct the default */
     if ((dhcpclass == NULL) || (strlen(dhcpclass) == 0))  {
         if (uname(&kv) == -1)
             dhcpclass = "anaconda";
@@ -636,17 +637,24 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     memset(&cfg, '\0', sizeof(cfg));
     strcpy(cfg.device, device);
 
-    if (!useipv4 || !strncmp(ipv4method, "manual", 6)) {
-        /* IPv4 disabled entirely -or- manual IPv4 config selected */
+    /* disable DHCPv4 is user selected manual IPv4 or didn't select IPv4 */
+    if (useipv4 && strlen(ipv4method) > 0) {
+        if (!strncmp(ipv4method, "manual", 6)) {
+            /* IPv4 disabled entirely -or- manual IPv4 config selected */
+            pref |= DHCPv4_DISABLE;
+        }
+    } else if (!useipv4 && strlen(ipv4method) == 0) {
         pref |= DHCPv4_DISABLE;
     }
 
-    if (useipv6 && !strncmp(ipv6method, "auto", 4)) {
-        /* IPv6 enabled -and- auto neighbor discovery selected */
+    /* set appropriate IPv6 configuration method */
+    if (strlen(ipv6method) > 0) {
+        if ((!useipv6 && !strncmp(ipv6method, "auto", 4)) ||
+            (useipv6 && !strncmp(ipv6method, "manual", 6))) {
+            pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
+        }
+    } else if (strlen(ipv6method) == 0 && !useipv6) {
         pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
-    } else if (!useipv6 || !strncmp(ipv6method, "manual", 6)) {
-        /* IPv6 disabled entirely -or- manual IPv6 config selected */
-        pref |= DHCPv6_DISABLE;
     }
 
     pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
