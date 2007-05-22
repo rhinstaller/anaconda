@@ -26,7 +26,7 @@ PYFILES = $(wildcard *.py)
 all:  subdirs mini-wm xutils.so $(CATALOGS) lang-table lang-names
 
 lang-names: lang-table
-	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
+	PYTHONPATH="." LANG=en_US.UTF-8 $(PYTHON) scripts/getlangnames.py > lang-names
 
 mini-wm: mini-wm.c
 	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs` $(CFLAGS) $(LDFLAGS)
