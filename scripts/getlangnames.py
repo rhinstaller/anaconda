@@ -4,8 +4,6 @@ from rhpl.translate import _
 import rhpl.translate
 import language
 
-rhpl.translate.cat.setunicode(1)
-
 langs = language.Language()
 names = {}
 for k in langs.localeInfo.keys():
