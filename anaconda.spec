@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.62
+Version: 11.2.0.63
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 22 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.63-1
+- Avoid a few potential tracebacks with partitioning (dcantrell)
+- A few more network bringup fixes  (dcantrell, #240804)
+- More upgrade blacklisting
+- Fix reinstall over existing RAID 
+
 * Mon May 21 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.62-1
 - Switch to mdadm internally for raid handling instead of raidautorun
 - Slight changes to early swap requirements (#232862)
