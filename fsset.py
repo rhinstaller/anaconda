@@ -756,7 +756,7 @@ fileSystemTypeRegister(lvmVolumeGroupDummyFileSystem())
 
 class swapFileSystem(FileSystemType):
     enabledSwaps = {}
-    
+
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("linux-swap")
@@ -766,7 +766,7 @@ class swapFileSystem(FileSystemType):
         self.linuxnativefs = 1
         self.supported = 1
         self.maxLabelChars = 15
-        
+
     def mount(self, device, mountpoint, readOnly=0, bindMount=0,
               instroot = None):
         pagesize = resource.getpagesize()
@@ -778,9 +778,13 @@ class swapFileSystem(FileSystemType):
         try:
             fd = os.open(device, os.O_RDONLY)
             buf = os.read(fd, num)
-            os.close(fd)
         except:
             pass
+        finally:
+            try:
+                os.close(fd)
+            except:
+                pass
 
         if buf is not None and len(buf) == pagesize:
             sig = buf[pagesize - 10:]
@@ -794,7 +798,7 @@ class swapFileSystem(FileSystemType):
     def umount(self, device, path):
         # unfortunately, turning off swap is bad.
         raise RuntimeError, "unable to turn off swap"
-    
+
     def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect ("mkswap",
@@ -833,9 +837,13 @@ class swapFileSystem(FileSystemType):
             fd = os.open(dev, os.O_RDWR)
             buf = "\0x00" * pagesize
             os.write(fd, buf)
-            os.close(fd)
         except:
             pass
+        finally:
+            try:
+                os.close(fd)
+            except:
+                pass
 
 fileSystemTypeRegister(swapFileSystem())
 
