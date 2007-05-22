@@ -1332,7 +1332,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     else
         loglevel = LOG_INFO;
 
-	/* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
+    /* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
 
     /* calling function should catch ipv4Choice & ipv6Choice both being ' ' */
     if (dev->noipv4 || dev->ipv4method == IPV4_MANUAL_METHOD) {
@@ -1340,16 +1340,15 @@ char *doDhcp(struct networkDeviceConfig *dev) {
         pref |= DHCPv4_DISABLE;
     }
 
-    if (!dev->noipv6 && dev->ipv6method == IPV6_AUTO_METHOD) {
-        /* IPv6 enabled -and- auto neighbor discovery selected */
+    /* IPv6 enabled -and- auto neighbor discovery selected */
+    /* IPv6 disabled entirely -or- manual IPv6 config selected */
+    if ((!dev->noipv6 && dev->ipv6method == IPV6_AUTO_METHOD) ||
+        (dev->noipv6 || dev->ipv6method == IPV6_MANUAL_METHOD)) {
         pref |= DHCPv6_DISABLE | DHCPv6_DISABLE_ADDRESSES;
-    } else if (dev->noipv6 || dev->ipv6method == IPV6_MANUAL_METHOD) {
-        /* IPv6 disabled entirely -or- manual IPv6 config selected */
-        pref |= DHCPv6_DISABLE;
     }
 
-	/* disable some things for this DHCP call */
-	pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
+    /* disable some things for this DHCP call */
+    pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
     /* don't try to run the client if DHCPv4 and DHCPv6 are disabled */
     if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE))

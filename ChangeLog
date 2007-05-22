@@ -18,6 +18,10 @@
 	klass to doDhcpNetDevice.
 	* isys/isys.c: Do not segfault (#240804).
 
+	* loader2/net.c: Consistency with isys.c, also fixes a problem reported
+	by just a few people where manual IPv6 address entry gets overridden by
+	the auto-discovered address.
+
 2007-05-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
