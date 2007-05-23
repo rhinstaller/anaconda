@@ -1,3 +1,11 @@
+2007-05-23  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c (doLoaderMain): Don't crash if the user selects back 
+	twice during network configuration (#239958).
+
+	* loader2/net.c (cidrCallback): Only warn for an empty prefix if the
+	user also provided an IP address.
+
 2007-05-22  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py: Be a little more careful about certain assumptions so we

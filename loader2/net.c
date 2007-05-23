@@ -79,13 +79,17 @@ static void cidrCallback(newtComponent co, void * dptr) {
             return;
 
         cidr = atoi(data->cidr4);
-        upper = 32;
+
+        if (strcmp(data->ipv4, ""))
+            upper = 32;
     } else if (co == data->cidr6Entry) {
         if (data->cidr6 == NULL && data->ipv6 == NULL)
             return;
 
         cidr = atoi(data->cidr6);
-        upper = 128;
+
+        if (strcmp(data->ipv6, ""))
+            upper = 128;
     }
 
     if (upper != 0) {
