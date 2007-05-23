@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.63
+Version: 11.2.0.64
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 23 2007 Peter Jones <pjones@redhat.com> - 11.2.0.64-1
+- Fix going back in network configuration (dcantrell, #239958)
+- Fix handling of empty prefixes in CIDR setup (dcantrell)
+- Fix filesystem detection on existing raid devices (#151653)
+
 * Tue May 22 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.63-1
 - Avoid a few potential tracebacks with partitioning (dcantrell)
 - A few more network bringup fixes  (dcantrell, #240804)
