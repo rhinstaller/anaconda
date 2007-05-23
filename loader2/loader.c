@@ -1134,9 +1134,15 @@ static char *doLoaderMain(char * location,
                 loaderData->ipinfo_set = 0;
             } else {
                 if (loaderData->ipv4 == NULL) {
-                    ret = (char *) inet_ntop(AF_INET,
-                                             IP_ADDR(&(netDev.dev.ip)), ret,
-                                             IP_STRLEN(&(netDev.dev.ip)));
+                    if (strcmp((char *) &(netDev.dev.ip), "")) {
+                        ret = (char *) inet_ntop(AF_INET,
+                                                 IP_ADDR(&(netDev.dev.ip)), ret,
+                                                 IP_STRLEN(&(netDev.dev.ip)));
+                    } else {
+                        ret = NULL;
+                        netDev.isDynamic = 1;
+                    }
+
                     if (netDev.isDynamic || ret == NULL) {
                         loaderData->ipv4 = strdup("dhcp");
                     } else {
@@ -1151,9 +1157,15 @@ static char *doLoaderMain(char * location,
                 loaderData->ipv6info_set = 0;
             } else {
                 if (loaderData->ipv6 == NULL) {
-                    ret = (char *) inet_ntop(AF_INET6,
-                                             IP_ADDR(&(netDev.dev.ip)), ret,
-                                             IP_STRLEN(&(netDev.dev.ip)));
+                    if (strcmp((char *) &(netDev.dev.ip), "")) {
+                        ret = (char *) inet_ntop(AF_INET6,
+                                                 IP_ADDR(&(netDev.dev.ip)), ret,
+                                                 IP_STRLEN(&(netDev.dev.ip)));
+                    } else {
+                        ret = NULL;
+                        netDev.isDynamic = 1;
+                    }
+
                     if (netDev.isDynamic || ret == NULL) {
                         loaderData->ipv6 = strdup("dhcpv6");
                     } else {
