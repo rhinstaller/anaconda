@@ -1,3 +1,8 @@
+2007-05-23  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.py (_getRaidInfo): raise ValueError when we don't find
+	a valid raid superblock (#151653).
+
 2007-05-23  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c (doLoaderMain): Don't crash if the user selects back

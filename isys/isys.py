@@ -127,6 +127,9 @@ def _getRaidInfo(drive):
         else:
             continue
 
+    if info['uuid'] == "":
+        raise ValueError, info
+
     return info
 
 def _stopRaid(mdDevice):
