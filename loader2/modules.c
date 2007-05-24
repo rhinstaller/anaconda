@@ -290,11 +290,19 @@ static int loadModule(const char * modName, struct extractedModule * path,
         }
     }
 
+    if (!strcmp(modName, "libata") && FL_IGNOREHPA(flags)) {
+        logMessage(INFO, "Ignoring host protected area");
+        args = malloc(sizeof(*args) * 2);
+        args[0] = strdup("ignore_hpa=1");
+        args[1] = NULL;
+    }
+
     sprintf(fileName, "%s.ko", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++) {
         strcat(fileName, " ");
         strcat(fileName, *argPtr);
     }
+
 
     if (FL_TESTING(flags)) {
         logMessage(INFO, "would have insmod %s (%s)", path->path, fileName);

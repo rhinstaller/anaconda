@@ -1,7 +1,18 @@
+2007-05-24  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c (loadModule): Handle the libata.ignore_hpa 
+	flag (#241288)
+
+	* loader2/loader.h: Add ignorehpa flag, remove ub
+	* loader2/loader.c (parseCmdLineFlags): Likewise.
+	* loader2/usb.c (usbInitialize): ub doesn't exist right now and we
+	need its flag space...
+
 2007-05-23  David Cantrell  <dcantrell@redhat.com>
 
 	* liveinst/.cvsignore: Ignore liveinst.desktop since that's built from
 	the template file.
+
 
 2007-05-23  Peter Jones  <pjones@redhat.com>
 

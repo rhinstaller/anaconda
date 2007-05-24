@@ -29,7 +29,8 @@
 #define LOADER_FLAGS_NOPCMCIA           (1 << 18)
 #define LOADER_FLAGS_TELNETD	        (1 << 19)
 #define LOADER_FLAGS_NOPASS	        (1 << 20)
-#define LOADER_FLAGS_UB                 (1 << 21)
+/*#define LOADER_FLAGS_UB                 (1 << 21)*/
+#define LOADER_FLAGS_IGNOREHPA          (1 << 21)
 #define LOADER_FLAGS_MEDIACHECK         (1 << 22)
 #define LOADER_FLAGS_NOUSBSTORAGE       (1 << 23)
 #define LOADER_FLAGS_ASKMETHOD          (1 << 24)
@@ -75,7 +76,8 @@
 #define FL_NOSTORAGE(a)     ((a) & LOADER_FLAGS_NOSTORAGE)
 #define FL_NOPROBE(a)       (FL_NOSTORAGE(a) | FL_NONET(a))
 #define FL_ASKNETWORK(a)    ((a) & LOADER_FLAGS_ASKNETWORK)
-#define FL_UB(a)            ((a) & LOADER_FLAGS_UB)
+/*#define FL_UB(a)            ((a) & LOADER_FLAGS_UB)*/
+#define FL_IGNOREHPA(a)            ((a) & LOADER_FLAGS_IGNOREHPA)
 #define FL_NOIPV6(a)        ((a) & LOADER_FLAGS_NOIPV6)
 
 void startNewt(void);

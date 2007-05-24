@@ -110,9 +110,9 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
         devices = probeDevices(CLASS_HD | CLASS_FLOPPY | CLASS_CDROM, 
                                BUS_USB, PROBE_ALL);
         if (devices) {
-            if (FL_UB(flags))
+            /*            if (FL_UB(flags))
                 loadUsbStorage = ":ub";
-            else 
+                else */
                 loadUsbStorage = ":usb-storage";
             free(devices);
         }
