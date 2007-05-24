@@ -175,16 +175,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
         default = fileSystemTypeGetDefault()
 
     names.sort()
-
-    # XXX: force ext3 to be default whenever ext2 is the default
-    defindex = 0
-    if names[i] == 'ext2':
-        try:
-            defindex = names.index('ext3')
-        except:
-            pass
-
     i = 0
+    defindex = 0
+
     for name in names:
         if not fileSystemTypeGet(name).isSupported():
             continue

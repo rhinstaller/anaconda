@@ -3,9 +3,6 @@
 	* liveinst/.cvsignore: Ignore liveinst.desktop since that's built from
 	the template file.
 
-	* iw/partition_ui_helpers_gui.py (createFSTypeMenu): Force ext3 as the
-	default if ext2 pops up as the default filesystem (#240969).
-
 2007-05-23  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
