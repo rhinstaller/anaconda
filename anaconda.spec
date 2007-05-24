@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.64
+Version: 11.2.0.65
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 24 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.65-1
+- handle libata.ignore_hpa=1 on the kernel command line (#241288)
+
 * Wed May 23 2007 Peter Jones <pjones@redhat.com> - 11.2.0.64-1
 - Fix going back in network configuration (dcantrell, #239958)
 - Fix handling of empty prefixes in CIDR setup (dcantrell)
