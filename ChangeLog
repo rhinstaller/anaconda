@@ -1,3 +1,8 @@
+2007-05-25  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.c (doDhcpNetDevice): Make sure the interface is brought up
+	with the config info obtained from the DHCP lease.
+
 2007-05-23  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.py (_getRaidInfo): raise ValueError when we don't find
