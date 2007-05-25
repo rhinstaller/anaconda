@@ -1,3 +1,8 @@
+2007-05-25  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.c (doDhcpNetDevice): Make sure the interface is brought up
+	with the config info obtained from the DHCP lease.
+
 2007-05-24  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/modules.c (loadModule): Handle the libata.ignore_hpa 
@@ -12,7 +17,6 @@
 
 	* liveinst/.cvsignore: Ignore liveinst.desktop since that's built from
 	the template file.
-
 
 2007-05-23  Peter Jones  <pjones@redhat.com>
 

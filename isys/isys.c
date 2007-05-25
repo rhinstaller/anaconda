@@ -610,7 +610,8 @@ void pumplogger(void *arg, int priority, char *fmt, va_list va) {
 }
 
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
-    char *device, *r, *ipv4method = NULL, *ipv6method = NULL, *dhcpclass = NULL;
+    char *device = NULL, *r = NULL;
+    char *ipv4method = NULL, *ipv6method = NULL, *dhcpclass = NULL;
     int useipv4, useipv6;
     char buf[47];
     time_t timeout = 45;
@@ -660,11 +661,16 @@ static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args) {
     pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
     if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE)) {
-        r = pumpDhcpClassRun(&cfg, 0, dhcpclass, pref, 0, timeout,
+        r = pumpDhcpClassRun(&cfg, NULL, dhcpclass, pref, 0, timeout,
                              pumplogger, LOG_ERR);
         if (r) {
             Py_INCREF(Py_None);
             return Py_None;
+        } else {
+            if (pumpSetupInterface(&cfg)) {
+                Py_INCREF(Py_None);
+                return Py_None;
+            }
         }
     }
 
