@@ -1053,7 +1053,7 @@ def setSteps(anaconda):
     upgrade = ksdata.upgrade.upgrade
 
     if upgrade:
-        upgrade.setSteps(anaconda)
+        anaconda.id.instClass.setSteps(anaconda)
 
         # we have no way to specify migrating yet
         dispatch.skipStep("upgrademigfind")

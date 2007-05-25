@@ -1,3 +1,8 @@
+2007-05-25  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (setSteps):  Fix traceback on kickstart upgrades
+	(#241395).
+
 2007-05-25  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/isys.c (doDhcpNetDevice): Make sure the interface is brought up
