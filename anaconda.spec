@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.65
+Version: 11.2.0.66
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May 25 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.66-1
+- fix dhcp netconfig in DVD-based rescue mode or repo adding (dcantrell)
+
 * Thu May 24 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.65-1
 - handle libata.ignore_hpa=1 on the kernel command line (#241288)
 
