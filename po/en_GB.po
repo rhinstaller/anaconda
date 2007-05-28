@@ -2089,6 +2089,8 @@ msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
 msgstr ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
 
 #: ../partitions.py:847
 #, fuzzy
@@ -2100,7 +2102,7 @@ msgstr ""
 #: ../partitions.py:867
 #, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "You must create a PPC PReP Boot partition."
+msgstr "You must create an Apple Bootstrap partition."
 
 #: ../partitions.py:889
 #, fuzzy
@@ -2120,12 +2122,15 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Installing on a USB device.  This may or may not produce a working system."
 
 #: ../partitions.py:945
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
 
 #: ../partitions.py:954 ../partRequests.py:679
 #, fuzzy
@@ -2266,6 +2271,8 @@ msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
 msgstr ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
 
 #: ../rescue.py:129
 #, fuzzy
@@ -2431,7 +2438,7 @@ msgstr "Save"
 #: ../text.py:156 ../text.py:170
 #, fuzzy
 msgid "Remote"
-msgstr "Remove"
+msgstr "Remote"
 
 #: ../text.py:158 ../text.py:166
 #, fuzzy
@@ -2445,16 +2452,16 @@ msgstr "Exception Occurred"
 
 #: ../text.py:191
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Save to Remote Host"
 
 #: ../text.py:194
 #, fuzzy
 msgid "Host"
-msgstr "Hostname"
+msgstr "Host"
 
 #: ../text.py:196
 msgid "Remote path"
-msgstr ""
+msgstr "Remote path"
 
 #: ../text.py:198
 #, fuzzy
@@ -2479,12 +2486,12 @@ msgstr "No help is available for this step of the install."
 #: ../text.py:365
 #, fuzzy, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Please enter a volume group name."
+msgstr "Please enter your %(instkey)s"
 
 #: ../text.py:382 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Skip entering %(instkey)s"
 
 #: ../text.py:414
 #, fuzzy
@@ -2654,11 +2661,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"The package %s-%s-%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your mirror contains all required packages, "
+"and try using a different one.\n"
 "\n"
-"Press <return> to try again."
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
 
 #: ../vnc.py:49
 #, fuzzy
@@ -2740,7 +2749,7 @@ msgstr "The password must be at least six characters long."
 #: ../vnc.py:143
 #, fuzzy
 msgid "VNC Password Error"
-msgstr "No password"
+msgstr "VNC Password Error"
 
 #: ../vnc.py:144
 msgid ""
@@ -2748,6 +2757,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"You need to specify a vnc password of at least 6 characters long.\n"
+"\n"
+"Press <return> to reboot your system.\n"
 
 #: ../vnc.py:189
 #, fuzzy
@@ -2864,90 +2876,88 @@ msgstr "Processing"
 #: ../yuminstall.py:130
 #, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Preparing to install..."
+msgstr "Preparing transaction from installation source..."
 
 #: ../yuminstall.py:160
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "_Install %s"
+msgstr "<b>Installing %s</b> (%s)\n"
 
 #: ../yuminstall.py:194
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s of %s packages completed"
 
 #: ../yuminstall.py:528 ../yuminstall.py:529
 msgid "file conflicts"
-msgstr ""
+msgstr "file conflicts"
 
 #: ../yuminstall.py:530
 #, fuzzy
 msgid "older package(s)"
-msgstr "Optional Packages"
+msgstr "older package(s)"
 
 #: ../yuminstall.py:531
 msgid "insufficient disk space"
-msgstr ""
+msgstr "insufficient disk space"
 
 #: ../yuminstall.py:532
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "insufficient disk inodes"
 
 #: ../yuminstall.py:533
 #, fuzzy
 msgid "package conflicts"
-msgstr "Package Defaults"
+msgstr "package conflicts"
 
 #: ../yuminstall.py:534
 msgid "package already installed"
-msgstr ""
+msgstr "package already installed"
 
 #: ../yuminstall.py:535
 #, fuzzy
 msgid "required package"
-msgstr "Free space"
+msgstr "required package"
 
 #: ../yuminstall.py:536
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "package for incorrect arch"
 
 #: ../yuminstall.py:537
 msgid "package for incorrect os"
-msgstr ""
+msgstr "package for incorrect os"
 
 #: ../yuminstall.py:551
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "You need more space on the following file systems:\n"
 
 #: ../yuminstall.py:567
 #, fuzzy
 msgid "Error running transaction"
-msgstr "Preparing RPM transaction..."
+msgstr "Error running transaction"
 
 #: ../yuminstall.py:568
 #, fuzzy, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"The hostname \"%s\" is not valid for the following reason:\n"
-"\n"
-"%s"
+"There was an error running your transaction, for the following reason(s): %s"
 
 #: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
 #: ../yuminstall.py:931
 #, fuzzy
 msgid "Re_boot"
-msgstr "Reboot"
+msgstr "Re_boot"
 
 #: ../yuminstall.py:699
 #, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Reading package information..."
+msgstr "Retrieving installation information..."
 
 #: ../yuminstall.py:701
 #, fuzzy, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "Reading package information..."
+msgstr "Retrieving installation information for %s..."
 
 #: ../yuminstall.py:724
 #, fuzzy, python-format
@@ -2956,18 +2966,21 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Unable to read header list.  This may be due to a missing file or bad "
-"media.  Press <return> to try again."
+"Unable to read package metadata. This may be due to a missing repodata "
+"directory.  Please ensure that your install tree has been correctly "
+"generated.  %s"
 
 #: ../yuminstall.py:740
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
 
 #: ../yuminstall.py:772
 msgid "Uncategorized"
-msgstr ""
+msgstr "Uncategorised"
 
 #: ../yuminstall.py:925
 #, python-format
@@ -2975,6 +2988,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Your selected packages require %d MB of free space for installation, but you "
+"do not have enough available.  You can change your selections or reboot."
 
 #: ../yuminstall.py:1086
 #, fuzzy, python-format
@@ -2993,17 +3008,17 @@ msgstr "Install Starting"
 #: ../yuminstall.py:1115
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Starting install process, this may take several minutes..."
+msgstr "Starting install process.  This may take several minutes..."
 
 #: ../yuminstall.py:1131
 #, fuzzy
 msgid "Post Upgrade"
-msgstr "Upgrade"
+msgstr "Post Upgrade"
 
 #: ../yuminstall.py:1132
 #, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Performing post install configuration..."
+msgstr "Performing post upgrade configuration..."
 
 #: ../yuminstall.py:1134
 #, fuzzy
@@ -3018,7 +3033,7 @@ msgstr "Performing post install configuration..."
 #: ../yuminstall.py:1332
 #, fuzzy
 msgid "Installation Progress"
-msgstr "Installation Type"
+msgstr "Installation Progress"
 
 #: ../yuminstall.py:1367
 #, fuzzy
@@ -3047,7 +3062,7 @@ msgstr "You have not specified a FCP LUN or the number is invalid."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock is on.</b>"
 
 #: ../iw/account_gui.py:33
 #, fuzzy
@@ -3084,8 +3099,7 @@ msgstr "The root password must be at least six characters long."
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"Requested password contains non-ascii characters which are not allowed for "
-"use in password."
+"Requested password contains non-ASCII characters, which are not allowed."
 
 #: ../iw/account_gui.py:107
 #, fuzzy
@@ -3109,12 +3123,12 @@ msgstr "_Confirm: "
 #: ../iw/autopart_type.py:154
 #, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Invalid Volume Group Name"
+msgstr "Invalid Initiator Name"
 
 #: ../iw/autopart_type.py:155
 #, fuzzy
 msgid "You must provide an initiator name."
-msgstr "You must provide a user name"
+msgstr "You must provide an initiator name."
 
 #: ../iw/autopart_type.py:177
 #, fuzzy
@@ -3124,21 +3138,21 @@ msgstr "Error With Data"
 #: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
-msgstr "Remove all partitions on this system"
+msgstr "Remove all partitions on selected drives and create default layout"
 
 #: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr "Remove all partitions on this system"
+msgstr "Remove Linux partitions on selected drives and create default layout"
 
 #: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
-msgstr "Remove all partitions on this system"
+msgstr "Use free space on selected drives and create default layout"
 
 #: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
 msgid "Create custom layout"
-msgstr ""
+msgstr "Create custom layout"
 
 #: ../iw/blpasswidget.py:37
 #, fuzzy
@@ -3203,7 +3217,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Your boot loader password is less than six characters.  We recommend a "
+"Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
@@ -3221,9 +3235,8 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
-"can cause your machine to be unable to boot.  We highly recommend you create "
-"a boot disk when asked later in the install process.\n"
+"If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
+"your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 
@@ -3372,9 +3385,8 @@ msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Press the \"Reboot\" button to reboot your system.\n"
 "\n"
-"\n"
-"Press 'OK' to reboot your system."
 
 #: ../iw/congrats_gui.py:69
 #, fuzzy, python-format
@@ -3433,7 +3445,7 @@ msgid ""
 "This option preserves the existing data on your drives."
 msgstr ""
 "Choose this option if you would like to upgrade your existing %s system.  "
-"This option will preserve the existing data on your drives."
+"This option preserves the existing data on your drives."
 
 #: ../iw/examine_gui.py:105 ../iw/pixmapRadioButtonGroup_gui.py:197
 #, fuzzy
@@ -3493,7 +3505,7 @@ msgstr ""
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
-"This change will take affect immediately."
+"This change will take effect immediately."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
@@ -3647,7 +3659,7 @@ msgstr "Mount point in use"
 #: ../iw/lvm_dialog_gui.py:557
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "The mount point \"%s\" is in use, please pick another."
+msgstr "The mount point \"%s\" is in use. Please pick another."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1273
 #, fuzzy
@@ -3671,9 +3683,9 @@ msgid ""
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can increase the Physical "
-"Extent size for this Volume Group."
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). To increase this limit you can create more Physical "
+"Volumes from unpartitioned disk space and add them to this Volume Group."
 
 #: ../iw/lvm_dialog_gui.py:646 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3724,7 +3736,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:756
 #, fuzzy, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "Are you sure you want to Delete the logical volume \"%s\"?"
+msgstr "Are you sure you want to delete the logical volume \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:892
 #, fuzzy
@@ -3942,7 +3954,7 @@ msgstr "Nameserver"
 #: ../iw/netconfig_dialog.py:214
 #, fuzzy
 msgid "Error configuring network device"
-msgstr "There was an error clearing the target drives.  Cloning failed."
+msgstr "Error configuring network device"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 #, fuzzy
@@ -4006,12 +4018,12 @@ msgstr ""
 #: ../iw/network_gui.py:155 ../textw/network_text.py:48
 #, fuzzy, python-format
 msgid "A value is required for the field %s."
-msgstr "A value is required for the field \"%s\"."
+msgstr "A value is required for the field %s."
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:38
 #, fuzzy, python-format
 msgid "Error With %s Data"
-msgstr "Error With Data"
+msgstr "Error With %s Data"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
 #: ../textw/network_text.py:587 ../textw/network_text.py:591
@@ -4023,7 +4035,7 @@ msgstr "%s"
 #: ../iw/network_gui.py:163 ../textw/network_text.py:59
 #, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "The IP information you have entered is invalid."
+msgstr "The IPv4 information you have entered is invalid."
 
 #: ../iw/network_gui.py:167
 #, fuzzy
@@ -4032,11 +4044,7 @@ msgid ""
 "communicate over a network by default without at least one device active."
 msgstr ""
 "You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active.\n"
-"\n"
-"NOTE: If you have a PCMCIA-based network adapter you should leave it "
-"inactive at this point. When you reboot your system the adapter will be "
-"activated automatically."
+"communicate over a network by default without at least one device active."
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 #, fuzzy
@@ -4059,11 +4067,11 @@ msgstr "Device"
 #: ../iw/network_gui.py:393
 #, fuzzy
 msgid "IPv4/Netmask"
-msgstr "IP/Netmask"
+msgstr "IPv4/Netmask"
 
 #: ../iw/network_gui.py:395
 msgid "IPv6/Prefix"
-msgstr ""
+msgstr "IPv6/Prefix"
 
 #: ../iw/network_gui.py:455
 #, fuzzy
@@ -4088,7 +4096,7 @@ msgstr "_manually"
 #: ../iw/network_gui.py:483
 #, fuzzy
 msgid "(e.g., host.domain.com)"
-msgstr "(ex. \"host.domain.com\")"
+msgstr "(e.g., host.domain.com)"
 
 #: ../iw/network_gui.py:489
 #, fuzzy
@@ -4103,47 +4111,47 @@ msgstr "Miscellaneous Settings"
 #: ../iw/network_gui.py:621
 #, fuzzy
 msgid "Edit Device "
-msgstr "Edit RAID Device"
+msgstr "Edit Device "
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Unknown Ethernet Device"
 
 #: ../iw/network_gui.py:631
 #, fuzzy
 msgid "unknown"
-msgstr "Unknown"
+msgstr "unknown"
 
 #: ../iw/network_gui.py:633
 #, fuzzy
 msgid "Hardware address: "
-msgstr "IP address:"
+msgstr "Hardware address: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:792
 #, fuzzy
 msgid "Missing Protocol"
-msgstr "Missing Group"
+msgstr "Missing Protocol"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:224
 #, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "You must select at least one language to install."
+msgstr "You must select at least IPv4 or IPv6 support."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:69 ../loader2/net.c:93
 #, fuzzy
 msgid "Invalid Prefix"
-msgstr "Invalid IP string"
+msgstr "Invalid Prefix"
 
 #: ../iw/network_gui.py:794
 #, fuzzy
 msgid "IPv4 prefix must be between 0 and 32."
-msgstr "IP Addresses must contain numbers between 1 and 255"
+msgstr "IPv4 prefix must be between 0 and 32."
 
 #: ../iw/network_gui.py:835 ../iw/network_gui.py:841
 #, fuzzy
 msgid "IPv6 prefix must be between 0 and 128."
-msgstr "IP Addresses must contain numbers between 1 and 255"
+msgstr "IPv6 prefix must be between 0 and 128."
 
 #: ../iw/osbootwidget.py:43
 #, fuzzy
@@ -4153,11 +4161,10 @@ msgid ""
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"You can configure the boot loader to boot other operating systems. It will "
-"allow you to select an operating system to boot from the list. To add "
-"additional operating systems, which are not automatically detected, click "
-"'Add.' To change the operating system booted by default, select 'Default' by "
-"the desired operating system."
+"You can configure the boot loader to boot other operating systems by "
+"selecting from the list. To add an operating systems that was not "
+"automatically detected, click 'Add.' To change the operating system booted "
+"by default, select 'Default' next to the desired operating system."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:258
 #, fuzzy
@@ -4180,8 +4187,8 @@ msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"Enter a label to be displayed in the boot loader menu. The device (or hard "
-"drive and partition number) is the device from which it boots."
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
 
 #: ../iw/osbootwidget.py:149
 #, fuzzy
@@ -4310,12 +4317,12 @@ msgstr "Force to be a _primary partition"
 #: ../iw/partition_gui.py:314
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (Geom: %s/%s/%s) (Model: %s)"
 
 #: ../iw/partition_gui.py:321
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "Drive %s (%-0.f MB) (Model: %s)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1462
 #, fuzzy
@@ -4359,13 +4366,14 @@ msgstr "Partitioning"
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
+"The partitioning scheme you requested caused the following critical errors."
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
-"These errors must be corrected prior to continuing with your install of %s."
+"You must correct these errors before you continue your installation of %s."
 
 #: ../iw/partition_gui.py:641
 #, fuzzy
@@ -4374,7 +4382,7 @@ msgstr "Partitioning Errors"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "The partitioning scheme you requested generated the following warnings."
 
 #: ../iw/partition_gui.py:649
 #, fuzzy
@@ -4608,8 +4616,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"Partitions of type '%s' must be constrained to a single drive.  This is done "
-"by selecting the drive in the 'Allowable Drives' checklist."
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 #, fuzzy
@@ -4710,10 +4718,10 @@ msgid ""
 "\n"
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
-"The source drive selected has partitions on it which are not of type "
-"'software RAID'.\n"
+"The source drive you selected has partitions which are not of type 'software "
+"RAID'.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned. "
+"You must remove these partitions before this drive can be cloned. "
 
 #: ../iw/raid_dialog_gui.py:506
 #, fuzzy, python-format
@@ -4724,11 +4732,11 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"The source drive selected has partitions which are not constrained to the "
-"drive /dev/%s.\n"
+"The source drive you selected has partitions which are not constrained to "
+"the drive /dev/%s.\n"
 "\n"
-"These partitions will have to be removed or restricted to this drive before "
-"this drive can be cloned. "
+"You must remove these partitions or restrict them to this drive before this "
+"drive can be cloned. "
 
 #: ../iw/raid_dialog_gui.py:519
 #, fuzzy
@@ -4738,10 +4746,10 @@ msgid ""
 "\n"
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
-"The source drive selected has software RAID partition(s) which are members "
-"of an active software RAID device.\n"
+"The source drive you selected has software RAID partition(s) which are "
+"members of an active software RAID device.\n"
 "\n"
-"These partitions will have to be removed before this drive can be cloned."
+"You must remove these partitions before this drive can be cloned."
 
 #: ../iw/raid_dialog_gui.py:532 ../iw/raid_dialog_gui.py:538
 #: ../iw/raid_dialog_gui.py:557
@@ -4774,7 +4782,7 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"This partition must be removed before this drive can be a target."
+"You must remove this partition before this drive can be a target."
 
 #: ../iw/raid_dialog_gui.py:619
 #, fuzzy
@@ -4835,9 +4843,9 @@ msgstr ""
 "Clone Drive Tool\n"
 "\n"
 "This tool allows you to significantly reduce the amount of effort required "
-"to setup RAID arrays.  The idea is to take a source drive which has been "
-"prepared with the desired partitioning layout, and clone this layout onto "
-"other similar sized drives.  Then a RAID device can be created.\n"
+"to setup RAID arrays.  This tool uses a source drive which has been prepared "
+"with the desired partitioning layout, and clones this layout onto other "
+"similar sized drives.  Then a RAID device can be created.\n"
 "\n"
 "NOTE: The source drive must have partitions which are restricted to be on "
 "that drive only, and can only contain unused software RAID partitions.  "
@@ -4884,8 +4892,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Unable to read header list.  This may be due to a missing file or bad "
-"media.  Press <return> to try again."
+"Unable to read package metadata from repository.  This may be due to a "
+"missing repodata directory.  Please ensure that your repository has been "
+"correctly generated.\n"
+"\n"
+"%s"
 
 #: ../iw/task_gui.py:90
 #, python-format
@@ -4893,25 +4904,27 @@ msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
 msgstr ""
+"Unable to find a group file for %s.  This will prevent manual selection of "
+"packages from the repository from working"
 
 #: ../iw/task_gui.py:122
 #, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Invalid Hostname"
+msgstr "Invalid Repository Name"
 
 #: ../iw/task_gui.py:123
 #, fuzzy
 msgid "You must provide a repository name."
-msgstr "You must provide a user name"
+msgstr "You must provide a repository name."
 
 #: ../iw/task_gui.py:131
 #, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Invalid Boot Label"
+msgstr "Invalid Repository URL"
 
 #: ../iw/task_gui.py:132
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "You must provide an HTTP or FTP URL to a repository."
 
 #: ../iw/task_gui.py:146
 #, fuzzy, python-format
@@ -4919,8 +4932,8 @@ msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
+"The repository %s has already been added.  Please choose a different "
+"repository name and URL."
 
 #: ../iw/timezone_gui.py:56 ../textw/timezone_text.py:89
 #, fuzzy
@@ -4947,6 +4960,8 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Due to system changes, your boot loader configuration can not be "
+"automatically updated."
 
 #: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
 #, fuzzy
@@ -4980,8 +4995,8 @@ msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
 msgstr ""
-"This will let you create a new boot loader configuration.  If you wish to "
-"switch boot loaders, you should choose this."
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
 
 #: ../iw/upgrade_bootloader_gui.py:128
 #, fuzzy
@@ -4994,8 +5009,8 @@ msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"This will make no changes to boot loader configuration.  If you are using a "
-"third party boot loader, you should choose this."
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
 
 #: ../iw/upgrade_bootloader_gui.py:140
 #, fuzzy
@@ -5017,10 +5032,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"This release of %s supports the ext3 journalling file system.  It has "
-"several benefits over the ext2 file system traditionally shipped in %s.  It "
-"is possible to migrate the ext2 formatted partitions to ext3 without data "
-"loss.\n"
+"This release of %s supports the ext3 journaling file system, which has "
+"several benefits over the ext2 file system traditionally shipped in %s.  "
+"This installation program can migrate the ext2 formatted partitions to ext3 "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 
@@ -5037,10 +5052,10 @@ msgid ""
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system.  You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, fuzzy, python-format
@@ -5079,8 +5094,8 @@ msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"It is recommended that your swap file be at least %d MB.  Please enter a "
-"size for the swap file:"
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 
 #: ../iw/upgrade_swap_gui.py:169
 #, fuzzy
@@ -5098,9 +5113,8 @@ msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"It is stongly recommended that you create a swap file.  Failure to do so "
-"could cause the installer to abort abnormally.  Are you sure that you wish "
-"to continue?"
+"A swap file is strongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 #, fuzzy
@@ -5194,10 +5208,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
+"You have elected not to install any boot loader, which is not recommended "
+"unless you have an advanced need. Booting your system into Linux directly "
+"from the hard drive almost always requires a boot loader.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
 
@@ -5208,10 +5221,9 @@ msgid ""
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
+"A few systems need to pass special options to the kernel at boot time to "
+"function properly. If you need to pass boot options to the kernel, enter "
+"them now. If you don't need any or aren't sure, leave this blank."
 
 #: ../textw/bootloader_text.py:101
 #, fuzzy
@@ -5266,16 +5278,16 @@ msgid ""
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"The boot manager %s uses can boot other operating systems as well. You need "
-"to tell me what partitions you would like to be able to boot and what label "
-"you want to use for each of them."
+"The boot manager %s uses can boot other operating systems as well.  Please "
+"tell me what partitions you would like to be able to boot and what label you "
+"want to use for each of them."
 
 #: ../textw/bootloader_text.py:290
 #, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:386
 #, fuzzy
@@ -5285,7 +5297,7 @@ msgid ""
 "not necessary for more casual users."
 msgstr ""
 "A boot loader password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
+"kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 
 #: ../textw/bootloader_text.py:396
@@ -5394,7 +5406,7 @@ msgstr ""
 #: ../textw/grpselect_text.py:87
 #, fuzzy
 msgid "Please select the package groups you would like to install."
-msgstr "Please select the resolution you would like to use:"
+msgstr "Please select the package groups you would like to install."
 
 #: ../textw/grpselect_text.py:105
 #, fuzzy
@@ -5406,7 +5418,7 @@ msgstr ""
 #: ../textw/grpselect_text.py:117
 #, fuzzy
 msgid "No optional packages to select"
-msgstr "What type of media contains the packages to be installed?"
+msgstr "No optional packages to select"
 
 #: ../textw/grpselect_text.py:139
 #, fuzzy
@@ -5449,17 +5461,17 @@ msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"You have not specified the field \"%s\".  Depending on your network "
-"environment this may cause problems later."
+"You have not specified the field %s.  Depending on your network environment "
+"this may cause problems later."
 
 #: ../textw/network_text.py:70
 #, fuzzy, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IP Addresses must contain numbers between 1 and 255"
+msgstr "IPv%d prefix must be between 0 and %d."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Integer Required for Prefix"
 
 #: ../textw/network_text.py:75
 #, python-format
@@ -5467,16 +5479,18 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 #, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr "Prefix (Netmask)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
 #, fuzzy
 msgid "Prefix"
-msgstr "Invalid IP string"
+msgstr "Prefix"
 
 #: ../textw/network_text.py:137
 #, fuzzy
@@ -5486,25 +5500,25 @@ msgstr "Activate on boot"
 #: ../textw/network_text.py:144 ../loader2/net.c:720
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Enable IPv4 support"
 
 #: ../textw/network_text.py:151 ../loader2/net.c:733
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Enable IPv6 support"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
 #, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID"
+msgstr "ESSID"
 
 #: ../textw/network_text.py:191
 msgid "WEP Key:"
-msgstr ""
+msgstr "WEP Key:"
 
 #: ../textw/network_text.py:204
 #, fuzzy, python-format
@@ -5513,78 +5527,78 @@ msgstr "Network Configuration for %s"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "point-to-point IP address"
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
 #, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr "Dynamic IP configuration (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
 #, fuzzy
 msgid "Manual address configuration"
-msgstr "z/IPL Configuration"
+msgstr "Manual address configuration"
 
 #: ../textw/network_text.py:290
 #, fuzzy, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Network Configuration for %s"
+msgstr "IPv4 Configuration for %s"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
 #, fuzzy
 msgid "IPv4 address"
-msgstr "IP address:"
+msgstr "IPv4 address"
 
 #: ../textw/network_text.py:324
 #, fuzzy
 msgid "IPv4 network mask"
-msgstr "IP/Netmask"
+msgstr "IPv4 network mask"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
 #, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Netmask"
+msgstr "IPv4 prefix (network mask)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatic neighbour discovery"
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
 #, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr "Dynamic IP configuration (DHCPv6)"
 
 #: ../textw/network_text.py:425
 #, fuzzy, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Network Configuration for %s"
+msgstr "IPv6 Configuration for %s"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
 #, fuzzy
 msgid "IPv6 address"
-msgstr "IP address:"
+msgstr "IPv6 address"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
 #, fuzzy
 msgid "IPv6 prefix"
-msgstr "Invalid IP string"
+msgstr "IPv6 prefix"
 
 #: ../textw/network_text.py:504
 #, fuzzy
 msgid "Configure Network Interface"
-msgstr "There was an error clearing the target drives.  Cloning failed."
+msgstr "Configure Network Interface"
 
 #: ../textw/network_text.py:505
 #, fuzzy, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Do you want to start the network interfaces on this system?"
+msgstr "Would you like to configure the %s network interface in your system?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "UNCONFIGURED"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -5593,38 +5607,42 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"The current configuration settings for each interface are listed next to the "
+"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
+"configure an interface, highlight it and choose Edit.  When you are "
+"finished, press OK to continue."
 
 #: ../textw/network_text.py:617
 #, fuzzy
 msgid "Active on boot"
-msgstr "Activate on boot"
+msgstr "Active on boot"
 
 #: ../textw/network_text.py:619
 #, fuzzy
 msgid "Inactive on boot"
-msgstr "Activate on boot"
+msgstr "Inactive on boot"
 
 #: ../textw/network_text.py:622
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:627
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:629
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:635
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:637 ../textw/network_text.py:639
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:661 ../loader2/net.c:1026
 #, fuzzy
@@ -5649,17 +5667,17 @@ msgstr "Miscellaneous Network Settings"
 #: ../textw/network_text.py:699 ../textw/network_text.py:702
 #, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:709 ../textw/network_text.py:712
 #, fuzzy
 msgid "primary DNS"
-msgstr "Primary DNS"
+msgstr "primary DNS"
 
 #: ../textw/network_text.py:721
 #, fuzzy
 msgid "secondary DNS"
-msgstr "Secondary DNS"
+msgstr "secondary DNS"
 
 #: ../textw/network_text.py:755
 #, fuzzy
@@ -5685,8 +5703,8 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 
 #: ../textw/network_text.py:806 ../textw/network_text.py:812
@@ -5875,7 +5893,7 @@ msgstr "Not Supported"
 #: ../textw/partition_text.py:783
 #, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
-msgstr "LVM Volume Groups can only be edited in the graphical installer."
+msgstr "You can only edit LVM Volume Groups in the graphical installer."
 
 #: ../textw/partition_text.py:859 ../textw/partition_text.py:912
 #, fuzzy
@@ -5925,7 +5943,7 @@ msgstr "Too many spares"
 #: ../textw/partition_text.py:1108
 #, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "The maximum number of spares with a RAID0 array is 0."
+msgstr "You may not use any spares with a RAID0 array."
 
 #: ../textw/partition_text.py:1189
 #, fuzzy
@@ -5935,7 +5953,7 @@ msgstr "No Volume Groups"
 #: ../textw/partition_text.py:1190
 #, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "No volume groups in which to create a logical volume"
+msgstr "No volume groups exist in which to create a logical volume"
 
 #: ../textw/partition_text.py:1314
 #, fuzzy, python-format
@@ -5943,8 +5961,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
 msgstr ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). "
+"The current requested size (%10.2f MB) is larger than the maximum logical "
+"volume size (%10.2f MB). "
 
 #: ../textw/partition_text.py:1333
 #, fuzzy, python-format
@@ -6005,12 +6023,12 @@ msgstr "No Root Partition"
 #: ../textw/partition_text.py:1505
 #, fuzzy
 msgid "Installation requires a / partition."
-msgstr "Could not allocate requested partitions: %s."
+msgstr "Installation requires a / partition."
 
 #: ../textw/partition_text.py:1547
 #, fuzzy
 msgid "Partitioning Type"
-msgstr "Partition type"
+msgstr "Partitioning type"
 
 #: ../textw/partition_text.py:1549
 msgid ""
@@ -6018,6 +6036,9 @@ msgid ""
 "is reasonable for most users.  You can either choose to use this or create "
 "your own."
 msgstr ""
+"Installation requires partitioning of your hard drive.  The default layout "
+"is reasonable for most users.  You can either choose to use this or create "
+"your own."
 
 #: ../textw/partition_text.py:1573
 #, fuzzy
@@ -6027,28 +6048,27 @@ msgstr "Which drive(s) do you want to use for this installation?"
 #: ../textw/partition_text.py:1588
 #, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 
 #: ../textw/partition_text.py:1654
 #, fuzzy
 msgid "Review Partition Layout"
-msgstr "Re_view (and modify if needed) the partitions created"
+msgstr "Review Partition Layout"
 
 #: ../textw/partition_text.py:1655
 #, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Re_view (and modify if needed) the partitions created"
+msgstr "Review and modify partitioning layout?"
 
 #: ../textw/partition_text.py:1676 tmp/adddrive.glade.h:3
 #, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Additional Size Options"
+msgstr "Advanced Storage Options"
 
 #: ../textw/partition_text.py:1677 tmp/adddrive.glade.h:5
 #, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "How would you like to prepare the file system on this partition?"
+msgstr "How would you like to modify your drive configuration?"
 
 #: ../textw/partition_text.py:1700
 #, fuzzy
@@ -6063,30 +6083,31 @@ msgid ""
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
-"LUN and a 64 bit FCP LUN."
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
 
 #: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
 #, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Chandev Parameters"
+msgstr "Configure iSCSI Parameters"
 
 #: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
 
 #: ../textw/partition_text.py:1726
 #, fuzzy
 msgid "Target IP Address"
-msgstr "IP address:"
+msgstr "Target IP Address"
 
 #: ../textw/partition_text.py:1727
 #, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "Invalid Volume Group Name"
+msgstr "iSCSI Initiator Name"
 
 #: ../textw/partmethod_text.py:26
 #, fuzzy
@@ -6106,7 +6127,7 @@ msgstr "Package Installation"
 #: ../textw/task_text.py:42
 #, fuzzy
 msgid "Package selection"
-msgstr "Package Group Selection"
+msgstr "Package selection"
 
 #: ../textw/task_text.py:48 tmp/tasksel.glade.h:4
 #, no-c-format, python-format
@@ -6115,21 +6136,24 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"support?"
 
 #: ../textw/task_text.py:63
 #, fuzzy
 msgid "Customize software selection"
-msgstr "Customize software selection"
+msgstr "Customise software selection"
 
 #: ../textw/timezone_text.py:68
 #, fuzzy
 msgid "In which time zone are you located?"
-msgstr "What time zone are you located in?"
+msgstr "In which time zone are you located?"
 
 #: ../textw/timezone_text.py:86
 #, fuzzy
 msgid "System clock uses UTC"
-msgstr "System clock uses _UTC"
+msgstr "System clock uses UTC"
 
 #: ../textw/upgrade_bootloader_text.py:86
 #: ../textw/upgrade_bootloader_text.py:95
@@ -6195,7 +6219,7 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"One or more existing Linux installations have been found on your system.\n"
+"There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
@@ -6212,9 +6236,9 @@ msgid ""
 "not make a typing mistake. Remember that the root password is a critical "
 "part of system security!"
 msgstr ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. Remember that the root password is a critical "
+"part of system security!"
 
 #: ../textw/userauth_text.py:60
 #, fuzzy
@@ -6239,7 +6263,7 @@ msgid ""
 msgstr ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"which your machine or your setup require."
 
 #: ../textw/zipl_text.py:58
 #, fuzzy
@@ -6254,7 +6278,7 @@ msgstr "Chandev line "
 #: ../installclasses/fedora.py:15
 #, fuzzy
 msgid "_Fedora"
-msgstr "_Format"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:16 ../installclasses/rhel.py:22
 #, python-format
@@ -6263,57 +6287,62 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage. What additional tasks would you like your system to "
+"include support for?"
 
 #: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Office and Productivity"
 
 #: ../installclasses/fedora.py:26 ../installclasses/rhel.py:35
 #: ../installclasses/rhel.py:40
 msgid "Software Development"
-msgstr ""
+msgstr "Software Development"
 
 #: ../installclasses/fedora.py:27 ../installclasses/rhel.py:39
 #, fuzzy
 msgid "Web server"
-msgstr "Nameserver"
+msgstr "Web server"
 
 #: ../installclasses/rhel.py:21
 #, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Office"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
 #, fuzzy
 msgid "Virtualization"
-msgstr "Congratulations"
+msgstr "Virtualisation"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Clustering"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Storage Clustering"
 
 #: ../installclasses/rhel.py:50
 #, fuzzy
 msgid "Installation Number"
-msgstr "Installation Type"
+msgstr "Installation Number"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
 msgstr ""
+"To install the full set of supported packages included in your subscription, "
+"please enter your Installation Number"
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -6328,6 +6357,16 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"If you're unable to locate the Installation Number, consult http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"If you skip:\n"
+"* You may not get access to the full set of packages included in your "
+"subscription.\n"
+"* It may result in an unsupported/uncertified installation of Red Hat "
+"Enterprise Linux.\n"
+"* You will not get software and security updates for packages not included "
+"in your subscription."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -6365,6 +6404,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"If you would like to test additional media, insert the next CD and press \"%s"
+"\". Testing each CD is not strictly required, however it is highly "
+"recommended.  Minimally, the CDs should be tested prior to using them for "
+"the first time. After they have been successfully tested, it is not required "
+"to retest each CD prior to using it again."
 
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
 #, fuzzy, c-format
@@ -6481,7 +6525,7 @@ msgstr "Failed to mount driver disk."
 #: ../loader2/driverdisk.c:415
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "Driver disk is invalid for this release of %s."
 
 #: ../loader2/driverdisk.c:479
 #, fuzzy
@@ -6558,8 +6602,7 @@ msgid ""
 msgstr ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
-"screen by pressing the \"OK\" button.  A list of available options can be "
-"obtained by pressing the F1 key."
+"screen by pressing the \"OK\" button."
 
 #: ../loader2/driverselect.c:80
 #, fuzzy
@@ -6713,11 +6756,13 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
 
 #: ../loader2/kickstart.c:380
 #, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Error opening kickstart file %s: %s"
+msgstr "Error downloading kickstart file"
 
 #: ../loader2/kickstart.c:513
 #, fuzzy, c-format
@@ -6727,7 +6772,7 @@ msgstr "Bad argument to shutdown kickstart method command %s: %s"
 #: ../loader2/lang.c:56
 #, fuzzy, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Welcome to %s"
+msgstr "Welcome to %s - Rescue Mode"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
 #, fuzzy
@@ -6754,7 +6799,7 @@ msgstr "Hard drive"
 #: ../loader2/loader.c:123
 #, fuzzy
 msgid "NFS directory"
-msgstr "%s directory:"
+msgstr "NFS directory"
 
 #: ../loader2/loader.c:333
 #, fuzzy
@@ -6905,8 +6950,8 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-"Unable to read the disc checksum from the primary volume descriptor.  This "
-"probably means the disc was created without adding the checksum."
+"Unable to read the disk checksum from the primary volume descriptor.  This "
+"probably means the disk was created without adding the checksum."
 
 #: ../loader2/mediacheck.c:338
 #, fuzzy, c-format
@@ -6925,7 +6970,7 @@ msgstr "Unable to find install image %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "FAILED"
 
 #: ../loader2/mediacheck.c:398
 #, fuzzy
@@ -6934,31 +6979,23 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"FAIL.\n"
-"\n"
 "The image which was just tested has errors. This could be due to a corrupt "
-"download or a bad disc.  If applicable, please clean the disc and try "
+"download or a bad disk.  If applicable, please clean the disk and try "
 "again.  If this test continues to fail you should not continue the install."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "PASSED"
 
 #: ../loader2/mediacheck.c:409
 #, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"PASS.\n"
-"\n"
-"It is OK to install from this media."
+msgstr "It is OK to install from this media."
 
 #: ../loader2/mediacheck.c:415
 #, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"No checksum information available, unable to verify media."
+msgstr "No checksum information available, unable to verify media."
 
 #: ../loader2/mediacheck.c:420
 #, fuzzy
@@ -6972,10 +7009,9 @@ msgid ""
 "\n"
 "   %s"
 msgstr ""
-"of the image:\n"
+"%s for the image:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6984,6 +7020,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"The media check %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
 #, fuzzy, c-format
@@ -7016,8 +7055,7 @@ msgstr "Bad argument to device kickstart method command %s: %s"
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"The following invalid argument was specified for the kickstart driver disk "
-"command: %s:%s"
+"Both module type and name must be specified for the kickstart device command."
 
 #: ../loader2/net.c:59
 #, fuzzy, c-format
@@ -7039,6 +7077,8 @@ msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
+"Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
+"IPv6 networks"
 
 #: ../loader2/net.c:257
 #, fuzzy, c-format
@@ -7074,7 +7114,7 @@ msgstr "Nameserver IP"
 #: ../loader2/net.c:302
 #, fuzzy
 msgid "Missing Nameserver"
-msgstr "Nameserver"
+msgstr "Missing Nameserver"
 
 #: ../loader2/net.c:303
 #, fuzzy
@@ -7083,10 +7123,9 @@ msgid ""
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
+"Your IP address request returned configuration information, but it did not "
+"include a nameserver address. If you do not have this information, you can "
+"leave the field blank and the install will continue."
 
 #: ../loader2/net.c:325
 #, fuzzy
@@ -7101,12 +7140,12 @@ msgstr "You entered an invalid IP address."
 #: ../loader2/net.c:584 ../loader2/net.c:692
 #, fuzzy
 msgid "Network Error"
-msgstr "No password"
+msgstr "Network Error"
 
 #: ../loader2/net.c:585 ../loader2/net.c:693
 #, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "There was an error clearing the target drives.  Cloning failed."
+msgstr "There was an error configuring your network interface."
 
 #: ../loader2/net.c:766
 #, fuzzy
@@ -7116,35 +7155,35 @@ msgstr "Configure TCP/IP"
 #: ../loader2/net.c:793
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "You must select at least one language to install."
+msgstr "You must select at least one protocol (IPv4 or IPv6)."
 
 #: ../loader2/net.c:800
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "IPv4 Needed for NFS"
 
 #: ../loader2/net.c:801
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "NFS installation method requires IPv4 support."
 
 #: ../loader2/net.c:921
 #, fuzzy
 msgid "IPv4 address:"
-msgstr "IP address:"
+msgstr "IPv4 address:"
 
 #: ../loader2/net.c:933 ../loader2/net.c:985 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:973
 #, fuzzy
 msgid "IPv6 address:"
-msgstr "IP address:"
+msgstr "IPv6 address:"
 
 #: ../loader2/net.c:1034
 #, fuzzy
 msgid "Name Server:"
-msgstr "Nameserver"
+msgstr "Name Server:"
 
 #: ../loader2/net.c:1070
 msgid ""
@@ -7152,11 +7191,14 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
 
 #: ../loader2/net.c:1086
 #, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "z/IPL Configuration"
+msgstr "Manual TCP/IP Configuration"
 
 #: ../loader2/net.c:1207 ../loader2/net.c:1213
 #, fuzzy
@@ -7167,12 +7209,13 @@ msgstr "Missing Information"
 #, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "You must enter both a valid IP address and a netmask."
+msgstr ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 
 #: ../loader2/net.c:1214
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "You must enter both a valid IP address and a netmask."
+msgstr "You must enter both a valid IPv6 address and a CIDR prefix."
 
 #: ../loader2/net.c:1520
 #, fuzzy
@@ -7216,7 +7259,7 @@ msgstr "%s directory:"
 #: ../loader2/nfsinstall.c:55
 #, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:56
 #, fuzzy
@@ -7225,7 +7268,7 @@ msgstr "NFS Setup"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Hostname specified with no DNS configured"
 
 #: ../loader2/nfsinstall.c:202
 #, fuzzy, c-format
@@ -7299,11 +7342,11 @@ msgstr "Retrieving"
 
 #: ../loader2/urls.c:286
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:291
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:308
 #, fuzzy
@@ -7376,12 +7419,12 @@ msgstr "Account name:"
 #: ../loader2/urls.c:480
 #, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP Setup"
+msgstr "Further FTP Setup"
 
 #: ../loader2/urls.c:483
 #, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP Setup"
+msgstr "Further HTTP Setup"
 
 #: ../loader2/windows.c:56
 #, fuzzy
@@ -7391,32 +7434,32 @@ msgstr "Loading SCSI driver"
 #: tmp/adddrive.glade.h:1
 #, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Add _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Add _iSCSI target"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Disable _dmraid device"
 
 #: tmp/adddrive.glade.h:6
 #, fuzzy
 msgid "_Add drive"
-msgstr "Hard drive"
+msgstr "_Add drive"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>Repository _URL:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>Repository _name:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Add Repository"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
@@ -7424,10 +7467,12 @@ msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
 msgstr ""
+"Please provide the location where your additional software can be installed "
+"from.  Note that this must be a valid repository for %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Add repository"
 
 #: tmp/anaconda.glade.h:1
 #, fuzzy
@@ -7450,207 +7495,216 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Installation requires partitioning of your hard drive.  By default, a "
+"partitioning layout is chosen which is reasonable for most users.  You can "
+"either choose to use this or create your own."
 
 #: tmp/autopart.glade.h:2
 #, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Re_view (and modify if needed) the partitions created"
+msgstr "Re_view and modify partitioning layout"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "What language would you like to use during the installation process?"
+msgstr "What drive would you like to boot this installation from?"
 
 #: tmp/autopart.glade.h:4
 #, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Advanced Boot Loader Configuration"
+msgstr "_Advanced storage configuration"
 
 #: tmp/autopart.glade.h:5
 #, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Select the drive(s) to use for this installation:"
+msgstr "_Select the drive(s) to use for this installation:"
 
 #: tmp/exn.glade.h:1
 #, fuzzy
 msgid "Exception Info"
-msgstr "Exception Occurred"
+msgstr "Exception Info"
 
 #: tmp/exn.glade.h:2
 msgid "Save to _Remote"
-msgstr ""
+msgstr "Save to _Remote"
 
 #: tmp/exn.glade.h:4
 #, fuzzy
 msgid "_Exception details"
-msgstr "Exception Occurred"
+msgstr "_Exception details"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Save to floppy"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
 #, fuzzy, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "Please enter a volume group name."
+msgstr "Please enter your %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
 #, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Password:"
+msgstr "<b>_Password:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Target IP Address:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 #, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "User name"
+msgstr "<b>_Username:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI Initiator _Name:</b>"
 
 #: tmp/iscsi-config.glade.h:7
 msgid "_Add target"
-msgstr ""
+msgstr "_Add target"
 
 #: tmp/liveinst.desktop.in.h:1
 #, fuzzy
 msgid "Install"
-msgstr "_Install %s"
+msgstr "Install"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Install the live CD to your hard disk"
 
 #: tmp/liveinst.desktop.in.h:3
 #, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Install Starting"
+msgstr "Install to Hard Drive"
 
 #: tmp/netconfig.glade.h:2
 #, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Gateway:</b>"
 
 #: tmp/netconfig.glade.h:3
 #, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "IP Address"
+msgstr "<b>IPv4 Address:</b>"
 
 #: tmp/netconfig.glade.h:4
 #, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "IP Address"
+msgstr "<b>IPv6 Address:</b>"
 
 #: tmp/netconfig.glade.h:5
 #, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Nameserver"
+msgstr "<b>Nameserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>_Interface:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Enable IPv_4 support"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Enable IPv_6 support"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Enable network interface"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
 
 #: tmp/netconfig.glade.h:11
 #, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr "Use _dynamic IP configuration (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
 #, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Description: %s"
+msgstr "<b>Description Goes Here</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
 #, fuzzy
 msgid "Edit Interface"
-msgstr "Edit Interface %s"
+msgstr "Edit Interface"
 
 #: tmp/netpostconfig.glade.h:11
 #, fuzzy
 msgid "Encryption Key:"
-msgstr "Encryption _Key"
+msgstr "Encryption Key:"
 
 #: tmp/netpostconfig.glade.h:13
 #, fuzzy
 msgid "Manual configuration"
-msgstr "z/IPL Configuration"
+msgstr "Manual configuration"
 
 #: tmp/netpostconfig.glade.h:14
 #, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP)"
+msgstr "Point to Point (IP):"
 
 #: tmp/tasksel.glade.h:1
 #, fuzzy
 msgid "Customize _later"
-msgstr "Customize"
+msgstr "Customise _later"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
+"Please select any additional repositories that you want to use for software "
+"installation."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
+"You can further customise the software selection now, or after install via "
+"the software management application."
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Add additional software repositories"
 
 #: tmp/tasksel.glade.h:7
 #, fuzzy
 msgid "_Customize now"
-msgstr "Customize"
+msgstr "_Customise now"
 
 #: tmp/zfcp-config.glade.h:1
 #, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Device number"
+msgstr "<b>Device number:</b>"
 
 #: tmp/zfcp-config.glade.h:2
 #, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
 #, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "_Password:"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 #, fuzzy
@@ -7659,7 +7713,7 @@ msgstr "Add FCP device"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
 #, fuzzy
@@ -7668,7 +7722,7 @@ msgstr "Arabic"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamese"
 
 #. generated from lang-table
 #, fuzzy
@@ -7748,7 +7802,7 @@ msgstr "German"
 #. generated from lang-table
 #, fuzzy
 msgid "Greek"
-msgstr "Free"
+msgstr "Greek"
 
 #. generated from lang-table
 #, fuzzy
@@ -7772,12 +7826,12 @@ msgstr "Icelandic"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Indonesian"
-msgstr "Macedonian"
+msgstr "Indonesian"
 
 #. generated from lang-table
 #, fuzzy
@@ -7791,7 +7845,7 @@ msgstr "Japanese"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 #, fuzzy
@@ -7811,12 +7865,12 @@ msgstr "Malay"
 #. generated from lang-table
 #, fuzzy
 msgid "Malayalam"
-msgstr "Malay"
+msgstr "Malayalam"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 #, fuzzy
@@ -7826,11 +7880,11 @@ msgstr "Norwegian"
 #. generated from lang-table
 #, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 #, fuzzy
@@ -7860,7 +7914,7 @@ msgstr "Punjabi"
 #. generated from lang-table
 #, fuzzy
 msgid "Romanian"
-msgstr "Croatian"
+msgstr "Romanian"
 
 #. generated from lang-table
 #, fuzzy
@@ -7870,21 +7924,21 @@ msgstr "Russian"
 #. generated from lang-table
 #, fuzzy
 msgid "Serbian"
-msgstr "Persian"
+msgstr "Serbian"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Persian"
+msgstr "Serbian(Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Slovak"
-msgstr "Slovenian"
+msgstr "Slovak"
 
 #. generated from lang-table
 #, fuzzy
@@ -7908,7 +7962,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 #, fuzzy
