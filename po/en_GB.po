@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../anaconda:391
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Press <etner> for a shell"
 
 #: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
 #: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
@@ -122,24 +122,22 @@ msgstr "Graphical installation not available...  Starting text mode."
 
 #: ../anaconda:801
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY veriable not set. Starting text mode!"
 
 #: ../anaconda:862
 #, fuzzy
 msgid "Unknown install method"
-msgstr "Unknown Url method %s"
+msgstr "Unknown install method"
 
 #: ../anaconda:863
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"You are trying to install on a machine which isn't supported by this release "
-"of %s."
+msgstr "You have specified an install method which isn't supported by anaconda."
 
 #: ../anaconda:865
 #, fuzzy, c-format
 msgid "unknown install method: %s"
-msgstr "Unknown Url method %s"
+msgstr "unknown install method: %s"
 
 #: ../autopart.py:955
 #, fuzzy, python-format
@@ -147,7 +145,9 @@ msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Could not allocate cylinder-based partitions as primary partitions"
+msgstr "Could not allocate cylinder-based partitions as primary partitions.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:960
 #, fuzzy, python-format
@@ -155,7 +155,9 @@ msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Could not allocate partitions as primary partitions"
+msgstr "Could not allocate partitions as primary partitions.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:965
 #, fuzzy, python-format
@@ -163,7 +165,9 @@ msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Could not allocate cylinder-based partitions"
+msgstr "Could not allocate cylinder-based partitions.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1025
 #, fuzzy, python-format
@@ -173,7 +177,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
-"boot from this paritition. Use a partition belonging to a BSD disk label or "
+"boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 
 #: ../autopart.py:1027
@@ -202,8 +206,8 @@ msgid ""
 "The boot partition must entirely be in the first 4GB of the disk.  "
 "OpenFirmware won't be able to boot this installation."
 msgstr ""
-"Boot partition isn't located early enough on the disk.  OpenFirmware won't "
-"be able to boot this installation."
+"The boot partition must entirely be in the first 4GB of the disk.  "
+"OpenFirmware won't be able to boot this installation."
 
 #: ../autopart.py:1038
 #, fuzzy, python-format
@@ -355,6 +359,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"Press 'OK' to choose a different partitioning option."
 
 #: ../autopart.py:1532
 #, fuzzy, python-format
@@ -371,7 +378,7 @@ msgstr ""
 "%s\n"
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
-"installation.%s"
+"installation. %s"
 
 #: ../autopart.py:1543
 #, fuzzy
@@ -407,7 +414,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Automatic Partitioning sets partitions based on the selected installation "
-"type. You also can customize the partitions once they have been created.\n"
+"type. You also can customise the partitions once they have been created.\n"
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create "
 "partitions in an interactive environment. You can set the file system types, "
@@ -462,14 +469,12 @@ msgstr ""
 #: ../backend.py:165
 #, fuzzy, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"Upgrading %s packages\n"
-"\n"
+msgstr "Upgrading %s\n"
 
 #: ../backend.py:167
 #, fuzzy, python-format
 msgid "Installing %s\n"
-msgstr "_Install %s"
+msgstr "Installing %s\n"
 
 #: ../bootloader.py:129
 #, fuzzy
@@ -518,8 +523,8 @@ msgid ""
 "at %s"
 msgstr ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
-"copy the full text of this exception and file a detailed bug report against "
-"anaconda at http://bugzilla.redhat.com/bugzilla/"
+"save a copy of the detailed exception and file a bug report against anaconda "
+"at %s"
 
 #: ../exception.py:414 ../exception.py:431
 #, fuzzy
@@ -533,7 +538,7 @@ msgid ""
 "will now be rebooted."
 msgstr ""
 "Your system's state has been successfully written to the floppy. Your system "
-"will now be reset."
+"will now be rebooted."
 
 #: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
 #: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
@@ -547,11 +552,11 @@ msgstr "_Reboot"
 #: ../exception.py:423 ../exception.py:440
 #, fuzzy
 msgid "Dump Not Written"
-msgstr "Dump Written"
+msgstr "Dump Not Written"
 
 #: ../exception.py:424
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "There was a problem writing the system state to the floppy."
 
 #: ../exception.py:432
 #, fuzzy
@@ -559,12 +564,12 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Your system's state has been successfully written to the floppy. Your system "
-"will now be reset."
+"Your system's state has been successfully written to the remote host.  Your "
+"system will now be rebooted."
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "There was a problem writing the system state to the remote host."
 
 #: ../fsset.py:214
 #, fuzzy
@@ -653,7 +658,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"An error occurred trying to initialize swap on device %s.  This problem is "
+"An error occurred trying to initialise swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
@@ -681,11 +686,18 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"The swap device:\n"
+"\n"
+"     /dev/&s\n"
+"\n"
+"is a version 0 Linux swap partition. If you want to use this device, you "
+"must reformat as a version 1 Linux swap partition. If you skip it, the "
+"installer will ignore it during installation."
 
 #: ../fsset.py:1454
 #, fuzzy
 msgid "Reformat"
-msgstr "Format"
+msgstr "Reformat"
 
 #: ../fsset.py:1458
 #, python-format
@@ -698,6 +710,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"The swap device:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend partition, "
+"which means your system is hibernating. To perform an upgrade, please shut "
+"down your system rather than hibernating it."
 
 #: ../fsset.py:1466
 #, python-format
@@ -710,6 +729,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap partitions."
 msgstr ""
+"The swap device:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend partition, "
+"which means your system is hibernating. If you are performing a new install, "
+"make sure the installer is set to format all swap partitions."
 
 #: ../fsset.py:1476
 msgid ""
@@ -719,6 +745,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Choose Skip if you want the installer to ignore this partition during the "
+"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
+"Reboot to restart the system."
 
 #: ../fsset.py:1482 ../iw/partition_gui.py:368
 #, fuzzy
@@ -737,7 +768,8 @@ msgid ""
 msgstr ""
 "Error enabling swap device %s: %s\n"
 "\n"
-"This most likely means this swap partition has not been initialized.\n"
+"The /etc/fstab on your upgrade partition does not reference a valid swap "
+"partition.\n"
 "\n"
 "Press OK to reboot your system."
 
@@ -752,7 +784,7 @@ msgid ""
 msgstr ""
 "Error enabling swap device %s: %s\n"
 "\n"
-"This most likely means this swap partition has not been initialized.\n"
+"This most likely means this swap partition has not been initialised.\n"
 "\n"
 "Press OK to reboot your system."
 
@@ -842,7 +874,7 @@ msgstr ""
 #: ../fsset.py:1704
 #, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Unable to load file!"
+msgstr "Unable to mount filesystem"
 
 #: ../fsset.py:1705
 #, python-format
@@ -850,6 +882,8 @@ msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
+"An error occurred mounting device %s as %s.  You may continue installation, "
+"but there may be problems."
 
 #: ../fsset.py:1713 ../image.py:93 ../image.py:450 ../kickstart.py:999
 #: ../kickstart.py:1037 ../partedUtils.py:1155 ../yuminstall.py:719
@@ -869,7 +903,7 @@ msgid ""
 msgstr ""
 "Error mounting device %s as %s: %s\n"
 "\n"
-"This most likely means this partition has not been formatted.\n"
+"Devices in /etc/fstab should be specified by label, not by device name.\n"
 "\n"
 "Press OK to reboot your system."
 
@@ -897,9 +931,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Error mounting device %s as %s: %s\n"
+"Error finding / entry.\n"
 "\n"
-"This most likely means this partition has not been formatted.\n"
+"This is most likely means that your fstab is incorrect.\n"
 "\n"
 "Press OK to reboot your system."
 
@@ -924,7 +958,7 @@ msgstr ""
 #: ../fsset.py:2413
 #, fuzzy
 msgid "Invalid Label"
-msgstr "Invalid Boot Label"
+msgstr "Invalid Label"
 
 #: ../fsset.py:2414
 #, fuzzy, python-format
@@ -932,10 +966,8 @@ msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Multiple devices on your system are labelled %s.  Labels across devices must "
-"be unique for your system to function properly.\n"
-"\n"
-"Please fix this problem and restart the installation process."
+"An invalid label was found on device %s.  Please fix this problem and "
+"restart the installation process."
 
 #: ../fsset.py:2672
 #, fuzzy
@@ -1043,7 +1075,7 @@ msgstr "Cancel"
 #: ../gui.py:607 ../text.py:360
 #, fuzzy
 msgid "Installation Key"
-msgstr "Installation Type"
+msgstr "Installation Key"
 
 #: ../gui.py:790 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 #, fuzzy
@@ -1136,15 +1168,17 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"The package %s-%s-%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation images and that you have "
+"all the required media.\n"
 "\n"
-"Press <return> to try again."
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
 
 #: ../harddrive.py:71 ../image.py:513
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Missing ISO 9660 Image"
 
 #: ../harddrive.py:72
 #, python-format
@@ -1155,15 +1189,20 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"The installer has tried to mount image #%s, but cannot find it on the hard "
+"drive.\n"
+"\n"
+"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"the installation."
 
 #: ../harddrive.py:81 ../image.py:524
 #, fuzzy
 msgid "Re_try"
-msgstr "Retry"
+msgstr "Re_try"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "Couldn't Mount ISO Source"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1173,6 +1212,10 @@ msgid ""
 "there was a problem mounting a partition.  Click reboot to abort the "
 "installation."
 msgstr ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click reboot to abort the "
+"installation."
 
 #: ../image.py:84
 #, fuzzy
@@ -1265,11 +1308,13 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"The package %s-%s-%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation tree contains all required "
+"packages.\n"
 "\n"
-"Press <return> to try again."
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
 
 #: ../image.py:440
 #, python-format
@@ -1280,6 +1325,11 @@ msgid ""
 "It is recommended that you reboot and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
+"mean it was corrupted on transfer to this computer.\n"
+"\n"
+"It is recommended that you reboot and abort your installation, but you can "
+"choose to continue if you think this is in error."
 
 #: ../image.py:514
 #, python-format
@@ -1290,6 +1340,11 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"The installer has tried to mount image #%s, but cannot find it on the "
+"server.\n"
+"\n"
+"Please copy this image to the remote server's share path and click Retry. "
+"Click Reboot to abort the installation."
 
 #: ../installclass.py:66
 #, fuzzy
@@ -1299,11 +1354,11 @@ msgstr "Install on System"
 #: ../iscsi.py:197 ../iscsi.py:198
 #, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "Initializing"
+msgstr "Initializing iSCSI initiator"
 
 #: ../kickstart.py:75
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet Failure"
 
 #: ../kickstart.py:76
 #, fuzzy, python-format
@@ -1313,25 +1368,23 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"There was an error installing %s.  This can indicate media failure, lack of "
-"disk space, and/or hardware problems.  This is a fatal error and your "
-"install will be aborted.  Please verify your media and try your install "
-"again.\n"
+"There was an error running the scriptlet.  You may examine the output in %"
+"s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 
 #: ../kickstart.py:942 ../kickstart.py:959
 #, fuzzy
 msgid "Running..."
-msgstr "Connecting..."
+msgstr "Running..."
 
 #: ../kickstart.py:943
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Running post-install scripts"
 
 #: ../kickstart.py:960
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Running pre-install scripts"
 
 #: ../kickstart.py:991
 #, fuzzy
@@ -1370,35 +1423,38 @@ msgstr ""
 #: ../livecd.py:79
 #, fuzzy
 msgid "Unable to find image"
-msgstr "Unable to find install image %s"
+msgstr "Unable to find image"
 
 #: ../livecd.py:80
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
+"The given location isn't a valid %s live CD to use as an installation source."
 
 #: ../livecd.py:84 ../livecd.py:329
 #, fuzzy
 msgid "Exit installer"
-msgstr "%s Installer"
+msgstr "Exit installer"
 
 #: ../livecd.py:160
 #, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Transferring install image to hard drive..."
+msgstr "Copying live image to hard drive."
 
 #: ../livecd.py:189
 #, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s installation"
+msgstr "Doing post-installation"
 
 #: ../livecd.py:190
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "Starting install process, this may take several minutes..."
+msgstr ""
+"Performing post-installation filesystem changes.  This may take several "
+"minutes..."
 
 #: ../livecd.py:328 ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -1433,39 +1489,41 @@ msgstr "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 #: ../network.py:89
 #, fuzzy
 msgid "IP address is missing."
-msgstr "IP Address is missing"
+msgstr "IP address is missing"
 
 #: ../network.py:93
 #, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "IP Addresses must contain numbers between 0 and 255"
+msgstr ""
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
+"periods."
 
 #: ../network.py:96
 #, fuzzy, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s is not a valid hostname."
+msgstr "'%s' is not a valid IPv6 address."
 
 #: ../network.py:98
 #, fuzzy, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s is not a valid hostname."
+msgstr "'%s' is an invalid IP address."
 
 #: ../packages.py:258
 #, fuzzy
 msgid "Invalid Key"
-msgstr "Invalid IP string"
+msgstr "Invalid Key"
 
 #: ../packages.py:259
 #, fuzzy
 msgid "The key you entered is invalid."
-msgstr "The value you entered is not a valid number."
+msgstr "The key you entered is invalid."
 
 #: ../packages.py:287
 #, fuzzy
 msgid "_Skip"
-msgstr "Skip"
+msgstr "_Skip"
 
 #: ../packages.py:319
 #, fuzzy
@@ -1495,7 +1553,7 @@ msgstr ""
 "\n"
 "To report feedback, please visit:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "and file a report against '%s'.\n"
 
@@ -1521,7 +1579,7 @@ msgid ""
 msgstr ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
+"use this disk for installation, it must be re-initialised causing the loss "
 "of ALL DATA on this drive.\n"
 "\n"
 "Would you like to reformat this DASD using CDL format?"
@@ -1535,11 +1593,11 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"/dev/%s currently has a %s partition layout.  To use this drive for the "
+"installation of %s, it must be re-initialised, causing the loss of ALL DATA "
 "on this drive.\n"
 "\n"
-"Would you like to format this drive?"
+"Would you like to re-initialise this drive?"
 
 #: ../partedUtils.py:344
 #, fuzzy
@@ -1548,12 +1606,12 @@ msgstr "_Ignore drive"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_Re-initialise drive"
 
 #: ../partedUtils.py:890
 #, fuzzy
 msgid "Initializing"
-msgstr "Initializing"
+msgstr "Initialising"
 
 #: ../partedUtils.py:891
 #, fuzzy, python-format
@@ -1573,13 +1631,13 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
+"partitions it must be initialised, causing the loss of ALL DATA on this "
 "drive.\n"
 "\n"
 "This operation will override any previous installation choices about which "
 "drives to ignore.\n"
 "\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
+"Would you like to initialise this drive, erasing ALL DATA?"
 
 #: ../partedUtils.py:1102
 #, fuzzy, python-format
@@ -1593,12 +1651,12 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"must be initialised, causing the loss of ALL DATA on this drive.\n"
 "\n"
 "This operation will override any previous installation choices about which "
 "drives to ignore.\n"
 "\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
+"Would you like to initialise this drive, erasing ALL DATA?"
 
 #: ../partedUtils.py:1144
 #, python-format
@@ -1608,6 +1666,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
+"the Linux kernel does not allow for more than 15 partitons at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
 
 #: ../partedUtils.py:1242
 #, fuzzy
@@ -1677,8 +1739,8 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"The mount point is invalid.  Mount points must start with '/' and cannot end "
-"with '/', and must contain printable characters and no spaces."
+"The mount point %s is invalid.  Mount points must start with '/' and cannot "
+"end with '/', and must contain printable characters and no spaces."
 
 #: ../partIntfHelpers.py:102
 #, fuzzy
@@ -1834,7 +1896,7 @@ msgstr ""
 #: ../partIntfHelpers.py:405
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "You need to select at least one hard drive to have %s installed onto."
+msgstr "You need to select at least one hard drive to install %s."
 
 #: ../partIntfHelpers.py:410
 #, fuzzy
