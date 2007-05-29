@@ -548,10 +548,13 @@ class NetworkDeviceWindow:
             devname = devList.current()
 
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
             elif rc == TEXT_OK_CHECK:
+                screen.popWindow()
                 return INSTALL_OK
             elif rc == TEXT_EDIT_CHECK:
+                screen.popWindow()
                 return self.devices[devname]
 
     def __call__(self, screen, anaconda, showonboot=1):
@@ -642,6 +645,7 @@ class NetworkDeviceWindow:
             if len(self.devices) == 1 and doConf is True:
                 doConf = False
 
+        screen.popWindow()
         return INSTALL_OK
 
 
