@@ -82,6 +82,7 @@
 #include "urlinstall.h"
 
 #include "net.h"
+#include "telnetd.h"
 
 #include <selinux/selinux.h>
 #include "selinux.h"
@@ -622,6 +623,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "ub"))
             flags |= LOADER_FLAGS_UB;
+        else if (!strcasecmp(argv[i], "telnet"))
+            flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "nofirewire"))
             flags |= LOADER_FLAGS_NOIEEE1394;
         else if (!strcasecmp(argv[i], "nonet"))
@@ -1619,6 +1622,9 @@ int main(int argc, char ** argv) {
             runKickstart(&loaderData);
         }
     }
+
+    if (FL_TELNETD(flags))
+        startTelnetd(&loaderData, modInfo, modLoaded, modDeps);
 
     url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps);
 
