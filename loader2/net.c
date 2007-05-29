@@ -1320,7 +1320,7 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     else
         loglevel = LOG_INFO;
 
-	/* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
+    /* dhcp preferences are in /usr/include/libdhcp/dhcp_nic.h */
 
     /* calling function should catch ipv4Choice & ipv6Choice both being ' ' */
     if (dev->noipv4 || dev->ipv4method == IPV4_MANUAL_METHOD) {
@@ -1336,10 +1336,13 @@ char *doDhcp(struct networkDeviceConfig *dev) {
         pref |= DHCPv6_DISABLE;
     }
 
-	/* disable some things for this DHCP call */
-	pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
+    /* disable some things for this DHCP call */
+    pref |= DHCPv6_DISABLE_RESOLVER | DHCPv4_DISABLE_HOSTNAME_SET;
 
-    r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
+    /* don't try to run the client if DHCPv4 and DHCPv6 are disabled */
+    if (!(pref & DHCPv4_DISABLE) || !(pref & DHCPv6_DISABLE))
+        r = pumpDhcpClassRun(i,0L,class,pref,0,timeout,netlogger,loglevel);
+
     return r;
 }
 

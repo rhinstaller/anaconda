@@ -1,3 +1,8 @@
+2007-05-29  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (doDhcp): Don't try to run the client if DHCPv4 and
+	DHCPv6 are disabled.
+
 2007-05-17  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (AnacondaYum.doConfigSetup): Add logging for yum
