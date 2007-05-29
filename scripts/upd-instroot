@@ -136,9 +136,9 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
-              sed net-tools xinetd openssl openssh openssh-server coreutils
+              sed net-tools openssl openssh openssh-server coreutils
               login initscripts bash portmap pam 
-              telnet-server login mount grep modutils gawk
+              login mount grep modutils gawk
               strace xorg-x11-xauth xorg-x11-libs"
 fi
 
@@ -493,8 +493,6 @@ usr/bin/ldd
 usr/sbin/chroot
 usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
-usr/sbin/in.telnetd
-usr/sbin/xinetd
 sbin/cmsfslst
 sbin/cmsfscat
 sbin/busybox.anaconda
@@ -536,7 +534,6 @@ $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
 $LIBDIR/libz.so*
 lib/modules/ibm/*
-etc/xinetd.conf
 etc/pam.d/sshd
 etc/pam.d/other
 etc/security/limits.conf

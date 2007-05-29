@@ -94,12 +94,11 @@ getlcsifname() {
 startinetd()
 {
 	echo
-	echo $"Starting telnetd and sshd to allow login over the network."
+	echo $"Starting sshd to allow login over the network."
    echo $"Welcome to the anaconda install environment $VERSION for $S390ARCH" > /etc/issue.net
    echo $"Welcome to the anaconda install environment $VERSION for $S390ARCH" > /etc/motd
    echo >> /etc/motd
 
-	/sbin/xinetd -stayalive -reuse -pidfile /tmp/xinetd.pid
 	/sbin/sshd
 	if [ -z "$RUNKS" ]; then
 	  echo 

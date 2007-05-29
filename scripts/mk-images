@@ -360,7 +360,6 @@ root:x:0:root
 tty:x:5:
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
-    echo "telnet          23/tcp" > $MBD_DIR/etc/services 
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
 
     # PAM configuration
@@ -384,22 +383,6 @@ EOF
     cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/remote
 
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
-
-    # setup xinetd for telnet
-    cp -f $IMGPATH/etc/xinetd.conf $MBD_DIR/etc/xinetd.conf
-    mkdir -p $MBD_DIR/etc/xinetd.d
-    cat > $MBD_DIR/etc/xinetd.d/telnet <<EOF
-service telnet
-{
-        flags           = REUSE
-        socket_type     = stream
-        wait            = no
-        user            = root
-        server          = /sbin/in.telnetd
-        log_on_failure  += USERID
-        disable         = no
-}
-EOF
 
     # key generation takes ages on s390, you really don't want this for every
     # installation attempt. These are NOT the keys of the installed system!
@@ -445,8 +428,6 @@ EOF
     # copy in the binaries
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
     cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
-    cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
-    cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
     
@@ -655,7 +636,7 @@ EOF
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
-    # s390/s390x need sshd/telnet setup
+    # s390/s390x need sshd setup
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	setupShellEnvironment
     fi
