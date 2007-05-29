@@ -1,28 +1,27 @@
-# translation of zh_TW.po to Chinese, Traditional
-# translation of zh_TW.po to Chinese Traditional
+# translation of zh_TW.po to Traditional Chinese
 # Translation of anaconda to Traditional Chinese
 # Copyright (C) 2002 Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
+#
 # Ben Wu <hpwu@redhat.com>, 2002,2003, 2004.
 # Jouston Huang <jouston@jouston.no-ip.com>, 2004.
-# Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006.
+# Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006, 2007.
 # Chester CHENG <ccheng@redhat.com>, 2004.
 # Waika Liu <wliu@redhat.com>, 2005.
 # Walter Cheuk <wwycheuk@netvigator.com>, 2005-2006.
 # Walter Cheuk <wwycheuk@gmail.com>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2006-12-26 11:33+1000\n"
+"PO-Revision-Date: 2007-05-29 16:50+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
-"Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:262
 msgid "Unknown Error"
@@ -205,8 +204,7 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Boot 分割區 %s 可能不符合您系統架構的開機限制。"
 
 #: ../autopart.py:1064
@@ -1289,8 +1287,7 @@ msgstr "找不到安裝映像檔 %s"
 
 #: ../livecd.py:80
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:84 ../livecd.py:329
@@ -1778,7 +1775,7 @@ msgstr "下列已存在的分割區要被格式化，將會刪除所有資料。
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr "選擇 '是' 以繼續格式化這些分割區，或 '否' 回到上一頁並更改設定。"
+msgstr "選擇「是」以繼續格式化這些分割區，或「否」回到上一步並更改設定。"
 
 #: ../partIntfHelpers.py:465
 msgid "Format Warning"
@@ -1818,8 +1815,7 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partitioning.py:61
@@ -1831,8 +1827,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../partitioning.py:92
 msgid "Low Memory"
@@ -1868,8 +1863,7 @@ msgid ""
 msgstr "您的開機分割區並不在前四個分割區的任何一個上，因此無法用來開機。"
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區，大小為 50 MB。"
 
 #: ../partitions.py:867
@@ -1888,8 +1882,7 @@ msgid ""
 msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:945
@@ -1926,8 +1919,7 @@ msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援 32 個。
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
+msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
 
 #: ../partitions.py:1304
 msgid "the partition in use by the installer."
@@ -1943,8 +1935,7 @@ msgstr "LVM 磁區群組成員的一個分割區。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:252
@@ -1952,8 +1943,7 @@ msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
+msgstr "無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -2217,8 +2207,7 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> 下一個畫面"
 
 #: ../text.py:474
@@ -2392,8 +2381,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
-"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:83 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
@@ -2594,8 +2582,7 @@ msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:568
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "由於下列原因，異動程序發生錯誤：%s"
 
 #: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
@@ -2725,8 +2712,7 @@ msgstr "root 密碼不得少於六個字元。"
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密碼含有非 ASCII 的字元，這些字元不允許使用在密碼上。"
 
 #: ../iw/account_gui.py:107
@@ -3111,8 +3097,7 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
-"這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
+msgstr "這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3498,8 +3483,7 @@ msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許�
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../iw/network_gui.py:151 ../textw/network_text.py:813
 #, python-format
@@ -3810,14 +3794,12 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:641
@@ -3908,8 +3890,7 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1226
 msgid "RAID Options"
@@ -4329,8 +4310,7 @@ msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式。
 
 #: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:114
@@ -4457,8 +4437,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/zipl_gui.py:28
@@ -4591,8 +4570,7 @@ msgstr ""
 "區，並分別給予一個識別標籤。"
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> 選取 | <F2> 選取預設開機項目 | <F4> 刪除 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:386
@@ -4680,8 +4658,7 @@ msgstr "開始安裝"
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4692,8 +4669,7 @@ msgstr "開始升級系統"
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/grpselect_text.py:87
 #, fuzzy
@@ -4701,8 +4677,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "請選擇您想要安裝的套件群組。"
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
 
 #: ../textw/grpselect_text.py:117
@@ -4742,8 +4717,7 @@ msgstr "選擇滑鼠"
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../textw/network_text.py:70
 #, fuzzy, python-format
@@ -5222,8 +5196,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     F12-確定"
 
 #: ../textw/partition_text.py:1504
@@ -5334,8 +5307,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5462,8 +5434,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr ""
-"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
+msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
@@ -5592,8 +5563,7 @@ msgstr ""
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
+msgstr "在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5871,8 +5841,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "歡迎使用 %s - 救援模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader2/lang.c:366
@@ -6014,8 +5983,7 @@ msgstr "正在執行 anaconda，%s 系統安裝程式 - 請稍候...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -6110,8 +6078,7 @@ msgstr "kickstart 方式之指令 %s 的裝置引數不正確: %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr "下列 kickstart 驅動程式磁片之指令的引數無效: %s:%s"
 
 #: ../loader2/net.c:59
@@ -6242,8 +6209,7 @@ msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader2/net.c:1208
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1214
@@ -6913,833 +6879,3 @@ msgstr "威爾斯語"
 msgid "Zulu"
 msgstr "祖魯語"
 
-#~ msgid ""
-#~ "Remove any media used during the installation process and press the "
-#~ "\"Reboot\" button to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "請移除安裝過程中所使用的任何安裝媒體（磁碟片或光碟片），然後再按下「重新開"
-#~ "機」按鈕以重新啟動您的系統。\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Remove any media used during the installation process and press <Enter> "
-#~ "to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "請移除安裝過程中您所使用的任何安裝媒體（磁碟片或光碟片），然後再按下 "
-#~ "<Enter> 重新開機。\n"
-#~ "\n"
-
-#~ msgid "<Enter> to reboot"
-#~ msgstr "按下 <Enter> 重新啟動"
-
-#~ msgid "NFS image"
-#~ msgstr "NFS 映像檔"
-
-#, fuzzy
-#~ msgid ""
-#~ "Recent kernels (2.4 or newer) need significantly more swap than older "
-#~ "kernels, up to twice the amount of RAM on the system. You currently have %"
-#~ "dMB of swap configured, but you may create additional swap space on one "
-#~ "of your file systems now."
-#~ msgstr ""
-#~ "2.4 版的核心比舊版的核心需要更多的 swap 空間，約是您系統記憶體的兩倍。 您"
-#~ "現在配置了 %d MB 的 swap 空間，您現在可以新增另一個 swap 空間於您的系統"
-#~ "上。"
-
-#~ msgid "Done [%d/%d]"
-#~ msgstr "已完成 [%d/%d]"
-
-#~ msgid "Installing %s-%s-%s... "
-#~ msgstr "正在安裝套件 %s-%s-%s... "
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "請輸入您 %s 的註冊金鑰。"
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "輸入註冊金鑰"
-
-#~ msgid "Key:"
-#~ msgstr "金鑰："
-
-#~ msgid "_Format drive"
-#~ msgstr "格式化硬碟(_F)"
-
-#~ msgid ""
-#~ "The following critical errors exist with your requested partitioning "
-#~ "scheme."
-#~ msgstr "您的磁碟分割發生下列錯誤。"
-
-#~ msgid "The following warnings exist with your requested partition scheme."
-#~ msgstr "您所選擇的磁碟分割有下列警告存在。"
-
-#~ msgid "Remaining time: %s minutes"
-#~ msgstr "剩餘時間: %s 分鐘"
-
-#~ msgid "Downloading %s"
-#~ msgstr "正在下載 %s"
-
-#~ msgid "Installing %s-%s-%s.%s (%s)"
-#~ msgstr "正在安裝套件 %s-%s-%s.%s (%s)"
-
-#~ msgid "Package"
-#~ msgstr "套件"
-
-#~ msgid "Summary"
-#~ msgstr "摘要"
-
-#~ msgid "Status: "
-#~ msgstr "狀態: "
-
-#~ msgid "Description: %s"
-#~ msgstr "說明: %s"
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "硬體位址：%s"
-
-#~ msgid "Use dynamic IP configuration (DHCP)"
-#~ msgstr "使用動態 IP 設定 (DHCP)"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "IP 位址"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "IPv4 的前置數字必須介於 0 與 128 之間。"
-
-#~ msgid "Must have a / partition to install on."
-#~ msgstr "必須有 / 分割區作安裝。"
-
-#~ msgid "Downloading - %s"
-#~ msgstr "正在下載 - %s"
-
-#~ msgid " Name   : "
-#~ msgstr " 套件名稱: "
-
-#~ msgid " Size   : "
-#~ msgstr " 大    小: "
-
-#~ msgid " Summary: "
-#~ msgstr " 摘    要: "
-
-#~ msgid "    Packages"
-#~ msgstr "      套件數"
-
-#~ msgid "      Bytes"
-#~ msgstr "      位元組"
-
-#~ msgid "        Time"
-#~ msgstr "        時間"
-
-#~ msgid "Total    :"
-#~ msgstr "套件總數:"
-
-#~ msgid "Completed:   "
-#~ msgstr "已完成:"
-
-#~ msgid "Remaining:  "
-#~ msgstr "剩餘:"
-
-#~ msgid "Acre"
-#~ msgstr "阿克里"
-
-#~ msgid "Alagoas, Sergipe"
-#~ msgstr "阿拉戈阿斯、塞爾希培"
-
-#~ msgid "Alaska Time"
-#~ msgstr "阿拉斯加標準時區"
-
-#~ msgid "Alaska Time - Alaska panhandle"
-#~ msgstr "阿拉斯加標準時區 - 阿拉斯加帕瀚德爾"
-
-#~ msgid "Alaska Time - Alaska panhandle neck"
-#~ msgstr "阿拉斯加標準時區 - 阿拉斯加帕瀚德爾 neck"
-
-#~ msgid "Alaska Time - west Alaska"
-#~ msgstr "阿拉斯加標準時區 - 阿拉斯加西部"
-
-#~ msgid "Aleutian Islands"
-#~ msgstr "阿留申群島"
-
-#~ msgid "Amapa, E Para"
-#~ msgstr "阿馬帕、Para 東部"
-
-#~ msgid "Amundsen-Scott Station, South Pole"
-#~ msgstr "阿蒙森─斯科特南極基地"
-
-#~ msgid "Aqtobe (Aktobe)"
-#~ msgstr "Aqtobe (Aktobe)"
-
-#~ msgid "Atlantic Standard Time - Quebec - Lower North Shore"
-#~ msgstr "大西洋標準時區 - 魁北克 - 下北岸"
-
-#~ msgid "Atlantic Time - Labrador - most locations"
-#~ msgstr "大西洋時間 - 拉布拉多 - 大部分地方"
-
-#~ msgid "Atlantic Time - New Brunswick"
-#~ msgstr "大西洋標準時區 - 新布朗斯威克"
-
-#~ msgid "Atlantic Time - Nova Scotia (most places), PEI"
-#~ msgstr "大西洋標準時區 - 諾華史高沙省（大部分地方）、愛德華王子島"
-
-#~ msgid ""
-#~ "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-#~ msgstr "大西洋標準時區 - 諾華史高沙省 - 不遵照 DST 1966-1971 的地方"
-
-#~ msgid "Atlantic islands"
-#~ msgstr "大西洋群島"
-
-#~ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-#~ msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-
-#~ msgid "Azores"
-#~ msgstr "亞速群島"
-
-#~ msgid "Bahia"
-#~ msgstr "巴伊亞"
-
-#~ msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-#~ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-
-#~ msgid "Buenos Aires (BA, CF)"
-#~ msgstr "布宜諾斯艾利斯（BA，CF）"
-
-#~ msgid "Canary Islands"
-#~ msgstr "加瑪利群島"
-
-#~ msgid "Casey Station, Bailey Peninsula"
-#~ msgstr "凱西基地、Bailey 半島"
-
-#~ msgid "Catamarca (CT), Chubut (CH)"
-#~ msgstr "卡達馬魯卡（CT），丘布特（CH）"
-
-#~ msgid "Central Standard Time - Saskatchewan - midwest"
-#~ msgstr "中部標準時間 - 薩克其萬 - 中東"
-
-#~ msgid "Central Standard Time - Saskatchewan - most locations"
-#~ msgstr "中部標準時間 - 薩克其萬 - 大部分地區"
-
-#~ msgid "Central Time"
-#~ msgstr "中部標準時間"
-
-#~ msgid "Central Time - Campeche, Yucatan"
-#~ msgstr "中部標準時間 - 千伯徹、Yucatan"
-
-#~ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-#~ msgstr "中部標準時間 - 柯省、杜蘭哥、Nuevo Leon、Tamaulipas"
-
-#~ msgid ""
-#~ "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-#~ "Counties"
-#~ msgstr ""
-#~ "中央標準時間 - 印地安那州 - 戴維斯、杜伯依斯、諾克斯、馬丁、派里與普拉斯基"
-#~ "郡"
-
-#~ msgid "Central Time - Indiana - Pike County"
-#~ msgstr "中央標準時間 - 印地安納 - 派克郡"
-
-#~ msgid "Central Time - Manitoba & west Ontario"
-#~ msgstr "中部標準時間 - 緬尼吐巴省 & 安大略西部"
-
-#~ msgid ""
-#~ "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-#~ msgstr "中部標準時間 - 密西根 - 狄更森、高基比克、愛朗與麥諾米尼郡"
-
-#~ msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-#~ msgstr "中部標準時間 - 北達科達州 - 摩頓郡（不包括曼敦地區）"
-
-#~ msgid "Central Time - North Dakota - Oliver County"
-#~ msgstr "中部標準時間 - 北達科達州 -  奧立佛郡"
-
-#~ msgid "Central Time - Quintana Roo"
-#~ msgstr "中部標準時間 - 基塔那路省"
-
-#~ msgid "Central Time - Rainy River & Fort Frances, Ontario"
-#~ msgstr "中部標準時間 - 雨河 & 法蘭西斯堡、安大略"
-
-#~ msgid "Central Time - central Nunavut"
-#~ msgstr "中部標準時間 - 中努勒維特"
-
-#~ msgid "Central Time - most locations"
-#~ msgstr "中部標準時間 - 大部分地區"
-
-#~ msgid "Central Time - west Nunavut"
-#~ msgstr "中部標準時間 - 肯那域西部"
-
-#~ msgid "Ceuta & Melilla"
-#~ msgstr "休達 & 美利拉"
-
-#~ msgid "Chatham Islands"
-#~ msgstr "占松群島"
-
-#~ msgid "Davis Station, Vestfold Hills"
-#~ msgstr "戴維斯基地、維斯特福爾得嶺"
-
-#~ msgid "Dornod, Sukhbaatar"
-#~ msgstr "Dornod、沙克巴達"
-
-#~ msgid "Dumont-d'Urville Base, Terre Adelie"
-#~ msgstr "Dumont-d'Urville Base, Terre Adelie"
-
-#~ msgid "E Amazonas"
-#~ msgstr "亞馬遜河流域東部"
-
-#~ msgid "Easter Island & Sala y Gomez"
-#~ msgstr "復活島 & Sala y Gomez"
-
-#~ msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-#~ msgstr "東部標準時間 - 安大略的艾提高根與努勒維特的南安普敦島"
-
-#~ msgid "Eastern Time"
-#~ msgstr "東部標準時間"
-
-#~ msgid "Eastern Time - Indiana - Crawford County"
-#~ msgstr "東部標準時間 - 印地安納 - 克勞馥郡"
-
-#~ msgid "Eastern Time - Indiana - Starke County"
-#~ msgstr "東部標準時間 - 印地安納 - 史達克郡"
-
-#~ msgid "Eastern Time - Indiana - Switzerland County"
-#~ msgstr "東部標準時間 - 印地安納 - 瑞士郡"
-
-#~ msgid "Eastern Time - Indiana - most locations"
-#~ msgstr "東部標準時間 - 印地安納 - 大部分地區"
-
-#~ msgid "Eastern Time - Kentucky - Louisville area"
-#~ msgstr "東部標準時間 - 肯塔基州 - 路易斯維爾地區"
-
-#~ msgid "Eastern Time - Kentucky - Wayne County"
-#~ msgstr "東部標準時間 - 肯塔基州 - 維恩郡"
-
-#~ msgid "Eastern Time - Michigan - most locations"
-#~ msgstr "東部標準時間 - 密西根 - 大部分地方"
-
-#~ msgid ""
-#~ "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-"
-#~ "1973"
-#~ msgstr "東部標準時間 - 安大略省 & 魁北克 - 不遵照 DST 1967-1973 的地方"
-
-#~ msgid "Eastern Time - Ontario - most locations"
-#~ msgstr "東部標準時間 -  安大略省 - 大部分地方"
-
-#~ msgid "Eastern Time - Pangnirtung, Nunavut"
-#~ msgstr "東部標準時間 - 潘尼爾頓，努勒維特"
-
-#~ msgid "Eastern Time - Quebec - most locations"
-#~ msgstr "東部標準時間 -  魁北克 - 大部分地方"
-
-#~ msgid "Eastern Time - Thunder Bay, Ontario"
-#~ msgstr "東部標準時間 - 桑德灣、安大略省"
-
-#~ msgid "Eastern Time - east Nunavut"
-#~ msgstr "東部標準時間 - 東努勒維特"
-
-#~ msgid "Galapagos Islands"
-#~ msgstr "哥拉柏哥斯群島"
-
-#~ msgid "Gambier Islands"
-#~ msgstr "Gambier 群島"
-
-#~ msgid "Gilbert Islands"
-#~ msgstr "吉爾伯特群島"
-
-#~ msgid "Hawaii"
-#~ msgstr "夏威夷"
-
-#~ msgid "Heilongjiang (except Mohe), Jilin"
-#~ msgstr "黑龍江（不包括漠河）、吉林省"
-
-#~ msgid "Irian Jaya & the Moluccas"
-#~ msgstr "伊里安查亞 & 摩祿加群島"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "央麥恩群島"
-
-#~ msgid "Java & Sumatra"
-#~ msgstr "爪哇 & 蘇門答臘"
-
-#~ msgid "Johnston Atoll"
-#~ msgstr "約翰斯頓島"
-
-#~ msgid "Jujuy (JY)"
-#~ msgstr "胡胡伊 (JY)"
-
-#~ msgid "Kosrae"
-#~ msgstr "科斯瑞"
-
-#~ msgid "Kwajalein"
-#~ msgstr "瓜加林島"
-
-#~ msgid "La Rioja (LR)"
-#~ msgstr "拉里歐哈省（LR）"
-
-#~ msgid "Line Islands"
-#~ msgstr "列島群島"
-
-#~ msgid "Lord Howe Island"
-#~ msgstr "豪勛爵島"
-
-#~ msgid "Madeira Islands"
-#~ msgstr "馬德拉群島"
-
-#~ msgid "Marquesas Islands"
-#~ msgstr "馬克薩斯群島"
-
-#~ msgid "Mato Grosso"
-#~ msgstr "馬托格羅索"
-
-#~ msgid "Mato Grosso do Sul"
-#~ msgstr "庫亞巴南馬托格羅索"
-
-#~ msgid "Mawson Station, Holme Bay"
-#~ msgstr "Mawson 科學研究站、Holme Bay"
-
-#~ msgid "McMurdo Station, Ross Island"
-#~ msgstr "麥克默多站、羅斯島"
-
-#~ msgid "Mendoza (MZ)"
-#~ msgstr "門多薩 (MZ)"
-
-#~ msgid "Midway Islands"
-#~ msgstr "中途島"
-
-#~ msgid "Moscow+00 - Caspian Sea"
-#~ msgstr "莫斯科+00 - 裹海"
-
-#~ msgid "Moscow+00 - west Russia"
-#~ msgstr "莫斯科+00 - 俄羅斯西部"
-
-#~ msgid "Moscow+01 - Samara, Udmurtia"
-#~ msgstr "莫斯科+01 - 烏德穆爾特共和國薩馬拉州"
-
-#~ msgid "Moscow+02 - Urals"
-#~ msgstr "莫斯科+02 - 烏拉山"
-
-#~ msgid "Moscow+03 - Novosibirsk"
-#~ msgstr "莫斯科+03 - 新西伯利亞"
-
-#~ msgid "Moscow+03 - west Siberia"
-#~ msgstr "莫斯科+03 - 西伯利亞西部"
-
-#~ msgid "Moscow+04 - Yenisei River"
-#~ msgstr "莫斯科+04 - 葉尼塞河"
-
-#~ msgid "Moscow+05 - Lake Baikal"
-#~ msgstr "莫斯科+05 - 貝加爾湖"
-
-#~ msgid "Moscow+06 - Lena River"
-#~ msgstr "莫斯科+06 - 勒拿河"
-
-#~ msgid "Moscow+07 - Amur River"
-#~ msgstr "莫斯科+07 - 阿穆爾河"
-
-#~ msgid "Moscow+07 - Sakhalin Island"
-#~ msgstr "莫斯科+07 - 庫頁島"
-
-#~ msgid "Moscow+08 - Magadan"
-#~ msgstr "莫斯科+08 - 馬加丹"
-
-#~ msgid "Moscow+09 - Kamchatka"
-#~ msgstr "莫斯科+09 - 康察加半島"
-
-#~ msgid "Moscow+10 - Bering Sea"
-#~ msgstr "莫斯科+10 - 白令海"
-
-#~ msgid "Moscow-01 - Kaliningrad"
-#~ msgstr "莫斯科-01 - 加里寧格勒"
-
-#~ msgid "Mountain Standard Time - Arizona"
-#~ msgstr "山岳部標準時間 - 亞利桑那"
-
-#~ msgid ""
-#~ "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-#~ msgstr "山岳部標準時間 - 道森河 & 福聖約翰、英屬哥倫比亞"
-
-#~ msgid "Mountain Standard Time - Sonora"
-#~ msgstr "山岳部標準時間 - 索諾蘭"
-
-#~ msgid "Mountain Time"
-#~ msgstr "山岳部時間"
-
-#~ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-#~ msgstr "山岳部時間 - 亞伯達、英屬哥倫比亞東部 & 薩克其萬西部"
-
-#~ msgid "Mountain Time - Chihuahua"
-#~ msgstr "山岳部時間 - Chihuahua"
-
-#~ msgid "Mountain Time - Navajo"
-#~ msgstr "山岳部時間 - 納瓦約"
-
-#~ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-#~ msgstr "山岳部時間 - S Baja, Nayarit, Sinaloa"
-
-#~ msgid "Mountain Time - central Northwest Territories"
-#~ msgstr "山岳部時間 - 西北領地中部"
-
-#~ msgid "Mountain Time - south Idaho & east Oregon"
-#~ msgstr "山岳部時間 - 南愛達荷 & 東奧勒岡州"
-
-#~ msgid "Mountain Time - west Northwest Territories"
-#~ msgstr "山岳部時間 - 西北領地西部"
-
-#~ msgid "NE Brazil (MA, PI, CE, RN, PB)"
-#~ msgstr "巴西東北部 (MA, PI, CE, RN, PB)"
-
-#~ msgid "New South Wales - Yancowinna"
-#~ msgstr "新南威爾斯 - Yancowinna"
-
-#~ msgid "New South Wales - most locations"
-#~ msgstr "新南威爾斯 - 大部份地區"
-
-#~ msgid "Newfoundland Time, including SE Labrador"
-#~ msgstr "紐芬蘭時區，包括拉布拉多東南部"
-
-#~ msgid "Northern Territory"
-#~ msgstr "北領地"
-
-#~ msgid "Pacific Time"
-#~ msgstr "太平洋標準時間"
-
-#~ msgid "Pacific Time - north Yukon"
-#~ msgstr "太平洋標準時間 - 育空北部"
-
-#~ msgid "Pacific Time - south Yukon"
-#~ msgstr "太平洋標準時間 - 育空南部"
-
-#~ msgid "Pacific Time - west British Columbia"
-#~ msgstr "太平洋標準時間 - 英屬哥倫比亞西部"
-
-#~ msgid "Palmer Station, Anvers Island"
-#~ msgstr "Palmer 科學研究站、Anvers 島"
-
-#~ msgid "Pernambuco"
-#~ msgstr "貝南博古"
-
-#~ msgid "Phoenix Islands"
-#~ msgstr "鳳凰島"
-
-#~ msgid "Ponape (Pohnpei)"
-#~ msgstr "波納佩"
-
-#~ msgid "Queensland - Holiday Islands"
-#~ msgstr "昆士蘭 - 假日島"
-
-#~ msgid "Queensland - most locations"
-#~ msgstr "昆士蘭 - 大部分地區"
-
-#~ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-#~ msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-
-#~ msgid "Rothera Station, Adelaide Island"
-#~ msgstr "Rothera 科學研究站、Adelaide 島"
-
-#~ msgid "Ruthenia"
-#~ msgstr "羅塞尼亞"
-
-#~ msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-#~ msgstr "巴西南部與東南部 (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-
-#~ msgid "Sabah & Sarawak"
-#~ msgstr "沙巴洲 & 砂拉越"
-
-#~ msgid "San Juan (SJ)"
-#~ msgstr "聖胡安（SJ）"
-
-#~ msgid "Santa Cruz (SC)"
-#~ msgstr "聖塔克魯斯（SC）"
-
-#~ msgid "Scoresbysund / Ittoqqortoormiit"
-#~ msgstr "Scoresbysund / Ittoqqortoormiit"
-
-#~ msgid "Society Islands"
-#~ msgstr "社會群島"
-
-#~ msgid "South Australia"
-#~ msgstr "南澳"
-
-#~ msgid "Svalbard"
-#~ msgstr "史瓦巴群島"
-
-#~ msgid "Syowa Station, E Ongul I"
-#~ msgstr "Syowa 科學研究站、E Ongul I"
-
-#~ msgid "Tasmania - King Island"
-#~ msgstr "塔斯馬尼亞 - 國王島"
-
-#~ msgid "Tasmania - most locations"
-#~ msgstr "塔斯馬尼亞 - 大部分地區"
-
-#~ msgid "Thule / Pituffik"
-#~ msgstr "Thule / Pituffik"
-
-#~ msgid "Tierra del Fuego (TF)"
-#~ msgstr "火地島（TF）"
-
-#~ msgid "Tocantins"
-#~ msgstr "托坎廷斯"
-
-#~ msgid "Truk (Chuuk) and Yap"
-#~ msgstr "特魯克（楚克島）與雅浦"
-
-#~ msgid "Tucuman (TM)"
-#~ msgstr "土庫曼省（TM）"
-
-#~ msgid "Victoria"
-#~ msgstr "維多利亞"
-
-#~ msgid "Vostok Station, S Magnetic Pole"
-#~ msgstr "東方科學研究站、南極"
-
-#~ msgid "W Amazonas"
-#~ msgstr "西亞馬遜河流域"
-
-#~ msgid "W Para, Rondonia"
-#~ msgstr "W Para、朗多尼亞州"
-
-#~ msgid "Wake Island"
-#~ msgstr "美屬威克島"
-
-#~ msgid "West Kazakhstan"
-#~ msgstr "西哈薩克"
-
-#, fuzzy
-#~ msgid "Western Australia - Eucla area"
-#~ msgstr "西澳"
-
-#, fuzzy
-#~ msgid "Western Australia - most locations"
-#~ msgstr "中部標準時間 - 大部分地區"
-
-#~ msgid "Zaporozh'ye, E Lugansk"
-#~ msgstr "Zaporozh'ye, E Lugansk"
-
-#~ msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-#~ msgstr "中國中部 - 四川、雲南、廣西、陝西、甘肅等等"
-
-#~ msgid "central Crimea"
-#~ msgstr "克里米亞中部"
-
-#~ msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-#~ msgstr "婆羅州東部與南部、西里伯斯島、巴里島、Nusa Tengarra、東帝汶群島"
-
-#~ msgid "east China - Beijing, Guangdong, Shanghai, etc."
-#~ msgstr "中國東部 - 北京、廣東、上海等等。"
-
-#~ msgid "east Dem. Rep. of Congo"
-#~ msgstr "剛果共和國東部"
-
-#~ msgid "east Uzbekistan"
-#~ msgstr "烏茲別克東部"
-
-#~ msgid "east coast, north of Scoresbysund"
-#~ msgstr "東岸、Scoresbysund 北部"
-
-#~ msgid "mainland"
-#~ msgstr "大陸"
-
-#~ msgid "most locations"
-#~ msgstr "大部分地區"
-
-#~ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-#~ msgstr "大部分的地區 (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-
-#~ msgid "most of Tibet & Xinjiang"
-#~ msgstr "西藏與新疆的大部份地區"
-
-#~ msgid "peninsular Malaysia"
-#~ msgstr "馬來西亞半島"
-
-#~ msgid "west & central Borneo"
-#~ msgstr "波羅洲中西部"
-
-#~ msgid "west Dem. Rep. of Congo"
-#~ msgstr "西剛果共和國"
-
-#~ msgid "west Tibet & Xinjiang"
-#~ msgstr "西藏與新疆西部地區"
-
-#~ msgid "west Uzbekistan"
-#~ msgstr "西烏茲別克斯坦"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "掛載檔案系統在 %s 發生錯誤: %s"
-
-#~ msgid "Upgrade Existing System"
-#~ msgstr "升級現有系統"
-
-#~ msgid "Upgrade"
-#~ msgstr "升級"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI ID"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "您尚未指定 SCSI ID，或該 ID 無效。"
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "您尚未指定 SCSI LUN，或該號碼無效。"
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "使用動態 IP 設定 (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "開機時立即啟動(_A)"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4 位址："
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6 位址："
-
-#~ msgid "Configure %s"
-#~ msgstr "設定 %s"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP 設定"
-
-#~ msgid "_Remove"
-#~ msgstr "移除(_R)"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP 裝置"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "編輯 FCP 裝置 %s"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr "您正打算從設定中移除 FCP 磁碟，請問是否繼續？"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "IP 字串無效"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "所輸入的 IP '%s' 不是有效的 IP。"
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "點對點 (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "網路裝置: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "使用動態 IP 配置（DHCP）"
-
-#~ msgid "Invalid information"
-#~ msgstr "資料無效"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "您必須輸入有效的 IP 位址才能繼續"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "第三 DNS："
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP 裝置"
-
-#~ msgid "Device #"
-#~ msgstr "裝置 #"
-
-#~ msgid "Add"
-#~ msgstr "新增"
-
-#~ msgid "Remove"
-#~ msgstr "移除"
-
-#~ msgid "_Custom"
-#~ msgstr "自訂安裝(_C)"
-
-#~ msgid ""
-#~ "Select this installation type to gain complete control over the "
-#~ "installation process, including software package selection and "
-#~ "partitioning."
-#~ msgstr ""
-#~ "藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
-
-#~ msgid "_Personal Desktop"
-#~ msgstr "個人電腦(_P)"
-
-#~ msgid ""
-#~ "Perfect for personal computers or laptops, select this installation type "
-#~ "to install a graphical desktop environment and create a system ideal for "
-#~ "home or desktop use."
-#~ msgstr ""
-#~ "個人電腦與筆記型電腦的最佳選擇。請使用這選項來安裝圖形桌面環境，建立適用於"
-#~ "家庭或桌上型的電腦系統。"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ msgstr ""
-#~ "\t圖形桌面環境 (GNOME)\n"
-#~ "\t辦公室套裝軟體 (OpenOffice.org)\n"
-#~ "\t網頁瀏覽器 (Mozilla)\n"
-#~ "\t電子郵件 (Evolution)\n"
-#~ "\t即時通訊\n"
-#~ "\t音效與視訊應用程式\n"
-#~ "\t遊戲\n"
-
-#~ msgid "_Server"
-#~ msgstr "伺服器(_S)"
-
-#~ msgid ""
-#~ "Select this installation type if you would like to set up file sharing, "
-#~ "print sharing, and Web services. Additional services can also be enabled, "
-#~ "and you can choose whether or not to install a graphical environment."
-#~ msgstr ""
-#~ "假如您想要設定檔案分享、列印分享與網頁服務，請選擇這個安裝類型。您也可以啟"
-#~ "用額外的服務，並選擇是否要安裝圖形環境。"
-
-#~ msgid "_Workstation"
-#~ msgstr "工作站(_W)"
-
-#~ msgid ""
-#~ "This option installs a graphical desktop environment with tools for "
-#~ "software development and system administration. "
-#~ msgstr "這個選項將安裝圖形桌面環境，以及軟體開發與系統管理等工具。"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice.org)\n"
-#~ "\tWeb browser \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\t圖形桌面環境 (GNOME)\n"
-#~ "\t辦公室套裝軟體 (OpenOffice.org)\n"
-#~ "\t網頁瀏覽器 (Mozilla) \n"
-#~ "\t電子郵件 (Evolution)\n"
-#~ "\t即時通訊\n"
-#~ "\t音效與視訊應用程式\n"
-#~ "\t遊戲\n"
-#~ "\t軟體開發工具\n"
-#~ "\t管理工具\n"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "避免封包碰撞發生"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "將註冊值最大化，用於高速網路的網路流量"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr "使用手動設定時，您必須選擇至少一項通訊協定（IPv4 或 IPv6）。"
