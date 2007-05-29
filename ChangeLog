@@ -3,6 +3,12 @@
 	* loader2/net.c (doDhcp): Don't try to run the client if DHCPv4 and
 	DHCPv6 are disabled.
 
+	* network.py: Support per-interface IPv4 and IPv6 configuration, in
+	separate stacks.  Update textw and iw to account for changes (#213110).
+	* iw/network_gui.py: Likewise.
+	* textw/network_text.py: Likewise.
+	* ui/netpostconfig.glade: Likewise.
+
 2007-05-17  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (AnacondaYum.doConfigSetup): Add logging for yum

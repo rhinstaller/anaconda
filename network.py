@@ -124,33 +124,35 @@ class NetworkDevice(SimpleConfigFile):
         keys = self.info.keys()
         keys.sort()
         keys.remove("DEVICE")
-	if "DESC" in keys:
-	    keys.remove("DESC")
+        if "DESC" in keys:
+            keys.remove("DESC")
         if "KEY" in keys:
             keys.remove("KEY")
 
-	# Don't let onboot be turned on unless we have config information
-	# to go along with it
-	if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
-	    forceOffOnBoot = 1
-	else:
-	    forceOffOnBoot = 0
+        # Don't let onboot be turned on unless we have config information
+        # to go along with it
+        if self.get('bootproto').lower() != 'dhcp' and not self.get('ipaddr'):
+            forceOffOnBoot = 1
+        else:
+            forceOffOnBoot = 0
 
-	onBootWritten = 0
+        onBootWritten = 0
         for key in keys:
-	    if key == 'ONBOOT' and forceOffOnBoot:
-		s = s + key + "=" + 'no' + "\n"
+            if key in ("USEIPV4", "USEIPV6"): # XXX: these are per-device, but not written out
+                continue
+            if key == 'ONBOOT' and forceOffOnBoot:
+                s = s + key + "=" + 'no' + "\n"
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
                 s = s + key + """="autoneg off %s"\n""" % (self.info[key])
-	    elif self.info[key] is not None:
-		s = s + key + "=" + self.info[key] + "\n"
+            elif self.info[key] is not None:
+                s = s + key + "=" + self.info[key] + "\n"
 
-	    if key == 'ONBOOT':
-		onBootWritten = 1
+            if key == 'ONBOOT':
+                onBootWritten = 1
 
-	if not onBootWritten:
-	    s = s + 'ONBOOT=no\n'
+        if not onBootWritten:
+            s = s + 'ONBOOT=no\n'
 
         return s
 
@@ -172,8 +174,6 @@ class Network:
         self.domains = []
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
-	self.useIPv4 = flags.useIPv4
-	self.useIPv6 = flags.useIPv6
 
         # if we specify a hostname and are using dhcp, do an override
         # originally used by the gui but overloaded now
@@ -207,6 +207,10 @@ class Network:
                         "OPTIONS", "ARP"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
+
+            self.netdevices [info["DEVICE"]].set(('useIPv4', flags.useIPv4))
+            self.netdevices [info["DEVICE"]].set(('useIPv6', flags.useIPv6))
+
             if info.has_key("GATEWAY"):
                 self.gateway = info["GATEWAY"]
             if info.has_key("DOMAIN"):
@@ -215,9 +219,9 @@ class Network:
                 self.hostname = info["HOSTNAME"]
 	    if not info.has_key("BOOTPROTO"):
                 if not info.has_key("IPADDR"):
-                    self.useIPv4 = False
-                if not info.has_key("IPV6ADDR"):
-                    self.useIPv6 = False
+                    self.netdevices [info["DEVICE"]].set(('useIPv4', False))
+                if not (info.has_key("IPV6ADDR") and info.has_key("IPV6_AUTOCONF")):
+                    self.netdevices [info["DEVICE"]].set(('useIPv6', False))
 
 	try:
 	    f = open("/etc/resolv.conf", "r")
@@ -436,6 +440,7 @@ class Network:
             iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
         
         # /etc/sysconfig/network-scripts/ifcfg-*
+        useIPv6 = False
         for dev in self.netdevices.values():
             device = dev.get("device")
 	    fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
@@ -467,12 +472,15 @@ class Network:
                 f.write("KEY=%s\n" % dev.get('key'))
                 f.close()
 
+            if dev.get("useIPv6"):
+                useIPv6 = True
+
         # /etc/sysconfig/network
 
         f = open(instPath + "/etc/sysconfig/network", "w")
         f.write("NETWORKING=yes\n")
         f.write("NETWORKING_IPV6=")
-        f.write("%s\n" % self.useIPv6 and "yes" or "no")
+        f.write("%s\n" % useIPv6 and "yes" or "no")
         f.write("HOSTNAME=")
 
         # use instclass hostname if set(kickstart) to override

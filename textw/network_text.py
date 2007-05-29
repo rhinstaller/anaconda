@@ -20,21 +20,14 @@ import os
 import isys
 import string
 import network
+import socket
 from snack import *
 from constants_text import *
 from constants import *
 from rhpl.translate import _
 
-descr = { 'ipaddr':   'IPv4 address',
-          'netmask':  'IPv4 network mask',
-          'remip':    'point-to-point IP address',
-          'ipv6addr': 'IPv6 address'
-        }
-
-# order to check input values
-checkorder = ['ipaddr', 'netmask', 'ipv6addr', 'ipv6prefix',
-              'remip', 'essid', 'key'
-             ]
+import logging
+log = logging.getLogger("anaconda")
 
 def handleIPError(screen, field, msg):
     try:
@@ -65,70 +58,59 @@ def handleBroadCastError(screen):
     ButtonChoiceWindow(screen, _("Error With Data"),
                        _("The IPv4 information you have entered is invalid."))
 
+def handleInvalidPrefix(screen, family):
+    if family == socket.AF_INET:
+        ver = 4
+        upper = 32
+    elif family == socket.AF_INET6:
+        ver = 6
+        upper = 128
+
+    ButtonChoiceWindow(screen, _("Invalid Prefix"),
+        _("IPv%d prefix must be between 0 and %d." % (ver, upper,)),
+        buttons = [_("OK")])
+
+def handleValueErrorPrefix(screen, field):
+    ButtonChoiceWindow(screen, _("Integer Required for Prefix"),
+        _("You must enter a valid integer for the %s.  For IPv4, the "
+          "value can be between 0 and 32.  For IPv6 it can be between "
+          "0 and 128." % (field,)), buttons = [_("OK")])
+
 class NetworkDeviceWindow:
-    def runScreen(self, screen, net, dev, showonboot=1):
-        bootproto = dev.get('bootproto').lower()
+    def createManualEntryGrid(self, ipEntry, prefixEntry, family):
+        if family == socket.AF_INET:
+            prefixLabel = Label(_("Prefix (Netmask)"))
+        elif family == socket.AF_INET6:
+            prefixLabel = Label(_("Prefix"))
+
+        manualgrid = Grid(3, 2)
+
+        manualgrid.setField(Label(_("IP Address")), 0, 0, anchorLeft = 1,
+                            padding = (4, 0, 0, 0))
+        manualgrid.setField(ipEntry, 0, 1, anchorLeft = 1,
+                            padding = (4, 0, 0, 0))
+        manualgrid.setField(Label("/"), 1, 1, anchorLeft = 1,
+                            padding = (1, 0, 1, 0))
+        manualgrid.setField(prefixLabel, 2, 0, anchorLeft = 1)
+        manualgrid.setField(prefixEntry, 2, 1, anchorLeft = 1)
+        manualgrid.setField(Label(" "), 1, 0, anchorLeft = 1,
+                            padding = (1, 0, 1, 0))
+
+        return manualgrid
+
+    def ipMethodCb(self, obj):
+        (radio, ipEntry, prefixEntry) = obj
+        if radio.getSelection() == "static":
+            sense = FLAGS_RESET
+        else:
+            sense = FLAGS_SET
+        ipEntry.setFlags(FLAG_DISABLED, sense)
+        prefixEntry.setFlags(FLAG_DISABLED, sense)
+
+    def runMainScreen(self, screen, dev, showonboot=1):
         onboot = dev.get('onboot')
-        v4list = []
-        v6list = []
-        ptplist = []
-        wifilist = []
-
-        def DHCPtoggled():
-            active = self.dhcpCb.selected()
-
-            if wifilist:
-                for widget in wifilist:
-                    widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-
-            if active:
-                bootproto = 'dhcp'
-
-                for widget in v4list:
-                    widget.setFlags(FLAG_DISABLED, FLAGS_SET)
-
-                for widget in v6list:
-                    widget.setFlags(FLAG_DISABLED, FLAGS_SET)
-
-                if ptplist:
-                    for widget in ptplist:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
-            else:
-                bootproto = 'static'
-
-                if self.ipv4Cb.selected() != 0:
-                    for widget in v4list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-
-                if self.ipv6Cb.selected() != 0:
-                    for widget in v6list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-
-                if ptplist:
-                    for widget in ptplist:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-
-        def IPV4toggled():
-            active = self.ipv4Cb.selected()
-            net.useIPv4 = active
-            if not self.dhcpCb.selected():
-                if active:
-                    for widget in v4list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-                else:
-                    for widget in v4list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
-
-        def IPV6toggled():
-            active = self.ipv6Cb.selected()
-            net.useIPv6 = active
-            if not self.dhcpCb.selected():
-                if active:
-                    for widget in v6list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_RESET)
-                else:
-                    for widget in v6list:
-                        widget.setFlags(FLAG_DISABLED, FLAGS_SET)
+        isPtp = network.isPtpDev(dev.info["DEVICE"])
+        isWifi = isys.isWireless(dev.info["DEVICE"])
 
         devnames = self.devices.keys()
         devnames.sort(cmp=isys.compareNetDevices)
@@ -136,178 +118,98 @@ class NetworkDeviceWindow:
             onbootIsOn = 1
         else:
             onbootIsOn = (onboot == 'yes')
-        if not bootproto:
-            bootproto = 'dhcp'
-
-        descr = dev.get('desc')
-        hwaddr = dev.get('hwaddr')
-        if descr is None or len(descr) == 0:
-            descr = None
-        if hwaddr is None or len(hwaddr) == 0:
-            hwaddr = None
-
-        topgrid = Grid(1, 2)
-
-        if descr is not None:
-            topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
-                             0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
-                             growx = 1)
-        if hwaddr is not None:
-            topgrid.setField(Label (_("Hardware Address: %s") %(hwaddr,)),
-                             0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
-                             growx = 1)
 
         # Create options grid
-        maingrid = Grid(1, 5)
+        ipmiscrows = 0
+        if isPtp:
+            ipmiscrows += 1
+        if isWifi:
+            ipmiscrows += 2
+
+        maingridrows = 5
+        if ipmiscrows > 0:
+            maingridrows += 1
+
+        maingrid = Grid(1, maingridrows)
         mainrow = 0
 
-        if not showonboot:
-            ypad = 1
-        else:
-            ypad = 0
-
-        # DHCP option
-        self.dhcpCb = Checkbox(_("Use dynamic IP configuration (DHCP)"),
-                               isOn = (bootproto == "dhcp"))
-        maingrid.setField(self.dhcpCb, 0, mainrow, anchorLeft = 1, growx = 1,
-                          padding = (0, 0, 0, ypad))
-        mainrow += 1
+        # Activate on boot option
+        onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
+        if showonboot:
+            maingrid.setField(onbootCb, 0, mainrow, anchorLeft = 1,
+                              growx = 1, padding = (0, 0, 0, 0))
+            mainrow += 1
 
         # Use IPv4 option
-        self.ipv4Cb = Checkbox(_("Enable IPv4 support"), net.useIPv4)
-        maingrid.setField(self.ipv4Cb, 0, mainrow, anchorLeft = 1, growx = 1,
-                          padding = (0, 0, 0, ypad))
+        ipv4Cb = Checkbox(_("Enable IPv4 support"),
+                          int(bool(dev.get('useIPv4'))))
+        maingrid.setField(ipv4Cb, 0, mainrow, anchorLeft = 1, growx = 1,
+                          padding = (0, 0, 0, 0))
         mainrow += 1
 
         # Use IPv6 option
-        self.ipv6Cb = Checkbox(_("Enable IPv6 support"), net.useIPv6)
-        maingrid.setField(self.ipv6Cb, 0, mainrow, anchorLeft = 1, growx = 1,
-                          padding = (0, 0, 0, ypad))
+        ipv6Cb = Checkbox(_("Enable IPv6 support"),
+                          int(bool(dev.get('useIPv6'))))
+        maingrid.setField(ipv6Cb, 0, mainrow, anchorLeft = 1, growx = 1,
+                          padding = (0, 0, 0, 0))
         mainrow += 1
 
-        # Activate on boot option
-        self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
-        if showonboot:
-            maingrid.setField(self.onbootCb, 0, mainrow, anchorLeft = 1,
-                              growx = 1, padding = (0, 0, 0, 1))
-            mainrow += 1
-
-        # IP address subtable
-        ipTableLength = 3
-
-        if (network.isPtpDev(dev.info['DEVICE'])):
-            ipTableLength += 1
-
-        if (isys.isWireless(dev.info['DEVICE'])):
-            ipTableLength += 2
-
-        ipgrid = Grid(4, ipTableLength)
-
-        self.dhcpCb.setCallback(DHCPtoggled)
-        self.ipv4Cb.setCallback(IPV4toggled)
-        self.ipv6Cb.setCallback(IPV6toggled)
-
-        entrys = {}
-
-        # IP subtable labels
-        ipgrid.setField(Label(" "), 0, 0)
-        ipgrid.setField(Label(_("Address")), 1, 0)
-        ipgrid.setField(Label(" "), 2, 0)
-        ipgrid.setField(Label(_("Prefix (Netmask)")), 3, 0)
-        ipgrid.setField(Label(_("IPv4:")), 0, 1, anchorLeft = 1,
-                        padding = (0, 0, 1, 0))
-        ipgrid.setField(Label("/"), 2, 1, padding = (1, 0, 1, 0))
-        ipgrid.setField(Label(_("IPv6:")), 0, 2, anchorLeft = 1,
-                        padding = (0, 0, 1, 0))
-        ipgrid.setField(Label("/"), 2, 2, padding = (1, 0, 1, 0))
-
-        # IPv4 entries
-        v4list.append(Entry(41))
-        v4list[0].set(dev.get('ipaddr'))
-        entrys['ipaddr'] = v4list[0]
-        ipgrid.setField(v4list[0], 1, 1, anchorLeft = 1)
-
-        v4list.append(Entry(16))
-        v4list[1].set(dev.get('netmask'))
-        entrys['netmask'] = v4list[1]
-        ipgrid.setField(v4list[1], 3, 1, anchorLeft = 1)
-
-        # IPv6 entries
-        v6list.append(Entry(41))
-
-        ipv6addr = dev.get('ipv6addr')
-        brk = ipv6addr.find('/')
-        if brk != -1:
-            ipv6addr = ipv6addr[0:brk]
-            brk += 1
-            ipv6prefix = ipv6addr[brk:]
-
-        v6list[0].set(ipv6addr)
-        entrys['ipv6addr'] = v6list[0]
-        ipgrid.setField(v6list[0], 1, 2, anchorLeft = 1)
-
-        v6list.append(Entry(16))
-        v6list[1].set(dev.get('ipv6prefix'))
-        entrys['ipv6prefix'] = v6list[1]
-        ipgrid.setField(v6list[1], 3, 2, anchorLeft = 1)
-
-        iprow = 3
+        if ipmiscrows > 0:
+            ipmiscgrid = Grid(2, ipmiscrows)
+            ipmiscrow = 0
 
         # Point to Point address
-        if (network.isPtpDev(dev.info["DEVICE"])):
-            ipgrid.setField(Label(_("P-to-P:")), 0, iprow, anchorLeft = 1,
-                            padding = (0, 0, 1, 0))
+        ptpaddr = None
+        if isPtp:
+            ipmiscgrid.setField(Label(_("P-to-P:")), 0, ipmiscrow,
+                                anchorLeft = 1, padding = (0, 1, 1, 0))
+            ptplist = Entry(41)
+            ptplist.set(dev.get('remip'))
+            ipmiscgrid.setField(ptplist, 1, ipmiscrow, anchorLeft = 1,
+                                padding = (0, 1, 0, 0))
 
-            ptplist.append(Entry(41))
-            ptplist[0].set(dev.get('remip'))
-            entrys['remip'] = ptplist[0]
-            ipgrid.setField(ptplist[0], 1, iprow, anchorLeft = 1)
-
-            iprow += 1
+            ipmiscrow += 1
 
         # Wireless settings
-        if (isys.isWireless(dev.info["DEVICE"])):
-            ipgrid.setField(Label(_("ESSID:")), 0, iprow, anchorLeft = 1,
-                            padding = (0, 0, 1, 0))
-            wifilist.append(Entry(41))
-            wifilist[0].set(dev.get('essid'))
-            entrys['essid'] = wifilist[0]
-            ipgrid.setField(wifilist[0], 1, iprow, anchorLeft = 1)
+        essid = None
+        wepkey = None
+        if isWifi:
+            if isPtp:
+                padtop = 0
+            else:
+                padtop = 1
 
-            iprow += 1
+            ipmiscgrid.setField(Label(_("ESSID:")), 0, ipmiscrow,
+                                anchorLeft = 1, padding = (0, padtop, 1, 0))
+            essid = Entry(41)
+            essid.set(dev.get('essid'))
+            ipmiscgrid.setField(essid, 1, ipmiscrow, anchorLeft = 1,
+                                padding = (0, padtop, 0, 0))
 
-            ipgrid.setField(Label(_("WEP Key:")), 0, iprow, anchorLeft = 1,
-                            padding = (0, 0, 1, 0))
-            wifilist.append(Entry(41))
-            wifilist[1].set(dev.get('key'))
-            entrys['key'] = wifilist[1]
-            ipgrid.setField(wifilist[1], 1, iprow, anchorLeft = 1)
+            ipmiscrow += 1
 
-        # Add the IP subtable
-        maingrid.setField(ipgrid, 0, mainrow, anchorLeft = 1,
-                          growx = 1, padding = (0, 0, 0, 1))
+            ipmiscgrid.setField(Label(_("WEP Key:")), 0, ipmiscrow,
+                                anchorLeft = 1, padding = (0, 0, 1, 0))
+            wepkey = Entry(41)
+            wepkey.set(dev.get('key'))
+            ipmiscgrid.setField(wepkey, 1, ipmiscrow, anchorLeft = 1)
+
+        # Add the IP misc subtable
+        if ipmiscrows > 0:
+            maingrid.setField(ipmiscgrid, 0, mainrow, anchorLeft = 1,
+                              growx = 1, padding = (0, 0, 0, 0))
 
         bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         toplevel = GridFormHelp(screen, _("Network Configuration for %s") %
-                                (dev.info['DEVICE']), "networkdev", 1, 3)
+                                (dev.info['DEVICE']), "networkdev", 1, 5)
 
-        if ipTableLength == 6:
-            pbottom = 0
-        else:
-            pbottom = 1
+        toplevel.add(self.topgrid, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(maingrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
 
-        toplevel.add(topgrid,  0, 0, (0, 0, 0, pbottom), anchorLeft = 1)
-        toplevel.add(maingrid,  0, 1, (0, 0, 0, 0), anchorLeft = 1)
-        toplevel.add(bb, 0, 2, (0, 0, 0, 0), growx = 1, growy = 0)
-
-        self.dhcpCb.isOn = (bootproto == 'dhcp')
-        self.ipv4Cb.isOn = net.useIPv4
-        self.ipv6Cb.isOn = net.useIPv6
-
-        DHCPtoggled()
-        IPV4toggled()
-        IPV6toggled()
+        ipv4Cb.isOn = int(bool(dev.get('useIPv4')))
+        ipv6Cb.isOn = int(bool(dev.get('useIPv6')))
 
         while 1:
             result = toplevel.run()
@@ -317,145 +219,431 @@ class NetworkDeviceWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            if not self.ipv4Cb.selected() and not self.ipv6Cb.selected():
+            if not ipv4Cb.selected() and not ipv6Cb.selected():
                 ButtonChoiceWindow(screen, _("Missing Protocol"),
                     _("You must select at least IPv4 or IPv6 support."),
                     buttons = [_("OK")])
                 continue
 
-            if self.onbootCb.selected():
+            dev.set(('useIPv4', bool(ipv4Cb.selected())))
+            dev.set(('useIPv6', bool(ipv6Cb.selected())))
+
+            if onbootCb.selected():
                 dev.set(('onboot', 'yes'))
             else:
                 dev.unset('onboot')
 
-            if self.dhcpCb.selected():
-                dev.set(('bootproto', 'dhcp'))
-                dev.unset('ipaddr', 'netmask', 'network', 'broadcast', 'remip')
-            else:
-                dev.unset('bootproto')
-                valsgood = 1
-                tmpvals = {}
-
-                for t in checkorder:
-                    if not entrys.has_key(t):
-                        continue
-
-                    val = entrys[t].value()
-
-                    if ((t == 'ipaddr' or t == 'netmask') and \
-                        self.ipv4Cb.selected()) or \
-                       (t == 'ipv6addr' and self.ipv6Cb.selected()) or \
-                       (t == 'remip'):
-                        if t == 'netmask' and val.find('.') == -1:
-                            try:
-                                if int(val) > 32 or int(val) < 0:
-                                    ButtonChoiceWindow(screen,
-                                        _("Invalid Prefix"),
-                                        _("IPv4 prefix must be between "
-                                          "0 and 32."), buttons = [_("OK")])
-                                    valsgood = 0
-                                    break
-                                else:
-                                    val = isys.prefix2netmask(int(val))
-                            except:
-                                handleIPMissing(screen, t)
-                                valsgood = 0
-                                break
-
-                        try:
-                            network.sanityCheckIPString(val)
-                            tmpvals[t] = val
-                        except network.IPMissing, msg:
-                            handleIPMissing(screen, t)
-                            valsgood = 0
-                            break
-                        except network.IPError, msg:
-                            handleIPError(screen, t, msg)
-                            valsgood = 0
-                            break
-
-                    elif t == 'ipv6prefix' and self.ipv6Cb.selected():
-                        try:
-                            if int(val) > 128 or int(val) < 0:
-                                ButtonChoiceWindow(screen, _("Invalid Prefix"),
-                                    _("IPv6 prefix must be between 0 and 128."),
-                                    buttons = [_("OK")])
-                                valsgood = 0
-                                break
-                        except:
-                            ButtonChoiceWindow(screen, _("Invalid Prefix"),
-                                _("Invalid or missing IPv6 prefix (must be "
-                                  "between 0 and 128)."), buttons = [_("OK")])
-                            valsgood = 0
-                            break
-
-                if valsgood == 0:
+            if isPtp:
+                try:
+                    network.sanityCheckIPString(ptpaddr.value())
+                    dev.set(('remip', ptpaddr.value()))
+                except network.IPMissing, msg:
+                    handleIPMissing(screen, _("point-to-point IP address"))
+                    continue
+                except network.IPError, msg:
+                    handleIPError(screen, _("point-to-point IP address"), msg)
                     continue
 
-                if self.ipv4Cb.selected():
-                    try:
-                        (net, bc) = isys.inet_calcNetBroad (tmpvals['ipaddr'],
-                                                            tmpvals['netmask'])
-                    except Exception, e:
-                        print e
-                        handleBroadCastError()
-                        valsgood = 0
+            if isWifi:
+                if essid is not None:
+                    if not essid.value() == '':
+                        dev.set(('essid', essid.value()))
 
-                if not valsgood:
-                    continue
-
-                for t in entrys.keys():
-                    if tmpvals.has_key(t):
-                        if t == 'ipv6addr':
-                            if entrys['ipv6prefix'] is not None:
-                                a = tmpvals[t]
-                                if a.find('/') != -1:
-                                    a = a[0:a.find('/')]
-                                p = entrys['ipv6prefix'].value()
-                                q = "%s/%s" % (a, p,)
-                            else:
-                                q = "%s" % (tmpvals[t],)
-
-                            dev.set((t, q))
-                        else:
-                            dev.set((t, tmpvals[t]))
-                    else:
-                        dev.set((t, entrys[t].value()))
-
-                if self.ipv4Cb.selected():
-                    dev.set(('network', net), ('broadcast', bc))
+                if wepkey is not None:
+                    if not wepkey.value() == '':
+                        dev.set(('key', wepkey.value()))
 
             break
 
         screen.popWindow()
         return INSTALL_OK
 
+    def runIPv4Screen(self, screen, dev):
+        bootproto = dev.get('bootproto').lower()
+
+        radio = RadioGroup()
+
+        maingrid = Grid(1, 3)
+        dhcpCb = radio.add(_("Dynamic IP configuration (DHCP)"),
+                           "dhcp", (bootproto == "dhcp"))
+        maingrid.setField(dhcpCb, 0, 0, growx = 1, anchorLeft = 1)
+        manualCb = radio.add(_("Manual address configuration"),
+                             "static", (bootproto == "static"))
+        maingrid.setField(manualCb, 0, 1, growx = 1, anchorLeft = 1)
+
+        ipEntry = Entry(16)
+        ipEntry.set(dev.get('ipaddr'))
+        prefixEntry = Entry(16)
+        prefixEntry.set(dev.get('netmask'))
+
+        manualgrid = self.createManualEntryGrid(ipEntry, prefixEntry,
+                                                socket.AF_INET)
+        maingrid.setField(manualgrid, 0, 2, anchorLeft = 1, growx = 1,
+                          padding = (0, 1, 0, 0))
+        dhcpCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
+        manualCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
+
+        self.ipMethodCb((radio, ipEntry, prefixEntry))
+
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        title = _("IPv4 Configuration for %s") % (dev.info['DEVICE'])
+        toplevel = GridFormHelp(screen, title, "networkipv4", 1, 5)
+
+        toplevel.add(self.topgrid, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(maingrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed(result)
+
+            if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
+                return INSTALL_BACK
+
+            bootproto = radio.getSelection()
+            dev.set(('bootproto', bootproto))
+
+            if bootproto == 'dhcp':
+                dev.unset('ipaddr')
+                dev.unset('netmask')
+                dev.unset('network')
+                dev.unset('broadcast')
+                break
+
+            ip = ipEntry.value()
+            nm = prefixEntry.value()
+
+            # check for missing values
+            if ip == '' or ip is None:
+                handleIPMissing(screen, _('IPv4 address'))
+                continue
+
+            if nm == '' or nm is None:
+                handleIPMissing(screen, _('IPv4 network mask'))
+                continue
+
+            # validate IP address
+            try:
+                network.sanityCheckIPString(ip)
+                dev.set(('ipaddr', ip))
+            except network.IPMissing, msg:
+                handleIPMissing(screen, _('IPv4 address'))
+                continue
+            except network.IPError, msg:
+                handleIPError(screen, _('IPv4 address'), msg)
+                continue
+
+            # validate prefix (netmask)
+            try:
+                if nm.find('.') == -1:
+                    if int(nm) > 32 or int(nm) < 0:
+                        handleInvalidPrefix(screen, socket.AF_INET)
+                        continue
+                    else:
+                        nm = isys.prefix2netmask(int(nm))
+
+                network.sanityCheckIPString(nm)
+                dev.set(('netmask', nm))
+            except network.IPMissing, msg:
+                handleIPMissing(screen, _('IPv4 prefix (network mask)'))
+                continue
+            except network.IPError, msg:
+                handleIPError(screen, _('IPv4 prefix (network mask)'), msg)
+                continue
+            except ValueError:
+                handleValueErrorPrefix(screen, _('IPv4 prefix (network mask)'))
+                continue
+
+            # calculate network and broadcast addresses (IPv4-only)
+            try:
+                (net, bc) = isys.inet_calcNetBroad(dev.get('ipaddr'),
+                                                   dev.get('netmask'))
+                dev.set(('network', net), ('broadcast', bc))
+            except Exception, e:
+                handleBroadCastError(screen)
+                continue 
+
+            break
+
+        screen.popWindow()
+        return INSTALL_OK
+
+    def runIPv6Screen(self, screen, dev):
+        ipv6autoconf = dev.get('ipv6_autoconf').lower()
+        ipv6addr = dev.get('ipv6addr')
+        ipv6prefix = None
+        brk = ipv6addr.find('/')
+        if brk != -1:
+            ipv6addr = ipv6addr[0:brk]
+            brk += 1
+            ipv6prefix = ipv6addr[brk:]
+
+        # default to automatic neighbor discovery if no ipv6 values exist
+        if ipv6autoconf == '' or ipv6autoconf is None or \
+           ipv6addr == '' or ipv6addr is None:
+            ipv6autoconf = 'yes'
+            ipv6addr = None
+            ipv6prefix = None
+            dev.unset('ipv6_autoconf')
+            dev.unset('ipv6addr')
+
+        radio = RadioGroup()
+
+        maingrid = Grid(1, 4)
+        autoCb = radio.add(_('Automatic neighbor discovery'), 'auto',
+                           (ipv6autoconf == 'yes'))
+        maingrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
+        dhcpCb = radio.add(_('Dynamic IP configuration (DHCPv6)'), 'dhcp',
+                           (ipv6addr is not None and ipv6addr == 'dhcp'))
+        maingrid.setField(dhcpCb, 0, 1, growx = 1, anchorLeft = 1)
+        manualCb = radio.add(_('Manual address configuration'), 'static',
+                             (ipv6addr is not None and ipv6addr != 'dhcp'))
+        maingrid.setField(manualCb, 0, 2, growx = 1, anchorLeft = 1)
+
+        manualgrid = Grid(3, 2)
+        ipEntry = Entry(41)
+        prefixEntry = Entry(6)
+        if radio.getSelection() == 'static':
+            ipEntry.set(ipv6addr)
+            if ipv6prefix is not None:
+                prefixEntry.set(ipv6prefix)
+
+        manualgrid = self.createManualEntryGrid(ipEntry, prefixEntry,
+                                                socket.AF_INET6)
+        maingrid.setField(manualgrid, 0, 3, anchorLeft = 1, growx = 1,
+                          padding = (0, 1, 0, 0))
+        autoCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
+        dhcpCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
+        manualCb.setCallback(self.ipMethodCb, (radio, ipEntry, prefixEntry))
+
+        self.ipMethodCb((radio, ipEntry, prefixEntry))
+
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        title = _("IPv6 Configuration for %s") % (dev.info['DEVICE'])
+        toplevel = GridFormHelp(screen, title, "networkipv6", 1, 6)
+
+        toplevel.add(self.topgrid, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(maingrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
+        toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed(result)
+
+            if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
+                return INSTALL_BACK
+
+            dev.unset('ipv6_autoconf')
+            dev.unset('ipv6addr')
+
+            if radio.getSelection() == 'auto':
+                dev.set(('ipv6_autoconf', 'yes'))
+                break
+            elif radio.getSelection() == 'dhcp':
+                dev.set(('ipv6addr', 'dhcp'))
+                break
+
+            ip = ipEntry.value()
+            prefix = prefixEntry.value()
+
+            # check for missing values
+            if ip == '' or ip is None:
+                handleIPMissing(screen, _('IPv6 address'))
+                continue
+
+            if prefix == '' or prefix is None:
+                handleIPMissing(screen, _('IPv6 prefix'))
+                continue
+
+            # validate the IP address
+            try:
+                network.sanityCheckIPString(ip)
+            except network.IPMissing, msg:
+                handleIPMissing(screen, _('IPv6 address'))
+                continue
+            except network.IPError, msg:
+                handleIPError(screen, _('IPv6 address'), msg)
+                continue
+
+            # validate the prefix
+            try:
+                if int(prefix) > 128 or int(prefix) < 0:
+                    handleInvalidPrefix(screen, socket.AF_INET6)
+                    continue
+            except:
+                handleValueErrorPrefix(screen, _('IPv6 prefix'))
+                continue
+
+            # set the manual IPv6 address/prefix
+            if ipv6prefix is not None:
+                addr = "%s/%s" % (ipv6addr, ipv6prefix,)
+            else:
+                addr = "%s" % (ipv6addr,)
+
+            dev.set(('ipv6addr', addr))
+
+            break
+
+        screen.popWindow()
+        return INSTALL_OK
+
+    def chooseNetworkDevice(self, screen):
+        devs = self.devices.keys()
+        devs.sort(cmp=isys.compareNetDevices)
+
+        # return if there are no NICs
+        if len(devs) == 0:
+            return INSTALL_OK
+
+        # only ask Yes/No if this system has just one NIC (most end users)
+        if len(devs) == 1:
+            rc = self.intf.messageWindow(_("Configure Network Interface"),
+                     _("Would you like to configure the %s network "
+                       "interface in your system?") % (devs[0],),
+                     type = "yesno")
+
+            if rc == 1:
+                return self.devices[devs[0]]
+            else:
+                return INSTALL_OK
+
+        # create list box of network devices
+        devList = Listbox(height=5, scroll=1)
+        for item in devs:
+            try:
+                if self.devListDescs[item] is None:
+                    self.devListDescs[item] = _("UNCONFIGURED")
+            except KeyError, e:
+                self.devListDescs[item] = _("UNCONFIGURED")
+
+            desc = "%s: %s" % (item, self.devListDescs[item],)
+            devList.append(desc, item)
+
+        # create some sort of dialog box
+        toplevel = GridFormHelp(screen, _("Network Configuration"),
+                                "netconfig", 1, 5)
+        text = TextboxReflowed(65,
+                               _("The current configuration settings for each "
+                                 "interface are listed next to the device "
+                                 "name.  Unconfigured interfaces are shown as "
+                                 "UNCONFIGURED.  To configure an interface, "
+                                 "highlight it and choose Edit.  When you are "
+                                 "finished, press OK to continue."))
+        toplevel.add(text, 0, 0, (0, 0, 0, 1))
+
+        bb = ButtonBar(screen, (TEXT_EDIT_BUTTON,
+                                TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        toplevel.add(devList, 0, 1, padding = (0, 0, 0, 0))
+        toplevel.add(bb, 0, 2, (0, 1, 0, 0), growx = 1, growy = 0)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed (result)
+
+            devname = devList.current()
+
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+            elif rc == TEXT_OK_CHECK:
+                return INSTALL_OK
+            elif rc == TEXT_EDIT_CHECK:
+                return self.devices[devname]
+
     def __call__(self, screen, anaconda, showonboot=1):
+        self.intf = anaconda.intf
+        self.devListDescs = {}
         self.devices = anaconda.id.network.available()
+
         if not self.devices:
             return INSTALL_NOOP
 
-        list = self.devices.keys()
-        list.sort(cmp=isys.compareNetDevices)
-        devLen = len(list)
-        if anaconda.dir == DISPATCH_FORWARD:
-            currentDev = 0
-        else:
-            currentDev = devLen - 1
+        # collect configuration data for each interface selected by the user
+        doConf = True
+        while doConf is True:
+            if len(self.devices) == 1 and doConf is False:
+                return INSTALL_OK
 
-        while currentDev < devLen and currentDev >= 0:
-            rc = self.runScreen(screen, anaconda.id.network,
-                                self.devices[list[currentDev]],
-                                showonboot)
+            dev = self.chooseNetworkDevice(screen)
+
+            if dev == INSTALL_OK or dev == INSTALL_BACK:
+                doConf = False
+                return dev
+
+            descr = dev.get('desc')
+            hwaddr = dev.get('hwaddr')
+            if descr is None or len(descr) == 0:
+                descr = None
+            if hwaddr is None or len(hwaddr) == 0:
+                hwaddr = None
+
+            self.topgrid = Grid(1, 2)
+
+            if descr is not None:
+                self.topgrid.setField(Label (_("%s") % (descr[:70],)),
+                                      0, 0, padding = (0, 0, 0, 0),
+                                      anchorLeft = 1, growx = 1)
+            if hwaddr is not None:
+                self.topgrid.setField(Label (_("%s") %(hwaddr,)),
+                                      0, 1, padding = (0, 0, 0, 1),
+                                      anchorLeft = 1, growx = 1)
+
+            # 1st netconfig dialog: protocol and active on boot
+            rc = self.runMainScreen(screen, dev, showonboot)
             if rc == INSTALL_BACK:
-                currentDev = currentDev - 1
+                continue
             else:
-                currentDev = currentDev + 1
+                doIPv4 = bool(dev.get('useIPv4'))
+                doIPv6 = bool(dev.get('useIPv6'))
 
-        if currentDev < 0:
-            return INSTALL_BACK
-        else:
-            return INSTALL_OK
+            # 2nd netconfig dialog: IPv4 settings
+            if doIPv4:
+                rc = self.runIPv4Screen(screen, dev)
+                if rc == INSTALL_BACK:
+                    continue
+
+            # 3rd netconfig dialog: IPv6 settings
+            if doIPv6:
+                rc = self.runIPv6Screen(screen, dev)
+                if rc == INSTALL_BACK:
+                    continue
+
+            # set the listbox description text
+            if bool(dev.get('onboot')):
+                onboot = _("Active on boot")
+            else:
+                onboot = _("Inactive on boot")
+
+            if dev.get('bootproto').lower() == 'dhcp':
+                ipv4 = _("DHCP")
+            else:
+                ipv4 = dev.get('ipaddr')
+
+            if bool(dev.get('ipv6_autoconf')):
+                ipv6 = _("Auto IPv6")
+            elif dev.get('ipv6addr').lower() == 'dhcp':
+                ipv6 = _("DHCPv6")
+            else:
+                ipv6 = dev.get('ipv6addr')
+
+            devname = dev.get('device').lower()
+            if ipv4 is not None and ipv6 is not None:
+                desc = _("%s, %s, %s") % (onboot, ipv4, ipv6,)
+            elif ipv4 is not None and ipv6 is None:
+                desc = _("%s, %s") % (onboot, ipv4,)
+            elif ipv4 is None and ipv6 is not None:
+                desc = _("%s, %s") % (onboot, ipv6,)
+            self.devListDescs[devname] = desc
+
+            if len(self.devices) == 1 and doConf is True:
+                doConf = False
+
+        return INSTALL_OK
+
 
 class NetworkGlobalWindow:
     def __call__(self, screen, anaconda, showonboot = 1):
@@ -508,20 +696,20 @@ class NetworkGlobalWindow:
                 network.sanityCheckIPString(gwEntry.value())
                 anaconda.id.network.gateway = gwEntry.value()
             except network.IPMissing, msg:
-                handleMissingOptionalIP(screen, 'gateway')
+                handleMissingOptionalIP(screen, _("gateway"))
                 pass
             except network.IPError, msg:
-                handleIPError(screen, 'gateway', msg)
+                handleIPError(screen, _("gateway"), msg)
                 continue
 
             try:
                 network.sanityCheckIPString(ns1Entry.value())
                 anaconda.id.network.primaryNS = ns1Entry.value()
             except network.IPMissing, msg:
-                handleMissingOptionalIP(screen, 'primary DNS')
+                handleMissingOptionalIP(screen, _("primary DNS"))
                 pass
             except network.IPError, msg:
-                handleIPError(screen, 'primary DNS', msg)
+                handleIPError(screen, _("primary DNS"), msg)
                 continue
 
             try:
@@ -530,7 +718,7 @@ class NetworkGlobalWindow:
             except network.IPMissing, msg:
                 pass
             except network.IPError, msg:
-                handleIPError(screen, 'secondary DNS', msg)
+                handleIPError(screen, _("secondary DNS"), msg)
                 continue
 
             break
@@ -592,7 +780,7 @@ class HostnameWindow:
                                _("If your system is part of a larger network "
                                  "where hostnames are assigned by DHCP, "
                                  "select automatically via DHCP. Otherwise, "
-                                 "select manually and enter in a hostname for "
+                                 "select manually and enter a hostname for "
                                  "your system. If you do not, your system "
                                  "will be known as 'localhost.'"))
         toplevel.add(text, 0, 0, (0, 0, 0, 1))
