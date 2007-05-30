@@ -40,8 +40,7 @@ raidCount = {}
 
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
-EARLY_SWAP_RAM = 400000
-#_isys.EARLY_SWAP_RAM
+EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 
 def pathSpaceAvailable(path, fsystem = "ext2"):
     return _isys.devSpaceFree(path)
@@ -130,18 +129,20 @@ def _getRaidInfo(drive):
 
     if info['uuid'] == "":
         raise ValueError, info
+
     return info
 
 def _stopRaid(mdDevice):
-    log.info("mdadm -A --stop %s" % (mdDevice,))
+    log.info("mdadm --stop %s" % (mdDevice,))
     try:
-        _mdadm("-A", "--stop", mdDevice)
+        _mdadm("--stop", mdDevice)
     except MdadmError:
         ei = sys.exc_info()
         ei[1].name = mdDevice
         raise ei[0], ei[1], ei[2]
 
 def raidstop(mdDevice):
+    log.info("stopping raid device %s" %(mdDevice,))
     if raidCount.has_key (mdDevice):
         if raidCount[mdDevice] > 1:
             raidCount[mdDevice] = raidCount[mdDevice] - 1
@@ -167,6 +168,7 @@ def _startRaid(mdDevice, mdMinor, uuid):
         raise ei[0], ei[1], ei[2]
 
 def raidstart(mdDevice, aMember):
+    log.info("starting raid device %s" %(mdDevice,))    
     if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
 	raidCount[mdDevice] = raidCount[mdDevice] + 1
 	return

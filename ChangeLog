@@ -1,5 +1,22 @@
 2007-05-30  Jeremy Katz  <katzj@aglarond.local>
 
+	* isys/isys.py (_stopRaid): Fix raidstop.  I have no clue how
+	things were working here...
+	* isys/isys.py (_getRaidInfo): raise ValueError when we don't find
+	a valid raid superblock (#151653).
+	
+	* upgrade.py: More blacklist
+
+	* isys/isys.h (EARLY_SWAP_RAM): Let's bump RAM needs a little (#232862)
+
+	* iw/netconfig_dialog.py (NetworkConfigurator._handleIPError): Add
+	a frame so things look right
+	(NetworkConfigurator._ok): Set useipv4 to true, call netconfig
+	methods with the right args (#240804)
+
+	* network.py (hasActiveNetDev): Ensure we have an IP as
+	otherwise, the network device isn't really all that active.
+	
 	* livecd.py: Define Error so we don't traceback with that when 
 	there's a problem copying (#241754)
 
