@@ -1,3 +1,18 @@
+2007-05-30  Dave Lehman  <dlehman@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.filesDone): don't log errors when
+	unmounting /mnt/source if it wasn't necessarily supposed to be 
+	mounted in the first place (#223059)
+
+	* gui.py (InstallKeyWindow): handle F12 shortcut key (#210673)
+
+	* iutil.py (makeDriveDeviceNodes): create device nodes for tape
+	drives (#218816)
+
+	* iutil.py (tapeDriveList): new function to list tape drives
+
+	* isys/isys.py (driveDict): probe for tape drives, too
+
 2007-05-29  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (doDhcp): Don't try to run the client if DHCPv4 and

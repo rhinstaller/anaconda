@@ -265,7 +265,8 @@ def loadKeymap(keymap):
 
 classMap = { "disk": kudzu.CLASS_HD,
              "cdrom": kudzu.CLASS_CDROM,
-             "floppy": kudzu.CLASS_FLOPPY }
+             "floppy": kudzu.CLASS_FLOPPY,
+             "tape": kudzu.CLASS_TAPE }
 
 cachedDrives = None
 
@@ -279,7 +280,7 @@ def driveDict(klassArg):
     if cachedDrives is None:
         # FIXME: need to add dasd probing to kudzu
         devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | \
-                                            kudzu.CLASS_FLOPPY,
+                           kudzu.CLASS_FLOPPY | kudzu.CLASS_TAPE,
                            kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
         new = {}
         for dev in devs:
@@ -349,6 +350,11 @@ def floppyDriveDict():
 
 def cdromList():
     list = driveDict("cdrom").keys()
+    list.sort()
+    return list
+
+def tapeDriveList():
+    list = driveDict("tape").keys()
     list.sort()
     return list
 
