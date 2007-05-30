@@ -38,6 +38,8 @@ import packages
 import logging
 log = logging.getLogger("anaconda")
 
+class Error(EnvironmentError):
+    pass
 def copytree(src, dst, symlinks=False):
     # copy of shutil.copytree which doesn't require dst to not exist
     names = os.listdir(src)

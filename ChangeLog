@@ -1,3 +1,8 @@
+2007-05-30  Jeremy Katz  <katzj@aglarond.local>
+
+	* livecd.py: Define Error so we don't traceback with that when 
+	there's a problem copying (#241754)
+
 2007-05-29  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/network_text.py (NetworkDeviceWindow): Make sure the extra
