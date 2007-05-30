@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -31,6 +31,7 @@ import urllib
 import iutil
 import users
 import rhpl
+import shlex
 from flags import *
 from constants import *
 
@@ -136,10 +137,10 @@ class InstallData:
 
         if not self.isHeadless:
             self.keyboard.write (anaconda.rootPath)
-            
+
         self.timezone.write (anaconda.rootPath)
 
-        args = ["--update", "--nostart"] + self.auth.split()
+        args = ["--update", "--nostart"] + shlex.split(self.auth)
 
         try:
             if not flags.test:
