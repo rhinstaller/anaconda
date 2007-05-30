@@ -19,9 +19,13 @@
 	DHCPv6 are disabled.
 
 	* network.py: Support per-interface IPv4 and IPv6 configuration, in
-	separate stacks.  Update textw and iw to account for changes (#213110).
-	* iw/network_gui.py: Likewise.
-	* textw/network_text.py: Likewise.
+	separate stacks (#213110, #218200).
+
+	* textw/network_text.py: Improve configuration screens for systems with
+	multiple NICs, support per-interface IPv4 and IPv6 configuration
+	(#218200).
+
+	* iw/network_gui.py: Per-interface IPv4 and IPv6 configuration (#213110).
 	* ui/netpostconfig.glade: Likewise.
 
 2007-05-17  David Cantrell  <dcantrell@redhat.com>
