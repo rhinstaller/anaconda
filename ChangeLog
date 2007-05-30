@@ -1,3 +1,9 @@
+2007-05-30  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/netconfig_dialog.py: Allow user to skip entering a
+	gateway address or nameserver address when adding an iSCSI
+	address (#235824).
+
 2007-05-30  Dave Lehman  <dlehman@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.filesDone): don't log errors when

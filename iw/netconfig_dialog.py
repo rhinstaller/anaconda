@@ -182,19 +182,19 @@ class NetworkConfigurator:
                 self._handleIPError(_("Netmask"), msg)
                 return
 
-            try:
-                network.sanityCheckIPString(gateway)
-            except network.IPError, msg:
-                self._handleIPError(_("Gateway"), msg)
-                return
+            if gateway:
+                try:
+                    network.sanityCheckIPString(gateway)
+                except network.IPError, msg:
+                    self._handleIPError(_("Gateway"), msg)
+                    return
 
-            try:
-                if ns:
+            if ns:
+                try:
                     network.sanityCheckIPString(ns)
-            except network.IPError, msg:
-                self._handleIPError(_("Nameserver"), msg)
-                return
-                
+                except network.IPError, msg:
+                    self._handleIPError(_("Nameserver"), msg)
+                    return
 
             try:
                 isys.configNetDevice(netdev.get("device"),
