@@ -1,3 +1,8 @@
+2007-05-31  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (AnacondaKSScript.run):  Don't traceback if we're
+	unable to remove the script after running it (#241878).
+
 2007-05-30  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.write):  Use shlex instead of a simple

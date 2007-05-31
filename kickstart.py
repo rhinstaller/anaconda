@@ -81,7 +81,10 @@ class AnacondaKSScript(Script):
                                          "system.") % (messages,))
                 sys.exit(0)
 
-        os.unlink(path)
+        try:
+            os.unlink(path)
+        except:
+            pass
 
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
