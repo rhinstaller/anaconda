@@ -680,7 +680,7 @@ makeinstimage () {
         mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
         echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -all-root -no-fragments"
-        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments
+        mksquashfs -no-progress $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments
         chmod 0644 $TMPDIR/${imagename}2.img.$$
     fi
     cp $TMPDIR/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
@@ -718,7 +718,7 @@ makemainimage () {
     elif [ $type = "squashfs" ]; then
         makeproductfile $IMGPATH
         echo "Running mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments"
-        mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments
+        mksquashfs -no-progress $IMGPATH $mmi_tmpimage -all-root -no-fragments
         chmod 0644 $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     elif [ $type = "cramfs" ]; then
