@@ -1,3 +1,12 @@
+2007-05-31  Dave Lehman  <dlehman@redhat.com>
+
+	* rescue.py (runShell): mount /dev/pts in rescue mode (#228714)
+
+	* scripts/upd-instroot: include dmidecode on ia64 (#232947)
+
+	* loader2/modules.c (scsiDiskCount): correctly count SCSI disk
+	devices (#230526)
+
 2007-05-31  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSScript.run):  Don't traceback if we're
