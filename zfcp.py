@@ -46,8 +46,6 @@ class ZFCPDevice:
         if not self.checkValidFCPLun(self.fcplun):
             raise ValueError, _("You have not specified a FCP LUN or the number is invalid.")
 
-        self.onlineStatus = False
-
     def __str__(self):
         return "%s %s %s" %(self.devnum, self.wwpn, self.fcplun)
 
@@ -110,12 +108,10 @@ class ZFCPDevice:
     checkValidWWPN = checkValidFCPLun = checkValid64BitHex
 
     def onlineDevice(self):
-        if self.onlineStatus:
-            return True
-        
         online = "%s/%s/online" %(zfcpsysfs, self.devnum)
         portadd = "%s/%s/port_add" %(zfcpsysfs, self.devnum)
         unitadd = "%s/%s/%s/unit_add" %(zfcpsysfs, self.devnum, self.wwpn)
+
         try:
             if not os.path.exists(unitadd):
                 loggedWriteLineToFile(portadd, self.wwpn)
@@ -127,16 +123,13 @@ class ZFCPDevice:
                      %(self.devnum, e))
             return False
 
-        self.onlineStatus = True
         return True
 
     def offlineDevice(self):
-        if not self.onlineStatus:
-            return True
-        
         offline = "%s/%s/online" %(zfcpsysfs, self.devnum)
         portremove = "%s/%s/port_remove" %(zfcpsysfs, self.devnum)
         unitremove = "%s/%s/%s/unit_remove" %(zfcpsysfs, self.devnum, self.wwpn)
+
         try:
             loggedWriteLineToFile(offline, "0")
             loggedWriteLineToFile(unitremove, self.fcplun)
@@ -146,7 +139,6 @@ class ZFCPDevice:
                      %(self.devnum, e))
             return False
 
-        self.onlineStatus = False
         return True
 
 class ZFCP:

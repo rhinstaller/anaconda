@@ -1,3 +1,9 @@
+2007-06-01  David Cantrell  <dcantrell@redhat.com>
+
+	* zfcp.py (ZFCPDevice): We need to echo 1 to online for each LUN
+	we are handed, otherwise the device doesn't become available to
+	anaconda (#207097).
+
 2007-06-01  Chris Lumens  <clumens@redhat.com>
 
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
