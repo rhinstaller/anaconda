@@ -1,3 +1,8 @@
+2007-06-01  Chris Lumens  <clumens@redhat.com>
+
+	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
+	to English release notes if translated ones aren't found (#241975).
+
 2007-05-31  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images: Shut up mksquashfs. 
