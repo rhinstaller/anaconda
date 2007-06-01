@@ -3,6 +3,12 @@
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
 	to English release notes if translated ones aren't found (#241975).
 
+2007-05-31  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (manualNetConfig): Make sure the ip structure member
+	in the pumpNetIntf structure contains the IPv4 address if it exists,
+	otherwise static network configuration fails (#221660).
+
 2007-05-31  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images: Shut up mksquashfs. 

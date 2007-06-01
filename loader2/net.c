@@ -887,7 +887,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps, struct netconfopts * opts) {
-    int i, rows, pos, primary, prefix, cidr, q, have[2], stack[2];
+    int i, rows, pos, prefix, cidr, q, have[2], stack[2];
     char *buf = NULL;
     char ret[48];
     ip_addr_t *tip;
@@ -1147,39 +1147,26 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
 
         /* collect common network settings */
         if (ipcomps->gw) {
-            primary = 0;
-
             if (inet_pton(AF_INET, ipcomps->gw, &addr) >= 1) {
                 newCfg->dev.gateway = ip_addr_in(&addr);
                 newCfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-                primary = AF_INET;
             } else if (inet_pton(AF_INET6, ipcomps->gw, &addr6) >= 1) {
                 newCfg->dev.gateway = ip_addr_in6(&addr6);
                 newCfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-                primary = AF_INET6;
-            }
-
-            /* We set cfg->dev.ip to the IP address of the dominant
-             * network.  Determine that by the address family of the
-             * gateway.
-             */
-            if (primary == AF_INET) {
-                if (ipcomps->ipv4) {
-                    if (inet_pton(AF_INET, ipcomps->ipv4, &addr) >= 1) {
-                        newCfg->dev.ip = ip_addr_in(&addr);
-                        newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
-                    }
-                }
-            } else if (primary == AF_INET6) {
-                if (ipcomps->ipv6) {
-                    if (inet_pton(AF_INET6, ipcomps->ipv6, &addr) >= 1) {
-                        newCfg->dev.ip = ip_addr_in6(&addr6);
-                        newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
-                    }
-                }
             }
         }
 
+        /* The cfg->dev.ip field needs to store the IPv4 address if
+         * there is one.
+         */
+        if (ipcomps->ipv4) {
+            if (inet_pton(AF_INET, ipcomps->ipv4, &addr) >= 1) {
+                newCfg->dev.ip = ip_addr_in(&addr);
+                newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+            }
+        }
+
+        /* gather nameservers */
         if (ipcomps->ns) {
             if (inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) {
                 cfg->dev.dnsServers[0] = ip_addr_in(&addr);
