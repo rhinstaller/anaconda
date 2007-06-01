@@ -6,6 +6,11 @@
 
 2007-06-01  Chris Lumens  <clumens@redhat.com>
 
+	* iw/upgrade_bootloader_gui.py (UpgradeBootloaderWindow._newToLibata):
+	Don't traceback on blank lines in modprobe.conf (#241991).
+	* textw/upgrade_bootloader_text.py (UpgradeBootloaderWindow._ideToLibata):
+	Likewise.
+
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
 	to English release notes if translated ones aren't found (#241975).
 

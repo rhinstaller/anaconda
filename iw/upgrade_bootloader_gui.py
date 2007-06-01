@@ -64,7 +64,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         except:
             log.debug("error reading /proc/modules")
             pass
-        
+
         try:
             f = open(rootPath + "/etc/modprobe.conf")
         except:
@@ -75,10 +75,12 @@ class UpgradeBootloaderWindow (InstallWindow):
         f.close()
 
         for l in lines:
-            if l.strip()[0] == "#":
+            stripped = l.strip()
+
+            if stripped == "" or stripped[0] == "#":
                 continue
 
-            if l.find("scsi_hostadapter") == -1:
+            if stripped.find("scsi_hostadapter") == -1:
                 return True
 
         return False
