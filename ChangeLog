@@ -1,3 +1,16 @@
+2007-06-04  Dave Lehman  <dlehman@redhat.com>
+
+	* image.py (CdromInstallMethod.__init__): don't nuke the timestamp
+	when getDiscNums fails
+
+	* installclass.py (BaseInstallClass.getPackagePaths): make the return 
+	dict's values always be lists of URIs
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): make conf.reposdir a list
+	like in yum
+
+	* scripts/mk-images: make sure the MBD_FSIMAGE dir doesn't pre-exist
+
 2007-06-04  Chris Lumens  <clumens@redhat.com>
 
 	* iscsi.py (iscsiTarget.login):  portal -> self.portal (#242379).

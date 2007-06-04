@@ -557,7 +557,7 @@ makeinitrd() {
     MBD_FSIMAGE=$TMPDIR/makebootdisk.initrdimage.$$
     MBD_BOOTTREE=$TMPDIR/makebootdisk.tree.$$
 
-    rm -rf $MBD_DIR MBD_FSIMAGE
+    rm -rf $MBD_DIR $MBD_FSIMAGE
     mkdir -p $MBD_DIR/modules
     mkdir -p $MBD_DIR/sbin
     mkdir -p $MBD_DIR/dev

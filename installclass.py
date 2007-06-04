@@ -19,6 +19,7 @@ import string
 import language
 import rhpl
 import imputil
+import types
 
 from instdata import InstallData
 from partitioning import *
@@ -207,9 +208,13 @@ class BaseInstallClass:
 
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
-    # repositories.  takes a string, returns a list of strings
+    # repositories.  takes a string or list of strings, returns a dict 
+    # with string keys and list values {%repo: %uri_list}
     def getPackagePaths(self, uri):
-        return { "base": uri }
+        if not type(uri) == types.ListType:
+            uri = [uri,]
+
+        return {'base': uri}
 
     def handleRegKey(self, key, intf):
         pass

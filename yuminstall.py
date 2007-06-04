@@ -427,7 +427,7 @@ class AnacondaYum(YumSorter):
     def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
         self.conf = yum.config.YumConf()
         self.conf.installroot = root
-        self.conf.reposdir="/tmp/repos.d"
+        self.conf.reposdir=["/tmp/repos.d"]
         self.conf.logfile="/tmp/yum.log"
         self.conf.obsoletes=True
         self.conf.cache=0

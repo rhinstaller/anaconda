@@ -345,16 +345,20 @@ class CdromInstallMethod(ImageInstallMethod):
         # figure out which disc is in.  if we fail for any reason,
         # assume it's just disc1.
         if os.access("/mnt/source/.discinfo", os.R_OK):
+            f = open("/mnt/source/.discinfo")
             try:
-                f = open("/mnt/source/.discinfo")
                 self.timestamp = f.readline().strip()
                 f.readline() # descr
                 f.readline() # arch
+            except:
+                self.timestamp = None
+
+            try:
                 self.currentMedia = getDiscNums(f.readline().strip())
-                f.close()
             except:
                 self.currentMedia = [ 1 ]
-                self.timestamp = None
+            
+            f.close()
         else:                
             self.currentMedia = [ 1 ]
         
