@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:36-0400\n"
-"PO-Revision-Date: 2007-04-21 01:12+0100\n"
+"PO-Revision-Date: 2007-06-04 23:24+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -882,7 +882,7 @@ msgid "_Continue"
 msgstr "_Nastavi"
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -890,9 +890,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Pogreška pri pristupu uređaja %s kao %s: %s\n"
+"Pogreška tijekom pristupanja uređaju %s kao %s: %s\n"
 "\n"
-"Ova pogreška najvjerojatnije znači da particija nije oblikovana.\n"
+"Uređaji u mapi /etc/fstab moraju biti određeni oznakom, a ne nazivom uređaja.\n"
 "\n"
 "Za ponovno pokretanje sustava kliknite \"U redu\"."
 
@@ -4215,9 +4215,8 @@ msgstr "Ovo će ažurirati vaš trenutni pokretački program."
 
 #: ../iw/upgrade_bootloader_gui.py:100
 #: ../textw/upgrade_bootloader_text.py:78
-#, fuzzy
 msgid "Due to system changes, your boot loader configuration can not be automatically updated."
-msgstr ""
+msgstr "Uslijed promjena na sustavu, automatsko ažuriranje vaše konfiguracije pokretača sustava nije moguće."
 
 #: ../iw/upgrade_bootloader_gui.py:103
 #: ../textw/upgrade_bootloader_text.py:82
@@ -6265,14 +6264,12 @@ msgid "Install"
 msgstr "Instaliraj"
 
 #: tmp/liveinst.desktop.in.h:2
-#, fuzzy
 msgid "Install the live CD to your hard disk"
-msgstr "Nije moguće pronaći tvrdi disk u skladu s diskom iz BIOS-a: %s"
+msgstr "Živi CD instaliraj na tvrdi disk"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Prenošenje preslike instalacijske na tvrdi disk..."
+msgstr "Instaliraj na tvrdi disk..."
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
