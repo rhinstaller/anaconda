@@ -624,6 +624,8 @@ int detectSMP(void)
     return isSMP = 1;
 #elif defined (__powerpc__)
     return isSMP = powerpcDetectSMP();
+#elif defined (__arm__)
+    return isSMP = 0;
 #else
     #error unknown architecture
 #endif
