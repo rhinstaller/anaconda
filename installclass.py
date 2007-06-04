@@ -176,7 +176,8 @@ class BaseInstallClass:
 
         # allow backends to disable interactive package selection
         if not anaconda.backend.supportsPackageSelection:
-            dispatch.skipStep("tasksel", skip = 1)
+            dispatch.skipStep("tasksel", skip = 1, permanent=1)
+            dispatch.skipStep("group-selection", skip = 1, permanent=1)
 
         # allow install classes to turn off the upgrade 
         if not self.showUpgrade or not anaconda.backend.supportsUpgrades:

@@ -1,5 +1,9 @@
 2007-06-04  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setSteps): Permanently skip
+	task selection and group selection if our backend doesn't support
+	package selection (#242083)
+
 	* isys/smp.c (detectSMP): Build on arm (Lennert Buytenhek
 	<buyenh AT wantstofly DOT org>)
 
