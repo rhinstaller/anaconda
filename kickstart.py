@@ -155,6 +155,9 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
         commands.clearpart.FC3_ClearPart.parse(self, args)
 
+        if self.type is None:
+            self.type = CLEARPART_TYPE_NONE
+
         hds = isys.hardDriveDict().keys()
         for disk in self.drives:
             if disk not in hds:

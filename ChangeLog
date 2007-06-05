@@ -4,6 +4,8 @@
 	(#195919).
 	* vnc.py (startVNCServer):  Likewise.
 
+	* kickstart.py (ClearPart.parse):  Set a default clearpart type.
+
 2007-06-04  Jeremy Katz  <katzj@redhat.com>
 
 	* installclass.py (BaseInstallClass.setSteps): Permanently skip
