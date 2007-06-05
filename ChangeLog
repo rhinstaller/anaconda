@@ -1,3 +1,9 @@
+2007-06-05  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Pass -br to the X server so there's no more hatch
+	(#195919).
+	* vnc.py (startVNCServer):  Likewise.
+
 2007-06-01  David Cantrell  <dcantrell@redhat.com>
 
 	* zfcp.py (ZFCPDevice): We need to echo 1 to online for each LUN

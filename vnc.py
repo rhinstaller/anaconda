@@ -1,7 +1,7 @@
 #
 # vnc.py: VNC related installer functionality
 #
-# Copyright 2004 Red Hat, Inc.
+# Copyright 2004,2007 Red Hat, Inc.
 #
 # Jeremy Katz <katzj@redhat.com>
 #
@@ -235,7 +235,7 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 
     if not vncpid:
 	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
-		 "-depth", "16", "-geometry", "800x600",
+		 "-depth", "16", "-geometry", "800x600", "-br",
 		 "IdleTimeout=0", "-auth", "/dev/null", "-once",
 		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
 

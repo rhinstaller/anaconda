@@ -15,7 +15,7 @@
 #
 # ... And many others
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -831,7 +831,7 @@ if __name__ == "__main__":
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
             xserver.display = ":1"
-            xserver.serverflags.extend(["-screen", "Anaconda"])
+            xserver.serverflags.extend(["-screen", "Anaconda", "-br"])
             xserver_pid = xserver.startX(xStartedCB=doStartupX11Actions)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
