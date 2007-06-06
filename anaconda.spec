@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.2.0.61
+Version: 11.3.0.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,38 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 06 2007 Chris Lumens  <clumens@redhat.com> - 11.3.0.0-1
+- Support HEA devices on IBM systems (dcantrell, #228578).
+- Use "disc" instead of "CD" in loader dialogs (#242830).
+- Don't show the X hatch pattern anymore (#195919).
+- Set a default clearpart type.
+- Permanently skip task and group selection on livecd (katzj, #242083).
+- Sync up repo representation with yum (dlehman).
+- Enable building on arm (Lennert Buytenhek).
+- Fix iscsi configuration traceback (#242379).
+- Enable all ZFCP LUNs (dcantrell, #207097).
+- Don't traceback on blank lines in modprobe.conf (#241991).
+- Fall back to English release notes (#241975).
+- Fix static network configuration (dcantrell, #221660).
+- Mount /dev/pts in rescue mode (dlehman, #228714).
+- Include dmidecode on ia64 (dlehman, #232947).
+- Correctly count SCSI disks (dlehman, #230526).
+- Don't traceback if we can't remove a ks script (#241878).
+- Preserve authconfig formatting (#241657).
+- Fix RAID superblock issues (katzj, #151653).
+- Bump early swap RAM limit (katzj, #232862).
+- Network configuration fixes (katzj, #240804).
+- Define Error to fix a livecd traceback (katzj, #241754).
+- Remove extra windows in text network config (notting, #241556).
+- Remove telnet mode (dcantrell).
+- Fix traceback on kickstart upgrades (#241395).
+- Make sure nics are brought up with DHCP config info (dcantrell).
+- Error out on invalid RAID superblocks (pjones, #151653).
+- loader UI flow fixes (dcantrell, #239958).
+- Fix various tracebacks in the partitioning code (dcantrell).
+- Fix network segfault (dcantrell, #240804).
+- Log real LVM errors instead of hiding them (katzj).
+
 * Mon May 21 2007 Jeremy Katz <katzj@redhat.com> - 11.2.0.61-1
 - add esound to upgrade handling
 - fix selected group display when adding repos with the same groups (#237708)
