@@ -1,3 +1,12 @@
+2007-06-06  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/cdinstall.c:  Use "disc" instead of "CD" in dialogs
+	(#242830).
+	* cdinstall.py:  Likewise.
+	* urlinstall.py:  Likewise.
+
+	* loader2/loader.c:  Use "CD/DVD" instead of "CDROM".
+
 2007-06-05  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Pass -br to the X server so there's no more hatch

@@ -79,11 +79,11 @@ def presentRequiredMediaMessage(anaconda):
     for cdnum in reqcds:
         if cdnum == -99: # non-CD bits
             continue
-	reqcdstr += "\t\t%s %s CD #%d\n" % (product.productName, product.productVersion, cdnum,)
+	reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
 		
     return anaconda.intf.messageWindow( _("Required Install Media"),
 				        _("The software you have selected to "
-                                          "install will require the following CDs:\n\n"
+                                          "install will require the following discs:\n\n"
                                           "%s\nPlease "
                                           "have these ready before proceeding with "
                                           "the installation.  If you need to abort "
@@ -133,7 +133,7 @@ class CdromInstallMethod(ImageInstallMethod):
             except Exception, e:
                 log.error("exception in unmountCD: %s" %(e,))
                 self.messageWindow(_("Error"),
-                                   _("An error occurred unmounting the CD.  "
+                                   _("An error occurred unmounting the disc.  "
                                      "Please make sure you're not accessing "
                                      "%s from the shell on tty2 "
                                      "and then click OK to retry.")
@@ -267,7 +267,7 @@ class CdromInstallMethod(ImageInstallMethod):
             if self.intf is not None:
                 self.intf.beep()
 
-            self.messageWindow(_("Change CDROM"), 
+            self.messageWindow(_("Change Disc"), 
                 _("Please insert %s disc %d to continue.") % (productName,
                                                               needed))
             try:
@@ -276,7 +276,6 @@ class CdromInstallMethod(ImageInstallMethod):
                     time.sleep(3)
                     isys.mount(self.device, "/mnt/source", 
                                fstype = "iso9660", readOnly = 1)
-                
 
                 if os.access("/mnt/source/.discinfo", os.R_OK):
                     f = open("/mnt/source/.discinfo")
@@ -303,14 +302,14 @@ class CdromInstallMethod(ImageInstallMethod):
                         isys.makeDevInode(self.device, "/tmp/cdrom")
 
                 if not done:
-                    self.messageWindow(_("Wrong CDROM"),
-                            _("That's not the correct %s CDROM.")
+                    self.messageWindow(_("Wrong Disc"),
+                            _("That's not the correct %s disc.")
                                        % (productName,))
                     isys.umount("/mnt/source")
                     isys.ejectCdrom(self.device)
             except:
                 self.messageWindow(_("Error"), 
-                        _("Unable to access the CDROM."))
+                        _("Unable to access the disc."))
 
     def unlinkFilename(self, fullName):
         pass

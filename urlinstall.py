@@ -209,7 +209,7 @@ class UrlInstallMethod(InstallMethod):
             except Exception, e:
                 log.error("exception in unmountCD: %s" %(e,))
                 self.messageWindow(_("Error"),
-                                   _("An error occurred unmounting the CD.  "
+                                   _("An error occurred unmounting the disc.  "
                                      "Please make sure you're not accessing "
                                      "%s from the shell on tty2 "
                                      "and then click OK to retry.")
@@ -222,7 +222,7 @@ class UrlInstallMethod(InstallMethod):
             isys.umount("/mnt/source")
         except Exception, e:
             log.error("unable to unmount source in filesDone: %s" %(e,))
-        
+
         if not self.loopbackFile: return
 
         try:

@@ -89,11 +89,11 @@ static char * mediaCheckCdrom(char *cddriver) {
         /* this loop, so they want it tested.                           */
         if (first) {
             first = 0;
-            rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject CD"),
-                               _("Choose \"%s\" to test the CD currently in "
-                                 "the drive, or \"%s\" to eject the CD and "
+            rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject Disc"),
+                               _("Choose \"%s\" to test the disc currently in "
+                                 "the drive, or \"%s\" to eject the disc and "
                                  "insert another for testing."), _("Test"),
-                               _("Eject CD"));
+                               _("Eject Disc"));
 
             if (rc == 2)
                 ejectcd = 1;
@@ -109,15 +109,15 @@ static char * mediaCheckCdrom(char *cddriver) {
         }
 
         ejectCdrom();
-	
+
         rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
                        _("If you would like to test additional media, "
-                       "insert the next CD and press \"%s\". "
-                       "Testing each CD is not strictly required, however "
-                       "it is highly recommended.  Minimally, the CDs should "
+                       "insert the next disc and press \"%s\". "
+                       "Testing each disc is not strictly required, however "
+                       "it is highly recommended.  Minimally, the discs should "
                        "be tested prior to using them for the first time. "
                        "After they have been successfully tested, it is not "
-                       "required to retest each CD prior to using it again."),
+                       "required to retest each disc prior to using it again."),
                        _("Test"), _("Continue"));
 
         if (rc == 2) {
@@ -127,16 +127,16 @@ static char * mediaCheckCdrom(char *cddriver) {
             continue;
         }
     } while (1);
-    
+
     return NULL;
 }
 
 /* output an error message when CD in drive is not the correct one */
 /* Used by mountCdromStage2()                                      */
 static void wrongCDMessage(void) {
-    char *buf = sdupprintf(_("The %s CD was not found "
-                             "in any of your CDROM drives. Please insert "
-                             "the %s CD and press %s to retry."),
+    char *buf = sdupprintf(_("The %s disc was not found "
+                             "in any of your drives. Please insert "
+                             "the %s disc and press %s to retry."),
                            getProductName(), getProductName(), _("OK"));
     newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
     free(buf);
@@ -255,8 +255,8 @@ static void queryCDMediaCheck(char *dev) {
     /* in rescue mode only test if they explicitly asked to */
     if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
         startNewt();
-        rc = newtWinChoice(_("CD Found"), _("OK"), _("Skip"), 
-             _("To begin testing the CD media before installation press %s.\n\n"
+        rc = newtWinChoice(_("Disc Found"), _("OK"), _("Skip"), 
+             _("To begin testing the media before installation press %s.\n\n"
                "Choose %s to skip the media test and start the installation."),
              _("OK"), _("Skip"));
 
@@ -265,10 +265,10 @@ static void queryCDMediaCheck(char *dev) {
             /* a valid disc #1 is present */
             umountStage2();
             umount("/mnt/source");
-      
+
             /* test CD(s) */
             mediaCheckCdrom(dev);
-      
+
             /* remount stage2 from CD #1 and proceed */
             mountCdromStage2(dev);
         }
@@ -376,19 +376,19 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
         if (interactive) {
             char * buf;
             if (foundinvalid)
-                buf = sdupprintf(_("No %s CD was found which matches your "
-                                   "boot media.  Please insert the %s CD "
+                buf = sdupprintf(_("No %s disc was found which matches your "
+                                   "boot media.  Please insert the %s disc "
                                    "and press %s to retry."), getProductName(),
                                  getProductName(), _("OK"));
             else
-                buf = sdupprintf(_("The %s CD was not found in any of your "
-                                   "CDROM drives. Please insert the %s CD "
+                buf = sdupprintf(_("The %s disc was not found in any of your "
+                                   "CDROM drives. Please insert the %s disc "
                                    "and press %s to retry."), getProductName(),
                                  getProductName(), _("OK"));
 
             ejectCdrom();
             unlink("/tmp/cdrom");
-            rc = newtWinChoice(_("CD Not Found"),
+            rc = newtWinChoice(_("Disc Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
             if (rc == 2)

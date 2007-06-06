@@ -117,7 +117,7 @@ int num_link_checks = 5;
 
 static struct installMethod installMethods[] = {
 #if !defined(__s390__) && !defined(__s390x__)
-    { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
+    { N_("Local CD/DVD"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
 #endif
     { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
     { N_("NFS directory"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
