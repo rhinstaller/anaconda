@@ -32,7 +32,7 @@ class UpgradeBootloaderWindow:
         except:
             log.debug("error reading /proc/modules")
             pass
-        
+
         try:
             f = open(rootPath + "/etc/modprobe.conf")
         except:
@@ -43,10 +43,12 @@ class UpgradeBootloaderWindow:
         f.close()
 
         for l in lines:
-            if l.strip()[0] == "#":
+            stripped = l.strip()
+
+            if stripped == "" or stripped[0] == "#":
                 continue
 
-            if l.find("scsi_hostadapter") != -1:
+            if stripped.find("scsi_hostadapter") != -1:
                 return True
 
         return False
@@ -71,7 +73,7 @@ class UpgradeBootloaderWindow:
                 newbl = 1
             else:
                 update = 1
-        
+
         if newToLibata or self.type is None or self.bootDev is None:
             if newToLibata:
                 t = TextboxReflowed(53,

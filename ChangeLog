@@ -1,3 +1,15 @@
+2007-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* iscsi.py (iscsiTarget.login):  portal -> self.portal (#242379).
+
+	* iw/upgrade_bootloader_gui.py (UpgradeBootloaderWindow._newToLibata):
+	Don't traceback on blank lines in modprobe.conf (#241991).
+	* textw/upgrade_bootloader_text.py (UpgradeBootloaderWindow._ideToLibata):
+	Likewise.
+
+	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
+	to English release notes if translated ones aren't found (#241975).
+
 2007-05-25  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (setSteps):  Fix traceback on kickstart upgrades

@@ -114,9 +114,9 @@ class iscsiTarget:
 
         ret = False
         for node in self.nodes:
-            if _login(node, portal):
+            if _login(node, self.portal):
                 ret = True
-                _autostart(node, portal)
+                _autostart(node, self.portal)
 
         # we return True if there were any successful logins for our portal.
         return ret

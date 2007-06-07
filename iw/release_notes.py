@@ -21,6 +21,7 @@ import gtk
 import gtkhtml2
 import urllib
 import urlparse
+from language import expandLangs
 
 import gui
 
@@ -53,6 +54,10 @@ class ReleaseNotesViewer:
 
 	def getReleaseNotes(self):
 		langs = self.anaconda.id.instLanguage.getCurrentLangSearchList() + [ "" ]
+
+                if not "en_US.UTF-8" in langs:
+                    langs += expandLangs("en_US.UTF-8")
+
 		suffixList = []
 		for lang in langs:
 			if lang:
