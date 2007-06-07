@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright (c) 2006 Red Hat, Inc.
+# Copyright (c) 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -39,7 +39,6 @@ directory = %(instPath)s/etc
     os.close(fd)
 
     os.environ["LIBUSER_CONF"] = fn
-    
 
 def cryptPassword(password, useMD5):
     if useMD5:
@@ -60,7 +59,8 @@ class Users:
         self.admin = libuser.admin()
 
     def createUser (self, name, password=None, isCrypted=False, groups=[],
-                    homedir=None, shell=None, uid=None, root="/mnt/sysimage"):
+                    homedir=None, shell=None, uid=None, lock=False,
+                    root="/mnt/sysimage"):
         if self.admin.lookupUserByName(name):
             return None
 
@@ -98,16 +98,22 @@ class Users:
             else:
                 self.admin.setpassUser(userEnt, cryptPassword(password, True), isCrypted)
 
+        if lock:
+            self.admin.lockUser(userEnt)
+
         # Now set the correct home directory to fix up passwd.
         userEnt.set(libuser.HOMEDIRECTORY, homedir)
         self.admin.modifyUser(userEnt)
 
-    def setRootPassword(self, password, isCrypted, useMD5):
+    def setRootPassword(self, password, isCrypted, useMD5, lock):
         rootUser = self.admin.lookupUserByName("root")
 
         if isCrypted:
             self.admin.setpassUser(rootUser, password, True)
         else:
             self.admin.setpassUser(rootUser, cryptPassword(password, useMD5), True)
+
+        if lock:
+            self.admin.lockUser(rootUser)
 
         self.admin.modifyUser(rootUser)

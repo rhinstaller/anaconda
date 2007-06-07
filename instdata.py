@@ -61,7 +61,7 @@ class InstallData:
 	self.timezone = timezone.Timezone()
         self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
         self.users = None
-        self.rootPassword = { "isCrypted": False, "password": "" }
+        self.rootPassword = { "isCrypted": False, "password": "", lock: False }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
 	self.upgrade = None
@@ -160,7 +160,8 @@ class InstallData:
 
         # User should already exist, just without a password.
         self.users.setRootPassword(self.rootPassword["password"],
-                                   self.rootPassword["isCrypted"], useMD5)
+                                   self.rootPassword["isCrypted"], useMD5,
+                                   self.rootPassword["lock"])
 
         if anaconda.isKickstart:
             for svc in self.ksdata.services.disabled:
@@ -178,7 +179,8 @@ class InstallData:
             for ud in self.ksdata.user.userList:
                 if self.users.createUser(ud.name, ud.password, ud.isCrypted,
                                          ud.groups, ud.homedir, ud.shell,
-                                         ud.uid, root=anaconda.rootPath) == None:
+                                         ud.uid, ud.lock,
+                                         root=anaconda.rootPath) == None:
                     log.error("User %s already exists, not creating." % ud.name)
 
 
@@ -241,9 +243,14 @@ class InstallData:
 	self.zfcp.writeKS(f)
 
         if self.rootPassword["isCrypted"]:
-            f.write("rootpw --iscrypted %s\n" % self.rootPassword["password"])
+            args = " --iscrypted %s" % self.rootPassword["password"]
         else:
-            f.write("rootpw --iscrypted %s\n" % users.cryptPassword(self.rootPassword["password"], useMD5))
+            args = " --iscrypted %s" % users.cryptPassword(self.rootPassword["password"], useMD5))
+
+        if self.rootPassword["lock"]:
+            args += " --lock"
+
+        f.write("rootpw %s\n" % args)
 
 	self.firewall.writeKS(f)
 	if self.auth.strip() != "":

@@ -1,3 +1,11 @@
+2007-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* instdata (InstallData.write):  Lock accounts if asked (#240059).
+	* kickstart.py (RootPw):  Inherit from new F8 rootpw command to handle
+	--lock.
+	* users.py (Users.createUser, Users.setRootPassword):  Lock accounts
+	if asked.
+
 2007-06-06  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/module-info:  Add support for Areca RAID controllers

@@ -557,12 +557,13 @@ class Raid(commands.raid.F7_Raid):
         addPartRequest(self.handler.anaconda, request)
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
-class RootPw(commands.rootpw.FC3_RootPw):
+class RootPw(commands.rootpw.F8_RootPw):
     def parse(self, args):
-        commands.rootpw.FC3_RootPw.parse(self, args)
+        commands.rootpw.F8_RootPw.parse(self, args)
 
         self.handler.id.rootPassword["password"] = self.password
         self.handler.id.rootPassword["isCrypted"] = self.isCrypted
+        self.handler.id.rootPassword["lock"] = self.lock
         self.handler.skipSteps.append("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
@@ -701,7 +702,7 @@ commandMap = {
         "timezone": Timezone,
         "upgrade": Upgrade,
         "url": commands.method.FC6_Method,
-        "user": commands.user.FC6_User,
+        "user": commands.user.F8_User,
         "vnc": commands.vnc.FC6_Vnc,
         "volgroup": VolGroup,
         "xconfig": XConfig,
