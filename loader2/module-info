@@ -628,6 +628,10 @@ aic79xx
 	scsi_hostadapter
 	"Adaptec Aic79xx SCSI Host Bus Adapter driver"
 
+arcmsr
+	scsi_hostadapter
+	"ARECA (ARC11xx/12xx) SATA RAID Host Adapter"
+
 ata_piix
         scsi_hostadapter
         "Intel PIIX/ICH ATA controllers"
