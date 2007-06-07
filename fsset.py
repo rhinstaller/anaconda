@@ -93,7 +93,7 @@ def getUsableLinuxFs():
     return rc
 
 def devify(device):
-    if device in ["proc", "devpts", "sysfs", "tmpfs"]:
+    if device in ["proc", "devpts", "sysfs", "tmpfs"] or device.find(":") != -1:
         return device
     elif device == "sys":
         return "sysfs"
@@ -959,6 +959,18 @@ class prepbootFileSystem(FileSystemType):
         return
 
 fileSystemTypeRegister(prepbootFileSystem())
+
+class networkFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.formattable = 0
+        self.checked = 0
+        self.name = "nfs"
+
+    def isMountable(self):
+        return 0
+
+fileSystemTypeRegister(networkFileSystem())
 
 class ForeignFileSystem(FileSystemType):
     def __init__(self):

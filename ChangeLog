@@ -10,6 +10,9 @@
 	* iw/release_notes.py (ReleaseNotesViewer.getReleaseNotes):  Fall back
 	to English release notes if translated ones aren't found (#241975).
 
+	* fsset.py (networkFileSystem):  Add a type for nfs mounts so they
+	don't get deleted on upgrade (#242073).
+
 2007-05-25  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (setSteps):  Fix traceback on kickstart upgrades
