@@ -6,6 +6,9 @@
 	* users.py (Users.createUser, Users.setRootPassword):  Lock accounts
 	if asked.
 
+	* fsset.py (networkFileSystem):  Add a type for nfs mounts so they
+	don't get deleted on upgrade (#242073).
+
 2007-06-06  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/module-info:  Add support for Areca RAID controllers
