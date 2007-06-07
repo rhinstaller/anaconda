@@ -127,7 +127,7 @@ def setupPythonUpdates():
 	pass
 
     for pypkg in ("rhpl", "yum", "rpmUtils", "urlgrabber", "rhpxl", "pirut",
-                  "pykickstart", "pykickstart/commands", "pykickstart/handlers"):
+                  "pykickstart"):
 	if os.access("/mnt/source/RHupdates/%s" %(pypkg,), os.X_OK):
 	    try:
 		os.mkdir("/tmp/updates/%s" %(pypkg,))
