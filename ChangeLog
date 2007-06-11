@@ -1,3 +1,8 @@
+2007-06-11  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (setSteps):  Use the correct fix for kickstart upgrade
+	tracebacks (#243159).
+
 2007-06-07  Chris Lumens  <clumens@redhat.com>
 
 	* instdata (InstallData.write):  Lock accounts if asked (#240059).
