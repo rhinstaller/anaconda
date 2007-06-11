@@ -1050,10 +1050,9 @@ def setSteps(anaconda):
     dispatch = anaconda.dispatch
     ksdata = anaconda.id.ksdata
     interactive = ksdata.interactive.interactive
-    upgrade = ksdata.upgrade.upgrade
 
-    if upgrade:
-        anaconda.id.instClass.setSteps(anaconda)
+    if ksdata.upgrade.upgrade:
+        upgrade.setSteps(anaconda)
 
         # we have no way to specify migrating yet
         dispatch.skipStep("upgrademigfind")
@@ -1098,7 +1097,7 @@ def setSteps(anaconda):
 
     # If the package section included anything, skip group selection unless
     # they're in interactive.
-    if upgrade:
+    if ksdata.upgrade.upgrade:
         ksdata.skipSteps.append("group-selection")
 
         # Special check for this, since it doesn't make any sense.
