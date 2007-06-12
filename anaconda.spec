@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.36
+Version: 11.1.2.37
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,119 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 12 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.37-1
+- Add support for Areca RAID controllers (clumens)
+  Resolves: rhbz#238014
+- Pass -br to the X server so there is no more hatch (clumens)
+  Resolves: rhbz#195919
+- Echo 1 to each zFCP LUN to make entire device available (dcantrell)
+  Resolves: rhbz#207097
+- Prevent static network configuration from failing (dcantrell)
+  Resolves: rhbz#221660
+- Allow user to skip entering a gateway or nameserver when adding an iSCSI
+  address (dcantrell)
+  Resolves: rhbz#235824
+- Do not log errors when unmounting /mnt/source if it was not supposed to
+  be mounted in the first place (dlehman)
+  Resolves: rhbz#223059
+- Handle F13 shortcut key on installation key dialog (dlehman)
+  Resolves: rhbz#210673
+- Create nodes for and probe for tape drives (dlehman)
+  Resolves: rhbz#218816
+- Improve configuration screens for systems with multiple NICs (dcantrell)
+  Resolves: rhbz#218200
+- Per-interface IPv4 and IPv6 configuration (dcantrell)
+  Resolves: rhbz#213110
+  Related: rhbz#218200
+- Add logging for yum logging (katzj)
+  Resolves: rhbz#212259
+- Only ask user to run VNC is Xvnc is present (dcantrell)
+  Resolves: rhbz#217563
+- Add /sbin/sfdisk (dcantrell)
+  Resolves: rhbz#224297
+- For /dev/hvc0 terminals, set TERM to vt320 (dcantrell)
+  Resolves: rhbz#219556
+- Set DHCPv6_DISABLE flag when using IPv6 auto neighbor discovery (dcantrell)
+  Resolves: rhbz#231645
+- Handle more than 10 Ethernet interfaces (dcantrell)
+  Resolves: rhbz#230525
+- Support OSA layer 2 networking on zSeries (bhinson)
+  Resolves: rhbz#233376
+- Handle ksdevice=BOOTIF correctly (dcantrell)
+  Resolves: rhbz#209284
+- Fix text wrap width in auto partitioning text mode screen (dlehman)
+  Resolves: rhbz#221791
+- Correctly count SCSI disk devices (dlehman)
+  Resolves: rhbz#230526
+- Include /usr/sbin/dmidecode on ia64 (dlehman)
+  Resolves: rhbz#232947
+- Bind mount /dev/pts in rescue mode (dlehman)
+  Resolves: rhbz#228714
+- Do not ignore productpath in pkgorder (dlehman)
+  Resolves: rhbz#230487
+- Describe 'nfs --opts' in kickstart-docs.txt (clumens)
+  Resolves: rhbz#234187
+- Sanity check network info on zSeries (dcantrell)
+  Resolves: rhbz#234152
+- Do not bring up network in stage 2 if it's already up (dcantrell)
+  Resolves: rhbz#232400
+- Do not traceback when trying to remove the /mnt/sysimage tree (dcantrell)
+  Resolves: rhbz#227650
+- Write correct infor to /etc/sysconfig/network (dcantrell)
+  Resolves: rhbz#222147
+- If custom partitioning is selected, make drive selection non
+  sensitive (clumens)
+  Resolves: rhbz#219207
+- Do not traceback if users neglects to enter an lvsize (clumens)
+  Resolves: rhbz#221253
+- Do not load a module when the kickstart device line is incorrect (clumens)
+  Resolves: rhbz#227510
+- Handle errors resulting from malformed repositories (clumens)
+  Resolves: rhbz#219274
+- Remove all invalid RAID requests when using kickstart (clumens)
+  Resolves: rhbz#235279
+- Avoid traceback getting the PID of iscsiadm (clumens)
+  Resolves: rhbz#223257
+- Make sure kickstart scripts execute with correct working dir (clumens)
+  Resolves: rhbz#237317
+- Support multiple ksappend lines (clumens)
+  Resolves: rhbz#222201
+- Write out fstab after migrate (clumens)
+  Resolves: rhbz#223215
+- Make the packages section in anaconda-ks.cfg match UI selections (clumens)
+  Resolves: rhbz#227383, rhbz#231121, rhbz#235881
+- Copy volume group format attribute to new request (clumens)
+  Resolves: rhbz#217585
+- Use /dev/ nodes for probing RAID superblocks (clumens)
+  Resolves: rhbz#208970
+- Put more space between device description and the stripe for tall
+  languages (clumens)
+  Resolves: rhbz#217294
+- Add netxen_nic driver (clumens)
+  Resolves: rhbz#230245
+- Provide detailed disk info in text mode partitioning screen (dcantrell)
+  Resolves: rhbz#235054
+- If wrong interface is selection, allow user to choose another one (clumens)
+  Resolves: rhbz#213787
+- Focus installation key text box and populate fields correctly (dlehman)
+  Resolves: rhbz#223831
+- Make sure the regkey settings are written to anaconda-ks.cfg (dlehman)
+  Resolves: rhbz#221450
+- Select kernel-xen-devel when optional packages selected (dlehman)
+  Resolves: rhbz#226784
+- Fix typo in message shown when user skips entering the install key (dlehman)
+  Resolves: rhbz#224491
+- If autopart selection is custom, make sure review checkbox is active and
+  not sensitive. (dlehman)
+  Resolves: rhbz#220951
+- Write NETWORKING_IPV6=no to /etc/sysconfig/network if IPv6 is disabled
+  during installation. (dcantrell)
+  Resolves: rhbz#226911
+- Fix input validation loop in manual network config in loader
+  Resolves: rhbz#223193 (dcantrell)
+- Make "description" translate correctly (pjones)
+  Resolves: rhbz#216067
+
 * Thu Feb  1 2007 Peter Jones <pjones@redhat.com> - 11.1.2.36-1
 - Fix traceback when using text mode with a language that we can't display
   Resolves: #225528

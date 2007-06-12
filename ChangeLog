@@ -1,13 +1,11 @@
+2007-06-12  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec: Bump version.
+
 2007-06-07  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/module-info:  Add support for Areca RAID controllers
 	(#238014).
-
-2007-06-06  David Cantrell  <dcantrell@redhat.com>
-
-	* loader2/hardware.c (detectHardware): Probe BUS_EBUS to support
-	HEA devices on IBM systems (#228578).
-	* loader2/module-info: ehea_mod -> ehea (#228578).
 
 2007-06-05  Chris Lumens  <clumens@redhat.com>
 
