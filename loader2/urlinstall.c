@@ -46,7 +46,6 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
                               int silentErrors) {
     int fd;
     int rc = 0;
-    char * newFile = NULL;
     char filepath[1024];
     char *ehdrs = NULL;
 
@@ -63,26 +62,16 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
         if (ehdrs) free (ehdrs);
         return 2;
     }
-
-    if (fd < 0) {
-        /* file not found */
-
-        newFile = alloca(strlen(filepath) + 20);
-        sprintf(newFile, "disc1/%s", filepath);
-
-        fd = urlinstStartTransfer(ui, newFile, ehdrs);
-        if (ehdrs) free (ehdrs);
-
-        if (fd == -2) return 2;
-        if (fd < 0) {
-            if (!silentErrors)
-                newtWinMessage(_("Error"), _("OK"),
-                               _("Unable to retrieve %s://%s/%s/%s."),
-                               (ui->protocol == URL_METHOD_FTP ? "ftp" :
-                                "http"),
-                               ui->address, ui->prefix, filepath);
-            return 2;
+    else if (fd < 0) {
+        if (!silentErrors) {
+            newtWinMessage(_("Error"), _("OK"),
+                           _("Unable to retrieve %s://%s/%s/%s."),
+                           (ui->protocol == URL_METHOD_FTP ? "ftp" : "http"),
+                           ui->address, ui->prefix, filepath);
         }
+
+        if (ehdrs) free (ehdrs);
+        return 2;
     }
 
     if (dest != NULL) {
@@ -90,14 +79,6 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
     }
 
     urlinstFinishTransfer(ui, fd);
-
-    if (newFile) {
-        newFile = malloc(strlen(ui->prefix) + 20);
-        sprintf(newFile, "%s/disc1", ui->prefix);
-        free(ui->prefix);
-        ui->prefix = newFile;
-    }
-
     return rc;
 }
 

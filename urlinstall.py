@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,6 @@
 
 from installmethod import InstallMethod, FileCopyException
 import os
-import re
 import time
 import shutil
 import string
@@ -128,7 +127,7 @@ class UrlInstallMethod(InstallMethod):
 	    tmppath = destdir
 
         base = self.pkgUrl
-        
+
 	fullPath = base + "/" + filename
 
 	file = tmppath + "/" + os.path.basename(fullPath)
@@ -193,10 +192,6 @@ class UrlInstallMethod(InstallMethod):
     def getMethodUri(self):
         return self.baseUrl
 
-    def switchMedia(self, mediano, filename=""):
-        if self.splitmethod:
-            self.baseUrl = self.baseUrls[mediano - 1]
-
     def unmountCD(self):
         if not self.tree:
             return
@@ -229,56 +224,6 @@ class UrlInstallMethod(InstallMethod):
             # this isn't the exact right place, but it's close enough
             os.unlink(self.loopbackFile)
         except SystemError:
-            pass
-
-    def __checkUrlForIsoMounts(self):
-        # account for multiple mounted ISOs on loopback...bleh
-        # assumes ISOs are mounted as AAAAN where AAAA is some alpha text
-        # and N is an integer.  so users could have these paths:
-        #     CD1, CD2, CD3
-        #     disc1, disc2, disc3
-        #     qux1, qux2, qux3
-        # as long as the alpha text is consistent and the ints increment
-        #
-        # NOTE: this code is basically a guess. we don't really know if
-        # they are doing a loopback ISO install, but make a guess and
-        # shove all that at yum and hope for the best   --dcantrell
-
-        discdir = os.path.basename(self.pkgUrl)
-        alpharm = re.compile("^[^0-9]+")
-        discnum = alpharm.sub("", discdir)
-
-        try:
-            discnum = int(discnum)
-
-            stripnum = re.compile("%s$" % (discnum,))
-            basepath = stripnum.sub("", self.pkgUrl)
-
-            # add all possible baseurls
-            discnum = 1
-            baseurls = [] # self.pkgUrl
-            while True:
-                dirpath = "%s%s" % (basepath, discnum)
-
-                try:
-                    filename = self.__copyFileToTemp(dirpath, ".discinfo")
-                    self.unlinkFilename(filename)
-                except:
-                    break
-
-                log.debug("Adding baseurl: %s" % (dirpath,))
-                baseurls.append("%s" % (dirpath,))
-                try:
-                    self.unlinkFilename(filename)
-                except:
-                    pass
-                discnum += 1
-
-            if len(baseurls) > 1:
-                self.baseUrls = tuple(baseurls)
-                self.splitmethod = True
-        except ValueError:
-            # we didn't figure out the user's dir naming scheme
             pass
 
     def __init__(self, url, rootPath, intf):
