@@ -1,11 +1,16 @@
+2007-06-12  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/hardware.c: Comment out BUS_EBUS for now since we are waiting
+	on a new kudzu that supports it.
+
 2007-06-12  Chris Lumens  <clumens@redhat.com>
 
-        * urlinstall.py (UrlInstallMethod.switchMedia):  Removed.
-        (UrlInstallmethod.__checkUrlForIsoMounts):  Removed.
+	* urlinstall.py (UrlInstallMethod.switchMedia):  Removed.
+	(UrlInstallmethod.__checkUrlForIsoMounts):  Removed.
 
-        * loader2/urlinstall.c (loadSingleUrlImage):  Don't look in the disc1/
-        directory anymore since the split loopback ISO method is no longer
-        supported.
+	* loader2/urlinstall.c (loadSingleUrlImage):  Don't look in the disc1/
+	directory anymore since the split loopback ISO method is no longer
+	supported.
 
 2007-06-11  Chris Lumens  <clumens@redhat.com>
 
