@@ -20,7 +20,7 @@ BuildRequires: libsepol-devel
 BuildRequires: pango-devel, pirut, libXt-devel
 BuildRequires: slang-devel >= 2.0.6-2, slang-static
 BuildRequires: newt-devel, newt-static
-BuildRequires: glib2-devel >= 2.11.1-5, glib2-static
+BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
 BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
 BuildRequires: audit-libs-devel
 %ifarch %livearches
@@ -143,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Jun 12 2007 Chris Lumens  <clumens@redhat.com> - 11.3.0.0-1
+- Require libdhcp6client-static.
 - Remove loopback mounted split ISO install method.
 - Allow locking root and user accounts from kickstart (#240059).
 - Don't delete NFS mounts from /etc/fstab on upgrade (#242073).
