@@ -477,7 +477,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
         /* Scan the dns parameter for multiple comma-separated IP addresses */
         c = strtok(buf, ",");  
-        while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL)) {
+        while ((cfg->dev.numDns < MAXNS) && (c != NULL)) {
             if (inet_pton(AF_INET, c, &addr) >= 1) {
                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
                 cfg->dev.numDns++;
