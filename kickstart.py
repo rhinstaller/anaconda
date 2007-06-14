@@ -983,6 +983,8 @@ class Kickstart(cobject):
 # use %ksappend to pull via https anything private (like passwords, etc) in
 # the second stage.
 def pullRemainingKickstartConfig(ksfile):
+    import tempfile
+
     # Open the input kickstart file and read it all into a list.
     try:
         inF = open(ksfile, "r")
