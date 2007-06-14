@@ -200,7 +200,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
         self.handler.id.iscsi.initiator = self.iscsiname
         self.handler.id.iscsi.startup()
-        # FIXME: flush the drive dict so we figure drives out again        
+        # FIXME: flush the drive dict so we figure drives out again
         isys.flushDriveDict()
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
@@ -646,6 +646,8 @@ class ZFCP(commands.zfcp.FC3_ZFCP):
         commands.zfcp.FC3_ZFCP.parse(self, args)
         for fcp in self.zfcp:
             self.handler.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+
+        isys.flushDriveDict()
 
 
 ###

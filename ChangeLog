@@ -1,3 +1,8 @@
+2007-06-15  David Cantrell  <dcantrell@redhat.com>
+
+	* kickstart.py (ZFCP.parse): Flush drive dict so zFCP devices are
+	found and nodes created (#236903)
+
 2007-06-12  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
