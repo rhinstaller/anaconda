@@ -1017,7 +1017,7 @@ LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 rm -f $DESTGR/locales $DESTGR/locales.list
 
 # fixup joe links
-if [ -n "$NEEDGR" ]; then
+if [ -n "$NEEDGR" -a -d "$DESTDIR"/etc/joe ]; then
     ln -fs jpicorc $DESTGR/etc/joe/picorc
     ln -fs jpicorc $DESTGR/etc/joe/jnanorc
     ln -fs jpicorc $DESTGR/etc/joe/nanorc

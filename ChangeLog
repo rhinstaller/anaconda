@@ -1,3 +1,10 @@
+2007-06-14  Chris Lumens  <clumens@redhat.com>
+
+	* command-stubs/Makefile:  pump-stub -> dhclient-stub.
+
+	* scripts/upd-instroot:  Only make the joe symlinks if /etc/joe
+	exists.
+
 2007-06-15  David Cantrell  <dcantrell@redhat.com>
 
 	* kickstart.py (ZFCP.parse): Flush drive dict so zFCP devices are
