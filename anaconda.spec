@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.37
+Version: 11.1.2.38
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 14 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.38-1
+- Import tempfile to fix kickstart install tracebacks.
+  Resolves: rhbz#244240
+
 * Tue Jun 12 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.37-1
 - Add support for Areca RAID controllers (clumens)
   Resolves: rhbz#238014
