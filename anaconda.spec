@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.1
+Version: 11.3.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 15 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.2-1
+- fix syntax error (jkeating)
+- don't capture passwords from kickstart in exception dumps (clumens)
+- don't write out unicode text to install.log (clumens, #243477)
+
 * Fri Jun 15 2007 Chris Lumens  <clumens@redhat.com> - 11.3.0.1-1
 - Fix call to mksquashfs in mk-images so we get stage2.img again.
 - Other minor image creation fixes.

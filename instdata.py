@@ -245,7 +245,7 @@ class InstallData:
         if self.rootPassword["isCrypted"]:
             args = " --iscrypted %s" % self.rootPassword["password"]
         else:
-            args = " --iscrypted %s" % users.cryptPassword(self.rootPassword["password"], useMD5))
+            args = " --iscrypted %s" % users.cryptPassword(self.rootPassword["password"], useMD5)
 
         if self.rootPassword["lock"]:
             args += " --lock"
