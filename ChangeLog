@@ -1,3 +1,8 @@
+2007-06-15  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/mk-images:  mksquashfs is stupid and wants its arguments
+	in a particular order.
+
 2007-06-14  Chris Lumens  <clumens@redhat.com>
 
 	* command-stubs/Makefile:  pump-stub -> dhclient-stub.

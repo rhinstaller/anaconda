@@ -679,8 +679,8 @@ makeinstimage () {
         echo "Running mkcramfs $CRAMBS $tmp $INSTIMGPATH/${imagename}2.img"
         mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
-        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -all-root -no-fragments"
-        mksquashfs -no-progress $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments
+        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -all-root -no-fragments -no-progress"
+        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments -no-progress
         chmod 0644 $TMPDIR/${imagename}2.img.$$
     fi
     cp $TMPDIR/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
