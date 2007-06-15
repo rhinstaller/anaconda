@@ -160,7 +160,7 @@ class AnacondaCallback:
             s += (hdr['summary'] or "")
             self.progress.set_label(s)
 
-            nvra = "%s" %(po,)
+            nvra = str("%s" %(po,))
             self.instLog.write(self.modeText % (nvra,))
 
             self.instLog.flush()

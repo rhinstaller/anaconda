@@ -3,6 +3,9 @@
 	* exception.py (dumpException):  Don't capture passwords from the
 	kickstart file in the exception dump.
 
+	* yuminstall.py (AnacondaCallback.callback):  Don't write out unicode
+	text to the install log (#243477).
+
 2007-06-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
