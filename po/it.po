@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-04-27 23:03+0200\n"
+"PO-Revision-Date: 2007-06-09 21:41+0200\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -214,9 +214,7 @@ msgstr ""
 #: ../autopart.py:1038
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"La partizione boot %s potrebbe non rispondere alle esigenze d'avvio della "
-"vostra architettura."
+msgstr "La partizione boot %s potrebbe non rispondere alle esigenze d'avvio dell'architettura."
 
 #: ../autopart.py:1064
 #, python-format
@@ -439,9 +437,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Avete scelto di rimuovere tutte le partizioni (TUTTI I DATI) dai seguenti "
+"Si è scelto di rimuovere tutte le partizioni (TUTTI I DATI) dai seguenti "
 "dischi:% s\n"
-"Siete sicuri di voler fare questo?"
+"Si è sicuri di volerlo fare?"
 
 #: ../autopart.py:1721
 #, python-format
@@ -450,9 +448,9 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Avete scelto di rimuovere tutte le partizioni Linux (e TUTTI I DATI in esse "
+"Si è scelto di rimuovere tutte le partizioni Linux (e TUTTI I DATI in esse "
 "contenuti) dai seguenti dischi:%s\n"
-"Siete sicuri di voler fare questo?"
+"Si è sicuri di volerlo fare?"
 
 #: ../backend.py:165
 #, python-format
@@ -543,9 +541,7 @@ msgstr "Si è verificato un problema nello scrivere lo stato del sistema sul flo
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
-"Lo stato del sistema è stato salvato con successo sull'host remoto.  Il "
-"vostro sistema verrà ora riavviato."
+msgstr "Lo stato del sistema è stato salvato con successo sull'host remoto.  Il sistema verrà ora riavviato."
 
 #: ../exception.py:441
 msgid "There was a problem writing the system state to the remote host."
@@ -686,9 +682,9 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"nel vostro file /etc/fstab, è utilizzato attualmente come una partizione di "
-"sospensione software, ciò significa che il vostro sistema è stato "
-"'congelato'. Per eseguire un aggiornamento, si prega di arrestare il vostro "
+"nel file /etc/fstab, è utilizzato attualmente come una partizione di "
+"sospensione software, ciò significa che il sistema è stato "
+"'congelato'. Per eseguire un aggiornamento, si prega di arrestare il "
 "sistema invece di bloccarlo o'congelarlo'."
 
 #: ../fsset.py:1466
@@ -743,7 +739,7 @@ msgid ""
 msgstr ""
 "Errore durante l'abilitazione dello swap %s: %s \n"
 "\n"
-"Il file /etc/fstab sulla vostra partizione di aggiornamento non fa "
+"Il file /etc/fstab sulla partizione di aggiornamento non fa "
 "riferimento a nessuna partizione di swap valida.\n"
 "\n"
 "Premere OK per riavviare il sistema."
@@ -1176,12 +1172,12 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"Il software che avete scelto di installare richiede i seguenti CD:\n"
+"Il software scelto per l'installazione richiede i seguenti CD:\n"
 "\n"
 "%s\n"
-"Assicuratevi di averli a disposizione prima di procedere con "
-"l'installazione.  Se avete bisogno di annullare l'installazione e riavviare "
-"selzionate \"Riavvia\"."
+"Assicurarsi di averli a disposizione prima di procedere con "
+"l'installazione.  Se si ha bisogno di annullare l'installazione e riavviare "
+"selezionare \"Riavvia\"."
 
 #: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
 #: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1335,9 +1331,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Avete indicato che il pacchetto '%s' dovrebbe essere installato.  Questo "
-"pacchetto non è esistente. Desiderate continuare oppure interrompere la "
-"vostra installazione."
+"Si è indicato che il pacchetto '%s' dovrebbe essere installato.  Questo "
+"pacchetto non esiste. Si desidera continuare oppure interrompere l'installazione."
 
 #: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
 #: ../yuminstall.py:721
@@ -1354,9 +1349,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Avete indicato che il gruppo '%s' dovrebbe essere installato.  Questo gruppo "
-"non è esistente. Desiderate continuare oppure interrompere la vostra "
-"installazione."
+"Si è indicato che il gruppo '%s' dovrebbe essere installato.  Questo gruppo "
+"non esiste. Si desidera continuare oppure interrompere l'installazione."
 
 #: ../livecd.py:79
 msgid "Unable to find image"
@@ -1801,11 +1795,11 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Per·questa installazione avete scelto di utilizzare una partizione già "
+"Per·questa installazione si è scelto di utilizzare una partizione già "
 "esistente senza formattarla. Si raccomanda di formattare la partizione per "
 "essere certi che i file di un sistema operativo precedente non causino "
 "problemi con questa installazione di Linux. Tuttavia, se questa partizione "
-"contiene dei file che è necessario conservare, come per esempio le home "
+"contiene dei file che è necessario conservare, come ad esempio le home "
 "directory, è necessario continuare senza formattare la partizione."
 
 #: ../partIntfHelpers.py:418
@@ -1863,7 +1857,7 @@ msgid ""
 "destroying all data."
 msgstr ""
 "Le seguenti partizioni preesistenti sono state selezionate per la "
-"formattazione, distruggendone tutti i dati."
+"formattazione, tutti i dati saranno distrutti."
 
 #: ../partIntfHelpers.py:459
 msgid ""
@@ -2183,7 +2177,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"L'ambiente di ripristino cercherà ora di individuare la vostra installazione "
+"L'ambiente di ripristino cercherà ora di individuare l'installazione "
 "di Linux e montarla nella directory %s. Quindi sarà possibile apportare al "
 "sistema qualsiasi modifica necessaria. Se si desidera procedere, scegliere "
 "'Continua'. E' anche possibile scegliere di montare i filesystem solo in "
@@ -2485,12 +2479,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Il file %s non puó essere aperto. Ciò é dovuto a causa della mancanza di un "
-"file o per un pacchetto corrotto.   Si prega di verificare che il vostro "
-"mirror contenga tutti i pacchetti necessari, oppure provate ad utilizzarne "
-"un'altro.\n"
+"Il file %s non può essere aperto. Ciò é dovuto a causa della mancanza di un file o per un pacchetto corrotto.   Si prega di verificare che il mirror contenga tutti i pacchetti necessari, oppure si provi ad utilizzarne un'altro.\n"
 "\n"
-"Se riavviate, il sistema verrà lasciato in uno stato inconsistente che "
+"Se si riavvia, il sistema verrà lasciato in uno stato inconsistente che "
 "richiederà la reinstallazione\n"
 "\n"
 
@@ -2531,7 +2522,7 @@ msgid ""
 "installation"
 msgstr ""
 "L'uso di una password non permetterà agli utenti non autorizzati di "
-"collegarsi e controllare il progresso della vostra installazione. Si prega "
+"collegarsi e controllare il progresso dell'installazione. Si prega "
 "di inserire una password da usare per l'installazione"
 
 #: ../vnc.py:83 ../textw/userauth_text.py:42 ../loader2/urls.c:460
@@ -2570,7 +2561,7 @@ msgid ""
 msgstr ""
 "È necessario specificare una password vnc lunga almeno 6 caratteri.\n"
 "\n"
-"Premere <return> per riavviare il vostro sistema.\n"
+"Premere <return> per riavviare il sistema.\n"
 
 #: ../vnc.py:189
 msgid "Starting VNC..."
@@ -2592,7 +2583,7 @@ msgstr "Impossibile impostare la password vnc - usando nessuna password!"
 
 #: ../vnc.py:268
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Assicurarsi che la vostra password sia almeno di 6 caratteri."
+msgstr "Assicurarsi che la password sia almeno di 6 caratteri."
 
 #: ../vnc.py:291
 msgid ""
@@ -2606,8 +2597,8 @@ msgstr ""
 "\n"
 "\n"
 "ATTENZIONE!!! Il server VNC è in esecuzione senza password!\n"
-"Potete utilizzare l'opzione di boot vncpassword=<password>\n"
-"se volete rendere sicuro il server.\n"
+"E' possibile utilizzare l'opzione di boot vncpassword=<password>\n"
+"se si vuole rendere sicuro il server.\n"
 "\n"
 
 #: ../vnc.py:295
@@ -2630,13 +2621,11 @@ msgstr "Abbandono dopo 50 tentativi di connessione!\n"
 #: ../vnc.py:316
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Connettete manualmente il vostro client vnc a %s per far iniziare "
-"l'installazione."
+msgstr "Connettete manualmente il client vnc a %s per far iniziare l'installazione."
 
 #: ../vnc.py:318
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Connettete manualmente il vostro client vnc per far iniziare l'installazione."
+msgstr "Connettete manualmente il client vnc per iniziare l'installazione."
 
 #: ../vnc.py:322
 msgid "Will try to connect again in 15 seconds..."
@@ -2727,7 +2716,7 @@ msgstr "pacchetto per os incorretto"
 
 #: ../yuminstall.py:551
 msgid "You need more space on the following file systems:\n"
-msgstr "Avete bisogno di più spazio sui seguenti file system:\n"
+msgstr "Si ha bisogno di più spazio sui seguenti file system:\n"
 
 #: ../yuminstall.py:567
 msgid "Error running transaction"
@@ -2762,7 +2751,7 @@ msgid ""
 "generated.  %s"
 msgstr ""
 "Non è stato possibile leggere i metadati dei pacchetti. Potrebbe essere "
-"dovuto ad una directory repodata mancante.  Controllate che il vostro albero "
+"dovuto ad una directory repodata mancante.  Controllare che l'albero "
 "di installazione sia stato generato correttamente.  %s"
 
 #: ../yuminstall.py:740
@@ -2794,8 +2783,8 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Il sistema dal quale state eseguendo l'aggiornamento è troppo vecchio per "
-"essere aggiornato alla versione di %s. Siete sicuri di voler continuare il "
+"Il sistema del quale si sta eseguendo l'aggiornamento è troppo vecchio per "
+"essere aggiornato alla versione di %s. Si è sicuri di voler continuare il "
 "processo di aggiornamento?"
 
 #: ../yuminstall.py:1114
@@ -2836,17 +2825,15 @@ msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
 #: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Non avete specificato il numero del dispositivo o il numero non è valido"
+msgstr "Non si è specificato il numero del dispositivo o il numero non è valido"
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Non avete specificato il nome della porta worldwide, oppure il nome non è "
-"valido."
+msgstr "Non si è specificato il nome della porta worldwide o il nome non è valido."
 
 #: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Non avete specificato un FCP LUN, oppure il numero non è valido."
+msgstr "Non si è specificato un FCP LUN o il numero non è valido."
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
@@ -2866,7 +2853,7 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"Dovete inserire la vostra password di root, e confermarla inserendola una "
+"Si deve inserire la password di root, e confermarla inserendola una "
 "seconda volta per continuare."
 
 #: ../iw/account_gui.py:57
@@ -3587,7 +3574,7 @@ msgstr "_Emulazione 3 pulsanti"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
-msgstr "Seleziona il mouse appropriato per il sistema."
+msgstr "Selezionare il mouse appropriato per il sistema."
 
 #: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
 #: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
@@ -3815,7 +3802,7 @@ msgid ""
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
 "E' possibile configurare il boot loader per avviare altri sistemi operativi "
-"selezionandoli dall'elenco. Per aggiungere altri sistemi operativi, non "
+"selezionandoli da un elenco. Per aggiungere altri sistemi operativi, non "
 "rilevati automaticamente, fare click su 'Aggiungi'. Per cambiare il sistema "
 "operativo avviato per impostazione predefinita, selezionare 'Predefinito' "
 "per il sistema operativo desiderato."
@@ -3847,7 +3834,7 @@ msgstr "_Etichetta"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "Immaginee di destinazione _predefinita "
+msgstr "Immagine di avvio _predefinita"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
@@ -4328,7 +4315,7 @@ msgstr "Errore dell'unità di destinazione"
 
 #: ../iw/raid_dialog_gui.py:533
 msgid "Please select the target drives for the clone operation."
-msgstr "Seleziona le unità di destinazione per l'operazione di clonazione."
+msgstr "Selezionare le unità di destinazione per l'operazione di clonazione."
 
 #: ../iw/raid_dialog_gui.py:539
 #, python-format
@@ -4620,7 +4607,7 @@ msgstr "Crea un file di s_wap"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Seleziona la _partizione nella quale creare il file di swap:"
+msgstr "Selezionare la _partizione nella quale creare il file di swap:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:107
 msgid "Partition"
@@ -4672,7 +4659,7 @@ msgstr "Configurazione del boot loader z/IPL"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "Il boot loader z/IPL sarà installato sul vostro sistema."
+msgstr "Il boot loader z/IPL sarà installato sul sistema."
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4803,7 +4790,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:290
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Spazio> seleziona | <F2> seleziona predefinita | <F4> cancella |<F12> "
+" <Spazio> seleziona | <F2> selezione predefinita | <F4> cancella |<F12> "
 "schermata successiva>"
 
 #: ../textw/bootloader_text.py:386
@@ -5186,7 +5173,7 @@ msgstr "Hostname non valido"
 
 #: ../textw/network_text.py:807
 msgid "You have not specified a hostname."
-msgstr "Non avete specificato un hostname."
+msgstr "Non si è specificato un nome host."
 
 #: ../textw/partition_text.py:43
 msgid "Must specify a value"
@@ -5508,9 +5495,8 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Per usare dischi iSCSI, dovrete fornire l'indirizzo dei vostri target iSCSI "
-"ed il nome dell'inizializzatore iSCSI che avete configurato per il vostro "
-"host."
+"Per usare dischi iSCSI, si dovrà fornire l'indirizzo dei target iSCSI "
+"ed il nome dell'inizializzatore iSCSI che si è configurato per l'host."
 
 #: ../textw/partition_text.py:1726
 msgid "Target IP Address"
@@ -5544,7 +5530,7 @@ msgid ""
 "support?"
 msgstr ""
 "L'installazione predefinita di %s include un gruppo di software adatto "
-"all'uso generico di internet.  Di quali altri compiti si desidera che il "
+"per un uso generico di internet.  Di quali altri compiti si desidera che il "
 "sistema includa il supporto?"
 
 #: ../textw/task_text.py:63
@@ -5868,7 +5854,7 @@ msgstr "Scegliere l'immagine del disco driver"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr "Selezionate il file che risulta essere il vostro driver disk image."
+msgstr "Selezionare il file immagine del disco driver."
 
 #: ../loader2/driverdisk.c:377
 msgid "Failed to load driver disk from file."
@@ -5993,7 +5979,7 @@ msgstr "Specifica i parametri facoltativi dei moduli"
 
 #: ../loader2/driverselect.c:228
 msgid "Select Device Driver to Load"
-msgstr "Seleziona il Driver dei dispositivi da utilizzare"
+msgstr "Selezionare il driver dei dispositivi da utilizzare"
 
 #: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
@@ -6043,7 +6029,7 @@ msgstr "Directory contenente le immagini:"
 
 #: ../loader2/hdinstall.c:332
 msgid "Select Partition"
-msgstr "Seleziona la partizione"
+msgstr "Selezionare la partizione"
 
 #: ../loader2/hdinstall.c:372
 #, c-format
@@ -6400,9 +6386,9 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 "%s è un adattatore di rete di tipo wireless. Si prega di fornire l'ESSID e "
-"la chiave di codifica necessaria per accedere alla vostra rete wireless. Se "
-"la suddetta chiave non è necessaria, lasciate questo campo vuoto, e "
-"procedete con l'installazione."
+"la chiave di codifica necessaria per accedere alla rete wireless. Se "
+"la suddetta chiave non è necessaria, lasciare questo campo vuoto, e "
+"procedere con l'installazione."
 
 #: ../loader2/net.c:263
 msgid "ESSID"
@@ -6757,8 +6743,8 @@ msgid ""
 msgstr ""
 "L'installazione richiede il partizionamento del disco rigido.  Per "
 "impostazione predefinita, viene scelto uno schema di partizionamento "
-"ragionevole per la maggior parte degli utenti.  Puoi scegliere se usare lo "
-"schema predefinito o crearne uno tuo."
+"ragionevole per la maggior parte degli utenti.  E' possibile scegliere se usare lo "
+"schema predefinito o crearne uno proprio."
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6774,7 +6760,7 @@ msgstr "Configurazione avanzata dello storage"
 
 #: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Seleziona il disco(hi) da utilizzare per l'installazione."
+msgstr "_Selezionare il disco(hi) da utilizzare per l'installazione."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
