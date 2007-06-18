@@ -56,7 +56,6 @@
 #define FL_KSFILE(a)	    ((a) & LOADER_FLAGS_KSFILE)
 #define FL_NOUSB(a)	    ((a) & LOADER_FLAGS_NOUSB)
 #define FL_NOSHELL(a)	    ((a) & LOADER_FLAGS_NOSHELL)
-#define FL_NOFB(a)          ((a) & LOADER_FLAGS_NOFB)
 #define FL_NOPCMCIA(a)	    ((a) & LOADER_FLAGS_NOPCMCIA)
 #define FL_RESCUE_NOMOUNT(a) ((a) & LOADER_FLAGS_RESCUE_NOMOUNT)
 #define FL_TELNETD(a)       ((a) & LOADER_FLAGS_TELNETD)
