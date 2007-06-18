@@ -4,6 +4,11 @@
 	after zFCP devices are brought online so we pick them up later in
 	the installer (#236903).
 
+	* partedUtils.py (DiskSet.openDevices): Check for more than 15
+	partitions on the disk we are scanning.  If more than 15 are found,
+	alert the user and return.  libata won't allow more than 15 partitions
+	at the moment (#238858).
+
 2007-06-14  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
