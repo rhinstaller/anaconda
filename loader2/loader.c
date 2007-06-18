@@ -788,7 +788,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     if (asprintf(&extraArgs[numExtraArgs],
                                  "--xdriver=vesa") == -1)
                         return;
-                    logMessage(warning, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
+                    logMessage(WARNING, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
                 } else {
                     if (asprintf(&extraArgs[numExtraArgs],"--%s",argv[i]) == -1)
                         return;
