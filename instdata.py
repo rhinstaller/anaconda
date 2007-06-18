@@ -61,7 +61,7 @@ class InstallData:
 	self.timezone = timezone.Timezone()
         self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
         self.users = None
-        self.rootPassword = { "isCrypted": False, "password": "", lock: False }
+        self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
 	self.upgrade = None

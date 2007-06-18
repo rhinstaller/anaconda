@@ -1,9 +1,11 @@
 2007-06-18  Chris Lumens  <clumens@redhat.com>
 
+	* instdata.py (InstallData.reset):  Fix another syntax error.
+
 	* urlinstall.py (UrlInstallMethod.__init__):  Remove call to
 	removed function (#244528).
 
-        * scripts/upd-instroot:  libbz2 has changed location (#243566).
+	* scripts/upd-instroot:  libbz2 has changed location (#243566).
 
 2007-06-15  Jeremy Katz  <katzj@redhat.com>
 
