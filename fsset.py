@@ -1234,13 +1234,16 @@ class FileSystemSet:
         for entry in self.entries:
             new.add (entry)
         return new
-    
+
     def fstab (self):
-	format = "%-23s %-23s %-7s %-15s %d %d\n"
+        format = "%-23s %-23s %-7s %-15s %d %d\n"
         fstab = ""
         for entry in self.entries:
             if entry.mountpoint:
-                if entry.getLabel():
+                # use LABEL if the device has a label except for multipath
+                # devices.  always use devname on mpath devices
+                if entry.getLabel() and \
+                   entry.device.getDevice().find('mpath') == -1:
                     device = "LABEL=%s" % (entry.getLabel(),)
                 else:
                     device = devify(entry.device.getDevice())
@@ -1282,7 +1285,7 @@ class FileSystemSet:
 
     def mdadmConf(self):
         raident = 0
-        
+
         cf = """
 # mdadm.conf written out by anaconda
 DEVICE partitions

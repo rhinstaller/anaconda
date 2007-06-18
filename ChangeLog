@@ -9,6 +9,14 @@
 	alert the user and return.  libata won't allow more than 15 partitions
 	at the moment (#238858).
 
+	* backend.py (AnacondaBackend.doPostInstall): Make sure the multipath
+	bindings file exists on the target system, add multipath WWIDs to the
+	blacklist_exception block in multipath.conf (#243527), add mpath
+	filters to lvm.conf on the target system (#243531).
+
+	* fsset.py (FileSystemSet.fstab): Always print the device node name
+	for mpath devices in /etc/fstab rather than a LABEL line (#243532).
+
 2007-06-14  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

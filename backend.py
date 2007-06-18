@@ -23,6 +23,7 @@ from syslogd import syslog
 from rhpl.translate import _
 
 from flags import flags
+from fsset import devify
 log = logging.getLogger("anaconda")
 
 
@@ -50,15 +51,104 @@ class AnacondaBackend:
         sys.stdout.flush()
         if flags.setupFilesystems:
             syslog.stop()
-        try:
-            if not flags.mpath:
-                path = self.instPath + "/etc/sysconfig/mkinitrd/multipath"
-                f = open(path, "w")
-                f.write("MULTIPATH=no\n")
-                f.close()
-                os.chmod(path, 0755)
-        except:
-            pass
+
+        # disable multipath boot features if system isn't using multipath
+        if not flags.mpath:
+            mpfile = self.instPath + "/etc/sysconfig/mkinitrd/multipath"
+            leading = os.path.dirname(mpfile)
+
+            if not os.path.isdir(leading):
+                os.makedirs(leading, mode=0755)
+
+            f = open(mpfile, "w")
+            f.write("MULTIPATH=no\n")
+            f.close()
+            os.chmod(mpfile, 0755)
+
+        # make sure /var/lib/multipath/bindings exists on final system
+        bindings = '/var/lib/multipath/bindings'
+        wwids = []
+        if flags.mpath and os.path.isfile(bindings):
+            leading = self.instPath + os.path.dirname(bindings)
+
+            if not os.path.isdir(leading):
+                os.makedirs(leading, mode=0755)
+
+            shutil.copy2(bindings, leading + '/bindings')
+
+            # read in WWIDs per mpath device
+            f = open(bindings, 'r')
+            lines = map(lambda s: s[:-1], f.readlines())
+            f.close()
+
+            for l in lines:
+                if l.strip().startswith('mpath'):
+                    try:
+                        i = l.index(' ')
+                        wwid = l[i:].strip()
+                        wwids.append(wwid)
+                    except:
+                        pass
+
+        # since all devices are blacklisted by default, add a
+        # blacklist_exception block for the devices we want treated as
+        # multipath devices  --dcantrell (BZ #243527)
+        mpconf = self.instPath + "/etc/multipath.conf"
+        if flags.mpath:
+            f = open(mpconf, "r")
+            # remove newline from the end of each line
+            mplines = map(lambda s: s[:-1], f.readlines())
+            f.close()
+
+            f = open(mpconf, "w")
+
+            blacklist = False
+            depth = 0
+            for line in mplines:
+                if line.strip().startswith('#'):
+                    f.write("%s\n" % (line,))
+                else:
+                    if blacklist:
+                        depth += line.count('{')
+                        depth -= line.count('}')
+                        f.write("#%s\n" % (line,))
+
+                        if depth == 0:
+                            blacklist = False
+
+                            # write out the catch-all blacklist section to
+                            # blacklist all device types
+                            f.write('\nblacklist {\n')
+                            f.write('        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"\n')
+                            f.write('        devnode "^hd[a-z]"\n')
+                            f.write('        wwid "*"\n')
+                            f.write('}\n')
+
+                            # write out the blacklist exceptions with
+                            # multipath WWIDs
+                            if wwids != []:
+                                f.write('\n# Make sure our multipath devices are enabled.\n')
+                                f.write('\nblacklist_exception {\n')
+
+                                for wwid in wwids:
+                                    f.write("        wwid \"%s\"\n" % (wwid,))
+
+                                f.write('}\n\n')
+                    else:
+                        if line.strip().startswith('blacklist'):
+                            depth += line.count('{')
+                            depth -= line.count('}')
+                            blacklist = True
+                            f.write("#%s\n" % (line,))
+                        else:
+                            f.write("%s\n" % (line,))
+
+        # add mpath filters to /etc/lvm/lvm.conf (#243531)
+        conf = self.instPath + '/etc/lvm/lvm.conf'
+        if flags.mpath and os.path.isfile(conf):
+            f = open(conf, 'w+')
+            f.write('filter = [ "a|/dev/mpath|", "r|.*|" ]\n')
+            f.close()
 
     def doInstall(self, anaconda):
         pass
