@@ -47,9 +47,8 @@ FSMODS="fat msdos vfat ext2 ext3 reiserfs jfs xfs gfs2 lock_nolock"
 LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror dm-multipath dm-round-robin dm-emc dm-crypt"
 RAIDMODS="md raid0 raid1 raid5 raid6 raid456 raid10"
 SECSTAGE="$RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS"
-BTERMMODS="vga16fb"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
 
 # Set, verify, and create paths
     KERNELPATH=$1
@@ -618,7 +617,7 @@ EOF
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
-    for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color b/bterm g/gnome ; do
+    for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
 	[ -f $IMGPATH/usr/share/terminfo/$i ] && \
 	  install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done

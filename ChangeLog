@@ -4,6 +4,11 @@
 	
 	* docs/command-line.txt: Remove obsolete noparport docs
 
+	* loader2/loader.c: Remove support for nofb and vga16 framebuffer
+	* scripts/mk-images: Remove vga16 framebuffer module, bterm terminfo
+	* scripts/upd-instroot: Likewise.
+	* docs/command-line.txt: Remove nofb docs
+
 2007-06-18  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.reset):  Fix another syntax error.

@@ -102,7 +102,7 @@ static int hasGraphicalOverride();
 static int newtRunning = 0;
 
 /* boot flags -- we need these in a lot of places */
-int flags = LOADER_FLAGS_SELINUX | LOADER_FLAGS_NOFB;
+int flags = LOADER_FLAGS_SELINUX;
 
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
@@ -221,9 +221,6 @@ char * getProductPath(void) {
 
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo) {
-    if (!FL_NOFB(flags))
-        mlLoadModuleSet("vgastate:vga16fb", modLoaded, modDeps, modInfo);
-
     /* enable UTF-8 console */
     printf("\033%%G");
     fflush(stdout);
@@ -666,8 +663,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPASS;
         else if (!strcasecmp(argv[i], "serial")) 
             flags |= LOADER_FLAGS_SERIAL;
-        else if (!strcasecmp(argv[i], "nofb"))
-            flags |= LOADER_FLAGS_NOFB;
         else if (!strcasecmp(argv[i], "noipv6")) {
             flags |= LOADER_FLAGS_NOIPV6;
             loaderData->noipv6 = 1;
@@ -793,7 +788,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     if (asprintf(&extraArgs[numExtraArgs],
                                  "--xdriver=vesa") == -1)
                         return;
-                    logMessage(WARNING, "\"vesa\" command line argument is deprecated.  Use \"xdriver=vesa\".");
+                    logmessage(warning, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
                 } else {
                     if (asprintf(&extraArgs[numExtraArgs],"--%s",argv[i]) == -1)
                         return;
@@ -1516,9 +1511,6 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
-    if (FL_SERIAL(flags))
-        flags |= LOADER_FLAGS_NOFB;
-
     setupRamfs();
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
