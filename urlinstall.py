@@ -244,8 +244,6 @@ class UrlInstallMethod(InstallMethod):
         self.baseUrl = urlparse.urlunsplit((scheme,netloc,path,query,fragid))
         self.pkgUrl = self.baseUrl
 
-        self.__checkUrlForIsoMounts()
-
         self.currentMedia = []
 
         self.messageWindow = intf.messageWindow

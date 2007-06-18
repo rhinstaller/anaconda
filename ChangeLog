@@ -1,3 +1,8 @@
+2007-06-18  Chris Lumens  <clumens@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.__init__):  Remove call to
+	removed function (#244528).
+
 2007-06-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
