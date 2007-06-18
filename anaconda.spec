@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.38
+Version: 11.1.2.39
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.39-1
+- Flush driveDict so zFCP are picked up after being brought online
+  Resolves: rhbz#236903
+- Warn user when more than 15 partitions found on a libata-controlled disk
+  Resolves: rhbz#238858
+- Add mpath filters to lvm.conf on target system
+  Resolves: rhbz#243531
+- Make sure target system has multipath bindings file, add multipath WWIDs
+  to blacklist_exception block in multipath.conf
+  Resolves: rhbz#243527
+- Always print device node name for mpath devices in fstab
+  Resolves: rhbz#243532
+
 * Thu Jun 14 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.38-1
 - Import tempfile to fix kickstart install tracebacks.
   Resolves: rhbz#244240

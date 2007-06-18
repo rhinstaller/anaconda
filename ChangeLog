@@ -1,5 +1,9 @@
 2007-06-18  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-06-18  David Cantrell  <dcantrell@redhat.com>
+
 	* kickstart.py (AnacondaKSHandlers.doZFCP): Flush isys driveDict
 	after zFCP devices are brought online so we pick them up later in
 	the installer (#236903).
