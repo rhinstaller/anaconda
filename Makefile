@@ -74,7 +74,6 @@ install:
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-names $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
