@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.2
+Version: 11.3.0.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 18 2007 Chris Lumens <clumens@redhat.com> - 11.3.0.3-1
+- Remove obsolete language and loader options (notting).
+- Remove unused gzlib implementation (pjones).
+- Finish removing split ISO loopback method (#244258).
+- libbz2 has changed location (#243566).
+
 * Fri Jun 15 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.2-1
 - fix syntax error (jkeating)
 - don't capture passwords from kickstart in exception dumps (clumens)
