@@ -599,7 +599,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         uniqueID = self.ksID
         self.ksVGMapping[vgd.vgname] = uniqueID
         self.ksID += 1
-            
+
         request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
                                                       physvols = pvs,
                                                       preexist = vgd.preexist,
@@ -627,6 +627,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doZFCP(self, args)
         for fcp in self.ksdata.zfcp:
             self.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+
+        isys.flushDriveDict()
 
 class VNCHandlers(KickstartHandlers):
     # We're only interested in the handler for the VNC command.
