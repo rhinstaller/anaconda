@@ -286,6 +286,7 @@ $LIBDIR/libpthread*
 $LIBDIR/librt[-.]*
 $LIBDIR/ld*.so*
 $LIBDIR/libblkid*
+$LIBDIR/libbz2*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
 $LIBDIR/libdb-*
@@ -396,7 +397,6 @@ usr/$LIBDIR/gconv/gconv-modules
 usr/$LIBDIR/libbeecrypt*
 usr/$LIBDIR/libssl*
 usr/$LIBDIR/libcrypto*
-usr/$LIBDIR/libbz2*
 usr/$LIBDIR/libdhcp*
 usr/$LIBDIR/libelf*
 usr/$LIBDIR/libnash*
