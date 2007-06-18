@@ -1,5 +1,10 @@
 2007-06-18  Peter Jones  <pjones@redhat.com>
 
+	* isys/Makefile isys/gzlib/*: Remove all of this since we never use
+	it.
+
+2007-06-18  Peter Jones  <pjones@redhat.com>
+
 	* loader2/loader.h: Fix notting's "logmessage" typo.
 
 2007-06-18  Bill Nottingham  <notting@redhat.com>

@@ -14,7 +14,7 @@ ifeq ($(USESELINUX),1)
 LOADLIBES += -laudit
 endif
 PYMODULES = _isys.so
-SUBDIRS = gzlib
+SUBDIRS = 
 
 # glib
 LOADLIBES += $(shell pkg-config --libs glib-2.0)
