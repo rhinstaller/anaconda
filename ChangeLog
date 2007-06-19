@@ -1,7 +1,15 @@
 2007-06-19  David Cantrell  <dcantrell@redhat.com>
 
-	* scripts/upd-instroot: Copy in multipath and kpartx command to
-	the stage2 image (#185852).
+	* scripts/upd-instroot: Copy in multipath, kpartx, and the
+	mpath_prio_ commands to the stage2 image (#185852).
+
+	* backend.py (AnacondaBackend.doPostInstall): Modify lvm.conf mpath
+	filter to catch /dev/mapper/mpath* and /dev/mpath* (#185852).
+
+	* backend.py (AnacondaBackend.doPostInstall): Run /sbin/multipath for
+	the multipath devices set up during installation.  Copy resulting
+	bindings file to target system.  Copy WWIDs from bindings file to
+	target system's multipath blacklist_exception block (#185852).
 
 2007-06-18  David Cantrell  <dcantrell@redhat.com>
 

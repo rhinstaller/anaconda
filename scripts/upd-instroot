@@ -122,7 +122,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
-	 libdhcp libnl libdhcp6client libdhcp4client
+	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -202,7 +202,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
-                device-mapper dmraid"
+                device-mapper device-mapper-multipath dmraid"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -320,6 +320,11 @@ $LIBDIR/libgmodule*
 $LIBDIR/libgobject*
 $LIBDIR/libgthread*
 $LIBDIR/libvolume_id*
+sbin/dmraid.static
+sbin/dmsetup.static
+sbin/multipath.static
+sbin/kpartx.static
+sbin/mpath_prio_*.static
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -851,10 +856,6 @@ bin/zcat
 etc/joe/*
 sbin/arp
 sbin/depmod
-sbin/dmraid.static
-sbin/dmsetup.static
-sbin/multipath.static
-sbin/kpartx.static
 sbin/dump
 sbin/ifconfig
 sbin/insmod
@@ -985,6 +986,14 @@ for i in $DEST $DESTGR; do
     for tool in dmraid dmsetup kpartx multipath ; do
         if [ -f $i/sbin/$tool.static ]; then
             mv $i/sbin/$tool.static $i/sbin/$tool
+        fi
+    done
+
+    for mpath in $i/sbin/mpath_prio_*.static ; do
+        if -f $mpath ]; then
+            d=$(dirname $mpath)
+            b=$(basename $mpath .static)
+            mv $mpath $d/$b
         fi
     done
 done

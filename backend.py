@@ -65,30 +65,44 @@ class AnacondaBackend:
             f.close()
             os.chmod(mpfile, 0755)
 
-        # make sure /var/lib/multipath/bindings exists on final system
+        # make sure multipath bindings file exists on final system
         bindings = '/var/lib/multipath/bindings'
         wwids = []
-        if flags.mpath and os.path.isfile(bindings):
-            leading = self.instPath + os.path.dirname(bindings)
+        if flags.mpath:
+            if not os.path.isfile(bindings):
+                d = os.path.dirname(bindings)
 
-            if not os.path.isdir(leading):
-                os.makedirs(leading, mode=0755)
+                if not os.path.isdir(d):
+                    os.makedirs(d, mode=0755)
 
-            shutil.copy2(bindings, leading + '/bindings')
+                for entry in anaconda.id.fsset.entries:
+                    if entry.getDevice().find('mpath') != -1:
+                        rc = iutil.execWithRedirect("/sbin/multipath",
+                                 ["-v", "0", entry.getDevice()],
+                                 stdout = "/dev/tty5",
+                                 stderr = "/dev/tty5")
 
-            # read in WWIDs per mpath device
-            f = open(bindings, 'r')
-            lines = map(lambda s: s[:-1], f.readlines())
-            f.close()
+            if os.path.isfile(bindings):
+                leading = self.instPath + os.path.dirname(bindings)
 
-            for l in lines:
-                if l.strip().startswith('mpath'):
-                    try:
-                        i = l.index(' ')
-                        wwid = l[i:].strip()
-                        wwids.append(wwid)
-                    except:
-                        pass
+                if not os.path.isdir(leading):
+                    os.makedirs(leading, mode=0755)
+
+                shutil.copy2(bindings, leading + '/bindings')
+
+                # read in WWIDs per mpath device
+                f = open(bindings, 'r')
+                lines = map(lambda s: s[:-1], f.readlines())
+                f.close()
+
+                for l in lines:
+                    if l.strip().startswith('mpath'):
+                        try:
+                            i = l.index(' ')
+                            wwid = l[i:].strip()
+                            wwids.append(wwid)
+                        except:
+                            pass
 
         # since all devices are blacklisted by default, add a
         # blacklist_exception block for the devices we want treated as
@@ -147,7 +161,7 @@ class AnacondaBackend:
         conf = self.instPath + '/etc/lvm/lvm.conf'
         if flags.mpath and os.path.isfile(conf):
             f = open(conf, 'w+')
-            f.write('filter = [ "a|/dev/mpath|", "r|.*|" ]\n')
+            f.write('filter = [ "a|/dev.*/mpath|", "r|.*|" ]\n')
             f.close()
 
     def doInstall(self, anaconda):
