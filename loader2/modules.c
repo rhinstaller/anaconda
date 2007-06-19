@@ -160,7 +160,7 @@ int mlReadLoadedList(moduleList * mlp) {
     return 0;
 }
 
-/* this leaks memory if their is a loop in the modules. oh well. */
+/* this leaks memory if there is a loop in the modules. oh well. */
 char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args, 
                      int depth, char *** listPtr, int * listSizePtr) {
     int listSize;
