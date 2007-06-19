@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <libgen.h>
 
+#include "copy.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "log.h"
@@ -438,78 +439,14 @@ void queryIsoMediaCheck(char *isoFile) {
     free(isoDir);
     free(master_timestamp);
     closedir(dir);
-    
 }
 
-/* Recursive */
-int copyDirectory(char * from, char * to) {
-    DIR * dir;
-    struct dirent * ent;
-    int fd, outfd;
-    char buf[4096];
-    int i;
-    struct stat sb;
-    char filespec[256];
-    char filespec2[256];
-    char link[1024];
+static void copyWarnFn (char *msg) {
+   logMessage(WARNING, msg);
+}
 
-    mkdir(to, 0755);
-
-    if (!(dir = opendir(from))) {
-        newtWinMessage(_("Error"), _("OK"),
-                       _("Failed to read directory %s: %s"),
-                       from, strerror(errno));
-        return 1;
-    }
-
-    errno = 0;
-    while ((ent = readdir(dir))) {
-        /* we could lose .a this way, but at least, we lose less */
-        if ((ent->d_name[0] == '.') && (strlen(ent->d_name) <= 2)) continue;
-
-        sprintf(filespec, "%s/%s", from, ent->d_name);
-        sprintf(filespec2, "%s/%s", to, ent->d_name);
-
-        lstat(filespec, &sb);
-
-        if (S_ISDIR(sb.st_mode)) {
-            logMessage(INFO, "recursively copying %s", filespec);
-            if (copyDirectory(filespec, filespec2)) return 1;
-        } else if (S_ISLNK(sb.st_mode)) {
-            i = readlink(filespec, link, sizeof(link) - 1);
-            link[i] = '\0';
-            if (symlink(link, filespec2)) {
-                logMessage(WARNING, "failed to symlink %s to %s: %s",
-                    filespec2, link, strerror(errno));
-            }
-        } else {
-            fd = open(filespec, O_RDONLY);
-            if (fd == -1) {
-                logMessage(ERROR, "failed to open %s: %s", filespec,
-                           strerror(errno));
-                return 1;
-            } 
-            outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
-            if (outfd == -1) {
-                logMessage(WARNING, "failed to create %s: %s", filespec2,
-                           strerror(errno));
-            } else {
-                fchmod(outfd, sb.st_mode & 07777);
-
-                while ((i = read(fd, buf, sizeof(buf))) > 0)
-                    i = write(outfd, buf, i);
-                close(outfd);
-            }
-
-            close(fd);
-        }
-
-        errno = 0;
-    }
-
-    closedir(dir);
-
-    return 0;
+static void copyErrorFn (char *msg) {
+   newtWinMessage(_("Error"), _("OK"), _(msg));
 }
 
 /* 
@@ -548,7 +485,8 @@ int unpackCpioBall(char * ballPath, char * rootDir) {
 void copyUpdatesImg(char * path) {
     if (!access(path, R_OK)) {
         if (!mountLoopback(path, "/tmp/update-disk", "loop7")) {
-            copyDirectory("/tmp/update-disk", "/tmp/updates");
+            copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+                          copyErrorFn);
             umountLoopback("/tmp/update-disk", "loop7");
             unlink("/tmp/update-disk");
         } else {
@@ -560,7 +498,8 @@ void copyUpdatesImg(char * path) {
 void copyProductImg(char * path) {
     if (!access(path, R_OK)) {
         if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
-            copyDirectory("/tmp/product-disk", "/tmp/product");
+            copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
+                          copyErrorFn);
             umountLoopback("/tmp/product-disk", "loop7");
             unlink("/tmp/product-disk");
         }

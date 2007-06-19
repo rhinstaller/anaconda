@@ -6,6 +6,13 @@
 	* loader2/driverdisk.c (loadDriverDisk):  Use copyDirectory to support
 	the new style of driver disk layouts.
 
+	* loader2/copy.c (copyDirectory):  Move function out of both init.c
+	and method.c, take function pointers for error reporting.
+	* loader2/Makefile:  Link in new copy.o object.
+	* loader2/driverdisk.c, loader2/init.c, loader2/method.c,
+	loader2.urlinstall.c:  Use the new copyDirectory.
+	* loader2/method.h:  Remove reference to copyDirectory.
+
 2007-06-18  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

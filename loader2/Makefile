@@ -38,7 +38,7 @@ BINS = loader
 
 HWOBJS = pcmcia.o usb.o firewire.o hardware.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o 
-OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
+OBJS = copy.o log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
 	md5.o mediacheck.o kickstart.o driverselect.o \
 	getparts.o dirbrowser.o \
@@ -86,7 +86,7 @@ loader.po: $(wildcard *.c)
 linuxrc.s390:
 	@echo "Nothing to do for $@"
 
-init: init.o undomounts.o shutdown.o
+init: init.o undomounts.o shutdown.o copy.o
 	$(CC) $(STATIC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 shutdown: shutdown.o undomounts.o

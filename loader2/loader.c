@@ -52,6 +52,7 @@
 #include <mcheck.h>
 #endif
 
+#include "copy.h"
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
 #include "log.h"
@@ -309,6 +310,15 @@ static void spawnShell(void) {
     return;
 }
 
+
+static void copyWarnFn (char *msg) {
+   logMessage(WARNING, msg);
+}
+
+static void copyErrorFn (char *msg) {
+   newtWinMessage(_("Error"), _("OK"), _(msg));
+}
+
 void loadUpdates(struct loaderData_s *loaderData) {
     int done = 0;
     int rc;
@@ -361,12 +371,14 @@ void loadUpdates(struct loaderData_s *loaderData) {
         } else {
             /* Copy everything to /tmp/updates so we can unmount the disk  */
             winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
-            if (!copyDirectory("/tmp/update-disk", "/tmp/updates")) done = 1;
+            if (!copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+		               copyErrorFn))
+	       done = 1;
             newtPopWindow();
             umount("/tmp/update-disk");
         }
     } while (!done);
-    
+
     return;
 }
 

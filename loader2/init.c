@@ -49,6 +49,7 @@
 #include <termios.h>
 #include <libgen.h>
 
+#include "copy.h"
 #include "devt.h"
 #include "devices.h"
 
@@ -376,72 +377,6 @@ static int termcmp(struct termios *a, struct termios *b) {
 }
 #endif
 
-/* Recursive -- copied (and tweaked)from loader2/method.c */ 
-static int copyDirectory(char * from, char * to) {
-    DIR * dir;
-    struct dirent * ent;
-    int fd, outfd;
-    char buf[4096];
-    int i;
-    struct stat sb;
-    char filespec[256];
-    char filespec2[256];
-    char link[1024];
-    int ret;
-
-    mkdir(to, 0755);
-
-    if (!(dir = opendir(from))) {
-        printf("Failed to read directory %s: %s", from, strerror(errno));
-        return 1;
-    }
-
-    errno = 0;
-    while ((ent = readdir(dir))) {
-        if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")) continue;
-
-        sprintf(filespec, "%s/%s", from, ent->d_name);
-        sprintf(filespec2, "%s/%s", to, ent->d_name);
-
-        lstat(filespec, &sb);
-
-        if (S_ISDIR(sb.st_mode)) {
-            if (copyDirectory(filespec, filespec2)) return 1;
-        } else if (S_ISLNK(sb.st_mode)) {
-            i = readlink(filespec, link, sizeof(link) - 1);
-            link[i] = '\0';
-            if (symlink(link, filespec2)) {
-                printf("failed to symlink %s to %s: %s", filespec2, 
-                       link, strerror(errno));
-            }
-        } else {
-            fd = open(filespec, O_RDONLY);
-            if (fd == -1) {
-                printf("failed to open %s: %s", filespec, strerror(errno));
-                return 1;
-            } 
-            outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
-            if (outfd == -1) {
-                printf("failed to create %s: %s", filespec2, strerror(errno));
-            } else {
-                fchmod(outfd, sb.st_mode & 07777);
-
-                while ((i = read(fd, buf, sizeof(buf))) > 0)
-                    ret = write(outfd, buf, i);
-                close(outfd);
-            }
-
-            close(fd);
-        }
-
-        errno = 0;
-    }
-
-    closedir(dir);
-
-    return 0;
-}
-
 static void createDevices(void) {
     int i;
 
@@ -529,6 +464,10 @@ static int getInitPid(void) {
     close(fd);
     ret = sscanf(buf, "%d", &pid);
     return pid;
+}
+
+static void copyErrorFn (char *msg) {
+    printf(msg);
 }
 
 int main(int argc, char **argv) {
@@ -756,7 +695,7 @@ int main(int argc, char **argv) {
         fatal_error(1);
     }
     printf("done\n");
-        
+
     /* we want our /tmp to be ramfs, but we also want to let people hack
      * their initrds to add things like a ks.cfg, so this has to be a little
      * tricky */
@@ -769,7 +708,7 @@ int main(int argc, char **argv) {
             fatal_error(1);
         printf("done\n");
 
-        copyDirectory("/oldtmp", "/tmp");
+        copyDirectory("/oldtmp", "/tmp", copyErrorFn, copyErrorFn);
         unlink("/oldtmp");
     }
 

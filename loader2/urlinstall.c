@@ -25,6 +25,7 @@
 
 #include "../isys/nl.h"
 
+#include "copy.h"
 #include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"
@@ -82,6 +83,13 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
     return rc;
 }
 
+static void copyWarnFn (char *msg) {
+   logMessage(WARNING, msg);
+}
+
+static void copyErrorFn (char *msg) {
+   newtWinMessage(_("Error"), _("OK"), _(msg));
+}
 
 static int loadUrlImages(struct iurlinfo * ui) {
     char *stage2img;
@@ -95,7 +103,8 @@ static int loadUrlImages(struct iurlinfo * ui) {
     if (!loadSingleUrlImage(ui, "images/updates.img",
                             "/tmp/ramfs/updates-disk.img", "/tmp/update-disk",
                             "loop7", 1)) {
-        copyDirectory("/tmp/update-disk", "/tmp/updates");
+        copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+                      copyErrorFn);
         umountLoopback("/tmp/update-disk", "loop7");
         unlink("/tmp/ramfs/updates-disk.img");
         unlink("/tmp/update-disk");
@@ -106,7 +115,8 @@ static int loadUrlImages(struct iurlinfo * ui) {
     if (!loadSingleUrlImage(ui, "images/product.img",
                             "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
                             "loop7", 1)) {
-        copyDirectory("/tmp/product-disk", "/tmp/product");
+        copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
+                      copyErrorFn);
         umountLoopback("/tmp/product-disk", "loop7");
         unlink("/tmp/ramfs/product-disk.img");
         unlink("/tmp/product-disk");

@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "copy.h"
 #include "loader.h"
 #include "log.h"
 #include "loadermisc.h"
@@ -83,6 +84,14 @@ static int verifyDriverDisk(char *mntpt) {
     return LOADER_OK;
 }
 
+static void copyWarnFn (char *msg) {
+   logMessage(WARNING, msg);
+}
+
+static void copyErrorFn (char *msg) {
+   newtWinMessage(_("Error"), _("OK"), _(msg));
+}
+
 /* this copies the contents of the driver disk to a ramdisk and loads
  * the moduleinfo, etc.  assumes a "valid" driver disk mounted at mntpt */
 static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
@@ -124,7 +133,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     }
 
     sprintf(dest, "/tmp/ramfs/DD-%d", disknum);
-    copyDirectory(mntpt, dest);
+    copyDirectory(mntpt, dest, copyWarnFn, copyErrorFn);
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
