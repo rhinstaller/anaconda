@@ -116,14 +116,15 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite neon
 	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
+	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
 	 policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
-	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python"
+	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python
+	 libselinux-python"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -440,6 +441,7 @@ usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/$LIBDIR/python?.?/site-packages/cElementTree.so
 usr/$LIBDIR/python?.?/site-packages/block
 usr/$LIBDIR/python?.?/site-packages/*.pth
+usr/$LIBDIR/python?.?/site-packages/*selinux*
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/elementtree/*
 usr/lib/python?.?/site-packages/rpmUtils/*
