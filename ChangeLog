@@ -1,3 +1,8 @@
+2007-06-19  Chris Lumens  <clumens@redhat.com>
+
+	* livecd.py (LiveCDImageMethod.doPostAction):  Fix traceback
+	(#244764).
+
 2007-06-18  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

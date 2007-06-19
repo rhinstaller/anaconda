@@ -92,7 +92,7 @@ class LiveCDImageMethod(installmethod.InstallMethod):
             try:
                 isys.umount("%s/%s" %(anaconda.rootPath,dir), removeDir = 0)
             except Exception, e:
-                log.error("unable to unmount %s: %s" %(d, e))
+                log.error("unable to unmount %s: %s" %(dir, e))
 
         try:
             anaconda.id.fsset.umountFilesystems(anaconda.rootPath,
