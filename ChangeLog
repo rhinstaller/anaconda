@@ -1,7 +1,8 @@
 2007-06-19  David Cantrell  <dcantrell@redhat.com>
 
-	* scripts/upd-instroot: Copy in multipath, kpartx, and the
-	mpath_prio_ commands to the stage2 image (#185852).
+	* scripts/upd-instroot: Copy in /sbin/multipath, /sbin/kpartx, and the
+	/sbin/mpath_prio_ commands to the stage2 image (static versions).  Also
+	copy in the /etc/multipath.conf file (#185852).
 
 	* backend.py (AnacondaBackend.doPostInstall): Modify lvm.conf mpath
 	filter to catch /dev/mapper/mpath* and /dev/mpath* (#185852).
