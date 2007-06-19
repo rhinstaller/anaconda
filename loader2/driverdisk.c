@@ -3,7 +3,7 @@
  *
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 2002-2003 Red Hat, Inc.
+ * Copyright 2002-2007 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -51,10 +51,6 @@ extern int flags;
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", 
                                     "modules.cgz", "modules.alias", NULL };
 
-
-static char * optionalFiles[] = { "modules.pcimap", "pci.ids", "pcitable", 
-                                  NULL };
-
 static int verifyDriverDisk(char *mntpt) {
     char ** fnPtr;
     char file[200];
@@ -93,7 +89,6 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
                           moduleDeps * modDepsPtr, char *mntpt) {
     char file[200], dest[200];
     char * title;
-    char ** fnPtr;
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
@@ -128,16 +123,8 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
         winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
     }
 
-    for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
-        sprintf(file, "%s/%s", mntpt, *fnPtr);
-        sprintf(dest, "/tmp/ramfs/DD-%d/%s", disknum, *fnPtr);
-        copyFile(file, dest);
-    }
-    for (fnPtr = optionalFiles; *fnPtr; fnPtr++) {
-        sprintf(file, "%s/%s", mntpt, *fnPtr);
-        sprintf(dest, "/tmp/ramfs/DD-%d/%s", disknum, *fnPtr);
-        copyFile(file, dest);
-    }
+    sprintf(dest, "/tmp/ramfs/DD-%d", disknum);
+    copyDirectory(mntpt, dest);
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
