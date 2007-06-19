@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.39
+Version: 11.1.2.40
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 19 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.40-1
+- Add libselinux-python to the stage2 image (clumens)
+  Resolves: rhbz#244892
+- Copy static multipath commands in to stage2 image
+  Related: rhbz#185852
+- Filter /dev/mapper/mpath* and /dev/mpath* in lvm.conf
+  Related: rhbz#185852
+- Run /sbin/multipath and copy generated bindings file to target system,
+  populate blacklist_exception block in multipath.conf with WWIDs from
+  generated bindings file
+  Related: rhbz#185852
+
 * Mon Jun 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.39-1
 - Flush driveDict so zFCP are picked up after being brought online
   Resolves: rhbz#236903
