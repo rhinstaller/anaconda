@@ -3,6 +3,9 @@
 	* livecd.py (LiveCDImageMethod.doPostAction):  Fix traceback
 	(#244764).
 
+	* loader2/driverdisk.c (loadDriverDisk):  Use copyDirectory to support
+	the new style of driver disk layouts.
+
 2007-06-18  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
