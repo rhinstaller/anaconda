@@ -853,6 +853,8 @@ sbin/arp
 sbin/depmod
 sbin/dmraid.static
 sbin/dmsetup.static
+sbin/multipath.static
+sbin/kpartx.static
 sbin/dump
 sbin/ifconfig
 sbin/insmod
@@ -980,10 +982,11 @@ fi
 
 for i in $DEST $DESTGR; do
     # there's never a case with only one of these...
-    if [ -f $i/sbin/dmraid.static ]; then
-        mv $i/sbin/dmraid.static $i/sbin/dmraid
-        mv $i/sbin/dmsetup.static $i/sbin/dmsetup
-    fi
+    for tool in dmraid dmsetup kpartx multipath ; do
+        if [ -f $i/sbin/$tool.static ]; then
+            mv $i/sbin/$tool.static $i/sbin/$tool
+        fi
+    done
 done
 
 # change mtimes to 0 (to match what happens on the cramfs)
