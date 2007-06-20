@@ -2,6 +2,8 @@
 
 	* autopart.py (doAutoPartition):  Remove invalid preexisting RAID
 	partition requests (#233308).
+	(doAutoPartition):  Fix a traceback when keeping preexisting
+	partitions or logical volumes (#182943).
 
 	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
 	instead of recycling the same node in /tmp (#172648).
