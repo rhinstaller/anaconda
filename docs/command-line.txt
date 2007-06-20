@@ -1,5 +1,5 @@
-6-Apr-2006
----------
+20-Jun-2007
+-----------
 
 Boot time command args:
 -----------------------
@@ -124,6 +124,11 @@ gateway=<gw>	Gateway to use for a network installation.
 
 dns=<dns>	Comma separated list of nameservers to use for a network
 		installation.
+
+nicdelay=<sec>  Pause for the given number of seconds before attempting to
+                bring up the network connection.  This is useful for
+                certain networks with spanning tree enabled on their
+                routers.
 
 method=nfs:<path> Use <path> for an NFS installation.
 
