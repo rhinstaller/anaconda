@@ -101,7 +101,7 @@ class LabelFactory:
     def __init__(self):
         self.labels = None
 
-    def createLabel(self, mountpoint, maxLabelChars):
+    def createLabel(self, mountpoint, maxLabelChars, kslabel = None):
         if self.labels == None:
 
             self.labels = {}
@@ -112,6 +112,13 @@ class LabelFactory:
             labels = diskset.getLabels()
             del diskset
             self.reserveLabels(labels)
+
+        # If a label was specified in the kickstart file, return that as
+        # the label - unless it's already in the reserved list.  If that's
+        # the case, make a new one.
+        if kslabel and kslabel not in self.labels:
+           self.labels[kslabel] = 1
+           return kslabel
         
         if len(mountpoint) > maxLabelChars:
             mountpoint = mountpoint[0:maxLabelChars]
@@ -433,7 +440,8 @@ class xfsFileSystem(FileSystemType):
         
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
         db_cmd = "label " + label
         rc = iutil.execWithRedirect("/usr/sbin/xfs_db",
                                     ["xfs_db", "-x", "-c", db_cmd,
@@ -479,7 +487,8 @@ class jfsFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-	label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+	label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
 	rc = iutil.execWithRedirect("/usr/sbin/jfs_tune",
 	                            ["jfs_tune", "-L", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -514,7 +523,8 @@ class extFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
         rc = iutil.execWithRedirect("/usr/sbin/e2label",
                                     ["e2label", devicePath, label],
                                     stdout = "/dev/tty5",
@@ -759,10 +769,13 @@ class FATFileSystem(FileSystemType):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("fat32")
         self.formattable = 1
+        self.supported = 1
         self.checked = 0
         self.maxSizeMB = 1024 * 1024
         self.name = "vfat"
         self.packages = [ "dosfstools" ]
+        self.maxLabelChars = 11
+        self.migratetofs = ['vfat']
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -775,6 +788,101 @@ class FATFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
         if rc:
             raise SystemError
+
+    def labelDevice(self, entry, chroot):
+        if not iutil.getArch() == 'ia64':
+            return
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+
+        rc = iutil.execWithRedirect("/usr/sbin/dosfslabel",
+                                    ["dosfslabel", devicePath, label],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5",
+                                    searchPath = 1)
+        newLabel = iutil.execWithCapture("/usr/sbin/dosfslabel",
+                                         ["dosfslabel", devicePath],
+                                         stderr = "/dev/tty5")
+        newLabel = newLabel.strip()
+        if label != newLabel:
+            raise SystemError, "dosfslabel failed on device %s" % (devicePath,)
+        entry.setLabel(label)
+
+    def _readFstab(self, path):
+        f = open (path, "r")
+        lines = f.readlines ()
+        f.close()
+
+        fstab = []
+        for line in lines:
+            fields = string.split(line)
+        
+            if not fields:
+                fstab.append(line)
+                continue
+        
+            if line[0] == "#":
+                fstab.append(line)
+                # skip all comments
+                continue
+        
+            # all valid fstab entries have 6 fields; if the last two are
+            # missing they are assumed to be zero per fstab(5)
+            if len(fields) < 4:
+                fstab.append(line)
+                continue
+            elif len(fields) == 4:
+                fields.append(0)
+                fields.append(0)            
+            elif len(fields) == 5:
+                fields.append(0)                        
+            elif len(fields) > 6:
+                fstab.append(line)
+                continue
+            fstab.append(fields)
+
+        return fstab
+
+    def migrateFileSystem(self, entry, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        if not entry.fsystem or not entry.origfsystem:
+            raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
+                                 "origfsystem set")
+        if entry.fsystem.getName() != "vfat":
+            raise RuntimeError, ("Trying to migrate vfat to something other "
+                                 "than vfat")
+
+        self.labelDevice(entry, chroot)
+
+        if not entry.label:
+            return
+
+        try:
+            os.stat(chroot + "/etc/fstab")
+        except:
+            return
+        mounts = self._readFstab(chroot + "/etc/fstab")
+
+        changed = False
+        for mount in mounts:
+            if type(mount) == types.ListType:
+                if mount[0] == "/dev/%s" % (entry.device.getDevice(),):
+                    mount[0] = "LABEL=%s" % (entry.label,)
+                    changed = True
+
+        if changed:
+            os.rename(chroot + "/etc/fstab", chroot + "/etc/fstab.anaconda")
+            f = open (chroot + "/etc/fstab", "w")
+            for mount in mounts:
+                if type(mount) == types.ListType:
+                    mount = string.join(mount, "\t")
+                if mount[:-1] != "\n":
+                    mount += "\n"
+                f.write(mount)
+            f.close()
+
         
 fileSystemTypeRegister(FATFileSystem())
 

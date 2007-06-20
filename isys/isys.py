@@ -689,10 +689,29 @@ def readSwapLabel(device, makeDevNode = 1):
 def readExt2Label(device, makeDevNode = 1):
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")
-        label = _isys.e2fslabel("/tmp/disk");
+        label = _isys.e2fslabel("/tmp/disk")
         os.unlink("/tmp/disk")
     else:
         label = _isys.e2fslabel(device)
+    return label
+
+def _readFATLabel(device):
+    label = iutil.execWithCapture("/usr/sbin/dosfslabel",
+                                  ["dosfslabel", device], stderr="/dev/tty5")
+    label = label.strip()
+    if len(label) == 0:
+        return None
+    return label
+
+def readFATLabel(device, makeDevNode = 1):
+    if not iutil.getArch() == "ia64":
+        return None
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+        label = _readFATLabel("/tmp/disk")
+        os.unlink("/tmp/disk")
+    else:
+        label = _readFATLabel(device)
     return label
 
 def readFSLabel(device, makeDevNode = 1):
@@ -703,6 +722,8 @@ def readFSLabel(device, makeDevNode = 1):
         label = readXFSLabel(device, makeDevNode)
     if label is None:
         label = readJFSLabel(device, makeDevNode)
+    if label is None:
+        label = readFATLabel(device, makeDevNode)
     return label
 
 def ext2IsDirty(device):
