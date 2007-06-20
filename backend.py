@@ -76,7 +76,7 @@ class AnacondaBackend:
                     os.makedirs(d, mode=0755)
 
                 for entry in anaconda.id.fsset.entries:
-                    if entry.getDevice().find('mpath') != -1:
+                    if entry.device.getDevice().find('mapper/mpath') != -1:
                         rc = iutil.execWithRedirect("/sbin/multipath",
                                  ["-v", "0", entry.getDevice()],
                                  stdout = "/dev/tty5",
