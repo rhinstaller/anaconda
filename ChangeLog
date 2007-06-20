@@ -9,6 +9,10 @@
 	* loader2/urlinstall.c (getFileFromUrl): Call getHostPathandLogin()
 	rather than getHostandPath() (#194247).
 
+	* loader2/net.c (doDhcp): Increase DHCP timeout to 45 seconds and
+	allow for a maximum number of 10 retries so certain ksdevice=link
+	instances won't fail (#207546).
+
 2007-06-20  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Remove invalid preexisting RAID

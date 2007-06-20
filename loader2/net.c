@@ -693,12 +693,16 @@ char * setupInterface(struct networkDeviceConfig *dev) {
 
 char * doDhcp(char * ifname, 
               struct networkDeviceConfig *dev, char * dhcpclass) {
+    struct pumpOverrideInfo override;
+    memset(&override, 0, sizeof(struct pumpOverrideInfo));
+    override.numRetries = 10;
+    override.timeout = 45;
+
     setupWireless(dev);
     logMessage("running dhcp for %s", ifname);
     return pumpDhcpClassRun(ifname, 0, 0, NULL, 
                             dhcpclass ? dhcpclass : "anaconda", 
-                            &dev->dev, NULL);
-    
+                            &dev->dev, &override);
 }
 
 
