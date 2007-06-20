@@ -96,6 +96,11 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #233672, #242113
 - Support OSA Layer 2 networking (bhinson).
   Resolves: #233357
+- Merge in the following changelog entries from devel-cvs spec file:
+- Ignore disks listed in ignoredisks, even if we have clearpart --all (pjones)
+  Resolves: #186438
+- Label fat filesystems on ia64 during upgrade (pjones)
+  Resolves: #234815
 
 * Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.64-1
 - Fix rescue mode selinuxfs mount
@@ -112,20 +117,6 @@ rm -rf $RPM_BUILD_ROOT
   Resolves: #178781
 - Detect FBA storage devices on zSeries
   Resolves: #227913
-
-* Fri Apr 13 2007 Peter Jones <pjones@redhat.com> - 10.1.1.63-4
-- Ignore disks listed in ignoredisks, even if we have clearpart --all
-  Resolves: #186438
-
-* Mon Apr  9 2007 Peter Jones <pjones@redhat.com> - 10.1.1.63-3
-- Label fat filesystems on ia64 during upgrade
-  Resolves: #234815
-
-* Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-2
-- Fix rescue mode selinuxfs mount (#234137)
-- Add stex driver to module-info (#230214)
-- Actually create the /bin/echo symlink on all arches (#178781)
-- Detect FBA storage devices on zSeries 
 
 * Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
 - Allow graphical xen installs to proceed with no mouse
