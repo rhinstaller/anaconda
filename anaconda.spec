@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.40
+Version: 11.1.2.41
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 20 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.41-1
+- Include Xen block devices in the blacklist_exception block
+  Related: rhbz#243527
+- Remove the lvm.conf filter modification to avoid regression
+  Related: rhbz#243531
+- Fix traceback when looking for multipath devices to collect WWIDs for
+  Related: rhbz#185852
+
 * Tue Jun 19 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.40-1
 - Add libselinux-python to the stage2 image (clumens)
   Resolves: rhbz#244892

@@ -1,5 +1,9 @@
 2007-06-20  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2007-06-20  David Cantrell  <dcantrell@redhat.com>
+
 	* backend.py (AnacondaBackend.doPostInstall): Add Xen block devices
 	to the blacklist block when writing out /etc/multipath.conf (#243527).
 
