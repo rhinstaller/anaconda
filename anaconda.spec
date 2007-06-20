@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.64
+Version: 10.1.1.65
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,26 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 20 2007 Chris Lumens <clumens@redhat.com> - 10.1.1.65-1
+- Support FTP and HTTP URLs with auth info (dcantrell).
+  Resolves: #194247
+- Increase DHCP timeout to 45 seconds and retries to 10 (dcantrell).
+  Resolves: #207546
+- Remove invalid preexisting RAID requests.
+  Resolves: #233308
+- Don't traceback on keeping preexisting partitions and logical volumes.
+  Resolves: #182943
+- Fix probing for RAID superblocks.
+  Resolves: #172648
+- Document the nicdelay command line option.
+  Resolves: #232721
+- Change the cciss module description.
+  Resolves: #210414
+- Add support for qla3xxx and the Areca RAID adapter.
+  Resolves: #233672, #242113
+- Support OSA Layer 2 networking (bhinson).
+  Resolves: #233357
+
 * Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.64-1
 - Fix rescue mode selinuxfs mount
   Resolves: #234137
