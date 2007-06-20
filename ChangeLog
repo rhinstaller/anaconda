@@ -1,5 +1,8 @@
 2007-06-20  Chris Lumens  <clumens@redhat.com>
 
+	* autopart.py (doAutoPartition):  Remove invalid preexisting RAID
+	partition requests (#233308).
+
 	* docs/command-line.txt:  Document the nicdelay command line
 	option (#232721).
 

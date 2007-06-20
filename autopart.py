@@ -1402,6 +1402,23 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                         
             partitions.addRequest(req)
 
+    # Remove all preexisting RAID requests that reference nonexistant member
+    # requests.  These RAIDs should only be present on installs where we're
+    # using preexisting partitions that already have RAID information.
+    removeReqs = []
+
+    for req in partitions.requests:
+        if isinstance(req, partRequests.RaidRequestSpec):
+            lst = req.raidmembers
+        else:
+            continue
+
+        if len(filter (lambda id: partitions.getRequestByID(id) != None, lst)) == 0:
+            removeReqs.append(req)
+
+    for req in removeReqs:
+        partitions.removeRequest(req)
+
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane
     for req in partitions.requests:
