@@ -3,6 +3,9 @@
 	* autopart.py (doAutoPartition):  Remove invalid preexisting RAID
 	partition requests (#233308).
 
+	* isys/isys.py:  Use /dev/ devices nodes for probing RAID superblocks,
+	instead of recycling the same node in /tmp (#172648).
+
 	* docs/command-line.txt:  Document the nicdelay command line
 	option (#232721).
 
