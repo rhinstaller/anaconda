@@ -1,3 +1,11 @@
+2007-06-20  David Cantrell  <dcantrell@redhat.com>
+
+	* backend.py (AnacondaBackend.doPostInstall): Add Xen block devices
+	to the blacklist block when writing out /etc/multipath.conf (#243527).
+
+	* backend.py (AnacondaBackend.doPostInstall): Remove the lvm.conf
+	filter modification as it could cause a regression (#243531).
+
 2007-06-19  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -14,7 +22,7 @@
 	copy in the /etc/multipath.conf file (#185852).
 
 	* backend.py (AnacondaBackend.doPostInstall): Modify lvm.conf mpath
-	filter to catch /dev/mapper/mpath* and /dev/mpath* (#185852).
+	filter to catch /dev/mapper/mpath* and /dev/mpath* (#243531).
 
 	* backend.py (AnacondaBackend.doPostInstall): Run /sbin/multipath for
 	the multipath devices set up during installation.  Copy resulting

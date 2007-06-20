@@ -134,7 +134,7 @@ class AnacondaBackend:
                             # blacklist all device types
                             f.write('\nblacklist {\n')
                             f.write('        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"\n')
-                            f.write('        devnode "^hd[a-z]"\n')
+                            f.write('        devnode "^(hd|xvd)[a-z]*"\n')
                             f.write('        wwid "*"\n')
                             f.write('}\n')
 
@@ -156,13 +156,6 @@ class AnacondaBackend:
                             f.write("#%s\n" % (line,))
                         else:
                             f.write("%s\n" % (line,))
-
-        # add mpath filters to /etc/lvm/lvm.conf (#243531)
-        conf = self.instPath + '/etc/lvm/lvm.conf'
-        if flags.mpath and os.path.isfile(conf):
-            f = open(conf, 'w+')
-            f.write('filter = [ "a|/dev.*/mpath|", "r|.*|" ]\n')
-            f.close()
 
     def doInstall(self, anaconda):
         pass
