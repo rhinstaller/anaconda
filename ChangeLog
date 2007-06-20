@@ -1,3 +1,14 @@
+2007-06-20  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/kickstart.c: Replace getHostandPath() with
+	getHostPathandLogin() which adds support for FTP and HTTP URLs with
+	auth info (#194247).
+
+	* loader2/kickstart.h: Prototype for getHostPathandLogin() (#194247).
+
+	* loader2/urlinstall.c (getFileFromUrl): Call getHostPathandLogin()
+	rather than getHostandPath() (#194247).
+
 2007-06-20  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Remove invalid preexisting RAID

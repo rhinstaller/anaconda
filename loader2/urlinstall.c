@@ -345,7 +345,7 @@ int getFileFromUrl(char * url, char * dest,
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
-    char * host = NULL, * file = NULL, * chptr = NULL;
+    char * host = NULL, * file = NULL, * chptr = NULL, *login = NULL, *password = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
     char * ehdrs;
@@ -358,8 +358,8 @@ int getFileFromUrl(char * url, char * dest,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
-                   &host, &file, inet_ntoa(netCfg.dev.ip));
+    getHostPathandLogin((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
+                   &host, &file, &login, &password, inet_ntoa(netCfg.dev.ip));
 
     logMessage("ks location: %s://%s/%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
@@ -375,6 +375,11 @@ int getFileFromUrl(char * url, char * dest,
         *host = '/';
         ui.prefix = strdup(host);
     }
+
+    if (password[0] != '\0')
+        ui.password = strdup (password);
+    if (login[0] != '\0')
+        ui.login = strdup (login);
 
     ehdrs = NULL;
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
