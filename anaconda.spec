@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.41
+Version: 11.1.2.42
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 21 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.42-1
+- Handle ip=dhcp correctly so kickstart files are fetched automatically
+  Resolves: rhbz#244418
+- Write newline after NETWORKING_IPV6=yes line
+  Resolves: rhbz#226911
+- Make sure libnss3.so is included in the stage2 image
+  Resolves: rhbz#245215
+
 * Wed Jun 20 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.41-1
 - Include Xen block devices in the blacklist_exception block
   Related: rhbz#243527
