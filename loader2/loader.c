@@ -517,7 +517,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
     start = argv + 3;
     end = strstr(start, ":");
     loaderData->ip = strndup(start, end-start);
-    loaderData->ipinfo_set = 1;
+    loaderData->ipinfo_set = 0;
 
     /* Boot server */
     if (end + 1 == '\0')
@@ -545,7 +545,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
     loaderData->netmask = strdup(start);
   } else {
     loaderData->ip = strdup(argv + 3);
-    loaderData->ipinfo_set = 1;
+    loaderData->ipinfo_set = 0;
   }
 }
 

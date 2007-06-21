@@ -1,3 +1,8 @@
+2007-06-21  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/loader.c (parseCmdLineIp):  Fix getting a kickstart file if
+	ip=dhcp is given on the command line (dcantrell, #244418).
+
 2007-06-21  David Cantrell  <dcantrell@redhat.com>
 
 	* network.py (Network.write): Make sure there is a newline printed
