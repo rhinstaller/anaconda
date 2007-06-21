@@ -1,3 +1,9 @@
+2007-06-21  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/netconfig_dialog.py (NetworkConfigurator): Handle IPMissing
+	exceptions and log error message when configNetDevice() fails.
+	Patch from HARA Hiroshi <hhara AT miraclelinux DOT com>.
+
 2007-06-19  Chris Lumens  <clumens@redhat.com>
 
 	* livecd.py (LiveCDImageMethod.doPostAction):  Fix traceback

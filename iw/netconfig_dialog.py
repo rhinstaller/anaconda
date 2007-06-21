@@ -177,6 +177,9 @@ class NetworkConfigurator:
             try:
                 network.sanityCheckIPString(ipv4addr)
                 netdev.set(('ipaddr', ipv4addr))
+            except network.IPMissing, msg:
+                self._handleIPError(_("IP Address"), msg)
+                return
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
                 return
@@ -184,12 +187,18 @@ class NetworkConfigurator:
             try:
                 network.sanityCheckIPString(ipv4nm)
                 netdev.set(('netmask', ipv4nm))
+            except network.IPMissing, msg:
+                self._handleIPError(_("Netmask"), msg)
+                return
             except network.IPError, msg:
                 self._handleIPError(_("Netmask"), msg)
                 return
 
             try:
                 network.sanityCheckIPString(gateway)
+            except network.IPMissing, msg:
+                self._handleIPError(_("Gateway"), msg)
+                return
             except network.IPError, msg:
                 self._handleIPError(_("Gateway"), msg)
                 return
@@ -205,6 +214,8 @@ class NetworkConfigurator:
             try:
                 isys.configNetDevice(netdev, gateway)
             except Exception, e:
+                import logging
+                log = logging.getLogger("anaconda")
                 log.error("Error configuring network device: %s" %(e,))
             self.rc = gtk.RESPONSE_OK
             if ns:
