@@ -104,9 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Apr 04 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.64-1
 - Fix rescue mode selinuxfs mount
-  Resolves: #234137
 - Add stex driver to module-info
-  Resolves: #230214
 - Add OSA layer 2 network support for zSeries (dcantrell)
   Resolves: #233357
 - Add size and model info to text mode drive selection (dcantrell)
@@ -114,9 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 - Honor nicdelay when ksdevice=link is used (dcantrell)
   Resolves: #207546
 - Actually create the /bin/echo symlink on all arches
-  Resolves: #178781
 - Detect FBA storage devices on zSeries
-  Resolves: #227913
 
 * Tue Mar 06 2007 Dave Lehman <dlehman@redhat.com> - 10.1.1.63-1
 - Allow graphical xen installs to proceed with no mouse
