@@ -6705,9 +6705,9 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "தொகுதி குழு பெயரை உள்ளிடவும்."
+msgstr "உங்கள் %(instkey)s ஐ உள்ளிடவும்."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6726,9 +6726,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI துவக்கி பெயர் (_N):</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "iSCSI இலக்கை சேர்க்கவும் (_i)"
+msgstr "இலக்கை சேர்த்தல் (_A)"
 
 #: tmp/liveinst.desktop.in.h:1
 #, fuzzy
@@ -6798,24 +6797,20 @@ msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
 msgstr "<b>வன்பொருள் முகவரி: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "இடைமுகம் %sஐ தொகுக்கவும்"
+msgstr "முகப்பைத் திருத்துதல்"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "குறிமுறையாக்க விசை (_K):"
+msgstr "குறிமுறையாக்க விசை:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "கைமுறை TCP/IP கட்டமைப்பு"
+msgstr "கைமுறை கட்டமைப்பு"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6849,14 +6844,12 @@ msgid "<b>Device number:</b>"
 msgstr "சாதன எண்"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>கடவுச்சொல் (_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
