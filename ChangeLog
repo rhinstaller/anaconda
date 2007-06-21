@@ -3,6 +3,8 @@
 	* network.py (Network.write): Make sure there is a newline printed
 	at the end of the NETWORKING_IPV6=yes line (#226911).
 
+	* scripts/upd-instroot: Make sure libnss3.so is included (#245215).
+
 2007-06-20  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
