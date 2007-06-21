@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.42
+Version: 11.1.2.43
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 21 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.43-1
+- Correct iSCSI portal discovery
+  Resolves: rhbz#233029
+
 * Thu Jun 21 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.42-1
 - Handle ip=dhcp correctly so kickstart files are fetched automatically
   Resolves: rhbz#244418

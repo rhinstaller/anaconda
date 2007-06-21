@@ -53,7 +53,7 @@ class iscsiTarget:
 
     def _getPortal(self):
         if self._portal is None:
-            argv = [ "-m", "node", "-p", self.ipaddr ]
+            argv = [ "-m", "discovery", "-t", "st", "-p", self.ipaddr ]
             records = iutil.execWithCapture(ISCSIADM, argv)
             for line in records.split("\n"):
                 if not line or line.find("found!") != -1:
