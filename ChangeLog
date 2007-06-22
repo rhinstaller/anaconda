@@ -1,5 +1,11 @@
 2007-06-22  David Cantrell  <dcantrell@redhat.com>
 
+	* iw/netconfig_dialog.py (NetworkConfigurator): Handle IPv4 CIDR
+	prefixes in addition to dotted-quad netmasks (patch from HARA
+	Hiroshi <hhara AT miraclelinux DOT com>).
+
+2007-06-22  David Cantrell  <dcantrell@redhat.com>
+
 	* iw/netconfig_dialog.py (NetworkConfigurator): Added a special
 	handler for IPMissing exceptions.  Display a dialog when the
 	configNetDevice function fails (patch from Dawei Pang <dwpang AT

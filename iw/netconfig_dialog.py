@@ -204,6 +204,32 @@ class NetworkConfigurator:
                 self._handleIPError(_("Netmask"), msg)
                 return
 
+            if ipv4nm.find('.') == -1:
+                # user provided a CIDR prefix
+                try:
+                    if int(ipv4nm) > 32 or int(ipv4nm) < 0:
+                        msg = _("IPv4 CIDR prefix must be between 0 and 32.")
+                        self._handleIPError(_("IPv4 Network Mask"), msg)
+                        return
+                    else:
+                        ipv4nm = isys.prefix2netmask(int(ipv4nm))
+                        network.sanityCheckIPString(ipv4nm)
+                        netdev.sef(('netmask', ipv4nm))
+                except:
+                    self._handleIPMissing(_("IPv4 Network Mask"), msg)
+                    return
+            else:
+                # user provided a dotted-quad netmask
+                try:
+                    network.sanityCheckIPString(ipv4nm)
+                    netdev.sef(('netmask', ipv4nm))
+                except network.IPMissing, msg:
+                    self._handleIPMissing(_("IPv4 Network Mask"), msg)
+                    return
+                except network.IPError, msg:
+                    self._handleIPError(_("IPv4 Network Mask"), msh)
+                    return
+
             try:
                 network.sanityCheckIPString(gateway)
             except network.IPMissing, msg:
