@@ -428,11 +428,6 @@ out:
     return rc;
 }
 
-void add_firmware_directory(struct loaderData_s *loaderData, char *path)
-{
-
-}
-
 static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
 {
     char *physdevbus = NULL, *physdevdriver = NULL, *physdevpath = NULL,
