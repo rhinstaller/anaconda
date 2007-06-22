@@ -29,6 +29,7 @@
 #include "log.h"
 #include "loadermisc.h"
 #include "lang.h"
+#include "fwloader.h"
 #include "method.h"
 #include "modules.h"
 #include "moduledeps.h"
@@ -94,8 +95,9 @@ static void copyErrorFn (char *msg) {
 
 /* this copies the contents of the driver disk to a ramdisk and loads
  * the moduleinfo, etc.  assumes a "valid" driver disk mounted at mntpt */
-static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
-                          moduleDeps * modDepsPtr, char *mntpt) {
+static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
+    moduleDeps *modDepsPtr = loaderData->modDepsPtr;
+    moduleInfoSet modInfo = loaderData->modInfo;
     char file[200], dest[200];
     char * title;
     struct moduleBallLocation * location;
@@ -139,6 +141,14 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     location->title = strdup(title);
     location->path = sdupprintf("/tmp/ramfs/DD-%d/modules.cgz", disknum);
     location->version = version;
+
+    char *fwdir = sdupprintf("/tmp/ramfs/DD-%d/firmware", disknum);
+    if (!access(fwdir, R_OK|X_OK)) {
+        add_fw_search_dir(loaderData, fwdir);
+        stop_fw_loader(loaderData);
+        start_fw_loader(loaderData);
+    }
+    free(fwdir);
 
     sprintf(file, "%s/modinfo", mntpt);
     readModuleInfo(file, modInfo, location, 1);
@@ -228,9 +238,11 @@ int getRemovableDevices(char *** devNames) {
  * class: type of driver to load.
  * usecancel: if 1, use cancel instead of back
  */
-int loadDriverFromMedia(int class, moduleList modLoaded, 
-                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
+int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                         int usecancel, int noprobe) {
+    moduleList modLoaded = loaderData->modLoaded;
+    moduleDeps *modDepsPtr = loaderData->modDepsPtr;
+    moduleInfoSet modInfo = loaderData->modInfo;
 
     char * device = NULL, * part = NULL, * ddfile = NULL;
     char ** devNames = NULL;
@@ -428,8 +440,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             if (devices)
                 for(; devices[before]; before++);
 
-            rc = loadDriverDisk(modInfo, modLoaded, modDepsPtr, 
-                                "/tmp/drivers");
+            rc = loadDriverDisk(loaderData, "/tmp/drivers");
             umount("/tmp/drivers");
             if (rc == LOADER_BACK) {
                 dir = -1;
@@ -509,8 +520,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
 
 /* looping way to load driver disks */
-int loadDriverDisks(int class, moduleList modLoaded, 
-                    moduleDeps * modDepsPtr, moduleInfoSet modInfo) {
+int loadDriverDisks(int class, struct loaderData_s *loaderData) {
     int rc;
 
     rc = newtWinChoice(_("Driver disk"), _("Yes"), _("No"), 
@@ -518,8 +528,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
     if (rc != 1)
         return LOADER_OK;
 
-    rc = loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                             1, 0);
+    rc = loadDriverFromMedia(CLASS_UNSPEC, loaderData, 1, 0);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -528,8 +537,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
                            _("Do you wish to load any more driver disks?"));
         if (rc != 1)
             break;
-        loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                            0, 0);
+        loadDriverFromMedia(CLASS_UNSPEC, loaderData, 0, 0);
     } while (1);
 
     return LOADER_OK;
@@ -541,8 +549,7 @@ static void loadFromLocation(struct loaderData_s * loaderData, char * dir) {
         return;
     }
 
-    loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
-                   loaderData->modDepsPtr, dir);
+    loadDriverDisk(loaderData, dir);
     busProbe(loaderData->modInfo, loaderData->modLoaded, *
              loaderData->modDepsPtr, 0);
 }
@@ -567,8 +574,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
      * scsi cdrom drives */
 #if !defined(__s390__) && !defined(__s390x__)
     } else if (!strncmp(src, "cdrom", 5)) {
-        loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
-                        loaderData->modDepsPtr, loaderData->modInfo);
+        loadDriverDisks(CLASS_UNSPEC, loaderData);
         return;
 #endif
     } else if (!strncmp(src, "path:", 5)) {

@@ -1,3 +1,23 @@
+2007-06-22  Peter Jones  <pjones@redhat.com>
+
+	* loader2/fwloader.[ch]: add this.  It's a small firmware loader.
+
+	* loader2/udelay.h: add this.  It's some time-related helper
+	functions.
+
+	* loader2/Makefile: get rid of the libnash bits, add fwloader.o
+
+	* loader2/driverdisk.c: change the firmware loader path and restart
+	it when we add a driver disk.  This also moves many cases of [modlist,
+	moddeps, modinfo] to just getting them from loaderData.
+
+	* loader2/driverdisk.h: change headers to match driverdisk.c changes
+
+	* loader2/loader.c: kill NASH_FIRMWARE_LOADER.  Change calls to match
+	driverdisk.c changes.  Export loaderSegvHandler().
+
+	* loader2/loader.h: add fw loader pid and search path to loaderData.
+
 2007-06-22  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/netconfig_dialog.py (NetworkConfigurator): Handle IPv4 CIDR
