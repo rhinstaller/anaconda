@@ -109,6 +109,9 @@ extern void loaderSegvHandler(int signum);
 static void kill_hotplug_signal(int signum)
 {
     signal(signum, kill_hotplug_signal);
+#if 0
+    fprintf(stderr, "got exit signal, quitting\n");
+#endif
     done = 1;
 }
 
@@ -144,12 +147,23 @@ static int daemonize(struct fw_loader *fwl)
         close(fd);
     }
 
+    for (fd = 0; fd < getdtablesize(); fd++) {
+        if (fd == STDIN_FILENO || fd == STDOUT_FILENO || fd == STDERR_FILENO)
+            continue;
+        close(fd);
+    }
+
+    setsid();
+#if 1
     fd = open("/dev/null", O_RDONLY);
+#else
+    fd = open("/dev/tty5", O_RDONLY);
+#endif
     close(STDIN_FILENO);
     dup2(fd, STDIN_FILENO);
     set_fd_coe(STDIN_FILENO, 1);
     close(fd);
-#if 0
+#if 1
     fd = open("/dev/null", O_WRONLY);
 #else
     fd = open("/dev/tty5", O_WRONLY);
@@ -162,14 +176,9 @@ static int daemonize(struct fw_loader *fwl)
     set_fd_coe(STDERR_FILENO, 1);
     close(fd);
 
-    for (fd = 0; fd < getdtablesize(); fd++) {
-        if (fd == STDIN_FILENO || fd == STDOUT_FILENO || fd == STDERR_FILENO)
-            continue;
-        close(fd);
-    }
-
-    setsid();
-
+#if 0
+    fprintf(stderr, "starting up (pid %d)\n", getpid());
+#endif
     return 0;
 }
 
@@ -442,7 +451,7 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
     if (!(tempfile = tempnam("/tmp/", "fw-")))
         return;
 
-    if ((fd = open(tempfile, O_RDWR | O_EXCL)) < 0) {
+    if ((fd = open(tempfile, O_RDWR | O_EXCL | O_CREAT)) < 0) {
         free(tempfile);
         return;
     }
@@ -468,7 +477,9 @@ static void load_firmware(struct fw_loader *fwl, struct uevent *uevent)
         if (asprintf(&fw_file, "%s/%s", entry, firmware) < 0)
             return;
 
+#if 0
         fprintf(stderr, "Trying to find %s at %s\n", firmware, fw_file);
+#endif
 
         if (fetcher(fw_file, fd) >= 0)
             break;
@@ -521,6 +532,15 @@ static void handle_single_uevent(struct fw_loader *fwl, struct uevent *uevent)
 
     action = envz_get(uevent->envz, uevent->envz_len, "ACTION");
     subsystem = envz_get(uevent->envz, uevent->envz_len, "SUBSYSTEM");
+
+#if 0
+    if (subsystem)
+        fprintf(stderr, "subsystem %s ", subsystem);
+    if (action)
+        fprintf(stderr, "got action %s", action);
+    if (subsystem || action)
+        fprintf(stderr, "\n");
+#endif
 
     if (!strcmp(action, "add") && !strcmp(subsystem, "firmware"))
         load_firmware(fwl, uevent);
@@ -614,10 +634,17 @@ void do_fw_loader(struct loaderData_s *loaderData)
     fwl.fw_pathz_len = loaderData->fw_search_pathz_len;
 
     rc = daemonize(&fwl);
-    if (rc < 0)
+    if (rc < 0) {
+#if 0
+        fprintf(stderr, "daemonize() failed with %d: %m\n", rc);
+#endif
         exit(1);
+    }
 
     if (open_uevent_socket(&fwl) < 0) {
+#if 0
+        fprintf(stderr, "open_uevent_socket() failed: %m\n");
+#endif
         exit(1);
     }
 
