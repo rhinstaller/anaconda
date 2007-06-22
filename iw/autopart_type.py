@@ -121,8 +121,9 @@ class PartitionTypeWindow(InstallWindow):
             net = NetworkConfigurator(self.anaconda.id.network)
             ret = net.run()
             net.destroy()
-            return ret
-            
+            if ret != gtk.RESPONSE_OK:
+                return ret
+
         (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade",
                                             "iscsiDialog")
         gui.addFrame(dialog)

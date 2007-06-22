@@ -121,7 +121,7 @@ class NetworkConfigurator:
             store[i] = (desc, dev)
             if dev == self.network.firstnetdevice:
                 combo.set_active_iter(i)
-        
+
     def run(self):
         gui.addFrame(self.window)
         self.window.show()
@@ -137,7 +137,17 @@ class NetworkConfigurator:
                                 _("An error occurred converting the value "
                                   "entered for \"%s\":\n%s") %(field, errmsg))
         d.set_title(_("Error With Data"))
-        gui.addFrame(d)        
+        d.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(d)
+        d.run()
+        d.destroy()
+
+    def _handleIPMissing(self, field):
+        d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
+                         _("A value is required for the field %s.") % (field,))
+        d.set_title(_("Error With Data"))
+        d.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(d)
         d.run()
         d.destroy()
 
@@ -178,7 +188,7 @@ class NetworkConfigurator:
                 network.sanityCheckIPString(ipv4addr)
                 netdev.set(('ipaddr', ipv4addr))
             except network.IPMissing, msg:
-                self._handleIPError(_("IP Address"), msg)
+                self._handleIPMissing(_("IP Address"), msg)
                 return
             except network.IPError, msg:
                 self._handleIPError(_("IP Address"), msg)
@@ -188,7 +198,7 @@ class NetworkConfigurator:
                 network.sanityCheckIPString(ipv4nm)
                 netdev.set(('netmask', ipv4nm))
             except network.IPMissing, msg:
-                self._handleIPError(_("Netmask"), msg)
+                self._handleIPMissing(_("Netmask"), msg)
                 return
             except network.IPError, msg:
                 self._handleIPError(_("Netmask"), msg)
@@ -197,7 +207,7 @@ class NetworkConfigurator:
             try:
                 network.sanityCheckIPString(gateway)
             except network.IPMissing, msg:
-                self._handleIPError(_("Gateway"), msg)
+                self._handleIPMissing(_("Gateway"), msg)
                 return
             except network.IPError, msg:
                 self._handleIPError(_("Gateway"), msg)
@@ -209,7 +219,7 @@ class NetworkConfigurator:
             except network.IPError, msg:
                 self._handleIPError(_("Nameserver"), msg)
                 return
-                
+
 
             try:
                 isys.configNetDevice(netdev, gateway)
@@ -217,6 +227,9 @@ class NetworkConfigurator:
                 import logging
                 log = logging.getLogger("anaconda")
                 log.error("Error configuring network device: %s" %(e,))
+                self._handleIPError(_("Error configuring network device:"), e)
+                return
+
             self.rc = gtk.RESPONSE_OK
             if ns:
                 f = open("/etc/resolv.conf", "w")
