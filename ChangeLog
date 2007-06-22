@@ -1,5 +1,11 @@
 2007-06-22  Peter Jones  <pjones@redhat.com>
 
+	* loader2/modules.c: Get rid of "modLocation" parameter to
+	doLoadModules(); it is never used.  Also call extractModules for each
+	location and for NULL (default) location.
+
+2007-06-22  Peter Jones  <pjones@redhat.com>
+
 	* loader2/fwloader.[ch]: add this.  It's a small firmware loader.
 
 	* loader2/udelay.h: add this.  It's some time-related helper

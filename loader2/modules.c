@@ -443,8 +443,7 @@ static char ** lateModuleSort(char **allmods, int num) {
  * *ALL* modules?  this would probably want for auto module-info generation */
 static int doLoadModules(const char * origModNames, moduleList modLoaded,
                          moduleDeps modDeps, moduleInfoSet modInfo,
-                         const char * argModule, char ** args,
-                         struct moduleBallLocation * modLocation) {
+                         const char * argModule, char ** args) {
     char * modNames;
     char * start, * next, * end;
     char ** initialList;
@@ -509,24 +508,22 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (modInfo) {
         for (i = 0; list[i]; i++) {
             mi = findModuleInfo(modInfo, list[i]);
+            if (mi) {
+                if (mi->locationID)
+                    location = mi->locationID;
+                paths = extractModules(list, paths, location);
 
-            if (mi && mi->locationID) {
-                location = mi->locationID;
-            }
+                if (mi->major == DRIVER_SCSI && 
+                        (mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&
+                        (mod->firstDevNum != mod->lastDevNum)) {
+                    reloadUsbStorage = 1;
+                }
 
-            if (mi && (mi->major == DRIVER_SCSI) && 
-                (mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&
-                (mod->firstDevNum != mod->lastDevNum)) {
-                reloadUsbStorage = 1;
             }
         }
     }
 
-    /* JKFIXME: this is a hack to handle an explicit location for modules */
-    if (!location && modLocation)
-	location = modLocation;
-
-    paths = extractModules(list, paths, location);
+    paths = extractModules(list, paths, NULL);
 
     i = 0;
     if (!paths) {
@@ -615,7 +612,7 @@ int mlLoadModule(const char * module, moduleList modLoaded,
                  moduleDeps modDeps, moduleInfoSet modInfo, 
                  char ** args) {
     return doLoadModules(module, modLoaded, modDeps, modInfo, module,
-                         args, NULL);
+                         args);
 }
 
 /* loads a : separated list of modules */
@@ -623,7 +620,7 @@ int mlLoadModuleSet(const char * modNames,
                     moduleList modLoaded, moduleDeps modDeps, 
                     moduleInfoSet modInfo) {
     return doLoadModules(modNames, modLoaded, modDeps, modInfo, 
-                         NULL, NULL, NULL);
+                         NULL, NULL);
 }
 
 static int removeHostAdapter(char *conf, char *name) {
