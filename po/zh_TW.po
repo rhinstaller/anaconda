@@ -204,7 +204,8 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Boot 分割區 %s 可能不符合您系統架構的開機限制。"
 
 #: ../autopart.py:1064
@@ -1287,7 +1288,8 @@ msgstr "找不到安裝映像檔 %s"
 
 #: ../livecd.py:80
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:84 ../livecd.py:329
@@ -1815,7 +1817,8 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:537
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partitioning.py:61
@@ -1827,7 +1830,8 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr ""
+"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../partitioning.py:92
 msgid "Low Memory"
@@ -1863,7 +1867,8 @@ msgid ""
 msgstr "您的開機分割區並不在前四個分割區的任何一個上，因此無法用來開機。"
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區，大小為 50 MB。"
 
 #: ../partitions.py:867
@@ -1882,7 +1887,8 @@ msgid ""
 msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:945
@@ -1919,7 +1925,8 @@ msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援 32 個。
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
+msgstr ""
+"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
 
 #: ../partitions.py:1304
 msgid "the partition in use by the installer."
@@ -1935,7 +1942,8 @@ msgstr "LVM 磁區群組成員的一個分割區。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:252
@@ -1943,7 +1951,8 @@ msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
+msgstr ""
+"無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -2207,7 +2216,8 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: ../text.py:472
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> 下一個畫面"
 
 #: ../text.py:474
@@ -2381,7 +2391,8 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr ""
+"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:83 ../textw/userauth_text.py:42 ../loader2/urls.c:460
 msgid "Password:"
@@ -2582,7 +2593,8 @@ msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:568
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "由於下列原因，異動程序發生錯誤：%s"
 
 #: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
@@ -2712,7 +2724,8 @@ msgstr "root 密碼不得少於六個字元。"
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密碼含有非 ASCII 的字元，這些字元不允許使用在密碼上。"
 
 #: ../iw/account_gui.py:107
@@ -3097,7 +3110,8 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr "這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
+msgstr ""
+"這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3483,7 +3497,8 @@ msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許�
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr ""
+"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../iw/network_gui.py:151 ../textw/network_text.py:813
 #, python-format
@@ -3794,12 +3809,14 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:633
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:641
@@ -3890,7 +3907,8 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr ""
+"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1226
 msgid "RAID Options"
@@ -4310,7 +4328,8 @@ msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式。
 
 #: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:114
@@ -4437,7 +4456,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/zipl_gui.py:28
@@ -4570,7 +4590,8 @@ msgstr ""
 "區，並分別給予一個識別標籤。"
 
 #: ../textw/bootloader_text.py:290
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr " <Space> 選取 | <F2> 選取預設開機項目 | <F4> 刪除 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:386
@@ -4658,7 +4679,8 @@ msgstr "開始安裝"
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr "重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr ""
+"重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4669,7 +4691,8 @@ msgstr "開始升級系統"
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr "重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr ""
+"重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/grpselect_text.py:87
 #, fuzzy
@@ -4677,7 +4700,8 @@ msgid "Please select the package groups you would like to install."
 msgstr "請選擇您想要安裝的套件群組。"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
 
 #: ../textw/grpselect_text.py:117
@@ -4717,7 +4741,8 @@ msgstr "選擇滑鼠"
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
-msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr ""
+"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../textw/network_text.py:70
 #, fuzzy, python-format
@@ -5196,7 +5221,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     F12-確定"
 
 #: ../textw/partition_text.py:1504
@@ -5307,7 +5333,8 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgstr ""
+"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: ../textw/task_text.py:63
 msgid "Customize software selection"
@@ -5434,7 +5461,8 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
+msgstr ""
+"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些額外項目呢？"
 
 #: ../installclasses/fedora.py:25
 msgid "Office and Productivity"
@@ -5563,7 +5591,8 @@ msgstr ""
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr "在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
+msgstr ""
+"在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
 
 #: ../loader2/cdinstall.c:391
 msgid "CD Not Found"
@@ -5841,7 +5870,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "歡迎使用 %s - 救援模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader2/lang.c:366
@@ -5983,7 +6013,8 @@ msgstr "正在執行 anaconda，%s 系統安裝程式 - 請稍候...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr ""
+"無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -6078,7 +6109,8 @@ msgstr "kickstart 方式之指令 %s 的裝置引數不正確: %s"
 
 #: ../loader2/modules.c:1056
 #, fuzzy
-msgid "Both module type and name must be specified for the kickstart device command."
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
 msgstr "下列 kickstart 驅動程式磁片之指令的引數無效: %s:%s"
 
 #: ../loader2/net.c:59
@@ -6209,7 +6241,8 @@ msgid "Missing Information"
 msgstr "資訊不足"
 
 #: ../loader2/net.c:1208
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
 #: ../loader2/net.c:1214
@@ -6878,4 +6911,3 @@ msgstr "威爾斯語"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖魯語"
-
