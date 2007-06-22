@@ -994,7 +994,7 @@ for i in $DEST $DESTGR; do
     done
 
     for mpath in $i/sbin/mpath_prio_*.static ; do
-        if -f $mpath ]; then
+        if [ -f $mpath ]; then
             d=$(dirname $mpath)
             b=$(basename $mpath .static)
             mv $mpath $d/$b
