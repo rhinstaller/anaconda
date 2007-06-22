@@ -7,9 +7,14 @@
 	* loader2/driverdisk.h:  Change prototype of chooseManualDriver to
 	take a loaderData instead of several module parameters.
 	* loader2/driverselect.c (chooseManualDriver):  Likewise.
+	(loadDriverFromMedia):  Likewise.
 
 	* loader2/hdinstall.c (mountHardDrive):  Use new loadDriverFromMedia
 	interface.
+
+	* loader2/loader.c (manualDeviceCheck):  Change interface to take a
+	loaderData instead of several module parameters.  Use new 
+	(main):  Use new interfaces.
 
 2007-06-22  Peter Jones  <pjones@redhat.com>
 

@@ -1051,7 +1051,7 @@ static char *doLoaderMain(char * location,
             }
             
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
-                               modLoaded, modDepsPtr, modInfo);
+                               loaderData);
             /* it doesn't really matter what we return here; we just want
              * to reprobe and make sure we have the driver */
             step = STEP_DRIVER;
@@ -1223,13 +1223,15 @@ static char *doLoaderMain(char * location,
     return url;
 }
 
-static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr) {
+static int manualDeviceCheck(struct loaderData_s *loaderData) {
     char ** devices;
     int i, j, rc, num = 0;
     struct moduleInfo * mi;
     unsigned int width = 40;
     char * buf;
+
+    moduleInfoSet modInfo = loaderData->modInfo;
+    moduleList modLoaded = loaderData->modLoaded;
 
     do {
         devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
@@ -1271,7 +1273,7 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
         if (rc != 2)
             break;
 
-        chooseManualDriver(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo);
+        chooseManualDriver(CLASS_UNSPEC, loaderData);
     } while (1);
     return 0;
 }
@@ -1635,7 +1637,7 @@ int main(int argc, char ** argv) {
     if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
         && !loaderData.ksFile) {
         startNewt();
-        manualDeviceCheck(modInfo, modLoaded, &modDeps);
+        manualDeviceCheck(&loaderData);
     }
 
     if (loaderData.updatessrc)

@@ -490,7 +490,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                                   "like to manually select the driver, "
                                   "continue anyway, or load another "
                                   "driver disk?"));
-           
+
             if (rc == 2) {
                 /* if they choose to continue, just go ahead and continue */
                 stage = DEV_DONE;
@@ -499,7 +499,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                  * beginning with them */
                 stage = DEV_DEVICE;
             } else {
-                rc = chooseManualDriver(class, modLoaded, modDepsPtr, modInfo);
+                rc = chooseManualDriver(class, loaderData);
                 /* if they go back from a manual driver, we'll ask again.
                  * if they load something, assume it's what we need */
                 if (rc == LOADER_OK) {
@@ -509,7 +509,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 
             break;
         }
-                          
+
         case DEV_DONE:
             break;
         }
