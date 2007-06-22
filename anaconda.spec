@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.3
+Version: 11.3.0.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 22 2007 Chris Lumens <clumens@redhat.com> - 11.3.0.4-1
+- Add a firmware loader, remove nash firmware bits (pjones).
+- Fix module loading to work for multiple modules.cgz locations (pjones).
+- Handle IPv4 CIDR prefixes in iscsi config (hhara AT miraclelinux DOT com).
+- Better error handling in iscsi config (dwpang AT redflag-linux DOT com,
+  hhara AT miraclelinux DOT com).
+- Fix livecd traceback (#244764).
+- Copy over entire driver disk directory contents for new layout.
+
 * Mon Jun 18 2007 Chris Lumens <clumens@redhat.com> - 11.3.0.3-1
 - Remove obsolete language and loader options (notting).
 - Remove unused gzlib implementation (pjones).
