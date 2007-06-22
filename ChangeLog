@@ -2,6 +2,8 @@
 
 	* scripts/upd-instroot: Fix typo (if -f $mpath ] -> if [ -f $mpath ]).
 
+	* scripts/upd-instroot: Include the scsi_id command (#185852).
+
 2007-06-21  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

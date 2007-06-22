@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python
-	 libselinux-python nss"
+	 libselinux-python nss udev"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -327,6 +327,7 @@ sbin/dmsetup.static
 sbin/multipath.static
 sbin/kpartx.static
 sbin/mpath_prio_*.static
+sbin/scsi_id.static
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -987,7 +988,7 @@ fi
 
 for i in $DEST $DESTGR; do
     # there's never a case with only one of these...
-    for tool in dmraid dmsetup kpartx multipath ; do
+    for tool in dmraid dmsetup kpartx multipath scsi_id ; do
         if [ -f $i/sbin/$tool.static ]; then
             mv $i/sbin/$tool.static $i/sbin/$tool
         fi
