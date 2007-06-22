@@ -272,7 +272,6 @@ etc/group
 etc/passwd
 etc/iscsid.conf
 etc/mke2fs.conf
-etc/multipath.conf
 etc/pcmcia/*
 etc/protocols
 etc/services
@@ -1086,9 +1085,17 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
+echo "Creating multipath.conf"
+cat > $DEST/etc/multipath.conf <<EOF
+defaults {
+        user_friendly_names yes
+}
+EOF
+
 cp $DEST/etc/shells $DESTGR/etc/shells
 cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
+cp $DEST/etc/multipath.conf $DESTGR/etc/multipath.conf
 
 # fixup man.config to point into /mnt/sysimage for rescue
 if [ -n "$NEEDGR" ]; then

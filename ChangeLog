@@ -4,6 +4,9 @@
 
 	* scripts/upd-instroot: Include the scsi_id command (#185852).
 
+	* scripts/upd-instroot: Write out minimal /etc/multipath.conf file
+	so we create a bindings file when multipath is run (#185852).
+
 2007-06-21  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
