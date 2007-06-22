@@ -227,7 +227,7 @@ class NetworkConfigurator:
                     self._handleIPMissing(_("IPv4 Network Mask"), msg)
                     return
                 except network.IPError, msg:
-                    self._handleIPError(_("IPv4 Network Mask"), msh)
+                    self._handleIPError(_("IPv4 Network Mask"), msg)
                     return
 
             try:
