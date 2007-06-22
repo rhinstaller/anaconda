@@ -1,3 +1,12 @@
+2007-06-22  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/driverdisk.h:  Change prototype of chooseManualDriver to
+	take a loaderData instead of several module parameters.
+	* loader2/driverselect.c (chooseManualDriver):  Likewise.
+
+	* loader2/hdinstall.c (mountHardDrive):  Use new loadDriverFromMedia
+	interface.
+
 2007-06-22  Peter Jones  <pjones@redhat.com>
 
 	* loader2/modules.c: Get rid of "modLocation" parameter to

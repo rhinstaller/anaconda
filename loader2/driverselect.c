@@ -134,16 +134,14 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     return LOADER_OK;
 }
 
-int chooseManualDriver(int class, moduleList modLoaded, 
-                       moduleDeps * modDepsPtr, moduleInfoSet modInfo) {
+int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     int i, numSorted, num = 0, done = 0;
     enum driverMajor type;
     struct sortModuleList * sortedOrder;
     char giveArgs = ' ';
     char ** moduleArgs = NULL;
-    moduleDeps modDeps;
-
-    modDeps = *modDepsPtr;
+    moduleDeps modDeps = *loaderData->modDepsPtr;
+    moduleInfoSet modInfo = loaderData->modInfo;
 
     newtComponent text, f, ok, back, argcheckbox, listbox;
     newtGrid grid, buttons;
@@ -168,7 +166,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
         numSorted = 0;
         
         for (i = 0; i < modInfo->numModules; i++) {
-            if (mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded) ||
+            if (mlModuleInList(modInfo->moduleList[i].moduleName, loaderData->modLoaded) ||
                 !modInfo->moduleList[i].description ||
                 ((type != DRIVER_ANY) && 
                  (type != modInfo->moduleList[i].major)))
@@ -185,7 +183,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
             if (i != 1)
                 return LOADER_BACK;
             
-            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, 1, 1);
+            loadDriverFromMedia(class, loaderData, 1, 1);
             continue;
         } else {
             break;
@@ -259,11 +257,11 @@ int chooseManualDriver(int class, moduleList modLoaded,
     if (done == -1) 
         return LOADER_BACK;
     if (done == -2) {
-        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, 1, 1);
-        return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo);
+        loadDriverFromMedia(class, loaderData, 1, 1);
+        return chooseManualDriver(class, loaderData);
     }
 
-    mlLoadModule(modInfo->moduleList[num].moduleName, modLoaded, modDeps,
+    mlLoadModule(modInfo->moduleList[num].moduleName, loaderData->modLoaded, modDeps,
                  modInfo, moduleArgs);
     free(sortedOrder);
 
