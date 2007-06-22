@@ -1,3 +1,7 @@
+2007-06-22  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
 2007-06-22  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/upd-instroot: Fix typo (if -f $mpath ] -> if [ -f $mpath ]).
@@ -18,6 +22,11 @@
 2007-06-21  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
+
+2007-06-21  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/driverdisk.c (loadDriverDisk):  Use copyDirectory to support
+	the new style of driver disk layouts.
 
 2007-06-21  Chris Lumens  <clumens@redhat.com>
 
