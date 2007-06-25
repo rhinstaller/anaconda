@@ -213,7 +213,6 @@ class NetworkConfigurator:
                         return
                     else:
                         ipv4nm = isys.prefix2netmask(int(ipv4nm))
-                        network.sanityCheckIPString(ipv4nm)
                         netdev.sef(('netmask', ipv4nm))
                 except:
                     self._handleIPMissing(_("IPv4 Network Mask"), msg)

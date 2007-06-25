@@ -1,3 +1,8 @@
+2007-06-25  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/netconfig_dialog.py (NetworkConfigurator): Remove pointless
+	call to sanityCheckIPString().
+
 2007-06-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
