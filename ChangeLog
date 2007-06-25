@@ -1,3 +1,9 @@
+2007-06-25  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Rework this
+	to properly handle the case where you have something like
+	/usr/local and /usr as separate partitions (#244913)
+
 2007-06-25  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/netconfig_dialog.py (NetworkConfigurator): Remove pointless

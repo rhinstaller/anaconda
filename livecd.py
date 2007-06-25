@@ -200,16 +200,33 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         # for any filesystem that's _not_ on the root, we need to handle
         # moving the bits from the livecd -> the real filesystems.
-        # this could be more clever by starting at the deepest part of
-        # the fsys tree, but this will do for now
-        for entry in anaconda.id.fsset.entries:
-            if entry.fsystem.isKernelFS():
-                continue
+        # this is pretty distasteful, but should work with things like
+        # having a separate /usr/local
 
+        # get a list of fsset entries that are relevant
+        entries = sorted(filter(lambda e: not e.fsystem.isKernelFS() and \
+                                e.getMountPoint(), anaconda.id.fsset.entries))
+        # now create a tree so that we know what's mounted under where
+        fsdict = {"/": []}
+        for entry in entries:
             tocopy = entry.getMountPoint()
-
-            if tocopy is None or tocopy == "/" or tocopy.startswith("/mnt") or tocopy == "swap":
+            if tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
+            keys = sorted(fsdict.keys(), reverse = True)
+            for key in keys:
+                if tocopy.startswith(key):
+                    fsdict[key].append(entry)
+                    break
+            fsdict[tocopy] = []
+
+        # and now let's do the real copies; and we don't want to copy /!
+        copied = ["/"]
+        for tocopy in sorted(fsdict.keys()):
+            if tocopy in copied:
+                continue
+            copied.append(tocopy)
+            copied.extend(map(lambda x: x.getMountPoint(), fsdict[tocopy]))
+            entry = anaconda.id.fsset.getEntryByMountPoint(tocopy)
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -217,23 +234,31 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             # time.
             wait.refresh()
 
-            log.info("doing the copy for %s" %(tocopy,))
-            entry.umount(anaconda.rootPath)
-            entry.mount(anaconda.rootPath + "/mnt")
+            # unmount subdirs + this one and then remount under /mnt
+            for e in fsdict[tocopy] + [entry]:
+                e.umount(anaconda.rootPath)
+            for e in [entry] + fsdict[tocopy]:
+                e.mount(anaconda.rootPath + "/mnt")                
+
             # XXX: should use something with selinux knowledge...
             copytree("%s/%s" %(anaconda.rootPath, tocopy),
-                     "%s/mnt/%s" %(anaconda.rootPath, tocopy))
+                     "%s/mnt/%s" %(anaconda.rootPath, tocopy), True)
             shutil.rmtree("%s/%s" %(anaconda.rootPath, tocopy))
-            wait.refresh()            
-            entry.umount(anaconda.rootPath + "/mnt")
-            entry.mount(anaconda.rootPath)
-            try:
-                os.rmdir("%s/mnt/%s" %(anaconda.rootPath, tocopy))
-            except OSError, e:
-                log.debug("error removing %s" %(tocopy,))
-                pass
+            wait.refresh()
+
+            # mount it back in the correct place
+            for e in fsdict[tocopy] + [entry]:
+                e.umount(anaconda.rootPath + "/mnt")
+                try:
+                    os.rmdir("%s/mnt/%s" %(anaconda.rootPath,
+                                           e.getMountPoint()))
+                except OSError, e:
+                    log.debug("error removing %s" %(tocopy,))
+            for e in [entry] + fsdict[tocopy]:                
+                e.mount(anaconda.rootPath)                
 
             wait.refresh()
+
             # XXX: we should be preserving contexts on our copy, but
             # this will do for now
             for dir, subdirs, files in os.walk(os.path.normpath("%s/%s" %(anaconda.rootPath, tocopy))):
