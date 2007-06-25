@@ -543,6 +543,12 @@ class AnacondaYum(YumSorter):
                 except yum.Errors.DuplicateRepoError, e:
                     log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
 
+        self.doPluginSetup(searchpath=["/usr/lib/yum-plugins", 
+                                       "/tmp/updates/yum-plugins"], 
+                           confpath=["/etc/yum/pluginconf.d", 
+                                     "/tmp/updates/pluginconf.d"])
+        self.plugins.run('init')
+
         self.repos.setCacheDir('/tmp/cache')
 
     def getDownloadPkgs(self):

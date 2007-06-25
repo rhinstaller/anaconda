@@ -1,3 +1,10 @@
+2007-06-25  Dave Lehman  <dlehman@redhat.com>
+	
+	* yuminstall.py (AnacondaYum.doConfigSetup): set up and use plugins (#241412)
+	* scripts/upd-instroot: include fedorakmod yum plugin (#241412)
+
+	* fedorakmod.py: new file taken from yum-utils sources
+
 2007-06-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
