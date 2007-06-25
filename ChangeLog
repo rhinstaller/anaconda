@@ -3,6 +3,10 @@
 	* iw/netconfig_dialog.py (NetworkConfigurator): Remove pointless
 	call to sanityCheckIPString().
 
+	* partedUtils.py (DiskSet.openDevices): Do not try to display dialog
+	box warning message if intf is None (assumes we are called from the
+	labelFactory) (#245609).
+
 2007-06-22  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
