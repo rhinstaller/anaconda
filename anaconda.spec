@@ -111,6 +111,10 @@ rm -rf $RPM_BUILD_ROOT
 - Install debuginfo packages (james.antill)
   Resolves: rhbz#236033
 
+* Tue Jun 26 2007 James Antill <jantill@redhat.com> - 11.1.2.44-2
+- Remove default exclude for debuginfo.
+- Resolves: rhbz#236033
+
 * Fri Jun 22 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.44-1
 - Fix typo in multipath part of making stage2 image (dcantrell).
 - Include the scsi_id command in the stage2 image (dcantrell).
