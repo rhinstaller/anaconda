@@ -499,7 +499,7 @@ class AnacondaYum(YumSorter):
         self.conf.reposdir="/tmp/repos.d"
         self.conf.logfile="/tmp/yum.log"
         self.conf.obsoletes=True
-        self.conf.exclude=["*debuginfo*"]
+        self.conf.exclude=[]
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0

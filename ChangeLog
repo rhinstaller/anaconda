@@ -2,6 +2,11 @@
 
 	* anaconda.spec: Bump version.
 
+2007-06-26  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Install debuginfo
+	packages (james DOT antill AT redhat DOT com, #236033)
+
 2007-06-26  Chris Lumens  <clumens@redhat.com>
 
 	* upd-instroot:  Add keyutils-libs (#245734).
