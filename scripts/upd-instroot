@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          yum-metadata-parser gfs2-utils libvolume_id rhel-instnum
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 dmraid python-pyblock mkinitrd libbdevid libbdevid-python
-	 libselinux-python nss udev"
+	 libselinux-python nss udev keyutils-libs"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -300,6 +300,7 @@ $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libexpat*
 $LIBDIR/libext2fs*
+$LIBDIR/libkeyutils*
 $LIBDIR/liblvm-10.so*
 $LIBDIR/libgcc_s*
 $LIBDIR/libnsl*
