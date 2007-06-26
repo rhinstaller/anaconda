@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.44
+Version: 11.1.2.45
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 26 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.45-1
+- Add keyutils-libs (clumens)
+  Resolves: rhbz#245734
+- Set up and use yum backend plugins (dlehman)
+  Resolves: rhbz#241412
+
 * Fri Jun 22 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.44-1
 - Fix typo in multipath part of making stage2 image (dcantrell).
 - Include the scsi_id command in the stage2 image (dcantrell).
