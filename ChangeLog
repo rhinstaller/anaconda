@@ -1,3 +1,18 @@
+2007-06-26  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (AnacondaBackend.copyDriverDiskModules):  The driver
+	disk layout has changed, so this method is no longer needed.
+	(AnacondaBackend.copyFirmware):  Add a method to copy driver firmware
+	to the installed system.
+	(AnacondaBackend.doPostInstall):  Call methods for new driver disk
+	postconfig.
+
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Add in any driver
+	disk repos.  Rework code a bit to be less repetitive.
+	(AnacondaYum.selectModulePackage):  Add a method to select
+	packages that provide the modules we loaded from the driver disk
+	(#213318).
+
 2007-06-25  Jeremy Katz  <katzj@redhat.com>
 
 	* livecd.py (LiveCDCopyBackend._doFilesystemMangling): Rework this

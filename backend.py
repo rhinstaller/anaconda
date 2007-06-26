@@ -4,7 +4,7 @@
 # Paul Nasrat <pnasrat@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -51,84 +51,32 @@ class AnacondaBackend:
         pass
 
     def doPreInstall(self, anaconda):
-        self.initLog(anaconda.id, anaconda.rootPath)        
+        self.initLog(anaconda.id, anaconda.rootPath)
 
-    def copyDriverDiskModules(self, anaconda):
-        """Copy over modules from a driver disk."""
-        kernelVersions = self.kernelVersionList()
-        foundModule = 0
+    def copyFirmware(self, anaconda):
+        import glob, shutil
 
-        try:
-            f = open("/etc/arch")
-            arch = f.readline().strip()
-            del f
-        except IOError:
-            arch = os.uname()[2]
-
-        for (path, name) in anaconda.id.extraModules:
-            if not path:
-                path = "/modules.cgz"
-            pattern = ""
-            names = ""
-            for (n, arch, tag) in kernelVersions:
-                if tag == "base":
-                    pkg = "kernel"
-                else:
-                    pkg = "kernel-%s" %(tag,)
-
-                # version 1 path
-                pattern = pattern + " %s/%s/%s.ko " % (n, arch, name)
-                # version 0 path
-                pattern = pattern + " %s/%s.ko " % (n, name)
-                names = names + " %s.ko" % (name,)
-            command = ("cd %s/lib/modules; gunzip < %s | "
-                       "%s/bin/cpio --quiet -iumd %s" % 
-                       (anaconda.rootPath, path, anaconda.rootPath, pattern))
-            log.info("running: '%s'" % (command, ))
-            os.system(command)
-
-            for (n, arch, tag) in kernelVersions:
-                if tag == "base":
-                    pkg = "kernel"
-                else:
-                    pkg = "kernel-%s" %(tag,)
-                
-                toDir = "%s/lib/modules/%s/updates" % \
-                        (anaconda.rootPath, n)
-                to = "%s/%s.ko" % (toDir, name)
-
-                if (os.path.isdir("%s/lib/modules/%s" %(anaconda.rootPath, n)) and not
-                    os.path.isdir("%s/lib/modules/%s/updates" %(anaconda.rootPath, n))):
-                    os.mkdir("%s/lib/modules/%s/updates" %(anaconda.rootPath, n))
-                if not os.path.isdir(toDir):
-                    continue
-
-                for p in ("%s/%s.ko" %(arch, name), "%s.ko" %(name,)):
-                    fromFile = "%s/lib/modules/%s/%s" % (anaconda.rootPath, n, p)
-
-                    if (os.access(fromFile, os.R_OK)):
-                        log.info("moving %s to %s" % (fromFile, to))
-                        os.rename(fromFile, to)
-                        # the file might not have been owned by root in the cgz
-                        os.chown(to, 0, 0)
-                        foundModule = 1
-                    else:
-                        log.warning("missing DD module %s (this may be okay)" % 
-                            fromFile)
-
-        if foundModule == 1:
-            for (n, arch, tag) in kernelVersions:
-                packages.recreateInitrd(n, anaconda.rootPath)
+        # Multiple driver disks may be loaded, so we need to glob for all
+        # the firmware files in all the driver disk directories.
+        for f in glob.glob("/tmp/ramfs/DD-*/firmware/*"):
+            try:
+                shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
+            except IOError, e:
+                log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
 
     def doPostInstall(self, anaconda):
-        self.copyDriverDiskModules(anaconda)
+        if anaconda.id.extraModules:
+            self.copyFirmware(anaconda)
+
+            for (n, arch, tag) in self.kernelVersionList():
+                packages.recreateInitrd(n, anaconda.rootPath)
 
         sys.stdout.flush()
         if flags.setupFilesystems:
             syslog.stop()
 
     def doInstall(self, anaconda):
-        log.warning("doInstall not implemented for backend!")        
+        log.warning("doInstall not implemented for backend!")
         pass
 
     def initLog(self, id, instPath):

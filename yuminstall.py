@@ -19,6 +19,7 @@ import timer
 import warnings
 import types
 import locale
+import glob
 
 import rpm
 import rpmUtils
@@ -447,17 +448,29 @@ class AnacondaYum(YumSorter):
             repo.enable()
             self.repos.add(repo)
 
+        extraRepos = []
+
         # add some additional not enabled by default repos.
         # FIXME: this is a hack and should probably be integrated
         # with the above
         for (name, (uri, mirror)) in self.anaconda.id.instClass.repos.items():
             rid = name.replace(" ", "")
-            repo = AnacondaYumRepo(uri = uri, mirrorlist = mirror,
-                                   repoid=rid, root = root)
+            repo = AnacondaYumRepo(uri=uri, mirrorlist=mirror, repoid=rid,
+                                   root=root)
             repo.name = name
             repo.disable()
-            self.repos.add(repo)
-            
+            extraRepos.append(repo)
+
+        if self.anaconda.id.extraModules:
+            for d in glob.glob("/tmp/ramfs/DD-*/rpms"):
+                dirname = os.path.basename(os.path.dirname(d))
+                rid = "anaconda-%s" % dirname
+
+                repo = AnacondaYumRepo(uri="file:///%s" % d, repoid=rid,
+                                       root=root)
+                repo.name = "Driver Disk %s" % dirname.split("-")[1]
+                repo.enable()
+                extraRepos.append(repo)
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
@@ -466,12 +479,14 @@ class AnacondaYum(YumSorter):
                                        repoid=ksrepo.name)
                 repo.name = name
                 repo.enable()
-                
-                try:
-                    self.repos.add(repo)
-                    log.info("added repository %s with with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
-                except yum.Errors.DuplicateRepoError, e:
-                    log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+                extraRepos.append(repo)
+
+        for repo in extraRepos:
+            try:
+                self.repos.add(repo)
+                log.info("added repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
+            except yum.Errors.DuplicateRepoError, e:
+                log.warning("ignoring duplicate repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
 
         self.repos.setCacheDir('/tmp/cache')
 
@@ -885,9 +900,43 @@ class YumBackend(AnacondaBackend):
                 rc.append(g.groupid)
         return rc
 
+    # XXX: need to check that the version of the module matches the version of
+    # the kernel package.
+    def selectModulePackages(self, anaconda):
+        def inProvides(provides, po):
+           return provides in map(lambda p: p[0], po.provides)
+
+        for (path, name) in anaconda.id.extraModules:
+            if not name.endswith(".ko"):
+                continue
+
+            xenProvides = "kmod-%s-xen" % name[:-3]
+            regularProvides = "%s-kmod" % name[:-3]
+
+            if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
+                moduleProvides = xenProvides
+            else:
+                moduleProvides = regularProvides
+
+            pkgs = self.ayum.returnPackagesByDep(moduleProvides)
+
+            if not pkgs:
+                log.warning("Didn't find any package for module %s" % name)
+
+            for pkg in pkgs:
+                # The xen module includes the non-xen provides, so we need to
+                # make sure we're not trying to select the xen module on a
+                # non-xen kernel.
+                if moduleProvides == regularProvides and inProvides(xenProvides, pkg):
+                    continue
+                else:
+                    log.info("selecting %s package for %s module" % (pkg.name, name))
+                    self.ayum.install(po=pkg)
+
+
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""
-        
+
         def getBestKernelByArch(pkgname, ayum):
             """Convenience func to find the best arch of a kernel by name"""
             pkgs = ayum.pkgSack.returnNewestByName(pkgname)
@@ -904,7 +953,7 @@ class YumBackend(AnacondaBackend):
         # FIXME: this is a bit of a hack.  we shouldn't hard-code and
         # instead check by provides.  but alas.
         for k in ("kernel", "kernel-smp", "kernel-xen0", "kernel-xen"):
-            if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:            
+            if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:
                 foundkernel = True
 
         if not foundkernel and os.path.exists("/proc/xen"):
@@ -935,7 +984,7 @@ class YumBackend(AnacondaBackend):
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
                     self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
-            
+
         if not foundkernel:
             log.info("selected kernel package for kernel")
             self.ayum.install(po=kpkg)
@@ -992,6 +1041,7 @@ class YumBackend(AnacondaBackend):
         self.selectBestKernel()
         self.selectBootloader()
         self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+        self.selectModulePackages(anaconda)
 
         self.selectAnacondaNeeds()
 
@@ -1189,7 +1239,7 @@ class YumBackend(AnacondaBackend):
     def checkSupportedUpgrade(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return
-        
+
         # Figure out current version for upgrade nag and for determining weird
         # upgrade cases
         supportedUpgradeVersion = -1
