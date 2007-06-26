@@ -217,7 +217,7 @@ class AnacondaCallback:
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
                   repoid='anaconda%s' % productStamp,
-                  root = "/mnt/sysimage/", method=None):
+                  root = "/mnt/sysimage/", method=None, addon=True):
         YumRepository.__init__(self, repoid)
         self.method = method
         self.nomoremirrors = False
@@ -228,7 +228,8 @@ class AnacondaYumRepo(YumRepository):
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         self.keepalive = False
-        
+        self.addon = addon
+
         if type(uri) == types.ListType:
             self.baseurl = uri
         else:
@@ -441,7 +442,7 @@ class AnacondaYum(YumSorter):
 
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
-            repo = AnacondaYumRepo(uri,
+            repo = AnacondaYumRepo(uri, addon=False,
                                    repoid="anaconda-%s-%s" %(name,
                                                              productStamp),
                                    root = root, method=self.method)
@@ -456,7 +457,7 @@ class AnacondaYum(YumSorter):
         for (name, (uri, mirror)) in self.anaconda.id.instClass.repos.items():
             rid = name.replace(" ", "")
             repo = AnacondaYumRepo(uri=uri, mirrorlist=mirror, repoid=rid,
-                                   root=root)
+                                   root=root, addon=False)
             repo.name = name
             repo.disable()
             extraRepos.append(repo)
@@ -467,7 +468,7 @@ class AnacondaYum(YumSorter):
                 rid = "anaconda-%s" % dirname
 
                 repo = AnacondaYumRepo(uri="file:///%s" % d, repoid=rid,
-                                       root=root)
+                                       root=root, addon=False)
                 repo.name = "Driver Disk %s" % dirname.split("-")[1]
                 repo.enable()
                 extraRepos.append(repo)
@@ -1457,6 +1458,19 @@ class YumBackend(AnacondaBackend):
                     break
             if found > 0:
                 self.selectPackage(new)
+
+    def writeKS(self, f):
+        # Only write out lines for repositories that weren't added
+        # automatically by anaconda.
+        for repo in filter(lambda r: r.addon, self.ayum.repos.listEnabled()):
+            line = "repo --name=%s " % (repo.name or repo.repoid)
+
+            if repo.baseurl:
+                line += " --baseurl=%s\n" % repo.baseurl[0]
+            else:
+                line += " --mirrorlist=%s\n" % repo.mirrorlist
+
+            f.write(line)
 
     def writePackagesKS(self, f):
         groups = []

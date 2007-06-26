@@ -259,7 +259,9 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
+
         if self.backend is not None:
+            self.backend.writeKS(f)
             self.backend.writePackagesKS(f)
 
         # make it so only root can read, could have password

@@ -1,5 +1,14 @@
 2007-06-26  Chris Lumens  <clumens@redhat.com>
 
+	* backend.py (AnacondaBackend.writeKS):  Add yet another method
+	for writing out kickstart config sections, this one being
+	optional.
+	* instdata.py (InstallData.writeKS):  Call new backend.writeKS
+	method, if it exists.
+	* yuminstall.py (YumBackend.writeKS):  Add a method to write out
+	repo lines to the anaconda-ks.cfg file for all enabled add-on
+	repositories (#206152).
+
 	* backend.py (AnacondaBackend.copyDriverDiskModules):  The driver
 	disk layout has changed, so this method is no longer needed.
 	(AnacondaBackend.copyFirmware):  Add a method to copy driver firmware
