@@ -165,6 +165,21 @@ class InstallData:
         self.users.setRootPassword(self.rootPassword["password"],
                                    self.rootPassword["isCrypted"], useMD5)
 
+        # Make sure multipathd is set to run for mpath installs (#243421)
+        if flags.mpath:
+            svc = 'multipathd'
+
+            if anaconda.isKickstart:
+                try:
+                    hasSvc = self.ksdata.services["enabled"].index(svc)
+                except:
+                    self.ksdata.services["enabled"].append(svc)
+            else:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       [svc, "on"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root=anaconda.rootPath)
+
         if anaconda.isKickstart:
             for svc in self.ksdata.services["disabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",

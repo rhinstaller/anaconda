@@ -1,3 +1,8 @@
+2006-06-27  David Cantrell  <dcantrell@redhat.com>
+
+	* instdata.py (InstallData.write): Make sure multipathd is set to run
+	for mpath installs (#243421).
+
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot:  Add libraries from nspr and additional
