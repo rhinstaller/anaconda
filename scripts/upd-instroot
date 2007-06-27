@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 yum-metadata-parser gfs2-utils libvolume_id nash
 	 libdhcp libnl libdhcp6client libdhcp4client
 	 device-mapper device-mapper-libs dmraid keyutils-libs
-	 python-pyblock mkinitrd libbdevid libbdevid-python"
+	 python-pyblock mkinitrd libbdevid libbdevid-python nss nspr"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -403,11 +403,16 @@ usr/$LIBDIR/libnash*
 usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libnl*
+usr/$LIBDIR/libnss3.so
 usr/$LIBDIR/libparted*
 usr/$LIBDIR/libpopt*
 usr/$LIBDIR/libpython*
 usr/$LIBDIR/libneon*
+usr/$LIBDIR/libnspr*
+usr/$LIBDIR/libplc4*
+usr/$LIBDIR/libplds4*
 usr/$LIBDIR/libsqlite3*
+usr/$LIBDIR/libsoftokn3*
 usr/$LIBDIR/librpm-*4.?.so*
 usr/$LIBDIR/librpmbuild-*4.?.so*
 usr/$LIBDIR/librpmdb*4.?.so*
