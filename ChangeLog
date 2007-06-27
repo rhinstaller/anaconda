@@ -2,6 +2,10 @@
 
 	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
 	making header dir any more since we still need headers (#245918)
+	(AnacondaYumRepo.getPackage): Remove no-longer needed hacks for
+	split-url installs
+	(AnacondaYumRepo.getHeader): Likewise.
+	(getcd): Remove unused method.
 
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 

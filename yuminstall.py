@@ -53,18 +53,6 @@ import isys
 
 import whiteout
 
-#XXX: this needs to be somewhere better - probably method
-def getcd(po):
-    try: 
-        uri = po.returnSimple('basepath')
-        (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
-        if scheme != "media" or not fragid:
-            return 0
-        else:
-            return int(fragid)
-    except (AttributeError, KeyError):
-        return 0
-
 def size_string (size):
     def number_format(s):
         return locale.format("%s", s, 1)
@@ -340,53 +328,6 @@ class AnacondaYumRepo(YumRepository):
                 raise yum.Errors.RepoError, "failure: %s from %s: %s" % (relative, self.id, e)
 
         return result
-
-    def getHeader(self, package, checkfunc = None, reget = 'simple',
-            cache = True):
-
-        remote = package.returnSimple('relativepath')
-        local =  package.localHdr()
-        start = package.returnSimple('hdrstart')
-        end = package.returnSimple('hdrend')
-        url = None
-        if self.method and self.method.splitmethod:
-            from urlinstall import UrlInstallMethod
-            if isinstance(self.method, UrlInstallMethod):
-                if self.urls:
-                    repourl = self.urls[0]
-                    baseurl = self.method.pkgUrl
-                    discurl = self.method.getMethodUri()
-                    url = repourl.replace(baseurl, discurl)
-
-        return self._getFile(url=url,
-                             relative=remote,
-                             local=local, 
-                             start=start,
-                             reget=None,
-                             end=end,
-                             checkfunc=checkfunc,
-                             copy_local=1,
-                             cache=cache)
-
-    def getPackage(self, package, checkfunc = None, text = None, cache = True):
-        remote = package.returnSimple('relativepath')
-        local = package.localPkg()
-        url = None
-        if self.method and self.method.splitmethod:
-            from urlinstall import UrlInstallMethod
-            if isinstance(self.method, UrlInstallMethod):
-                if self.urls:
-                    repourl = self.urls[0]
-                    baseurl = self.method.pkgUrl
-                    discurl = self.method.getMethodUri()
-                    url = repourl.replace(baseurl, discurl)
-
-        return self._getFile(url=url,
-                             relative=remote,
-                             local=local,
-                             checkfunc=checkfunc,
-                             text=text,
-                             cache=cache)
 
 class YumSorter(yum.YumBase):
     
