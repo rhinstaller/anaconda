@@ -1,3 +1,8 @@
+2007-06-27  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
+	making header dir any more since we still need headers (#245918)
+
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot:  Add nss and nspr libraries.
