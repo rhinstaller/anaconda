@@ -1,3 +1,8 @@
+2006-06-27  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
+	making header dir any more since we still need headers (katzj, #245918)
+
 2006-06-27  David Cantrell  <dcantrell@redhat.com>
 
 	* instdata.py (InstallData.write): Make sure multipathd is set to run

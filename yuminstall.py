@@ -194,6 +194,11 @@ class AnacondaYumRepo(YumRepository):
         self.setAttribute('pkgdir', root)
         self.setAttribute('hdrdir', '/tmp/cache/headers')
 
+    def dirSetup(self):
+        YumRepository.dirSetup(self)
+        if not os.path.isdir(self.hdrdir):
+            os.makedirs(self.hdrdir, mode=0755)
+
     #XXX: FIXME duplicated from YumRepository due to namespacing
     def __headersListFromDict(self):
         """Convert our dict of headers to a list of 2-tuples for urlgrabber."""
