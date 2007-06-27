@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-29 10:34-0500\n"
+"POT-Creation-Date: 2007-06-27 13:46-0400\n"
 "PO-Revision-Date: 2006-11-30 16:08+1000\n"
 "Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
 "Language-Team: \n"
@@ -39,43 +39,43 @@ msgstr "Неизвестная ошибка"
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Ошибка получения второй части конфигурации kickstart: %s!"
 
-#: ../anaconda:418
+#: ../anaconda:399
 msgid "Press <enter> for a shell"
 msgstr "Для перехода в командную оболочку нажмите <enter>"
 
-#: ../anaconda:449 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:325 ../rescue.py:352 ../rescue.py:362 ../rescue.py:443
-#: ../rescue.py:449 ../text.py:438 ../text.py:581 ../vnc.py:141
+#: ../anaconda:414 ../gui.py:233 ../rescue.py:46 ../rescue.py:247
+#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:442
+#: ../rescue.py:448 ../text.py:438 ../text.py:585 ../vnc.py:144
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:46
-#: ../textw/network_text.py:56 ../textw/network_text.py:323
-#: ../textw/network_text.py:355 ../textw/network_text.py:382
-#: ../textw/network_text.py:388 ../textw/network_text.py:620
-#: ../textw/network_text.py:628 ../loader2/cdinstall.c:140
-#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
-#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
-#: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:581
-#: ../loader2/driverdisk.c:618 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:207 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:320
-#: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:406
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
-#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:334
-#: ../loader2/kickstart.c:469 ../loader2/lang.c:106 ../loader2/lang.c:369
-#: ../loader2/loader.c:338 ../loader2/loader.c:351 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/loader.c:989 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:155 ../loader2/method.c:373 ../loader2/method.c:458
-#: ../loader2/modules.c:1057 ../loader2/net.c:259 ../loader2/net.c:298
-#: ../loader2/net.c:719 ../loader2/net.c:1044 ../loader2/net.c:1558
-#: ../loader2/net.c:1581 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
+#: ../textw/constants_text.py:36 ../textw/network_text.py:39
+#: ../textw/network_text.py:49 ../textw/network_text.py:71
+#: ../textw/network_text.py:77 ../textw/network_text.py:225
+#: ../textw/network_text.py:808 ../textw/network_text.py:816
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
+#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
+#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
+#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
+#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
+#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/kickstart.c:124 ../loader2/kickstart.c:134
+#: ../loader2/kickstart.c:177 ../loader2/kickstart.c:284
+#: ../loader2/kickstart.c:342 ../loader2/kickstart.c:478 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
+#: ../loader2/loader.c:362 ../loader2/loader.c:841 ../loader2/loader.c:1004
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/modules.c:1063 ../loader2/modules.c:1076
+#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:734
+#: ../loader2/net.c:1059 ../loader2/net.c:1573 ../loader2/net.c:1596
+#: ../loader2/net.c:1772 ../loader2/nfsinstall.c:57
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
 #: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
 #: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
@@ -86,7 +86,7 @@ msgstr "Для перехода в командную оболочку нажм�
 msgid "OK"
 msgstr "OК"
 
-#: ../anaconda:456
+#: ../anaconda:421
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -94,39 +94,39 @@ msgstr ""
 "Недостаточно ОЗУ для запуска графической установки. Установка будет "
 "продолжена в текстовом режиме."
 
-#: ../anaconda:472
+#: ../anaconda:437
 msgid "No video hardware found, assuming headless"
 msgstr "Видеокарта не найдена, подразумевается отсутствие видеокарты."
 
-#: ../anaconda:479 ../anaconda:944
+#: ../anaconda:444 ../anaconda:924
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Не удается инициализировать объект состояния оборудования X"
 
-#: ../anaconda:536
+#: ../anaconda:501
 msgid "Starting graphical installation..."
 msgstr "Запуск графической установки..."
 
-#: ../anaconda:808
+#: ../anaconda:788
 msgid "Install class forcing text mode installation"
 msgstr "Переход к установке в текстовом режиме"
 
-#: ../anaconda:840
+#: ../anaconda:820
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Графическая установка невозможна...  Запускается текстовая установка."
 
-#: ../anaconda:848
+#: ../anaconda:828
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Переменная DISPLAY не установлена. Запускается текстовый режим!"
 
-#: ../anaconda:909
+#: ../anaconda:889
 msgid "Unknown install method"
 msgstr "Неизвестный метод установки"
 
-#: ../anaconda:910
+#: ../anaconda:890
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Вы указали метод установки, который не поддерживается anaconda."
 
-#: ../anaconda:912
+#: ../anaconda:892
 #, c-format
 msgid "unknown install method: %s"
 msgstr "неизвестный метод установки: %s"
@@ -205,7 +205,8 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
 "архитектуры."
@@ -219,11 +220,11 @@ msgstr ""
 "Добавление этого раздела не оставит места для уже распределенных логических "
 "томов на %s."
 
-#: ../autopart.py:1249
+#: ../autopart.py:1253
 msgid "Requested Partition Does Not Exist"
 msgstr "Запрошенный раздел не существует"
 
-#: ../autopart.py:1250
+#: ../autopart.py:1254
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -234,11 +235,11 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1277
+#: ../autopart.py:1281
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Запрошенное устройство RAID не существует"
 
-#: ../autopart.py:1278
+#: ../autopart.py:1282
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -249,11 +250,11 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1309
+#: ../autopart.py:1313
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Запрошенная группа томов не существует"
 
-#: ../autopart.py:1310
+#: ../autopart.py:1314
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -264,11 +265,11 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1347
+#: ../autopart.py:1351
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Запрошенный логический том не существует"
 
-#: ../autopart.py:1348
+#: ../autopart.py:1352
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -279,11 +280,11 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1464 ../autopart.py:1511
+#: ../autopart.py:1478 ../autopart.py:1525
 msgid "Automatic Partitioning Errors"
 msgstr "Ошибки автоматического разбиения"
 
-#: ../autopart.py:1465
+#: ../autopart.py:1479
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -298,11 +299,11 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1475
+#: ../autopart.py:1489
 msgid "Warnings During Automatic Partitioning"
 msgstr "Предостережения при автоматическом разбиении"
 
-#: ../autopart.py:1476
+#: ../autopart.py:1490
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -313,7 +314,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1490 ../autopart.py:1507
+#: ../autopart.py:1504 ../autopart.py:1521
 msgid ""
 "\n"
 "\n"
@@ -323,12 +324,12 @@ msgstr ""
 "\n"
 "Нажмите OК для перезагрузки системы."
 
-#: ../autopart.py:1491 ../iw/partition_gui.py:997
+#: ../autopart.py:1505 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:228
 msgid "Error Partitioning"
 msgstr "Ошибка разбиения"
 
-#: ../autopart.py:1492
+#: ../autopart.py:1506
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -339,7 +340,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1509
+#: ../autopart.py:1523
 msgid ""
 "\n"
 "\n"
@@ -349,7 +350,7 @@ msgstr ""
 "\n"
 "Нажмите 'OK' для выбора другого варианта разбиения."
 
-#: ../autopart.py:1512
+#: ../autopart.py:1526
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -366,27 +367,27 @@ msgstr ""
 "Возможная причина ошибки - недостаточно места на жестких дисках для "
 "установки %s"
 
-#: ../autopart.py:1523
+#: ../autopart.py:1537
 msgid "Unrecoverable Error"
 msgstr "Неустранимая ошибка"
 
-#: ../autopart.py:1524
+#: ../autopart.py:1538
 msgid "Your system will now be rebooted."
 msgstr "Ваша система сейчас будет перезагружена."
 
-#: ../autopart.py:1671 ../bootloader.py:197 ../image.py:435
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:983
-#: ../partedUtils.py:1040 ../upgrade.py:380 ../yuminstall.py:1292
+#: ../autopart.py:1685 ../bootloader.py:197 ../image.py:435
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1032
+#: ../partedUtils.py:1172 ../upgrade.py:390 ../yuminstall.py:1328
 #: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
 #: ../iw/task_gui.py:89 ../iw/upgrade_swap_gui.py:188
 #: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
 #: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
-#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:174
+#: ../textw/partition_text.py:232 ../textw/upgrade_text.py:181
 #: ../loader2/loader.c:405
 msgid "Warning"
 msgstr "Внимание!"
 
-#: ../autopart.py:1677
+#: ../autopart.py:1691
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -402,7 +403,7 @@ msgstr ""
 "интерактивном окружении. Вы можете задать типы файловых систем, точки "
 "монтирования и многое другое."
 
-#: ../autopart.py:1688
+#: ../autopart.py:1702
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -410,19 +411,19 @@ msgstr ""
 "Перед тем, как программа установки выполнит автоматическое разбиение, "
 "необходимо выбрать, как будет использовано место на жестких дисках."
 
-#: ../autopart.py:1693
+#: ../autopart.py:1707
 msgid "Remove all partitions on this system"
 msgstr "Удалить все разделы на этой системе"
 
-#: ../autopart.py:1694
+#: ../autopart.py:1708
 msgid "Remove all Linux partitions on this system"
 msgstr "Удалить все разделы Linux на этой системе"
 
-#: ../autopart.py:1695
+#: ../autopart.py:1709
 msgid "Keep all partitions and use existing free space"
 msgstr "Сохранить все разделы и использовать свободное пространство"
 
-#: ../autopart.py:1697
+#: ../autopart.py:1711
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -432,7 +433,7 @@ msgstr ""
 "Вы выбрали удаление всех разделов (ВСЕХ ДАННЫХ) на следующих устройствах:%s\n"
 "Вы уверены, что хотите удалить все разделы?"
 
-#: ../autopart.py:1701
+#: ../autopart.py:1715
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -443,12 +444,12 @@ msgstr ""
 "устройствах:%s\n"
 "Вы уверены, что хотите удалить все разделы Linux?"
 
-#: ../backend.py:97
+#: ../backend.py:203
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Обновление %s\n"
 
-#: ../backend.py:99
+#: ../backend.py:205
 #, python-format
 msgid "Installing %s\n"
 msgstr "Установка %s\n"
@@ -481,7 +482,7 @@ msgstr "В процессе...   "
 msgid "Can't have a question in command line mode!"
 msgstr "Невозможно задать вопрос в режиме командной строки!"
 
-#: ../cmdline.py:74 ../gui.py:898 ../text.py:398
+#: ../cmdline.py:74 ../gui.py:937 ../text.py:398
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -528,10 +529,11 @@ msgstr ""
 "Состояние вашей системы было успешно сохранено на дискету. Система будет "
 "перезагружена."
 
-#: ../exception.py:404 ../exception.py:421 ../fsset.py:1738 ../fsset.py:2467
-#: ../gui.py:903 ../gui.py:1053 ../harddrive.py:80 ../image.py:93
-#: ../image.py:445 ../image.py:519 ../packages.py:311 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../exception.py:404 ../exception.py:421 ../fsset.py:1847 ../fsset.py:2578
+#: ../gui.py:942 ../gui.py:1092 ../harddrive.py:80 ../image.py:93
+#: ../image.py:445 ../image.py:519 ../packages.py:344 ../partedUtils.py:1183
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Перегрузить"
 
@@ -555,35 +557,36 @@ msgstr ""
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Возникла проблема при записи состояния системы на удаленный узел."
 
-#: ../fsset.py:221
+#: ../fsset.py:222
 msgid "Checking for Bad Blocks"
 msgstr "Поиск дефектных блоков"
 
-#: ../fsset.py:222
+#: ../fsset.py:223
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Поиск дефектных блоков на /dev/%s..."
 
-#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
-#: ../fsset.py:1525 ../fsset.py:1579 ../fsset.py:1590 ../fsset.py:1630
-#: ../fsset.py:1680 ../fsset.py:1746 ../fsset.py:1765 ../image.py:135
+#: ../fsset.py:672 ../fsset.py:1523 ../fsset.py:1554 ../fsset.py:1615
+#: ../fsset.py:1626 ../fsset.py:1680 ../fsset.py:1691 ../fsset.py:1731
+#: ../fsset.py:1789 ../fsset.py:1855 ../fsset.py:1874 ../image.py:135
 #: ../image.py:176 ../image.py:308 ../partIntfHelpers.py:407
-#: ../yuminstall.py:745 ../yuminstall.py:865 ../yuminstall.py:1138
-#: ../iw/autopart_type.py:193 ../iw/netconfig_dialog.py:213
+#: ../urlinstall.py:110 ../urlinstall.py:208 ../yuminstall.py:763
+#: ../yuminstall.py:883 ../yuminstall.py:899 ../yuminstall.py:1173
+#: ../iw/autopart_type.py:194 ../iw/netconfig_dialog.py:213
 #: ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
 #: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
 #: ../iw/task_gui.py:79 ../iw/task_gui.py:146 ../textw/grpselect_text.py:116
-#: ../textw/partition_text.py:1655 ../textw/partition_text.py:1661
-#: ../textw/partition_text.py:1683 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:141
+#: ../textw/partition_text.py:1670 ../textw/partition_text.py:1676
+#: ../textw/partition_text.py:1698 ../textw/upgrade_text.py:169
+#: ../textw/upgrade_text.py:176 ../loader2/cdinstall.c:141
 #: ../loader2/cdinstall.c:463 ../loader2/driverdisk.c:338
 #: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:404
 #: ../loader2/driverdisk.c:414 ../loader2/driverdisk.c:479
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
 #: ../loader2/hdinstall.c:371 ../loader2/hdinstall.c:476
 #: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532
-#: ../loader2/kickstart.c:276 ../loader2/lang.c:106 ../loader2/loader.c:362
-#: ../loader2/loader.c:826 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:284 ../loader2/lang.c:106 ../loader2/loader.c:362
+#: ../loader2/loader.c:841 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
 #: ../loader2/method.c:458 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
@@ -593,7 +596,7 @@ msgstr "Поиск дефектных блоков на /dev/%s..."
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../fsset.py:672
+#: ../fsset.py:673
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -606,27 +609,27 @@ msgstr ""
 "\n"
 "Продолжить без преобразования %s?"
 
-#: ../fsset.py:1329
+#: ../fsset.py:1430
 msgid "RAID Device"
 msgstr "устройство RAID"
 
-#: ../fsset.py:1333 ../fsset.py:1339
+#: ../fsset.py:1434 ../fsset.py:1440
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1344 ../partitions.py:900
+#: ../fsset.py:1445 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1347
+#: ../fsset.py:1448
 msgid "First sector of boot partition"
 msgstr "Первый сектор загрузочного раздела"
 
-#: ../fsset.py:1348
+#: ../fsset.py:1449
 msgid "Master Boot Record (MBR)"
 msgstr "Основная загрузочная запись (MBR)"
 
-#: ../fsset.py:1423
+#: ../fsset.py:1524
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -639,17 +642,17 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1452 ../packages.py:259 ../rescue.py:291 ../rescue.py:293
-#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
+#: ../fsset.py:1553 ../packages.py:288 ../rescue.py:287 ../rescue.py:289
+#: ../textw/upgrade_text.py:127 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:261 ../loader2/method.c:420
 msgid "Skip"
 msgstr "Пропустить"
 
-#: ../fsset.py:1452 ../upgrade.py:90 ../textw/complete_text.py:47
+#: ../fsset.py:1553 ../upgrade.py:99 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Перезагрузка"
 
-#: ../fsset.py:1473
+#: ../fsset.py:1574
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -669,11 +672,11 @@ msgstr ""
 "Linux версии 1. Если вы пропустите этот шаг, установщик проигнорирует его в "
 "процессе установки."
 
-#: ../fsset.py:1480
+#: ../fsset.py:1581
 msgid "Reformat"
 msgstr "Переформатирование"
 
-#: ../fsset.py:1484
+#: ../fsset.py:1585
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -693,7 +696,7 @@ msgstr ""
 "выполнения обновления полностью остановите работу вашей системы вместо "
 "перевода ее в \"спящий режим\"."
 
-#: ../fsset.py:1492
+#: ../fsset.py:1593
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -713,7 +716,7 @@ msgstr ""
 "вы выполняете новую установку, обязательно укажите установщику "
 "переформатировать все разделы подкачки."
 
-#: ../fsset.py:1502
+#: ../fsset.py:1603
 msgid ""
 "\n"
 "\n"
@@ -728,11 +731,11 @@ msgstr ""
 "раздела как пространства подкачки.  Выберите \"Перезагрузка\" для "
 "перезапуска системы."
 
-#: ../fsset.py:1508 ../iw/partition_gui.py:368
+#: ../fsset.py:1609 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Формат"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1616
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -749,7 +752,7 @@ msgstr ""
 "\n"
 "Нажмите ОК для перезагрузки системы."
 
-#: ../fsset.py:1526
+#: ../fsset.py:1627
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -764,7 +767,7 @@ msgstr ""
 "\n"
 "Нажмите ОК для перезагрузки системы."
 
-#: ../fsset.py:1580
+#: ../fsset.py:1681
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -777,7 +780,7 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы"
 
-#: ../fsset.py:1591
+#: ../fsset.py:1692
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -790,7 +793,7 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1631
+#: ../fsset.py:1732
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -803,7 +806,7 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1681
+#: ../fsset.py:1790
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -816,11 +819,11 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1707 ../fsset.py:1716
+#: ../fsset.py:1816 ../fsset.py:1825
 msgid "Invalid mount point"
 msgstr "Неверная точка монтирования"
 
-#: ../fsset.py:1708
+#: ../fsset.py:1817
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -833,7 +836,7 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1717
+#: ../fsset.py:1826
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -846,11 +849,11 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для перезагрузки системы."
 
-#: ../fsset.py:1730
+#: ../fsset.py:1839
 msgid "Unable to mount filesystem"
 msgstr "Невозможно смонтировать файловую систему"
 
-#: ../fsset.py:1731
+#: ../fsset.py:1840
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -859,12 +862,13 @@ msgstr ""
 "Произошла ошибка при монтировании устройства %s как %s. Установка может быть "
 "продолжена, но возможны проблемы."
 
-#: ../fsset.py:1739 ../image.py:93 ../image.py:446 ../kickstart.py:921
-#: ../kickstart.py:957 ../yuminstall.py:861 ../iw/partition_gui.py:1011
+#: ../fsset.py:1848 ../image.py:93 ../image.py:446 ../kickstart.py:933
+#: ../kickstart.py:969 ../partedUtils.py:1184 ../yuminstall.py:879
+#: ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "П_родолжить"
 
-#: ../fsset.py:1747
+#: ../fsset.py:1856
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -879,7 +883,7 @@ msgstr ""
 "\n"
 "Нажмите ОК для перезагрузки системы."
 
-#: ../fsset.py:1766
+#: ../fsset.py:1875
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -893,11 +897,11 @@ msgstr ""
 "\n"
 "Нажмите ОК для перезагрузки системы."
 
-#: ../fsset.py:2459
+#: ../fsset.py:2570
 msgid "Duplicate Labels"
 msgstr "Одинаковые ярлыки"
 
-#: ../fsset.py:2460
+#: ../fsset.py:2571
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -910,11 +914,11 @@ msgstr ""
 "\n"
 "Исправьте эту проблему и перезапустите установку."
 
-#: ../fsset.py:2720
+#: ../fsset.py:2831
 msgid "Formatting"
 msgstr "Форматирование"
 
-#: ../fsset.py:2721
+#: ../fsset.py:2832
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Форматирование файловой системы %s..."
@@ -967,7 +971,7 @@ msgstr ""
 msgid "Fix"
 msgstr "Исправить"
 
-#: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:90
+#: ../gui.py:231 ../rescue.py:203 ../text.py:436 ../upgrade.py:99
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
 #: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
@@ -982,8 +986,8 @@ msgid "No"
 msgstr "Нет"
 
 #: ../gui.py:234 ../text.py:439 ../loader2/net.c:91 ../loader2/net.c:316
-#: ../loader2/net.c:563 ../loader2/net.c:671 ../loader2/net.c:771
-#: ../loader2/net.c:779 ../loader2/net.c:1185 ../loader2/net.c:1191
+#: ../loader2/net.c:578 ../loader2/net.c:686 ../loader2/net.c:786
+#: ../loader2/net.c:794 ../loader2/net.c:1188 ../loader2/net.c:1194
 msgid "Retry"
 msgstr "Повторить"
 
@@ -991,12 +995,12 @@ msgstr "Повторить"
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: ../gui.py:236 ../gui.py:758 ../partIntfHelpers.py:237
+#: ../gui.py:236 ../gui.py:770 ../partIntfHelpers.py:237
 #: ../partIntfHelpers.py:530 ../text.py:102 ../text.py:103 ../text.py:412
 #: ../text.py:414 ../text.py:441 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:334 ../loader2/loader.c:351
+#: ../loader2/kickstart.c:342 ../loader2/loader.c:351
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -1004,11 +1008,15 @@ msgstr "Отмена"
 msgid "Installation Key"
 msgstr "Ключ установки"
 
-#: ../gui.py:900 ../text.py:400
+#: ../gui.py:780 tmp/anaconda.glade.h:2
+msgid "_Debug"
+msgstr "_Отладка"
+
+#: ../gui.py:939 ../text.py:400
 msgid "Error Parsing Kickstart Config"
 msgstr "Ошибка при обработке конфигурации Kickstart"
 
-#: ../gui.py:908 ../text.py:410
+#: ../gui.py:947 ../text.py:410
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1016,15 +1024,15 @@ msgstr ""
 "Вставьте дискету. Будьте внимательны, так как все содержимое этой дискеты "
 "будет удалено."
 
-#: ../gui.py:955
+#: ../gui.py:994
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:1039
+#: ../gui.py:1078
 msgid "Error!"
 msgstr "Ошибка!"
 
-#: ../gui.py:1040
+#: ../gui.py:1079
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1035,36 +1043,36 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1045 ../gui.py:1050 ../packages.py:303 ../packages.py:308
+#: ../gui.py:1084 ../gui.py:1089 ../packages.py:336 ../packages.py:341
 msgid "_Exit"
 msgstr "_Выход"
 
-#: ../gui.py:1046 ../yuminstall.py:748
+#: ../gui.py:1085 ../yuminstall.py:766
 msgid "_Retry"
 msgstr "_Повторить"
 
-#: ../gui.py:1049 ../packages.py:307
+#: ../gui.py:1088 ../packages.py:340
 msgid "The installer will now exit..."
 msgstr "Программа установки завершает свою работу..."
 
-#: ../gui.py:1052 ../packages.py:310
+#: ../gui.py:1091 ../packages.py:343
 msgid "Your system will now be rebooted..."
 msgstr "Ваша система сейчас будет перезагружена..."
 
-#: ../gui.py:1055 ../packages.py:312
+#: ../gui.py:1094 ../packages.py:345
 msgid "Rebooting System"
 msgstr "Перезагрузка системы"
 
-#: ../gui.py:1119
+#: ../gui.py:1158
 #, python-format
 msgid "%s Installer"
 msgstr "Программа установки %s"
 
-#: ../gui.py:1126
+#: ../gui.py:1165
 msgid "Unable to load title bar"
 msgstr "Невозможно загрузить заголовок"
 
-#: ../gui.py:1175
+#: ../gui.py:1214
 msgid "Install Window"
 msgstr "Окно установки"
 
@@ -1130,13 +1138,13 @@ msgstr ""
 "перечисленные диски. Если необходима перезагрузка системы, нажмите кнопку "
 "\"Перезагрузка\"."
 
-#: ../image.py:93 ../packages.py:262 ../packages.py:308 ../packages.py:311
-#: ../yuminstall.py:1145 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../image.py:93 ../packages.py:291 ../packages.py:341 ../packages.py:344
+#: ../yuminstall.py:1180 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Назад"
 
-#: ../image.py:136
+#: ../image.py:136 ../urlinstall.py:209
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1145,15 +1153,15 @@ msgstr ""
 "Произошла ошибка отключения CD. Убедитесь, что вы не занимаете %s из "
 "оболочки на tty2, и нажмите OК для повтора."
 
-#: ../image.py:166
+#: ../image.py:166 ../urlinstall.py:100
 msgid "Copying File"
 msgstr "Копирование файла"
 
-#: ../image.py:167
+#: ../image.py:167 ../urlinstall.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "Установочный образ переносится на жесткий диск..."
 
-#: ../image.py:177
+#: ../image.py:177 ../urlinstall.py:111
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1216,11 +1224,11 @@ msgstr ""
 "Скопируйте данный образ на удаленный сервер в используемый каталог и нажмите "
 "\"Повторить\". Нажмите \"Перезагрузить\" чтобы прервать установку."
 
-#: ../installclass.py:63
+#: ../installclass.py:64
 msgid "Install on System"
 msgstr "Установка системы"
 
-#: ../iscsi.py:197 ../iscsi.py:198
+#: ../iscsi.py:199 ../iscsi.py:200
 msgid "Initializing iSCSI initiator"
 msgstr "Инициализируется инициатор iSCSI"
 
@@ -1241,23 +1249,23 @@ msgstr ""
 "\n"
 "Нажмите OK для перезагрузки системы."
 
-#: ../kickstart.py:751 ../kickstart.py:769
+#: ../kickstart.py:757 ../kickstart.py:780
 msgid "Running..."
 msgstr "Выполнение..."
 
-#: ../kickstart.py:752
+#: ../kickstart.py:758
 msgid "Running pre-install scripts"
 msgstr "Выполняются пред-установочные сценарии"
 
-#: ../kickstart.py:770
+#: ../kickstart.py:781
 msgid "Running post-install scripts"
 msgstr "Выполняются пост-установочные сценарии"
 
-#: ../kickstart.py:913
+#: ../kickstart.py:925
 msgid "Missing Package"
 msgstr "Отсутствующий пакет"
 
-#: ../kickstart.py:914
+#: ../kickstart.py:926
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1266,16 +1274,16 @@ msgstr ""
 "Вы указали, что пакет '%s' должен быть установлен.  Этот пакет не "
 "существует. Продолжить или прервать установку?"
 
-#: ../kickstart.py:920 ../kickstart.py:956 ../yuminstall.py:861
-#: ../yuminstall.py:863
+#: ../kickstart.py:932 ../kickstart.py:968 ../yuminstall.py:879
+#: ../yuminstall.py:881
 msgid "_Abort"
 msgstr "_Прервать"
 
-#: ../kickstart.py:948
+#: ../kickstart.py:960
 msgid "Missing Group"
 msgstr "Отсутствует группа"
 
-#: ../kickstart.py:949
+#: ../kickstart.py:961
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1318,23 +1326,23 @@ msgstr "Недопустимый адрес IPv6: '%s'"
 msgid "'%s' is an invalid IP address."
 msgstr "Недопустимый адрес IP: '%s'"
 
-#: ../packages.py:248
+#: ../packages.py:262
 msgid "Invalid Key"
 msgstr "Неверный ключ"
 
-#: ../packages.py:249
+#: ../packages.py:263
 msgid "The key you entered is invalid."
 msgstr "Неверный ключ."
 
-#: ../packages.py:262
+#: ../packages.py:291
 msgid "_Skip"
 msgstr "_Пропустить"
 
-#: ../packages.py:289
+#: ../packages.py:322
 msgid "Warning! This is pre-release software!"
 msgstr "Внимание! Это предварительный выпуск!"
 
-#: ../packages.py:290
+#: ../packages.py:323
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1361,113 +1369,9 @@ msgstr ""
 "\n"
 "и заполните отчет относительно '%s'.\n"
 
-#: ../packages.py:303
+#: ../packages.py:336
 msgid "_Install anyway"
 msgstr "_Установить всё равно"
-
-#: ../partedUtils.py:205 ../textw/partition_text.py:559
-msgid "Foreign"
-msgstr "Чужой"
-
-#: ../partedUtils.py:305
-#, python-format
-msgid ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
-"\n"
-"Would you like to reformat this DASD using CDL format?"
-msgstr ""
-"Устройство %s имеет формат LDL вместо формата CDL. DASD с форматом LDL не "
-"поддерживаются в процессе установки %s.  Если вы хотите использовать этот "
-"диск для установки, его необходимо инициализировать повторно с потерей ВСЕХ "
-"ДАННЫХ на этом диске.\n"
-"\n"
-"Вы действительно хотите отформатировать DASD с использованием формата CDL?"
-
-#: ../partedUtils.py:335
-#, python-format
-msgid ""
-"/dev/%s currently has a %s partition layout.  To use this disk for the "
-"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
-"on this drive.\n"
-"\n"
-"Would you like to format this drive?"
-msgstr ""
-"Устройство /dev/%s уже имеет таблицу разделов типа %s.  Чтобы использовать "
-"этот диск для установки %s, его необходимо инициализировать повторно с "
-"потерей ВСЕХ ДАННЫХ на этом диске.\n"
-"\n"
-"Вы действительно хотите отформатировать этот диск?"
-
-#: ../partedUtils.py:344
-msgid "_Ignore drive"
-msgstr "_Пропустить диск"
-
-#: ../partedUtils.py:345
-msgid "_Format drive"
-msgstr "_Форматировать диск"
-
-#: ../partedUtils.py:885
-msgid "Initializing"
-msgstr "Инициализация"
-
-#: ../partedUtils.py:886
-#, python-format
-msgid "Please wait while formatting drive %s...\n"
-msgstr "Подождите, идет форматирование устройства %s...\n"
-
-#: ../partedUtils.py:984
-#, python-format
-msgid ""
-"The partition table on device %s (%s) was unreadable. To create new "
-"partitions it must be initialized, causing the loss of ALL DATA on this "
-"drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Таблица разделов на устройстве %s (%s) нечитаема. Для создания новых "
-"разделов устройство должно быть инициализировано. ВСЕ ДАННЫЕ на этом "
-"устройстве будут утеряны. \n"
-"\n"
-"Эта операция отменит сделанный ранее выбор игнорируемых дисков.\n"
-"\n"
-"Вы действительно хотите инициализировать этот диск с удалением ВСЕХ ДАННЫХ?"
-
-#: ../partedUtils.py:1041
-#, python-format
-msgid ""
-"The partition table on device %s was unreadable. To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive.\n"
-"\n"
-"This operation will override any previous installation choices about which "
-"drives to ignore.\n"
-"\n"
-"Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"Таблица разделов на устройстве %s нечитаема. Для создания новых разделов "
-"устройство должно быть инициализировано. ВСЕ ДАННЫЕ на этом устройстве будут "
-"утеряны. \n"
-"\n"
-"Эта операция отменит сделанный ранее выбор игнорируемых дисков.\n"
-"\n"
-"Вы действительно хотите инициализировать этот диск с удалением ВСЕХ ДАННЫХ?"
-
-#: ../partedUtils.py:1159
-msgid "No Drives Found"
-msgstr "Диски не найдены"
-
-#: ../partedUtils.py:1160
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"Произошла ошибка: устройства для создания новых файловых систем не найдены. "
-"Проверьте оборудование для обнаружения вероятной причины."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1593,7 +1497,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Вы собираетесь удалить все разделы на устройстве '/dev/%s'."
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
-#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1110
+#: ../iw/lvm_dialog_gui.py:758 ../iw/lvm_dialog_gui.py:1107
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1357
 msgid "_Delete"
 msgstr "_Удалить"
@@ -1778,14 +1682,221 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:538
-msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
+msgstr ""
+"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
-#: ../partitioning.py:64
+#: ../partRequests.py:255
+#, python-format
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
+msgstr ""
+"Точка монтирования неверна. Каталог %s должен быть в корневой (/) файловой "
+"системе."
+
+#: ../partRequests.py:258
+#, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Точка монтирования %s не может быть использована. Для нормальной работы "
+"системы должна быть задана символическая ссылка. Выберите другую точку "
+"монтирования."
+
+#: ../partRequests.py:265
+msgid "This mount point must be on a linux file system."
+msgstr "Эта точка монтирования должна быть в файловой системе linux."
+
+#: ../partRequests.py:286
+#, python-format
+msgid ""
+"The mount point \"%s\" is already in use, please choose a different mount "
+"point."
+msgstr ""
+"Точка монтирования \"%s\" уже используется, выберите другую точку "
+"монтирования."
+
+#: ../partRequests.py:300
+#, python-format
+msgid ""
+"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
+"MB."
+msgstr ""
+"Размер раздела %s (размер = %10.2f Мб) превышает максимальный размер %10.2f "
+"Мб."
+
+#: ../partRequests.py:496
+#, python-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+"Размер запрошенного раздела (размер = %s Мб) превышает максимальный размер %"
+"s Мб."
+
+#: ../partRequests.py:501
+#, python-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr "Размер запрошенного раздела отрицательный! (размер = %s Мб)"
+
+#: ../partRequests.py:505
+msgid "Partitions can't start below the first cylinder."
+msgstr "Разделы не могут начинаться ниже первого цилиндра."
+
+#: ../partRequests.py:508
+msgid "Partitions can't end on a negative cylinder."
+msgstr "Разделы не могут заканчиваться отрицательным цилиндром."
+
+#: ../partRequests.py:675
+msgid "No members in RAID request, or not RAID level specified."
+msgstr "В запросе RAID нет членов, или не указан уровень RAID."
+
+#: ../partRequests.py:683 ../partitions.py:954
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Загружаемые разделы допускаются только на устройствах RAID1."
+
+#: ../partRequests.py:687
+#, python-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr "Для устройства RAID типа %s требуется хотя бы %s членов."
+
+#: ../partRequests.py:696
+#, python-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+"Это устройство RAID может иметь максимум %s резервных дисков. Чтобы получить "
+"большее количество резервных дисков, необходимо увеличить количество членов "
+"устройства RAID."
+
+#: ../partRequests.py:933
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
+"Размер логического тома должен быть больше, чем размер физического экстента."
+
+#: ../partedUtils.py:205 ../textw/partition_text.py:559
+msgid "Foreign"
+msgstr "Чужой"
+
+#: ../partedUtils.py:305
+#, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"Устройство %s имеет формат LDL вместо формата CDL. DASD с форматом LDL не "
+"поддерживаются в процессе установки %s.  Если вы хотите использовать этот "
+"диск для установки, его необходимо инициализировать повторно с потерей ВСЕХ "
+"ДАННЫХ на этом диске.\n"
+"\n"
+"Вы действительно хотите отформатировать DASD с использованием формата CDL?"
+
+#: ../partedUtils.py:335
+#, python-format
+msgid ""
+"/dev/%s currently has a %s partition layout.  To use this disk for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
+"\n"
+"Would you like to format this drive?"
+msgstr ""
+"Устройство /dev/%s уже имеет таблицу разделов типа %s.  Чтобы использовать "
+"этот диск для установки %s, его необходимо инициализировать повторно с "
+"потерей ВСЕХ ДАННЫХ на этом диске.\n"
+"\n"
+"Вы действительно хотите отформатировать этот диск?"
+
+#: ../partedUtils.py:344
+msgid "_Ignore drive"
+msgstr "_Пропустить диск"
+
+#: ../partedUtils.py:345
+msgid "_Format drive"
+msgstr "_Форматировать диск"
+
+#: ../partedUtils.py:923
+msgid "Initializing"
+msgstr "Инициализация"
+
+#: ../partedUtils.py:924
+#, python-format
+msgid "Please wait while formatting drive %s...\n"
+msgstr "Подождите, идет форматирование устройства %s...\n"
+
+#: ../partedUtils.py:1009
+#, python-format
+msgid ""
+"The partition table on device %s was unreadable. To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Таблица разделов на устройстве %s нечитаема. Для создания новых разделов "
+"устройство должно быть инициализировано. ВСЕ ДАННЫЕ на этом устройстве будут "
+"утеряны. \n"
+"\n"
+"Эта операция отменит сделанный ранее выбор игнорируемых дисков.\n"
+"\n"
+"Вы действительно хотите инициализировать этот диск с удалением ВСЕХ ДАННЫХ?"
+
+#: ../partedUtils.py:1023
+#, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Таблица разделов на устройстве %s (%s) нечитаема. Для создания новых "
+"разделов устройство должно быть инициализировано. ВСЕ ДАННЫЕ на этом "
+"устройстве будут утеряны. \n"
+"\n"
+"Эта операция отменит сделанный ранее выбор игнорируемых дисков.\n"
+"\n"
+"Вы действительно хотите инициализировать этот диск с удалением ВСЕХ ДАННЫХ?"
+
+#: ../partedUtils.py:1173
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
+"the Linux kernel does not allow for more than 15 partitons at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+
+#: ../partedUtils.py:1257
+msgid "No Drives Found"
+msgstr "Диски не найдены"
+
+#: ../partedUtils.py:1258
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"Произошла ошибка: устройства для создания новых файловых систем не найдены. "
+"Проверьте оборудование для обнаружения вероятной причины."
+
+#: ../partitioning.py:61
 msgid "Installation cannot continue."
 msgstr "Установка не может быть продолжена."
 
-#: ../partitioning.py:65
+#: ../partitioning.py:62
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1794,11 +1905,11 @@ msgstr ""
 "Выбранные вами опции разбиения уже активированы. Вы не сможете вернуться к "
 "окну редактирования диска. Продолжить установку?"
 
-#: ../partitioning.py:95
+#: ../partitioning.py:92
 msgid "Low Memory"
 msgstr "Мало памяти"
 
-#: ../partitioning.py:96
+#: ../partitioning.py:93
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1835,7 +1946,8 @@ msgstr ""
 "загрузиться с него будет невозможно."
 
 #: ../partitions.py:847
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Необходимо создать раздел /boot/efi типа FAT размером 50Мб."
 
 #: ../partitions.py:867
@@ -1856,7 +1968,8 @@ msgstr ""
 "нормальной установки %s. "
 
 #: ../partitions.py:942
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Установка на USB устройство.  Существует возможность получения нерабочей "
 "системы."
@@ -1868,10 +1981,6 @@ msgid ""
 msgstr ""
 "Установка на FireWire устройство.  Существует возможность получения "
 "нерабочей системы."
-
-#: ../partitions.py:954 ../partRequests.py:677
-msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Загружаемые разделы допускаются только на устройствах RAID1."
 
 #: ../partitions.py:961
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1890,7 +1999,8 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr "Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
+msgstr ""
+"Вы указали более 32 устройств подкачки. %s поддерживает только 32 устройства."
 
 #: ../partitions.py:1004
 #, python-format
@@ -1913,92 +2023,6 @@ msgstr "раздел, который является членом массив�
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "раздел, который является членом группы томов LVM."
 
-#: ../partRequests.py:249
-#, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Точка монтирования неверна. Каталог %s должен быть в корневой (/) файловой "
-"системе."
-
-#: ../partRequests.py:252
-#, python-format
-msgid ""
-"The mount point %s cannot be used.  It must be a symbolic link for proper "
-"system operation.  Please select a different mount point."
-msgstr ""
-"Точка монтирования %s не может быть использована. Для нормальной работы "
-"системы должна быть задана символическая ссылка. Выберите другую точку "
-"монтирования."
-
-#: ../partRequests.py:259
-msgid "This mount point must be on a linux file system."
-msgstr "Эта точка монтирования должна быть в файловой системе linux."
-
-#: ../partRequests.py:280
-#, python-format
-msgid ""
-"The mount point \"%s\" is already in use, please choose a different mount "
-"point."
-msgstr ""
-"Точка монтирования \"%s\" уже используется, выберите другую точку "
-"монтирования."
-
-#: ../partRequests.py:294
-#, python-format
-msgid ""
-"The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
-"MB."
-msgstr ""
-"Размер раздела %s (размер = %10.2f Мб) превышает максимальный размер %10.2f "
-"Мб."
-
-#: ../partRequests.py:490
-#, python-format
-msgid ""
-"The size of the requested partition (size = %s MB) exceeds the maximum size "
-"of %s MB."
-msgstr ""
-"Размер запрошенного раздела (размер = %s Мб) превышает максимальный размер %"
-"s Мб."
-
-#: ../partRequests.py:495
-#, python-format
-msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Размер запрошенного раздела отрицательный! (размер = %s Мб)"
-
-#: ../partRequests.py:499
-msgid "Partitions can't start below the first cylinder."
-msgstr "Разделы не могут начинаться ниже первого цилиндра."
-
-#: ../partRequests.py:502
-msgid "Partitions can't end on a negative cylinder."
-msgstr "Разделы не могут заканчиваться отрицательным цилиндром."
-
-#: ../partRequests.py:669
-msgid "No members in RAID request, or not RAID level specified."
-msgstr "В запросе RAID нет членов, или не указан уровень RAID."
-
-#: ../partRequests.py:681
-#, python-format
-msgid "A RAID device of type %s requires at least %s members."
-msgstr "Для устройства RAID типа %s требуется хотя бы %s членов."
-
-#: ../partRequests.py:690
-#, python-format
-msgid ""
-"This RAID device can have a maximum of %s spares. To have more spares you "
-"will need to add members to the RAID device."
-msgstr ""
-"Это устройство RAID может иметь максимум %s резервных дисков. Чтобы получить "
-"большее количество резервных дисков, необходимо увеличить количество членов "
-"устройства RAID."
-
-#: ../partRequests.py:924
-msgid ""
-"Logical volume size must be larger than the volume group's physical extent "
-"size."
-msgstr "Размер логического тома должен быть больше, чем размер физического экстента."
-
 #: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "Запуск интерфейса"
@@ -2020,21 +2044,21 @@ msgstr "Настройка сети"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Активировать сетевые интерфейсы этой системы?"
 
-#: ../rescue.py:243 ../text.py:577
+#: ../rescue.py:243 ../text.py:581
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: ../rescue.py:244 ../text.py:578
+#: ../rescue.py:244 ../text.py:582
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "С этого места невозможно вернуться к предыдущему этапу. Вам придется "
 "повторить попытку."
 
-#: ../rescue.py:280 ../rescue.py:347 ../rescue.py:355 ../rescue.py:438
+#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:437
 msgid "Rescue"
 msgstr "Восстановить"
 
-#: ../rescue.py:281
+#: ../rescue.py:277
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2057,29 +2081,29 @@ msgstr ""
 "\"Пропустить\" для быстрого перехода в командную оболочку.\n"
 "\n"
 
-#: ../rescue.py:291 ../iw/partition_gui.py:567 ../textw/network_text.py:62
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:55
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
 #: ../loader2/driverdisk.c:480
 msgid "Continue"
 msgstr "Продолжить"
 
-#: ../rescue.py:291 ../rescue.py:296
+#: ../rescue.py:287 ../rescue.py:292
 msgid "Read-Only"
 msgstr "Только для чтения"
 
-#: ../rescue.py:322
+#: ../rescue.py:318
 msgid "System to Rescue"
 msgstr "Система для восстановления"
 
-#: ../rescue.py:323
+#: ../rescue.py:319
 msgid "What partition holds the root partition of your installation?"
 msgstr "Укажите корневой раздел вашей установки."
 
-#: ../rescue.py:325 ../rescue.py:329
+#: ../rescue.py:321 ../rescue.py:325
 msgid "Exit"
 msgstr "Выход"
 
-#: ../rescue.py:348
+#: ../rescue.py:344
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2090,7 +2114,7 @@ msgstr ""
 "будет выполнить fsck и смонтировать эти разделы. После выхода из оболочки "
 "система будет автоматически перезагружена."
 
-#: ../rescue.py:356
+#: ../rescue.py:352
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2111,7 +2135,7 @@ msgstr ""
 "\n"
 "Система будет перезагружена автоматически после выхода из оболочки."
 
-#: ../rescue.py:439
+#: ../rescue.py:438
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2126,11 +2150,11 @@ msgstr ""
 "Нажмите <Enter> для входа в оболочку. Система будет перезагружена "
 "автоматически после выхода из оболочки."
 
-#: ../rescue.py:445
+#: ../rescue.py:444
 msgid "Rescue Mode"
 msgstr "Режим восстановления"
 
-#: ../rescue.py:446
+#: ../rescue.py:445
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2138,7 +2162,7 @@ msgstr ""
 "Отсутствуют разделы Linux. Нажмите Enter для возврата в оболочку. Система "
 "будет перезагружена автоматически после выхода из оболочки."
 
-#: ../rescue.py:459
+#: ../rescue.py:458
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ваша система смонтирована под каталогом %s."
@@ -2207,28 +2231,23 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../text.py:470
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:472
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr ""
+" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
-#: ../upgradeclass.py:22
-msgid "Upgrade Existing System"
-msgstr "Обновление существующей системы"
-
-#: ../upgradeclass.py:26
-msgid "Upgrade"
-msgstr "Обновление"
-
-#: ../upgrade.py:83
+#: ../upgrade.py:92
 msgid "Proceed with upgrade?"
 msgstr "Продолжить обновление?"
 
-#: ../upgrade.py:84
+#: ../upgrade.py:93
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -2238,24 +2257,24 @@ msgstr ""
 "смонтированы. Вернуться назад от этой точки невозможно.\n"
 "\n"
 
-#: ../upgrade.py:88
+#: ../upgrade.py:97
 msgid "Would you like to continue with the upgrade?"
 msgstr "Продолжить обновление?"
 
-#: ../upgrade.py:124
+#: ../upgrade.py:133
 msgid "Searching"
 msgstr "Поиск"
 
-#: ../upgrade.py:125
+#: ../upgrade.py:134
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Поиск установок %s..."
 
-#: ../upgrade.py:181 ../upgrade.py:189
+#: ../upgrade.py:189 ../upgrade.py:197
 msgid "Dirty File Systems"
 msgstr "Грязные ФС"
 
-#: ../upgrade.py:182
+#: ../upgrade.py:190
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2268,7 +2287,7 @@ msgstr ""
 "работу, после чего повторите попытку обновления.\n"
 "%s"
 
-#: ../upgrade.py:190
+#: ../upgrade.py:198
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2279,11 +2298,11 @@ msgstr ""
 "равно?\n"
 "%s"
 
-#: ../upgrade.py:327 ../upgrade.py:333
+#: ../upgrade.py:337 ../upgrade.py:343
 msgid "Mount failed"
 msgstr "Ошибка монтирования"
 
-#: ../upgrade.py:328
+#: ../upgrade.py:338
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2292,7 +2311,7 @@ msgstr ""
 "могут быть смонтированы. Устраните эту проблему и повторите попытку "
 "обновления."
 
-#: ../upgrade.py:334
+#: ../upgrade.py:344
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2302,7 +2321,7 @@ msgstr ""
 "системы Linux, содержат ошибки и не могут быть смонтированы. Устраните эту "
 "проблему и повторите попытку обновления."
 
-#: ../upgrade.py:351
+#: ../upgrade.py:361
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2313,11 +2332,11 @@ msgstr ""
 "поддерживаются во время обновления. Замените их на относительные и повторите "
 "попытку обновления.\n"
 
-#: ../upgrade.py:357
+#: ../upgrade.py:367
 msgid "Absolute Symlinks"
 msgstr "Абсолютные символические ссылки"
 
-#: ../upgrade.py:368
+#: ../upgrade.py:378
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2329,20 +2348,28 @@ msgstr ""
 "перезапустите обновление.\n"
 "\n"
 
-#: ../upgrade.py:374
+#: ../upgrade.py:384
 msgid "Invalid Directories"
 msgstr "Неверные каталоги"
 
-#: ../upgrade.py:381
+#: ../upgrade.py:391
 #, python-format
 msgid "%s not found"
 msgstr "%s не найдено"
 
-#: ../urlinstall.py:36
+#: ../upgradeclass.py:22
+msgid "Upgrade Existing System"
+msgstr "Обновление существующей системы"
+
+#: ../upgradeclass.py:26
+msgid "Upgrade"
+msgstr "Обновление"
+
+#: ../urlinstall.py:38
 msgid "Connecting..."
 msgstr "Подключение..."
 
-#: ../urlinstall.py:75
+#: ../urlinstall.py:77
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
@@ -2361,11 +2388,11 @@ msgstr ""
 "вероятной переустановки.\n"
 "\n"
 
-#: ../vnc.py:44
+#: ../vnc.py:47
 msgid "Unable to Start X"
 msgstr "Невозможно запустить X"
 
-#: ../vnc.py:45
+#: ../vnc.py:48
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2375,23 +2402,23 @@ msgstr ""
 "VNC для подключения к данному компьютеру с другой машины и выполнения "
 "установки в графическом режиме или продолжить установку в текстовом режиме?"
 
-#: ../vnc.py:52 ../vnc.py:55
+#: ../vnc.py:55 ../vnc.py:58
 msgid "Use text mode"
 msgstr "Использовать текстовый режим"
 
-#: ../vnc.py:53
+#: ../vnc.py:56
 msgid "Start VNC"
 msgstr "Запустить VNC"
 
-#: ../vnc.py:63
+#: ../vnc.py:66
 msgid "VNC Configuration"
 msgstr "Настройка VNC"
 
-#: ../vnc.py:67
+#: ../vnc.py:70
 msgid "No password"
 msgstr "Без пароля"
 
-#: ../vnc.py:70
+#: ../vnc.py:73
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2401,35 +2428,35 @@ msgstr ""
 "отслеживание процесса установки. Введите пароль, который будет использован "
 "во время установки"
 
-#: ../vnc.py:78 ../textw/userauth_text.py:42 ../loader2/urls.c:454
+#: ../vnc.py:81 ../textw/userauth_text.py:42 ../loader2/urls.c:454
 msgid "Password:"
 msgstr "Пароль:"
 
-#: ../vnc.py:79 ../textw/userauth_text.py:43
+#: ../vnc.py:82 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "Подтвердите пароль:"
 
-#: ../vnc.py:101 ../textw/userauth_text.py:64
+#: ../vnc.py:104 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "Пароли не совпадают"
 
-#: ../vnc.py:102 ../textw/userauth_text.py:65
+#: ../vnc.py:105 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "Введенные вами пароли не совпадают. Повторите ввод."
 
-#: ../vnc.py:107 ../textw/userauth_text.py:59
+#: ../vnc.py:110 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "Длина пароля"
 
-#: ../vnc.py:108
+#: ../vnc.py:111
 msgid "The password must be at least six characters long."
 msgstr "Пароль должен содержать не менее 6 символов."
 
-#: ../vnc.py:138
+#: ../vnc.py:141
 msgid "VNC Password Error"
 msgstr "Ошибка VNC пароля"
 
-#: ../vnc.py:139
+#: ../vnc.py:142
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
@@ -2439,29 +2466,29 @@ msgstr ""
 "\n"
 "Нажмите <return> для перезагрузки системы.\n"
 
-#: ../vnc.py:184
+#: ../vnc.py:187
 msgid "Starting VNC..."
 msgstr "Запуск VNC..."
 
-#: ../vnc.py:227
+#: ../vnc.py:230
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "Установка %s %s на узле %s"
 
-#: ../vnc.py:229
+#: ../vnc.py:232
 #, python-format
 msgid "%s %s installation"
 msgstr "Установка %s %s"
 
-#: ../vnc.py:249
+#: ../vnc.py:252
 msgid "Unable to set vnc password - using no password!"
 msgstr "Не удается установить пароль vnc - пароль не используется!"
 
-#: ../vnc.py:250
+#: ../vnc.py:253
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Убедитесь, что длина пароля не меньше 6 символов."
 
-#: ../vnc.py:273
+#: ../vnc.py:276
 msgid ""
 "\n"
 "\n"
@@ -2477,42 +2504,42 @@ msgstr ""
 "если хотите обезопасить сервер.\n"
 "\n"
 
-#: ../vnc.py:277
+#: ../vnc.py:280
 msgid "The VNC server is now running."
 msgstr "Сервер VNC запущен."
 
-#: ../vnc.py:280
+#: ../vnc.py:283
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Попытка соединения с клиентом vnc на узле %s..."
 
-#: ../vnc.py:292
+#: ../vnc.py:295
 msgid "Connected!"
 msgstr "Подключен!"
 
-#: ../vnc.py:297
+#: ../vnc.py:300
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Прекращение попыток после 50 неудачных!\n"
 
-#: ../vnc.py:299
+#: ../vnc.py:302
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Подключите вручную ваш клиент vnc к %s для начала установки."
 
-#: ../vnc.py:301
+#: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Подключите ваш клиент vnc вручную для начала установки."
 
-#: ../vnc.py:305
+#: ../vnc.py:308
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Попытка повторного соединения через 15 секунд..."
 
-#: ../vnc.py:313
+#: ../vnc.py:316
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Подключитесь к %s чтобы начать установку..."
 
-#: ../vnc.py:315
+#: ../vnc.py:318
 msgid "Please connect to begin the install..."
 msgstr "Подключитесь чтобы начать установку..."
 
@@ -2524,69 +2551,72 @@ msgstr "Обработка"
 msgid "Preparing transaction from installation source..."
 msgstr "Подготовка транзакции из источника установки..."
 
-#: ../yuminstall.py:609 ../yuminstall.py:610
+#: ../yuminstall.py:627 ../yuminstall.py:628
 msgid "file conflicts"
 msgstr "конфликты файлов"
 
-#: ../yuminstall.py:611
+#: ../yuminstall.py:629
 msgid "older package(s)"
 msgstr "старые пакеты"
 
-#: ../yuminstall.py:612
+#: ../yuminstall.py:630
 msgid "insufficient disk space"
 msgstr "недостаточно места на диске"
 
-#: ../yuminstall.py:613
+#: ../yuminstall.py:631
 msgid "insufficient disk inodes"
 msgstr "недостаточное кол-во inode на диске"
 
-#: ../yuminstall.py:614
+#: ../yuminstall.py:632
 msgid "package conflicts"
 msgstr "конфликты пакетов"
 
-#: ../yuminstall.py:615
+#: ../yuminstall.py:633
 msgid "package already installed"
 msgstr "пакет уже установлен"
 
-#: ../yuminstall.py:616
+#: ../yuminstall.py:634
 msgid "required package"
 msgstr "требуется пакет"
 
-#: ../yuminstall.py:617
+#: ../yuminstall.py:635
 msgid "package for incorrect arch"
 msgstr "пакет с неверной архитектурой"
 
-#: ../yuminstall.py:618
+#: ../yuminstall.py:636
 msgid "package for incorrect os"
 msgstr "пакет с неверной операционной системой"
 
-#: ../yuminstall.py:632
+#: ../yuminstall.py:650
 msgid "You need more space on the following file systems:\n"
 msgstr "Вам требуется больше места на следующих файловых системах:\n"
 
-#: ../yuminstall.py:648
+#: ../yuminstall.py:666
 msgid "Error running transaction"
 msgstr "Ошибка подготовки транзакции"
 
-#: ../yuminstall.py:649
+#: ../yuminstall.py:667
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
-msgstr "При выполнении вашей транзакции произошла ошибка по следующим причинам: %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
+msgstr ""
+"При выполнении вашей транзакции произошла ошибка по следующим причинам: %s"
 
-#: ../yuminstall.py:653 ../yuminstall.py:748 ../yuminstall.py:1145
+#: ../yuminstall.py:671 ../yuminstall.py:766 ../yuminstall.py:905
+#: ../yuminstall.py:1180
 msgid "Re_boot"
 msgstr "_Перезагрузка"
 
-#: ../yuminstall.py:837
+#: ../yuminstall.py:855
 msgid "Retrieving installation information..."
 msgstr "Получение установочной информации..."
 
-#: ../yuminstall.py:839
+#: ../yuminstall.py:857
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Получение установочной информации для %s..."
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:884
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2597,11 +2627,17 @@ msgstr ""
 "каталога repodata.  Убедитесь, что дерево установки сформировано правильно.  "
 "%s"
 
-#: ../yuminstall.py:905
+#: ../yuminstall.py:900
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
+msgstr ""
+
+#: ../yuminstall.py:932
 msgid "Uncategorized"
 msgstr "Вне категорий"
 
-#: ../yuminstall.py:1139
+#: ../yuminstall.py:1174
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2611,7 +2647,7 @@ msgstr ""
 "нет достаточного объема.  Вы можете изменить ваш выбор или перезагрузить "
 "систему."
 
-#: ../yuminstall.py:1293
+#: ../yuminstall.py:1329
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2621,39 +2657,39 @@ msgstr ""
 "того, чтобы быть обновленной до этой версии %s. Вы действительно хотите "
 "продолжить обновление?"
 
-#: ../yuminstall.py:1325
+#: ../yuminstall.py:1361
 msgid "Install Starting"
 msgstr "Запуск установки"
 
-#: ../yuminstall.py:1326
+#: ../yuminstall.py:1362
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Запуск процесса установки.  Это может занять несколько минут..."
 
-#: ../yuminstall.py:1342
+#: ../yuminstall.py:1378
 msgid "Post Upgrade"
 msgstr "После обновления"
 
-#: ../yuminstall.py:1343
+#: ../yuminstall.py:1379
 msgid "Performing post upgrade configuration..."
 msgstr "Выполняется настройка после обновления..."
 
-#: ../yuminstall.py:1345
+#: ../yuminstall.py:1381
 msgid "Post Install"
 msgstr "После установки"
 
-#: ../yuminstall.py:1346
+#: ../yuminstall.py:1382
 msgid "Performing post install configuration..."
 msgstr "Выполняется настройка после установки..."
 
-#: ../yuminstall.py:1504
+#: ../yuminstall.py:1573
 msgid "Installation Progress"
 msgstr "Прогресс установки"
 
-#: ../yuminstall.py:1539
+#: ../yuminstall.py:1608
 msgid "Dependency Check"
 msgstr "Проверка зависимостей"
 
-#: ../yuminstall.py:1540
+#: ../yuminstall.py:1609
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Проверяются зависимости выбранных для установки пакетов..."
 
@@ -2663,7 +2699,8 @@ msgstr "Вы не задали номер устройства или номер
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Вы не задали worldwide port name устройства или имя указано неправильно."
+msgstr ""
+"Вы не задали worldwide port name устройства или имя указано неправильно."
 
 #: ../zfcp.py:47
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2718,31 +2755,33 @@ msgstr "Пароль пользователя root: "
 msgid "_Confirm: "
 msgstr "Подтвердите: "
 
-#: ../iw/autopart_type.py:137
+#: ../iw/autopart_type.py:139
 msgid "Invalid Initiator Name"
 msgstr "Неверное имя инициатора"
 
-#: ../iw/autopart_type.py:138
+#: ../iw/autopart_type.py:140
 msgid "You must provide a non-zero length initiator name."
 msgstr "Имя инициатора не должно быть пустым."
 
-#: ../iw/autopart_type.py:161
+#: ../iw/autopart_type.py:163
 msgid "Error with Data"
 msgstr "Ошибка данных"
 
-#: ../iw/autopart_type.py:248 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1537
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Удалить все разделы на выбранных дисках и создать разбиение по умолчанию."
+msgstr ""
+"Удалить все разделы на выбранных дисках и создать разбиение по умолчанию."
 
-#: ../iw/autopart_type.py:249 ../textw/partition_text.py:1530
+#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1538
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию."
+msgstr ""
+"Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию."
 
-#: ../iw/autopart_type.py:250 ../textw/partition_text.py:1531
+#: ../iw/autopart_type.py:251 ../textw/partition_text.py:1539
 msgid "Use free space on selected drives and create default layout."
 msgstr "Использовать свободное место и создать разбиение по умолчанию."
 
-#: ../iw/autopart_type.py:251 ../textw/partition_text.py:1532
+#: ../iw/autopart_type.py:252 ../textw/partition_text.py:1540
 msgid "Create custom layout."
 msgstr "Создать собственное разбиение."
 
@@ -2969,7 +3008,7 @@ msgstr ""
 msgid "Drive"
 msgstr "Устройство"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1446
 msgid "Size"
 msgstr "Размер"
 
@@ -3027,7 +3066,7 @@ msgstr "Какой язык должен использоваться в про�
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
 #: ../iw/lvm_dialog_gui.py:287 ../iw/lvm_dialog_gui.py:601
 #: ../iw/lvm_dialog_gui.py:669 ../iw/lvm_dialog_gui.py:880
-#: ../textw/partition_text.py:1292 ../textw/partition_text.py:1311
+#: ../textw/partition_text.py:1300 ../textw/partition_text.py:1319
 msgid "Not enough space"
 msgstr "Недостаточно места"
 
@@ -3060,7 +3099,7 @@ msgstr ""
 "Это изменение вступит в силу немедленно."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:162 ../iw/network_gui.py:166 ../iw/network_gui.py:196
+#: ../iw/network_gui.py:143 ../iw/network_gui.py:147 ../iw/network_gui.py:167
 msgid "C_ontinue"
 msgstr "Продолжить"
 
@@ -3179,11 +3218,11 @@ msgstr "Размер (Мб):"
 msgid "(Max size is %s MB)"
 msgstr "(Макс. размер %s Мб)"
 
-#: ../iw/lvm_dialog_gui.py:522
+#: ../iw/lvm_dialog_gui.py:522 ../textw/partition_text.py:1289
 msgid "Illegal size"
 msgstr "недопустимый размер"
 
-#: ../iw/lvm_dialog_gui.py:523
+#: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1290
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Введенный размер не является действительным числом больше 0."
 
@@ -3227,7 +3266,7 @@ msgstr ""
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:911
 #: ../textw/partition_text.py:933 ../textw/partition_text.py:1106
-#: ../textw/partition_text.py:1331
+#: ../textw/partition_text.py:1339
 msgid "Error With Request"
 msgstr "Ошибка запроса"
 
@@ -3274,20 +3313,20 @@ msgstr "Вы действительно хотите удалить логиче
 msgid "Invalid Volume Group Name"
 msgstr "Неверное имя группы томов"
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:903
 msgid "Name in use"
 msgstr "Имя используется"
 
-#: ../iw/lvm_dialog_gui.py:906
+#: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Имя группы томов \"%s\" уже используется, выберите другое имя."
 
-#: ../iw/lvm_dialog_gui.py:950
+#: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
 msgstr "Недостаточно физических томов"
 
-#: ../iw/lvm_dialog_gui.py:951
+#: ../iw/lvm_dialog_gui.py:948
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3301,71 +3340,71 @@ msgstr ""
 "Создайте раздел или массив RAID типа \"физический том (LVM)\" и после этого "
 "снова выберите параметр \"LVM\"."
 
-#: ../iw/lvm_dialog_gui.py:962
+#: ../iw/lvm_dialog_gui.py:959
 msgid "Make LVM Volume Group"
 msgstr "Создать группу томов LVM"
 
-#: ../iw/lvm_dialog_gui.py:965
+#: ../iw/lvm_dialog_gui.py:962
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Правка группы томов LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:967
+#: ../iw/lvm_dialog_gui.py:964
 msgid "Edit LVM Volume Group"
 msgstr "Правка группы томов LVM"
 
-#: ../iw/lvm_dialog_gui.py:983
+#: ../iw/lvm_dialog_gui.py:980
 msgid "_Volume Group Name:"
 msgstr "_Имя группы томов:"
 
-#: ../iw/lvm_dialog_gui.py:991
+#: ../iw/lvm_dialog_gui.py:988
 msgid "Volume Group Name:"
 msgstr "Имя группы томов:"
 
-#: ../iw/lvm_dialog_gui.py:999
+#: ../iw/lvm_dialog_gui.py:996
 msgid "_Physical Extent:"
 msgstr "_Физический экстент:"
 
-#: ../iw/lvm_dialog_gui.py:1014
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Physical Volumes to _Use:"
 msgstr "Физические тома:"
 
-#: ../iw/lvm_dialog_gui.py:1020
+#: ../iw/lvm_dialog_gui.py:1017
 msgid "Used Space:"
 msgstr "Использовано:"
 
-#: ../iw/lvm_dialog_gui.py:1037
+#: ../iw/lvm_dialog_gui.py:1034
 msgid "Free Space:"
 msgstr "Свободно:"
 
-#: ../iw/lvm_dialog_gui.py:1055
+#: ../iw/lvm_dialog_gui.py:1052
 msgid "Total Space:"
 msgstr "Всего места:"
 
-#: ../iw/lvm_dialog_gui.py:1084
+#: ../iw/lvm_dialog_gui.py:1081
 msgid "Logical Volume Name"
 msgstr "Имя логического тома"
 
-#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1438
-#: ../textw/upgrade_text.py:108
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/partition_gui.py:364
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1446
+#: ../textw/upgrade_text.py:115
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: ../iw/lvm_dialog_gui.py:1090 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1087 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Размер (Мб)"
 
-#: ../iw/lvm_dialog_gui.py:1104 ../iw/osbootwidget.py:96
+#: ../iw/lvm_dialog_gui.py:1101 ../iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Добавить"
 
-#: ../iw/lvm_dialog_gui.py:1107 ../iw/network_gui.py:744
+#: ../iw/lvm_dialog_gui.py:1104 ../iw/network_gui.py:448
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1356
 msgid "_Edit"
 msgstr "_Изменить"
 
-#: ../iw/lvm_dialog_gui.py:1122
+#: ../iw/lvm_dialog_gui.py:1119
 msgid "Logical Volumes"
 msgstr "Логические тома"
 
@@ -3405,11 +3444,11 @@ msgstr "Эмулировать 3 кнопки"
 msgid "Select the appropriate mouse for the system."
 msgstr "Выберите подходящий тип мыши."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:161
-#: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:178
-#: ../iw/network_gui.py:191 ../iw/network_gui.py:196
-#: ../textw/network_text.py:54 ../textw/network_text.py:59
-#: ../textw/network_text.py:65
+#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
+#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
+#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:47 ../textw/network_text.py:52
+#: ../textw/network_text.py:58
 msgid "Error With Data"
 msgstr "Ошибка данных"
 
@@ -3426,12 +3465,13 @@ msgstr ""
 msgid "Dynamic IP"
 msgstr "Динамический IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:394 ../loader2/net.c:810
+#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:400 ../loader2/net.c:825
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Посылается запрос конфигурации IP для %s..."
 
-#: ../iw/netconfig_dialog.py:176
+#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:88
+#: tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "Адрес IP"
 
@@ -3439,12 +3479,12 @@ msgstr "Адрес IP"
 msgid "Netmask"
 msgstr "Маска подсети"
 
-#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:820
+#: ../iw/netconfig_dialog.py:189 ../iw/network_gui.py:27
+#: ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "Шлюз"
 
-#: ../iw/netconfig_dialog.py:195
+#: ../iw/netconfig_dialog.py:196
 msgid "Nameserver"
 msgstr "Сервер имен"
 
@@ -3452,11 +3492,11 @@ msgstr "Сервер имен"
 msgid "Error configuring network device"
 msgstr "Ошибка конфигурации сетевого устройства"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:822
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
 msgstr "Первичный DNS"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:824
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:528
 msgid "Secondary DNS"
 msgstr "Вторичный DNS"
 
@@ -3472,11 +3512,11 @@ msgstr "_Первичный DNS"
 msgid "_Secondary DNS"
 msgstr "_Вторичный DNS"
 
-#: ../iw/network_gui.py:42
+#: ../iw/network_gui.py:31 ../textw/network_text.py:527
 msgid "Network Configuration"
 msgstr "Настройка сети"
 
-#: ../iw/network_gui.py:162
+#: ../iw/network_gui.py:143
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3484,7 +3524,7 @@ msgstr ""
 "Вы не указали имя компьютера.  В зависимости от сетевого окружения это может "
 "вызвать проблемы в дальнейшем."
 
-#: ../iw/network_gui.py:166
+#: ../iw/network_gui.py:147
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3493,7 +3533,7 @@ msgstr ""
 "Вы оставили незаполненным поле \"%s\".  В зависимости от вашего сетевого "
 "окружения в дальнейшем это может вызвать проблемы."
 
-#: ../iw/network_gui.py:170 ../textw/network_text.py:625
+#: ../iw/network_gui.py:151 ../textw/network_text.py:813
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3504,27 +3544,28 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:179 ../textw/network_text.py:55
+#: ../iw/network_gui.py:155 ../textw/network_text.py:48
 #, python-format
 msgid "A value is required for the field %s."
 msgstr "Требуется значение для поля \"%s\"."
 
-#: ../iw/network_gui.py:187 ../textw/network_text.py:45
+#: ../iw/network_gui.py:158 ../textw/network_text.py:38
 #, python-format
 msgid "Error With %s Data"
 msgstr "Ошибка данных %s"
 
-#: ../iw/network_gui.py:188 ../textw/network_text.py:46
+#: ../iw/network_gui.py:159 ../textw/network_text.py:39
+#: ../textw/network_text.py:587 ../textw/network_text.py:591
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/network_gui.py:192 ../textw/network_text.py:66
+#: ../iw/network_gui.py:163 ../textw/network_text.py:59
 msgid "The IPv4 information you have entered is invalid."
 msgstr "Введенная информация IPv4 неверна."
 
-#: ../iw/network_gui.py:196
+#: ../iw/network_gui.py:167
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
@@ -3532,143 +3573,98 @@ msgstr ""
 "Нет активных сетевых устройств.  Система не сможет работать в сети, не имея "
 "хотя бы одного активного сетевого устройства."
 
-#: ../iw/network_gui.py:274
-#, python-format
-msgid "Edit Interface %s"
-msgstr "Правка интерфейса %s"
-
-#: ../iw/network_gui.py:286
-#, python-format
-msgid "Hardware address: %s"
-msgstr "Аппаратный адрес: %s"
-
-#: ../iw/network_gui.py:291
-msgid "Use dynamic IP configuration (_DHCP)"
-msgstr "Использовать динамическую конфигурацию IP (_DHCP)"
-
-#: ../iw/network_gui.py:296 ../textw/network_text.py:177 ../loader2/net.c:699
-msgid "Enable IPv4 support"
-msgstr "Включить поддержку IPv4"
-
-#: ../iw/network_gui.py:301 ../textw/network_text.py:183 ../loader2/net.c:712
-msgid "Enable IPv6 support"
-msgstr "Включить поддержку IPv6"
-
-#: ../iw/network_gui.py:308
-msgid "_Activate on boot"
-msgstr "Активировать при загрузке"
-
-#: ../iw/network_gui.py:334 ../textw/network_text.py:214
-msgid "Address"
-msgstr "Адрес"
-
-#: ../iw/network_gui.py:337 ../textw/network_text.py:216
-msgid "Prefix (Netmask)"
-msgstr "Префикс (маска подсети)"
-
-#: ../iw/network_gui.py:342
-msgid "IPv_4:"
-msgstr "IPv_4:"
-
-#: ../iw/network_gui.py:364
-msgid "IPv_6:"
-msgstr "IPv_6:"
-
-#: ../iw/network_gui.py:395
-msgid "_Point to Point (IP):"
-msgstr "_Точка-точка (IP):"
-
-#: ../iw/network_gui.py:408
-msgid "_ESSID:"
-msgstr "_ESSID:"
-
-#: ../iw/network_gui.py:418
-msgid "Encryption _Key:"
-msgstr "_Ключ шифрования:"
-
-#: ../iw/network_gui.py:443
-#, python-format
-msgid "Configure %s"
-msgstr "Параметры %s"
-
-#: ../iw/network_gui.py:475 ../textw/network_text.py:321 ../loader2/net.c:771
-msgid "Missing Protocol"
-msgstr "Отсутствует протокол"
-
-#: ../iw/network_gui.py:476 ../textw/network_text.py:322
-msgid "You must select at least IPv4 or IPv6 support."
-msgstr "Необходимо выбрать как минимум поддержку IPv4 или IPv6."
-
-#: ../iw/network_gui.py:502 ../iw/network_gui.py:530 ../iw/network_gui.py:536
-#: ../textw/network_text.py:353 ../textw/network_text.py:380
-#: ../textw/network_text.py:386 ../loader2/net.c:91
-msgid "Invalid Prefix"
-msgstr "Неверный префикс"
-
-#: ../iw/network_gui.py:503 ../textw/network_text.py:354
-msgid "IPv4 prefix must be between 0 and 32."
-msgstr "Префикс IPv4 должен быть в диапазоне от 0 до 32."
-
-#: ../iw/network_gui.py:531 ../textw/network_text.py:381
-msgid "IPv6 prefix must be between 0 and 128."
-msgstr "Префикс IPv6 должен быть в диапазоне от 0 до 128."
-
-#: ../iw/network_gui.py:537 ../textw/network_text.py:387
-msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-msgstr "Префикс IPv6 отсутствует или неверен (должен быть в диапазоне от 0 до 128)."
-
-#: ../iw/network_gui.py:595 ../iw/network_gui.py:608
+#: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
 msgstr "Отключен"
 
-#: ../iw/network_gui.py:685
+#: ../iw/network_gui.py:389
 msgid "Active on Boot"
 msgstr ""
 "Активизировать\n"
 "при загрузке"
 
-#: ../iw/network_gui.py:687 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:391 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1438
+#: ../textw/partition_text.py:1446
 msgid "Device"
 msgstr "Устройство"
 
-#: ../iw/network_gui.py:689
+#: ../iw/network_gui.py:393
 msgid "IPv4/Netmask"
 msgstr "IPv4/маска"
 
-#: ../iw/network_gui.py:691
+#: ../iw/network_gui.py:395
 msgid "IPv6/Prefix"
 msgstr "IPv6/префикс"
 
-#: ../iw/network_gui.py:751
+#: ../iw/network_gui.py:455
 msgid "Network Devices"
 msgstr "Сетевые устройства"
 
-#: ../iw/network_gui.py:762
+#: ../iw/network_gui.py:466
 msgid "Set the hostname:"
 msgstr "Установить имя компьютера:"
 
-#: ../iw/network_gui.py:767
+#: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
 msgstr "_автоматически по DHCP"
 
-#: ../iw/network_gui.py:774
+#: ../iw/network_gui.py:478
 msgid "_manually"
 msgstr "_вручную"
 
-#: ../iw/network_gui.py:779
+#: ../iw/network_gui.py:483
 msgid "(e.g., host.domain.com)"
 msgstr "(напр. host.domain.com)"
 
-#: ../iw/network_gui.py:785
+#: ../iw/network_gui.py:489
 msgid "Hostname"
 msgstr "Имя компьютера"
 
-#: ../iw/network_gui.py:829
+#: ../iw/network_gui.py:533
 msgid "Miscellaneous Settings"
 msgstr "Дополнительные параметры"
+
+#: ../iw/network_gui.py:621
+#, fuzzy
+msgid "Edit Device "
+msgstr "Изменить устройство RAID"
+
+#: ../iw/network_gui.py:625
+msgid "Unknown Ethernet Device"
+msgstr ""
+
+#: ../iw/network_gui.py:631
+#, fuzzy
+msgid "unknown"
+msgstr "Неизвестный"
+
+#: ../iw/network_gui.py:633
+#, fuzzy
+msgid "Hardware address: "
+msgstr "Аппаратный адрес: %s"
+
+#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:786
+msgid "Missing Protocol"
+msgstr "Отсутствует протокол"
+
+#: ../iw/network_gui.py:770 ../textw/network_text.py:224
+msgid "You must select at least IPv4 or IPv6 support."
+msgstr "Необходимо выбрать как минимум поддержку IPv4 или IPv6."
+
+#: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
+#: ../textw/network_text.py:69 ../loader2/net.c:91
+msgid "Invalid Prefix"
+msgstr "Неверный префикс"
+
+#: ../iw/network_gui.py:794
+msgid "IPv4 prefix must be between 0 and 32."
+msgstr "Префикс IPv4 должен быть в диапазоне от 0 до 32."
+
+#: ../iw/network_gui.py:835 ../iw/network_gui.py:841
+msgid "IPv6 prefix must be between 0 and 128."
+msgstr "Префикс IPv6 должен быть в диапазоне от 0 до 128."
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3817,15 +3813,15 @@ msgstr "Диск %s (Геом: %s/%s/%s) (Модель: %s)"
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "Диск %s (%-0.f Мб) (Модель: %s)"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1446
 msgid "Type"
 msgstr "Тип"
 
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1446
 msgid "Start"
 msgstr "Начало"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1446
 msgid "End"
 msgstr "Конец"
 
@@ -3845,17 +3841,19 @@ msgstr ""
 "Размер\n"
 "(Мб)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1432
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1440
 msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:633
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:642
@@ -4010,7 +4008,8 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr ""
+"Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1355
 msgid "Ne_w"
@@ -4032,34 +4031,34 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Скрыть устройства RAID/участников группы LVM"
 
-#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:252
+#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
+#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:252
 #: ../textw/partition_text.py:254 ../textw/partition_text.py:256
 #: ../textw/partition_text.py:281
 msgid "<Not Applicable>"
 msgstr "<Не применимо>"
 
-#: ../iw/partition_ui_helpers_gui.py:251
+#: ../iw/partition_ui_helpers_gui.py:258
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "Как вы хотите подготовить файловую систему на этом разделе?"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:266
 msgid "Leave _unchanged (preserve data)"
 msgstr "Оставить без изменения (сохранить данные)"
 
-#: ../iw/partition_ui_helpers_gui.py:265
+#: ../iw/partition_ui_helpers_gui.py:272
 msgid "_Format partition as:"
 msgstr "_Форматировать раздел как:"
 
-#: ../iw/partition_ui_helpers_gui.py:288
+#: ../iw/partition_ui_helpers_gui.py:295
 msgid "Mi_grate partition to:"
 msgstr "Преобразовать раздел в:"
 
-#: ../iw/partition_ui_helpers_gui.py:310
+#: ../iw/partition_ui_helpers_gui.py:317
 msgid "Check for _bad blocks?"
 msgstr "Проверить на _сбойные блоки?"
 
-#: ../iw/partition_ui_helpers_gui.py:345
+#: ../iw/partition_ui_helpers_gui.py:352
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4338,11 +4337,11 @@ msgstr "Устройства"
 msgid "Release notes are missing.\n"
 msgstr "Файл примечаний отсутствует.\n"
 
-#: ../iw/release_notes.py:222
+#: ../iw/release_notes.py:233
 msgid "Release Notes"
 msgstr "Что нового"
 
-#: ../iw/release_notes.py:225
+#: ../iw/release_notes.py:236
 msgid "Unable to load file!"
 msgstr "Невозможно загрузить файл!"
 
@@ -4391,7 +4390,8 @@ msgstr "Вы должны указать HTTP или FTP URL этого хран
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
+msgstr ""
+"Репозитарий %s уже добавлен, выберите другое имя репозитария и адрес URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4411,7 +4411,8 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4454,11 +4455,11 @@ msgstr ""
 msgid "What would you like to do?"
 msgstr "Что бы вы хотели сделать?"
 
-#: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
+#: ../iw/upgrade_migratefs_gui.py:29 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
 msgstr "Преобразование файловых систем"
 
-#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
+#: ../iw/upgrade_migratefs_gui.py:56 ../textw/upgrade_text.py:36
 #, python-format
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
@@ -4510,7 +4511,7 @@ msgstr "Я хочу создать файл подкачки"
 msgid "Select the _partition to put the swap file on:"
 msgstr "Выберите раздел, где будет размещен файл подкачки:"
 
-#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
+#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:116
 msgid "Partition"
 msgstr "Раздел"
 
@@ -4545,12 +4546,13 @@ msgstr ""
 "установщика может быть аварийно прекращена. Вы уверены, что хотите "
 "продолжить без файла подкачки?"
 
-#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
+#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:182
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
 
-#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Недостаточно места на устройстве, выбранном для раздела подкачки."
 
 #: ../iw/zipl_gui.py:28
@@ -4672,7 +4674,7 @@ msgstr "Метка загрузки не может быть пустой."
 msgid "Boot label contains illegal characters."
 msgstr "Метка загрузки содержит недопустимые символы."
 
-#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1443
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1451
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -4688,8 +4690,10 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4801,9 +4805,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
 #: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:989 ../loader2/loader.c:1012
-#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:719
-#: ../loader2/net.c:1044 ../loader2/net.c:1757 ../loader2/nfsinstall.c:57
+#: ../loader2/loader.c:338 ../loader2/loader.c:1004 ../loader2/loader.c:1027
+#: ../loader2/net.c:259 ../loader2/net.c:298 ../loader2/net.c:734
+#: ../loader2/net.c:1059 ../loader2/net.c:1772 ../loader2/nfsinstall.c:57
 #: ../loader2/urls.c:282 ../loader2/urls.c:464
 msgid "Back"
 msgstr "Назад"
@@ -4826,8 +4830,10 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Укажите группы пакетов, которые вы хотите установить"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -4861,7 +4867,7 @@ msgstr "Эмулировать 3 кнопки?"
 msgid "Mouse Selection"
 msgstr "Выбор мыши"
 
-#: ../textw/network_text.py:60
+#: ../textw/network_text.py:53
 #, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
@@ -4870,82 +4876,226 @@ msgstr ""
 "Вы оставили незаполненным поле \"%s\". В зависимости от вашего сетевого "
 "окружения в дальнейшем это может вызвать проблемы."
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:70
+#, fuzzy, python-format
+msgid "IPv%d prefix must be between 0 and %d."
+msgstr "Префикс IPv4 должен быть в диапазоне от 0 до 32."
+
+#: ../textw/network_text.py:74
+msgid "Integer Required for Prefix"
+msgstr ""
+
+#: ../textw/network_text.py:75
 #, python-format
-msgid "Description: %s"
-msgstr "Описание: %s"
+msgid ""
+"You must enter a valid integer for the %s.  For IPv4, the value can be "
+"between 0 and 32.  For IPv6 it can be between 0 and 128."
+msgstr ""
 
-#: ../textw/network_text.py:156
-#, python-format
-msgid "Hardware Address: %s"
-msgstr "Аппаратный адрес: %s"
+#: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
+msgid "Prefix (Netmask)"
+msgstr "Префикс (маска подсети)"
 
-#: ../textw/network_text.py:170
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Использовать динамическую конфигурацию IP (DHCP)"
+#: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
+#, fuzzy
+msgid "Prefix"
+msgstr "IPv6/префикс"
 
-#: ../textw/network_text.py:189
+#: ../textw/network_text.py:137
 msgid "Activate on boot"
 msgstr "Активизировать при загрузке"
 
-#: ../textw/network_text.py:217
-msgid "IPv4:"
-msgstr "IPv4:"
+#: ../textw/network_text.py:144 ../loader2/net.c:714
+#: tmp/netpostconfig.glade.h:9
+msgid "Enable IPv4 support"
+msgstr "Включить поддержку IPv4"
 
-#: ../textw/network_text.py:220
-msgid "IPv6:"
-msgstr "IPv6:"
+#: ../textw/network_text.py:151 ../loader2/net.c:727
+#: tmp/netpostconfig.glade.h:10
+msgid "Enable IPv6 support"
+msgstr "Включить поддержку IPv6"
 
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:164
 msgid "P-to-P:"
 msgstr "точка-точка:"
 
-#: ../textw/network_text.py:270
+#: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
 msgid "ESSID:"
 msgstr "ESSID:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:191
 msgid "WEP Key:"
 msgstr "Ключ WEP:"
 
-#: ../textw/network_text.py:292
+#: ../textw/network_text.py:204
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Настройка сети для %s"
 
-#: ../textw/network_text.py:473 ../loader2/net.c:1005
+#: ../textw/network_text.py:241 ../textw/network_text.py:244
+msgid "point-to-point IP address"
+msgstr ""
+
+#: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
+#, fuzzy
+msgid "Dynamic IP configuration (DHCP)"
+msgstr "Использовать динамическую конфигурацию IP (DHCP)"
+
+#: ../textw/network_text.py:270 ../textw/network_text.py:401
+#, fuzzy
+msgid "Manual address configuration"
+msgstr "Ручная настройка TCP/IP"
+
+#: ../textw/network_text.py:290
+#, fuzzy, python-format
+msgid "IPv4 Configuration for %s"
+msgstr "Настройка сети для %s"
+
+#: ../textw/network_text.py:320 ../textw/network_text.py:332
+#: ../textw/network_text.py:335
+#, fuzzy
+msgid "IPv4 address"
+msgstr "Адрес IPv4:"
+
+#: ../textw/network_text.py:324
+#, fuzzy
+msgid "IPv4 network mask"
+msgstr "IPv4/маска"
+
+#: ../textw/network_text.py:350 ../textw/network_text.py:353
+#: ../textw/network_text.py:356
+#, fuzzy
+msgid "IPv4 prefix (network mask)"
+msgstr "Префикс (маска подсети)"
+
+#: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
+msgid "Automatic neighbor discovery"
+msgstr ""
+
+#: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
+#, fuzzy
+msgid "Dynamic IP configuration (DHCPv6)"
+msgstr "Использовать динамическую конфигурацию IP (DHCP)"
+
+#: ../textw/network_text.py:425
+#, fuzzy, python-format
+msgid "IPv6 Configuration for %s"
+msgstr "Настройка сети для %s"
+
+#: ../textw/network_text.py:455 ../textw/network_text.py:466
+#: ../textw/network_text.py:469
+#, fuzzy
+msgid "IPv6 address"
+msgstr "Адрес IPv6:"
+
+#: ../textw/network_text.py:459 ../textw/network_text.py:478
+#, fuzzy
+msgid "IPv6 prefix"
+msgstr "IPv6/префикс"
+
+#: ../textw/network_text.py:504
+#, fuzzy
+msgid "Configure Network Interface"
+msgstr "Включить _Сетевой интерфейс"
+
+#: ../textw/network_text.py:505
+#, fuzzy, python-format
+msgid "Would you like to configure the %s network interface in your system?"
+msgstr "Активировать сетевые интерфейсы этой системы?"
+
+#: ../textw/network_text.py:519 ../textw/network_text.py:521
+msgid "UNCONFIGURED"
+msgstr ""
+
+#: ../textw/network_text.py:530
+msgid ""
+"The current configuration settings for each interface are listed next to the "
+"device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
+"configure an interface, highlight it and choose Edit.  When you are "
+"finished, press OK to continue."
+msgstr ""
+
+#: ../textw/network_text.py:617
+#, fuzzy
+msgid "Active on boot"
+msgstr "Активизировать при загрузке"
+
+#: ../textw/network_text.py:619
+#, fuzzy
+msgid "Inactive on boot"
+msgstr "Активизировать при загрузке"
+
+#: ../textw/network_text.py:622
+msgid "DHCP"
+msgstr ""
+
+#: ../textw/network_text.py:627
+msgid "Auto IPv6"
+msgstr ""
+
+#: ../textw/network_text.py:629
+msgid "DHCPv6"
+msgstr ""
+
+#: ../textw/network_text.py:635
+#, python-format
+msgid "%s, %s, %s"
+msgstr ""
+
+#: ../textw/network_text.py:637 ../textw/network_text.py:639
+#, python-format
+msgid "%s, %s"
+msgstr ""
+
+#: ../textw/network_text.py:661 ../loader2/net.c:1020
 msgid "Gateway:"
 msgstr "Шлюз:"
 
-#: ../textw/network_text.py:482
+#: ../textw/network_text.py:670
 msgid "Primary DNS:"
 msgstr "Первичный DNS:"
 
-#: ../textw/network_text.py:487
+#: ../textw/network_text.py:675
 msgid "Secondary DNS:"
 msgstr "Вторичный DNS:"
 
-#: ../textw/network_text.py:494
+#: ../textw/network_text.py:682
 msgid "Miscellaneous Network Settings"
 msgstr "Дополнительные параметры сети"
 
-#: ../textw/network_text.py:567
+#: ../textw/network_text.py:699 ../textw/network_text.py:702
+#, fuzzy
+msgid "gateway"
+msgstr "Шлюз"
+
+#: ../textw/network_text.py:709 ../textw/network_text.py:712
+#, fuzzy
+msgid "primary DNS"
+msgstr "Первичный DNS"
+
+#: ../textw/network_text.py:721
+#, fuzzy
+msgid "secondary DNS"
+msgstr "Вторичный DNS"
+
+#: ../textw/network_text.py:755
 msgid "automatically via DHCP"
 msgstr "автоматически по DHCP"
 
-#: ../textw/network_text.py:570
+#: ../textw/network_text.py:758
 msgid "manually"
 msgstr "вручную"
 
-#: ../textw/network_text.py:589
+#: ../textw/network_text.py:777
 msgid "Hostname Configuration"
 msgstr "Имя компьютера"
 
-#: ../textw/network_text.py:592
+#: ../textw/network_text.py:780
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
-"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
-"a hostname for your system. If you do not, your system will be known as "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
+"hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
 "Если ваша система является частью большой сети, где имена узлов назначаются "
@@ -4953,11 +5103,11 @@ msgstr ""
 "узла вручную. Если имя узла не будет указано, система будет известна под "
 "именем 'localhost'."
 
-#: ../textw/network_text.py:618 ../textw/network_text.py:624
+#: ../textw/network_text.py:806 ../textw/network_text.py:812
 msgid "Invalid Hostname"
 msgstr "Неверное имя узла"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:807
 msgid "You have not specified a hostname."
 msgstr "Вы не указали имя узла."
 
@@ -5155,7 +5305,7 @@ msgstr "Группы томов не определены"
 msgid "No volume groups in which to create a logical volume"
 msgstr "Не определены группы томов, в которых можно создать логический том."
 
-#: ../textw/partition_text.py:1293
+#: ../textw/partition_text.py:1301
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -5164,7 +5314,7 @@ msgstr ""
 "Запрошенный размер (%10.2f Мб) больше, чем максимальный размер логического "
 "тома (%10.2f Мб)."
 
-#: ../textw/partition_text.py:1312
+#: ../textw/partition_text.py:1320
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
@@ -5173,51 +5323,52 @@ msgstr ""
 "Запрошенный размер (%10.2f Мб) больше, чем доступно в группе томов (%10.2f "
 "Мб)."
 
-#: ../textw/partition_text.py:1366
+#: ../textw/partition_text.py:1374
 msgid "New Partition or Logical Volume?"
 msgstr "Новый раздел или Логический том?"
 
-#: ../textw/partition_text.py:1367
+#: ../textw/partition_text.py:1375
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Вы планируете создать новый раздел или новый логический том?"
 
-#: ../textw/partition_text.py:1369
+#: ../textw/partition_text.py:1377
 msgid "partition"
 msgstr "раздел"
 
-#: ../textw/partition_text.py:1369
+#: ../textw/partition_text.py:1377
 msgid "logical volume"
 msgstr "логический том"
 
-#: ../textw/partition_text.py:1442
+#: ../textw/partition_text.py:1450
 msgid "New"
 msgstr "Новый"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1452
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../textw/partition_text.py:1445
+#: ../textw/partition_text.py:1453
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1448
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+#: ../textw/partition_text.py:1456
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-ОК    "
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1485
 msgid "No Root Partition"
 msgstr "Не указан корневой раздел"
 
-#: ../textw/partition_text.py:1478
+#: ../textw/partition_text.py:1486
 msgid "Must have a / partition to install on."
 msgstr "Необходимо назначить раздел / для продолжения установки."
 
-#: ../textw/partition_text.py:1520
+#: ../textw/partition_text.py:1528
 msgid "Partitioning Type"
 msgstr "Тип разбиения"
 
-#: ../textw/partition_text.py:1522
+#: ../textw/partition_text.py:1530
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is reasonable for most users.  You can either choose to use this or create "
@@ -5227,35 +5378,35 @@ msgstr ""
 "умолчанию является оптимальным для большинства пользователей. Однако вы "
 "можете создать разделы вручную."
 
-#: ../textw/partition_text.py:1546
+#: ../textw/partition_text.py:1554
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Какие устройства вы хотите использовать для этой установки?"
 
-#: ../textw/partition_text.py:1561
+#: ../textw/partition_text.py:1569
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> выбор   |   <F2> Добавить диск   |  <F12> след. экран"
 
-#: ../textw/partition_text.py:1623
+#: ../textw/partition_text.py:1635
 msgid "Review Partition Layout"
 msgstr "Просмотр разбиения диска"
 
-#: ../textw/partition_text.py:1624
+#: ../textw/partition_text.py:1636
 msgid "Review and modify partitioning layout?"
 msgstr "Просмотреть и изменить разбиение разделов?"
 
-#: ../textw/partition_text.py:1642 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1657 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "Дополнительные параметры накопителей"
 
-#: ../textw/partition_text.py:1643 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1658 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "Как следует выполнить модификацию конфигурации диска?"
 
-#: ../textw/partition_text.py:1666
+#: ../textw/partition_text.py:1681
 msgid "Add FCP Device"
 msgstr "Добавить FCP устройство"
 
-#: ../textw/partition_text.py:1667 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1682 tmp/zfcp-config.glade.h:5
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
@@ -5265,11 +5416,11 @@ msgstr ""
 "протокол Fibre Channel (FCP). Для каждого устройства необходимо указать 16-"
 "битный номер устройства, 64-битный номер WWPN и 64-битный FCP LUN."
 
-#: ../textw/partition_text.py:1690 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1705 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "Настройка параметров iSCSI"
 
-#: ../textw/partition_text.py:1691 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1706 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5370,7 +5521,7 @@ msgstr "Пропустить обновление загрузчика"
 msgid "Create new boot loader configuration"
 msgstr "Создать новую конфигурацию загрузчика"
 
-#: ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:98
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -5383,39 +5534,39 @@ msgstr ""
 "выделено для подкачки %d Мб, но вы можете добавить дополнительное "
 "пространство подкачки на одной из ваших файловых систем."
 
-#: ../textw/upgrade_text.py:109
+#: ../textw/upgrade_text.py:116
 msgid "Free Space"
 msgstr "Свободное пространство"
 
-#: ../textw/upgrade_text.py:124
+#: ../textw/upgrade_text.py:131
 msgid "RAM detected (MB):"
 msgstr "Обнаружено ОЗУ (Мб):"
 
-#: ../textw/upgrade_text.py:127
+#: ../textw/upgrade_text.py:134
 msgid "Suggested size (MB):"
 msgstr "Прогнозируемый размер (Мб):"
 
-#: ../textw/upgrade_text.py:130
+#: ../textw/upgrade_text.py:137
 msgid "Swap file size (MB):"
 msgstr "Размер файла подкачки (Мб):"
 
-#: ../textw/upgrade_text.py:138
+#: ../textw/upgrade_text.py:145
 msgid "Add Swap"
 msgstr "Добавить пространство подкачки"
 
-#: ../textw/upgrade_text.py:163
+#: ../textw/upgrade_text.py:170
 msgid "The value you entered is not a valid number."
 msgstr "Введенное значение должно быть числовой величиной."
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:203
 msgid "Reinstall System"
 msgstr "Переустановка системы"
 
-#: ../textw/upgrade_text.py:205
+#: ../textw/upgrade_text.py:212
 msgid "System to Upgrade"
 msgstr "Система для обновления"
 
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:213
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
@@ -5488,7 +5639,7 @@ msgstr ""
 msgid "_Fedora"
 msgstr "_Fedora"
 
-#: ../installclasses/fedora.py:13 ../installclasses/rhel.py:21
+#: ../installclasses/fedora.py:13 ../installclasses/rhel.py:22
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -5499,17 +5650,16 @@ msgstr ""
 "обычных задач работы с Интернетом.  Поддержку каких дополнительных задач вы "
 "хотели бы включить?"
 
-#: ../installclasses/fedora.py:21
+#: ../installclasses/fedora.py:22
 msgid "Office and Productivity"
 msgstr "Офисные приложения"
 
-#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:32
-#: ../installclasses/rhel.py:111
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:35
+#: ../installclasses/rhel.py:40
 msgid "Software Development"
 msgstr "Разработка ПО"
 
-#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:33
-#: ../installclasses/rhel.py:101
+#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:39
 msgid "Web server"
 msgstr "Веб-сервер"
 
@@ -5545,41 +5695,43 @@ msgstr ""
 "\tЗвук и видео\n"
 "\tИгры\n"
 
-#: ../installclasses/rhel.py:20
+#: ../installclasses/rhel.py:21
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: ../installclasses/rhel.py:30 ../installclasses/rhel.py:98
+#: ../installclasses/rhel.py:32
 msgid "Office"
 msgstr "Офис"
 
-#: ../installclasses/rhel.py:31 ../installclasses/rhel.py:99
+#: ../installclasses/rhel.py:33
 msgid "Multimedia"
 msgstr "Мультимедиа"
 
-#: ../installclasses/rhel.py:34 ../installclasses/rhel.py:104
+#: ../installclasses/rhel.py:44
 msgid "Virtualization"
 msgstr "Виртуализация"
 
-#: ../installclasses/rhel.py:35 ../installclasses/rhel.py:106
+#: ../installclasses/rhel.py:45
 msgid "Clustering"
 msgstr "Кластеризация"
 
-#: ../installclasses/rhel.py:36 ../installclasses/rhel.py:108
+#: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
 msgstr "Кластеризация хранилища"
 
-#: ../installclasses/rhel.py:39
+#: ../installclasses/rhel.py:50
 msgid "Installation Number"
 msgstr "Код установки"
 
-#: ../installclasses/rhel.py:40
+#: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr "Для установки всех пакетов, входящих в вашу подписку, введите код установки"
+msgstr ""
+"Для установки всех пакетов, входящих в вашу подписку, введите код установки"
 
-#: ../installclasses/rhel.py:43
+#: ../installclasses/rhel.py:54
+#, fuzzy
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5589,8 +5741,8 @@ msgid ""
 "subscription.\n"
 "* It may result in an unsupported/uncertified installation of Red Hat "
 "Enterprise Linux.\n"
-"* You will not get software and security updates for packages not included "
-"in your subscription."
+"* You will not get software and security updates for packages included in "
+"your subscription."
 msgstr ""
 "Если вы не знаете свой код установки, перейдите на http://www.redhat.com/"
 "apps/support/in.html.\n"
@@ -5832,10 +5984,10 @@ msgstr "Загрузить дополнительные диски драйве�
 #: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
 #: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:124
 #: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
-#: ../loader2/kickstart.c:469 ../loader2/modules.c:1057 ../loader2/net.c:1558
-#: ../loader2/net.c:1581 ../loader2/nfsinstall.c:251
-#: ../loader2/urlinstall.c:456 ../loader2/urlinstall.c:465
-#: ../loader2/urlinstall.c:476
+#: ../loader2/kickstart.c:478 ../loader2/modules.c:1063
+#: ../loader2/modules.c:1076 ../loader2/net.c:1573 ../loader2/net.c:1596
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:456
+#: ../loader2/urlinstall.c:465 ../loader2/urlinstall.c:476
 msgid "Kickstart Error"
 msgstr "Ошибка Kickstart"
 
@@ -5881,7 +6033,8 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr ""
+"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:200
 msgid ""
@@ -5991,21 +6144,23 @@ msgstr "Ошибка чтения содержимого файла kickstart %s
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Ошибка в %s в строке %d файла kickstart %s"
 
-#: ../loader2/kickstart.c:277
+#: ../loader2/kickstart.c:285
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Невозможно найти ks.cfg на загрузочной дискете."
 
-#: ../loader2/kickstart.c:339
+#: ../loader2/kickstart.c:347
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr "Невозможно загрузить файл кикстарта. Измените параметр кикстарта ниже или нажмите \"Отменить\" для продолжения интерактивной установки."
+msgstr ""
+"Невозможно загрузить файл кикстарта. Измените параметр кикстарта ниже или "
+"нажмите \"Отменить\" для продолжения интерактивной установки."
 
-#: ../loader2/kickstart.c:348
+#: ../loader2/kickstart.c:356
 msgid "Error downloading kickstart file"
 msgstr "Ошибка загрузки файла кикстарта %s: %s"
 
-#: ../loader2/kickstart.c:470
+#: ../loader2/kickstart.c:479
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Неверный аргумент команды kickstart для выключения %s: :%s"
@@ -6016,8 +6171,10 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добро пожаловать в %s - Режим восстановления"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6078,40 +6235,40 @@ msgstr ""
 "драйверы устройств для продолжения установки. Вы хотите выбрать драйверы "
 "сейчас?"
 
-#: ../loader2/loader.c:823
+#: ../loader2/loader.c:838
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Недостаточно ОЗУ для установки %s на этой машине."
 
-#: ../loader2/loader.c:981
+#: ../loader2/loader.c:996
 msgid "Rescue Method"
 msgstr "Метод восстановления"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:997
 msgid "Installation Method"
 msgstr "Метод установки"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:999
 msgid "What type of media contains the rescue image?"
 msgstr "Какой носитель содержит спасательный образ?"
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:1001
 msgid "What type of media contains the packages to be installed?"
 msgstr "Носитель какого типа содержит пакеты для установки?"
 
-#: ../loader2/loader.c:1011
+#: ../loader2/loader.c:1026
 msgid "No driver found"
 msgstr "Драйвер не найден"
 
-#: ../loader2/loader.c:1011
+#: ../loader2/loader.c:1026
 msgid "Select driver"
 msgstr "Выберите драйвер"
 
-#: ../loader2/loader.c:1012
+#: ../loader2/loader.c:1027
 msgid "Use a driver disk"
 msgstr "Использовать диск драйверов"
 
-#: ../loader2/loader.c:1013
+#: ../loader2/loader.c:1028
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6119,42 +6276,45 @@ msgstr ""
 "Не удается найти ни одно устройство, необходимое для этого типа установки.  "
 "Хотите ли вы выбрать драйвер вручную или использовать диск драйверов?"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1199
 msgid "The following devices have been found on your system."
 msgstr "В вашей системе были найдены следующие устройства."
 
-#: ../loader2/loader.c:1178
+#: ../loader2/loader.c:1201
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr ""
+"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
-#: ../loader2/loader.c:1182
+#: ../loader2/loader.c:1205
 msgid "Devices"
 msgstr "Устройства"
 
-#: ../loader2/loader.c:1183
+#: ../loader2/loader.c:1206
 msgid "Done"
 msgstr "Готово"
 
-#: ../loader2/loader.c:1184
+#: ../loader2/loader.c:1207
 msgid "Add Device"
 msgstr "Добавить устройство"
 
-#: ../loader2/loader.c:1392
+#: ../loader2/loader.c:1415
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Загрузчик уже выполнялся.  Запускается оболочка.\n"
 
-#: ../loader2/loader.c:1779
+#: ../loader2/loader.c:1802
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
+msgstr ""
+"Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
 
-#: ../loader2/loader.c:1781
+#: ../loader2/loader.c:1804
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr ""
+"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6252,10 +6412,18 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Проверка контрольной суммы"
 
-#: ../loader2/modules.c:1058
+#: ../loader2/modules.c:1064
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Неверный аргумент device команды kickstart  %s: :%s"
+
+#: ../loader2/modules.c:1077
+#, fuzzy
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
+msgstr ""
+"Следующий некорректный аргумент был передан kickstart команде driver disk: %"
+"s:%s"
 
 #: ../loader2/net.c:57
 #, c-format
@@ -6317,8 +6485,9 @@ msgid ""
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"Ваш запрос адреса IP вернул конфигурацию IP, но она не содержит "
-"информации о сервере имен. Если вы не знаете данных сервера имен, оставьте это поле пустым и установка будет продолжена."
+"Ваш запрос адреса IP вернул конфигурацию IP, но она не содержит информации о "
+"сервере имен. Если вы не знаете данных сервера имен, оставьте это поле "
+"пустым и установка будет продолжена."
 
 #: ../loader2/net.c:316
 msgid "Invalid IP Information"
@@ -6328,47 +6497,48 @@ msgstr "Неверная информация о IP"
 msgid "You entered an invalid IP address."
 msgstr "Введен неверный адрес IP."
 
-#: ../loader2/net.c:563 ../loader2/net.c:671
+#: ../loader2/net.c:578 ../loader2/net.c:686
 msgid "Network Error"
 msgstr "Ошибка сети"
 
-#: ../loader2/net.c:564 ../loader2/net.c:672
+#: ../loader2/net.c:579 ../loader2/net.c:687
 msgid "There was an error configuring your network interface."
 msgstr "Ошибка при конфигурации сетевого интерфейса."
 
-#: ../loader2/net.c:745
+#: ../loader2/net.c:760
 msgid "Configure TCP/IP"
 msgstr "Настройка TCP/IP"
 
-#: ../loader2/net.c:772
+#: ../loader2/net.c:787
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Необходимо выбрать как минимум один протокол (IPv4 или IPv6)."
 
-#: ../loader2/net.c:779
+#: ../loader2/net.c:794
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 необходим для NFS"
 
-#: ../loader2/net.c:780
+#: ../loader2/net.c:795
 msgid "NFS installation method requires IPv4 support."
 msgstr "Метод установки по NFS требует наличия поддержки IPv4."
 
-#: ../loader2/net.c:900
+#: ../loader2/net.c:915
 msgid "IPv4 address:"
 msgstr "Адрес IPv4:"
 
-#: ../loader2/net.c:912 ../loader2/net.c:964 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:927 ../loader2/net.c:979 tmp/netconfig.glade.h:1
+#: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:952
+#: ../loader2/net.c:967
 msgid "IPv6 address:"
 msgstr "Адрес IPv6:"
 
-#: ../loader2/net.c:1013
+#: ../loader2/net.c:1028
 msgid "Name Server:"
 msgstr "Сервер имен:"
 
-#: ../loader2/net.c:1049
+#: ../loader2/net.c:1064
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -6379,41 +6549,42 @@ msgstr ""
 "префикса CIDR. Значения полей шлюза и сервера имен также должны содержать "
 "корректные адреса IPv4 или IPv6."
 
-#: ../loader2/net.c:1065
+#: ../loader2/net.c:1080
 msgid "Manual TCP/IP Configuration"
 msgstr "Ручная настройка TCP/IP"
 
-#: ../loader2/net.c:1185 ../loader2/net.c:1191
+#: ../loader2/net.c:1188 ../loader2/net.c:1194
 msgid "Missing Information"
 msgstr "Недостаточно информации"
 
-#: ../loader2/net.c:1186
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: ../loader2/net.c:1189
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv4 и маску сети или префикс CIDR."
 
-#: ../loader2/net.c:1192
+#: ../loader2/net.c:1195
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv6 и префикс CIDR."
 
-#: ../loader2/net.c:1467
+#: ../loader2/net.c:1482
 msgid "Determining host name and domain..."
 msgstr "Определение имени узла и домена..."
 
-#: ../loader2/net.c:1559
+#: ../loader2/net.c:1574
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Неверный аргумент сетевой команды kickstart %s: :%s"
 
-#: ../loader2/net.c:1582
+#: ../loader2/net.c:1597
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "В сетевой команде неверно указан bootproto %s"
 
-#: ../loader2/net.c:1753
+#: ../loader2/net.c:1768
 msgid "Networking Device"
 msgstr "Сетевое устройство"
 
-#: ../loader2/net.c:1754
+#: ../loader2/net.c:1769
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6619,10 +6790,6 @@ msgstr "_Добавить хранилище"
 msgid "Reboo_t"
 msgstr "_Перезагрузка"
 
-#: tmp/anaconda.glade.h:2
-msgid "_Debug"
-msgstr "_Отладка"
-
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
 msgstr "_Далее"
@@ -6726,6 +6893,35 @@ msgstr ""
 msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Использовать _Динамическую конфигурацию IP (DHCP)"
 
+#: tmp/netpostconfig.glade.h:2
+#, fuzzy
+msgid "<b>Description Goes Here</b>"
+msgstr "Описание: %s"
+
+#: tmp/netpostconfig.glade.h:3
+msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
+msgstr ""
+
+#: tmp/netpostconfig.glade.h:8
+#, fuzzy
+msgid "Edit Interface"
+msgstr "Правка интерфейса %s"
+
+#: tmp/netpostconfig.glade.h:11
+#, fuzzy
+msgid "Encryption Key:"
+msgstr "_Ключ шифрования:"
+
+#: tmp/netpostconfig.glade.h:13
+#, fuzzy
+msgid "Manual configuration"
+msgstr "Ручная настройка TCP/IP"
+
+#: tmp/netpostconfig.glade.h:14
+#, fuzzy
+msgid "Point to Point (IP):"
+msgstr "_Точка-точка (IP):"
+
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
 msgstr "Настроить _позже"
@@ -6811,10 +7007,6 @@ msgid "Aqtobe (Aktobe)"
 msgstr "Актобе"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Атлантические острова"
-
-#. generated from zone.tab
 msgid "Atlantic Standard Time - Quebec - Lower North Shore"
 msgstr "Атлантическое стандартное время - Квебек - Lower North Shore"
 
@@ -6835,6 +7027,10 @@ msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 "Атлантическое время - Новая Шотландия - местность, где не происходила смена "
 "летнего/зимнего времени в 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Атлантические острова"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6869,14 +7065,6 @@ msgid "Catamarca (CT), Chubut (CH)"
 msgstr "Катамарка (CT), Чубут (CH)"
 
 #. generated from zone.tab
-msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
-msgstr "центральный Китай - Сычуань, Юньнань, Ганьсу, Шэньси, Гуйчжоу, и т.д."
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "центральный Крым"
-
-#. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
 msgstr "Центральное стандартное время - Саскачеван - средний запад"
 
@@ -6893,17 +7081,12 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Центральное время - зал. Кампече, п-ов Юкатан"
 
 #. generated from zone.tab
-msgid "Central Time - central Nunavut"
-msgstr "Центральное время - центральный Нунавут"
-
-#. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Центральное время - Коауила, Дуранго, Нуэво-Леон, Тамаулипас"
 
 #. generated from zone.tab
-msgid ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
+#, fuzzy
+msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin & Perry Counties"
 msgstr ""
 "Центральное время - Индиана - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
@@ -6918,11 +7101,8 @@ msgstr "Центральное время - Манитоба и запад Он�
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Центральное время - Мичиган - Dickinson, Gogebic, Iron & Menominee Counties"
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Центральное время - большая часть"
+msgstr ""
+"Центральное время - Мичиган - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
@@ -6941,6 +7121,14 @@ msgstr "Центральное время - Quintana Roo"
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Центральное время - Rainy River & Форт Франсес, Онтарио"
+
+#. generated from zone.tab
+msgid "Central Time - central Nunavut"
+msgstr "Центральное время - центральный Нунавут"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Центральное время - большая часть"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -6971,40 +7159,26 @@ msgid "E Amazonas"
 msgstr "Западная Амазонка"
 
 #. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "Восточный Китай - Пекин, Гуанчжоу, Шанхай и тд."
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr "восточное побережье, север Скорсбисунн"
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "восток Дем. Республики Конго"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Остров Пасхи & о. Сала-и-Гомес"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut"
-msgstr "Восточное стандартное время - Атикокан, Онтарио и о. Саутгемптон, Нунавут"
+msgstr ""
+"Восточное стандартное время - Атикокан, Онтарио и о. Саутгемптон, Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Время вост. побережья"
 
 #. generated from zone.tab
-msgid "Eastern Time - east Nunavut"
-msgstr "Время вост. побережья - западный Нунавут"
-
-#. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Время вост. побережья - Индиана - Crawford County"
 
 #. generated from zone.tab
-msgid "Eastern Time - Indiana - most locations"
-msgstr "Время вост. побережья - Индиана - большая часть"
+#, fuzzy
+msgid "Eastern Time - Indiana - Pulaski County"
+msgstr "Время вост. побережья - Индиана - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7013,6 +7187,10 @@ msgstr "Время вост. побережья - Индиана - Starke County
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Время вост. побережья - Индиана - Switzerland County"
+
+#. generated from zone.tab
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Время вост. побережья - Индиана - большая часть"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7027,14 +7205,15 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Время вост. побережья - Мичиган - большая часть"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario - most locations"
-msgstr "Время вост. побережья - Онтарио - большая часть"
-
-#. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Время вост. побережья - Онтарио - местность, где не происходила смена "
 "летнего/зимнего времени в 1967-1973"
+
+#. generated from zone.tab
+msgid "Eastern Time - Ontario - most locations"
+msgstr "Время вост. побережья - Онтарио - большая часть"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -7045,16 +7224,18 @@ msgid "Eastern Time - Quebec - most locations"
 msgstr "Время вост. побережья - Квебек - большая часть"
 
 #. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Resolute, Nunavut"
+msgstr "Время вост. побережья - западный Нунавут"
+
+#. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Время вост. побережья - Тандер-Бей, Онтарио"
 
 #. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "восточный и южный Борнео, Celebes, Бали, Нуса-Тенгара, западный Тимор"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "восточный Узбекистан"
+#, fuzzy
+msgid "Eastern Time - east Nunavut - most locations"
+msgstr "Время вост. побережья - Индиана - большая часть"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7121,10 +7302,6 @@ msgid "Madeira Islands"
 msgstr "Острова Мадейра"
 
 #. generated from zone.tab
-msgid "mainland"
-msgstr "материк"
-
-#. generated from zone.tab
 msgid "Marquesas Islands"
 msgstr "Маркизские острова"
 
@@ -7159,10 +7336,6 @@ msgstr "Москва+00 - Каспийское море"
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
 msgstr "Москва+00 - западная Россия"
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Москва-01 - Калининград"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Samara, Udmurtia"
@@ -7213,24 +7386,18 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Москва+10 - Берингово море"
 
 #. generated from zone.tab
-msgid "most locations"
-msgstr "большая часть"
-
-#. generated from zone.tab
-msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "большая часть (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-
-#. generated from zone.tab
-msgid "most of Tibet & Xinjiang"
-msgstr "большая часть Тибета и Синьцзянь"
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Москва-01 - Калининград"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7242,11 +7409,8 @@ msgstr "Горное время"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Горное время - центральные Северные Территории"
+msgstr ""
+"Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -7261,6 +7425,10 @@ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Горное время - S Baja, Наярит, Синалоа"
 
 #. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Горное время - центральные Северные Территории"
+
+#. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
 msgstr "Горное время - юг Айдахо & западный Орегон"
 
@@ -7273,16 +7441,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr "Северо-восток Бразилии (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
-msgid "Newfoundland Time, including SE Labrador"
-msgstr "время Ньюфаундленда, включая Юго-восточный Лабрадор"
+msgid "New South Wales - Yancowinna"
+msgstr "Новый Южный Уэльс - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "Новый Южный Уэльс - большая часть"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "Новый Южный Уэльс - Yancowinna"
+msgid "Newfoundland Time, including SE Labrador"
+msgstr "время Ньюфаундленда, включая Юго-восточный Лабрадор"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -7307,10 +7475,6 @@ msgstr "Время тихоокеанского побережья - запад 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Станция Палмер, Anvers Island"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "полуостров на территории Малайзии"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -7349,6 +7513,10 @@ msgid "Ruthenia"
 msgstr "Рутения (Закарпатье)"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Юг и Юго-восток Бразилии (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Сабах & Саравак"
 
@@ -7371,10 +7539,6 @@ msgstr "Острова Общества"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "Южная Австралия"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Юг и Юго-восток Бразилии (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7421,12 +7585,82 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Станция Восток, Южный Магн. Полюс"
 
 #. generated from zone.tab
+msgid "W Amazonas"
+msgstr "Западная Амазонка"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "запад Пара, Рондония"
+
+#. generated from zone.tab
 msgid "Wake Island"
 msgstr "остров Уэйк"
 
 #. generated from zone.tab
-msgid "W Amazonas"
-msgstr "Западная Амазонка"
+msgid "West Kazakhstan"
+msgstr "Западный Казахстан"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - Eucla area"
+msgstr "Западная Австралия"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Western Australia - most locations"
+msgstr "Центральное время - большая часть"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Запорожье, Луганск"
+
+#. generated from zone.tab
+msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
+msgstr "центральный Китай - Сычуань, Юньнань, Ганьсу, Шэньси, Гуйчжоу, и т.д."
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "центральный Крым"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "восточный и южный Борнео, Celebes, Бали, Нуса-Тенгара, западный Тимор"
+
+#. generated from zone.tab
+msgid "east China - Beijing, Guangdong, Shanghai, etc."
+msgstr "Восточный Китай - Пекин, Гуанчжоу, Шанхай и тд."
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "восток Дем. Республики Конго"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "восточный Узбекистан"
+
+#. generated from zone.tab
+msgid "east coast, north of Scoresbysund"
+msgstr "восточное побережье, север Скорсбисунн"
+
+#. generated from zone.tab
+msgid "mainland"
+msgstr "материк"
+
+#. generated from zone.tab
+msgid "most locations"
+msgstr "большая часть"
+
+#. generated from zone.tab
+msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "большая часть (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+
+#. generated from zone.tab
+msgid "most of Tibet & Xinjiang"
+msgstr "большая часть Тибета и Синьцзянь"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "полуостров на территории Малайзии"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -7437,28 +7671,12 @@ msgid "west Dem. Rep. of Congo"
 msgstr "запад Дем. Республики Конго"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Западная Австралия"
-
-#. generated from zone.tab
-msgid "West Kazakhstan"
-msgstr "Западный Казахстан"
-
-#. generated from zone.tab
 msgid "west Tibet & Xinjiang"
 msgstr "восточный Тибет и Синьцзянь"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
 msgstr "западный Узбекистан"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "запад Пара, Рондония"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Запорожье, Луганск"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -7601,10 +7819,6 @@ msgid "Oriya"
 msgstr "Ория"
 
 #. generated from lang-table
-msgid "Persian"
-msgstr "Персидский"
-
-#. generated from lang-table
 msgid "Polish"
 msgstr "Польский"
 
@@ -7680,3 +7894,40 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулусский"
 
+#~ msgid "Use dynamic IP configuration (_DHCP)"
+#~ msgstr "Использовать динамическую конфигурацию IP (_DHCP)"
+
+#~ msgid "_Activate on boot"
+#~ msgstr "Активировать при загрузке"
+
+#~ msgid "Address"
+#~ msgstr "Адрес"
+
+#~ msgid "IPv_4:"
+#~ msgstr "IPv_4:"
+
+#~ msgid "IPv_6:"
+#~ msgstr "IPv_6:"
+
+#~ msgid "_ESSID:"
+#~ msgstr "_ESSID:"
+
+#~ msgid "Configure %s"
+#~ msgstr "Параметры %s"
+
+#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
+#~ msgstr ""
+#~ "Префикс IPv6 отсутствует или неверен (должен быть в диапазоне от 0 до "
+#~ "128)."
+
+#~ msgid "Hardware Address: %s"
+#~ msgstr "Аппаратный адрес: %s"
+
+#~ msgid "IPv4:"
+#~ msgstr "IPv4:"
+
+#~ msgid "IPv6:"
+#~ msgstr "IPv6:"
+
+#~ msgid "Persian"
+#~ msgstr "Персидский"
