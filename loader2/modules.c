@@ -450,7 +450,6 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     char ** list, ** l;
     char items[1024] = ""; /* 1024 characters should be enough... */
     struct extractedModule * paths, * p;
-    struct moduleBallLocation *location = NULL;
     struct loadedModuleInfo * mod;
     int i;
     int reloadUsbStorage;
@@ -508,10 +507,8 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (modInfo) {
         for (i = 0; list[i]; i++) {
             mi = findModuleInfo(modInfo, list[i]);
-            if (mi) {
-                if (mi->locationID)
-                    location = mi->locationID;
-                paths = extractModules(list, paths, location);
+            if (mi && mi->locationID) {
+                paths = extractModules(list, paths, mi->locationID);
 
                 if (mi->major == DRIVER_SCSI && 
                         (mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&

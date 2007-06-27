@@ -9,6 +9,10 @@
 
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 
+	* loader2/modules.c (doLoadModules):  Try to extract modules that are
+	in a module ball other than the default one first.  This allows driver
+	disks to override the shipped modules.
+
 	* scripts/upd-instroot:  Add nss and nspr libraries.
 
 2007-06-27  Peter Jones  <pjones@redhat.com>
