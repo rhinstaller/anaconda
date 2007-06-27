@@ -1,3 +1,7 @@
+2007-06-27  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
 2006-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
@@ -38,7 +42,7 @@
 
 2007-06-27  Peter Jones  <pjones@redhat.com>
 
-	* iscsi.py (iscsiTarget._getPortal): Fix rerror reporting in iscsi
+	* iscsi.py (iscsiTarget._getPortal): Fix error reporting in iscsi
 	connection code.
 
 2007-06-26  David Cantrell  <dcantrell@redhat.com>

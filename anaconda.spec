@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.45
+Version: 11.1.2.46
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 27 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.46-1
+- Create package header directory since yum doesn't anymore (katzj).
+  Resolves: rhbz#245918
+- Write out repo lines to anaconda-ks.cfg.
+  Resolves: rhbz#206152
+- Enable multipathd on mpath installs (dcantrell).
+  Resolves: rhbz#243421
+- Pull scsi_id from /lib/udev, include kpartx and mpath commands (dcantrell).
+  Resolves: rhbz#185852
+- Display model information in the UI for mpath devices (dcantrell).
+  Resolves: rhbz#208341
+- Add nspr libraries and additional nss libraries.
+  Related: rhbz#245215
+- Fox error reporting in iscsi connection code (pjones).
+
 * Tue Jun 26 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.45-1
 - Add keyutils-libs (clumens)
   Resolves: rhbz#245734
