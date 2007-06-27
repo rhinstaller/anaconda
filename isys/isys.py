@@ -913,6 +913,24 @@ def netmask2prefix (netmask):
 
     return prefix
 
+def getMpathModel(drive):
+    args = ["-v", "2", "-l", dev]
+    model = "Unknown Multipath Device"
+
+    mpathout = execWithCapture("multipath", args, stderr = "/dev/tty5")
+    for line in mpathout.split('\n'):
+        if line.startswith(drive):
+            model = line
+            break
+
+    # reduce the info string to just the WWID and make/model
+    model = model[len(dev) + 1:]
+    model = model.replace('(', '')
+    model = model.replace(')', '')
+    model = re.sub('\ +dm\-[0-9]+\ +', ' ', model)
+
+    return model.strip()
+
 auditDaemon = _isys.auditdaemon
 
 handleSegv = _isys.handleSegv

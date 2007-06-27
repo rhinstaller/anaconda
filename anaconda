@@ -683,13 +683,25 @@ if __name__ == "__main__":
     users.createLuserConf(anaconda.rootPath)
 
     # setup links required for all install types
-    for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
-               "mke2fs.conf" ):
-        try:
-            if os.path.exists("/mnt/runtime/etc/" + i):
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
-        except:
-            pass
+    # list of 3-tuples:  ([file list], sourcepath, destpath):
+    links = [(["services", "protocols", "nsswitch.conf", "joe", "selinux",
+               "mke2fs.conf", "multipath.conf"],
+              "/mnt/runtime/etc/", "/etc/"),
+             (["multipath", "kpartx", "dmsetup", "dmraid"],
+              "/mnt/runtime/usr/sbin/", "/sbin/"),
+             (["scsi_id"], "/mnt/runtime/lib/udev/", "/sbin/")]
+
+    for (files, source, dest) in links:
+        for i in files:
+            try:
+                if os.path.exists(source + i):
+                    os.symlink (".." + source + i, dest + i)
+            except:
+                pass
+
+    for i in os.listdir("/mnt/runtime/usr/sbin"):
+        if i.startswith('mpath_prio_'):
+            os.symlink ("../mnt/runtime/usr/sbin/" + i, "/sbin/" + i)
 
     #
     # must specify install, rescue mode

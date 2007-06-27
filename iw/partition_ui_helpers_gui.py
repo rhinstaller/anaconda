@@ -18,6 +18,7 @@ import gobject
 import gtk
 import checklist
 import datacombo
+import isys
 import iutil
 
 from constants import *
@@ -126,19 +127,25 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
     drives.sort()
     for drive in drives:
         size = getDeviceSizeMB(disks[drive].dev)
-	selected = 0
+        selected = 0
         if reqdrives:
             if drive in reqdrives:
-		selected = 1
+                selected = 1
         else:
             if drive != updateSrc:
                 selected = 1
 
-	sizestr = "%8.0f MB" % size
-	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
+        sizestr = "%8.0f MB" % size
+
+        if drive.startswith('mpath'):
+            model = isys.getMpathModel(drive)
+        else:
+            model = disks[drive].dev.model
+
+        drivelist.append_row((drive, sizestr, model), selected)
 
     if len(disks.keys()) < 2:
-	drivelist.set_sensitive(False)
+        drivelist.set_sensitive(False)
     else:
         drivelist.set_sensitive(True)
 

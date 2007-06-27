@@ -3,6 +3,20 @@
 	* instdata.py (InstallData.write): Make sure multipathd is set to run
 	for mpath installs (#243421).
 
+	* scripts/upd-instroot: Pull scsi_id from /lib/udev, make sure we
+	include kpartx to get the kpartx command (#185852).
+
+	* anaconda: Expand the /mnt/runtime symlink creation to include mpath
+	commands so we have those in the right locations during installation
+	(#185852).
+
+	* isys/isys.py (getMpathInfo): Added a function get the mpath device
+	info string from the multipath command (#208341).
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): If we
+	see an mpath device, call isys.getMpathInfo() to collect the model
+	string (#208341).
+
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot:  Add libraries from nspr and additional
