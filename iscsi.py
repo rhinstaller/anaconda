@@ -54,15 +54,18 @@ class iscsiTarget:
     def _getPortal(self):
         if self._portal is None:
             argv = [ "-m", "node", "-p", self.ipaddr ]
+            log.debug("iscsiadm %s" %(string.join(argv),))
             records = iutil.execWithCapture(ISCSIADM, argv)
+            records = records.strip()
             for line in records.split("\n"):
+                log.debug("  %s" % (line,))
                 if not line or line.find("found!") != -1:
                     log.warn("no record found!")
-                    return None
+                    continue
                 pnlist = line.split()
                 if len(pnlist) != 2:
                     log.warn("didn't get what we expected from iscsiadm")
-                    return None
+                    continue
                 (portal, node) = pnlist
                 if portal.startswith(self.ipaddr):
                     self._portal = portal
