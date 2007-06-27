@@ -3,6 +3,15 @@
 	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
 	making header dir any more since we still need headers (katzj, #245918)
 
+	* backend.py (AnacondaBackend.writeKS):  Add yet another method
+	for writing out kickstart config sections, this one being
+	optional.
+	* instdata.py (InstallData.writeKS):  Call new backend.writeKS
+	method, if it exists.
+	* yuminstall.py (YumBackend.writeKS):  Add a method to write out
+	repo lines to the anaconda-ks.cfg file for all enabled add-on
+	repositories (#206152).
+
 2006-06-27  David Cantrell  <dcantrell@redhat.com>
 
 	* instdata.py (InstallData.write): Make sure multipathd is set to run

@@ -4,7 +4,7 @@
 # Paul Nasrat <pnasrat@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -242,12 +242,20 @@ class AnacondaBackend:
         log.warning("getDefaultGroups not implemented for backend!")
         pass
 
+    # write out the %packages section of anaconda-ks.cfg
     def writePackagesKS(self, f):
         log.warning("writePackagesKS not implemented for backend!")
         pass
 
+    # write out any config files that live on the installed system
+    # (e.g., /etc/yum.repos.d/* files)
     def writeConfiguration(self):
         log.warning("writeConfig not implemented for backend!")
+        pass
+
+    # write out any other kickstart bits the backend requires - no warning
+    # here because this may not be needed
+    def writeKS(self, f):
         pass
 
 def doRepoSetup(anaconda):
