@@ -23,6 +23,8 @@ import shutil
 import time
 import subprocess
 
+import selinux
+
 from rhpl.translate import _, N_
 
 from flags import flags
@@ -40,8 +42,10 @@ log = logging.getLogger("anaconda")
 
 class Error(EnvironmentError):
     pass
-def copytree(src, dst, symlinks=False):
+def copytree(src, dst, symlinks=False, preserveOwner=False,
+             preserveSelinux=False):
     # copy of shutil.copytree which doesn't require dst to not exist
+    # and which also has options to preserve the owner and selinux contexts
     names = os.listdir(src)
     if not os.path.isdir(dst):
         os.makedirs(dst)
@@ -54,10 +58,14 @@ def copytree(src, dst, symlinks=False):
                 linkto = os.readlink(srcname)
                 os.symlink(linkto, dstname)
             elif os.path.isdir(srcname):
-                copytree(srcname, dstname, symlinks)
+                copytree(srcname, dstname, symlinks, preserveOwner, preserveSelinux)
             else:
-                shutil.copy2(srcname, dstname)
-            # XXX What about devices, sockets etc.?
+                shutil.copyfile(srcname, dstname)
+                if preserveOwner:
+                    os.chown(dstname, os.stat(srcname)[stat.ST_UID], os.stat(srcname)[stat.ST_GID])
+                if preserveSelinux:
+                    selinux.lsetfilecon(dstname, selinux.lgetfilecon(srcname)[1])
+                shutil.copystat(srcname, dstname)
         except (IOError, os.error), why:
             errors.append((srcname, dstname, str(why)))
         # catch the Error from the recursive copytree so that we can
@@ -65,6 +73,10 @@ def copytree(src, dst, symlinks=False):
         except Error, err:
             errors.extend(err.args[0])
     try:
+        if preserveOwner:
+            os.chown(dst, os.stat(src)[stat.ST_UID], os.stat(src)[stat.ST_GID])            
+        if preserveSelinux:
+            selinux.lsetfilecon(dst, selinux.lgetfilecon(src)[1])
         shutil.copystat(src, dst)
     except OSError, why:
         errors.extend((src, dst, str(why)))
@@ -240,9 +252,9 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             for e in [entry] + fsdict[tocopy]:
                 e.mount(anaconda.rootPath + "/mnt")                
 
-            # XXX: should use something with selinux knowledge...
             copytree("%s/%s" %(anaconda.rootPath, tocopy),
-                     "%s/mnt/%s" %(anaconda.rootPath, tocopy), True)
+                     "%s/mnt/%s" %(anaconda.rootPath, tocopy), True, True,
+                     flags.selinux)
             shutil.rmtree("%s/%s" %(anaconda.rootPath, tocopy))
             wait.refresh()
 
@@ -258,18 +270,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 e.mount(anaconda.rootPath)                
 
             wait.refresh()
-
-            # XXX: we should be preserving contexts on our copy, but
-            # this will do for now
-            for dir, subdirs, files in os.walk(os.path.normpath("%s/%s" %(anaconda.rootPath, tocopy))):
-                dir = dir[len(anaconda.rootPath):]
-                for f in map(lambda x: "%s/%s" %(dir, x), files) + [dir]:
-                    if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
-                        continue
-                    ret = isys.resetFileContext(os.path.normpath(f),
-                                                anaconda.rootPath)
-                    log.info("set fc of %s to %s" %(f, ret))
-            wait.refresh()                    
 
         # ensure that non-fstab filesystems are mounted in the chroot
         if flags.selinux:
