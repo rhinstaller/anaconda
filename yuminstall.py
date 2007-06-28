@@ -181,7 +181,8 @@ class AnacondaYumRepo(YumRepository):
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         self.keepalive = False
-        
+        self.addon = addon
+
         if uri and not mirrorlist:
             if type(uri) == types.ListType:
                 self.baseurl = uri

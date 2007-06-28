@@ -1,3 +1,8 @@
+2007-06-28  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (AnacondaYumRepo.__init__):  Set self.addon to fix
+	traceback when writing out anaconda-ks.cfg file (#246084).
+
 2007-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
