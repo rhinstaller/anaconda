@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.46
+Version: 11.1.2.47
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 28 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.47-1
+- Fix traceback when writing out repo lines.
+  Resolves: rhbz#246084
+
 * Wed Jun 27 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.46-1
 - Create package header directory since yum doesn't anymore (katzj).
   Resolves: rhbz#245918
