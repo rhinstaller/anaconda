@@ -1,3 +1,8 @@
+2007-06-28  Jeremy Katz  <katzj@redhat.com>
+
+	* livecd.py (copytree): Preserve owners on copy (#243479).  Also
+	add support for preserving SELinux xattrs during the copy process
+
 2007-06-27  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo.dirSetup): Fix for yum 3.2.1 not
