@@ -1136,15 +1136,13 @@ class FileSystemSet:
             devA = a.device.getDevice()
             devB = b.device.getDevice()
 
-            if not mntB or not devB:
-                return True
-            if not mntA or not devA:
+            if not mntB:
                 return False
-
-            if (mntA.startswith(mntB) and mntA != mntB) or (devA.startswith(mntB) and devA != devB):
+            if mntA and mntA != mntB and mntA.startswith(mntB):
                 return True
-            else:
-                return False
+            if devA and devA != mntB and devA.startswith(mntB):
+                return True
+            return False
 
         # Remove preexisting duplicate entries - pseudo filesystems are
         # duplicate if they have the same filesystem type as an existing one.

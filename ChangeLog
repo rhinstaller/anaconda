@@ -1,5 +1,8 @@
 2007-06-29  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (FileSystemSet.add):  Fix an fsset entry sorting
+	problem (#242294, patch from Jeffrey Hutzelman <jhutz AT cmu DOT edu>).
+
 	* yuminstall.py (YumBackend.selectModulePackages):  The modules
 	listed in extraModules don't end in .ko.
 
