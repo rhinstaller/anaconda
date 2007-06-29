@@ -351,7 +351,7 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
     getHostPathandLogin (ksSource, host, file, &login, &password, ip);
 }
 
-static char *newKickstartLocation(char *origLocation) {
+static char *newKickstartLocation(const char *origLocation) {
     const char *location;
     char *retval = NULL;
     newtComponent f, okay, cancel, answer, locationEntry;
@@ -430,13 +430,21 @@ void getKickstartFile(struct loaderData_s *loaderData) {
         }
 
         if (rc != 0) {
+            char *newLocation;
+
+            if (!strcmp(c, "ks"))
+                newLocation = newKickstartLocation("");
+            else
+                newLocation = newKickstartLocation(c);
+
             if (loaderData->ksFile != NULL)
                 free(loaderData->ksFile);
 
-            loaderData->ksFile = newKickstartLocation(c);
-
-            if (loaderData->ksFile != NULL)
+            if (newLocation != NULL) {
+               loaderData->ksFile = strdup(newLocation);
+               free(newLocation);
                return getKickstartFile(loaderData);
+            }
             else
                return;
         }
