@@ -60,6 +60,9 @@
 	* textw/constants_text.py:  Added missing TEXT_EDIT_BUTTON constants
 	(#245606).
 
+	* backend.py (AnacondaBackend.doPostInstall):  Call getDevice() on
+	entry.device, not entry (#185852).
+
 2007-06-28  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
