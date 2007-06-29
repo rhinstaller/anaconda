@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.4
+Version: 11.3.0.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 28 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.5-1
+- Fix traceback opening disks (dcantrell, #245609)
+- Fix live installs with /usr/local and /usr as separate partitions (#244913)
+- Driver disk reworking (clumens, #213318)
+- Write out additional repos in anaconda-ks.cfg (clumens, #206152)
+- Fix iscsi error reporting (pjones)
+- Add nss/nspr libs to stage2 (clumens)
+- Fix code to work with yum 3.2.1 (#245918)
+- Preserve owners on live install copy (#243479)
+
 * Fri Jun 22 2007 Chris Lumens <clumens@redhat.com> - 11.3.0.4-1
 - Add a firmware loader, remove nash firmware bits (pjones).
 - Fix module loading to work for multiple modules.cgz locations (pjones).
