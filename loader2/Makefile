@@ -21,12 +21,6 @@ CFLAGS += $(shell pkg-config --cflags libdhcp)
 LIBS	+= $(shell pkg-config --libs devmapper)
 CFLAGS	+= $(shell pkg-config --cflags devmapper)
 
-ifeq (1, $(USEFWLOADER))
-# nash library flags
-LIBS   += $(shell pkg-config --libs libnash)
-CFLAGS += $(shell pkg-config --cflags libnash) -DNASH_FIRMWARE_LOADER
-endif
-
 ifeq (1, $(USESELINUX))
 LIBS += -lselinux -lsepol
 endif
@@ -41,7 +35,7 @@ METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
 	md5.o mediacheck.o kickstart.o driverselect.o \
-	getparts.o dirbrowser.o \
+	getparts.o dirbrowser.o fwloader.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
@@ -117,7 +111,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) -o $@ $^ $(LIBS)
+	$(CC) -g $(STATIC) -o $@ $^ $(LIBS) $(LDFLAGS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

@@ -112,6 +112,10 @@ struct loaderData_s {
     char * logLevel;
     char * updatessrc;
 
+    pid_t fw_loader_pid;
+    char *fw_search_pathz;
+    size_t fw_search_pathz_len;
+
     moduleList modLoaded;
     moduleDeps * modDepsPtr;
     moduleInfoSet modInfo;

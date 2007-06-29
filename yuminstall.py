@@ -18,6 +18,7 @@ import shutil
 import timer
 import warnings
 import types
+import glob
 
 import rpm
 import rpmUtils
@@ -182,7 +183,7 @@ class AnacondaYumRepo(YumRepository):
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         self.keepalive = False
         self.addon = addon
-
+        
         if uri and not mirrorlist:
             if type(uri) == types.ListType:
                 self.baseurl = uri
@@ -533,7 +534,22 @@ class AnacondaYum(YumSorter):
             repo.name = name
             repo.disable()
             self.repos.add(repo)
-            
+
+        if self.anaconda.id.extraModules:
+            for d in glob.glob("/tmp/ramfs/DD-*/rpms"):
+                dirname = os.path.basename(os.path.dirname(d))
+                rid = "anaconda-%s" % dirname
+
+                repo = AnacondaYumRepo(uri="file://%s" % d, repoid=rid,
+                                       root=root, addon=False)
+                repo.name = "Driver Disk %s" % dirname.split("-")[1]
+                repo.enable()
+
+                try:
+                    self.repos.add(repo)
+                    log.info("added repository %s with source URL %s" % (repo.name, repo.baseurl))
+                except yum.Errors.DuplicateRepoError, e:
+                    log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:
@@ -542,10 +558,10 @@ class AnacondaYum(YumSorter):
                                        repoid=ksrepo.name)
                 repo.name = name
                 repo.enable()
-                
+
                 try:
                     self.repos.add(repo)
-                    log.info("added repository %s with with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
+                    log.info("added repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
                 except yum.Errors.DuplicateRepoError, e:
                     log.warning("ignoring duplicate repository %s with source URL %s" % (ksrepo.name, ksrepo.baseurl or ksrepo.mirrorlist))
 
@@ -762,6 +778,7 @@ class YumBackend(AnacondaBackend):
     def __init__ (self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
         self.prevmedia = None
+        self._installedDriverModules = 0
 
     def _handleFailure(self, url, intf):
         (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
@@ -948,6 +965,39 @@ class YumBackend(AnacondaBackend):
             if g.langonly in langs:
                 rc.append(g.groupid)
         return rc
+
+    def selectModulePackages(self, anaconda):
+        installedModules = 0
+
+        def inProvides(provides, po):
+            return provides in map(lambda p: p[0], po.provides)
+
+        for (path, name) in anaconda.id.extraModules:
+            xenProvides = "kmod-%s-xen" % name
+            regularProvides = "%s-kmod" % name
+
+            if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
+                moduleProvides = xenProvides
+            else:
+                moduleProvides = regularProvides
+
+            pkgs = self.ayum.returnPackagesByDep(moduleProvides)
+
+            if not pkgs:
+                log.warning("Didn't find any package for module %s" % name)
+
+            for pkg in pkgs:
+                # The xen module includes the non-xen provides, so we need to
+                # make sure we're not trying to select the xen module on a
+                # non-xen kernel.
+                if moduleProvides == regularProvides and inProvides(xenProvides, pkg):
+                    continue
+                else:
+                    log.info("selecting %s package for %s module" % (pkg.name, name))
+                    self.ayum.install(po=pkg)
+                    installedModules += 1
+
+        return installedModules
 
     def copyExtraModules(self, anaconda):
         kernelVersions = self.kernelVersionList()
@@ -1136,6 +1186,7 @@ class YumBackend(AnacondaBackend):
         self.selectBestKernel()
         self.selectBootloader()
         self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+        self._installedDriverModules = self.selectModulePackages(anaconda)
 
         self.selectAnacondaNeeds()
 
@@ -1387,7 +1438,14 @@ class YumBackend(AnacondaBackend):
             w = anaconda.intf.waitWindow(_("Post Install"),
                                     _("Performing post install configuration..."))
 
-        self.copyExtraModules(anaconda)
+        # If we installed modules from packages using the new driver disk
+        # method, we still need to remake the initrd.  Otherwise, drop back
+        # to the old method.
+        if self._installedDriverModules:
+            for (n, arch, tag) in self.kernelVersionList():
+                recreateInitrd(n, anaconda.rootPath)
+        else:
+            self.copyExtraModules(anaconda)
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
             anaconda.id.bootloader.args.append("rhgb quiet")

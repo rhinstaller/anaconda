@@ -24,6 +24,9 @@
 
 #include <stdio.h>
 
+#ifndef NOTLOADER
+#include "log.h"
+#endif
 #include "moduleinfo.h"
 
 struct moduleInfo * getModuleList(moduleInfoSet mis, 

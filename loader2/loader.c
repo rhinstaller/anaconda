@@ -35,10 +35,6 @@
 #include <syslog.h>
 #include <unistd.h>
 
-#ifdef NASH_FIRMWARE_LOADER
-#include <nash.h>
-#endif
-
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -56,6 +52,7 @@
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
 #include "log.h"
 #include "lang.h"
+#include "fwloader.h"
 #include "kbd.h"
 #include "kickstart.h"
 #include "windows.h"
@@ -369,7 +366,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
             umount("/tmp/update-disk");
         }
     } while (!done);
-    
+
     return;
 }
 
@@ -450,7 +447,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
         /* trim whitespace from end */
         i = 0;
         while (!isspace(buf[i]) && i < (bufsiz-1))
-           i++;
+            i++;
         buf[i] = '\0';
 
         /* break up var name and value */
@@ -1040,7 +1037,7 @@ static char *doLoaderMain(char * location,
             }
             
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
-                               modLoaded, modDepsPtr, modInfo);
+                               loaderData);
             /* it doesn't really matter what we return here; we just want
              * to reprobe and make sure we have the driver */
             step = STEP_DRIVER;
@@ -1049,8 +1046,7 @@ static char *doLoaderMain(char * location,
 
         case STEP_DRIVERDISK:
 
-            rc = loadDriverFromMedia(needed,
-                                     modLoaded, modDepsPtr, modInfo, 0, 0);
+            rc = loadDriverFromMedia(needed, loaderData, 0, 0);
             if (rc == LOADER_BACK) {
                 step = STEP_DRIVER;
                 dir = -1;
@@ -1166,13 +1162,15 @@ static char *doLoaderMain(char * location,
     return url;
 }
 
-static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr) {
+static int manualDeviceCheck(struct loaderData_s *loaderData) {
     char ** devices;
     int i, j, rc, num = 0;
     struct moduleInfo * mi;
     unsigned int width = 40;
     char * buf;
+
+    moduleInfoSet modInfo = loaderData->modInfo;
+    moduleList modLoaded = loaderData->modLoaded;
 
     do {
         devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
@@ -1214,7 +1212,7 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
         if (rc != 2)
             break;
 
-        chooseManualDriver(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo);
+        chooseManualDriver(CLASS_UNSPEC, loaderData);
     } while (1);
     return 0;
 }
@@ -1257,7 +1255,7 @@ static int hasGraphicalOverride() {
     return 0;
 }
 
-static void loaderSegvHandler(int signum) {
+void loaderSegvHandler(int signum) {
     void *array[10];
     size_t size;
     char **strings;
@@ -1308,35 +1306,6 @@ static int anaconda_trace_init(void) {
     return 0;
 }
 
-#ifdef NASH_FIRMWARE_LOADER
-int nashHotplugLogger(nashContext *nc, const nash_log_level level,
-        const char *fmt, va_list ap) {
-    int loglevel;
-    va_list apc;
-    
-    switch (level) {
-        case NASH_DEBUG:
-            loglevel = DEBUGLVL;
-            break;
-        case NASH_WARNING:
-            loglevel = WARNING;
-            break;
-        case NASH_ERROR:
-            loglevel = ERROR;
-            break;
-        default:
-        case NASH_NOTICE:
-            loglevel = INFO;
-            break;
-    }
-
-    va_copy(ap, apc);
-    logMessageV(loglevel, fmt, apc);
-    va_end(apc);
-    return 0;
-}
-#endif
-
 int main(int argc, char ** argv) {
     /* Very first thing, set up tracebacks and debug features. */
     int rc;
@@ -1375,9 +1344,6 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
-#ifdef NASH_FIRMWARE_LOADER
-    nashContext *nc = nashNewContext();
-#endif
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -1390,11 +1356,6 @@ int main(int argc, char ** argv) {
         return ourRmmodCommand(argc, argv);
 
     rc = anaconda_trace_init();
-
-#ifdef NASH_FIRMWARE_LOADER
-    nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
-    nashSetLogger(nc, nashHotplugLogger);
-#endif
 
     /* now we parse command line options */
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
@@ -1421,9 +1382,6 @@ int main(int argc, char ** argv) {
     fprintf(f, "%d\n", getpid());
     fclose(f);
 
-#ifdef NASH_FIRMWARE_LOADER
-    nashHotplugInit(nc);
-#endif
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
@@ -1453,6 +1411,8 @@ int main(int argc, char ** argv) {
 
     memset(&loaderData, 0, sizeof(loaderData));
     loaderData.method = -1;
+    loaderData.fw_loader_pid = -1;
+    loaderData.fw_search_pathz_len = -1;
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);
@@ -1465,14 +1425,15 @@ int main(int argc, char ** argv) {
 
     setupRamfs();
 
+    set_fw_search_path(&loaderData, "/firmware:/lib/firmware:/usr/lib/firmware");
+    start_fw_loader(&loaderData);
+
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = newModuleInfoSet();
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
         sleep(5);
-#ifdef NASH_FIRMWARE_LOADER
-        nashHotplugKill(nc);
-#endif
+        stop_fw_loader(&loaderData);
         exit(1);
     }
     mlReadLoadedList(&modLoaded);
@@ -1519,16 +1480,16 @@ int main(int argc, char ** argv) {
         setLanguage(loaderData.lang);
     }
 
-    if (!canProbeDevices() || FL_MODDISK(flags)) {
-        startNewt();
-        
-        loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, modInfo);
-    }
-
     /* FIXME: this is a bit of a hack */
     loaderData.modLoaded = modLoaded;
     loaderData.modDepsPtr = &modDeps;
     loaderData.modInfo = modInfo;
+
+    if (!canProbeDevices() || FL_MODDISK(flags)) {
+        startNewt();
+        
+        loadDriverDisks(CLASS_UNSPEC, &loaderData);
+    }
 
     if (!access("/dd.img", R_OK)) {
         logMessage(INFO, "found /dd.img, loading drivers");
@@ -1615,7 +1576,7 @@ int main(int argc, char ** argv) {
     if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
         && !loaderData.ksFile) {
         startNewt();
-        manualDeviceCheck(modInfo, modLoaded, &modDeps);
+        manualDeviceCheck(&loaderData);
     }
 
     if (loaderData.updatessrc)
@@ -1649,20 +1610,19 @@ int main(int argc, char ** argv) {
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
                            LIBPATH), 1);
-#ifdef NASH_FIRMWARE_LOADER
-        nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware:/mnt/source/RHupdates/firmware/");
-        nashHotplugKill(nc);
-        nashHotplugInit(nc);
-#endif
+        add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
+        add_fw_search_dir(&loaderData, "/tmp/product/firmware");
+        add_fw_search_dir(&loaderData, "/mnt/source/RHupdates/firmware");
+        stop_fw_loader(&loaderData);
+        start_fw_loader(&loaderData);
     } else {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
-#ifdef NASH_FIRMWARE_LOADER
-        nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
-        nashHotplugKill(nc);
-        nashHotplugInit(nc);
-#endif
+        add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
+        add_fw_search_dir(&loaderData, "/tmp/product/firmware");
+        stop_fw_loader(&loaderData);
+        start_fw_loader(&loaderData);
     }
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
@@ -1847,16 +1807,12 @@ int main(int argc, char ** argv) {
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
         }
-#ifdef NASH_FIRMWARE_LOADER
-        nashHotplugKill(nc);
-#endif
         kill(pid, SIGUSR1);
-        return rc;
-#else
-        return rc;
 #endif
+        stop_fw_loader(&loaderData);
+        return rc;
     }
-#ifdef NASH_FIRMWARE_LOADER
+#if 0
     else {
 	char **args = anacondaArgs;
 	printf("would have run ");

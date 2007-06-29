@@ -1,3 +1,60 @@
+2007-06-29  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (AnacondaBackend.copyDriverDiskModules):  The driver
+	disk layout has changed, so this method is no longer needed.
+	(AnacondaBackend.copyFirmware):  Add a method to copy driver firmware
+	to the installed system.
+	(AnacondaBackend.doPostInstall):  Call methods for new driver disk
+	postconfig.
+
+	* yuminstall.py (AnacondaYum.doConfigSetup):  Add in any driver
+	disk repos.
+	(AnacondaYum.selectModulePackage):  Add a method to select
+	packages that provide the modules we loaded from the driver disk
+	(#213318).
+
+	Backport pjones's driver disk and firmware loader changes:
+
+	* loader2/fwloader.[ch]: add this.  It's a small firmware loader.
+
+	* loader2/udelay.h: add this.  It's some time-related helper
+	functions.
+
+	* loader2/Makefile: get rid of the libnash bits, add fwloader.o
+
+	* loader2/driverdisk.c: change the firmware loader path and restart
+	it when we add a driver disk.  This also moves many cases of [modlist,
+	moddeps, modinfo] to just getting them from loaderData.
+
+	* loader2/driverdisk.h: change headers to match driverdisk.c changes
+
+	* loader2/loader.c: kill NASH_FIRMWARE_LOADER.  Change calls to match
+	driverdisk.c changes.  Export loaderSegvHandler().
+
+	* loader2/loader.h: add fw loader pid and search path to loaderData.
+
+	* loader2/modules.c: Get rid of "modLocation" parameter to
+	doLoadModules(); it is never used.  Also call extractModules for each
+	location and for NULL (default) location.
+
+	Backport build fixes for the above:
+
+	* loader2/driverdisk.h:  Change prototype of chooseManualDriver to
+	take a loaderData instead of several module parameters.
+	* loader2/driverselect.c (chooseManualDriver):  Likewise.
+	(loadDriverFromMedia):  Likewise.
+
+	* loader2/hdinstall.c (mountHardDrive):  Use new loadDriverFromMedia
+	interface.
+
+	* loader2/loader.c (manualDeviceCheck):  Change interface to take a
+	loaderData instead of several module parameters.  Use new 
+	(main):  Use new interfaces.
+
+	* loader2/modules.c (doLoadModules):  Try to extract modules that are
+	in a module ball other than the default one first.  This allows driver
+	disks to override the shipped modules.
+
 2007-06-29  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/constants_text.py:  Added missing TEXT_EDIT_BUTTON constants

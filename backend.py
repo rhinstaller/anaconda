@@ -47,7 +47,20 @@ class AnacondaBackend:
     def doPreInstall(self, anaconda):
         pass
 
+    def copyFirmware(self, anaconda):
+        import glob, shutil
+
+        # Multiple driver disks may be loaded, so we need to glob for all
+        # the firmware files in all the driver disk directories.
+        for f in glob.glob("/tmp/ramfs/DD-*/firmware/*"):
+            try:
+                shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
+            except IOError, e:
+                log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
+
     def doPostInstall(self, anaconda):
+        self.copyFirmware(anaconda)
+
         sys.stdout.flush()
         if flags.setupFilesystems:
             syslog.stop()
