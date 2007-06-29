@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.47
+Version: 11.1.2.48
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 29 2007 Chris Lumens <clumens@redhat.com> 11.1.2.48-1
+- Support new driver disk repo layout.
+  Resolves: rhbz#213318
+- Add missing TEXT_EDIT_BUTTON constants back (dcantrell).
+  Resolves: rhbz#245606.
+- Fix a traceback when writing out multipath configs (dcantrell).
+  Related: rhbz#185852.
+
 * Thu Jun 28 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.47-1
 - Fix traceback when writing out repo lines.
   Resolves: rhbz#246084

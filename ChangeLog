@@ -1,5 +1,7 @@
 2007-06-29  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Bump version.
+
 	* backend.py (AnacondaBackend.copyDriverDiskModules):  The driver
 	disk layout has changed, so this method is no longer needed.
 	(AnacondaBackend.copyFirmware):  Add a method to copy driver firmware
