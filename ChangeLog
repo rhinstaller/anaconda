@@ -1,5 +1,8 @@
 2007-06-29  Chris Lumens  <clumens@redhat.com>
 
+	* yuminstall.py (YumBackend.selectModulePackages):  The modules
+	listed in extraModules don't end in .ko.
+
 	* loader2/kickstart.c (newKickstartLocation):  Don't display garbage
 	in the dialog box to correct the kickstart file location (#245936).
 

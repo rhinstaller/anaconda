@@ -854,11 +854,8 @@ class YumBackend(AnacondaBackend):
            return provides in map(lambda p: p[0], po.provides)
 
         for (path, name) in anaconda.id.extraModules:
-            if not name.endswith(".ko"):
-                continue
-
-            xenProvides = "kmod-%s-xen" % name[:-3]
-            regularProvides = "%s-kmod" % name[:-3]
+            xenProvides = "kmod-%s-xen" % name
+            regularProvides = "%s-kmod" % name
 
             if self.ayum.tsInfo.matchNaevr(name="kernel-xen"):
                 moduleProvides = xenProvides
