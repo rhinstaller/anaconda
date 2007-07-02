@@ -77,8 +77,8 @@ class AnacondaKSScript(Script):
                                          "scriptlet.  You may examine the "
                                          "output in %s.  This is a fatal error "
                                          "and your install will be aborted.\n\n"
-                                         "Press the OK button to reboot your "
-                                         "system.") % (messages,))
+                                         "Press the OK button to exit the "
+                                         "installer.") % (messages,))
                 sys.exit(0)
 
         try:
