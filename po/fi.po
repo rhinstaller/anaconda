@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-20 11:06-0400\n"
+"POT-Creation-Date: 2007-07-02 15:15-0400\n"
 "PO-Revision-Date: 2007-04-20 20:04+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
@@ -76,45 +76,46 @@ msgstr "Paina <enter> saadaksesi komentotulkin"
 # ../textw/firewall_text.py:201 ../textw/network_text.py:134
 # ../textw/silo_text.py:110 ../textw/silo_text.py:147
 # ../textw/silo_text.py:160 ../xserver.py:51
-#: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:443 ../text.py:602 ../vnc.py:146
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:39
-#: ../textw/network_text.py:49 ../textw/network_text.py:71
-#: ../textw/network_text.py:77 ../textw/network_text.py:225
-#: ../textw/network_text.py:808 ../textw/network_text.py:816
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
-#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
-#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
-#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../anaconda:406 ../gui.py:237 ../rescue.py:260 ../rescue.py:334
+#: ../rescue.py:361 ../rescue.py:371 ../rescue.py:450 ../rescue.py:456
+#: ../text.py:443 ../text.py:602 ../vnc.py:146 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:54 ../textw/constants_text.py:36
+#: ../textw/network_text.py:39 ../textw/network_text.py:49
+#: ../textw/network_text.py:71 ../textw/network_text.py:77
+#: ../textw/network_text.py:225 ../textw/network_text.py:812
+#: ../textw/network_text.py:820 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:281
+#: ../loader2/driverdisk.c:312 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:398
+#: ../loader2/driverdisk.c:412 ../loader2/driverdisk.c:422
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:205
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:319 ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:404 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530 ../loader2/kbd.c:131
 #: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
 #: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
-#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:512 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/loader.c:1002
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
-#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:523 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:316 ../loader2/loader.c:342
+#: ../loader2/loader.c:355 ../loader2/loader.c:366 ../loader2/loader.c:852
+#: ../loader2/loader.c:1016 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:449
+#: ../loader2/modules.c:1036 ../loader2/modules.c:1049 ../loader2/net.c:272
+#: ../loader2/net.c:311 ../loader2/net.c:739 ../loader2/net.c:1064
+#: ../loader2/net.c:1597 ../loader2/net.c:1620 ../loader2/net.c:1806
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:68 ../loader2/urlinstall.c:91
+#: ../loader2/urlinstall.c:142 ../loader2/urlinstall.c:155
+#: ../loader2/urlinstall.c:464 ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:484 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "OK"
@@ -132,7 +133,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr "Näytönohjainta ei löytynyt, oletetaan kortiton"
 
-#: ../anaconda:436 ../anaconda:896
+#: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X-laitteistotilaolion ilmentymää ei voida luoda."
 
@@ -141,28 +142,28 @@ msgstr "X-laitteistotilaolion ilmentymää ei voida luoda."
 msgid "Starting graphical installation..."
 msgstr "Käynnistetään graafinen asennus..."
 
-#: ../anaconda:753
+#: ../anaconda:754
 msgid "Install class forcing text mode installation"
 msgstr "Asennusluokka pakottaa tekstitila-asennuksen"
 
 # ../anaconda:410
-#: ../anaconda:793
+#: ../anaconda:794
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Graafinen asennus ei ole käytettävissä... Käynnistetään tekstiasennus."
 
-#: ../anaconda:801
+#: ../anaconda:802
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY-muuttujaa ei ole asetettu. Käynnistetään tekstitila!"
 
-#: ../anaconda:862
+#: ../anaconda:863
 msgid "Unknown install method"
 msgstr "Tuntematon asennutapa"
 
-#: ../anaconda:863
+#: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Anaconda ei tue valittua asennustapaa."
 
-#: ../anaconda:865
+#: ../anaconda:866
 #, c-format
 msgid "unknown install method: %s"
 msgstr "Tuntematon asennustapa: %s"
@@ -264,11 +265,11 @@ msgstr "Pyydettyä osiota ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1260
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Osion %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
@@ -281,11 +282,11 @@ msgstr "Pyydettyä RAID-laitetta ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1288
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "RAID-laitteen %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
@@ -298,11 +299,11 @@ msgstr "Pyydettyä taltioryhmää ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1320
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Taltioryhmän %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
@@ -315,11 +316,11 @@ msgstr "Pyydettyä taltioryhmää ei ole olemassa"
 
 # ../autopart.py:857
 #: ../autopart.py:1358
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Taltioryhmän %s paikallistaminen kohdetta %s varten epäonnistui.\n"
 "\n"
@@ -332,13 +333,13 @@ msgstr "Automaattisen osioinnin virheet"
 
 # ../autopart.py:891
 #: ../autopart.py:1485
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Osiointisi tuotti seuraavat virheet:\n"
 "\n"
@@ -364,10 +365,11 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "\n"
 "\n"
@@ -436,15 +438,15 @@ msgstr "Järjestelmä käynnistetään uudelleen."
 # ../textw/bootloader_text.py:434 ../textw/partition_text.py:167
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
-#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:439
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1052
-#: ../partedUtils.py:1101 ../partedUtils.py:1143 ../upgrade.py:348
-#: ../yuminstall.py:1085 ../iw/blpasswidget.py:145
+#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:442
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1075
+#: ../partedUtils.py:1124 ../partedUtils.py:1167 ../upgrade.py:348
+#: ../yuminstall.py:1205 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:41 ../iw/task_gui.py:89
 #: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
 #: ../iw/upgrade_swap_gui.py:203 ../textw/bootloader_text.py:123
 #: ../textw/bootloader_text.py:448 ../textw/partition_text.py:243
-#: ../textw/upgrade_text.py:172 ../loader2/loader.c:405
+#: ../textw/upgrade_text.py:172 ../loader2/loader.c:411
 msgid "Warning"
 msgstr "Varoitus"
 
@@ -515,13 +517,13 @@ msgstr ""
 "Haluatko varmasti tehdä tämän?"
 
 # ../packages.py:522
-#: ../backend.py:165
+#: ../backend.py:113
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Päivitetään %s\n"
 
 # ../installclass.py:28
-#: ../backend.py:167
+#: ../backend.py:115
 #, python-format
 msgid "Installing %s\n"
 msgstr "Asennetaan %s\n"
@@ -576,57 +578,58 @@ msgstr ""
 "anacondasta vikaraportin osoitteessa %s"
 
 # ../exception.py:214
-#: ../exception.py:414 ../exception.py:431
+#: ../exception.py:412 ../exception.py:429
 msgid "Dump Written"
 msgstr "Vedos tallennettu"
 
 # ../exception.py:215
-#: ../exception.py:415
+#: ../exception.py:413
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the floppy. Your system "
-"will now be rebooted."
+"Your system's state has been successfully written to the floppy. The "
+"installer will now exit."
 msgstr ""
 "Järjestelmän tila on kirjoitettu levykkeelle. Järjestelmä käynnistetään nyt "
 "uudelleen."
 
-# ../iw/partition_gui.py:1528
-#: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
-#: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
-#: ../harddrive.py:126 ../image.py:93 ../image.py:449 ../image.py:523
-#: ../packages.py:341 ../partedUtils.py:1154 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-msgid "_Reboot"
-msgstr "_Käynnistä uudelleen"
+# ../packages.py:653
+#: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
+#: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
+#: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
+#, fuzzy
+msgid "_Exit installer"
+msgstr "Lopeta asennin"
 
 # ../exception.py:214
-#: ../exception.py:423 ../exception.py:440
+#: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
 msgstr "Vedosta ei kirjoitettu"
 
-#: ../exception.py:424
+#: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Järjestelmän tilaa levykkeelle kirjoitettaessa tapahtui virhe."
 
 # ../exception.py:215
-#: ../exception.py:432
+#: ../exception.py:430
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the remote host.  Your "
-"system will now be rebooted."
+"Your system's state has been successfully written to the remote host.  The "
+"installer will now exit."
 msgstr ""
 "Järjestelmän tila on kirjoitettu etäkoneelle. Järjestelmä käynnistetään nyt "
 "uudelleen."
 
-#: ../exception.py:441
+#: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Järjestelmän tilaa etäkoneelle kirjoitettaessa tapahtui virhe."
 
 # ../fsset.py:145
-#: ../fsset.py:214
+#: ../fsset.py:216
 msgid "Checking for Bad Blocks"
 msgstr "Tarkistetaan, onko levyllä virheitä"
 
 # ../fsset.py:146
-#: ../fsset.py:215
+#: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Tarkistetaan, onko levyllä /dev/%s virheitä..."
@@ -647,38 +650,39 @@ msgstr "Tarkistetaan, onko levyllä /dev/%s virheitä..."
 # ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 # ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 # ../upgrade.py:304
-#: ../fsset.py:661 ../fsset.py:1396 ../fsset.py:1427 ../fsset.py:1488
-#: ../fsset.py:1499 ../fsset.py:1553 ../fsset.py:1564 ../fsset.py:1604
-#: ../fsset.py:1654 ../fsset.py:1735 ../fsset.py:1747 ../image.py:135
-#: ../image.py:180 ../image.py:312 ../livecd.py:323 ../partIntfHelpers.py:406
-#: ../urlinstall.py:113 ../urlinstall.py:211 ../yuminstall.py:602
-#: ../yuminstall.py:723 ../yuminstall.py:739 ../yuminstall.py:924
-#: ../iw/autopart_type.py:74 ../iw/autopart_type.py:208
-#: ../iw/netconfig_dialog.py:213 ../iw/osbootwidget.py:216
+#: ../fsset.py:663 ../fsset.py:1427 ../fsset.py:1458 ../fsset.py:1518
+#: ../fsset.py:1529 ../fsset.py:1583 ../fsset.py:1594 ../fsset.py:1634
+#: ../fsset.py:1684 ../fsset.py:1765 ../fsset.py:1777 ../image.py:135
+#: ../image.py:180 ../image.py:311 ../livecd.py:350 ../partIntfHelpers.py:406
+#: ../urlinstall.py:112 ../urlinstall.py:206 ../yuminstall.py:442
+#: ../yuminstall.py:762 ../yuminstall.py:802 ../yuminstall.py:1019
+#: ../yuminstall.py:1044 ../iw/autopart_type.py:74 ../iw/autopart_type.py:209
+#: ../iw/netconfig_dialog.py:267 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:618
 #: ../iw/raid_dialog_gui.py:657 ../iw/task_gui.py:79 ../iw/task_gui.py:145
-#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1689
-#: ../textw/partition_text.py:1695 ../textw/partition_text.py:1717
+#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1692
+#: ../textw/partition_text.py:1698 ../textw/partition_text.py:1720
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:463
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:479 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kickstart.c:279 ../loader2/lang.c:106
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:412
+#: ../loader2/driverdisk.c:422 ../loader2/driverdisk.c:486
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:369 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:316
+#: ../loader2/loader.c:366 ../loader2/loader.c:852 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:157 ../loader2/method.c:375
+#: ../loader2/method.c:449 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:91 ../loader2/urlinstall.c:142
+#: ../loader2/urlinstall.c:155 ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Virhe"
 
 # ../fsset.py:372
-#: ../fsset.py:662
+#: ../fsset.py:664
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -692,36 +696,36 @@ msgstr ""
 "Haluatko jatkaa muuttamatta osiota %s ext3:ksi?"
 
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
-#: ../fsset.py:1303
+#: ../fsset.py:1334
 msgid "RAID Device"
 msgstr "RAID-laite"
 
-#: ../fsset.py:1307 ../fsset.py:1313
+#: ../fsset.py:1338 ../fsset.py:1344
 msgid "Apple Bootstrap"
 msgstr "Apple-alkulataus"
 
-#: ../fsset.py:1318 ../partitions.py:900
+#: ../fsset.py:1349 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP-käynnistys"
 
 # ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
-#: ../fsset.py:1321
+#: ../fsset.py:1352
 msgid "First sector of boot partition"
 msgstr "Käynnistysosion ensimmäiseen sektoriin"
 
 # ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
-#: ../fsset.py:1322
+#: ../fsset.py:1353
 msgid "Master Boot Record (MBR)"
 msgstr "Pääkäynnistyslohkoon (MBR)"
 
 # ../fsset.py:791
-#: ../fsset.py:1397
-#, python-format
+#: ../fsset.py:1428
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Laitteen %s sivutustilaa alustettaessa tapahtui virhe. Ongelma on vakava, "
 "eikä asennusta voida jatkaa.\n"
@@ -731,18 +735,13 @@ msgstr ""
 # ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
 # ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 # ../textw/upgrade_text.py:118
-#: ../fsset.py:1426 ../packages.py:284 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:422
 msgid "Skip"
 msgstr "Ohita"
 
-# ../iw/partition_gui.py:1528
-#: ../fsset.py:1426 ../upgrade.py:59 ../textw/complete_text.py:41
-msgid "Reboot"
-msgstr "Käynnistä uudelleen"
-
-#: ../fsset.py:1447
+#: ../fsset.py:1478
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -762,11 +761,11 @@ msgstr ""
 "osion huomiotta asennuksen aikana."
 
 # ../iw/partition_gui.py:1545
-#: ../fsset.py:1454
+#: ../fsset.py:1485
 msgid "Reformat"
 msgstr "Alusta uudelleen"
 
-#: ../fsset.py:1458
+#: ../fsset.py:1489
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -785,7 +784,7 @@ msgstr ""
 "järjestelmä on lepotilassa. Tehdäksesi päivityksen, sammuta järjestelmä, älä "
 "jätä sitä lepotilaan."
 
-#: ../fsset.py:1466
+#: ../fsset.py:1497
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -804,13 +803,13 @@ msgstr ""
 "järjestelmä on lepotilassa. Jos olet tekemässä uutta asennusta, varmista "
 "että asennusohjelma on asetettu alustamaan kaikki sivutusosiot."
 
-#: ../fsset.py:1476
+#: ../fsset.py:1507
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
-"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
-"Reboot to restart the system."
+"upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
 "\n"
 "\n"
@@ -819,20 +818,20 @@ msgstr ""
 "uudelleen jos haluat käynnistää järjestelmän uudelleen."
 
 # ../iw/partition_gui.py:1545
-#: ../fsset.py:1482 ../iw/partition_gui.py:368
+#: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Alusta"
 
 # ../fsset.py:810
-#: ../fsset.py:1489
-#, python-format
+#: ../fsset.py:1519
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "The /etc/fstab on your upgrade partition does not reference a valid swap "
 "partition.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
@@ -841,14 +840,14 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
 # ../fsset.py:810
-#: ../fsset.py:1500
-#, python-format
+#: ../fsset.py:1530
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "This most likely means this swap partition has not been initialized.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
@@ -856,13 +855,13 @@ msgstr ""
 "\n"
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
-#: ../fsset.py:1554
-#, python-format
+#: ../fsset.py:1584
+#, fuzzy, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
-"Press <Enter> to reboot your system"
+"Press <Enter> to exit the installer."
 msgstr ""
 "Laitteelta /dev/%s löytyi viallisia sektoreita. Sen käyttö ei ole "
 "suositeltavaa.\n"
@@ -870,13 +869,13 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../fsset.py:855
-#: ../fsset.py:1565
-#, python-format
+#: ../fsset.py:1595
+#, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Kun osiolta %s etsittiin virheellisiä lohkoja, tapahtui virhe. Ongelma on "
 "vakava, eikä asennusta voida jatkaa.\n"
@@ -884,13 +883,13 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../fsset.py:875
-#: ../fsset.py:1605
-#, python-format
+#: ../fsset.py:1635
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Kun osiota %s alustettiin, tapahtui virhe. Ongelma on vakava, eikä asennusta "
 "voida jatkaa.\n"
@@ -898,13 +897,13 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../fsset.py:909
-#: ../fsset.py:1655
-#, python-format
+#: ../fsset.py:1685
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Kun osiota %s muutettiin, tapahtui virhe. Ongelma on vakava, eikä asennusta "
 "voida jatkaa.\n"
@@ -912,18 +911,18 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../fsset.py:929 ../fsset.py:938
-#: ../fsset.py:1681 ../fsset.py:1690
+#: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Virheellinen liitospiste"
 
 # ../fsset.py:930
-#: ../fsset.py:1682
-#, python-format
+#: ../fsset.py:1712
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Kohdetta %s luotaessa tapahtui virhe. Tämän polun jokin osa ei ole "
 "hakemisto. Ongelma on vakava, eikä asennusta voida jatkaa.\n"
@@ -931,13 +930,13 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../fsset.py:939
-#: ../fsset.py:1691
-#, python-format
+#: ../fsset.py:1721
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Virhe tapahtui, kun yritettiin luoda %s: %s. Virhe on vakava, eikä asennusta "
 "voida jatkaa.\n"
@@ -945,11 +944,11 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla Enteriä."
 
 # ../gui.py:476
-#: ../fsset.py:1704
+#: ../fsset.py:1734
 msgid "Unable to mount filesystem"
 msgstr "Tiedostojärjestelmän liittäminen epäonnistui"
 
-#: ../fsset.py:1705
+#: ../fsset.py:1735
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -959,21 +958,21 @@ msgstr ""
 "siinä voi olla ongelmia."
 
 # ../rescue.py:99
-#: ../fsset.py:1713 ../image.py:93 ../image.py:450 ../kickstart.py:999
-#: ../kickstart.py:1037 ../partedUtils.py:1155 ../yuminstall.py:719
-#: ../iw/partition_gui.py:1011
+#: ../fsset.py:1743 ../image.py:93 ../image.py:453 ../kickstart.py:1008
+#: ../kickstart.py:1046 ../partedUtils.py:1179 ../upgrade.py:59
+#: ../yuminstall.py:754 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Jatka"
 
 # ../fsset.py:952
-#: ../fsset.py:1721
-#, python-format
+#: ../fsset.py:1751
+#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Devices in /etc/fstab should be specified by label, not by device name.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
 "\n"
@@ -983,14 +982,14 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
 # ../fsset.py:952
-#: ../fsset.py:1728
-#, python-format
+#: ../fsset.py:1758
+#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "This most likely means this partition has not been formatted.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
 "\n"
@@ -999,13 +998,14 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
 # ../fsset.py:952
-#: ../fsset.py:1748
+#: ../fsset.py:1778
+#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
 "This is most likely means that your fstab is incorrect.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Virhe etsittäessä /-riviä.\n"
 "\n"
@@ -1013,11 +1013,11 @@ msgstr ""
 "\n"
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
-#: ../fsset.py:2403
+#: ../fsset.py:2432
 msgid "Duplicate Labels"
 msgstr "Kaksoisnimiö"
 
-#: ../fsset.py:2404
+#: ../fsset.py:2433
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -1032,11 +1032,11 @@ msgstr ""
 "Korjaa tämä ongelma ja käynnistä asennus uudelleen."
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
-#: ../fsset.py:2413
+#: ../fsset.py:2442
 msgid "Invalid Label"
 msgstr "Nimiö ei kelpaa"
 
-#: ../fsset.py:2414
+#: ../fsset.py:2443
 #, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -1046,12 +1046,12 @@ msgstr ""
 "uudelleen."
 
 # ../fsset.py:1495
-#: ../fsset.py:2672
+#: ../fsset.py:2701
 msgid "Formatting"
 msgstr "Alustetaan"
 
 # ../fsset.py:1496
-#: ../fsset.py:2673
+#: ../fsset.py:2702
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Luodaan %s-tiedostojärjestelmää..."
@@ -1110,10 +1110,10 @@ msgstr "Korjaa"
 # ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
 # ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
 # ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
-#: ../gui.py:235 ../rescue.py:203 ../text.py:441 ../upgrade.py:59
+#: ../gui.py:235 ../rescue.py:217 ../text.py:441
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:411
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -1123,18 +1123,18 @@ msgstr "Kyllä"
 # ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 # ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 # ../textw/upgrade_text.py:259
-#: ../gui.py:236 ../rescue.py:203 ../rescue.py:205 ../text.py:442
+#: ../gui.py:236 ../rescue.py:217 ../rescue.py:219 ../text.py:442
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/loader.c:411
 msgid "No"
 msgstr "Ei"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:93
-#: ../loader2/net.c:325 ../loader2/net.c:584 ../loader2/net.c:692
-#: ../loader2/net.c:792 ../loader2/net.c:800 ../loader2/net.c:1207
-#: ../loader2/net.c:1213
+#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:97
+#: ../loader2/net.c:329 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1193
+#: ../loader2/net.c:1199
 msgid "Retry"
 msgstr "Uudelleen"
 
@@ -1155,8 +1155,8 @@ msgstr "Jätä huomiotta"
 #: ../partIntfHelpers.py:529 ../text.py:106 ../text.py:107 ../text.py:417
 #: ../text.py:419 ../text.py:446 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:366 ../loader2/loader.c:351
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:282
+#: ../loader2/kickstart.c:366 ../loader2/loader.c:355
 msgid "Cancel"
 msgstr "Peru"
 
@@ -1226,27 +1226,38 @@ msgstr ""
 
 # ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
 # ../rescue.py:134
-#: ../gui.py:1109 ../gui.py:1114 ../packages.py:333 ../packages.py:338
+#: ../gui.py:1109 ../harddrive.py:80 ../harddrive.py:126 ../image.py:526
+#: ../packages.py:331 ../packages.py:336
 msgid "_Exit"
 msgstr "_Poistu"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../gui.py:1110 ../yuminstall.py:605
+#: ../gui.py:1110 ../harddrive.py:81 ../image.py:527 ../yuminstall.py:445
+#: ../yuminstall.py:748 ../yuminstall.py:796 ../yuminstall.py:1015
 msgid "_Retry"
 msgstr "_Uudelleen"
 
-#: ../gui.py:1113 ../packages.py:337
+#: ../gui.py:1113 ../packages.py:335
 msgid "The installer will now exit..."
 msgstr "Asennusohjelma suljetaan..."
 
-#: ../gui.py:1116 ../packages.py:340
+#: ../gui.py:1116 ../packages.py:338
 msgid "Your system will now be rebooted..."
 msgstr "Järjestelmä käynnistetään uudelleen..."
 
-# ../installclasses/upgradeclass.py:8
-#: ../gui.py:1119 ../packages.py:342
-msgid "Rebooting System"
-msgstr "Käynnistetään järjestelmä"
+# ../iw/partition_gui.py:1528
+#: ../gui.py:1117 ../image.py:93 ../packages.py:339 ../partedUtils.py:1178
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
+msgid "_Reboot"
+msgstr "_Käynnistä uudelleen"
+
+# ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
+# ../rescue.py:134
+#: ../gui.py:1119
+#, fuzzy
+msgid "Exiting"
+msgstr "Poistu"
 
 # ../packages.py:653
 #: ../gui.py:1186
@@ -1264,14 +1275,14 @@ msgstr "Otsikkopalkin lataus epäonnistui"
 msgid "Install Window"
 msgstr "Asennuksen ikkuna"
 
-#: ../harddrive.py:44 ../image.py:146 ../image.py:480
-#, python-format
+#: ../harddrive.py:44 ../image.py:146 ../image.py:483
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
 "all the required media.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1283,17 +1294,17 @@ msgstr ""
 "todennäköisesti vaatii uudelleenasennuksen.\n"
 "\n"
 
-#: ../harddrive.py:71 ../image.py:513
+#: ../harddrive.py:71 ../image.py:516
 msgid "Missing ISO 9660 Image"
 msgstr "Puuttuva ISO 9660 -levykuva"
 
 #: ../harddrive.py:72
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
 "\n"
-"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
 "Asennusohjelma yritti liittää levykuvaa #%s, mutta ei löytänyt sitä "
@@ -1302,21 +1313,16 @@ msgstr ""
 "Kopioi tämä levykuva kiintolevylle ja valitse Uudelleen. Valitse Käynnistä "
 "uudelleen keskeyttääksesi asennuksen."
 
-# ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../harddrive.py:81 ../image.py:524
-msgid "Re_try"
-msgstr "_Uudelleen"
-
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Ei voitu liittää ISO-lähdettä"
 
 #: ../harddrive.py:118
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
-"there was a problem mounting a partition.  Click reboot to abort the "
+"there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
 "Lähdelaitetta %s liitettäessä tapahtui virhe. Näin voi käydä, jos ISO-"
@@ -1329,13 +1335,13 @@ msgid "Required Install Media"
 msgstr "Tarvittava asennusmedia"
 
 #: ../image.py:85
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The software you have selected to install will require the following CDs:\n"
+"The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you "
-"need to abort the installation and reboot please select \"Reboot\"."
+"need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat CD-levyt.\n"
 "\n"
@@ -1353,34 +1359,34 @@ msgstr ""
 # ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 # ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
-#: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
-#: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
+#: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Takaisin"
 
-#: ../image.py:136 ../urlinstall.py:212
-#, python-format
+#: ../image.py:136 ../urlinstall.py:207
+#, fuzzy, python-format
 msgid ""
-"An error occurred unmounting the CD.  Please make sure you're not accessing %"
-"s from the shell on tty2 and then click OK to retry."
+"An error occurred unmounting the disc.  Please make sure you're not "
+"accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "CD-levyä ei voitu irrottaa. Varmista, ettet käytä hakemistoa %s "
 "komentorivillä virtuaalikonsolilla 2 ja valitse OK, jolloin irrotusta "
 "yritetään uudelleen."
 
 # ../image.py:62
-#: ../image.py:170 ../urlinstall.py:103
+#: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
 msgstr "Kopioidaan tiedostoa"
 
 # ../image.py:63
-#: ../image.py:171 ../urlinstall.py:104
+#: ../image.py:171 ../urlinstall.py:103
 msgid "Transferring install image to hard drive..."
 msgstr "Siirretään asennusohjelmaa kiintolevylle..."
 
 # ../image.py:66
-#: ../image.py:181 ../urlinstall.py:114
+#: ../image.py:181 ../urlinstall.py:113
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1390,7 +1396,8 @@ msgstr ""
 
 # ../image.py:119
 #: ../image.py:270
-msgid "Change CDROM"
+#, fuzzy
+msgid "Change Disc"
 msgstr "Vaihda CD-levy"
 
 # ../image.py:120
@@ -1400,28 +1407,30 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Syötä %s -levy %d."
 
 # ../image.py:137
-#: ../image.py:306
-msgid "Wrong CDROM"
+#: ../image.py:305
+#, fuzzy
+msgid "Wrong Disc"
 msgstr "Väärä CD-levy"
 
 # ../image.py:138
-#: ../image.py:307
-#, python-format
-msgid "That's not the correct %s CDROM."
+#: ../image.py:306
+#, fuzzy, python-format
+msgid "That's not the correct %s disc."
 msgstr "Asemassa ei ole oikeata %s -levyä."
 
-#: ../image.py:313
-msgid "Unable to access the CDROM."
+#: ../image.py:312
+#, fuzzy
+msgid "Unable to access the disc."
 msgstr "CD-aseman käyttäminen ei onnistu."
 
-#: ../image.py:366
-#, python-format
+#: ../image.py:369
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
 "packages.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1433,13 +1442,13 @@ msgstr ""
 "todennäköisesti vaatii uudelleenasennuksen.\n"
 "\n"
 
-#: ../image.py:440
-#, python-format
+#: ../image.py:443
+#, fuzzy, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
 "\n"
-"It is recommended that you reboot and abort your installation, but you can "
+"It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
 "ISO-levykuvan %s koko ei ole 2048 tavun monikerta.  Levykuva on saattanut "
@@ -1448,14 +1457,14 @@ msgstr ""
 "On suositeltavaa käynnistää kone uudestaan ja keskeyttää asennus, mutta voit "
 "jatkaa, jos pidät tätä ilmoitusta virheellisenä."
 
-#: ../image.py:514
-#, python-format
+#: ../image.py:517
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
-"Click Reboot to abort the installation."
+"Click Exit to abort the installation."
 msgstr ""
 "Asennusohjelma yritti liittää levykuvaa #%s, mutta ei löytänyt sitä "
 "palvelimelta.\n"
@@ -1463,11 +1472,11 @@ msgstr ""
 "Kopioi tämä levykuva palvelimelle ja valitse Uudelleen. Valitse Käynnistä "
 "uudelleen keskeyttääksesi asennuksen."
 
-#: ../installclass.py:66
+#: ../installclass.py:67
 msgid "Install on System"
 msgstr "Asenna järjestelmä"
 
-#: ../iscsi.py:197 ../iscsi.py:198
+#: ../iscsi.py:199 ../iscsi.py:200
 msgid "Initializing iSCSI initiator"
 msgstr "Alustetaan iSCSI-asiakaslaite"
 
@@ -1476,36 +1485,36 @@ msgid "Scriptlet Failure"
 msgstr "Sovelma epäonnistui"
 
 #: ../kickstart.py:76
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
-"Press the OK button to reboot your system."
+"Press the OK button to exit the installer."
 msgstr ""
 "Sovelman ajamisessa tapahtui virhe. Tulostetta voi tutkia: %s. Tämä on "
 "vakava virhe ja asennus keskeytyy.\n"
 "\n"
 "Käynnistä järjestelmä uudelleen painamalla OK-painiketta."
 
-#: ../kickstart.py:942 ../kickstart.py:959
+#: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
 msgstr "Suoritetaan..."
 
-#: ../kickstart.py:943
+#: ../kickstart.py:952
 msgid "Running post-install scripts"
 msgstr "Suoritetaan asennuksen jälkeisiä komentoja"
 
-#: ../kickstart.py:960
+#: ../kickstart.py:969
 msgid "Running pre-install scripts"
 msgstr "Suoritetaan asennusta edeltäviä komentoja"
 
 # ../iw/progress_gui.py:28
-#: ../kickstart.py:991
+#: ../kickstart.py:1000
 msgid "Missing Package"
 msgstr "Puuttuva paketti"
 
-#: ../kickstart.py:992
+#: ../kickstart.py:1001
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1515,17 +1524,17 @@ msgstr ""
 "Halautko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
-#: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
-#: ../yuminstall.py:721
+#: ../kickstart.py:1007 ../kickstart.py:1045 ../yuminstall.py:748
+#: ../yuminstall.py:751
 msgid "_Abort"
 msgstr "_Keskeytä"
 
 # ../loader/net.c:404
-#: ../kickstart.py:1028
+#: ../kickstart.py:1037
 msgid "Missing Group"
 msgstr "Puuttuva ryhmä"
 
-#: ../kickstart.py:1029
+#: ../kickstart.py:1038
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1534,11 +1543,11 @@ msgstr ""
 "Valitsit ryhmän ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
 "jatkaa vai keskeyttää asennuksen?"
 
-#: ../livecd.py:79
+#: ../livecd.py:93
 msgid "Unable to find image"
 msgstr "Levykuvaa ei löydy"
 
-#: ../livecd.py:80
+#: ../livecd.py:94
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
@@ -1546,49 +1555,26 @@ msgstr ""
 "Annettu sijainti ei ole kelvollinen %s-live-CD asennuslähteenä käytettäväksi."
 
 # ../packages.py:653
-#: ../livecd.py:84 ../livecd.py:329
+#: ../livecd.py:98
 msgid "Exit installer"
 msgstr "Lopeta asennin"
 
 # ../image.py:63
-#: ../livecd.py:160
+#: ../livecd.py:174
 msgid "Copying live image to hard drive."
 msgstr "Kopioidaan live-levykuvaa kiintolevylle."
 
-#: ../livecd.py:189
+#: ../livecd.py:203
 msgid "Doing post-installation"
 msgstr "Tehdään asennuksen jälkeisiä toimia"
 
-#: ../livecd.py:190
+#: ../livecd.py:204
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr ""
 "Tehdään asennuksen jälkeisiä tiedostojärjestelmämuutoksia. Aikaa voi kulua "
 "useita minuutteja..."
-
-# ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
-# ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
-# ../loader/loader.c:323 ../loader/loader.c:816 ../loader/loader.c:853
-# ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1490
-# ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
-# ../loader/urls.c:158 ../loader/urls.c:387 ../textw/confirm_text.py:24
-# ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
-# ../textw/confirm_text.py:38 ../textw/constants_text.py:28
-# ../textw/silo_text.py:110 ../textw/userauth_text.py:185
-#: ../livecd.py:328 ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
-#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
-#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
-#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:1002 ../loader2/loader.c:1024
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:282 ../loader2/urls.c:470
-msgid "Back"
-msgstr "Takaisin"
 
 # ../textw/userauth_text.py:55
 #: ../network.py:51
@@ -1629,27 +1615,27 @@ msgid "'%s' is an invalid IP address."
 msgstr "”%s” on epäkelpo IP-osoite."
 
 # ../loader/net.c:277
-#: ../packages.py:258
+#: ../packages.py:256
 msgid "Invalid Key"
 msgstr "Virheellinen avain"
 
 # ../textw/upgrade_text.py:161
-#: ../packages.py:259
+#: ../packages.py:257
 msgid "The key you entered is invalid."
 msgstr "Syötetty avain on virheellinen."
 
 # ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
 # ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 # ../textw/upgrade_text.py:118
-#: ../packages.py:287
+#: ../packages.py:285
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: ../packages.py:319
+#: ../packages.py:317 ../packages.py:340
 msgid "Warning! This is pre-release software!"
 msgstr "Varoitus! Tämä on ennakkojulkaistu ohjelmisto!"
 
-#: ../packages.py:320
+#: ../packages.py:318
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1677,7 +1663,7 @@ msgstr ""
 "ja lähetä raportti koskien pakettia ”%s”.\n"
 
 # ../gui.py:791
-#: ../packages.py:333
+#: ../packages.py:331
 msgid "_Install anyway"
 msgstr "_Asenna silti"
 
@@ -1728,17 +1714,17 @@ msgstr "_Jätä asema huomiotta"
 msgid "_Re-initialize drive"
 msgstr "_Alusta levy"
 
-#: ../partedUtils.py:890
+#: ../partedUtils.py:911
 msgid "Initializing"
 msgstr "Alustetaan"
 
-#: ../partedUtils.py:891
+#: ../partedUtils.py:912
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Alustetaan osio %s...\n"
 
 # ../partitioning.py:1407
-#: ../partedUtils.py:1053
+#: ../partedUtils.py:1076
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1760,7 +1746,7 @@ msgstr ""
 "Haluatko alustaa tämän aseman osiotaulun ja poistaa KAIKEN TIEDON?"
 
 # ../partitioning.py:1407
-#: ../partedUtils.py:1102
+#: ../partedUtils.py:1125
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1778,7 +1764,7 @@ msgstr ""
 "\n"
 "Haluatko alustaa tämän levyn ja poistaa kaiken tiedon?"
 
-#: ../partedUtils.py:1144
+#: ../partedUtils.py:1168
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1790,13 +1776,25 @@ msgstr ""
 "yli 15 osiota tällä hetkellä. Tämän levyn osiointiin ei voi tehdä muutoksia "
 "eikä osioita yli /dev/%s15 voi käyttää kohteessa %s"
 
+#: ../partedUtils.py:1184
+#, fuzzy, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
+"the Linux kernel does not allow for more than 15 partitions at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+"Levyllä /dev/%s on yli 15 osiota. Linux-ytimen SCSI-alijärjestelmä ei salli "
+"yli 15 osiota tällä hetkellä. Tämän levyn osiointiin ei voi tehdä muutoksia "
+"eikä osioita yli /dev/%s15 voi käyttää kohteessa %s"
+
 # ../partitioning.py:1493
-#: ../partedUtils.py:1242
+#: ../partedUtils.py:1276
 msgid "No Drives Found"
 msgstr "Asemia ei löytynyt"
 
 # ../partitioning.py:1494
-#: ../partedUtils.py:1243
+#: ../partedUtils.py:1277
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2393,47 +2391,47 @@ msgid ""
 msgstr ""
 "Loogisen taltion koko on oltava suurempi kuin taltioryhmän fyysinen koko."
 
-#: ../rescue.py:129
+#: ../rescue.py:146
 msgid "Starting Interface"
 msgstr "Käynnistetään liitäntä"
 
 # ../xserver.py:117
-#: ../rescue.py:130
+#: ../rescue.py:147
 #, python-format
 msgid "Attempting to start %s"
 msgstr "Yritetään käynnistää: %s"
 
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
-#: ../rescue.py:175
+#: ../rescue.py:189
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "Kun olet valmis, sulje komentotulkki ja järjestelmä käynnistetään uudelleen."
 
-#: ../rescue.py:201
+#: ../rescue.py:215
 msgid "Setup Networking"
 msgstr "Määrittele verkko"
 
-#: ../rescue.py:202
+#: ../rescue.py:216
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Haluatko käynnistää lähiverkon järjestelmälle?"
 
 # ../text.py:396
-#: ../rescue.py:243 ../text.py:598
+#: ../rescue.py:256 ../text.py:598
 msgid "Cancelled"
 msgstr "Peruutettu"
 
 # ../text.py:397
-#: ../rescue.py:244 ../text.py:599
+#: ../rescue.py:257 ../text.py:599
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Ei voida siirtyä tästä aikaisempaan vaiheeseen. Yritä uudelleen."
 
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
-#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
+#: ../rescue.py:289 ../rescue.py:356 ../rescue.py:364 ../rescue.py:445
 msgid "Rescue"
 msgstr "Pelastus"
 
 # ../rescue.py:91
-#: ../rescue.py:277
+#: ../rescue.py:290
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2456,35 +2454,35 @@ msgstr ""
 "\n"
 
 # ../rescue.py:99
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:55
+#: ../rescue.py:300 ../iw/partition_gui.py:567 ../textw/network_text.py:55
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Continue"
 msgstr "Jatka"
 
 # ../packages.py:100
-#: ../rescue.py:287 ../rescue.py:292
+#: ../rescue.py:300 ../rescue.py:305
 msgid "Read-Only"
 msgstr "Vain luku"
 
 # ../rescue.py:127
-#: ../rescue.py:318
+#: ../rescue.py:331
 msgid "System to Rescue"
 msgstr "Pelastettava järjestelmä"
 
 # ../rescue.py:128 ../textw/upgrade_text.py:209
-#: ../rescue.py:319
+#: ../rescue.py:332
 msgid "What partition holds the root partition of your installation?"
 msgstr "Mikä osio on järjestelmän juuriosio?"
 
 # ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
 # ../rescue.py:134
-#: ../rescue.py:321 ../rescue.py:325 ../text.py:572 ../text.py:574
+#: ../rescue.py:334 ../rescue.py:338 ../text.py:572 ../text.py:574
 msgid "Exit"
 msgstr "Poistu"
 
 # ../rescue.py:171
-#: ../rescue.py:344
+#: ../rescue.py:357
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2496,7 +2494,7 @@ msgstr ""
 "uudelleen automaattisesti, kun suljet komentotulkin."
 
 # ../rescue.py:146
-#: ../rescue.py:352
+#: ../rescue.py:365
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2519,7 +2517,7 @@ msgstr ""
 "komentotulkista."
 
 # ../rescue.py:164
-#: ../rescue.py:435
+#: ../rescue.py:446
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2535,12 +2533,12 @@ msgstr ""
 "automaattisesti, kun poistut komentotulkista."
 
 # ../rescue.py:170
-#: ../rescue.py:441
+#: ../rescue.py:452
 msgid "Rescue Mode"
 msgstr "Pelastustila"
 
 # ../rescue.py:171
-#: ../rescue.py:442
+#: ../rescue.py:453
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2550,7 +2548,7 @@ msgstr ""
 "suljet komentotulkin."
 
 # ../rescue.py:181
-#: ../rescue.py:455
+#: ../rescue.py:466
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Järjestelmäsi on liitetty %s-hakemistoon."
@@ -2626,7 +2624,7 @@ msgid "Save Crash Dump"
 msgstr "Tallenna kaatumisvedos"
 
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
-#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:153
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s - tervetuloa"
@@ -2776,18 +2774,18 @@ msgstr "Virheelliset hakemistot"
 msgid "%s not found"
 msgstr "kohdetta %s ei löytynyt"
 
-#: ../urlinstall.py:38
+#: ../urlinstall.py:37
 msgid "Connecting..."
 msgstr "Yhdistetään..."
 
-#: ../urlinstall.py:77
-#, python-format
+#: ../urlinstall.py:76
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
 "and try using a different one.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -2936,153 +2934,162 @@ msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Otetaan yhteyttä VNC-asiakkaaseen koneella %s..."
 
 # ../iw/progress_gui.py:256
-#: ../vnc.py:309
+#: ../vnc.py:311
 msgid "Connected!"
 msgstr "Yhdistetty!"
 
-#: ../vnc.py:314
+#: ../vnc.py:316
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Lopetetaan yrittäminen 50 yrityskerran jälkeen.\n"
 
-#: ../vnc.py:316
+#: ../vnc.py:318
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Ota manuaalisesti yhteys VNC-palvelimeen %s aloittaaksesi asennuksen."
 
-#: ../vnc.py:318
+#: ../vnc.py:320
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Ota manuaalisesti yhteys VNC-palvelimeen aloittaaksesi asennuksen."
 
-#: ../vnc.py:322
+#: ../vnc.py:324
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Yritetään uudelleen 15 sekunnin kuluttua..."
 
-#: ../vnc.py:330
+#: ../vnc.py:332
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Ota yhteys %s-palvelimeen aloittaaksesi asennuksen..."
 
-#: ../vnc.py:332
+#: ../vnc.py:334
 msgid "Please connect to begin the install..."
 msgstr "Muodosta yhteys, jotta asennus voi alkaa..."
 
-#: ../yuminstall.py:73
+#: ../yuminstall.py:62
 #, python-format
 msgid "%s MB"
 msgstr "%s Mt"
 
 # ../iw/progress_gui.py:119
-#: ../yuminstall.py:76
+#: ../yuminstall.py:65
 #, python-format
 msgid "%s KB"
 msgstr "%s kt"
 
 # ../iw/progress_gui.py:119
-#: ../yuminstall.py:79
+#: ../yuminstall.py:68
 #, python-format
 msgid "%s Byte"
 msgstr "%s tavu"
 
 # ../iw/progress_gui.py:119
-#: ../yuminstall.py:81
+#: ../yuminstall.py:70
 #, python-format
 msgid "%s Bytes"
 msgstr "%s tavua"
 
 # ../packages.py:206 ../packages.py:480
-#: ../yuminstall.py:129
+#: ../yuminstall.py:117
 msgid "Processing"
 msgstr "Käsitellään"
 
 # ../packages.py:207
-#: ../yuminstall.py:130
+#: ../yuminstall.py:118
 msgid "Preparing transaction from installation source..."
 msgstr "Valmistellaan transaktiota asennuslähteestä..."
 
 # ../installclass.py:28
-#: ../yuminstall.py:160
+#: ../yuminstall.py:148
 #, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Asennetaan %s</b> (%s)\n"
 
-#: ../yuminstall.py:194
+#: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
 msgstr "%s/%s pakettia valmiina"
 
-#: ../yuminstall.py:528 ../yuminstall.py:529
+#: ../yuminstall.py:195
+msgid "Finishing upgrade"
+msgstr ""
+
+#: ../yuminstall.py:196
+#, fuzzy
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "Asennus alkaa. Aikaa voi kulua useita minuutteja..."
+
+# ../iw/partition_gui.py:1528
+#: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
+#: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
+msgid "Re_boot"
+msgstr "Käynnistä _uudelleen"
+
+#: ../yuminstall.py:598 ../yuminstall.py:599
 msgid "file conflicts"
 msgstr "Tiedostoristiriita"
 
 # ../iw/progress_gui.py:28
-#: ../yuminstall.py:530
+#: ../yuminstall.py:600
 msgid "older package(s)"
 msgstr "Vanhemmat paketit"
 
-#: ../yuminstall.py:531
+#: ../yuminstall.py:601
 msgid "insufficient disk space"
 msgstr "Ei tarpeeksi tilaa levyllä"
 
-#: ../yuminstall.py:532
+#: ../yuminstall.py:602
 msgid "insufficient disk inodes"
 msgstr "Ei tarpeeksi inodeja levyllä"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:603
 msgid "package conflicts"
 msgstr "pakettiristiriita"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:604
 msgid "package already installed"
 msgstr "Paketti on jo asennettu"
 
 #
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
-#: ../yuminstall.py:535
+#: ../yuminstall.py:605
 msgid "required package"
 msgstr "Vaadittu paketti"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:606
 msgid "package for incorrect arch"
 msgstr "Paketti on väärälle arkkitehtuurille"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:607
 msgid "package for incorrect os"
 msgstr "Paketti on väärälle käyttöjärjestelmälle"
 
-#: ../yuminstall.py:551
+#: ../yuminstall.py:621
 msgid "You need more space on the following file systems:\n"
 msgstr "Tarvitaan lisää tilaa seuraavilla tiedostojärjestelmillä:\n"
 
 # ../packages.py:481
-#: ../yuminstall.py:567
+#: ../yuminstall.py:637
 msgid "Error running transaction"
 msgstr "Virhe transaktion suorittamisessa"
 
-#: ../yuminstall.py:568
+#: ../yuminstall.py:638
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr "Transaktion suorittamisessa tapahtui virhe seuraavasta syystä: %s"
 
-# ../iw/partition_gui.py:1528
-#: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
-#: ../yuminstall.py:931
-msgid "Re_boot"
-msgstr "Käynnistä _uudelleen"
-
 # ../packages.py:100
-#: ../yuminstall.py:699
+#: ../yuminstall.py:733
 msgid "Retrieving installation information..."
 msgstr "Luetaan asennustietoja..."
 
 # ../packages.py:100
-#: ../yuminstall.py:701
+#: ../yuminstall.py:735
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Luetaan asennustietoja lähteelle %s..."
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:763 ../yuminstall.py:1020
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -3092,7 +3099,7 @@ msgstr ""
 "Pakettien metadataa ei voi lukea. Repodata-hakemisto saattaa puuttua. "
 "Varmista, että asennuspuu on luotu oikein.  %s"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:803
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -3100,20 +3107,21 @@ msgstr ""
 "Ryhmätietoa ei voida lukea asennuslähteistä. Asennuspuun tuottamisessa on "
 "ongelma."
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:836
 msgid "Uncategorized"
 msgstr "Sekalaiset"
 
-#: ../yuminstall.py:925
-#, python-format
+#: ../yuminstall.py:1045
+#, fuzzy, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
-"do not have enough available.  You can change your selections or reboot."
+"do not have enough available.  You can change your selections or exit the "
+"installer."
 msgstr ""
 "Valitut paketit vaativat %d MT vapaata tilaa, mutta tarpeeksi tilaa ei ole "
 "vapaana. Voit muuttaa valintoja tai käynnistää järjestelmän uudelleen."
 
-#: ../yuminstall.py:1086
+#: ../yuminstall.py:1206
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -3122,46 +3130,46 @@ msgstr ""
 "Järjestelmä on liian vanha, jotta sitä voitaisiin päivittää %sn tähän "
 "versioon. Haluatko varmasti jatkaa päivitystä?"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1235
 msgid "Install Starting"
 msgstr "Asennus alkaa"
 
-#: ../yuminstall.py:1115
+#: ../yuminstall.py:1236
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Asennus alkaa. Aikaa voi kulua useita minuutteja..."
 
 # ../installclasses/upgradeclass.py:12
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1252
 msgid "Post Upgrade"
 msgstr "Päivitystä täydentävä"
 
 # ../packages.py:654
-#: ../yuminstall.py:1132
+#: ../yuminstall.py:1253
 msgid "Performing post upgrade configuration..."
 msgstr "Tehdään päivitystä täydentäviä asetuksia..."
 
 # ../packages.py:653
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1255
 msgid "Post Install"
 msgstr "Asennusta täydentävä"
 
 # ../packages.py:654
-#: ../yuminstall.py:1135
+#: ../yuminstall.py:1256
 msgid "Performing post install configuration..."
 msgstr "Tehdään asennusta täydentäviä asetuksia..."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: ../yuminstall.py:1332
+#: ../yuminstall.py:1473
 msgid "Installation Progress"
 msgstr "Asennuksen edistyminen"
 
 # ../packages.py:157
-#: ../yuminstall.py:1367
+#: ../yuminstall.py:1508
 msgid "Dependency Check"
 msgstr "Riippuvuuksien tarkistus"
 
 # ../packages.py:158
-#: ../yuminstall.py:1368
+#: ../yuminstall.py:1509
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tarkistetaan asennettaviksi valittujen pakettien riippuvuuksia..."
 
@@ -3235,12 +3243,12 @@ msgid "_Confirm: "
 msgstr "_Vahvista: "
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
-#: ../iw/autopart_type.py:154
+#: ../iw/autopart_type.py:155
 msgid "Invalid Initiator Name"
 msgstr "Kelvoton asiakaslaitteen nimi"
 
 # (sic)
-#: ../iw/autopart_type.py:155
+#: ../iw/autopart_type.py:156
 msgid "You must provide an initiator name."
 msgstr "Asiakaslaitteen nimi on annettava."
 
@@ -3248,24 +3256,24 @@ msgstr "Asiakaslaitteen nimi on annettava."
 # ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
 # ../textw/partition_text.py:750 ../textw/partition_text.py:772
 # ../textw/partition_text.py:901
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:178
 msgid "Error with Data"
 msgstr "Virheellinen data"
 
 # ../autopart.py:975
-#: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
+#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "Poista valittujen asemien kaikki osiot ja luo oletusosiot."
 
-#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
+#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "Poista valittujen asemien Linux-osiot ja luo oletusosiot."
 
-#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
+#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
 msgid "Use free space on selected drives and create default layout"
 msgstr "Käytä valittujen asemien vapaa tila oletusosioiden luomiseen."
 
-#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
+#: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
 msgid "Create custom layout"
 msgstr "Mukauta luotavia osioita."
 
@@ -3568,12 +3576,12 @@ msgid "Unknown Linux system"
 msgstr "Tuntematon Linux-järjestelmä"
 
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
-#: ../iw/language_gui.py:24 ../textw/language_text.py:41
+#: ../iw/language_gui.py:24 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "Kielen valinta"
 
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
-#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:38 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "Mitä kieltä asennuksen aikana käytetään?"
 
@@ -4009,18 +4017,6 @@ msgstr "Matki 3-näppäimistä _hiirtä"
 msgid "Select the appropriate mouse for the system."
 msgstr "Valitse hiiren tyyppi."
 
-# ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-# ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
-# ../textw/partition_text.py:750 ../textw/partition_text.py:772
-# ../textw/partition_text.py:901
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
-#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
-#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
-#: ../textw/network_text.py:47 ../textw/network_text.py:52
-#: ../textw/network_text.py:58
-msgid "Error With Data"
-msgstr "Virheellinen data"
-
 #: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
@@ -4030,40 +4026,76 @@ msgstr ""
 "Kentän ”%s” arvoa muunnettaessa tapahtui virhe:\n"
 "%s"
 
+# ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
+# ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
+# ../textw/partition_text.py:750 ../textw/partition_text.py:772
+# ../textw/partition_text.py:901
+#: ../iw/netconfig_dialog.py:139 ../iw/netconfig_dialog.py:148
+#: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:150
+#: ../iw/network_gui.py:154 ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:47 ../textw/network_text.py:52
+#: ../textw/network_text.py:58
+msgid "Error With Data"
+msgstr "Virheellinen data"
+
+#: ../iw/netconfig_dialog.py:147 ../iw/network_gui.py:155
+#: ../textw/network_text.py:48
+#, python-format
+msgid "A value is required for the field %s."
+msgstr "Kenttään %s pitää syöttää arvo."
+
 # ../loader/net.c:413 ../loader/net.c:738
-#: ../iw/netconfig_dialog.py:155
+#: ../iw/netconfig_dialog.py:169
 msgid "Dynamic IP"
 msgstr "Dynaaminen IP"
 
 # ../loader/net.c:414 ../loader/net.c:739
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:831
+#: ../iw/netconfig_dialog.py:170 ../loader2/net.c:413 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Pyydetään IP-tietoja laitteelle %s..."
 
 # ../iw/network_gui.py:194
-#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:88
-#: tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:191 ../iw/netconfig_dialog.py:194
+#: ../textw/network_text.py:88 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "IP-osoite"
 
 # ../iw/network_gui.py:195 ../loader/net.c:806
-#: ../iw/netconfig_dialog.py:182
+#: ../iw/netconfig_dialog.py:201 ../iw/netconfig_dialog.py:204
 msgid "Netmask"
 msgstr "Verkkopeite"
 
+# ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
+#: ../iw/netconfig_dialog.py:211
+#, fuzzy
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "IPv4-etuliitteen on oltava väliltä 0-32."
+
+# ../iw/network_gui.py:195 ../loader/net.c:806
+#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
+#: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
+#, fuzzy
+msgid "IPv4 Network Mask"
+msgstr "IPv4 aliverkon peite"
+
 # ../iw/network_gui.py:251
-#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:524
+#: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "Yhdyskäytävä"
 
 # ../loader/net.c:266 ../loader/net.c:804
-#: ../iw/netconfig_dialog.py:195
+#: ../iw/netconfig_dialog.py:245
 msgid "Nameserver"
 msgstr "Nimipalvelin"
 
-#: ../iw/netconfig_dialog.py:214
+#: ../iw/netconfig_dialog.py:255
+#, fuzzy
+msgid "Error configuring network device:"
+msgstr "Verkkolaitteen asetuksia tehdessä tapahtui virhe"
+
+#: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
 msgstr "Verkkolaitteen asetuksia tehdessä tapahtui virhe"
 
@@ -4114,7 +4146,7 @@ msgstr ""
 "Kenttää ”%s” ei ole täytetty. Riippuen verkon asetuksista, tämä voi tuottaa "
 "ongelmia myöhemmin."
 
-#: ../iw/network_gui.py:151 ../textw/network_text.py:813
+#: ../iw/network_gui.py:151 ../textw/network_text.py:817
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -4124,11 +4156,6 @@ msgstr ""
 "Konenimi ”%s” ei kelpaa seuraavasta syystä:\n"
 "\n"
 "%s"
-
-#: ../iw/network_gui.py:155 ../textw/network_text.py:48
-#, python-format
-msgid "A value is required for the field %s."
-msgstr "Kenttään %s pitää syöttää arvo."
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
 # ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
@@ -4140,7 +4167,7 @@ msgid "Error With %s Data"
 msgstr "Virheellinen data: %s"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
-#: ../textw/network_text.py:587 ../textw/network_text.py:591
+#: ../textw/network_text.py:590 ../textw/network_text.py:594
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
@@ -4240,7 +4267,7 @@ msgid "Hardware address: "
 msgstr "Laitteisto-osoite: "
 
 # ../loader/net.c:404
-#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:792
+#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Puuttuva protokolla"
 
@@ -4250,7 +4277,7 @@ msgstr "Ainakin IPv4- tai IPv6-tuki on valittava."
 
 # ../loader/net.c:277
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
-#: ../textw/network_text.py:69 ../loader2/net.c:93
+#: ../textw/network_text.py:69 ../loader2/net.c:97
 msgid "Invalid Prefix"
 msgstr "Virheellinen etuliite"
 
@@ -4966,17 +4993,17 @@ msgid "Drives"
 msgstr "Levyt"
 
 # ../gui.py:497
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
+#: ../iw/release_notes.py:156 ../iw/release_notes.py:161
 msgid "Release notes are missing.\n"
 msgstr "Versiotiedote puuttuu.\n"
 
 # ../gui.py:445 ../gui.py:607
-#: ../iw/release_notes.py:236
+#: ../iw/release_notes.py:241
 msgid "Release Notes"
 msgstr "Julkaisutiedot"
 
 # ../gui.py:476
-#: ../iw/release_notes.py:239
+#: ../iw/release_notes.py:244
 msgid "Unable to load file!"
 msgstr "Tiedoston lataus epäonnistui!"
 
@@ -5040,22 +5067,22 @@ msgstr "Aikavyöhykkeen valinta"
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
-#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:106
+#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:108
 msgid "Upgrade Boot Loader Configuration"
 msgstr "Käynnistyslataimen asetusten päivitys"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
-#: ../iw/upgrade_bootloader_gui.py:95
+#: ../iw/upgrade_bootloader_gui.py:97
 msgid "_Update boot loader configuration"
 msgstr "_Käynnistyslataimen asetusten päivitys"
 
-#: ../iw/upgrade_bootloader_gui.py:96
+#: ../iw/upgrade_bootloader_gui.py:98
 msgid "This will update your current boot loader."
 msgstr "Tämä päivittää nykyisen käynnistyslataimen."
 
-#: ../iw/upgrade_bootloader_gui.py:100 ../textw/upgrade_bootloader_text.py:78
+#: ../iw/upgrade_bootloader_gui.py:102 ../textw/upgrade_bootloader_text.py:80
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
@@ -5063,30 +5090,30 @@ msgstr ""
 "Järjestelmämuutosten vuoksi käynnistyslataimen asetuksia ei voida päivittää "
 "automaattisesti."
 
-#: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
+#: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr "Asennusohjelma ei tunnista koneen nykyistä käynnistyslatainta."
 
-#: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
+#: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Asennusohjelma havaitsi käynnistyslataimen %s asennettuna osiolla %s."
 
-#: ../iw/upgrade_bootloader_gui.py:114
+#: ../iw/upgrade_bootloader_gui.py:116
 msgid "This is the recommended option."
 msgstr "Tämä on suositeltava vaihtoehto."
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
-#: ../iw/upgrade_bootloader_gui.py:119
+#: ../iw/upgrade_bootloader_gui.py:121
 msgid "_Create new boot loader configuration"
 msgstr "_Luo uudet käynnistyslataimen asetukset"
 
-#: ../iw/upgrade_bootloader_gui.py:121
+#: ../iw/upgrade_bootloader_gui.py:123
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
@@ -5095,11 +5122,11 @@ msgstr ""
 "käynnistyslatainta, valitse tämä."
 
 # ../textw/bootloader_text.py:68
-#: ../iw/upgrade_bootloader_gui.py:128
+#: ../iw/upgrade_bootloader_gui.py:130
 msgid "_Skip boot loader updating"
 msgstr "Ohita käynnisty_slataimen päivitys"
 
-#: ../iw/upgrade_bootloader_gui.py:129
+#: ../iw/upgrade_bootloader_gui.py:131
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
@@ -5108,7 +5135,7 @@ msgstr ""
 "käynnistyslatainta, valitse tämä."
 
 # ../loader/loader.c:322
-#: ../iw/upgrade_bootloader_gui.py:140
+#: ../iw/upgrade_bootloader_gui.py:142
 msgid "What would you like to do?"
 msgstr "Mitä haluat tehdä?"
 
@@ -5484,6 +5511,11 @@ msgstr ""
 msgid "Complete"
 msgstr "Valmis"
 
+# ../iw/partition_gui.py:1528
+#: ../textw/complete_text.py:41
+msgid "Reboot"
+msgstr "Käynnistä uudelleen"
+
 # ../textw/confirm_text.py:20
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -5498,6 +5530,29 @@ msgid ""
 msgstr ""
 "Asennuksesta kirjoitetaan täydellinen loki tiedostoon %s. Haluat ehkä "
 "säilyttää sen myöhempiä tarpeita varten."
+
+# ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
+# ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
+# ../loader/loader.c:323 ../loader/loader.c:816 ../loader/loader.c:853
+# ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1490
+# ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
+# ../loader/urls.c:158 ../loader/urls.c:387 ../textw/confirm_text.py:24
+# ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
+# ../textw/confirm_text.py:38 ../textw/constants_text.py:28
+# ../textw/silo_text.py:110 ../textw/userauth_text.py:185
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
+#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:282 ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:398 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:180 ../loader2/driverselect.c:205
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:319 ../loader2/kbd.c:131
+#: ../loader2/loader.c:342 ../loader2/loader.c:1016 ../loader2/loader.c:1038
+#: ../loader2/net.c:272 ../loader2/net.c:311 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1806 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
+msgid "Back"
+msgstr "Takaisin"
 
 # ../textw/confirm_text.py:32
 #: ../textw/confirm_text.py:50
@@ -5605,12 +5660,12 @@ msgstr "Etuliite"
 msgid "Activate on boot"
 msgstr "Ota käyttöön käynnistyksessä"
 
-#: ../textw/network_text.py:144 ../loader2/net.c:720
+#: ../textw/network_text.py:144 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
 msgstr "Ota käyttöön IPv4-tuki"
 
-#: ../textw/network_text.py:151 ../loader2/net.c:733
+#: ../textw/network_text.py:151 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
 msgstr "Ota käyttöön IPv6-tuki"
@@ -5722,86 +5777,86 @@ msgstr ""
 "valmis, napsauta OK jatkaaksesi."
 
 # ../iw/network_gui.py:183
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:620
 msgid "Active on boot"
 msgstr "Aktiivinen käynnistyksessä"
 
 # ../iw/network_gui.py:183
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:622
 msgid "Inactive on boot"
 msgstr "Epäaktiivinen käynnistyksessä"
 
-#: ../textw/network_text.py:622
+#: ../textw/network_text.py:625
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../textw/network_text.py:627
+#: ../textw/network_text.py:630
 msgid "Auto IPv6"
 msgstr "Automaattinen IPv6"
 
-#: ../textw/network_text.py:629
+#: ../textw/network_text.py:632
 msgid "DHCPv6"
 msgstr "DHCPv6"
 
-#: ../textw/network_text.py:635
+#: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
 msgstr "%s, %s, %s"
 
-#: ../textw/network_text.py:637 ../textw/network_text.py:639
+#: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
 # ../iw/network_gui.py:251
-#: ../textw/network_text.py:661 ../loader2/net.c:1026
+#: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Yhdyskäytävä:"
 
 # ../iw/network_gui.py:251
-#: ../textw/network_text.py:670
+#: ../textw/network_text.py:674
 msgid "Primary DNS:"
 msgstr "1. nimipalvelin:"
 
 # ../iw/network_gui.py:252
-#: ../textw/network_text.py:675
+#: ../textw/network_text.py:679
 msgid "Secondary DNS:"
 msgstr "2. nimipalvelin:"
 
 # ../loader/devices.c:77
-#: ../textw/network_text.py:682
+#: ../textw/network_text.py:686
 msgid "Miscellaneous Network Settings"
 msgstr "Sekalaiset verkon asetukset"
 
 # ../iw/network_gui.py:251
-#: ../textw/network_text.py:699 ../textw/network_text.py:702
+#: ../textw/network_text.py:703 ../textw/network_text.py:706
 msgid "gateway"
 msgstr "yhdyskäytävä"
 
 # ../iw/network_gui.py:251
-#: ../textw/network_text.py:709 ../textw/network_text.py:712
+#: ../textw/network_text.py:713 ../textw/network_text.py:716
 msgid "primary DNS"
 msgstr "ensisijainen nimipalvelin"
 
 # ../iw/network_gui.py:252
-#: ../textw/network_text.py:721
+#: ../textw/network_text.py:725
 msgid "secondary DNS"
 msgstr "toissijainen nimipalvelin"
 
-#: ../textw/network_text.py:755
+#: ../textw/network_text.py:759
 msgid "automatically via DHCP"
 msgstr "automaattisesti DHCP:llä"
 
-#: ../textw/network_text.py:758
+#: ../textw/network_text.py:762
 msgid "manually"
 msgstr "käsin"
 
 # ../textw/network_text.py:173
-#: ../textw/network_text.py:777
+#: ../textw/network_text.py:781
 msgid "Hostname Configuration"
 msgstr "Koneen nimen asetus"
 
-#: ../textw/network_text.py:780
+#: ../textw/network_text.py:784
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5813,11 +5868,11 @@ msgstr ""
 "syötä konenimi. Jos et syötä mitään, järjestelmän nimeksi tulee ”localhost”."
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
-#: ../textw/network_text.py:806 ../textw/network_text.py:812
+#: ../textw/network_text.py:810 ../textw/network_text.py:816
 msgid "Invalid Hostname"
 msgstr "Epäkelpo konenimi"
 
-#: ../textw/network_text.py:807
+#: ../textw/network_text.py:811
 msgid "You have not specified a hostname."
 msgstr "Et ole määritellyt konenimeä."
 
@@ -6155,30 +6210,30 @@ msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
 " <Väli>,<+>,<-> valinta   |   <F2> Lisää asema   |   <F12> seuraava ruutu"
 
-#: ../textw/partition_text.py:1654
+#: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
 msgstr "Tarkista luodut osiot"
 
-#: ../textw/partition_text.py:1655
+#: ../textw/partition_text.py:1658
 msgid "Review and modify partitioning layout?"
 msgstr "Haluatko tarkistaa (ja tarvittaessa muuttaa) luotuja osiota?"
 
 # ../iw/partition_gui.py:803
-#: ../textw/partition_text.py:1676 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1679 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "Tallennustilan lisäasetukset"
 
 # ../iw/partition_gui.py:998
-#: ../textw/partition_text.py:1677 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1680 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "Miten haluat muokata asemakonfiguraatiota?"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../textw/partition_text.py:1700
+#: ../textw/partition_text.py:1703
 msgid "Add FCP Device"
 msgstr "Lisää FCP-laite"
 
-#: ../textw/partition_text.py:1701 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
@@ -6190,11 +6245,11 @@ msgstr ""
 "bittisen FCP LUN:in."
 
 # ../iw/bootloader_gui.py:326
-#: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "Aseta iSCSI-parametrit"
 
-#: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1728 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -6202,11 +6257,11 @@ msgstr ""
 "iSCSI-levyjen käyttämiseksi on annettava iSCSI-kohteen osoite sekä konetta "
 "varten asennetun iSCSI-asiakaslaitteen nimi."
 
-#: ../textw/partition_text.py:1726
+#: ../textw/partition_text.py:1729
 msgid "Target IP Address"
 msgstr "Kohteen IP-osoite"
 
-#: ../textw/partition_text.py:1727
+#: ../textw/partition_text.py:1730
 msgid "iSCSI Initiator Name"
 msgstr "iSCSI-asiakaslaitteen _nimi"
 
@@ -6258,20 +6313,20 @@ msgstr "Järjestelmän kello on UTC-ajassa"
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
-#: ../textw/upgrade_bootloader_text.py:86
-#: ../textw/upgrade_bootloader_text.py:95
+#: ../textw/upgrade_bootloader_text.py:88
+#: ../textw/upgrade_bootloader_text.py:97
 msgid "Update boot loader configuration"
 msgstr "Käynnistyslataimen asetusten päivitys"
 
 # ../textw/bootloader_text.py:68
-#: ../textw/upgrade_bootloader_text.py:98
+#: ../textw/upgrade_bootloader_text.py:100
 msgid "Skip boot loader updating"
 msgstr "Ohita käynnistyslataimen päivitys"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
-#: ../textw/upgrade_bootloader_text.py:100
+#: ../textw/upgrade_bootloader_text.py:102
 msgid "Create new boot loader configuration"
 msgstr "Luo uudet käynnistyslataimen asetukset"
 
@@ -6476,31 +6531,32 @@ msgstr "Asennusmedian tarkastus"
 # ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Test"
 msgstr "Tarkasta"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-msgid "Eject CD"
+#, fuzzy
+msgid "Eject Disc"
 msgstr "Poista CD"
 
 #: ../loader2/cdinstall.c:93
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
-"CD and insert another for testing."
+"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
+"the disc and insert another for testing."
 msgstr ""
 "Valitse ”%s” tarkastaaksesi asemassa olevan CD-levyn, tai ”%s” poistaaksesi "
 "sen ja syöttääksesi toisen levyn testausta varten."
 
 #: ../loader2/cdinstall.c:114
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"If you would like to test additional media, insert the next CD and press \"%s"
-"\". Testing each CD is not strictly required, however it is highly "
-"recommended.  Minimally, the CDs should be tested prior to using them for "
+"If you would like to test additional media, insert the next disc and press "
+"\"%s\". Testing each disc is not strictly required, however it is highly "
+"recommended.  Minimally, the discs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
-"to retest each CD prior to using it again."
+"to retest each disc prior to using it again."
 msgstr ""
 "Jos haluat tarkastaa lisää levyjä, syötä seuraava levy ja valitse \"%s\". "
 "Jokaisen CD:n tarkastaminen ei ole välttämätöntä, mutta erittäin "
@@ -6509,10 +6565,10 @@ msgstr ""
 "CD:tä ennen seuraavaa käyttökertaa."
 
 # ../loader/loader.c:968
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
-#, c-format
+#: ../loader2/cdinstall.c:137
+#, fuzzy, c-format
 msgid ""
-"The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
+"The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
 "%sn CD-ROM-levyä ei löydy mistään CD-ROM-asemasta. Laita %sn CD asemaan ja "
@@ -6520,13 +6576,14 @@ msgstr ""
 
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:258
-msgid "CD Found"
+#, fuzzy
+msgid "Disc Found"
 msgstr "CD löytyi"
 
 #: ../loader2/cdinstall.c:259
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"To begin testing the CD media before installation press %s.\n"
+"To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
@@ -6536,40 +6593,57 @@ msgstr ""
 
 # ../loader/loader.c:968
 #: ../loader2/cdinstall.c:379
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"No %s CD was found which matches your boot media.  Please insert the %s CD "
-"and press %s to retry."
+"No %s disc was found which matches your boot media.  Please insert the %s "
+"disc and press %s to retry."
 msgstr ""
 "%s -CD-levyä ei löytynyt mistään CD-asemasta. Aseta %s -CD asemaan ja paina %"
 "s, niin yritetään uudelleen."
 
+# ../loader/loader.c:968
+#: ../loader2/cdinstall.c:384
+#, fuzzy, c-format
+msgid ""
+"The %s disc was not found in any of your CDROM drives. Please insert the %s "
+"disc and press %s to retry."
+msgstr ""
+"%sn CD-ROM-levyä ei löydy mistään CD-ROM-asemasta. Laita %sn CD asemaan ja "
+"paina %s yrittääksesi uudelleen."
+
 # ../partitioning.py:1493
 #: ../loader2/cdinstall.c:391
-msgid "CD Not Found"
+#, fuzzy
+msgid "Disc Not Found"
 msgstr "CD:tä ei löytynyt"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "CD:ltä ei löydy kickstart-tiedostoa."
 
+# ../loader/loader.c:536 ../loader/loader.c:2238
+#: ../loader2/copy.c:45 ../loader2/method.c:158 ../loader2/method.c:376
+#, c-format
+msgid "Failed to read directory %s: %s"
+msgstr "Virhe luettaessa hakemistoa %s: %s"
+
 # ../loader/devices.c:513
-#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
+#: ../loader2/driverdisk.c:134 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Ladataan"
 
 # ../loader/devices.c:513 ../loader/windows.c:47
-#: ../loader2/driverdisk.c:128
+#: ../loader2/driverdisk.c:134
 msgid "Reading driver disk..."
 msgstr "Ladataan ajurilevykettä..."
 
 # ../loader/devices.c:532
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:276 ../loader2/driverdisk.c:308
 msgid "Driver Disk Source"
 msgstr "Ajurilevykkeen lähde"
 
 # ../loader/loader.c:1058
-#: ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:277
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6578,7 +6652,7 @@ msgstr ""
 "Mitä niistä käytetään?"
 
 # ../loader/loader.c:1058
-#: ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:309
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -6587,54 +6661,54 @@ msgstr ""
 "levykuvalle. Mitä niistä käytetään?"
 
 # ../loader/devices.c:260
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:347
 msgid "Failed to mount partition."
 msgstr "Osion liittäminen epäonnistui."
 
 # ../iw/fdisk_gui.py:93
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:355
 msgid "Select driver disk image"
 msgstr "Valitse ajurilevykkeen levykuva"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:356
 msgid "Select the file which is your driver disk image."
 msgstr "Valitse ajurilevykuvan sisältävä tiedosto."
 
 # ../loader/devices.c:260
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:385
 msgid "Failed to load driver disk from file."
 msgstr "Ajurilevykkeen lataaminen tiedostosta epäonnistui."
 
 # ../loader/devices.c:239
-#: ../loader2/driverdisk.c:388
+#: ../loader2/driverdisk.c:396
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Syötä ajurilevyke /dev/%s:iin ja jatka painamalla ”OK”."
 
 # ../loader/devices.c:532
-#: ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:398
 msgid "Insert Driver Disk"
 msgstr "Syötä ajurilevyke"
 
 # ../loader/devices.c:260
-#: ../loader2/driverdisk.c:405
+#: ../loader2/driverdisk.c:413
 msgid "Failed to mount driver disk."
 msgstr "Ajurilevykkeen liittäminen epäonnistui."
 
-#: ../loader2/driverdisk.c:415
+#: ../loader2/driverdisk.c:423
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "Ajurilevyke ei kelpaa tälle %s:n julkaisulle."
 
-#: ../loader2/driverdisk.c:479
+#: ../loader2/driverdisk.c:486
 msgid "Manually choose"
 msgstr "Manuaalinen valinta"
 
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Load another disk"
 msgstr "Lataa toinen levyke"
 
-#: ../loader2/driverdisk.c:481
+#: ../loader2/driverdisk.c:488
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6644,42 +6718,42 @@ msgstr ""
 "ajuri manuaalisesti, jatketaanko silti, vai ladataanko toinen levyke?"
 
 # ../loader/devices.c:532
-#: ../loader2/driverdisk.c:520
+#: ../loader2/driverdisk.c:526
 msgid "Driver disk"
 msgstr "Ajurilevyke"
 
 # ../loader/devices.c:232
-#: ../loader2/driverdisk.c:521
+#: ../loader2/driverdisk.c:527
 msgid "Do you have a driver disk?"
 msgstr "Onko Teillä ajurilevyke?"
 
 # ../loader/devices.c:532
-#: ../loader2/driverdisk.c:531
+#: ../loader2/driverdisk.c:536
 msgid "More Driver Disks?"
 msgstr "Lisää ajurilevykkeitä?"
 
 # ../loader/devices.c:232
-#: ../loader2/driverdisk.c:532
+#: ../loader2/driverdisk.c:537
 msgid "Do you wish to load any more driver disks?"
 msgstr "Haluatko ladata lisää ajurilevykkeitä?"
 
 # ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:127
 #: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
-#: ../loader2/kickstart.c:512 ../loader2/modules.c:1042
-#: ../loader2/modules.c:1055 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:473
-#: ../loader2/urlinstall.c:482 ../loader2/urlinstall.c:493
+#: ../loader2/kickstart.c:523 ../loader2/modules.c:1036
+#: ../loader2/modules.c:1049 ../loader2/net.c:1597 ../loader2/net.c:1620
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:484
 msgid "Kickstart Error"
 msgstr "Kickstart-virhe"
 
-#: ../loader2/driverdisk.c:582
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Tuntematon ajurilevykkeen kickstart-lähde: %s"
 
-#: ../loader2/driverdisk.c:619
+#: ../loader2/driverdisk.c:621
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6706,16 +6780,16 @@ msgid "Enter Module Parameters"
 msgstr "Syötä moduulin parametrit"
 
 # ../partitioning.py:1493
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "No drivers found"
 msgstr "Ajureita ei löytynyt"
 
 # ../loader/devices.c:232
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "Load driver disk"
 msgstr "Lataa ajurilevyke"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:180
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -6724,7 +6798,7 @@ msgstr ""
 "ajurilevykettä?"
 
 # ../loader/devices.c:327
-#: ../loader2/driverselect.c:200
+#: ../loader2/driverselect.c:198
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -6733,12 +6807,12 @@ msgstr ""
 "olemassa erillinen ajurilevyke, paina F2."
 
 # ../loader/devices.c:336
-#: ../loader2/driverselect.c:208
+#: ../loader2/driverselect.c:206
 msgid "Specify optional module arguments"
 msgstr "Valitse moduulin parametrit"
 
 # ../iw/fdisk_gui.py:93
-#: ../loader2/driverselect.c:228
+#: ../loader2/driverselect.c:226
 msgid "Select Device Driver to Load"
 msgstr "Valitse ladattava ajuri"
 
@@ -6749,7 +6823,7 @@ msgid "Loading %s driver..."
 msgstr "Ladataan %s-ajuria..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
-#: ../loader2/urlinstall.c:160
+#: ../loader2/urlinstall.c:151
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6774,7 +6848,7 @@ msgstr ""
 "ylimääräisiä laitteita?"
 
 # ../loader/loader.c:831
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:280
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6786,33 +6860,33 @@ msgstr ""
 "painamalla F2."
 
 # ../loader/loader.c:845
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:303
 msgid "Directory holding images:"
 msgstr "Levykuvat sisältävä hakemisto:"
 
 # ../loader/loader.c:865
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:331
 msgid "Select Partition"
 msgstr "Valitse osio"
 
 # ../loader/loader.c:913
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:370
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Laite %s ei näytä sisältävän %s -levykuvatiedostoja."
 
 # ../loader/net.c:723
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:405
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Virheellinen parametri kiintolevy-kickstartin komennolle %s: %s"
 
 # ../image.py:63
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:475 ../loader2/hdinstall.c:531
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Kickstart-tiedostoa ei löydy kiintolevyltä."
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:518
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS-levylle %s ei löydy kiintolevyä"
@@ -6864,7 +6938,7 @@ msgid "Error downloading kickstart file"
 msgstr "Virhe ladattaessa kickstart-tiedostoa"
 
 # ../loader/net.c:723
-#: ../loader2/kickstart.c:513
+#: ../loader2/kickstart.c:524
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Virheellinen parametri sammutus-kickstartin komennolle %s: %s"
@@ -6876,7 +6950,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s - tervetuloa pelastustilaan"
 
 # ../loader/lang.c:41 ../loader/loader.c:188
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> vaihtaa kohtaa  | <Väli> valitsee | <F12> seuraava "
@@ -6888,27 +6962,28 @@ msgid "Choose a Language"
 msgstr "Valitse kieli"
 
 # ../loader/loader.c:123
-#: ../loader2/loader.c:120
-msgid "Local CDROM"
+#: ../loader2/loader.c:118
+#, fuzzy
+msgid "Local CD/DVD"
 msgstr "Paikallinen CD-ROM"
 
 # ../loader/loader.c:131
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "Kiintolevy"
 
 # ../loader/net.c:173 ../loader/urls.c:194
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:121
 msgid "NFS directory"
 msgstr "NFS-hakemisto"
 
 # ../loader/loader.c:2300
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:337
 msgid "Update Disk Source"
 msgstr "Päivityslevykkeen lähde"
 
 # ../loader/loader.c:1058
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:338
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6917,32 +6992,32 @@ msgstr ""
 "päivityslevykkeelle. Mitä niistä käytetään?"
 
 # ../loader/loader.c:2301
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:353
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Syötä päivityslevyke laitteeseen /dev/%s ja jatka painamalla ”OK”."
 
 # ../loader/loader.c:2300
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:355
 msgid "Updates Disk"
 msgstr "Päivityslevyke"
 
 # ../loader/devices.c:260
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:367
 msgid "Failed to mount updates disk"
 msgstr "Päivityslevykkeen liittäminen epäonnistui."
 
 # ../loader/loader.c:2321
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Updates"
 msgstr "Päivitykset"
 
 # ../loader/loader.c:2321
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Reading anaconda updates..."
 msgstr "Luen asennusohjelma päivityksiä"
 
-#: ../loader2/loader.c:406
+#: ../loader2/loader.c:412
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6952,48 +7027,48 @@ msgstr ""
 "laiteajurit, jotta asennus onnistuisi. Haluaisitko valita niitä nyt?"
 
 # ../loader/loader.c:2524
-#: ../loader2/loader.c:835
+#: ../loader2/loader.c:849
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa."
 
 # ../loader/loader.c:1482
-#: ../loader2/loader.c:994
+#: ../loader2/loader.c:1008
 msgid "Rescue Method"
 msgstr "Pelastusmenetelmä"
 
 # ../loader/loader.c:1483
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1009
 msgid "Installation Method"
 msgstr "Asennusmenetelmä"
 
 # ../loader/loader.c:1485
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1011
 msgid "What type of media contains the rescue image?"
 msgstr "Minkälainen tallenne sisältää pelastusdatan?"
 
 # ../loader/loader.c:1487
-#: ../loader2/loader.c:999
+#: ../loader2/loader.c:1013
 msgid "What type of media contains the packages to be installed?"
 msgstr "Minkälainen tallenne sisältää asennettavat paketit?"
 
 # ../partitioning.py:1493
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "No driver found"
 msgstr "Ajuria ei löytynyt"
 
 # ../iw/fdisk_gui.py:93
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "Select driver"
 msgstr "Valitse ajuri"
 
 # ../loader/devices.c:232
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1038
 msgid "Use a driver disk"
 msgstr "Käytä ajurilevykettä"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1039
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7001,12 +7076,12 @@ msgstr ""
 "Tälle asennustyypille tarvittavia laitteita ei löytynyt. Haluatko "
 "manuualisesti valita ajurin tai käyttää ajurilevykettä?"
 
-#: ../loader2/loader.c:1231
+#: ../loader2/loader.c:1258
 msgid "The following devices have been found on your system."
 msgstr "Järjestelmästä löydettiin seuraavat laitteet."
 
 # ../loader/loader.c:399
-#: ../loader2/loader.c:1233
+#: ../loader2/loader.c:1260
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7016,33 +7091,33 @@ msgstr ""
 
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
-#: ../loader2/loader.c:1237
+#: ../loader2/loader.c:1264
 msgid "Devices"
 msgstr "Laitteet"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader2/loader.c:1238
+#: ../loader2/loader.c:1265
 msgid "Done"
 msgstr "Valmis"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader2/loader.c:1239
+#: ../loader2/loader.c:1266
 msgid "Add Device"
 msgstr "Lisää laite"
 
-#: ../loader2/loader.c:1447
+#: ../loader2/loader.c:1437
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "latain on jo ajettu. Käynnistetään kuori.\n"
 
 # ../loader/loader.c:3019
-#: ../loader2/loader.c:1834
+#: ../loader2/loader.c:1823
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Käynnistetään anaconda, %sn pelastustila - odota hetki...\n"
 
 # ../loader/loader.c:3019
-#: ../loader2/loader.c:1836
+#: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Käynnistetään anaconda, %sn asennusohjelmaa - odota hetki...\n"
@@ -7122,13 +7197,7 @@ msgstr ""
 "\n"
 "%s"
 
-# ../loader/loader.c:536 ../loader/loader.c:2238
-#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
-#, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "Virhe luettaessa hakemistoa %s: %s"
-
-#: ../loader2/method.c:418
+#: ../loader2/method.c:419
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7139,17 +7208,17 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Checksum Test"
 msgstr "Tarkistussumman laskenta"
 
 # ../loader/net.c:723
-#: ../loader2/modules.c:1043
+#: ../loader2/modules.c:1037
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Virheellinen parametri laite-kickstartin komennolle %s: %s"
 
-#: ../loader2/modules.c:1056
+#: ../loader2/modules.c:1050
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
@@ -7171,7 +7240,7 @@ msgstr ""
 "    o se palvelimen hakemisto, jossa on\n"
 "      laitteistolle sopiva %s\n"
 
-#: ../loader2/net.c:94
+#: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -7179,7 +7248,7 @@ msgstr ""
 "Etuliitteen on oltava väliltä 1-32 IPv4-verkoille tai väliltä 1-128 IPv6-"
 "verkoille"
 
-#: ../loader2/net.c:257
+#: ../loader2/net.c:261
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -7190,31 +7259,31 @@ msgstr ""
 "ESSID ja salausavain. Jos avainta ei tarvita, jätä tämä kohta tyhjäksi, ja "
 "asennus jatkuu."
 
-#: ../loader2/net.c:263
+#: ../loader2/net.c:267
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:264
+#: ../loader2/net.c:268
 msgid "Encryption Key"
 msgstr "Salausavain"
 
 # ../loader/devices.c:77
-#: ../loader2/net.c:267
+#: ../loader2/net.c:271
 msgid "Wireless Settings"
 msgstr "Langattomat asetukset"
 
 # ../loader/net.c:262
-#: ../loader2/net.c:298
+#: ../loader2/net.c:302
 msgid "Nameserver IP"
 msgstr "Nimipalvelimen IP"
 
 # ../loader/net.c:266 ../loader/net.c:804
-#: ../loader2/net.c:302
+#: ../loader2/net.c:306
 msgid "Missing Nameserver"
 msgstr "Nimipalvelin puuttuu"
 
 # ../loader/net.c:267
-#: ../loader2/net.c:303
+#: ../loader2/net.c:307
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
@@ -7225,62 +7294,62 @@ msgstr ""
 "huolimatta."
 
 # ../loader/net.c:277
-#: ../loader2/net.c:325
+#: ../loader2/net.c:329
 msgid "Invalid IP Information"
 msgstr "Virheelliset IP-tiedot"
 
 # ../loader/net.c:278
-#: ../loader2/net.c:326
+#: ../loader2/net.c:330
 msgid "You entered an invalid IP address."
 msgstr "Syötit virheellisen IP-osoitteen."
 
 # ../textw/userauth_text.py:22
-#: ../loader2/net.c:584 ../loader2/net.c:692
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Verkkovirhe"
 
-#: ../loader2/net.c:585 ../loader2/net.c:693
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "Verkkoliitännän asetuksia tehtäessä tapahtui virhe."
 
 # ../loader/net.c:373
-#: ../loader2/net.c:766
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "Konfiguroi TCP/IP"
 
-#: ../loader2/net.c:793
+#: ../loader2/net.c:792
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Valitse ainakin yksi protokolla (IPv4 tai IPv6)."
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "NFS vaatii IPv4:n"
 
-#: ../loader2/net.c:801
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS-asennustapa vaatii IPv4-tuen."
 
 # ../loader/net.c:309 ../textw/network_text.py:82
-#: ../loader2/net.c:921
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4-osoite:"
 
-#: ../loader2/net.c:933 ../loader2/net.c:985 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
 # ../loader/net.c:309 ../textw/network_text.py:82
-#: ../loader2/net.c:973
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6-osoite:"
 
 # ../loader/net.c:266 ../loader/net.c:804
-#: ../loader2/net.c:1034
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Nimipalvelin:"
 
-#: ../loader2/net.c:1070
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -7293,17 +7362,17 @@ msgstr ""
 
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
-#: ../loader2/net.c:1086
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Manuaalinen TCP/IP:n asetus"
 
 # ../loader/net.c:404
-#: ../loader2/net.c:1207 ../loader2/net.c:1213
+#: ../loader2/net.c:1193 ../loader2/net.c:1199
 msgid "Missing Information"
 msgstr "Puuttuvat tiedot"
 
 # ../loader/net.c:405
-#: ../loader2/net.c:1208
+#: ../loader2/net.c:1194
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
@@ -7311,34 +7380,34 @@ msgstr ""
 "etuliite."
 
 # ../loader/net.c:405
-#: ../loader2/net.c:1214
+#: ../loader2/net.c:1200
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "On syötettävä sekä kelvollinen IPv6-osoite että CIDR-etuliite."
 
 # ../loader/net.c:611
-#: ../loader2/net.c:1520
+#: ../loader2/net.c:1505
 msgid "Determining host name and domain..."
 msgstr "Selvitetään koneen ja verkkoalueen nimeä..."
 
 # ../loader/net.c:723
-#: ../loader2/net.c:1613
+#: ../loader2/net.c:1598
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Virheellinen parametri kickstartin network-komennolle %s: %s"
 
 # ../loader/net.c:756
-#: ../loader2/net.c:1636
+#: ../loader2/net.c:1621
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Epäkelpo käynnistysprotokolla %s network-käskyssä"
 
 # ../loader/loader.c:1057
-#: ../loader2/net.c:1817
+#: ../loader2/net.c:1802
 msgid "Networking Device"
 msgstr "Verkkolaite"
 
 # ../loader/loader.c:1058
-#: ../loader2/net.c:1818
+#: ../loader2/net.c:1803
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7401,35 +7470,35 @@ msgid "Running anaconda via telnet..."
 msgstr "Suoritetaan Anacondaa telnetin kautta..."
 
 # ../loader/urls.c:90 ../loader/urls.c:98
-#: ../loader2/urlinstall.c:80
+#: ../loader2/urlinstall.c:69
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Haku epäonnistui: %s://%s/%s/%s."
 
 # ../loader/loader.c:1214
-#: ../loader2/urlinstall.c:152
+#: ../loader2/urlinstall.c:143
 msgid "Unable to retrieve the install image."
 msgstr "Asennusohjelman ensimmäisen osan noutaminen ei onnistu"
 
-#: ../loader2/urlinstall.c:297
+#: ../loader2/urlinstall.c:288
 msgid "Media Detected"
 msgstr "Tallenne havaittu"
 
-#: ../loader2/urlinstall.c:298
+#: ../loader2/urlinstall.c:289
 msgid "Local installation media detected..."
 msgstr "Paikallinen asennustallenne havaittu..."
 
 # ../loader/net.c:723
-#: ../loader2/urlinstall.c:474
+#: ../loader2/urlinstall.c:465
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Virheellinen parametri URL-kickstartin komennolle %s: %s"
 
-#: ../loader2/urlinstall.c:483
+#: ../loader2/urlinstall.c:474
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "URL-kickstart vaatii --url-argumentin."
 
-#: ../loader2/urlinstall.c:494
+#: ../loader2/urlinstall.c:485
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Tuntematon URL-tyyppi %s"
@@ -8043,6 +8112,14 @@ msgstr "kymri"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
+
+# ../installclasses/upgradeclass.py:8
+#~ msgid "Rebooting System"
+#~ msgstr "Käynnistetään järjestelmä"
+
+# ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
+#~ msgid "Re_try"
+#~ msgstr "_Uudelleen"
 
 #~ msgid ""
 #~ "Remove any media used during the installation process and press the "

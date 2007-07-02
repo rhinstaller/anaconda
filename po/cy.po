@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-20 11:06-0400\n"
+"POT-Creation-Date: 2007-07-02 15:15-0400\n"
 "PO-Revision-Date: 2006-08-18 21:49-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -39,45 +39,46 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "Pwyswch <enter> i gael plisgyn"
 
-#: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:443 ../text.py:602 ../vnc.py:146
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:39
-#: ../textw/network_text.py:49 ../textw/network_text.py:71
-#: ../textw/network_text.py:77 ../textw/network_text.py:225
-#: ../textw/network_text.py:808 ../textw/network_text.py:816
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
-#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
-#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
-#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../anaconda:406 ../gui.py:237 ../rescue.py:260 ../rescue.py:334
+#: ../rescue.py:361 ../rescue.py:371 ../rescue.py:450 ../rescue.py:456
+#: ../text.py:443 ../text.py:602 ../vnc.py:146 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:54 ../textw/constants_text.py:36
+#: ../textw/network_text.py:39 ../textw/network_text.py:49
+#: ../textw/network_text.py:71 ../textw/network_text.py:77
+#: ../textw/network_text.py:225 ../textw/network_text.py:812
+#: ../textw/network_text.py:820 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:281
+#: ../loader2/driverdisk.c:312 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:398
+#: ../loader2/driverdisk.c:412 ../loader2/driverdisk.c:422
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:205
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:319 ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:404 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530 ../loader2/kbd.c:131
 #: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
 #: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
-#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:512 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/loader.c:1002
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
-#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:523 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:316 ../loader2/loader.c:342
+#: ../loader2/loader.c:355 ../loader2/loader.c:366 ../loader2/loader.c:852
+#: ../loader2/loader.c:1016 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:449
+#: ../loader2/modules.c:1036 ../loader2/modules.c:1049 ../loader2/net.c:272
+#: ../loader2/net.c:311 ../loader2/net.c:739 ../loader2/net.c:1064
+#: ../loader2/net.c:1597 ../loader2/net.c:1620 ../loader2/net.c:1806
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:68 ../loader2/urlinstall.c:91
+#: ../loader2/urlinstall.c:142 ../loader2/urlinstall.c:155
+#: ../loader2/urlinstall.c:464 ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:484 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "Iawn"
@@ -94,7 +95,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr "Ni chanfuwyd caledwedd fideo, tybir yn ddi-ben"
 
-#: ../anaconda:436 ../anaconda:896
+#: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Methu enghreifftio gwrthrych cyflwr caledwedd X"
 
@@ -102,27 +103,27 @@ msgstr "Methu enghreifftio gwrthrych cyflwr caledwedd X"
 msgid "Starting graphical installation..."
 msgstr "Yn dechrau arsefydliad graffigol..."
 
-#: ../anaconda:753
+#: ../anaconda:754
 msgid "Install class forcing text mode installation"
 msgstr "Dosbarth arsefydlu'n gorfodi arsefydliad modd testun"
 
-#: ../anaconda:793
+#: ../anaconda:794
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Nid yw arsefydliad graffigol ar gael... Yn dechrau'r modd testun."
 
-#: ../anaconda:801
+#: ../anaconda:802
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Newidyn DISPLAY heb ei osod. Ar fin cychwyn y modd testun!"
 
-#: ../anaconda:862
+#: ../anaconda:863
 msgid "Unknown install method"
 msgstr "Dull arsefydlu anhysbys"
 
-#: ../anaconda:863
+#: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Rydych chi wedi dewis dull arsefydlu nad yw anaconda yn ei gynnal."
 
-#: ../anaconda:865
+#: ../anaconda:866
 #, c-format
 msgid "unknown install method: %s"
 msgstr "dull arsefydlu anhysbys: %s"
@@ -222,11 +223,11 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Nid yw'r Rhaniad a Ofynnwyd Amdano'n Bodoli"
 
 #: ../autopart.py:1260
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Methu cael hyd i'r rhaniad %s i'w ddefnyddio ar gyfer %s.\n"
 "\n"
@@ -237,11 +238,11 @@ msgid "Requested Raid Device Does Not Exist"
 msgstr "Nid yw'r Ddyfais RAID a Ofynnwyd Amdani'n Bodoli"
 
 #: ../autopart.py:1288
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Methu cael hyd i'r ddyfais RAID %s i'w defnyddio ar gyfer %s.\n"
 "\n"
@@ -252,11 +253,11 @@ msgid "Requested Volume Group Does Not Exist"
 msgstr "Nid yw'r Grŵp Cyfrolau a Ofynnwyd Amdano'n Bodoli"
 
 #: ../autopart.py:1320
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Methu cael hyd i'r grŵp cyfrolau %s i'w ddefnyddio ar gyfer %s.\n"
 "\n"
@@ -267,11 +268,11 @@ msgid "Requested Logical Volume Does Not Exist"
 msgstr "Nid yw'r Gyfrol Resymegol a Ofynnwyd Amdani'n Bodoli"
 
 #: ../autopart.py:1358
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Methu cael hyd i'r gyfrol resymegol %s i'w defnyddio ar gyfer %s.\n"
 "\n"
@@ -282,13 +283,13 @@ msgid "Automatic Partitioning Errors"
 msgstr "Gwallau Rhannu Awtomatig"
 
 #: ../autopart.py:1485
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Digwyddodd y gwallau canlynol gyda'ch rhannu:\n"
 "\n"
@@ -312,10 +313,11 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "\n"
 "\n"
@@ -372,15 +374,15 @@ msgstr "Gwall Anadferadwy"
 msgid "Your system will now be rebooted."
 msgstr "Ailgychwynnir eich system nawr."
 
-#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:439
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1052
-#: ../partedUtils.py:1101 ../partedUtils.py:1143 ../upgrade.py:348
-#: ../yuminstall.py:1085 ../iw/blpasswidget.py:145
+#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:442
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1075
+#: ../partedUtils.py:1124 ../partedUtils.py:1167 ../upgrade.py:348
+#: ../yuminstall.py:1205 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:41 ../iw/task_gui.py:89
 #: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
 #: ../iw/upgrade_swap_gui.py:203 ../textw/bootloader_text.py:123
 #: ../textw/bootloader_text.py:448 ../textw/partition_text.py:243
-#: ../textw/upgrade_text.py:172 ../loader2/loader.c:405
+#: ../textw/upgrade_text.py:172 ../loader2/loader.c:411
 msgid "Warning"
 msgstr "Rhybudd"
 
@@ -442,12 +444,12 @@ msgstr ""
 "disgiau canlynol: %s\n"
 "A ydych yn sicr eich bod am wneud hyn?"
 
-#: ../backend.py:165
+#: ../backend.py:113
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Yn uwchraddio %s\n"
 
-#: ../backend.py:167
+#: ../backend.py:115
 #, python-format
 msgid "Installing %s\n"
 msgstr "Wrthi'n arsefydlu %s\n"
@@ -495,86 +497,88 @@ msgstr ""
 "hwn.  A wnewch chi gadw copi manwl o'r eithriad, a mynd i %s er mwyn cofnodi "
 "gwall o fewn anaconda"
 
-#: ../exception.py:414 ../exception.py:431
+#: ../exception.py:412 ../exception.py:429
 msgid "Dump Written"
 msgstr "Ysgrifennwyd Tomen"
 
-#: ../exception.py:415
+#: ../exception.py:413
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the floppy. Your system "
-"will now be rebooted."
+"Your system's state has been successfully written to the floppy. The "
+"installer will now exit."
 msgstr ""
 "Mae copi o gyflwr eich system yn ddiogel ar y ddisg hyblyg. Bydd eich system "
 "yn awr yn cael ei hail-gychwyn."
 
-#: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
-#: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
-#: ../harddrive.py:126 ../image.py:93 ../image.py:449 ../image.py:523
-#: ../packages.py:341 ../partedUtils.py:1154 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-msgid "_Reboot"
-msgstr "_Ailgychwyn"
+#: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
+#: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
+#: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
+#, fuzzy
+msgid "_Exit installer"
+msgstr "Arsefydlydd %s"
 
-#: ../exception.py:423 ../exception.py:440
+#: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
 msgstr "Tomen heb ei hysgrifennu"
 
-#: ../exception.py:424
+#: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
 msgstr "Roedd gwall wrth gadw cyflwr eich system ar y ddisg hyblyg."
 
-#: ../exception.py:432
+#: ../exception.py:430
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the remote host.  Your "
-"system will now be rebooted."
+"Your system's state has been successfully written to the remote host.  The "
+"installer will now exit."
 msgstr ""
 "Mae copi o gyflwr eich system yn ddiogel ar y gwesteiwr pell. Bydd eich "
 "system yn awr yn cael ei hail-gychwyn."
 
-#: ../exception.py:441
+#: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Roedd gwall wrth gadw cyflwr eich system ar y gwesteiwr pell."
 
-#: ../fsset.py:214
+#: ../fsset.py:216
 msgid "Checking for Bad Blocks"
 msgstr "Yn gwirio am Flociau Gwael"
 
-#: ../fsset.py:215
+#: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Yn gwirio am flociau gwael ar /dev/%s..."
 
-#: ../fsset.py:661 ../fsset.py:1396 ../fsset.py:1427 ../fsset.py:1488
-#: ../fsset.py:1499 ../fsset.py:1553 ../fsset.py:1564 ../fsset.py:1604
-#: ../fsset.py:1654 ../fsset.py:1735 ../fsset.py:1747 ../image.py:135
-#: ../image.py:180 ../image.py:312 ../livecd.py:323 ../partIntfHelpers.py:406
-#: ../urlinstall.py:113 ../urlinstall.py:211 ../yuminstall.py:602
-#: ../yuminstall.py:723 ../yuminstall.py:739 ../yuminstall.py:924
-#: ../iw/autopart_type.py:74 ../iw/autopart_type.py:208
-#: ../iw/netconfig_dialog.py:213 ../iw/osbootwidget.py:216
+#: ../fsset.py:663 ../fsset.py:1427 ../fsset.py:1458 ../fsset.py:1518
+#: ../fsset.py:1529 ../fsset.py:1583 ../fsset.py:1594 ../fsset.py:1634
+#: ../fsset.py:1684 ../fsset.py:1765 ../fsset.py:1777 ../image.py:135
+#: ../image.py:180 ../image.py:311 ../livecd.py:350 ../partIntfHelpers.py:406
+#: ../urlinstall.py:112 ../urlinstall.py:206 ../yuminstall.py:442
+#: ../yuminstall.py:762 ../yuminstall.py:802 ../yuminstall.py:1019
+#: ../yuminstall.py:1044 ../iw/autopart_type.py:74 ../iw/autopart_type.py:209
+#: ../iw/netconfig_dialog.py:267 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:618
 #: ../iw/raid_dialog_gui.py:657 ../iw/task_gui.py:79 ../iw/task_gui.py:145
-#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1689
-#: ../textw/partition_text.py:1695 ../textw/partition_text.py:1717
+#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1692
+#: ../textw/partition_text.py:1698 ../textw/partition_text.py:1720
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:463
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:479 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kickstart.c:279 ../loader2/lang.c:106
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:412
+#: ../loader2/driverdisk.c:422 ../loader2/driverdisk.c:486
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:369 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:316
+#: ../loader2/loader.c:366 ../loader2/loader.c:852 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:157 ../loader2/method.c:375
+#: ../loader2/method.c:449 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:91 ../loader2/urlinstall.c:142
+#: ../loader2/urlinstall.c:155 ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Gwall"
 
-#: ../fsset.py:662
+#: ../fsset.py:664
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -587,50 +591,46 @@ msgstr ""
 "\n"
 "A hoffech chi barhau heb fudo %s?"
 
-#: ../fsset.py:1303
+#: ../fsset.py:1334
 msgid "RAID Device"
 msgstr "Dyfais RAID"
 
-#: ../fsset.py:1307 ../fsset.py:1313
+#: ../fsset.py:1338 ../fsset.py:1344
 msgid "Apple Bootstrap"
 msgstr "Cychwynnydd Apple"
 
-#: ../fsset.py:1318 ../partitions.py:900
+#: ../fsset.py:1349 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "Cychwyn PReP PPC"
 
-#: ../fsset.py:1321
+#: ../fsset.py:1352
 msgid "First sector of boot partition"
 msgstr "Sector gyntaf y rhaniad cychwyn"
 
-#: ../fsset.py:1322
+#: ../fsset.py:1353
 msgid "Master Boot Record (MBR)"
 msgstr "Prif Gofnod Cychwyn (MBR)"
 
-#: ../fsset.py:1397
-#, python-format
+#: ../fsset.py:1428
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth geisio ymgychwyn cyfnewid ar y ddyfais %s.  Mae'r "
 "broblem hon yn ddifrifol, a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1426 ../packages.py:284 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:422
 msgid "Skip"
 msgstr "Hepgor"
 
-#: ../fsset.py:1426 ../upgrade.py:59 ../textw/complete_text.py:41
-msgid "Reboot"
-msgstr "Ailgychwyn"
-
-#: ../fsset.py:1447
+#: ../fsset.py:1478
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -650,11 +650,11 @@ msgstr ""
 "chi hepgor hyn, bydd yr arsefydlydd yn anwybyddu'r rhaniad yn ystod y broses "
 "arsefydlu."
 
-#: ../fsset.py:1454
+#: ../fsset.py:1485
 msgid "Reformat"
 msgstr "Ail-fformat"
 
-#: ../fsset.py:1458
+#: ../fsset.py:1489
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -673,7 +673,7 @@ msgstr ""
 "Mae hyn yn golygu fod eich system chi'n gorffwys ar hyn o bryd. Cyn "
 "uwchraddio'r system, diffoddwch hi yn hytrach na'i gorffwys."
 
-#: ../fsset.py:1466
+#: ../fsset.py:1497
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -693,13 +693,13 @@ msgstr ""
 "arsefydliad newydd ar waith, gwnewch yn siŵr y bydd yr arsefydlydd yn "
 "fformadu bob rhaniad cyfnewid."
 
-#: ../fsset.py:1476
+#: ../fsset.py:1507
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
-"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
-"Reboot to restart the system."
+"upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
 "\n"
 "\n"
@@ -707,19 +707,19 @@ msgstr ""
 "broses uwchraddio. Dewiswch Fformat er mwyn ail-fformadu'r rhaniad yn ofod "
 "cyfnewid.  Dewiswch Ail-Gychwyn er mwyn ail-gychwyn y system."
 
-#: ../fsset.py:1482 ../iw/partition_gui.py:368
+#: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Fformat"
 
-#: ../fsset.py:1489
-#, python-format
+#: ../fsset.py:1519
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "The /etc/fstab on your upgrade partition does not reference a valid swap "
 "partition.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Gwall wrth weithredoli'r ddyfais gyfnewid %s: %s\n"
 "\n"
@@ -728,14 +728,14 @@ msgstr ""
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
-#: ../fsset.py:1500
-#, python-format
+#: ../fsset.py:1530
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "This most likely means this swap partition has not been initialized.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Gwall wrth weithredoli'r ddyfais gyfnewid %s: %s\n"
 "\n"
@@ -743,93 +743,93 @@ msgstr ""
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
-#: ../fsset.py:1554
-#, python-format
+#: ../fsset.py:1584
+#, fuzzy, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
-"Press <Enter> to reboot your system"
+"Press <Enter> to exit the installer."
 msgstr ""
 "Canfuwyd blociau gwael ar y ddyfais /dev/%s. Nid ydym yn argymell eich bod "
 "yn defnyddio'r ddyfais hon.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system "
 
-#: ../fsset.py:1565
-#, python-format
+#: ../fsset.py:1595
+#, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth chwilio am flociau gwael ar %s. Mae'r broblem yma'n "
 "ddifrifol, a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1605
-#, python-format
+#: ../fsset.py:1635
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth geisio fformadu %s. Mae'r broblem yma'n ddifrifol, a "
 "ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1655
-#, python-format
+#: ../fsset.py:1685
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth geisio mudo %s. Mae'r broblem yma'n ddifrifol, a ni "
 "all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1681 ../fsset.py:1690
+#: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Man gosod annilys"
 
-#: ../fsset.py:1682
-#, python-format
+#: ../fsset.py:1712
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth geisio creu %s.  Nid yw rhyw elfen o'r llwybr yma'n "
 "gyfeiriadur. Mae hwn yn wall angheuol a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1691
-#, python-format
+#: ../fsset.py:1721
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Digwyddodd gwall wrth geisio creu %s: %s.  Mae hwn yn wall angheuol a ni all "
 "yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
-#: ../fsset.py:1704
+#: ../fsset.py:1734
 msgid "Unable to mount filesystem"
 msgstr "Methu gosod y system ffeil"
 
-#: ../fsset.py:1705
+#: ../fsset.py:1735
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -838,20 +838,20 @@ msgstr ""
 "Roedd gwall wrth osod dyfais %s yn %s.  Gallwch barhau â'r gosod, ond gall "
 "fod problemau."
 
-#: ../fsset.py:1713 ../image.py:93 ../image.py:450 ../kickstart.py:999
-#: ../kickstart.py:1037 ../partedUtils.py:1155 ../yuminstall.py:719
-#: ../iw/partition_gui.py:1011
+#: ../fsset.py:1743 ../image.py:93 ../image.py:453 ../kickstart.py:1008
+#: ../kickstart.py:1046 ../partedUtils.py:1179 ../upgrade.py:59
+#: ../yuminstall.py:754 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "_Parhau"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1751
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Devices in /etc/fstab should be specified by label, not by device name.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Gwall wrth osod y ddyfais %s ar %s: %s\n"
 "\n"
@@ -859,14 +859,14 @@ msgstr ""
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
-#: ../fsset.py:1728
-#, python-format
+#: ../fsset.py:1758
+#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "This most likely means this partition has not been formatted.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Gwall wrth osod y ddyfais %s ar %s: %s\n"
 "\n"
@@ -874,13 +874,14 @@ msgstr ""
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
-#: ../fsset.py:1748
+#: ../fsset.py:1778
+#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
 "This is most likely means that your fstab is incorrect.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Methu dod o hyd i gofnod / .\n"
 "\n"
@@ -888,11 +889,11 @@ msgstr ""
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
-#: ../fsset.py:2403
+#: ../fsset.py:2432
 msgid "Duplicate Labels"
 msgstr "Labeli Dyblyg"
 
-#: ../fsset.py:2404
+#: ../fsset.py:2433
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -906,12 +907,12 @@ msgstr ""
 "Trwsiwch y broblem yma ac ail-ddechreuwch y broses arsefydlu, os gwelwch yn "
 "dda."
 
-#: ../fsset.py:2413
+#: ../fsset.py:2442
 #, fuzzy
 msgid "Invalid Label"
 msgstr "Label Cychwyn Annilys"
 
-#: ../fsset.py:2414
+#: ../fsset.py:2443
 #, fuzzy, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -923,11 +924,11 @@ msgstr ""
 "Trwsiwch y broblem yma ac ail-ddechreuwch y broses arsefydlu, os gwelwch yn "
 "dda."
 
-#: ../fsset.py:2672
+#: ../fsset.py:2701
 msgid "Formatting"
 msgstr "Yn fformadu"
 
-#: ../fsset.py:2673
+#: ../fsset.py:2702
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Yn fformadu system ffeil %s..."
@@ -980,24 +981,24 @@ msgstr ""
 msgid "Fix"
 msgstr "Trwsio"
 
-#: ../gui.py:235 ../rescue.py:203 ../text.py:441 ../upgrade.py:59
+#: ../gui.py:235 ../rescue.py:217 ../text.py:441
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:411
 msgid "Yes"
 msgstr "Ie"
 
-#: ../gui.py:236 ../rescue.py:203 ../rescue.py:205 ../text.py:442
+#: ../gui.py:236 ../rescue.py:217 ../rescue.py:219 ../text.py:442
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/loader.c:411
 msgid "No"
 msgstr "Nage"
 
-#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:93
-#: ../loader2/net.c:325 ../loader2/net.c:584 ../loader2/net.c:692
-#: ../loader2/net.c:792 ../loader2/net.c:800 ../loader2/net.c:1207
-#: ../loader2/net.c:1213
+#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:97
+#: ../loader2/net.c:329 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1193
+#: ../loader2/net.c:1199
 msgid "Retry"
 msgstr "Ail-geisio"
 
@@ -1009,8 +1010,8 @@ msgstr "Anwybyddu"
 #: ../partIntfHelpers.py:529 ../text.py:106 ../text.py:107 ../text.py:417
 #: ../text.py:419 ../text.py:446 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:366 ../loader2/loader.c:351
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:282
+#: ../loader2/kickstart.c:366 ../loader2/loader.c:355
 msgid "Cancel"
 msgstr "Diddymu"
 
@@ -1055,25 +1056,34 @@ msgstr ""
 "\n"
 "enwDosbarth = %s"
 
-#: ../gui.py:1109 ../gui.py:1114 ../packages.py:333 ../packages.py:338
+#: ../gui.py:1109 ../harddrive.py:80 ../harddrive.py:126 ../image.py:526
+#: ../packages.py:331 ../packages.py:336
 msgid "_Exit"
 msgstr "_Gadael"
 
-#: ../gui.py:1110 ../yuminstall.py:605
+#: ../gui.py:1110 ../harddrive.py:81 ../image.py:527 ../yuminstall.py:445
+#: ../yuminstall.py:748 ../yuminstall.py:796 ../yuminstall.py:1015
 msgid "_Retry"
 msgstr "_Ail-geisio"
 
-#: ../gui.py:1113 ../packages.py:337
+#: ../gui.py:1113 ../packages.py:335
 msgid "The installer will now exit..."
 msgstr "Mi wnaiff yr arsefydlydd orffen yn awr..."
 
-#: ../gui.py:1116 ../packages.py:340
+#: ../gui.py:1116 ../packages.py:338
 msgid "Your system will now be rebooted..."
 msgstr "Ailgychwynnir eich system nawr..."
 
-#: ../gui.py:1119 ../packages.py:342
-msgid "Rebooting System"
-msgstr "Yn Ailgychwyn y System"
+#: ../gui.py:1117 ../image.py:93 ../packages.py:339 ../partedUtils.py:1178
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
+msgid "_Reboot"
+msgstr "_Ailgychwyn"
+
+#: ../gui.py:1119
+#, fuzzy
+msgid "Exiting"
+msgstr "Gadael"
 
 #: ../gui.py:1186
 #, python-format
@@ -1088,14 +1098,14 @@ msgstr "Methu llwytho'r bar teitl"
 msgid "Install Window"
 msgstr "Ffenestr Arsefydlu"
 
-#: ../harddrive.py:44 ../image.py:146 ../image.py:480
-#, python-format
+#: ../harddrive.py:44 ../image.py:146 ../image.py:483
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
 "all the required media.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1107,27 +1117,23 @@ msgstr ""
 "bydd angen ail-arsefydlu.\n"
 "\n"
 
-#: ../harddrive.py:71 ../image.py:513
+#: ../harddrive.py:71 ../image.py:516
 msgid "Missing ISO 9660 Image"
 msgstr "Delwedd ISO 9660 ar goll"
 
 #: ../harddrive.py:72
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
 "\n"
-"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
 "Ceisiodd yr arsefydlydd osod y ddelwedd  #%s, ond methodd ei ganfod ar y "
 "ddisg galed.\n"
 "Copïwch y ddelwedd hon i'r ddisg galed a chliciwch Ail-Geisio. Cliciwch Ail-"
 "Gychwyn i roi terfyn sydyn i'r broses arsefydlu."
-
-#: ../harddrive.py:81 ../image.py:524
-msgid "Re_try"
-msgstr "_Ail-geisio"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
@@ -1138,7 +1144,7 @@ msgstr ""
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
-"there was a problem mounting a partition.  Click reboot to abort the "
+"there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
 
@@ -1147,13 +1153,13 @@ msgid "Required Install Media"
 msgstr "Cyfrwng Arsefydlu Angenrheidiol"
 
 #: ../image.py:85
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The software you have selected to install will require the following CDs:\n"
+"The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you "
-"need to abort the installation and reboot please select \"Reboot\"."
+"need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "Bydd angen y CDdau canlynol ar y feddalwedd y dewisoch ei arsefydlu:\n"
 "\n"
@@ -1161,30 +1167,30 @@ msgstr ""
 "Sicrhewch fod gennych y rhain yn barod cyn parhau â'r arsefydliad.  Os oes "
 "angen i chi erthylu'r arsefydliad ac ailgychwyn, dewiswch \"Ailgychwyn\"."
 
-#: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
-#: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
+#: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Yn Ôl"
 
-#: ../image.py:136 ../urlinstall.py:212
-#, python-format
+#: ../image.py:136 ../urlinstall.py:207
+#, fuzzy, python-format
 msgid ""
-"An error occurred unmounting the CD.  Please make sure you're not accessing %"
-"s from the shell on tty2 and then click OK to retry."
+"An error occurred unmounting the disc.  Please make sure you're not "
+"accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "Digwyddodd gwall wrth ddadosod y CDd.  Sicrhewch nad ydych yn cyrchu %s o'r "
 "plisgyn ar tty2 wedyn cliciwch Iawn i ail-geisio."
 
-#: ../image.py:170 ../urlinstall.py:103
+#: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
 msgstr "Yn Copïo Ffeil"
 
-#: ../image.py:171 ../urlinstall.py:104
+#: ../image.py:171 ../urlinstall.py:103
 msgid "Transferring install image to hard drive..."
 msgstr "Yn trawsgludo delwedd arsefydlu i'r ddisg galed..."
 
-#: ../image.py:181 ../urlinstall.py:114
+#: ../image.py:181 ../urlinstall.py:113
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1193,7 +1199,8 @@ msgstr ""
 "debyg nad oes gennych le disg ar ôl."
 
 #: ../image.py:270
-msgid "Change CDROM"
+#, fuzzy
+msgid "Change Disc"
 msgstr "Newid CDd-ROM"
 
 #: ../image.py:271
@@ -1201,27 +1208,29 @@ msgstr "Newid CDd-ROM"
 msgid "Please insert %s disc %d to continue."
 msgstr "Rhowch %s ddisg %d i mewn i barhau."
 
-#: ../image.py:306
-msgid "Wrong CDROM"
+#: ../image.py:305
+#, fuzzy
+msgid "Wrong Disc"
 msgstr "CDd-ROM Anghywir"
 
-#: ../image.py:307
-#, python-format
-msgid "That's not the correct %s CDROM."
+#: ../image.py:306
+#, fuzzy, python-format
+msgid "That's not the correct %s disc."
 msgstr "Nid y CDd-ROM %s cywir yw hwnna."
 
-#: ../image.py:313
-msgid "Unable to access the CDROM."
+#: ../image.py:312
+#, fuzzy
+msgid "Unable to access the disc."
 msgstr "Methu cyrchu'r CDROM."
 
-#: ../image.py:366
-#, python-format
+#: ../image.py:369
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
 "packages.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1233,24 +1242,24 @@ msgstr ""
 "bydd angen ail-arsefydlu.\n"
 "\n"
 
-#: ../image.py:440
+#: ../image.py:443
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
 "\n"
-"It is recommended that you reboot and abort your installation, but you can "
+"It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: ../image.py:514
-#, python-format
+#: ../image.py:517
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
-"Click Reboot to abort the installation."
+"Click Exit to abort the installation."
 msgstr ""
 "Ceisiodd yr arsefydlydd osod delwedd #%s, ond methodd ei chanfod ar y "
 "gweinydd.\n"
@@ -1258,11 +1267,11 @@ msgstr ""
 "Copïwch y ddelwedd hon i lwybr rhannu'r gweinydd pell a chliciwch Ail-"
 "Geisio. Cliciwch Ail-Gychwyn i roi'r gorau i'r arsefydliad."
 
-#: ../installclass.py:66
+#: ../installclass.py:67
 msgid "Install on System"
 msgstr "Arsefydlu ar System"
 
-#: ../iscsi.py:197 ../iscsi.py:198
+#: ../iscsi.py:199 ../iscsi.py:200
 msgid "Initializing iSCSI initiator"
 msgstr "Yn ymgychwyn dechreuwr iSCSI"
 
@@ -1271,35 +1280,35 @@ msgid "Scriptlet Failure"
 msgstr "Methiant Sgriptyn"
 
 #: ../kickstart.py:76
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
-"Press the OK button to reboot your system."
+"Press the OK button to exit the installer."
 msgstr ""
 "Bu gwall wrth redeg y sgriptyn.  Gallwch weld yr allbwn yn %s.  Gwall "
 "angheuol yw hwn ac fe erthylir eich arsefydliad.\n"
 "\n"
 "Gwasgwch y botwm Iawn i ailgychwyn eich system."
 
-#: ../kickstart.py:942 ../kickstart.py:959
+#: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
 msgstr "Yn rhedeg..."
 
-#: ../kickstart.py:943
+#: ../kickstart.py:952
 msgid "Running post-install scripts"
 msgstr "Rhedeg sgriptiau ôl-arsefydlu"
 
-#: ../kickstart.py:960
+#: ../kickstart.py:969
 msgid "Running pre-install scripts"
 msgstr "Rhedeg sgriptiau cyn-arsefydlu"
 
-#: ../kickstart.py:991
+#: ../kickstart.py:1000
 msgid "Missing Package"
 msgstr "Pecyn ar Goll"
 
-#: ../kickstart.py:992
+#: ../kickstart.py:1001
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1308,16 +1317,16 @@ msgstr ""
 "Fe benodoch y dylid arsefydlu'r pecyn '%s'. Nid yw'r pecyn yma'n bodoli. A "
 "hoffech barhau, neu erthylu'ch arsefydliad?"
 
-#: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
-#: ../yuminstall.py:721
+#: ../kickstart.py:1007 ../kickstart.py:1045 ../yuminstall.py:748
+#: ../yuminstall.py:751
 msgid "_Abort"
 msgstr "_Erthylu"
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1037
 msgid "Missing Group"
 msgstr "Grŵp Coll"
 
-#: ../kickstart.py:1029
+#: ../kickstart.py:1038
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1326,52 +1335,38 @@ msgstr ""
 "Rydych chi wedi mynnu arsefydlu'r grŵp '%s'. Nid yw'r grŵp hwn yn bodoli. "
 "Hoffech chi barhau, neu adael yr arsefydlu?"
 
-#: ../livecd.py:79
+#: ../livecd.py:93
 #, fuzzy
 msgid "Unable to find image"
 msgstr "Methu canfod delwedd arsefydlu %s"
 
-#: ../livecd.py:80
+#: ../livecd.py:94
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:84 ../livecd.py:329
+#: ../livecd.py:98
 #, fuzzy
 msgid "Exit installer"
 msgstr "Arsefydlydd %s"
 
-#: ../livecd.py:160
+#: ../livecd.py:174
 #, fuzzy
 msgid "Copying live image to hard drive."
 msgstr "Yn trawsgludo delwedd arsefydlu i'r ddisg galed..."
 
-#: ../livecd.py:189
+#: ../livecd.py:203
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "arsefydliad %s %s"
 
-#: ../livecd.py:190
+#: ../livecd.py:204
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymryd sawl munud..."
-
-#: ../livecd.py:328 ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
-#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
-#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
-#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:1002 ../loader2/loader.c:1024
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:282 ../loader2/urls.c:470
-msgid "Back"
-msgstr "Yn Ôl"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1411,26 +1406,26 @@ msgstr "Nid yw '%s' yn gyfeiriad IPv6 dilys."
 msgid "'%s' is an invalid IP address."
 msgstr "Nid yw '%s' yn gyfeiriad IPv6 dilys."
 
-#: ../packages.py:258
+#: ../packages.py:256
 #, fuzzy
 msgid "Invalid Key"
 msgstr "Enw Gwesteiwr Annilys"
 
-#: ../packages.py:259
+#: ../packages.py:257
 #, fuzzy
 msgid "The key you entered is invalid."
 msgstr "Nid yw'r gwerth a roddoch yn rif dilys."
 
-#: ../packages.py:287
+#: ../packages.py:285
 #, fuzzy
 msgid "_Skip"
 msgstr "Hepgor"
 
-#: ../packages.py:319
+#: ../packages.py:317 ../packages.py:340
 msgid "Warning! This is pre-release software!"
 msgstr "Rhybudd! Meddalwedd cynderfynol yw hwn!"
 
-#: ../packages.py:320
+#: ../packages.py:318
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1457,7 +1452,7 @@ msgstr ""
 "\n"
 "a rhowch adroddiad ar gyfer y cynnyrch '%s'.\n"
 
-#: ../packages.py:333
+#: ../packages.py:331
 msgid "_Install anyway"
 msgstr "_Arsefydlu beth bynnag"
 
@@ -1505,16 +1500,16 @@ msgstr "_Anwybyddu disc"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:890
+#: ../partedUtils.py:911
 msgid "Initializing"
 msgstr "Yn ymgychwyn"
 
-#: ../partedUtils.py:891
+#: ../partedUtils.py:912
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Arhoswch tra fformatir y gyrrydd %s...\n"
 
-#: ../partedUtils.py:1053
+#: ../partedUtils.py:1076
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1535,7 +1530,7 @@ msgstr ""
 "\n"
 "A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
 
-#: ../partedUtils.py:1102
+#: ../partedUtils.py:1125
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1555,7 +1550,7 @@ msgstr ""
 "\n"
 "A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
 
-#: ../partedUtils.py:1144
+#: ../partedUtils.py:1168
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1564,11 +1559,20 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 
-#: ../partedUtils.py:1242
+#: ../partedUtils.py:1184
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
+"the Linux kernel does not allow for more than 15 partitions at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+
+#: ../partedUtils.py:1276
 msgid "No Drives Found"
 msgstr "Ni Chanfuwyd Gyriannau"
 
-#: ../partedUtils.py:1243
+#: ../partedUtils.py:1277
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2113,42 +2117,42 @@ msgid ""
 msgstr ""
 "Rhaid i gyfrol resymegol fod yn fwy na maint ystod corfforol grŵp y gyfrol."
 
-#: ../rescue.py:129
+#: ../rescue.py:146
 msgid "Starting Interface"
 msgstr "Yn Dechrau Rhyngwyneb"
 
-#: ../rescue.py:130
+#: ../rescue.py:147
 #, python-format
 msgid "Attempting to start %s"
 msgstr "Yn ceisio dechrau %s"
 
-#: ../rescue.py:175
+#: ../rescue.py:189
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "Pan ydych wedi gorffen, gadewch o'r plisgyn ac fe ailgychwynna’ch system."
 
-#: ../rescue.py:201
+#: ../rescue.py:215
 msgid "Setup Networking"
 msgstr "Gosod Rhwydweithio"
 
-#: ../rescue.py:202
+#: ../rescue.py:216
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "A ydych am ddechrau'r rhyngwynebau rhwydwaith ar y system yma?"
 
-#: ../rescue.py:243 ../text.py:598
+#: ../rescue.py:256 ../text.py:598
 msgid "Cancelled"
 msgstr "Diddymwyd"
 
-#: ../rescue.py:244 ../text.py:599
+#: ../rescue.py:257 ../text.py:599
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Ni allaf fynd at y cam blaenorol oddi yma. Bydd rhaid i chi geisio eto."
 
-#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
+#: ../rescue.py:289 ../rescue.py:356 ../rescue.py:364 ../rescue.py:445
 msgid "Rescue"
 msgstr "Achub"
 
-#: ../rescue.py:277
+#: ../rescue.py:290
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2171,29 +2175,29 @@ msgstr ""
 "y cam yma ac fe ewch yn syth at blisgyn orchymyn.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:55
+#: ../rescue.py:300 ../iw/partition_gui.py:567 ../textw/network_text.py:55
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Continue"
 msgstr "Parhau"
 
-#: ../rescue.py:287 ../rescue.py:292
+#: ../rescue.py:300 ../rescue.py:305
 msgid "Read-Only"
 msgstr "Darllen-yn-Unig"
 
-#: ../rescue.py:318
+#: ../rescue.py:331
 msgid "System to Rescue"
 msgstr "System i'w Hachub"
 
-#: ../rescue.py:319
+#: ../rescue.py:332
 msgid "What partition holds the root partition of your installation?"
 msgstr "Pa raniad sy'n dal rhaniad gwraidd eich arsefydliad?"
 
-#: ../rescue.py:321 ../rescue.py:325 ../text.py:572 ../text.py:574
+#: ../rescue.py:334 ../rescue.py:338 ../text.py:572 ../text.py:574
 msgid "Exit"
 msgstr "Gadael"
 
-#: ../rescue.py:344
+#: ../rescue.py:357
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2203,7 +2207,7 @@ msgstr ""
 "Gwasgwch return i gael plisgyn y gallwch fsck ohono a gosod eich rhaniadau.  "
 "Fe ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
-#: ../rescue.py:352
+#: ../rescue.py:365
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2224,7 +2228,7 @@ msgstr ""
 "\n"
 "Fe ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
-#: ../rescue.py:435
+#: ../rescue.py:446
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2239,11 +2243,11 @@ msgstr ""
 "Gwasgwch <return> i gael plisgyn. Fe ailgychwynna'r system yn awtomatig pan "
 "adewch y plisgyn."
 
-#: ../rescue.py:441
+#: ../rescue.py:452
 msgid "Rescue Mode"
 msgstr "Modd Achub"
 
-#: ../rescue.py:442
+#: ../rescue.py:453
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2251,7 +2255,7 @@ msgstr ""
 "Nid oes gennych unrhyw raniadau Linux. Gwasgwch return i gael plisgyn. Fe "
 "ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
-#: ../rescue.py:455
+#: ../rescue.py:466
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Mae'ch system wedi'i osod o dan y cyfeiriadur %s."
@@ -2314,7 +2318,7 @@ msgstr ""
 msgid "Save Crash Dump"
 msgstr "Cadw Tomen Chwaliad"
 
-#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:153
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Croeso i %s"
@@ -2448,18 +2452,18 @@ msgstr "Cyfeiriaduron Annilys"
 msgid "%s not found"
 msgstr "%s heb ei ganfod"
 
-#: ../urlinstall.py:38
+#: ../urlinstall.py:37
 msgid "Connecting..."
 msgstr "Yn cysylltu..."
 
-#: ../urlinstall.py:77
-#, python-format
+#: ../urlinstall.py:76
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
 "and try using a different one.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -2597,142 +2601,151 @@ msgstr "Mae'r gweinydd VNC nawr yn rhedeg."
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Yn ceisio cysylltu â dibynnydd vnc ar y gwesteiwr %s..."
 
-#: ../vnc.py:309
+#: ../vnc.py:311
 msgid "Connected!"
 msgstr "Wedi Cysylltu!"
 
-#: ../vnc.py:314
+#: ../vnc.py:316
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Yn rhoi'r gorau i geisio cysylltu ar ôl 50 cynnig!\n"
 
-#: ../vnc.py:316
+#: ../vnc.py:318
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Cysylltwch eich dibynnydd vnc â %s â llaw i ddechrau'r arsefydliad."
 
-#: ../vnc.py:318
+#: ../vnc.py:320
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 "Cysylltwch eich dibynnydd vnc â llaw i ddechrau'r arsefydliad, os gwelwch yn "
 "dda."
 
-#: ../vnc.py:322
+#: ../vnc.py:324
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Ceisir cysylltu eto mewn 15 eiliad..."
 
-#: ../vnc.py:330
+#: ../vnc.py:332
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Cysylltwch â %s i ddechrau'r arsefydliad, os gwelwch yn dda..."
 
-#: ../vnc.py:332
+#: ../vnc.py:334
 msgid "Please connect to begin the install..."
 msgstr "Cysylltwch i ddechrau'r arsefydliad, os gwelwch yn dda..."
 
-#: ../yuminstall.py:73
+#: ../yuminstall.py:62
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../yuminstall.py:76
+#: ../yuminstall.py:65
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../yuminstall.py:79
+#: ../yuminstall.py:68
 #, python-format
 msgid "%s Byte"
 msgstr "%s Beit"
 
-#: ../yuminstall.py:81
+#: ../yuminstall.py:70
 #, python-format
 msgid "%s Bytes"
 msgstr "%s Beit"
 
-#: ../yuminstall.py:129
+#: ../yuminstall.py:117
 msgid "Processing"
 msgstr "Yn prosesu"
 
-#: ../yuminstall.py:130
+#: ../yuminstall.py:118
 msgid "Preparing transaction from installation source..."
 msgstr "Wrthi'n paratoi'r trafodyn o'r ffynhonnell arsefydlu..."
 
-#: ../yuminstall.py:160
+#: ../yuminstall.py:148
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "Wrthi'n arsefydlu %s\n"
 
-#: ../yuminstall.py:194
+#: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:528 ../yuminstall.py:529
+#: ../yuminstall.py:195
+msgid "Finishing upgrade"
+msgstr ""
+
+#: ../yuminstall.py:196
+#, fuzzy
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymryd sawl munud..."
+
+#: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
+#: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
+msgid "Re_boot"
+msgstr "Ail_gychwyn"
+
+#: ../yuminstall.py:598 ../yuminstall.py:599
 msgid "file conflicts"
 msgstr "gwrthdaro ffeiliau"
 
-#: ../yuminstall.py:530
+#: ../yuminstall.py:600
 msgid "older package(s)"
 msgstr "pecyn(nau) hŷn"
 
-#: ../yuminstall.py:531
+#: ../yuminstall.py:601
 msgid "insufficient disk space"
 msgstr "prinder gofod ar y ddisg"
 
-#: ../yuminstall.py:532
+#: ../yuminstall.py:602
 msgid "insufficient disk inodes"
 msgstr "printer inodes ar y ddisg"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:603
 msgid "package conflicts"
 msgstr "pecynnau'n gwrthdaro"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:604
 msgid "package already installed"
 msgstr "pecyn eisoes wedi ei arsefydlu"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:605
 msgid "required package"
 msgstr "pecyn angenrheidiol"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:606
 msgid "package for incorrect arch"
 msgstr "pecyn wedi'i grynhoi ar adeiladwaith gwahanol"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:607
 msgid "package for incorrect os"
 msgstr "pecyn o'r system weithredu anghywir"
 
-#: ../yuminstall.py:551
+#: ../yuminstall.py:621
 msgid "You need more space on the following file systems:\n"
 msgstr "Mae angen mwy o le arnoch ar y systemau ffeil canlynol:\n"
 
-#: ../yuminstall.py:567
+#: ../yuminstall.py:637
 msgid "Error running transaction"
 msgstr "Gwall wrth redeg trafodyn"
 
-#: ../yuminstall.py:568
+#: ../yuminstall.py:638
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Roedd gwall wrth redeg eich trafodyn, am y rheswm/rhesymau canlynol: %s"
 
-#: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
-#: ../yuminstall.py:931
-msgid "Re_boot"
-msgstr "Ail_gychwyn"
-
-#: ../yuminstall.py:699
+#: ../yuminstall.py:733
 msgid "Retrieving installation information..."
 msgstr "Wrthi'n cyrchu gwybodaeth arsefydlu..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:735
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Wrthi'n cyrchu gwybodaeth arsefydlu ar gyfer %s..."
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:763 ../yuminstall.py:1020
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2742,27 +2755,28 @@ msgstr ""
 "Methu darllen metadata'r pecyn. Gall fod cyfeiriadur repodata ar goll. "
 "Gwiriwch fod eich coeden arsefydlu wedi ei chynhyrchu'n gywir.  %s"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:803
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:836
 msgid "Uncategorized"
 msgstr "Heb Gategoreiddio"
 
-#: ../yuminstall.py:925
-#, python-format
+#: ../yuminstall.py:1045
+#, fuzzy, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
-"do not have enough available.  You can change your selections or reboot."
+"do not have enough available.  You can change your selections or exit the "
+"installer."
 msgstr ""
 "Mae angen %d MB o ofod gwag er mwyn arsefydlu'r pecynnau yr ydych chi wedi "
 "ei ddewis. Does dim digon o ofod yn weddill.  Gellwch newid eich dewisiadau, "
 "neu ail-gychwyn."
 
-#: ../yuminstall.py:1086
+#: ../yuminstall.py:1206
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2772,39 +2786,39 @@ msgstr ""
 "uwchraddio i'r fersiwn yma o %s.  Ydych chi am fynd ymlaen a'r broses "
 "uwchraddio?"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1235
 msgid "Install Starting"
 msgstr "Arsefydliad yn Dechrau"
 
-#: ../yuminstall.py:1115
+#: ../yuminstall.py:1236
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymryd sawl munud..."
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1252
 msgid "Post Upgrade"
 msgstr "Wedi'r Uwchraddio"
 
-#: ../yuminstall.py:1132
+#: ../yuminstall.py:1253
 msgid "Performing post upgrade configuration..."
 msgstr "Yn gweithredu cyfluniad wedi'r arsefydlu..."
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1255
 msgid "Post Install"
 msgstr "Wedi'r Arsefydlu"
 
-#: ../yuminstall.py:1135
+#: ../yuminstall.py:1256
 msgid "Performing post install configuration..."
 msgstr "Yn gweithredu cyfluniad wedi'r arsefydlu..."
 
-#: ../yuminstall.py:1332
+#: ../yuminstall.py:1473
 msgid "Installation Progress"
 msgstr "Cynnydd yr Arsefydlu"
 
-#: ../yuminstall.py:1367
+#: ../yuminstall.py:1508
 msgid "Dependency Check"
 msgstr "Gwiriad Dibyniaeth"
 
-#: ../yuminstall.py:1368
+#: ../yuminstall.py:1509
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Yn gwirio dibyniaethau mewn pecynnau a ddewiswyd i'w harsefydlu..."
 
@@ -2873,41 +2887,41 @@ msgstr "_Cyfrinair Gwraidd:"
 msgid "_Confirm: "
 msgstr "Cadarn_hau: "
 
-#: ../iw/autopart_type.py:154
+#: ../iw/autopart_type.py:155
 msgid "Invalid Initiator Name"
 msgstr "Enw Dechreuwr Annilys"
 
-#: ../iw/autopart_type.py:155
+#: ../iw/autopart_type.py:156
 #, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Rhaid i chi roi enw dechreuwr sy'n fwy na sero nod o hyd."
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:178
 msgid "Error with Data"
 msgstr "Gwall yn y Data"
 
-#: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
+#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Tynnu pob rhaniad o'r gyriannau sydd wedi eu dewis a chreu'r cynllun "
 "rhagosodedig."
 
-#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
+#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
 "Tynnu pob rhaniad Linux o'r gyriannau sydd wedi eu dewis a chreu'r cynllun "
 "rhagosodedig."
 
-#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
+#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Defnyddio'r gofod gwag ar y gyriannau sydd wedi'u dewis, i greu'r cynllun "
 "rhagosodedig."
 
-#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
+#: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
 #, fuzzy
 msgid "Create custom layout"
 msgstr "Creu cynllun addasedig."
@@ -3183,11 +3197,11 @@ msgstr "Uwchraddir y system ganlynol sydd wedi ei harsefydlu eisoes:"
 msgid "Unknown Linux system"
 msgstr "System Linux anhysbys"
 
-#: ../iw/language_gui.py:24 ../textw/language_text.py:41
+#: ../iw/language_gui.py:24 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "Dewis Iaith"
 
-#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:38 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "Pa iaith hoffech ei defnyddio yn ystod y broses arsefydlu?"
 
@@ -3576,14 +3590,6 @@ msgstr "_Efelychu 3 botwm"
 msgid "Select the appropriate mouse for the system."
 msgstr "Dewiswch y llygoden briodol ar gyfer y system."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
-#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
-#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
-#: ../textw/network_text.py:47 ../textw/network_text.py:52
-#: ../textw/network_text.py:58
-msgid "Error With Data"
-msgstr "Gwall â Data"
-
 #: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
@@ -3593,34 +3599,64 @@ msgstr ""
 "Digwyddodd gwall wrth drosi'r gwerth a roddwyd ar gyfer \"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155
+#: ../iw/netconfig_dialog.py:139 ../iw/netconfig_dialog.py:148
+#: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:150
+#: ../iw/network_gui.py:154 ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:47 ../textw/network_text.py:52
+#: ../textw/network_text.py:58
+msgid "Error With Data"
+msgstr "Gwall â Data"
+
+#: ../iw/netconfig_dialog.py:147 ../iw/network_gui.py:155
+#: ../textw/network_text.py:48
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
+msgstr "Mae gofyn am werth i'r maes \"%s\"."
+
+#: ../iw/netconfig_dialog.py:169
 msgid "Dynamic IP"
 msgstr "IP Dynamig"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:831
+#: ../iw/netconfig_dialog.py:170 ../loader2/net.c:413 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Yn anfon cais am wybodaeth IP ar gyfer %s..."
 
-#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:88
-#: tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:191 ../iw/netconfig_dialog.py:194
+#: ../textw/network_text.py:88 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "Cyfeiriad IP"
 
-#: ../iw/netconfig_dialog.py:182
+#: ../iw/netconfig_dialog.py:201 ../iw/netconfig_dialog.py:204
 msgid "Netmask"
 msgstr "Masg Rhwyd"
 
-#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:524
+#: ../iw/netconfig_dialog.py:211
+#, fuzzy
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "Rhaid i'r ffeil gyfnewid fod rhwng 1 a 2000 MB o faint."
+
+#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
+#: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
+#, fuzzy
+msgid "IPv4 Network Mask"
+msgstr "Masg IPv4/Rhwyd"
+
+#: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "Porth"
 
-#: ../iw/netconfig_dialog.py:195
+#: ../iw/netconfig_dialog.py:245
 msgid "Nameserver"
 msgstr "Gweinydd Enwau"
 
-#: ../iw/netconfig_dialog.py:214
+#: ../iw/netconfig_dialog.py:255
+#, fuzzy
+msgid "Error configuring network device:"
+msgstr "Roedd gwall wrth gyflunio eich rhyngwyneb rhwydwaith."
+
+#: ../iw/netconfig_dialog.py:268
 #, fuzzy
 msgid "Error configuring network device"
 msgstr "Roedd gwall wrth gyflunio eich rhyngwyneb rhwydwaith."
@@ -3666,7 +3702,7 @@ msgstr ""
 "Nid ydych wedi penodi'r maes \"%s\".  Yn dibynnu ar eich amgylchedd "
 "rhwydwaith gall hyn achosi problemau nes ymlaen."
 
-#: ../iw/network_gui.py:151 ../textw/network_text.py:813
+#: ../iw/network_gui.py:151 ../textw/network_text.py:817
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3677,18 +3713,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:155 ../textw/network_text.py:48
-#, fuzzy, python-format
-msgid "A value is required for the field %s."
-msgstr "Mae gofyn am werth i'r maes \"%s\"."
-
 #: ../iw/network_gui.py:158 ../textw/network_text.py:38
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "Gwall â Data"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
-#: ../textw/network_text.py:587 ../textw/network_text.py:591
+#: ../textw/network_text.py:590 ../textw/network_text.py:594
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
@@ -3777,7 +3808,7 @@ msgstr "Anhysbys"
 msgid "Hardware address: "
 msgstr "Cyfeiriad caledwedd:"
 
-#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:792
+#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Protocol ar Goll"
 
@@ -3787,7 +3818,7 @@ msgid "You must select at least IPv4 or IPv6 support."
 msgstr "Rhaid i chi ddewis un protocol o leiaf (IPv4 neu IPv6) ar gyfer DHCP."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
-#: ../textw/network_text.py:69 ../loader2/net.c:93
+#: ../textw/network_text.py:69 ../loader2/net.c:97
 msgid "Invalid Prefix"
 msgstr ""
 
@@ -4423,15 +4454,15 @@ msgstr "Gyriant/Gyriannau Targed:"
 msgid "Drives"
 msgstr "Gyriannau"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
+#: ../iw/release_notes.py:156 ../iw/release_notes.py:161
 msgid "Release notes are missing.\n"
 msgstr "Mae'r nodiadau rhyddhau ar goll.\n"
 
-#: ../iw/release_notes.py:236
+#: ../iw/release_notes.py:241
 msgid "Release Notes"
 msgstr "Nodiadau Rhyddhau"
 
-#: ../iw/release_notes.py:239
+#: ../iw/release_notes.py:244
 msgid "Unable to load file!"
 msgstr "Methu llwytho ffeil!"
 
@@ -4484,25 +4515,25 @@ msgstr ""
 msgid "Time Zone Selection"
 msgstr "Dewis Cylchfa Amser"
 
-#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:106
+#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:108
 msgid "Upgrade Boot Loader Configuration"
 msgstr "Uwchraddio Cyfluniad Cychwynnydd"
 
-#: ../iw/upgrade_bootloader_gui.py:95
+#: ../iw/upgrade_bootloader_gui.py:97
 msgid "_Update boot loader configuration"
 msgstr "_Uwchraddio Cyfluniad Cychwynnydd"
 
-#: ../iw/upgrade_bootloader_gui.py:96
+#: ../iw/upgrade_bootloader_gui.py:98
 msgid "This will update your current boot loader."
 msgstr "Bydd hyn yn uwchraddio'ch cychwynnydd cyfredol."
 
-#: ../iw/upgrade_bootloader_gui.py:100 ../textw/upgrade_bootloader_text.py:78
+#: ../iw/upgrade_bootloader_gui.py:102 ../textw/upgrade_bootloader_text.py:80
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
 
-#: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
+#: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
@@ -4510,7 +4541,7 @@ msgstr ""
 "Methodd yr arsefydlydd ganfod y cychwynnydd sydd mewn defnydd ar eich system "
 "yn gyfredol."
 
-#: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
+#: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
@@ -4518,15 +4549,15 @@ msgstr ""
 "Mae'r arsefydlydd wedi canfod y cychwynnydd %s wedi ei arsefydlu ar %s ar "
 "hyn o bryd."
 
-#: ../iw/upgrade_bootloader_gui.py:114
+#: ../iw/upgrade_bootloader_gui.py:116
 msgid "This is the recommended option."
 msgstr "Dyma'r dewis a argymhellir."
 
-#: ../iw/upgrade_bootloader_gui.py:119
+#: ../iw/upgrade_bootloader_gui.py:121
 msgid "_Create new boot loader configuration"
 msgstr "_Creu cyfluniad cychwynnydd newydd"
 
-#: ../iw/upgrade_bootloader_gui.py:121
+#: ../iw/upgrade_bootloader_gui.py:123
 #, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
@@ -4535,11 +4566,11 @@ msgstr ""
 "Bydd hyn yn caniatáu i chi greu cyfluniad cychwynnydd newydd.  Os ydych am "
 "newid rhwng cychwynnyddion, dylech ddewis hwn."
 
-#: ../iw/upgrade_bootloader_gui.py:128
+#: ../iw/upgrade_bootloader_gui.py:130
 msgid "_Skip boot loader updating"
 msgstr "_Hepgor diweddaru cychwynnydd"
 
-#: ../iw/upgrade_bootloader_gui.py:129
+#: ../iw/upgrade_bootloader_gui.py:131
 #, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
@@ -4548,7 +4579,7 @@ msgstr ""
 "Ni fydd hyn yn gwneud unrhyw newidiadau i'ch cyfluniad cychwynnydd.  Os "
 "ydych yn defnyddio cychwynnydd trydydd parti, dylech ddewis hwn."
 
-#: ../iw/upgrade_bootloader_gui.py:140
+#: ../iw/upgrade_bootloader_gui.py:142
 msgid "What would you like to do?"
 msgstr "Beth hoffech ei wneud?"
 
@@ -4875,6 +4906,10 @@ msgstr ""
 msgid "Complete"
 msgstr "Cwblhawyd"
 
+#: ../textw/complete_text.py:41
+msgid "Reboot"
+msgstr "Ailgychwyn"
+
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "Arsefydliad i'w dechrau"
@@ -4887,6 +4922,20 @@ msgid ""
 msgstr ""
 "Bydd cofnod cyflawn o'ch arsefydliad yn %s wedi ailgychwyn eich system. "
 "Efallai byddwch am gadw'r ffeil yma i gyfeirio ati nes ymlaen."
+
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
+#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:282 ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:398 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:180 ../loader2/driverselect.c:205
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:319 ../loader2/kbd.c:131
+#: ../loader2/loader.c:342 ../loader2/loader.c:1016 ../loader2/loader.c:1038
+#: ../loader2/net.c:272 ../loader2/net.c:311 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1806 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
+msgid "Back"
+msgstr "Yn Ôl"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4983,12 +5032,12 @@ msgstr "Masg IPv6/Rhwyd"
 msgid "Activate on boot"
 msgstr "Gweithredoli ar gychwyn"
 
-#: ../textw/network_text.py:144 ../loader2/net.c:720
+#: ../textw/network_text.py:144 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
 msgstr "Galluogi cynnal IPv4"
 
-#: ../textw/network_text.py:151 ../loader2/net.c:733
+#: ../textw/network_text.py:151 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
 msgstr "Galluogi cynnal IPv6"
@@ -5095,82 +5144,82 @@ msgid ""
 "finished, press OK to continue."
 msgstr ""
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:620
 #, fuzzy
 msgid "Active on boot"
 msgstr "Gweithredoli ar gychwyn"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:622
 #, fuzzy
 msgid "Inactive on boot"
 msgstr "Gweithredoli ar gychwyn"
 
-#: ../textw/network_text.py:622
+#: ../textw/network_text.py:625
 msgid "DHCP"
 msgstr ""
 
-#: ../textw/network_text.py:627
+#: ../textw/network_text.py:630
 msgid "Auto IPv6"
 msgstr ""
 
-#: ../textw/network_text.py:629
+#: ../textw/network_text.py:632
 msgid "DHCPv6"
 msgstr ""
 
-#: ../textw/network_text.py:635
+#: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:637 ../textw/network_text.py:639
+#: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:661 ../loader2/net.c:1026
+#: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Porth:"
 
-#: ../textw/network_text.py:670
+#: ../textw/network_text.py:674
 msgid "Primary DNS:"
 msgstr "DNS Cynradd:"
 
-#: ../textw/network_text.py:675
+#: ../textw/network_text.py:679
 msgid "Secondary DNS:"
 msgstr "DNS Eilaidd:"
 
-#: ../textw/network_text.py:682
+#: ../textw/network_text.py:686
 msgid "Miscellaneous Network Settings"
 msgstr "Gosodiadau Rhwydwaith Amrywiol"
 
-#: ../textw/network_text.py:699 ../textw/network_text.py:702
+#: ../textw/network_text.py:703 ../textw/network_text.py:706
 #, fuzzy
 msgid "gateway"
 msgstr "Porth"
 
-#: ../textw/network_text.py:709 ../textw/network_text.py:712
+#: ../textw/network_text.py:713 ../textw/network_text.py:716
 #, fuzzy
 msgid "primary DNS"
 msgstr "DNS Cynradd"
 
-#: ../textw/network_text.py:721
+#: ../textw/network_text.py:725
 #, fuzzy
 msgid "secondary DNS"
 msgstr "DNS Eilaidd"
 
-#: ../textw/network_text.py:755
+#: ../textw/network_text.py:759
 msgid "automatically via DHCP"
 msgstr "yn awtomatig drwy DHCP"
 
-#: ../textw/network_text.py:758
+#: ../textw/network_text.py:762
 msgid "manually"
 msgstr "â llaw"
 
-#: ../textw/network_text.py:777
+#: ../textw/network_text.py:781
 msgid "Hostname Configuration"
 msgstr "Cyflunio Enw Gwesteiwr"
 
-#: ../textw/network_text.py:780
+#: ../textw/network_text.py:784
 #, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
@@ -5183,11 +5232,11 @@ msgstr ""
 "enw gwesteiwr i'ch system. Os na wnewch hynny, gelwir eich system yn "
 "'localhost.'"
 
-#: ../textw/network_text.py:806 ../textw/network_text.py:812
+#: ../textw/network_text.py:810 ../textw/network_text.py:816
 msgid "Invalid Hostname"
 msgstr "Enw Gwesteiwr Annilys"
 
-#: ../textw/network_text.py:807
+#: ../textw/network_text.py:811
 msgid "You have not specified a hostname."
 msgstr "Nid ydych wedi penodi enw gwesteiwr."
 
@@ -5472,29 +5521,29 @@ msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
 "<Gofodnod>,<+>,<-> dewisiad   |   <F2> Manylion Grŵp   |   <F12> sgrin nesaf"
 
-#: ../textw/partition_text.py:1654
+#: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
 msgstr "_Adolygu'r rhaniadau a grëir"
 
-#: ../textw/partition_text.py:1655
+#: ../textw/partition_text.py:1658
 msgid "Review and modify partitioning layout?"
 msgstr "Ad_olygu (ac addasu os oes angen) y rhaniadau a grëir"
 
-#: ../textw/partition_text.py:1676 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1679 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "Opsiynau Storio Uwch"
 
-#: ../textw/partition_text.py:1677 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1680 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "Sut hoffech chi newid cyfluniad eich gyriannau?"
 
-#: ../textw/partition_text.py:1700
+#: ../textw/partition_text.py:1703
 #, fuzzy
 msgid "Add FCP Device"
 msgstr "Ychwanegu Dyfais FCP"
 
 # Rhybudd: Mae saesneg yn anghywir - Enw porth yw hi nid rhif.
-#: ../textw/partition_text.py:1701 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
 #, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
@@ -5506,11 +5555,11 @@ msgstr ""
 "16did, SCSI ID 16did, enw porth byd-eang (WWPN) 64did, LUN SCSI 16did a LUN "
 "FCP 64did."
 
-#: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "Cyflunio Opsiynau iSCSI"
 
-#: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1728 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5518,12 +5567,12 @@ msgstr ""
 "Os am ddefnyddio disgiau iSCSI, rhaid i chi roi cyfeiriad eich targed iSCSI "
 "ac enw'r dechreuwr iSCSI rydych wedi ei gyflunio ar gyfer eich gwesteiwr."
 
-#: ../textw/partition_text.py:1726
+#: ../textw/partition_text.py:1729
 #, fuzzy
 msgid "Target IP Address"
 msgstr "<b>Cyfeiriad IP y targed:</B>"
 
-#: ../textw/partition_text.py:1727
+#: ../textw/partition_text.py:1730
 #, fuzzy
 msgid "iSCSI Initiator Name"
 msgstr "<b>_Enw dechreuwr iSCSI:</b>"
@@ -5565,16 +5614,16 @@ msgstr "Ym mha gylchfa amser ydych chi?"
 msgid "System clock uses UTC"
 msgstr "Cloc system yn defnyddio UTC"
 
-#: ../textw/upgrade_bootloader_text.py:86
-#: ../textw/upgrade_bootloader_text.py:95
+#: ../textw/upgrade_bootloader_text.py:88
+#: ../textw/upgrade_bootloader_text.py:97
 msgid "Update boot loader configuration"
 msgstr "Diweddaru cyfluniad cychwynnydd"
 
-#: ../textw/upgrade_bootloader_text.py:98
+#: ../textw/upgrade_bootloader_text.py:100
 msgid "Skip boot loader updating"
 msgstr "Hepgor diweddaru cychwynnydd"
 
-#: ../textw/upgrade_bootloader_text.py:100
+#: ../textw/upgrade_bootloader_text.py:102
 msgid "Create new boot loader configuration"
 msgstr "Creu cyfluniad cychwynnydd newydd"
 
@@ -5752,54 +5801,56 @@ msgstr "Gwirio Cyfrwng"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Test"
 msgstr "Profi"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-msgid "Eject CD"
+#, fuzzy
+msgid "Eject Disc"
 msgstr "Allyrru CDd"
 
 #: ../loader2/cdinstall.c:93
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
-"CD and insert another for testing."
+"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
+"the disc and insert another for testing."
 msgstr ""
 "Dewiswch \"%s\" i brofi'r CDd sydd yn y gyriant yn gyfredol, neu \"%s\" i "
 "allyrru'r CDd a mewnosod un arall i'w phrofi."
 
 #: ../loader2/cdinstall.c:114
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"If you would like to test additional media, insert the next CD and press \"%s"
-"\". Testing each CD is not strictly required, however it is highly "
-"recommended.  Minimally, the CDs should be tested prior to using them for "
+"If you would like to test additional media, insert the next disc and press "
+"\"%s\". Testing each disc is not strictly required, however it is highly "
+"recommended.  Minimally, the discs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
-"to retest each CD prior to using it again."
+"to retest each disc prior to using it again."
 msgstr ""
 "Os hoffech chi brofi mwy o gyfryngau, rhowch y CD nesaf i mewn a gwasgwch \"%"
 "s\". Does dim rhaid profi bob CD, ond argymhellir yn gryf i chi wneud hynny. "
 "Fe ddylid, o leiaf, brofi'r CDau cyn eu defnyddio am y tro cyntaf. Wedi eu "
 "profi'n llwyddiannus, does dim rhaid  profi bob CD cyn ei ddefnyddio eto."
 
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
-#, c-format
+#: ../loader2/cdinstall.c:137
+#, fuzzy, c-format
 msgid ""
-"The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
+"The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
 "Ni chanfuwyd yr CDd %s yn unrhyw un o'ch gyriannau CDdROM. Rhowch y CDd %s i "
 "mewn a gwasgwch %s i ail-geisio."
 
 #: ../loader2/cdinstall.c:258
-msgid "CD Found"
+#, fuzzy
+msgid "Disc Found"
 msgstr "Canfuwyd CDd"
 
 #: ../loader2/cdinstall.c:259
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"To begin testing the CD media before installation press %s.\n"
+"To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
@@ -5808,35 +5859,50 @@ msgstr ""
 "Dewiswch %s i hepgor y prawf cyfryngau a dechrau'r arsefydliad."
 
 #: ../loader2/cdinstall.c:379
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"No %s CD was found which matches your boot media.  Please insert the %s CD "
-"and press %s to retry."
+"No %s disc was found which matches your boot media.  Please insert the %s "
+"disc and press %s to retry."
 msgstr ""
 "Ni chanfuwyd CDd %s sy'n cydweddu â'ch cyfrwng cychwyn.  Rhowch y CDd %s i "
 "mewn a gwasgwch %s i ail-geisio."
 
+#: ../loader2/cdinstall.c:384
+#, fuzzy, c-format
+msgid ""
+"The %s disc was not found in any of your CDROM drives. Please insert the %s "
+"disc and press %s to retry."
+msgstr ""
+"Ni chanfuwyd yr CDd %s yn unrhyw un o'ch gyriannau CDdROM. Rhowch y CDd %s i "
+"mewn a gwasgwch %s i ail-geisio."
+
 #: ../loader2/cdinstall.c:391
-msgid "CD Not Found"
+#, fuzzy
+msgid "Disc Not Found"
 msgstr "Ni Chanfuwyd CDd"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Methu canfod ffeil kickstart ar yr CDdROM."
 
-#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
+#: ../loader2/copy.c:45 ../loader2/method.c:158 ../loader2/method.c:376
+#, c-format
+msgid "Failed to read directory %s: %s"
+msgstr "Methwyd darllen cyfeiriadur %s: %s"
+
+#: ../loader2/driverdisk.c:134 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Yn Llwytho"
 
-#: ../loader2/driverdisk.c:128
+#: ../loader2/driverdisk.c:134
 msgid "Reading driver disk..."
 msgstr "Yn Darllen disg yrrydd..."
 
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:276 ../loader2/driverdisk.c:308
 msgid "Driver Disk Source"
 msgstr "Tarddiad Disg Gyrrydd"
 
-#: ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:277
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5844,7 +5910,7 @@ msgstr ""
 "Mae gennych sawl dyfais a allai fod yn darddiad disg gyrrydd.  Pa un hoffech "
 "ei defnyddio?"
 
-#: ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:309
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5852,49 +5918,49 @@ msgstr ""
 "Mae gennych sawl rhaniad a allai fod yn darddiad delwedd disg gyrrydd.  Pa "
 "un hoffech ei defnyddio?"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:347
 msgid "Failed to mount partition."
 msgstr "Methwyd gosod rhaniad."
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:355
 msgid "Select driver disk image"
 msgstr "Dewiswch ddelwedd disg gyrrydd"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:356
 msgid "Select the file which is your driver disk image."
 msgstr "Dewiswch pa ffeil yw'r eich delwedd disg gyrrydd."
 
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:385
 msgid "Failed to load driver disk from file."
 msgstr "Methwyd gosod disg gyrrydd o'r ffeil."
 
-#: ../loader2/driverdisk.c:388
+#: ../loader2/driverdisk.c:396
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Rhowch eich disg gyrrydd yn /dev/%s a gwasgwch \"Iawn\" i barhau."
 
-#: ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:398
 msgid "Insert Driver Disk"
 msgstr "Rhowch Ddisg Gyrrydd i Mewn"
 
-#: ../loader2/driverdisk.c:405
+#: ../loader2/driverdisk.c:413
 msgid "Failed to mount driver disk."
 msgstr "Methwyd gosod disg gyrrydd."
 
-#: ../loader2/driverdisk.c:415
+#: ../loader2/driverdisk.c:423
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: ../loader2/driverdisk.c:479
+#: ../loader2/driverdisk.c:486
 msgid "Manually choose"
 msgstr "Dewiswch â llaw"
 
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Load another disk"
 msgstr "Llwytho disg arall"
 
-#: ../loader2/driverdisk.c:481
+#: ../loader2/driverdisk.c:488
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5903,38 +5969,38 @@ msgstr ""
 "Ni chanfuwyd dyfeisiau o'r math addas ar y ddisg yrrydd yma. A hoffech "
 "ddewis y gyrrydd â llaw, parhau beth bynnag, neu lwytho disg yrrydd arall?"
 
-#: ../loader2/driverdisk.c:520
+#: ../loader2/driverdisk.c:526
 msgid "Driver disk"
 msgstr "Disg gyrrydd"
 
-#: ../loader2/driverdisk.c:521
+#: ../loader2/driverdisk.c:527
 msgid "Do you have a driver disk?"
 msgstr "A oes gennych ddisg gyrrydd?"
 
-#: ../loader2/driverdisk.c:531
+#: ../loader2/driverdisk.c:536
 msgid "More Driver Disks?"
 msgstr "Rhagor o Ddisgiau Gyrrydd?"
 
-#: ../loader2/driverdisk.c:532
+#: ../loader2/driverdisk.c:537
 msgid "Do you wish to load any more driver disks?"
 msgstr "A hoffech lwytho rhagor o ddisgiau gyrrydd?"
 
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:127
 #: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
-#: ../loader2/kickstart.c:512 ../loader2/modules.c:1042
-#: ../loader2/modules.c:1055 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:473
-#: ../loader2/urlinstall.c:482 ../loader2/urlinstall.c:493
+#: ../loader2/kickstart.c:523 ../loader2/modules.c:1036
+#: ../loader2/modules.c:1049 ../loader2/net.c:1597 ../loader2/net.c:1620
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:484
 msgid "Kickstart Error"
 msgstr "Gwall Kickstart"
 
-#: ../loader2/driverdisk.c:582
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Tarddiad kickstart disg gyrrydd anhysbys: %s"
 
-#: ../loader2/driverdisk.c:619
+#: ../loader2/driverdisk.c:621
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5958,15 +6024,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Rhowch Baramedrau Modwl"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "No drivers found"
 msgstr "Ni chanfuwyd unrhyw yrrydd"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "Load driver disk"
 msgstr "Llwytho disg gyrrydd"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:180
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -5974,7 +6040,7 @@ msgstr ""
 "Ni chanfuwyd unrhyw yrrydd i'w fewnosod â llaw.  A hoffech ddefnyddio disg "
 "gyrrydd?"
 
-#: ../loader2/driverselect.c:200
+#: ../loader2/driverselect.c:198
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5982,11 +6048,11 @@ msgstr ""
 "Dewiswch y gyrrydd isod yr hoffech ei lwytho.  Os nad yw'n ymddangos, a bod "
 "gennych ddisg gyrrydd, gwasgwch F2."
 
-#: ../loader2/driverselect.c:208
+#: ../loader2/driverselect.c:206
 msgid "Specify optional module arguments"
 msgstr "Penodwch ymresymiadau modwl dewisol"
 
-#: ../loader2/driverselect.c:228
+#: ../loader2/driverselect.c:226
 msgid "Select Device Driver to Load"
 msgstr "Dewiswch Yrrydd Dyfais i'w Lwytho"
 
@@ -5996,7 +6062,7 @@ msgid "Loading %s driver..."
 msgstr "Yn llwytho gyrrydd %s..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
-#: ../loader2/urlinstall.c:160
+#: ../loader2/urlinstall.c:151
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6021,7 +6087,7 @@ msgstr ""
 "Nid oes i weld fod gennych unrhyw ddisgiau caled ar eich system! A hoffech "
 "gyflunio dyfeisiau ychwanegol?"
 
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:280
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6032,29 +6098,29 @@ msgstr ""
 "ar gyfer %s? Os nad ydych yn gweld y gyriant disgiau rydych yn ei ddefnyddio "
 "wedi'i rhestru yma, gwasgwch F2 i gyflunio dyfeisiau ychwanegol."
 
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:303
 msgid "Directory holding images:"
 msgstr "Cyfeiriadur sy'n dal delweddau:"
 
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:331
 msgid "Select Partition"
 msgstr "Dewiswch Raniad"
 
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:370
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Nid yw'r ddyfais %s i weld yn cynnwys delweddau CDdROM %s."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:405
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn dull kickstartd DG %s: %s"
 
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:475 ../loader2/hdinstall.c:531
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Methu canfod ffeil kickstart ar ddisg galed."
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:518
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Methu darganfod pa ddisg caled yw'r disg BIOS %s"
@@ -6097,7 +6163,7 @@ msgstr ""
 msgid "Error downloading kickstart file"
 msgstr "Gwall wrth agor y ffeil kickstart %s: %s"
 
-#: ../loader2/kickstart.c:513
+#: ../loader2/kickstart.c:524
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn dull kickstartd %s: %s"
@@ -6107,7 +6173,7 @@ msgstr "Ymresymiad gwael i orchymyn dull kickstartd %s: %s"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Croeso i %s - Modd Achub"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6117,24 +6183,25 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Dewiswch Iaith"
 
-#: ../loader2/loader.c:120
-msgid "Local CDROM"
+#: ../loader2/loader.c:118
+#, fuzzy
+msgid "Local CD/DVD"
 msgstr "CDdROM Lleol"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "Disg galed"
 
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:121
 #, fuzzy
 msgid "NFS directory"
 msgstr "Cyfeiriadur %s:"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:337
 msgid "Update Disk Source"
 msgstr "Tarddiad Disg Ddiweddaru"
 
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:338
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6142,28 +6209,28 @@ msgstr ""
 "Mae gennych sawl dyfais a allai fod yn darddiad disg ddiweddaru.  Pa un "
 "hoffech ei defnyddio?"
 
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:353
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Rhowch eich disg ddiweddaru yn /dev/%s a gwasgwch \"Iawn\" i barhau."
 
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:355
 msgid "Updates Disk"
 msgstr "Disg Ddiweddariadau"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:367
 msgid "Failed to mount updates disk"
 msgstr "Methwyd gosod disg ddiweddariadau"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Updates"
 msgstr "Diweddariadau"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Reading anaconda updates..."
 msgstr "Yn darllen diweddariadau anaconda..."
 
-#: ../loader2/loader.c:406
+#: ../loader2/loader.c:412
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6173,40 +6240,40 @@ msgstr ""
 "gyrwyr dyfeisiau er mwyn i'r arsefydlu lwyddo.  A hoffech ddewis gyrrwyr "
 "nawr?"
 
-#: ../loader2/loader.c:835
+#: ../loader2/loader.c:849
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nid oes gennych ddigon o RAM i arsefydlu %s ar y peiriant yma."
 
-#: ../loader2/loader.c:994
+#: ../loader2/loader.c:1008
 msgid "Rescue Method"
 msgstr "Dull Achub"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1009
 msgid "Installation Method"
 msgstr "Dull Arsefydlu"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1011
 msgid "What type of media contains the rescue image?"
 msgstr "Pa fath o gyfrwng sy'n cynnwys y ddelwedd achub?"
 
-#: ../loader2/loader.c:999
+#: ../loader2/loader.c:1013
 msgid "What type of media contains the packages to be installed?"
 msgstr "Pa fath o gyfrwng sy'n cynnwys y pecynnau i'w harsefydlu?"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "No driver found"
 msgstr "Dim gyrrydd wedi'i ganfod"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "Select driver"
 msgstr "Dewiswch yrrydd"
 
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1038
 msgid "Use a driver disk"
 msgstr "Defnyddio disg yrrydd"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1039
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6215,11 +6282,11 @@ msgstr ""
 "arsefydliad. A hoffech ddewis eich gyrrydd â llaw, neu ddefnyddio disg "
 "yrrydd?"
 
-#: ../loader2/loader.c:1231
+#: ../loader2/loader.c:1258
 msgid "The following devices have been found on your system."
 msgstr "Canfuwyd y dyfeisiau canlynol ar eich system."
 
-#: ../loader2/loader.c:1233
+#: ../loader2/loader.c:1260
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6227,29 +6294,29 @@ msgstr ""
 "Ni lwythwyd unrhyw yrwyr dyfeisiau ar gyfer eich system. A hoffech lwytho "
 "rhai nawr?"
 
-#: ../loader2/loader.c:1237
+#: ../loader2/loader.c:1264
 msgid "Devices"
 msgstr "Dyfeisiau"
 
-#: ../loader2/loader.c:1238
+#: ../loader2/loader.c:1265
 msgid "Done"
 msgstr "Wedi gorffen"
 
-#: ../loader2/loader.c:1239
+#: ../loader2/loader.c:1266
 msgid "Add Device"
 msgstr "Ychwanegu Dyfais"
 
-#: ../loader2/loader.c:1447
+#: ../loader2/loader.c:1437
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "rhedwyd y llwythwr eisioes.  Yn dechrau plisgyn.\n"
 
-#: ../loader2/loader.c:1834
+#: ../loader2/loader.c:1823
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Yn rhedeg anaconda, y modd achub %s - arhoswch...\n"
 
-#: ../loader2/loader.c:1836
+#: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Yn rhedeg anaconda, yr arsefydlydd system %s - arhoswch...\n"
@@ -6330,12 +6397,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
-#, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "Methwyd darllen cyfeiriadur %s: %s"
-
-#: ../loader2/method.c:418
+#: ../loader2/method.c:419
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6346,16 +6408,16 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Checksum Test"
 msgstr "Prawf Prawfswm"
 
-#: ../loader2/modules.c:1043
+#: ../loader2/modules.c:1037
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn dull kickstart dyfais %s: %s"
 
-#: ../loader2/modules.c:1056
+#: ../loader2/modules.c:1050
 #, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
@@ -6378,13 +6440,13 @@ msgstr ""
 "    o'r cyfeiriadur ar y gweinydd hwnnw sy'n cynnwys\n"
 "      %s ar gyfer eich saernïaeth\n"
 
-#: ../loader2/net.c:94
+#: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: ../loader2/net.c:257
+#: ../loader2/net.c:261
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6395,28 +6457,28 @@ msgstr ""
 "gyrchu eich rhwydwaith diwifr. Os nad oes rhaid defnyddio allwedd, gadewch y "
 "maes yn wag a pharhau'r â'r gosod."
 
-#: ../loader2/net.c:263
+#: ../loader2/net.c:267
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:264
+#: ../loader2/net.c:268
 msgid "Encryption Key"
 msgstr "Allwedd Amgryptio"
 
-#: ../loader2/net.c:267
+#: ../loader2/net.c:271
 msgid "Wireless Settings"
 msgstr "Gosodiadau Diwifr"
 
-#: ../loader2/net.c:298
+#: ../loader2/net.c:302
 msgid "Nameserver IP"
 msgstr "IP Gweinydd Enwau"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:306
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "Gweinydd Enwau"
 
-#: ../loader2/net.c:303
+#: ../loader2/net.c:307
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6428,104 +6490,104 @@ msgstr ""
 "rhowch ef nawr. Os nad oes gennych y wybodaeth hon, gallwch adael y maes hwn "
 "yn wag ac fe fydd yr arsefydliad yn parhau."
 
-#: ../loader2/net.c:325
+#: ../loader2/net.c:329
 msgid "Invalid IP Information"
 msgstr "Gwybodaeth IP Annilys"
 
-#: ../loader2/net.c:326
+#: ../loader2/net.c:330
 msgid "You entered an invalid IP address."
 msgstr "Fe roddoch gyfeiriad IP annilys."
 
-#: ../loader2/net.c:584 ../loader2/net.c:692
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Gwall Rhwydwaith"
 
-#: ../loader2/net.c:585 ../loader2/net.c:693
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "Roedd gwall wrth gyflunio eich rhyngwyneb rhwydwaith."
 
-#: ../loader2/net.c:766
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "Cyflunio TCP/IP"
 
-#: ../loader2/net.c:793
+#: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Rhaid i chi ddewis un protocol o leiaf (IPv4 neu IPv6) ar gyfer DHCP."
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: ../loader2/net.c:801
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: ../loader2/net.c:921
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "Cyfeiriad IPv4:"
 
-#: ../loader2/net.c:933 ../loader2/net.c:985 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:973
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "Cyfeiriad IPv6:"
 
-#: ../loader2/net.c:1034
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Gweinydd Enwau:"
 
-#: ../loader2/net.c:1070
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1086
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Cyflunio TCP/IP â llaw"
 
-#: ../loader2/net.c:1207 ../loader2/net.c:1213
+#: ../loader2/net.c:1193 ../loader2/net.c:1199
 msgid "Missing Information"
 msgstr "Gwybodaeth ar Goll"
 
-#: ../loader2/net.c:1208
+#: ../loader2/net.c:1194
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Rhaid i chi roi cyfeiriad IPv4 dilys yn ogystal â masg rhwydwaith, neu "
 "ragddodiad CIDR."
 
-#: ../loader2/net.c:1214
+#: ../loader2/net.c:1200
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 "Rhaid i chi roi cyfeiriad IPv4 dilys yn ogystal â masg rhwydwaith, neu "
 "ragddodiad CIDR."
 
-#: ../loader2/net.c:1520
+#: ../loader2/net.c:1505
 msgid "Determining host name and domain..."
 msgstr "Yn pennu enw gwesteiwr a pharth..."
 
-#: ../loader2/net.c:1613
+#: ../loader2/net.c:1598
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn rhwydwaith kickstart %s: %s"
 
-#: ../loader2/net.c:1636
+#: ../loader2/net.c:1621
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Protocol cychwyn gwael %s wedi'i benodi mewn gorchymyn rhwydwaith"
 
-#: ../loader2/net.c:1817
+#: ../loader2/net.c:1802
 msgid "Networking Device"
 msgstr "Dyfais Rwydweithio"
 
-#: ../loader2/net.c:1818
+#: ../loader2/net.c:1803
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6580,33 +6642,33 @@ msgstr "Yn aros am gysylltiad telnet..."
 msgid "Running anaconda via telnet..."
 msgstr "Yn rhedeg anaconda drwy telnet..."
 
-#: ../loader2/urlinstall.c:80
+#: ../loader2/urlinstall.c:69
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Methu nôl %s://%s/%s/%s."
 
-#: ../loader2/urlinstall.c:152
+#: ../loader2/urlinstall.c:143
 msgid "Unable to retrieve the install image."
 msgstr "Methu nôl y ddelwedd arsefydlu."
 
-#: ../loader2/urlinstall.c:297
+#: ../loader2/urlinstall.c:288
 msgid "Media Detected"
 msgstr "Canfyddwyd Cyfrwng"
 
-#: ../loader2/urlinstall.c:298
+#: ../loader2/urlinstall.c:289
 msgid "Local installation media detected..."
 msgstr "Canfyddwyd cyfrwng arsefydlu lleol..."
 
-#: ../loader2/urlinstall.c:474
+#: ../loader2/urlinstall.c:465
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Ymresymiad gwael i orchymyn dull kickstart Url %s: %s"
 
-#: ../loader2/urlinstall.c:483
+#: ../loader2/urlinstall.c:474
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Rhaid darparu ymresymiad --url i ddull kickstart Url."
 
-#: ../loader2/urlinstall.c:494
+#: ../loader2/urlinstall.c:485
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Dull Url anhysbys %s"
@@ -7179,6 +7241,12 @@ msgstr "Cymraeg"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zwlŵeg"
+
+#~ msgid "Rebooting System"
+#~ msgstr "Yn Ailgychwyn y System"
+
+#~ msgid "Re_try"
+#~ msgstr "_Ail-geisio"
 
 #~ msgid ""
 #~ "Remove any media used during the installation process and press the "

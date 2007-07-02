@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iloko v1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-20 11:06-0400\n"
+"POT-Creation-Date: 2007-07-02 15:15-0400\n"
 "PO-Revision-Date: 2007-01-12 14:02+0800\n"
 "Last-Translator: rva <rvaragon@gmail.com>\n"
 "Language-Team: Joseph Maza <joemaza@comcast.net>\n"
@@ -39,45 +39,46 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "Talmeganyo ti <ENTER> tapno maipakita ti shell"
 
-#: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:443 ../text.py:602 ../vnc.py:146
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:39
-#: ../textw/network_text.py:49 ../textw/network_text.py:71
-#: ../textw/network_text.py:77 ../textw/network_text.py:225
-#: ../textw/network_text.py:808 ../textw/network_text.py:816
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
-#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
-#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
-#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../anaconda:406 ../gui.py:237 ../rescue.py:260 ../rescue.py:334
+#: ../rescue.py:361 ../rescue.py:371 ../rescue.py:450 ../rescue.py:456
+#: ../text.py:443 ../text.py:602 ../vnc.py:146 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:54 ../textw/constants_text.py:36
+#: ../textw/network_text.py:39 ../textw/network_text.py:49
+#: ../textw/network_text.py:71 ../textw/network_text.py:77
+#: ../textw/network_text.py:225 ../textw/network_text.py:812
+#: ../textw/network_text.py:820 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:281
+#: ../loader2/driverdisk.c:312 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:398
+#: ../loader2/driverdisk.c:412 ../loader2/driverdisk.c:422
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:205
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:319 ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:404 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530 ../loader2/kbd.c:131
 #: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
 #: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
-#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:512 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/loader.c:1002
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
-#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:523 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:316 ../loader2/loader.c:342
+#: ../loader2/loader.c:355 ../loader2/loader.c:366 ../loader2/loader.c:852
+#: ../loader2/loader.c:1016 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:449
+#: ../loader2/modules.c:1036 ../loader2/modules.c:1049 ../loader2/net.c:272
+#: ../loader2/net.c:311 ../loader2/net.c:739 ../loader2/net.c:1064
+#: ../loader2/net.c:1597 ../loader2/net.c:1620 ../loader2/net.c:1806
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:68 ../loader2/urlinstall.c:91
+#: ../loader2/urlinstall.c:142 ../loader2/urlinstall.c:155
+#: ../loader2/urlinstall.c:464 ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:484 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "Mayat"
@@ -94,7 +95,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr "Awan ti naduktalan a video a hardware, maipato a kas awanan ulo"
 
-#: ../anaconda:436 ../anaconda:896
+#: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Saan a marugian ti banag ti kasasaad maipaay ti X a hardware."
 
@@ -102,30 +103,30 @@ msgstr "Saan a marugian ti banag ti kasasaad maipaay ti X a hardware."
 msgid "Starting graphical installation..."
 msgstr "Marugrugian ti grapikal a panangikapet..."
 
-#: ../anaconda:753
+#: ../anaconda:754
 msgid "Install class forcing text mode installation"
 msgstr "Pilpiliten ti klases ti panangikapet ti wagas a texto."
 
-#: ../anaconda:793
+#: ../anaconda:794
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 "Saan a maaramat ti grapikal a panangikapet... Marugrugian ti wagas a texto."
 
-#: ../anaconda:801
+#: ../anaconda:802
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 "Saan a naituding ti agbaliwbaliw a pateg a DISPLAY. Marugrugian iti wagas a "
 "texto!"
 
-#: ../anaconda:862
+#: ../anaconda:863
 msgid "Unknown install method"
 msgstr "Saan nga am-ammo a wagas ti panangikapet"
 
-#: ../anaconda:863
+#: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Saan a maisayangkat ti Anaconda ti napili a panangikapet."
 
-#: ../anaconda:865
+#: ../anaconda:866
 #, c-format
 msgid "unknown install method: %s"
 msgstr "saan nga am-ammo a panangikapet: %s"
@@ -227,11 +228,11 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Ti Dinawat a Benneg ket Saan a Panagadda"
 
 #: ../autopart.py:1260
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Saan a mabirokan ti benneg a %s a maipapan ti %s.\n"
 "\n"
@@ -242,11 +243,11 @@ msgid "Requested Raid Device Does Not Exist"
 msgstr "Ti dinawat nga aparato ti RAID ket saan a panagadda"
 
 #: ../autopart.py:1288
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Saan a mabirokan ti RAID nga aparato a %s a maipapan ti %s.\n"
 "\n"
@@ -257,11 +258,11 @@ msgid "Requested Volume Group Does Not Exist"
 msgstr "Ti dinawat a grupo ti tomo ket saan a panagadda"
 
 #: ../autopart.py:1320
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Saan a mabirokan ti grupo a %s a tomo maipapan ti %s.\n"
 "\n"
@@ -272,11 +273,11 @@ msgid "Requested Logical Volume Does Not Exist"
 msgstr "Ti dinawat a lohikal a tomo ket saan a panagadda"
 
 #: ../autopart.py:1358
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Saan a mabirokan ti lohikal a tomo a %s maipapan ti %s.\n"
 "\n"
@@ -287,13 +288,13 @@ msgid "Automatic Partitioning Errors"
 msgstr "Biddut ti Otomatiko a Panagbenneg"
 
 #: ../autopart.py:1485
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "Rimsua ti sumaruno a biddut iti panagbebenneg:\n"
 "\n"
@@ -317,10 +318,11 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "\n"
 "\n"
@@ -377,15 +379,15 @@ msgstr "Saan a Mapulangan a Biddut"
 msgid "Your system will now be rebooted."
 msgstr "Marugian manen ti sistema ita."
 
-#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:439
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1052
-#: ../partedUtils.py:1101 ../partedUtils.py:1143 ../upgrade.py:348
-#: ../yuminstall.py:1085 ../iw/blpasswidget.py:145
+#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:442
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1075
+#: ../partedUtils.py:1124 ../partedUtils.py:1167 ../upgrade.py:348
+#: ../yuminstall.py:1205 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:41 ../iw/task_gui.py:89
 #: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
 #: ../iw/upgrade_swap_gui.py:203 ../textw/bootloader_text.py:123
 #: ../textw/bootloader_text.py:448 ../textw/partition_text.py:243
-#: ../textw/upgrade_text.py:172 ../loader2/loader.c:405
+#: ../textw/upgrade_text.py:172 ../loader2/loader.c:411
 msgid "Warning"
 msgstr "Patigmaan"
 
@@ -448,12 +450,12 @@ msgstr ""
 "nga adda kadagiti sumaruno a harddrive:%s\n"
 "Sigurado a kayatyo ti agpatuloy?"
 
-#: ../backend.py:165
+#: ../backend.py:113
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Pinapasayaat ti %s\n"
 
-#: ../backend.py:167
+#: ../backend.py:115
 #, python-format
 msgid "Installing %s\n"
 msgstr "Main-instala ti %s\n"
@@ -501,89 +503,91 @@ msgstr ""
 "ti kopia ti laksid, sayonto idatag ti padamag ti biddut maisuppiat ti "
 "anaconda ditoy: %s"
 
-#: ../exception.py:414 ../exception.py:431
+#: ../exception.py:412 ../exception.py:429
 msgid "Dump Written"
 msgstr "Naisurat ti pangusisa nga intar"
 
-#: ../exception.py:415
+#: ../exception.py:413
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the floppy. Your system "
-"will now be rebooted."
+"Your system's state has been successfully written to the floppy. The "
+"installer will now exit."
 msgstr ""
 "Ti kasasaad ti sistema ket naisurat iti floppy a disk. Marugian manen ti "
 "sistema."
 
-#: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
-#: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
-#: ../harddrive.py:126 ../image.py:93 ../image.py:449 ../image.py:523
-#: ../packages.py:341 ../partedUtils.py:1154 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-msgid "_Reboot"
-msgstr "_Mangrugi manen"
+#: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
+#: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
+#: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
+#, fuzzy
+msgid "_Exit installer"
+msgstr "Paginstala ti %s"
 
-#: ../exception.py:423 ../exception.py:440
+#: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
 msgstr "Saan a nasurat ti pangusisa nga intar"
 
-#: ../exception.py:424
+#: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 "Rimsua ti problema bayat ti pannakaisurat ti kasasaad ti sistema iti floppy."
 
-#: ../exception.py:432
+#: ../exception.py:430
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the remote host.  Your "
-"system will now be rebooted."
+"Your system's state has been successfully written to the remote host.  The "
+"installer will now exit."
 msgstr ""
 "Nagballigi ti pannakaidulin ti kasasaad ti sistema iti adayot a host. "
 "Marugian manen ti sistema."
 
-#: ../exception.py:441
+#: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 "Rimsua ti biddut bayat ti pannakaisurat ti kasasaad ti sistema iti adayo a "
 "host."
 
-#: ../fsset.py:214
+#: ../fsset.py:216
 msgid "Checking for Bad Blocks"
 msgstr "Agsuksukimat iti nadadael a paset"
 
-#: ../fsset.py:215
+#: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Agsuksukimat iti madi a paset ti /dev/%s..."
 
-#: ../fsset.py:661 ../fsset.py:1396 ../fsset.py:1427 ../fsset.py:1488
-#: ../fsset.py:1499 ../fsset.py:1553 ../fsset.py:1564 ../fsset.py:1604
-#: ../fsset.py:1654 ../fsset.py:1735 ../fsset.py:1747 ../image.py:135
-#: ../image.py:180 ../image.py:312 ../livecd.py:323 ../partIntfHelpers.py:406
-#: ../urlinstall.py:113 ../urlinstall.py:211 ../yuminstall.py:602
-#: ../yuminstall.py:723 ../yuminstall.py:739 ../yuminstall.py:924
-#: ../iw/autopart_type.py:74 ../iw/autopart_type.py:208
-#: ../iw/netconfig_dialog.py:213 ../iw/osbootwidget.py:216
+#: ../fsset.py:663 ../fsset.py:1427 ../fsset.py:1458 ../fsset.py:1518
+#: ../fsset.py:1529 ../fsset.py:1583 ../fsset.py:1594 ../fsset.py:1634
+#: ../fsset.py:1684 ../fsset.py:1765 ../fsset.py:1777 ../image.py:135
+#: ../image.py:180 ../image.py:311 ../livecd.py:350 ../partIntfHelpers.py:406
+#: ../urlinstall.py:112 ../urlinstall.py:206 ../yuminstall.py:442
+#: ../yuminstall.py:762 ../yuminstall.py:802 ../yuminstall.py:1019
+#: ../yuminstall.py:1044 ../iw/autopart_type.py:74 ../iw/autopart_type.py:209
+#: ../iw/netconfig_dialog.py:267 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:618
 #: ../iw/raid_dialog_gui.py:657 ../iw/task_gui.py:79 ../iw/task_gui.py:145
-#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1689
-#: ../textw/partition_text.py:1695 ../textw/partition_text.py:1717
+#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1692
+#: ../textw/partition_text.py:1698 ../textw/partition_text.py:1720
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:463
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:479 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kickstart.c:279 ../loader2/lang.c:106
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:412
+#: ../loader2/driverdisk.c:422 ../loader2/driverdisk.c:486
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:369 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:316
+#: ../loader2/loader.c:366 ../loader2/loader.c:852 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:157 ../loader2/method.c:375
+#: ../loader2/method.c:449 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:91 ../loader2/urlinstall.c:142
+#: ../loader2/urlinstall.c:155 ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "Biddut"
 
-#: ../fsset.py:662
+#: ../fsset.py:664
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -596,50 +600,46 @@ msgstr ""
 "\n"
 "Kayatyo ti agpatuloy no saan a maiyakar ti %s?"
 
-#: ../fsset.py:1303
+#: ../fsset.py:1334
 msgid "RAID Device"
 msgstr "Aparato a RAID"
 
-#: ../fsset.py:1307 ../fsset.py:1313
+#: ../fsset.py:1338 ../fsset.py:1344
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1318 ../partitions.py:900
+#: ../fsset.py:1349 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1321
+#: ../fsset.py:1352
 msgid "First sector of boot partition"
 msgstr "Umuna a paset ti pagrubbuat a benneg"
 
-#: ../fsset.py:1322
+#: ../fsset.py:1353
 msgid "Master Boot Record (MBR)"
 msgstr "Kangrunaan a Rehistro ti Rubbuat (MBR)"
 
-#: ../fsset.py:1397
-#, python-format
+#: ../fsset.py:1428
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagrugrugian ti pangsinnukat nga aparato a %s. Saan a "
 "makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1426 ../packages.py:284 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:422
 msgid "Skip"
 msgstr "Laktawen"
 
-#: ../fsset.py:1426 ../upgrade.py:59 ../textw/complete_text.py:41
-msgid "Reboot"
-msgstr "Rugian Manen"
-
-#: ../fsset.py:1447
+#: ../fsset.py:1478
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -658,11 +658,11 @@ msgstr ""
 "nga aparato, nasken nga ipormatoyo a kas bersion a 1 ti pangsinnukat a "
 "benneg ti Linux. No luktawenyo, iti panagin-instalana malaktawto."
 
-#: ../fsset.py:1454
+#: ../fsset.py:1485
 msgid "Reformat"
 msgstr "Uliten ti pannakaipormato"
 
-#: ../fsset.py:1458
+#: ../fsset.py:1489
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -682,7 +682,7 @@ msgstr ""
 "sistema. Ideppenyo ti sistema imbes nga ipaturoganyo tapno makapagtuloykayo "
 "iti panagpasayaatna."
 
-#: ../fsset.py:1466
+#: ../fsset.py:1497
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -702,13 +702,13 @@ msgstr ""
 "No agin-instalakayo iti baro, talgedanyo a nakaisagana ti paginstala ti "
 "agpormato kadagiti amin nga pangsinnukat a benneg."
 
-#: ../fsset.py:1476
+#: ../fsset.py:1507
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
-"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
-"Reboot to restart the system."
+"upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
 "\n"
 "\n"
@@ -717,19 +717,19 @@ msgstr ""
 "kas pangsinnukat nga espasio. Pilienyo ti 'Rugian manen' tapno marugian "
 "manen ti sistema."
 
-#: ../fsset.py:1482 ../iw/partition_gui.py:368
+#: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Ipormato"
 
-#: ../fsset.py:1489
-#, python-format
+#: ../fsset.py:1519
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "The /etc/fstab on your upgrade partition does not reference a valid swap "
 "partition.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagrurugian ti pangsinnukat nga aparato a %s: %s\n"
 "\n"
@@ -738,14 +738,14 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../fsset.py:1500
-#, python-format
+#: ../fsset.py:1530
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "This most likely means this swap partition has not been initialized.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagrurugian ti pangsinnukat a benneg %s: %s\n"
 "\n"
@@ -753,69 +753,69 @@ msgstr ""
 "\n"
 "Talmeganyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../fsset.py:1554
-#, python-format
+#: ../fsset.py:1584
+#, fuzzy, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
-"Press <Enter> to reboot your system"
+"Press <Enter> to exit the installer."
 msgstr ""
 "Naduktalan ti madi a paset kadaytoy nga aparato a /dev/%s. Naisingasing a "
 "saan a maaramat daytoy nga aparato.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1565
-#, python-format
+#: ../fsset.py:1595
+#, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti pannakasukimat ti madi a paset ti %s. Gapu ta nakaro ti "
 "problema, isu nga saan a makapagtuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1605
-#, python-format
+#: ../fsset.py:1635
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagpapadas ti pannakaipormato ti %s. Gapu ta nakaro "
 "ti problema, saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1655
-#, python-format
+#: ../fsset.py:1685
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagyayakar ti %s. Gapu ta nakaro ti problema, isu nga "
 "saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1681 ../fsset.py:1690
+#: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Ti pagisagpatan ket saan a maaramat"
 
-#: ../fsset.py:1682
-#, python-format
+#: ../fsset.py:1712
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagpapadas ti pannakaparsua ti %s. Adda ti paset ti "
 "dana ket saan a direktorio. Gapu ta nakaro ti problema, saan a "
@@ -823,24 +823,24 @@ msgstr ""
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1691
-#, python-format
+#: ../fsset.py:1721
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagpapadas ti pannakaparsua ti %s: %s. Gapu ta nakaro "
 "ti problema, saan a makapagpatuloy ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:1704
+#: ../fsset.py:1734
 msgid "Unable to mount filesystem"
 msgstr "Saan a maisagpat ti sistema ti intar"
 
-#: ../fsset.py:1705
+#: ../fsset.py:1735
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -849,20 +849,20 @@ msgstr ""
 "Rimsua ti biddut iti panagisasagpat ti aparato a %s a kas %s. "
 "Makapagpatuloyyo iti panaginstal, ngem mabalin nga addanto ti problema."
 
-#: ../fsset.py:1713 ../image.py:93 ../image.py:450 ../kickstart.py:999
-#: ../kickstart.py:1037 ../partedUtils.py:1155 ../yuminstall.py:719
-#: ../iw/partition_gui.py:1011
+#: ../fsset.py:1743 ../image.py:93 ../image.py:453 ../kickstart.py:1008
+#: ../kickstart.py:1046 ../partedUtils.py:1179 ../upgrade.py:59
+#: ../yuminstall.py:754 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "Ipatul_oy"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1751
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Devices in /etc/fstab should be specified by label, not by device name.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagisasagpat ti aparato a %s a kasla %s: %s\n"
 "\n"
@@ -870,14 +870,14 @@ msgstr ""
 "\n"
 "Lagitekanyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../fsset.py:1728
-#, python-format
+#: ../fsset.py:1758
+#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "This most likely means this partition has not been formatted.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagisasagpat ti aparato a %s a kasla %s: %s\n"
 "\n"
@@ -885,13 +885,14 @@ msgstr ""
 "\n"
 "Lagitekanyo ti 'Mayat' tapno marugian manen ti sistema."
 
-#: ../fsset.py:1748
+#: ../fsset.py:1778
+#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
 "This is most likely means that your fstab is incorrect.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti panagbibirok ti pakasuratan a '/'.\n"
 "\n"
@@ -899,11 +900,11 @@ msgstr ""
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../fsset.py:2403
+#: ../fsset.py:2432
 msgid "Duplicate Labels"
 msgstr "Nakopia nga etiketa"
 
-#: ../fsset.py:2404
+#: ../fsset.py:2433
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -917,12 +918,12 @@ msgstr ""
 "\n"
 "Tarimaanyo daytoy a problema, sayonto uliten ti panagrugi ti panaginstala."
 
-#: ../fsset.py:2413
+#: ../fsset.py:2442
 #, fuzzy
 msgid "Invalid Label"
 msgstr "Saan a Matutop ti Etiketa ti Rubbuat"
 
-#: ../fsset.py:2414
+#: ../fsset.py:2443
 #, fuzzy, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -934,11 +935,11 @@ msgstr ""
 "\n"
 "Tarimaanyo daytoy a problema, sayonto uliten ti panagrugi ti panaginstala."
 
-#: ../fsset.py:2672
+#: ../fsset.py:2701
 msgid "Formatting"
 msgstr "Agporpormato"
 
-#: ../fsset.py:2673
+#: ../fsset.py:2702
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Naporpormato ti sistema a %s ti intar..."
@@ -990,24 +991,24 @@ msgstr ""
 msgid "Fix"
 msgstr "Isaad"
 
-#: ../gui.py:235 ../rescue.py:203 ../text.py:441 ../upgrade.py:59
+#: ../gui.py:235 ../rescue.py:217 ../text.py:441
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:411
 msgid "Yes"
 msgstr "Wen"
 
-#: ../gui.py:236 ../rescue.py:203 ../rescue.py:205 ../text.py:442
+#: ../gui.py:236 ../rescue.py:217 ../rescue.py:219 ../text.py:442
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/loader.c:411
 msgid "No"
 msgstr "Saan"
 
-#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:93
-#: ../loader2/net.c:325 ../loader2/net.c:584 ../loader2/net.c:692
-#: ../loader2/net.c:792 ../loader2/net.c:800 ../loader2/net.c:1207
-#: ../loader2/net.c:1213
+#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:97
+#: ../loader2/net.c:329 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1193
+#: ../loader2/net.c:1199
 msgid "Retry"
 msgstr "Padasen manen"
 
@@ -1019,8 +1020,8 @@ msgstr "Bay-an"
 #: ../partIntfHelpers.py:529 ../text.py:106 ../text.py:107 ../text.py:417
 #: ../text.py:419 ../text.py:446 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:366 ../loader2/loader.c:351
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:282
+#: ../loader2/kickstart.c:366 ../loader2/loader.c:355
 msgid "Cancel"
 msgstr "Ukasen"
 
@@ -1065,25 +1066,34 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1109 ../gui.py:1114 ../packages.py:333 ../packages.py:338
+#: ../gui.py:1109 ../harddrive.py:80 ../harddrive.py:126 ../image.py:526
+#: ../packages.py:331 ../packages.py:336
 msgid "_Exit"
 msgstr "_Turposen"
 
-#: ../gui.py:1110 ../yuminstall.py:605
+#: ../gui.py:1110 ../harddrive.py:81 ../image.py:527 ../yuminstall.py:445
+#: ../yuminstall.py:748 ../yuminstall.py:796 ../yuminstall.py:1015
 msgid "_Retry"
 msgstr "_Padasen manen"
 
-#: ../gui.py:1113 ../packages.py:337
+#: ../gui.py:1113 ../packages.py:335
 msgid "The installer will now exit..."
 msgstr "Agturturpos ita ti paginstala..."
 
-#: ../gui.py:1116 ../packages.py:340
+#: ../gui.py:1116 ../packages.py:338
 msgid "Your system will now be rebooted..."
 msgstr "Marugian manen ita ti sistema..."
 
-#: ../gui.py:1119 ../packages.py:342
-msgid "Rebooting System"
-msgstr "Agrugrugi manen ti Sistema"
+#: ../gui.py:1117 ../image.py:93 ../packages.py:339 ../partedUtils.py:1178
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
+msgid "_Reboot"
+msgstr "_Mangrugi manen"
+
+#: ../gui.py:1119
+#, fuzzy
+msgid "Exiting"
+msgstr "Ileppas"
 
 #: ../gui.py:1186
 #, python-format
@@ -1098,14 +1108,14 @@ msgstr "Saan a maawit ti barras ti titulo"
 msgid "Install Window"
 msgstr "Tawa ti panaginstala"
 
-#: ../harddrive.py:44 ../image.py:146 ../image.py:480
-#, python-format
+#: ../harddrive.py:44 ../image.py:146 ../image.py:483
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
 "all the required media.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1117,17 +1127,17 @@ msgstr ""
 "a nasken nga uliten ti panaginstala.\n"
 "\n"
 
-#: ../harddrive.py:71 ../image.py:513
+#: ../harddrive.py:71 ../image.py:516
 msgid "Missing ISO 9660 Image"
 msgstr "Nalabsan ti ISO 9660 nga imahen"
 
 #: ../harddrive.py:72
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
 "\n"
-"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
 "Napadas ti agisagpat iti #%s nga imahen, ngem saan a mabirokan iti "
@@ -1135,10 +1145,6 @@ msgstr ""
 "\n"
 "Kopiaenyo daytoy nga imahen kadaytoy a drive, sayonto lagitekanyo ti "
 "'Padasen Manen'. Lagitekanyo ti 'Rugian manen' tapno maukas ti panaginstala."
-
-#: ../harddrive.py:81 ../image.py:524
-msgid "Re_try"
-msgstr "Padasen _manen"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
@@ -1149,7 +1155,7 @@ msgstr ""
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
-"there was a problem mounting a partition.  Click reboot to abort the "
+"there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
 
@@ -1158,13 +1164,13 @@ msgid "Required Install Media"
 msgstr "Nasken a Warnakan a Paginstala"
 
 #: ../image.py:85
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The software you have selected to install will require the following CDs:\n"
+"The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you "
-"need to abort the installation and reboot please select \"Reboot\"."
+"need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "Ti napili a software a mainstala ket nasken dagiti sumaruno a CD:\n"
 "\n"
@@ -1172,31 +1178,31 @@ msgstr ""
 "Isaganayo dagiti CD sakbayyo ipatuloy ti panaginstala. No masapolyo nga "
 "ukasen ti panaginstala, santo marugian manen, pillienyo ti \"Rugian manen\"."
 
-#: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
-#: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
+#: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Agatras"
 
-#: ../image.py:136 ../urlinstall.py:212
-#, python-format
+#: ../image.py:136 ../urlinstall.py:207
+#, fuzzy, python-format
 msgid ""
-"An error occurred unmounting the CD.  Please make sure you're not accessing %"
-"s from the shell on tty2 and then click OK to retry."
+"An error occurred unmounting the disc.  Please make sure you're not "
+"accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "Rimsua ti biddut iti pannakaidissaag ti CD. Talgedanyo a saanyo nga "
 "agsilsilpo iti %s nga aggapu ti shell iti tty2, sayonto lagitekanyo ti "
 "'Mayat' tapno mapadasenyo manen."
 
-#: ../image.py:170 ../urlinstall.py:103
+#: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
 msgstr "Kopkopiean ti intar"
 
-#: ../image.py:171 ../urlinstall.py:104
+#: ../image.py:171 ../urlinstall.py:103
 msgid "Transferring install image to hard drive..."
 msgstr "Iyakyakar ti paginstala nga imahen iti harddrive..."
 
-#: ../image.py:181 ../urlinstall.py:114
+#: ../image.py:181 ../urlinstall.py:113
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1205,7 +1211,8 @@ msgstr ""
 "Kurangensa ti espasio ti harddisk."
 
 #: ../image.py:270
-msgid "Change CDROM"
+#, fuzzy
+msgid "Change Disc"
 msgstr "Insukat ti CDROM"
 
 #: ../image.py:271
@@ -1213,27 +1220,29 @@ msgstr "Insukat ti CDROM"
 msgid "Please insert %s disc %d to continue."
 msgstr "Isengngatyo ti %s a disk ti %d tapno makapagpatuloykayo."
 
-#: ../image.py:306
-msgid "Wrong CDROM"
+#: ../image.py:305
+#, fuzzy
+msgid "Wrong Disc"
 msgstr "Saan nga apag-isu a CDROM"
 
-#: ../image.py:307
-#, python-format
-msgid "That's not the correct %s CDROM."
+#: ../image.py:306
+#, fuzzy, python-format
+msgid "That's not the correct %s disc."
 msgstr "Saan met a dayta ti apag-isu a %s a CDROM."
 
-#: ../image.py:313
-msgid "Unable to access the CDROM."
+#: ../image.py:312
+#, fuzzy
+msgid "Unable to access the disc."
 msgstr "Saan a maakses ti CDROM."
 
-#: ../image.py:366
-#, python-format
+#: ../image.py:369
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
 "packages.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1245,24 +1254,24 @@ msgstr ""
 "a masapol a uliten ti panaginstala.\n"
 "\n"
 
-#: ../image.py:440
+#: ../image.py:443
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
 "\n"
-"It is recommended that you reboot and abort your installation, but you can "
+"It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: ../image.py:514
-#, python-format
+#: ../image.py:517
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
-"Click Reboot to abort the installation."
+"Click Exit to abort the installation."
 msgstr ""
 "Napadas ti panagisagpat ti imahen a #%s, ngem saan a mabirokan iti "
 "serbidor.\n"
@@ -1271,11 +1280,11 @@ msgstr ""
 "serbidor, sayonto klikan ti 'Uliten'. Klikanyo ti 'Rugian manen' tapno "
 "maukas ti panaginstala."
 
-#: ../installclass.py:66
+#: ../installclass.py:67
 msgid "Install on System"
 msgstr "Mainstalaan ti Sistema"
 
-#: ../iscsi.py:197 ../iscsi.py:198
+#: ../iscsi.py:199 ../iscsi.py:200
 msgid "Initializing iSCSI initiator"
 msgstr "Mairugrugi ti iSCSI nga mangirugi"
 
@@ -1284,35 +1293,35 @@ msgid "Scriptlet Failure"
 msgstr "Saan a matungpal ti scriptlet"
 
 #: ../kickstart.py:76
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
-"Press the OK button to reboot your system."
+"Press the OK button to exit the installer."
 msgstr ""
 "Rimsua ti biddut iti pannakatungpal ti scriptlet. Maimatanganyo ti rimruar "
 "nga intar a %s. Maukas itan ti panaginstala.\n"
 "\n"
 "Talmeganyo ti <ENTER> tapno marugian manen ti sistema."
 
-#: ../kickstart.py:942 ../kickstart.py:959
+#: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
 msgstr "Agtungtungpal..."
 
-#: ../kickstart.py:943
+#: ../kickstart.py:952
 msgid "Running post-install scripts"
 msgstr "Tungtungpalen dagiti script ti kalpasan"
 
-#: ../kickstart.py:960
+#: ../kickstart.py:969
 msgid "Running pre-install scripts"
 msgstr "Tungtungpalen dagiti kasakbay ti panaginstala nga eskrito"
 
-#: ../kickstart.py:991
+#: ../kickstart.py:1000
 msgid "Missing Package"
 msgstr "Nalabsan ti pakete"
 
-#: ../kickstart.py:992
+#: ../kickstart.py:1001
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1321,16 +1330,16 @@ msgstr ""
 "Naituding a mainstala ti pakete a '%s'. Saan a panagadda daytoy a pakete. "
 "Kayatyo ti agpatuloy wenno agukas ti panaginstala?"
 
-#: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
-#: ../yuminstall.py:721
+#: ../kickstart.py:1007 ../kickstart.py:1045 ../yuminstall.py:748
+#: ../yuminstall.py:751
 msgid "_Abort"
 msgstr "_Ukasen"
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1037
 msgid "Missing Group"
 msgstr "Nalabsan A Grupo"
 
-#: ../kickstart.py:1029
+#: ../kickstart.py:1038
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1339,52 +1348,38 @@ msgstr ""
 "Nadutokan a ti grupo a '%s' ket mainstala. Saan a panagadda daytoy a grupo. "
 "Kayatyo ti agpatuloy wenno agukas iti panaginstala?"
 
-#: ../livecd.py:79
+#: ../livecd.py:93
 #, fuzzy
 msgid "Unable to find image"
 msgstr "Saan a maduktalan ti panginstala nga imahen ti %s"
 
-#: ../livecd.py:80
+#: ../livecd.py:94
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:84 ../livecd.py:329
+#: ../livecd.py:98
 #, fuzzy
 msgid "Exit installer"
 msgstr "Paginstala ti %s"
 
-#: ../livecd.py:160
+#: ../livecd.py:174
 #, fuzzy
 msgid "Copying live image to hard drive."
 msgstr "Iyakyakar ti paginstala nga imahen iti harddrive..."
 
-#: ../livecd.py:189
+#: ../livecd.py:203
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "%s %s panaginstala"
 
-#: ../livecd.py:190
+#: ../livecd.py:204
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr "Mangrugrugi ti panaginstala. Mabaybayag ti nadumaduma a minuto..."
-
-#: ../livecd.py:328 ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
-#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
-#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
-#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:1002 ../loader2/loader.c:1024
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:282 ../loader2/urls.c:470
-msgid "Back"
-msgstr "Agatras"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1427,26 +1422,26 @@ msgstr "Ti '%s' ket saan a maaramat a pagtaengan ti IPv6."
 msgid "'%s' is an invalid IP address."
 msgstr "Ti '%s' ket saan a maaramat a pagtaengan ti IPv6."
 
-#: ../packages.py:258
+#: ../packages.py:256
 #, fuzzy
 msgid "Invalid Key"
 msgstr "Saan a Matutop nga Unlapi"
 
-#: ../packages.py:259
+#: ../packages.py:257
 #, fuzzy
 msgid "The key you entered is invalid."
 msgstr "Saan a matutop a numero ti pateg a naisurat."
 
-#: ../packages.py:287
+#: ../packages.py:285
 #, fuzzy
 msgid "_Skip"
 msgstr "Laktawen"
 
-#: ../packages.py:319
+#: ../packages.py:317 ../packages.py:340
 msgid "Warning! This is pre-release software!"
 msgstr "Patigmaan! Sakbay ti pannakaibbat daytoy!"
 
-#: ../packages.py:320
+#: ../packages.py:318
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1474,7 +1469,7 @@ msgstr ""
 "    %s\n"
 "sayonto idatag ti padamag maisuppiat ti '%s'.\n"
 
-#: ../packages.py:333
+#: ../packages.py:331
 msgid "_Install anyway"
 msgstr "_Mainstala no aniaman"
 
@@ -1522,16 +1517,16 @@ msgstr "_Bay-an ti harddrive"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:890
+#: ../partedUtils.py:911
 msgid "Initializing"
 msgstr "Agirubrubbuat"
 
-#: ../partedUtils.py:891
+#: ../partedUtils.py:912
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Aguraykayo bayat ti panagpormato ti harddrive a %s...\n"
 
-#: ../partedUtils.py:1053
+#: ../partedUtils.py:1076
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1551,7 +1546,7 @@ msgstr ""
 "\n"
 "Kayatyo a marugian daytoy a drive ket mabura ti SIBUBUKEL a DATOS?"
 
-#: ../partedUtils.py:1102
+#: ../partedUtils.py:1125
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1571,7 +1566,7 @@ msgstr ""
 "\n"
 "Kayatyo a marugian daytoy a harddrive ket mabura ti SIBUBUKEL A DATOS?"
 
-#: ../partedUtils.py:1144
+#: ../partedUtils.py:1168
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1580,11 +1575,20 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 
-#: ../partedUtils.py:1242
+#: ../partedUtils.py:1184
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
+"the Linux kernel does not allow for more than 15 partitions at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+
+#: ../partedUtils.py:1276
 msgid "No Drives Found"
 msgstr "Awan ti masarakan a harddrive"
 
-#: ../partedUtils.py:1243
+#: ../partedUtils.py:1277
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2143,40 +2147,40 @@ msgstr ""
 "Masapol a ti kadakkel ti lohikal a tomo ket dakdakkel ngem ti pisikal a "
 "kadakkel ti grupo ti tomo."
 
-#: ../rescue.py:129
+#: ../rescue.py:146
 msgid "Starting Interface"
 msgstr "Irugrugi ti Pagsilpuan"
 
-#: ../rescue.py:130
+#: ../rescue.py:147
 #, python-format
 msgid "Attempting to start %s"
 msgstr "Napadpadas ti panagirugi ti %s"
 
-#: ../rescue.py:175
+#: ../rescue.py:189
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "No nalpasen, leppasenyo ti shell santo marugian manen ti sistema."
 
-#: ../rescue.py:201
+#: ../rescue.py:215
 msgid "Setup Networking"
 msgstr "Ituding ti Ikit"
 
-#: ../rescue.py:202
+#: ../rescue.py:216
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Kayatyo irugi dagiti pagsilpuan ti iket kadaytoy a sistema?"
 
-#: ../rescue.py:243 ../text.py:598
+#: ../rescue.py:256 ../text.py:598
 msgid "Cancelled"
 msgstr "Naukas"
 
-#: ../rescue.py:244 ../text.py:599
+#: ../rescue.py:257 ../text.py:599
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Saan a maiyaddang ti kasakbayan aggapu ditoy. Masapol a mapadas manen."
 
-#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
+#: ../rescue.py:289 ../rescue.py:356 ../rescue.py:364 ../rescue.py:445
 msgid "Rescue"
 msgstr "Isalakan"
 
-#: ../rescue.py:277
+#: ../rescue.py:290
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2200,29 +2204,29 @@ msgstr ""
 "pammilin.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:55
+#: ../rescue.py:300 ../iw/partition_gui.py:567 ../textw/network_text.py:55
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Continue"
 msgstr "Ipatuloy"
 
-#: ../rescue.py:287 ../rescue.py:292
+#: ../rescue.py:300 ../rescue.py:305
 msgid "Read-Only"
 msgstr "Basa-Laeng"
 
-#: ../rescue.py:318
+#: ../rescue.py:331
 msgid "System to Rescue"
 msgstr "Ti Sistema a Maisalakan"
 
-#: ../rescue.py:319
+#: ../rescue.py:332
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ania a benneg ti pagdissuan ti kangrunaan a benneg ti panaginstala?"
 
-#: ../rescue.py:321 ../rescue.py:325 ../text.py:572 ../text.py:574
+#: ../rescue.py:334 ../rescue.py:338 ../text.py:572 ../text.py:574
 msgid "Exit"
 msgstr "Ileppas"
 
-#: ../rescue.py:344
+#: ../rescue.py:357
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2232,7 +2236,7 @@ msgstr ""
 "<RETURN> tapno maipakita ti shell ayan makaaramatyo iti fsck sayo isagpat ti "
 "benneg."
 
-#: ../rescue.py:352
+#: ../rescue.py:365
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2253,7 +2257,7 @@ msgstr ""
 "\n"
 "Marugian manen ti sistema no kalpasanyo ti shell."
 
-#: ../rescue.py:435
+#: ../rescue.py:446
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2268,11 +2272,11 @@ msgstr ""
 "Talmeganyo ti <RETURN> tapno maipakita ti shell. Marugian manen nga "
 "otomatiki ti sistema no kalpasanyo ti shell."
 
-#: ../rescue.py:441
+#: ../rescue.py:452
 msgid "Rescue Mode"
 msgstr "Wagas ti Pannakaisalakan"
 
-#: ../rescue.py:442
+#: ../rescue.py:453
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2280,7 +2284,7 @@ msgstr ""
 "Awan ti benneg ti Linux. Talmeganyo ti <RETURN> tapno maipakita ti shell. "
 "Marugian manen ti sistema no kalpasanyo ti shell."
 
-#: ../rescue.py:455
+#: ../rescue.py:466
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Nakaisagpat ti sistema babaen ti direktorio a %s."
@@ -2343,7 +2347,7 @@ msgstr ""
 msgid "Save Crash Dump"
 msgstr "Idulin ti pangusisa nga intar"
 
-#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:153
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s"
@@ -2478,18 +2482,18 @@ msgstr "Saan a Maaramat a Direktorio"
 msgid "%s not found"
 msgstr "Ti %s ket saan a mabirokan"
 
-#: ../urlinstall.py:38
+#: ../urlinstall.py:37
 msgid "Connecting..."
 msgstr "Agsilsipo..."
 
-#: ../urlinstall.py:77
-#, python-format
+#: ../urlinstall.py:76
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
 "and try using a different one.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -2629,122 +2633,136 @@ msgstr "Agdama nga agtartaray ti servbidor ti VNC."
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Agpadpadas nga agkasilpo ti kliente ti VNC iti host a %s."
 
-#: ../vnc.py:309
+#: ../vnc.py:311
 msgid "Connected!"
 msgstr "Nakasilpuan!"
 
-#: ../vnc.py:314
+#: ../vnc.py:316
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Kalpasanna ti naminlimapulo nga agpadas, mauk-ukasen ti panagsilpo!\n"
 
-#: ../vnc.py:316
+#: ../vnc.py:318
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 "Ti kliente a VNC ket ikasilpoyo a demano iti %s tapno mairugi ti "
 "panaginstala. "
 
-#: ../vnc.py:318
+#: ../vnc.py:320
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 "Ti kliente a VNC ket ikasilpoyo a demano tapno mairugi ti panaginstala. "
 
-#: ../vnc.py:322
+#: ../vnc.py:324
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Agpadasto ti agsilpo manen no 15 segundo..."
 
-#: ../vnc.py:330
+#: ../vnc.py:332
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Ikasilpuanyo ti %s tapno makapagrugi ti panaginstala..."
 
-#: ../vnc.py:332
+#: ../vnc.py:334
 msgid "Please connect to begin the install..."
 msgstr "Agkasilpokayo tapno makapagrugi ti panaginstala..."
 
-#: ../yuminstall.py:73
+#: ../yuminstall.py:62
 #, python-format
 msgid "%s MB"
 msgstr "%s a MB"
 
-#: ../yuminstall.py:76
+#: ../yuminstall.py:65
 #, python-format
 msgid "%s KB"
 msgstr "%s a KB"
 
-#: ../yuminstall.py:79
+#: ../yuminstall.py:68
 #, python-format
 msgid "%s Byte"
 msgstr "%s a Byte"
 
-#: ../yuminstall.py:81
+#: ../yuminstall.py:70
 #, python-format
 msgid "%s Bytes"
 msgstr "%s a Byte"
 
-#: ../yuminstall.py:129
+#: ../yuminstall.py:117
 msgid "Processing"
 msgstr "Aga-analisa"
 
-#: ../yuminstall.py:130
+#: ../yuminstall.py:118
 msgid "Preparing transaction from installation source..."
 msgstr "Isagsagana ti transaksion aggapo ti pagtataudan ti panaginstala..."
 
-#: ../yuminstall.py:160
+#: ../yuminstall.py:148
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "Main-instala ti %s\n"
 
-#: ../yuminstall.py:194
+#: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:528 ../yuminstall.py:529
+#: ../yuminstall.py:195
+msgid "Finishing upgrade"
+msgstr ""
+
+#: ../yuminstall.py:196
+#, fuzzy
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "Mangrugrugi ti panaginstala. Mabaybayag ti nadumaduma a minuto..."
+
+#: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
+#: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
+msgid "Re_boot"
+msgstr "Uliten ti panagrugi"
+
+#: ../yuminstall.py:598 ../yuminstall.py:599
 msgid "file conflicts"
 msgstr "masuppiat ti intar"
 
-#: ../yuminstall.py:530
+#: ../yuminstall.py:600
 msgid "older package(s)"
 msgstr "daddaan a pakete"
 
-#: ../yuminstall.py:531
+#: ../yuminstall.py:601
 msgid "insufficient disk space"
 msgstr "kurang nga espasio ti disk"
 
-#: ../yuminstall.py:532
+#: ../yuminstall.py:602
 msgid "insufficient disk inodes"
 msgstr "kurang nga inode ti disk"
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:603
 msgid "package conflicts"
 msgstr "masuppiat ti pakete"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:604
 msgid "package already installed"
 msgstr "nakainstalan ti pakete"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:605
 msgid "required package"
 msgstr "masapol a pakete"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:606
 msgid "package for incorrect arch"
 msgstr "pakete ti madi nga arkitektura"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:607
 msgid "package for incorrect os"
 msgstr "pakete ti madi a sistema ti panangpaandar"
 
-#: ../yuminstall.py:551
+#: ../yuminstall.py:621
 msgid "You need more space on the following file systems:\n"
 msgstr "Masapol ti adu pay nga espasio kadagiti sumaruno a sistema ti intar:\n"
 
-#: ../yuminstall.py:567
+#: ../yuminstall.py:637
 msgid "Error running transaction"
 msgstr "Biddut iti panagtutungpal ti transaksion"
 
-#: ../yuminstall.py:568
+#: ../yuminstall.py:638
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
@@ -2752,21 +2770,16 @@ msgstr ""
 "Rimsua ti biddut iti panagtutungpal ti transaksion, maigapo ti sumaruno a "
 "rason: %s"
 
-#: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
-#: ../yuminstall.py:931
-msgid "Re_boot"
-msgstr "Uliten ti panagrugi"
-
-#: ../yuminstall.py:699
+#: ../yuminstall.py:733
 msgid "Retrieving installation information..."
 msgstr "Ab-abruten ti datos ti panaginstala..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:735
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "Ab-abruten ti datos ti panaginstala maipaay ti %s..."
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:763 ../yuminstall.py:1020
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2777,27 +2790,28 @@ msgstr ""
 "datos ti pagikabilan. Patalgedanyo a napataud a nalaing ti kayo ti "
 "panaginstala. %s"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:803
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:836
 msgid "Uncategorized"
 msgstr "Awan ti Kategoria"
 
-#: ../yuminstall.py:925
-#, python-format
+#: ../yuminstall.py:1045
+#, fuzzy, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
-"do not have enough available.  You can change your selections or reboot."
+"do not have enough available.  You can change your selections or exit the "
+"installer."
 msgstr ""
 "Dagiti pakete a piniliyo ket masapolda ti %d a MB ti nawaya nga espasio "
 "tapno mainstalada, ngem kurang ti espasio. Maisukatyo ti pakapilianyo wenno "
 "marugian manen."
 
-#: ../yuminstall.py:1086
+#: ../yuminstall.py:1206
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2807,39 +2821,39 @@ msgstr ""
 "mapasayaat daytoy a bersion ti %s. Sigurado a kayatyo nga ipatuloy daytoy a "
 "panagpasayaat?"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1235
 msgid "Install Starting"
 msgstr "Mangrugrugi ti panaginstala"
 
-#: ../yuminstall.py:1115
+#: ../yuminstall.py:1236
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Mangrugrugi ti panaginstala. Mabaybayag ti nadumaduma a minuto..."
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1252
 msgid "Post Upgrade"
 msgstr "Kalpasan ti Panagpasayaat"
 
-#: ../yuminstall.py:1132
+#: ../yuminstall.py:1253
 msgid "Performing post upgrade configuration..."
 msgstr "Agdaldalimanek iti kalpasan ti panagpasayaat..."
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1255
 msgid "Post Install"
 msgstr "Kalpasan ti panaginstala"
 
-#: ../yuminstall.py:1135
+#: ../yuminstall.py:1256
 msgid "Performing post install configuration..."
 msgstr "Agur-urnos, kalpasan ti panaginstala..."
 
-#: ../yuminstall.py:1332
+#: ../yuminstall.py:1473
 msgid "Installation Progress"
 msgstr "Kasasaad ti panaginstala"
 
-#: ../yuminstall.py:1367
+#: ../yuminstall.py:1508
 msgid "Dependency Check"
 msgstr "Panagsukimat ti Agtaltalek "
 
-#: ../yuminstall.py:1368
+#: ../yuminstall.py:1509
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Agsuksukimat iti agtaltalek ti napili a pakete ti panaginstala..."
 
@@ -2913,41 +2927,41 @@ msgstr "Kontrasenias ti _Root:"
 msgid "_Confirm: "
 msgstr "_Patalgedan:"
 
-#: ../iw/autopart_type.py:154
+#: ../iw/autopart_type.py:155
 msgid "Invalid Initiator Name"
 msgstr "Saan a Matutop to Nagan ti Mangrugi"
 
-#: ../iw/autopart_type.py:155
+#: ../iw/autopart_type.py:156
 #, fuzzy
 msgid "You must provide an initiator name."
 msgstr "Masapol a maikkan ti nagan ti pangrugian a saan a sero ti kaatiddogna."
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:178
 msgid "Error with Data"
 msgstr "Biddut ti Datos"
 
-#: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
+#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr ""
 "Ikkaten amin a benneg a nakaidisso kadagiti napili a harddrive, santo "
 "maparsua ti sigud a panangurnos."
 
-#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
+#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr ""
 "Ikkaten amin a benneg ti Linux a nakaidisso kadagiti napili a harddrive, "
 "santo parsuaen ti nakaisigudan a panangurnos."
 
-#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
+#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr ""
 "Aramaten ti nawaya nga espasio iti pinili a harddrive, santo parsuaen ti "
 "nakaisigudan a panangurnos."
 
-#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
+#: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
 #, fuzzy
 msgid "Create custom layout"
 msgstr "Parsuaen ti kabukbukudan a panagipinipin."
@@ -3225,11 +3239,11 @@ msgstr "Ti sumaruno a nainstala a sistema ket mapasayaatto:"
 msgid "Unknown Linux system"
 msgstr "Saan nga Am-ammo a sistema ti Linux"
 
-#: ../iw/language_gui.py:24 ../textw/language_text.py:41
+#: ../iw/language_gui.py:24 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "Pakapilian ti Pagsasao"
 
-#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:38 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "Ania a pagsasao a kayatyo nga aramaten iti panaginstala?"
 
@@ -3616,14 +3630,6 @@ msgstr "_Taudan ti 3 a butones"
 msgid "Select the appropriate mouse for the system."
 msgstr "Pilienyo ti matutop a mouse ti sistema."
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
-#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
-#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
-#: ../textw/network_text.py:47 ../textw/network_text.py:52
-#: ../textw/network_text.py:58
-msgid "Error With Data"
-msgstr "Biddut ti Datos"
-
 #: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
@@ -3633,34 +3639,64 @@ msgstr ""
 "Rimsua ti biddut iti pakababaliw ti pateg nga naisurat maipaay ti \"%s\":\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155
+#: ../iw/netconfig_dialog.py:139 ../iw/netconfig_dialog.py:148
+#: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:150
+#: ../iw/network_gui.py:154 ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:47 ../textw/network_text.py:52
+#: ../textw/network_text.py:58
+msgid "Error With Data"
+msgstr "Biddut ti Datos"
+
+#: ../iw/netconfig_dialog.py:147 ../iw/network_gui.py:155
+#: ../textw/network_text.py:48
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
+msgstr "Nasken ti pateg maipaay ti blangko a \"%s\"."
+
+#: ../iw/netconfig_dialog.py:169
 msgid "Dynamic IP"
 msgstr "Agsabsabali nga IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:831
+#: ../iw/netconfig_dialog.py:170 ../loader2/net.c:413 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "Ipatultulod ti dawat ti datos ti IP maipaay ti %s..."
 
-#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:88
-#: tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:191 ../iw/netconfig_dialog.py:194
+#: ../textw/network_text.py:88 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "Pagtaengan nga IP"
 
-#: ../iw/netconfig_dialog.py:182
+#: ../iw/netconfig_dialog.py:201 ../iw/netconfig_dialog.py:204
 msgid "Netmask"
 msgstr "Maskara ti ikit"
 
-#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:524
+#: ../iw/netconfig_dialog.py:211
+#, fuzzy
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "Ti unlapi ti IPv4 ket masapol nga agbaet ti 0 ketn 32."
+
+#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
+#: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
+#, fuzzy
+msgid "IPv4 Network Mask"
+msgstr "IPv4/Maskara ti Ikit"
+
+#: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "Paglasatan"
 
-#: ../iw/netconfig_dialog.py:195
+#: ../iw/netconfig_dialog.py:245
 msgid "Nameserver"
 msgstr "Serbidor ti nagan"
 
-#: ../iw/netconfig_dialog.py:214
+#: ../iw/netconfig_dialog.py:255
+#, fuzzy
+msgid "Error configuring network device:"
+msgstr "Rimsua ti biddut iti panagidadalimanek ti pagsilpuan ti iket."
+
+#: ../iw/netconfig_dialog.py:268
 #, fuzzy
 msgid "Error configuring network device"
 msgstr "Rimsua ti biddut iti panagidadalimanek ti pagsilpuan ti iket."
@@ -3706,7 +3742,7 @@ msgstr ""
 "Saan a natudingan ti kampo a \"%s\". Depende ti iket, mabalin ti "
 "agpaproblema intono madamdama."
 
-#: ../iw/network_gui.py:151 ../textw/network_text.py:813
+#: ../iw/network_gui.py:151 ../textw/network_text.py:817
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3717,18 +3753,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:155 ../textw/network_text.py:48
-#, fuzzy, python-format
-msgid "A value is required for the field %s."
-msgstr "Nasken ti pateg maipaay ti blangko a \"%s\"."
-
 #: ../iw/network_gui.py:158 ../textw/network_text.py:38
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "Biddut ti Datos"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
-#: ../textw/network_text.py:587 ../textw/network_text.py:591
+#: ../textw/network_text.py:590 ../textw/network_text.py:594
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
@@ -3818,7 +3849,7 @@ msgstr "Saan nga Am-ammo"
 msgid "Hardware address: "
 msgstr "Pagtaengan ti hardware: %s"
 
-#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:792
+#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "Nalabsan a Protokol"
 
@@ -3830,7 +3861,7 @@ msgstr ""
 "IPv6) maipaay ti DHCP."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
-#: ../textw/network_text.py:69 ../loader2/net.c:93
+#: ../textw/network_text.py:69 ../loader2/net.c:97
 msgid "Invalid Prefix"
 msgstr "Saan a Matutop nga Unlapi"
 
@@ -4480,15 +4511,15 @@ msgstr "Pagtatarusan a Harddrive:"
 msgid "Drives"
 msgstr "Harddrive"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
+#: ../iw/release_notes.py:156 ../iw/release_notes.py:161
 msgid "Release notes are missing.\n"
 msgstr "Napukaw ti notas ti pannakaibbat.\n"
 
-#: ../iw/release_notes.py:236
+#: ../iw/release_notes.py:241
 msgid "Release Notes"
 msgstr "Notas ti Pannakaibbat"
 
-#: ../iw/release_notes.py:239
+#: ../iw/release_notes.py:244
 msgid "Unable to load file!"
 msgstr "Saan a maawit ti intar."
 
@@ -4547,25 +4578,25 @@ msgstr ""
 msgid "Time Zone Selection"
 msgstr "Panagpili ti Sona ti Oras"
 
-#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:106
+#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:108
 msgid "Upgrade Boot Loader Configuration"
 msgstr "Pasayaat ti Panagidalimanek ti Mangimaton ti Rubbuat"
 
-#: ../iw/upgrade_bootloader_gui.py:95
+#: ../iw/upgrade_bootloader_gui.py:97
 msgid "_Update boot loader configuration"
 msgstr "_Pasayaat ti Panagidalimanek ti Mangimaton ti Rubbuat"
 
-#: ../iw/upgrade_bootloader_gui.py:96
+#: ../iw/upgrade_bootloader_gui.py:98
 msgid "This will update your current boot loader."
 msgstr "Pasayaatto daytoy ti agdinama a mangimaton ti rubbuat."
 
-#: ../iw/upgrade_bootloader_gui.py:100 ../textw/upgrade_bootloader_text.py:78
+#: ../iw/upgrade_bootloader_gui.py:102 ../textw/upgrade_bootloader_text.py:80
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
 
-#: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
+#: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
@@ -4573,7 +4604,7 @@ msgstr ""
 "Saan a maduktalan ti pagsimpa ti mangimaton ti rubbuat a naar-aramat ti "
 "sistema."
 
-#: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
+#: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
@@ -4581,15 +4612,15 @@ msgstr ""
 "Naduktalan ti pagisimpa ti mangimaton ti rubbuat a %s a nakaisimpan ittata "
 "iti %s."
 
-#: ../iw/upgrade_bootloader_gui.py:114
+#: ../iw/upgrade_bootloader_gui.py:116
 msgid "This is the recommended option."
 msgstr "Daytoy ti naisingasing nga opsion."
 
-#: ../iw/upgrade_bootloader_gui.py:119
+#: ../iw/upgrade_bootloader_gui.py:121
 msgid "_Create new boot loader configuration"
 msgstr "_Parsuaen ti baro pannakaidalimanek ti mangimaton ti rubbuat"
 
-#: ../iw/upgrade_bootloader_gui.py:121
+#: ../iw/upgrade_bootloader_gui.py:123
 #, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
@@ -4599,11 +4630,11 @@ msgstr ""
 "pannakaidalimanek ti mangimaton ti rubbuat. No kayatyo ti agsukat iti "
 "mangimaton ti rubbuat, pilienyo daytoy kuma."
 
-#: ../iw/upgrade_bootloader_gui.py:128
+#: ../iw/upgrade_bootloader_gui.py:130
 msgid "_Skip boot loader updating"
 msgstr "_Libtawan ti panagsayaat ti mangimaton ti rubbuat"
 
-#: ../iw/upgrade_bootloader_gui.py:129
+#: ../iw/upgrade_bootloader_gui.py:131
 #, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
@@ -4613,7 +4644,7 @@ msgstr ""
 "armat ti mangimaton ti rubbuat ti maikatlo a partido, nasken a mapiliyo "
 "daytoy."
 
-#: ../iw/upgrade_bootloader_gui.py:140
+#: ../iw/upgrade_bootloader_gui.py:142
 msgid "What would you like to do?"
 msgstr "Anit ti kayatyo nga aramiden?"
 
@@ -4941,6 +4972,10 @@ msgstr ""
 msgid "Complete"
 msgstr "Nalpas"
 
+#: ../textw/complete_text.py:41
+msgid "Reboot"
+msgstr "Rugian Manen"
+
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "panaginstala nga Irugianto"
@@ -4954,6 +4989,20 @@ msgstr ""
 "Maisurat ti sibubukel a rehistro ti panaginstala iti %s kalpasan ti "
 "panagrugi manen ti sistema. Kayatyonsa nga idulin daytoy a file maipaay ti "
 "madamdama a reperensia. "
+
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
+#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:282 ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:398 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:180 ../loader2/driverselect.c:205
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:319 ../loader2/kbd.c:131
+#: ../loader2/loader.c:342 ../loader2/loader.c:1016 ../loader2/loader.c:1038
+#: ../loader2/net.c:272 ../loader2/net.c:311 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1806 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
+msgid "Back"
+msgstr "Agatras"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -5052,12 +5101,12 @@ msgstr "IPv6/Unlapi"
 msgid "Activate on boot"
 msgstr "Ilukat iti panagrubbuat"
 
-#: ../textw/network_text.py:144 ../loader2/net.c:720
+#: ../textw/network_text.py:144 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
 msgstr "Irugi ti panagisayangkat ti IPv4"
 
-#: ../textw/network_text.py:151 ../loader2/net.c:733
+#: ../textw/network_text.py:151 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
 msgstr "Irugi ti panagisayangkat ti IPv6"
@@ -5164,82 +5213,82 @@ msgid ""
 "finished, press OK to continue."
 msgstr ""
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:620
 #, fuzzy
 msgid "Active on boot"
 msgstr "Ilukat iti panagrubbuat"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:622
 #, fuzzy
 msgid "Inactive on boot"
 msgstr "Ilukat iti panagrubbuat"
 
-#: ../textw/network_text.py:622
+#: ../textw/network_text.py:625
 msgid "DHCP"
 msgstr ""
 
-#: ../textw/network_text.py:627
+#: ../textw/network_text.py:630
 msgid "Auto IPv6"
 msgstr ""
 
-#: ../textw/network_text.py:629
+#: ../textw/network_text.py:632
 msgid "DHCPv6"
 msgstr ""
 
-#: ../textw/network_text.py:635
+#: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:637 ../textw/network_text.py:639
+#: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:661 ../loader2/net.c:1026
+#: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "Pagbaetan:"
 
-#: ../textw/network_text.py:670
+#: ../textw/network_text.py:674
 msgid "Primary DNS:"
 msgstr "Kangrunaan a DNS:"
 
-#: ../textw/network_text.py:675
+#: ../textw/network_text.py:679
 msgid "Secondary DNS:"
 msgstr "Maikadkadua a DNS:"
 
-#: ../textw/network_text.py:682
+#: ../textw/network_text.py:686
 msgid "Miscellaneous Network Settings"
 msgstr "Dadduma a Panangtudingan ti Iket"
 
-#: ../textw/network_text.py:699 ../textw/network_text.py:702
+#: ../textw/network_text.py:703 ../textw/network_text.py:706
 #, fuzzy
 msgid "gateway"
 msgstr "Paglasatan"
 
-#: ../textw/network_text.py:709 ../textw/network_text.py:712
+#: ../textw/network_text.py:713 ../textw/network_text.py:716
 #, fuzzy
 msgid "primary DNS"
 msgstr "Kangrunaan a DNS"
 
-#: ../textw/network_text.py:721
+#: ../textw/network_text.py:725
 #, fuzzy
 msgid "secondary DNS"
 msgstr "Maikaddua a DNS"
 
-#: ../textw/network_text.py:755
+#: ../textw/network_text.py:759
 msgid "automatically via DHCP"
 msgstr "Otomatiko babaen ti DHCP"
 
-#: ../textw/network_text.py:758
+#: ../textw/network_text.py:762
 msgid "manually"
 msgstr "demano"
 
-#: ../textw/network_text.py:777
+#: ../textw/network_text.py:781
 msgid "Hostname Configuration"
 msgstr "Panagidalimanek ti Nagan ti Host"
 
-#: ../textw/network_text.py:780
+#: ../textw/network_text.py:784
 #, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
@@ -5252,11 +5301,11 @@ msgstr ""
 "dadduma, pilienyo ti 'Demano', ken isuratyo ti nagan ti host maipaay ti "
 "sistemayo. No diyo isurat, ti sistemayo ket mailasin babaen ti 'localhost'."
 
-#: ../textw/network_text.py:806 ../textw/network_text.py:812
+#: ../textw/network_text.py:810 ../textw/network_text.py:816
 msgid "Invalid Hostname"
 msgstr "Saan a Matutop ti Nagan ti Host"
 
-#: ../textw/network_text.py:807
+#: ../textw/network_text.py:811
 msgid "You have not specified a hostname."
 msgstr "Saan a naituding ti nagan ti host."
 
@@ -5545,28 +5594,28 @@ msgstr ""
 "<Space>,<+>,<-> Agpili |   <F2> Detalie ti Grupo   |   <F12> Sumaruno a "
 "Pantalia"
 
-#: ../textw/partition_text.py:1654
+#: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
 msgstr "Repasuen ti Panangurnos ti Benneg"
 
-#: ../textw/partition_text.py:1655
+#: ../textw/partition_text.py:1658
 msgid "Review and modify partitioning layout?"
 msgstr "Repasuen ken baliwan ti panangurnos ti benneg?"
 
-#: ../textw/partition_text.py:1676 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1679 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "Natukad nga Options ti Pannakaidulin"
 
-#: ../textw/partition_text.py:1677 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1680 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "Ania ti panagbaliw ti panaidalimanek ti drive a kayatyo? "
 
-#: ../textw/partition_text.py:1700
+#: ../textw/partition_text.py:1703
 #, fuzzy
 msgid "Add FCP Device"
 msgstr "Inayon ti aparato a FCP"
 
-#: ../textw/partition_text.py:1701 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
 #, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
@@ -5579,11 +5628,11 @@ msgstr ""
 "Pagserrekan (WWPN) a 64 a bit, ti LUN a SCSI a 16 a bit ken ti LUN a 64 a "
 "bit ti FCP."
 
-#: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "Panagidalimanek ti Parametro ti iSCSI"
 
-#: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1728 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5591,12 +5640,12 @@ msgstr ""
 "Tapno maaramat ti iSCSI a disk, nasken a maikkanyo ti pagtaengan ti iSCSI a "
 "pagtatarusan ken nagan a naidalimanekyo maipaay ti host ti iSCSI a mangirugi."
 
-#: ../textw/partition_text.py:1726
+#: ../textw/partition_text.py:1729
 #, fuzzy
 msgid "Target IP Address"
 msgstr "<b>_Pagtaengan nga IP ti Pagtatarusan:</b>"
 
-#: ../textw/partition_text.py:1727
+#: ../textw/partition_text.py:1730
 #, fuzzy
 msgid "iSCSI Initiator Name"
 msgstr "<b>_Nagan ti Mangrugi ti iSCSI:</b>"
@@ -5641,16 +5690,16 @@ msgstr "Ania ti sona ti oras ti pagyananyo?"
 msgid "System clock uses UTC"
 msgstr "Ti UTC ket ar-aramaten ti relos ti sistema"
 
-#: ../textw/upgrade_bootloader_text.py:86
-#: ../textw/upgrade_bootloader_text.py:95
+#: ../textw/upgrade_bootloader_text.py:88
+#: ../textw/upgrade_bootloader_text.py:97
 msgid "Update boot loader configuration"
 msgstr "Ipasayaat ti intar ti panagidalimanek ti mangimaton ti panangirubbuat"
 
-#: ../textw/upgrade_bootloader_text.py:98
+#: ../textw/upgrade_bootloader_text.py:100
 msgid "Skip boot loader updating"
 msgstr "Libtawan ti panagpasayaat ti mangimaton ti rubbuat"
 
-#: ../textw/upgrade_bootloader_text.py:100
+#: ../textw/upgrade_bootloader_text.py:102
 msgid "Create new boot loader configuration"
 msgstr "Parsuaen ti baro a pannkaidalimanek ti mangimaton ti rubbuat"
 
@@ -5834,31 +5883,32 @@ msgstr "Panagpaneknek ti Media"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Test"
 msgstr "Sukimaten"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-msgid "Eject CD"
+#, fuzzy
+msgid "Eject Disc"
 msgstr "Iparuar ti CD"
 
 #: ../loader2/cdinstall.c:93
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
-"CD and insert another for testing."
+"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
+"the disc and insert another for testing."
 msgstr ""
 "Pilienyo ti \"%s\" tapno masukimat ti CD nga agdinama a nakaisengngat, wenno "
 "\"%s\" tapno maiparuar ti CD, santo isengngatyou sabali a mapaneknekan."
 
 #: ../loader2/cdinstall.c:114
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"If you would like to test additional media, insert the next CD and press \"%s"
-"\". Testing each CD is not strictly required, however it is highly "
-"recommended.  Minimally, the CDs should be tested prior to using them for "
+"If you would like to test additional media, insert the next disc and press "
+"\"%s\". Testing each disc is not strictly required, however it is highly "
+"recommended.  Minimally, the discs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
-"to retest each CD prior to using it again."
+"to retest each disc prior to using it again."
 msgstr ""
 "No kayatyo a sukimaten ti nayon a warnakan, isengngatyo ti sumaruno a CD, "
 "santo talmeganyo ti \"%s\". Saan a nasken ti agsukimat iti CD, nupay kasta, "
@@ -5866,23 +5916,24 @@ msgstr ""
 "maaramat ida. Kalpasandanto masukimat, saan a nasken a masukimat manen ti "
 "tunggal maysa a CD sakbay maaramatda manen. "
 
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
-#, c-format
+#: ../loader2/cdinstall.c:137
+#, fuzzy, c-format
 msgid ""
-"The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
+"The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
 "Saan a maduktalan ti %s a CD iti uneg ti aniaman a CDROM a driveyo. "
 "Isengnatyo ti %s a CD, sanyonto talmegan ti '%s' tapno mapadasen manen."
 
 #: ../loader2/cdinstall.c:258
-msgid "CD Found"
+#, fuzzy
+msgid "Disc Found"
 msgstr "Nabirokan ti CD"
 
 #: ../loader2/cdinstall.c:259
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"To begin testing the CD media before installation press %s.\n"
+"To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
@@ -5893,35 +5944,50 @@ msgstr ""
 "panaginstala."
 
 #: ../loader2/cdinstall.c:379
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"No %s CD was found which matches your boot media.  Please insert the %s CD "
-"and press %s to retry."
+"No %s disc was found which matches your boot media.  Please insert the %s "
+"disc and press %s to retry."
 msgstr ""
 "Awan ti nabirokan a %s a CD nga agbaya iti pagirugi a warnakan. Iyunegyo ti %"
 "s CD sayonto talmegan ti %s tapno mapadas manen."
 
+#: ../loader2/cdinstall.c:384
+#, fuzzy, c-format
+msgid ""
+"The %s disc was not found in any of your CDROM drives. Please insert the %s "
+"disc and press %s to retry."
+msgstr ""
+"Saan a maduktalan ti %s a CD iti uneg ti aniaman a CDROM a driveyo. "
+"Isengnatyo ti %s a CD, sanyonto talmegan ti '%s' tapno mapadasen manen."
+
 #: ../loader2/cdinstall.c:391
-msgid "CD Not Found"
+#, fuzzy
+msgid "Disc Not Found"
 msgstr "Saan a mabirokan ti CD"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Saan a mabirokan ti intar ti kickstart iti CDROM."
 
-#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
+#: ../loader2/copy.c:45 ../loader2/method.c:158 ../loader2/method.c:376
+#, c-format
+msgid "Failed to read directory %s: %s"
+msgstr "Saan a nabasa ti directorio a %s: %s"
+
+#: ../loader2/driverdisk.c:134 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Iyaw-awit"
 
-#: ../loader2/driverdisk.c:128
+#: ../loader2/driverdisk.c:134
 msgid "Reading driver disk..."
 msgstr "Basbasaen ti disk ti agtengngel..."
 
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:276 ../loader2/driverdisk.c:308
 msgid "Driver Disk Source"
 msgstr "Pagtataudan ti Disk ti Agtengngel"
 
-#: ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:277
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5929,7 +5995,7 @@ msgstr ""
 "Adda ti dadduma nga aparato a makaserbi a kas punganay maipaay ti disk ti "
 "pagtengnel. Ania ti kayatyo nga aramaten?"
 
-#: ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:309
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5937,51 +6003,51 @@ msgstr ""
 "Adda ti dadduma a benneg kadaytoy nga aparato a makalaon iti imahen ti disk "
 "ti pagtengngel. Ania ti kayatyo nga aramaten?"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:347
 msgid "Failed to mount partition."
 msgstr "Saan a maisagpat ti benneg."
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:355
 msgid "Select driver disk image"
 msgstr "Pilien ti imahen ti disk ti agtengngel"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:356
 msgid "Select the file which is your driver disk image."
 msgstr "Pilienyo ti intar nga imahen ti disk ti pagtengngel."
 
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:385
 msgid "Failed to load driver disk from file."
 msgstr "Saan a maawit nga aggapu ti intar ti disk ti pagtengngel."
 
-#: ../loader2/driverdisk.c:388
+#: ../loader2/driverdisk.c:396
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Sengngetanyo ti /dev/%s ti disk ti pagtengngel, sayonto talmegan ti \"OK\" "
 "tapno ipatuloy."
 
-#: ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:398
 msgid "Insert Driver Disk"
 msgstr "Ipastrekyo ti disk ti agtengngel"
 
-#: ../loader2/driverdisk.c:405
+#: ../loader2/driverdisk.c:413
 msgid "Failed to mount driver disk."
 msgstr "Saan a maisagpat ti disk ti agtengngel."
 
-#: ../loader2/driverdisk.c:415
+#: ../loader2/driverdisk.c:423
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "Saan a matutop daytoy a disk maipaay daytoy a pannakaibbat ti %s."
 
-#: ../loader2/driverdisk.c:479
+#: ../loader2/driverdisk.c:486
 msgid "Manually choose"
 msgstr "Pilien a demano"
 
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Load another disk"
 msgstr "Awiten ti sabali a disk"
 
-#: ../loader2/driverdisk.c:481
+#: ../loader2/driverdisk.c:488
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5991,38 +6057,38 @@ msgstr ""
 "Kayatyo nga agpili a demano iti pagtengngel, agpatuloy met laeng, wenno "
 "agawit iti sabali a disk ti pagtengngel?"
 
-#: ../loader2/driverdisk.c:520
+#: ../loader2/driverdisk.c:526
 msgid "Driver disk"
 msgstr "Disk ti agtengngel"
 
-#: ../loader2/driverdisk.c:521
+#: ../loader2/driverdisk.c:527
 msgid "Do you have a driver disk?"
 msgstr "Adda ti diskyo ti agtengngel?"
 
-#: ../loader2/driverdisk.c:531
+#: ../loader2/driverdisk.c:536
 msgid "More Driver Disks?"
 msgstr "Ad-adu ti Disk ti Agtengnel?"
 
-#: ../loader2/driverdisk.c:532
+#: ../loader2/driverdisk.c:537
 msgid "Do you wish to load any more driver disks?"
 msgstr "Kayatyo nga awiten pay ti ad-adu a disk ti pagtengngel? "
 
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:127
 #: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
-#: ../loader2/kickstart.c:512 ../loader2/modules.c:1042
-#: ../loader2/modules.c:1055 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:473
-#: ../loader2/urlinstall.c:482 ../loader2/urlinstall.c:493
+#: ../loader2/kickstart.c:523 ../loader2/modules.c:1036
+#: ../loader2/modules.c:1049 ../loader2/net.c:1597 ../loader2/net.c:1620
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:484
 msgid "Kickstart Error"
 msgstr "Biddut ti Kickstart"
 
-#: ../loader2/driverdisk.c:582
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Saan nga am-ammo a punganay ti disk ti pagtengnel ti kickstart: %s"
 
-#: ../loader2/driverdisk.c:619
+#: ../loader2/driverdisk.c:621
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6046,15 +6112,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Isuratyo ti Parametro ti Module"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "No drivers found"
 msgstr "Awan ti naduktalan a pagtengngel"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "Load driver disk"
 msgstr "Awiten ti disk ti agtengngel"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:180
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -6062,7 +6128,7 @@ msgstr ""
 "Awan ti nadukatalan a pagtengngel a maisengngat a demano. Kayatyo ti "
 "agaramat iti disk ti pagtengngel?"
 
-#: ../loader2/driverselect.c:200
+#: ../loader2/driverselect.c:198
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -6070,11 +6136,11 @@ msgstr ""
 "Pilieny ti pagtengngel nga adda ti baba a kayatyo nga awiten. No saan a "
 "makit ket adda kadakayo ti disk ti pagtengngel, talmeganyo ti 'F2'."
 
-#: ../loader2/driverselect.c:208
+#: ../loader2/driverselect.c:206
 msgid "Specify optional module arguments"
 msgstr "Ituding ti opsional nga argumento ti module"
 
-#: ../loader2/driverselect.c:228
+#: ../loader2/driverselect.c:226
 msgid "Select Device Driver to Load"
 msgstr "Pilien ti Pagtengngel ti Aparato a Maawit"
 
@@ -6084,7 +6150,7 @@ msgid "Loading %s driver..."
 msgstr "Aw-awiten ti %s a driver..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
-#: ../loader2/urlinstall.c:160
+#: ../loader2/urlinstall.c:151
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6108,7 +6174,7 @@ msgid ""
 msgstr ""
 "Awan ti harddrive ti sistema. Kayatyo nga idalimanek ti dadduma nga aparato?"
 
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:280
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6119,30 +6185,30 @@ msgstr ""
 "(ISO9660) nga imahen ti %s? No saan a makita ti drive ti disk a ar-aramtenyo "
 "ditoy, talmeganyo ti 'F2' tapno maidalimanek ti nayon nga aparato."
 
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:303
 msgid "Directory holding images:"
 msgstr "Direktorio nga aglallaon iti imahen:"
 
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:331
 msgid "Select Partition"
 msgstr "Pilien ti Benneg"
 
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:370
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr ""
 "Agar-arup nga saan a linlinaon ti aparato a %s ti %s nga CDROM nga imahen."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:405
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Madi ti argumento ti wagas a pammilin a %s ti HD kickstart: %s"
 
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:475 ../loader2/hdinstall.c:531
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Saan a masarakan ti harddrive ti intar ti kickstart."
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:518
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Saan a maduktalan ti nalagda a harddrive maipaay ti disk a %s ti BIOS"
@@ -6185,7 +6251,7 @@ msgstr ""
 msgid "Error downloading kickstart file"
 msgstr "Rimsua ti biddut iti pannakabasa ti kickstart nga intar a %s: %s"
 
-#: ../loader2/kickstart.c:513
+#: ../loader2/kickstart.c:524
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr ""
@@ -6197,7 +6263,7 @@ msgstr ""
 msgid "Welcome to %s - Rescue Mode"
 msgstr "%s - Panalak a Wagas"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6208,24 +6274,25 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Pilienyo ti Pagsasao"
 
-#: ../loader2/loader.c:120
-msgid "Local CDROM"
+#: ../loader2/loader.c:118
+#, fuzzy
+msgid "Local CD/DVD"
 msgstr "Lokal a CDROM"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "Harddrive"
 
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:121
 #, fuzzy
 msgid "NFS directory"
 msgstr "%s a direktorio:"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:337
 msgid "Update Disk Source"
 msgstr "Ipadama ti Pagtataudan ti Disk"
 
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:338
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6233,30 +6300,30 @@ msgstr ""
 "Add ti dadduma nga aparato a makaserbi a kas ti punganay maipaay ti disk ti "
 "panagpadama?Ania ti kayatyo nga aramaten?"
 
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:353
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Sengngatanyo ti /dev/%s ti disk ti panagpasayaat, sayonto talmeganyo ti "
 "'Mayat' tapno agpatuloy."
 
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:355
 msgid "Updates Disk"
 msgstr "Ipadama ti disk"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:367
 msgid "Failed to mount updates disk"
 msgstr "Saan a naisagpat ti disk ti pamagdama"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Updates"
 msgstr "Pagpadama"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Reading anaconda updates..."
 msgstr "Basbasaen ti pagpadama ti Anaconda..."
 
-#: ../loader2/loader.c:406
+#: ../loader2/loader.c:412
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6266,40 +6333,40 @@ msgstr ""
 "aparato tapno makaballigi ti panaginstala. Kayatyo ita ti agpili ti "
 "pagtengngel?"
 
-#: ../loader2/loader.c:835
+#: ../loader2/loader.c:849
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Kurang ti RAM tapno mainstalaan daytoy a makina ti %s."
 
-#: ../loader2/loader.c:994
+#: ../loader2/loader.c:1008
 msgid "Rescue Method"
 msgstr "Panagisalakan"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1009
 msgid "Installation Method"
 msgstr "panaginstala"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1011
 msgid "What type of media contains the rescue image?"
 msgstr "Ania ti kita ti warnakan nga aglallaon iti pangisalakan nga imahen?"
 
-#: ../loader2/loader.c:999
+#: ../loader2/loader.c:1013
 msgid "What type of media contains the packages to be installed?"
 msgstr "Ania ti kita ti warnakan nga aglallaon iti pakete a mainstalato?"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "No driver found"
 msgstr "Awan ti nabirokan nga agtengngel"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "Select driver"
 msgstr "Pilien ti agtengngel"
 
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1038
 msgid "Use a driver disk"
 msgstr "Aramaten ti disk ti agtengnel"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1039
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6308,11 +6375,11 @@ msgstr ""
 "a kita ti panaginstala. Kayatyo ti agpili a demano ti pagtengngel wenno "
 "agaramat ti disk ti agtengnel?"
 
-#: ../loader2/loader.c:1231
+#: ../loader2/loader.c:1258
 msgid "The following devices have been found on your system."
 msgstr "Naduktalan ti sistema ti sumaruno nga aparato. "
 
-#: ../loader2/loader.c:1233
+#: ../loader2/loader.c:1260
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6320,31 +6387,31 @@ msgstr ""
 "Awan ti naawit a pagtengngel ti aparato maipaay ti sistema. Kayatyo nga "
 "awiten ita?"
 
-#: ../loader2/loader.c:1237
+#: ../loader2/loader.c:1264
 msgid "Devices"
 msgstr "Aparato"
 
-#: ../loader2/loader.c:1238
+#: ../loader2/loader.c:1265
 msgid "Done"
 msgstr "Nalpas"
 
-#: ../loader2/loader.c:1239
+#: ../loader2/loader.c:1266
 msgid "Add Device"
 msgstr "Inayon ti Aparato"
 
-#: ../loader2/loader.c:1447
+#: ../loader2/loader.c:1437
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "nagtarayen ti pagawit. Ipaan-andar ti shell.\n"
 
-#: ../loader2/loader.c:1834
+#: ../loader2/loader.c:1823
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "Ipatartaray ti Anaconda, ti pansalak a wagas ti sistema a %s - Aguraykayo "
 "man...\n"
 
-#: ../loader2/loader.c:1836
+#: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6427,12 +6494,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
-#, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "Saan a nabasa ti directorio a %s: %s"
-
-#: ../loader2/method.c:418
+#: ../loader2/method.c:419
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6443,16 +6505,16 @@ msgstr ""
 "\n"
 "    %s?"
 
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Checksum Test"
 msgstr "Panagpaneknek ti Panenglan"
 
-#: ../loader2/modules.c:1043
+#: ../loader2/modules.c:1037
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Madi ti argumento ti pammilin a %s ti aparato ti kickstart a wagas: %s"
 
-#: ../loader2/modules.c:1056
+#: ../loader2/modules.c:1050
 #, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
@@ -6475,7 +6537,7 @@ msgstr ""
 "    o direktorio nga aglallaon iti %s maipaay\n"
 "       ti arkitekturayo\n"
 
-#: ../loader2/net.c:94
+#: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
@@ -6483,7 +6545,7 @@ msgstr ""
 "Naksen nga agbaet ti unlapi iti 1 ken 32 maipaay ti IPv4 nga iket wenno 1 "
 "ken 128 maipaay ti IPv6 nga iket."
 
-#: ../loader2/net.c:257
+#: ../loader2/net.c:261
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6494,28 +6556,28 @@ msgstr ""
 "encryption a nasken a maaramat ti iket nga awan ti alambre. No saan a "
 "nasken, bay-anyo a kalakaw daytoy a kampo, santo agpatuloy ti panaginstala."
 
-#: ../loader2/net.c:263
+#: ../loader2/net.c:267
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:264
+#: ../loader2/net.c:268
 msgid "Encryption Key"
 msgstr "Klabe ti Encryption"
 
-#: ../loader2/net.c:267
+#: ../loader2/net.c:271
 msgid "Wireless Settings"
 msgstr "Pakaitudingan ti Wireless"
 
-#: ../loader2/net.c:298
+#: ../loader2/net.c:302
 msgid "Nameserver IP"
 msgstr "IP ti Serbidor ti Nagan"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:306
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "Serbidor ti nagan"
 
-#: ../loader2/net.c:303
+#: ../loader2/net.c:307
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6527,106 +6589,106 @@ msgstr ""
 "serbidor ti nagan, isuratyo ita. No saanyo ammo daytoy nga impormasion, "
 "mabay-anyo a kalakaw daytoy a kampo, santo agpatuloy ti panaginstala."
 
-#: ../loader2/net.c:325
+#: ../loader2/net.c:329
 msgid "Invalid IP Information"
 msgstr "Saan a Matutop ti Impormasion ti IP"
 
-#: ../loader2/net.c:326
+#: ../loader2/net.c:330
 msgid "You entered an invalid IP address."
 msgstr "Naidatag ti saan a matutop a pagtaengan a IP."
 
-#: ../loader2/net.c:584 ../loader2/net.c:692
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "Biddut ti Iket"
 
-#: ../loader2/net.c:585 ../loader2/net.c:693
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "Rimsua ti biddut iti panagidadalimanek ti pagsilpuan ti iket."
 
-#: ../loader2/net.c:766
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "Panagidalimanek ti TCP/IP"
 
-#: ../loader2/net.c:793
+#: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 "Nasken a mapili ti saan a nakurkurang ngem maysa a protokol (IPv4 wenno "
 "IPv6) maipaay ti DHCP."
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "Masapul ti IPv4 maipaay ti NFS"
 
-#: ../loader2/net.c:801
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "Tuntonen ti wagas ti panaginstala ti NFS ti pannakaipakat ti IPv4."
 
-#: ../loader2/net.c:921
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4 a Pagtaengan:"
 
-#: ../loader2/net.c:933 ../loader2/net.c:985 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:973
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6 a Pagtaengan:"
 
-#: ../loader2/net.c:1034
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Serbidor ti Nagnagan:"
 
-#: ../loader2/net.c:1070
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1086
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "Panagidalimanek a Demano ti TCP/IP"
 
-#: ../loader2/net.c:1207 ../loader2/net.c:1213
+#: ../loader2/net.c:1193 ../loader2/net.c:1199
 msgid "Missing Information"
 msgstr "Nalabsan a datos"
 
-#: ../loader2/net.c:1208
+#: ../loader2/net.c:1194
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Nasken a maisurat isuda a dua a matutop a IPv4 a pagtaengan ken maskara ti "
 "iket wenno unlapi ti CIDR. "
 
-#: ../loader2/net.c:1214
+#: ../loader2/net.c:1200
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 "Nasken a maisurat isuda a dua a matutop a IPv6 a pagtaengan ken unlapi ti "
 "CIDR."
 
-#: ../loader2/net.c:1520
+#: ../loader2/net.c:1505
 msgid "Determining host name and domain..."
 msgstr "Ikedkedding ti nagan ti host ken ti sakup..."
 
-#: ../loader2/net.c:1613
+#: ../loader2/net.c:1598
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Madi ti argumento ti pammilin a %s ti iket ti kickstart: %s"
 
-#: ../loader2/net.c:1636
+#: ../loader2/net.c:1621
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Madi ti booproto a %s a naituding iti pammilin ti iket"
 
-#: ../loader2/net.c:1817
+#: ../loader2/net.c:1802
 msgid "Networking Device"
 msgstr "Pangiket nga Aparato"
 
-#: ../loader2/net.c:1818
+#: ../loader2/net.c:1803
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6682,33 +6744,33 @@ msgstr "Ur-urayen ti telnet a panilpo..."
 msgid "Running anaconda via telnet..."
 msgstr "Ipatartaray ti Anaconda babaen ti telnet..."
 
-#: ../loader2/urlinstall.c:80
+#: ../loader2/urlinstall.c:69
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Saan a maala ti %s://%s/%s/%s."
 
-#: ../loader2/urlinstall.c:152
+#: ../loader2/urlinstall.c:143
 msgid "Unable to retrieve the install image."
 msgstr "Saan a maala ti imahen ti panaginstala."
 
-#: ../loader2/urlinstall.c:297
+#: ../loader2/urlinstall.c:288
 msgid "Media Detected"
 msgstr "Naduktalan ti Media"
 
-#: ../loader2/urlinstall.c:298
+#: ../loader2/urlinstall.c:289
 msgid "Local installation media detected..."
 msgstr "Naduktalan ti lokal a warnakan ti panaginstala..."
 
-#: ../loader2/urlinstall.c:474
+#: ../loader2/urlinstall.c:465
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Madi ti argumento ti URL a pammilin a %s ti wagas ti kickstart: %s"
 
-#: ../loader2/urlinstall.c:483
+#: ../loader2/urlinstall.c:474
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Nasken a maikkanan ti URL a wagas ti kickstart ti --url nga argumento."
 
-#: ../loader2/urlinstall.c:494
+#: ../loader2/urlinstall.c:485
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Saan nga am-ammo a URL a wagas a %s "
@@ -7285,6 +7347,12 @@ msgstr "Gales"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Rebooting System"
+#~ msgstr "Agrugrugi manen ti Sistema"
+
+#~ msgid "Re_try"
+#~ msgstr "Padasen _manen"
 
 #~ msgid ""
 #~ "Remove any media used during the installation process and press the "

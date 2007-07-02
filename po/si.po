@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-20 11:06-0400\n"
+"POT-Creation-Date: 2007-07-02 15:15-0400\n"
 "PO-Revision-Date: 2006-10-19 11:54+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
@@ -42,45 +42,46 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr " shell එකක් සඳහා <enter> ඔබන්න"
 
-#: ../anaconda:406 ../gui.py:237 ../rescue.py:46 ../rescue.py:247
-#: ../rescue.py:321 ../rescue.py:348 ../rescue.py:358 ../rescue.py:439
-#: ../rescue.py:445 ../text.py:443 ../text.py:602 ../vnc.py:146
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:39
-#: ../textw/network_text.py:49 ../textw/network_text.py:71
-#: ../textw/network_text.py:77 ../textw/network_text.py:225
-#: ../textw/network_text.py:808 ../textw/network_text.py:816
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:141
-#: ../loader2/cdinstall.c:258 ../loader2/cdinstall.c:261
-#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:387
-#: ../loader2/cdinstall.c:392 ../loader2/cdinstall.c:463
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
-#: ../loader2/driverdisk.c:304 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:390
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:207
+#: ../anaconda:406 ../gui.py:237 ../rescue.py:260 ../rescue.py:334
+#: ../rescue.py:361 ../rescue.py:371 ../rescue.py:450 ../rescue.py:456
+#: ../text.py:443 ../text.py:602 ../vnc.py:146 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:54 ../textw/constants_text.py:36
+#: ../textw/network_text.py:39 ../textw/network_text.py:49
+#: ../textw/network_text.py:71 ../textw/network_text.py:77
+#: ../textw/network_text.py:225 ../textw/network_text.py:812
+#: ../textw/network_text.py:820 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:261 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:387 ../loader2/cdinstall.c:392
+#: ../loader2/cdinstall.c:463 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:281
+#: ../loader2/driverdisk.c:312 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:398
+#: ../loader2/driverdisk.c:412 ../loader2/driverdisk.c:422
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:205
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
-#: ../loader2/hdinstall.c:320 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:406 ../loader2/hdinstall.c:476
-#: ../loader2/hdinstall.c:519 ../loader2/hdinstall.c:532 ../loader2/kbd.c:131
+#: ../loader2/hdinstall.c:319 ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:404 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530 ../loader2/kbd.c:131
 #: ../loader2/kickstart.c:127 ../loader2/kickstart.c:137
 #: ../loader2/kickstart.c:180 ../loader2/kickstart.c:279
-#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:512 ../loader2/lang.c:106
-#: ../loader2/lang.c:369 ../loader2/loader.c:338 ../loader2/loader.c:351
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/loader.c:1002
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/modules.c:1042 ../loader2/modules.c:1055
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:205
-#: ../loader2/nfsinstall.c:213 ../loader2/nfsinstall.c:251
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:482
-#: ../loader2/urlinstall.c:493 ../loader2/urls.c:282 ../loader2/urls.c:347
+#: ../loader2/kickstart.c:366 ../loader2/kickstart.c:523 ../loader2/lang.c:106
+#: ../loader2/lang.c:369 ../loader2/loader.c:316 ../loader2/loader.c:342
+#: ../loader2/loader.c:355 ../loader2/loader.c:366 ../loader2/loader.c:852
+#: ../loader2/loader.c:1016 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:449
+#: ../loader2/modules.c:1036 ../loader2/modules.c:1049 ../loader2/net.c:272
+#: ../loader2/net.c:311 ../loader2/net.c:739 ../loader2/net.c:1064
+#: ../loader2/net.c:1597 ../loader2/net.c:1620 ../loader2/net.c:1806
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:125
+#: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
+#: ../loader2/nfsinstall.c:251 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:68 ../loader2/urlinstall.c:91
+#: ../loader2/urlinstall.c:142 ../loader2/urlinstall.c:155
+#: ../loader2/urlinstall.c:464 ../loader2/urlinstall.c:473
+#: ../loader2/urlinstall.c:484 ../loader2/urls.c:282 ../loader2/urls.c:347
 #: ../loader2/urls.c:352 ../loader2/urls.c:358 ../loader2/urls.c:470
 msgid "OK"
 msgstr "හරි"
@@ -96,7 +97,7 @@ msgid "No video hardware found, assuming headless"
 msgstr ""
 "චිත්රක සඳහා අදාල දෘඪාංග හඳුනා නොගත් බැවින් පරිගණක තිරයක් නොමැති බැව් උපකල්පනය කර ඇත"
 
-#: ../anaconda:436 ../anaconda:896
+#: ../anaconda:436 ../anaconda:897
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X දෘඪාංගයේ තත්ව දර්ශකය ආරම්භනය කිරීමට නොහැකි විය."
 
@@ -104,27 +105,27 @@ msgstr "X දෘඪාංගයේ තත්ව දර්ශකය ආරම්�
 msgid "Starting graphical installation..."
 msgstr "චිත්රක සහිතව ස්ථාපනය ආරම්භ කරමින්..."
 
-#: ../anaconda:753
+#: ../anaconda:754
 msgid "Install class forcing text mode installation"
 msgstr "ස්ථාපන පන්තිය පාඪමය ස්ථාපනයක් සඳහා බලකරනු ලබයි"
 
-#: ../anaconda:793
+#: ../anaconda:794
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "චිත්රක සහිත ස්ථාපනය භාවිතයේ නොමැත... පාඨමය අයුරින් අරඹමින්"
 
-#: ../anaconda:801
+#: ../anaconda:802
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY විචල්‍යයෙහි අගය නියම කර නොමැත. පාඨමය අයුරින් අරඹමින්"
 
-#: ../anaconda:862
+#: ../anaconda:863
 msgid "Unknown install method"
 msgstr "හඳුනා නොගත් ස්ථාපනය කරන ක්‍රමයකි"
 
-#: ../anaconda:863
+#: ../anaconda:864
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "ඔබ විසින් තෝරාගෙන ඇත්තේ anaconda විසින් හඳුනා නොගත් ස්ථාපනය කරන ක්‍රමයකි"
 
-#: ../anaconda:865
+#: ../anaconda:866
 #, c-format
 msgid "unknown install method: %s"
 msgstr "හඳුනා නොගත් ස්ථාපනය කරන ක්‍රමයකි: %s"
@@ -222,11 +223,11 @@ msgid "Requested Partition Does Not Exist"
 msgstr "විමසා ඇති කොටස භාවිතයේ නොමැත"
 
 #: ../autopart.py:1260
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "%s කොටස %s සඳහා සොයාගැනීමට නොහැකිවිය.\n"
 "\n"
@@ -237,11 +238,11 @@ msgid "Requested Raid Device Does Not Exist"
 msgstr "ඉල්ලා ඇති Raid උපකරණය භාවිතයේ නොමැත "
 
 #: ../autopart.py:1288
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 " %s හි භාවිතා කිරීම සඳහා %s RAID උපකරණය සොයාගැනීමට අපහසු විය.\n"
 "\n"
@@ -252,11 +253,11 @@ msgid "Requested Volume Group Does Not Exist"
 msgstr "විමසා ඇති තාර්තික කණ්ඩායම් භාවිතයේ නොමැත"
 
 #: ../autopart.py:1320
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "%s පරිමා කණ්ඩායම සොයාගැනීමට නොහැකිවිය,  එය %s සඳහා අවශ්‍ය \n"
 "\n"
@@ -267,11 +268,11 @@ msgid "Requested Logical Volume Does Not Exist"
 msgstr "විමසා ඇති තාර්තික පරිමාව භාවිතයේ නොමැත"
 
 #: ../autopart.py:1358
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "%s තාර්තික කණ්ඩායම සොයාගැනීමට නොහැකිවිය. එය %s සඳහා අවශ්‍ය වේ.\n"
 "\n"
@@ -282,13 +283,13 @@ msgid "Automatic Partitioning Errors"
 msgstr "ස්වයංක්‍රීය කොටස් කිරීමේ දෝශයන්"
 
 #: ../autopart.py:1485
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "කොටස් කිරීමේදී පහත දැක්වෙන දෝශයන් හට ගැනුනි:\n"
 "\n"
@@ -312,10 +313,11 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"Press 'OK' to reboot your system."
+"Press 'OK' to exit the installer."
 msgstr ""
 "\n"
 "\n"
@@ -371,15 +373,15 @@ msgstr "ප්‍රකෘති තත්වයට පත්කල නොහැ
 msgid "Your system will now be rebooted."
 msgstr "පරිගණකය දැන් නැවත ආරම්භ වෙයි"
 
-#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:439
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1052
-#: ../partedUtils.py:1101 ../partedUtils.py:1143 ../upgrade.py:348
-#: ../yuminstall.py:1085 ../iw/blpasswidget.py:145
+#: ../autopart.py:1691 ../bootloader.py:197 ../image.py:442
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:1075
+#: ../partedUtils.py:1124 ../partedUtils.py:1167 ../upgrade.py:348
+#: ../yuminstall.py:1205 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:41 ../iw/task_gui.py:89
 #: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
 #: ../iw/upgrade_swap_gui.py:203 ../textw/bootloader_text.py:123
 #: ../textw/bootloader_text.py:448 ../textw/partition_text.py:243
-#: ../textw/upgrade_text.py:172 ../loader2/loader.c:405
+#: ../textw/upgrade_text.py:172 ../loader2/loader.c:411
 msgid "Warning"
 msgstr "අවවාදයයි"
 
@@ -440,12 +442,12 @@ msgstr ""
 "තිබෙන සියළුම දත්තයන් අහිමි වනු ඇත) :%s\n"
 "මෙය සිදු කිරීමට ඔබට අවශ්‍යද?"
 
-#: ../backend.py:165
+#: ../backend.py:113
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s ප්‍රගමනය කරමින් \n"
 
-#: ../backend.py:167
+#: ../backend.py:115
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s ස්ථාපනය කරමින්\n"
@@ -491,86 +493,88 @@ msgstr ""
 "නිසි ලෙස ග්‍රහණය නොකල ව්‍යාතිරේකයක් ඇති විය. මෙය බොහෝ විට තාක්‍ෂණික දෝශයක් විය හැක. කරුනාකර "
 "ව්‍යාතිරේකයේ විස්තර පිටපත් කර එය anaconda හී තාක්‍ෂණික දෝශයක් ලෙස %s ට දන්වන්න."
 
-#: ../exception.py:414 ../exception.py:431
+#: ../exception.py:412 ../exception.py:429
 msgid "Dump Written"
 msgstr "ප්‍රතිදානය සටහන් කරන ලදී"
 
-#: ../exception.py:415
+#: ../exception.py:413
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the floppy. Your system "
-"will now be rebooted."
+"Your system's state has been successfully written to the floppy. The "
+"installer will now exit."
 msgstr ""
 "පරිගණක පද්ධතියේ පවත්නා තත්වය සාර්ථකව නම්‍ය තැටියක සටහන් කරගැනුනි. පරිඝණකය දැන් නැවත "
 "පණගැන්වෙයි."
 
-#: ../exception.py:418 ../exception.py:435 ../fsset.py:1712 ../fsset.py:2411
-#: ../fsset.py:2418 ../gui.py:965 ../gui.py:1117 ../harddrive.py:80
-#: ../harddrive.py:126 ../image.py:93 ../image.py:449 ../image.py:523
-#: ../packages.py:341 ../partedUtils.py:1154 ../iw/confirm_gui.py:32
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-msgid "_Reboot"
-msgstr "නැවත ක්‍රියාත්මක කරන්න(_R)"
+#: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
+#: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
+#: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
+#, fuzzy
+msgid "_Exit installer"
+msgstr "ස්ථාපනය කරන්නා %s"
 
-#: ../exception.py:423 ../exception.py:440
+#: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
 msgstr "ප්‍රතිදානය සනිටුහන් කල නොහැකි විය"
 
-#: ../exception.py:424
+#: ../exception.py:422
 msgid "There was a problem writing the system state to the floppy."
 msgstr "පරිඝණක පද්ධතියේ පවත්නා තත්වය නම්‍ය තැටියක සටහන් කරගැනීමේදී ගැටළුවක් ඇතිවිය."
 
-#: ../exception.py:432
+#: ../exception.py:430
+#, fuzzy
 msgid ""
-"Your system's state has been successfully written to the remote host.  Your "
-"system will now be rebooted."
+"Your system's state has been successfully written to the remote host.  The "
+"installer will now exit."
 msgstr ""
 "පරිගණක පද්ධතියේ පවත්නා තත්වය සාර්ථකව දාහක පරිඝණකයේ සටහන් කරගැනුනි. පරිඝණකය දැන් නැවත "
 "පණගැන්වෙයි."
 
-#: ../exception.py:441
+#: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
 msgstr "පරිගණක පද්ධතියේ පවත්නා තත්වය දාහක පරිඝණකයේ සටහන් කරගැනීමේදී ගැටළුවක් ඇතිවිය."
 
-#: ../fsset.py:214
+#: ../fsset.py:216
 msgid "Checking for Bad Blocks"
 msgstr "දෝශ සහිත ඵලකයන් පරීක්‍ෂාකරමින්"
 
-#: ../fsset.py:215
+#: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "/dev/%s හි දෝශ සහිත ඵලකයන් පරීක්‍ෂාකරමින්..."
 
-#: ../fsset.py:661 ../fsset.py:1396 ../fsset.py:1427 ../fsset.py:1488
-#: ../fsset.py:1499 ../fsset.py:1553 ../fsset.py:1564 ../fsset.py:1604
-#: ../fsset.py:1654 ../fsset.py:1735 ../fsset.py:1747 ../image.py:135
-#: ../image.py:180 ../image.py:312 ../livecd.py:323 ../partIntfHelpers.py:406
-#: ../urlinstall.py:113 ../urlinstall.py:211 ../yuminstall.py:602
-#: ../yuminstall.py:723 ../yuminstall.py:739 ../yuminstall.py:924
-#: ../iw/autopart_type.py:74 ../iw/autopart_type.py:208
-#: ../iw/netconfig_dialog.py:213 ../iw/osbootwidget.py:216
+#: ../fsset.py:663 ../fsset.py:1427 ../fsset.py:1458 ../fsset.py:1518
+#: ../fsset.py:1529 ../fsset.py:1583 ../fsset.py:1594 ../fsset.py:1634
+#: ../fsset.py:1684 ../fsset.py:1765 ../fsset.py:1777 ../image.py:135
+#: ../image.py:180 ../image.py:311 ../livecd.py:350 ../partIntfHelpers.py:406
+#: ../urlinstall.py:112 ../urlinstall.py:206 ../yuminstall.py:442
+#: ../yuminstall.py:762 ../yuminstall.py:802 ../yuminstall.py:1019
+#: ../yuminstall.py:1044 ../iw/autopart_type.py:74 ../iw/autopart_type.py:209
+#: ../iw/netconfig_dialog.py:267 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:618
 #: ../iw/raid_dialog_gui.py:657 ../iw/task_gui.py:79 ../iw/task_gui.py:145
-#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1689
-#: ../textw/partition_text.py:1695 ../textw/partition_text.py:1717
+#: ../textw/grpselect_text.py:116 ../textw/partition_text.py:1692
+#: ../textw/partition_text.py:1698 ../textw/partition_text.py:1720
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../loader2/cdinstall.c:141 ../loader2/cdinstall.c:463
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:404 ../loader2/driverdisk.c:414
-#: ../loader2/driverdisk.c:479 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:371
-#: ../loader2/hdinstall.c:476 ../loader2/hdinstall.c:519
-#: ../loader2/hdinstall.c:532 ../loader2/kickstart.c:279 ../loader2/lang.c:106
-#: ../loader2/loader.c:362 ../loader2/loader.c:838 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:156 ../loader2/method.c:374
-#: ../loader2/method.c:459 ../loader2/nfsinstall.c:125
+#: ../loader2/driverdisk.c:93 ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:412
+#: ../loader2/driverdisk.c:422 ../loader2/driverdisk.c:486
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:369 ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:517 ../loader2/hdinstall.c:530
+#: ../loader2/kickstart.c:279 ../loader2/lang.c:106 ../loader2/loader.c:316
+#: ../loader2/loader.c:366 ../loader2/loader.c:852 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:157 ../loader2/method.c:375
+#: ../loader2/method.c:449 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:205 ../loader2/nfsinstall.c:213
-#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
-#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
-#: ../loader2/urls.c:347 ../loader2/urls.c:352
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:91 ../loader2/urlinstall.c:142
+#: ../loader2/urlinstall.c:155 ../loader2/urls.c:347 ../loader2/urls.c:352
 msgid "Error"
 msgstr "දෝශයකි"
 
-#: ../fsset.py:662
+#: ../fsset.py:664
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -583,50 +587,46 @@ msgstr ""
 "\n"
 " %s ගොනු පද්ධතිය සංක්‍රමණය නොකර ඉදිරියට කරගෙන යාමට ඔබට අවශ්‍යද?"
 
-#: ../fsset.py:1303
+#: ../fsset.py:1334
 msgid "RAID Device"
 msgstr "RAID උපාංගය"
 
-#: ../fsset.py:1307 ../fsset.py:1313
+#: ../fsset.py:1338 ../fsset.py:1344
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1318 ../partitions.py:900
+#: ../fsset.py:1349 ../partitions.py:900
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1321
+#: ../fsset.py:1352
 msgid "First sector of boot partition"
 msgstr "boot කොටසෙහි ප්‍රථම අංශය"
 
-#: ../fsset.py:1322
+#: ../fsset.py:1353
 msgid "Master Boot Record (MBR)"
 msgstr "ප්‍රදහාන ඇරඹුම් සටහන(MBR)"
 
-#: ../fsset.py:1397
-#, python-format
+#: ../fsset.py:1428
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "swap ආරම්භනය කිරීමේදී %s උපාංගය තුල දෝශයක් ඇති විය . මෙය සංකීර්ණ ගැටළුවක් වන අතර ස්ථාපනය "
 "ඉදිරියට කරගෙන යා නොහැක.\n"
 "\n"
 "කරුණාකර පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න."
 
-#: ../fsset.py:1426 ../packages.py:284 ../rescue.py:287 ../rescue.py:289
+#: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:261 ../loader2/method.c:421
+#: ../loader2/cdinstall.c:261 ../loader2/method.c:422
 msgid "Skip"
 msgstr "මඟ හරින්න"
 
-#: ../fsset.py:1426 ../upgrade.py:59 ../textw/complete_text.py:41
-msgid "Reboot"
-msgstr "නැවත ක්‍රියාත්මක කරන්න"
-
-#: ../fsset.py:1447
+#: ../fsset.py:1478
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -645,11 +645,11 @@ msgstr ""
 "reformat as a version 1 Linux swap partition. If you skip it, the installer "
 "will ignore it during the installation."
 
-#: ../fsset.py:1454
+#: ../fsset.py:1485
 msgid "Reformat"
 msgstr "ප්‍රතිව්‍යුහ ගතකරන්න"
 
-#: ../fsset.py:1458
+#: ../fsset.py:1489
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -667,7 +667,7 @@ msgstr ""
 "ඔබේ /etc/fstab ගොනුව තුල මෘදුකාංග අත්හිටවීමේ කොටසක් භාවිතයේ ඇත, මින් ගම්‍ය වන්නේ ඔබේ "
 "පද්ධතිය නිද්‍රාශීලීව තිබෙන බවයි. ප්‍රගමනය සඳහා නිද්‍රාශීලිව මෙය තබනු වෙනුවට වසා දමන්න."
 
-#: ../fsset.py:1466
+#: ../fsset.py:1497
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -686,13 +686,13 @@ msgstr ""
 "වන්නේ ඔබේ පද්ධතිය නිද්‍රාශීලී වෙමින් පවතින බවයි. ඔබ විසින් නව ස්ථාපනයක් සිදුකරන්නේ නම් සියළුම swap "
 "කොටස් සංයුති කිරීමට වග බලාගන්න."
 
-#: ../fsset.py:1476
+#: ../fsset.py:1507
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
-"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
-"Reboot to restart the system."
+"upgrade.  Choose Format to reformat the partition as swap space."
 msgstr ""
 "\n"
 "\n"
@@ -700,19 +700,19 @@ msgstr ""
 "swap කොටසක් ලෙස නැවත සංයුති කිරීමට අවශ්‍ය නම් සංයුති කිරීම තෝරා ගන්න. පද්ධතිය නැවත ක්‍රියාත්මක "
 "කිරීම සඳහා Reboot තෝරාගන්න."
 
-#: ../fsset.py:1482 ../iw/partition_gui.py:368
+#: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "ව්‍යුහගත කරන්න"
 
-#: ../fsset.py:1489
-#, python-format
+#: ../fsset.py:1519
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "The /etc/fstab on your upgrade partition does not reference a valid swap "
 "partition.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "%s: %s swap උපාංගය සක්‍රීය කිරීමේදී දෝශයක් ඇති විය\n"
 "\n"
@@ -720,14 +720,14 @@ msgstr ""
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1500
-#, python-format
+#: ../fsset.py:1530
+#, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "This most likely means this swap partition has not been initialized.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "%s: %s swap උපාංගය සක්‍රීය කිරීමේදී දෝශයක් ඇති විය\n"
 "\n"
@@ -735,92 +735,92 @@ msgstr ""
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1554
-#, python-format
+#: ../fsset.py:1584
+#, fuzzy, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
-"Press <Enter> to reboot your system"
+"Press <Enter> to exit the installer."
 msgstr ""
 "/dev/%s උපාංගය තුල තිබී පළුදු වූ කොටස් සොයා ගැනින. මෙම උපාංගය භාවිත කිරීම අනුමත කරනු "
 "නොලැබේ.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1565
-#, python-format
+#: ../fsset.py:1595
+#, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "%s හි පළුදු වී තිබෙන කොටස් සෙවීමේදී දෝශයක් ඇතිවිය.  මෙය බරපතල ගැටළුවක් වන අතර ස්ථාපනය සිදුකල "
 "නොහැක.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1605
-#, python-format
+#: ../fsset.py:1635
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "%s සංයුති කිරීමේදී දෝශයක් ඇතිවිය.  මෙය බරපතල ගැටළුවක් වන අතර ස්ථාපනය සිදුකල නොහැක.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1655
-#, python-format
+#: ../fsset.py:1685
+#, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "%s සංක්‍රමණය කිරීමට උත්සහ කිරීමේදී දෝශයක් ඇතිවිය.  මෙය බරපතල ගැටළුවක් වන අතර ස්ථාපනය සිදුකල "
 "නොහැක.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න"
 
-#: ../fsset.py:1681 ../fsset.py:1690
+#: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "සවිකල යුතු සාවද්‍යයි"
 
-#: ../fsset.py:1682
-#, python-format
+#: ../fsset.py:1712
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "%s සෑදීමට යාමේදී දෝශයක් ඇති විය. මෙම මර්ගයේ ඇති සමහර සංඝටක බහලුම් නොවේ. මෙය භයානක "
 "දෝශයක් වන අතර ස්ථාපනය ඉදිරියට කරගෙන යා නොහැක.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න."
 
-#: ../fsset.py:1691
-#, python-format
+#: ../fsset.py:1721
+#, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
-"Press <Enter> to reboot your system."
+"Press <Enter> to exit the installer."
 msgstr ""
 "%s: %s සාදන විට දෝශයක් ඇතිවිය.  මෙය ඉතාමත් භයානක දෝශයක් වන අතර ස්ථාපනය පවත්වාගෙන යා "
 "නොහැක.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා <Enter> සූචකය ඔබන්න."
 
-#: ../fsset.py:1704
+#: ../fsset.py:1734
 msgid "Unable to mount filesystem"
 msgstr "ගොනු පද්ධතිය සවි කිරීමට නොහැක"
 
-#: ../fsset.py:1705
+#: ../fsset.py:1735
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -829,20 +829,20 @@ msgstr ""
 "%s උපාංගය %s ලෙස සවි කිරීමේදී දෝශයක් ඇතිවිය. ඔබට ස්ථාපනය කරගෙන යාමට හැකි නමුත් එය ගැටළු "
 "සහගත විය හැක."
 
-#: ../fsset.py:1713 ../image.py:93 ../image.py:450 ../kickstart.py:999
-#: ../kickstart.py:1037 ../partedUtils.py:1155 ../yuminstall.py:719
-#: ../iw/partition_gui.py:1011
+#: ../fsset.py:1743 ../image.py:93 ../image.py:453 ../kickstart.py:1008
+#: ../kickstart.py:1046 ../partedUtils.py:1179 ../upgrade.py:59
+#: ../yuminstall.py:754 ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "කරගෙන යන්න(_C)"
 
-#: ../fsset.py:1721
+#: ../fsset.py:1751
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "Devices in /etc/fstab should be specified by label, not by device name.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "%s උපාංගය %s ලෙස සවි කිරීමේදී දෝශයක් ඇතිවිය: %s\n"
 "\n"
@@ -850,14 +850,14 @@ msgstr ""
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා OK සූචකය ඔබන්න."
 
-#: ../fsset.py:1728
-#, python-format
+#: ../fsset.py:1758
+#, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "This most likely means this partition has not been formatted.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "%s උපාංගය %s ලෙස සවි කිරීමේදී දෝශයක් ඇතිවිය: %s\n"
 "\n"
@@ -865,13 +865,14 @@ msgstr ""
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා OK සූචකය ඔබන්න."
 
-#: ../fsset.py:1748
+#: ../fsset.py:1778
+#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
 "This is most likely means that your fstab is incorrect.\n"
 "\n"
-"Press OK to reboot your system."
+"Press OK to exit the installer."
 msgstr ""
 "/ සටහන සෙවීමේදී දෝශයක් ඇති විය.\n"
 "\n"
@@ -879,11 +880,11 @@ msgstr ""
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා 'හරි' සූචකය ඔබන්න."
 
-#: ../fsset.py:2403
+#: ../fsset.py:2432
 msgid "Duplicate Labels"
 msgstr "භාවිත කර ඇති ලාංඡන අනුරූපී වේ"
 
-#: ../fsset.py:2404
+#: ../fsset.py:2433
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -896,12 +897,12 @@ msgstr ""
 "\n"
 "කරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර ස්ථාපන ක්‍රියාවලිය නැවත ආරම්භ කරන්න.."
 
-#: ../fsset.py:2413
+#: ../fsset.py:2442
 #, fuzzy
 msgid "Invalid Label"
 msgstr "සාවද්‍ය ඇරඹුම් ලේබලයකි"
 
-#: ../fsset.py:2414
+#: ../fsset.py:2443
 #, fuzzy, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
@@ -912,11 +913,11 @@ msgstr ""
 "\n"
 "කරුණාකර මෙම ප්‍රශ්ණය නිරාකරණය කර ස්ථාපන ක්‍රියාවලිය නැවත ආරම්භ කරන්න.."
 
-#: ../fsset.py:2672
+#: ../fsset.py:2701
 msgid "Formatting"
 msgstr "සංයුති කරමින් පවතී"
 
-#: ../fsset.py:2673
+#: ../fsset.py:2702
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s ගොනු පද්ධතිය ව්‍යුහගත කරමින් පවතී..."
@@ -968,24 +969,24 @@ msgstr ""
 msgid "Fix"
 msgstr "සකස් කරන්න"
 
-#: ../gui.py:235 ../rescue.py:203 ../text.py:441 ../upgrade.py:59
+#: ../gui.py:235 ../rescue.py:217 ../text.py:441
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/hdinstall.c:265 ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/hdinstall.c:265 ../loader2/loader.c:411
 msgid "Yes"
 msgstr "හරි"
 
-#: ../gui.py:236 ../rescue.py:203 ../rescue.py:205 ../text.py:442
+#: ../gui.py:236 ../rescue.py:217 ../rescue.py:219 ../text.py:442
 #: ../textw/bootloader_text.py:68 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:520 ../loader2/driverdisk.c:531
-#: ../loader2/loader.c:405
+#: ../loader2/driverdisk.c:526 ../loader2/driverdisk.c:536
+#: ../loader2/loader.c:411
 msgid "No"
 msgstr "නැත"
 
-#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:93
-#: ../loader2/net.c:325 ../loader2/net.c:584 ../loader2/net.c:692
-#: ../loader2/net.c:792 ../loader2/net.c:800 ../loader2/net.c:1207
-#: ../loader2/net.c:1213
+#: ../gui.py:238 ../text.py:444 ../text.py:572 ../loader2/net.c:97
+#: ../loader2/net.c:329 ../loader2/net.c:583 ../loader2/net.c:691
+#: ../loader2/net.c:791 ../loader2/net.c:799 ../loader2/net.c:1193
+#: ../loader2/net.c:1199
 msgid "Retry"
 msgstr "නැවත උත්සහ කරන්න"
 
@@ -997,8 +998,8 @@ msgstr "නොසලකා හරින්න"
 #: ../partIntfHelpers.py:529 ../text.py:106 ../text.py:107 ../text.py:417
 #: ../text.py:419 ../text.py:446 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:198 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:274
-#: ../loader2/kickstart.c:366 ../loader2/loader.c:351
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:282
+#: ../loader2/kickstart.c:366 ../loader2/loader.c:355
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
@@ -1042,25 +1043,34 @@ msgstr ""
 "\n"
 "පන්තියේ නම = %s"
 
-#: ../gui.py:1109 ../gui.py:1114 ../packages.py:333 ../packages.py:338
+#: ../gui.py:1109 ../harddrive.py:80 ../harddrive.py:126 ../image.py:526
+#: ../packages.py:331 ../packages.py:336
 msgid "_Exit"
 msgstr "පිටවෙනු"
 
-#: ../gui.py:1110 ../yuminstall.py:605
+#: ../gui.py:1110 ../harddrive.py:81 ../image.py:527 ../yuminstall.py:445
+#: ../yuminstall.py:748 ../yuminstall.py:796 ../yuminstall.py:1015
 msgid "_Retry"
 msgstr "නැවත උත්සහ කරනු"
 
-#: ../gui.py:1113 ../packages.py:337
+#: ../gui.py:1113 ../packages.py:335
 msgid "The installer will now exit..."
 msgstr "ස්ථාපකය දැන් පිටවෙනු ඇත..."
 
-#: ../gui.py:1116 ../packages.py:340
+#: ../gui.py:1116 ../packages.py:338
 msgid "Your system will now be rebooted..."
 msgstr "පරිගණක පද්ධතිය යලි ආරම්භවෙයි..."
 
-#: ../gui.py:1119 ../packages.py:342
-msgid "Rebooting System"
-msgstr "පරිඝණක පද්ධතිය යලි පණගන්වනු ලැබේ"
+#: ../gui.py:1117 ../image.py:93 ../packages.py:339 ../partedUtils.py:1178
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
+msgid "_Reboot"
+msgstr "නැවත ක්‍රියාත්මක කරන්න(_R)"
+
+#: ../gui.py:1119
+#, fuzzy
+msgid "Exiting"
+msgstr "පිටවෙනු"
 
 #: ../gui.py:1186
 #, python-format
@@ -1075,14 +1085,14 @@ msgstr "තොරතුරු තීරුව රුවීමට නොහැක
 msgid "Install Window"
 msgstr "ස්ථාපන කවුළුව"
 
-#: ../harddrive.py:44 ../image.py:146 ../image.py:480
-#, python-format
+#: ../harddrive.py:44 ../image.py:146 ../image.py:483
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
 "all the required media.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1093,27 +1103,23 @@ msgstr ""
 "සිදුවේ.\n"
 "\n"
 
-#: ../harddrive.py:71 ../image.py:513
+#: ../harddrive.py:71 ../image.py:516
 msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 පිළිඹුව අස්ථාන ගත වී ඇත"
 
 #: ../harddrive.py:72
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
 "\n"
-"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
 "ස්ථාපකය විසින් #%s පිළිඹුව සවිකිරීමට උත්සහ කල නමුත් එයදෘඪ තැටිය තුල සොයාගත නොහැකි විය.\n"
 "\n"
 "කරුණාකර මෙම පිළිඹුව ධාවකයට පිටපත් කරගෙන Retry යන්න ක්ලික් කරන්න. ස්ථාපනය නවතා දැමීම සඳහා "
 "Reboot  මත ක්ලික් කරන්න."
-
-#: ../harddrive.py:81 ../image.py:524
-msgid "Re_try"
-msgstr "නැවත උත්සහ කරන්න(_t)"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
@@ -1124,7 +1130,7 @@ msgstr ""
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
-"there was a problem mounting a partition.  Click reboot to abort the "
+"there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
 
@@ -1133,13 +1139,13 @@ msgid "Required Install Media"
 msgstr "ස්ථාපනය කරන මාධ්‍ය අවශ්‍යයි"
 
 #: ../image.py:85
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The software you have selected to install will require the following CDs:\n"
+"The software you have selected to install will require the following discs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you "
-"need to abort the installation and reboot please select \"Reboot\"."
+"need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "ඔබ විසින් තෝරාගෙන ඇති මෘදුකාංග ස්ථාපනය සඳහා පහත සඳහන් සංයුක්ත තැටි අවශ්‍ය වේ:\n"
 "\n"
@@ -1147,30 +1153,30 @@ msgstr ""
 "ස්ථාපනය ආරම්භ කර ඉදිරියට කරගෙන යාමට පෙර එම සංයුක්ත තැටි සූදානම්ව තබාගන්න.  ස්ථාපනය නවතා "
 "දැමීමට අවශ්‍ය නම් \"Reboot\" සූචකය ඔබන්න."
 
-#: ../image.py:93 ../packages.py:287 ../packages.py:338 ../packages.py:341
-#: ../yuminstall.py:931 ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
+#: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "ආපසු(_B)"
 
-#: ../image.py:136 ../urlinstall.py:212
-#, python-format
+#: ../image.py:136 ../urlinstall.py:207
+#, fuzzy, python-format
 msgid ""
-"An error occurred unmounting the CD.  Please make sure you're not accessing %"
-"s from the shell on tty2 and then click OK to retry."
+"An error occurred unmounting the disc.  Please make sure you're not "
+"accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "CD ගැලවීමේදී දෝශයක් ඇතිවිය.  කරුණාකර %s ඔබ විසින් shell එකක් තුල tty2  භාවිත නොකරන බවට "
 "වග තහවුරු කරගෙන නැවත උත්සහ කිරීම සඳහා 'හරි (OK) මත ක්ලික් කරන්න."
 
-#: ../image.py:170 ../urlinstall.py:103
+#: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
 msgstr "ගොනුව පිටපත් කරමින්"
 
-#: ../image.py:171 ../urlinstall.py:104
+#: ../image.py:171 ../urlinstall.py:103
 msgid "Transferring install image to hard drive..."
 msgstr "ස්ථාපන පිළිඹුව දෘඪ තැටියට මාරු කරමින් පවතී..."
 
-#: ../image.py:181 ../urlinstall.py:114
+#: ../image.py:181 ../urlinstall.py:113
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1179,7 +1185,8 @@ msgstr ""
 "නොමැති විය හැක."
 
 #: ../image.py:270
-msgid "Change CDROM"
+#, fuzzy
+msgid "Change Disc"
 msgstr "කරුණාකර සංයුක්ත තැටිය මාරු කරන්න"
 
 #: ../image.py:271
@@ -1187,27 +1194,29 @@ msgstr "කරුණාකර සංයුක්ත තැටිය මාරු
 msgid "Please insert %s disc %d to continue."
 msgstr "කරුණාකර %s සංයුක්ත තැටිය ඇතුල් කරන්නන %d ආරම්භ කිරීමට"
 
-#: ../image.py:306
-msgid "Wrong CDROM"
+#: ../image.py:305
+#, fuzzy
+msgid "Wrong Disc"
 msgstr "වැරදි සංයුක්ත තැටියකි"
 
-#: ../image.py:307
-#, python-format
-msgid "That's not the correct %s CDROM."
+#: ../image.py:306
+#, fuzzy, python-format
+msgid "That's not the correct %s disc."
 msgstr "%s මෙය නිවැරදි සංයුක්ත තැටිය නොවේ"
 
-#: ../image.py:313
-msgid "Unable to access the CDROM."
+#: ../image.py:312
+#, fuzzy
+msgid "Unable to access the disc."
 msgstr "සංයුක්ත තැටිය ක්‍රියාත්මක කිරීමට නොහැක"
 
-#: ../image.py:366
-#, python-format
+#: ../image.py:369
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
 "packages.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -1218,35 +1227,35 @@ msgstr ""
 "සිදුවේ.\n"
 "\n"
 
-#: ../image.py:440
+#: ../image.py:443
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
 "\n"
-"It is recommended that you reboot and abort your installation, but you can "
+"It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: ../image.py:514
-#, python-format
+#: ../image.py:517
+#, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
-"Click Reboot to abort the installation."
+"Click Exit to abort the installation."
 msgstr ""
 "ස්ථාපකය #%s සවිකිරීමට උත්සහ කල නමුත් එය සේවාදායකය තුල සොයාගත නොහැකිවිය.\n"
 "\n"
 "කරුණාකර මෙම පිළිඹුව දුර්ස්ථ සේවාදායකයේ පොදු මාර්ගය තුල තබා Retry මත ක්ලික් කරන්න. ස්ථාපනය "
 "නවතා දැමීමට Reboot මත ක්ලික් කරන්න."
 
-#: ../installclass.py:66
+#: ../installclass.py:67
 msgid "Install on System"
 msgstr "පද්ධතිය මත ස්ථාපනය කරන්න"
 
-#: ../iscsi.py:197 ../iscsi.py:198
+#: ../iscsi.py:199 ../iscsi.py:200
 msgid "Initializing iSCSI initiator"
 msgstr "iSCSI ආරම්භකය ආරම්භනය කරමින්"
 
@@ -1255,35 +1264,35 @@ msgid "Scriptlet Failure"
 msgstr "කේතුම අසාර්ථක විය"
 
 #: ../kickstart.py:76
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
-"Press the OK button to reboot your system."
+"Press the OK button to exit the installer."
 msgstr ""
 "කේත රචනය ක්‍රියාත්මක කිරීමේදී දෝශයක් ඇති විය.  එහි ප්‍රතිදානය %s තුලින් බලාගත හැක. මෙය භයානක "
 "දෝශයක් වන බැවින් ස්ථාපනය නතර වෙනු ඇත.\n"
 "\n"
 "පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා OK සූචකය ඔබන්න."
 
-#: ../kickstart.py:942 ../kickstart.py:959
+#: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
 msgstr "ක්‍රියාත්මක කරවමින්..."
 
-#: ../kickstart.py:943
+#: ../kickstart.py:952
 msgid "Running post-install scripts"
 msgstr "පෙර ස්ථාපන කේත රචන ක්‍රියාත්මක කරමින්"
 
-#: ../kickstart.py:960
+#: ../kickstart.py:969
 msgid "Running pre-install scripts"
 msgstr "පෙර ස්ථාපන කේත රචන ක්‍රියාත්මක කරමින්"
 
-#: ../kickstart.py:991
+#: ../kickstart.py:1000
 msgid "Missing Package"
 msgstr "ඇසුරුම අස්ථාන ගත වී ඇත"
 
-#: ../kickstart.py:992
+#: ../kickstart.py:1001
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1292,16 +1301,16 @@ msgstr ""
 "ඔබ විසින් ස්ථාපනය කිරීමට '%s' ඇසුරුම තෝරාගෙන ඇත.  මෙම ඇසුරුම භාවිතයේ නොමැත. ඔබට අවශ්‍ය "
 "වන්නේ සථාපනය ඉදිරියට කරගෙන යාමටද නැතහොත් නවතා දැමීමටද?"
 
-#: ../kickstart.py:998 ../kickstart.py:1036 ../yuminstall.py:719
-#: ../yuminstall.py:721
+#: ../kickstart.py:1007 ../kickstart.py:1045 ../yuminstall.py:748
+#: ../yuminstall.py:751
 msgid "_Abort"
 msgstr "නවතා දමන්න(_A)"
 
-#: ../kickstart.py:1028
+#: ../kickstart.py:1037
 msgid "Missing Group"
 msgstr "කාණ්ඩය අස්ථාන ගත වී ඇත"
 
-#: ../kickstart.py:1029
+#: ../kickstart.py:1038
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1310,52 +1319,38 @@ msgstr ""
 "ඔබ විසින් ස්ථාපනය සඳහා '%s' කාණ්ඩය තෝරාගෙන ඇත. මෙම කාණ්ඩය භාවිතයේ නොමැත. ඔබට අවශ්‍ය "
 "වන්නේ සථාපනය ඉදිරියට කරගෙන යාමටද නැතහොත් නවතා දැමීමටද?"
 
-#: ../livecd.py:79
+#: ../livecd.py:93
 #, fuzzy
 msgid "Unable to find image"
 msgstr "ස්ථාපනයන් අඩංගු පිළිඹුව සොයාගත නොහැකි විය %s"
 
-#: ../livecd.py:80
+#: ../livecd.py:94
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: ../livecd.py:84 ../livecd.py:329
+#: ../livecd.py:98
 #, fuzzy
 msgid "Exit installer"
 msgstr "ස්ථාපනය කරන්නා %s"
 
-#: ../livecd.py:160
+#: ../livecd.py:174
 #, fuzzy
 msgid "Copying live image to hard drive."
 msgstr "ස්ථාපන පිළිඹුව දෘඪ තැටියට මාරු කරමින් පවතී..."
 
-#: ../livecd.py:189
+#: ../livecd.py:203
 #, fuzzy
 msgid "Doing post-installation"
 msgstr "%s %s ස්ථාපනය"
 
-#: ../livecd.py:190
+#: ../livecd.py:204
 #, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
 msgstr "ස්ථාපනය ආරම්භ කරමින් පවතී. මේ සඳහා මිනිත්තු කිහිපයක් ගතවනු ඇත..."
-
-#: ../livecd.py:328 ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
-#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
-#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:305
-#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:207
-#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:320 ../loader2/kbd.c:131
-#: ../loader2/loader.c:338 ../loader2/loader.c:1002 ../loader2/loader.c:1024
-#: ../loader2/net.c:268 ../loader2/net.c:307 ../loader2/net.c:740
-#: ../loader2/net.c:1065 ../loader2/net.c:1821 ../loader2/nfsinstall.c:57
-#: ../loader2/urls.c:282 ../loader2/urls.c:470
-msgid "Back"
-msgstr "ආපසු"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1392,26 +1387,26 @@ msgstr "'%s' වලංගු IPv6 ලිපිනයක් නොවේ."
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' වලංගු IPv6 ලිපිනයක් නොවේ."
 
-#: ../packages.py:258
+#: ../packages.py:256
 #, fuzzy
 msgid "Invalid Key"
 msgstr "ඈඳිය සාවද්‍යයි"
 
-#: ../packages.py:259
+#: ../packages.py:257
 #, fuzzy
 msgid "The key you entered is invalid."
 msgstr "ඔබ ඇතුලත් කල අගය නිවැරදි අංකයක් නොවේ"
 
-#: ../packages.py:287
+#: ../packages.py:285
 #, fuzzy
 msgid "_Skip"
 msgstr "මඟ හරින්න"
 
-#: ../packages.py:319
+#: ../packages.py:317 ../packages.py:340
 msgid "Warning! This is pre-release software!"
 msgstr "අවවාදයයි! මෙය පෙර සූදානම් මෘදුකාංගයකි!"
 
-#: ../packages.py:320
+#: ../packages.py:318
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1438,7 +1433,7 @@ msgstr ""
 "\n"
 "දෝශ වාර්තා කිරීම සඳහා '%s'.\n"
 
-#: ../packages.py:333
+#: ../packages.py:331
 msgid "_Install anyway"
 msgstr "කෙසේ හෝ ස්ථාපනය කරන්න(_I)"
 
@@ -1484,16 +1479,16 @@ msgstr "ධාවකය නොසලකා හරින්න(_I)"
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: ../partedUtils.py:890
+#: ../partedUtils.py:911
 msgid "Initializing"
 msgstr "ආරම්භනය කරමින්"
 
-#: ../partedUtils.py:891
+#: ../partedUtils.py:912
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "%s ධාවකය සංයුති කරමින් පවතී, කරුණාකර මඳක් රැඳී සිටින්න...\n"
 
-#: ../partedUtils.py:1053
+#: ../partedUtils.py:1076
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1512,7 +1507,7 @@ msgstr ""
 "\n"
 "මෙහි ඇති සිඋළුම දත්තයන් මකා දමමින් ආරම්භනය කිරීමට ඔබට අවශ්‍යද?"
 
-#: ../partedUtils.py:1102
+#: ../partedUtils.py:1125
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1530,7 +1525,7 @@ msgstr ""
 "\n"
 "මෙහි ඇති සිඋළුම දත්තයන් මකා දමමින් ආරම්භනය කිරීමට ඔබට අවශ්‍යද?"
 
-#: ../partedUtils.py:1144
+#: ../partedUtils.py:1168
 #, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem in "
@@ -1539,11 +1534,20 @@ msgid ""
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
 
-#: ../partedUtils.py:1242
+#: ../partedUtils.py:1184
+#, python-format
+msgid ""
+"The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
+"the Linux kernel does not allow for more than 15 partitions at this time.  "
+"You will not be able to make changes to the partitioning of this disk or use "
+"any partitions beyond /dev/%s15 in %s"
+msgstr ""
+
+#: ../partedUtils.py:1276
 msgid "No Drives Found"
 msgstr "ධාවකයන් කිසිවක් සොයාගත නොහැකි විය"
 
-#: ../partedUtils.py:1243
+#: ../partedUtils.py:1277
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -2070,40 +2074,40 @@ msgid ""
 "size."
 msgstr "තාත්වික පරිමාවේ ප්‍රමාණය පරිමා කණ්ඩායමේ භෞතික ප්‍රමාණයට වඩා විශාල විය යුතුය."
 
-#: ../rescue.py:129
+#: ../rescue.py:146
 msgid "Starting Interface"
 msgstr "අතුරු මුහුණත ක්‍රියාත්මක කරමින්"
 
-#: ../rescue.py:130
+#: ../rescue.py:147
 #, python-format
 msgid "Attempting to start %s"
 msgstr "%s ආරම්භ කිරීමට උත්සහ කරමින්"
 
-#: ../rescue.py:175
+#: ../rescue.py:189
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "ස්ථාපනය අවසන් වූ පසු පද්ධතිය නැවත ක්‍රියාත්මක කිරීම සඳහා shell එකෙන් පිටවන්න."
 
-#: ../rescue.py:201
+#: ../rescue.py:215
 msgid "Setup Networking"
 msgstr "ජාලය සකසුරුවම් කරන්න"
 
-#: ../rescue.py:202
+#: ../rescue.py:216
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "පද්ධතිය තුල තිබෙන ජාල සම්බන්ධක අතුරු මුහුණත් ආරම්භ කිරීමට ඔබට අවශ්‍යද ?"
 
-#: ../rescue.py:243 ../text.py:598
+#: ../rescue.py:256 ../text.py:598
 msgid "Cancelled"
 msgstr "අවලංගු කරන ලදී"
 
-#: ../rescue.py:244 ../text.py:599
+#: ../rescue.py:257 ../text.py:599
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "මාහට පෙර පියවරෙන් ඉදිරියට යා නොහැක. ඔබ විසින් මෙය නැවත උත්සහ කලයුතු වේ."
 
-#: ../rescue.py:276 ../rescue.py:343 ../rescue.py:351 ../rescue.py:434
+#: ../rescue.py:289 ../rescue.py:356 ../rescue.py:364 ../rescue.py:445
 msgid "Rescue"
 msgstr "මුදවාගන්න"
 
-#: ../rescue.py:277
+#: ../rescue.py:290
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -2125,29 +2129,29 @@ msgstr ""
 "(shell) වෙත ලඟා විය හැක.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../textw/network_text.py:55
+#: ../rescue.py:300 ../iw/partition_gui.py:567 ../textw/network_text.py:55
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Continue"
 msgstr "දිගටම කරගෙන යන්න"
 
-#: ../rescue.py:287 ../rescue.py:292
+#: ../rescue.py:300 ../rescue.py:305
 msgid "Read-Only"
 msgstr "කියවීමට පමණි"
 
-#: ../rescue.py:318
+#: ../rescue.py:331
 msgid "System to Rescue"
 msgstr "මුදවා ගැනීමට තිබෙන පද්ධතිය"
 
-#: ../rescue.py:319
+#: ../rescue.py:332
 msgid "What partition holds the root partition of your installation?"
 msgstr "ඔබේ ස්ථාපනයේ root කොටස් දරා සිටින්නේ කුම කොටසේද?"
 
-#: ../rescue.py:321 ../rescue.py:325 ../text.py:572 ../text.py:574
+#: ../rescue.py:334 ../rescue.py:338 ../text.py:572 ../text.py:574
 msgid "Exit"
 msgstr "පිටවෙනු"
 
-#: ../rescue.py:344
+#: ../rescue.py:357
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2157,7 +2161,7 @@ msgstr ""
 "කොටස් සියල්ල සවි කිරීම සඳහා return ඔබන්න.  ඔබ shell එකෙන් පිට වූ වාහාම පද්ධතිය ස්වයංක්‍රීයව "
 "නැවත ‍ ක්‍රියාත්මවනු ඇතක ."
 
-#: ../rescue.py:352
+#: ../rescue.py:365
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2178,7 +2182,7 @@ msgstr ""
 "\n"
 "ඔබ shell එකෙන් පිට වූ වාහාම පද්ධතිය ස්වයංක්‍රීයව නැවත ‍ ක්‍රියාත්මවනු ඇත."
 
-#: ../rescue.py:435
+#: ../rescue.py:446
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2193,11 +2197,11 @@ msgstr ""
 "shell එකක් ලබා ගැනීම සඳහා <return> ඔබන්න. ඔබ shell එකෙන් පිට වූ වාහාම පද්ධතිය "
 "ස්වයංක්‍රීයව නැවත ‍ ක්‍රියාත්මවනු ඇත."
 
-#: ../rescue.py:441
+#: ../rescue.py:452
 msgid "Rescue Mode"
 msgstr "මුදවාගැනීමේ මාතය"
 
-#: ../rescue.py:442
+#: ../rescue.py:453
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2205,7 +2209,7 @@ msgstr ""
 "ඔබ සතුව Linux කොටස් නොමැත. shell එකක් ලබා ගැනීම සඳහා <return> ඔබන්න. ඔබ shell "
 "එකෙන් පිට වූ වාහාම පද්ධතිය ස්වයංක්‍රීයව නැවත ‍ ක්‍රියාත්මවනු ඇත."
 
-#: ../rescue.py:455
+#: ../rescue.py:466
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "ඔබේ පද්ධතිය %s බහලුම යටතේ සවිකරන ලදී"
@@ -2268,7 +2272,7 @@ msgstr ""
 msgid "Save Crash Dump"
 msgstr "බිඳවැටීමේ ප්‍රතිදානය සුරකින්න"
 
-#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:155
+#: ../text.py:469 ../loader2/lang.c:55 ../loader2/loader.c:153
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "%s වෙත සාදරයෙන් පිළිගනිමු"
@@ -2396,18 +2400,18 @@ msgstr "සාවද්‍ය බහලුම්"
 msgid "%s not found"
 msgstr "%s භාවිතයේ නොමැත"
 
-#: ../urlinstall.py:38
+#: ../urlinstall.py:37
 msgid "Connecting..."
 msgstr "සම්බන්ධ වෙමින්..."
 
-#: ../urlinstall.py:77
-#, python-format
+#: ../urlinstall.py:76
+#, fuzzy, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
 "and try using a different one.\n"
 "\n"
-"If you reboot, your system will be left in an inconsistent state that will "
+"If you exit, your system will be left in an inconsistent state that will "
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
@@ -2542,139 +2546,148 @@ msgstr "VNC සේවා දාහකය දැන් ක්‍රියාත�
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "%s ධාරකයේ තිබෙන vnc ග්‍රාහකය සමඟ සම්බන්ධ වීමට උත්සහ කරමින්..."
 
-#: ../vnc.py:309
+#: ../vnc.py:311
 msgid "Connected!"
 msgstr "සම්බන්ධ විය!"
 
-#: ../vnc.py:314
+#: ../vnc.py:316
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "සම්බන්ධ වීමට 50 වරක් උත්සහ කිරීමෙන් පසුව අතහැර දමමින්!\n"
 
-#: ../vnc.py:316
+#: ../vnc.py:318
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "කරුණාකර ස්ථාපනය ආරම්භ කිරීම සඳහා ඔබේ vnc සේවා ග්‍රාහකය %s හා අතින් සම්බන්ධ කරන්න."
 
-#: ../vnc.py:318
+#: ../vnc.py:320
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "කරුණාකර ස්ථාපනය ආරම්භ කිරීම සඳහා ඔබේ vnc සේවා ග්‍රාහකය අතින් සම්බන්ධ කරන්න."
 
-#: ../vnc.py:322
+#: ../vnc.py:324
 msgid "Will try to connect again in 15 seconds..."
 msgstr "තත්පර 15 පසුව නැවත සම්බන්ධ වීමට උත්සහ කරනු ඇත..."
 
-#: ../vnc.py:330
+#: ../vnc.py:332
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "ස්ථපනය ආරම්භ කිරීමට %s හා සම්බන්ධ වන්න..."
 
-#: ../vnc.py:332
+#: ../vnc.py:334
 msgid "Please connect to begin the install..."
 msgstr "ස්ථපනය ආරම්භ කිරීමට සම්බන්ධ වන්න......"
 
-#: ../yuminstall.py:73
+#: ../yuminstall.py:62
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../yuminstall.py:76
+#: ../yuminstall.py:65
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: ../yuminstall.py:79
+#: ../yuminstall.py:68
 #, python-format
 msgid "%s Byte"
 msgstr "%s Byte"
 
-#: ../yuminstall.py:81
+#: ../yuminstall.py:70
 #, python-format
 msgid "%s Bytes"
 msgstr "%s Bytes"
 
-#: ../yuminstall.py:129
+#: ../yuminstall.py:117
 msgid "Processing"
 msgstr "ක්‍රියාත්මක කරමින්"
 
-#: ../yuminstall.py:130
+#: ../yuminstall.py:118
 msgid "Preparing transaction from installation source..."
 msgstr "ස්ථාපන ප්‍රභවයේ සිට ගනුදෙනුව සැකසෙමින් පවතී..."
 
-#: ../yuminstall.py:160
+#: ../yuminstall.py:148
 #, fuzzy, python-format
 msgid "<b>Installing %s</b> (%s)\n"
 msgstr "%s ස්ථාපනය කරමින්\n"
 
-#: ../yuminstall.py:194
+#: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
 msgstr ""
 
-#: ../yuminstall.py:528 ../yuminstall.py:529
+#: ../yuminstall.py:195
+msgid "Finishing upgrade"
+msgstr ""
+
+#: ../yuminstall.py:196
+#, fuzzy
+msgid "Finishing upgrade process.  This may take a little while..."
+msgstr "ස්ථාපනය ආරම්භ කරමින් පවතී. මේ සඳහා මිනිත්තු කිහිපයක් ගතවනු ඇත..."
+
+#: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
+#: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
+msgid "Re_boot"
+msgstr "නැවත ආරම්භ කරන්න(_b)"
+
+#: ../yuminstall.py:598 ../yuminstall.py:599
 msgid "file conflicts"
 msgstr "ගොනුව ඝට්ටනය වේ"
 
-#: ../yuminstall.py:530
+#: ../yuminstall.py:600
 msgid "older package(s)"
 msgstr "පැරණි ඇසුරුම(ම්)"
 
-#: ../yuminstall.py:531
+#: ../yuminstall.py:601
 msgid "insufficient disk space"
 msgstr "දෘඪ තැටියේ ප්‍රමාණවත් ඉඩ නොමැත"
 
-#: ../yuminstall.py:532
+#: ../yuminstall.py:602
 msgid "insufficient disk inodes"
 msgstr "තැටිය තුල තිබෙන අයිනෝඩ(inodes) ගණන ප්‍රමාණවත් නොවේ."
 
-#: ../yuminstall.py:533
+#: ../yuminstall.py:603
 msgid "package conflicts"
 msgstr "ඇසුරුම ඝට්ටනය වේ"
 
-#: ../yuminstall.py:534
+#: ../yuminstall.py:604
 msgid "package already installed"
 msgstr "ඇසුරුම මේවන විට ස්ථාපනය කර ඇත"
 
-#: ../yuminstall.py:535
+#: ../yuminstall.py:605
 msgid "required package"
 msgstr "ඇසුරුම අවශ්‍යව ඇත"
 
-#: ../yuminstall.py:536
+#: ../yuminstall.py:606
 msgid "package for incorrect arch"
 msgstr "සාවද්‍ය තෝම්බුවක් සඳහා ඇසුරුමක්"
 
-#: ../yuminstall.py:537
+#: ../yuminstall.py:607
 msgid "package for incorrect os"
 msgstr "සාවද්‍ය මෙහෙයම් පද්ධතිය සඳහා ඇසුරුමක්"
 
-#: ../yuminstall.py:551
+#: ../yuminstall.py:621
 msgid "You need more space on the following file systems:\n"
 msgstr "පහත සඳහන් ගොනු පද්ධති තුල බොහෝ ඉඩ ප්‍රමාණයක් අවශ්‍ය වේ:\n"
 
-#: ../yuminstall.py:567
+#: ../yuminstall.py:637
 msgid "Error running transaction"
 msgstr "ගණුදෙනුව සිදු කිරීමේදී දෝශයක් ඇති විය"
 
-#: ../yuminstall.py:568
+#: ../yuminstall.py:638
 #, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
 msgstr "ඔබේ ගනුදෙනුව සිදු කරන විටදී, පහත සඳහන් හේතය කරණකොට ගෙන දෝශයක් ඇති විය : %s"
 
-#: ../yuminstall.py:572 ../yuminstall.py:605 ../yuminstall.py:745
-#: ../yuminstall.py:931
-msgid "Re_boot"
-msgstr "නැවත ආරම්භ කරන්න(_b)"
-
-#: ../yuminstall.py:699
+#: ../yuminstall.py:733
 msgid "Retrieving installation information..."
 msgstr "ස්ථාපනය සඳහා අවශ්‍ය තොරතුරු ලබාගනිමින් ..."
 
-#: ../yuminstall.py:701
+#: ../yuminstall.py:735
 #, python-format
 msgid "Retrieving installation information for %s..."
 msgstr "%s සඳහා ස්ථාපනය කිරීමට අවශ්‍ය තොරතුරු ලබාගනිමින් ......"
 
-#: ../yuminstall.py:724
+#: ../yuminstall.py:763 ../yuminstall.py:1020
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2684,26 +2697,27 @@ msgstr ""
 "ඇසුරුමට අදාල සංක්‍ෂිප්ත දත්තයන් කිවීමට නොහැක. අදාල බහලුම භාවිතයේ නොමැති වීම මීට හේතු විය හැක. "
 "කරුණකර ඔබේ ස්ථාපන රුක නිසියාකාරව ජනනය කර ඇත්දැයි පරික්‍ෂා කර බලන්න.  %s"
 
-#: ../yuminstall.py:740
+#: ../yuminstall.py:803
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: ../yuminstall.py:772
+#: ../yuminstall.py:836
 msgid "Uncategorized"
 msgstr "වර්ගීකරණය කර නොමැත"
 
-#: ../yuminstall.py:925
-#, python-format
+#: ../yuminstall.py:1045
+#, fuzzy, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
-"do not have enough available.  You can change your selections or reboot."
+"do not have enough available.  You can change your selections or exit the "
+"installer."
 msgstr ""
 "ඔබ විසින් තෝරා ගන්නා ලද ඇසුරුම් ස්ථාපනය සඳහා %d MB ඉඩ ප්‍රමාණයක් අවශ්‍ය වේ, නමුත් මේ සඳහා "
 "අවශ්‍ය ඉඩ ඔබ සතුව නොමැත.  ඔබේ තෝරාගැනීම වෙනස් කිරීමට හෝ නැවත ක්‍රියාත්මක කිරීමට ඔබට පුළුවන."
 
-#: ../yuminstall.py:1086
+#: ../yuminstall.py:1206
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2712,39 +2726,39 @@ msgstr ""
 "ඔබ විසින් ප්‍රගමනය තෝරාගෙන ඇති නමුත් මෙම පද්ධතිය %s ලෙස ප්‍රගමනය කිරීම සඳහා කල් ඉකුත් වී "
 "තිබේ. ? ප්‍රගමන ක්‍රියාවලිය ඉදිරියට කරගෙන යාමට ඔබට අවශ්‍යද?"
 
-#: ../yuminstall.py:1114
+#: ../yuminstall.py:1235
 msgid "Install Starting"
 msgstr "ස්ථාපනය ආරම්භ කරමින්"
 
-#: ../yuminstall.py:1115
+#: ../yuminstall.py:1236
 msgid "Starting install process.  This may take several minutes..."
 msgstr "ස්ථාපනය ආරම්භ කරමින් පවතී. මේ සඳහා මිනිත්තු කිහිපයක් ගතවනු ඇත..."
 
-#: ../yuminstall.py:1131
+#: ../yuminstall.py:1252
 msgid "Post Upgrade"
 msgstr "පශ්චාත් ප්‍රගමණය"
 
-#: ../yuminstall.py:1132
+#: ../yuminstall.py:1253
 msgid "Performing post upgrade configuration..."
 msgstr "පශ්චාත් ප්‍රගමන මාණකරන වැඩසටහන ක්‍රියාත්මක කරමින්..."
 
-#: ../yuminstall.py:1134
+#: ../yuminstall.py:1255
 msgid "Post Install"
 msgstr "පශ්චාත් ස්ථාපනය"
 
-#: ../yuminstall.py:1135
+#: ../yuminstall.py:1256
 msgid "Performing post install configuration..."
 msgstr "පසු ස්ථාපන මණකරනය ක්‍රියාත්මක කරමින්..."
 
-#: ../yuminstall.py:1332
+#: ../yuminstall.py:1473
 msgid "Installation Progress"
 msgstr "ස්ථාපන ක්‍රියාවලිය සිදුවෙමින් පවතී"
 
-#: ../yuminstall.py:1367
+#: ../yuminstall.py:1508
 msgid "Dependency Check"
 msgstr "පරායත්තයන් පරීක්‍ෂාව"
 
-#: ../yuminstall.py:1368
+#: ../yuminstall.py:1509
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "තෝරා ගන්නා ලද ස්ථාපනයට අදාල පරායත්තයන් පරීක්‍ෂා කරමින් පවතී..."
 
@@ -2813,35 +2827,35 @@ msgstr "ප්‍රධාන පරිශීලක රහස්පදය(_P): "
 msgid "_Confirm: "
 msgstr "තහවුරු කරන්න(_C): "
 
-#: ../iw/autopart_type.py:154
+#: ../iw/autopart_type.py:155
 msgid "Invalid Initiator Name"
 msgstr "වලංගු නොවන ආරම්භක නාමයකි"
 
-#: ../iw/autopart_type.py:155
+#: ../iw/autopart_type.py:156
 #, fuzzy
 msgid "You must provide an initiator name."
 msgstr "ඔබ විසින් ශුන්‍ය නොවන ආරම්භක නාමයක් ලබා දිය යුතු වේ."
 
-#: ../iw/autopart_type.py:177
+#: ../iw/autopart_type.py:178
 msgid "Error with Data"
 msgstr "දෝශ සහිත දත්තයන්"
 
-#: ../iw/autopart_type.py:285 ../textw/partition_text.py:1556
+#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "තෝරාගෙන ඇති ධාවකයේ තිබෙන කොටස් සියල්ල ඉවත් කර ප්‍රකෘති සැකසුම සාදන්න"
 
-#: ../iw/autopart_type.py:286 ../textw/partition_text.py:1557
+#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
 #, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
 msgstr "තෝරාගෙන තිබෙන ධාවකයන්ගේ linux කොටස් සියල්ල ඉවත් කර ප්‍රකෘති සැකසුම සාදන්න"
 
-#: ../iw/autopart_type.py:287 ../textw/partition_text.py:1558
+#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
 #, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr "තෝරාගෙන ඇති ධාවකයන්ගේ හිස්ව තිබෙන කොටස් භාවිත කර ප්‍රකෘති සැකසුම සාදන්න."
 
-#: ../iw/autopart_type.py:288 ../textw/partition_text.py:1559
+#: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
 #, fuzzy
 msgid "Create custom layout"
 msgstr "රිසි සැකසුමක් සාදන්න"
@@ -3112,11 +3126,11 @@ msgstr "පහත දැක්වෙන ස්ථාපනය කර තිබ�
 msgid "Unknown Linux system"
 msgstr "හඳුනා නොගත් Linux පද්ධතියකි"
 
-#: ../iw/language_gui.py:24 ../textw/language_text.py:41
+#: ../iw/language_gui.py:24 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "භාශාව තෝරා ගැනීම"
 
-#: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
+#: ../iw/language_gui.py:67 ../textw/language_text.py:38 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
 msgstr "ස්ථාපනය කිරීමේදී භාවිතා කිරීමට ඔබ කැමති කිනම් භාශාවද?"
 
@@ -3495,14 +3509,6 @@ msgstr "බොත්තම් 3ක් අනුකරණය කරන්න(_E)"
 msgid "Select the appropriate mouse for the system."
 msgstr "පද්ධතිය සඳහා වඩාත් යෝග්‍යය මූසිකය තෝරන්න"
 
-#: ../iw/netconfig_dialog.py:135 ../iw/network_gui.py:142
-#: ../iw/network_gui.py:146 ../iw/network_gui.py:150 ../iw/network_gui.py:154
-#: ../iw/network_gui.py:162 ../iw/network_gui.py:167
-#: ../textw/network_text.py:47 ../textw/network_text.py:52
-#: ../textw/network_text.py:58
-msgid "Error With Data"
-msgstr "දත්ත දෝශ සහිතයි"
-
 #: ../iw/netconfig_dialog.py:137
 #, python-format
 msgid ""
@@ -3512,34 +3518,64 @@ msgstr ""
 "\"%s\" සඳහා ලබාදුන් අගය පරිවර්තනය කිරීමේදී දෝශයක් ඇති විය:\n"
 "%s"
 
-#: ../iw/netconfig_dialog.py:155
+#: ../iw/netconfig_dialog.py:139 ../iw/netconfig_dialog.py:148
+#: ../iw/network_gui.py:142 ../iw/network_gui.py:146 ../iw/network_gui.py:150
+#: ../iw/network_gui.py:154 ../iw/network_gui.py:162 ../iw/network_gui.py:167
+#: ../textw/network_text.py:47 ../textw/network_text.py:52
+#: ../textw/network_text.py:58
+msgid "Error With Data"
+msgstr "දත්ත දෝශ සහිතයි"
+
+#: ../iw/netconfig_dialog.py:147 ../iw/network_gui.py:155
+#: ../textw/network_text.py:48
+#, fuzzy, python-format
+msgid "A value is required for the field %s."
+msgstr "\"%s\" සඳහා අගයක් නියම කල යුතු වේ."
+
+#: ../iw/netconfig_dialog.py:169
 msgid "Dynamic IP"
 msgstr "ගතික IP"
 
-#: ../iw/netconfig_dialog.py:156 ../loader2/net.c:409 ../loader2/net.c:831
+#: ../iw/netconfig_dialog.py:170 ../loader2/net.c:413 ../loader2/net.c:830
 #, c-format, python-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s සඳහා අවශ්‍ය IP තොරතුරු විමසමින්..."
 
-#: ../iw/netconfig_dialog.py:176 ../textw/network_text.py:88
-#: tmp/netpostconfig.glade.h:12
+#: ../iw/netconfig_dialog.py:191 ../iw/netconfig_dialog.py:194
+#: ../textw/network_text.py:88 tmp/netpostconfig.glade.h:12
 msgid "IP Address"
 msgstr "IP ලිපිනය"
 
-#: ../iw/netconfig_dialog.py:182
+#: ../iw/netconfig_dialog.py:201 ../iw/netconfig_dialog.py:204
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/netconfig_dialog.py:188 ../iw/network_gui.py:27
-#: ../iw/network_gui.py:524
+#: ../iw/netconfig_dialog.py:211
+#, fuzzy
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "IPv4 පෙර ඈඳිය 0 සහ 32 අතර විය යුතූය."
+
+#: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
+#: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
+#, fuzzy
+msgid "IPv4 Network Mask"
+msgstr "IPv4/ජාලවැස්ම"
+
+#: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:524
 msgid "Gateway"
 msgstr "බිහිදොර"
 
-#: ../iw/netconfig_dialog.py:195
+#: ../iw/netconfig_dialog.py:245
 msgid "Nameserver"
 msgstr "Nameserver"
 
-#: ../iw/netconfig_dialog.py:214
+#: ../iw/netconfig_dialog.py:255
+#, fuzzy
+msgid "Error configuring network device:"
+msgstr "ඔබගේ පරිගණක ජාලය මාන කිරීමේදී  දෝශයක් ඇති විය"
+
+#: ../iw/netconfig_dialog.py:268
 #, fuzzy
 msgid "Error configuring network device"
 msgstr "ඔබගේ පරිගණක ජාලය මාන කිරීමේදී  දෝශයක් ඇති විය"
@@ -3585,7 +3621,7 @@ msgstr ""
 "ඔබ විසින්  \"%s\" අගය නියමකර නොමැත . ඔබේ පරිගණක ජාලයේ ස්වභාවය මත පසු කාලීනව ගැටළු ඇති "
 "වීමට පිළිවෙන"
 
-#: ../iw/network_gui.py:151 ../textw/network_text.py:813
+#: ../iw/network_gui.py:151 ../textw/network_text.py:817
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3596,18 +3632,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:155 ../textw/network_text.py:48
-#, fuzzy, python-format
-msgid "A value is required for the field %s."
-msgstr "\"%s\" සඳහා අගයක් නියම කල යුතු වේ."
-
 #: ../iw/network_gui.py:158 ../textw/network_text.py:38
 #, fuzzy, python-format
 msgid "Error With %s Data"
 msgstr "දත්ත දෝශ සහිතයි"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
-#: ../textw/network_text.py:587 ../textw/network_text.py:591
+#: ../textw/network_text.py:590 ../textw/network_text.py:594
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
@@ -3696,7 +3727,7 @@ msgstr "හඳුනා නොගත්"
 msgid "Hardware address: "
 msgstr "දෘඪාංග ලිපිනය: %s"
 
-#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:792
+#: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
 msgstr "වාහකය අස්ථාන ගතවී ඇත"
 
@@ -3706,7 +3737,7 @@ msgid "You must select at least IPv4 or IPv6 support."
 msgstr "DHCP සඳහා ඔබ විසින් අවම වශයෙන් එක් වාහකයක්වත් තෝරාගත යුතු වේ (IPv4 or IPv6) "
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
-#: ../textw/network_text.py:69 ../loader2/net.c:93
+#: ../textw/network_text.py:69 ../loader2/net.c:97
 msgid "Invalid Prefix"
 msgstr "ඈඳිය සාවද්‍යයි"
 
@@ -4334,15 +4365,15 @@ msgstr "ඉලක්කගත ධාවකය(න්):"
 msgid "Drives"
 msgstr "උපාංගයන්"
 
-#: ../iw/release_notes.py:151 ../iw/release_notes.py:156
+#: ../iw/release_notes.py:156 ../iw/release_notes.py:161
 msgid "Release notes are missing.\n"
 msgstr "නිදහස් කිරීමේ සටහන් අස්ථාන ගත වී ඇත.\n"
 
-#: ../iw/release_notes.py:236
+#: ../iw/release_notes.py:241
 msgid "Release Notes"
 msgstr "නිදහස් කිරීමේ සටහන් "
 
-#: ../iw/release_notes.py:239
+#: ../iw/release_notes.py:244
 msgid "Unable to load file!"
 msgstr "ගොනුව රුවීමට නොහැක!"
 
@@ -4396,45 +4427,45 @@ msgstr "නිධිය \"%s\" දැනටමත් එකතු කර ඇත,
 msgid "Time Zone Selection"
 msgstr "හෝරා කලාපය තෝරාගැනීම"
 
-#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:106
+#: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:108
 msgid "Upgrade Boot Loader Configuration"
 msgstr "ඇරඹුම් කාරක මාණකරනය ප්‍රගමනය කරන්න"
 
-#: ../iw/upgrade_bootloader_gui.py:95
+#: ../iw/upgrade_bootloader_gui.py:97
 msgid "_Update boot loader configuration"
 msgstr "ඇරඹුම් කාරක මාණකරනය ප්‍රගමනය කරන්න(_U)"
 
-#: ../iw/upgrade_bootloader_gui.py:96
+#: ../iw/upgrade_bootloader_gui.py:98
 msgid "This will update your current boot loader."
 msgstr "මෙය විසින් ඔබේ ඇරඹුම් කාරකය ප්‍රගමනය කරනු ඇත"
 
-#: ../iw/upgrade_bootloader_gui.py:100 ../textw/upgrade_bootloader_text.py:78
+#: ../iw/upgrade_bootloader_gui.py:102 ../textw/upgrade_bootloader_text.py:80
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
 
-#: ../iw/upgrade_bootloader_gui.py:103 ../textw/upgrade_bootloader_text.py:82
+#: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr "ඔබ් පද්ධතිය තුල තිබෙන ඇරඹුම් කාරකය සොයා ගැනීමට ස්ථාපකයට නොහැකි විය"
 
-#: ../iw/upgrade_bootloader_gui.py:110 ../textw/upgrade_bootloader_text.py:91
+#: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ස්ථාපකය විසින් %s ඇරඹුම් කාරකය %s ස්ථාපනය කර තිබෙන බව සොයා ගැනින."
 
-#: ../iw/upgrade_bootloader_gui.py:114
+#: ../iw/upgrade_bootloader_gui.py:116
 msgid "This is the recommended option."
 msgstr "මෙය නිර්දේශිත විකල්පය වේ"
 
-#: ../iw/upgrade_bootloader_gui.py:119
+#: ../iw/upgrade_bootloader_gui.py:121
 msgid "_Create new boot loader configuration"
 msgstr "නව ඇරඹුම් කාරක මාණකරනයක් සාදන්න(_C)"
 
-#: ../iw/upgrade_bootloader_gui.py:121
+#: ../iw/upgrade_bootloader_gui.py:123
 #, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
@@ -4443,11 +4474,11 @@ msgstr ""
 "මොමඟින් නව ඇරඹුම් කාරකය මාණන්න ඔබ හට ඉඩ ප්‍රස්ථාවන් ලැබෙනු ඇත. ඔබ ඇරඹුම් කාරක කිහිපයක් භාවිත "
 "කරන්නේ නම් ඔබ විසින් මෙය තෝරා ගත යුතු වේ."
 
-#: ../iw/upgrade_bootloader_gui.py:128
+#: ../iw/upgrade_bootloader_gui.py:130
 msgid "_Skip boot loader updating"
 msgstr "ඇරඹුම් කාරකය නවීකරණය මඟහරින්න(_S)"
 
-#: ../iw/upgrade_bootloader_gui.py:129
+#: ../iw/upgrade_bootloader_gui.py:131
 #, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
@@ -4456,7 +4487,7 @@ msgstr ""
 "මෙමඟින් ඔබේ ඇරඹුම් කාරකයේ මාණකරණයට කිසිවක් සිදු නොවේ. තෙවන පාර්ශවයේ ඇරඹුම් කාරකයක් භාවිත "
 "කරන්නේ නම් මෙය තෝරා ගන්න."
 
-#: ../iw/upgrade_bootloader_gui.py:140
+#: ../iw/upgrade_bootloader_gui.py:142
 msgid "What would you like to do?"
 msgstr "ඔබට කුමක් කිරීමටද අවශ්‍ය?"
 
@@ -4772,6 +4803,10 @@ msgstr ""
 msgid "Complete"
 msgstr "සම්පූර්ණයි"
 
+#: ../textw/complete_text.py:41
+msgid "Reboot"
+msgstr "නැවත ක්‍රියාත්මක කරන්න"
+
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "ස්ථාපනය ආරම්භ වීමට නියමිතව ඇත"
@@ -4784,6 +4819,20 @@ msgid ""
 msgstr ""
 "පද්ධතිය නැවත ක්‍රියාත්මක කල පසු ස්ථාපනයට අදාල සම්පූර්ණ ඉපියක් %s ඇත. මෙය පසුකාලීනව විමසීම "
 "සඳහා යොදාගත හැක."
+
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
+#: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:392
+#: ../loader2/driverdisk.c:282 ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:398 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:180 ../loader2/driverselect.c:205
+#: ../loader2/hdinstall.c:265 ../loader2/hdinstall.c:319 ../loader2/kbd.c:131
+#: ../loader2/loader.c:342 ../loader2/loader.c:1016 ../loader2/loader.c:1038
+#: ../loader2/net.c:272 ../loader2/net.c:311 ../loader2/net.c:739
+#: ../loader2/net.c:1064 ../loader2/net.c:1806 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:282 ../loader2/urls.c:470
+msgid "Back"
+msgstr "ආපසු"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4880,12 +4929,12 @@ msgstr "IPv6/පෙර ඈඳිය"
 msgid "Activate on boot"
 msgstr "ක්‍රියාත්මක කිරීමේදී සක්‍රිය කරන්න"
 
-#: ../textw/network_text.py:144 ../loader2/net.c:720
+#: ../textw/network_text.py:144 ../loader2/net.c:719
 #: tmp/netpostconfig.glade.h:9
 msgid "Enable IPv4 support"
 msgstr "IPv4 පහසුකම සක්‍රීය කරන්න"
 
-#: ../textw/network_text.py:151 ../loader2/net.c:733
+#: ../textw/network_text.py:151 ../loader2/net.c:732
 #: tmp/netpostconfig.glade.h:10
 msgid "Enable IPv6 support"
 msgstr "IPv6 පහසුකම සක්‍රීය කරන්න"
@@ -4992,82 +5041,82 @@ msgid ""
 "finished, press OK to continue."
 msgstr ""
 
-#: ../textw/network_text.py:617
+#: ../textw/network_text.py:620
 #, fuzzy
 msgid "Active on boot"
 msgstr "ක්‍රියාත්මක කිරීමේදී සක්‍රිය කරන්න"
 
-#: ../textw/network_text.py:619
+#: ../textw/network_text.py:622
 #, fuzzy
 msgid "Inactive on boot"
 msgstr "ක්‍රියාත්මක කිරීමේදී සක්‍රිය කරන්න"
 
-#: ../textw/network_text.py:622
+#: ../textw/network_text.py:625
 msgid "DHCP"
 msgstr ""
 
-#: ../textw/network_text.py:627
+#: ../textw/network_text.py:630
 msgid "Auto IPv6"
 msgstr ""
 
-#: ../textw/network_text.py:629
+#: ../textw/network_text.py:632
 msgid "DHCPv6"
 msgstr ""
 
-#: ../textw/network_text.py:635
+#: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:637 ../textw/network_text.py:639
+#: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
 msgstr ""
 
-#: ../textw/network_text.py:661 ../loader2/net.c:1026
+#: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
 msgstr "බිහිදොර:"
 
-#: ../textw/network_text.py:670
+#: ../textw/network_text.py:674
 msgid "Primary DNS:"
 msgstr "ප්‍රාථමික DNS:"
 
-#: ../textw/network_text.py:675
+#: ../textw/network_text.py:679
 msgid "Secondary DNS:"
 msgstr "ද්වීතීය DNS:"
 
-#: ../textw/network_text.py:682
+#: ../textw/network_text.py:686
 msgid "Miscellaneous Network Settings"
 msgstr "විවිධ ජාල පරිස්ථිතියන්"
 
-#: ../textw/network_text.py:699 ../textw/network_text.py:702
+#: ../textw/network_text.py:703 ../textw/network_text.py:706
 #, fuzzy
 msgid "gateway"
 msgstr "බිහිදොර"
 
-#: ../textw/network_text.py:709 ../textw/network_text.py:712
+#: ../textw/network_text.py:713 ../textw/network_text.py:716
 #, fuzzy
 msgid "primary DNS"
 msgstr "ප්‍රාථමික DNS"
 
-#: ../textw/network_text.py:721
+#: ../textw/network_text.py:725
 #, fuzzy
 msgid "secondary DNS"
 msgstr "ද්වීතීයක DNS"
 
-#: ../textw/network_text.py:755
+#: ../textw/network_text.py:759
 msgid "automatically via DHCP"
 msgstr "ස්වයංක්‍රියව DHCP භාවිත කරමින්"
 
-#: ../textw/network_text.py:758
+#: ../textw/network_text.py:762
 msgid "manually"
 msgstr "අතින් සකසන්න"
 
-#: ../textw/network_text.py:777
+#: ../textw/network_text.py:781
 msgid "Hostname Configuration"
 msgstr "ධාරක නාමය මානකරනය"
 
-#: ../textw/network_text.py:780
+#: ../textw/network_text.py:784
 #, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
@@ -5081,11 +5130,11 @@ msgstr ""
 "'localhost' භාවිත වනු ඇත. (ඔබේ පද්ධතිය ජාලයේ සිටින අන්‍යන් විසින් හඳුනා ගනු ලබන්නේ "
 "'localhost' ලෙසයි)."
 
-#: ../textw/network_text.py:806 ../textw/network_text.py:812
+#: ../textw/network_text.py:810 ../textw/network_text.py:816
 msgid "Invalid Hostname"
 msgstr "ධාරක නාමය සාවද්‍යයි"
 
-#: ../textw/network_text.py:807
+#: ../textw/network_text.py:811
 msgid "You have not specified a hostname."
 msgstr "ධාරක නාමයක් සපයා නොමැත"
 
@@ -5372,28 +5421,28 @@ msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> තෝරාගැනීම සඳහා |   <F2> කණ්ඩායම් තොරතුරු   |   <F12> ඊලඟ තිරය"
 
-#: ../textw/partition_text.py:1654
+#: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
 msgstr "කොටස් සැකසුම  සමාලෝචනය කරන්න"
 
-#: ../textw/partition_text.py:1655
+#: ../textw/partition_text.py:1658
 msgid "Review and modify partitioning layout?"
 msgstr "කොටස් සැකසුම සමාලෝචනය කර වෙනස් කිරීමට අවශ්‍යද?"
 
-#: ../textw/partition_text.py:1676 tmp/adddrive.glade.h:3
+#: ../textw/partition_text.py:1679 tmp/adddrive.glade.h:3
 msgid "Advanced Storage Options"
 msgstr "උසස් ගබඩා කිරීමේ විකල්පයන්"
 
-#: ../textw/partition_text.py:1677 tmp/adddrive.glade.h:5
+#: ../textw/partition_text.py:1680 tmp/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
 msgstr "ඔබට ධාවකයේ මානකරනය වෙනස් කීමට අවශ්‍ය වන්නේ කිනම් අයුරින්ද?"
 
-#: ../textw/partition_text.py:1700
+#: ../textw/partition_text.py:1703
 #, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP උපාංගය එකතු කරන්න"
 
-#: ../textw/partition_text.py:1701 tmp/zfcp-config.glade.h:5
+#: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
 #, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
@@ -5405,11 +5454,11 @@ msgstr ""
 "උපාංග අංකය,16bit SCSI ID, 64 bit World Wide Port Name (WWPN), 16bit SCSI LUN "
 "සහ 64 bit FCP LUN. "
 
-#: ../textw/partition_text.py:1724 tmp/iscsi-config.glade.h:5
+#: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
 msgstr "iSCSI පරාමිතියන් මානන්න"
 
-#: ../textw/partition_text.py:1725 tmp/iscsi-config.glade.h:6
+#: ../textw/partition_text.py:1728 tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -5417,12 +5466,12 @@ msgstr ""
 "iSCSI තැටි භාවිත කිරීම සඳහා, ඔබේ iSCSI ඉලක්කගත ධාවකයේ ලිපිනය සහ ඔබේ ධාරකයේ තිබෙන "
 "iSCSI ආරම්භන නාමය ලබා දිය යුතු වේ."
 
-#: ../textw/partition_text.py:1726
+#: ../textw/partition_text.py:1729
 #, fuzzy
 msgid "Target IP Address"
 msgstr "<b>ඉලක්ක ගත IP ලිපිනය(_T):</b>"
 
-#: ../textw/partition_text.py:1727
+#: ../textw/partition_text.py:1730
 #, fuzzy
 msgid "iSCSI Initiator Name"
 msgstr "<b>iSCSI ආරම්භකයේ නම(_N):</b>"
@@ -5466,16 +5515,16 @@ msgstr "ඔබ සිටින්නේ කුමන හෝරා කලාප�
 msgid "System clock uses UTC"
 msgstr "පද්ධතියේ වේලාව UTC භාවිත කරයි"
 
-#: ../textw/upgrade_bootloader_text.py:86
-#: ../textw/upgrade_bootloader_text.py:95
+#: ../textw/upgrade_bootloader_text.py:88
+#: ../textw/upgrade_bootloader_text.py:97
 msgid "Update boot loader configuration"
 msgstr "ඇරඹුම් කාරකයේ මාණකරනය නවීකරණය කරන්න"
 
-#: ../textw/upgrade_bootloader_text.py:98
+#: ../textw/upgrade_bootloader_text.py:100
 msgid "Skip boot loader updating"
 msgstr "ඇරඹුම් කාරකය නවීකරණය කිරීම මඟ හරින්න"
 
-#: ../textw/upgrade_bootloader_text.py:100
+#: ../textw/upgrade_bootloader_text.py:102
 msgid "Create new boot loader configuration"
 msgstr "නව ඇරඹුම් කාරක මාණකරනයක් සාදන්න"
 
@@ -5654,54 +5703,56 @@ msgstr "මාධ්‍ය පරීක්‍ෂාව"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:95
 #: ../loader2/cdinstall.c:113 ../loader2/cdinstall.c:121
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Test"
 msgstr "පරික්‍ෂා කරන්න"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-msgid "Eject CD"
+#, fuzzy
+msgid "Eject Disc"
 msgstr "සංයුක්ත තැටිය ඉවතට ගන්න"
 
 #: ../loader2/cdinstall.c:93
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
-"CD and insert another for testing."
+"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
+"the disc and insert another for testing."
 msgstr ""
 "ධාාවකය තුල තිබෙන සංයුක්ත තැටිය පරික්‍ෂා කිරීම සඳහා \"%s\" ඔබන්න,නැතහොත් සංයුක්ත තැටිය ඉවත් "
 "කර වෙනෙකක් පරික්‍ෂා කිරීම සඳහා  \"%s\"ඔබන්න.."
 
 #: ../loader2/cdinstall.c:114
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"If you would like to test additional media, insert the next CD and press \"%s"
-"\". Testing each CD is not strictly required, however it is highly "
-"recommended.  Minimally, the CDs should be tested prior to using them for "
+"If you would like to test additional media, insert the next disc and press "
+"\"%s\". Testing each disc is not strictly required, however it is highly "
+"recommended.  Minimally, the discs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
-"to retest each CD prior to using it again."
+"to retest each disc prior to using it again."
 msgstr ""
 "අමතර මාධ්‍යයන් පරීක්‍ෂා කිරීමට ඔබට අවශ්‍ය නම්, මීලඟ සංයුක්ත තැටිය ඇතුලත් කර \"%s\" ඔබන්න. සෑම "
 "සංයුක්ත තැටියක්ම පරීක්‍ෂා කිරීම අත්‍යවශ්‍ය නොවන නමුත් මෙය ඉතා ඉහලින් රෙකමදාරු කර තිබේ. අවම "
 "වශයෙන්, මුල් වරට  සංයුක්ත තැටි භාවිතයට පෙර ඒවා සියල්ල පරීක්‍ෂා කිරීම වඩාත් සුදුසු වේ. වරක් සියල්ල "
 "පරීක්‍ෂා කරගත් පසුව නැවත නැවතත් පරික්‍ෂා කිරීමට අවශ්‍ය නොවේ."
 
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:384
-#, c-format
+#: ../loader2/cdinstall.c:137
+#, fuzzy, c-format
 msgid ""
-"The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
+"The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
 "%s සංයුක්ත තැටිය ඔබේ සංයුක්ත තැටි ධාවකයන් තුල සොයාගත නොහැකි විය. නැවත උත්සහ කිරීම සඳහා "
 "කරුණාකර %s සංයුක්ත තැටිය ඇතුලත් කර %s ඔබන්න"
 
 #: ../loader2/cdinstall.c:258
-msgid "CD Found"
+#, fuzzy
+msgid "Disc Found"
 msgstr "සංයුක්ත තැටිය සොයා ගැනින"
 
 #: ../loader2/cdinstall.c:259
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"To begin testing the CD media before installation press %s.\n"
+"To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
@@ -5710,35 +5761,50 @@ msgstr ""
 "මාධ්‍ය පරීක්‍ෂාව මඟ හැර ස්ථාපනය කරගෙන යාම සඳහා %s ඔබන්න."
 
 #: ../loader2/cdinstall.c:379
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"No %s CD was found which matches your boot media.  Please insert the %s CD "
-"and press %s to retry."
+"No %s disc was found which matches your boot media.  Please insert the %s "
+"disc and press %s to retry."
 msgstr ""
 "ඇරඹුම් මාධ්‍ය සමඟ සමපාත වන %s සංයුක්ත තැටිය සොයා ගත නොහැකි විය.  කරුණාකර %s සංයුක්ත තැටිය "
 "ඇතුල් කර නැවත උත්සහ කිරීමට %s ඔබන්න."
 
+#: ../loader2/cdinstall.c:384
+#, fuzzy, c-format
+msgid ""
+"The %s disc was not found in any of your CDROM drives. Please insert the %s "
+"disc and press %s to retry."
+msgstr ""
+"%s සංයුක්ත තැටිය ඔබේ සංයුක්ත තැටි ධාවකයන් තුල සොයාගත නොහැකි විය. නැවත උත්සහ කිරීම සඳහා "
+"කරුණාකර %s සංයුක්ත තැටිය ඇතුලත් කර %s ඔබන්න"
+
 #: ../loader2/cdinstall.c:391
-msgid "CD Not Found"
+#, fuzzy
+msgid "Disc Not Found"
 msgstr "සංයුක්ත තැටිය සොයාගත නොහැකි විය"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
 msgstr "kickstart ගොනුව සංයුක්ත තැටිය තුල සොයාගත නොහැකි විය"
 
-#: ../loader2/driverdisk.c:128 ../loader2/firewire.c:55
+#: ../loader2/copy.c:45 ../loader2/method.c:158 ../loader2/method.c:376
+#, c-format
+msgid "Failed to read directory %s: %s"
+msgstr "%s: %s බහලුම කියවීමට අපොහොසත් විය"
+
+#: ../loader2/driverdisk.c:134 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "රුවමින්"
 
-#: ../loader2/driverdisk.c:128
+#: ../loader2/driverdisk.c:134
 msgid "Reading driver disk..."
 msgstr "ධාවකයේ තැටිය කියවමින්..."
 
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:276 ../loader2/driverdisk.c:308
 msgid "Driver Disk Source"
 msgstr "ධාවක තැටියේ මූලාශ්‍රය"
 
-#: ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:277
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5746,7 +5812,7 @@ msgstr ""
 "ඔබ සතුව ධාවක තැටිය ලෙස යොදාගත හැකි ධාවක මූලයන් කීපයක් තිබේ.  මින් කවරක්ද භාවිත කිරීමට ඔබ "
 "බලාපොරොත්තු වන්නේ?"
 
-#: ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:309
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -5754,49 +5820,49 @@ msgstr ""
 "මෙම උපාංගය තුල තැටි ධාවක පිළිඹුව ඇතුලත් කොටස් කීපයක් තිබේ, ඔබ මින් කවර කොටසක්ද භාවිතා කිරීමට "
 "කැමති වන්නේ?"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:347
 msgid "Failed to mount partition."
 msgstr "කොටස සවිකිරීමට අසමත් විය"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:355
 msgid "Select driver disk image"
 msgstr "ධාවක තැටියේ පිළිඹුව තෝරන්න"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:356
 msgid "Select the file which is your driver disk image."
 msgstr "ඔබේ ධාවකයේ තැටි පිළිඹුව ඇතුලත් ගොනුව තෝරන්න"
 
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:385
 msgid "Failed to load driver disk from file."
 msgstr "ගොනුව තුලින් ධාවක තැටි රුවීමට අපොහොසත් විය"
 
-#: ../loader2/driverdisk.c:388
+#: ../loader2/driverdisk.c:396
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "ඔබේ ධාවක තැටිය /dev/%s තුලට ඇතුල් කර ඉදිරියට යාම සඳහා \"හරි\" සූචකය ඔබන්න"
 
-#: ../loader2/driverdisk.c:390
+#: ../loader2/driverdisk.c:398
 msgid "Insert Driver Disk"
 msgstr "ධාවකයේ තැටිය ඇතුල් කරන්න"
 
-#: ../loader2/driverdisk.c:405
+#: ../loader2/driverdisk.c:413
 msgid "Failed to mount driver disk."
 msgstr "දහාවක තැටිය සවිකිරීමට අපොහොසත් විය"
 
-#: ../loader2/driverdisk.c:415
+#: ../loader2/driverdisk.c:423
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "%s නිකුතුව සඳහා ධාවක තැටිය වලංගු නොවේ"
 
-#: ../loader2/driverdisk.c:479
+#: ../loader2/driverdisk.c:486
 msgid "Manually choose"
 msgstr "අතින් තෝරාගන්න"
 
-#: ../loader2/driverdisk.c:480
+#: ../loader2/driverdisk.c:487
 msgid "Load another disk"
 msgstr "වෙනත් තැටියක් රුවන්න"
 
-#: ../loader2/driverdisk.c:481
+#: ../loader2/driverdisk.c:488
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5806,38 +5872,38 @@ msgstr ""
 "මෙම ධාවකය තෝරා ගැනීමටද, කෙසේ හෝ දිගටම කරගෙන යාමටද නැතහොත් වෙනත් ධාවක තැටියක් භාවිත "
 "කිරීමටද ??"
 
-#: ../loader2/driverdisk.c:520
+#: ../loader2/driverdisk.c:526
 msgid "Driver disk"
 msgstr "ධාවක තැටිය"
 
-#: ../loader2/driverdisk.c:521
+#: ../loader2/driverdisk.c:527
 msgid "Do you have a driver disk?"
 msgstr "ධාවකය සඳහා තැටියක් ඔබ සතුව තිබේද ? "
 
-#: ../loader2/driverdisk.c:531
+#: ../loader2/driverdisk.c:536
 msgid "More Driver Disks?"
 msgstr "තවත් ධාවක සඳහා තැටි ඔබ සතුව තිබේද ? ?"
 
-#: ../loader2/driverdisk.c:532
+#: ../loader2/driverdisk.c:537
 msgid "Do you wish to load any more driver disks?"
 msgstr "තව ධාහක තැටි රුවීමට ඔබ කැමතිද?"
 
-#: ../loader2/driverdisk.c:581 ../loader2/driverdisk.c:618
-#: ../loader2/hdinstall.c:406 ../loader2/kickstart.c:127
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:620
+#: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:127
 #: ../loader2/kickstart.c:137 ../loader2/kickstart.c:180
-#: ../loader2/kickstart.c:512 ../loader2/modules.c:1042
-#: ../loader2/modules.c:1055 ../loader2/net.c:1612 ../loader2/net.c:1635
-#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:473
-#: ../loader2/urlinstall.c:482 ../loader2/urlinstall.c:493
+#: ../loader2/kickstart.c:523 ../loader2/modules.c:1036
+#: ../loader2/modules.c:1049 ../loader2/net.c:1597 ../loader2/net.c:1620
+#: ../loader2/nfsinstall.c:251 ../loader2/urlinstall.c:464
+#: ../loader2/urlinstall.c:473 ../loader2/urlinstall.c:484
 msgid "Kickstart Error"
 msgstr "Kickstart Error"
 
-#: ../loader2/driverdisk.c:582
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "kickstart මූලාශය අඩංගු හඳුනා නොගත් ධාවක තැටියකි: %s"
 
-#: ../loader2/driverdisk.c:619
+#: ../loader2/driverdisk.c:621
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5860,15 +5926,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "මොඩියුලය සඳහා වන පරාමිතියන් ඇතුල් කරන්න"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "No drivers found"
 msgstr "ධාවකයන් සොයාගත නොහැකි විය"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:179
 msgid "Load driver disk"
 msgstr "ධාහකයට අදාල තැටිය රුවන්න"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:180
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -5876,7 +5942,7 @@ msgstr ""
 "ඔබ විසින් අතින් ඇතුලත් කිරීම සඳහා අවශ්‍ය ධාවකයන් සොයාගත නොහැකි විය. ධාවක තැටියක් භාවිත කිරීමට "
 "ඔබ කැමතිද?"
 
-#: ../loader2/driverselect.c:200
+#: ../loader2/driverselect.c:198
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5884,11 +5950,11 @@ msgstr ""
 "රුවීම සඳහා භාවිත කිරිමමට කැමති ධාවකය පහත ලැයිස්තුවෙන් තෝරා ගන්න. එය එහි නොමැති නම් ඒ සඳහා "
 "ධාවක තැටියක් ඇත්නම් F2 ඔබන්න"
 
-#: ../loader2/driverselect.c:208
+#: ../loader2/driverselect.c:206
 msgid "Specify optional module arguments"
 msgstr "අතිරේක මොඩියුල් සඳහා පරාමිතියන් නියම කරන්න"
 
-#: ../loader2/driverselect.c:228
+#: ../loader2/driverselect.c:226
 msgid "Select Device Driver to Load"
 msgstr "රුවනය කිරීමට අවශ්‍ය උපාංග ධාවකය තෝරන්න"
 
@@ -5898,7 +5964,7 @@ msgid "Loading %s driver..."
 msgstr "%s ධාවකය රුවමින්..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/nfsinstall.c:198
-#: ../loader2/urlinstall.c:160
+#: ../loader2/urlinstall.c:151
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5919,7 +5985,7 @@ msgid ""
 "configure additional devices?"
 msgstr "ඔබේ පද්ධතිය තුල දෘඩ තැටියක් නොමැති බව පෙනී යයි! අමතර උපාංගයන් මානන්න ඔබට අවශ්‍යද?"
 
-#: ../loader2/hdinstall.c:281
+#: ../loader2/hdinstall.c:280
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5929,29 +5995,29 @@ msgstr ""
 "%s සඳහා වන සංයුක්ත තැටි  (iso9660) පිළිඹුවන් ඇත්තේ කුමන කොටසේ හා බහලුමේද? ඔබ විසින් භාවිත "
 "කරන ධාවකය මෙම ලැයිස්තුව තුල නොවේ නම් එය මාන කිරීම සඳහා F2 ඔබන්න."
 
-#: ../loader2/hdinstall.c:304
+#: ../loader2/hdinstall.c:303
 msgid "Directory holding images:"
 msgstr "බහලුම තුල රඳවාගෙන තිබෙන පිළිඹුවන්:"
 
-#: ../loader2/hdinstall.c:332
+#: ../loader2/hdinstall.c:331
 msgid "Select Partition"
 msgstr "කොටස තෝරන්න"
 
-#: ../loader2/hdinstall.c:372
+#: ../loader2/hdinstall.c:370
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "%s උපාංගය සතුව %s සංයුක්ත තැටි පිලිඹුව නොමැති බව පෙනී යයි"
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:405
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "HD kickstart විධාන ක්‍රමය සඳහා වැරදි පරාමිතියන් %s: %s"
 
-#: ../loader2/hdinstall.c:477 ../loader2/hdinstall.c:533
+#: ../loader2/hdinstall.c:475 ../loader2/hdinstall.c:531
 msgid "Cannot find kickstart file on hard drive."
 msgstr "දෘඪ තැටිය තුල kickstart ගොනුව සොයා ගැනීමට නොහැක"
 
-#: ../loader2/hdinstall.c:520
+#: ../loader2/hdinstall.c:518
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "%s BIOS තැටිය සඳහා වන දෘඪ තැටිය සොයාගත නොහැකි විය"
@@ -5994,7 +6060,7 @@ msgstr ""
 msgid "Error downloading kickstart file"
 msgstr "%s: %s kickstart ගොනුව විවෘත කිරීමේදී දෝශයක් ඇතිවිය"
 
-#: ../loader2/kickstart.c:513
+#: ../loader2/kickstart.c:524
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "kickstart ක්‍රම විධානය වසා දැමීම සඳහා භාවිත කරන ලද පරාමිතය සාවද්‍යය %s: %s"
@@ -6004,7 +6070,7 @@ msgstr "kickstart ක්‍රම විධානය වසා දැමීම �
 msgid "Welcome to %s - Rescue Mode"
 msgstr "%s වෙත සාදරයෙන් පිලිගනිමු - ගලවා ගැනීමේ ප්‍රකාරය"
 
-#: ../loader2/lang.c:57 ../loader2/loader.c:161
+#: ../loader2/lang.c:57 ../loader2/loader.c:159
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6015,24 +6081,25 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "භාශාවක් තෝරාගන්න"
 
-#: ../loader2/loader.c:120
-msgid "Local CDROM"
+#: ../loader2/loader.c:118
+#, fuzzy
+msgid "Local CD/DVD"
 msgstr "දේශීය CD තැටි ධාවකය"
 
-#: ../loader2/loader.c:122
+#: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "දෘඪ තැටිය"
 
-#: ../loader2/loader.c:123
+#: ../loader2/loader.c:121
 #, fuzzy
 msgid "NFS directory"
 msgstr "%s බහලුම:"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:337
 msgid "Update Disk Source"
 msgstr "තැටියේ මූලාශ්‍රය නවීකරණය කරන්න"
 
-#: ../loader2/loader.c:334
+#: ../loader2/loader.c:338
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6040,28 +6107,28 @@ msgstr ""
 "නවීකරණ තැටය සඳහා මූලාශ්‍රයන් ලෙස ක්‍රියා කල හැකි උපාංග කිහිපයක් ඔබ සතුව තිබේ, මේ සඳහා "
 "භාවිතා කිරීමට කැමති මින් කවරක්ද?"
 
-#: ../loader2/loader.c:349
+#: ../loader2/loader.c:353
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "නවීකරණ දත්තයන් අඩංගු තැටිය /dev/%s තුලට යොමු කර \"හරි\" බොත්තම ඔබන්න "
 
-#: ../loader2/loader.c:351
+#: ../loader2/loader.c:355
 msgid "Updates Disk"
 msgstr "නවීකරණය සඳහා අවශ්‍ය දත්තයන් අඩංගු තැටිය"
 
-#: ../loader2/loader.c:363
+#: ../loader2/loader.c:367
 msgid "Failed to mount updates disk"
 msgstr "නවීකරණ දත්තයන් අඩංගු තැටිය සවි කිරීමට අපොහොසත් විය"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Updates"
 msgstr "නවීකරණයන්"
 
-#: ../loader2/loader.c:366
+#: ../loader2/loader.c:370
 msgid "Reading anaconda updates..."
 msgstr "anaconda නවීකරණයනෙ ක්‍රියාත්මක කරමින්..."
 
-#: ../loader2/loader.c:406
+#: ../loader2/loader.c:412
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6070,40 +6137,40 @@ msgstr ""
 "දෘඪ තැටියක් සොයා ගැනීමට නොහැකි විය. ස්ථාපනය සාර්ථකව කරගෙන යාම පිණිස ඔබ විසින් උපාංග "
 "ධාවකයන් තෝරා ගත යුතු වේ. මෙම අවස්තාවේදී ඔබ ධාවකයන් තෝරාගැනීමට කැමතිද?"
 
-#: ../loader2/loader.c:835
+#: ../loader2/loader.c:849
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "%s ස්ථාපනය සඳහා ප්‍රමාණවත් RAM මෙම පරිගණකය තුල නොමැත"
 
-#: ../loader2/loader.c:994
+#: ../loader2/loader.c:1008
 msgid "Rescue Method"
 msgstr "ගලවා ගැනීමේ ක්‍රමය"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1009
 msgid "Installation Method"
 msgstr "ස්ථාපනය කලයුතු ආකාරය"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1011
 msgid "What type of media contains the rescue image?"
 msgstr "ගලවා ගැනීමේ පිළිඹුව තිබෙන්නේ කිනම් ආකාරයක මාධ්‍යකද ? "
 
-#: ../loader2/loader.c:999
+#: ../loader2/loader.c:1013
 msgid "What type of media contains the packages to be installed?"
 msgstr "ස්ථාපනය කිරීමට අවශ්‍ය ඇසුරුම් ඇඩංගුව තිබෙන්නේ කිනම් වර්ගයක මාධ්‍යක් තුලද?"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "No driver found"
 msgstr "ධාවකයක් සොයාගත නොහැකි විය"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1037
 msgid "Select driver"
 msgstr "ධාවකයක් තෝරාගන්න"
 
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1038
 msgid "Use a driver disk"
 msgstr "ධාවක තැටියක් භාවිත කරන්න"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1039
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6111,40 +6178,40 @@ msgstr ""
 "මෙම ආකාරයෙන් ස්ථාපනය කරගෙන යාම සඳහා අවශ්‍ය උපාංගයන් සොයාගත නොහැකි විය.ඔබට අවශ්‍ය "
 "ධාවකය අතින් තෝරා ගැනීමට ඔබ කැමති නැතහොත් ධාහක තැටියක් භාවිත කිරීමටද?"
 
-#: ../loader2/loader.c:1231
+#: ../loader2/loader.c:1258
 msgid "The following devices have been found on your system."
 msgstr "ඔබේ පද්ධතිය තුල තිබෙන පහත දැක්වෙන උපාංගයන් හඳුනාගනු ලැබීය"
 
-#: ../loader2/loader.c:1233
+#: ../loader2/loader.c:1260
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "කිසිදු උපාංග ධාවකයක් ඔබේ පද්ධතිය තුලට රුවා නොමැත. එය මේ අවස්ථාවේ සිදු කිරීමට ඔබ කැමතිද?"
 
-#: ../loader2/loader.c:1237
+#: ../loader2/loader.c:1264
 msgid "Devices"
 msgstr "ධාවකයන්"
 
-#: ../loader2/loader.c:1238
+#: ../loader2/loader.c:1265
 msgid "Done"
 msgstr "නිම කලා"
 
-#: ../loader2/loader.c:1239
+#: ../loader2/loader.c:1266
 msgid "Add Device"
 msgstr "උපාංගය එකතු කරන්න"
 
-#: ../loader2/loader.c:1447
+#: ../loader2/loader.c:1437
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "රුවනය මේ වන විට ක්‍රියාත්මකව පවතී. shell එකක් ආරම්භ කරමින්.\n"
 
-#: ../loader2/loader.c:1834
+#: ../loader2/loader.c:1823
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "anaconda ක්‍රියාත්මක වෙමින් පවතී, %s ගලවා ගැනීමේ ප්‍රකාරය - කරුණාකර රැඳී සිටින්න...\n"
 
-#: ../loader2/loader.c:1836
+#: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "anaconda ක්‍රියාත්මක වෙමින් පවතී, %s පද්ධතියේ ස්ථාපකය - කරුණාකර රැඳී සිටින්න...\n"
@@ -6224,12 +6291,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../loader2/method.c:157 ../loader2/method.c:375 ../loader2/method.c:460
-#, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "%s: %s බහලුම කියවීමට අපොහොසත් විය"
-
-#: ../loader2/method.c:418
+#: ../loader2/method.c:419
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6240,16 +6302,16 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:421
+#: ../loader2/method.c:422
 msgid "Checksum Test"
 msgstr "තිර අගය පරීක්‍ෂා කිරීම"
 
-#: ../loader2/modules.c:1043
+#: ../loader2/modules.c:1037
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "kickstart ධාවකයේ විධාන ක්‍රමය සඳහා සපයා ඇත්තේ සාවද්‍ය පරාමිතියකි %s: %s"
 
-#: ../loader2/modules.c:1056
+#: ../loader2/modules.c:1050
 #, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
@@ -6271,14 +6333,14 @@ msgstr ""
 "    o සේවා දායකය මත තිබෙන බහලුම ඇතුලත්\n"
 "      %s ඔබේ සැලසුම සඳහා වන\n"
 
-#: ../loader2/net.c:94
+#: ../loader2/net.c:98
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 "IPv4 ජාල සඳහා පෙර ඈඳිය 1 සහ 32 අතර විය යුතුය නැතහොත් IPv6 ජාල සඳහා 1 සහ 128 විය යුතුය"
 
-#: ../loader2/net.c:257
+#: ../loader2/net.c:261
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6289,28 +6351,28 @@ msgstr ""
 "සහ සංකේත යතුර ලබා දෙන්න. සංකේත යතුරක් අනවශ්‍ය නම් මෙය හිස්ව තබන්න, ස්ථාපනය දිගටම සිදුකරගෙන "
 "යනු ඇත."
 
-#: ../loader2/net.c:263
+#: ../loader2/net.c:267
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../loader2/net.c:264
+#: ../loader2/net.c:268
 msgid "Encryption Key"
 msgstr "සංකේත යතුර"
 
-#: ../loader2/net.c:267
+#: ../loader2/net.c:271
 msgid "Wireless Settings"
 msgstr "රැහැන් රහිත සැකසුම"
 
-#: ../loader2/net.c:298
+#: ../loader2/net.c:302
 msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
-#: ../loader2/net.c:302
+#: ../loader2/net.c:306
 #, fuzzy
 msgid "Missing Nameserver"
 msgstr "Nameserver"
 
-#: ../loader2/net.c:303
+#: ../loader2/net.c:307
 #, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
@@ -6321,102 +6383,102 @@ msgstr ""
 "nameserverවිස්තරනොමැත. ඔබේ nameserver විස්තර දන්නෙහි නම් කරුණාකර එය ඇතුල් කරන්න. ඔබ සතුව "
 "මෙම විසෙතර නොමැති නම් මෙය හිස්ව තබන්න, ස්ථාපනය දිගටම කරගෙන යනු ඇත."
 
-#: ../loader2/net.c:325
+#: ../loader2/net.c:329
 msgid "Invalid IP Information"
 msgstr "IP දත්තයන් සාවද්‍යයි"
 
-#: ../loader2/net.c:326
+#: ../loader2/net.c:330
 msgid "You entered an invalid IP address."
 msgstr "ඔබ විසින් ඇතුලත් කරන ලද IP ලිපිනය සාවද්‍යයි."
 
-#: ../loader2/net.c:584 ../loader2/net.c:692
+#: ../loader2/net.c:583 ../loader2/net.c:691
 msgid "Network Error"
 msgstr "ජාල සම්බන්ධතාවයේ දෝශයක්"
 
-#: ../loader2/net.c:585 ../loader2/net.c:693
+#: ../loader2/net.c:584 ../loader2/net.c:692
 msgid "There was an error configuring your network interface."
 msgstr "ඔබගේ පරිගණක ජාලය මාන කිරීමේදී  දෝශයක් ඇති විය"
 
-#: ../loader2/net.c:766
+#: ../loader2/net.c:765
 msgid "Configure TCP/IP"
 msgstr "TCP/IP මානන්න"
 
-#: ../loader2/net.c:793
+#: ../loader2/net.c:792
 #, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "DHCP සඳහා ඔබ විසින් අවම වශයෙන් එක් වාහකයක්වත් තෝරාගත යුතු වේ (IPv4 or IPv6) "
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
 msgstr "NFS සඳහා IPv4 අවශ්‍ය වේ"
 
-#: ../loader2/net.c:801
+#: ../loader2/net.c:800
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ආකාරයෙන් ස්ථාපනය කිරීම සඳහා IPv4 සහය අවශ්‍ය වේ"
 
-#: ../loader2/net.c:921
+#: ../loader2/net.c:920
 msgid "IPv4 address:"
 msgstr "IPv4 ලිපිනය:"
 
-#: ../loader2/net.c:933 ../loader2/net.c:985 tmp/netconfig.glade.h:1
+#: ../loader2/net.c:932 ../loader2/net.c:984 tmp/netconfig.glade.h:1
 #: tmp/netpostconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: ../loader2/net.c:973
+#: ../loader2/net.c:972
 msgid "IPv6 address:"
 msgstr "IPv6 ලිපිනය:"
 
-#: ../loader2/net.c:1034
+#: ../loader2/net.c:1033
 msgid "Name Server:"
 msgstr "Name Server:"
 
-#: ../loader2/net.c:1070
+#: ../loader2/net.c:1069
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: ../loader2/net.c:1086
+#: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
 msgstr "TCP/IP අතින් මානන්න"
 
-#: ../loader2/net.c:1207 ../loader2/net.c:1213
+#: ../loader2/net.c:1193 ../loader2/net.c:1199
 msgid "Missing Information"
 msgstr "අවශ්‍ය කරන තොරතුරු අස්ථාන ගතවී ඇත"
 
-#: ../loader2/net.c:1208
+#: ../loader2/net.c:1194
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "ඔබ විසින් වලංගු IPv4 ලිපිනයක් සහ network mask(ජාල වැස්මක්) එකකෙ හෝ CIDR පෙර ඈඳියක් ඇතුල් "
 "කල යුතු වේ"
 
-#: ../loader2/net.c:1214
+#: ../loader2/net.c:1200
 #, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "ඔබ විසින් වලංගු IPv6 ලිපිනයක් සහ CIDR පෙර ඈඳියක් ඇතුල් කල යුතු වේ."
 
-#: ../loader2/net.c:1520
+#: ../loader2/net.c:1505
 msgid "Determining host name and domain..."
 msgstr "ධාරක නාමය සහ දාමය තහවුරු කර ගනිමින්..."
 
-#: ../loader2/net.c:1613
+#: ../loader2/net.c:1598
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "kickstart ජාල විධානය සඳහා ලබා දී ඇත්තේ වැරදි පරාමිතියකි %s: %s"
 
-#: ../loader2/net.c:1636
+#: ../loader2/net.c:1621
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ජාල විධානය තුල වැරදි bootproto %s සපයා ඇත"
 
-#: ../loader2/net.c:1817
+#: ../loader2/net.c:1802
 msgid "Networking Device"
 msgstr "ජාල සම්බන්ධක උපකරණය"
 
-#: ../loader2/net.c:1818
+#: ../loader2/net.c:1803
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6470,33 +6532,33 @@ msgstr "telnet සම්බන්ධතාව ලැබෙන තෙක් ක�
 msgid "Running anaconda via telnet..."
 msgstr "telnet හරහා anaconda ක්‍රියාත්මක කරමින්..."
 
-#: ../loader2/urlinstall.c:80
+#: ../loader2/urlinstall.c:69
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "%s://%s/%s/%s ලබාගැනීමට නොහැක."
 
-#: ../loader2/urlinstall.c:152
+#: ../loader2/urlinstall.c:143
 msgid "Unable to retrieve the install image."
 msgstr "ස්ථාපන පිලිඹුව ලබා ගැනීමට නොහැකි විය."
 
-#: ../loader2/urlinstall.c:297
+#: ../loader2/urlinstall.c:288
 msgid "Media Detected"
 msgstr "මාධ්‍යය හඳුනා ගනු ලැබීය"
 
-#: ../loader2/urlinstall.c:298
+#: ../loader2/urlinstall.c:289
 msgid "Local installation media detected..."
 msgstr "දේශීය ස්ථාපන මාධ්‍යයක් හඳුනාගැනින..."
 
-#: ../loader2/urlinstall.c:474
+#: ../loader2/urlinstall.c:465
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Url kickstart ක්‍රම විධානය සඳහා ලබා දී ඇත්තේ වැරදි පරාමිතියකි %s: %s"
 
-#: ../loader2/urlinstall.c:483
+#: ../loader2/urlinstall.c:474
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "ඔබ විසින් --url පරාමිතියක් Url kickstart ක්‍රමය සඳහා ලබා දිය යුතු වේ."
 
-#: ../loader2/urlinstall.c:494
+#: ../loader2/urlinstall.c:485
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "හඳුනා නොගත් Url ක්‍රමයකි %s"
@@ -7071,6 +7133,12 @@ msgstr "වෙල්ෂ්"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "සූලු"
+
+#~ msgid "Rebooting System"
+#~ msgstr "පරිඝණක පද්ධතිය යලි පණගන්වනු ලැබේ"
+
+#~ msgid "Re_try"
+#~ msgstr "නැවත උත්සහ කරන්න(_t)"
 
 #~ msgid ""
 #~ "Remove any media used during the installation process and press the "
