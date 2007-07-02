@@ -1046,9 +1046,9 @@ class YumBackend(AnacondaBackend):
                                               "of free space for installation, but "
                                               "you do not have enough available.  "
                                               "You can change your selections or "
-                                              "reboot." % (self.totalSize / 1024)),
+                                              "exit the installer." % (self.totalSize / 1024)),
                                             type="custom", custom_icon="error",
-                                            custom_buttons=[_("_Back"), _("Re_boot")])
+                                            custom_buttons=[_("_Back"), _("_Exit installer")])
 
                     if rc == 1:
                         sys.exit(1)

@@ -87,7 +87,7 @@ def presentRequiredMediaMessage(anaconda):
                                           "%s\nPlease "
                                           "have these ready before proceeding with "
                                           "the installation.  If you need to abort "
-                                          "the installation and reboot please "
+                                          "the installation and exit please "
                                           "select \"Reboot\".") % (reqcdstr,),
                                           type="custom", custom_icon="warning",
                                           custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
@@ -147,7 +147,7 @@ class CdromInstallMethod(ImageInstallMethod):
                  "file or perhaps a corrupt package.  Please verify your "
                  "installation images and that you have all the required "
                  "media.\n\n"
-                 "If you reboot, your system will be left in an inconsistent "
+                 "If you exit, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
     def systemUnmounted(self):
@@ -369,7 +369,7 @@ class NfsInstallMethod(ImageInstallMethod):
         return _("The file %s cannot be opened.  This is due to a missing "
                  "file or perhaps a corrupt package.  Please verify your "
                  "installation tree contains all required packages.\n\n"
-                 "If you reboot, your system will be left in an inconsistent "
+                 "If you exit, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
     def __init__(self, method, rootPath, intf):
@@ -444,12 +444,12 @@ def findIsoImages(path, messageWindow):
 	       "a multiple of 2048 bytes.  This may mean "
 	       "it was corrupted on transfer to this computer."
 	       "\n\n"
-               "It is recommended that you reboot and abort your "
+               "It is recommended that you exit and abort your "
                "installation, but you can choose to continue if "
                "you think this is in error.") % (file,),
                                            type="custom",
                                            custom_icon="warning",
-                                           custom_buttons= [_("_Reboot"),
+                                           custom_buttons= [_("_Exit installer"),
                                                             _("_Continue")])
                         if rc == 0:
 			    sys.exit(0)
@@ -484,7 +484,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
                  "file or perhaps a corrupt package.  Please verify your "
                  "installation images and that you have all the required "
                  "media.\n\n"
-                 "If you reboot, your system will be left in an inconsistent "
+                 "If you exit, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
     def umountImage(self):
@@ -519,12 +519,12 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	                                    "the server.\n\n"
 	                                    "Please copy this image to the "
 	                                    "remote server's share path and "
-	                                    "click Retry. Click Reboot to "
+	                                    "click Retry. Click Exit to "
 	                                    "abort the installation.")
 	                                    % (cdNum,), type="custom",
 	                                    custom_icon="warning",
-	                                    custom_buttons=[_("_Reboot"),
-	                                                    _("Re_try")])
+	                                    custom_buttons=[_("_Exit"),
+	                                                    _("_Retry")])
 	        if ans == 0:
 	            sys.exit(0)
 	        elif ans == 1:

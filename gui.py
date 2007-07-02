@@ -962,7 +962,7 @@ class InstallInterface:
         return self.messageWindow(_("Error Parsing Kickstart Config"),
                                   s,
                                   type = "custom",
-                                  custom_buttons = [_("_Reboot")],
+                                  custom_buttons = [_("_Exit installer")],
                                   custom_icon = "error")
 
     def dumpWindow(self):
@@ -1111,12 +1111,12 @@ class InstallControlWindow:
                 if not win.getrc():
                     if flags.rootpath:
                         msg =  _("The installer will now exit...")
-                        buttons = [_("_Exit")]
+                        buttons = [_("_Exit installer")]
                     else:
                         msg =  _("Your system will now be rebooted...")
                         buttons = [_("_Reboot")]
 
-                    MessageWindow(_("Rebooting System"),
+                    MessageWindow(_("Exiting"),
                                   msg,
                                   type="custom",
                                   custom_icon="warning",

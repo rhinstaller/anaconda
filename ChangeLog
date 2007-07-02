@@ -1,3 +1,19 @@
+2007-07-02  Jeremy Katz  <katzj@redhat.com>
+
+	* autopart.py: Change references of "Reboot" -> "Exit installer"
+	to make more sense in live install case.
+	* exception.py: Likewise.
+	* fsset.py: Likewise.
+	* gui.py: Likewise.
+	* harddrive.py: Likewise.
+	* image.py: Likewise.
+	* packages.py: Likewise.
+	* upgrade.py: Likewise.
+	* urlinstall: Likewise.
+	* yuminstall.py: Likewise.
+
+	* livecd.py (LiveCDCopyBackend.doRepoSetup): Add mnemonics
+
 2007-06-29  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.add):  Fix an fsset entry sorting

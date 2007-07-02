@@ -1429,7 +1429,7 @@ MAILADDR root
                                          "initialize swap on device %s.  This "
                                          "problem is serious, and the install "
                                          "cannot continue.\n\n"
-                                         "Press <Enter> to reboot your system.")
+                                         "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1454,7 +1454,7 @@ MAILADDR root
                 
     def turnOnSwap (self, chroot, upgrading=False):
         def swapErrorDialog (msg, format_button_text, entry):
-            buttons = [_("Skip"), format_button_text, _("Reboot")]
+            buttons = [_("Skip"), format_button_text, _("_Exit installer")]
             ret = self.messageWindow(_("Error"), msg, type="custom",
                                      custom_buttons=buttons,
                                      custom_icon="warning")
@@ -1507,8 +1507,7 @@ MAILADDR root
                         msg = msg + _("\n\nChoose Skip if you want the "
                               "installer to ignore this partition during "
                               "the upgrade.  Choose Format to reformat "
-                              "the partition as swap space.  Choose Reboot "
-                              "to restart the system.")
+                              "the partition as swap space.")
 
                         swapErrorDialog(msg, _("Format"), entry)
                     else:
@@ -1523,8 +1522,8 @@ MAILADDR root
                                                  "upgrade partition does not "
                                                  "reference a valid swap "
                                                  "partition.\n\n"
-                                                 "Press OK to reboot your "
-                                                 "system.")
+                                                 "Press OK to exit the "
+                                                 "installer.")
                                                % (entry.device.getDevice(), msg))
                         else:
                             self.messageWindow(_("Error"),
@@ -1533,8 +1532,8 @@ MAILADDR root
                                                  "This most likely means this "
                                                  "swap partition has not been "
                                                  "initialized.\n\n"
-                                                 "Press OK to reboot your "
-                                                 "system.")
+                                                 "Press OK to exit the "
+                                                 "installer.")
                                                % (entry.device.getDevice(), msg))
                     sys.exit(0)
 
@@ -1586,7 +1585,7 @@ MAILADDR root
 					     "device /dev/%s. We do "
 					     "not recommend you use this device."
 					     "\n\n"
-					     "Press <Enter> to reboot your system") %
+					     "Press <Enter> to exit the installer.") %
 					   (entry.device.getDevice(),))
 		    sys.exit(0)
 		
@@ -1597,7 +1596,7 @@ MAILADDR root
                                          "bad blocks on %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press <Enter> to reboot your system.")
+                                         "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1637,7 +1636,7 @@ MAILADDR root
                                          "format %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press <Enter> to reboot your system.")
+                                         "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1687,7 +1686,7 @@ MAILADDR root
                                          "migrate %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press <Enter> to reboot your system.")
+                                         "Press <Enter> to exit the installer.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1715,16 +1714,16 @@ MAILADDR root
                                              "this path is not a directory. "
                                              "This is a fatal error and the "
                                              "install cannot continue.\n\n"
-                                             "Press <Enter> to reboot your "
-                                             "system.") % (entry.mountpoint,))
+                                             "Press <Enter> to exit the "
+                                             "installer.") % (entry.mountpoint,))
                     else:
                         self.messageWindow(_("Invalid mount point"),
                                            _("An error occurred when trying "
                                              "to create %s: %s.  This is "
                                              "a fatal error and the install "
                                              "cannot continue.\n\n"
-                                             "Press <Enter> to reboot your "
-                                             "system.") % (entry.mountpoint,
+                                             "Press <Enter> to exit the "
+                                             "installer.") % (entry.mountpoint,
                                                            msg))
                 sys.exit(0)
             except SystemError, (num, msg):
@@ -1740,7 +1739,7 @@ MAILADDR root
                                                  (entry.device.getDevice(),
                                                   entry.mountpoint),
                                                  type="custom", custom_icon="warning",
-                                                 custom_buttons=[_("_Reboot"),
+                                                 custom_buttons=[_("_Exit installer"),
                                                                 _("_Continue")])
 
                         if ret == 0:
@@ -1754,14 +1753,14 @@ MAILADDR root
                                        "Devices in /etc/fstab should be "
                                        "specified by label, not by device name."
                                        "\n\n"
-                                       "Press OK to reboot your system.") % (entry.device.getDevice(), entry.mountpoint, msg)
+                                       "Press OK to exit the installer.") % (entry.device.getDevice(), entry.mountpoint, msg)
                         else:
                             errStr = _("Error mounting device %s as %s: "
                                        "%s\n\n"
                                        "This most likely means this "
                                        "partition has not been formatted."
                                        "\n\n"
-                                       "Press OK to reboot your system.") % (entry.device.getDevice(), entry.mountpoint, msg)
+                                       "Press OK to exit the installer.") % (entry.device.getDevice(), entry.mountpoint, msg)
 
                         self.messageWindow(_("Error"), errStr)
 
@@ -1780,8 +1779,7 @@ MAILADDR root
                                    "This is most likely means that "
                                    "your fstab is incorrect."
                                    "\n\n"
-                                   "Press OK to reboot your "
-                                   "system."))
+                                   "Press OK to exit the installer."))
             sys.exit(0)
 
         rootlvm1 = 0
@@ -2439,14 +2437,14 @@ def readFstab (anaconda):
                                      "Please fix this problem and restart the "
                                      "installation process.") %(label,),
                                    type="custom", custom_icon="error",
-                                   custom_buttons=[_("_Reboot")])
+                                   custom_buttons=[_("_Exit installer")])
             except TypeError:
                 intf.messageWindow(_("Invalid Label"),
                                    _("An invalid label was found on device "
                                      "%s.  Please fix this problem and restart "
                                      "the installation process.") %(device,),
                                    type="custom", custom_icon="error",
-                                   custom_buttons=[_("_Reboot")])
+                                   custom_buttons=[_("_Exit installer")])
 
             sys.exit(0)
         else:

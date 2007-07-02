@@ -352,8 +352,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                          "not large enough for this live "
                                          "image."), type = "custom",
                                         custom_icon = "error",
-                                        custom_buttons=[_("Back"),
-                                                        _("Exit installer")])
+                                        custom_buttons=[_("_Back"),
+                                                        _("_Exit installer")])
             if rc == 0:
                 return DISPATCH_BACK
             else:

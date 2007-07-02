@@ -56,7 +56,7 @@ def queryUpgradeContinue(anaconda):
                          "\n\n") + 
                        _("Would you like to continue with the upgrade?"),
                          type="custom", custom_icon=["error","error"],
-                         custom_buttons=[_("Reboot"), _("Yes")])
+                         custom_buttons=[_("_Exit installer"), _("_Continue")])
     if rc == 0:
         sys.exit(0)
     return DISPATCH_FORWARD

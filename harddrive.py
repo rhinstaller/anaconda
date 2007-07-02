@@ -45,7 +45,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
                  "file or perhaps a corrupt package.  Please verify your "
                  "installation images and that you have all the required "
                  "media.\n\n"
-                 "If you reboot, your system will be left in an inconsistent "
+                 "If you exit, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
     # mounts disc image cdNum under self.tree
@@ -73,12 +73,12 @@ class HardDriveInstallMethod(ImageInstallMethod):
                                             "image #%s, but cannot find it on "
                                             "the hard drive.\n\n"
                                             "Please copy this image to the "
-                                            "drive and click Retry. Click Reboot "
+                                            "drive and click Retry. Click Exit "
                                             " to abort the installation.")
                                             % (cdNum,), type="custom",
 	                                    custom_icon="warning",
-                                            custom_buttons=[_("_Reboot"),
-	                                                    _("Re_try")])
+                                            custom_buttons=[_("_Exit"),
+	                                                    _("_Retry")])
                 if ans == 0:
                     sys.exit(0)
                 elif ans == 1:
@@ -119,11 +119,11 @@ class HardDriveInstallMethod(ImageInstallMethod):
                                  "device %s.  This may happen if your ISO "
                                  "images are located on an advanced storage "
                                  "device like LVM or RAID, or if there was a "
-                                 "problem mounting a partition.  Click reboot "
+                                 "problem mounting a partition.  Click exit "
                                  "to abort the installation.")
                                % (self.device,), type="custom",
                                custom_icon="error",
-                               custom_buttons=[_("_Reboot")])
+                               custom_buttons=[_("_Exit")])
             sys.exit(0)
 
 

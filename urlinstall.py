@@ -77,7 +77,7 @@ class UrlInstallMethod(InstallMethod):
                  "file or perhaps a corrupt package.  Please verify your "
                  "mirror contains all required packages, and try using a "
                  "different one.\n\n"
-                 "If you reboot, your system will be left in an inconsistent "
+                 "If you exit, your system will be left in an inconsistent "
                  "state that will likely require reinstallation.\n\n") % pkgname
 
     def systemUnmounted(self):

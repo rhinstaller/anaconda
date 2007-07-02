@@ -411,9 +411,9 @@ def handleException(anaconda, (type, value, tb)):
             if floppyRc == 0:
                 anaconda.intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the floppy. Your system will now be rebooted."),
+                      "the floppy. The installer will now exit."),
                     type="custom", custom_icon="info",
-                    custom_buttons=[_("_Reboot")])
+                    custom_buttons=[_("_Exit installer")])
                 sys.exit(0)
             elif floppyRc == 1:
                 continue
@@ -428,9 +428,9 @@ def handleException(anaconda, (type, value, tb)):
             if scpRc == 0:
                 anaconda.intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the remote host.  Your system will now be rebooted."),
+                      "the remote host.  The installer will now exit."),
                     type="custom", custom_icon="info",
-                    custom_buttons=[_("_Reboot")])
+                    custom_buttons=[_("_Exit installer")])
                 sys.exit(0)
             elif scpRc == 1:
                 continue

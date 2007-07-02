@@ -1259,7 +1259,7 @@ def doAutoPartition(anaconda):
                 anaconda.intf.messageWindow(_("Requested Partition Does Not Exist"),
                                    _("Unable to locate partition %s to use "
                                      "for %s.\n\n"
-                                     "Press 'OK' to reboot your system.")
+                                     "Press 'OK' to exit the installer.")
                                    % (request.device, request.mountpoint),
 				   custom_icon='error')
                 sys.exit(0)
@@ -1287,7 +1287,7 @@ def doAutoPartition(anaconda):
                  anaconda.intf.messageWindow(_("Requested Raid Device Does Not Exist"),
                                     _("Unable to locate raid device %s to use "
                                       "for %s.\n\n"
-                                      "Press 'OK' to reboot your system.")
+                                      "Press 'OK' to exit the installer.")
                                     % (request.device,
                                        request.mountpoint),
                                     custom_icon='error')
@@ -1319,7 +1319,7 @@ def doAutoPartition(anaconda):
                  anaconda.intf.messageWindow(_("Requested Volume Group Does Not Exist"),
                                     _("Unable to locate volume group %s to use "
                                       "for %s.\n\n"
-                                      "Press 'OK' to reboot your system.")
+                                      "Press 'OK' to exit the installer.")
                                    % (request.volumeGroupName,
                                       request.mountpoint),
                                     custom_icon='error')
@@ -1357,7 +1357,7 @@ def doAutoPartition(anaconda):
                 anaconda.intf.messageWindow(_("Requested Logical Volume Does Not Exist"),
                                    _("Unable to locate logical volume %s to use "
                                      "for %s.\n\n"
-                                     "Press 'OK' to reboot your system.")
+                                     "Press 'OK' to exit the installer.")
                                    % (request.logicalVolumeName,
                                       request.mountpoint),
 				   custom_icon='error')
@@ -1484,7 +1484,7 @@ def doAutoPartition(anaconda):
             anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
                                _("The following errors occurred with your "
                                  "partitioning:\n\n%s\n\n"
-                                 "Press 'OK' to reboot your system.") %
+                                 "Press 'OK' to exit the installer.") %
                                (errors,), custom_icon='error')
             sys.exit(0)
 
@@ -1507,7 +1507,7 @@ def doAutoPartition(anaconda):
             extra = ""
             anaconda.dispatch.skipStep("partition", skip = 0)
         else:
-            extra = _("\n\nPress 'OK' to reboot your system.")
+            extra = _("\n\nPress 'OK' to exit the installer.")
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%s.%s") % (msg.value, extra), custom_icon='error')
@@ -1524,7 +1524,7 @@ def doAutoPartition(anaconda):
     if errors:
         errortxt = string.join(errors, '\n')
         if anaconda.isKickstart:
-            extra = _("\n\nPress 'OK' to reboot your system.")
+            extra = _("\n\nPress 'OK' to exit the installer.")
         else:
             extra = _("\n\nPress 'OK' to choose a different partitioning option.")
 
