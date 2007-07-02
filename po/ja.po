@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-20 11:06-0400\n"
-"PO-Revision-Date: 2007-05-05 18:05+0900\n"
+"PO-Revision-Date: 2007-07-02 21:05+0900\n"
 "Last-Translator: hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -909,8 +909,8 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"システム上の複数のデバイスに %s というラベルが付けられてます。システムが正し"
-"く機能するためには、デバイスに固有のラベルを付ける必要があります。\n"
+"システム上の複数のデバイスに %s というラベルが付けられています。システムが"
+"正しく機能するためには、デバイスに固有のラベルを付ける必要があります。\n"
 "\n"
 "この問題を解決してからインストールをやり直してください。"
 
@@ -923,7 +923,7 @@ msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"デバイス %s に不当なラベルが付けられてます。"
+"デバイス %s に不当なラベルが付けられています。"
 "この問題を解決してからインストールをやり直してください。"
 
 #: ../fsset.py:2672
@@ -1129,7 +1129,7 @@ msgstr ""
 
 #: ../harddrive.py:81 ../image.py:524
 msgid "Re_try"
-msgstr "再試行(_t)"
+msgstr "再試行(_T)"
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
@@ -2401,9 +2401,9 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"ご使用の Linux システムの /etc/fstab に記載された一つまたは複数のファイルシス"
-"テムがマウントできません。この問題を解決してからアップグレードをやり直してく"
-"ださい。"
+"ご使用の Linux システムの /etc/fstab に記載されたひとつまたは複数のファイル"
+"システムがマウントできません。この問題を解決してからアップグレードをやり直"
+"してください。"
 
 #: ../upgrade.py:302
 msgid ""
@@ -2411,9 +2411,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"ご使用の Linux システムの /etc/fstab に記載された一つまたは複数のファイルシス"
-"テムが矛盾しているためマウントできません。この問題を解決してからアップグレー"
-"ドをやり直してください。"
+"ご使用の Linux システムの /etc/fstab に記載されたひとつまたは複数のファイル"
+"システムが矛盾しているためマウントできません。この問題を解決してからアップ"
+"グレードをやり直してください。"
 
 #: ../upgrade.py:319
 msgid ""
@@ -2470,8 +2470,8 @@ msgstr ""
 "可能性があります。 ご使用のミラーに必要なパッケージがすべて含まれているか確認"
 "し、また、別のミラーを使用してみてください。\n"
 "\n"
-"再起動してもシステムは矛盾した状態のままで、再インストールを必要とする可能性が"
-"高いです。\n"
+"再起動しても、システムは再インストールを必要とするような、矛盾した状態の"
+"ままです。\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2945,7 +2945,7 @@ msgstr "パスワード(_P):"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "確認(_f):"
+msgstr "確認(_F):"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -3020,7 +3020,7 @@ msgstr "ブートローダーはインストールされません。"
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "高度なブートローダーオプションの設定(_o)"
+msgstr "高度なブートローダーオプションの設定(_O)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -3414,7 +3414,7 @@ msgid ""
 "currently existing logical volumes"
 msgstr ""
 "新規の論理ボリュームを作成する空き領域がボリュームグループには残っていませ"
-"ん。論理ボリュームを追加するには、一つ以上の既存の論理ボリュームのサイ"
+"ん。論理ボリュームを追加するには、ひとつ以上の既存の論理ボリュームのサイ"
 "ズを縮小する必要があります。"
 
 #: ../iw/lvm_dialog_gui.py:756
@@ -3720,11 +3720,11 @@ msgstr "ホスト名を設定:"
 
 #: ../iw/network_gui.py:471
 msgid "_automatically via DHCP"
-msgstr "DHCP経由で自動設定(_a)"
+msgstr "DHCP経由で自動設定(_A)"
 
 #: ../iw/network_gui.py:478
 msgid "_manually"
-msgstr "手動設定(_m)"
+msgstr "手動設定(_M)"
 
 #: ../iw/network_gui.py:483
 msgid "(e.g., host.domain.com)"
@@ -3863,11 +3863,11 @@ msgstr "固定容量(_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "指定限度まで使用(MB)(_u):"
+msgstr "指定限度まで使用(MB)(_U):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "最大許容量まで使用(_a)"
+msgstr "最大許容量まで使用(_A)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3908,7 +3908,7 @@ msgstr "終了シリンダー(_E):"
 
 #: ../iw/partition_dialog_gui.py:463
 msgid "Force to be a _primary partition"
-msgstr "基本パーティションにする(_p)"
+msgstr "基本パーティションにする(_P)"
 
 #: ../iw/partition_gui.py:314
 #, python-format
@@ -4096,19 +4096,19 @@ msgstr "どうしますか?"
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
-msgstr "ソフトウェア RAID パーティションを作成します(_p)。"
+msgstr "ソフトウェア RAID パーティションを作成します(_P)。"
 
 #: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "RAID デバイスを作成します [default=/dev/md%s](_d)。"
+msgstr "RAID デバイスを作成します [default=/dev/md%s](_D)。"
 
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 "RAID デバイスを作成するためにドライブのクローンを作成します [default=/dev/md%"
-"s](_d)。"
+"s](_D)。"
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -4120,11 +4120,11 @@ msgstr "ドライブクローンエディターは、何らかの理由で作成
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
-msgstr "新規(_w)"
+msgstr "新規(_W)"
 
 #: ../iw/partition_gui.py:1354
 msgid "Re_set"
-msgstr "リセット(_s)"
+msgstr "リセット(_S)"
 
 #: ../iw/partition_gui.py:1355
 msgid "R_AID"
@@ -4151,7 +4151,7 @@ msgstr "このパーティションのファイルシステムはどのように
 
 #: ../iw/partition_ui_helpers_gui.py:263
 msgid "Leave _unchanged (preserve data)"
-msgstr "変更しないで残す(データを保存)(_u)"
+msgstr "変更しないで残す(データを保存)(_U)"
 
 #: ../iw/partition_ui_helpers_gui.py:269
 msgid "_Format partition as:"
@@ -4159,11 +4159,11 @@ msgstr "次のパーティションタイプでフォーマット(_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:292
 msgid "Mi_grate partition to:"
-msgstr "パーティションを次に転換する(_g):"
+msgstr "パーティションを次に転換する(_G):"
 
 #: ../iw/partition_ui_helpers_gui.py:314
 msgid "Check for _bad blocks?"
-msgstr "不良ブロックをチェックしますか(_b)?"
+msgstr "不良ブロックをチェックしますか(_B)?"
 
 #: ../iw/partition_ui_helpers_gui.py:349
 msgid ""
@@ -4231,7 +4231,7 @@ msgstr "RAID メンバー(_R):"
 
 #: ../iw/raid_dialog_gui.py:394
 msgid "Number of _spares:"
-msgstr "スペア数(_s):"
+msgstr "スペア数(_S):"
 
 #: ../iw/raid_dialog_gui.py:404
 msgid "_Format partition?"
@@ -4599,11 +4599,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr " swap ファイルの容量 (MB)(_s):"
+msgstr " swap ファイルの容量 (MB)(_S):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "swap ファイルを作成しません(_d)"
+msgstr "swap ファイルを作成しません(_D)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -5554,9 +5554,9 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"システム上に 既存の Linux インストールが一つ以上あるようです。\n"
+"システム上に 既存の Linux インストールがひとつ以上あるようです。\n"
 "\n"
-"アップグレードするには一つを選び、新規にシステムをインストールするには。"
+"アップグレードするにはひとつを選び、新規にシステムをインストールするには、"
 "「システムの再インストール」を選んでください。"
 
 #: ../textw/userauth_text.py:27
@@ -6298,7 +6298,8 @@ msgstr "デバイスキックスタートのコマンド %s に対する引数�
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"キックスタートデバイスコマンドにはモジュールタイプと名前とを指定しなければなりません"
+"キックスタートデバイスコマンドには、モジュールタイプと名前の両方を指定しな"
+"ければなりません"
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6635,11 +6636,11 @@ msgstr "ZFCP LUN の追加 (_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "iSCSI ターゲットの追加 (_i)"
+msgstr "iSCSI ターゲットの追加 (_I)"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr "dmraid デバイスを無効にする (_d)"
+msgstr "dmraid デバイスを無効にする (_D)"
 
 #: tmp/adddrive.glade.h:6
 msgid "_Add drive"
@@ -6651,7 +6652,7 @@ msgstr "<b>リポジトリ URL (_U):</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _name:</b>"
-msgstr "<b>リポジトリ名 (_n):</b>"
+msgstr "<b>リポジトリ名 (_N):</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -6672,7 +6673,7 @@ msgstr "リポジトリの追加 (_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "再起動(_t)"
+msgstr "再起動(_T)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
@@ -6694,7 +6695,7 @@ msgstr ""
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "パーティションレイアウトの再確認と変更(_v)"
+msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:3
 msgid "What drive would you like to boot this installation from?"
@@ -6807,7 +6808,7 @@ msgstr ""
 
 #: tmp/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "動的 IP 設定 (DHCP) を使用する (_d)"
+msgstr "動的 IP 設定 (DHCP) を使用する (_D)"
 
 #: tmp/netpostconfig.glade.h:2
 msgid "<b>Description Goes Here</b>"
