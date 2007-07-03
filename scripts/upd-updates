@@ -1,0 +1,63 @@
+#!/bin/bash
+
+usage() {
+	if [ $1 -ne 0 ]; then
+		>&2
+	fi
+	echo "upd-updates <updates.img> <file0> [<file1> [...]]"
+	exit $1
+}
+
+[ -z "$1" -o -z "$2" ] && usage 1
+[ "$1" == "--help" ] && usage 0
+
+TARGET="$1" ; shift
+
+OK=no
+if [ -e "$TARGET" -a -w "$TARGET" -o -w $(dirname "$TARGET") ] ; then
+	OK=yes
+fi
+
+if [ "$OK" == "no" ]; then
+	echo "upd-updates: cannot write to $TARGET" 1>&2
+	exit 2
+fi
+
+n=1
+while [ -n "$(eval echo '$'$n)" ]; do
+	arg="$(eval echo '$'$n)"
+	[ ${arg} == "--help" -o ${arg} == "-h" ] && usage 0
+
+	if [ ! -r ${arg} ]; then
+		echo "upd-updates: cannot read ${arg}" 1>&2
+		exit 3
+	fi
+	n=$(($n + 1))
+done
+
+TMPDIR=$(mktemp -d)
+if [ ! -d ${TMPDIR} ]; then
+	echo "upd-updates: cannot make tmpdir ${arg}" 1>&2
+	exit 4
+fi
+
+if [ -e "$TARGET" ]; then
+	zcat "$TARGET" | ( cd $TMPDIR ; cpio -di --quiet -dm --unconditional )
+	[ $? -eq 0 ] || exit 5
+fi
+
+echo ${@} | tr ' ' '\0' | tr -d '\n' | cpio --null -H newc --quiet -o | \
+	( cd $TMPDIR ; cpio -di --quiet -dm --unconditional )
+
+[ $? -eq 0 ] || exit 6
+
+(cd $TMPDIR ; find . -depth -print0 | cpio -H newc --quiet --null -o ) | \
+	gzip -9 > "$TARGET"
+
+[ $? -eq 0 ] || exit 7
+
+rm -rf "$TMPDIR"
+
+[ $? -eq 0 ] || exit 8
+
+exit 0

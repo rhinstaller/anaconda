@@ -18,5 +18,6 @@ install:
 	install -m 755 fixmtime.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 yumcache $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 pyrc.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 upd-updates $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:
