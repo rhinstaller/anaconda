@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-04 20:44+0200\n"
+"PO-Revision-Date: 2007-07-05 21:48+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Gevraagde partitie bestaat niet"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -246,14 +246,14 @@ msgid ""
 msgstr ""
 "Niet in staat om partitie %s te vinden om te gebruiken voor %s.\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Gevraagde RAID-opstelling bestaat niet"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -261,14 +261,14 @@ msgid ""
 msgstr ""
 "Niet in staat RAID-opstelling %s te vinden om te gebruiken voor %s.\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Gevraagde Volume Group bestaat niet"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -276,14 +276,14 @@ msgid ""
 msgstr ""
 "Niet in staat volume group %s te vinden om te gebruiken voor %s.\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Gevraagde Logical Volume bestaat niet"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -291,14 +291,14 @@ msgid ""
 msgstr ""
 "Niet in staat logical volume %s te vinden om te gebruiken voor %s.\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Fouten bij automatisch partitioneren"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -310,7 +310,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -328,7 +328,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -336,7 +335,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Druk op 'OK' om uw systeem te herstarten."
+"Druk op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -524,21 +523,19 @@ msgid "Dump Written"
 msgstr "Dump geschreven"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"De toestand van uw systeem is succesvol opgeslagen op diskette. Uw systeem "
-"zal nu worden herstart."
+"De toestand van uw systeem is succesvol opgeslagen op diskette. Het "
+"installatieprogramma zal nu afsluiten."
 
 # Grafische of Tekst installatie
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Installatieprogramma afsluiten"
+msgstr "Installatieprogramma _afsluiten"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -551,13 +548,12 @@ msgstr ""
 "naar de diskette."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
 "De toestand van uw systeem is succesvol opgeslagen op de externe computer. "
-"Uw systeem zal nu worden herstart."
+"Het installatieprogramma zal nu afsluiten."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -639,7 +635,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -650,7 +646,7 @@ msgstr ""
 "apparaat %s. Dit is een ernstig probleem en de installatie kan niet worden "
 "voortgezet.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -723,7 +719,6 @@ msgstr ""
 "installatieprogramma alle wisselpartities zal formatteren."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -734,14 +729,14 @@ msgstr ""
 "\n"
 "Kies Overslaan als u wilt dat het installatieprogramma deze partitie negeert "
 "gedurende de upgrade. Kies Formatteren om de partitie te herformatteren als "
-"wisselruimte. Kies Herstarten om het systeem te herstarten."
+"wisselruimte."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formatteren"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -755,10 +750,10 @@ msgstr ""
 "Het /etc/fstab bestand op de partitie waarvan u wilt upgraden heeft geen "
 "verwijzing naar een geldige wissel-partitie.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -771,10 +766,10 @@ msgstr ""
 "Dit betekent waarschijnlijk dat deze wissel-partitie niet geïnitialiseerd "
 "is.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -784,10 +779,10 @@ msgstr ""
 "Er zijn schijffouten gevonden op apparaat /dev/%s. We raden u af om dit "
 "apparaat te gebruiken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten"
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -797,10 +792,10 @@ msgstr ""
 "Er is een fout opgetreden bij het zoeken naar schijffouten op %s.  Dit is "
 "een ernstig probleem en de installatie moet worden afgebroken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -810,10 +805,10 @@ msgstr ""
 "Er is een fout opgetreden bij het formatteren van %s.  Dit is een ernstig "
 "probleem en de installatie zal worden afgebroken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -823,14 +818,14 @@ msgstr ""
 "Er is een fout opgetreden bij het migreren van %s.  Dit is een ernstig "
 "probleem en de installatie zal worden afgebroken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Ongeldig koppelpunt"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -841,10 +836,10 @@ msgstr ""
 "is geen map. Dit is een ernstige fout en de installatie zal worden "
 "afgebroken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -854,7 +849,7 @@ msgstr ""
 "Er is een fout opgetreden bij het maken van %s: %s.  Dit is een ernstige "
 "fout en de installatie zal worden afgebroken.\n"
 "\n"
-"Druk op <Enter> om uw systeem te herstarten."
+"Druk op <Enter> om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -876,7 +871,7 @@ msgid "_Continue"
 msgstr "_Doorgaan"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -889,10 +884,10 @@ msgstr ""
 "Apparaten in /etc/fstab dienen aangegeven te worden via een label, niet via "
 "een apparaatnaam.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -905,10 +900,9 @@ msgstr ""
 "Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformatteerd "
 "is.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -920,7 +914,7 @@ msgstr ""
 "\n"
 "Dit betekent waarschijnlijk dat uw fstab bestand niet correct is.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 # geen werkwoord!
 #: ../fsset.py:2432
@@ -1112,9 +1106,8 @@ msgid "_Reboot"
 msgstr "_Herstarten"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Afsluiten"
+msgstr "Bezig met afsluiten"
 
 # Grafische of Tekst installatie
 #: ../gui.py:1186
@@ -1131,7 +1124,7 @@ msgid "Install Window"
 msgstr "Installatievenster"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1145,8 +1138,9 @@ msgstr ""
 "of misschien door een beschadigd pakket. Controleer de installatie-images en "
 "controleer of u alle vereiste media hebt.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
-"Dit zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u het installatieprogramma afsluit, zal uw systeem zich in een "
+"inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
+"vereisen.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:516
@@ -1154,7 +1148,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Ontbrekend ISO 9660 image-bestand"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1166,14 +1160,14 @@ msgstr ""
 "koppelen, maar kan het bestand niet op de harde schijf vinden.\n"
 "\n"
 "Kopieer dit bestand naar de harde schijf en klik op Opnieuw. Klik op "
-"Herstarten om de installatie af te breken."
+"Afsluiten om de installatie af te breken."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Kon de ISO-bron niet aankoppelen"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1183,15 +1177,15 @@ msgstr ""
 "Er is een fout opgetreden bij het aankoppelen van bronapparaat %s. Dit kan "
 "gebeuren als uw ISO-bestanden zijn opgeslagen op een geavanceerd "
 "opslagsysteem, zoals LVM of RAID, of wanneer er een probleem is opgetreden "
-"bij het aankoppelen van een partitie. Klik op herstarten om de installatie "
-"af te breken."
+"bij het aankoppelen van een partitie. Klik op afsluiten om de installatie af "
+"te breken."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Vereiste installatie media"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1200,12 +1194,12 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "De software die u hebt geselecteerd om te installeren vereist de volgende "
-"CDs:\n"
+"schijven:\n"
 "\n"
 "%s\n"
-"Zorg ervoor dat u deze CDs hebt klaarliggen voordat u verder gaat met de "
-"installatie.  Als u de installatie wilt afbreken en herstarten selecteer dan "
-"\"Herstarten\"."
+"Zorg ervoor dat u deze schijven hebt klaarliggen voordat u verder gaat met "
+"de installatie.  Als u de installatie wilt afbreken en afsluiten selecteer "
+"dan \"Herstarten\"."
 
 #: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
 #: ../packages.py:339 ../yuminstall.py:1051 ../iw/confirm_gui.py:32
@@ -1214,14 +1208,14 @@ msgid "_Back"
 msgstr "_Terug"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Er is een fout opgetreden tijdens het afkoppelen van de CD. Controleer of u "
-"niet toevallig %s bekijkt vanaf de shell op tty2 en klik dan op OK om "
-"opnieuw te proberen."
+"Er is een fout opgetreden tijdens het afkoppelen van de schijf.  Controleer "
+"of u niet toevallig %s bekijkt vanaf de shell op tty2 en klik dan op OK om "
+"het opnieuw te proberen."
 
 #: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
@@ -1240,9 +1234,8 @@ msgstr ""
 "een fout opgetreden. Waarschijnlijk is uw harde schijf vol."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Verwissel de CDROM"
+msgstr "Verwissel de schijf"
 
 #: ../image.py:271
 #, python-format
@@ -1250,22 +1243,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Plaats %s CD %d om door te gaan."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Verkeerde CD"
+msgstr "Verkeerde schijf"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Dat is niet de juiste %s CD."
+msgstr "Dat is niet de juiste %s schijf."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Niet in staat om de CDROM te benaderen."
+msgstr "Niet in staat om de schijf te benaderen."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1279,12 +1270,13 @@ msgstr ""
 "of misschien door een beschadigd pakket. Controleer of de "
 "installatiebestanden alle vereiste pakketten bevatten.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden.Dit "
-"zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u het installatieprogramma afsluit, zal uw systeem zich in een "
+"inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
+"vereisen.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1296,11 +1288,11 @@ msgstr ""
 "Dit kan betekenen dat het beschadigd is geraakt tijdens de overdracht naar "
 "deze computer.\n"
 "\n"
-"Het is aanbevolen dat u herstart en uw installatie afbreekt, maar u kunt "
+"Het is aanbevolen dat u afsluit en uw installatie afbreekt, maar u kunt "
 "ervoor kiezen om verder te gaan als u denkt dat dit niet juist is."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1312,7 +1304,7 @@ msgstr ""
 "koppelen, maar kan het bestand niet op de server vinden.\n"
 "\n"
 "Kopieer dit bestand naar het pad van de gedeelde bron op de externe server "
-"en klik op Opnieuw. Klik op Herstarten om de installatie af te breken."
+"en klik op Opnieuw. Klik op Afsluiten om de installatie af te breken."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1327,7 +1319,7 @@ msgid "Scriptlet Failure"
 msgstr "Scriptlet fout"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1338,7 +1330,7 @@ msgstr ""
 "bekijken in %s.  Dit is een fatale fout en uw installatie zal worden "
 "afgebroken.\n"
 "\n"
-"Druk op OK om uw systeem te herstarten."
+"Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1605,11 +1597,11 @@ msgid ""
 msgstr ""
 "Het station /dev/%s bevat meer dan 15 partities.  Het SCSI-subsysteem in de "
 "Linux kernel staat op dit moment niet meer dan 15 partities toe.  U zult "
-"geen aanpassingen meer aan de partitionering van dit station kunnen doen of "
-"partities verder dan /dev/%s15 in %s kunnen gebruiken"
+"geen aanpassingen meer aan de partitionering van deze schijf kunnen doen of "
+"partities voorbij /dev/%s15 kunnen gebruiken in %s"
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
@@ -1618,8 +1610,8 @@ msgid ""
 msgstr ""
 "Het station /dev/%s bevat meer dan 15 partities.  Het SCSI-subsysteem in de "
 "Linux kernel staat op dit moment niet meer dan 15 partities toe.  U zult "
-"geen aanpassingen meer aan de partitionering van dit station kunnen doen of "
-"partities verder dan /dev/%s15 in %s kunnen gebruiken"
+"geen aanpassingen meer aan de partitionering van deze schijf kunnen doen of "
+"partities voorbij /dev/%s15 kunnen gebruiken in %s"
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -2524,7 +2516,7 @@ msgid "Connecting..."
 msgstr "Verbinden..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2538,8 +2530,9 @@ msgstr ""
 "of misschien door een beschadigd pakket. Controleer of de mirror alle "
 "vereiste pakketten bevat en kies een andere mirror.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden.Dit "
-"zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u het installatieprogramma afsluit, zal uw systeem zich in een "
+"inconsistente toestand bevinden dat waarschijnlijk een herinstallatie zal "
+"vereisen.\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2743,13 +2736,11 @@ msgstr "%s van %s pakketten voltooid"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Upgrade wordt beëindigd"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr ""
-"Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
+msgstr "Het upgrade-proces wordt beëindigd. Dit kan even duren..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2841,7 +2832,7 @@ msgid "Uncategorized"
 msgstr "Niet-gecategoriseerd"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
@@ -2849,7 +2840,7 @@ msgid ""
 msgstr ""
 "De pakketten die u hebt geselecteerd vereisen %d MB, echter, u hebt niet "
 "genoeg vrije ruimte voor de installatie van deze pakketten. U kunt uw "
-"selecties veranderen of het systeem herstarten."
+"selecties aanpassen of het installatieprogramma afsluiten."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3701,13 +3692,11 @@ msgid "Netmask"
 msgstr "Netmask"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
+msgstr "IPv4 CIDR-prefix moet tussen 0 en 32 liggen."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "IPv4-netwerkmasker"
 
@@ -3721,13 +3710,12 @@ msgid "Nameserver"
 msgstr "Naamserver"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Fout bij het configureren van uw netwerkapparaat"
+msgstr "Fout bij het configureren van netwerkapparaat:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
-msgstr "Fout bij het configureren van uw netwerkapparaat"
+msgstr "Fout bij het configureren van netwerkapparaat"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -5884,22 +5872,21 @@ msgid "Test"
 msgstr "Testen"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "CD uitwerpen"
+msgstr "Schijf uitwerpen"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Kies \"%s\" om de CD te testen die zich momenteel in het station bevindt. Of "
-"kies \"%s\" om de CD uit te werpen en een andere in te voeren die vervolgens "
-"getest kan worden."
+"Kies \"%s\" om de schijf te testen die zich momenteel in het station bevindt "
+"of kies \"%s\" om de schijf uit te werpen en een andere in te voeren om "
+"getest te worden."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5907,59 +5894,58 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Als u additionele mediadragers wilt testen, voer dan de volgende CD in en "
-"druk op \"%s\". Het testen van elke CD is niet strikt noodzakelijk, hoewel "
-"het wel sterk wordt aangeraden. De CDs dienen getest te worden voordat u ze "
-"voor de eerste keer gaat gebruiken. Nadat u ze succesvol hebt getest, is het "
-"niet vereist om elke CD opnieuw te testen als u ze weer gaat gebruiken."
+"Als u additionele mediadragers wilt testen, voer dan de volgende schijf in "
+"en druk op \"%s\". Het testen van elke schijf is niet strikt noodzakelijk, "
+"hoewel het wel sterk wordt aangeraden. De schijven dienen getest te worden "
+"voordat u ze voor de eerste keer gaat gebruiken. Nadat u ze succesvol hebt "
+"getest is het niet vereist om elke schijf opnieuw te testen als u ze weer "
+"gaat gebruiken."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"De %s CD werd niet in een van uw CDROM-stations gevonden. Voer de %s CD in "
-"en druk op %s om opnieuw te proberen."
+"De %s schijf werd in geen van uw stations gevonden. Voer de %s schijf in en "
+"druk op %s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD gevonden"
+msgstr "Schijf gevonden"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Om de CD mediadrager voor het begin van de installatie te testen, druk %s.\n"
+"Om de mediadrager voor het begin van de installatie te testen, druk %s.\n"
 "\n"
 "Kies %s om de mediatest over te slaan en met de installatie te beginnen."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"De %s CD werd niet in uw CDROM-station gevonden. Voer de %s CD in en druk op "
-"%s om opnieuw te proberen."
+"Er is geen %s schijf gevonden overeenkomstig met uw opstartmedia. Voer de %s "
+"schijf in en druk op %s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"De %s CD werd niet in een van uw CDROM-stations gevonden. Voer de %s CD in "
-"en druk op %s om opnieuw te proberen."
+"De %s schijf werd in geen van uw CDROM-stations gevonden. Voer de %s schijf "
+"in en druk op %s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD niet gevonden"
+msgstr "Schijf niet gevonden"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6274,9 +6260,8 @@ msgid "Choose a Language"
 msgstr "Kies een taal"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Lokale CDROM"
+msgstr "Lokale CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
