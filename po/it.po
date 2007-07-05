@@ -19,9 +19,10 @@
 # translation of it.po to
 # translation of it.po to
 # translation of it.po to
+# translation of it.po to
 # translation of it.po to Italiano
 # translation of it.po to
-# Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2001,2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Tullio Dovera <tdovera@redhat.it>, 2001.
 # Gabriella Bertilaccio <gbertilaccio@redhat.it>, 2001.
@@ -31,14 +32,14 @@
 # Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005.
 # Nicolò Nepote <nepote@labinf.polito.it>, 2005.
 # Francesco Tombolini <tombo@adamantio.net>, 2006.
-# Francesco Tombolini <tombo@localhost.localdomain>, 2006.
+# Francesco Tombolini <tombo@localhost.localdomain>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-27 13:46-0400\n"
-"PO-Revision-Date: 2006-11-30 07:19+0100\n"
+"PO-Revision-Date: 2007-07-05 04:12+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -117,8 +118,7 @@ msgstr "Nessun hardware video trovato, si presume senza monitor"
 
 #: ../anaconda:444 ../anaconda:924
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-"Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
+msgstr "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware."
 
 #: ../anaconda:501
 msgid "Starting graphical installation..."
@@ -130,8 +130,7 @@ msgstr "Installa classe forzando l'installazione in modalità di testo"
 
 #: ../anaconda:820
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Installazione grafica non disponibile...  Avvio della modalità di testo."
+msgstr "Installazione grafica non disponibile...  Avvio della modalità di testo."
 
 #: ../anaconda:828
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -143,8 +142,7 @@ msgstr "Metodo d'installazione sconosciuto"
 
 #: ../anaconda:890
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"E' stato specificato un metodo d'installazione non supportato da anaconda."
+msgstr "E' stato specificato un metodo d'installazione non supportato da anaconda."
 
 #: ../anaconda:892
 #, c-format
@@ -227,8 +225,7 @@ msgstr ""
 
 #: ../autopart.py:1032
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partizione boot %s potrebbe non rispondere alle esigenze d'avvio della "
 "vostra architettura."
@@ -505,8 +502,7 @@ msgstr "In progresso...    "
 
 #: ../cmdline.py:66 ../cmdline.py:86
 msgid "Can't have a question in command line mode!"
-msgstr ""
-"Non è possibile avere un interrogativo nella modalità a linea di comando!"
+msgstr "Non è possibile avere un interrogativo nella modalità a linea di comando!"
 
 #: ../cmdline.py:74 ../gui.py:937 ../text.py:398
 #, python-format
@@ -575,8 +571,7 @@ msgstr "Dump non scritto"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
-"Si è verificato un problema nello scrivere lo stato del sistema sul floppy."
+msgstr "Si è verificato un problema nello scrivere lo stato del sistema sul floppy."
 
 #: ../exception.py:418
 msgid ""
@@ -588,8 +583,7 @@ msgstr ""
 
 #: ../exception.py:427
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
+msgstr "Si è verificato un problema scrivendo lo stato del sistema sull'host remoto."
 
 #: ../fsset.py:222
 msgid "Checking for Bad Blocks"
@@ -1344,13 +1338,11 @@ msgstr "Assicurarsi che l'Hostname sia al massimo di 64 caratteri."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"L'Hostname deve iniziare con un carattere valido compreso tra 'a-z' o 'A-Z'"
+msgstr "L'Hostname deve iniziare con un carattere valido compreso tra 'a-z' o 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
+msgstr "Gli hostname possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
 
 #: ../network.py:89
 msgid "IP address is missing."
@@ -1732,15 +1724,12 @@ msgid "Confirm Reset"
 msgstr "Conferma Reimposta"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Reimpostare la tabella delle partizioni secondo il suo stato originario?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Reimpostare la tabella delle partizioni secondo il suo stato originario?"
 
 #: ../partRequests.py:255
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Il mount point richiesto non è valido. La directory %s deve essere sul "
 "filesystem /."
@@ -1764,8 +1753,7 @@ msgstr "Il mount point richiesto deve essere su un filesystem di Linux."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Il mount point \"%s\" è già in uso, scegliere un mount point differente."
+msgstr "Il mount point \"%s\" è già in uso, scegliere un mount point differente."
 
 #: ../partRequests.py:300
 #, python-format
@@ -1788,8 +1776,7 @@ msgstr ""
 #: ../partRequests.py:501
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
+msgstr "Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
 
 #: ../partRequests.py:505
 msgid "Partitions can't start below the first cylinder."
@@ -1933,6 +1920,8 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Il drive /dev/%s presenta più di 15 partizioni.  Il sottosistema SCSI presente nel kernel di Linux, non consente in questo momento un numero superiore a 15 partizioni.  "
+"Per questo motivo non sarete in grado di apportare alcuna modifica al partizionamento del disco, o di utilizzare qualsiasi partizione oltre a /dev/%s15 in %s"
 
 #: ../partedUtils.py:1257
 msgid "No Drives Found"
@@ -2002,8 +1991,7 @@ msgstr ""
 "sarà avviabile."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Creare una partizione /boot/efi di tipo FAT di 50 megabyte."
 
 #: ../partitions.py:867
@@ -2024,8 +2012,7 @@ msgstr ""
 "capacità consigliata per una installazione di %s normale."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installazione su di un dispositivo USB in corso.  Tale operazione potrebbe, "
 "o meno, produrre un sistema funzionante."
@@ -2287,10 +2274,8 @@ msgid "Welcome to %s"
 msgstr "Benvenuti in %s"
 
 #: ../text.py:470
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
 
 #: ../text.py:472
 msgid ""
@@ -2590,8 +2575,7 @@ msgstr ""
 
 #: ../vnc.py:304
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Connettete manualmente il vostro client vnc per far iniziare l'installazione."
+msgstr "Connettete manualmente il vostro client vnc per far iniziare l'installazione."
 
 #: ../vnc.py:308
 msgid "Will try to connect again in 15 seconds..."
@@ -2660,8 +2644,7 @@ msgstr "Errore nell'esecuzione della transazione"
 
 #: ../yuminstall.py:667
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Si è verificato un errore eseguendo la transazione a casua del seguente "
 "motivo(i): %s"
@@ -2695,7 +2678,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "Impossibile leggere dalle repository le informazioni del gruppo.  Ciò è dovuto a causa di un problema con la generazione del vostro albero d'installazione."
 
 #: ../yuminstall.py:932
 msgid "Uncategorized"
@@ -2728,8 +2711,7 @@ msgstr "Inizio installazione"
 
 #: ../yuminstall.py:1362
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
+msgstr "Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
 
 #: ../yuminstall.py:1378
 msgid "Post Upgrade"
@@ -2761,8 +2743,7 @@ msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
 #: ../zfcp.py:43
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Non avete specificato il numero del dispositivo o il numero non è valido"
+msgstr "Non avete specificato il numero del dispositivo o il numero non è valido"
 
 #: ../zfcp.py:45
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -3133,8 +3114,7 @@ msgstr "Selezione della lingua"
 
 #: ../iw/language_gui.py:67 ../textw/language_text.py:42 ../loader2/lang.c:367
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Quale lingua desiderate installare durante il processo d'installazione:"
+msgstr "Quale lingua desiderate installare durante il processo d'installazione:"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -3392,8 +3372,7 @@ msgstr "Nome in uso"
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
+msgstr "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3699,23 +3678,20 @@ msgid "Miscellaneous Settings"
 msgstr "Impostazioni Miscellanee"
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "Modifica dispositivo RAID"
+msgstr "Modifica dispositivo "
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Dispositivo ethernet sconosciuto"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
-msgstr "Sconosciuto"
+msgstr "sconosciuto"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Indirizzo hardware: %s"
+msgstr "Indirizzo hardware: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:786
 msgid "Missing Protocol"
@@ -3919,16 +3895,14 @@ msgid "Partitioning"
 msgstr "Partizionamento in corso"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "I seguenti errori critici sono relativi allo schema di partizionamento "
 "richiesto."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Correggere gli errori prima di proseguire l'installazione di %s."
 
 #: ../iw/partition_gui.py:642
@@ -3937,8 +3911,7 @@ msgstr "Errori di partizionamento"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
+msgstr "I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4497,8 +4470,7 @@ msgstr "Il boot loader verrà aggiornato."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Il programma di installazione ha individuato il boot loader %s correntemente "
 "installato su %s."
@@ -4639,8 +4611,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La dimensione del file di swap deve essere compresa fra 1 e 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Non c'è abbastanza spazio sul dispositivo selezionato per creare la "
 "partizione."
@@ -4780,8 +4751,7 @@ msgstr ""
 "Indicare le partizioni da avviare e associare ad ognuna di esse un'etichetta."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Spazio> seleziona | <F2> seleziona predefinita | <F4> cancella |<F12> "
 "schermata successiva>"
@@ -4921,12 +4891,10 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:87
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
-"Si prega di selezionare il gruppo di pacchetti che si desidera installare."
+msgstr "Si prega di selezionare il gruppo di pacchetti che si desidera installare."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Spazio>,<+>,<-> selezione   |   <F2> Descrizione   |   <F12> prossima "
 "schermata"
@@ -4973,13 +4941,13 @@ msgstr ""
 "questo potrà causare dei problemi più in avanti."
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "Il prefisso IPv4 deve essere fra 0 e 32."
+msgstr "Il prefisso IPv%d deve essere compreso fra 0 e %d."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Valore intero necessario per il prefisso"
 
 #: ../textw/network_text.py:75
 #, python-format
@@ -4987,15 +4955,16 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"È necessario inserire un valore intero per %s.  Per IPv4, il valore può essere "
+"compreso fra 0 e 32. Mentre per IPv6 il valore è compreso fra 0 e 128."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
 msgstr "Prefisso (Maschera di rete)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefisso"
+msgstr "Prefisso"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -5030,78 +4999,69 @@ msgstr "Configurazione di rete per %s"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "Indirizzo IP point-to-point"
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Usa la configurazione IP dinamica (DHCP)"
+msgstr "Configurazione IP dinamica (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Configurazione manuale TCP/IP"
+msgstr "Configurazione manuale dell'indirizzo"
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Configurazione di rete per %s"
+msgstr "Configurazione IPv4 per %s"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
-msgstr "Indirizzo IPv4:"
+msgstr "Indirizzo IPv4"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmask"
+msgstr "Maschera di rete IPv4"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Prefisso (Maschera di rete)"
+msgstr "Prefisso IPv4 (Maschera di rete)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Scoperta vicino automatica"
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Usa la configurazione IP dinamica (DHCP)"
+msgstr "Configurazione IP dinamica (DHCP)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Configurazione di rete per %s"
+msgstr "Configurazione IPv6 per %s"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "Indirizzo IPv6:"
+msgstr "Indirizzo IPv6"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefisso"
+msgstr "Prefisso IPv6"
 
 #: ../textw/network_text.py:504
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Abilita interfaccia di rete"
+msgstr "Configura interfaccia di rete"
 
 #: ../textw/network_text.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Desiderate avviare le interfacce di rete su questo sistema?"
+msgstr "Desiderate configurare l'interfaccia di rete %s sul vostro sistema?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "UNCONFIGURED"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -5109,39 +5069,37 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "Le impostazioni di configurazione attuali per ogni interfaccia sono elencate accanto al nome del dispositivo. Le interfacce non configurate vengono mostrate come UNCONFIGURED. Per configurare una interfaccia, evidenziatela e selezionate Modifica.  Una volta terminato premte OK per continuare."
 
 #: ../textw/network_text.py:617
-#, fuzzy
 msgid "Active on boot"
 msgstr "Attiva all'avvio"
 
 #: ../textw/network_text.py:619
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Attiva all'avvio"
+msgstr "Inattiva all'avvio"
 
 #: ../textw/network_text.py:622
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:627
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:629
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:635
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:637 ../textw/network_text.py:639
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:661 ../loader2/net.c:1020
 msgid "Gateway:"
@@ -5160,17 +5118,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "Impostazioni varie della rete"
 
 #: ../textw/network_text.py:699 ../textw/network_text.py:702
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:709 ../textw/network_text.py:712
-#, fuzzy
 msgid "primary DNS"
 msgstr "DNS primario"
 
 #: ../textw/network_text.py:721
-#, fuzzy
 msgid "secondary DNS"
 msgstr "DNS secondario"
 
@@ -5187,18 +5142,15 @@ msgid "Hostname Configuration"
 msgstr "Configurazione dell'hostname"
 
 #: ../textw/network_text.py:780
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Se il vostro sistema fa parte di una rete più grande, dove gli hostname sono "
-"assegnati da DHCP, selezionate 'automaticamente tramite DHCP'. Altrimenti "
-"selezionate 'manualmente' e inserite un hostname per il vostro sistema. Se "
-"non effettuate quanto detto, il vostro sistema sarà conosciuto come host "
-"locale o 'localhost.'"
+"Se il vostro sistema fa parte di una rete più grande, dove gli hostname sono assegnati "
+"da DHCP, selezionate automaticamente tramite DHCP. Altrimenti selezionate manualmente e inserite un hostname per il vostro sistema. Se non effettuate quanto detto, il vostro sistema "
+"sarà conosciuto come host locale o 'localhost.'"
 
 #: ../textw/network_text.py:806 ../textw/network_text.py:812
 msgid "Invalid Hostname"
@@ -5452,10 +5404,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1456
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Help  F2-Nuovo   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
 
 #: ../textw/partition_text.py:1485
 msgid "No Root Partition"
@@ -5842,7 +5792,6 @@ msgstr ""
 "sottoscrizione, vi preghiamo d'inserire il vostro numero d'installazione"
 
 #: ../installclasses/rhel.py:54
-#, fuzzy
 msgid ""
 "If you're unable to locate the Installation Number, consult http://www."
 "redhat.com/apps/support/in.html.\n"
@@ -5855,8 +5804,7 @@ msgid ""
 "* You will not get software and security updates for packages included in "
 "your subscription."
 msgstr ""
-"Se non siete in grado di identificare il Numero d'installazione consultate "
-"http://www.redhat.com/apps/support/in.html.\n"
+"Se non siete in grado di identificare il Numero d'installazione consultate http://www.redhat.com/apps/support/in.html.\n"
 "\n"
 "Se ignorate la suddetta fase:\n"
 "* Potreste non ottenere alcun accesso al set completo di pacchetti inclusi "
@@ -6041,8 +5989,7 @@ msgstr "Impossibile montare dal file il dischetto del driver ."
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
+msgstr "Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -6111,8 +6058,7 @@ msgstr "Sorgente del dischetto driver del kickstart sconosciuta: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Argomento non corretto per il comando kickstart disco del driver: %s:%s"
+msgstr "Argomento non corretto per il comando kickstart disco del driver: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6273,8 +6219,7 @@ msgstr "Errore durante il download del file kickstart"
 #: ../loader2/kickstart.c:479
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
+msgstr "Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
 
 #: ../loader2/lang.c:56
 #, c-format
@@ -6282,10 +6227,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Benvenuti in %s - Modalità Rescue"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:161
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6398,8 +6341,7 @@ msgstr "Sono stati trovati i seguenti dispositivi all'interno del sistema."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
+msgstr "Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
 
 #: ../loader2/loader.c:1205
 msgid "Devices"
@@ -6531,15 +6473,11 @@ msgstr "Controllo checksum"
 #: ../loader2/modules.c:1064
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
+msgstr "Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
 
 #: ../loader2/modules.c:1077
-#, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"Argomento non corretto per il comando kickstart disco del driver: %s:%s"
+msgid "Both module type and name must be specified for the kickstart device command."
+msgstr "Sia il nome che il tipo di modulo devono essere specificati per il comando del dispositivo kickstart."
 
 #: ../loader2/net.c:57
 #, c-format
@@ -6621,8 +6559,7 @@ msgstr "Errore di rete"
 
 #: ../loader2/net.c:579 ../loader2/net.c:687
 msgid "There was an error configuring your network interface."
-msgstr ""
-"Si è verificato un errore durante la configurazione dell'interfaccia di rete."
+msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
 #: ../loader2/net.c:760
 msgid "Configure TCP/IP"
@@ -6677,10 +6614,8 @@ msgid "Missing Information"
 msgstr "Informazioni mancanti"
 
 #: ../loader2/net.c:1189
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
 #: ../loader2/net.c:1195
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -7017,33 +6952,28 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Usa la configurazione IP _dinamica (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Descrizione: %s"
+msgstr "<b>Qui la descrizione</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Indirizzo Hardware: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Modifica interfaccia %s"
+msgstr "Modifica interfaccia"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "Chiave di _codifica:"
+msgstr "Chiave di codifica:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Configurazione manuale TCP/IP"
+msgstr "Configurazione manuale"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7148,8 +7078,7 @@ msgstr "Ora dell'Atlantico - Nuova Scozia (maggior parte del territorio), PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
+msgstr "Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -7208,7 +7137,6 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin & Perry Counties"
 msgstr ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
@@ -7224,13 +7152,11 @@ msgstr "Central Time - Manitoba e Ontario dell'Ovest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
-"Central Time - Nord Dakota - Morton County (ad eccezione dell'area di Mandan)"
+msgstr "Central Time - Nord Dakota - Morton County (ad eccezione dell'area di Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -7297,9 +7223,8 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "Eastern Time - Indiana - Starke County"
+msgstr "Eastern Time - Indiana - Pulaski County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7326,8 +7251,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - maggior parte del territorio"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Eastern Time - Ontario e Quebec - aree non rientranti in DST 1967-1973"
 
 #. generated from zone.tab
@@ -7343,18 +7267,16 @@ msgid "Eastern Time - Quebec - most locations"
 msgstr "Eastern Time - Quebec - maggior parte del territorio"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Resolute, Nunavut"
-msgstr "Eastern Time - est Nunavut"
+msgstr "Eastern Time - Resolute, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut - most locations"
-msgstr "Eastern Time - Indiana - maggior parte del territorio"
+msgstr "Eastern Time - Nunavut dell'est - maggior parte del territorio"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7513,10 +7435,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7721,14 +7641,12 @@ msgid "West Kazakhstan"
 msgstr "Kazakhstan occidentale"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "Australia occidentale"
+msgstr "Australia occidentale - Area Eucla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Central Time - maggior parte del territorio"
+msgstr "Australia Occidentale - maggior parte del territorio"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7744,8 +7662,7 @@ msgstr "Crimea centrale"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
+msgstr "Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
@@ -8017,38 +7934,3 @@ msgstr "Gallese"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Usa la configurazione IP dinamica (_DHCP)"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Attiva all'avvio"
-
-#~ msgid "Address"
-#~ msgstr "Indirizzo"
-
-#~ msgid "IPv_4:"
-#~ msgstr "IPv_4:"
-
-#~ msgid "IPv_6:"
-#~ msgstr "IPv_6:"
-
-#~ msgid "_ESSID:"
-#~ msgstr "_ESSID:"
-
-#~ msgid "Configure %s"
-#~ msgstr "Configurazione %s"
-
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "Prefisso IPv6 mancante o invalido (deve essere fra 0 e 128)."
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Indirizzo Hardware: %s"
-
-#~ msgid "IPv4:"
-#~ msgstr "IPv4:"
-
-#~ msgid "IPv6:"
-#~ msgstr "IPv6:"
-
-#~ msgid "Persian"
-#~ msgstr "Persiano"
