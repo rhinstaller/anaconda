@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.48
+Version: 11.1.2.49
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Fri Jun 29 2007 Chris Lumens <clumens@redhat.com> 11.1.2.48-1
+* Thu Jul 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.49-1
+- Generate multipath bindings and multipath.conf before package
+  installation.  Use scsi_id to collect WWIDs rather than the multipath
+  command to maintain consistency with what pyblock has done.
+  Related: rhbz#185852
+
+* Fri Jun 29 2007 Chris Lumens <clumens@redhat.com> - 11.1.2.48-1
 - Support new driver disk repo layout.
   Resolves: rhbz#213318
 - Add missing TEXT_EDIT_BUTTON constants back (dcantrell).

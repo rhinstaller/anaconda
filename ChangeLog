@@ -1,3 +1,19 @@
+2007-07-05  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+2007-07-05  David Cantrell  <dcantrell@redhat.com>
+
+	* backend.py (AnacondaBackend.doPostInstall): Remove multipath post
+	install work (generate bindings and edit multipath.conf) because it
+	needs to take place before packages are installed (#185852).
+
+	* yuminstall.py (YumBackend.doPreInstall): Generate multipath
+	bindings and correct multipath.conf before package installation
+	begins.  Use scsi_id to read WWID of each multipath slave and use
+	that to populate the bindings file and blacklist_exceptions block
+	in multipath.conf (#185852).
+
 2007-06-29  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
