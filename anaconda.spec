@@ -115,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 - Make sure the partitioning UI screen displays WWID and model information
   for multipath devices
   Related: rhbz#185852
+- Use GPT on all architectures with non-boot disks >=2TB (pjones)
+  Resolves: rhbz#130236
 
 * Thu Jul 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.49-1
 - Generate multipath bindings and multipath.conf before package

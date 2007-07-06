@@ -1,3 +1,7 @@
+2007-07-06  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
 2007-07-06  Peter Jones  <pjones@redhat.com>
 
 	* fsset.py: treat i386 and x86_64 like ia64 if there's evidence of EFI
@@ -10,10 +14,6 @@
 
 	* partedUtils.py: add labelDisk(), which has logic about which type of
 	label to use, and can pick gpt labels (#130236)
-
-2007-07-06  David Cantrell  <dcantrell@redhat.com>
-
-	* anaconda.spec:  Bump version.
 
 2007-07-06  David Cantrell  <dcantrell@redhat.com>
 
