@@ -1,3 +1,8 @@
+2007-07-06  Jeremy Katz  <katzj@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices): Fix double space (#246703)
+	* partIntfHelpers.py (queryNoFormatPreExisting): Likewise.
+
 2007-07-06  Peter Jones  <pjones@redhat.com>
 
 	* dmraid.py (scanForMPath): Fix module path order so updates get used

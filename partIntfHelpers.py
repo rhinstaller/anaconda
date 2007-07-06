@@ -413,7 +413,7 @@ def queryNoFormatPreExisting(intf):
             "to make sure files from a previous operating system installation "
             "do not cause problems with this installation of Linux. "
             "However, if this partition contains files that you need "
-            "to keep, such as home directories, then  "
+            "to keep, such as home directories, then "
             "continue without formatting this partition.")
     rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("_Modify Partition"), _("Do _Not Format")], custom_icon="warning")
     return rc

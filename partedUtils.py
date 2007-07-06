@@ -1179,7 +1179,7 @@ class DiskSet:
                         sys.exit(0)
                 else:
                     log.error(_("The drive /dev/%s has more than 15 partitions "
-                                "on it.  The SCSI subsystem  in the Linux "
+                                "on it.  The SCSI subsystem in the Linux "
                                 "kernel does not allow for more than 15 "
                                 "partitions at this time.  You will not be "
                                 "able to make changes to the partitioning of "
