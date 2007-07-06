@@ -1,5 +1,10 @@
 2007-07-06  Peter Jones  <pjones@redhat.com>
 
+	* dmraid.py (scanForMPath): Fix module path order so updates get used
+	correctly.
+
+2007-07-06  Peter Jones  <pjones@redhat.com>
+
 	* isys/isys.py: add isPaeAvailable() to test for the need to use a PAE
 	kernel.
 

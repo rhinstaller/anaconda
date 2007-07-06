@@ -21,9 +21,12 @@
 import sys
 import string
 
-_bdModulePath = ":/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/"
+_bdModulePath = "/tmp/updates/bdevid/:/mnt/source/RHupdates/bdevid/:"
 import block
-block.setBdevidPath(block.getBdevidPath() + _bdModulePath)
+oldPath = block.getBdevidPath()
+if not _bdModulePath in oldPath:
+    block.setBdevidPath(_bdModulePath + oldPath)
+del oldPath
 
 import partedUtils
 import raid
@@ -244,7 +247,12 @@ def scanForMPath(drives):
         isys.makeDevInode(d, dp)
 
     import block as _block
-    _block.setBdevidPath(_block.getBdevidPath() + _bdModulePath)
+    oldPath = _block.getBdevidPath()
+    if not _bdModulePath in oldPath:
+        _block.setBdevidPath(_bdModulePath + oldPath)
+    del oldPath
+
+    log.debug("loading bdevid modules from: '%s'" % (_block.getBdevidPath(),))
 
     _block.load("scsi")
     mpaths = _block.getMPaths(probeDrives)
