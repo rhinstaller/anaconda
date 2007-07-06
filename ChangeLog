@@ -1,9 +1,22 @@
 2007-07-06  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec:  Bump version.
+
+2007-07-06  David Cantrell  <dcantrell@redhat.com>
+
 	* yuminstall.py (YumBackend.doPreInstall): Read default multipath.conf
 	values from either the target system or the anaconda stage2
 	environment.  Make sure we only read one WWID per mpath alias and log
 	an error if we didn't.
+
+	* yuminstall.py (YumBackend.doPreInstall): Make sure we read from the
+	whole multipath device rather than partition devices.
+
+	* isys/isys.py (getMpathModel): Remove 'mapper/' from the drive string.
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): Use find()
+	rather than startswith() to determine if we are looking at an mpath
+	device.
 
 2007-07-06  Peter Jones  <pjones@redhat.com>
 
@@ -133,11 +146,11 @@
 	commands so we have those in the right locations during installation
 	(#185852).
 
-	* isys/isys.py (getMpathInfo): Added a function get the mpath device
+	* isys/isys.py (getMpathModel): Added a function get the mpath device
 	info string from the multipath command (#208341).
 
 	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): If we
-	see an mpath device, call isys.getMpathInfo() to collect the model
+	see an mpath device, call isys.getMpathModel() to collect the model
 	string (#208341).
 
 2007-06-27  Chris Lumens  <clumens@redhat.com>

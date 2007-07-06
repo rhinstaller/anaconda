@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.49
+Version: 11.1.2.50
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 06 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.50-1
+- Read default multipath.conf values from either the target system or the
+  anaconda stage2 environment.  Make sure we only read one WWID per mpath
+  alias and log an error if we didn't.
+  Related: rhbz#185852
+- Install the PAE kernel when applicable (e.g., >4GB memory)
+  Resolves: rhbz#207573
+- Read mpathNNN devices when generating the bindings and multipath.conf files
+  Related: rhbz#185852
+- Make sure the partitioning UI screen displays WWID and model information
+  for multipath devices
+  Related: rhbz#185852
+
 * Thu Jul 05 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.49-1
 - Generate multipath bindings and multipath.conf before package
   installation.  Use scsi_id to collect WWIDs rather than the multipath
