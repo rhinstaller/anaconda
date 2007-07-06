@@ -383,6 +383,19 @@ def isMactel():
             mactel = False
     return mactel
 
+efi = None
+def isEfi():
+    global efi
+    if efi is not None:
+        return efi
+
+    if not os.path.exists("/sys/firmware/efi"):
+        efi = False
+    else:
+        efi = True
+
+    return efi
+
 def cpuFeatureFlags():
     """Convenience function to get CPU feature flags from /proc/cpuinfo."""
 

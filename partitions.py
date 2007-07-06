@@ -625,7 +625,8 @@ class Partitions:
         """Return the name of the current 'boot' mount point."""
         bootreq = None
 
-        if rhpl.getArch() == "ia64":
+        if rhpl.getArch() == "ia64" or \
+                (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
             bootreq = self.getRequestByMountPoint("/boot/efi")
             if bootreq:
                 return [ bootreq ]
@@ -697,6 +698,8 @@ class Partitions:
         # FIXME: should be somewhere else, preferably some sort of arch object
 
         if rhpl.getArch() == "ia64":
+            return [ "/boot/efi" ]
+        if (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
             return [ "/boot/efi" ]
         else:
             return [ "/boot", "/" ]
@@ -796,6 +799,13 @@ class Partitions:
         boot.extend(self.requests)
         self.requests = boot
 
+    def hasGptLabel(self, diskset, device):
+        rc = []
+        disk = diskset.disks[device]
+        if disk.type.name == "gpt":
+            return True
+        return False
+
     def sanityCheckAllRequests(self, diskset, baseChecks = 0):
         """Do a sanity check of all of the requests.
 
@@ -822,24 +832,34 @@ class Partitions:
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
-        if rhpl.getArch() in ("i386", "x86_64") and iutil.isMactel():
-            # mactel checks.  
-            bootreqs = self.getBootableRequest() or []
-            # FIXME: missing a check to ensure this is gpt.
-            for br in bootreqs:
-                dev = br.device
-                # simplified getDiskPart() for sata only
-                if dev[-2] in string.digits:
-                    num = dev[-2:]
-                elif dev[-1] in string.digits:
-                    num = dev[-1]
-                else:
-                    continue # we should never get here, but you never know...
-                if int(num) > 4:
-                    print dev, num
-                    errors.append(_("Your boot partition isn't on one of "
-                                    "the first four partitions and thus "
-                                    "won't be bootable."))
+        if rhpl.getArch() in ("i386", "x86_64"):
+            if iutil.isEfi():
+                bootreq = self.getRequestByMountPoint("/boot/efi")
+                disk = None
+                num = None
+                if bootreq:
+                    (disk, num) = fsset.getDiskPart(bootreq.device)
+                if not bootreq or bootreq.getActualSize(self, diskset) < 50 or \
+                        not self.hasGptLabel(diskset, disk):
+                    errors.append(_("You must create a /boot/efi partition of "
+                                    "type FAT and a size of 50 megabytes."))
+            else:
+                # mactel checks
+                bootreqs = self.getBootableRequest() or []
+                for br in bootreqs:
+                    (dev, num) = fsset.getDiskPart(br.device)
+
+                    if iutil.isMactel():
+                        if self.hasGptLabel(diskset, dev) and int(num) > 4:
+                            errors.append(
+                                      _("Your boot partition isn't on one of "
+                                        "the first four partitions and thus "
+                                        "won't be bootable."))
+                    elif self.hasGptLabel(diskset, dev):
+                        errors.append(_("Your boot partition is on a disk "
+                                        "using the GPT partitioning scheme "
+                                        "but this machine cannot boot using "
+                                        "GPT."))
 
         if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")

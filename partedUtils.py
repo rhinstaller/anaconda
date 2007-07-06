@@ -279,6 +279,19 @@ archLabels = {'i386': ['msdos', 'gpt'],
               'ppc': ['msdos', 'mac', 'amiga'],
               'x86_64': ['msdos', 'gpt']}
 
+def labelDisk(dev, forceLabelType=None):
+    label = getDefaultDiskType()
+    if not forceLabelType is None:
+        label = forceLabelType
+    else:
+        if label.name == 'msdos' and \
+                dev.length > (2L**31) / dev.sector_size and \
+                'gpt' in archLabels[rhpl.getArch()]:
+            label = parted.disk_type_get('gpt')
+
+    disk = dev.disk_new_fresh(label)
+    disk.commit()
+
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
 def checkDasdFmt(disk, intf):
@@ -876,7 +889,7 @@ class DiskSet:
             disk.commit()
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
-                   os.path.exists("/usr/sbin/gptsync"):
+                    os.path.exists("/usr/sbin/gptsync"):
                 iutil.execWithRedirect("/usr/sbin/gptsync", [disk.dev.path],
                                        stdout="/dev/tty5", stderr="/dev/tty5")
             del disk
@@ -1052,9 +1065,7 @@ class DiskSet:
                     dev = parted.PedDevice.get(deviceFile)
                     disk = parted.PedDisk.new(dev)
                 else:
-                    dev = parted.PedDevice.get(deviceFile)
-                    disk = dev.disk_new_fresh(getDefaultDiskType())
-                    disk.commit()
+                    disk = labelDisk(deviceFile)
             except parted.error, msg:
                 log.debug("parted error: %s" % (msg,))
                 raise
