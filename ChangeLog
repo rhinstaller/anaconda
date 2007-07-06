@@ -1,3 +1,10 @@
+2007-07-06  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (YumBackend.doPreInstall): Read default multipath.conf
+	values from either the target system or the anaconda stage2
+	environment.  Make sure we only read one WWID per mpath alias and log
+	an error if we didn't.
+
 2007-07-06  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.py: add isPaeAvailable() to test for the need to use a PAE

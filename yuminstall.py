@@ -1443,14 +1443,13 @@ class YumBackend(AnacondaBackend):
                                except:
                                    idlist.append(line)
 
-                       if idlist == []:
-                           log.error("WWID not found for %s" % (mpathname,))
-                       elif len(idlist) > 1:
-                           log.error("Too many WWIDs collected for %s, found:" % (mpathname,))
-                           for id in idlist:
-                               log.error("    %s for %s" % (id, mpathname,))
-                       else:
-                           wwids.append((mpathname, idlist[0]))
+                       if idlist != []:
+                           if len(idlist) > 1:
+                               log.error(_("Too many WWIDs collected for %s, found:") % (mpathname,))
+                               for id in idlist:
+                                   log.error(_("    %s for %s") % (id, mpathname,))
+                           else:
+                               wwids.append((mpathname, idlist[0]))
 
             if wwids != []:
                 f = open(bindings, 'w')
@@ -1466,7 +1465,7 @@ class YumBackend(AnacondaBackend):
                 f.write("#\n")
 
                 for (mpathname, id) in wwids:
-                    f.write("%s %s\n" % (mpathname, id,)
+                    f.write("%s %s\n" % (mpathname, id,))
 
                 f.close()
 
@@ -1481,14 +1480,32 @@ class YumBackend(AnacondaBackend):
         # since all devices are blacklisted by default, add a
         # blacklist_exceptions block for the devices we want treated as
         # multipath devices  --dcantrell (BZ #243527)
-        mpconf = anaconda.rootPath + "/etc/multipath.conf"
+        mpconf = "/etc/multipath.conf"
         if flags.mpath:
-            f = open(mpconf, "r")
+            # Read in base multipath.conf file.  First try target system (in
+            # the case of upgrades, keep this file).  If that fails, read from
+            # the anaconda environment.
+            if os.path.isfile(anaconda.rootPath + mpconf):
+                mpfile = anaconda.rootPath + mpconf
+            elif os.path.isfile(mpconf):
+                mpfile = mpconf
+            else:
+                mpfile = None
+
+            if mpfile is None:
+                log.error("%s not found on target system." % (mpconf,))
+                return
+
+            f = open(mpfile, "r")
             # remove newline from the end of each line
             mplines = map(lambda s: s[:-1], f.readlines())
             f.close()
 
-            f = open(mpconf, "w")
+            mpdest = anaconda.rootPath + mpconf
+            if not os.path.isdir(os.path.dirname(mpdest)):
+                os.makedirs(os.path.dirname(mpdest), 0755)
+
+            f = open(anaconda.rootPath + mpconf, "w")
 
             blacklist = False
             depth = 0
