@@ -943,6 +943,7 @@ def isPaeAvailable():
     return isPAE
 
 def getMpathModel(drive):
+    drive = drive.replace('mapper/', '')
     args = ["-v", "2", "-l", dev]
     model = "Unknown Multipath Device"
 

@@ -137,7 +137,7 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, updateSrc):
 
         sizestr = "%8.0f MB" % size
 
-        if drive.startswith('mpath'):
+        if drive.find('mpath') != -1:
             model = isys.getMpathModel(drive)
         else:
             model = disks[drive].dev.model

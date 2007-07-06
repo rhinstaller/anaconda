@@ -1400,12 +1400,30 @@ class YumBackend(AnacondaBackend):
             for entry in anaconda.id.fsset.entries:
                 dev = entry.device.getDevice()
                 if dev.find('mpath') != -1:
-                    fulldev = "/dev/%s" % (dev,)
-
                     # grab just the mpathXXX part of the device name
                     mpathname = dev.replace('/dev/', '')
                     mpathname = mpathname.replace('mpath/', '')
                     mpathname = mpathname.replace('mapper/', '')
+
+                    # we only want 'mpathNNN' where NNN is an int, strip all
+                    # trailing subdivisions of mpathNNN
+                    trail = re.search("(?<=^mpath).*$", mpathname)
+                    if trail is not None:
+                        i = 1
+                        major = None
+
+                        while i <= len(trail.group()):
+                            try:
+                                major = int(trail.group()[0:i])
+                                i += 1
+                            except:
+                                break
+
+                        if major is not None:
+                            mpathname = mpathname.replace(trail.group(), '')
+                            mpathname = "%s%d" % (mpathname, major,)
+
+                    fulldev = "/dev/mapper/%s" % (mpathname,)
 
                     # get minor number
                     if os.path.exists(fulldev):
