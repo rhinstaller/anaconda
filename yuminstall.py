@@ -1129,7 +1129,22 @@ class YumBackend(AnacondaBackend):
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
                     self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
-            
+
+        if not foundkernel and isys.isPaeAvailable():
+            try:
+                kpae = getBestKernelByArch("kernel-PAE", self.ayum)
+            except PackageSackError:
+                kpae = None
+                log.debug("no kernel-PAE package")
+
+            if kpae and kpae.returnSimple("arch") == kpkg.returnSimple("arch"):
+                foundkernel = True
+                log.info("select kernel-PAE package for kernel")
+                self.ayum.install(po=kpae)
+                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                    log.debug("selecting kernel-PAE-devel")
+                    self.selectPackage("kernel-PAE-devel.%s" % (kpkg.arch,))
+
         if not foundkernel:
             log.info("selected kernel package for kernel")
             self.ayum.install(po=kpkg)

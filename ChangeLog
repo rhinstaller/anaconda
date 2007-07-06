@@ -1,3 +1,11 @@
+2007-07-06  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.py: add isPaeAvailable() to test for the need to use a PAE
+	kernel.
+
+	* yuminstall.py (YumBackend.selectBestKernel): install the PAE kernel
+	when applicable (#207573).
+
 2007-07-05  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
