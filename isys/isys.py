@@ -1039,6 +1039,35 @@ def netmask2prefix (netmask):
 
     return prefix
 
+isPAE = None
+def isPaeAvailable():
+    global isPAE
+    if isPAE is not None:
+        return isPAE
+
+    isPAE = False
+    if rhpl.getArch() not in ("i386", "x86_64"):
+        return isPAE
+
+    try:
+        f = open("/proc/iomem", "r")
+        lines = f.readlines()
+        for line in lines:
+            if line[0].isspace():
+                continue
+            start = line.split(' ')[0].split('-')[0]
+            start = long(start, 16)
+
+            if start > 0x100000000L:
+                isPAE = True
+                break
+
+        f.close()
+    except:
+        pass
+
+    return isPAE
+
 auditDaemon = _isys.auditdaemon
 
 handleSegv = _isys.handleSegv
