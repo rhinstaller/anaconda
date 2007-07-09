@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.51
+Version: 11.1.2.52
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 09 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.52-1
+- If we have seen an mpath device, do not gather its WWID again
+  Related: rhbz#185852
+- Fix code indentation errors
+  Related: rhbz#185852
+- Fix errors in the getMpathInfo() function when executing multipath
+  Related: rhbz#185852
+- Display mpath devices without the 'mapper/' text
+  Related: rhbz#185852
+- Get WWID from bindings file if multipath command returns nothing
+  Related: rhbz#185852
+- Require that USB devices remain stable for a longer time period (pjones)
+  Resolves: rhbz#222684
+
 * Mon Jul 09 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.51-1
 - Ignore empty lines when collecting WWIDs per mpath device
   Related: rhbz#185852
