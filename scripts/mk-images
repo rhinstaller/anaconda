@@ -448,7 +448,7 @@ EOF
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
-    
+
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
     (cd $MBD_DIR/sbin;
@@ -479,6 +479,12 @@ EOF
     	       $IMGPATH/$LIBDIR/libdl-*.so* \
 	       $IMGPATH/$LIBDIR/libnss_files* \
 	       $IMGPATH/$LIBDIR/libnsl* \
+	       $IMGPATH/usr/$LIBDIR/libnss3.so \
+	       $IMGPATH/$LIBDIR/libkeyutils* \
+	       $IMGPATH/$LIBDIR/libpthread* \
+	       $IMGPATH/usr/$LIBDIR/libplc4.so \
+	       $IMGPATH/usr/$LIBDIR/libplds4.so \
+	       $IMGPATH/usr/$LIBDIR/libnspr4.so \
 	       $IMGPATH/$LIBDIR/libutil.so* \
 	       $IMGPATH/$LIBDIR/libutil-*.so* \
 	       $IMGPATH/$LIBDIR/libcrypt*so* \

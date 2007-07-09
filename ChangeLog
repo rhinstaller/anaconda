@@ -3,6 +3,8 @@
 	* yuminstall.py (YumBackend.doPreInstall): Skip WWID gathering if we
 	have already seen the mpath device.  Fix indentation errors.
 
+	* scripts/mk-images: Add missing libraries needed for sshd (#245918).
+
 2007-07-09  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
