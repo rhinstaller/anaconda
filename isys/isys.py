@@ -943,21 +943,24 @@ def isPaeAvailable():
     return isPAE
 
 def getMpathModel(drive):
-    drive = drive.replace('mapper/', '')
-    args = ["-v", "2", "-l", dev]
-    model = "Unknown Multipath Device"
+    dev = drive.replace('mapper/', '')
+    args = ["-v", "2", "-l"]
+    model = None
 
-    mpathout = execWithCapture("multipath", args, stderr = "/dev/tty5")
+    mpathout = iutil.execWithCapture("multipath", args, stderr = "/dev/tty5")
     for line in mpathout.split('\n'):
-        if line.startswith(drive):
+        if line.startswith(dev):
             model = line
             break
 
-    # reduce the info string to just the WWID and make/model
-    model = model[len(dev) + 1:]
-    model = model.replace('(', '')
-    model = model.replace(')', '')
-    model = re.sub('\ +dm\-[0-9]+\ +', ' ', model)
+    if model is None:
+        model = "Unknown Multipath Device"
+    else:
+        # reduce the info string to just the WWID and make/model
+        model = model[len(dev) + 1:]
+        model = model.replace('(', '')
+        model = model.replace(')', '')
+        model = re.sub('\ +dm\-[0-9]+\ +', ' ', model)
 
     return model.strip()
 

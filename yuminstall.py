@@ -19,6 +19,7 @@ import timer
 import warnings
 import types
 import glob
+import re
 
 import rpm
 import rpmUtils

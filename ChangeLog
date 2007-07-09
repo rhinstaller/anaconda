@@ -1,9 +1,17 @@
 2007-07-09  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (YumBackend.doPreInstall): Skip WWID gathering if we
-	have already seen the mpath device.  Fix indentation errors.
+	have already seen the mpath device.  Fix indentation errors.  Import
+	the re module at the top of the file.
 
 	* scripts/mk-images: Add missing libraries needed for sshd (#245918).
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): Strip
+	'mapper/' from multipath device names.
+
+	* isys/isys.py (getMpathModel): Do not pass device name to multipath
+	command, walk entire listing instead.  Return 'Unknown Multipath Device'
+	if we can't get a WWID and model name.
 
 2007-07-09  David Cantrell  <dcantrell@redhat.com>
 
