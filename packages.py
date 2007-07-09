@@ -191,7 +191,7 @@ def setupTimezone(anaconda):
 # created by anaconda so that we can not be killed by selinux
 def setFileCons(anaconda):
     import partRequests
-    
+
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
@@ -205,7 +205,9 @@ def setFileCons(anaconda):
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
-                 "/var/log/lastlog", "/var/log/btmp"]
+                 "/var/log/lastlog", "/var/log/btmp",
+                 "/var/lib/multipath", "/var/lib/multipath/bindings",
+                 "/etc/multipath.conf"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
@@ -233,7 +235,6 @@ def setFileCons(anaconda):
             ret = isys.resetFileContext(os.path.normpath(f),
                                         anaconda.rootPath)
             log.info("set fc of %s to %s" %(f, ret))
-            
 
     return
 

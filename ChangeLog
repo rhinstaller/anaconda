@@ -1,3 +1,14 @@
+2007-07-09  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (YumBackend.doPreInstall): Make sure existing
+	blacklist and blacklist_exceptions blocks are commented out before
+	adding the new definitions.  Ignore empty lines when collecting WWIDs
+	per mpath device.
+
+	* packages.py (setFileCons): Reset SELinux file contexts on
+	multipath.conf and the multipath bindings file so multipathd starts
+	correctly on reboot.
+
 2007-07-06  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec:  Bump version.

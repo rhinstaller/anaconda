@@ -1456,18 +1456,21 @@ class YumBackend(AnacondaBackend):
 
                        if output != "":
                            for line in output.split("\n"):
+                               if line == '':
+                                   continue
+
                                try:
                                    i = idlist.index(line)
                                except:
                                    idlist.append(line)
 
-                       if idlist != []:
-                           if len(idlist) > 1:
-                               log.error(_("Too many WWIDs collected for %s, found:") % (mpathname,))
-                               for id in idlist:
-                                   log.error(_("    %s for %s") % (id, mpathname,))
-                           else:
-                               wwids.append((mpathname, idlist[0]))
+                   if idlist != []:
+                       if len(idlist) > 1:
+                           log.error(_("Too many WWIDs collected for %s, found:") % (mpathname,))
+                           for id in idlist:
+                               log.error(_("    %s for %s") % (id, mpathname,))
+                       else:
+                           wwids.append((mpathname, idlist[0]))
 
             if wwids != []:
                 f = open(bindings, 'w')
@@ -1526,45 +1529,61 @@ class YumBackend(AnacondaBackend):
             f = open(anaconda.rootPath + mpconf, "w")
 
             blacklist = False
+            blacklistExceptions = False
             depth = 0
             for line in mplines:
                 if line.strip().startswith('#'):
                     f.write("%s\n" % (line,))
                 else:
-                    if blacklist:
+                    if line.strip().startswith('blacklist'):
                         depth += line.count('{')
                         depth -= line.count('}')
                         f.write("#%s\n" % (line,))
 
-                        if depth == 0:
-                            blacklist = False
+                        if depth != 0:
+                            blacklist = True
+                    elif line.strip().startswith('blacklist_exceptions'):
+                        depth += line.count('{')
+                        depth -= line.count('}')
+                        f.write("#%s\n" % (line,))
 
-                            # write out the catch-all blacklist section to
-                            # blacklist all device types
-                            f.write('\nblacklist {\n')
-                            f.write('        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"\n')
-                            f.write('        devnode "^(hd|xvd)[a-z]*"\n')
-                            f.write('        wwid "*"\n')
-                            f.write('}\n')
-
-                            # write out the blacklist exceptions with
-                            # multipath WWIDs
-                            if wwids != []:
-                                f.write('\n# Make sure our multipath devices are enabled.\n')
-                                f.write('\nblacklist_exceptions {\n')
-
-                                for (mpathname, id) in wwids:
-                                    f.write("        wwid \"%s\"\n" % (id,))
-
-                                f.write('}\n\n')
+                        if depth != 0:
+                            blacklistExceptions = True
                     else:
-                        if line.strip().startswith('blacklist'):
+                        if blacklist:
                             depth += line.count('{')
                             depth -= line.count('}')
-                            blacklist = True
                             f.write("#%s\n" % (line,))
+
+                            if depth == 0:
+                                blacklist = False
+                        elif blacklistExceptions:
+                            depth += line.count('{')
+                            depth -= line.count('}')
+                            f.write("#%s\n" % (line,))
+
+                            if depth == 0:
+                                blacklistExceptions = False
                         else:
                             f.write("%s\n" % (line,))
+
+            # write out the catch-all blacklist section to
+            # blacklist all device types
+            f.write('\nblacklist {\n')
+            f.write('        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"\n')
+            f.write('        devnode "^(hd|xvd)[a-z]*"\n')
+            f.write('        wwid "*"\n')
+            f.write('}\n')
+
+            # write out the blacklist exceptions with multipath WWIDs
+            if wwids != []:
+                f.write('\n# Make sure our multipath devices are enabled.\n')
+                f.write('\nblacklist_exceptions {\n')
+
+                for (mpathname, id) in wwids:
+                    f.write("        wwid \"%s\"\n" % (id,))
+
+                f.write('}\n\n')
 
             f.close()
 
