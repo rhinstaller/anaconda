@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.50
+Version: 11.1.2.51
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 09 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.51-1
+- Ignore empty lines when collecting WWIDs per mpath device
+  Related: rhbz#185852
+- Comment out existing blacklist and blacklist_exceptions blocks in the
+  /etc/multipath.conf file
+  Related: rhbz#185852
+- Reset SELinux file contexts on multipath.conf and bindings files
+  Related: rhbz#185852
+
 * Fri Jul 06 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.50-1
 - Read default multipath.conf values from either the target system or the
   anaconda stage2 environment.  Make sure we only read one WWID per mpath
