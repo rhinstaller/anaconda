@@ -1423,6 +1423,18 @@ class YumBackend(AnacondaBackend):
                             mpathname = mpathname.replace(trail.group(), '')
                             mpathname = "%s%d" % (mpathname, major,)
 
+                    # if we have seen this mpath device, continue
+                    if wwids != []:
+                        seen = False
+
+                        for (m, s) in wwids:
+                            if m == mpathname:
+                                seen = True
+                                break
+
+                        if seen is True:
+                            continue
+
                     fulldev = "/dev/mapper/%s" % (mpathname,)
 
                     # get minor number
@@ -1464,13 +1476,13 @@ class YumBackend(AnacondaBackend):
                                except:
                                    idlist.append(line)
 
-                   if idlist != []:
-                       if len(idlist) > 1:
-                           log.error(_("Too many WWIDs collected for %s, found:") % (mpathname,))
-                           for id in idlist:
-                               log.error(_("    %s for %s") % (id, mpathname,))
-                       else:
-                           wwids.append((mpathname, idlist[0]))
+                    if idlist != []:
+                        if len(idlist) > 1:
+                            log.error(_("Too many WWIDs collected for %s, found:") % (mpathname,))
+                            for id in idlist:
+                                log.error(_("    %s for %s") % (id, mpathname,))
+                        else:
+                            wwids.append((mpathname, idlist[0]))
 
             if wwids != []:
                 f = open(bindings, 'w')
