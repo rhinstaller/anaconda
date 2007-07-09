@@ -1,3 +1,8 @@
+2007-07-09  Peter Jones  <pjones@redhat.com>
+
+	* loader2/usb.c (sleepUntilUsbIsStable): require that usb devices
+	remain stable for a longer time period (#222684)
+
 2007-07-09  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (YumBackend.doPreInstall): Skip WWID gathering if we

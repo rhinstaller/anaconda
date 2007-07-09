@@ -48,9 +48,9 @@ void sleepUntilUsbIsStable(void) {
 	stat("/proc/bus/usb/devices", &sb);
 	if (last == sb.st_mtime) {
 	    count++;
-	    /* if we get the same mtime twice in a row, should be
+	    /* if we get the same mtime several times in a row, should be
 	       good enough to use now */
-	    if (count > 1)
+	    if (count > 3)
 		break;
 	} else {
 	    /* if we didn't match mtimes, reset the stability counter */
