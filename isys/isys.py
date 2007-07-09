@@ -956,6 +956,25 @@ def getMpathModel(drive):
     if model is None:
         model = "Unknown Multipath Device"
     else:
+        # if the output lacks a WWID, find that in the bindings file
+        if model.find('()') != -1:
+            bindings = '/var/lib/multipath/bindings'
+
+            if os.path.isfile(bindings):
+                f = open(bindings, 'r')
+                blines = map(lambda s: s[:-1], f.readlines())
+                f.close()
+
+                wwid = None
+                for line in blines:
+                    if line.strip().startswith(dev + ' '):
+                        wwid = line[line.strip().index(' '):].strip()
+                        wwid = "(%s)" % (wwid,)
+                        break
+
+                if wwid is not None:
+                    model = model.replace('()', wwid)
+
         # reduce the info string to just the WWID and make/model
         model = model[len(dev) + 1:]
         model = model.replace('(', '')

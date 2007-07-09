@@ -1,3 +1,8 @@
+2007-07-09  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (getMpathModel): Read WWID for mpath device from the
+	bindings file if multipath returns nothing.
+
 2007-07-09  Peter Jones  <pjones@redhat.com>
 
 	* loader2/usb.c (sleepUntilUsbIsStable): require that usb devices
