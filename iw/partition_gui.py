@@ -30,6 +30,7 @@ import types
 import raid
 from constants import *
 import lvm
+import isys
 
 from iw_gui import *
 from flags import flags
@@ -310,18 +311,22 @@ class DiskStripeGraph:
                                       font="sans",
                                       size_points=9)
 	show_geometry = 0
+        if drive.find('mapper/mpath') != -1:
+            modelInfo = isys.getMpathModel(drive)
+        else:
+            modelInfo = disk.dev.model
 	if show_geometry:
 	    drivetext = _("Drive %s (Geom: %s/%s/%s) "
 			 "(Model: %s)") % ('/dev/' + drive,
 					   disk.dev.cylinders,
 					   disk.dev.heads,
 					   disk.dev.sectors,
-					   disk.dev.model)
+					   modelInfo)
 	else:
 	    drivetext = _("Drive %s (%-0.f MB) "
 			 "(Model: %s)") % ('/dev/' + drive,
 					   partedUtils.getDeviceSizeMB(disk.dev),
-					   disk.dev.model)
+					   modelInfo)
 
 
         text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
