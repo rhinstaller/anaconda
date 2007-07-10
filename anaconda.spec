@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.52
+Version: 11.1.2.53
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.2.2.53-1
+- Use scsi_id to gather WWID info in getMpathModel()
+  Related: rhbz#185852
+- Do not strip 'mapper/' from mpath device names in the partitioning UI
+  Related: rhbz#185852
+
 * Mon Jul 09 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.52-1
 - If we have seen an mpath device, do not gather its WWID again
   Related: rhbz#185852
