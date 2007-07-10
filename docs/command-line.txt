@@ -1,4 +1,4 @@
-20-Jun-2007
+10-Jul-2007
 -----------
 
 Boot time command args:
@@ -139,6 +139,12 @@ method=ftp://<path> Use <path> for an FTP installation
 method=hd://<dev>/<path> Use <path> on <dev> for a hard drive installation
 
 method=cdrom     Do a CDROM based installation.
+
+nfsmountopts=<opts>  Pass extra NFS mount options to anaconda.  Almost any
+		options that can be specified in /etc/fstab for an NFS
+		mount are allowed.  The options are listed in the nfs(5)
+		man page.  Multiple options are separated with a comma.
+		The unsupported options are namlen and nolock.
 
 vnc             Enable graphical installation via VNC.  A vnc client 
 		application will be required.
