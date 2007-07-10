@@ -435,6 +435,12 @@ class AnacondaYum(YumSorter):
             except yum.Errors.DuplicateRepoError, e:
                 log.warning("ignoring duplicate repository %s with source URL %s" % (repo.name, repo.baseurl or repo.mirrorlist))
 
+        self.doPluginSetup(searchpath=["/usr/lib/yum-plugins",
+                                       "/tmp/updates/yum-plugins"], 
+                           confpath=["/etc/yum/pluginconf.d",
+                                     "/tmp/updates/pluginconf.d"])
+        self.plugins.run('init')
+
         self.repos.setCacheDir('/tmp/cache')
 
     def _handleFailure(self, package):
