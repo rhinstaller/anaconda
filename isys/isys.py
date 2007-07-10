@@ -943,45 +943,62 @@ def isPaeAvailable():
     return isPAE
 
 def getMpathModel(drive):
-    dev = drive.replace('mapper/', '')
-    args = ["-v", "2", "-l"]
-    model = None
+    info = "Unknown Multipath Device"
+    fulldev = "/dev/mapper/%s" % (drive,)
 
-    mpathout = iutil.execWithCapture("multipath", args, stderr = "/dev/tty5")
-    for line in mpathout.split('\n'):
-        if line.startswith(dev):
-            model = line
-            break
-
-    if model is None:
-        model = "Unknown Multipath Device"
+    # get minor number
+    if os.path.exists(fulldev):
+        minor = os.minor(os.stat(fulldev).st_rdev)
     else:
-        # if the output lacks a WWID, find that in the bindings file
-        if model.find('()') != -1:
-            bindings = '/var/lib/multipath/bindings'
+        return info.strip()
 
-            if os.path.isfile(bindings):
-                f = open(bindings, 'r')
-                blines = map(lambda s: s[:-1], f.readlines())
-                f.close()
+    # get slaves
+    slaves = []
+    slavepath = "/sys/block/dm-%d/slaves" % (minor,)
+    if os.path.isdir(slavepath):
+        slaves = os.listdir(slavepath)
+    else:
+        return info.strip()
 
-                wwid = None
-                for line in blines:
-                    if line.strip().startswith(dev + ' '):
-                        wwid = line[line.strip().index(' '):].strip()
-                        wwid = "(%s)" % (wwid,)
-                        break
+    # collect "vendor", "model" and "wwid" from a slave
+    vendor = ""
+    model = ""
+    wwid = ""
+    for slave in slaves:
+        # get "vendor"
+        sarg = "/sys/block/%s/device/vendor" % (slave,)
+        f = open(sarg, "r")
+        vendor = f.readline().strip()
+        f.close()
 
-                if wwid is not None:
-                    model = model.replace('()', wwid)
+        # get "model"
+        sarg = "/sys/block/%s/device/model" % (slave,)
+        f = open(sarg, "r")
+        model = f.readline().strip()
+        f.close()
 
-        # reduce the info string to just the WWID and make/model
-        model = model[len(dev) + 1:]
-        model = model.replace('(', '')
-        model = model.replace(')', '')
-        model = re.sub('\ +dm\-[0-9]+\ +', ' ', model)
+        # get "wwid"
+        sarg = "/block/%s" % (slave,)
+        output = iutil.execWithCapture("scsi_id", ["-g", "-u", "-s", sarg],
+                                       stderr = "/dev/tty5")
+        # may be an EMC device, try special option
+        if output == "":
+            output = iutil.execWithCapture("scsi_id",
+                                    ["-g", "-u", "-ppre-spc3-83", "-s", sarg],
+                                    stderr = "/dev/tty5")
+        if output != "":
+            for line in output.split("\n"):
+                if line == '':
+                    continue
+                wwid = line
 
-    return model.strip()
+        # This loop is enough only the first slave
+        break
+
+    if vendor != "" and model != "" and wwid != ""
+        info = vendor + "," + model + "," + wwid
+
+    return info.strip()
 
 auditDaemon = _isys.auditdaemon
 

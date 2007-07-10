@@ -1,3 +1,11 @@
+2007-07-10  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.py (getMpathModel): Use scsi_id to gather WWID information
+	per mpath device.
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): Do not
+	strip 'mapper/' from the mpath device name.
+
 2007-07-09  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
