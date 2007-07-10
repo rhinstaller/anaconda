@@ -944,7 +944,7 @@ def isPaeAvailable():
 
 def getMpathModel(drive):
     info = "Unknown Multipath Device"
-    fulldev = "/dev/mapper/%s" % (drive,)
+    fulldev = "/dev/%s" % (drive,)
 
     # get minor number
     if os.path.exists(fulldev):
@@ -995,7 +995,7 @@ def getMpathModel(drive):
         # This loop is enough only the first slave
         break
 
-    if vendor != "" and model != "" and wwid != ""
+    if vendor != "" and model != "" and wwid != "":
         info = vendor + "," + model + "," + wwid
 
     return info.strip()
