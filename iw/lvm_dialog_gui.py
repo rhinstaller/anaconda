@@ -38,9 +38,9 @@ class VolumeGroupEditor:
 
     def computeSpaceValues(self, alt_pvlist=None, usepe=None):
 	if usepe is None:
-            pesize = int(self.peCombo.get_active_value())
+            pesize = long(self.peCombo.get_active_value())
 	else:
-	    pesize = usepe
+	    pesize = long(usepe)
 
         if alt_pvlist is None:
             pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
@@ -441,7 +441,7 @@ class VolumeGroupEditor:
             sizeEntry = gtk.Entry(16)
             lbl.set_mnemonic_widget(sizeEntry)
             if logrequest:
-                sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
+                sizeEntry.set_text("%Ld" % (logrequest.getActualSize(self.partitions, self.diskset),))
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(logrequest.size))
@@ -693,7 +693,7 @@ class VolumeGroupEditor:
 	else:
 	    self.logvolstore.set_value(iter, 1, "N/A")
 	    
-	self.logvolstore.set_value(iter, 2, "%g" % (size,))
+	self.logvolstore.set_value(iter, 2, "%Ld" % (size,))
 
 	self.updateVGSpaceLabels()
         dialog.destroy()
@@ -791,7 +791,7 @@ class VolumeGroupEditor:
 	return pv
 
     def computeVGSize(self, pvlist, curpe):
-	availSpaceMB = 0
+	availSpaceMB = 0L
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
 	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
@@ -828,7 +828,7 @@ class VolumeGroupEditor:
 	    else:
 		self.logvolstore.set_value(iter, 1, "N/A")
                 
-            self.logvolstore.set_value(iter, 2, "%g" % (size,))
+            self.logvolstore.set_value(iter, 2, "%Ld" % (size,))
         
 
     def updateVGSpaceLabels(self, alt_pvlist=None):
@@ -1075,7 +1075,7 @@ class VolumeGroupEditor:
 		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
 		else:
 		    self.logvolstore.set_value(iter, 1, "")
-		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.getActualSize(self.partitions, self.diskset)))
+		self.logvolstore.set_value(iter, 2, "%Ld" % (lvrequest.getActualSize(self.partitions, self.diskset)))
 
 	self.logvollist = gtk.TreeView(self.logvolstore)
         col = gtk.TreeViewColumn(_("Logical Volume Name"),

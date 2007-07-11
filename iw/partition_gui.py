@@ -141,7 +141,7 @@ class DiskStripeSlice:
             rc = "Free\n"
         else:
             rc = "%s\n" % (get_partition_name(self.partition),)
-        rc = rc + "%d MB" % (getPartSizeMB(self.partition),)
+        rc = rc + "%Ld MB" % (getPartSizeMB(self.partition),)
         return rc
 
     def getDeviceName(self):
@@ -729,7 +729,7 @@ class PartitionWindow(InstallWindow):
 		self.tree[vgparent]['Mount Point'] = ""
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
-		self.tree[vgparent]['Size (MB)'] = "%8.0f" % (rsize,)
+		self.tree[vgparent]['Size (MB)'] = "%Ld" % (rsize,)
                 self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
@@ -738,7 +738,7 @@ class PartitionWindow(InstallWindow):
 			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""
-		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.getActualSize(self.partitions, self.diskset),)
+		    self.tree[iter]['Size (MB)'] = "%Ld" % (lvrequest.getActualSize(self.partitions, self.diskset),)
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
@@ -795,7 +795,7 @@ class PartitionWindow(InstallWindow):
                 self.tree[iter]['Type'] = ptype
                 self.tree[iter]['Start'] = ""
                 self.tree[iter]['End'] = ""
-                self.tree[iter]['Size (MB)'] = "%g" % (request.getActualSize(self.partitions, self.diskset),)
+                self.tree[iter]['Size (MB)'] = "%Ld" % (request.getActualSize(self.partitions, self.diskset),)
                 self.tree[iter]['PyObject'] = str(request.uniqueID)
                 
 	# now normal partitions
@@ -923,7 +923,7 @@ class PartitionWindow(InstallWindow):
                 if size < 1.0:
                     sizestr = "< 1"
                 else:
-                    sizestr = "%8.0f" % (size)
+                    sizestr = "%Ld" % (size)
                 self.tree[iter]['Size (MB)'] = sizestr
                 self.tree[iter]['PyObject'] = part
                 
