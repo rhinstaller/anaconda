@@ -1476,6 +1476,8 @@ MAILADDR root
             foundActive = 0
             bootPart = None
             disk = diskset.disks[drive]
+            if disk.dev.disk_probe().name == "gpt":
+                continue
             part = disk.next_partition()
             while part:
                 if not part.is_active():

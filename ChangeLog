@@ -1,5 +1,12 @@
 2007-07-11  Peter Jones  <pjones@redhat.com>
 
+	* fsset.py (FileSystemSet.setActive): Don't mark partitions on gpt
+	as bootable except in the EFI case, because it screws up PARTITION_LVM
+	and makes the partition screen go crazy on a reinstall (related to
+	#130236 ).
+
+2007-07-11  Peter Jones  <pjones@redhat.com>
+
 	* yuminstall.py (YumBackend.doPreInstall): propogate "nodmraid" to
 	mkinitrd so we don't regress with the changes for #185852.
 
