@@ -1376,6 +1376,19 @@ class YumBackend(AnacondaBackend):
         f.write(anaconda.id.fsset.mtab())
         f.close()
 
+        # disable dmraid boot features if system isn't using dmraid
+        if not flags.dmraid:
+            mpfile = anaconda.rootPath + "/etc/sysconfig/mkinitrd/dmraid"
+            leading = os.path.dirname(mpfile)
+
+            if not os.path.isdir(leading):
+                os.makedirs(leading, mode=0755)
+
+            f = open(mpfile, "w")
+            f.write("DMRAID=no\n")
+            f.close()
+            os.chmod(mpfile, 0755)
+
         # disable multipath boot features if system isn't using multipath
         if not flags.mpath:
             mpfile = anaconda.rootPath + "/etc/sysconfig/mkinitrd/multipath"
