@@ -518,6 +518,7 @@ class Partitions:
         drives = diskset.disks.keys()
         drives.sort()
         volgroups = self.getLVMVGRequests()
+        pvlist = lvm.pvlist()
         for drive in drives:
             disk = diskset.disks[drive]
             for part in partedUtils.get_lvm_partitions(disk):
@@ -536,7 +537,7 @@ class Partitions:
                     if used:
                         break
                 size = None
-                for pvpart, pvvg, pvsize in lvm.pvlist():
+                for pvpart, pvvg, pvsize in pvlist:
                     if pvpart == "/dev/%s" % (partname,):
                         size = pvsize
                 if size is None:

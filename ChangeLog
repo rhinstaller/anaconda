@@ -1,3 +1,8 @@
+2007-07-10  Peter Jones  <pjones@redhat.com>
+
+	* partitions.py (Partitions.getAvailLVMPartitions): don't call
+	lvm.pvlist() N^2 times, it's not going to change.
+
 2007-07-11  Dave Lehman  <dlehman@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.filesDone): don't log errors when
