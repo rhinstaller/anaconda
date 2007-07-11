@@ -1049,7 +1049,7 @@ static char *doLoaderMain(char * location,
                 dir = -1;
                 break;
             }
-            
+
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
                                loaderData);
             /* it doesn't really matter what we return here; we just want
@@ -1208,6 +1208,8 @@ static char *doLoaderMain(char * location,
                                       modDepsPtr);
             if (!url) {
                 step = STEP_IP ;
+                loaderData->ipinfo_set = 0;
+                loaderData->ipv6info_set = 0;
                 dir = -1;
             } else {
                 logMessage(INFO, "got url %s", url);

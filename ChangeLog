@@ -1,3 +1,9 @@
+2007-07-11  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/loader.c (doLoaderMain):  Allow going back to the network
+	configuration screen if the wrong information was entered (#247807,
+	lucasgf AT br DOT ibm DOT com).
+
 2007-07-10  Dave Lehman  <dlehman@redhat.com>
 
 	* yuminstall.py (AnacondaYum.doConfigSetup): set up and initialize 
