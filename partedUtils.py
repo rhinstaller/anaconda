@@ -523,6 +523,7 @@ class DiskSet:
     """The disks in the system."""
 
     skippedDisks = []
+    exclusiveDisks = []
     mdList = []
     def __init__ (self):
         self.disks = {}
@@ -828,7 +829,7 @@ class DiskSet:
             return
         for drive in self.driveList ():
             # ignoredisk takes precedence over clearpart (#186438).
-            if drive in DiskSet.skippedDisks:
+            if (DiskSet.exclusiveDisks != [] and drive not in DiskSet.exclusiveDisks) or drive in DiskSet.skippedDisks:
                 continue
             deviceFile = isys.makeDevInode(drive)
             if isys.driveIsRemovable(drive) and not flags.expert:

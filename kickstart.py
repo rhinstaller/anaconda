@@ -1,7 +1,7 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -1346,15 +1346,19 @@ class KickstartBase(BaseInstallClass):
 
     def doIgnoreDisk(self, id, args):
         # add disks to ignore list
-        drives = []
-	(args, extra) = isys.getopt(args, '', [ 'drives=' ])
+        ignoreDrives = []
+        exclusiveDrives = []
+	(args, extra) = isys.getopt(args, '', [ 'drives=', 'only-use=' ])
 
         for n in args:
             (str, arg) = n
             if str == '--drives':
-                drives = string.split(arg, ',')
-        
-        self.setIgnoredDisks(id, drives)
+                ignoreDrives = string.split(arg, ',')
+            elif str =='--only-use':
+                exclusiveDrives = string.split(arg, ',')
+
+        self.setIgnoredDisks(id, ignoreDrives)
+        self.setExclusiveDisks(id, exclusiveDrives)
 
     def setSteps(self, dispatch):
         if self.installType == "upgrade":
