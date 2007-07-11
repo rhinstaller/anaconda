@@ -215,8 +215,8 @@ class UrlInstallMethod(InstallMethod):
         # they'll reboot soon enough I guess :)
         try:
             isys.umount("/mnt/source")
-        except Exception, e:
-            log.error("unable to unmount source in filesDone: %s" %(e,))
+        except Exception:
+            pass
 
         if not self.loopbackFile: return
 

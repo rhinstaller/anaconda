@@ -259,6 +259,10 @@ def makeDriveDeviceNodes():
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
+    tapeDrives = isys.tapeDriveList()
+    for drive in tapeDrives:
+        isys.makeDevInode(drive, "/dev/%s" % (drive,))
+
     for mdMinor in range(0, 32):
         md = "md%d" %(mdMinor,)
         isys.makeDevInode(md, "/dev/%s" %(md,))

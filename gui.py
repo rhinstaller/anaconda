@@ -625,7 +625,13 @@ class InstallKeyWindow:
         else:
             self.entry.grab_focus()
 
+        self.win.connect("key-release-event", self.keyRelease)
         addFrame(self.win, title=keyName)        
+
+    def keyRelease(self, window, event):
+        # XXX hack: remove this, too, when the accelerators work again
+        if event.keyval == gtk.keysyms.F12:
+            window.response(1)
 
     def run(self):
         self.win.show()

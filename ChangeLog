@@ -1,3 +1,18 @@
+2007-07-11  Dave Lehman  <dlehman@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.filesDone): don't log errors when
+	unmounting /mnt/source since it wasn't necessarily supposed to be 
+	mounted in the first place (#223059)
+
+	* gui.py (InstallKeyWindow): handle F12 shortcut key (#210673)
+
+	* iutil.py (makeDriveDeviceNodes): create device nodes for tape
+	drives (#218816)
+
+	* isys/isys.py (tapeDriveList): new function to list tape drives
+
+	* isys/isys.py (driveDict): probe for tape drives, too
+
 2007-07-11  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/loader.c (doLoaderMain):  Allow going back to the network
