@@ -287,12 +287,13 @@ def labelDisk(deviceFile, forceLabelType=None):
         label = forceLabelType
     else:
         if label.name == 'msdos' and \
-                dev.length > (2L**31) / dev.sector_size and \
+                dev.length > (2L**41) / dev.sector_size and \
                 'gpt' in archLabels[rhpl.getArch()]:
             label = parted.disk_type_get('gpt')
 
     disk = dev.disk_new_fresh(label)
     disk.commit()
+    return disk
 
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
