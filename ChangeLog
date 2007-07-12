@@ -3,6 +3,11 @@
 	* installclasses/rhel.py (InstallClass.handleRegKey): add ia64 to virt
 	whitelist (#246718)
 
+	* loader2/method.c (copyDirectory): include the target in log messages.
+
+	* backend.py (AnacondaBackend.copyFirmware): include the filename in
+	the destination so that the firmware copy works (related to #224076)
+
 2007-07-12  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (labelDisk): A terrabyte is 2**41L, not 2**31L.

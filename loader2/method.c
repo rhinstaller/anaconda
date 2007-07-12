@@ -472,7 +472,7 @@ int copyDirectory(char * from, char * to) {
         lstat(filespec, &sb);
 
         if (S_ISDIR(sb.st_mode)) {
-            logMessage(INFO, "recursively copying %s", filespec);
+            logMessage(INFO, "recursively copying %s to %s", filespec, filespec2);
             if (copyDirectory(filespec, filespec2)) return 1;
         } else if (S_ISLNK(sb.st_mode)) {
             i = readlink(filespec, link, sizeof(link) - 1);

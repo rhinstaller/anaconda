@@ -54,7 +54,8 @@ class AnacondaBackend:
         # the firmware files in all the driver disk directories.
         for f in glob.glob("/tmp/ramfs/DD-*/firmware/*"):
             try:
-                shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
+                fn = f.split('/')[-1]
+                shutil.copyfile(f, "%s/lib/firmware/%s" % (anaconda.rootPath, fn))
             except IOError, e:
                 log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
 
