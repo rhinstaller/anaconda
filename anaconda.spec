@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.5
+Version: 11.3.0.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 12 2007 Chris Lumens <clumens@redhat.com> 11.3.0.6-1
+- Don't call lvm.pvlist so much (pjones).
+- Don't log harmless unmounting errors (dlehman, #223059).
+- Handle F12 on the install key dialog (dlehman, #210673).
+- Create device nodes and probe for tape drives (dlehman, #218816).
+- Fix loader network configuration UI flow (lucasgf AT br DOT ibm DOT com,
+  #247807).
+- Include yum-fedorakmod plugin (dlehman).
+- Don't map Fedora to Fedora Core in the betanag dialog (katzj).
+- String fixes (katzj, #246703).
+- Fix module path order so updates get used (pjones).
+- Install the PAE kernel when applicable (pjones, #207573).
+- Fix fsset entry sorting (jhutz AT cmu DOT edu, #242294).
+- Don't display garbage in the ksfile location dialog (#245936).
+
 * Thu Jun 28 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.5-1
 - Fix traceback opening disks (dcantrell, #245609)
 - Fix live installs with /usr/local and /usr as separate partitions (#244913)
