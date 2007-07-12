@@ -120,7 +120,7 @@ class InstallClass(BaseInstallClass):
                 # from our repo list on other arches unless you boot with
                 # 'linux debug'
                 if name.lower() == "virt" and ( \
-                        rhpl.getArch() not in ("x86_64","i386")
+                        rhpl.getArch() not in ("x86_64","i386","ia64")
                         and not flags.debug):
                     continue
                 self.repopaths[name.lower()] = path

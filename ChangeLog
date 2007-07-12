@@ -1,5 +1,10 @@
 2007-07-12  Peter Jones  <pjones@redhat.com>
 
+	* installclasses/rhel.py (InstallClass.handleRegKey): add ia64 to virt
+	whitelist (#246718)
+
+2007-07-12  Peter Jones  <pjones@redhat.com>
+
 	* partedUtils.py (labelDisk): A terrabyte is 2**41L, not 2**31L.
 	Also be sure to	return the device since we're using the return value
 	later (#247830).
