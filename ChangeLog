@@ -1,3 +1,8 @@
+2007-07-12  Chris Lumens  <clumens@redhat.com>
+
+	* partedUtils.py (labelDisk):  Make sure we're operating on a parted
+	Device, not a device node string (#247830).
+
 2007-07-12  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.

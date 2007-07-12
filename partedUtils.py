@@ -279,8 +279,10 @@ archLabels = {'i386': ['msdos', 'gpt'],
               'ppc': ['msdos', 'mac', 'amiga'],
               'x86_64': ['msdos', 'gpt']}
 
-def labelDisk(dev, forceLabelType=None):
+def labelDisk(deviceFile, forceLabelType=None):
+    dev = parted.PedDevice.get(deviceFile)
     label = getDefaultDiskType()
+
     if not forceLabelType is None:
         label = forceLabelType
     else:
