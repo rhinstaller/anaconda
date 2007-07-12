@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.55
+Version: 11.1.2.56
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.2.2.56-1
+- Save "nodmraid" option so mkinitrd won't turn it on during boot
+  Related: rhbz#185852
+- Don't mark partitions as bootable on GPT disks unless we're using EFI
+  Related: rhbz#130236
+- Fix size display errors with large disks
+  Related: rhbz#130236
+
 * Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.2.2.55-1
 - Display mpath model information on the custom partitioning screen
   Related: rhbz#185852
