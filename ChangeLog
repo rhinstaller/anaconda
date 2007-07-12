@@ -1,3 +1,15 @@
+2007-07-12  Dave Lehman  <dlehman@redhat.com>
+
+	* partedUtils.py (DiskSet.findExistingRootPartitions): don't pop up an
+	error message when we fail to mount a partition (#214008)
+
+	* partedUtils.py (DiskSet.openDevices): check for SCSI disks containing
+	more than 15 partitions and pop up an error if needed (#238708)
+
+	* loader2/linuxrc.s390: fix broken PATH assignment (#190215)
+
+	* loader2/module-info: add netxen_nic (#233639)
+
 2007-07-11  Chris Lumens  <clumens@redhat.com>
 
 	* installclass.py (BaseInstallClass.setExclusiveDisks):  Add a

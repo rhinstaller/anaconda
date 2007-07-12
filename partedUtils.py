@@ -657,9 +657,6 @@ class DiskSet:
 		    try:
 			isys.mount(node, mountpoint, part.fs_type.name)
 		    except SystemError, (errno, msg):
-			intf.messageWindow(_("Error"),
-                                           _("Error mounting file system on "
-                                             "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
@@ -943,6 +940,25 @@ class DiskSet:
                         continue
 
             filter_partitions(disk, validateFsType)
+
+            # check for more than 15 partitions (libata limit)
+            if drive.startswith('sd') and disk.get_last_partition_num() > 15:
+                rc = intf.messageWindow(_("Warning"),
+                                       _("The drive /dev/%s has more than 15 "
+                                         "partitions on it.  The SCSI "
+                                         "subsystem in the Linux kernel does "
+                                         "not allow for more than 15 partitons "
+                                         "at this time.  You will not be able "
+                                         "to make changes to the partitioning "
+                                         "of this disk or use any partitions "
+                                         "beyond /dev/%s15 in %s")
+                                        % (drive, drive, productName),
+                                        type="custom",
+                                        custom_buttons = [_("_Reboot"),
+                                                          _("_Continue")],
+                                        custom_icon="warning")
+                if rc == 0:
+                    sys.exit(0)
 
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)

@@ -163,7 +163,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-PATH="PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/X11R6/bin"
+PATH="$PATH:/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/X11R6/bin"
 export PATH
 HOME=/
 export HOME
