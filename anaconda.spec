@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.56
+Version: 11.1.2.57
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.2.2.57-1
+- Only use GPT when we've got really big disks
+  Resolves: rhbz#247830
+- Allow ia64 virt installs without "debug" option
+  Resolves: rhbz#246718
+- Copy firmware files correctly from driver disks
+  Related: rhbz#224076
+
 * Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.2.2.56-1
 - Save "nodmraid" option so mkinitrd won't turn it on during boot
   Related: rhbz#185852
