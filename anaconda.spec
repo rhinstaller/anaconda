@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.65
+Version: 10.1.1.66
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 13 2007 Chris Lumens <clumens@redhat.com> 10.1.1.66-1
+- Don't read filesystem labels from drives we cleared with clearpart.
+  Resolves: #209291
+- Don't display an error if mount fails when searching for a root (dlehman).
+  Resolves: #241008
+- Check for SCSI disks containing more than 15 partitions (dlehman).
+  Resoles: #238708
+- Fix PATH assignment in linuxrc.s390 (dlehman).
+  Resolves: #190215
+- Add netxen_nic support (dlehman).
+  Resolves: #233639
+- Add ignoredisk --only-use option.
+  Resolves: #198526
+- Document nfsmountopts command line option.
+  Resolves: #234185
+
 * Wed Jun 20 2007 Chris Lumens <clumens@redhat.com> - 10.1.1.65-1
 - Support FTP and HTTP URLs with auth info (dcantrell).
   Resolves: #194247
