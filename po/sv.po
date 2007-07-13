@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-05-04 22:14-0400\n"
+"PO-Revision-Date: 2007-07-13 13:39-0400\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Begärd partition finns inte"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -229,14 +229,14 @@ msgid ""
 msgstr ""
 "Kan inte hitta partitionen %s att använda till %s.\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Begärd raid-enhet finns inte"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
@@ -244,14 +244,14 @@ msgid ""
 msgstr ""
 "Kan inte hitta raid-enheten %s att använda till %s.\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Begärd volymgrupp finns inte"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
@@ -259,14 +259,14 @@ msgid ""
 msgstr ""
 "Kan inte hitta volymgruppen %s att använda till %s.\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Begärd logisk volym finns inte"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
@@ -274,14 +274,14 @@ msgid ""
 msgstr ""
 "Kan inte hitta logiska volymen %s att använda till %s.\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -293,7 +293,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -311,7 +311,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -319,7 +318,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Tryck \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -501,20 +500,18 @@ msgid "Dump Written"
 msgstr "Minnesdump skriven"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"Ditt systemtillstånd har skrivits till disketten utan problem. Ditt system "
-"kommer nu att startas om."
+"Ditt systemtillstånd har skrivits till disketten utan problem. "
+"Installationsprogrammet kommer nu avslutas."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Avsluta installationsprogram"
+msgstr "_Avsluta installationsprogrammet"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -526,13 +523,12 @@ msgstr ""
 "Det uppstod ett problem vid skrivning av systemtillståndet till en diskett."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"Ditt systemtillstånd har skrivits till fjärrvärden utan problem. Ditt system "
-"kommer nu att startas om."
+"Ditt systemtillstånd har skrivits till fjärrvärden utan problem. "
+"Installationsprogrammet kommer nu avslutas."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -614,7 +610,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -624,7 +620,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att initiera växlingsutrymme på enheten %s. "
 "Detta problem är allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -697,7 +693,6 @@ msgstr ""
 "inställt att formatera alla växlingspartitioner."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -708,14 +703,14 @@ msgstr ""
 "\n"
 "Välj Hoppa över om du vill att installationsprogrammet ska ignorera denna "
 "partition under uppgraderingen. Välj Formatera för att formatera partitionen "
-"som växlingsutrymme. Välj Starta om för att starta om systemet."
+"som växlingsutrymme."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Formatera"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -729,10 +724,10 @@ msgstr ""
 "Filen /etc/fstab på din uppgraderingspartition refererar inte till en giltig "
 "växlingspartition.\n"
 "\n"
-"Tryck OK för att starta om ditt system."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -744,10 +739,10 @@ msgstr ""
 "\n"
 "Detta betyder med största sannolikhet att partitionen inte har initierats.\n"
 "\n"
-"Tryck OK för att starta om ditt system."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -757,10 +752,10 @@ msgstr ""
 "Felaktiga block har hittats på enheten /dev/%s. Vi rekommenderar inte att du "
 "använder denna enhet.\n"
 "\n"
-"Tryck <Retur> för att starta om ditt system"
+"Tryck <Retur> för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -770,10 +765,10 @@ msgstr ""
 "Ett fel inträffade vid sökning efter skadade block på %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -783,10 +778,10 @@ msgstr ""
 "Ett fel inträffade vid försöket att formatera %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -796,14 +791,14 @@ msgstr ""
 "Ett fel inträffade vid försöket att migrera %s. Detta problem är allvarligt "
 "och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Ogiltig monteringspunkt"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -814,10 +809,10 @@ msgstr ""
 "en katalog. Detta är ett ödesdigert fel och installationen kan inte "
 "fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -827,7 +822,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
 "ödesdigert och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -849,7 +844,7 @@ msgid "_Continue"
 msgstr "_Fortsätt"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -861,10 +856,10 @@ msgstr ""
 "\n"
 "Enheter i /etc/fstab ska specificeras med etikett och inte med enhetsnamn.\n"
 "\n"
-"Tryck OK för att starta om ditt system."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -876,10 +871,9 @@ msgstr ""
 "\n"
 "Detta betyder med största sannolikhet att partitionen inte har formaterats.\n"
 "\n"
-"Tryck OK för att starta om ditt system."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -891,7 +885,7 @@ msgstr ""
 "\n"
 "Detta betyder med största sannolikhet att din fstab är felaktig.\n"
 "\n"
-"Tryck OK för att starta om ditt system."
+"Tryck OK för att avsluta installationsprogrammet."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -1080,9 +1074,8 @@ msgid "_Reboot"
 msgstr "Starta _om"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Avsluta"
+msgstr "Avslutar"
 
 #: ../gui.py:1186
 #, python-format
@@ -1098,7 +1091,7 @@ msgid "Install Window"
 msgstr "Installationsfönster"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1109,10 +1102,10 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Vänligen verifiera dina installations-media och att du har "
-"alla nödvändiga media. \n"
+"trasigt paket. Verifiera ditt installations-media och att du har all "
+"nödvändig media. \n"
 "\n"
-"Om du startar om kommer ditt system hamna i ett inkonsistent läge, som "
+"Om du avslutar, kommer ditt system hamna i ett inkonsistent läge, som "
 "troligen innebär att det krävs en om-installation.\n"
 "\n"
 
@@ -1121,7 +1114,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660-avbild saknas"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1133,31 +1126,31 @@ msgstr ""
 "hitta den på hårddisken.\n"
 "\n"
 "Kopiera denna avbild till hårddisken och klicka på Försök igen. Klicka på "
-"Starta om för att avbryta installationen."
+"Avbryta för att avbryta installationen."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Kunde inte montera ISO-källa"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
 "there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
-"Ett fel inträffade vid  montering av av källenheten %s. Detta kan hända om "
+"Ett fel inträffade vid montering av av källenheten %s. Detta kan hända om "
 "din ISO-avbild finns på en avancerad lagringsenhet som LVM eller RAID, eller "
-"om det uppstod ett problem vid montering av en partition. Klicka på Starta "
-"om för att avbryta installationen."
+"om det uppstod ett problem vid montering av en partition. Klicka på Avbryt "
+"för att avbryta installationen."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Nödvändiga installationsmedia"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1165,8 +1158,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Programvaran du har valt att installera kommer att kräva följande cd-"
-"skivor:\n"
+"Programvaran du har valt att installera kommer att kräva följande skivor:\n"
 "\n"
 "%s\n"
 "Ha dessa tillhands innan du fortsätter med installationen. Om du måste "
@@ -1179,14 +1171,14 @@ msgid "_Back"
 msgstr "Till_baka"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Ett fel inträffade vid avmontering av cd-romskivan. Försäkra dig om att du "
-"inte försöker komma åt %s från skalet på tty2 och klicka sedan på OK för att "
-"försöka igen."
+"Ett fel inträffade vid avmontering av skivan. Försäkra dig om att du inte "
+"försöker komma åt %s från skalet på tty2. Klicka sedan på OK för att försöka "
+"igen."
 
 #: ../image.py:170 ../urlinstall.py:102
 msgid "Copying File"
@@ -1205,9 +1197,8 @@ msgstr ""
 "hårddisk. Du har troligtvis slut på diskutrymme."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Byt cd-romskiva"
+msgstr "Byt skiva"
 
 #: ../image.py:271
 #, python-format
@@ -1215,22 +1206,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Sätt in %s-skiva %d för att fortsätta."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Fel cd-romskiva"
+msgstr "Fel skiva"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Detta är inte rätt %s-cd."
+msgstr "Detta är inte rätt %s skiva."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Kan inte komma åt cd-romenheten."
+msgstr "Kan inte komma åt skivan."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1241,15 +1230,15 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Vänligen kontrollera att ditt installationsträd innehåller "
-"alla nödvändiga paket. \n"
+"trasigt paket. Kontrollera att ditt installationsträd innehåller alla "
+"nödvändiga paket. \n"
 "\n"
-"Om du startar om kommer ditt system hamna i ett inkonsistent läge som "
-"troligen kräver en om-installation.\n"
+"Om du avbryter kommer ditt system hamna i ett inkonsistent läge som troligen "
+"kräver en om-installation.\n"
 "\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1260,11 +1249,11 @@ msgstr ""
 "ISO-avbilden %s har en storlek som inte är en multipel av 2048 bytes. Det "
 "kan betyda att den blev förstörd när den överfördes till denna dator.\n"
 "\n"
-"Det är rekommenderat att du startar om och avbryter din installation, men du "
-"kan välja att fortsätta om du tror detta inte är korrekt."
+"Det är rekommenderat att du avbryter din installation, men du kan välja att "
+"fortsätta om du tror detta inte är korrekt."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1277,7 +1266,7 @@ msgstr ""
 "\n"
 "Kopiera denna avbild till fjärrserverns utdelnings-sökväg och klicka på "
 "Försök igen.\n"
-"Klicka på Starta om för att avbryta installationen."
+"Klicka på Avsluta för att avbryta installationen."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1292,7 +1281,7 @@ msgid "Scriptlet Failure"
 msgstr "Skriptfel"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1302,7 +1291,7 @@ msgstr ""
 "Det uppstod ett fel vid körningen av skriptet. Du kan granska utdata i %s. "
 "Detta är ett ödesdigert fel och din installation kommer att avbrytas.\n"
 "\n"
-"Tryck OK-knappen för att starta om ditt system."
+"Tryck OK-knappen för att avsluta installationsprogrammet."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1570,7 +1559,7 @@ msgstr ""
 "partitioner över /dev/%s15 i %s"
 
 #: ../partedUtils.py:1184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem  in "
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
@@ -2480,7 +2469,7 @@ msgid "Connecting..."
 msgstr "Ansluter..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2491,11 +2480,11 @@ msgid ""
 "\n"
 msgstr ""
 "Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
-"trasigt paket. Vänligen verifiera att din spegel innehåller alla nödvändiga "
-"paket och försök använd en annan.\n"
+"trasigt paket. Verifiera att din spegel innehåller alla nödvändiga paket "
+"eller försök använd en annan.\n"
 "\n"
-"Om du startar om kommer ditt system hamna i ett inkonsistent läge som "
-"troligen kräver en om-installation.\n"
+"Om du avslutar kommer ditt system hamna i ett inkonsistent läge som troligen "
+"kräver en ominstallation.\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2693,12 +2682,11 @@ msgstr "%s av %s paket slutförda"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Slutför uppgradering"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Startar installationen. Detta kan ta flera minuter..."
+msgstr "Slutför uppgraderingsprocessen. Detta kan ta ett tag..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2789,15 +2777,15 @@ msgid "Uncategorized"
 msgstr "Okategoriserat"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
-"De paket som du har valt kräver %d MB ledigt utrymme för installationen, men "
-"du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller starta "
-"om."
+"De paket som du har valt kräver %d MB ledigt utrymme för installation, men "
+"du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller avsluta "
+"installationsprogrammet."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3640,13 +3628,11 @@ msgid "Netmask"
 msgstr "Nätmask"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4-prefix får bara innehålla tal mellan 0 och 32."
+msgstr "IPv4 CIDR-prefix måste vara mellan 0 och 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "IPv4-nätmask"
 
@@ -3660,9 +3646,8 @@ msgid "Nameserver"
 msgstr "Namnserver"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Fel vid konfigurering av nätverksenhet"
+msgstr "Fel vid konfigurering av nätverksenhet:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -5797,21 +5782,20 @@ msgid "Test"
 msgstr "Testa"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "Mata ut cd"
+msgstr "Mata ut skiva"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"Välj \"%s\" för att testa den cd som för tillfället är i enheten, eller \"%s"
-"\" för att mata ut cd:n och stoppa i en annan för testning."
+"Välj \"%s\" för att testa den skiva som för tillfället är i enheten, eller "
+"\"%s\" för att mata ut skivan och stoppa i en annan för testning."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5819,59 +5803,57 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"Om du vill testa ytterligare media stoppar du in nästa cd-skiva och trycker "
-"på \"%s\". Det är egentligen inte nödvändigt att testa varje cd-skiva, men "
-"det rekommenderas. Cd-skivorna bör åtminstone testas innan de används för "
-"första gången. När de har testats utan problem är det inte nödvändigt att "
-"testa varje cd-skiva igen innan den används."
+"Om du vill testa ytterligare media stoppar du in nästa skiva och trycker på "
+"\"%s\". Det är inte nödvändigt att testa varje skiva, men det rekommenderas. "
+"Skivorna bör åtminstone testas innan de används för första gången. När de "
+"har testats utan problem är det inte nödvändigt att testa varje skiva igen "
+"innan den används."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt in cd-"
-"skivan med %s och tryck %s för att försöka igen."
+"Skivan med %s kunde inte hittas i någon av dina enheter. Sätt i skivan med %"
+"s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "Cd hittades"
+msgstr "Skiva hittades"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"För att påbörja testandet av cd-skivorna innan installationen trycker du \"%s"
-"\".\n"
-"Välj \"%s\" för att hoppa över mediatestet och starta installationen."
+"För att påbörja testandet av media innan installationen trycker du %s.\n"
+"\n"
+"Välj %s för att hoppa över mediatestet och starta installationen."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"Ingen cd-skiva med %s kunde hittas som stämmer överens med ditt startmedium. "
-"Sätt in cd-skivan med %s och tryck %s för att försöka igen."
+"Ingen skiva med %s kunde hittas som stämmer överens med ditt startmedia. "
+"Sätt i skivan med %s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt in cd-"
-"skivan med %s och tryck %s för att försöka igen."
+"Skivan med %s kunde inte hittas i någon av dina CDROM-enheter. Sätt i skivan "
+"med %s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "Cd hittades inte"
+msgstr "Skiva hittades inte"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6182,9 +6164,8 @@ msgid "Choose a Language"
 msgstr "Välj ett språk"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Lokal cd-rom"
+msgstr "Lokal CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
