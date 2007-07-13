@@ -81,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 - Don't read filesystem labels from drives we cleared with clearpart.
   Resolves: #209291
 - Don't display an error if mount fails when searching for a root (dlehman).
-  Resolves: #241008
+  Resolves: #214008
 - Check for SCSI disks containing more than 15 partitions (dlehman).
   Resoles: #238708
 - Fix PATH assignment in linuxrc.s390 (dlehman).
