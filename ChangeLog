@@ -1,3 +1,11 @@
+2007-07-13  Chris Lumens  <clumens@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices):  Build up a list of drives
+	that we cleared using clearpart.
+	(DiskSet.getLabels):  Don't read filesystem labels from drives in the
+	cleared list to avoid reserving labels that won't exist after
+	partitioning is complete (#209291).
+
 2007-07-12  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

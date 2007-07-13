@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Karsten Hopp <karsten@redhat.com>
 #
-# Copyright 2002-2003 Red Hat, Inc.
+# Copyright 2002-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -575,6 +575,8 @@ class DiskSet:
 
     skippedDisks = []
     mdList = []
+    clearedDisks = []
+
     dmList = None
     mpList = None
 
@@ -684,11 +686,17 @@ class DiskSet:
     def getLabels(self):
         """Return a list of all of the labels used on partitions."""
         labels = {}
-        
+
         drives = self.disks.keys()
         drives.sort()
 
         for drive in drives:
+            # Don't read labels from drives we cleared using clearpart, as
+            # we don't actually remove the existing filesystems so those
+            # labels will still be present (#209291).
+            if drive in DiskSet.clearedDisks:
+                continue
+
             disk = self.disks[drive]
             func = lambda part: (part.is_active() and
                                  not (part.get_flag(parted.PARTITION_RAID)
@@ -1018,6 +1026,7 @@ class DiskSet:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
+                        DiskSet.clearedDisks.append(drive)
                         del disk
                         del dev
                     except parted.error, msg:
@@ -1146,6 +1155,7 @@ class DiskSet:
                         try:
                             disk = dev.disk_new_fresh(getDefaultDiskType())
                             disk.commit()
+                            DiskSet.clearedDisks.append(drive)
                         except parted.error, msg:
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -1202,6 +1212,7 @@ class DiskSet:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
+                        DiskSet.clearedDisks.append(drive)
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
