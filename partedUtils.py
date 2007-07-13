@@ -525,6 +525,8 @@ class DiskSet:
     skippedDisks = []
     exclusiveDisks = []
     mdList = []
+    clearedDisks = []
+
     def __init__ (self):
         self.disks = {}
         self.onlyPrimary = None
@@ -560,6 +562,12 @@ class DiskSet:
         drives.sort()
 
         for drive in drives:
+            # Don't read labels from drives we cleared using clearpart, as
+            # we don't actually remove the existing filesystems so those
+            # labels will still be present (#209291).
+            if drive in DiskSet.clearedDisks:
+                continue
+
             disk = self.disks[drive]
             func = lambda part: (part.is_active() and
                                  not (part.get_flag(parted.PARTITION_RAID)
@@ -878,6 +886,7 @@ class DiskSet:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
                         self.disks[drive] = disk
+                        DiskSet.clearedDisks.append(drive)
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
@@ -929,6 +938,7 @@ class DiskSet:
                         try:
                             disk = dev.disk_new_fresh(getDefaultDiskType())
                             disk.commit()
+                            DiskSet.clearedDisks.append(drive)
                         except parted.error, msg:
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -974,6 +984,7 @@ class DiskSet:
                     try:
                         disk = dev.disk_new_fresh(getDefaultDiskType())
                         disk.commit()
+                        DiskSet.clearedDisks.append(drive)
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
