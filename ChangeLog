@@ -1,3 +1,8 @@
+2007-07-16  Peter Jones  <pjones@redhat.com>
+
+	* yuminstall.py (YumSorter.tsCheck): only skip redhat-lsb if it's not
+	the only thing left (#248195)
+
 2007-07-12  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -422,8 +422,13 @@ class YumSorter(yum.YumBase):
     def tsCheck(self, tocheck):
         unresolved = []
 
+        hasOnlyRHLSB = True
         for txmbr in tocheck:
-            if txmbr.name == "redhat-lsb" and len(tocheck) > 2: # FIXME: this speeds things up a lot
+            if not txmbr.name == 'redhat-lsb':
+                hasOnlyRHLSB = False
+
+        for txmbr in tocheck:
+            if txmbr.name == "redhat-lsb" and not hasOnlyRHLSB: # FIXME: this speeds things up a lot
                 unresolved.append(txmbr)
                 continue
             if self.dsCallback: self.dsCallback.pkgAdded()
