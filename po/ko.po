@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-04-27 11:35+1000\n"
+"PO-Revision-Date: 2007-07-16 16:56+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,10 +206,8 @@ msgstr ""
 
 #: ../autopart.py:1038
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1064
 #, python-format
@@ -225,67 +223,67 @@ msgid "Requested Partition Does Not Exist"
 msgstr "요청하신 파티션이 존재하지 않습니다"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%s에 사용하기 위한 %s 파티션을 찾을 수 없습니다.\n"
+"%s에서 사용할 %s 파티션을 만들 수 없습니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "요청하신 Raid 장치가 존재하지 않습니다"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%s에 사용하기 위한 %s raid 장치를 찾을 수 없습니다.\n"
+"%s에서 사용할 %s raid 장치를 만들 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
+"'확인' 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "요청하신 볼륨 그룹이 존재하지 않습니다"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%s에 사용하기 위한 %s 볼륨 그룹을 찾을 수 없습니다.\n"
+"%s에서 사용할 %s 볼륨 그룹을 만들 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
+"'확인' 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "요청하신 논리 볼륨이 존재하지 않습니다"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"%s에 사용하기 위한 %s 논리 볼륨을 찾을 수 없습니다.\n"
+"%s에서 사용할 %s 논리 볼륨을 만들 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
+"'확인' 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "자동 파티션 분할 오류"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -297,7 +295,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
+"'확인' 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -315,7 +313,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -323,7 +320,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
+"'확인' 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -503,20 +500,16 @@ msgid "Dump Written"
 msgstr "덤프(dump)를 기록했습니다"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
-msgstr ""
-"현재 시스템의 상태는 플로피 디스켓에 성공적으로 기록되었습니다. 시스템을 재부"
-"팅 합니다."
+msgstr "시스템 상태가 플로피 디스켓에 성공적으로 기록되었습니다. 설치 프로그램을 종료합니다."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "%s 설치 프로그램"
+msgstr "설치 프로그램 종료(_E)"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -527,13 +520,10 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "시스템 상태를 플로피에 기록하는데 문제가 발생했습니다."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"현재 시스템의 상태를 원격 호스트에 성공적으로 기록했습니다.  시스템을 재부팅"
-"합니다."
+msgstr "현재 시스템의 상태를 원격 호스트에 성공적으로 기록했습니다.  설치 프로그램을 종료합니다."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -613,14 +603,14 @@ msgid "Master Boot Record (MBR)"
 msgstr "마스터 부트 레코드 (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s 장치의 스왑을 초기화중 오류가 발생되었습니다.  지금과 같은 상황은 매우 심"
+"%s 장치의 스왑을 초기화하는 도중 오류가 발생하였습니다.  이는 매우 심"
 "각한 상황이므로, 설치를 계속 진행할 수 없습니다.\n"
 "\n"
 "<Enter> 키를 누르시면, 시스템을 재부팅합니다."
@@ -673,7 +663,7 @@ msgstr ""
 "면상태입니다. 업그레이드하시려면 시스템 전원을 끄십시오."
 
 #: ../fsset.py:1497
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -687,12 +677,11 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"/etc/fstab 파일은 소프트웨어 중지 파티션으로 현재 사용 중이므로, 시스템은 휴"
-"면상태입니다. 새롭게 설치하시려면 설치자가 모든 스왑 파티션을 포맷했는지 확인"
-"하십시오. "
+"현재 /etc/fstab 파일은 소프트웨어 중지 파티션으로 사용 중이므로, 시스템은 휴"
+"면상태입니다. 새롭게 설치하시려면 설치 프로그램이 모든 스왑 파티션을 포맷했는지 확인"
+"하십시오."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -701,16 +690,15 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"업그레이드중 설치자가 파티션을 무시하고자 한다면 스킵(Skip)을 선택하세요. 스"
-"왑 공간으로서 파티션을 재포맷하려면 포맷 (Format)을 선택하세요. 시스템을 다"
-"시 시작하려면 재부팅 (Reboot)을 선택하세요."
+"업그레이드중 설치 프로그램이 파티션을 무시하고자 한다면 스킵(Skip)을 선택하세요. 스"
+"왑 공간으로서 파티션을 재포맷하려면 포맷 (Format)을 선택하세요."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "포맷"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -719,15 +707,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s 스왑 장치를 활성화하는 도중 오류가 발생되었습니다: %s\n"
+"%s 스왑 장치를 활성화하는 도중 오류가 발생하였습니다: %s\n"
 "\n"
-"이와같은 상황은 업그레이드된 파티션의 /etc/fstab 파일에 올바른 스왑 파티션이 "
+"업그레이드된 파티션의 /etc/fstab 파일에 올바른 스왑 파티션이 "
 "설정되지 않았기 때문입니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -735,14 +723,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s 스왑 장치를 활성화하는 도중 오류가 발생되었습니다: %s\n"
+"%s 스왑 장치를 활성화하는 도중 오류가 발생하였습니다: %s\n"
 "\n"
-"이와같은 상황은 스왑 파티션이 초기화되어 있지 않기 때문입니다.\n"
+"이는 스왑 파티션이 초기화되어 있지 않기 때문입니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -752,77 +740,77 @@ msgstr ""
 "/dev/%s 장치에서 불량 섹터가 발견되었습니다. 이 장치를 사용하지 않는 것이 좋"
 "습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s에서 불량 섹터를 검색중 오류가 발생되었습니다.  이는 매우 심각한 상황이므"
+"%s에서 불량 섹터를 검색하는 도중 오류가 발생하였습니다.  이는 매우 심각한 상황이므"
 "로, 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s (을)를 포맷중 오류가 발생되었습니다.  이는 매우 심각한 상황이므로 설치를 "
+"%s (을)를 포맷하는 도중 오류가 발생하였습니다.  이는 매우 심각한 상황이므로 설치를 "
 "계속 진행할 수 없습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s (을)를 전환하는 도중 오류가 발생되었습니다.  이는 매우 심각한 상황이므로 "
+"%s (을)를 이전하는 도중 오류가 발생하였습니다.  이는 매우 심각한 상황이므로 "
 "설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "부적절한 마운트 포인트"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s (을)를 생성하는 도중 오류가 발생되었습니다.  이 경로의 내용 중 디렉토리가 "
+"%s (을)를 생성하는 도중 오류가 발생하였습니다.  이 경로에 디렉토리가 "
 "아닌 것이 포함되어 있습니다. 이는 매우 심각한 오류이므로 설치를 계속 진행할 "
 "수 없습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s (을)를 생성하는 도중 오류가 발생되었습니다: %s.  이는 매우 심각한 오류이므"
+"%s (을)를 생성하는 도중 오류가 발생하였습니다: %s.  이는 매우 심각한 오류이므"
 "로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
+"<Enter> 키를 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -844,7 +832,7 @@ msgid "_Continue"
 msgstr "계속 진행(_C)"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -852,14 +840,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생되었습니다: %s\n"
+"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생하였습니다: %s\n"
 "\n"
-"이는 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
+"/etc/fstab에 있는 장치가 장치 이름이 아닌 특정 이름으로 레이블로 되어 있어야 합니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -867,14 +855,13 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생되었습니다: %s\n"
+"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생하였습니다: %s\n"
 "\n"
 "이는 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -882,15 +869,15 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"/ 엔트리를 찾는 도중 오류가 발생되었습니다: %s\n"
+"/ 엔트리를 찾는 도중 오류가 발생하였습니다: %s\n"
 "\n"
 "fstab이 올바르게 설정되지 않은 것 같습니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
+"[확인] 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
-msgstr "라벨(label) 복사"
+msgstr "레이블(label) 복사"
 
 #: ../fsset.py:2433
 #, python-format
@@ -900,26 +887,21 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"시스템 상에 한개 이상의 장치가 %s 이름을 가지고 있습니다.  장치마다 다른 이름"
-"을 가져야 시스템이 제대로 작동할 수 있습니다.\n"
+"시스템 상에 한개 이상의 장치가 %s(으)로 레이블되어 있습니다.  장치마다 다르게 레이블되어"
+"있어야 시스템이 제대로 작동할 수 있습니다.\n"
 "\n"
 "이 문제를 해결하신 후 설치를 다시 시작하시기 바랍니다."
 
 #: ../fsset.py:2442
-#, fuzzy
 msgid "Invalid Label"
-msgstr "부팅할 이름의 오류"
+msgstr "잘못된 레이블"
 
 #: ../fsset.py:2443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
-msgstr ""
-"시스템 상에 한개 이상의 장치가 %s 이름을 가지고 있습니다.  장치마다 다른 이름"
-"을 가져야 시스템이 제대로 작동할 수 있습니다.\n"
-"\n"
-"이 문제를 해결하신 후 설치를 다시 시작하시기 바랍니다."
+msgstr "%s 장치 레이블이 잘못되었습니다. 문제를 해결하신 후 설치를 다시 시작하시기 바랍니다."
 
 #: ../fsset.py:2701
 msgid "Formatting"
@@ -1012,9 +994,8 @@ msgid "Cancel"
 msgstr "취소"
 
 #: ../gui.py:607 ../text.py:360
-#, fuzzy
 msgid "Installation Key"
-msgstr "설치 방법"
+msgstr "설치키"
 
 #: ../gui.py:790 tmp/anaconda.glade.h:2 tmp/exn.glade.h:3
 msgid "_Debug"
@@ -1076,9 +1057,8 @@ msgid "_Reboot"
 msgstr "재부팅(_R)"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "종료"
+msgstr "종료하는 중"
 
 #: ../gui.py:1186
 #, python-format
@@ -1094,7 +1074,7 @@ msgid "Install Window"
 msgstr "설치 화면"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1107,7 +1087,7 @@ msgstr ""
 "%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다. 설치 이미"
 "지와 필요한 미디어를 모두 가지고 있는 지를 확인해 보시기 바랍니다.\n"
 "\n"
-"재부팅하시면, 시스템 상태가 불안정하게 되어 다시 설치를 해야 합니다.\n"
+"시스템을 종료하시면, 시스템 상태가 불안정하게 되어 다시 설치를 해야 합니다.\n"
 "\n"
 
 #: ../harddrive.py:71 ../image.py:516
@@ -1115,7 +1095,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 이미지가 없습니다"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1123,15 +1103,15 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Exit  to abort "
 "the installation."
 msgstr ""
-"설치 관리자는 #%s 이미지 설치를 시도했으나, 이를 하드 드라이브에서 찾을 수 없"
+"설치 프로그램이 #%s 이미지를 마운트하려 했으나, 이를 하드 드라이브에서 찾을 수 없"
 "습니다.\n"
 "\n"
 "이미지를 하드 드라이브에 복사하시고 재시도를 누르십시오. 이 설치를 중단하시려"
-"면 재부팅을 누르십시오."
+"면 종료 버튼을 누르십시오."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "ISO 소스를 마운트 할 수 없습니다"
 
 #: ../harddrive.py:118
 #, python-format
@@ -1140,14 +1120,14 @@ msgid ""
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
 "there was a problem mounting a partition.  Click exit to abort the "
 "installation."
-msgstr ""
+msgstr "%s 소스 장치를 마운트하는 도중 오류가 발생하였습니다. ISO 이미지가 LVM 또는 RAID와 같은 고급 저장 장치에 있거나 파티션을 마운트하는 도중 문제가 발생했을 경우 이러한 오류가 나타날 수 있습니다. 종료 버튼을 클릭하여 설치를 중단합니다."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "필요한 설치 매체"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1155,10 +1135,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"선택하신 소프트웨어를 설치하기 위해서는 다음 CD가 필요합니다:\n"
+"선택하신 소프트웨어를 설치하기 위해서는 다음 디스크가 필요합니다:\n"
 "\n"
 "%s\n"
-"설치를 진행하시기 전에 이 CD를 준비하시기 바랍니다.  설치를 중단하고 재부팅하"
+"설치를 진행하시기 전에 이 디스크를 준비하시기 바랍니다.  설치를 중단하고 종료하"
 "시려면 \"재부팅\"을 누르십시오."
 
 #: ../image.py:93 ../livecd.py:355 ../packages.py:285 ../packages.py:336
@@ -1168,12 +1148,12 @@ msgid "_Back"
 msgstr "뒤로(_B)"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"CD를 마운트 해제하는데 오류가 발생했습니다.  tty2 쉘에서 %s를 사용하지 않는"
+"디스크를 마운트 해제하는 도중 오류가 발생했습니다.  tty2 쉘에서 %s를 사용하지 않는"
 "지 확인하신 후 확인 버튼을 눌러 재시도 해주십시오."
 
 #: ../image.py:170 ../urlinstall.py:102
@@ -1193,9 +1173,8 @@ msgstr ""
 "의 공간이 부족한 것 같습니다."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "CDROM 교체"
+msgstr "디스크 교체"
 
 #: ../image.py:271
 #, python-format
@@ -1203,22 +1182,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "계속 진행하시려면 %s 디스크 %d을(를) 넣어 주십시오."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "적절하지 않은 CDROM"
+msgstr "부적절한 디스크"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "올바른 %s CDROM이 아닙니다."
+msgstr "올바른 %s 디스크가 아닙니다."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "CDROM을 실행하지 못했습니다"
+msgstr "디스크를 실행할 수 없습니다."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1231,7 +1208,7 @@ msgstr ""
 "%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니다. 설치 트리"
 "에 필요한 모든 패키지가 들어있는 지를 확인해 보시기 바랍니다.\n"
 "\n"
-"재부팅하시면, 시스템 상태가 불안정하여 다시 설치하셔야 합니다.\n"
+"시스템을 종료하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 합니다.\n"
 "\n"
 
 #: ../image.py:443
@@ -1333,8 +1310,7 @@ msgstr "%s 설치 이미지를 읽어올 수 없습니다"
 
 #: ../livecd.py:94
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
 #: ../livecd.py:98
@@ -1881,8 +1857,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:537
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:61
@@ -1934,12 +1909,10 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
-"부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
+msgstr "부트 파티션이 네개의 파티션 중 하나에 존재하지 않으므로 부팅되지 않습니다."
 
 #: ../partitions.py:847
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1962,8 +1935,7 @@ msgstr ""
 "요한 기본 용량보다 적습니다."
 
 #: ../partitions.py:942
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 "
 "수 도 있습니다."
@@ -2024,8 +1996,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일 시스"
 "템 상에 위치해야 합니다."
@@ -2048,8 +2019,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:294
 #, python-format
@@ -2080,14 +2050,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:671
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:683
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:692
 #, python-format
@@ -2308,17 +2276,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:472
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:474
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgrade.py:52
 msgid "Proceed with upgrade?"
@@ -2708,8 +2673,7 @@ msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:638
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr "트랜젝션은 다음과 같은 이유로 실행되지 않았습니다:%s"
 
 #: ../yuminstall.py:733
@@ -2838,10 +2802,8 @@ msgstr "루트(root) 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
 #, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니다."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니다."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2861,10 +2823,9 @@ msgstr "확인(_C): "
 
 #: ../iw/autopart_type.py:155
 msgid "Invalid Initiator Name"
-msgstr "부적절한 개시 이름:"
+msgstr "부적절한 개시 이름"
 
 #: ../iw/autopart_type.py:156
-#, fuzzy
 msgid "You must provide an initiator name."
 msgstr "개시 이름을 입력해 주십시오."
 
@@ -2873,23 +2834,18 @@ msgid "Error with Data"
 msgstr "데이터의 오류"
 
 #: ../iw/autopart_type.py:286 ../textw/partition_text.py:1556
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout"
 msgstr "선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:287 ../textw/partition_text.py:1557
-#, fuzzy
 msgid "Remove Linux partitions on selected drives and create default layout"
-msgstr ""
-"선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
+msgstr "선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:288 ../textw/partition_text.py:1558
-#, fuzzy
 msgid "Use free space on selected drives and create default layout"
 msgstr "선택한 드라이브의 여유 공간에서 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:289 ../textw/partition_text.py:1559
-#, fuzzy
 msgid "Create custom layout"
 msgstr "사용자 레이아웃 만들기"
 
@@ -3089,14 +3045,12 @@ msgid "Congratulations"
 msgstr "축하합니다"
 
 #: ../iw/congrats_gui.py:65
-#, fuzzy
 msgid ""
 "Press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"\"재부팅\"' 버튼을 눌러 시스템을 재부팅합니다.\n"
 "\n"
-"\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../iw/congrats_gui.py:69
 #, python-format
@@ -3292,7 +3246,7 @@ msgstr "알 수 없음"
 #: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:358
 #: ../iw/raid_dialog_gui.py:310
 msgid "Original File System Label:"
-msgstr "초기의 파일시스템 이름:"
+msgstr "초기의 파일시스템 레이블:"
 
 #: ../iw/lvm_dialog_gui.py:424
 msgid "_Logical Volume Name:"
@@ -3324,8 +3278,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1303
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
@@ -3334,8 +3287,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:557
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1273
 msgid "Illegal Logical Volume Name"
@@ -3348,8 +3300,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:588 ../textw/partition_text.py:1291
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:602
 #, fuzzy, python-format
@@ -3419,8 +3370,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:904
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:947
 msgid "Not enough physical volumes"
@@ -3606,14 +3556,12 @@ msgid "Nameserver"
 msgstr "네임서버"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "네트워크 인터페이스를 설정하는 도중 오류가 발생하였습니다."
+msgstr "네트워크 장치를 설정하는 도중 오류 발생:"
 
 #: ../iw/netconfig_dialog.py:268
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "네트워크 인터페이스를 설정하는 도중 오류가 발생하였습니다."
+msgstr "네트워크 장치를 설정하는 도중 오류 발생"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:526
 msgid "Primary DNS"
@@ -3668,9 +3616,9 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:158 ../textw/network_text.py:38
-#, fuzzy, python-format
+#, python-format
 msgid "Error With %s Data"
-msgstr "데이터의 오류"
+msgstr "%s 데이터의 오류"
 
 #: ../iw/network_gui.py:159 ../textw/network_text.py:39
 #: ../textw/network_text.py:590 ../textw/network_text.py:594
@@ -3680,9 +3628,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:163 ../textw/network_text.py:59
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "여러분이 입력하신 IP 정보는 사용될 수 없습니다."
+msgstr "입력하신 IP 정보는 유효하지 않습니다."
 
 #: ../iw/network_gui.py:167
 msgid ""
@@ -3694,7 +3641,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:292 ../iw/network_gui.py:306
 msgid "Disabled"
-msgstr ""
+msgstr "비활성화"
 
 #: ../iw/network_gui.py:389
 msgid "Active on Boot"
@@ -3744,9 +3691,8 @@ msgid "Miscellaneous Settings"
 msgstr "그 외 설정..."
 
 #: ../iw/network_gui.py:621
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID 장치 편집"
+msgstr "장치 편집"
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
@@ -3803,24 +3749,23 @@ msgstr "기본부팅"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr "이름"
+msgstr "레이블"
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "이미지"
 
 #: ../iw/osbootwidget.py:137
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"부트 로더 메뉴에 표시될 이름을 입력해 주십시오. 장치 (또는 하드 드라이브와 파"
+"부트 로더 메뉴에 표시될 레이블을 입력해 주십시오. 장치 (또는 하드 드라이브와 파"
 "티션 수)는 부트될 장치를 의미합니다."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "이름(_L)"
+msgstr "레이블(_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
@@ -3828,19 +3773,19 @@ msgstr "기본 부트 대상(_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "항목 이름을 지정해 주십시오."
+msgstr "항목에 해당하는 레이블을 지정해 주십시오."
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "부팅할 이름에 부적절한 문자가 포함되어 있습니다."
+msgstr "부팅할 레이블에 부적절한 문자가 포함되어 있습니다."
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "이름 복사"
+msgstr "레이블 복사"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
-msgstr "이 이름은 이미 다른 부트 항목에 사용되었습니다."
+msgstr "이 레이블은 이미 다른 부트 항목에서 사용되고 있습니다."
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
@@ -3859,8 +3804,7 @@ msgstr "삭제할 수 없습니다."
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
+msgstr "이 부트 대상은 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3962,14 +3906,12 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
 #: ../iw/partition_gui.py:635
 #, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -3984,7 +3926,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "여러분이 지정하신 내용으로 파티션을 설정하시겠습니까?"
+msgstr "지정하신 내용으로 파티션을 설정하시겠습니까?"
 
 #: ../iw/partition_gui.py:654
 msgid "Partitioning Warnings"
@@ -4090,7 +4032,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -4314,7 +4255,7 @@ msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "/dev/%s 소스 드라이브를 대상 드라이브로 선택할 수 없습니다."
 
 #: ../iw/raid_dialog_gui.py:558
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -4492,15 +4433,12 @@ msgstr ""
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:112 ../textw/upgrade_bootloader_text.py:93
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이 %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:116
 msgid "This is the recommended option."
@@ -4633,8 +4571,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zipl_gui.py:28
@@ -4733,7 +4670,7 @@ msgstr "부트로더를 설치할 곳을 지정해 주십시오"
 
 #: ../textw/bootloader_text.py:193 ../textw/bootloader_text.py:258
 msgid "Boot label"
-msgstr "부팅할 이름"
+msgstr "부팅할 레이블"
 
 #: ../textw/bootloader_text.py:197
 msgid "Clear"
@@ -4741,19 +4678,19 @@ msgstr "지움"
 
 #: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label"
-msgstr "부팅할 이름 편집"
+msgstr "부팅할 레이블 편집"
 
 #: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
-msgstr "부팅할 이름의 오류"
+msgstr "부팅할 레이블의 오류"
 
 #: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
-msgstr "부팅할 이름은 반드시 지정해 주셔야 합니다."
+msgstr "부팅할 레이블은 반드시 지정해 주셔야 합니다."
 
 #: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
-msgstr "부팅할 이름에는 특수한 문자를 사용하실 수 없습니다."
+msgstr "부팅할 레이블에는 특수한 문자를 사용하실 수 없습니다."
 
 #: ../textw/bootloader_text.py:273 ../textw/constants_text.py:56
 #: ../textw/partition_text.py:1467
@@ -4761,19 +4698,17 @@ msgid "Edit"
 msgstr "편집"
 
 #: ../textw/bootloader_text.py:277
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well.  Please "
 "tell me what partitions you would like to be able to boot and what label you "
 "want to use for each of them."
 msgstr ""
-"%s 부트 매니저는 다른 운영체제로도 부팅할 수 있도록 배려하고 있습니다. 각 운"
-"영체제의 부팅 가능한 파티션과 각 운영체제로 부팅하기 위한 이름을 설정해 주십"
-"시오."
+"%s 부트 매니저를 사용하여 다른 운영체제로도 부팅할 수 있습니다. 각 운"
+"영체제에 대해 부팅할 수 있는 파티션과 레이블을 설정해 주십시오."
 
 #: ../textw/bootloader_text.py:290
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 디폴트 선택하기 | <F4> 는 지우기 | <F12> 는 "
 "다음 화면으로 가기>"
@@ -4905,8 +4840,7 @@ msgid "Please select the package groups you would like to install."
 msgstr "설치하시려는 패키지 그룹을 선택하십시오."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/grpselect_text.py:117
@@ -5272,7 +5206,7 @@ msgstr "파일시스템 유형:"
 
 #: ../textw/partition_text.py:575
 msgid "File System Label:"
-msgstr "파일시스템 명:"
+msgstr "파일시스템 레이블:"
 
 #: ../textw/partition_text.py:586
 msgid "File System Option:"
@@ -5399,8 +5333,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
+msgstr "현재 요청하신 용량이 (%10.2f MB)이 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. "
 
 #: ../textw/partition_text.py:1387
 msgid "New Partition or Logical Volume?"
@@ -5431,10 +5364,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1472
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1504
 msgid "No Root Partition"
@@ -5509,18 +5440,16 @@ msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"iSCSI 디스크를 사용하기 위해, 호스트를 위해 설정한 iSCSI 목표에 대한 주소 및 "
+"iSCSI 디스크를 사용하기 위해, 호스트를 위해 설정한 iSCSI 대상에 대한 주소 및 "
 "iSCSI 개시 이름을 입력해 주셔야 합니다."
 
 #: ../textw/partition_text.py:1729
-#, fuzzy
 msgid "Target IP Address"
-msgstr "<b>목표 IP 주소(_T):</b>"
+msgstr "대상 IP 주소"
 
 #: ../textw/partition_text.py:1730
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "<b>iSCSI 개시 이름(_N):</b>"
+msgstr "iSCSI 개시 이름"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6123,10 +6052,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6266,8 +6193,7 @@ msgstr "%s 복구 모드로 anaconda를 실행 중 - 잠시만 기다려 주십�
 #: ../loader2/loader.c:1825
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6366,8 +6292,7 @@ msgstr "장치 킥스타트 방식 명령 %s에 잘못된 인수 값이 지정�
 
 #: ../loader2/modules.c:1050
 #, fuzzy
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "킥스타트 드라이버 디스켓 명령에 다음과 같은 잘못된 인수 값이 지정되었습니다: "
 "%s:%s"
@@ -6505,10 +6430,8 @@ msgid "Missing Information"
 msgstr "정보 부족"
 
 #: ../loader2/net.c:1194
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1200
 #, fuzzy
@@ -6706,7 +6629,7 @@ msgstr "ZFCP LUN 추가(_Z)"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr "iSCSI 목표 추가(_I)"
+msgstr "iSCSI 대상 추가(_I)"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
@@ -6796,7 +6719,7 @@ msgstr "예외 상황 정보(_E)"
 
 #: tmp/exn.glade.h:5
 msgid "_Save to floppy"
-msgstr ""
+msgstr "플로피 디스켓에 저장(_S)"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6814,7 +6737,7 @@ msgstr "<b>암호(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>목표 IP 주소(_T):</b>"
+msgstr "<b>대상 IP 주소(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>_Username:</b>"
@@ -6825,9 +6748,8 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>iSCSI 개시 이름(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "_Add target"
-msgstr "iSCSI 목표 추가(_I)"
+msgstr "대상 추가(_A)"
 
 #: tmp/liveinst.desktop.in.h:1
 #, fuzzy
@@ -6924,8 +6846,7 @@ msgstr "후의 사용자 설정(_L)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
+msgstr "소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
 
 #: tmp/tasksel.glade.h:5
 msgid ""
@@ -7191,8 +7112,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid "Rebooting System"
-#~ msgstr "시스템 재부팅"
-
-#~ msgid "Re_try"
-#~ msgstr "재시도(_t)"
