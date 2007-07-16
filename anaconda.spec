@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.57
+Version: 11.1.2.58
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.2.2.57-1
+* Mon Jul 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.58-1
+- Only skip redhat-lsb during dependency resolution if it's not
+  the only thing left
+  Resolves: rhbz#248195
+
+* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.1.2.57-1
 - Only use GPT when we've got really big disks
   Resolves: rhbz#247830
 - Allow ia64 virt installs without "debug" option
@@ -111,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 - Copy firmware files correctly from driver disks
   Related: rhbz#224076
 
-* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.2.2.56-1
+* Thu Jul 12 2007 Peter Jones <pjones@redhat.com> - 11.1.2.56-1
 - Save "nodmraid" option so mkinitrd won't turn it on during boot
   Related: rhbz#185852
 - Don't mark partitions as bootable on GPT disks unless we're using EFI
@@ -119,17 +124,17 @@ rm -rf $RPM_BUILD_ROOT
 - Fix size display errors with large disks
   Related: rhbz#130236
 
-* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.2.2.55-1
+* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.55-1
 - Display mpath model information on the custom partitioning screen
   Related: rhbz#185852
 
-* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.2.2.54-1
+* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.54-1
 - Add missing colon on an if statement in getMpathModel()
   Related: rhbz#185852
 - Do not add extra 'mapper/' to fulldev in getMpathModel()
   Related: rhbz#185852
 
-* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.2.2.53-1
+* Tue Jul 10 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.53-1
 - Use scsi_id to gather WWID info in getMpathModel()
   Related: rhbz#185852
 - Do not strip 'mapper/' from mpath device names in the partitioning UI
