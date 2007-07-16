@@ -1,3 +1,16 @@
+2007-07-16  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.setExclusiveDisks):  Add a
+	method to set up the exclusiveDisks attribute.
+	* kickstart.py (doIgnoreDisk):  Add the --only-use option to specify
+	which disks should be used.  This is the opposite operation from
+	ignoredisk --drives (#198526).
+	* partedUtils.py (DiskSet):  Add exclusiveDisks attribute.
+	(DiskSet.openDevices):  If the exclusiveDisks list is not empty,
+	use it to determine which drives should be used.
+	* upgrade.py (findExistingRoots):  Clear out exclusiveDisks list
+	as well.
+
 2007-07-13  Chris Lumens  <clumens@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices):  Build up a list of drives

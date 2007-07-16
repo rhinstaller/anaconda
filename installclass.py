@@ -4,7 +4,7 @@
 # The interface to BaseInstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -115,7 +115,13 @@ class BaseInstallClass:
         for drive in drives:
             if not drive in diskset.skippedDisks:
                 diskset.skippedDisks.append(drive)
-        
+
+    def setExclusiveDisks(self, id, drives):
+        diskset = id.diskset
+        for drive in drives:
+            if not drive in diskset.exclusiveDisks:
+                diskset.exclusiveDisks.append(drive)
+
     def setClearParts(self, id, clear, drives = None, initAll = False):
 	id.partitions.autoClearPartType = clear
         id.partitions.autoClearPartDrives = drives

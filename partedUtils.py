@@ -576,6 +576,7 @@ class DiskSet:
     skippedDisks = []
     mdList = []
     clearedDisks = []
+    exclusiveDisks = []
 
     dmList = None
     mpList = None
@@ -1001,7 +1002,7 @@ class DiskSet:
 
         for drive in self.driveList():
             # ignoredisk takes precedence over clearpart (#186438).
-            if drive in DiskSet.skippedDisks:
+            if (DiskSet.exclusiveDisks != [] and drive not in DiskSet.exclusiveDisks) or drive in DiskSet.skippedDisks:
                 continue
 
             deviceFile = isys.makeDevInode(drive, "/dev/" + drive)

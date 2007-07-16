@@ -178,10 +178,11 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         commands.firstboot.FC3_Firstboot.parse(self, args)
         self.handler.id.firstboot = self.firstboot
 
-class IgnoreDisk(commands.ignoredisk.FC3_IgnoreDisk):
+class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
-        commands.ignoredisk.FC3_IgnoreDisk.parse(self, args)
+        commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
         self.handler.id.instClass.setIgnoredDisks(self.handler.id, self.ignoredisk)
+        self.handler.id.instClass.setExclusiveDisks(self.handler.id, self.onlyuse)
 
 class Iscsi(commands.iscsi.FC6_Iscsi):
     def parse(self, args):
