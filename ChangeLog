@@ -1,3 +1,13 @@
+2007-07-16  Jeremy Katz  <katzj@redhat.com>
+
+	From Jane Dogalt <jdogalt AT yahoo DOT com>
+	* fsset.py: Add case for skipping formatting the rootfs dependent
+	on backend so that we don't format the rootfs for live images.  A
+	little bit of a hack, but good enough for now
+	* backend.py: Add skipFormatRoot attribute, defaults to False
+	* livecd.py: Add skipFormatRoot attribute = True
+	* packages.py: Pass skipFormatRoot
+
 2007-07-16  Chris Lumens  <clumens@redhat.com>
 
 	* installclass.py (BaseInstallClass.setExclusiveDisks):  Add a

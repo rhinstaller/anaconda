@@ -150,8 +150,10 @@ def turnOnFilesystems(anaconda):
                 anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
             anaconda.id.fsset.formatSwap(anaconda.rootPath)
             anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
-	    anaconda.id.fsset.makeFilesystems (anaconda.rootPath)
-            anaconda.id.fsset.mountFilesystems (anaconda)
+            anaconda.id.fsset.makeFilesystems(anaconda.rootPath,
+                                              anaconda.backend.skipFormatRoot)
+            anaconda.id.fsset.mountFilesystems(anaconda,0,0,
+                                               anaconda.backend.skipFormatRoot)
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards

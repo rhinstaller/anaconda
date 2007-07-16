@@ -44,6 +44,10 @@ class AnacondaBackend:
         self.supportsUpgrades = True
         self.supportsPackageSelection = False
 
+        # some backends may have a special case for rootfs formatting
+        # FIXME: we should handle this a little more elegantly
+        self.skipFormatRoot = False
+
     def doPreSelection(self, intf, id, instPath):
         pass
 

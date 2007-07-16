@@ -152,6 +152,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         backend.AnacondaBackend.__init__(self, method, instPath)
         self.supportsUpgrades = False
         self.supportsPackageSelection = False
+        self.skipFormatRoot = True
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:

@@ -1618,13 +1618,17 @@ MAILADDR root
         self.volumesCreated = 1
 
 
-    def makeFilesystems (self, chroot='/'):
+    def makeFilesystems (self, chroot='/', skiprootfs=False):
         formatted = []
         notformatted = []
         for entry in self.entries:
             if (not entry.fsystem.isFormattable() or not entry.getFormat()
                 or entry.isMounted()):
                 notformatted.append(entry)
+                continue
+            # FIXME: this is a bit of a hack, but works
+            if (skiprootfs and entry.mountpoint == '/'):
+                formatted.append(entry)
                 continue
             try:
                 self.formatEntry(entry, chroot)
@@ -1692,13 +1696,13 @@ MAILADDR root
 
         self.migratedfs = 1
 
-    def mountFilesystems(self, anaconda, raiseErrors = 0, readOnly = 0):
+    def mountFilesystems(self, anaconda, raiseErrors = 0, readOnly = 0, skiprootfs = 0):
         protected = anaconda.method.protectedPartitions()
 
 	for entry in self.entries:
             # Don't try to mount a protected partition, since it will already
             # have been mounted as the installation source.
-            if not entry.fsystem.isMountable() or (protected and entry.device.getDevice() in protected):
+            if not entry.fsystem.isMountable() or (protected and entry.device.getDevice() in protected) or (skiprootfs and entry.mountpoint == '/'):
 		continue
 
             try:
