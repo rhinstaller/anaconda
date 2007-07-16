@@ -21,6 +21,8 @@
 	* upgrade.py (findExistingRoots):  Clear out exclusiveDisks list
 	as well.
 
+	* packages.py (betaNagScreen):  Remove extra brace.
+
 2007-07-13  Chris Lumens  <clumens@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices):  Build up a list of drives

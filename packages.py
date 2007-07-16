@@ -301,7 +301,7 @@ def regKeyScreen(anaconda):
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
                     "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",
-                    "Fedora Core": "Fedora Core" }
+                    "Fedora Core": "Fedora Core",
                     "Fedora": "Fedora" }
 
     
