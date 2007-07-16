@@ -247,23 +247,19 @@ def parseOptions():
     return op.parse_args()
 
 def setVNCFromKickstart(opts):
-    from kickstart import pullRemainingKickstartConfig, KickstartError
-    from kickstart import VNCHandler
-    from pykickstart.parser import KickstartParser
+    from kickstart import KickstartError, VNCHandler
+    from pykickstart.parser import KickstartParser, preprocessKickstart
 
     global vncpassword, vncconnecthost, vncconnectport
 
     try:
-	rc = pullRemainingKickstartConfig(opts.ksfile)
+        opts.ksfile = preprocessKickstart(opts.ksfile)
     except KickstartError, msg:
-	rc = msg
+        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % e)
+        sys.exit(1)
     except Exception, e:
-        log.error("Unknown error grabbing ks.cfg: %s" %(e,))
-	rc = _("Unknown Error")
-
-    if rc is not None:
-	stdoutLog.critical(_("Error pulling second part of kickstart config: %s!") % rc)
-	sys.exit(1)
+        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
+        sys.exit(1)
 
     # now see if they enabled vnc via the kickstart file. Note that command
     # line options for password, connect host and port override values in
@@ -834,7 +830,7 @@ if __name__ == "__main__":
             got_bad_edid = True
             opts.display_mode = 't'
 
-    if opts.display_mode == 't' and graphical_failed and not opts.ksfile:
+    if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
         ret = vnc.askVncWindow()
         if ret != -1:
             opts.display_mode = 'g'
@@ -850,7 +846,7 @@ if __name__ == "__main__":
 
     if got_bad_edid:
         msg = "anaconda was unable to detect your monitor, possibly due to the presence of a KVM.  The installation will proceed in text mode.  Please run system-config-display after installation to configure your monitor."
-        if opts.ksfile:
+        if anaconda.isKickstart:
             log.warning(msg)
         else:
             anaconda.intf.messageWindow("Unknown monitor", msg)
