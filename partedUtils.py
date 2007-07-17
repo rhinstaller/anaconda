@@ -1171,17 +1171,15 @@ class DiskSet:
 
             # check for more than 15 partitions (libata limit)
             if drive.startswith('sd') and disk.get_last_partition_num() > 15:
+                str = _("The drive /dev/%s has more than 15 partitions on it.  "
+                        "The SCSI subsystem in the Linux kernel does not "
+                        "allow for more than 15 partitons at this time.  You "
+                        "will not be able to make changes to the partitioning "
+                        "of this disk or use any partitions beyond /dev/%s15 "
+                        "in %s") % (drive, drive, productName)
+
                 if self.anaconda is not None:
-                    rc = intf.messageWindow(_("Warning"),
-                                       _("The drive /dev/%s has more than 15 "
-                                         "partitions on it.  The SCSI "
-                                         "subsystem in the Linux kernel does "
-                                         "not allow for more than 15 partitons "
-                                         "at this time.  You will not be able "
-                                         "to make changes to the partitioning "
-                                         "of this disk or use any partitions "
-                                         "beyond /dev/%s15 in %s")
-                                        % (drive, drive, productName),
+                    rc = intf.messageWindow(_("Warning"), str, 
                                         type="custom",
                                         custom_buttons = [_("_Reboot"),
                                                           _("_Continue")],
@@ -1189,14 +1187,7 @@ class DiskSet:
                     if rc == 0:
                         sys.exit(0)
                 else:
-                    log.error(_("The drive /dev/%s has more than 15 partitions "
-                                "on it.  The SCSI subsystem in the Linux "
-                                "kernel does not allow for more than 15 "
-                                "partitions at this time.  You will not be "
-                                "able to make changes to the partitioning of "
-                                "this disk or use any partitions beyond "
-                                "/dev/%s15 in %s")
-                              % (drive, drive, productName))
+                    log.error(str)
                     sys.exit(0)
 
             # check that their partition table is valid for their architecture

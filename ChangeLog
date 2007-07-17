@@ -1,3 +1,8 @@
+2007-07-16  Peter Jones  <pjones@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices): don't generate the error
+	message on SCSI with >15 partitions at two places.
+	
 2007-07-16  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
