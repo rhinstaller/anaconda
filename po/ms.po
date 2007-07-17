@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-15 15:28+0800\n"
+"PO-Revision-Date: 2007-07-17 23:45+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -5493,9 +5493,9 @@ msgid "Eject Disc"
 msgstr "Eject CD"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject the disc and insert another for testing."
-msgstr "Pilih \"%s\" untuk menguji CD yang berada di pemacu, atau \"%s\" untuk melentingkan CD dan memasukkan yang lain untuk diuji."
+msgstr "Pilih \"%s\" untuk menguji cakera yang berada di pemacu, atau \"%s\" untuk melentingkan cakera dan memasukkan yang lain untuk diuji."
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5503,25 +5503,24 @@ msgid "If you would like to test additional media, insert the next disc and pres
 msgstr ""
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "The %s disc was not found in any of your drives. Please insert the %s disc and press %s to retry."
-msgstr "CD %s tidak dijumpai pada sebarang pemacu CDROM anda. Sila masukkan CD %s dan tekan %s untuk ulangi."
+msgstr "Cakera %s tidak dijumpai pada sebarang pemacu anda. Sila masukkan cakera %s dan tekan %s untuk cuba semula."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "%s tidak dijumpai"
+msgstr "Cakera Dijumpai"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Untuk mula menguji media CD sebelum pemasangan tekan %s.\n"
+"Untuk mula menguji media sebelum pemasangan tekan %s.\n"
 "\n"
-"Pilih %s untuk melangkah ujian media dan mulakan pemasangan."
+"Pilih %s untuk melangkau ujian media dan mulakan pemasangan."
 
 #: ../loader2/cdinstall.c:379
 #, c-format
