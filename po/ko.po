@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-16 16:56+1000\n"
+"PO-Revision-Date: 2007-07-17 14:07+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1304,9 +1304,8 @@ msgstr ""
 "행하시겠습니까 아니면 설치를 중단하시겠습니까?"
 
 #: ../livecd.py:93
-#, fuzzy
 msgid "Unable to find image"
-msgstr "%s 설치 이미지를 읽어올 수 없습니다"
+msgstr "이미지를 찾을 수 없습니다"
 
 #: ../livecd.py:94
 #, python-format
@@ -1314,9 +1313,8 @@ msgid "The given location isn't a valid %s live CD to use as an installation sou
 msgstr ""
 
 #: ../livecd.py:98
-#, fuzzy
 msgid "Exit installer"
-msgstr "%s 설치 프로그램"
+msgstr "설치 프로그램 종료"
 
 #: ../livecd.py:174
 #, fuzzy
@@ -1326,14 +1324,13 @@ msgstr "설치 이미지를 하드 드라이브로 전송하고 있습니다..."
 #: ../livecd.py:203
 #, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s 설치"
+msgstr "설치-이후 "
 
 #: ../livecd.py:204
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "설치를 시작합니다, 이 단계는 몇분 소요될 수 도 있습니다..."
+msgstr "설치-이후 파일시스템을 변경합니다. 이 단계는 몇 분이 소요될 수 도 있습니다..."
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1352,17 +1349,15 @@ msgstr ""
 "니다. "
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP 주소가 없습니다."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP 주소는 0에서 255 사이의 네 자리 숫자로 마침표로 구분하여 지정해 주셔야 합"
+"IPv4 주소는 0에서 255 사이의 네 자리 숫자로 마침표로 구분하여 지정해 주셔야 합"
 "니다."
 
 #: ../network.py:96
@@ -1371,24 +1366,21 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' (은)는 잘못된 IPv6 주소입니다."
 
 #: ../network.py:98
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' (은)는 잘못된 IPv6 주소입니다."
+msgstr "'%s' (은)는 잘못된 IP 주소입니다."
 
 #: ../packages.py:256
-#, fuzzy
 msgid "Invalid Key"
-msgstr "잘못된 접두부(Prefix)"
+msgstr "잘못된 키"
 
 #: ../packages.py:257
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "여러분이 입력하신 값은 사용될 수 없습니다."
+msgstr "입력하신 키는 사용할 수 없습니다."
 
 #: ../packages.py:285
-#, fuzzy
 msgid "_Skip"
-msgstr "스킵"
+msgstr "스킵(_S)"
 
 #: ../packages.py:317 ../packages.py:340
 msgid "Warning! This is pre-release software!"
@@ -1446,7 +1438,7 @@ msgstr ""
 "CDL 포맷을 사용하여 이 DASD를 재포맷하시겠습니까? "
 
 #: ../partedUtils.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1454,8 +1446,8 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"/dev/%s 장치는 %s 파티션 유형입니다. %s 설치에 이 디스크를 사용하시려면, 반드"
-"시 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자료는 "
+"/dev/%s 장치는 %s 파티션 유형입니다. %s 설치에 이 드라이브를 사용하시려면, 반드"
+"시 이를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자료는 "
 "삭제됩니다.\n"
 "\n"
 "이 드라이브를 초기화 하시겠습니까?"
@@ -1466,7 +1458,7 @@ msgstr "드라이브 무시(_I)"
 
 #: ../partedUtils.py:345
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "드라이브 초기화(_R)"
 
 #: ../partedUtils.py:911
 msgid "Initializing"
@@ -1736,7 +1728,7 @@ msgstr ""
 "이 파티션을 스왑 파티션으로 포맷하시겠습니까?"
 
 #: ../partIntfHelpers.py:405
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "%s 설치를 위해 최소 하나의 드라이브를 선택해 주셔야 합니다."
 
@@ -2257,14 +2249,14 @@ msgid "No help is available for this step of the install."
 msgstr "이 설치 과정에 관한 도움말이 없습니다."
 
 #: ../text.py:365
-#, fuzzy, python-format
+#, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "볼륨 그룹명을 입력해 주십시오"
+msgstr "%(instkey)s을 입력해 주십시오"
 
 #: ../text.py:382 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "%(instkey)s 입력 생략"
 
 #: ../text.py:414
 msgid "Save Crash Dump"
@@ -2405,7 +2397,7 @@ msgid "Connecting..."
 msgstr "연결 중..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2419,7 +2411,7 @@ msgstr ""
 "필요한 모든 패키지가 들어 있는지 확인하시고 다른 것을 사용해 보시기 바랍니"
 "다.\n"
 "\n"
-"재부팅하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 합니다.\n"
+"시스템을 종료하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 합니다.\n"
 "\n"
 
 #: ../vnc.py:49
@@ -2604,9 +2596,9 @@ msgid "Preparing transaction from installation source..."
 msgstr "설치소스에서 트랜잭션을 준비하고 있습니다..."
 
 #: ../yuminstall.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "%s 설치\n"
+msgstr "<b>%s 설치하는 중</b> (%s)\n"
 
 #: ../yuminstall.py:185
 #, python-format
@@ -2615,7 +2607,7 @@ msgstr ""
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "업그레이드 완료"
 
 #: ../yuminstall.py:196
 #, fuzzy
@@ -2775,7 +2767,7 @@ msgstr "FCP LUN을 지정하지 않으셨거나, 번호가 맞지 않습니다"
 
 #: ../iw/account_gui.py:26
 msgid "<b>Caps Lock is on.</b>"
-msgstr ""
+msgstr "<b>Caps Lock이 켜져있습니다.</b>"
 
 #: ../iw/account_gui.py:33
 msgid "Set Root Password"
@@ -2801,9 +2793,8 @@ msgid "The root password must be at least six characters long."
 msgstr "루트(root) 암호는 최소 6자 이상이 되어야 합니다."
 
 #: ../iw/account_gui.py:73 ../textw/userauth_text.py:70
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
-msgstr "요청된 암호에는 암호로 사용할 수 없는 ascii가 아닌 문자가 포함되어 있습니다."
+msgstr "요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
 
 #: ../iw/account_gui.py:107
 msgid ""
@@ -2895,7 +2886,6 @@ msgid "Passwords do not match"
 msgstr "암호가 일치하지 않습니다"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:449
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2912,15 +2902,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "고급 부트로더 설정"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:124
-#, fuzzy
 msgid ""
 "If LBA32 is not supported by your system's BIOS, forcing its use can prevent "
 "your machine from booting.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"여러분 메인 보드의 BIOS가 지원하지 않는 상황에서 부트로더를 LBA32로 사용하신"
-"다면, 여러분의 시스템이 부팅할 수 없게 될 수 도 있습니다.\n"
+"시스템의 BIOS가 지원하지 않는 상황에서 부트로더를 LBA32로 사용하신"
+"다면, 시스템이 부팅할 수 없게 될 수 도 있습니다.\n"
 "\n"
 "LBA32 모드로 사용하시겠습니까?"
 
@@ -3285,7 +3274,7 @@ msgid "Mount point in use"
 msgstr "마운트 지점이 사용되고 있습니다."
 
 #: ../iw/lvm_dialog_gui.py:557
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
@@ -3355,9 +3344,9 @@ msgstr ""
 "면 일부 기존 논리 볼륨의 용량을 감소시켜야 합니다."
 
 #: ../iw/lvm_dialog_gui.py:756
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
-msgstr "확실히 \"%s\" 논리 볼륨을 삭제하시겠습니까?"
+msgstr "정말로 \"%s\" 논리 볼륨을 삭제하시겠습니까?"
 
 #: ../iw/lvm_dialog_gui.py:892
 msgid "Invalid Volume Group Name"
@@ -3536,15 +3525,13 @@ msgid "Netmask"
 msgstr "넷마스크"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 접두부는 0과 32사이의 값이어야 합니다."
+msgstr "IPv4 CIDR 접두부는 0과 32사이의 값이어야 합니다."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4/넷마스크"
+msgstr "IPv4 넷마스크"
 
 #: ../iw/netconfig_dialog.py:235 ../iw/netconfig_dialog.py:238
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:524
@@ -3696,17 +3683,15 @@ msgstr "장치 편집"
 
 #: ../iw/network_gui.py:625
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "알 수 없는 이더넷 장치"
 
 #: ../iw/network_gui.py:631
-#, fuzzy
 msgid "unknown"
 msgstr "알 수 없음"
 
 #: ../iw/network_gui.py:633
-#, fuzzy
 msgid "Hardware address: "
-msgstr "하드웨어 주소: %s"
+msgstr "하드웨어 주소: "
 
 #: ../iw/network_gui.py:769 ../textw/network_text.py:223 ../loader2/net.c:791
 msgid "Missing Protocol"
@@ -4901,9 +4886,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "넷마스크"
+msgstr "접두부 (넷마스크)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
 #, fuzzy
@@ -4955,29 +4939,26 @@ msgstr "동적 IP 주소 설정 사용 (DHCP)"
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
 #, fuzzy
 msgid "Manual address configuration"
-msgstr "수동 TCP/IP 설정"
+msgstr "수동 주소 설정"
 
 #: ../textw/network_text.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "%s를 위한 네트워크 설정"
+msgstr "%s에 대한 IPv4 설정"
 
 #: ../textw/network_text.py:320 ../textw/network_text.py:332
 #: ../textw/network_text.py:335
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4 주소:"
+msgstr "IPv4 주소"
 
 #: ../textw/network_text.py:324
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/넷마스크"
+msgstr "IPv4 넷마스크"
 
 #: ../textw/network_text.py:350 ../textw/network_text.py:353
 #: ../textw/network_text.py:356
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "넷마스크"
+msgstr "IPv4 접두부 (넷마스크)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
@@ -6434,7 +6415,6 @@ msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefi
 msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: ../loader2/net.c:1200
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "올바른 IPv6 주소와 CIDR 접두부(prefix)를 입력해 주십시오."
 
@@ -6636,9 +6616,8 @@ msgid "Disable _dmraid device"
 msgstr "dmraid 장치 비활성화(_D)"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "하드 드라이브"
+msgstr "드라이브 추가(_A)"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
@@ -6709,9 +6688,8 @@ msgid "Exception Info"
 msgstr "예외 상황 정보"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "Save to _Remote"
-msgstr "원격 호스트에 저장"
+msgstr "원격으로 저장(_R)"
 
 #: tmp/exn.glade.h:4
 msgid "_Exception details"
@@ -6724,12 +6702,12 @@ msgstr "플로피 디스켓에 저장(_S)"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "볼륨 그룹명을 입력해 주십시오"
+msgstr "%(instkey)s을 입력해 주십시오."
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Password:</b>"
@@ -6752,18 +6730,16 @@ msgid "_Add target"
 msgstr "대상 추가(_A)"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "%s 설치(_I)"
+msgstr "설치"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "설치 시작"
+msgstr "하드 드라이브에 설치"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6816,12 +6792,11 @@ msgstr "설명: %s"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>하드웨어 주소: DE:AD:00:BE:EF:00</b>"
 
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "%s 인터페이스 편집"
+msgstr "인터페이스 편집"
 
 #: tmp/netpostconfig.glade.h:11
 #, fuzzy
