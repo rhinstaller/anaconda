@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.6
+Version: 11.3.0.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 16 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.7-1
+- Don't format rootfs for live installs (#248085)
+- Handle --only-use option for drives (clumens, #198526)
+- Avoid reserving labels that won't exist after partitioning is 
+  complete (clumens, #209291)
+
 * Thu Jul 12 2007 Chris Lumens <clumens@redhat.com> 11.3.0.6-1
 - Don't call lvm.pvlist so much (pjones).
 - Don't log harmless unmounting errors (dlehman, #223059).
