@@ -802,7 +802,7 @@ class Partitions:
 
     def hasGptLabel(self, diskset, device):
         disk = diskset.disks[device]
-        return disk.type.name == "gpt":
+        return disk.type.name == "gpt"
 
     def sanityCheckAllRequests(self, diskset, baseChecks = 0):
         """Do a sanity check of all of the requests.
