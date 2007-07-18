@@ -1251,7 +1251,7 @@ class FileSystemSet:
                 fstab = fstab + entry.device.getComment()
                 fstab = fstab + format % (device, entry.mountpoint,
                                           entry.fsystem.getName(),
-                                          entry.options, entry.fsck,
+                                          entry.getOptions(), entry.fsck,
                                           entry.order)
         return fstab
 
@@ -1265,8 +1265,9 @@ class FileSystemSet:
                 # swap doesn't end up in the mtab
                 if entry.fsystem.getName() == "swap":
                     continue
-                if entry.options:
-                    options = "rw," + entry.options
+                options = entry.getOptions()
+                if options:
+                    options = "rw," + options
                 else:
                     options = "rw"
                 mtab = mtab + format % (devify(entry.device.getDevice()),
@@ -1994,11 +1995,7 @@ class FileSystemSetEntry:
         self.fsystem = fsystem
         self.origfsystem = origfsystem
         self.migrate = migrate
-        if options:
-            self.options = options
-        else:
-            self.options = fsystem.getDefaultOptions(mountpoint)
-        self.options += device.getDeviceOptions()
+        self.options = options
         self.mountcount = 0
         self.label = None
         if fsck == -1:
@@ -2062,6 +2059,12 @@ class FileSystemSetEntry:
 
     def getMountPoint(self):
 	return self.mountpoint
+
+    def getOptions(self):
+        options = self.options
+        if not options:
+            options = self.fsystem.getDefaultOptions(self.mountpoint)
+        return options + self.device.getDeviceOptions()
         
     def setFormat (self, state):
         if self.migrate and state:
@@ -2101,7 +2104,7 @@ class FileSystemSetEntry:
                "  bytesPerInode: %(bytesPerInode)s label: %(label)s\n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
                 "fsystem": self.fsystem.getName(), "format": self.format,
-                "mounted": self.mountcount, "options": self.options,
+                "mounted": self.mountcount, "options": self.getOptions(),
                 "bytesPerInode": self.bytesPerInode, "label": self.label})
         return str
         
