@@ -700,7 +700,7 @@ class Partitions:
 
         if rhpl.getArch() == "ia64":
             return [ "/boot/efi" ]
-        if rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
+        if rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi():
             return [ "/boot/efi" ]
         else:
             return [ "/boot", "/" ]
