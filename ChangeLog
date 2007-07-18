@@ -1,3 +1,8 @@
+2007-07-18  Peter Jones  <pjones@redhat.com>
+
+	* partitions.py (Partitions.sanityCheckAllRequests): remove some
+	zealotry that I added this morning.  It is too much.
+
 2007-07-18  Chris Lumens  <clumens@redhat.com>
 
 	* partitions.py (Partitions.hasGptLabel):  Fix typo.

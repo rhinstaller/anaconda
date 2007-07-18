@@ -847,18 +847,19 @@ class Partitions:
         if rhpl.getArch() in ("i386", "x86_64"):
             if iutil.isEfi():
                 bootreq = self.getRequestByMountPoint("/boot/efi")
-                for br in getBaseReqs([bootreq,]):
-                    disk = None
-                    num = None
-                    if br:
+                ok = True
+                if not bootreq or bootreq.getActualSize(self, diskset) < 50:
+                    ok = False
+                if ok:
+                    for br in getBaseReqs([bootreq,]):
                         (disk, num) = fsset.getDiskPart(br.device)
-                    if not br or br.getActualSize(self, diskset) < 50 or \
-                            not self.hasGptLabel(diskset, disk):
-                        errors.append(_("You must create a /boot/efi "
-                                        "partition of type FAT and a "
-                                        "size of 50 megabytes."))
+                        if not self.hasGptLabel(diskset, disk):
+                            ok = False
+                if not ok:
+                    errors.append(_("You must create a /boot/efi partition of "
+                                    "type FAT and a size of 50 megabytes."))
             else:
-                # mactel checks.  
+                # mactel checks
                 bootreqs = self.getBootableRequest() or []
                 for br in getBaseReqs(bootreqs):
                     (dev, num) = fsset.getDiskPart(br.device)
@@ -866,9 +867,9 @@ class Partitions:
                     if iutil.isMactel():
                         if self.hasGptLabel(diskset, dev) and int(num) > 4:
                             errors.append(
-                                    _("Your boot partition isn't on one of "
-                                      "the first four partitions and thus "
-                                      "won't be bootable."))
+                                      _("Your boot partition isn't on one of "
+                                        "the first four partitions and thus "
+                                        "won't be bootable."))
                     elif self.hasGptLabel(diskset, dev):
                         errors.append(_("Your boot partition is on a disk "
                                         "using the GPT partitioning scheme "
@@ -877,13 +878,12 @@ class Partitions:
 
         if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            for br in getBaseReqs([bootreq,]):
-                if not br or br.getActualSize(self, diskset) < 50:
-                    errors.append(_("You must create a /boot/efi partition of "
-                                    "type FAT and a size of 50 megabytes."))
+            if not bootreq or bootreq.getActualSize(self, diskset) < 50:
+                errors.append(_("You must create a /boot/efi partition of "
+                                "type FAT and a size of 50 megabytes."))
 
         if iutil.getPPCMacGen() == "NewWorld":
-            reqs = getBaseReqs(self.getBootableRequest() or [])
+            reqs = self.getBootableRequest()
             found = 0
 
             bestreq = None
@@ -903,7 +903,7 @@ class Partitions:
 
         if (iutil.getPPCMachine() == "pSeries" or
             iutil.getPPCMachine() == "iSeries"):
-            reqs = getBaseReqs(self.getBootableRequest() or [])
+            reqs = self.getBootableRequest()
             found = 0
 
             bestreq = None
