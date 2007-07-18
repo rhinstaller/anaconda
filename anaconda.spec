@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.58
+Version: 11.1.2.59
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.59-1
+- Correctly discover underlying physical disks for RAID devices (pjones)
+  Resolves: rhbz#248616
+- Mark iSCSI root with _netdev mount option (markmc AT redhat DOT com)
+  Resolves: rhbz#244944
+- Clear screen after post-install NIC settings
+  Resolves: rhbz#248130
+- Display mpath model and unit info on text partitioning screen
+  Related: rhbz#185852
+
 * Mon Jul 16 2007 Peter Jones <pjones@redhat.com> - 11.1.2.58-1
 - Only skip redhat-lsb during dependency resolution if it's not
   the only thing left
