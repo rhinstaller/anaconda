@@ -5,6 +5,10 @@
 
 2007-07-18  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (FileSystemSet.turnOnSwap):  Improve error reporting when
+	trying to mount swap partitions specified by device name instead of
+	label (#248558).
+
 	* partitions.py (Partitions.hasGptLabel):  Fix typo.
 
 	* partitions.py (turnOnFilesystems):  Remove call to refreshDevices.

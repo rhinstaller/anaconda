@@ -1536,27 +1536,24 @@ MAILADDR root
                         sys.exit(0)
                 except SystemError, (num, msg):
                     if self.messageWindow:
-                        if upgrading:
-                            self.messageWindow(_("Error"),
-                                               _("Error enabling swap device "
-                                                 "%s: %s\n\n"
-                                                 "The /etc/fstab on your "
-                                                 "upgrade partition does not "
-                                                 "reference a valid swap "
-                                                 "partition.\n\n"
-                                                 "Press OK to exit the "
-                                                 "installer.")
-                                               % (entry.device.getDevice(), msg))
+                        if upgrading and not entry.getLabel():
+                            err = _("Error enabling swap device %s: %s\n\n"
+                                    "Devices in /etc/fstab should be specified "
+                                    "by label, not by device name.\n\nPress "
+                                    "OK to exit the installer.") % (entry.device.getDevice(), msg)
+                        elif upgrading:
+                            err = _("Error enabling swap device %s: %s\n\n"
+                                    "The /etc/fstab on your upgrade partition "
+                                    "does not reference a valid swap "
+                                    "partition.\n\nPress OK to exit the "
+                                    "installer") % (entry.device.getDevice(), msg)
                         else:
-                            self.messageWindow(_("Error"),
-                                               _("Error enabling swap device "
-                                                 "%s: %s\n\n"
-                                                 "This most likely means this "
-                                                 "swap partition has not been "
-                                                 "initialized.\n\n"
-                                                 "Press OK to exit the "
-                                                 "installer.")
-                                               % (entry.device.getDevice(), msg))
+                            err = _("Error enabling swap device %s: %s\n\n"
+                                    "This most likely means this swap "
+                                    "partition has not been initialized.\n\n"
+                                    "Press OK to exit the installer.") % (entry.device.getDevice(), msg)
+
+                    self.messageWindow(_("Error"), err)
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
