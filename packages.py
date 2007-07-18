@@ -141,7 +141,7 @@ def turnOnFilesystems(anaconda):
     if flags.setupFilesystems:
 	if not anaconda.id.upgrade:
             anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
-            anaconda.id.diskset.clearDevices()
+            anaconda.id.diskset.refreshDevices()
             anaconda.id.fsset.setActive(anaconda.id.diskset)
             if not anaconda.id.fsset.isActive():
                 anaconda.id.diskset.savePartitions ()

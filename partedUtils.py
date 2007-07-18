@@ -279,6 +279,22 @@ archLabels = {'i386': ['msdos', 'gpt'],
               'ppc': ['msdos', 'mac', 'amiga'],
               'x86_64': ['msdos', 'gpt']}
 
+def labelDisk(deviceFile, forceLabelType=None):
+    dev = parted.PedDevice.get(deviceFile)
+    label = getDefaultDiskType()
+
+    if not forceLabelType is None:
+        label = forceLabelType
+    else:
+        if label.name == 'msdos' and \
+                dev.length > (2L**41) / dev.sector_size and \
+                'gpt' in archLabels[rhpl.getArch()]:
+            label = parted.disk_type_get('gpt')
+
+    disk = dev.disk_new_fresh(label)
+    disk.commit()
+    return disk
+
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
 def checkDasdFmt(disk, intf):
@@ -583,6 +599,7 @@ class DiskSet:
 
     def __init__ (self, anaconda = None):
         self.disks = {}
+        self.initializedDisks = {}
         self.onlyPrimary = None
         self.anaconda = anaconda
 
@@ -688,13 +705,18 @@ class DiskSet:
         """Return a list of all of the labels used on partitions."""
         labels = {}
 
-        drives = self.disks.keys()
-        drives.sort()
-
-        for drive in drives:
+        for drive in self.driveList():
             # Don't read labels from drives we cleared using clearpart, as
             # we don't actually remove the existing filesystems so those
             # labels will still be present (#209291).
+            if drive in DiskSet.skippedDisks:
+                continue
+
+            # ignoredisk takes precedence over clearpart (#186438).
+            if DiskSet.exclusiveDisks != [] and \
+                    drive not in DiskSet.exclusiveDisks:
+                continue
+
             if drive in DiskSet.clearedDisks:
                 continue
 
@@ -888,11 +910,29 @@ class DiskSet:
 
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
-                   os.path.exists("/usr/sbin/gptsync"):
+                    os.path.exists("/usr/sbin/gptsync"):
                 iutil.execWithRedirect("/usr/sbin/gptsync", [disk.dev.path],
                                        stdout="/dev/tty5", stderr="/dev/tty5")
             del disk
         self.refreshDevices()
+
+    def _addDisk(self, drive, disk):
+        log.debug("adding drive %s to disk list" % (drive,))
+        self.initializedDisks[drive] = True
+        self.disks[drive] = disk
+
+    def _removeDisk(self, drive, addSkip=True):
+        msg = "removing drive %s from disk lists" % (drive,)
+        if addSkip:
+            msg += "; adding to skip list"
+        log.debug(msg)
+
+        if self.disks.has_key(drive):
+            del self.disks[drive]
+        if addSkip:
+            if self.initializedDisks.has_key(drive):
+                del self.initializedDisks[drive]
+            DiskSet.skippedDisks.append(drive)
 
     def refreshDevices (self):
         """Reread the state of the disks as they are on disk."""
@@ -989,50 +1029,73 @@ class DiskSet:
 
         return 1
 
-    def clearDevices (self):
-        def inClearDevs (drive, clearDevs):
-            return (clearDevs is None) or (len(clearDevs) == 0) or (drive in clearDevs)
+    def _askForLabelPermission(self, intf, drive, clearDevs, initAll, ks):
+        # if anaconda is None here, we are called from labelFactory
+        # XXX FIXME this test is terrible.
+        if self.anaconda is not None:
+            rc = 0
+            if ks and (drive in clearDevs) and initAll:
+                rc = 1
+            else:
+                if not intf:
+                    self._removeDisk(drive)
+                    return False
+                msg = _("The partition table on device %s was unreadable. "
+                        "To create new partitions it must be initialized, "
+                        "causing the loss of ALL DATA on this drive.\n\n"
+                        "This operation will override any previous "
+                        "installation choices about which drives to "
+                        "ignore.\n\n"
+                        "Would you like to initialize this drive, "
+                        "erasing ALL DATA?") % (drive,)
 
-        clearDevs = []
-        initAll = False
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd" \
+                        and isys.getDasdState(drive):
+                    devs = isys.getDasdDevPort()
+                    msg = \
+                     _("The partition table on device %s (%s) was unreadable. "
+                       "To create new partitions it must be initialized, "
+                       "causing the loss of ALL DATA on this drive.\n\n"
+                       "This operation will override any previous "
+                       "installation choices about which drives to "
+                       "ignore.\n\n"
+                       "Would you like to initialize this drive, "
+                       "erasing ALL DATA?") % (drive, devs[drive])
 
-        if self.anaconda is not None and self.anaconda.isKickstart:
-            clearDevs = self.anaconda.id.ksdata.clearpart.drives
-            initAll = self.anaconda.id.ksdata.clearpart.initAll
+                rc = intf.messageWindow(_("Warning"), msg, type="yesno")
 
-        for drive in self.driveList():
-            # ignoredisk takes precedence over clearpart (#186438).
-            if (DiskSet.exclusiveDisks != [] and drive not in DiskSet.exclusiveDisks) or drive in DiskSet.skippedDisks:
-                continue
+            if rc != 0:
+                return True
+        
+        self._removeDisk(drive)
+        return False
 
-            deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+    def _labelDevice(self, drive):
+        log.info("Reinitializing label for drive %s" % (drive,))
 
-            if not isys.mediaPresent(drive):
-                DiskSet.skippedDisks.append(drive)
-                continue
+        deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
 
+        try:
             try:
-                dev = parted.PedDevice.get (deviceFile)
-            except parted.error, msg:
-                DiskSet.skippedDisks.append(drive)
-                continue
-
-            if initAll and inClearDevs(drive, clearDevs) and not flags.test \
-                       and not hasProtectedPartitions(drive, self.anaconda):
-                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
+                # FIXME: need the right fix for z/VM formatted dasd
+                if rhpl.getArch() == "s390" \
+                        and drive[:4] == "dasd":
                     if self.dasdFmt(drive):
-                        DiskSet.skippedDrives.append(drive)
-                        continue
+                        raise LabelError, drive
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = parted.PedDisk.new(dev)
                 else:
-                    try:
-                        disk = dev.disk_new_fresh(getDefaultDiskType())
-                        disk.commit()
-                        DiskSet.clearedDisks.append(drive)
-                        del disk
-                        del dev
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
+                    disk = labelDisk(deviceFile)
+            except parted.error, msg:
+                log.debug("parted error: %s" % (msg,))
+                raise
+        except:
+            self._removeDisk(drive)
+            raise LabelError, drive
+
+        self._addDisk(drive, disk)
+        return disk, dev
 
     def openDevices (self):
         """Open the disks on the system and skip unopenable devices."""
@@ -1053,9 +1116,27 @@ class DiskSet:
             # ignoredisk takes precedence over clearpart (#186438).
             if drive in DiskSet.skippedDisks:
                 continue
+
+            if DiskSet.exclusiveDisks != [] and \
+                    drive not in DiskSet.exclusiveDisks:
+                continue
+
             deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
             if not isys.mediaPresent(drive):
                 DiskSet.skippedDisks.append(drive)
+                continue
+
+            disk = None
+            dev = None
+
+            if self.initializedDisks.has_key(drive):
+                if not self.disks.has_key(drive):
+                    try:
+                        dev = parted.PedDevice.get(deviceFile)
+                        disk = parted.PedDisk.new(dev)
+                        self._addDisk(drive, disk)
+                    except parted.error, msg:
+                        self._removeDisk(drive)
                 continue
 
             ks = False
@@ -1068,103 +1149,56 @@ class DiskSet:
                 initAll = self.anaconda.id.ksdata.clearpart.initAll
 
             # FIXME: need the right fix for z/VM formatted dasd
-            if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
-                devs = isys.getDasdDevPort()
-                if intf is None:
-                    DiskSet.skippedDisks.append(drive)
+            if rhpl.getArch() == "s390" \
+                    and drive[:4] == "dasd" \
+                    and isys.getDasdState(drive):
+                try:
+                    if not self._askForLabelPermission(intf, drive, clearDevs,
+                            initAll, ks):
+                        raise LabelError, drive
+
+                    disk, dev = self._labelDevice(drive)
+                except:
                     continue
 
-                # if anaconda is None here, we are called from labelFactory
-                if self.anaconda is not None:
-                    if ks and (drive in clearDevs) and initAll:
-                        rc = 1
-                    else:
-                        rc = intf.messageWindow(_("Warning"),
-                             _("The partition table on device %s (%s) was unreadable. "
-                               "To create new partitions it must be initialized, "
-                               "causing the loss of ALL DATA on this drive.\n\n"
-                               "This operation will override any previous "
-                               "installation choices about which drives to "
-                               "ignore.\n\n"
-                               "Would you like to initialize this drive, "
-                               "erasing ALL DATA?")
-                                        % (drive, devs[drive]), type = "yesno")
-
-                    if rc == 0:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
-                    elif rc != 0:
-                        if (self.dasdFmt(drive)):
-                            DiskSet.skippedDisks.append(drive)
-                            continue
+            if initAll and ((clearDevs is None) or (len(clearDevs) == 0) \
+                       or (drive in clearDevs)) and not flags.test \
+                       and not hasProtectedPartitions(drive, self.anaconda):
+                try:
+                    disk, dev = self._labelDevice(drive)
+                except:
+                    continue
 
             try:
-                dev = parted.PedDevice.get (deviceFile)
+                if not dev:
+                    dev = parted.PedDevice.get(deviceFile)
+                    disk = None
             except parted.error, msg:
-                DiskSet.skippedDisks.append(drive)
+                log.debug("parted error: %s" % (msg,))
+                self._removeDisk(drive, disk)
                 continue
 
             try:
-                disk = parted.PedDisk.new(dev)
-                self.disks[drive] = disk
+                if not disk:
+                    disk = parted.PedDisk.new(dev)
+                    self._addDisk(drive, disk)
             except parted.error, msg:
                 recreate = 0
                 if zeroMbr:
                     log.error("zeroMBR was set and invalid partition table "
                               "found on %s" % (dev.path[5:]))
                     recreate = 1
-                elif intf is None:
-                    DiskSet.skippedDisks.append(drive)
-                    continue
                 else:
-                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                        devs = isys.getDasdDevPort()
-                        format = drive + " (" + devs[drive] + ")"
-                    else:
-                        format = drive
-
-                    # if anaconda is None here, we are called from labelFactory
-                    if self.anaconda is not None:
-                        if ks and (drive in clearDevs) and initAll:
-                            rc = 1
-                        else:
-                            rc = intf.messageWindow(_("Warning"),
-                                 _("The partition table on device %s was unreadable. "
-                                   "To create new partitions it must be initialized, "
-                                   "causing the loss of ALL DATA on this drive.\n\n"
-                                   "This operation will override any previous "
-                                   "installation choices about which drives to "
-                                   "ignore.\n\n"
-                                   "Would you like to initialize this drive, "
-                                   "erasing ALL DATA?") % (format,), type = "yesno")
-
-                        if rc == 0:
-                            DiskSet.skippedDisks.append(drive)
-                            continue
-                        elif rc != 0:
-                            recreate = 1
-                    else:
-                        DiskSet.skippedDisks.append(drive)
+                    if not self._askForLabelPermission(intf, drive, clearDevs,
+                            initAll, ks):
                         continue
 
+                    recreate = 1
+
                 if recreate == 1 and not flags.test:
-                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                        if self.dasdFmt(drive):
-                            DiskSet.skippedDisks.append(drive)
-                            continue
-                    else:
-                        try:
-                            disk = dev.disk_new_fresh(getDefaultDiskType())
-                            disk.commit()
-                            DiskSet.clearedDisks.append(drive)
-                        except parted.error, msg:
-                            DiskSet.skippedDisks.append(drive)
-                            continue
                     try:
-                        disk = parted.PedDisk.new(dev)
-                        self.disks[drive] = disk
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
+                        disk, dev = self._labelDevice(drive)
+                    except:
                         continue
 
             filter_partitions(disk, validateFsType)
@@ -1193,27 +1227,12 @@ class DiskSet:
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
             if ret == 1:
-                DiskSet.skippedDisks.append(drive)
-                continue
+                self._removeDisk(drive)
             elif ret == -1:
-                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
-                    if self.dasdFmt(drive):
-                        DiskSet.skippedDisks.append(drive)
-                        continue
-                else:
-                    try:
-                        disk = dev.disk_new_fresh(getDefaultDiskType())
-                        disk.commit()
-                        DiskSet.clearedDisks.append(drive)
-                    except parted.error, msg:
-                        DiskSet.skippedDisks.append(drive)
-                        continue
                 try:
-                    disk = parted.PedDisk.new(dev)
-                    self.disks[drive] = disk
-                except parted.error, msg:
-                    DiskSet.skippedDisks.append(drive)
-                    continue
+                    disk, dev = self._labelDevice(drive)
+                except:
+                    pass
 
     def partitionTypes (self):
         """Return list of (partition, partition type) tuples for all parts."""

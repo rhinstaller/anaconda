@@ -1,3 +1,15 @@
+2007-07-18  Peter Jones  <pjones@redhat.com>
+
+	* partedUtils.py (DiskSet):
+	- back port (forward port?) reorganization of openDevices() from rhel5
+	- get rid of clearDevices()
+
+	* packages.py (turnOnFilesystems):
+	- use refreshDevices() not clearDevices()
+
+	* partitioning.py (partitioningComplete): 
+	- use refreshDevices() not clearDevices()
+
 2007-07-16  Peter Jones  <pjones@redhat.com>
 
 	* partedUtils.py (DiskSet.openDevices): don't generate the error
