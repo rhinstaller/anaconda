@@ -52,7 +52,8 @@ if rhpl.getArch() == "s390":
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
     defaultMountPoints.insert(4, '/usr/share')
 
-if rhpl.getArch() == "ia64":
+if rhpl.getArch() == "ia64" or \
+        (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
     defaultMountPoints.insert(1, '/boot/efi')
 else:
     defaultMountPoints.insert(1, '/boot')
@@ -868,6 +869,23 @@ class FATFileSystem(FileSystemType):
                                     stderr = "/dev/tty5", searchPath = 1)
         if rc:
             raise SystemError
+
+    def labelDevice(self, entry, chroot):
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+
+        rc = iutil.execWithRedirect("dosfslabel",
+                                    [devicePath, label],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5",
+                                    searchPath = 1)
+        newLabel = iutil.execWithCapture("dosfslabel", [devicePath],
+                                         stderr = "/dev/tty5")
+        newLabel = newLabel.strip()
+        if label != newLabel:
+            raise SystemError, "dosfslabel failed on device %s" % (devicePath,)
+        entry.setLabel(label)
         
 fileSystemTypeRegister(FATFileSystem())
 
@@ -1312,7 +1330,8 @@ MAILADDR root
                     bestprep = entry
             if bestprep:
                 bootDev = bestprep.device
-        elif rhpl.getArch() == "ia64":
+        elif rhpl.getArch() == "ia64" or \
+                (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()):
             if mntDict.has_key("/boot/efi"):
                 bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
@@ -1366,8 +1385,9 @@ MAILADDR root
 
         # on ia64, *only* /boot/efi should be marked bootable
         # similarly, on pseries, we really only want the PReP partition active
-        if (rhpl.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries"
-            or iutil.getPPCMachine() == "iSeries") or iutil.getPPCMachine() == "PMac":
+        if (rhpl.getArch() == "ia64" \
+                or (rhpl.getArch() in ("i386", "x86_64") and iutil.isEfi()) \
+                or iutil.getPPCMachine() in ("pSeries", "iSeries", "PMac"):
             part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):
                 part.set_flag(parted.PARTITION_BOOT, 1)
@@ -1377,6 +1397,8 @@ MAILADDR root
             foundActive = 0
             bootPart = None
             disk = diskset.disks[drive]
+            if disk.dev.disk_probe().name == "gpt":
+                continue
             part = disk.next_partition()
             while part:
                 if not part.is_active():

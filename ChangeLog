@@ -1,5 +1,23 @@
 2007-07-18  Peter Jones  <pjones@redhat.com>
 
+	* fsset.py (FATFileSystem.labelDevice): add support for labeling FAT
+
+	* fsset.py (FileSystemSet.getBootDev): make x86 machines using efi
+	use /boot/efi as their mountpoint.  Also mark it bootable in
+	.setActive()
+
+	* iutil.py (isEfi): add isEfi, which tells you if you're on an EFI
+	machine.
+
+	* partitions.py (Partitions.getBootableRequest): look for /boot/efi
+	on x86 machines with efi.  Likewise with .getBootableMountpoints()
+
+	* partitions.py (Partitions.sanityCheckAllRequests): fix handling of
+	gpt and EFI for x86 machines using them.  Boot support not yet here,
+	coming later.
+
+2007-07-18  Peter Jones  <pjones@redhat.com>
+
 	* partedUtils.py (DiskSet):
 	- back port (forward port?) reorganization of openDevices() from rhel5
 	- get rid of clearDevices()
