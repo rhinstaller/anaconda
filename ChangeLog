@@ -6,6 +6,9 @@
 	* textw/network_text.py (NetworkDeviceWindow.chooseNetworkDevice): Clear
 	screen after post-install NIC settings (#248130).
 
+	* textw/partition_text.py (PartitionWindow): Display mpath model and
+	unit info on the text partitioning screen.
+
 2007-07-16  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.

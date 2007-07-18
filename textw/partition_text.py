@@ -1440,9 +1440,9 @@ class PartitionWindow:
         self.g = GridFormHelp(screen, _("Partitioning"), "partition", 1, 5)
 
         self.lb = CListbox(height=10, cols=6,
-                           col_widths=[17,6,6,7,10,12],
+                           col_widths=[21,6,6,7,10,12],
                            scroll=1, returnExit = 1,
-                           width=70, col_pad=2,
+                           width=74, col_pad=2,
                            col_labels=[_('Device'), _('Start'), _('End'), _('Size'), _('Type'), _('Mount Point')],
                            col_label_align=[CENTER, CENTER,CENTER,CENTER,CENTER,CENTER])
         self.g.add(self.lb, 0, 1)
@@ -1575,7 +1575,10 @@ class PartitionTypeWindow:
 
             for disk in disks:
                 size = getDeviceSizeMB(anaconda.id.diskset.disks[disk].dev)
-                model = anaconda.id.diskset.disks[disk].dev.model
+                if disk.find('mapper/mpath') != -1:
+                    model = isys.getMpathModel(disk)
+                else:
+                    model = anaconda.id.diskset.disks[disk].dev.model
 
                 if not cleardrives or len(cleardrives) < 1:
                     selected = 1
