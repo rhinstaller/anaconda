@@ -107,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 - Correctly discover underlying physical disks for RAID devices (pjones)
   Resolves: rhbz#248616
 - Mark iSCSI root with _netdev mount option (markmc AT redhat DOT com)
-  Resolves: rhbz#244944
+  Resolves: rhbz#244994
 - Clear screen after post-install NIC settings
   Resolves: rhbz#248130
 - Display mpath model and unit info on text partitioning screen
