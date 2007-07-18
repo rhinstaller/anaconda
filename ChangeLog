@@ -1,3 +1,9 @@
+2007-07-18  Peter Jones  <pjones@redhat.com>
+
+	* partitions.py (Partitions.sanityCheckAllRequests): look at the
+	partition table format of the underlying disks in the raid case, so
+	we'll find actual physical devices and the paths will work (#248616)
+
 2007-07-18  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py: Mark iSCSI root with _netdev mount option (patch from Mark

@@ -832,21 +832,38 @@ class Partitions:
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
+        def getBaseReqs(reqs):
+            n = 0
+            while not reduce(lambda x,y: x and (y.type != REQUEST_RAID),
+                             reqs, True) \
+                    and len(reqs) > n:
+                req = reqs[n]
+                if req.type == REQUEST_RAID:
+                    for id in req.raidmembers:
+                        reqs.append(self.getRequestByID(id))
+                    del reqs[n]
+                    continue
+                n += 1
+            return reqs
+
         if rhpl.getArch() in ("i386", "x86_64"):
             if iutil.isEfi():
                 bootreq = self.getRequestByMountPoint("/boot/efi")
-                disk = None
-                num = None
-                if bootreq:
-                    (disk, num) = fsset.getDiskPart(bootreq.device)
-                if not bootreq or bootreq.getActualSize(self, diskset) < 50 or \
-                        not self.hasGptLabel(diskset, disk):
+                ok = True
+                if not bootreq or bootreq.getActualSize(self, diskset) < 50:
+                    ok = False
+                if ok:
+                    for br in getBaseReqs([bootreq,]):
+                        (disk, num) = fsset.getDiskPart(br.device)
+                        if not self.hasGptLabel(diskset, disk):
+                            ok = False
+                if not ok:
                     errors.append(_("You must create a /boot/efi partition of "
                                     "type FAT and a size of 50 megabytes."))
             else:
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
-                for br in bootreqs:
+                for br in getBaseReqs(bootreqs):
                     (dev, num) = fsset.getDiskPart(br.device)
 
                     if iutil.isMactel():
