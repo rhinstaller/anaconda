@@ -854,7 +854,7 @@ class Partitions:
                         (disk, num) = fsset.getDiskPart(br.device)
                     if not br or br.getActualSize(self, diskset) < 50 or \
                             not self.hasGptLabel(diskset, disk):
-                        errors.append(_("You must creat a /boot/efi "
+                        errors.append(_("You must create a /boot/efi "
                                         "partition of type FAT and a "
                                         "size of 50 megabytes."))
             else:
