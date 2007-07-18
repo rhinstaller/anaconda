@@ -97,13 +97,12 @@ def partitioningComplete(anaconda):
                               "immediately. Is that OK?"), "yesno")
     else:
         rc = 1
-        
+
     if rc:
-        anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)        
-        anaconda.id.diskset.refreshDevices()
+        anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
         anaconda.id.fsset.setActive(anaconda.id.diskset)
         anaconda.id.diskset.savePartitions ()
-        anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)        
+        anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
         anaconda.id.fsset.formatSwap(anaconda.rootPath)
         anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
 

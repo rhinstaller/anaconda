@@ -7,6 +7,9 @@
 
 	* partitions.py (Partitions.hasGptLabel):  Fix typo.
 
+	* partitions.py (turnOnFilesystems):  Remove call to refreshDevices.
+	* partitioning.py (partitioningComplete):  Likewise.
+
 2007-07-18  Peter Jones  <pjones@redhat.com>
 
 	* fsset.py (FATFileSystem.labelDevice): add support for labeling FAT
