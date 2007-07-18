@@ -3,6 +3,9 @@
 	* fsset.py: Mark iSCSI root with _netdev mount option (patch from Mark
 	McLoughlin AT redhat DOT com, #244994).
 
+	* textw/network_text.py (NetworkDeviceWindow.chooseNetworkDevice): Clear
+	screen after post-install NIC settings (#248130).
+
 2007-07-16  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.
