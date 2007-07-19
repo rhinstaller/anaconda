@@ -1,3 +1,8 @@
+2007-07-19  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py: Mark iSCSI root with _netdev mount option (patch from
+	markmc AT redhat DOT com, #245725).
+
 2007-07-19  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.add):  Fix duplicate entry check to take
