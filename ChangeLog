@@ -1,3 +1,8 @@
+2007-07-19  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (setupNetworkDeviceConfig): Prevent SIGSEGV when going
+	back from NFS entry box after doing a manual IPv4 config (#248075).
+
 2007-07-18  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

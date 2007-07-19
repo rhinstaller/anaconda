@@ -369,7 +369,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->vendor_class = NULL;
     }
 
-    if (loaderData->ipinfo_set) {
+    if (loaderData->ipinfo_set && loaderData->ip != NULL) {
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
                 logMessage(INFO, "setting specified essid of %s",
