@@ -837,6 +837,8 @@ class DiskSet:
         drives = self.disks.keys()
         drives.sort()
 
+        protected = self.anaconda.method.protectedPartitions()
+
         for drive in drives:
             disk = self.disks[drive]
             part = disk.next_partition ()
@@ -849,22 +851,21 @@ class DiskSet:
                       part.fs_type.name in fsset.getUsableLinuxFs()):
                     node = get_partition_name(part)
 
-                    # In hard drive ISO method, don't try to mount the
-                    # protected partitions because that'll throw up a
-                    # useless error message.
-                    protected = self.anaconda.method.protectedPartitions()
+                    # The root filesystem can be on the same partition as the
+                    # ISO images, but we don't want to try to remount it
+                    # because that'll throw up a useless error message.
+                    if not protected or node not in protected:
+                        try:
+                            isys.mount(node, self.anaconda.rootPath, part.fs_type.name)
+                            checkRoot = self.anaconda.rootPath
+                        except SystemError, (errno, msg):
+                            part = disk.next_partition(part)
+                            continue
+                    else:
+                        checkRoot = self.anaconda.method.isoDir
 
-                    if protected and node in protected:
-                        part = disk.next_partition(part)
-                        continue
-
-		    try:
-			isys.mount(node, self.anaconda.rootPath, part.fs_type.name)
-		    except SystemError, (errno, msg):
-                        part = disk.next_partition(part)
-			continue
-		    if os.access (self.anaconda.rootPath + '/etc/fstab', os.R_OK):
-                        relstr = getReleaseString(self.anaconda.rootPath)
+		    if os.access (checkRoot + '/etc/fstab', os.R_OK):
+                        relstr = getReleaseString(checkRoot)
 
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
@@ -872,11 +873,13 @@ class DiskSet:
                                 label = isys.readFSLabel("/dev/%s" % node, makeDevNode=0)
                             except:
                                 label = None
-            
+
                             rootparts.append ((node, part.fs_type.name,
                                                relstr, label))
-		    isys.umount(self.anaconda.rootPath)
-                    
+
+                    if not protected or node not in protected:
+                        isys.umount(self.anaconda.rootPath)
+
                 part = disk.next_partition(part)
         return rootparts
 

@@ -8,6 +8,14 @@
 	* fsset.py (FileSystemSet.add):  Fix duplicate entry check to take
 	multiple bind mounts into account (#246424).
 
+	* harddrive.py (HardDriveInstallMethod.mountDirectory):  Mount
+	/tmp/isodir read/write for upgrades.
+	* partedUtils.py (DiskSet.findExistingRootPartitions):  Don't try to
+	remount the root partition on hard drive ISO upgrades when the ISOs
+	live on the root partition (#244002).
+	* upgrade.py (mountRootPartition):  Support the ISOs being on a
+	partition that is set to be upgraded.
+
 2007-07-18  Peter Jones  <pjones@redhat.com>
 
 	* partitions.py (Partitions.sanityCheckAllRequests): remove some

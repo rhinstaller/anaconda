@@ -110,8 +110,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
 		return
 	
         try:
-            isys.mount(self.device, "/tmp/isodir", fstype = self.fstype, 
-                       readOnly = 1);
+            isys.mount(self.device, "/tmp/isodir", fstype = self.fstype)
         except SystemError, msg:
             log.error("couldn't mount ISO source directory: %s" % msg)
             self.messageWindow(_("Couldn't Mount ISO Source"),

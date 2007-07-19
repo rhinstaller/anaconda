@@ -122,6 +122,7 @@ def getDirtyDevString(dirtyDevs):
 def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 		       warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
+    bindMount = 0
 
     diskset = partedUtils.DiskSet(anaconda)
     diskset.openDevices()
@@ -131,15 +132,21 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     lvm.vgscan()
     lvm.vgactivate()
 
+    if root in anaconda.method.protectedPartitions() and hasattr(anaconda.method, "isoDir"):
+        root = anaconda.method.isoDir
+        bindMount = 1
+
     log.info("going to mount %s on %s as %s" %(root, anaconda.rootPath, rootFs))
-    isys.mount(root, anaconda.rootPath, rootFs)
+    isys.mount(root, anaconda.rootPath, rootFs, bindMount=bindMount)
 
     oldfsset.reset()
     newfsset = readFstab(anaconda)
+
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
-    isys.umount(anaconda.rootPath)
+    if not bindMount:
+        isys.umount(anaconda.rootPath)
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(anaconda.rootPath)
     if not allowDirty and dirtyDevs != []:
@@ -165,11 +172,11 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
-        oldfsset.mountFilesystems(anaconda, readOnly = readOnly)
+        oldfsset.mountFilesystems(anaconda, readOnly = readOnly,
+                                  skiprootfs = bindMount)
 
-    if (not oldfsset.getEntryByMountPoint("/") or
-        not oldfsset.getEntryByMountPoint("/").fsystem or
-        not oldfsset.getEntryByMountPoint("/").fsystem.isMountable()):
+    rootEntry = oldfsset.getEntryByMountPoint("/")
+    if (not rootEntry or not rootEntry.fsystem or not rootEntry.fsystem.isMountable()):
         raise RuntimeError, "/etc/fstab did not list a fstype for the root partition which we support"
 
 def bindMountDevDirectory(instPath):
