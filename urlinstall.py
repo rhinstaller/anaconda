@@ -213,13 +213,13 @@ class UrlInstallMethod(InstallMethod):
                                    % ("/mnt/source",))
 
     def filesDone(self):
-        if not self.tree:
-            try:
-                isys.umount("/mnt/source")
-            except Exception, e:
-                pass
-        else:
-            self.unmountCD()
+        # we're trying to unmount the CD here.  if it fails, oh well,
+        # they'll reboot soon enough I guess :)
+        try:
+            isys.umount("/mnt/source")
+        except Exception, e:
+            if self.tree:
+                log.error("unable to unmount source in filesDone: %s" %(e,))
 
         if not self.loopbackFile: return
 

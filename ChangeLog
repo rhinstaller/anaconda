@@ -1,3 +1,9 @@
+2007-07-19  Dave Lehman  <dlehman@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.filesDone): upon failure to umount
+	/mnt/source simply continue, and only log the error if we have reason
+	to expect something is actually mounted there (#223059 revisited)
+
 2007-07-19  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (setupNetworkDeviceConfig): Prevent SIGSEGV when going
