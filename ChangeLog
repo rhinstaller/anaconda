@@ -1,3 +1,8 @@
+2007-07-19  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (FileSystemSet.add):  Fix duplicate entry check to take
+	multiple bind mounts into account (#246424).
+
 2007-07-18  Peter Jones  <pjones@redhat.com>
 
 	* partitions.py (Partitions.sanityCheckAllRequests): remove some

@@ -1162,12 +1162,20 @@ class FileSystemSet:
                 return True
             return False
 
+        def samePseudo (a, b):
+            return isinstance(a.fsystem, PsudoFileSystem) and isinstance (b.fsystem, PsudoFileSystem) and \
+                   not isinstance (a.fsystem, BindFileSystem) and not isinstance (b.fsystem, BindFileSystem) and \
+                   a.fsystem.getName() == b.fsystem.getName()
+
+        def sameEntry (a, b):
+            return a.device.getDevice() == b.device.getDevice() and a.mountpoint == b.mountpoint
+
         # Remove preexisting duplicate entries - pseudo filesystems are
         # duplicate if they have the same filesystem type as an existing one.
         # Otherwise, they have to have the same device and mount point
         # (required to check for bind mounts).
         for existing in self.entries:
-            if (isinstance (newEntry.fsystem, PsudoFileSystem) and existing.fsystem.getName() == newEntry.fsystem.getName()) or (existing.device.getDevice() == newEntry.device.getDevice() and existing.mountpoint == newEntry.mountpoint):
+            if samePseudo (newEntry, existing) or sameEntry (newEntry, existing):
                 self.remove(existing)
 
         # XXX debuggin'
