@@ -507,13 +507,16 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (modInfo) {
         for (i = 0; list[i]; i++) {
             mi = findModuleInfo(modInfo, list[i]);
-            if (mi && mi->locationID) {
-                paths = extractModules(list, paths, mi->locationID);
+            if (mi) {
+                if (mi->locationID)
+                    paths = extractModules(list, paths, mi->locationID);
 
-                if (mi->major == DRIVER_SCSI && 
-                        (mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&
-                        (mod->firstDevNum != mod->lastDevNum)) {
-                    reloadUsbStorage = 1;
+                if (mi->major == DRIVER_SCSI) {
+                    if ((mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&
+                            mod->firstDevNum != mod->lastDevNum) {
+                        logMessage(DEBUGLVL, "setting reloadUsbStorage");
+                        reloadUsbStorage = 1;
+                    }
                 }
 
             }
@@ -553,6 +556,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
 
         /* here we need to save the state of stage2 */
+        logMessage(INFO, "unloading module usb-storage");
         removeLoadedModule("usb-storage", modLoaded);
 
         
@@ -581,6 +585,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
+        logMessage(INFO, "reloading module usb-storage");
         mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
