@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-17 14:07+1000\n"
+"PO-Revision-Date: 2007-07-20 16:27+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1222,7 +1222,7 @@ msgid ""
 msgstr ""
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1230,10 +1230,10 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Exit to abort the installation."
 msgstr ""
-"설치 관리자는 #%s 이미지 설치를 시도했으나, 이를 서버에서 찾을 수 없습니다.\n"
+"설치 프로그램이 #%s 이미지를 마운트하려 했으나, 이를 서버에서 찾을 수 없습니다.\n"
 "\n"
 "이미지를 원격 서버의 공유 경로에 복사하시고 재시도를 누르십시오. 이 설치를 중"
-"단하시려면 재부팅을 누르십시오."
+"단하시려면 종료 버튼을 누르십시오."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1248,7 +1248,7 @@ msgid "Scriptlet Failure"
 msgstr "Scriptlet 실패"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1258,7 +1258,7 @@ msgstr ""
 "scriptlet를 실행하는 도중 오류가 발생되었습니다. %s에서 출력된 내용을 살펴보"
 "시기 바랍니다. 치명적인 오류이므로 설치를 중지합니다.\n"
 "\n"
-"확인 버튼을 누르시면, 시스템을 재부팅합니다."
+"확인 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1317,9 +1317,8 @@ msgid "Exit installer"
 msgstr "설치 프로그램 종료"
 
 #: ../livecd.py:174
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "설치 이미지를 하드 드라이브로 전송하고 있습니다..."
+msgstr "이미지를 하드 드라이브로 복사 중 입니다."
 
 #: ../livecd.py:203
 #, fuzzy
@@ -2610,9 +2609,8 @@ msgid "Finishing upgrade"
 msgstr "업그레이드 완료"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "설치를 시작합니다, 이 단계는 몇분 소요될 수 도 있습니다..."
+msgstr "업그레이드 프로세스를 종료합니다. 이 단계는 몇분 소요될 수 도 있습니다..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2698,14 +2696,14 @@ msgid "Uncategorized"
 msgstr "분류되지 않음"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
-"선택하신 팩키지 설치를 위하여 %d MB의 여유 공간이 필요하나 충분한 공간이 없습"
-"니다. 다른 팩키지로 바꾸거나 재부팅하실 수 있습니다. "
+"선택하신 패키지를 설치하려면 %d MB의 여유 공간이 필요하나 충분한 공간이 없습"
+"니다. 다른 패키지로 바꾸거나 설치 프로그램을 종료하실 수 있습니다."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3086,7 +3084,7 @@ msgid "_Upgrade an existing installation"
 msgstr "기존 설치 시스템 업그레이드(_U)"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -3292,13 +3290,13 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:602
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
+"현재 요청하신 용량 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
 "다. 이 제한을 늘리기위해서는 파티션되지 않은 디스크 공간에서의 물리적 볼륨을 "
 "증가시키고 이것을 볼륨 그룹에 더하시면 됩니다."
 
@@ -3311,13 +3309,13 @@ msgid "Error With Request"
 msgstr "요구 사항의 오류"
 
 #: ../iw/lvm_dialog_gui.py:670 ../iw/lvm_dialog_gui.py:881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"여러분이 설정하신 논리 볼륨은 %g MB를 필요로 하지만 볼륨 그룹에는 %g MB 밖에 "
+"설정하신 논리 볼륨은 %d MB를 필요로 하지만 볼륨 그룹에는 %d MB 밖에 "
 "없습니다.  볼륨 그룹을 증가시키거나 논리 볼륨을 감소시켜야 합니다."
 
 #: ../iw/lvm_dialog_gui.py:720
@@ -3334,14 +3332,13 @@ msgid "No free space"
 msgstr "여유공간이 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:728
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 "볼륨 그룹에는 새로운 논리 볼륨을 생성할 공간이 없습니다. 논리 볼륨을 추가하려"
-"면 일부 기존 논리 볼륨의 용량을 감소시켜야 합니다."
+"면 기존 논리 볼륨의 용량을 감소시켜야 합니다."
 
 #: ../iw/lvm_dialog_gui.py:756
 #, python-format
@@ -3502,9 +3499,9 @@ msgstr "데이터의 오류"
 
 #: ../iw/netconfig_dialog.py:147 ../iw/network_gui.py:155
 #: ../textw/network_text.py:48
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "\"%s\" 항목을 반드시 입력하셔야 합니다."
+msgstr "%s 항목을 반드시 입력하셔야 합니다."
 
 #: ../iw/netconfig_dialog.py:169
 msgid "Dynamic IP"
@@ -3716,14 +3713,13 @@ msgid "IPv6 prefix must be between 0 and 128."
 msgstr "IPv6 접두부는 0과 128 사이의 값이어야 합니다."
 
 #: ../iw/osbootwidget.py:43
-#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems by "
 "selecting from the list. To add an operating systems that was not "
 "automatically detected, click 'Add.' To change the operating system booted "
 "by default, select 'Default' next to the desired operating system."
 msgstr ""
-"여러분은 부트로더가 다른 운영 체제를 부팅하도록 설정할 수 있습니다. 목록에서 "
+"부트로더가 다른 운영 체제를 부팅하도록 설정하실 수 있습니다. 목록에서 "
 "부팅할 운영 체제를 선택 가능합니다. 자동으로 감지되지 않은 운영 체제를 추가하"
 "시려면, '추가' 버튼을 클릭하십시오. 기본으로 부팅되는 운영 체제를 변경하기 위"
 "해서는, 부팅하기를 원하는 운영 체제 옆에 위치한 '디폴트'를 선택하시면 됩니다."
@@ -3895,11 +3891,9 @@ msgid "The partitioning scheme you requested caused the following critical error
 msgstr ""
 
 #: ../iw/partition_gui.py:635
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr ""
-"%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
-"다. "
+msgstr "%s 설치에 앞서 현재 발생한 모든 오류를 해결해 주시기 바랍니다."
 
 #: ../iw/partition_gui.py:641
 msgid "Partitioning Errors"
@@ -4101,7 +4095,7 @@ msgid "Check for _bad blocks?"
 msgstr "불량 섹터를 검사하시겠습니까?(_B)"
 
 #: ../iw/partition_ui_helpers_gui.py:349
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
@@ -4187,7 +4181,6 @@ msgid "Source Drive Error"
 msgstr "소스 드라이브 오류"
 
 #: ../iw/raid_dialog_gui.py:494
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -4199,7 +4192,7 @@ msgstr ""
 "이 드라이브를 복제하기 위해서는 이 파티션을 먼저 제거하셔야 합니다."
 
 #: ../iw/raid_dialog_gui.py:506
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive /dev/%s.\n"
@@ -4210,10 +4203,9 @@ msgstr ""
 "선택하신 소스 드라이브에는 /dev/%s 드라이브에 없는 파티션이 존재합니다.\n"
 "\n"
 "이 드라이브를 복제하기 위해서는 이 드라이브로 해당 파티션을 제한해 주시거나 "
-"해당 파티션을 제거해 주셔야 합니다."
+"해당 파티션을 제거해 주셔야 합니다. "
 
 #: ../iw/raid_dialog_gui.py:519
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -4358,7 +4350,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to find a group file for %s.  This will prevent manual selection of "
 "packages from the repository from working"
@@ -4371,7 +4363,6 @@ msgid "Invalid Repository Name"
 msgstr "잘못된 리포지터리명"
 
 #: ../iw/task_gui.py:123
-#, fuzzy
 msgid "You must provide a repository name."
 msgstr "리포지터리 이름을 입력해 주십시오."
 
@@ -4434,26 +4425,22 @@ msgid "_Create new boot loader configuration"
 msgstr "새로운 부트로더 설정 작성하기(_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:123
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
-msgstr ""
-"이것은 새로운 부트로더 설정을 작성할 것입니다. 만일 부트 로더를 교환하길 원하"
-"시면, 이것을 선택하십시오."
+msgstr "이 옵션은 새 부트로더 설정을 작성합니다. 부트 로더를 교환하시려면, 이 옵션을 선택하십시오."
 
 #: ../iw/upgrade_bootloader_gui.py:130
 msgid "_Skip boot loader updating"
 msgstr "부트로더 업데이트 생략(_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:131
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"부트로더 설정에 아무런 변화도 주지 않습니다. 만일 삼자 부트로더를 사용하신다"
-"면, 이것을 선택하십시오."
+"이 옵션은 부트로더 설정에 아무런 변화도 주지 않습니다. 만일 삼자 부트로더를 사용하신다"
+"면, 이 옵션을 선택하십시오."
 
 #: ../iw/upgrade_bootloader_gui.py:142
 msgid "What would you like to do?"
@@ -4525,13 +4512,11 @@ msgid "Free Space (MB)"
 msgstr "여유공간 (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
-msgstr ""
-"스왑 파일의 용량은 최소한 %d MB 정도는 되어야 합니다.  스왑 파일의 용량을 다"
-"시 지정해 주십시오:"
+msgstr "스왑 파일의 용량은 최소한 %d MB 정도는 되어야 합니다.  스왑 파일의 용량을 지정해 주십시오:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4547,7 +4532,7 @@ msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"여러분은 반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 설"
+"반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 설"
 "치를 진행하실 경우에는 설치 프로그램이 비정상적으로 종료될 수 있습니다.  스"
 "왑 파일을 생성하지 않은 상태로 설치를 계속 진행하시겠습니까?"
 
@@ -4627,8 +4612,8 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"여러분은 어떤 부트로더도 설치하지 않기로 하셨습니다. 특별한 이유가 없다면, 가"
-"능한 부트로더를 설치하시기 바랍니다.  부트로더는 여러분의 하드 드라이브에 설"
+"어떤 부트로더도 설치하지 않기로 하셨습니다. 특별한 이유가 없다면, 가"
+"능한 부트로더를 설치하시기 바랍니다.  부트로더는 하드 드라이브에 설"
 "치되어 있는 리눅스 시스템으로 재부팅하는데 반드시 필요합니다.\n"
 "\n"
 "부트로더 설치를 생략하시겠습니까?"
@@ -4641,7 +4626,7 @@ msgid ""
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "몇몇 시스템에서는 시스템의 기능을 제대로 활용하기 위해 부팅시 커널에 특별한 "
-"옵션을 전달해야 합니다. 만일, 여러분의 시스템이 그러한 특별 옵션을 커널에 전"
+"옵션을 전달해야 합니다. 만일, 시스템이 그러한 특별 옵션을 커널에 전"
 "달하여 부팅해야 하는 경우라면, 아래의 빈 칸에 그 내용을 입력해 주십시오. 커널"
 "에 전달해야할 옵션이 없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
 
@@ -4820,7 +4805,6 @@ msgstr ""
 "니다. 추후에 참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다."
 
 #: ../textw/grpselect_text.py:87
-#, fuzzy
 msgid "Please select the package groups you would like to install."
 msgstr "설치하시려는 패키지 그룹을 선택하십시오."
 
@@ -4861,18 +4845,18 @@ msgid "Mouse Selection"
 msgstr "마우스 선택"
 
 #: ../textw/network_text.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"\"%s\" 항목이 지정되지 않았습니다.  네트워크 환경에 따라 이후 문제가 발생할 "
-"수도 있습니다."
+"%s 항목이 지정되지 않았습니다.  네트워크 환경에 따라 차후에 문제가 발생할 "
+"수 도 있습니다."
 
 #: ../textw/network_text.py:70
-#, fuzzy, python-format
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4 접두부는 0과 32사이의 값이어야 합니다."
+msgstr "IPv%d 접두부는 0과 %d사이의 값이어야 합니다."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
@@ -4890,9 +4874,8 @@ msgid "Prefix (Netmask)"
 msgstr "접두부 (넷마스크)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/접두부"
+msgstr "접두부"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -4913,14 +4896,12 @@ msgid "P-to-P:"
 msgstr ""
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:191
-#, fuzzy
 msgid "WEP Key:"
-msgstr "키:"
+msgstr "WEP 키:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -4932,12 +4913,10 @@ msgid "point-to-point IP address"
 msgstr ""
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "동적 IP 주소 설정 사용 (DHCP)"
+msgstr "동적 IP 설정 (DHCP)"
 
 #: ../textw/network_text.py:270 ../textw/network_text.py:401
-#, fuzzy
 msgid "Manual address configuration"
 msgstr "수동 주소 설정"
 
@@ -4965,9 +4944,8 @@ msgid "Automatic neighbor discovery"
 msgstr ""
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "동적 IP 주소 설정 사용 (DHCP)"
+msgstr "동적 IP 설정 (DHCPv6)"
 
 #: ../textw/network_text.py:425
 #, fuzzy, python-format
