@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.7
+Version: 11.3.0.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 19 2007 Chris Lumens <clumens@redhat.com> 11.3.0.8-1
+- Mark iSCSI root with _netdev mount option (markmc AT redhat DOT com,
+  #245725).
+- Support multiple bind mounts when reading /etc/fstab (#246424).
+- Support ISOs being on the root partition to upgrade (#244002).
+- Improve error reporting when mounting swap (#248558).
+- Add support for labeling FAT filesystems (pjones).
+- Make x86 machines using EFI use /boot/efi and mark as bootable (pjones).
+- Lots of partition initialization cleanups (pjones).
+- Don't generate two errors for SCSI devices with > 15 partitions (pjones).
+
 * Mon Jul 16 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.7-1
 - Don't format rootfs for live installs (#248085)
 - Handle --only-use option for drives (clumens, #198526)
