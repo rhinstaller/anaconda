@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Jul 20 2007 Peter Jones <pjones@redhat.com> - 11.1.2.60-1
 - Hopefully fix usb-storage reloading.  Still needs testing
-  Related: rhbz#274830
+  Related: rhbz#247830
 - Ignore failure to unmount /mnt/source if we don't think there's a real mount
   (dlehman)
   Related: rhbz#223059
