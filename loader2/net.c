@@ -340,6 +340,11 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage(DEBUGLVL, "loaderData->netCls       = |%s|", loaderData->netCls);
 }
 
+
+#ifndef MAX_DNS_SERVERS
+#define MAX_DNS_SERVERS MAXNS
+#endif
+
 /* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
                               struct loaderData_s * loaderData) {

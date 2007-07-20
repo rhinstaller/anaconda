@@ -1,3 +1,10 @@
+2007-07-20  Peter Jones  <pjones@redhat.com>
+
+	* loader2/net.c (setupNetworkDeviceConfig): use MAXNS when
+	MAX_DNS_SERVERS, isn't defined, because this is *really* starting to
+	bug me (related to actually being able to build on a newer machine
+	than RHEL5 for quick tests)
+
 2007-07-19  Dave Lehman  <dlehman@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.filesDone): upon failure to umount
