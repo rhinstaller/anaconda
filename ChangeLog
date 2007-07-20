@@ -1,5 +1,11 @@
 2007-07-20  Peter Jones  <pjones@redhat.com>
 
+	* loader2/modules.c (doLoadModules): only care if a moduleInfo entry
+	has locationID set for purposes of extracting paths; not for seeing
+	if we should do the usb-storage three-card-monty (#274830 again).
+
+2007-07-20  Peter Jones  <pjones@redhat.com>
+
 	* loader2/net.c (setupNetworkDeviceConfig): use MAXNS when
 	MAX_DNS_SERVERS, isn't defined, because this is *really* starting to
 	bug me (related to actually being able to build on a newer machine
