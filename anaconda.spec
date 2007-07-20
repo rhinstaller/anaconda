@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.59
+Version: 11.1.2.60
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 20 2007 Peter Jones <pjones@redhat.com> - 11.1.2.60-1
+- Hopefully fix usb-storage reloading.  Still needs testing
+  Related: rhbz#274830
+- Ignore failure to unmount /mnt/source if we don't think there's a real mount
+  (dlehman)
+  Related: rhbz#223059
+- Prevent SIGSEGV when going back from NFS entry box after manual IPv4
+  configuration (dcantrell)
+  Resolves: rhbz#248075
+- Fix the timezone window (dcantrell)
+  Resolves: rhbz#248928
+
 * Wed Jul 18 2007 David Cantrell <dcantrell@redhat.com> - 11.1.2.59-1
 - Correctly discover underlying physical disks for RAID devices (pjones)
   Resolves: rhbz#248616
