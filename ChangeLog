@@ -1,5 +1,8 @@
 2007-07-20  Chris Lumens  <clumens@redhat.com>
 
+	* docs/kickstart-docs.txt:  class -> dhcpclass since that's what
+	loader expects (#248910).
+
 	* loader2/keymaps-*:  Rebuilt (#240087).
 
 2007-07-19  Chris Lumens  <clumens@redhat.com>
