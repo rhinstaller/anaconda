@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-04-24 01:31+0000\n"
+"PO-Revision-Date: 2007-07-21 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -221,67 +221,67 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Disksneiðin er ekki til"
 
 #: ../autopart.py:1260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Gat ekki fundið disksneiðina %s sem nota á í %s.\n"
+"Get ekki fundið disksneiðina %s sem nota á fyrir %s.\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1287
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Raid tækið er ekki til"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Gat ekki fundið raid tækið %s sem nota á í %s.\n"
+"Gat ekki fundið raid tækið %s sem nota á fyrir %s.\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1319
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Diskahópurinn er ekki til"
 
 #: ../autopart.py:1320
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Gat ekki fundið diskahópinn %s sem nota á í %s.\n"
+"Gat ekki fundið diskahópinn %s sem nota á fyrir %s.\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1357
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Sýndardiskurinn er ekki til"
 
 #: ../autopart.py:1358
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"Gat ekki fundið sýndardiskinn %s sem nota á í %s.\n"
+"Gat ekki fundið sýndardiskinn %s sem nota á fyrir %s.\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1484 ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
 msgstr "Villa í sjálfvirkri disksneiðingu"
 
 #: ../autopart.py:1485
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -293,7 +293,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1495
 msgid "Warnings During Automatic Partitioning"
@@ -311,7 +311,6 @@ msgstr ""
 "%s"
 
 #: ../autopart.py:1510 ../autopart.py:1527
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -319,7 +318,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Veldu 'Í lagi' til að endurræsa."
+"Veldu 'Í lagi' til að hætta uppsetningunni."
 
 #: ../autopart.py:1511 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:239
@@ -500,20 +499,18 @@ msgid "Dump Written"
 msgstr "Dump ritað"
 
 #: ../exception.py:413
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. The "
 "installer will now exit."
 msgstr ""
-"Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
-"endurræsa."
+"Staða vélarinnar þinnar hefur verið vistuð á diskling. Uppsetningarforritið "
+"mun nú hætta."
 
 #: ../exception.py:416 ../exception.py:433 ../fsset.py:1457 ../fsset.py:1742
 #: ../fsset.py:2440 ../fsset.py:2447 ../gui.py:965 ../gui.py:1114
 #: ../image.py:452 ../livecd.py:356 ../upgrade.py:59 ../yuminstall.py:1051
-#, fuzzy
 msgid "_Exit installer"
-msgstr "Loka uppsetningarforritinu"
+msgstr "_Loka uppsetningarforritinu"
 
 #: ../exception.py:421 ../exception.py:438
 msgid "Dump Not Written"
@@ -524,13 +521,12 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Það kom upp villa við að skrifa stöðu kerfisins á disklinginn."
 
 #: ../exception.py:430
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
 msgstr ""
-"Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Vélin þín "
-"mun nú endurræsa."
+"Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Uppsetningarforritið "
+"mun nú hætta."
 
 #: ../exception.py:439
 msgid "There was a problem writing the system state to the remote host."
@@ -610,7 +606,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Aðalræsifærsluna (MBR)"
 
 #: ../fsset.py:1428
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -620,7 +616,7 @@ msgstr ""
 "Villa kom upp þegar reynt var að forsníða diskminni á %s.   Þetta er "
 "alvarlegt vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að loka uppsetningarforritinu."
 
 #: ../fsset.py:1457 ../packages.py:282 ../rescue.py:300 ../rescue.py:302
 #: ../textw/upgrade_text.py:118 ../loader2/cdinstall.c:258
@@ -691,7 +687,6 @@ msgstr ""
 "diskminnissvæði."
 
 #: ../fsset.py:1507
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -702,14 +697,14 @@ msgstr ""
 "\n"
 "Veldu Sleppa ef þú vilt að uppsetningarforritið hunsi þessa disksneið meðan "
 "á uppfærslunni stendur.  Veldu Forsníða til að endurforsníða þessa sneið sem "
-"diskminni.  Veldu Endurræsa til að endurræsa vélinni núna."
+"diskminni."
 
 #: ../fsset.py:1512 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "Forsníða"
 
 #: ../fsset.py:1519
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -722,10 +717,10 @@ msgstr ""
 "\n"
 "Skráin /etc/fstab vísar ekki í neina gilda diskminnissneið.\n"
 "\n"
-"Veldu Í lagi til að endurræsa vélina."
+"Veldu Í lagi til að hætta uppsetningu."
 
 #: ../fsset.py:1530
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -737,10 +732,10 @@ msgstr ""
 "\n"
 "Þetta þýðir líklega að diskminnissneiðin hefur ekki verið forsniðin.\n"
 "\n"
-"Veldu Í lagi til að endurræsa vélina."
+"Veldu Í lagi til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1584
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -750,10 +745,10 @@ msgstr ""
 "Skemmdar blokkir fundust á tækinu /dev/%s. Við mælum ekki með að þú notir "
 "þetta tæki.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1595
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -763,10 +758,10 @@ msgstr ""
 "Villa kom upp við leit að skemmdum blokkum á %s.   Þetta er alvarlegt "
 "vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1635
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -776,10 +771,10 @@ msgstr ""
 "Villa kom upp þegar reynt var að forsníða %s.   Þetta er alvarlegt vandamál "
 "sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1685
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -789,14 +784,14 @@ msgstr ""
 "Villa kom upp þegar reynt var að breyta %s.   Þetta er alvarlegt vandamál "
 "sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1711 ../fsset.py:1720
 msgid "Invalid mount point"
 msgstr "Óleyfilegur tengipunktur"
 
 #: ../fsset.py:1712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -807,10 +802,10 @@ msgstr ""
 "mappa. Þetta er alvarlegt vandamál sem veldur því að uppsetningin getur ekki "
 "haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1721
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -820,7 +815,7 @@ msgstr ""
 "Villa kom upp þegar reynt var að búa til %s: %s.  Þetta er alvarlegt "
 "vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
-"Sláðu á <Enter> til að endurræsa vélina."
+"Sláðu á <Enter> til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1734
 msgid "Unable to mount filesystem"
@@ -842,7 +837,7 @@ msgid "_Continue"
 msgstr "_Halda áfram"
 
 #: ../fsset.py:1751
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -854,10 +849,10 @@ msgstr ""
 "\n"
 "Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
 "\n"
-"Veldu Í lagi til að endurræsa vélina."
+"Veldu Í lagi til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1758
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -869,10 +864,9 @@ msgstr ""
 "\n"
 "Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
 "\n"
-"Veldu Í lagi til að endurræsa vélina."
+"Veldu Í lagi til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:1778
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -884,7 +878,7 @@ msgstr ""
 "\n"
 "Þetta þýðir líklega að fstab skráin er skemmd.\n"
 "\n"
-"Veldu Í lagi til að endurræsa vélina."
+"Veldu Í lagi til að hætta í uppsetningarforritinu."
 
 #: ../fsset.py:2432
 msgid "Duplicate Labels"
@@ -904,20 +898,17 @@ msgstr ""
 "Vinsamlegast lagfærðu þetta og reyndu aftur."
 
 #: ../fsset.py:2442
-#, fuzzy
 msgid "Invalid Label"
-msgstr "Ógilt ræsimerki"
+msgstr "Ógilt diskmerki"
 
 #: ../fsset.py:2443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An invalid label was found on device %s.  Please fix this problem and "
 "restart the installation process."
 msgstr ""
-"Fleiri en eitt tæki í vélinni þinni eru merkt %s.  Diskamerkingar mega ekki "
-"eins milli diska ef allt á að virka rétt.\n"
-"\n"
-"Vinsamlegast lagfærðu þetta og reyndu aftur."
+"Ógilt merki fannst á tækinu %s.  Vinsamlegast lagfærðu þetta og reyndu "
+"aftur."
 
 #: ../fsset.py:2701
 msgid "Formatting"
@@ -1074,9 +1065,8 @@ msgid "_Reboot"
 msgstr "En_durræsa"
 
 #: ../gui.py:1119
-#, fuzzy
 msgid "Exiting"
-msgstr "Hætta"
+msgstr "Hætti"
 
 #: ../gui.py:1186
 #, python-format
@@ -1092,7 +1082,7 @@ msgid "Install Window"
 msgstr "Uppsetningargluggi"
 
 #: ../harddrive.py:44 ../image.py:146 ../image.py:483
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1103,10 +1093,10 @@ msgid ""
 "\n"
 msgstr ""
 "Ekki var hægt að opna skrána %s. Þetta orsakast af skrá sem vantar eða "
-"skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast að "
-"hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
+"skemmdum pakka. Vinsamlega gakktu úr skugga um að diskmyndirnar sem þú "
+"ert að nota eru í lagi og að þú hafir allt sem til þarf til uppsetningar.\n"
 "\n"
-"Ef þú endurræsir núna mun vélin þín vera í þannig ástandi að það mun líklega "
+"Ef þú hættir núna mun vélin þín vera í þannig ástandi að það mun líklega "
 "vera nauðsynlegt að setja hana upp aftur.\n"
 "\n"
 
@@ -1115,7 +1105,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 diskmynd vantar"
 
 #: ../harddrive.py:72
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1127,14 +1117,14 @@ msgstr ""
 "staðar á harða disknum.\n"
 "\n"
 "Vinsamlega afritaðu þessa diskmynd á harða diskinn og smelltu á reyna aftur. "
-"Smelltu á Endurræsa til að hætta við uppsetninguna."
+"Smelltu á Hætta til að hætta við uppsetninguna."
 
 #: ../harddrive.py:117
 msgid "Couldn't Mount ISO Source"
 msgstr "Gat ekki tengt ISO diskmynd"
 
 #: ../harddrive.py:118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
 "ISO images are located on an advanced storage device like LVM or RAID, or if "
@@ -1144,14 +1134,14 @@ msgstr ""
 "Það kom upp villa við að tengja tækið %s.  Þetta getur gerst ef ISO "
 "diskmyndirnar eru geymdar á flóknum geymslumiðlum eins og til dæmis LVM eða "
 "RAID tækjum eða annar vandi hafi komið upp við að tengja disksneið.  Smeltu "
-"á endurræsa til að hætta við uppsetninguna."
+"á Hætta hnappinn til að hætta við uppsetninguna."
 
 #: ../image.py:84
 msgid "Required Install Media"
 msgstr "Nauðsynlegir diskar"
 
 #: ../image.py:85
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following discs:\n"
 "\n"
@@ -1173,12 +1163,12 @@ msgid "_Back"
 msgstr "_Til baka"
 
 #: ../image.py:136 ../urlinstall.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Villa kom upp við aftengingu geisladisksins. VInsamlegast gakktu úr skugga "
+"Villa kom upp við aftengingu disksins. VInsamlegast gakktu úr skugga "
 "um að þú sért ekki að nota %s í skélinni á tty2 og veldu svo Í lagi til að "
 "reyna aftur."
 
@@ -1199,9 +1189,8 @@ msgstr ""
 "líklega fullur."
 
 #: ../image.py:270
-#, fuzzy
 msgid "Change Disc"
-msgstr "Skipta um geisladisk"
+msgstr "Skipta um disk"
 
 #: ../image.py:271
 #, python-format
@@ -1209,22 +1198,20 @@ msgid "Please insert %s disc %d to continue."
 msgstr "Vinsamlegast settu inn %s disk %d til að halda áfram."
 
 #: ../image.py:305
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "Rangur geisladiskur"
+msgstr "Rangur diskur"
 
 #: ../image.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s disc."
-msgstr "Þetta er ekki rétti %s geisladiskurinn."
+msgstr "Þetta er ekki rétti %s diskurinn."
 
 #: ../image.py:312
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "Get ekki opnað geisladrifið."
+msgstr "Get ekki lesið diskinn."
 
 #: ../image.py:369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1238,9 +1225,12 @@ msgstr ""
 "skemmdum pakka.  Vinsamlega gakktu úr skugga um að uppsetningatréið þitt "
 "innihaldi alla pakkana.\n"
 "\n"
+"Ef þú hættir núna mun vélin þín vera í þannig ástandi að það mun líklega "
+"vera nauðsynlegt að setja hana upp aftur.\n"
+"\n"
 
 #: ../image.py:443
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
 "mean it was corrupted on transfer to this computer.\n"
@@ -1255,7 +1245,7 @@ msgstr ""
 "haldið áfram ef þú telur þetta vera rangt."
 
 #: ../image.py:517
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
@@ -1267,7 +1257,7 @@ msgstr ""
 "staðar á þjóninum.\n"
 "\n"
 "Vinsamlega afritaðu þessa diskmynd á réttan stað á þjónininum og smelltu á "
-"reyna aftur. Smelltu á Endurræsa til að hætta við uppsetninguna."
+"reyna aftur. Smelltu á Hætta hnappinn til að hætta við uppsetninguna."
 
 #: ../installclass.py:67
 msgid "Install on System"
@@ -1282,7 +1272,7 @@ msgid "Scriptlet Failure"
 msgstr "Smáforritavilla"
 
 #: ../kickstart.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
@@ -1292,7 +1282,7 @@ msgstr ""
 "Það kom upp villa við keyrslu smáforritsins. Þú getur litið á frálagið í %s. "
 "Þetta er banvæn villa og því mun uppsetningin ekki halda áfram.\n"
 "\n"
-"Veldu Í lagi hnappinn til að endurræsa."
+"Veldu Í lagi hnappinn til að hætta í uppsetningarforritinu."
 
 #: ../kickstart.py:951 ../kickstart.py:968
 msgid "Running..."
@@ -1549,6 +1539,9 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Diskurinn /dev/%s hefur fleiri en 15 disksneiðar.  SCSI kerfið í Linux kjarnanum "
+"leyfir ekki fleiri en 15 disksneiðar í dag.  Það er ekki hægt að breyta "
+"disksneiðunum á þessum disk eða nota disksneiðar umfram /dev/%s15 á %s"
 
 #: ../partedUtils.py:1184
 #, python-format
@@ -1558,6 +1551,9 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Diskurinn /dev/%s hefur fleiri en 15 disksneiðar.  SCSI kerfið í Linux kjarnanum "
+"leyfir ekki fleiri en 15 disksneiðar í dag.  Það er ekki hægt að breyta "
+"disksneiðunum á þessum disk eða nota disksneiðar umfram /dev/%s15 á %s"
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -2441,7 +2437,7 @@ msgid "Connecting..."
 msgstr "Tengist..."
 
 #: ../urlinstall.py:76
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2654,12 +2650,11 @@ msgstr "%s af %s pökkum lokið"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
-msgstr ""
+msgstr "Lýk við uppfærsluna"
 
 #: ../yuminstall.py:196
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
+msgstr "Lýk við uppfærsluferlið.  Þetta gæti tekið nokkrar mínútur..."
 
 #: ../yuminstall.py:445 ../yuminstall.py:642 ../yuminstall.py:793
 #: ../yuminstall.py:796 ../yuminstall.py:1012 ../yuminstall.py:1015
@@ -2749,14 +2744,14 @@ msgid "Uncategorized"
 msgstr "Óflokkað"
 
 #: ../yuminstall.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
 "Þú hefur valið pakka sem þurfa %d MB af lausu diskplássi til uppsetningar en "
-"þú hefur það ekki til reiðu. Þú getur breytt vali þínu eða endurræst."
+"þú hefur það ekki til reiðu. Þú getur breytt vali þínu eða lokað uppsetningarforritinu."
 
 #: ../yuminstall.py:1206
 #, python-format
@@ -3589,13 +3584,11 @@ msgid "Netmask"
 msgstr "Netmöskvi"
 
 #: ../iw/netconfig_dialog.py:211
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 forskeyti verður að vera á milli 0 og 32."
+msgstr "IPv4 CIDR forskeyti verður að vera á milli 0 og 32."
 
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:218
 #: ../iw/netconfig_dialog.py:226 ../iw/netconfig_dialog.py:229
-#, fuzzy
 msgid "IPv4 Network Mask"
 msgstr "IPv4 netmöskvi"
 
@@ -3609,9 +3602,8 @@ msgid "Nameserver"
 msgstr "Nafnaþjónn"
 
 #: ../iw/netconfig_dialog.py:255
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "Það kom upp villa við að stilla netkortið þitt."
+msgstr "Það kom upp villa við að stilla netkort:"
 
 #: ../iw/netconfig_dialog.py:268
 msgid "Error configuring network device"
@@ -4479,6 +4471,7 @@ msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
 msgstr ""
+"Vegna kerfisbreytinga er ekki hægt að uppfæra stillingar ræsistjóra sjálfvirkt."
 
 #: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
@@ -5726,12 +5719,11 @@ msgid "Test"
 msgstr "Prófa"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
 msgstr "Henda út disk"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
@@ -5740,7 +5732,7 @@ msgstr ""
 "henda honum út og yfirfara annann disk."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5755,21 +5747,20 @@ msgstr ""
 "þeir eru notaðir aftur."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"%s geisladiskurinn fannst ekki í neinu af geisladrifunum þínum. Vinsamlegast "
-"settu %s geisladiskinn í viðeigandi drif og veldu '%s' til að reyna aftur."
+"%s diskurinn fannst ekki í neinu af drifunum þínum. Vinsamlegast "
+"settu %s diskinn í viðeigandi drif og veldu %s til að reyna aftur."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "Geisladiskur fundinn"
+msgstr "Diskur fundinn"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
@@ -5780,27 +5771,26 @@ msgstr ""
 "Veldu %s til að sleppa yfirferðinni og hefja uppsetninguna."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"%s geisladiskurinn sem passar við ræsidiskinn fannst ekki. Vinsamlegast "
-"settu %s geisladiskinn í viðeigandi drif og veldu %s til að reyna aftur."
+"%s diskurinn sem passar við ræsidiskinn fannst ekki. Vinsamlegast "
+"settu %s diskinn í viðeigandi drif og veldu %s til að reyna aftur."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"%s geisladiskurinn fannst ekki í neinu af geisladrifunum þínum. Vinsamlegast "
-"settu %s geisladiskinn í viðeigandi drif og veldu '%s' til að reyna aftur."
+"%s diskurinn fannst ekki í neinu af geisladrifunum þínum. Vinsamlegast "
+"settu %s diskinn í viðeigandi drif og veldu '%s' til að reyna aftur."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "Geisladiskur fannst ekki"
+msgstr "Diskur fannst ekki"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -6108,9 +6098,8 @@ msgid "Choose a Language"
 msgstr "Veldu tungumál"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "Geisladrif"
+msgstr "Staðbundið geisladrif"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
@@ -6795,18 +6784,16 @@ msgid "_Add target"
 msgstr "_Bæta við tæki"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_Setja upp %s"
+msgstr "Setja upp"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "Setja upp innihald lifandi geisladisksins á harða diskinn"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "Uppsetning að hefjast"
+msgstr "Setja upp á harða diskinn"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7085,9 +7072,8 @@ msgid "Punjabi"
 msgstr "Punjabi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Króatíska"
+msgstr "Rúmenska"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7148,9 +7134,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "Rebooting System"
-#~ msgstr "Endurræsi vélina"
-
-#~ msgid "Re_try"
-#~ msgstr "Reyna af_tur"
