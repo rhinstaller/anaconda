@@ -25,7 +25,7 @@ class FileCopyException(Exception):
 
 class InstallMethod:
     def protectedPartitions(self):
-        return None
+        return []
 
     def getTempPath(self):
 	root = self.rootPath
