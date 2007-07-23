@@ -60,30 +60,116 @@ prunePackageList() {
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
 }
 
+# pulled right out of mkinitrd....
+DSO_DEPS=""
+get_dso_deps() {
+    bin="$1" ; shift
+    DSO_DEPS=""
+
+    declare -a FILES
+    declare -a NAMES
+
+    # this is a hack, but the only better way requires binutils or elfutils
+    # be installed.  i.e., we need readelf to find the interpretter.
+    for ldso in /lib*/ld*.so* ; do
+        [ -x $ldso ] || continue
+        $ldso --verify $bin >/dev/null 2>&1 || continue
+
+        # I still hate shell.
+        declare -i n=0
+        while read NAME I0 FILE ADDR I1 ; do
+            [ "$FILE" == "not" ] && FILE="$FILE $ADDR"
+            NAMES[$n]="$NAME"
+            FILES[$n]="$FILE"
+            let n++
+        done << EOF
+            $(LD_TRACE_PRELINKING=1 LD_WARN= LD_TRACE_LOADED_OBJECTS=1 \
+                $ldso $bin 2>/dev/null)
+EOF
+    done
+
+    [ ${#FILES[*]} -eq 0 ] && return 1
+
+    # we don't want the name of the binary in the list
+    if [ "${FILES[0]}" == "$bin" ]; then
+        FILES[0]=""
+        NAMES[0]=""
+        [ ${#FILES[*]} -eq 1 ] && return 1
+    fi
+
+    declare -i n=0
+    while [ $n -lt ${#FILES[*]} ]; do
+        FILE="${FILES[$n]}"
+        if [ "$FILE" == "not found" ]; then
+            cat 1>&2 <<EOF
+There are missing files on your system.  The dynamic object $bin
+requires ${NAMES[$n]} n order to properly function.  mkinitrd cannot continue.
+EOF
+            exit 1
+        fi
+       case "$FILE" in
+         /lib*)
+           TLIBDIR=`echo "$FILE" | sed 's,\(/lib[^/]*\)/.*$,\1,'`
+           BASE=`basename "$FILE"`
+           # Prefer nosegneg libs over direct segment accesses on i686.
+           if [ -f "$TLIBDIR/i686/nosegneg/$BASE" ]; then
+             FILE="$TLIBDIR/i686/nosegneg/$BASE"
+           # Otherwise, prefer base libraries rather than their optimized
+           # variants.
+           elif [ -f "$TLIBDIR/$BASE" ]; then
+             FILE="$TLIBDIR/$BASE"
+           fi
+           ;;
+       esac
+        dynamic="yes"
+        let n++
+    done
+
+    DSO_DEPS="${FILES[@]}"
+}
+
+instFile() {
+    FILE=$1
+    DESTROOT=$2
+
+    if [ -e $DESTROOT/$FILE -o -h $DESTROOT/$FILE ]; then
+      return
+    elif [ ! -d $DESTROOT/`dirname $FILE` ]; then
+      mkdir -p $DESTROOT/`dirname $FILE`
+    fi
+    cp -aL $FILE $DESTROOT/`dirname $FILE`
+
+    get_dso_deps "$FILE"
+    local DEPS="$DSO_DEPS"
+    for x in $DEPS ; do 
+      instFile $x $DESTROOT
+    done
+}
+
 expandPackageSet() {
     RPMS=$1
     PKGDEST=$2
     KEEPFILES=$3
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
-    for n in $RPMS; do 
-	[ -n "$DEBUG" ] && echo -e "\rExpanding packages..." $(basename $n)
-	if [ "$(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n)" = "tzdata" ] ; then
-	    TZDATA=$n
-	fi 
-	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
-	[ -n "$DEBUG" ] && echo -e "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
+    mkdir $PKGDEST/yumdir
+    yum -y --installroot=$PKGDEST/yumdir install $RPMS
+
+    pushd $PKGDEST/yumdir >/dev/null
+    cat $KEEPFILES | while read spec ; do
+      for filespec in `find . -path "./$spec"` ; do
+	if [ ! -e $filespec ]; then
+	    continue
+	elif [ ! -d $filespec ]; then
+	    instFile $filespec $PKGDEST
+	else
+	    for i in `find $filespec -type f` ; do instFile $i $PKGDEST ; done
+	fi
+      done
     done
-    pushd $PKGDEST/$LIBDIR >/dev/null 2>&1
-    if [ -d obsolete/linuxthreads/ ]; then
-	for x in obsolete/linuxthreads/*-* ; do 
-	    lib_base=$(basename $x | cut -d- -f1)
-	    rm -f ./$lib_base[.-]*
-	    mv -f obsolete/linuxthreads/$lib_base[.-]* .
-	done
-	rmdir obsolete/linuxthreads obsolete
-    fi
-    popd >/dev/null 2>&1
+    popd >/dev/null
+
+    rm -fr $PKGDEST/yumdir
 }
 
 die () {
@@ -936,9 +1022,9 @@ EOF
 fi
 
 echo "Assembling package list..."
-RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
+RPMS="$PACKAGES"
 [ -n "$DEBUG" ] && echo "RPMS are $RPMS"
-RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
+RPMSGR="$PACKAGES $PACKAGESGR $PACKAGESRESCUE"
 [ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
@@ -949,6 +1035,7 @@ ln -s /tmp $DESTGR/var/lib/xkb
 # concat KEEPFILEGR and KEEPFILERESCUE lists
 #
 cat $KEEPFILERESCUE >> $KEEPFILEGR
+cat $KEEPFILE >> $KEEPFILEGR
 
 #
 # filter paths in keepfile lists for use by cpio
@@ -961,18 +1048,18 @@ done
 echo "Expanding text packages..."
 expandPackageSet "$RPMS" $DEST $KEEPFILE
 
-(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
+#(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
 
 echo "Expanding graphical packages..."
 expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 
-echo "retrieving timezones"
-TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$
-mkdir -p $TZDIR/usr/share/zoneinfo
-rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
-[ $? = 0 ] || die "ERROR: Unable to expand timezone data ($TZDATA)"
-(cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
-(cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
+# echo "retrieving timezones"
+# TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$
+# mkdir -p $TZDIR/usr/share/zoneinfo
+# rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
+# [ $? = 0 ] || die "ERROR: Unable to expand timezone data ($TZDATA)"
+# (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
+# (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
@@ -996,11 +1083,11 @@ for p in $DEST $DESTGR; do
     $p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
 done
 
-for p in $DEST $DESTGR; do
-   if [ -f $p/usr/lib/locale/locale-archive.tmpl ]; then
-      mv $p/usr/lib/locale/locale-archive.tmpl $p/usr/lib/locale/locale-archive
-   fi
-done
+# for p in $DEST $DESTGR; do
+#    if [ -f $p/usr/lib/locale/locale-archive.tmpl ]; then
+#       mv $p/usr/lib/locale/locale-archive.tmpl $p/usr/lib/locale/locale-archive
+#    fi
+# done
 
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '

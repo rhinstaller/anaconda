@@ -1,3 +1,12 @@
+2007-07-23  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Switch the way we build second stage
+	images.  Move to using yum to populate with a set of packages and
+	then do pruning of the installed root.  Prune with our file list +
+	doing dso dep checking.  This will be slower, but should help to
+	avoid us having to maintain the list as much and avoiding the
+	problems when things grow new library deps.
+
 2007-07-23  Chris Lumens  <clumens@redhat.com>
 
 	* installmethod.py (InstallMethod.protectedPartitions):  Set default
