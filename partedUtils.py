@@ -29,6 +29,7 @@ import rhpl
 import dmraid
 import block
 import lvm
+import traceback
 from flags import flags
 from partErrors import *
 
@@ -1094,6 +1095,10 @@ class DiskSet:
                 log.debug("parted error: %s" % (msg,))
                 raise
         except:
+            exc = sys.exc_info()
+            exc = traceback.format_exception(*exc)
+            for line in exc.splitlines():
+                log.error(line)
             self._removeDisk(drive)
             raise LabelError, drive
 

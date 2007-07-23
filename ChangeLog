@@ -1,3 +1,9 @@
+2007-07-23  Peter Jones  <pjones@redhat.com>
+
+	* partedUtils.py (DiskSet._labelDevice): log the traceback that
+	we're squashing, so we'll be able to fix code bugs when something
+	doesn't get on the drive list.
+
 2007-07-20  Peter Jones  <pjones@redhat.com>
 
 	* loader2/modules.c (doLoadModules): only care if a moduleInfo entry
