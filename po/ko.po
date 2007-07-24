@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-20 16:27+1000\n"
+"PO-Revision-Date: 2007-07-24 12:15+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1310,7 +1310,7 @@ msgstr "이미지를 찾을 수 없습니다"
 #: ../livecd.py:94
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "설치에 사용할 %s CD의 경로가 올바르지 않습니다."
 
 #: ../livecd.py:98
 msgid "Exit installer"
@@ -3130,7 +3130,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "물리적 범위 변경 확인"
 
 #: ../iw/lvm_dialog_gui.py:126
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -3138,7 +3137,7 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"물리적 범위값을 변경하시면 현재 논리 볼륨 요청량을 물리적 범위의 배수값으로 "
+"물리적 범위값을 변경하시면 현재 논리 볼륨 요청량을 물리적 범위의 배수 정수 값으로 "
 "올림합니다.\n"
 "\n"
 "이 변경 사항은 즉시 적용됩니다."
@@ -3695,9 +3694,8 @@ msgid "Missing Protocol"
 msgstr "프로토콜 부재"
 
 #: ../iw/network_gui.py:770 ../textw/network_text.py:224
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "DHCP에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니다."
+msgstr "최소 하나의 IPv4 또는 IPv6을 선택하셔야 합니다."
 
 #: ../iw/network_gui.py:793 ../iw/network_gui.py:834 ../iw/network_gui.py:840
 #: ../textw/network_text.py:69 ../loader2/net.c:97
@@ -4301,7 +4299,7 @@ msgid ""
 msgstr ""
 "복제 드라이브 도구\n"
 "\n"
-"여러분은 이 도구를 사용하여 RAID 배열을 훨씬 쉽게 설정하실 수 있습니다. 소스 "
+"이 도구를 사용하여 RAID 배열을 훨씬 쉽게 설정하실 수 있습니다. 소스 "
 "드라이브를 원하는 방식으로 파티션 분할한 후 그 파티션 배치를 다른 유사한 용량"
 "의 드라이브로 복제하는 원리입니다. 그 후 RAID 장치를 생성하시면 됩니다.\n"
 "\n"
@@ -4451,7 +4449,7 @@ msgid "Migrate File Systems"
 msgstr "파일시스템 이전"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journaling file system, which has "
 "several benefits over the ext2 file system traditionally shipped in %s.  "
@@ -4461,18 +4459,18 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "이번 %s 버전 부터는 ext3 저널링 파일시스템을 제공합니다.  이것은 이전의 %s에 "
-"포함되어 있던 ext2 파일시스템을 사용하는 것 보다 더 많은 잇점이 있습니다.  여"
-"기서는 기존의 ext2 파티션을 어떠한 자료도 손실하지 않고 ext3 로 이전할 수 있"
+"포함되어 있던 ext2 파일시스템을 사용하는 것 보다 더 많은 잇점이 있습니다.  "
+"이 설치 프로그램으로 ext2로 포맷된 파티션을 어떠한 자료도 손실하지 않고 ext3 로 이전할 수 있"
 "습니다.\n"
 "\n"
-"이전할 파티션을 선택해 주십시오 "
+"이 파티션 중 어떤 파티션을 이전하시겠습니까?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "스왑 파티션 업그레이드"
 
 #: ../iw/upgrade_swap_gui.py:89 ../textw/upgrade_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
@@ -4481,7 +4479,7 @@ msgid ""
 msgstr ""
 "커널 2.4 부터는 이전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상을 스"
 "왑 공간으로 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요로 합니다.  "
-"현재 여러분이 스왑 공간으로 설정하신 용량은 %d MB 입니다. 필요하시다면, 추가"
+"현재 설정하신 스왑 공간의 용량은 %d MB 이지만 추가"
 "로 스왑 공간을 더 생성하실 수 있습니다."
 
 #: ../iw/upgrade_swap_gui.py:96
@@ -4527,14 +4525,12 @@ msgid "I _don't want to create a swap file"
 msgstr "스왑 파일을 생성하지 않음(_D)"
 
 #: ../iw/upgrade_swap_gui.py:189
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 "반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 설"
-"치를 진행하실 경우에는 설치 프로그램이 비정상적으로 종료될 수 있습니다.  스"
-"왑 파일을 생성하지 않은 상태로 설치를 계속 진행하시겠습니까?"
+"치를 진행하실 경우에는 설치 프로그램이 비정상적으로 종료될 수 있습니다.  그래도 설치를 계속 진행하시겠습니까?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
