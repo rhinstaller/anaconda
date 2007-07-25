@@ -783,6 +783,22 @@ rpadlpar_io
 	scsi_hostadapter
 	"IBM Dynamic Logical Partition I/O controller"
 
+pata_marvell
+	scsi_hostadapter
+	"Marvell PATA controllers"
+
+pata_pdc2027x
+        scsi_hostadapter
+        "Promise PATA controllers"
+
+pata_sis
+        scsi_hostadapter
+        "Pilicon Image PATA controllers"
+
+sata_inic162x
+	scsi_hostadapter
+	"Initio 162x SATA controllers"
+
 sata_mv
 	scsi_hostadapter
 	"Marvell SATA controllers"
@@ -799,13 +815,13 @@ sata_qstor
         scsi_hostadapter
         "QStor SATA controllers"
 
-sata_sil24
-        scsi_hostadapter
-        "Silicon Image 3124/3132 SATA controllers"
-
 sata_sil
         scsi_hostadapter
         "Silicon Image SATA controllers"
+
+sata_sil24
+        scsi_hostadapter
+        "Silicon Image 3124/3132 SATA controllers"
 
 sata_sis
         scsi_hostadapter
