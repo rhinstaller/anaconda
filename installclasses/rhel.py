@@ -6,6 +6,7 @@ from flags import flags
 import os
 import iutil
 import types
+import yuminstall
 try:
     import instnum
 except ImportError:
