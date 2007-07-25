@@ -2717,9 +2717,7 @@ def getFStoTry(device):
 def allocateLoopback(file):
     found = 1
     for i in range(8):
-        dev = "loop%d" % (i,)
-        path = "/tmp/loop%d" % (i,)
-        isys.makeDevInode(dev, path)
+        path = "/dev/loop%d" % (i,)
         try:
             isys.losetup(path, file)
             found = 1

@@ -82,8 +82,7 @@ class UrlInstallMethod(InstallMethod):
 
     def systemUnmounted(self):
 	if self.loopbackFile:
-	    isys.makeDevInode("loop0", "/tmp/loop")
-	    isys.lochangefd("/tmp/loop", 
+	    isys.lochangefd("/dev/loop0", 
 			"%s/images/stage2.img" % (self.tree,))
 	    self.loopbackFile = None
 
@@ -116,8 +115,7 @@ class UrlInstallMethod(InstallMethod):
             os.unlink(self.loopbackFile)
             return 1
 
-        isys.makeDevInode("loop0", "/tmp/loop")
-        isys.lochangefd("/tmp/loop", self.loopbackFile)
+        isys.lochangefd("/dev/loop0", self.loopbackFile)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 

@@ -270,6 +270,11 @@ def makeDriveDeviceNodes():
 
     # make the node for the device mapper
     makeDMNode()
+
+    # make loop devices
+    for loopMinor in range(0, 8):
+        loop = "loop%d" %(loopMinor,)
+        isys.makeDevInode(loop, "/dev/%s" %(loop,))
     
 # this is disgusting and I feel very dirty
 def hasiSeriesNativeStorage():

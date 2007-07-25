@@ -275,11 +275,6 @@ def runRescue(anaconda, instClass):
         runShell()
         sys.exit(0)
 
-    # need loopback devices too
-    for lpminor in range(8):
-        dev = "loop%s" % (lpminor,)
-        isys.makeDevInode(dev, "/dev/" + dev)
-
     screen = SnackScreen()
     anaconda.intf = RescueInterface(screen)
     anaconda.setMethod(instClass)

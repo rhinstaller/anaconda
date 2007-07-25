@@ -1,3 +1,26 @@
+2007-07-25  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py (allocateLoopback): Use /dev/loopX instead of /tmp/loopX
+
+	* urlinstall.py (UrlInstallMethod.systemMounted): Use /dev/loop0
+	instead of /tmp/loop.
+	(UrlInstallMethod.systemUnmounted): Likewise.
+
+	* rescue.py (runRescue): Loop devices made generally now.
+
+	* harddrive.py (HardDriveInstallMethod.mountMedia): Use /dev/loop3
+	instead of /tmp/loop
+	(HardDriveInstallMethod.umountMedia): Likewise.
+
+	* image.py (CdromInstallMethod.systemUnmounted): Use /dev/loop0
+	instead of /tmp/loop
+	(CdromInstallMethod.systemMounted): Likewise.
+	(NfsIsoInstallMethod.mountImage): Likewise for /dev/loop3	
+	(NfsIsoInstallMethod.umountImage): Likewise.
+	(findIsoImages): Likewise for /dev/loop2.
+
+	* iutil.py (makeDriveDeviceNodes): Make loop devices.
+
 2007-07-25  Peter Jones  <pjones@redhat.com>
 
 	* gptsync/gptsync.c (write_mbr): print something when we're

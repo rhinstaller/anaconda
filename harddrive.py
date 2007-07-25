@@ -60,10 +60,9 @@ class HardDriveInstallMethod(ImageInstallMethod):
             try:
                 isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
 
-                isys.makeDevInode("loop3", "/tmp/loop3")
-                isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
+                isys.losetup("/dev/loop3", isoImage, readOnly = 1)
 
-                isys.mount("loop3", self.tree, fstype = 'iso9660', readOnly = 1);
+                isys.mount("/dev/loop3", self.tree, fstype = 'iso9660', readOnly = 1);
                 self.mediaIsMounted = cdNum
 
                 retry = False
@@ -87,8 +86,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
     def umountMedia(self):
 	if self.mediaIsMounted:
 	    isys.umount(self.tree)
-	    isys.makeDevInode("loop3", "/tmp/loop3")
-	    isys.unlosetup("/tmp/loop3")
+	    isys.unlosetup("/dev/loop3")
 	    self.umountDirectory()
 	    self.mediaIsMounted = 0
 

@@ -152,8 +152,7 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def systemUnmounted(self):
 	if self.loopbackFile:
-	    isys.makeDevInode("loop0", "/tmp/loop")
-	    isys.lochangefd("/tmp/loop", 
+	    isys.lochangefd("/dev/loop0", 
 			"%s/images/stage2.img" % (self.tree,))
 	    self.loopbackFile = None
 
@@ -184,8 +183,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	    os.unlink(self.loopbackFile)
 	    return 1
 
-	isys.makeDevInode("loop0", "/tmp/loop")
-	isys.lochangefd("/tmp/loop", self.loopbackFile)
+	isys.lochangefd("/dev/loop0", self.loopbackFile)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
@@ -398,15 +396,13 @@ def findIsoImages(path, messageWindow):
 	if not isys.isIsoImage(what):
             continue
 
-	isys.makeDevInode("loop2", "/tmp/loop2")
-
 	try:
-	    isys.losetup("/tmp/loop2", what, readOnly = 1)
+	    isys.losetup("/dev/loop2", what, readOnly = 1)
 	except SystemError:
 	    continue
 
 	try:
-	    isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660",
+	    isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
 		       readOnly = 1)
 	    for num in range(1, 10):
 		if os.access("/mnt/cdimage/.discinfo", os.R_OK):
@@ -460,8 +456,7 @@ def findIsoImages(path, messageWindow):
 	except SystemError:
 	    pass
 
-	isys.makeDevInode("loop2", '/tmp/' + "loop2")
-	isys.unlosetup("/tmp/loop2")
+	isys.unlosetup("/dev/loop2")
 
     return discImages
 
@@ -490,8 +485,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     def umountImage(self):
 	if self.currentMedia:
 	    isys.umount(self.mntPoint)
-	    isys.makeDevInode("loop3", "/tmp/loop3")
-	    isys.unlosetup("/tmp/loop3")
+	    isys.unlosetup("/dev/loop3")
 	    self.mntPoint = None
 	    self.currentMedia = []
 
@@ -504,10 +498,9 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    try:
 	        isoImage = self.isoPath + '/' + self.discImages[cdNum]
 
-	        isys.makeDevInode("loop3", "/tmp/loop3")
-	        isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
+	        isys.losetup("/dev/loop3", isoImage, readOnly = 1)
 	
-	        isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
+	        isys.mount("/dev/loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
 	        self.mntPoint = "/tmp/isomedia/"
 	        self.currentMedia = [ cdNum ]
 
