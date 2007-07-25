@@ -281,7 +281,10 @@ class AnacondaYumRepo(YumRepository):
                     "Caching enabled but no local cache of %s from %s" % (local,
                            self)
 
-        if url is not None:
+        if url:
+            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
+
+        if url is not None and scheme != "media":
             ug = URLGrabber(keepalive = False,
                             bandwidth = self.bandwidth,
                             retry = self.retries,
