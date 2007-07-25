@@ -1,5 +1,8 @@
 2007-07-25  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (makeDevInode): Warn if we try to explicitly create
+	a device in /tmp
+
 	* fsset.py (allocateLoopback): Use /dev/loopX instead of /tmp/loopX
 
 	* urlinstall.py (UrlInstallMethod.systemMounted): Use /dev/loop0

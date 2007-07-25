@@ -34,6 +34,7 @@ import block
 
 import logging
 log = logging.getLogger("anaconda")
+import warnings
 
 mountCount = {}
 raidCount = {}
@@ -524,6 +525,8 @@ def getDasdState(dev):
 
 def makeDevInode(name, fn=None):
     if fn:
+        if fn.startswith("/tmp"):
+            warnings.warn("device node created in /tmp", stacklevel=2)
         if os.path.exists(fn):
             return fn
         _isys.mkdevinode(name, fn)
