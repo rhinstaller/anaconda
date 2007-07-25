@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.8
+Version: 11.3.0.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 24 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.9-1
+- Rebuild keymaps (clumens, #240087)
+- Fix kickstart docs about dhcpclass (clumens, #248910)
+- Fix for usb-storage dance (pjones, #247830)
+- Fix protected partitions problem (clumens)  
+- Improve stage2 generation
+
 * Thu Jul 19 2007 Chris Lumens <clumens@redhat.com> 11.3.0.8-1
 - Mark iSCSI root with _netdev mount option (markmc AT redhat DOT com,
   #245725).
