@@ -1,5 +1,10 @@
 2007-07-25  Peter Jones  <pjones@redhat.com>
 
+	* gptsync/gptsync.c (write_mbr): print something when we're
+	overwriting the boot area
+
+2007-07-25  Peter Jones  <pjones@redhat.com>
+
 	* iutil.py (execWithRedirect): fix error reporting when there's no
 	such executable.
 
