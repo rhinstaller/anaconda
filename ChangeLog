@@ -1,3 +1,8 @@
+2007-07-25  Peter Jones  <pjones@redhat.com>
+
+	* iutil.py (execWithRedirect): fix error reporting when there's no
+	such executable.
+
 2007-07-25  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYumRepo._getFile): Fix media installs (#249371)

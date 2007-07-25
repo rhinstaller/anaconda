@@ -48,8 +48,9 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
                                 stderr=stderr, preexec_fn=chroot, cwd=root)
         ret = proc.wait()
     except OSError, (errno, msg):
-        log.error ("Error running " + command + ": " + msg)
-        raise RuntimeError, "Error running " + command + ": " + msg
+        errstr = "Error running %s: %s" % (command, msg)
+        log.error (errstr)
+        raise RuntimeError, errstr
 
     return ret
 
