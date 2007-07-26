@@ -1,7 +1,7 @@
 #
 # harddrive.py - Install method for hard drive installs
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # General Public License.
@@ -11,8 +11,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-
-from installmethod import InstallMethod, FileCopyException
 from image import findIsoImages, ImageInstallMethod
 import shutil
 import os

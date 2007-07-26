@@ -9,6 +9,9 @@
 	* docs/command-line.txt:  Removed since the wiki is now the source.
 	* docs/kickstart-docs.txt:  Likewise.
 
+	* harddrive.py, image.py, packages.py:  Don't need to import
+	FileCopyException.
+
 2007-07-26  Peter Jones  <pjones@redhat.com>
 
 	* gpt.py:

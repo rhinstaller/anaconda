@@ -1,7 +1,7 @@
 #
 # image.py - Install method for disk image installs (CD & NFS)
 #
-# Copyright 1999-2006 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from installmethod import InstallMethod, FileCopyException
+from installmethod import InstallMethod
 import shutil
 import os
 import sys
