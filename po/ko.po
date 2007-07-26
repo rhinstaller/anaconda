@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-26 16:40+1000\n"
+"PO-Revision-Date: 2007-07-26 16:46+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5965,7 +5965,7 @@ msgstr "부팅 디스켓 안의 'ks.cfg' 파일을 찾을 수 없습니다."
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
-msgstr ""
+msgstr "킥스타트 파일을 다운로드할 수 없습니다. 아래의 킥스타트 매개변수를 수정하시거나 또는 취소 버튼을 눌러 대화식 설치를 실행하시기 바랍니다."
 
 #: ../loader2/kickstart.c:380
 msgid "Error downloading kickstart file"
@@ -6219,11 +6219,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "장치 킥스타트 방식 명령 %s에 잘못된 인수 값이 지정되었습니다: %s"
 
 #: ../loader2/modules.c:1050
-#, fuzzy
 msgid "Both module type and name must be specified for the kickstart device command."
-msgstr ""
-"킥스타트 드라이버 디스켓 명령에 다음과 같은 잘못된 인수 값이 지정되었습니다: "
-"%s:%s"
+msgstr "킥스타트 장치 명령에 해당하는 모듈 유형과 이름이 지정되어야 합니다."
 
 #: ../loader2/net.c:59
 #, c-format
@@ -6731,9 +6728,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "동적 IP 설정 사용(_D) (DHCP)"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "설명: %s"
+msgstr "<b>설명</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
