@@ -99,12 +99,6 @@ if [ -z "$BUILDINSTDIR" ]; then
 fi
 TREEDIR=${TMPDIR:-/tmp}/treedir.$$
 
-UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
-MK_IMAGES=$BUILDINSTDIR/mk-images
-MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
-MK_STAMP=$BUILDINSTDIR/makestamp.py
-BUILDINSTALL=$BUILDINSTDIR/buildinstall
-
 BUILDARCH=`rpm -qp --qf "%{ARCH}" $PKGDIR/anaconda-runtime-[0-9]*`
 
 echo "Running buildinstall..."
