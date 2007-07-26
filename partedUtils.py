@@ -272,6 +272,10 @@ def getDefaultDiskType():
     else:
         return parted.disk_type_get("msdos")
 
+def hasGptLabel(diskset, device):
+    disk = diskset.disks[device]
+    return disk.type.name == "gpt"
+
 archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
               'alpha': ['bsd', 'msdos'],
@@ -913,10 +917,13 @@ class DiskSet:
                 continue
 
             # FIXME: this belongs in parted itself, but let's do a hack...
-            if iutil.isMactel() and disk.type.name == "gpt" and \
-                    os.path.exists("/usr/sbin/gptsync"):
-                iutil.execWithRedirect("/usr/sbin/gptsync", [disk.dev.path],
-                                       stdout="/dev/tty5", stderr="/dev/tty5")
+            if rhpl.getArch() in ("i386", "x86_64") \
+                    and disk.type.name == "gpt":
+                log.debug("syncing gpt to mbr for disk %s" % (disk.dev.path,))
+                iutil.execWithRedirect("gptsync", [disk.dev.path,],
+                                       stdout="/tmp/gptsync.log",
+                                       stderr="/tmp/gptsync.err",
+                                       searchPath = 1)
             del disk
         self.refreshDevices()
 
@@ -1092,7 +1099,7 @@ class DiskSet:
                 else:
                     disk = labelDisk(deviceFile)
             except parted.error, msg:
-                log.debug("parted error: %s" % (msg,))
+                log.error("parted error: %s" % (msg,))
                 raise
         except:
             exc = sys.exc_info()
@@ -1229,6 +1236,10 @@ class DiskSet:
                     if rc == 0:
                         sys.exit(0)
                 else:
+                    exc = sys.exc_info()
+                    exc = traceback.format_exception(*exc)
+                    for line in exc.splitlines():
+                        log.error(line)
                     log.error(str)
                     sys.exit(0)
 

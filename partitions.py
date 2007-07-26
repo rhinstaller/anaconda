@@ -800,10 +800,6 @@ class Partitions:
         boot.extend(self.requests)
         self.requests = boot
 
-    def hasGptLabel(self, diskset, device):
-        disk = diskset.disks[device]
-        return disk.type.name == "gpt"
-
     def sanityCheckAllRequests(self, diskset, baseChecks = 0):
         """Do a sanity check of all of the requests.
 
@@ -853,7 +849,7 @@ class Partitions:
                 if ok:
                     for br in getBaseReqs([bootreq,]):
                         (disk, num) = fsset.getDiskPart(br.device)
-                        if not self.hasGptLabel(diskset, disk):
+                        if not partedUtils.hasGptLabel(diskset, disk):
                             ok = False
                 if not ok:
                     errors.append(_("You must create a /boot/efi partition of "
@@ -865,16 +861,12 @@ class Partitions:
                     (dev, num) = fsset.getDiskPart(br.device)
 
                     if iutil.isMactel():
-                        if self.hasGptLabel(diskset, dev) and int(num) > 4:
+                        if partedUtils.hasGptLabel(diskset, dev) \
+                                and int(num) > 4:
                             errors.append(
                                       _("Your boot partition isn't on one of "
                                         "the first four partitions and thus "
                                         "won't be bootable."))
-                    elif self.hasGptLabel(diskset, dev):
-                        errors.append(_("Your boot partition is on a disk "
-                                        "using the GPT partitioning scheme "
-                                        "but this machine cannot boot using "
-                                        "GPT."))
 
         if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")

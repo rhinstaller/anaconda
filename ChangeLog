@@ -1,3 +1,22 @@
+2007-07-26  Peter Jones  <pjones@redhat.com>
+
+	* gpt.py:
+	- new file!  Utility functions for GPT-related stuff.  Right
+	  now the name is something of a misnomer, since it only houses MBR
+	  writing code.
+
+	* partedUtils.py:
+	- move hasGptLabel here from partitions.py
+	- do gptsync on i386 and x86_64 if /boot is on a gpt disk
+	- change parted errors to log as errors not debug
+
+	* fsset.py (FileSystemSet.setActive):
+	- set the first gpt partition as bootable on i386/x86_64 if it's the
+	  boot device
+
+	* partitions.py (Partitions.sanityCheckAllRequests):
+	- don't complain about /boot on GPT on i386/x86_64 any more.
+
 2007-07-26  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (YumBackend.__init__): Make sure skipFormatRoot is
