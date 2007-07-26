@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.10
+Version: 11.3.0.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -87,9 +87,6 @@ sets, but are not meant for use on already installed systems.
 make depend
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
-curl -A "anaconda-build" -o docs/command-line.txt "http://fedoraproject.org/wiki/AnacondaOptions?action=raw"
-curl -A "anaconda-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/AnacondaKickstart?action=raw"
-
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
@@ -145,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 26 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.11-1
+- GPT boot bits (pjones)
+- Fix loopback clobbering problem
+- Fix tui installs to not hang (dcantrell)
+- Fix stage2 generation to use the tree and not configured repos
+
 * Wed Jul 25 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.10-1
 - fix media installs (#249371)
 

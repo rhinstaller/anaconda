@@ -1,5 +1,9 @@
 2007-07-26  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version
+
+	* Makefile: Grab files here rather than in the spec file
+
 	* scripts/upd-instroot: Use the tree as the repo rather than the
 	yum config on the machine (whoops!)
 	* scripts/buildinstall (BUILDINSTALL): Pass $p
