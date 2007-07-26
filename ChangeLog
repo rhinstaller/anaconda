@@ -22,6 +22,9 @@
 	* yuminstall.py (YumBackend.__init__): Make sure skipFormatRoot is
 	initialized.
 
+	* ui/autopart.glade: Bold heading text to be more consistent with
+	other screens.
+
 2007-07-25  David Cantrell  <dcantrell@redhat.com>
 
 	* installclasses/rhel.py:  import yuminstall to avoid traceback.
