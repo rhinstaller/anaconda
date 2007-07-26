@@ -1,3 +1,8 @@
+2007-07-26  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (YumBackend.__init__): Make sure skipFormatRoot is
+	initialized.
+
 2007-07-25  David Cantrell  <dcantrell@redhat.com>
 
 	* installclasses/rhel.py:  import yuminstall to avoid traceback.
