@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-24 12:15+1000\n"
+"PO-Revision-Date: 2007-07-26 16:40+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1310,7 +1310,7 @@ msgstr "이미지를 찾을 수 없습니다"
 #: ../livecd.py:94
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "설치에 사용할 %s CD의 경로가 올바르지 않습니다."
+msgstr "설치에 사용할 %s 라이브 CD의 경로가 올바르지 않습니다."
 
 #: ../livecd.py:98
 msgid "Exit installer"
@@ -4401,7 +4401,7 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "시스템 변경으로 부트 로더 설정이 자동으로 업데이트되지 않습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:105 ../textw/upgrade_bootloader_text.py:84
 msgid ""
@@ -4600,7 +4600,6 @@ msgid "Skip Boot Loader"
 msgstr "부트로더 생략"
 
 #: ../textw/bootloader_text.py:60
-#, fuzzy
 msgid ""
 "You have elected not to install any boot loader, which is not recommended "
 "unless you have an advanced need. Booting your system into Linux directly "
@@ -4610,21 +4609,18 @@ msgid ""
 msgstr ""
 "어떤 부트로더도 설치하지 않기로 하셨습니다. 특별한 이유가 없다면, 가"
 "능한 부트로더를 설치하시기 바랍니다.  부트로더는 하드 드라이브에 설"
-"치되어 있는 리눅스 시스템으로 재부팅하는데 반드시 필요합니다.\n"
+"치되어 있는 리눅스 시스템으로 부팅하는데 반드시 필요합니다.\n"
 "\n"
 "부트로더 설치를 생략하시겠습니까?"
 
 #: ../textw/bootloader_text.py:92
-#, fuzzy
 msgid ""
 "A few systems need to pass special options to the kernel at boot time to "
 "function properly. If you need to pass boot options to the kernel, enter "
 "them now. If you don't need any or aren't sure, leave this blank."
 msgstr ""
 "몇몇 시스템에서는 시스템의 기능을 제대로 활용하기 위해 부팅시 커널에 특별한 "
-"옵션을 전달해야 합니다. 만일, 시스템이 그러한 특별 옵션을 커널에 전"
-"달하여 부팅해야 하는 경우라면, 아래의 빈 칸에 그 내용을 입력해 주십시오. 커널"
-"에 전달해야할 옵션이 없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
+"옵션을 전달해야 합니다. 만일, 부팅 옵션을 커널에 전달해야 할 경우, 아래의 빈 칸에 그 내용을 입력해 주십시오. 커널에 전달해야할 옵션이 없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
 
 #: ../textw/bootloader_text.py:101
 msgid "Force use of LBA32 (not normally required)"
@@ -4680,15 +4676,13 @@ msgstr ""
 "다음 화면으로 가기>"
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, you should set a password, but a password is "
 "not necessary for more casual users."
 msgstr ""
-"부트로더 암호를 지정하시면, 사용자가 임의로 특정 옵션을 커널에 전달하는 것을 "
-"막을 수 있습니다.  최상의 보안을 위해 암호를 설정하실 것을 권하지만, 대부분"
-"의 일반 사용자에게는 필요하지 않습니다."
+"부트로더 암호를 지정하시면, 사용자가 임의로 특정 옵션을 커널에 전달하지 못하게 합니다.  "
+"최상의 보안을 위해 암호를 설정하실 것을 권하지만, 대부분의 일반 사용자에게는 필요하지 않습니다."
 
 #: ../textw/bootloader_text.py:396
 msgid "Use a GRUB Password"
@@ -4810,7 +4804,7 @@ msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다�
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
-msgstr ""
+msgstr "선택할 패키지 옵션이 없음"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -4856,14 +4850,14 @@ msgstr "IPv%d 접두부는 0과 %d사이의 값이어야 합니다."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "접두부에 필요한 정수값"
 
 #: ../textw/network_text.py:75
 #, python-format
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr ""
+msgstr "%s에 대한 정수값을 입력하셔야 합니다. IPv4의 경우, 0과 32 사이의 값이어야 하며, IPv6의 경우 0과 128 사이의 값이어야 합니다."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4889,7 +4883,7 @@ msgstr "IPv6 지원 활성화"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
 msgid "ESSID:"
@@ -4906,7 +4900,7 @@ msgstr "%s를 위한 네트워크 설정"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "point-to-point IP 주소"
 
 #: ../textw/network_text.py:267 tmp/netpostconfig.glade.h:5
 msgid "Dynamic IP configuration (DHCP)"
@@ -4944,34 +4938,31 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "동적 IP 설정 (DHCPv6)"
 
 #: ../textw/network_text.py:425
-#, fuzzy, python-format
+#, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "%s를 위한 네트워크 설정"
+msgstr "%s를 위한 IPv6 설정"
 
 #: ../textw/network_text.py:455 ../textw/network_text.py:466
 #: ../textw/network_text.py:469
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6 주소:"
+msgstr "IPv6 주소"
 
 #: ../textw/network_text.py:459 ../textw/network_text.py:478
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/접두부"
+msgstr "IPv6 접두부"
 
 #: ../textw/network_text.py:504
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "네트워크 인터페이스 활성화"
+msgstr "네트워크 인터페이스 설정"
 
 #: ../textw/network_text.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "시스템 상에서 네트워크 인터페이스를 시작하시겠습니까?"
+msgstr "시스템 상에서 %s 네트워크 인터페이스를 설정하시겠습니까?"
 
 #: ../textw/network_text.py:519 ../textw/network_text.py:521
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "설정되지 않음"
 
 #: ../textw/network_text.py:530
 msgid ""
@@ -4982,36 +4973,34 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:620
-#, fuzzy
 msgid "Active on boot"
 msgstr "부팅시 활성화"
 
 #: ../textw/network_text.py:622
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "부팅시 활성화"
+msgstr "부팅시 비활성화"
 
 #: ../textw/network_text.py:625
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/network_text.py:630
 msgid "Auto IPv6"
-msgstr ""
+msgstr "자동 IPv6"
 
 #: ../textw/network_text.py:632
 msgid "DHCPv6"
-msgstr ""
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:638
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:640 ../textw/network_text.py:642
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:665 ../loader2/net.c:1025
 msgid "Gateway:"
@@ -5030,17 +5019,14 @@ msgid "Miscellaneous Network Settings"
 msgstr "기타 네트워크 설정"
 
 #: ../textw/network_text.py:703 ../textw/network_text.py:706
-#, fuzzy
 msgid "gateway"
 msgstr "게이트웨이"
 
 #: ../textw/network_text.py:713 ../textw/network_text.py:716
-#, fuzzy
 msgid "primary DNS"
 msgstr "1차 DNS"
 
 #: ../textw/network_text.py:725
-#, fuzzy
 msgid "secondary DNS"
 msgstr "2차 DNS"
 
@@ -5220,7 +5206,6 @@ msgid "Not Supported"
 msgstr "지원하지 않음"
 
 #: ../textw/partition_text.py:783
-#, fuzzy
 msgid "You can only edit LVM Volume Groups in the graphical installer."
 msgstr "LVM 볼륨 그룹은 그래픽 설치 프로그램으로만 편집할 수 있습니다."
 
@@ -5270,18 +5255,17 @@ msgid "No Volume Groups"
 msgstr "볼륨 그룹 없음"
 
 #: ../textw/partition_text.py:1190
-#, fuzzy
 msgid "No volume groups exist in which to create a logical volume"
-msgstr "논리 볼륨을 생성할 볼륨 그룹이 없음."
+msgstr "논리 볼륨을 생성할 볼륨 그룹이 없음"
 
 #: ../textw/partition_text.py:1314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). "
 msgstr ""
 "현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
-"다. "
+"다."
 
 #: ../textw/partition_text.py:1333
 #, python-format
@@ -5327,9 +5311,8 @@ msgid "No Root Partition"
 msgstr "루트(Root) 파티션이 지정되지 않음"
 
 #: ../textw/partition_text.py:1505
-#, fuzzy
 msgid "Installation requires a / partition."
-msgstr "NFS 설치 방식은 IPv4 지원을 필요로 합니다."
+msgstr "설치시 / 파티션이 필요합니다."
 
 #: ../textw/partition_text.py:1547
 msgid "Partitioning Type"
@@ -5350,9 +5333,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "사용하실 드라이브를 지정해 주십시오"
 
 #: ../textw/partition_text.py:1588
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
+msgstr "<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
 
 #: ../textw/partition_text.py:1657
 msgid "Review Partition Layout"
@@ -5371,7 +5353,6 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "드라이브 설정을 수정할 방법을 지정해 주십시오."
 
 #: ../textw/partition_text.py:1703
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP 장치 추가"
 
@@ -5582,35 +5563,33 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "사무용"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "멀티미디어"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "축하합니다"
+msgstr "가상화"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "클러스터링"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "클러스터링 저장"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "설치 시작"
+msgstr "설치 번호"
 
 #: ../installclasses/rhel.py:51
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "서브스크립션에 포함된 모든 패키지 모음을 설치하시려면 설치 번호를 입력하셔야 합니다."
 
 #: ../installclasses/rhel.py:54
 msgid ""
@@ -5638,9 +5617,8 @@ msgid "Test"
 msgstr "테스트"
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:96
-#, fuzzy
 msgid "Eject Disc"
-msgstr "CD 꺼내기"
+msgstr "디스크 꺼내기"
 
 #: ../loader2/cdinstall.c:93
 #, fuzzy, c-format
@@ -5675,9 +5653,8 @@ msgstr ""
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:258
-#, fuzzy
 msgid "Disc Found"
-msgstr "CD를 찾았습니다"
+msgstr "디스크를 찾았습니다"
 
 #: ../loader2/cdinstall.c:259
 #, fuzzy, c-format
@@ -5709,9 +5686,8 @@ msgstr ""
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:391
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "CD를 찾을 수 없습니다"
+msgstr "디스크를 찾을 수 없습니다"
 
 #: ../loader2/cdinstall.c:464
 msgid "Cannot find kickstart file on CDROM."
@@ -5992,9 +5968,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/kickstart.c:380
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "%s 킥스타트 파일을 여는 도중 오류가 발생했습니다: %s"
+msgstr "킥스타트 파일을 다운로드하는 도중 오류가 발생했습니다"
 
 #: ../loader2/kickstart.c:524
 #, c-format
@@ -6015,18 +5990,16 @@ msgid "Choose a Language"
 msgstr "언어 선택"
 
 #: ../loader2/loader.c:118
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "지역 CDROM"
+msgstr "로컬 CD/DVD"
 
 #: ../loader2/loader.c:120
 msgid "Hard drive"
 msgstr "하드 드라이브"
 
 #: ../loader2/loader.c:121
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s 디렉토리:"
+msgstr "NFS 디렉토리"
 
 #: ../loader2/loader.c:337
 msgid "Update Disk Source"
@@ -6303,9 +6276,8 @@ msgid "Nameserver IP"
 msgstr "네임서버 IP 주소"
 
 #: ../loader2/net.c:306
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "네임서버"
+msgstr "네임서버 부재"
 
 #: ../loader2/net.c:307
 #, fuzzy
@@ -6340,9 +6312,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP 설정"
 
 #: ../loader2/net.c:792
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "DHCP에 대해 최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니다."
+msgstr "최소 하나의 프로토콜 (IPv4 또는 IPv6)을 선택하셔야 합니다."
 
 #: ../loader2/net.c:799
 msgid "IPv4 Needed for NFS"
@@ -6709,7 +6680,7 @@ msgstr "설치"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "라이브 CD를 하드 디스크에 설치합니다"
 
 #: tmp/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
@@ -6773,19 +6744,16 @@ msgid "Edit Interface"
 msgstr "인터페이스 편집"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
-msgstr "인증키(_K):"
+msgstr "인증키:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "수동 TCP/IP 설정"
+msgstr "수동 설정"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "Point to Point (IP)(_P):"
+msgstr "Point to Point (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6814,19 +6782,16 @@ msgid "_Customize now"
 msgstr "지금 사용자 설정(_C)"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "장치 번호"
+msgstr "<b>장치 번호:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>암호(_P):</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -6842,7 +6807,7 @@ msgstr "아라비아어"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "아삼어"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -6926,7 +6891,7 @@ msgstr "아이슬랜드어"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "일로카노어"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -6997,9 +6962,8 @@ msgid "Punjabi"
 msgstr "펀자브어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "크로아티아"
+msgstr "루마니아어"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7015,7 +6979,7 @@ msgstr "세르비아어(라틴)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "신할라어"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7039,7 +7003,7 @@ msgstr "타밀어"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "텔루구어"
 
 #. generated from lang-table
 msgid "Turkish"
