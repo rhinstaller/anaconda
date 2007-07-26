@@ -22,7 +22,7 @@ BuildRequires: slang-devel >= 2.0.6-2, slang-static
 BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
 BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
-BuildRequires: audit-libs-devel
+BuildRequires: audit-libs-devel, curl
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -86,6 +86,9 @@ sets, but are not meant for use on already installed systems.
 %build
 make depend
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+
+curl -A "anaconda-build" -o docs/command-line.txt "http://fedoraproject.org/wiki/AnacondaOptions?action=raw"
+curl -A "anaconda-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/AnacondaKickstart?action=raw"
 
 %install
 rm -rf $RPM_BUILD_ROOT
