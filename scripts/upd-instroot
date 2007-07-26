@@ -147,13 +147,14 @@ instFile() {
 }
 
 expandPackageSet() {
-    RPMS=$1
-    PKGDEST=$2
-    KEEPFILES=$3
+    YUMCONF=$1
+    RPMS=$2
+    PKGDEST=$3
+    KEEPFILES=$4
 
     [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
     mkdir $PKGDEST/yumdir
-    yum -y --installroot=$PKGDEST/yumdir install $RPMS
+    yum -c $YUMCONF -y --installroot=$PKGDEST/yumdir install $RPMS
 
     pushd $PKGDEST/yumdir >/dev/null
     cat $KEEPFILES | while read spec ; do
@@ -189,6 +190,20 @@ if [ -z "$3" ]; then
 else
     DESTGR=$3
 fi
+
+if [ -n "$4" ]; then
+    TOPDIR=$4
+elif [ -d $PACKAGEDIR/repodata ]; then
+    TOPDIR=$PACKAGEDIR
+elif [ -d $PACKAGEDIR/../repodata ]; then
+    TOPDIR=$PACKAGEDIR/..
+elif [ -d $PACKAGEDIR/../../repodata ]; then
+    TOPDIR=$PACKAGEDIR/../..
+else
+    echo "Unable to find repodata!"
+    exit 1
+fi
+
 
 rm -rf $DEST $DESTGR
 mkdir -p $DEST
@@ -1045,13 +1060,28 @@ for file in $KEEPFILE $KEEPFILEGR; do
    mv -f $file- $file
 done
 
+yumconf=$(mktemp /tmp/yum.conf.XXXXXX)
+cat > $yumconf <<EOF 
+[main]
+keepcache=0
+gpgcheck=0
+plugins=0
+
+[anacondarepo]
+name=anaconda repo
+baseurl=file://$TOPDIR
+enabled=1
+EOF
+
 echo "Expanding text packages..."
-expandPackageSet "$RPMS" $DEST $KEEPFILE
+expandPackageSet $yumconf "$RPMS" $DEST $KEEPFILE
 
 #(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
 
 echo "Expanding graphical packages..."
-expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
+expandPackageSet $yumconf "$RPMSGR" $DESTGR $KEEPFILEGR
+
+rm -f $yumconf
 
 # echo "retrieving timezones"
 # TZDIR=${TMPDIR:-/tmp}/glibc-timezone-$$

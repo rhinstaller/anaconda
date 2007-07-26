@@ -1,3 +1,9 @@
+2007-07-26  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Use the tree as the repo rather than the
+	yum config on the machine (whoops!)
+	* scripts/buildinstall (BUILDINSTALL): Pass $p
+
 2007-07-26  Bill Nottingham  <notting@redhat.com>
 
 	* scripts/buildinstall: Remove obsolete chunk
