@@ -645,7 +645,6 @@ class NetworkDeviceWindow:
             if len(self.devices) == 1 and doConf is True:
                 doConf = False
 
-        screen.popWindow()
         return INSTALL_OK
 
 
