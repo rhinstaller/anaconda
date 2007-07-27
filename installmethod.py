@@ -1,7 +1,7 @@
 #
 # installmethod.py - Base class for install methods
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,19 +18,34 @@ from constants import *
 import logging
 log = logging.getLogger("anaconda")
 
+## Raised by subclasses of InstallMethod when an error occurs copying a file.
 class FileCopyException(Exception):
+    ## The constructor.
+    # @param s An optional message to be added to the exception.
     def __init__(self, s = ""):
         self.args = s
-        
 
+## The base installation method class.
+# This is an abstract class that defines the methods that make up an
+# installation method.  This class should not be used except as the superclass
+# for a specific method.  Most methods in this class should be redefined by
+# subclasses, though things like mountCD, unmountCD, ejectCD, and the cleanup
+# methods may not need to be redefined.  By default, most methods pass.
 class InstallMethod:
+    ## Return the list of protected partitions.
+    # Protected partitions are the installation source for the hard drive
+    # installation method.  Partitions on this list may be mounted, but may
+    # not be formatted.
+    #
+    # @return The list of protected partitions, or an empty list otherwise.
     def protectedPartitions(self):
         return []
 
+    ## Return a directory that can be used for writing temporary data to.
+    # @returns A valid temporary directory, or /tmp by default.
     def getTempPath(self):
 	root = self.rootPath
-	pathlist = [ "/var/tmp", "/tmp",
-		     "/." ]
+	pathlist = [ "/var/tmp", "/tmp", "/." ]
         tmppath = None
 	for p in pathlist:
 	    if (os.access(root + p, os.X_OK)):
@@ -43,54 +58,91 @@ class InstallMethod:
 
         return tmppath
 
+    ## Fetch a file from the installation source.
+    # @param filename The filename to fetch.
+    # @param callback A function to be called when the file is fetched.  This
+    #                 function expects a message and size as parameters.
+    # @param destdir The directory where the fetched file should be put.
+    # @param retry How many times to attempt fetching the file.
+    # @return The complete path to the fetched file on the local system.
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	pass
 
+    ## Perform method-specific actions to unmount any installation media.
     def systemUnmounted(self):
 	pass
 
-    def systemMounted(self, fstab, mntPoint):
+    ## Perform method-specific actions to mount any installation media.
+    # @param fsset An instance of FileSystemSet.
+    # @param mntPoint The root of the filesystem to mount the media onto.
+    def systemMounted(self, fsset, mntPoint):
 	pass
 
+    ## Method-specific cleanup function to be called at the end of installation.
+    # @see doMethodComplete
+    # @see postAction
     def filesDone(self):
 	pass
 
+    ## Remove a file if it was fetched from a remote system.
+    # @param fullName The full path to the file to be removed.
     def unlinkFilename(self, fullName):
 	pass
 
+    ## The constructor.
+    # @param method The --method= parameter passed to anaconda from loader.
+    # @param rootpath The --rootpath= parameter passed to anaconda from loader.
+    # @param intf An instance of the InstallInterface class.
     def __init__(self, method, rootpath, intf):
         self.rootPath = rootpath
         self.intf = intf
         self.tree = None
         self.splitmethod = False
 
+    ## Get the base URI for the method.
+    # @return The base URI for this installation method.
     def getMethodUri(self):
         pass
 
-    def getSourcePath(self):
-        pass
-
+    ## Unmount any CD media.
     def unmountCD(self):
         pass
 
+    ## Eject any CD media from the drive.
     def ejectCD(self):
         pass
 
+    ## Construct a method-specific error message.
+    # @param pkgname The name of the package that could not be fetched.
+    # @return A method-specific error message.
     def badPackageError(self, pkgname):
         pass
 
+    ## Switch CDs.
+    # @param mediano The CD media number to switch to.
+    # @param filename The file to be read that requires switching media.
     def switchMedia(self, mediano, filename=""):
 	pass
 
-    # this is very very very late.  it's even after kickstart %post.
-    # only use this if you really know what you're doing.
+    ## Method to be run at the very end of installation.
+    #
+    # This method is run very late.  It's the last step to be run before
+    # showing the completion screen.  Only use this if you really know what
+    # you're doing.
+    # @param anaconda An instance of the Anaconda class.
+    # @see filesDone
+    # @see doMethodComplete
     def postAction(self, anaconda):
         pass
 
-# This handles any cleanup needed for the method.  It occurs *very* late
-# and is mainly used for unmounting media and ejecting the CD.  If we're on
-# a kickstart install, don't eject the CD since there's a command to do that
-# if the user wants.
+## Do method-specific cleanups.
+#
+# This occurs very late and is mainly used for unmounting media and ejecting
+# the CD.  If we're on a kickstart install, don't eject the CD since there's
+# a kickstart command to do that.
+# @param anaconda An instance of the Anaconda class.
+# @see InstallMethod::postAction
+# @see InstallMethod::filesDone
 def doMethodComplete(anaconda):
     anaconda.method.filesDone()
 

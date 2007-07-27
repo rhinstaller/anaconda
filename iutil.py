@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -24,6 +24,15 @@ from flags import flags
 import logging
 log = logging.getLogger("anaconda")
 
+## Run an external program and redirect the output to a file.
+# @param command The command to run.
+# @param argv A list of arguments.
+# @param stdin The file descriptor to read stdin from.
+# @param stdout The file descriptor to redirect stdout to.
+# @param stderr The file descriptor to redirect stderr to.
+# @param searchPath Should command be searched for in $PATH?
+# @param root The directory to chroot to before running command.
+# @return The return code of command.
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
                      searchPath = 0, root = '/'):
     def chroot ():
@@ -54,6 +63,13 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     return ret
 
+## Run an external program and capture standard out.
+# @param command The command to run.
+# @param argv A list of arguments.
+# @param stdin The file descriptor to read stdin from.
+# @param stderr The file descriptor to redirect stderr to.
+# @param root The directory to chroot to before running command.
+# @return The output of command from stdout.
 def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     def chroot():
         os.chroot(root)
@@ -80,6 +96,7 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     pipe.wait()
     return rc
 
+## Run a shell.
 def execConsole():
     try:
         proc = subprocess.Popen(["/bin/sh"])
@@ -87,7 +104,9 @@ def execConsole():
     except OSError, (errno, msg):
         raise RuntimeError, "Error running /bin/sh: " + msg
 
-# return size of directory (and subdirs) in kilobytes
+## Get the size of a directory and all its subdirectories.
+# @param dir The name of the directory to find the size of.
+# @return The size of the directory in kilobytes.
 def getDirSize(dir):
     def getSubdirSize(dir):
 	# returns size in bytes
@@ -108,7 +127,8 @@ def getDirSize(dir):
         return dsize
     return getSubdirSize(dir)/1024
 
-# this is in kilobytes - returns amount of RAM not used by /tmp
+## Get the amount of RAM not used by /tmp.
+# @return The amount of available memory in kilobytes.
 def memAvailable():
     tram = memInstalled()
 
@@ -118,7 +138,8 @@ def memAvailable():
 
     return tram - ramused
 
-# this is in kilobytes
+## Get the amount of RAM installed in the machine.
+# @return The amount of installed memory in kilobytes.
 def memInstalled():
     f = open("/proc/meminfo", "r")
     lines = f.readlines()
@@ -132,7 +153,9 @@ def memInstalled():
 
     return int(mem)
 
-# try to keep 2.4 kernel swapper happy!
+## Suggest the size of the swap partition that will be created.
+# @param quiet Should size information be logged?
+# @return A tuple of the minimum and maximum swap size, in megabytes.
 def swapSuggestion(quiet=0):
     mem = memInstalled()/1024
     mem = ((mem/16)+1)*16
@@ -155,9 +178,8 @@ def swapSuggestion(quiet=0):
 
     return (minswap, maxswap)
 
-    
-# this is a mkdir that won't fail if a directory already exists and will
-# happily make all of the directories leading up to it. 
+## Create a directory path.  Don't fail if the directory already exists.
+# @param dir The directory path to create.
 def mkdirChain(dir):
     try:
         os.makedirs(dir, 0755)
@@ -167,9 +189,11 @@ def mkdirChain(dir):
                 return
         except:
             pass
-            
+
         log.error("could not create directory %s: %s" % (dir, msg))
 
+## Get the total amount of swap memory.
+# @return The total amount of swap memory in kilobytes, or 0 if unknown.
 def swapAmount():
     f = open("/proc/meminfo", "r")
     lines = f.readlines()
@@ -180,11 +204,14 @@ def swapAmount():
             fields = string.split(l)
             return int(fields[1])
     return 0
-        
-def copyDeviceNode(src, dest):
-    """Copies the device node at src to dest by looking at the type of device,
-    major, and minor of src and doing a new mknod at dest"""
 
+## Copy a device node.
+# Copies a device node by looking at the device type, major and minor device
+# numbers, and doing a mknod on the new device name.
+#
+# @param src The name of the source device node.
+# @param dest The name of the new device node to create.
+def copyDeviceNode(src, dest):
     filestat = os.lstat(src)
     mode = filestat[stat.ST_MODE]
     if stat.S_ISBLK(mode):
@@ -197,7 +224,8 @@ def copyDeviceNode(src, dest):
 
     os.mknod(dest, mode | type, filestat.st_rdev)
 
-# make the device-mapper control node
+## Create the device mapper control node.
+# @param root The root of the filesystem to create the device node in.
 def makeDMNode(root="/"):
     major = minor = None
 
@@ -226,12 +254,12 @@ def makeDMNode(root="/"):
     except:
         pass
 
-# make some miscellaneous character device nodes 
+## Make some miscellaneous character device nodes.
 def makeCharDeviceNodes():
     for dev in ["input/event0", "input/event1", "input/event2", "input/event3"]:
         isys.makeDevInode(dev, "/dev/%s" % (dev,))
 
-# make the device nodes for all of the drives on the system
+## Make the device nodes for all the drives in the system.
 def makeDriveDeviceNodes():
     hardDrives = isys.hardDriveDict()
     for drive in hardDrives.keys():
@@ -275,9 +303,11 @@ def makeDriveDeviceNodes():
     for loopMinor in range(0, 8):
         loop = "loop%d" %(loopMinor,)
         isys.makeDevInode(loop, "/dev/%s" %(loop,))
-    
-# this is disgusting and I feel very dirty
+
+## Determine if the hardware supports iSeries storage devices.
+# @return 1 if so, 0 otherwise.
 def hasiSeriesNativeStorage():
+    # this is disgusting and I feel very dirty
     if rhpl.getArch() != "ppc":
         return
 
@@ -293,12 +323,12 @@ def hasiSeriesNativeStorage():
 
     return 0
 
-# return the ppc machine variety type
+## Get the PPC machine variety type.
+# @return The PPC machine type, or 0 if not PPC.
 def getPPCMachine():
-    
     if rhpl.getArch() != "ppc":
         return 0
-    
+
     machine = rhpl.getPPCMachine()
     if machine is None:
         log.warning("Unable to find PowerPC machine type")
@@ -307,10 +337,11 @@ def getPPCMachine():
 
     return machine
 
-# return the pmac machine id
+## Get the powermac machine ID.
+# @return The powermac machine id, or 0 if not PPC.
 def getPPCMacID():
     machine = None
-    
+
     if rhpl.getArch() != "ppc":
         return 0
     if getPPCMachine() != "PMac":
@@ -328,11 +359,12 @@ def getPPCMacID():
     log.warning("No Power Mac machine id")
     return 0
 
-# return the pmac generation
+## Get the powermac generation.
+# @return The powermac generation, or 0 if not powermac.
 def getPPCMacGen():
     # XXX: should NuBus be here?
     pmacGen = ['OldWorld', 'NewWorld', 'NuBus']
-    
+
     if rhpl.getArch() != "ppc":
         return 0
     if getPPCMachine() != "PMac":
@@ -357,7 +389,8 @@ def getPPCMacGen():
     log.warning("Unknown Power Mac generation: %s" %(gen,))
     return 0
 
-# return if pmac machine is it an iBook/PowerBook
+## Determine if the hardware is an iBook or PowerBook
+# @return 1 if so, 0 otherwise.
 def getPPCMacBook():
     if rhpl.getArch() != "ppc":
         return 0
@@ -374,6 +407,8 @@ def getPPCMacBook():
     return 0
 
 cell = None
+## Determine if the hardware is the Cell platform.
+# @return True if so, False otherwise.
 def isCell():
     global cell
     if cell is not None:
@@ -394,12 +429,13 @@ def isCell():
     return cell
 
 mactel = None
-# return True if this is one of the Intel-based Apple Macs
+## Determine if the hardware is an Intel-based Apple Mac.
+# @return True if so, False otherwise.
 def isMactel():
     global mactel
     if mactel is not None:
         return mactel
-    
+
     if rhpl.getArch() not in ("x86_64", "i386"):
         mactel = False
     elif not os.path.exists("/usr/sbin/dmidecode"):
@@ -414,6 +450,8 @@ def isMactel():
     return mactel
 
 efi = None
+## Determine if the hardware supports EFI.
+# @return True if so, False otherwise.
 def isEfi():
     global efi
     if efi is not None:
@@ -427,9 +465,9 @@ def isEfi():
 
     return efi
 
+## Extract the CPU feature flags from /proc/cpuinfo
+# @return A list of CPU feature flags, or an empty list on error.
 def cpuFeatureFlags():
-    """Convenience function to get CPU feature flags from /proc/cpuinfo."""
-
     if rhpl.getArch() not in ("i386", "x86_64"):
         return False
     f = open("/proc/cpuinfo", "r")
@@ -447,6 +485,8 @@ def cpuFeatureFlags():
 
     return []
 
+## Generate the /etc/rpm/platform and /etc/rpm/macros files.
+# @param root The root of the filesystem to create the files in.
 def writeRpmPlatform(root="/"):
     import rhpl.arch
 
@@ -464,8 +504,8 @@ def writeRpmPlatform(root="/"):
         myarch = flags.targetarch
 
     # now make the current install believe it, too
-    rhpl.arch.canonArch = myarch            
-        
+    rhpl.arch.canonArch = myarch
+
     f = open("%s/etc/rpm/platform" %(root,), 'w+')
     f.write("%s-redhat-linux\n" %(myarch,))
     f.close()
@@ -496,4 +536,3 @@ def writeRpmPlatform(root="/"):
         f.write("%_prefer_color   1\n")
 
     f.close()
-    
