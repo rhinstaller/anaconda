@@ -1066,6 +1066,7 @@ cat > $yumconf <<EOF
 keepcache=0
 gpgcheck=0
 plugins=0
+reposdir=
 
 [anacondarepo]
 name=anaconda repo

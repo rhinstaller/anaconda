@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.11
+Version: 11.3.0.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 26 2007 Bill Nottingham <notting@redhat.com> - 11.3.0.12-1
+- fix stage2 generation (jkeating)
+
 * Thu Jul 26 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.11-1
 - GPT boot bits (pjones)
 - Fix loopback clobbering problem
