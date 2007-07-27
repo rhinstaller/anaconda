@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.13
+Version: 11.3.0.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 27 2007 Chris Lumens <clumens@redhat.com> 11.3.0.14-1
+- Fix ppc keymaps (#249881).
+
 * Fri Jul 27 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.13-1
 - fix nfsiso (#249882)
 
