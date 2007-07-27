@@ -102,9 +102,6 @@ class ImageInstallMethod(InstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getSourcePath(self):
-        return self.tree
-
     def getMethodUri(self):
         return "file://%s" % (self.tree,)
 
