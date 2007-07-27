@@ -1,7 +1,7 @@
 %define livearches %{ix86} x86_64
 
 Name: anaconda
-Version: 11.3.0.12
+Version: 11.3.0.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -22,7 +22,7 @@ BuildRequires: slang-devel >= 2.0.6-2, slang-static
 BuildRequires: newt-devel, newt-static
 BuildRequires: glib2-devel >= 2.11.1-5, glib2-static, libdhcp6client-static
 BuildRequires: libdhcp-static >= 1.24-3, mkinitrd-devel >= 5.1.2-1
-BuildRequires: audit-libs-devel, curl
+BuildRequires: audit-libs-devel
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -142,6 +142,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 27 2007 Jeremy Katz <katzj@redhat.com> - 11.3.0.13-1
+- fix nfsiso (#249882)
+
 * Thu Jul 26 2007 Bill Nottingham <notting@redhat.com> - 11.3.0.12-1
 - fix stage2 generation (jkeating)
 
