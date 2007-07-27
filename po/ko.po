@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-02 15:15-0400\n"
-"PO-Revision-Date: 2007-07-26 16:46+1000\n"
+"PO-Revision-Date: 2007-07-27 16:36+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,7 +207,7 @@ msgstr ""
 #: ../autopart.py:1038
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
+msgstr "%s 부트 파티션은 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1064
 #, python-format
@@ -394,7 +394,7 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"자동 파티션은 여러분이 선택하신 설치 유형에 따라 자동으로 파티션을 설정합니"
+"자동 파티션은 선택하신 설치 유형에 따라 자동으로 파티션을 설정합니"
 "다. 자동으로 설정된 파티션의 결과를 확인해 보신 후에 필요하시다면, 사용자가 "
 "원하시는 대로 직접 파티션을 설정하실 수도 있습니다.\n"
 "\n"
@@ -407,7 +407,7 @@ msgid ""
 "must choose how to use the space on your hard drives."
 msgstr ""
 "설치 프로그램이 자동으로 파티션하기에 앞서, 하드 드라이브의 공간을 어떻게 분"
-"할할 지는 여러분이 직접 선택해 주시는 것이 좋습니다."
+"할할 지는 직접 선택해 주시는 것이 좋습니다."
 
 #: ../autopart.py:1713
 msgid "Remove all partitions on this system"
@@ -1220,6 +1220,9 @@ msgid ""
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"%s ISO 이미지의 용량은 바이트가 아니므로 이 컴퓨터로 전송시 문제가 발생할 수 있습니다.\n"
+"\n"
+"프로그램을 종료하여 설치를 중단하시는 것이 좋지만 이로 인해 오류가 발생할 것이라고 생각되실 경우 계속 진행하기를 선택하실 수 있습니다."
 
 #: ../image.py:517
 #, python-format
@@ -1321,9 +1324,8 @@ msgid "Copying live image to hard drive."
 msgstr "이미지를 하드 드라이브로 복사 중 입니다."
 
 #: ../livecd.py:203
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "설치-이후 "
+msgstr "설치-이후 실행"
 
 #: ../livecd.py:204
 msgid ""
@@ -1516,7 +1518,7 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "/dev/%s 드라이브에는 15개 이상의 파티션이 있습니다. 리눅스 커널에 있는 SCSI 하부 시스템에서는 15개 이상의 파티션이 있을 수 없습니다. 디스크의 파티션을 변경하시거나 또는 %s에 있는 /dev/%s15 외의 파티션을 사용하실 수 없습니다."
 
 #: ../partedUtils.py:1184
 #, python-format
@@ -1525,7 +1527,7 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitions at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr ""
+msgstr "/dev/%s 드라이브에는 15개 이상의 파티션이 있습니다. 리눅스 커널에 있는 SCSI 하부 시스템에서는 15개 이상의 파티션이 있을 수 없습니다. 디스크의 파티션을 변경하시거나 또는 %s에 있는 /dev/%s15 외의 파티션을 사용하실 수 없습니다."
 
 #: ../partedUtils.py:1276
 msgid "No Drives Found"
@@ -1875,7 +1877,7 @@ msgid ""
 "disk immediately. Is that OK?"
 msgstr ""
 "시스템의 메모리가 부족하기 때문에 지금 즉시 스왑 공간을 사용해야 합니다. 스"
-"왑 공간을 사용하시려면, 현재 여러분의 새로운 파티션 정보를 디스크에 기록해야 "
+"왑 공간을 사용하시려면, 현재 새로운 파티션 정보를 디스크에 기록해야 "
 "합니다. 그렇게 하시겠습니까?"
 
 #: ../partitions.py:816
@@ -2180,7 +2182,7 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"여러분의 시스템을 일부 또는 전부 마운트하는 도중 오류가 발생되었습니다. 시스"
+"시스템을 일부 또는 전부 마운트하는 도중 오류가 발생되었습니다. 시스"
 "템의 일부는 %s에 마운트 됩니다.\n"
 "\n"
 "쉘로 나가시려면, [ENTER] 키를 누르십시오. 쉘에서 빠져 나가시면, 시스템은 자동"
@@ -2201,7 +2203,7 @@ msgstr ""
 #: ../rescue.py:466
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "여러분의 시스템이 %s 디렉토리에 마운트되었습니다."
+msgstr "시스템이 %s 디렉토리에 마운트되었습니다."
 
 #: ../text.py:153 ../text.py:168
 msgid "Save"
@@ -2286,7 +2288,7 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"여러분이 업그레이드 설치를 위해 선택하신 리눅스 파일시스템은 이미 마운트되어 "
+"업그레이드 설치를 위해 선택하신 리눅스 파일시스템은 이미 마운트되어 "
 "있습니다. 현재 이곳에서는 뒤로 되돌아 가실 수 없습니다. \n"
 "\n"
 
@@ -2315,7 +2317,7 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"여러분 리눅스 시스템의 파일시스템 중 일부분이 완전히 마운트 해제되지 않았습니"
+"리눅스 시스템의 파일시스템 중 일부분이 완전히 마운트 해제되지 않았습니"
 "다. 기존의 리눅스 시스템으로 부팅하여 파일시스템이 자동 점검될 수 있도록 하"
 "신 다음, 모든 사항을 완전히 종료하신 후에 다시 업그레이드 하시기 바랍니다. \n"
 "%s"
@@ -2327,7 +2329,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"여러분 리눅스 시스템의 파일 시스템 중 일부분이 완전히 마운트 해제되지 않았습"
+"리눅스 시스템의 파일 시스템 중 일부분이 완전히 마운트 해제되지 않았습"
 "니다. 그래도 마운트 할까요?\n"
 "%s"
 
@@ -2465,7 +2467,7 @@ msgstr "암호 오류"
 
 #: ../vnc.py:107 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr "여러분이 입력하신 암호가 일치하지 않습니다. 다시 입력해 주십시오."
+msgstr "입력하신 암호가 일치하지 않습니다. 다시 입력해 주십시오."
 
 #: ../vnc.py:112 ../textw/userauth_text.py:59
 msgid "Password Length"
@@ -2602,7 +2604,7 @@ msgstr "<b>%s 설치하는 중</b> (%s)\n"
 #: ../yuminstall.py:185
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "%s 중 %s 패키지 설치 완료"
 
 #: ../yuminstall.py:195
 msgid "Finishing upgrade"
@@ -2689,7 +2691,7 @@ msgstr ""
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "리포지터리에서 그룹 정보를 읽을 수 없습니다. 설치 트리의 생성에 문제가 있습니다."
 
 #: ../yuminstall.py:836
 msgid "Uncategorized"
@@ -2711,7 +2713,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"여러분이 업그레이드하시려는 시스템은 이 버전 %s으로 업그레이드하기에는 너무 "
+"업그레이드하시려는 시스템은 이 버전 %s으로 업그레이드하기에는 너무 "
 "오래된 버전으로 보입니다. 따라서 업그레이드를 제대로 실행할 수 없습니다. 그래"
 "도 업그레이드를 계속 진행하시겠습니까?"
 
@@ -2784,7 +2786,7 @@ msgstr "루트(root) 암호를 입력하신 후 확인을 위해 다시 한번 �
 
 #: ../iw/account_gui.py:57
 msgid "The passwords you entered were different.  Please try again."
-msgstr "여러분이 입력하신 암호가 일치하지 않습니다.  다시 입력해 주십시오."
+msgstr "입력하신 암호가 일치하지 않습니다.  다시 입력해 주십시오."
 
 #: ../iw/account_gui.py:64
 msgid "The root password must be at least six characters long."
@@ -2865,7 +2867,7 @@ msgid ""
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
 "부트로더 암호를 입력하신 후 확인을 위해 한번 더 입력해 주십시오.  (BIOS 키맵"
-"은 여러분이 사용하시는 실제 키맵과 다를 수 있다는 점을 잊지 마십시오.)"
+"은 사용하시는 실제 키맵과 다를 수 있다는 점을 잊지 마십시오.)"
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -3264,7 +3266,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:523 ../textw/partition_text.py:1303
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:556
 msgid "Mount point in use"
@@ -3886,7 +3888,7 @@ msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:633
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgstr "요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다."
 
 #: ../iw/partition_gui.py:635
 #, python-format
@@ -3899,7 +3901,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:647
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "요청하신 파티션 설정 내용에서 다음과 같은 경고가 발생하였습니다."
 
 #: ../iw/partition_gui.py:649
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4282,7 +4284,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "대상 드라이브를 지우는 도중 오류가 발생하였습니다.  복제에 실패."
 
 #: ../iw/raid_dialog_gui.py:692
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4491,7 +4492,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"여러분의 시스템에서 %s MB 용량의 램이 검색되었습니다.\n"
+"시스템에서 %s MB 용량의 램이 검색되었습니다.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
@@ -4538,7 +4539,7 @@ msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:168
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
+msgstr "선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
@@ -4566,7 +4567,7 @@ msgid ""
 msgstr ""
 "z/IPL 부트로더가 이제 시스템에 설치될 것입니다.\n"
 "\n"
-"이전 파티션 설정에서 여러분은 루트 파티션을 선택하셨습니다.\n"
+"이전 파티션 설정에서 루트 파티션을 선택하셨습니다.\n"
 "\n"
 "컴퓨터를 시작할 때 사용되었던 커널이 디폴트로 설치됩니다.\n"
 "\n"
@@ -4931,7 +4932,7 @@ msgstr "IPv4 접두부 (넷마스크)"
 
 #: ../textw/network_text.py:395 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "자동 이웃 탐색 기능"
 
 #: ../textw/network_text.py:398 tmp/netpostconfig.glade.h:6
 msgid "Dynamic IP configuration (DHCPv6)"
@@ -4970,7 +4971,7 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr ""
+msgstr "각 인터페이스에 대한 현재 설정 사항은 장치명 옆에 나열되어 있습니다. 설정되지 않은 인터페이스는 설정되지 않음이라고 나타납니다. 인터페이스를 설정하시려면, 설정하시려는 인터페이스를 선택하시고 편집 버튼을 누르십시오. 설정을 완료하면 확인 버튼을 눌러 계속 진행합니다."
 
 #: ../textw/network_text.py:620
 msgid "Active on boot"
@@ -5043,7 +5044,6 @@ msgid "Hostname Configuration"
 msgstr "호스트명 설정"
 
 #: ../textw/network_text.py:784
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5246,9 +5246,8 @@ msgid "Too many spares"
 msgstr "여분(spare)의 수가 너무 많음"
 
 #: ../textw/partition_text.py:1108
-#, fuzzy
 msgid "You may not use any spares with a RAID0 array."
-msgstr "RAID0 어레이에 구성된 여분(spare)의 최대 수는 '0' 입니다."
+msgstr "RAID0 어레이로된 여분(spare)을 사용하실 수 없습니다."
 
 #: ../textw/partition_text.py:1189
 msgid "No Volume Groups"
@@ -5357,15 +5356,14 @@ msgid "Add FCP Device"
 msgstr "FCP 장치 추가"
 
 #: ../textw/partition_text.py:1704 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
-"zSeries 기계들은 보통 SCSI 장치들을 광채널 (FCP)을 통해 사용하실 수 있습니"
-"다. 각 장치들의, 16비트 장치 번호, 16비트 SCSI ID, 64비트 세계 포트 이름 "
-"(WWPN),16비트 SCSI LUN 그리고 64비트 FCP LUN 의 5가지 변수가 필요합니다."
+"zSeries 기계는 산업 표준 SCSI 장치들을 광채널 (FCP)을 통해 사용하실 수 있습니"
+"다. 각 장치들의, 16비트 장치 번호, 64비트 세계 포트 이름 "
+"(WWPN), 64비트 FCP LUN을 알려주셔야 합니다."
 
 #: ../textw/partition_text.py:1727 tmp/iscsi-config.glade.h:5
 msgid "Configure iSCSI Parameters"
@@ -5418,9 +5416,8 @@ msgid "Customize software selection"
 msgstr "소프트웨어 선택 사용자 설정"
 
 #: ../textw/timezone_text.py:68
-#, fuzzy
 msgid "In which time zone are you located?"
-msgstr "여러분이 위치한 시간대를 선택해 주십시오"
+msgstr "어떤 시간대에 위치하고 계십니까?"
 
 #: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
@@ -5461,7 +5458,7 @@ msgstr "스왑 추가"
 
 #: ../textw/upgrade_text.py:161
 msgid "The value you entered is not a valid number."
-msgstr "여러분이 입력하신 값은 사용될 수 없습니다."
+msgstr "입력하신 값은 사용될 수 없습니다."
 
 #: ../textw/upgrade_text.py:194
 msgid "Reinstall System"
@@ -5472,14 +5469,13 @@ msgid "System to Upgrade"
 msgstr "업그레이드할 시스템"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"여러분 시스템 상에 한개 이상이 리눅스 시스템이 발견되었습니다.\n"
+"시스템 상에 한개 이상이 리눅스 시스템이 발견되었습니다.\n"
 "\n"
 "업그레이드할 시스템을 선택하시거나 시스템을 새로 설치하기 위하여 '시스템 재설"
 "치'를 선택하시기 바랍니다."
@@ -5489,7 +5485,6 @@ msgid "Root Password"
 msgstr "Root 암호"
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. Remember that the root password is a critical "
@@ -5513,7 +5508,6 @@ msgstr ""
 "\n"
 
 #: ../textw/zipl_text.py:26
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5604,6 +5598,13 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"설치 번호를 입력하실 수 없을 경우 http://www.redhat.com/apps/support/in.html 에서 "
+"살펴 보시기 바랍니다.\n"
+"\n"
+"설치 번호을 입력하지 않으실 경우:\n"
+"* 서브스크립션에 포함된 모든 패키지 모음에 액세스하실 수 없게 됩니다.\n"
+"* Red Hat Enterprise Linux가 지원되지 않는/인증되지 않는 설치가 실행될 수 있습니다.\n"
+"* 서브스크립션에 포함되지 않은 패키지에 대한 소프트웨어 및 보안 업데이트를 받으실 수 없게 됩니다."
 
 #: ../loader2/cdinstall.c:92 ../loader2/cdinstall.c:113
 #: ../loader2/mediacheck.c:346
@@ -5621,16 +5622,16 @@ msgid "Eject Disc"
 msgstr "디스크 꺼내기"
 
 #: ../loader2/cdinstall.c:93
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"\"%s\"를 선택하여 현재 드라이브 상에 있는 CD를 테스트 하시거나 \"%s\"를 선택"
-"하여 그 CD를 꺼내고 다른 것을 넣어 테스트하십시오."
+"\"%s\"를 선택하여 현재 드라이브 상에 있는 디스크를 테스트 하시거나 \"%s\"를 선택"
+"하여 그 디스크를 꺼내고 다른 것을 넣어 테스트하십시오."
 
 #: ../loader2/cdinstall.c:114
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
 "\"%s\". Testing each disc is not strictly required, however it is highly "
@@ -5638,18 +5639,18 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
-"추가 매체를 테스트해보시려면, 다음 CD를 넣으신 후 \"%s\"를 누르시면 됩니다. "
-"모든 CD를 반드시 테스트해야만 하는 것은 아니지만, 적극 권장합니다.  최소한 CD"
-"는 처음 사용하기 전에 테스트해보셔야 합니다. 성공적으로 테스트를 마치면, 다"
+"추가 매체를 테스트해보시려면, 다음 디스크를 넣으신 후 \"%s\"를 누르시면 됩니다. "
+"모든 디스크를 반드시 테스트해야만 하는 것은 아니지만, 적극 권장합니다.  최소한 디스크를 "
+"처음 사용하기 전에 테스트해보셔야 합니다. 성공적으로 테스트를 마치면, 다"
 "음 사용시 다시 테스트할 필요가 없습니다."
 
 #: ../loader2/cdinstall.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"여러분의 CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
+"드라이브에서 %s 디스크를 찾을 수 없습니다. %s 디스크를 넣고 %s를 눌러 "
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:258
@@ -5657,32 +5658,32 @@ msgid "Disc Found"
 msgstr "디스크를 찾았습니다"
 
 #: ../loader2/cdinstall.c:259
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"설치 전에 CD 미디어 테스트를 시작하시려면 %s를 눌러주십시오.\n"
+"설치 전에 미디어 테스트를 시작하시려면 %s를 눌러주십시오.\n"
 "\n"
 "%s를 선택하여 미디어 테스트를 건너뛰고 설치를 시작합니다."
 
 #: ../loader2/cdinstall.c:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s disc was found which matches your boot media.  Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"여러분의 부팅 매체에 적합한 %s CD를 찾을 수 없습니다.  %s CD를 넣고 %s를 눌"
+"부팅 매체에 적합한 %s 디스크를 찾을 수 없습니다.  %s 디스크를 넣고 %s를 눌"
 "러 다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
-"여러분의 CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
+"CDROM 드라이브에서 %s 디스크를 찾을 수 없습니다. %s 디스크를 넣고 %s를 눌러 "
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:391
@@ -5715,7 +5716,7 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"여러분의 시스템에서 드라이버 디스켓 소스로 사용될 수 있는 장치를 여러개 발견"
+"시스템에서 드라이버 디스켓 소스로 사용될 수 있는 장치를 여러개 발견"
 "했습니다.  어떤 장치를 사용하시겠습니까?"
 
 #: ../loader2/driverdisk.c:309
@@ -5854,7 +5855,7 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"아래에서 사용하실 드라이버를 선택해 주십시오.  여러분에게 필요한 드라이버가 "
+"아래에서 사용하실 드라이버를 선택해 주십시오.  필요하신 드라이버가 "
 "이 목록에는 없고 별도의 드라이버 디스켓을 가지고 계시다면, F2를 누르십시오."
 
 #: ../loader2/driverselect.c:206
@@ -5877,7 +5878,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"해당 디렉토리에서 %s 설치에 사용될 경로가 여러분의 부팅 매체와 일치하지 않습"
+"해당 디렉토리에서 %s 설치에 사용될 경로가 부팅 매체와 일치하지 않습"
 "니다."
 
 #: ../loader2/hdinstall.c:158
@@ -5893,7 +5894,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"여러분의 시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하시"
+"시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하시"
 "겠습니까?"
 
 #: ../loader2/hdinstall.c:280
@@ -5904,8 +5905,8 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 "어느 파티션이나 디렉토리에 %s를 위한 CD (iso9660) 이미지가 있습니까? 만일 여"
-"기에 작성된 목록에 여러분이 사용하시는 디스크 드라이브를 찾을 수 없다면, F2키"
-"를 눌러서 추가 장치 설정을 선택해주십시오."
+"기에 작성된 목록에 사용하시는 디스크 드라이브를 찾을 수 없다면, F2 키"
+"를 눌러서 추가 장치 설정을 선택해 주십시오."
 
 #: ../loader2/hdinstall.c:303
 msgid "Directory holding images:"
@@ -6086,15 +6087,13 @@ msgstr ""
 
 #: ../loader2/loader.c:1258
 msgid "The following devices have been found on your system."
-msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다."
+msgstr "시스템에서 다음의 장치를 찾았습니다."
 
 #: ../loader2/loader.c:1260
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
-"딩하시겠습니까? "
+msgstr "시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로딩하시겠습니까? "
 
 #: ../loader2/loader.c:1264
 msgid "Devices"
@@ -6234,7 +6233,7 @@ msgstr ""
 "다음의 사항을 입력해 주십시오:\n"
 "\n"
 "    o 웹 %s서버의 이름 또는 IP 주소\n"
-"    o 여러분 시스템에 맞는 %s를 포함한\n"
+"    o 시스템에 맞는 %s를 포함한\n"
 "     서버가 있는 디렉토리\n"
 
 #: ../loader2/net.c:98
@@ -6277,15 +6276,13 @@ msgid "Missing Nameserver"
 msgstr "네임서버 부재"
 
 #: ../loader2/net.c:307
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
 "leave the field blank and the install will continue."
 msgstr ""
-"여러분의 동적 IP 주소 요청에 의해 IP 설정 정보가 전달되었으나, 그 정보에는 "
-"DNS 네임서버의 정보가 포함되어 있지 않습니다. 네임서버를 알고 계신다면, 지금 "
-"입력해 주십시오. 이와 관련된 사항에 대해 잘 모르실 경우에는 빈 칸으로 놔두시"
+"동적 IP 주소 요청에 의해 IP 설정 정보가 전달되었으나, 그 정보에는 "
+"네임서버의 주소가 포함되어 있지 않습니다. 이와 관련된 사항에 대해 잘 모르실 경우에는 빈 칸으로 놔두시"
 "고, 설치를 계속 진행하시기 바랍니다."
 
 #: ../loader2/net.c:329
@@ -6342,7 +6339,7 @@ msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr ""
+msgstr "IPv4 또는 IPv6 주소 및 접두부 (주소 / 접두부)를 입력합니다. IPv6의 경우 점으로 구분된 네 개의 숫자로된 넷마스크이거나 또는 CIDR 형식의 접두부이어야 합니다. 게이트웨이 및 네임서버 항목은 올바른 IPv4 또는 IPv6 주소여야 합니다."
 
 #: ../loader2/net.c:1085
 msgid "Manual TCP/IP Configuration"
@@ -6383,7 +6380,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치로 "
+"시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치로 "
 "설치하시겠습니까?"
 
 #: ../loader2/nfsinstall.c:47
@@ -6613,9 +6610,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "파티션 배치 재확인과 수정(_V)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "What drive would you like to boot this installation from?"
-msgstr "설치 과정에서 사용하실 언어를 선택해 주십시오"
+msgstr "설치 과정에서 어떤 드라이브에 부팅하시겠습니까?"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
