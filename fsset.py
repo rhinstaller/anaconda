@@ -1856,7 +1856,7 @@ MAILADDR root
                 continue
             path = "%s/%s" % (chroot, entry.mountpoint)
             try:
-                space.append((entry.mountpoint, isys.fsSpaceAvailable(path)))
+                space.append((entry.mountpoint, isys.pathSpaceAvailable(path)))
             except SystemError:
                 log.error("failed to get space available in filesystemSpace() for %s" %(entry.mountpoint,))
 

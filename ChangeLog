@@ -2,6 +2,9 @@
 
 	* anaconda.py:  Create devices nodes even earlier (#249882).
 
+	* fsset.py (FileSystemSet.fileSystemSpace): Use pathSpaceAvailable
+	instead of fsSpaceAvailable.
+
 2007-07-27  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec: Bump version.
