@@ -851,6 +851,10 @@ if __name__ == "__main__":
         else:
             anaconda.intf.messageWindow("Unknown monitor", msg)
 
+    # create device nodes for detected devices if we're not running in test mode
+    if not flags.test and flags.setupFilesystems:
+        iutil.makeDriveDeviceNodes()
+
     # imports after setting up the path
     if anaconda.methodstr:
         anaconda.setMethod(instClass)
@@ -861,10 +865,6 @@ if __name__ == "__main__":
                                  "which isn't supported by anaconda."))
             log.critical (_("unknown install method: %s"), opts.method)
             sys.exit(1)
-
-    # create device nodes for detected devices if we're not running in test mode
-    if not flags.test and flags.setupFilesystems:
-        iutil.makeDriveDeviceNodes()
 
     anaconda.setBackend(instClass)
 
