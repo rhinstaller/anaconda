@@ -1,5 +1,13 @@
 2007-07-30  Chris Lumens  <clumens@redhat.com>
 
+	* isys/isys.c:  Remove unused checkBoot and loadFont functions.
+	* isys/isys.py:  Remove unused spaceAvailable, fsSpaceAvailable,
+	chroot, checkBoot, loadFont, makedev, mknod, getopt, cdRwList, and
+	ideCdRwList functions.  Rename *_int label reading functions to _*_int
+	so they're not exported.  Add API documentation.
+
+2007-07-30  Chris Lumens  <clumens@redhat.com>
+
 	* anaconda.py:  Create devices nodes even earlier (#249882).
 
 	* fsset.py (FileSystemSet.fileSystemSpace): Use pathSpaceAvailable

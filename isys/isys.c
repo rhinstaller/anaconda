@@ -73,7 +73,6 @@ static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
-static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
@@ -88,7 +87,6 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * doDhcpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
-static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
@@ -141,12 +139,10 @@ static PyMethodDef isysModuleMethods[] = {
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { "dhcpnetdevice", (PyCFunction) doDhcpNetDevice, METH_VARARGS, NULL },
-    { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
-    { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
@@ -463,37 +459,6 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
 
 #define BOOT_SIGNATURE	0xaa55	/* boot signature */
 #define BOOT_SIG_OFFSET	510	/* boot signature offset */
-
-static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
-    char * path;
-    int fd, size;
-    unsigned short magic;
-
-    /* code from LILO */
-    
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if ((fd = open (path, O_RDONLY)) == -1) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (lseek(fd,(long) BOOT_SIG_OFFSET, 0) < 0) {
-	close (fd);
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-    
-    if ((size = read(fd,(char *) &magic, 2)) != 2) {
-	close (fd);
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    close (fd);
-    
-    return Py_BuildValue("i", magic == BOOT_SIGNATURE);
-}
 
 int swapoff(const char * path);
 int swapon(const char * path, int priorty);
@@ -833,22 +798,6 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {
         size = ~0LLU;
 
     return PyLong_FromUnsignedLongLong(size>>20);
-}
-
-static PyObject * doLoadFont (PyObject * s, PyObject * args) {
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    ret = isysLoadFont ();
-    if (ret) {
-	errno = -ret;
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-    
-    Py_INCREF(Py_None);
-    return Py_None;
 }
 
 static PyObject * doLoadKeymap (PyObject * s, PyObject * args) {
