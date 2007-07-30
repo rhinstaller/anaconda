@@ -862,11 +862,11 @@ if __name__ == "__main__":
             log.critical (_("unknown install method: %s"), opts.method)
             sys.exit(1)
 
-    anaconda.setBackend(instClass)
-
     # create device nodes for detected devices if we're not running in test mode
     if not flags.test and flags.setupFilesystems:
         iutil.makeDriveDeviceNodes()
+
+    anaconda.setBackend(instClass)
 
     anaconda.id = instClass.installDataClass(anaconda, extraModules, floppyDevice, anaconda.methodstr, opts.display_mode, anaconda.backend)
 
