@@ -703,6 +703,7 @@ commandMap = {
         "skipx": SkipX,
         "text": commands.displaymode.FC3_DisplayMode,
         "timezone": Timezone,
+        "updates": commands.updates.F7_Updates,
         "upgrade": Upgrade,
         "url": commands.method.FC6_Method,
         "user": commands.user.F8_User,
@@ -1024,7 +1025,7 @@ def setSteps(anaconda):
     dispatch.skipStep("betanag")
     dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
-    dispatch.skipStep("tasksel")            
+    dispatch.skipStep("tasksel")
     dispatch.skipStep("network")
 
     # Don't show confirmation screens on non-interactive installs.
@@ -1039,13 +1040,7 @@ def setSteps(anaconda):
 
     # If the package section included anything, skip group selection unless
     # they're in interactive.
-    if ksdata.upgrade.upgrade:
-        ksdata.skipSteps.append("group-selection")
-
-        # Special check for this, since it doesn't make any sense.
-        if ksdata.packages.seen:
-            warnings.warn("Ignoring contents of %packages section due to upgrade.")
-    elif havePackages(ksdata.packages):
+    if havePackages(ksdata.packages):
         if interactive:
             ksdata.showSteps.append("group-selection")
         else:
