@@ -1,3 +1,7 @@
+2007-07-31  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec: Bump version.
+
 2007-07-30  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.c:  Remove unused checkBoot and loadFont functions.
@@ -8,7 +12,7 @@
 
 2007-07-30  Chris Lumens  <clumens@redhat.com>
 
-	* anaconda.py:  Create devices nodes even earlier (#249882).
+	* anaconda:  Create devices nodes even earlier (#249882).
 
 	* fsset.py (FileSystemSet.fileSystemSpace): Use pathSpaceAvailable
 	instead of fsSpaceAvailable.
