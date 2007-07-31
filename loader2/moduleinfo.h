@@ -5,7 +5,7 @@ enum driverMajor { DRIVER_NONE = 0, DRIVER_SCSI, DRIVER_NET, DRIVER_CDROM,
 		   DRIVER_PCMCIA, DRIVER_FS, DRIVER_IDE, DRIVER_OTHER = 1000,
                    DRIVER_ANY = 5000 };
 enum driverMinor { DRIVER_MINOR_NONE = 0, DRIVER_MINOR_ETHERNET,
-		   DRIVER_MINOR_PLIP, DRIVER_MINOR_TR };
+		   DRIVER_MINOR_TR };
 
 struct moduleArg {
     char * arg;

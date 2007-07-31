@@ -1,3 +1,9 @@
+2007-07-31  Bill Nottingham  <notting@redhat.com>
+
+	* utils/modlist.c: Remove plip module-info support.
+	* loader2/moduleinfo.c: Likewise
+	* loader2/moduleinfo.h: Likewise
+
 2007-07-31  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot (get_dso_deps): only discover which linker is

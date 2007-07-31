@@ -189,9 +189,6 @@ int readModuleInfo(const char * filename, moduleInfoSet mis,
                 } else if (!strcmp(chptr, "tr")) {
                     nextModule->major = DRIVER_NET;
                     nextModule->minor = DRIVER_MINOR_TR;
-                } else if (!strcmp(chptr, "plip")) {
-                    nextModule->major = DRIVER_NET;
-                    nextModule->minor = DRIVER_MINOR_PLIP;
                 } else if (!strcmp(chptr, "scsi_hostadapter") ||
                            !strcmp(chptr, "scsi")) {
                     nextModule->major = DRIVER_SCSI;
